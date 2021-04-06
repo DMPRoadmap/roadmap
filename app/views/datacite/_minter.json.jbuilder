@@ -11,8 +11,7 @@ json.data do
     json.schemaVersion "http://datacite.org/schema/kernel-4"
 
     json.types do
-      json.resourceType "Text/Data Management Plan"
-      json.resourceTypeGeneral "Text"
+      json.resourceTypeGeneral "OutputManagementPlan"
     end
 
     ror_scheme = IdentifierScheme.where(name: "ror").first

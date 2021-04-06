@@ -2,6 +2,8 @@
 
 # locals: plan
 
+plan = plan.first if plan.is_a?(Array)
+
 json.ignore_nil!
 
 extensions = [{ name: "dmproadmap", uri: "https://github.com/DMPRoadmap/api-json-schema" }]
@@ -10,7 +12,7 @@ json.extensions extensions do |extension|
   json.name extension[:name]
 end
 
-presenter = Api::V1::PlanPresenter.new(plan: plan)
+presenter = Api::V2::PlanPresenter.new(plan: plan)
 # A JSON representation of a Data Management Plan in the
 # RDA Common Standard format
 json.title plan.title
@@ -81,9 +83,9 @@ unless @minimal
 
   json.dmproadmap_privacy presenter.visibility
 
-  # DMPRoadmap specific links to perform special actions like downloading the PDF
-  json.dmproadmap_links presenter.links
-
   # DMPHub extension to send all callback addresses for interested subscribers for changes to the DMP
   json.dmphub_subscribers presenter.subscriptions
 end
+
+# DMPRoadmap specific links to perform special actions like downloading the PDF
+json.dmproadmap_links presenter.links(scopes: @client.scopes)

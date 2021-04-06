@@ -86,12 +86,6 @@ module Api
       # meaning that its a request for data on behalf of a user; otherwise this is a :client_credentials
       # request meaning that the ApiClient or User has requested data directly (not specific to another User)
       def oauth_authorize!
-
-p "RO:"
-p @resource_owner.inspect
-p "CLIENT:"
-p @client.inspect
-
         @resource_owner.present? ? grant_exists? : true #doorkeeper_authorize!
       end
 

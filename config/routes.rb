@@ -265,7 +265,12 @@ Rails.application.routes.draw do
       get :heartbeat, controller: :base_api
       get :me, controller: :base_api
 
-      resources :plans, only: %i[create show index]
+      resources :plans, only: %i[create show index] do
+        member do
+          get :show, constraints: { format: %i[json] }
+        end
+      end
+
       resources :templates, only: [:index]
     end
   end

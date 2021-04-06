@@ -36,6 +36,8 @@ module SuperAdmin
       org = org_from_params(params_in: api_client_params, allow_create: false)
       attrs = remove_org_selection_params(params_in: api_client_params)
 
+      attrs[:scopes] = scopes_from_array
+
       @api_client = ApiClient.new(attrs)
       @api_client.org = org if org.present?
 
@@ -62,6 +64,8 @@ module SuperAdmin
       org = org_from_params(params_in: api_client_params, allow_create: false)
       @api_client.org = org
       attrs = remove_org_selection_params(params_in: api_client_params)
+
+      attrs[:scopes] = scopes_from_array
 
       if @api_client.update(attrs)
         flash.now[:notice] = success_message(@api_client, _("updated"))
@@ -90,7 +94,7 @@ module SuperAdmin
       return unless @api_client.present?
 
       original = @api_client.client_secret
-      @api_client.generate_credentials
+      @api_client.renew_secret
       @api_client.save
       @success = original != @api_client.client_secret
     end
@@ -107,10 +111,17 @@ module SuperAdmin
     def api_client_params
       params.require(:api_client).permit(:name, :description, :homepage,
                                          :contact_name, :contact_email,
-                                         :client_id, :client_secret,
-                                         :org_id, :org_name, :org_sources, :org_crosswalk)
+                                         :client_id, :client_secret, :redirect_uri,
+                                         :org_id, :org_name, :org_sources, :org_crosswalk,
+                                         scopes: [])
     end
 
+    # Convert the array of scope checkboxes to a string for the DB
+    def scopes_from_array
+      scopes = api_client_params[:scopes].reject { |scope| scope == "0" }
+      scopes << "public"
+      scopes.join(" ")
+    end
   end
 
 end

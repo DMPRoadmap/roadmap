@@ -8,9 +8,9 @@
 
   <%= stylesheet_link_tag(stylesheet_manifest_file) %>
   <%= stylesheet_link_tag "doorkeeper/application" %>
-  <%= csrf_meta_tags %>
 
   <style>
+    /* Overrides to make the Doorkeeper login/authorize window look good. */
     #container .logo {
       text-align: center;
     }
@@ -28,6 +28,7 @@
   </style>
 
   <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
+  <%= csrf_meta_tags %>
 </head>
 <body>
   <div id="container">

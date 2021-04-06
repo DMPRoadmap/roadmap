@@ -42,7 +42,7 @@ class ApiClient < ApplicationRecord
 
   has_many :plans
 
-  has_many :access_tokens, class_name: '::Doorkeeper::AccessToken',
+  has_many :access_tokens, class_name: "::Doorkeeper::AccessToken",
                            foreign_key: :resource_owner_id,
                            dependent: :delete_all
 

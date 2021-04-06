@@ -1,7 +1,10 @@
 <%
 url = @api_client.new_record? ? super_admin_api_clients_path : super_admin_api_client_path(@api_client)
 method = @api_client.new_record? ? :post : :put
-orgs = Org.where(is_other: false)
+orgs = Org.includes(identifiers: [:identifier_scheme]).where(is_other: false)
+
+redirect_uri_tooltip = _("Only applicable to OAuth enabled API endpoints (e.g. v2+). The redirect URI is the address that will be sent the user's authorization code once they have approved the integration via OAuth.")
+scope_information = _("Scopes are not applicable to API v0 or v1. By default all API Clients have access to the 'Public' scope. The public scope allows the client to access the template list and any publicly visible plans (and organisationally visible plans if they are associated with an organisation). The scopes listed above will allow the client to authorize individual users and perform the specified action on their behalf. For example if the external system wants to attach dataset DOIs to a user's plan then you would need to enable the 'Read DMPs' and 'Edit DMPs' scopes.")
 %>
 
 <%= form_for @api_client, url: url, method: method,
@@ -39,6 +42,21 @@ orgs = Org.where(is_other: false)
     </div>
   </div>
 
+  <div class="row">
+    <div class="form-group col-xs-4">
+      <%= f.label :redirect_uri, _('Redirect URI'), class: 'control-label' %>
+      <%= f.url_field :redirect_uri, class: 'form-control', aria: { required: true },
+                                     placeholder: 'http://localhost:3000/oauth2/callback',
+                                     data: { toggle: "tooltip" }, title: redirect_uri_tooltip %>
+    </div>
+    <div class="form-group col-xs-4">
+      <%= f.label :client_id, _('Last accessed on'), class: 'control-label' %>
+      <% date = @api_client.last_access.present? ? @api_client.last_access.utc.to_s  : _("Never") %>
+      <%= f.text_field :last_access, class: 'form-control', disabled: true,
+                                      value: date %>
+    </div>
+  </div>
+
   <% unless @api_client.new_record? %>
     <div class="row" id="api-client-credentials">
       <div class="form-group col-xs-4">
@@ -50,37 +68,52 @@ orgs = Org.where(is_other: false)
         <%= f.email_field :client_secret, class: 'form-control', disabled: true %>
       </div>
     </div>
-
-    <div class="row">
-      <div class="form-group col-xs-3">
-        <%= f.label :client_id, _('Last accessed on'), class: 'control-label' %>
-        <% date = @api_client.last_access.present? ? @api_client.last_access.utc.to_s  : _("Never") %>
-        <%= f.text_field :last_access, class: 'form-control', disabled: true,
-                                       value: date %>
-      </div>
-    </div>
   <% end %>
 
-  <div class="pull-right">
-    <%= f.button _('Save'), class: 'btn btn-default', type: 'submit' %>
+  <div class="form-group row">
+    <div class="col-md-9">
+      <fieldset>
+        <legend><%= _("Scopes") %></legend>
 
-    <% unless @api_client.new_record? %>
-      <%= link_to _("Refresh client ID and secret"),
-                  refresh_credentials_super_admin_api_client_path(@api_client),
-                  class: "btn btn-default", remote: true %>
+        <% %w[read_dmps edit_dmps create_dmps].each do |scope| %>
+          <div class="col-md-2">
+            <div class="checkbox">
+              <%= f.check_box :scopes, { multiple: true, checked: @api_client.scopes.include?(scope) ? "checked" : "" }, scope %>
+              <%= scope.humanize.gsub("dmp", "DMP") %>
+            </div>
+          </div>
+        <% end %>
+      </fieldset>
+    </div>
 
-      <%= link_to _("Email credentials to contact"),
-                  email_credentials_super_admin_api_client_path(@api_client),
-                  class: "btn btn-default", remote: true %>
+    <div class="form-group col-md-8">
+      <br>
+      <%= scope_information %>
+    </div>
+  </div>
 
-      <%= link_to(
-            _('Delete'),
-            super_admin_api_client_path(@api_client),
-            class: 'btn btn-default',
-            method: :delete,
-            data: { confirm: _('Are you sure you want to delete the API client: "%{name}"') % { name: @api_client.name }}) %>
-    <% end %>
+  <div class="form-group row">
+    <div class="col-md-8">
+      <%= f.button _('Save'), class: 'btn btn-default', type: 'submit' %>
 
-    <%= link_to _('Cancel'), super_admin_api_clients_path, class: 'btn btn-default', role: 'button' %>
+      <% unless @api_client.new_record? %>
+        <%= link_to _("Refresh client secret"),
+                    refresh_credentials_super_admin_api_client_path(@api_client),
+                    class: "btn btn-default", remote: true %>
+
+        <%= link_to _("Email credentials to contact"),
+                    email_credentials_super_admin_api_client_path(@api_client),
+                    class: "btn btn-default", remote: true %>
+
+        <%= link_to(
+              _('Delete'),
+              super_admin_api_client_path(@api_client),
+              class: 'btn btn-default',
+              method: :delete,
+              data: { confirm: _('Are you sure you want to delete the API client: "%{name}"') % { name: @api_client.name }}) %>
+      <% end %>
+
+      <%= link_to _('Cancel'), super_admin_api_clients_path, class: 'btn btn-default', role: 'button' %>
+    </div>
   </div>
 <% end %>
