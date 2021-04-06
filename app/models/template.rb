@@ -171,12 +171,14 @@ class Template < ActiveRecord::Base
   # default template)
   scope :latest_customizable, lambda {
     funder_ids = Org.funder.pluck(:id)
+    # Make sure we include the default template
+
     family_ids = families(funder_ids).distinct
                                      .pluck(:family_id) + [default.family_id]
 
     published(family_ids.uniq)
-      .where("visibility = :visibility OR is_default = :is_default",
-             visibility: visibilities[:publicly_visible], is_default: true)
+      .where("visibility = :visibility",
+             visibility: visibilities[:publicly_visible])
   }
 
   # Retrieves unarchived templates with public visibility
