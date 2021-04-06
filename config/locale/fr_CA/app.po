@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-03-18 11:30-0600\n"
-"PO-Revision-Date: 2021-03-18 18:30+0100\n"
+"POT-Creation-Date: 2021-03-22 12:24-0600\n"
+"PO-Revision-Date: 2021-03-22 19:24+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_CA\n"
@@ -727,6 +727,30 @@ msgstr ""
 "n PGD est un document vivant qui &eacute;volue tout au long d&rsquo;un projet "
 "de recherche.</span></p>"
 
+msgid "TITLE"
+msgstr ""
+
+msgid "Alliance/Food from Thought DMP creation"
+msgstr ""
+
+msgid "Test DMP Questions"
+msgstr ""
+
+msgid "Phase 1 (test)"
+msgstr ""
+
+msgid "Initial GWF DMP"
+msgstr ""
+
+msgid "Software/Technology Management Plan"
+msgstr "Plan de gestion de logiciel ou de technologie"
+
+msgid "Phase 1: Data Preparation"
+msgstr "Phase 1 : Préparation des données"
+
+msgid "University of Alberta Data Management Questions"
+msgstr ""
+
 msgid "MICYRN Data Management Plan Initial Phase"
 msgstr ""
 
@@ -778,33 +802,6 @@ msgstr ""
 msgid "Dalhousie University"
 msgstr ""
 
-msgid "TITLE"
-msgstr ""
-
-msgid "Alliance/Food from Thought DMP creation"
-msgstr ""
-
-msgid "Test DMP Questions"
-msgstr ""
-
-msgid "Phase 1 (test)"
-msgstr ""
-
-msgid "Initial GWF DMP"
-msgstr ""
-
-msgid "Software/Technology Management Plan"
-msgstr "Plan de gestion de logiciel ou de technologie"
-
-msgid "Phase 1: Data Preparation"
-msgstr "Phase 1 : Préparation des données"
-
-msgid "University of Alberta Data Management Questions"
-msgstr ""
-
-msgid "Phase 2: Data Management Plan for Project Development"
-msgstr "Phase 2 : Plan de gestion de données soutenant l’élaboration du projet"
-
 msgid "Phase 2"
 msgstr "Phase 2"
 
@@ -819,6 +816,9 @@ msgstr "Plan de gestion des données"
 
 msgid "Phase 2: Active Research (Data) Management"
 msgstr "Phase 2 : Gestion active de recherche (données)"
+
+msgid "Phase 2: Data Management Plan for Project Development"
+msgstr "Phase 2 : Plan de gestion de données soutenant l’élaboration du projet"
 
 msgid "Phase 3: Data Protection"
 msgstr "Phase 3 : Protection des données"
