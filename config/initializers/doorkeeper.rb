@@ -12,15 +12,24 @@ Doorkeeper.configure do
     # Example implementation:
     #   User.find_by(id: session[:user_id]) || redirect_to(new_user_session_url)
 
-    # Stash the original referer URL in the session in case we need to ask the user to login
-    session[:redirect_uri] = request.referer unless user_signed_in?
-    session.delete(:redirect_uri) if user_signed_in?
-
-    # Extract the authorization_code if one exists in the callback URI.
+    # Extract the authorization_code if one exists in the callback URI. We do this so that the user does not
+    # have to login/authorize every time the API wants to access their info. They can do it once and then
+    # the
     query_params = URI(request.referer).query || ""
     code = CGI.parse(query_params)&.fetch("code", []).last
     client = ApiClient.includes(:access_grants).find_by(uid: params[:client_id])
-    user_id = client.access_grants.select { |grant| grant.token == code }.first&.resource_owner_id
+    user_id = client.access_grants
+                    .select { |g| g.token == code && (g.created_at + g.expires_in.seconds) > Time.now }
+                    .first&.resource_owner_id
+
+p "RO AUTH"
+
+p "QRY PARAMS:"
+query_params.inspect
+
+p "AUTH HDR:"
+p request.headers['Authorization']
+
 
     # If we found a User via the authorization code in the referer URI, otherwise the current user
     user_id.present? ? User.find_by(id: user_id) : current_user
@@ -70,6 +79,7 @@ Doorkeeper.configure do
   #     destroy
   #   end
   # end
+  # Use our existing ApiClient model instead of the Doorkeeper::Application
   application_class "::ApiClient"
 
   # Enables polymorphic Resource Owner association for Access Tokens and Access Grants.
@@ -102,8 +112,8 @@ Doorkeeper.configure do
 
   # Authorization Code expiration time (default: 10 minutes).
   #
-  # We set this to a super long time because we don't want the user to have to reauthorize our
-  # trusted ApiClients very often.
+  # DMPRoadmap - We set this to a long period of time because we don't want the user to have to
+  # constantly reauthorize the ApiClient
   authorization_code_expires_in 12.months
 
   # Access token expiration time (default: 2 hours).
@@ -124,9 +134,16 @@ Doorkeeper.configure do
   #   * `scopes` - the requested scopes (see Doorkeeper::OAuth::Scopes)
   #   * `resource_owner` - authorized resource owner instance (if present)
   #
-  # custom_access_token_expires_in do |context|
-  #   context.client.additional_settings.implicit_oauth_expiration
-  # end
+  custom_access_token_expires_in do |context|
+    # We don't want the User to have to re-authenticate every time the ApiClient tries to access their info
+    # so set the expiry to a longer period of time for that context
+    # context.client.additional_settings.implicit_oauth_expiration
+
+p "EXPIRY RULES: #{context.grant_type}"
+p context.resource_owner.inspect
+
+    12.months if context.grant_type == "authorization_code" && context.resource_owner.present?
+  end
 
   # Use a custom class for generating the access token.
   # See https://doorkeeper.gitbook.io/guides/configuration/other-configurations#custom-access-token-generator
@@ -370,8 +387,6 @@ Doorkeeper.configure do
   #                         passing :client_id (:uid), :client_secret (:secret), :redirect_uri, :code
   #   :client_credentials - for allowing an ApiClient access to generic data (e.g. list of Templates)
   #                         passing :client_id (:uid), :client_secret (:secret) here
-  #   :password           - for Users attempting to access their own data (or Org's data if an admin)
-  #                         passing :client_id (:email), :client_secret (:api_token) here
   #
   # See https://alexbilbie.com/guide-to-oauth-2-grants/ for a good explanation of the flows
   grant_flows %w[authorization_code client_credentials]
@@ -415,7 +430,7 @@ Doorkeeper.configure do
   # Be default all Resource Owners are authorized to any Client (application).
   #
   # authorize_resource_owner_for_client do |client, resource_owner|
-    # resource_owner.can_super_admin? || client.owners_whitelist.include?(resource_owner)
+  #   resource_owner.can_super_admin? || client.owners_whitelist.include?(resource_owner)
   # end
 
   # Hook into the strategies' request & response life-cycle in case your
@@ -435,13 +450,20 @@ Doorkeeper.configure do
   # (Doorkeeper::OAuth::Hooks::Context instance) which provides pre auth
   # or auth objects with issued token based on hook type (before or after).
   #
-  # before_successful_authorization do |controller, context|
+  before_successful_authorization do |controller, context|
   #   Rails.logger.info(controller.request.params.inspect)
-  #
+
+p "BEFORE AUTH"
+
+pp context.inspect
+p ''
+p controller.params
+
+
   #   Rails.logger.info(context.pre_auth.inspect)
-  # end
+  end
   #
-  # after_successful_authorization do |controller, context|
+  after_successful_authorization do |controller, context|
   #   controller.session[:logout_urls] <<
   #     Doorkeeper::Application
   #       .find_by(controller.request.params.slice(:redirect_uri))
@@ -449,7 +471,11 @@ Doorkeeper.configure do
   #
   #   Rails.logger.info(context.auth.inspect)
   #   Rails.logger.info(context.issued_token)
-  # end
+
+p "AFTER AUTH"
+pp context.inspect
+
+  end
 
   # Under some circumstances you might want to have applications auto-approved,
   # so that the user skips the authorization step.
@@ -457,7 +483,14 @@ Doorkeeper.configure do
   #
   skip_authorization do |resource_owner, client|
     # If the User has already given their permission to the client for the specified scope
-    resource_owner.is_a?(User) && resource_owner.access_grants.select { |gs| gs.application_id = client.id }.any?
+    # TODO: This should probably factor in the relevant scope
+
+p "SKIPPING? #{resource_owner.is_a?(User)}"
+
+    resource_owner.is_a?(User) &&
+      resource_owner.access_tokens
+                    .select { |t| t.application_id == client.id && (t.created_at + t.expires_in.seconds) > Time.now}
+                    .any?
   end
 
   # Configure custom constraints for the Token Introspection request.
