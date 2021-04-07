@@ -13,13 +13,6 @@ class RegistrationsController < Devise::RegistrationsController
     @identifier_schemes = IdentifierScheme.for_users.order(:name)
     @default_org = current_user.org
 
-    # choose which org patial to use for choosing org
-    @org_partial = if Rails.configuration.x.application.restrict_orgs
-                     "shared/org_selectors/local_only"
-                   else
-                     "shared/org_selectors/combined"
-                   end
-
     msg = "No default preferences found (should be in dmproadmap.rb initializer)."
     flash[:alert] = msg unless @prefs
   end
@@ -247,6 +240,7 @@ class RegistrationsController < Devise::RegistrationsController
 
     else
       flash[:alert] = message.blank? ? failure_message(current_user, _("save")) : message
+      @orgs = Org.order("name")
       render "edit"
     end
   end
