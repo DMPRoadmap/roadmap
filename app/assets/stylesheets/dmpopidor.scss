@@ -1235,22 +1235,27 @@ header .main-nav {
                 }
                 .answer-save-zone {
                     flex: 1;
+                }
+
+                .answer-save-zone, .answer-run-zone {
                     display: flex;
                     flex-direction: column;
                     padding: 5px;
-                    .please-save-message {
+                    .message-zone {
                         text-align: center;
                         font-weight: bold;
                         color: $rust;
     
                         visibility: hidden;
                     }
-                    .answer-save-button {
+                    .btn {
                         font-size: 20px;
                         font-weight: 700;
-    
-                        background-color: gray;
-                        border-color: gray;
+                        
+                        &.answer-save-button {
+                            background-color: gray;
+                            border-color: gray;
+                        }
                     }
 
                     &.unsaved {
@@ -1261,7 +1266,7 @@ header .main-nav {
                             border-color: $rust;
                         }
 
-                        .please-save-message {
+                        .message-zone {
                             visibility: inherit;
                         }
                     }

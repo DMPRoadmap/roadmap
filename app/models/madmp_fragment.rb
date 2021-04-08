@@ -23,6 +23,7 @@ class MadmpFragment < ActiveRecord::Base
 
   include ValidationMessages
   include DynamicFormHelper
+  include CodebaseFragment
 
   # ================
   # = Associations =
