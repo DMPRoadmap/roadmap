@@ -151,5 +151,5 @@ $(() => {
       .toggleClass('fa-chevron-right fa-chevron-down');
   });
 
-  Select2.init();
+  Select2.init('.plan-details');
 });
