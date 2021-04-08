@@ -197,12 +197,13 @@ module Dmpopidor
         )
         project.instantiate
 
+        template_locale = template.locale.eql?("en_GB") ? "eng" : "fra"
         meta = Fragment::Meta.create(
           data: {
             "title" => d_("dmpopidor", "\"%{project_title}\" project DMP") % { project_title: title },
             "creationDate" => created_at.strftime("%F"),
             "lastModifiedDate" => updated_at.strftime("%F"),
-            "dmpLanguage" => template.locale,
+            "dmpLanguage" => template_locale,
             "contact" => { "dbid" => dmp_coordinator.id }
           },
           dmp_id: dmp_fragment.id,
