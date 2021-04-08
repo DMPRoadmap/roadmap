@@ -12,6 +12,7 @@ Doorkeeper.configure do
     # Example implementation:
     #   User.find_by(id: session[:user_id]) || redirect_to(new_user_session_url)
 
+=begin
     # Extract the authorization_code if one exists in the callback URI. We do this so that the user does not
     # have to login/authorize every time the API wants to access their info. They can do it once and then
     # the
@@ -33,6 +34,25 @@ p request.headers['Authorization']
 
     # If we found a User via the authorization code in the referer URI, otherwise the current user
     user_id.present? ? User.find_by(id: user_id) : current_user
+=end
+
+    current_user
+  end
+
+  # Overide the Oauth2 :password grant_flow so that it:
+  #   - treats 'username' as a User.uid
+  #   - treats 'password' as an OauthCredentialToken.token
+  resource_owner_from_credentials do |_routes|
+    # Fetch the token
+    credential_token = OauthCredentialToken.find_for(client_id: params[:client_id], token: params[:password])
+
+    # Make sure the username specified in the auth request matches the one asociated with the token
+    if credential_token&.user&.uid == params[:username]
+      credential_token.update(last_access_at: Time.now.utc)
+      credential_token.user
+    else
+      nil
+    end
   end
 
   # If you didn't skip applications controller from Doorkeeper routes in your application routes.rb
@@ -273,7 +293,8 @@ p context.resource_owner.inspect
   # Note: scopes should be from configured_scopes (i.e. default or optional)
   #
   scopes_by_grant_type client_credentials: %i[public],
-                       authorization_code: %i[read_dmps edit_dmps create_dmps]
+                       authorization_code: %i[read_dmps edit_dmps create_dmps],
+                       password: %i[read_dmps edit_dmps create_dmps]
 
   # Forbids creating/updating applications with arbitrary scopes that are
   # not in configuration, i.e. +default_scopes+ or +optional_scopes+.
@@ -389,7 +410,7 @@ p context.resource_owner.inspect
   #                         passing :client_id (:uid), :client_secret (:secret) here
   #
   # See https://alexbilbie.com/guide-to-oauth-2-grants/ for a good explanation of the flows
-  grant_flows %w[authorization_code client_credentials]
+  grant_flows %w[password authorization_code client_credentials]
 
   # Allows to customize OAuth grant flows that +each+ application support.
   # You can configure a custom block (or use a class respond to `#call`) that must
@@ -450,18 +471,10 @@ p context.resource_owner.inspect
   # (Doorkeeper::OAuth::Hooks::Context instance) which provides pre auth
   # or auth objects with issued token based on hook type (before or after).
   #
-  before_successful_authorization do |controller, context|
+  # before_successful_authorization do |controller, context|
   #   Rails.logger.info(controller.request.params.inspect)
-
-p "BEFORE AUTH"
-
-pp context.inspect
-p ''
-p controller.params
-
-
   #   Rails.logger.info(context.pre_auth.inspect)
-  end
+  # end
   #
   after_successful_authorization do |controller, context|
   #   controller.session[:logout_urls] <<
@@ -472,9 +485,21 @@ p controller.params
   #   Rails.logger.info(context.auth.inspect)
   #   Rails.logger.info(context.issued_token)
 
-p "AFTER AUTH"
-pp context.inspect
+    # If this is an :authentication_code grant flow and the resource owner was authorized
+    if context.auth.is_a?(Doorkeeper::OAuth::CodeResponse) && context.auth.auth.resource_owner.present?
+      resource_owner = context.auth.auth.resource_owner
 
+      # If the User does not have a :uid assigned, generate one!
+      resource_owner = User.generate_uid!(user: resource_owner) unless resource_owner.uid.present?
+
+      # Create the resource owner's log-lived credential token which will be used in future requests
+      # as the :password in the :password grant_flow
+      cred_token = ::OauthCredentialToken.find_or_create_for!(
+        application: Doorkeeper::Application.find_by(controller.request.params.slice(:redirect_uri)),
+        resource_owner: resource_owner,
+        scopes: context.auth.auth.token.scopes || Doorkeeper.config.default_scopes
+      )
+    end
   end
 
   # Under some circumstances you might want to have applications auto-approved,

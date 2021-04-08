@@ -44,10 +44,13 @@ module Api
         return {} unless doorkeeper_token.present?
 
         if @resource_owner.present?
+          credential_token = OauthCredentialToken.find_by(
+            application_id: @client.id, resource_owner_id: @resource_owner.id, revoked_at: nil
+          )
+
           render json: {
-            email: @resource_owner.email,
-            token: doorkeeper_token.token,
-            plan_count: @resource_owner.plans&.select { |plan| plan.complete && !plan.is_test? }&.length || 0
+            username: @resource_owner.uid,
+            password: credential_token.token
           }
         else
           render json: {

@@ -38,6 +38,8 @@
 #  invited_by_id          :integer
 #  language_id            :integer
 #  org_id                 :integer
+#  last_api_access        :datetime
+#  uid                    :string
 #
 # Indexes
 #
@@ -45,6 +47,7 @@
 #  fk_rails_f29bf9cdf2    (department_id)
 #  index_users_on_email   (email)
 #  index_users_on_org_id  (org_id)
+#  index_users_on_uid     (uid)
 #
 # Foreign Keys
 #
@@ -103,13 +106,26 @@ class User < ApplicationRecord
   has_and_belongs_to_many :notifications, dependent: :destroy,
                                           join_table: "notification_acknowledgements"
 
+  # OAuth2 associations (provided throuugh the Doorkeeper gem https://github.com/doorkeeper-gem/doorkeeper)
+  # Please refer to the following for general info on how Oauth works (its complicated):
+  #   https://alexbilbie.com/guide-to-oauth-2-grants/
+  #   https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc
+  #
+  # We should never need to touch these, they are use as part of the OAuth2 authorization process
   has_many :access_grants, class_name: 'Doorkeeper::AccessGrant',
                            foreign_key: :resource_owner_id,
                            dependent: :delete_all # or :destroy if you need callbacks
 
+  # We should never need to touch these, they are use as part of the OAuth2 authorization process
   has_many :access_tokens, class_name: 'Doorkeeper::AccessToken',
                            foreign_key: :resource_owner_id,
                            dependent: :delete_all
+
+  # These credential tokens are generated when a User authorizes an ApiClient (via OAuth2) to perform
+  # actions on their behalf. They do not expire!
+  #
+  # TODDO: Update the API tab on the User profile page to allow users to revoke these!
+  has_many :oauth_credential_tokens, foreign_key: :resource_owner_id, dependent: :delete_all
 
   # ===============
   # = Validations =
@@ -174,6 +190,8 @@ class User < ApplicationRecord
 
   after_update :remove_token!, if: :org_id_changed?, unless: :can_change_org?
 
+  before_validation :generate_uid, on: :create
+
   # =================
   # = Class methods =
   # =================
@@ -189,6 +207,15 @@ class User < ApplicationRecord
   def self.to_csv(users)
     User::AtCsv.new(users).to_csv
   end
+
+  def self.generate_uid!(user:)
+    return user unless user.is_a?(User)
+
+    user.generate_uid
+    user.save
+    user
+  end
+
   # ===========================
   # = Public instance methods =
   # ===========================
@@ -352,6 +379,11 @@ class User < ApplicationRecord
   def generate_token!
     new_token = User.unique_random(field_name: "api_token")
     update_column(:api_token, new_token)
+  end
+
+  # Generates a new uid
+  def generate_uid
+    self.uid = User.unique_random(field_name: "uid")
   end
 
   # The User's preferences for a given base key

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_25_214804) do
+ActiveRecord::Schema.define(version: 2021_04_07_183825) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -45,17 +45,6 @@ ActiveRecord::Schema.define(version: 2021_03_25_214804) do
     t.integer "answer_id", null: false
     t.integer "question_option_id", null: false
     t.index ["answer_id"], name: "index_answers_question_options_on_answer_id"
-  end
-
-  create_table "api_client_authorizations", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "api_client_id"
-    t.string "approval_token"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["api_client_id"], name: "index_api_client_authorizations_on_api_client_id"
-    t.index ["approval_token"], name: "index_api_client_authorizations_on_approval_token"
-    t.index ["user_id"], name: "index_api_client_authorizations_on_user_id"
   end
 
   create_table "conditions", id: :integer, force: :cascade do |t|
@@ -288,6 +277,20 @@ ActiveRecord::Schema.define(version: 2021_03_25_214804) do
     t.boolean "confidential", default: true
     t.index ["name"], name: "index_oauth_applications_on_name"
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
+  end
+
+  create_table "oauth_credential_tokens", force: :cascade do |t|
+    t.integer "resource_owner_id", null: false
+    t.integer "application_id", null: false
+    t.string "token", null: false
+    t.datetime "created_at", null: false
+    t.datetime "revoked_at"
+    t.datetime "last_access_at"
+    t.string "scopes", default: "public", null: false
+    t.index ["application_id"], name: "index_oauth_credential_tokens_on_application_id"
+    t.index ["resource_owner_id", "application_id", "revoked_at"], name: "oauth_credential_tokens_by_user_and_api_client"
+    t.index ["resource_owner_id"], name: "index_oauth_credential_tokens_on_resource_owner_id"
+    t.index ["token"], name: "index_oauth_credential_tokens_on_token"
   end
 
   create_table "org_indices", force: :cascade do |t|
@@ -686,6 +689,7 @@ ActiveRecord::Schema.define(version: 2021_03_25_214804) do
     t.boolean "active", default: true
     t.integer "department_id"
     t.datetime "last_api_access"
+    t.string "uid"
     t.index ["department_id"], name: "fk_rails_f29bf9cdf2"
     t.index ["email"], name: "index_users_on_email"
     t.index ["language_id"], name: "fk_rails_45f4f12508"
@@ -712,9 +716,9 @@ ActiveRecord::Schema.define(version: 2021_03_25_214804) do
   add_foreign_key "notification_acknowledgements", "notifications"
   add_foreign_key "notification_acknowledgements", "users"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
-  add_foreign_key "oauth_access_grants", "users", column: "resource_owner_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
-  add_foreign_key "oauth_access_tokens", "users", column: "resource_owner_id"
+  add_foreign_key "oauth_credential_tokens", "oauth_applications", column: "application_id"
+  add_foreign_key "oauth_credential_tokens", "users", column: "resource_owner_id"
   add_foreign_key "orgs", "languages"
   add_foreign_key "orgs", "regions"
   add_foreign_key "phases", "templates"
