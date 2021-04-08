@@ -1,6 +1,6 @@
-FROM phusion/passenger-ruby24:1.0.12
+FROM phusion/passenger-ruby24:1.0.13
 
-MAINTAINER Benjamin FAURE <benjamin.faure@inist.fr>
+LABEL maintainer="Benjamin FAURE benjamin.faure@inist.fr"
 
 # Setting some env vars
 ENV HOME=/root \
