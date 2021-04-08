@@ -6,7 +6,7 @@
     <%= f.label field_id, field_label, class: 'control-label' %>
   </div>
 <% end %>
-<div class="col-md-12 dynamic-field linked-fragments-select <%= schema.classname %>-select select-<%= query_id %>">
+<div class="col-md-12 dynamic-field select-field linked-fragments-select <%= schema.classname %>-select select-<%= query_id %>">
   <% selected_value_id = selected_value.present? ? selected_value.id : nil %>    
   <%= select_tag field_name,
     render(partial: 'shared/dynamic_form/linked_fragment/select_options', locals: {

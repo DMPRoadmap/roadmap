@@ -39,7 +39,7 @@ $(() => {
           selector: `#research_output_${data.research_output.id}_section_${data.section.id} .note`,
           toolbar,
         });
-        Select2.init();
+        Select2.init(`#answer-form-${data.question.id}-research-output-${data.research_output.id}`);
       }).fail((error) => {
         failCallback(error, target);
       });
@@ -60,7 +60,7 @@ $(() => {
           selector: `#research_output_${data.research_output.id}_section_${data.section.id} .note`,
           toolbar,
         });
-        Select2.init();
+        Select2.init(`#answer-form-${data.question.id}-research-output-${data.research_output.id}`);
       }).fail((error) => {
         failCallback(error, target);
       });

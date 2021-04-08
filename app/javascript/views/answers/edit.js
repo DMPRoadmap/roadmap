@@ -132,7 +132,7 @@ const submitHandler = (e) => {
     },
   }).done((data) => {
     doneCallback(data, target);
-    Select2.init();
+    Select2.init(`#answer-form-${data.question.id}-research-output-${data.research_output.id}`);
   }).fail((error) => {
     failCallback(error, target);
   });

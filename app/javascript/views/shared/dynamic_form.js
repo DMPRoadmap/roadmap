@@ -47,7 +47,7 @@ $(() => {
 
   $(document).on('select2:select', (e) => {
     const target = $(e.target);
-    const selectField = target.parents('.dynamic-field');
+    const selectField = target.parents('.select-field');
     const data = selectField.find('select').select2('data');
     const value = data[0].id;
     const text = data[0].text;
