@@ -227,6 +227,11 @@ class Org < ApplicationRecord
               count(users.id) as user_count")
   }
 
+  scope :shibbolized, lambda {
+    org_ids = Identifier.by_scheme_name("shibboleth", "Org").pluck(:identifiable_id)
+    where(managed: true, id: org_ids)
+  }
+
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
   # What do they do? do they do it efficiently, and do we need them?

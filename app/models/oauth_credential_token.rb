@@ -54,15 +54,11 @@ class OauthCredentialToken < ApplicationRecord
     #
     # This method was derived from the Doorkeeper::AccessTokenMixin
     #    https://github.com/doorkeeper-gem/doorkeeper/blob/73a2b1ce04a7833a82e9b53d80fe737f279e2c44/lib/doorkeeper/models/access_token_mixin.rb#L182
-    def find_or_create_for!(application:, resource_owner:, scopes:, **token_attributes)
+    def find_or_create_for!(application:, resource_owner:, scopes:)
       credential_token = matching_token_for(application, resource_owner, scopes)
       return credential_token if credential_token.present?
 
-      create!(
-        application: application,
-        resource_owner: resource_owner,
-        scopes: scopes
-      )
+      create(application_id: application&.id, resource_owner_id: resource_owner&.id, scopes: scopes)
     end
 
     # Find the matching record for the specified Application and token
@@ -78,7 +74,7 @@ class OauthCredentialToken < ApplicationRecord
 
   # Generates a unique token value
   def generate_token
-    token = OauthCredentialToken.unique_random(field_name: "token")
+    self.token = OauthCredentialToken.unique_random(field_name: "token")
   end
 
   private
