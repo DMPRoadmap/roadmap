@@ -24,8 +24,37 @@
 #  fk_rails_...  (resource_owner_id => users.id)
 #  fk_rails_...  (application_id => oauth_applications.id)
 #
-
 class OauthCredentialToken < ApplicationRecord
+  # This class is used as part of the API V2+ OAuth workflow. They store a unique token that
+  # an external ApiClient can use (along with a user's :uid) to access resources on the User's
+  # behalf.
+  #
+  # In a normal OAuth2 workflow, a user must be signed in at all times in order for the ApiClient
+  # to access their data. That approach works well for site's like Google or Twitter where a user
+  # is often logged in. It does not work well though for a DMPRoadmap system since our users are
+  # typically logged in only when writing their plans and not when their research projects are
+  # in later stages.
+  #
+  # When an ApiClient attempts to access a User's data (e.g. Plans, profile info, etc.) the User
+  # is asked to sign in (skipped if they are already signed in on another tab/window) and authorize
+  # the external system to access their information. Once they have authorized the integration, their :uid
+  # and an OauthCredentialToken.token are sent to the ApiClient. It is up to the ApiClient to store these
+  # values on their side. The ApiClient can then use those values to access the User's data (which still
+  # follows the OAuth2 workflow of passing the credentials to receive an AccessToken used in calls to the API).
+  #
+  # These OauthCredentialTokens are managed by the `config/initializers/doorkeeper.rb` initializer. They
+  # are created in the `after_successful_authorization` hook and checked/verified in the
+  # `resource_owner_from_credentials` method that gets executed during a `grant_type = password` Oauth
+  # grant flow.
+  #
+  # OauthCredentialTokens are long lived and do not expire by default. User's can however revoke these
+  # tokens on the API tab of their profile page.
+  #
+  # Note that these tokens tie into the `scopes` concept of the OAuth2 workflow. When the user authorizes
+  # the ApiClient to access their data, they are confirming certain scopes (e.g. read_dmps, edit_dmps, etc.)
+  # a scope check is part of the
+  # See the OAuth wiki for full details:
+  #   https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation-V2
 
   extend UniqueRandom
 
@@ -49,7 +78,7 @@ class OauthCredentialToken < ApplicationRecord
 
   class << self
 
-    # Looking for not revoked record with a matching set of scopes that belongs to
+    # Looking for not revoked tokens with a matching set of scopes that belongs to
     # specific Application and Resource Owner. If it doesn't exists - then create it.
     #
     # This method was derived from the Doorkeeper::AccessTokenMixin

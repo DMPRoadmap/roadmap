@@ -38,8 +38,10 @@ module Api
 
       # GET api/v2/me
       # -------------
-      # Used by the Doorkeeper OAuth workflow. Once the caller has been authenticated this route can be
-      # called to access info about the Client or the ResourceOwner depending on the context
+      # Used by the Doorkeeper OAuth2 workflow. Once the caller has been authenticated and authorized
+      # the ApiClient to access their data, this route can be called to access the User's unique
+      # credentials for the ApiClient which the ApiClient can store and use to access the API
+      # on the User's behalf without requiring them to stay signed in all the time.
       def me
         return {} unless doorkeeper_token.present?
 
@@ -85,11 +87,11 @@ module Api
       # =============
 
       # Authorize the request based on the context of the token:
-      # If the :doorkeeper_token has a :resource_owner then it's an :authorization_code request
-      # meaning that its a request for data on behalf of a user; otherwise this is a :client_credentials
-      # request meaning that the ApiClient or User has requested data directly (not specific to another User)
+      #   - If the resource_owner is present then this is a request for User data either by the User
+      #     directly or an ApiClient on their behalf.
+      #   - If there is no resource_owner then this ia an ApiClient accessing public data
       def oauth_authorize!
-        @resource_owner.present? ? grant_exists? : true #doorkeeper_authorize!
+        @resource_owner.present? ? grant_exists? : true
       end
 
       # A request on behalf of a resource owner (aka User) requires an access grant
