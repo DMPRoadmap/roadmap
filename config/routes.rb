@@ -136,7 +136,7 @@ Rails.application.routes.draw do
     get "create_contributor", action: :create_contributor, on: :collection
   end
 
-  get "/codebase/run", to: "madmp_codebase#run"
+  get "/codebase/run", to: "madmp_codebase#run", constraints: {format: [:json]}
 
   resources :research_outputs, only: [] do
     post "sort", on: :collection

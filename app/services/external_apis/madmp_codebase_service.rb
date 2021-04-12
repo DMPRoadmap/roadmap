@@ -46,7 +46,12 @@ module ExternalApis
 
         target = "#{api_base_url}#{run_path % script_id}"
 
-        resp = http_post(uri: target, body: body.to_json)
+        resp = http_post(
+          uri: target,
+          additional_headers: hdrs, debug: false,
+          data: body.to_json
+        )
+
         unless resp.code == 200
           handle_http_failure(method: "MadmpCodebase run", http_response: resp)
           return []

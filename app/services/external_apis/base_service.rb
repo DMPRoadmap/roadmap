@@ -108,16 +108,16 @@ module ExternalApis
         resp
       end
 
-      # Makes a GET request to the specified uri with the additional headers and body.
+      # Makes a POST request to the specified uri with the additional headers.
       # Additional headers are combined with the base headers defined above.
-      def http_post(uri:, body: {}, additional_headers: {})
+      # rubocop:disable Metrics/MethodLength
+      def http_post(uri:, additional_headers: {}, data: {}, basic_auth: nil, debug: false)
         return nil unless uri.present?
 
-        HTTParty.post(
-          uri,
-          body: body,
-          headers: headers.merge(additional_headers)
-        )
+        opts = options(additional_headers: additional_headers, debug: debug)
+        opts[:body] = data
+        opts[:basic_auth] = basic_auth if basic_auth.present?
+        HTTParty.post(uri, opts)
       rescue URI::InvalidURIError => e
         handle_uri_failure(method: "BaseService.http_post #{e.message}",
                            uri: uri)
@@ -127,6 +127,7 @@ module ExternalApis
                             http_response: resp)
         resp
       end
+      # rubocop:enable Metrics/MethodLength
 
       # Options for the HTTParty call
       def options(additional_headers: {}, debug: false)
