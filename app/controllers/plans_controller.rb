@@ -124,7 +124,7 @@ class PlansController < ApplicationController
         elsif !@plan.template.customization_of.nil?
           # We used a customized version of the the funder template
           # rubocop:disable Layout/LineLength
-          msg += " #{_('This plan is based on the')} #{@plan.funder&.name}: '#{@plan.template.title}' #{_('template with customisations by the')} #{plan_params[:org_name]}"
+          msg += " #{_('This plan is based on the')} #{@plan.funder&.name}: '#{@plan.template.title}' #{_('template with customisations by the')} #{@plan.template.org.name}"
           # rubocop:enable Layout/LineLength
         else
           # We used the specified org's or funder's template
@@ -240,7 +240,8 @@ class PlansController < ApplicationController
 
       if @plan.update(attrs) # _attributes(attrs)
         format.html do
-          redirect_to plan_path(@plan), notice: success_message(@plan, _("saved"))
+          redirect_to plan_path(@plan),
+                      notice: success_message(@plan, _("saved"))
         end
         format.json do
           render json: { code: 1, msg: success_message(@plan, _("saved")) }
