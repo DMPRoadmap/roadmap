@@ -39,7 +39,7 @@
           <%= _('unanswered questions') %>
         <% end %>
       </div>
-      <% if @plan.research_outputs.any? && @plan.template.allow_research_outputs %>
+      <% if @plan.research_outputs.any? %>
         <div class="checkbox">
           <%= label_tag 'export[research_outputs]' do %>
             <%= check_box_tag 'export[research_outputs]', true, true %>

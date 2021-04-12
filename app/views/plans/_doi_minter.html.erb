@@ -33,15 +33,17 @@ general_tooltip = _("DMP IDs track connections between your DMP and research out
   <p>
     <span title="<%= general_tooltip %>" data-toggle="tooltip"><%= general_message.html_safe %></span
   </p>
-  <%= button_to "Register", {
-                              controller: 'plans',
-                              action: 'mint',
-                              data: { disable_with: "registering ..." }
-                            },
-                            {
-                              remote: true,
-                              method: :get,
-                              class: "btn btn-default mint-dmp-id"
-                            } %>
+  <div class="col-xs-8">
+    <%= button_to "Register", {
+                                controller: 'plans',
+                                action: 'mint',
+                                data: { disable_with: "registering ..." }
+                              },
+                              {
+                                remote: true,
+                                method: :get,
+                                class: "btn btn-default mint-dmp-id"
+                              } %>
+  </div>
   <p class="doi-minter-response"></p>
 <% end %>
