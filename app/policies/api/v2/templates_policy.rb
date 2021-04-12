@@ -38,8 +38,16 @@ module Api
 
         private
 
+        def validate_scopes(required_scopes:)
+          return true if @client.trusted?
+
+          required_scopes.blank? || required_scopes.any? { |scope| required_scopes.include?(scope.to_s) }
+        end
+
         # Fetch all of the User's Plans
         def public_templates
+          return [] unless validate_scopes(required_scopes: %w[read_public_templates])
+
           Template.includes(org: :identifiers)
                   .joins(:org)
                   .published
@@ -50,6 +58,8 @@ module Api
 
         # Fetch all of the Org's templates along with their customizations
         def org_templates(templates: [])
+          return [] unless validate_scopes(required_scopes: %w[read_your_templates])
+
           where_clause = <<-SQL
             (visibility = 0 AND org_id = ?) OR
             (visibility = 1 AND customization_of IS NULL)

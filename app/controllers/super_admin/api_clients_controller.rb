@@ -113,14 +113,15 @@ module SuperAdmin
                                          :contact_name, :contact_email,
                                          :client_id, :client_secret, :redirect_uri,
                                          :org_id, :org_name, :org_sources, :org_crosswalk,
-                                         scopes: [])
+                                         :trusted, scopes: [])
     end
 
     # Convert the array of scope checkboxes to a string for the DB
     def scopes_from_array
       scopes = api_client_params[:scopes].reject { |scope| scope == "0" }
-      scopes << "public"
-      scopes.join(" ")
+      # Add the defaults
+      scopes << Doorkeeper.config.default_scopes.to_a
+      scopes.flatten.sort { |a, b| a <=> b }.join(" ")
     end
   end
 

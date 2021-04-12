@@ -51,8 +51,9 @@ class OauthCredentialToken < ApplicationRecord
   # tokens on the API tab of their profile page.
   #
   # Note that these tokens tie into the `scopes` concept of the OAuth2 workflow. When the user authorizes
-  # the ApiClient to access their data, they are confirming certain scopes (e.g. read_dmps, edit_dmps, etc.)
+  # the ApiClient to access their data, they are confirming certain scopes (e.g. read_youur_dmps, etc.)
   # a scope check is part of the
+  #
   # See the OAuth wiki for full details:
   #   https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation-V2
 
@@ -95,25 +96,6 @@ class OauthCredentialToken < ApplicationRecord
       find_by(application_id: ApiClient.find_by(uid: client_id)&.id, token: token, revoked_at: nil)
     end
 
-  end
-
-  # ====================
-  # = INSTANCE METHODS =
-  # ====================
-
-  # Generates a unique token value
-  def generate_token
-    self.token = OauthCredentialToken.unique_random(field_name: "token")
-  end
-
-  private
-
-  # =========================
-  # = PRIVATE CLASS METHODS =
-  # =========================
-
-  class << self
-
     # Looking for not revoked Access Token with a matching set of scopes that belongs to specific
     # Application and Resource Owner.
     #
@@ -143,6 +125,15 @@ class OauthCredentialToken < ApplicationRecord
         )
     end
 
+  end
+
+  # ====================
+  # = INSTANCE METHODS =
+  # ====================
+
+  # Generates a unique token value
+  def generate_token
+    self.token = OauthCredentialToken.unique_random(field_name: "token")
   end
 
 end

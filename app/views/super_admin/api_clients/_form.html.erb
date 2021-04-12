@@ -4,7 +4,8 @@ method = @api_client.new_record? ? :post : :put
 orgs = Org.includes(identifiers: [:identifier_scheme]).where(is_other: false)
 
 redirect_uri_tooltip = _("Only applicable to OAuth enabled API endpoints (e.g. v2+). The redirect URI is the address that will be sent the user's authorization code once they have approved the integration via OAuth.")
-scope_information = _("Scopes are not applicable to API v0 or v1. By default all API Clients have access to the 'Public' scope. The public scope allows the client to access the template list and any publicly visible plans (and organisationally visible plans if they are associated with an organisation). The scopes listed above will allow the client to authorize individual users and perform the specified action on their behalf. For example if the external system wants to attach dataset DOIs to a user's plan then you would need to enable the 'Read DMPs' and 'Edit DMPs' scopes.")
+tooltip_for_trusted = _("The API Client is a trusted external application and will be able to access read/edit/create/delete any data without having to acquire the User's authorization via OAuth.")
+scope_information = sanitize(_("Scopes are not applicable to API v0 or v1. By default all API Clients have access to the 'read_public_dmps' and 'read_public_templates' scopes. See the %{link_to_v2_wiki} for details on scopes.") % { link_to_v2_wiki: "<a href=\"https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation-V2\" target=\"_blank\">API V2 wiki</a>" })
 %>
 
 <%= form_for @api_client, url: url, method: method,
@@ -70,23 +71,51 @@ scope_information = _("Scopes are not applicable to API v0 or v1. By default all
     </div>
   <% end %>
 
-  <div class="form-group row">
+  <div class="form-group row trusted-api-client">
+    <div class="form-group col-md-9">
+      <div class="col-md-4">
+        <div class="checkbox" data-toggle="tooltip" title="<%= tooltip_for_trusted %>">
+          <%= f.check_box :trusted %>
+          <%= _("This API client is trusted to access all data.") %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row oauth-scopes">
     <div class="col-md-9">
       <fieldset>
         <legend><%= _("Scopes") %></legend>
 
-        <% %w[read_dmps edit_dmps create_dmps].each do |scope| %>
-          <div class="col-md-2">
-            <div class="checkbox">
-              <%= f.check_box :scopes, { multiple: true, checked: @api_client.scopes.include?(scope) ? "checked" : "" }, scope %>
-              <%= scope.humanize.gsub("dmp", "DMP") %>
+        <% %w[create_dmps authorize_users].each do |scope| %>
+          <div class="col-md-3">
+            <div class="checkbox" data-toggle="tooltip" title="<%= tooltip_for_scope(scope) %>">
+              <%= f.check_box :scopes, { multiple: true, checked: @api_client.scopes.include?(scope) }, scope %>
+              <%= label_for_scope(scope) %>
             </div>
           </div>
         <% end %>
       </fieldset>
     </div>
+  </div>
 
-    <div class="form-group col-md-8">
+  <div class="form-group row authorized-user-scopes oauth-scopes">
+    <div class="col-md-9">
+      <fieldset>
+        <% %w[read_your_dmps edit_your_dmps create_dmps_for_you read_your_templates].each do |scope| %>
+          <div class="col-md-3">
+            <div class="checkbox" data-toggle="tooltip" title="<%= tooltip_for_scope(scope) %>">
+              <%= f.check_box :scopes, { multiple: true, checked: @api_client.scopes.include?(scope) }, scope %>
+              <%= label_for_scope(scope) %>
+            </div>
+          </div>
+        <% end %>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="form-group row oauth-scopes">
+    <div class="form-group col-md-9">
       <br>
       <%= scope_information %>
     </div>

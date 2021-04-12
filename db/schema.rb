@@ -275,6 +275,7 @@ ActiveRecord::Schema.define(version: 2021_04_07_183825) do
     t.text "redirect_uri"
     t.string "scopes", default: "", null: false
     t.boolean "confidential", default: true
+    t.boolean "trusted", default: false
     t.index ["name"], name: "index_oauth_applications_on_name"
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end

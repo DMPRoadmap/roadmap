@@ -14,7 +14,8 @@ module Api
       # -----------------
       def index
         # See the Policy for details on what Plans are returned to the Caller
-        plans = Api::V2::PlansPolicy::Scope.new(@client, @resource_owner, Plan).resolve
+        plans = Api::V2::PlansPolicy::Scope.new(@client, @resource_owner, @scopes).resolve
+
         if plans.present? && plans.any?
           @items = paginate_response(results: plans)
           @minimal = true
@@ -34,8 +35,6 @@ module Api
           respond_to do |format|
             format.pdf do
               prep_for_pdf
-
-p "RENDERING PDF"
 
               render pdf: @file_name,
                      margin: @formatting[:margin],

@@ -18,10 +18,10 @@ module Api
 
         attr_reader :client, :scope
 
-        def initialize(client, resource_owner, scope)
+        def initialize(client, resource_owner, scopes)
           @client = client
           @resource_owner = resource_owner
-          @scope = scope
+          @scopes = scopes
         end
 
         ## Return the visible plans (via the API) to a given client depending on the context
@@ -53,24 +53,36 @@ module Api
 
         private
 
+        def validate_scopes(required_scopes:)
+          return true if @client.trusted?
+
+          required_scopes.blank? || required_scopes.any? { |scope| required_scopes.include?(scope.to_s) }
+        end
+
         # Fetch all of the User's Plans
         def plans_for_user(user:, complete: false, mine: false)
+          return [] unless validate_scopes(required_scopes: %w[read_your_dmps])
+
           plans = user.plans.reject { |plan| plan.is_test? }
           plans = complete ? plans.select { |plan| plan.complete? } : plans
           plans += user.org.plans.organisationally_visible unless mine
-          plans.flatten.compact.uniq
+          plans.to_a.flatten.compact.uniq
         end
 
         # Fetch all of the Plans that belong to the Admin's Org
         def plans_for_org_admin
+          return [] unless validate_scopes(required_scopes: %w[read_your_dmps])
+
           @client.can_org_admin? ? @client.org.plans.reject { |plan| plan.is_test? } : []
         end
 
         # Fetch all of the Plans created by the ApiClient or any that belong to its associated Org
         def plans_for_api_client
+          return [] unless validate_scopes(required_scopes: %w[read_public_dmps])
+
           plans = @client.plans
           plans += @client.org.plans if @client.org.present?
-          plans.flatten.compact.uniq
+          plans.to_a.flatten.compact.uniq
         end
 
       end

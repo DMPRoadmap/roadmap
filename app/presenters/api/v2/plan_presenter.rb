@@ -36,10 +36,11 @@ module Api
       end
 
       # Related identifiers for the Plan
-      def links(scopes: %w[public])
+      def links(scopes: %w[read_public_dmps])
         ret = {}
         # Include the HATEOAS links based on the caller's scope permissions (see their oauth_applications rec)
-        ret[:download] = @helpers.api_v2_plan_url(@plan, format: :pdf) if scopes.include?('read_dmps')
+        ret[:download] = @helpers.api_v2_plan_url(@plan, format: :pdf) if scopes.include?('read_public_dmps') ||
+                                                                          scopes.include?('read_your_dmps')
         ret
       end
 

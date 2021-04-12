@@ -106,15 +106,16 @@ class User < ApplicationRecord
   has_and_belongs_to_many :notifications, dependent: :destroy,
                                           join_table: "notification_acknowledgements"
 
-  # OAuth2 associations (provided throuugh the Doorkeeper gem https://github.com/doorkeeper-gem/doorkeeper)
-  # Please refer to the following for general info on how Oauth works (its complicated):
-  #   https://alexbilbie.com/guide-to-oauth-2-grants/
-  #   https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc
-  #
+  # =======================
+  # = OAUTH2 Associations =
+  # =
+  # = See the OAuth wiki for full details: https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation-V2
+  # =======================
+
   # We should never need to touch these, they are use as part of the OAuth2 authorization process
   has_many :access_grants, class_name: 'Doorkeeper::AccessGrant',
                            foreign_key: :resource_owner_id,
-                           dependent: :delete_all # or :destroy if you need callbacks
+                           dependent: :delete_all
 
   # We should never need to touch these, they are use as part of the OAuth2 authorization process
   has_many :access_tokens, class_name: 'Doorkeeper::AccessToken',
@@ -122,9 +123,8 @@ class User < ApplicationRecord
                            dependent: :delete_all
 
   # These credential tokens are generated when a User authorizes an ApiClient (via OAuth2) to perform
-  # actions on their behalf. They do not expire!
-  #
-  # TODDO: Update the API tab on the User profile page to allow users to revoke these!
+  # actions on their behalf. They do not expire! but can be revoked by the User on the API tab
+  # of the edit profile page
   has_many :oauth_credential_tokens, foreign_key: :resource_owner_id, dependent: :delete_all
 
   # ===============

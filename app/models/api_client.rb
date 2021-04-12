@@ -31,6 +31,7 @@ class ApiClient < ApplicationRecord
   include DeviseInvitable::Inviter
   include Subscribable
   include ::Doorkeeper::Orm::ActiveRecord::Mixins::Application
+  include ::Doorkeeper::Models::Scopes
 
   extend UniqueRandom
 

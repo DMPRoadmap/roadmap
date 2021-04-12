@@ -19,4 +19,8 @@ class CreateOauthCredentialTokens < ActiveRecord::Migration[5.2]
 
   # Add a UID column to the Users table for use with the OauthCredentialToken above
   add_column :users, :uid, :string, index: true
+
+  # Add a trusted flag to the ApiClient that will be usedd to determine if they are required to get
+  # a User's OAuth authorization to interact with data
+  add_column :oauth_applications, :trusted, :boolean, default: false
 end

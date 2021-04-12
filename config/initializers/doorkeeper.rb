@@ -24,20 +24,17 @@ Doorkeeper.configure do
   #   - :uid as params[:username] and OauthCredentialToken.token as params[:password]
   #
   resource_owner_from_credentials do |_routes|
-    # See if this is a User first
-    user = User.find_by(email: params[:username], api_token: params[:password])
-    # Bump the :last_api_access date on the User
-    user.update(last_api_access: Time.now) if user.present?
-    return user if user.present?
-
     # Otherwise it's an AppiClient on behalf of a User so fetch the token
     credential_token = OauthCredentialToken.find_for(client_id: params[:client_id], token: params[:password])
-    # Make sure the username specified in the auth request matches the one asociated with the token
-    return nil unless credential_token&.user&.uid == params[:username]
 
-    # bump the :last_access_at date on the token
-    credential_token.update(last_access_at: Time.now)
-    credential_token.user
+    # Make sure the username specified in the auth request matches the one asociated with the token
+    if credential_token&.user&.uid == params[:username]
+      # bump the :last_access_at date on the token
+      credential_token.update(last_access_at: Time.now)
+      credential_token.user
+    else
+      nil
+    end
   end
 
   # If you didn't skip applications controller from Doorkeeper routes in your application routes.rb
@@ -267,8 +264,9 @@ Doorkeeper.configure do
   #
   # See the relevant API version's Policies for specific details of which endpoints are available to a scope
   #
-  default_scopes  :public
-  optional_scopes :user_info, :read_dmps, :edit_dmps, :create_dmps
+  default_scopes  :read_public_dmps, :read_public_templates
+  optional_scopes :create_dmps, :authorize_users,
+                  :read_your_dmps, :edit_your_dmps, :create_dmps_for_you, :read_your_templates
 
   # Allows to restrict only certain scopes for grant_type.
   # By default, all the scopes will be available for all the grant types.
@@ -292,9 +290,9 @@ Doorkeeper.configure do
   #
   # See https://alexbilbie.com/guide-to-oauth-2-grants/ for a good explanation of the different flows
   #
-  scopes_by_grant_type client_credentials: %i[public],
-                       authorization_code: %i[user_info],
-                       password: %i[public read_dmps edit_dmps create_dmps]
+  scopes_by_grant_type client_credentials: %i[read_public_dmps read_public_templates create_dmps],
+                       authorization_code: %i[authorize_users read_your_dmps edit_your_dmps
+                                              create_dmps_for_you read_your_templates]
 
   # Forbids creating/updating applications with arbitrary scopes that are
   # not in configuration, i.e. +default_scopes+ or +optional_scopes+.
@@ -434,18 +432,12 @@ Doorkeeper.configure do
   # @param allow_grant_flow_for_client [Proc] Block or any object respond to #call
   # @return [Boolean] `true` if allow or `false` if forbid the request
   #
-  allow_grant_flow_for_client do |grant_flow, client|
-
-pp grant_flow
-pp client.scopes
-p default_scopes
-p optional_scopes
-
+  # allow_grant_flow_for_client do |grant_flow, client|
   #   # `grant_flows` is an Array column with grant
   #   # flows that application supports
   #
   #   client.grant_flows.include?(grant_flow)
-  end
+  # end
 
   # If you need arbitrary Resource Owner-Client authorization you can enable this option
   # and implement the check your need. Config option must respond to #call and return
@@ -511,9 +503,16 @@ p optional_scopes
   # so that the user skips the authorization step.
   # For example if dealing with a trusted application.
   #
-  # skip_authorization do |resource_owner, client|
-  #   client.superapp? or resource_owner.admin?
-  # end
+  # DMPROADMAP NOTES:
+  # -----------------
+  # If the ApiClient is a trusted application, then we can bypass the normal resource_owner authorization
+  #
+  skip_authorization do |resource_owner, client|
+  #  client.superapp? or resource_owner.admin?
+
+    api_client = ApiClient.find_by(id: client.id)
+    api_client.trusted?
+  end
 
   # Configure custom constraints for the Token Introspection request.
   # By default this configuration option allows to introspect a token by another

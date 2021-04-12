@@ -8,11 +8,9 @@ Rails.application.routes.draw do
   use_doorkeeper do
     skip_controllers :applications, :authorized_applications
   end
-  # This is a little hacky, it doesn't appear that we're using the Devise controllers/workflow
-  # as prescribed. We should be able to just send the user to the :new_user_session_path but
-  # this is redirected to the :root_path. So we have a simple oauth specific version that handles
-  # the sign in for the Doorkeeper Oauth workflow
-  get "oauth/sign_in", as: :new_user_oauth_session, controller: "oauths", action: "new"
+  # Route that allows an OauthCredentialToken to be revoked by the User
+  delete "/users/:user_id/oauth_credential_tokens/:id", to: "users#revoke_oauth_credential_token",
+                                                        as: "oauth_revoke_credential_token"
 
   # Devise Authentication
   devise_for(:users, controllers: {
