@@ -42,32 +42,32 @@ class Org
       end
 
       def build_from_joined_user(current_user, filtered, total = {})
-        joined_users = Stat::StatJoinedUser.monthly_range(org: current_user.org,
-                                                          filtered: filtered).order(:date)
+        joined_users = StatJoinedUser.monthly_range(org: current_user.org,
+                                                    filtered: filtered).order(:date)
         joined_users.reduce(total) do |acc, rec|
           reducer_body(acc, rec, :new_users)
         end
       end
 
       def build_from_created_plan(current_user, filtered, total = {})
-        created_plans = Stat::StatCreatedPlan.monthly_range(org: current_user.org,
-                                                            filtered: filtered).order(:date)
+        created_plans = StatCreatedPlan.monthly_range(org: current_user.org,
+                                                      filtered: filtered).order(:date)
         created_plans.reduce(total) do |acc, rec|
           reducer_body(acc, rec, :new_plans)
         end
       end
 
       def build_from_shared_plan(current_user, filtered, total = {})
-        shared_plans = Stat::StatSharedPlan.monthly_range(org: current_user.org,
-                                                          filtered: filtered).order(:date)
+        shared_plans = StatSharedPlan.monthly_range(org: current_user.org,
+                                                    filtered: filtered).order(:date)
         shared_plans.reduce(total) do |acc, rec|
           reducer_body(acc, rec, :plans_shared)
         end
       end
 
       def build_from_exported_plan(current_user, filtered, total = {})
-        exported_plans = Stat::StatExportedPlan.monthly_range(org: current_user.org,
-                                                              filtered: filtered).order(:date)
+        exported_plans = StatExportedPlan.monthly_range(org: current_user.org,
+                                                        filtered: filtered).order(:date)
         exported_plans.reduce(total) do |acc, rec|
           reducer_body(acc, rec, :downloads)
         end
