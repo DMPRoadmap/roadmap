@@ -21,6 +21,8 @@ module OrgSelection
         matches = orgs.select do |org|
           exact_match?(name1: org[:name], name2: search_term)
         end
+        # Convert the Org models to Hashes
+        orgs = orgs.map { |org| OrgToHashService.to_hash(org: org) }
         return orgs if matches.any?
 
         externals = externals_search(search_term: search_term)
