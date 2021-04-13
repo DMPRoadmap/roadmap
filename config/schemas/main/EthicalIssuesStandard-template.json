@@ -45,7 +45,7 @@
                         "type": "number"
                     }
                 },
-                "template_name": "ContributorStandard",
+                "template_name": "EthicalIssuesManager",
                 "required": [
                     "dbid"
                 ]

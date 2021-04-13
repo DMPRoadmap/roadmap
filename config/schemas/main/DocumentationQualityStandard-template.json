@@ -10,10 +10,10 @@
             "type": "string",
             "description": "Description générale concernant la documentation et les méthodes qualité appliquées aux données",
             "inputType": "textarea",
-            "label@fr_FR": "Décrire l'organisation et la documentation des données",
-            "label@en_GB": "Describe data organization and  documentation",
-            "tooltip@fr_FR": "Indiquer par exemple : la convention de nommage des fichiers et leur organisation, les normes et standards de métadonnées utilisés pour décrire les données, le contrôle des versions des jeux de données, le dictionnaire de données associé au fichier explicitant les variables",
-            "tooltip@en_GB": "Indicate for example: the naming convention of the files and their organization, the metadata norms and standards used to describe the data, the version control of the datasets, the data dictionary associated with the file explaining the variables"
+            "label@fr_FR": "Décrire l'organisation, la structuration et la documentation des données",
+            "label@en_GB": "Describe data organization, structuration and  documentation",
+            "tooltip@fr_FR": "Indiquer par exemple : la convention de nommage des fichiers et leur organisation, les normes, standards de métadonnées et vocabulaires utilisés pour décrire les données, le contrôle des versions des jeux de données, le dictionnaire de données associé au fichier explicitant les variables",
+            "tooltip@en_GB": "Indicate for example: the naming convention of the files and their organization, the norms, metadata standards and vocabularies used to describe the data, the version control of the datasets, the data dictionary associated with the file explaining the variables"
         },
         "dataOrganizationReference": {
             "type": "array",
@@ -54,8 +54,8 @@
             },
             "minItems": 1,
             "description": "Standard(s) de métadonnées ou données utilisé(s) en application des principes FAIR",
-            "label@fr_FR": "Standards de métadonnées/données",
-            "label@en_GB": "Metadata /data Standards",
+            "label@fr_FR": "Lister les standards de métadonnées/données utilisés",
+            "label@en_GB": "List the metadata/data standards used",
             "inputType": "dropdown",
             "registry_name": "Standards",
             "overridable": true
@@ -82,13 +82,12 @@
                         "type": "number"
                     }
                 },
-                "template_name": "ContributorStandard",
+                "template_name": "DataDocumentationManager",
                 "required": [
                     "dbid"
                 ]
             },
-            "minItems": 1,
-            "description": "Personne(s) impliquée(s) dans la documentation des données, production des métadonnées et/ou assurance qualité des données",
+            "description": "Personne(s) impliquée(s) dans la documentation des données et/ou production des métadonnées",
             "label@fr_FR": "Responsables de la documentation des données",
             "label@en_GB": "Data documentation managers",
             "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
@@ -118,8 +117,7 @@
     },
     "required": [
         "description",
-        "metadataStandard",
-        "contributor"
+        "metadataStandard"
     ],
     "to_string": []
 }

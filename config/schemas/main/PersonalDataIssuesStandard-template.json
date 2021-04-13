@@ -47,7 +47,7 @@
                         "type": "number"
                     }
                 },
-                "template_name": "ContributorStandard",
+                "template_name": "DataProtectionManager",
                 "required": [
                     "dbid"
                 ]

@@ -25,12 +25,6 @@
             "registry_name": "Funders",
             "overridable": true
         },
-        "otherFunder": {
-            "type": "string",
-            "description": "Autres agences de financement non listé dans le référentiel Funder",
-            "label@fr_FR": "Ajouter le nom du financeur, si vous n'avez pas trouvé de nom dans la liste déroulante",
-            "label@en_GB": "Add the name of the funder, only if you did not find a name in the drop-down list"
-        },
         "grantId": {
             "type": "string",
             "description": "Identifiant du financement (convention de financement)",
@@ -54,6 +48,7 @@
     ],
     "to_string": [
         "$.funder.name",
+        "$.funder.custom_value",
         " : ",
         "$.grantId"
     ]

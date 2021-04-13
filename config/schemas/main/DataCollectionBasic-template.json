@@ -10,10 +10,10 @@
             "type": "string",
             "description": "Description de la collecte des données",
             "inputType": "textarea",
-            "label@fr_FR": "Description",
-            "label@en_GB": "Description",
-            "tooltip@fr_FR": "Description de la méthodologie de collecte",
-            "tooltip@en_GB": "Description of the data collection methodology"
+            "label@fr_FR": "Décrire la méthode de collecte ou d'acquisition des données",
+            "label@en_GB": "Describe the method of data collection or acquisition",
+            "tooltip@fr_FR": "Expliquer quelle méthodologie est utilisée pour produire, collecter les données. Préciser si besoin le contexte de production, la fréquence de collecte des données.",
+            "tooltip@en_GB": "Explain the methodology used to produce and collect the data. Specify if necessary the context of production, the frequency of data collection."
         },
         "dataNature": {
             "type": "string",
@@ -22,7 +22,9 @@
             "label@fr_FR": "Nature des données",
             "label@en_GB": "Data Nature",
             "registry_name": "DataNature",
-            "overridable": true
+            "overridable": true,
+            "tooltip@fr_FR": "Sélectionner dans la liste déroulante la nature du produit de recherche",
+            "tooltip@en_GB": "Choose in the dropdown the research output data nature"
         }
     },
     "required": [

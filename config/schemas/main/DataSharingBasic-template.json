@@ -15,13 +15,13 @@
         },
         "host": {
             "type": "object",
-            "class": "TechnicalResourceStandard",
+            "class": "Host",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "template_name": "Host",
+            "template_name": "HostStandard",
             "required": [
                 "dbid"
             ],
@@ -31,12 +31,6 @@
             "inputType": "dropdown",
             "registry_name": "Repositories",
             "overridable": true
-        },
-        "otherHost": {
-            "type": "string",
-            "description": "Autres entrepôts non listés dans le référentiel Repository",
-            "label@fr_FR": "Ajouter le nom de l'entrepôt de données, si vous ne l'avez pas trouvé dans la liste déroulante",
-            "label@en_GB": "Add the name of the data repository, only if you did not find it in the drop-down list"
         }
     },
     "required": [

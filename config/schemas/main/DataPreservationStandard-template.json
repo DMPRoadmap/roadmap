@@ -46,13 +46,13 @@
         },
         "host": {
             "type": "object",
-            "class": "TechnicalResourceStandard",
+            "class": "Host",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "template_name": "Host",
+            "template_name": "HostStandard",
             "required": [
                 "dbid"
             ],
@@ -68,8 +68,8 @@
             "description": "Sort final des données (destruction, pronumberation de la conservation, …)",
             "label@fr_FR": "Dispositions finales",
             "label@en_GB": "Final dispositions",
-            "tooltip@fr_FR": "Sort final : devenir des données à échéance de leur durée de conservation (destruction, conservation définitive,…)",
-            "tooltip@en_GB": "Final outcome: future of data at the end of their preservation period (destruction, definitive conservation,…)"
+            "tooltip@fr_FR": "Sort final : devenir des données à échéance de leur durée de conservation (élimination, conservation définitive, tri)",
+            "tooltip@en_GB": "Final outcome: future of data at the end of their preservation period (elimination, definitive conservation, sorting)"
         },
         "contributor": {
             "type": "array",
@@ -83,7 +83,7 @@
                         "type": "number"
                     }
                 },
-                "template_name": "ContributorStandard",
+                "template_name": "DataPreservationManager",
                 "required": [
                     "dbid"
                 ]

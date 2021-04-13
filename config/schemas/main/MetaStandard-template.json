@@ -10,7 +10,9 @@
             "type": "string",
             "description": "Titre du plan de gestion de données",
             "label@fr_FR": "Titre du plan",
-            "label@en_GB": "Plan title"
+            "label@en_GB": "Plan title",
+            "tooltip@fr_FR": "Titre généré automatiquement à partir du titre du projet et modifiable. Titre affiché dans le tableau de bord",
+            "tooltip@en_GB": "Title automatically generated from the project title and editable. Title displayed in the dashboard"
         },
         "deliverableNumber": {
             "type": "string",
@@ -72,14 +74,16 @@
             "format": "date",
             "description": "Date de création du DMP",
             "label@fr_FR": "Date de création",
-            "label@en_GB": "Creation date"
+            "label@en_GB": "Creation date",
+            "hidden": true
         },
         "lastModifiedDate": {
             "type": "string",
             "format": "date",
             "description": "Date de dernière modification du DMP",
             "label@fr_FR": "Date de dernière modification",
-            "label@en_GB": "Last modification date"
+            "label@en_GB": "Last modification date",
+            "hidden": true
         },
         "dmpId": {
             "type": "string",
@@ -134,10 +138,10 @@
                 ]
             },
             "description": "Références de documents éventuels à relier au plan de gestion de données (ex publications)",
-            "label@fr_FR": "Lister les documents, sites web associés au plan (publications, rapports, brevets….)",
-            "label@en_GB": "List the documents, website associated with the DMP (publications,reports, patents...)",
-            "tooltip@fr_FR": "Indiquer les documents et sites web à relier au plan de gestion de données (publications, rapports, brevets….)",
-            "tooltip@en_GB": "Provide the documents and websites associated with the DMP (publications,reports, patents...)"
+            "label@fr_FR": "Lister les documents (publications, rapports, brevets….), sites web associés au plan ",
+            "label@en_GB": "List the documents (publications,reports, patents...), website associated with the DMP ",
+            "tooltip@fr_FR": "Indiquer les documents (publications, rapports, brevets….) ou sites web à relier au plan de gestion de données ",
+            "tooltip@en_GB": "Provide the documents (publications,reports, patents...) and websites associated with the DMP "
         },
         "associatedDmp": {
             "type": "array",

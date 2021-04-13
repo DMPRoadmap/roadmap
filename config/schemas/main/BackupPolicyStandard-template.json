@@ -25,7 +25,8 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type de sauvegarde",
             "label@en_GB": "Backup type",
-            "registry_name": "BackupType"
+            "registry_name": "BackupType",
+            "overridable": true
         },
         "storageType": {
             "type": "array",
@@ -36,7 +37,8 @@
             "inputType": "dropdown",
             "label@fr_FR": "Supports de stockage",
             "label@en_GB": "Storage types",
-            "registry_name": "StorageType"
+            "registry_name": "StorageType",
+            "overridable": true
         }
     },
     "required": [

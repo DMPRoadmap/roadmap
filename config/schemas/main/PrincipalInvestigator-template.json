@@ -20,8 +20,8 @@
             ],
             "description": "Personnes impliquées dans la production et gestion des données",
             "inputType": "pickOrCreate",
-            "label@fr_FR": "Sélectionner une valeur dans la liste déroulante",
-            "label@en_GB": "Select a person from the drop-down list"
+            "label@fr_FR": "Sélectionner une valeur dans la liste ou créer une nouvelle valeur en cliquant sur +",
+            "label@en_GB": "Select a value from the drop-down list or create a new value by clicking on +"
         },
         "role": {
             "type": "string",
@@ -29,7 +29,8 @@
             "label@fr_FR": "Rôle",
             "label@en_GB": "Role",
             "const@fr_FR": "Coordinateur du projet",
-            "const@en_GB": "Project coordinator"
+            "const@en_GB": "Project coordinator",
+            "hidden": true
         }
     },
     "required": [
@@ -40,7 +41,7 @@
         "$.person.firstName",
         " ",
         "$.person.lastName ",
-        "(",
+        " (",
         "$.role",
         ")"
     ]

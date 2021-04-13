@@ -20,18 +20,18 @@
             "label@en_GB": "Reusability",
             "tooltip@fr_FR": "Potentiel et/ou limite de réutilisation",
             "tooltip@en_GB": "Potential and/or limits of data resusability",
-            "example@fr_FR": "Les données pourront être réutilisées pour de futures recherches ou pour d’autres finalités (enseignement, innovation, reproduction/transparence de la science)",
-            "example@en_GB": "The data can be reused for future research or other purposes (education, innovation, reproduction/transparency of science, etc.)"
+            "example@fr_FR": "Réutilisation pour de futures recherches ou d’autres finalités (enseignement, innovation, reproduction/transparence de la science)",
+            "example@en_GB": "Reuse for future research or other purposes (education, innovation, reproduction/transparency of science, etc.)"
         },
         "host": {
             "type": "object",
-            "class": "TechnicalResourceStandard",
+            "class": "Host",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "template_name": "Host",
+            "template_name": "HostStandard",
             "required": [
                 "dbid"
             ],
@@ -42,12 +42,6 @@
             "registry_name": "Repositories",
             "overridable": true,
             "substitutable": true
-        },
-        "otherHost": {
-            "type": "string",
-            "description": "Autres entrepôts non listés dans le référentiel Repository",
-            "label@fr_FR": "Ajouter le nom de l'entrepôt de données, si vous ne l'avez pas trouvé dans la liste déroulante",
-            "label@en_GB": "Add the name of the data repository, only if you did not find it in the drop-down list"
         },
         "distribution": {
             "type": "array",
@@ -75,13 +69,13 @@
         },
         "indexedIn": {
             "type": "object",
-            "class": "TechnicalResourceStandard",
+            "class": "TechnicalResource",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "template_name": "Host",
+            "template_name": "TechnicalResourceStandard",
             "required": [
                 "dbid"
             ],
@@ -105,7 +99,7 @@
                         "type": "number"
                     }
                 },
-                "template_name": "ContributorStandard",
+                "template_name": "DataSharingManager",
                 "required": [
                     "dbid"
                 ]

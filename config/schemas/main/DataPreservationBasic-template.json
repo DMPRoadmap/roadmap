@@ -17,13 +17,13 @@
         },
         "host": {
             "type": "object",
-            "class": "TechnicalResourceStandard",
+            "class": "Host",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "template_name": "Host",
+            "template_name": "HostStandard",
             "required": [
                 "dbid"
             ],

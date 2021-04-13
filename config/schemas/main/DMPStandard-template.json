@@ -12,7 +12,7 @@
         },
         "meta": {
             "type": "object",
-            "class": "MetaBasic",
+            "class": "Meta",
             "properties": {
                 "dbid": {
                     "type": "number"

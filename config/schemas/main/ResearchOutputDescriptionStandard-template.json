@@ -17,7 +17,9 @@
             "description": "Description succincte du produit de recherche",
             "inputType": "textarea",
             "label@fr_FR": "Décrire succinctement le produit de recherche",
-            "label@en_GB": "Briefly describe the research product"
+            "label@en_GB": "Briefly describe the research product",
+            "tooltip@fr_FR": "Résumé décrivant l'objet et la portée du jeu de données",
+            "tooltip@en_GB": "Summary describing the purpose and scope of the dataset"
         },
         "type": {
             "type": "string",
@@ -26,7 +28,9 @@
             "label@fr_FR": "Type de produit de recherche",
             "label@en_GB": "Research product type",
             "registry_name": "ResearchDataType",
-            "overridable": true
+            "overridable": true,
+            "tooltip@fr_FR": "Les types de produits de recherche sont issus du schéma DataCite 4.3.",
+            "tooltip@en_GB": "The types of research outputs are based on resourceTypeGeneral property from DataCite Metadata Schema 4.3. "
         },
         "workPackage": {
             "type": "string",
@@ -57,7 +61,9 @@
             "minItems": 1,
             "description": "Mot(s)-clé(s) issu(s) de vocabulaire(s) contrôlé(s) ou d'ontologie(s)",
             "label@fr_FR": "Mots clés contrôlés (vocabulaire, thésaurus, lexique...)",
-            "label@en_GB": "Controlled keywords (vocabulary, thesaurus, lexicon...)"
+            "label@en_GB": "Controlled keywords (vocabulary, thesaurus, lexicon...)",
+            "tooltip@fr_FR": "Mots-clés décrivant les aspects importants du jeu de données",
+            "tooltip@en_GB": "Key words describing important aspects of the dataset"
         },
         "uncontrolledKeywords": {
             "type": "array",
@@ -67,8 +73,8 @@
             "description": "Mots clés libres",
             "label@fr_FR": "Mots clés (texte libre)",
             "label@en_GB": "Uncontrolled keyword(s) (free-text)",
-            "tooltip@fr_FR": "Un mot clé par ligne. Eviter les acronymes et les mots clés trop génériques",
-            "tooltip@en_GB": "One key word per line. Avoid acronyms and overly generic keywords"
+            "tooltip@fr_FR": "Un mot clé par ligne. Cliquer sur + pour ajouter un mot-clé. Eviter les acronymes et les mots clés trop génériques",
+            "tooltip@en_GB": "One key word per line. Click on + to add a key word. Avoid acronyms and overly generic keywords"
         },
         "language": {
             "type": "string",

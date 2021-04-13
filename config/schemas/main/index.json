@@ -155,8 +155,8 @@
         "question_id": null
     },
     {
-        "path": "Host-template.json",
-        "classname": "technical_resource",
+        "path": "HostStandard-template.json",
+        "classname": "host",
         "question_id": null
     },
     {
@@ -177,11 +177,6 @@
     {
         "path": "LicenseStandard-template.json",
         "classname": "license",
-        "question_id": null
-    },
-    {
-        "path": "MetaBasic-template.json",
-        "classname": "meta",
         "question_id": null
     },
     {
@@ -286,6 +281,56 @@
     },
     {
         "path": "PrincipalInvestigator-template.json",
+        "classname": "contributor",
+        "question_id": null
+    },
+    {
+        "path": "DataCollector-template.json",
+        "classname": "contributor",
+        "question_id": null
+    },
+    {
+        "path": "DataDocumentationManager-template.json",
+        "classname": "contributor",
+        "question_id": null
+    },
+    {
+        "path": "DataQualityManager-template.json",
+        "classname": "contributor",
+        "question_id": null
+    },
+    {
+        "path": "DataProtectionManager-template.json",
+        "classname": "contributor",
+        "question_id": null
+    },
+    {
+        "path": "LegalExpert-template.json",
+        "classname": "contributor",
+        "question_id": null
+    },
+    {
+        "path": "EthicalIssuesManager-template.json",
+        "classname": "contributor",
+        "question_id": null
+    },
+    {
+        "path": "DataProcessingManager-template.json",
+        "classname": "contributor",
+        "question_id": null
+    },
+    {
+        "path": "DataStorageManager-template.json",
+        "classname": "contributor",
+        "question_id": null
+    },
+    {
+        "path": "DataSharingManager-template.json",
+        "classname": "contributor",
+        "question_id": null
+    },
+    {
+        "path": "DataPreservationManager-template.json",
         "classname": "contributor",
         "question_id": null
     }

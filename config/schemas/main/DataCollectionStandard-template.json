@@ -12,17 +12,16 @@
             "label@fr_FR": "Titre",
             "label@en_GB": "Title",
             "tooltip@fr_FR": "Titre d'une méthode (ou étape) de collecte",
-            "tooltip@en_GB": "Title of a data collection method (or step)",
-            "example": "Foobar"
+            "tooltip@en_GB": "Title of a data collection method (or step)"
         },
         "description": {
             "type": "string",
             "description": "Description de la collecte des données",
             "inputType": "textarea",
-            "label@fr_FR": "Description",
-            "label@en_GB": "Description",
-            "tooltip@fr_FR": "Description de la méthodologie de collecte",
-            "tooltip@en_GB": "Description of the data collection methodology"
+            "label@fr_FR": "Décrire la méthode de collecte ou d'acquisition des données",
+            "label@en_GB": "Describe the method of data collection or acquisition",
+            "tooltip@fr_FR": "Expliquer quelle méthodologie est utilisée pour produire, collecter les données. Préciser si besoin le contexte de production, la fréquence de collecte des données.",
+            "tooltip@en_GB": "Explain the methodology used to produce and collect the data. Specify if necessary the context of production, the frequency of data collection."
         },
         "dataNature": {
             "type": "string",
@@ -36,17 +35,21 @@
             "tooltip@en_GB": "Choose in the dropdown the research output data nature"
         },
         "facility": {
-            "type": "object",
-            "class": "TechnicalResource",
-            "properties": {
-                "dbid": {
-                    "type": "number"
-                }
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "TechnicalResource",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "TechnicalResourceStandard",
+                "required": [
+                    "dbid"
+                ]
             },
-            "template_name": "TechnicalResourceStandard",
-            "required": [
-                "dbid"
-            ],
             "description": "Usage d'une ressource technique pour acquérir les données",
             "label@fr_FR": "Equipements, plateaux techniques utilisés pour la production ou l'acquisition de données",
             "label@en_GB": "Equipments, technical platforms used for production or acquisition of data",
@@ -86,7 +89,7 @@
                         "type": "number"
                     }
                 },
-                "template_name": "ContributorStandard",
+                "template_name": "DataCollector",
                 "required": [
                     "dbid"
                 ]
