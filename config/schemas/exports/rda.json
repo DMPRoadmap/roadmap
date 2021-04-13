@@ -2,8 +2,11 @@
     "created": "$.meta.creationDate",
     "description": "$.meta.description",
     "dmp_id": {
-        "identifier": "$.meta.dmpId",
-        "type": "$.meta.idType"
+        "identifier": [
+            "http://vdopidor.intra.inist.fr:40001/plans/",
+            "$.dmp.plan_id"
+        ],
+        "type": "URL"
     },
     "ethical_issues_exist": "$.researchOutput.researchOutputDescription.hasEthicalIssues",
     "ethical_issues_description": "$.researchOutput.ethicalIssues.description",
@@ -14,7 +17,7 @@
     "contact": {
         "contact_id": {
             "identifier": "$.meta.contact.person.personId",
-            "type": "$.meta.contact.person.IdType"
+            "type": "$.meta.contact.person.idType"
         },
         "mbox": "$.meta.contact.person.mbox",
         "name": [
@@ -26,11 +29,10 @@
     "contributor": {
         "type": "array",
         "classname": "contributor",
-
         "items": {
             "contributor_id": {
                 "identifier": "$.person.personId",
-                "type": "$.person.IdType"
+                "type": "$.person.idType"
             },
             "mbox": "$.person.mbox",
             "name": [
@@ -44,7 +46,6 @@
     "cost": {
         "type": "array",
         "classname": "cost",
-
         "items": {
             "currency_code": "$.currency",
             "description": "$.description",
@@ -58,11 +59,10 @@
         "funding": {
             "type": "array",
             "path": "$.project.funding",
-
             "items": {
                 "funder_id": {
                     "identifier": "$.funder.funderId",
-                    "type": "$.funder.IdType"
+                    "type": "$.funder.idType"
                 },
                 "funding_status": "$.fundingStatus",
                 "grant_id": {
@@ -77,21 +77,17 @@
     "dataset": {
         "type": "array",
         "path": "$.researchOutput",
-
         "items": {
             "data_quality_assurance": [
-                "$.qualityAssuranceMethod",
-                " ",
                 "$.documentationQuality.description"
             ],
             "dataset_id": {
-                "identifier": "$.researchOutputDescription.datasetId",
-                "type": "$.researchOutputDescription.IdType"
+                "identifier": "$.researchOutput.research_output_id",
+                "type": "internal identifier"
             },
             "description": "$.researchOutputDescription.description",
             "issued": "$.sharing.distribution.releaseDate",
-            "controlledKeyword": "$.researchOutputDescription.controlledKeyword",
-            "keyword": "$.researchOutputDescription.keyword",
+            "keyword": "$.researchOutputDescription.uncontrolledKeywords",
             "language": "$.researchOutputDescription.language",
             "personal_data": "$.researchOutputDescription.containsPersonalData",
             "preservation_statement": "$.preservationIssues.description",
@@ -101,7 +97,6 @@
             "distribution": {
                 "type": "array",
                 "path": "$.sharing.distribution",
-
                 "items": {
                     "access_url": "$.accessUrl",
                     "available_until": "$.availableUntil",
@@ -110,53 +105,53 @@
                     "description": "$.description",
                     "download_url": "$.downloadUrl",
                     "format": "$.fileFormat",
+                    "host": {
+                        "description": "$.sharing.host.description",
+                        "availability": "$.sharing.host.availability",
+                        "certified_with": "$.sharing.host.certification",
+                        "geo_location": "$.sharing.host.geoLocation",
+                        "pid_system": "$.sharing.host.pidSystem",
+                        "support_versioning": "$.sharing.host.hasVersioningPolicy",
+                        "title": "$.sharing.host.title",
+                        "url": "$.sharing.host.hostId",
+                        "license": {
+                            "type": "array",
+                            "path": "$.sharing.distribution",
+                            "items": {
+                                "license_ref": "$.sharing.distribution.license.licenseUrl",
+                                "start_date": "$.sharing.distribution.licenseStartDate"
+                            }
+                        }
+                    },
                     "title": "$.fileName"
-                }
-            },
-            "host": {
-                "description": "$.sharing.host.description",
-                "availability": "$.sharing.host.availability",
-                "backup_frequency": "None",
-                "backup_type": "None",
-                "certified_with": "$.sharing.host.certification",
-                "geo_location": "$.sharing.sharing.host.geoLocation",
-                "pid_system": "$.sharing.host.pidSystem",
-                "storage_type": "None",
-                "support_versioning": "$.sharing.host.hasVersioningPolicy",
-                "title": "$.sharing.host.title",
-                "url": "$.sharing.host.technicalResourceId",
-                "license": {
-                    "license_ref": "$.sharing.distribution.license.licenseUrl",
-                    "start_date": "$.sharing.distribution.licenseStartDate"
-                }
-            },
-            "metadata": {
-                "type": "array",
-                "path": "$.documentationQuality.metadataStandard",
-
-                "items": {
-                    "description": [
-                        "$.name",
-                        " ",
-                        "$.description"
-                    ],
-                    "language": "$.metadataLanguage",
-                    "metadata_standard_id": {
-                        "identifier": "$.metadataStandardId",
-                        "type": "$.IdType"
+                },
+                "metadata": {
+                    "type": "array",
+                    "path": "$.documentationQuality.metadataStandard",
+                    "items": {
+                        "description": [
+                            "$.name",
+                            " ",
+                            "$.description"
+                        ],
+                        "language": "$.metadataLanguage",
+                        "metadata_standard_id": {
+                            "identifier": "$.metadataStandardId",
+                            "type": "$.IdType"
+                        }
                     }
-                }
-            },
-            "security_and_privacy": {
-                "description": "$.dataStorage.securityMeasures",
-                "title": "Security measures"
-            },
-            "technical_resource": {
-                "type": "array",
-                "classname": "technical_resource",
-                "items": {
-                    "description": "$.description",
-                    "name": "$.title"
+                },
+                "security_and_privacy": {
+                    "description": "$.dataStorage.securityMeasures",
+                    "title": "Security measures"
+                },
+                "technical_resource": {
+                    "type": "array",
+                    "classname": "technical_resource",
+                    "items": {
+                        "description": "$.description",
+                        "name": "$.title"
+                    }
                 }
             }
         }
