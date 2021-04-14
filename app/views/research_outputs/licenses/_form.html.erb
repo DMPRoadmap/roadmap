@@ -1,0 +1,38 @@
+<%# locals: research_output, presenter %>
+<%
+default_guidance = "https://choosealicense.com/"
+
+preferred_licenses = presenter.preferred_licenses
+preferred_licenses << ["- Other Licenses - will load a complete list -", "0"]
+
+preferred_guidance = Rails.configuration.x.preferred_licenses_guidance_url
+preferred_guidance = default_guidance if preferred_guidance.nil? || preferred_guidance.empty?
+
+selected = research_output.license_id
+
+# If the user has selected 'Other Licenses' or they have a selection that is not in the preferred list
+
+p "SELECTION: #{selected}"
+p "NIL? #{selected.nil?} - NOT ZERO? #{selected != 0} - IN PREFERRED? #{preferred_licenses.map { |array| array[1] }.include?(selected)}"
+
+show_preferred = selected.nil? || (selected != 0 && preferred_licenses.map { |array| array[1] }.include?(selected))
+
+options = show_preferred ? preferred_licenses : presenter.complete_licenses
+guidance = show_preferred ? preferred_guidance : default_guidance
+
+args = { include_blank: _("- Please select one -"), selected: selected, class: "form-control" }
+args[:data] = { remote: true, url: license_selection_plan_path(research_output.plan), method: :get } if show_preferred
+%>
+<div class="col-md-12">
+  <span class="col-md-4">
+    <%= label_tag _("Initial license"), _("Initial license"), class: "control-label" %>
+    <%= select_tag "research_output[license_id]", options_for_select(options, selected), args %>
+  </span>
+  <span class="col-md-3">
+    <div>&nbsp;</div>
+    <p>
+      <%= _("For guidance on selecting a license:") %><br>
+      <a href="<%= guidance %>" target="_blank"><%= guidance %></a>
+    </p>
+  </span>
+</div>

@@ -1,5 +1,3 @@
-import getConstant from './constants';
-
 $(() => {
   // Add the selected item to the selections section
   $('body').on('click', 'a.modal-search-result-selector', (e) => {

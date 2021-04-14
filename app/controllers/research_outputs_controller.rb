@@ -4,7 +4,7 @@ class ResearchOutputsController < ApplicationController
 
   helper PaginableHelper
 
-  before_action :fetch_plan, except: %i[select_output_type repository_search]
+  before_action :fetch_plan, except: %i[select_output_type select_license repository_search]
   before_action :fetch_research_output, only: %i[edit update destroy]
 
   after_action :verify_authorized
@@ -87,6 +87,15 @@ class ResearchOutputsController < ApplicationController
     @plan = Plan.find_by(id: params[:id])
     @research_output = ResearchOutput.new(
       plan: @plan, output_type: output_params[:output_type]
+    )
+    authorize @research_output
+  end
+
+  # GET  /plans/:id/license_selection
+  def select_license
+    @plan = Plan.find_by(id: params[:id])
+    @research_output = ResearchOutput.new(
+      plan: @plan, license_id: output_params[:license_id]
     )
     authorize @research_output
   end

@@ -14,7 +14,7 @@ class PlansController < ApplicationController
   # GET /plans
   def index
     authorize Plan
-    @plans = Plan.active(current_user).page(1)
+    @plans = Plan.includes(:roles, :org).active(current_user).page(1)
     if current_user.org.is_other?
       @organisationally_or_publicly_visible = []
     else
@@ -124,7 +124,7 @@ class PlansController < ApplicationController
         elsif !@plan.template.customization_of.nil?
           # We used a customized version of the the funder template
           # rubocop:disable Layout/LineLength
-          msg += " #{_('This plan is based on the')} #{@plan.funder&.name}: '#{@plan.template.title}' #{_('template with customisations by the')} #{plan_params[:org_name]}"
+          msg += " #{_('This plan is based on the')} #{@plan.funder&.name}: '#{@plan.template.title}' #{_('template with customisations by the')} #{@plan.template.org.name}"
           # rubocop:enable Layout/LineLength
         else
           # We used the specified org's or funder's template
@@ -182,39 +182,15 @@ class PlansController < ApplicationController
     # TODO: Seems strange to do this. Why are we just not using an `edit` route?
     @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
 
-    # Get all Guidance Groups applicable for the plan and group them by org
-    @all_guidance_groups = @plan.guidance_group_options
-    @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
-    @selected_guidance_groups = @plan.guidance_groups
-
-    # Important ones come first on the page - we grab the user's org's GGs and
-    # "Organisation" org type GGs
-    @important_ggs = []
-
-    if @all_ggs_grouped_by_org.include?(current_user.org)
-      @important_ggs << [current_user.org, @all_ggs_grouped_by_org[current_user.org]]
-    end
-    @all_ggs_grouped_by_org.each do |org, ggs|
-      @important_ggs << [org, ggs] if org.organisation?
-
-      # If this is one of the already selected guidance groups its important!
-      unless (ggs & @selected_guidance_groups).empty?
-        @important_ggs << [org, ggs] unless @important_ggs.include?([org, ggs])
-      end
-    end
-
-    # Sort the rest by org name for the accordion
-    @important_ggs = @important_ggs.sort_by { |org, _gg| (org.nil? ? "" : org.name) }
-    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by do |org, _gg|
-      (org.nil? ? "" : org.name)
-    end
-    @selected_guidance_groups = @selected_guidance_groups.ids
+    # Get the selected and possible guidance options for the plan
+    fetch_guidance_groups(plan: @plan)
 
     @based_on = if @plan.template.customization_of.nil?
                   @plan.template
                 else
                   Template.where(family_id: @plan.template.customization_of).first
                 end
+
     respond_to :html
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
@@ -225,9 +201,13 @@ class PlansController < ApplicationController
   #       doing this when we refactor the Plan editing UI
   # GET /plans/:plan_id/phases/:id/edit
   def edit
-    plan = Plan.find(params[:id])
+    plan = Plan.includes({ template: { phases: { sections: :questions } } }, { answers: :notes })
+               .find(params[:id])
     authorize plan
-    plan, phase = Plan.load_for_phase(params[:id], params[:phase_id])
+    phase_id = params[:phase_id].to_i
+    phase = plan.template.phases.select { |p| p.id == phase_id }.first
+    raise ActiveRecord::RecordNotFound if phase.nil?
+
     guidance_groups = GuidanceGroup.where(published: true, id: plan.guidance_group_ids)
     render_phases_edit(plan, phase, guidance_groups)
   end
@@ -253,23 +233,25 @@ class PlansController < ApplicationController
       # TODO: For some reason the `fields_for` isn't adding the
       #       appropriate namespace, so org_id represents our funder
       funder = org_from_params(params_in: attrs, allow_create: true)
-      @plan.funder_id = funder.id if funder.present?
-      @plan.grant =process_grant(grant_params: plan_params[:grant])
+      @plan.funder_id = funder.present? ? funder.id : nil
+      @plan.grant = plan_params[:grant]
       attrs.delete(:grant)
       attrs = remove_org_selection_params(params_in: attrs)
 
       if @plan.update(attrs) # _attributes(attrs)
         format.html do
-          redirect_to plan_path(@plan), notice: success_message(@plan, _("saved"))
+          redirect_to plan_path(@plan),
+                      notice: success_message(@plan, _("saved"))
         end
         format.json do
           render json: { code: 1, msg: success_message(@plan, _("saved")) }
         end
       else
         format.html do
-          # TODO: Should do a `render :show` here instead but show defines too many
-          #       instance variables in the controller
-          redirect_to plan_path(@plan).to_s, alert: failure_message(@plan, _("save"))
+          # Get the selected and possible guidance options for the plan
+          fetch_guidance_groups(plan: @plan)
+          flash[:alert] = failure_message(@plan, _("save"))
+          render "show"
         end
         format.json do
           render json: { code: 0, msg: failure_message(@plan, _("save")) }
@@ -453,6 +435,7 @@ class PlansController < ApplicationController
     params.require(:plan)
           .permit(:template_id, :title, :visibility, :description, :identifier,
                   :start_date, :end_date, :org_id, :org_name, :org_crosswalk,
+                  :ethical_issues, :ethical_issues_description, :ethical_issues_report,
                   grant: %i[name value],
                   org: %i[id org_id org_name org_sources org_crosswalk],
                   funder: %i[id org_id org_name org_sources org_crosswalk])
@@ -512,26 +495,36 @@ class PlansController < ApplicationController
            })
   end
 
-  # Update, destroy or add the grant
-  def process_grant(grant_params:)
-    return false unless grant_params.present?
+  # Fetch all the available Guidance Groups for the specified Plan
+  def fetch_guidance_groups(plan: plan)
+    # Get all Guidance Groups applicable for the plan and group them by org
+    @all_guidance_groups = plan.guidance_group_options
+    @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
+    @selected_guidance_groups = plan.guidance_groups
 
-    grant = @plan.grant
+    # Important ones come first on the page - we grab the user's org's GGs and
+    # "Organisation" org type GGs
+    @important_ggs = []
 
-    # delete it if it has been blanked out
-    if grant_params[:value].blank? && grant.present?
-      grant.destroy
-      @plan.grant = nil
-    elsif grant_params[:value] != grant&.value
-      if grant.present?
-        grant.update(value: grant_params[:value])
-        grant
-      elsif grant_params[:value].present?
-        @plan.grant = Identifier.new(value: grant_params[:value], identifiable: @plan)
+    if @all_ggs_grouped_by_org.include?(current_user.org)
+      @important_ggs << [current_user.org, @all_ggs_grouped_by_org[current_user.org]]
+    end
+    @all_ggs_grouped_by_org.each do |org, ggs|
+      @important_ggs << [org, ggs] if org.organisation?
+
+      # If this is one of the already selected guidance groups its important!
+      unless (ggs & @selected_guidance_groups).empty?
+        @important_ggs << [org, ggs] unless @important_ggs.include?([org, ggs])
       end
     end
+
+    # Sort the rest by org name for the accordion
+    @important_ggs = @important_ggs.sort_by { |org, _gg| (org.nil? ? "" : org.name) }
+    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by do |org, _gg|
+      (org.nil? ? "" : org.name)
+    end
+    @selected_guidance_groups = @selected_guidance_groups.ids
   end
-  # rubocop:enable
 
 end
 # rubocop:enable Metrics/ClassLength

@@ -1,3 +1,4 @@
+import getConstant from '../utils/constants';
 import { isUndefined, isObject } from '../utils/isType';
 import { Tinymce } from '../utils/tinymce.js.erb';
 

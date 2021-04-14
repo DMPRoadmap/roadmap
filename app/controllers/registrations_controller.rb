@@ -57,8 +57,8 @@ class RegistrationsController < Devise::RegistrationsController
     # rubocop:enable Style/GuardClause
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity, Metrics/BlockNesting, Layout/LineLength
   # POST /resource
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockNesting
   def create
     oauth = { provider: nil, uid: nil }
     IdentifierScheme.for_users.each do |scheme|
@@ -67,12 +67,18 @@ class RegistrationsController < Devise::RegistrationsController
       end
     end
 
+    blank_org = if Rails.configuration.x.application.restrict_orgs
+                  sign_up_params[:org_id]["id"].blank?
+                else
+                  sign_up_params[:org_id].blank?
+                end
+
     if sign_up_params[:accept_terms].to_s == "0"
       redirect_to after_sign_up_error_path_for(resource),
                   alert: _("You must accept the terms and conditions to register.")
-    elsif sign_up_params[:org_id].blank?
+    elsif blank_org
       redirect_to after_sign_up_error_path_for(resource),
-                  alert: _("Please select an organisation from the list, or enter your organisation's name.")
+                  alert: _("Please select an organisation from the list, or choose Other.")
     else
       existing_user = User.where_case_insensitive("email", sign_up_params[:email]).first
       if existing_user.present?
@@ -143,8 +149,7 @@ class RegistrationsController < Devise::RegistrationsController
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockNesting
-  # rubocop:enable
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity, Metrics/BlockNesting
 
   def update
     if user_signed_in?
@@ -173,7 +178,7 @@ class RegistrationsController < Devise::RegistrationsController
     user.email != update_params[:email] || update_params[:password].present?
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Layout/LineLength, Metrics/BlockNesting
   def do_update(require_password = true, confirm = false)
     mandatory_params = true
     # added to by below, overwritten otherwise
@@ -193,9 +198,7 @@ class RegistrationsController < Devise::RegistrationsController
       mandatory_params &&= false
     end
     if update_params[:org_id].blank?
-      # rubocop:disable Layout/LineLength
       message += _("Please select an organisation from the list, or enter your organisation's name.")
-      # rubocop:enable Layout/LineLength
       mandatory_params &&= false
     end
     # has the user entered all the details
@@ -210,7 +213,6 @@ class RegistrationsController < Devise::RegistrationsController
         # if user is changing email
         if current_user.email != attrs[:email]
           # password needs to be present
-          # rubocop:disable Metrics/BlockNesting
           if attrs[:password].blank?
             message = _("Please enter your password to change email address.")
             successfully_updated = false
@@ -224,7 +226,6 @@ class RegistrationsController < Devise::RegistrationsController
           else
             message = _("Invalid password")
           end
-          # rubocop:enable Metrics/BlockNesting
         else
           # remove the current_password because its not actuallyt part of the User record
           attrs.delete(:current_password)
@@ -265,11 +266,11 @@ class RegistrationsController < Devise::RegistrationsController
 
     else
       flash[:alert] = message.blank? ? failure_message(current_user, _("save")) : message
+      @orgs = Org.order("name")
       render "edit"
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Layout/LineLength, Metrics/BlockNesting
 
   # rubocop:disable Metrics/AbcSize
   def do_update_password(current_user, args)

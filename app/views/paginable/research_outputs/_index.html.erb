@@ -18,7 +18,7 @@
       <th scope="col">
         <%= _("Access level") %>
       </th>
-      <% if @plan.administerable_by?(current_user) %>
+      <% if @plan.administerable_by?(current_user.id) %>
         <th scope="col" class="sorter-false">
           <span aria-hidden="false" class="sr-only"><%= _("Actions") %></span>
         </th>
@@ -37,7 +37,7 @@
         <td><%= presenter.display_repository.join("<br>").html_safe %></td>
         <td><%= rdate.is_a?(Date) ? l(rdate, formats: :short) : rdate %></td>
         <td><%= presenter.display_access %></td>
-        <% if @plan.administerable_by?(current_user) %>
+        <% if @plan.administerable_by?(current_user.id) %>
           <td>
             <div class="dropdown">
               <button class="btn btn-link dropdown-toggle"

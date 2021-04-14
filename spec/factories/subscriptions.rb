@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: subscribers
+# Table name: subscriptions
 #
 #  id                :bigint           not null, primary key
 #  callback_uri      :string
@@ -12,6 +12,7 @@
 #  updated_at        :datetime         not null
 #  identifiable_id   :bigint
 #  plan_id           :bigint
+#  last_notified     :datetime
 #
 # Indexes
 #
@@ -19,7 +20,7 @@
 #  index_subscribers_on_plan_id                   (plan_id)
 #
 FactoryBot.define do
-  factory :subscriber do
+  factory :subscription do
 =begin
     trait :api_client do
       association :identifiable, factory: :api_client

@@ -58,5 +58,5 @@ $(() => {
   });
 
   initAutocomplete('#org-merge-controls .autocomplete');
-  scrubOrgSelectionParamsOnSubmit('form.edit_org')
+  scrubOrgSelectionParamsOnSubmit('form.edit_org');
 });

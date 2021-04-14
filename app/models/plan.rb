@@ -30,6 +30,9 @@
 #  funder_id                         :integer
 #  grant_id                          :integer
 #  api_client_id                     :integer
+#  ethical_issues                    :boolean
+#  ethical_issues_description        :text
+#  ethical_issues_report             :string
 #
 # Indexes
 #
@@ -117,15 +120,13 @@ class Plan < ApplicationRecord
 
   has_many :contributors, dependent: :destroy
 
-  has_one :grant, as: :identifiable, dependent: :destroy, class_name: "Identifier"
-
   belongs_to :api_client, optional: true
 
   has_many :research_outputs, dependent: :destroy
 
-  has_many :subscribers, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
 
-  has_many :related_identifiers, dependent: :destroy
+  has_many :related_identifiers, as: :identifiable, dependent: :destroy
 
   # =====================
   # = Nested Attributes =
@@ -138,6 +139,8 @@ class Plan < ApplicationRecord
   accepts_nested_attributes_for :contributors
 
   accepts_nested_attributes_for :research_outputs
+
+  accepts_nested_attributes_for :related_identifiers
 
   # ===============
   # = Validations =
@@ -157,7 +160,8 @@ class Plan < ApplicationRecord
   # = Callbacks =
   # =============
 
-  after_save :notify_subscribers
+  after_update :notify_subscribers, if: :versionable_change?
+  after_touch :notify_subscribers
 
   # ==========
   # = Scopes =
@@ -293,10 +297,11 @@ class Plan < ApplicationRecord
   # Returns Answer
   # Returns nil
   def answer(qid, create_if_missing = true)
-    answer = answers.where(question_id: qid).order("created_at DESC").first
-    question = Question.find(qid)
+    answer = answers.select { |a| a.question_id == qid }
+                    .max { |a, b| a.created_at <=> b.created_at }
     if answer.nil? && create_if_missing
-      answer             = Answer.new
+      question = Question.find(qid)
+      answer = Answer.new
       answer.plan_id     = id
       answer.question_id = qid
       answer.text        = question.default_value
@@ -369,7 +374,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def editable_by?(user_id)
-    Role.editor.where(plan_id: id, user_id: user_id, active: true).any?
+    roles.select { |r| r.user_id == user_id && r.active && r.editor }.any?
   end
 
   ##
@@ -402,7 +407,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def commentable_by?(user_id)
-    Role.commenter.where(plan_id: id, user_id: user_id, active: true).any? ||
+    roles.select { |r| r.user_id == user_id && r.active && r.commenter }.any? ||
       reviewable_by?(user_id)
   end
 
@@ -412,7 +417,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def administerable_by?(user_id)
-    Role.administrator.where(plan_id: id, user_id: user_id, active: true).any?
+    roles.select { |r| r.user_id == user_id && r.active && r.administrator }.any?
   end
 
   # determines if the plan is reviewable by the specified user
@@ -440,12 +445,9 @@ class Plan < ApplicationRecord
   # Returns User
   # Returns nil
   def owner
-    usr_id = Role.where(plan_id: id, active: true)
-                 .administrator
-                 .order(:created_at)
-                 .pluck(:user_id).first
-
-    usr_id.present? ? User.find(usr_id) : nil
+    r = roles.select { |rr| rr.active && rr.administrator }
+             .min { |a, b| a.created_at <=> b.created_at }
+    r.nil? ? nil : r.user
   end
 
   # Creates a role for the specified user (will update the user's
@@ -485,7 +487,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def shared?
-    roles.where(Role.not_creator_condition).any?
+    roles.reject(&:creator).any?
   end
 
   alias shared shared?
@@ -498,10 +500,7 @@ class Plan < ApplicationRecord
   def owner_and_coowners
     # We only need to search for :administrator in the bitflag
     # since :creator includes :administrator rights
-    usr_ids = Role.where(plan_id: id, active: true)
-                  .administrator
-                  .pluck(:user_id).uniq
-    User.where(id: usr_ids)
+    roles.select { |r| r.active && r.administrator }.map(&:user).uniq
   end
 
   # The creator, administrator and editors
@@ -510,10 +509,7 @@ class Plan < ApplicationRecord
   def authors
     # We only need to search for :editor in the bitflag
     # since :creator and :administrator include :editor rights
-    usr_ids = Role.where(plan_id: id, active: true)
-                  .editor
-                  .pluck(:user_id).uniq
-    User.where(id: usr_ids)
+    roles.select { |r| r.active && r.editor }.map(&:user).uniq
   end
 
   # The number of answered questions from the entire plan
@@ -615,14 +611,60 @@ class Plan < ApplicationRecord
     visibility_allowed? && orcids.any? && rors.any? && funder.present?
   end
 
-  # Triggers a notification to all subscribers
-  def notify_subscribers(subscription_type: :updates)
-    return true unless subscribers.any?
+  # Since the Grant is not a normal AR association, override the getter and setter
+  def grant
+    Identifier.find_by(id: grant_id)
+  end
 
-    PlanNotificationService.notify(plan: self, subscription_type: subscription_type)
+  # Helper method to convert the grant id value entered by the user into an Identifier
+  def grant=(params)
+    current = grant
+
+    # Remove it if it was blanked out by the user
+    current.destroy if current.present? && !params[:value].present?
+    return unless params[:value].present?
+
+    # Create the Identifier if it doesn't exist and then set the id
+    current.update(value: params[:value]) if current.present? && current.value != params[:value]
+    return if current.present?
+
+    current = Identifier.create(identifiable: self, value: params[:value])
+    self.grant_id = current.id
   end
 
   private
+
+  # Determines whether or not the attributes that were updated constitute a versionable change
+  # for example a user requesting feedback will change the :feedback_requested flag but that
+  # should not create a new version or notify any subscribers!
+  def versionable_change?
+    saved_change_to_title? || saved_change_to_description? || saved_change_to_identifier? ||
+      saved_change_to_visibility? || saved_change_to_complete? || saved_change_to_template_id? ||
+      saved_change_to_org_id? || saved_change_to_funder_id? || saved_change_to_grant_id? ||
+      saved_change_to_start_date? || saved_change_to_end_date?
+  end
+
+  # Callback that will notify scubscribers of a new version of the Plan
+  def notify_subscribers
+    return true unless doi.present? && subscriptions.any?
+
+    # If the registered DOI Service is subscribed then continue
+    api_client = ApiClient.where(name: DoiService.scheme_name).first
+    subscription = subscriptions.select do |s|
+      s.subscriber_id == api_client.id && s.subscriber_type == 'ApiClient'
+    end
+    return true unless api_client.present? && subscription.present?
+
+    DoiService.update_doi(plan: self)
+
+    # TODO: eventually consider setting this up as a Job and using the ApiClient's callback_url
+    #       and callback_method as the targets to process other subscribers
+    # UpdateDoiJob.perform_later(plan: self)
+  rescue StandardError => e
+    # Log the error and continue. We do not want this to disrupt the save!
+    Rails.logger.error "Failure on Plan.notify_subscribers for id - #{id} & client - '#{api_client_id&.name}'"
+    return true
+  end
 
   # Validation to prevent end date from coming before the start date
   def end_date_after_start_date

@@ -20,6 +20,23 @@ class DoiService
       doi = "#{svc.landing_page_url}#{doi}" unless doi.downcase.start_with?("http")
       Identifier.new(identifier_scheme: scheme(svc: svc),
                      identifiable: plan, value: doi)
+    rescue StandardError => e
+      Rails.logger.error "DoiService.mint_doi for Plan #{plan&.id} resulted in: #{e.message}"
+      nil
+    end
+
+    def update_doi(plan:)
+      # plan must exist and have a DOI
+      return nil unless minting_service_defined? && plan.present? && plan.is_a?(Plan) && plan.doi.present?
+
+      svc = minter
+      return nil unless svc.present?
+
+      doi = svc.update_doi(plan: plan)
+      return nil unless doi.present?
+    rescue StandardError => e
+      Rails.logger.error "DoiService.update_doi for Plan #{plan&.id} resulted in: #{e.message}"
+      nil
     end
 
     # Returns whether or not there is an active DOI minting service
@@ -33,6 +50,14 @@ class DoiService
       return nil unless svc.present?
 
       scheme(svc: svc)&.name&.downcase
+    end
+
+    # Return the inheriting service's :callback_path (defined in their config)
+    def scheme_callback_uri
+      svc = minter
+      return nil unless svc.present?
+
+      svc.callback_path
     end
 
     private

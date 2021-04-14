@@ -119,6 +119,8 @@ module DMPRoadmap
         }
       }
     }
+    # Setting to only take orgs from local and not allow on-the-fly creation
+    config.x.application.restrict_orgs = false
 
     # ------------------- #
     # SHIBBOLETH SETTINGS #
@@ -190,6 +192,27 @@ module DMPRoadmap
     # Whether or not Organisational administrators can read all of the user's plans
     # regardless of the plans visibility and whether or not the plan has been shared
     config.x.plans.super_admins_read_all = true
+
+    # Specify a list of the preferred licenses types. These licenses will appear in a select
+    # box on the 'Research Outputs' tab when editing a plan along with the option to select
+    # 'other'. When 'other' is selected, the user is presented with the full list of licenses.
+    #
+    # The licenses will appear in the order you specify here.
+    #
+    # Note that the values you enter must match the :identifier field of the licenses table.
+    # You can use the `%{latest}` markup in place of version numbers if desired.
+    config.x.preferred_licenses = [
+      "CC-BY-%{latest}",
+      "CC-BY-SA-%{latest}",
+      "CC-BY-NC-%{latest}",
+      "CC-BY-NC-SA-%{latest}",
+      "CC-BY-ND-%{latest}",
+      "CC-BY-NC-ND-%{latest}",
+      "CC0-%{latest}"
+    ]
+    # Link to external guidance about selecting one of the preferred licenses. A default
+    # URL will be displayed if none is provided here. See app/views/research_outputs/licenses/_form
+    config.x.preferred_licenses_guidance_url = "https://creativecommons.org/about/cclicenses/"
 
     # ---------------------------------------------------- #
     # CACHING - all values are in seconds (86400 == 1 Day) #
