@@ -4,7 +4,6 @@
   <%= form_for Org.new, url: shibboleth_ds_path, method: :post do |f| %>
     <div id="shib-ds-org-controls" class="row">
       <div class="form-group col-md-12">
-      <% shibbolized_orgs = %>
         <%= render partial: "shared/org_selectors/local_only",
                     locals: {
                         form: f,

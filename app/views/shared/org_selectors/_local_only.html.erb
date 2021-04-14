@@ -9,6 +9,9 @@ label = label || _("Organisation")
 # multiple org selectors on the same form
 id_field = id_field || :org_id
 
+p orgs.inspect
+p default_org
+
 presenter = OrgSelectionPresenter.new(orgs: orgs, selection: default_org)
 placeholder = _("Begin typing to see a list of suggestions.")
 %>
