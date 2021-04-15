@@ -2,11 +2,8 @@
     "created": "$.meta.creationDate",
     "description": "$.meta.description",
     "dmp_id": {
-        "identifier": [
-            "http://vdopidor.intra.inist.fr:40001/plans/",
-            "$.dmp.plan_id"
-        ],
-        "type": "URL"
+        "identifier": "$.meta.dmpId",
+        "type": "$.meta.idType"
     },
     "ethical_issues_exist": "$.researchOutput.researchOutputDescription.hasEthicalIssues",
     "ethical_issues_description": "$.researchOutput.ethicalIssues.description",
@@ -82,7 +79,7 @@
                 "$.documentationQuality.description"
             ],
             "dataset_id": {
-                "identifier": "$.researchOutput.research_output_id",
+                "identifier": "$.research_output_id",
                 "type": "internal identifier"
             },
             "description": "$.researchOutputDescription.description",
@@ -124,34 +121,34 @@
                         }
                     },
                     "title": "$.fileName"
-                },
-                "metadata": {
-                    "type": "array",
-                    "path": "$.documentationQuality.metadataStandard",
-                    "items": {
-                        "description": [
-                            "$.name",
-                            " ",
-                            "$.description"
-                        ],
-                        "language": "$.metadataLanguage",
-                        "metadata_standard_id": {
-                            "identifier": "$.metadataStandardId",
-                            "type": "$.IdType"
-                        }
+                }
+            },
+            "metadata": {
+                "type": "array",
+                "path": "$.documentationQuality.metadataStandard",
+                "items": {
+                    "description": [
+                        "$.name",
+                        " ",
+                        "$.description"
+                    ],
+                    "language": "$.metadataLanguage",
+                    "metadata_standard_id": {
+                        "identifier": "$.metadataStandardId",
+                        "type": "$.IdType"
                     }
-                },
-                "security_and_privacy": {
-                    "description": "$.dataStorage.securityMeasures",
-                    "title": "Security measures"
-                },
-                "technical_resource": {
-                    "type": "array",
-                    "classname": "technical_resource",
-                    "items": {
-                        "description": "$.description",
-                        "name": "$.title"
-                    }
+                }
+            },
+            "security_and_privacy": {
+                "description": "$.dataStorage.securityMeasures",
+                "title": "Security measures"
+            },
+            "technical_resource": {
+                "type": "array",
+                "classname": "technical_resource",
+                "items": {
+                    "description": "$.description",
+                    "name": "$.title"
                 }
             }
         }
