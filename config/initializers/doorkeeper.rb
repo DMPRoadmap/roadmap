@@ -32,13 +32,17 @@ Doorkeeper.configure do
   # DMPRoadmap Notes:
   # -----------------------------------------------------------------------
   # This method gets called as part of the :password grant_flow. It expects that the params
-  # will contain a :username and :password
+  # will contain an :email and :password
   #
   # We allow a User to authenticate directly with their:
-  #   - :email as params[:username] and :api_token as params[:password]
+  #   - :email as params[:email] and :api_token as params[:password]
   #
+  # Skip the need for the client_id in this scenario since it is User's accessing the API directly
+  #
+  skip_client_authentication_for_password_grant = true
+
   resource_owner_from_credentials do |_routes|
-    User.find_by(email: params[:username], api_token: params[:password])
+    User.find_by(email: params[:email], api_token: params[:password])
   end
 
   # If you didn't skip applications controller from Doorkeeper routes in your application routes.rb
