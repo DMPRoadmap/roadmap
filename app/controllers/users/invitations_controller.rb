@@ -15,7 +15,7 @@ class Users::InvitationsController < Devise::InvitationsController
     hash = org_hash_from_params(params_in: params[:user])
     org = OrgSelection::HashToOrgService.to_org(hash: hash,
                                                 allow_create: false)
-    params[:user][:org_id] = org.id
+    params[:user][:org_id] = org&.id
   end
 
   # Override require_no_authentication method defined at DeviseController
