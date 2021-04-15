@@ -41,8 +41,6 @@ class ApiClient < ApplicationRecord
 
   belongs_to :org, optional: true
 
-  has_many :plans
-
   has_many :access_tokens, class_name: "::Doorkeeper::AccessToken",
                            foreign_key: :resource_owner_id,
                            dependent: :delete_all

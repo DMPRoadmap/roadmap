@@ -5,11 +5,11 @@
 <main role="main">
   <% if @current_resource_owner.present? %>
     <p class="h4">
-      <%=  sanitize(_("%{application} wants to access your DMPs. Please confirm this action.") % { application: "<strong class=\"text-info\">#{@pre_auth.client.name}</strong>" }) %>
+      <%=  sanitize(_("%{application} wants to access your DMPs. Please confirm this action.") % { application: "<strong class=\"text-info\">#{@pre_auth.client.name.humanize}</strong>" }) %>
     </p>
   <% else %>
     <p class="h4">
-      <%=  sanitize(_("%{application} wants to access your DMPs. Please sign in to verify your account.") % { application: "<strong class=\"text-info\">#{@pre_auth.client.name}</strong>" }) %>
+      <%=  sanitize(_("%{application} wants to access your DMPs. Please sign in to verify your account.") % { application: "<strong class=\"text-info\">#{@pre_auth.client.name.humanize}</strong>" }) %>
     </p>
   <% end %>
 

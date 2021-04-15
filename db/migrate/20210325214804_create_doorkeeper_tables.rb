@@ -75,5 +75,9 @@ class CreateDoorkeeperTables < ActiveRecord::Migration[5.2]
     # Uncomment below to ensure a valid reference to the resource owner's table
     add_foreign_key :oauth_access_grants, :users, column: :resource_owner_id
     add_foreign_key :oauth_access_tokens, :users, column: :resource_owner_id
+
+    # Add a trusted flag to the ApiClient that will be used to determine if they are required
+    # to get a User's OAuth authorization to interact with data
+    add_column :oauth_applications, :trusted, :boolean, default: false
   end
 end

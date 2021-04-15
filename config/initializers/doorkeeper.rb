@@ -1,40 +1,44 @@
 # frozen_string_literal: true
 
+# DMPRoamap Notes:
+# -----------------------------------------------------------------------
+# This initializer defines the OAuth2 security settings for DMPRoadmap. It allows your
+# Users to access the API directly, allows external systems to access public data,
+# and allows Users to authorize external systems to access their data (e.g. private plans)
+#
+# All of the default Doorkeeper settings have been left commented out below in the event that
+# you would like to further modify the behavior.
+#
+# For an overview of this OAuth2 implementation, please see the wiki article:
+#   https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation-V2
+
 Doorkeeper.configure do
   # Change the ORM that doorkeeper will use (requires ORM extensions installed).
   # Check the list of supported ORMs here: https://github.com/doorkeeper-gem/doorkeeper#orms
   orm :active_record
 
+  # DMPRoadmap Notes:
+  # -----------------------------------------------------------------------
   # This block will be called as part of the :authentication_code grant flow to check whether
-  # the resource owner is authenticated or not. If not, they will be redirected to the Doorkeeper
-  # version of the oauth_authorization_path which will render the app/views/doorkeeper/new.html.erb
-  # using the app/views/layouts/doorkeeper/application.html.erb layout
+  # the resource owner is authenticated or not.
+  # If not, they will be redirected to the Doorkeeper version of the oauth_authorization_path which
+  # is a paired down version of the sign in form found on the home page. It renders the
+  # app/views/doorkeeper/new.html.erb using the app/views/layouts/doorkeeper/application.html.erb layout
   resource_owner_authenticator do
-    # The user must be signed_in in order for us to authenticate
+    # The user must be signed_in in to provide authorization for the ApiClient
     current_user
   end
 
+  # DMPRoadmap Notes:
+  # -----------------------------------------------------------------------
   # This method gets called as part of the :password grant_flow. It expects that the params
   # will contain a :username and :password
   #
   # We allow a User to authenticate directly with their:
   #   - :email as params[:username] and :api_token as params[:password]
   #
-  # We allow an ApiClient to authenticate on a User's behalf with their:
-  #   - :uid as params[:username] and OauthCredentialToken.token as params[:password]
-  #
   resource_owner_from_credentials do |_routes|
-    # Otherwise it's an AppiClient on behalf of a User so fetch the token
-    credential_token = OauthCredentialToken.find_for(client_id: params[:client_id], token: params[:password])
-
-    # Make sure the username specified in the auth request matches the one asociated with the token
-    if credential_token&.user&.uid == params[:username]
-      # bump the :last_access_at date on the token
-      credential_token.update(last_access_at: Time.now)
-      credential_token.user
-    else
-      nil
-    end
+    User.find_by(email: params[:username], api_token: params[:password])
   end
 
   # If you didn't skip applications controller from Doorkeeper routes in your application routes.rb
@@ -82,7 +86,10 @@ Doorkeeper.configure do
   #   end
   # end
   #
+  # DMPROADMAP NOTES:
+  # -----------------------------------------------------------------------
   # Using our existing ApiClient model instead of the Doorkeeper::Application here
+  #
   application_class "::ApiClient"
 
   # Enables polymorphic Resource Owner association for Access Tokens and Access Grants.
@@ -119,7 +126,12 @@ Doorkeeper.configure do
   # Access token expiration time (default: 2 hours).
   # If you want to disable expiration, set this to `nil`.
   #
-  # access_token_expires_in 2.hours
+  # DMPROADMAP NOTES:
+  # -----------------------------------------------------------------------
+  # We want our integrations with external systems to be long lived so access tokens do not
+  # expire. We allow the usuer to revoke them on the API tab of their profile page
+  #
+  access_token_expires_in nil
 
   # Assign custom TTL for access tokens. Will be used instead of access_token_expires_in
   # option if defined. In case the block returns `nil` value Doorkeeper fallbacks to
@@ -160,6 +172,10 @@ Doorkeeper.configure do
   # Rationale: https://github.com/doorkeeper-gem/doorkeeper/issues/383
   #
   # You can not enable this option together with +hash_token_secrets+.
+  #
+  # DMPROADMAP NOTES:
+  # -----------------------------------------------------------------------
+  # Allow access token reuse since we are allowing them to be long lived
   #
   reuse_access_token
 
@@ -258,15 +274,14 @@ Doorkeeper.configure do
   # https://doorkeeper.gitbook.io/guides/ruby-on-rails/scopes
   #
   # DMPROADMAP NOTES:
-  # -----------------
+  # -----------------------------------------------------------------------
   # Scopes are used to control access to the API endpoints. Here are a list of scopes and their endpoints
   # (note: public allows access to :publicly_visible plans)
   #
   # See the relevant API version's Policies for specific details of which endpoints are available to a scope
   #
-  default_scopes  :read_public_dmps, :read_public_templates
-  optional_scopes :create_dmps, :authorize_users,
-                  :read_your_dmps, :edit_your_dmps, :create_dmps_for_you, :read_your_templates
+  default_scopes  :public
+  optional_scopes :read_dmps, :edit_dmps, :create_dmps
 
   # Allows to restrict only certain scopes for grant_type.
   # By default, all the scopes will be available for all the grant types.
@@ -275,28 +290,15 @@ Doorkeeper.configure do
   # values should be the array of scopes for that grant type.
   # Note: scopes should be from configured_scopes (i.e. default or optional)
   #
-  # DMPROADMAP NOTES:
-  # -----------------
-  # :client_credentials - used by an ApiClient to authenticate and retrieve an access token that
-  #                       they can use to retrieve public info (template list, public plans, etc.)
-  #                       and request an authorization_code for a User
-  #
-  # :authorization_code - used by an ApiClient to retrieve an access token for a User (after
-  #                       the user has signed in and given permission). They can then use that code
-  #                       to fetch the user's OAuth credentials (User.uid + OauthCredentialToken.token)
-  #
-  # :password           - used by either directly by a User (with their :email and :api_token) or
-  #                       by an ApiClient on the user's behalf (with their :uid and OauthCredentialToken.token)
-  #
-  # See https://alexbilbie.com/guide-to-oauth-2-grants/ for a good explanation of the different flows
-  #
-  scopes_by_grant_type client_credentials: %i[read_public_dmps read_public_templates create_dmps],
-                       authorization_code: %i[authorize_users read_your_dmps edit_your_dmps
-                                              create_dmps_for_you read_your_templates]
+  # scopes_by_grant_type password: [:write], client_credentials: [:update]
 
   # Forbids creating/updating applications with arbitrary scopes that are
   # not in configuration, i.e. +default_scopes+ or +optional_scopes+.
   # (disabled by default)
+  #
+  # DMPROADMAP NOTES:
+  # -----------------------------------------------------------------------
+  # This prevents the use of arbitrary scopes
   #
   enforce_configured_scopes
 
@@ -402,7 +404,7 @@ Doorkeeper.configure do
   # grant_flows %w[authorization_code client_credentials]
   #
   # DMPROADMAP NOTES:
-  # -----------------
+  # -----------------------------------------------------------------------
   # See the explanation of how each of these :grant_flows are used in the :scopes_by_grant_type
   # section above.
   #
@@ -479,39 +481,26 @@ Doorkeeper.configure do
   # ApiClient can use afterward so that the User does not need to stay signed into the
   # DMPRoadmap application
   #
-  after_successful_authorization do |controller, context|
-    # If this is an :authentication_code grant flow and the resource owner was authorized
-    if context.auth.is_a?(Doorkeeper::OAuth::CodeResponse) && context.auth.auth.resource_owner.present?
-      resource_owner = context.auth.auth.resource_owner
-
-      # If the User does not have a :uid assigned, generate one!
-      resource_owner = User.generate_uid!(user: resource_owner) unless resource_owner.uid.present?
-
-      application = Doorkeeper::Application.find_by(controller.request.params.slice(:redirect_uri))
-
-      # Create the resource owner's log-lived credential token which will be used in future requests
-      # as the :password in the :password grant_flow
-      cred_token = ::OauthCredentialToken.find_or_create_for!(
-        application: application,
-        resource_owner: resource_owner,
-        scopes: application.scopes || context.auth.auth.token.scopes || Doorkeeper.config.default_scopes
-      )
-    end
-  end
+  #   controller.session[:logout_urls] <<
+  #     Doorkeeper::Application
+  #       .find_by(controller.request.params.slice(:redirect_uri))
+  #       .logout_uri
+  #
+  #   Rails.logger.info(context.auth.inspect)
+  #   Rails.logger.info(context.issued_token)
 
   # Under some circumstances you might want to have applications auto-approved,
   # so that the user skips the authorization step.
   # For example if dealing with a trusted application.
   #
   # DMPROADMAP NOTES:
-  # -----------------
+  # -----------------------------------------------------------------------
   # If the ApiClient is a trusted application, then we can bypass the normal resource_owner authorization
   #
   skip_authorization do |resource_owner, client|
   #  client.superapp? or resource_owner.admin?
 
-    api_client = ApiClient.find_by(id: client.id)
-    api_client.trusted?
+    ApiClient.find_by(id: client.id, trusted: true).present?
   end
 
   # Configure custom constraints for the Token Introspection request.

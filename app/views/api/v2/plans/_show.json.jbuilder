@@ -88,4 +88,4 @@ unless @minimal
 end
 
 # DMPRoadmap specific links to perform special actions like downloading the PDF
-json.dmproadmap_links presenter.links(scopes: @client.scopes)
+json.dmproadmap_links presenter.links

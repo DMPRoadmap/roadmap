@@ -24,40 +24,39 @@
   </div>
 </div>
 
-<% credential_tokens = OauthCredentialToken.includes(:api_client)
-                                            .joins(:api_client)
-                                            .where(resource_owner_id: user.id, revoked_at: nil) %>
-<% if credential_tokens.any? %>
-<div id="api-integrations" class="col-xs-12">
-  <h2>Authorized applications / websites</h2>
+<% tokens = user.access_tokens.select { |token| token.revoked_at == nil } %>
+<% if tokens.any? %>
+  <div id="api-integrations" class="col-xs-12">
+    <h2>Authorized applications / websites</h2>
 
-  <div class="table-responsive">
-    <table class="table table-hover" id="oauth_credential_tokens">
-      <thead>
-        <tr>
-          <th scope="col" class="text-center"><%= _('Application') %></th>
-          <th scope="col" class="text-center"><%= _('Scope') %></th>
-          <th scope="col" class="text-center"><%= _('Last used') %></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% credential_tokens.each do |token| %>
-          <td>
-            <% if token.api_client.homepage.present? %>
-              <%= link_to token.api_client.name.humanize, token.api_client.homepage, target: "_blank" %>
-            <% else %>
-              <%= token.api_client.name.humanize %>
-            <% end %>
-          </td>
-          <td>
-            <%= token.scopes.split.map { |scope| scope.humanize.gsub("dmp", "DMP") }.join(", ") %>
-          </td>
-          <td><%= l(token.last_access_at.to_date, formats: :short) %></td>
-          <td><%= link_to _('Revoke'), oauth_revoke_credential_token_path(user, token), method: :delete %></td>
-        <% end %>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table table-hover" id="oauth_credential_tokens">
+        <thead>
+          <tr>
+            <th scope="col" class="text-center"><%= _('Application') %></th>
+            <th scope="col" class="text-center"><%= _('Scope') %></th>
+            <th scope="col" class="text-center"><%= _('Last used') %></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% tokens.each do |token| %>
+            <% api_client = ApiClient.find_by(id: token.application_id) %>
+            <td>
+              <% if api_client.homepage.present? %>
+                <%= link_to api_client.name.humanize, api_client.homepage, target: "_blank" %>
+              <% else %>
+                <%= api_client.name.humanize %>
+              <% end %>
+            </td>
+            <td>
+              <%= token.scopes.split.map { |scope| scope.humanize.gsub("dmp", "DMP") }.join(", ") %>
+            </td>
+            <td><%= l(token.last_access_at.to_date, formats: :short) %></td>
+            <td><%= link_to _('Revoke'), oauth_revoke_access_token_path(user, token), method: :delete %></td>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
 <% end %>

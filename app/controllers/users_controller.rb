@@ -172,10 +172,10 @@ class UsersController < ApplicationController
   end
 
   # DELETE /users/:user_id/oauth_credential_tokens/:id
-  def revoke_oauth_credential_token
-    user = User.find_by(id: params[:user_id])
+  def revoke_oauth_access_token
+    user = User.includes(:access_tokens).find_by(id: params[:user_id])
     authorize user
-    token = OauthCredentialToken.where(resource_owner_id: user.id, id: params[:id])
+    token = user.access_tokens.select { |token| token.token == params[:id] }.first
     if token.present?
       token.update(revoked_at: Time.now)
       redirect_to edit_user_registration_path, notice: _("The application is no longer authorized to access your data.")

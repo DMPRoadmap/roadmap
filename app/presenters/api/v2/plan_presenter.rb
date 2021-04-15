@@ -36,11 +36,15 @@ module Api
       end
 
       # Related identifiers for the Plan
-      def links(scopes: %w[read_public_dmps])
-        ret = {}
-        # Include the HATEOAS links based on the caller's scope permissions (see their oauth_applications rec)
-        ret[:download] = @helpers.api_v2_plan_url(@plan, format: :pdf) if scopes.include?('read_public_dmps') ||
-                                                                          scopes.include?('read_your_dmps')
+      def links
+        ret = {
+          get: @helpers.api_v2_plan_url(@plan)
+        }
+
+        # If the plan is publicly visible or the request has permissions then include the PDF download URL
+        if @plan.publicly_visible? || @client.is_a?(User) || @plan.subscriptions.map(&:subscriber).include?(@client)
+          ret[:download] = @helpers.plan_export_url(@plan, format: :pdf, "export[form]": true)
+        end
         ret
       end
 

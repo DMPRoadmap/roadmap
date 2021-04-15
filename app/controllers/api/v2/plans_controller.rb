@@ -10,11 +10,15 @@ module Api
 
       respond_to :json, :pdf
 
+      # before_action :doorkeeper_authorize!(:read_your_dmps)
+      before_action -> { doorkeeper_authorize!(:read_dmps) if @resource_owner.present? }, only: %i[index show]
+      before_action -> { doorkeeper_authorize!(:create_dmps) if @resource_owner.present? }, only: %i[create]
+
       # GET /api/v2/plans
       # -----------------
       def index
         # See the Policy for details on what Plans are returned to the Caller
-        plans = Api::V2::PlansPolicy::Scope.new(@client, @resource_owner, @scopes).resolve
+        plans = Api::V2::PlansPolicy::Scope.new(@client, @resource_owner).resolve
 
         if plans.present? && plans.any?
           @items = paginate_response(results: plans)
@@ -28,8 +32,8 @@ module Api
       # GET /api/v2/plans/:id
       # ---------------------
       def show
-        @plan = Api::V2::PlansPolicy::Scope.new(@client, @resource_owner, Plan).resolve
-                                          .select { |plan| plan.id = params[:id] }.first
+        @plan = Api::V2::PlansPolicy::Scope.new(@client, @resource_owner).resolve
+                                           .select { |plan| plan.id = params[:id] }.first
 
         if @plan.present?
           respond_to do |format|

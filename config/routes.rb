@@ -9,8 +9,8 @@ Rails.application.routes.draw do
     skip_controllers :applications, :authorized_applications
   end
   # Route that allows an OauthCredentialToken to be revoked by the User
-  delete "/users/:user_id/oauth_credential_tokens/:id", to: "users#revoke_oauth_credential_token",
-                                                        as: "oauth_revoke_credential_token"
+  delete "/users/:user_id/oauth_access_tokens/:id", to: "users#revoke_oauth_access_token",
+                                                    as: "oauth_revoke_access_token"
 
   # Devise Authentication
   devise_for(:users, controllers: {
@@ -255,10 +255,7 @@ Rails.application.routes.draw do
     # API V2 is similar to V1 except that it integrates with the Doorkeeper gem (see route defs above)
     # for handling AuthN and AuthZ
     #
-    # Requests can be made either directly by a ApiClient or User using the :client_credentials grant_type
-    # or on behalf of another user (via Oauth) using the :authorization_code grant_type
-    #
-    # See the config/initializers/doorkeep.rb file for info on how the Auth works
+    # For more info see: https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation-V2
     namespace :v2 do
       get :heartbeat, controller: :base_api
       get :me, controller: :base_api

@@ -21,9 +21,8 @@ module Api
       # Skipping the standard Rails authenticity tokens passed in UI
       skip_before_action :verify_authenticity_token
 
-      # Authorization and Token parsing
+      # Parse the Doorkeeper token to get the APIClient and User
       before_action :parse_doorkeeper_token
-      before_action :oauth_authorize!, except: %i[heartbeat]
 
       # Prep default instance variables for views
       before_action :base_response_content
@@ -44,29 +43,9 @@ module Api
         render "/api/v2/heartbeat", status: :ok
       end
 
-      # GET api/v2/me
-      # -------------
-      # Used by the Doorkeeper OAuth2 workflow. Once the caller has been authenticated and authorized
-      # the ApiClient can gain access to their data, by using the OauthCredentialToken here.
-      def me
-        return {} unless doorkeeper_token.present?
-
-        if @resource_owner.present?
-          credential_token = OauthCredentialToken.find_by(
-            application_id: @client.id, resource_owner_id: @resource_owner.id, revoked_at: nil
-          )
-
-          render json: {
-            username: @resource_owner.uid,
-            password: credential_token.token,
-            scopes: credential_token.scopes
-          }
-        end
-      end
-
       protected
 
-      # Generic handler for sending an error back to the caller
+      # Generic hOandler for sending an error back to the caller
       def render_error(errors:, status: :bad_request)
         @payload = { errors: [errors] }
         render "/api/v2/error", status: status
@@ -87,22 +66,6 @@ module Api
       # =============
       # = Callbacks =
       # =============
-
-      # Doorkeeper has already authorized the incoming request. If this was a request for a User's
-      # data however, we need to check the OauthCredentialToken used to verify it is valid
-      def oauth_authorize!
-        @resource_owner.present? ? valid_request_for_user_data? : true
-      end
-
-      # Additional security check to ensure that the scope(s) in the request made by the ApiClient
-      # on behalf of the User match the scope(s) that they originally authorized. It will also
-      # fail if the User has revoked the token.
-      def valid_request_for_user_data?
-        return false unless @resource_owner.present?
-
-        # Fetch the non-revoked credential token
-        OauthCredentialToken.matching_token_for(@client, @resource_owner, @scopes).present?
-      end
 
       # Find the User from the Doorkeeper token
       def parse_doorkeeper_token

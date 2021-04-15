@@ -39,7 +39,6 @@
 #  language_id            :integer
 #  org_id                 :integer
 #  last_api_access        :datetime
-#  uid                    :string
 #
 # Indexes
 #
@@ -47,7 +46,6 @@
 #  fk_rails_f29bf9cdf2    (department_id)
 #  index_users_on_email   (email)
 #  index_users_on_org_id  (org_id)
-#  index_users_on_uid     (uid)
 #
 # Foreign Keys
 #
@@ -122,11 +120,6 @@ class User < ApplicationRecord
                            foreign_key: :resource_owner_id,
                            dependent: :delete_all
 
-  # These credential tokens are generated when a User authorizes an ApiClient (via OAuth2) to perform
-  # actions on their behalf. They do not expire! but can be revoked by the User on the API tab
-  # of the edit profile page
-  has_many :oauth_credential_tokens, foreign_key: :resource_owner_id, dependent: :delete_all
-
   # ===============
   # = Validations =
   # ===============
@@ -192,8 +185,6 @@ class User < ApplicationRecord
 
   after_update :remove_token!, if: :org_id_changed?, unless: :can_change_org?
 
-  before_validation :generate_uid, on: :create
-
   # =================
   # = Class methods =
   # =================
@@ -208,14 +199,6 @@ class User < ApplicationRecord
 
   def self.to_csv(users)
     User::AtCsv.new(users).to_csv
-  end
-
-  def self.generate_uid!(user:)
-    return user unless user.is_a?(User)
-
-    user.generate_uid
-    user.save
-    user
   end
 
   # ===========================
@@ -381,11 +364,6 @@ class User < ApplicationRecord
   def generate_token!
     new_token = User.unique_random(field_name: "api_token")
     update_column(:api_token, new_token)
-  end
-
-  # Generates a new uid
-  def generate_uid
-    self.uid = User.unique_random(field_name: "uid")
   end
 
   # The User's preferences for a given base key
