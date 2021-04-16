@@ -58,7 +58,7 @@
 
   <p>
     <%= sanitize(_('Please contact us at %{helpdesk_email} if you think this is a mistake.') % 
-    { helpdesk_email: link_to(helpdesk_email, helpdesk_email) }) %>
+    { helpdesk_email: mail_to(helpdesk_email) }) %>
   </p>
   
 
