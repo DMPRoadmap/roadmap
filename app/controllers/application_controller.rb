@@ -104,7 +104,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_up_error_path_for(resource)
-    (from_external_domain? ? root_path : request.referer || root_path)
+    root_path(anchor: 'create-account-form')
   end
 
   def authenticate_admin!

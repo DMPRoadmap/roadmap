@@ -1,4 +1,4 @@
-<%= form_for resource, namespace: 'new', url: registration_path("user"), html: {autocomplete: "off", id: "create_account_form"} do |f| %>
+<%= form_for resource, namespace: 'new', url: registration_path("user"), html: {autocomplete: "on", id: "create_account_form"} do |f| %>
 
   <div class="form-group">
     <%= f.label(:firstname, _('First Name'), class: "control-label") %>
@@ -31,7 +31,7 @@
     </div>
   </div>
   <div class="form-group">
-      <%= label_tag(nil, _('Security check')) %>
+      <%= label_tag(nil, _('Security check'), class: "control-label") %>
       <%= recaptcha_tags %>
   </div>
   <div class="form-group">
