@@ -6,20 +6,12 @@ module SuperAdmin
 
     def label_for_scope(scope)
       case scope
-      when "read_public_dmps"
-        _("Read Plans (publicly visible)")
-      when "read_public_templates"
-        _("Read Templates (publicly visible)")
+      when "read_dmps"
+        _("Read and Download Plans")
+      when "edit_dmps"
+        _("Edit Plans")
       when "create_dmps"
-        _("Create Plans (for Org)")
-      when "authorize_users"
-        _("Authorize users (OAuth2)")
-      when "read_your_dmps"
-        _("Read user plans")
-      when "edit_your_dmps"
-        _("Edit user plans")
-      when "create_dmps_for_you"
-        _("Create plans (for User)")
+        _("Create Plans")
       else
         scope.humanize
       end
@@ -27,16 +19,12 @@ module SuperAdmin
 
     def tooltip_for_scope(scope)
       case scope
+      when "read_dmps"
+        _("Access to all publicly visible plans and, if associated with an org, the organisationally visible plans. They can also access a user's plans through OAuth autorization.")
+      when "edit_dmps"
+        _("Edit any plans created through the API and edit a user's plan after gaining OAuth authorization from the user")
       when "create_dmps"
-        _("Allows the API client to create DMPs for their Org (requires an Org to be specified!)")
-      when "authorize_users"
-        _("Allows the API client to request User authorization (OAuth2) to access their data.")
-      when "read_your_dmps"
-        _("Read DMPs for an authorized User")
-      when "edit_your_dmps"
-        _("Edit DMPs for an authorized User")
-      when "create_dmps_for_you"
-        _("Create DMPs for an authorized User")
+        _("Create a plan (will be associated with the Org defined here if applicable) and create plans on behalf of a user once OAuth auuthorization has been granted")
       else
         ""
       end

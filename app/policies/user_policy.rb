@@ -80,8 +80,8 @@ class UserPolicy < ApplicationPolicy
     signed_in_user.can_super_admin? || signed_in_user.can_org_admin?
   end
 
-  def revoke_oauth_credential_token?
-    # An OauthCredentialToken can be revoked by a SuperAdmin or the Current User (for themself)
+  def revoke_oauth_access_token?
+    # An OauthToken can be revoked by a SuperAdmin or the Current User (for themself)
     signed_in_user.can_super_admin? || signed_in_user == user
   end
 

@@ -175,7 +175,7 @@ class UsersController < ApplicationController
   def revoke_oauth_access_token
     user = User.includes(:access_tokens).find_by(id: params[:user_id])
     authorize user
-    token = user.access_tokens.select { |token| token.token == params[:id] }.first
+    token = Doorkeeper::AccessToken.find_by(id: params[:id])
     if token.present?
       token.update(revoked_at: Time.now)
       redirect_to edit_user_registration_path, notice: _("The application is no longer authorized to access your data.")

@@ -9,7 +9,7 @@ module Api
       # GET /api/v2/templates
       # ---------------------
       def index
-        templates = Api::V2::TemplatesPolicy::Scope.new(@client, Template).resolve
+        templates = Api::V2::TemplatesPolicy::Scope.new(@client).resolve
 
         templates = templates.sort { |a, b| a.title <=> b.title }
         @items = paginate_response(results: templates)

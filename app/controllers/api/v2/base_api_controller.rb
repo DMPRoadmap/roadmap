@@ -22,11 +22,12 @@ module Api
       skip_before_action :verify_authenticity_token
 
       # Parse the Doorkeeper token to get the APIClient and User
+      before_action :authorize_request, except: %i[heartbeat]
       before_action :parse_doorkeeper_token
 
       # Prep default instance variables for views
       before_action :base_response_content
-      before_action :pagination_params, except: %i[heartbeat me]
+      before_action :pagination_params, except: %i[heartbeat]
 
       # Parse the incoming JSON
       before_action :parse_request, only: %i[create update]
@@ -66,6 +67,17 @@ module Api
       # =============
       # = Callbacks =
       # =============
+
+      # Only requests with a valid Doorkeeper token are acceptable
+      def authorize_request
+
+p "VALID!? #{doorkeeper_token.present?}"
+p doorkeeper_token.inspect
+
+        return true if doorkeeper_token.present?
+
+        render_error(errors: "token is invalid, expired or has been revoked", status: :unauthorized)
+      end
 
       # Find the User from the Doorkeeper token
       def parse_doorkeeper_token

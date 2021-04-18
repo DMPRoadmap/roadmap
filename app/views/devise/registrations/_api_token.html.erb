@@ -11,8 +11,11 @@
     <% end %>
   </div>
   <div class="form-group col-xs-12">
-    <%= label_tag(:api_information, _('Documentation'), class: 'control-label') %>:
-    <%= _('See the <a href="%{api_wiki}">latest wiki documentation</a> for more details.').html_safe % { api_wiki: api_wikis[api_wikis.keys.last] } %></a>
+    <%= label_tag(:api_information, _('Documentation'), class: 'control-label') %>
+    <br>
+    <%= _('See the <a href="%{api_v0_wiki}">documentation for v0</a> for more details on the original API which includes access to statistics, the full text of plans and the ability to connect users with departments.').html_safe % { api_v0_wiki: api_wikis[:v0] } %></a>
+    <br><br>
+    <%= _('See the <a href="%{api_v1_wiki}">documentation for v1</a> for more details on the API that supports the <a href="%{rda_standard_url}">RDA Common metadata standard for DMPs.</a>').html_safe % { api_v1_wiki: api_wikis[:v1], rda_standard_url: 'https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard' } %></a>
   </div>
   <div class="form-group col-xs-8">
     <%= link_to _("Regenerate token"),
@@ -31,7 +34,7 @@
         <thead>
           <tr>
             <th scope="col" class="text-center"><%= _('Application') %></th>
-            <th scope="col" class="text-center"><%= _('Scope') %></th>
+            <th scope="col" class="text-center"><%= _('Activities') %></th>
             <th scope="col" class="text-center"><%= _('Authorization Date') %></th>
             <th></th>
           </tr>
