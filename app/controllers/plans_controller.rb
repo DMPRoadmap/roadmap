@@ -228,7 +228,16 @@ class PlansController < ApplicationController
   #       doing this when we refactor the Plan editing UI
   # GET /plans/:plan_id/phases/:id/edit
   def edit
-    plan = Plan.includes({ template: { phases: { sections: :questions } } }, { answers: :notes })
+    plan = Plan.includes(
+      { template: {
+        phases: {
+          sections: {
+            questions: %i[question_format question_options annotations themes]
+          }
+        }
+      } },
+      { answers: :notes }
+    )
                .find(params[:id])
     authorize plan
     phase_id = params[:phase_id].to_i

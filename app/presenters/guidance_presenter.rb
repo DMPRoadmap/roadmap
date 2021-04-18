@@ -113,9 +113,9 @@ class GuidancePresenter
   # structure:
   # { guidance_group: { theme: [guidance, ...], ... }, ... }
   def guidance_groups_by_theme(org: nil, question: nil)
-    raise ArgumentError unless question.respond_to?(:themes)
+    raise ArgumentError unless question.is_a?(Question)
+    raise ArgumentError unless org.is_a?(Org)
 
-    question = Question.includes(:themes).find(question.id)
     return {} unless hashified_guidance_groups.key?(org)
 
     hashified_guidance_groups[org].each_key.each_with_object({}) do |gg, acc|
