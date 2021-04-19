@@ -117,6 +117,9 @@ module ExternalApis
         opts = options(additional_headers: additional_headers, debug: debug)
         opts[:body] = data
         opts[:basic_auth] = basic_auth if basic_auth.present?
+        opts[:http_proxyaddr] = nil
+        opts[:http_proxyport] = nil
+
         HTTParty.post(uri, opts)
       rescue URI::InvalidURIError => e
         handle_uri_failure(method: "BaseService.http_post #{e.message}",

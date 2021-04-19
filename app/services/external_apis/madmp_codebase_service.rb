@@ -48,13 +48,13 @@ module ExternalApis
 
         resp = http_post(
           uri: target,
-          additional_headers: hdrs, debug: false,
-          data: body.to_json
+          additional_headers: {},
+          data: body.to_json, debug: false
         )
 
-        unless resp.code == 200
+        unless resp.present? && [200, 201].include?(resp.code)
           handle_http_failure(method: "MadmpCodebase run", http_response: resp)
-          return []
+          return nil
         end
         JSON.parse(resp.body)
       end
