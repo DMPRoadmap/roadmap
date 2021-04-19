@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Fixed
+ - Fix bug when copying new plan url on template paginated view
+
 ### Removed
  - Pulled unused javascript validation when creating a new user
 

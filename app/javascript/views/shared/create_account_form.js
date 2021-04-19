@@ -1,5 +1,5 @@
 import { togglisePasswords } from '../../utils/passwordHelper';
-import { initOrgSelection, validateOrgSelection } from './my_org';
+import { initOrgSelection } from './my_org';
 
 $(() => {
   const options = { selector: '#create-account-form' };
