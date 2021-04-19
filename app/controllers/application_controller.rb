@@ -61,7 +61,9 @@ class ApplicationController < ActionController::Base
     referer_path = URI(request.referer).path unless request.referer.nil?
     # ---------------------------------------------------------
     # Start DMPTool Customization
-    # Added get_started_path` to if statement below
+    # Added get_started_path` to if statement below and check for oauth-referer in the session
+    # if its present then this was an OAuth sign in to authorize an ApiClient so continue on
+    # with the OAuth workflow
     # ---------------------------------------------------------
     if from_external_domain? || referer_path.eql?(new_user_session_path) ||
        referer_path.eql?(new_user_registration_path) ||
@@ -69,14 +71,11 @@ class ApplicationController < ActionController::Base
        referer_path.nil?
       # End DMPTool Customization
       # ---------------------------------------------------------
-      root_path
+      session["oauth-referer"].present? ? session["oauth-referer"] : root_path
     # ---------------------------------------------------------
     # Start DMPTool Customization
-    # Catch user's coming in from the Org branded sign in /create page if this is part of
-    # an OAuth sign in to authorize an ApiClient then redirect to the oauth-referer path
+    # Catch user's coming in from the Org branded sign in /create page
     # ---------------------------------------------------------
-    elsif session["oauth-referer"].present?
-      session["oauth-referer"]
     elsif referer_path =~ %r{#{shibboleth_ds_path}/[0-9]+}
       root_path
     # ---------------------------------------------------------
