@@ -13,13 +13,6 @@ class RegistrationsController < Devise::RegistrationsController
     @identifier_schemes = IdentifierScheme.for_users.order(:name)
     @default_org = current_user.org
 
-    # choose which org patial to use for choosing org
-    @org_partial = if Rails.configuration.x.application.restrict_orgs
-                     "shared/org_selectors/local_only"
-                   else
-                     "shared/org_selectors/combined"
-                   end
-
     msg = "No default preferences found (should be in dmproadmap.rb initializer)."
     flash[:alert] = msg unless @prefs
   end
@@ -161,6 +154,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Layout/LineLength, Metrics/BlockNesting
   def do_update(require_password = true, confirm = false)
+    restrict_orgs = Rails.configuration.x.application.restrict_orgs
     mandatory_params = true
     # added to by below, overwritten otherwise
     message = _("Save Unsuccessful. ")
@@ -178,7 +172,7 @@ class RegistrationsController < Devise::RegistrationsController
       message += _("Please enter a Last name. ")
       mandatory_params &&= false
     end
-    if update_params[:org_id].blank?
+    if restrict_orgs && update_params[:org_id]["id"].blank?
       message += _("Please select an organisation from the list, or enter your organisation's name.")
       mandatory_params &&= false
     end
@@ -248,11 +242,6 @@ class RegistrationsController < Devise::RegistrationsController
     else
       flash[:alert] = message.blank? ? failure_message(current_user, _("save")) : message
       @orgs = Org.order("name")
-      @org_partial = if Rails.configuration.x.application.restrict_orgs
-                       "shared/org_selectors/local_only"
-                     else
-                       "shared/org_selectors/combined"
-                     end
       render "edit"
     end
   end
