@@ -180,6 +180,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Layout/LineLength, Metrics/BlockNesting
   def do_update(require_password = true, confirm = false)
+    restrict_orgs = Rails.configuration.x.application.restrict_orgs
     mandatory_params = true
     # added to by below, overwritten otherwise
     message = _("Save Unsuccessful. ")
@@ -197,7 +198,7 @@ class RegistrationsController < Devise::RegistrationsController
       message += _("Please enter a Last name. ")
       mandatory_params &&= false
     end
-    if update_params[:org_id].blank?
+    if restrict_orgs && update_params[:org_id]["id"].blank?
       message += _("Please select an organisation from the list, or enter your organisation's name.")
       mandatory_params &&= false
     end
