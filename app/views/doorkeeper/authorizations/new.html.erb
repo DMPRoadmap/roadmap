@@ -52,7 +52,13 @@
   <% else %>
     <% if Rails.configuration.x.shibboleth_enabled %>
       <%# Set a session variable so we can notify the omniauth_callback controller that this is an OAuth workflow %>
-      <% session["oauth-referer"] = oauth_authorization_path %>
+      <% session["oauth-referer"] = oauth_authorization_path(client_id: @pre_auth.client.uid,
+                                                             redirect_uri: @pre_auth.redirect_uri,
+                                                             state: @pre_auth.state,
+                                                             response_type: @pre_auth.response_type,
+                                                             scope: @pre_auth.scope,
+                                                             code_challenge: @pre_auth.code_challenge,
+                                                             code_challenge_method: @pre_auth.code_challenge_method) %>
       <%= render partial: "shared/shib_sign_in_form" %>
 
       <p class="fontsize-h4">- <%= _('Or if your institution is not listed') %> -</p>
