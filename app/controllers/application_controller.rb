@@ -119,18 +119,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_error_path_for(_resource)
-    oauth_path = session["oauth-referer"]
-    session.delete("oauth-referer") if oauth_path.present?
-
-p "AFTER SIGN IN ERROR:"
-p oauth_path
-
-    path = oauth_path if oauth_path.present?
-    path = (from_external_domain? ? root_path : request.referer || root_path) unless path.present?
-
-p path
-
-    path
+    (from_external_domain? ? root_path : request.referer || root_path)
   end
 
   def after_sign_up_error_path_for(_resource)
