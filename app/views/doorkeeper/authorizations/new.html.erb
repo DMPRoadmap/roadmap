@@ -13,19 +13,19 @@
     </p>
   <% end %>
 
-  <% if @pre_auth.scopes.count > 0 %>
-    <div id="oauth-permissions">
-      <p><%= t('.able_to') %>:</p>
-
-      <ul class="text-info">
-        <% @pre_auth.scopes.each do |scope| %>
-          <li><%= t(scope, scope: [:doorkeeper, :scopes]).gsub(/[dD]mp/, "DMP") %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <% if @current_resource_owner.present? %>
+    <% if @pre_auth.scopes.count > 0 %>
+      <div id="oauth-permissions">
+        <p><%= t('.able_to') %>:</p>
+
+        <ul class="text-info">
+          <% @pre_auth.scopes.each do |scope| %>
+            <li><%= user_label_for_scope(scope) %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
     <div class="actions">
       <%= form_tag oauth_authorization_path, method: :post do %>
         <%= hidden_field_tag :client_id, @pre_auth.client.uid %>

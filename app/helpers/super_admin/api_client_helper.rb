@@ -31,6 +31,20 @@ module SuperAdmin
         ""
       end
     end
+
+    # This one is used on the app/views/doorkeeper/authorizations/new.html.erb for user's authorizing
+    def user_label_for_scope(scope)
+      case scope
+      when "read_dmps"
+        _("Read and download your DMPs")
+      when "edit_dmps"
+        _("Edit your DMPs")
+      when "create_dmps"
+        _("Create DMPs on your behalf")
+      else
+        scope.humanize
+      end
+    end
   end
 
 end
