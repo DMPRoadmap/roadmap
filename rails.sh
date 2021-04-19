@@ -24,7 +24,10 @@ RAILS_ENV=$RAILS_ENV bundle exec rake assets:precompile
 #bundle exec rake load_templates
 
 # Start the app
-bundle exec rails s -e $RAILS_ENV -p 3000 -b 0.0.0.0
+# bundle exec rails s -e $RAILS_ENV -p 3000 -b 0.0.0.0
+nginx -c /etc/nginx/nginx.conf -t
+chmod 666 /var/log/nginx/production.log
+service nginx start
 
 # # Création des certifs SSL si le serveur est de prod
 # if [ $RAILS_ENV == "production" ] ; then
