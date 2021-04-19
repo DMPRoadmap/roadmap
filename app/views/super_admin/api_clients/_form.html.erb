@@ -87,7 +87,7 @@ scope_information = sanitize(_("Scopes are not applicable to API v0 or v1. By de
       <fieldset>
         <legend><%= _("Scopes") %></legend>
 
-        <% %w[read_dmps edit_dmps create_dmps].each do |scope| %>
+        <% Doorkeeper.config.optional_scopes.each do |scope| %>
           <div class="col-md-3">
             <div class="checkbox" data-toggle="tooltip" title="<%= tooltip_for_scope(scope) %>">
               <%= f.check_box :scopes, { multiple: true, checked: @api_client.scopes.include?(scope) }, scope %>

@@ -8,12 +8,10 @@ module Api
 
       # We use the Doorkeeper gem to provide OAuth2 provider functionality for this application. An
       # ApiClient is able to access this API via:
-      #   - :client_credentials - which allows them to access public data and :authorize_users
-      #   - :authorization_code - to fetch an authorized user's OauthCredentialToken
-      #   - :password           - to fetch data on behalf of the user (using their OauthCredentialToken)
+      #   - :client_credentials - which allows them to access publicly accessible data
+      #   - :authorization_code - to gain authorization from a User to access their data
       #
-      # See the OAuth wiki for full details:
-      #   https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation-V2
+      # See the API wiki for full details: https://github.com/CDLUC3/dmptool/wiki/api-documentation
       include ::Doorkeeper::Helpers::Controller
 
       respond_to :json
@@ -46,7 +44,7 @@ module Api
 
       protected
 
-      # Generic hOandler for sending an error back to the caller
+      # Generic handler for sending an error back to the caller
       def render_error(errors:, status: :bad_request)
         @payload = { errors: [errors] }
         render "/api/v2/error", status: status
@@ -70,16 +68,12 @@ module Api
 
       # Only requests with a valid Doorkeeper token are acceptable
       def authorize_request
-
-p "VALID!? #{doorkeeper_token.present?}"
-p doorkeeper_token.inspect
-
         return true if doorkeeper_token.present?
 
         render_error(errors: "token is invalid, expired or has been revoked", status: :unauthorized)
       end
 
-      # Find the User from the Doorkeeper token
+      # Extract the ApiClient (aka Application), User (aka Resource Owner) and Scopes from Doorkeeper AccessToken
       def parse_doorkeeper_token
         return nil unless doorkeeper_token
 

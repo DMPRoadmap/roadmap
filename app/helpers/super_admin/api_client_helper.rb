@@ -4,6 +4,8 @@ module SuperAdmin
 
   module ApiClientHelper
 
+    # Helper that gives human readable context to Doorkeeper OAuth scopes
+
     def label_for_scope(scope)
       case scope
       when "read_dmps"

@@ -156,37 +156,6 @@ ActiveRecord::Schema.define(version: 2021_04_07_183825) do
     t.index ["url"], name: "index_licenses_on_url"
   end
 
-  create_table "metadata_categories", force: :cascade do |t|
-    t.string "uri", null: false
-    t.string "label", null: false
-    t.bigint "parent_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["parent_id"], name: "index_metadata_categories_on_parent_id"
-  end
-
-  create_table "metadata_categories_standards", force: :cascade do |t|
-    t.bigint "metadata_category_id", null: false
-    t.bigint "metadata_standard_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["metadata_category_id"], name: "index_metadata_categories_standards_on_metadata_category_id"
-    t.index ["metadata_standard_id"], name: "index_metadata_categories_standards_on_metadata_standard_id"
-  end
-
-  create_table "metadata_standards", force: :cascade do |t|
-    t.string "title"
-    t.string "rdamsc_id"
-    t.text "description"
-    t.string "uri"
-    t.json "locations"
-    t.json "related_entities"
-    t.bigint "parent_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["parent_id"], name: "index_metadata_standards_on_parent_id"
-  end
-
   create_table "mime_types", force: :cascade do |t|
     t.string "description", null: false
     t.string "category", null: false

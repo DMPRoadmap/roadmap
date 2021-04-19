@@ -41,8 +41,10 @@ class ApiClient < ApplicationRecord
 
   belongs_to :org, optional: true
 
+  # Access Tokens are created when an ApiClient authenticates themselves and is then used instead
+  # of credentials when calling the API.
   has_many :access_tokens, class_name: "::Doorkeeper::AccessToken",
-                           foreign_key: :resource_owner_id,
+                           foreign_key: :application_id,
                            dependent: :delete_all
 
   # ===============
@@ -60,6 +62,7 @@ class ApiClient < ApplicationRecord
   # = Compatibility =
   # =================
 
+  # These aliases provide backward compatibility for API V1
   alias_attribute :client_id, :uid
   alias_attribute :client_secret, :secret
 

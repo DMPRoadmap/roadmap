@@ -104,18 +104,20 @@ class User < ApplicationRecord
   has_and_belongs_to_many :notifications, dependent: :destroy,
                                           join_table: "notification_acknowledgements"
 
-  # =======================
-  # = OAUTH2 Associations =
-  # =
-  # = See the OAuth wiki for full details: https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation-V2
-  # =======================
+  # ================================
+  # = Dookeeper OAuth Associations =
+  # ================================
 
-  # We should never need to touch these, they are use as part of the OAuth2 authorization process
+  # Access Grants are created when a user authorizes an ApiClient to access their data via the
+  # OAuth workflow. They are sent back to the ApiClient as 'code' which is in turn used to
+  # retrieve an AccessToken
   has_many :access_grants, class_name: 'Doorkeeper::AccessGrant',
                            foreign_key: :resource_owner_id,
                            dependent: :delete_all
 
-  # We should never need to touch these, they are use as part of the OAuth2 authorization process
+  # Access Tokens are created when an ApiClient authenticates a User via an access grant code.
+  # The access token is then used instead of credentials in calls to the API. These tokens can be revoked
+  # by a user on their profile page.
   has_many :access_tokens, class_name: 'Doorkeeper::AccessToken',
                            foreign_key: :resource_owner_id,
                            dependent: :delete_all

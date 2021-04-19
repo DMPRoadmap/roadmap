@@ -10,14 +10,15 @@ module Api
 
       respond_to :json, :pdf
 
-      # before_action :doorkeeper_authorize!(:read_your_dmps)
+      # If the Resource Owner (aka User) is in the Doorkeeper AccessToken then it is an authorization_code
+      # token and we need to ensure that the ApiClient is authorized for the relevant Scope
       before_action -> { doorkeeper_authorize!(:read_dmps) if @resource_owner.present? }, only: %i[index show]
       before_action -> { doorkeeper_authorize!(:create_dmps) if @resource_owner.present? }, only: %i[create]
 
       # GET /api/v2/plans
       # -----------------
       def index
-        # See the Policy for details on what Plans are returned to the Caller
+        # See the Policy for details on what Plans are returned to the Caller based on the AccessToken
         plans = Api::V2::PlansPolicy::Scope.new(@client, @resource_owner).resolve
 
         if plans.present? && plans.any?
@@ -32,6 +33,7 @@ module Api
       # GET /api/v2/plans/:id
       # ---------------------
       def show
+        # See the Policy for details on what Plans are returned to the Caller based on the AccessToken
         @plan = Api::V2::PlansPolicy::Scope.new(@client, @resource_owner).resolve
                                            .select { |plan| plan.id = params[:id] }.first
 

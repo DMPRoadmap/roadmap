@@ -5,10 +5,3 @@
 <main role="main">
   <pre><%= @pre_auth.error_response.body[:error_description] %></pre>
 </main>
-
-<%= pp @pre_auth.inspect %>
-
-<%= @pre_auth.scopes.inspect %>
-<%= @pre_auth.scopes.scopes %>
-
-<%= @pre_auth.scope %>
