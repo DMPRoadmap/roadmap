@@ -1,14 +1,12 @@
 $(() => {
-  $('.copy-link').click((e) => {
-    const link = $(e.currentTarget).siblings('.direct-link');
-
-    $('#link-modal').on('show.bs.modal', () => {
-      $('#link').val(link.attr('href'));
-    });
+  $(document).on('click', '.copy-link', (e) => {
+    const sourceUrl = $(e.currentTarget).siblings('.direct-link')
+      .attr('href');
+    $('#link').val(sourceUrl);
   });
 
-  $('#copy-link-btn').click(() => {
-    $('#link').select();
+  $(document).on('click', '#copy-link-btn', () => {
+    $('#link').trigger('select');
     // eslint-disable-next-line
     document.execCommand('copy');
   });
