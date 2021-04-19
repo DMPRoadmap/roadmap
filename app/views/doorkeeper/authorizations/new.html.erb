@@ -51,6 +51,8 @@
 
   <% else %>
     <% if Rails.configuration.x.shibboleth_enabled %>
+      <%# Set a session variable so we can notify the omniauth_callback controller that this is an OAuth workflow %>
+      <% session["oauth-referer"] = oauth_authorization_path %>
       <%= render partial: "shared/shib_sign_in_form" %>
 
       <p class="fontsize-h4">- <%= _('Or if your institution is not listed') %> -</p>
