@@ -59,7 +59,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(_resource)
     referer_path = URI(request.referer).path unless request.referer.nil?
-    referer_path = session["oauth-referer"] if session["oauth-refer"].present?
+    referer_path = session["oauth-referer"] if session["oauth-referer"].present?
 
     # ---------------------------------------------------------
     # Start DMPTool Customization
