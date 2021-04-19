@@ -249,20 +249,6 @@ ActiveRecord::Schema.define(version: 2021_04_07_183825) do
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end
 
-  create_table "oauth_credential_tokens", force: :cascade do |t|
-    t.integer "resource_owner_id", null: false
-    t.integer "application_id", null: false
-    t.string "token", null: false
-    t.datetime "created_at", null: false
-    t.datetime "revoked_at"
-    t.datetime "last_access_at"
-    t.string "scopes", default: "public", null: false
-    t.index ["application_id"], name: "index_oauth_credential_tokens_on_application_id"
-    t.index ["resource_owner_id", "application_id", "revoked_at"], name: "oauth_credential_tokens_by_user_and_api_client"
-    t.index ["resource_owner_id"], name: "index_oauth_credential_tokens_on_resource_owner_id"
-    t.index ["token"], name: "index_oauth_credential_tokens_on_token"
-  end
-
   create_table "org_indices", force: :cascade do |t|
     t.bigint "org_id"
     t.string "ror_id"
