@@ -59,8 +59,6 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(_resource)
     referer_path = URI(request.referer).path unless request.referer.nil?
-    referer_path = session["oauth-referer"] if session["oauth-referer"].present?
-
     # ---------------------------------------------------------
     # Start DMPTool Customization
     # Added get_started_path` to if statement below
@@ -74,8 +72,11 @@ class ApplicationController < ActionController::Base
       root_path
     # ---------------------------------------------------------
     # Start DMPTool Customization
-    # Catch user's coming in from the Org branded sign in /create page
+    # Catch user's coming in from the Org branded sign in /create page if this is part of
+    # an OAuth sign in to authorize an ApiClient then redirect to the oauth-referer path
     # ---------------------------------------------------------
+    elsif session["oauth-referer"].present?
+      session["oauth-referer"]
     elsif referer_path =~ %r{#{shibboleth_ds_path}/[0-9]+}
       root_path
     # ---------------------------------------------------------
