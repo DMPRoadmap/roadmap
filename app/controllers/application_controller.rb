@@ -71,7 +71,10 @@ class ApplicationController < ActionController::Base
        referer_path.nil?
       # End DMPTool Customization
       # ---------------------------------------------------------
-      session["oauth-referer"].present? ? session["oauth-referer"] : root_path
+      oauth_path = session["oauth-referer"]
+      session.delete("oauth-referer") if oauth_path.present?
+
+      oauth_path.present? ? oauth_path : root_path
     # ---------------------------------------------------------
     # Start DMPTool Customization
     # Catch user's coming in from the Org branded sign in /create page
@@ -116,7 +119,12 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_error_path_for(_resource)
-    (from_external_domain? ? root_path : request.referer || root_path)
+    oauth_path = session["oauth-referer"]
+    session.delete("oauth-referer") if oauth_path.present?
+
+    path = oauth_path if oauth_path.present?
+    path = (from_external_domain? ? root_path : request.referer || root_path) unless path.present?
+    path
   end
 
   def after_sign_up_error_path_for(_resource)
