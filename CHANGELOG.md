@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [2.1.3+portage-1.0.9] - 2021-04-19
 
 ### Fixed
  - Fix bug when copying new plan url on template paginated view
