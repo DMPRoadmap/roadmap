@@ -67,6 +67,7 @@ module CodebaseFragment
       data: data.merge(fragmented_data),
       additional_info: additional_info.except!("custom_value")
     )
+    update_children_references
   end
 
 end

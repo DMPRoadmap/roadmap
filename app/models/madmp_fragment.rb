@@ -33,13 +33,13 @@ class MadmpFragment < ActiveRecord::Base
   belongs_to :madmp_schema, class_name: "MadmpSchema"
   belongs_to :dmp, class_name: "Fragment::Dmp", foreign_key: "dmp_id"
   has_many :children, class_name: "MadmpFragment", foreign_key: "parent_id", dependent: :destroy
-  belongs_to :parent, class_name: "MadmpFragment", foreign_key: "parent_id", touch: true
+  belongs_to :parent, class_name: "MadmpFragment", foreign_key: "parent_id"
 
   # ===============
   # = Validations =
   # ===============
 
-  #validates :madmp_schema, presence: { message: PRESENCE_MESSAGE }
+  # validates :madmp_schema, presence: { message: PRESENCE_MESSAGE }
 
   # ================
   # = Single Table Inheritence =
@@ -81,7 +81,8 @@ class MadmpFragment < ActiveRecord::Base
   # =============
 
   before_save   :set_defaults
-  after_touch   :update_children_references
+  after_create  :update_parent_references
+  after_destroy :update_parent_references
 
   # =====================
   # = Nested Attributes =
@@ -153,10 +154,10 @@ class MadmpFragment < ActiveRecord::Base
 
     madmp_schema.schema["properties"].each do |key, prop|
       if prop["type"].eql?("array") && prop["items"]["type"].eql?("object")
-        if classified_children[key].nil?
-          updated_data[key] = []
-        else
+        updated_data[key] = []
+        if classified_children[key].present?
           updated_data[key] = classified_children[key].map { |c| { "dbid" => c.id } }
+          next
         end
       elsif prop["type"].eql?("object") && prop["schema_id"].present?
         next if classified_children[key].nil?
@@ -165,6 +166,12 @@ class MadmpFragment < ActiveRecord::Base
       end
     end
     update!(data: updated_data)
+  end
+
+  def update_parent_references
+    return if classname.nil? || parent.nil?
+
+    parent.update_children_references
   end
 
   # This method return the fragment full record
