@@ -1,5 +1,4 @@
 <%# The only DMPTool customization here is commenting out the shib section %>
-
 <%= form_for resource, as: 'user', namespace: 'signin', url: user_session_url, html: {id: "sign_in_form"} do |f| %>
   <div class="form-group">
     <%= f.label(:email, _('Email'), class: 'control-label') %>

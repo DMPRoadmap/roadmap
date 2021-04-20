@@ -66,5 +66,7 @@
     <% end %>
 
     <%= render partial: "shared/sign_in_form", locals: { resource: User.new } %>
+
+    <p class="red"><%= flash[:alert] %></p>
   <% end %>
 </main>
