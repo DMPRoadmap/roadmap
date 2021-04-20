@@ -33,7 +33,7 @@ class MadmpFragment < ActiveRecord::Base
   belongs_to :madmp_schema, class_name: "MadmpSchema"
   belongs_to :dmp, class_name: "Fragment::Dmp", foreign_key: "dmp_id"
   has_many :children, class_name: "MadmpFragment", foreign_key: "parent_id", dependent: :destroy
-  belongs_to :parent, class_name: "MadmpFragment", foreign_key: "parent_id"
+  belongs_to :parent, class_name: "MadmpFragment", foreign_key: "parent_id", touch: true
 
   # ===============
   # = Validations =
@@ -81,8 +81,7 @@ class MadmpFragment < ActiveRecord::Base
   # =============
 
   before_save   :set_defaults
-  after_create  :update_parent_references
-  after_destroy :update_parent_references
+  after_touch   :update_children_references
 
   # =====================
   # = Nested Attributes =
@@ -146,29 +145,26 @@ class MadmpFragment < ActiveRecord::Base
   # it groups the children fragment by classname and extracts the list of ids
   # to create the json structure needed to update the "data" field
   # this method should be called when creating or deleting a child fragment
-  def update_parent_references
-    return if classname.nil? || parent.nil?
-
-    parent_schema = parent.madmp_schema
-    parent_data = parent.data
-    classified_children = parent.children.group_by {
+  def update_children_references
+    updated_data = data
+    classified_children = children.group_by {
       |t| t.additional_info["property_name"] unless t.additional_info.nil?
     }
 
-    parent_schema.schema["properties"].each do |key, prop|
+    madmp_schema.schema["properties"].each do |key, prop|
       if prop["type"].eql?("array") && prop["items"]["type"].eql?("object")
         if classified_children[key].nil?
-          parent_data[key] = []
+          updated_data[key] = []
         else
-          parent_data[key] = classified_children[key].map { |c| { "dbid" => c.id } }
+          updated_data[key] = classified_children[key].map { |c| { "dbid" => c.id } }
         end
       elsif prop["type"].eql?("object") && prop["schema_id"].present?
         next if classified_children[key].nil?
 
-        parent_data[key] = { "dbid" => classified_children[key][0].id }
+        updated_data[key] = { "dbid" => classified_children[key][0].id }
       end
     end
-    parent.update!(data: parent_data)
+    update!(data: updated_data)
   end
 
   # This method return the fragment full record
