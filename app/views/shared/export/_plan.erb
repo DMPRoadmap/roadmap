@@ -20,7 +20,7 @@
       <%# Only render selected phase %>
       <% if phase[:title] == @selected_phase.title %>
         <%# Page break before each phase %>
-        <div class="phase-content break-before break-after">
+        <div class="phase-content break-before">
           <h1><%= download_plan_page_title(@plan, phase, @hash) %></h1>
           <hr />
           <% phase[:sections].each do |section| %>
@@ -89,6 +89,8 @@
     <% end %>
 
     <% if @show_research_outputs %>
+      <p>BAR</p>
+
       <%= render partial: 'shared/export/plan_outputs', locals: { outputs: @plan.research_outputs } %>
     <% end %>
   </body>

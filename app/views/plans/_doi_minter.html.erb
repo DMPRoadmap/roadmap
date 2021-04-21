@@ -9,7 +9,8 @@ general_tooltip = _("DMP IDs track connections between your DMP and research out
 <% if doi.present? %>
   <p>
     <% if doi.value.downcase.start_with?("http") %>
-      <% val = link_to doi.value, doi.value %>
+      <% dmphub_url = doi.value.gsub(%r{https?://doix?.org/}, ExternalApis::DmphubService.landing_page_url) %>
+      <% val = link_to doi.value, dmphub_url, target: "_blank", class: "has-new-window-popup-info" %>
     <% else %>
       <% val = doi.value %>
     <% end %>
@@ -23,7 +24,7 @@ general_tooltip = _("DMP IDs track connections between your DMP and research out
   <ul>
     <li><%= _("answered at least %{percentage}%% of questions") % { percentage: Rails.configuration.x.plans.default_percentage_answered } %></li>
     <li><%= _("identified your funder") %></li>
-    <li><%= _("defined at least one contributor with an ORCID and an affiliation") %></li>
+    <li><%= _("linked you account to your ORCID on the profile page") %></li>
   </ul>
   <% if plan.is_test? %>
     <p><%= _("Your plan is currently designated as a 'mock project for testing'. You will not be able to register until you have unchecked this flag on the 'Project Details' tab.") %></p>
