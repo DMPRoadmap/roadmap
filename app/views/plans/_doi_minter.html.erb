@@ -2,6 +2,7 @@
 
 <%
 doi = plan.doi
+orcid = plan.owner.identifier_for_scheme(scheme: 'orcid')
 general_message = _("Get a %{dmp_id_link} for your data management plan.") % { dmp_id_link: link_to("DMP ID", "https://github.com/CDLUC3/dmptool/wiki/DMP-IDs-and-Networked-Data-Management-Plans-(maDMPs)#why-are-ids-for-dmps-important") }
 general_tooltip = _("DMP IDs track connections between your DMP and research outputs such as datasets and articles.")
 %>
