@@ -2,6 +2,7 @@
 
 <%
 doi = plan.doi
+orcid = plan.owner.identifier_for_scheme(scheme: 'orcid')
 general_message = _("Get a %{dmp_id_link} for your data management plan.") % { dmp_id_link: link_to("DMP ID", "https://github.com/CDLUC3/dmptool/wiki/DMP-IDs-and-Networked-Data-Management-Plans-(maDMPs)#why-are-ids-for-dmps-important") }
 general_tooltip = _("DMP IDs track connections between your DMP and research outputs such as datasets and articles.")
 %>
@@ -22,13 +23,23 @@ general_tooltip = _("DMP IDs track connections between your DMP and research out
   </p>
   <p><%= _("In order to register your plan you must have completed the following:") %></p>
   <ul>
-    <li><%= _("answered at least %{percentage}%% of questions") % { percentage: Rails.configuration.x.plans.default_percentage_answered } %></li>
-    <li><%= _("identified your funder") %></li>
-    <li><%= _("linked you account to your ORCID on the profile page") %></li>
+    <li>
+      <% if plan.complete? %><span class="fa fa-check green"></span><% else %><span class="fa fa-times red"></span><% end %>
+      <%= _("answered at least %{percentage}%% of questions") % { percentage: Rails.configuration.x.plans.default_percentage_answered } %>
+    </li>
+    <li>
+      <% if plan.funder_id.present? %><span class="fa fa-check green"></span><% else %><span class="fa fa-times red"></span><% end %>
+      <%= _("identified your funder") %>
+    </li>
+    <li>
+      <% if orcid.present? %><span class="fa fa-check green"></span><% else %><span class="fa fa-times red"></span><% end %>
+      <%= _("linked you account to your ORCID on the profile page") %>
+    </li>
+    <li>
+      <% if !plan.is_test? %><span class="fa fa-check green"></span><% else %><span class="fa fa-times red"></span><% end %>
+      <%= _("plan is not a  mock project for testing, practice, or educational purposes") %>
+    </li>
   </ul>
-  <% if plan.is_test? %>
-    <p><%= _("Your plan is currently designated as a 'mock project for testing'. You will not be able to register until you have unchecked this flag on the 'Project Details' tab.") %></p>
-  <% end %>
   <p><%= _("Once the steps above are satisfied, a button to register your plan will appear here.") %></p>
 <% else %>
   <p>
