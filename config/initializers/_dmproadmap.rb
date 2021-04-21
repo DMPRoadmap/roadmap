@@ -239,6 +239,11 @@ module DMPRoadmap
     # ----------- #
     config.x.allow_doi_minting = ENV["DOI_MINTING_ENABLED"]
 
+    # ------ #
+    # DMPHub #
+    # ------ #
+    config.x.dmphub_landing_page_url = "http://localhost:3001/dmps/doi:"
+
   end
 
 end
