@@ -23,35 +23,21 @@ module Dmptool
     def shibboleth_ds_passthru
       skip_authorization
 
-p params
-
       org = Org.find_by(id: params.fetch(:id, params[:org_id]))
       if org.present?
-
-p "ORG: #{org.name}"
-
         entity_id = org.identifier_for_scheme(scheme: "shibboleth")
         if entity_id.present?
-
-p "ENTITY: #{entity_id.value}"
-
           shib_login = Rails.configuration.x.shibboleth.login_url
           url = "#{request.base_url.gsub('http:', 'https:')}#{shib_login}"
           target = user_shibboleth_omniauth_callback_url.gsub("http:", "https:")
           # initiate shibboleth login sequence
           redirect_to "#{url}?target=#{target}&entityID=#{entity_id.value}"
         else
-
-p "NEW USER"
-
           @user = User.new(org: org)
           # render new signin showing org logo
           render "shared/org_branding"
         end
       else
-
-p "PASSIN THROUGH"
-
         redirect_to shibboleth_ds_path,
                     notice: _("Please choose an organisation from the list.")
       end
