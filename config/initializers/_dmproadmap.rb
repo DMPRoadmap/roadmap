@@ -242,7 +242,7 @@ module DMPRoadmap
     # ------ #
     # DMPHub #
     # ------ #
-    config.x.dmphub_landing_page_url = "http://localhost:3001/dmps/doi:"
+    config.x.dmphub_landing_page_url = ENV["DMPHUB_LANDING_PAGE_URL"]
 
   end
 
