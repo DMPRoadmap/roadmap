@@ -15,7 +15,7 @@ general_tooltip = _("DMP IDs track connections between your DMP and research out
     <% else %>
       <% val = doi.value %>
     <% end %>
-    <%= (_('Your plan has been registered. Be aware that it can take up to 24 hours until a DMP ID resolves. Your DMP ID is: %{doi}.') % { doi: val }).html_safe %>
+    <%= (_('Your plan has been registered. Your DMP ID is: %{doi}.') % { doi: val }).html_safe %>
   </p>
 <% elsif !plan.minting_allowed? %>
   <p>
