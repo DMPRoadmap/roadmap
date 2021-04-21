@@ -240,6 +240,11 @@ module DMPRoadmap
     # ----------- #
     config.x.allow_doi_minting = ENV["DOI_MINTING_ENABLED"]
 
+    # ------ #
+    # DMPHub #
+    # ------ #
+    config.x.dmphub_landing_page_url = ENV["DMPHUB_LANDING_PAGE_URL"]
+
   end
 
 end
