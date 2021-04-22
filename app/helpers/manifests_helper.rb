@@ -48,8 +48,8 @@ module ManifestsHelper
   #
   # Returns String
   def javascript_manifest_file
-    if Rails.application.config.action_view.javascript_manifest_resolver
-      Rails.application.config.action_view.javascript_manifest_resolver.call(request)
+    if Rails.application.config.x.action_view.javascript_manifest_resolver
+      Rails.application.config.x.action_view.javascript_manifest_resolver.call(request)
     else
       DEFAULT
     end
@@ -59,8 +59,8 @@ module ManifestsHelper
   #
   # Returns String
   def stylesheet_manifest_file
-    if Rails.application.config.action_view.stylesheet_manifest_resolver
-      Rails.application.config.action_view.stylesheet_manifest_resolver.call(request)
+    if Rails.application.config.x.action_view.stylesheet_manifest_resolver
+      Rails.application.config.x.action_view.stylesheet_manifest_resolver.call(request)
     else
       DEFAULT
     end
