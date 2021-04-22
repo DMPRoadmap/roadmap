@@ -124,4 +124,28 @@ $(() => {
       $(`table.list-${response.query_id} tbody`).html(response.html);
     });
   });
+
+  $(document).on('click', '.answer-run-zone .run-button', (e) => {
+    const target = $(e.target);
+    const reloadButton = target.parent().find('.reload-button');
+    const messageZone = target.parent().find('.message-zone');
+    const url = target.data('url');
+
+    $.ajax({
+      url,
+      method: 'get',
+      beforeSend: () => {
+        target.prop('disabled', true);
+      },
+    }).done(() => {
+      target.hide();
+      messageZone.show();
+      reloadButton.show();
+    });
+  });
+
+  $(document).on('click', '.answer-run-zone .reload-button', () => {
+    // eslint-disable-next-line no-restricted-globals
+    location.reload();
+  });
 });

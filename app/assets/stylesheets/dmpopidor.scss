@@ -1245,8 +1245,11 @@ header .main-nav {
                         text-align: center;
                         font-weight: bold;
                         color: $rust;
-    
-                        visibility: hidden;
+                        display: none;
+
+                        &.valid {
+                            color: $green;
+                        }
                     }
                     .btn {
                         font-size: 20px;
@@ -1256,6 +1259,11 @@ header .main-nav {
                             background-color: gray;
                             border-color: gray;
                         }
+                    }
+                    .reload-button {
+                        background-color: $green;
+                        color: $white;
+                        display: none;
                     }
 
                     &.unsaved {
