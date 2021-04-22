@@ -2,6 +2,8 @@
 
 class UsageController < ApplicationController
 
+  require "csvable"
+
   after_action :verify_authorized
   # GET /usage
   def index
