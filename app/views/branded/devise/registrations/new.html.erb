@@ -57,7 +57,8 @@
               <%# --------------------------------------------------- %>
               <%# End DMPTool Customization %>
               <%# --------------------------------------------------- %>
-              <%= render partial: 'shared/create_account_form', locals: { resource: resource } %>
+              <%= render partial: 'shared/create_account_form',
+                         locals: { resource: resource, orgs: @all_orgs, org_partial: @org_partial } %>
               <br>
             </p>
           </div>
