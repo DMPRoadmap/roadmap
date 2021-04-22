@@ -33,7 +33,7 @@ general_tooltip = _("DMP IDs track connections between your DMP and research out
     </li>
     <li>
       <% if orcid.present? %><span class="fa fa-check green"></span><% else %><span class="fa fa-times red"></span><% end %>
-      <%= sanitize(_("linked your DMPTool account to your ORCID via the %{link_to_profile_page}") % { link_to_profile_page: "<a href=\"#{edit_user_registration_path}\" target=\"_blank\">DMPTool profile page</a>" }) %>
+      <%= _("linked your DMPTool account to your ORCID via the") %> <a href="<%= edit_user_registration_path %>" target="_blank"><%= _("DMPTool profile page") %></a>
     </li>
     <li>
       <% if !plan.is_test? %><span class="fa fa-check green"></span><% else %><span class="fa fa-times red"></span><% end %>
