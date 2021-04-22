@@ -22,8 +22,8 @@ module Dmptool
     # POST /orgs/shibboleth_ds/:id
     def shibboleth_ds_passthru
       skip_authorization
-      org = Org.find_by(id: params[:id])
 
+      org = Org.find_by(id: params.fetch(:id, params[:org_id]))
       if org.present?
         entity_id = org.identifier_for_scheme(scheme: "shibboleth")
         if entity_id.present?
