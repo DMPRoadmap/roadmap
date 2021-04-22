@@ -21,7 +21,7 @@
                  required: true
                } %>
   </div>
-  <% if resource.&.org&.present? %>
+  <% if resource.org.present? %>
     <%= f.password_field(:password, class: "form-control hidden", value: SecureRandom.uuid) %>
   <% else %>
     <div class="form-group">
