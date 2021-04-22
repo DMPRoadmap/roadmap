@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.3+portage-1.0.10] - 2021-04-22
+
+### Changed
+ - Changed configuration to make sure we are using ruby 2.5.9
+ - Made the option for adding cover sheet for plan options default to true
+ - Changed configuration to restrict organization administrators from reading private plans
+
 ## [2.1.3+portage-1.0.9] - 2021-04-19
 
 ### Fixed
