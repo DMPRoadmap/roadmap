@@ -7,7 +7,7 @@ Rails.configuration.x.dmphub.description = "A DMPHub based DOI minting service: 
 
 # Credentials for minting DOIs via a DMPHub system: https://github.com/CDLUC3/dmphub
 # To disable this feature, simply set 'active' to false
-Rails.configuration.x.dmphub.landing_page_url = 'https://doi.org/'
+Rails.configuration.x.dmphub.landing_page_url = Rails.configuration.x.dmproadmap.dmphub_landing_page_url
 Rails.configuration.x.dmphub.api_base_url = Rails.configuration.x.dmproadmap.dmphub_url
 Rails.configuration.x.dmphub.auth_path = 'authenticate'
 Rails.configuration.x.dmphub.mint_path = 'data_management_plans'
