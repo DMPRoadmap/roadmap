@@ -143,52 +143,10 @@ class Org < ApplicationRecord
                     maximum: 500.kilobytes,
                     message: _("can't be larger than 500KB")
 
-  # allow validations for logo upload
-
-  # ---------------------------------------
-  # Start DMPTool Customization
-  # ---------------------------------------
-  # Commenting out the logo resizer. We adjust the logo size via CSS
-  #dragonfly_accessor :logo do
-  #  after_assign :resize_image
-  #end
   dragonfly_accessor :logo
-
-  # ---------------------------------------
-  # End DMPTool Customization
-  # ---------------------------------------
 
   validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif', 'jpg', 'bmp'], message: _("must be one of the following formats: jpeg, jpg, png, gif, bmp")
   validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
-
-  # =============
-  # = Callbacks =
-  # =============
-  # This checks the filestore for the dragonfly image each time before we validate
-  # and removes the dragonfly info if the logo is not found so validations pass
-  # TODO: re-evaluate this after moving dragonfly to active_storage
-  before_validation :check_for_missing_logo_file
-
-  # If the physical logo file is no longer on disk we do not want it to prevent the
-  # model from saving. This typically happens when you copy the database to another
-  # environment. The orgs.logo_uid stores the path to the physical logo file that is
-  # stored in the Dragonfly data store (default is: public/system/dragonfly/[env]/)
-  def check_for_missing_logo_file
-#    return unless logo_uid.present?
-
-#    data_store_path = Dragonfly.app.datastore.root_path
-
-#    return if File.exist?("#{data_store_path}#{logo_uid}")
-
-    # Attempt to locate the file by name. If it exists update the uid
-#    logo = Dir.glob("#{data_store_path}/**/*#{logo_name}")
-#    if !logo.empty?
-#      self.logo_uid = logo.first.gsub(data_store_path, "")
-#    else
-      # Otherwise the logo is missing so clear it to prevent save failures
-#      self.logo = nil
-#    end
-  end
 
   ##
   # Define Bit Field values

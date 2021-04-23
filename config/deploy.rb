@@ -15,13 +15,6 @@ set :version_number, `git describe --tags`
 # Default environments to skip
 set :bundle_without, %w[pgsql thin rollbar test].join(" ")
 
-## # Default value for :linked_files is []
-## append :linked_files,
-##        ".env",
-##        "config/credentials.yml.enc",
-##        "config/master.key",
-##        "public/tinymce/tinymce.css"
-
 # Default value for linked_dirs is []
 append :linked_dirs,
        "log",
