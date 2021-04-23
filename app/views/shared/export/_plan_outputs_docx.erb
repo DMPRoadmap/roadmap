@@ -4,6 +4,8 @@
 
 <% outputs.each do |output| %>
   <% presenter = ResearchOutputPresenter.new(research_output: output) %>
+  <% size_hash = presenter.converted_file_size(size: output.byte_size) %>
+
   <h2><%= "#{presenter.display_type} - \"#{output.title}\"" %></h2>
 
   <p><%= output.description.html_safe %></p>
