@@ -89,7 +89,11 @@
     <% end %>
 
     <% if @show_research_outputs %>
-      <%= render partial: 'shared/export/plan_outputs', locals: { outputs: @plan.research_outputs } %>
+      <% if local_assigns[:export_format] && export_format == 'docx' %>
+        <%= render partial: 'shared/export/plan_outputs_docx', locals: { outputs: @plan.research_outputs } %>
+      <% else %>
+        <%= render partial: 'shared/export/plan_outputs', locals: { outputs: @plan.research_outputs } %>
+      <% end %>
     <% end %>
   </body>
 </html>
