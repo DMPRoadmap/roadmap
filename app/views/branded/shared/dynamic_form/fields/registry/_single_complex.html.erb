@@ -9,7 +9,7 @@
   <fieldset class="sub-fragment registry">
     <legend class="sub-fragment registry"><%= field_label %></legend>
     <% if value.present? && value.data.present? %>
-      <div class="col-md-12 registry-value">
+      <div class="col-md-12 fragment-display">
         <%= render(partial: 'madmp_fragments/display', locals: {
                     fragment: value,
                     schema: value.madmp_schema,

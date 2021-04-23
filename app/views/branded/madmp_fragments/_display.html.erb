@@ -5,8 +5,20 @@
 <% schema_properties.each do |key, prop| %>
   <% value = data[key] unless data.nil? %>
   <% label = prop["label@#{template_locale}"]%>
-  <span>
-    <strong><%= label %></strong> 
-    <%= value %>
-  </span>
+  <% if prop["type"].eql?("object") %>
+    <% sub_fragment = MadmpFragment.find(value["dbid"]) %>
+    <fieldset class="sub-fragment fragment-display">
+      <legend><%= label %></legend> 
+      <%= render(partial: 'madmp_fragments/display', locals: {
+                  fragment: sub_fragment,
+                  schema: sub_fragment.madmp_schema,
+                  template_locale: template_locale
+      })%>
+    </fieldset>
+  <% else %>
+    <span>
+      <strong><%= label %></strong> 
+      <%= value %>
+    </span>
+  <% end %>
 <% end %>

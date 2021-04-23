@@ -1287,11 +1287,6 @@ header .main-nav {
                 color: $blue;
                 text-transform: none;
             }
-            .registry-value {
-                display: flex;
-                flex-direction: column;
-                padding: 5px 20px;
-            }
         }
     }
 
@@ -1344,21 +1339,19 @@ header .main-nav {
     }
  }
 
- .fragment-display {
-    margin-top: 20px;
-    .sub-fragment {
-        border: 0.5px #ddd groove;
-        border-radius: 5px;
+.fragment-display {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 20px;
+}
+
+#modal-window {
+    .modal-dialog {
+        width: 50%;
     }
- }
+}
 
- #modal-window {
-     .modal-dialog {
-         width: 50%;
-     }
- }
-
- .select2-results__option--highlighted {
+.select2-results__option--highlighted {
     color: white;
     background-color: $dark-blue !important;
 }
