@@ -78,7 +78,7 @@ class MadmpFragmentsController < ApplicationController
   end
 
   def load_form
-    @fragment = MadmpFragment.find_by(id: params[:id])
+    @fragment = MadmpFragment.find(params[:id])
     @schemas = MadmpSchema.all
     authorize @fragment
 
@@ -160,6 +160,18 @@ class MadmpFragmentsController < ApplicationController
         "html" => render_fragment_select(@fragment)
       }.to_json
     end
+  end
+
+  def change_schema
+    @fragment = MadmpFragment.find(params[:id])
+    @schemas = MadmpSchema.all
+    target_schema = @schemas.find(params[:schema_id])
+
+    authorize @fragment
+
+    return unless @fragment.present? && @fragment.schema_conversion(target_schema)
+
+    render json: render_fragment_form(@fragment, @stale_fragment)
   end
 
   def new_edit_linked

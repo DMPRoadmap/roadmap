@@ -80,4 +80,31 @@ $(() => {
       .find('i.fa-chevron-right, i.fa-chevron-down')
       .toggleClass('fa-chevron-right fa-chevron-down');
   });
+
+
+  // When selecting a new form in the form selector, sends the new schema and
+  // fragment id to the server
+  $(document).on('change', '.schema_picker', (e) => {
+    const target = $(e.target);
+    const schemaId = target.val();
+    const fragmentId = target.data('fragment-id');
+    const form = target.parents('.question').find('.form-answer');
+    $.ajax({
+      url: `/madmp_fragments/change_schema/${fragmentId}?schema_id=${schemaId}`,
+      method: 'get',
+      beforeSend: () => {
+        showSavingMessage(form);
+        showLoadingOverlay(form);
+      },
+      complete: () => {
+        hideSavingMessage(form);
+        hideLoadingOverlay(form);
+      },
+    }).done((data) => {
+      doneCallback(data, target);
+      Select2.init(`#answer-form-${data.question.id}-research-output-${data.research_output.id}`);
+    }).fail((error) => {
+      failCallback(error, target);
+    });
+  });
 });

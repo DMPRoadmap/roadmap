@@ -211,6 +211,42 @@ class MadmpFragment < ActiveRecord::Base
     editable_data
   end
 
+  # This method take a fragment and convert its data with the target schema
+  def schema_conversion(target_schema)
+    origin_schema_properties = madmp_schema.schema["properties"]
+    converted_data = {}
+
+    target_schema.schema["properties"].each do |key, target_prop|
+      origin_prop = origin_schema_properties[key]
+      next if origin_prop.nil?
+
+      if target_prop["type"].eql?("array")
+        converted_data[key] = data[key].is_a?(Array) ? data[key] : [data[key]]
+      elsif origin_prop["type"].eql?("object")
+        sub_fragment = MadmpFragment.find(data[key]["dbid"])
+        target_sub_schema = MadmpSchema.find(target_prop["schema_id"])
+        sub_fragment.schema_conversion(target_sub_schema)
+        converted_data[key] = data[key]
+      elsif origin_prop["type"].eql?("array") && !target_prop["type"].eql?("array")
+        if target_prop["type"].eql?("object")
+          target_sub_schema = MadmpSchema.find(target_prop["schema_id"])
+          first_id = data[key].first.present? ? data[key].first["dbid"] : nil
+          MadmpFragment.find(first_id).schema_conversion(target_sub_schema) if first_id.present?
+          converted_data[key] = { "dbid" => first_id }
+        else
+          converted_data[key] = data[key].first
+        end
+      else
+        converted_data[key] = data[key]
+      end
+    end
+    update!(
+      data: converted_data,
+      madmp_schema_id: target_schema.id
+    )
+    update_children_references
+  end
+
   # Validate the fragment data with the linked schema
   # and saves the result with the fragment data
   def self.validate_data(data, schema)

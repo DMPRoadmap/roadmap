@@ -17,6 +17,10 @@ class MadmpFragmentPolicy < ApplicationPolicy
     @fragment.plan.editable_by?(@user.id) || @user == @answer.plan.owner
   end
 
+  def change_schema?
+    @fragment.plan.editable_by?(@user.id) || @user == @answer.plan.owner
+  end
+
   def destroy?
     @fragment.plan.editable_by?(@user.id) || @user == @answer.plan.owner
   end

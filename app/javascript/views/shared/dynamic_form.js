@@ -1,5 +1,7 @@
 
 $(() => {
+  // When clicking on the "+" of a duplicable field, clone the field & remove
+  // the value from the cloned field
   $(document).on('click', '.madmp-fragment .actions .add-record', (e) => {
     const currentField = $(e.target.closest('.dynamic-field'));
     const clonedField = currentField.clone(true, true);
@@ -10,11 +12,14 @@ $(() => {
     currentField.after(clonedField);
   });
 
+  // When clicking on the "-" of a duplicable field, remove the field
   $(document).on('click', '.madmp-fragment .actions .remove-record', (e) => {
     const currentField = $(e.target.closest('.dynamic-field'));
     currentField.remove();
   });
 
+  // On fragment list, when clicking on the delete button, send a DELETE HTTP
+  // request to the server
   $(document).on('click', '.linked-fragments-list .actions .delete', (e) => {
     const target = $(e.target);
     // TODO : replace confirm()
@@ -28,13 +33,6 @@ $(() => {
         $(`table.list-${data.query_id} tbody`).html(data.html);
       });
     }
-  });
-
-  $(document).on('change', '.schema_picker', (e) => {
-    const target = $(e.target);
-    const form = target.parents('.question').find('.form-answer');
-    form.find('.schema_id').val(target.val());
-    form.trigger('submit');
   });
 
   $(document).on('click', '.toggle-guidance-section', (e) => {

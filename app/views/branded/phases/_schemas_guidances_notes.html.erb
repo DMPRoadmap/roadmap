@@ -37,7 +37,13 @@
         <div class="panel-body">
           <div class="row">
             <div class="col-md-12">
-              <%= render partial: 'shared/dynamic_form/schema_picker', locals: { madmp_schema: madmp_schema, pickable_schemas: pickable_schemas, question: question, research_output: research_output } %>
+              <%= render partial: 'shared/dynamic_form/schema_picker', locals: {
+                          fragment: answer.madmp_fragment,
+                          madmp_schema: madmp_schema,
+                          pickable_schemas: pickable_schemas,
+                          question: question, 
+                          research_output: research_output 
+                } if answer.madmp_fragment.present?%>
             </div>
           </div>
         </div>

@@ -130,6 +130,7 @@ Rails.application.routes.draw do
   resources :madmp_fragments, only: [:create, :update, :destroy] do
     get "load_new_form", action: :create, on: :collection
     get "load_form/:id", action: :load_form, on: :collection
+    get "change_schema/:id", action: :change_schema, on: :collection
     get "new_edit_linked", on: :collection, constraints: { format: [:js] }
     get "show_linked", on: :collection, constraints: { format: [:js] }
     get "create_from_registry", action: :create_from_registry_value, on: :collection
