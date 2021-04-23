@@ -110,10 +110,7 @@ spec/examples.txt
 /config/credentials.yml
 /config/credentials*.yml.enc
 /config/credentials/
-<<<<<<< HEAD
 /config/secrets.yml
-=======
->>>>>>> doorkeeper2
 
 /public/packs
 /public/packs-test
