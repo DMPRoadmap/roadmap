@@ -273,8 +273,7 @@ module DynamicFormHelper
 
         sub_schema = MadmpSchema.find(prop["schema_id"])
 
-        if prop["inputType"].present? &&
-           prop["inputType"].eql?("pickOrCreate")
+        if prop["inputType"]&.eql?("pickOrCreate")
           formated_data[key] = { "dbid" => data[key].to_i }
         elsif prop["registry_id"].present?
           # if the field is overridable, check if there's a custom value

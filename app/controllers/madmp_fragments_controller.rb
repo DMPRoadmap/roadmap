@@ -25,7 +25,7 @@ class MadmpFragmentsController < ApplicationController
 
     authorize @fragment
 
-    if source == "form"
+    if source.eql?("form")
       @fragment.answer = Answer.create!(
         research_output_id: p_params[:answer][:research_output_id],
         plan_id: p_params[:answer][:plan_id],
@@ -116,7 +116,7 @@ class MadmpFragmentsController < ApplicationController
         )
 
         authorize @fragment
-        if p_params[:source] == "form"
+        if p_params[:source].eql?("form")
           @fragment.answer.update!(
             lock_version: p_params[:answer][:lock_version],
             is_common: p_params[:answer][:is_common],
@@ -187,7 +187,7 @@ class MadmpFragmentsController < ApplicationController
     @query_id = params[:query_id]
 
     dmp_id = @parent_fragment.classname == "dmp" ? @parent_fragment.id : @parent_fragment.dmp_id
-    if params[:fragment_id]
+    if params[:fragment_id].present?
       @fragment = MadmpFragment.find(params[:fragment_id])
     else
       parent_id = @parent_fragment.id unless @classname.eql?("person")

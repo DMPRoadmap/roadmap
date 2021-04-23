@@ -122,7 +122,7 @@ class MadmpFragment < ActiveRecord::Base
         if pattern.first == "$"
           match = JsonPath.on(full_data, pattern)
 
-          next if match.empty? || match.first.nil?
+          next if match.empty?
 
           if match.first.is_a?(Array)
             displayable += match.first.join("/")
@@ -254,10 +254,10 @@ class MadmpFragment < ActiveRecord::Base
     unformated = schemer.validate(data).to_a
     validations = {}
     unformated.each do |valid|
-      next if valid["type"] == "object"
+      next if valid["type"].eql?("object")
 
       key = valid["data_pointer"][1..-1]
-      if valid["type"] == "required"
+      if valid["type"].eql?("required")
         required = JsonPath.on(valid, "$..missing_keys").flatten
         required.each do |req|
           validations[req] ? validations[req].push("required") : validations[req] = ["required"]
@@ -302,29 +302,28 @@ class MadmpFragment < ActiveRecord::Base
     param_data.each do |prop, content|
       schema_prop = schema.schema["properties"][prop]
 
-      next if schema_prop.nil? || schema_prop["type"].nil?
+      next if schema_prop&.dig("type").nil?
 
       if schema_prop["type"].eql?("object") &&
          schema_prop["schema_id"].present?
         sub_data = content # TMP: for readability
         sub_schema = MadmpSchema.find(schema_prop["schema_id"])
         instantiate unless data[prop].present?
+        next if param_data.nil?
 
-        if param_data.present? && param_data[prop].present?
-          if schema_prop.key?("inputType") &&
-             schema_prop["inputType"].eql?("pickOrCreate")
-            fragmented_data[prop] = content
-          elsif schema_prop["overridable"].present? && param_data[prop]["custom_value"].present?
-            # if the property is overridable & value is custom, take the value as is
-            sub_fragment = MadmpFragment.find(data[prop]["dbid"])
-            sub_fragment.update(
-              data: {},
-              additional_info: sub_fragment.additional_info.merge(sub_data)
-            )
-          elsif data[prop]["dbid"]
-            sub_fragment = MadmpFragment.find(data[prop]["dbid"])
-            sub_fragment.save_as_multifrag(sub_data, sub_schema)
-          end
+        if schema_prop&.dig("inputType").eql?("pickOrCreate")
+          fragmented_data[prop] = content
+        elsif schema_prop["overridable"].present? &&
+              param_data.dig(prop, "custom_value").present?
+          # if the property is overridable & value is custom, take the value as is
+          sub_fragment = MadmpFragment.find(data[prop]["dbid"])
+          sub_fragment.update(
+            data: {},
+            additional_info: sub_fragment.additional_info.merge(sub_data)
+          )
+        elsif data.dig(prop, "dbid")
+          sub_fragment = MadmpFragment.find(data[prop]["dbid"])
+          sub_fragment.save_as_multifrag(sub_data, sub_schema)
         end
       else
         fragmented_data[prop] = content

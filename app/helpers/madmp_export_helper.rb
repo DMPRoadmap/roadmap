@@ -48,7 +48,7 @@ module MadmpExportHelper
       ######################
       # If the property has a "type" and this type is "array"
       ######################
-      if property["type"].present? && property["type"].eql?("array")
+      if property["type"]&.eql?("array")
         items = []
         export_document[key] ||= []
 

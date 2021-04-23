@@ -194,7 +194,7 @@
   <%# String Field %>
   <% if prop['type'].eql?('string') %>
     <%# Text Area %>
-    <% if prop['inputType'].present? && prop['inputType'].eql?('textarea') %>
+    <% if prop['inputType']&.eql?('textarea') %>
       <%= create_textarea_field(f, value, field_name, label, field_id, required: required, readonly: readonly, validation: validation, example: example, ttip: ttip, default_value: default_value) %>
     <% elsif prop['format'].nil? %>
       <%# Text Field %>
