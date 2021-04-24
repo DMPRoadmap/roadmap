@@ -4,6 +4,7 @@ module Dmptool
 
   module Users
 
+    # rubocop:disable Metrics/ModuleLength
     module OmniauthCallbacksController
 
       # rubocop:disable Style/FormatString, Metrics/AbcSize, Metrics/MethodLength
@@ -160,6 +161,7 @@ module Dmptool
       end
 
     end
+    # rubocop:enable Metrics/ModuleLength
 
   end
 
