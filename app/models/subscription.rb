@@ -38,4 +38,20 @@ class Subscription < ApplicationRecord
             2 => :deletions,
             3 => :creations,
             column: "subscription_types"
+
+  # ====================
+  # = Instance Methods =
+  # ====================
+
+  def notify!
+    # Do not notify if there is no callback or they've already been notified
+    return false unless callback_uri.present? && last_notified < plan.updated_at
+
+    # TODO: Update the ApiClient and this model to store the callback information.
+    #       then replace the Plan.notify_subscribers logic.
+    #       We should likely store the base portion of the callback_uri on the ApiClient
+    #       record and let this record store the unique DMP identify there are looking for.
+
+    update(last_notified: Time.now)
+  end
 end

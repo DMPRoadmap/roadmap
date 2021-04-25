@@ -54,7 +54,7 @@ module Api
         def valid_plan?(plan:)
           plan.valid? &&
             (plan.funder.blank? || plan.funder.valid?) &&
-            (plan.grant.blank? || plan.grant.valid?)
+            (plan.grant.blank? || plan.grant.value.present?)
         end
 
       end
