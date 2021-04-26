@@ -47,7 +47,7 @@
           </p>
           <div id="create-account-form">
             <p >
-              <%= render partial: 'shared/create_account_form' %>
+            <%= render partial: 'shared/create_account_form', locals: {orgs: @all_orgs, org_partial: @org_partial} %>
               <br>
             </p>
           </div>
@@ -59,7 +59,7 @@
           <i class="fas fa-user-plus" aria-hidden="true">&nbsp;&nbsp;</i>
         </h2>
         <div id="create-account-form">
-          <%= render partial: 'shared/create_account_form' %>
+          <%= render partial: 'shared/create_account_form', locals: {orgs: @all_orgs, org_partial: @org_partial} %>
         </div>
       </div>
     <% end %>
