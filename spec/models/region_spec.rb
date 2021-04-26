@@ -6,7 +6,7 @@ RSpec.describe Region, type: :model do
 
   context "validations" do
     before(:each) do
-      @subject = create(:region)
+      @subject = create(:region, abbreviation: Faker::Lorem.unique.word.upcase)
     end
 
     it { expect(@subject).to validate_uniqueness_of(:abbreviation).with_message("must be unique") }

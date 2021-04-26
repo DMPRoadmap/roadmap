@@ -29,7 +29,6 @@
 #  org_id                            :integer
 #  funder_id                         :integer
 #  grant_id                          :integer
-#  api_client_id                     :integer
 #  ethical_issues                    :boolean
 #  ethical_issues_description        :text
 #  ethical_issues_report             :string
@@ -39,7 +38,6 @@
 #  index_plans_on_template_id   (template_id)
 #  index_plans_on_funder_id     (funder_id)
 #  index_plans_on_grant_id      (grant_id)
-#  index_plans_on_api_client_id (api_client_id)
 #
 # Foreign Keys
 #
@@ -661,7 +659,7 @@ class Plan < ApplicationRecord
     # UpdateDoiJob.perform_later(plan: self)
   rescue StandardError => e
     # Log the error and continue. We do not want this to disrupt the save!
-    Rails.logger.error "Failure on Plan.notify_subscribers for id - #{id} & client - '#{api_client_id&.name}'"
+    Rails.logger.error "Failure on Plan.notify_subscribers for id - #{id} & client - '#{api_client&.name}'"
     return true
   end
 
