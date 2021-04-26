@@ -47,6 +47,22 @@ ActiveRecord::Schema.define(version: 2021_04_25_154923) do
     t.index ["answer_id"], name: "index_answers_question_options_on_answer_id"
   end
 
+  create_table "api_clients", id: :integer, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.string "homepage"
+    t.string "contact_name"
+    t.string "contact_email", null: false
+    t.string "client_id", default: "", null: false
+    t.string "client_secret", default: "", null: false
+    t.datetime "last_access"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "org_id"
+    t.index ["name"], name: "index_api_clients_on_name"
+    t.index ["client_id"], name: "index_api_clients_on_client_id", unique: true
+  end
+
   create_table "conditions", id: :integer, force: :cascade do |t|
     t.integer "question_id"
     t.text "option_list"
