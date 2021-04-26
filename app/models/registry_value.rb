@@ -11,11 +11,26 @@
 
 class RegistryValue < ActiveRecord::Base
 
+  include ValidationMessages
+
   # ================
   # = Associations =
   # ================
 
   belongs_to :registry
+
+  # ===============
+  # = Validations =
+  # ===============
+
+  validates :order, presence: { message: PRESENCE_MESSAGE },
+                    uniqueness: { scope: :registry_id,
+                                  message: UNIQUENESS_MESSAGE }
+  # =============
+  # = Callbacks =
+  # =============
+
+  before_validation :set_order, if: :registry_id_changed?
 
   # Prints a representation of the registry_value according to the locale
   # If there's a label, then the registry value is a complex object, return the label
@@ -28,6 +43,13 @@ class RegistryValue < ActiveRecord::Base
     elsif data["value"].present?
       data["value"][locale] || data["value"]
     end
+  end
+
+  # ============================
+  # = Private instance methods =
+  # ============================
+  def set_order
+    self.order = registry.registry_values.where.not(id: id).maximum(:order).to_i + 1
   end
 
 end

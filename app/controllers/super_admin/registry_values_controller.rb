@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module SuperAdmin
+
   class RegistryValuesController < ApplicationController
 
     def new
@@ -28,7 +29,6 @@ module SuperAdmin
       authorize(@registry)
     end
 
-
     def update
       @registry_value = RegistryValue.find(params[:id])
       @registry = @registry_value.registry
@@ -53,7 +53,6 @@ module SuperAdmin
         render :edit
       end
     end
-
 
     # Private instance methods
     private

@@ -107,11 +107,15 @@ namespace :madmpopidor do
         r.name = registry_name
         r.version = 1
       end
-      registry_values.each do |reg_val|
+      registry_values.each_with_index do |reg_val, idx|
         if reg_val["label"].present?
-          RegistryValue.create!(data: reg_val, registry: registry)
+          RegistryValue.create!(data: reg_val, registry: registry, order: idx)
         else
-          RegistryValue.create!(data: { "value" => reg_val }, registry: registry)
+          RegistryValue.create!(
+            data: { "value" => reg_val },
+            registry: registry,
+            order: idx
+          )
         end
       end
     end
