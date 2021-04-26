@@ -42,7 +42,7 @@ jobs:
 
     # Try to retrieve the gems from the cache
     - name: 'Cache Gems'
-      uses: actions/cache@v1
+      uses: actions/cache@v2.1.5
       with:
         path: vendor/bundle
         key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
@@ -62,7 +62,7 @@ jobs:
 
     # Try to retrieve the yarn JS dependencies from the cache
     - name: 'Cache Yarn Packages'
-      uses: actions/cache@v1
+      uses: actions/cache@v2.1.5
       with:
         path: node_modules/
         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}

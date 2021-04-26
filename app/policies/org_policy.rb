@@ -51,4 +51,12 @@ class OrgPolicy < ApplicationPolicy
     true
   end
 
+  def merge_analyze?
+    user.can_super_admin?
+  end
+
+  def merge_commit?
+    user.can_super_admin?
+  end
+
 end

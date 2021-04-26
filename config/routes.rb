@@ -323,7 +323,13 @@ Rails.application.routes.draw do
   end
 
   namespace :super_admin do
-    resources :orgs, only: %i[index new create destroy]
+    resources :orgs, only: %i[index new create destroy] do
+      member do
+        post "merge_analyze"
+        post "merge_commit"
+      end
+    end
+
     resources :themes, only: %i[index new create edit update destroy]
     resources :users, only: %i[edit update] do
       member do

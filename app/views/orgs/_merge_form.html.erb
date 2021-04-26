@@ -1,0 +1,26 @@
+<%# locals: org, analysis %>
+
+<h2><%= _("Merge Organisations") %></h2>
+
+<div class="row">
+  <div id="org-merge-controls" class="col-md-8">
+    <p><%= sanitize(_("Please select the Organisation that will replace the current organisation: '<strong>%{org_name}</strong>'.") % { org_name: org.name }) %></p>
+    <p><%= _(" Then click the 'analyze' button to review the proposed changes. Note that no changes will take place until you have reviewed and approve of the changes.") %></p>
+    <%= form_for org, url: merge_analyze_super_admin_org_path(org), method: :post, remote: true do |form| %>
+     <%= render partial: "shared/org_selectors/local_only",
+                locals: {
+                  form: form,
+                  id_field: :id,
+                  default_org: nil,
+                  orgs: Org.includes(identifiers: :identifier_scheme).all.reject { |o| o == org },
+                  required: true
+                } %>
+      <%= form.button(_('Analyze'), class: "btn btn-primary", type: "submit") %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div id="merge-analysis" class="col-md-12">
+  </div>
+</div>
