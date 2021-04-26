@@ -1,0 +1,30 @@
+name: Rubocop
+
+on: [push, pull_request]
+
+jobs:
+  rubocop:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: 'Determine Ruby and Bundler Versions from Gemfile.lock'
+      run: |
+        echo "RUBY_VERSION=`cat ./Gemfile.lock | grep -A 1 'RUBY VERSION' | grep 'ruby' | grep -oE '[0-9]\.[0-9]'`" >> $GITHUB_ENV
+        echo "BUNDLER_VERSION=`cat ./Gemfile.lock | grep -A 1 'BUNDLED WITH' | grep -oE '[0-9]\.[0-9]'`" >> $GITHUB_ENV
+
+    # Install Ruby - using the version found in the Gemfile.lock
+    - name: 'Install Ruby'
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: ${{ env.RUBY_VERSION }}
+
+    - name: 'Bundle Install'
+      run: |
+        gem install bundler -v ${{ env.BUNDLER_VERSION }}
+        bundle config path vendor/bundle
+        bundle install --jobs 4 --retry 3 --without pgsql rollbar aws
+
+    - name: 'Run Rubocop'
+      run: bin/rubocop
