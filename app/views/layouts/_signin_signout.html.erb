@@ -36,7 +36,7 @@
 <% else %>
   <% if !active_page?(root_path, true) %>
     <li>
-      <a href="#header-signin" data-toggle="modal" data-target="#header-signin">
+      <a href="<%= root_path %>">
         <i class="fas fa-sign-in" aria-hidden="true">&nbsp;</i>
         <%= _('Sign in') %>
       </a>

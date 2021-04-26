@@ -13,9 +13,10 @@
     <%= f.email_field(:email, class: "form-control", "aria-required": true) %>
   </div>
   <div class="form-group" id="create-account-org-controls">
-    <%= render partial: "shared/org_selectors/combined",
+    <%= render partial: org_partial,
                locals: {
                  form: f,
+                 orgs: orgs,
                  default_org: resource&.org,
                  required: true
                } %>

@@ -113,8 +113,8 @@ class Section < ApplicationRecord
   def answered_questions(plan)
     return [] if plan.nil?
 
-    plan.answers.includes({ question: :question_format }, :question_options)
-        .where(question_id: question_ids)
+    plan.answers
+        .select { |answer| question_ids.include?(answer.question_id) }
         .to_a
   end
 
