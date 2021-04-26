@@ -20,24 +20,27 @@
       </div>
     <% end %>
     <div class="col-md-12 dynamic-field select-field single-select">
-      <%= select_tag "#{f.object_name}[#{field_name}]",
-                  options_for_select(
-                      select_values.map {|v| [ 
-                              v.to_s(locale), 
-                              select_value(v, locale) 
-                          ] 
-                      }
-                  ),
-                  data: {
-                    "tags" => overridable
-                  },
-                  disabled: readonly,
-                  multiple: false,
-                  include_blank: true,
-                  "data-toggle": "tooltip",
-                  title: ttip,
-                  class: "form-control #{field_class}",
-                  id: field_id  %>
+      <div class="field-button-combo">
+        <%= select_tag "#{f.object_name}[#{field_name}]",
+                    options_for_select(
+                        select_values.map {|v| [ 
+                                v.to_s(locale), 
+                                select_value(v, locale) 
+                            ] 
+                        }
+                    ),
+                    data: {
+                      "tags" => overridable
+                    },
+                    disabled: readonly,
+                    multiple: false,
+                    include_blank: true,
+                    "data-toggle": "tooltip",
+                    title: ttip,
+                    class: "form-control #{field_class}",
+                    id: field_id  %>
+        <span class="remove-button fa fa-times"></span>
+      </div>
       <% if overridable %>
         <% 
           style = 'display: none;'

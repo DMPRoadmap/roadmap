@@ -54,11 +54,15 @@ $(() => {
     if (!value) return;
 
     if (selectField.hasClass('single-select') && target.data('tags') === true) {
+      const removeButton = selectField.find('.remove-button');
+
       if (selected) {
+        removeButton.show();
         selectField.find('.custom-value').hide();
         selectField.find('.custom-value input').val('');
       } else {
         target.parents('fieldset.registry').find('.fragment-display').hide();
+        removeButton.show();
         selectField.find('.custom-value').show();
         selectField.find('.custom-value input').val(value);
         selectField.find('.custom-value span').html(value);
@@ -99,6 +103,15 @@ $(() => {
         selectField.find('select').val('').trigger('change');
       });
     }
+  });
+  $(document).on('click', '.select-field .remove-button', (e) => {
+    const target = $(e.target);
+    const selectField = target.parents('.select-field');
+
+    target.parents('fieldset.registry').find('.fragment-display').hide();
+    selectField.find('.custom-value').hide();
+    selectField.find('.custom-value input').val('__DELETED__');
+    selectField.find('select').val('').trigger('change');
   });
   $(document).on('click', '.contributor-field .assign-role', (e) => {
     const target = $(e.target);

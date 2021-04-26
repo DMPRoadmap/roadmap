@@ -1186,6 +1186,16 @@ header .main-nav {
                     padding: 0;
                 }
             }
+            .field-button-combo {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                .remove-button {
+                    margin-left: 5px;
+                    color: $blue;
+                    cursor: pointer;
+                }
+            }
         }
         &.select-field, &.contributor-field {
             flex-direction: column;

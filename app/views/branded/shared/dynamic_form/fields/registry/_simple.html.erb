@@ -11,26 +11,28 @@
 <% end %>
 <div class="col-md-12 dynamic-field select-field single-select">
   <span class="intermediate-label"><i><%= intermediate_message %></i></span>
-  <%= select_tag "#{f.object_name}[#{field_name}]",
-              options_for_select(
-                  select_values.map {|v| [ 
-                          v.to_s(locale), 
-                          select_value(v, locale) 
-                      ] 
-                  },
-                  selected: selected_value
-              ),
-              data: {
-                "tags" => overridable
-              },
-              disabled: readonly,
-              multiple: multiple,
-              include_blank: true,
-              "data-toggle": "tooltip",
-              title: ttip,
-              class: "#{field_class}",
-              id: field_id  %>
-
+  <div class="field-button-combo">
+    <%= select_tag "#{f.object_name}[#{field_name}]",
+                options_for_select(
+                    select_values.map {|v| [ 
+                            v.to_s(locale), 
+                            select_value(v, locale) 
+                        ] 
+                    },
+                    selected: selected_value
+                ),
+                data: {
+                  "tags" => overridable
+                },
+                disabled: readonly,
+                multiple: multiple,
+                include_blank: true,
+                "data-toggle": "tooltip",
+                title: ttip,
+                class: "#{field_class}",
+                id: field_id  %>
+    <span class="remove-button fa fa-times"></span>
+  </div>
   <% if overridable && !multiple %>
     <% 
       style = ''
