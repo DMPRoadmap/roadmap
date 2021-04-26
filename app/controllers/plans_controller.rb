@@ -208,6 +208,7 @@ class PlansController < ApplicationController
                 else
                   Template.where(family_id: @plan.template.customization_of).first
                 end
+
     respond_to :html
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

@@ -7,8 +7,16 @@ class Users::InvitationsController < Devise::InvitationsController
   # Creates the selected Org if necessary and then attaches the invited user
   # to the Org after Devise does its thing
   prepend_after_action :handle_org, only: [:update]
+  prepend_before_action :fix_org_params, only: [:update]
 
   protected
+
+  def fix_org_params
+    hash = org_hash_from_params(params_in: params[:user])
+    org = OrgSelection::HashToOrgService.to_org(hash: hash,
+                                                allow_create: false)
+    params[:user][:org_id] = org&.id
+  end
 
   # Override require_no_authentication method defined at DeviseController
   # (parent of Devise::InvitationsController) The following filter gets

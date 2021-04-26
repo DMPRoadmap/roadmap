@@ -2,6 +2,8 @@
 
 class HomeController < ApplicationController
 
+  include OrgSelectable
+
   respond_to :html
 
   ##
