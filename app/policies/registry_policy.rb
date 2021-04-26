@@ -31,4 +31,9 @@ class RegistryPolicy < ApplicationPolicy
   def destroy?
     @user.can_super_admin?
   end
+
+  def sort_values?
+    @user.can_super_admin?
+  end
+
 end

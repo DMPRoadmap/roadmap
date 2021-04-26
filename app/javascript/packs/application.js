@@ -50,6 +50,7 @@ import '../views/shared/my_org';
 import '../views/shared/sign_in_form';
 import '../views/super_admin/themes/new_edit';
 import '../views/super_admin/users/edit';
+import '../views/super_admin/registries/show';
 import '../views/usage/index';
 import '../views/users/notification_preferences';
 import '../views/users/admin_grant_permissions';

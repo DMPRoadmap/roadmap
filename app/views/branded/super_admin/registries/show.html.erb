@@ -19,12 +19,13 @@
         <dt><%= _('Version') %></dt>
         <dd><%= @registry.version %></dd>
         <h3><%= _('Values') %></h3>
-        <table class="table table-hover registry-values">
+        <table id="registry-values" class="table table-hover">
             <thead>
                 <th scope="col"><%= _('Value') %></th>
                 <th scope="col"><%= _('Actions') %></th>
             </thead>
             <tbody>
+                <%= hidden_field_tag 'registry-id', @registry.id, class: 'registry-id' %>
                 <%= render partial: 'values_list', locals: { values: @registry.registry_values } %>
             </tbody>
         </table>

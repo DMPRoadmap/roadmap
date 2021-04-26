@@ -19,13 +19,12 @@ class RegistryValue < ActiveRecord::Base
 
   belongs_to :registry
 
-  # ===============
-  # = Validations =
-  # ===============
+  # ==========
+  # = Scopes =
+  # ==========
 
-  validates :order, presence: { message: PRESENCE_MESSAGE },
-                    uniqueness: { scope: :registry_id,
-                                  message: UNIQUENESS_MESSAGE }
+  default_scope { order(order: :asc) }
+
   # =============
   # = Callbacks =
   # =============

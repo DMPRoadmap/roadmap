@@ -30,12 +30,11 @@ module SuperAdmin
         render :new
       end
     end
-  
+
     def edit
       authorize(Registry)
       @registry = Registry.find(params[:id])
     end
-
 
     def update
       authorize(Registry)
@@ -60,6 +59,14 @@ module SuperAdmin
       end
     end
 
+    def sort_values
+      @registry = Registry.find(params[:id])
+      authorize @registry
+      params[:updated_order].each_with_index do |id, index|
+        RegistryValue.find(id).update!(order: index + 1)
+      end
+      head :ok
+    end
 
     # Private instance methods
     private

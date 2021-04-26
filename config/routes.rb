@@ -251,7 +251,7 @@ Rails.application.routes.draw do
     end
     # Paginable actions for registries
     resources :registries, only: [] do
-      get 'index/:page', action: :index, on: :collection, as: :index
+      get "index/:page", action: :index, on: :collection, as: :index
     end
   end
 
@@ -319,7 +319,9 @@ Rails.application.routes.draw do
     resources :orgs, only: [:index, :new, :create, :destroy]
     resources :themes, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :madmp_schemas, only: [:index, :new, :create, :edit, :update, :destroy]
-    resources :registries
+    resources :registries do
+      post "sort_values", on: :collection
+    end
     resources :registry_values, only: [:new, :create, :edit, :update, :destroy]
     resources :users, only: [:edit, :update] do
       member do
