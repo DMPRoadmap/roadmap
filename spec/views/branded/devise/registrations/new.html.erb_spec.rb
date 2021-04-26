@@ -19,6 +19,10 @@ describe "devise/registrations/new.html.erb" do
     session["devise.shibboleth_data"] = mock_omniauth_call(scheme.name, user)
     render template: "devise/registrations/new", locals: { resource: user }
     expect(rendered.include?("Sign in or Create account")).to eql(true)
+
+p "REGISTRATION (#{@app_name}):"
+p rendered.inspect
+
     expect(rendered.include?("Do you have a #{@app_name} account?")).to eql(true)
     expect(rendered.include?("Sign in")).to eql(true)
     expect(rendered.include?("This will link your existing account")).to eql(true)

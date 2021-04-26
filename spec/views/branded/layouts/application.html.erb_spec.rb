@@ -33,6 +33,10 @@ describe "layouts/application.html.erb" do
     Rails.configuration.x.shibboleth.use_filtered_discovery_service = true
     render
     expect(response).to render_template(partial: "layouts/_analytics")
+
+p "APPLICATION LAYOUT (#{@app_name}):"
+p rendered.inspect
+
     expect(rendered.include?("<title>#{@app_name}")).to eql(true)
     expect(rendered.include?("Skip to main content")).to eql(true)
     expect(rendered.include?("<div class=\"dmptool\">")).to eql(true)
