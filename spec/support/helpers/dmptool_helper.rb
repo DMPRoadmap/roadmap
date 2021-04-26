@@ -74,6 +74,9 @@ module DmptoolHelper
     stub_request(:get, "https://blog.dmptool.org/feed").to_return(
       status: 200, body: xml.to_s, headers: {}
     )
+    stub_request(:get, "https://blog.example.org/feed").to_return(
+      status: 200, body: xml.to_s, headers: {}
+    )
   end
 
 end
