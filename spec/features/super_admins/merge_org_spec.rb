@@ -33,6 +33,11 @@ RSpec.describe "SuperAdmins Merge Orgs", type: :feature, js: true do
     click_link "Admin"
     sleep(0.5)
     click_link "Organisations"
+
+    fill_in(:search, with: @from_org.name)
+    click_button "Search"
+    sleep(0.5)
+
     first("#org-#{@from_org.id}-actions").click
     first("a[href=\"/org/admin/#{@from_org.id}/admin_edit\"]").click
 
