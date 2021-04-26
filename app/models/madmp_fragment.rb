@@ -359,6 +359,7 @@ class MadmpFragment < ActiveRecord::Base
   # Initialize the data field
   def set_defaults
     self.data ||= {}
+    self.additional_info ||= {}
   end
 
 end
