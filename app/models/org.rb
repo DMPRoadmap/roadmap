@@ -81,6 +81,8 @@ class Org < ApplicationRecord
 
   has_many :users
 
+  has_many :contributors
+
   has_many :annotations
 
   has_and_belongs_to_many :token_permission_types,

@@ -108,9 +108,10 @@
     <%# Otherwise display the Org typeahead for funders %>
     <div class="col-md-8">
       <%= fields_for :funder, plan.funder do |funder_fields| %>
-        <%= render partial: "shared/org_selectors/combined",
+        <%= render partial: org_partial,
            locals: {
              form: form,
+             orgs: orgs,
              funder_only: true,
              label: _("Funder"),
              default_org: plan.funder,
