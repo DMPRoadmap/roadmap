@@ -1541,6 +1541,7 @@ describe Plan do
 
   describe "#doi" do
     before(:each) do
+      Rails.configuration.x.allow_doi_minting = true
       @plan = create(:plan, :creator)
       IdentifierScheme.for_identification.destroy_all
     end

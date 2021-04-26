@@ -6,6 +6,7 @@ RSpec.describe DoiService do
   include ConfigHelper
 
   before(:each) do
+    Rails.configuration.x.allow_doi_minting = true
     @config = OpenStruct.new(active: true,
                              name: Faker::Lorem.unique.word,
                              landing_page_url: Faker::Internet.url,
