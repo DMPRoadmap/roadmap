@@ -222,12 +222,16 @@ class MadmpFragment < ActiveRecord::Base
 
       if target_prop["type"].eql?("array")
         converted_data[key] = data[key].is_a?(Array) ? data[key] : [data[key]]
+        if target_prop["items"]["type"].eql?("object")
+          target_sub_schema = MadmpSchema.find(target_prop["items"]["schema_id"])
+          converted_data[key].map { |v| MadmpFragment.find(v["dbid"]).schema_conversion(target_sub_schema) }
+        end
       elsif origin_prop["type"].eql?("object")
         sub_fragment = MadmpFragment.find(data[key]["dbid"])
         target_sub_schema = MadmpSchema.find(target_prop["schema_id"])
         sub_fragment.schema_conversion(target_sub_schema)
         converted_data[key] = data[key]
-      elsif origin_prop["type"].eql?("array") && !target_prop["type"].eql?("array")
+      elsif origin_prop["type"].eql?("array")
         if target_prop["type"].eql?("object")
           target_sub_schema = MadmpSchema.find(target_prop["schema_id"])
           first_id = data[key].first.present? ? data[key].first["dbid"] : nil
