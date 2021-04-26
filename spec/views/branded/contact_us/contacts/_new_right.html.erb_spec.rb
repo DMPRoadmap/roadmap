@@ -26,10 +26,6 @@ describe "contact_us/contacts/_new_right.html.erb" do
       country: org[:address_country]
     }
     render
-
-p "CONTACT PAGE:"
-p rendered.inspect
-
     expect(rendered.include?("<strong>#{CGI::escapeHTML(org[:name])}")).to eql(true)
     expect(rendered.include?("#{org[:address_line_1]}<br>")).to eql(true)
     expect(rendered.include?("#{org[:address_line_2]}<br>")).to eql(true)
