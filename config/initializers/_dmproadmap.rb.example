@@ -78,6 +78,8 @@ module DMPRoadmap
       v0: "https://github.com/DMPRoadmap/roadmap/wiki/API-V0-Documentation",
       v1: "https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation-V1"
     }
+    # Link to the application's blog
+    config.x.application.blog_rss = "https://blog.example.org/feed"
     # The links that appear on the home page. Add any number of links
     config.x.application.welcome_links = [
       {
