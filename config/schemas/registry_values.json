@@ -3182,5 +3182,75 @@
             },
             "value": "application/zip"
         }
+    ],
+    "ParentName": [
+        "BackupPolicy",
+        "Budget",
+        "Contributor",
+        "ControlledKeyword",
+        "Cost",
+        "DataCollection",
+        "DataPreservation",
+        "DataProcessing",
+        "DataReuse",
+        "DataSharing",
+        "DataStorage",
+        "DataStorageStandard",
+        "Distribution",
+        "DocumentationQuality",
+        "EthicalIssues",
+        "Funder",
+        "Funding",
+        "LegalIssues",
+        "License",
+        "Meta",
+        "MetadataStandard",
+        "Partner",
+        "Person",
+        "PersonalDataIssues",
+        "Project",
+        "QualityAssuranceMethod",
+        "ResearchOutput",
+        "ResearchOutputDescription",
+        "ResourceReference",
+        "ResourceReferenceStandard",
+        "ReusedData",
+        "SpecificData",
+        "TechnicalResource",
+        "TechnicalResourceStandard"
+    ],
+    "Cardinalities": [
+        "0..1",
+        "0..*",
+        "1..1",
+        "1..*"
+    ],
+    "PropertyTypes": [
+        "string",
+        "number",
+        "string:format=email",
+        "string:format=uri",
+        "string:format=date",
+        "string:length=3",
+        "DataCollectionBasic",
+        "DataCollectionStandard",
+        "DataStorageBasic",
+        "DataStorageStandard",
+        "SpecificDataStandard"
+    ],
+    "InputTypes": [
+        "textarea",
+        "dropdown",
+        "fixed"
+    ],
+    "YesNo": [
+        {
+            "fr_FR": "Oui",
+            "en_GB": "Yes"
+        },
+        {
+            "fr_FR": "Non",
+            "en_GB": "No"
+        }
     ]
 }
