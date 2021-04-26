@@ -119,7 +119,9 @@ class User < ApplicationRecord
   # = Scopes =
   # ==========
 
-  default_scope { includes(:org, :perms) }
+  # because of the way this generates SQL it breaks with > 65k users
+  # needs rethought
+  # default_scope { includes(:org, :perms) }
 
   # Retrieves all of the org_admins for the specified org
   scope :org_admins, lambda { |org_id|
@@ -228,7 +230,7 @@ class User < ApplicationRecord
   #
   # Returns UserIdentifier
   def identifier_for(scheme)
-    identifiers.by_scheme_name(scheme, "User").first
+    identifiers.by_scheme_name(scheme, "User")&.first
   end
 
   # Checks if the user is a super admin. If the user has any privelege which requires
