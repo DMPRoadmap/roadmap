@@ -58,6 +58,7 @@ $(() => {
         selectField.find('.custom-value').hide();
         selectField.find('.custom-value input').val('');
       } else {
+        target.parents('fieldset.registry').find('.fragment-display').hide();
         selectField.find('.custom-value').show();
         selectField.find('.custom-value input').val(value);
         selectField.find('.custom-value span').html(value);
