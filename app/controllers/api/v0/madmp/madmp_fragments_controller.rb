@@ -12,7 +12,7 @@ class Api::V0::Madmp::MadmpFragmentsController < Api::V0::BaseController
       raise Pundit::NotAuthorizedError
     end
 
-    fragment_data = query_params[:mode] == "fat" ? @fragment.get_full_fragment : @fragment.data
+    fragment_data = query_params[:mode] == "fat" ? @fragment.get_full_fragment(true) : @fragment.data
 
     fragment_data = select_property(fragment_data, query_params[:property])
 

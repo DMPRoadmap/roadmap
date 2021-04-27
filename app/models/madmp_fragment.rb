@@ -176,7 +176,7 @@ class MadmpFragment < ActiveRecord::Base
 
   # This method return the fragment full record
   # It integrates its children into the JSON
-  def get_full_fragment
+  def get_full_fragment(with_ids = false)
     return { "custom_value" => additional_info["custom_value"] } if additional_info["custom_value"].present?
 
     children = self.children
@@ -188,7 +188,7 @@ class MadmpFragment < ActiveRecord::Base
         if child.additional_info["custom_value"].present?
           child_data = { "custom_value" => child.additional_info["custom_value"] }
         else
-          child_data = child.get_full_fragment
+          child_data = child.get_full_fragment(with_ids)
         end
         editable_data = editable_data.merge(prop => child_data)
       end
@@ -200,13 +200,16 @@ class MadmpFragment < ActiveRecord::Base
 
           if v.is_a?(Hash) && v["dbid"].present?
             child_data = children.exists?(v["dbid"]) ? children.find(v["dbid"]) : MadmpFragment.find(v["dbid"])
-            fragment_tab.push(child_data.get_full_fragment)
+            fragment_tab.push(child_data.get_full_fragment(with_ids))
           else
             fragment_tab.push(v)
           end
         end
         editable_data = editable_data.merge(prop => fragment_tab)
       end
+    end
+    if with_ids
+      editable_data = { "id" => id, "schema_id" => madmp_schema_id }.merge(editable_data)
     end
     editable_data
   end
