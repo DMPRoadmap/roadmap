@@ -75,15 +75,14 @@
     <%# Display Fragment selector %>
     <% if prop["inputType"].eql?("pickOrCreate") && source.eql?("form") %>
       <% 
-        values = dmp_fragments.where(madmp_schema_id: prop["schema_id"])
         value = dmp_fragments.find(value["dbid"]) unless value.nil?
       %>
       <%= render(partial: 'shared/dynamic_form/fields/fragment_select_field', locals: {
         f: f,
-        select_values: values,
         selected_value: value,
         readonly: readonly,
         parent_id: current_fragment.id,
+        dmp_id: current_fragment.dmp_id,
         schema: sub_schema,
         required: required,
         template_locale: template_locale,
