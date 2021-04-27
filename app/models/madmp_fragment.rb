@@ -122,7 +122,7 @@ class MadmpFragment < ActiveRecord::Base
         if pattern.first == "$"
           match = JsonPath.on(full_data, pattern)
 
-          next if match.empty?
+          next if match.empty? || match.first.nil?
 
           if match.first.is_a?(Array)
             displayable += match.first.join("/")
