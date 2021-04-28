@@ -89,7 +89,7 @@ RSpec.describe ExternalApis::DataciteService, type: :model do
         expect(dmp_json["dates"].first["dateType"]).to eql("Created")
         expect(dmp_json["dates"].first["date"]).to eql(@plan.created_at.to_formatted_s(:iso8601))
         expect(dmp_json["dates"].last["dateType"]).to eql("Updated")
-        expect(dmp_json["dates"].last["date"]).to eql(@plan.created_at.to_formatted_s(:iso8601))
+        expect(dmp_json["dates"].last["date"]).to eql(@plan.updated_at.to_formatted_s(:iso8601))
 
         # Related Identifiers checks
         expected = Rails.application.routes.url_helpers.api_v1_plan_url(@plan)

@@ -29,7 +29,6 @@
 #  org_id                            :integer
 #  funder_id                         :integer
 #  grant_id                          :integer
-#  api_client_id                     :integer
 #  ethical_issues                    :boolean
 #  ethical_issues_description        :text
 #  ethical_issues_report             :string
@@ -39,7 +38,6 @@
 #  index_plans_on_template_id   (template_id)
 #  index_plans_on_funder_id     (funder_id)
 #  index_plans_on_grant_id      (grant_id)
-#  index_plans_on_api_client_id (api_client_id)
 #
 # Foreign Keys
 #
@@ -190,10 +188,6 @@ class Plan < ApplicationRecord
       )
   }
 
-  # TODO: Add in a left join here so we can search contributors as well when
-  #       we move to Rails 5:
-  #           OR lower(contributors.name) LIKE lower(:search_pattern)
-  #           OR lower(identifiers.value) LIKE lower(:search_pattern)",
   scope :search, lambda { |term|
     if date_range?(term: term)
       joins(:template, roles: [user: :org])
@@ -202,13 +196,16 @@ class Plan < ApplicationRecord
     else
       search_pattern = "%#{term}%"
       joins(:template, roles: [user: :org])
+        .left_outer_joins(:identifiers, :contributors)
         .where(Role.creator_condition)
         .where("lower(plans.title) LIKE lower(:search_pattern)
                 OR lower(orgs.name) LIKE lower (:search_pattern)
                 OR lower(orgs.abbreviation) LIKE lower (:search_pattern)
                 OR lower(templates.title) LIKE lower(:search_pattern)
                 OR lower(plans.principal_investigator) LIKE lower(:search_pattern)
-                OR lower(plans.principal_investigator_identifier) LIKE lower(:search_pattern)",
+                OR lower(plans.principal_investigator_identifier) LIKE lower(:search_pattern)
+                OR lower(contributors.name) LIKE lower(:search_pattern)
+                OR lower(identifiers.value) LIKE lower(:search_pattern)",
                search_pattern: search_pattern)
     end
   }
@@ -615,18 +612,20 @@ class Plan < ApplicationRecord
   end
 
   # Helper method to convert the grant id value entered by the user into an Identifier
+  # works with both controller params or an instance of Identifier
   def grant=(params)
+    val = params.present? ? params[:value] : nil
     current = grant
 
     # Remove it if it was blanked out by the user
-    current.destroy if current.present? && !params[:value].present?
-    return unless params[:value].present?
+    current.destroy if current.present? && !val.present?
+    return unless val.present?
 
     # Create the Identifier if it doesn't exist and then set the id
-    current.update(value: params[:value]) if current.present? && current.value != params[:value]
+    current.update(value: val) if current.present? && current.value != val
     return if current.present?
 
-    current = Identifier.create(identifiable: self, value: params[:value])
+    current = Identifier.create(identifiable: self, value: val)
     self.grant_id = current.id
   end
 
@@ -660,16 +659,16 @@ class Plan < ApplicationRecord
     # UpdateDoiJob.perform_later(plan: self)
   rescue StandardError => e
     # Log the error and continue. We do not want this to disrupt the save!
-    Rails.logger.error "Failure on Plan.notify_subscribers for id - #{id} & client - '#{api_client_id&.name}'"
+    Rails.logger.error "Failure on Plan.notify_subscribers for id - #{id} & client - '#{api_client&.name}'"
     return true
   end
 
   # Validation to prevent end date from coming before the start date
   def end_date_after_start_date
     # allow nil values
-    return true if end_date.blank? || start_date.blank?
+    return true if end_date.blank? || start_date.blank? || end_date > start_date
 
-    errors.add(:end_date, _("must be after the start date")) if end_date < start_date
+    errors.add(:end_date, _("must be after the start date"))
   end
 
 end

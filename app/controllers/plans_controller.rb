@@ -505,11 +505,11 @@ class PlansController < ApplicationController
   end
 
   # Fetch all the available Guidance Groups for the specified Plan
-  def fetch_guidance_groups(plan: plan)
+  def fetch_guidance_groups(plan_in: plan)
     # Get all Guidance Groups applicable for the plan and group them by org
-    @all_guidance_groups = plan.guidance_group_options
+    @all_guidance_groups = plan_in.guidance_group_options
     @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
-    @selected_guidance_groups = plan.guidance_groups
+    @selected_guidance_groups = plan_in.guidance_groups
 
     # Important ones come first on the page - we grab the user's org's GGs and
     # "Organisation" org type GGs

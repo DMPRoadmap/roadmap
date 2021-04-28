@@ -21,26 +21,20 @@
 #
 FactoryBot.define do
   factory :subscription do
-=begin
-    trait :api_client do
-      association :identifiable, factory: :api_client
-    end
-    trait :org do
-      association :identifiable, factory: :org
+    callback_uri        { Faker::Internet.unique.url }
+    last_notified       { Time.now - 1.days }
+
+    trait :for_updates do
+      subscription_types { "updates" }
     end
 
-    trait :on_all do
-      on_update { true }
-      on_destroy { true }
+    trait :for_creations do
+      visibility { "creations" }
     end
-    trait :on_update do
-      on_update { true }
-      on_destroy { false }
+
+    trait :for_deletions do
+      visibility { "deletions" }
     end
-    trait :on_destroy do
-      on_update { false }
-      on_destroy { true }
-    end
-=end
+
   end
 end

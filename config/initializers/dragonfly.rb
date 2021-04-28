@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "dragonfly"
-require "dragonfly/s3_data_store"
+# require "dragonfly/s3_data_store"
 
 # Configure
 Dragonfly.app.configure do

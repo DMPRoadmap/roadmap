@@ -3,17 +3,17 @@
 module DmptoolHelper
 
   def access_sign_in_options_modal
-    click_on "Sign in"
+    click_link "Sign in"
   end
 
   def access_sign_in_modal
     access_sign_in_options_modal
-    click_on "Email address"
+    #click_on "Email address"
   end
 
   def access_create_account_modal
     access_sign_in_options_modal
-    click_on "Create an account"
+    find("#show-create-account-form").first.click
   end
 
   def access_shib_ds_modal
@@ -72,6 +72,9 @@ module DmptoolHelper
     </rss>
     XML
     stub_request(:get, "https://blog.dmptool.org/feed").to_return(
+      status: 200, body: xml.to_s, headers: {}
+    )
+    stub_request(:get, "https://blog.example.org/feed").to_return(
       status: 200, body: xml.to_s, headers: {}
     )
   end

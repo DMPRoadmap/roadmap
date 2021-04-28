@@ -1,9 +1,7 @@
 # DMPTool
 
 [![Actions Status](https://github.com/CDLUC3/dmptool/workflows/Brakeman/badge.svg)](https://github.com/CDLUC3/dmptool/actions)
-[![Actions Status](https://github.com/CDLUC3/dmptool/workflows/Rubocop/badge.svg)](https://github.com/CDLUC3/dmptool/actions)
 [![Actions Status](https://github.com/CDLUC3/dmptool/workflows/ESLint/badge.svg)](https://github.com/CDLUC3/dmptool/actions)
-[![Actions Status](https://github.com/CDLUC3/dmptool/workflows/Run%20Tests%20%28postgreSQL%29/badge.svg)](https://github.com/CDLUC3/dmptool/actions)
 [![Actions Status](https://github.com/CDLUC3/dmptool/workflows/Run%20Tests%20%28mySQL%29/badge.svg)](https://github.com/CDLUC3/dmptool/actions)
 
 The DMPTool is a free, open-source, online application that helps researchers create data management plans. These plans, or DMPs, are now required by many funding agencies as part of the grant proposal submission process. The DMPTool provides a click-through wizard for creating a DMP that complies with funder requirements. It also has direct links to funder websites, help text for answering questions, and resources for best practices surrounding data management.

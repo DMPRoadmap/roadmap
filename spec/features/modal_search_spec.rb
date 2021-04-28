@@ -10,8 +10,7 @@ RSpec.feature "ModalSearchDialog", type: :feature do
     stub_openaire
 
     @model = create(:repository)
-    # TODO: clean this up once we are done with the soft release
-    @template = create(:template, allow_research_outputs: true)
+    @template = create(:template)
     @plan = create(:plan, :creator, org: create(:org), template: @template)
     @user  = @plan.owner
     sign_in(@user)

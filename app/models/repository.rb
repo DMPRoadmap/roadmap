@@ -23,8 +23,6 @@ class Repository < ApplicationRecord
 
   include Identifiable
 
-  # serialize :info, JSON
-
   # ================
   # = Associations =
   # ================
