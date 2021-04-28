@@ -30,7 +30,7 @@ describe Repository do
   context "scopes" do
     before(:each) do
       @types = [Faker::Music::PearlJam.unique.song, Faker::Music::PearlJam.unique.song]
-      @subjects = [Faker::Music::PearlJam.unique.song, Faker::Music::PearlJam.unique.song]
+      @subjects = [Faker::Music::Hiphop.unique.artist, Faker::Music::Hiphop.unique.artist]
       @keywords = [Faker::Music::GratefulDead.unique.song, Faker::Music::GratefulDead.unique.song]
 
       @never_found = create(:repository, name: "foo", info: { types: [@types.last],
