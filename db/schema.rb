@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_25_154923) do
+ActiveRecord::Schema.define(version: 2021_04_27_162935) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -45,22 +45,6 @@ ActiveRecord::Schema.define(version: 2021_04_25_154923) do
     t.integer "answer_id", null: false
     t.integer "question_option_id", null: false
     t.index ["answer_id"], name: "index_answers_question_options_on_answer_id"
-  end
-
-  create_table "api_clients", id: :integer, force: :cascade do |t|
-    t.string "name", null: false
-    t.string "description"
-    t.string "homepage"
-    t.string "contact_name"
-    t.string "contact_email", null: false
-    t.string "client_id", default: "", null: false
-    t.string "client_secret", default: "", null: false
-    t.datetime "last_access"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "org_id"
-    t.index ["name"], name: "index_api_clients_on_name"
-    t.index ["client_id"], name: "index_api_clients_on_client_id", unique: true
   end
 
   create_table "conditions", id: :integer, force: :cascade do |t|
@@ -106,6 +90,21 @@ ActiveRecord::Schema.define(version: 2021_04_25_154923) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "phase_id"
+  end
+
+  create_table "external_api_access_tokens", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "external_service_name", null: false
+    t.string "access_token", null: false
+    t.string "refresh_token"
+    t.datetime "expires_at"
+    t.datetime "revoked_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["expires_at"], name: "index_external_api_access_tokens_on_expires_at"
+    t.index ["external_service_name"], name: "index_external_api_access_tokens_on_external_service_name"
+    t.index ["user_id", "external_service_name"], name: "index_external_tokens_on_user_and_service"
+    t.index ["user_id"], name: "index_external_api_access_tokens_on_user_id"
   end
 
   create_table "guidance_groups", id: :integer, force: :cascade do |t|

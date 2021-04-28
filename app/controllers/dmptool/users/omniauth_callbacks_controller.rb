@@ -103,6 +103,10 @@ module Dmptool
       def attach_omniauth_credentials(user:, scheme:, omniauth:)
         return false unless user.present? && scheme.present? && omniauth.present?
 
+        # Create the Oauth access token if available
+        token = ExternalApiAccessToken.from_omniauth!(user: current_user, service: scheme.name, hash: @omniauth)
+        token.save
+
         ui = Identifier.where(identifier_scheme: scheme, identifiable: user).first
         # If the User exists and the uid is different update it
         ui.update(value: omniauth[:uid]) if ui.present? && ui.value != omniauth[:uid]
@@ -118,12 +122,18 @@ module Dmptool
 
         omniauth_info = omniauth.fetch(:info, {})
         names = extract_omniauth_names(hash: omniauth_info)
-        User.new(
+
+        user = User.new(
           email: extract_omniauth_email(hash: omniauth_info),
           firstname: names.fetch(:firstname, ""),
           surname: names.fetch(:surname, ""),
           org: extract_omniauth_org(scheme: scheme, hash: omniauth_info)
         )
+
+        # Get the Oauth access token if available
+        token = ExternalApiAccessToken.from_omniauth(user: user, service: scheme.name, hash: @omniauth)
+        user.external_api_access_tokens = [token]
+        user
       end
 
       # Extract the 1st email
