@@ -104,7 +104,7 @@ module Dmptool
         return false unless user.present? && scheme.present? && omniauth.present?
 
         # Create the Oauth access token if available
-        token = ExternalApiAccessToken.from_omniauth!(user: current_user, service: scheme.name, hash: @omniauth)
+        token = ExternalApiAccessToken.from_omniauth(user: current_user, service: scheme.name, hash: @omniauth)
         token.save
 
         ui = Identifier.where(identifier_scheme: scheme, identifiable: user).first
