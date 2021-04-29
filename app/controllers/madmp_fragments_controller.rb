@@ -312,6 +312,7 @@ class MadmpFragmentsController < ApplicationController
     authorize @fragment
     return unless @fragment.destroy
 
+    MadmpFragment.find(parent_id).update_children_references if parent_id.present?
     render json: {
       "fragment_id" =>  parent_id,
       "query_id" => query_id,
