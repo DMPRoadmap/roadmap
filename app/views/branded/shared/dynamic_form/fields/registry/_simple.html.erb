@@ -10,7 +10,7 @@
   </div>
 <% end %>
 <div class="col-md-12 dynamic-field select-field single-select">
-  <span class="intermediate-label"><i><%= intermediate_message %></i></span>
+  <span class="intermediate-label"><i><%= intermediate_message unless readonly %></i></span>
   <div class="field-button-combo">
     <%= select_tag "#{f.object_name}[#{field_name}]",
                 options_for_select(
@@ -31,7 +31,9 @@
                 title: ttip,
                 class: "#{field_class}",
                 id: field_id  %>
-    <span class="remove-button fa fa-times"></span>
+    <% unless readonly %>
+      <span class="remove-button fa fa-times"></span>
+    <% end %>
   </div>
   <% if overridable && !multiple %>
     <% 
