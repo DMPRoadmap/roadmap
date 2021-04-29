@@ -629,6 +629,20 @@ class Plan < ApplicationRecord
     self.grant_id = current.id
   end
 
+  # Return the citation for the DMP
+  #    Author name. (yyy, mm, dd). Title of DMP (Version XX). DMPHub. DOI
+  def citation
+    return nil unless owner.present? && doi.is_a?(Identifier)
+
+    authors = owner_and_coowners.map { |author| author.name(false) }
+                                .uniq
+                                .sort { |a, b| a <=> b }
+                                .join(", ")
+    pub_year = updated_at.strftime('%Y')
+    app_name = ApplicationService.application_name
+    "#{authors}. (#{pub_year}). \"#{title}\" [Data Management Plan]. #{app_name}. #{doi.value}"
+  end
+
   private
 
   # Determines whether or not the attributes that were updated constitute a versionable change

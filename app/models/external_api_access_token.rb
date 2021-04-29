@@ -56,10 +56,8 @@ class ExternalApiAccessToken < ApplicationRecord
 
   validates :user, :external_service_name, :access_token, presence: { message: PRESENCE_MESSAGE }
 
-  # A User may only have one token per external service!
-  validates_uniqueness_of :external_service_name, {
-    scope: :user_id, message: _("only one access token allowed per user / service")
-  }
+  # A User may only have one active token per external service!
+  validate :one_active_token, on: %i[create]
 
   # =================
   # = Class Methods =
@@ -67,6 +65,15 @@ class ExternalApiAccessToken < ApplicationRecord
 
   class << self
 
+    # Fetched the active access token for the specified User and External API service
+    def for_user_and_service(user:, service:)
+      where(user: user, external_service_name: service)
+        .where("revoked_at IS NULL OR revoked_at > ?", Time.now)
+        .where("expires_at > ?", Time.now)
+        .first
+    end
+
+    # Generates an instance based on the contents of an OmniAuth hash
     def from_omniauth(user:, service:, hash:)
       return nil unless user.is_a?(User) &&
                         service.present? &&
@@ -101,6 +108,15 @@ class ExternalApiAccessToken < ApplicationRecord
 
   def active?
     (revoked_at.nil? || revoked_at > Time.now) && expires_at > Time.now
+  end
+
+  private
+
+  # Validator to prevent multiple active access tokens for a user + service
+  def one_active_token
+    return true if self.class.for_user_and_service(user: user, service: external_service_name).nil?
+
+    errors.add(:access_token, _("only one active access token allowed per user / service"))
   end
 
 end

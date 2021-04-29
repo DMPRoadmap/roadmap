@@ -57,7 +57,15 @@ class DoiService
       svc = minter
       return nil unless svc.present?
 
-      svc.callback_path
+      svc.respond_to?(:callback_path) ? svc.callback_path : nil
+    end
+
+    # Return the inheriting service's :landing_page_url (defined in their config)
+    def landing_page_url
+      svc = minter
+      return nil unless svc.present?
+
+      svc.respond_to?(:landing_page_url) ? svc.landing_page_url : nil
     end
 
     private

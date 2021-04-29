@@ -13,16 +13,38 @@ RSpec.describe ExternalApiAccessToken, type: :model do
     it { is_expected.to validate_presence_of(:external_service_name) }
     it { is_expected.to validate_presence_of(:access_token) }
 
-    it "should validate that a User can only have one token per external service" do
+    it "should validate that a User can only have one 'active' token per external service" do
       user = create(:user)
-      subject = create(:external_api_access_token, user: user)
-      expect(subject).to validate_uniqueness_of(:external_service_name)
-        .scoped_to(:user_id)
-        .with_message(_("only one access token allowed per user / service"))
+      old_token = create(:external_api_access_token, user: user)
+      subject = build(:external_api_access_token, user: user)
+      subject.valid?
+      err = subject.errors.full_messages.include?(_("only one active access token allowed per user / service"))
+      expect(err)
     end
   end
 
   context "class_methods" do
+    describe "#for_user_and_service(user:, service:)" do
+      before(:each) do
+        @user = create(:user)
+        @svc = Faker::Lorem.unique.word.upcase
+        @expired_token = create(:external_api_access_token, user: @user, external_service_name: @svc.downcase,
+                                                            expires_at: Time.now - 1.days)
+        @revoked_token = create(:external_api_access_token, user: @user, external_service_name: @svc.downcase,
+                                                            revoked_at: Time.now - 1.days)
+        @active_token = create(:external_api_access_token, user: @user, external_service_name: @svc.downcase)
+      end
+      it "returns nil if the user has no active token" do
+        expect(described_class.for_user_and_service(user: create(:user), service: @svc)).to eql(nil)
+      end
+      it "returns nil if the user has no active tokens for the specified service" do
+        expect(described_class.for_user_and_service(user: @user, service: "foo")).to eql(nil)
+      end
+      it "returns the active token" do
+        expect(described_class.for_user_and_service(user: @user, service: @svc)).to eql(@active_token)
+      end
+    end
+
     describe "#from_omniauth(user:, service:, hash:)" do
       before(:each) do
         @user = create(:user)
