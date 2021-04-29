@@ -266,7 +266,6 @@ module DynamicFormHelper
       when "boolean"
         formated_data[key] = data[key] == "1"
       when "array"
-z
         formated_data[key] = data[key].is_a?(Array) ? data[key] : [data[key]]
       when "object"
         next if prop["schema_id"].nil?
