@@ -239,9 +239,23 @@ class MadmpFragment < ActiveRecord::Base
       elsif origin_prop["type"].eql?("array")
         if target_prop["type"].eql?("object")
           target_sub_schema = MadmpSchema.find(target_prop["schema_id"])
-          first_id = data[key].first.present? ? data[key].first["dbid"] : nil
-          MadmpFragment.find(first_id).schema_conversion(target_sub_schema) if first_id.present?
-          converted_data[key] = { "dbid" => first_id }
+          data[key] = [] if data[key].nil?
+          if data[key].empty?
+            sub_fragment = MadmpFragment.new(
+              data: {},
+              answer_id: nil,
+              dmp_id: dmp.id,
+              parent_id: id,
+              madmp_schema: target_sub_schema,
+              additional_info: { property_name: key }
+            )
+            sub_fragment.assign_attributes(classname: sub_fragment.classname)
+            sub_fragment.instantiate
+          else
+            first_id = data[key].first["dbid"]
+            MadmpFragment.find(first_id).schema_conversion(target_sub_schema)
+            converted_data[key] = { "dbid" => first_id }
+          end
         else
           converted_data[key] = data[key].first
         end
