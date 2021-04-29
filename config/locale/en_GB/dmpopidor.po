@@ -506,9 +506,6 @@ msgstr "New %{title_value}"
 msgid "Selected value:"
 msgstr "Selected value:"
 
-msgid "- or change the selected value -"
-msgstr "- or change the selected value -"
-
 msgid "Select a value from the list."
 msgstr "Select a value from the list."
 

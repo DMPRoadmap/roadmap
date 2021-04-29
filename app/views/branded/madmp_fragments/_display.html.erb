@@ -3,10 +3,12 @@
 <% data = fragment.data unless fragment.nil? %>
 
 <% schema_properties.each do |key, prop| %>
-  <% value = data[key] unless data.nil? %>
+  <% next if data.nil? || data[key].nil?%>
+  <% value = data[key] %>
   <% label = prop["label@#{template_locale}"]%>
   <% if prop["type"].eql?("object") %>
     <% sub_fragment = MadmpFragment.find(value["dbid"]) %>
+    <% next if sub_fragment.data.nil? || sub_fragment.data.empty? %>
     <fieldset class="sub-fragment fragment-display">
       <legend><%= label %></legend> 
       <%= render(partial: 'madmp_fragments/display', locals: {

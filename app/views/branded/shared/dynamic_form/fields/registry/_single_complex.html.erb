@@ -8,14 +8,13 @@
 <div class="col-md-12">
   <fieldset class="sub-fragment registry">
     <legend class="sub-fragment registry"><%= field_label %></legend>
-    <% if value.present? && value.data.present? %>
+    <% unless value&.data.nil? || value.data.empty? %>
       <div class="col-md-12 fragment-display">
         <%= render(partial: 'madmp_fragments/display', locals: {
                     fragment: value,
                     schema: value.madmp_schema,
                     template_locale: locale
         })%>
-        <span class="intermediate-label"><i><%= d_('dmpopidor', '- or change the selected value -') %></i></span>
         <span class="intermediate-label"><i><%= intermediate_message %></i></span>
       </div>
     <% end %>
