@@ -266,7 +266,7 @@ module DynamicFormHelper
       when "boolean"
         formated_data[key] = data[key] == "1"
       when "array"
-
+z
         formated_data[key] = data[key].is_a?(Array) ? data[key] : [data[key]]
       when "object"
         next if prop["schema_id"].nil?
@@ -297,10 +297,12 @@ module DynamicFormHelper
       else # type = string
         # if the field is overridable, check if there's a custom value
         if prop["overridable"].present? && data["#{key}_custom"].present?
+          next if data["#{key}_custom"].eql?("__DELETED__")
+
           formated_data[key] = data["#{key}_custom"]
-          next
+        else
+          formated_data[key] = data[key]
         end
-        formated_data[key] = data[key]
       end
 
       formated_data[key] = nil if formated_data[key].eql?("")
