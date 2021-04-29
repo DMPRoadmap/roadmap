@@ -9,7 +9,7 @@
   <% selected_value_id = selected_value.present? ? selected_value.id : nil %>    
   <%= select_tag field_name,
     render(partial: 'shared/dynamic_form/linked_fragment/select_options', locals: {
-          select_values: [],
+          select_values: [selected_value],
           selected_value: selected_value_id
         }
     ),
