@@ -81,6 +81,7 @@ $(() => {
     }
 
     if (selectField.hasClass('multiple-select')) {
+      const messageZone = selectField.find('.message-area');
       const requestData = {
         locale: selectField.data('locale'),
         parent_id: selectField.data('parent-id'),
@@ -99,8 +100,13 @@ $(() => {
         method: 'get',
         data: requestData,
       }).done((response) => {
+        messageZone.hide();
         $(`table.list-${response.query_id} tbody`).html(response.html);
         selectField.find('select').val('').trigger('change');
+      }).fail((response) => {
+        console.log(response);
+        messageZone.html(response.responseJSON.error);
+        messageZone.show();
       });
     }
   });

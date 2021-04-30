@@ -55,7 +55,9 @@ $(() => {
       $select.val(response.fragment_id).trigger('select2:select');
     }
     $('#modal-window').modal('hide');
-  }).on('ajax:error', () => {
-    console.log('ajax:error');
+  }).on('ajax:error', (event, response)=> {
+    const target = $(event.target);
+    const errorMessage = response.responseJSON.error;
+    target.find('.message-area').html(errorMessage).addClass('alert-danger');
   });
 });

@@ -544,3 +544,9 @@ msgstr "New data have been added to your plan, please click on the \"Reload\" bu
 
 msgid "Reload"
 msgstr "Reload"
+
+msgid "Element is already present in your plan."
+msgstr "Element is already present in your plan."
+
+msgid "An error has occured: "
+msgstr "An error has occured: "

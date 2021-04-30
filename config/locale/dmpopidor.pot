@@ -548,3 +548,9 @@ msgstr ""
 
 msgid "Reload"
 msgstr ""
+
+msgid "Element is already present in your plan."
+msgstr ""
+
+msgid "An error has occured: "
+msgstr ""

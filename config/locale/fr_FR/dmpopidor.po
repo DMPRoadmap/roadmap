@@ -546,3 +546,9 @@ msgstr "De nouvelles données ont été ajoutées à votre plan, veuillez clique
 
 msgid "Reload"
 msgstr "Recharger"
+
+msgid "Element is already present in your plan."
+msgstr "L'élément est déjà présent dans votre plan"
+
+msgid "An error has occured: "
+msgstr "Une erreur s'est produite : "

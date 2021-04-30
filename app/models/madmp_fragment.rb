@@ -375,7 +375,7 @@ class MadmpFragment < ActiveRecord::Base
 
   # Checks for a given dmp_id (and parent_id) if a fragment exists in the database
   def self.fragment_exists?(data, schema, dmp_id, parent_id = nil)
-    return false if schema.schema["unicity"].empty?
+    return false if schema.schema["unicity"].nil? || schema.schema["unicity"].empty?
 
     classname = schema.classname
     parent_id = nil if classname.eql?("person")
@@ -386,9 +386,10 @@ class MadmpFragment < ActiveRecord::Base
       classname: classname
     )
     dmp_fragments.each do |fragment|
-      filtered_data = fragment.data.slice(*unicity_properties)
+      filtered_db_data = fragment.data.slice(*unicity_properties)
+      filtered_incoming_data = data.slice(*unicity_properties)
 
-      return true if filtered_data.eql?(data)
+      return true if filtered_db_data.eql?(filtered_incoming_data)
     end
     false
   end

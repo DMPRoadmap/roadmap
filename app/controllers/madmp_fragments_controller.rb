@@ -5,6 +5,8 @@ class MadmpFragmentsController < ApplicationController
   after_action :verify_authorized
   include DynamicFormHelper
 
+  # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/MethodLength
   def create
     p_params = permitted_params
     @schemas = MadmpSchema.all
@@ -40,6 +42,13 @@ class MadmpFragmentsController < ApplicationController
         schema.schema,
         schema_params(schema)
       )
+      if MadmpFragment.fragment_exists?(data, schema, p_params[:dmp_id], parent_id)
+        render json: {
+          "error" => d_("dmpopidor", "Element is already present in your plan.")
+        }, status: 409
+        return
+      end
+
       additional_info = @fragment.additional_info.merge(
         "validations" => MadmpFragment.validate_data(data, schema.schema)
       )
@@ -76,6 +85,8 @@ class MadmpFragmentsController < ApplicationController
       }.to_json
     end
   end
+  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 
   def load_form
     @fragment = MadmpFragment.find(params[:id])
@@ -87,6 +98,8 @@ class MadmpFragmentsController < ApplicationController
     render json: render_fragment_form(@fragment, @stale_fragment)
   end
 
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength
   def update
     p_params = permitted_params
     @schemas = MadmpSchema.all
@@ -105,6 +118,15 @@ class MadmpFragmentsController < ApplicationController
           id: params[:id],
           dmp_id: p_params[:dmp_id]
         )
+        authorize @fragment
+
+        if MadmpFragment.fragment_exists?(data, schema, p_params[:dmp_id], @fragment.parent_id)
+          render json: {
+            "error" => d_("dmpopidor", "Element is already present in your plan.")
+          }, status: 409
+          return
+        end
+
         # data = @fragment.data.merge(data)
         additional_info = @fragment.additional_info.merge(
           "validations" => MadmpFragment.validate_data(data, schema.schema)
@@ -114,8 +136,6 @@ class MadmpFragmentsController < ApplicationController
           additional_info: additional_info,
           madmp_schema_id: schema.id
         )
-
-        authorize @fragment
         if p_params[:source].eql?("form")
           @fragment.answer.update!(
             lock_version: p_params[:answer][:lock_version],
@@ -161,6 +181,8 @@ class MadmpFragmentsController < ApplicationController
       }.to_json
     end
   end
+  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize
 
   def change_schema
     @fragment = MadmpFragment.find(params[:id])
@@ -221,6 +243,8 @@ class MadmpFragmentsController < ApplicationController
     end
   end
 
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength
   def create_from_registry_value
     parent_fragment = MadmpFragment.find(params[:parent_id])
     schema = MadmpSchema.find(params[:schema_id])
@@ -245,6 +269,16 @@ class MadmpFragmentsController < ApplicationController
       @fragment.save!
     else
       @registry_value = RegistryValue.find(params[:registry_value_id])
+
+      if MadmpFragment.fragment_exists?(
+        @registry_value.data, schema, parent_fragment.dmp_id, parent_fragment.id
+      )
+        render json: {
+          "error" => d_("dmpopidor", "Element is already present in your plan.")
+        }, status: 409
+        return
+      end
+
       @fragment.save_as_multifrag(@registry_value.data, schema)
     end
 
@@ -262,6 +296,8 @@ class MadmpFragmentsController < ApplicationController
       )
     }
   end
+  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize
 
   def create_contributor
     parent_fragment = MadmpFragment.find(params[:parent_id])
