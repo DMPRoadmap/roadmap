@@ -149,8 +149,10 @@ $(() => {
       beforeSend: () => {
         target.prop('disabled', true);
       },
-    }).done(() => {
+    }).done((data) => {
       target.hide();
+      messageZone.toggleClass('invalid valid');
+      messageZone.html(data.responseJSON.message);
       messageZone.show();
       reloadButton.show();
     }).fail((data) => {

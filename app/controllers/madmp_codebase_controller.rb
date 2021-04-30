@@ -24,7 +24,7 @@ class MadmpCodebaseController < ApplicationController
           "message" => "#{d_('dmpopidor', 'An error has occured: ')} #{response['result_message']}"
         }, status: 500
       end
-    rescue StandardError => e
+    rescue StandardError
       render json: {
         "message" => "Internal Server error"
       }, status: 500
