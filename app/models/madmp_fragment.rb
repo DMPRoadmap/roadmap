@@ -89,9 +89,9 @@ class MadmpFragment < ActiveRecord::Base
   # =====================
   accepts_nested_attributes_for :answer, allow_destroy: true
 
-  # =================
-  # = Class methods =
-  # =================
+  # ========================
+  # = Public class methods =
+  # ========================
 
   def plan
     if dmp.nil?
@@ -270,28 +270,6 @@ class MadmpFragment < ActiveRecord::Base
     update_children_references
   end
 
-  # Validate the fragment data with the linked schema
-  # and saves the result with the fragment data
-  def self.validate_data(data, schema)
-    schemer = JSONSchemer.schema(schema)
-    unformated = schemer.validate(data).to_a
-    validations = {}
-    unformated.each do |valid|
-      next if valid["type"].eql?("object")
-
-      key = valid["data_pointer"][1..-1]
-      if valid["type"].eql?("required")
-        required = JsonPath.on(valid, "$..missing_keys").flatten
-        required.each do |req|
-          validations[req] ? validations[req].push("required") : validations[req] = ["required"]
-        end
-      else
-        validations[key] ? validations[key].push(valid["type"]) : validations[key] = [valid["type"]]
-      end
-    end
-    validations
-  end
-
   # This method is called when a form is opened for the first time
   # It creates the whole tree of sub_fragments
   def instantiate
@@ -367,6 +345,52 @@ class MadmpFragment < ActiveRecord::Base
     else
       data[property_name]
     end
+  end
+
+  # =================
+  # = Class methods =
+  # =================
+
+  # Validate the fragment data with the linked schema
+  # and saves the result with the fragment data
+  def self.validate_data(data, schema)
+    schemer = JSONSchemer.schema(schema)
+    unformated = schemer.validate(data).to_a
+    validations = {}
+    unformated.each do |valid|
+      next if valid["type"].eql?("object")
+
+      key = valid["data_pointer"][1..-1]
+      if valid["type"].eql?("required")
+        required = JsonPath.on(valid, "$..missing_keys").flatten
+        required.each do |req|
+          validations[req] ? validations[req].push("required") : validations[req] = ["required"]
+        end
+      else
+        validations[key] ? validations[key].push(valid["type"]) : validations[key] = [valid["type"]]
+      end
+    end
+    validations
+  end
+
+  # Checks for a given dmp_id (and parent_id) if a fragment exists in the database
+  def self.fragment_exists?(data, schema, dmp_id, parent_id = nil)
+    return false if schema.schema["unicity"].empty?
+
+    classname = schema.classname
+    parent_id = nil if classname.eql?("person")
+    unicity_properties = schema.schema["unicity"]
+    dmp_fragments = MadmpFragment.where(
+      dmp_id: dmp_id,
+      parent_id: parent_id,
+      classname: classname
+    )
+    dmp_fragments.each do |fragment|
+      filtered_data = fragment.data.slice(*unicity_properties)
+
+      return true if filtered_data.eql?(data)
+    end
+    false
   end
 
   def self.find_sti_class(type_name)
