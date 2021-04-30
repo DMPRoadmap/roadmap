@@ -20,6 +20,8 @@ module CodebaseFragment
         sub_schema = MadmpSchema.find(schema_prop["schema_id"])
 
         if sub_data["action"].eql?("create")
+          next if MadmpFragment.fragment_exists?(sub_data["data"], sub_schema, dmp.id, id)
+
           cb_fragment = MadmpFragment.new(
             dmp_id: dmp.id,
             parent_id: id,
@@ -45,6 +47,8 @@ module CodebaseFragment
           sub_schema = MadmpSchema.find(schema_prop["items"]["schema_id"])
 
           if cb_data["action"].eql?("create")
+            next if MadmpFragment.fragment_exists?(cb_data["data"], sub_schema, dmp.id, id)
+
             cb_fragment = MadmpFragment.new(
               dmp_id: dmp.id,
               parent_id: id,
