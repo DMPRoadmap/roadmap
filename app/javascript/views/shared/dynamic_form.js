@@ -153,6 +153,10 @@ $(() => {
       target.hide();
       messageZone.show();
       reloadButton.show();
+    }).fail((data) => {
+      messageZone.html(data.responseJSON.message);
+      messageZone.toggleClass('invalid valid');
+      messageZone.show();
     });
   });
 

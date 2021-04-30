@@ -7,17 +7,29 @@ class MadmpCodebaseController < ApplicationController
   def run
     fragment = MadmpFragment.find(params[:fragment_id])
     script_id = params[:script_id]
-    response = fetch_run_data(fragment, script_id)
-    fragment.save_codebase_fragment(response["data"], fragment.madmp_schema)
 
-    # EXAMPLE DATA : CODEBASE NEEDS FIXES
-    # file_path = Rails.root.join("config/schemas/codebase_example_data.json")
-    # response = JSON.load(File.open(file_path))
-    # fragment.save_codebase_fragment(response, fragment.madmp_schema)
-
+    begin
+      response = fetch_run_data(fragment, script_id)
+      if response["return_code"]&.eql?(0)
+        # EXAMPLE DATA : CODEBASE NEEDS FIXES
+        # file_path = Rails.root.join("config/schemas/codebase_example_data.json")
+        # response = JSON.load(File.open(file_path))
+        # fragment.save_codebase_fragment(response, fragment.madmp_schema)
+        fragment.save_codebase_fragment(response["data"], fragment.madmp_schema)
+        render json: {
+          "error" => d_("dmpopidor", 'New data have been added to your plan, please click on the "Reload" button.')
+        }, status: 200
+      else
+        render json: {
+          "message" => "#{d_('dmpopidor', 'An error has occured: ')} #{response['result_message']}"
+        }, status: 500
+      end
+    rescue StandardError => e
+      render json: {
+        "message" => "Internal Server error"
+      }, status: 500
+    end
     authorize fragment
-    # TODO: Needs to parse response for view
-    render json: response.to_json
   end
 
   private

@@ -1264,6 +1264,9 @@ header .main-nav {
                         &.valid {
                             color: $green;
                         }
+                        &.invalid {
+                            color: $rust;
+                        }
                     }
                     .btn {
                         font-size: 20px;
