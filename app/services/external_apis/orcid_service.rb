@@ -79,7 +79,7 @@ Rails.logger.warn resp.headers
 Rails.logger.warn "BODY:"
 Rails.logger.warn resp.body
 
-        add_subscription(plan: plan, callback_uri: resp.headers.fetch("location", []).first) if resp.body.present?
+        add_subscription(plan: plan, callback_uri: resp.headers["location"]) if resp.body.present?
         true
       end
 
@@ -87,8 +87,11 @@ Rails.logger.warn resp.body
       # Register the ApiClient behind the minter service as a Subscriber to the Plan
       # if the service has a callback URL and ApiClient
       def add_subscription(plan:, callback_uri:)
-        return nil unless plan.is_a?(Plan) && callback_uri.present? && callback_path.present? &&
-                          identifier_scheme.present?
+
+Rails.logger.warn "ADDING SUBSCRIPTION"
+Rails.logger.warn "PLAN? #{plan.is_a?(Plan)}, SCHEME? #{identifier_scheme.present?}, CALLBACK: #{callback_uri}"
+
+        return nil unless plan.is_a?(Plan) && callback_uri.present? && identifier_scheme.present?
 
         Subscription.create(
           plan: plan,

@@ -183,7 +183,7 @@ class PlansController < ApplicationController
     @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
 
     # Get the selected and possible guidance options for the plan
-    fetch_guidance_groups(plan: @plan)
+    fetch_guidance_groups(plan_in: @plan)
 
     @based_on = if @plan.template.customization_of.nil?
                   @plan.template
@@ -258,7 +258,7 @@ class PlansController < ApplicationController
       else
         format.html do
           # Get the selected and possible guidance options for the plan
-          fetch_guidance_groups(plan: @plan)
+          fetch_guidance_groups(plan_in: @plan)
           flash[:alert] = failure_message(@plan, _("save"))
           render "show"
         end
