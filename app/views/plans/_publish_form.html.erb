@@ -42,12 +42,19 @@
 <% end %>
 
 <% if Rails.configuration.x.allow_doi_minting && IdentifierScheme.for_identification.any? %>
-  <%# Temporary flag to only allow users from certain Orgs to mint DOIs during soft-launch %>
-  <%# if current_user.org&.allow_doi? && current_user.can_org_admin? %>
+  <br>
+  <h2><%= _("Register your plan") %></h2>
+  <div class="doi-minter">
+    <%= render partial: 'plans/doi_minter', locals: { plan: @plan } %>
+  </div>
+
+  <% orcid_scheme = IdentifierScheme.find_by(name: "orcid") %>
+  <% if @plan.doi.present? && orcid_scheme.present? %>
     <br>
-    <h2>Register your plan</h2>
-    <div class="doi-minter">
-      <%= render partial: 'plans/doi_minter', locals: { plan: @plan } %>
+    <h2><%= _("Add this plan to your ORCID record") %></h2>
+    <div class="add-orcid-work">
+      <%= render partial: "plans/add_orcid_work",
+                 locals: { subscription: @plan.subscription_for(subscriber: orcid_scheme) } %>
     </div>
-  <%# end %>
+  <% end %>
 <% end %>

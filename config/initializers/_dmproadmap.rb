@@ -245,6 +245,10 @@ module DMPRoadmap
     # ------ #
     config.x.dmphub_landing_page_url = ENV["DMPHUB_LANDING_PAGE_URL"]
 
+    # ----- #
+    # ORCID #
+    # ----- #
+    config.x.orcid_api_base_url = ENV["ORCID_API_BASE_URL"]
   end
 
 end

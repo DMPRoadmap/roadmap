@@ -4,6 +4,12 @@ module ExternalApis
 
   # This service provides an interface to the ORCID member API:
   #   https://info.orcid.org/documentation/features/member-api/
+  #   https://github.com/ORCID/ORCID-Source/tree/master/orcid-api-web
+  #   https://github.com/ORCID/ORCID-Source/blob/master/orcid-api-web/tutorial/works.md
+  #
+  # It makes use of OAuth access tokens supplied by ORCID through the ORCID Omniauth gem for Devise.
+  # The tokens are created when the user either signs in via ORCID, when the user links their account
+  # on the Edit profile page or when the user tries to submit their DMP to ORCID but no valid token exists
   class OrcidService < BaseDoiService
 
     class << self
@@ -25,158 +31,159 @@ module ExternalApis
         Rails.configuration.x.orcid&.name
       end
 
-      def auth_path
-        Rails.configuration.x.orcid&.auth_path
-      end
-
       def work_path
         Rails.configuration.x.orcid&.mint_path
       end
 
-      def works_path
-        Rails.configuration.x.orcid&.update_path
-      end
-
       def callback_path
-        Rails.configuration.x.orcid&.callback_path || super
-      end
-
-      def callback_method
-        Rails.configuration.x.orcid&.callback_method&.downcase&.to_sym || super
-      end
-
-      # Use the Devise ORCID OmniAuth gem for User auth
-      def authorize(user:)
-        return false unless user.present?
-
-
+        Rails.configuration.x.orcid&.callback_path
       end
 
       # Create a new DOI
-      def cite_dmp(plan:)
-        return nil unless active? && auth
+      def add_work(user:, plan:)
+        # Fail if this service is inactive or the plan does not have a DOI!
+        return false unless active? && user.is_a?(User) && plan.is_a?(Plan) && plan.doi.present?
 
+        orcid = user.identifier_for_scheme(scheme: name)
+        token = ExternalApiAccessToken.for_user_and_service(user: user, service: name)
+
+        # TODO: allow the user to reauth to get a token if they do not have one or theirs is expired/revoked
+
+        # Fail if the user doesn't have an orcid or an acess token
+        return false unless orcid.present? && token.present?
+
+        target = api_base_url % { id: orcid.value.gsub(landing_page_url, "") }
+
+        # curl -i -H 'Content-type: application/vnd.orcid+xml'
+        #         -H 'Authorization: Bearer dd91868d-d29a-475e-9acb-bd3fdf2f43f4'
+        #         -d '@[FILE-PATH]/works.xml'
+        #         -X POST 'https://api.sandbox.orcid.org/v3.0/0000-0002-9227-8514/work'
         hdrs = {
-          "Authorization": @token,
-          "Server-Agent": "#{caller_name} (#{client_id})"
+          "Authorization": "Bearer #{token.access_token}",
+          "Server-Agent": "#{ApplicationService.application_name} (#{Rails.application.credentials.orcid[:client_id]})"
         }
-        resp = http_post(uri: "#{api_base_url}#{mint_path}",
-                         additional_headers: hdrs, debug: false,
-                         data: json_from_template(plan: plan))
+
+Rails.logger.warn xml_for(plan: plan, doi: plan.doi)
+
+        resp = http_post(uri: target, additional_headers: hdrs, debug: true,
+                         data: xml_for(plan: plan, doi: plan.doi))
 
         # DMPHub returns a 201 (created) when a new DOI has been minted or
         #                a 405 (method_not_allowed) when a DOI already exists
         unless resp.present? && [201, 405].include?(resp.code)
-          handle_http_failure(method: "DMPHub mint_doi", http_response: resp)
-          return nil
+          handle_http_failure(method: "ORCID add work", http_response: resp)
+          return false
         end
 
-        doi = process_response(response: resp)
-        add_subscription(plan: plan, doi: doi) if doi.present?
-        doi
+Rails.logger.warn "RESPONSE CODE: #{resp.code}"
+Rails.logger.warn "HEADERS:"
+Rails.logger.warn resp.headers
+Rails.logger.warn "BODY:"
+Rails.logger.warn resp.body
+
+        add_subscription(plan: plan, put_code: resp.body) if resp.body.present?
+        true
       end
 
-      # Update the DOI
-      def update_dmp(plan:)
-        return nil unless active? && auth && plan.present?
-
-        hdrs = {
-          "Authorization": @token,
-          "Server-Agent": "#{caller_name} (#{client_id})"
-        }
-
-        target = "#{api_base_url}#{callback_path}" % { dmp_id: plan.doi.value_without_scheme_prefix }
-        resp = http_put(uri: target, additional_headers: hdrs, debug: true,
-                        data: json_from_template(plan: plan))
-
-        # DMPHub returns a 200 when successful
-        unless resp.present? && resp.code == 200
-          handle_http_failure(method: "DMPHub update_doi", http_response: resp)
-          return nil
-        end
-
-        doi = process_response(response: resp)
-        update_subscription(plan: plan, doi: doi) if doi.present?
-        doi
-      end
 
       # Register the ApiClient behind the minter service as a Subscriber to the Plan
       # if the service has a callback URL and ApiClient
-      def add_subscription(plan:, doi:)
-        Rails.logger.warn "DMPHubService - No ApiClient available for 'dmphub'!" unless api_client.present?
-        return plan unless plan.present? && doi.present? &&
-                           callback_path.present? && api_client.present?
+      def add_subscription(plan:, put_code:)
+        return nil unless plan.is_a?(Plan) && put_code.present? && callback_path.present? &&
+                          identifier_scheme.present?
 
         Subscription.create(
           plan: plan,
-          subscriber: api_client,
-          callback_uri: callback_path % { dmp_id: doi.gsub(/https?:\/\/doi.org\//, "") },
+          subscriber: identifier_scheme,
+          callback_uri: "#{api_base_url}#{callback_path % { put_code: put_code }}",
           updates: true,
           deletions: true
         )
       end
 
       # Bump the last_notified timestamp on the subscription
-      def update_subscription(plan:, doi:)
-        Rails.logger.warn "DMPHubService - No ApiClient available for 'dmphub'!" unless api_client.present?
-        return plan unless plan.present? && doi.present? && callback_path.present? && api_client.present?
+      def update_subscription(plan:)
+        return false unless plan.is_a?(Plan) && callback_path.present? && identifier_scheme.present?
 
-        Subscription.where(plan: plan, subscriber: api_client).update(last_notified: Time.now)
+        subscription = Subscription.find_by(plan: plan, subscriber: identifier_scheme)
+        subscription.present? ? subscription.notify! : false
       end
 
       private
 
-      attr_accessor :token
-
-      # Authenticate and then Authorize the User with the ORCID via the Devise ORCID Omniauth gem
-      def authenticate()
-        data = {
-          grant_type: "client_credentials",
-          client_id: client_id,
-          client_secret: client_secret
-        }
-        resp = http_post(uri: "#{api_base_url}#{auth_path}",
-                         additional_headers: {}, data: data.to_json, debug: false)
-        unless resp.present? && resp.code == 200
-          handle_http_failure(method: "DMPHub mint_doi", http_response: resp)
-          return nil
+      def identifier_scheme
+        Rails.cache.fetch("orcid_scheme", expires_in: 1.day) do
+          IdentifierScheme.find_by("LOWER(name) = ?", name.downcase)
         end
-        @token = process_token(json: resp.body)
-        @token.present?
       end
 
-      # Process the authentication response from DMPHub to retrieve the JWT
-      def process_token(json:)
-        hash = JSON.parse(json).with_indifferent_access
-        return nil unless hash[:access_token].present? && hash[:token_type].present?
+      def xml_for(plan:, doi:)
+        return nil unless plan.is_a?(Plan) && doi.is_a?(Identifier)
 
-        "#{hash[:token_type]}: #{hash[:access_token]}"
-      # If a JSON parse error occurs then return results of a local table search
-      rescue JSON::ParserError => e
-        log_error(method: "DMPHub authentication", error: e)
-        nil
+        # Derived from:
+        #  https://github.com/ORCID/orcid-model/blob/master/src/main/resources/record_3.0/samples/write_samples/work-full-3.0.xml
+        #
+        <<-XML
+          <?xml version="1.0" encoding="UTF-8"?>
+          <work:work xmlns:common="http://www.orcid.org/ns/common"
+                     xmlns:work="http://www.orcid.org/ns/work"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:schemaLocation="http://www.orcid.org/ns/work/work-3.0.xsd">
+            <work:title>
+              <common:title>#{plan.title}</common:title>
+            </work:title>
+            <work:short-description>#{plan.description}</work:short-description>
+            <work:citation>
+              <work:citation-type>formatted-unspecified</work:citation-type>
+              <work:citation-value>#{plan.citation}</work:citation-value>
+            </work:citation>
+            <work:type>data-management-plan</work:type>
+            <common:publication-date>
+              <common:year>#{plan.created_at.strftime("%Y")}</common:year>
+              <common:month>#{plan.created_at.strftime("%m")}</common:month>
+              <common:day>#{plan.created_at.strftime("%d")}</common:day>
+            </common:publication-date>
+            <common:external-ids>
+              <common:external-id>
+                <common:external-id-type>doi</common:external-id-type>
+                <common:external-id-value>#{doi.value_without_scheme_prefix}</common:external-id-value>
+                <common:external-id-url>#{doi.value}</common:external-id-url>
+                <common:external-id-relationship>self</common:external-id-relationship>
+              </common:external-id>
+            </common:external-ids>
+            #{contributors_as_xml(authors: plan.owner_and_coowners)}
+          </work:work>
+        XML
       end
 
-      # Prepare the DMP for transmission to the DMPHub (RDA Common Standard format)
-      def json_from_template(plan:)
-        payload = ActionController::Base.new.render_to_string(
-          partial: "/api/v1/plans/show", locals: { plan: plan }
-        )
+      def contributors_as_xml(authors:)
+        return "" unless authors.is_a?(Array) && authors.any?
 
-        { dmp: JSON.parse(payload) }.to_json
-      end
+        ret = "<work:contributors>"
 
-      # Extract the DOI from the response from the DMPHub
-      def process_response(response:)
-        hash = JSON.parse(response.body).with_indifferent_access
-        return nil unless hash.fetch(:items, []).length == 1
-        return nil unless hash[:items].first[:dmp].present?
+        authors.each do |author|
+          orcid = author.identifier_for_scheme(scheme: name)
+          ret += "<work:contributor>"
+          if orcid.present?
+            ret += <<-XML
+              <common:contributor-orcid>
+                <common:uri>#{orcid.value}</common:uri>
+                <common:path>#{orcid.value_without_scheme_prefix}</common:path>
+                <common:host>orcid.org</common:host>
+              </common:contributor-orcid>
+            XML
+          end
 
-        hash[:items].first[:dmp].fetch(:dmp_id, {})[:identifier]
-      # If a JSON parse error occurs then return results of a local table search
-      rescue JSON::ParserError => e
-        log_error(method: "DMPHub parse response: ", error: e)
-        nil
+          ret += <<-XML
+              <work:credit-name>#{author.name(false)}</work:credit-name>
+              <work:contributor-attributes>
+                <work:contributor-role>author</work:contributor-role>
+              </work:contributor-attributes>
+            </work:contributor>
+          XML
+        end
+
+        ret += "</work:contributors>"
       end
 
     end

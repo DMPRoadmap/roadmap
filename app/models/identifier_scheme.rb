@@ -18,6 +18,7 @@
 class IdentifierScheme < ApplicationRecord
 
   include FlagShihTzu
+  include Subscribable
 
   ##
   # The maximum length for a name

@@ -24,6 +24,14 @@ class IdentifiersController < ApplicationController
       }
     end
 
+    # TODO: While this works for ORCID it might not for future integrations. We should consider
+    #       moving it to a different place on the Edit Profile page
+    # Revoke any OAuth access tokens for the identifier
+    tokens = user.external_api_tokens.select do |token|
+      token.external_service_name == identifier.identifier_scheme.downcase
+    end
+    tokens.each(&:revoke!)
+
     redirect_to edit_user_registration_path
   end
 

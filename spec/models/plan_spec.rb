@@ -4,6 +4,7 @@ require "rails_helper"
 
 describe Plan do
 
+  include IdentifierHelper
   include RolesHelper
   include TemplateHelper
 
@@ -1587,6 +1588,32 @@ describe Plan do
       expect(plan.grant.new_record?).to eql(false)
       expect(plan.grant.value).to eql(val)
       expect(Identifier.all.length).to eql(1)
+    end
+
+    describe "#citation" do
+      before(:each) do
+        @plan = create(:plan, :creator)
+        @co_author = create(:user)
+        create(:role, :administrator, user: @co_author, plan: @plan)
+        @plan.reload
+      end
+
+      it "returns nil if the plan has no owner" do
+        @plan.roles.clear
+        expect(@plan.citation).to eql(nil)
+      end
+      it "returns nil if the plan has no DMP ID (aka doi)" do
+        expect(@plan.citation).to eql(nil)
+      end
+      it "returns the citation" do
+        doi = create_doi(plan: @plan, val: SecureRandom.uuid)
+        @plan.expects(:doi).returns(doi).twice
+        result = @plan.citation
+        auth = [@plan.owner.name(false), @co_author.name(false)].sort { |a, b| a <=> b }.join(", ")
+        expected = "#{auth}. (#{@plan.created_at.year}). \"#{@plan.title}\" [Data Management Plan]."
+        expected += " #{ApplicationService.application_name}. #{doi.value}"
+        expect(result).to eql(expected)
+      end
     end
 
     context "private methods" do
