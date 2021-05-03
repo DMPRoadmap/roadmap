@@ -441,7 +441,7 @@ class PlansController < ApplicationController
     render js: render_to_string(template: "plans/add_orcid_work.js.erb")
 
   rescue StandardError => e
-    Rails.logger.error "Unable to mint DOI for plan #{params[:id]} - #{e.message}"
+    Rails.logger.error "Unable to add plan #{params[:id]} to the user #{current_user.id}'s ORCID record - #{e.message}"
     Rails.logger.error e.backtrace
     render js: render_to_string(template: "plans/add_orcid_work.js.erb")
   end

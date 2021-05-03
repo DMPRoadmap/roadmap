@@ -32,7 +32,7 @@ module ExternalApis
       end
 
       def work_path
-        Rails.configuration.x.orcid&.mint_path
+        Rails.configuration.x.orcid&.work_path
       end
 
       def callback_path
@@ -52,9 +52,11 @@ module ExternalApis
         # Fail if the user doesn't have an orcid or an acess token
         return false unless orcid.present? && token.present?
 
-        target = api_base_url % { id: orcid.value.gsub(landing_page_url, "") }
+        target = "#{api_base_url % { id: orcid.value.gsub(landing_page_url, "") }}#{work_path}"
 
         hdrs = {
+          "Content-type": "application/vnd.orcid+xml",
+          "Accept": "application/xml",
           "Authorization": "Bearer #{token.access_token}",
           "Server-Agent": "#{ApplicationService.application_name} (#{Rails.application.credentials.orcid[:client_id]})"
         }
@@ -77,21 +79,21 @@ Rails.logger.warn resp.headers
 Rails.logger.warn "BODY:"
 Rails.logger.warn resp.body
 
-        add_subscription(plan: plan, put_code: resp.body) if resp.body.present?
+        add_subscription(plan: plan, callback_uri: resp.headers.fetch("location", []).first) if resp.body.present?
         true
       end
 
 
       # Register the ApiClient behind the minter service as a Subscriber to the Plan
       # if the service has a callback URL and ApiClient
-      def add_subscription(plan:, put_code:)
-        return nil unless plan.is_a?(Plan) && put_code.present? && callback_path.present? &&
+      def add_subscription(plan:, callback_uri:)
+        return nil unless plan.is_a?(Plan) && callback_uri.present? && callback_path.present? &&
                           identifier_scheme.present?
 
         Subscription.create(
           plan: plan,
           subscriber: identifier_scheme,
-          callback_uri: "#{api_base_url}#{callback_path % { put_code: put_code }}",
+          callback_uri: callback_uri,
           updates: true,
           deletions: true
         )
@@ -120,7 +122,6 @@ Rails.logger.warn resp.body
         #  https://github.com/ORCID/orcid-model/blob/master/src/main/resources/record_3.0/samples/write_samples/work-full-3.0.xml
         #
         <<-XML
-          <?xml version="1.0" encoding="UTF-8"?>
           <work:work xmlns:common="http://www.orcid.org/ns/common"
                      xmlns:work="http://www.orcid.org/ns/work"
                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
