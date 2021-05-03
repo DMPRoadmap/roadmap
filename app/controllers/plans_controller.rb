@@ -443,7 +443,6 @@ class PlansController < ApplicationController
   rescue StandardError => e
     Rails.logger.error "Unable to mint DOI for plan #{params[:id]} - #{e.message}"
     Rails.logger.error e.backtrace
-
     render js: render_to_string(template: "plans/add_orcid_work.js.erb")
   end
 

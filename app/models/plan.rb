@@ -645,9 +645,6 @@ class Plan < ApplicationRecord
 
   # Returns the Subscription for the specified subscriber or nil if none exists
   def subscription_for(subscriber:)
-
-p subscriptions.inspect
-
     subscriptions.select { |subscription| subscription.subscriber == subscriber }
   end
 

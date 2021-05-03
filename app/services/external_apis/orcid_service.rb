@@ -54,10 +54,6 @@ module ExternalApis
 
         target = api_base_url % { id: orcid.value.gsub(landing_page_url, "") }
 
-        # curl -i -H 'Content-type: application/vnd.orcid+xml'
-        #         -H 'Authorization: Bearer dd91868d-d29a-475e-9acb-bd3fdf2f43f4'
-        #         -d '@[FILE-PATH]/works.xml'
-        #         -X POST 'https://api.sandbox.orcid.org/v3.0/0000-0002-9227-8514/work'
         hdrs = {
           "Authorization": "Bearer #{token.access_token}",
           "Server-Agent": "#{ApplicationService.application_name} (#{Rails.application.credentials.orcid[:client_id]})"
