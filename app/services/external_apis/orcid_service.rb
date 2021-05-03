@@ -40,7 +40,7 @@ module ExternalApis
       end
 
       # Create a new DOI
-      def add_work(user:, plan::)
+      def add_work(user:, plan:)
         # Fail if this service is inactive or the plan does not have a DOI!
         return false unless active? && user.is_a?(User) && plan.is_a?(Plan) && plan.doi.present?
 
@@ -118,6 +118,8 @@ Rails.logger.warn resp.body
       def xml_for(plan:, doi:, user:)
         return nil unless plan.is_a?(Plan) && doi.is_a?(Identifier) && user.is_a?(User)
 
+        orcid = user.identifier_for_scheme(scheme: name)
+
         # Derived from:
         #  https://github.com/ORCID/orcid-model/blob/master/src/main/resources/record_3.0/samples/write_samples/work-full-3.0.xml
         #
@@ -148,39 +150,21 @@ Rails.logger.warn resp.body
                 <common:external-id-relationship>self</common:external-id-relationship>
               </common:external-id>
             </common:external-ids>
-            #{contributors_as_xml(authors: [user])}
+            <work:contributors>
+              <work:contributor>
+                <common:contributor-orcid>
+                  <common:uri>#{orcid.value}</common:uri>
+                  <common:path>#{orcid.value_without_scheme_prefix}</common:path>
+                  <common:host>orcid.org</common:host>
+                </common:contributor-orcid>
+                <work:credit-name>#{user.name(false)}</work:credit-name>
+                <work:contributor-attributes>
+                  <work:contributor-role>author</work:contributor-role>
+                </work:contributor-attributes>
+              </work:contributor>
+            </work:contributors>
           </work:work>
         XML
-      end
-
-      def contributors_as_xml(authors:)
-        return "" unless authors.is_a?(Array) && authors.any?
-
-        ret = "<work:contributors>"
-
-        authors.each do |author|
-          orcid = author.identifier_for_scheme(scheme: name)
-          ret += "<work:contributor>"
-          if orcid.present?
-            ret += <<-XML
-              <common:contributor-orcid>
-                <common:uri>#{orcid.value}</common:uri>
-                <common:path>#{orcid.value_without_scheme_prefix}</common:path>
-                <common:host>orcid.org</common:host>
-              </common:contributor-orcid>
-            XML
-          end
-
-          ret += <<-XML
-              <work:credit-name>#{author.name(false)}</work:credit-name>
-              <work:contributor-attributes>
-                <work:contributor-role>author</work:contributor-role>
-              </work:contributor-attributes>
-            </work:contributor>
-          XML
-        end
-
-        ret += "</work:contributors>"
       end
 
     end
