@@ -432,6 +432,7 @@ class MadmpFragmentsController < ApplicationController
     template = section.phase.template
 
     return {
+            "fragment_id" => fragment.id,
             "answer" => {
               "id" => answer.id
             },

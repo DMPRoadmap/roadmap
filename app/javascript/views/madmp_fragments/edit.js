@@ -40,6 +40,7 @@ $(() => {
           toolbar,
         });
         Select2.init(`#answer-form-${data.question.id}-research-output-${data.research_output.id}`);
+        target.find('.schema_picker').data('fragment-id', data.fragment_id);
       }).fail((error) => {
         failCallback(error, target);
       });

@@ -608,24 +608,24 @@ header .main-nav {
         word-wrap: break-word;
     }
 
-    .schema-picker{
-        display: flex;
+    // .schema-picker{
+    //     display: flex;
 
-        .tab-content {
-            flex: 10;
-        }
+    //     .tab-content {
+    //         flex: 10;
+    //     }
 
-        .nav-pills {
-            width: inherit;
-            display: flex;
-            flex: 2;
-            flex-direction: column;
-            li {
-                writing-mode: vertical-lr;
-                text-orientation: mixed;
-            }
-        }
-    }
+    //     .nav-pills {
+    //         width: inherit;
+    //         display: flex;
+    //         flex: 2;
+    //         flex-direction: column;
+    //         li {
+    //             writing-mode: vertical-lr;
+    //             text-orientation: mixed;
+    //         }
+    //     }
+    // }
 
     // Project Details 
 

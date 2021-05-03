@@ -1,7 +1,7 @@
 <%# locals: { plan, template, question, answer, madmp_schema, pickable_schemas, research_output, guidance_presenter } %>
 <% guidances_active = guidance_presenter.any?(question: question)%>
 <% active_nav = nil %>
-<div class="plan-guidance-tab schema-pickerzz">
+<div class="plan-guidance-tab schema-picker">
 
   <!-- Nav tabs -->
   <ul class="nav nav-pills nav-justified mb-10" role="tablist">
@@ -43,7 +43,7 @@
                           pickable_schemas: pickable_schemas,
                           question: question, 
                           research_output: research_output 
-                } if answer.madmp_fragment.present?%>
+                } %>
             </div>
           </div>
         </div>
