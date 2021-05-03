@@ -296,9 +296,7 @@ module DynamicFormHelper
       else # type = string
         # if the field is overridable, check if there's a custom value
         if prop["overridable"].present? && data["#{key}_custom"].present?
-          next if data["#{key}_custom"].eql?("__DELETED__")
-
-          formated_data[key] = data["#{key}_custom"]
+          formated_data[key] = data["#{key}_custom"].eql?("__DELETED__") ? "" : data["#{key}_custom"]
         else
           formated_data[key] = data[key]
         end

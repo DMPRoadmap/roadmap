@@ -318,7 +318,7 @@ class MadmpFragment < ActiveRecord::Base
               param_data.dig(prop, "custom_value").present?
           # if the property is overridable & value is custom, take the value as is
           sub_fragment = MadmpFragment.find(data[prop]["dbid"])
-          additional_info = param_data.dig(prop, "custom_value").eql?("__DELETED__") ? {} : sub_fragment.additional_info.merge(sub_data)
+          additional_info = sub_fragment.additional_info.merge(sub_data)
           sub_fragment.update(
             data: {},
             additional_info: additional_info
