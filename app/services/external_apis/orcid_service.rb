@@ -79,7 +79,7 @@ Rails.logger.warn resp.headers
 Rails.logger.warn "BODY:"
 Rails.logger.warn resp.body
 
-        add_subscription(plan: plan, callback_uri: resp.headers["location"]) if resp.body.present?
+        add_subscription(plan: plan, callback_uri: resp.headers["location"]) if resp.code = 201
         true
       end
 
