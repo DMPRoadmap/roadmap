@@ -1,10 +1,9 @@
 var target = document.getElementsByClassName('add-orcid-work');
 
-<% p @subscription.inspect %>
-
+<% subscription = @plan.subscription_for(subscriber: IdentifierScheme.find_by(name: "orcid")) %>
 if (target != undefined) {
-  <% if @subscription.present? %>
-    target[0].innerHTML = `<%= escape_javascript(render partial: "plans/add_orcid_work", locals: { subscription: @subscription }) %>`;
+  <% if subscription.present? %>
+    target[0].innerHTML = `<%= escape_javascript(render partial: "plans/add_orcid_work", locals: { subscription: subscription }) %>`;
   <% else %>
     var response = document.getElementsByClassName('add-orcid-work-response');
     response[0].innerHTML = `<%= _("Something went wrong and we were unable to add this plan to your ORCID record. Please try again. If the problem persists please contact the help desk at %{helpdesk_email}") % { helpdesk_email: Rails.configuration.x.organisation.helpdesk_email } %>`;
