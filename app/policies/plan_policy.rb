@@ -88,4 +88,8 @@ class PlanPolicy < ApplicationPolicy
     @plan.administerable_by?(@user.id) || @user.can_super_admin?
   end
 
+  def add_orcid_work?
+    @plan.administerable_by?(@user.id)
+  end
+
 end

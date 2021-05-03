@@ -1,0 +1,19 @@
+<%# locals: subscription %>
+
+<% if subscription.is_a?(Subscription) %>
+  <p><%= _("This plan has been added to the 'works' section of your ORCID record.") %></p>
+<% else %>
+  <p><%= _("Clicking this button will add this plan to the 'works' on your ORCID record.") %></p>
+  <div class="col-xs-8">
+    <%= button_to _("Update ORCID"), {
+                                      controller: 'plans',
+                                      action: 'add_orcid_work',
+                                      data: { disable_with: "adding DMP to ORCID ..." }
+                                    },
+                                    {
+                                      remote: true,
+                                      method: :get,
+                                      class: "btn btn-default mint-dmp-id"
+                                    } %>
+  </div>
+<% end %>

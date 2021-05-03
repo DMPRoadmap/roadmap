@@ -643,6 +643,14 @@ class Plan < ApplicationRecord
     "#{authors}. (#{pub_year}). \"#{title}\" [Data Management Plan]. #{app_name}. #{doi.value}"
   end
 
+  # Returns the Subscription for the specified subscriber or nil if none exists
+  def subscription_for(subscriber:)
+
+p subscriptions.inspect
+
+    subscriptions.select { |subscription| subscription.subscriber == subscriber }
+  end
+
   private
 
   # Determines whether or not the attributes that were updated constitute a versionable change

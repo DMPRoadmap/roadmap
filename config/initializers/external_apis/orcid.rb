@@ -9,4 +9,5 @@ Rails.configuration.x.orcid.name = "orcid"
 Rails.configuration.x.orcid.landing_page_url = "https://orcid.org/"
 Rails.configuration.x.orcid.api_base_url = Rails.configuration.x.orcid_api_base_url
 Rails.configuration.x.orcid.work_path = "work/"
+Rails.configuration.x.orcid.callback_path = "work/%{put_code}"
 Rails.configuration.x.orcid.active = true

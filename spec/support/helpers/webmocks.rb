@@ -50,8 +50,22 @@ module Webmocks
     body.to_json
   end
 
-  def mocked_orcid_response
+  def mocked_orcid_response(success: true)
 
+    if success
+      Faker::Number.number(digits: 8).to_s
+    else
+      <<-XML
+      <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+      <error xmlns="http://www.orcid.org/ns/error">
+          <response-code>401</response-code>
+          <developer-message>401 Unauthorized: The client application is not authorized for this ORCID record. Full validation error: Access token is for a different record</developer-message>
+          <user-message>The client application is not authorized.</user-message>
+          <error-code>9017</error-code>
+          <more-info>https://members.orcid.org/api/resources/troubleshooting</more-info>
+      </error>
+      XML
+    end
   end
 
 end

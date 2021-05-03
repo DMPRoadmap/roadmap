@@ -35,6 +35,10 @@ module ExternalApis
         Rails.configuration.x.orcid&.mint_path
       end
 
+      def callback_path
+        Rails.configuration.x.orcid&.callback_path
+      end
+
       # Create a new DOI
       def add_work(user:, plan:)
         # Fail if this service is inactive or the plan does not have a DOI!
@@ -59,7 +63,7 @@ module ExternalApis
           "Server-Agent": "#{ApplicationService.application_name} (#{Rails.application.credentials.orcid[:client_id]})"
         }
 
-p xml_for(plan: plan, doi: plan.doi)
+Rails.logger.warn xml_for(plan: plan, doi: plan.doi)
 
         resp = http_post(uri: target, additional_headers: hdrs, debug: true,
                          data: xml_for(plan: plan, doi: plan.doi))
@@ -67,45 +71,51 @@ p xml_for(plan: plan, doi: plan.doi)
         # DMPHub returns a 201 (created) when a new DOI has been minted or
         #                a 405 (method_not_allowed) when a DOI already exists
         unless resp.present? && [201, 405].include?(resp.code)
-
-p resp.code
-
           handle_http_failure(method: "ORCID add work", http_response: resp)
           return false
         end
 
-        doi = process_response(response: resp)
-        add_subscription(plan: plan, doi: doi) if doi.present?
-        doi
+Rails.logger.warn "RESPONSE CODE: #{resp.code}"
+Rails.logger.warn "HEADERS:"
+Rails.logger.warn resp.headers
+Rails.logger.warn "BODY:"
+Rails.logger.warn resp.body
+
+        add_subscription(plan: plan, put_code: resp.body) if resp.body.present?
+        true
       end
 
 
       # Register the ApiClient behind the minter service as a Subscriber to the Plan
       # if the service has a callback URL and ApiClient
-      def add_subscription(plan:, doi:)
-        Rails.logger.warn "DMPHubService - No ApiClient available for 'dmphub'!" unless api_client.present?
-        return plan unless plan.present? && doi.present? &&
-                           callback_path.present? && api_client.present?
+      def add_subscription(plan:, put_code:)
+        return nil unless plan.is_a?(Plan) && put_code.present? && callback_path.present? &&
+                          identifier_scheme.present?
 
         Subscription.create(
           plan: plan,
-          subscriber: api_client,
-          callback_uri: callback_path % { dmp_id: doi.gsub(/https?:\/\/doi.org\//, "") },
+          subscriber: identifier_scheme,
+          callback_uri: "#{api_base_url}#{callback_path % { put_code: put_code }}",
           updates: true,
           deletions: true
         )
       end
 
       # Bump the last_notified timestamp on the subscription
-      def update_subscription(plan:, doi:)
-        Rails.logger.warn "DMPHubService - No ApiClient available for 'dmphub'!" unless api_client.present?
-        return plan unless plan.present? && doi.present? && callback_path.present? && api_client.present?
+      def update_subscription(plan:)
+        return false unless plan.is_a?(Plan) && callback_path.present? && identifier_scheme.present?
 
-        Subscription.where(plan: plan, subscriber: api_client).update(last_notified: Time.now)
+        subscription = Subscription.find_by(plan: plan, subscriber: identifier_scheme)
+        subscription.present? ? subscription.notify! : false
       end
 
       private
 
+      def identifier_scheme
+        Rails.cache.fetch("orcid_scheme", expires_in: 1.day) do
+          IdentifierScheme.find_by("LOWER(name) = ?", name.downcase)
+        end
+      end
 
       def xml_for(plan:, doi:)
         return nil unless plan.is_a?(Plan) && doi.is_a?(Identifier)
@@ -137,7 +147,7 @@ p resp.code
               <common:external-id>
                 <common:external-id-type>doi</common:external-id-type>
                 <common:external-id-value>#{doi.value_without_scheme_prefix}</common:external-id-value>
-                <common:external-id-url>#{doi&.value}</common:external-id-url>
+                <common:external-id-url>#{doi.value}</common:external-id-url>
                 <common:external-id-relationship>self</common:external-id-relationship>
               </common:external-id>
             </common:external-ids>
@@ -147,7 +157,7 @@ p resp.code
       end
 
       def contributors_as_xml(authors:)
-        return "" unless authors.any?
+        return "" unless authors.is_a?(Array) && authors.any?
 
         ret = "<work:contributors>"
 

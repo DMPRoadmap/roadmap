@@ -431,6 +431,22 @@ class PlansController < ApplicationController
     render js: render_to_string(template: "plans/mint.js.erb")
   end
 
+  # GET /plans/:id/add_orcid_work
+  def add_orcid_work
+    @plan = Plan.find(params[:id])
+    authorize @plan
+
+    ExternalApis::OrcidService.add_work(user: current_user, plan: @plan)
+    @subscription = @plan.subscription_for(subscriber: IdentifierScheme.find_by(name: "orcid"))
+    render js: render_to_string(template: "plans/add_orcid_work.js.erb")
+
+  rescue StandardError => e
+    Rails.logger.error "Unable to mint DOI for plan #{params[:id]} - #{e.message}"
+    Rails.logger.error e.backtrace
+
+    render js: render_to_string(template: "plans/add_orcid_work.js.erb")
+  end
+
   # ============================
   # = Private instance methods =
   # ============================
