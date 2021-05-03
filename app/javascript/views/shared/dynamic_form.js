@@ -104,7 +104,6 @@ $(() => {
         $(`table.list-${response.query_id} tbody`).html(response.html);
         selectField.find('select').val('').trigger('change');
       }).fail((response) => {
-        console.log(response);
         messageZone.html(response.responseJSON.error);
         messageZone.show();
       });
@@ -157,13 +156,13 @@ $(() => {
       },
     }).done((data) => {
       target.hide();
-      messageZone.toggleClass('invalid valid');
-      messageZone.html(data.responseJSON.message);
+      messageZone.addClass('valid');
+      messageZone.html(data.message);
       messageZone.show();
       reloadButton.show();
-    }).fail((data) => {
-      messageZone.html(data.responseJSON.message);
-      messageZone.toggleClass('invalid valid');
+    }).fail((response) => {
+      messageZone.html(response.responseJSON.error);
+      messageZone.addClass('invalid');
       messageZone.show();
     });
   });

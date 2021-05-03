@@ -8,6 +8,8 @@ class MadmpCodebaseController < ApplicationController
     fragment = MadmpFragment.find(params[:fragment_id])
     script_id = params[:script_id]
 
+    authorize fragment
+
     begin
       response = fetch_run_data(fragment, script_id)
       if response["return_code"]&.eql?(0)
@@ -17,19 +19,18 @@ class MadmpCodebaseController < ApplicationController
         # fragment.save_codebase_fragment(response, fragment.madmp_schema)
         fragment.save_codebase_fragment(response["data"], fragment.madmp_schema)
         render json: {
-          "error" => d_("dmpopidor", 'New data have been added to your plan, please click on the "Reload" button.')
+          "message" => d_("dmpopidor", 'New data have been added to your plan, please click on the "Reload" button.')
         }, status: 200
       else
         render json: {
-          "message" => "#{d_('dmpopidor', 'An error has occured: ')} #{response['result_message']}"
+          "error" => "#{d_('dmpopidor', 'An error has occured: ')} #{response['result_message']}"
         }, status: 500
       end
     rescue StandardError
       render json: {
-        "message" => "Internal Server error"
+        "error" => "Internal Server error"
       }, status: 500
     end
-    authorize fragment
   end
 
   private
