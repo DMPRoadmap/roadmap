@@ -40,10 +40,9 @@ module ExternalApis
       end
 
       # Create a new DOI
-      def add_work(user:, plan:, user:)
+      def add_work(user:, plan::)
         # Fail if this service is inactive or the plan does not have a DOI!
-        return false unless active? && user.is_a?(User) && plan.is_a?(Plan) && user.is_a?(User) &&
-                            plan.doi.present?
+        return false unless active? && user.is_a?(User) && plan.is_a?(Plan) && plan.doi.present?
 
         orcid = user.identifier_for_scheme(scheme: name)
         token = ExternalApiAccessToken.for_user_and_service(user: user, service: name)
