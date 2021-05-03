@@ -51,7 +51,8 @@
                   <%= render(partial: 'shared/dynamic_form/codebase_run', locals: { 
                         fragment: project_fragment,
                         parameters: run_parameters,
-                        template_locale: @plan.template.locale
+                        template_locale: @plan.template.locale,
+                        async_reload: false
                       }) unless run_parameters.nil? %>
                 </div>
                 <div class="answer-save-zone">
@@ -104,7 +105,8 @@
                   <%= render(partial: 'shared/dynamic_form/codebase_run', locals: {
                         fragment: meta_fragment,
                         parameters: run_parameters,
-                        template_locale: @plan.template.locale
+                        template_locale: @plan.template.locale,
+                        async_reload: false
                       }) unless run_parameters.nil?%>
                 </div>
                 <div class="answer-save-zone">

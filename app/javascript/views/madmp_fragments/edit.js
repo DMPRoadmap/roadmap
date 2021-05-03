@@ -13,7 +13,7 @@ $(() => {
   const hideLoadingOverlay = jQuery => jQuery.find('.overlay').hide();
   const toolbar = 'bold italic | bullist numlist | link | table';
 
-  $('.panel-collapse').on('shown.bs.collapse', (e) => {
+  $('.panel-collapse').on('shown.bs.collapse reload.form', (e) => {
     const target = $(e.target);
     if (!target.hasClass('fragment-content')) {
       return;

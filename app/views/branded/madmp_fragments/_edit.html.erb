@@ -45,10 +45,13 @@
       </div>
       <div class="answer-bottom-zone" >
         <div class="answer-run-zone">
-          <%#= render(partial: 'shared/dynamic_form/codebase_run', locals: { 
+          <% run_parameters = madmp_schema.extract_run_parameters %>
+          <%= render(partial: 'shared/dynamic_form/codebase_run', locals: { 
                 fragment: fragment,
-                parameters: madmp_schema.extract_run_parameters
-              }) %>
+                parameters: run_parameters,
+                template_locale: question.template.locale,
+                async_reload: true
+              }) unless run_parameters.nil? %>
         </div>
         <div class="answer-save-zone">
           <%= f.button(_('Save'), class: "btn btn-default answer-save-button", type: "submit", disabled: true) %>
