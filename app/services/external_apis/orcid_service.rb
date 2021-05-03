@@ -61,8 +61,6 @@ module ExternalApis
           "Server-Agent": "#{ApplicationService.application_name} (#{Rails.application.credentials.orcid[:client_id]})"
         }
 
-Rails.logger.warn xml_for(plan: plan, doi: plan.doi, user: user)
-
         resp = http_post(uri: target, additional_headers: hdrs, debug: true,
                          data: xml_for(plan: plan, doi: plan.doi, user: user))
 
@@ -73,13 +71,7 @@ Rails.logger.warn xml_for(plan: plan, doi: plan.doi, user: user)
           return false
         end
 
-Rails.logger.warn "RESPONSE CODE: #{resp.code}"
-Rails.logger.warn "HEADERS:"
-Rails.logger.warn resp.headers
-Rails.logger.warn "BODY:"
-Rails.logger.warn resp.body
-
-        add_subscription(plan: plan, callback_uri: resp.headers["location"]) if resp.code = 201
+        add_subscription(plan: plan, callback_uri: resp.headers["location"]) if resp.code == 201
         true
       end
 
@@ -87,10 +79,6 @@ Rails.logger.warn resp.body
       # Register the ApiClient behind the minter service as a Subscriber to the Plan
       # if the service has a callback URL and ApiClient
       def add_subscription(plan:, callback_uri:)
-
-Rails.logger.warn "ADDING SUBSCRIPTION"
-Rails.logger.warn "PLAN? #{plan.is_a?(Plan)}, SCHEME? #{identifier_scheme.present?}, CALLBACK: #{callback_uri}"
-
         return nil unless plan.is_a?(Plan) && callback_uri.present? && identifier_scheme.present?
 
         Subscription.create(
