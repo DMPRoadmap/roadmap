@@ -436,7 +436,7 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     authorize @plan
 
-    ExternalApis::OrcidService.add_work(user: current_user, plan: @plan)
+    ExternalApis::OrcidService.add_work(user: current_user, plan: @plan, user: current_user)
     @subscription = @plan.subscription_for(subscriber: IdentifierScheme.find_by(name: "orcid"))
     render js: render_to_string(template: "plans/add_orcid_work.js.erb")
 

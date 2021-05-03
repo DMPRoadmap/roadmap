@@ -49,7 +49,8 @@
   </div>
 
   <% orcid_scheme = IdentifierScheme.find_by(name: "orcid") %>
-  <% if @plan.doi.present? && orcid_scheme.present? %>
+  <% orcid = current_user.identifier_for_scheme(scheme: orcid_scheme) %>
+  <% if @plan.doi.present? && orcid_scheme.present? && orcid.present? %>
     <br>
     <h2><%= _("Add this plan to your ORCID record") %></h2>
     <div class="add-orcid-work">

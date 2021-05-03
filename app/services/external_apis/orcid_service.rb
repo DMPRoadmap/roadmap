@@ -40,9 +40,10 @@ module ExternalApis
       end
 
       # Create a new DOI
-      def add_work(user:, plan:)
+      def add_work(user:, plan:, user:)
         # Fail if this service is inactive or the plan does not have a DOI!
-        return false unless active? && user.is_a?(User) && plan.is_a?(Plan) && plan.doi.present?
+        return false unless active? && user.is_a?(User) && plan.is_a?(Plan) && user.is_a?(User) &&
+                            plan.doi.present?
 
         orcid = user.identifier_for_scheme(scheme: name)
         token = ExternalApiAccessToken.for_user_and_service(user: user, service: name)
@@ -52,7 +53,7 @@ module ExternalApis
         # Fail if the user doesn't have an orcid or an acess token
         return false unless orcid.present? && token.present?
 
-        target = "#{api_base_url % { id: orcid.value.gsub(landing_page_url, "") }}#{work_path}"
+        target = "#{api_base_url}#{work_path % { id: orcid.value.gsub(landing_page_url, "") }}"
 
         hdrs = {
           "Content-type": "application/vnd.orcid+xml",
@@ -61,10 +62,10 @@ module ExternalApis
           "Server-Agent": "#{ApplicationService.application_name} (#{Rails.application.credentials.orcid[:client_id]})"
         }
 
-Rails.logger.warn xml_for(plan: plan, doi: plan.doi)
+Rails.logger.warn xml_for(plan: plan, doi: plan.doi, user: user)
 
         resp = http_post(uri: target, additional_headers: hdrs, debug: true,
-                         data: xml_for(plan: plan, doi: plan.doi))
+                         data: xml_for(plan: plan, doi: plan.doi, user: user))
 
         # DMPHub returns a 201 (created) when a new DOI has been minted or
         #                a 405 (method_not_allowed) when a DOI already exists
@@ -115,8 +116,8 @@ Rails.logger.warn resp.body
         end
       end
 
-      def xml_for(plan:, doi:)
-        return nil unless plan.is_a?(Plan) && doi.is_a?(Identifier)
+      def xml_for(plan:, doi:, user:)
+        return nil unless plan.is_a?(Plan) && doi.is_a?(Identifier) && user.is_a?(User)
 
         # Derived from:
         #  https://github.com/ORCID/orcid-model/blob/master/src/main/resources/record_3.0/samples/write_samples/work-full-3.0.xml
@@ -148,7 +149,7 @@ Rails.logger.warn resp.body
                 <common:external-id-relationship>self</common:external-id-relationship>
               </common:external-id>
             </common:external-ids>
-            #{contributors_as_xml(authors: plan.owner_and_coowners)}
+            #{contributors_as_xml(authors: [user])}
           </work:work>
         XML
       end
