@@ -12,6 +12,9 @@
 >
     <%= label %>
 </button>
+<div class="loading-zone">
+    <div class="spinner"></div> <%= _('Loading ...') %>
+</div>
 <button class="btn btn-secondary reload-button" type="button" data-async-reload="<%= async_reload%>">
     <%= d_('dmpopidor', 'Reload') %>
 </button>

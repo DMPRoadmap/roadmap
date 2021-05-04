@@ -146,13 +146,18 @@ $(() => {
     const target = $(e.target);
     const reloadButton = target.parent().find('.reload-button');
     const messageZone = target.parent().find('.message-zone');
+    const loadingZone = target.parent().find('.loading-zone');
     const url = target.data('url');
 
     $.ajax({
       url,
       method: 'get',
       beforeSend: () => {
-        target.prop('disabled', true);
+        target.hide();
+        loadingZone.css('display', 'flex');
+      },
+      complete: () => {
+        loadingZone.hide();
       },
     }).done((data) => {
       target.hide();
@@ -164,6 +169,7 @@ $(() => {
       messageZone.html(response.responseJSON.error);
       messageZone.addClass('invalid');
       messageZone.show();
+      target.show();
     });
   });
 
