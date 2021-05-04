@@ -248,6 +248,7 @@ module DMPRoadmap
     # ----- #
     # ORCID #
     # ----- #
+    config.x.orcid_landing_page_url = ENV["ORCID_LANDING_PAGE_URL"] || "https://orcid.org/"
     config.x.orcid_api_base_url = ENV["ORCID_API_BASE_URL"]
   end
 
