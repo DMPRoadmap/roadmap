@@ -27,10 +27,10 @@ class MadmpCodebaseController < ApplicationController
           "error" => "#{d_('dmpopidor', 'An error has occured: ')} #{response['result_message']}"
         }, status: 500
       end
-    rescue StandardError
+    rescue StandardError => e
       Rails.cache.delete(["codebase_run", fragment.id])
       render json: {
-        "error" => "Internal Server error"
+        "error" => "Internal Server error: #{e.message}"
       }, status: 500
     end
   end
