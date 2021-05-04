@@ -22,11 +22,13 @@ class MadmpCodebaseController < ApplicationController
           "message" => d_("dmpopidor", 'New data have been added to your plan, please click on the "Reload" button.')
         }, status: 200
       else
+        Rails.cache.delete(["codebase_run", fragment.id])
         render json: {
           "error" => "#{d_('dmpopidor', 'An error has occured: ')} #{response['result_message']}"
         }, status: 500
       end
     rescue StandardError
+      Rails.cache.delete(["codebase_run", fragment.id])
       render json: {
         "error" => "Internal Server error"
       }, status: 500
