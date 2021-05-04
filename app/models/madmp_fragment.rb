@@ -405,6 +405,7 @@ class MadmpFragment < ActiveRecord::Base
   def set_defaults
     self.data ||= {}
     self.additional_info ||= {}
+    self.parent_id = nil if classname.eql?("person")
   end
 
 end
