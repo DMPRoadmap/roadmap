@@ -388,6 +388,7 @@ class MadmpFragment < ActiveRecord::Base
     dmp_fragments.each do |fragment|
       filtered_db_data = fragment.data.slice(*unicity_properties)
       filtered_incoming_data = data.slice(*unicity_properties)
+      next if filtered_db_data.empty?
 
       return true if filtered_db_data.eql?(filtered_incoming_data)
     end
