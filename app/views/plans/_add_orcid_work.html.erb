@@ -1,9 +1,24 @@
-<%# locals: subscription %>
+<%# locals: orcid, subscription %>
 
-<% if subscription.is_a?(Subscription) %>
-  <p><%= _("This plan has been added to the 'works' section of your ORCID record.") %></p>
+<%
+title_text = _("ORCID provides a persistent digital identifier that distinguishes you from other researchers. Learn more at orcid.org")
+logo_url = "https://orcid.org/sites/default/files/images/orcid_16x16.png"
+link_to_orcid = "<a href=\"#{orcid.value}\" target=\"_blank\" aria-label=\"link to ORCID record\">ORCID record</a>"
+not_linked_text = _("Add this plan to the \"works\" section of your %{link_to_orcid}.")
+linked_text = _("This plan has been added to the \"works\" section of your %{link_to_orcid}")
+%>
+
+<% if subscription.present? %>
+  <p>
+    <%= sanitize(linked_text % { link_to_orcid: link_to_orcid }) %>
+    <%= image_tag logo_url, alt: _("ORCID logo"), style: "margin-top: -3px;" %>
+  </p>
 <% else %>
-  <p><%= _("Clicking this button will add this plan to the 'works' on your ORCID record.") %></p>
+  <p>
+    <%= sanitize(not_linked_text % { link_to_orcid: link_to_orcid }) %>
+    &nbsp;
+    <%= image_tag logo_url, alt: _("ORCID logo"), style: "margin-top: -3px;" %>
+  </p>
   <div class="col-xs-8">
     <%= button_to _("Update ORCID"), {
                                       controller: 'plans',
