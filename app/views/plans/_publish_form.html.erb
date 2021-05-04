@@ -50,10 +50,8 @@
 
   <% orcid_scheme = IdentifierScheme.find_by(name: "orcid") %>
   <% orcid = current_user.identifier_for_scheme(scheme: orcid_scheme) %>
-  <% if @plan.doi.present? && orcid_scheme.present? %>
-    <div class="add-orcid-work <%= orcid.present? ? '' : 'hidden' %>">
-      <br>
-      <h2><%= _("Add this plan to your ORCID") %><sup>®</sup></h2>
+  <% if orcid_scheme.present? %>
+    <div class="add-orcid-work <%= @plan.doi.present? && orcid.present? ? '' : 'hidden' %>">
       <%= render partial: "plans/add_orcid_work",
                  locals: { subscription: @plan.subscription_for(subscriber: orcid_scheme), orcid: orcid } %>
     </div>

@@ -8,6 +8,9 @@ not_linked_text = _("Add this plan to the \"works\" section of your %{link_to_or
 linked_text = _("This plan has been added to the \"works\" section of your %{link_to_orcid}")
 %>
 
+<br>
+<h2><%= _("Add this plan to your ORCID") %><sup>®</sup></h2>
+
 <% if subscription.present? %>
   <p>
     <%= sanitize(linked_text % { link_to_orcid: link_to_orcid }) %>
