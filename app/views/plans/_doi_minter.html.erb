@@ -1,13 +1,30 @@
-<%# locals: plan %>
+<%# locals: plan, orcid_access_token %>
 
 <%
 doi = plan.doi
-orcid = plan.owner.identifier_for_scheme(scheme: 'orcid')
 general_message = _("Get a %{dmp_id_link} for your data management plan.") % { dmp_id_link: link_to("DMP ID", "https://github.com/CDLUC3/dmptool/wiki/DMP-IDs-and-Networked-Data-Management-Plans-(maDMPs)#why-are-ids-for-dmps-important") }
 general_tooltip = _("DMP IDs track connections between your DMP and research outputs such as datasets and articles.")
+
+if current_user == plan.owner
+  orcid = plan.owner.identifier_for_scheme(scheme: 'orcid')
+  orcid_logo = "https://orcid.org/sites/default/files/images/orcid_16x16.png"
+  orcid_link = "<a href=\"#{orcid.value}\" target=\"_blank\" aria-label=\"link to ORCID record\">ORCID record</a>"
+end
 %>
 
 <% if doi.present? %>
+  <% if current_user == plan.owner %>
+    <p>
+      <%# If the user has authorized us to write to their ORCID record %>
+      <% if orcid_access_token.present? %>
+        <%= sanitize(_('Your plan has been registered and added as a work on your %{link_to_orcid}.') % { link_to_orcid: orcid_link }) %>
+        <%= image_tag orcid_logo, alt: _("ORCID logo"), style: "margin-top: -3px;" %>
+      <% else %>
+        <%= _('Your plan has been registered.') %>
+      <% end %>
+
+    </p>
+  <% end %>
   <p>
     <% if doi.value.downcase.start_with?("http") %>
       <% dmphub_url = doi.value.gsub(%r{https?://doix?.org/}, ExternalApis::DmphubService.landing_page_url) %>
@@ -15,7 +32,8 @@ general_tooltip = _("DMP IDs track connections between your DMP and research out
     <% else %>
       <% val = doi.value %>
     <% end %>
-    <%= (_('Your plan has been registered. Your DMP ID is: %{doi}.') % { doi: val }).html_safe %>
+
+    <%= (_('Your DMP ID is: %{doi}.') % { doi: val }).html_safe %>
   </p>
 <% elsif !plan.minting_allowed? %>
   <p>

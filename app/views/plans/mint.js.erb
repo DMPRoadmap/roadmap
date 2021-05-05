@@ -1,9 +1,8 @@
 var target = $('.doi-minter');
-var orcidBlock = $('.add-orcid-work');
 
 if (target != undefined) {
   <% if @plan.doi.present? %>
-    target.html(`<%= escape_javascript(render partial: "plans/doi_minter", locals: { plan: @plan }) %>`);
+    target.html(`<%= escape_javascript(render partial: "plans/doi_minter", locals: { plan: @plan, orcid_access_token: @orcid_access_token }) %>`);
     orcidBlock.removeClass('hidden');
 
   <% else %>

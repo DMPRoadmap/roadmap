@@ -43,17 +43,16 @@
 
 <% if Rails.configuration.x.allow_doi_minting && IdentifierScheme.for_identification.any? %>
   <br>
-  <h2><%= _("Register your plan") %></h2>
+  <h2>
+    <%# If the user has authorized us to write to their ORCID record %>
+    <% if @orcid_access_token.present? %>
+      <%= @plan.doi.present? ? _("Your plan has been registered") : _("Register your plan and add to ORCID") %>
+    <% else %>
+      <%= @plan.doi.present? ? _("Your plan has been registered") : _("Register your plan") %>
+    <% end %>
+  </h2>
   <div class="doi-minter">
-    <%= render partial: 'plans/doi_minter', locals: { plan: @plan } %>
+    <%= render partial: 'plans/doi_minter', locals: { plan: @plan, orcid_access_token: @orcid_access_token } %>
   </div>
 
-  <% orcid_scheme = IdentifierScheme.find_by(name: "orcid") %>
-  <% orcid = current_user.identifier_for_scheme(scheme: orcid_scheme) %>
-  <% if orcid_scheme.present? %>
-    <div class="add-orcid-work <%= @plan.doi.present? && orcid.present? ? '' : 'hidden' %>">
-      <%= render partial: "plans/add_orcid_work",
-                 locals: { subscription: @plan.subscription_for(subscriber: orcid_scheme), orcid: orcid } %>
-    </div>
-  <% end %>
 <% end %>

@@ -285,6 +285,7 @@ class PlansController < ApplicationController
     if @plan.present?
       authorize @plan
       @plan_roles = @plan.roles
+      @orcid_access_token = ExternalApiAccessToken.for_user_and_service(user: current_user, service: "orcid")
     else
       redirect_to(plans_path)
     end
@@ -423,6 +424,13 @@ class PlansController < ApplicationController
 
     DoiService.mint_doi(plan: @plan)&.save
     @plan = @plan.reload
+    @orcid_access_token = ExternalApiAccessToken.for_user_and_service(user: current_user, service: "orcid")
+
+    # If a DMP ID was successfully acquired and the User has authorized us to write to their ORCID record
+    if @plan.doi.present? && @orcid_access_token.present?
+      ExternalApis::OrcidService.add_work(user: current_user, plan: @plan, user: current_user)
+    end
+
     render js: render_to_string(template: "plans/mint.js.erb")
   rescue StandardError => e
     Rails.logger.error "Unable to mint DOI for plan #{params[:id]} - #{e.message}"
@@ -436,7 +444,7 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     authorize @plan
 
-    ExternalApis::OrcidService.add_work(user: current_user, plan: @plan, user: current_user)
+
     render js: render_to_string(template: "plans/add_orcid_work.js.erb")
 
   rescue StandardError => e
