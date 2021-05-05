@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   # Doorkeeper Oauth Authentication
   use_doorkeeper do
-    skip_controllers :applications, :authorized_applications
+    # skip_controllers :applications, :authorized_applications
   end
   # Route that allows an OauthCredentialToken to be revoked by the User
   delete "/users/:user_id/oauth_access_tokens/:id", to: "users#revoke_oauth_access_token",
