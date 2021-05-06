@@ -32,7 +32,7 @@ module ExternalApis
       end
 
       def work_path
-        Rails.configuration.x.orcid&.mint_path
+        Rails.configuration.x.orcid&.work_path
       end
 
       def callback_path
@@ -52,21 +52,17 @@ module ExternalApis
         # Fail if the user doesn't have an orcid or an acess token
         return false unless orcid.present? && token.present?
 
-        target = api_base_url % { id: orcid.value.gsub(landing_page_url, "") }
+        target = "#{api_base_url}#{work_path % { id: orcid.value.gsub(landing_page_url, "") }}"
 
-        # curl -i -H 'Content-type: application/vnd.orcid+xml'
-        #         -H 'Authorization: Bearer dd91868d-d29a-475e-9acb-bd3fdf2f43f4'
-        #         -d '@[FILE-PATH]/works.xml'
-        #         -X POST 'https://api.sandbox.orcid.org/v3.0/0000-0002-9227-8514/work'
         hdrs = {
+          "Content-type": "application/vnd.orcid+xml",
+          "Accept": "application/xml",
           "Authorization": "Bearer #{token.access_token}",
           "Server-Agent": "#{ApplicationService.application_name} (#{Rails.application.credentials.orcid[:client_id]})"
         }
 
-Rails.logger.warn xml_for(plan: plan, doi: plan.doi)
-
         resp = http_post(uri: target, additional_headers: hdrs, debug: true,
-                         data: xml_for(plan: plan, doi: plan.doi))
+                         data: xml_for(plan: plan, doi: plan.doi, user: user))
 
         # DMPHub returns a 201 (created) when a new DOI has been minted or
         #                a 405 (method_not_allowed) when a DOI already exists
@@ -75,27 +71,19 @@ Rails.logger.warn xml_for(plan: plan, doi: plan.doi)
           return false
         end
 
-Rails.logger.warn "RESPONSE CODE: #{resp.code}"
-Rails.logger.warn "HEADERS:"
-Rails.logger.warn resp.headers
-Rails.logger.warn "BODY:"
-Rails.logger.warn resp.body
-
-        add_subscription(plan: plan, put_code: resp.body) if resp.body.present?
+        add_subscription(plan: plan, callback_uri: resp.headers["location"]) if resp.code == 201
         true
       end
 
-
       # Register the ApiClient behind the minter service as a Subscriber to the Plan
       # if the service has a callback URL and ApiClient
-      def add_subscription(plan:, put_code:)
-        return nil unless plan.is_a?(Plan) && put_code.present? && callback_path.present? &&
-                          identifier_scheme.present?
+      def add_subscription(plan:, callback_uri:)
+        return nil unless plan.is_a?(Plan) && callback_uri.present? && identifier_scheme.present?
 
         Subscription.create(
           plan: plan,
           subscriber: identifier_scheme,
-          callback_uri: "#{api_base_url}#{callback_path % { put_code: put_code }}",
+          callback_uri: callback_uri,
           updates: true,
           deletions: true
         )
@@ -117,14 +105,15 @@ Rails.logger.warn resp.body
         end
       end
 
-      def xml_for(plan:, doi:)
-        return nil unless plan.is_a?(Plan) && doi.is_a?(Identifier)
+      def xml_for(plan:, doi:, user:)
+        return nil unless plan.is_a?(Plan) && doi.is_a?(Identifier) && user.is_a?(User)
+
+        orcid = user.identifier_for_scheme(scheme: name)
 
         # Derived from:
         #  https://github.com/ORCID/orcid-model/blob/master/src/main/resources/record_3.0/samples/write_samples/work-full-3.0.xml
         #
         <<-XML
-          <?xml version="1.0" encoding="UTF-8"?>
           <work:work xmlns:common="http://www.orcid.org/ns/common"
                      xmlns:work="http://www.orcid.org/ns/work"
                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -151,39 +140,21 @@ Rails.logger.warn resp.body
                 <common:external-id-relationship>self</common:external-id-relationship>
               </common:external-id>
             </common:external-ids>
-            #{contributors_as_xml(authors: plan.owner_and_coowners)}
+            <work:contributors>
+              <work:contributor>
+                <common:contributor-orcid>
+                  <common:uri>#{orcid.value}</common:uri>
+                  <common:path>#{orcid.value_without_scheme_prefix}</common:path>
+                  <common:host>orcid.org</common:host>
+                </common:contributor-orcid>
+                <work:credit-name>#{user.name(false)}</work:credit-name>
+                <work:contributor-attributes>
+                  <work:contributor-role>author</work:contributor-role>
+                </work:contributor-attributes>
+              </work:contributor>
+            </work:contributors>
           </work:work>
         XML
-      end
-
-      def contributors_as_xml(authors:)
-        return "" unless authors.is_a?(Array) && authors.any?
-
-        ret = "<work:contributors>"
-
-        authors.each do |author|
-          orcid = author.identifier_for_scheme(scheme: name)
-          ret += "<work:contributor>"
-          if orcid.present?
-            ret += <<-XML
-              <common:contributor-orcid>
-                <common:uri>#{orcid.value}</common:uri>
-                <common:path>#{orcid.value_without_scheme_prefix}</common:path>
-                <common:host>orcid.org</common:host>
-              </common:contributor-orcid>
-            XML
-          end
-
-          ret += <<-XML
-              <work:credit-name>#{author.name(false)}</work:credit-name>
-              <work:contributor-attributes>
-                <work:contributor-role>author</work:contributor-role>
-              </work:contributor-attributes>
-            </work:contributor>
-          XML
-        end
-
-        ret += "</work:contributors>"
       end
 
     end

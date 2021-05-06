@@ -21,6 +21,11 @@
         <% titletext = _("ORCID provides a persistent digital identifier that distinguishes you from other researchers. Learn more at orcid.org") %>
         <% unlinktext = _("Disconnect your account from ORCID. You can reconnect at any time.") %>
         <% unlinkconf = _("Are you sure you want to disconnect your ORCID ID?") %>
+
+        <% token = current_user.external_api_access_tokens.select { |t| t.external_service_name == "orcid" }.last %>
+        <% if id.present? && !token.present? %>
+          <p><%= sanitize(_("You have previously linked your acount to ORCID. The %{application_name} now allows you to add your DMPs to the works section of your ORCID record. Please disconnect your account by clicking the 'x' below and then reconnect your account to enable this functionality.") % { application_name: ApplicationService.application_name }) %></p>
+        <% end %>
         <%= link_to id.value,
                     id: 'orcid-id',
                     target: '_blank',

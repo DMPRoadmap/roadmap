@@ -11,7 +11,9 @@ RSpec.describe ExternalApis::OrcidService, type: :model do
     Rails.configuration.x.allow_doi_minting = true
     Rails.configuration.x.orcid.active = true
     Rails.configuration.x.orcid.api_base_url = Faker::Internet.url
+    Rails.configuration.x.orcid.landing_page_url = Faker::Internet.url
     Rails.configuration.x.orcid.callback_path = "/#{Faker::Lorem.word}/%{put_code}"
+    Rails.configuration.x.orcid.work_path = "/%{id}/#{Faker::Lorem.word}"
 
     @scheme = orcid_scheme
     @plan = create(:plan, :creator)
@@ -53,33 +55,27 @@ RSpec.describe ExternalApis::OrcidService, type: :model do
     end
   end
 
-  describe "#add_subscription(plan:, put_code:)" do
+  describe "#add_subscription(plan:, callback_uri:)" do
     it "returns nil if :plan is not a Plan" do
-      expect(described_class.add_subscription(plan: nil, put_code: Faker::Lorem.word)).to eql(nil)
+      expect(described_class.add_subscription(plan: nil, callback_uri: Faker::Internet.url)).to eql(nil)
     end
     it "returns nil if :put_code is not present" do
-      expect(described_class.add_subscription(plan: @plan, put_code: nil)).to eql(nil)
+      expect(described_class.add_subscription(plan: @plan, callback_uri: nil)).to eql(nil)
       expect(@plan.reload.subscriptions.any?).to eql(false)
     end
     it "returns nil if there is no IdentifierScheme for ORCID" do
       @scheme.destroy
-      expect(described_class.add_subscription(plan: @plan, put_code: Faker::Lorem.word)).to eql(nil)
-    end
-    it "returns nil if no callback_path is defined in the config" do
-      Rails.configuration.x.orcid.callback_path = nil
-      expect(described_class.add_subscription(plan: @plan, put_code: Faker::Lorem.word)).to eql(nil)
-      expect(@plan.reload.subscriptions.any?).to eql(false)
+      expect(described_class.add_subscription(plan: @plan, callback_uri: Faker::Internet.url)).to eql(nil)
     end
     it "adds the subscription for the ORCID IdentifierScheme" do
-      code = Faker::Lorem.word
-      result = described_class.add_subscription(plan: @plan, put_code: code)
+      uri = Faker::Internet.url
+      result = described_class.add_subscription(plan: @plan, callback_uri: uri)
       expect(@plan.reload.subscriptions.any?).to eql(true)
       expect(result.is_a?(Subscription)).to eql(true)
       expect(result.plan_id).to eql(@plan.id)
       expect(result.subscriber_id).to eql(@scheme.id)
       expect(result.subscriber_type).to eql(@scheme.class.name)
-      expected = "#{described_class.api_base_url}#{described_class.callback_path % { put_code: code }}"
-      expect(result.callback_uri).to eql(expected)
+      expect(result.callback_uri).to eql(uri)
     end
   end
 
@@ -112,15 +108,19 @@ RSpec.describe ExternalApis::OrcidService, type: :model do
       end
     end
 
-    describe "#xml_for(plan:, doi:)" do
+    describe "#xml_for(plan:, doi:, user:)" do
       it "returns nil if :plan is not a Plan" do
-        expect(described_class.send(:xml_for, plan: nil, doi: @plan.doi)).to eql(nil)
+        expect(described_class.send(:xml_for, plan: nil, doi: @plan.doi, user: @plan.owner)).to eql(nil)
       end
       it "returns nil if :doi is not an Identifier" do
-        expect(described_class.send(:xml_for, plan: @plan, doi: nil)).to eql(nil)
+        expect(described_class.send(:xml_for, plan: @plan, doi: nil, user: @plan.owner)).to eql(nil)
+      end
+      it "returns nil if :user is not an User" do
+        expect(described_class.send(:xml_for, plan: @plan, doi: @plan.doi, user: nil)).to eql(nil)
       end
       it "returns the expected XML" do
-        xml = Nokogiri::XML(described_class.send(:xml_for, plan: @plan, doi: @plan.doi))
+        xml = Nokogiri::XML(described_class.send(:xml_for, plan: @plan, doi: @plan.doi, user: @plan.owner))
+        orcid = @plan.owner.identifier_for_scheme(scheme: "orcid")
         expect(xml.xpath("//common:title").text).to eql(@plan.title)
         expect(xml.xpath("//work:short-description").text).to eql(@plan.description)
         expect(xml.xpath("//work:citation-value").text).to eql(@plan.citation)
@@ -129,24 +129,10 @@ RSpec.describe ExternalApis::OrcidService, type: :model do
         expect(xml.xpath("//common:day").text).to eql(@plan.created_at.strftime("%d"))
         expect(xml.xpath("//common:external-id-value").text).to eql(@plan.doi.value_without_scheme_prefix)
         expect(xml.xpath("//common:external-id-url").text).to eql(@plan.doi.value)
-        expect(xml.xpath("//work:contributor").length).to eql(2)
-      end
-    end
-
-    describe "#contributors_as_xml(authors:)" do
-      it "returns an empty string unless there are :authors" do
-        expect(described_class.send(:contributors_as_xml, authors: nil)).to eql("")
-        expect(described_class.send(:contributors_as_xml, authors: [])).to eql("")
-      end
-      it "returns the expected XML" do
-        authors = @plan.owner_and_coowners
-        xml = described_class.send(:contributors_as_xml, authors: authors)
-        authors.each do |author|
-          orcid = author.identifier_for_scheme(scheme: "orcid")
-          expect(xml.include?("<common:uri>#{orcid.value}</common:uri>")).to eql(true)
-          expect(xml.include?("<common:path>#{orcid.value_without_scheme_prefix}</common:path>")).to eql(true)
-          expect(xml.include?("<work:credit-name>#{author.name(false)}</work:credit-name>")).to eql(true)
-        end
+        expect(xml.xpath("//work:contributor").length).to eql(1)
+        expect(xml.xpath("//common:uri").text).to eql(orcid.value)
+        expect(xml.xpath("//common:path").text).to eql(orcid.value_without_scheme_prefix)
+        expect(xml.xpath("//work:credit-name").text).to eql(@plan.owner.name(false))
       end
     end
   end

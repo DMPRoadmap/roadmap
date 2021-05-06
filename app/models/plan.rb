@@ -602,8 +602,11 @@ class Plan < ApplicationRecord
     orcid_scheme = IdentifierScheme.where(name: "orcid").first
     return false unless orcid_scheme.present?
 
+    # The owner must have an orcid and have authorized us to add to their record
     orcid = owner.identifier_for_scheme(scheme: orcid_scheme).present?
-    visibility_allowed? && orcid.present? && funder.present?
+    token = ExternalApiAccessToken.for_user_and_service(user: owner, service: "orcid")
+
+    visibility_allowed? && orcid.present? && token.present? && funder.present?
   end
 
   # Since the Grant is not a normal AR association, override the getter and setter
@@ -634,10 +637,12 @@ class Plan < ApplicationRecord
   def citation
     return nil unless owner.present? && doi.is_a?(Identifier)
 
-    authors = owner_and_coowners.map { |author| author.name(false) }
-                                .uniq
-                                .sort { |a, b| a <=> b }
-                                .join(", ")
+    # authors = owner_and_coowners.map { |author| author.name(false) }
+    #                             .uniq
+    #                             .sort { |a, b| a <=> b }
+    #                             .join(", ")
+    # TODO: display all authors once we determine the appropriate way to handle on the ORCID side
+    authors = owner.name(false)
     pub_year = updated_at.strftime('%Y')
     app_name = ApplicationService.application_name
     "#{authors}. (#{pub_year}). \"#{title}\" [Data Management Plan]. #{app_name}. #{doi.value}"
@@ -645,9 +650,6 @@ class Plan < ApplicationRecord
 
   # Returns the Subscription for the specified subscriber or nil if none exists
   def subscription_for(subscriber:)
-
-p subscriptions.inspect
-
     subscriptions.select { |subscription| subscription.subscriber == subscriber }
   end
 

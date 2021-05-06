@@ -1516,12 +1516,18 @@ describe Plan do
   describe "#minting_allowed?" do
     before(:each) do
       @plan = create(:plan, :creator, funder: create(:org))
-      create(:identifier, identifier_scheme: create(:identifier_scheme, name: 'orcid'), identifiable: @plan.owner)
+      create(:identifier, identifier_scheme: create(:identifier_scheme, name: "orcid"), identifiable: @plan.owner)
+      create(:external_api_access_token, external_service_name: "orcid", user: @plan.owner)
       @plan.reload
     end
 
     it "returns false if the creator/owner does not have an ORCID" do
       @plan.owner.identifiers.clear
+      @plan.expects(:visibility_allowed?).returns(true)
+      expect(@plan.minting_allowed?).to eql(false)
+    end
+    it "returns false if the creator/owner does not have an ExternalApiAccessToken for ORCID" do
+      @plan.owner.external_api_access_tokens.clear
       @plan.expects(:visibility_allowed?).returns(true)
       expect(@plan.minting_allowed?).to eql(false)
     end
@@ -1609,7 +1615,7 @@ describe Plan do
         doi = create_doi(plan: @plan, val: SecureRandom.uuid)
         @plan.expects(:doi).returns(doi).twice
         result = @plan.citation
-        auth = [@plan.owner.name(false), @co_author.name(false)].sort { |a, b| a <=> b }.join(", ")
+        auth = @plan.owner.name(false)
         expected = "#{auth}. (#{@plan.created_at.year}). \"#{@plan.title}\" [Data Management Plan]."
         expected += " #{ApplicationService.application_name}. #{doi.value}"
         expect(result).to eql(expected)

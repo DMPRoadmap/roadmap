@@ -69,7 +69,7 @@ class ExternalApiAccessToken < ApplicationRecord
     def for_user_and_service(user:, service:)
       where(user: user, external_service_name: service)
         .where("revoked_at IS NULL OR revoked_at > ?", Time.now)
-        .where("expires_at > ?", Time.now)
+        .where("expires_at IS NULL OR expires_at > ?", Time.now)
         .first
     end
 

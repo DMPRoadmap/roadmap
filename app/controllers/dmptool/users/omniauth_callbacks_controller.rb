@@ -15,7 +15,7 @@ module Dmptool
         scheme = IdentifierScheme.find_by(name: scheme.name)
 
         @provider = provider(scheme: scheme)
-        @omniauth = omniauth.with_indifferent_access
+        @omniauth = omniauth_from_request.with_indifferent_access
 
         # if the user is already signed in then we are attempting to attach
         # omniauth credentials to an existing account
@@ -83,7 +83,7 @@ module Dmptool
       end
 
       # Extract the omniauth info from the request
-      def omniauth
+      def omniauth_from_request
         return {} unless request.env.present?
 
         hash = request.env["omniauth.auth"]
@@ -104,8 +104,8 @@ module Dmptool
         return false unless user.present? && scheme.present? && omniauth.present?
 
         # Create the Oauth access token if available
-        token = ExternalApiAccessToken.from_omniauth(user: current_user, service: scheme.name, hash: @omniauth)
-        token.save
+        token = ExternalApiAccessToken.from_omniauth(user: user, service: scheme.name, hash: omniauth)
+        token.save if token.present?
 
         ui = Identifier.where(identifier_scheme: scheme, identifiable: user).first
         # If the User exists and the uid is different update it
@@ -132,7 +132,7 @@ module Dmptool
 
         # Get the Oauth access token if available
         token = ExternalApiAccessToken.from_omniauth(user: user, service: scheme.name, hash: @omniauth)
-        user.external_api_access_tokens = [token]
+        user.external_api_access_tokens = [token] if token.present?
         user
       end
 
