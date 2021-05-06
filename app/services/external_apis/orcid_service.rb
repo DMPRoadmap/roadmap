@@ -75,7 +75,6 @@ module ExternalApis
         true
       end
 
-
       # Register the ApiClient behind the minter service as a Subscriber to the Plan
       # if the service has a callback URL and ApiClient
       def add_subscription(plan:, callback_uri:)

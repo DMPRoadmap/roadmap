@@ -85,7 +85,7 @@ class PlanPolicy < ApplicationPolicy
   end
 
   def mint?
-    @plan.administerable_by?(@user.id) || @user.can_super_admin?
+    @plan.owner == @user || @user.can_super_admin?
   end
 
   def add_orcid_work?

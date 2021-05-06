@@ -41,18 +41,12 @@
   </p>
 <% end %>
 
-<% if Rails.configuration.x.allow_doi_minting && IdentifierScheme.for_identification.any? %>
+<% if Rails.configuration.x.allow_doi_minting && IdentifierScheme.for_identification.any? && current_user == @plan.owner %>
   <br>
   <h2>
-    <%# If the user has authorized us to write to their ORCID record %>
-    <% if @orcid_access_token.present? %>
-      <%= @plan.doi.present? ? _("Your plan has been registered") : _("Register your plan and add to ORCID") %>
-    <% else %>
-      <%= @plan.doi.present? ? _("Your plan has been registered") : _("Register your plan") %>
-    <% end %>
+    <%= @plan.doi.present? ? _("Your plan has been registered") : _("Register your plan and add to ORCID") %>
   </h2>
   <div class="doi-minter">
     <%= render partial: 'plans/doi_minter', locals: { plan: @plan, orcid_access_token: @orcid_access_token } %>
   </div>
-
 <% end %>

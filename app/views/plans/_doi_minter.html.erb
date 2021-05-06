@@ -6,7 +6,8 @@ general_message = _("Get a %{dmp_id_link} for your data management plan.") % { d
 general_tooltip = _("DMP IDs track connections between your DMP and research outputs such as datasets and articles.")
 
 if current_user == plan.owner
-  orcid = plan.owner.identifier_for_scheme(scheme: 'orcid')
+  orcid = plan.owner.identifier_for_scheme(scheme: "orcid")
+  token = plan.owner.external_api_access_tokens.select { |t| t.external_service_name == "orcid" }.last
   orcid_logo = "https://orcid.org/sites/default/files/images/orcid_16x16.png"
   orcid_link = "<a href=\"#{orcid.value}\" target=\"_blank\" aria-label=\"link to ORCID record\">ORCID record</a>"
 end
@@ -32,7 +33,6 @@ end
     <% else %>
       <% val = doi.value %>
     <% end %>
-
     <%= (_('Your DMP ID is: %{doi}.') % { doi: val }).html_safe %>
   </p>
 <% elsif !plan.minting_allowed? %>
@@ -50,8 +50,12 @@ end
       <%= _("identified your funder") %>
     </li>
     <li>
-      <% if orcid.present? %><span class="fa fa-check green"></span><% else %><span class="fa fa-times red"></span><% end %>
-      <%= _("linked your DMPTool account to your ORCID via the") %> <a href="<%= edit_user_registration_path %>" target="_blank"><%= _("DMPTool profile page") %></a>
+      <% if orcid.present? && token.present?%><span class="fa fa-check green"></span><% else %><span class="fa fa-times red"></span><% end %>
+      <% if !token.present? %>
+        <%= _("authorized DMPTool to add works to your ORCID record via the") %> <a href="<%= edit_user_registration_path %>" target="_blank"><%= _("DMPTool profile page") %></a>
+      <% else %>
+        <%= _("linked your DMPTool account to your ORCID via the") %> <a href="<%= edit_user_registration_path %>" target="_blank"><%= _("DMPTool profile page") %></a>
+      <% end %>
     </li>
     <li>
       <% if !plan.is_test? %><span class="fa fa-check green"></span><% else %><span class="fa fa-times red"></span><% end %>

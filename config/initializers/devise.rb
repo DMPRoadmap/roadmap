@@ -34,6 +34,7 @@ Devise.setup do |config|
                   Rails.application.credentials.orcid[:client_secret],
                   scope: "/authenticate /activities/update",
                   member: true,
+                  scope: "/authenticate /activities/update",
                   sandbox: Rails.application.credentials.orcid[:sandbox]
 
   config.omniauth :shibboleth, {
