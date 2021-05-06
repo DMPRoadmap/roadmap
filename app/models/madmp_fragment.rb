@@ -232,6 +232,8 @@ class MadmpFragment < ActiveRecord::Base
           converted_data[key].map { |v| MadmpFragment.find(v["dbid"]).schema_conversion(target_sub_schema) }
         end
       elsif origin_prop["type"].eql?("object")
+        next if origin_prop["inputType"].present? && origin_prop["inputType"].eql?("pickOrCreate")
+
         sub_fragment = MadmpFragment.find(data[key]["dbid"])
         target_sub_schema = MadmpSchema.find(target_prop["schema_id"])
         sub_fragment.schema_conversion(target_sub_schema)
