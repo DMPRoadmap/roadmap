@@ -354,7 +354,7 @@ class MadmpFragmentsController < ApplicationController
       "query_id" => query_id,
       "html" => render_fragment_list(
         dmp_id, parent_id, @fragment.madmp_schema_id,
-        property_name, nil, query_id, readonly
+        property_name, params[:template_locale], query_id, readonly
       )
     }
   end
