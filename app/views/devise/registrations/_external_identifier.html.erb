@@ -24,7 +24,7 @@
 
         <% token = ExternalApiAccessToken.for_user_and_service(user: current_user, service: "orcid") %>
         <% if id.present? && !token.present? %>
-          <p><%= sanitize(_("You have previously linked your acount to ORCID. The %{application_name} now allows you to add your DMPs to the works section of your ORCID record. Please disconnect your account by clicking the 'x' below and then reconnect your account to enable this functionality.") % { application_name: ApplicationService.application_name }) %></p>
+          <p><%= sanitize(_("The %{application_name} now allows you to add your DMPs to the works section of your ORCID record. Please disconnect your account by clicking the 'x' below and then reconnect your account to enable this functionality.") % { application_name: ApplicationService.application_name }) %></p>
         <% end %>
         <%= link_to id.value,
                     id: 'orcid-id',
