@@ -2,8 +2,8 @@
 
 # The following 2 values are used to tie the service to its IdentifierScheme.
 # make sue the :name if lowercase
-Rails.configuration.x.dmphub.name = "datacite"
-Rails.configuration.x.dmphub.description = "The DataCite REST API: https://support.datacite.org/docs/api-create-dois"
+Rails.configuration.x.datacite.name = "datacite"
+Rails.configuration.x.datacite.description = "The DataCite REST API: https://support.datacite.org/docs/api-create-dois"
 
 # Credentials for minting DOIs via DataCite
 # To disable this feature, simply set 'active' to false
