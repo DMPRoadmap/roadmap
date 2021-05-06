@@ -24,7 +24,7 @@
 
         <% token = ExternalApiAccessToken.for_user_and_service(user: current_user, service: "orcid") %>
         <% if id.present? && !token.present? %>
-          <p><%= _("The DMPTool now allows you to add your DMPs to the works section of your ORCID record. Please disconnect your account by clicking the 'x' below and then reconnect your account to enable this functionality.") %></p>
+          <p class="red"><%= _("The DMPTool now allows you to add your DMPs to the works section of your ORCID record. Please disconnect your account by clicking the 'x' below and then reconnect your account to enable this functionality.") %></p>
         <% end %>
         <%= link_to id.value,
                     id: 'orcid-id',
