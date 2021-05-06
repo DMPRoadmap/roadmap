@@ -22,13 +22,13 @@ class MadmpCodebaseController < ApplicationController
           "message" => d_("dmpopidor", 'New data have been added to your plan, please click on the "Reload" button.')
         }, status: 200
       else
-        Rails.cache.delete(["codebase_run", fragment.id])
+        # Rails.cache.delete(["codebase_run", fragment.id])
         render json: {
           "error" => "#{d_('dmpopidor', 'An error has occured: ')} #{response['result_message']}"
         }, status: 500
       end
     rescue StandardError => e
-      Rails.cache.delete(["codebase_run", fragment.id])
+      # Rails.cache.delete(["codebase_run", fragment.id])
       render json: {
         "error" => "Internal Server error: #{e.message}"
       }, status: 500
@@ -40,14 +40,12 @@ class MadmpCodebaseController < ApplicationController
   def fetch_run_data(fragment, script_id)
     return {} unless fragment.present? && script_id.present?
 
-    Rails.cache.fetch(["codebase_run", fragment.id], expires_in: 86_400) do
-      ExternalApis::MadmpCodebaseService.run(script_id, body:
-        {
-          "data": fragment.data,
-          "schema": {},
-          "dmp_id": fragment.dmp_id
-        })
-    end
+    ExternalApis::MadmpCodebaseService.run(script_id, body:
+      {
+        "data": fragment.data,
+        "schema": {},
+        "dmp_id": fragment.dmp_id
+      })
   end
 
 end
