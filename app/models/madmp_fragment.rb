@@ -126,7 +126,7 @@ class MadmpFragment < ActiveRecord::Base
 
           if match.first.is_a?(Array)
             displayable += match.first.join("/")
-          elsif match.first.is_a?(Integer)
+          elsif match.first.is_a?(Integer) || match.first.is_a?(Float)
             displayable += match.first.to_s
           else
             displayable += match.first
