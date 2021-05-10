@@ -5,6 +5,23 @@ require "text"
 # rubocop:disable Metrics/BlockLength
 namespace :housekeeping do
 
+  desc "Sync DMP metadata with the DMP ID minting authority"
+  task sync_dmp_ids: :environment do
+    scheme = IdentifierScheme.find_by(name: DoiService.scheme_name)
+    if scheme.present?
+      Identifier.includes(:identifiable)
+                .where(identifier_scheme_id: scheme.id, identifiable_type: "Plan")
+                .each do |identifier|
+
+p "updateing_doi for #{identifier.identifiable.title}"
+
+        DoiService.update_doi(plan: identifier.identifiable)
+      end
+    else
+      p "No DMP ID minting authority defined so nothing to sync."
+    end
+  end
+
   desc "Remove any expired OAuth tokens and grants"
   task cleanup_oauth: :environment do
     # Removing expired Access Tokens and Grants to help prune the DB
