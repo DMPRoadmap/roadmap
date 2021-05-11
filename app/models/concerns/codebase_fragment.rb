@@ -30,7 +30,10 @@ module CodebaseFragment
           )
           cb_fragment.classname = sub_schema.classname
           cb_fragment.instantiate
-          cb_fragment.save_codebase_fragment(sub_data["data"], sub_schema)
+          created_frag = cb_fragment.save_codebase_fragment(sub_data["data"], sub_schema)
+          # If sub_data is a Person, we need to set the dbid manually, since Person has no parent
+          # and update_references function is not triggered
+          fragmented_data[prop] = { "dbid" => created_frag.id } if sub_schema.classname.eql?("person")
         elsif sub_data["action"].eql?("update") && sub_data["dbid"]
           cb_fragment = MadmpFragment.find(sub_data["dbid"])
           cb_fragment.save_codebase_fragment(sub_data["data"], sub_schema)
@@ -57,7 +60,10 @@ module CodebaseFragment
             )
             cb_fragment.classname = sub_schema.classname
             cb_fragment.instantiate
-            cb_fragment.save_codebase_fragment(cb_data["data"], sub_schema)
+            created_frag = cb_fragment.save_codebase_fragment(cb_data["data"], sub_schema)
+            p "###############"
+            p created_frag
+            p "###############"
           elsif cb_data["action"].eql?("update") && cb_data["dbid"]
             cb_fragment = MadmpFragment.find(cb_data["dbid"])
             cb_fragment.save_codebase_fragment(cb_data["data"], sub_schema)
@@ -72,6 +78,7 @@ module CodebaseFragment
       additional_info: additional_info.except!("custom_value")
     )
     update_children_references
+    self # return self
   end
 
 end
