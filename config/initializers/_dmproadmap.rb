@@ -122,6 +122,8 @@ module DMPRoadmap
     }
     # Setting to only take orgs from local and not allow on-the-fly creation
     config.x.application.restrict_orgs = false
+    # Administrator emails
+    config.x.application.admin_emails = ENV["ADMIN_EMAILS"]
 
     # ------------------- #
     # SHIBBOLETH SETTINGS #

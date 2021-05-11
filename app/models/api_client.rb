@@ -41,6 +41,9 @@ class ApiClient < ApplicationRecord
 
   belongs_to :org, optional: true
 
+  # TODO: Make this required once we've transitioned away from the old :contact_name + :contact_email
+  belongs_to :user, optional: true
+
   # Access Tokens are created when an ApiClient authenticates themselves and is then used instead
   # of credentials when calling the API.
   has_many :access_tokens, class_name: "::Doorkeeper::AccessToken",
@@ -57,6 +60,12 @@ class ApiClient < ApplicationRecord
 
   validates :contact_email, presence: { message: PRESENCE_MESSAGE },
                             email: { allow_nil: false }
+
+  # =============
+  # = Callbacks =
+  # =============
+
+  before_validation :ensure_scopes
 
   # =================
   # = Compatibility =
@@ -83,6 +92,18 @@ class ApiClient < ApplicationRecord
   # Override the to_s method to keep the id and secret hidden
   def to_s
     name
+  end
+
+  private
+
+  # Set the scopes
+  def ensure_scopes
+    self.scopes = available_scopes.sort { |a, b| a <=> b }.join(" ")
+  end
+
+  # Returns the scopes defined in the Doorkeeper config
+  def available_scopes
+    (Doorkeeper.config.default_scopes.to_a << Doorkeeper.config.optional_scopes.to_a).flatten.uniq
   end
 
 end

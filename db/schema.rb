@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_27_162935) do
+ActiveRecord::Schema.define(version: 2021_05_10_193106) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -45,22 +45,6 @@ ActiveRecord::Schema.define(version: 2021_04_27_162935) do
     t.integer "answer_id", null: false
     t.integer "question_option_id", null: false
     t.index ["answer_id"], name: "index_answers_question_options_on_answer_id"
-  end
-
-  create_table "api_clients", id: :integer, force: :cascade do |t|
-    t.string "name", null: false
-    t.string "description"
-    t.string "homepage"
-    t.string "contact_name"
-    t.string "contact_email", null: false
-    t.string "client_id", default: "", null: false
-    t.string "client_secret", default: "", null: false
-    t.datetime "last_access"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "org_id"
-    t.index ["name"], name: "index_api_clients_on_name"
-    t.index ["client_id"], name: "index_api_clients_on_client_id", unique: true
   end
 
   create_table "conditions", id: :integer, force: :cascade do |t|
@@ -254,7 +238,7 @@ ActiveRecord::Schema.define(version: 2021_04_27_162935) do
 
   create_table "oauth_access_grants", force: :cascade do |t|
     t.integer "resource_owner_id", null: false
-    t.integer "application_id", null: false
+    t.integer "application_id"
     t.string "token", null: false
     t.integer "expires_in", null: false
     t.text "redirect_uri", null: false
@@ -268,7 +252,7 @@ ActiveRecord::Schema.define(version: 2021_04_27_162935) do
 
   create_table "oauth_access_tokens", force: :cascade do |t|
     t.integer "resource_owner_id"
-    t.integer "application_id", null: false
+    t.integer "application_id"
     t.string "token", null: false
     t.string "refresh_token"
     t.integer "expires_in"
@@ -287,7 +271,7 @@ ActiveRecord::Schema.define(version: 2021_04_27_162935) do
     t.string "description"
     t.string "homepage"
     t.string "contact_name"
-    t.string "contact_email", null: false
+    t.string "contact_email"
     t.string "uid", default: "", null: false
     t.string "secret", default: "", null: false
     t.datetime "last_access"
@@ -297,9 +281,11 @@ ActiveRecord::Schema.define(version: 2021_04_27_162935) do
     t.text "redirect_uri"
     t.string "scopes", default: "", null: false
     t.boolean "confidential", default: true
-    t.boolean "trusted", default: false
+    t.boolean "trusted", default: false, null: false
+    t.bigint "user_id"
     t.index ["name"], name: "index_oauth_applications_on_name"
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
+    t.index ["user_id"], name: "index_oauth_applications_on_user_id"
   end
 
   create_table "org_indices", force: :cascade do |t|
@@ -692,7 +678,6 @@ ActiveRecord::Schema.define(version: 2021_04_27_162935) do
     t.boolean "active", default: true
     t.integer "department_id"
     t.datetime "last_api_access"
-    t.string "uid"
     t.index ["department_id"], name: "fk_rails_f29bf9cdf2"
     t.index ["email"], name: "index_users_on_email"
     t.index ["language_id"], name: "fk_rails_45f4f12508"
