@@ -44,6 +44,7 @@ FactoryBot.define do
     principal_investigator_email { Faker::Internet.safe_email }
     feedback_requested { false }
     complete { false }
+    created_at { Date.parse('2020-01-01') }
     transient do
       phases { 0 }
       answers { 0 }

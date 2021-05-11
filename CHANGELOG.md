@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+## Added
+ - Added functionality for super administrators to create usage statistics filters including all organizations.
+
+
 ## [2.1.3+portage-1.0.10] - 2021-04-22
 
 ### Changed

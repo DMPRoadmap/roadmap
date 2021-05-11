@@ -7,10 +7,17 @@ RSpec.describe OrgDateRangeable do
 
   describe '.monthly_range' do
     context 'when org keyword param is missing' do
-      it 'returns ArgumentError' do
-        expect do
-          StatJoinedUser.monthly_range
-        end.to raise_error(ArgumentError, /missing keyword: org/)
+      it 'returns usage statistics from all organizations' do
+        org2 = FactoryBot.create(:org, created_at: DateTime.new(2018,05,16,0,0,0))
+        FactoryBot.create(:stat_joined_user, date: '2018-06-30', org: org, count: 10)
+        FactoryBot.create(:stat_joined_user, date: '2018-08-01', org: org, count: 10)
+        FactoryBot.create(:stat_joined_user, date: '2018-07-31', org: org2, count: 10)
+
+        result = StatJoinedUser.monthly_range(org: nil, start_date: '2018-07-31')
+        expected_result = StatJoinedUser.where('date >= ?', Date.parse('2018-07-31'))
+
+        # Here we expect to receive results stats from org and org2
+        expect(result.map(&:attributes)).to eq(expected_result.map(&:attributes))
       end
     end
 
