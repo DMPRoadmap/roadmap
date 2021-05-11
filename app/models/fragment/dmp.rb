@@ -50,6 +50,10 @@ class Fragment::Dmp < MadmpFragment
     Fragment::Cost.where(dmp_id: id)
   end
 
+  def persons
+    Fragment::Person.where(dmp_id: id)
+  end
+
   def self.sti_name
     "dmp"
   end

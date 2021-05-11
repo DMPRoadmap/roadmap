@@ -10,17 +10,32 @@ module MadmpExportHelper
     JSON.load(File.open(export_format))
   end
 
+  def format_contributors(dmp_fragment)
+    contributors = []
+    dmp_fragment.persons.each do |person|
+      contributor = person.get_full_fragment
+      contributor["role"] = person.roles
+      contributors.append(contributor) unless contributor["role"].empty?
+    end
+    contributors
+  end
+
   def madmp_transform(madmp, export_template, dmp_id)
     export_document = {}
+    variable_array = {}
     export_template.each do |key, property|
+      next if key.eql?("variable_name")
+
       ######################
       # If the property is a String
       ######################
       if property.is_a?(String)
         # If the string starts by "$", then it's a JsonPath
         if property.first.eql?("$")
-          match = JsonPath.new(property).first(madmp)
+          match = JsonPath.new(property).on(madmp).join("/")
           export_document[key] = match
+        # elsif property.slice(0, 2).eql?("%%")
+        #   export_document[key] = variable_array[property]
         else
           # Else the string should be displayed as is
           export_document[key] = property
@@ -44,6 +59,12 @@ module MadmpExportHelper
         end
         next
       end
+
+      # if property["variable_name"].present?
+      #   variable_array[property["variable_name"]] = madmp_transform(madmp, property, dmp_id)
+
+      #   next
+      # end
 
       ######################
       # If the property has a "type" and this type is "array"
@@ -86,4 +107,5 @@ module MadmpExportHelper
     end
     export_document
   end
+
 end

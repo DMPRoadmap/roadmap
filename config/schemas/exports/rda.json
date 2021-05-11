@@ -5,9 +5,9 @@
         "identifier": "$.meta.dmpId",
         "type": "$.meta.idType"
     },
-    "ethical_issues_exist": "$.researchOutput.researchOutputDescription.hasEthicalIssues",
-    "ethical_issues_description": "$.researchOutput.ethicalIssues.description",
-    "ethical_issues_report": "$.researchOutput.ethicalIssues.resourceReference.docIdentifier",
+    "ethical_issues_exist": "$.researchOutput[*].researchOutputDescription.hasEthicalIssues",
+    "ethical_issues_description": "$.researchOutput[*].ethicalIssues.description",
+    "ethical_issues_report": "$.researchOutput[*].ethicalIssues.resourceReference.docIdentifier",
     "language": "$.meta.dmpLanguage",
     "modified": "$.meta.lastModifiedDate",
     "title": "$.meta.title",
@@ -24,21 +24,6 @@
         ]
     },
     "contributor": {
-        "type": "array",
-        "classname": "contributor",
-        "items": {
-            "contributor_id": {
-                "identifier": "$.person.personId",
-                "type": "$.person.idType"
-            },
-            "mbox": "$.person.mbox",
-            "name": [
-                "$.person.firstName",
-                " ",
-                "$.person.lastName"
-            ],
-            "role": "$.role"
-        }
     },
     "cost": {
         "type": "array",
@@ -91,6 +76,18 @@
             "title": "$.researchOutputDescription.title",
             "type": "$.researchOutputDescription.type",
             "sensitive_data": "$.researchOutputDescription.containsSensitiveData",
+            "host": {
+                "description": "$.sharing.host.description",
+                "availability": "$.sharing.host.availability",
+                "certified_with": "$.sharing.host.certification",
+                "geo_location": "$.sharing.host.geoLocation",
+                "pid_system": "$.sharing.host.pidSystem",
+                "support_versioning": "$.sharing.host.hasVersioningPolicy",
+                "title": "$.sharing.host.title",
+                "url": "$.sharing.host.hostId",
+                "license_ref": "$.sharing.distribution[*].license.licenseUrl",
+                "start_date": "$.sharing.distribution[*].licenseStartDate"
+            },
             "distribution": {
                 "type": "array",
                 "path": "$.sharing.distribution",
@@ -102,24 +99,6 @@
                     "description": "$.description",
                     "download_url": "$.downloadUrl",
                     "format": "$.fileFormat",
-                    "host": {
-                        "description": "$.sharing.host.description",
-                        "availability": "$.sharing.host.availability",
-                        "certified_with": "$.sharing.host.certification",
-                        "geo_location": "$.sharing.host.geoLocation",
-                        "pid_system": "$.sharing.host.pidSystem",
-                        "support_versioning": "$.sharing.host.hasVersioningPolicy",
-                        "title": "$.sharing.host.title",
-                        "url": "$.sharing.host.hostId",
-                        "license": {
-                            "type": "array",
-                            "path": "$.sharing.distribution",
-                            "items": {
-                                "license_ref": "$.sharing.distribution.license.licenseUrl",
-                                "start_date": "$.sharing.distribution.licenseStartDate"
-                            }
-                        }
-                    },
                     "title": "$.fileName"
                 }
             },

@@ -38,6 +38,8 @@ class Api::V0::Madmp::PlansController < Api::V0::BaseController
       dmp_id
     )
 
+    rda_export["contributor"] = format_contributors(plan_fragment)
+
     # respond_with @plan_fragment.get_full_fragment
     respond_with rda_export
   end

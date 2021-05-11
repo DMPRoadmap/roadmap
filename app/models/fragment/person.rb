@@ -17,8 +17,12 @@
 #  index_madmp_fragments_on_answer_id                  (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
-
 class Fragment::Person < MadmpFragment
+
+  def roles
+    Fragment::Contributor.where("(data->'person'->>'dbid')::int = ?", id)
+                         .pluck("data->>'role'")
+  end
 
   def self.sti_name
     "person"
