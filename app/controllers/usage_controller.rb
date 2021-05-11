@@ -58,23 +58,31 @@ class UsageController < ApplicationController
   # POST /usage_filter
   # rubocop:disable Metrics/MethodLength
   def filter
-    # This action is triggered when a user specifies a date range
+    # This action is triggered when a user specifies a date range.
+    # A super admin can pass along a nil organization to fetch compounded
+    # statistics
     authorize :usage
-
+    
     args = args_from_params
-    plan_data(args: args)
-    user_data(args: args)
-    total_plans(args: min_max_dates(args: args))
-    total_users(args: min_max_dates(args: args))
-
     @topic = usage_params[:topic]
+    
     case @topic
     when "plans"
+      plan_data(args: args)
+      total_plans(args: min_max_dates(args: args))
       @total = @total_org_plans
       @ranged = @plans_per_month.sum(:count)
-    else
+    when 'users'
+      user_data(args: args)
+      total_users(args: min_max_dates(args: args))
       @total = @total_org_users
       @ranged = @users_per_month.sum(:count)
+    when 'organisations'
+      @total = Org.count
+      @ranged = ranged_organizations(args: args).count
+    else
+      @total = 0
+      @ranged = 0
     end
   end
   # rubocop:enable Metrics/MethodLength
@@ -144,7 +152,9 @@ class UsageController < ApplicationController
   # rubocop:disable Metrics/MethodLength
   def args_from_params
     org = current_user.org
-    if current_user.can_super_admin? && usage_params[:org_id].present?
+    if current_user.can_super_admin?
+      # We are OK with nil value for org as we are using it to fetch usage
+      # statistics from all organizations
       org = Org.find_by(id: usage_params[:org_id])
     end
 
@@ -153,7 +163,7 @@ class UsageController < ApplicationController
 
     {
       org: org,
-      start_date: start_date.present? ? start_date : first_plan_date.strftime("%Y-%m-%d"),
+      start_date: start_date.present? ? start_date : first_user_date.strftime("%Y-%m-%d"),
       end_date: end_date.present? ? end_date : Date.today.strftime("%Y-%m-%d")
     }
   end
@@ -204,9 +214,27 @@ class UsageController < ApplicationController
     @total_org_users = StatJoinedUser.monthly_range(args).sum(:count)
   end
 
+  def total_organizations(args:)
+    @total_organizations = Org.count
+  end
+
+  def ranged_organizations(args:)
+    # Using created_at for statistics is not great as it is a system level value
+    # instead of a defined usage value but this is what we have and will
+    # continue to use
+    start_date = DateTime.parse(args[:start_date])
+    end_date = DateTime.parse(args[:end_date])
+
+    Org.where(:created_at => start_date.beginning_of_day..end_date.end_of_day)    
+  end
+
   def first_plan_date
     StatCreatedPlan.all.order(:date).limit(1).pluck(:date).first \
     || Date.today.last_month.end_of_month
+  end
+
+  def first_user_date
+    User.order(created_at: :asc).first.created_at.beginning_of_day
   end
 
 end
