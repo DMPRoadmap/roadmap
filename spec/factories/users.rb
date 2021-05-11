@@ -57,6 +57,9 @@ FactoryBot.define do
     email        { Faker::Internet.unique.safe_email }
     password     { "password" }
     accept_terms { true }
+    # Create users with an early created_at date as we expect all users to exist
+    # before any template or plan is created
+    created_at   { Date.parse('2000-01-01') }
 
     trait :org_admin do
       after(:create) do |user, evaluator|

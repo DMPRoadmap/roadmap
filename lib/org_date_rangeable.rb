@@ -2,20 +2,26 @@
 
 module OrgDateRangeable
 
-  def monthly_range(org:, start_date: nil, end_date: Date.today.end_of_month)
-    query_string = "org_id = :org_id"
-    query_hash = { org_id: org.id }
+  def monthly_range(org: nil, start_date: nil, end_date: Date.today.end_of_month)
+    query_parameters = []
+    query_hash = {}
 
+    unless org.nil?
+      query_parameters << 'org_id = :org_id'
+      query_hash[:org_id] = org.id
+    end
+    
     unless start_date.nil?
-      query_string += " and date >= :start_date"
+      query_parameters << 'date >= :start_date'
       query_hash[:start_date] = start_date
     end
 
     unless end_date.nil?
-      query_string += " and date <= :end_date"
+      query_parameters << 'date <= :end_date'
       query_hash[:end_date] = end_date
     end
-    where(query_string, query_hash)
+
+    where(query_parameters.join(' and '), query_hash)
   end
 
   class << self
