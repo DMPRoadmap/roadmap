@@ -17,7 +17,7 @@ class ApiClientPolicy < ApplicationPolicy
   end
 
   def create?
-    @user.can_super_admin?
+    @user.can_super_admin? || @user.id == @api_client.user_id
   end
 
   def edit?
@@ -25,7 +25,7 @@ class ApiClientPolicy < ApplicationPolicy
   end
 
   def update?
-    @user.can_super_admin?
+    @user.can_super_admin? || @user.id == @api_client.user_id
   end
 
   def destroy?

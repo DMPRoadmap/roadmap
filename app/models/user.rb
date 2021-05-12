@@ -122,6 +122,10 @@ class User < ApplicationRecord
                            foreign_key: :resource_owner_id,
                            dependent: :delete_all
 
+  # Table that stores OAuth access tokens for other external systems like ORCID
+  has_many :external_api_access_tokens, dependent: :destroy
+  accepts_nested_attributes_for :external_api_access_tokens
+
   # ===============
   # = Validations =
   # ===============
@@ -467,6 +471,16 @@ class User < ApplicationRecord
                 .update_all(identifiable_id: id)
     # => ignore any perms the deleted user has
     to_be_merged.destroy
+  end
+
+  # Fetch the access token for the specified service
+  def access_token_for(external_service_name:)
+    return nil unless external_service_name.present? && external_api_access_tokens.any?
+
+    tokens = external_api_access_tokens.select do |token|
+      token.external_service_name == external_service_name && token.active?
+    end
+    tokens.first
   end
 
   private

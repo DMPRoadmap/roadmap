@@ -78,6 +78,8 @@ module DMPRoadmap
       v0: "https://github.com/DMPRoadmap/roadmap/wiki/API-V0-Documentation",
       v1: "https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation-V1"
     }
+    # Link to the application's blog
+    config.x.application.blog_rss = "https://blog.example.org/feed"
     # The links that appear on the home page. Add any number of links
     config.x.application.welcome_links = [
       {
@@ -211,6 +213,11 @@ module DMPRoadmap
     # Additional DOI minting services can be registered for use in the app/services/doi_service.rb
     config.x.allow_doi_minting = false
 
+    # ----- #
+    # ORCID #
+    # ----- #
+    config.x.orcid_landing_page_url = "https://orcid.org/"
+    config.x.orcid_api_base_url = "https://sandbox.orcid.org/"
   end
 
 end

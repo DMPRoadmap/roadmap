@@ -33,6 +33,7 @@ Devise.setup do |config|
                   Rails.configuration.x.dmproadmap.orcid_client_id,
                   Rails.configuration.x.dmproadmap.orcid_client_secret,
                   member: true,
+                  scope: "/authenticate /activities/update",
                   sandbox: Rails.configuration.x.dmproadmap.orcid_sandbox
 
   config.omniauth :shibboleth, {

@@ -8,7 +8,12 @@ Rails.application.routes.draw do
   use_doorkeeper do
     skip_controllers :applications, :authorized_applications
   end
-  # Route that allows an OauthCredentialToken to be revoked by the User
+
+  # Routes to allow a user to sign up for API access via the 'Developer Tools' tab on the Profile page
+  resources :api_clients, only: %i[create update]
+  get "/api_clients/refresh_credentials", to: "api_clients#refresh_credentials",
+                                          as: "refresh_credentials_api_client"
+  # Route to allow a user to revoke an Oauth access token from the '3rd Party Apps' tab on Profile page
   delete "/users/:user_id/oauth_access_tokens/:id", to: "users#revoke_oauth_access_token",
                                                     as: "oauth_revoke_access_token"
 
@@ -186,6 +191,7 @@ Rails.application.routes.draw do
       post "visibility", constraints: { format: [:json] }
       post "set_test", constraints: { format: [:json] }
       get "mint"
+      get "add_orcid_work"
 
       # Ajax endpoint for ResearchOutput.output_type selection
       get "output_type_selection", controller: "research_outputs", action: "select_output_type"

@@ -222,6 +222,7 @@ class UserMailer < ActionMailer::Base
     end
   end
 
+  # Sent out to the API contact when the Super Admin creates a record or refreshes the secret
   def api_credentials(api_client)
     @api_client = api_client
     return unless @api_client.contact_email.present?
@@ -236,6 +237,20 @@ class UserMailer < ActionMailer::Base
            {
              tool_name: tool_name
            })
+    end
+  end
+
+  # Sent out to admins when a user self registers for the API via the Developer Tools' tab on Profile page
+  def new_api_client(api_client)
+    @api_client = api_client
+
+    @name = @api_client.contact_name.present? ? @api_client.contact_name : @api_client.contact_email
+    @name = @api_client.user.name(false) unless @name.present?
+    @email = @api_client.contact_email || @api_client.user.email
+
+    I18n.with_locale I18n.default_locale do
+      mail(to: Rails.configuration.x.application.admin_emails,
+           subject: _("%{tool_name} new API registration") % { tool_name: tool_name})
     end
   end
 

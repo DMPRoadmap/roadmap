@@ -20,6 +20,7 @@ module Dmptool
 
     # GET /orgs/shibboleth_ds/:id
     # POST /orgs/shibboleth_ds/:id
+    # rubocop:disable Metrics/AbcSize
     def shibboleth_ds_passthru
       skip_authorization
 
@@ -42,6 +43,7 @@ module Dmptool
                     notice: _("Please choose an organisation from the list.")
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     private
 

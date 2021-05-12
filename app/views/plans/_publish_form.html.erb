@@ -41,13 +41,12 @@
   </p>
 <% end %>
 
-<% if Rails.configuration.x.allow_doi_minting && IdentifierScheme.for_identification.any? %>
-  <%# Temporary flag to only allow users from certain Orgs to mint DOIs during soft-launch %>
-  <%# if current_user.org&.allow_doi? && current_user.can_org_admin? %>
-    <br>
-    <h2>Register your plan</h2>
-    <div class="doi-minter">
-      <%= render partial: 'plans/doi_minter', locals: { plan: @plan } %>
-    </div>
-  <%# end %>
+<% if Rails.configuration.x.allow_doi_minting && IdentifierScheme.for_identification.any? && current_user == @plan.owner %>
+  <br>
+  <h2>
+    <%= @plan.doi.present? ? _("Your plan has been registered") : _("Register your plan and add to ORCID") %>
+  </h2>
+  <div class="doi-minter">
+    <%= render partial: 'plans/doi_minter', locals: { plan: @plan, orcid_access_token: @orcid_access_token } %>
+  </div>
 <% end %>

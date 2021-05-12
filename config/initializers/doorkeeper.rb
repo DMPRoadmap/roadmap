@@ -35,16 +35,16 @@ Doorkeeper.configure do
   # adding oauth authorized applications. In other case it will return 403 Forbidden response
   # every time somebody will try to access the admin web interface.
   #
-  # admin_authenticator do
+  admin_authenticator do
   #   # Put your admin authentication logic here.
   #   # Example implementation:
   #
-  #   if current_user
-  #     head :forbidden unless current_user.admin?
-  #   else
-  #     redirect_to sign_in_url
-  #   end
-  # end
+    if current_user
+      head :forbidden unless current_user.can_org_admin?
+    else
+      redirect_to sign_in_url
+    end
+  end
 
   # You can use your own model classes if you need to extend (or even override) default
   # Doorkeeper models such as `Application`, `AccessToken` and `AccessGrant.
@@ -136,7 +136,7 @@ Doorkeeper.configure do
   # Note that Users are able to revoke these tokens on their profile page
   #
   custom_access_token_expires_in do |context|
-    context.grant_type == 'authorization_code' ? 1.months : 2.hours
+    context.grant_type == 'authorization_code' ? 10.years : 2.hours
   end
 
   # Use a custom class for generating the access token.
@@ -324,6 +324,12 @@ Doorkeeper.configure do
   # for example.
   #
   # forbid_redirect_uri { |uri| uri.scheme.to_s.downcase == 'javascript' }
+  #
+  # DMPROADMAP NOTES:
+  # -----------------------------------------------------------------------
+  # Seems reasonable to prevent JS here
+  #
+  forbid_redirect_uri { |uri| uri.scheme.to_s.downcase == 'javascript' }
 
   # Allows to set blank redirect URIs for Applications in case Doorkeeper configured
   # to use URI-less OAuth grant flows like Client Credentials or Resource Owner
@@ -332,7 +338,6 @@ Doorkeeper.configure do
   # column for `oauth_applications` database table.
   #
   # You can completely disable this feature with:
-  #
   # allow_blank_redirect_uri false
   #
   # Or you can define your custom check:
@@ -340,6 +345,13 @@ Doorkeeper.configure do
   # allow_blank_redirect_uri do |grant_flows, client|
   #   client.superapp?
   # end
+  #
+  # DMPROADMAP NOTES:
+  # -----------------------------------------------------------------------
+  # We allow users to sign themselves up for API access so we want to allow them
+  # to create credentials and access public data without having to do OAuth.
+  #
+  allow_blank_redirect_uri true
 
   # Specify how authorization errors should be handled.
   # By default, doorkeeper renders json errors when access token

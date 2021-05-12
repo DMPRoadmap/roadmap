@@ -9,7 +9,8 @@
 # See config/dmproadmap.yml for an explanation of each atrribute's purpose
 #
 class DmproadmapConfig < Anyway::Config
-  attr_config :api_documentation_urls,
+  attr_config :admin_emails,
+              :api_documentation_urls,
               :api_max_page_size,
               :archived_accounts_email_suffix,
 
@@ -64,8 +65,10 @@ class DmproadmapConfig < Anyway::Config
               :name,
 
               :openaire_active,
+              :orcid_api_base_url,
               :orcid_client_id,
               :orcid_client_secret,
+              :orcid_landing_page_url,
               :orcid_sandbox,
               :organisation_abbreviation,
               :organisation_address_line1,

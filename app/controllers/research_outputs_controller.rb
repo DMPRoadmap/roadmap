@@ -50,7 +50,7 @@ class ResearchOutputsController < ApplicationController
     authorize @research_output
 
     # Allow the repository to be removed
-    @research_output.repository_id = nil unless args[:repository_id].present?
+    @research_output.repositories.clear unless args[:repository_id].present?
 
     # Clear any existing repository selections. If the user has selected any
     # the will be saved via the :repositories_attributes params during :update

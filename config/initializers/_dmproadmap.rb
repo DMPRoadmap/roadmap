@@ -91,6 +91,8 @@ module DMPRoadmap
     config.x.application.restrict_orgs = Rails.configuration.x.dmproadmap.restrict_orgs
     # The location of the dmptool blog
     config.x.application.blog_rss = Rails.configuration.x.dmproadmap.blog_rss
+    # Administrator emails
+    config.x.application.admin_emails = Rails.configuration.x.dmproadmap.admin_emails
 
     # ------------------- #
     # SHIBBOLETH SETTINGS #
@@ -204,6 +206,11 @@ module DMPRoadmap
     # ----------- #
     config.x.allow_doi_minting = Rails.configuration.x.dmproadmap.doi_minting
 
+    # ----- #
+    # ORCID #
+    # ----- #
+    config.x.orcid_landing_page_url = Rails.configuration.x.dmproadmap.orcid_landing_page_url
+    config.x.orcid_api_base_url = Rails.configuration.x.dmproadmap.orcid_api_base_url
   end
 
 end

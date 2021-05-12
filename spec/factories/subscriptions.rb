@@ -4,15 +4,15 @@
 #
 # Table name: subscriptions
 #
-#  id                :bigint           not null, primary key
-#  callback_uri      :string
-#  identifiable_type :string
-#  subscription_type :integer          not null
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  identifiable_id   :bigint
-#  plan_id           :bigint
-#  last_notified     :datetime
+#  id                 :bigint           not null, primary key
+#  plan_id            :bigint
+#  subscription_types :integer          not null
+#  callback_uri       :string
+#  subscriber_id      :bigint
+#  subscriber_type    :string
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  last_notified      :datetime
 #
 # Indexes
 #
@@ -21,26 +21,23 @@
 #
 FactoryBot.define do
   factory :subscription do
-=begin
-    trait :api_client do
-      association :identifiable, factory: :api_client
-    end
-    trait :org do
-      association :identifiable, factory: :org
+    callback_uri        { Faker::Internet.unique.url }
+    last_notified       { Time.now - 1.days }
+    for_updates
+
+    association :subscriber, factory: :api_client
+
+    trait :for_updates do
+      subscription_types { "updates" }
     end
 
-    trait :on_all do
-      on_update { true }
-      on_destroy { true }
+    trait :for_creations do
+      subscription_types { "creations" }
     end
-    trait :on_update do
-      on_update { true }
-      on_destroy { false }
+
+    trait :for_deletions do
+      subscription_types { "deletions" }
     end
-    trait :on_destroy do
-      on_update { false }
-      on_destroy { true }
-    end
-=end
+
   end
 end

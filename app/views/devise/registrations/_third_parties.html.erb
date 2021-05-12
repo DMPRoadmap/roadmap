@@ -1,0 +1,46 @@
+<%# locals: user %>
+
+<% tokens = user.access_tokens.select { |token| token.revoked_at == nil } %>
+
+<div id="api-integrations" class="col-xs-12">
+  <h2>Authorized 3rd party applications</h2>
+
+  <% if tokens.any? %>
+    <p><%= _("You have authorized the following list of 3rd party applications.") %></p>
+    <p><%= _("These applications have access to the information specified in the 'Activities' column. You can remove/revoke their access at any time but please note that this will only prevent future access. For example, if they have downloaded a PDF copy of a plan in the past they will still retain that copy.") %></p>
+
+    <div class="table-responsive">
+      <table class="table table-hover" id="oauth_credential_tokens">
+        <thead>
+          <tr>
+            <th scope="col" class="text-center"><%= _('Application') %></th>
+            <th scope="col" class="text-center"><%= _('Activities') %></th>
+            <th scope="col" class="text-center"><%= _('Authorization Date') %></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% tokens.each do |token| %>
+            <tr>
+              <% api_client = ApiClient.find_by(id: token.application_id) %>
+              <td>
+                <% if api_client.homepage.present? %>
+                  <%= link_to api_client.name.humanize, api_client.homepage, target: "_blank" %>
+                <% else %>
+                  <%= api_client.name.humanize %>
+                <% end %>
+              </td>
+              <td>
+                <%= token.scopes.map { |scope| scope.humanize.gsub("dmp", "DMP") }.join(", ") %>
+              </td>
+              <td><%= l(token.created_at.to_date, formats: :short) %></td>
+              <td><%= link_to _('Revoke'), oauth_revoke_access_token_path(user, token), method: :delete %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <p><%= _("You have not authorized any 3rd party applications.") %>
+  <% end %>
+</div>

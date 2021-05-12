@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe "SuperAdmins Merge Orgs", type: :feature, js: true do
 
   before do
-    Org.destroy_all
+    Org.all.destroy_all
     @scheme = create(:identifier_scheme)
     tpt = create(:token_permission_type)
     @from_org = create(:org, :organisation, templates: 1, plans: 2, managed: true,
@@ -42,6 +42,11 @@ RSpec.describe "SuperAdmins Merge Orgs", type: :feature, js: true do
 
     sleep(0.5)
     click_link "Organisations"
+
+    fill_in(:search, with: @from_org.name)
+    click_button "Search"
+    sleep(0.5)
+
     first("#org-#{@from_org.id}-actions").click
     first("a[href=\"/org/admin/#{@from_org.id}/admin_edit\"]").click
 

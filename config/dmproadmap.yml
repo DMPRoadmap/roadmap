@@ -134,6 +134,8 @@ default: &default
   orcid_client_id:
   orcid_client_secret:
   orcid_sandbox: true
+  orcid_api_base_url: "https://sandbox.orcid.org/"
+  orcid_landing_page_url: "https://api.sandbox.orcid.org/v3.0/"
 
   # Recaptcha is used to prevent malicious use of the Contact Us and Create Account forms
   # See https://developers.google.com/recaptcha/intro
@@ -196,6 +198,8 @@ default: &default
   do_not_reply_email: "do-not-reply-dmptool-dev@cdlib.org"
   # The helpdesk email
   helpdesk_email: "uc3@ucop.edu"
+  # Administrator email:
+  admin_emails: "uc3@ucop.edu"
   # Used as the default domain when 'archiving' (aka anonymizing) a user account
   # for example `jane.doe@uni.edu` becomes `1234@removed_accounts-example.org`
   archived_accounts_email_suffix: "@removed_accounts_dmptool.org"

@@ -11,6 +11,7 @@ json.data do
     json.schemaVersion "http://datacite.org/schema/kernel-4"
 
     json.types do
+      json.resourceType "Data Management Plan"
       json.resourceTypeGeneral "OutputManagementPlan"
     end
 
