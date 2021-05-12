@@ -22,7 +22,7 @@ describe "shared/_shib_ds_form.html.erb" do
     expect(rendered.include?("full list of participating institutions")).to eql(false)
   end
 
-  it "renders the Selection List if there are more than 10 Orgs" do
+  xit "renders the Selection List if there are more than 10 Orgs" do
     Org.destroy_all
     generate_shibbolized_orgs(11)
     render
