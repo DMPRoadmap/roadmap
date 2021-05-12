@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_25_154923) do
+ActiveRecord::Schema.define(version: 2021_04_27_162935) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -106,6 +106,21 @@ ActiveRecord::Schema.define(version: 2021_04_25_154923) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "phase_id"
+  end
+
+  create_table "external_api_access_tokens", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "external_service_name", null: false
+    t.string "access_token", null: false
+    t.string "refresh_token"
+    t.datetime "expires_at"
+    t.datetime "revoked_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["expires_at"], name: "index_external_api_access_tokens_on_expires_at"
+    t.index ["external_service_name"], name: "index_external_api_access_tokens_on_external_service_name"
+    t.index ["user_id", "external_service_name"], name: "index_external_tokens_on_user_and_service"
+    t.index ["user_id"], name: "index_external_api_access_tokens_on_user_id"
   end
 
   create_table "guidance_groups", id: :integer, force: :cascade do |t|

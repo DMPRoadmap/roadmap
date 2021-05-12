@@ -7,6 +7,14 @@ module ExternalApis
 
     class << self
 
+      def name
+        Rails.configuration.x.datacite&.name
+      end
+
+      def description
+        Rails.configuration.x.datacite&.description
+      end
+
       # Retrieve the config settings from the initializer
       def landing_page_url
         Rails.configuration.x.datacite&.landing_page_url || super

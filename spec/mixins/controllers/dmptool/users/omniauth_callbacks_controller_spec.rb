@@ -123,19 +123,19 @@ RSpec.describe Dmptool::Users::OmniauthCallbacksController,
       end
     end
 
-    describe "#omniauth" do
+    describe "#omniauth_from_request" do
       it "returns an empty hash if the Request has no ENV info" do
         @controller.stubs(:request).returns(OpenStruct.new({ env: nil }))
-        expect(@controller.send(:omniauth)).to eql({})
+        expect(@controller.send(:omniauth_from_request)).to eql({})
       end
       it "finds the 'omniauth.auth' hash in the Request ENV" do
         @controller.stubs(:request).returns(OpenStruct.new({ env: @omniauth_hash }))
-        expect(@controller.send(:omniauth)).to eql(@omniauth_hash["omniauth.auth"])
+        expect(@controller.send(:omniauth_from_request)).to eql(@omniauth_hash["omniauth.auth"])
       end
       it "returns the Request ENV if no 'omniauth.auth' is present" do
         hash = { uid: SecureRandom.uuid }
         @controller.stubs(:request).returns(OpenStruct.new({ env: hash }))
-        expect(@controller.send(:omniauth)).to eql(hash)
+        expect(@controller.send(:omniauth_from_request)).to eql(hash)
       end
     end
 

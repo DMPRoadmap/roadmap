@@ -39,19 +39,14 @@ class RegistrationsController < Devise::RegistrationsController
         }
         # rubocop:enable Metrics/LineLength
 
-        # ---------------------------------------
-        # Start DMPTool Customization
-        # Determine which Org Idp we came from and make it available to form
-        # ---------------------------------------
+        # If this is part of a Shibboleth workflow, determine which Org Idp we came from and make
+        # it available to the regsitration form (which will hide the Org textbox)
         entity_id = oauth.fetch("info", {})["identity_provider"]
         if entity_id.present?
           identifier = Identifier.where(identifiable_type: "Org",
                                         value: entity_id).first
           @user.org = identifier.identifiable if identifier.present?
         end
-        # ---------------------------------------
-        # End DMPTool Customization
-        # ---------------------------------------
       end
     end
     # rubocop:enable Style/GuardClause
@@ -305,7 +300,9 @@ class RegistrationsController < Devise::RegistrationsController
     params.require(:user).permit(:email, :password, :password_confirmation,
                                  :firstname, :surname, :recovery_email,
                                  :accept_terms, :org_id, :org_name,
-                                 :org_crosswalk, :language_id)
+                                 :org_crosswalk, :language_id,
+                                 external_api_access_tokens: [:external_service_name, :access_token,
+                                                              :refresh_token, :expires_at])
   end
 
   def update_params

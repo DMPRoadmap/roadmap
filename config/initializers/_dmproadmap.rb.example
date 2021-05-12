@@ -213,6 +213,11 @@ module DMPRoadmap
     # Additional DOI minting services can be registered for use in the app/services/doi_service.rb
     config.x.allow_doi_minting = false
 
+    # ----- #
+    # ORCID #
+    # ----- #
+    config.x.orcid_landing_page_url = "https://orcid.org/"
+    config.x.orcid_api_base_url = "https://sandbox.orcid.org/"
   end
 
 end
