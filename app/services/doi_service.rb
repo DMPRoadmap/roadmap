@@ -36,6 +36,7 @@ class DoiService
       return nil unless doi.present?
     rescue StandardError => e
       Rails.logger.error "DoiService.update_doi for Plan #{plan&.id} resulted in: #{e.message}"
+      Rails.logger.error e.backtrace
       nil
     end
 
