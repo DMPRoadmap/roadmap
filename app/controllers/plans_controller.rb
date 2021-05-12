@@ -183,7 +183,7 @@ class PlansController < ApplicationController
     @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
 
     # Get the selected and possible guidance options for the plan
-    fetch_guidance_groups(plan: @plan)
+    fetch_guidance_groups(plan_in: @plan)
 
     @based_on = if @plan.template.customization_of.nil?
                   @plan.template
@@ -258,7 +258,7 @@ class PlansController < ApplicationController
       else
         format.html do
           # Get the selected and possible guidance options for the plan
-          fetch_guidance_groups(plan: @plan)
+          fetch_guidance_groups(plan_in: @plan)
           flash[:alert] = failure_message(@plan, _("save"))
           render "show"
         end
@@ -285,6 +285,7 @@ class PlansController < ApplicationController
     if @plan.present?
       authorize @plan
       @plan_roles = @plan.roles
+      @orcid_access_token = ExternalApiAccessToken.for_user_and_service(user: current_user, service: "orcid")
     else
       redirect_to(plans_path)
     end
@@ -423,6 +424,14 @@ class PlansController < ApplicationController
 
     DoiService.mint_doi(plan: @plan)&.save
     @plan = @plan.reload
+
+    @orcid_access_token = ExternalApiAccessToken.for_user_and_service(user: current_user, service: "orcid")
+
+    # If a DMP ID was successfully acquired and the User has authorized us to write to their ORCID record
+    if @plan.doi.present? && @orcid_access_token.present?
+      ExternalApis::OrcidService.add_work(user: current_user, plan: @plan)
+    end
+
     render js: render_to_string(template: "plans/mint.js.erb")
   rescue StandardError => e
     Rails.logger.error "Unable to mint DOI for plan #{params[:id]} - #{e.message}"
@@ -505,11 +514,11 @@ class PlansController < ApplicationController
   end
 
   # Fetch all the available Guidance Groups for the specified Plan
-  def fetch_guidance_groups(plan: plan)
+  def fetch_guidance_groups(plan_in: plan)
     # Get all Guidance Groups applicable for the plan and group them by org
-    @all_guidance_groups = plan.guidance_group_options
+    @all_guidance_groups = plan_in.guidance_group_options
     @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
-    @selected_guidance_groups = plan.guidance_groups
+    @selected_guidance_groups = plan_in.guidance_groups
 
     # Important ones come first on the page - we grab the user's org's GGs and
     # "Organisation" org type GGs

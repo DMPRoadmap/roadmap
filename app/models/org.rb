@@ -229,6 +229,14 @@ class Org < ApplicationRecord
               count(users.id) as user_count")
   }
 
+  # Returns all Org's with a Shibboleth entityID stored in the Identifiers table
+  # This is used on the app/views/shared/_shib_sign_in_form.html.erb partial which
+  # is only used if you have `shibboleth.use_filtered_discovery_service` enabled.
+  scope :shibbolized, lambda {
+    org_ids = Identifier.by_scheme_name("shibboleth", "Org").pluck(:identifiable_id)
+    where(managed: true, id: org_ids)
+  }
+
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
   # What do they do? do they do it efficiently, and do we need them?

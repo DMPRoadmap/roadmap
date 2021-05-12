@@ -99,8 +99,8 @@ RSpec.describe ExternalApis::DataciteService, type: :model do
 
         # Type checks
         type = dmp_json["types"]
-        expect(type["resourceType"]).to eql("Text/Data Management Plan")
-        expect(type["resourceTypeGeneral"]).to eql("Text")
+        expect(type["resourceType"]).to eql("Data Management Plan")
+        expect(type["resourceTypeGeneral"]).to eql("OutputManagementPlan")
 
         # Creators check
         creator = dmp_json["creators"].first

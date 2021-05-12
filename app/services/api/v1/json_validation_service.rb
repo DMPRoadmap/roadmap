@@ -28,7 +28,7 @@ module Api
         end
 
         def org_valid?(json:)
-          json.present? && json[:name].present?
+          json.present? && (json[:name].present? || json[:affiliation_id].present? || json[:funder_id].present?)
         end
 
         def contributor_valid?(json:, is_contact: false)
@@ -82,6 +82,7 @@ module Api
           # errs << json.fetch(:dataset, []).map do |dataset|
           #   dataset_validation_errors(json: dataset)
           # end
+
           errs.flatten.compact.uniq
         end
         # rubocop:enable Metrics/AbcSize

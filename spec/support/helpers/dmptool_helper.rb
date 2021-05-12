@@ -3,7 +3,7 @@
 module DmptoolHelper
 
   def access_sign_in_options_modal
-    click_on "Sign in"
+    click_link "Sign in"
   end
 
   def access_sign_in_modal
@@ -14,6 +14,7 @@ module DmptoolHelper
   def access_create_account_modal
     access_sign_in_options_modal
     click_on "Create an account"
+    # find("#show-create-account-form").first.click
   end
 
   def access_shib_ds_modal
