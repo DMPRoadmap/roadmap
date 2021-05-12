@@ -37,6 +37,8 @@ class OrgSelectionPresenter
 
     entry = @crosswalk.select { |item| item[:id].to_s == value.to_s }.first
     entry.present? ? entry.to_json : {}.to_json
+  rescue StandardError
+    {}.to_json
   end
 
 end
