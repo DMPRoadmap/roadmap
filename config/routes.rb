@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   # Doorkeeper Oauth Authentication
   use_doorkeeper do
-    # skip_controllers :applications, :authorized_applications
+    skip_controllers :applications, :authorized_applications
   end
 
   # Routes to allow a user to sign up for API access via the 'Developer Tools' tab on the Profile page
