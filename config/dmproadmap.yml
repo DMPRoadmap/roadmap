@@ -111,6 +111,7 @@ default: &default
   # See https://github.com/CDLUC3/dmphub
   dmphub_active: true
   dmphub_url: "http://localhost:3001/api/v0/"
+  dmphub_landing_page_url: "http://localhost:3001/dmps/doi:"
   #dmphub_client_id: "[add your unique client_id from the DMPHub system's api_client table]"
   dmphub_client_id:
   #dmphub_client_secret: "[add your unique client_secret from the DMPHub system's api_client table]"
