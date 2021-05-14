@@ -22,7 +22,7 @@
 
   <%# If the user is present and has an org then this came through as Shibboleth so use the known Org! %>
   <% if @user.present? && @user.org.present? %>
-    <%= hidden_field_tag "default_org_id", @user.org.id %>
+    <%= hidden_field_tag "user[default_org_id]", @user.org.id %>
     <%= hidden_field_tag "default_org_name", @user.org.name %>
   <% else %>
     <div class="form-group" id="create-account-org-controls">
@@ -43,14 +43,15 @@
       <%= f.label(:password, _('Password'), class: "control-label") %>
       <%= f.password_field(:password, class: "form-control", "aria-required": true) %>
     </div>
-  <% end %>
-  <div class="form-group">
-    <div class="checkbox">
-      <label>
-        <input type="checkbox" id="passwords_toggle_sign_up" class="passwords_toggle" /><%= _('Show password') %>
-      </label>
+    <div class="form-group">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" id="passwords_toggle_sign_up" class="passwords_toggle" /><%= _('Show password') %>
+        </label>
+      </div>
     </div>
-  </div>
+  <% end %>
+
   <div class="form-group">
     <div class="checkbox">
       <%= f.label(:accept_terms) do %>
