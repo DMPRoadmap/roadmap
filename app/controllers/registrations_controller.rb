@@ -65,7 +65,8 @@ class RegistrationsController < Devise::RegistrationsController
     blank_org = if Rails.configuration.x.application.restrict_orgs
                   sign_up_params[:org_id]["id"].blank?
                 else
-                  sign_up_params[:org_id].blank?
+                  # DMPTool hack to accommodate Org coming from IdP
+                  sign_up_params.fetch(:org_id, sign_up_params[:default_org_id]).blank?
                 end
 
     if sign_up_params[:accept_terms].to_s == "0"
@@ -314,17 +315,24 @@ class RegistrationsController < Devise::RegistrationsController
 
   # Finds or creates the selected org and then returns it's id
   def handle_org(attrs:)
-    return attrs unless attrs.present? && attrs[:org_id].present?
+    # DMPTool hack to deal with Org via IdP
+    if attrs[:default_org_id].present?
+      attrs[:org_id] = attrs[:default_org_id]
+      attrs.delete(:default_org_id)
+      return attrs
+    else
+      return attrs unless attrs.present? && attrs[:org_id].present?
 
-    org = org_from_params(params_in: attrs, allow_create: true)
+      org = org_from_params(params_in: attrs, allow_create: true)
 
-    # Remove the extraneous Org Selector hidden fields
-    attrs = remove_org_selection_params(params_in: attrs)
-    return attrs unless org.present?
+      # Remove the extraneous Org Selector hidden fields
+      attrs = remove_org_selection_params(params_in: attrs)
+      return attrs unless org.present?
 
-    # reattach the org_id but with the Org id instead of the hash
-    attrs[:org_id] = org.id
-    attrs
+      # reattach the org_id but with the Org id instead of the hash
+      attrs[:org_id] = org.id
+      attrs
+    end
   end
 
 end
