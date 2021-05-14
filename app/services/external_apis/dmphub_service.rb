@@ -102,7 +102,7 @@ module ExternalApis
         }
 
         target = "#{api_base_url}#{callback_path}" % { dmp_id: plan.doi.value_without_scheme_prefix }
-        resp = http_put(uri: target, additional_headers: hdrs, debug: true,
+        resp = http_put(uri: target, additional_headers: hdrs, debug: false,
                         data: json_from_template(plan: plan))
 
         # DMPHub returns a 200 when successful
