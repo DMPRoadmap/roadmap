@@ -7,6 +7,7 @@
     <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % {
       application_name: ApplicationService.application_name } %>
     </title>
+    <%= favicon_link_tag 'favicon.ico', rel: 'icon', type: 'image/png' %>
     <%= favicon_link_tag 'apple-touch-icon.png', rel: 'apple-touch-icon', type: 'image/png' %>
     <%= favicon_link_tag 'favicon-32x32.png', rel: 'icon', sizes: "32x32", type: 'image/png' %>
     <%= favicon_link_tag 'favicon-16x16.png', rel: 'icon', sizes: "16x16", type: 'image/png' %>

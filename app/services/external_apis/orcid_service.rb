@@ -113,6 +113,26 @@ module ExternalApis
         # Derived from:
         #  https://github.com/ORCID/orcid-model/blob/master/src/main/resources/record_3.0/samples/write_samples/work-full-3.0.xml
         #
+        # Removed the following because ORCID sends a 400 Bad Request error with a complaint about the
+        # Error: "The client application made a bad request to the ORCID API. Full validation error: unexpected
+        #         element (uri:\"\", local:\"p\"). Expected elements are (none)"
+        #
+        # It works sometimes though
+        #
+        # <work:contributors>
+        #   <work:contributor>
+        #     <common:contributor-orcid>
+        #       <common:uri>#{orcid.value}</common:uri>
+        #       <common:path>#{orcid.value_without_scheme_prefix}</common:path>
+        #       <common:host>orcid.org</common:host>
+        #     </common:contributor-orcid>
+        #     <work:credit-name>#{user.name(false)}</work:credit-name>
+        #     <work:contributor-attributes>
+        #       <work:contributor-role>author</work:contributor-role>
+        #     </work:contributor-attributes>
+        #   </work:contributor>
+        # </work:contributors>
+
         <<-XML
           <work:work xmlns:common="http://www.orcid.org/ns/common"
                      xmlns:work="http://www.orcid.org/ns/work"
@@ -140,19 +160,6 @@ module ExternalApis
                 <common:external-id-relationship>self</common:external-id-relationship>
               </common:external-id>
             </common:external-ids>
-            <work:contributors>
-              <work:contributor>
-                <common:contributor-orcid>
-                  <common:uri>#{orcid.value}</common:uri>
-                  <common:path>#{orcid.value_without_scheme_prefix}</common:path>
-                  <common:host>orcid.org</common:host>
-                </common:contributor-orcid>
-                <work:credit-name>#{user.name(false)}</work:credit-name>
-                <work:contributor-attributes>
-                  <work:contributor-role>author</work:contributor-role>
-                </work:contributor-attributes>
-              </work:contributor>
-            </work:contributors>
           </work:work>
         XML
       end
