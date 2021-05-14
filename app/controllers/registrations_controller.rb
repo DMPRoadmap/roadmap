@@ -300,7 +300,7 @@ class RegistrationsController < Devise::RegistrationsController
   def sign_up_params
     params.require(:user).permit(:email, :password, :password_confirmation,
                                  :firstname, :surname, :recovery_email,
-                                 :accept_terms, :org_id, :org_name,
+                                 :accept_terms, :org_id, :org_name, :default_org_id,
                                  :org_crosswalk, :language_id,
                                  external_api_access_tokens: [:external_service_name, :access_token,
                                                               :refresh_token, :expires_at])
