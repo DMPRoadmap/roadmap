@@ -211,7 +211,7 @@ class UserMailer < ActionMailer::Base
 
     @user      = user
     @username  = @user.name
-    @ul_list   = sanitize(privileges_list(@user))
+    @ul_list   = privileges_list(@user)
 
     I18n.with_locale I18n.default_locale do
       mail(to: user.email,
