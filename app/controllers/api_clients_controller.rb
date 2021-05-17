@@ -6,14 +6,13 @@ class ApiClientsController < ApplicationController
 
   # POST /api_clients
   def create
-    authorize(ApiClient)
-
     attrs = api_client_params
     attrs[:scopes] = Doorkeeper.config.default_scopes
 
     @api_client = ApiClient.new(attrs)
     @api_client.org = current_user.org if current_user.org.present?
 
+    authorize(@api_client)
     if @api_client.save
       UserMailer.new_api_client(@api_client).deliver_now
       @msg = "API Registration complete"
@@ -44,6 +43,7 @@ class ApiClientsController < ApplicationController
     @api_client = ApiClient.find(params[:id])
     return unless @api_client.present?
 
+    authorize(@api_client)
     original = @api_client.client_secret
     @api_client.renew_secret
     @api_client.save
