@@ -583,6 +583,15 @@ class Plan < ApplicationRecord
     identifiers.select { |i| %w[doi ark].include?(i.identifier_format) }.first
   end
 
+  # Returns the Plan's unique identifier for the Identifier_Scheme or the record id if none is found
+  def unique_identifier(identifier_scheme:)
+    # If the system has the DMP ID gem installed use the plan's doi
+    doi = plan.doi if plan.respond_to?(:doi)
+    return doi if doi.present?
+
+    plan.identifier_for_scheme(scheme: identifier_scheme) || plan.id
+  end
+
   # Retrieves the Plan's most recent DOI
   def doi
     return nil unless Rails.configuration.x.allow_doi_minting
