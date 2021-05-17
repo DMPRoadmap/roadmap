@@ -1,0 +1,58 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "TechnicalResourceGenci",
+    "description": "TechnicalResourceGenci template",
+    "type": "object",
+    "class": "TechnicalResourceGenci",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Intitulé de la resource technique",
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title",
+            "const@fr_FR": "GENCI",
+            "const@en_GB": "GENCI"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description succinte de la ressource technique",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "const@fr_FR": "Le Grand Equipement National de Calcul Intensif (GENCI) est une société civile créée en 2007 par les pouvoirs publics. GENCI est une infrastructure numérique distribuée qui est basée sur les trois grands centres nationaux : l’IDRIS du CNRS, le TGCC du CEA et le CINES des Universités. Les missions du GENCI sont 1/ la mise en oeuvre de la stratégie nationale d’équipement en moyens de calcul intensif et stockage de données computationnelles (données massives) 2/ la mise à disposition de calculateurs à haute performance (supercalculateurs) pour les chercheurs académiques et des industriels afin qu’ils réalisent des travaux de simulation numérique 3/ la promotion de la simulation numérique et du calcul intensif auprès de la communauté de recherche française (académique et industrielle). L’accès aux données produites par les supercalculateurs du GENCI est restreint aux chercheurs ayant produit ces données. GENCI est la composante française de l’infrastructure européenne PRACE (Partnership for Advanced Computing in Europe.",
+            "const@en_GB": ""
+        },
+        "technicalResourceId": {
+            "type": "string",
+            "description": "Identifiant pérenne ou Url de référence",
+            "label@fr_FR": "Identifiant de la ressource technique",
+            "label@en_GB": "Technical resource ID",
+            "const@fr_FR": "https://www.genci.fr/",
+            "const@en_GB": "https://www.genci.fr/"
+        },
+        "idType": {
+            "type": "string",
+            "description": "Type d'identifiant",
+            "label@fr_FR": "Type d'identifiant de la ressource technique",
+            "label@en_GB": "Technical resource identifier type",
+            "const@fr_FR": "URL",
+            "const@en_GB": "URL"
+        },
+        "serviceContact": {
+            "type": "string",
+            "description": "Adresse contact d'un service",
+            "label@fr_FR": "Adresse de contact du service",
+            "label@en_GB": "Contact address of the service",
+            "const@fr_FR": "contact@genci.fr",
+            "const@en_GB": "contact@genci.fr"
+        }
+    },
+    "required": [
+        "title",
+        "technicalResourceId",
+        "idType"
+    ],
+    "to_string": [
+        "$.title"
+    ]
+}

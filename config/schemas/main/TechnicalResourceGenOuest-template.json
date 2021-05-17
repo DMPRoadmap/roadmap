@@ -1,0 +1,58 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "TechnicalResourceGenOuest",
+    "description": "TechnicalResourceGenOuest template",
+    "type": "object",
+    "class": "TechnicalResourceGenOuest",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Intitulé de la resource technique",
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title",
+            "const@fr_FR": "GenOuest",
+            "const@en_GB": "GenOuest"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description succinte de la ressource technique",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "const@fr_FR": "La plate-forme GenOuest offre l'accès à un environnement bio-informatique complet combinant : une infrastructure bioinformatique matérielle et logicielle (reposant sur un cluster et un cloud); le développement d’applications bioinformatiques (environnements, interfaces, bases de données publiques, outils et chaînes de traitements,…) ; une expertise et une consultance (les scientifiques peuvent bénéficier d’une expertise pour l’analyse de leurs données ou pour l’élaboration de stratégies d’analyse bioinformatiques) ; des formations ; de l’hébergement scientifique (les utilisateurs peuvent mettre en place de nouvelles ressources et/ou valoriser leurs travaux scientifiques grâce à la mise en place de sites ou applications web).",
+            "const@en_GB": ""
+        },
+        "technicalResourceId": {
+            "type": "string",
+            "description": "Identifiant pérenne ou Url de référence",
+            "label@fr_FR": "Identifiant de la ressource technique",
+            "label@en_GB": "Technical resource ID",
+            "const@fr_FR": "http://www.genouest.org/fr",
+            "const@en_GB": "https://www.genouest.org/en"
+        },
+        "idType": {
+            "type": "string",
+            "description": "Type d'identifiant",
+            "label@fr_FR": "Type d'identifiant de la ressource technique",
+            "label@en_GB": "Technical resource identifier type",
+            "const@fr_FR": "URL",
+            "const@en_GB": "URL"
+        },
+        "serviceContact": {
+            "type": "string",
+            "description": "Adresse contact d'un service",
+            "label@fr_FR": "Adresse de contact du service",
+            "label@en_GB": "Contact address of the service",
+            "const@fr_FR": "https://www.genouest.org/contact",
+            "const@en_GB": "https://www.genouest.org/contact"
+        }
+    },
+    "required": [
+        "title",
+        "technicalResourceId",
+        "idType"
+    ],
+    "to_string": [
+        "$.title"
+    ]
+}

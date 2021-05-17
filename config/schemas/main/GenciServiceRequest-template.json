@@ -15,7 +15,11 @@
             "registry_name": "GenciServiceType"
         },
         "nationalCenter": {
-            "type": "string",
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "minItems": 1,
             "description": "Centre national dans lequel seront réalisés les calculs et stockage",
             "inputType": "dropdown",
             "label@fr_FR": "Centre national",
@@ -51,8 +55,8 @@
                 "dbid"
             ],
             "description": "Demande complémentaire",
-            "label@fr_FR": "Demande complémentaire",
-            "label@en_GB": "Additional request"
+            "label@fr_FR": "Demande complémentaire (si un espace de stockage supplémentaire est requis, indiquer la volumétrie totale)",
+            "label@en_GB": "Additional request (If additional storage space is required, indicate the total volumetry)"
         },
         "amount": {
             "type": "number",
@@ -77,10 +81,13 @@
         "initialRequest"
     ],
     "to_string": [
+        "$.nationalCenter",
+        " : ",
         "$.serviceType",
-        ": ",
-        "$.initialRequest.initialStatus.dataSize",
+        " ( ",
+        "$.amount",
         " ",
-        "$.initialRequest.initialStatus.volumeUnit"
+        "$.currency",
+        ") "
     ]
 }

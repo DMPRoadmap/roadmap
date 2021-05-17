@@ -85,6 +85,10 @@
         {
             "en_GB": "Hardware",
             "fr_FR": "Matériel informatique"
+        },
+        {
+            "en_GB": "Storage",
+            "fr_FR": "stockage"
         }
     ],
     "CostUnit": [
@@ -1199,6 +1203,20 @@
         {
             "fr_FR": "Stockage sécurisé",
             "en_GB": "Secured store"
+        }
+    ],
+    "GenOuestServiceType": [
+        {
+            "fr_FR": "Cluster",
+            "en_GB": "Cluster"
+        },
+        {
+            "fr_FR": "Cloud privé",
+            "en_GB": "Private cloud"
+        },
+        {
+            "fr_FR": "Portail web",
+            "en_GB": "Web portal"
         }
     ],
     "NameTypeValues": [
@@ -96068,9 +96086,9 @@
             "orgId": "https://ror.org/033ebya06",
             "idType": "ROR ID",
             "dataPolicy": {
-                "title": null,
-                "docIdentifier": null,
-                "idType": null
+                "title": "Charte pour le libre accès aux publications et aux données",
+                "docIdentifier": "https://hal.inrae.fr/hal-02801732",
+                "idType": "URL"
             }
         },
         {
@@ -96291,17 +96309,8 @@
             "title": "CC-IN2P3",
             "description": "Le Centre de Calcul de l\u2019IN2P3 (CC-IN2P3) offre un ensemble de services aux chercheurs de l'IN2P3 (Institut National de Physique Nucléaire et de Physique des Particules) du CNRS. La plateforme de calcul du CC-IN2P3 permet aux scientifiques de traiter les grandes masses de données issues de grands instruments scientifiques (accélérateurs de particules, télescopes ou satellites), de réaliser des modélisations et des simulations pour valider des théories, de valoriser et d\u2019archiver les données de recherche. Les ressources de calcul distribué peuvent être utilisées localement (création d\u2019un compte utilisateur) ou via une grille de calcul (inscription dans une organisation virtuelle VO. Le CC-IN2P3 met à disposition un système de stockage de masse reposant sur l\u2019utilisation conjointe de disques durs et de bandes magnétiques. Le CC-IN2P3 fournit des ressources informatiques principalement pour la physique nucléaire, la physique des particules, l\u2019astrophysique et les astroparticules et de façon limitée aux sciences humaines (Huma-Num) et sciences de la vie. Le CC-IN2P3 a développé une expertise technique dans les domaines du stockage massif de données, du calcul à haut débit (HTC), les grilles de calcul ou le cloud computing. Il est impliqué dans des projets régionaux, nationaux, européens et transdisciplinaires. Le Centre de Calcul de l\u2019IN2P3 a élaboré un modèle de plan de gestion de données CC-IN2P3 DMP template en anglais à l\u2019aide de l\u2019outil DMP OPIDoR. Le Centre de Calcul de l\u2019IN2P3 fait partie des principaux centres internationaux déployés dans le cadre du projet Worldwide LHC Computing Grid (W-LCG) et dédié à la simulation, au traitement et à l\u2019analyse des données des quatre expériences LHC (Large Hadron Collider) au CERN. Les données produites et/ou gérées par l\u2019infrastructure CC-IN2P3 sont soumises à un embargo de 48 mois.",
             "technicalResourceId": "https://cc.in2p3.fr/",
-            "idType": "URL"
-        },
-        {
-            "label": {
-                "en_GB": "Gesco",
-                "fr_FR": "Gesco, Centre e-Science Grand Ouest "
-            },
-            "title": "Gesco",
-            "description": "CeSGO est une structure e-science proposant un environnement virtuel de recherche dédié aux communautés des sciences de la vie du réseau Biogenouest. Son objectif est d\u2019améliorer les processus de recherche, en donnant accès à des ressources TIC, des données et des logiciels via des interfaces adaptées. CeSGO met ainsi à disposition : une plateforme collaborative, une plateforme de discussion, une plateforme de gestion de projets, une plateforme de gestion de données, une plateforme de gestion de partage scientifique.",
-            "technicalResourceId": "https://www.cesgo.org/fr/",
-            "idType": "URL"
+            "idType": "URL",
+            "serviceContact": "contact@cc.in2p3.fr"
         },
         {
             "label": {
@@ -96311,7 +96320,8 @@
             "title": "GENCI",
             "description": "Le Grand Equipement National de Calcul Intensif (GENCI) est une société civile créée en 2007 par les pouvoirs publics. GENCI est une infrastructure numérique distribuée qui est basée sur les trois grands centres nationaux : l\u2019IDRIS du CNRS, le TGCC du CEA et le CINES des Universités. Les missions du GENCI sont 1/ la mise en oeuvre de la stratégie nationale d\u2019équipement en moyens de calcul intensif et stockage de données computationnelles (données massives) 2/ la mise à disposition de calculateurs à haute performance (supercalculateurs) pour les chercheurs académiques et des industriels afin qu\u2019ils réalisent des travaux de simulation numérique 3/ la promotion de la simulation numérique et du calcul intensif auprès de la communauté de recherche française (académique et industrielle). L\u2019accès aux données produites par les supercalculateurs du GENCI est restreint aux chercheurs ayant produit ces données. GENCI est la composante française de l\u2019infrastructure européenne PRACE (Partnership for Advanced Computing in Europe.",
             "technicalResourceId": "http://www.genci.fr/fr",
-            "idType": "URL"
+            "idType": "URL",
+            "serviceContact": "contact@genci.fr"
         },
         {
             "label": {
@@ -96321,7 +96331,8 @@
             "title": "GenOuest",
             "description": "La plate-forme GenOuest offre l'accès à un environnement bio-informatique complet combinant : 1/une infrastructure bioinformatique matérielle et logicielle (reposant sur un cluster et un cloud) 2/ le développement d\u2019applications bioinformatiques (environnements, interfaces, bases de données publiques, outils et chaînes de traitements,\u2026) 3/ une expertise et une consultance (les scientifiques peuvent bénéficier d\u2019une expertise pour l\u2019analyse de leurs données ou pour l\u2019élaboration de stratégies d\u2019analyse bioinformatiques) 4/ des formations 5/ de l\u2019hébergement scientifique (les utilisateurs peuvent mettre en place de nouvelles ressources et/ou valoriser leurs travaux scientifiques grâce à la mise en place de sites ou applications web).Cet environnement de calcul est exploitable de diverses façons : cluster, cloud privé, portail web. La plateforme s\u2019intéresse particulièrement aux nouvelles modalités de calcul (virtualisation, cloud computing, portails de calcul) ainsi qu\u2019à la gestion des données et des métadonnées en Biologie. Grâce au projet CeSGO, GenOuest propose un ensemble d'outils collaboratifs pour gérer au mieux les projets et données scientifiques. GenOuest assure également le transfert technologique des nouveaux outils issus de la recherche en bio- informatique de l'Institut dont elle dépend.",
             "technicalResourceId": "https://www.genouest.org/",
-            "idType": "URL"
+            "idType": "URL",
+            "serviceContact": "https://www.genouest.org/contact"
         },
         {
             "label": {
@@ -96331,7 +96342,8 @@
             "title": "MyCore",
             "description": "Service numérique de stockage, sauvegarde, nomadisme et partage sécurisés proposés par le CNRS : http://ods.cnrs.fr/my_core.php",
             "technicalResourceId": "https://mycore.core-cloud.net",
-            "idType": "URL"
+            "idType": "URL",
+            "serviceContact": "http://ods.cnrs.fr/contacts.html"
         },
         {
             "label": {
@@ -96341,7 +96353,8 @@
             "title": "PETA",
             "description": "Le service d'hébergement des données volumineuses est une offre de stockage à destination desunités de recherche de l\u2019Université de Lorraine(UL). L'accès aux données se fait au travers de l'interface Storage Made Easy :Au travers d'une interface WebVia   un   client   lourd   (lecteur   réseau   et   client   de   synchronisation)   installé   sur   le   posteinformatique (postes de travail, serveur ou équipement mobile). Les systèmes supportés sont: Windows, Mac, Linux, Android, iOSLe service est principalement destiné au stockage volumineux et non à l'accès rapide aux données.Pour ce dernier type d\u2019accès, il faudra prendre contact avec la direction du numérique pour étudierune autre solution",
             "technicalResourceId": "https://numerique.univ-lorraine.fr/gestion-de-vos-fichiers/stockage-des-donnees-de-la-recherche-peta",
-            "idType": "URL"
+            "idType": "URL",
+            "serviceContact": "peta-contact@univ-lorraine.fr"
         },
         {
             "label": {
@@ -96351,7 +96364,8 @@
             "title": "Synchrotron SOLEIL",
             "description": "Infrastructure de Recherche, plateforme d'acquisition et de services, SOLEIL (Source Optimisée de Lumière d'Energie Intermédiaire du LURE) est la source nationale de rayonnement synchrotron dont le but est d'explorer la matière à différentes échelles aussi bien au niveau des recherches fondamentales ou appliquées en physique, chimie, biologie, patrimoine, environnement ou sciences de l'univers. L\u2019accès aux données produites et/ou gérées par l\u2019infrastructure SOLEIL est restreint aux équipes projets et sur autorisation pour les autres utilisateurs. L\u2019accès sera ouvert après l\u2019expiration de l\u2019embargo fixé à 5 ans maximum.",
             "technicalResourceId": "https://www.synchrotron-soleil.fr/fr",
-            "idType": "URL"
+            "idType": "URL",
+            "serviceContact": "webcom@synchrotron-soleil.fr"
         },
         {
             "label": {
@@ -96361,7 +96375,8 @@
             "title": "GANIL-SPIRAL2",
             "description": "Le GANIL (Grand Accélérateur National d\u2019Ions Lourds) met en place une nouvelle installation SPIRAL2 (Système de production d\u2019Ions Radioactifs en Ligne de 2e génération).SPIRAL2 fournira prochainement ses premiers faisceaux pour répondre aux chercheurs en physique nucléaire qui s\u2019intéressent aux propriétés des noyaux exotiques et des réactions induites. Les chercheurs pourront bénéficier de toute l\u2019infrastructure existante avec ses ensembles de détection, d\u2019acquisition et de traitement des données. L\u2019accès aux données produites par l\u2019accélérateur GANIL-SPIRAL2 est restreint aux collaborations qui ont réalisé les expériences.",
             "technicalResourceId": "https://www.ganil-spiral2.eu/",
-            "idType": "URL"
+            "idType": "URL",
+            "serviceContact": "navin@ganil.fr"
         }
     ],
     "Standards": [
@@ -96441,6 +96456,17 @@
             "metadatalanguage": "fra",
             "metadataStandardId": "https://www.insee.fr/fr/information/4316069",
             "idType": "URL"
+        },
+        {
+            "label": {
+                "en_GB": "ISA-TAb, Investigation Study Assay Tabular",
+                "fr_FR": "ISA-TAb, Investigation Study Assay Tabular"
+            },
+            "name": "Investigation Study Assay Tabular",
+            "description": "Investigation Study Assay Tabular (ISA-Tab) describes the ISA Abstract Model reference implementation specified using the ISA-Tab format. ISA-Tab files are tab separated value (tsv) files, with specific labeled column structures. The ISA model consists of three core entities to capture experimental metadata: investigation, study and assay. The extensible, hierarchical structure of this model enables the representation of studies employing one or a combination of technologies, focusing on the description of its experimental metadata (i.e. sample characteristics, technology and measurement types, sample-to-data relationships).",
+            "metadatalanguage": "eng",
+            "metadataStandardId": "https://doi.org/10.25504/FAIRsharing.53gp75",
+            "idType": "DOI"
         },
         {
             "label": {
@@ -96665,10 +96691,6 @@
             "en_GB": "dan"
         },
         {
-            "fr_FR": "deu",
-            "en_GB": "deu"
-        },
-        {
             "fr_FR": "div",
             "en_GB": "div"
         },
@@ -96679,10 +96701,6 @@
         {
             "fr_FR": "ell",
             "en_GB": "ell"
-        },
-        {
-            "fr_FR": "eng",
-            "en_GB": "eng"
         },
         {
             "fr_FR": "epo",
@@ -96715,10 +96733,6 @@
         {
             "fr_FR": "fin",
             "en_GB": "fin"
-        },
-        {
-            "fr_FR": "fra",
-            "en_GB": "fra"
         },
         {
             "fr_FR": "fry",
@@ -96827,10 +96841,6 @@
         {
             "fr_FR": "isl",
             "en_GB": "isl"
-        },
-        {
-            "fr_FR": "ita",
-            "en_GB": "ita"
         },
         {
             "fr_FR": "jav",
@@ -97123,10 +97133,6 @@
         {
             "fr_FR": "sot",
             "en_GB": "sot"
-        },
-        {
-            "fr_FR": "spa",
-            "en_GB": "spa"
         },
         {
             "fr_FR": "sqi",

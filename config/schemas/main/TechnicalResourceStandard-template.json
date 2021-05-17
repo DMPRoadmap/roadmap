@@ -33,6 +33,12 @@
             "label@en_GB": "Technical resource identifier type",
             "registry_name": "PIDSystem",
             "overridable": true
+        },
+        "serviceContact": {
+            "type": "string",
+            "description": "Adresse contact d'un service",
+            "label@fr_FR": "Adresse de contact du service",
+            "label@en_GB": "Contact address of the service"
         }
     },
     "required": [

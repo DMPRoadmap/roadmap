@@ -29,21 +29,17 @@
             "overridable": true
         },
         "facility": {
-            "type": "array",
-            "table_header": null,
-            "items": {
-                "type": "object",
-                "class": "TechnicalResource",
-                "properties": {
-                    "dbid": {
-                        "type": "number"
-                    }
-                },
-                "template_name": "TechnicalResourceStandard",
-                "required": [
-                    "dbid"
-                ]
+            "type": "object",
+            "class": "TechnicalResource",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
             },
+            "template_name": "TechnicalResourceStandard",
+            "required": [
+                "dbid"
+            ],
             "description": "Ressource/équipement utilisée pour le stockage et sauvegarde des données",
             "label@fr_FR": "Equipements, plateaux techniques utilisés pour le stockage et sauvegarde des données",
             "label@en_GB": "Equipments, technical platforms used for data storage and backup",

@@ -1,10 +1,10 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "../Documentation/Implementation/data_model/Json/",
-    "title": "DataStorageGenci",
-    "description": "DataStorageGenci template",
+    "title": "DataStorageGenOuest",
+    "description": "DataStorageGenOuest template",
     "type": "object",
-    "class": "DataStorageGenci",
+    "class": "DataStorageGenOuest",
     "properties": {
         "description": {
             "type": "string",
@@ -12,8 +12,8 @@
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
-            "example@fr_FR": "Des demandes d'heures de calcul et de stockage sont soumises auprès de centres de calcul gérés par le GENCI ",
-            "example@en_GB": "Requests for computing hours and storage are submitted to computing centers managed by GENCI"
+            "example@fr_FR": "Des demandes d'espaces de calcul, analyses sont soumises à la plateforme GenOuest ",
+            "example@en_GB": "Requests for computing spaces are submitted to GenOuest platform"
         },
         "facility": {
             "type": "object",
@@ -23,7 +23,7 @@
                     "type": "number"
                 }
             },
-            "template_name": "TechnicalResourceGenci",
+            "template_name": "TechnicalResourceGenOuest",
             "required": [
                 "dbid"
             ],
@@ -31,7 +31,7 @@
             "label@fr_FR": "Identification de la ressource",
             "label@en_GB": "Resource identification"
         },
-        "genciServiceRequest": {
+        "genOuestServiceRequest": {
             "type": "array",
             "table_header": null,
             "items": {
@@ -42,7 +42,7 @@
                         "type": "number"
                     }
                 },
-                "template_name": "GenciServiceRequest",
+                "template_name": "GenOuestServiceRequest",
                 "required": [
                     "dbid"
                 ]
@@ -57,9 +57,7 @@
             "description": "Description des mesures prises pour assurer la sécurité des données",
             "inputType": "textarea",
             "label@fr_FR": "Mesures de sécurité",
-            "label@en_GB": "Security measures",
-            "example@fr_FR": "Les données étant précieuses car impossibles ou coûteuses à reproduire, une copie des données sur une autre cassette est requise.",
-            "example@en_GB": "Since the data is valuable because it is impossible or expensive to reproduce, a copy of the data on another tape is required"
+            "label@en_GB": "Security measures"
         },
         "backupPolicy": {
             "type": "object",
@@ -69,7 +67,7 @@
                     "type": "number"
                 }
             },
-            "template_name": "BackupPolicyGenci",
+            "template_name": "BackupPolicyGenOuest",
             "required": [
                 "dbid"
             ],
@@ -80,8 +78,8 @@
         "estimatedVolume": {
             "type": "number",
             "description": "Volume total des données stockées dans les différents centres gérés par le Genci",
-            "label@fr_FR": "Volume total des données (calcul automatique)",
-            "label@en_GB": "Total data volume (Automatic  calculation)"
+            "label@fr_FR": "Volume estimé des données",
+            "label@en_GB": "Estimated data volume "
         },
         "volumeUnit": {
             "type": "string",
@@ -104,14 +102,14 @@
                         "type": "number"
                     }
                 },
-                "template_name": "CostGenci",
+                "template_name": "CostBasic",
                 "required": [
                     "dbid"
                 ]
             },
             "description": "Coût total des données stockées dans les différents centres gérés par le Genci",
-            "label@fr_FR": "Coût total de stockage (calcul automatique)",
-            "label@en_GB": "Total cost of storage (Automatic calculation)"
+            "label@fr_FR": "Coût total de stockage",
+            "label@en_GB": "Total cost of storage"
         },
         "contributor": {
             "type": "array",
@@ -132,20 +130,22 @@
             },
             "description": "Personne(s) responsable(s) du suivi du stockage des données",
             "label@fr_FR": "Personne en charge de la gestion du stockage des données",
-            "label@en_GB": "Person in charge of  data storage management",
+            "label@en_GB": "Person in charge of data storage management",
             "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
             "tooltip@en_GB": "Person in charge can be a person, a team, a department"
         }
     },
     "required": [
         "description",
-        "genciServiceRequest"
+        "genOuestServiceRequest"
     ],
     "to_string": [],
     "run": {
-        "script_id": 2,
-        "name": "Genci_cost_calculator_v2",
-        "label@fr_FR": "Calculer le coût de stockage",
-        "label@en_GB": "Compute data storage cost"
+        "script_id": 3,
+        "name": "Genouest_notifyer_v1",
+        "label@fr_FR": "Notifier GenOuest",
+        "label@en_GB": "Notify GenOuest",
+        "tooltip@fr_FR": "Envoie à une adresse mail GenOUest une demande d'allocation d'espace de stockage",
+        "tooltip@en_GB": "Sends to the GenOuest facility a query for storage space"
     }
 }

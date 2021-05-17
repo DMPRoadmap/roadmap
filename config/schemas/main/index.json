@@ -5,6 +5,16 @@
         "question_id": null
     },
     {
+        "path": "BackupPolicyGenci-template.json",
+        "classname": "backup_policy",
+        "question_id": null
+    },
+    {
+        "path": "BackupPolicyGenOuest-template.json",
+        "classname": "backup_policy",
+        "question_id": null
+    },
+    {
         "path": "BudgetStandard-template.json",
         "classname": "budget",
         "question_id": null
@@ -21,6 +31,11 @@
     },
     {
         "path": "CostBasic-template.json",
+        "classname": "cost",
+        "question_id": null
+    },
+    {
+        "path": "CostGenci-template.json",
         "classname": "cost",
         "question_id": null
     },
@@ -95,6 +110,11 @@
         "question_id": null
     },
     {
+        "path": "DataStorageGenOuest-template.json",
+        "classname": "data_storage",
+        "question_id": null
+    },
+    {
         "path": "DataStorageStandard-template.json",
         "classname": "data_storage",
         "question_id": null
@@ -145,7 +165,17 @@
         "question_id": null
     },
     {
+        "path": "GenOuestRequest-template.json",
+        "classname": "specific_data",
+        "question_id": null
+    },
+    {
         "path": "GenciServiceRequest-template.json",
+        "classname": "specific_data",
+        "question_id": null
+    },
+    {
+        "path": "GenOuestServiceRequest-template.json",
         "classname": "specific_data",
         "question_id": null
     },
@@ -266,6 +296,16 @@
     },
     {
         "path": "TechnicalResourceStandard-template.json",
+        "classname": "technical_resource",
+        "question_id": null
+    },
+    {
+        "path": "TechnicalResourceGenci-template.json",
+        "classname": "technical_resource",
+        "question_id": null
+    },
+    {
+        "path": "TechnicalResourceGenOuest-template.json",
         "classname": "technical_resource",
         "question_id": null
     },

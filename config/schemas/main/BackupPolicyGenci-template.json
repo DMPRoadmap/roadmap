@@ -1,0 +1,52 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "BackupPolicyGenci",
+    "description": "BackupPolicyGenci template",
+    "type": "object",
+    "class": "BackupPolicyGenci",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description de la politique de sauvegarde appliquée",
+            "label@fr_FR": "Politique de stockage et sauvegarde",
+            "label@en_GB": "Storage and backup policy",
+            "const@fr_FR": "Les données froides sont stockées sur bande magnétique. Les données (chaudes) en cours d'utilisation sont stockées sur disque et des sauvegardes de l'espace de travail par snaphot peuvent être envisagées",
+            "const@en_GB": "Cold data is stored on magnetic bands. Hot data is stored on disk. Snapshot backups of the working directory may be applied"
+        },
+        "backupFrequency": {
+            "type": "string",
+            "description": "Fréquence de sauvegarde",
+            "label@fr_FR": "Fréquence des sauvegardes",
+            "label@en_GB": "Backup frequency",
+            "const@fr_FR": "Quotidienne",
+            "const@en_GB": "Daily"
+        },
+        "backupType": {
+            "type": "string",
+            "description": "Mode de sauvegarde (incrémentale, différentielle, complète, miroir, …)",
+            "label@fr_FR": "Type de sauvegarde",
+            "label@en_GB": "Backup type",
+            "const@fr_FR": "Snapshot sur espace de travail si nécessaire",
+            "const@en_GB": "Snapshot on the workspace if necessary"
+        },
+        "storageType": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "Support de stockage des données",
+            "inputType": "dropdown",
+            "label@fr_FR": "Supports de stockage",
+            "label@en_GB": "Storage types",
+            "registry_name": "StorageType",
+            "overridable": true,
+            "default@fr_FR": "Bande magnétique",
+            "default@en_GB": "Magnetic tape"
+        }
+    },
+    "required": [
+        "description"
+    ],
+    "to_string": []
+}
