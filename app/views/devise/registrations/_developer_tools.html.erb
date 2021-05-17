@@ -10,21 +10,28 @@ api_client.contact_email = user.email unless api_client.contact_email.present?
 <div id="api-clients" class="col-xs-12">
   <h2><%= _("Developer Tools") %></h2>
 
-  <p><%= _("Fill out the form below to register for access to the API. The API provides access to two types of information: 'public' and 'private'.") %></p>
+  <p><%= _("Fill out the form below to register for access to the API. The API provides access to two types of access levels: 'standard' and 'protected'.") %></p>
 
-  <p><%= _("The 'public' API allows you to:") %></p>
+  <p><%= _("The 'standard' access level allows you to:") %></p>
   <ul>
     <li><%= _("Retrieve the names and desacriptions of all published DMP templates") %></li>
     <li><%= _("Retrieve publicly visible DMPs") %></li>
-    <li><%= _("Request access to a user's DMPs (via OAuth)") %></li>
+    <li><%= _("Create DMPs") %></li>
+    <li>
+      <%= _("Then depending on your permission level you can:") %>
+      <ul>
+        <li><%= _("Organisation administrator - Retrieve your user's DMPs") %></li>
+        <li><%= _("Funding Organisation administrator - Retrieve DMPs that designate you as their funder") %></li>
+        <li><%= _("Researchers - Retrieve your own DMPs") %></li>
+      </ul>
+    </li>
   </ul>
 
-  <p><%= _("The 'private' API allows you to access a user's DMPs once they have approved your access via OAuth. Once you have approval you can:") %></p>
+  <p><%= _("The 'protected' access level allows you to:") %></p>
   <ul>
-    <li><%= _("Retrieve the user's DMPs (regardless of their visibility or state)") %></li>
-    <li><%= _("Edit the user's DMPs") %></li>
-    <li><%= _("Create DMPs on the user's behalf") %></li>
-    <li><%= _("Register your system as a subscriber to changes made to the user's DMPs") %></li>
+    <li><%= _("Request a user's authorization to access their DMPs") %></li>
+    <li><%= _("Retrieve the user's DMPs (if they have authorized access)") %></li>
+    <li><%= _("Edit the user's DMPs (if they have authorized access)") %></li>
   </ul>
 
   <p><%= (_("Please see the %{wiki_docs} for full details on how the API works.") % { wiki_docs: "<a href=\"https://github.com/CDLUC3/dmptool/wiki/api-v2-documentation\" target=\"_blank\">wiki documentation</a>" }).html_safe %></p>

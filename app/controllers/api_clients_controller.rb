@@ -7,9 +7,12 @@ class ApiClientsController < ApplicationController
   # POST /api_clients
   def create
     attrs = api_client_params
-    attrs[:scopes] = Doorkeeper.config.default_scopes
-
+    # If this is a regular user signing up, just use their email as the api_client.name
+    attrs[:name] = attrs[:contact_email] unless attrs[:name].present?
     @api_client = ApiClient.new(attrs)
+
+    # Allow all available scopes by default
+    attrs[:scopes] = @api_client.available_scopes
     @api_client.org = current_user.org if current_user.org.present?
 
     authorize(@api_client)
@@ -28,7 +31,7 @@ class ApiClientsController < ApplicationController
     authorize(@api_client)
 
     attrs = api_client_params
-    attrs[:scopes] = Doorkeeper.config.default_scopes
+    attrs[:scopes] = @api_client.available_scopes unless @api_client.scopes.present?
 
     if @api_client.update(attrs)
       @msg = "API Registration updated"
@@ -57,7 +60,10 @@ class ApiClientsController < ApplicationController
     params.require(:api_client).permit(:name, :description, :homepage,
                                        :contact_name, :contact_email,
                                        :client_id, :client_secret,
-                                       :user_id, :org_id, :redirect_uri)
+                                       :user_id, :org_id, :redirect_uri, :callback_uri)
   end
 
+  def available_scopes
+
+  end
 end

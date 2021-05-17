@@ -4,17 +4,24 @@
 #
 # Table name: api_clients
 #
-#  id             :integer          not null, primary key
-#  name           :string,          not null
-#  homepage       :string
-#  contact_name   :string
-#  contact_email  :string,          not null
-#  client_id      :string,          not null
-#  client_secret  :string,          not null
-#  last_access    :datetime
-#  created_at     :datetime
-#  updated_at     :datetime
-#  org_id         :integer
+#  id              :integer          not null, primary key
+#  name            :string,          not null
+#  homepage        :string
+#  contact_name    :string
+#  contact_email   :string,          not null
+#  client_id       :string,          not null
+#  client_secret   :string,          not null
+#  last_access     :datetime
+#  created_at      :datetime
+#  updated_at      :datetime
+#  org_id          :integer
+#  redirect_uri    :text
+#  callback_uri    :string
+#  callback_method :string
+#  scopes          :string
+#  confidential    :boolean,         default: true
+#  trusted         :boolean,         default: false
+#  user_id         :integer
 #
 # Indexes
 #
@@ -34,6 +41,8 @@ class ApiClient < ApplicationRecord
   include ::Doorkeeper::Models::Scopes
 
   extend UniqueRandom
+
+  enum callback_methods: %i[put post patch]
 
   # ================
   # = Associations =
@@ -94,16 +103,16 @@ class ApiClient < ApplicationRecord
     name
   end
 
+  # Returns the scopes defined in the Doorkeeper config
+  def available_scopes
+    (Doorkeeper.config.default_scopes.to_a << Doorkeeper.config.optional_scopes.to_a).flatten.uniq
+  end
+
   private
 
   # Set the scopes
   def ensure_scopes
     self.scopes = available_scopes.sort { |a, b| a <=> b }.join(" ")
-  end
-
-  # Returns the scopes defined in the Doorkeeper config
-  def available_scopes
-    (Doorkeeper.config.default_scopes.to_a << Doorkeeper.config.optional_scopes.to_a).flatten.uniq
   end
 
 end
