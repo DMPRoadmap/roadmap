@@ -112,6 +112,7 @@ module SuperAdmin
       params.require(:api_client).permit(:name, :description, :homepage,
                                          :contact_name, :contact_email,
                                          :client_id, :client_secret, :redirect_uri,
+                                         :callback_uri, :callback_method,
                                          :org_id, :org_name, :org_sources, :org_crosswalk,
                                          :trusted, scopes: [])
     end
