@@ -3,27 +3,34 @@
 <% meta_fragment = dmp_fragment.meta%>
 <% project_fragment = dmp_fragment.project%>
 <div class="row">
-  <%= form_for plan, html: {method: :put, class: 'form-horizontal edit_plan' } do |f| %>
-    <div class="col-md-12 plan-details">
-      <div class="col-md-8">
-        
-        <div class="heading-button" role="button" data-toggle="collapse"
-             data-parent="sections-accordion"
-             href="#plan_project"
-             aria-expanded="true"
-             aria-controls="plan_project">
-          <div class="panel-heading question-text" role="tab" id="heading-plan-project">
-            <div class="panel-title pull-left">
-              <%= _("Project Details") %>
-            </div>
-            <i class="fa fa-chevron-down pull-right" aria-hidden="true"></i>
-            <div class="clearfix"></div>
+  <div class="col-md-12 plan-details">
+    <div class="col-md-8">
+      
+      <div class="heading-button" role="button" data-toggle="collapse"
+            data-parent="sections-accordion"
+            href="#plan_project"
+            aria-expanded="true"
+            aria-controls="plan_project">
+        <div class="panel-heading question-text" role="tab" id="heading-plan-project">
+          <div class="panel-title pull-left">
+            <%= _("Project Details") %>
           </div>
+          <i class="fa fa-chevron-down pull-right" aria-hidden="true"></i>
+          <div class="clearfix"></div>
         </div>
+      </div>
 
-        <div id="plan_project" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-plan-project">
-          <% project_schema = MadmpSchema.find_by(name: "ProjectStandard") %>
-          <div class="panel-body madmp-fragment"><!-- accordion body -->
+      <div id="plan_project" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-plan-project">
+        <% project_schema = MadmpSchema.find_by(name: "ProjectStandard") %>
+        <div class="panel-body madmp-fragment"><!-- accordion body -->
+          <% I18n.with_locale @plan.template.locale do %>
+            <%= form_for :madmp_fragment, url: madmp_fragment_path(id: project_fragment.id), 
+                          html: {
+                            method: :put,
+                            'data-autosave': project_fragment.id,
+                            class: "form-answer madmp-fragment", 
+                            id: nil  
+                          } do |f| %>
             <fieldset aria-labelledby="fragment-fieldset" class="fragment-fieldset">
               <div class="checkbox">
                 <%= f.hidden_field :visibility %>
@@ -32,7 +39,11 @@
                   <%= _('mock project for testing, practice, or educational purposes') %>
                 <% end %>
               </div>
-              <div class="project-form">
+              <%= f.hidden_field :schema_id, :value => project_schema.id, id: nil, class: "schema_id" %>
+              <%= f.hidden_field :dmp_id, :value => dmp_fragment.id, id: nil %>
+              <%= f.hidden_field :parent_id, :value => dmp_fragment.id, id: nil %>
+              <%= f.hidden_field :template_locale, :value => @plan.template.locale, id: nil %>
+              <div class="project-form form-group fragment-<%= project_fragment.id %>" data-fragment-id="<%= project_fragment.id %>" >
                 <%= render(partial: 'shared/dynamic_form/form', locals: { 
                       f: f,
                       current_fragment: project_fragment, 
@@ -41,9 +52,14 @@
                       readonly: false,
                       classname: "project",
                       template_locale: @plan.template.locale,
-                      form_prefix: "project",
+                      form_prefix: nil,
                       source: "form"
                     }) %>
+              </div>
+              <div class="overlay" style="display:none;">
+                <div class="spinner"></div>
+                <br/>
+                <%= _('Saving...') %>
               </div>
               <div class="answer-bottom-zone" >
                 <div class="answer-run-zone">
@@ -61,71 +77,94 @@
                 </div>
               </div>
             </fieldset>
-          </div>
-        </div>
 
-        <hr/>
-        <div class="clearfix"></div>
-
-        <div class="heading-button" role="button" data-toggle="collapse"
-             data-parent="sections-accordion"
-             href="#plan_metadata"
-             aria-expanded="false"
-             aria-controls="plan_metadata">
-
-          <div class="panel-heading question-text" role="tab" id="heading-plan-metadata">
-            <div class="panel-title pull-left">
-              <%= d_("dmpopidor", "Plan Details") %>
-            </div>
-            <i class="fa fa-chevron-right pull-right" aria-hidden="true"></i>
-            <div class="clearfix"></div>
-          </div>
-        </div>
-
-        <div id="plan_metadata" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-plan-metadata">
-          <% meta_schema = MadmpSchema.find_by(name: "MetaStandard") %>
-          <div class="panel-body madmp-fragment"><!-- accordion body -->
-            <fieldset aria-labelledby="fragment-fieldset" class="fragment-fieldset">
-              <div class="meta-form">
-                <%= render(partial: 'shared/dynamic_form/form', locals: { 
-                      f: f,
-                      current_fragment: meta_fragment, 
-                      schema: meta_schema,
-                      question_id: nil,
-                      readonly: false,
-                      classname: "meta",
-                      template_locale: @plan.template.locale,
-                      form_prefix: "meta",
-                      source: "form"
-                    }) %>
-              </div>
-              <div class="answer-bottom-zone" >
-                <div class="answer-run-zone">
-                  <% run_parameters = meta_schema.extract_run_parameters %>
-                  <%= render(partial: 'shared/dynamic_form/codebase_run', locals: {
-                        fragment: meta_fragment,
-                        parameters: run_parameters,
-                        template_locale: @plan.template.locale,
-                        async_reload: false
-                      }) unless run_parameters.nil?%>
-                </div>
-                <div class="answer-save-zone">
-                  <%= f.button(_('Save'), class: "btn btn-default answer-save-button", type: "submit") %>
-                  <span class="message-zone"><%= d_('dmpopidor', 'You have pending changes, please save')%></span>
-                </div>
-              </div>
-            </fieldset>
-          </div>
+            <% end %>
+          <% end %>
         </div>
       </div>
-      
+
+      <hr/>
+      <div class="clearfix"></div>
+
+      <div class="heading-button" role="button" data-toggle="collapse"
+            data-parent="sections-accordion"
+            href="#plan_metadata"
+            aria-expanded="false"
+            aria-controls="plan_metadata">
+
+        <div class="panel-heading question-text" role="tab" id="heading-plan-metadata">
+          <div class="panel-title pull-left">
+            <%= d_("dmpopidor", "Plan Details") %>
+          </div>
+          <i class="fa fa-chevron-right pull-right" aria-hidden="true"></i>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+
+      <div id="plan_metadata" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-plan-metadata">
+        <% meta_schema = MadmpSchema.find_by(name: "MetaStandard") %>
+        <div class="panel-body madmp-fragment"><!-- accordion body -->
+          <% I18n.with_locale @plan.template.locale do %>
+            <%= form_for :madmp_fragment, url: madmp_fragment_path(id: meta_fragment.id), 
+                          html: {
+                            method: :put,
+                            'data-autosave': meta_fragment.id,
+                            class: "form-answer madmp-fragment", 
+                            id: nil  
+                          } do |f| %>
+              <fieldset aria-labelledby="fragment-fieldset" class="fragment-fieldset">
+                <%= f.hidden_field :schema_id, :value => meta_schema.id, id: nil, class: "schema_id" %>
+                <%= f.hidden_field :dmp_id, :value => dmp_fragment.id, id: nil %>
+                <%= f.hidden_field :parent_id, :value => dmp_fragment.id, id: nil %>
+                <%= f.hidden_field :template_locale, :value => @plan.template.locale, id: nil %>
+                <div class="meta-form form-group fragment-<%= meta_fragment.id %>" data-fragment-id="<%= meta_fragment.id %>" >
+                  <%= render(partial: 'shared/dynamic_form/form', locals: { 
+                        f: f,
+                        current_fragment: meta_fragment, 
+                        schema: meta_schema,
+                        question_id: nil,
+                        readonly: false,
+                        classname: "meta",
+                        template_locale: @plan.template.locale,
+                        form_prefix: nil,
+                        source: "form"
+                      }) %>
+                </div>
+                <div class="overlay" style="display:none;">
+                  <div class="spinner"></div>
+                  <br/>
+                  <%= _('Saving...') %>
+                </div>
+                <div class="answer-bottom-zone" >
+                  <div class="answer-run-zone">
+                    <% run_parameters = meta_schema.extract_run_parameters %>
+                    <%= render(partial: 'shared/dynamic_form/codebase_run', locals: {
+                          fragment: meta_fragment,
+                          parameters: run_parameters,
+                          template_locale: @plan.template.locale,
+                          async_reload: false
+                        }) unless run_parameters.nil?%>
+                  </div>
+                  <div class="answer-save-zone">
+                    <%= f.button(_('Save'), class: "btn btn-default answer-save-button", type: "submit") %>
+                    <span class="message-zone"><%= d_('dmpopidor', 'You have pending changes, please save')%></span>
+                  </div>
+                </div>
+              </fieldset>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    
+    <%= form_for plan, html: {method: :put, class: 'form-horizontal edit_plan' } do |f| %>
       <div class="col-md-4 guidance-configuration">
         <!-- "Guidance Configuration" tab -->
         <div id="guidance_configuration" class="tab-pane">
           <%= render(partial: 'plans/guidance_configuration', locals: { f: f } ) %>
         </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>
 <div class="modal fade" id="modal-window" tabindex="-1" role="dialog" aria-labelledby="linkedInformationsModal" aria-hidden="true"></div>

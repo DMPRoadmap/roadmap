@@ -61,9 +61,6 @@ module CodebaseFragment
             cb_fragment.classname = sub_schema.classname
             cb_fragment.instantiate
             created_frag = cb_fragment.save_codebase_fragment(cb_data["data"], sub_schema)
-            p "###############"
-            p created_frag
-            p "###############"
           elsif cb_data["action"].eql?("update") && cb_data["dbid"]
             cb_fragment = MadmpFragment.find(cb_data["dbid"])
             cb_fragment.save_codebase_fragment(cb_data["data"], sub_schema)

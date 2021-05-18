@@ -1,11 +1,19 @@
 import { Tinymce } from '../../utils/tinymce.js.erb';
 import { Select2 } from '../../utils/select2';
 import getConstant from '../../constants';
+import {
+  doneCallback,
+  failCallback,
+} from '../answers/edit';
 import 'bootstrap-3-typeahead';
 
 $(() => {
   const grantIdField = $('.grant-id-typeahead');
   const grantIdHidden = $('input#plan_grant_number');
+  const showSavingMessage = jQuery => jQuery.parents('.question-form').find('[data-status="saving"]').show();
+  const hideSavingMessage = jQuery => jQuery.parents('.question-form').find('[data-status="saving"]').hide();
+  const showLoadingOverlay = jQuery => jQuery.find('.overlay').show();
+  const hideLoadingOverlay = jQuery => jQuery.find('.overlay').hide();
 
   Tinymce.init();
   $('#is_test').click((e) => {
@@ -128,23 +136,6 @@ $(() => {
   /*setUpTypeahead();*/
   /* eslint-enable */
 
-
-  $('.generic-fragment-picker').on('change', (e) => {
-    const target = $(e.target);
-    const parentFieldset = target.parents('fieldset');
-    const url = target.find('option:selected').data('url');
-    $.ajax({
-      url,
-      method: 'get',
-    }).done((data) => {
-      parentFieldset.find('.person_lastName').val(data.lastName);
-      parentFieldset.find('.person_firstName').val(data.firstName);
-      parentFieldset.find('.person_mbox').val(data.mbox);
-      parentFieldset.find('.person_identifier').val(data.identifier);
-    });
-  });
-
-
   $('body').on('click', '.plan-details .heading-button', (e) => {
     $(e.currentTarget)
       .find('i.fa-chevron-right, i.fa-chevron-down')
@@ -152,4 +143,29 @@ $(() => {
   });
 
   Select2.init('.plan-details');
+
+  $('.plan-details form').on('submit', (e) => {
+    e.preventDefault();
+    const target = $(e.target);
+    const form = target.closest('form');
+
+    $.ajax({
+      method: form.attr('method'),
+      url: form.attr('action'),
+      data: form.serializeArray(),
+      beforeSend: () => {
+        showSavingMessage(target);
+        showLoadingOverlay(target);
+      },
+      complete: () => {
+        hideSavingMessage(target);
+        hideLoadingOverlay(target);
+      },
+    }).done((data) => {
+      doneCallback(data, target);
+      Select2.init('.plan-details');
+    }).fail((error) => {
+      failCallback(error, target);
+    });
+  });
 });
