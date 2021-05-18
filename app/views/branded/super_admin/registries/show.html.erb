@@ -19,16 +19,17 @@
         <dt><%= _('Version') %></dt>
         <dd><%= @registry.version %></dd>
         <h3><%= _('Values') %></h3>
-        <table id="registry-values" class="table table-hover">
-            <thead>
-                <th scope="col"><%= _('Value') %></th>
-                <th scope="col"><%= _('Actions') %></th>
-            </thead>
-            <tbody>
-                <%= hidden_field_tag 'registry-id', @registry.id, class: 'registry-id' %>
-                <%= render partial: 'values_list', locals: { values: @registry.registry_values } %>
-            </tbody>
-        </table>
+        <div class="row">
+          <div class="col-md-12">
+            <%= paginable_renderise(
+              partial: '/paginable/registry_values/index',
+              controller: 'paginable/registry_values',
+              action: 'index',
+              scope: @registry.registry_values,
+              query_params: { sort_field: 'registry_values.order', sort_direction: :asc }
+            ) %>
+          </div>
+        </div>
         <a href="<%= new_super_admin_registry_value_path(registry_id: @registry.id) %>" 
             class="btn btn-primary pull-right"><%= _('Create Value') %></a>
     </dl>   

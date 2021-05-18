@@ -248,10 +248,14 @@ Rails.application.routes.draw do
     end
     # Paginable actions for madmp schemas
     resources :madmp_schemas, only: [] do
-      get 'index/:page', action: :index, on: :collection, as: :index
+      get "index/:page", action: :index, on: :collection, as: :index
     end
     # Paginable actions for registries
     resources :registries, only: [] do
+      get "index/:page", action: :index, on: :collection, as: :index
+    end
+    # Paginable actions for registry values
+    resources :registry_values, only: [] do
       get "index/:page", action: :index, on: :collection, as: :index
     end
   end
