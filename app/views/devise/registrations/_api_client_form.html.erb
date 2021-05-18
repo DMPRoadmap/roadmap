@@ -79,9 +79,8 @@
     <div class="form-group col-xs-6">
       <%= f.label :callback_uri, _('Callback URI'), class: 'control-label' %>
       <%= f.url_field :callback_uri, class: 'form-control', rows: 3,
-                                     placeholder: 'http://localhost:3000/dmps/%{id}',
+                                     placeholder: 'http://localhost:3000/dmps/',
                                      data: { toggle: "tooltip" }, title: callback_uri_tooltip %>
-      <p><%= _("If you would like the DMP ID to be used in the callback URI, please use the `%{id}` placeholder.") %></p>
     </div>
   </div>
 
