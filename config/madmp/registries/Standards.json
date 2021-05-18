@@ -1,0 +1,101 @@
+[
+    {
+        "label": {
+            "en_GB": "EML, Ecological Metadata Language",
+            "fr_FR": "EML, Ecological Metadata Language"
+        },
+        "name": "Ecological Metadata Language",
+        "description": "The Ecological Metadata Language (EML) metadata standard was originally developed for the earth, environmental and ecological sciences. It is based on prior work done by the Ecological Society of America and associated efforts. It has been developed to document any research data, and as such can be used outside of these original subject areas. EML is implemented as a series of XML document types that can by used in a modular and extensible manner to document ecological data. Each EML module is designed to describe one logical part of the total metadata that should be included with any ecological dataset.",
+        "metadatalanguage": "eng",
+        "metadataStandardId": "https://doi.org/10.25504/FAIRsharing.r3vtvx",
+        "idType": "DOI"
+    },
+    {
+        "label": {
+            "en_GB": "DICOM, Digital Imaging and COmmunications in Medicine",
+            "fr_FR": "DICOM, Digital Imaging and COmmunications in Medicine"
+        },
+        "name": "DICOM, Digital Imaging and COmmunications in Medicine",
+        "description": "DICOM \u2014 Digital Imaging and Communications in Medicine \u2014 is the international standard for medical images and related information (ISO 12052). It defines the formats for medical images that can be exchanged with the data and quality necessary for clinical use. DICOM is implemented in almost every radiology, cardiology imaging, and radiotherapy device (X-ray, CT, MRI, ultrasound, etc.), and increasingly in devices in other medical domains such as ophthalmology and dentistry. With tens of thousands of imaging devices in use, DICOM is one of the most widely deployed healthcare messaging standards in the world. There are literally billions of DICOM images currently in use for clinical care. Since its first publication in 1993, DICOM has revolutionized the practice of radiology, allowing the replacement of X-ray film with a fully digital workflow. Much as the Internet has become the platform for new consumer information applications, DICOM has enabled advanced medical imaging applications that have \u201cchanged the face of clinical medicine\u201d. From the emergency department, to cardiac stress testing, to breast cancer detection, DICOM is the standard that makes medical imaging work \u2014 for doctors and for patients",
+        "metadatalanguage": "eng",
+        "metadataStandardId": "https://doi.org/10.25504/FAIRsharing.b7z8by",
+        "idType": "DOI"
+    },
+    {
+        "label": {
+            "en_GB": "DataCite Metadata Schema",
+            "fr_FR": "DataCite Metadata Schema"
+        },
+        "name": "DataCite Metadata Schema",
+        "description": "The DataCite Metadata Schema is a list of core metadata properties chosen for the accurate and consistent identification of a resource for citation and retrieval purposes, along with recommended use instructions. The resource that is being identified can be of any kind, but it is typically a dataset. The term \u2018dataset\u2019 can include not only numerical data, but any other research data outputs.",
+        "metadatalanguage": "eng",
+        "metadataStandardId": "https://doi.org/10.25504/FAIRsharing.me4qwe",
+        "idType": "DOI"
+    },
+    {
+        "label": {
+            "en_GB": "DC, Dublin Core Metadata Element Set",
+            "fr_FR": "DC, Dublin Core Metadata Element Set"
+        },
+        "name": "Dublin Core Metadata Element Set",
+        "description": "The Dublin Metadata Element Set, which is often called Dublin Core (DC), is a standardized metadata scheme for description of any kind of resource such as documents in electronic and non-electronic form, digital materials (such as video, sound, images, etc) and composite media like web pages. is a small set of vocabulary terms that can be used to describe several kinds of resources. Dublin Core Metadata may be used for multiple purposes, from simple resource description, to combining metadata vocabularies of different metadata standards, to providing interoperability for metadata vocabularies in the Linked Data cloud and Semantic Web implementations.",
+        "metadatalanguage": "eng",
+        "metadataStandardId": "https://doi.org/10.25504/FAIRsharing.3nx7t",
+        "idType": "DOI"
+    },
+    {
+        "label": {
+            "en_GB": "DDI-Codebook, Data Documentation Initiative Codebook",
+            "fr_FR": "DDI-Codebook, Data Documentation Initiative Codebook"
+        },
+        "name": "Data Documentation Initiative Codebook (DDI-Codebook)",
+        "description": "Data Documentation Initiative (DDI-Codebook, DDI-C) is a more light-weight version of DDI-Lifecycle, intended primarily to document simple survey data. Originally DTD-based, DDI-C is now available as an XML Schema. The freely available international DDI standards describe data that result from observational methods in the social, behavioral, economic, and health sciences. DDI is used to document data in over 80 countries of the world.",
+        "metadatalanguage": "eng",
+        "metadataStandardId": "https://doi.org/10.25504/FAIRsharing.EZCpPd",
+        "idType": "DOI"
+    },
+    {
+        "label": {
+            "en_GB": "DDI-Lifecycle, Data Documentation Initiative Lifecycle",
+            "fr_FR": "DDI-Lifecycle, Data Documentation Initiative Lifecycle"
+        },
+        "name": "Data Documentation Initiative Lifecycle (DDI-Lifecycle)",
+        "description": "Data Documentation Initiative (DDI) Lifecycle (DDI-Lifecycle, DDI-L) is designed to document and manage data across the entire life cycle, from conceptualization to data publication, analysis and beyond. The freely available international DDI standards describe data that result from observational methods in the social, behavioral, economic, and health sciences. DDI is used to document data in over 80 countries of the world. It encompasses all of the DDI-Codebook specification and extends it. Based on XML Schemas, DDI-Lifecycle is modular and extensible",
+        "metadatalanguage": "eng",
+        "metadataStandardId": "https://doi.org/10.25504/FAIRsharing.1t5ws6",
+        "idType": "DOI"
+    },
+    {
+        "label": {
+            "en_GB": "INSEE controlled vocabulary",
+            "fr_FR": "Vocabulaire contrôlé INSEE"
+        },
+        "name": "Vocabulaire contrôlé INSEE",
+        "description": "Codes et nomenclatures de l'INSEE",
+        "metadatalanguage": "fra",
+        "metadataStandardId": "https://www.insee.fr/fr/information/4316069",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "ISA-TAb, Investigation Study Assay Tabular",
+            "fr_FR": "ISA-TAb, Investigation Study Assay Tabular"
+        },
+        "name": "Investigation Study Assay Tabular",
+        "description": "Investigation Study Assay Tabular (ISA-Tab) describes the ISA Abstract Model reference implementation specified using the ISA-Tab format. ISA-Tab files are tab separated value (tsv) files, with specific labeled column structures. The ISA model consists of three core entities to capture experimental metadata: investigation, study and assay. The extensible, hierarchical structure of this model enables the representation of studies employing one or a combination of technologies, focusing on the description of its experimental metadata (i.e. sample characteristics, technology and measurement types, sample-to-data relationships).",
+        "metadatalanguage": "eng",
+        "metadataStandardId": "https://doi.org/10.25504/FAIRsharing.53gp75",
+        "idType": "DOI"
+    },
+    {
+        "label": {
+            "en_GB": "GeoNames ",
+            "fr_FR": "Geonames"
+        },
+        "name": "GeoNames",
+        "description": "GeoNames is integrating geographical data such as names of places in various languages, elevation, population and others from various sources. All lat/long coordinates are in WGS84 (World Geodetic System 1984). Users may manually edit, correct and add new names using a user friendly wiki interface",
+        "metadatalanguage": "eng",
+        "metadataStandardId": "https://doi.org/10.25504/FAIRsharing.56a0Uj",
+        "idType": "DOI"
+    }
+]

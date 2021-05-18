@@ -39,8 +39,8 @@ class RegistryValue < ActiveRecord::Base
 
     if data["label"].present?
       data["label"][locale]
-    elsif data["value"].present?
-      data["value"][locale] || data["value"]
+    else
+      data[locale] || data
     end
   end
 

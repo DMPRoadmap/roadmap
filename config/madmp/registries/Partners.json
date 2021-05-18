@@ -1,0 +1,152 @@
+[
+    {
+        "label": {
+            "en_GB": "French National Centre for Scientific Research",
+            "fr_FR": "CNRS, Centre National de la Recherche Scientifique"
+        },
+        "name": "French National Centre for Scientific Research",
+        "rnsr": null,
+        "orgId": "https://ror.org/02feahw736",
+        "idType": "ROR ID",
+        "dataPolicy": {
+            "title": "Plan données de la recherche du CNRS",
+            "docIdentifier": "https://www.cnrs.fr/sites/default/files/pdf/Plaquette_PlanDDOR_Nov20.pdf",
+            "idType": "URL"
+        }
+    },
+    {
+        "label": {
+            "en_GB": "Agro ParisTech, Paris Institute of Technology for Life, Food and Environmental Sciences",
+            "fr_FR": "Agro ParisTech, Institut des sciences et industries du vivant et de l'environnement)"
+        },
+        "name": "Agro ParisTech",
+        "rnsr": null,
+        "orgId": " https://ror.org/02kbmgc12",
+        "idType": "ROR ID",
+        "dataPolicy": {
+            "title": "La Science Ouverte à AgroParisTech - Politique d'établissement",
+            "docIdentifier": "http://www2.agroparistech.fr/IMG/pdf/202001_politique_openscience_agroparistech_vf_web.pdf",
+            "idType": "URL"
+        }
+    },
+    {
+        "label": {
+            "en_GB": "INRAE, National Research Institute for Agriculture, Food and Environment)",
+            "fr_FR": "INRAE, Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement)"
+        },
+        "name": "National Research Institute for Agriculture, Food and Environment",
+        "rnsr": null,
+        "orgId": "https://ror.org/003vg9w96",
+        "idType": "ROR ID",
+        "dataPolicy": {
+            "title": "Charte pour le libre accès aux publications et aux données",
+            "docIdentifier": "https://hal.inrae.fr/hal-02801732",
+            "idType": "URL"
+        }
+    },
+    {
+        "label": {
+            "en_GB": "IMoPA",
+            "fr_FR": "IMoPA, Ingénierie Moléculaire et Physiopathologie Articulaire"
+        },
+        "name": "IMoPA Ingénierie Moléculaire et Physiopathologie Articulaire",
+        "rnsr": "201320578R",
+        "orgId": "https://ror.org/04yc2e502",
+        "idType": "ROR ID",
+        "dataPolicy": {
+            "title": null,
+            "docIdentifier": null,
+            "idType": null
+        }
+    },
+    {
+        "label": {
+            "en_GB": "BIC",
+            "fr_FR": "BIC, Bordeaux Imaging Center"
+        },
+        "name": "BIC Bordeaux Imaging Center",
+        "rnsr": "201120186Y",
+        "orgId": null,
+        "idType": null,
+        "dataPolicy": {
+            "title": null,
+            "docIdentifier": null,
+            "idType": null
+        }
+    },
+    {
+        "label": {
+            "en_GB": "LPCNO, Laboratoire de Physique et Chimie des Nano-Objets",
+            "fr_FR": "LPCNO, LABORATOIRE DE PHYSIQUE ET CHIMIE DES NANO-OBJETS"
+        },
+        "name": "LPCNO LABORATOIRE DE PHYSIQUE ET CHIMIE DES NANO-OBJETS",
+        "rnsr": "200711884S",
+        "orgId": "https://ror.org/042xmz674",
+        "idType": "ROR ID",
+        "dataPolicy": {
+            "title": null,
+            "docIdentifier": null,
+            "idType": null
+        }
+    },
+    {
+        "label": {
+            "en_GB": "ICMM, Institute of Continuous Media Mechanics, Federal State Institution of Science Institute of Continuous Media Mechanics,Ural Branch of the Russian Academy of Sciences,Department of Polymer Physics",
+            "fr_FR": "ICMM, Institute of Continuous Media Mechanics, Federal State Institution of Science Institute of Continuous Media Mechanics,Ural Branch of the Russian Academy of Sciences,Department of Polymer Physics"
+        },
+        "name": "Institute of Continuous Media Mechanics",
+        "rnsr": "200711884S",
+        "orgId": "https://ror.org/03ymmms77",
+        "idType": "ROR ID",
+        "dataPolicy": {
+            "title": null,
+            "docIdentifier": null,
+            "idType": null
+        }
+    },
+    {
+        "label": {
+            "en_GB": "BIOGECO, Biodiversité, Gènes et Communautés",
+            "fr_FR": "BIOGECO, Biodiversité, Gènes et Communautés"
+        },
+        "name": "Biodiversité, Gènes et Communautés",
+        "rnsr": "200317684N",
+        "orgId": "https://ror.org/033ebya06",
+        "idType": "ROR ID",
+        "dataPolicy": {
+            "title": "Charte pour le libre accès aux publications et aux données",
+            "docIdentifier": "https://hal.inrae.fr/hal-02801732",
+            "idType": "URL"
+        }
+    },
+    {
+        "label": {
+            "en_GB": "CRA W, Walloon Agricultural Research Centre",
+            "fr_FR": "CRA W, Centre wallon de Recherches Agronomiques"
+        },
+        "name": "Centre wallon de Recherches Agronomiques",
+        "rnsr": null,
+        "orgId": "https://ror.org/016n74679",
+        "idType": "ROR ID",
+        "dataPolicy": {
+            "title": null,
+            "docIdentifier": null,
+            "idType": null
+        }
+    },
+    {
+        "label": {
+            "en_GB": "Plant Protection Institute",
+            "fr_FR": "Plant Protection Institute"
+        },
+        "name": "Plant Protection Institute",
+        "rnsr": null,
+        "orgId": "https://ror.org/052t9a145",
+        "idType": "ROR ID",
+        "dataPolicy": {
+            "title": null,
+            "docIdentifier": null,
+            "idType": null
+        }
+    }
+]

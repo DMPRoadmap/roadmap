@@ -99,24 +99,26 @@ namespace :madmpopidor do
   # Load registries
   desc "Load JSON registries"
   task load_registries: :environment do
-    registries_path = Rails.root.join("config/madmp/registries/simple_values.json")
+    registries_path = Rails.root.join("config/madmp/registries/index.json")
     registries = JSON.load(File.open(registries_path))
 
-    registries.each do |registry_name, registry_values|
+    # Remove all registry values to avoid duplicates
+    RegistryValue.destroy_all
+
+    registries.each do |registry_name, values|
+      registry_values = []
       registry = Registry.find_or_initialize_by(name: registry_name) do |r|
         r.name = registry_name
         r.version = 1
       end
+      if values.is_a?(Array)
+        registry_values = values
+      elsif values["path"].present?
+        values_path = Rails.root.join("config/madmp/registries/#{values['path']}")
+        registry_values = JSON.load(File.open(values_path))
+      end
       registry_values.each_with_index do |reg_val, idx|
-        if reg_val["label"].present?
-          RegistryValue.create!(data: reg_val, registry: registry, order: idx)
-        else
-          RegistryValue.create!(
-            data: { "value" => reg_val },
-            registry: registry,
-            order: idx
-          )
-        end
+        RegistryValue.create!(data: reg_val, registry: registry, order: idx)
       end
     end
   end

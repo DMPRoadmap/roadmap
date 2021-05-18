@@ -1,0 +1,42 @@
+[
+    {
+        "label": {
+            "en_GB": "Dat@OSU, Portail d'accès aux données de l'OSU Theta",
+            "fr_FR": "Dat@OSU, Portail d'accès aux données de l'OSU Theta"
+        },
+        "title": "Dat@OSU",
+        "description": "dat@OSU est une plateforme de métadonnées proposée par l\u2019Observatoire des Sciences de l\u2019Univers Terre Homme Environnement Temps Astronomie (OSU THETA). Elle propose une description des ensembles de données numériques issues des recherches scientifiques menées dans les différents laboratoires et équipes. dat@OSU est centré sur le référencement et la valorisation des données qui concernent la pluralité des différentes disciplines scientifiques. Les chercheurs qui renseignement leurs données dans dat@OSU peuvent bénéficier d'une aide documentaire pour la saisie de leurs métadonnées.",
+        "technicalResourceId": "https://dataosu.obs-besancon.fr/",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Géoportail, Portail national de la connaissance du territoire",
+            "fr_FR": "Géoportail, Portail national de la connaissance du territoire"
+        },
+        "title": "Géoportail",
+        "description": "Le Géoportail est une plateforme nationale de diffusion des données d'information géographique de référence couvertes par la directive INSPIRE. Mis en œuvre par l\u2019IGN, il a pour vocation de faciliter l\u2019accès à l\u2019information géographique de référence. Construit dans une logique d\u2019ouverture et d\u2019interopérabilité des données, il est régulièrement enrichi de nouvelles données publiques. Il permet de visualiser en 2D et en 3D l\u2019information géographique de référence (fonds cartographiques et photographiques) ainsi que les informations géolocalisées superposables à ces fonds et présentant un intérêt public. On y retrouve les données géographiques numériques de l\u2019IGN (photos aériennes, cartes à toute échelle, représentations des bâtiments et du parcellaire cadastral, hydrographie, altitude, réseaux, limites administratives, noms de lieux, etc.) mais également de nombreuses données publiques (sites protégés, occupation du sol, géologie, description du littoral, zones urbaines, zones à risque, patrimoine naturel\u2026) produites par des acteurs de référence. Reposant sur l'infrastructure du Géoportail, l'IGN propose une offre de services les Géoservices. Ces services en ligne permettent de consulter et exploiter les données géographiques, mais aussi construire ses propres services autour de ces données. Ces services répondent à la fois aux besoins des professionnels et des particuliers, des acteurs publics et privés\u2026 Ils permettent l\u2019intégration et la mise en œuvre de l\u2019information géographique et forestière. ",
+        "technicalResourceId": "https://www.geoportail.gouv.fr/",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "OpenArchaeo",
+            "fr_FR": "OpenArchaeo"
+        },
+        "title": "OpenArchaeo",
+        "description": "La plateforme OpenArchaeo a pour objectif de mettre à disposition sur le web sémantique les jeux de données archéologiques produits dans le cadre du consortium MASA, sous la forme d\u2019un triplestore MASA disposant de données alignées avec l\u2019ontologie du CIDOC CRM et ses extensions dédiées à l\u2019archéologie. Il s\u2019agit d\u2019autre part de proposer une interface d\u2019interrogation intuitive pour les données archéologiques inspirée du moteur de recherche ResearchSpace mis en place par le British Museum, OpenArchaeo étant pour sa part spécifiquement dédié à l\u2019archéologie. Pour optimiser l\u2019appariement des jeux de données, un modèle générique de mapping a été mis en place, permettant de relier les concepts partagés par la plupart des jeux de données en archéologie, permettant ainsi de les rendre interopérables. Un prototype d\u2019OpenArchaeo verra le jour prochainement",
+        "technicalResourceId": "https://masa.hypotheses.org/openarchaeo",
+        "idType": "URL"
+    },
+    {
+        "label": {
+            "en_GB": "Health Databases ",
+            "fr_FR": "Portail Epidémiologie France"
+        },
+        "title": "Portail Epidémiologie France",
+        "description": "Le portail Épidémiologie-France propose un catalogue en ligne des principales bases de données individuelles en santé de source française en santé publique (hors essais cliniques). Ce portail s\u2019inscrit dans un mouvement de partage et de réutilisation des données épidémiologiques. Chaque base de données répertoriée dans le catalogue est décrite selon ses caractéristiques essentielles : objectifs, thématiques, populations couvertes, nature des informations recueillies, conditions d\u2019accès, coordonnées du responsable scientifique...",
+        "technicalResourceId": "https://epidemiologie-france.aviesan.fr/",
+        "idType": "URL"
+    }
+]
