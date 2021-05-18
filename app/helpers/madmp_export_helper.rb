@@ -5,7 +5,7 @@ require "jsonpath"
 module MadmpExportHelper
 
   def load_export_template(name)
-    export_format = Rails.root.join("config/schemas/exports/#{name}.json")
+    export_format = Rails.root.join("config/madmp/exports/#{name}.json")
 
     JSON.load(File.open(export_format))
   end

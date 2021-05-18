@@ -14,7 +14,7 @@ class MadmpCodebaseController < ApplicationController
       response = fetch_run_data(fragment, script_id)
       if response["return_code"]&.eql?(0)
         # EXAMPLE DATA : CODEBASE NEEDS FIXES
-        # file_path = Rails.root.join("config/schemas/codebase_example_data.json")
+        # file_path = Rails.root.join("config/madmp/schemas/codebase_example_data.json")
         # response = JSON.load(File.open(file_path))
         # fragment.save_codebase_fragment(response, fragment.madmp_schema)
         fragment.save_codebase_fragment(response["data"], fragment.madmp_schema)

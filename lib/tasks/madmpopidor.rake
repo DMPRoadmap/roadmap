@@ -60,13 +60,13 @@ namespace :madmpopidor do
   desc "Load JSON templates for structured questions in the database"
   task load_templates: :environment do
     # Read and parse index.json file
-    index_path = Rails.root.join("config/schemas/main/index.json")
+    index_path = Rails.root.join("config/madmp/schemas/main/index.json")
     schemas_index = JSON.load(File.open(index_path))
 
     # Iterate over the schemas of the index.json file
     schemas_index.each do |schema_desc|
       # Read, parse and extract useful data from the JSON schema
-      schema_path = Rails.root.join("config/schemas/main/#{schema_desc['path']}")
+      schema_path = Rails.root.join("config/madmp/schemas/main/#{schema_desc['path']}")
       json_schema = JSON.load(File.open(schema_path))
       title = json_schema["title"]
       classname = schema_desc["classname"]
@@ -99,7 +99,7 @@ namespace :madmpopidor do
   # Load registries
   desc "Load JSON registries"
   task load_registries: :environment do
-    registries_path = Rails.root.join("config/schemas/registry_values.json")
+    registries_path = Rails.root.join("config/madmp/registries/simple_values.json")
     registries = JSON.load(File.open(registries_path))
 
     registries.each do |registry_name, registry_values|
