@@ -129,10 +129,21 @@ RSpec.describe ExternalApis::OrcidService, type: :model do
         expect(xml.xpath("//common:day").text).to eql(@plan.created_at.strftime("%d"))
         expect(xml.xpath("//common:external-id-value").text).to eql(@plan.doi.value_without_scheme_prefix)
         expect(xml.xpath("//common:external-id-url").text).to eql(@plan.doi.value)
-        expect(xml.xpath("//work:contributor").length).to eql(1)
-        expect(xml.xpath("//common:uri").text).to eql(orcid.value)
-        expect(xml.xpath("//common:path").text).to eql(orcid.value_without_scheme_prefix)
-        expect(xml.xpath("//work:credit-name").text).to eql(@plan.owner.name(false))
+      end
+      it "handles invalid XML characters in :title, :description, and :citation properly" do
+        @plan.title = "Foo</work:citation-value>"
+        @plan.description = "Foo Bar \\n Baz <Foo>"
+
+        xml = Nokogiri::XML(described_class.send(:xml_for, plan: @plan, doi: @plan.doi, user: @plan.owner))
+        orcid = @plan.owner.identifier_for_scheme(scheme: "orcid")
+        expect(xml.xpath("//common:title").text).to eql("Foo</work:citation-value>")
+        expect(xml.xpath("//work:short-description").text).to eql("Foo Bar \\n Baz <Foo>")
+        expect(xml.xpath("//work:citation-value").text).to eql(@plan.citation)
+        expect(xml.xpath("//common:year").text).to eql(@plan.created_at.strftime("%Y"))
+        expect(xml.xpath("//common:month").text).to eql(@plan.created_at.strftime("%m"))
+        expect(xml.xpath("//common:day").text).to eql(@plan.created_at.strftime("%d"))
+        expect(xml.xpath("//common:external-id-value").text).to eql(@plan.doi.value_without_scheme_prefix)
+        expect(xml.xpath("//common:external-id-url").text).to eql(@plan.doi.value)
       end
     end
   end
