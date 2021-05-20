@@ -145,7 +145,7 @@ $(() => {
 
   Select2.init('.plan-details');
 
-  $('.plan-details form').on('submit', (e) => {
+  $('.plan-details form.madmp-fragment').on('submit', (e) => {
     e.preventDefault();
     const target = $(e.target);
     const form = target.closest('form');

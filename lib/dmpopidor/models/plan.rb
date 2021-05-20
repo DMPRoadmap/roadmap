@@ -217,24 +217,6 @@ module Dmpopidor
         project_coordinator.update(parent_id: project.id)
       end
 
-      def update_plan_fragments(meta, project)
-        dmp_fragment = json_fragment
-        meta_fragment = dmp_fragment.meta
-        project_fragment = dmp_fragment.project
-
-        meta_data = data_reformater(
-          meta_fragment.madmp_schema.schema,
-          meta
-        )
-        project_data = data_reformater(
-          project_fragment.madmp_schema.schema,
-          project
-        )
-
-        meta_fragment.save_as_multifrag(meta_data, meta_fragment.madmp_schema)
-        project_fragment.save_as_multifrag(project_data, project_fragment.madmp_schema)
-      end
-
     end
 
   end

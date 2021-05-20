@@ -220,9 +220,6 @@ module Dmpopidor
         @plan = Plan.find(params[:id])
         authorize @plan
         attrs = plan_params
-        meta = schema_params(MadmpSchema.find_by(name: "MetaStandard"), "meta")
-        project = schema_params(MadmpSchema.find_by(name: "ProjectStandard"), "project")
-        attrs[:title] = meta["title"]
         # rubocop:disable Metrics/BlockLength
         respond_to do |format|
           begin
@@ -235,7 +232,6 @@ module Dmpopidor
             @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
             @plan.save
             if @plan.update_attributes(attrs)
-              @plan.update_plan_fragments(meta, project)
 
               format.html do
                 redirect_to plan_path(@plan),
@@ -357,15 +353,12 @@ module Dmpopidor
       end
 
       private
-      # CHANGES : Research Outputs support
+      # CHANGES : Removed everything except guidances group info. The rest of the info is 
+      # handled by MadmpFragmentController
       def plan_params
         params.require(:plan)
-              .permit(:org_id, :org_name, :funder_id, :funder_name, :template_id, 
-                      :title, :visibility, :grant_number, :description, :identifier,
-                      :principal_investigator_phone, :principal_investigator,
-                      :principal_investigator_email, :data_contact,
-                      :principal_investigator_identifier, :data_contact_email,
-                      :data_contact_phone, :guidance_group_ids,
+              .permit(:org_id, :template_id, :funder_name, :visibility, 
+                      :title, :org_name, :guidance_group_ids,
                       research_outputs_attributes: %i[_destroy])
       end
 
