@@ -18,6 +18,9 @@ module Api
       # GET /api/v2/plans
       # -----------------
       def index
+        @result_scope = "mine"
+        @result_scope = params[:scope].to_s.downcase if %w[mine public both].include?(params[:scope].to_s.downcase)
+
         # See the Policy for details on what Plans are returned to the Caller based on the AccessToken
         plans = Api::V2::PlansPolicy::Scope.new(@client, @resource_owner).resolve
 

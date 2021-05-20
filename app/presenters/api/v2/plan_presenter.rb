@@ -42,9 +42,6 @@ module Api
           get: @helpers.api_v2_plan_url(@plan)
         }
 
-p @client.inspect
-p @plan.owner.access_token_for(external_service_name: @client.name.downcase)
-
         # If the plan is publicly visible or the request has permissions then include the PDF download URL
         if @plan.publicly_visible? ||
            (@client.is_a?(User) && @plan.owner_and_coowners.include?(@client)) ||
