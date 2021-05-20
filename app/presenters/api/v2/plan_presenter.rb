@@ -6,14 +6,15 @@ module Api
 
     class PlanPresenter
 
-      attr_reader :data_contact, :contributors, :costs
+      attr_reader :data_contact, :contributors, :costs, :client
 
-      def initialize(plan:)
+      def initialize(plan:, client:)
         @contributors = []
         return unless plan.present?
 
         @helpers = Rails.application.routes.url_helpers
         @plan = plan
+        @client = client
 
         # Attach the first data_curation role as the data_contact, otherwise
         # add the contributor to the contributors array
@@ -41,9 +42,15 @@ module Api
           get: @helpers.api_v2_plan_url(@plan)
         }
 
+p @client.inspect
+p @plan.owner.access_token_for(external_service_name: @client.name.downcase)
+
         # If the plan is publicly visible or the request has permissions then include the PDF download URL
-        if @plan.publicly_visible? || @client.is_a?(User) || @plan.subscriptions.map(&:subscriber).include?(@client)
-          ret[:download] = @helpers.plan_export_url(@plan, format: :pdf, "export[form]": true)
+        if @plan.publicly_visible? ||
+           (@client.is_a?(User) && @plan.owner_and_coowners.include?(@client)) ||
+           (@client.is_a?(User) && @plan.org_id == @plan.owner&.org_id) ||
+           (@client.is_a?(ApiClient) && @client.access_tokens.select { |t| t.active_for(@plan.owner) })
+          ret[:download] = @helpers.api_v2_plan_url(@plan, format: :pdf)
         end
         ret
       end
