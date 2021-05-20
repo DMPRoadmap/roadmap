@@ -175,12 +175,6 @@ $(() => {
 
   $(document).on('click', '.answer-run-zone .reload-button', (e) => {
     const target = $(e.target);
-    const reloadAsync = target.data('async-reload');
-    if (reloadAsync) {
-      target.parents().find('.panel-collapse').trigger('reload.form');
-    } else {
-    // eslint-disable-next-line no-restricted-globals
-      location.reload();
-    }
+    target.parents().find('.panel-collapse').trigger('reload.form');
   });
 });

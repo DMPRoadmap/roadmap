@@ -1,11 +1,11 @@
 <%# locals: { template, question, fragment, madmp_schema, research_output, readonly, locking } %>
 <%= hidden_field_tag 'fragment-id', fragment.id, class: "fragment-id" %>
 
-<% I18n.with_locale question.template.locale do %>
+<% I18n.with_locale template.locale do %>
 <%= form_for :madmp_fragment, url: madmp_fragment_path(id: fragment.id), 
               html: {
                 method: :put,
-                'data-autosave': question.id,
+                'data-autosave': fragment.id,
                 class: "form-answer madmp-fragment", 
                 id: nil  
               } do |f| %>
@@ -14,15 +14,15 @@
       <%= af.hidden_field :plan_id, id: nil %>
       <%= af.hidden_field :question_id, id: nil %>
       <%= af.hidden_field :lock_version, id: nil %>
-      <%= af.hidden_field :research_output_id, :value => research_output.id, id: nil%>
-      <%= af.hidden_field :is_common, class: 'ans_is_common' if research_output.main? %>
+      <%= af.hidden_field :research_output_id, :value => research_output&.id, id: nil%>
+      <%= af.hidden_field :is_common, class: 'ans_is_common' if research_output&.main? %>
       <%= af.hidden_field :id, id: nil, class: 'answer_id' %>
     <% end %>
   <% end %>
   <%= f.hidden_field :schema_id, :value => madmp_schema.id, id: nil, class: "schema_id" %>
   <%= f.hidden_field :dmp_id, :value => dmp_id, id: nil %>
   <%= f.hidden_field :parent_id, :value => parent_id, id: nil %>
-  <%= f.hidden_field :template_locale, :value => question.template.locale, id: nil %>
+  <%= f.hidden_field :template_locale, :value => template.locale, id: nil %>
   <%= f.hidden_field "source", :value => "form" %>
   <fieldset aria-labelledby="fragment-fieldset" class="fragment-fieldset">
     <div class="form-group fragment-<%= fragment.id %>" data-fragment-id="<%= fragment.id %>" >
@@ -30,10 +30,10 @@
               f: f,
               current_fragment: fragment, 
               schema: madmp_schema,
-              question_id: question.id, 
+              question_id: question&.id, 
               readonly: readonly,
               classname: fragment.classname,
-              template_locale: question.template.locale,
+              template_locale: template.locale,
               form_prefix: nil,
               source: "form"
             }) %>
@@ -49,8 +49,7 @@
           <%= render(partial: 'shared/dynamic_form/codebase_run', locals: { 
                 fragment: fragment,
                 parameters: run_parameters,
-                template_locale: question.template.locale,
-                async_reload: true
+                template_locale: template.locale
               }) unless run_parameters.nil? %>
         </div>
         <div class="answer-save-zone">
@@ -60,7 +59,7 @@
       </div>
   </fieldset>
   <!--Example Answer area -->
-  <% if template.present? && template.org.present? %>
+  <% if template.present? && template.org.present? && question.present? %>
     <% question.example_answers([base_template_org.id, template.org.id]).each do |annotation| %>
       <% if annotation.present? && annotation.org.present? && annotation.text.present? %>
         <div class="panel panel-default example-answer">

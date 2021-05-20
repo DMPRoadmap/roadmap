@@ -20,8 +20,9 @@
         </div>
       </div>
 
-      <div id="plan_project" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-plan-project">
+      <div id="plan_project" class="panel-collapse collapse in plan-details-content" role="tabpanel" aria-labelledby="heading-plan-project">
         <% project_schema = MadmpSchema.find_by(name: "ProjectStandard") %>
+        <%= hidden_field_tag 'fragment-id', project_fragment.id, class: "fragment-id" %>
         <div class="panel-body madmp-fragment"><!-- accordion body -->
           <% I18n.with_locale @plan.template.locale do %>
             <%= form_for :madmp_fragment, url: madmp_fragment_path(id: project_fragment.id), 
@@ -43,6 +44,7 @@
               <%= f.hidden_field :dmp_id, :value => dmp_fragment.id, id: nil %>
               <%= f.hidden_field :parent_id, :value => dmp_fragment.id, id: nil %>
               <%= f.hidden_field :template_locale, :value => @plan.template.locale, id: nil %>
+              <%= f.hidden_field "source", :value => "form" %>
               <div class="project-form form-group fragment-<%= project_fragment.id %>" data-fragment-id="<%= project_fragment.id %>" >
                 <%= render(partial: 'shared/dynamic_form/form', locals: { 
                       f: f,
@@ -67,8 +69,7 @@
                   <%= render(partial: 'shared/dynamic_form/codebase_run', locals: { 
                         fragment: project_fragment,
                         parameters: run_parameters,
-                        template_locale: @plan.template.locale,
-                        async_reload: false
+                        template_locale: @plan.template.locale
                       }) unless run_parameters.nil? %>
                 </div>
                 <div class="answer-save-zone">
@@ -101,8 +102,9 @@
         </div>
       </div>
 
-      <div id="plan_metadata" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-plan-metadata">
+      <div id="plan_metadata" class="panel-collapse collapse plan-details-content" role="tabpanel" aria-labelledby="heading-plan-metadata">
         <% meta_schema = MadmpSchema.find_by(name: "MetaStandard") %>
+        <%= hidden_field_tag 'fragment-id', project_fragment.id, class: "meta_fragment-id" %>
         <div class="panel-body madmp-fragment"><!-- accordion body -->
           <% I18n.with_locale @plan.template.locale do %>
             <%= form_for :madmp_fragment, url: madmp_fragment_path(id: meta_fragment.id), 
@@ -117,6 +119,7 @@
                 <%= f.hidden_field :dmp_id, :value => dmp_fragment.id, id: nil %>
                 <%= f.hidden_field :parent_id, :value => dmp_fragment.id, id: nil %>
                 <%= f.hidden_field :template_locale, :value => @plan.template.locale, id: nil %>
+                <%= f.hidden_field "source", :value => "form" %>
                 <div class="meta-form form-group fragment-<%= meta_fragment.id %>" data-fragment-id="<%= meta_fragment.id %>" >
                   <%= render(partial: 'shared/dynamic_form/form', locals: { 
                         f: f,
@@ -141,8 +144,7 @@
                     <%= render(partial: 'shared/dynamic_form/codebase_run', locals: {
                           fragment: meta_fragment,
                           parameters: run_parameters,
-                          template_locale: @plan.template.locale,
-                          async_reload: false
+                          template_locale: @plan.template.locale
                         }) unless run_parameters.nil?%>
                   </div>
                   <div class="answer-save-zone">

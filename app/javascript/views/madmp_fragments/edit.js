@@ -19,7 +19,6 @@ $(() => {
       return;
     }
     const form = target.find('form');
-
     if (form.hasClass('new-fragment')) {
       $.ajax({
         method: 'get',

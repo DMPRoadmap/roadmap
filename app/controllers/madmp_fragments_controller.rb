@@ -61,9 +61,7 @@ class MadmpFragmentsController < ApplicationController
 
     return unless @fragment.present?
 
-    if @fragment.answer.present?
-      render json: render_fragment_form(@fragment, @stale_fragment)
-    elsif source.eql?("list-modal")
+    if source.eql?("list-modal")
       property_name = @fragment.additional_info["property_name"]
       render json: {
         "fragment_id" =>  @fragment.parent_id,
@@ -77,12 +75,14 @@ class MadmpFragmentsController < ApplicationController
           p_params[:query_id]
         )
       }.to_json
-    else
+    elsif source.eql?("select-modal")
       render json: {
         "fragment_id" =>  @fragment.id,
         "source" => source,
         "html" => render_fragment_select(@fragment)
       }.to_json
+    else
+      render json: render_fragment_form(@fragment, @stale_fragment)
     end
   end
   # rubocop:enable Metrics/MethodLength
@@ -159,9 +159,7 @@ class MadmpFragmentsController < ApplicationController
 
     return unless @fragment.present?
 
-    if @fragment.answer.present?
-      render json: render_fragment_form(@fragment, @stale_fragment)
-    elsif source.eql?("list-modal")
+    if source.eql?("list-modal")
       property_name = @fragment.additional_info["property_name"]
       render json: {
         "fragment_id" =>  @fragment.parent_id,
@@ -175,12 +173,14 @@ class MadmpFragmentsController < ApplicationController
           p_params[:query_id]
         )
       }.to_json
-    else
+    elsif source.eql?("select-modal")
       render json: {
         "fragment_id" =>  @fragment.id,
         "source" => source,
         "html" => render_fragment_select(@fragment)
       }.to_json
+    else
+      render json: render_fragment_form(@fragment, @stale_fragment)
     end
   end
   # rubocop:enable Metrics/MethodLength
@@ -427,27 +427,27 @@ class MadmpFragmentsController < ApplicationController
 
   def render_fragment_form(fragment, stale_fragment = nil)
     answer = fragment.answer
-    question = answer.question
-    research_output = answer.research_output
-    section = question.section
-    plan = answer.plan
-    template = section.phase.template
+    question = answer&.question
+    research_output = answer&.research_output
+    section = question&.section
+    plan = fragment.plan
+    template = plan.template
 
     return {
             "fragment_id" => fragment.id,
             "answer" => {
-              "id" => answer.id
+              "id" => answer&.id
             },
             "question" => {
-              "id" => question.id,
-              "answer_lock_version" => answer.lock_version,
+              "id" => question&.id,
+              "answer_lock_version" => answer&.lock_version,
               "locking" => stale_fragment ?
                 render_to_string(partial: "madmp_fragments/locking", locals: {
                   question: question,
                   answer: answer,
                   fragment: stale_fragment,
                   research_output: research_output,
-                  user: answer.user
+                  user: answer&.user
                 }, formats: [:html]) :
                 nil,
               "form" => render_to_string(partial: "madmp_fragments/edit", locals: {
@@ -462,26 +462,26 @@ class MadmpFragmentsController < ApplicationController
                 readonly: false,
                 base_template_org: template.base_org
               }, formats: [:html]),
-              "answer_status" => render_to_string(partial: "answers/status", locals: {
-                answer: answer
-              }, formats: [:html])
+              "answer_status" => answer.present? ?
+                render_to_string(partial: "answers/status", locals: {
+                  answer: answer
+              }, formats: [:html]) :
+              nil
             },
             "section" => {
-              "id" => section.id,
-              "progress" => render_to_string(partial: "/org_admin/sections/progress", locals: {
-                section: section,
-                plan: plan
-              }, formats: [:html])
+              "id" => section&.id
             },
             "plan" => {
               "id" => plan.id,
-              "progress" => render_to_string(partial: "plans/progress", locals: {
-                plan: plan,
-                current_phase: section.phase
-              }, formats: [:html])
+              "progress" => section.present? ?
+                render_to_string(partial: "plans/progress", locals: {
+                  plan: plan,
+                  current_phase: section.phase
+              }, formats: [:html]) :
+              nil
             },
             "research_output" => {
-              "id" => research_output.id
+              "id" => research_output&.id
             }
     }.to_json
   end

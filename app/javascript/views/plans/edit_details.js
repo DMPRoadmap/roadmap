@@ -2,7 +2,6 @@ import { Tinymce } from '../../utils/tinymce.js.erb';
 import { Select2 } from '../../utils/select2';
 import getConstant from '../../constants';
 import {
-  doneCallback,
   failCallback,
 } from '../answers/edit';
 import 'bootstrap-3-typeahead';
@@ -14,6 +13,8 @@ $(() => {
   const hideSavingMessage = jQuery => jQuery.parents('.question-form').find('[data-status="saving"]').hide();
   const showLoadingOverlay = jQuery => jQuery.find('.overlay').show();
   const hideLoadingOverlay = jQuery => jQuery.find('.overlay').hide();
+  const toolbar = 'bold italic | bullist numlist | link | table';
+
 
   Tinymce.init();
   $('#is_test').click((e) => {
@@ -162,7 +163,39 @@ $(() => {
         hideLoadingOverlay(target);
       },
     }).done((data) => {
-      doneCallback(data, target);
+      form.html(data.question.form);
+      form.find('.answer-save-button').prop('disabled', false);
+      Tinymce.init({
+        toolbar,
+      });
+      Select2.init('.plan-details');
+    }).fail((error) => {
+      failCallback(error, target);
+    });
+  });
+
+  $('.panel-collapse').on('reload.form', (e) => {
+    const target = $(e.target);
+    if (!target.hasClass('plan-details-content')) {
+      return;
+    }
+    const form = target.find('form');
+    const fragmentId = target.find('.fragment-id').val();
+    $.ajax({
+      method: 'get',
+      url: `/madmp_fragments/load_form/${fragmentId}`,
+      beforeSend: () => {
+        showLoadingOverlay(target);
+      },
+      complete: () => {
+        hideLoadingOverlay(target);
+      },
+    }).done((data) => {
+      form.html(data.question.form);
+      form.find('.answer-save-button').prop('disabled', false);
+      Tinymce.init({
+        toolbar,
+      });
       Select2.init('.plan-details');
     }).fail((error) => {
       failCallback(error, target);

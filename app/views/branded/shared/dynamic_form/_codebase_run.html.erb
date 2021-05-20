@@ -1,4 +1,4 @@
-<%# locals: { fragment, parameters, template_locale, async_reload } %>
+<%# locals: { fragment, parameters, template_locale } %>
 <% label = parameters["label@#{template_locale}"]%>
 <% ttip = parameters["tooltip@#{template_locale}"]%>
 
@@ -15,7 +15,7 @@
 <div class="loading-zone">
     <div class="spinner"></div> <%= _('Loading ...') %>
 </div>
-<button class="btn btn-secondary reload-button" type="button" data-async-reload="<%= async_reload%>">
+<button class="btn btn-secondary reload-button" type="button">
     <%= d_('dmpopidor', 'Reload') %>
 </button>
 <span class="message-zone"><%= d_('dmpopidor', 'New data have been added to your plan, please click on the "Reload" button.') %></span>
