@@ -2,10 +2,17 @@
 # IF YOU UPDATE IT, YOUR CHANGES WILL BE LOST AT THE NEXT SYNC.
 #
 # To update this file, use this translation interface:
-# https://translation.io/xsrust/roadmap/es
+# https://translation.io/cdl-uc3/dmptool/es
 #
 ---
 es:
+  views:
+    pagination:
+      truncate: "&hellip;"
+      first: "&laquo; Primera"
+      last: Última &raquo;
+      previous: "&lsaquo; Anterior"
+      next: Siguiente &rsaquo;
   date:
     day_names:
     - domingo
@@ -70,13 +77,14 @@ es:
       decimal_units:
         units:
           thousand: mil
-          million: Millón
+          million:
           billion: mil millones
-          trillion: Trillones
+          trillion:
           quadrillion: mil billones
   errors:
     format: "%{attribute} %{message}"
     messages:
+      model_invalid: 'La validación falló: %{errors}'
       inclusion: no está incluido en la lista
       exclusion: está reservado
       invalid: no es válido
@@ -104,23 +112,25 @@ es:
       other_than: debe ser distinto de %{count}
       odd: debe ser impar
       even: debe ser par
-      taken: ya está en uso
-      already_confirmed: ya ha sido confirmado, por favor intente iniciar sesión.
-      confirmation_period_expired: necesita ser confirmado en %{period}, por favor
-        vuelva a solicitarla.
-      expired: ha expirado, por favor vuelva a solicitarla.
-      not_found: no se ha encontró.
-      not_locked: no estaba bloqueado.
-      not_saved:
-        one: '1 error impidió que este %{resource} fuese guardado:'
-        other: "%{count} errores impidieron que este %{resource} fuese guardado:"
-      model_invalid: 'La validación falló: %{errors}'
       required: debe existir
+      taken: ya está en uso
+      already_confirmed: ya ha sido confirmado, por favor intenta iniciar sesión
+      confirmation_period_expired: necesita confirmarse dentro de %{period}, por favor
+        solicita una nueva
+      expired: ha expirado, por favor solicita una nueva
+      not_found: no se ha encontrado
+      not_locked: no estaba bloqueada
+      not_saved:
+        one: 'Ocurrió un error al tratar de guardar %{resource}:'
+        other: 'Ocurrieron %{count} errores al tratar de guardar %{resource}:'
     template:
       body: 'Se encontraron problemas con los siguientes campos:'
       header:
         one: No se pudo guardar este/a %{model} porque se encontró 1 error
         other: No se pudo guardar este/a %{model} porque se encontraron %{count} errores
+    unavailable_session:
+    unacceptable_request:
+    connection_refused:
   activerecord:
     errors:
       messages:
@@ -128,6 +138,22 @@ es:
         restrict_dependent_destroy:
           has_one: No se puede eliminar el registro porque existe un %{record} dependiente
           has_many: No se puede eliminar el registro porque existen %{record} dependientes
+      models:
+        doorkeeper/application:
+          attributes:
+            redirect_uri:
+              fragment_present: no puede contener un fragmento.
+              invalid_uri: debe ser una URI válida.
+              unspecified_scheme: debe especificar un esquema.
+              relative_uri: debe ser una URI absoluta.
+              secured_uri: debe ser una URI HTTPS/SSL.
+              forbidden_uri: está prohibido por el servidor.
+            scopes:
+              not_match_configured: doesn't match configured on the server.
+    attributes:
+      doorkeeper/application:
+        name: Nombre
+        redirect_uri: URI de redirección
   datetime:
     distance_in_words:
       half_a_minute: medio minuto
@@ -172,8 +198,8 @@ es:
       month: Mes
       day: Día
       hour: Hora
-      minute: Minutos
-      second: Segundos
+      minute: Minuto
+      second: Segundo
   helpers:
     select:
       prompt: Por favor seleccione
@@ -183,9 +209,9 @@ es:
       submit: Guardar %{model}
     page_entries_info:
       entry:
-        zero: entradas
-        one: entrada
-        other: entradas
+        zero:
+        one:
+        other:
       one_page:
         display_entries:
           zero: No se han encontrado %{entry_name}
@@ -197,146 +223,271 @@ es:
   flash:
     actions:
       create:
-        notice: "%{resource_name} fue creado con éxito."
+        notice:
       update:
-        notice: "%{resource_name} se ha actualizado correctamente."
+        notice:
       destroy:
-        notice: "%{resource_name} fue destruido con éxito."
-        alert: "%{resource_name} no podía ser destruida."
+        notice:
+        alert:
+  recaptcha:
+    errors:
+      verification_failed:
+      recaptcha_unreachable:
   devise:
     confirmations:
-      confirmed: Su cuenta ha sido confirmada.
-      send_instructions: Recibira un correo electrónico en unos minutos con instrucciones
-        sobre cómo restablecer su contraseña.
-      send_paranoid_instructions: Si su correo electrónico existe en nuestra base
-        de datos recibirás un correo electrónico en unos minutos con instrucciones
-        sobre cómo reiniciar su contraseña.
+      confirmed: Tu cuenta ha sido confirmada satisfactoriamente.
+      send_instructions: Vas a recibir un correo con instrucciones sobre cómo confirmar
+        tu cuenta en unos minutos.
+      send_paranoid_instructions: Si tu correo existe en nuestra base de datos, en
+        unos minutos recibirás un correo con instrucciones sobre cómo confirmar tu
+        cuenta.
     failure:
-      already_authenticated: Ya ha sido identificado.
-      inactive: Su cuenta ya no está activa. Por favor contáctenos para reactivar
-        su cuenta.
-      invalid: Correo o contraseña inválidos.
-      locked: Su cuenta ha sido bloqueada.
-      last_attempt: Tiene un intento más antes de que su cuenta está bloqueada.
-      not_found_in_database: Correo o contraseña inválidos.
-      timeout: su sesión ha expirado, por favor identifíquese de nuevo para continuar.
-      unauthenticated: Necesita iniciar sesión o registrarse para continuar.
-      unconfirmed: Debe confirmar su cuenta para continuar.
-      invited: Usted tiene una invitación pendiente, lo aceptan para terminar de crear
-        su cuenta.
+      already_authenticated: Ya has iniciado sesión.
+      inactive: Tu cuenta aún no ha sido activada.
+      invalid: "%{authentication_keys} o contraseña inválidos."
+      locked: Tu cuenta está bloqueada.
+      last_attempt: Tienes un intento más antes de que tu cuenta sea bloqueada.
+      not_found_in_database: "%{authentication_keys} o contraseña inválidos."
+      timeout: Tu sesión expiró. Por favor, inicia sesión nuevamente para continuar.
+      unauthenticated: Tienes que iniciar sesión o registrarte para poder continuar.
+      unconfirmed: Tienes que confirmar tu cuenta para poder continuar.
+      invited:
     mailer:
       confirmation_instructions:
         subject: Instrucciones de confirmación
       reset_password_instructions:
-        subject: Instrucciones para restablecer su contraseña
+        subject: Instrucciones de recuperación de contraseña
       unlock_instructions:
-        subject: Instrucciones de desbloqueo
+        subject: Instrucciones para desbloquear
       email_changed:
-        subject: Correo electrónico modificado
+        subject: Email cambiado
       password_change:
         subject: Contraseña cambiada
       invitation_instructions:
-        subject: Instrucciones para tu invitación
-        hello: Hola %{email}
-        someone_invited_you: Alguien te ha invitado a %{url}, puede aceptar que a
-          través del siguiente enlace.
-        accept: Aceptar la invitacion
-        accept_until: Esta invitación se entregará en %{due_date}.
-        ignore: Si no desea aceptar la invitación, ignore este correo electrónico.
-          <br /> Su cuenta no se creará hasta que acceda al enlace anterior y establezca
-          su contraseña.
+        subject:
+        hello:
+        someone_invited_you:
+        accept:
+        accept_until:
+        ignore:
     omniauth_callbacks:
-      failure: No se le ha podido autorizar de %{kind} debido a "%{reason}".
-      success: Identificado correctamente de %{kind}.
+      failure: No has sido autorizado en la cuenta %{kind} porque "%{reason}".
+      success: Has sido autorizado satisfactoriamente en la cuenta %{kind}.
     passwords:
-      no_token: No puede acceder a esta página sino es por medio de un enlace para
-        restablecer contraseña. Si ha accedido desde el enlace para restablecer la
-        contraseña, asegúrese de que la URL esté completa.
-      send_instructions: Recibira un correo electrónico con instrucciones sobre cómo
-        restablecer su contraseña en unos minutos.
-      send_paranoid_instructions: Si su correo electrónico existe en nuestra base
-        de datos, recibira un enlace para restablecer la contraseña en unos minutos.
-      updated: Su contraseña ha cambiado correctamente. Ha sido identificado correctamente.
-      updated_not_active: Su contraseña se ha cambiado correctamente.
+      no_token: No puedes acceder a esta página si no es a través de un enlace para
+        resetear tu contraseña. Si has llegado hasta aquí desde el email para resetear
+        tu contraseña, por favor asegúrate de que la URL introducida está completa.
+      send_instructions: Recibirás un correo con instrucciones sobre cómo resetear
+        tu contraseña en unos pocos minutos.
+      send_paranoid_instructions: Si tu correo existe en nuestra base de datos, recibirás
+        un correo con instrucciones sobre cómo resetear tu contraseña en tu bandeja
+        de entrada.
+      updated: Se ha cambiado tu contraseña. Ya iniciaste sesión.
+      updated_not_active: Tu contraseña fue cambiada.
     registrations:
-      destroyed: "¡Adiós! Su cuenta ha sido cancelada. Esperamos volver a verle pronto."
-      signed_up: "¡Bienvenido! Usted ha sido identificado."
-      signed_up_but_inactive: Se ha registrado correctamente, pero no ha podido iniciar
-        sesión porque su cuenta no ha sido activada.
-      signed_up_but_locked: Se ha registrado correctamente, pero no ha podido iniciar
-        sesión porque su cuenta está bloqueada.
-      signed_up_but_unconfirmed: Se le ha enviado un mensaje con un enlace de confirmación.
-        Por favor visite el enlace para activar su cuenta.
-      update_needs_confirmation: Ha actualizado su cuenta correctamente, sin embargo
-        necesitamos verificar su nueva cuenta de correo. Por favor revise su correo
-        electrónico y visite el enlace para finalizar la confirmación de su nueva
-        dirección de correo electrónico.
-      updated: Ha actualizado tu cuenta correctamente.
+      destroyed: "¡Adiós! Tu cuenta ha sido cancelada correctamente. Esperamos verte
+        pronto."
+      signed_up: Bienvenido. Tu cuenta fue creada.
+      signed_up_but_inactive: Tu cuenta ha sido creada correctamente. Sin embargo,
+        no hemos podido iniciar la sesión porque tu cuenta aún no está activada.
+      signed_up_but_locked: Tu cuenta ha sido creada correctamente. Sin embargo, no
+        hemos podido iniciar la sesión porque que tu cuenta está bloqueada.
+      signed_up_but_unconfirmed: Se ha enviado un mensaje con un enlace de confirmación
+        a tu correo electrónico. Abre el enlace para activar tu cuenta.
+      update_needs_confirmation: Has actualizado tu cuenta correctamente, pero es
+        necesario confirmar tu nuevo correo electrónico. Por favor, comprueba tu correo
+        y sigue el enlace de confirmación para finalizar la comprobación del nuevo
+        correo electrónico.
+      updated: Tu cuenta se ha actualizado.
       updated_but_not_signed_in: Su cuenta se ha actualizado correctamente, pero como
         se cambió su contraseña, debe iniciar sesión nuevamente
     sessions:
-      signed_in: Ha iniciado sesión satisfactoriamente.
-      signed_out: Ha cerrado la sesión satisfactoriamente.
-      already_signed_out: Ha cerrado la sesión satisfactoriamente.
+      signed_in: Sesión iniciada.
+      signed_out: Sesión finalizada.
+      already_signed_out: Sesión finalizada.
     unlocks:
-      send_instructions: Recibira un correo electrónico en unos minutos con instrucciones
-        sobre cómo desbloquear su cuenta.
-      send_paranoid_instructions: Si su cuenta existe, recibira un correo electrónico
-        en unos minutos con instrucciones sobre cómo desbloquear su cuenta.
-      unlocked: Su cuenta ha sido desbloqueada. Por favor inicie sesión para continuar.
+      send_instructions: Vas a recibir instrucciones para desbloquear tu cuenta en
+        unos pocos minutos.
+      send_paranoid_instructions: Si tu cuenta existe, vas a recibir instrucciones
+        para desbloquear tu cuenta en unos pocos minutos.
+      unlocked: Tu cuenta ha sido desbloqueada. Ya puedes iniciar sesión.
     invitations:
-      send_instructions: Un correo de invitación ha sido enviado a %{email}.
-      invitation_token_invalid: "¡El codigo de invitación no es valido!"
-      updated: La contraseña ha sido creada. Estás conectado.
-      updated_not_active: Su contraseña se ha establecido satisfactoriamente.
-      no_invitations_remaining: No quedan invitaciones
-      invitation_removed: Su invitación fue eliminada.
+      send_instructions:
+      invitation_token_invalid:
+      updated:
+      updated_not_active:
+      no_invitations_remaining:
+      invitation_removed:
       new:
-        header: Enviar invitación
-        submit_button: Enviar una invitación
+        header:
+        submit_button:
       edit:
-        header: Enviar su contraseña
-        submit_button: Enviar mi contraseña
+        header:
+        submit_button:
+  doorkeeper:
+    applications:
+      confirmations:
+        destroy: "¿Estás seguro?"
+      buttons:
+        edit: Editar
+        destroy: Eliminar
+        submit: Enviar
+        cancel: Cancelar
+        authorize: Autorizar
+      form:
+        error: Ups! Verifica tu formulario por posibles errores
+      help:
+        confidential: Application will be used where the client secret can be kept
+          confidential. Native mobile apps and Single Page Apps are considered non-confidential.
+        redirect_uri: Usa una linea por URI
+        blank_redirect_uri: Leave it blank if you configured your provider to use
+          Client Credentials, Resource Owner Password Credentials or any other grant
+          type that doesn't require redirect URI.
+        scopes: Separa los ámbitos con espacios. Deja en blanco para usar los ámbitos
+          predeterminados.
+      edit:
+        title: Editar aplicación
+      index:
+        title: Tus aplicaciones
+        new: Nueva aplicación
+        name: Nombre
+        callback_url: Callback URL
+        confidential: Confidential?
+        actions: Actions
+        confidentiality:
+          'yes': Sí
+          'no': 'No'
+      new:
+        title: Nueva aplicación
+      show:
+        title: 'Aplicación: %{name}'
+        application_id: Identificador de aplicación
+        secret: Secret
+        secret_hashed:
+        scopes: Ámbitos
+        confidential: Confidential
+        callback_urls: Callback urls
+        actions: Acciones
+        not_defined:
+    authorizations:
+      buttons:
+        authorize: Autorizar
+        deny: Denegar
+      error:
+        title: Ha ocurrido un error
+      new:
+        title: Autorización requerida
+        prompt: "¿Autorizas a %{client_name} para usar tu cuenta?"
+        able_to: Está aplicación tendrá permisos para
+      show:
+        title: Código de autorización
+      form_post:
+        title:
+    authorized_applications:
+      confirmations:
+        revoke: "¿Estás seguro?"
+      buttons:
+        revoke: Revocar
+      index:
+        title: Tus aplicaciones autorizadas
+        application: Aplicación
+        created_at: Creada el
+        date_format: "%d/%m/%Y %H:%M:%S"
+    pre_authorization:
+      status: Pre-authorization
+    errors:
+      messages:
+        invalid_request:
+          unknown: La petición no tiene un parámetro obligatorio, incluye un valor
+            de parámetro incompatible, o tiene un formato incorrecto.
+          missing_param: 'Missing required parameter: %{value}.'
+          request_not_authorized: Request need to be authorized. Required parameter
+            for authorizing request is missing or invalid.
+        invalid_redirect_uri: La uri de redirección no es valida.
+        unauthorized_client: El cliente no tiene autorización para realizar esta petición
+          utilizando este método.
+        access_denied: El propietario del recurso o el servidor de autorización han
+          denegado la petición.
+        invalid_scope: El scope solicitado no es válido, es desconocido, o tiene un
+          formato incorrecto.
+        invalid_code_challenge_method: The code challenge method must be plain or
+          S256.
+        server_error: El servidor de autorización ha encontrado una condición inesperada
+          que le ha impedido completar la petición.
+        temporarily_unavailable: El servidor de autorización no ha podido manejar
+          la petición por una sobrecarga temporal o por mantenimiento del servidor.
+        credential_flow_not_configured: El flujo de credenciales del propietario del
+          recurso ha fallado porque Doorkeeper.configure.resource_owner_from_credentials
+          no está configurado.
+        resource_owner_authenticator_not_configured: La búsqueda del propietario del
+          recurso ha fallado porque Doorkeeper.configure.resource_owner_authenticator
+          no está configurado.
+        admin_authenticator_not_configured: Access to admin panel is forbidden due
+          to Doorkeeper.configure.admin_authenticator being unconfigured.
+        unsupported_response_type: El servidor de autorización no soporta este tipo
+          de respuesta.
+        unsupported_response_mode:
+        invalid_client: La autenticación del cliente ha fallado por cliente desconocido,
+          cliente no autenticado, o método de autenticación incompatible.
+        invalid_grant: La autorización proporcionada no es válida, ha expirado, se
+          ha revocado, no coincide con la URI de redirección utilizada en la petición
+          de autorización, o ha sido solicitada por otro cliente.
+        unsupported_grant_type: El tipo de autorización no está soportada por el servidor
+          de autorización.
+        invalid_token:
+          revoked: El token de acceso ha sido revocado
+          expired: El token de acceso ha expirado
+          unknown: El token de acceso es inválido
+        revoke:
+          unauthorized: No tiene autorización para revocar este token
+    flash:
+      applications:
+        create:
+          notice: Aplicación creada.
+        destroy:
+          notice: Aplicación eliminada.
+        update:
+          notice: Aplicación actualizada.
+      authorized_applications:
+        destroy:
+          notice: Aplicación revocada.
+    layouts:
+      admin:
+        title: Doorkeeper
+        nav:
+          oauth2_provider: Proveedor OAuth2
+          applications: Aplicaciones
+          home: Home
+      application:
+        title: Autorización OAuth requerida
   contact_us:
     contact_mailer:
       contact_email:
-        sent_by_contact_form: Enviado por el formulario de contacto desde %{email}
-        sent_by_name: Enviado por %{name} con la dirección %{email}
-        subject: Mensaje de contacto de %{email}
+        sent_by_contact_form:
+        sent_by_name:
+        subject:
     contacts:
       new:
-        contact_us: Contactanos
-        email: Correo electrónico
-        message: Mensaje
-        name: Nombre
-        subject: Tema
-        submit: Enviar
+        contact_us:
+        email:
+        message:
+        name:
+        subject:
+        submit:
       new_formtastic:
-        contact_us: Contactanos
-        email: Correo electrónico
-        message: Mensaje
-        name: Nombre
-        subject: Tema
-        submit: Enviar
+        contact_us:
+        email:
+        message:
+        name:
+        subject:
+        submit:
       new_simple_form:
-        contact_us: Contactanos
-        email: Correo electrónico
-        message: Mensaje
-        name: Nombre
-        subject: Tema
-        submit: Enviar
+        contact_us:
+        email:
+        message:
+        name:
+        subject:
+        submit:
     notices:
-      error: Debes de ingresar ambos campos.
-      success: El correo electrónico de contacto fue enviado con éxito.
-  views:
-    pagination:
-      first: "&laquo; Primera"
-      last: Última &raquo;
-      previous: "&lsaquo; Anterior"
-      next: Siguiente &rsaquo;
-      truncate: "&hellip;"
-  recaptcha:
-    errors:
-      verification_failed: La verificación reCAPTCHA falló, por favor intente nuevamente.
-      recaptcha_unreachable: Vaya, no hemos podido validar su respuesta reCAPTCHA.
-        Inténtalo de nuevo.
+      error:
+      success:

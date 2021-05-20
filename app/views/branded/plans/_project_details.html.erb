@@ -58,7 +58,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
 
 <%# if DOI minting is enabled %>
 <% landing_page = plan.landing_page %>
-<% if Rails.configuration.x.doi&.active && landing_page.present? %>
+<% if Rails.configuration.x.dmproadmap.doi_minting && landing_page.present? %>
   <div class="form-group"><!-- identifier -->
     <div class="col-md-12">
       <%= form.label(:doi, _('Landing page'), class: 'control-label') %>

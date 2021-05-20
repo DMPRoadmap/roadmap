@@ -58,7 +58,7 @@ module ExternalApis
           "Content-type": "application/vnd.orcid+xml",
           "Accept": "application/xml",
           "Authorization": "Bearer #{token.access_token}",
-          "Server-Agent": "#{ApplicationService.application_name} (#{Rails.application.credentials.orcid[:client_id]})"
+          "Server-Agent": "#{ApplicationService.application_name} (#{Rails.configuration.x.dmproadmap.orcid_client_id})"
         }
 
         resp = http_post(uri: target, additional_headers: hdrs, debug: true,

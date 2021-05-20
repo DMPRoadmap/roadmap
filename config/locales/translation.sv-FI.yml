@@ -2,10 +2,17 @@
 # IF YOU UPDATE IT, YOUR CHANGES WILL BE LOST AT THE NEXT SYNC.
 #
 # To update this file, use this translation interface:
-# https://translation.io/xsrust/roadmap/sv-FI
+# https://translation.io/cdl-uc3/dmptool/sv-FI
 #
 ---
 sv-FI:
+  views:
+    pagination:
+      truncate: "&hellip;"
+      first: "&laquo; Första"
+      last: Sista &raquo;
+      previous: "&lsaquo; Föregående"
+      next: Nästa &rsaquo;
   date:
     day_names:
     - söndag
@@ -52,8 +59,8 @@ sv-FI:
     - nov
     - dec
   time:
-    am: AM
-    pm: E.M
+    am:
+    pm:
   number:
     human:
       storage_units:
@@ -65,8 +72,8 @@ sv-FI:
           mb: MB
           gb: GB
           tb: TB
-          pb: PB
-          eb: EB
+          pb:
+          eb:
       decimal_units:
         units:
           thousand: Tusen
@@ -77,6 +84,7 @@ sv-FI:
   errors:
     format: "%{attribute} %{message}"
     messages:
+      model_invalid: 'Validering misslyckades: %{errors}'
       inclusion: finns inte i listan
       exclusion: är reserverat
       invalid: har fel format
@@ -86,14 +94,14 @@ sv-FI:
       blank: måste anges
       present: får inte anges
       too_long:
-        one: är för lång (max är 1 tecken)
-        other: är för lång (max är %{count} tecken)
+        one:
+        other:
       too_short:
-        one: är för kort (minst 1 tecken)
-        other: är för kort (minimum är %{count} tecken)
+        one:
+        other:
       wrong_length:
-        one: är fel längd (ska vara 1 tecken)
-        other: är fel längd (ska vara %{count} tecken)
+        one:
+        other:
       not_a_number: är inte ett nummer
       not_an_integer: måste vara ett heltal
       greater_than: måste vara större än %{count}
@@ -104,23 +112,25 @@ sv-FI:
       other_than: måste vara annat än %{count}
       odd: måste vara udda
       even: måste vara jämnt
+      required: måste finnas
       taken: används redan
-      already_confirmed: var redan bekräftad
-      confirmation_period_expired: måste bekräftas inom %{period}, var god be om en
-        ny
-      expired: har gått ut, vänligen be om en ny
-      not_found: hittas inte
+      already_confirmed: är redan bekräftad, vänligen logga in igen
+      confirmation_period_expired: behöver bekräftas inom %{period}. Vänligen begär
+        en ny
+      expired: är inte längre giltig. Vänligen begär en ny
+      not_found: hittades inte
       not_locked: var inte låst
       not_saved:
-        one: '1 fel hindrade detta %{resource} från att sparas:'
-        other: "%{count} fel hindrade detta %{resource} från att sparas:"
-      model_invalid: 'Validering misslyckades: %{errors}'
-      required: måste finnas
+        one: '1 fel hindrade denna %{resource} från att sparas:'
+        other: "%{count} fel hindrade denna %{resource} från att sparas:"
     template:
       body: 'Det var problem med följande fält:'
       header:
-        one: Ett fel förhindrade denna %{model} från att sparas
-        other: "%{count} fel förhindrade denna %{model} från att sparas"
+        one: Ett fel förhindrade ifrågavarande %{model} från att sparas
+        other: "%{count} fel förhindrade ifrågavarande %{model} från att sparas"
+    unavailable_session:
+    unacceptable_request:
+    connection_refused:
   activerecord:
     errors:
       messages:
@@ -128,6 +138,22 @@ sv-FI:
         restrict_dependent_destroy:
           has_one: Kan inte ta bort post då beroende %{record} finns
           has_many: Kan inte ta bort poster då beroende %{record} finns
+      models:
+        doorkeeper/application:
+          attributes:
+            redirect_uri:
+              fragment_present:
+              invalid_uri:
+              unspecified_scheme:
+              relative_uri:
+              secured_uri:
+              forbidden_uri:
+            scopes:
+              not_match_configured:
+    attributes:
+      doorkeeper/application:
+        name:
+        redirect_uri:
   datetime:
     distance_in_words:
       half_a_minute: en halv minut
@@ -183,12 +209,12 @@ sv-FI:
       submit: Spara %{model}
     page_entries_info:
       entry:
-        zero: anteckningar
-        one: inträde
-        other: anteckningar
+        zero:
+        one:
+        other:
       one_page:
         display_entries:
-          zero: Nej %{entry_name} hittades
+          zero:
           one: Visar <b>%{count}<b> %{entry_name}
           other: Visar <b>alla %{count}</b> %{entry_name}
       more_pages:
@@ -197,144 +223,247 @@ sv-FI:
   flash:
     actions:
       create:
-        notice: "%{resource_name} skapades med framgång."
+        notice:
       update:
-        notice: "%{resource_name} har uppdaterats."
+        notice:
       destroy:
-        notice: "%{resource_name} framgångsrikt förstördes."
-        alert: "%{resource_name} kunde inte förstöras."
+        notice:
+        alert:
+  recaptcha:
+    errors:
+      verification_failed:
+      recaptcha_unreachable:
   devise:
     confirmations:
-      confirmed: Ditt konto är bekräftat. Du kan nu logga in.
-      send_instructions: Du får strax ett epost-meddelande med instruktioner hur du
-        bekräftar ditt konto.
-      send_paranoid_instructions: Om din e-postadress finns i vår databas får du ett
-        mail med instruktioner för hur du bekräftar din e-postadress inom några minuter.
+      confirmed: Ditt konto har bekräftats. Du är nu inloggad.
+      send_instructions: Du kommer att få epost med instruktioner om hur du kan bekräfta
+        ditt konto inom några minuter.
+      send_paranoid_instructions: Om din epostadress finns i vår databas, kommer du
+        att få ett epost-meddelande inom några minuter med instruktioner om hur du
+        ska göra för att aktivera ditt konto igen.
     failure:
       already_authenticated: Du är redan inloggad.
-      inactive: Ditt konto är ännu ej aktiverat.
-      invalid: Ogiltlig e-post eller lösenord.
+      inactive: Ditt konto har inte aktiverats ännu.
+      invalid: Ogiltig %{authentication_keys} eller lösenord
       locked: Ditt konto är låst.
-      last_attempt: Du har ytterligare ett försök innan ditt konto är låst.
-      not_found_in_database: Ogiltlig e-post eller lösenord.
-      timeout: Din session har avslutats, logga in på nytt för att fortsätta.
-      unauthenticated: Du behöver logga in eller registrera dig innan du kan fortsätta.
-      unconfirmed: Du behöver bekräfta ditt konto innan du kan fortsätta.
-      invited: Du har en väntande inbjudan, acceptera den för att slutföra skapa ditt
-        konto.
+      last_attempt: Du har ett försök kvar, sen låser vi ditt konto.
+      not_found_in_database: Ogiltig %{authentication_keys} eller lösenord
+      timeout: Din session är inte längre giltig, vänligen logga in igen för att fortsätta.
+      unauthenticated: Du måste logga in eller skapa ett konto innan du kan fortsätta.
+      unconfirmed: Du måste bekräfta ditt konto innan du kan fortsätta.
+      invited:
     mailer:
       confirmation_instructions:
-        subject: Instruktioner för att bekräfta konto
+        subject: Instruktioner för bekräftning av konto
       reset_password_instructions:
-        subject: Instruktioner för att återställa lösenordet
+        subject: Instruktioner för återställning av lösenord
       unlock_instructions:
-        subject: Instruktioner för upplåsning
+        subject: Instruktioner för upplåsning av konto
       email_changed:
-        subject: E-post ändrad
+        subject: E-post ändrades
       password_change:
-        subject: Lösenordet ändrat
+        subject: Lösenorded uppdaterades
       invitation_instructions:
-        subject: Inbjudningsanvisningar
-        hello: Hej %{email}
-        someone_invited_you: Någon har bjudit in dig till %{url}, du kan acceptera
-          den via länken nedan.
-        accept: Acceptera inbjudan
-        accept_until: Denna inbjudan beror på %{due_date}.
-        ignore: Om du inte vill acceptera inbjudan, ignorerar du det här e-postmeddelandet.
-          <br /> Ditt konto kommer inte att skapas förrän du öppnar länken ovan och
-          anger ditt lösenord.
+        subject:
+        hello:
+        someone_invited_you:
+        accept:
+        accept_until:
+        ignore:
     omniauth_callbacks:
-      failure: Kunde inte verifiera dig från %{kind} eftersom "%{reason}".
-      success: Succesfullt autentiserad från %{kind} konto.
+      failure: Kunde inte autentisera dig med %{kind} för "%{reason}".
+      success: Autentiserat med %{kind}-konto.
     passwords:
-      no_token: Du kan inte komma åt den här sidan utan att komma från ett e-postmeddelande
-        för lösenordsåterställning. Om du kommer från ett lösenordsåterställt e-postmeddelande,
-        var vänlig och se till att du använde hela webbadressen.
-      send_instructions: Du får ett mail med instruktioner om hur du återställer ditt
-        lösenord om några minuter.
-      send_paranoid_instructions: Om din e-postadress finns i vår databas, får du
-        en länk för återställning av lösenord på din e-postadress om några minuter.
-      updated: Ditt lösenord har ändrats framgångsrikt. Du är nu inloggad.
-      updated_not_active: Ditt lösenord har ändrats framgångsrikt.
+      no_token: Tillgång till den här sidan kräver att du kommer från ett mejl som
+        sätter tillbaka ditt lösenord. Om du kom hit från ett sånt mejl, säkerställ
+        att du har använt hela URL:en.
+      send_instructions: Du kommer få epost med instruktioner för hur du kan återställa
+        ditt lösenord inom några minuter.
+      send_paranoid_instructions: Om din epostadress finns i vår databas kommer du
+        att få en lösenordslänk skickad till din epost.
+      updated: Ditt lösenord har uppdaterats. Du är nu inloggad.
+      updated_not_active: Ditt lösenord uppdaterades.
     registrations:
-      destroyed: Adjö! Ditt konto har blivit avstängt. Vi hoppas att vi ses snart
+      destroyed: Hej då! Ditt konto har avregistrerats. Vi hoppas få se dig snart
         igen.
-      signed_up: Välkommen! Du har anmält dig framgångsrikt.
-      signed_up_but_inactive: Du har anmält dig framgångsrikt. Vi kunde dock inte
-        logga in dig eftersom ditt konto ännu inte är aktiverat.
-      signed_up_but_locked: Du har anmält dig framgångsrikt. Vi kunde dock inte logga
-        in eftersom ditt konto är låst.
-      signed_up_but_unconfirmed: Ett meddelande med en bekräftelse länk har skickats
-        till din e-postadress. Vänligen följ länken för att aktivera ditt konto.
-      update_needs_confirmation: Du har uppdaterat ditt konto med framgång, men vi
-        måste verifiera din nya e-postadress. Vänligen kolla din email och följ bekräfta
-        länken för att bekräfta din nya e-postadress.
-      updated: Ditt konto har uppdaterats framgångsrikt.
-      updated_but_not_signed_in: Ditt konto har uppdaterats, men eftersom ditt lösenord
-        har ändrats måste du logga in igen
+      signed_up: Välkommen! Ditt nya konto har skapats.
+      signed_up_but_inactive: Du är nu registrerad. Däremot kunde vi inte logga in
+        dig, eftersom ditt konto ännu inte aktiverats.
+      signed_up_but_locked: Du är nu registrerad. Däremot kunde vi inte logga in dig,
+        eftersom ditt konto är låst.
+      signed_up_but_unconfirmed: Ett meddelande med en länk för att bekräfta din registrering
+        har skickats till din epostadress. Följ länken för att aktivera ditt konto.
+      update_needs_confirmation: Ditt konto uppdaterades, men vi behöver verifiera
+        din nya epostadress. Kontrollera din epost och klicka på länken för att bekräfta
+        din nya epostadress.
+      updated: Ditt konto har uppdaterats.
+      updated_but_not_signed_in: Kontot uppdaterades, men eftersom att lösenordet
+        ändrades behöver ni logga in igen
     sessions:
-      signed_in: Inloggad med framgång.
-      signed_out: Utloggad framgångsrikt.
-      already_signed_out: Utloggad framgångsrikt.
+      signed_in: Loggade in.
+      signed_out: Loggade ut.
+      already_signed_out: Du är nu utloggad.
     unlocks:
-      send_instructions: Du får strax ett epost-meddelande med instruktioner hur du
-        låser upp ditt konto.
-      send_paranoid_instructions: Om ditt konto finns, får du ett mail med instruktioner
-        om hur du låser upp det på några minuter.
-      unlocked: Ditt konto är upplåst. Du är nu inloggad.
+      send_instructions: Du kommer få epost med instruktioner om hur du kan låsa upp
+        ditt konto inom några minuter.
+      send_paranoid_instructions: Om ditt konto finns, kommer du att få ett email
+        med instruktioner om hur du låser upp det inom några minuter.
+      unlocked: Ditt konto har låsts upp. Du är nu inloggad.
     invitations:
-      send_instructions: Ett inbjudningsmeddelande har skickats till %{email}.
-      invitation_token_invalid: Anbudsinfordran är inte giltig!
-      updated: Ditt lösenord har upprättats. Du är nu inloggad.
-      updated_not_active: Ditt lösenord har upprättats.
-      no_invitations_remaining: Inga inbjudningar kvar
-      invitation_removed: Din inbjudan har tagits bort.
+      send_instructions:
+      invitation_token_invalid:
+      updated:
+      updated_not_active:
+      no_invitations_remaining:
+      invitation_removed:
       new:
-        header: Skicka inbjudan
-        submit_button: Skicka en inbjudan
+        header:
+        submit_button:
       edit:
-        header: Ange ditt lösenord
-        submit_button: Ange mitt lösenord
+        header:
+        submit_button:
+  doorkeeper:
+    applications:
+      confirmations:
+        destroy:
+      buttons:
+        edit:
+        destroy:
+        submit:
+        cancel:
+        authorize:
+      form:
+        error:
+      help:
+        confidential:
+        redirect_uri:
+        blank_redirect_uri:
+        scopes:
+      edit:
+        title:
+      index:
+        title:
+        new:
+        name:
+        callback_url:
+        confidential:
+        actions:
+        confidentiality:
+          'yes':
+          'no':
+      new:
+        title:
+      show:
+        title:
+        application_id:
+        secret:
+        secret_hashed:
+        scopes:
+        confidential:
+        callback_urls:
+        actions:
+        not_defined:
+    authorizations:
+      buttons:
+        authorize:
+        deny:
+      error:
+        title:
+      new:
+        title:
+        prompt:
+        able_to:
+      show:
+        title:
+      form_post:
+        title:
+    authorized_applications:
+      confirmations:
+        revoke:
+      buttons:
+        revoke:
+      index:
+        title:
+        application:
+        created_at:
+        date_format:
+    pre_authorization:
+      status:
+    errors:
+      messages:
+        invalid_request:
+          unknown:
+          missing_param:
+          request_not_authorized:
+        invalid_redirect_uri:
+        unauthorized_client:
+        access_denied:
+        invalid_scope:
+        invalid_code_challenge_method:
+        server_error:
+        temporarily_unavailable:
+        credential_flow_not_configured:
+        resource_owner_authenticator_not_configured:
+        admin_authenticator_not_configured:
+        unsupported_response_type:
+        unsupported_response_mode:
+        invalid_client:
+        invalid_grant:
+        unsupported_grant_type:
+        invalid_token:
+          revoked:
+          expired:
+          unknown:
+        revoke:
+          unauthorized:
+    flash:
+      applications:
+        create:
+          notice:
+        destroy:
+          notice:
+        update:
+          notice:
+      authorized_applications:
+        destroy:
+          notice:
+    layouts:
+      admin:
+        title:
+        nav:
+          oauth2_provider:
+          applications:
+          home:
+      application:
+        title:
   contact_us:
     contact_mailer:
       contact_email:
-        sent_by_contact_form: Skickat av kontaktformulär från %{email}
-        sent_by_name: Skickat av %{name} från %{email}
-        subject: Kontakta oss meddelande från %{email}
+        sent_by_contact_form:
+        sent_by_name:
+        subject:
     contacts:
       new:
-        contact_us: Kontakta oss
-        email: E-post
-        message: Meddelande
-        name: Namn
-        subject: Ämne
-        submit: Skicka
+        contact_us:
+        email:
+        message:
+        name:
+        subject:
+        submit:
       new_formtastic:
-        contact_us: Kontakta oss
-        email: E-post
-        message: Meddelande
-        name: Namn
-        subject: Ämne
-        submit: Skicka
+        contact_us:
+        email:
+        message:
+        name:
+        subject:
+        submit:
       new_simple_form:
-        contact_us: Kontakta oss
-        email: E-post
-        message: Meddelande
-        name: Namn
-        subject: Ämne
-        submit: Skicka
+        contact_us:
+        email:
+        message:
+        name:
+        subject:
+        submit:
     notices:
-      error: Du måste ange båda fälten.
-      success: Kontaktadressen skickades med framgång.
-  views:
-    pagination:
-      first: "&laquo; Första"
-      last: Sista &raquo;
-      previous: "&lsaquo; Föregående"
-      next: Nästa &rsaquo;
-      truncate: "&hellip;"
-  recaptcha:
-    errors:
-      verification_failed: verifiering av reCAPTCHA misslyckades, försök igen.
-      recaptcha_unreachable: Oj, vi kunde inte validera ditt reCAPTCHA-svar. Var god
-        försök igen.
+      error:
+      success:
