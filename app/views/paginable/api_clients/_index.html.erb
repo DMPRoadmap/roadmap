@@ -31,7 +31,7 @@
           <td><%= client.homepage.present? ? link_to(client.homepage) : "" %></td>
           <td><%= client.contact_email.present? ? link_to(client.contact_email, "mailto:#{client.contact_email}") : "" %></td>
           <td>
-            <%= client.redirect_uri.split(/\n/).join(", ") %>
+            <%= client.redirect_uri&.split(/\n/)&.join(", ") %>
           </td>
           <td><%= client.last_access.present? ? l(client.last_access.to_date, formats: :short) : _("Never") %></td>
           <td>
