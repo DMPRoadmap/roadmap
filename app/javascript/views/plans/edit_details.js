@@ -193,6 +193,10 @@ $(() => {
     }).done((data) => {
       form.html(data.question.form);
       form.find('.answer-save-button').prop('disabled', false);
+      // Write Plan forms have schema picker in place of the run button
+      // When form is sent back by the controller, we fill the schema-picker div
+      // with the run-button content given by the controller
+      target.find('.schema-picker-zone').html(data.question.form_run).addClass('run-zone');
       Tinymce.init({
         toolbar,
       });

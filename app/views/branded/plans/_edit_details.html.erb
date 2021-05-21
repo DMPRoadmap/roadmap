@@ -64,7 +64,7 @@
                 <%= _('Saving...') %>
               </div>
               <div class="answer-bottom-zone" >
-                <div class="answer-run-zone">
+                <div class="run-zone">
                   <% run_parameters = project_schema.extract_run_parameters %>
                   <%= render(partial: 'shared/dynamic_form/codebase_run', locals: { 
                         fragment: project_fragment,
@@ -139,7 +139,7 @@
                   <%= _('Saving...') %>
                 </div>
                 <div class="answer-bottom-zone" >
-                  <div class="answer-run-zone">
+                  <div class="run-zone">
                     <% run_parameters = meta_schema.extract_run_parameters %>
                     <%= render(partial: 'shared/dynamic_form/codebase_run', locals: {
                           fragment: meta_fragment,
