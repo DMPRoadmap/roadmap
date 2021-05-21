@@ -62,7 +62,7 @@ module Api
         private
 
         def plans_for_public
-          plans = Plan.publicly_visible.order(create_at: :desc)
+          plans = Plan.publicly_visible.order(updated_at: :desc)
         end
 
         # Fetch all of the User's Plans
