@@ -46,7 +46,7 @@ module Api
         if @plan.publicly_visible? ||
            (@client.is_a?(User) && @plan.owner_and_coowners.include?(@client)) ||
            (@client.is_a?(User) && @plan.org_id == @plan.owner&.org_id) ||
-           (@client.is_a?(ApiClient) && @client.access_tokens.select { |t| t.active_for(@plan.owner) })
+           (@client.is_a?(ApiClient) && @client.access_tokens.select { |t| t.resource_owner_id == @plan.owner })
           ret[:download] = @helpers.api_v2_plan_url(@plan, format: :pdf)
         end
         ret
