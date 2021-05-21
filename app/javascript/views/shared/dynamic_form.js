@@ -173,8 +173,8 @@ $(() => {
     });
   });
 
-  $(document).on('click', '.answer-run-zone .reload-button', (e) => {
+  $(document).on('click', '.run-zone .reload-button', (e) => {
     const target = $(e.target);
-    target.parents().find('.panel-collapse').trigger('reload.form');
+    target.parents('.panel-collapse').trigger('reload.form');
   });
 });
