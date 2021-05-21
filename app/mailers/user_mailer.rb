@@ -227,7 +227,7 @@ class UserMailer < ActionMailer::Base
     @api_client = api_client
     return unless @api_client.contact_email.present?
 
-    @api_docs = Rails.configuration.x.application.api_documentation_urls[:v1]
+    @api_docs = Rails.configuration.x.application.api_documentation_overview_url
 
     @name = @api_client.contact_name.present? ? @api_client.contact_name : @api_client.contact_email
 

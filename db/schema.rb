@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_10_193106) do
+ActiveRecord::Schema.define(version: 2021_05_21_183235) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -279,10 +279,14 @@ ActiveRecord::Schema.define(version: 2021_05_10_193106) do
     t.datetime "updated_at", null: false
     t.integer "org_id"
     t.text "redirect_uri"
+    t.string "callback_uri"
+    t.integer "callback_method", default: 0
     t.string "scopes", default: "", null: false
     t.boolean "confidential", default: true
     t.boolean "trusted", default: false, null: false
     t.bigint "user_id"
+    t.string "logo_uid"
+    t.string "logo_name"
     t.index ["name"], name: "index_oauth_applications_on_name"
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
     t.index ["user_id"], name: "index_oauth_applications_on_user_id"

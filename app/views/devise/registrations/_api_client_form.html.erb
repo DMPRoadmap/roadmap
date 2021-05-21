@@ -63,6 +63,27 @@
   </div>
   <div class="row">
     <div class="form-group col-xs-8">
+      <%= f.label :logo, _('Logo'), class: "control-label"  %>
+
+      <% if f.object.logo.present? %>
+        <div class="clearfix"></div>
+        <%= image_tag logo_url_for_org(f.object), alt: "#{f.object.name} #{_('logo')}", class: "org-logo" %>
+        <div class="org-logo-controls checkbox">
+          <%= f.label :remove_logo do %>
+            <%= f.check_box :remove_logo,
+                             title: _("This will remove your logo") %>
+            <%= _('Remove logo') %>
+          <% end %>
+          <strong> - <%= _('or') %> - </strong>
+          <span class="btn btn-default btn-file"><%= f.file_field :logo %></span>
+        </div>
+      <% else %>
+        <%= f.file_field :logo %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-xs-8">
       <%= f.label :redirect_uri, _('Redirect URI(s)'), class: 'control-label' %>
       <%= f.text_area :redirect_uri, class: 'form-control', rows: 3,
                                      placeholder: 'http://localhost:3000/oauth2/callback',

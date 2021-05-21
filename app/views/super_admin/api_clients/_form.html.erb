@@ -3,13 +3,65 @@ url = @api_client.new_record? ? super_admin_api_clients_path : super_admin_api_c
 method = @api_client.new_record? ? :post : :put
 orgs = Org.includes(identifiers: [:identifier_scheme]).where(is_other: false)
 
-redirect_uri_tooltip = _("Only applicable to OAuth enabled API endpoints (e.g. v2+). The redirect URI is the address that will be sent the user's authorization code once they have approved the integration via OAuth.")
 tooltip_for_trusted = _("The API Client is a trusted external application and will be able to access read/edit/create/delete any data without having to acquire the User's authorization via OAuth.")
-scope_information = sanitize(_("Scopes are not applicable to API v0 or v1. By default all API Clients have access to the 'public' scope which allows them to fetch the list of templates and read any publicly visible plans. See the %{link_to_v2_wiki} for details on scopes.") % { link_to_v2_wiki: "<a href=\"#{Rails.configuration.x.application.api_documentation_urls[:v2]}\" target=\"_blank\">API V2 wiki</a>" })
+redirect_uri_tooltip = _("A redirect URI is the address that will be sent the user's OAuth authorization code. If you have multiple URIs, pllease place them on inidividual lines. The redirect_uri you specify in your calls to the API must match one of the ones you define here.")
+callback_uri_tooltip = _("An API endpoint on your application/system that we can use to notify you when a DMP is updated. You will receive notifications of updates to any DMPs you create, download or update.")
 %>
 
 <%= form_for @api_client, url: url, method: method,
                           html: { class: 'api_client' } do |f| %>
+  <div class="row">
+    <div class="form-group col-xs-8">
+      <hr>
+      <% if @api_client.user.present? %>
+        <p><%= _("This is the API information for the following user account.") %></p>
+        <p><strong>Owner/User:</strong> <a href="<%= edit_super_admin_user_path(@api_client.user) %>"><%= @api_client.user&.name(false) %></a></p>
+        <p><strong>Org:</strong> <%= @api_client.user.org&.name %></p>
+      <% else %>
+        <p><%= _("No owner has been defined for this API Client!") %></p>
+      <% end %>
+      <hr>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-xs-4">
+      <%= f.label :contact_email, _('Contact Name'), class: 'control-label' %>
+      <%= f.text_field :contact_name, class: 'form-control' %>
+    </div>
+    <div class="form-group col-xs-4">
+      <%= f.label :contact_email, _('Contact Email'), class: 'control-label' %>
+      <%= f.email_field :contact_email, class: 'form-control', aria: { required: true } %>
+    </div>
+  </div>
+
+  <% unless @api_client.new_record? %>
+    <div class="row" id="api-client-credentials">
+      <div class="form-group col-xs-4">
+        <%= f.label :client_id, _('Client ID'), class: 'control-label' %>
+        <%= f.email_field :client_id, class: 'form-control', disabled: true %>
+      </div>
+      <div class="form-group col-xs-4">
+        <%= f.label :client_secret, _('Client Secret'), class: 'control-label' %>
+        <%= f.email_field :client_secret, class: 'form-control', disabled: true %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-xs-4">
+        <%= f.label :client_id, _('Last accessed on'), class: 'control-label' %>
+        <% date = @api_client.last_access.present? ? @api_client.last_access.utc.to_s  : _("Never") %>
+        <%= f.text_field :last_access, class: 'form-control', disabled: true,
+                                        value: date %>
+      </div>
+    </div>
+  <% end %>
+
+  <hr>
+
+  <div class="row">
+    <div class="form-group col-xs-8">
+      <p><%= _("If this section is filled out then the API access is for an external system. If a 'Redirect URI' has been defined then they are using OAuth.") %></p>
+    </div>
+  </div>
   <div class="row">
     <div class="form-group col-xs-4">
       <%= f.label :name, _('Name'), class: 'control-label' %>
@@ -26,35 +78,35 @@ scope_information = sanitize(_("Scopes are not applicable to API v0 or v1. By de
       <%= f.text_area :description, class: 'form-control api-client-text' %>
     </div>
   </div>
+
   <div class="row">
-    <div class="form-group col-xs-4">
-      <%= f.label :contact_email, _('Contact Name'), class: 'control-label' %>
-      <%= f.text_field :contact_name, class: 'form-control' %>
-    </div>
-    <div class="form-group col-xs-4">
-      <%= f.label :contact_email, _('Contact Email'), class: 'control-label' %>
-      <%= f.email_field :contact_email, class: 'form-control', aria: { required: true } %>
-    </div>
-  </div>
-  <div class="row">
-    <div id="api-client-org-controls" class="form-group col-xs-8">
-      <%= render partial: "shared/org_selectors/local_only",
-                 locals: { form: f, default_org: @api_client.org, orgs: orgs, required: false } %>
+    <div class="form-group col-xs-8">
+      <%= f.label :logo, _('Logo'), class: "control-label"  %>
+
+      <% if f.object.logo.present? %>
+        <div class="clearfix"></div>
+        <%= image_tag logo_url_for_org(f.object), alt: "#{f.object.name} #{_('logo')}", class: "org-logo" %>
+        <div class="org-logo-controls checkbox">
+          <%= f.label :remove_logo do %>
+            <%= f.check_box :remove_logo,
+                             title: _("This will remove your logo") %>
+            <%= _('Remove logo') %>
+          <% end %>
+          <strong> - <%= _('or') %> - </strong>
+          <span class="btn btn-default btn-file"><%= f.file_field :logo %></span>
+        </div>
+      <% else %>
+        <%= f.file_field :logo %>
+      <% end %>
     </div>
   </div>
 
   <div class="row">
-    <div class="form-group col-xs-4">
-      <%= f.label :redirect_uri, _('Redirect URI'), class: 'control-label' %>
-      <%= f.url_field :redirect_uri, class: 'form-control', aria: { required: true },
+    <div class="form-group col-xs-8">
+      <%= f.label :redirect_uri, _('Redirect URI(s)'), class: 'control-label' %>
+      <%= f.text_area :redirect_uri, class: 'form-control',
                                      placeholder: 'http://localhost:3000/oauth2/callback',
                                      data: { toggle: "tooltip" }, title: redirect_uri_tooltip %>
-    </div>
-    <div class="form-group col-xs-4">
-      <%= f.label :client_id, _('Last accessed on'), class: 'control-label' %>
-      <% date = @api_client.last_access.present? ? @api_client.last_access.utc.to_s  : _("Never") %>
-      <%= f.text_field :last_access, class: 'form-control', disabled: true,
-                                      value: date %>
     </div>
   </div>
   <div class="row">
@@ -67,24 +119,10 @@ scope_information = sanitize(_("Scopes are not applicable to API v0 or v1. By de
     <div class="form-group col-xs-6">
       <%= f.label :callback_uri, _('Callback URI'), class: 'control-label' %>
       <%= f.url_field :callback_uri, class: 'form-control', rows: 3,
-                                     placeholder: 'http://localhost:3000/dmps/%{id}',
+                                     placeholder: 'http://localhost:3000/dmps/',
                                      data: { toggle: "tooltip" }, title: callback_uri_tooltip %>
-      <p><%= _("If you would like the DMP ID to be used in the callback URI, please use the `%{id}` placeholder.") %></p>
     </div>
   </div>
-
-  <% unless @api_client.new_record? %>
-    <div class="row" id="api-client-credentials">
-      <div class="form-group col-xs-4">
-        <%= f.label :client_id, _('Client ID'), class: 'control-label' %>
-        <%= f.email_field :client_id, class: 'form-control', disabled: true %>
-      </div>
-      <div class="form-group col-xs-4">
-        <%= f.label :client_secret, _('Client Secret'), class: 'control-label' %>
-        <%= f.email_field :client_secret, class: 'form-control', disabled: true %>
-      </div>
-    </div>
-  <% end %>
 
   <div class="form-group row trusted-api-client">
     <div class="form-group col-md-9">
@@ -94,30 +132,6 @@ scope_information = sanitize(_("Scopes are not applicable to API v0 or v1. By de
           <%= _("This API client is trusted to access all data.") %>
         </div>
       </div>
-    </div>
-  </div>
-
-  <div class="form-group row oauth-scopes">
-    <div class="col-md-9">
-      <fieldset>
-        <legend><%= _("Scopes") %></legend>
-
-        <% Doorkeeper.config.optional_scopes.each do |scope| %>
-          <div class="col-md-3">
-            <div class="checkbox" data-toggle="tooltip" title="<%= tooltip_for_scope(scope) %>">
-              <%= f.check_box :scopes, { multiple: true, checked: @api_client.scopes.include?(scope) }, scope %>
-              <%= label_for_scope(scope) %>
-            </div>
-          </div>
-        <% end %>
-      </fieldset>
-    </div>
-  </div>
-
-  <div class="form-group row oauth-scopes">
-    <div class="form-group col-md-9">
-      <br>
-      <%= scope_information %>
     </div>
   </div>
 

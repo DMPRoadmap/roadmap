@@ -18,7 +18,7 @@ class ApiClientsController < ApplicationController
     authorize(@api_client)
     if @api_client.save
       UserMailer.new_api_client(@api_client).deliver_now
-      @msg = "API Registration complete"
+      @msg = "API Registration complete. Use your new client_id and client_secret to access the API."
     else
       @msg = "Unable to register for the API - #{@api_client.errors.full_messages.join(', ')}"
     end
@@ -57,13 +57,10 @@ class ApiClientsController < ApplicationController
   private
 
   def api_client_params
-    params.require(:api_client).permit(:name, :description, :homepage,
+    params.require(:api_client).permit(:name, :description, :homepage, :logo, :remove_logo,
                                        :contact_name, :contact_email,
                                        :client_id, :client_secret,
                                        :user_id, :org_id, :redirect_uri, :callback_uri)
   end
 
-  def available_scopes
-
-  end
 end

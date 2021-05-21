@@ -270,6 +270,9 @@ default: &default
     v1: "https://github.com/CDLUC3/dmptool/wiki/api-v1-documentation"
     v2: "https://github.com/CDLUC3/dmptool/wiki/api-v2-documentation"
 
+  # The current landing page for API documentation
+  api_documentation_overview_url: "https://github.com/CDLUC3/dmptool/wiki/API-Overview---beta"
+
   # =============================
   # = Static page configuration =
   # =============================

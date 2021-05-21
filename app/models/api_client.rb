@@ -22,6 +22,8 @@
 #  confidential    :boolean,         default: true
 #  trusted         :boolean,         default: false
 #  user_id         :integer
+#  logo_name       :string
+#  logo_uid        :string
 #
 # Indexes
 #
@@ -40,9 +42,14 @@ class ApiClient < ApplicationRecord
   include ::Doorkeeper::Orm::ActiveRecord::Mixins::Application
   include ::Doorkeeper::Models::Scopes
 
+  extend Dragonfly::Model::Validations
   extend UniqueRandom
 
   enum callback_methods: %i[put post patch]
+
+  LOGO_FORMATS = %w[jpeg png gif jpg bmp svg].freeze
+
+  dragonfly_accessor :logo
 
   # ================
   # = Associations =
@@ -69,6 +76,13 @@ class ApiClient < ApplicationRecord
 
   validates :contact_email, presence: { message: PRESENCE_MESSAGE },
                             email: { allow_nil: false }
+
+  validates_property :format, of: :logo, in: LOGO_FORMATS,
+                      message: _("must be one of the following formats: %{formats}") % {
+                        formats: LOGO_FORMATS.join(", ")
+                      }
+
+  validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
 
   # =============
   # = Callbacks =

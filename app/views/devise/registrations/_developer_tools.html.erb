@@ -14,15 +14,14 @@ api_client.contact_email = user.email unless api_client.contact_email.present?
 
   <p><%= _("The 'standard' access level allows you to:") %></p>
   <ul>
-    <li><%= _("Retrieve the names and desacriptions of all published DMP templates") %></li>
+    <li><%= _("Retrieve the names and descriptions of all published DMP templates") %></li>
     <li><%= _("Retrieve publicly visible DMPs") %></li>
     <li><%= _("Create DMPs") %></li>
     <li>
       <%= _("Then depending on your permission level you can:") %>
       <ul>
         <li><%= _("Organisation administrator - Retrieve your user's DMPs") %></li>
-        <li><%= _("Funding Organisation administrator - Retrieve DMPs that designate you as their funder") %></li>
-        <li><%= _("Researchers - Retrieve your own DMPs") %></li>
+        <li><%= _("Researchers - Retrieve your own DMPs and any organisationally visible plans") %></li>
       </ul>
     </li>
   </ul>
@@ -30,11 +29,10 @@ api_client.contact_email = user.email unless api_client.contact_email.present?
   <p><%= _("The 'protected' access level allows you to:") %></p>
   <ul>
     <li><%= _("Request a user's authorization to access their DMPs") %></li>
-    <li><%= _("Retrieve the user's DMPs (if they have authorized access)") %></li>
-    <li><%= _("Edit the user's DMPs (if they have authorized access)") %></li>
+    <li><%= _("Retrieve the user's DMP metadata or PDFs (if they have authorized access)") %></li>
   </ul>
 
-  <p><%= (_("Please see the %{wiki_docs} for full details on how the API works.") % { wiki_docs: "<a href=\"https://github.com/CDLUC3/dmptool/wiki/api-v2-documentation\" target=\"_blank\">wiki documentation</a>" }).html_safe %></p>
+  <p><%= (_("Please see the %{wiki_docs} for full details on how the API works.") % { wiki_docs: "<a href=\"#{Rails.configuration.x.dmproadmap.api_documentation_overview_url}\" target=\"_blank\">wiki documentation</a>" }).html_safe %></p>
 
   <div class="api-client-form">
     <%= render partial: "devise/registrations/api_client_form",

@@ -28,33 +28,6 @@ module SuperAdmin
       authorize(@api_client)
     end
 
-    # POST /api_clients
-    def create
-      authorize(ApiClient)
-
-      # Translate the Org selection
-      org = org_from_params(params_in: api_client_params, allow_create: false)
-      attrs = remove_org_selection_params(params_in: api_client_params)
-
-      attrs[:scopes] = scopes_from_array
-
-      @api_client = ApiClient.new(attrs)
-      @api_client.org = org if org.present?
-
-      if @api_client.save
-        UserMailer.api_credentials(@api_client).deliver_now
-        msg = success_message(@api_client, _("created"))
-        msg += _(". The API credentials have been emailed to %{email}") % {
-          email: @api_client.contact_email
-        }
-        flash.now[:notice] = msg
-        render :edit
-      else
-        flash.now[:alert] = failure_message(@api_client, _("create"))
-        render :new
-      end
-    end
-
     # PATCH/PUT /api_clients/:id
     def update
       @api_client = ApiClient.find(params[:id])
@@ -64,8 +37,6 @@ module SuperAdmin
       org = org_from_params(params_in: api_client_params, allow_create: false)
       @api_client.org = org
       attrs = remove_org_selection_params(params_in: api_client_params)
-
-      attrs[:scopes] = scopes_from_array
 
       if @api_client.update(attrs)
         flash.now[:notice] = success_message(@api_client, _("updated"))
@@ -109,7 +80,7 @@ module SuperAdmin
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def api_client_params
-      params.require(:api_client).permit(:name, :description, :homepage,
+      params.require(:api_client).permit(:name, :description, :homepage, :logo, :remove_logo,
                                          :contact_name, :contact_email,
                                          :client_id, :client_secret, :redirect_uri,
                                          :callback_uri, :callback_method,
@@ -117,13 +88,6 @@ module SuperAdmin
                                          :trusted, scopes: [])
     end
 
-    # Convert the array of scope checkboxes to a string for the DB
-    def scopes_from_array
-      scopes = api_client_params[:scopes].reject { |scope| scope == "0" }
-      # Add the defaults
-      scopes << Doorkeeper.config.default_scopes.to_a
-      scopes.flatten.sort { |a, b| a <=> b }.join(" ")
-    end
   end
 
 end

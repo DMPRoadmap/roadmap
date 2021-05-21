@@ -48,7 +48,7 @@ class Org < ApplicationRecord
   extend Dragonfly::Model::Validations
   validates_with OrgLinksValidator
 
-  LOGO_FORMATS = %w[jpeg png gif jpg bmp].freeze
+  LOGO_FORMATS = %w[jpeg png gif jpg bmp svg].freeze
 
   HUMANIZED_ATTRIBUTES = {
     feedback_email_msg: _("Feedback email message")
@@ -137,7 +137,7 @@ class Org < ApplicationRecord
 
   validates_property :format, of: :logo, in: LOGO_FORMATS,
                               message: _("must be one of the following formats: " \
-                                "jpeg, jpg, png, gif, bmp")
+                                "jpeg, jpg, png, gif, bmp svg")
 
   validates_size_of :logo,
                     maximum: 500.kilobytes,
@@ -145,7 +145,7 @@ class Org < ApplicationRecord
 
   dragonfly_accessor :logo
 
-  validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif', 'jpg', 'bmp'], message: _("must be one of the following formats: jpeg, jpg, png, gif, bmp")
+  validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif', 'jpg', 'bmp', 'svg'], message: _("must be one of the following formats: jpeg, jpg, png, gif, bmp, svg")
   validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
 
   ##
