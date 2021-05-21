@@ -432,6 +432,7 @@ class MadmpFragmentsController < ApplicationController
     section = question&.section
     plan = fragment.plan
     template = plan.template
+    run_parameters = fragment.madmp_schema.extract_run_parameters
 
     return {
             "fragment_id" => fragment.id,
@@ -454,14 +455,21 @@ class MadmpFragmentsController < ApplicationController
                 template: template,
                 question: question,
                 answer: answer,
-                fragment: fragment ,
+                fragment: fragment,
                 madmp_schema: fragment.madmp_schema,
                 research_output: research_output,
                 dmp_id: fragment.dmp_id,
                 parent_id: fragment.parent_id,
+                pickable_schemas: MadmpSchema.where(classname: fragment.classname).order(:label),
                 readonly: false,
                 base_template_org: template.base_org
               }, formats: [:html]),
+              "form_run" => run_parameters.present? ? 
+                render_to_string(partial: "shared/dynamic_form/codebase_run", locals: {
+                  fragment: fragment,
+                  parameters: run_parameters,
+                  template_locale: template.locale
+                }, formats: [:html]) : nil,
               "answer_status" => answer.present? ?
                 render_to_string(partial: "answers/status", locals: {
                   answer: answer

@@ -552,3 +552,6 @@ msgstr "L'élément est déjà présent dans votre plan"
 
 msgid "An error has occured: "
 msgstr "Une erreur s'est produite : "
+
+msgid "You can pick a different question form"
+msgstr "Vous pouvez choisir un formulaire différent"

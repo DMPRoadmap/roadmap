@@ -56,6 +56,7 @@ $(() => {
         },
       }).done((data) => {
         doneCallback(data, target);
+        $(`#runs-${data.question.id}-research-output-${data.research_output.id} .run-zone`).html(data.question.form_run);
         Tinymce.init({
           selector: `#research_output_${data.research_output.id}_section_${data.section.id} .note`,
           toolbar,
@@ -102,6 +103,7 @@ $(() => {
       },
     }).done((data) => {
       doneCallback(data, target);
+      $(`#runs-${data.question.id}-research-output-${data.research_output.id} .run-zone`).html(data.question.form_run);
       Select2.init(`#answer-form-${data.question.id}-research-output-${data.research_output.id}`);
     }).fail((error) => {
       failCallback(error, target);

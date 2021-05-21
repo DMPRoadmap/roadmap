@@ -142,7 +142,7 @@ $(() => {
     });
   });
 
-  $(document).on('click', '.answer-run-zone .run-button', (e) => {
+  $(document).on('click', '.run-zone .run-button', (e) => {
     const target = $(e.target);
     const reloadButton = target.parent().find('.reload-button');
     const messageZone = target.parent().find('.message-zone');

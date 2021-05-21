@@ -144,13 +144,12 @@
                           <!-- Guidances and notes partial view -->
                           <% if question.question_format.structured? %>
                             <% madmp_schema = fragment ? fragment.madmp_schema : question.madmp_schema %>
-                            <%= render partial: '/phases/schemas_guidances_notes', locals: {
+                            <%= render partial: '/phases/guidances_notes_runs', locals: {
                               plan: plan,
                               template: phase.template,
                               question: question,
                               answer: answer,
                               madmp_schema: madmp_schema,
-                              pickable_schemas: @schemas.where(classname: madmp_schema.classname).order(:label),
                               research_output: research_output,
                               guidance_presenter: guidance_presenter } %>
                           <% else %>

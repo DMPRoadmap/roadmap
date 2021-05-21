@@ -606,6 +606,47 @@ header .main-nav {
     }
     .plan-guidance-tab {
         word-wrap: break-word;
+        .run-zone {
+            .loading-zone {
+                justify-content: center;
+                font-size: 20px;
+                font-weight: 700;
+                align-items: center;
+                display: none;
+                .spinner {
+                    margin: 0 10px;
+                }
+            }
+            .message-zone {
+                text-align: center;
+                font-weight: bold;
+                color: $rust;
+                display: none;
+    
+                &.valid {
+                    color: $green;
+                }
+                &.invalid {
+                    color: $rust;
+                }
+            }
+            .btn {
+                font-size: 20px;
+                font-weight: 700;
+                
+                &.answer-save-button {
+                    background-color: gray;
+                    border-color: gray;
+                }
+            }
+            .reload-button {
+                background-color: $green;
+                color: $white;
+                display: none;
+            }
+        }
+        
+
     }
 
     // .schema-picker{
@@ -1171,13 +1212,6 @@ header .main-nav {
             select {
                 width: 100% !important;
             }
-            .select2 {
-                width: 100% !important;
-                .select2-selection__choice {
-                    color: white;
-                    background-color: $blue;
-                }
-            }
             .overridable-link {
                 float: left;
                 width: 100%;
@@ -1241,42 +1275,34 @@ header .main-nav {
             .answer-bottom-zone {
                 position: sticky;
                 bottom: 0;
-                background-color: #fff;
+                background-color: $very-very-light-blue;
                 z-index: 2;
-                border: 1px solid $very-light-blue;
+                border: 1px solid $blue;
+                color: $dark-blue;
 
                 display: flex;
                 align-items: center;
                 -webkit-transition: all .3s linear 0s;
                 transition: all .3s linear 0s;
 
-                .answer-run-zone {
+                .schema-picker-zone {
                     flex: 2;
                 }
                 .answer-save-zone {
                     flex: 1;
                 }
 
-                .answer-save-zone, .answer-run-zone {
+                .answer-save-zone, .schema-picker-zone {
                     display: flex;
                     flex-direction: column;
                     padding: 5px;
-                    .loading-zone {
-                        justify-content: center;
-                        font-size: 20px;
-                        font-weight: 700;
-                        align-items: center;
-                        display: none;
-                        .spinner {
-                            margin: 0 10px;
-                        }
-                    }
+                    
                     .message-zone {
                         text-align: center;
                         font-weight: bold;
                         color: $rust;
                         display: none;
-
+            
                         &.valid {
                             color: $green;
                         }
@@ -1293,15 +1319,7 @@ header .main-nav {
                             border-color: gray;
                         }
                     }
-                    .reload-button {
-                        background-color: $green;
-                        color: $white;
-                        display: none;
-                    }
-
                     &.unsaved {
-                        background-color: $light-rust;
-
                         .answer-save-button {
                             background-color: $rust;
                             border-color: $rust;
@@ -1390,6 +1408,14 @@ header .main-nav {
 .select2-results__option--highlighted {
     color: white;
     background-color: $dark-blue !important;
+}
+
+.select2 {
+    width: 100% !important;
+    .select2-selection__choice {
+        color: white;
+        background-color: $blue;
+    }
 }
 
 /*

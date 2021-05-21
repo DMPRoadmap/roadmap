@@ -44,13 +44,14 @@
         </div>
       </div>
       <div class="answer-bottom-zone" >
-        <div class="answer-run-zone">
-          <% run_parameters = madmp_schema.extract_run_parameters %>
-          <%= render(partial: 'shared/dynamic_form/codebase_run', locals: { 
-                fragment: fragment,
-                parameters: run_parameters,
-                template_locale: template.locale
-              }) unless run_parameters.nil? %>
+        <div class="schema-picker-zone">
+          <%= render partial: 'shared/dynamic_form/schema_picker', locals: {
+                      fragment: fragment,
+                      madmp_schema: madmp_schema,
+                      pickable_schemas: pickable_schemas,
+                      question: question, 
+                      research_output: research_output 
+            } if pickable_schemas.length > 1 %>
         </div>
         <div class="answer-save-zone">
           <%= f.button(_('Save'), class: "btn btn-default answer-save-button", type: "submit", disabled: true) %>
