@@ -21,7 +21,12 @@
           <br>
           <%= hidden_field_tag "default_org_id", @user.org.id %>
           <%= hidden_field_tag "default_org_name", @user.org.name %>
-          <%= render partial: "shared/create_account_form", locals: { resource: @user } %>
+          <%= render partial: "shared/create_account_form",
+                     locals: {
+                       resource: @user,
+                       org_partial: (@org_partial || "shared/org_selectors/combined"),
+                       orgs: Org.participating
+                     } %>
         </div>
       </div>
     </div>

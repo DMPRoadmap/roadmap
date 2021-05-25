@@ -14,6 +14,8 @@ describe "devise/registrations/new.html.erb" do
     org = create(:org, managed: true)
     org.identifiers << create(:identifier, identifiable: org, identifier_scheme: scheme)
     user = build(:user, org: org)
+    assign :all_orgs, Org.all
+    assign :org_partial, "shared/org_selectors/combined"
     session["devise.shibboleth_data"] = mock_omniauth_call(scheme.name, user)
     render template: "devise/registrations/new", locals: { resource: user }
     expect(rendered.include?("Sign in or Create account")).to eql(true)
@@ -29,6 +31,8 @@ describe "devise/registrations/new.html.erb" do
 
   it "renders correctly when session does NOT have shibboleth data" do
     user = build(:user)
+    assign :all_orgs, Org.all
+    assign :org_partial, "shared/org_selectors/combined"
     render template: "devise/registrations/new", locals: { resource: user }
     expect(rendered.include?("Sign in or Create account")).to eql(true)
     expect(rendered.include?("Do you have a #{@app_name} account?")).to eql(false)

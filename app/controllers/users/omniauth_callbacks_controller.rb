@@ -94,7 +94,17 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def failure
-    redirect_to root_path
+    msg = _("Unable to authenticate or authorize access.")
+    path = root_path
+
+    # Otherwise if the user denied authorization then
+    if params["error"].downcase.include?("denied") || params["error_description"].downcase.include?("denied")
+      msg = _("Authorization was not given. Did you clicked \"deny\" by mistake? You can reauthorize by clicking the link below.")
+      path = edit_user_registration_path
+    end
+
+    # Default to root with a generic message
+    redirect_to path, alert: msg
   end
 
 end

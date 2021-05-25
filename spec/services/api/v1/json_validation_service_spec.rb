@@ -44,12 +44,28 @@ RSpec.describe Api::V1::JsonValidationService do
     it "returns `false` when json is not present" do
       expect(described_class.org_valid?(json: nil)).to eql(false)
     end
-    it "returns `false` when json[:name] is not present" do
+    it "returns `false` when json[:name], [:affiliation_id] and [:funder_id] are not present" do
       json = { abbreviation: Faker::Lorem.word.upcase }
       expect(described_class.org_valid?(json: json)).to eql(false)
     end
-    it "returns `true` when valid" do
+    it "returns `true` when :name is present" do
       json = { name: Faker::Company.unique.name }
+      expect(described_class.org_valid?(json: json)).to eql(true)
+    end
+    it "returns `true` when :affiliation_id is present" do
+      json = { affiliation_id: SecureRandom.uuid }
+      expect(described_class.org_valid?(json: json)).to eql(true)
+    end
+    it "returns `true` when :funder_id is present" do
+      json = { funder_id: SecureRandom.uuid }
+      expect(described_class.org_valid?(json: json)).to eql(true)
+    end
+    it "returns `true` when :name and :affiliation_id are present" do
+      json = { name: Faker::Company.unique.name, affiliation_id: SecureRandom.uuid }
+      expect(described_class.org_valid?(json: json)).to eql(true)
+    end
+    it "returns `true` when :name and :funder_id are present" do
+      json = { name: Faker::Company.unique.name, funder_id: SecureRandom.uuid }
       expect(described_class.org_valid?(json: json)).to eql(true)
     end
   end

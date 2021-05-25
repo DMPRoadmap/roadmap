@@ -61,7 +61,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
 <% if Rails.configuration.x.doi&.active && landing_page.present? %>
   <div class="form-group"><!-- identifier -->
     <div class="col-md-12">
-      <%= form.label(:identifier, _('Landing page'), class: 'control-label') %>
+      <%= form.label(:doi, _('Landing page'), class: 'control-label') %>
     </div>
     <div class="col-md-8">
       <% if landing_page.value.starts_with?("http") %>
@@ -125,7 +125,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
 
   <div class="form-group toggleable-field">
     <div class="col-md-12">
-      <%= form.label :id, _("Funding Opportunity Number"), class: "control-label" %>
+      <%= form.label :identifier, _("Funding Opportunity Number"), class: "control-label" %>
     </div>
     <div class="col-md-8">
       <em class="sr-only"><%= id_tooltip %></em>

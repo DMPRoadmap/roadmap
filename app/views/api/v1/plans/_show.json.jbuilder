@@ -79,6 +79,8 @@ unless @minimal
     json.identifier related.value
   end
 
+  json.dmproadmap_privacy presenter.visibility
+
   # DMPRoadmap specific links to perform special actions like downloading the PDF
   json.dmproadmap_links presenter.links
 

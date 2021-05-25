@@ -10,7 +10,7 @@ RSpec.describe Api::V1::ContextualErrorService do
     @plan.contributors << build(:contributor, org: build(:org), investigation: true)
     @plan.contributors.first.identifiers << build(:identifier)
     @plan.funder = build(:org)
-    @plan.grant = build(:identifier)
+    @plan.grant = { value: build(:identifier).value }
   end
 
   describe "process_plan_errors(plan:)" do
@@ -37,9 +37,6 @@ RSpec.describe Api::V1::ContextualErrorService do
     end
     it "contextualizes the :plan funder errors" do
       expect(@results.include?("Funding name can't be blank")).to eql(true)
-    end
-    it "contextualizes the :plan grant errors" do
-      expect(@results.include?("Grant value can't be blank")).to eql(true)
     end
   end
 
@@ -106,13 +103,6 @@ RSpec.describe Api::V1::ContextualErrorService do
       expect(result.length).to eql(1)
       expect(result.first.start_with?("Funding name ")).to eql(true)
     end
-    it "returns errors if a Grant is invalid" do
-      @plan.grant.value = nil
-      @plan.grant.valid?
-      result = described_class.contextualize(errors: @plan.grant.errors, context: "Grant")
-      expect(result.length).to eql(1)
-      expect(result.first.start_with?("Grant value ")).to eql(true)
-    end
   end
 
   describe "valid_plan?(plan:)" do
@@ -124,13 +114,9 @@ RSpec.describe Api::V1::ContextualErrorService do
       @plan.funder.name = nil
       expect(described_class.valid_plan?(plan: @plan)).to eql(false)
     end
-    it "return false if :plan grant is not valid" do
-      @plan.grant.value = nil
-      expect(described_class.valid_plan?(plan: @plan)).to eql(false)
-    end
     it "does not require :plan funder and grant to be present" do
       @plan.funder = nil
-      @plan.grant = nil
+      @plan.grant = {}
       expect(described_class.valid_plan?(plan: @plan)).to eql(true)
     end
     it "returns true when everything is valid" do

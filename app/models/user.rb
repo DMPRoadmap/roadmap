@@ -103,6 +103,10 @@ class User < ApplicationRecord
   has_and_belongs_to_many :notifications, dependent: :destroy,
                                           join_table: "notification_acknowledgements"
 
+  has_many :external_api_access_tokens, dependent: :destroy
+
+  accepts_nested_attributes_for :external_api_access_tokens
+
   # ===============
   # = Validations =
   # ===============
@@ -119,7 +123,9 @@ class User < ApplicationRecord
   # = Scopes =
   # ==========
 
-  default_scope { includes(:org, :perms) }
+  # because of the way this generates SQL it breaks with > 65k users
+  # needs rethought
+  # default_scope { includes(:org, :perms) }
 
   # Retrieves all of the org_admins for the specified org
   scope :org_admins, lambda { |org_id|
@@ -228,7 +234,7 @@ class User < ApplicationRecord
   #
   # Returns UserIdentifier
   def identifier_for(scheme)
-    identifiers.by_scheme_name(scheme, "User").first
+    identifiers.by_scheme_name(scheme, "User")&.first
   end
 
   # Checks if the user is a super admin. If the user has any privelege which requires
@@ -445,6 +451,16 @@ class User < ApplicationRecord
                 .update_all(identifiable_id: id)
     # => ignore any perms the deleted user has
     to_be_merged.destroy
+  end
+
+  # Fetch the access token for the specified service
+  def access_token_for(external_service_name:)
+    return nil unless external_service_name.present? && external_api_access_tokens.any?
+
+    tokens = external_api_access_tokens.select do |token|
+      token.external_service_name == external_service_name && token.active?
+    end
+    tokens.first
   end
 
   private

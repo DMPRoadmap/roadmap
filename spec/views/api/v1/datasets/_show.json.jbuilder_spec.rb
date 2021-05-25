@@ -27,7 +27,7 @@ describe "api/v1/datasets/_show.json.jbuilder" do
       expect(@json[:personal_data]).to eql(expected)
     end
     it "includes :sensitive_data" do
-      expected = Api::V1::ApiPresenter.boolean_to_yes_no_unknown(value: @output.personal_data)
+      expected = Api::V1::ApiPresenter.boolean_to_yes_no_unknown(value: @output.sensitive_data)
       expect(@json[:sensitive_data]).to eql(expected)
     end
     it "includes :issued" do
@@ -48,14 +48,14 @@ describe "api/v1/datasets/_show.json.jbuilder" do
         expect(@distribution[:data_access]).to eql(@output.access)
       end
       it "includes :format" do
-        expect(@distribution[:format]).to eql(@output.mime_type&.value)
+        expect(@distribution[:format]).to eql(nil)
       end
     end
     it "includes :metadata" do
       expect(@json[:metadata]).to eql([])
     end
     it "includes :technical_resources" do
-      expect(@json[:technical_resources]).to eql([])
+      expect(@json[:technical_resources]).to eql(nil)
     end
   end
 

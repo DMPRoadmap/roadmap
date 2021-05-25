@@ -26,7 +26,7 @@ class PlanExportsController < ApplicationController
       @show_sections_questions = true
       @show_unanswered         = true
       @show_custom_sections    = true
-      @show_research_outputs   = @plan.template&.allow_research_outputs? || false
+      @show_research_outputs   = @plan.research_outputs&.any? || false
       @public_plan             = true
 
     else
@@ -105,6 +105,7 @@ class PlanExportsController < ApplicationController
     ret = @plan.title
     Zaru.sanitize! ret
     ret = ret.strip.gsub(/\s+/, "_")
+    ret = ret.gsub(/"/, "")
     # limit the filename length to 100 chars. Windows systems have a MAX_PATH allowance
     # of 255 characters, so this should provide enough of the title to allow the user
     # to understand which DMP it is and still allow for the file to be saved to a deeply

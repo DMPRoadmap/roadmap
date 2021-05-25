@@ -78,6 +78,7 @@ coverage
 # ignore auto-generated gettext files when running gettext:find
 config/locale/*/app.edit.po
 config/locale/*/app.po.time_stamp
+config/secrets.yml
 
 # Front-end related
 !.keep
@@ -98,7 +99,8 @@ spec/examples.txt
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
-/config/credentials.yml.enc
+/config/credentials*.yml.enc
+/config/credentials/
 
 /public/packs
 /public/packs-test

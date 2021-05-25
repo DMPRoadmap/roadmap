@@ -90,6 +90,8 @@ class Org < ApplicationRecord
 
   has_many :users
 
+  has_many :contributors
+
   has_many :annotations
 
   has_and_belongs_to_many :token_permission_types,
@@ -225,6 +227,14 @@ class Org < ApplicationRecord
       .select("orgs.*,
               count(distinct templates.family_id) as template_count,
               count(users.id) as user_count")
+  }
+
+  # Returns all Org's with a Shibboleth entityID stored in the Identifiers table
+  # This is used on the app/views/shared/_shib_sign_in_form.html.erb partial which
+  # is only used if you have `shibboleth.use_filtered_discovery_service` enabled.
+  scope :shibbolized, lambda {
+    org_ids = Identifier.by_scheme_name("shibboleth", "Org").pluck(:identifiable_id)
+    where(managed: true, id: org_ids)
   }
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW

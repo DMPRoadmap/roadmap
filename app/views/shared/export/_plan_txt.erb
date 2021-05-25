@@ -77,12 +77,9 @@
     <%= "#{_("    Initial license")}:\t#{presenter.display_license}" %>
     <%= "#{_("    Anticipated release date")}:\t#{presenter.display_release}" %>
     <%= "#{_("    Initial access level")}:\t#{presenter.display_access}" %>
-    <% if presenter.selectable_mime_types.any? && output.byte_size.present? %>
+    <% if output.byte_size.present? %>
       <% size_hash = presenter.converted_file_size(size: output.byte_size) %>
       <%= "#{_("  Anticipated file size")}:\t#{number_with_delimiter(size_hash[:size])} #{size_hash[:unit]&.upcase}" %>
-      <% if output.mime_type.present? %>
-        <%= "#{_("Mime type")}: \t#{output.mime_type.value}" %>
-      <% end %>
     <% end %>
     <%= "---------" %>
     <%= "\n\n" %>

@@ -32,5 +32,33 @@ FactoryBot.define do
         identifier_scheme.update("#{identifier_scheme.all_context[idx]}": true)
       end
     end
+
+    trait :for_authentication do
+      for_authentication { true }
+    end
+
+    trait :for_orgs do
+      for_orgs { true }
+    end
+
+    trait :for_plans do
+      for_plans { true }
+    end
+
+    trait :for_users do
+      for_users { true }
+    end
+
+    trait :for_contributors do
+      for_contributors { true }
+    end
+
+    trait :for_identification do
+      for_identification { true }
+    end
+
+    trait :for_research_outputs do
+      for_research_outputs { true }
+    end
   end
 end

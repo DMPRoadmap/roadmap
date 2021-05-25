@@ -1,7 +1,6 @@
 <%# locals: outputs %>
 
-<hr />
-<h1><%= _("Planned Research Outputs") %></h1>
+<h1 class="break-before"><%= _("Planned Research Outputs") %></h1>
 
 <% outputs.each do |output| %>
   <% presenter = ResearchOutputPresenter.new(research_output: output) %>
@@ -12,8 +11,9 @@
 
 <br/><br/><hr/>
 
+<h3><%= _("Planned research output details") %></h3>
+
 <table>
-  <caption><%= _("Planned research output details") %></caption>
   <thead>
     <th><%= _("Title") %></th>
     <th><%= _("Type") %></th>

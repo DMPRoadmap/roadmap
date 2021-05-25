@@ -4,10 +4,7 @@
 presenter = ResearchOutputPresenter.new(research_output: research_output)
 
 abbrev_tooltip = _("Your research output abbreviation can be used as a reference when answering this plan's questions.")
-descr_tooltip = _("TODO: provide some context on what is expected here")
-sensitive_data_tooltip = _("TODO: provide a better description! -- The research output will contain information that is sensitive.")
 personal_data_tooltip = _("Any data that could potentially identify a specific individual. Any information that can be used to distinguish one person from another and can be used for de-anonymizing anonymous data can be considered personally identifiable data. (From https://codata.org/rdm-glossary/personally-identifiable-information/)")
-access_tooltip = _("The continued, available for use, ongoing usability of a digital resource, retaining all qualities of authenticity, accuracy and functionality deemed to be essential for the purposes the digital material was created and/or acquired for. Users who have access can retrieve, manipulate, copy, and store copies on a wide range of hard drives and external devices. (from https://codata.org/rdm-glossary/personally-identifiable-information/)")
 repository_tooltip = _("Repositories preserve, manage, and provide access to many types of digital materials in a variety of formats. Materials in online repositories are curated to enable search, discovery, and reuse. There must be sufficient control for the digital material to be authentic, reliable, accessible and usable on a continuing basis. (From https://codata.org/rdm-glossary/personally-identifiable-information/)")
 %>
 
@@ -63,8 +60,7 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
     </div>
     <div class="col-md-12">
       <span class="col-md-8">
-        <%= f.text_area :description, rows: 4, class: 'form-control tinymce',
-                                      title: descr_tooltip, data: { toggle: "tooltip" } %>
+        <%= f.text_area :description, rows: 4, class: 'form-control tinymce', data: { toggle: "tooltip" } %>
       </span>
     </div>
   </div>
@@ -73,8 +69,7 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
     <div class="col-md-12">
       <span class="col-md-3">
         <%= f.label :sensitive_data do %>
-          <%= f.check_box :sensitive_data, data: { toggle: "tooltip" },
-                          title: sensitive_data_tooltip %>
+          <%= f.check_box :sensitive_data, data: { toggle: "tooltip" } %>
           <%= _('May contain sensitive data?') %>
         <% end %>
       </span>
@@ -120,31 +115,14 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
         <%= f.label(:access, _("Initial access level"), class: "control-label") %>
         <%= f.select :access, options_for_select(presenter.selectable_access_types, f.object.access),
                               { selected: f.object.access },
-                              {
-                                class: "form-control",
-                                data: { toggle: "tooltip" },
-                                title: access_tooltip
-                              } %>
+                              { class: "form-control" } %>
       </span>
     </div>
   </div>
 
-  <div class="form-group row">
-    <div class="col-md-12">
-      <span class="col-md-3">
-        <%= f.label(:license_id, _("Initial license"), class: "control-label") %>
-        <%= f.select :license_id, options_for_select(presenter.selectable_licenses, f.object.license&.id),
-                              {
-                                include_blank: _("- Please select one -"),
-                                selected: f.object.license&.id
-                              },
-                              { class: "form-control" } %>
-      </span>
-      <span class="col-md-4">
-        <div>&nbsp;</div>
-        <p><%= _("For guidance on selecting a license:") %><br><a href="https://choosealicense.com/" target="_blank">https://choosealicense.com/</a></p>
-      </span>
-    </div>
+  <div class="form-group row license-selection">
+    <%= render partial: "research_outputs/licenses/form",
+              locals: { research_output: research_output, presenter: presenter } %>
   </div>
 
   <div class="form-group row file-details-section <%= presenter.byte_sizable? ? "" : "hidden" %>">

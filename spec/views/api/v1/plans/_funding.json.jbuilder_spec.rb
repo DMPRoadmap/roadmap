@@ -35,8 +35,8 @@ describe "api/v1/plans/_funding.json.jbuilder" do
     end
     it "includes :dmproadmap_funding_opportunity_identifier" do
       identifier = @plan.identifier
-      expect(@json[:dmproadmap_funding_opportunity_identifier][:type]).to eql("other")
-      expect(@json[:dmproadmap_funding_opportunity_identifier][:identifier]).to eql(identifier)
+      expect(@json[:dmproadmap_funding_opportunity_id][:type]).to eql("other")
+      expect(@json[:dmproadmap_funding_opportunity_id][:identifier]).to eql(identifier)
     end
     it "includes :grant_ids" do
       expect(@json[:grant_id][:type]).to eql(@grant.identifier_format)

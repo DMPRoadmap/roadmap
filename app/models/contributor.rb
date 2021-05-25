@@ -57,6 +57,8 @@ class Contributor < ApplicationRecord
   validates :roles, numericality: { greater_than: 0,
                                     message: _("You must specify at least one role.") }
 
+  validates :email, uniqueness: { scope: :plan_id }
+
   validate :name_or_email_presence
 
   ONTOLOGY_NAME = "CRediT - Contributor Roles Taxonomy"

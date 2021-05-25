@@ -17,7 +17,10 @@ class RolesController < ApplicationController
     authorize @role
 
     message = ""
-    if role_params[:user].present? && plan.present?
+    if role_params[:user].present? &&
+       role_params[:user].key?(:email) &&
+       role_params[:user][:email].present? && plan.present?
+
       if @role.plan.owner.present? && @role.plan.owner.email == role_params[:user][:email]
         # rubocop:disable Layout/LineLength
         flash[:notice] = _("Cannot share plan with %{email} since that email matches with the owner of the plan.") % {

@@ -77,6 +77,7 @@ describe "api/v1/plans/_show.json.jbuilder" do
 
   describe "when the system mints DOIs" do
     before(:each) do
+    Rails.configuration.x.allow_doi_minting = true
       @doi = create(:identifier, value: "10.9999/123abc.zy/x23", identifiable: @plan)
       @plan.reload
       render partial: "api/v1/plans/show", locals: { plan: @plan }

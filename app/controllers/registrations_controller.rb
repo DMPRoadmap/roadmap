@@ -39,26 +39,21 @@ class RegistrationsController < Devise::RegistrationsController
         }
         # rubocop:enable Metrics/LineLength
 
-        # ---------------------------------------
-        # Start DMPTool Customization
-        # Determine which Org Idp we came from and make it available to form
-        # ---------------------------------------
+        # If this is part of a Shibboleth workflow, determine which Org Idp we came from and make
+        # it available to the regsitration form (which will hide the Org textbox)
         entity_id = oauth.fetch("info", {})["identity_provider"]
         if entity_id.present?
           identifier = Identifier.where(identifiable_type: "Org",
                                         value: entity_id).first
           @user.org = identifier.identifiable if identifier.present?
         end
-        # ---------------------------------------
-        # End DMPTool Customization
-        # ---------------------------------------
       end
     end
     # rubocop:enable Style/GuardClause
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity, Metrics/BlockNesting, Layout/LineLength
   # POST /resource
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockNesting
   def create
     oauth = { provider: nil, uid: nil }
     IdentifierScheme.for_users.each do |scheme|
@@ -67,12 +62,19 @@ class RegistrationsController < Devise::RegistrationsController
       end
     end
 
+    blank_org = if Rails.configuration.x.application.restrict_orgs
+                  sign_up_params[:org_id]["id"].blank?
+                else
+                  # DMPTool hack to accommodate Org coming from IdP
+                  sign_up_params.fetch(:org_id, sign_up_params[:default_org_id]).blank?
+                end
+
     if sign_up_params[:accept_terms].to_s == "0"
       redirect_to after_sign_up_error_path_for(resource),
                   alert: _("You must accept the terms and conditions to register.")
-    elsif sign_up_params[:org_id].blank?
+    elsif blank_org
       redirect_to after_sign_up_error_path_for(resource),
-                  alert: _("Please select an organisation from the list, or enter your organisation's name.")
+                  alert: _("Please select an organisation from the list, or choose Other.")
     else
       existing_user = User.where_case_insensitive("email", sign_up_params[:email]).first
       if existing_user.present?
@@ -143,8 +145,7 @@ class RegistrationsController < Devise::RegistrationsController
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockNesting
-  # rubocop:enable
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity, Metrics/BlockNesting
 
   def update
     if user_signed_in?
@@ -173,8 +174,9 @@ class RegistrationsController < Devise::RegistrationsController
     user.email != update_params[:email] || update_params[:password].present?
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Layout/LineLength, Metrics/BlockNesting
   def do_update(require_password = true, confirm = false)
+    restrict_orgs = Rails.configuration.x.application.restrict_orgs
     mandatory_params = true
     # added to by below, overwritten otherwise
     message = _("Save Unsuccessful. ")
@@ -192,10 +194,8 @@ class RegistrationsController < Devise::RegistrationsController
       message += _("Please enter a Last name. ")
       mandatory_params &&= false
     end
-    if update_params[:org_id].blank?
-      # rubocop:disable Layout/LineLength
+    if restrict_orgs && update_params[:org_id]["id"].blank?
       message += _("Please select an organisation from the list, or enter your organisation's name.")
-      # rubocop:enable Layout/LineLength
       mandatory_params &&= false
     end
     # has the user entered all the details
@@ -210,7 +210,6 @@ class RegistrationsController < Devise::RegistrationsController
         # if user is changing email
         if current_user.email != attrs[:email]
           # password needs to be present
-          # rubocop:disable Metrics/BlockNesting
           if attrs[:password].blank?
             message = _("Please enter your password to change email address.")
             successfully_updated = false
@@ -224,7 +223,6 @@ class RegistrationsController < Devise::RegistrationsController
           else
             message = _("Invalid password")
           end
-          # rubocop:enable Metrics/BlockNesting
         else
           # remove the current_password because its not actuallyt part of the User record
           attrs.delete(:current_password)
@@ -265,11 +263,11 @@ class RegistrationsController < Devise::RegistrationsController
 
     else
       flash[:alert] = message.blank? ? failure_message(current_user, _("save")) : message
+      @orgs = Org.order("name")
       render "edit"
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Layout/LineLength, Metrics/BlockNesting
 
   # rubocop:disable Metrics/AbcSize
   def do_update_password(current_user, args)
@@ -302,8 +300,10 @@ class RegistrationsController < Devise::RegistrationsController
   def sign_up_params
     params.require(:user).permit(:email, :password, :password_confirmation,
                                  :firstname, :surname, :recovery_email,
-                                 :accept_terms, :org_id, :org_name,
-                                 :org_crosswalk, :language_id)
+                                 :accept_terms, :org_id, :org_name, :default_org_id,
+                                 :org_crosswalk, :language_id,
+                                 external_api_access_tokens: [:external_service_name, :access_token,
+                                                              :refresh_token, :expires_at])
   end
 
   def update_params
@@ -315,17 +315,24 @@ class RegistrationsController < Devise::RegistrationsController
 
   # Finds or creates the selected org and then returns it's id
   def handle_org(attrs:)
-    return attrs unless attrs.present? && attrs[:org_id].present?
+    # DMPTool hack to deal with Org via IdP
+    if attrs[:default_org_id].present?
+      attrs[:org_id] = attrs[:default_org_id]
+      attrs.delete(:default_org_id)
+      return attrs
+    else
+      return attrs unless attrs.present? && attrs[:org_id].present?
 
-    org = org_from_params(params_in: attrs, allow_create: true)
+      org = org_from_params(params_in: attrs, allow_create: true)
 
-    # Remove the extraneous Org Selector hidden fields
-    attrs = remove_org_selection_params(params_in: attrs)
-    return attrs unless org.present?
+      # Remove the extraneous Org Selector hidden fields
+      attrs = remove_org_selection_params(params_in: attrs)
+      return attrs unless org.present?
 
-    # reattach the org_id but with the Org id instead of the hash
-    attrs[:org_id] = org.id
-    attrs
+      # reattach the org_id but with the Org id instead of the hash
+      attrs[:org_id] = org.id
+      attrs
+    end
   end
 
 end
