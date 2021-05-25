@@ -2,6 +2,7 @@
 <% guidances_active = guidance_presenter.any?(question: question) %>
 <% active_nav = nil %>
 <% run_parameters = madmp_schema.extract_run_parameters %>
+
 <div class="plan-guidance-tab">
   <!-- Nav tabs -->
   <ul class="nav nav-pills nav-justified mb-10" role="tablist">
@@ -23,14 +24,12 @@
               </a>
           </li>
       <% end %>
-      <% if run_parameters.present? %>
-          <li role="presentation">
-              <a href="#runs-<%= question.id %>-research-output-<%= research_output.id %>" 
-                 aria-controls="notes-<%= question.id %>-research-output-<%= research_output.id %>" role="tab" data-toggle="pill">
-                  <%= _('Runs') %>
-              </a>
-          </li>
-      <% end %>
+      <li class="runs-tab" role="presentation">
+          <a href="#runs-<%= question.id %>-research-output-<%= research_output.id %>" 
+              aria-controls="notes-<%= question.id %>-research-output-<%= research_output.id %>" role="tab" data-toggle="pill">
+              <%= _('Runs') %>
+          </a>
+      </li>
   </ul>
   <div class="tab-content">
     <% if guidances_active %>
@@ -89,17 +88,16 @@
       </div>
     <% end %>
 
-    <% if run_parameters.present? %>
-      <div id="runs-<%= question.id %>-research-output-<%= research_output.id %>" role="tabpanel" class="tab-pane">     
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="row">
-              <div class="col-md-12 run-zone">
-              </div>
+    <div id="runs-<%= question.id %>-research-output-<%= research_output.id %>" 
+          role="tabpanel" class="tab-pane">     
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12 run-zone">
             </div>
           </div>
         </div>
       </div>
-    <% end %>
+    </div>
   </div>
 </div>
