@@ -147,12 +147,12 @@ RSpec.describe User, type: :model do
         expect(user.org).to eql(@new_org)
       end
 
-      it "does not destroy user perms" do
-        expect(user.perms.count).to eql(3)
+      it "destroys user perms" do
+        expect(user.perms.count).to eql(0)
       end
 
-      it "does not reset api_token to blank string" do
-        expect(user.api_token).to eql("barfoo")
+      it "resets api_token to be nil" do
+        expect(user.api_token).to be_nil
       end
     end
 
