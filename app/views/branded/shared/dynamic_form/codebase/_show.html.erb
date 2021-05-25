@@ -1,0 +1,26 @@
+<%# locals: { fragment, parameters, template_locale } %>
+
+<% if parameters.is_a?(Array) %>
+    <% parameters.each do |param| %>
+        <%= render(partial: 'shared/dynamic_form/codebase/run_button', locals: { 
+            fragment_id: fragment.id,
+            label: param["label@#{template_locale}"],
+            ttip: param["tooltip@#{template_locale}"],
+            script_id: param["script_id"]
+        }) %>
+    <% end %>
+<% else %>
+    <%= render(partial: 'shared/dynamic_form/codebase/run_button', locals: { 
+        fragment_id: fragment.id,
+        label: parameters["label@#{template_locale}"],
+        ttip: parameters["tooltip@#{template_locale}"],
+        script_id: parameters["script_id"]
+        }) %>
+<% end %>
+<div class="loading-zone">
+    <div class="spinner"></div> <%= _('Loading ...') %>
+</div>
+<button class="btn btn-secondary reload-button" type="button">
+    <%= d_('dmpopidor', 'Reload') %>
+</button>
+<span class="message-zone"><%= d_('dmpopidor', 'New data have been added to your plan, please click on the "Reload" button.') %></span>

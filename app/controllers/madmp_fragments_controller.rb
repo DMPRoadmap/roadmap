@@ -465,7 +465,7 @@ class MadmpFragmentsController < ApplicationController
                 base_template_org: template.base_org
               }, formats: [:html]),
               "form_run" => run_parameters.present? ? 
-                render_to_string(partial: "shared/dynamic_form/codebase_run", locals: {
+                render_to_string(partial: "shared/dynamic_form/codebase/show", locals: {
                   fragment: fragment,
                   parameters: run_parameters,
                   template_locale: template.locale

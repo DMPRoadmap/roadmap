@@ -66,7 +66,7 @@
               <div class="answer-bottom-zone" >
                 <div class="schema-picker-zone run-zone">
                   <% run_parameters = project_schema.extract_run_parameters %>
-                  <%= render(partial: 'shared/dynamic_form/codebase_run', locals: { 
+                  <%= render(partial: 'shared/dynamic_form/codebase/show', locals: { 
                         fragment: project_fragment,
                         parameters: run_parameters,
                         template_locale: @plan.template.locale
@@ -141,7 +141,7 @@
                 <div class="answer-bottom-zone" >
                   <div class="schema-picker-zone run-zone">
                     <% run_parameters = meta_schema.extract_run_parameters %>
-                    <%= render(partial: 'shared/dynamic_form/codebase_run', locals: {
+                    <%= render(partial: 'shared/dynamic_form/codebase/show', locals: {
                           fragment: meta_fragment,
                           parameters: run_parameters,
                           template_locale: @plan.template.locale
