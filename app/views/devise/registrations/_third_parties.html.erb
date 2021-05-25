@@ -50,7 +50,7 @@ tokens = user.access_tokens.select { |token| token.revoked_at == nil }
           <%= image_tag(token.application.logo.thumb('100x100%').url, alt: "#{app_name} logo",
                         class: "org-logo", title: app_name) %>
         <% else %>
-          <p><%= token.application.name.humanize %></p>
+          <%= token.application.name.humanize %>
         <% end %>
 
         <%= link_to '<i class="fas fa-fw fa-times-circle" aria-hidden="true"></i>'.html_safe,
