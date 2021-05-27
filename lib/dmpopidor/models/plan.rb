@@ -162,7 +162,7 @@ module Dmpopidor
         dmp_coordinator = Fragment::Contributor.create(
           data: {
             "person" => { "dbid" => person.id },
-            "role" => d_("dmpopidor", "DMP coordinator")
+            "role" => d_("dmpopidor", "DMP manager")
           },
           dmp_id: dmp_fragment.id,
           parent_id: nil,

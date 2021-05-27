@@ -482,7 +482,7 @@ msgid "\"%{project_title}\" project DMP"
 msgstr "DMP du projet \"%{project_title}\""
 
 msgid "DMP coordinator"
-msgstr "Coordinateur du plan de gestion de données"
+msgstr "Responsable du plan"
 
 msgid "Project coordinator"
 msgstr "Coordinateur du projet"
