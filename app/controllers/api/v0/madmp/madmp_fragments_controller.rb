@@ -33,7 +33,11 @@ class Api::V0::Madmp::MadmpFragmentsController < Api::V0::BaseController
         "schema" => f.madmp_schema.schema
       }
     end
-    @dmp_fragments.unshift(@dmp_fragment)
+    @dmp_fragments.unshift({
+      "id" => @dmp_fragment.id,
+      "data" => @dmp_fragment.data,
+      "schema" => @dmp_fragment.madmp_schema.schema
+    })
     render json: {
       "dmp_id" => @dmp_fragment.id,
       "data" => @dmp_fragments,
