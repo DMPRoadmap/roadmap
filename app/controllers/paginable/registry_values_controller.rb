@@ -5,7 +5,6 @@ class Paginable::RegistryValuesController < ApplicationController
   include Paginable
 
   # GET /paginable/registry_values/index/:page
-  # SEE MODULE
   def index
     authorize(RegistryValue)
     paginable_renderise(

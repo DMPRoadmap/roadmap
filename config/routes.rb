@@ -257,7 +257,7 @@ Rails.application.routes.draw do
     end
     # Paginable actions for registry values
     resources :registry_values, only: [] do
-      get "index/:page", action: :index, on: :collection, as: :index
+      get ":id/index/:page", action: :index, on: :collection, as: :index
     end
   end
 
