@@ -31,6 +31,15 @@ class RegistryValue < ActiveRecord::Base
 
   before_validation :set_order, if: :registry_id_changed?
 
+  # ==========
+  # = Scopes =
+  # ==========
+
+  scope :search, ->(term) {
+    search_pattern = "%#{term}%"
+    where("lower(registry_values.data::text) LIKE lower(?)", search_pattern)
+  }
+
   # Prints a representation of the registry_value according to the locale
   # If there's a label, then the registry value is a complex object, return the label
   # else returns the registry value is a simple string, returns the string
