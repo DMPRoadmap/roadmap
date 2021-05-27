@@ -1461,7 +1461,7 @@ header .main-nav {
 .select2 {
     width: 100% !important;
     .select2-selection__choice {
-        color: white;
+        color: white !important;
         background-color: $blue;
     }
 }

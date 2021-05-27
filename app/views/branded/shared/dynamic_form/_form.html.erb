@@ -60,7 +60,9 @@
       <%= create_simple_registry_field(f, value, form_prefix, key, label, field_id, registryValues, template_locale, readonly: readonly, validation: validation, ttip: ttip, default_value: default_value, overridable: overridable) %>
     <% elsif prop["type"].eql?('array')%>
       <%# Select 'multiple' from simple registry where the user can choose multiple options %>
-      <%= create_simple_registry_field(f, value, form_prefix, key, label, field_id, registryValues, template_locale, readonly: readonly, multiple: true, validation: validation, ttip: ttip, default_value: default_value, overridable: overridable) %>
+      <%# value needs compact, sometime nil value are present in the tab when changing form %>
+      <% value = [default_value] if value.compact.empty? && default_value.present? %>
+      <%= create_simple_registry_field(f, value, form_prefix, key, label, field_id, registryValues, template_locale, readonly: readonly, multiple: true, validation: validation, ttip: ttip, overridable: overridable) %>
     <% end %>
 
     <% next %>
