@@ -50,18 +50,6 @@ module ExternalApis
         Rails.configuration.x.rdamsc&.thesaurai
       end
 
-      def fetch_metadata_categories
-        @thesaurus = {}
-
-        if query_thesaurus(path: "#{thesaurus_path}?pageSize=250")
-          @thesaurus.each do |key, value|
-            thesaurus_entry_to_db(parent: nil, uri: key, hash: value)
-          end
-        end
-
-        p "DONE"
-      end
-
       def fetch_metadata_standards
         query_schemes(path: "#{schemes_path}?pageSize=250")
         p "DONE"
@@ -131,17 +119,6 @@ module ExternalApis
         query_schemes(path: json["data"]["nextLink"])
       end
 
-      def query_thesaurus(path:)
-        json = query_api(path: path)
-        return false unless json.present?
-
-        process_thesaurus_entries(json: json)
-        return true unless json.fetch("data", {})["nextLink"].present?
-
-        p "  processing entry #{json["data"]["pageIndex"].to_i * json["data"]["itemsPerPage"].to_i }"
-        query_thesaurus(path: json["data"]["nextLink"])
-      end
-
       def query_api(path:)
         return nil unless path.present?
 
@@ -166,35 +143,10 @@ module ExternalApis
           standard.update(description: item["description"], locations: item["locations"],
                           related_entities: item["relatedEntities"], rdamsc_id: item["mscid"])
 
-          standard.metadata_categories = item.fetch("keywords", [])
-                                             .map { |uri| MetadataCategory.find_by(uri: uri) }
-                                             .compact.uniq
+          standard.fields_of_science = FieldOfScience.from_text(
+            text: [item["title"], item["description"]].join(" ")
+          )
           standard.save
-        end
-      end
-
-      def process_thesaurus_entries(json:)
-        return false unless json.present? && json["data"].present? && json["data"].fetch("items", []).any?
-
-        json["data"]["items"].each do |item|
-          next unless item["@id"].present?
-
-          @thesaurus["#{item['@id']}"] = {
-            label: item["skos:prefLabel"].first["@value"],
-            children: item.fetch("skos:narrower", []).map { |c| c["@id"] }
-          }
-        end
-        true
-      end
-
-      def thesaurus_entry_to_db(parent:, uri:, hash:)
-        return nil unless uri.present? && hash.present?
-
-        category = MetadataCategory.find_or_create_by(uri: uri, label: hash[:label])
-        category.update(parent: parent) if parent.present?
-
-        hash[:children].each do |child|
-          thesaurus_entry_to_db(parent: category, uri: child, hash: @thesaurus[child])
         end
       end
 

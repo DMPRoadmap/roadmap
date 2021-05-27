@@ -129,6 +129,19 @@ class ResearchOutputsController < ApplicationController
     authorize @research_output
   end
 
+  # GET /plans/:id/repository_search
+  def metadata_standard_search
+    @plan = Plan.find_by(id: params[:id])
+    @research_output = ResearchOutput.new(plan: @plan)
+    authorize @research_output
+
+    @search_results = Repository.by_type(repo_search_params[:type_filter])
+    @search_results = @search_results.by_subject(repo_search_params[:subject_filter])
+    @search_results = @search_results.search(repo_search_params[:search_term])
+
+    @search_results = @search_results.order(:name).page(params[:page])
+  end
+
   private
 
   def output_params

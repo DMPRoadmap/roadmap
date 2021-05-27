@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_27_162935) do
+ActiveRecord::Schema.define(version: 2021_05_26_154500) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -45,22 +45,6 @@ ActiveRecord::Schema.define(version: 2021_04_27_162935) do
     t.integer "answer_id", null: false
     t.integer "question_option_id", null: false
     t.index ["answer_id"], name: "index_answers_question_options_on_answer_id"
-  end
-
-  create_table "api_clients", id: :integer, force: :cascade do |t|
-    t.string "name", null: false
-    t.string "description"
-    t.string "homepage"
-    t.string "contact_name"
-    t.string "contact_email", null: false
-    t.string "client_id", default: "", null: false
-    t.string "client_secret", default: "", null: false
-    t.datetime "last_access"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "org_id"
-    t.index ["name"], name: "index_api_clients_on_name"
-    t.index ["client_id"], name: "index_api_clients_on_client_id", unique: true
   end
 
   create_table "conditions", id: :integer, force: :cascade do |t|
@@ -121,6 +105,34 @@ ActiveRecord::Schema.define(version: 2021_04_27_162935) do
     t.index ["external_service_name"], name: "index_external_api_access_tokens_on_external_service_name"
     t.index ["user_id", "external_service_name"], name: "index_external_tokens_on_user_and_service"
     t.index ["user_id"], name: "index_external_api_access_tokens_on_user_id"
+  end
+
+  create_table "fos", force: :cascade do |t|
+    t.string "uri", null: false
+    t.string "identifier", null: false
+    t.string "label", null: false
+    t.bigint "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_fos_on_parent_id"
+  end
+
+  create_table "fos_metadata_standards", force: :cascade do |t|
+    t.bigint "fos_id", null: false
+    t.bigint "metadata_standard_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fos_id"], name: "index_fos_metadata_standards_on_fos_id"
+    t.index ["metadata_standard_id"], name: "index_fos_metadata_standards_on_metadata_standard_id"
+  end
+
+  create_table "fos_repositories", force: :cascade do |t|
+    t.bigint "fos_id", null: false
+    t.bigint "repository_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fos_id"], name: "index_fos_repositories_on_fos_id"
+    t.index ["repository_id"], name: "index_fos_repositories_on_repository_id"
   end
 
   create_table "guidance_groups", id: :integer, force: :cascade do |t|
@@ -187,35 +199,15 @@ ActiveRecord::Schema.define(version: 2021_04_27_162935) do
     t.index ["url"], name: "index_licenses_on_url"
   end
 
-  create_table "metadata_categories", force: :cascade do |t|
-    t.string "uri", null: false
-    t.string "label", null: false
-    t.bigint "parent_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["parent_id"], name: "index_metadata_categories_on_parent_id"
-  end
-
-  create_table "metadata_categories_standards", force: :cascade do |t|
-    t.bigint "metadata_category_id", null: false
-    t.bigint "metadata_standard_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["metadata_category_id"], name: "index_metadata_categories_standards_on_metadata_category_id"
-    t.index ["metadata_standard_id"], name: "index_metadata_categories_standards_on_metadata_standard_id"
-  end
-
   create_table "metadata_standards", force: :cascade do |t|
     t.string "title"
-    t.string "rdamsc_id"
     t.text "description"
+    t.string "rdamsc_id"
     t.string "uri"
     t.json "locations"
     t.json "related_entities"
-    t.bigint "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["parent_id"], name: "index_metadata_standards_on_parent_id"
   end
 
   create_table "notes", id: :integer, force: :cascade do |t|
@@ -287,7 +279,7 @@ ActiveRecord::Schema.define(version: 2021_04_27_162935) do
     t.string "description"
     t.string "homepage"
     t.string "contact_name"
-    t.string "contact_email", null: false
+    t.string "contact_email"
     t.string "uid", default: "", null: false
     t.string "secret", default: "", null: false
     t.datetime "last_access"
@@ -295,11 +287,17 @@ ActiveRecord::Schema.define(version: 2021_04_27_162935) do
     t.datetime "updated_at", null: false
     t.integer "org_id"
     t.text "redirect_uri"
+    t.string "callback_uri"
+    t.integer "callback_method", default: 0
     t.string "scopes", default: "", null: false
     t.boolean "confidential", default: true
     t.boolean "trusted", default: false, null: false
+    t.bigint "user_id"
+    t.string "logo_uid"
+    t.string "logo_name"
     t.index ["name"], name: "index_oauth_applications_on_name"
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
+    t.index ["user_id"], name: "index_oauth_applications_on_user_id"
   end
 
   create_table "org_indices", force: :cascade do |t|
@@ -709,10 +707,9 @@ ActiveRecord::Schema.define(version: 2021_04_27_162935) do
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
   add_foreign_key "conditions", "questions"
+  add_foreign_key "fos", "fos", column: "parent_id"
   add_foreign_key "guidance_groups", "orgs"
   add_foreign_key "guidances", "guidance_groups"
-  add_foreign_key "metadata_categories", "metadata_categories", column: "parent_id"
-  add_foreign_key "metadata_standards", "metadata_standards", column: "parent_id"
   add_foreign_key "notes", "answers"
   add_foreign_key "notes", "users"
   add_foreign_key "notification_acknowledgements", "notifications"

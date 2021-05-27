@@ -126,6 +126,10 @@ module ExternalApis
       def parse_repository(repo:, node:)
         return nil unless repo.present? && node.present?
 
+        repo.fields_of_science = FieldOfScience.from_text(
+          text: node.xpath("//r3d:subject").map(&:text).join(" ")
+        )
+
         repo.update(
           description: node.xpath("//r3d:description")&.text,
           url: node.xpath("//r3d:repositoryURL")&.text,
