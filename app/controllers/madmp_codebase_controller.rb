@@ -10,13 +10,17 @@ class MadmpCodebaseController < ApplicationController
 
     authorize fragment
 
+    # EXAMPLE DATA
+    # file_path = Rails.root.join("config/madmp/schemas/codebase_example_data.json")
+    # response = JSON.load(File.open(file_path))
+    # fragment.save_codebase_fragment(response, fragment.madmp_schema)
+    # render json: {
+    #   "message" => d_("dmpopidor", 'New data have been added to your plan, please click on the "Reload" button.')
+    # }, status: 200
+    # return
     begin
       response = fetch_run_data(fragment, script_id)
       if response["return_code"]&.eql?(0)
-        # EXAMPLE DATA : CODEBASE NEEDS FIXES
-        # file_path = Rails.root.join("config/madmp/schemas/codebase_example_data.json")
-        # response = JSON.load(File.open(file_path))
-        # fragment.save_codebase_fragment(response, fragment.madmp_schema)
         fragment.save_codebase_fragment(response["data"], fragment.madmp_schema)
         render json: {
           "message" => d_("dmpopidor", 'New data have been added to your plan, please click on the "Reload" button.')
@@ -44,8 +48,10 @@ class MadmpCodebaseController < ApplicationController
       {
         "data": fragment.data,
         "schema": {},
-        "dmp_id": fragment.dmp_id
-      })
+        "dmp_id": fragment.dmp_id,
+        "research_output_id": fragment.research_output_fragment&.id
+      }
+    )
   end
 
 end

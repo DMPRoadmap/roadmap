@@ -360,6 +360,14 @@ class MadmpFragment < ActiveRecord::Base
     end
   end
 
+  # Get the research output fragment from the fragment hierarchy
+  def research_output_fragment
+    return nil if %w[meta dmp project].include?(classname)
+
+    return self if classname.eql?("research_output")
+
+    parent.research_output_fragment
+  end
   # =================
   # = Class methods =
   # =================
