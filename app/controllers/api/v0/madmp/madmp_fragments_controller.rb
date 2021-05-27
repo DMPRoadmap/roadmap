@@ -26,14 +26,14 @@ class Api::V0::Madmp::MadmpFragmentsController < Api::V0::BaseController
   ## NEEDS ERROR MANAGEMENT
   def dmp_fragments
     @dmp_fragment = Fragment::Dmp.find(params[:id])
-    @dmp_fragments = MadmpFragment.where(dmp_id: @dmp_fragment.id).map do |f|
+    @dmp_fragments = MadmpFragment.where(dmp_id: @dmp_fragment.id).order(:id).map do |f|
       {
         "id" => f.id,
         "data" => f.data,
         "schema" => f.madmp_schema.schema
       }
     end
-
+    @dmp_fragments.unshift(@dmp_fragment)
     render json: {
       "dmp_id" => @dmp_fragment.id,
       "data" => @dmp_fragments,
