@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-03-22 12:24-0600\n"
-"PO-Revision-Date: 2021-03-22 19:24+0100\n"
+"POT-Creation-Date: 2021-05-28 11:01-0600\n"
+"PO-Revision-Date: 2021-05-28 19:01+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_CA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=2; plural=n!=1;\n"
 "\n"
 
 msgid ""
@@ -167,8 +167,8 @@ msgstr ""
 msgid "Template for Arts-Based Research"
 msgstr ""
 
-msgid "Template for Mixed Methods (Surveys & Qualitative Research)"
-msgstr "Modèle de Portage pour les méthodes mixtes (enquêtes et recherche qualitative)"
+msgid "Modèle de Portage pour les méthodes mixtes (enquêtes et recherche qualitative)"
+msgstr ""
 
 msgid "Template for Advanced Research Computing"
 msgstr ""
@@ -185,8 +185,8 @@ msgstr ""
 msgid "Template for Water Quality Research"
 msgstr ""
 
-msgid "Template for Systematic Reviews"
-msgstr "Modèle pour les revues systématiques"
+msgid "Modèle pour les revues systématiques"
+msgstr ""
 
 msgid "Template for Studying Molecular Interactions"
 msgstr ""
@@ -501,57 +501,6 @@ msgid ""
 "roughout a research project.&nbsp; </span></p>"
 msgstr ""
 
-msgid "TITLE"
-msgstr ""
-
-msgid "Alliance/Food from Thought DMP creation"
-msgstr ""
-
-msgid "Test DMP Questions"
-msgstr ""
-
-msgid "Phase 1 (test)"
-msgstr ""
-
-msgid "Initial GWF DMP"
-msgstr ""
-
-msgid "Software/Technology Management Plan"
-msgstr ""
-
-msgid "Phase 1: Data Preparation"
-msgstr ""
-
-msgid "University of Alberta Data Management Questions"
-msgstr ""
-
-msgid "MICYRN Data Management Plan Initial Phase"
-msgstr ""
-
-msgid "Phase 1: Data Management Plan for Grant Application"
-msgstr ""
-
-msgid "Reproducible findings through deposited data"
-msgstr ""
-
-msgid "University of British Columbia Data Management Questions"
-msgstr ""
-
-msgid "Portage Data Management Questions"
-msgstr ""
-
-msgid "Pre-Project: Prototype"
-msgstr ""
-
-msgid "CEOS Data Management Plan"
-msgstr ""
-
-msgid "Oceans Data Management Plan"
-msgstr ""
-
-msgid "University of Manitoba Data Management Questions"
-msgstr ""
-
 msgid "DMP Questionnaire"
 msgstr ""
 
@@ -574,6 +523,63 @@ msgid "OFI Module E DMP"
 msgstr ""
 
 msgid "Dalhousie University"
+msgstr ""
+
+msgid "TITLE"
+msgstr ""
+
+msgid "Alliance/Food from Thought DMP creation"
+msgstr ""
+
+msgid "Test DMP Questions"
+msgstr ""
+
+msgid "Phase 1 (test)"
+msgstr ""
+
+msgid "Initial GWF DMP"
+msgstr ""
+
+msgid "Software/Technology Management Plan"
+msgstr ""
+
+msgid "Template for Mixed Methods (Surveys & Qualitative Research)"
+msgstr ""
+
+msgid "Phase 1: Data Preparation"
+msgstr ""
+
+msgid "University of Alberta Data Management Questions"
+msgstr ""
+
+msgid "MICYRN Data Management Plan Initial Phase"
+msgstr ""
+
+msgid "Reproducible findings through deposited data"
+msgstr ""
+
+msgid "Phase 1: Data Management Plan for Grant Application"
+msgstr ""
+
+msgid "University of British Columbia Data Management Questions"
+msgstr ""
+
+msgid "Portage Data Management Questions"
+msgstr ""
+
+msgid "Pre-Project: Prototype"
+msgstr ""
+
+msgid "CEOS Data Management Plan"
+msgstr ""
+
+msgid "Oceans Data Management Plan"
+msgstr ""
+
+msgid "Template for Systematic Reviews"
+msgstr "Modèle pour les revues systématiques"
+
+msgid "University of Manitoba Data Management Questions"
 msgstr ""
 
 msgid "Phase 2"
@@ -960,6 +966,9 @@ msgid "Roles and Responsibilities"
 msgstr ""
 
 msgid "Sharing, Reuse, and Preservation"
+msgstr ""
+
+msgid "My new section"
 msgstr ""
 
 msgid ""
@@ -1872,6 +1881,15 @@ msgid ""
 "ds should be preserved for future discovery and reuse. </span><span style=\"fon"
 "t-weight: 400;\">As you develop your data sharing strategy you will want to con"
 "sider the following:</span></p>"
+msgstr ""
+
+msgid "<p>Our description</p>"
+msgstr ""
+
+msgid "<p>New section description.</p>"
+msgstr ""
+
+msgid "<p>This is my section description.</p>"
 msgstr ""
 
 msgid "What types of data will you collect, create, acquire and/or record?"
@@ -3250,6 +3268,15 @@ msgid ""
 "he data be anonymized? Will any defacing techniques be used?</span>"
 msgstr ""
 
+msgid "<p>Here add question text</p>"
+msgstr ""
+
+msgid "<p>What kind of question do we add?</p>"
+msgstr ""
+
+msgid "<p>What kind of question do you want to add?</p>"
+msgstr ""
+
 msgid ""
 "What file formats will your data be collected in?  Will these formats allow fo"
 "r data re-use, sharing and long-term access to the data?"
@@ -3796,9 +3823,6 @@ msgid ""
 "or answer any of your research questions? If so, please explain how you will o"
 "btain these data and integrate them into your research project."
 msgstr ""
-"Existe-t-il des données que vous pouvez réutiliser qui répondront à l’une de v"
-"os questions de recherche ? Si oui, veuillez expliquer comment vous obtiendrez"
-" ces données et les intégrerez dans votre projet de recherche."
 
 msgid ""
 "Describe the file naming conventions that will be used in order to support qua"
@@ -5596,6 +5620,15 @@ msgid "<p>test</p>"
 msgstr ""
 
 msgid "<p>No files created</p>"
+msgstr ""
+
+msgid "<p>Default answer</p>"
+msgstr ""
+
+msgid "<p>Our default answer</p>"
+msgstr ""
+
+msgid "<p>A default answer.</p>"
 msgstr ""
 
 msgid ""
@@ -12561,43 +12594,6 @@ msgid ""
 " your institution for assistance in searching for any existing data that may b"
 "e useful to your research.</span></p>"
 msgstr ""
-"<p><span style=\"font-weight: 400;\">Il existe de nombreuses sources potentielle"
-"s de données, notamment les dépôts de données de recherche, les registres de r"
-"echerche et les agences gouvernementales.</span></p>\n"
-"<p><span style=\"font-weight: 400;\">En voici quelques exemples :</span></p>\n"
-"<ul>\n"
-"<li style=\"font-weight: 400;\"><a href=\"https://www.statcan.gc.ca/fra/idd/idd-p"
-"roduits\"><span style=\"font-weight: 400;\">Fichiers de microdonnées à usage publ"
-"ic de Statistique Canada</span></a><span style=\"font-weight: 400;\"> via </span"
-"><a href=\"https://www.statcan.gc.ca/fra/idd/idd\">l’Initiative de démocratisati"
-"on des données (IDD)</a></li>\n"
-"</ul>\n"
-"<ul>\n"
-"<li style=\"font-weight: 400;\"><span style=\"font-weight: 400;\">Le </span><a hre"
-"f=\"https://www.frdr-dfdr.ca/repo/?locale=fr\"><span style=\"font-weight: 400;\">D"
-"épôt fédéré de données de recherche (DFDR)</span></a><span style=\"font-weight:"
-" 400;\">canadien</span></li>\n"
-"</ul>\n"
-"<ul>\n"
-"<li style=\"font-weight: 400;\"><span style=\"font-weight: 400;\">Les dépôts de do"
-"nnées de recherche, tels que ceux énumérés sur le site </span><a href=\"https:/"
-"/www.re3data.org/\"><span style=\"font-weight: 400;\">re3data.org</span></a><span"
-" style=\"font-weight: 400;\">(lien en anglais)</span></li>\n"
-"</ul>\n"
-"<ul>\n"
-"<li style=\"font-weight: 400;\"><span style=\"font-weight: 400;\">Les dépôts qui h"
-"ébergent des données de recherche qualitatives tels que le </span><a href=\"htt"
-"p://qdr.syr.edu/\"><span style=\"font-weight: 400;\">Qualitative Data Repository<"
-"/span><span style=\"font-weight: 400;\">(QDR; lien en anglais),</span></a><a hre"
-"f=\"https://dataverse.scholarsportal.info/fr/\"><span style=\"font-weight: 400;\">"
-"Dataverse</span><span style=\"font-weight: 400;\">, et le UK Data Archives</span"
-"></a><a href=\"https://www.ukdataservice.ac.uk/get-data/explore-online/qualiban"
-"k/qualibank.aspx\"><span style=\"font-weight: 400;\">QualiBank </span><span style"
-"=\"font-weight: 400;\">(lien en anglais)</span></a></li>\n"
-"</ul>\n"
-"<p><span style=\"font-weight: 400;\">Vous pouvez également communiquer avec la b"
-"ibliothèque de votre établissement pour obtenir de l’aide dans la recherche de"
-" données qui pourraient être utiles à votre recherche.</span></p>"
 
 msgid ""
 "<p><span style=\"font-weight: 400;\">Include a description of any methods that y"
@@ -16269,6 +16265,27 @@ msgid ""
 " or as a full copy of appropriate documents.</span>"
 msgstr ""
 
+msgid "<p>Here is my example answer</p>"
+msgstr ""
+
+msgid "<p>Custom guidance</p>"
+msgstr ""
+
+msgid "<p>Example anser</p>"
+msgstr ""
+
+msgid "<p>Guidance</p>"
+msgstr ""
+
+msgid "<p>Example answer</p>"
+msgstr ""
+
+msgid "<p>Custom guidance.</p>"
+msgstr ""
+
+msgid "<p>Example answer.</p>"
+msgstr ""
+
 #: ../../app/controllers/answers_controller.rb:17
 msgid ""
 "There is no question with id %{question_id} associated to plan id %{plan_id} f"
@@ -16294,21 +16311,21 @@ msgstr ""
 #: ../../app/controllers/api/v0/statistics_controller.rb:38
 #: ../../app/controllers/api/v0/statistics_controller.rb:79
 #: ../../app/controllers/api/v0/statistics_controller.rb:120
-#: ../../app/controllers/usage_controller.rb:91
-#: ../../app/controllers/usage_controller.rb:110
+#: ../../app/controllers/usage_controller.rb:99
+#: ../../app/controllers/usage_controller.rb:118
 msgid "Month"
 msgstr "Month"
 
 #: ../../app/controllers/api/v0/statistics_controller.rb:38
-#: ../../app/controllers/usage_controller.rb:91
+#: ../../app/controllers/usage_controller.rb:99
 msgid "No. Users joined"
 msgstr ""
 
 #: ../../app/controllers/api/v0/statistics_controller.rb:41
 #: ../../app/controllers/api/v0/statistics_controller.rb:82
 #: ../../app/controllers/api/v0/statistics_controller.rb:123
-#: ../../app/controllers/usage_controller.rb:97
-#: ../../app/controllers/usage_controller.rb:116
+#: ../../app/controllers/usage_controller.rb:105
+#: ../../app/controllers/usage_controller.rb:124
 msgid "Total"
 msgstr ""
 
@@ -16317,7 +16334,7 @@ msgid "users_joined"
 msgstr ""
 
 #: ../../app/controllers/api/v0/statistics_controller.rb:79
-#: ../../app/controllers/usage_controller.rb:110
+#: ../../app/controllers/usage_controller.rb:118
 msgid "No. Completed Plans"
 msgstr ""
 
@@ -16489,10 +16506,10 @@ msgstr ""
 #: ../../app/controllers/orgs_controller.rb:56
 #: ../../app/controllers/plans_controller.rb:232
 #: ../../app/controllers/plans_controller.rb:235
-#: ../../app/controllers/registrations_controller.rb:229
-#: ../../app/controllers/registrations_controller.rb:233
-#: ../../app/controllers/registrations_controller.rb:255
-#: ../../app/controllers/registrations_controller.rb:259
+#: ../../app/controllers/registrations_controller.rb:230
+#: ../../app/controllers/registrations_controller.rb:234
+#: ../../app/controllers/registrations_controller.rb:256
+#: ../../app/controllers/registrations_controller.rb:260
 #: ../../app/controllers/users_controller.rb:97
 #: ../../app/controllers/users_controller.rb:121
 msgid "saved"
@@ -16508,8 +16525,8 @@ msgstr ""
 #: ../../app/controllers/plans_controller.rb:241
 #: ../../app/controllers/plans_controller.rb:244
 #: ../../app/controllers/plans_controller.rb:249
-#: ../../app/controllers/registrations_controller.rb:236
-#: ../../app/controllers/registrations_controller.rb:262
+#: ../../app/controllers/registrations_controller.rb:237
+#: ../../app/controllers/registrations_controller.rb:263
 msgid "save"
 msgstr ""
 
@@ -16661,7 +16678,7 @@ msgstr ""
 #: ../../app/views/paginable/templates/_organisational.html.erb:12
 #: ../../app/views/paginable/users/_index.html.erb:12
 #: ../../app/views/shared/_my_org.html.erb:8
-#: ../../app/views/usage/_filter.html.erb:37
+#: ../../app/views/usage/_filter.html.erb:41
 msgid "Organisation"
 msgstr ""
 
@@ -16871,7 +16888,7 @@ msgid "You must accept the terms and conditions to register."
 msgstr ""
 
 #: ../../app/controllers/registrations_controller.rb:62
-#: ../../app/controllers/registrations_controller.rb:178
+#: ../../app/controllers/registrations_controller.rb:179
 msgid ""
 "Please select an organisation from the list, or enter your organisation's name"
 "."
@@ -16887,52 +16904,52 @@ msgid ""
 "in the system. Please contact your system administrators."
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:108
+#: ../../app/controllers/registrations_controller.rb:109
 msgid ""
 "Welcome! You have signed up successfully with your institutional credentials. "
 "You will now be able to access your account with them."
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:124
+#: ../../app/controllers/registrations_controller.rb:125
 msgid "Unable to create your account.%{errors_for_display}"
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:162
+#: ../../app/controllers/registrations_controller.rb:163
 msgid "Save Unsuccessful. "
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:165
+#: ../../app/controllers/registrations_controller.rb:166
 msgid "Please enter an email address. "
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:169
+#: ../../app/controllers/registrations_controller.rb:170
 msgid "Please enter a First name. "
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:173
+#: ../../app/controllers/registrations_controller.rb:174
 msgid "Please enter a Last name. "
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:190
+#: ../../app/controllers/registrations_controller.rb:191
 msgid "Please enter your password to change email address."
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:195
+#: ../../app/controllers/registrations_controller.rb:196
 msgid ""
 "Save unsuccessful. \\\n"
 "                That email address is already registered. \\\n"
 "                You must enter a unique email address."
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:243
+#: ../../app/controllers/registrations_controller.rb:244
 msgid "Please enter your current password"
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:245
+#: ../../app/controllers/registrations_controller.rb:246
 msgid "Please enter a password confirmation"
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:247
+#: ../../app/controllers/registrations_controller.rb:248
 msgid "Password and comfirmation must match"
 msgstr ""
 
@@ -17500,7 +17517,7 @@ msgid "Not Answered"
 msgstr ""
 
 #: ../../app/models/concerns/validation_messages.rb:5
-#: ../../app/models/template.rb:209
+#: ../../app/models/template.rb:211
 msgid "can't be blank"
 msgstr "can't be blank"
 
@@ -17618,47 +17635,47 @@ msgstr ""
 msgid "Invalid maximum pages"
 msgstr ""
 
-#: ../../app/models/template.rb:237
+#: ../../app/models/template.rb:239
 msgid "A historical template cannot be retrieved for being modified"
 msgstr ""
 
-#: ../../app/models/template.rb:355
+#: ../../app/models/template.rb:357
 msgid "generate_copy! requires an organisation target"
 msgstr ""
 
-#: ../../app/models/template.rb:363
+#: ../../app/models/template.rb:365
 msgid "Copy of %{template}"
 msgstr ""
 
-#: ../../app/models/template.rb:371
+#: ../../app/models/template.rb:373
 msgid "generate_version! requires a published template"
 msgstr ""
 
-#: ../../app/models/template.rb:386
+#: ../../app/models/template.rb:388
 msgid "customize! requires an organisation target"
 msgstr ""
 
-#: ../../app/models/template.rb:391
+#: ../../app/models/template.rb:393
 msgid "customize! requires a template from a funder"
 msgstr ""
 
-#: ../../app/models/template.rb:427
+#: ../../app/models/template.rb:429
 msgid "You can not publish a published template.  "
 msgstr ""
 
-#: ../../app/models/template.rb:431
+#: ../../app/models/template.rb:433
 msgid "You can not publish a historical version of this template.  "
 msgstr ""
 
-#: ../../app/models/template.rb:436
+#: ../../app/models/template.rb:438
 msgid "You can not publish a template without phases.  "
 msgstr ""
 
-#: ../../app/models/template.rb:441
+#: ../../app/models/template.rb:443
 msgid "You can not publish a template without sections in a phase.  "
 msgstr ""
 
-#: ../../app/models/template.rb:446
+#: ../../app/models/template.rb:448
 msgid "You can not publish a template without questions in a section.  "
 msgstr ""
 
@@ -17830,7 +17847,7 @@ msgstr ""
 #: ../../app/views/branded/layouts/_navigation.html.erb:36
 #: ../../app/views/branded/layouts/_navigation.html.erb:48
 #: ../../app/views/layouts/_header_navigation.html.erb:37
-#: ../../app/views/layouts/_header_navigation.html.erb:49
+#: ../../app/views/layouts/_header_navigation.html.erb:50
 #: ../../app/views/public_pages/plan_index.html.erb:1
 #: ../../app/views/public_pages/plan_index.html.erb:4
 msgid "Public DMPs"
@@ -17839,20 +17856,20 @@ msgstr ""
 #: ../../app/views/branded/layouts/_navigation.html.erb:39
 #: ../../app/views/branded/layouts/_navigation.html.erb:51
 #: ../../app/views/layouts/_header_navigation.html.erb:40
-#: ../../app/views/layouts/_header_navigation.html.erb:52
+#: ../../app/views/layouts/_header_navigation.html.erb:53
 #: ../../app/views/public_pages/template_index.html.erb:1
 #: ../../app/views/public_pages/template_index.html.erb:4
 msgid "DMP Templates"
 msgstr ""
 
 #: ../../app/views/branded/layouts/_navigation.html.erb:45
-#: ../../app/views/layouts/_header_navigation.html.erb:46
+#: ../../app/views/layouts/_header_navigation.html.erb:47
 #: ../../app/views/layouts/error.html.erb:67
 msgid "Home"
 msgstr ""
 
 #: ../../app/views/branded/layouts/_navigation.html.erb:56
-#: ../../app/views/layouts/_header_navigation.html.erb:57
+#: ../../app/views/layouts/_header_navigation.html.erb:58
 #: ../../app/views/static_pages/help.html.erb:1
 #: ../../app/views/static_pages/help.html.erb:4
 msgid "Help"
@@ -17860,7 +17877,7 @@ msgstr ""
 
 #: ../../app/views/branded/layouts/_navigation.html.erb:64
 #: ../../app/views/devise/registrations/new.html.erb:22
-#: ../../app/views/layouts/_header_navigation.html.erb:65
+#: ../../app/views/layouts/_header_navigation.html.erb:69
 #: ../../app/views/layouts/_signin_signout.html.erb:41
 #: ../../app/views/shared/_access_controls.html.erb:5
 #: ../../app/views/shared/_sign_in_form.html.erb:19
@@ -18041,6 +18058,7 @@ msgid "Message"
 msgstr ""
 
 #: ../../app/views/contact_us/contacts/_new_left.html.erb:38
+#: ../../app/views/shared/_create_account_form.html.erb:34
 msgid "Security check"
 msgstr ""
 
@@ -18069,12 +18087,14 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/contact_us/contacts/new.html.erb:10
-#: ../../app/views/layouts/_branding.html.erb:37
-#: ../../app/views/layouts/_footer.html.erb:30
-#: ../../app/views/layouts/_footer.html.erb:39
-#: ../../app/views/layouts/_footer.html.erb:48
-#: ../../app/views/layouts/_footer.html.erb:55
-#: ../../app/views/layouts/_footer.html.erb:61
+#: ../../app/views/layouts/_branding.html.erb:36
+#: ../../app/views/layouts/_footer.html.erb:17
+#: ../../app/views/layouts/_footer.html.erb:26
+#: ../../app/views/layouts/_footer.html.erb:35
+#: ../../app/views/layouts/_footer.html.erb:44
+#: ../../app/views/layouts/_footer.html.erb:53
+#: ../../app/views/layouts/_footer.html.erb:60
+#: ../../app/views/layouts/_footer.html.erb:66
 #: ../../app/views/org_admin/plans/index.html.erb:39
 #: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:39
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:24
@@ -18128,7 +18148,7 @@ msgstr ""
 #: ../../app/views/devise/registrations/new.html.erb:43
 #: ../../app/views/devise/registrations/new.html.erb:58
 #: ../../app/views/shared/_access_controls.html.erb:11
-#: ../../app/views/shared/_create_account_form.html.erb:42
+#: ../../app/views/shared/_create_account_form.html.erb:47
 msgid "Create account"
 msgstr ""
 
@@ -18588,7 +18608,7 @@ msgstr ""
 #: ../../app/views/guidances/admin_index.html.erb:5
 #: ../../app/views/guidances/new_edit.html.erb:12
 #: ../../app/views/guidances/new_edit.html.erb:16
-#: ../../app/views/layouts/_branding.html.erb:79
+#: ../../app/views/layouts/_branding.html.erb:81
 #: ../../app/views/org_admin/annotations/_form.html.erb:3
 #: ../../app/views/org_admin/questions/_show.html.erb:71
 #: ../../app/views/paginable/themes/_index.html.erb:5
@@ -18668,14 +18688,76 @@ msgstr ""
 msgid "Welcome to %{application_name}."
 msgstr ""
 
-#: ../../app/views/home/_welcome.html.erb:9
+#: ../../app/views/home/_welcome.html.erb:11
 msgid ""
-"<p>%{application_name} has been developed by the <strong>%{organisation_name}<"
-"/strong> to help you write data management plans.</p>"
-msgstr ""
-
-#: ../../app/views/home/_welcome.html.erb:15
-msgid "Getting started:"
+"\n"
+"      <!-- landing page content -->\n"
+"      <p> \n"
+"        The <strong>DMP Assistant</strong> is a national, online, bilingual da"
+"ta management planning tool developed by the <strong>Portage Network</strong> "
+"in collaboration with host institution <strong>University of Alberta</strong> "
+"to assist researchers in preparing <strong>data management plans (DMPs)</stron"
+"g>. This tool is freely available to all researchers, and develops a DMP throu"
+"gh a series of key data management questions, supported by best-practice guida"
+"nce and examples.\n"
+"      </p>\n"
+"\n"
+"      <p>\n"
+"        DMPs are one of the foundations of good research data management (RDM)"
+", an international best practice, and increasingly required by institutions an"
+"d funders. For example, they are a pillar of the <a href='http://www.science.g"
+"c.ca/eic/site/063.nsf/eng/h_97610.html'>Canadian Tri-Agency Research Data Mana"
+"gement Policy</a>.\n"
+"      </p>\n"
+"\n"
+"      Getting started:\n"
+"\n"
+"      <ul>\n"
+"        <li>\n"
+"          <a href=\"https://doi.org/10.5281/zenodo.4001010\">Brief Guide – Data "
+"Management Plans</a>\n"
+"        </li>\n"
+"        <li>\n"
+"          <a href=\"https://doi.org/10.5281/zenodo.4004956\">Brief Guide – Creat"
+"e an Effective Data Management Plan</a>\n"
+"        </li>\n"
+"        <li>\n"
+"          <a href=\"https://doi.org/10.5281/zenodo.4001018\">Primer – Data Manag"
+"ement Plan</a>\n"
+"        </li>\n"
+"        <li>\n"
+"          <a href=\"https://portagenetwork.ca/tools-and-resources/dmp-assistant"
+"/how-to-manage-your-data/\">How to Manage Your Data</a>\n"
+"        </li>\n"
+"        <li>\n"
+"          Webinars:\n"
+"          <ul>\n"
+"            <li>\n"
+"              <a href=\"https://www.youtube.com/watch?v=Cp1O7vXLPao\">Support Yo"
+"ur Research with DMP Assistant 2.0</a>\n"
+"            </li>\n"
+"            <li>\n"
+"              <a href=\"https://www.youtube.com/watch?v=uXjOKaJwYsk\">Support Yo"
+"ur Research with Data Management Planning</a>\n"
+"            </li>\n"
+"          </ul>\n"
+"        </li>\n"
+"      </ul>\n"
+"\n"
+"      <p>\n"
+"        For more resources and training materials spanning the entire research"
+" data life cycle, see the <a href=\"https://portagenetwork.ca/tools-and-resourc"
+"es/training-resources/\"> Portage Network Training Resources. </a>\n"
+"      </p>\n"
+"\n"
+"      <p>\n"
+"        The DMP Assistant was adapted from the <a href=\"https://dcc.ac.uk/\"> D"
+"igital Curation Centre (DCC)</a>’s <a href=\"https://dmponline.dcc.ac.uk/\">DMPo"
+"nline</a> tool, and uses the DMP Roadmap codebase developed by DCC and the <a "
+"href=\"https://www.cdlib.org/uc3/\">University of California Curation Center (UC"
+"3).</a>\n"
+"      </p>\n"
+"    "
 msgstr ""
 
 #: ../../app/views/kaminari/_first_page.html.erb:3
@@ -18698,11 +18780,11 @@ msgstr ""
 msgid "Previous"
 msgstr ""
 
-#: ../../app/views/layouts/_branding.html.erb:60
+#: ../../app/views/layouts/_branding.html.erb:62
 msgid "Admin"
 msgstr ""
 
-#: ../../app/views/layouts/_branding.html.erb:66
+#: ../../app/views/layouts/_branding.html.erb:68
 #: ../../app/views/org_admin/users/edit.html.erb:63
 #: ../../app/views/paginable/users/_index.html.erb:15
 #: ../../app/views/super_admin/users/edit.html.erb:96
@@ -18710,30 +18792,31 @@ msgstr ""
 msgid "Plans"
 msgstr ""
 
-#: ../../app/views/layouts/_branding.html.erb:72
+#: ../../app/views/layouts/_branding.html.erb:74
 #: ../../app/views/org_admin/templates/index.html.erb:4
 #: ../../app/views/paginable/orgs/_index.html.erb:8
 msgid "Templates"
 msgstr ""
 
-#: ../../app/views/layouts/_branding.html.erb:85
+#: ../../app/views/layouts/_branding.html.erb:87
 #: ../../app/views/super_admin/orgs/index.html.erb:2
 #: ../../app/views/super_admin/orgs/index.html.erb:6
+#: ../../app/views/usage/_filter.html.erb:20
 msgid "Organisations"
 msgstr ""
 
-#: ../../app/views/layouts/_branding.html.erb:90
+#: ../../app/views/layouts/_branding.html.erb:92
 #: ../../app/views/orgs/admin_edit.html.erb:1
 #: ../../app/views/orgs/admin_edit.html.erb:4
 msgid "Organisation details"
 msgstr ""
 
-#: ../../app/views/layouts/_branding.html.erb:96
+#: ../../app/views/layouts/_branding.html.erb:98
 #: ../../app/views/usage/_filter.html.erb:18
 msgid "Users"
 msgstr ""
 
-#: ../../app/views/layouts/_branding.html.erb:104
+#: ../../app/views/layouts/_branding.html.erb:106
 #: ../../app/views/org_admin/questions/_show.html.erb:82
 #: ../../app/views/org_admin/shared/_theme_selector.html.erb:17
 #: ../../app/views/paginable/guidances/_index.html.erb:10
@@ -18742,55 +18825,62 @@ msgstr ""
 msgid "Themes"
 msgstr ""
 
-#: ../../app/views/layouts/_branding.html.erb:111
+#: ../../app/views/layouts/_branding.html.erb:113
 msgid "Usage"
 msgstr ""
 
-#: ../../app/views/layouts/_branding.html.erb:116
+#: ../../app/views/layouts/_branding.html.erb:118
 #: ../../app/views/org_admin/plans/index.html.erb:11
 #: ../../app/views/super_admin/notifications/index.html.erb:1
 #: ../../app/views/super_admin/notifications/index.html.erb:4
 msgid "Notifications"
 msgstr ""
 
-#: ../../app/views/layouts/_footer.html.erb:12
+#: ../../app/views/layouts/_footer.html.erb:16
+#: ../../app/views/layouts/_footer.html.erb:25
+#: ../../app/views/layouts/_footer.html.erb:34
+#: ../../app/views/layouts/_footer.html.erb:43
+#: ../../app/views/layouts/_footer.html.erb:52
+#: ../../app/views/layouts/_footer.html.erb:59
+#: ../../app/views/layouts/_footer.html.erb:65
+msgid "(opens in a new window)"
+msgstr ""
+
+#: ../../app/views/layouts/_footer.html.erb:31
+#: ../../app/views/layouts/_footer.html.erb:34
+msgid "New Digital Research Infrastructure Organization"
+msgstr ""
+
+#: ../../app/views/layouts/_footer.html.erb:40
+#: ../../app/views/layouts/_footer.html.erb:43
+msgid "Canadian Association of Research Libraries"
+msgstr ""
+
+#: ../../app/views/layouts/_footer.html.erb:73
 msgid "&copy; 2004 - %{year} %{org_name}"
 msgstr ""
 
-#: ../../app/views/layouts/_footer.html.erb:17
-msgid "About"
-msgstr ""
-
-#: ../../app/views/layouts/_footer.html.erb:18
+#: ../../app/views/layouts/_footer.html.erb:78
 #: ../../app/views/layouts/error.html.erb:68
 msgid "Contact us"
 msgstr ""
 
-#: ../../app/views/layouts/_footer.html.erb:19
+#: ../../app/views/layouts/_footer.html.erb:79
 msgid "Terms of use"
 msgstr ""
 
-#: ../../app/views/layouts/_footer.html.erb:20
+#: ../../app/views/layouts/_footer.html.erb:80
 #: ../../app/views/static_pages/privacy.html.erb:1
 #: ../../app/views/static_pages/privacy.html.erb:4
 msgid "Privacy statement"
 msgstr ""
 
-#: ../../app/views/layouts/_footer.html.erb:21
+#: ../../app/views/layouts/_footer.html.erb:81
 msgid "GitHub"
 msgstr ""
 
-#: ../../app/views/layouts/_footer.html.erb:29
-#: ../../app/views/layouts/_footer.html.erb:38
-#: ../../app/views/layouts/_footer.html.erb:47
-#: ../../app/views/layouts/_footer.html.erb:54
-#: ../../app/views/layouts/_footer.html.erb:60
-msgid "(opens in a new window)"
-msgstr ""
-
-#: ../../app/views/layouts/_footer.html.erb:35
-#: ../../app/views/layouts/_footer.html.erb:38
-msgid "Canadian Association of Research Libraries"
+#: ../../app/views/layouts/_header_navigation.html.erb:61
+msgid "About"
 msgstr ""
 
 #: ../../app/views/layouts/_paginable.html.erb:21
@@ -19700,7 +19790,7 @@ msgid "Please select one"
 msgstr ""
 
 #: ../../app/views/orgs/shibboleth_ds.html.erb:30
-#: ../../app/views/usage/_filter.html.erb:44
+#: ../../app/views/usage/_filter.html.erb:48
 #: ../../app/views/usage/_user_statistics.html.erb:73
 msgid "Go"
 msgstr ""
@@ -20389,11 +20479,11 @@ msgstr ""
 msgid "Last Name"
 msgstr ""
 
-#: ../../app/views/shared/_create_account_form.html.erb:37
+#: ../../app/views/shared/_create_account_form.html.erb:41
 msgid "I accept the"
 msgstr ""
 
-#: ../../app/views/shared/_create_account_form.html.erb:38
+#: ../../app/views/shared/_create_account_form.html.erb:42
 msgid "terms and conditions"
 msgstr ""
 
@@ -21205,11 +21295,11 @@ msgstr ""
 msgid "Topic"
 msgstr ""
 
-#: ../../app/views/usage/_filter.html.erb:24
+#: ../../app/views/usage/_filter.html.erb:28
 msgid "Start date"
 msgstr ""
 
-#: ../../app/views/usage/_filter.html.erb:30
+#: ../../app/views/usage/_filter.html.erb:34
 msgid "End date"
 msgstr ""
 

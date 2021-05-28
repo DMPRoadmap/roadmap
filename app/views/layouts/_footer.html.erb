@@ -7,25 +7,31 @@
 <!-- footer container -->
 <div id="footer-navbar" class="navbar-inverse navbar-fixed-bottom" role="navigation">
   <div class="container-fluid">
-    <ul class="nav navbar-nav">
-    <%= _(Rails.configuration.branding[:organisation][:name]) %>
-      <li><%= link_to(sanitize(_("&copy; 2004 - %{year} %{org_name}")) % {
-        year: Time.now.year, 
-        org_name: _(Rails.configuration.branding[:organisation][:name])
-        }, Rails.configuration.branding[:organisation][:url])%></li>
-      <li>•</li>
-      <li><a href="<%= contact_us %>"><%= _('Contact us') %></a></li>
-      <li><a href="<%= terms_of_use_path %>"><%= _('Terms of use') %></a></li>
-      <li><a href="<%= privacy_path %>"><%= _('Privacy statement') %></a></li>
-      <li><a href="https://github.com/portagenetwork/roadmap"><%= _('GitHub') %></a></li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar">
+
+      <li>
+        <%= link_to("https://portagenetwork.ca/", title: "Portage", target: '_blank', class: 'has-new-window-popup-info')  do %>
+          <%= image_tag("portage-logo-white.png",
+                        class: "img-responsive",
+                        alt: "Portage #{_('(opens in a new window)')}") %>
+          <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
+        <% end %>
+      </li>
 
       <li>
         <%= link_to("https://dmponline.dcc.ac.uk/about_us", title: "DMP Online", target: '_blank', class: 'has-new-window-popup-info')  do %>
           <%= image_tag("dmp-online-logo-white.png",
                         class: "img-responsive",
                         alt: "DMP Online #{_('(opens in a new window)')}") %>
+          <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
+        <% end %>
+      </li>
+
+      <li>
+        <%= link_to("https://engagedri.ca/", title: _("New Digital Research Infrastructure Organization"), target: '_blank', class: 'has-new-window-popup-info')  do %>
+          <%= image_tag("ndrio-logo-white.png", 
+                        class: "img-responsive",
+                        alt: "#{_('New Digital Research Infrastructure Organization')} #{_('(opens in a new window)')}" ) %>
           <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
         <% end %>
       </li>
@@ -61,5 +67,18 @@
         <% end %>
       </li>
     </ul>
+  </div>
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><%= link_to(sanitize(_("&copy; 2004 - %{year} %{org_name}")) % {
+        year: Time.now.year, 
+        org_name: _(Rails.configuration.branding[:organisation][:name])
+        }, Rails.configuration.branding[:organisation][:url])%></li>
+      <li>•</li>
+      <li><a href="<%= contact_us %>"><%= _('Contact us') %></a></li>
+      <li><a href="<%= terms_of_use_path %>"><%= _('Terms of use') %></a></li>
+      <li><a href="<%= privacy_path %>"><%= _('Privacy statement') %></a></li>
+      <li><a href="https://github.com/portagenetwork/roadmap"><%= _('GitHub') %></a></li>
+    </ul>    
   </div>
 </div>
