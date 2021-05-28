@@ -9,6 +9,7 @@
 ## Changed
  - Changed landing page content to make it more user friendly.
  - Changed footer and header layout.
+ - Logo on error pages now show DMP Assistant bi-lingual logo.
 
 ## [2.1.3+portage-1.0.10] - 2021-04-22
 
