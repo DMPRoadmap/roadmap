@@ -9,7 +9,16 @@
 <% permissions_tooltip = _('Co-owner: Has admin-rights to the plan (can invite other users, view the plan, answer questions, or comment). Editor: Has edit-rights to the plan (can view the plan, answer questions, or comment). Read Only: Has read-rights to the plan (can view the plan or comment)') %>
 
 <h2><%= _('Set plan visibility') %></h2>
-<p class="form-control-static"><%= _('Public or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default.') % { :percentage => Rails.application.config.default_plan_percentage_answered } %></p>
+<p class="form-control-static">
+  <%
+    visibility_text = _('Public or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default.')
+
+    if Rails.application.config.default_plan_percentage_answered.to_i <= 0
+      visibility_text = _('Public or organisational visibility is intended for finished plans. Note: test plans are set to private visibility by default.')
+    end
+
+  %>
+<%= visibility_text % { :percentage => Rails.application.config.default_plan_percentage_answered } %></p>
 <% allow_visibility = @plan.visibility_allowed? %>
 <%= form_for(@plan, url: visibility_plan_path, method: :post, html: { id: 'set_visibility', remote: true }) do |f| %>
   <fieldset<%= (allow_visibility ? '' : ' disabled') %>>
