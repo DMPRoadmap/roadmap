@@ -31,7 +31,7 @@
     "bootstrap-3-typeahead": "^4.0.2",
     "bootstrap-sass": "^3.3.7",
     "bootstrap-select": "^1.13.18",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "core-js": "^3.6.5",
     "eslint": "^7.1.0",
     "eslint-config-airbnb-base": "^14.1.0",
