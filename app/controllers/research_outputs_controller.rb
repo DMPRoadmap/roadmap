@@ -4,7 +4,8 @@ class ResearchOutputsController < ApplicationController
 
   helper PaginableHelper
 
-  before_action :fetch_plan, except: %i[select_output_type select_license repository_search]
+  before_action :fetch_plan, except: %i[select_output_type select_license repository_search
+                                        metadata_standard_search]
   before_action :fetch_research_output, only: %i[edit update destroy]
 
   after_action :verify_authorized
@@ -129,17 +130,19 @@ class ResearchOutputsController < ApplicationController
     authorize @research_output
   end
 
-  # GET /plans/:id/repository_search
+  # GET /plans/:id/metadata_standard_search
   def metadata_standard_search
     @plan = Plan.find_by(id: params[:id])
     @research_output = ResearchOutput.new(plan: @plan)
     authorize @research_output
 
-    @search_results = Repository.by_type(repo_search_params[:type_filter])
-    @search_results = @search_results.by_subject(repo_search_params[:subject_filter])
-    @search_results = @search_results.search(repo_search_params[:search_term])
+    cat = metadata_standard_search_params[:metadata_standard_category]
+    @search_results = MetadataStandard.disciplinary if cat == "disciplinary"
+    @search_results = MetadataStandard.generic if cat == "generic"
+    @search_results = MetadataStandard.all unless @search_results.present?
+    @search_results = @search_results.search(metadata_standard_search_params[:search_term])
 
-    @search_results = @search_results.order(:name).page(params[:page])
+    @search_results = @search_results.order(:title).page(params[:page])
   end
 
   private
@@ -150,11 +153,15 @@ class ResearchOutputsController < ApplicationController
                      sensitive_data personal_data file_size file_size_unit mime_type_id
                      release_date access coverage_start coverage_end coverage_region
                      mandatory_attribution license_id],
-                  repositories_attributes: %i[id])
+                  repositories_attributes: %i[id], metadata_standards_attributes: %i[id])
   end
 
   def repo_search_params
     params.require(:research_output).permit(%i[search_term subject_filter type_filter])
+  end
+
+  def metadata_standard_search_params
+    params.require(:research_output).permit(%i[search_term metadata_standard_category])
   end
 
   def process_byte_size

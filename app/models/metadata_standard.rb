@@ -8,11 +8,20 @@ class MetadataStandard < ApplicationRecord
 
   has_many :research_outputs
 
-  has_and_belongs_to_many :fields_of_science, join_table: "fos_metadata_standards",
-                                              association_foreign_key: "fos_id",
-                                              class_name: "FieldOfScience"
-
   # Self join
   has_many :sub_categories, class_name: "MetadataStandard", foreign_key: "parent_id"
   belongs_to :parent, class_name: "MetadataStandard", optional: true
+
+  # ==========
+  # = Scopes =
+  # ==========
+
+  scope :disciplinary, -> { where(discipline_specific: true) }
+
+  scope :generic, -> { where(discipline_specific: false) }
+
+  scope :search, lambda { |term|
+    where("LOWER(title) LIKE ?", "%#{term}%").or(where("LOWER(description) LIKE ?", "%#{term}%"))
+  }
+
 end

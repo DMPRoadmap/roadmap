@@ -4,6 +4,7 @@ class CreateMetadataStandardCategories < ActiveRecord::Migration[5.2]
       t.string :uri
       t.string :identifier, null: false
       t.string :label, null: false
+      t.text :keywords
       t.references :parent, foreign_key: { to_table: :fos }
       t.timestamps
     end
@@ -15,13 +16,9 @@ class CreateMetadataStandardCategories < ActiveRecord::Migration[5.2]
       t.string :uri
       t.json :locations
       t.json :related_entities
+      t.boolean :discipline_specific, default: false, index: true
       t.timestamps
     end
 
-    create_table :fos_metadata_standards do |t|
-      t.references :fos, null: false
-      t.references :metadata_standard, null: false
-      t.timestamps
-    end
   end
 end

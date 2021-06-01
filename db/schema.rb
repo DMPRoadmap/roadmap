@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_26_154500) do
+ActiveRecord::Schema.define(version: 2021_05_27_195424) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -108,9 +108,10 @@ ActiveRecord::Schema.define(version: 2021_05_26_154500) do
   end
 
   create_table "fos", force: :cascade do |t|
-    t.string "uri", null: false
+    t.string "uri", default: ""
     t.string "identifier", null: false
     t.string "label", null: false
+    t.text "keywords"
     t.bigint "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -208,6 +209,13 @@ ActiveRecord::Schema.define(version: 2021_05_26_154500) do
     t.json "related_entities"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "metadata_standards_research_outputs", force: :cascade do |t|
+    t.bigint "research_output_id"
+    t.bigint "metadata_standard_id"
+    t.index ["metadata_standard_id"], name: "index_metadata_ros_metadata_standard_id"
+    t.index ["research_output_id"], name: "index_metadata_ros_research_output_id"
   end
 
   create_table "notes", id: :integer, force: :cascade do |t|

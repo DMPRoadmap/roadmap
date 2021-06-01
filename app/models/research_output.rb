@@ -49,6 +49,7 @@ class ResearchOutput < ApplicationRecord
   belongs_to :plan, optional: true, touch: true
   belongs_to :license, optional: true
 
+  has_and_belongs_to_many :metadata_standards
   has_and_belongs_to_many :repositories
 
   # ===============
@@ -73,6 +74,13 @@ class ResearchOutput < ApplicationRecord
   def repositories_attributes=(params)
     params.each do |_i, repository_params|
       repositories << Repository.find_by(id: repository_params[:id])
+    end
+  end
+
+  # Helper method to convert selected metadata standard form params into MetadataStandard objects
+  def metadata_standards_attributes=(params)
+    params.each do |_i, metadata_standard_params|
+      metadata_standards << MetadataStandard.find_by(id: metadata_standard_params[:id])
     end
   end
 

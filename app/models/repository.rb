@@ -29,10 +29,6 @@ class Repository < ApplicationRecord
 
   has_and_belongs_to_many :research_outputs
 
-  has_and_belongs_to_many :fields_of_science, join_table: "fos_repositories",
-                                              association_foreign_key: "fos_id",
-                                              class_name: "FieldOfScience"
-
   # ==========
   # = Scopes =
   # ==========

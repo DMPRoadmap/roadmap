@@ -44,7 +44,14 @@ if output.is_a?(ResearchOutput)
     end
   end
 
-  json.metadata []
+  json.metadata output.metadata_standards do |metadata_standard|
+    website = metadata_standard.locations.select { |loc| loc["type"] == "website" }.first || { url: "" }
+    json.description [metadata_standard.title, metadata_standard.description, website["url"]].join(" - ")
+    json.metadata_standard_id do
+      json.type "url"
+      json.identifier metadata_standard.uri
+    end
+  end
 
   json.technical_resource []
 

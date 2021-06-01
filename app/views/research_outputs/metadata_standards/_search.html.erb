@@ -1,27 +1,18 @@
 <%# locals: research_output %>
 
-<% content_for :filters do %>
+<% content_for :"filters-metadata_standards" do %>
   <%
-  by_field_tooltip = _("Refine your search by sprecifying a field of science.")
-  by_discipline_tooltip = _("Refine your search by sprecifying a discipline.")
+  metadata_standard_categories = [
+    [_("Generic"), "generic"],
+    [_("Discipline specific"), "disciplinary"]
+  ]
   %>
 
   <span class="col-md-5">
-    <%= select_tag :"research_output[metadata_field_filter]",
-                   options_for_select(ResearchOutputPresenter.selectable_metadata_fields),
-                   include_blank: _("- Select a field of science -"),
-                   class: "form-control",
-                   title: by_field_tooltip,
-                   data: { toggle: "tooltip", placement: "bottom" } %>
-  </span>
-
-  <span class="col-md-5">
-    <%= select_tag :"research_output[metadata_discipline_filter]",
-                   options_for_select(ResearchOutputPresenter.selectable_metdata_disciplines),
-                   include_blank: _("- Select a discipline -"),
-                   class: "form-control",
-                   title: by_discipline_tooltip,
-                   data: { toggle: "tooltip", placement: "bottom" } %>
+    <%= select_tag :"research_output[metadata_standard_category]",
+                   options_for_select(metadata_standard_categories),
+                   include_blank: _("All standards"),
+                   class: "form-control" %>
   </span>
 <% end %>
 

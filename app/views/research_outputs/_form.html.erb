@@ -108,7 +108,7 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
   <div class="form-group row">
     <div class="col-md-12">
       <span class="col-md-12">
-        <%= f.label(:metadata_standard, _("Metadata standards"), class: "control-label") %>
+        <h3><%= f.label(:metadata_standard, _("Metadata standards"), class: "control-label") %></h3>
       </span>
     </div>
   </div>
@@ -117,7 +117,7 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
                locals: {
                  namespace: "metadata_standards",
                  button_label: _("Add a metadata standard"),
-                 item_name_attr: :name,
+                 item_name_attr: :title,
                  results: research_output.metadata_standards,
                  selected: true,
                  result_partial: "research_outputs/metadata_standards/search_result",
@@ -181,3 +181,5 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
 <% end %>
 
 <%= render partial: "research_outputs/repositories/search", locals: { research_output: research_output } %>
+
+<%= render partial: "research_outputs/metadata_standards/search", locals: { research_output: research_output } %>

@@ -4,12 +4,11 @@ class FieldOfScience < ApplicationRecord
 
   self.table_name = "fos"
 
+  STOP_WORDS = [", ", ".", " a ", " an ", " and ", " of ", " or ", " science", " sciences", " the "]
+
   # ================
   # = Associations =
   # ================
-
-  has_and_belongs_to_many :metadata_standards, join_table: "fos_metadata_standards"
-  has_and_belongs_to_many :repositories, join_table: "fos_repositories"
 
   # Self join
   has_many :sub_fields, class_name: "FieldOfScience", foreign_key: "parent_id"
@@ -21,64 +20,28 @@ class FieldOfScience < ApplicationRecord
 
   class << self
 
-    # Map an RDAMSC title to a Field Of Science
-    #   e.g. "AVM (Astronomy Visualization Metadata)", "Dublin Core", etc.
+    # Map some text values into FieldOfScience matches using keywords
     def from_text(text:)
-      matches = []
-      return matches unless text.present?
-
-      # 1 - Natural sciences
-      %w[astronom observatory crystallograph geolog geospatial natural telescope].each do |frag|
-        matches << find_by(identifier: "1") if text.downcase.include?(frag)
-      end
-      # 1.5 - Earth and related environmental sciences
-      %w[earth ecolog environ climat ocean coastal marine meteorol].each do |frag|
-        matches << find_by(identifier: "1.5") if text.downcase.include?(frag)
-      end
-      # 1.6 - Biological sciences
-      %w[biolog molecul genome genetic protein dna germ].each do |frag|
-        matches << find_by(identifier: "1.6") if text.downcase.include?(frag)
-      end
-      # 2 - Engineering and Technology
-      %w[engineer technol electric mechanic chemic materials].each do |frag|
-        matches << find_by(identifier: "2") if text.downcase.include?(frag)
-      end
-      # 3 - Medical and Health Sciences
-      %w[healthcare medic molecul genome genetic protein dna germ].each do |frag|
-        matches << find_by(identifier: "3") if text.downcase.include?(frag)
-      end
-      # 4 - Agricultural Sciences
-      %w[agricultur herb plant].each do |frag|
-        matches << find_by(identifier: "4") if text.downcase.include?(frag)
-      end
-      # 5 - Social Sciences
-      %w[social legal politic psycholog economic educational communications].each do |frag|
-        matches << find_by(identifier: "5") if text.downcase.include?(frag)
-      end
-      # 6 - Humanities
-      %w[humanit history archeolog linguist philosoph theolog religio music].each do |frag|
-        matches << find_by(identifier: "6") if text.downcase.include?(frag)
-      end
-
-      matches.flatten.uniq.compact
+      words = text.downcase.split(" ").reject { |word| STOP_WORDS.include?(word) }
+      # Return any matches that the text has with the keywords for each field of science
+      matches = all.select { |fos| (fos.keywords & words).any? }
     end
 
-    private
+  end
 
-    STOP_WORDS = %w[a an and basic information metadata of or science the]
+  # ====================
+  # = Instance Methods =
+  # ====================
 
-    def from_keyword(keywords:)
-      matches = []
-      keywords.split(" ").map { |word| word.downcase }.each do |keyword|
-        next if STOP_WORDS.include?(keyword)
-
-        matches += where("label LIKE ?", "%#{keyword}%")
-      end
-
-
-      matches.flatten.uniq.compact&.sort { |a, b| a&.identifier <=> b&.identifier }
+  # Return all of the keywords along with any keywords from children
+  def keywords
+    Rails.cache.fetch("field_of_science/#{id}/keywords", expires_in: 4.hours) do
+      out = super&.downcase&.split(" ")&.uniq || []
+      # Convert the label into keywords
+      out += label.downcase.split(" ").reject { |word| STOP_WORDS.include?(word) }
+      out += sub_fields.map(&:keywords)
+      out.flatten.uniq.compact
     end
-
   end
 
 end
