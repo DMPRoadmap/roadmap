@@ -20,5 +20,11 @@ class CreateMetadataStandardCategories < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
+    create_table :metadata_standards_research_outputs do |t|
+      t.references :metadata_standard, null: true,  index: { name: "metadata_research_outputs_on_metadata" }
+      t.references :repository, null: true,  index: { name: "metadata_research_outputs_on_repo" }
+      t.timestamps
+    end
+
   end
 end
