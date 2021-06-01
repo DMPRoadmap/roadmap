@@ -50,12 +50,9 @@ class ResearchOutputsController < ApplicationController
     args = process_nillable_values(args: args)
     authorize @research_output
 
-    # Allow the repository to be removed
-    @research_output.repositories.clear unless args[:repository_id].present?
-
-    # Clear any existing repository selections. If the user has selected any
-    # the will be saved via the :repositories_attributes params during :update
+    # Clear any existing repository and metadata_standard selections.
     @research_output.repositories.clear
+    @research_output.metadata_standards.clear
 
     if @research_output.update(args)
       redirect_to plan_research_outputs_path(@plan),
