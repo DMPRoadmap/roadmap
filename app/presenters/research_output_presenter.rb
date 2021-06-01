@@ -25,6 +25,21 @@ class ResearchOutputPresenter
     [%w[MB mb], %w[GB gb], %w[TB tb], %w[PB pb], ["bytes", ""]]
   end
 
+  # Returns the options for field of science
+  def selectable_fields_of_science(parent_id:)
+    FieldOfScience.where(parent_id: parent_id)
+                  .order(:identifier)
+                  .map { |fos| ["#{fos.to_s}", fos.id] }
+  end
+
+  # Returns the options for metadata standards
+  def selectable_metadata_standards(category:)
+    return MetadataStandard.all.order(:title).map { |ms| [ms.title, ms.id] } unless category.present?
+
+    MetadataStandard.where(descipline_specific: (category == "disciplinary"))
+                    .map { |ms| [ms.title, ms.id] }
+  end
+
   # Returns the available licenses for a select tag
   def complete_licenses
     License.selectable.map { |license| [license.identifier, license.id] }

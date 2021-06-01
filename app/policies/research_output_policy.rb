@@ -52,4 +52,8 @@ class ResearchOutputPolicy < ApplicationPolicy
     @research_output.plan.administerable_by?(@user.id)
   end
 
+  def metadata_standard_search?
+    @research_output.plan.administerable_by?(@user.id)
+  end
+
 end
