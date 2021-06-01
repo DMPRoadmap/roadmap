@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-05-28 11:01-0600\n"
-"PO-Revision-Date: 2021-05-28 19:01+0200\n"
+"POT-Creation-Date: 2021-05-28 14:55-0600\n"
+"PO-Revision-Date: 2021-05-28 22:55+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_CA\n"
@@ -501,6 +501,36 @@ msgid ""
 "roughout a research project.&nbsp; </span></p>"
 msgstr ""
 
+msgid "MICYRN Data Management Plan Initial Phase"
+msgstr ""
+
+msgid "Phase 1: Data Management Plan for Grant Application"
+msgstr ""
+
+msgid "Reproducible findings through deposited data"
+msgstr ""
+
+msgid "University of British Columbia Data Management Questions"
+msgstr ""
+
+msgid "Portage Data Management Questions"
+msgstr ""
+
+msgid "Pre-Project: Prototype"
+msgstr ""
+
+msgid "CEOS Data Management Plan"
+msgstr ""
+
+msgid "Oceans Data Management Plan"
+msgstr ""
+
+msgid "Template for Systematic Reviews"
+msgstr "Modèle pour les revues systématiques"
+
+msgid "University of Manitoba Data Management Questions"
+msgstr ""
+
 msgid "DMP Questionnaire"
 msgstr ""
 
@@ -552,34 +582,7 @@ msgstr ""
 msgid "University of Alberta Data Management Questions"
 msgstr ""
 
-msgid "MICYRN Data Management Plan Initial Phase"
-msgstr ""
-
-msgid "Reproducible findings through deposited data"
-msgstr ""
-
-msgid "Phase 1: Data Management Plan for Grant Application"
-msgstr ""
-
-msgid "University of British Columbia Data Management Questions"
-msgstr ""
-
-msgid "Portage Data Management Questions"
-msgstr ""
-
-msgid "Pre-Project: Prototype"
-msgstr ""
-
-msgid "CEOS Data Management Plan"
-msgstr ""
-
-msgid "Oceans Data Management Plan"
-msgstr ""
-
-msgid "Template for Systematic Reviews"
-msgstr "Modèle pour les revues systématiques"
-
-msgid "University of Manitoba Data Management Questions"
+msgid "Phase 2: Data Management Plan for Project Development"
 msgstr ""
 
 msgid "Phase 2"
@@ -595,9 +598,6 @@ msgid "Data Management Plan"
 msgstr ""
 
 msgid "Phase 2: Active Research (Data) Management"
-msgstr ""
-
-msgid "Phase 2: Data Management Plan for Project Development"
 msgstr ""
 
 msgid "Phase 3: Data Protection"
@@ -17252,17 +17252,17 @@ msgid "Owner"
 msgstr ""
 
 #: ../../app/helpers/plans_helper.rb:8
-#: ../../app/views/plans/_share_form.html.erb:120
+#: ../../app/views/plans/_share_form.html.erb:129
 msgid "Co-owner"
 msgstr ""
 
 #: ../../app/helpers/plans_helper.rb:10
-#: ../../app/views/plans/_share_form.html.erb:126
+#: ../../app/views/plans/_share_form.html.erb:135
 msgid "Editor"
 msgstr ""
 
 #: ../../app/helpers/plans_helper.rb:12
-#: ../../app/views/plans/_share_form.html.erb:132
+#: ../../app/views/plans/_share_form.html.erb:141
 msgid "Read only"
 msgstr ""
 
@@ -18038,7 +18038,7 @@ msgstr ""
 #: ../../app/views/paginable/users/_index.html.erb:10
 #: ../../app/views/plans/_edit_details.html.erb:110
 #: ../../app/views/plans/_edit_details.html.erb:153
-#: ../../app/views/plans/_share_form.html.erb:99
+#: ../../app/views/plans/_share_form.html.erb:108
 #: ../../app/views/plans/_show_details.html.erb:20
 #: ../../app/views/plans/_show_details.html.erb:30
 #: ../../app/views/shared/_create_account_form.html.erb:12
@@ -18063,7 +18063,7 @@ msgid "Security check"
 msgstr ""
 
 #: ../../app/views/contact_us/contacts/_new_left.html.erb:42
-#: ../../app/views/plans/_share_form.html.erb:139
+#: ../../app/views/plans/_share_form.html.erb:148
 msgid "Submit"
 msgstr ""
 
@@ -18998,7 +18998,7 @@ msgstr ""
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:74
 #: ../../app/views/paginable/templates/_customisable.html.erb:67
 #: ../../app/views/paginable/templates/_organisational.html.erb:74
-#: ../../app/views/plans/_share_form.html.erb:81
+#: ../../app/views/plans/_share_form.html.erb:90
 msgid "Remove"
 msgstr ""
 
@@ -19234,7 +19234,7 @@ msgstr ""
 #: ../../app/views/paginable/templates/_customisable.html.erb:51
 #: ../../app/views/paginable/templates/_history.html.erb:10
 #: ../../app/views/paginable/templates/_organisational.html.erb:53
-#: ../../app/views/plans/_share_form.html.erb:51
+#: ../../app/views/plans/_share_form.html.erb:60
 msgid "Actions"
 msgstr ""
 
@@ -19949,7 +19949,7 @@ msgstr ""
 
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:31
 #: ../../app/views/paginable/users/_index.html.erb:70
-#: ../../app/views/plans/_share_form.html.erb:37
+#: ../../app/views/plans/_share_form.html.erb:46
 msgid "Update"
 msgstr ""
 
@@ -20333,52 +20333,58 @@ msgstr ""
 msgid "Set plan visibility"
 msgstr ""
 
-#: ../../app/views/plans/_share_form.html.erb:12
+#: ../../app/views/plans/_share_form.html.erb:14
 msgid ""
 "Public or organisational visibility is intended for finished plans. You must a"
 "nswer at least %{percentage}%% of the questions to enable these options. Note:"
 " test plans are set to private visibility by default."
 msgstr ""
 
-#: ../../app/views/plans/_share_form.html.erb:20
+#: ../../app/views/plans/_share_form.html.erb:17
+msgid ""
+"Public or organisational visibility is intended for finished plans. Note: test"
+" plans are set to private visibility by default."
+msgstr ""
+
+#: ../../app/views/plans/_share_form.html.erb:29
 msgid ""
 "Private: visible to me, specified collaborators and administrators at my organ"
 "isation"
 msgstr ""
 
-#: ../../app/views/plans/_share_form.html.erb:26
+#: ../../app/views/plans/_share_form.html.erb:35
 #: ../../app/views/user_mailer/plan_visibility.html.erb:17
 msgid "Organisation: anyone at my organisation can view"
 msgstr ""
 
-#: ../../app/views/plans/_share_form.html.erb:32
+#: ../../app/views/plans/_share_form.html.erb:41
 msgid "Public: anyone can view"
 msgstr ""
 
-#: ../../app/views/plans/_share_form.html.erb:42
+#: ../../app/views/plans/_share_form.html.erb:51
 msgid "Manage collaborators"
 msgstr ""
 
-#: ../../app/views/plans/_share_form.html.erb:43
+#: ../../app/views/plans/_share_form.html.erb:52
 msgid ""
 "Invite specific people to read, edit, or administer your plan. Invitees will r"
 "eceive an email notification that they have access to this plan."
 msgstr ""
 
-#: ../../app/views/plans/_share_form.html.erb:48
+#: ../../app/views/plans/_share_form.html.erb:57
 msgid "Email address"
 msgstr ""
 
-#: ../../app/views/plans/_share_form.html.erb:49
-#: ../../app/views/plans/_share_form.html.erb:115
+#: ../../app/views/plans/_share_form.html.erb:58
+#: ../../app/views/plans/_share_form.html.erb:124
 msgid "Permissions"
 msgstr ""
 
-#: ../../app/views/plans/_share_form.html.erb:81
+#: ../../app/views/plans/_share_form.html.erb:90
 msgid "Are you sure?"
 msgstr ""
 
-#: ../../app/views/plans/_share_form.html.erb:92
+#: ../../app/views/plans/_share_form.html.erb:101
 msgid "Invite collaborators"
 msgstr ""
 
