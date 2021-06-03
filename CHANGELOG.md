@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## [2.1.3+portage-1.0.10] - 2021-06-03
 
 ## Added
  - Added functionality for super administrators to create usage statistics filters including all organizations.
@@ -10,6 +10,9 @@
  - Changed landing page content to make it more user friendly.
  - Changed footer and header layout.
  - Logo on error pages now show DMP Assistant bi-lingual logo.
+
+## Fixed
+ - Creating a plan from a direct link does no longer create a 422 error.
 
 ## [2.1.3+portage-1.0.10] - 2021-04-22
 
