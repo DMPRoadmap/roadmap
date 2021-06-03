@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-05-28 14:55-0600\n"
-"PO-Revision-Date: 2021-05-28 22:55+0200\n"
+"POT-Creation-Date: 2021-06-03 13:18-0600\n"
+"PO-Revision-Date: 2021-06-03 21:18+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_CA\n"
@@ -501,6 +501,21 @@ msgid ""
 "roughout a research project.&nbsp; </span></p>"
 msgstr ""
 
+msgid "Initial GWF DMP"
+msgstr ""
+
+msgid "Software/Technology Management Plan"
+msgstr ""
+
+msgid "Template for Mixed Methods (Surveys & Qualitative Research)"
+msgstr ""
+
+msgid "Phase 1: Data Preparation"
+msgstr ""
+
+msgid "University of Alberta Data Management Questions"
+msgstr ""
+
 msgid "MICYRN Data Management Plan Initial Phase"
 msgstr ""
 
@@ -522,11 +537,11 @@ msgstr ""
 msgid "CEOS Data Management Plan"
 msgstr ""
 
-msgid "Oceans Data Management Plan"
-msgstr ""
-
 msgid "Template for Systematic Reviews"
 msgstr "Modèle pour les revues systématiques"
+
+msgid "Oceans Data Management Plan"
+msgstr ""
 
 msgid "University of Manitoba Data Management Questions"
 msgstr ""
@@ -567,24 +582,6 @@ msgstr ""
 msgid "Phase 1 (test)"
 msgstr ""
 
-msgid "Initial GWF DMP"
-msgstr ""
-
-msgid "Software/Technology Management Plan"
-msgstr ""
-
-msgid "Template for Mixed Methods (Surveys & Qualitative Research)"
-msgstr ""
-
-msgid "Phase 1: Data Preparation"
-msgstr ""
-
-msgid "University of Alberta Data Management Questions"
-msgstr ""
-
-msgid "Phase 2: Data Management Plan for Project Development"
-msgstr ""
-
 msgid "Phase 2"
 msgstr ""
 
@@ -598,6 +595,9 @@ msgid "Data Management Plan"
 msgstr ""
 
 msgid "Phase 2: Active Research (Data) Management"
+msgstr ""
+
+msgid "Phase 2: Data Management Plan for Project Development"
 msgstr ""
 
 msgid "Phase 3: Data Protection"
@@ -17280,11 +17280,11 @@ msgstr ""
 msgid "Test"
 msgstr ""
 
-#: ../../app/helpers/plans_helper.rb:35 ../../app/helpers/template_helper.rb:58
+#: ../../app/helpers/plans_helper.rb:35 ../../app/helpers/template_helper.rb:59
 msgid "Organisation: anyone at my organisation can view."
 msgstr ""
 
-#: ../../app/helpers/plans_helper.rb:37 ../../app/helpers/template_helper.rb:60
+#: ../../app/helpers/plans_helper.rb:37 ../../app/helpers/template_helper.rb:61
 msgid "Public: anyone can view."
 msgstr ""
 
@@ -17298,7 +17298,7 @@ msgid "Test: mock project for testing, practice, or educational purposes."
 msgstr ""
 
 #: ../../app/helpers/plans_helper.rb:43 ../../app/helpers/plans_helper.rb:58
-#: ../../app/helpers/template_helper.rb:62
+#: ../../app/helpers/template_helper.rb:63
 #: ../../app/views/layouts/application.html.erb:105
 msgid "N/A"
 msgstr ""
@@ -17345,7 +17345,7 @@ msgstr ""
 msgid "Unknown column name."
 msgstr ""
 
-#: ../../app/helpers/template_helper.rb:46
+#: ../../app/helpers/template_helper.rb:47
 #: ../../app/views/branded/plans/new.html.erb:123
 #: ../../app/views/plans/index.html.erb:29
 #: ../../app/views/plans/new.html.erb:121
@@ -17593,7 +17593,7 @@ msgstr ""
 
 #: ../../app/models/plan.rb:214
 msgid "Copy of %{title}"
-msgstr ""
+msgstr "Copie de %{title}"
 
 #: ../../app/models/question.rb:153
 msgid "guidance on"
@@ -17645,7 +17645,7 @@ msgstr ""
 
 #: ../../app/models/template.rb:365
 msgid "Copy of %{template}"
-msgstr ""
+msgstr "Copie de %{template}"
 
 #: ../../app/models/template.rb:373
 msgid "generate_version! requires a published template"
@@ -18754,8 +18754,8 @@ msgid ""
 "        The DMP Assistant was adapted from the <a href=\"https://dcc.ac.uk/\"> D"
 "igital Curation Centre (DCC)</a>’s <a href=\"https://dmponline.dcc.ac.uk/\">DMPo"
 "nline</a> tool, and uses the DMP Roadmap codebase developed by DCC and the <a "
-"href=\"https://www.cdlib.org/uc3/\">University of California Curation Center (UC"
-"3).</a>\n"
+"href=\" https://cdlib.org/services/uc3/\">University of California Curation Cent"
+"er (UC3).</a>\n"
 "      </p>\n"
 "    "
 msgstr ""
@@ -20068,7 +20068,7 @@ msgstr ""
 msgid "(if available)"
 msgstr ""
 
-#: ../../app/views/paginable/templates/_publicly_visible.html.erb:45
+#: ../../app/views/paginable/templates/_publicly_visible.html.erb:46
 msgid "Copy link to create a new plan"
 msgstr ""
 
@@ -20339,12 +20339,17 @@ msgid ""
 "nswer at least %{percentage}%% of the questions to enable these options. Note:"
 " test plans are set to private visibility by default."
 msgstr ""
+"Public or organisational visibility is intended for finished plans. You must a"
+"nswer at least %{percentage}%% of the questions to enable these options. Note:"
+" test plans are set to private visibility by default."
 
 #: ../../app/views/plans/_share_form.html.erb:17
 msgid ""
 "Public or organisational visibility is intended for finished plans. Note: test"
 " plans are set to private visibility by default."
 msgstr ""
+"Public or organisational visibility is intended for finished plans. Note: test"
+" plans are set to private visibility by default."
 
 #: ../../app/views/plans/_share_form.html.erb:29
 msgid ""
