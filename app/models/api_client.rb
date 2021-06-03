@@ -2,36 +2,36 @@
 
 # == Schema Information
 #
-# Table name: api_clients
+# Table name: oauth_applications
 #
 #  id              :integer          not null, primary key
-#  name            :string,          not null
-#  homepage        :string
-#  contact_name    :string
-#  contact_email   :string,          not null
-#  client_id       :string,          not null
-#  client_secret   :string,          not null
+#  callback_method :integer          default(0)
+#  callback_uri    :string(255)
+#  confidential    :boolean          default(TRUE)
+#  contact_email   :string(255)
+#  contact_name    :string(255)
+#  description     :string(255)
+#  homepage        :string(255)
 #  last_access     :datetime
-#  created_at      :datetime
-#  updated_at      :datetime
+#  logo_name       :string(255)
+#  logo_uid        :string(255)
+#  name            :string(255)      not null
+#  redirect_uri    :text(65535)
+#  scopes          :string(255)      default(""), not null
+#  secret          :string(255)      default(""), not null
+#  trusted         :boolean          default(FALSE), not null
+#  uid             :string(255)      default(""), not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #  org_id          :integer
-#  redirect_uri    :text
-#  callback_uri    :string
-#  callback_method :string
-#  scopes          :string
-#  confidential    :boolean,         default: true
-#  trusted         :boolean,         default: false
-#  user_id         :integer
-#  logo_name       :string
-#  logo_uid        :string
+#  user_id         :bigint(8)
 #
 # Indexes
 #
-#  index_api_clients_on_name     (name)
+#  index_oauth_applications_on_name     (name)
+#  index_oauth_applications_on_uid      (uid) UNIQUE
+#  index_oauth_applications_on_user_id  (user_id)
 #
-# Foreign Keys
-#
-#  fk_rails_...  (org_id => orgs.id)
 
 class ApiClient < ApplicationRecord
 

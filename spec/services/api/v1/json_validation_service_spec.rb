@@ -122,6 +122,22 @@ RSpec.describe Api::V1::JsonValidationService do
     it "returns `false` when json is not present" do
       expect(described_class.dataset_valid?(json: nil)).to eql(false)
     end
+    it "returns `false` when json[:title] or json[:dataset_id] are not present" do
+      json = { desription: Faker::Lorem.paragraph }
+      expect(described_class.dataset_valid?(json: json)).to eql(false)
+    end
+    it "returns `false` when json[:title] or json[:dataset_id][:identifier] are not present" do
+      json = { dataset_id: { type: "url" } }
+      expect(described_class.dataset_valid?(json: json)).to eql(false)
+    end
+    it "returns `true` when json[:title] is present" do
+      json = { title: Faker::Lorem.sentence }
+      expect(described_class.dataset_valid?(json: json)).to eql(true)
+    end
+    it "returns `true` when json[:dataset_id] is present" do
+      json = { dataset_id: { identifier: SecureRandom.uuid } }
+      expect(described_class.dataset_valid?(json: json)).to eql(true)
+    end
   end
 
   describe "validation_errors(json:)" do

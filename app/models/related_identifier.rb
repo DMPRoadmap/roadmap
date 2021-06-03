@@ -4,15 +4,15 @@
 #
 # Table name: related_identifiers
 #
-#  id                   :bigint           not null, primary key
-#  identifiable_type    :string
-#  value                :string           not null
+#  id                   :bigint(8)        not null, primary key
+#  identifiable_type    :string(255)
 #  identifier_type      :integer          not null
 #  relation_type        :integer          not null
+#  value                :string(255)      not null
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
-#  identifiable_id      :bigint
-#  identifier_scheme_id :bigint
+#  identifiable_id      :bigint(8)
+#  identifier_scheme_id :bigint(8)
 #
 # Indexes
 #
@@ -61,4 +61,15 @@ class RelatedIdentifier < ApplicationRecord
                          IsRequiredBy Requires
                          IsObsoletedBy Obsoletes]
 
+  # Returns the value sans the identifier scheme's prefix.
+  # For example:
+  #   value   'https://orcid.org/0000-0000-0000-0001'
+  #   becomes '0000-0000-0000-0001'
+  def value_without_scheme_prefix
+    return value unless identifier_scheme.present? &&
+                        identifier_scheme.identifier_prefix.present?
+
+    base = identifier_scheme.identifier_prefix
+    value.gsub(base, "").sub(%r{^/}, "")
+  end
 end

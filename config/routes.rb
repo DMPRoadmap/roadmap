@@ -271,6 +271,8 @@ Rails.application.routes.draw do
       resources :plans, only: %i[create show index] do
         member do
           get :show, constraints: { format: %i[json] }
+
+          resources :datasets, only: %i[create update]
         end
       end
 

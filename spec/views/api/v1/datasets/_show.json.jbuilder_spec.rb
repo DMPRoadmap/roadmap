@@ -52,7 +52,11 @@ describe "api/v1/datasets/_show.json.jbuilder" do
       end
     end
     it "includes :metadata" do
-      expect(@json[:metadata]).to eql([])
+      expect(@json[:metadata]).not_to eql([])
+      expect(@json[:metadata].first[:description].present?).to eql(true)
+      expect(@json[:metadata].first[:metadata_standard_id].present?).to eql(true)
+      expect(@json[:metadata].first[:metadata_standard_id][:type].present?).to eql(true)
+      expect(@json[:metadata].first[:metadata_standard_id][:identifier].present?).to eql(true)
     end
     it "includes :technical_resources" do
       expect(@json[:technical_resources]).to eql(nil)

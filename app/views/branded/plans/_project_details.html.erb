@@ -73,6 +73,24 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
   </div>
 <% end %>
 
+<% if form.object.related_identifiers.any? %>
+  <div class="form-group">
+    <div class="col-md-12">
+      <%= form.label(:identifier, _('Related identifiers'), class: 'control-label') %>
+    </div>
+    <div class="col-md-8">
+      <ul>
+        <% form.object.related_identifiers.each do |id| %>
+          <li>
+            <%= id.relation_type %> - <%= link_to id.value, id.value, target: "_blank",
+                                                  class: "has-new-window-popup-info" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
 <conditional>
   <div class="form-group">
     <div class="col-md-8">

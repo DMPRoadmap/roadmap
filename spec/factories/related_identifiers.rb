@@ -4,14 +4,15 @@
 #
 # Table name: related_identifiers
 #
-#  id                   :bigint           not null, primary key
-#  identifiable_type    :string
+#  id                   :bigint(8)        not null, primary key
+#  identifiable_type    :string(255)
 #  identifier_type      :integer          not null
 #  relation_type        :integer          not null
+#  value                :string(255)      not null
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
-#  identifiable_id      :bigint
-#  identifier_scheme_id :bigint
+#  identifiable_id      :bigint(8)
+#  identifier_scheme_id :bigint(8)
 #
 # Indexes
 #
@@ -22,10 +23,9 @@
 #
 FactoryBot.define do
   factory :related_identifier do
-=begin
-    identifier_scheme
-    identifier_type        { RelatedIdentifier.relations_types.keys.sample }
-    relation_type          { RelatedIdentifier.relation_types.keys.sample }
+    identifier_type { RelatedIdentifier.identifier_types.keys.sample }
+    relation_type   { RelatedIdentifier.relation_types.keys.sample }
+    value           { SecureRandom.uuid }
 
     trait :for_plan do
       association :identifiable, factory: :plan
@@ -33,6 +33,5 @@ FactoryBot.define do
     trait :for_research_output do
       association :identifiable, factory: :research_output
     end
-=end
   end
 end

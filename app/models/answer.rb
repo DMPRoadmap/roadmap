@@ -6,10 +6,10 @@
 #
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0)
-#  text         :text
+#  text         :text(65535)
 #  created_at   :datetime
 #  updated_at   :datetime
-#  label_id     :string
+#  label_id     :string(255)
 #  plan_id      :integer
 #  question_id  :integer
 #  user_id      :integer
