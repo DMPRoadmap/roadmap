@@ -130,6 +130,13 @@ class ResearchOutputPresenter
     @research_output.license.name
   end
 
+  # Returns the display name(s) of the repository(ies)
+  def display_metadata_standard
+    return [_("None specified")] unless @research_output.metadata_standards.any?
+
+    @research_output.metadata_standards.map(&:title)
+  end
+
   # Returns the humanized version of the access enum variable
   def display_access
     return _("Unspecified") unless @research_output.access.present?
