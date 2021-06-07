@@ -27,10 +27,6 @@ class MetadataStandard < ApplicationRecord
   # = Scopes =
   # ==========
 
-  scope :disciplinary, -> { where(discipline_specific: true) }
-
-  scope :generic, -> { where(discipline_specific: false) }
-
   scope :search, lambda { |term|
     where("LOWER(title) LIKE ?", "%#{term}%").or(where("LOWER(description) LIKE ?", "%#{term}%"))
   }

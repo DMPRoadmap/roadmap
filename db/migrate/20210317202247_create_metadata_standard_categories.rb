@@ -16,7 +16,6 @@ class CreateMetadataStandardCategories < ActiveRecord::Migration[5.2]
       t.string :uri
       t.json :locations
       t.json :related_entities
-      t.boolean :discipline_specific, default: false, index: true
       t.timestamps
     end
 

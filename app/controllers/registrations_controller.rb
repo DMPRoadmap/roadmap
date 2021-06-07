@@ -315,6 +315,8 @@ class RegistrationsController < Devise::RegistrationsController
 
   # Finds or creates the selected org and then returns it's id
   def handle_org(attrs:)
+    return nil unless attrs.present?
+
     # DMPTool hack to deal with Org via IdP
     if attrs[:default_org_id].present?
       attrs[:org_id] = attrs[:default_org_id]

@@ -47,6 +47,22 @@ ActiveRecord::Schema.define(version: 2021_05_27_195424) do
     t.index ["answer_id"], name: "index_answers_question_options_on_answer_id"
   end
 
+  create_table "api_clients", id: :integer, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.string "homepage"
+    t.string "contact_name"
+    t.string "contact_email", null: false
+    t.string "client_id", default: "", null: false
+    t.string "client_secret", default: "", null: false
+    t.datetime "last_access"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "org_id"
+    t.index ["name"], name: "index_api_clients_on_name"
+    t.index ["client_id"], name: "index_api_clients_on_client_id", unique: true
+  end
+
   create_table "conditions", id: :integer, force: :cascade do |t|
     t.integer "question_id"
     t.text "option_list"
@@ -270,7 +286,7 @@ ActiveRecord::Schema.define(version: 2021_05_27_195424) do
     t.string "description"
     t.string "homepage"
     t.string "contact_name"
-    t.string "contact_email"
+    t.string "contact_email", null: false
     t.string "uid", default: "", null: false
     t.string "secret", default: "", null: false
     t.datetime "last_access"
@@ -278,17 +294,11 @@ ActiveRecord::Schema.define(version: 2021_05_27_195424) do
     t.datetime "updated_at", null: false
     t.integer "org_id"
     t.text "redirect_uri"
-    t.string "callback_uri"
-    t.integer "callback_method", default: 0
     t.string "scopes", default: "", null: false
     t.boolean "confidential", default: true
     t.boolean "trusted", default: false, null: false
-    t.bigint "user_id"
-    t.string "logo_uid"
-    t.string "logo_name"
     t.index ["name"], name: "index_oauth_applications_on_name"
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
-    t.index ["user_id"], name: "index_oauth_applications_on_user_id"
   end
 
   create_table "org_indices", force: :cascade do |t|
