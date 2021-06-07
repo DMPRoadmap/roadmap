@@ -26,7 +26,7 @@
 
 class GuidanceGroup < ApplicationRecord
 
-  attribute :optional_subset, :boolean, default: true
+  attribute :optional_subset, :boolean, default: false
   attribute :published, :boolean, default: false
 
   # ================
