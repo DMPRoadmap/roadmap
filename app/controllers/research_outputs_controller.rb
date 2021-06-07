@@ -133,13 +133,9 @@ class ResearchOutputsController < ApplicationController
     @research_output = ResearchOutput.new(plan: @plan)
     authorize @research_output
 
-    cat = metadata_standard_search_params[:metadata_standard_category]
-    @search_results = MetadataStandard.disciplinary if cat == "disciplinary"
-    @search_results = MetadataStandard.generic if cat == "generic"
-    @search_results = MetadataStandard.all unless @search_results.present?
-    @search_results = @search_results.search(metadata_standard_search_params[:search_term])
-
-    @search_results = @search_results.order(:title).page(params[:page])
+    @search_results = MetadataStandard.search(metadata_standard_search_params[:search_term])
+                                      .order(:title)
+                                      .page(params[:page])
   end
 
   private
@@ -158,7 +154,7 @@ class ResearchOutputsController < ApplicationController
   end
 
   def metadata_standard_search_params
-    params.require(:research_output).permit(%i[search_term metadata_standard_category])
+    params.require(:research_output).permit(%i[search_term])
   end
 
   def process_byte_size

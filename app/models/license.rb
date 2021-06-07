@@ -4,20 +4,20 @@
 #
 # Table name: licenses
 #
-#  id           :integer          not null, primary key
-#  name         :string           not null
-#  identifier   :string
-#  url          :string
-#  osi_approved :boolean          default: false
-#  deprecated   :boolean          default: false
-#  created_at   :datetime
-#  updated_at   :datetime
+#  id           :bigint(8)        not null, primary key
+#  deprecated   :boolean          default(FALSE)
+#  identifier   :string(255)      not null
+#  name         :string(255)      not null
+#  osi_approved :boolean          default(FALSE)
+#  url          :string(255)      not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
 # Indexes
 #
-#  index_licenses_on_identifier               (name)
-#  index_licenses_on_url                      (url)
-#  index_licenses_on_identifier_and_criteria  (identifier, osi_approved, deprecated)
+#  index_license_on_identifier_and_criteria  (identifier,osi_approved,deprecated)
+#  index_licenses_on_identifier              (identifier)
+#  index_licenses_on_url                     (url)
 #
 class License < ApplicationRecord
 

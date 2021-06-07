@@ -4,32 +4,29 @@
 #
 # Table name: research_outputs
 #
-#  id                      :bigint           not null, primary key
-#  abbreviation            :string
-#  access                  :integer          default(0), not null
-#  byte_size               :bigint
-#  description             :text
+#  id                      :bigint(8)        not null, primary key
+#  abbreviation            :string(255)
+#  access                  :integer          default("open"), not null
+#  byte_size               :bigint(8)
+#  description             :text(65535)
 #  display_order           :integer
-#  is_default              :boolean         default("false")
-#  output_type             :integer          default(3), not null
-#  output_type_description :string
+#  is_default              :boolean
+#  output_type             :integer          default("dataset"), not null
+#  output_type_description :string(255)
 #  personal_data           :boolean
 #  release_date            :datetime
 #  sensitive_data          :boolean
-#  title                   :string           not null
+#  title                   :string(255)      not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
-#  mime_type_id            :integer
+#  license_id              :bigint(8)
 #  plan_id                 :integer
 #
 # Indexes
 #
+#  index_research_outputs_on_license_id   (license_id)
 #  index_research_outputs_on_output_type  (output_type)
 #  index_research_outputs_on_plan_id      (plan_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (repository_id => repositories.id)
 #
 class ResearchOutput < ApplicationRecord
 

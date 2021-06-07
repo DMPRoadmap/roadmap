@@ -1,5 +1,26 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: fos
+#
+#  id         :bigint(8)        not null, primary key
+#  identifier :string(255)      not null
+#  keywords   :text(65535)
+#  label      :string(255)      not null
+#  uri        :string(255)      default("")
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  parent_id  :bigint(8)
+#
+# Indexes
+#
+#  index_fos_on_parent_id  (parent_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (parent_id => fos.id)
+#
 class FieldOfScience < ApplicationRecord
 
   self.table_name = "fos"

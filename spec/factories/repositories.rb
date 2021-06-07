@@ -4,19 +4,19 @@
 #
 # Table name: repositories
 #
-#  id           :integer          not null, primary key
-#  name         :string           not null
-#  description  :text
-#  url          :string
-#  contact      :string
-#  info         :json
-#  created_at   :datetime
-#  updated_at   :datetime
+#  id          :bigint(8)        not null, primary key
+#  contact     :string(255)
+#  description :text(65535)      not null
+#  info        :json
+#  name        :string(255)      not null
+#  url         :string(255)
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 # Indexes
 #
-#  index_repositories_on_name      (name)
-#  index_repositories_on_url       (url)
+#  index_repositories_on_name  (name)
+#  index_repositories_on_url   (url)
 #
 FactoryBot.define do
     factory :repository do

@@ -1,19 +1,7 @@
 <%# locals: research_output %>
 
 <% content_for :"filters-metadata_standards" do %>
-  <%
-  metadata_standard_categories = [
-    [_("Generic"), "generic"],
-    [_("Discipline specific"), "disciplinary"]
-  ]
-  %>
 
-  <span class="col-md-5">
-    <%= select_tag :"research_output[metadata_standard_category]",
-                   options_for_select(metadata_standard_categories),
-                   include_blank: _("All standards"),
-                   class: "form-control" %>
-  </span>
 <% end %>
 
 <%= render partial: "layouts/modal_search/form",

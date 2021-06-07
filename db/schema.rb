@@ -118,24 +118,6 @@ ActiveRecord::Schema.define(version: 2021_05_27_195424) do
     t.index ["parent_id"], name: "index_fos_on_parent_id"
   end
 
-  create_table "fos_metadata_standards", force: :cascade do |t|
-    t.bigint "fos_id", null: false
-    t.bigint "metadata_standard_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["fos_id"], name: "index_fos_metadata_standards_on_fos_id"
-    t.index ["metadata_standard_id"], name: "index_fos_metadata_standards_on_metadata_standard_id"
-  end
-
-  create_table "fos_repositories", force: :cascade do |t|
-    t.bigint "fos_id", null: false
-    t.bigint "repository_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["fos_id"], name: "index_fos_repositories_on_fos_id"
-    t.index ["repository_id"], name: "index_fos_repositories_on_repository_id"
-  end
-
   create_table "guidance_groups", id: :integer, force: :cascade do |t|
     t.string "name"
     t.integer "org_id"
