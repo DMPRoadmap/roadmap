@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_27_162935) do
+ActiveRecord::Schema.define(version: 2021_05_27_195424) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -123,6 +123,17 @@ ActiveRecord::Schema.define(version: 2021_04_27_162935) do
     t.index ["user_id"], name: "index_external_api_access_tokens_on_user_id"
   end
 
+  create_table "fos", force: :cascade do |t|
+    t.string "uri", default: ""
+    t.string "identifier", null: false
+    t.string "label", null: false
+    t.text "keywords"
+    t.bigint "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_fos_on_parent_id"
+  end
+
   create_table "guidance_groups", id: :integer, force: :cascade do |t|
     t.string "name"
     t.integer "org_id"
@@ -187,35 +198,22 @@ ActiveRecord::Schema.define(version: 2021_04_27_162935) do
     t.index ["url"], name: "index_licenses_on_url"
   end
 
-  create_table "metadata_categories", force: :cascade do |t|
-    t.string "uri", null: false
-    t.string "label", null: false
-    t.bigint "parent_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["parent_id"], name: "index_metadata_categories_on_parent_id"
-  end
-
-  create_table "metadata_categories_standards", force: :cascade do |t|
-    t.bigint "metadata_category_id", null: false
-    t.bigint "metadata_standard_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["metadata_category_id"], name: "index_metadata_categories_standards_on_metadata_category_id"
-    t.index ["metadata_standard_id"], name: "index_metadata_categories_standards_on_metadata_standard_id"
-  end
-
   create_table "metadata_standards", force: :cascade do |t|
     t.string "title"
-    t.string "rdamsc_id"
     t.text "description"
+    t.string "rdamsc_id"
     t.string "uri"
     t.json "locations"
     t.json "related_entities"
-    t.bigint "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["parent_id"], name: "index_metadata_standards_on_parent_id"
+  end
+
+  create_table "metadata_standards_research_outputs", force: :cascade do |t|
+    t.bigint "research_output_id"
+    t.bigint "metadata_standard_id"
+    t.index ["metadata_standard_id"], name: "index_metadata_ros_metadata_standard_id"
+    t.index ["research_output_id"], name: "index_metadata_ros_research_output_id"
   end
 
   create_table "notes", id: :integer, force: :cascade do |t|
@@ -709,10 +707,9 @@ ActiveRecord::Schema.define(version: 2021_04_27_162935) do
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
   add_foreign_key "conditions", "questions"
+  add_foreign_key "fos", "fos", column: "parent_id"
   add_foreign_key "guidance_groups", "orgs"
   add_foreign_key "guidances", "guidance_groups"
-  add_foreign_key "metadata_categories", "metadata_categories", column: "parent_id"
-  add_foreign_key "metadata_standards", "metadata_standards", column: "parent_id"
   add_foreign_key "notes", "answers"
   add_foreign_key "notes", "users"
   add_foreign_key "notification_acknowledgements", "notifications"

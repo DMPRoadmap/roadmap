@@ -9,7 +9,7 @@ $(() => {
     Tinymce.init({ selector: '#research_output_description' });
   }
 
-  // Expands/Collapses the repository's 'More info'/'Less info' section
+  // Expands/Collapses the search results 'More info'/'Less info' section
   $('body').on('click', '.modal-search-result .more-info a.more-info-link', (e) => {
     e.preventDefault();
     const link = $(e.target);

@@ -14,8 +14,10 @@ namespace :v3 do
     Rake::Task["v3:datacite"].execute
     Rake::Task["v3:init_re3data"].execute
     Rake::Task["v3:seed_external_services"].execute
-    Rake::Task["v3:load_re3data_repos"].execute
-    Rake::Task["v3:load_spdx_licenses"].execute
+    Rake::Task["external_api:load_field_of_science"].execute
+    Rake::Task["external_api:load_rdamsc_standards"].execute
+    Rake::Task["external_api:load_re3data_repos"].execute
+    Rake::Task["external_api:load_spdx_licenses"].execute
     Rake::Task["v3:backfill_doi_subscriptions"].execute
   end
 
@@ -124,17 +126,6 @@ namespace :v3 do
     datacite.external_service = "ExternalApis::DmphubService"
     datacite.active = false
     datacite.save
-  end
-
-  desc "Load Repositories from re3data"
-  task load_re3data_repos: :environment do
-    Rails::Task["v3:init_re3data"].execute unless IdentifierScheme.find_by(name: "rethreedata").present?
-    ExternalApis::Re3dataService.fetch
-  end
-
-  desc "Load Licenses from SPDX"
-  task load_spdx_licenses: :environment do
-    ExternalApis::SpdxService.fetch
   end
 
   desc "Add the DOI Service as an api_client (if necessary) and then set it as subscriber to DOIs"

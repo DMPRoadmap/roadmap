@@ -4,20 +4,20 @@
 #
 # Table name: subscriptions
 #
-#  id                 :bigint           not null, primary key
-#  plan_id            :bigint
+#  id                 :bigint(8)        not null, primary key
+#  callback_uri       :string(255)
+#  last_notified      :datetime
+#  subscriber_type    :string(255)
 #  subscription_types :integer          not null
-#  callback_uri       :string
-#  subscriber_id      :bigint
-#  subscriber_type    :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
-#  last_notified      :datetime
+#  plan_id            :bigint(8)
+#  subscriber_id      :bigint(8)
 #
 # Indexes
 #
-#  index_subscribers_on_identifiable_and_plan_id  (identifiable_id,identifiable_type,plan_id)
-#  index_subscribers_on_plan_id                   (plan_id)
+#  index_subscribers_on_identifiable_and_plan_id  (subscriber_id,subscriber_type,plan_id)
+#  index_subscriptions_on_plan_id                 (plan_id)
 #
 FactoryBot.define do
   factory :subscription do

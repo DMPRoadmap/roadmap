@@ -4,15 +4,15 @@
 #
 # Table name: related_identifiers
 #
-#  id                   :bigint           not null, primary key
-#  identifiable_type    :string
-#  value                :string           not null
+#  id                   :bigint(8)        not null, primary key
+#  identifiable_type    :string(255)
 #  identifier_type      :integer          not null
 #  relation_type        :integer          not null
+#  value                :string(255)      not null
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
-#  identifiable_id      :bigint
-#  identifier_scheme_id :bigint
+#  identifiable_id      :bigint(8)
+#  identifier_scheme_id :bigint(8)
 #
 # Indexes
 #

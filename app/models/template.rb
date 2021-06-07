@@ -7,12 +7,12 @@
 #  id               :integer          not null, primary key
 #  archived         :boolean
 #  customization_of :integer
-#  description      :text
+#  description      :text(65535)
 #  is_default       :boolean
-#  links            :text
-#  locale           :string
+#  links            :text(65535)
+#  locale           :string(255)
 #  published        :boolean
-#  title            :string
+#  title            :string(255)
 #  version          :integer
 #  visibility       :integer
 #  created_at       :datetime
