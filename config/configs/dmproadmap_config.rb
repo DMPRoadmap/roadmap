@@ -127,7 +127,8 @@ class DmproadmapConfig < Anyway::Config
            :database_adapter,
            :database_host,
            :database_username,
-           :devise_pepper,
+           # TODO: Re-enable this once we've added a pepper
+           # :devise_pepper,
            :do_not_reply_email,
            :doi_minting,
 
