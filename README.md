@@ -10,7 +10,6 @@ The DMPTool is based on the [DMPRoadmap](https://github.com/DMPRoadmap/roadmap) 
 
 Click here for the latest [releases].(https://github.com/CDLUC3/dmptool/releases/)
 
-
 ## Support
 
 Issues should be reported here on [Github Issues](https://github.com/CDLUC3/dmptool/issues)
@@ -24,8 +23,8 @@ See the [Translations Guide](https://github.com/DMPRoadmap/roadmap/wiki/Translat
 
 #### Pre-requisites
 Roadmap is a Ruby on Rails application and you will need to have:
-* Ruby = 2.4.0 - 2.4.4
-* Rails = 4.2
+* Ruby = 2.6.3
+* Rails = 5.2
 * MySQL >= 5.0 OR PostgreSQL
 
 ## Installation
