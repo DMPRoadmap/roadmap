@@ -9,7 +9,16 @@ namespace :v3 do
 
   desc "Upgrade from v3.0.0 to v3.1.0"
   task upgrade_3_1_0: :environment do
-    Rake::Task["mime_types:load"].execute
+    Rake::Task["v3:mime_types:load"].execute
+    Rake::Task["v3:init_open_aire"].execute
+    Rake::Task["v3:datacite"].execute
+    Rake::Task["v3:init_re3data"].execute
+    Rake::Task["v3:seed_external_services"].execute
+    Rake::Task["external_api:load_field_of_science"].execute
+    Rake::Task["external_api:load_rdamsc_standards"].execute
+    Rake::Task["external_api:load_re3data_repos"].execute
+    Rake::Task["external_api:load_spdx_licenses"].execute
+    Rake::Task["v3:backfill_doi_subscriptions"].execute
   end
 
   # Set any records with a nil `language_id` to the default language
@@ -58,6 +67,96 @@ namespace :v3 do
         p "#{id.value} - #{id.valid?}"
         p id.errors.full_messages
       end
+    end
+  end
+
+  desc "Seed the identifier_schemes.external_service column"
+  task seed_external_services: :environment do
+    ror = IdentifierScheme.where(name: "ror")
+    ror.update(external_service: "ExternalApis::RorService") if ror.present?
+
+    openaire = IdentifierScheme.where(name: "openaire")
+    openaire.update(external_service: "ExternalApis::OpenAireService") if openaire.present?
+
+    re3data = IdentifierScheme.where(name: "rethreedata")
+    re3data.update(external_service: "ExternalApis::Re3dataService") if re3data.present?
+  end
+
+  desc "Adds the open_aire IdentifierScheme for ResearchOutputs"
+  task init_open_aire: :environment do
+    openaire = IdentifierScheme.find_or_initialize_by(name: "openaire")
+    openaire.for_research_outputs = true
+    openaire.description = "OpenAire Metadata Standards"
+    openaire.identifier_prefix = ""
+    openaire.external_service = "ExternalApis::OpenAireService"
+    openaire.active = true
+    openaire.save
+  end
+
+  desc "Adds the re3data IdentifierScheme for ResearchOutputs"
+  task init_re3data: :environment do
+    re3data = IdentifierScheme.find_or_initialize_by(name: "rethreedata")
+    re3data.for_research_outputs = true
+    re3data.description = "Registry of Research Data Repositories (re3data)"
+    re3data.identifier_prefix = "https://www.re3data.org/api/v1/repository/"
+    re3data.external_service = "ExternalApis::Re3dataService"
+    re3data.active = true
+    re3data.save
+  end
+
+  desc "Adds the DataCite IdentifierScheme for minting DMP IDs (DOIs)"
+  task init_datacite: :environment do
+    datacite = IdentifierScheme.find_or_initialize_by(name: "datacite")
+    datacite.for_plans = true
+    datacite.for_identification = true
+    datacite.description = "DataCite"
+    datacite.identifier_prefix = "https://doi.org/"
+    datacite.external_service = "ExternalApis::DataciteService"
+    datacite.active = false
+    datacite.save
+  end
+
+  desc "Adds the DMPHub for minting DMP IDs (DOIs)"
+  task init_dmphub: :environment do
+    datacite = IdentifierScheme.find_or_initialize_by(name: "dmphub")
+    datacite.for_plans = true
+    datacite.for_identification = true
+    datacite.description = "DMPHub"
+    datacite.identifier_prefix = "https://doi.org/"
+    datacite.external_service = "ExternalApis::DmphubService"
+    datacite.active = false
+    datacite.save
+  end
+
+  desc "Add the DOI Service as an api_client (if necessary) and then set it as subscriber to DOIs"
+  task backfill_doi_subscriptions: :environment do
+    p "Backfilling subscriptions on existing DOIs"
+    if DoiService.minting_service_defined?
+      # First initialize or find the ApiClient for the DOI Service
+      scheme_name = DoiService.scheme_name
+      api_client = ApiClient.find_or_initialize_by(name: scheme_name)
+      api_client.contact_name = "#{ApplicationService.application_name} helpdesk" if api_client.new_record?
+      api_client.contact_email = Rails.configuration.x.organisation.helpdesk_email if api_client.new_record?
+      api_client.save if api_client.new_record?
+
+      scheme = IdentifierScheme.find_by(name: scheme_name)
+      if scheme.present? && api_client.present?
+        Identifier.where(identifier_scheme_id: scheme.id, identifiable_type: "Plan").each do |id|
+          next if Subscription.where(subscriber: api_client, plan_id: id.identifiable_id).any?
+
+          Subscription.create(
+            subscriber: api_client,
+            plan_id: id.identifiable_id,
+            updates: true,
+            deletions: true,
+            callback_uri: DoiService.scheme_callback_uri % { dmp_id: id.value.gsub(scheme.identifier_prefix, "") },
+          )
+        end
+      else
+        p "No IdentifierScheme by the name of '#{scheme_name}' found!"
+      end
+    else
+      p "DOI Minting service is not defined. Skipping backfill of DOI subscriptions"
     end
   end
 

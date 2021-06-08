@@ -10,6 +10,8 @@ require "csv"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+Dotenv::Railtie.load
+
 module DMPRoadmap
 
   class Application < Rails::Application

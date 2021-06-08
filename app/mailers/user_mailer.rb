@@ -8,7 +8,7 @@ class UserMailer < ActionMailer::Base
   helper MailerHelper
   helper FeedbacksHelper
 
-  default from: Rails.configuration.x.organisation.email
+  default from: Rails.configuration.x.organisation.do_not_reply_email || Rails.configuration.x.organisation.email
 
   def welcome_notification(user)
     @user           = user

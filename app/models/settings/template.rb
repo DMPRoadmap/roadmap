@@ -5,9 +5,9 @@
 # Table name: settings
 #
 #  id          :integer          not null, primary key
-#  target_type :string           not null
-#  value       :text
-#  var         :string           not null
+#  target_type :string(255)
+#  value       :text(65535)
+#  var         :string(255)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  target_id   :integer          not null
@@ -31,13 +31,35 @@ module Settings
 
     VALID_FORMATS = %w[csv html pdf text docx json].freeze
 
+    # =================================
+    # Start DMPTool Customization
+    # Update margins to 25mm default
+    # =================================
+    # DEFAULT_SETTINGS = {
+    #   formatting: {
+    #     margin: {
+    #       top:    25,
+    #       bottom: 20,
+    #       left:   12,
+    #       right:  12
+    #     },
+    #     font_face: 'Arial, Helvetica, Sans-Serif',
+    #     font_size: 10 # pt
+    #   },
+    #   max_pages: 3,
+    #   fields: {
+    #     admin: VALID_ADMIN_FIELDS,
+    #     questions: :all
+    #   },
+    #   title: ""
+    # }
     DEFAULT_SETTINGS = {
       formatting: {
         margin: {
           top: 25,
-          bottom: 20,
-          left: 12,
-          right: 12
+          bottom: 25,
+          left: 25,
+          right: 25
         },
         font_face: "Arial, Helvetica, Sans-Serif",
         font_size: 10 # pt
@@ -49,6 +71,9 @@ module Settings
       },
       title: ""
     }.freeze
+    # =================================
+    # End DMPTool Customization
+    # =================================
 
     # rubocop:disable Metrics/BlockLength, Metrics/BlockNesting
     validate do

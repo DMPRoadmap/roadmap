@@ -20,6 +20,26 @@ Rails.application.routes.draw do
   get "/orgs/shibboleth/:org_id", to: "orgs#shibboleth_ds_passthru"
   post "/orgs/shibboleth", to: "orgs#shibboleth_ds_passthru"
 
+  # ------------------------------------------
+  # Start DMPTool customizations
+  # ------------------------------------------
+  # GET is triggered by user clicking an org in the list
+  get "/orgs/shibboleth/:id", to: "orgs#shibboleth_ds_passthru"
+  # POST is triggered by user selecting an org from autocomplete
+  post "/orgs/shibboleth/:id", to: "orgs#shibboleth_ds_passthru"
+  # ------------------------------------------
+  # End DMPTool Customization
+  # ------------------------------------------
+
+  # ------------------------------------------
+  # Start DMPTool customizations
+  # ------------------------------------------
+  # Handle logouts when on the localhost dev environment
+  get "/Shibboleth.sso/Logout", to: redirect("/") unless %w[stage production].include?(Rails.env)
+  # ------------------------------------------
+  # End DMPTool Customization
+  # ------------------------------------------
+
   resources :users, path: "users", only: [] do
     resources :org_swaps, only: [:create],
                           controller: "super_admin/org_swaps"
@@ -60,6 +80,28 @@ Rails.application.routes.draw do
 
   # AJAX call used to search for Orgs based on user input into autocompletes
   post "orgs" => "orgs#search", as: "orgs_search"
+
+  # ------------------------------------------
+  # Start DMPTool customizations
+  # ------------------------------------------
+  # DMPTool specific documentation pages
+  get "get_started" => "public_pages#get_started", as: "get_started"
+  get "promote" => "static_pages#promote"
+  get "researchers" => "static_pages#researchers"
+  get "faq" => "static_pages#faq"
+  get "editorial_board" => "static_pages#editorial_board"
+  get "general_guidance" => "static_pages#general_guidance"
+  get "quick_start_guide" => "static_pages#help"
+  get "news_media" => "static_pages#news_media"
+  get "public_orgs" => "public_pages#orgs"
+
+  get "org_logos/:id" => "orgs#logos", as: :org_logo
+  # ------------------------------------------
+  # End DMPTool customizations
+  # ------------------------------------------
+
+  # post 'contact_form' => 'contacts', as: 'localized_contact_creation'
+  # get 'contact_form' => 'contacts#new', as: 'localized_contact_form'
 
   resources :orgs, path: "org/admin", only: [] do
     member do
@@ -125,15 +167,28 @@ Rails.application.routes.draw do
 
     resources :contributors, except: %i[show]
 
+    resources :research_outputs, except: %i[show]
     member do
       get "answer"
-      get "share"
+      get "publish"
       get "request_feedback"
       get "download"
       post "duplicate"
       post "visibility", constraints: { format: [:json] }
       post "set_test", constraints: { format: [:json] }
-      get "overview"
+      get "mint"
+      get "add_orcid_work"
+
+      # Ajax endpoint for ResearchOutput.output_type selection
+      get "output_type_selection", controller: "research_outputs", action: "select_output_type"
+
+      # Ajax endpoint for ResearchOutput.license_id selection
+      get "license_selection", controller: "research_outputs", action: "select_license"
+
+      # AJAX endpoints for repository search and selection
+      get :repository_search, controller: "research_outputs"
+      # AJAX endpoints for metadata standards search and selection
+      get :metadata_standard_search, controller: "research_outputs"
     end
   end
 
@@ -195,6 +250,15 @@ Rails.application.routes.draw do
   namespace :paginable do
     resources :orgs, only: [] do
       get "index/:page", action: :index, on: :collection, as: :index
+
+      # ------------------------------------------
+      # Start DMPTool customizations
+      # ------------------------------------------
+      # DMPTool Partner Institutions page
+      get "public/:page", action: :public, on: :collection, as: :public
+      # ------------------------------------------
+      # End DMPTool customizations
+      # ------------------------------------------
     end
     # Paginable actions for plans
     resources :plans, only: [] do
@@ -215,6 +279,10 @@ Rails.application.routes.draw do
 
       # Paginable actions for contributors
       resources :contributors, only: %i[index] do
+        get "index/:page", action: :index, on: :collection, as: :index
+      end
+      # Paginable actions for research_outputs
+      resources :research_outputs, only: %i[index] do
         get "index/:page", action: :index, on: :collection, as: :index
       end
     end
@@ -323,7 +391,12 @@ Rails.application.routes.draw do
   end
 
   namespace :super_admin do
-    resources :orgs, only: %i[index new create destroy]
+    resources :orgs, only: %i[index new create destroy] do
+      member do
+        post "merge_analyze"
+        post "merge_commit"
+      end
+    end
     resources :themes, only: %i[index new create edit update destroy]
     resources :users, only: %i[edit update] do
       member do

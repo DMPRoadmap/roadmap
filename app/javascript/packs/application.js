@@ -26,6 +26,7 @@ import 'bootstrap-select';
 import '../src/utils/accordion';
 import '../src/utils/autoComplete';
 import '../src/utils/externalLink';
+import '../src/utils/modalSearch';
 import '../src/utils/outOfFocus';
 import '../src/utils/paginable';
 import '../src/utils/panelHeading';
@@ -50,13 +51,21 @@ import '../src/devise/registrations/new';
 import '../src/guidances/newEdit';
 import '../src/notes/index';
 import '../src/orgs/adminEdit';
-import '../src/orgs/shibbolethDs';
+// ----------------------------------------
+// START DMPTool customization
+// ----------------------------------------
+// import '../src/orgs/shibbolethDs';
+// ----------------------------------------
+// END DMPTool customization
+// ----------------------------------------
 import '../src/plans/download';
 import '../src/plans/editDetails';
 import '../src/plans/index.js.erb';
 import '../src/plans/new';
+import '../src/plans/publish';
 import '../src/plans/share';
 import '../src/publicTemplates/show';
+import '../src/research_outputs/form';
 import '../src/roles/edit';
 import '../src/shared/createAccountForm';
 import '../src/shared/signInForm';
@@ -81,6 +90,16 @@ import '../src/superAdmin/apiClients/form';
 import '../src/superAdmin/notifications/edit';
 import '../src/superAdmin/themes/newEdit';
 import '../src/superAdmin/users/edit';
+
+// ----------------------------------------
+// START DMPTool customization
+// ----------------------------------------
+import '../src/dmptool/home/index';
+import '../src/dmptool/shared/orgBranding';
+import '../src/dmptool/shared/signinCreateForm';
+// ----------------------------------------
+// END DMPTool customization
+// ----------------------------------------
 
 // Since we're using Webpacker to manage JS we need to startup Rails' Unobtrusive JS
 // and Turbolinks. ActiveStorage and ActionCable would also need to be in here

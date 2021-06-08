@@ -4,16 +4,14 @@
 
 is_contact ||= false
 
-json.name contributor.name
+json.name contributor.is_a?(User) ? contributor.name(false) : contributor.name
 json.mbox contributor.email
 
-unless is_contact
-  if contributor.selected_roles.any?
-    roles = contributor.selected_roles.map do |role|
-      Api::V1::ContributorPresenter.role_as_uri(role: role)
-    end
-    json.role roles if roles.any?
+if !is_contact && contributor.selected_roles.any?
+  roles = contributor.selected_roles.map do |role|
+    Api::V1::ContributorPresenter.role_as_uri(role: role)
   end
+  json.role roles if roles.any?
 end
 
 if contributor.org.present?

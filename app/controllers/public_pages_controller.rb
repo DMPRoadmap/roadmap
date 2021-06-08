@@ -2,6 +2,14 @@
 
 class PublicPagesController < ApplicationController
 
+  # --------------------------------
+  # Start DMPTool Customization
+  # --------------------------------
+  include Dmptool::PublicPagesController
+  # --------------------------------
+  # End DMPTool Customization
+  # --------------------------------
+
   # GET template_index
   # -----------------------------------------------------
   def template_index

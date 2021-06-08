@@ -40,6 +40,9 @@ gem "jbuilder"
 # Use Active Model has_secure_password
 # gem "bcrypt", "~> 3.1.7"
 
+# Use Resque to manage the ActiveJob queue
+# gem 'resque'
+
 # Use Active Storage variant
 # gem "image_processing", "~> 1.2"
 
@@ -90,7 +93,11 @@ gem "devise_invitable"
 
 # A generalized Rack framework for multiple-provider authentication.
 # (https://github.com/omniauth/omniauth)
-gem "omniauth"
+
+# TODO: unlock this once devise creates an official release that includes this commit:
+#       https://github.com/heartcombo/devise/commit/1d138dd40cdc291a427b89027d16a869818a5c19#diff-59866e40fe6196ebb76fa63d186b09ba0856de17e2e938743e99add37bb83f5c
+#       or updates to accommodate the new version of omniauth
+gem "omniauth", "~> 1.9"
 
 # OmniAuth Shibboleth strategies for OmniAuth 1.x
 gem "omniauth-shibboleth"
@@ -176,7 +183,15 @@ gem "autoprefixer-rails"
 # ========= #
 
 # Provides binaries for WKHTMLTOPDF project in an easily accessible package.
-gem "wkhtmltopdf-binary"
+# ------------------------------------------------
+# Start DMPTool customization
+# 0.12.5 does not work on our new linux2 instances. Pegging at 0.12.4 for now
+# ------------------------------------------------
+# gem 'wkhtmltopdf-binary'
+gem "wkhtmltopdf-binary", "0.12.4"
+# ------------------------------------------------
+# End DMPTool customization
+# ------------------------------------------------
 
 # PDF generator (from HTML) gem for Ruby on Rails
 # (https://github.com/mileszs/wicked_pdf)
@@ -242,6 +257,10 @@ group :test do
 
   # Guard gem for RSpec (https://github.com/guard/guard-rspec)
   gem "guard-rspec"
+
+  gem "capistrano"
+
+  gem "capistrano-rails"
 
   # Library for stubbing HTTP requests in Ruby.
   # (http://github.com/bblimke/webmock)
@@ -323,7 +342,7 @@ group :development do
 
   # Better error page for Rails and other Rack apps
   # (https://github.com/charliesome/better_errors)
-  gem "better_errors"
+  gem "better_errors", "2.8.1"
 
   # Retrieve the binding of a method's caller. Can also retrieve bindings
   # even further up the stack. (http://github.com/banister/binding_of_caller)

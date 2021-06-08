@@ -1,6 +1,6 @@
 name: Tests - MySQL
 
-on: [pull_request]
+on: [push, pull_request]
 
 jobs:
   mysql:
@@ -17,7 +17,7 @@ jobs:
       with:
         fetch-depth: 1
 
-    - name: 'Install MySQL Packages'
+    - name: 'Install  MySQL Packages'
       run: |
         sudo apt-get update
         sudo apt-get install -y mysql-client libmysqlclient-dev
@@ -37,6 +37,7 @@ jobs:
       run: |
         # Make copies of all the example config files
         cp config/database.yml.sample config/database.yml
+        cp config/initializers/_dmproadmap.rb.example config/initializers/_dmproadmap.rb
         cp config/initializers/contact_us.rb.example config/initializers/contact_us.rb
         cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
 

@@ -64,6 +64,12 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # Use Resque to manage the ActiveJob queue
+  # config.x.active_job.enabled = true
+  # config.active_job.queue_adapter = :resque
+  # config.active_job.queue_name_prefix = Rails.env
+  # config.active_job.queue_name_delimiter = "."
 end
 
 # Used by Rails' routes url_helpers (typically when including a link in an email)

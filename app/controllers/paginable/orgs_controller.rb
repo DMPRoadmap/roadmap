@@ -2,6 +2,14 @@
 
 class Paginable::OrgsController < ApplicationController
 
+  # --------------------------------
+  # Start DMPTool Customization
+  # --------------------------------
+  include Dmptool::Paginable::OrgsController
+  # --------------------------------
+  # End DMPTool Customization
+  # --------------------------------
+
   include Paginable
 
   # /paginable/guidances/index/:page

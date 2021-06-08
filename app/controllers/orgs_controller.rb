@@ -2,6 +2,14 @@
 
 class OrgsController < ApplicationController
 
+  # =====================================
+  # Start DMPTool Customization
+  # =====================================
+  include Dmptool::OrgsController
+  # =====================================
+  # End DMPTool Customization
+  # =====================================
+
   include OrgSelectable
 
   after_action :verify_authorized, except: %w[
@@ -91,58 +99,63 @@ class OrgsController < ApplicationController
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable
 
-  # This action is used by installations that have the following config enabled:
-  #   Rails.configuration.x.shibboleth.use_filtered_discovery_service
-  def shibboleth_ds
-    unless current_user.nil?
-      redirect_to root_path
-      return
-    end
+  # --------------------------------------------------------
+  # Start DMPTool customization
+  #   Commenting out so that our customization is used
+  # --------------------------------------------------------
+  # # This action is used by installations that have the following config enabled:
+  # #   Rails.configuration.x.shibboleth.use_filtered_discovery_service
+  # def shibboleth_ds
+  #   unless current_user.nil?
+  #     redirect_to root_path
+  #     return
+  #   end
+  #
+  #   @user = User.new
+  #   # Display the custom Shibboleth discovery service page.
+  #   @orgs = Identifier.by_scheme_name("shibboleth", "Org")
+  #                     .sort { |a, b| a.identifiable.name <=> b.identifiable.name }
+  #                     .map(&:identifiable)
+  #
+  #   # Disabling the rubocop check here because it would not be clear what happens
+  #   # if the ``@orgs` array has items ... it renders the shibboleth_ds view
+  #   # rubocop:disable Style/GuardClause, Style/RedundantReturn
+  #   if @orgs.empty?
+  #     flash.now[:alert] = _("No organisations are currently registered.")
+  #     redirect_to user_shibboleth_omniauth_authorize_path
+  #     return
+  #   end
+  #   # rubocop:enable Style/GuardClause, Style/RedundantReturn
+  # end
 
-    @user = User.new
-    # Display the custom Shibboleth discovery service page.
-    @orgs = Identifier.by_scheme_name("shibboleth", "Org")
-                      .sort { |a, b| a.identifiable.name <=> b.identifiable.name }
-                      .map(&:identifiable)
-
-    # Disabling the rubocop check here because it would not be clear what happens
-    # if the ``@orgs` array has items ... it renders the shibboleth_ds view
-    # rubocop:disable Style/GuardClause, Style/RedundantReturn
-    if @orgs.empty?
-      flash.now[:alert] = _("No organisations are currently registered.")
-      redirect_to user_shibboleth_omniauth_authorize_path
-      return
-    end
-    # rubocop:enable Style/GuardClause, Style/RedundantReturn
-  end
-
-  # This action is used to redirect a user to the Shibboleth IdP
-  # POST /orgs/shibboleth_ds
-  # rubocop:disable Metrics/AbcSize
-  def shibboleth_ds_passthru
-    if !shib_params[:org_id].blank?
-      session["org_id"] = shib_params[:org_id]
-
-      org = Org.where(id: shib_params[:org_id])
-      shib_entity = Identifier.by_scheme_name("shibboleth", "Org")
-                              .where(identifiable: org)
-
-      if !shib_entity.empty?
-        # initiate shibboleth login sequence
-        entity_param = "entityID=#{shib_entity.first.value}"
-        redirect_to "#{shib_login_url}?#{shib_callback_url}&#{entity_param}"
-      else
-        failure = _("Your organisation does not seem to be properly configured.")
-        redirect_to shibboleth_ds_path, alert: failure
-      end
-
-    else
-      redirect_to shibboleth_ds_path, notice: _("Please choose an organisation")
-    end
-  end
-  # rubocop:enable Metrics/AbcSize
+  # # This action is used to redirect a user to the Shibboleth IdP
+  # # POST /orgs/shibboleth_ds
+  # # rubocop:disable Metrics/AbcSize
+  # def shibboleth_ds_passthru
+  #   if !shib_params[:org_id].blank?
+  #     session["org_id"] = shib_params[:org_id]
+  #
+  #     org = Org.where(id: shib_params[:org_id])
+  #     shib_entity = Identifier.by_scheme_name("shibboleth", "Org")
+  #                             .where(identifiable: org)
+  #
+  #     if !shib_entity.empty?
+  #       # initiate shibboleth login sequence
+  #       entity_param = "entityID=#{shib_entity.first.value}"
+  #       redirect_to "#{shib_login_url}?#{shib_callback_url}&#{entity_param}"
+  #     else
+  #       failure = _("Your organisation does not seem to be properly configured.")
+  #       redirect_to shibboleth_ds_path, alert: failure
+  #     end
+  #   else
+  #     redirect_to shibboleth_ds_path, notice: _("Please choose an organisation")
+  #   end
+  # end
+  # # rubocop:enable Metrics/AbcSize
+  # --------------------------------------------------------
+  # End DMPTool customization
+  # --------------------------------------------------------
 
   # POST /orgs  (via AJAX from Org Typeaheads ... see below for specific pages)
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize

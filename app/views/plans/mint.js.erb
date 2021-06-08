@@ -1,0 +1,13 @@
+var target = $('.doi-minter');
+
+if (target != undefined) {
+  <% if @plan.doi.present? %>
+    target.html(`<%= escape_javascript(render partial: "plans/doi_minter", locals: { plan: @plan, orcid_access_token: @orcid_access_token }) %>`);
+    orcidBlock.removeClass('hidden');
+
+  <% else %>
+    var response = $('.doi-minter-response');
+    response.html(`<%= _("Something went wrong and we were unable to acquire a DMP ID for your plan. Please try again. If the problem persists please contact the help desk at %{helpdesk_email}") % { helpdesk_email: Rails.configuration.x.organisation.helpdesk_email } %>`);
+    orcidBlock.addClass('hidden');
+  <% end %>
+}

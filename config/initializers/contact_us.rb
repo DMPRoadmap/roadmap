@@ -8,10 +8,10 @@ ContactUs.setup do |config|
   # If emails must be sent from a verified email address you may set it here.
   # Example:
   # config.mailer_from = "contact@please-change-me.com"
-  config.mailer_from = nil
+  config.mailer_from = Rails.configuration.x.organisation.do_not_reply_email
 
   # Configure the e-mail address which should receive the contact form email notifications.
-  config.mailer_to = "roadmap-l@listserv.ucop.edu"
+  config.mailer_to = Rails.configuration.x.organisation.helpdesk_email
 
   # ==> Form Configuration
 

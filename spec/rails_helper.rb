@@ -10,6 +10,9 @@ require "rspec/rails"
 # require "capybara-screenshot/rspec"
 require "webmock/rspec"
 
+# Clear all of the screenshots from old tests
+Dir[Rails.root.join('tmp/capybara/*')].each { |f| File.delete(f) }
+
 # Add additional requires below this line. Rails is not loaded until this point!
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -61,4 +64,25 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::ControllerHelpers, type: :view
   config.include Pundit::Matchers, type: :policy
+
+  # ------------------------------------------------------
+  # start DMPTool customizations
+  # ------------------------------------------------------
+  # Devise helpers
+  config.include Warden::Test::Helpers
+
+  config.after :each do
+    Warden.test_reset!
+  end
+
+  # Mock omniauth calls
+  OmniAuth.config.test_mode = true
+
+  # Create the default is_other Org (required to display the login forms)
+  config.before :each do
+    create(:org, is_other: true) unless Org.find_by(is_other: true).present?
+  end
+  # ------------------------------------------------------
+  # end DMPTool customization
+  # ------------------------------------------------------
 end

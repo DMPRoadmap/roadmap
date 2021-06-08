@@ -1,0 +1,45 @@
+.nav-tabs {
+  background-color: $color-seccondary-background;
+  border-bottom: 1px solid $color-black;
+  margin-bottom: -1px;
+  margin-top: 5px;
+
+  li, li:hover, li:focus,
+  li.active, li.active:hover, li.active:focus {
+    border: 1px solid $color-black;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 3px;
+    margin-right: 2px;
+
+    a, a:hover, a:focus, a:visited, a:active, a:active:hover {
+      color: $color-primary-text;
+      border: none;
+      margin: 0;
+      padding: 5px 10px;
+    }
+  }
+  li {
+    background-color: $color-primary-background;
+    border-bottom: none;
+    a {
+      color: $color-primary-text;
+    }
+  }
+  li.active, li:focus, li:hover, li.active:focus, li.active:hover {
+    background-color: $color-seccondary-background;
+    border-bottom: 1px solid $color-white;
+    a, a:hover, a:focus, a:visited, a:active, a:active:hover {
+      color: $color-seccondary-text;
+      cursor: pointer;
+    }
+  }
+}
+div.tab-content {
+  border: 1px solid $color-black;
+  padding: 10px 10px 15px 10px;
+
+  .panel {
+    border: none;
+  }
+}

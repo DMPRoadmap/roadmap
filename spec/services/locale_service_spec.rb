@@ -5,6 +5,7 @@ require "rails_helper"
 RSpec.describe LocaleService do
 
   before(:each) do
+    Org.destroy_all
     Language.destroy_all
     @default = Language.default || create(:language, default_language: true)
     Rails.configuration.x.locales.default = @default.abbreviation

@@ -81,6 +81,15 @@ namespace :translatable do
         translatables << scan_for_translations(File.read(file))
       end
     end
+
+    # If we are processing a specific domain then remove any duplicated strings
+    # that are already covered in app.pot
+    unless domain == 'app'
+      puts "Removing strings that already appear in app.pot"
+      app_header, app_hash = po_to_hash(File.read('config/locale/app.pot'))
+      translatables = translatables.select{ |k, v| !app_hash.keys.include?(k) }
+    end
+
     translatables = translatables.flatten.uniq.sort{ |a,b,| a <=> b }
 
     unless translatables.empty?
@@ -106,7 +115,11 @@ namespace :translatable do
   # Open the PO/POT file and update its translatation entries
   def process_po_file(file_name, translatable_text)
     puts "Backing up original #{file_name} --> #{file_name}.bak"
-    cp(file_name, "#{file_name}.bak")
+    if File.exists?(file_name)
+      cp(file_name, "#{file_name}.bak")
+    else
+      touch(file_name)
+    end
 
     puts "Reading #{file_name} ..."
     file = File.read(file_name)
@@ -139,6 +152,8 @@ namespace :translatable do
           end
         end
       end
+    else
+      chunks = ['']
     end
     # Return the header portion of the original file and the resulting msgid/msgstr hash
     return chunks[0], hash
@@ -207,7 +222,7 @@ namespace :translatable do
   # TODO: exclude app/views/branded
   def files_to_translate(domain)
     if domain == 'app'
-      Dir.glob("{app,lib,config,locale}/**/*.{rb,erb,md,haml,slim,rhtml}")
+      Dir.glob("{app,lib,config,locale}/**/*.{rb,erb,md,haml,slim,rhtml}").select{ |d| !d.include?('/views/branded') }
     else
       Dir.glob("{app/views/branded}/**/*.{rb,erb,md,haml,slim,rhtml}")
     end

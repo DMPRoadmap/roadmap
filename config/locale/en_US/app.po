@@ -957,6 +957,11 @@ msgid ""
 "this action, please contact us\n"
 "      at %{organisation_email}.</p>"
 msgstr ""
+"<p>Hello %{user_name}.</p><p>Your plan \"%{plan_name}\" has been submitted for f"
+"eedback from an\n"
+"      administrator at your organization. If you have questions pertaining to "
+"this action, please contact us\n"
+"      at %{organisation_email}.</p>"
 
 #: ../../app/helpers/identifier_helper.rb:6
 #: ../../spec/helpers/identifier_helper_spec.rb:14
@@ -2224,6 +2229,8 @@ msgid ""
 "Changing your organisation will result in the loss of your administrative priv"
 "ileges."
 msgstr ""
+"Changing your organization will result in the loss of your administrative priv"
+"ileges."
 
 #: ../../app/views/devise/registrations/_personal_details.html.erb:42
 #: ../../app/views/org_admin/users/edit.html.erb:31
@@ -3159,6 +3166,8 @@ msgid ""
 "Click the links below to view organisational guidance\n"
 "                        related to the themes associated with this question."
 msgstr ""
+"Click the links below to view organizational guidance\n"
+"                        related to the themes associated with this question."
 
 #: ../../app/views/org_admin/questions/_show.html.erb:168
 msgid ""
@@ -3172,6 +3181,8 @@ msgid ""
 "There is no organisational guidance related to the themes associated with this"
 " question."
 msgstr ""
+"There is no organizational guidance related to the themes associated with this"
+" question."
 
 #: ../../app/views/org_admin/questions/_show.html.erb:181
 #: ../../app/views/org_admin/questions/_show.html.erb:193
@@ -3582,6 +3593,10 @@ msgstr ""
 #: ../../app/views/static_pages/help.html.erb:45
 msgid "Request feedback"
 msgstr ""
+
+#: ../../app/views/plans/_navigation.html.erb:29
+msgid "Finalise / Publish"
+msgstr "Finalize / Publish"
 
 #: ../../app/views/orgs/shibboleth_ds.html.erb:1
 #: ../../app/views/orgs/shibboleth_ds.html.erb:4
@@ -4554,6 +4569,9 @@ msgid ""
 "double check that your organisation does not appear in the list in a slightly "
 "different form."
 msgstr ""
+"A new entry will be created for the organization you have named above. Please "
+"double check that your organization does not appear in the list in a slightly "
+"different form."
 
 #: ../../app/views/shared/org_selectors/_local_only.html.erb:45
 msgid "The name you entered was not one of the listed suggestions!"
@@ -4965,6 +4983,63 @@ msgid ""
 " at any time. Use of the tool indicates that you understand and agree to these"
 " terms and conditions.</p>"
 msgstr ""
+"<h3>Your personal details and consent notice</h3>\n"
+"\n"
+"      <p>In order to help identify and administer your account with DMPRoadmap"
+", we need to store your name and email address. We may also use it to contact "
+"you to obtain feedback on your use of the tool, or to inform you of the latest"
+" developments or releases. The information may be transferred between the DCC "
+"and CDL but only for the following legitimate DCC and CDL purposes: marketing,"
+" improving our services and informing you of relevant content and events. We w"
+"ill not sell, rent, or trade any personal information you provide to us.\n"
+"\n"
+"\n"
+"        By using this system, you consent to the collection, retention, and us"
+"e of your personal information in accordance with the above. You have the righ"
+"t to ask us not to process your personal details for marketing purposes.</p>\n"
+"\n"
+"      <h3>Privacy policy</h3>\n"
+"\n"
+"      <p>The information you enter into this system can be seen by you, people"
+" you have chosen to share access with, and - solely for the purposes of mainta"
+"ining the service - system administrators at DCC and CDL. We compile anonymize"
+"d, automated, and aggregated information from plans, but we will not directly "
+"access, make use of, or share your content with anyone else without your permi"
+"ssion. Authorized officers of your home organization may access your plans for"
+" specific purposes - for example, to track compliance with funder/organization"
+"al requirements, to calculate storage requirements, or to assess demand for da"
+"ta management services across disciplines.</p>\n"
+"\n"
+"      <h3>Freedom of Information</h3>\n"
+"\n"
+"      <p>DCC and CDL hold your plans on your behalf, but they are your propert"
+"y and responsibility. Any FOIA applicants will be referred back to your home o"
+"rganisation.</p>\n"
+"\n"
+"      <h3>Passwords</h3>\n"
+"      <p>Your password is stored in encrypted form and cannot be retrieved. If"
+" forgotten it has to be reset.</p>\n"
+"\n"
+"      <h3>Cookies</h3>\n"
+"\n"
+"      <p>Please note that DMPRoadmap uses Cookies. Further information about C"
+"ookies and how we use them is available on the <a target='_blank' href='http:/"
+"/www.dcc.ac.uk/about-us/about-site/website-terms-use/cookies' class=\"has-new-w"
+"indow-popup-info\">main DCC website<em class=\"sr-only\"> (new window)</em><span "
+"class=\"new-window-popup-info\">%{open_in_new_window_text}</span></a>.</p>\n"
+"\n"
+"      <h3>Third party APIs</h3>\n"
+"\n"
+"      <p>Certain features on this website utilize third party services and API"
+"s such as InCommon/Shibboleth or third party hosting of common JavaScript libr"
+"aries or web fonts. Information used by an external service is governed by the"
+" privacy policy of that service.</p>\n"
+"\n"
+"      <h3>Revisions</h3>\n"
+"\n"
+"      <p>This statement was last revised on October 5, 2017 and may be revised"
+" at any time. Use of the tool indicates that you understand and agree to these"
+" terms and conditions.</p>"
 
 #: ../../app/views/super_admin/api_clients/_form.html.erb:27
 msgid "Contact Name"
@@ -5174,6 +5249,8 @@ msgid ""
 "The graphs display new users and plans for your organisation over the past yea"
 "r. You can download a CSV report for each graph."
 msgstr ""
+"The graphs display new users and plans for your organization over the past yea"
+"r. You can download a CSV report for each graph."
 
 #: ../../app/views/usage/_user_statistics.html.erb:12
 msgid ""
@@ -5380,7 +5457,8 @@ msgstr ""
 
 #: ../../app/views/user_mailer/sharing_notification.html.erb:5
 msgid ""
-"Your colleague %{inviter_name} has invited you to contribute to\n"
+"Your colleague %{inviter_name} has invited you to contribute to
+\n"
 "          their Data Management Plan in %{tool_name}"
 msgstr ""
 
@@ -5443,7 +5521,7 @@ msgstr ""
 
 #: ../../app/views/users/_admin_grant_permissions.html.erb:39
 msgid "Allows the user to review plans submitted by organisational users"
-msgstr ""
+msgstr "Allows the user to review plans submitted by organizational users"
 
 #: ../../app/views/users/_admin_grant_permissions.html.erb:41
 msgid "Review plans"
@@ -5515,6 +5593,8 @@ msgid ""
 "Below is a list of users registered for your organisation. You can\n"
 "        sort the data by each field."
 msgstr ""
+"Below is a list of users registered for your organization. You can\n"
+"        sort the data by each field."
 
 #: ../../app/views/users/admin_index.html.erb:22
 msgid "Download users"

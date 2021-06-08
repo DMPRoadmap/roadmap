@@ -1,0 +1,2 @@
+ln -s $HOME/Documents/workspace/dmptool_config/config/initializers/devise.rb $HOME/Documents/workspace/dmptool/config/initializers/devise.rb
+ln -s $HOME/Documents/workspace/dmptool_config/config/initializers/contact_us.rb $HOME/Documents/workspace/dmptool/config/initializers/contact_us.rb

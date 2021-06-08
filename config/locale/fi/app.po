@@ -3749,6 +3749,10 @@ msgstr "Käyttäjätiedot"
 msgid "Request feedback"
 msgstr "Pyydä palautetta"
 
+#: ../../app/views/plans/_navigation.html.erb:29
+msgid "Finalise / Publish"
+msgstr "Viimeistele / Julkaise"
+
 #: ../../app/views/orgs/shibboleth_ds.html.erb:1
 #: ../../app/views/orgs/shibboleth_ds.html.erb:4
 msgid "Find your organisation to sign in"

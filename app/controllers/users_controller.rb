@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   helper PaginableHelper
   helper PermsHelper
   include ConditionalUserMailer
+
   after_action :verify_authorized
   respond_to :html
 
@@ -168,6 +169,19 @@ class UsersController < ApplicationController
     original = current_user.api_token
     current_user.generate_token!
     @success = current_user.api_token != original
+  end
+
+  # DELETE /users/:user_id/oauth_credential_tokens/:id
+  def revoke_oauth_access_token
+    user = User.includes(:access_tokens).find_by(id: params[:user_id])
+    authorize user
+    token = Doorkeeper::AccessToken.find_by(id: params[:id])
+    if token.present?
+      token.update(revoked_at: Time.now)
+      redirect_to edit_user_registration_path, notice: _("The application is no longer authorized to access your data.")
+    else
+      redirect_to edit_user_registration_path, alert: _("Unable to revoke the authorized application.")
+    end
   end
 
   private

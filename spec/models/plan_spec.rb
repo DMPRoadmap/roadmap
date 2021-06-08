@@ -4,6 +4,7 @@ require "rails_helper"
 
 describe Plan do
 
+  include IdentifierHelper
   include RolesHelper
   include TemplateHelper
 
@@ -76,6 +77,9 @@ describe Plan do
 
     it { is_expected.to have_many(:contributors) }
 
+    it { is_expected.to have_many(:subscriptions) }
+
+    it { is_expected.to have_many(:related_identifiers) }
   end
 
   describe ".publicly_visible" do
@@ -529,12 +533,11 @@ describe Plan do
 
     end
 
-    # TODO: Add this one in once we are able to easily do LEFT JOINs in Rails 5
     context "when Contributor name matches term" do
       let!(:plan) { create(:plan, :creator, description: "foolike desc") }
       let!(:contributor) { create(:contributor, plan: plan, name: "Dr. Foo Bar") }
 
-      xit "returns contributor name" do
+      it "returns contributor name" do
         expect(subject).to include(plan)
       end
     end
@@ -1510,43 +1513,226 @@ describe Plan do
     end
   end
 
+  describe "#minting_allowed?" do
+    before(:each) do
+      @plan = create(:plan, :creator, funder: create(:org))
+      create(:identifier, identifier_scheme: create(:identifier_scheme, name: "orcid"), identifiable: @plan.owner)
+      create(:external_api_access_token, external_service_name: "orcid", user: @plan.owner)
+      @plan.reload
+    end
+
+    it "returns false if the creator/owner does not have an ORCID" do
+      @plan.owner.identifiers.clear
+      @plan.expects(:visibility_allowed?).returns(true)
+      expect(@plan.minting_allowed?).to eql(false)
+    end
+    it "returns false if the creator/owner does not have an ExternalApiAccessToken for ORCID" do
+      @plan.owner.external_api_access_tokens.clear
+      @plan.expects(:visibility_allowed?).returns(true)
+      expect(@plan.minting_allowed?).to eql(false)
+    end
+    it "returns false if no Funder is defined" do
+      @plan.funder = nil
+      @plan.expects(:visibility_allowed?).returns(true)
+      expect(@plan.minting_allowed?).to eql(false)
+    end
+    it "returns false if changing the visibility is not allowed" do
+      @plan.expects(:visibility_allowed?).returns(false)
+      expect(@plan.minting_allowed?).to eql(false)
+    end
+    it "returns true" do
+      @plan.expects(:visibility_allowed?).returns(true)
+      expect(@plan.minting_allowed?).to eql(true)
+    end
+  end
+
+  describe "#doi" do
+    before(:each) do
+      Rails.configuration.x.allow_doi_minting = true
+      @plan = create(:plan, :creator)
+      IdentifierScheme.for_identification.destroy_all
+    end
+
+    it "returns nil if there are no IdentifierScheme :for_identification" do
+      expect(@plan.doi).to eql(nil)
+    end
+    it "returns nil if the Plan has no DOI" do
+      IdentifierScheme.create(for_identification: true, name: "foo", active: true)
+      expect(@plan.doi).to eql(nil)
+    end
+    it "returns the correct identifier" do
+      scheme = IdentifierScheme.create(for_identification: true, name: "foo",
+                                       active: true)
+      id = create(:identifier, identifier_scheme: scheme, identifiable: @plan)
+      @plan.reload
+      expect(@plan.doi).to eql(id)
+    end
+  end
+
   describe "#grant association sanity checks" do
     let!(:plan) { create(:plan, :creator) }
 
     it "allows a grant identifier to be associated" do
-      plan.grant = build(:identifier, identifier_scheme: nil)
+      plan.grant = { value: build(:identifier, identifier_scheme: nil).value }
       plan.save
       expect(plan.grant.new_record?).to eql(false)
     end
     it "allows a grant identifier to be deleted" do
-      plan.grant = build(:identifier, identifier_scheme: nil)
+      plan.grant = { value: build(:identifier, identifier_scheme: nil).value }
       plan.save
-      plan.grant = nil
+      plan.grant = { value: nil }
       plan.save
       expect(plan.grant).to eql(nil)
       expect(Identifier.last).to eql(nil)
     end
     it "does not allow multiple grants on a single plan" do
-      plan.grant = build(:identifier, identifier_scheme: nil)
+      plan.grant = { value: build(:identifier, identifier_scheme: nil).value }
       plan.save
       val = SecureRandom.uuid
-      plan.grant = build(:identifier, identifier_scheme: nil, value: val)
+      plan.grant = { value: build(:identifier, identifier_scheme: nil, value: val).value }
       plan.save
       expect(plan.grant.new_record?).to eql(false)
       expect(plan.grant.value).to eql(val)
       expect(Identifier.all.length).to eql(1)
     end
-    it "allows the same grant to be associated with different plans" do
-      val = SecureRandom.uuid
-      id = build(:identifier, identifier_scheme: nil, value: val)
-      plan.grant = id
-      plan.save
-      plan2 = create(:plan, grant: id)
-      expect(plan2.grant).to eql(plan.grant)
-      expect(plan2.grant.value).to eql(plan.grant.value)
-      # Make sure that deleting the plan does not delete the shared grant!
-      plan.destroy
-      expect(plan2.grant).not_to eql(nil)
+
+    describe "#citation" do
+      before(:each) do
+        @plan = create(:plan, :creator)
+        @co_author = create(:user)
+        create(:role, :administrator, user: @co_author, plan: @plan)
+        @plan.reload
+      end
+
+      it "returns nil if the plan has no owner" do
+        @plan.roles.clear
+        expect(@plan.citation).to eql(nil)
+      end
+      it "returns nil if the plan has no DMP ID (aka doi)" do
+        expect(@plan.citation).to eql(nil)
+      end
+      it "returns the citation" do
+        doi = create_doi(plan: @plan, val: SecureRandom.uuid)
+        @plan.expects(:doi).returns(doi).twice
+        result = @plan.citation
+        auth = @plan.owner.name(false)
+        expected = "#{auth}. (#{@plan.created_at.year}). \"#{@plan.title}\" [Data Management Plan]."
+        expected += " #{ApplicationService.application_name}. #{doi.value}"
+        expect(result).to eql(expected)
+      end
+    end
+
+    context "private methods" do
+      describe "#versionable_change?" do
+        before(:each) do
+          @plan = create(:plan, :is_test, complete: false).reload
+        end
+        it "returns true if the :title changed" do
+          @plan.update(title: SecureRandom.uuid)
+          expect(@plan.send(:versionable_change?)).to eql(true)
+        end
+        it "returns true if the :description changed" do
+          @plan.update(description: SecureRandom.uuid)
+          expect(@plan.send(:versionable_change?)).to eql(true)
+        end
+        it "returns true if the :identifier changed" do
+          @plan.update(identifier: SecureRandom.uuid)
+          expect(@plan.send(:versionable_change?)).to eql(true)
+        end
+        it "returns true if the :visibility changed" do
+          @plan.update(visibility: 0)
+          expect(@plan.send(:versionable_change?)).to eql(true)
+        end
+        it "returns true if the :complete changed" do
+          @plan.update(complete: true)
+          expect(@plan.send(:versionable_change?)).to eql(true)
+        end
+        it "returns true if the :template_id changed" do
+          @plan.update(template_id: create(:template).id)
+          expect(@plan.send(:versionable_change?)).to eql(true)
+        end
+        it "returns true if the :org_id changed" do
+          @plan.update(org_id: create(:org).id)
+          expect(@plan.send(:versionable_change?)).to eql(true)
+        end
+        it "returns true if the :funder_id changed" do
+          @plan.update(funder_id: create(:org).id)
+          expect(@plan.send(:versionable_change?)).to eql(true)
+        end
+        it "returns true if the :grant_id changed" do
+          @plan.update(grant_id: create(:identifier).id)
+          expect(@plan.send(:versionable_change?)).to eql(true)
+        end
+        it "returns true if the :start_date changed" do
+          @plan.update(start_date: Time.now + 1.hours)
+          expect(@plan.send(:versionable_change?)).to eql(true)
+        end
+        it "returns true if the :end_date changed" do
+          @plan.update(end_date: Time.now + 2.days)
+          expect(@plan.send(:versionable_change?)).to eql(true)
+        end
+        it "returns false" do
+          expect(@plan.send(:versionable_change?)).to eql(false)
+        end
+      end
+
+      describe "#notify_subscribers" do
+        before(:each) do
+          @plan = create(:plan)
+          @api_client = create(:api_client)
+        end
+
+        it "returns true if doi is not assigned" do
+          doi =  @plan.doi
+          doi.destroy if doi.present?
+          @plan.reload
+          expect(@plan.send(:notify_subscribers)).to eql(true)
+        end
+        it "returns true if there are no subscriptions" do
+          @plan.subscriptions.delete_all
+          expect(@plan.send(:notify_subscribers)).to eql(true)
+        end
+        # TODO: refactor these once we move notification functionality to the Subscription model
+        xit "sends a message to the subscriber" do
+          doi_svc = create(:api_client, name: 'doi_svc')
+          @plan.subscriptions << build(:subscription, subscriber: doi_svc, subscription_types: 1)
+          DoiService.expects(:scheme_name).returns('doi_svc')
+          DoiService.expects(:update_doi).returns("worked")
+          @plan.expects(:doi).returns(create(:identifier, identifiable: @plan))
+          expect(@plan.send(:notify_subscribers)).to eql("worked")
+        end
+        xit "sends a message to the subscriber" do
+          # TODO: implement once we have the callback_uri defined
+          @plan.expects(:doi).returns(create(:identifier, identifiable: @plan))
+          @plan.subscriptions << build(:subscription, api_client: @api_client, subscription_types: 1)
+          expect(@plan.send(:notify_subscribers)).to eql(true)
+        end
+        xit "returns true if a StandardError is caught" do
+          @plan.expects(:doi).raises(StandardError.new("foo"))
+          expect(@plan.send(:notify_subscribers)).to eql(true)
+        end
+      end
+
+      describe "#end_date_after_start_date" do
+        before(:each) do
+          @plan = build(:plan, start_date: Time.now, end_date: Time.now + 1.days)
+        end
+        it "returns error message when :end_date comes before :start_date" do
+          @plan.end_date = Time.now - 1.days
+          expect(@plan.send(:end_date_after_start_date)).to eql(["must be after the start date"])
+        end
+        it "returns true if :start_date is nil" do
+          @plan.start_date = nil
+          expect(@plan.send(:end_date_after_start_date)).to eql(true)
+        end
+        it "returns true if :end_date is nil" do
+          @plan.end_date = nil
+          expect(@plan.send(:end_date_after_start_date)).to eql(true)
+        end
+        it "returns true if :start_date is before :end_date" do
+          expect(@plan.send(:end_date_after_start_date)).to eql(true)
+        end
+      end
     end
   end
 

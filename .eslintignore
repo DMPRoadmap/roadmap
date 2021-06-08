@@ -1,0 +1,6 @@
+# Ignore the locale files
+app/javascript/src/locale/
+
+config/
+node_modules/
+spec/

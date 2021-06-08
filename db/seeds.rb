@@ -25,15 +25,52 @@ identifier_schemes = [
     description: 'ORCID',
     active: true,
     logo_url:'http://orcid.org/sites/default/files/images/orcid_16x16.png',
-    identifier_prefix:'https://orcid.org'
+    identifier_prefix:'https://orcid.org',
+    for_users: true,
+    for_contributors: true,
+    for_authentication: true
   },
   {
     name: 'shibboleth',
     description: 'Your institutional credentials',
     active: true,
     logo_url: 'http://newsite.shibboleth.net/wp-content/uploads/2017/01/Shibboleth-logo_2000x1200-1.png',
-    identifier_prefix: "https://example.com"
+    identifier_prefix: "https://example.com",
+    for_users: true,
+    for_contributors: true,
+    for_authentication: true
   },
+  {
+    name: "fundref",
+    description: "Crossref Funder Registry (FundRef)",
+    active: true,
+    for_orgs: true,
+    identifier_prefix: "https://doi.org/10.13039/"
+  },
+  {
+    name: "ror",
+    description: "Research Organization Registry (ROR)",
+    active: true,
+    for_orgs: true,
+    identifier_prefix: "https://ror.org/",
+    external_service: "ExternalApis::RorService"
+  },
+  {
+    name: "openaire",
+    description: "OpenAire Metadata Standards",
+    active: true,
+    identifier_prefix: "",
+    for_research_outputs: true,
+    external_service: "ExternalApis::OpenAireService"
+  },
+  {
+    name: "rethreedata",
+    description: "Registry of Research Data Repositories (re3data)",
+    active: true,
+    identifier_prefix: "https://www.re3data.org/api/v1/repository/",
+    for_research_outputs: true,
+    external_service: "ExternalApis::Re3dataService"
+  }
 ]
 identifier_schemes.each { |is| IdentifierScheme.create!(is) }
 
@@ -109,8 +146,12 @@ languages = [
    name: 'Español',
    default_language: false},
   {abbreviation: 'pt-BR',
+    description: '',
+    name: 'Português (Brasil)',
+    default_language: false},
+  {abbreviation: 'ja',
    description: '',
-   name: 'Português (Brasil)',
+   name: '日本語',
    default_language: false}
 ]
 languages.each { |l| Language.create!(l) }
@@ -824,3 +865,5 @@ annotations = [
    question: Question.find_by(text: "What types of data will you collect and how will it be stored?")},
 ]
 annotations.each{ |s| Annotation.create!(s) if Annotation.find_by(text: s[:text]).nil? }
+
+Rake::Task["external_api:load_field_of_science"].execute

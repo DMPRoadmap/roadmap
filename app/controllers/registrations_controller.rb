@@ -28,16 +28,28 @@ class RegistrationsController < Devise::RegistrationsController
 
     @user = User.new
 
-    # no oath, no provider or no uid - bail out
-    return if oauth.nil? or oauth["provider"].nil? or oauth["uid"].nil?
+    # rubocop:disable Style/GuardClause
+    unless oauth.nil?
+      # The OAuth provider could not be determined or there was no unique UID!
+      if !oauth["provider"].nil? && !oauth["uid"].nil?
+        # Connect the new user with the identifier sent back by the OAuth provider
+        # rubocop:disable Layout/LineLength
+        flash[:notice] = _("Please make a choice below. After linking your details to a %{application_name} account, you will be able to sign in directly with your institutional credentials.") % {
+          application_name: ApplicationService.application_name
+        }
+        # rubocop:enable Metrics/LineLength
 
-    # Connect the new user with the identifier sent back by the OAuth provider
-    flash[:notice] = _("Please make a choice below. After linking your
-                       details to a %{application_name} account,
-                       you will be able to sign in directly with your
-                       institutional credentials.") % {
-                         application_name: ApplicationService.application_name
-                       }
+        # If this is part of a Shibboleth workflow, determine which Org Idp we came from and make
+        # it available to the regsitration form (which will hide the Org textbox)
+        entity_id = oauth.fetch("info", {})["identity_provider"]
+        if entity_id.present?
+          identifier = Identifier.where(identifiable_type: "Org",
+                                        value: entity_id).first
+          @user.org = identifier.identifiable if identifier.present?
+        end
+      end
+    end
+    # rubocop:enable Style/GuardClause
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity, Metrics/BlockNesting, Layout/LineLength
@@ -53,7 +65,8 @@ class RegistrationsController < Devise::RegistrationsController
     blank_org = if Rails.configuration.x.application.restrict_orgs
                   sign_up_params[:org_id]["id"].blank?
                 else
-                  sign_up_params[:org_id].blank?
+                  # DMPTool hack to accommodate Org coming from IdP
+                  sign_up_params.fetch(:org_id, sign_up_params[:default_org_id]).blank?
                 end
 
     if sign_up_params[:accept_terms].to_s == "0"
@@ -89,12 +102,21 @@ class RegistrationsController < Devise::RegistrationsController
       build_resource(attrs)
 
       # Determine if reCAPTCHA is enabled and if so verify it
-      use_recaptcha = Rails.configuration.x.application.use_recaptcha || false
+      use_recaptcha = Rails.configuration.x.recaptcha.enabled || false
       if (!use_recaptcha || verify_recaptcha(model: resource)) && resource.save
         if resource.active_for_authentication?
           set_flash_message :notice, :signed_up if is_navigational_format?
           sign_up(resource_name, resource)
-          UserMailer.welcome_notification(current_user).deliver_now
+
+          # ----------------------------------------------------------
+          # Start DMPTool customization
+          # Comment out the welcome email. DMPTool does not send one!
+          # ----------------------------------------------------------
+          # UserMailer.welcome_notification(current_user).deliver_now
+          # ----------------------------------------------------------
+          # End DMPTool customization
+          # ----------------------------------------------------------
+
           unless oauth.nil?
             # The OAuth provider could not be determined or there was no unique UID!
             unless oauth["provider"].nil? || oauth["uid"].nil?
@@ -278,8 +300,10 @@ class RegistrationsController < Devise::RegistrationsController
   def sign_up_params
     params.require(:user).permit(:email, :password, :password_confirmation,
                                  :firstname, :surname, :recovery_email,
-                                 :accept_terms, :org_id, :org_name,
-                                 :org_crosswalk, :language_id)
+                                 :accept_terms, :org_id, :org_name, :default_org_id,
+                                 :org_crosswalk, :language_id,
+                                 external_api_access_tokens: [:external_service_name, :access_token,
+                                                              :refresh_token, :expires_at])
   end
 
   def update_params
@@ -291,17 +315,26 @@ class RegistrationsController < Devise::RegistrationsController
 
   # Finds or creates the selected org and then returns it's id
   def handle_org(attrs:)
-    return attrs unless attrs.present? && attrs[:org_id].present?
+    return nil unless attrs.present?
 
-    org = org_from_params(params_in: attrs, allow_create: true)
+    # DMPTool hack to deal with Org via IdP
+    if attrs[:default_org_id].present?
+      attrs[:org_id] = attrs[:default_org_id]
+      attrs.delete(:default_org_id)
+      return attrs
+    else
+      return attrs unless attrs.present? && attrs[:org_id].present?
 
-    # Remove the extraneous Org Selector hidden fields
-    attrs = remove_org_selection_params(params_in: attrs)
-    return attrs unless org.present?
+      org = org_from_params(params_in: attrs, allow_create: true)
 
-    # reattach the org_id but with the Org id instead of the hash
-    attrs[:org_id] = org.id
-    attrs
+      # Remove the extraneous Org Selector hidden fields
+      attrs = remove_org_selection_params(params_in: attrs)
+      return attrs unless org.present?
+
+      # reattach the org_id but with the Org id instead of the hash
+      attrs[:org_id] = org.id
+      attrs
+    end
   end
 
 end

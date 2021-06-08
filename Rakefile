@@ -12,6 +12,11 @@
 
 require_relative "config/application"
 
+# Resque setup for ActiveJob
+# require 'resque'
+# require 'resque/tasks'
+# require 'your/app'
+
 DMPRoadmap::Application.load_tasks
 
 task default: :test

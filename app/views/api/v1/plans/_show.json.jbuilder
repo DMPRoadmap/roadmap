@@ -2,7 +2,13 @@
 
 # locals: plan
 
-json.schema "https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard/tree/master/examples/JSON/JSON-schema/1.0"
+json.ignore_nil!
+
+extensions = [{ name: "dmproadmap", uri: "https://github.com/DMPRoadmap/api-json-schema" }]
+json.extensions extensions do |extension|
+  json.uri extension[:uri]
+  json.name extension[:name]
+end
 
 presenter = Api::V1::PlanPresenter.new(plan: plan)
 # A JSON representation of a Data Management Plan in the
@@ -16,9 +22,9 @@ json.created plan.created_at.to_formatted_s(:iso8601)
 json.modified plan.updated_at.to_formatted_s(:iso8601)
 
 # TODO: Update this to pull from the appropriate question once the work is complete
-json.ethical_issues_exist "unknown"
-# json.ethical_issues_description ""
-# json.ethical_issues_report ""
+json.ethical_issues_exist Api::V1::ConversionService.boolean_to_yes_no_unknown(plan.ethical_issues)
+json.ethical_issues_description plan.ethical_issues_description
+json.ethical_issues_report plan.ethical_issues_report
 
 id = presenter.identifier
 if id.present?
@@ -52,16 +58,32 @@ unless @minimal
     json.partial! "api/v1/plans/project", plan: pln
   end
 
-  json.dataset [plan] do |dataset|
-    json.partial! "api/v1/datasets/show", plan: plan, dataset: dataset
+  outputs = plan.research_outputs.any? ? plan.research_outputs : [plan]
+
+  json.dataset outputs do |output|
+    json.partial! "api/v1/datasets/show", output: output
   end
 
-  json.extension [plan.template] do |template|
-    json.set! ApplicationService.application_name.split("-").first.to_sym do
-      json.template do
-        json.id template.id
-        json.title template.title
-      end
-    end
+  # DMPRoadmap extensions to the RDA common metadata standard
+  json.dmproadmap_template do
+    json.id plan.template.id
+    json.title plan.template.title
   end
+
+  # Any related identifiers known by the DMPTool
+  json.dmproadmap_related_identifiers plan.related_identifiers do |related|
+    next unless related.value.present? && related.relation_type.present?
+
+    json.descriptor related.relation_type
+    json.type related.identifier_type
+    json.identifier related.value
+  end
+
+  json.dmproadmap_privacy presenter.visibility
+
+  # DMPRoadmap specific links to perform special actions like downloading the PDF
+  json.dmproadmap_links presenter.links
+
+  # DMPHub extension to send all callback addresses for interested subscribers for changes to the DMP
+  json.dmphub_subscribers presenter.subscriptions
 end

@@ -1,0 +1,30 @@
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:shibmd="urn:mace:shibboleth:metadata:1.0" ID="LyV-VC3m5rd6qynPpfSeBmGifM." cacheDuration="PT1440M" entityID="urn:saml2:msk">
+  <md:IDPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol" WantAuthnRequestsSigned="true">
+    <md:Extensions>
+      <!-- We require the official name and domain for your Organization -->
+      <mdui:UIInfo xmlns:mdui="urn:oasis:names:tc:SAML:metadata:ui">
+        <mdui:DisplayName xml:lang="en">[The official name of your organization (e.g. University of California, Office of the President)]</mdui:DisplayName>
+      </mdui:UIInfo>
+      <shibmd:Scope regexp="false">[Your domain (e.g. ucop.edu)]</shibmd:Scope>
+    </md:Extensions>
+    <md:KeyDescriptor use="signing">
+      <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:X509Data>
+          <!-- You must include your cert -->
+          <ds:X509Certificate>[Your cert]</ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </md:KeyDescriptor>
+    <md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</md:NameIDFormat>
+    <!-- The locations of your Single Sign on service -->
+    <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://my.domain.org/idp/profile/SAML2/POST/SSO"/>
+    <md:SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://my.domain.org/idp/profile/Shibboleth/SSO"/>
+    <!-- You MUST release these 2 attributes in order for the integration to work! -->
+    <saml:Attribute xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" Name="mail" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+    <saml:Attribute xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" Name="eppn" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+  </md:IDPSSODescriptor>
+  <md:ContactPerson contactType="administrative">
+    <md:SurName>[The primary contact for changes to this SSO config]</md:SurName>
+    <md:EmailAddress>mailto:[The contact's email]</md:EmailAddress>
+  </md:ContactPerson>
+</md:EntityDescriptor>

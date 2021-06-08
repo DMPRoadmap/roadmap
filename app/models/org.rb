@@ -5,36 +5,51 @@
 # Table name: orgs
 #
 #  id                     :integer          not null, primary key
-#  abbreviation           :string
-#  contact_email          :string
-#  contact_name           :string
-#  feedback_email_msg     :text
-#  feedback_email_subject :string
+#  abbreviation           :string(255)
+#  contact_email          :string(255)
+#  contact_name           :string(255)
+#  feedback_email_msg     :text(65535)
+#  feedback_email_subject :string(255)
 #  feedback_enabled       :boolean          default(FALSE)
 #  is_other               :boolean          default(FALSE), not null
-#  links                  :text
-#  logo_name              :string
-#  logo_uid               :string
+#  links                  :text(65535)
+#  logo_name              :string(255)
+#  logo_uid               :string(255)
 #  managed                :boolean          default(FALSE), not null
-#  name                   :string
+#  name                   :string(255)
 #  org_type               :integer          default(0), not null
-#  sort_name              :string
-#  target_url             :string
+#  sort_name              :string(255)
+#  target_url             :string(255)
+#  users_count            :integer
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  language_id            :integer
 #  region_id              :integer
-#  managed                :boolean          default(false), not null
+#
+# Indexes
+#
+#  fk_rails_5640112cab  (language_id)
+#  fk_rails_5a6adf6bab  (region_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (language_id => languages.id)
+#  fk_rails_...  (region_id => regions.id)
 #
 class Org < ApplicationRecord
 
   extend FeedbacksHelper
   include FlagShihTzu
   include Identifiable
+  include Subscribable
+
+  # ----------------------------------------
+  # Start DMPTool Customization
+  # ----------------------------------------
+  include DmptoolOrg
+  # ----------------------------------------
+  # End DMPTool Customization
+  # ----------------------------------------
 
   extend Dragonfly::Model::Validations
   validates_with OrgLinksValidator
@@ -135,9 +150,21 @@ class Org < ApplicationRecord
                     message: _("can't be larger than 500KB")
 
   # allow validations for logo upload
-  dragonfly_accessor :logo do
-    after_assign :resize_image
-  end
+
+  # ---------------------------------------
+  # Start DMPTool Customization
+  # ---------------------------------------
+  # Commenting out the logo resizer. We adjust the logo size via CSS
+  #dragonfly_accessor :logo do
+  #  after_assign :resize_image
+  #end
+  dragonfly_accessor :logo
+  # ---------------------------------------
+  # End DMPTool Customization
+  # ---------------------------------------
+
+  validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif', 'jpg', 'bmp'], message: _("must be one of the following formats: jpeg, jpg, png, gif, bmp")
+  validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
 
   # =============
   # = Callbacks =
@@ -206,6 +233,14 @@ class Org < ApplicationRecord
       .select("orgs.*,
               count(distinct templates.family_id) as template_count,
               count(users.id) as user_count")
+  }
+
+  # Returns all Org's with a Shibboleth entityID stored in the Identifiers table
+  # This is used on the app/views/shared/_shib_sign_in_form.html.erb partial which
+  # is only used if you have `shibboleth.use_filtered_discovery_service` enabled.
+  scope :shibbolized, lambda {
+    org_ids = Identifier.by_scheme_name("shibboleth", "Org").pluck(:identifiable_id)
+    where(managed: true, id: org_ids)
   }
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
@@ -301,6 +336,48 @@ class Org < ApplicationRecord
       token_permission_types.include? token_permission_type
   end
 
+  # Merges the specified Org into this Org
+  # rubocop:disable Metrics/AbcSize
+  def merge!(to_be_merged:)
+    return self unless to_be_merged.is_a?(Org)
+
+    transaction do
+      merge_attributes!(to_be_merged: to_be_merged)
+
+      # Merge all of the associated objects
+      to_be_merged.annotations.update_all(org_id: id)
+      merge_departments!(to_be_merged: to_be_merged)
+      to_be_merged.funded_plans.update_all(funder_id: id)
+      merge_guidance_groups!(to_be_merged: to_be_merged)
+      consolidate_identifiers!(array: to_be_merged.identifiers)
+
+      # TODO: Use this commented out version once we've stopped overriding the
+      #       default association method called `plans` on this model
+      # to_be_merged.plans.update_all(org_id: id)
+      Plan.where(org_id: to_be_merged.id).update_all(org_id: id)
+
+      to_be_merged.templates.update_all(org_id: id)
+      merge_token_permission_types!(to_be_merged: to_be_merged)
+      self.tracker = to_be_merged.tracker unless tracker.present?
+      to_be_merged.users.update_all(org_id: id)
+
+      # Terminate the transaction if the resulting Org is not valid
+      raise ActiveRecord::Rollback unless save
+
+      # Remove all of the remaining identifiers and token_permission_types
+      # that were not merged
+      to_be_merged.identifiers.delete_all
+      to_be_merged.token_permission_types.delete_all
+
+      # Reload and then drop the specified Org. The reload prevents ActiveRecord
+      # from also destroying associations that we've already reassociated above
+      raise ActiveRecord::Rollback unless to_be_merged.reload.destroy.present?
+
+      reload
+    end
+  end
+  # rubocop:enable Metrics/AbcSize
+
   private
 
   ##
@@ -310,6 +387,55 @@ class Org < ApplicationRecord
     return if logo.nil? || logo.height == 100
 
     self.logo = logo.thumb("x100") # resize height and maintain aspect ratio
+  end
+
+  # rubocop:disable Metrics/AbcSize
+  def merge_attributes!(to_be_merged:)
+    return false unless to_be_merged.is_a?(Org)
+
+    self.target_url = to_be_merged.target_url unless target_url.present?
+    self.managed = true if !managed? && to_be_merged.managed?
+    self.links = to_be_merged.links unless links.nil? || links == "{\"org\":[]}"
+    self.logo_uid = to_be_merged.logo_uid unless logo.present?
+    self.logo_name = to_be_merged.logo_name unless logo.present?
+    self.contact_email = to_be_merged.contact_email unless contact_email.present?
+    self.contact_name = to_be_merged.contact_name unless contact_name.present?
+    self.feedback_enabled = to_be_merged.feedback_enabled unless feedback_enabled?
+    self.feedback_email_msg = to_be_merged.feedback_email_msg unless feedback_email_msg.present?
+    # rubocop:disable Layout/LineLength
+    self.feedback_email_subject = to_be_merged.feedback_email_subject unless feedback_email_subject.present?
+    # rubocop:enable Layout/LineLength
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  def merge_departments!(to_be_merged:)
+    return false unless to_be_merged.is_a?(Org) && to_be_merged.departments.any?
+
+    existing = departments.collect { |dpt| dpt.name.downcase.strip }
+    # Do not attach departments if we already have an existing one
+    to_be_merged.departments.each do |department|
+      department.destroy if existing.include?(department.name.downcase)
+      department.update(org_id: id) unless existing.include?(department.name.downcase)
+    end
+  end
+
+  def merge_guidance_groups!(to_be_merged:)
+    return false unless to_be_merged.is_a?(Org) && to_be_merged.guidance_groups.any?
+
+    to_gg = guidance_groups.first
+    # Create a new GuidanceGroup if one does not already exist
+    to_gg = GuidanceGroup.create(org: self, name: abbreviation) unless to_gg.present?
+
+    # Merge the GuidanceGroups
+    to_be_merged.guidance_groups.each { |from_gg| to_gg.merge!(to_be_merged: from_gg) }
+  end
+
+  def merge_token_permission_types!(to_be_merged:)
+    return false unless to_be_merged.is_a?(Org) && to_be_merged.token_permission_types.any?
+
+    to_be_merged.token_permission_types.each do |perm_type|
+      token_permission_types << perm_type unless token_permission_types.include?(perm_type)
+    end
   end
 
 end

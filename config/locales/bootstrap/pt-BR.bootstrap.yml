@@ -3,16 +3,16 @@
 
 pt-BR:
   helpers:
-    actions: "Ações"
+    actions: "AÁıes"
     links:
-      back: "Volte"
+      back: "Voltar"
       cancel: "Cancelar"
-      confirm: "Are you sure?"
-      destroy: "Você tem certeza?"
+      confirm: "Confirmar"
+      destroy: "Apagar"
       new: "Novo"
       edit: "Editar"
     titles:
       edit: "Editar"
-      save: "Salve"
+      save: "Salvar"
       new: "Novo"
-      delete: "Excluir"
+      delete: "Apagar"

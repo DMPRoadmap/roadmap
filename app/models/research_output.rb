@@ -4,30 +4,27 @@
 #
 # Table name: research_outputs
 #
-#  id                      :bigint           not null, primary key
-#  abbreviation            :string
-#  access                  :integer          default(0), not null
-#  byte_size               :bigint
-#  coverage_end            :datetime
-#  coverage_region         :string
-#  coverage_start          :datetime
-#  description             :text
+#  id                      :bigint(8)        not null, primary key
+#  abbreviation            :string(255)
+#  access                  :integer          default("open"), not null
+#  byte_size               :bigint(8)
+#  description             :text(65535)
 #  display_order           :integer
-#  is_default              :boolean         default("false")
-#  mandatory_attribution   :text
-#  output_type             :integer          default(3), not null
-#  output_type_description :string
+#  is_default              :boolean
+#  output_type             :integer          default("dataset"), not null
+#  output_type_description :string(255)
 #  personal_data           :boolean
 #  release_date            :datetime
 #  sensitive_data          :boolean
-#  title                   :string           not null
+#  title                   :string(255)      not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
-#  mime_type_id            :integer
+#  license_id              :bigint(8)
 #  plan_id                 :integer
 #
 # Indexes
 #
+#  index_research_outputs_on_license_id   (license_id)
 #  index_research_outputs_on_output_type  (output_type)
 #  index_research_outputs_on_plan_id      (plan_id)
 #
@@ -46,77 +43,42 @@ class ResearchOutput < ApplicationRecord
   # = Associations =
   # ================
 
-  belongs_to :plan, optional: true
-  belongs_to :mime_type, optional: true
+  belongs_to :plan, optional: true, touch: true
+  belongs_to :license, optional: true
+
+  has_and_belongs_to_many :metadata_standards
+  has_and_belongs_to_many :repositories
 
   # ===============
   # = Validations =
   # ===============
 
   validates_presence_of :output_type, :access, :title, message: PRESENCE_MESSAGE
-  validates_uniqueness_of :title, :abbreviation, scope: :plan_id
+  validates_uniqueness_of :title, { case_sensitive: false, scope: :plan_id,
+                                    message: UNIQUENESS_MESSAGE }
+  validates_uniqueness_of :abbreviation, { case_sensitive: false, scope: :plan_id,
+                                           allow_nil: true, allow_blank: true,
+                                           message: UNIQUENESS_MESSAGE }
 
   # Ensure presence of the :output_type_description if the user selected 'other'
   validates_presence_of :output_type_description, if: -> { other? }, message: PRESENCE_MESSAGE
-  # Ensure that :coverage_start comes before :coverage_end
-  validate :end_date_after_start_date
 
   # ====================
   # = Instance methods =
   # ====================
 
-  # :mime_type is only applicable for certain :output_types
-  # This method returns the applicable :mime_types
-  def available_mime_types
-    cat = %w[audio video] if audiovisual? || sound?
-    cat = %w[image] if image?
-    cat = %w[model] if model_representation?
-    cat = %w[text] if data_paper? || dataset? || text?
-
-    cat.present? ? MimeType.where(category: cat).order(:description) : []
+  # Helper method to convert selected repository form params into Repository objects
+  def repositories_attributes=(params)
+    params.each do |_i, repository_params|
+      repositories << Repository.find_by(id: repository_params[:id])
+    end
   end
 
-  # TODO: placeholders for once the License, Repository, Metadata Standard and
-  #       Resource Type Lookups feature is built.
-  #
-  #       Be sure to add the scheme in the appropriate upgrade task (and to the
-  #       seed.rb as well)
-  def licenses
-    # scheme = IdentifierScheme.find_by(name: '[name of license scheme]')
-    # return [] unless scheme.present?
-    # identifiers.select { |id| id.identifier_scheme = scheme }
-    []
-  end
-
-  def repositories
-    # scheme = IdentifierScheme.find_by(name: '[name of repository scheme]')
-    # return [] unless scheme.present?
-    # identifiers.select { |id| id.identifier_scheme = scheme }
-    []
-  end
-
-  def metadata_standards
-    # scheme = IdentifierScheme.find_by(name: '[name of openaire scheme]')
-    # return [] unless scheme.present?
-    # identifiers.select { |id| id.identifier_scheme = scheme }
-    []
-  end
-
-  def resource_types
-    # scheme = IdentifierScheme.find_by(name: '[name of resource_type scheme]')
-    # return [] unless scheme.present?
-    # identifiers.select { |id| id.identifier_scheme = scheme }
-    []
-  end
-
-  private
-
-  # Validation to prevent end date from coming before the start date
-  def end_date_after_start_date
-    # allow nil values
-    return true if coverage_end.blank? || coverage_start.blank?
-
-    errors.add(:coverage_end, _("must be after the start date")) if coverage_end < coverage_start
+  # Helper method to convert selected metadata standard form params into MetadataStandard objects
+  def metadata_standards_attributes=(params)
+    params.each do |_i, metadata_standard_params|
+      metadata_standards << MetadataStandard.find_by(id: metadata_standard_params[:id])
+    end
   end
 
 end
