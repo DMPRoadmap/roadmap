@@ -122,6 +122,11 @@ class ApiClient < ApplicationRecord
     (Doorkeeper.config.default_scopes.to_a << Doorkeeper.config.optional_scopes.to_a).flatten.uniq
   end
 
+  # Shortcut to fetch all of the plans the client subscribes to
+  def plans
+    subscriptions.map(&:plan)
+  end
+
   private
 
   # Set the scopes
