@@ -16,18 +16,30 @@
           <a href="#password-details" role="tab" class="nav-link"
              aria-controls="password-details" data-toggle="tab"><%= _('Password') %></a>
         </li>
+        <% if @user.can_org_admin? %>
+          <li role="api-details" class="nav-item">
+            <a href="#api-details" role="tab" class="nav-link"
+               aria-controls="api-details" data-toggle="tab"><%= _('API Access') %></a>
+          </li>
+        <% end %>
+        <!--
+        Disabled for the moment until we go live with API v2
         <li role="third-parties" class="nav-item">
           <a href="#third-parties" role="tab" class="nav-link"
-             aria-controls="third-parties" data-toggle="tab"><%= _('3rd Party Applications') %></a>
+             aria-controls="third-parties" data-toggle="tab"><%#= _('3rd Party Applications') %></a>
         </li>
+        -->
         <li role="notification-preferences" class="nav-item">
           <a href="#notification-preferences" role="tab" class="nav-link"
              aria-controls="notification-preferences" data-toggle="tab"><%= _('Notification Preferences') %></a>
         </li>
+        <!--
+        Disabled for the moment until we go live with API v2
         <li role="developer-tools" class="nav-item">
           <a href="#developer-tools" role="tab" class="nav-link"
-             aria-controls="developer-tools" data-toggle="tab"><%= _('Developer Tools') %></a>
+             aria-controls="developer-tools" data-toggle="tab"><%#= _('Developer Tools') %></a>
         </li>
+        -->
       </ul>
 
       <div class="tab-content">
@@ -45,13 +57,25 @@
             </div>
           </div>
         </div>
+        <% if @user.can_org_admin? %>
+          <div id="api-details" role="tabpanel" class="tab-pane">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <%= render partial: 'devise/registrations/api_token', locals: { user: @user } %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <!--
+        Disabled for the moment until we go live with API v2
         <div id="third-parties" role="tabpanel" class="tab-pane">
           <div class="panel panel-default">
             <div class="panel-body">
-              <%= render partial: 'devise/registrations/third_parties', locals: { user: @user } %>
+              <%#= render partial: 'devise/registrations/third_parties', locals: { user: @user } %>
             </div>
           </div>
         </div>
+        -->
         <div id="notification-preferences" role="tabpanel" class="tab-pane">
           <div class="panel panel-default">
             <div class="panel-body">
@@ -59,13 +83,16 @@
             </div>
           </div>
         </div>
+        <!--
+        Disabled for the moment until we go live with API v2
         <div id="developer-tools" role="tabpanel" class="tab-pane">
           <div class="panel panel-default">
             <div class="panel-body">
-              <%= render partial: 'devise/registrations/developer_tools', locals: { user: @user } %>
+              <%#= render partial: 'devise/registrations/developer_tools', locals: { user: @user } %>
             </div>
           </div>
         </div>
+        -->
       </div>
 
   </div>
