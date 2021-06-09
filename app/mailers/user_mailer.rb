@@ -106,7 +106,7 @@ class UserMailer < ActionMailer::Base
     @requestor_name = @user.name(false)
     @plan_name      = @plan.title
 
-Rails.logger.warn "Feedback request email: recipient: #{@recipient.email}, requestor: #{@user.email}, plan: #{@plan.id}"
+Rails.logger.warn "Feedback request email --> recipient: #{@recipient.email}, requestor: #{@user.email}, plan: #{@plan.id}, from: #{Rails.configuration.x.organisation.do_not_reply_email || Rails.configuration.x.organisation.email}"
 
     I18n.with_locale I18n.default_locale do
       mail(to: @recipient.email,

@@ -66,8 +66,7 @@
     </div>
   <% end %>
 
-  <!--
-  TODO: Remove this section once the 3rd party apps tab is in place
+  <!-- TODO: Remove this section once the 3rd party apps tab is in place -->
   <% @identifier_schemes.each do |scheme| %>
     <div class="form-group col-xs-8">
       <% if scheme.name.downcase == 'shibboleth' %>
@@ -87,7 +86,6 @@
       </div>
     </div>
   <% end %>
-  -->
 
   <div class="form-group col-xs-8">
     <%= f.button(_('Save'), class: 'btn btn-default', type: "submit", id: "personal_details_registration_form_submit") %>
