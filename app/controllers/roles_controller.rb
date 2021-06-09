@@ -105,7 +105,7 @@ class RolesController < ApplicationController
     deliver_if(recipients: user, key: "users.added_as_coowner") do |_r|
       UserMailer.plan_access_removed(user, plan, current_user).deliver_now
     end
-    redirect_to controller: "plans", action: "share", id: @role.plan.id
+    redirect_to plan_contributors_path(plan)
   end
 
   # This function makes user's role on a plan inactive
