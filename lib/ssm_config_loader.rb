@@ -17,7 +17,7 @@ class SsmConfigLoader < Anyway::Loaders::Base
 logger.warn "SSM Loader for #{name}"
 logger.warn "  FOR ORCID_API_BASE_URL: #{ssm.parameter_for_key('dmproadmap/orcid_api_base_url')}"
 
-    parameters = ssm.parameters_for_path(path: name)
+    parameters = ssm.parameters_for_path(path: name, recursive: true)
     config = {}
     # reverse processing order to ensure correct precidence based on ssm_root_path
     parameters.reverse_each do |param|
