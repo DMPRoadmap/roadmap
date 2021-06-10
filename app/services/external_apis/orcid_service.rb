@@ -64,8 +64,8 @@ module ExternalApis
         resp = http_post(uri: target, additional_headers: hdrs, debug: true,
                          data: xml_for(plan: plan, doi: plan.doi, user: user))
 
-        # DMPHub returns a 201 (created) when a new DOI has been minted or
-        #                a 405 (method_not_allowed) when a DOI already exists
+        # ORCID returns a 201 (created) when the DMP has been added to the User's works
+        #               a 405 (method_not_allowed) when the DMP is already in the User's works
         unless resp.present? && [201, 405].include?(resp.code)
           handle_http_failure(method: "ORCID add work", http_response: resp)
           return false
