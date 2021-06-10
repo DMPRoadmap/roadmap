@@ -49,15 +49,23 @@ class TemplateOptionsController < ApplicationController
       @templates = @templates.flatten.uniq
     end
 
-    # Always use the default template
-      if Template.default.present?
-        customization = Template.published
-                          .latest_customized_version(Template.default.family_id,
-                                                     org_id).first
-
-        @templates << (customization.present? ? customization : Template.default)
-      end
     @templates = @templates.uniq.sort_by(&:title)
+
+    # Always use the default template
+    
+    if Template.default.present?
+      customization = Template.published
+                        .latest_customized_version(Template.default.family_id,
+                                                    org_id).first
+      
+      customization = Template.default unless customization
+
+      @templates.select! { |t| t.id != customization.id }
+
+      # We want the default template to appear at the beggining of the list
+      @templates.unshift(customization)
+    end
+    
   end
 
   private
