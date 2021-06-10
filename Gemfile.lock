@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/CDLUC3/uc3-ssm
-  revision: bc398fdbdce0e6041a119813a47de857916eda56
-  branch: 0.3.0rc0
+  revision: 677451c275bc23b59dc76085ca571ebbac6dafd4
+  branch: add-support-for-paging
   specs:
     uc3-ssm (0.3.0)
       aws-sdk-ssm (~> 1.84)
@@ -69,8 +69,8 @@ GEM
     autoprefixer-rails (10.2.5.1)
       execjs (> 0)
     aws-eventstream (1.1.1)
-    aws-partitions (1.465.0)
-    aws-sdk-core (3.114.1)
+    aws-partitions (1.466.0)
+    aws-sdk-core (3.114.2)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
       aws-sigv4 (~> 1.1)
