@@ -92,7 +92,7 @@ class ResearchOutput < ActiveRecord::Base
   def create_json_fragments
     fragment = json_fragment
     dmp_fragment = plan.json_fragment
-
+    contact_person = dmp_fragment.persons.first
     if fragment.nil?
       # Fetch the first question linked with a ResearchOutputDescription schema
       description_question = plan.questions.joins(:madmp_schema)
@@ -108,9 +108,20 @@ class ResearchOutput < ActiveRecord::Base
         parent_id: dmp_fragment.id,
         additional_info: { property_name: "researchOutput" }
       )
+      ro_contact = Fragment::Contributor.create(
+        data: {
+          "person" => { "dbid" => contact_person.id },
+          "role" => d_("dmpopidor", "Data contact")
+        },
+        dmp_id: dmp_fragment.id,
+        parent_id: nil,
+        madmp_schema: MadmpSchema.find_by(name: "ResearchOutputContact"),
+        additional_info: { property_name: "contact" }
+      )
       fragment_description = Fragment::ResearchOutputDescription.new(
         data: {
-          "title" => fullname
+          "title" => fullname,
+          "contact" => { "dbid" => ro_contact.id }
         },
         madmp_schema: MadmpSchema.find_by(name: "ResearchOutputDescriptionStandard"),
         dmp_id: dmp_fragment.id,

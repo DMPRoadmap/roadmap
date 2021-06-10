@@ -489,6 +489,9 @@ msgstr ""
 msgid "Project coordinator"
 msgstr ""
 
+msgid "Data contact"
+msgstr ""
+
 msgid "Click here to add a new item"
 msgstr ""
 

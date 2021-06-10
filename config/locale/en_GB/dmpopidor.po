@@ -485,6 +485,9 @@ msgstr "DMP manager"
 msgid "Project coordinator"
 msgstr "Project coordinator"
 
+msgid "Data contact"
+msgstr "Personne contact pour les données"
+
 msgid "Click here to add a new item"
 msgstr "Click here to add a new item"
 
