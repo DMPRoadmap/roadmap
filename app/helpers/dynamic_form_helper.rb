@@ -246,7 +246,9 @@ module DynamicFormHelper
   # if it as a "complex" value, returns the id of the registry value
   # else returns the value (simple enum are save as String most of the time)
   def select_value(registry_value, locale)
-    if registry_value.data["label"].present?
+    if registry_value.data["value"].present?
+      registry_value.data["value"][locale] || registry_value.data["value"]
+    elsif registry_value.data["label"].present?
       registry_value.id
     else
       registry_value.data[locale] || registry_value.data
