@@ -121,4 +121,27 @@ namespace :external_api do
     ExternalApis::SpdxService.fetch
   end
 
+  desc "Push specified plan to the owners ORCID record if they have authorized the interaction"
+  task :add_plan_to_orcid_works, [:id] => [:environment] do |t, args|
+    plan = Plan.find_by(id: args[:id])
+
+    if plan.present?
+      owner = plan.owner
+      orcid = owner.identifier_for_scheme(scheme: "orcid")
+      token = ExternalApiAccessToken.for_user_and_service(user: plan.owner, service: "orcid")
+
+      if owner.present? && token.present? && orcid.present?
+        # TODO: Although ORCID will prevent suplicate entries, it might be good to add a method
+        #       to the OrcidService that checks to see if the work is already there.
+        ExternalApis::OrcidService.add_work(user: owner, plan: plan)
+        true
+      else
+        p "Either the plan has no owner or the owner has not authorized us to write to their ORCID record"
+        false
+      end
+    else
+      p "Expected a plan id to be specified like `rails external_api:add_plan_to_orcid_works[123]`"
+      false
+    end
+  end
 end

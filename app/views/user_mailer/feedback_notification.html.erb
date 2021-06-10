@@ -16,6 +16,4 @@
   <%= link_to plan_url(@plan), plan_url(@plan) %>
 </p>
 
-<% Rails.logger.warn "Generated Feedback email body!" %>
-
 <%= render partial: 'email_signature', locals: { allow_change_prefs: false } %>

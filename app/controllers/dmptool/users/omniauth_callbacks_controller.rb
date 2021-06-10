@@ -86,6 +86,9 @@ module Dmptool
       def omniauth_from_request
         return {} unless request.env.present?
 
+Rails.logger.warn "ENV:"
+Rails.logger.warn request.env
+
         hash = request.env["omniauth.auth"]
         hash = request.env[:"omniauth.auth"] unless hash.present?
         hash.present? ? hash : request.env
