@@ -35,9 +35,6 @@ class PlansController < ApplicationController
     @orgs = (Org.organisation + Org.institution + Org.managing_orgs).flatten
                                                                     .uniq.sort_by(&:name)
 
-    # Get the current user's org
-    @default_org = current_user.org if @orgs.include?(current_user.org)
-
     if params.key?(:test)
       flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>"
     end
