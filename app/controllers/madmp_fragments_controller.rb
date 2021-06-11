@@ -313,7 +313,7 @@ class MadmpFragmentsController < ApplicationController
       parent_id: parent_fragment.id,
       madmp_schema: schema,
       data: {
-        "person" => { "dbid" => person_id },
+        "person" => { "dbid" => person_id.to_i },
         "role" => params[:role]
       },
       additional_info: {
