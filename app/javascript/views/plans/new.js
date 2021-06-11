@@ -52,9 +52,12 @@ $(() => {
   // When one of the autocomplete fields changes, fetch the available templates
   const handleComboboxChange = debounce(() => {
     const validOrg = (isValidText($('#plan_org_id').val()) || $('#plan_no_org').prop('checked'));
-    const validFunder = (isValidText($('#plan_funder_id').val()) || $('#plan_no_funder').prop('checked'));
+    // const validFunder = (isValidText($('#plan_funder_id').val())
+    // || $('#plan_no_funder').prop('checked'));
 
-    if (!validOrg || !validFunder) {
+    // before we were checking also  "|| !validFunder " but our current version
+    // does not take into account funders for creating plans
+    if (!validOrg) {
       $('#available-templates').fadeOut();
       $('#plan_template_id').val('');
     } else {
