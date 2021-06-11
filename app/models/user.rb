@@ -162,11 +162,11 @@ class User < ApplicationRecord
   # = Callbacks =
   # =============
 
-  before_update :clear_department_id, if: :org_id_changed?
+  after_update :clear_department_id, if: :saved_change_to_org_id?
 
-  after_update :delete_perms!, if: :org_id_changed?, unless: :can_change_org?
+  after_update :delete_perms!, if: :saved_change_to_org_id?, unless: :can_change_org?
 
-  after_update :remove_token!, if: :org_id_changed?, unless: :can_change_org?
+  after_update :remove_token!, if: :saved_change_to_org_id?, unless: :can_change_org?
 
   # =================
   # = Class methods =
