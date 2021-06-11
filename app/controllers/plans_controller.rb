@@ -39,7 +39,8 @@ class PlansController < ApplicationController
       flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>"
     end
     @is_test = params[:test] ||= false
-    respond_to :html
+
+    render :new_plan
   end
 
   # POST /plans
