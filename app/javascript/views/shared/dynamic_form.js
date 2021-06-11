@@ -81,6 +81,7 @@ $(() => {
       const viewLink = selectedValue.find('a');
       selectedValue.find('span').html(text);
       viewLink.attr('href', viewLink.attr('href').replace(/fragment_id=([^&]+)/, `fragment_id=${value}`));
+      selectedValue.show();
     }
 
     if (selectField.hasClass('multiple-select')) {

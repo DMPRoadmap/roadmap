@@ -1290,6 +1290,10 @@ header .main-nav {
         }
         &.select-field, &.contributor-field {
             flex-direction: column;
+
+            .selected-value {
+                display: none;
+            }
         }
         &.linked-fragments-select {
             flex-direction: row;

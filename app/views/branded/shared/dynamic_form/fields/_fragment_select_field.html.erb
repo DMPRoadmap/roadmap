@@ -6,10 +6,11 @@
   </div>
 <% end %>
 <div class="col-md-12 dynamic-field select-field linked-fragments-select <%= schema.classname %>-select select-<%= query_id %>">
-  <% selected_value_id = selected_value.present? ? selected_value.id : nil %>    
+  <% selected_value_id = selected_value.present? ? selected_value.id : nil %>
+  <% select_values = selected_value.present? ?  [selected_value] : [] %>
   <%= select_tag field_name,
     render(partial: 'shared/dynamic_form/linked_fragment/select_options', locals: {
-          select_values: [selected_value],
+          select_values: select_values,
           selected_value: selected_value_id
         }
     ),
@@ -49,22 +50,20 @@
 </div>
 
 <div class="col-md-12 selected-value">
-  <% unless selected_value.nil?%>
-    <strong><%= d_('dmpopidor', 'Selected value:') %></strong> <span><%= selected_value.to_s %></span>
-    (<%= link_to new_edit_linked_madmp_fragments_url(
-        :fragment_id => selected_value.id,
-        :parent_id => parent_id, 
-        :schema_id => selected_value.madmp_schema_id,
-        :source => "select-modal",
-        :template_locale => template_locale,
-        :query_id => query_id
-      ), {
-        :remote => true, 
-        :target => "_self",
-        'data-toggle' => 'modal', 
-        'data-target' => '#modal-window'
-      } do %>
-        <%= _('Edit') %>
-      <% end %>)
-  <% end %>
+  <strong><%= d_('dmpopidor', 'Selected value:') %></strong> <span><%= selected_value.to_s %></span>
+  (<%= link_to new_edit_linked_madmp_fragments_url(
+      :fragment_id => 0000,
+      :parent_id => parent_id, 
+      :schema_id => schema.id,
+      :source => "select-modal",
+      :template_locale => template_locale,
+      :query_id => query_id
+    ), {
+      :remote => true, 
+      :target => "_self",
+      'data-toggle' => 'modal', 
+      'data-target' => '#modal-window'
+    } do %>
+      <%= _('Edit') %>
+    <% end %>)
 </div>
