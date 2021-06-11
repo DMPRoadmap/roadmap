@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-06-03 13:18-0600\n"
-"PO-Revision-Date: 2021-06-03 21:18+0200\n"
+"POT-Creation-Date: 2021-06-10 22:09-0600\n"
+"PO-Revision-Date: 2021-06-11 06:09+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_CA\n"
@@ -501,6 +501,24 @@ msgid ""
 "roughout a research project.&nbsp; </span></p>"
 msgstr ""
 
+msgid "OFI Module E DMP"
+msgstr ""
+
+msgid "Dalhousie University"
+msgstr ""
+
+msgid "TITLE"
+msgstr ""
+
+msgid "Alliance/Food from Thought DMP creation"
+msgstr ""
+
+msgid "Test DMP Questions"
+msgstr ""
+
+msgid "Phase 1 (test)"
+msgstr ""
+
 msgid "Initial GWF DMP"
 msgstr ""
 
@@ -519,10 +537,10 @@ msgstr ""
 msgid "MICYRN Data Management Plan Initial Phase"
 msgstr ""
 
-msgid "Phase 1: Data Management Plan for Grant Application"
+msgid "Reproducible findings through deposited data"
 msgstr ""
 
-msgid "Reproducible findings through deposited data"
+msgid "Phase 1: Data Management Plan for Grant Application"
 msgstr ""
 
 msgid "University of British Columbia Data Management Questions"
@@ -537,11 +555,11 @@ msgstr ""
 msgid "CEOS Data Management Plan"
 msgstr ""
 
-msgid "Template for Systematic Reviews"
-msgstr "Modèle pour les revues systématiques"
-
 msgid "Oceans Data Management Plan"
 msgstr ""
+
+msgid "Template for Systematic Reviews"
+msgstr "Modèle pour les revues systématiques"
 
 msgid "University of Manitoba Data Management Questions"
 msgstr ""
@@ -562,24 +580,6 @@ msgid "York U Data Management Questions"
 msgstr ""
 
 msgid "MUN Data Management Questions"
-msgstr ""
-
-msgid "OFI Module E DMP"
-msgstr ""
-
-msgid "Dalhousie University"
-msgstr ""
-
-msgid "TITLE"
-msgstr ""
-
-msgid "Alliance/Food from Thought DMP creation"
-msgstr ""
-
-msgid "Test DMP Questions"
-msgstr ""
-
-msgid "Phase 1 (test)"
 msgstr ""
 
 msgid "Phase 2"
@@ -16475,7 +16475,7 @@ msgstr ""
 #: ../../app/controllers/org_admin/questions_controller.rb:69
 #: ../../app/controllers/org_admin/sections_controller.rb:76
 #: ../../app/controllers/org_admin/templates_controller.rb:164
-#: ../../app/controllers/plans_controller.rb:108
+#: ../../app/controllers/plans_controller.rb:106
 #: ../../app/controllers/super_admin/notifications_controller.rb:38
 #: ../../app/controllers/super_admin/orgs_controller.rb:59
 #: ../../app/controllers/super_admin/themes_controller.rb:22
@@ -16490,7 +16490,7 @@ msgstr ""
 #: ../../app/controllers/org_admin/questions_controller.rb:71
 #: ../../app/controllers/org_admin/sections_controller.rb:83
 #: ../../app/controllers/org_admin/templates_controller.rb:166
-#: ../../app/controllers/plans_controller.rb:142
+#: ../../app/controllers/plans_controller.rb:140
 #: ../../app/controllers/super_admin/notifications_controller.rb:41
 #: ../../app/controllers/super_admin/orgs_controller.rb:62
 #: ../../app/controllers/super_admin/themes_controller.rb:25
@@ -16504,8 +16504,8 @@ msgstr ""
 #: ../../app/controllers/org_admin/sections_controller.rb:98
 #: ../../app/controllers/org_admin/templates_controller.rb:194
 #: ../../app/controllers/orgs_controller.rb:56
-#: ../../app/controllers/plans_controller.rb:232
-#: ../../app/controllers/plans_controller.rb:235
+#: ../../app/controllers/plans_controller.rb:230
+#: ../../app/controllers/plans_controller.rb:233
 #: ../../app/controllers/registrations_controller.rb:230
 #: ../../app/controllers/registrations_controller.rb:234
 #: ../../app/controllers/registrations_controller.rb:256
@@ -16522,9 +16522,9 @@ msgstr ""
 #: ../../app/controllers/org_admin/sections_controller.rb:100
 #: ../../app/controllers/org_admin/templates_controller.rb:199
 #: ../../app/controllers/orgs_controller.rb:58
-#: ../../app/controllers/plans_controller.rb:241
-#: ../../app/controllers/plans_controller.rb:244
-#: ../../app/controllers/plans_controller.rb:249
+#: ../../app/controllers/plans_controller.rb:239
+#: ../../app/controllers/plans_controller.rb:242
+#: ../../app/controllers/plans_controller.rb:247
 #: ../../app/controllers/registrations_controller.rb:237
 #: ../../app/controllers/registrations_controller.rb:263
 msgid "save"
@@ -16554,7 +16554,7 @@ msgstr ""
 #: ../../app/controllers/org_admin/phases_controller.rb:157
 #: ../../app/controllers/org_admin/questions_controller.rb:128
 #: ../../app/controllers/org_admin/sections_controller.rb:127
-#: ../../app/controllers/plans_controller.rb:288
+#: ../../app/controllers/plans_controller.rb:286
 #: ../../app/controllers/super_admin/notifications_controller.rb:63
 #: ../../app/controllers/super_admin/themes_controller.rb:50
 msgid "deleted"
@@ -16566,7 +16566,7 @@ msgstr ""
 #: ../../app/controllers/org_admin/phases_controller.rb:159
 #: ../../app/controllers/org_admin/questions_controller.rb:130
 #: ../../app/controllers/org_admin/sections_controller.rb:129
-#: ../../app/controllers/plans_controller.rb:293
+#: ../../app/controllers/plans_controller.rb:291
 #: ../../app/controllers/super_admin/notifications_controller.rb:66
 #: ../../app/controllers/super_admin/themes_controller.rb:53
 msgid "delete"
@@ -16625,7 +16625,7 @@ msgstr ""
 #: ../../app/controllers/org_admin/phases_controller.rb:130
 #: ../../app/controllers/org_admin/questions_controller.rb:98
 #: ../../app/controllers/org_admin/users_controller.rb:33
-#: ../../app/controllers/plans_controller.rb:350
+#: ../../app/controllers/plans_controller.rb:348
 #: ../../app/controllers/super_admin/notifications_controller.rb:51
 #: ../../app/controllers/super_admin/themes_controller.rb:39
 #: ../../app/controllers/super_admin/users_controller.rb:33
@@ -16636,7 +16636,7 @@ msgstr ""
 #: ../../app/controllers/org_admin/phases_controller.rb:132
 #: ../../app/controllers/org_admin/questions_controller.rb:100
 #: ../../app/controllers/org_admin/users_controller.rb:35
-#: ../../app/controllers/plans_controller.rb:353
+#: ../../app/controllers/plans_controller.rb:351
 #: ../../app/controllers/super_admin/notifications_controller.rb:53
 #: ../../app/controllers/super_admin/themes_controller.rb:41
 #: ../../app/controllers/super_admin/users_controller.rb:35
@@ -16716,7 +16716,7 @@ msgid "%{template_type} was successfully copied."
 msgstr ""
 
 #: ../../app/controllers/org_admin/template_copies_controller.rb:18
-#: ../../app/controllers/plans_controller.rb:332
+#: ../../app/controllers/plans_controller.rb:330
 msgid "copy"
 msgstr ""
 
@@ -16813,66 +16813,66 @@ msgstr ""
 msgid "Created using %{application_name}. Last modified %{date}"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:42
+#: ../../app/controllers/plans_controller.rb:39
 msgid "This is a"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:42
+#: ../../app/controllers/plans_controller.rb:39
 msgid "test plan"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:63
+#: ../../app/controllers/plans_controller.rb:61
 msgid "Unable to identify a suitable template for your plan."
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:91
+#: ../../app/controllers/plans_controller.rb:89
 msgid "My Plan"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:93
+#: ../../app/controllers/plans_controller.rb:91
 msgid " Plan"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:112
+#: ../../app/controllers/plans_controller.rb:110
 msgid "This plan is based on the default template."
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:118
-#: ../../app/controllers/plans_controller.rb:124
+#: ../../app/controllers/plans_controller.rb:116
+#: ../../app/controllers/plans_controller.rb:122
 msgid "This plan is based on the"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:118
+#: ../../app/controllers/plans_controller.rb:116
 msgid "template with customisations by the"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:330
+#: ../../app/controllers/plans_controller.rb:328
 msgid "copied"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:358
+#: ../../app/controllers/plans_controller.rb:356
 msgid ""
 "Unable to change the plan's status since it is needed at least %{percentage} p"
 "ercentage responded"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:366
+#: ../../app/controllers/plans_controller.rb:364
 msgid "Unable to find plan id %{plan_id}"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:380
+#: ../../app/controllers/plans_controller.rb:378
 msgid "Your project is now a test."
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:380
+#: ../../app/controllers/plans_controller.rb:378
 msgid "Your project is no longer a test."
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:384
+#: ../../app/controllers/plans_controller.rb:382
 msgid "Unable to change the plan's test status"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:398
+#: ../../app/controllers/plans_controller.rb:396
 msgid "There is no plan associated with id %{id}"
 msgstr ""
 
@@ -17348,7 +17348,8 @@ msgstr ""
 #: ../../app/helpers/template_helper.rb:47
 #: ../../app/views/branded/plans/new.html.erb:123
 #: ../../app/views/plans/index.html.erb:29
-#: ../../app/views/plans/new.html.erb:121
+#: ../../app/views/plans/new.html.erb:93
+#: ../../app/views/plans/new_plan.html.erb:93
 #: ../../app/views/shared/_create_plan_modal.html.erb:5
 msgid "Create plan"
 msgstr ""
@@ -17593,7 +17594,7 @@ msgstr ""
 
 #: ../../app/models/plan.rb:214
 msgid "Copy of %{title}"
-msgstr "Copie de %{title}"
+msgstr ""
 
 #: ../../app/models/question.rb:153
 msgid "guidance on"
@@ -17645,7 +17646,7 @@ msgstr ""
 
 #: ../../app/models/template.rb:365
 msgid "Copy of %{template}"
-msgstr "Copie de %{template}"
+msgstr ""
 
 #: ../../app/models/template.rb:373
 msgid "generate_version! requires a published template"
@@ -17888,42 +17889,51 @@ msgstr ""
 #: ../../app/views/branded/plans/new.html.erb:11
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:11
 #: ../../app/views/plans/new.html.erb:1 ../../app/views/plans/new.html.erb:11
+#: ../../app/views/plans/new_plan.html.erb:1
+#: ../../app/views/plans/new_plan.html.erb:11
 msgid "Create a new plan"
 msgstr ""
 
 #: ../../app/views/branded/plans/new.html.erb:2
 #: ../../app/views/layouts/application.html.erb:99
 #: ../../app/views/plans/new.html.erb:2
+#: ../../app/views/plans/new_plan.html.erb:2
 msgid "This field is required."
 msgstr ""
 
 #: ../../app/views/branded/plans/new.html.erb:3
 #: ../../app/views/plans/new.html.erb:3
+#: ../../app/views/plans/new_plan.html.erb:3
 msgid "If applying for funding, state the project title exactly as in the proposal."
 msgstr ""
 
 #: ../../app/views/branded/plans/new.html.erb:4
 #: ../../app/views/plans/new.html.erb:4
+#: ../../app/views/plans/new_plan.html.erb:4
 msgid "You must select a research organisation from the list or click the checkbox."
 msgstr ""
 
 #: ../../app/views/branded/plans/new.html.erb:5
 #: ../../app/views/plans/new.html.erb:5
+#: ../../app/views/plans/new_plan.html.erb:5
 msgid "Please select a valid research organisation from the list."
 msgstr ""
 
 #: ../../app/views/branded/plans/new.html.erb:6
 #: ../../app/views/plans/new.html.erb:6
+#: ../../app/views/plans/new_plan.html.erb:6
 msgid "You must select a funder from the list or click the checkbox."
 msgstr ""
 
 #: ../../app/views/branded/plans/new.html.erb:7
 #: ../../app/views/plans/new.html.erb:7
+#: ../../app/views/plans/new_plan.html.erb:7
 msgid "Please select a valid funding organisation from the list."
 msgstr ""
 
 #: ../../app/views/branded/plans/new.html.erb:14
 #: ../../app/views/plans/new.html.erb:14
+#: ../../app/views/plans/new_plan.html.erb:14
 msgid ""
 "Before you get started, we need some information about your research project t"
 "o set you up with the best DMP template for your needs."
@@ -17931,21 +17941,23 @@ msgstr ""
 
 #: ../../app/views/branded/plans/new.html.erb:23
 #: ../../app/views/plans/new.html.erb:23
+#: ../../app/views/plans/new_plan.html.erb:23
 msgid "What research project are you planning?"
 msgstr ""
 
 #: ../../app/views/branded/plans/new.html.erb:38
 #: ../../app/views/plans/new.html.erb:38
+#: ../../app/views/plans/new_plan.html.erb:38
 msgid "mock project for testing, practice, or educational purposes"
 msgstr ""
 
 #: ../../app/views/branded/plans/new.html.erb:47
-#: ../../app/views/plans/new.html.erb:47
 msgid "Select the primary research organisation"
 msgstr ""
 
 #: ../../app/views/branded/plans/new.html.erb:59
 #: ../../app/views/plans/new.html.erb:59
+#: ../../app/views/plans/new_plan.html.erb:59
 msgid "You must select a research organisation from the list."
 msgstr ""
 
@@ -17953,45 +17965,45 @@ msgstr ""
 #: ../../app/views/branded/plans/new.html.erb:92
 #: ../../app/views/orgs/_profile_form.html.erb:33
 #: ../../app/views/orgs/shibboleth_ds.html.erb:34
-#: ../../app/views/plans/new.html.erb:63 ../../app/views/plans/new.html.erb:91
+#: ../../app/views/plans/new.html.erb:63
+#: ../../app/views/plans/new_plan.html.erb:63
 #: ../../app/views/shared/_sign_in_form.html.erb:23
 msgid "or"
 msgstr ""
 
 #: ../../app/views/branded/plans/new.html.erb:66
 #: ../../app/views/plans/new.html.erb:66
+#: ../../app/views/plans/new_plan.html.erb:66
 msgid ""
 "No research organisation associated with this plan or my research organisation"
 " is not listed"
 msgstr ""
 
 #: ../../app/views/branded/plans/new.html.erb:77
-#: ../../app/views/plans/new.html.erb:76
 msgid "Select the primary funding organisation"
 msgstr ""
 
 #: ../../app/views/branded/plans/new.html.erb:88
-#: ../../app/views/plans/new.html.erb:87
 msgid "You must select a funding organisation from the list."
 msgstr ""
 
 #: ../../app/views/branded/plans/new.html.erb:95
-#: ../../app/views/plans/new.html.erb:94
 msgid "No funder associated with this plan or my funder is not listed"
 msgstr ""
 
 #: ../../app/views/branded/plans/new.html.erb:108
-#: ../../app/views/plans/new.html.erb:106
+#: ../../app/views/plans/new.html.erb:78
+#: ../../app/views/plans/new_plan.html.erb:78
 msgid "Which DMP template would you like to use?"
 msgstr ""
 
 #: ../../app/views/branded/plans/new.html.erb:111
-#: ../../app/views/plans/new.html.erb:109
+#: ../../app/views/plans/new.html.erb:81
+#: ../../app/views/plans/new_plan.html.erb:81
 msgid "Please select a template"
 msgstr ""
 
 #: ../../app/views/branded/plans/new.html.erb:116
-#: ../../app/views/plans/new.html.erb:114
 msgid "We found multiple DMP templates corresponding to your funder."
 msgstr ""
 
@@ -18006,7 +18018,8 @@ msgstr ""
 #: ../../app/views/org_admin/questions/_form.html.erb:93
 #: ../../app/views/org_admin/questions/_form.html.erb:95
 #: ../../app/views/plans/_edit_details.html.erb:210
-#: ../../app/views/plans/new.html.erb:122
+#: ../../app/views/plans/new.html.erb:94
+#: ../../app/views/plans/new_plan.html.erb:94
 #: ../../app/views/super_admin/notifications/_form.html.erb:65
 #: ../../app/views/super_admin/themes/_form.html.erb:19
 #: ../../app/views/super_admin/users/_confirm_merge.html.erb:15
@@ -20339,17 +20352,12 @@ msgid ""
 "nswer at least %{percentage}%% of the questions to enable these options. Note:"
 " test plans are set to private visibility by default."
 msgstr ""
-"Public or organisational visibility is intended for finished plans. You must a"
-"nswer at least %{percentage}%% of the questions to enable these options. Note:"
-" test plans are set to private visibility by default."
 
 #: ../../app/views/plans/_share_form.html.erb:17
 msgid ""
 "Public or organisational visibility is intended for finished plans. Note: test"
 " plans are set to private visibility by default."
 msgstr ""
-"Public or organisational visibility is intended for finished plans. Note: test"
-" plans are set to private visibility by default."
 
 #: ../../app/views/plans/_share_form.html.erb:29
 msgid ""
@@ -20433,6 +20441,18 @@ msgid ""
 "The table below lists the plans that users at your organisation have created a"
 "nd shared within your organisation. This allows you to download a PDF and view"
 " their plans as samples or to discover new research data."
+msgstr ""
+
+#: ../../app/views/plans/new.html.erb:47
+#: ../../app/views/plans/new_plan.html.erb:47
+msgid "Indicate the primary research organisation"
+msgstr ""
+
+#: ../../app/views/plans/new.html.erb:86
+#: ../../app/views/plans/new_plan.html.erb:86
+msgid ""
+"We found multiple DMP templates corresponding to your primary research organis"
+"ation"
 msgstr ""
 
 #: ../../app/views/public_pages/plan_index.html.erb:8
