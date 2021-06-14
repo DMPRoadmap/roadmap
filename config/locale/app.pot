@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dmptool 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-06-14 09:08-0700\n"
-"PO-Revision-Date: 2021-06-14 09:08-0700\n"
+"POT-Creation-Date: 2021-06-14 11:25-0700\n"
+"PO-Revision-Date: 2021-06-14 11:25-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -339,36 +339,6 @@ msgstr ""
 
 #: ../../app/controllers/contributors_controller.rb:156
 msgid "contributor not found"
-msgstr ""
-
-#: ../../app/controllers/dmptool/orgs_controller.rb:43
-msgid "Please choose an organisation from the list."
-msgstr ""
-
-#: ../../app/controllers/dmptool/users/omniauth_callbacks_controller.rb:28
-msgid "Your account has been successfully linked to %{scheme}."
-msgstr ""
-
-#: ../../app/controllers/dmptool/users/omniauth_callbacks_controller.rb:32
-msgid "Unable to link your account to %{scheme}"
-msgstr ""
-
-#: ../../app/controllers/dmptool/users/omniauth_callbacks_controller.rb:43
-msgid "Successfully signed in"
-msgstr ""
-
-#: ../../app/controllers/dmptool/users/omniauth_callbacks_controller.rb:61
-msgid "Successfully signed in with %{scheme}."
-msgstr ""
-
-#: ../../app/controllers/dmptool/users/omniauth_callbacks_controller.rb:80
-msgid "your institutional credentials"
-msgstr ""
-
-#: ../../app/controllers/dmptool/users/omniauth_callbacks_controller.rb:101
-msgid ""
-"It looks like this is your first time logging in. Please verify and complete t"
-"he information below to finish creating an account."
 msgstr ""
 
 #: ../../app/controllers/feedback_requests_controller.rb:9
@@ -1873,11 +1843,11 @@ msgid " by %{user_name}"
 msgstr ""
 
 #: ../../app/views/answers/_status.html.erb:15
-msgid "This answer removes "
+msgid " questions from your plan."
 msgstr ""
 
 #: ../../app/views/answers/_status.html.erb:15
-msgid " questions from your plan."
+msgid "This answer removes "
 msgstr ""
 
 #: ../../app/views/answers/_status.html.erb:21
@@ -2139,15 +2109,15 @@ msgid "Thank you for registering. Please confirm your email address"
 msgstr ""
 
 #: ../../app/views/devise/mailer/confirmation_instructions.html.erb:6
+msgid "into your browser"
+msgstr ""
+
+#: ../../app/views/devise/mailer/confirmation_instructions.html.erb:6
 msgid "Click here to confirm your account"
 msgstr ""
 
 #: ../../app/views/devise/mailer/confirmation_instructions.html.erb:6
 msgid "or copy"
-msgstr ""
-
-#: ../../app/views/devise/mailer/confirmation_instructions.html.erb:6
-msgid "into your browser"
 msgstr ""
 
 #: ../../app/views/devise/mailer/invitation_instructions.html.erb:12
@@ -2230,13 +2200,13 @@ msgid "Hello"
 msgstr ""
 
 #: ../../app/views/devise/mailer/unlock_instructions.html.erb:4
-msgid "Your"
-msgstr ""
-
-#: ../../app/views/devise/mailer/unlock_instructions.html.erb:4
 msgid ""
 "account has been locked due to an excessive number of unsuccessful sign in att"
 "empts."
+msgstr ""
+
+#: ../../app/views/devise/mailer/unlock_instructions.html.erb:4
+msgid "Your"
 msgstr ""
 
 #: ../../app/views/devise/mailer/unlock_instructions.html.erb:6
@@ -3535,11 +3505,11 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/org_admin/questions/_form.html.erb:4
-msgid "New question:"
+msgid "Question %{number}:"
 msgstr ""
 
 #: ../../app/views/org_admin/questions/_form.html.erb:4
-msgid "Question %{number}:"
+msgid "New question:"
 msgstr ""
 
 #: ../../app/views/org_admin/questions/_form.html.erb:15
@@ -3592,15 +3562,15 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/org_admin/questions/_form.html.erb:102
-msgid "You are about to delete question #%{question_number}. Are you sure?"
-msgstr ""
-
-#: ../../app/views/org_admin/questions/_form.html.erb:102
 #: ../../app/views/org_admin/sections/_form.html.erb:19
 #: ../../app/views/super_admin/api_clients/_form.html.erb:152
 #: ../../app/views/super_admin/notifications/_form.html.erb:67
 #: ../../app/views/super_admin/themes/_form.html.erb:15
 msgid "Delete"
+msgstr ""
+
+#: ../../app/views/org_admin/questions/_form.html.erb:102
+msgid "You are about to delete question #%{question_number}. Are you sure?"
 msgstr ""
 
 #: ../../app/views/org_admin/questions/_index.html.erb:14
@@ -4353,14 +4323,14 @@ msgstr ""
 
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:88
 msgid ""
-"Are you sure you wish to remove this plan? Any collaborators will still be abl"
-"e to access it."
+"Are you sure you wish to remove this public plan? This will remove it from the"
+" Public DMPs page but any collaborators will still be able to access it."
 msgstr ""
 
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:88
 msgid ""
-"Are you sure you wish to remove this public plan? This will remove it from the"
-" Public DMPs page but any collaborators will still be able to access it."
+"Are you sure you wish to remove this plan? Any collaborators will still be abl"
+"e to access it."
 msgstr ""
 
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:23
@@ -4466,11 +4436,11 @@ msgid "Create a new plan"
 msgstr ""
 
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:13
-msgid "(if available)"
+msgid "Sample Plans"
 msgstr ""
 
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:13
-msgid "Sample Plans"
+msgid "(if available)"
 msgstr ""
 
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:47
@@ -4585,12 +4555,12 @@ msgid "identified your funder"
 msgstr ""
 
 #: ../../app/views/plans/_doi_minter.html.erb:54
-#: ../../app/views/plans/_doi_minter.html.erb:56
-msgid "DMPTool profile page"
+msgid "authorized DMPTool to add works to your ORCID record via your"
 msgstr ""
 
 #: ../../app/views/plans/_doi_minter.html.erb:54
-msgid "authorized DMPTool to add works to your ORCID record via your"
+#: ../../app/views/plans/_doi_minter.html.erb:56
+msgid "DMPTool profile page"
 msgstr ""
 
 #: ../../app/views/plans/_doi_minter.html.erb:56
@@ -5470,10 +5440,6 @@ msgid "If you have an account please sign in and start creating or editing your 
 msgstr ""
 
 #: ../../app/views/static_pages/about_us.html.erb:34
-msgid "If you do not have a %{application_name} account, click on"
-msgstr ""
-
-#: ../../app/views/static_pages/about_us.html.erb:34
 msgid "Sign up"
 msgstr ""
 
@@ -5481,12 +5447,16 @@ msgstr ""
 msgid "on the homepage."
 msgstr ""
 
-#: ../../app/views/static_pages/about_us.html.erb:35
-msgid "page for guidance."
+#: ../../app/views/static_pages/about_us.html.erb:34
+msgid "If you do not have a %{application_name} account, click on"
 msgstr ""
 
 #: ../../app/views/static_pages/about_us.html.erb:35
 msgid "Please visit the"
+msgstr ""
+
+#: ../../app/views/static_pages/about_us.html.erb:35
+msgid "page for guidance."
 msgstr ""
 
 #: ../../app/views/static_pages/about_us.html.erb:37

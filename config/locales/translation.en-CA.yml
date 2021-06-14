@@ -465,23 +465,23 @@ en-CA:
         contact_us:
         email:
         message:
-        name:
+        name: Name
         subject:
-        submit:
+        submit: Submit
       new_formtastic:
         contact_us:
         email:
         message:
-        name:
+        name: Name
         subject:
-        submit:
+        submit: Submit
       new_simple_form:
         contact_us:
         email:
         message:
-        name:
+        name: Name
         subject:
-        submit:
+        submit: Submit
     notices:
       error:
       success:

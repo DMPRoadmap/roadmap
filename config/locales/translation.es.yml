@@ -77,9 +77,9 @@ es:
       decimal_units:
         units:
           thousand: mil
-          million:
+          million: Millón
           billion: mil millones
-          trillion:
+          trillion: Trillones
           quadrillion: mil billones
   errors:
     format: "%{attribute} %{message}"
@@ -128,9 +128,16 @@ es:
       header:
         one: No se pudo guardar este/a %{model} porque se encontró 1 error
         other: No se pudo guardar este/a %{model} porque se encontraron %{count} errores
-    unavailable_session:
-    unacceptable_request:
-    connection_refused:
+    unavailable_session: |-
+      Sesión %{id} ya no se encuentra disponible en la memoria.
+
+      Si le sucede a ejecutar en un servidor multi-proceso (como el unicornio o Puma) el proceso de
+      esta solicitud golpe no almacena %{id} en la memoria. Considere girando el número de
+      procesos / trabajadores a uno (1) o el uso de un servidor diferente en el desarrollo.
+    unacceptable_request: Una versión compatible Se espera que en la cabecera Aceptar.
+    connection_refused: |-
+      Ups! No se pudo conectar a la consola Web de middleware.
+      Por favor asegúrese de que un servidor de desarrollo carriles se está ejecutando.
   activerecord:
     errors:
       messages:
@@ -209,9 +216,9 @@ es:
       submit: Guardar %{model}
     page_entries_info:
       entry:
-        zero:
-        one:
-        other:
+        zero: entradas
+        one: entrada
+        other: entradas
       one_page:
         display_entries:
           zero: No se han encontrado %{entry_name}
@@ -223,16 +230,17 @@ es:
   flash:
     actions:
       create:
-        notice:
+        notice: "%{resource_name} fue creado con éxito."
       update:
-        notice:
+        notice: "%{resource_name} se ha actualizado correctamente."
       destroy:
-        notice:
-        alert:
+        notice: "%{resource_name} fue destruido con éxito."
+        alert: "%{resource_name} no podía ser destruida."
   recaptcha:
     errors:
-      verification_failed:
-      recaptcha_unreachable:
+      verification_failed: La verificación reCAPTCHA falló, por favor intente nuevamente.
+      recaptcha_unreachable: Vaya, no hemos podido validar su respuesta reCAPTCHA.
+        Inténtalo de nuevo.
   devise:
     confirmations:
       confirmed: Tu cuenta ha sido confirmada satisfactoriamente.
@@ -251,7 +259,8 @@ es:
       timeout: Tu sesión expiró. Por favor, inicia sesión nuevamente para continuar.
       unauthenticated: Tienes que iniciar sesión o registrarte para poder continuar.
       unconfirmed: Tienes que confirmar tu cuenta para poder continuar.
-      invited:
+      invited: Usted tiene una invitación pendiente, lo aceptan para terminar de crear
+        su cuenta.
     mailer:
       confirmation_instructions:
         subject: Instrucciones de confirmación
@@ -264,12 +273,15 @@ es:
       password_change:
         subject: Contraseña cambiada
       invitation_instructions:
-        subject:
-        hello:
-        someone_invited_you:
-        accept:
-        accept_until:
-        ignore:
+        subject: Instrucciones para tu invitación
+        hello: Hola %{email}
+        someone_invited_you: Alguien te ha invitado a %{url}, puede aceptar que a
+          través del siguiente enlace.
+        accept: Aceptar la invitacion
+        accept_until: Esta invitación se entregará en %{due_date}.
+        ignore: Si no desea aceptar la invitación, ignore este correo electrónico.
+          <br /> Su cuenta no se creará hasta que acceda al enlace anterior y establezca
+          su contraseña.
     omniauth_callbacks:
       failure: No has sido autorizado en la cuenta %{kind} porque "%{reason}".
       success: Has sido autorizado satisfactoriamente en la cuenta %{kind}.
@@ -312,18 +324,18 @@ es:
         para desbloquear tu cuenta en unos pocos minutos.
       unlocked: Tu cuenta ha sido desbloqueada. Ya puedes iniciar sesión.
     invitations:
-      send_instructions:
-      invitation_token_invalid:
-      updated:
-      updated_not_active:
-      no_invitations_remaining:
-      invitation_removed:
+      send_instructions: Un correo de invitación ha sido enviado a %{email}.
+      invitation_token_invalid: "¡El codigo de invitación no es valido!"
+      updated: La contraseña ha sido creada. Estás conectado.
+      updated_not_active: Su contraseña se ha establecido satisfactoriamente.
+      no_invitations_remaining: No quedan invitaciones
+      invitation_removed: Su invitación fue eliminada.
       new:
-        header:
-        submit_button:
+        header: Enviar invitación
+        submit_button: Enviar una invitación
       edit:
-        header:
-        submit_button:
+        header: Enviar su contraseña
+        submit_button: Enviar mi contraseña
   doorkeeper:
     applications:
       confirmations:
@@ -463,31 +475,31 @@ es:
   contact_us:
     contact_mailer:
       contact_email:
-        sent_by_contact_form:
-        sent_by_name:
-        subject:
+        sent_by_contact_form: Enviado por el formulario de contacto desde %{email}
+        sent_by_name: Enviado por %{name} con la dirección %{email}
+        subject: Mensaje de contacto de %{email}
     contacts:
       new:
-        contact_us:
-        email:
-        message:
-        name:
-        subject:
-        submit:
+        contact_us: Contactanos
+        email: Correo electrónico
+        message: Mensaje
+        name: Nombre
+        subject: Tema
+        submit: Enviar
       new_formtastic:
-        contact_us:
-        email:
-        message:
-        name:
-        subject:
-        submit:
+        contact_us: Contactanos
+        email: Correo electrónico
+        message: Mensaje
+        name: Nombre
+        subject: Tema
+        submit: Enviar
       new_simple_form:
-        contact_us:
-        email:
-        message:
-        name:
-        subject:
-        submit:
+        contact_us: Contactanos
+        email: Correo electrónico
+        message: Mensaje
+        name: Nombre
+        subject: Tema
+        submit: Enviar
     notices:
-      error:
-      success:
+      error: Debes de ingresar ambos campos.
+      success: El correo electrónico de contacto fue enviado con éxito.

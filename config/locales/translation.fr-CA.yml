@@ -130,9 +130,15 @@ fr-CA:
       header:
         one: 'Impossible d''enregistrer ce(tte) %{model} : 1 erreur'
         other: 'Impossible d''enregistrer ce(tte) %{model} : %{count} erreurs'
-    unavailable_session:
-    unacceptable_request:
-    connection_refused:
+    unavailable_session: |-
+      La session %{id} n’est plus disponible en mémoire.
+
+      S'il vous arrive d’exécuter le processus sur un serveur multi-processus (comme Unicorn ou Puma), le processus cette requête ne stocke pas %{id} en mémoire. Pensez à remettre le nombre de processus ou de travailleurs à un (1) ou à utiliser un autre serveur en développement.
+    unacceptable_request: Une version prise en charge est attendue dans l’en-tête
+      Accept.
+    connection_refused: |-
+      Oups! Échec de la connexion à l’intergiciel de la console Web.
+      Veuillez vous assurer qu’un serveur de développement Rails est en cours d'exécution.
   activerecord:
     errors:
       messages:
@@ -213,12 +219,12 @@ fr-CA:
       submit: Enregistrer ce(tte) %{model}
     page_entries_info:
       entry:
-        zero:
-        one:
-        other:
+        zero: entrées
+        one: entrée
+        other: entrées
       one_page:
         display_entries:
-          zero:
+          zero: "%{entry_name} non trouvé(e)"
           one: "<b>%{count}</b> %{entry_name}"
           other: "<b>tous les %{count}</b> %{entry_name}"
       more_pages:
@@ -227,16 +233,17 @@ fr-CA:
   flash:
     actions:
       create:
-        notice:
+        notice: "%{resource_name} a été créé(e) avec succès."
       update:
-        notice:
+        notice: "%{resource_name} a été mis(e) à jour avec succès."
       destroy:
-        notice:
-        alert:
+        notice: "%{resource_name} a été détruit(e) avec succès."
+        alert: "%{resource_name} n’a pas pu être détruit(e)."
   recaptcha:
     errors:
-      verification_failed:
-      recaptcha_unreachable:
+      verification_failed: La vérification reCAPTCHA a échoué, veuillez réessayer.
+      recaptcha_unreachable: Oups, nous n’avons pas réussi à valider votre réponse
+        à la vérification reCAPTCHA. Veuillez réessayer.
   devise:
     confirmations:
       confirmed: Votre compte a été confirmé avec succès.
@@ -255,7 +262,8 @@ fr-CA:
       timeout: Votre session est expirée, veuillez vous reconnecter pour continuer.
       unauthenticated: Vous devez vous connecter ou vous enregistrer pour continuer.
       unconfirmed: Vous devez confirmer votre compte par courriel.
-      invited:
+      invited: Vous avez une invitation en attente. Acceptez-la pour terminer la création
+        de votre compte.
     mailer:
       confirmation_instructions:
         subject: Instructions de confirmation
@@ -268,12 +276,15 @@ fr-CA:
       password_change:
         subject: Mot de passe modifié
       invitation_instructions:
-        subject:
-        hello:
-        someone_invited_you:
-        accept:
-        accept_until:
-        ignore:
+        subject: Consignes relatives à l’invitation
+        hello: Bonjour %{email}
+        someone_invited_you: Quelqu’un vous a invité à %{url}. Vous pouvez accepter
+          l’invitation à l’aide du lien ci-dessous.
+        accept: Accepter l’invitation
+        accept_until: Cette invitation sera expirée dans %{due_date}.
+        ignore: Si vous ne souhaitez pas accepter l’invitation, veuillez ne pas tenir
+          compte de ce courriel. Votre compte ne sera créé que lorsque vous aurez
+          accédé au lien ci-dessus et défini votre mot de passe.
     omniauth_callbacks:
       failure: 'Nous ne pouvons pas vous authentifier depuis %{kind} pour la raison
         suivante : ''%{reason}''.'
@@ -318,18 +329,18 @@ fr-CA:
         déverrouiller votre compte.
       unlocked: Votre compte a été déverrouillé avec succès. Veuillez vous connecter.
     invitations:
-      send_instructions:
-      invitation_token_invalid:
-      updated:
-      updated_not_active:
-      no_invitations_remaining:
-      invitation_removed:
+      send_instructions: Un courriel d’invitation a été envoyé à %{email}.
+      invitation_token_invalid: Le jeton d'invitation fourni n’est pas valide!
+      updated: Votre mot de passe a été défini avec succès. Vous êtes maintenant inscrit.
+      updated_not_active: Votre mot de passe a été défini avec succès.
+      no_invitations_remaining: Aucune invitation restante
+      invitation_removed: Votre invitation a été supprimée.
       new:
-        header:
-        submit_button:
+        header: Envoyer l’invitation
+        submit_button: Envoyer une invitation
       edit:
-        header:
-        submit_button:
+        header: Définir votre mot de passe
+        submit_button: Définir mon mot de passe
   doorkeeper:
     applications:
       confirmations:
@@ -473,31 +484,32 @@ fr-CA:
   contact_us:
     contact_mailer:
       contact_email:
-        sent_by_contact_form:
-        sent_by_name:
-        subject:
+        sent_by_contact_form: Envoyé à l'aide du formulaire de contact depuis l’adresse
+          %{email}
+        sent_by_name: Envoyé par %{name} à partir de l’adresse %{email}
+        subject: Message de %{email} provenant du lien Nous joindre
     contacts:
       new:
-        contact_us:
-        email:
-        message:
-        name:
-        subject:
-        submit:
+        contact_us: Communiquez avec nous
+        email: Courriel
+        message: Message
+        name: Nom
+        subject: Objet
+        submit: Envoyer
       new_formtastic:
-        contact_us:
-        email:
-        message:
-        name:
-        subject:
-        submit:
+        contact_us: Communiquez avec nous
+        email: Courriel
+        message: Message
+        name: Nom
+        subject: Objet
+        submit: Envoyer
       new_simple_form:
-        contact_us:
-        email:
-        message:
-        name:
-        subject:
-        submit:
+        contact_us: Communiquez avec nous
+        email: Courriel
+        message: Message
+        name: Nom
+        subject: Objet
+        submit: Envoyer
     notices:
-      error:
-      success:
+      error: Vous devez remplir les deux champs.
+      success: Le courriel de contact a été envoyé avec succès.
