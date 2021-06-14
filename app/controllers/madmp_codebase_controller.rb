@@ -33,6 +33,7 @@ class MadmpCodebaseController < ApplicationController
             "needs_reload" => true
           }, status: 200
         end
+        update_run_log(fragment, script_id)
       else
         # Rails.cache.delete(["codebase_run", fragment.id])
         render json: {
@@ -60,6 +61,15 @@ class MadmpCodebaseController < ApplicationController
         "research_output_id": fragment.research_output_fragment&.id
       }
     )
+  end
+
+  def update_run_log(fragment, script_id)
+    runned_scripts = fragment.additional_info["runned_scripts"] || {}
+    runned_scripts[script_id.to_s] = Time.now
+    fragment.additional_info = fragment.additional_info.merge(
+      "runned_scripts" => runned_scripts
+    )
+    fragment.save
   end
 
 end
