@@ -2,10 +2,11 @@
 
 class ApiClientPolicy < ApplicationPolicy
 
-  def initialize(user, *_args)
+  def initialize(user, api_client)
     raise Pundit::NotAuthorizedError, _("must be logged in") unless user
 
     @user = user
+    @api_client = api_client
   end
 
   def index?
@@ -17,7 +18,8 @@ class ApiClientPolicy < ApplicationPolicy
   end
 
   def create?
-    @user.can_super_admin?
+    # Super admin or the user can do this for themselves
+    @user.can_super_admin? || @user.id == @api_client.user_id
   end
 
   def edit?
@@ -25,7 +27,8 @@ class ApiClientPolicy < ApplicationPolicy
   end
 
   def update?
-    @user.can_super_admin?
+    # Super admin or the user can do this for themselves
+    @user.can_super_admin? || @user.id == @api_client.user_id
   end
 
   def destroy?
@@ -33,7 +36,8 @@ class ApiClientPolicy < ApplicationPolicy
   end
 
   def refresh_credentials?
-    @user.can_super_admin?
+    # Super admin or the user can do this for themselves
+    @user.can_super_admin? || @user.id == @api_client.user_id
   end
 
   def email_credentials?

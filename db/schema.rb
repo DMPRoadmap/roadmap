@@ -205,6 +205,7 @@ ActiveRecord::Schema.define(version: 2021_05_27_195424) do
     t.string "uri"
     t.json "locations"
     t.json "related_entities"
+    t.boolean "discipline_specific"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

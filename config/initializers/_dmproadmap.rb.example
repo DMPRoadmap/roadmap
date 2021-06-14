@@ -216,8 +216,8 @@ module DMPRoadmap
     # ----- #
     # ORCID #
     # ----- #
-    config.x.orcid_landing_page_url = "https://orcid.org/"
-    config.x.orcid_api_base_url = "https://sandbox.orcid.org/"
+    config.x.orcid_landing_page_url = "https://sandbox.orcid.org/"
+    config.x.orcid_api_base_url = "https://api.sandbox.orcid.org/v3.0/"
   end
 
 end

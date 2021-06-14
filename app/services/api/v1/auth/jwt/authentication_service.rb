@@ -12,8 +12,8 @@ module Api
         #
         #   ApiClients (aka machines) with the following JSON body: {
         #     "grant_type": "client_credentials",
-        #     "client_id": "[api_clients.client_id]",
-        #     "client_secret": "[api_clients.client_secret]",
+        #     "client_id": "[oauth_applications.uid]",
+        #     "client_secret": "[oauth_applications.secret]",
         #   }
         #
         #   Users with the following JSON body: {
@@ -87,7 +87,7 @@ module Api
             return nil unless clients.present? && clients.any?
 
             clnt = clients.first
-            clnt.authenticate(secret: @client_secret) ? clnt : nil
+            clnt.secret == @client_secret ? clnt : nil
           end
 
           # Tries to find a User whose email matches the :client_id. If found

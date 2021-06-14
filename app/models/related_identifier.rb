@@ -61,4 +61,15 @@ class RelatedIdentifier < ApplicationRecord
                          IsRequiredBy Requires
                          IsObsoletedBy Obsoletes]
 
+  # Returns the value sans the identifier scheme's prefix.
+  # For example:
+  #   value   'https://orcid.org/0000-0000-0000-0001'
+  #   becomes '0000-0000-0000-0001'
+  def value_without_scheme_prefix
+    return value unless identifier_scheme.present? &&
+                        identifier_scheme.identifier_prefix.present?
+
+    base = identifier_scheme.identifier_prefix
+    value.gsub(base, "").sub(%r{^/}, "")
+  end
 end

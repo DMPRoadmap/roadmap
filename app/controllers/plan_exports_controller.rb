@@ -96,7 +96,7 @@ class PlanExportsController < ApplicationController
   end
 
   def show_json
-    json = render_to_string(partial: "/api/v1/plans/show", locals: { plan: @plan })
+    json = render_to_string(partial: "/api/v2/plans/show", locals: { plan: @plan, client: current_user })
     render json: "{\"dmp\":#{json}}"
   end
 

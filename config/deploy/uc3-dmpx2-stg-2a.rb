@@ -1,6 +1,8 @@
 # rubocop:disable Naming/FileName
 # frozen_string_literal: true
 
+# TODO: Remove this file once we are on the new puppetized environment
+
 set :application, "DMPTool"
 set :repo_url, "https://github.com/CDLUC3/dmptool.git"
 

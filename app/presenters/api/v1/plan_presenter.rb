@@ -46,7 +46,7 @@ module Api
         @plan.subscriptions.map do |subscription|
           {
             actions: ["PUT"],
-            name: subscription.subscriber.name,
+            name: subscription.subscriber&.name,
             callback: subscription.callback_uri
           }
         end

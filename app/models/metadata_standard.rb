@@ -21,11 +21,7 @@ class MetadataStandard < ApplicationRecord
   # = Associations =
   # ================
 
-  has_many :research_outputs
-
-  # Self join
-  has_many :sub_categories, class_name: "MetadataStandard", foreign_key: "parent_id"
-  belongs_to :parent, class_name: "MetadataStandard", optional: true
+  has_and_belongs_to_many :research_outputs
 
   # ==========
   # = Scopes =

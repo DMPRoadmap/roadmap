@@ -4,6 +4,20 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
+  # Doorkeeper Oauth Authentication
+  use_doorkeeper do
+    skip_controllers :applications, :authorized_applications
+  end
+
+  # Routes to allow a user to sign up for API access via the 'Developer Tools' tab on the Profile page
+  resources :api_clients, only: %i[create update]
+  get "/api_clients/refresh_credentials", to: "api_clients#refresh_credentials",
+                                          as: "refresh_credentials_api_client"
+  # Route to allow a user to revoke an Oauth access token from the '3rd Party Apps' tab on Profile page
+  delete "/users/:user_id/oauth_access_tokens/:id", to: "users#revoke_oauth_access_token",
+                                                    as: "oauth_revoke_access_token"
+
+  # Devise Authentication
   devise_for(:users, controllers: {
                registrations: "registrations",
                passwords: "passwords",
@@ -243,6 +257,25 @@ Rails.application.routes.draw do
       post :authenticate, controller: "authentication"
 
       resources :plans, only: %i[create show index]
+      resources :templates, only: [:index]
+    end
+
+    # API V2 is similar to V1 except that it integrates with the Doorkeeper gem (see route defs above)
+    # for handling AuthN and AuthZ
+    #
+    # For more info see: https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation-V2
+    namespace :v2 do
+      get :heartbeat, controller: :base_api
+      get :me, controller: :base_api
+
+      resources :plans, only: %i[create show index] do
+        member do
+          get :show, constraints: { format: %i[json] }
+
+          resources :datasets, only: %i[create update]
+        end
+      end
+
       resources :templates, only: [:index]
     end
   end

@@ -23,10 +23,9 @@
 #
 FactoryBot.define do
   factory :related_identifier do
-=begin
-    identifier_scheme
-    identifier_type        { RelatedIdentifier.relations_types.keys.sample }
-    relation_type          { RelatedIdentifier.relation_types.keys.sample }
+    identifier_type { RelatedIdentifier.identifier_types.keys.sample }
+    relation_type   { RelatedIdentifier.relation_types.keys.sample }
+    value           { SecureRandom.uuid }
 
     trait :for_plan do
       association :identifiable, factory: :plan
@@ -34,6 +33,5 @@ FactoryBot.define do
     trait :for_research_output do
       association :identifiable, factory: :research_output
     end
-=end
   end
 end

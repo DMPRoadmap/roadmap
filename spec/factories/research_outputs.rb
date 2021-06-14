@@ -45,10 +45,12 @@ FactoryBot.define do
 
     transient do
       repositories_count { 1 }
+      metadata_standards_count { 1 }
     end
 
     after(:create) do |research_output, evaluator|
       research_output.repositories = create_list(:repository, evaluator.repositories_count)
+      research_output.metadata_standards = create_list(:metadata_standard, evaluator.metadata_standards_count)
     end
   end
 end

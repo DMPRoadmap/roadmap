@@ -13,8 +13,6 @@ namespace :housekeeping do
                 .where(identifier_scheme_id: scheme.id, identifiable_type: "Plan")
                 .each do |identifier|
 
-p "updateing_doi for #{identifier.identifiable.title}"
-
         DoiService.update_doi(plan: identifier.identifiable)
       end
     else

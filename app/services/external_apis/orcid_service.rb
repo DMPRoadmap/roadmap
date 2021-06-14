@@ -58,14 +58,14 @@ module ExternalApis
           "Content-type": "application/vnd.orcid+xml",
           "Accept": "application/xml",
           "Authorization": "Bearer #{token.access_token}",
-          "Server-Agent": "#{ApplicationService.application_name} (#{Rails.application.credentials.orcid[:client_id]})"
+          "Server-Agent": "#{ApplicationService.application_name} (#{Rails.configuration.x.dmproadmap.orcid_client_id})"
         }
 
         resp = http_post(uri: target, additional_headers: hdrs, debug: true,
                          data: xml_for(plan: plan, doi: plan.doi, user: user))
 
-        # DMPHub returns a 201 (created) when a new DOI has been minted or
-        #                a 405 (method_not_allowed) when a DOI already exists
+        # ORCID returns a 201 (created) when the DMP has been added to the User's works
+        #               a 405 (method_not_allowed) when the DMP is already in the User's works
         unless resp.present? && [201, 405].include?(resp.code)
           handle_http_failure(method: "ORCID add work", http_response: resp)
           return false

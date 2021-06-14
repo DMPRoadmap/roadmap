@@ -47,8 +47,17 @@ module Api
         end
 
         def dataset_valid?(json:)
-          # TODO: implement this once we support them in the DB
-          json.present?
+          return false unless json.present?
+
+          dataset_id = json.fetch(:dataset_id, {})[:identifier]
+          json[:title].present? || dataset_id.present?
+        end
+
+        def host_valid?(json:)
+          return false unless json.present?
+
+          host_id = json.fetch(:dmproadmap_host_id, {})[:identifier]
+          json[:url].present? || host_id.present?
         end
 
         # rubocop:disable Metrics/AbcSize
@@ -79,9 +88,9 @@ module Api
           end
 
           # Handle Datasets (eventually)
-          # errs << json.fetch(:dataset, []).map do |dataset|
-          #   dataset_validation_errors(json: dataset)
-          # end
+          errs << json.fetch(:dataset, []).map do |dataset|
+            dataset_validation_errors(json: dataset)
+          end
 
           errs.flatten.compact.uniq
         end
@@ -97,6 +106,17 @@ module Api
             if id.present?
               errs << BAD_ID_MSG unless identifier_valid?(json: id)
             end
+          end
+          errs
+        end
+
+        def dataset_validation_errors(json:)
+          errs = []
+          return errs unless json.present?
+
+          errs << BAD_DATASET_MSG unless dataset_valid?(json: json)
+          json.fetch(:distribution, []).each do |distribution|
+            errs << BAD_HOST_MSG unless host_valid?(json: distribution.fetch(:host))
           end
           errs
         end

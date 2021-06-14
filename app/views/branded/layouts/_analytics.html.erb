@@ -1,19 +1,19 @@
 <!-- UserSnap -->
-<% if Rails.env.stage? && Rails.application.credentials.usersnap[:key].present? %>
+<% if Rails.env.stage? && Rails.configuration.x.dmproadmap.usersnap_key.present? %>
   <script type="text/javascript">
     window.onUsersnapCXLoad = function(api) {
       api.init();
     }
     var script = document.createElement('script');
     script.defer = 1;
-    script.src = 'https://widget.usersnap.com/global/load/<%= Rails.application.credentials.usersnap[:key] %>?onload=onUsersnapCXLoad';
+    script.src = 'https://widget.usersnap.com/global/load/<%= Rails.configuration.x.dmproadmap.usersnap_key %>?onload=onUsersnapCXLoad';
     document.getElementsByTagName('head')[0].appendChild(script);
   </script>
 <% end %>
 
 <!-- Google Analytics -->
-<% if (Rails.env.stage? || Rails.env.production?) && Rails.configuration.x.google_analytics.tracker_root.present? %>
-  <% root_abbr = Rails.configuration.x.google_analytics.tracker_root %>
+<% if (Rails.env.stage? || Rails.env.production?) && Rails.configuration.x.dmproadmap.google_analytics_tracker_root.present? %>
+  <% root_abbr = Rails.configuration.x.dmproadmap.google_analytics_tracker_root %>
   <% root_org = Org.where(abbreviation: root_abbr).first %>
   <% if root_org.tracker.present? %>
     <% root_code = root_org.tracker.code %>

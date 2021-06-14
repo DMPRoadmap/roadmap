@@ -57,6 +57,17 @@ gem "bootsnap", require: false
 # (http://github.com/plataformatec/responders)
 # gem "responders"
 
+# ============= #
+# CONFIGURATION #
+# ============= #
+
+# Anyway Config is a configuration library for Ruby gems and applications.
+gem "anyway_config"
+
+# Our homegrown artisinal SSM gem
+# gem "uc3-ssm", git: "https://github.com/CDLUC3/uc3-ssm", branch: "0.3.0rc0"
+gem "uc3-ssm", git: "https://github.com/CDLUC3/uc3-ssm", branch: "add-support-for-paging"
+
 # ============== #
 # ERROR HANDLING #
 # ============== #
@@ -113,7 +124,12 @@ gem "omniauth-orcid"
 #   https://nvd.nist.gov/vuln/detail/CVE-2015-9284
 gem "omniauth-rails_csrf_protection"
 
+# Doorkeeper is a gem (Rails engine) that makes it easy to introduce OAuth 2 provider functionality
+# to your Ruby on Rails or Grape application. https://github.com/doorkeeper-gem/doorkeeper
+gem "doorkeeper", "~> 5.5"
+
 # A ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard.
+# https://github.com/jwt/ruby-jwt
 gem "jwt"
 
 # Gems for repository integration
