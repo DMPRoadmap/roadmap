@@ -27,7 +27,7 @@ elsif ENV["DOMAIN"] == "client"
   #  > rails translations:sync_and_purge DOMAIN=client
   # rubocop:disable Metrics/BlockLength
   TranslationIO.configure do |config|
-    config.api_key              = Rails.application.dmproadmap.translation_io[:key]
+    config.api_key              = Rails.configuration.x.dmproadmap.translation_io_key
     config.source_locale        = "en"
     config.target_locales       = %w[en-US pt-BR]
     config.text_domain          = "client"
@@ -59,6 +59,10 @@ elsif ENV["DOMAIN"] == "client"
                                        "app/presenters/",
                                        "app/presenters/dmptool/"
                                      ]
+
+p "config.ignored_source_paths:"
+pp config.ignored_source_paths
+
     config.disable_yaml         = true
     config.locales_path         = Rails.root.join("config", "locale")
   end

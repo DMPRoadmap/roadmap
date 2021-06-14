@@ -696,6 +696,8 @@ class Plan < ApplicationRecord
   rescue StandardError => e
     # Log the error and continue. We do not want this to disrupt the save!
     Rails.logger.error "Failure on Plan.notify_subscribers for id - #{id} & client - '#{api_client&.name}'"
+    Rails.logger.error e.message
+    Rails.logger.error e.backtrace
     return true
   end
 

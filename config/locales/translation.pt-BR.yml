@@ -79,7 +79,7 @@ pt-BR:
           thousand: mil
           million: Milhões
           billion: Bilhões
-          trillion: Trilhão
+          trillion: Trilhões
           quadrillion: Quatrilhões
   errors:
     format: "%{attribute} %{message}"
@@ -331,7 +331,7 @@ pt-BR:
         header: Enviar convite
         submit_button: Envie um convite
       edit:
-        header: Coloque sua senha
+        header: Defina sua senha
         submit_button: Defina minha senha
   doorkeeper:
     applications:
@@ -373,7 +373,7 @@ pt-BR:
         application_id: Id da Aplicação (Application UID)
         secret: Segredo (Secret)
         secret_hashed: Segredo hash
-        scopes: Escopos
+        scopes: Scopes
         confidential: Confidential
         callback_urls: urls de Callback
         actions: Ações
