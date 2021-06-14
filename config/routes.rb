@@ -318,7 +318,6 @@ Rails.application.routes.draw do
     end
 
     get 'download_plans' => 'plans#download_plans'
-
   end
 
   namespace :super_admin do
@@ -327,6 +326,7 @@ Rails.application.routes.draw do
     resources :madmp_schemas, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :registries do
       post "sort_values", on: :collection
+      get "download"
     end
     resources :registry_values, only: [:new, :create, :edit, :update, :destroy]
     resources :users, only: [:edit, :update] do

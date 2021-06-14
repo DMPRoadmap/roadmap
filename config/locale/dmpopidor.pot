@@ -560,3 +560,18 @@ msgstr ""
 
 msgid "You can pick a different question form"
 msgstr ""
+
+################
+### REGISTRIES
+################
+msgid "Download Registry"
+msgstr ""
+
+msgid "Create Value"
+msgstr ""
+
+msgid "Values"
+msgstr ""
+
+msgid "View all registries"
+msgstr ""

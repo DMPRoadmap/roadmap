@@ -1,6 +1,6 @@
 <% url = @registry.new_record? ? super_admin_registries_path : super_admin_registry_path(@registry) %>
 
-  <%= form_for @registry, url: url, html: { class: 'registry' } do |f| %>
+  <%= form_for @registry, url: url, html: { class: 'registry' }, multipart: true do |f| %>
     <div class="row super-admin">
       <div class="form-group">
         <%= f.label(:name, _('Name'), class: 'control-label') %>
@@ -18,14 +18,13 @@
         <%= f.label(:version, _('Version'), class: 'control-label') %>
         <%= f.number_field(:version, class: "form-control", spellcheck: true) %>
       </div>
+      <div class="form-group">
+        <%= f.label(:values, _('Values'), class: 'control-label') %>
+        <%= f.file_field(:values, class: "form-control", accept: 'application/json') %>
+      </div>
 
     <div class="pull-right">
       <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
-      <% unless @registry.new_record? %>
-        <%= link_to(_('Delete'), super_admin_registry_path(@registry), class: 'btn btn-default',
-          rel: 'nofollow', 'data-method': 'delete',
-          'data-confirm': _("Are you sure you want to delete the registry \"%{title}\"?") % { title: @registry.name }) %>
-      <% end %>
       <%= link_to(_('Cancel'), super_admin_registries_path, class: 'btn btn-default', role: 'button') %>
     </div>
   </div>

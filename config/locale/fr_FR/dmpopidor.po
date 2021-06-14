@@ -558,3 +558,18 @@ msgstr "Une erreur s'est produite : "
 
 msgid "You can pick a different question form"
 msgstr "Vous pouvez choisir un formulaire différent"
+
+################
+### REGISTRIES
+################
+msgid "Download Registry"
+msgstr "Télécharger référentiel"
+
+msgid "Create Value"
+msgstr "Créer valeur"
+
+msgid "Values"
+msgstr "Valeurs"
+
+msgid "View all registries"
+msgstr "Voir tous les référentiels"

@@ -28,8 +28,11 @@
                 <%= _('Actions') %><span class="caret"></span>
               </button>
               <ul class="dropdown-menu" aria-labelledby="org-<%= registry.id %>-actions">
-                <li><%= link_to _('View'), super_admin_registry_path(registry) %></li>
                 <li><%= link_to _('Edit'), edit_super_admin_registry_path(registry) %></li>
+                <li>
+                  <%= link_to(_('Delete'), super_admin_registry_path(registry), rel: 'nofollow', 'data-method': 'delete',
+                    'data-confirm': _("Are you sure you want to delete the registry \"%{title}\"?") % { title: registry.name }) %>
+                </li>
               </ul>
             </div>
           </td>

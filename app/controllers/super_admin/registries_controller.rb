@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
+require "json"
+
 module SuperAdmin
+
   class RegistriesController < ApplicationController
 
     # GET /madmp_schemas
@@ -38,12 +41,38 @@ module SuperAdmin
 
     def update
       authorize(Registry)
+      attrs = permitted_params
       @registry = Registry.find(params[:id])
-      if @registry.update_attributes(permitted_params)
+      if @registry.update_attributes(attrs.except(:values))
         flash.now[:notice] = success_message(@registry, _("updated"))
       else
         flash.now[:alert] = failure_message(@registry, _("update"))
       end
+
+      values_file = attrs[:values]
+      unless values_file.nil?
+        if values_file.respond_to?(:read)
+          values_data = values_file.read
+        elsif values_file.respond_to?(:path)
+          values_data = File.read(values_file.path)
+        else
+          logger.error "Bad values_file: #{values_file.class.name}: #{values_file.inspect}"
+        end
+        begin
+          registry_values = JSON.parse(values_data)
+          if registry_values.key?(@registry.name)
+            @registry.registry_values.destroy_all
+            registry_values[@registry.name].each_with_index do |reg_val, idx|
+              RegistryValue.create!(data: reg_val, registry: @registry, order: idx)
+            end
+          else
+            flash.now[:alert] = "Wrong values file format"
+          end
+        rescue JSON::ParserError
+          flash.now[:alert] = "File should contain JSON"
+        end
+      end
+
       render :edit
     end
 
@@ -68,11 +97,24 @@ module SuperAdmin
       head :ok
     end
 
+    def download
+      registry = Registry.find(params[:registry_id])
+      authorize registry
+      values = registry.registry_values.map(&:data)
+      data = { registry.name => values }
+      send_data(JSON.pretty_generate(data), filename: "#{registry.name}.json")
+    end
+
+    def upload
+      registry = Registry.find(params[:registry_id])
+      authorize registry
+    end
+
     # Private instance methods
     private
 
     def permitted_params
-      params.require(:registry).permit(:name, :description, :uri, :version)
+      params.require(:registry).permit(:name, :description, :uri, :version, :values)
     end
 
   end
