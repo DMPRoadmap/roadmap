@@ -966,6 +966,10 @@ msgstr "APRENDER"
 msgid "Funder Requirements"
 msgstr "Requisitos do Financiador"
 
+#: ../../app/views/branded/plans/_project_details.html.erb:146
+msgid "Funding Opportunity Number"
+msgstr "Número da oportunidade de financiamento "
+
 #: ../../app/views/branded/layouts/_learn_menu.html.erb:15
 msgid "Public Plans"
 msgstr "Planos Públicos"
