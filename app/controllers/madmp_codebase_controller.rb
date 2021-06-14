@@ -21,10 +21,18 @@ class MadmpCodebaseController < ApplicationController
     begin
       response = fetch_run_data(fragment, script_id)
       if response["return_code"]&.eql?(0)
-        fragment.save_codebase_fragment(response["data"], fragment.madmp_schema)
-        render json: {
-          "message" => d_("dmpopidor", 'New data have been added to your plan, please click on the "Reload" button.')
-        }, status: 200
+        if response["data"].empty?
+          render json: {
+            "message" => d_("dmpopidor", "Notification has been sent"),
+            "needs_reload" => false
+          }, status: 200
+        else
+          fragment.save_codebase_fragment(response["data"], fragment.madmp_schema)
+          render json: {
+            "message" => d_("dmpopidor", 'New data have been added to your plan, please click on the "Reload" button.'),
+            "needs_reload" => true
+          }, status: 200
+        end
       else
         # Rails.cache.delete(["codebase_run", fragment.id])
         render json: {

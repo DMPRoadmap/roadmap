@@ -168,7 +168,9 @@ $(() => {
       messageZone.addClass('valid');
       messageZone.html(data.message);
       messageZone.show();
-      reloadButton.show();
+      if (data.needs_reload) {
+        reloadButton.show();
+      }
     }).fail((response) => {
       messageZone.html(response.responseJSON.error);
       messageZone.addClass('invalid');
