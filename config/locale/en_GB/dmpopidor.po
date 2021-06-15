@@ -560,8 +560,8 @@ msgstr "You can pick a different question form"
 ################
 ### REGISTRIES
 ################
-msgid "Download Registry"
-msgstr "Download Registry"
+msgid "Export Registry"
+msgstr "Export Registry"
 
 msgid "Create Value"
 msgstr "Create Value"

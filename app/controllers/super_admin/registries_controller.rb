@@ -24,9 +24,11 @@ module SuperAdmin
 
     def create
       authorize(Registry)
-      @registry = Registry.new(permitted_params)
+      attrs = permitted_params
+      @registry = Registry.new(attrs.except(:values))
       if @registry.save
         flash.now[:notice] = success_message(@registry, _("created"))
+        load_values(attrs[:values], @registry)
         render :edit
       else
         flash.now[:alert] = failure_message(@registry, _("create"))
@@ -48,30 +50,7 @@ module SuperAdmin
       else
         flash.now[:alert] = failure_message(@registry, _("update"))
       end
-
-      values_file = attrs[:values]
-      unless values_file.nil?
-        if values_file.respond_to?(:read)
-          values_data = values_file.read
-        elsif values_file.respond_to?(:path)
-          values_data = File.read(values_file.path)
-        else
-          logger.error "Bad values_file: #{values_file.class.name}: #{values_file.inspect}"
-        end
-        begin
-          registry_values = JSON.parse(values_data)
-          if registry_values.key?(@registry.name)
-            @registry.registry_values.destroy_all
-            registry_values[@registry.name].each_with_index do |reg_val, idx|
-              RegistryValue.create!(data: reg_val, registry: @registry, order: idx)
-            end
-          else
-            flash.now[:alert] = "Wrong values file format"
-          end
-        rescue JSON::ParserError
-          flash.now[:alert] = "File should contain JSON"
-        end
-      end
+      load_values(attrs[:values], @registry)
 
       render :edit
     end
@@ -112,6 +91,31 @@ module SuperAdmin
 
     # Private instance methods
     private
+
+    def load_values(values_file, registry)
+      return if values_file.nil?
+
+      if values_file.respond_to?(:read)
+        values_data = values_file.read
+      elsif values_file.respond_to?(:path)
+        values_data = File.read(values_file.path)
+      else
+        logger.error "Bad values_file: #{values_file.class.name}: #{values_file.inspect}"
+      end
+      begin
+        registry_values = JSON.parse(values_data)
+        if registry_values.key?(registry.name)
+          registry.registry_values.destroy_all
+          registry_values[registry.name].each_with_index do |reg_val, idx|
+            RegistryValue.create!(data: reg_val, registry: registry, order: idx)
+          end
+        else
+          flash.now[:alert] = "Wrong values file format"
+        end
+      rescue JSON::ParserError
+        flash.now[:alert] = "File should contain JSON"
+      end
+    end
 
     def permitted_params
       params.require(:registry).permit(:name, :description, :uri, :version, :values)

@@ -562,8 +562,8 @@ msgstr "Vous pouvez choisir un formulaire différent"
 ################
 ### REGISTRIES
 ################
-msgid "Download Registry"
-msgstr "Télécharger référentiel"
+msgid "Export Registry"
+msgstr "Exporter référentiel"
 
 msgid "Create Value"
 msgstr "Créer valeur"

@@ -564,7 +564,7 @@ msgstr ""
 ################
 ### REGISTRIES
 ################
-msgid "Download Registry"
+msgid "Export Registry"
 msgstr ""
 
 msgid "Create Value"
