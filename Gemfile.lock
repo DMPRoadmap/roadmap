@@ -541,7 +541,7 @@ GEM
       railties (>= 5.2)
       semantic_range (>= 2.3.0)
     webrick (1.7.0)
-    websocket-driver (0.7.5)
+    websocket-driver (0.7.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     wicked_pdf (2.1.0)
