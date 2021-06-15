@@ -26,6 +26,7 @@
             controller: 'paginable/registry_values',
             action: 'index',
             scope: @registry.registry_values,
+            locals: { registry_id: @registry.id },
             query_params: { sort_field: 'registry_values.order', sort_direction: :asc }
           ) %>
         </div>
