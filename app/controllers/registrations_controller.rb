@@ -79,10 +79,11 @@ class RegistrationsController < Devise::RegistrationsController
       existing_user = User.where_case_insensitive("email", sign_up_params[:email]).first
       if existing_user.present?
         if existing_user.invitation_token.present? && !existing_user.accept_terms?
-          # Destroys the existing user since the accept terms are nil/false. and they
-          # have an invitation Note any existing role for that user will be deleted too.
-          # Added to accommodate issue at: https://github.com/DMPRoadmap/roadmap/issues/322
-          # when invited user creates an account outside the invite workflow
+          # If the user is creating an account but they have an outstanding invitation, remember
+          # any plans that were shared with the invitee so we can attach them to the new User record
+          shared_plans = existing_user.roles
+                                      .select(&:active?)
+                                      .map { |role| { plan_id: role.plan_id, access: role.access } }
           existing_user.destroy
 
         else
@@ -100,6 +101,17 @@ class RegistrationsController < Devise::RegistrationsController
       attrs[:language_id] = Language.default&.id unless attrs[:language_id].present?
 
       build_resource(attrs)
+
+      # If the user is creating an account but they have an outstanding invitation, attach the shared
+      # plan(s) to their new User record
+      if shared_plans.present? && shared_plans.any?
+        shared_plans.each do |role_hash|
+          plan = Plan.find_by(id: role_hash[:plan_id])
+          next unless plan.present?
+
+          Role.create(plan: plan, user: resource, access: role_hash[:access], active: true)
+        end
+      end
 
       # Determine if reCAPTCHA is enabled and if so verify it
       use_recaptcha = Rails.configuration.x.recaptcha.enabled || false
