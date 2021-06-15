@@ -1,8 +1,8 @@
 <%# locals: { fragment, parameters, template_locale } %>
-
+<% runned_scripts = fragment.additional_info["runned_scripts"] %>
 <% if parameters.is_a?(Array) %>
     <% parameters.each do |param|
-        disabled = param["oneshot"] && fragment.additional_info["runned_scripts"][param["script_id"].to_s].present?
+        disabled = param["oneshot"] && runned_scripts&.dig(param["script_id"].to_s).present?
     %>
         <%= render(partial: 'shared/dynamic_form/codebase/run_button', locals: { 
             fragment_id: fragment.id,
@@ -13,7 +13,7 @@
         }) %>
     <% end %>
 <% else %>
-    <% disabled =  parameters["oneshot"] && fragment.additional_info["runned_scripts"][parameters["script_id"].to_s].present? %>
+    <% disabled =  parameters["oneshot"] && runned_scripts&.dig(parameters["script_id"].to_s).present? %>
     <%= render(partial: 'shared/dynamic_form/codebase/run_button', locals: { 
         fragment_id: fragment.id,
         label: parameters["label@#{template_locale}"],
