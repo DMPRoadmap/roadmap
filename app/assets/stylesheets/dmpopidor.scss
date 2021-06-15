@@ -1237,7 +1237,7 @@ header .main-nav {
     .dynamic-field {
         display: flex;
         align-items: center;
-        padding-top: 5px;
+        padding-bottom: 5px;
         justify-content: space-between;
         input {
             flex: 9;
@@ -1303,6 +1303,15 @@ header .main-nav {
         }
         .linked-fragments-list {
             margin-top: 10px;
+        }
+    }
+    .const-field {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 3px;
+        .field-label {
+            font-weight: bold;
+            color: $black;
         }
     }
     fieldset {
