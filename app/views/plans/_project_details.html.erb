@@ -53,7 +53,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
 
 <div class="form-group">
   <div class="col-md-4">
-    <%= f.label(:fos_id, _("Field of science"), class: "control-label") %>
+    <%= f.label(:fos_id, _("Research domain"), class: "control-label") %>
     <% fos_categories = FieldOfScience.all.order(:identifier)
                                           .map { |fos| ["#{fos.identifier} - #{fos.label}", fos.id] } %>
     <%= f.select :fos_id, options_for_select(fos_categories, f.object.fos_id),
