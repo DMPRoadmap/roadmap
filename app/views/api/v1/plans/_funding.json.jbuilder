@@ -19,7 +19,7 @@ if plan.grant.present?
     json.partial! "api/v1/identifiers/show", identifier: plan.grant
   end
 end
-json.funding_status plan.grant.present? ? "granted" : "planned"
+json.funding_status plan.funding_status
 
 # DMPTool extensions to the RDA common metadata standard
 if plan.identifier.present?

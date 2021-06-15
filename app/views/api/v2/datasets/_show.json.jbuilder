@@ -53,6 +53,11 @@ if output.is_a?(ResearchOutput)
     end
   end
 
+  if output.plan.fos_id.present?
+    fos = FieldOfScience.find_by(id: output.plan.fos_id)
+    json.keyword [fos.label, "#{fos.identifier} - #{fos.label}"] if fos.present?
+  end
+
   json.technical_resource []
 
 else
