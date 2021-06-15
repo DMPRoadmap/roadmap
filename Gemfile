@@ -65,8 +65,7 @@ gem "bootsnap", require: false
 gem "anyway_config"
 
 # Our homegrown artisinal SSM gem
-# gem "uc3-ssm", git: "https://github.com/CDLUC3/uc3-ssm", branch: "0.3.0rc0"
-gem "uc3-ssm", git: "https://github.com/CDLUC3/uc3-ssm", branch: "add-support-for-paging"
+gem "uc3-ssm", git: "https://github.com/CDLUC3/uc3-ssm", branch: "0.3.1"
 
 # ============== #
 # ERROR HANDLING #

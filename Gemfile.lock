@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/CDLUC3/uc3-ssm
-  revision: 974d2348dfac0d1485d8fb4db2d890b66d8cbff5
-  branch: add-support-for-paging
+  revision: 5af8578418e9f6563f68ad92af54350b25396846
+  branch: 0.3.1
   specs:
     uc3-ssm (0.3.1)
       aws-sdk-ssm (~> 1.84)
