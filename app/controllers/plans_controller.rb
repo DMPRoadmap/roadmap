@@ -454,7 +454,7 @@ class PlansController < ApplicationController
           .permit(:template_id, :title, :visibility, :description, :identifier,
                   :start_date, :end_date, :org_id, :org_name, :org_crosswalk,
                   :ethical_issues, :ethical_issues_description, :ethical_issues_report,
-                  grant: %i[name value],
+                  :fos_id, :funding_status, grant: %i[name value],
                   org: %i[id org_id org_name org_sources org_crosswalk],
                   funder: %i[id org_id org_name org_sources org_crosswalk])
   end

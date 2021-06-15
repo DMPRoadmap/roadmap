@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_27_195424) do
+ActiveRecord::Schema.define(version: 2021_06_15_155826) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -45,22 +45,6 @@ ActiveRecord::Schema.define(version: 2021_05_27_195424) do
     t.integer "answer_id", null: false
     t.integer "question_option_id", null: false
     t.index ["answer_id"], name: "index_answers_question_options_on_answer_id"
-  end
-
-  create_table "api_clients", id: :integer, force: :cascade do |t|
-    t.string "name", null: false
-    t.string "description"
-    t.string "homepage"
-    t.string "contact_name"
-    t.string "contact_email", null: false
-    t.string "client_id", default: "", null: false
-    t.string "client_secret", default: "", null: false
-    t.datetime "last_access"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "org_id"
-    t.index ["name"], name: "index_api_clients_on_name"
-    t.index ["client_id"], name: "index_api_clients_on_client_id", unique: true
   end
 
   create_table "conditions", id: :integer, force: :cascade do |t|
@@ -205,9 +189,9 @@ ActiveRecord::Schema.define(version: 2021_05_27_195424) do
     t.string "uri"
     t.json "locations"
     t.json "related_entities"
-    t.boolean "discipline_specific"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "discipline_specific", limit: 1, default: 0, null: false
   end
 
   create_table "metadata_standards_research_outputs", force: :cascade do |t|
@@ -286,7 +270,7 @@ ActiveRecord::Schema.define(version: 2021_05_27_195424) do
     t.string "description"
     t.string "homepage"
     t.string "contact_name"
-    t.string "contact_email", null: false
+    t.string "contact_email"
     t.string "uid", default: "", null: false
     t.string "secret", default: "", null: false
     t.datetime "last_access"
@@ -294,11 +278,17 @@ ActiveRecord::Schema.define(version: 2021_05_27_195424) do
     t.datetime "updated_at", null: false
     t.integer "org_id"
     t.text "redirect_uri"
+    t.string "callback_uri"
+    t.integer "callback_method", default: 0
     t.string "scopes", default: "", null: false
     t.boolean "confidential", default: true
     t.boolean "trusted", default: false, null: false
+    t.bigint "user_id"
+    t.string "logo_uid"
+    t.string "logo_name"
     t.index ["name"], name: "index_oauth_applications_on_name"
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
+    t.index ["user_id"], name: "index_oauth_applications_on_user_id"
   end
 
   create_table "org_indices", force: :cascade do |t|
@@ -400,6 +390,9 @@ ActiveRecord::Schema.define(version: 2021_05_27_195424) do
     t.boolean "ethical_issues"
     t.text "ethical_issues_description"
     t.string "ethical_issues_report"
+    t.integer "funding_status"
+    t.bigint "fos_id"
+    t.index ["fos_id"], name: "index_plans_on_fos_id"
     t.index ["funder_id"], name: "index_plans_on_funder_id"
     t.index ["grant_id"], name: "index_plans_on_grant_id"
     t.index ["org_id"], name: "index_plans_on_org_id"
@@ -691,6 +684,7 @@ ActiveRecord::Schema.define(version: 2021_05_27_195424) do
     t.boolean "active", default: true
     t.integer "department_id"
     t.datetime "last_api_access"
+    t.string "old_pwd"
     t.index ["department_id"], name: "fk_rails_f29bf9cdf2"
     t.index ["email"], name: "index_users_on_email"
     t.index ["language_id"], name: "fk_rails_45f4f12508"

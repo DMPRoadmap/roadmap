@@ -34,6 +34,8 @@
 #  grant_id                          :integer
 #  org_id                            :integer
 #  template_id                       :integer
+#  fos_id                            :integer
+#  funding_status                    :integer
 #
 # Indexes
 #
@@ -77,6 +79,8 @@ class Plan < ApplicationRecord
   # public is a Ruby keyword so using publicly
   enum visibility: %i[organisationally_visible publicly_visible
                       is_test privately_visible]
+
+  enum funding_status: %i[planned funded denied]
 
   alias_attribute :name, :title
 
