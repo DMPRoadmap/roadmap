@@ -53,6 +53,7 @@ $(() => {
       const $select = $(`.select-${queryId} select`);
       $select.html(response.html);
       $select.val(response.fragment_id).trigger('select2:select');
+      $select.val(response.fragment_id).trigger('change');
     }
     $('#modal-window').modal('hide');
   }).on('ajax:error', (event, response)=> {
