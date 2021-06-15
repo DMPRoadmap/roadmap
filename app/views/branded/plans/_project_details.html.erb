@@ -46,14 +46,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
     <%= form.label(:fos_id, _("Research domain"), class: "control-label") %>
   </div>
   <div class="col-md-8">
-    <%
-    fos_categories = FieldOfScience.all.order(:identifier).map do |fos|
-      [
-        sanitize("#{fos.identifier.include?(".") ? "&nbsp;&nbsp;" : ""}#{fos.identifier} - #{fos.label}"),
-        fos.id
-      ]
-    end
-    %>
+    <% fos_categories = FieldOfScience.all.order(:label).map { |fos| [fos.label, fos.id] } %>
     <%= form.select :fos_id, options_for_select(fos_categories, form.object.fos_id),
                              { include_blank: _("- Please select one -"), selected: form.object.fos_id },
                              { class: "form-control" } %>
