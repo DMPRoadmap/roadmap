@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dmptool 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-06-14 13:27-0700\n"
-"PO-Revision-Date: 2021-06-14 22:30+0200\n"
+"POT-Creation-Date: 2021-06-15 13:53-0700\n"
+"PO-Revision-Date: 2021-06-15 22:56+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_CA\n"
@@ -458,54 +458,67 @@ msgid "Project abstract"
 msgstr "Résumé du projet"
 
 #: ../../app/views/branded/plans/_project_details.html.erb:46
+msgid "Field of science"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:58
+#: ../../app/views/branded/plans/_project_details.html.erb:171
+msgid "- Please select one -"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:65
 msgid "Project Start"
 msgstr "Début du projet"
 
-#: ../../app/views/branded/plans/_project_details.html.erb:49
+#: ../../app/views/branded/plans/_project_details.html.erb:68
 msgid "The estimated date on which you will begin this project."
 msgstr "La date prévue pour le démarrage de ce projet."
 
-#: ../../app/views/branded/plans/_project_details.html.erb:52
+#: ../../app/views/branded/plans/_project_details.html.erb:71
 msgid "Project End"
 msgstr "Fin du projet"
 
-#: ../../app/views/branded/plans/_project_details.html.erb:55
+#: ../../app/views/branded/plans/_project_details.html.erb:74
 msgid "The estimated date on which you will complete this project."
 msgstr "La date prévue pour la fin de ce projet."
 
-#: ../../app/views/branded/plans/_project_details.html.erb:64
+#: ../../app/views/branded/plans/_project_details.html.erb:83
 msgid "Landing page"
 msgstr "Page d’accueil"
 
-#: ../../app/views/branded/plans/_project_details.html.erb:79
+#: ../../app/views/branded/plans/_project_details.html.erb:98
 msgid "Related identifiers"
 msgstr ""
 
-#: ../../app/views/branded/plans/_project_details.html.erb:100
+#: ../../app/views/branded/plans/_project_details.html.erb:119
 msgid "Research outputs may have ethical concerns"
 msgstr ""
 
-#: ../../app/views/branded/plans/_project_details.html.erb:107
+#: ../../app/views/branded/plans/_project_details.html.erb:126
 msgid "Describe any ethical concerns"
 msgstr ""
 
-#: ../../app/views/branded/plans/_project_details.html.erb:117
+#: ../../app/views/branded/plans/_project_details.html.erb:136
 msgid "Ethical protocols"
 msgstr ""
 
-#: ../../app/views/branded/plans/_project_details.html.erb:136
+#: ../../app/views/branded/plans/_project_details.html.erb:155
 msgid "Funder"
 msgstr "Bailleur de fonds"
 
-#: ../../app/views/branded/plans/_project_details.html.erb:146
+#: ../../app/views/branded/plans/_project_details.html.erb:165
+msgid "Research domain"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:180
 msgid "Funding Opportunity Number"
 msgstr ""
 
-#: ../../app/views/branded/plans/_project_details.html.erb:160
+#: ../../app/views/branded/plans/_project_details.html.erb:194
 msgid "Grant number/url"
 msgstr "Numéro / URL de la subvention"
 
-#: ../../app/views/branded/plans/_project_details.html.erb:167
+#: ../../app/views/branded/plans/_project_details.html.erb:201
 msgid ""
 "Provide a URL to the award's landing page if possible, if not please provide t"
 "he award/grant number."

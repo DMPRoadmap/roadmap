@@ -43,7 +43,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
 
 <div class="form-group">
   <div class="col-md-12">
-    <%= form.label(:fos_id, _("Field of science"), class: "control-label") %>
+    <%= form.label(:fos_id, _("Research domain"), class: "control-label") %>
   </div>
   <div class="col-md-8">
     <%
@@ -162,7 +162,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
 
   <div class="form-group toggleable-field">
     <div class="col-md-12">
-      <%= form.label(:funding_status, _("Research domain"), class: "control-label") %>
+      <%= form.label(:funding_status, _("Funding status"), class: "control-label") %>
     </div>
     <div class="col-md-8">
       <% funding_statuses = Plan.funding_statuses.map { |status| [status[0].capitalize, status[0]] } %>
