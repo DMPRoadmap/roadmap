@@ -1,5 +1,9 @@
 # Changelog
+## [2.1.3+portage-1.0.10] - 2021-06-03
 
+## Fixed
+ - Removed references to organizations customized template and to default template
+ - Restored missing institutional templates
 ## [2.1.3+portage-1.0.10] - 2021-06-03
 
 ## Added
