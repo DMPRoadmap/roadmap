@@ -483,21 +483,21 @@ pt-BR:
         message: Mensagem
         name: Nome
         subject: Assunto
-        submit: Submeter
+        submit: Enviar
       new_formtastic:
         contact_us: Contate-nos
         email: Email
         message: Mensagem
         name: Nome
         subject: Assunto
-        submit: Submeter
+        submit: Enviar
       new_simple_form:
         contact_us: Contate-nos
         email: Email
         message: Mensagem
         name: Nome
         subject: Assunto
-        submit: Submeter
+        submit: Enviar
     notices:
       error: Você tem de preencher ambos os campos.
       success: Email de contato foi enviado com sucesso.

@@ -40,13 +40,6 @@ elsif ENV["DOMAIN"] == "client"
                                        path == "app/" || path == "app/views/" ||
                                        path.include?("branded/") || path.include?("dmptool/")
                                      }
-
-pp Dir.glob("**/*").select { |f| File.directory? f }
-.collect { |name| "#{name}/" }
-.reject { |path|
-  path == "app/" || path == "app/views/" ||
-  path.include?("branded/") || path.include?("dmptool/")
-}
     config.disable_yaml         = true
     config.locales_path         = Rails.root.join("config", "locale")
   end
