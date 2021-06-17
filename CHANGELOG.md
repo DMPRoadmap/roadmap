@@ -1,5 +1,11 @@
 # Changelog
-## [2.1.3+portage-1.0.10] - 2021-06-03
+
+## [2.1.3+portage-1.0.14] - 2021-06-17
+
+## Fixed
+ - Remove duplicate listing of default template when chosen organization has a customized default template
+
+## [2.1.3+portage-1.0.13] - 2021-06-16
 
 ## Fixed
  - Removed references to organizations customized template and to default template

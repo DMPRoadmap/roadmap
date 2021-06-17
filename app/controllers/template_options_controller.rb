@@ -60,8 +60,8 @@ class TemplateOptionsController < ApplicationController
       
       customization = Template.default unless customization
 
-      @templates.select! { |t| t.id != Template.default.id || t.id != customization.id}
-
+      @templates.select! { |t| t.id != Template.default.id && t.id != customization.id}
+      
       # We want the default template to appear at the beggining of the list
       @templates.unshift(customization)
     end
