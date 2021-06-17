@@ -37,17 +37,13 @@ RUN apt-get -qqy update \
     xfonts-75dpi \
     yarn \
     python \
+    wkhtmltopdf \
     ca-certificates -qqy \
     && rm -rf /var/lib/apt/lists/*
 
 # Installing Node 10.x
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash
 RUN apt install -y nodejs
-
-# Fetching WKHTMLTOPDF
-RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb \
-    && dpkg -i wkhtmltox_0.12.5-1.bionic_amd64.deb \
-    && apt-get install -f
 
 # Set locale to UTF8
 RUN locale-gen --no-purge fr_FR.UTF-8 \
