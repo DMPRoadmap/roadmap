@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Layout/LineLength
 namespace :templates do
 
   desc "Repair Templates whose phases/sections/questions/options have duplicate numbers"
@@ -302,3 +303,4 @@ namespace :templates do
   end
 
 end
+# rubocop:enable Layout/LineLength
