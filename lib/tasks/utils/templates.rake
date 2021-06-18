@@ -213,6 +213,8 @@ namespace :templates do
     end
   end
 
+  private
+
   # Renumbers/reorders the records
   def renumber_records(records:)
     return [] unless records.present? && records.any? && records.first.respond_to?(:number=)
