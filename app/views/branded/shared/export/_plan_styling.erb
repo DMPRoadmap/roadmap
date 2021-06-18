@@ -87,25 +87,40 @@
     padding: 5px;
   }
 
-  table.fragment-display {
-    width: 50%;
+  .fragment-display {
+    width: 75%;
   }
-  .fragment-display td {
-    border: none !important;
+  .sub-fragment .fragment-display {
+    width: 100%;
   }
+
+  .fragment-attribute {
+    display: -webkit-box; /* wkhtmltopdf uses this one */
+    display: -webkit-flex;
+    display: flex;
+    padding-bottom: 5px;
+  }
+
   .attribute-name {
-    width: 25%;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
     font-weight: 700;
   }
 
+  .attribute-value {
+    -webkit-box-flex: 3;
+    -webkit-flex: 3;
+    flex: 3;
+  }
+
+  .sub-fragment {
+    width: 100%;
+  }
   .sub-fragment-list {
     width: 100%;
-  }
-  .sub-fragment-list .fragment-display{
-    width: 100%;
-  }
-  .sub-fragment-list .fragment-display td{
-    border: 1px solid black !important; 
+    border-collapse:separate; 
+    border-spacing:5px;
   }
 
 </style>

@@ -21,7 +21,7 @@
 class Fragment::Contributor < MadmpFragment
 
   def person
-    Fragment::Person.where(parent_id: id).first
+    Fragment::Person.find(data["person"]["dbid"])
   end
 
   def properties

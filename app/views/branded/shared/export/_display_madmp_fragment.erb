@@ -2,68 +2,88 @@
 <% data = fragment.data unless fragment.nil? %>
 <% dmp_fragments = fragment.present? ? fragment.get_dmp_fragments() : [] %>
 <% schema_properties = schema.schema["properties"]%>
-<table class="fragment-display"><tbody>
+<div class="fragment-display">
   <% schema_properties.each do |key, prop| %>
-    <tr class="fragment-attribute">
+    <div class="fragment-attribute">
       <% value = data[key] unless data.nil? %>
-      <% field_name = defined?(form_prefix) ? "#{form_prefix}[#{key}]" : key %>
+      <% label = prop["label@#{locale}"] %>
       <% case prop['type'] %>
       <% when 'boolean' %>
-        <td class="attribute-name"><%= field_name %></td>
-        <td><%= value ? _('Yes') : _('No') %></td>
+        <span class="attribute-name"><%= label %></span>
+        <span class="attribute-value"><%= value ? _('Yes') : _('No') %></span>
       <% when 'array' %>
         <% if prop['items']['type'] == 'object' && prop['items']['schema_id'].present? %>
           <%
             sub_schema = sub_schemas[prop['items']['schema_id']]
+            table_header = prop["table_header@#{locale}"] ? prop["table_header@#{locale}"] : prop["table_header"]
+            values = []
+            if value.present?
+              values = dmp_fragments.where(id: data[key].map { |d| d["dbid"] })
+            end
           %>
           <% unless dmp_fragments.empty? %>
             <td colspan=2>
-              <table class="sub-fragment-list">
-                <thead><tr><th><%= field_name.capitalize.pluralize(2) %></th></tr></thead>
-                <tbody>
-                    <% dmp_fragments.where(madmp_schema_id: sub_schema.id, parent_id: fragment.id).each do |val| %>
-                      <tr><td>
-                        <%= render(partial: 'shared/export/display_madmp_fragment', locals: {
-                                fragment: val,
-                                schema: sub_schema,
-                                classname: sub_schema.classname
-                        } ) %>
-                      </td></tr>
-                    <% end %>
-                </tbody>
-              </table>
+              <fieldset class="sub-fragment">
+                <legend class="sub-fragment"><%= label %></legend>
+                <table class="sub-fragment-list">
+                  <% if table_header.present? && !values.empty? %>
+                    <thead><tr><th><%= table_header %></th></tr></thead>
+                  <% end %>
+                  <tbody>
+                      <% values.each do |val| %>
+                        <tr><td>
+                          <%= render(partial: 'shared/export/display_madmp_fragment', locals: {
+                                  fragment: val,
+                                  schema: sub_schema,
+                                  classname: sub_schema.classname,
+                                  locale: locale
+                          } ) %>
+                        </td></tr>
+                      <% end %>
+                  </tbody>
+                </table>
+              </fieldset>
             </td>
           <% end %>
         <% else %>
-            <td class="attribute-name"><%= field_name %></td>
+            <td class="attribute-name"><%= label %></td>
             <td>
             <% unless value.nil?%>
               <% value.each do |val| %>
                 <%= val %>
               <% end %>
             <% end %>
-            <td>
+            </td>
         <% end %>
       <% when 'object' %>
         <% if prop["schema_id"].present?  %>
           <% unless value.nil? %>
             <%
               sub_schema = sub_schemas[prop["schema_id"]]
+              sub_fragment = dmp_fragments.find(value["dbid"]) unless value.nil?
             %>
-            <p class= "fontsize-h3"><%= field_name.capitalize %></p>
-            <div class="sub-fragment">
-              <%= render(partial: 'shared/export/display_madmp_fragment', locals: {
-                              fragment: dmp_fragments.find_by(madmp_schema_id: sub_schema.id, parent_id: fragment.id),
-                              schema: sub_schema,
-                              classname: sub_schema.classname
-                    } ) %>
-            </div>
+            <fieldset class="sub-fragment">
+              <legend class="sub-fragment"><%= label %></legend>
+              <% if sub_fragment.classname.eql?("contributor")%>
+                <%
+                  sub_fragment = sub_fragment.becomes(Fragment::Contributor)
+                %>
+                <span class="attribute-value"><%= sub_fragment.person.to_s %></span>
+              <% else %>
+                <%= render(partial: 'shared/export/display_madmp_fragment', locals: {
+                                fragment: sub_fragment,
+                                schema: sub_schema,
+                                classname: sub_schema.classname,
+                                locale: locale
+                      } ) %>
+              <% end %>
+            </fieldset>
           <% end %>
         <% end %>
       <% else%>
-        <td class="attribute-name"><%= field_name %></td>
-        <td><%= value %></td>
+        <span class="attribute-name"><%= label %></span>
+        <span class="attribute-value"><%= value.to_s.html_safe unless value.nil? %></span>
       <% end %>
-    </tr>
+    </div>
   <% end %>
-</tbody></table>
+</div>

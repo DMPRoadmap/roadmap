@@ -34,7 +34,7 @@ class Fragment::Dmp < MadmpFragment
     Fragment::Project.where(parent_id: id).first
   end
 
-  def research_output
+  def research_outputs
     Fragment::ResearchOutput.where(parent_id: id)
   end
 
