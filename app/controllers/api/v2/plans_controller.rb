@@ -212,7 +212,6 @@ module Api
         @hash           = @plan.as_pdf(@show_coversheet)
         @formatting     = @plan.settings(:export).formatting || @plan.template.settings(:export).formatting
         @selected_phase = @plan.phases.order("phases.updated_at DESC")
-                               .detect { |p| p.visibility_allowed?(@plan) }
 
         # limit the filename length to 100 chars. Windows systems have a MAX_PATH allowance
         # of 255 characters, so this should provide enough of the title to allow the user
