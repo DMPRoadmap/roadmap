@@ -13,44 +13,44 @@ namespace :templates do
       p "Processing template #{tmplt.id} - #{tmplt.title}"
       tmplt.transaction do
         p_before = tmplt.phases.map(&:number).join(", ")
-        tmplt.phases = renumber_records(records: tmplt.phases) if tmplt.phases.length > 1
-        p_after = tmplt.phases.map(&:number).join(", ")
+        phases = renumber_records(records: tmplt.phases) if tmplt.phases.length > 1
+        p_after = phases.map(&:number).join(", ")
 
         unless p_before == p_after
           p "  Phases changed from: #{p_before} ~ to: #{p_after}"
-          tmplt.phases.each { |phase| phase.save }
+          phases.each { |p| Phase.find_by(id: p.id)&.update_columns(number: p.number) }
         end
 
         tmplt.phases.each do |phase|
           s_before = phase.sections.map(&:number).join(", ")
-          phase.sections = renumber_records(records: phase.sections) if phase.sections.length > 1
-          s_after = phase.sections.map(&:number).join(", ")
+          sections = renumber_records(records: phase.sections) if phase.sections.length > 1
+          s_after = sections.map(&:number).join(", ")
 
           unless s_before == s_after
             p "    Sections changed from: #{s_before} ~ to: #{s_after}"
-            phase.sections.each { |section| section.save }
+            sections.each { |s| Section.find_by(id: s.id)&.update_columns(number: s.number) }
           end
 
           phase.sections.each do |section|
             q_before = section.questions.map(&:number).join(", ")
-            section.questions = renumber_records(records: section.questions)
-            q_after = section.questions.map(&:number).join(", ")
+            questions = renumber_records(records: section.questions)
+            q_after = questions.map(&:number).join(", ")
 
             unless q_before == q_after
               p "    Questions changed from: #{q_before} ~ to: #{q_after}"
-              section.questions.each { |question| question.save }
+              questions.each { |q| Question.find_by(id: q.id)&.update_columns(number: q.number) }
             end
 
             section.questions.each do |question|
               next unless question.question_options.any?
 
               o_before = question.question_options.map(&:number).join(", ")
-              question.question_options = renumber_records(records: question.question_options)
-              o_after = question.question_options.map(&:number).join(", ")
+              question_options = renumber_records(records: question.question_options)
+              o_after = question_options.map(&:number).join(", ")
 
               unless o_before == o_after
                 p "    QuestionOptions changed from: #{o_before} ~ to: #{o_after}"
-                question.question_options.each { |option| option.save }
+                question_options.each { |o| QuestionOption.find_by(id: o.id)&.update_columns(number: o.number) }
               end
             end
           end
@@ -91,7 +91,7 @@ namespace :templates do
         phase.transaction do
           phase_version = SecureRandom.uuid
           p "  Updating versionable_id for Phase: #{phase.id} to #{phase_version}"
-          phase.update(versionable_id: phase_version)
+          phase.update_columns(versionable_id: phase_version)
 
           update_related_versionable_ids(
             original: phase,
@@ -102,7 +102,7 @@ namespace :templates do
           phase.sections.select { |sec| sec.versionable_id.nil? }.each do |section|
             section_version = SecureRandom.uuid
             p "      Updating versionable_id for Section: #{section.id} to #{section_version}"
-            section.update(versionable_id: section_version)
+            section.update_columns(versionable_id: section_version)
 
             update_related_versionable_ids(
               original: section,
@@ -113,7 +113,7 @@ namespace :templates do
             section.questions.select { |ques| ques.versionable_id.nil? }.each do |question|
               question_version = SecureRandom.uuid
               p "        Updating versionable_id for Question: #{question.id} to #{question_version}"
-              question.update(versionable_id: question_version)
+              question.update_columns(versionable_id: question_version)
 
               update_related_versionable_ids(
                 original: question,
@@ -124,7 +124,7 @@ namespace :templates do
               question.question_options.select { |o| o.versionable_id.nil? && o.text.present? }.each do |option|
                 option_version = SecureRandom.uuid
                 p "        Updating versionable_id for QuestionOption: #{option.id} to #{option_version}"
-                option.update(versionable_id: option_version)
+                option.update_columns(versionable_id: option_version)
 
                 update_related_versionable_ids(
                   original: option,
@@ -136,7 +136,7 @@ namespace :templates do
               question.annotations.select { |a| a.versionable_id.nil? && a.text.present? }.each do |annotation|
                 annotation_version = SecureRandom.uuid
                 p "        Updating versionable_id for Annotation: #{annotation.id} to #{annotation_version}"
-                annotation.update(versionable_id: annotation_version)
+                annotation.update_columns(versionable_id: annotation_version)
 
                 update_related_versionable_ids(
                   original: annotation,
@@ -164,14 +164,25 @@ namespace :templates do
                                   .includes(phases: { sections: { questions: [:annotations, :question_options] } })
                                   .first
 
+        # Fetch all of the prior versions of the template
+        prior_versions = Template.where(family_id: customized_template.family_id)
+                                 .where.not(id: customized_template.id)
+                                 .includes(phases: { sections: { questions: [:annotations, :question_options] } })
+
         customized_template.phases.each do |phase|
           p "Processing Customization: #{customized_template.id} - #{customized_template.title}"
           unless phase.versionable_id.present?
             version = find_related_versionable_id(original_template: parent_template, record: phase)
             version = SecureRandom.uuid unless version.present?
             p "  Updating versionable_id for Phase: #{phase.id} to #{version}"
-            phase.update(versionable_id: version)
+            phase.update_columns(versionable_id: version)
           end
+
+          update_related_versionable_ids(
+            original: phase,
+            related_records: prior_versions.map(&:phases).flatten.select { |p| p.versionable_id.nil? },
+            versionable_id: phase.versionionable_id
+          )
 
           phase.sections.select { |s| s.versionable_id.nil? }.each do |section|
             p "Updating versionable_id for custom template section #{section.id} and its questions/options/annotations"
@@ -179,32 +190,56 @@ namespace :templates do
               version = find_related_versionable_id(original_template: parent_template, record: section)
               version = SecureRandom.uuid unless version.present?
               p "    Updating versionable_id for Section: #{section.id} to #{version}"
-              section.update(versionable_id: version)
+              section.update_columns(versionable_id: version)
             end
+
+            update_related_versionable_ids(
+              original: section,
+              related_records: prior_versions.map(&:sections).flatten.select { |s| s.versionable_id.nil? },
+              versionable_id: section.versionionable_id
+            )
 
             section.questions.each do |question|
               unless question.versionable_id.present?
                 version = find_related_versionable_id(original_template: parent_template, record: question)
                 version = SecureRandom.uuid unless version.present?
                 p "      Updating versionable_id for Question: #{question.id} to #{version}"
-                question.update(versionable_id: version)
+                question.update_columns(versionable_id: version)
               end
+
+              update_related_versionable_ids(
+                original: question,
+                related_records: prior_versions.map(&:questions).flatten.select { |q| q.versionable_id.nil? },
+                versionable_id: question.versionable_id
+              )
 
               question.annotations.each do |annotation|
                 unless annotation.versionable_id.present?
                   version = find_related_versionable_id(original_template: parent_template, record: annotation)
                   version = SecureRandom.uuid unless version.present?
                   p "      Updating versionable_id for Annotation: #{annotation.id} to #{version}"
-                  annotation.update(versionable_id: version)
+                  annotation.update_columns(versionable_id: version)
                 end
+
+                update_related_versionable_ids(
+                  original: annotation,
+                  related_records: prior_versions.map(&:annotations).flatten.select { |q| q.versionable_id.nil? },
+                  versionable_id: annotation.versionionable_id
+                )
               end
               question.question_options.each do |option|
                 unless option.versionable_id.present?
                   version = find_related_versionable_id(original_template: parent_template, record: option)
                   version = SecureRandom.uuid unless version.present?
                   p "      Updating versionable_id for QuestionOption: #{option.id} to #{version}"
-                  option.update(versionable_id: version)
+                  option.update_columns(versionable_id: version)
                 end
+
+                update_related_versionable_ids(
+                  original: option,
+                  related_records: prior_versions.map(&:question_options).flatten.select { |q| q.versionable_id.nil? },
+                  versionable_id: option.versionionable_id
+                )
               end
             end
           end
@@ -242,7 +277,7 @@ namespace :templates do
 
       if fuzzy_match?(text_a, text_b)
         p "#{" " * spaces} ** Updating versionable_id for #{record.class.name} #{record.id}"
-        record.update(versionable_id: versionable_id)
+        record.update_columns(versionable_id: versionable_id)
       end
     end
   end
