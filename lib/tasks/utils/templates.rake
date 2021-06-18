@@ -181,7 +181,7 @@ namespace :templates do
           update_related_versionable_ids(
             original: phase,
             related_records: prior_versions.map(&:phases).flatten.select { |p| p.versionable_id.nil? },
-            versionable_id: phase.versionionable_id
+            versionable_id: phase.versionable_id
           )
 
           phase.sections.select { |s| s.versionable_id.nil? }.each do |section|
@@ -196,7 +196,7 @@ namespace :templates do
             update_related_versionable_ids(
               original: section,
               related_records: prior_versions.map(&:sections).flatten.select { |s| s.versionable_id.nil? },
-              versionable_id: section.versionionable_id
+              versionable_id: section.versionable_id
             )
 
             section.questions.each do |question|
@@ -224,7 +224,7 @@ namespace :templates do
                 update_related_versionable_ids(
                   original: annotation,
                   related_records: prior_versions.map(&:annotations).flatten.select { |q| q.versionable_id.nil? },
-                  versionable_id: annotation.versionionable_id
+                  versionable_id: annotation.versionable_id
                 )
               end
               question.question_options.each do |option|
@@ -238,7 +238,7 @@ namespace :templates do
                 update_related_versionable_ids(
                   original: option,
                   related_records: prior_versions.map(&:question_options).flatten.select { |q| q.versionable_id.nil? },
-                  versionable_id: option.versionionable_id
+                  versionable_id: option.versionable_id
                 )
               end
             end
