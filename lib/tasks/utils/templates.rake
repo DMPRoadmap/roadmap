@@ -1,89 +1,30 @@
 # frozen_string_literal: true
 
-# rubocop:disable Layout/LineLength
+# rubocop:disable Layout/LineLength, Metrics/BlockLength, Metrics/AbcSize
 namespace :templates do
-
-  desc "Repair Templates whose phases/sections/questions/options have duplicate numbers"
-  task :renumber_template_questions => :environment do
-    p "Analyzing templates to determine if numbering sequences are correct."
-    Template.latest_version.includes(phases: { sections: { questions: :annotations } }).each do |tmplt|
-
-      # When testing, use this line to restrict the process to specified templates
-      # next unless [586, 1144].include?(tmplt.id)
-
-      p "Processing template #{tmplt.id} - #{tmplt.title}"
-      tmplt.transaction do
-        p_before = tmplt.phases.map(&:number).join(", ")
-        phases = renumber_records(records: tmplt.phases) if tmplt.phases.length > 1
-        p_after = phases.map(&:number).join(", ")
-
-        unless p_before == p_after
-          p "  Phases changed from: #{p_before} ~ to: #{p_after}"
-          phases.each { |p| Phase.find_by(id: p.id)&.update_columns(number: p.number) }
-        end
-
-        tmplt.phases.each do |phase|
-          s_before = phase.sections.map(&:number).join(", ")
-          sections = renumber_records(records: phase.sections) if phase.sections.length > 1
-          s_after = sections.map(&:number).join(", ")
-
-          unless s_before == s_after
-            p "    Sections changed from: #{s_before} ~ to: #{s_after}"
-            sections.each { |s| Section.find_by(id: s.id)&.update_columns(number: s.number) }
-          end
-
-          phase.sections.each do |section|
-            q_before = section.questions.map(&:number).join(", ")
-            questions = renumber_records(records: section.questions)
-            q_after = questions.map(&:number).join(", ")
-
-            unless q_before == q_after
-              p "    Questions changed from: #{q_before} ~ to: #{q_after}"
-              questions.each { |q| Question.find_by(id: q.id)&.update_columns(number: q.number) }
-            end
-
-            section.questions.each do |question|
-              next unless question.question_options.any?
-
-              o_before = question.question_options.map(&:number).join(", ")
-              question_options = renumber_records(records: question.question_options)
-              o_after = question_options.map(&:number).join(", ")
-
-              unless o_before == o_after
-                p "    QuestionOptions changed from: #{o_before} ~ to: #{o_after}"
-                question_options.each { |o| QuestionOption.find_by(id: o.id)&.update_columns(number: o.number) }
-              end
-            end
-          end
-        end
-      end
-    end
-  end
-
   desc "Repair Templates whose descendents have NIL versionable_id values"
-  task :fix_templates_with_nil_versionable_ids => :environment do
+  task fix_templates_with_nil_versionable_ids: :environment do
     p "Attempting to repair versionable_ids"
 
-    safe_require 'text'
+    safe_require "text"
 
     # Remove attr_readonly restrictions form these models
-    Phase.attr_readonly.delete('versionable_id')
-    Section.attr_readonly.delete('versionable_id')
-    Question.attr_readonly.delete('versionable_id')
-    Annotation.attr_readonly.delete('versionable_id')
+    Phase.attr_readonly.delete("versionable_id")
+    Section.attr_readonly.delete("versionable_id")
+    Question.attr_readonly.delete("versionable_id")
+    Annotation.attr_readonly.delete("versionable_id")
 
     # Get each of the latest versions of the non-customized templates
     Template.latest_version.where(customization_of: nil)
-            .includes(phases: { sections: { questions: [:annotations, :question_options] } })
+            .includes(phases: { sections: { questions: %i[annotations question_options] } })
             .each do |funder_template|
-
       # When testing, use this line to restrict the process to specified templates
       # next unless [586, 1144].include?(funder_template.id)
 
       # Fetch all of the prior versions of the template
       prior_versions = Template.where(customization_of: nil, family_id: funder_template.family_id)
                                .where.not(id: funder_template.id)
-                               .includes(phases: { sections: { questions: [:annotations, :question_options] } })
+                               .includes(phases: { sections: { questions: %i[annotations question_options] } })
 
       funder_template.phases.select { |phase| phase.versionable_id.nil? }.each do |phase|
         p "Processing Template: #{funder_template.id} - #{funder_template.title}"
@@ -153,22 +94,21 @@ namespace :templates do
 
     # Add versionable_id to any customized Templates
     Template.latest_version.where.not(customization_of: nil)
-            .includes(phases: { sections: { questions: [:annotations, :question_options] } })
+            .includes(phases: { sections: { questions: %i[annotations question_options] } })
             .each do |customized_template|
-
       # When testing, use this line to restrict the process to specified templates
       # next unless [586, 1144].include?(customized_template.id)
 
       customized_template.transaction do
         parent_template = Template.latest_version
                                   .where(family_id: customized_template.customization_of)
-                                  .includes(phases: { sections: { questions: [:annotations, :question_options] } })
+                                  .includes(phases: { sections: { questions: %i[annotations question_options] } })
                                   .first
 
         # Fetch all of the prior versions of the template
         prior_versions = Template.where(family_id: customized_template.family_id)
                                  .where.not(id: customized_template.id)
-                                 .includes(phases: { sections: { questions: [:annotations, :question_options] } })
+                                 .includes(phases: { sections: { questions: %i[annotations question_options] } })
 
         customized_template.phases.each do |phase|
           p "Processing Customization: #{customized_template.id} - #{customized_template.title}"
@@ -269,7 +209,9 @@ namespace :templates do
 
   # Update all of the template's ccustomizations to use the specified versionable_id
   def update_related_versionable_ids(original:, related_records:, versionable_id:)
+    # rubocop:disable Style/NestedTernaryOperator
     spaces = original.is_a?(Phase) ? 4 : (original.is_a?(Section) ? 6 : (original.is_a?(Question) ? 8 : 10))
+    # rubocop:enable Style/NestedTernaryOperator
 
     related_records.each do |record|
       # Use the Number, Title and or Text to try and match the items
@@ -277,17 +219,19 @@ namespace :templates do
       text_b = [record[:number], record[:title], record[:text]].compact.join(" - ")
 
       if fuzzy_match?(text_a, text_b)
-        p "#{" " * spaces} ** Using versionable_id from more recent version for #{record.class.name} #{record.id}"
+        p "#{' ' * spaces} ** Using versionable_id from more recent version for #{record.class.name} #{record.id}"
         record.update_columns(versionable_id: versionable_id)
       else
-        p "#{" " * spaces} * Using a new versionable_id for #{record.class.name} #{record.id}"
+        p "#{' ' * spaces} * Using a new versionable_id for #{record.class.name} #{record.id}"
         record.update_columns(versionable_id: SecureRandom.uuid)
       end
     end
   end
 
   def find_related_versionable_id(original_template:, record:)
+    # rubocop:disable Style/NestedTernaryOperator
     spaces = record.is_a?(Phase) ? 4 : (record.is_a?(Section) ? 6 : (record.is_a?(Question) ? 8 : 10))
+    # rubocop:enable Style/NestedTernaryOperator
     version = nil
 
     original_template.send(:"#{record.class.name.downcase.pluralize}").each do |obj|
@@ -298,12 +242,11 @@ namespace :templates do
       text_b = [record[:number], record[:title], record[:text]].compact.join(" - ")
 
       if fuzzy_match?(text_a, text_b)
-        p "#{" " * spaces} ** Using versionable_id from more recent version for #{obj.class.name} #{obj.id} - #{obj.versionable_id}"
+        p "#{' ' * spaces} ** Using versionable_id from more recent version for #{obj.class.name} #{obj.id} - #{obj.versionable_id}"
         version = obj.versionable_id
       end
     end
     version
   end
-
 end
-# rubocop:enable Layout/LineLength
+# rubocop:enable Layout/LineLength, Metrics/BlockLength, Metrics/AbcSize
