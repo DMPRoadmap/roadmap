@@ -17,9 +17,6 @@ end
 I18n.available_locales << :en unless I18n.available_locales.include?(:en)
 I18n.default_locale = default_locale
 
-# Ensure that the default NotificationType exists
-NotificationType.find_or_create_by(name: 'global')
-
 # Identifier Schemes
 # -------------------------------------------------------
 identifier_schemes = [
