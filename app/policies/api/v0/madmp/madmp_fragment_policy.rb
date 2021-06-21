@@ -17,4 +17,9 @@ class Api::V0::Madmp::MadmpFragmentPolicy < ApplicationPolicy
     plan.readable_by?(@user.id)
   end
 
+  def update?
+    plan = @fragment.plan
+    plan.editable_by?(@user.id)
+  end
+
 end

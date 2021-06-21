@@ -56,7 +56,7 @@ class MadmpFragmentsController < ApplicationController
         additional_info: additional_info
       )
       @fragment.instantiate
-      @fragment.save_as_multifrag(data, schema)
+      @fragment.save_form_fragment(data, schema)
     end
 
     return unless @fragment.present?
@@ -146,7 +146,7 @@ class MadmpFragmentsController < ApplicationController
           )
         end
         # @fragment.save!
-        @fragment.save_as_multifrag(data, schema)
+        @fragment.save_form_fragment(data, schema)
       rescue ActiveRecord::StaleObjectError
         @stale_fragment = @fragment
         @fragment = MadmpFragment.find_by(
@@ -281,7 +281,7 @@ class MadmpFragmentsController < ApplicationController
         return
       end
 
-      @fragment.save_as_multifrag(@registry_value.data, schema)
+      @fragment.save_form_fragment(@registry_value.data, schema)
     end
 
     render json: {

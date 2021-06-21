@@ -571,3 +571,10 @@ msgstr "Values"
 
 msgid "View all registries"
 msgstr "View all registries"
+
+
+################
+### API
+################
+msgid "Fragment with id %{id} doesn't exist."
+msgstr "Fragment with id %{id} doesn't exist."

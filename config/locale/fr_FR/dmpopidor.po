@@ -573,3 +573,10 @@ msgstr "Valeurs"
 
 msgid "View all registries"
 msgstr "Voir tous les référentiels"
+
+
+################
+### API
+################
+msgid "Fragment with id %{id} doesn't exist."
+msgstr "Le fragment avec l'identifiant %{id} n'existe pas."

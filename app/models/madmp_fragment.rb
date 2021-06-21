@@ -23,6 +23,7 @@ class MadmpFragment < ActiveRecord::Base
 
   include ValidationMessages
   include DynamicFormHelper
+  include ApiFragment
   include CodebaseFragment
 
   # ================
@@ -311,7 +312,7 @@ class MadmpFragment < ActiveRecord::Base
     update!(data: new_data)
   end
 
-  def save_as_multifrag(param_data, schema)
+  def save_form_fragment(param_data, schema)
     fragmented_data = {}
     param_data.each do |prop, content|
       schema_prop = schema.schema["properties"][prop]
@@ -338,7 +339,7 @@ class MadmpFragment < ActiveRecord::Base
           )
         elsif data.dig(prop, "dbid")
           sub_fragment = MadmpFragment.find(data[prop]["dbid"])
-          sub_fragment.save_as_multifrag(sub_data, sub_schema)
+          sub_fragment.save_form_fragment(sub_data, sub_schema)
         end
       else
         fragmented_data[prop] = content

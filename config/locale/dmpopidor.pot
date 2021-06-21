@@ -575,3 +575,11 @@ msgstr ""
 
 msgid "View all registries"
 msgstr ""
+
+
+
+################
+### API
+################
+msgid "Fragment with id %{id} doesn't exist."
+msgstr ""
