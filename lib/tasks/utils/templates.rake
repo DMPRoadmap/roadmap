@@ -277,8 +277,11 @@ namespace :templates do
       text_b = [record[:number], record[:title], record[:text]].compact.join(" - ")
 
       if fuzzy_match?(text_a, text_b)
-        p "#{" " * spaces} ** Updating versionable_id for #{record.class.name} #{record.id}"
+        p "#{" " * spaces} ** Using versionable_id from more recent version for #{record.class.name} #{record.id}"
         record.update_columns(versionable_id: versionable_id)
+      else
+        p "#{" " * spaces} * Using a new versionable_id for #{record.class.name} #{record.id}"
+        record.update_columns(versionable_id: SecureRandom.uuid)
       end
     end
   end
@@ -295,7 +298,7 @@ namespace :templates do
       text_b = [record[:number], record[:title], record[:text]].compact.join(" - ")
 
       if fuzzy_match?(text_a, text_b)
-        p "#{" " * spaces} ** Using versionable_id for #{obj.class.name} #{obj.id} - #{obj.versionable_id}"
+        p "#{" " * spaces} ** Using versionable_id from more recent version for #{obj.class.name} #{obj.id} - #{obj.versionable_id}"
         version = obj.versionable_id
       end
     end
