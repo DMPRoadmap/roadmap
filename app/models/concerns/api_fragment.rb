@@ -18,21 +18,21 @@ module ApiFragment
         if content["id"].present?
           api_fragment = MadmpFragment.find(sub_data["id"])
           api_fragment.save_api_fragment(sub_data, sub_schema)
-        else
-          next if MadmpFragment.fragment_exists?(sub_data, sub_schema, dmp.id, id)
+        # else
+        #   next if MadmpFragment.fragment_exists?(sub_data, sub_schema, dmp.id, id)
 
-          api_fragment = MadmpFragment.new(
-            dmp_id: dmp.id,
-            parent_id: id,
-            madmp_schema_id: sub_schema.id,
-            additional_info: { property_name: prop }
-          )
-          api_fragment.classname = sub_schema.classname
-          api_fragment.instantiate
-          created_frag = api_fragment.save_api_fragment(sub_data, sub_schema)
-          # If sub_data is a Person, we need to set the dbid manually, since Person has no parent
-          # and update_references function is not triggered
-          fragmented_data[prop] = { "dbid" => created_frag.id } if sub_schema.classname.eql?("person")
+        #   api_fragment = MadmpFragment.new(
+        #     dmp_id: dmp.id,
+        #     parent_id: id,
+        #     madmp_schema_id: sub_schema.id,
+        #     additional_info: { property_name: prop }
+        #   )
+        #   api_fragment.classname = sub_schema.classname
+        #   api_fragment.instantiate
+        #   created_frag = api_fragment.save_api_fragment(sub_data, sub_schema)
+        #   # If sub_data is a Person, we need to set the dbid manually, since Person has no parent
+        #   # and update_references function is not triggered
+        #   fragmented_data[prop] = { "dbid" => created_frag.id } if sub_schema.classname.eql?("person")
         end
       elsif schema_prop["type"].eql?("array") &&
             schema_prop["items"]["schema_id"].present?
