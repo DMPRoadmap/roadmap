@@ -64,13 +64,13 @@ module DMPRoadmap
     #       moving our helper methods into Presenters if it makes sense
     config.action_controller.include_all_helpers = true
 
-    # Set the default host for mailer URLs
-    config.action_mailer.default_url_options = { host: Socket.gethostname.to_s }
-
     # Load AnywayConfig class, but not if running `rails credentials:edit`
     unless defined?(::Rails::Command::CredentialsCommand)
       config.x.dmproadmap = DmproadmapConfig.new
     end
+
+    # Set the default host for mailer URLs
+    config.action_mailer.default_url_options = { host: config.x.dmproadmap.server_host }
   end
 
 end
