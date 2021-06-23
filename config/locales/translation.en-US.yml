@@ -2,7 +2,7 @@
 # IF YOU UPDATE IT, YOUR CHANGES WILL BE LOST AT THE NEXT SYNC.
 #
 # To update this file, use this translation interface:
-# https://translation.io/cdl-uc3/dmptool/en-US
+# https://translation.io/dcc-user/roadmap/en-US
 #
 ---
 en-US:
@@ -123,6 +123,11 @@ en-US:
       not_saved:
         one: '1 error prohibited this %{resource} from being saved:'
         other: "%{count} errors prohibited this %{resource} from being saved:"
+      model_invalid: 'Validation failed: %{errors}'
+      required: must exist
+    unavailable_session:
+    unacceptable_request:
+    connection_refused:
     template:
       body: 'There were problems with the following fields:'
       header:
@@ -268,7 +273,9 @@ en-US:
         hello:
         someone_invited_you:
         accept: Accept invitation
-        accept_until: This invitation will be due in %{due_date}.
+        accept_until: 'This invitation will be due in %{due_date}.
+
+          '
         ignore:
     omniauth_callbacks:
       failure: Could not authenticate you from %{kind} because "%{reason}".

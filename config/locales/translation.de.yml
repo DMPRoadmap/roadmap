@@ -2,7 +2,7 @@
 # IF YOU UPDATE IT, YOUR CHANGES WILL BE LOST AT THE NEXT SYNC.
 #
 # To update this file, use this translation interface:
-# https://translation.io/cdl-uc3/dmptool/de
+# https://translation.io/dcc-user/roadmap/de
 #
 ---
 de:
@@ -121,8 +121,20 @@ de:
       not_found: nicht gefunden
       not_locked: ist nicht gesperrt
       not_saved:
-        one: "%{resource} konnte aufgrund eines Fehlers nicht gespeichert werden:"
-        other: "%{count} Fehler verhinderten das Speichern von %{resource}:"
+        one: 'Ein Fehler hat verhindert, dass %{resource} gespeichert werden konnte:'
+        other: "%{count} Fehler haben verhindert, dass %{resource} gespeichert werden
+          konnte:"
+      model_invalid: 'Gültigkeitsprüfung ist fehlgeschlagen: %{errors}'
+      required: muss ausgefüllt werden
+    unavailable_session: "Session %{id} ist nicht mehr im Arbeitsspeicher verfügbar.
+      \n\nSollte Ihr System auf einem Multi-Process-Server (wie Unicorn oder Puma)
+      laufen, dann speichert der Prozess, den diese Anfrage ansteuert, keine %{id}
+      im Arbeitspeicher. Sie sollten die Anzahl der Prozesse/Arbeiter auf eins (1)
+      setzen oder einen anderen Server für die Entwicklung verwenden."
+    unacceptable_request: " Im Accept-Header wird eine unterstützte Version erwartet."
+    connection_refused: |-
+      Ups! Konnte keine Verbindung zur Web-Console-Middleware herstellen.
+      Bitte stellen Sie sicher, dass ein Rails-Development-Server läuft.
     template:
       body: 'Bitte überprüfen Sie die folgenden Felder:'
       header:
