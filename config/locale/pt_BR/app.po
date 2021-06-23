@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-06-23 09:01-0700\n"
-"PO-Revision-Date: 2021-06-23 18:01+0200\n"
+"POT-Creation-Date: 2021-06-23 09:12-0700\n"
+"PO-Revision-Date: 2021-06-23 18:12+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Portuguese\n"
 "Language: pt_BR\n"
@@ -619,7 +619,7 @@ msgstr "Meu Plano"
 
 #: ../../app/controllers/plans_controller.rb:84
 msgid " Plan"
-msgstr "Plano"
+msgstr " Plano"
 
 #: ../../app/controllers/plans_controller.rb:122
 msgid "This plan is based on the default template."
@@ -700,7 +700,7 @@ msgstr ""
 
 #: ../../app/controllers/registrations_controller.rb:160
 msgid "Save Unsuccessful. "
-msgstr "Salvar sem sucesso."
+msgstr "Falha ao salvar."
 
 #: ../../app/controllers/registrations_controller.rb:164
 msgid "Please enter an email address. "
@@ -952,15 +952,15 @@ msgstr "Respondendo"
 
 #: ../../app/helpers/conditions_helper.rb:199
 msgid " will <b>send an email</b> with subject "
-msgstr "irá <b>enviar um email</b> com assunto"
+msgstr "<b>enviará um email</b> com o assunto"
 
 #: ../../app/helpers/conditions_helper.rb:204
 msgid " will <b>remove</b> question "
-msgstr "irá <b>remover a</b> questão"
+msgstr "irá <b>remover a</b> pergunta"
 
 #: ../../app/helpers/conditions_helper.rb:205
 msgid " will <b>remove</b> questions "
-msgstr "irá <b>remover</b> questões"
+msgstr "irá <b>remover</b> perguntas"
 
 #: ../../app/helpers/conditions_helper.rb:224
 msgid "\""
@@ -1268,7 +1268,7 @@ msgstr "Resposta"
 
 #: ../../app/models/concerns/exportable_plan.rb:117
 msgid " Customised By: "
-msgstr "Personalizado por:"
+msgstr " Customizado Por: "
 
 #: ../../app/models/concerns/exportable_plan.rb:128
 #: ../../app/views/shared/export/_plan_txt.erb:4
@@ -1289,7 +1289,7 @@ msgstr "%{affiliation}"
 #: ../../app/views/shared/export/_plan_txt.erb:7
 #: ../../app/views/shared/export/_plan_txt.erb:9
 msgid "Template: "
-msgstr "Modelo:"
+msgstr "Modelo: "
 
 #: ../../app/models/concerns/exportable_plan.rb:134
 msgid "%{funder}"
@@ -1303,7 +1303,7 @@ msgstr "%{template}"
 #: ../../app/views/shared/export/_plan_coversheet.erb:26
 #: ../../app/views/shared/export/_plan_txt.erb:12
 msgid "Grant number: "
-msgstr "Número da concessão:"
+msgstr "Número da Concessão"
 
 #: ../../app/models/concerns/exportable_plan.rb:139
 msgid "%{grant_number}"
@@ -1323,7 +1323,7 @@ msgstr "%{description}"
 #: ../../app/views/shared/export/_plan_coversheet.erb:34
 #: ../../app/views/shared/export/_plan_txt.erb:18
 msgid "Last modified: "
-msgstr "Última modificação:"
+msgstr "Última modificação: "
 
 #: ../../app/models/concerns/exportable_plan.rb:145
 msgid "%{date}"
@@ -1773,7 +1773,7 @@ msgstr "Respondido"
 
 #: ../../app/views/answers/_status.html.erb:10
 msgid " by %{user_name}"
-msgstr "por %{user_name}"
+msgstr " por %{user_name}"
 
 #: ../../app/views/answers/_status.html.erb:15
 msgid "This answer removes "
@@ -1781,11 +1781,11 @@ msgstr "Esta resposta remove"
 
 #: ../../app/views/answers/_status.html.erb:15
 msgid " questions from your plan."
-msgstr "perguntas do seu plano."
+msgstr " perguntas do seu plano."
 
 #: ../../app/views/answers/_status.html.erb:21
 msgid "This answer triggers email(s) to "
-msgstr "Esta resposta aciona e-mail (s) para"
+msgstr "Esta resposta aciona email(s) para"
 
 #: ../../app/views/contact_us/contacts/_new_left.html.erb:4
 #: ../../app/views/contributors/_form.html.erb:10
@@ -1837,7 +1837,7 @@ msgstr "Verificação de segurança"
 #: ../../app/views/contact_us/contacts/_new_left.html.erb:42
 #: ../../app/views/plans/_share_form.html.erb:145
 msgid "Submit"
-msgstr "Enviar"
+msgstr "Submeter"
 
 #: ../../app/views/contact_us/contacts/_new_right.html.erb:17
 msgid "Helpline"
@@ -2450,7 +2450,7 @@ msgstr ""
 
 #: ../../app/views/guidance_groups/_guidance_group_form.html.erb:19
 msgid " (e.g. School/ Department) "
-msgstr "(por exemplo, escola / departamento)"
+msgstr " (e.g. Instituição/ Departamento) "
 
 #: ../../app/views/guidance_groups/_index_by_theme.html.erb:10
 #: ../../app/views/guidance_groups/_show.html.erb:6
@@ -2661,7 +2661,7 @@ msgstr "Uso"
 
 #: ../../app/views/layouts/_branding.html.erb:108
 msgid "Api Clients"
-msgstr "Clientes Api"
+msgstr "Clientes da API"
 
 #: ../../app/views/layouts/_branding.html.erb:111
 #: ../../app/views/org_admin/plans/index.html.erb:11
@@ -3954,13 +3954,13 @@ msgid ""
 "ge dashboard's total for October but\n"
 "    would not appear in the list below.\n"
 msgstr ""
-"Os dados no painel de uso são históricos por natureza. Isso significa que o nú"
-"mero de registros abaixo não pode\n"
-"    coincidir com a contagem mostrada no painel de uso. Por exemplo, se um de "
-"seus usuários criou um plano em outubro e\n"
-"    em seguida, removido esse plano em novembro, ele teria sido incluído no to"
-"tal do painel de uso para outubro, mas\n"
-"    não apareceria na lista abaixo."
+"    Os dados no painel de uso são históricos por natureza. Isso significa que "
+"o número de registros abaixo pode não\n"
+"    corresponda à contagem mostrada no painel de uso. Por exemplo, se um de se"
+"us usuários criou um plano em outubro e\n"
+"    removido o plano em novembro, ele seria incluído no total do painel de uso"
+" de outubro, mas\n"
+"    não apareceria na lista abaixo.\n"
 
 #: ../../app/views/paginable/plans/_org_admin.html.erb:12
 msgid ""
@@ -4145,7 +4145,7 @@ msgstr "Link de cópia"
 msgid "Sample plans are provided by a funder, an organisation or a trusted party."
 msgstr ""
 "As amostras de planos são fornecidas por um órgão financiador, uma organização"
-" ou um terceiro encarregado disso."
+" ou um terceiro encarregado disso. "
 
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:8
 msgid "Organisation Name"
@@ -4186,13 +4186,13 @@ msgid ""
 " have been included on the usage\n"
 "    dashboard's total for October but would not appear in the list below.\n"
 msgstr ""
-"Os dados no painel de uso são históricos por natureza. Isso significa que o nú"
-"mero de registros abaixo não pode\n"
-"    coincidir com a contagem mostrada no painel de uso. Por exemplo, se um de "
-"seus usuários entrou em outubro e depois\n"
-"    movido para uma organização diferente ou desativado sua conta, eles teriam"
-" sido incluídos no uso\n"
-"    total do painel para outubro, mas não apareceria na lista abaixo."
+"    Os dados no painel de uso são históricos por natureza. Isso significa que "
+"o número de registros abaixo pode não\n"
+"    corresponda à contagem mostrada no painel de uso. Por exemplo, se um de se"
+"us usuários ingressou em outubro e depois\n"
+"    movidos para uma organização diferente ou desativaram sua conta, eles teri"
+"am sido incluídos no uso\n"
+"    total do painel para outubro, mas não apareceria na lista abaixo.\n"
 
 #: ../../app/views/paginable/users/_index.html.erb:13
 msgid ""
@@ -4728,7 +4728,7 @@ msgstr "Links"
 
 #: ../../app/views/shared/_links.html.erb:8
 msgid "Up to "
-msgstr "Até"
+msgstr "Até "
 
 #: ../../app/views/shared/_links.html.erb:28
 msgid "URL"
@@ -4779,7 +4779,7 @@ msgstr "Um Plano de Gestão de Dados criado usando %{application_name}"
 #: ../../app/views/shared/export/_plan_coversheet.erb:10
 #: ../../app/views/shared/export/_plan_txt.erb:5
 msgid "Affiliation: "
-msgstr "Afiliação:"
+msgstr "Afiliação: "
 
 #: ../../app/views/shared/export/_plan_coversheet.erb:13
 msgid "Funder: "
@@ -4787,7 +4787,7 @@ msgstr "Financiador:"
 
 #: ../../app/views/shared/export/_plan_coversheet.erb:22
 msgid "ORCID iD: "
-msgstr "ORCID iD:"
+msgstr "ORCID iD: "
 
 #: ../../app/views/shared/export/_plan_coversheet.erb:40
 #: ../../app/views/shared/export/_plan_txt.erb:20
@@ -4798,11 +4798,11 @@ msgid ""
 "sed, but using any of the plan's text does not imply that the creator(s) endor"
 "se, or have any relationship to, your project or proposal"
 msgstr ""
-"O (s) criador (es) do plano acima concordaram que outros podem usar tanto do t"
-"exto deste plano quanto gostariam em seus próprios planos e personalizá-lo con"
-"forme necessário. Você não precisa creditar o (s) criador (es) como a fonte do"
-" idioma usado, mas o uso de qualquer texto do plano não implica que o (s) cria"
-"dor (es) endossem ou tenham qualquer relação com seu projeto ou proposta"
+" Os criadores do plano acima aceitam que terceiros possam usar o texto deste p"
+"lano em seus próprios planos como desejarem, customizando-o conforme necessári"
+"o. Você não precisa creditar aos criadores a fonte da linguagem utilizada, mas"
+" o uso de qualquer texto do plano não implica que os criadores endossem ou ten"
+"ham qualquer outra relação com seu projeto ou proposta"
 
 #: ../../app/views/shared/org_selectors/_combined.html.erb:15
 #: ../../app/views/shared/org_selectors/_external_only.html.erb:13
@@ -4860,13 +4860,13 @@ msgid ""
 "e developed and delivered tools for data management planning since the advent "
 "of open data policies in 2011. "
 msgstr ""
-"O Digital Curation Center e a equipe UC3 da California Digital Library desenvo"
-"lveram e entregaram ferramentas para o planejamento de gerenciamento de dados "
-"desde o advento das políticas de dados abertos em 2011."
+"O Digital Curation Centre e a equipe de UC3 da California Digital Library dese"
+"nvolveram e forneceram ferramentas para o planejamento de gerenciamento de dad"
+"os desde o advento das políticas de dados abertos em 2011. "
 
 #: ../../app/views/static_pages/about_us.html.erb:16
 msgid " (DCC-UK) and "
-msgstr "(DCC-UK) e"
+msgstr " (DCC-UK) e "
 
 #: ../../app/views/static_pages/about_us.html.erb:17
 msgid ""
@@ -4902,7 +4902,7 @@ msgstr ""
 
 #: ../../app/views/static_pages/about_us.html.erb:21
 msgid "We invite you to peruse the DMPRoadmap GitHub wiki to learn how to "
-msgstr "Convidamos você a ler o wiki DMPRoadmap GitHub para aprender como"
+msgstr "Nós convidamos você a ler o wiki do DMPRoadmap GitHub para aprender como "
 
 #: ../../app/views/static_pages/about_us.html.erb:22
 msgid ""
@@ -4914,7 +4914,7 @@ msgstr ""
 
 #: ../../app/views/static_pages/about_us.html.erb:28
 msgid " in the project. You can also report bugs and request new features via "
-msgstr "no projeto. Você também pode relatar bugs e solicitar novos recursos via"
+msgstr " no projeto. Você também pode reportar bugs e solicitar novos recursos via "
 
 #: ../../app/views/static_pages/about_us.html.erb:29
 msgid "GitHub Issues"
@@ -5229,10 +5229,10 @@ msgid ""
 "ity. We provide services to the UK, US and international higher education sect"
 "or. "
 msgstr ""
-"(CDL) são consórcios apoiados pela Universidade de Edimburgo e pela Universida"
-"de da Califórnia, respectivamente. Nosso constituinte principal é a comunidade"
-" de pesquisa. Nós fornecemos serviços para o Reino Unido, EUA e setor de ensin"
-"o superior internacional."
+"(CDL) são consórcios apoiados pela University of Edinburgh e pela University o"
+"f California, respectivamente. Nosso principal eleitorado é a comunidade de pe"
+"squisa. Nós fornecemos serviços para o UK, US e o setor de ensino superior int"
+"ernacional."
 
 #: ../../app/views/static_pages/termsuse.html.erb:14
 msgid "DMPRoadmap"
@@ -5612,7 +5612,7 @@ msgstr "Estatísticas de utilização"
 
 #: ../../app/views/user_mailer/_email_signature.html.erb:16
 msgid "You may change your notification preferences on your profile page. "
-msgstr "Você pode modificar suas preferências de notificação na página com seu perfil."
+msgstr "Você pode alterar suas preferências de notificação na sua página de perfil."
 
 #: ../../app/views/user_mailer/admin_privileges.html.erb:2
 #: ../../app/views/user_mailer/permissions_change_notification.html.erb:2
@@ -5744,11 +5744,11 @@ msgstr "Olá"
 
 #: ../../app/views/user_mailer/plan_access_removed.html.erb:5
 msgid "Your access to "
-msgstr "Seu acesso a"
+msgstr "Seu acesso ao plano "
 
 #: ../../app/views/user_mailer/plan_access_removed.html.erb:5
 msgid " has been removed by "
-msgstr "foi removido por"
+msgstr " foi removido por "
 
 #: ../../app/views/user_mailer/plan_visibility.html.erb:5
 msgid "The plan %{plan_title} had its visibility changed to %{plan_visibility}."
@@ -5780,19 +5780,19 @@ msgstr "Olá %{recipient_name},"
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " based on the template "
-msgstr "baseado no modelo"
+msgstr " com base no modelo"
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " is creating a Data Management Plan and has answered "
-msgstr "está criando um plano de gerenciamento de dados e respondeu"
+msgstr " está criando um plano de gerenciamento de dados e respondeu"
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " to "
-msgstr "Para"
+msgstr " para"
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " in a plan called "
-msgstr "em um plano chamado"
+msgstr " em um plano chamado"
 
 #: ../../app/views/user_mailer/sharing_notification.html.erb:5
 msgid ""
