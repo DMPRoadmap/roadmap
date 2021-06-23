@@ -2,17 +2,10 @@
 # IF YOU UPDATE IT, YOUR CHANGES WILL BE LOST AT THE NEXT SYNC.
 #
 # To update this file, use this translation interface:
-# https://translation.io/cdl-uc3/dmptool/en-CA
+# https://translation.io/dcc-user/roadmap/en-CA
 #
 ---
 en-CA:
-  views:
-    pagination:
-      truncate: "&hellip;"
-      first: "&laquo; First"
-      last: Last &raquo;
-      previous: "&lsaquo; Prev"
-      next: Next &rsaquo;
   date:
     day_names:
     - Sunday
@@ -183,7 +176,7 @@ en-CA:
       day: Day
       hour: Hour
       minute: Minute
-      second: Second
+      second: Seconds
   helpers:
     select:
       prompt: Please select
@@ -278,7 +271,7 @@ en-CA:
       signed_up_but_unconfirmed: A message with a confirmation link has been sent
         to your email address. Please follow the link to activate your account.
       update_needs_confirmation: You updated your account successfully, but we need
-        to verify your new email address. Please check your email and follow the confirmation
+        to verify your new email address. Please check your email and follow the confirm
         link to confirm your new email address.
       updated: Your account has been updated successfully.
       updated_but_not_signed_in: Your account has been updated successfully, but since
@@ -337,3 +330,10 @@ en-CA:
     notices:
       error:
       success:
+  views:
+    pagination:
+      first: "&laquo; First"
+      last: Last &raquo;
+      previous: "&lsaquo; Prev"
+      next: Next &rsaquo;
+      truncate: "&hellip;"

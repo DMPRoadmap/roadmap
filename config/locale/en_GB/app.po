@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-06-23 09:01-0700\n"
-"PO-Revision-Date: 2021-06-23 18:01+0200\n"
+"POT-Creation-Date: 2021-06-23 09:12-0700\n"
+"PO-Revision-Date: 2021-06-23 18:12+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -50,7 +50,7 @@ msgstr ""
 #: ../../app/controllers/usage_controller.rb:68
 #: ../../app/controllers/usage_controller.rb:87
 msgid "Month"
-msgstr ""
+msgstr "Month"
 
 #: ../../app/controllers/api/v0/statistics_controller.rb:40
 #: ../../app/controllers/usage_controller.rb:68
@@ -130,7 +130,7 @@ msgstr ""
 
 #: ../../app/controllers/application_controller.rb:35
 msgid "You need to sign in or sign up before continuing."
-msgstr ""
+msgstr "You need to sign in or sign up before continuing."
 
 #: ../../app/controllers/application_controller.rb:100
 msgid "Unable to %{action} the %{object}.%{errors}"
@@ -235,7 +235,7 @@ msgstr ""
 
 #: ../../app/controllers/contacts_controller.rb:16
 msgid "Contact email was successfully sent."
-msgstr ""
+msgstr "Contact email was successfully sent."
 
 #: ../../app/controllers/contacts_controller.rb:18
 msgid "Unable to submit your request"
@@ -530,15 +530,15 @@ msgstr ""
 #:
 #: ../../app/controllers/org_admin/template_customization_transfers_controller.rb:17
 msgid "That template is no longer customizable."
-msgstr ""
+msgstr "That template is no longer customisable."
 
 #: ../../app/controllers/org_admin/template_customizations_controller.rb:19
 msgid "Unable to customize that template."
-msgstr ""
+msgstr "Unable to customise that template"
 
 #: ../../app/controllers/org_admin/template_customizations_controller.rb:22
 msgid "That template is not customizable."
-msgstr ""
+msgstr "That template is not customisable"
 
 #: ../../app/controllers/org_admin/templates_controller.rb:23
 #: ../../app/views/org_admin/templates/index.html.erb:43
@@ -557,7 +557,7 @@ msgstr ""
 
 #: ../../app/controllers/org_admin/templates_controller.rb:84
 msgid "Customizable Templates"
-msgstr ""
+msgstr "Customisable Templates"
 
 #: ../../app/controllers/org_admin/templates_controller.rb:214
 msgid "Error parsing links for a %{template}"
@@ -1307,7 +1307,7 @@ msgstr ""
 #: ../../app/models/concerns/validation_messages.rb:11
 #: ../../app/models/template.rb:221
 msgid "can't be blank"
-msgstr ""
+msgstr "can't be blank"
 
 #: ../../app/models/concerns/validation_messages.rb:13
 #: ../../app/models/identifier.rb:131
@@ -1727,7 +1727,7 @@ msgstr ""
 #: ../../app/views/paginable/users/_index.html.erb:20
 #: ../../app/views/super_admin/api_clients/_form.html.erb:11
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: ../../app/views/contact_us/contacts/_new_left.html.erb:13
 #: ../../app/views/contact_us/contacts/_new_right.html.erb:23
@@ -1744,18 +1744,18 @@ msgstr ""
 #: ../../app/views/super_admin/users/edit.html.erb:15
 #: ../../app/views/super_admin/users/edit.html.erb:93
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: ../../app/views/contact_us/contacts/_new_left.html.erb:22
 #: ../../app/views/org_admin/conditions/_webhook_form.html.erb:26
 msgid "Subject"
-msgstr ""
+msgstr "Subject"
 
 #: ../../app/views/contact_us/contacts/_new_left.html.erb:30
 #: ../../app/views/org_admin/conditions/_webhook_form.html.erb:32
 #: ../../app/views/orgs/_feedback_form.html.erb:26
 msgid "Message"
-msgstr ""
+msgstr "Message"
 
 #: ../../app/views/contact_us/contacts/_new_left.html.erb:38
 #: ../../app/views/shared/_create_account_form.html.erb:46
@@ -1765,7 +1765,7 @@ msgstr ""
 #: ../../app/views/contact_us/contacts/_new_left.html.erb:42
 #: ../../app/views/plans/_share_form.html.erb:145
 msgid "Submit"
-msgstr ""
+msgstr "Submit"
 
 #: ../../app/views/contact_us/contacts/_new_right.html.erb:17
 msgid "Helpline"
@@ -1774,7 +1774,7 @@ msgstr ""
 #: ../../app/views/contact_us/contacts/new.html.erb:1
 #: ../../app/views/contact_us/contacts/new.html.erb:4
 msgid "Contact Us"
-msgstr ""
+msgstr "Contact Us"
 
 #: ../../app/views/contact_us/contacts/new.html.erb:6
 msgid ""
@@ -2529,7 +2529,7 @@ msgstr ""
 
 #: ../../app/views/layouts/_footer.html.erb:14
 msgid "Contact us"
-msgstr ""
+msgstr "Contact Us"
 
 #: ../../app/views/layouts/_footer.html.erb:15
 #: ../../app/views/static_pages/termsuse.html.erb:1
@@ -3485,7 +3485,7 @@ msgstr ""
 
 #: ../../app/views/orgs/_profile_form.html.erb:51
 msgid "Organization logo"
-msgstr ""
+msgstr "Organisation logo"
 
 #: ../../app/views/orgs/_profile_form.html.erb:59
 msgid "This will remove your organisation's logo"
@@ -3849,7 +3849,7 @@ msgstr ""
 
 #: ../../app/views/paginable/templates/_customisable.html.erb:41
 msgid "Not customized"
-msgstr ""
+msgstr "Not customised"
 
 #: ../../app/views/paginable/templates/_customisable.html.erb:56
 #: ../../app/views/paginable/templates/_organisational.html.erb:57
@@ -3866,6 +3866,8 @@ msgid ""
 "Are you sure you want to remove your customization of \"%{template_title}\"? Any"
 " published versions will become unavailable to users."
 msgstr ""
+"Are you sure you want to remove your customisation of \"%{template_title}\"? Any"
+" published versions will become unavailable to users."
 
 #: ../../app/views/paginable/templates/_history.html.erb:7
 msgid "Version"
@@ -3873,11 +3875,11 @@ msgstr ""
 
 #: ../../app/views/paginable/templates/_history.html.erb:50
 msgid "Edit customizations"
-msgstr ""
+msgstr "Edit customisations"
 
 #: ../../app/views/paginable/templates/_history.html.erb:52
 msgid "View customizations"
-msgstr ""
+msgstr "View customisations"
 
 #: ../../app/views/paginable/templates/_organisational.html.erb:76
 msgid ""
@@ -4288,7 +4290,7 @@ msgstr ""
 
 #: ../../app/views/plans/index.html.erb:35
 msgid "%{org_title} Plans"
-msgstr ""
+msgstr "%{org_title}'s Plans"
 
 #: ../../app/views/plans/index.html.erb:36
 msgid ""
