@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dmptool 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-06-15 13:53-0700\n"
-"PO-Revision-Date: 2021-06-15 22:56+0200\n"
+"POT-Creation-Date: 2021-06-23 09:50-0700\n"
+"PO-Revision-Date: 2021-06-23 18:50+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Spanish\n"
 "Language: es\n"
@@ -458,67 +458,64 @@ msgid "Project abstract"
 msgstr "Resumen del proyecto"
 
 #: ../../app/views/branded/plans/_project_details.html.erb:46
-msgid "Field of science"
-msgstr ""
-
-#: ../../app/views/branded/plans/_project_details.html.erb:58
-#: ../../app/views/branded/plans/_project_details.html.erb:171
-msgid "- Please select one -"
-msgstr ""
-
-#: ../../app/views/branded/plans/_project_details.html.erb:65
-msgid "Project Start"
-msgstr "Inicio del proyecto"
-
-#: ../../app/views/branded/plans/_project_details.html.erb:68
-msgid "The estimated date on which you will begin this project."
-msgstr "La fecha estimada en la que comenzará este proyecto."
-
-#: ../../app/views/branded/plans/_project_details.html.erb:71
-msgid "Project End"
-msgstr "Fin del proyecto"
-
-#: ../../app/views/branded/plans/_project_details.html.erb:74
-msgid "The estimated date on which you will complete this project."
-msgstr "La fecha estimada en la que completará este proyecto."
-
-#: ../../app/views/branded/plans/_project_details.html.erb:83
-msgid "Landing page"
-msgstr "página de destino"
-
-#: ../../app/views/branded/plans/_project_details.html.erb:98
-msgid "Related identifiers"
-msgstr ""
-
-#: ../../app/views/branded/plans/_project_details.html.erb:119
-msgid "Research outputs may have ethical concerns"
-msgstr ""
-
-#: ../../app/views/branded/plans/_project_details.html.erb:126
-msgid "Describe any ethical concerns"
-msgstr ""
-
-#: ../../app/views/branded/plans/_project_details.html.erb:136
-msgid "Ethical protocols"
-msgstr ""
-
-#: ../../app/views/branded/plans/_project_details.html.erb:155
-msgid "Funder"
-msgstr "Financiador"
-
-#: ../../app/views/branded/plans/_project_details.html.erb:165
+#: ../../app/views/branded/plans/_project_details.html.erb:158
 msgid "Research domain"
 msgstr ""
 
-#: ../../app/views/branded/plans/_project_details.html.erb:180
+#: ../../app/views/branded/plans/_project_details.html.erb:51
+#: ../../app/views/branded/plans/_project_details.html.erb:164
+msgid "- Please select one -"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:58
+msgid "Project Start"
+msgstr "Inicio del proyecto"
+
+#: ../../app/views/branded/plans/_project_details.html.erb:61
+msgid "The estimated date on which you will begin this project."
+msgstr "La fecha estimada en la que comenzará este proyecto."
+
+#: ../../app/views/branded/plans/_project_details.html.erb:64
+msgid "Project End"
+msgstr "Fin del proyecto"
+
+#: ../../app/views/branded/plans/_project_details.html.erb:67
+msgid "The estimated date on which you will complete this project."
+msgstr "La fecha estimada en la que completará este proyecto."
+
+#: ../../app/views/branded/plans/_project_details.html.erb:76
+msgid "Landing page"
+msgstr "página de destino"
+
+#: ../../app/views/branded/plans/_project_details.html.erb:91
+msgid "Related identifiers"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:112
+msgid "Research outputs may have ethical concerns"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:119
+msgid "Describe any ethical concerns"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:129
+msgid "Ethical protocols"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:148
+msgid "Funder"
+msgstr "Financiador"
+
+#: ../../app/views/branded/plans/_project_details.html.erb:173
 msgid "Funding Opportunity Number"
 msgstr ""
 
-#: ../../app/views/branded/plans/_project_details.html.erb:194
+#: ../../app/views/branded/plans/_project_details.html.erb:187
 msgid "Grant number/url"
 msgstr "Número de concesión / url"
 
-#: ../../app/views/branded/plans/_project_details.html.erb:201
+#: ../../app/views/branded/plans/_project_details.html.erb:194
 msgid ""
 "Provide a URL to the award's landing page if possible, if not please provide t"
 "he award/grant number."
