@@ -152,6 +152,10 @@ languages = [
   {abbreviation: 'ja',
    description: '',
    name: '日本語',
+   default_language: false},
+  {abbreviation: 'tr-TR',
+   description: '',
+   name: 'Türk',
    default_language: false}
 ]
 languages.each { |l| Language.create!(l) }
