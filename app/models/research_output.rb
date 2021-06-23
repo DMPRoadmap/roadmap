@@ -90,64 +90,70 @@ class ResearchOutput < ActiveRecord::Base
   end
 
   def create_json_fragments
-    fragment = json_fragment
-    dmp_fragment = plan.json_fragment
-    contact_person = dmp_fragment.persons.first
-    if fragment.nil?
-      # Fetch the first question linked with a ResearchOutputDescription schema
-      description_question = plan.questions.joins(:madmp_schema)
-                                 .find_by(madmp_schemas: { classname: "research_output_description" } )
+    FastGettext.with_locale plan.template.locale do
+      p "######"
+      p plan.template.locale
+      p d_("dmpopidor", "Data contact")
+      p "######"
+      fragment = json_fragment
+      dmp_fragment = plan.json_fragment
+      contact_person = dmp_fragment.persons.first
+      if fragment.nil?
+        # Fetch the first question linked with a ResearchOutputDescription schema
+        description_question = plan.questions.joins(:madmp_schema)
+                                  .find_by(madmp_schemas: { classname: "research_output_description" } )
 
-      # Creates the main ResearchOutput fragment
-      fragment = Fragment::ResearchOutput.create(
-        data: {
-          "research_output_id" => id
-        },
-        madmp_schema: MadmpSchema.find_by(classname: "research_output"),
-        dmp_id: dmp_fragment.id,
-        parent_id: dmp_fragment.id,
-        additional_info: { property_name: "researchOutput" }
-      )
-      ro_contact = Fragment::Contributor.create(
-        data: {
-          "person" => { "dbid" => contact_person.id },
-          "role" => d_("dmpopidor", "Data contact")
-        },
-        dmp_id: dmp_fragment.id,
-        parent_id: nil,
-        madmp_schema: MadmpSchema.find_by(name: "ResearchOutputContact"),
-        additional_info: { property_name: "contact" }
-      )
-      fragment_description = Fragment::ResearchOutputDescription.new(
-        data: {
-          "title" => fullname,
-          "contact" => { "dbid" => ro_contact.id }
-        },
-        madmp_schema: MadmpSchema.find_by(name: "ResearchOutputDescriptionStandard"),
-        dmp_id: dmp_fragment.id,
-        parent_id: fragment.id,
-        additional_info: { property_name: "researchOutputDescription" }
-      )
-      fragment_description.instantiate
-
-      unless description_question.nil?
-        # Create a new answer for the ResearchOutputDescription Question
-        # This answer will be displayed in the Write Plan tab, pre filled with the ResearchOutputDescription info
-        fragment_description.answer = Answer.create(
-          question_id: description_question.id,
-          research_output_id: id,
-          plan_id: plan.id,
-          user_id: plan.users.first.id
+        # Creates the main ResearchOutput fragment
+        fragment = Fragment::ResearchOutput.create(
+          data: {
+            "research_output_id" => id
+          },
+          madmp_schema: MadmpSchema.find_by(classname: "research_output"),
+          dmp_id: dmp_fragment.id,
+          parent_id: dmp_fragment.id,
+          additional_info: { property_name: "researchOutput" }
         )
-        fragment_description.save!
+        ro_contact = Fragment::Contributor.create(
+          data: {
+            "person" => { "dbid" => contact_person.id },
+            "role" => d_("dmpopidor", "Data contact")
+          },
+          dmp_id: dmp_fragment.id,
+          parent_id: nil,
+          madmp_schema: MadmpSchema.find_by(name: "ResearchOutputContact"),
+          additional_info: { property_name: "contact" }
+        )
+        fragment_description = Fragment::ResearchOutputDescription.new(
+          data: {
+            "title" => fullname,
+            "contact" => { "dbid" => ro_contact.id }
+          },
+          madmp_schema: MadmpSchema.find_by(name: "ResearchOutputDescriptionStandard"),
+          dmp_id: dmp_fragment.id,
+          parent_id: fragment.id,
+          additional_info: { property_name: "researchOutputDescription" }
+        )
+        fragment_description.instantiate
+
+        unless description_question.nil?
+          # Create a new answer for the ResearchOutputDescription Question
+          # This answer will be displayed in the Write Plan tab, pre filled with the ResearchOutputDescription info
+          fragment_description.answer = Answer.create(
+            question_id: description_question.id,
+            research_output_id: id,
+            plan_id: plan.id,
+            user_id: plan.users.first.id
+          )
+          fragment_description.save!
+        end
+      else
+        data = fragment.research_output_description.data.merge(
+          {
+            "title" => fullname
+          }
+        )
+        fragment.research_output_description.update(data: data)
       end
-    else
-      data = fragment.research_output_description.data.merge(
-        {
-          "title" => fullname
-        }
-      )
-      fragment.research_output_description.update(data: data)
     end
   end
 

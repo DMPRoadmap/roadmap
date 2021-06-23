@@ -134,87 +134,89 @@ module Dmpopidor
       end
 
       def create_plan_fragments
-        dmp_fragment = Fragment::Dmp.create(
-          data: {
-            "plan_id" => id
-          },
-          madmp_schema: MadmpSchema.find_by(name: "DMPStandard"),
-          additional_info: {}
-        )
-
-        #################################
-        # PERSON & COORDINATORS FRAGMENTS
-        #################################
-
-        person_data = {
-          "lastName" => owner.surname,
-          "firstName" => owner.firstname,
-          "mbox" => owner.email
-        } unless owner.nil?
-
-        person = Fragment::Person.create(
-          data: person_data || {},
-          dmp_id: dmp_fragment.id,
-          madmp_schema: MadmpSchema.find_by(name: "PersonStandard"),
-          additional_info: { property_name: "person" }
-        )
-
-        dmp_coordinator = Fragment::Contributor.create(
-          data: {
-            "person" => { "dbid" => person.id },
-            "role" => d_("dmpopidor", "DMP manager")
-          },
-          dmp_id: dmp_fragment.id,
-          parent_id: nil,
-          madmp_schema: MadmpSchema.find_by(name: "DMPCoordinator"),
-          additional_info: { property_name: "contact" }
-        )
-
-        project_coordinator = Fragment::Contributor.create(
-          data: {
-            "person" => { "dbid" => person.id },
-            "role" => d_("dmpopidor", "Project coordinator")
-          },
-          dmp_id: dmp_fragment.id,
-          parent_id: nil,
-          madmp_schema: MadmpSchema.find_by(name: "PrincipalInvestigator"),
-          additional_info: { property_name: "principalInvestigator" }
-        )
-
-        #################################
-        # META & PROJECT FRAGMENTS
-        #################################
-
-        project = Fragment::Project.create(
-          data: {
-            "title" => title,
-            "principalInvestigator" => { "dbid" => project_coordinator.id }
-          },
-          dmp_id: dmp_fragment.id,
-          parent_id: dmp_fragment.id,
-          madmp_schema: MadmpSchema.find_by(name: "ProjectStandard"),
-          additional_info: { property_name: "project" }
-        )
-        project.instantiate
-
         template_locale = template.locale.eql?("en_GB") ? "eng" : "fra"
-        meta = Fragment::Meta.create(
-          data: {
-            "title" => d_("dmpopidor", "\"%{project_title}\" project DMP") % { project_title: title },
-            "creationDate" => created_at.strftime("%F"),
-            "lastModifiedDate" => updated_at.strftime("%F"),
-            "dmpLanguage" => template_locale,
-            "contact" => { "dbid" => dmp_coordinator.id }
-          },
-          dmp_id: dmp_fragment.id,
-          parent_id: dmp_fragment.id,
-          madmp_schema: MadmpSchema.find_by(name: "MetaStandard"),
-          additional_info: { property_name: "meta" }
-        )
-        meta.instantiate
+        FastGettext.with_locale template.locale do
+          dmp_fragment = Fragment::Dmp.create(
+            data: {
+              "plan_id" => id
+            },
+            madmp_schema: MadmpSchema.find_by(name: "DMPStandard"),
+            additional_info: {}
+          )
 
-        dmp_coordinator.update(parent_id: meta.id)
-        project_coordinator.update(parent_id: project.id)
+          #################################
+          # PERSON & COORDINATORS FRAGMENTS
+          #################################
+
+          person_data = {
+            "lastName" => owner.surname,
+            "firstName" => owner.firstname,
+            "mbox" => owner.email
+          } unless owner.nil?
+
+          person = Fragment::Person.create(
+            data: person_data || {},
+            dmp_id: dmp_fragment.id,
+            madmp_schema: MadmpSchema.find_by(name: "PersonStandard"),
+            additional_info: { property_name: "person" }
+          )
+
+          dmp_coordinator = Fragment::Contributor.create(
+            data: {
+              "person" => { "dbid" => person.id },
+              "role" => d_("dmpopidor", "DMP manager")
+            },
+            dmp_id: dmp_fragment.id,
+            parent_id: nil,
+            madmp_schema: MadmpSchema.find_by(name: "DMPCoordinator"),
+            additional_info: { property_name: "contact" }
+          )
+
+          project_coordinator = Fragment::Contributor.create(
+            data: {
+              "person" => { "dbid" => person.id },
+              "role" => d_("dmpopidor", "Project coordinator")
+            },
+            dmp_id: dmp_fragment.id,
+            parent_id: nil,
+            madmp_schema: MadmpSchema.find_by(name: "PrincipalInvestigator"),
+            additional_info: { property_name: "principalInvestigator" }
+          )
+
+          #################################
+          # META & PROJECT FRAGMENTS
+          #################################
+
+          project = Fragment::Project.create(
+            data: {
+              "title" => title,
+              "principalInvestigator" => { "dbid" => project_coordinator.id }
+            },
+            dmp_id: dmp_fragment.id,
+            parent_id: dmp_fragment.id,
+            madmp_schema: MadmpSchema.find_by(name: "ProjectStandard"),
+            additional_info: { property_name: "project" }
+          )
+          project.instantiate
+
+          meta = Fragment::Meta.create(
+            data: {
+              "title" => d_("dmpopidor", "\"%{project_title}\" project DMP") % { project_title: title },
+              "creationDate" => created_at.strftime("%F"),
+              "lastModifiedDate" => updated_at.strftime("%F"),
+              "dmpLanguage" => template_locale,
+              "contact" => { "dbid" => dmp_coordinator.id }
+            },
+            dmp_id: dmp_fragment.id,
+            parent_id: dmp_fragment.id,
+            madmp_schema: MadmpSchema.find_by(name: "MetaStandard"),
+            additional_info: { property_name: "meta" }
+          )
+          meta.instantiate
+
+          dmp_coordinator.update(parent_id: meta.id)
+          project_coordinator.update(parent_id: project.id)
+        end
       end
 
     end
