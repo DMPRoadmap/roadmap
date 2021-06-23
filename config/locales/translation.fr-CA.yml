@@ -2,66 +2,73 @@
 # IF YOU UPDATE IT, YOUR CHANGES WILL BE LOST AT THE NEXT SYNC.
 #
 # To update this file, use this translation interface:
-# https://translation.io/xsrust/roadmap/fr-CA
+# https://translation.io/cdl-uc3/dmptool/fr-CA
 #
 ---
 fr-CA:
+  views:
+    pagination:
+      truncate: "&hellip;"
+      first: "&laquo; Premier"
+      last: Dernier &raquo;
+      previous: "&lsaquo; Précédent"
+      next: Suivant &rsaquo;
   date:
     day_names:
-    - Dimanche
-    - Lundi
-    - Mardi
-    - Mercredi
-    - Jeudi
-    - Vendredi
-    - Samedi
+    - dimanche
+    - lundi
+    - mardi
+    - mercredi
+    - jeudi
+    - vendredi
+    - samedi
     abbr_day_names:
-    - Dim
-    - Lun
-    - Mar
-    - Mer
-    - Jeu
-    - Ven
-    - Sam
+    - dim
+    - lun
+    - mar
+    - mer
+    - jeu
+    - ven
+    - sam
     month_names:
     -
-    - Janvier
-    - Février
-    - Mars
-    - Avril
-    - Mai
-    - Juin
-    - Juillet
-    - Août
-    - Septembre
-    - Octobre
-    - Novembre
-    - Décembre
+    - janvier
+    - février
+    - mars
+    - avril
+    - mai
+    - juin
+    - juillet
+    - août
+    - septembre
+    - octobre
+    - novembre
+    - décembre
     abbr_month_names:
     -
-    - Jan.
-    - Fév.
-    - Mars
-    - Avr.
-    - Mai
-    - Juin
-    - Juill.
-    - Août
-    - Sept.
-    - Oct.
-    - Nov.
-    - Déc.
+    - jan.
+    - fév.
+    - mar.
+    - avr.
+    - mai
+    - juin
+    - juil.
+    - août
+    - sept.
+    - oct.
+    - nov.
+    - déc.
   time:
-    am: A.M.
-    pm: P.M.
+    am: am
+    pm: pm
   number:
     human:
       storage_units:
         units:
           byte:
-            one: Octet
-            other: Octets
-          kb: Ko
+            one: octet
+            other: octets
+          kb: ko
           mb: Mo
           gb: Go
           tb: To
@@ -69,84 +76,89 @@ fr-CA:
           eb: Eo
       decimal_units:
         units:
-          thousand: Millier
-          million: Million
-          billion: Milliard
-          trillion: Billion
-          quadrillion: Million de milliards
+          thousand: millier
+          million: million
+          billion: milliard
+          trillion: billion
+          quadrillion: million de milliards
   errors:
     format: "%{attribute} %{message}"
     messages:
       model_invalid: 'Validation échouée : %{errors}'
-      inclusion: n’est pas inclus(e) dans la liste
-      exclusion: n’est pas disponible
-      invalid: est invalide
+      inclusion: n'est pas inclus(e) dans la liste
+      exclusion: n'est pas disponible
+      invalid: n'est pas valide
       confirmation: ne concorde pas avec %{attribute}
       accepted: doit être accepté(e)
       empty: doit être rempli(e)
       blank: doit être rempli(e)
       present: doit être vide
       too_long:
-        one: est trop long (pas plus d’un caractère)
+        one: est trop long (pas plus d'un caractère)
         other: est trop long (pas plus de %{count} caractères)
       too_short:
         one: est trop court (au moins un caractère)
         other: est trop court (au moins %{count} caractères)
       wrong_length:
-        one: ne correspond pas à la bonne longueur (ne doit comporter qu’un seul caractère)
-        other: ne correspond pas à la bonne longueur (doit comporter %{count} caractères)
-      not_a_number: n’est pas un nombre
+        one: ne fait pas la bonne longueur (doit comporter un seul caractère)
+        other: ne fait pas la bonne longueur (doit comporter %{count} caractères)
+      not_a_number: n'est pas un nombre
       not_an_integer: doit être un nombre entier
       greater_than: doit être supérieur à %{count}
       greater_than_or_equal_to: doit être supérieur ou égal à %{count}
       equal_to: doit être égal à %{count}
       less_than: doit être inférieur à %{count}
-      less_than_or_equal_to: doit être inférieur à %{count}
+      less_than_or_equal_to: doit être inférieur ou égal à %{count}
       other_than: doit être différent de %{count}
       odd: doit être impair
       even: doit être pair
-      required: doit être vide
-      taken: n’est pas disponible
-      already_confirmed: a déjà été confirmé(e). Veuillez essayer de vous connecter.
-      confirmation_period_expired: doit être confirmé(e) en %{period}; veuillez en
+      required: doit exister
+      taken: n'est pas disponible
+      already_confirmed: a déjà été confirmé(e)
+      confirmation_period_expired: doit être confirmé(e) en %{period}, veuillez en
         demander un(e) autre
       expired: est expiré, veuillez en demander un autre
       not_found: n’a pas été trouvé(e)
       not_locked: n’était pas verrouillé(e)
       not_saved:
-        one: '1 erreur a empêché l’enregistrement de %{resource} :'
-        other: "%{count} erreurs  ont empêché l’enregistrement de %{resource} : "
+        one: 'une erreur a empêché ce (cet ou cette) %{resource} d’être enregistré(e)
+          :'
+        other: "%{count} erreurs ont empêché ce (cet ou cette) %{resource} d’être
+          enregistré(e) :"
     template:
       body: 'Veuillez vérifier les champs suivants : '
       header:
-        one: " 1 erreur a empêché l’enregistrement de %{model}"
-        other: "%{count} erreurs ont empêché l’enregistrement de %{model} "
+        one: 'Impossible d''enregistrer ce(tte) %{model} : 1 erreur'
+        other: 'Impossible d''enregistrer ce(tte) %{model} : %{count} erreurs'
+    unavailable_session:
+    unacceptable_request:
+    connection_refused:
   activerecord:
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'
         restrict_dependent_destroy:
-          has_one: Vous ne pouvez pas supprimer l’enregistrement en raison du (de
-            la) %{record} dépendant(e)
-          has_many: Vous ne pouvez pas supprimer l’enregistrement en raison du (de
-            la) %{record} dépendant(e)
+          has_one: Vous ne pouvez pas supprimer l'enregistrement car un(e) %{record}
+            dépendant(e) existe
+          has_many: Vous ne pouvez pas supprimer l'enregistrement parce que les %{record}
+            dépendants existent
   datetime:
     distance_in_words:
       half_a_minute: une demi-minute
       less_than_x_seconds:
-        one: moins d’une seconde
+        one: moins d'une seconde
         other: moins de %{count} secondes
       x_seconds:
         one: 1 seconde
         other: "%{count} secondes"
       less_than_x_minutes:
-        one: moins d’une minute
+        one: moins d'une minute
         other: moins de %{count} minutes
       x_minutes:
         one: 1 minute
         other: "%{count} minutes"
       about_x_hours:
-        one: environ 1 heure
+        one: environ une heure
         other: environ %{count} heures
       x_days:
         one: 1 jour
@@ -161,10 +173,10 @@ fr-CA:
         one: environ un an
         other: environ %{count} ans
       over_x_years:
-        one: plus d’un an
+        one: plus d'un an
         other: plus de %{count} ans
       almost_x_years:
-        one: presque un an
+        one: presqu'un an
         other: presque %{count} ans
       x_years:
         one: 1 an
@@ -175,14 +187,14 @@ fr-CA:
       day: Jour
       hour: Heure
       minute: Minute
-      second: Secondes
+      second: Seconde
   helpers:
     select:
       prompt: Veuillez sélectionner
     submit:
-      create: Créer %{model}
-      update: Modifier %{model}
-      submit: Enregistrer %{model}
+      create: Créer un(e) %{model}
+      update: Modifier ce(tte) %{model}
+      submit: Enregistrer ce(tte) %{model}
     page_entries_info:
       entry:
         zero: entrées
@@ -194,7 +206,7 @@ fr-CA:
           one: "<b>%{count}</b> %{entry_name}"
           other: "<b>tous les %{count}</b> %{entry_name}"
       more_pages:
-        display_entries: "%{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> of <b>%{total}</b>
+        display_entries: "%{entry_name}  <b>%{first} - %{last}</b> sur <b>%{total}</b>
           au total"
   flash:
     actions:
@@ -212,34 +224,33 @@ fr-CA:
         à la vérification reCAPTCHA. Veuillez réessayer.
   devise:
     confirmations:
-      confirmed: Votre adresse courriel a été confirmée avec succès.
-      send_instructions: Vous allez recevoir un courriel comportant des instructions
-        sur la façon de confirmer votre adresse courriel d’ici quelques minutes.
-      send_paranoid_instructions: Si votre adresse courriel figure dans notre base
-        de données, vous recevrez un courriel comportant des consignes sur la façon
-        de le confirmer d’ici quelques minutes.
+      confirmed: Votre compte a été confirmé avec succès.
+      send_instructions: Vous allez recevoir sous quelques minutes un courriel comportant
+        des instructions pour confirmer votre compte.
+      send_paranoid_instructions: Si votre courriel existe sur notre base de données,
+        vous recevrez sous quelques minutes un message avec des instructions pour
+        confirmer votre compte.
     failure:
       already_authenticated: Vous êtes déjà connecté(e).
       inactive: Votre compte n’est pas encore activé.
-      invalid: "%{authentication_keys} ou mot de passe invalide."
+      invalid: "%{authentication_keys} ou mot de passe incorrect."
       locked: Votre compte est verrouillé.
-      last_attempt: Il vous reste une dernière tentative avant que votre compte ne
-        soit bloqué.
+      last_attempt: Il vous reste une chance avant que votre compte soit bloqué.
       not_found_in_database: "%{authentication_keys} ou mot de passe incorrect."
-      timeout: Votre session est expirée. Veuillez vous reconnecter pour continuer.
-      unauthenticated: Vous devez vous connecter ou vous inscrire pour continuer.
-      unconfirmed: Vous devez confirmer votre adresse courriel pour continuer.
+      timeout: Votre session est expirée, veuillez vous reconnecter pour continuer.
+      unauthenticated: Vous devez vous connecter ou vous enregistrer pour continuer.
+      unconfirmed: Vous devez confirmer votre compte par courriel.
       invited: Vous avez une invitation en attente. Acceptez-la pour terminer la création
         de votre compte.
     mailer:
       confirmation_instructions:
-        subject: Consignes de confirmation
+        subject: Instructions de confirmation
       reset_password_instructions:
-        subject: Consignes pour changer le mot de passe
+        subject: Instructions pour changer le mot de passe
       unlock_instructions:
-        subject: Consignes pour déverrouiller le compte
+        subject: Instructions pour déverrouiller le compte
       email_changed:
-        subject: Adresse courriel modifiée
+        subject: Email modifié
       password_change:
         subject: Mot de passe modifié
       invitation_instructions:
@@ -253,49 +264,47 @@ fr-CA:
           compte de ce courriel. Votre compte ne sera créé que lorsque vous aurez
           accédé au lien ci-dessus et défini votre mot de passe.
     omniauth_callbacks:
-      failure: 'Nous ne pouvons pas authentifier votre identité depuis %{kind} pour
-        la raison suivante : ''%{reason}''.'
-      success: Authentification réussie à l’aide du compte %{kind}.
+      failure: 'Nous ne pouvons pas vous authentifier depuis %{kind} pour la raison
+        suivante : ''%{reason}''.'
+      success: Autorisé avec succès par votre compte %{kind}.
     passwords:
       no_token: Vous ne pouvez pas accéder à cette page si vous n’y accédez pas depuis
         un courriel de réinitialisation de mot de passe. Si vous venez en effet d’un
-        tel courriel, vérifiez que vous avez copié l’adresse URL complète.
-      send_instructions: Vous allez recevoir un courriel vous indiquant comment réinitialiser
-        votre mot de passe d’ici quelques minutes.
+        tel courriel, vérifiez que vous avez copié l’adresse URL en entier.
+      send_instructions: Vous allez recevoir sous quelques minutes un courriel vous
+        indiquant comment réinitialiser votre mot de passe.
       send_paranoid_instructions: Si votre courriel existe dans notre base de données,
-        dans quelques minutes, vous recevrez un lien vous permettant de récupérer
-        votre mot de passe.
+        vous recevrez un lien vous permettant de récupérer votre mot de passe.
       updated: Votre mot de passe a été modifié avec succès. Vous êtes maintenant
         connecté(e).
       updated_not_active: Votre mot de passe a été modifié avec succès.
     registrations:
-      destroyed: Au revoir! Votre compte a été annulé avec succès. Nous espérons vous
-        revoir bientôt.
-      signed_up: Bienvenue! Vous vous êtes  inscrit avec succès.
-      signed_up_but_inactive: Vous vous êtes inscrit avec succès. Cependant, vous
-        ne pouvez pas ouvrir de session, car votre compte n’a pas encore été activé.
-      signed_up_but_locked: Vous vous êtes inscrit avec succès. Cependant, vous ne
-        pouvez pas ouvrir de session, car votre compte est verrouillé.
-      signed_up_but_unconfirmed: Un message contenant un lien de confirmation a été
-        envoyé à votre adresse courriel. Veuillez suivre ce lien pour activer votre
-        compte.
+      destroyed: Au revoir ! Votre compte a été annulé avec succès. Nous espérons
+        vous revoir bientôt.
+      signed_up: Bienvenue ! Vous vous êtes enregistré(e) avec succès.
+      signed_up_but_inactive: Vous vous êtes enregistré(e) avec succès. Cependant,
+        nous n’avons pas pu vous connecter car votre compte n’a pas encore été activé.
+      signed_up_but_locked: Vous vous êtes enregistré(e) avec succès. Cependant, nous
+        n’avons pas pu vous connecter car votre compte est verrouillé.
+      signed_up_but_unconfirmed: Un message avec un lien de confirmation vous a été
+        envoyé par mail. Veuillez suivre ce lien pour activer votre compte.
       update_needs_confirmation: Vous avez modifié votre compte avec succès, mais
-        nous devons vérifier votre nouvelle adresse courriel. Veuillez consulter votre
-        courriel et cliquer sur le lien de confirmation pour confirmer votre nouvelle
-        adresse.
+        nous devons vérifier votre nouvelle adresse de courriel. Veuillez consulter
+        vos courriels et cliquer sur le lien de confirmation pour confirmer votre
+        nouvelle adresse.
       updated: Votre compte a été modifié avec succès.
       updated_but_not_signed_in: Votre compte a été mis à jour avec succès. Vous devez
-        vous reconnecter, car votre mot de passe a été modifié.
+        vous reconnecter car votre mot de passe a été modifié.
     sessions:
-      signed_in: Connexion réussie
-      signed_out: Déconnexion réussie
-      already_signed_out: Déconnexion réussie
+      signed_in: Connecté(e) avec succès.
+      signed_out: Déconnecté(e) avec succès.
+      already_signed_out: Déconnecté(e).
     unlocks:
-      send_instructions: Vous allez recevoir un courriel contenant des consignes pour
-        déverrouiller votre compte d’ici quelques minutes.
-      send_paranoid_instructions: Si votre courriel figure dans notre base de données,
-        vous recevrez un message comportant des consignes pour déverrouiller votre
-        compte d’ici quelques minutes.
+      send_instructions: Vous allez recevoir sous quelques minutes un courriel comportant
+        des instructions pour déverrouiller votre compte.
+      send_paranoid_instructions: Si votre courriel existe sur notre base de données,
+        vous recevrez sous quelques minutes un message avec des instructions pour
+        déverrouiller votre compte.
       unlocked: Votre compte a été déverrouillé avec succès. Veuillez vous connecter.
     invitations:
       send_instructions: Un courriel d’invitation a été envoyé à %{email}.
@@ -342,10 +351,3 @@ fr-CA:
     notices:
       error: Vous devez remplir les deux champs.
       success: Le courriel de contact a été envoyé avec succès.
-  views:
-    pagination:
-      first: "&laquo; Premier"
-      last: Dernier(ère) &raquo;
-      previous: "&lsaquo; précédent(e)"
-      next: "&rsaquo; suivant(e)"
-      truncate: "&hellip;"
