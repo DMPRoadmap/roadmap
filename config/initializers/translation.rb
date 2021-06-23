@@ -11,7 +11,7 @@
 # domain specified in order to generate both sets of translation keys.
 if !ENV["DOMAIN"] || ENV["DOMAIN"] == "app"
   TranslationIO.configure do |config|
-    config.api_key              = Rails.configuration.x.dmproadmap.translation_io_key
+    config.api_key              = Rails.configuration.x.dmproadmap.translation_io_key_app
     config.source_locale        = "en"
     config.target_locales       = %w[de en-GB en-US es fr-FR fi sv-FI pt-BR en-CA fr-CA]
     config.text_domain          = "app"
@@ -29,7 +29,7 @@ elsif ENV["DOMAIN"] == "client"
   #  > rails translations:sync_and_purge DOMAIN=client
   # rubocop:disable Metrics/BlockLength
   TranslationIO.configure do |config|
-    config.api_key              = Rails.configuration.x.dmproadmap.translation_io_key
+    config.api_key              = Rails.configuration.x.dmproadmap.translation_io_key_client
     config.source_locale        = "en"
     config.target_locales       = %w[en-US pt-BR en-CA fr-CA es]
     config.text_domain          = "client"
