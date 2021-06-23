@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-06-23 09:01-0700\n"
-"PO-Revision-Date: 2021-06-23 18:01+0200\n"
+"POT-Creation-Date: 2021-06-23 09:12-0700\n"
+"PO-Revision-Date: 2021-06-23 18:12+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Spanish\n"
 "Language: es\n"
@@ -619,7 +619,7 @@ msgstr "Mi plan"
 
 #: ../../app/controllers/plans_controller.rb:84
 msgid " Plan"
-msgstr "Plan"
+msgstr " Plan"
 
 #: ../../app/controllers/plans_controller.rb:122
 msgid "This plan is based on the default template."
@@ -673,6 +673,10 @@ msgid ""
 "                       you will be able to sign in directly with your\n"
 "                       institutional credentials."
 msgstr ""
+"Por favor, elija a continuación. Después de vincular su\n"
+"                       detalles a una cuenta %{application_name},\n"
+"                       podrá iniciar sesión directamente con su\n"
+"                       credenciales institucionales."
 
 #: ../../app/controllers/registrations_controller.rb:61
 msgid "You must accept the terms and conditions to register."
@@ -680,7 +684,7 @@ msgstr "Debes aceptar los términos y condiciones para registrarte."
 
 #: ../../app/controllers/registrations_controller.rb:64
 msgid "Please select an organisation from the list, or choose Other."
-msgstr ""
+msgstr "Seleccione una organización de la lista o elija Otro."
 
 #: ../../app/controllers/registrations_controller.rb:77
 msgid "That email address is already registered."
@@ -696,19 +700,19 @@ msgstr ""
 
 #: ../../app/controllers/registrations_controller.rb:160
 msgid "Save Unsuccessful. "
-msgstr ""
+msgstr "Guardar sin éxito."
 
 #: ../../app/controllers/registrations_controller.rb:164
 msgid "Please enter an email address. "
-msgstr ""
+msgstr "Por favor introduzca una dirección de correo eléctronico."
 
 #: ../../app/controllers/registrations_controller.rb:168
 msgid "Please enter a First name. "
-msgstr ""
+msgstr "Por favor, introduzca un nombre."
 
 #: ../../app/controllers/registrations_controller.rb:172
 msgid "Please enter a Last name. "
-msgstr ""
+msgstr "Por favor, introduzca un apellido."
 
 #: ../../app/controllers/registrations_controller.rb:176
 msgid ""
@@ -952,19 +956,19 @@ msgstr "Respondiendo"
 
 #: ../../app/helpers/conditions_helper.rb:199
 msgid " will <b>send an email</b> with subject "
-msgstr ""
+msgstr "<b>enviará un correo electrónico</b> con el asunto"
 
 #: ../../app/helpers/conditions_helper.rb:204
 msgid " will <b>remove</b> question "
-msgstr ""
+msgstr "<b>eliminará la</b> pregunta"
 
 #: ../../app/helpers/conditions_helper.rb:205
 msgid " will <b>remove</b> questions "
-msgstr ""
+msgstr "<b>eliminará</b> preguntas"
 
 #: ../../app/helpers/conditions_helper.rb:224
 msgid "\""
-msgstr ""
+msgstr "\""
 
 #: ../../app/helpers/customizable_template_link_helper.rb:12
 msgid "Transfer customisation"
@@ -1112,7 +1116,7 @@ msgstr "Público"
 #: ../../app/helpers/plans_helper.rb:26 ../../app/helpers/plans_helper.rb:28
 #: ../../app/views/layouts/application.html.erb:119
 msgid "Private"
-msgstr ""
+msgstr "Privado"
 
 #: ../../app/helpers/plans_helper.rb:35
 msgid "Organisation: anyone at my organisation can view."
@@ -1125,7 +1129,7 @@ msgstr "Público: cualquiera puede ver."
 #: ../../app/helpers/plans_helper.rb:39
 #: ../../app/views/layouts/application.html.erb:120
 msgid "Private: restricted to me and people I invite."
-msgstr ""
+msgstr "Privado: restringido a mí y a las personas que invito."
 
 #: ../../app/helpers/settings_template_helper.rb:7
 #: ../../app/helpers/settings_template_helper.rb:18
@@ -1178,7 +1182,7 @@ msgstr "Su ORCID"
 #: ../../spec/features/locales_spec.rb:54
 #: ../../spec/features/locales_spec.rb:71
 msgid "Create plan"
-msgstr ""
+msgstr "Crear un plan"
 
 #: ../../app/helpers/usage_helper.rb:62
 msgid "Last month"
@@ -1269,7 +1273,7 @@ msgstr "responder"
 
 #: ../../app/models/concerns/exportable_plan.rb:117
 msgid " Customised By: "
-msgstr ""
+msgstr " Personalizado por:"
 
 #: ../../app/models/concerns/exportable_plan.rb:128
 #: ../../app/views/shared/export/_plan_txt.erb:4
@@ -1290,7 +1294,7 @@ msgstr "%{affiliation}"
 #: ../../app/views/shared/export/_plan_txt.erb:7
 #: ../../app/views/shared/export/_plan_txt.erb:9
 msgid "Template: "
-msgstr ""
+msgstr "Modelo:"
 
 #: ../../app/models/concerns/exportable_plan.rb:134
 msgid "%{funder}"
@@ -1304,7 +1308,7 @@ msgstr "%{template}"
 #: ../../app/views/shared/export/_plan_coversheet.erb:26
 #: ../../app/views/shared/export/_plan_txt.erb:12
 msgid "Grant number: "
-msgstr ""
+msgstr "Conceder número:"
 
 #: ../../app/models/concerns/exportable_plan.rb:139
 msgid "%{grant_number}"
@@ -1314,7 +1318,7 @@ msgstr "%{grant_number}"
 #: ../../app/views/shared/export/_plan_coversheet.erb:30
 #: ../../app/views/shared/export/_plan_txt.erb:15
 msgid "Project abstract: "
-msgstr ""
+msgstr "Resumen del proyecto:"
 
 #: ../../app/models/concerns/exportable_plan.rb:142
 msgid "%{description}"
@@ -1324,7 +1328,7 @@ msgstr "%{description}"
 #: ../../app/views/shared/export/_plan_coversheet.erb:34
 #: ../../app/views/shared/export/_plan_txt.erb:18
 msgid "Last modified: "
-msgstr ""
+msgstr "Última modificación:"
 
 #: ../../app/models/concerns/exportable_plan.rb:145
 msgid "%{date}"
@@ -1416,7 +1420,7 @@ msgstr "Detalles"
 
 #: ../../app/models/exported_plan.rb:169
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: ../../app/models/exported_plan.rb:186
 #: ../../app/views/shared/export/_plan.erb:53
@@ -1528,23 +1532,23 @@ msgstr "personalizar requiere una plantilla de un financiador"
 
 #: ../../app/models/template.rb:446
 msgid "You can not publish a published template.  "
-msgstr ""
+msgstr "No se puede publicar una plantilla publicada."
 
 #: ../../app/models/template.rb:450
 msgid "You can not publish a historical version of this template.  "
-msgstr ""
+msgstr "No se puede publicar una versión histórica de esta plantilla."
 
 #: ../../app/models/template.rb:455
 msgid "You can not publish a template without phases.  "
-msgstr ""
+msgstr "No puedes publicar una plantilla sin fases."
 
 #: ../../app/models/template.rb:460
 msgid "You can not publish a template without sections in a phase.  "
-msgstr ""
+msgstr "No se puede publicar una plantilla sin secciones en una fase."
 
 #: ../../app/models/template.rb:465
 msgid "You can not publish a template without questions in a section.  "
-msgstr ""
+msgstr "No se puede publicar una plantilla sin preguntas en una sección."
 
 #: ../../app/models/template.rb:469
 msgid "Conditions in the template refer backwards"
@@ -1777,19 +1781,19 @@ msgstr "Contestada"
 
 #: ../../app/views/answers/_status.html.erb:10
 msgid " by %{user_name}"
-msgstr ""
+msgstr " por %{user_name}"
 
 #: ../../app/views/answers/_status.html.erb:15
 msgid "This answer removes "
-msgstr ""
+msgstr "Esta respuesta elimina"
 
 #: ../../app/views/answers/_status.html.erb:15
 msgid " questions from your plan."
-msgstr ""
+msgstr " preguntas de tu plan."
 
 #: ../../app/views/answers/_status.html.erb:21
 msgid "This answer triggers email(s) to "
-msgstr ""
+msgstr "Esta respuesta activa los correos electrónicos a"
 
 #: ../../app/views/contact_us/contacts/_new_left.html.erb:4
 #: ../../app/views/contributors/_form.html.erb:10
@@ -1820,7 +1824,7 @@ msgstr "Nombre"
 #: ../../app/views/super_admin/users/edit.html.erb:15
 #: ../../app/views/super_admin/users/edit.html.erb:93
 msgid "Email"
-msgstr ""
+msgstr "Correo electrónico"
 
 #: ../../app/views/contact_us/contacts/_new_left.html.erb:22
 #: ../../app/views/org_admin/conditions/_webhook_form.html.erb:26
@@ -1850,7 +1854,7 @@ msgstr "Línea de ayuda"
 #: ../../app/views/contact_us/contacts/new.html.erb:1
 #: ../../app/views/contact_us/contacts/new.html.erb:4
 msgid "Contact Us"
-msgstr ""
+msgstr "Contactanos"
 
 #: ../../app/views/contact_us/contacts/new.html.erb:6
 msgid ""
@@ -1885,7 +1889,7 @@ msgstr ""
 #: ../../app/views/static_pages/about_us.html.erb:29
 #: ../../app/views/static_pages/termsuse.html.erb:46
 msgid "Opens in new window"
-msgstr ""
+msgstr "Abre en nueva ventana"
 
 #: ../../app/views/contributors/_form.html.erb:4
 msgid "Phone numbers should only include numbers and dashes ('-')."
@@ -1951,7 +1955,7 @@ msgstr "Borrar"
 #: ../../app/views/super_admin/users/_confirm_merge.html.erb:15
 #: ../../app/views/users/_admin_grant_permissions.html.erb:69
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: ../../app/views/contributors/edit.html.erb:12
 msgid "Editing contributor"
@@ -2027,7 +2031,7 @@ msgstr "Apellidos"
 #: ../../app/views/shared/_access_controls.html.erb:11
 #: ../../app/views/shared/_create_account_form.html.erb:50
 msgid "Create account"
-msgstr ""
+msgstr "Registrarse"
 
 #: ../../app/views/devise/mailer/confirmation_instructions.html.erb:2
 msgid "Welcome to %{application_name}"
@@ -2299,7 +2303,7 @@ msgstr ""
 #: ../../app/views/shared/_create_account_form.html.erb:25
 #: ../../app/views/shared/_sign_in_form.html.erb:7
 msgid "Password"
-msgstr ""
+msgstr "Clave"
 
 #: ../../app/views/devise/registrations/_password_confirmation.html.erb:19
 msgid ""
@@ -2355,7 +2359,7 @@ msgstr "Departamento o escuela"
 #: ../../app/views/org_admin/users/edit.html.erb:43
 #: ../../app/views/super_admin/users/edit.html.erb:53
 msgid "Language"
-msgstr ""
+msgstr "Idioma"
 
 #: ../../app/views/devise/registrations/_personal_details.html.erb:64
 msgid "My privileges"
@@ -2375,7 +2379,7 @@ msgstr "Super administrador"
 #: ../../app/views/devise/registrations/edit.html.erb:4
 #: ../../app/views/layouts/_signin_signout.html.erb:29
 msgid "Edit profile"
-msgstr ""
+msgstr "Editar perfil"
 
 #: ../../app/views/devise/registrations/edit.html.erb:13
 msgid "Personal Details"
@@ -2402,7 +2406,7 @@ msgstr "¿Tienes una cuenta %{application_name}?"
 #: ../../app/views/shared/_access_controls.html.erb:5
 #: ../../app/views/shared/_sign_in_form.html.erb:19
 msgid "Sign in"
-msgstr ""
+msgstr "Conectar"
 
 #: ../../app/views/devise/registrations/new.html.erb:25
 msgid "This will link your existing account to your credentials."
@@ -2455,7 +2459,7 @@ msgstr ""
 
 #: ../../app/views/guidance_groups/_guidance_group_form.html.erb:19
 msgid " (e.g. School/ Department) "
-msgstr ""
+msgstr " (por ejemplo, escuela / departamento)"
 
 #: ../../app/views/guidance_groups/_index_by_theme.html.erb:10
 #: ../../app/views/guidance_groups/_show.html.erb:6
@@ -2502,7 +2506,7 @@ msgstr "Ver todas las orientaciones"
 #: ../../app/views/template_exports/template_export.docx.erb:39
 #: ../../app/views/template_exports/template_export.pdf.erb:81
 msgid "Guidance"
-msgstr ""
+msgstr "Guía"
 
 #: ../../app/views/guidances/admin_index.html.erb:8
 msgid ""
@@ -2605,7 +2609,7 @@ msgstr "primero"
 
 #: ../../app/views/kaminari/_gap.html.erb:2
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: ../../app/views/kaminari/_last_page.html.erb:3
 msgid "Last"
@@ -2628,29 +2632,29 @@ msgstr "Administración"
 #: ../../app/views/paginable/users/_index.html.erb:26
 #: ../../app/views/super_admin/users/edit.html.erb:105
 msgid "Plans"
-msgstr ""
+msgstr "Planes"
 
 #: ../../app/views/layouts/_branding.html.erb:72
 #: ../../app/views/org_admin/templates/index.html.erb:4
 #: ../../app/views/paginable/orgs/_index.html.erb:8
 msgid "Templates"
-msgstr ""
+msgstr "Plantillas"
 
 #: ../../app/views/layouts/_branding.html.erb:82
 #: ../../app/views/super_admin/orgs/index.html.erb:2
 #: ../../app/views/super_admin/orgs/index.html.erb:6
 msgid "Organisations"
-msgstr ""
+msgstr "Organizaciones"
 
 #: ../../app/views/layouts/_branding.html.erb:87
 #: ../../app/views/orgs/admin_edit.html.erb:1
 #: ../../app/views/orgs/admin_edit.html.erb:6
 msgid "Organisation details"
-msgstr ""
+msgstr "Detalles de la entidad"
 
 #: ../../app/views/layouts/_branding.html.erb:93
 msgid "Users"
-msgstr ""
+msgstr "Usuarios"
 
 #: ../../app/views/layouts/_branding.html.erb:98
 #: ../../app/views/org_admin/questions/_show.html.erb:88
@@ -2659,42 +2663,42 @@ msgstr ""
 #: ../../app/views/super_admin/themes/index.html.erb:1
 #: ../../app/views/super_admin/themes/index.html.erb:4
 msgid "Themes"
-msgstr ""
+msgstr "Temas"
 
 #: ../../app/views/layouts/_branding.html.erb:103
 msgid "Usage"
-msgstr ""
+msgstr "Uso"
 
 #: ../../app/views/layouts/_branding.html.erb:108
 msgid "Api Clients"
-msgstr ""
+msgstr "Clientes Api"
 
 #: ../../app/views/layouts/_branding.html.erb:111
 #: ../../app/views/org_admin/plans/index.html.erb:11
 #: ../../app/views/super_admin/notifications/index.html.erb:1
 #: ../../app/views/super_admin/notifications/index.html.erb:4
 msgid "Notifications"
-msgstr ""
+msgstr "Notificaciones"
 
 #: ../../app/views/layouts/_footer.html.erb:13
 msgid "About"
-msgstr ""
+msgstr "Acerca de"
 
 #: ../../app/views/layouts/_footer.html.erb:14
 msgid "Contact us"
-msgstr ""
+msgstr "Contacto"
 
 #: ../../app/views/layouts/_footer.html.erb:15
 #: ../../app/views/static_pages/termsuse.html.erb:1
 #: ../../app/views/static_pages/termsuse.html.erb:4
 msgid "Terms of use"
-msgstr ""
+msgstr "Términos de Uso"
 
 #: ../../app/views/layouts/_footer.html.erb:16
 #: ../../app/views/static_pages/privacy.html.erb:1
 #: ../../app/views/static_pages/privacy.html.erb:4
 msgid "Privacy statement"
-msgstr ""
+msgstr "Declaracion de privacidad"
 
 #: ../../app/views/layouts/_footer.html.erb:17
 msgid "GitHub"
@@ -2703,13 +2707,13 @@ msgstr "Github"
 #: ../../app/views/layouts/_navigation.html.erb:12
 #: ../../app/views/orgs/_profile_form.html.erb:55
 msgid "logo"
-msgstr ""
+msgstr "Logo"
 
 #: ../../app/views/layouts/_navigation.html.erb:23
 #: ../../app/views/plans/index.html.erb:1
 #: ../../app/views/plans/index.html.erb:4
 msgid "My Dashboard"
-msgstr ""
+msgstr "Mi tablero"
 
 #: ../../app/views/layouts/_navigation.html.erb:26
 msgid "Create plans"
@@ -2731,7 +2735,7 @@ msgstr "DMP Públicos"
 #: ../../app/views/public_pages/template_index.html.erb:1
 #: ../../app/views/public_pages/template_index.html.erb:4
 msgid "DMP Templates"
-msgstr ""
+msgstr "Plantillas DMP"
 
 #: ../../app/views/layouts/_navigation.html.erb:44
 msgid "Home"
@@ -2771,46 +2775,46 @@ msgstr "Ver menos"
 
 #: ../../app/views/layouts/_signin_signout.html.erb:32
 msgid "Logout"
-msgstr ""
+msgstr "Cerrar Sesión"
 
 #: ../../app/views/layouts/application.html.erb:32
 msgid "%{application_name}"
-msgstr ""
+msgstr "DMPonline"
 
 #: ../../app/views/layouts/application.html.erb:91
 msgid "Notice:"
-msgstr ""
+msgstr "Darse cuenta:"
 
 #: ../../app/views/layouts/application.html.erb:91
 msgid "Error:"
-msgstr ""
+msgstr "Error:"
 
 #: ../../app/views/layouts/application.html.erb:112
 #: ../../app/views/plans/new.html.erb:2
 msgid "This field is required."
-msgstr ""
+msgstr "Este campo es requerido."
 
 #: ../../app/views/layouts/application.html.erb:114
 #: ../../app/views/shared/_create_account_form.html.erb:31
 msgid "Show password"
-msgstr ""
+msgstr "Mostrar contraseña"
 
 #: ../../app/views/layouts/application.html.erb:115
 msgid "Select an organisation from the list."
-msgstr ""
+msgstr "Seleccione una organización de la lista."
 
 #: ../../app/views/layouts/application.html.erb:116
 msgid "My organisation isn't listed"
-msgstr ""
+msgstr "Mi organización no está en la lista"
 
 #: ../../app/views/layouts/application.html.erb:118
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:38
 msgid "N/A"
-msgstr ""
+msgstr "N / A"
 
 #: ../../app/views/layouts/application.html.erb:122
 msgid "Hide list."
-msgstr ""
+msgstr "Ocultar lista"
 
 #: ../../app/views/layouts/application.html.erb:123
 msgid "See the full list of partner institutions."
@@ -2821,26 +2825,30 @@ msgid ""
 "Unable to find a suitable template for the research organisation and funder yo"
 "u selected."
 msgstr ""
+"No se puede encontrar una plantilla adecuada para la organización de investiga"
+"ción y el financiador que seleccionó."
 
 #: ../../app/views/layouts/application.html.erb:126
 msgid "Please select a research organisation and funder to continue."
 msgstr ""
+"Por favor seleccione una organización de investigación y financiador para cont"
+"inuar."
 
 #: ../../app/views/layouts/application.html.erb:128
 msgid "Loading ..."
-msgstr ""
+msgstr "Cargando ..."
 
 #: ../../app/views/layouts/application.html.erb:129
 msgid "Unable to load the section's content at this time."
-msgstr ""
+msgstr "No se puede cargar el contenido de la sección en este momento."
 
 #: ../../app/views/layouts/application.html.erb:130
 msgid "Unable to load the question's content at this time."
-msgstr ""
+msgstr "No se puede cargar el contenido de la pregunta en este momento."
 
 #: ../../app/views/layouts/application.html.erb:131
 msgid "Opens in a new window"
-msgstr ""
+msgstr "Se abre en una nueva ventana"
 
 #: ../../app/views/layouts/application.html.erb:133
 msgid ""
@@ -2848,14 +2856,17 @@ msgid ""
 "e the Enter key to select a suggestion or the Escape key to close the suggesti"
 "ons."
 msgstr ""
+"Los resultados de %{n} están disponibles, use las flechas hacia arriba y hacia"
+" abajo para navegar por las sugerencias. Use la tecla Intro para seleccionar u"
+"na sugerencia o la tecla Escape para cerrar las sugerencias."
 
 #: ../../app/views/layouts/application.html.erb:134
 msgid "No results are available for your entry."
-msgstr ""
+msgstr "No hay resultados disponibles para su entrada."
 
 #: ../../app/views/layouts/application.html.erb:135
 msgid "Searching ..."
-msgstr ""
+msgstr "Buscando ..."
 
 #: ../../app/views/notes/_archive.html.erb:8
 msgid "Are you sure you want to remove this comment?"
@@ -2930,11 +2941,11 @@ msgstr "Contenido de correo electronico"
 
 #: ../../app/views/org_admin/conditions/_webhook_form.html.erb:37
 msgid "Discard "
-msgstr ""
+msgstr "Descarte"
 
 #: ../../app/views/org_admin/conditions/_webhook_form.html.erb:38
 msgid "Save "
-msgstr "Guardar"
+msgstr "Salvar"
 
 #: ../../app/views/org_admin/departments/edit.html.erb:4
 msgid "Edit the School/Department"
@@ -3757,7 +3768,7 @@ msgstr "Tipos de organizacion"
 
 #: ../../app/views/orgs/_profile_form.html.erb:135
 msgid "Institution"
-msgstr ""
+msgstr "institución"
 
 #: ../../app/views/orgs/_profile_form.html.erb:148
 msgid "Organisation type(s)"
@@ -3796,7 +3807,7 @@ msgstr "Por favor, seleccione uno"
 #: ../../app/views/orgs/shibboleth_ds.html.erb:30
 #: ../../app/views/usage/_user_statistics.html.erb:76
 msgid "Go"
-msgstr ""
+msgstr "Ir"
 
 #: ../../app/views/orgs/shibboleth_ds.html.erb:36
 msgid "See the full list of participating institutions"
@@ -3808,7 +3819,7 @@ msgstr "¿Organización no en la lista?"
 
 #: ../../app/views/orgs/shibboleth_ds.html.erb:78
 msgid "Create an account with any email address"
-msgstr ""
+msgstr "Crea una cuenta con cualquier dirección de correo electrónico."
 
 #: ../../app/views/paginable/api_clients/_index.html.erb:9
 msgid "Org"
@@ -3956,6 +3967,13 @@ msgid ""
 "ge dashboard's total for October but\n"
 "    would not appear in the list below.\n"
 msgstr ""
+"    Los datos en el panel de uso son de naturaleza histórica. Esto significa q"
+"ue el número de registros a continuación puede no\n"
+"    coincide con el recuento que se muestra en el panel de control de uso. Por"
+" ejemplo, si uno de sus usuarios creó un plan en octubre y\n"
+"    luego eliminó ese plan en noviembre, se habría incluido en el total del pa"
+"nel de control de uso para octubre, pero\n"
+"    no aparecería en la lista a continuación.\n"
 
 #: ../../app/views/paginable/plans/_org_admin.html.erb:12
 msgid ""
@@ -4015,7 +4033,7 @@ msgstr "desconocido"
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:28
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:35
 msgid "(new window)"
-msgstr ""
+msgstr "(nueva ventana)"
 
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:7
 msgid "Edited"
@@ -4168,7 +4186,7 @@ msgstr "Copiar enlace para crear un nuevo plan"
 
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:49
 msgid "Requires login"
-msgstr ""
+msgstr "Requiere inicio de sesión"
 
 #: ../../app/views/paginable/users/_index.html.erb:4
 msgid ""
@@ -4180,6 +4198,14 @@ msgid ""
 " have been included on the usage\n"
 "    dashboard's total for October but would not appear in the list below.\n"
 msgstr ""
+"    Los datos en el panel de uso son de naturaleza histórica. Esto significa q"
+"ue el número de registros a continuación puede no\n"
+"    coincide con el recuento que se muestra en el panel de control de uso. Por"
+" ejemplo, si uno de sus usuarios se unió en octubre y luego\n"
+"    movido a una organización diferente o desactivado su cuenta, se habrían in"
+"cluido en el uso\n"
+"    el total del tablero para octubre, pero no aparecerá en la lista a continu"
+"ación.\n"
 
 #: ../../app/views/paginable/users/_index.html.erb:13
 msgid ""
@@ -4365,14 +4391,14 @@ msgstr "%{phase_title} (%{sections_size} %{sections}, %{questions_size} %{questi
 #: ../../app/views/plans/_overview_details.html.erb:43
 msgid "section"
 msgid_plural "sections"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Sección"
+msgstr[1] "secciones"
 
 #: ../../app/views/plans/_overview_details.html.erb:45
 msgid "question"
 msgid_plural "questions"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Pregunta"
+msgstr[1] "preguntas"
 
 #: ../../app/views/plans/_progress.html.erb:11
 msgid "answered"
@@ -4516,7 +4542,7 @@ msgstr ""
 
 #: ../../app/views/plans/_share_form.html.erb:48
 msgid "Email address"
-msgstr ""
+msgstr "Dirección de correo electrónico"
 
 #: ../../app/views/plans/_share_form.html.erb:49
 #: ../../app/views/plans/_share_form.html.erb:121
@@ -4675,7 +4701,7 @@ msgstr ""
 
 #: ../../app/views/public_pages/template_index.html.erb:8
 msgid "There are currently no public Templates."
-msgstr ""
+msgstr "Actualmente no hay plantillas públicas."
 
 #: ../../app/views/questions/_new_edit_question_option_based.html.erb:42
 msgid "Additional Information"
@@ -4719,7 +4745,7 @@ msgstr "Campo de golf"
 
 #: ../../app/views/shared/_links.html.erb:8
 msgid "Up to "
-msgstr ""
+msgstr "Hasta"
 
 #: ../../app/views/shared/_links.html.erb:28
 msgid "URL"
@@ -4744,11 +4770,11 @@ msgstr "búsqueda"
 
 #: ../../app/views/shared/_sign_in_form.html.erb:11
 msgid "Forgot password?"
-msgstr ""
+msgstr "¿Se te olvidó tu contraseña?"
 
 #: ../../app/views/shared/_sign_in_form.html.erb:16
 msgid "Remember email"
-msgstr ""
+msgstr "Recuerda email"
 
 #: ../../app/views/shared/_sign_in_form.html.erb:27
 msgid "Sign in with your institutional credentials"
@@ -4770,15 +4796,15 @@ msgstr "Un plan de manejo de datos creado usando %{application_name}"
 #: ../../app/views/shared/export/_plan_coversheet.erb:10
 #: ../../app/views/shared/export/_plan_txt.erb:5
 msgid "Affiliation: "
-msgstr ""
+msgstr "Afiliación:"
 
 #: ../../app/views/shared/export/_plan_coversheet.erb:13
 msgid "Funder: "
-msgstr ""
+msgstr "Financiador:"
 
 #: ../../app/views/shared/export/_plan_coversheet.erb:22
 msgid "ORCID iD: "
-msgstr ""
+msgstr "IDD DE ORCID:"
 
 #: ../../app/views/shared/export/_plan_coversheet.erb:40
 #: ../../app/views/shared/export/_plan_txt.erb:20
@@ -4789,6 +4815,12 @@ msgid ""
 "sed, but using any of the plan's text does not imply that the creator(s) endor"
 "se, or have any relationship to, your project or proposal"
 msgstr ""
+" El (los) creador (es) del plan anterior han acordado que otros pueden usar la"
+" mayor parte del texto de este plan como les gustaría en sus propios planes, y"
+" personalizarlo según sea necesario. No necesita acreditar al creador (es) com"
+"o la fuente del idioma utilizado, pero el uso de cualquiera de los textos del "
+"plan no implica que el creador (es) respalde, o tenga ninguna relación con, su"
+" proyecto o propuesta."
 
 #: ../../app/views/shared/org_selectors/_combined.html.erb:15
 #: ../../app/views/shared/org_selectors/_external_only.html.erb:13
@@ -4847,10 +4879,14 @@ msgid ""
 "e developed and delivered tools for data management planning since the advent "
 "of open data policies in 2011. "
 msgstr ""
+"El Centro de curación digital y el equipo de UC3 en la Biblioteca digital de C"
+"alifornia desarrollaron y entregaron herramientas para la planificación de la "
+"gestión de datos desde el advenimiento de las políticas de datos abiertos en 2"
+"011."
 
 #: ../../app/views/static_pages/about_us.html.erb:16
 msgid " (DCC-UK) and "
-msgstr ""
+msgstr " (DCC-UK) y"
 
 #: ../../app/views/static_pages/about_us.html.erb:17
 msgid ""
@@ -4888,6 +4924,8 @@ msgstr ""
 #: ../../app/views/static_pages/about_us.html.erb:21
 msgid "We invite you to peruse the DMPRoadmap GitHub wiki to learn how to "
 msgstr ""
+"Lo invitamos a que lea detenidamente el wiki de DMPRoadmap GitHub para aprende"
+"r cómo"
 
 #: ../../app/views/static_pages/about_us.html.erb:22
 msgid ""
@@ -4900,6 +4938,8 @@ msgstr ""
 #: ../../app/views/static_pages/about_us.html.erb:28
 msgid " in the project. You can also report bugs and request new features via "
 msgstr ""
+" en el proyecto. También puede informar de errores y solicitar nuevas caracter"
+"ísticas a través de"
 
 #: ../../app/views/static_pages/about_us.html.erb:29
 msgid "GitHub Issues"
@@ -4964,7 +5004,7 @@ msgstr ""
 
 #: ../../app/views/static_pages/help.html.erb:13
 msgid "Create a plan"
-msgstr ""
+msgstr "Crear un plan"
 
 #: ../../app/views/static_pages/help.html.erb:15
 msgid ""
@@ -4980,7 +5020,7 @@ msgstr ""
 
 #: ../../app/views/static_pages/help.html.erb:17
 msgid "Write your plan"
-msgstr ""
+msgstr "Escribe tu plan"
 
 #: ../../app/views/static_pages/help.html.erb:19
 msgid ""
@@ -5046,7 +5086,7 @@ msgstr ""
 
 #: ../../app/views/static_pages/help.html.erb:32
 msgid "Share plans"
-msgstr ""
+msgstr "Compartir planes"
 
 #: ../../app/views/static_pages/help.html.erb:34
 msgid ""
@@ -5212,6 +5252,10 @@ msgid ""
 "ity. We provide services to the UK, US and international higher education sect"
 "or. "
 msgstr ""
+"(CDL) son consorcios apoyados por la Universidad de Edimburgo y la Universidad"
+" de California, respectivamente. Nuestro distrito electoral principal es la co"
+"munidad de investigación. Brindamos servicios al sector de educación superior "
+"del Reino Unido, Estados Unidos e internacional."
 
 #: ../../app/views/static_pages/termsuse.html.erb:14
 msgid "DMPRoadmap"
@@ -5726,11 +5770,11 @@ msgstr "Hola"
 
 #: ../../app/views/user_mailer/plan_access_removed.html.erb:5
 msgid "Your access to "
-msgstr ""
+msgstr "Su acceso a"
 
 #: ../../app/views/user_mailer/plan_access_removed.html.erb:5
 msgid " has been removed by "
-msgstr ""
+msgstr " ha sido eliminado por"
 
 #: ../../app/views/user_mailer/plan_visibility.html.erb:5
 msgid "The plan %{plan_title} had its visibility changed to %{plan_visibility}."
@@ -5762,19 +5806,19 @@ msgstr "Hola %{recipient_name}"
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " based on the template "
-msgstr ""
+msgstr " basado en la plantilla"
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " is creating a Data Management Plan and has answered "
-msgstr ""
+msgstr " está creando un plan de gestión de datos y ha respondido"
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " to "
-msgstr ""
+msgstr " a"
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " in a plan called "
-msgstr ""
+msgstr " en un plan llamado"
 
 #: ../../app/views/user_mailer/sharing_notification.html.erb:5
 msgid ""
