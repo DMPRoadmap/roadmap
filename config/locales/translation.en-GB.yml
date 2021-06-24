@@ -2,7 +2,7 @@
 # IF YOU UPDATE IT, YOUR CHANGES WILL BE LOST AT THE NEXT SYNC.
 #
 # To update this file, use this translation interface:
-# https://translation.io/xsrust/roadmap/en-GB
+# https://translation.io/dcc-user/roadmap/en-GB
 #
 ---
 en-GB:
@@ -116,6 +116,9 @@ en-GB:
         other: "%{count} errors prohibited this %{resource} from being saved:"
       model_invalid: 'Validation failed: %{errors}'
       required: must exist
+    unavailable_session:
+    unacceptable_request:
+    connection_refused:
     template:
       body: 'There were problems with the following fields:'
       header:
