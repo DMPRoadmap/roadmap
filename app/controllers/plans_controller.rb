@@ -302,7 +302,7 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     if @plan.present?
       authorize @plan
-      @plan_roles = @plan.roles
+      @plan_roles = @plan.roles.where(active: true)
     else
       redirect_to(plans_path)
     end
@@ -315,7 +315,7 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     if @plan.present?
       authorize @plan
-      @plan_roles = @plan.roles
+      @plan_roles = @plan.roles.where(active: true)
     else
       redirect_to(plans_path)
     end
