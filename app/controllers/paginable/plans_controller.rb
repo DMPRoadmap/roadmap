@@ -34,12 +34,10 @@ class Paginable::PlansController < ApplicationController
 
   # GET /paginable/plans/publicly_visible/:page
   def publicly_visible
-    paginable_renderise(
-      partial: "publicly_visible",
-      scope: Plan.publicly_visible.includes(:template),
-      query_params: { sort_field: "plans.updated_at", sort_direction: :desc },
-      format: :json
-    )
+    # We want the pagination/sort/search to be retained in the URL so redirect instead
+    # of processing this as a JSON
+    paginable_params = params.permit(:page, :search, :sort_field, :sort_direction)
+    redirect_to public_plans_path(paginable_params.to_h)
   end
 
   # GET /paginable/plans/org_admin/:page

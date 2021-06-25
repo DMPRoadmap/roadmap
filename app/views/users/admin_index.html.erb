@@ -26,6 +26,7 @@
         partial: '/paginable/users/index',
         controller: 'paginable/users',
         action: 'index',
+        remote: true,
         scope: @users,
         view_all: !current_user.can_super_admin?) %>
     </div>

@@ -17,6 +17,7 @@
       partial: '/paginable/api_clients/index',
       controller: 'paginable/api_clients',
       action: 'index',
+      remote: true,
       scope: @api_clients,
       query_params: { sort_field: 'api_clients.name', sort_direction: :asc }) %>
     <div>

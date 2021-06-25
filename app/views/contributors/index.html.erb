@@ -19,6 +19,7 @@
         <%= paginable_renderise partial: "/paginable/contributors/index",
                                 controller: "paginable/contributors",
                                 action: "index",
+                                remote: true,
                                 scope: @contributors,
                                 locals: { plan: @plan },
                                 query_params: {
