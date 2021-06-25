@@ -4,6 +4,7 @@ class PublicPagesController < ApplicationController
 
   # GET template_index
   # -----------------------------------------------------
+  # rubocop:disable Metrics/AbcSize
   def template_index
     @templates_query_params = {
       page: paginable_params.fetch(:page, 1),
@@ -19,6 +20,7 @@ class PublicPagesController < ApplicationController
                          .where(id: templates.uniq.flatten)
                          .unarchived.published
   end
+  # rubocop:enable Metrics/AbcSize
 
   # GET template_export/:id
   # -----------------------------------------------------
