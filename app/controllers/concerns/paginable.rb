@@ -80,12 +80,10 @@ module Paginable
       if options[:format] == :json
         render json: { html: render_to_string(layout: "/layouts/paginable",
                                               partial: partial, locals: locals) }
+      elsif partial.present?
+        render(layout: "/layouts/paginable", partial: partial, locals: locals)
       else
-        if partial.present?
-          render(layout: "/layouts/paginable", partial: partial, locals: locals)
-        else
-          render(template: template, locals: locals)
-        end
+        render(template: template, locals: locals)
       end
     end
   end
