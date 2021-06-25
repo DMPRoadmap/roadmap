@@ -19,6 +19,7 @@
       partial: '/paginable/guidance_groups/index',
       controller: 'paginable/guidance_groups',
       action: 'index',
+      remote: true,
       scope: @guidance_groups,
       query_params: { sort_field: 'guidance_groups.name', sort_direction: :asc }) %>
     <div>
@@ -39,6 +40,7 @@
         partial: '/paginable/guidances/index',
         controller: 'paginable/guidances',
         action: 'index',
+        remote: true,
         scope: @guidances,
         query_params: { sort_field: 'guidances.text', sort_direction: :asc }) %>
 
