@@ -285,6 +285,7 @@ class PlansController < ApplicationController
     if @plan.present?
       authorize @plan
       @plan_roles = @plan.roles.where(active: true)
+      @orcid_access_token = ExternalApiAccessToken.for_user_and_service(user: current_user, service: "orcid")
     else
       redirect_to(plans_path)
     end

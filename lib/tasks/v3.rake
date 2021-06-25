@@ -160,4 +160,15 @@ namespace :v3 do
     end
   end
 
+  desc "Adds the rams IdentifierScheme for Plans"
+  task init_rams: :environment do
+    rams = IdentifierScheme.find_or_initialize_by(name: "rams")
+    rams.for_plans = true
+    rams.for_identification = true
+    rams.description = "UCNRS RAMS System"
+    rams.identifier_prefix = "https://rams.ucnrs.org/manager/reserves/100501/applications/"
+    rams.active = true
+    rams.save
+  end
+
 end
