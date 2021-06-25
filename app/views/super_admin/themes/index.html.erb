@@ -14,6 +14,7 @@
         partial: '/paginable/themes/index',
         controller: 'paginable/themes',
         action: 'index',
+        remote: true,
         scope: themes,
         query_params: { sort_field: 'themes.title', sort_direction: :asc })
       %>
