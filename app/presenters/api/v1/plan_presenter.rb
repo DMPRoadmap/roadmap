@@ -36,9 +36,9 @@ module Api
 
       # Related identifiers for the Plan
       def links
-        [
+        {
           download: Rails.application.routes.url_helpers.plan_export_url(@plan, format: :pdf, "export[form]": true)
-        ]
+        }
       end
 
       # Subscribers of the Plan
@@ -46,7 +46,7 @@ module Api
         @plan.subscriptions.map do |subscription|
           {
             actions: ["PUT"],
-            name: subscription.subscriber.name,
+            name: subscription.subscriber&.name,
             callback: subscription.callback_uri
           }
         end

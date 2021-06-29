@@ -13,13 +13,6 @@ class RegistrationsController < Devise::RegistrationsController
     @identifier_schemes = IdentifierScheme.for_users.order(:name)
     @default_org = current_user.org
 
-    # choose which org patial to use for choosing org
-    @org_partial = if Rails.configuration.x.application.restrict_orgs
-                     "shared/org_selectors/local_only"
-                   else
-                     "shared/org_selectors/combined"
-                   end
-
     msg = "No default preferences found (should be in dmproadmap.rb initializer)."
     flash[:alert] = msg unless @prefs
   end
@@ -46,19 +39,14 @@ class RegistrationsController < Devise::RegistrationsController
         }
         # rubocop:enable Metrics/LineLength
 
-        # ---------------------------------------
-        # Start DMPTool Customization
-        # Determine which Org Idp we came from and make it available to form
-        # ---------------------------------------
+        # If this is part of a Shibboleth workflow, determine which Org Idp we came from and make
+        # it available to the regsitration form (which will hide the Org textbox)
         entity_id = oauth.fetch("info", {})["identity_provider"]
         if entity_id.present?
           identifier = Identifier.where(identifiable_type: "Org",
                                         value: entity_id).first
           @user.org = identifier.identifiable if identifier.present?
         end
-        # ---------------------------------------
-        # End DMPTool Customization
-        # ---------------------------------------
       end
     end
     # rubocop:enable Style/GuardClause
@@ -77,7 +65,8 @@ class RegistrationsController < Devise::RegistrationsController
     blank_org = if Rails.configuration.x.application.restrict_orgs
                   sign_up_params[:org_id]["id"].blank?
                 else
-                  sign_up_params[:org_id].blank?
+                  # DMPTool hack to accommodate Org coming from IdP
+                  sign_up_params.fetch(:org_id, sign_up_params[:default_org_id]).blank?
                 end
 
     if sign_up_params[:accept_terms].to_s == "0"
@@ -90,10 +79,11 @@ class RegistrationsController < Devise::RegistrationsController
       existing_user = User.where_case_insensitive("email", sign_up_params[:email]).first
       if existing_user.present?
         if existing_user.invitation_token.present? && !existing_user.accept_terms?
-          # Destroys the existing user since the accept terms are nil/false. and they
-          # have an invitation Note any existing role for that user will be deleted too.
-          # Added to accommodate issue at: https://github.com/DMPRoadmap/roadmap/issues/322
-          # when invited user creates an account outside the invite workflow
+          # If the user is creating an account but they have an outstanding invitation, remember
+          # any plans that were shared with the invitee so we can attach them to the new User record
+          shared_plans = existing_user.roles
+                                      .select(&:active?)
+                                      .map { |role| { plan_id: role.plan_id, access: role.access } }
           existing_user.destroy
 
         else
@@ -111,6 +101,17 @@ class RegistrationsController < Devise::RegistrationsController
       attrs[:language_id] = Language.default&.id unless attrs[:language_id].present?
 
       build_resource(attrs)
+
+      # If the user is creating an account but they have an outstanding invitation, attach the shared
+      # plan(s) to their new User record
+      if shared_plans.present? && shared_plans.any?
+        shared_plans.each do |role_hash|
+          plan = Plan.find_by(id: role_hash[:plan_id])
+          next unless plan.present?
+
+          Role.create(plan: plan, user: resource, access: role_hash[:access], active: true)
+        end
+      end
 
       # Determine if reCAPTCHA is enabled and if so verify it
       use_recaptcha = Rails.configuration.x.recaptcha.enabled || false
@@ -187,6 +188,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Layout/LineLength, Metrics/BlockNesting
   def do_update(require_password = true, confirm = false)
+    restrict_orgs = Rails.configuration.x.application.restrict_orgs
     mandatory_params = true
     # added to by below, overwritten otherwise
     message = _("Save Unsuccessful. ")
@@ -204,7 +206,7 @@ class RegistrationsController < Devise::RegistrationsController
       message += _("Please enter a Last name. ")
       mandatory_params &&= false
     end
-    if update_params[:org_id].blank?
+    if restrict_orgs && update_params[:org_id]["id"].blank?
       message += _("Please select an organisation from the list, or enter your organisation's name.")
       mandatory_params &&= false
     end
@@ -274,11 +276,6 @@ class RegistrationsController < Devise::RegistrationsController
     else
       flash[:alert] = message.blank? ? failure_message(current_user, _("save")) : message
       @orgs = Org.order("name")
-      @org_partial = if Rails.configuration.x.application.restrict_orgs
-                       "shared/org_selectors/local_only"
-                     else
-                       "shared/org_selectors/combined"
-                     end
       render "edit"
     end
   end
@@ -315,8 +312,10 @@ class RegistrationsController < Devise::RegistrationsController
   def sign_up_params
     params.require(:user).permit(:email, :password, :password_confirmation,
                                  :firstname, :surname, :recovery_email,
-                                 :accept_terms, :org_id, :org_name,
-                                 :org_crosswalk, :language_id)
+                                 :accept_terms, :org_id, :org_name, :default_org_id,
+                                 :org_crosswalk, :language_id,
+                                 external_api_access_tokens: [:external_service_name, :access_token,
+                                                              :refresh_token, :expires_at])
   end
 
   def update_params
@@ -328,17 +327,26 @@ class RegistrationsController < Devise::RegistrationsController
 
   # Finds or creates the selected org and then returns it's id
   def handle_org(attrs:)
-    return attrs unless attrs.present? && attrs[:org_id].present?
+    return nil unless attrs.present?
 
-    org = org_from_params(params_in: attrs, allow_create: true)
+    # DMPTool hack to deal with Org via IdP
+    if attrs[:default_org_id].present?
+      attrs[:org_id] = attrs[:default_org_id]
+      attrs.delete(:default_org_id)
+      return attrs
+    else
+      return attrs unless attrs.present? && attrs[:org_id].present?
 
-    # Remove the extraneous Org Selector hidden fields
-    attrs = remove_org_selection_params(params_in: attrs)
-    return attrs unless org.present?
+      org = org_from_params(params_in: attrs, allow_create: true)
 
-    # reattach the org_id but with the Org id instead of the hash
-    attrs[:org_id] = org.id
-    attrs
+      # Remove the extraneous Org Selector hidden fields
+      attrs = remove_org_selection_params(params_in: attrs)
+      return attrs unless org.present?
+
+      # reattach the org_id but with the Org id instead of the hash
+      attrs[:org_id] = org.id
+      attrs
+    end
   end
 
 end

@@ -7,31 +7,32 @@
 #  id                     :integer          not null, primary key
 #  accept_terms           :boolean
 #  active                 :boolean          default(TRUE)
-#  api_token              :string
+#  api_token              :string(255)
 #  confirmation_sent_at   :datetime
-#  confirmation_token     :string
+#  confirmation_token     :string(255)
 #  confirmed_at           :datetime
 #  current_sign_in_at     :datetime
-#  current_sign_in_ip     :string
+#  current_sign_in_ip     :string(255)
 #  email                  :string(80)       default(""), not null
-#  encrypted_password     :string
-#  firstname              :string
+#  encrypted_password     :string(255)
+#  firstname              :string(255)
 #  invitation_accepted_at :datetime
 #  invitation_created_at  :datetime
 #  invitation_sent_at     :datetime
-#  invitation_token       :string
-#  invited_by_type        :string
+#  invitation_token       :string(255)
+#  invited_by_type        :string(255)
+#  last_api_access        :datetime
 #  last_sign_in_at        :datetime
-#  last_sign_in_ip        :string
-#  ldap_password          :string
-#  ldap_username          :string
-#  other_organisation     :string
-#  recovery_email         :string
+#  last_sign_in_ip        :string(255)
+#  ldap_password          :string(255)
+#  ldap_username          :string(255)
+#  other_organisation     :string(255)
+#  recovery_email         :string(255)
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
-#  reset_password_token   :string
+#  reset_password_token   :string(255)
 #  sign_in_count          :integer          default(0)
-#  surname                :string
+#  surname                :string(255)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  department_id          :integer
@@ -103,6 +104,28 @@ class User < ApplicationRecord
   has_and_belongs_to_many :notifications, dependent: :destroy,
                                           join_table: "notification_acknowledgements"
 
+  # ================================
+  # = Dookeeper OAuth Associations =
+  # ================================
+
+  # Access Grants are created when a user authorizes an ApiClient to access their data via the
+  # OAuth workflow. They are sent back to the ApiClient as 'code' which is in turn used to
+  # retrieve an AccessToken
+  has_many :access_grants, class_name: 'Doorkeeper::AccessGrant',
+                           foreign_key: :resource_owner_id,
+                           dependent: :delete_all
+
+  # Access Tokens are created when an ApiClient authenticates a User via an access grant code.
+  # The access token is then used instead of credentials in calls to the API. These tokens can be revoked
+  # by a user on their profile page.
+  has_many :access_tokens, class_name: 'Doorkeeper::AccessToken',
+                           foreign_key: :resource_owner_id,
+                           dependent: :delete_all
+
+  # Table that stores OAuth access tokens for other external systems like ORCID
+  has_many :external_api_access_tokens, dependent: :destroy
+  accepts_nested_attributes_for :external_api_access_tokens
+
   # ===============
   # = Validations =
   # ===============
@@ -119,7 +142,9 @@ class User < ApplicationRecord
   # = Scopes =
   # ==========
 
-  default_scope { includes(:org, :perms) }
+  # because of the way this generates SQL it breaks with > 65k users
+  # needs rethought
+  # default_scope { includes(:org, :perms) }
 
   # Retrieves all of the org_admins for the specified org
   scope :org_admins, lambda { |org_id|
@@ -160,11 +185,11 @@ class User < ApplicationRecord
   # = Callbacks =
   # =============
 
-  before_update :clear_department_id, if: :org_id_changed?
+  after_update :clear_department_id, if: :saved_change_to_org_id?
 
-  after_update :delete_perms!, if: :org_id_changed?, unless: :can_change_org?
+  after_update :delete_perms!, if: :saved_change_to_org_id?, unless: :can_change_org?
 
-  after_update :remove_token!, if: :org_id_changed?, unless: :can_change_org?
+  after_update :remove_token!, if: :saved_change_to_org_id?, unless: :can_change_org?
 
   # =================
   # = Class methods =
@@ -181,6 +206,7 @@ class User < ApplicationRecord
   def self.to_csv(users)
     User::AtCsv.new(users).to_csv
   end
+
   # ===========================
   # = Public instance methods =
   # ===========================
@@ -445,6 +471,16 @@ class User < ApplicationRecord
                 .update_all(identifiable_id: id)
     # => ignore any perms the deleted user has
     to_be_merged.destroy
+  end
+
+  # Fetch the access token for the specified service
+  def access_token_for(external_service_name:)
+    return nil unless external_service_name.present? && external_api_access_tokens.any?
+
+    tokens = external_api_access_tokens.select do |token|
+      token.external_service_name == external_service_name && token.active?
+    end
+    tokens.first
   end
 
   private

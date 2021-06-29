@@ -36,7 +36,10 @@
         <div id="create-account-panel" role="tabpanel" class="tab-pane">
           <div class="panel panel-default">
             <div class="panel-body">
-              <%= render partial: 'shared/create_account_form' %>
+              <%= render partial: 'shared/create_account_form',
+                         locals: {
+                           org_partial: (@org_partial || "shared/org_selectors/combined"),
+                           orgs: Org.participating } %>
             </div>
           </div>
         </div>

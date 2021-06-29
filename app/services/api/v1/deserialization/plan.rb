@@ -101,10 +101,19 @@ module Api
           end
 
           # Deserialize the datasets and attach to plan
-          # TODO: Implement this once we update the data model
           def deserialize_datasets(plan:, json: {})
-            return plan unless json.present? && json[:dataset].present?
+            return plan unless json.present? && json[:dataset].present? && json[:dataset].is_a?(Array)
 
+            research_outputs = json[:dataset].map do |dataset|
+              Api::V1::Deserialization::Dataset.deserialize(plan: plan, json: dataset)
+            end
+
+            # TODO: remove this once we support versioning and are not storing outputs with DOIs as
+            #       RelatedIdentifiers. Once versioning is in place we can update the existing ResearchOutputs
+            research_outputs.each do |output|
+              plan.research_outputs << output if output.is_a?(ResearchOutput)
+              plan.related_identifiers << output if output.is_a?(RelatedIdentifier)
+            end
             plan
           end
 

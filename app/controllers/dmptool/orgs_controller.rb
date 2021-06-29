@@ -20,10 +20,11 @@ module Dmptool
 
     # GET /orgs/shibboleth_ds/:id
     # POST /orgs/shibboleth_ds/:id
+    # rubocop:disable Metrics/AbcSize
     def shibboleth_ds_passthru
       skip_authorization
-      org = Org.find_by(id: params[:id])
 
+      org = Org.find_by(id: params.fetch(:id, params[:org_id]))
       if org.present?
         entity_id = org.identifier_for_scheme(scheme: "shibboleth")
         if entity_id.present?
@@ -42,6 +43,7 @@ module Dmptool
                     notice: _("Please choose an organisation from the list.")
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     private
 

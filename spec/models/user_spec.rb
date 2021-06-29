@@ -65,6 +65,7 @@ RSpec.describe User, type: :model do
       is_expected.to have_and_belong_to_many(:notifications)
         .join_table("notification_acknowledgements")
     }
+    it { is_expected.to have_many(:external_api_access_tokens).dependent(:destroy) }
   end
 
   describe "#active_for_authentication?" do
@@ -147,12 +148,12 @@ RSpec.describe User, type: :model do
         expect(user.org).to eql(@new_org)
       end
 
-      it "does not destroy user perms" do
-        expect(user.perms.count).to eql(3)
+      it "destroys user perms" do
+        expect(user.perms.count).to eql(0)
       end
 
-      it "does not reset api_token to blank string" do
-        expect(user.api_token).to eql("barfoo")
+      it "resets api_token to be nil" do
+        expect(user.api_token).to be_nil
       end
     end
 
@@ -681,6 +682,34 @@ RSpec.describe User, type: :model do
         expect(user.notifications).not_to include(notification)
       end
 
+    end
+  end
+
+  describe "#access_token_for(external_service_name:)" do
+    before(:each) do
+      @user = build(:user)
+      @svc = Faker::Music::PearlJam.song.downcase.gsub(" ", "_")
+      @token = build(:external_api_access_token, external_service_name: @svc)
+      @user.external_api_access_tokens << @token
+    end
+
+    it "returns nil if the service name is not specified" do
+      expect(@user.access_token_for(external_service_name: nil)).to eql(nil)
+    end
+    it "returns nil if there are no access tokens" do
+      @user.external_api_access_tokens.clear
+      expect(@user.access_token_for(external_service_name: @svc)).to eql(nil)
+    end
+    it "returns nil if there are no access tokens for the specified service name" do
+      expect(@user.access_token_for(external_service_name: Faker::Lorem.word.downcase)).to eql(nil)
+    end
+    it "returns nil if the access token is not active" do
+      @token.expects(:active?).returns(false)
+      expect(@user.access_token_for(external_service_name: @svc)).to eql(nil)
+    end
+    it "returns the access token" do
+      @token.expects(:active?).returns(true)
+      expect(@user.access_token_for(external_service_name: @svc)).to eql(@token)
     end
   end
 

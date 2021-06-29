@@ -5,8 +5,8 @@
 # Table name: annotations
 #
 #  id             :integer          not null, primary key
-#  text           :text
-#  type           :integer          default(0), not null
+#  text           :text(65535)
+#  type           :integer          default("example_answer"), not null
 #  created_at     :datetime
 #  updated_at     :datetime
 #  org_id         :integer
@@ -18,11 +18,6 @@
 #  fk_rails_aca7521f72                  (org_id)
 #  index_annotations_on_question_id     (question_id)
 #  index_annotations_on_versionable_id  (versionable_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (org_id => orgs.id)
-#  fk_rails_...  (question_id => questions.id)
 #
 
 class Annotation < ApplicationRecord

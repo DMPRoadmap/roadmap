@@ -41,6 +41,18 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
   </div>
 </div>
 
+<div class="form-group">
+  <div class="col-md-12">
+    <%= form.label(:fos_id, _("Research domain"), class: "control-label") %>
+  </div>
+  <div class="col-md-8">
+    <% fos_categories = FieldOfScience.all.order(:label).map { |fos| [fos.label, fos.id] } %>
+    <%= form.select :fos_id, options_for_select(fos_categories, form.object.fos_id),
+                             { include_blank: _("- Please select one -"), selected: form.object.fos_id },
+                             { class: "form-control" } %>
+  </div>
+</div>
+
 <div class="form-group"><!-- start / end dates -->
   <div class="col-md-4">
     <%= form.label(:start_date, _("Project Start"), class: "control-label") %>
@@ -58,10 +70,10 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
 
 <%# if DOI minting is enabled %>
 <% landing_page = plan.landing_page %>
-<% if Rails.configuration.x.doi&.active && landing_page.present? %>
+<% if Rails.configuration.x.dmproadmap.doi_minting && landing_page.present? %>
   <div class="form-group"><!-- identifier -->
     <div class="col-md-12">
-      <%= form.label(:identifier, _('Landing page'), class: 'control-label') %>
+      <%= form.label(:doi, _('Landing page'), class: 'control-label') %>
     </div>
     <div class="col-md-8">
       <% if landing_page.value.starts_with?("http") %>
@@ -69,6 +81,24 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
       <% else %>
         <%= landing_page.value %>
       <% end %>
+    </div>
+  </div>
+<% end %>
+
+<% if form.object.related_identifiers.any? %>
+  <div class="form-group">
+    <div class="col-md-12">
+      <%= form.label(:identifier, _('Related identifiers'), class: 'control-label') %>
+    </div>
+    <div class="col-md-8">
+      <ul>
+        <% form.object.related_identifiers.each do |id| %>
+          <li>
+            <%= id.relation_type %> - <%= link_to id.value, id.value, target: "_blank",
+                                                  class: "has-new-window-popup-info" %>
+          </li>
+        <% end %>
+      </ul>
     </div>
   </div>
 <% end %>
@@ -125,7 +155,22 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
 
   <div class="form-group toggleable-field">
     <div class="col-md-12">
-      <%= form.label :id, _("Funding Opportunity Number"), class: "control-label" %>
+      <%= form.label(:funding_status, _("Research domain"), class: "control-label") %>
+    </div>
+    <div class="col-md-8">
+      <% funding_statuses = Plan.funding_statuses.map { |status| [status[0].capitalize, status[0]] } %>
+      <%= form.select :funding_status, options_for_select(funding_statuses, form.object.funding_status),
+                                      {
+                                        include_blank: _("- Please select one -"),
+                                        selected: form.object.funding_status
+                                      },
+                                      { class: "form-control" } %>
+    </div>
+  </div>
+
+  <div class="form-group toggleable-field">
+    <div class="col-md-12">
+      <%= form.label :identifier, _("Funding Opportunity Number"), class: "control-label" %>
     </div>
     <div class="col-md-8">
       <em class="sr-only"><%= id_tooltip %></em>

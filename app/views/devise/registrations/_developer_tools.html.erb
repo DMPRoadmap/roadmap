@@ -1,0 +1,41 @@
+<%# locals: user %>
+
+<%
+api_client = ApiClient.find_or_initialize_by(user_id: user.id)
+# TODO: Remove this eventually after we can ensure that all existing records have a corresponding user account.
+api_client.contact_name = user.name(false) unless api_client.contact_name.present?
+api_client.contact_email = user.email unless api_client.contact_email.present?
+%>
+
+<div id="api-clients" class="col-xs-12">
+  <h2><%= _("Developer Tools") %></h2>
+
+  <p><%= _("Fill out the form below to register for access to the API. The API provides access to two types of access levels: 'standard' and 'protected'.") %></p>
+
+  <p><%= _("The 'standard' access level allows you to:") %></p>
+  <ul>
+    <li><%= _("Retrieve the names and descriptions of all published DMP templates") %></li>
+    <li><%= _("Retrieve publicly visible DMPs") %></li>
+    <li><%= _("Create DMPs") %></li>
+    <li>
+      <%= _("Then depending on your permission level you can:") %>
+      <ul>
+        <li><%= _("Organisation administrator - Retrieve your user's DMPs") %></li>
+        <li><%= _("Researchers - Retrieve your own DMPs and any organisationally visible plans") %></li>
+      </ul>
+    </li>
+  </ul>
+
+  <p><%= _("The 'protected' access level allows you to:") %></p>
+  <ul>
+    <li><%= _("Request a user's authorization to access their DMPs") %></li>
+    <li><%= _("Retrieve the user's DMP metadata or PDFs (if they have authorized access)") %></li>
+  </ul>
+
+  <p><%= (_("Please see the %{wiki_docs} for full details on how the API works.") % { wiki_docs: "<a href=\"#{Rails.configuration.x.dmproadmap.api_documentation_overview_url}\" target=\"_blank\">wiki documentation</a>" }).html_safe %></p>
+
+  <div class="api-client-form">
+    <%= render partial: "devise/registrations/api_client_form",
+                locals: { api_client: api_client, user: current_user } %>
+  </div>
+</div>

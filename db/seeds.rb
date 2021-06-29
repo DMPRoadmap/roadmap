@@ -152,6 +152,10 @@ languages = [
   {abbreviation: 'ja',
    description: '',
    name: '日本語',
+   default_language: false},
+  {abbreviation: 'tr-TR',
+   description: '',
+   name: 'Türk',
    default_language: false}
 ]
 languages.each { |l| Language.create!(l) }
@@ -865,3 +869,5 @@ annotations = [
    question: Question.find_by(text: "What types of data will you collect and how will it be stored?")},
 ]
 annotations.each{ |s| Annotation.create!(s) if Annotation.find_by(text: s[:text]).nil? }
+
+Rake::Task["external_api:load_field_of_science"].execute

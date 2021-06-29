@@ -5,6 +5,7 @@ require "rails_helper"
 RSpec.describe Api::V1::Auth::Jwt::JsonWebToken do
 
   before(:each) do
+    Rails.application.credentials.secret_key_base = SecureRandom.uuid
     @payload = {
       "foo": Faker::Lorem.sentence,
       "bar": Faker::Number.number

@@ -44,7 +44,19 @@ if output.is_a?(ResearchOutput)
     end
   end
 
-  json.metadata []
+  json.metadata output.metadata_standards do |metadata_standard|
+    website = metadata_standard.locations.select { |loc| loc["type"] == "website" }.first || { url: "" }
+    json.description [metadata_standard.title, metadata_standard.description, website["url"]].join(" - ")
+    json.metadata_standard_id do
+      json.type "url"
+      json.identifier metadata_standard.uri
+    end
+  end
+
+  if output.plan.fos_id.present?
+    fos = FieldOfScience.find_by(id: output.plan.fos_id)
+    json.keyword [fos.label, "#{fos.identifier} - #{fos.label}"] if fos.present?
+  end
 
   json.technical_resource []
 

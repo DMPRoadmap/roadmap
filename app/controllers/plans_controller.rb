@@ -124,7 +124,7 @@ class PlansController < ApplicationController
         elsif !@plan.template.customization_of.nil?
           # We used a customized version of the the funder template
           # rubocop:disable Layout/LineLength
-          msg += " #{_('This plan is based on the')} #{@plan.funder&.name}: '#{@plan.template.title}' #{_('template with customisations by the')} #{plan_params[:org_name]}"
+          msg += " #{_('This plan is based on the')} #{@plan.funder&.name}: '#{@plan.template.title}' #{_('template with customisations by the')} #{@plan.template.org.name}"
           # rubocop:enable Layout/LineLength
         else
           # We used the specified org's or funder's template
@@ -183,22 +183,13 @@ class PlansController < ApplicationController
     @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
 
     # Get the selected and possible guidance options for the plan
-    fetch_guidance_groups(plan: @plan)
+    fetch_guidance_groups(plan_in: @plan)
 
     @based_on = if @plan.template.customization_of.nil?
                   @plan.template
                 else
                   Template.where(family_id: @plan.template.customization_of).first
                 end
-
-    @all_orgs = Org.all
-
-    # choose which org patial to use for choosing org
-    @org_partial = if Rails.configuration.x.application.restrict_orgs
-                     "shared/org_selectors/local_only"
-                   else
-                     "shared/org_selectors/combined"
-                   end
 
     respond_to :html
   end
@@ -210,7 +201,16 @@ class PlansController < ApplicationController
   #       doing this when we refactor the Plan editing UI
   # GET /plans/:plan_id/phases/:id/edit
   def edit
-    plan = Plan.includes({ template: { phases: { sections: :questions } } }, { answers: :notes })
+    plan = Plan.includes(
+      { template: {
+        phases: {
+          sections: {
+            questions: %i[question_format question_options annotations themes]
+          }
+        }
+      } },
+      { answers: :notes }
+    )
                .find(params[:id])
     authorize plan
     phase_id = params[:phase_id].to_i
@@ -249,7 +249,8 @@ class PlansController < ApplicationController
 
       if @plan.update(attrs) # _attributes(attrs)
         format.html do
-          redirect_to plan_path(@plan), notice: success_message(@plan, _("saved"))
+          redirect_to plan_path(@plan),
+                      notice: success_message(@plan, _("saved"))
         end
         format.json do
           render json: { code: 1, msg: success_message(@plan, _("saved")) }
@@ -257,7 +258,7 @@ class PlansController < ApplicationController
       else
         format.html do
           # Get the selected and possible guidance options for the plan
-          fetch_guidance_groups(plan: @plan)
+          fetch_guidance_groups(plan_in: @plan)
           flash[:alert] = failure_message(@plan, _("save"))
           render "show"
         end
@@ -283,7 +284,8 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     if @plan.present?
       authorize @plan
-      @plan_roles = @plan.roles
+      @plan_roles = @plan.roles.where(active: true)
+      @orcid_access_token = ExternalApiAccessToken.for_user_and_service(user: current_user, service: "orcid")
     else
       redirect_to(plans_path)
     end
@@ -296,7 +298,7 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     if @plan.present?
       authorize @plan
-      @plan_roles = @plan.roles
+      @plan_roles = @plan.roles.where(active: true)
     else
       redirect_to(plans_path)
     end
@@ -422,9 +424,17 @@ class PlansController < ApplicationController
 
     DoiService.mint_doi(plan: @plan)&.save
     @plan = @plan.reload
+
+    @orcid_access_token = ExternalApiAccessToken.for_user_and_service(user: current_user, service: "orcid")
+
+    # If a DMP ID was successfully acquired and the User has authorized us to write to their ORCID record
+    if @plan.doi.present? && @orcid_access_token.present?
+      ExternalApis::OrcidService.add_work(user: current_user, plan: @plan)
+    end
+
     render js: render_to_string(template: "plans/mint.js.erb")
   rescue StandardError => e
-    Rails.logger.error "Unable to mint DOI for plan #{params[:id]} - #{e.message}"
+    Rails.logger.error "Unable to add plan #{params[:id]} to the user #{current_user.id}'s ORCID record - #{e.message}"
     Rails.logger.error e.backtrace
 
     render js: render_to_string(template: "plans/mint.js.erb")
@@ -444,7 +454,7 @@ class PlansController < ApplicationController
           .permit(:template_id, :title, :visibility, :description, :identifier,
                   :start_date, :end_date, :org_id, :org_name, :org_crosswalk,
                   :ethical_issues, :ethical_issues_description, :ethical_issues_report,
-                  grant: %i[name value],
+                  :fos_id, :funding_status, grant: %i[name value],
                   org: %i[id org_id org_name org_sources org_crosswalk],
                   funder: %i[id org_id org_name org_sources org_crosswalk])
   end
@@ -504,11 +514,11 @@ class PlansController < ApplicationController
   end
 
   # Fetch all the available Guidance Groups for the specified Plan
-  def fetch_guidance_groups(plan: plan)
+  def fetch_guidance_groups(plan_in: plan)
     # Get all Guidance Groups applicable for the plan and group them by org
-    @all_guidance_groups = plan.guidance_group_options
+    @all_guidance_groups = plan_in.guidance_group_options
     @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
-    @selected_guidance_groups = plan.guidance_groups
+    @selected_guidance_groups = plan_in.guidance_groups
 
     # Important ones come first on the page - we grab the user's org's GGs and
     # "Organisation" org type GGs

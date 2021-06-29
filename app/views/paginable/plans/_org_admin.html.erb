@@ -50,7 +50,7 @@
             <td>
               <% doi = plan.doi %>
               <% if doi.present? %>
-                <a href="<%= doi.value %>" target="_blank" class="has-new-window-popup-info"><%= id_presenter.id_for_display(id: doi, with_scheme_name: false).html_safe %></a>
+                <a href="<%= doi.value %>" target="_blank" class="has-new-window-popup-info"><%= id_for_display(id: doi, with_scheme_name: false).html_safe %></a>
               <% end %>
             </td>
           <% end %>

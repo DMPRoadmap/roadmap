@@ -17,6 +17,8 @@ If you have users already using the DMPTool will retain their accounts once SSO 
 
 Send us your identity provider's `entityID` so that we can enable SSO for your users.
 
+Note that if your identity provider does not allow you to import the entire metadata schemes in this repo and asks you to specify a specific 'AssertionConsumerService' then you should use: `https://dmptool.org/Shibboleth.sso/SAML2/POST` 
+
 ## My institution is a member of the [Research & Scholarship (R&S) category](https://refeds.org/research-and-scholarship)
 The Research and Scholarship Entity Category (R&S) is a simple way for Identity Providers to release minimal required attributes to Service Providers serving the Research and Scholarship Community.  Being a member automatically guarantees that your identity provider releases the correct attributes to the DMPTool.  
 

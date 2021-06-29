@@ -5,14 +5,14 @@
 # Table name: notifications
 #
 #  id                :integer          not null, primary key
-#  body              :text
+#  body              :text(65535)
 #  dismissable       :boolean
+#  enabled           :boolean          default(TRUE)
 #  expires_at        :date
 #  level             :integer
 #  notification_type :integer
 #  starts_at         :date
-#  title             :string
-#  enabled            :boolean
+#  title             :string(255)
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #

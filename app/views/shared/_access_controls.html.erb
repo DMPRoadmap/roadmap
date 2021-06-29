@@ -19,6 +19,12 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <%= render :partial => 'shared/sign_in_form' %>
+
+          <% if Rails.configuration.x.shibboleth_enabled %>
+            <%= render partial: "shared/shib_sign_in_form" %>
+            <br><br>
+            <p class="text-center fontsize-h4">- <%= _('or') %> -</p>
+          <% end %>
         </div>
       </div>
     </div>

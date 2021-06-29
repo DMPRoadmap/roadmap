@@ -14,8 +14,10 @@ namespace :v3 do
     Rake::Task["v3:datacite"].execute
     Rake::Task["v3:init_re3data"].execute
     Rake::Task["v3:seed_external_services"].execute
-    Rake::Task["v3:load_re3data_repos"].execute
-    Rake::Task["v3:load_spdx_licenses"].execute
+    Rake::Task["external_api:load_field_of_science"].execute
+    Rake::Task["external_api:load_rdamsc_standards"].execute
+    Rake::Task["external_api:load_re3data_repos"].execute
+    Rake::Task["external_api:load_spdx_licenses"].execute
     Rake::Task["v3:backfill_doi_subscriptions"].execute
   end
 
@@ -126,17 +128,6 @@ namespace :v3 do
     datacite.save
   end
 
-  desc "Load Repositories from re3data"
-  task load_re3data_repos: :environment do
-    Rails::Task["v3:init_re3data"].execute unless IdentifierScheme.find_by(name: "rethreedata").present?
-    ExternalApis::Re3dataService.fetch
-  end
-
-  desc "Load Licenses from SPDX"
-  task load_spdx_licenses: :environment do
-    ExternalApis::SpdxService.fetch
-  end
-
   desc "Add the DOI Service as an api_client (if necessary) and then set it as subscriber to DOIs"
   task backfill_doi_subscriptions: :environment do
     p "Backfilling subscriptions on existing DOIs"
@@ -167,6 +158,17 @@ namespace :v3 do
     else
       p "DOI Minting service is not defined. Skipping backfill of DOI subscriptions"
     end
+  end
+
+  desc "Adds the rams IdentifierScheme for Plans"
+  task init_rams: :environment do
+    rams = IdentifierScheme.find_or_initialize_by(name: "rams")
+    rams.for_plans = true
+    rams.for_identification = true
+    rams.description = "UCNRS RAMS System"
+    rams.identifier_prefix = "https://rams.ucnrs.org/manager/reserves/100501/applications/"
+    rams.active = true
+    rams.save
   end
 
 end

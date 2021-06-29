@@ -7,7 +7,7 @@ describe "paginable/orgs/_public.html.erb" do
   it "renders our version of the page" do
     generate_shibbolized_orgs(2)
     shib = Org.last
-    non_shib = create(:org, managed: true, identifiers: [])
+    non_shib = create(:org, managed: true, identifiers: [], funder: false)
 
     controller.prepend_view_path "app/views/branded"
     assign :paginable_path_params, { sort_field: "orgs.name", sort_direction: :asc }

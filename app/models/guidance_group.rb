@@ -8,8 +8,8 @@
 # Table name: guidance_groups
 #
 #  id              :integer          not null, primary key
-#  name            :string
-#  optional_subset :boolean          default(FALSE), not null
+#  name            :string(255)
+#  optional_subset :boolean          default(TRUE), not null
 #  published       :boolean          default(FALSE), not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -26,7 +26,7 @@
 
 class GuidanceGroup < ApplicationRecord
 
-  attribute :optional_subset, :boolean, default: true
+  attribute :optional_subset, :boolean, default: false
   attribute :published, :boolean, default: false
 
   # ================

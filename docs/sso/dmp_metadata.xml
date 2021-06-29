@@ -57,6 +57,7 @@ IdAUy0C4K5PdSbV8IUX1OZkeZyiQCdMs74p3IvKE57weopAz5Kxhiq9FlMh/LTx3
         </ds:X509Data>
       </ds:KeyInfo>
     </KeyDescriptor>
+    <!-- If your identity provider asks you to enter a specific value for the 'AssertionConsumerService', please use: https://dmptool.org/Shibboleth.sso/SAML2/POST -->
     <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post"
                               Location="https://dmp.cdlib.org/Shibboleth.sso/SAML/POST" index="1"/>
     <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"

@@ -4,7 +4,8 @@ class ResearchOutputsController < ApplicationController
 
   helper PaginableHelper
 
-  before_action :fetch_plan, except: %i[select_output_type select_license repository_search]
+  before_action :fetch_plan, except: %i[select_output_type select_license repository_search
+                                        metadata_standard_search]
   before_action :fetch_research_output, only: %i[edit update destroy]
 
   after_action :verify_authorized
@@ -49,12 +50,9 @@ class ResearchOutputsController < ApplicationController
     args = process_nillable_values(args: args)
     authorize @research_output
 
-    # Allow the repository to be removed
-    @research_output.repository_id = nil unless args[:repository_id].present?
-
-    # Clear any existing repository selections. If the user has selected any
-    # the will be saved via the :repositories_attributes params during :update
+    # Clear any existing repository and metadata_standard selections.
     @research_output.repositories.clear
+    @research_output.metadata_standards.clear
 
     if @research_output.update(args)
       redirect_to plan_research_outputs_path(@plan),
@@ -129,6 +127,17 @@ class ResearchOutputsController < ApplicationController
     authorize @research_output
   end
 
+  # GET /plans/:id/metadata_standard_search
+  def metadata_standard_search
+    @plan = Plan.find_by(id: params[:id])
+    @research_output = ResearchOutput.new(plan: @plan)
+    authorize @research_output
+
+    @search_results = MetadataStandard.search(metadata_standard_search_params[:search_term])
+                                      .order(:title)
+                                      .page(params[:page])
+  end
+
   private
 
   def output_params
@@ -137,11 +146,15 @@ class ResearchOutputsController < ApplicationController
                      sensitive_data personal_data file_size file_size_unit mime_type_id
                      release_date access coverage_start coverage_end coverage_region
                      mandatory_attribution license_id],
-                  repositories_attributes: %i[id])
+                  repositories_attributes: %i[id], metadata_standards_attributes: %i[id])
   end
 
   def repo_search_params
     params.require(:research_output).permit(%i[search_term subject_filter type_filter])
+  end
+
+  def metadata_standard_search_params
+    params.require(:research_output).permit(%i[search_term])
   end
 
   def process_byte_size

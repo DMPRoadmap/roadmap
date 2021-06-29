@@ -5,30 +5,36 @@
 # Table name: orgs
 #
 #  id                     :integer          not null, primary key
-#  abbreviation           :string
-#  contact_email          :string
-#  contact_name           :string
-#  feedback_email_msg     :text
-#  feedback_email_subject :string
+#  abbreviation           :string(255)
+#  contact_email          :string(255)
+#  contact_name           :string(255)
+#  feedback_email_msg     :text(65535)
+#  feedback_email_subject :string(255)
 #  feedback_enabled       :boolean          default(FALSE)
 #  is_other               :boolean          default(FALSE), not null
-#  links                  :text
-#  logo_name              :string
-#  logo_uid               :string
+#  links                  :text(65535)
+#  logo_name              :string(255)
+#  logo_uid               :string(255)
 #  managed                :boolean          default(FALSE), not null
-#  name                   :string
+#  name                   :string(255)
 #  org_type               :integer          default(0), not null
-#  sort_name              :string
-#  target_url             :string
+#  sort_name              :string(255)
+#  target_url             :string(255)
+#  users_count            :integer
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  language_id            :integer
 #  region_id              :integer
-#  managed                :boolean          default(false), not null
+#
+# Indexes
+#
+#  fk_rails_5640112cab  (language_id)
+#  fk_rails_5a6adf6bab  (region_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (language_id => languages.id)
+#  fk_rails_...  (region_id => regions.id)
 #
 class Org < ApplicationRecord
 
@@ -48,7 +54,7 @@ class Org < ApplicationRecord
   extend Dragonfly::Model::Validations
   validates_with OrgLinksValidator
 
-  LOGO_FORMATS = %w[jpeg png gif jpg bmp].freeze
+  LOGO_FORMATS = %w[jpeg png gif jpg bmp svg].freeze
 
   HUMANIZED_ATTRIBUTES = {
     feedback_email_msg: _("Feedback email message")
@@ -89,6 +95,8 @@ class Org < ApplicationRecord
   has_many :templates
 
   has_many :users
+
+  has_many :contributors
 
   has_many :annotations
 
@@ -135,57 +143,16 @@ class Org < ApplicationRecord
 
   validates_property :format, of: :logo, in: LOGO_FORMATS,
                               message: _("must be one of the following formats: " \
-                                "jpeg, jpg, png, gif, bmp")
+                                "jpeg, jpg, png, gif, bmp svg")
 
   validates_size_of :logo,
                     maximum: 500.kilobytes,
                     message: _("can't be larger than 500KB")
 
-  # allow validations for logo upload
-
-  # ---------------------------------------
-  # Start DMPTool Customization
-  # ---------------------------------------
-  # Commenting out the logo resizer. We adjust the logo size via CSS
-  #dragonfly_accessor :logo do
-  #  after_assign :resize_image
-  #end
   dragonfly_accessor :logo
-  # ---------------------------------------
-  # End DMPTool Customization
-  # ---------------------------------------
 
-  validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif', 'jpg', 'bmp'], message: _("must be one of the following formats: jpeg, jpg, png, gif, bmp")
+  validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif', 'jpg', 'bmp', 'svg'], message: _("must be one of the following formats: jpeg, jpg, png, gif, bmp, svg")
   validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
-
-  # =============
-  # = Callbacks =
-  # =============
-  # This checks the filestore for the dragonfly image each time before we validate
-  # and removes the dragonfly info if the logo is not found so validations pass
-  # TODO: re-evaluate this after moving dragonfly to active_storage
-  before_validation :check_for_missing_logo_file
-
-  # If the physical logo file is no longer on disk we do not want it to prevent the
-  # model from saving. This typically happens when you copy the database to another
-  # environment. The orgs.logo_uid stores the path to the physical logo file that is
-  # stored in the Dragonfly data store (default is: public/system/dragonfly/[env]/)
-  def check_for_missing_logo_file
-    return unless logo_uid.present?
-
-    data_store_path = Dragonfly.app.datastore.root_path
-
-    return if File.exist?("#{data_store_path}#{logo_uid}")
-
-    # Attempt to locate the file by name. If it exists update the uid
-    logo = Dir.glob("#{data_store_path}/**/*#{logo_name}")
-    if !logo.empty?
-      self.logo_uid = logo.first.gsub(data_store_path, "")
-    else
-      # Otherwise the logo is missing so clear it to prevent save failures
-      self.logo = nil
-    end
-  end
 
   ##
   # Define Bit Field values
@@ -225,6 +192,14 @@ class Org < ApplicationRecord
       .select("orgs.*,
               count(distinct templates.family_id) as template_count,
               count(users.id) as user_count")
+  }
+
+  # Returns all Org's with a Shibboleth entityID stored in the Identifiers table
+  # This is used on the app/views/shared/_shib_sign_in_form.html.erb partial which
+  # is only used if you have `shibboleth.use_filtered_discovery_service` enabled.
+  scope :shibbolized, lambda {
+    org_ids = Identifier.by_scheme_name("shibboleth", "Org").pluck(:identifiable_id)
+    where(managed: true, id: org_ids)
   }
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW

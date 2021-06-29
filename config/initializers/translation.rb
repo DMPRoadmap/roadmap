@@ -11,12 +11,14 @@
 # domain specified in order to generate both sets of translation keys.
 if !ENV["DOMAIN"] || ENV["DOMAIN"] == "app"
   TranslationIO.configure do |config|
-    config.api_key              = ENV["TRANSLATION_API_ROADMAP"]
+    config.api_key              = Rails.configuration.x.dmproadmap.translation_io_key_app
     config.source_locale        = "en"
-    config.target_locales       = %w[de en-GB en-US es fr-FR fi sv-FI pt-BR en-CA fr-CA]
+    config.target_locales       = %w[de en-GB en-US es fr-FR fi sv-FI pt-BR en-CA fr-CA tr-TR]
     config.text_domain          = "app"
     config.bound_text_domains   = %w[app client]
-    config.ignored_source_paths = ["app/views/branded/"]
+    config.ignored_source_paths = Dir.glob("**/*").select { |f| File.directory? f }
+                                     .collect { |name| "#{name}/" }
+                                     .select { |path| path.include?("branded/") || path.include?("dmptool/") }
     config.locales_path         = Rails.root.join("config", "locale")
   end
 elsif ENV["DOMAIN"] == "client"
@@ -27,38 +29,17 @@ elsif ENV["DOMAIN"] == "client"
   #  > rails translations:sync_and_purge DOMAIN=client
   # rubocop:disable Metrics/BlockLength
   TranslationIO.configure do |config|
-    config.api_key              = Rails.application.credentials.translation_io[:key]
+    config.api_key              = Rails.configuration.x.dmproadmap.translation_io_key_client
     config.source_locale        = "en"
-    config.target_locales       = %w[en-US pt-BR]
+    config.target_locales       = %w[en-US pt-BR en-CA fr-CA es]
     config.text_domain          = "client"
     config.bound_text_domains = ["client"]
     config.ignored_source_paths = Dir.glob("**/*").select { |f| File.directory? f }
-                                     .collect { |name| "#{name}/" } - [
-                                       "app/",
-                                       "app/views/",
-                                       "app/views/branded/",
-                                       "app/views/branded/contact_us/",
-                                       "app/views/branded/contact_us/contacts/",
-                                       "app/views/devise/",
-                                       "app/views/devise/registrations/",
-                                       "app/views/branded/home/",
-                                       "app/views/branded/layouts/",
-                                       "app/views/branded/layouts/mobile/",
-                                       "app/views/branded/paginable/",
-                                       "app/views/branded/paginable/orgs/",
-                                       "app/views/branded/paginable/templates/",
-                                       "app/views/branded/public_pages/",
-                                       "app/views/branded/shared/",
-                                       "app/views/branded/static_pages/",
-                                       "app/controllers/",
-                                       "app/controllers/dmptool/",
-                                       "app/controllers/paginable/",
-                                       "app/controllers/users/",
-                                       "app/mailers/",
-                                       "app/mailers/dmptool/",
-                                       "app/presenters/",
-                                       "app/presenters/dmptool/"
-                                     ]
+                                     .collect { |name| "#{name}/" }
+                                     .reject { |path|
+                                       path == "app/" || path == "app/views/" ||
+                                       path.include?("branded/") || path.include?("dmptool/")
+                                     }
     config.disable_yaml         = true
     config.locales_path         = Rails.root.join("config", "locale")
   end

@@ -32,6 +32,7 @@ import '../src/utils/paginable';
 import '../src/utils/panelHeading';
 import '../src/utils/popoverHelper';
 import '../src/utils/requiredField';
+import '../src/utils/spinner';
 import '../src/utils/tabHelper';
 import '../src/utils/tooltipHelper';
 
@@ -48,6 +49,7 @@ import '../src/devise/invitations/edit';
 import '../src/devise/passwords/edit';
 import '../src/devise/registrations/edit';
 import '../src/devise/registrations/new';
+import '../src/doorkeeper/authorizations/new';
 import '../src/guidances/newEdit';
 import '../src/notes/index';
 import '../src/orgs/adminEdit';

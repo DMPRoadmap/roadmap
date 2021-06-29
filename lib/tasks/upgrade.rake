@@ -580,7 +580,7 @@ namespace :upgrade do
 
       Rails.logger.info "Updating versionable_id for Template: #{funder_template.id}"
 
-      funder_template.phases.each do |funder_phase|
+      funder_template.phases.select { |phase| phase.versionable_id.nil? }.each do |funder_phase|
         Rails.logger.info "Updating versionable_id for Phase: #{funder_phase.id}"
         funder_phase.update! versionable_id: SecureRandom.uuid
 
@@ -593,7 +593,7 @@ namespace :upgrade do
           end
         end
 
-        funder_phase.sections.each do |funder_section|
+        funder_phase.sections.select { |section| section.versionable_id.nil? }.each do |funder_section|
           Rails.logger.info "Updating versionable_id for Section: #{funder_section.id}"
           funder_section.update! versionable_id: SecureRandom.uuid
 
@@ -610,7 +610,7 @@ namespace :upgrade do
             end
           end
 
-          funder_section.questions.each do |funder_question|
+          funder_section.questions.select { |ques| ques.versionable_id.nil? }.each do |funder_question|
             Rails.logger.info "Updating versionable_id for Question: #{funder_question.id}"
 
             funder_question.update! versionable_id: SecureRandom.uuid
@@ -629,7 +629,7 @@ namespace :upgrade do
               end
             end
 
-            funder_question.annotations.each do |funder_annotation|
+            funder_question.annotations.select { |anno| anno.versionable_id.nil? }.each do |funder_annotation|
               Rails.logger.info "Updating versionable_id for Annotation: #{funder_annotation.id}"
 
               funder_annotation.update! versionable_id: SecureRandom.uuid

@@ -9,42 +9,45 @@
 #
 #  id                                :integer          not null, primary key
 #  complete                          :boolean          default(FALSE)
-#  data_contact                      :string
-#  data_contact_email                :string
-#  data_contact_phone                :string
-#  description                       :text
+#  data_contact                      :string(255)
+#  data_contact_email                :string(255)
+#  data_contact_phone                :string(255)
+#  description                       :text(65535)
+#  end_date                          :datetime
+#  ethical_issues                    :boolean
+#  ethical_issues_description        :text(65535)
+#  ethical_issues_report             :string(255)
 #  feedback_requested                :boolean          default(FALSE)
-#  funder_name                       :string
-#  grant_number                      :string
-#  identifier                        :string
-#  principal_investigator            :string
-#  principal_investigator_email      :string
-#  principal_investigator_identifier :string
-#  principal_investigator_phone      :string
-#  title                             :string
-#  visibility                        :integer          default(3), not null
+#  funder_name                       :string(255)
+#  grant_number                      :string(255)
+#  identifier                        :string(255)
+#  principal_investigator            :string(255)
+#  principal_investigator_email      :string(255)
+#  principal_investigator_identifier :string(255)
+#  principal_investigator_phone      :string(255)
+#  start_date                        :datetime
+#  title                             :string(255)
+#  visibility                        :integer          default("privately_visible"), not null
 #  created_at                        :datetime
 #  updated_at                        :datetime
-#  template_id                       :integer
-#  org_id                            :integer
 #  funder_id                         :integer
 #  grant_id                          :integer
-#  api_client_id                     :integer
-#  ethical_issues                    :boolean
-#  ethical_issues_description        :text
-#  ethical_issues_report             :string
+#  org_id                            :integer
+#  template_id                       :integer
+#  fos_id                            :integer
+#  funding_status                    :integer
 #
 # Indexes
 #
-#  index_plans_on_template_id   (template_id)
-#  index_plans_on_funder_id     (funder_id)
-#  index_plans_on_grant_id      (grant_id)
-#  index_plans_on_api_client_id (api_client_id)
+#  index_plans_on_funder_id    (funder_id)
+#  index_plans_on_grant_id     (grant_id)
+#  index_plans_on_org_id       (org_id)
+#  index_plans_on_template_id  (template_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (template_id => templates.id)
 #  fk_rails_...  (org_id => orgs.id)
+#  fk_rails_...  (template_id => templates.id)
 #
 
 # TODO: Drop the funder_name and grant_number columns once the funder_id has
@@ -76,6 +79,8 @@ class Plan < ApplicationRecord
   # public is a Ruby keyword so using publicly
   enum visibility: %i[organisationally_visible publicly_visible
                       is_test privately_visible]
+
+  enum funding_status: %i[planned funded denied]
 
   alias_attribute :name, :title
 
@@ -190,10 +195,6 @@ class Plan < ApplicationRecord
       )
   }
 
-  # TODO: Add in a left join here so we can search contributors as well when
-  #       we move to Rails 5:
-  #           OR lower(contributors.name) LIKE lower(:search_pattern)
-  #           OR lower(identifiers.value) LIKE lower(:search_pattern)",
   scope :search, lambda { |term|
     if date_range?(term: term)
       joins(:template, roles: [user: :org])
@@ -202,13 +203,16 @@ class Plan < ApplicationRecord
     else
       search_pattern = "%#{term}%"
       joins(:template, roles: [user: :org])
+        .left_outer_joins(:identifiers, :contributors)
         .where(Role.creator_condition)
         .where("lower(plans.title) LIKE lower(:search_pattern)
                 OR lower(orgs.name) LIKE lower (:search_pattern)
                 OR lower(orgs.abbreviation) LIKE lower (:search_pattern)
                 OR lower(templates.title) LIKE lower(:search_pattern)
                 OR lower(plans.principal_investigator) LIKE lower(:search_pattern)
-                OR lower(plans.principal_investigator_identifier) LIKE lower(:search_pattern)",
+                OR lower(plans.principal_investigator_identifier) LIKE lower(:search_pattern)
+                OR lower(contributors.name) LIKE lower(:search_pattern)
+                OR lower(identifiers.value) LIKE lower(:search_pattern)",
                search_pattern: search_pattern)
     end
   }
@@ -586,6 +590,15 @@ class Plan < ApplicationRecord
     identifiers.select { |i| %w[doi ark].include?(i.identifier_format) }.first
   end
 
+  # Returns the Plan's unique identifier for the Identifier_Scheme or the record id if none is found
+  def unique_identifier(identifier_scheme:)
+    # If the system has the DMP ID gem installed use the plan's doi
+    doi = plan.doi if plan.respond_to?(:doi)
+    return doi if doi.present?
+
+    plan.identifier_for_scheme(scheme: identifier_scheme) || plan.id
+  end
+
   # Retrieves the Plan's most recent DOI
   def doi
     return nil unless Rails.configuration.x.allow_doi_minting
@@ -603,12 +616,13 @@ class Plan < ApplicationRecord
   # Returns whether or not minting is allowed for the current plan
   def minting_allowed?
     orcid_scheme = IdentifierScheme.where(name: "orcid").first
-    ror_scheme = IdentifierScheme.where(name: "ror").first
-    return false unless orcid_scheme.present? && ror_scheme.present?
+    return false unless orcid_scheme.present?
 
-    orcids = contributors.select { |c| c&.identifier_for_scheme(scheme: orcid_scheme).present? }
-    rors = contributors.select { |c| c.org&.identifier_for_scheme(scheme: ror_scheme).present? }
-    visibility_allowed? && orcids.any? && rors.any? && funder.present?
+    # The owner must have an orcid and have authorized us to add to their record
+    orcid = owner.identifier_for_scheme(scheme: orcid_scheme).present?
+    token = ExternalApiAccessToken.for_user_and_service(user: owner, service: "orcid")
+
+    visibility_allowed? && orcid.present? && token.present? && funder.present?
   end
 
   # Since the Grant is not a normal AR association, override the getter and setter
@@ -617,19 +631,42 @@ class Plan < ApplicationRecord
   end
 
   # Helper method to convert the grant id value entered by the user into an Identifier
+  # works with both controller params or an instance of Identifier
   def grant=(params)
+    val = params.present? ? params[:value] : nil
     current = grant
 
     # Remove it if it was blanked out by the user
-    current.destroy if current.present? && !params[:value].present?
-    return unless params[:value].present?
+    current.destroy if current.present? && !val.present?
+    return unless val.present?
 
     # Create the Identifier if it doesn't exist and then set the id
-    current.update(value: params[:value]) if current.present? && current.value != params[:value]
+    current.update(value: val) if current.present? && current.value != val
     return if current.present?
 
-    current = Identifier.create(identifiable: self, value: params[:value])
+    current = Identifier.create(identifiable: self, value: val)
     self.grant_id = current.id
+  end
+
+  # Return the citation for the DMP
+  #    Author name. (yyy, mm, dd). Title of DMP (Version XX). DMPHub. DOI
+  def citation
+    return nil unless owner.present? && doi.is_a?(Identifier)
+
+    # authors = owner_and_coowners.map { |author| author.name(false) }
+    #                             .uniq
+    #                             .sort { |a, b| a <=> b }
+    #                             .join(", ")
+    # TODO: display all authors once we determine the appropriate way to handle on the ORCID side
+    authors = owner.name(false)
+    pub_year = updated_at.strftime('%Y')
+    app_name = ApplicationService.application_name
+    "#{authors}. (#{pub_year}). \"#{title}\" [Data Management Plan]. #{app_name}. #{doi.value}"
+  end
+
+  # Returns the Subscription for the specified subscriber or nil if none exists
+  def subscription_for(subscriber:)
+    subscriptions.select { |subscription| subscription.subscriber == subscriber }
   end
 
   private
@@ -662,16 +699,18 @@ class Plan < ApplicationRecord
     # UpdateDoiJob.perform_later(plan: self)
   rescue StandardError => e
     # Log the error and continue. We do not want this to disrupt the save!
-    Rails.logger.error "Failure on Plan.notify_subscribers for id - #{id} & client - '#{api_client_id&.name}'"
+    Rails.logger.error "Failure on Plan.notify_subscribers for id - #{id} & client - '#{api_client&.name}'"
+    Rails.logger.error e.message
+    Rails.logger.error e.backtrace
     return true
   end
 
   # Validation to prevent end date from coming before the start date
   def end_date_after_start_date
     # allow nil values
-    return true if end_date.blank? || start_date.blank?
+    return true if end_date.blank? || start_date.blank? || end_date > start_date
 
-    errors.add(:end_date, _("must be after the start date")) if end_date < start_date
+    errors.add(:end_date, _("must be after the start date"))
   end
 
 end

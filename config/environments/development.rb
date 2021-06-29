@@ -71,6 +71,3 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = Rails.env
   # config.active_job.queue_name_delimiter = "."
 end
-
-# Used by Rails' routes url_helpers (typically when including a link in an email)
-Rails.application.routes.default_url_options[:host] = "localhost:3000"

@@ -1,3 +1,0 @@
-# Some descriptive title
-msgid ""
-msgstr ""

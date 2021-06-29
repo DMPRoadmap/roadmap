@@ -20,7 +20,7 @@
       <%# Only render selected phase %>
       <% if phase[:title] == @selected_phase.title %>
         <%# Page break before each phase %>
-        <div class="phase-content break-before break-after">
+        <div class="phase-content break-before">
           <h1><%= download_plan_page_title(@plan, phase, @hash) %></h1>
           <hr />
           <% phase[:sections].each do |section| %>
@@ -35,7 +35,7 @@
                   <% next %>
                 <% end %>
                 <div class="question">
-                  <% if !@public_plan && @show_sections_questions%>
+                  <% if @show_sections_questions%>
                     <%# Hack: for DOCX export - otherwise, bold highlighting of question inconsistent. %>
                     <% if local_assigns[:export_format] && export_format == 'docx' %>
                       <strong><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></strong>

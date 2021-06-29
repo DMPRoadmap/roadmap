@@ -4,6 +4,7 @@ module Dmptool
 
   module Users
 
+    # rubocop:disable Metrics/ModuleLength
     module OmniauthCallbacksController
 
       # rubocop:disable Style/FormatString, Metrics/AbcSize, Metrics/MethodLength
@@ -14,7 +15,7 @@ module Dmptool
         scheme = IdentifierScheme.find_by(name: scheme.name)
 
         @provider = provider(scheme: scheme)
-        @omniauth = omniauth.with_indifferent_access
+        @omniauth = omniauth_from_request.with_indifferent_access
 
         # if the user is already signed in then we are attempting to attach
         # omniauth credentials to an existing account
@@ -82,7 +83,7 @@ module Dmptool
       end
 
       # Extract the omniauth info from the request
-      def omniauth
+      def omniauth_from_request
         return {} unless request.env.present?
 
         hash = request.env["omniauth.auth"]
@@ -102,6 +103,10 @@ module Dmptool
       def attach_omniauth_credentials(user:, scheme:, omniauth:)
         return false unless user.present? && scheme.present? && omniauth.present?
 
+        # Create the Oauth access token if available
+        token = ExternalApiAccessToken.from_omniauth(user: user, service: scheme.name, hash: omniauth)
+        token.save if token.present?
+
         ui = Identifier.where(identifier_scheme: scheme, identifiable: user).first
         # If the User exists and the uid is different update it
         ui.update(value: omniauth[:uid]) if ui.present? && ui.value != omniauth[:uid]
@@ -117,12 +122,18 @@ module Dmptool
 
         omniauth_info = omniauth.fetch(:info, {})
         names = extract_omniauth_names(hash: omniauth_info)
-        User.new(
+
+        user = User.new(
           email: extract_omniauth_email(hash: omniauth_info),
           firstname: names.fetch(:firstname, ""),
           surname: names.fetch(:surname, ""),
           org: extract_omniauth_org(scheme: scheme, hash: omniauth_info)
         )
+
+        # Get the Oauth access token if available
+        token = ExternalApiAccessToken.from_omniauth(user: user, service: scheme.name, hash: @omniauth)
+        user.external_api_access_tokens = [token] if token.present?
+        user
       end
 
       # Extract the 1st email
@@ -160,6 +171,7 @@ module Dmptool
       end
 
     end
+    # rubocop:enable Metrics/ModuleLength
 
   end
 

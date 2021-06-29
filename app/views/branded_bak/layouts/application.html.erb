@@ -7,6 +7,7 @@
     <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % {
       application_name: ApplicationService.application_name } %>
     </title>
+    <%= favicon_link_tag 'favicon.ico', rel: 'icon', type: 'image/png' %>
     <%= favicon_link_tag 'apple-touch-icon.png', rel: 'apple-touch-icon', type: 'image/png' %>
     <%= favicon_link_tag 'favicon-32x32.png', rel: 'icon', sizes: "32x32", type: 'image/png' %>
     <%= favicon_link_tag 'favicon-16x16.png', rel: 'icon', sizes: "16x16", type: 'image/png' %>
@@ -76,6 +77,14 @@
         <div class="content">
           <%= yield %>
         </div>
+
+        <%# Generic UJS/Ajax spinner. Bootstrap 5+ has built in spinner for this class %>
+        <div class="spinner-border hidden" role="status">
+          <%spinner_msg = _("Loading...") %>
+          <%= image_tag("spinner.gif", alt: spinner_msg) %>
+          <span class="sr-only"><%= spinner_msg %></span>
+        </div>
+
       </main>
       <footer<%= user_signed_in? ? ' class=blue' : '' %>>
         <div class="footer">
@@ -91,7 +100,7 @@
               active_page?(user_orcid_omniauth_callback_path) %>
       <!-- Modal windows for sign in/out -->
       <% unless user_signed_in? %>
-        <% if  Rails.configuration.x.shibboleth.use_filtered_discovery_service %>
+        <% if  Rails.configuration.x.dmproadmap.shibboleth_use_filtered_discovery_service %>
           <div id="shib-ds-form" class="modal fade" tabindex="-1" role="dialog">
             <%= render partial: 'shared/shib_ds_form' %>
           </div>

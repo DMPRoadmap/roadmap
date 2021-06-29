@@ -208,3 +208,7 @@ en:
       long: "%d %B, %Y %H:%M"
       short: "%d %b %H:%M"
     pm: PM
+  devise:
+    registrations:
+      updated_but_not_signed_in: Your account has been updated successfully, but since
+        your password was changed, you need to sign in again.

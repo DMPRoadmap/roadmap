@@ -59,6 +59,8 @@ module OrgSelectable
 
   # rubocop:disable Metrics/BlockLength
   included do
+    before_action :prep_org_partial
+
     private
 
     # Converts the incoming params_into an Org by either locating it
@@ -120,6 +122,12 @@ module OrgSelectable
         identifier.save
       end
       org.reload
+    end
+
+    def prep_org_partial
+      name = Rails.configuration.x.application.restrict_orgs ? "local_only" : "combined"
+      @org_partial = "shared/org_selectors/#{name}"
+      @all_orgs = Org.includes(identifiers: [:identifier_scheme]).all
     end
   end
   # rubocop:enable Metrics/BlockLength

@@ -4,20 +4,22 @@
 #
 # Table name: identifier_schemes
 #
-#  id               :integer          not null, primary key
-#  active           :boolean
-#  description      :string
-#  context          :integer
-#  logo_url         :text
-#  name             :string
-#  user_landing_url :string
-#  created_at       :datetime
-#  updated_at       :datetime
+#  id                :integer          not null, primary key
+#  active            :boolean
+#  context           :integer
+#  description       :string(255)
+#  external_service  :string(255)
+#  identifier_prefix :string(255)
+#  logo_url          :string(255)
+#  name              :string(255)
+#  created_at        :datetime
+#  updated_at        :datetime
 #
 
 class IdentifierScheme < ApplicationRecord
 
   include FlagShihTzu
+  include Subscribable
 
   ##
   # The maximum length for a name
