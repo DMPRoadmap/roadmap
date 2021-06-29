@@ -218,6 +218,17 @@ module DMPRoadmap
     # ----- #
     config.x.orcid_landing_page_url = "https://sandbox.orcid.org/"
     config.x.orcid_api_base_url = "https://api.sandbox.orcid.org/v3.0/"
+
+    # ============== #
+    # SIGNIN OPTIONS #
+    # ============== #
+    # The list of partial names to use for sign in options on the home page. At least one entry is
+    # required! The forms will be displayed in the order they appear here. For example if you want
+    # the Shibboleth login option to appear first then you should list it first here.
+    # The options are:
+    #   Username + Password -> sign_in_form
+    #   Shibboleth          -> shib_sign_in_form
+    config.x.sign_in_options = %w[shared/sign_in_form shared/shib_sign_in_form]
   end
 
 end

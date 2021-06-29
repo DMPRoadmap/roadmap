@@ -26,7 +26,7 @@ module OrgSelection
         out = {
           id: org.id,
           name: org.name,
-          sort_name: OrgSelection::SearchService.name_without_alias(name: org.name)
+          sort_name: org.name_without_alias
         }
         # tack on any identifiers
         org.identifiers.each do |id|

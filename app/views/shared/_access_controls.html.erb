@@ -18,16 +18,21 @@
     <div id="sign-in-form" role="tabpanel" class="tab-pane active">
       <div class="panel panel-default">
         <div class="panel-body">
-          <%= render :partial => 'shared/sign_in_form' %>
 
-          <% if Rails.configuration.x.shibboleth_enabled %>
-            <%= render partial: "shared/shib_sign_in_form" %>
-            <br><br>
-            <p class="text-center fontsize-h4">- <%= _('or') %> -</p>
+          <% Rails.configuration.x.sign_in_options.each_with_index do |partial, idx| %>
+            <%= render partial: partial, locals: local_assigns %>
+
+            <% if (idx + 1) < Rails.configuration.x.sign_in_options.length %>
+              <br>
+              <p class="text-center fontsize-h4 bold">- <%= _('or') %> -</p>
+              <br>
+            <% end %>
           <% end %>
+
         </div>
       </div>
     </div>
+
     <% unless active_page?(new_user_registration_path, true) %>
       <div id="create-account-form" role="tabpanel" class="tab-pane">
         <div class="panel panel-default">

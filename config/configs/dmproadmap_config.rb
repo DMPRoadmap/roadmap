@@ -110,6 +110,7 @@ class DmproadmapConfig < Anyway::Config
               :shibboleth_login_url,
               :shibboleth_logout_url,
               :shibboleth_use_filtered_discovery_service,
+              :sign_in_options,
               :spdx_active,
 
               :translation_io_key_app,

@@ -295,6 +295,13 @@ class Org < ApplicationRecord
       token_permission_types.include? token_permission_type
   end
 
+  # Returns the name of the Org excluding anything in parenthesis. For example:
+  #    'Example University (EU)'  ->  'Example University'
+  #    'Sample College (sample.edu)'  ->  'Sample College'
+  def name_without_alias
+    name.split(" (")&.first&.strip
+  end
+
   # Merges the specified Org into this Org
   # rubocop:disable Metrics/AbcSize
   def merge!(to_be_merged:)

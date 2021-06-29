@@ -78,6 +78,13 @@ module ExternalApis
         Rails.logger.error error.backtrace
       end
 
+      # Logs the specified message (as INFO by default, WARN otherwise)
+      def log_message(method:, message:, info: true)
+        return unless method.present? && message.present?
+
+        Rails.logger.send((info ? :info : :warn), "#{self.class.name}.#{method} #{message}")
+      end
+
       private
 
       # Retrieves the application name from dmproadmap.rb initializer or uses the App name
