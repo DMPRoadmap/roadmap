@@ -33,7 +33,7 @@ class Api::V0::Madmp::PlansController < Api::V0::BaseController
     end
 
     respond_to do |format|
-      format.json 
+      format.json
       render "shared/export/madmp_export_templates/rda/plan", locals: {
         dmp: plan_fragment
       }
