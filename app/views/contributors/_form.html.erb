@@ -38,19 +38,21 @@ roles_tooltip = _("Select each role that applies to the contributor.")
   <% end %>
 </div>
 
-<div class="form-group row"><!-- phone -->
+<!-- DMPTool customization
+<div class="form-group row">
   <div class="col-md-12">
-    <%= form.label(:phone, _("Phone number"), class: "control-label") %>
+    <%#= form.label(:phone, _("Phone number"), class: "control-label") %>
   </div>
   <div class="col-md-4">
-    <em class="sr-only"><%= phone_tooltip %></em>
-    <%= form.phone_field :phone, class: "form-control",
+    <em class="sr-only"><%#= phone_tooltip %></em>
+    <%#= form.phone_field :phone, class: "form-control",
                                  title: phone_tooltip,
                                  data: { toggle: "tooltip" },
                                  pattern: "[0-9\-\.\(\)\+]+",
                                  placeholder: "123-123-1234" %>
   </div>
 </div>
+-->
 
 <div class="form-group row" id="contributor-org-controls"><!-- org -->
   <div class="col-md-8">
@@ -73,7 +75,7 @@ roles_tooltip = _("Select each role that applies to the contributor.")
 
       <% roles = ContributorPresenter.roles_for_radio(contributor: contributor) %>
       <% roles.each do |hash| %>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="checkbox">
             <%= form.check_box hash.keys.first.to_sym,
                                value: hash.values.first,

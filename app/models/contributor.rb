@@ -67,6 +67,7 @@ class Contributor < ApplicationRecord
   has_flags 1 => :data_curation,
             2 => :investigation,
             3 => :project_administration,
+            4 => :other,
             column: "roles"
 
   # ==========
@@ -91,7 +92,7 @@ class Contributor < ApplicationRecord
 
     # returns the default role
     def default_role
-      "investigation"
+      "other"
     end
 
   end
