@@ -62,6 +62,7 @@ class MadmpFragment < ActiveRecord::Base
   scope :ethical_issues, -> { where(classname: "ethical_issue") }
   scope :funders, -> { where(classname: "funder") }
   scope :fundings, -> { where(classname: "funding") }
+  scope :hosts, -> { where(classname: "host") }
   scope :legal_issues, -> { where(classname: "legal_issue") }
   scope :licences, -> { where(classname: "licence") }
   scope :metas, -> { where(classname: "meta") }

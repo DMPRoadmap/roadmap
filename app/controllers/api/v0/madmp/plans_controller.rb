@@ -32,16 +32,13 @@ class Api::V0::Madmp::PlansController < Api::V0::BaseController
       raise Pundit::NotAuthorizedError
     end
 
-    rda_export = madmp_transform(
-      plan_fragment.get_full_fragment,
-      load_export_template("rda"),
-      dmp_id
-    )
-
-    rda_export["contributor"] = format_contributors(plan_fragment)
-
-    # respond_with @plan_fragment.get_full_fragment
-    respond_with rda_export
+    respond_to do |format|
+      format.json 
+      render "shared/export/madmp_export_templates/rda/plan", locals: {
+        dmp: plan_fragment
+      }
+      return
+    end
   end
 
   private

@@ -20,7 +20,7 @@
 
 class Fragment::Project < MadmpFragment
 
-  def funding
+  def fundings
     Fragment::Funding.where(parent_id: id)
   end
 

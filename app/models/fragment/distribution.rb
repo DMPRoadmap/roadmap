@@ -24,6 +24,10 @@ class Fragment::Distribution < MadmpFragment
     Fragment::License.where(parent_id: id).first
   end
 
+  def sharing
+    parent.becomes(Fragment::DataSharing)
+  end
+
   def properties
     "license"
   end

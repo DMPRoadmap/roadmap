@@ -18,34 +18,10 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 
-class Fragment::DataSharing < MadmpFragment
-
-  def distribution
-    Fragment::Distribution.where(parent_id: id)
-  end
-
-  def indexed_in
-    Fragment::TechnicalResource.where(parent_id: id).first
-  end
-
-  def host
-    Fragment::Host.where(parent_id: id).first
-  end
-
-  def contributors
-    Fragment::Contributor.where(parent_id: id)
-  end
-
-  def cost
-    Fragment::Cost.where(parent_id: id)
-  end
-
-  def properties
-    "distribution, indexed_in, host, contributors, cost"
-  end
+class Fragment::Host < MadmpFragment
 
   def self.sti_name
-    "data_sharing"
+    "host"
   end
 
 end
