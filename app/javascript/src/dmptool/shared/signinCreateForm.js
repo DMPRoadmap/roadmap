@@ -5,8 +5,8 @@ import { isObject, isString } from '../../utils/isType';
 import getConstant from '../../utils/constants';
 
 $(() => {
-  initAutocomplete('#create-account-org-controls .autocomplete');
-  initAutocomplete('#shib-ds-org-controls .autocomplete');
+  //initAutocomplete('#create-account-org-controls .autocomplete');
+  //initAutocomplete('#shib-ds-org-controls .autocomplete');
   const email = Cookies.get('dmproadmap_email');
 
   // Signin remember me

@@ -27,6 +27,7 @@ import '../src/utils/accordion';
 import '../src/utils/autoComplete';
 import '../src/utils/externalLink';
 import '../src/utils/modalSearch';
+// import '../src/utils/newAutocomplete';
 import '../src/utils/outOfFocus';
 import '../src/utils/paginable';
 import '../src/utils/panelHeading';
@@ -44,11 +45,8 @@ import { renderAlert, renderNotice } from '../src/utils/notificationHelper';
 import '../src/answers/conditions';
 import '../src/answers/edit';
 import '../src/answers/rdaMetadata';
-import '../src/contributors/form';
-import '../src/devise/invitations/edit';
 import '../src/devise/passwords/edit';
 import '../src/devise/registrations/edit';
-import '../src/devise/registrations/new';
 import '../src/doorkeeper/authorizations/new';
 import '../src/guidances/newEdit';
 import '../src/notes/index';
@@ -98,7 +96,6 @@ import '../src/superAdmin/users/edit';
 // ----------------------------------------
 import '../src/dmptool/home/index';
 import '../src/dmptool/shared/orgBranding';
-import '../src/dmptool/shared/signinCreateForm';
 // ----------------------------------------
 // END DMPTool customization
 // ----------------------------------------

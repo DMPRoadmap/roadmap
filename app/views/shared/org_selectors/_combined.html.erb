@@ -45,6 +45,22 @@ placeholder = _("Begin typing to see a list of suggestions.")
 <%= form.hidden_field :org_id, value: default_org,
                                class: "autocomplete-result" %>
 
-<p class="autocomplete-warning red hide">
-  <%= _("A new entry will be created for the organisation you have named above. Please double check that your organisation does not appear in the list in a slightly different form.").html_safe %>
-</p>
+<div class="autocomplete-warning red hide">
+  <%= _("Please select an item from the list or check the box below and provide a name for your organization.") %>
+</div>
+
+<conditional>
+  <div class="checkbox col-md-">
+    <div class="col-md-4">
+      <%= org_index_fields.label(:not_in_list, class: 'control-label') do %>
+        <%= org_index_fields.check_box(:not_in_list, class: "new-org-entry", context: "not-in-list") %>
+        <%= _('I cannot find my %{item_label} in the list') % { item_label: label.downcase } %>
+      <% end %>
+    </div>
+    <div class="col-md-8">
+      <%= org_index_fields.text_field :user_entered_name,
+                          placeholder: _("Please enter the %{item_label} name") % { item_label: label.downcase },
+                          class: "form-control toggleable-field user-entered-org" %>
+    </div>
+  </div>
+</conditional>

@@ -1,5 +1,3 @@
-import { initAutocomplete, scrubOrgSelectionParamsOnSubmit } from '../../utils/autoComplete';
-
 $(() => {
   const updateMergeConfirmation = (userSelect) => {
     // update the confirmation dialogue with the selected user's email address
@@ -20,11 +18,4 @@ $(() => {
     userSelect.on('change', () => updateMergeConfirmation(userSelect));
     userSelect.change();
   });
-
-  if ($('#super-admin-user-org-controls').length > 0) {
-    initAutocomplete('#super-admin-user-org-controls .autocomplete');
-    // Scrub out the large arrays of data used for the Org Selector JS so that they
-    // are not a part of the form submissiomn
-    scrubOrgSelectionParamsOnSubmit('#super_admin_user_edit');
-  }
 });

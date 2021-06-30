@@ -7,15 +7,15 @@
     <% end %>
   <% end %>
 
-  <div class="form-group">
+  <div class="form-group row">
     <%= f.label(:firstname, _('First Name'), class: "control-label") %>
     <%= f.text_field(:firstname, class: "form-control", "aria-required": true) %>
   </div>
-  <div class="form-group">
+  <div class="form-group row">
     <%= f.label(:surname, _('Last Name'), class: "control-label") %>
     <%= f.text_field(:surname, class: "form-control", "aria-required": true) %>
   </div>
-  <div class="form-group">
+  <div class="form-group row">
     <%= f.label(:email, _('Email'), class: "control-label") %>
     <%= f.email_field(:email, class: "form-control", "aria-required": true) %>
   </div>
@@ -25,25 +25,25 @@
     <%= hidden_field_tag "user[default_org_id]", @user.org.id %>
     <%= hidden_field_tag "default_org_name", @user.org.name %>
   <% else %>
-    <div class="form-group" id="create-account-org-controls">
-      <%= render partial: @org_partial,
-                locals: {
-                  form: f,
-                  orgs: orgs,
-                  default_org: resource&.org,
-                  required: true
-                } %>
+    <div class="form-group row" id="create-account-org-controls">
+      <%= render partial: "shared/org_autocomplete",
+              locals: { form: f,
+                        default_org: resource&.org,
+                        required: true,
+                        label: _("Organisation") } %>
     </div>
   <% end %>
 
   <% if resource.org.present? %>
-    <%= f.password_field(:password, class: "form-control hidden", value: SecureRandom.uuid) %>
+    <div class="form-group row">
+      <%= f.password_field(:password, class: "form-control hidden", value: SecureRandom.uuid) %>
+    </div>
   <% else %>
-    <div class="form-group">
+    <div class="form-group row">
       <%= f.label(:password, _('Password'), class: "control-label") %>
       <%= f.password_field(:password, class: "form-control", "aria-required": true) %>
     </div>
-    <div class="form-group">
+    <div class="form-group row">
       <div class="checkbox">
         <label>
           <input type="checkbox" id="passwords_toggle_sign_up" class="passwords_toggle" /><%= _('Show password') %>
@@ -52,7 +52,7 @@
     </div>
   <% end %>
 
-  <div class="form-group">
+  <div class="form-group row">
     <div class="checkbox">
       <%= f.label(:accept_terms) do %>
         <%= f.check_box(:accept_terms, "aria-required": true) %>

@@ -1,4 +1,9 @@
 <% if Rails.configuration.x.shibboleth.enabled %>
+  <%# If you host your own Shibboleth service provider and want to restrict the user to specific
+      organizations then use this option. When this option is enabled, a new field will appear on the
+      Admin -> Orgs pages that allow you to specify a Shibboleth entityID for the Org. This value is
+      then passed to your Shibboleth SP who then looks up the location of the institution's IdP and
+      redirects them for SSO. %>
   <% if Rails.configuration.x.shibboleth.use_filtered_discovery_service %>
     <%= form_for Org.new, url: shibboleth_ds_path, method: :post do |f| %>
       <div id="shib-ds-org-controls" class="row">
@@ -8,7 +13,7 @@
                           form: f,
                           id_field: :id,
                           default_org: nil,
-                          orgs: Org.participating,
+                          orgs: Org.includes(identifiers: [:identifier_scheme]).shibbolized.order(:name),
                           required: false,
                           label: _("Sign in with your institutional credentials")
                       } %>
@@ -17,7 +22,8 @@
       <%= button_tag _('Go'), class: "btn btn-default", id: "org-select-go", disabled: "disabled" %>
     <% end %>
   <% else %>
-    <%# Send the user off to federation site %>
+    <%# If you do not host your own Shibboleth Service provider then you can delegate this functionality
+        to a third party discovery service like the UK federation, Australian federation, InCommon, etc.  %>
     <% if session['devise.shibboleth_data'].nil? %>
       <div class="form-group">
         <span class="center-block btn-group-justified">
