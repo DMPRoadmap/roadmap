@@ -8,13 +8,13 @@ class Api::V0::Madmp::PlansController < Api::V0::BaseController
   def show
     @plan = Plan.find(params[:id])
     @plan_fragment = @plan.json_fragment.dup
-    research_output_id = query_params[:research_output_id] ? query_params[:research_output_id].to_i : nil
+    # selected_research_outputs = query_params[:research_outputs]&.map(&:to_i) || plan.research_output_ids
     # check if the user has permissions to use the API
     unless Api::V0::Madmp::PlanPolicy.new(@user, @plan).show?
       raise Pundit::NotAuthorizedError
     end
 
-    @plan_fragment = select_research_output(@plan_fragment, research_output_id)
+    # @plan_fragment = select_research_output(@plan_fragment, selected_research_outputs)
     fragment_data = query_params[:mode] == "slim" ? @plan_fragment.data : @plan_fragment.get_full_fragment
 
     render json: {
@@ -26,7 +26,7 @@ class Api::V0::Madmp::PlansController < Api::V0::BaseController
   def rda_export
     plan = Plan.find(params[:id])
     plan_fragment = plan.json_fragment
-    dmp_id = plan_fragment.id
+    selected_research_outputs = query_params[:research_outputs]&.map(&:to_i) || plan.research_output_ids
     # check if the user has permissions to use the API
     unless Api::V0::Madmp::PlanPolicy.new(@user, plan).rda_export?
       raise Pundit::NotAuthorizedError
@@ -35,7 +35,7 @@ class Api::V0::Madmp::PlansController < Api::V0::BaseController
     respond_to do |format|
       format.json
       render "shared/export/madmp_export_templates/rda/plan", locals: {
-        dmp: plan_fragment
+        dmp: plan_fragment, selected_research_outputs: selected_research_outputs
       }
       return
     end
@@ -43,17 +43,15 @@ class Api::V0::Madmp::PlansController < Api::V0::BaseController
 
   private
 
-  def select_research_output(plan_fragment, research_output_id)
-    if research_output_id.present?
-      plan_fragment.data["researchOutput"] = plan_fragment.data["researchOutput"].select {
-        |r| r == { "dbid" => research_output_id }
-      }
-    end
+  def select_research_output(plan_fragment, selected_research_outputs)
+    plan_fragment.data["researchOutput"] = plan_fragment.data["researchOutput"].select {
+      |r| r == { "dbid" => research_output_id }
+    }
     plan_fragment
   end
 
   def query_params
-    params.permit(:mode, :research_output_id)
+    params.permit(:mode, research_outputs: [])
   end
 
 end

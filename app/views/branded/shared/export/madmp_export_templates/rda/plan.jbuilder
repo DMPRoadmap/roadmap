@@ -49,4 +49,5 @@ json.project do
     end
   end
 end
-json.partial! "shared/export/madmp_export_templates/rda/datasets", datasets: research_outputs
+json.partial! "shared/export/madmp_export_templates/rda/datasets",
+              datasets: research_outputs, selected_datasets: selected_research_outputs

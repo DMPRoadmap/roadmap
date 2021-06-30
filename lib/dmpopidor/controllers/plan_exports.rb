@@ -53,7 +53,7 @@ module Dmpopidor
           format.text { show_text }
           format.docx { show_docx }
           format.pdf  { show_pdf }
-          format.json { show_json }
+          format.json { show_json(params[:selected_research_outputs]) }
         end
       end
 
@@ -73,9 +73,10 @@ module Dmpopidor
                }
       end
 
-      def show_json
+      def show_json(selected_research_outputs)
         render "shared/export/madmp_export_templates/rda/plan", locals: {
-          dmp: @plan.json_fragment
+          dmp: @plan.json_fragment,
+          selected_research_outputs: selected_research_outputs.map(&:to_i)
         }
       end
 
