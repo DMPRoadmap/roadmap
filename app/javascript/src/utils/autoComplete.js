@@ -22,6 +22,8 @@ const updateAriaHelper = (autocomplete, suggestionCount) => {
 const processAjaxResults = (autocomplete, crosswalk, results) => {
   let out = [];
 
+console.log(results);
+
   if (isObject(autocomplete) && isObject(crosswalk) && isArray(results)) {
     crosswalk.attr('value', JSON.stringify(results));
     updateAriaHelper(autocomplete, results.length);

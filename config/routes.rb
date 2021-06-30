@@ -93,7 +93,7 @@ Rails.application.routes.draw do
   get "template_export/:id" => "public_pages#template_export", as: "template_export"
 
   # AJAX call used to search for Orgs based on user input into autocompletes
-  post "orgs" => "orgs#search", as: "orgs_search"
+  get "orgs/search" => "org_indices#search", as: "orgs_search"
 
   # ------------------------------------------
   # Start DMPTool customizations

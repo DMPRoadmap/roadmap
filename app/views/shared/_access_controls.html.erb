@@ -23,9 +23,7 @@
             <%= render partial: partial, locals: local_assigns %>
 
             <% if (idx + 1) < Rails.configuration.x.sign_in_options.length %>
-              <br>
               <p class="text-center fontsize-h4 bold">- <%= _('or') %> -</p>
-              <br>
             <% end %>
           <% end %>
 
