@@ -6,21 +6,21 @@ class Api::V0::Madmp::PlansController < Api::V0::BaseController
   include MadmpExportHelper
 
   def show
-    @plan = Plan.find(params[:id])
-    @plan_fragment = @plan.json_fragment.dup
-    # selected_research_outputs = query_params[:research_outputs]&.map(&:to_i) || plan.research_output_ids
+    plan = Plan.find(params[:id])
+    plan_fragment = plan.json_fragment
+    selected_research_outputs = query_params[:research_outputs]&.map(&:to_i) || plan.research_output_ids
     # check if the user has permissions to use the API
-    unless Api::V0::Madmp::PlanPolicy.new(@user, @plan).show?
+    unless Api::V0::Madmp::PlanPolicy.new(@user, plan).show?
       raise Pundit::NotAuthorizedError
     end
 
-    # @plan_fragment = select_research_output(@plan_fragment, selected_research_outputs)
-    fragment_data = query_params[:mode] == "slim" ? @plan_fragment.data : @plan_fragment.get_full_fragment
-
-    render json: {
-      "data" => fragment_data,
-      "dmp_id" => @plan.json_fragment.id
-    }
+    respond_to do |format|
+      format.json
+      render "shared/export/madmp_export_templates/default/plan", locals: {
+        dmp: plan_fragment, selected_research_outputs: selected_research_outputs
+      }
+      return
+    end
   end
 
   def rda_export
