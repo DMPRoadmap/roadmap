@@ -19,7 +19,8 @@
       <% end %>
       </ul>
     </div>
-    <strong><%= d_("dmpopidor", "Research output export mode") %></strong>
+    <div id="research-output-export-mode">
+      <strong><%= d_("dmpopidor", "Research output export mode") %></strong>
       <ul>
         <li class="checkbox">
           <%= label_tag 'export[research_output_mode]' do %>
@@ -40,6 +41,7 @@
           <% end %>
         </li>
       </ul>
+    </div>
   <% else %>
     <%= hidden_field_tag(:research_output_id, @research_outputs[0].id) %>
   <% end %>
@@ -63,7 +65,7 @@
   <% else %>
     <%= hidden_field_tag(:phase_id, @phase_options[0][1]) %>
   <% end %>
-  <fieldset>
+  <fieldset id="export-options">
     <legend><%= d_('dmpopidor', "Plan components") %></legend>
     <div class="checkbox">
       <%= label_tag 'export[project_details]' do %>
@@ -101,6 +103,25 @@
     </div>
   </div>
 
+  <fieldset id="json-formatting">
+    <legend><%= d_('dmpopidor', "JSON format") %></legend>
+    <ul>
+      <li class="checkbox">
+        <%= label_tag 'json_format' do %>
+          <%= radio_button_tag("json_format", "default", true) %>
+          <%= d_("dmpopidor", 'Default export') %>
+        <% end %>
+      </li>
+      <li class="checkbox">
+        <%= label_tag 'json_format' do %>
+          <%= radio_button_tag("json_format", "rda", false) %>
+          <%= d_("dmpopidor", 'RDA Commons Standards') %>
+        <% end %>
+      </li>
+      </li>
+    </ul>
+  </fieldset>
+  
   <div id="pdf-formatting">
     <h2><%= _('PDF formatting') %></h2>
     <div class="row">

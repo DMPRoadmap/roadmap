@@ -13,6 +13,14 @@ $(() => {
     } else {
       $('#pdf-formatting').hide();
     }
+
+    if ($(e.currentTarget).val() === 'json') {
+      $('#research-output-export-mode, #export-options').hide();
+      $('#json-formatting').show();
+    } else {
+      $('#research-output-export-mode, #export-options').show();
+      $('#json-formatting').hide();
+    }
   });
 
   $('#select-all-phases').on('click', (e) => {

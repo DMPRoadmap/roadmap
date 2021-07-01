@@ -757,6 +757,14 @@ header .main-nav {
 
     }
 
+    // Plan Download
+
+    #download_form {
+        #json-formatting {
+            display: none;
+        }
+    }
+
     // News
     .question-divider {
         border-bottom: 2px solid $very-very-light-blue;
