@@ -33,21 +33,28 @@ class ContributorsController < ApplicationController
 
     args = translate_roles(hash: contributor_params)
     args = process_org(hash: args)
-    args = process_orcid_for_create(hash: args)
-    args[:plan_id] = @plan.id
-
-    @contributor = Contributor.new(args)
-    stash_orcid
-
-    if @contributor.save
-      # Now that the model has been ssaved, go ahead and save the identifiers
-      save_orcid
-
-      redirect_to plan_contributors_path(@plan),
-                  notice: success_message(@contributor, _("added"))
-    else
+    if args.blank?
+      @contributor = Contributor.new(args)
+      @contributor.errors.add(:affiliation, "invalid")
       flash[:alert] = failure_message(@contributor, _("add"))
       render :new
+    else
+      args = process_orcid_for_create(hash: args)
+      args[:plan_id] = @plan.id
+
+      @contributor = Contributor.new(args)
+      stash_orcid
+
+      if @contributor.save
+        # Now that the model has been ssaved, go ahead and save the identifiers
+        save_orcid
+
+        redirect_to plan_contributors_path(@plan),
+          notice: success_message(@contributor, _("added"))
+      else
+        flash[:alert] = failure_message(@contributor, _("add"))
+        render :new
+      end
     end
   end
   # rubocop:enable
@@ -101,12 +108,13 @@ class ContributorsController < ApplicationController
     hash
   end
 
-  # Convert the Org Hash into an Org object (creating it if necessary)
+  # Convert the Org Hash into an Org object (creating it if allowed)
   # and then remove all of the Org args
   def process_org(hash:)
     return hash unless hash.present? && hash[:org_id].present?
 
-    org = org_from_params(params_in: hash, allow_create: true)
+    org = org_from_params(params_in: hash, allow_create: !Rails.configuration.x.application.restrict_orgs)
+    return nil if org.blank?
     hash = remove_org_selection_params(params_in: hash)
     return hash unless org.present?
 
