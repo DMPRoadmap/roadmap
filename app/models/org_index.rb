@@ -72,7 +72,7 @@ class OrgIndex < ApplicationRecord
     unknowns = Org.where.not(id: OrgIndex.all.pluck(:org_id)) unless unknowns.present?
     results += unknowns.search(term)
 
-    sort_search_results(results: results, term: term)
+    sort_search_results(results: results, term: term).map(&:name)
   }
 
   # ====================
@@ -94,7 +94,6 @@ class OrgIndex < ApplicationRecord
       links: { "org": [{ "link": home_page, "text": "Home Page" }] },
       managed: false,
       target_url: home_page,
-      users_count: 0,
       funder: funder,
       institution: institution,
       organisation: !funder && !institution
@@ -125,7 +124,7 @@ class OrgIndex < ApplicationRecord
       return score unless term.present? && org.present?
 
       score += 1 if org.is_a?(OrgIndex) && org.acronyms.include?(term.upcase)
-      score += 1 if org.is_a?(Org) && org.abbreviation.upcase == term.upcase
+      score += 1 if org.is_a?(Org) && org.abbreviation&.upcase == term.upcase
       score += 2 if org.name.downcase.start_with?(term.downcase)
       score += 1 if org.name.downcase.include?(term.downcase) && !org.name.downcase.start_with?(term.downcase)
       score

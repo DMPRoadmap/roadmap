@@ -8,7 +8,7 @@ const toggleConditionalFields = (context, displayFields) => {
       if (displayFields === true) {
         container.find('.toggleable-field').show();
       } else {
-        container.find('.toggleable-field').find('input, textarea').val('');
+        container.find('input.toggleable-field, textarea.toggleable-field').val('');
         container.find('.toggleable-field').hide();
       }
     }

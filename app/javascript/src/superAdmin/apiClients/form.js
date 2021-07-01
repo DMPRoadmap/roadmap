@@ -1,6 +1,5 @@
 $(() => {
   if ($('#api-client-org-controls').length > 0) {
-
     // Toggle the visibility of the Scopes sections based on the status of the 'Trusted' checkbox
     const toggleScopesBlocks = (context) => {
       const scopesBlocks = $('.oauth-scopes');

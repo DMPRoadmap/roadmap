@@ -35,12 +35,6 @@ module OrgSelectable
   # rubocop:disable Metrics/BlockLength
   included do
 
-    before_action :prep_org_partial
-
-    def org_selectable_params
-      params.require(:org_index).permit(%i[name not_in_list user_entered_name])
-    end
-
     def process_org!
       name = org_selectable_params[:user_entered_name]
       name = org_selectable_params[:name] unless name.present?
@@ -79,12 +73,17 @@ module OrgSelectable
       )
     end
 
+    # Remove the fields that may have come through in the form submission that were only
+    # necessary to facilitate the Org autocomplete's AJAX based suggestions
+    def remove_org_selection_params(args:)
+      args.delete(:org_crosswalk)
+      args
+    end
+
     private
 
-    def prep_org_partial
-      name = Rails.configuration.x.application.restrict_orgs ? "local_only" : "combined"
-      @org_partial = "shared/org_selectors/#{name}"
-      @all_orgs = Org.includes(identifiers: [:identifier_scheme]).all
+    def org_selectable_params
+      params.require(:org_index).permit(%i[name not_in_list user_entered_name])
     end
 
     def persist_identifiers(org_index:, org:)

@@ -20,7 +20,6 @@
 #  org_type               :integer          default(0), not null
 #  sort_name              :string(255)
 #  target_url             :string(255)
-#  users_count            :integer
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  language_id            :integer
@@ -343,6 +342,14 @@ class Org < ApplicationRecord
     end
   end
   # rubocop:enable Metrics/AbcSize
+
+  # Convert the Org's name into an abbreviation
+  def self.name_to_abbreviation(name:)
+    stopwords = %w[a of the and]
+    name.split(" ")
+        .reject { |word| stopwords.include?(word) }
+        .map { |word| word[0].upcase }
+  end
 
   private
 

@@ -62,19 +62,12 @@ class RegistrationsController < Devise::RegistrationsController
       end
     end
 
-    blank_org = if Rails.configuration.x.application.restrict_orgs
-                  sign_up_params[:org_id]["id"].blank?
-                else
-                  # DMPTool hack to accommodate Org coming from IdP
-                  sign_up_params.fetch(:org_id, sign_up_params[:default_org_id]).blank?
-                end
-
     if sign_up_params[:accept_terms].to_s == "0"
       redirect_to after_sign_up_error_path_for(resource),
                   alert: _("You must accept the terms and conditions to register.")
-    elsif blank_org
+    elsif org_selectable_params[:name].blank? && org_selectable_params[:user_entered_name].blank?
       redirect_to after_sign_up_error_path_for(resource),
-                  alert: _("Please select an organisation from the list, or choose Other.")
+                  alert: _("Please select an organisation from the list, or enter one in the box provided.")
     else
       existing_user = User.where_case_insensitive("email", sign_up_params[:email]).first
       if existing_user.present?
@@ -327,26 +320,17 @@ class RegistrationsController < Devise::RegistrationsController
 
   # Finds or creates the selected org and then returns it's id
   def handle_org(attrs:)
-    return nil unless attrs.present?
-
-    # DMPTool hack to deal with Org via IdP
+    # If the user got here via an Omniauth workflow then the Org was recorded in a hidden field
+    # so use that one
     if attrs[:default_org_id].present?
       attrs[:org_id] = attrs[:default_org_id]
       attrs.delete(:default_org_id)
-      return attrs
     else
-      return attrs unless attrs.present? && attrs[:org_id].present?
-
-      org = org_from_params(params_in: attrs, allow_create: true)
-
-      # Remove the extraneous Org Selector hidden fields
-      attrs = remove_org_selection_params(params_in: attrs)
-      return attrs unless org.present?
-
-      # reattach the org_id but with the Org id instead of the hash
-      attrs[:org_id] = org.id
-      attrs
+      # Let the OrgSelectable concern determine which org was selected
+      attrs[:org_id] = process_org!&.id
     end
+    attrs = remove_org_selection_params(args: attrs)
+    attrs
   end
 
 end

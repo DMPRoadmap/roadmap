@@ -21,18 +21,6 @@ presenter = OrgSelectionPresenter.new(orgs: [default_org], selection: default_or
 <%= fields_for :org_index do |org_index_fields| %>
   <% if col_size.present? %><div class="col-md-<%= col_size %>"><% end %>
     <%= org_index_fields.label :name, label %>
-   <!-- <input list="autocomplete-list-<%= autocomplete_id %>"
-           id="org_index_name"
-           name="org_index[name]"
-           class="auto-complete"
-           size="50"
-           autocomplete="off"
-           data-remote="true"
-           data-url="<%= orgs_search_path(
-             known_only: known_only,
-             funder_only: funder_only,
-             non_funder_only: non_funder_only,
-             context: autocomplete_id) %>"/> -->
 
     <%= org_index_fields.text_field :name, class: "form-control auto-complete", placeholder: placeholder,
                               value: default_org&.name,
@@ -45,29 +33,26 @@ presenter = OrgSelectionPresenter.new(orgs: [default_org], selection: default_or
                                 url: orgs_search_path(
                                   known_only: known_only, funder_only: funder_only,
                                   non_funder_only: non_funder_only, context: autocomplete_id
-                                ),
-                                namespace: "org_index",
-                                attribute: "name"
+                                )
                               } %>
-
     <span class="autocomplete-help sr-only" role="status"></span>
+
+    <%# suggestions is a <ul> list managed by JQuery to display the search results to the user %>
     <div id="autocomplete-suggestions-<%= autocomplete_id %>" class="ui-front"></div>
 
-    <%# crosswalk contains an array of hashes that contain the Org name, id,
-        identifiers like ROR and other info used by the OrgSelectionService %>
+    <%# crosswalk contains the same results as suggestions but as a JSON array so we can
+        determine if the entry in the autocomplete matches a suggestion. %>
     <%= form.hidden_field :org_crosswalk, value: presenter.crosswalk,
                                           class: "autocomplete-crosswalk-#{autocomplete_id}" %>
-    <%# gets updated with the matching record from crosswalk when the user
-        selects or enters something %>
-    <%= hidden_field_tag :org_id, value: default_org,
-                                  class: "autocomplete-selection-#{autocomplete_id}" %>
 
-
-    <div class="autocomplete-warning-<%= autocomplete_id %> red hide">
+    <%# message to display to the user if they did not select an item from the suggestions %>
+    <div class="autocomplete-warning-<%= autocomplete_id %> autocomplete-warning red hide">
       <%= known_only ? _("Please select an item from the list.") : _("Please select an item from the list or check the box below and provide a name for your organization.") %>
     </div>
   <% if col_size.present? %></div><% end %>
 
+  <%# If we are allowing the user to specify orgs we don't know about then display the checkbox and
+      textbox for the user's custom Org name %>
   <% unless known_only %>
     <conditional>
       <div class="col-md-<%= col_size %>">

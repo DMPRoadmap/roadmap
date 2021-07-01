@@ -1,8 +1,0 @@
-var newDataList = $('#autocomplete-list-<%= @context %>');
-
-if (newDataList.length > 0) {
-  newDataList.empty();
-  <% @orgs.each do |org| %>
-    newDataList.append('<option id="<%= org.name %>"><%= org.name %></option>');
-  <% end %>
-}
