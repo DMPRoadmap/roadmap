@@ -69,28 +69,9 @@ class OrgsController < ApplicationController
         end
         attrs.delete(:identifiers_attributes)
       end
-
-      # See if the user selected a new Org via the Org Lookup and
-      # convert it into an Org
-      lookup = org_from_params(params_in: attrs)
-      ids = identifiers_from_params(params_in: attrs)
-      identifiers += ids.select { |id| id.value.present? }
     end
 
-    # Remove the extraneous Org Selector hidden fields
-    attrs = remove_org_selection_params(params_in: attrs)
-
     if @org.update(attrs)
-      # Save any identifiers that were found
-      if current_user.can_super_admin? && lookup.present?
-        # Loop through the identifiers and then replace the existing
-        # identifier and save the new one
-        identifiers.each do |id|
-          @org = process_identifier_change(org: @org, identifier: id)
-        end
-        @org.save
-      end
-
       redirect_to "#{admin_edit_org_path(@org)}\##{tab}",
                   notice: success_message(@org, _("saved"))
     else

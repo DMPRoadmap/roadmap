@@ -165,22 +165,6 @@ $(() => {
       handleSelection(autocomplete, crosswalk, $(e.currentTarget).val());
     });
 
-    // If the checkbox and textbox are present make sure they are cleared if the user starts
-    // typing in the autocomplete box
-    if (checkbox.length > 0) {
-      autocomplete.on('input', () => {
-        toggleConditionalFields(checkbox, false);
-        checkbox.prop('checked', false);
-      });
-    }
-
-    // When user ticks the checkbox, display the conditional field and then blank the contents
-    // of the autocomplete
-    checkbox.on('click', () => {
-      toggleConditionalFields(checkbox, checkbox.prop('checked'));
-      autocomplete.val('');
-    });
-
     // If the crosswalk is empty, make sure it is valid JSON
     if (!crosswalk.val()) {
       crosswalk.val(JSON.stringify([]));
@@ -188,7 +172,24 @@ $(() => {
 
     // Toggle the warning and conditional on page load
     toggleWarning(autocomplete, false);
-    toggleConditionalFields(checkbox, textbox.val().length > 0);
+
+    // If the checkbox and textbox are present make sure they are cleared if the user starts
+    // typing in the autocomplete box
+    if (checkbox.length > 0) {
+      autocomplete.on('input', () => {
+        toggleConditionalFields(checkbox, false);
+        checkbox.prop('checked', false);
+      });
+
+      // When user ticks the checkbox, display the conditional field and then blank the contents
+      // of the autocomplete
+      checkbox.on('click', () => {
+        toggleConditionalFields(checkbox, checkbox.prop('checked'));
+        autocomplete.val('');
+      });
+
+      toggleConditionalFields(checkbox, textbox.val().length > 0);
+    }
 
     // Set the form so that the extra autocomplete data isn't sent to the server on form submission
     if (form.length > 0) {

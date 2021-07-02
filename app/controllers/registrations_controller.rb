@@ -327,7 +327,10 @@ class RegistrationsController < Devise::RegistrationsController
       attrs.delete(:default_org_id)
     else
       # Let the OrgSelectable concern determine which org was selected
-      attrs[:org_id] = process_org!&.id
+      org = process_org!
+      # Save it if it was a new org and we are allowing users to create orgs
+      org.save if org.new_record? && !Rails.configuration.x.application.restrict_orgs
+      attrs[:org_id] = org&.id
     end
     attrs = remove_org_selection_params(args: attrs)
     attrs

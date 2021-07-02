@@ -30,6 +30,7 @@
               locals: { form: f,
                         default_org: resource&.org,
                         required: true,
+                        known_only: Rails.configuration.x.application.restrict_orgs || false
                         label: _("Organisation") } %>
     </div>
   <% end %>

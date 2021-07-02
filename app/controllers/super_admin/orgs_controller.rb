@@ -29,25 +29,19 @@ module SuperAdmin
       authorize Org
       attrs = org_params
 
-      # See if the user selected a new Org via the Org Lookup and
-      # convert it into an Org
-      org = org_from_params(params_in: attrs)
+      # Let the OrgSelectable concern determine which org was selected
+      org = process_org!
 
-      # Remove the extraneous Org Selector hidden fields
-      attrs = remove_org_selection_params(params_in: attrs)
-
-      # In the event that the params would create an invalid user, the
-      # org selectable returns nil because Org.new(params) fails
-      org = Org.new unless org.present?
-
-      org.language = Language.default
-      org.managed = org_params[:managed] == "1"
-      org.logo = params[:logo] if params[:logo]
-      org.links = if params[:org_links].present?
-                    JSON.parse(params[:org_links])
-                  else
-                    { org: [] }
-                  end
+      if org.new_record?
+        org.language = Language.default
+        org.managed = org_params[:managed] == "1"
+        org.logo = params[:logo] if params[:logo]
+        org.links = if params[:org_links].present?
+                      JSON.parse(params[:org_links])
+                    else
+                      { org: [] }
+                    end
+      end
 
       begin
         # TODO: The org_types here are working but would be better served as
@@ -58,7 +52,7 @@ module SuperAdmin
         org.institution = params[:institution].present?
         org.organisation = params[:organisation].present?
 
-        if org.update(attrs)
+        if org.save
           msg = success_message(org, _("created"))
           redirect_to admin_edit_org_path(org.id), notice: msg
         else
@@ -109,15 +103,11 @@ module SuperAdmin
                 .find(params[:id])
       authorize @org
 
-      lookup = OrgSelection::HashToOrgService.to_org(
-        hash: JSON.parse(merge_params[:id]), allow_create: false
-      )
-      @target_org = Org.includes(:templates, :tracker, :annotations,
-                                 :departments, :token_permission_types, :funded_plans,
-                                 identifiers: [:identifier_scheme],
-                                 guidance_groups: [guidances: [:themes]],
-                                 users: [identifiers: [:identifier_scheme]])
-                       .find(lookup.id)
+      # Let the OrgSelectable concern determine which org was selected
+      @target_org = process_org!
+
+      # If the user selected the same org then nil it out so that it cancels the merge
+      @target_org = nil if @org == @target_org
     end
 
     # POST /super_admin/:id/merge_commit

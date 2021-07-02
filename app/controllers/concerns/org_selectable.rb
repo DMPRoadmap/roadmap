@@ -60,15 +60,14 @@ module OrgSelectable
       # We only want to create it if the user clicked the 'not in list' checkbox
       return nil unless org_selectable_params[:user_entered_name].present?
 
-      # otherwise create a new org
-      Org.create(
+      # otherwise initialize a new org
+      Org.new(
         name: name,
         abbreviation: Org.name_to_abbreviation(name: name),
         contact_email: Rails.configuration.x.organisation.helpdesk_email,
         contact_name: _("%{app_name} helpdesk") % { app_name: ApplicationService.application_name },
         is_other: false,
         managed: false,
-        users_count: 0,
         organisation: true
       )
     end

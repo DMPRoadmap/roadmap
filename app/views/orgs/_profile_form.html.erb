@@ -8,13 +8,15 @@
 <%= form_for(org, url: url, html: { multipart: true, method: method,
                                     id: "edit_org_profile_form" } ) do |f| %>
 
-  <% if org.new_record? %>
-    <%= render partial: "orgs/external_identifiers",
-               locals: {
-                 form: f,
-                 org: org,
-                 editable: current_user.can_super_admin?
-               } %>
+  <% if org.new_record? && current_user.can_super_admin? %>
+    <div class="row" id="new-org-controls">
+      <%= render partial: "shared/org_autocomplete",
+              locals: { form: f,
+                        col_size: 8,
+                        default_org: org,
+                        required: true,
+                        label: _("Organisation lookup") } %>
+    </div>
   <% else %>
     <div class="row">
       <div class="form-group col-xs-8">

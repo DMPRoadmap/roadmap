@@ -298,7 +298,7 @@ class Org < ApplicationRecord
   #    'Example University (EU)'  ->  'Example University'
   #    'Sample College (sample.edu)'  ->  'Sample College'
   def name_without_alias
-    name.split(" (")&.first&.strip
+    name&.split(" (")&.first&.strip
   end
 
   # Merges the specified Org into this Org
@@ -349,6 +349,7 @@ class Org < ApplicationRecord
     name.split(" ")
         .reject { |word| stopwords.include?(word) }
         .map { |word| word[0].upcase }
+        .join
   end
 
   private
