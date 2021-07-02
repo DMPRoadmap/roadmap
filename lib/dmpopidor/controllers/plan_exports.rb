@@ -53,7 +53,10 @@ module Dmpopidor
           format.text { show_text }
           format.docx { show_docx }
           format.pdf  { show_pdf }
-          format.json { show_json(params[:selected_research_outputs], params[:json_format]) }
+          format.json {
+            selected_research_outputs = params[:selected_research_outputs]&.map(&:to_i) || @plan.research_output_ids
+            show_json(selected_research_outputs, params[:json_format])
+          }
         end
       end
 
@@ -77,12 +80,12 @@ module Dmpopidor
         if json_format.eql?("rda")
           render "shared/export/madmp_export_templates/rda/plan", locals: {
             dmp: @plan.json_fragment,
-            selected_research_outputs: selected_research_outputs.map(&:to_i)
+            selected_research_outputs: selected_research_outputs
           }
         else 
           render "shared/export/madmp_export_templates/default/plan", locals: {
             dmp: @plan.json_fragment,
-            selected_research_outputs: selected_research_outputs.map(&:to_i)
+            selected_research_outputs: selected_research_outputs
           }
         end
       end
