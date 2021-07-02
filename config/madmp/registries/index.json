@@ -1259,6 +1259,9 @@
     "MediaType": {
         "path": "MediaType.json"
     },
+    "ANRProjects": {
+        "path": "ANRProjects.json"
+    },
     "ParentName": [
         "BackupPolicy",
         "Budget",
