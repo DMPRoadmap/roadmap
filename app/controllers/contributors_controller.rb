@@ -117,7 +117,7 @@ class ContributorsController < ApplicationController
     org = org_from_params(params_in: hash,
                           allow_create: !Rails.configuration.x.application.restrict_orgs)
     return nil if org.blank?
-    
+
     hash = remove_org_selection_params(params_in: hash)
     return hash unless org.present?
 
