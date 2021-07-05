@@ -27,6 +27,7 @@ class ContributorsController < ApplicationController
     authorize @plan
   end
 
+  # rubocop:disable Metrics/AbcSize
   # POST /plans/:plan_id/contributors
   def create
     authorize @plan
@@ -50,14 +51,14 @@ class ContributorsController < ApplicationController
         save_orcid
 
         redirect_to plan_contributors_path(@plan),
-          notice: success_message(@contributor, _("added"))
+                    notice: success_message(@contributor, _("added"))
       else
         flash[:alert] = failure_message(@contributor, _("add"))
         render :new
       end
     end
   end
-  # rubocop:enable
+  # rubocop:enable Metrics/AbcSize
 
   # PUT /plans/:plan_id/contributors/:id
   def update
@@ -113,8 +114,10 @@ class ContributorsController < ApplicationController
   def process_org(hash:)
     return hash unless hash.present? && hash[:org_id].present?
 
-    org = org_from_params(params_in: hash, allow_create: !Rails.configuration.x.application.restrict_orgs)
+    org = org_from_params(params_in: hash,
+                          allow_create: !Rails.configuration.x.application.restrict_orgs)
     return nil if org.blank?
+    
     hash = remove_org_selection_params(params_in: hash)
     return hash unless org.present?
 
