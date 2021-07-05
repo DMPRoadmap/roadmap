@@ -2,10 +2,11 @@
 <% dmp_fragment = @plan.json_fragment() %>
 <% meta_fragment = dmp_fragment.meta%>
 <% project_fragment = dmp_fragment.project%>
+<% anr_projects = Registry.find_by(name: "ANRProjects").registry_values %>
+<% locale = @plan.template.locale %>
 <div class="row">
   <div class="col-md-12 plan-details">
     <div class="col-md-8">
-      
       <div class="heading-button" role="button" data-toggle="collapse"
             data-parent="sections-accordion"
             href="#plan_project"
@@ -21,10 +22,41 @@
       </div>
 
       <div id="plan_project" class="panel-collapse collapse in plan-details-content" role="tabpanel" aria-labelledby="heading-plan-project">
+        
         <% project_schema = MadmpSchema.find_by(name: "ProjectStandard") %>
+        <% run_parameters = project_schema.extract_run_parameters %>
+        <% if run_parameters.present? %>
+        <div class="panel-body">
+          <span class="col-md-8 project-selector-link"><%= _("Click here if you have a funded project.") %></span>
+          <div class="col-md-12 dynamic-field select-field project-selector"
+              data-fragment-id="<%= project_fragment.id%>"
+              data-script-id="<%= run_parameters["script_id"]%>">
+            <label class="control-label"><%= d_("dmpopidor", "Please search a funded project below") %></label>
+            <%= select_tag "anr_project",
+                    render(partial: 'shared/dynamic_form/linked_fragment/select_options', locals: {
+                          select_values: [],
+                          selected_value: nil
+                        }),
+                        data: {
+                        "ajax--url" => load_values_registries_path(
+                          id: Registry.find_by(name: "ANRProjects").id,
+                          plan_id: @plan.id
+                        ),
+                        "ajax--cache" => true,
+                        "ajax--delay" => 250
+                      },
+                      include_blank: true
+                      %>
+            <span class="error-zone"></span>
+            <span class="btn btn-default cancel-project-search"><%= _("Cancel") %></span>
+          </div>
+        </div>
+        <% end %>
+        
+        
         <%= hidden_field_tag 'fragment-id', project_fragment.id, class: "fragment-id" %>
-        <div class="panel-body madmp-fragment"><!-- accordion body -->
-          <% I18n.with_locale @plan.template.locale do %>
+        <div class="panel-body project-form  madmp-fragment"><!-- accordion body -->
+          <% I18n.with_locale locale do %>
             <%= form_for :madmp_fragment, url: madmp_fragment_path(id: project_fragment.id), 
                           html: {
                             method: :put,
@@ -33,19 +65,20 @@
                             id: nil  
                           } do |f| %>
             <fieldset aria-labelledby="fragment-fieldset" class="fragment-fieldset">
-              <div class="checkbox">
+              <div class="checkbox col-md-12">
                 <%= f.hidden_field :visibility %>
                 <%= f.label(:is_test, class: 'control-label') do %>
                   <%= check_box_tag(:is_test, 1, @plan.is_test?, "aria-label": "is_test") %>
                   <%= _('mock project for testing, practice, or educational purposes') %>
                 <% end %>
               </div>
+              
               <%= f.hidden_field :schema_id, :value => project_schema.id, id: nil, class: "schema_id" %>
               <%= f.hidden_field :dmp_id, :value => dmp_fragment.id, id: nil %>
               <%= f.hidden_field :parent_id, :value => dmp_fragment.id, id: nil %>
-              <%= f.hidden_field :template_locale, :value => @plan.template.locale, id: nil %>
+              <%= f.hidden_field :template_locale, :value => locale, id: nil %>
               <%= f.hidden_field "source", :value => "form" %>
-              <div class="project-form form-group fragment-<%= project_fragment.id %>" data-fragment-id="<%= project_fragment.id %>" >
+              <div class="form-group fragment-<%= project_fragment.id %>" data-fragment-id="<%= project_fragment.id %>" >
                 <%= render(partial: 'shared/dynamic_form/form', locals: { 
                       f: f,
                       current_fragment: project_fragment, 
@@ -53,7 +86,7 @@
                       question_id: nil,
                       readonly: false,
                       classname: "project",
-                      template_locale: @plan.template.locale,
+                      template_locale: locale,
                       form_prefix: nil,
                       source: "form"
                     }) %>
@@ -61,16 +94,10 @@
               <div class="overlay" style="display:none;">
                 <div class="spinner"></div>
                 <br/>
-                <%= _('Saving...') %>
+                <%= _('Loading...') %>
               </div>
               <div class="answer-bottom-zone" >
                 <div class="schema-picker-zone run-zone">
-                  <% run_parameters = project_schema.extract_run_parameters %>
-                  <%= render(partial: 'shared/dynamic_form/codebase/show', locals: { 
-                        fragment: project_fragment,
-                        parameters: run_parameters,
-                        template_locale: @plan.template.locale
-                      }) unless run_parameters.nil? %>
                 </div>
                 <div class="answer-save-zone">
                   <%= f.button(_('Save'), class: "btn btn-default answer-save-button", type: "submit") %>
@@ -106,7 +133,7 @@
         <% meta_schema = MadmpSchema.find_by(name: "MetaStandard") %>
         <%= hidden_field_tag 'fragment-id', project_fragment.id, class: "meta_fragment-id" %>
         <div class="panel-body madmp-fragment"><!-- accordion body -->
-          <% I18n.with_locale @plan.template.locale do %>
+          <% I18n.with_locale locale do %>
             <%= form_for :madmp_fragment, url: madmp_fragment_path(id: meta_fragment.id), 
                           html: {
                             method: :put,
@@ -118,7 +145,7 @@
                 <%= f.hidden_field :schema_id, :value => meta_schema.id, id: nil, class: "schema_id" %>
                 <%= f.hidden_field :dmp_id, :value => dmp_fragment.id, id: nil %>
                 <%= f.hidden_field :parent_id, :value => dmp_fragment.id, id: nil %>
-                <%= f.hidden_field :template_locale, :value => @plan.template.locale, id: nil %>
+                <%= f.hidden_field :template_locale, :value => locale, id: nil %>
                 <%= f.hidden_field "source", :value => "form" %>
                 <div class="meta-form form-group fragment-<%= meta_fragment.id %>" data-fragment-id="<%= meta_fragment.id %>" >
                   <%= render(partial: 'shared/dynamic_form/form', locals: { 
@@ -128,7 +155,7 @@
                         question_id: nil,
                         readonly: false,
                         classname: "meta",
-                        template_locale: @plan.template.locale,
+                        template_locale: locale,
                         form_prefix: nil,
                         source: "form"
                       }) %>
@@ -136,7 +163,7 @@
                 <div class="overlay" style="display:none;">
                   <div class="spinner"></div>
                   <br/>
-                  <%= _('Saving...') %>
+                  <%= _('Loading...') %>
                 </div>
                 <div class="answer-bottom-zone" >
                   <div class="schema-picker-zone run-zone">
@@ -144,7 +171,7 @@
                     <%= render(partial: 'shared/dynamic_form/codebase/show', locals: {
                           fragment: meta_fragment,
                           parameters: run_parameters,
-                          template_locale: @plan.template.locale
+                          template_locale: locale
                         }) unless run_parameters.nil?%>
                   </div>
                   <div class="answer-save-zone">

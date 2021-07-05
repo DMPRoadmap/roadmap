@@ -49,4 +49,8 @@ class MadmpFragmentPolicy < ApplicationPolicy
     @fragment.plan.editable_by?(@user.id) || @user == @answer.plan.owner
   end
 
+  def anr_search?
+    @fragment.plan.editable_by?(@user.id) || @user == @answer.plan.owner
+  end
+
 end

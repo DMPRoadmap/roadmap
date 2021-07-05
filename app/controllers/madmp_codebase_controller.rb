@@ -48,6 +48,49 @@ class MadmpCodebaseController < ApplicationController
     end
   end
 
+  def anr_search
+    anr_project_id = params[:project_id]
+    fragment = MadmpFragment.find(params[:fragment_id])
+    script_id = params[:script_id]
+
+    authorize fragment
+    # EXAMPLE DATA
+    # file_path = Rails.root.join("config/madmp/schemas/anr_example_data.json")
+    # response = JSON.load(File.open(file_path))
+    # fragment.save_api_fragment(response, fragment.madmp_schema)
+    # render json: {
+    #   "message" => d_("dmpopidor", 'New data have been added to your plan, please click on the "Reload" button.')
+    # }, status: 200
+    # return
+
+    begin
+      response = ExternalApis::MadmpCodebaseService.run(script_id, body:
+        {
+          "data": anr_project_id,
+          "dmp_id": fragment.dmp_id
+        }
+      )
+      if response["return_code"]&.eql?(0)
+        fragment.save_codebase_fragment(response["data"], fragment.madmp_schema)
+        render json: {
+          "message" => d_("dmpopidor", 'New data have been added to your plan, please click on the "Reload" button.'),
+          "needs_reload" => true
+        }, status: 200
+        update_run_log(fragment, script_id)
+      else
+        # Rails.cache.delete(["codebase_run", fragment.id])
+        render json: {
+          "error" => "#{d_('dmpopidor', 'An error has occured: ')} #{response['result_message']}"
+        }, status: 500
+      end
+    rescue StandardError => e
+      # Rails.cache.delete(["codebase_run", fragment.id])
+      render json: {
+        "error" => "Internal Server error: #{e.message}"
+      }, status: 500
+    end
+  end
+
   private
 
   def fetch_run_data(fragment, script_id)

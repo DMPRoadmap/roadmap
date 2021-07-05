@@ -1,3 +1,9 @@
+import {
+  projectSelectorHandler,
+  multipleSelectorHandler,
+  linkedFragmentSelectorHandler,
+  singleSelectHandler,
+} from '../../utils/select2';
 
 $(() => {
   // When clicking on the "+" of a duplicable field, clone the field & remove
@@ -57,62 +63,22 @@ $(() => {
     if (!value) return;
 
     if (selectField.hasClass('single-select') && target.data('tags') === true) {
-      const removeButton = selectField.find('.remove-button');
-
-      if (selected) {
-        removeButton.show();
-        selectField.find('.custom-value').hide();
-        selectField.find('.custom-value input').val('');
-      } else {
-        target.parents('fieldset.registry').find('.fragment-display').hide();
-        removeButton.show();
-        selectField.find('.custom-value').show();
-        selectField.find('.custom-value input').val(value);
-        selectField.find('.custom-value span').html(value);
-        selectField.find('select').val('').trigger('change');
-      }
+      singleSelectHandler(selectField, target, value, selected);
     }
 
     if (selectField.hasClass('linked-fragments-select')) {
-      /*
-      * Changes the url of the "View" link according to the selected value in the fragment select
-      */
-      const selectedValue = selectField.next('.selected-value');
-      const viewLink = selectedValue.find('a');
-      selectedValue.find('span').html(text);
-      viewLink.attr('href', viewLink.attr('href').replace(/fragment_id=([^&]+)/, `fragment_id=${value}`));
-      selectedValue.show();
+      linkedFragmentSelectorHandler(selectField, value, text);
     }
 
     if (selectField.hasClass('multiple-select')) {
-      const messageZone = selectField.find('.message-area');
-      const requestData = {
-        locale: selectField.data('locale'),
-        parent_id: selectField.data('parent-id'),
-        schema_id: selectField.data('schema-id'),
-        query_id: selectField.data('query-id'),
-        property_name: selectField.data('property-name'),
-      };
-      if (selected) {
-        requestData.registry_value_id = value;
-      } else {
-        requestData.custom_value = value;
-      }
+      multipleSelectorHandler(selectField, value, selected);
+    }
 
-      $.ajax({
-        url: '/madmp_fragments/create_from_registry',
-        method: 'get',
-        data: requestData,
-      }).done((response) => {
-        messageZone.hide();
-        $(`table.list-${response.query_id} tbody`).html(response.html);
-        selectField.find('select').val('').trigger('change');
-      }).fail((response) => {
-        messageZone.html(response.responseJSON.error);
-        messageZone.show();
-      });
+    if (selectField.hasClass('project-selector')) {
+      projectSelectorHandler(selectField, value, text);
     }
   });
+
   $(document).on('click', '.select-field .remove-button', (e) => {
     const target = $(e.target);
     const selectField = target.parents('.select-field');
@@ -150,18 +116,20 @@ $(() => {
     const target = $(e.target);
     const reloadButton = target.parent().find('.reload-button');
     const messageZone = target.parent().find('.message-zone');
-    const loadingZone = target.parent().find('.loading-zone');
+    const overlay = target.parents('form').find('.overlay');
     const url = target.data('url');
+    const form = target.parents('form');
 
     $.ajax({
       url,
       method: 'get',
       beforeSend: () => {
         target.hide();
-        loadingZone.css('display', 'flex');
+        overlay.show();
+        form.find('.overlay').show();
       },
       complete: () => {
-        loadingZone.hide();
+        overlay.hide();
       },
     }).done((data) => {
       target.hide();
@@ -182,5 +150,14 @@ $(() => {
   $(document).on('click', '.run-zone .reload-button', (e) => {
     const target = $(e.target);
     target.parents('.panel-collapse').trigger('reload.form');
+  });
+
+  $(document).on('click', '.project-selector-link', () => {
+    $('#plan_project').find('.project-selector').fadeIn();
+    $('#plan_project .error-zone').fadeOut();
+  });
+  $(document).on('click', '.cancel-project-search', () => {
+    $('#plan_project').find('.project-selector').fadeOut();
+    $('#plan_project .error-zone').fadeOut();
   });
 });

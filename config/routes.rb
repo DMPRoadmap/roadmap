@@ -138,7 +138,12 @@ Rails.application.routes.draw do
     get "load_fragments", action: :load_fragments, on: :collection
   end
 
-  get "/codebase/run", to: "madmp_codebase#run", constraints: {format: [:json]}
+  resources :registries, only: [] do
+    get "load_values", action: :load_values, on: :collection
+  end
+
+  get "/codebase/run", to: "madmp_codebase#run", constraints: { format: [:json] }
+  get "/codebase/anr_search", to: "madmp_codebase#anr_search", constraints: { format: [:json] }
 
   resources :research_outputs, only: [] do
     post "sort", on: :collection
