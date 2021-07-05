@@ -114,11 +114,9 @@ $(() => {
 
   $(document).on('click', '.run-zone .run-button', (e) => {
     const target = $(e.target);
-    const reloadButton = target.parent().find('.reload-button');
     const messageZone = target.parent().find('.message-zone');
-    const overlay = target.parents('form').find('.overlay');
+    const overlay = target.parents('.fragment-content').find('.overlay');
     const url = target.data('url');
-    const form = target.parents('form');
 
     $.ajax({
       url,
@@ -126,7 +124,6 @@ $(() => {
       beforeSend: () => {
         target.hide();
         overlay.show();
-        form.find('.overlay').show();
       },
       complete: () => {
         overlay.hide();
@@ -137,7 +134,7 @@ $(() => {
       messageZone.html(data.message);
       messageZone.show();
       if (data.needs_reload) {
-        reloadButton.show();
+        target.parents('.fragment-content').trigger('reload.form');
       }
     }).fail((response) => {
       messageZone.html(response.responseJSON.error);
@@ -147,10 +144,10 @@ $(() => {
     });
   });
 
-  $(document).on('click', '.run-zone .reload-button', (e) => {
-    const target = $(e.target);
-    target.parents('.panel-collapse').trigger('reload.form');
-  });
+  // $(document).on('click', '.run-zone .reload-button', (e) => {
+  //   const target = $(e.target);
+  //   target.parents('.panel-collapse').trigger('reload.form');
+  // });
 
   $(document).on('click', '.project-selector-link', () => {
     $('#plan_project').find('.project-selector').fadeIn();
