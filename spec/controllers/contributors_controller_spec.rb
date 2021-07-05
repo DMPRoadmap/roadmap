@@ -142,10 +142,14 @@ RSpec.describe ContributorsController, type: :controller do
         hash = @controller.send(:process_org, hash: @params_hash[:contributor])
         expect(hash).to eql(@params_hash[:contributor])
       end
-      it "returns the hash as is if the org could not be converted" do
+      it "returns the hash as is (or nil if restirct_orgs set) if the org could not be converted" do
         @controller.stubs(:org_from_params).returns(nil)
         hash = @controller.send(:process_org, hash: @params_hash[:contributor])
-        expect(hash).to eql(@params_hash[:contributor])
+        if Rails.configuration.x.application.restrict_orgs
+          expect(hash).to eql(nil)
+        else
+          expect(hash).to eql(@params_hash[:contributor])
+        end
       end
       it "sets the org_id to the idea of the org" do
         new_org = create(:org)
