@@ -114,9 +114,10 @@ class ContributorsController < ApplicationController
   def process_org(hash:)
     return hash unless hash.present? && hash[:org_id].present?
 
+    allow = !Rails.configuration.x.application.restrict_orgs
     org = org_from_params(params_in: hash,
-                          allow_create: !Rails.configuration.x.application.restrict_orgs)
-    return nil if org.blank?
+                          allow_create: allow )
+    return nil if org.blank? && !allow
 
     hash = remove_org_selection_params(params_in: hash)
     return hash unless org.present?
