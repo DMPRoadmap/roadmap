@@ -142,14 +142,23 @@ RSpec.describe ContributorsController, type: :controller do
         hash = @controller.send(:process_org, hash: @params_hash[:contributor])
         expect(hash).to eql(@params_hash[:contributor])
       end
-      it "returns the hash as is (or nil if restirct_orgs set) if the org could not be converted" do
+      it "with no restrict_orgs defined, returns the hash as is if the org could not be converted" do
+        Rails.configuration.x.application.restrict_orgs = nil
         @controller.stubs(:org_from_params).returns(nil)
         hash = @controller.send(:process_org, hash: @params_hash[:contributor])
-        if Rails.configuration.x.application.restrict_orgs
-          expect(hash).to eql(nil)
-        else
-          expect(hash).to eql(@params_hash[:contributor])
-        end
+        expect(hash).to eql(@params_hash[:contributor])
+      end
+      it "with restrict_orgs=false, returns the hash as is if the org could not be converted" do
+        Rails.configuration.x.application.restrict_orgs = false
+        @controller.stubs(:org_from_params).returns(nil)
+        hash = @controller.send(:process_org, hash: @params_hash[:contributor])
+        expect(hash).to eql(@params_hash[:contributor])
+      end
+      it "with restrict_orgs=true, returns nil if the org could not be converted" do
+        Rails.configuration.x.application.restrict_orgs = true
+        @controller.stubs(:org_from_params).returns(nil)
+        hash = @controller.send(:process_org, hash: @params_hash[:contributor])
+        expect(hash).to eql(nil)
       end
       it "sets the org_id to the idea of the org" do
         new_org = create(:org)
