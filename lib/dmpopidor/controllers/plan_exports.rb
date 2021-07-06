@@ -77,17 +77,12 @@ module Dmpopidor
       end
 
       def show_json(selected_research_outputs, json_format)
-        if json_format.eql?("rda")
-          render "shared/export/madmp_export_templates/rda/plan", locals: {
-            dmp: @plan.json_fragment,
-            selected_research_outputs: selected_research_outputs
-          }
-        else 
-          render "shared/export/madmp_export_templates/default/plan", locals: {
-            dmp: @plan.json_fragment,
-            selected_research_outputs: selected_research_outputs
-          }
-        end
+        send_data render_to_string("shared/export/madmp_export_templates/#{json_format}/plan", 
+                locals: {
+                dmp: @plan.json_fragment,
+                selected_research_outputs: selected_research_outputs
+              }),
+              filename: "#{file_name}_#{json_format}.json"
       end
 
     end
