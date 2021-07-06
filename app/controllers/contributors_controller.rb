@@ -32,11 +32,11 @@ class ContributorsController < ApplicationController
     authorize @plan
 
     args = translate_roles(hash: contributor_params)
-    args = process_org(hash: args)
     args = process_orcid_for_create(hash: args)
     args[:plan_id] = @plan.id
 
     @contributor = Contributor.new(args)
+    @contributor.org = process_org!
     stash_orcid
 
     if @contributor.save
@@ -56,8 +56,9 @@ class ContributorsController < ApplicationController
   def update
     authorize @plan
     args = translate_roles(hash: contributor_params)
-    args = process_org(hash: args)
     args = process_orcid_for_update(hash: args)
+    org = process_org!
+    args[:org_id] = org&.id
 
     if @contributor.update(args)
       redirect_to edit_plan_contributor_path(@plan, @contributor),
@@ -98,19 +99,6 @@ class ContributorsController < ApplicationController
   def translate_roles(hash:)
     roles = Contributor.new.all_roles
     roles.each { |role| hash[role.to_sym] = hash[role.to_sym] == "1" }
-    hash
-  end
-
-  # Convert the Org Hash into an Org object (creating it if necessary)
-  # and then remove all of the Org args
-  def process_org(hash:)
-    return hash unless hash.present? && hash[:org_id].present?
-
-    org = org_from_params(params_in: hash, allow_create: true)
-    hash = remove_org_selection_params(params_in: hash)
-    return hash unless org.present?
-
-    hash[:org_id] = org.id
     hash
   end
 

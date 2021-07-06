@@ -2,10 +2,12 @@ import 'jquery-ui/autocomplete';
 import getConstant from './constants';
 import toggleConditionalFields from './conditional';
 import toggleSpinner from './spinner';
-import { isObject, isString, isArray } from './isType';
+import {
+  isObject, isString, isArray, isFunction,
+} from './isType';
 
 // This JS file wires the Org autocomplete box up with Jquery UI's autocomplete
-// functionality. The autocomplete box's source is an AJAX call to the OrgIndex
+// functionality. The autocomplete box's source is an AJAX call to the RegistryOrg
 // controller to search which searches both the org_indices and orgs tables for
 // matches.
 //
@@ -24,7 +26,7 @@ import { isObject, isString, isArray } from './isType';
 //     partial:    app/views/shared/org_autocomplete.html.erb
 //     css:        app/assets/stylesheets/blocks/_autocomplete.scss
 
-// The JSON Array of Org names returned by the OrgIndicesController.search method
+// The JSON Array of Org names returned by the RegistryOrgsController.search method
 const relatedJsonCrosswalk = (id) => $(`.autocomplete-crosswalk-${id}`);
 
 // The <ul> version of the values in the Crosswalk that get displayed for the user
@@ -86,11 +88,10 @@ const search = (autocomplete, term, crosswalk, callback) => {
   if (isObject(autocomplete) && isObject(crosswalk) && isString(term)) {
     const url = autocomplete.attr('data-url');
     const method = autocomplete.attr('data-method');
-    // Format the search term so that its acceptable to the OrgIndicesController's strong params
-    const data = JSON.parse(`{"org_index":{"name":"${term}"}}`);
+    // Format the search term so that its acceptable to the RegistryOrgsController's strong params
+    const data = JSON.parse(`{"org_autocomplete":{"name":"${term}"}}`);
 
     if (isString(url) && term.length > 2) {
-      // Display the spinner as we start searching via AJAX
       toggleSpinner();
 
       $.ajax({
@@ -160,11 +161,6 @@ $(() => {
       appendTo: suggestions,
     });
 
-    // Do a check to see if the value entered in the box matches a value in the crosswalk
-    autocomplete.on('blur', (e) => {
-      handleSelection(autocomplete, crosswalk, $(e.currentTarget).val());
-    });
-
     // If the crosswalk is empty, make sure it is valid JSON
     if (!crosswalk.val()) {
       crosswalk.val(JSON.stringify([]));
@@ -172,6 +168,12 @@ $(() => {
 
     // Toggle the warning and conditional on page load
     toggleWarning(autocomplete, false);
+
+    // When the autocomplete loses focus display the warning if they did not select an item
+    autocomplete.on('blur', (e) => {
+      const selection = findInCrosswalk($(e.currentTarget).val(), crosswalk);
+      toggleWarning(autocomplete, selection === undefined);
+    });
 
     // If the checkbox and textbox are present make sure they are cleared if the user starts
     // typing in the autocomplete box
@@ -199,3 +201,27 @@ $(() => {
     }
   });
 });
+
+// Callable method that allows another JS file to check whether or not the autocomplete has a
+// valid selection
+export default function listenForAutocompleteChange(autocomplete, callback) {
+  if (autocomplete.length > 0 && isFunction(callback)) {
+    const crosswalk = relatedJsonCrosswalk(getId(autocomplete, 'list'));
+
+    if (crosswalk.length > 0) {
+      // Add listener to the Select event
+      autocomplete.on('autocompleteselect', (_e, ui) => {
+        // Call the specified function and pass it a boolean indicating whether or not
+        // the user made a valid selection
+        callback(autocomplete, findInCrosswalk(ui.item.label, crosswalk));
+      });
+
+      // Add listener to the Change event
+      autocomplete.on('change', () => {
+        // Call the specified function and pass it a boolean indicating whether or not
+        // the user made a valid selection
+        callback(autocomplete, findInCrosswalk(autocomplete.val(), crosswalk));
+      });
+    }
+  }
+}

@@ -88,107 +88,58 @@ RSpec.describe OrgsController, type: :controller do
     end
   end
 
-  # ----------------------------------------------------
-  # DMPTool Customization
-  # ----------------------------------------------------
-  # We override these endpoints, see mixins for customized tests
-  # describe "GET /orgs/shibboleth_ds" do
-  #   before(:each) do
-  #     shib = create(:identifier_scheme, name: "shibboleth")
-  #     @identifier = create(:identifier, identifier_scheme: shib,
-  #                                       identifiable: @org, value: SecureRandom.uuid)
-  #   end
-  #
-  #   it "succeeds" do
-  #     get :shibboleth_ds
-  #     expect(response).to render_template("orgs/shibboleth_ds")
-  #     expect(assigns(:user).new_record?).to eql(true)
-  #     expect(assigns(:orgs).any?).to eql(true)
-  #     expect(assigns(:orgs).include?(@identifier)).to eql(true)
-  #   end
-  #   it "redirects to the dashboard if user is logged in" do
-  #     sign_in(@user)
-  #     get :shibboleth_ds
-  #     expect(response).to redirect_to(root_path)
-  #   end
-  #   it "redirects to the user omniauth path if no Orgs have shib entityIDs" do
-  #     @identifier.destroy
-  #     get :shibboleth_ds
-  #     expect(response).to redirect_to(user_shibboleth_omniauth_authorize_path)
-  #     expect(flash[:alert].present?).to eql(true)
-  #   end
-  # end
-  #
-  # describe "POST /orgs/shibboleth_ds" do
-  #   before(:each) do
-  #     shib = create(:identifier_scheme, name: "shibboleth")
-  #     @identifier = create(:identifier, identifier_scheme: shib,
-  #                                       identifiable: @org, value: SecureRandom.uuid)
-  #     @args = { org_id: @org.id, org_name: @org.name }
-  #   end
-  #
-  #   it "succeeds" do
-  #     post :shibboleth_ds_passthru, params: { "shib-ds": @args }
-  #     url = @controller.send(:shib_login_url)
-  #     target = @controller.send(:shib_callback_url)
-  #     expected = "#{url}?#{target}&entityID=#{@identifier.value}"
-  #     expect(response).to redirect_to(expected)
-  #   end
-  #   it "receives no ['shib-ds'][:org_name] information" do
-  #     post :shibboleth_ds_passthru, params: { "shib-ds": { org_id: @org.id } }
-  #     expect(response).to redirect_to(shibboleth_ds_path)
-  #     expect(flash[:notice].present?).to eql(true)
-  #   end
-  #   it "is for an Org that does not have a shibboleth entityID defined" do
-  #     @identifier.destroy
-  #     post :shibboleth_ds_passthru, params: { "shib-ds": @args }
-  #     expect(response).to redirect_to(shibboleth_ds_path)
-  #     expect(flash[:alert].present?).to eql(true)
-  #   end
-  # end
-
-  describe "POST /orgs" do
+  describe "GET /orgs/shibboleth_ds" do
     before(:each) do
-      uri = URI.parse(Faker::Internet.url)
-      @hash = { id: uri.to_s, name: "#{@name} (#{uri.host})", sort_name: @name,
-                score: 0, weight: 1 }
+      shib = create(:identifier_scheme, name: "shibboleth")
+      @identifier = create(:identifier, identifier_scheme: shib,
+                                        identifiable: @org, value: SecureRandom.uuid)
     end
 
-    it "returns an empty array if the search term is blank" do
-      OrgSelection::SearchService.stubs(:search_locally).returns([@hash])
-      post :search, params: { org: { name: "" } }, format: :js
-      expect(JSON.parse(response.body)).to eql([])
+    it "succeeds" do
+      get :shibboleth_ds
+      expect(response).to render_template("orgs/shibboleth_ds")
+      expect(assigns(:user).new_record?).to eql(true)
+      expect(assigns(:orgs).any?).to eql(true)
+      expect(assigns(:orgs).include?(@identifier)).to eql(true)
+    end
+    it "redirects to the dashboard if user is logged in" do
+      sign_in(@user)
+      get :shibboleth_ds
+      expect(response).to redirect_to(root_path)
+    end
+    it "redirects to the user omniauth path if no Orgs have shib entityIDs" do
+      @identifier.destroy
+      get :shibboleth_ds
+      expect(response).to redirect_to(user_shibboleth_omniauth_authorize_path)
+      expect(flash[:alert].present?).to eql(true)
+    end
+  end
+
+  describe "POST /orgs/shibboleth_ds" do
+    before(:each) do
+      shib = create(:identifier_scheme, name: "shibboleth")
+      @identifier = create(:identifier, identifier_scheme: shib,
+                                        identifiable: @org, value: SecureRandom.uuid)
+      @args = { org_id: @org.id, org_name: @org.name }
     end
 
-    it "returns an empty array if the search term is less than 3 characters" do
-      OrgSelection::SearchService.stubs(:search_locally).returns([@hash])
-      post :search, params: { org: { name: "Fo" } }, format: :js
-      expect(JSON.parse(response.body)).to eql([])
+    it "succeeds" do
+      post :shibboleth_ds_passthru, params: { "shib-ds": @args }
+      url = @controller.send(:shib_login_url)
+      target = @controller.send(:shib_callback_url)
+      expected = "#{url}?#{target}&entityID=#{@identifier.value}"
+      expect(response).to redirect_to(expected)
     end
-
-    it "assigns the orgs variable" do
-      OrgSelection::SearchService.stubs(:search_locally).returns([@hash])
-      post :search, params: { org: { name: Faker::Lorem.sentence } }, format: :js
-      json = JSON.parse(response.body)
-      expect(json.length).to eql(1)
-      expect(json.first["sort_name"]).to eql(@name)
+    it "receives no ['shib-ds'][:org_name] information" do
+      post :shibboleth_ds_passthru, params: { "shib-ds": { org_id: @org.id } }
+      expect(response).to redirect_to(shibboleth_ds_path)
+      expect(flash[:notice].present?).to eql(true)
     end
-
-    it "calls search_locally by default" do
-      OrgSelection::SearchService.expects(:search_locally).at_least(1)
-      post :search, params: { org: { name: Faker::Lorem.sentence } }, format: :js
-    end
-
-    it "calls search_externally when query string contains type=external" do
-      OrgSelection::SearchService.expects(:search_externally).at_least(1)
-      post :search, params: { org: { name: Faker::Lorem.sentence }, type: "external" },
-                    format: :js
-    end
-
-    it "calls search_combined when query string contains type=combined" do
-      OrgSelection::SearchService.expects(:search_combined).at_least(1)
-      post :search, params: { org: { name: Faker::Lorem.sentence }, type: "combined" },
-                    format: :js
+    it "is for an Org that does not have a shibboleth entityID defined" do
+      @identifier.destroy
+      post :shibboleth_ds_passthru, params: { "shib-ds": @args }
+      expect(response).to redirect_to(shibboleth_ds_path)
+      expect(flash[:alert].present?).to eql(true)
     end
   end
 

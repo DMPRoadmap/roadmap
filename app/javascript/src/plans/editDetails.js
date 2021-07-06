@@ -1,5 +1,6 @@
 import { Tinymce } from '../utils/tinymce.js.erb';
 import getConstant from '../utils/constants';
+import toggleConditionalFields from '../utils/conditional';
 
 $(() => {
   const grantIdField = $('.grant-id-typeahead');
@@ -16,33 +17,12 @@ $(() => {
     $('#plan_visibility').val($(e.target).is(':checked') ? 'is_test' : 'privately_visible');
   });
 
-  // Toggle (hide/show) the additional fields related to the context
-  const toggleAdditionalFields = (context, activate) => {
-    const container = $(context).closest('conditional');
-
-    if (container.length > 0) {
-      if (activate === true) {
-        container.find('.toggleable-field').show();
-      } else {
-        container.find('.toggleable-field').find('input, textarea').val('');
-        container.find('.toggleable-field').hide();
-      }
-    }
-  };
-
   const ethicalIssues = $('#plan_ethical_issues');
-  const funderId = $('#plan_org_id');
 
   if (ethicalIssues.length > 0) {
     // If the user checks the ethical_issues field then display the other ethics fields
     ethicalIssues.on('change', () => {
-      toggleAdditionalFields(ethicalIssues, ethicalIssues.prop('checked'));
-    }).change();
-  }
-  if (funderId.length > 0) {
-    // If the plan has a funder defined then display the other funder fields
-    funderId.on('change', () => {
-      toggleAdditionalFields(funderId, (funderId.val() !== '{"name":""}' && funderId.val() !== ''));
+      toggleConditionalFields(ethicalIssues, ethicalIssues.prop('checked'));
     }).change();
   }
 

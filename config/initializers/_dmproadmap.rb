@@ -104,8 +104,8 @@ module DMPRoadmap
     config.x.shibboleth.enabled = Rails.configuration.x.dmproadmap.shibboleth_enabled
 
     # Relative path to Shibboleth SSO Logouts
-    config.x.shibboleth.login_url = Rails.configuration.x.dmproadmap.shibboleth_login_url
-    config.x.shibboleth.logout_url = Rails.configuration.x.dmproadmap.shibboleth_logout_url
+    config.x.shibboleth.login_url = "#{Rails.configuration.x.dmproadmap.server_host}#{Rails.configuration.x.dmproadmap.shibboleth_login_url}"
+    config.x.shibboleth.logout_url = "#{Rails.configuration.x.dmproadmap.server_host}#{Rails.configuration.x.dmproadmap.shibboleth_logout_url}"
 
     # If this value is set to true your users will be presented with a list of orgs that have a
     # shibboleth identifier in the orgs_identifiers table. If it is set to false (default), the user

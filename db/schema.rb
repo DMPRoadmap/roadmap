@@ -311,27 +311,6 @@ ActiveRecord::Schema.define(version: 2021_06_29_183243) do
     t.index ["user_id"], name: "index_oauth_applications_on_user_id"
   end
 
-  create_table "org_indices", force: :cascade do |t|
-    t.bigint "org_id"
-    t.string "ror_id"
-    t.string "fundref_id"
-    t.string "name"
-    t.string "home_page"
-    t.string "language"
-    t.json "types"
-    t.json "acronyms"
-    t.json "aliases"
-    t.json "country"
-    t.datetime "file_timestamp"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["file_timestamp"], name: "index_org_indices_on_file_timestamp"
-    t.index ["fundref_id"], name: "index_org_indices_on_fundref_id"
-    t.index ["name"], name: "index_org_indices_on_name"
-    t.index ["org_id"], name: "index_org_indices_on_org_id"
-    t.index ["ror_id"], name: "index_org_indices_on_ror_id"
-  end
-
   create_table "org_token_permissions", id: :integer, force: :cascade do |t|
     t.integer "org_id"
     t.integer "token_permission_type_id"
@@ -490,6 +469,27 @@ ActiveRecord::Schema.define(version: 2021_06_29_183243) do
     t.string "description"
     t.string "name"
     t.integer "super_region_id"
+  end
+
+  create_table "registry_orgs", force: :cascade do |t|
+    t.bigint "org_id"
+    t.string "ror_id"
+    t.string "fundref_id"
+    t.string "name"
+    t.string "home_page"
+    t.string "language"
+    t.json "types"
+    t.json "acronyms"
+    t.json "aliases"
+    t.json "country"
+    t.datetime "file_timestamp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["file_timestamp"], name: "index_registry_orgs_on_file_timestamp"
+    t.index ["fundref_id"], name: "index_registry_orgs_on_fundref_id"
+    t.index ["name"], name: "index_registry_orgs_on_name"
+    t.index ["org_id"], name: "index_registry_orgs_on_org_id"
+    t.index ["ror_id"], name: "index_registry_orgs_on_ror_id"
   end
 
   create_table "related_identifiers", force: :cascade do |t|

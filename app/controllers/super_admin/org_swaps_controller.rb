@@ -12,7 +12,7 @@ class SuperAdmin::OrgSwapsController < ApplicationController
 
     # See if the user selected a new Org via the Org Lookup and
     # convert it into an Org
-    lookup = org_from_params(params_in: org_swap_params)
+    lookup = process_org!
 
     # rubocop:disable Layout/LineLength
     if lookup.present? && !lookup.new_record?
@@ -28,12 +28,6 @@ class SuperAdmin::OrgSwapsController < ApplicationController
       redirect_back(fallback_location: root_path, alert: _("Unknown organisation."))
     end
     # rubocop:enable Layout/LineLength
-  end
-
-  private
-
-  def org_swap_params
-    params.require(:user).permit(:org_id, :org_name, :org_crosswalk)
   end
 
 end

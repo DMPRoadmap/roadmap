@@ -66,7 +66,7 @@ class IdentifierScheme < ApplicationRecord
   # = Custom Accessor Logic =
   # =========================
 
-  # The name is used by the OrgSelection Services as a Hash key. For example:
+  # The name is used by the OrgSearchService as a key. For example:
   #    { "ror": "12345" }
   # so we cannot allow spaces or non alpha characters!
   def name=(value)

@@ -32,25 +32,6 @@ class PlansController < ApplicationController
   def new
     @plan = Plan.new
     authorize @plan
-
-    # Get all of the available funders and non-funder orgs
-    @funders = Org.funder
-                  .includes(identifiers: :identifier_scheme)
-                  .joins(:templates)
-                  .where(templates: { published: true }).uniq.sort_by(&:name)
-    @orgs = (Org.includes(identifiers: :identifier_scheme).organisation +
-             Org.includes(identifiers: :identifier_scheme).institution +
-             Org.includes(identifiers: :identifier_scheme).default_orgs)
-    @orgs = @orgs.flatten.uniq.sort_by(&:name)
-
-    @plan.org_id = current_user.org&.id
-
-    # TODO: is this still used? We cannot switch this to use the :plan_params
-    #       strong params because any calls that do not include `plan` in the
-    #       query string will fail
-    flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>" if params.key?(:test)
-    @is_test = params[:test] ||= false
-    respond_to :html
   end
   # rubocop:enable Metrics/AbcSize
 
@@ -87,24 +68,8 @@ class PlansController < ApplicationController
                       plan_params[:title]
                     end
 
-      # bit of hackery here. There are 2 org selectors on the page
-      # and each is within its own specific context, plan.org or
-      # plan.funder which forces the hidden id hash to be :id
-      # so we need to convert it to :org_id so it works with the
-      # OrgSelectable and OrgSelection services
-      if plan_params[:org].present? && plan_params[:org][:id].present?
-        attrs = plan_params[:org]
-        attrs[:org_id] = attrs[:id]
-        @plan.org = org_from_params(params_in: attrs, allow_create: false)
-      else
-        # The user did not specify a research Org, so default to their Org
-        @plan.org = current_user.org
-      end
-      if plan_params[:funder].present? && plan_params[:funder][:id].present?
-        attrs = plan_params[:funder]
-        attrs[:org_id] = attrs[:id]
-        @plan.funder = org_from_params(params_in: attrs, allow_create: false)
-      end
+      @plan.org = process_org!
+      @plan.funder = process_org!(namespace: "funder")
 
       if @plan.save
         # pre-select org's guidance and the default org's guidance
@@ -239,13 +204,9 @@ class PlansController < ApplicationController
                            end
       @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
 
-      # TODO: For some reason the `fields_for` isn't adding the
-      #       appropriate namespace, so org_id represents our funder
-      funder = org_from_params(params_in: attrs, allow_create: true)
-      @plan.funder_id = funder.present? ? funder.id : nil
+      @plan.funder = process_org!(namespace: "funder")
       @plan.grant = plan_params[:grant]
       attrs.delete(:grant)
-      attrs = remove_org_selection_params(params_in: attrs)
 
       if @plan.update(attrs) # _attributes(attrs)
         format.html do

@@ -92,7 +92,7 @@ module ExternalApis
         end
         # Remove any old ROR records (their file_timestamps would not have been updated)
         # Note this does not remove any associated Org records!
-        OrgIndex.where("file_timestamp < ?", time.strftime('%Y-%m-%d %H:%M:%S')).destroy_all
+        RegistryOrg.where("file_timestamp < ?", time.strftime('%Y-%m-%d %H:%M:%S')).destroy_all
         true
       rescue JSON::ParserError => e
         log_error(method: method, error: e)
@@ -103,25 +103,25 @@ module ExternalApis
       def process_ror_record(record:, time:)
         return nil unless record.present? && record.is_a?(Hash) && record["id"].present?
 
-        org_index = OrgIndex.find_or_create_by(ror_id: record["id"])
+        registry_org = RegistryOrg.find_or_create_by(ror_id: record["id"])
 
-        # If its already associated with an Org don't change the name!
-        org_index.name = safe_string(value: org_name(item: record)) unless org_index.org_id.present?
+        registry_org.name = safe_string(value: org_name(item: record))
+        registry_org.acronyms = record["acronyms"]
+        registry_org.aliases = record["aliases"]
+        registry_org.country = record["country"]
+        registry_org.types = record["types"]
+        registry_org.language = org_language(item: record)
+        registry_org.file_timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
+        registry_org.fundref_id = fundref_id(item: record)
+        registry_org.home_page = safe_string(value: record.fetch("links", []).first)
 
-        # Update the rest of the info
-        org_index.acronyms = record["acronyms"]
-        org_index.aliases = record["aliases"]
-        org_index.country = record["country"]
-        org_index.types = record["types"]
-        org_index.language = org_language(item: record)
-        org_index.file_timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
-        org_index.fundref_id = fundref_id(item: record)
-        org_index.home_page = safe_string(value: record.fetch("links", []).first)
+        # Attempt to find a matching Org record
+        registry_org = check_for_org_association(registry_org: registry_org)
 
         # TODO: We should create some sort of Super Admin page to highlight unmapped
-        #       OrgIndex records so that they can be connected to their Org
+        #       RegistryOrg records so that they can be connected to their Org
 
-        org_index.save
+        registry_org.save
         true
       rescue StandardError => e
         log_error(method: "ExternalApis::RorService.process_ror_record", error: e)
@@ -133,6 +133,17 @@ module ExternalApis
         return value if value.blank? || value.length < 255
 
         value[0..254]
+      end
+
+      # Determine if there is a matching Org record in the DB if so, attach it
+      def check_for_org_association(registry_org:)
+        return registry_org if registry_org.org.present?
+
+        ror = Identifier.by_scheme_name("ror", "Org")
+        return registry_org unless ror.present?
+
+        registry_org.org_id = ror.identifiable_id if ror.present?
+        rgistry_org
       end
 
       # Org names are not unique, so include the Org URL if available or

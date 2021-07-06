@@ -60,17 +60,14 @@ module Api
             return org if org.present?
 
             # External ROR search
-            results = OrgSelection::SearchService.search_externally(
-              search_term: name
-            )
+            results = OrgSearchService.search(term: name)
 
             # Grab the closest match - only caring about results that 'contain'
             # the name with preference to those that start with the name
             result = results.select { |r| %i[0 1].include?(r[:weight]) }.first
 
             # If no good result was found just use the specified name
-            result ||= { name: name }
-            OrgSelection::HashToOrgService.to_org(hash: result)
+            result || Org.new(name: name)
           end
 
         end

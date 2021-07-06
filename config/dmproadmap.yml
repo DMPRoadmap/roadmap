@@ -193,8 +193,8 @@ default: &default
 
   # The order in which to display the sign in options (e.g. Shib first, then email + password)
   sign_in_options:
-    - "shared/shib_sign_in_form"
-    - "shared/sign_in_form"
+    - "shared/authentication/shib_sign_in_form"
+    - "shared/authentication/sign_in_form"
 
   # =============================================
   # = PDF generator configuration (wkhtmltoprf) =

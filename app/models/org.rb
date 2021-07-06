@@ -153,6 +153,35 @@ class Org < ApplicationRecord
   validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif', 'jpg', 'bmp', 'svg'], message: _("must be one of the following formats: jpeg, jpg, png, gif, bmp, svg")
   validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
 
+  # =============
+  # = Callbacks =
+  # =============
+  # This checks the filestore for the dragonfly image each time before we validate
+  # and removes the dragonfly info if the logo is not found so validations pass
+  # TODO: re-evaluate this after moving dragonfly to active_storage
+  before_validation :check_for_missing_logo_file
+
+  # If the physical logo file is no longer on disk we do not want it to prevent the
+  # model from saving. This typically happens when you copy the database to another
+  # environment. The orgs.logo_uid stores the path to the physical logo file that is
+  # stored in the Dragonfly data store (default is: public/system/dragonfly/[env]/)
+  def check_for_missing_logo_file
+    return unless logo_uid.present?
+
+    data_store_path = Dragonfly.app.datastore.root_path
+
+    return if File.exist?("#{data_store_path}#{logo_uid}")
+
+    # Attempt to locate the file by name. If it exists update the uid
+    logo = Dir.glob("#{data_store_path}/**/*#{logo_name}")
+    if !logo.empty?
+      self.logo_uid = logo.first.gsub(data_store_path, "")
+    else
+      # Otherwise the logo is missing so clear it to prevent save failures
+      self.logo = nil
+    end
+  end
+
   ##
   # Define Bit Field values
   # Column org_type
@@ -179,7 +208,7 @@ class Org < ApplicationRecord
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
     where("lower(orgs.name) LIKE lower(?) OR " \
-          "lower(orgs.contact_email) LIKE lower(?)",
+          "lower(orgs.abbreviation) LIKE lower(?)",
           search_pattern, search_pattern)
   }
 
@@ -325,8 +354,6 @@ class Org < ApplicationRecord
       merge_token_permission_types!(to_be_merged: to_be_merged)
       self.tracker = to_be_merged.tracker unless tracker.present?
       to_be_merged.users.update_all(org_id: id)
-
-      # Terminate the transaction if the resulting Org is not valid
       raise ActiveRecord::Rollback unless save
 
       # Remove all of the remaining identifiers and token_permission_types
@@ -344,12 +371,19 @@ class Org < ApplicationRecord
   # rubocop:enable Metrics/AbcSize
 
   # Convert the Org's name into an abbreviation
-  def self.name_to_abbreviation(name:)
+  def name_to_abbreviation
     stopwords = %w[a of the and]
-    name.split(" ")
-        .reject { |word| stopwords.include?(word) }
-        .map { |word| word[0].upcase }
-        .join
+    name_without_alias.split(" ")
+                      .reject { |word| stopwords.include?(word) }
+                      .map { |word| word[0].upcase }
+                      .join
+  end
+
+  # Class method shortcut to the name_to_abbreviation instance method
+  def self.name_to_abbreviation(name:)
+    return "" unless name.present?
+
+    Org.new(name: name).name_to_abbreviation
   end
 
   private

@@ -320,19 +320,9 @@ class RegistrationsController < Devise::RegistrationsController
 
   # Finds or creates the selected org and then returns it's id
   def handle_org(attrs:)
-    # If the user got here via an Omniauth workflow then the Org was recorded in a hidden field
-    # so use that one
-    if attrs[:default_org_id].present?
-      attrs[:org_id] = attrs[:default_org_id]
-      attrs.delete(:default_org_id)
-    else
-      # Let the OrgSelectable concern determine which org was selected
-      org = process_org!
-      # Save it if it was a new org and we are allowing users to create orgs
-      org.save if org.new_record? && !Rails.configuration.x.application.restrict_orgs
-      attrs[:org_id] = org&.id
-    end
-    attrs = remove_org_selection_params(args: attrs)
+    # Let the OrgSelectable concern determine which org was selected
+    org = process_org!
+    attrs[:org_id] = org&.id
     attrs
   end
 

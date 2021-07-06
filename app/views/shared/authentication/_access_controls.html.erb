@@ -20,7 +20,7 @@
         <div class="panel-body">
 
           <% Rails.configuration.x.sign_in_options.each_with_index do |partial, idx| %>
-            <%= render partial: partial, locals: local_assigns %>
+            <%= render partial: partial, locals: { resource: resource } %>
 
             <% if (idx + 1) < Rails.configuration.x.sign_in_options.length %>
               <p class="text-center fontsize-h4 bold">- <%= _('or') %> -</p>
@@ -35,7 +35,10 @@
       <div id="create-account-form" role="tabpanel" class="tab-pane">
         <div class="panel panel-default">
           <div class="panel-body">
-            <%= render :partial => 'shared/create_account_form', locals: {orgs: orgs, org_partial: org_partial} %>
+            <div class="form-group col-md-12">
+              <%= render partial: 'shared/authentication/create_account_form',
+                        locals: { resource: resource } %>
+            </div>
           </div>
         </div>
       </div>

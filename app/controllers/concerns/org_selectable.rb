@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Provides methods to handle the org_index params returned to the controller
+# Provides methods to handle the org_autocomplete params returned to the controller
 # for pages that use the Org selection autocomplete widget. The params are at
 # the top level of the Param tree and not within the context of the surrounding form!
 #
@@ -15,6 +15,10 @@
 #      user_entered_name: ""
 #    }
 #  }
+#
+# If you need more than one autocomplete on your page, you can specify a :namespace. The
+# namespace (e.g. "funder") must be passed to the _org_autocomplete partial as well as to
+# the :process_org! function below.
 #
 # The user has the option of selecting an Org from the autocomplete list OR checking a box
 # to indicate that the Org is NOT in the list and that they have manually typepd it in.
@@ -35,9 +39,9 @@ module OrgSelectable
   # rubocop:disable Metrics/BlockLength
   included do
 
-    def process_org!
-      name = org_selectable_params[:user_entered_name]
-      name = org_selectable_params[:name] unless name.present?
+    def process_org!(namespace: nil)
+      name = org_selectable_params[:"#{[namespace, "user_entered_name"].compact.join("_")}"]
+      name = org_selectable_params[:"#{[namespace, "name"].compact.join("_")}"] unless name.present?
       return nil unless name.present?
 
       # check the Orgs table first
@@ -45,23 +49,32 @@ module OrgSelectable
       return org if org.present?
 
       # fetch from the ror table
-      org_index = OrgIndex.where("LOWER(name) = ?", name.downcase).first
-      if org_index.present?
-        # Convert the OrgIndex to an Org, save it and then update the OrgIndex
-        org = org_index.to_org
-        org.save
-
-        persist_identifiers(org_index: org_index, org: org)
-
-        org_index.update(org_id: org.id)
-        return org.reload
-      end
+      registry_org = RegistryOrg.where("LOWER(name) = ?", name.downcase).first
+      # Convert the RegistryOrg to an Org, save it and then update the RegistryOrg
+      org = create_org_from_registry_org!(registry_org: registry_org) if registry_org.present?
+      return org if org.present?
 
       # We only want to create it if the user clicked the 'not in list' checkbox
       return nil unless org_selectable_params[:user_entered_name].present?
 
       # otherwise initialize a new org
-      Org.new(
+      create_org!(name: name)
+    end
+
+    private
+
+    def org_selectable_params
+      # Note that any time we create a new namespace (e.g. funder), we need to add the corresponding
+      # params to this list below!
+      params.require(:org_autocomplete)
+            .permit(%i[name not_in_list user_entered_name
+                       funder_name funder_not_in_list funder_user_entered_name
+                       crosswalk])
+    end
+
+    # Create a new Org
+    def create_org!(name:)
+      Org.create(
         name: name,
         abbreviation: Org.name_to_abbreviation(name: name),
         contact_email: Rails.configuration.x.organisation.helpdesk_email,
@@ -72,35 +85,30 @@ module OrgSelectable
       )
     end
 
-    # Remove the fields that may have come through in the form submission that were only
-    # necessary to facilitate the Org autocomplete's AJAX based suggestions
-    def remove_org_selection_params(args:)
-      args.delete(:org_crosswalk)
-      args
-    end
+    # Create a new Org from the RegistryOrg entry
+    def create_org_from_registry_org!(registry_org:)
+      return nil unless registry_org.is_a?(RegistryOrg)
+      return registry_org.org if registry_org.org_id.present?
 
-    private
+      org = registry_org.to_org
+      org.save
 
-    def org_selectable_params
-      params.require(:org_index).permit(%i[name not_in_list user_entered_name])
-    end
+      # Attach the identifiers
+      %w[fundref ror].each do |scheme_name|
+        value = registry_org.send(:"#{scheme_name}_id")
+        next unless value.present?
 
-    def persist_identifiers(org_index:, org:)
-      return org unless org_index.present? && org.is_a?(Org)
+        scheme = IdentifierScheme.by_name(scheme_name).first
+        next unless scheme.present?
 
-      fundref_scheme = IdentifierScheme.by_name('fundref').first
-      ror_scheme = IdentifierScheme.by_name('ror').first
-
-      if org_index.fundref_id.present? && fundref_scheme.present?
-        Identifier.create(identifiable: org, identifier_scheme: fundref_scheme, value: org_index.fundref_id)
+        Identifier.find_or_create_by(identifier_scheme: scheme, identifiable: org, value: value)
       end
 
-      if org_index.ror_id.present? && ror_scheme.present?
-        Identifier.create(identifiable: org, identifier_scheme: ror_scheme, value: org_index.ror_id)
-      end
-
+      # Update the original RegistryOrg with the new org's association
+      registry_org.update(org_id: org.id)
       org.reload
     end
+
   end
   # rubocop:enable Metrics/BlockLength
 

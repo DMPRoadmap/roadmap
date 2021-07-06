@@ -228,7 +228,7 @@ module DMPRoadmap
     # The options are:
     #   Username + Password -> sign_in_form
     #   Shibboleth          -> shib_sign_in_form
-    config.x.sign_in_options = %w[shared/sign_in_form shared/shib_sign_in_form]
+    config.x.sign_in_options = %w[shared/authentication/sign_in_form shared/authentication/shib_sign_in_form]
   end
 
 end

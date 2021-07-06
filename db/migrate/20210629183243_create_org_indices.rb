@@ -1,6 +1,6 @@
 class CreateOrgIndices < ActiveRecord::Migration[5.2]
   def change
-    create_table :org_indices do |t|
+    create_table :registry_orgs do |t|
       t.references :org, index: true
       t.string :ror_id, index: true
       t.string :fundref_id, index: true
