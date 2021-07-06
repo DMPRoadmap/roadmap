@@ -64,7 +64,7 @@ class RegistryOrg < ApplicationRecord
   }
 
   # Get all of the RegistryOrg entries that have NOT been connected to another object (e.g. Plan, User, etc.)
-  scope :unknown, lambda { |ids|
+  scope :unknown, lambda {
     where(org_id: nil)
   }
 
@@ -111,20 +111,6 @@ class RegistryOrg < ApplicationRecord
     return nil unless scheme.present?
 
     Identifier.new(identifier_scheme: scheme, value: value)
-  end
-
-  class << self
-
-    # Remove any results that are NOT funders
-    def extract_funders(results:)
-      results.select { |result| result.fundref_id.present? }
-    end
-
-    # Remove any results that are a funders
-    def extract_non_funders(results:)
-      results.select { |result| result.fundref_id.nil? }
-    end
-
   end
 
 end

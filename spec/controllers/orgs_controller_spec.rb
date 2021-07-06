@@ -32,9 +32,7 @@ RSpec.describe OrgsController, type: :controller do
                 funder: [true, false].sample, institution: [true, false].sample,
                 managed: Faker::Number.within(range: 0..1).to_s,
                 feedback_enabled: Faker::Boolean.boolean,
-                feedback_email_msg: Faker::Lorem.paragraph,
-                org_id: org_selector_id_field(org: other_org), org_name: other_org.name,
-                org_crosswalk: org_selector_crosswalk_field(org: other_org) }
+                feedback_email_msg: Faker::Lorem.paragraph }
       @link_args = org_links_field
       Rails.configuration.x.shibboleth.use_filtered_discovery_service = false
       sign_in(@user)
@@ -93,6 +91,7 @@ RSpec.describe OrgsController, type: :controller do
       shib = create(:identifier_scheme, name: "shibboleth")
       @identifier = create(:identifier, identifier_scheme: shib,
                                         identifiable: @org, value: SecureRandom.uuid)
+      @controller.stubs(:process_org!).returns(create(:org))
     end
 
     it "succeeds" do
@@ -100,7 +99,7 @@ RSpec.describe OrgsController, type: :controller do
       expect(response).to render_template("orgs/shibboleth_ds")
       expect(assigns(:user).new_record?).to eql(true)
       expect(assigns(:orgs).any?).to eql(true)
-      expect(assigns(:orgs).include?(@identifier)).to eql(true)
+      expect(assigns(:orgs).first.identifiers.include?(@identifier)).to eql(true)
     end
     it "redirects to the dashboard if user is logged in" do
       sign_in(@user)
@@ -121,25 +120,29 @@ RSpec.describe OrgsController, type: :controller do
       @identifier = create(:identifier, identifier_scheme: shib,
                                         identifiable: @org, value: SecureRandom.uuid)
       @args = { org_id: @org.id, org_name: @org.name }
+      @controller.stubs(:process_org!).returns(@org)
+
+      Rails.configuration.x.shibboleth.login_url = Faker::Internet.url
     end
 
-    it "succeeds" do
+    it "succeeds and Org has an entity_id stored in the identifiers table" do
       post :shibboleth_ds_passthru, params: { "shib-ds": @args }
-      url = @controller.send(:shib_login_url)
-      target = @controller.send(:shib_callback_url)
-      expected = "#{url}?#{target}&entityID=#{@identifier.value}"
+      url = Rails.configuration.x.shibboleth.login_url
+      expected = "#{url}?#{@controller.send(:shib_callback_url)}&entityID=#{@identifier.value}"
       expect(response).to redirect_to(expected)
     end
-    it "receives no ['shib-ds'][:org_name] information" do
+    it "succeeds and Org does not have an entity_id stored in the identifiers table" do
+      @org.identifiers.destroy_all
+      post :shibboleth_ds_passthru, params: { "shib-ds": @args }
+      expect(response).to render_template("shared/authentication/org_branded_access_controls")
+    end
+    it "if no Org was found or cresated for some reason it redirects back with an error" do
+      @controller.stubs(:process_org!).returns(nil)
       post :shibboleth_ds_passthru, params: { "shib-ds": { org_id: @org.id } }
+      url = Rails.configuration.x.shibboleth.login_url
+      expected = "#{url}?#{@controller.send(:shib_callback_url)}&entityID=#{@identifier.value}"
       expect(response).to redirect_to(shibboleth_ds_path)
       expect(flash[:notice].present?).to eql(true)
-    end
-    it "is for an Org that does not have a shibboleth entityID defined" do
-      @identifier.destroy
-      post :shibboleth_ds_passthru, params: { "shib-ds": @args }
-      expect(response).to redirect_to(shibboleth_ds_path)
-      expect(flash[:alert].present?).to eql(true)
     end
   end
 

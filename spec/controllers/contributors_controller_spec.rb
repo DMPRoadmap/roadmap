@@ -16,12 +16,12 @@ RSpec.describe ContributorsController, type: :controller do
         name: Faker::TvShows::Simpsons.character,
         email: Faker::Internet.email,
         phone: Faker::Number.number,
-        org_autocomplete: { name: @org.name },
         identifiers_attributes: { "0": {
           identifier_scheme_id: @scheme.id,
           value: SecureRandom.uuid
         } }
-      }
+      },
+      org_autocomplete: { name: @org.name }
     }
     @roles = Contributor.new.all_roles
     @params_hash[:contributor][@roles.sample.to_sym] = "1"

@@ -113,12 +113,8 @@ class OrgsController < ApplicationController
       entity_id = org.identifier_for_scheme(scheme: "shibboleth")
 
       if entity_id.present? && entity_id.value.present?
-        # Send them out to the Shibboleth Service Provider (SP)
-        shib_login = Rails.configuration.x.shibboleth.login_url
-        # Shibboleth requires SSL so force it here if the callback URL is defaulting to http
-        target = user_shibboleth_omniauth_callback_url.gsub("http:", "https:")
         # initiate shibboleth login sequence
-        redirect_to "#{shib_login}?target=#{target}&entityID=#{entity_id.value}"
+        redirect_to "#{shib_login_url}?#{shib_callback_url}&entityID=#{entity_id.value}"
       else
         # The Org has no entity_id for Shib so redirect them to the branded sign in page
         @user = User.new(org: org)
@@ -152,12 +148,11 @@ class OrgsController < ApplicationController
   end
 
   def shib_login_url
-    shib_login = Rails.configuration.x.shibboleth.login_url
-    "#{request.base_url.gsub('http:', 'https:')}#{shib_login}"
+    Rails.configuration.x.shibboleth.login_url
   end
 
   def shib_callback_url
-    "target=#{user_shibboleth_omniauth_callback_url.gsub('http:', 'https:')}"
+    "target=#{user_shibboleth_omniauth_callback_url.gsub("http:", "https:")}"
   end
 
   # Destroy the identifier if it exists and was blanked out, replace the

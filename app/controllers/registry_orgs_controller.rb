@@ -5,7 +5,7 @@ class RegistryOrgsController < ApplicationController
   # GET orgs/search
   def search
     term = autocomplete_term
-    if term.length > 2
+    if term.present? && term.length > 2
       render json: find_by_search_term(
         term: term,
         funder_only: autocomplete_params[:funder_only] == "true",
@@ -38,8 +38,6 @@ class RegistryOrgsController < ApplicationController
     return [] unless term.present?
 
     # If the known_only flag was not set use the default setting from the config
-    known_only = options.fetch(:known_only, Rails.configuration.x.application.restrict_orgs)
-
     known_only = options.fetch(:known_only, Rails.configuration.x.application.restrict_orgs)
 
     # Search the RegistryOrg table first because it has the most extensive search (e.g. acronyms,
@@ -98,7 +96,7 @@ class RegistryOrgsController < ApplicationController
 
   # Sort the results by their weight (desacending) and then name (ascending)
   def sort_search_results(results:, term:)
-    return [] unless results.any? && term.present?
+    return [] unless results.present? && results.any? && term.present?
 
     results.map { |result| { weight: weigh(term: term, org: result), name: result.name, org: result } }
            .sort { |a, b| [b[:weight], a[:name]] <=> [a[:weight], b[:name]] }
@@ -109,7 +107,7 @@ class RegistryOrgsController < ApplicationController
   # Weighs the result. The greater the weight the closer the match, preferring Orgs already in use
   def weigh(term:, org:)
     score = 0
-    return score unless term.present? && org.present?
+    return score unless term.present? && (org.is_a?(Org) || org.is_a?(RegistryOrg))
 
     acronym_match = org.acronyms.include?(term.upcase) if org.is_a?(RegistryOrg)
     acronym_match = org.abbreviation&.upcase == term.upcase if org.is_a?(Org)
