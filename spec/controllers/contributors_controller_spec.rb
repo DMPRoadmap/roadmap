@@ -142,13 +142,13 @@ RSpec.describe ContributorsController, type: :controller do
         hash = @controller.send(:process_org, hash: @params_hash[:contributor])
         expect(hash).to eql(@params_hash[:contributor])
       end
-      it "with no restrict_orgs defined, returns the hash as is if the org could not be converted" do
+      it "with no restrict_orgs defined, returns the hash if the org could not be converted" do
         Rails.configuration.x.application.restrict_orgs = nil
         @controller.stubs(:org_from_params).returns(nil)
         hash = @controller.send(:process_org, hash: @params_hash[:contributor])
         expect(hash).to eql(@params_hash[:contributor])
       end
-      it "with restrict_orgs=false, returns the hash as is if the org could not be converted" do
+      it "with restrict_orgs=false, returns the hash if the org could not be converted" do
         Rails.configuration.x.application.restrict_orgs = false
         @controller.stubs(:org_from_params).returns(nil)
         hash = @controller.send(:process_org, hash: @params_hash[:contributor])
