@@ -470,7 +470,7 @@ questions = [
     modifiable: true
   },
   {
-    text: "Décrire la répartition des rôles et responsabilités parmi les contributeurs ainsi que les côuts induits pour la gestion des données",
+    text: "Décrire la répartition des rôles et responsabilités parmi les contributeurs ainsi que les coûts induits pour la gestion des données",
     number: 1,
     section: Section.find_by(
       title: "Ressources allouées pour la gestion",
@@ -779,7 +779,7 @@ questions = [
     modifiable: true
   },
   {
-    text: "Décrire la répartition des rôles et responsabilités parmi les contributeurs ainsi que les côuts induits pour la gestion des données",
+    text: "Décrire la répartition des rôles et responsabilités parmi les contributeurs ainsi que les coûts induits pour la gestion des données",
     number: 1,
     section: Section.find_by(
       title: "Ressources allouées pour la gestion",
