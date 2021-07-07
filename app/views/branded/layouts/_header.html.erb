@@ -1,0 +1,32 @@
+<header class="c-header">
+  <a class="c-logo-dmptool" href="<%= root_path %>">
+    <picture>
+      <source srcset="<%= asset_path("logo-dmptool-large.svg") %>" media="(min-width: 50rem)">
+      <%= image_tag("logo-dmptool-small.svg", alt: "DMPTool logo") %>
+    </picture>
+  </a>
+
+  <button id="js-navtoggle" class="c-navtoggle" aria-label="main navigation"></button>
+
+  <nav aria-label="main" id="js-headernav" class="c-headernav">
+    <ul>
+      <li><%= link_to _("Home"), root_path %></li>
+      <li><%= link_to _("Funder Requirements"), public_templates_path %></li>
+      <li><%= link_to _("Public DMPs"), public_plans_path %></li>
+      <li><%= link_to _("Help"), faq_path %></li>
+    </ul>
+  </nav>
+
+  <div id="js-language" class="c-language">
+    <button id="js-language__button" class="c-language__button" aria-label="language menu">
+      <%= _("Language") %><span class="fas fa-caret-down">&nbsp;</span>
+    </button>
+    <ul id="js-language__menu" class="c-language__menu" hidden>
+      <% languages.each do |lang| %>
+        <li lang="<%= lang.abbreviation %>">
+          <%= link_to lang.name, locale_path(lang.abbreviation), method: :patch %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</header>

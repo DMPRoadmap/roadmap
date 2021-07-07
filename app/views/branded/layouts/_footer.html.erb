@@ -1,0 +1,54 @@
+<footer class="c-footer">
+  <a class="c-logo-cdl" href="https://cdlib.org">
+    <%= image_tag("logo-cdl.svg", alt: "California Digital Library logo") %>
+  </a>
+
+  <nav aria-label="footer" class="c-footernav">
+  <ul>
+    <li><%= link_to _("About"), about_us_path %></li>
+    <li><%= link_to _("Contact Us"), contact_us_path %></li>
+    <li><%= link_to _("Terms of Use"), terms_path %></li>
+    <li><%= link_to _("Privacy Statement"), privacy_path %></li>
+    <li><%= link_to _("Github"), "https://github.com/cdluc3/dmptool" %></li>
+    <li><%= link_to _("Accessibility"), "https://www.cdlib.org/about/accessibility.html" %></li>
+    <li><%= link_to _("Site Map"), root_path %></li>
+  </ul>
+</nav>
+
+  <div class="c-copyright">
+  <p>
+    <%=
+    sanitize _('DMPTool is a service of the %{cdl_url}, a division of the %{university_of_ca_url}. Version: %{version}') % {
+      university_of_ca_url: "<a href=\"https://cdlib.org/services/uc3/\" target=\"_blank\">University of California Office of the President <em class=\"sr-only\">(new window)</em></a>",
+      cdl_url: "<a href=\"http://www.cdlib.org/\" target=\"_blank\">California Digital Library <em class=\"sr-only\">(new window)</em></a>",
+      version: Rails.configuration.x.dmptool.version
+    } %>
+  </p>
+
+  <p>&copy; <%= _("%{current_year} The Regents of the University of California") % { current_year: Date.today.year } %></p>
+</div>
+
+  <ul class="c-social">
+    <li>
+      <a class="c-social__icon-twitter" href="https://twitter.com/TheDMPTool" target="_blank">
+        <span class="c-social__sr-only"><%= _("TheDMPTool on Twitter (opens new window)") %></span>
+      </a>
+    </li>
+    <li>
+      <a class="c-social__icon-rss" href="https://blog.dmptool.org/feed/" target="_blank">
+        <span class="c-social__sr-only"><%= _("DMPTool RSS feed (opens new window)") %></span>
+      </a>
+    </li>
+  </ul>
+
+  <article class="c-blog" role="marquee">
+    <header>
+      <h2>Latest News from DMPTool</h2>
+    </header>
+    <div class="c-blog__content">[blog content goes here]
+    </div>
+    <footer>
+      <a href="">View all news</a>
+    </footer>
+  </article>
+</footer>
