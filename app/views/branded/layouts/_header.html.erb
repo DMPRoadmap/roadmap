@@ -17,9 +17,23 @@
     </ul>
   </nav>
 
+  <% if user_signed_in? %>
+    <div id="js-user-profile" class="c-user-profile">
+      <button id="js-user-profile__button" class="c-user-profile__button" aria-label="user profile menu">
+        <i class="far fa-user-circle"></i>
+      </button>
+      <ul id="js-user-profile__menu" class="c-user-profile__menu" hidden>
+        <li><%= link_to _('Edit profile'), edit_user_registration_path %></li>
+        <li><%= link_to _('3rd party applications'), users_third_party_apps_path %></li>
+        <li><%= link_to _('Developer tools'), users_developer_tools_path %></li>
+        <li><%= link_to _('Logout'), destroy_user_session_path, method: :delete %></li>
+      </ul>
+    </div>
+  <% end %>
+
   <div id="js-language" class="c-language">
     <button id="js-language__button" class="c-language__button" aria-label="language menu">
-      <%= _("Language") %><span class="fas fa-caret-down">&nbsp;</span>
+      <%= _("Language") %>
     </button>
     <ul id="js-language__menu" class="c-language__menu" hidden>
       <% languages.each do |lang| %>

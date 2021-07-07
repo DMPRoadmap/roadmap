@@ -1,15 +1,12 @@
-<%# locals: user %>
+<% title _('Edit profile') %>
 
-<%
-api_client = ApiClient.find_or_initialize_by(user_id: user.id)
-# TODO: Remove this eventually after we can ensure that all existing records have a corresponding user account.
-api_client.contact_name = user.name(false) unless api_client.contact_name.present?
-api_client.contact_email = user.email unless api_client.contact_email.present?
-%>
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= _('Developer Tools') %></h1>
+  </div>
+</div>
 
 <div id="api-clients" class="col-xs-12">
-  <h2><%= _("Developer Tools") %></h2>
-
   <p><%= _("Fill out the form below to register for access to the API. The API provides access to two types of access levels: 'standard' and 'protected'.") %></p>
 
   <p><%= _("The 'standard' access level allows you to:") %></p>
@@ -35,7 +32,7 @@ api_client.contact_email = user.email unless api_client.contact_email.present?
   <p><%= (_("Please see the %{wiki_docs} for full details on how the API works.") % { wiki_docs: "<a href=\"#{Rails.configuration.x.dmproadmap.api_documentation_overview_url}\" target=\"_blank\">wiki documentation</a>" }).html_safe %></p>
 
   <div class="api-client-form">
-    <%= render partial: "devise/registrations/api_client_form",
-                locals: { api_client: api_client, user: current_user } %>
+    <%= render partial: "users/api_client_form",
+                locals: { api_client: @api_client, user: current_user } %>
   </div>
 </div>

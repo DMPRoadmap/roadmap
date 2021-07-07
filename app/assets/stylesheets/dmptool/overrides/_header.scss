@@ -1,0 +1,29 @@
+// Add an additional column for our profile menu which falls between the main nav and language menu
+.c-header {
+  grid-template-columns: auto 1fr auto auto;
+}
+.c-header .c-language {
+  grid-column: 4;
+}
+
+// ================
+// = PROFILE MENU =
+// ================
+// Inherit styling from the Language menu
+.c-header .c-user-profile {
+  @extend .c-language;
+
+  grid-column: 3;
+}
+.c-header .c-user-profile__button {
+  @extend .c-language__button;
+
+  // We are using a fontawesome icon so color and size it
+  color: $color-primary-background;
+  font-size: 1.4rem;
+  justify-self: end;
+}
+.c-header .c-user-profile__menu {
+  @extend .c-language__menu;
+}
+

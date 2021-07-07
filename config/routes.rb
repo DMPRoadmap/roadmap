@@ -28,6 +28,9 @@ Rails.application.routes.draw do
     get "/users/sign_out", to: "devise/sessions#destroy"
   end
 
+  get "/users/third_party_apps", to: "users#third_party_apps"
+  get "/users/developer_tools", to: "users#developer_tools"
+
   delete "/users/identifiers/:id", to: "identifiers#destroy", as: "destroy_user_identifier"
 
   get "/orgs/shibboleth", to: "orgs#shibboleth_ds", as: "shibboleth_ds"

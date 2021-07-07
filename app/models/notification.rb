@@ -61,7 +61,7 @@ class Notification < ApplicationRecord
 
   scope :active_per_user, (lambda do |user|
     if user.present?
-      acknowledgement_ids = user.notifications.pluck(:id)
+      acknowledgement_ids = user.notifications.map(&:id)
       active.where.not(id: acknowledgement_ids)
     else
       active.where(dismissable: false)

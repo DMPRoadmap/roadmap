@@ -45,10 +45,23 @@
     <header>
       <h2>Latest News from DMPTool</h2>
     </header>
-    <div class="c-blog__content">[blog content goes here]
+    <div class="c-blog__content">
+      <% if @rss.present? %>
+        <p id="home-news-link"></p>
+        <%
+          json = []
+          @rss.each do |i|
+            json << { "title": "#{truncate(i.title, length: 120)}", "link": "#{i.link}" }
+          end
+        %>
+        <input type="hidden" id="j-blog__content"
+               value="<%= escape_javascript JSON.generate(json) %>" />
+      <% else %>
+        <p><%= _('News is currently unavailable') %></p>
+      <% end %>
     </div>
     <footer>
-      <a href="">View all news</a>
+      <a href="https://blog.dmptool.org/">View all news</a>
     </footer>
   </article>
 </footer>

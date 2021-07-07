@@ -8,6 +8,9 @@ module Dmptool
   module HomeController
 
     def render_home_page
+      # Specify any classes for the <main> tag of the page
+      @main_class = "js-heroimage"
+
       # Usage stats
       @stats = statistics
 

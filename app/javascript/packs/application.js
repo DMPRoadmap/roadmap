@@ -89,14 +89,17 @@ import '../src/superAdmin/notifications/edit';
 import '../src/superAdmin/themes/newEdit';
 import '../src/superAdmin/users/edit';
 
-// ----------------------------------------
-// START DMPTool customization
-// ----------------------------------------
+// ==========================
+// = DMPTool customizations =
+// ==========================
+import '../src/dmptool/breakpoints';
+import '../src/dmptool/nav-menu';
+import '../src/dmptool/navtoggle';
+import '../src/dmptool/watch-viewport-widths';
+
+import '../src/dmptool/home/call-to-action';
 import '../src/dmptool/home/index';
-import '../src/dmptool/shared/orgBranding';
-// ----------------------------------------
-// END DMPTool customization
-// ----------------------------------------
+import '../src/dmptool/home/random-hero-image.js.erb';
 
 // Since we're using Webpacker to manage JS we need to startup Rails' Unobtrusive JS
 // and Turbolinks. ActiveStorage and ActionCable would also need to be in here
