@@ -68,6 +68,12 @@ class Fragment::ResearchOutput < MadmpFragment
     Fragment::Budget.where(parent_id: id).first
   end
 
+  def technical_resources
+    Fragment::TechnicalResource.where(dmp_id: dmp_id).select { 
+      |t| t.research_output_fragment.id == id 
+    }
+  end
+
   def properties
     "research_output_description, reuse, personal_data_issues, legal_issues, ethical_issues, data_collection, data_processing, data_storage, documentation_quality, sharing, preservation_issues, budget"
   end
