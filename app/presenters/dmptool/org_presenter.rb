@@ -11,7 +11,7 @@ module Dmptool
     end
 
     def participating_orgs
-      Org.includes(identifiers: [:identifier_scheme]).shibbolized.order(:name)
+      Org.participating.order(:name)
     end
 
     def sign_in_url(org:)
