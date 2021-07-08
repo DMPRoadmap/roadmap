@@ -2,20 +2,13 @@
 
 require "rails_helper"
 
-describe "shared/org_branding.html.erb" do
+describe "shared/authentication/org_branded_access_controls.html.erb" do
+
   before(:each) do
     @org = build(:org, managed: true)
-    controller.prepend_view_path "app/views/branded"
   end
 
-  it "renders the Org name if no logo is available" do
-    @org.logo = nil
-    assign :user, build(:user, org: @org)
-    render
-    expect(rendered.include?("<h1>#{CGI::escapeHTML(@org.name)}</h1>")).to eql(true)
-  end
-
-  it "renders the Org logo if available" do
+  it "renders the Org logo if it's available" do
     # stub the logo method
     logo = OpenStruct.new({ present?: true })
     logo.stubs(:thumb).returns(OpenStruct.new({ url: Faker::Internet.url }))
@@ -25,13 +18,20 @@ describe "shared/org_branding.html.erb" do
     expect(rendered.include?("class=\"org-logo\"")).to eql(true)
   end
 
-  it "renders the Signin / Create Account forms" do
+  it "renders the Org name if the logo is not available" do
+    @org.logo = nil
+    assign :user, build(:user, org: @org)
+    render
+    expect(rendered.include?("<h1>#{CGI::escapeHTML(@org.name)}</h1>")).to eql(true)
+  end
+
+  it "Renders the sign in and create acount forms" do
     assign :user, build(:user, org: @org)
     render
     expect(rendered.include?("Sign in")).to eql(true)
-    expect(response).to render_template(partial: "shared/_sign_in_form")
+    expect(response).to render_template(partial: "shared/authentication/_sign_in_form")
     expect(rendered.include?("Create account")).to eql(true)
-    expect(response).to render_template(partial: "shared/_create_account_form")
+    expect(response).to render_template(partial: "shared/authentication/_create_account_form")
   end
 
 end

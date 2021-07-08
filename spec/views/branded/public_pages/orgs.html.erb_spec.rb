@@ -4,6 +4,8 @@ require "rails_helper"
 
 describe "public_pages/orgs.html.erb" do
 
+  include SessionsHelper
+
   it "renders our version of the page" do
     generate_shibbolized_orgs(3)
     controller.prepend_view_path "app/views/branded"

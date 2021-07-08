@@ -13,7 +13,7 @@ describe "api/v1/plans/_funding.json.jbuilder" do
     create(:identifier, identifiable: @plan.org,
                         identifier_scheme: create(:identifier_scheme, name: "ror"))
     @grant = create(:identifier, identifiable: @plan)
-    @plan.update(grant_id: @grant.id)
+    @plan.update(grant_id: @grant.id, funding_status: "funded")
     @plan.reload
 
     render partial: "api/v1/plans/funding", locals: { plan: @plan }

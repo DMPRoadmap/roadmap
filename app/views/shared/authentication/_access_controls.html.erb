@@ -5,24 +5,24 @@
         <%= _('Sign in') %>
       </a>
     </li>
-    <% unless active_page?(new_user_registration_path, true) %>
-      <li role="presentation">
-        <a href="#create-account-form" role="tab" aria-controls="create-account-form" data-toggle="tab">
-          <%= _('Create account') %>
-        </a>
-      </li>
-    <% end %>
+
+    <li role="presentation">
+      <a href="#create-account-form" role="tab" aria-controls="create-account-form" data-toggle="tab">
+        <%= _('Create account') %>
+      </a>
+    </li>
   </ul>
 
   <div class="tab-content">
     <div id="sign-in-form" role="tabpanel" class="tab-pane active">
       <div class="panel panel-default">
         <div class="panel-body">
+          <% sign_in_options = Rails.configuration.x.sign_in_options || ["sign_in_form"] %>
 
-          <% Rails.configuration.x.sign_in_options.each_with_index do |partial, idx| %>
+          <% sign_in_options.each_with_index do |partial, idx| %>
             <%= render partial: partial, locals: { resource: resource } %>
 
-            <% if (idx + 1) < Rails.configuration.x.sign_in_options.length %>
+            <% if (idx + 1) < sign_in_options.length %>
               <p class="text-center fontsize-h4 bold">- <%= _('or') %> -</p>
             <% end %>
           <% end %>
@@ -31,17 +31,15 @@
       </div>
     </div>
 
-    <% unless active_page?(new_user_registration_path, true) %>
-      <div id="create-account-form" role="tabpanel" class="tab-pane">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="form-group col-md-12">
-              <%= render partial: 'shared/authentication/create_account_form',
-                        locals: { resource: resource } %>
-            </div>
+    <div id="create-account-form" role="tabpanel" class="tab-pane">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="form-group col-md-12">
+            <%= render partial: 'shared/authentication/create_account_form',
+                      locals: { resource: resource } %>
           </div>
         </div>
       </div>
-    <% end %>
+    </div>
   </div>
 </div>

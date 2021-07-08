@@ -22,41 +22,6 @@ module DmptoolHelper
     click_on "Your institution"
   end
 
-  def generate_shibbolized_orgs(count)
-    (1..count).each do
-      create(:org, :organisation, :shibbolized, managed: true)
-    end
-  end
-
-  def mock_omniauth_call(scheme, user)
-    case scheme
-    when "shibboleth"
-      # Mock the OmniAuth payload for Shibboleth
-      {
-        provider: scheme,
-        uid: SecureRandom.uuid,
-        info: {
-          email: user.email,
-          givenname: user.firstname,
-          sn: user.surname,
-          identity_provider: user.org.identifiers.first.value
-        }
-      }
-
-    when "orcid"
-      # Moch the Omniauth payload for Orcid
-      {
-        provider: scheme,
-        uid: 4.times.map { Faker::Number.number(l_digits: 4).to_s }.join("-")
-      }
-    else
-      {
-        provider: scheme,
-        uid: Faker::Lorem.word
-      }
-    end
-  end
-
   def mock_blog
     xml = <<-XML
     <?xml version="1.0" encoding="UTF-8"?>

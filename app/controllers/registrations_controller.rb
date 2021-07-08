@@ -19,6 +19,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   # GET /resource
   def new
+    # Users end up here if they're trying to sign up via an Omniauth workflow
     oauth = { provider: nil, uid: nil }
     IdentifierScheme.for_users.each do |scheme|
       unless session["devise.#{scheme.name.downcase}_data"].nil?
@@ -50,6 +51,8 @@ class RegistrationsController < Devise::RegistrationsController
       end
     end
     # rubocop:enable Style/GuardClause
+
+    render "shared/authentication/org_branded_access_controls"
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity, Metrics/BlockNesting, Layout/LineLength

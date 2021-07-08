@@ -40,6 +40,28 @@ module Api
           object
         end
 
+        # Search for an in the Org and RegistryOrg tables
+        def name_to_org(name:)
+          return nil unless name.is_a?(String) && name.present?
+
+          org = ::Org.where("LOWER(name) = ?", name.downcase)
+                     .first
+          return org if org.present?
+
+          # External ROR search
+          registry_org = ::RegistryOrg.includes(:org)
+                                      .where("LOWER(name) = ?", name.downcase)
+                                      .first
+          # Return nil if no Registry Org was found
+          return nil unless registry_org.present?
+
+          # Return nil if we do not allow creating Orgs in this manner
+          return nil if registry_org.org_id.nil? && Rails.configuration.x.application.restrict_orgs
+
+          # return the related Org or initialize a new one
+          registry_org.to_org
+        end
+
         # Translates the role in the json to a Contributor role
         def translate_role(role:)
           default = ::Contributor.default_role

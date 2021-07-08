@@ -8,7 +8,7 @@ class ApplicationService
     # the Rails application name
     def application_name
       default = Rails.application.class.name.split("::").first&.downcase
-      Rails.configuration.x.application.name.downcase || default
+      Rails.configuration.x.application.name&.downcase || default
     end
 
   end

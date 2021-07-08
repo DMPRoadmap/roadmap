@@ -17,14 +17,14 @@ RSpec.describe Api::V1::PlansController, type: :request do
 
     describe "GET /api/v1/plan/:id - show" do
       it "returns the plan" do
-        plan = create(:plan, api_client_id: ApiClient.first&.id)
+        plan = create(:plan, api_client: ApiClient.first)
         get api_v1_plan_path(plan)
         expect(response.code).to eql("200")
         expect(response).to render_template("api/v1/plans/index")
         expect(assigns(:items).length).to eql(1)
       end
       it "returns a 404 if the ApiClient did not create the plan" do
-        plan = create(:plan, api_client_id: create(:api_client))
+        plan = create(:plan, api_client: create(:api_client))
         get api_v1_plan_path(plan)
         expect(response.code).to eql("404")
         expect(response).to render_template("api/v1/error")
@@ -57,7 +57,7 @@ RSpec.describe Api::V1::PlansController, type: :request do
           expect(response).to render_template("api/v1/error")
         end
         it "returns a 400 if the incoming DMP is invalid" do
-          create(:plan, api_client_id: ApiClient.first.id)
+          create(:plan, api_client: ApiClient.first)
           @json[:items].first[:dmp][:title] = ""
           post api_v1_plans_path, params: @json.to_json
           expect(response.code).to eql("400")
@@ -65,7 +65,7 @@ RSpec.describe Api::V1::PlansController, type: :request do
         end
         it "returns a 400 if the plan already exists" do
           plan = create(:plan, created_at: (Time.now - 3.days),
-                               api_client_id: ApiClient.first.id)
+                               api_client: ApiClient.first)
           @json[:items].first[:dmp][:dmp_id] = {
             type: "url",
             identifier: Rails.application.routes.url_helpers.api_v1_plan_url(plan)

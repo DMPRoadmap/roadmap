@@ -101,7 +101,7 @@ RSpec.describe Api::V2::Deserialization::Dataset do
         Api::V1::DeserializationService.stubs(:doi?).returns(true)
         related = create(:related_identifier, identifiable: @plan, identifier_type: "DOI",
                                               relation_type: "IsReferencedBy",
-                                              value: @json[:dataset_id][:identifier])
+                                              value: "http://doi.org/#{@json[:dataset_id][:identifier]}")
         result = described_class.send(:find_by_identifier, plan: @plan, json: @json[:dataset_id])
         expect(result).to eql(related)
       end
@@ -125,7 +125,7 @@ RSpec.describe Api::V2::Deserialization::Dataset do
         expect(result.identifiable).to eql(@plan)
         expect(result.identifier_type).to eql("DOI")
         expect(result.relation_type).to eql("IsReferencedBy")
-        expect(result.value).to eql(@json[:dataset_id][:identifier])
+        expect(result.value).to eql("http://doi.org/#{@json[:dataset_id][:identifier]}")
       end
       it "does not initialize a new ResearchOutput" do
         Api::V1::DeserializationService.stubs(:doi?).returns(false)

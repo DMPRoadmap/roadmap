@@ -47,10 +47,10 @@ module DMPRoadmap
     # Your organisation's address - used on the contact us page
     # rubocop:disable Naming/VariableNumber
     config.x.organisation.address = {
-      line_1: Rails.configuration.x.dmproadmap.organisation_address_line1,
-      line_2: Rails.configuration.x.dmproadmap.organisation_address_line2,
-      line_3: Rails.configuration.x.dmproadmap.organisation_address_line3,
-      line_4: Rails.configuration.x.dmproadmap.organisation_address_line4,
+      line1: Rails.configuration.x.dmproadmap.organisation_address_line1,
+      line2: Rails.configuration.x.dmproadmap.organisation_address_line2,
+      line3: Rails.configuration.x.dmproadmap.organisation_address_line3,
+      line4: Rails.configuration.x.dmproadmap.organisation_address_line4,
       country: Rails.configuration.x.dmproadmap.organisation_country
     }
     # rubocop:enable Naming/VariableNumber

@@ -4,6 +4,8 @@ require "rails_helper"
 
 describe "paginable/orgs/_public.html.erb" do
 
+  include SessionsHelper
+
   it "renders our version of the page" do
     generate_shibbolized_orgs(2)
     shib = Org.last

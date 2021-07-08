@@ -104,11 +104,13 @@ module Paginable
   # Generates an HTML link to sort given a sort field.
   # sort_field {String} - Represents the column name for a table
   def paginable_sort_link(sort_field)
+    options = @paginable_options || {}
+
     link_to(
       sort_link_name(sort_field),
       sort_link_url(sort_field),
       class: "paginable-action",
-      data: { remote: @paginable_options[:remote] },
+      data: { remote: options[:remote] },
       aria: { label: sort_field }
     )
   end

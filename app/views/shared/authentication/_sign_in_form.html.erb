@@ -18,5 +18,11 @@
       <%= _('Remember email') %>
     <% end %>
   </div>
+
+  <%# If this was part of an Shibboleth SSO create accounut then include the uid %>
+  <% if session['devise.shibboleth_data'].present? %>
+    <%= f.hidden_field :shibboleth_id, :value => session['devise.shibboleth_data']['uid'] %>
+  <% end %>
+
   <%= f.button(_('Sign in'), class: "btn btn-default", type: "submit") %>
 <% end %>

@@ -54,6 +54,40 @@ RSpec.describe Api::V2::DeserializationService do
     end
   end
 
+  describe ":name_to_org(name:)" do
+    before(:each) do
+      @org = create(:org)
+      @registry_org = create(:registry_org)
+    end
+
+    it "returns nil if :name is not present" do
+      expect(described_class.name_to_org(name: nil)).to eql(nil)
+    end
+    it "returns nil if :name matches no recs in Org or RegistryOrg not present" do
+      name = Faker::Company.unique.name.gsub(@org.name, "foo").gsub(@registry_org.name, "bar")
+      expect(described_class.name_to_org(name: name)).to eql(nil)
+    end
+    it "returns the Org if the :name matches" do
+      expect(described_class.name_to_org(name: @org.name)).to eql(@org)
+    end
+    it "returns the RegistryOrg's Org if the :name matches" do
+      org = create(:org, name: @registry_org.name)
+      @registry_org.update(org_id: org.id)
+      expect(described_class.name_to_org(name: @registry_org.name)).to eql(org)
+    end
+    it "returns nil if :name matches the RegistryOrg but it has no Org and we :restrict_orgs" do
+      Rails.configuration.x.application.restrict_orgs = true
+      expect(described_class.name_to_org(name: @registry_org.name)).to eql(nil)
+    end
+    it "returns a new Org if :name matches the RegistryOrg but it has no Org" do
+      Rails.configuration.x.application.restrict_orgs = false
+      result = described_class.name_to_org(name: @registry_org.name)
+      expect(result.is_a?(Org)).to eql(true)
+      expect(result.new_record?).to eql(true)
+      expect(result.name).to eql(@registry_org.name)
+    end
+  end
+
   describe ":attach_identifier(object:, json:)" do
     before(:each) do
       @scheme = create(:identifier_scheme, name: "ror")
@@ -165,11 +199,6 @@ RSpec.describe Api::V2::DeserializationService do
       val = "23645gy3d"
       expect(described_class.send(:doi?, value: val)).to eql(false)
       val = "10.999"
-      expect(described_class.send(:doi?, value: val)).to eql(false)
-    end
-    it "returns false if there is no 'doi' identifier scheme" do
-      val = "10.999/23645gy3d"
-      @scheme.destroy
       expect(described_class.send(:doi?, value: val)).to eql(false)
     end
     it "returns false if 'doi' identifier scheme exists but value is not doi" do

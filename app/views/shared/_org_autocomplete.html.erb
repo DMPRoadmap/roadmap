@@ -1,32 +1,45 @@
-<%# locals: form, default_org, required, funder_only, known_only, label %>
+<%#
+locals:
+  col_size                <-- Allows you to specify the column width to match your form
+  default_org             <-- Allows you to prepopulate the autocomplete with a current selection
+  required                <-- Whether or not the autocomplete should be a required field
+  funder_only             <-- Allows you to restrict the suggestions to funder orgs
+  non_funder_only         <-- Allows you to restrict the suggestions to non-funder orgs
+  known_only              <-- Allows you to restrict the suggestions to orgs in the `orgs` table
+                              (or if restrict_orgs is true, registry_orgs recs that have an org_id)
+  managed_only            <-- Allows you to restrict the suggestions to managed orgs
+  allow_custom_org_entry  <-- Prevents users from specifying a custom Org
+  label                   <-- The label text that appears above the autocomplete
+  namespace               <-- For forms that have multiple autocompletes (nil is ok here!)
+%>
 <%
-col_size = col_size || nil
-default_org = default_org || nil
+col_size = local_assigns.fetch(:col_size, nil)
+default_org = local_assigns.fetch(:default_org, nil)
 
 # Whether or not the org selection is required
-required = required || false
+required = local_assigns.fetch(:required, false)
 
 # Whether or not to restrict the search to funders
-funder_only = funder_only || false
+funder_only = local_assigns.fetch(:funder_only, false)
 # Whether or not to exclude funders from the search
-non_funder_only = non_funder_only || false
+non_funder_only = local_assigns.fetch(:non_funder_only, false)
 # Whether or not to restrict the search to records that exist in the orgs table only
-known_only = known_only || false
+known_only = local_assigns.fetch(:known_only, false)
 # Whether or not to restrict the search records to `orgs.managed = true`
-managed_only = managed_only || false
+managed_only = local_assigns.fetch(:managed_only, false)
 
 # Whether or not to allow a user to enter in a custom/other Org
-allow_custom_org_entry = allow_custom_org_entry || true
+allow_custom_org_entry = local_assigns.fetch(:allow_custom_org_entry, true)
 
 # The label to use
-label = label || _("Organisation")
+label = local_assigns.fetch(:label, _("Organisation"))
 
 # Namespace used to differentiate between multiple Org Autocompletes on the same page. This namespace
 # will be used when submitting back to the controller. (e.g. A namespace of 'funder' would result in:
 # `org_autocomplete[funder_name]` instead or the default `org_autocomplete[name]`)
 #
 # NOTE: if you specify a namespace, be sure that the RegistryOrgsController's strong params support it!
-namespace = namespace || nil
+namespace = local_assigns.fetch(:namespace, nil)
 
 placeholder = _("Begin typing to see a list of suggestions.")
 autocomplete_id = SecureRandom.hex(6)
@@ -64,13 +77,13 @@ autocomplete_id = SecureRandom.hex(6)
 
     <%# message to display to the user if they did not select an item from the suggestions %>
     <div class="autocomplete-warning-<%= autocomplete_id %> autocomplete-warning red hide">
-      <%= allow_custom_org_entry && !known_only ? _("Please select an item from the list or check the box below and provide a name for your organization.") : _("Please select an item from the list.") %>
+      <%= allow_custom_org_entry ? _("Please select an item from the list or check the box below and provide a name for your organization.") : _("Please select an item from the list.") %>
     </div>
   <% if col_size.present? %></div><% end %>
 
   <%# If we are allowing the user to specify orgs we don't know about then display the checkbox and
       textbox for the user's custom Org name %>
-  <% if allow_custom_org_entry && !known_only %>
+  <% if allow_custom_org_entry %>
     <conditional>
       <div class="col-md-<%= col_size %>">
         <%= org_fields.label(:"#{[namespace, "not_in_list"].compact.join("_")}", class: 'control-label') do %>
