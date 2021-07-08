@@ -65,9 +65,9 @@ class MadmpCodebaseController < ApplicationController
     # return
 
     begin
-      response = fetch_run_data(nil, script_id, { "grantId": anr_project_id })
+      response = fetch_run_data(fragment, script_id, custom_data: { "grantId": anr_project_id })
       if response["return_code"]&.eql?(0)
-        fragment.dmp.raw_import(response["data"], fragment.madmp_schema)
+        dmp_fragment.raw_import(response["data"], fragment.madmp_schema)
         render json: {
           "message" => d_("dmpopidor", 'New data have been added to your plan, please click on the "Reload" button.'),
           "needs_reload" => true
@@ -89,12 +89,12 @@ class MadmpCodebaseController < ApplicationController
 
   private
 
-  def fetch_run_data(fragment, script_id, params = {})
+  def fetch_run_data(fragment, script_id, params: {}, custom_data: nil)
     return {} unless fragment.present? && script_id.present?
 
     ExternalApis::MadmpCodebaseService.run(script_id, body:
       {
-        "data": fragment.data,
+        "data": custom_data || fragment.data,
         "schema": {},
         "dmp_language": fragment.dmp.locale,
         "dmp_id": fragment.dmp_id,
