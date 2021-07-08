@@ -24,6 +24,7 @@ export const projectSelectorHandler = (selectField, value, text) => {
         errorZone.hide();
       },
     }).done(() => {
+      selectField.find('select').val('').trigger('change');
       $('#plan_project').trigger('reload.form');
       $('#plan_project .project-selector').fadeOut();
     }).fail((response) => {
