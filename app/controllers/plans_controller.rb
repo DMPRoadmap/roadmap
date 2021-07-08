@@ -68,8 +68,8 @@ class PlansController < ApplicationController
                       plan_params[:title]
                     end
 
-      @plan.org = process_org!
-      @plan.funder = process_org!(namespace: "funder")
+      @plan.org = process_org!(user: current_user)
+      @plan.funder = process_org!(user: current_user, namespace: "funder")
 
       if @plan.save
         # pre-select org's guidance and the default org's guidance
@@ -204,7 +204,7 @@ class PlansController < ApplicationController
                            end
       @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
 
-      @plan.funder = process_org!(namespace: "funder")
+      @plan.funder = process_org!(user: current_user, namespace: "funder")
       @plan.grant = plan_params[:grant]
       attrs.delete(:grant)
 

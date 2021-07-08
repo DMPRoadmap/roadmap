@@ -12,7 +12,7 @@ class SuperAdmin::OrgSwapsController < ApplicationController
 
     # See if the user selected a new Org via the Org Lookup and
     # convert it into an Org
-    lookup = process_org!
+    lookup = process_org!(user: current_user)
 
     # rubocop:disable Layout/LineLength
     if lookup.present? && !lookup.new_record?

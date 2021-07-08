@@ -4,7 +4,6 @@
 #
 #  id                  :bigint(8)        not null, primary key
 #  description         :text(65535)
-#  discipline_specific :integer          default(0), not null
 #  locations           :json
 #  related_entities    :json
 #  title               :string(255)
@@ -16,7 +15,6 @@
 FactoryBot.define do
   factory :metadata_standard do
     description { Faker::Lorem.paragraph }
-    discipline_specific { [true, false].sample }
     locations {
       [
         { type: %w[website document RDFS].sample, url: Faker::Internet.unique.url },

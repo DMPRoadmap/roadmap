@@ -6,7 +6,6 @@
 #
 #  id                  :bigint(8)        not null, primary key
 #  description         :text(65535)
-#  discipline_specific :integer          default(0), not null
 #  locations           :json
 #  related_entities    :json
 #  title               :string(255)

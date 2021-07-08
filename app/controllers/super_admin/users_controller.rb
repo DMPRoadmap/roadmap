@@ -34,7 +34,7 @@ module SuperAdmin
       # See if the user selected a new Org via the Org Lookup and
       # convert it into an Org
       attrs = user_params
-      @user.org = process_org!
+      @user.org = process_org!(user: current_user)
 
       if @user.update_attributes(attrs)
         flash.now[:notice] = success_message(@user, _("updated"))

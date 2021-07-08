@@ -107,7 +107,7 @@ class OrgsController < ApplicationController
     # you have defined with the Org's entity_id (editable in the Super Admin's 'Edit Org' page)
     skip_authorization
 
-    org = process_org!
+    org = process_org!(user: current_user)
 
     if org.present?
       entity_id = org.identifier_for_scheme(scheme: "shibboleth")

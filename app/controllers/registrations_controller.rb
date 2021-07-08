@@ -321,7 +321,7 @@ class RegistrationsController < Devise::RegistrationsController
   # Finds or creates the selected org and then returns it's id
   def handle_org(attrs:)
     # Let the OrgSelectable concern determine which org was selected
-    org = process_org!
+    org = process_org!(user: current_user)
     attrs[:org_id] = org&.id
     attrs
   end

@@ -30,7 +30,7 @@ module SuperAdmin
       attrs = org_params
 
       # Let the OrgSelectable concern determine which org was selected
-      org = process_org!
+      org = process_org!(user: current_user)
 
       if org.new_record?
         org.language = Language.default
@@ -104,7 +104,7 @@ module SuperAdmin
       authorize @org
 
       # Let the OrgSelectable concern determine which org was selected
-      @target_org = process_org!
+      @target_org = process_org!(user: current_user)
 
       # If the user selected the same org then nil it out so that it cancels the merge
       @target_org = nil if @org == @target_org

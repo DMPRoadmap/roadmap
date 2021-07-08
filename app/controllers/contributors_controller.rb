@@ -36,7 +36,7 @@ class ContributorsController < ApplicationController
     args[:plan_id] = @plan.id
 
     @contributor = Contributor.new(args)
-    @contributor.org = process_org!
+    @contributor.org = process_org!(user: current_user)
     stash_orcid
 
     if @contributor.save
@@ -57,7 +57,7 @@ class ContributorsController < ApplicationController
     authorize @plan
     args = translate_roles(hash: contributor_params)
     args = process_orcid_for_update(hash: args)
-    org = process_org!
+    org = process_org!(user: current_user)
     args[:org_id] = org&.id
 
     if @contributor.update(args)

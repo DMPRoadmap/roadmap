@@ -39,8 +39,9 @@ module OrgSelectable
   # rubocop:disable Metrics/BlockLength
   included do
 
-    def process_org!(namespace: nil)
-      name = org_selectable_params[:"#{[namespace, "user_entered_name"].compact.join("_")}"]
+    def process_org!(user: nil, namespace: nil)
+      user_provided = "#{[namespace, "user_entered_name"].compact.join("_")}"
+      name = org_selectable_params[:"#{user_provided}"]
       name = org_selectable_params[:"#{[namespace, "name"].compact.join("_")}"] unless name.present?
       return nil unless name.present?
 
@@ -48,14 +49,17 @@ module OrgSelectable
       org = Org.where("LOWER(name) = ?", name.downcase).first
       return org if org.present?
 
-      # fetch from the ror table
-      registry_org = RegistryOrg.where("LOWER(name) = ?", name.downcase).first
-      # Convert the RegistryOrg to an Org, save it and then update the RegistryOrg
-      org = create_org_from_registry_org!(registry_org: registry_org) if registry_org.present?
-      return org if org.present?
+      # Skip if restrict_orgs is set to true! (unless its a Super Admin)
+      if (user.present? && user.can_super_admin?) || !Rails.configuration.x.application.restrict_orgs
+        # fetch from the ror table
+        registry_org = RegistryOrg.where("LOWER(name) = ?", name.downcase).first
+        # Convert the RegistryOrg to an Org, save it and then update the RegistryOrg
+        org = create_org_from_registry_org!(registry_org: registry_org) if registry_org.present?
+        return org if org.present?
+      end
 
-      # We only want to create it if the user clicked the 'not in list' checkbox
-      return nil unless org_selectable_params[:user_entered_name].present?
+      # We only want to create it if the user provided a custom name
+      return nil unless org_selectable_params[:"#{user_provided}"].present?
 
       # otherwise initialize a new org
       create_org!(name: name)
@@ -74,8 +78,10 @@ module OrgSelectable
 
     # Create a new Org
     def create_org!(name:)
-      Org.create(
-        name: name,
+      org = Org.find_or_create_by(name: name)
+      return org unless org.new_record?
+
+      org.update(
         abbreviation: Org.name_to_abbreviation(name: name),
         contact_email: Rails.configuration.x.organisation.helpdesk_email,
         contact_name: _("%{app_name} helpdesk") % { app_name: ApplicationService.application_name },
@@ -83,6 +89,7 @@ module OrgSelectable
         managed: false,
         organisation: true
       )
+      org
     end
 
     # Create a new Org from the RegistryOrg entry
@@ -102,6 +109,9 @@ module OrgSelectable
         next unless scheme.present?
 
         Identifier.find_or_create_by(identifier_scheme: scheme, identifiable: org, value: value)
+        # Add the value via the :value= method to take advantage of scheme identifier_prefix logic
+        #identifier.value = value if identifier.new_record?
+        #identifier.save
       end
 
       # Update the original RegistryOrg with the new org's association
