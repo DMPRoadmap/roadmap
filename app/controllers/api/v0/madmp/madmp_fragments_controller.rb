@@ -32,7 +32,7 @@ class Api::V0::Madmp::MadmpFragmentsController < Api::V0::BaseController
       raise Pundit::NotAuthorizedError
     end
 
-    @fragment.save_api_fragment(params[:data], @fragment.madmp_schema)
+    @fragment.import_with_ids(params[:data], @fragment.madmp_schema)
 
     render json: {
       "data" => @fragment.data,

@@ -23,8 +23,7 @@ class MadmpFragment < ActiveRecord::Base
 
   include ValidationMessages
   include DynamicFormHelper
-  include ApiFragment
-  include CodebaseFragment
+  include FragmentImport
 
   # ================
   # = Associations =
@@ -414,7 +413,7 @@ class MadmpFragment < ActiveRecord::Base
       filtered_incoming_data = data.slice(*unicity_properties)
       next if filtered_db_data.empty?
 
-      return true if filtered_db_data.eql?(filtered_incoming_data)
+      return fragment if filtered_db_data.eql?(filtered_incoming_data)
     end
     false
   end
