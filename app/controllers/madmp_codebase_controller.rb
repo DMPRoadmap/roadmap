@@ -13,7 +13,7 @@ class MadmpCodebaseController < ApplicationController
     # EXAMPLE DATA
     # file_path = Rails.root.join("config/madmp/schemas/codebase_example_data.json")
     # response = JSON.load(File.open(file_path))
-    # fragment.save_codebase_fragment(response, fragment.madmp_schema)
+    # fragment.import_with_instructions(response, fragment.madmp_schema)
     # render json: {
     #   "message" => d_("dmpopidor", 'New data have been added to your plan, please click on the "Reload" button.')
     # }, status: 200
@@ -27,7 +27,7 @@ class MadmpCodebaseController < ApplicationController
             "needs_reload" => false
           }, status: 200
         else
-          fragment.save_codebase_fragment(response["data"], fragment.madmp_schema)
+          fragment.import_with_instructions(response["data"], fragment.madmp_schema)
           render json: {
             "message" => d_("dmpopidor", 'New data have been added to your plan, please click on the "Reload" button.'),
             "needs_reload" => true
@@ -51,27 +51,23 @@ class MadmpCodebaseController < ApplicationController
   def anr_search
     anr_project_id = params[:project_id]
     fragment = MadmpFragment.find(params[:fragment_id])
+    dmp_fragment = fragment.dmp
     script_id = params[:script_id]
 
     authorize fragment
     # EXAMPLE DATA
     # file_path = Rails.root.join("config/madmp/schemas/anr_example_data.json")
     # response = JSON.load(File.open(file_path))
-    # fragment.save_api_fragment(response, fragment.madmp_schema)
+    # dmp_fragment.raw_import(response, dmp_fragment.madmp_schema)
     # render json: {
     #   "message" => d_("dmpopidor", 'New data have been added to your plan, please click on the "Reload" button.')
     # }, status: 200
     # return
 
     begin
-      response = ExternalApis::MadmpCodebaseService.run(script_id, body:
-        {
-          "data": anr_project_id,
-          "dmp_id": fragment.dmp_id
-        }
-      )
+      response = fetch_run_data(nil, script_id, { "grantId": anr_project_id })
       if response["return_code"]&.eql?(0)
-        fragment.save_codebase_fragment(response["data"], fragment.madmp_schema)
+        fragment.dmp.raw_import(response["data"], fragment.madmp_schema)
         render json: {
           "message" => d_("dmpopidor", 'New data have been added to your plan, please click on the "Reload" button.'),
           "needs_reload" => true
@@ -93,15 +89,17 @@ class MadmpCodebaseController < ApplicationController
 
   private
 
-  def fetch_run_data(fragment, script_id)
+  def fetch_run_data(fragment, script_id, params = {})
     return {} unless fragment.present? && script_id.present?
 
     ExternalApis::MadmpCodebaseService.run(script_id, body:
       {
         "data": fragment.data,
         "schema": {},
+        "dmp_language": fragment.dmp.locale,
         "dmp_id": fragment.dmp_id,
-        "research_output_id": fragment.research_output_fragment&.id
+        "research_output_id": fragment.research_output_fragment&.id,
+        "params": params
       }
     )
   end

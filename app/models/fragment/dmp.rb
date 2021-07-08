@@ -54,6 +54,14 @@ class Fragment::Dmp < MadmpFragment
     Fragment::Person.where(dmp_id: id)
   end
 
+  def locale
+    meta.data["dmpLanguage"]
+  end
+
+  def dmp
+    self
+  end
+
   def self.sti_name
     "dmp"
   end
