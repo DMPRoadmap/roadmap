@@ -18,15 +18,11 @@ module Api
 
         @data_contact = @plan.owner
 
-p "ORIGINAL: #{@data_contact.name}"
-
         @plan.contributors.each do |contributor|
           # If there is no owner for the plan, use the user with the data_curation role
           @data_contact = contributor if contributor.data_curation? && @data_contact.nil?
           @contributors << contributor
         end
-
-p "FINAL: #{@data_contact.name}"
 
         @costs = plan_costs(plan: @plan)
       end
