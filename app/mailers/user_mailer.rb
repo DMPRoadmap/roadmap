@@ -254,4 +254,17 @@ class UserMailer < ActionMailer::Base
     end
   end
 
+  # Sends the error message out to the administrators
+  def notify_administrators(message)
+    administrators = Rails.configuration.x.application.admin_emails
+    return false unless administrators.present?
+
+    @message = message
+
+    I18n.with_locale I18n.default_locale do
+      mail(to: administrators,
+           subject: _("%{tool_name} error occurred") % { tool_name: tool_name })
+    end
+  end
+
 end

@@ -78,6 +78,25 @@ module ExternalApis
         Rails.logger.error error.backtrace
       end
 
+      # Emails the error and response to the administrators
+      def notify_administrators(obj:, response: nil, error: nil)
+        return false unless obj.present? && response.present?
+
+        message = "#{obj.class.name} - #{obj.respond_to?(:id) ? obj.id : ""}"
+        message += "<br>----------------------------------------<br><br>"
+
+        message += "Sent: #{pp(json_from_template(plan: obj))}" if obj.is_a?(Plan)
+        message += "<br>----------------------------------------<br><br>" if obj.is_a?(Plan)
+
+        message += "#{self.name} received the following unexpected response:<br>"
+        message += "#{pp(response.inspect)}"
+        message += "<br>----------------------------------------<br><br>"
+        message += error.message if error.present? && error.is_a?(StandardError)
+        message += error.backtrace if error.present? && error.is_a?(StandardError)
+
+        UserMailer.notify_administrators(message).deliver_now
+      end
+
       private
 
       # Retrieves the application name from dmproadmap.rb initializer or uses the App name
