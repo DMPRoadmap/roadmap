@@ -82,6 +82,7 @@ class MadmpFragment < ActiveRecord::Base
   # =============
 
   before_save   :set_defaults
+  after_save    :update_plan_title
   after_create  :update_parent_references
   after_destroy :update_parent_references
 
@@ -429,6 +430,10 @@ class MadmpFragment < ActiveRecord::Base
     self.data ||= {}
     self.additional_info ||= {}
     self.parent_id = nil if classname.eql?("person")
+  end
+
+  def update_plan_title
+    plan.update(title: data["title"]) if classname.eql?("meta")
   end
 
 end
