@@ -84,6 +84,7 @@ module ExternalApis
         #                a 405 (method_not_allowed) when a DOI already exists
         unless resp.present? && [201, 405].include?(resp.code)
           handle_http_failure(method: "DMPHub mint_doi", http_response: resp)
+          notify_administrators(obj: plan, response: resp)
           return nil
         end
 
@@ -108,6 +109,7 @@ module ExternalApis
         # DMPHub returns a 200 when successful
         unless resp.present? && resp.code == 200
           handle_http_failure(method: "DMPHub update_doi", http_response: resp)
+          notify_administrators(obj: plan, response: resp)
           return nil
         end
 
@@ -184,7 +186,7 @@ module ExternalApis
       # Prepare the DMP for transmission to the DMPHub (RDA Common Standard format)
       def json_from_template(plan:)
         payload = ActionController::Base.new.render_to_string(
-          partial: "/api/v1/plans/show", locals: { plan: plan }
+          partial: "/api/v2/plans/show", locals: { plan: plan, client: api_client }
         )
 
         { dmp: JSON.parse(payload) }.to_json

@@ -16,14 +16,14 @@ module Api
         @plan = plan
         @client = client
 
-        # Attach the first data_curation role as the data_contact, otherwise
-        # add the contributor to the contributors array
+        @data_contact = @plan.owner
+
         @plan.contributors.each do |contributor|
+          # If there is no owner for the plan, use the user with the data_curation role
           @data_contact = contributor if contributor.data_curation? && @data_contact.nil?
           @contributors << contributor
         end
 
-        @data_contact = @plan.owner unless @data_contact.present?
         @costs = plan_costs(plan: @plan)
       end
 
