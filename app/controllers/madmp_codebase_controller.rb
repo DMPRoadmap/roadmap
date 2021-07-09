@@ -67,12 +67,12 @@ class MadmpCodebaseController < ApplicationController
     begin
       response = fetch_run_data(fragment, script_id, custom_data: { "grantId": anr_project_id })
       if response["return_code"]&.eql?(0)
-        dmp_fragment.raw_import(response["data"], fragment.madmp_schema)
+        dmp_fragment.raw_import(response["data"], dmp_fragment.madmp_schema)
         render json: {
           "message" => d_("dmpopidor", 'New data have been added to your plan, please click on the "Reload" button.'),
           "needs_reload" => true
         }, status: 200
-        update_run_log(fragment, script_id)
+        update_run_log(dmp_fragment, script_id)
       else
         # Rails.cache.delete(["codebase_run", fragment.id])
         render json: {
