@@ -2,7 +2,7 @@
 # IF YOU UPDATE IT, YOUR CHANGES WILL BE LOST AT THE NEXT SYNC.
 #
 # To update this file, use this translation interface:
-# https://translation.io/xsrust/roadmap/en-CA
+# https://translation.io/dcc-user/roadmap/en-CA
 #
 ---
 en-CA:
@@ -121,6 +121,9 @@ en-CA:
       header:
         one: 1 error prohibited this %{model} from being saved
         other: "%{count} errors prohibited this %{model} from being saved"
+    unavailable_session:
+    unacceptable_request:
+    connection_refused:
   activerecord:
     errors:
       messages:
