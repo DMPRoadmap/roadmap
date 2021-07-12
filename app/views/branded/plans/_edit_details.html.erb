@@ -14,7 +14,9 @@
             aria-controls="plan_project">
         <div class="panel-heading question-text" role="tab" id="heading-plan-project">
           <div class="panel-title pull-left">
+            <% FastGettext.with_locale locale do %>
             <%= _("Project Details") %>
+            <% end %>
           </div>
           <i class="fa fa-chevron-down pull-right" aria-hidden="true"></i>
           <div class="clearfix"></div>
@@ -122,7 +124,9 @@
 
         <div class="panel-heading question-text" role="tab" id="heading-plan-metadata">
           <div class="panel-title pull-left">
-            <%= d_("dmpopidor", "Plan Details") %>
+            <% FastGettext.with_locale locale do %>
+              <%= d_("dmpopidor", "Plan Details") %>
+            <% end %>
           </div>
           <i class="fa fa-chevron-right pull-right" aria-hidden="true"></i>
           <div class="clearfix"></div>
