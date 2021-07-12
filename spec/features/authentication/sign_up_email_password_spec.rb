@@ -5,20 +5,9 @@ require "rails_helper"
 RSpec.describe "Sign up via email and password", type: :feature do
 
   include DmptoolHelper
-
-  # TODO: implement this after we move to baseline homepage
+  include AutoCompleteHelper
 
   before(:each) do
-    @existing = create(:user)
-    @orgs = [create(:org), create(:org)]
-
-    @first = Faker::Movies::StarWars.character.split(" ").first
-    @last = Faker::Movies::StarWars.character.split(" ").last
-    @email = Faker::Internet.unique.email
-    @pwd = SecureRandom.uuid
-
-    Rails.configuration.x.recaptcha.enabled = false
-
     # -------------------------------------------------------------
     # start DMPTool customization
     # Mock the blog feed on our homepage
@@ -28,96 +17,154 @@ RSpec.describe "Sign up via email and password", type: :feature do
     # end DMPTool customization
     # -------------------------------------------------------------
 
+    @non_ror_org = create(:org)
+    @ror_org = create(:org)
+    @registry_org = create(:registry_org)
+    @known_registry_org = create(:registry_org, org: @ror_org)
+
     visit root_path
-
-    # -------------------------------------------------------------
-    # start DMPTool customization
-    # Access the sign in form
-    # -------------------------------------------------------------
-    # Action
-    #click_link "Create account"
-#    access_create_account_modal
-    # -------------------------------------------------------------
-    # end DMPTool customization
-    # -------------------------------------------------------------
+    click_link "Create account"
   end
 
-# We cannot do this until we move our homepage to baseline. too many damn create acount forms out there
-=begin
-  scenario "User signs up with an email attached to an existing user" do
+  scenario "User does not fill out all required fields", :js do
     within("#create_account_form") do
-      fill_in "First Name", with: @first
-      fill_in "Last Name", with: @last
-      fill_in "Email", with: @existing.email
-      select_an_org("#new_user_org_name", @orgs.sample)
-      fill_in "Password", with: @pwd
-      check "I accept the terms and conditions"
+      expect(page).not_to have_text("Please fill out all of the required fields.")
+
       click_button "Create account"
-    end
+      expect(page).to have_text("Please fill out all of the required fields.")
 
-    expect(current_path).to eql(root_path)
-    expect(page).to have_text("Error: Invalid Email or password.")
-  end
-
-  scenario "User signs up without specifying an email" do
-    within("#create_account_form") do
-      fill_in "First Name", with: @first
-      fill_in "Last Name", with: @last
-      fill_in "Email", with: nil
-      select_an_org("#new_user_org_name", @orgs.sample)
-      fill_in "Password", with: @pwd
-      check "I accept the terms and conditions"
+      fill_in "First Name", with: Faker::Movies::StarWars.character.split(" ").first
       click_button "Create account"
-    end
+      expect(page).to have_text("Please fill out all of the required fields.")
 
-    expect(current_path).to eql(root_path)
-    expect(page).to have_text("Error: Invalid Email or password.")
-  end
-
-  scenario "User signs up without specifying an Org" do
-    within("#create_account_form") do
-      fill_in "First Name", with: @first
-      fill_in "Last Name", with: @last
-      fill_in "Email", with: @email
-      select_an_org("#new_user_org_name", nil)
-      fill_in "Password", with: @pwd
-      check "I accept the terms and conditions"
+      fill_in "Last Name", with: Faker::Movies::StarWars.character.split(" ").first
       click_button "Create account"
-    end
+      expect(page).to have_text("Please fill out all of the required fields.")
 
-    expect(current_path).to eql(root_path)
-    expect(page).to have_text("Error: Invalid Email or password.")
-  end
-
-  scenario "User signs up without specifying a password" do
-    within("#create_account_form") do
-      fill_in "First Name", with: @first
-      fill_in "Last Name", with: @last
-      fill_in "Email", with: @email
-      select_an_org("#new_user_org_name", @orgs.sample)
-      fill_in "Password", with: nil
-      check "I accept the terms and conditions"
+      fill_in "Email", with: Faker::Internet.unique.email
       click_button "Create account"
-    end
+      expect(page).to have_text("Please fill out all of the required fields.")
 
-    expect(current_path).to eql(root_path)
-    expect(page).to have_text("Error: Invalid Email or password.")
-  end
+      select_an_org("#create-account-org-controls", @non_ror_org.name)
+      click_button "Create account"
+      expect(page).to have_text("Please fill out all of the required fields.")
 
-  scenario "User signs up with their email and password" do
-    within("#create_account_form") do
-      fill_in "First Name", with: @first
-      fill_in "Last Name", with: @last
-      fill_in "Email", with: @email
-      select_an_org("#new_user_org_name", @orgs.sample)
-      fill_in "Password", with: @pwd
+      fill_in "Password", with: SecureRandom.uuid
+      click_button "Create account"
+      expect(page).to have_text("Please fill out all of the required fields.")
+
       check "I accept the terms and conditions"
       click_button "Create account"
     end
 
     expect(current_path).to eql(plans_path)
-    expect(page).to have_text("My Dashboard")
+    expect(page).to have_text("Welcome")
+    expect(page).to have_text("You are now ready to create your first DMP.")
   end
-=end
+
+  scenario "Does not allow user to enter a random Org into autocomplete" do
+    within("#create_account_form") do
+      click_button "Create account"
+      fill_in "First Name", with: Faker::Movies::StarWars.character.split(" ").first
+      fill_in "Last Name", with: Faker::Movies::StarWars.character.split(" ").first
+      fill_in "Email", with: Faker::Internet.unique.email
+      select_an_org("#create-account-org-controls", Faker::Lorem.sentence)
+      fill_in "Password", with: SecureRandom.uuid
+      check "I accept the terms and conditions"
+      click_button "Create account"
+    end
+
+    expect(current_path).to eql(root_path)
+    expect(page).to have_text("Please fill out all of the required fields.")
+  end
+
+  scenario "Allows user to select an Org that exists but is not a ROR Org" do
+    within("#create_account_form") do
+      click_button "Create account"
+      fill_in "First Name", with: Faker::Movies::StarWars.character.split(" ").first
+      fill_in "Last Name", with: Faker::Movies::StarWars.character.split(" ").first
+      fill_in "Email", with: Faker::Internet.unique.email
+      select_an_org("#create-account-org-controls", @non_ror_org.name)
+      fill_in "Password", with: SecureRandom.uuid
+      check "I accept the terms and conditions"
+      click_button "Create account"
+    end
+
+    expect(current_path).to eql(plans_path)
+    expect(page).to have_text("Welcome")
+    expect(page).to have_text("You are now ready to create your first DMP.")
+  end
+
+  scenario "Allows user to select an Org that exists and is a ROR Org" do
+    within("#create_account_form") do
+      click_button "Create account"
+      fill_in "First Name", with: Faker::Movies::StarWars.character.split(" ").first
+      fill_in "Last Name", with: Faker::Movies::StarWars.character.split(" ").first
+      fill_in "Email", with: Faker::Internet.unique.email
+      select_an_org("#create-account-org-controls", @known_registry_org.name)
+      fill_in "Password", with: SecureRandom.uuid
+      check "I accept the terms and conditions"
+      click_button "Create account"
+    end
+
+    expect(current_path).to eql(plans_path)
+    expect(page).to have_text("Welcome")
+    expect(page).to have_text("You are now ready to create your first DMP.")
+  end
+
+  scenario "Allows user to select a RegistryOrg that is not yet an Org" do
+    Rails.configuration.x.application.restrict_orgs = false
+
+    within("#create_account_form") do
+      click_button "Create account"
+      fill_in "First Name", with: Faker::Movies::StarWars.character.split(" ").first
+      fill_in "Last Name", with: Faker::Movies::StarWars.character.split(" ").first
+      fill_in "Email", with: Faker::Internet.unique.email
+      select_an_org("#create-account-org-controls", @registry_org.name)
+      fill_in "Password", with: SecureRandom.uuid
+      check "I accept the terms and conditions"
+      click_button "Create account"
+    end
+
+    expect(current_path).to eql(plans_path)
+    expect(page).to have_text("Welcome")
+    expect(page).to have_text("You are now ready to create your first DMP.")
+  end
+
+  scenario "Does not allow user to select a RegistryOrg with no Org if restrict_orgs is false" do
+    Rails.configuration.x.application.restrict_orgs = true
+
+    within("#create_account_form") do
+      click_button "Create account"
+      fill_in "First Name", with: Faker::Movies::StarWars.character.split(" ").first
+      fill_in "Last Name", with: Faker::Movies::StarWars.character.split(" ").first
+      fill_in "Email", with: Faker::Internet.unique.email
+      select_an_org("#create-account-org-controls", @registry_org.name)
+      fill_in "Password", with: SecureRandom.uuid
+      check "I accept the terms and conditions"
+      click_button "Create account"
+    end
+
+    expect(current_path).to eql(root_path)
+    expect(page).to have_text("Unable to create your account.")
+    expect(page).to have_text("Org must exist")
+  end
+
+  scenario "Allows user to specify a custom Org name" do
+    within("#create_account_form") do
+      click_button "Create account"
+      fill_in "First Name", with: Faker::Movies::StarWars.character.split(" ").first
+      fill_in "Last Name", with: Faker::Movies::StarWars.character.split(" ").first
+      fill_in "Email", with: Faker::Internet.unique.email
+      enter_custom_org("#create-account-org-controls", Faker::Movies::StarWars.planet)
+      fill_in "Password", with: SecureRandom.uuid
+      check "I accept the terms and conditions"
+      click_button "Create account"
+    end
+
+    expect(current_path).to eql(plans_path)
+    expect(page).to have_text("Welcome")
+    expect(page).to have_text("You are now ready to create your first DMP.")
+  end
 
 end

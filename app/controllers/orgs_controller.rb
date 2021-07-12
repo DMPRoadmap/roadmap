@@ -107,7 +107,7 @@ class OrgsController < ApplicationController
     # you have defined with the Org's entity_id (editable in the Super Admin's 'Edit Org' page)
     skip_authorization
 
-    org = process_org!(user: current_user)
+    org = process_org!(user: current_user, managed_only: true)
 
     if org.present?
       entity_id = org.identifier_for_scheme(scheme: "shibboleth")
@@ -121,8 +121,10 @@ class OrgsController < ApplicationController
         render "shared/authentication/org_branded_access_controls"
       end
     else
+
       # If we are using our own Shibboleth Service Provider SP then we need the entity_id so fail
-      redirect_to shibboleth_ds_path, notice: _("Please choose an organisation from the list.")
+      redirect_to after_sign_in_error_path_for(User.new),
+                  alert: _("Please choose an institution from the list.")
     end
   end
   # rubocop:enable Metrics/AbcSize

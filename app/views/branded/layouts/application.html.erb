@@ -54,11 +54,12 @@
     <a href="#maincontent" class="c-skipnav">Skip to main content</a>
 
     <!-- header rendering -->
-    <header><%= render partial: "layouts/header" %></header>
+    <header>
+      <%= render partial: "layouts/header" %>
+      <%= render partial: "layouts/notifications", locals: local_assigns %>
+    </header>
 
     <main id="maincontent" class="<%= @main_class %>">
-
-      <%= render partial: "layouts/notifications", locals: local_assigns %>
 
       <%= yield %>
 

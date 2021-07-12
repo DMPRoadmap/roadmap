@@ -10,16 +10,20 @@
     <%= form_for Org.new, url: shibboleth_ds_path, method: :post do |f| %>
       <div id="shib-ds-org-controls" class="row">
         <div class="form-group col-md-12">
+          <p class="fontsize-h4 bold"><%= _("Sign in with your institutional credentials") %></p>
           <%= render partial: "shared/org_autocomplete",
                      locals: { form: f,
                                default_org: nil,
+                               required: true,
                                known_only: true,
                                managed_only: true,
+                               allow_custom_org_entry: false,
                                required: true,
-                               label: _("Sign in with your institutional credentials") } %>
+                               label: _("Institution") } %>
         </div>
       </div>
       <%= button_tag _('Go'), class: "btn btn-default", id: "org-select-go" %>
+      <p class="form-error-msg red hide"><%= _("Please select an institution!") %></p>
     <% end %>
   <% else %>
     <div class="form-group">

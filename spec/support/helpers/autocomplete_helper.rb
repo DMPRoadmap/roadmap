@@ -2,32 +2,41 @@
 
 module AutoCompleteHelper
 
-  def select_an_org(autocomplete_id, org)
+  def select_an_org(selector, org_name, namespace = nil)
+    suggestions_selector = "#autocomplete-suggestions-"
+
     # Set the Org Name
-    find(autocomplete_id).set org.name
-    sleep(0.3)
+    within(selector) do
+      id = "#org_autocomplete_#{[namespace, "name"].compact.join("_")}"
+      autocomplete = find(id)
+      suggestions_selector += autocomplete[:list].split("-").last
+      autocomplete.set(org_name)
+    end
 
-    # The controllers are expecting the org_id though, so lets
-    # populate it
-    hidden_id = autocomplete_id.gsub("_name", "_id").gsub("#", "")
-    hash = { id: org.id, name: org.name }.to_json
+    sleep(0.1)
 
-    js = "document.getElementById('#{hidden_id}').value = '#{hash}'"
-    page.execute_script(js) if hidden_id.present?
+    # Now select the item from the suggestions
+    within(selector) do
+      item_selector = "#{suggestions_selector} .ui-menu-item-wrapper"
+
+      matching_element = all(:css, item_selector).detect do |element|
+        element.text.strip == org_name.strip
+      end
+      if matching_element.present?
+        matching_element.click
+      end
+    end
   end
 
-  def choose_suggestion(suggestion_text)
-    matcher = ".ui-autocomplete .ui-menu-item"
-    matching_element = all(:css, matcher).detect do |element|
-      element.text.strip == suggestion_text.strip
+  # Supply a custom Org name
+  def enter_custom_org(selector, org_name, namespace = nil)
+    within(selector) do
+      id = "#org_autocomplete_#{[namespace, "name"].compact.join("_")}"
+      autocomplete = find(id)
+      uuid = autocomplete[:list].split("-").last
+      check "I cannot find my organisation in the list"
+      find("#org_autocomplete_user_entered_name").set(org_name)
     end
-    unless matching_element.present?
-      raise ArgumentError, "No such suggestion with text '#{suggestion_text}'"
-    end
-
-    matching_element.click
-    # Wait for the JS to run
-    sleep(0.3)
   end
 
 end

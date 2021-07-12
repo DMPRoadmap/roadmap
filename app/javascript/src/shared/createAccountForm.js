@@ -62,10 +62,31 @@ $(() => {
     // Perform client side form validation. If any required fields are missing then
     // cancel the form submission
     submit.on('click', (e) => {
-      if (!validateFormFields(createAccountForm)) {
+      validateFormFields(createAccountForm);
+      if (createAccountForm.find('.has-error').length > 0) {
         submit.siblings('.form-error-msg').removeClass('hide');
         e.preventDefault();
       }
     });
+  }
+
+  if ($('#sign-in-tab').length > 0) {
+    const shibSignInForm = $('#new_org');
+    if (shibSignInForm.length > 0) {
+      const submit = shibSignInForm.find('button[type="submit"]');
+
+      // Perform client side form validation. If any required fields are missing then
+      // cancel the form submission
+      submit.on('click', (e) => {
+        validateFormFields(shibSignInForm);
+
+console.log(shibSignInForm.find('.has-error').length);
+
+        if (shibSignInForm.find('.has-error').length > 0) {
+          submit.siblings('.form-error-msg').removeClass('hide');
+          e.preventDefault();
+        }
+      });
+    }
   }
 });

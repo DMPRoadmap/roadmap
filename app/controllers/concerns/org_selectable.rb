@@ -39,7 +39,7 @@ module OrgSelectable
   # rubocop:disable Metrics/BlockLength
   included do
 
-    def process_org!(user: nil, namespace: nil)
+    def process_org!(user: nil, managed_only: false, namespace: nil)
       user_provided = "#{[namespace, "user_entered_name"].compact.join("_")}"
       name = org_selectable_params[:"#{user_provided}"]
       name = org_selectable_params[:"#{[namespace, "name"].compact.join("_")}"] unless name.present?
@@ -47,14 +47,20 @@ module OrgSelectable
 
       # check the Orgs table first
       org = Org.where("LOWER(name) = ?", name.downcase).first
-      return org if org.present?
+      # If we are expecting managed_only do not return it if it is not managed!
+      return org if org.present? && (!managed_only || (managed_only && org.managed?))
 
       # Skip if restrict_orgs is set to true! (unless its a Super Admin)
       if (user.present? && user.can_super_admin?) || !Rails.configuration.x.application.restrict_orgs
         # fetch from the ror table
         registry_org = RegistryOrg.where("LOWER(name) = ?", name.downcase).first
-        # Convert the RegistryOrg to an Org, save it and then update the RegistryOrg
-        org = create_org_from_registry_org!(registry_org: registry_org) if registry_org.present?
+
+        # If managed_only make sure the org is managed!
+        return nil if managed_only &&
+          (registry_org.nil? || registry_org&.org&.nil? || !registry_org&.org&.managed?)
+
+        # Convert the RegistryOrg to an Org, save it and then update the RegistryOrg if its ok
+        org = create_org_from_registry_org!(registry_org: registry_org)
         return org if org.present?
       end
 
@@ -109,9 +115,6 @@ module OrgSelectable
         next unless scheme.present?
 
         Identifier.find_or_create_by(identifier_scheme: scheme, identifiable: org, value: value)
-        # Add the value via the :value= method to take advantage of scheme identifier_prefix logic
-        #identifier.value = value if identifier.new_record?
-        #identifier.save
       end
 
       # Update the original RegistryOrg with the new org's association
