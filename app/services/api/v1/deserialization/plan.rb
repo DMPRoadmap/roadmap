@@ -58,8 +58,9 @@ module Api
             return nil unless plan.present? && plan.template.present?
 
             plan.description = json[:description] if json[:description].present?
-
-            # TODO: Handle ethical issues when the Question is in place
+            plan.ethical_issues = Api::V1::ConversionService.yes_no_unknown_to_boolean(json[:ethical_issues_exist])
+            plan.ethical_issues_description = json[:ethical_issues_description]
+            plan.ethical_issues_report = json[:ethical_issues_report]
 
             # Process Project, Contributors and Data Contact and Datsets
             plan = deserialize_project(plan: plan, json: json)
@@ -79,7 +80,8 @@ module Api
 
             id = id_json[:identifier] if id_json.is_a?(Hash)
             if id.present?
-              if Api::V1::DeserializationService.doi?(value: id)
+              # If the identifier is a DOI/ARK or the api client's internal id for the DMP
+              if Api::V1::DeserializationService.doi?(value: id) || id_json[:type] == "other"
                 # Find by the DOI or ARK
                 plan = Api::V1::DeserializationService.object_from_identifier(
                   class_name: "Plan", json: id_json
