@@ -91,10 +91,6 @@ class ResearchOutput < ActiveRecord::Base
 
   def create_json_fragments
     FastGettext.with_locale plan.template.locale do
-      p "######"
-      p plan.template.locale
-      p d_("dmpopidor", "Data contact")
-      p "######"
       fragment = json_fragment
       dmp_fragment = plan.json_fragment
       contact_person = dmp_fragment.persons.first
@@ -126,6 +122,7 @@ class ResearchOutput < ActiveRecord::Base
         fragment_description = Fragment::ResearchOutputDescription.new(
           data: {
             "title" => fullname,
+            "type" => other_type_label || type.label,
             "contact" => { "dbid" => ro_contact.id }
           },
           madmp_schema: MadmpSchema.find_by(name: "ResearchOutputDescriptionStandard"),

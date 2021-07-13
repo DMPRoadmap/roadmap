@@ -33,7 +33,7 @@ class Fragment::Project < MadmpFragment
   end
 
   def principal_investigator
-    Fragment::Person.where(parent_id: id).first
+    Fragment::Contributor.where(parent_id: id).first
   end
 
   def properties

@@ -17,6 +17,79 @@ namespace :madmpopidor do
     Plan.all.each do |plan|
       plan.create_plan_fragments if plan.json_fragment.nil?
 
+      dmp_fragment = plan.json_fragment
+      project_fragment = dmp_fragment.project
+      meta_fragment = dmp_fragment.meta
+
+      FastGettext.with_locale plan.template.locale do
+        #################################
+        # PERSON & CONTRIBUTORS FRAGMENTS
+        #################################
+        # Principal Investigator
+        pi_person_data = {
+          "lastName" => plan.principal_investigator,
+          "mbox" => plan.principal_investigator_email,
+          "personId" => plan.principal_investigator_identifier
+        }
+        pi_person = MadmpFragment.fragment_exists?(
+          pi_person_data, MadmpSchema.find_by(name: "PersonStandard"), dmp_fragment.id
+        )
+        if pi_person.eql?(false)
+          principal_investigator = project_fragment.principal_investigator
+          pi_person = Fragment::Person.create(
+            data: pi_person_data,
+            dmp_id: dmp_fragment.id,
+            madmp_schema: MadmpSchema.find_by(name: "PersonStandard"),
+            additional_info: { property_name: "person" }
+          )
+          principal_investigator.update(
+            data: principal_investigator.data.merge("person" => { "dbid" => pi_person.id })
+          )
+        end
+
+        # Data Contact
+        dc_person_data = {
+          "lastName" => plan.data_contact,
+          "mbox" => plan.data_contact_email
+        }
+        data_contact = meta_fragment.contact
+        dc_person =  MadmpFragment.fragment_exists?(
+          dc_person_data, MadmpSchema.find_by(name: "PersonStandard"), dmp_fragment.id
+        )
+
+        if dc_person.eql?(false)
+          dc_person = Fragment::Person.create(
+            data: dc_person_data,
+            dmp_id: dmp_fragment.id,
+            madmp_schema: MadmpSchema.find_by(name: "PersonStandard"),
+            additional_info: { property_name: "person" }
+          )
+        end
+        data_contact.update(
+          data: data_contact.data.merge("person" => { "dbid" => dc_person.id })
+        )
+        #################################
+        # PROJECT FUNDINGS
+        #################################
+        if plan.grant_number.present? || plan.funder_name.present?
+          funding = Fragment::Funding.create(
+            data: {
+              "grantId" => plan.grant_number
+            },
+            dmp_id: dmp_fragment.id,
+            parent_id: project_fragment.id,
+            madmp_schema: MadmpSchema.find_by(name: "FundingStandard"),
+            additional_info: { property_name: "funding" }
+          )
+          funding.instantiate
+          funding.funder.update(
+            additional_info: funding.funder.additional_info.merge(
+              "custom_value" => plan.funder_name
+            )
+          )
+        end
+      end
+
       plan.research_outputs.each do |research_output|
         next if research_output.nil? && research_output.json_fragment.present?
 

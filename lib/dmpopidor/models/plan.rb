@@ -145,7 +145,7 @@ module Dmpopidor
           )
 
           #################################
-          # PERSON & COORDINATORS FRAGMENTS
+          # PERSON & CONTRIBUTORS FRAGMENTS
           #################################
 
           person_data = {
@@ -190,6 +190,7 @@ module Dmpopidor
           project = Fragment::Project.create(
             data: {
               "title" => title,
+              "description" => description,
               "principalInvestigator" => { "dbid" => project_coordinator.id }
             },
             dmp_id: dmp_fragment.id,
@@ -205,6 +206,7 @@ module Dmpopidor
               "creationDate" => created_at.strftime("%F"),
               "lastModifiedDate" => updated_at.strftime("%F"),
               "dmpLanguage" => template_locale,
+              "dmpId" => identifier,
               "contact" => { "dbid" => dmp_coordinator.id }
             },
             dmp_id: dmp_fragment.id,
