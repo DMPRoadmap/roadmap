@@ -43,6 +43,7 @@ export const multipleSelectorHandler = (selectField, value, selected) => {
     schema_id: selectField.data('schema-id'),
     query_id: selectField.data('query-id'),
     property_name: selectField.data('property-name'),
+    readonly: selectField.data('readonly'),
   };
   if (selected) {
     requestData.registry_value_id = value;

@@ -252,6 +252,7 @@ class MadmpFragmentsController < ApplicationController
     schema = MadmpSchema.find(params[:schema_id])
     template_locale = params[:locale]
     query_id = params[:query_id]
+    readonly = params[:readonly] == "true"
     is_custom = params[:custom_value].present? ? true : false
 
     @fragment = MadmpFragment.new(
@@ -294,7 +295,7 @@ class MadmpFragmentsController < ApplicationController
         params[:property_name],
         template_locale,
         query_id,
-        true
+        readonly
       )
     }
   end
