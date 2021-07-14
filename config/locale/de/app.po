@@ -1,14 +1,14 @@
-# German translations for roadmap package.
-# Copyright (C) 2021 roadmap
-# This file is distributed under the same license as the roadmap package.
+# German translations for app package.
+# Copyright (C) 2021 app
+# This file is distributed under the same license as the app package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: roadmap 1.0\n"
+"Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-06-23 09:12-0700\n"
-"PO-Revision-Date: 2021-06-23 18:12+0200\n"
+"POT-Creation-Date: 2021-07-14 09:05+0000\n"
+"PO-Revision-Date: 2021-07-14 11:05+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -249,15 +249,16 @@ msgstr "Die Nachricht wurde erfolgreich versendet."
 msgid "Unable to submit your request"
 msgstr "Ihre Anfrage konnte nicht gesendet werden"
 
-#: ../../app/controllers/contributors_controller.rb:47
-msgid "added"
-msgstr "Hinzugefügt"
-
-#: ../../app/controllers/contributors_controller.rb:49
+#: ../../app/controllers/contributors_controller.rb:40
+#: ../../app/controllers/contributors_controller.rb:56
 msgid "add"
 msgstr "Hinzufügen"
 
-#: ../../app/controllers/contributors_controller.rb:64
+#: ../../app/controllers/contributors_controller.rb:54
+msgid "added"
+msgstr "Hinzugefügt"
+
+#: ../../app/controllers/contributors_controller.rb:72
 #: ../../app/controllers/guidance_groups_controller.rb:48
 #: ../../app/controllers/guidances_controller.rb:71
 #: ../../app/controllers/notes_controller.rb:92
@@ -276,7 +277,7 @@ msgstr "Hinzufügen"
 msgid "saved"
 msgstr "gespeichert"
 
-#: ../../app/controllers/contributors_controller.rb:66
+#: ../../app/controllers/contributors_controller.rb:74
 #: ../../app/controllers/guidance_groups_controller.rb:50
 #: ../../app/controllers/guidances_controller.rb:73
 #: ../../app/controllers/notes_controller.rb:110
@@ -293,25 +294,25 @@ msgstr "gespeichert"
 msgid "save"
 msgstr "Speichern"
 
-#: ../../app/controllers/contributors_controller.rb:76
+#: ../../app/controllers/contributors_controller.rb:84
 #: ../../app/controllers/notes_controller.rb:134
 #: ../../app/controllers/org_admin/templates_controller.rb:236
 #: ../../app/controllers/super_admin/orgs_controller.rb:94
 msgid "removed"
 msgstr "entfernt"
 
-#: ../../app/controllers/contributors_controller.rb:79
+#: ../../app/controllers/contributors_controller.rb:87
 #: ../../app/controllers/notes_controller.rb:152
 #: ../../app/controllers/org_admin/templates_controller.rb:238
 #: ../../app/controllers/super_admin/orgs_controller.rb:97
 msgid "remove"
 msgstr "entfernen"
 
-#: ../../app/controllers/contributors_controller.rb:148
+#: ../../app/controllers/contributors_controller.rb:160
 msgid "plan not found"
 msgstr "Plan nicht gefunden"
 
-#: ../../app/controllers/contributors_controller.rb:156
+#: ../../app/controllers/contributors_controller.rb:168
 msgid "contributor not found"
 msgstr "Mitwirkender nicht gefunden"
 
@@ -2155,16 +2156,16 @@ msgid "Hello"
 msgstr "Hello"
 
 #: ../../app/views/devise/mailer/unlock_instructions.html.erb:4
+msgid "Your"
+msgstr "Ihre"
+
+#: ../../app/views/devise/mailer/unlock_instructions.html.erb:4
 msgid ""
 "account has been locked due to an excessive number of unsuccessful sign in att"
 "empts."
 msgstr ""
 "Das Konto wurde aufgrund einer übermäßigen Anzahl fehlgeschlagener Anmeldevers"
 "uche gesperrt."
-
-#: ../../app/views/devise/mailer/unlock_instructions.html.erb:4
-msgid "Your"
-msgstr "Ihre"
 
 #: ../../app/views/devise/mailer/unlock_instructions.html.erb:6
 msgid "Click the link below to unlock your account"
@@ -2383,14 +2384,14 @@ msgid "My privileges"
 msgstr "Meine Privilegien"
 
 #: ../../app/views/devise/registrations/_personal_details.html.erb:65
-#: ../../app/views/users/_current_privileges.html.erb:5
-msgid "Organisational Admin"
-msgstr "Organisationsadministrator"
-
-#: ../../app/views/devise/registrations/_personal_details.html.erb:65
 #: ../../app/views/users/_current_privileges.html.erb:3
 msgid "Super Admin"
 msgstr "Super-Admin"
+
+#: ../../app/views/devise/registrations/_personal_details.html.erb:65
+#: ../../app/views/users/_current_privileges.html.erb:5
+msgid "Organisational Admin"
+msgstr "Organisationsadministrator"
 
 #: ../../app/views/devise/registrations/edit.html.erb:1
 #: ../../app/views/devise/registrations/edit.html.erb:4
@@ -2803,12 +2804,12 @@ msgid "%{application_name}"
 msgstr "%{application_name}"
 
 #: ../../app/views/layouts/application.html.erb:91
-msgid "Notice:"
-msgstr "Beachten:"
-
-#: ../../app/views/layouts/application.html.erb:91
 msgid "Error:"
 msgstr "Error:"
+
+#: ../../app/views/layouts/application.html.erb:91
+msgid "Notice:"
+msgstr "Beachten:"
 
 #: ../../app/views/layouts/application.html.erb:112
 #: ../../app/views/plans/new.html.erb:2
@@ -3235,12 +3236,12 @@ msgstr ""
 "diese Formatart hier angeben."
 
 #: ../../app/views/org_admin/questions/_form.html.erb:4
-msgid "New question:"
-msgstr "Neue Frage:"
-
-#: ../../app/views/org_admin/questions/_form.html.erb:4
 msgid "Question %{number}:"
 msgstr "Frage %{number}:"
+
+#: ../../app/views/org_admin/questions/_form.html.erb:4
+msgid "New question:"
+msgstr "Neue Frage:"
 
 #: ../../app/views/org_admin/questions/_form.html.erb:15
 msgid "Question Number"
@@ -4094,20 +4095,20 @@ msgstr "Ansicht"
 
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:73
 msgid ""
-"Are you sure you wish to remove this plan? Any collaborators will still be abl"
-"e to access it."
-msgstr ""
-"Sind Sie sicher, dass Sie diesen Plan entfernen möchten? Alle Mitarbeiter könn"
-"en weiterhin darauf zugreifen."
-
-#: ../../app/views/paginable/plans/_privately_visible.html.erb:73
-msgid ""
 "Are you sure you wish to remove this public plan? This will remove it from the"
 " Public DMPs page but any collaborators will still be able to access it."
 msgstr ""
 "Möchten Sie diesen öffentlichen Plan wirklich entfernen? Dadurch wird es von d"
 "er öffentlichen DMP-Seite entfernt, aber alle Mitarbeiter können weiterhin dar"
 "auf zugreifen."
+
+#: ../../app/views/paginable/plans/_privately_visible.html.erb:73
+msgid ""
+"Are you sure you wish to remove this plan? Any collaborators will still be abl"
+"e to access it."
+msgstr ""
+"Sind Sie sicher, dass Sie diesen Plan entfernen möchten? Alle Mitarbeiter könn"
+"en weiterhin darauf zugreifen."
 
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:17
 msgid "Not Applicable"
@@ -4205,12 +4206,12 @@ msgid "Create a new plan"
 msgstr "Einen neuen Plan erstellen"
 
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:13
-msgid "(if available)"
-msgstr "(wenn verfügbar)"
-
-#: ../../app/views/paginable/templates/_publicly_visible.html.erb:13
 msgid "Sample Plans"
 msgstr "Beispielpläne"
+
+#: ../../app/views/paginable/templates/_publicly_visible.html.erb:13
+msgid "(if available)"
+msgstr "(wenn verfügbar)"
 
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:47
 msgid "Copy link to create a new plan"
@@ -5001,12 +5002,12 @@ msgid "on the homepage."
 msgstr "auf der Startseite."
 
 #: ../../app/views/static_pages/about_us.html.erb:35
-msgid "page for guidance."
-msgstr "Seite zur Orientierung."
-
-#: ../../app/views/static_pages/about_us.html.erb:35
 msgid "Please visit the"
 msgstr "Bitte besuchen Sie die"
+
+#: ../../app/views/static_pages/about_us.html.erb:35
+msgid "page for guidance."
+msgstr "Seite zur Orientierung."
 
 #: ../../app/views/static_pages/about_us.html.erb:37
 msgid "Customising for your Organisation"
@@ -5484,12 +5485,12 @@ msgid "New API Client"
 msgstr "Neuer API-Client"
 
 #: ../../app/views/super_admin/api_clients/refresh_credentials.js.erb:1
-msgid "Unable to regenerate the client credentials."
-msgstr "Die Client-Anmeldeinformationen können nicht neu generiert werden."
-
-#: ../../app/views/super_admin/api_clients/refresh_credentials.js.erb:1
 msgid "Successfully regenerated the client credentials."
 msgstr "Die Client-Anmeldeinformationen wurden erfolgreich neu generiert."
+
+#: ../../app/views/super_admin/api_clients/refresh_credentials.js.erb:1
+msgid "Unable to regenerate the client credentials."
+msgstr "Die Client-Anmeldeinformationen können nicht neu generiert werden."
 
 #: ../../app/views/super_admin/notifications/_form.html.erb:20
 msgid ""
@@ -5859,10 +5860,6 @@ msgid "Hello %{recipient_name},"
 msgstr "Hallo %{recipient_name},"
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
-msgid " based on the template "
-msgstr " basierend auf der Vorlage"
-
-#: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " is creating a Data Management Plan and has answered "
 msgstr " erstellt einen Datenverwaltungsplan und hat geantwortet"
 
@@ -5873,6 +5870,10 @@ msgstr " zu"
 #: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " in a plan called "
 msgstr " in einem Plan namens"
+
+#: ../../app/views/user_mailer/question_answered.html.erb:5
+msgid " based on the template "
+msgstr " basierend auf der Vorlage"
 
 #: ../../app/views/user_mailer/sharing_notification.html.erb:5
 msgid ""
@@ -6030,12 +6031,12 @@ msgid "Download users"
 msgstr "Nutzer herunterladen"
 
 #: ../../app/views/users/refresh_token.js.erb:1
-msgid "Unable to regenerate your API token."
-msgstr "Ihr API-Token kann nicht neu generiert werden."
-
-#: ../../app/views/users/refresh_token.js.erb:1
 msgid "Successfully regenerate your API token."
 msgstr "Generieren Sie Ihr API-Token erfolgreich neu."
+
+#: ../../app/views/users/refresh_token.js.erb:1
+msgid "Unable to regenerate your API token."
+msgstr "Ihr API-Token kann nicht neu generiert werden."
 
 #: i18n_placeholders.rb:4
 msgid "activerecord.errors.messages.record_invalid"
