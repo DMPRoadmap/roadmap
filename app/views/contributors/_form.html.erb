@@ -42,7 +42,7 @@ roles_tooltip = _("Select each role that applies to the contributor.")
   <div class="col-md-12">
     <%= form.label(:phone, _("Phone number"), class: "control-label") %>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-3">
     <em class="sr-only"><%= phone_tooltip %></em>
     <%= form.phone_field :phone, class: "form-control",
                                  title: phone_tooltip,
@@ -73,7 +73,7 @@ roles_tooltip = _("Select each role that applies to the contributor.")
 
       <% roles = ContributorPresenter.roles_for_radio(contributor: contributor) %>
       <% roles.each do |hash| %>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="checkbox">
             <%= form.check_box hash.keys.first.to_sym,
                                value: hash.values.first,
