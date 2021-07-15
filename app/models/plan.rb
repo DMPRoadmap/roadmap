@@ -236,13 +236,13 @@ class Plan < ActiveRecord::Base
   # plan - Plan to be deep copied
   #
   # Returns Plan
-  # CHANGES
   # Added Research Output Support
+  # Added Project/Meta/ResearchOutput Fragments copy
   def self.deep_copy(plan)
     plan_copy = plan.dup
-    plan_copy.title = "Copy of " + plan.title
     plan_copy.feedback_requested = false
     plan_copy.save!
+    plan_copy.copy_plan_fragments(plan)
     plan.research_outputs.each do |research_output|
       research_output_copy = ResearchOutput.deep_copy(research_output)
       research_output_copy.plan_id = plan_copy.id

@@ -63,7 +63,10 @@
                       <% end %>
 
                       <li><%= link_to _('Download'), download_plan_path(plan) %></li>
-                      <li><%= link_to(_('Copy'), duplicate_plan_path(plan), data: { method: :post }) %></li>
+
+                      <% unless plan.template.structured? %>
+                        <li><%= link_to(_('Copy'), duplicate_plan_path(plan), data: { method: :post }) %></li>
+                      <% end %>
                     <% else %>
                       <li><%= link_to _('View'), plan_path(plan) %></li>
 

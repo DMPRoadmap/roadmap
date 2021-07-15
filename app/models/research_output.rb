@@ -132,7 +132,7 @@ class ResearchOutput < ActiveRecord::Base
         )
         fragment_description.instantiate
 
-        unless description_question.nil?
+        if description_question.present? && plan.template.structured?
           # Create a new answer for the ResearchOutputDescription Question
           # This answer will be displayed in the Write Plan tab, pre filled with the ResearchOutputDescription info
           fragment_description.answer = Answer.create(

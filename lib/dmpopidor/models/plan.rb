@@ -221,6 +221,20 @@ module Dmpopidor
         end
       end
 
+      def copy_plan_fragments(plan)
+        create_plan_fragments if json_fragment.nil?
+
+        incoming_dmp = plan.json_fragment
+        raw_project = incoming_dmp.project.get_full_fragment
+        raw_meta = incoming_dmp.meta.get_full_fragment
+        raw_meta = raw_meta.merge(
+          "title" => "Copy of " + raw_meta["title"]
+        )
+
+        json_fragment.project.raw_import(raw_project, json_fragment.project.madmp_schema)
+        json_fragment.meta.raw_import(raw_meta, json_fragment.meta.madmp_schema)
+      end
+
     end
 
   end

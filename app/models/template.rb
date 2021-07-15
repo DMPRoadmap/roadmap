@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: templates
@@ -31,6 +32,7 @@ class Template < ActiveRecord::Base
   include GlobalHelpers
   include ValidationMessages
   include ValidationValues
+  prepend Dmpopidor::Models::Template
 
   validates_with TemplateLinksValidator
 
