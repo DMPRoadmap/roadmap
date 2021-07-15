@@ -67,7 +67,9 @@ class Api::V0::PlansController < Api::V0::BaseController
       params[:per_page] = max_pages if params[:per_page].to_i > max_pages
     end
 
-    @plans = @user.org.plans.includes([{ roles: :user }, { answers: :question_options },
+    # Get all the Org Admin plans
+    org_admin_plans = @user.org.org_admin_plans
+    @plans = org_admin_plans.includes([{ roles: :user }, { answers: :question_options },
                                        template: [{ phases: {
                                          sections: { questions: %i[question_format themes] }
                                        } }, :org]])
