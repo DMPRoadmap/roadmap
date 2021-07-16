@@ -27,26 +27,28 @@
         
         <% project_schema = MadmpSchema.find_by(name: "ProjectStandard") %>
         <% run_parameters = project_schema.extract_run_parameters %>
+        <% select_values = Registry.find_by(name: "ANRProjects").registry_values %>
+        <% tooltip = run_parameters["tooltip@#{locale}"]%>
         <% if run_parameters.present? %>
         <div class="panel-body">
-          <span class="col-md-8 project-selector-link"><%= d_("dmpopidor", "Click here if you have a funded project.") %></span>
+          <span 
+            class="col-md-8 project-selector-link"
+            data-original-title="<%= tooltip %>"
+            data-toggle="tooltip"
+          ><%= d_("dmpopidor", "Click here if you have a funded project.") %></span>
           <div class="col-md-12 dynamic-field select-field project-selector"
               data-fragment-id="<%= project_fragment.id%>"
               data-script-id="<%= run_parameters["script_id"]%>">
             <label class="control-label"><%= d_("dmpopidor", "Please enter the acronym, title or identifier of the project") %></label>
             <%= select_tag "anr_project",
-                    render(partial: 'shared/dynamic_form/linked_fragment/select_options', locals: {
-                          select_values: [],
-                          selected_value: nil
-                        }),
-                        data: {
-                        "ajax--url" => load_values_registries_path(
-                          id: Registry.find_by(name: "ANRProjects").id,
-                          plan_id: @plan.id
+                        options_for_select(
+                            select_values.sort_by { |v| v.to_s(locale)}
+                                         .map {|v| [ 
+                                    v.to_s(locale), 
+                                    select_value(v, locale) 
+                                ] 
+                            }
                         ),
-                        "ajax--cache" => true,
-                        "ajax--delay" => 250
-                      },
                       include_blank: true
                       %>
             <span class="error-zone"></span>
