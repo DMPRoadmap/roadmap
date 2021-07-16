@@ -27,12 +27,13 @@ json.dmp do
     json.name   contact.person.to_s
   end
   json.contributor dmp.persons do |person|
-    next if person.roles.empty?
+    roles = person.roles(selected_research_outputs)
+    next if roles.empty?
 
     json.name       person.to_s
     json.mbox       person.data["mbox"]
-    json.role       person.roles.uniq
-    json.contributor_id do 
+    json.role       roles.uniq
+    json.contributor_id do
       json.identifier     person.data["personId"]
       json.type           person.data["idType"]
     end

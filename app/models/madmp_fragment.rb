@@ -370,6 +370,12 @@ class MadmpFragment < ActiveRecord::Base
 
     parent.research_output_fragment
   end
+
+  def research_output_id
+    return nil if research_output_fragment.nil?
+
+    research_output_fragment.data["research_output_id"]
+  end
   # =================
   # = Class methods =
   # =================
