@@ -585,3 +585,6 @@ msgstr "Fragment with id %{id} doesn't exist."
 ################
 msgid "Local indentifier"
 msgstr "Local indentifier"
+
+msgid "Personal"
+msgstr "Personal"

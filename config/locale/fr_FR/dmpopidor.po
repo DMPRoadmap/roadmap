@@ -587,3 +587,6 @@ msgstr "Le fragment avec l'identifiant %{id} n'existe pas."
 ################
 msgid "Local indentifier"
 msgstr "Identifiant local"
+
+msgid "Personal"
+msgstr "Personne"

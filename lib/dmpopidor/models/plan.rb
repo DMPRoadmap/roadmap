@@ -149,6 +149,7 @@ module Dmpopidor
           #################################
 
           person_data = {
+            "nameType" => d_("dmpopidor", "Personal"),
             "lastName" => owner.surname,
             "firstName" => owner.firstname,
             "mbox" => owner.email

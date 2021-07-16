@@ -27,6 +27,7 @@ namespace :madmpopidor do
         #################################
         # Principal Investigator
         pi_person_data = {
+          "nameType" => d_("dmpopidor", "Personal"),
           "lastName" => plan.principal_investigator,
           "mbox" => plan.principal_investigator_email,
           "personId" => plan.principal_investigator_identifier
@@ -49,6 +50,7 @@ namespace :madmpopidor do
 
         # Data Contact
         dc_person_data = {
+          "nameType" => d_("dmpopidor", "Personal"),
           "lastName" => plan.data_contact,
           "mbox" => plan.data_contact_email
         }
