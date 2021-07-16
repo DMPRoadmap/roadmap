@@ -25,7 +25,7 @@ class Fragment::ResearchOutputDescription < MadmpFragment
   end
 
   def contact
-    Fragment::Person.where(parent_id: id).first
+    Fragment::Contributor.where(parent_id: id).first
   end
 
   def properties

@@ -109,21 +109,10 @@ class ResearchOutput < ActiveRecord::Base
           parent_id: dmp_fragment.id,
           additional_info: { property_name: "researchOutput" }
         )
-        ro_contact = Fragment::Contributor.create(
-          data: {
-            "person" => { "dbid" => contact_person.id },
-            "role" => d_("dmpopidor", "Data contact")
-          },
-          dmp_id: dmp_fragment.id,
-          parent_id: nil,
-          madmp_schema: MadmpSchema.find_by(name: "ResearchOutputContact"),
-          additional_info: { property_name: "contact" }
-        )
         fragment_description = Fragment::ResearchOutputDescription.new(
           data: {
             "title" => fullname,
-            "type" => other_type_label || type.label,
-            "contact" => { "dbid" => ro_contact.id }
+            "type" => other_type_label || type.label
           },
           madmp_schema: MadmpSchema.find_by(name: "ResearchOutputDescriptionStandard"),
           dmp_id: dmp_fragment.id,
@@ -131,6 +120,12 @@ class ResearchOutput < ActiveRecord::Base
           additional_info: { property_name: "researchOutputDescription" }
         )
         fragment_description.instantiate
+        fragment_description.contact.update(
+          data: {
+            "person" => { "dbid" => contact_person.id },
+            "role" => d_("dmpopidor", "Data contact")
+          }
+        )
 
         if description_question.present? && plan.template.structured?
           # Create a new answer for the ResearchOutputDescription Question
