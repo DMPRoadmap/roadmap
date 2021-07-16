@@ -578,3 +578,10 @@ msgstr "View all registries"
 ################
 msgid "Fragment with id %{id} doesn't exist."
 msgstr "Fragment with id %{id} doesn't exist."
+
+
+################
+### EXPORT
+################
+msgid "Local indentifier"
+msgstr "Local indentifier"

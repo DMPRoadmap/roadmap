@@ -580,3 +580,10 @@ msgstr "Voir tous les référentiels"
 ################
 msgid "Fragment with id %{id} doesn't exist."
 msgstr "Le fragment avec l'identifiant %{id} n'existe pas."
+
+
+################
+### EXPORT
+################
+msgid "Local indentifier"
+msgstr "Identifiant local"

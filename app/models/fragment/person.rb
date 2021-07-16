@@ -20,8 +20,9 @@
 class Fragment::Person < MadmpFragment
 
   def roles
-    Fragment::Contributor.where("(data->'person'->>'dbid')::int = ?", id)
-                         .pluck("data->>'role'")
+    contributors = Fragment::Contributor.where("(data->'person'->>'dbid')::int = ?", id)
+
+    contributors.pluck("data->>'role'")
   end
 
   def self.sti_name

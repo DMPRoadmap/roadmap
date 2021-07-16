@@ -6,16 +6,15 @@ research_outputs = dmp.research_outputs
 
 json.prettify!
 
-json.dmp do 
-
-  json.created          DateTime.iso8601(meta.data["creationDate"]).strftime("%FT%T")
-  json.description      strip_tags(meta.data["description"])
+json.dmp do
+  json.created          meta.data["creationDate"]
+  json.description      exportable_description(meta.data["description"])
   json.dmp_id do
-    json.identifier     meta.data["dmpId"] || dmp.data["plan_id"]
-    json.type           meta.data["dmpId"] ? meta.data["idType"] : "Internal identifier"
+    json.identifier     meta.data["dmpId"] || plan_url(id: dmp.data["plan_id"])
+    json.type           meta.data["dmpId"] ? meta.data["idType"] : "URL"
   end
   json.language                   meta.data["dmpLanguage"]
-  json.modified                   DateTime.iso8601(meta.data["lastModifiedDate"]).strftime("%FT%T")
+  json.modified                   meta.data["lastModifiedDate"]
   json.title                      meta.data["title"]
 
   contact = meta.contact
@@ -27,26 +26,27 @@ json.dmp do
     json.mbox   contact.person.data["mbox"]
     json.name   contact.person.to_s
   end
-  json.contributor  dmp.persons do |person|
+  json.contributor dmp.persons do |person|
+    next if person.roles.empty?
+
     json.name       person.to_s
     json.mbox       person.data["mbox"]
-    json.role       person.roles
+    json.role       person.roles.uniq
     json.contributor_id do 
       json.identifier     person.data["personId"]
       json.type           person.data["idType"]
     end
   end
-  json.cost         dmp.costs do |cost| 
+  json.cost         dmp.costs do |cost|
     json.currency_code      cost.data["currency"]
-    json.description        strip_tags(cost.data["description"])
+    json.description        exportable_description(cost.data["description"]) || cost.data["costType"]
     json.title              cost.data["title"]
     json.value              cost.data["amount"]
   end
   json.project do
-    start_date = project.data["startDate"] ? DateTime.iso8601(project.data["startDate"]).strftime("%FT%T") : nil
-    end_date = project.data["endDate"] ? DateTime.iso8601(project.data["endDate"]).strftime("%FT%T") : nil
-    
-    json.description      strip_tags(project.data["description"])
+    start_date = project.data["startDate"] || nil
+    end_date = project.data["endDate"] || nil
+    json.description      exportable_description(project.data["description"])
     json.title            project.data["title"]
     json.start            start_date
     json.end              end_date
@@ -58,7 +58,7 @@ json.dmp do
       json.funding_status funding.data["fundingStatus"]
       json.grant_id do
         json.identifier     funding.data["grantId"]
-        json.type           _("Other")
+        json.type           "Code"
       end
     end
   end

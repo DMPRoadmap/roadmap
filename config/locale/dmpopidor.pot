@@ -582,3 +582,10 @@ msgstr ""
 ################
 msgid "Fragment with id %{id} doesn't exist."
 msgstr ""
+
+
+################
+### EXPORT
+################
+msgid "Local indentifier"
+msgstr ""

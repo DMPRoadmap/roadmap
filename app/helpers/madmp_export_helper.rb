@@ -20,6 +20,18 @@ module MadmpExportHelper
     contributors
   end
 
+  def exportable_description(description)
+    exportable = Loofah.fragment(description).text(encode_special_chars: false).tr("\n\r", " ")
+    return nil if exportable.eql?("")
+
+    exportable
+  end
+
+  def extract_keywords(madmp_fragment)
+    keywords = madmp_fragment.data["uncontrolledKeywords"] || []
+    keywords.concat(madmp_fragment.controlled_keyword.pluck("data->>'keyword'"))
+    keywords
+  end
   # def madmp_transform(madmp, export_template, dmp_id)
   #   export_document = {}
   #   variable_array = {}
