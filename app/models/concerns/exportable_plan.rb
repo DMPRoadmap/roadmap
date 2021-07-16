@@ -199,8 +199,6 @@ module ExportablePlan
   # rubocop:enable Metrics/ParameterLists
 
   def record_plan_export(user, format)
-    return false unless user.present?
-
     # TODO: Re-evaluate how/why we are doing this. The only place it is used is in statistics
     #       generation as 'downloads' without any regard for the format (although we only call this
     #       here when a PDF is generated). It would be more efficient to probably just have a
@@ -208,7 +206,7 @@ module ExportablePlan
     #       This would require a fair bit of work though, as the column would need to be added,
     #       the ExportedPlan model/table removed, statistics generation Rake task updated
     exported_plan = ExportedPlan.new.tap do |ep|
-      ep.user_id = user.id
+      ep.user_id = user&.id
       ep.plan = self
       ep.phase_id = phases.first.id
       ep.format = format
