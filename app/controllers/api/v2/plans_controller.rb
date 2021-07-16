@@ -18,11 +18,11 @@ module Api
       # GET /api/v2/plans
       # -----------------
       def index
-        scope = "mine"
-        scope = params[:scope].to_s.downcase if %w[mine public both].include?(params[:scope].to_s.downcase)
+        @scope = "mine"
+        @scope = params[:scope].to_s.downcase if %w[mine public both].include?(params[:scope].to_s.downcase)
 
         # See the Policy for details on what Plans are returned to the Caller based on the AccessToken
-        plans = Api::V2::PlansPolicy::Scope.new(@client, @resource_owner, scope).resolve
+        plans = Api::V2::PlansPolicy::Scope.new(@client, @resource_owner, @scope).resolve
 
         if plans.present? && plans.any?
           plans = plans.sort { |a, b| b.updated_at <=> a.updated_at }
