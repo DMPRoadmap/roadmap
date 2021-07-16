@@ -113,6 +113,9 @@ class OrgsController < ApplicationController
       entity_id = org.identifier_for_scheme(scheme: "shibboleth")
 
       if entity_id.present? && entity_id.value.present?
+
+p "REDIRECTING TO IDP: #{shib_login_url}?#{shib_callback_url}&entityID=#{entity_id.value}"
+
         # initiate shibboleth login sequence
         redirect_to "#{shib_login_url}?#{shib_callback_url}&entityID=#{entity_id.value}"
       else

@@ -4,6 +4,7 @@ require "rails_helper"
 
 RSpec.describe "Sign in via email and password", type: :feature do
 
+  include AuthenticationHelper
   include DmptoolHelper
 
   before(:each) do
@@ -36,58 +37,79 @@ RSpec.describe "Sign in via email and password", type: :feature do
     visit root_path
   end
 
-  scenario "User must select an institution" do
-    within "#new_org" do
-      click_button "Go"
-      expect(page).to have_text("Please select an institution!")
-
-      select_an_org("#shib-ds-org-controls", Faker::Movies::LordOfTheRings.character)
-      click_button "Go"
-    end
-
-    expect(current_path).to eql(root_path)
-    expect(page).to have_text("Please choose an institution from the list.")
-  end
-
-  scenario "User cannot select an unmanaged Org" do
-    # Try an Org that is not managed
-    within "#new_org" do
-      select_an_org("#shib-ds-org-controls", @unmanaged_org.name)
-      click_button "Go"
-    end
-
-    expect(current_path).to eql(root_path)
-    expect(page).to have_text("Please choose an institution from the list.")
-
-    # Next try for a RegistryOrg that has no associated Org
-    within "#new_org" do
-      select_an_org("#shib-ds-org-controls", @unknown_registry_org.name)
-      click_button "Go"
-    end
-
-    expect(current_path).to eql(root_path)
-    expect(page).to have_text("Please choose an institution from the list.")
-
-    # Next try for a RegistryOrg that has associated Org that is not managed
-    within "#new_org" do
-      select_an_org("#shib-ds-org-controls", @unmanaged_registry_org.name)
-      click_button "Go"
-    end
-
-    expect(current_path).to eql(root_path)
-    expect(page).to have_text("Please choose an institution from the list.")
-  end
-
-  scenario "User cannot enter a custom Org name" do
-    within "#new_org" do
-      click_button "Go"
-      expect(page).not_to have_text("I cannot find my institution in the list")
-    end
-  end
-
   context "config has shibboleth.use_filtered_discovery_service set to true" do
+    before(:each) do
+      # mock the communication with the Shibboleth SP
+      @user = create(:user, org: @shibbolized_org)
+    end
+
+    scenario "User must select an institution" do
+      within "#new_org" do
+        click_button "Go"
+        expect(page).to have_text("Please select an institution!")
+
+        select_an_org("#shib-ds-org-controls", Faker::Movies::LordOfTheRings.character)
+        click_button "Go"
+      end
+
+      expect(current_path).to eql(root_path)
+      expect(page).to have_text("Please choose an institution from the list.")
+    end
+
+    scenario "User cannot select an unmanaged Org" do
+      # Try an Org that is not managed
+      within "#new_org" do
+        select_an_org("#shib-ds-org-controls", @unmanaged_org.name)
+        click_button "Go"
+      end
+
+      expect(current_path).to eql(root_path)
+      expect(page).to have_text("Please choose an institution from the list.")
+
+      # Next try for a RegistryOrg that has no associated Org
+      within "#new_org" do
+        select_an_org("#shib-ds-org-controls", @unknown_registry_org.name)
+        click_button "Go"
+      end
+
+      expect(current_path).to eql(root_path)
+      expect(page).to have_text("Please choose an institution from the list.")
+
+      # Next try for a RegistryOrg that has associated Org that is not managed
+      within "#new_org" do
+        select_an_org("#shib-ds-org-controls", @unmanaged_registry_org.name)
+        click_button "Go"
+      end
+
+      expect(current_path).to eql(root_path)
+      expect(page).to have_text("Please choose an institution from the list.")
+    end
+
+    scenario "User cannot enter a custom Org name" do
+      within "#new_org" do
+        click_button "Go"
+        expect(page).not_to have_text("I cannot find my institution in the list")
+      end
+    end
+
     scenario "Redirects to root if Shib did not send back data" do
+      mock_shibboleth(user: @user)
+
       # Displays an error
+      within "#new_org" do
+        select_an_org("#shib-ds-org-controls", @shibbolized_org.name)
+        click_button "Go"
+      end
+
+      expect(page).to have_text("Mock Shibboleth IdP Sign in form")
+
+      within "#mock_shib_idp_sign_in" do
+        click_button "Sign in"
+      end
+
+pp page.body
+
+      expect(current_path).to eql(root_path)
     end
 
     scenario "The user has previously signed in via Shib SSO and is already linked" do

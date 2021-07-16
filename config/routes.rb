@@ -463,5 +463,15 @@ Rails.application.routes.draw do
   get "research_projects/(:type)", action: "index",
                                    controller: "research_projects",
                                    constraints: { format: "json" }
+
+  # Routes needed to run feature tests
+  if Rails.env.test?
+    # Mocked Shibboleth Identifier Provider
+    get "Shibboleth.sso/Login", controller: :mock_shibboleth_identity_providers, action: :login,
+                                as: "new_mocked_shib_idp"
+    post "Shibboleth.sso/Auth", controller: :mock_shibboleth_identity_providers, action: :auth,
+                                as: "mocked_shib_idp"
+  end
+
 end
 # rubocop:enable Metrics/BlockLength

@@ -68,4 +68,23 @@ module Webmocks
     end
   end
 
+  def mock_shib_login(user:, successful: true)
+    url = "#{Faker::Internet.url(scheme: "https", path: "")}"
+    Rails.configuration.x.shibboleth.login_url = url
+    Rails.rou
+    stub_request(:get, url)
+      .to_return(
+        status: successful ? 200 : 401,
+        body: successful ? mock_omniauth_call("shibboleth", user).to_json : {},
+        headers: {}
+      )
+  end
+
+  class MockShibbolethIdentityProvider
+    # GET /Shibboleth.sso/login
+    def login
+      redirect_to user_shibboleth_omniauth_callback, status: 200
+    end
+  end
+
 end
