@@ -29,11 +29,11 @@
         <% run_parameters = project_schema.extract_run_parameters %>
         <% if run_parameters.present? %>
         <div class="panel-body">
-          <span class="col-md-8 project-selector-link"><%= _("Click here if you have a funded project.") %></span>
+          <span class="col-md-8 project-selector-link"><%= d_("dmpopidor", "Click here if you have a funded project.") %></span>
           <div class="col-md-12 dynamic-field select-field project-selector"
               data-fragment-id="<%= project_fragment.id%>"
               data-script-id="<%= run_parameters["script_id"]%>">
-            <label class="control-label"><%= d_("dmpopidor", "Please search a funded project below") %></label>
+            <label class="control-label"><%= d_("dmpopidor", "Please enter the acronym, title or identifier of the project") %></label>
             <%= select_tag "anr_project",
                     render(partial: 'shared/dynamic_form/linked_fragment/select_options', locals: {
                           select_values: [],

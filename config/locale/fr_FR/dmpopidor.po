@@ -574,6 +574,12 @@ msgstr "Valeurs"
 msgid "View all registries"
 msgstr "Voir tous les référentiels"
 
+msgid "Please enter the acronym, title or identifier of the project"
+msgstr "Veuillez saisir l’acronyme, le titre ou l’identifiant du projet"
+
+msgid "Click here if you have a funded project."
+msgstr "Cliquer ici si vous avez un projet financé par l’ANR"
+
 
 ################
 ### API

@@ -576,6 +576,11 @@ msgstr ""
 msgid "View all registries"
 msgstr ""
 
+msgid "Please enter the acronym, title or identifier of the project"
+msgstr ""
+
+msgid "Click here if you have a funded project."
+msgstr ""
 
 ################
 ### API
