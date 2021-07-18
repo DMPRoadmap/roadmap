@@ -64,16 +64,18 @@ module SuperAdmin
     def merge
       @user = User.find(params[:id])
       authorize @user
-      remove = User.find(params[:merge_id])
 
-      if @user.merge(remove)
-        flash.now[:notice] = success_message(@user, _("merged"))
+      if params[:id] != params[:merge_id]
+        merge_accounts
       else
-        flash.now[:alert] = failure_message(@user, _("merge"))
+        flash.now[:alert] = _("You attempted to merge 2 accounts with the same email address.
+           Please merge with a different email address.")
       end
+
       # After merge attempt get departments and plans
       @departments = @user.org.departments.order(:name)
       @plans = Plan.active(@user).page(1)
+
       render :edit
     end
 
@@ -119,6 +121,15 @@ module SuperAdmin
                                    :department_id,
                                    :language_id,
                                    :other_organisation)
+    end
+
+    def merge_accounts
+      remove = User.find(params[:merge_id])
+      if @user.merge(remove)
+        flash.now[:notice] = success_message(@user, _("merged"))
+      else
+        flash.now[:alert] = failure_message(@user, _("merge"))
+      end
     end
 
   end
