@@ -8,7 +8,7 @@ json.prettify!
 
 json.meta             meta.get_full_fragment
 json.project          project.get_full_fragment
-json.contributor      format_contributors(dmp)
+json.contributor      format_contributors(dmp, selected_research_outputs)
 
 json.researchOutputs research_outputs do |research_output|
   next unless selected_research_outputs.include?(research_output.data["research_output_id"])

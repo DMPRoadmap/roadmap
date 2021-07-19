@@ -10,11 +10,11 @@ module MadmpExportHelper
     JSON.load(File.open(export_format))
   end
 
-  def format_contributors(dmp_fragment)
+  def format_contributors(dmp_fragment, selected_research_outputs)
     contributors = []
     dmp_fragment.persons.each do |person|
       contributor = person.get_full_fragment
-      contributor["role"] = person.roles.uniq
+      contributor["role"] = person.roles(selected_research_outputs).uniq
       contributors.append(contributor) unless contributor["role"].empty?
     end
     contributors
