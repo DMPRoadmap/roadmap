@@ -36,7 +36,6 @@ jobs:
     - name: 'Setup Default Configuration'
       run: |
         # Make copies of all the example config files
-        cp config/database.yml.sample config/database.yml
         cp config/initializers/_dmproadmap.rb.example config/initializers/_dmproadmap.rb
         cp config/initializers/contact_us.rb.example config/initializers/contact_us.rb
         cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
