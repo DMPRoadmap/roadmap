@@ -2,7 +2,7 @@
 # IF YOU UPDATE IT, YOUR CHANGES WILL BE LOST AT THE NEXT SYNC.
 #
 # To update this file, use this translation interface:
-# https://translation.io/xsrust/roadmap/pt-BR
+# https://translation.io/dcc-user/roadmap/pt-BR
 #
 ---
 pt-BR:
@@ -72,7 +72,7 @@ pt-BR:
           thousand: mil
           million: Milhões
           billion: Bilhões
-          trillion: Trilhão
+          trillion: Trilhões
           quadrillion: Quatrilhões
   errors:
     format: "%{attribute} %{message}"
@@ -297,7 +297,7 @@ pt-BR:
         header: Enviar convite
         submit_button: Envie um convite
       edit:
-        header: Coloque sua senha
+        header: Defina sua senha
         submit_button: Defina minha senha
   contact_us:
     contact_mailer:
