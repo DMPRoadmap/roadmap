@@ -426,6 +426,9 @@ class Org < ApplicationRecord
 
     to_be_merged.token_permission_types.each do |perm_type|
       token_permission_types << perm_type unless token_permission_types.include?(perm_type)
+    end
+  end
+
   # Ensure that the Org has all of the available token permission types prior to save
   def ensure_api_access
     TokenPermissionType.all.each do |perm|
