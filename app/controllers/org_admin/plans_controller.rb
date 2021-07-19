@@ -15,7 +15,7 @@ class OrgAdmin::PlansController < ApplicationController
 
     @super_admin = current_user.can_super_admin?
     @clicked_through = params[:click_through].present?
-    @plans = @super_admin ? Plan.all.page(1) : current_user.org.plans.page(1)
+    @plans = @super_admin ? Plan.all.page(1) : current_user.org.org_admin_plans.page(1)
   end
 
   # GET org_admin/plans/:id/feedback_complete
@@ -61,7 +61,7 @@ class OrgAdmin::PlansController < ApplicationController
 
     plans = CSV.generate do |csv|
       csv << header_cols
-      org.plans.includes(template: :org).order(updated_at: :desc).each do |plan|
+      org.org_admin_plans.includes(template: :org).order(updated_at: :desc).each do |plan|
         csv << [
           plan.title.to_s,
           plan.template.title.to_s,

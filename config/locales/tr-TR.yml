@@ -1,12 +1,12 @@
 ---
-en:
+en-GB:
   activerecord:
     errors:
       messages:
         record_invalid: 'Validation failed: %{errors}'
         restrict_dependent_destroy:
-          has_one: Cannot delete record because a dependent %{record} exists
-          has_many: Cannot delete record because dependent %{record} exist
+          has_one: "Cannot delete record because a dependent %{record} exists"
+          has_many: "Cannot delete record because dependent %{record} exist"
   date:
     abbr_day_names:
     - Sun
@@ -44,6 +44,7 @@ en:
       short: "%d %b"
       csv: "%d/%m/%Y"
       readable: "%d %B %Y"
+
     month_names:
     -
     - January
@@ -202,13 +203,9 @@ en:
       two_words_connector: " and "
       words_connector: ", "
   time:
-    am: AM
+    am: am
     formats:
       default: "%a, %d %b %Y %H:%M:%S %z"
       long: "%d %B, %Y %H:%M"
       short: "%d %b %H:%M"
-    pm: PM
-  devise:
-    registrations:
-      updated_but_not_signed_in: Your account has been updated successfully, but since
-        your password was changed, you need to sign in again.
+    pm: pm
