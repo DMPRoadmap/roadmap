@@ -38,7 +38,7 @@
           <% end %>
         <% end %>
       <% end %>
-      <% if deletable %>
+      <% if deletable && !readonly %>
         <span class="delete fa fa-times" 
           aria-hidden="true"
           data-toggle="tooltip" 

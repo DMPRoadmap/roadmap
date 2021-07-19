@@ -18,49 +18,51 @@
         <span class="intermediate-label"><i><%= intermediate_message unless readonly %></i></span>
       </div>
     <% end %>
-    <div class="col-md-12 dynamic-field select-field single-select">
-      <div class="field-button-combo">
-        <%= select_tag "#{f.object_name}[#{field_name}]",
-                    options_for_select(
-                        select_values.map {|v| [ 
-                                v.to_s(locale), 
-                                select_value(v, locale) 
-                            ] 
-                        }
-                    ),
-                    data: {
-                      "tags" => overridable
-                    },
-                    disabled: readonly,
-                    multiple: false,
-                    include_blank: true,
-                    "data-toggle": "tooltip",
-                    title: ttip,
-                    class: "form-control #{field_class}",
-                    id: field_id  %>
-        <% unless readonly %>
-          <span class="remove-button fa fa-times"></span>
+    <% unless readonly %>
+      <div class="col-md-12 dynamic-field select-field single-select">
+        <div class="field-button-combo">
+          <%= select_tag "#{f.object_name}[#{field_name}]",
+                      options_for_select(
+                          select_values.map {|v| [ 
+                                  v.to_s(locale), 
+                                  select_value(v, locale) 
+                              ] 
+                          }
+                      ),
+                      data: {
+                        "tags" => overridable
+                      },
+                      disabled: readonly,
+                      multiple: false,
+                      include_blank: true,
+                      "data-toggle": "tooltip",
+                      title: ttip,
+                      class: "form-control #{field_class}",
+                      id: field_id  %>
+          <% unless readonly %>
+            <span class="remove-button fa fa-times"></span>
+          <% end %>
+        </div>
+        <% if overridable %>
+          <% 
+            style = 'display: none;'
+            custom_value = nil
+            if value.present? && value.additional_info["custom_value"].present?
+              style = ''
+              custom_value = value.additional_info["custom_value"]
+            end
+          %>
+          <% other_field_name = defined?(form_prefix) ? "#{form_prefix}[#{property_name}_custom]" : "#{property_name}_custom" %>
+          <div class="col-md-12 custom-value" style="<%= style %>">
+            <%= f.label other_field_name, d_("dmpopidor", "Custom value: "), class: 'control-label' %>
+            <%= f.hidden_field other_field_name, 
+                      value: custom_value,
+                      class: "form-control #{field_class}",
+                      id: field_id  %>
+            <span><%= custom_value %></span>
+          </div>
         <% end %>
       </div>
-      <% if overridable %>
-        <% 
-          style = 'display: none;'
-          custom_value = nil
-          if value.present? && value.additional_info["custom_value"].present?
-            style = ''
-            custom_value = value.additional_info["custom_value"]
-          end
-        %>
-        <% other_field_name = defined?(form_prefix) ? "#{form_prefix}[#{property_name}_custom]" : "#{property_name}_custom" %>
-        <div class="col-md-12 custom-value" style="<%= style %>">
-          <%= f.label other_field_name, d_("dmpopidor", "Custom value: "), class: 'control-label' %>
-          <%= f.hidden_field other_field_name, 
-                    value: custom_value,
-                    class: "form-control #{field_class}",
-                    id: field_id  %>
-          <span><%= custom_value %></span>
-        </div>
-      <% end %>
-    </div>
+    <% end %>
   </fieldset>
 </div>

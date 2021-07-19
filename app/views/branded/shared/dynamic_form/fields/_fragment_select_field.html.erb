@@ -49,21 +49,23 @@
   <% end %>
 </div>
 
-<div class="col-md-12 selected-value">
-  <strong><%= d_('dmpopidor', 'Selected value:') %></strong> <span><%= selected_value.to_s %></span>
-  (<%= link_to new_edit_linked_madmp_fragments_url(
-      :fragment_id => selected_value.present? ? selected_value.id : 0000,
-      :parent_id => parent_id, 
-      :schema_id => schema.id,
-      :source => "select-modal",
-      :template_locale => template_locale,
-      :query_id => query_id
-    ), {
-      :remote => true, 
-      :target => "_self",
-      'data-toggle' => 'modal', 
-      'data-target' => '#modal-window'
-    } do %>
-      <%= _('Edit') %>
-    <% end %>)
-</div>
+<% unless readonly %>
+  <div class="col-md-12 selected-value">
+    <strong><%= d_('dmpopidor', 'Selected value:') %></strong> <span><%= selected_value.to_s %></span>
+    (<%= link_to new_edit_linked_madmp_fragments_url(
+        :fragment_id => selected_value.present? ? selected_value.id : 0000,
+        :parent_id => parent_id, 
+        :schema_id => schema.id,
+        :source => "select-modal",
+        :template_locale => template_locale,
+        :query_id => query_id
+      ), {
+        :remote => true, 
+        :target => "_self",
+        'data-toggle' => 'modal', 
+        'data-target' => '#modal-window'
+      } do %>
+        <%= _('Edit') %>
+      <% end %>)
+  </div>
+<% end %>
