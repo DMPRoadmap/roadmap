@@ -32,7 +32,7 @@ class IdentifiersController < ApplicationController
     end
     tokens.each(&:revoke!)
 
-    redirect_to edit_user_registration_path
+    redirect_to users_third_party_apps_path
   end
 
 end

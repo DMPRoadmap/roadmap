@@ -6,6 +6,8 @@
   </a>
   <ul class="dropdown-menu" aria-labelledby="user-menu-button">
     <li><%= link_to _('Edit profile'), edit_user_registration_path %></li>
+    <li><%= link_to _('Third party applications'), users_third_party_apps_path %></li>
+    <li><%= link_to _('Developer tools'), users_developer_tools_path %></li>
     <li><%= link_to _('Logout'), destroy_user_session_path, method: :delete %></li>
   </ul>
 <% end %>

@@ -2631,11 +2631,6 @@ msgid "My privileges"
 msgstr ""
 
 #: ../../app/views/devise/registrations/_personal_details.html.erb:65
-#: ../../app/views/users/_current_privileges.html.erb:3
-msgid "Super Admin"
-msgstr ""
-
-#: ../../app/views/devise/registrations/_personal_details.html.erb:65
 #: ../../app/views/users/_current_privileges.html.erb:5
 msgid "Organisational Admin"
 msgstr "Organizational Admin"
@@ -2696,6 +2691,11 @@ msgstr ""
 #: ../../app/views/devise/registrations/api_client_refresh_credentials.js.erb:1
 #: ../../app/views/super_admin/api_clients/refresh_credentials.js.erb:1
 msgid "Successfully regenerated the client credentials."
+msgstr ""
+
+#: ../../app/views/devise/registrations/_personal_details.html.erb:65
+#: ../../app/views/users/_current_privileges.html.erb:3
+msgid "Super Admin"
 msgstr ""
 
 #: ../../app/views/devise/registrations/edit.html.erb:1
@@ -4862,6 +4862,8 @@ msgstr ""
 
 #: ../../app/views/plans/_project_details.html.erb:137
 msgid "Describe any ethical concerns"
+msgstr ""
+
 #: ../../app/views/plans/_project_details.html.erb:127
 msgid "Grant number/url"
 msgstr ""

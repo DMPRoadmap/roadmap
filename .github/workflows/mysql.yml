@@ -32,15 +32,6 @@ jobs:
       with:
         ruby-version: ${{ env.RUBY_VERSION }}
 
-    # Copy all of the example configs over
-    - name: 'Setup Default Configuration'
-      run: |
-        # Make copies of all the example config files
-        cp config/database.yml.sample config/database.yml
-        cp config/initializers/_dmproadmap.rb.example config/initializers/_dmproadmap.rb
-        cp config/initializers/contact_us.rb.example config/initializers/contact_us.rb
-        cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
-
     # Try to retrieve the gems from the cache
     - name: 'Cache Gems'
       uses: actions/cache@v2.1.5

@@ -51,9 +51,9 @@ end
     <li>
       <% if orcid.present? && orcid_access_token.present?%><span class="fa fa-check green"></span><% else %><span class="fa fa-times red"></span><% end %>
       <% if !orcid_access_token.present? %>
-        <%= _("authorized DMPTool to add works to your ORCID record via your") %> <a href="<%= edit_user_registration_path %>" target="_blank"><%= _("DMPTool profile page") %></a>
+        <%= _("authorized DMPTool to add works to your ORCID record via your") %> <a href="<%= users_third_party_apps_path %>" target="_blank"><%= _("Third party applications page") %></a>
       <% else %>
-        <%= _("linked your DMPTool account to your ORCID via your") %> <a href="<%= edit_user_registration_path %>" target="_blank"><%= _("DMPTool profile page") %></a>
+        <%= _("linked your DMPTool account to your ORCID via your") %> <a href="<%= users_third_party_apps_path %>" target="_blank"><%= _("Third party applications page") %></a>
       <% end %>
     </li>
     <li>

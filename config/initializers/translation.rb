@@ -31,7 +31,7 @@ elsif ENV["DOMAIN"] == "client"
   TranslationIO.configure do |config|
     config.api_key              = Rails.configuration.x.dmproadmap.translation_io_key_client
     config.source_locale        = "en"
-    config.target_locales       = %w[en-US pt-BR en-CA fr-CA es]
+    config.target_locales       = %w[en-US pt-BR]
     config.text_domain          = "client"
     config.bound_text_domains = ["client"]
     config.ignored_source_paths = Dir.glob("**/*").select { |f| File.directory? f }
