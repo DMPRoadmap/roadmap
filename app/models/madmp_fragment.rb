@@ -108,7 +108,7 @@ class MadmpFragment < ActiveRecord::Base
     madmp_schema.schema
   end
 
-  def get_dmp_fragments
+  def dmp_fragments
     MadmpFragment.where(dmp_id: dmp.id)
   end
 

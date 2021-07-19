@@ -4,7 +4,7 @@
 <% additional_info = current_fragment.additional_info unless current_fragment.nil? %>
 <% validations = additional_info.present? && additional_info['validations'].present? ? additional_info["validations"] : nil %>
 
-<% dmp_fragments = current_fragment.present? ? current_fragment.get_dmp_fragments() : [] %>
+<% dmp_fragments = current_fragment.present? ? current_fragment.dmp_fragments() : [] %>
 <% schema_properties = schema.schema["properties"]%>
 <% required_fields = schema.schema["required"] %>
 <% schema_properties.each do |key, prop| %>
