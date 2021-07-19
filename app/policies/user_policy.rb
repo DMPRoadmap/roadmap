@@ -85,6 +85,14 @@ class UserPolicy < ApplicationPolicy
     signed_in_user.can_super_admin? || signed_in_user == user
   end
 
+  def third_party_apps?
+    signed_in_user == user
+  end
+
+  def developer_tools?
+    signed_in_user == user
+  end
+
   class Scope < Scope
 
     def resolve

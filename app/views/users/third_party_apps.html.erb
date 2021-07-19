@@ -1,23 +1,22 @@
-<%# locals: user %>
+<% title _('3rd Party Applications') %>
 
-<%
-app_name = "the #{Rails.configuration.x.dmproadmap.name}"
-tokens = user.access_tokens.select { |token| token.revoked_at == nil }
-%>
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= _('3rd Party Applications') %></h1>
+  </div>
+</div>
 
-<div id="identifier-scheme-integrations" class="col-xs-12">
-  <h2><%= _("3rd party systems %{app_name} can access") % { app_name: app_name } %></h2>
+<% app_name = "the #{Rails.configuration.x.dmproadmap.name}" %>
 
+<div id="third-party-apps" class="col-xs-12">
   <% @identifier_schemes.each do |scheme| %>
     <div class="form-group col-xs-8">
       <% if scheme.name.downcase == 'shibboleth' %>
         <label class='control-label'>
           <span class="aria-only" aria-hidden="false"><%= _('Institutional credentials (single sign on)') %></span>
         </label>
-        <p><%= _("Connect your account so that you can log into %{app_name} via your institution ") % { app_name: app_name } %></p>
       <% elsif scheme.name.downcase == 'orcid' %>
         <%= label_tag(:scheme_name, 'ORCID', class: 'control-label') %>
-        <p><%= _("Authorize %{app_name} to fetch your ORCID iD and add DMPs to your ORCID record.") % { app_name: app_name } %></p>
       <% else %>
         <%= label_tag(:scheme_name, scheme.name.capitalize, class: 'control-label') %>
       <% end %>
@@ -29,17 +28,11 @@ tokens = user.access_tokens.select { |token| token.revoked_at == nil }
       </div>
     </div>
   <% end %>
-</div>
 
-<br>
-
-<div id="api-integrations" class="col-xs-12">
-  <h2><%= _("3rd party systems that can access your DMPs") %></h2>
-  <% if tokens.any? %>
-    <p><%= _("You have authorized the following list of 3rd party applications.") %></p>
+  <% if @tokens.any? %>
     <p><%= _("These applications have access to the information specified in the 'Activities' column. You can remove/revoke their access at any time but please note that this will only prevent future access. For example, if they have downloaded a PDF copy of a plan in the past they will still retain that copy.") %></p>
 
-    <% tokens.each do |token| %>
+    <% @tokens.each do |token| %>
       <%
       app_name = token.application.name.humanize
       unlinkconf = _("Are you sure? %{application} will no longer be able to access your DMPs.") % { application: app_name }
@@ -54,12 +47,10 @@ tokens = user.access_tokens.select { |token| token.revoked_at == nil }
         <% end %>
 
         <%= link_to '<i class="fas fa-fw fa-times-circle" aria-hidden="true"></i>'.html_safe,
-                    oauth_revoke_access_token_path(user, token), method: :delete,
+                    oauth_revoke_access_token_path(current_user, token), method: :delete,
                     title: unlinktext, data: { confirm: unlinkconf, toggle: "tooltip" },
                     aria: { label: unlinktext } %>
       </div>
     <% end %>
-  <% else %>
-    <p><%= _("You have not authorized any 3rd party applications.") %>
   <% end %>
 </div>
