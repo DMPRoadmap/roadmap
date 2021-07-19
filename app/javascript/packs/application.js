@@ -31,6 +31,7 @@ import '../src/utils/paginable';
 import '../src/utils/panelHeading';
 import '../src/utils/popoverHelper';
 import '../src/utils/requiredField';
+import '../src/utils/spinner';
 import '../src/utils/tabHelper';
 import '../src/utils/tooltipHelper';
 
