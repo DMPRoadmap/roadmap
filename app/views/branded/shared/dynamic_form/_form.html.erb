@@ -13,7 +13,7 @@
   <% field_id = current_fragment.present? ? "fragment_#{key}_#{SecureRandom.uuid}" : "new_fragment_#{key}_#{SecureRandom.uuid}"%>
   <% validation = validations.nil? ? "none" : validations[key] %>
   <% required = required_fields.include?(key)%>
-  <% label = prop["label@#{template_locale}"]%>
+  <% label = form_label(prop, template_locale, readonly)%>
   <% ttip = prop["tooltip@#{template_locale}"] %>
   <% example = prop["example@#{template_locale}"] ? "ex: #{prop["example@#{template_locale}"]}": nil %>
   <% default_value = prop["default@#{template_locale}"] %>

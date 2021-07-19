@@ -255,6 +255,14 @@ module DynamicFormHelper
     end
   end
 
+  def form_label(property, locale, readonly)
+    if readonly
+      property["label@#{locale}"]
+    else
+      property["form_label@#{locale}"] || property["label@#{locale}"]
+    end
+  end
+
   # Formats the data extract from the structured answer form to valid JSON data
   # This is useful because Rails converts all form data to strings and JSON needs the actual types
   def data_reformater(schema, data)
