@@ -2,17 +2,10 @@
 # IF YOU UPDATE IT, YOUR CHANGES WILL BE LOST AT THE NEXT SYNC.
 #
 # To update this file, use this translation interface:
-# https://translation.io/cdl-uc3/dmptool/de
+# https://translation.io/dcc-user/roadmap/de
 #
 ---
 de:
-  views:
-    pagination:
-      truncate: "&hellip;"
-      first: "« Start"
-      last: Ende »
-      previous: "&lsaquo; Zurück"
-      next: Weiter &rsaquo;
   date:
     day_names:
     - Sonntag
@@ -72,36 +65,35 @@ de:
           mb: MB
           gb: GB
           tb: TB
-          pb:
-          eb:
+          pb: PB
+          eb: EB
       decimal_units:
         units:
           thousand: Tausend
-          million:
-          billion:
-          trillion:
-          quadrillion:
+          million: Million
+          billion: Milliarde
+          trillion: Trillion
+          quadrillion: Quadrillion
   errors:
     format: "%{attribute} %{message}"
     messages:
-      model_invalid: 'Gültigkeitsprüfung ist fehlgeschlagen: %{errors}'
-      inclusion: ist kein gültiger Wert
-      exclusion: ist nicht verfügbar
-      invalid: ist nicht gültig
+      inclusion: ist kein Listeneintrag
+      exclusion: ist reserviert
+      invalid: ist ungültig
       confirmation: stimmt nicht mit %{attribute} überein
       accepted: muss akzeptiert werden
       empty: muss ausgefüllt werden
       blank: muss ausgefüllt werden
       present: darf nicht ausgefüllt werden
       too_long:
-        one: ist zu lang (mehr als 1 Zeichen)
+        one: ist zu lang (mehr als ein Zeichen)
         other: ist zu lang (mehr als %{count} Zeichen)
       too_short:
-        one: ist zu kurz (weniger als 1 Zeichen)
+        one: ist zu kurz (weniger als ein Zeichen)
         other: ist zu kurz (weniger als %{count} Zeichen)
       wrong_length:
-        one: hat die falsche Länge (muss genau 1 Zeichen haben)
-        other: hat die falsche Länge (muss genau %{count} Zeichen haben)
+        one: hat die falsche Länge (muss genau ein Zeichen sein)
+        other: hat die falsche Länge (muss genau %{count} Zeichen lang sein)
       not_a_number: ist keine Zahl
       not_an_integer: muss ganzzahlig sein
       greater_than: muss größer als %{count} sein
@@ -110,91 +102,83 @@ de:
       less_than: muss kleiner als %{count} sein
       less_than_or_equal_to: muss kleiner oder gleich %{count} sein
       other_than: darf nicht gleich %{count} sein
-      odd: muss ungerade sein
-      even: muss gerade sein
-      required: muss ausgefüllt werden
+      odd: muss eine ungerade Zahl sein
+      even: muss eine gerade Zahl sein
       taken: ist bereits vergeben
-      already_confirmed: wurde bereits bestätigt; bitte versuchen Sie, sich anzumelden
-      confirmation_period_expired: musste innerhalb von %{period} bestätigt werden,
-        bitte neu anfordern.
-      expired: ist abgelaufen, bitte neu anfordern
+      already_confirmed: wurde bereits bestätigt. Bitte versuchen Sie, sich anzumelden.
+      confirmation_period_expired: muss innerhalb von %{period} bestätigt werden.
+        Bitte fordern Sie einen neuen an.
+      expired: ist abgelaufen. Bitte fordern Sie einen neuen an.
       not_found: nicht gefunden
-      not_locked: ist nicht gesperrt
+      not_locked: war nicht gesperrt
       not_saved:
-        one: "%{resource} konnte aufgrund eines Fehlers nicht gespeichert werden:"
-        other: "%{count} Fehler verhinderten das Speichern von %{resource}:"
+        one: 'Ein Fehler hat verhindert, dass %{resource} gespeichert werden konnte:'
+        other: "%{count} Fehler haben verhindert, dass %{resource} gespeichert werden
+          konnte:"
+      model_invalid: 'Gültigkeitsprüfung ist fehlgeschlagen: %{errors}'
+      required: muss ausgefüllt werden
+    unavailable_session: "Session %{id} ist nicht mehr im Arbeitsspeicher verfügbar.
+      \n\nSollte Ihr System auf einem Multi-Process-Server (wie Unicorn oder Puma)
+      laufen, dann speichert der Prozess, den diese Anfrage ansteuert, keine %{id}
+      im Arbeitspeicher. Sie sollten die Anzahl der Prozesse/Arbeiter auf eins (1)
+      setzen oder einen anderen Server für die Entwicklung verwenden."
+    unacceptable_request: " Im Accept-Header wird eine unterstützte Version erwartet."
+    connection_refused: |-
+      Ups! Konnte keine Verbindung zur Web-Console-Middleware herstellen.
+      Bitte stellen Sie sicher, dass ein Rails-Development-Server läuft.
     template:
-      body: 'Bitte überprüfen Sie die folgenden Felder:'
+      body: 'Bei den folgenden Feldern gibt es Unstimmigkeiten:'
       header:
-        one: 'Konnte %{model} nicht speichern: ein Fehler.'
-        other: 'Konnte %{model} nicht speichern: %{count} Fehler.'
-    unavailable_session:
-    unacceptable_request:
-    connection_refused:
+        one: 'Ein Fehler hat verhindert, dass %{model} gespeichert werden konnte:'
+        other: "%{count} Fehler haben verhindert, dass %{model} gespeichert werden
+          konnte:"
   activerecord:
     errors:
       messages:
-        record_invalid: 'Gültigkeitsprüfung ist fehlgeschlagen: %{errors}'
+        record_invalid: 'Gültigkeitsprüfung fehlgeschlagen: %{errors}'
         restrict_dependent_destroy:
-          has_one: Datensatz kann nicht gelöscht werden, da ein abhängiger %{record}-Datensatz
+          has_one: Datensatz kann nicht gelöscht werden, da ein abhängiger %{record}
             existiert.
           has_many: Datensatz kann nicht gelöscht werden, da abhängige %{record} existieren.
-      models:
-        doorkeeper/application:
-          attributes:
-            redirect_uri:
-              fragment_present: darf kein Fragment enthalten.
-              invalid_uri: muss ein valider URI (Identifier) sein.
-              unspecified_scheme: muss ein Schema angeben.
-              relative_uri: muss ein absoluter URI (Identifier) sein.
-              secured_uri: muss ein HTTPS/SSL URI (Identifier) sein.
-              forbidden_uri: ist vom server verboten.
-            scopes:
-              not_match_configured: stimmen nicht mit denen am server hinterlegten
-                überein.
-    attributes:
-      doorkeeper/application:
-        name: Name
-        redirect_uri: Redirect URI
   datetime:
     distance_in_words:
-      half_a_minute: eine halbe Minute
+      half_a_minute: einer halben Minute
       less_than_x_seconds:
         one: weniger als eine Sekunde
         other: weniger als %{count} Sekunden
       x_seconds:
-        one: eine Sekunde
+        one: einer Sekunde
         other: "%{count} Sekunden"
       less_than_x_minutes:
         one: weniger als eine Minute
         other: weniger als %{count} Minuten
       x_minutes:
-        one: eine Minute
+        one: einer Minute
         other: "%{count} Minuten"
       about_x_hours:
         one: etwa eine Stunde
         other: etwa %{count} Stunden
       x_days:
-        one: ein Tag
-        other: "%{count} Tage"
+        one: einem Tag
+        other: "%{count} Tagen"
       about_x_months:
-        one: etwa ein Monat
-        other: etwa %{count} Monate
+        one: etwa einem Monat
+        other: etwa %{count} Monaten
       x_months:
-        one: ein Monat
-        other: "%{count} Monate"
+        one: einem Monat
+        other: "%{count} Monaten"
       about_x_years:
-        one: etwa ein Jahr
+        one: etwa einem Jahr
         other: etwa %{count} Jahre
       over_x_years:
-        one: mehr als ein Jahr
-        other: mehr als %{count} Jahre
+        one: mehr als einem Jahr
+        other: mehr als %{count} Jahren
       almost_x_years:
-        one: fast ein Jahr
-        other: fast %{count} Jahre
+        one: fast einem Jahr
+        other: fast %{count} Jahren
       x_years:
-        one: ein Jahr
-        other: "%{count} Jahre"
+        one: einem Jahr
+        other: "%{count} Jahren"
     prompts:
       year: Jahr
       month: Monat
@@ -204,16 +188,16 @@ de:
       second: Sekunde
   helpers:
     select:
-      prompt: Bitte wählen
+      prompt: Bitte wählen Sie
     submit:
       create: "%{model} erstellen"
       update: "%{model} aktualisieren"
       submit: "%{model} speichern"
     page_entries_info:
       entry:
-        zero:
-        one:
-        other:
+        zero: Einträge
+        one: Eintrag
+        other: Einträge
       one_page:
         display_entries:
           zero: Kein %{entry_name} gefunden
@@ -225,274 +209,152 @@ de:
   flash:
     actions:
       create:
-        notice:
+        notice: "%{resource_name} wurde erfolgreich angelegt."
       update:
-        notice:
+        notice: "%{resource_name} wurde erfolgreich aktualisiert."
       destroy:
-        notice:
-        alert:
-  recaptcha:
-    errors:
-      verification_failed:
-      recaptcha_unreachable:
+        notice: "%{resource_name} wurde erfolgreich zerstört."
+        alert: "%{resource_name} konnte nicht zerstört werden."
   devise:
     confirmations:
       confirmed: Ihre E-Mail-Adresse wurde erfolgreich bestätigt.
-      send_instructions: Sie erhalten in wenigen Minuten eine E-Mail, mit der Sie
-        Ihre Registrierung bestätigen können.
+      send_instructions: Sie erhalten in wenigen Minuten eine E-Mail mit einer Anleitung,
+        wie Sie Ihre E-Mail-Adresse bestätigen können.
       send_paranoid_instructions: Falls Ihre E-Mail-Adresse in unserer Datenbank existiert,
-        erhalten Sie in wenigen Minuten eine E-Mail, mit der Sie Ihre Registrierung
-        bestätigen können.
+        erhalten Sie in wenigen Minuten eine E-Mail mit einer Anleitung, wie Sie Ihre
+        E-Mail-Adresse bestätigen können.
     failure:
       already_authenticated: Sie sind bereits angemeldet.
-      inactive: Ihr Konto ist noch nicht aktiv.
+      inactive: Ihr Konto ist noch nicht aktiviert.
       invalid: "%{authentication_keys} oder Passwort ungültig."
-      locked: Ihr Konto ist gesperrt.
-      last_attempt: Sie haben noch einen Versuch, bis Ihr Konto gesperrt wird.
+      locked: Ihr Zugang ist gesperrt.
+      last_attempt: Sie haben noch einen Versuch, bevor Ihr Konto gesperrt wird.
       not_found_in_database: "%{authentication_keys} oder Passwort ungültig."
-      timeout: Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.
-      unauthenticated: Sie müssen sich anmelden oder registrieren, bevor Sie fortfahren
-        können.
-      unconfirmed: Sie müssen Ihr Konto bestätigen, bevor Sie fortfahren können.
-      invited:
+      timeout: Ihre Sitzung ist abgelaufen. Um fortzufahren, melden Sie sich bitte
+        erneut an.
+      unauthenticated: Sie müssen sich anmelden oder registrieren, um fortzufahren.
+      unconfirmed: Sie müssen erst Ihre E-Mail-Adresse bestätigen, um fortzufahren.
+      invited: Akzeptieren Sie die offene Einladung, um die Erstellung Ihres Accounts
+        abzuschließen.
     mailer:
       confirmation_instructions:
-        subject: Anleitung zur Bestätigung Ihres Kontos
+        subject: Anleitung für die Bestätigung
       reset_password_instructions:
-        subject: Anleitung für das Zurücksetzen Ihres Passworts
+        subject: Anleitung zum Zurücksetzen des Passworts
       unlock_instructions:
-        subject: Anleitung für die Konto-Freischaltung
+        subject: Anleitung zum Entsperren des Zugangs
       email_changed:
-        subject: E-Mail-Adresse geändert
+        subject: E-Mail geändert
       password_change:
         subject: Passwort geändert
       invitation_instructions:
-        subject:
-        hello:
-        someone_invited_you:
-        accept:
-        accept_until:
-        ignore:
+        subject: Anleitung zu Einladungen
+        hello: Hallo %{email}
+        someone_invited_you: Jemand hat Sie auf die Seite %{url} eingeladen. Klicken
+          Sie auf den untenstehenden Link, um die Einladung anzunehmen.
+        accept: Einladung annehmen
+        accept_until: Diese Einladung wird am %{due_date} fällig.
+        ignore: Wenn Sie die Einladung nicht annehmen möchten, ignorieren Sie diese
+          E-Mail. Ihr Konto wird erst erstellt, wenn Sie den obigen Link öffnen und
+          Ihr Passwort festlegen.
     omniauth_callbacks:
-      failure: Sie konnten nicht mit Ihrem %{kind}-Konto angemeldet werden, weil "%{reason}".
-      success: Sie haben sich erfolgreich mit Ihrem %{kind}-Konto angemeldet.
+      failure: Sie konnten mit Ihrem %{kind}-Zugang nicht authentifiziert werden,
+        da '%{reason}'.
+      success: Sie haben sich erfolgreich mit Ihrem %{kind}-Zugang angemeldet.
     passwords:
-      no_token: Sie können sich nicht auf dieser Seite anmelden, wenn Sie nicht von
-        einer Passwort-Zurücksetzen-E-Mail kommen. Wenn Sie von solch einer E-Mail
-        kommen, überprüfen Sie bitte, ob Sie die gesamte URL verwendet haben.
-      send_instructions: Sie erhalten in wenigen Minuten eine E-Mail mit der Anleitung,
-        wie Sie Ihr Passwort zurücksetzen können.
+      no_token: Sie können auf diese Seite nur zugreifen, indem Sie den Link aufrufen,
+        der in der E-Mail zum Zurücksetzen des Passworts angegeben ist. Stellen Sie
+        bitte sicher, dass Sie die vollständige URL in die Adresszeile kopiert haben.
+      send_instructions: Sie erhalten in wenigen Minuten eine E-Mail mit einer Anleitung
+        zum Zurücksetzen Ihres Passworts.
       send_paranoid_instructions: Falls Ihre E-Mail-Adresse in unserer Datenbank existiert,
-        erhalten Sie in wenigen Minuten eine E-Mail mit der Anleitung, wie Sie Ihr
-        Passwort zurücksetzen können.
-      updated: Ihr Passwort wurde geändert. Sie sind jetzt angemeldet.
+        erhalten Sie in wenigen Minuten einen Link zum Zurücksetzen Ihres Passworts
+        an Ihre E-Mail-Adresse.
+      updated: Ihr Passwort wurde erfolgreich geändert. Sie sind jetzt angemeldet.
       updated_not_active: Ihr Passwort wurde erfolgreich geändert.
     registrations:
-      destroyed: Ihr Konto wurde gelöscht. Wir hoffen, dass wir Sie bald wiedersehen.
-      signed_up: Sie haben sich erfolgreich registriert.
-      signed_up_but_inactive: Sie haben sich erfolgreich registriert. Wir konnten
-        Sie jedoch nicht anmelden, weil Ihr Konto noch nicht aktiviert ist.
-      signed_up_but_locked: Sie haben sich erfolgreich registriert. Wir konnten Sie
-        jedoch nicht anmelden, weil Ihr Konto gesperrt ist.
-      signed_up_but_unconfirmed: Sie erhalten in wenigen Minuten eine E-Mail mit einem
-        Link für die Bestätigung der Registrierung. Klicken Sie auf den Link um Ihr
-        Konto zu aktivieren.
-      update_needs_confirmation: Ihre Daten wurden aktualisiert, aber Sie müssen Ihre
-        neue E-Mail-Adresse bestätigen. Sie erhalten in wenigen Minuten eine E-Mail,
-        mit der Sie die Änderung Ihrer E-Mail-Adresse abschließen können.
-      updated: Ihre Daten wurden aktualisiert.
-      updated_but_not_signed_in: Ihre Daten wurden aktualisiert, aber da sich Ihr
-        Passwort geändert hat, müssen Sie sich erneut anmelden
+      destroyed: Tschüs! Ihr Zugang wurde erfolgreich deaktiviert. Wir hoffen, Sie
+        bald wiederzusehen.
+      signed_up: Willkommen! Sie haben sich erfolgreich registriert.
+      signed_up_but_inactive: Sie haben sich erfolgreich registriert. Dennoch können
+        Sie sich nicht einloggen, solange Ihr Zugang noch nicht aktiviert ist.
+      signed_up_but_locked: Sie haben sich erfolgreich registriert. Dennoch können
+        Sie sich nicht einloggen, da Ihr Zugang gesperrt ist.
+      signed_up_but_unconfirmed: Eine Nachricht mit einem Bestätigungslink wurde an
+        Ihre E-Mail-Adresse verschickt. Bitte folgen Sie dem Link, um Ihr Konto zu
+        aktivieren.
+      update_needs_confirmation: Sie haben Ihren Zugang erfoglreich aktualisiert,
+        jedoch muss Ihre neue E-Mail-Adresse überprüft werden. Sie sollten dazu gerade
+        eine entsprechende E-Mail erhalten haben. Bitte folgen Sie dem dort angegebenen
+        Link um Ihre neue E-Mail-Adresse zu bestätigen.
+      updated: Ihre Zugang wurde erfolgreich aktualisiert.
+      updated_but_not_signed_in: Ihr Zugang wurde erfolgreich aktualisiert. Da Ihr
+        Kennwort geändert wurde, müssen Sie sich jedoch erneut anmelden.
     sessions:
       signed_in: Erfolgreich angemeldet.
       signed_out: Erfolgreich abgemeldet.
       already_signed_out: Erfolgreich abgemeldet.
     unlocks:
-      send_instructions: Sie erhalten in wenigen Minuten eine E-Mail mit der Anleitung,
-        wie Sie Ihr Konto entsperren können.
-      send_paranoid_instructions: Falls Ihre E-Mail-Adresse in unserer Datenbank existiert,
-        erhalten Sie in wenigen Minuten eine E-Mail, mit der Anleitung, wie Sie Ihr
-        Konto entsperren können.
-      unlocked: Ihr Konto wurde entsperrt. Bitte melden Sie sich an, um fortzufahren.
+      send_instructions: Sie erhalten in wenigen Minuten eine E-Mail mit einer Anleitung
+        zur Entsperrung Ihres Zugangs.
+      send_paranoid_instructions: Falls Ihr Zugang existiert, erhalten Sie in wenigen
+        Minuten eine E-Mail mit einer Anleitung zur Entsperrung.
+      unlocked: Ihr Zugang wurde erfolgreich entsperrt. Bitte melden Sie sich an um
+        fortzufahren.
     invitations:
-      send_instructions:
-      invitation_token_invalid:
-      updated:
-      updated_not_active:
-      no_invitations_remaining:
-      invitation_removed:
+      send_instructions: Eine Einladungs-E-Mail wurde an %{email} versendet.
+      invitation_token_invalid: Das bereitgestellte Einladungs-Token ist ungültig!
+      updated: Ihr Passwort wurde erfolgreich gesetzt. Sie sind jetzt angemeldet.
+      updated_not_active: Ihr Passwort wurde erfolgreich gesetzt.
+      no_invitations_remaining: Keine Einladungen verbleibend
+      invitation_removed: Ihre Einladung wurde entfernt.
       new:
-        header:
-        submit_button:
+        header: Einladung versenden
+        submit_button: Eine Einladung versenden
       edit:
-        header:
-        submit_button:
-  doorkeeper:
-    applications:
-      confirmations:
-        destroy: Bist du sicher?
-      buttons:
-        edit: Bearbeiten
-        destroy: Löschen
-        submit: Übertragen
-        cancel: Abbrechen
-        authorize: Autorisieren
-      form:
-        error: Whoops! Bitte überprüfe das Formular auf Fehler!
-      help:
-        confidential: Application will be used where the client secret can be kept
-          confidential. Native mobile apps and Single Page Apps are considered non-confidential.
-        redirect_uri: Bitte benutze eine Zeile pro URI
-        blank_redirect_uri: Leave it blank if you configured your provider to use
-          Client Credentials, Resource Owner Password Credentials or any other grant
-          type that doesn't require redirect URI.
-        scopes: Bitte die "Scopes" mit Leerzeichen trennen. Bitte frei lassen für
-          die Verwendung der Default-Werte.
-      edit:
-        title: Applikation bearbeiten
-      index:
-        title: Deine Applikationen
-        new: Neue Applikation
-        name: Name
-        callback_url: Callback URL
-        confidential: Vertraulich?
-        actions: Aktionen
-        confidentiality:
-          'yes': Ja
-          'no': Nein
-      new:
-        title: Neue Applikation
-      show:
-        title: 'Applikation: %{name}'
-        application_id: Applikations-ID
-        secret: Secret
-        secret_hashed:
-        scopes: Scopes
-        confidential: Vertraulich
-        callback_urls: Callback URLs
-        actions: Aktionen
-        not_defined:
-    authorizations:
-      buttons:
-        authorize: Autorisieren
-        deny: Verweigern
-      error:
-        title: Ein Fehler ist aufgetreten
-      new:
-        title: Autorisierung erforderlich
-        prompt: Soll %{client_name} für die Benutzung dieses Accounts autorisiert
-          werden?
-        able_to: Diese Anwendung wird folgende Rechte haben
-      show:
-        title: Autorisierungscode
-      form_post:
-        title:
-    authorized_applications:
-      confirmations:
-        revoke: Bist du sicher?
-      buttons:
-        revoke: Ungültig machen
-      index:
-        title: Deine autorisierten Applikationen
-        application: Applikation
-        created_at: erstellt am
-        date_format: "%Y-%m-%d %H:%M:%S"
-    pre_authorization:
-      status: Pre-authorization
-    errors:
-      messages:
-        invalid_request:
-          unknown: Die Anfrage enthält einen nicht-unterstützten Parameter, ein Parameter
-            fehlt oder sie ist anderweitig fehlerhaft.
-          missing_param: 'Missing required parameter: %{value}.'
-          request_not_authorized: Request need to be authorized. Required parameter
-            for authorizing request is missing or invalid.
-        invalid_redirect_uri: Der Redirect-URI in der Anfrage ist ungültig.
-        unauthorized_client: Der Client ist nicht autorisiert, diese Anfrage mit dieser
-          Methode auszuführen.
-        access_denied: Der Resource Owner oder der Autorisierungs-Server hat die Anfrage
-          verweigert.
-        invalid_scope: Der angeforderte Scope ist inkorrekt, unbekannt oder fehlerhaft.
-        invalid_code_challenge_method: The code challenge method must be plain or
-          S256.
-        server_error: Der Autorisierungs-Server hat ein unerwartetes Problem festgestellt
-          und konnte die Anfrage nicht beenden.
-        temporarily_unavailable: Der Autorisierungs-Server ist derzeit auf Grund von
-          temporärer Überlastung oder Wartungsarbeiten am Server nicht in der Lage,
-          die Anfrage zu bearbeiten .
-        credential_flow_not_configured: 'Die Prozedur "Resource Owner Password Credentials"
-          ist fehlgeschlagen: Doorkeeper.configure.resource_owner_from_credentials
-          ist nicht konfiguriert.'
-        resource_owner_authenticator_not_configured: 'Die Prozedur "Resource Owner
-          find" ist fehlgeschlagen: Doorkeeper.configure.resource_owner_authenticator
-          ist nicht konfiguriert.'
-        admin_authenticator_not_configured: Access to admin panel is forbidden due
-          to Doorkeeper.configure.admin_authenticator being unconfigured.
-        unsupported_response_type: Der Autorisierungs-Server unterstützt diesen Antwort-Typ
-          nicht.
-        unsupported_response_mode:
-        invalid_client: 'Client-Autorisierung MKIM ist fehlgeschlagen: Unbekannter
-          Client, keine Autorisierung mitgeliefert oder Autorisierungsmethode nicht
-          unterstützt.'
-        invalid_grant: Die bereitgestellte Autorisierung ist inkorrekt, abgelaufen,
-          widerrufen, ist mit einem anderen Client verknüpft oder der Redirection
-          URI stimmt nicht mit der Autorisierungs-Anfrage überein.
-        unsupported_grant_type: Der Autorisierungs-Typ wird nicht vom Autorisierungs-Server
-          unterstützt.
-        invalid_token:
-          revoked: Der Access Token wurde annuliert
-          expired: Der Access Token ist abgelaufen
-          unknown: Der Access Token ist nicht gültig/korrekt
-        revoke:
-          unauthorized: Sie sind nicht berechtigt, dieses Token zu widerrufen
-    flash:
-      applications:
-        create:
-          notice: Applikation erstellt.
-        destroy:
-          notice: Applikation gelöscht.
-        update:
-          notice: Applikation geupdated.
-      authorized_applications:
-        destroy:
-          notice: Applikation widerrufen.
-    layouts:
-      admin:
-        title: Doorkeeper
-        nav:
-          oauth2_provider: OAuth2 Provider
-          applications: Applikationen
-          home: Home
-      application:
-        title: OAuth Autorisierung erforderlich
+        header: Vergeben Sie ein Passwort
+        submit_button: Setze mein Passwort
   contact_us:
     contact_mailer:
       contact_email:
-        sent_by_contact_form:
-        sent_by_name:
-        subject:
+        sent_by_contact_form: Gesendet über das Kontaktformular von %{email}
+        sent_by_name: Gesendet von %{name} über die E-Mail-Adresse %{email}
+        subject: '"Kontaktiere uns"-Nachricht von %{email}'
     contacts:
       new:
-        contact_us:
-        email:
-        message:
-        name:
-        subject:
-        submit:
+        contact_us: Kontaktieren Sie uns
+        email: E-Mail
+        message: Nachricht
+        name: Name
+        subject: Betreff
+        submit: Abschicken
       new_formtastic:
-        contact_us:
-        email:
-        message:
-        name:
-        subject:
-        submit:
+        contact_us: Kontaktiere Uns
+        email: E-Mail
+        message: Nachricht
+        name: Name
+        subject: Betreff
+        submit: Abschicken
       new_simple_form:
-        contact_us:
-        email:
-        message:
-        name:
-        subject:
-        submit:
+        contact_us: Kontaktiere Uns
+        email: E-Mail
+        message: Nachricht
+        name: Name
+        subject: Betreff
+        submit: Abschicken
     notices:
-      error:
-      success:
+      error: Beide Felder müssen ausgefüllt werden.
+      success: Kontakt-E-Mail wurde erfolgreich versendet.
+  views:
+    pagination:
+      first: "« Erster"
+      last: Letzter »
+      previous: "&lsaquo; Vorheriger"
+      next: Nächster &rsaquo;
+      truncate: "&hellip;"
+  recaptcha:
+    errors:
+      verification_failed: Die reCAPTCHA-Überprüfung ist fehlgeschlagen. Bitte versuchen
+        Sie es erneut.
+      recaptcha_unreachable: Ups, wir konnten Ihre reCAPTCHA-Antwort nicht validieren.
+        Bitte versuche es erneut.
