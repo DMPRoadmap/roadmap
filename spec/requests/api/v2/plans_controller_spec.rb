@@ -148,14 +148,7 @@ RSpec.describe Api::V2::PlansController, type: :request do
       end
     end
 
-    describe "GET /api/v1/plan/:id - show" do
-      it "returns the plan" do
-        plan = create(:plan, api_client_id: ApiClient.first&.id)
-        get api_v1_plan_path(plan)
-        expect(response.code).to eql("200")
-        expect(response).to render_template("api/v1/plans/index")
-        expect(assigns(:items).length).to eql(1)
-      end
+    describe "GET /api/v1/plan/:id - (show)" do
       it "returns a 404 if the ApiClient did not create the plan" do
         plan = create(:plan, api_client_id: create(:api_client))
         get api_v1_plan_path(plan)
