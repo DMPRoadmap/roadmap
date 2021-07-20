@@ -392,7 +392,7 @@ RSpec.describe Org, type: :model do
         plan.add_user!(user.id, :editor)
       end
 
-      it { is_expected.not_to include(plan) }
+      it { is_expected.to include(plan) }
 
     end
 
@@ -402,7 +402,7 @@ RSpec.describe Org, type: :model do
         plan.add_user!(user.id, :commenter)
       end
 
-      it { is_expected.not_to include(plan) }
+      it { is_expected.to include(plan) }
 
     end
 
@@ -412,7 +412,70 @@ RSpec.describe Org, type: :model do
         plan.add_user!(user.id, :reviewer)
       end
 
-      it { is_expected.not_to include(plan) }
+      it { is_expected.to include(plan) }
+
+    end
+
+  end
+
+  describe "#org_admin_plans" do
+
+    let!(:org) { create(:org) }
+    let!(:plan) { create(:plan, org: org) }
+    let!(:user) { create(:user, org: org) }
+
+    subject { org.org_admin_plans }
+
+    context "when user belongs to Org and plan owner with role :creator" do
+
+      before do
+        create(:role, :creator, user: user, plan: plan)
+        plan.add_user!(user.id, :creator)
+      end
+
+      it { is_expected.to include(plan) }
+
+    end
+
+    context "when user belongs to Org and plan user with role :administrator" do
+
+      before do
+        plan.add_user!(user.id, :administrator)
+      end
+
+      it {
+        is_expected.to include(plan)
+      }
+
+    end
+
+    context "user belongs to Org and plan user with role :editor, but not :creator and :admin" do
+
+      before do
+        plan.add_user!(user.id, :editor)
+      end
+
+      it { is_expected.to include(plan) }
+
+    end
+
+    context "user belongs to Org and plan user with role :commenter, but not :creator and :admin" do
+
+      before do
+        plan.add_user!(user.id, :commenter)
+      end
+
+      it { is_expected.to include(plan) }
+
+    end
+
+    context "user belongs to Org and plan user with role :reviewer, but not :creator and :admin" do
+
+      before do
+        plan.add_user!(user.id, :reviewer)
+      end
+
+      it { is_expected.to include(plan) }
 
     end
 
