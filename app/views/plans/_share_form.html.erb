@@ -41,7 +41,7 @@
 
 <h2><%= _('Manage collaborators')%></h2>
 <p><%= _('Invite specific people to read, edit, or administer your plan. Invitees will receive an email notification that they have access to this plan.') %></p>
-<% if @plan.roles.any? then %>
+<% if @plan_roles.any? then %>
   <table class="table table-hover table-bordered" id="collaborator-table">
     <thead>
       <tr>
