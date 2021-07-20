@@ -20,7 +20,7 @@
   <% if user_signed_in? %>
     <div id="js-user-profile" class="c-user-profile">
       <button id="js-user-profile__button" class="c-user-profile__button" aria-label="user profile menu">
-        <i class="far fa-user-circle"></i>
+        <%= current_user.name(false) %>
       </button>
       <ul id="js-user-profile__menu" class="c-user-profile__menu" hidden>
         <li><%= link_to _('Edit profile'), edit_user_registration_path %></li>

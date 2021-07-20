@@ -18,7 +18,7 @@
     <br>
     <%= _('See the <a href="%{api_v0_wiki}">documentation for v0</a> for more details on the original API which includes access to statistics, the full text of plans and the ability to connect users with departments.').html_safe % { api_v0_wiki: api_wikis[:v0] } %></a>
     <br>
-    <%= sanitize(_("To interact with other versions of the API please see %{link_to_developer_tools}.") % { link_to_developer_tools: link_to(users_developer_tools_path) })>
+    <%= sanitize(_("To interact with other versions of the API please see %{link_to_developer_tools}.") % { link_to_developer_tools: link_to(users_developer_tools_path) }) %>
   </div>
   <div class="form-group col-xs-8">
     <%= link_to _("Regenerate token"),
