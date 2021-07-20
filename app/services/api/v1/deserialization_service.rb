@@ -16,6 +16,8 @@ module Api
           clazz = "::#{class_name.capitalize}".constantize
           return nil unless clazz.respond_to?(:from_identifiers)
 
+p "HERE: #{json[:type]} - #{json[:identifier]}"
+
           clazz.from_identifiers(
             array: [{ name: json[:type], value: json[:identifier] }]
           )

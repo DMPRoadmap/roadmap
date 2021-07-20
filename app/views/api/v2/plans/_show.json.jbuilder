@@ -7,12 +7,6 @@ plan = plan.first if plan.is_a?(Array)
 
 json.ignore_nil!
 
-extensions = [{ name: "dmproadmap", uri: "https://github.com/DMPRoadmap/api-json-schema" }]
-json.extensions extensions do |extension|
-  json.uri extension[:uri]
-  json.name extension[:name]
-end
-
 presenter = Api::V2::PlanPresenter.new(plan: plan, client: @client)
 # A JSON representation of a Data Management Plan in the
 # RDA Common Standard format

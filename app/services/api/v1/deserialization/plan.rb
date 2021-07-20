@@ -162,20 +162,11 @@ module Api
 
           # Lookup the Template
           def find_template(json: {})
-            return nil unless json.present?
+            default = Template.find_by(is_default: true)
+            return default unless json.present? && json.fetch(:dmproadmap_template, {})[:id].present?
 
-            template = ::Template.find_by(id: template_id(json: json))
-            template.present? ? template : Template.find_by(is_default: true)
-          end
-
-          # Extract the Template id from the JSON
-          def template_id(json: {})
-            return nil unless json.present?
-
-            extensions = Api::V1::DeserializationService.app_extensions(json: json)
-            return nil unless extensions.present?
-
-            extensions.fetch(:template, {})[:id]
+            template = Template.find_by(id: json.fetch(:dmproadmap_template, {})[:id].to_i)
+            template.present? ? template : default
           end
 
         end

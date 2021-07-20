@@ -17,7 +17,7 @@ module Api
         end
 
         def contributor_id(identifiers:)
-          identifiers.select { |id| id.identifier_scheme.name == "orcid" }.first
+          identifiers.select { |id| id.identifier_scheme&.name == "orcid" }.first
         end
 
       end
