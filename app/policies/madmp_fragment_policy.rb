@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 class MadmpFragmentPolicy < ApplicationPolicy
+
   def initialize(user, fragment)
     raise Pundit::NotAuthorizedError, _("must be logged in") unless user
     @user = user
@@ -6,7 +9,7 @@ class MadmpFragmentPolicy < ApplicationPolicy
   end
 
   def create?
-    @fragment.plan.editable_by?(@user.id) || @user == @answer.plan.owner
+    @fragment.plan.readable_by?(@user.id) || @user == @answer.plan.owner
   end
 
   def update?
@@ -14,7 +17,7 @@ class MadmpFragmentPolicy < ApplicationPolicy
   end
 
   def load_form?
-    @fragment.plan.editable_by?(@user.id) || @user == @answer.plan.owner
+    @fragment.plan.readable_by?(@user.id) || @user == @answer.plan.owner
   end
 
   def change_schema?

@@ -41,7 +41,7 @@ $(() => {
     }
   });
 
-  $(document).on('click', '.toggle-guidance-section', (e) => {
+  $(document).on('click', '.toggle-guidance-section:not(.disabled)', (e) => {
     const target = $(e.currentTarget);
     target.parents('.question-body').find('.guidance-section').toggle();
     target.find('span.fa-chevron-right, span.fa-chevron-left')

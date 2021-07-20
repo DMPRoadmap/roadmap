@@ -92,9 +92,11 @@
                           aria-labelledby="heading-<%= consolidated_id %>">
                       <div class="panel-body question-body"><!-- accordion body -->
                         <div class="answer-section">
-                          <div class="toggle-guidance-section">
-                            <span class="fa fa-chevron-left"></span> <span><%= d_('dmpopidor','Comments & Guidance') %></span>
-                          </div>
+                          <% unless question.question_format.structured? && answer.nil? %>
+                            <div class="toggle-guidance-section disabled">
+                              <span class="fa fa-chevron-left"></span> <span><%= d_('dmpopidor','Comments & Guidance') %></span>
+                            </div>
+                          <% end %>
                           <!-- Answer Section -->
                           <div class="question-form">
                             <div id="<%= "answer-locking-#{consolidated_id}" %>" 

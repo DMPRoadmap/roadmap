@@ -7,4 +7,8 @@
       <%= _('Answered')%> <time class="timeago" datetime="<%= answer.age %>"></time>
       <%= _(' by %{user_name}') %{ :user_name => answer.user.name } if answer.user.present? %>
     </span>
+<% else %>
+    <span class="label label-info status" data-status="saved-at">
+      <%= _('Question not answered.') %>
+    </span>
 <% end %>

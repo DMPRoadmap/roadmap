@@ -434,64 +434,65 @@ class MadmpFragmentsController < ApplicationController
     plan = fragment.plan
     template = plan.template
     run_parameters = fragment.madmp_schema.extract_run_parameters
+    editable = plan.editable_by?(current_user)
 
-    return {
-            "fragment_id" => fragment.id,
-            "answer" => {
-              "id" => answer&.id
-            },
-            "question" => {
-              "id" => question&.id,
-              "answer_lock_version" => answer&.lock_version,
-              "locking" => stale_fragment ?
-                render_to_string(partial: "madmp_fragments/locking", locals: {
-                  question: question,
-                  answer: answer,
-                  fragment: stale_fragment,
-                  research_output: research_output,
-                  user: answer&.user
-                }, formats: [:html]) :
-                nil,
-              "form" => render_to_string(partial: "madmp_fragments/edit", locals: {
-                template: template,
-                question: question,
-                answer: answer,
-                fragment: fragment,
-                madmp_schema: fragment.madmp_schema,
-                research_output: research_output,
-                dmp_id: fragment.dmp_id,
-                parent_id: fragment.parent_id,
-                pickable_schemas: MadmpSchema.where(classname: fragment.classname).order(:label),
-                readonly: false,
-                base_template_org: template.base_org
-              }, formats: [:html]),
-              "form_run" => run_parameters.present? ? 
-                render_to_string(partial: "shared/dynamic_form/codebase/show", locals: {
-                  fragment: fragment,
-                  parameters: run_parameters,
-                  template_locale: template.locale
-                }, formats: [:html]) : nil,
-              "answer_status" => answer.present? ?
-                render_to_string(partial: "answers/status", locals: {
-                  answer: answer
-              }, formats: [:html]) :
-              nil
-            },
-            "section" => {
-              "id" => section&.id
-            },
-            "plan" => {
-              "id" => plan.id,
-              "progress" => section.present? ?
-                render_to_string(partial: "plans/progress", locals: {
-                  plan: plan,
-                  current_phase: section.phase
-              }, formats: [:html]) :
-              nil
-            },
-            "research_output" => {
-              "id" => research_output&.id
-            }
+    {
+      "fragment_id" => fragment.id,
+      "answer" => {
+        "id" => answer&.id
+      },
+      "question" => {
+        "id" => question&.id,
+        "answer_lock_version" => answer&.lock_version,
+        "locking" => stale_fragment ?
+          render_to_string(partial: "madmp_fragments/locking", locals: {
+            question: question,
+            answer: answer,
+            fragment: stale_fragment,
+            research_output: research_output,
+            user: answer&.user
+          }, formats: [:html]) :
+          nil,
+        "form" => render_to_string(partial: "madmp_fragments/edit", locals: {
+          template: template,
+          question: question,
+          answer: answer,
+          fragment: fragment,
+          madmp_schema: fragment.madmp_schema,
+          research_output: research_output,
+          dmp_id: fragment.dmp_id,
+          parent_id: fragment.parent_id,
+          pickable_schemas: MadmpSchema.where(classname: fragment.classname).order(:label),
+          readonly: !editable,
+          base_template_org: template.base_org
+        }, formats: [:html]),
+        "form_run" => run_parameters.present? ? 
+          render_to_string(partial: "shared/dynamic_form/codebase/show", locals: {
+            fragment: fragment,
+            parameters: run_parameters,
+            template_locale: template.locale
+          }, formats: [:html]) : nil,
+        "answer_status" => answer.present? ?
+          render_to_string(partial: "answers/status", locals: {
+            answer: answer
+        }, formats: [:html]) :
+        nil
+      },
+      "section" => {
+        "id" => section&.id
+      },
+      "plan" => {
+        "id" => plan.id,
+        "progress" => section.present? ?
+          render_to_string(partial: "plans/progress", locals: {
+            plan: plan,
+            current_phase: section.phase
+        }, formats: [:html]) :
+        nil
+      },
+      "research_output" => {
+        "id" => research_output&.id
+      }
     }.to_json
   end
 

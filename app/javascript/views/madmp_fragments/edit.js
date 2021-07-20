@@ -15,11 +15,36 @@ $(() => {
 
   $('.panel-collapse').on('shown.bs.collapse reload.form', (e) => {
     const target = $(e.target);
+    const fragmentId = target.find('.fragment-id').val();
     if (!target.hasClass('fragment-content')) {
       return;
     }
-    const form = target.find('form');
-    if (form.hasClass('new-fragment')) {
+    if (fragmentId) {
+      $.ajax({
+        method: 'get',
+        url: `/madmp_fragments/load_form/${fragmentId}`,
+        beforeSend: () => {
+          showLoadingOverlay(target);
+        },
+        complete: () => {
+          hideLoadingOverlay(target);
+        },
+      }).done((data) => {
+        doneCallback(data, target);
+        $(`#runs-${data.question.id}-research-output-${data.research_output.id} .run-zone`).html(data.question.form_run);
+        Tinymce.init({
+          selector: `#research_output_${data.research_output.id}_section_${data.section.id} .note`,
+          toolbar,
+        });
+        target.find('.toggle-guidance-section').removeClass('disabled');
+        Select2.init(`#answer-form-${data.question.id}-research-output-${data.research_output.id}`);
+      }).fail((error) => {
+        failCallback(error, target);
+      });
+    } else {
+      const form = target.find('.new-fragment');
+      if (form.length === 0) return;
+
       $.ajax({
         method: 'get',
         url: '/madmp_fragments/load_new_form',
@@ -40,40 +65,19 @@ $(() => {
         });
         Select2.init(`#answer-form-${data.question.id}-research-output-${data.research_output.id}`);
         target.find('.schema_picker').data('fragment-id', data.fragment_id);
-      }).fail((error) => {
-        failCallback(error, target);
-      });
-    } else {
-      const fragmentId = target.find('.fragment-id').val();
-      $.ajax({
-        method: 'get',
-        url: `/madmp_fragments/load_form/${fragmentId}`,
-        beforeSend: () => {
-          showLoadingOverlay(target);
-        },
-        complete: () => {
-          hideLoadingOverlay(target);
-        },
-      }).done((data) => {
-        doneCallback(data, target);
-        $(`#runs-${data.question.id}-research-output-${data.research_output.id} .run-zone`).html(data.question.form_run);
-        Tinymce.init({
-          selector: `#research_output_${data.research_output.id}_section_${data.section.id} .note`,
-          toolbar,
-        });
-        Select2.init(`#answer-form-${data.question.id}-research-output-${data.research_output.id}`);
+        target.find('.toggle-guidance-section').removeClass('disabled');
       }).fail((error) => {
         failCallback(error, target);
       });
     }
   });
-  $('.panel-collapse').on('hide.bs.collapse', (e) => {
+
+  $('.panel-collapse').on('hide.bs.collapse.fragment-content', (e) => {
     const target = $(e.target);
-    if (!target.hasClass('fragment-content')) {
-      return;
+    if (target.find('.guidance-section').is(':visible')) {
+      target.find('.toggle-guidance-section').trigger('click');
     }
-    const fragmentId = target.find('.fragment-id').val();
-    target.find('.answer-form').html(`<input type="hidden" name="fragment-id" id="fragment-id" value="${fragmentId}" class="fragment-id">`);
+    target.find('.toggle-guidance-section').addClass('disabled');
   });
 
   $('body').on('click', '.question .heading-button', (e) => {
