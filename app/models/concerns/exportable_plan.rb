@@ -13,12 +13,13 @@ module ExportablePlan
   end
 
   # rubocop:disable Metrics/AbcSize
-  def as_csv(headings = true,
+  def as_csv(user,
+             headings = true,
              unanswered = true,
              selected_phase = nil,
              show_custom_sections = true,
              show_coversheet = false)
-    hash = prepare(show_coversheet)
+    hash = prepare(user, show_coversheet)
     CSV.generate do |csv|
       prepare_coversheet_for_csv(csv, headings, hash) if show_coversheet
 
