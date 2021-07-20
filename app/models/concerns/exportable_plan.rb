@@ -12,7 +12,7 @@ module ExportablePlan
     prepare(user, coversheet)
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/ParameterLists
   def as_csv(user,
              headings = true,
              unanswered = true,
@@ -48,8 +48,7 @@ module ExportablePlan
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize
-  # rubocop:enable
+  # rubocop:enable Metrics/AbcSize, Metrics/ParameterLists
 
   private
 
