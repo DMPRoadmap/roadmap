@@ -63,25 +63,10 @@
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" aria-labelledby="admin-menu">
-              <% if current_user.can_org_admin? %>
-                <li <%= 'class=active' if active_page?(org_admin_plans_path) %>>
-                  <%= link_to _('Plans'), org_admin_plans_path %>
-                </li>
-              <% end %>
-              <% if current_user.can_modify_templates? %>
-                <% template_path = current_user.can_super_admin? ? org_admin_templates_path : organisational_org_admin_templates_path %>
-                  <li <%= 'class=active' if active_page?(template_path) %>>
-                    <%= link_to _('Templates'), template_path %>
-                  </li>
-              <% end %>
-              <!-- GUIDANCE -->
               
-              <% if current_user.can_modify_guidance? %>
-                  <li <%= 'class=active' if active_page?(admin_index_guidance_path(current_user.org_id)) %>>
-                    <%= link_to _('Guidance'), admin_index_guidance_path(current_user.org_id) %>
-                  </li>
-              <% end %>
+                        
               
+              <!-- ORGANISATION -->
               <% if current_user.can_super_admin? %>
                   <li <%= 'class=active' if active_page?(admin_edit_org_path(current_user.org_id)) %>>
                     <%= link_to _('Organisations'), super_admin_orgs_path %>
@@ -93,31 +78,57 @@
                     </li>
                 <% end %>
               <% end %>
+
+              <!-- TEMPLATES -->
+              <% if current_user.can_modify_templates? %>
+                <% template_path = current_user.can_super_admin? ? org_admin_templates_path : organisational_org_admin_templates_path %>
+                  <li <%= 'class=active' if active_page?(template_path) %>>
+                    <%= link_to _('Templates'), template_path %>
+                  </li>
+              <% end %>
+              
+              <!-- GUIDANCE -->              
+              <% if current_user.can_modify_guidance? %>
+                  <li <%= 'class=active' if active_page?(admin_index_guidance_path(current_user.org_id)) %>>
+                    <%= link_to _('Guidance'), admin_index_guidance_path(current_user.org_id) %>
+                  </li>
+              <% end %>
+              
+              <!-- PLANS -->
+              <% if current_user.can_org_admin? %>
+                <li <%= 'class=active' if active_page?(org_admin_plans_path) %>>
+                  <%= link_to _('Plans'), org_admin_plans_path %>
+                </li>
+              <% end %> 
+
+              <!-- USERS -->
               <% if current_user.can_grant_permissions? %>
                   <li <%= 'class=active' if active_page?(admin_index_users_path) %>>
                     <%= link_to _('Users'), admin_index_users_path, class: 'main_nav_last_li' %>
                   </li>
               <% end %>
-              <!-- THEMES -->
               
-              
+              <!-- THEMES -->                
               <% if current_user.can_super_admin? %>
                 <li <%= 'class=active' if active_page?(super_admin_themes_path) %>>
                   <%= link_to(_('Themes'), super_admin_themes_path) %>
                 </li>
               <% end %>
               
-              
+              <!-- USAGE -->
               <% if current_user.can_org_admin? || current_user.can_super_admin? %>
                 <li <%= 'class=active' if active_page?(usage_index_path) %>>
-                  <%= link_to(_('Usage'), usage_index_path) %>
+                  <%= link_to(_('Usage statistics'), usage_index_path) %>
                 </li>
               <% end %>
+              
+              <!-- NOTIFICATIONS -->
               <% if current_user.can_super_admin? %>
                 <li <%= 'class=active' if active_page?(super_admin_notifications_path) %>>
                   <%= link_to _('Notifications'), super_admin_notifications_path %>
                 </li>
               <% end %>
+
             </ul>
           </li>
         <% end %> <!-- if org admin -->
