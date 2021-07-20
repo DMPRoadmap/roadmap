@@ -58,7 +58,7 @@
 
     <% if @user.identifiers.present? %>
       <h2>Identifiers</h2>
-      <% presenter.identifiers.each do |identifier| %>
+      <% @user.identifiers.each do |identifier| %>
         <p><%= id_for_display(id: identifier, with_scheme_name: true) %></p>
       <% end %>
     <% end %>
