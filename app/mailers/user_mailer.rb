@@ -108,6 +108,7 @@ class UserMailer < ActionMailer::Base
 
     I18n.with_locale I18n.default_locale do
       mail(to: @recipient.email,
+           reply_to: Rails.configuration.x.organisation.email,
            subject: _("%{user_name} has requested feedback on a %{tool_name} plan") %
            {
              tool_name: tool_name, user_name: @user.name(false)
@@ -264,6 +265,24 @@ class UserMailer < ActionMailer::Base
     I18n.with_locale I18n.default_locale do
       mail(to: administrators,
            subject: _("%{tool_name} error occurred") % { tool_name: tool_name })
+    end
+  end
+
+  # Sends an email to the Plan's owner letting them know that the Plan was created by the ApiClient
+  def new_plan_via_api(recipient:, plan:, api_client:)
+    return false unless recipient.is_a?(User) && plan.is_a?(Plan) && api_client.is_a?(ApiClient)
+
+    subject = "A new data management plan (DMP) has been created for you by %{api_client_name}" % {
+      api_client_name: api_client.description
+    }
+    @api_client = api_client
+    @user = recipient
+    @plan = plan
+    I18n.with_locale I18n.default_locale do
+      mail(
+        to: Rails.env.production? ? recipient.email : api_client.contact_email,
+        subject: subject
+      )
     end
   end
 

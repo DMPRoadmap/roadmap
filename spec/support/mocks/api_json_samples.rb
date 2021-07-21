@@ -102,7 +102,7 @@ module Mocks
             "name": contact[:name],
             "mbox": contact[:email],
             "affiliation": {
-              "name": Faker::TvShows::Simpsons.location,
+              "name": ror.identifiable.name,
               "abbreviation": Faker::Lorem.word.upcase,
               "region": Faker::Space.planet,
               "affiliation_id": {
@@ -142,11 +142,11 @@ module Mocks
             "name": contact[:name],
             "mbox": contact[:email],
             "affiliation": {
-              "name": Faker::Movies::StarWars.planet,
+              "name": ror.identifiable.name,
               "abbreviation": Faker::Lorem.word.upcase,
               "affiliation_id": {
                 "type": "ror",
-                "identifier": SecureRandom.uuid
+                "identifier": ror.value
               }
             },
             "contributor_id": {
@@ -160,7 +160,7 @@ module Mocks
             "start": (Time.now + 3.months).to_formatted_s(:iso8601),
             "end": (Time.now + 2.years).to_formatted_s(:iso8601),
             "funding": [{
-              "name": Faker::Movies::StarWars.droid,
+              "name": fundref.identifiable.name,
               "funder_id": {
                 "type": "fundref",
                 "identifier": fundref.value
@@ -173,7 +173,7 @@ module Mocks
                 "type": "other",
                 "identifier": SecureRandom.uuid
               },
-              "funding_status": %w[planned applied granted].sample
+              "funding_status": %w[planned rejected granted].sample
             }]
           }],
           "dataset": [{

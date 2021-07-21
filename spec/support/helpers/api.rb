@@ -2,6 +2,8 @@
 
 module ApiHelper
 
+  SCOPES = Doorkeeper.config.default_scopes + Doorkeeper.config.optional_scopes
+
   # API V1 - auth for an ApiClient (client_id + client_secret)
   def mock_authorization_for_api_client
     api_client = ApiClient.first
@@ -25,8 +27,8 @@ module ApiHelper
   end
 
   # API V2+ - Oauth client_credentials grant flow
-  def mock_client_credentials_token(api_client: create(:api_client))
-    create(:oauth_access_token, application: api_client).token
+  def mock_client_credentials_token(api_client: create(:api_client), scopes: SCOPES)
+    create(:oauth_access_token, application: api_client, scopes: scopes).token
   end
 
   # API V2+ - Oauth authorization_code grant flow (on behalf of a user)

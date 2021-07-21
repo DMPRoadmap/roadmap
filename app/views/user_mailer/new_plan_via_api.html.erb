@@ -1,0 +1,17 @@
+
+<% unless Rails.env.production? %>
+  <p><%= _("A DMP was created via the API in a non-production environment!") %></p>
+<% end %>
+
+<p>
+  <%= _('Hello %{user_name},') % {user_name: @user.name(false)} %>
+</p>
+<p>
+  <%= sanitize(_("A new data management plan (DMP) with the title of '%{plan_name}' has been created for you by the %{api_client_name} system.<br><br>Please sign into the %{tool_name} to begin updating your DMP.") % {
+    api_client_name: @api_client.description,
+    plan_name: @plan.title,
+    tool_name: link_to(tool_name, root_url)
+    }) %>
+</p>
+
+<%= render partial: 'email_signature', locals: { allow_change_prefs: false } %>

@@ -64,7 +64,8 @@ module Api
 
             # Process Project, Contributors and Data Contact and Datsets
             plan = deserialize_project(plan: plan, json: json)
-            plan = deserialize_contact(plan: plan, json: json)
+            # The contact is handled from within the controller since the Plan.add_user! method
+            # requires that the Plan has been persisted to the DB
             plan = deserialize_contributors(plan: plan, json: json)
             deserialize_datasets(plan: plan, json: json)
           end
@@ -80,12 +81,20 @@ module Api
 
             id = id_json[:identifier] if id_json.is_a?(Hash)
             if id.present?
+              schm = IdentifierScheme.find_by(name: id_json[:type].downcase)
+
               # If the identifier is a DOI/ARK or the api client's internal id for the DMP
-              if Api::V1::DeserializationService.doi?(value: id) || id_json[:type] == "other"
+              if Api::V1::DeserializationService.doi?(value: id)
                 # Find by the DOI or ARK
                 plan = Api::V1::DeserializationService.object_from_identifier(
                   class_name: "Plan", json: id_json
                 )
+              elsif schm.present?
+                value = id.start_with?(schm.identifier_prefix) ? id : "#{schm.identifier_prefix}#{id}"
+                identifier = ::Identifier.find_by(
+                  identifiable_type: "Plan", identifier_scheme: schm, value: value
+                )
+                plan = identifier.identifiable if identifier.present?
               else
                 # For URL based identifiers
                 begin
@@ -136,20 +145,6 @@ module Api
             Api::V1::Deserialization::Funding.deserialize(plan: plan, json: funding)
           end
           # rubocop:enable
-
-          # Deserialize the contact as a Contributor
-          def deserialize_contact(plan:, json: {})
-            return plan unless json.present? && json[:contact].present?
-
-            contact = Api::V1::Deserialization::Contributor.deserialize(
-              json: json[:contact], is_contact: true
-            )
-            return plan unless contact.present?
-
-            plan.contributors << contact
-            plan.org = contact.org
-            plan
-          end
 
           # Deserialize each Contributor and then add to Plan
           def deserialize_contributors(plan:, json: {})

@@ -260,25 +260,12 @@ RSpec.describe Api::V2::PlansController, type: :request do
     describe "POST /api/v1/plans - create" do
       before(:each) do
         @json = JSON.parse(complete_create_json(client: @client)).with_indifferent_access
+        @scheme = create(:identifier_scheme, name: @client.name.downcase)
         stub_ror_service
       end
 
       it "returns 401 if the token is invalid" do
         @headers["Authorization"] = "Bearer #{SecureRandom.uuid}"
-        post(api_v2_plans_path, params: @json, headers: @headers)
-
-        expect(response.code).to eql("401")
-        expect(response).to render_template("api/v2/_standard_response")
-        expect(response).to render_template("api/v2/error")
-
-        json = JSON.parse(response.body).with_indifferent_access
-        expect(json[:items].empty?).to eql(true)
-        expect(json[:errors].length).to eql(1)
-        expect(json[:errors].first).to eql("token is invalid, expired or has been revoked")
-      end
-      it "fails if the Plan already exists (based on the specified :dmp_id" do
-        plan = create(:plan)
-        create(:identifier, identifiable: plan, value: @json[:dmp_id][:identifier])
         post(api_v2_plans_path, params: @json.to_json, headers: @headers)
 
         expect(response.code).to eql("401")
@@ -290,7 +277,17 @@ RSpec.describe Api::V2::PlansController, type: :request do
         expect(json[:errors].length).to eql(1)
         expect(json[:errors].first).to eql("token is invalid, expired or has been revoked")
       end
-      it "fails if invalid JSON is passed" do
+      it "returns 403 if the ApiClient does not have the :create_dmps scope" do
+        token = mock_client_credentials_token(api_client: @client, scopes: %i[read_dmps])
+        @headers["Authorization"] = "Bearer #{token.to_s}"
+        post(api_v2_plans_path, params: @json.to_json, headers: @headers)
+
+        expect(response.code).to eql("403")
+      end
+      it "fails if the Plan already exists (based on the specified :dmp_id)" do
+        plan = create(:plan)
+        id = @json[:dmp].fetch(:dmp_id, {})[:identifier]
+        create(:identifier, identifiable: plan, value: id, identifier_scheme: @scheme)
         post(api_v2_plans_path, params: @json.to_json, headers: @headers)
 
         expect(response.code).to eql("400")
@@ -300,23 +297,50 @@ RSpec.describe Api::V2::PlansController, type: :request do
         json = JSON.parse(response.body).with_indifferent_access
         expect(json[:items].empty?).to eql(true)
         expect(json[:errors].length).to eql(1)
-        expect(json[:errors].first).to eql("Invalid JSON!")
+        expect(json[:errors].first).to eql("Plan already exists. Send an update instead.")
+      end
+      it "fails if invalid JSON is passed" do
+        Api::V2::Deserialization::Plan.stubs(:deserialize).raises(JSON::ParserError)
+        post(api_v2_plans_path, params: @json.to_json, headers: @headers)
+
+        expect(response.code).to eql("400")
+        expect(response).to render_template("api/v2/_standard_response")
+        expect(response).to render_template("api/v2/error")
+
+        json = JSON.parse(response.body).with_indifferent_access
+        expect(json[:items].empty?).to eql(true)
+        expect(json[:errors].length).to eql(1)
+        expect(json[:errors].first).to eql("Invalid JSON")
       end
       it "fails if the JSON could not be deserialized to a Plan" do
+        Api::V2::Deserialization::Plan.stubs(:deserialize).returns(nil)
+        post(api_v2_plans_path, params: @json.to_json, headers: @headers)
 
+        expect(response.code).to eql("400")
+        expect(response).to render_template("api/v2/_standard_response")
+        expect(response).to render_template("api/v2/error")
+
+        json = JSON.parse(response.body).with_indifferent_access
+        expect(json[:items].empty?).to eql(true)
+        expect(json[:errors].length).to eql(1)
+        expect(json[:errors].first).to eql("Invalid JSON format!")
       end
       it "returns contextualized errors" do
+        @json[:dmp][:contact] = {}
+        post(api_v2_plans_path, params: @json.to_json, headers: @headers)
 
+        expect(response.code).to eql("400")
+        expect(response).to render_template("api/v2/_standard_response")
+        expect(response).to render_template("api/v2/error")
+
+        json = JSON.parse(response.body).with_indifferent_access
+        expect(json[:items].empty?).to eql(true)
+        expect(json[:errors].length).to eql(1)
+        expect(json[:errors].first).to eql([":title and the contact's :mbox are both required fields"])
       end
 
       it "creates the Plan" do
-
-pp @json
-p "==============================="
-
         post(api_v2_plans_path, params: @json.to_json, headers: @headers)
-
-pp response.body
 
         expect(response.code).to eql("201")
         expect(response).to render_template("api/v2/_standard_response")
@@ -357,6 +381,7 @@ pp response.body
         expect(created[:dmp_id][:identifier].end_with?(api_v2_plan_path(dmp))).to eql(true)
 
         # Contact verification
+        contact_mbox = original[:contact][:mbox]
         expect(created[:contact][:mbox]).to eql(original[:contact][:mbox])
         expect(created[:contact][:name]).to eql(original[:contact][:name])
         expect(created[:contact][:affiliation][:name]).to eql(original[:contact][:affiliation][:name])
@@ -364,19 +389,89 @@ pp response.body
         expect(created[:contact][:name]).to eql(dmp.owner.name(false))
         expect(created[:contact][:affiliation][:name]).to eql(dmp.owner.org.name)
 
+        # Contributor verification
+        expect(created[:contributor].length).to eql(original[:contributor].length)
+        created[:contributor].each do |contributor|
+          orig_contrib = original[:contributor].select do |c|
+            c[:mbox] == contributor[:mbox] || c[:name] == contributor[:name]
+          end
+
+          contrib = Contributor.find_by(email: orig_contrib.first[:mbox])
+          expect(contributor[:name]).to eql(orig_contrib.first[:name])
+          expect(contributor[:mbox]).to eql(orig_contrib.first[:mbox])
+          expect(contributor[:affiliation][:name]).to eql(orig_contrib.first[:affiliation][:name])
+          expect(contributor[:name]).to eql(contrib.name)
+          expect(contributor[:mbox]).to eql(contrib.email)
+          expect(contributor[:affiliation][:name]).to eql(contrib.org.name)
+
+          contributor[:role].each do |role|
+            expect(orig_contrib.first[:role].include?(role)).to eql(true)
+            r = Api::V2::DeserializationService.translate_role(role: role)
+            expect(contrib.send(:"#{r}?")).to eql(true)
+          end
+        end
+
+        # Project Verification
+        project = created.fetch(:project, [{}]).first
         # There is no Project model so the project->title and project->description should be
         # the same as the Plan's
-        project = created.fetch(:project, [{}]).first
         expect(created[:title]).to eql(project[:title])
         expect(created[:description]).to eql(project[:description])
+        expect(Time.new(project[:start])).to eql(Time.new(original.fetch(:project, [{}]).first[:start]))
+        expect(Time.new(project[:end])).to eql(Time.new(original.fetch(:project, [{}]).first[:end]))
+        expect(project[:start]).to eql(dmp.start_date.to_formatted_s(:iso8601))
+        expect(project[:end]).to eql(dmp.end_date.to_formatted_s(:iso8601))
+
+        # Funding Verification
+        funding = created.fetch(:project, [{}]).first.fetch(:funding, [{}]).first
+        orig_funding = original.fetch(:project, [{}]).first.fetch(:funding, [{}]).first
+        expect(funding[:name]).to eql(orig_funding[:name])
+        expect(funding[:funding_status]).to eql(orig_funding[:funding_status])
+        expect(funding[:grant_id][:identifier]).to eql(orig_funding[:grant_id][:identifier])
+        opp_id = funding[:dmproadmap_funding_opportunity_id][:identifier]
+        expect(opp_id).to eql(orig_funding[:dmproadmap_funding_opportunity_id][:identifier])
       end
 
-      it "sends an invitation email if the :contact is not a User" do
-        devise/mailer/invitation_instructions
+      it "sends an invitation email if the :contact is not already a User" do
+        ActionMailer::Base.deliveries = []
+        post(api_v2_plans_path, params: @json.to_json, headers: @headers)
+
+        expect(response.code).to eql("201")
+        expect(ActionMailer::Base.deliveries).to have_exactly(1).item
+        expect(response).to render_template("devise/mailer/invitation_instructions")
+
+        owner = Plan.find_by(title: @json[:dmp][:title]).owner
+        expect(owner.firstname.present?).to eql(true)
+        expect(owner.surname.present?).to eql(true)
+        expect(owner.email.present?).to eql(true)
+        expect(owner.org.present?).to eql(true)
+        expect(owner.invitation_token.present?).to eql(true)
+        expect(owner.invitation_created_at.present?).to eql(true)
+        expect(owner.invitation_sent_at.present?).to eql(true)
+        expect(owner.plans.length).to eql(1)
       end
 
-      it "sends an email notification of the new plan if the :contact is a User" do
-        user_mailer/new_plan_via_api
+      it "sends an email notification of the new plan if the :contact is already a User" do
+        contact = @json[:dmp][:contact]
+        name_parts = contact[:name].split(" ")
+        create(:user, firstname: name_parts.first, surname: name_parts.last, email: contact[:mbox])
+
+        ActionMailer::Base.deliveries = []
+        post(api_v2_plans_path, params: @json.to_json, headers: @headers)
+
+        expect(response.code).to eql("201")
+        expect(ActionMailer::Base.deliveries).to have_exactly(1).item
+        expect(response).to render_template("user_mailer/new_plan_via_api")
+
+        owner = Plan.find_by(title: @json[:dmp][:title]).owner
+        expect(owner.firstname.present?).to eql(true)
+        expect(owner.surname.present?).to eql(true)
+        expect(owner.email.present?).to eql(true)
+        expect(owner.org.present?).to eql(true)
+        expect(owner.invitation_token.present?).to eql(false)
+        expect(owner.invitation_created_at.present?).to eql(false)
+        expect(owner.invitation_sent_at.present?).to eql(false)
+        expect(owner.plans.length).to eql(1)
       end
     end
   end
