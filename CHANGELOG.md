@@ -1,6 +1,6 @@
 # Changelog
 
-## [2.1.3+portage-1.0.15] - 2021-07-21
+## [2.1.3+portage-1.0.16] - 2021-07-21
 
 ## Changed
  - Applied changes in ordering requested by the Admin Guide Working Group
