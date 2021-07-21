@@ -13,7 +13,7 @@
       <div class="modal-body" style="text-align: left">
         <ul class="list-group">
          <input type="checkbox" name="org_admin_privileges" id="org_admin_privileges" />
-          <%= label_tag :organisational_admin_privileges %>
+          <%= label_tag :organisational_admin_privileges, _('Organisational admin privileges') %>
           <% perms.each do |perm| %>
             <% case perm.name when 'grant_permissions' %>
               <li class="list-group-item" style="border: none" title="<%= _('Allows the user to assign permissions to other users within the same organisation. Users can only assign permissions they own themselves') %>">
