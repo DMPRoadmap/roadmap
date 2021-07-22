@@ -9,7 +9,7 @@ namespace :translatable do
         puts "Language added"
       end
     else
-      puts "You must provide a ISO-639 language code, name: `rake translatable:add_language[ja,日本語]`"
+      puts "You must provide a ISO-639 language code, name: `rails translatable:add_language[ja,日本語]`"
     end
   end
 

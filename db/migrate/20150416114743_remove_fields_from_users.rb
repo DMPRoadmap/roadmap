@@ -1,4 +1,4 @@
-class RemoveFieldsFromUsers < ActiveRecord::Migration
+class RemoveFieldsFromUsers < ActiveRecord::Migration[4.2]
   def change
     remove_column :users, :password
     remove_column :users, :login_count  

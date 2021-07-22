@@ -1,8 +1,12 @@
+# frozen_string_literal: true
+
 class QuestionPolicy < ApplicationPolicy
+
   attr_reader :user, :question
 
   def initialize(user, question)
     raise Pundit::NotAuthorizedError, "must be logged in" unless user
+
     @user = user
     @question = question
   end
@@ -16,19 +20,23 @@ class QuestionPolicy < ApplicationPolicy
   def index?
     user.present?
   end
-  
+
   def show?
     user.present?
+  end
+
+  def open_conditions?
+    user.can_modify_templates?  &&  (question.section.phase.template.org_id == user.org_id)
   end
 
   def edit?
     user.can_modify_templates?  &&  (question.section.phase.template.org_id == user.org_id)
   end
-    
+
   def new?
     user.can_modify_templates?  &&  (question.section.phase.template.org_id == user.org_id)
   end
-  
+
   def create?
     user.can_modify_templates?  &&  (question.section.phase.template.org_id == user.org_id)
   end
@@ -41,8 +49,9 @@ class QuestionPolicy < ApplicationPolicy
     user.can_modify_templates?  &&  (question.section.phase.template.org_id == user.org_id)
   end
 
-# TODO: Remove this after annotations controller is refactored
+  # TODO: Remove this after annotations controller is refactored
   def admin_update?
     user.can_modify_templates?  &&  (question.section.phase.template.org_id == user.org_id)
   end
+
 end

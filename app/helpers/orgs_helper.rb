@@ -14,9 +14,9 @@ module OrgsHelper
     _("<p>A data librarian from %{org_name} will respond to your request within 48
        hours. If you have questions pertaining to this action please contact us
        at %{organisation_email}.</p>") % {
-      organisation_email: email,
-      org_name: org.name
-    }
+         organisation_email: email,
+         org_name: org.name
+       }
   end
 
   # The preferred logo url for the current configuration. If DRAGONFLY_AWS is true, return

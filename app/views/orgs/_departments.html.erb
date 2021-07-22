@@ -4,12 +4,12 @@
     <%= paginable_renderise( partial: '/paginable/departments/index',
                              controller: 'paginable/departments',
                              action: 'index',
-                             scope: departments,
+                             scope: org.departments || [],
                              query_params: { sort_field: 'departments.name', sort_direction: 'asc' })  %>
   </div>
 </div>
 <div class="row">
   <div class="col-md-12">
-    <a href="<%= new_org_department_path(org_id) %>" class="btn btn-primary"><%= _('Create school/department') %></a>
+    <a href="<%= new_org_department_path(org.id) %>" class="btn btn-primary"><%= _('Create school/department') %></a>
   </div>
 </div>

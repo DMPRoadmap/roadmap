@@ -1,4 +1,4 @@
-class AddDefaultValueToPublishedOnGuidanceGroups < ActiveRecord::Migration
+class AddDefaultValueToPublishedOnGuidanceGroups < ActiveRecord::Migration[4.2]
   def up
     change_column :guidance_groups, :published, :boolean, default: false, null: false
   end

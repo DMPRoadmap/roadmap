@@ -37,7 +37,7 @@
             <% elsif template.draft? %>
               <% tooltip = _('You have unpublished changes! Select "Publish changes" in the Actions menu when you are ready to make them available to users.') %>
               <%= _('Published') %> <em class="sr-only"><%= tooltip %></em>
-              &nbsp;&nbsp;<i class="fa fa-pencil-square-o red" aria-hidden="true" data-toggle="tooltip" title="<%= tooltip %>"></i>
+              &nbsp;&nbsp;<i class="far fa-edit red" aria-hidden="true" data-toggle="tooltip" title="<%= tooltip %>"></i>
             <% else %>
               <%= _('Unpublished') %>
             <% end %>

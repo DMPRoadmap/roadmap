@@ -1,7 +1,10 @@
-<% title org.id.present? ? _('Organisation details') : _('New organisation') %>
+<% title _('Organisation details') %>
+
 <div class="row">
   <div class="col-md-12">
-    <h1><%= org.id.present? ? _('Organisation details') : _('New organisation') %></h1>
+    <h1>
+      <%= _('Organisation details') %>
+    </h1>
     <% if current_user.can_super_admin? %>
       <%= link_to _('View all organisations'), super_admin_orgs_path, class: 'btn btn-default pull-right' %>
     <% end %>
@@ -14,14 +17,14 @@
       <li role="profile" class="active">
         <a href="#profile" role="tab" aria-controls="profile" data-toggle="tab"><%= _('Profile information') %></a>
       </li>
-      <% if org.id.present? %>
-        <li role="feedback">
-          <a href="#feedback" role="tab" aria-controls="feedback" data-toggle="tab"><%= _('Request feedback') %></a>
-        </li>
-        <li role="form">
-          <a href="#departments" role="tab" aria-controls="form" data-toggle="tab"><%= _('Schools/Departments') %></a>
-        </li>
-      <% end %>
+
+      <li role="feedback">
+        <a href="#feedback" role="tab" aria-controls="feedback" data-toggle="tab"><%= _('Request feedback') %></a>
+      </li>
+
+      <li role="form">
+        <a href="#departments" role="tab" aria-controls="form" data-toggle="tab"><%= _('Schools/Departments') %></a>
+      </li>
     </ul>
 
     <!-- render navigation tabs for the template-->
@@ -30,30 +33,31 @@
         <div class="panel panel-default">
           <div class="panel-body">
             <div class="px-2">
-              <%= render partial: 'orgs/profile_form', locals: local_assigns %>
+              <%= render partial: 'orgs/profile_form',
+                         locals: { org: org, method: method, url: url } %>
             </div>
           </div>
         </div>
       </div>
+
       <div role="tabpanel" class="tab-pane" id="feedback">
         <div class="panel panel-default">
           <div class="panel-body">
-            <% if org.id.present? %>
-              <div>
-                <%= render partial: 'orgs/feedback_form', locals: local_assigns %>
-              </div>
-            <% end %>
+            <div>
+              <%= render partial: 'orgs/feedback_form',
+                         locals: { org: org } %>
+            </div>
           </div>
         </div>
       </div>
+
       <div role="tabpanel" class="tab-pane" id="departments">
         <div class="panel panel-default">
           <div class="panel-body">
-            <% if org.id.present? %>
-              <div>
-                <%= render partial: 'orgs/departments', locals: local_assigns.merge({ departments: org.departments, org_id: org.id }) %>
-              </div>
-            <% end %>
+            <div>
+              <%= render partial: 'orgs/departments',
+                         locals: { org: org } %>
+            </div>
           </div>
         </div>
       </div>

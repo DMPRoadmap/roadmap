@@ -24,11 +24,10 @@
 #  fk_rails_...  (org_id => orgs.id)
 #
 
-class GuidanceGroup < ActiveRecord::Base
+class GuidanceGroup < ApplicationRecord
 
-  include GlobalHelpers
-  include ValidationValues
-  include ValidationMessages
+  attribute :optional_subset, :boolean, default: true
+  attribute :published, :boolean, default: false
 
   # ================
   # = Associations =
@@ -44,7 +43,7 @@ class GuidanceGroup < ActiveRecord::Base
   # = Validations =
   # ===============
 
-  validates :name, presence: { message:  PRESENCE_MESSAGE },
+  validates :name, presence: { message: PRESENCE_MESSAGE },
                    uniqueness: { message: UNIQUENESS_MESSAGE, scope: :org_id }
 
   validates :org, presence: { message: PRESENCE_MESSAGE }
@@ -54,7 +53,6 @@ class GuidanceGroup < ActiveRecord::Base
 
   validates :published, inclusion: { in: BOOLEAN_VALUES,
                                      message: INCLUSION_MESSAGE }
-
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
@@ -76,7 +74,7 @@ class GuidanceGroup < ActiveRecord::Base
 
   # Whether or not a given user can view a given guidance group
   # we define guidances viewable to a user by those owned by:
-  #   the managing curation center
+  #   the default orgs
   #   a funder organisation
   #   an organisation, of which the user is a member
   #
@@ -88,9 +86,9 @@ class GuidanceGroup < ActiveRecord::Base
     viewable = false
     # groups are viewable if they are owned by any of the user's organisations
     viewable = true if guidance_group.org == user.org
-    # groups are viewable if they are owned by the managing curation center
-    Org.managing_orgs.each do |managing_group|
-      viewable = true if guidance_group.org.id == managing_group.id
+    # groups are viewable if they are owned by the default org
+    Org.default_orgs.each do |default_org|
+      viewable = true if guidance_group.org.id == default_org.id
     end
     # groups are viewable if they are owned by a funder
     viewable = true if guidance_group.org.funder?
@@ -98,10 +96,9 @@ class GuidanceGroup < ActiveRecord::Base
     viewable
   end
 
-
   # A list of all guidance groups which a specified user can view
   # we define guidance groups viewable to a user by those owned by:
-  #   the Managing Curation Center
+  #   the Default Orgs
   #   a funder organisation
   #   an organisation, of which the user is a member
   #
@@ -109,9 +106,9 @@ class GuidanceGroup < ActiveRecord::Base
   #
   # Returns Array
   def self.all_viewable(user)
-    # first find all groups owned by the Managing Curation Center
-    managing_org_groups = Org.includes(guidance_groups: [guidances: :themes])
-                             .managing_orgs.collect(&:guidance_groups)
+    # first find all groups owned by the Default Orgs
+    default_org_groups = Org.includes(guidance_groups: [guidances: :themes])
+                            .default_orgs.collect(&:guidance_groups)
 
     # find all groups owned by  a Funder organisation
     funder_groups = Org.includes(:guidance_groups)
@@ -122,11 +119,19 @@ class GuidanceGroup < ActiveRecord::Base
 
     # pass this organisation guidance groups to the view with respond_with
     # all_viewable_groups
-    all_viewable_groups = managing_org_groups +
+    all_viewable_groups = default_org_groups +
                           funder_groups +
                           organisation_groups
     all_viewable_groups = all_viewable_groups.flatten.uniq
     all_viewable_groups
+  end
+
+  def self.create_org_default(org)
+    GuidanceGroup.create!(
+      name: org.abbreviation? ? org.abbreviation : org.name,
+      org: org,
+      optional_subset: false
+    )
   end
 
 end

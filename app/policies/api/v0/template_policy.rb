@@ -1,6 +1,11 @@
+# frozen_string_literal: true
+
 module Api
+
   module V0
+
     class TemplatePolicy < ApplicationPolicy
+
       attr_reader :user, :template
 
       def initialize(user, template)
@@ -8,6 +13,7 @@ module Api
         unless user.org.token_permission_types.include? TokenPermissionType::TEMPLATES
           raise Pundit::NotAuthorizedError, _("must have access to guidances api")
         end
+
         @user = user
         @template = template
       end
@@ -19,5 +25,7 @@ module Api
       end
 
     end
+
   end
+
 end

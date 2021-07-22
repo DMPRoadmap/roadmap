@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe "SuperAdmins OrgSwaps", type: :feature, js: true do
@@ -11,7 +13,7 @@ RSpec.describe "SuperAdmins OrgSwaps", type: :feature, js: true do
     sign_in(@user)
     click_link "Admin"
     click_link "Templates"
-    expect(page).not_to have_text('Change affiliation')
+    expect(page).not_to have_text("Change affiliation")
   end
 
   scenario "Super admin changes to new org" do
@@ -19,7 +21,7 @@ RSpec.describe "SuperAdmins OrgSwaps", type: :feature, js: true do
     sign_in(@user)
     click_link "Admin"
     click_link "Templates"
-    find('[aria-describedby="label-id-superadmin_user_org_name"]').click
+    find("#superadmin_user_org_name").click
     fill_in(:superadmin_user_org_name, with: @org2.name[0..4])
     choose_suggestion(@org2.name)
     click_button "Change affiliation"
@@ -30,4 +32,3 @@ RSpec.describe "SuperAdmins OrgSwaps", type: :feature, js: true do
   end
 
 end
-

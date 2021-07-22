@@ -18,7 +18,7 @@ class FeedbackRequestsController < ApplicationController
       else
         redirect_to request_feedback_plan_path(@plan), alert: ALERT
       end
-    rescue Exception
+    rescue StandardError
       redirect_to request_feedback_plan_path(@plan), alert: ERROR
     end
   end

@@ -1,21 +1,50 @@
+<%# locals: org, url, method %>
+
 <%
   shared_links_tooltip = _('Links will be displayed next to your organisation\'s logo')
   org_config_info_tooltip =  _('This information can only be changed by a system administrator. Contact the Help Desk if you have questions or to request changes.')
 %>
 
-<%= form_for(org, url: url, html: { multipart: true, method: method, id: "edit_org_profile_form" } ) do |f| %>
-  <div class="row">
-    <div class="form-group col-xs-8">
-      <%= f.label :name, _('Organisation full name'), class: "control-label" %>
-      <%= f.text_field :name, id: "org_name", class: "form-control", "aria-required": true %>
+<%= form_for(org, url: url, html: { multipart: true, method: method,
+                                    id: "edit_org_profile_form" } ) do |f| %>
+
+  <% if org.new_record? %>
+    <%= render partial: "orgs/external_identifiers",
+               locals: {
+                 form: f,
+                 org: org,
+                 editable: current_user.can_super_admin?
+               } %>
+  <% else %>
+    <div class="row">
+      <div class="form-group col-xs-8">
+        <%= f.label :name, _('Organisation full name'), class: "control-label" %>
+        <%= f.text_field :name, id: "org_name", class: "form-control", "aria-required": true %>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="form-group col-xs-8">
-      <%= f.label :abbreviation, _('Organisation abbreviated name'), class: "control-label" %>
-      <%= f.text_field :abbreviation, id: "org_abbreviation", class: "form-control", "aria-required": true %>
+    <div class="row">
+      <div class="form-group col-xs-8">
+        <%= f.label :abbreviation, _('Organisation abbreviated name'), class: "control-label" %>
+        <%= f.text_field :abbreviation, id: "org_abbreviation", class: "form-control", "aria-required": true %>
+      </div>
     </div>
-  </div>
+  <% end %>
+
+  <% if current_user.can_super_admin? %>
+    <div class="row">
+      <div class="form-group col-xs-8">
+        <%= f.label :managed do %>
+          <%= f.check_box :managed, id: "org_managed", "aria-required": true,
+                title: _("A managed Org is one that can have its own Guidance and/or Templates. An unmanaged Org is one that was automatically created by the system when a user entered/selected it.") %>
+          <%= _('Managed? (allows Org Admins to access the Admin menu)') %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% unless org.tracker.present?
+       org.build_tracker
+     end %>
 
   <div class="row">
     <div class="form-group col-xs-8">
@@ -23,7 +52,7 @@
 
       <% if org.logo.present? %>
         <div class="clearfix"></div>
-        <%= image_tag logo_url_for_org(org), alt: "#{org.name} #{_('logo')}" %>
+        <%= image_tag logo_url_for_org(org), alt: "#{org.name} #{_('logo')}", class: "org-logo" %>
         <div class="org-logo-controls checkbox">
           <%= f.label :remove_logo do %>
             <%= f.check_box :remove_logo,
@@ -39,6 +68,8 @@
     </div>
   </div>
 
+  <hr>
+
   <div class="row">
     <div class="col-xs-8">
       <em class="sr-only"><%= shared_links_tooltip %></em>
@@ -46,12 +77,14 @@
                  locals: {
                    context: 'org',
                    title: _('Organisation URLs'),
-                   links: (org.links.present? ? org.links['org'] : []),
-                   max_number_links: MAX_NUMBER_LINKS_FUNDER,
+                   links: org.links.fetch("org", []),
+                   max_number_links: Rails.configuration.x.max_number_links_funder,
                    tooltip: shared_links_tooltip }) %>
       <%= hidden_field_tag('org_links', value: org.links) %>
     </div>
   </div>
+
+  <hr>
 
   <div class="row">
     <div class="form-group col-xs-8">
@@ -69,60 +102,66 @@
     </div>
   </div>
 
-  <div class="bordered col-xs-8" data-toggle="tooltip" title="<%= org_config_info_tooltip %>">
-    <h3><%= _('Organisational Configuration Information') %><em class="sr-only"><%= org_config_info_tooltip %></em></h3>
-    <% if current_user.can_super_admin? %>
-      <% if Rails.application.config.shibboleth_use_filtered_discovery_service %>
-        <% shibboleth = org.org_identifiers.select{ |ids| ids.identifier_scheme == IdentifierScheme.find_by(name: 'shibboleth')} %>
-        <% shib_id = (shibboleth.first.present? ? shibboleth.first.identifier : '') %>
-        <% shib_domain = shibboleth.first.present? ? (shibboleth.first.attrs.present? ? JSON.parse(shibboleth.first.attrs)['domain'] : '') : '' %>
-        <div class="row">
-          <div class="form-group col-xs-8">
-            <%= f.label :shib_id, _('Shibboleth Entity Id'), class: "control-label" %>
-            <%= text_field_tag :shib_id, shib_id, class: "form-control", placeholder: _('Example: https://idp.my-org.org/... or urn:mace:...') %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="form-group col-xs-8">
-            <%= f.label :shib_domain, _('Shibboleth Domain'), class: "control-label" %>
-            <%= text_field_tag :shib_domain, shib_domain, class: "form-control", placeholder: _('Example: my-org.org') %>
-          </div>
-        </div>
+  <hr>
+  <div class="row">
+    <div class="form-group col-xs-8">
+      <h3><%= _("Google Analytics Tracker") %></h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-xs-4">
+      <%= f.fields_for :tracker do |t| %>
+        <%= t.label :code, _('Tracker Code'), class: "control-label" %>
+        <%= t.text_field :code, class: "form-control", aria: { required: false } %>
       <% end %>
-      <div class="row">
-        <fieldset class="col-xs-8">
-          <legend><%= _('Organisation Types') %></legend>
-            <div class="checkbox">
-              <%= f.label :funder do %>
-                <%= check_box_tag :funder, 2, org.funder?, class: 'org_types' %>
-                <%= _('Funder') %>
-              <% end %>
-            </div>
-            <div class="checkbox">
-              <%= f.label :institution do %>
-                <%= check_box_tag :institution, 1, org.institution?, class: 'org_types' %>
-                <%= _('Institution') %>
-              <% end %>
-            </div>
-            <div class="checkbox">
-              <%= f.label :organisation do %>
-                <%= check_box_tag :organisation, 4, org.organisation?, class: 'org_types' %>
-                <%= _('Organisation') %>
-              <% end %>
-            </div>
-            <%= f.hidden_field :org_type, data: {
-                  validation: 'text',
-                  validation_error: _('You must select at least one organisation type') }
-            %>
-        </fieldset>
-      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <% if current_user.can_super_admin? %>
+      <fieldset class="col-xs-8">
+        <legend><%= _('Organisation Types') %></legend>
+        <div class="checkbox">
+          <%= f.label :funder do %>
+            <%= f.check_box :funder, { class: 'org_types', value: org.funder? }, "true", "false" %>
+            <%= _('Funder') %>
+          <% end %>
+        </div>
+        <div class="checkbox">
+          <%= f.label :institution do %>
+            <%= f.check_box :institution, { class: 'org_types', value: org.institution? }, "true", "false" %>
+            <%= _('Institution') %>
+          <% end %>
+        </div>
+        <div class="checkbox">
+          <%= f.label :organisation do %>
+            <%= f.check_box :organisation, { class: 'org_types', value: org.organisation? }, "true", "false" %>
+            <%= _('Organisation') %>
+          <% end %>
+        </div>
+      </fieldset>
     <% else %>
-      <dl>
-        <dt><%= _('Organisation type(s)') %></dt>
-        <dd><%= org.org_type_to_s %></dd>
-      </dl>
+      <div class="col-xs-8">
+        <dl>
+          <dt><%= _('Organisation type(s)') %></dt>
+          <dd><%= org.org_type_to_s %></dd>
+        </dl>
+      </div>
     <% end %>
   </div>
+
+  <hr>
+
+  <% if !org.new_record? %>
+    <%= render partial: "orgs/external_identifiers",
+               locals: {
+                 form: f,
+                 org: org,
+                 editable: current_user.can_super_admin?
+               } %>
+  <% end %>
 
   <div class="row">
     <div class="form-group col-xs-8">

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: org_identifiers
@@ -10,14 +12,18 @@
 #  identifier_scheme_id :integer
 #  org_id               :integer
 #
+# Indexes
+#
+#  fk_rails_189ad2e573  (identifier_scheme_id)
+#  fk_rails_36323c0674  (org_id)
+#
 # Foreign Keys
 #
 #  fk_rails_...  (identifier_scheme_id => identifier_schemes.id)
 #  fk_rails_...  (org_id => orgs.id)
 #
 
-class OrgIdentifier < ActiveRecord::Base
-  include ValidationMessages
+class OrgIdentifier < ApplicationRecord
 
   # ================
   # = Associations =
@@ -40,11 +46,14 @@ class OrgIdentifier < ActiveRecord::Base
 
   validates :identifier_scheme, presence: { message: PRESENCE_MESSAGE }
 
-  # ===========================
-  # = Public instance methods =
-  # ===========================
+  # =========================
+  # = Custom Accessor Logic =
+  # =========================
 
+  # ensure attrs is a hash before saving
+  # TODO: evaluate this approach vs Serialize from condition.rb
   def attrs=(hash)
-    write_attribute(:attrs, (hash.is_a?(Hash) ? hash.to_json.to_s : '{}'))
+    super(hash.is_a?(Hash) ? hash.to_json.to_s : "{}")
   end
+
 end

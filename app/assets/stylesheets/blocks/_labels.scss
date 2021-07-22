@@ -9,3 +9,8 @@
 .radio label {
   margin-right: $grid-gutter-width / 2;
 }
+
+/* Remove mandatory * from check_box_tag in Admin search */
+.form-inline span.red {
+  visibility:hidden;
+}

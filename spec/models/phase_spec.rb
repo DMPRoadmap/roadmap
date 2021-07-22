@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe Phase, type: :model do
 
@@ -14,8 +16,8 @@ RSpec.describe Phase, type: :model do
     it "validates uniqueness of number" do
       subject.versionable_id = SecureRandom.uuid
       expect(subject).to validate_uniqueness_of(:number)
-                           .scoped_to(:template_id)
-                           .with_message("must be unique")
+        .scoped_to(:template_id)
+        .with_message("must be unique")
     end
 
     it { is_expected.to allow_values(true, false).for(:modifiable) }
@@ -69,7 +71,7 @@ RSpec.describe Phase, type: :model do
 
     let!(:phase) { create(:phase, modifiable: false) }
 
-    let!(:options) { Hash.new }
+    let!(:options) { {} }
 
     subject { phase.deep_copy(options) }
 
@@ -77,6 +79,10 @@ RSpec.describe Phase, type: :model do
 
       before do
         create_list(:section, 2, phase: phase)
+      end
+
+      it "checks number of sections" do
+        expect(subject.sections.size).to eql(phase.sections.size)
       end
 
       it "doesn't persist the record" do
@@ -169,7 +175,7 @@ RSpec.describe Phase, type: :model do
 
       before do
         question = create(:question, section: section)
-        create(:answer, question: question, plan: plan, text: '')
+        create(:answer, question: question, plan: plan, text: "")
 
         question = create(:question, section: section)
         create(:answer, question: question, plan: plan)
@@ -190,7 +196,7 @@ RSpec.describe Phase, type: :model do
     let!(:phase) { create(:phase) }
 
     before do
-      create_list(:section, 2, phase: phase).each  do |section|
+      create_list(:section, 2, phase: phase).each do |section|
         create_list(:question, 2, section: section)
       end
     end

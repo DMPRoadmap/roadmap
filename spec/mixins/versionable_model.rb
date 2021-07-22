@@ -1,6 +1,8 @@
-require 'rails_helper'
+# frozen_string_literal: true
 
-UUID_REGEX ||= /\A[\w\d]{8}(\-[\w\d]{4}){3}-[\w\d]{12}\Z/i
+require "rails_helper"
+
+UUID_REGEX ||= /\A[\w\d]{8}(-[\w\d]{4}){3}-[\w\d]{12}\Z/i.freeze
 
 shared_examples_for "VersionableModel" do
 
@@ -11,7 +13,6 @@ shared_examples_for "VersionableModel" do
   end
 
   context "#versionable_id" do
-
 
     before do
       subject.valid?

@@ -25,11 +25,10 @@ class OrgAdmin::DepartmentsController < ApplicationController
       flash.now[:notice] = success_message(@department, _("created"))
       # reset value
       @department = nil
-      render :new
     else
       flash.now[:alert] = failure_message(@department, _("create"))
-      render :new
     end
+    render :new
   end
 
   # GET /departments/1/edit
@@ -47,11 +46,10 @@ class OrgAdmin::DepartmentsController < ApplicationController
 
     if @department.update(department_params)
       flash.now[:notice] = success_message(@department, _("saved"))
-      render :edit
     else
       flash.now[:alert] = failure_message(@department, _("save"))
-      render :edit
     end
+    render :edit
   end
 
   # DELETE /departments/1
@@ -63,13 +61,11 @@ class OrgAdmin::DepartmentsController < ApplicationController
 
     if @department.destroy
       flash[:notice] = success_message(@department, _("deleted"))
-      redirect_to url
     else
       flash[:alert] = failure_message(@department, _("delete"))
-      redirect_to url
     end
+    redirect_to url
   end
-
 
   private
 

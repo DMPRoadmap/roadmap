@@ -1,5 +1,16 @@
 <% is_super_admin = current_user.can_super_admin? %>
 <% is_org_admin = current_user.can_org_admin? %>
+<% if @clicked_through %>
+  <p><%= _(<<-TEXT
+    The data on the usage dashboard is historical in nature. This means that the number of records below may not
+    match the count shown on the usage dashboard. For example if one of your users joined in October and then
+    moved to a different organization or deactivated their account, they would have been included on the usage
+    dashboard's total for October but would not appear in the list below.
+  TEXT
+  ) %></p>
+<% end %>
+
+<p><%= _("Note: You can filter this table by 'Created date'. Enter the month abbreviation and a 4 digit year into the search box above.<br>For example: 'Oct 2019' or 'Jun 2013'.").html_safe %></p>
 <div class="row">
   <div class="col-md-12">
     <div class="table-responsive">
@@ -15,7 +26,7 @@
               <th scope="col" class="text-center sorter-false"><%= _('Plans') %></th>
               <th scope="col" class="text-center sorter-false"><%= _('Current Privileges') %></th>
               <th scope="col" class="text-center"><%= _('Active') %></th>
-              <th scope="col" class="text-center sorter-false"><%= _('Privileges') %></th>
+              <th scope="col" class="text-center sorter-false"><%= _('Identifiers') %></th>
           </tr>
         </thead>
         <tbody>
@@ -61,22 +72,30 @@
                   </td>
                   <%# The content of this column get updated through AJAX whenever the permission for an user are updated %>
                   <td class="text-center" data-descriptor="current_privileges">
-                    <%= render partial: 'users/current_privileges', locals: { user: user } %>
+                    <span class="privilege-description">
+                      <%= render partial: 'users/current_privileges', locals: { user: user } %>
+                    </span>
+                    <br>
+                    <%# Do not allow a user to change their own permissions or a super admin's permissions if they are not a super admin %>
+                    <% unless current_user == user || !is_super_admin && user.can_super_admin? %>
+                      <%= link_to( _('Edit'), admin_grant_permissions_user_path(user)) %>
+                    <% end %>
                   </td>
                   <td class="text-center user-status">
                     <% if is_super_admin %>
-                      <%= form_for user, url: activate_user_path(user), html: { method: :put, remote: true, class: 'activate-user' } do |f| %>
-                        <%= check_box_tag(:active, "1", user.active, "aria-label": "active" ) %>
-                        <%= f.submit(_('Update'), style: 'display: none;') %>
-                      <% end %>
+                      <%= check_box_tag :is_test, "1", user.active,
+                                                  class: "activate-user",
+                                                  authenticity_token: true,
+                                                  data: { remote: true, method: :put,
+                                                          url: activate_user_path(user) } %>
                     <% else %>
                       <%= user.active? ? _('Yes') : _('No') %>
                     <% end %>
                   </td>
                   <td class="text-center">
-                    <%# Do not allow a user to change their own permissions or a super admin's permissions if they are not a super admin %>
-                    <% unless current_user == user || !is_super_admin && user.can_super_admin? %>
-                      <%= link_to( _('Edit'), admin_grant_permissions_user_path(user)) %>
+                    <% presenter = IdentifierPresenter.new(identifiable: user) %>
+                    <% presenter.identifiers.each do |identifier| %>
+                      <p><%= identifier.identifier_scheme.name %></p>
                     <% end %>
                   </td>
                 </tr>

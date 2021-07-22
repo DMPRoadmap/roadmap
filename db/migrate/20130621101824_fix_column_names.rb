@@ -1,4 +1,4 @@
-class FixColumnNames < ActiveRecord::Migration
+class FixColumnNames < ActiveRecord::Migration[4.2]
   def change
     change_table :answers do |t|
       t.rename :answer_text, :text
