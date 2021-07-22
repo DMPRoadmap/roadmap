@@ -69,7 +69,7 @@ unless @minimal
 
   # If the plan was created via the API and the external system provided an identifier,
   # return that value
-  json.external_system_identifier presenter.external_system_identifier&.value
+  json.dmproadmap_external_system_identifier presenter.external_system_identifier&.value
 
   # Any related identifiers known by the DMPTool
   if plan.related_identifiers.any?
