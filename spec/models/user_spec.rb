@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe User, type: :model do
 
@@ -35,8 +35,6 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_presence_of(:org) }
   end
 
-
-
   context "associations" do
 
     it { is_expected.to have_and_belong_to_many(:perms) }
@@ -57,11 +55,7 @@ RSpec.describe User, type: :model do
 
     it { is_expected.to have_many(:plans).through(:roles) }
 
-    it { is_expected.to have_many(:user_identifiers) }
-
-    it {
-      is_expected.to have_many(:identifier_schemes).through(:user_identifiers)
-    }
+    it { should have_many(:identifiers) }
 
     it {
       is_expected.to have_and_belong_to_many(:notifications).dependent(:destroy)
@@ -103,10 +97,8 @@ RSpec.describe User, type: :model do
     context "when org has changed and can change org" do
 
       let!(:user) do
-        create(:user, other_organisation: "Foo bar", api_token: "barfoo")
+        create(:user, org: create(:org), api_token: "barfoo")
       end
-
-      subject { user.save }
 
       before do
         user.perms << create(:perm, :change_org_affiliation)
@@ -115,55 +107,62 @@ RSpec.describe User, type: :model do
         user.perms << create(:perm, :modify_templates)
         user.perms << create(:perm, :change_org_affiliation)
         user.perms << create(:perm, :add_organisations)
-        user.org = create(:org)
+        @new_org = create(:org)
+        user.update(org: @new_org)
+        user.reload
       end
 
-      it "sets other_organisation to nil" do
-        expect { subject }.to change { user.other_organisation }.to(nil)
+      it "updates the org" do
+        expect(user.org).to eql(@new_org)
       end
 
       it "doesn't destroy user roles" do
-        expect { user.save }.not_to change { user.perms.count }
+        expect(user.perms.count).to eql(6)
       end
 
       it "doesn't reset api_token" do
-        expect { subject }.not_to change { user.api_token }
+        expect(user.api_token).to eql("barfoo")
       end
     end
 
     context "when org has changed and can not change org" do
 
       let!(:user) do
-        create(:user, other_organisation: "Foo bar", api_token: "barfoo")
+        @org = create(:org, managed: true)
+        create(:user, org: @org, api_token: "barfoo",
+                      perms: [
+                        create(:perm, :use_api),
+                        create(:perm, :modify_guidance),
+                        create(:perm, :modify_templates)
+                      ])
       end
 
       before do
-        user.perms << create(:perm, :use_api)
-        user.perms << create(:perm, :modify_guidance)
-        user.perms << create(:perm, :modify_templates)
-        user.org = create(:org)
+        @new_org = create(:org)
+        user.update(org: @new_org)
+        user.reload
       end
 
-      it "sets other_organisation to nil" do
-        expect { user.save }.to change { user.other_organisation }.to(nil)
+      it "does not change the org" do
+        expect(user.org).to eql(@new_org)
       end
 
-      it "destroy's user perms" do
-        expect { user.save }.to change { user.perms.count }.to(0)
+      it "does not destroy user perms" do
+        expect(user.perms.count).to eql(3)
       end
 
-      it "resets api_token to blank string" do
-        expect { user.save }.to change { user.api_token }.to(nil)
+      it "does not reset api_token to blank string" do
+        expect(user.api_token).to eql("barfoo")
       end
     end
 
   end
 
-  describe "#get_locale" do
+  describe "#locale" do
 
     let!(:user) { build(:user) }
 
-    subject { user.get_locale }
+    subject { user.locale }
 
     context "when user language present" do
 
@@ -192,7 +191,7 @@ RSpec.describe User, type: :model do
 
       before do
         user.language = nil
-        @locale = user.org.get_locale
+        @locale = user.org.locale
       end
 
       it { is_expected.to eql(@locale) }
@@ -283,30 +282,22 @@ RSpec.describe User, type: :model do
   end
 
   describe "#identifier_for" do
-
     let!(:user) { create(:user) }
+    let!(:scheme) { create(:identifier_scheme) }
 
-    let!(:identifier_scheme) { create(:identifier_scheme) }
+    subject { user.identifier_for(scheme.name) }
 
-    subject { user.identifier_for(identifier_scheme) }
-
-    context "when user has an user_identifier present" do
-
-      let!(:user_identifier) do
-        create(:user_identifier, identifier_scheme: identifier_scheme,
-                                 user: user)
+    context "when user has an identifier present" do
+      let!(:identifier) do
+        create(:identifier, :for_user, identifier_scheme: scheme,
+                                       identifiable: user)
       end
 
-      it { is_expected.to eql(user_identifier) }
-
+      it { is_expected.to eql(identifier) }
     end
 
     context "when user has no user_identifier present" do
-
-      let!(:user_identifier) { create(:user_identifier, user: user) }
-
-      it { is_expected.not_to eql(user_identifier) }
-
+      it { is_expected.not_to eql("") }
     end
   end
 
@@ -347,7 +338,6 @@ RSpec.describe User, type: :model do
   end
 
   describe "#can_org_admin?" do
-
     subject { user.can_org_admin? }
 
     context "when user includes Perm with name 'grant_permissions'" do
@@ -550,45 +540,34 @@ RSpec.describe User, type: :model do
     end
   end
 
+  # Test creationg a User from an omniauth callback like Shibboleth
   describe ".from_omniauth" do
-
     let!(:user) { create(:user) }
-
-    let!(:auth) { stub(provider: "auth-provider", uid: "1234abcd") }
+    let!(:auth) do
+      OpenStruct.new(provider: Faker::Lorem.unique.word, uid: Faker::Lorem.word)
+    end
+    let!(:scheme) { create(:identifier_scheme, name: auth[:provider], identifier_prefix: nil) }
 
     subject { User.from_omniauth(auth) }
 
-
-    context "when User has UserIdentifier, with different ID" do
-
-      let!(:identifier_scheme) do
-        create(:identifier_scheme, name: "auth-provider")
-      end
-
-      let!(:user_identifier) do
-        create(:user_identifier, user: user,
-                                 identifier_scheme: identifier_scheme,
-                                 identifier: "another-auth-uid")
+    context "when User has Identifier, with different ID" do
+      let!(:identifier) do
+        create(:identifier, :for_user, identifiable: user,
+                                       identifier_scheme: scheme,
+                                       value: Faker::Movies::StarWars.character)
       end
 
       it { is_expected.to be_nil }
-
     end
 
     context "when user Identifier and auth Provider are the same string" do
-
-      let!(:identifier_scheme) do
-        create(:identifier_scheme, name: "auth-provider")
-      end
-
-      let!(:user_identifier) do
-        create(:user_identifier, user: user,
-                                 identifier_scheme: identifier_scheme,
-                                 identifier: "1234abcd")
+      let!(:identifier) do
+        create(:identifier, :for_user, identifiable: user,
+                                       identifier_scheme: scheme,
+                                       value: auth[:uid])
       end
 
       it { is_expected.to eql(user) }
-
     end
 
   end
@@ -666,7 +645,6 @@ RSpec.describe User, type: :model do
       it { is_expected.to include(@user) }
 
     end
-
 
     context "when search value is lowercase" do
 

@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe Org, type: :model do
 
@@ -9,7 +11,7 @@ RSpec.describe Org, type: :model do
     it {
       subject.name = "DMP Company"
       is_expected.to validate_uniqueness_of(:name)
-                          .with_message("must be unique")
+        .with_message("must be unique")
     }
 
     it { is_expected.to validate_presence_of(:abbreviation) }
@@ -18,7 +20,7 @@ RSpec.describe Org, type: :model do
 
     it { is_expected.not_to allow_value(nil).for(:is_other) }
 
-    it { is_expected.to validate_presence_of(:language) }
+    it { is_expected.to allow_values(0, 1).for(:managed) }
 
     it "validates presence of contact_email if feedback_enabled" do
       subject.feedback_enabled = true
@@ -50,7 +52,7 @@ RSpec.describe Org, type: :model do
 
     it { should belong_to(:language) }
 
-    it { should belong_to(:region) }
+    it { should belong_to(:region).optional }
 
     it { should have_many(:guidance_groups).dependent(:destroy) }
 
@@ -60,62 +62,74 @@ RSpec.describe Org, type: :model do
 
     it { should have_many(:annotations) }
 
+    # rubocop:disable Layout/LineLength
     it { should have_and_belong_to_many(:token_permission_types).join_table("org_token_permissions") }
+    # rubocop:enable Layout/LineLength
 
-    it { should have_many(:org_identifiers) }
+    it { should have_many(:identifiers) }
 
-    it { should have_many(:identifier_schemes).through(:org_identifiers) }
+    it { should have_many(:plans) }
 
+    it { should have_many(:funded_plans) }
   end
 
-  describe ".managing_orgs" do
+  context "scopes" do
+    before(:each) do
+      @managed = create(:org, managed: true)
+      @unmanaged = create(:org, managed: false)
+    end
 
-    subject { Org.managing_orgs }
+    describe ".default_orgs" do
+      subject { Org.default_orgs }
 
-    context "when Org has same abbr as branding" do
+      context "when Org has same abbr as dmproadmap.rb initializer setting" do
 
-      let!(:org) do
-        create(:org,
-                abbreviation: Rails.configuration
-                                   .branding.dig(:organisation, :abbreviation))
+        let!(:org) do
+          abbrev = Rails.configuration.x.organisation.abbreviation
+          create(:org, abbreviation: abbrev)
+
+        end
+
+        it { is_expected.to include(org) }
 
       end
 
-      it { is_expected.to include(org) }
+      context "when Org doesn't have same abbr as dmproadmap.rb initializer setting" do
 
+        let!(:org) { create(:org, abbreviation: "foo-bar") }
+
+        it { is_expected.not_to include(org) }
+
+      end
     end
 
-    context "when Org doesn't have same abbr as branding" do
-
-      let!(:org) { create(:org, abbreviation: 'foo-bar') }
-
-      it { is_expected.not_to include(org) }
-
+    describe "#managed" do
+      it "returns only the managed orgs" do
+        rslts = described_class.managed
+        expect(rslts.include?(@managed)).to eql(true)
+        expect(rslts.include?(@unmanaged)).to eql(false)
+      end
+    end
+    describe "#unmanaged" do
+      it "returns only the un-managed orgs" do
+        rslts = described_class.unmanaged
+        expect(rslts.include?(@managed)).to eql(false)
+        expect(rslts.include?(@unmanaged)).to eql(true)
+      end
     end
   end
 
-  describe "#get_locale" do
+  describe "#locale" do
 
     let!(:org) { build(:org) }
 
-    subject { org.get_locale }
+    subject { org.locale }
 
     context "language present" do
 
       it { is_expected.to be_present }
 
     end
-
-    context "language absent" do
-
-      before do
-        org.language.abbreviation = nil
-      end
-
-      it { is_expected.to be_nil }
-
-    end
-
   end
 
   describe "#org_type_to_s" do
@@ -184,7 +198,7 @@ RSpec.describe Org, type: :model do
 
         let!(:org) { build(:org, :funder, :school) }
 
-        it { is_expected.to include("Funder","School") }
+        it { is_expected.to include("Funder", "School") }
 
       end
 
@@ -200,7 +214,7 @@ RSpec.describe Org, type: :model do
     context "when organistation type is only Funder" do
 
       before do
-        org.funder = true;
+        org.funder = true
       end
 
       it { is_expected.to be true }
@@ -210,8 +224,8 @@ RSpec.describe Org, type: :model do
     context "when multiple organistation types present" do
 
       before do
-        org.institution = true;
-        org.funder = true;
+        org.institution = true
+        org.funder = true
       end
 
       it { is_expected.to be false }
@@ -284,7 +298,6 @@ RSpec.describe Org, type: :model do
 
     subject { org.org_admins }
 
-
     context "when user belongs to Org with perms absent" do
 
       before do
@@ -342,11 +355,10 @@ RSpec.describe Org, type: :model do
     end
   end
 
-
   describe "#plans" do
 
     let!(:org) { create(:org) }
-    let!(:plan) { create(:plan) }
+    let!(:plan) { create(:plan, org: org) }
     let!(:user) { create(:user, org: org) }
 
     subject { org.plans }
@@ -374,7 +386,7 @@ RSpec.describe Org, type: :model do
 
     end
 
-    context "when user belongs to Org and plan user with role :editor, but not :creator and :administrator" do
+    context "user belongs to Org and plan user with role :editor, but not :creator and :admin" do
 
       before do
         plan.add_user!(user.id, :editor)
@@ -384,7 +396,7 @@ RSpec.describe Org, type: :model do
 
     end
 
-    context "when user belongs to Org and plan user with role :commenter, but not :creator and :administrator" do
+    context "user belongs to Org and plan user with role :commenter, but not :creator and :admin" do
 
       before do
         plan.add_user!(user.id, :commenter)
@@ -394,7 +406,7 @@ RSpec.describe Org, type: :model do
 
     end
 
-    context "when user belongs to Org and plan user with role :reviewer, but not :creator and :administrator" do
+    context "user belongs to Org and plan user with role :reviewer, but not :creator and :admin" do
 
       before do
         plan.add_user!(user.id, :reviewer)
@@ -411,7 +423,7 @@ RSpec.describe Org, type: :model do
     let!(:org) { create(:org) }
     let(:token_permission_type) { create(:token_permission_type) }
 
-      subject { org.grant_api!(token_permission_type) }
+    subject { org.grant_api!(token_permission_type) }
 
     context "when :token_permission_type does not belong to token_permission_types" do
 
@@ -434,8 +446,21 @@ RSpec.describe Org, type: :model do
 
     end
 
-
   end
 
+  describe "#links" do
+    it "returns the contents of the field" do
+      links = { "org": [{
+        "link": Faker::Internet.url,
+        "text": Faker::Lorem.word
+      }] }
+      org = build(:org, links: links)
+      expect(org.links).to eql(JSON.parse(links.to_json))
+    end
+    it "defaults to {'org': }" do
+      org = build(:org)
+      expect(org.links).to eql(JSON.parse({ "org": [] }.to_json))
+    end
+  end
 
 end

@@ -1,4 +1,4 @@
-class SingleGroupForGuidance < ActiveRecord::Migration
+class SingleGroupForGuidance < ActiveRecord::Migration[4.2]
   def change
     unless Rails.env.test?
       if table_exists?('guidances')

@@ -1,4 +1,4 @@
-class ChangeLongStringsToText < ActiveRecord::Migration
+class ChangeLongStringsToText < ActiveRecord::Migration[4.2]
   def change
     # change_column :orgs, :links, :text
     # change_column :templates, :links, :text

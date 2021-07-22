@@ -1,13 +1,21 @@
-<% # locals: { search_term } %>
+<%# locals: { search_term } %>
+
 <%= form_tag(paginable_base_url(1), method: :get, remote: true, class: 'form-inline paginable-action') do %>
   <div class="form-group">
     <div class="input-group">
       <span class="input-group-addon" id="search-addon">
-        <span class="fa fa-search" aria-hidden="true"></span>
+        <span class="fas fa-search" aria-hidden="true"></span>
       </span>
       <%= text_field_tag(:search, search_term, class: 'form-control', 'aria-labelledby': 'search',
                         spellcheck: true, 'aria-describedby': 'search-addon', 'aria-required': true) %>
+
     </div>
+    <%# @filter_admin is only defined on the users_index page %>
+    <% unless @filter_admin.nil?  %>
+      <%= label_tag(:filter_admin, _('Only Show Admins'), class: 'form-check-inline') %>
+      <%= check_box_tag( :filter_admin , "1", @filter_admin)%>
+      &nbsp
+    <% end %>
   </div>
   <%= submit_tag(_('Search'), class: 'btn btn-default', style: 'margin-top: 8px;') %>
 <% end %>

@@ -1,4 +1,4 @@
-class AddContactEmailToOrganisation < ActiveRecord::Migration
+class AddContactEmailToOrganisation < ActiveRecord::Migration[4.2]
   def change
     add_column :organisations, :contact_email, :string
   end

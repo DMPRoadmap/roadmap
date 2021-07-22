@@ -65,6 +65,8 @@ en-CA:
           mb: MB
           gb: GB
           tb: TB
+          pb: PB
+          eb: EB
       decimal_units:
         units:
           thousand: Thousand
@@ -75,6 +77,7 @@ en-CA:
   errors:
     format: "%{attribute} %{message}"
     messages:
+      model_invalid: 'Validation failed: %{errors}'
       inclusion: is not included in the list
       exclusion: is reserved
       invalid: is invalid
@@ -102,6 +105,7 @@ en-CA:
       other_than: must be other than %{count}
       odd: must be odd
       even: must be even
+      required: must exist
       taken: has already been taken
       already_confirmed: was already confirmed, please try signing in
       confirmation_period_expired: needs to be confirmed within %{period}, please
@@ -125,8 +129,6 @@ en-CA:
       messages:
         record_invalid: 'Validation failed: %{errors}'
         restrict_dependent_destroy:
-          one:
-          many:
           has_one: Cannot delete record because a dependent %{record} exists
           has_many: Cannot delete record because dependent %{record} exist
   datetime:
@@ -230,7 +232,7 @@ en-CA:
       invited: You have a pending invitation, accept it to finish creating your account.
     mailer:
       confirmation_instructions:
-        subject: Confirm your DMPonline account
+        subject: Confirm your DMP Assistant account
       reset_password_instructions:
         subject: Reset password instructions
       unlock_instructions:

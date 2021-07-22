@@ -6,8 +6,8 @@ module ExportsHelper
     top: "5",
     bottom: "10",
     left: "12",
-    right: "12",
-  }
+    right: "12"
+  }.freeze
 
   def font_face
     @formatting[:font_face].presence || "Arial, Helvetica, Sans-Serif"

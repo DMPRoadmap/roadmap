@@ -11,7 +11,8 @@ class Paginable::GuidancesController < ApplicationController
       partial: "index",
       scope: Guidance.by_org(current_user.org)
                      .includes(:guidance_group, :themes),
-      query_params: { sort_field: "guidances.text", sort_direction: :asc }
+      query_params: { sort_field: "guidances.text", sort_direction: :asc },
+      format: :json
     )
   end
 

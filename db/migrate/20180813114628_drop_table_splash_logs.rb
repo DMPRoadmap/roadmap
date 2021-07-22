@@ -1,4 +1,4 @@
-class DropTableSplashLogs < ActiveRecord::Migration
+class DropTableSplashLogs < ActiveRecord::Migration[4.2]
   def up
     drop_table(:splash_logs) if table_exists?(:splash_logs)
   end

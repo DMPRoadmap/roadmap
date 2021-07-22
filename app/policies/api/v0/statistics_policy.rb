@@ -1,6 +1,11 @@
+# frozen_string_literal: true
+
 module Api
+
   module V0
+
     class StatisticsPolicy < ApplicationPolicy
+
       attr_reader :user
 
       def initialize(user, statistic)
@@ -8,6 +13,7 @@ module Api
         unless user.org.token_permission_types.include? TokenPermissionType::STATISTICS
           raise Pundit::NotAuthorizedError, _("must have access to guidances api")
         end
+
         @user = user
         @statistic = statistic
       end
@@ -21,6 +27,7 @@ module Api
       def completed_plans?
         true
       end
+
       ##
       # need to check if your org owns this template
       def using_template?
@@ -40,5 +47,7 @@ module Api
       end
 
     end
+
   end
+
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.prettify!
 
 json.plans @org_plans.each do |plan|
@@ -12,25 +14,24 @@ json.plans @org_plans.each do |plan|
   end
 
   json.funder do
-    json.name         (plan.template.org.funder? ? plan.template.org.name : '')
+    json.name         plan.template.org.funder? ? plan.template.org.name : ""
   end
 
   json.principal_investigator do
-    json.name         plan.principal_investigator
+    json.name         plan.contributors.investigation.first&.name
   end
 
   json.data_contact do
-    json.info         plan.data_contact
+    json.info         plan.contributors.data_curation.first&.name
   end
 
   json.description    plan.description
 
   json.date_created   plan.created_at
-  json.date_last_updated   plan.updated_at
+  json.date_last_updated plan.updated_at
 
   json.completion do
     json.total_questions     plan.questions.count
     json.answered_questions  plan.answers.count
   end
-
 end

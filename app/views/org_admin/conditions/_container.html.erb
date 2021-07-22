@@ -1,0 +1,28 @@
+<div id="condition-container">
+  <div class="condition-list" data-loaded="false">
+    <div class="row">
+      <div class="col-md-3 bold">
+        <%= label(:text, _('Option'), class: "control-label")%>
+      </div>
+      <div class="col-md-3">
+        <%= label(:text, _('Action'), class: "control-label") %>
+      </div>
+      <div class="col-md-3 bold">
+        <%= _('Remove')%>
+      </div>
+      <div class="col-md-3">
+      </div>
+    </div>
+    <% conditions_params =  conditions_to_param_form(conditions).sort_by { |key| key }.to_h %>
+    <% conditions_params.each_with_index do |(title, params), i| %> <!-- iterate through conditions sorted by order of creation where i is condition number-->
+      <div class="condition-form" id="0"> <!-- will be replaced with set id -->
+        <%= render partial: 'org_admin/conditions/form', locals: { question: question, condition: params, condition_no: i } %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="add-condition-div">
+    <% condition_no = conditions_params.length %>
+    <%= render partial: 'org_admin/conditions/add', locals: { question: question, condition_no: condition_no } %>
+  </div>
+</div>

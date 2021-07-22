@@ -34,19 +34,24 @@
         </div>
       </div>
     <% end %>
-    <% if @plans.length > 0 %>
-      <%= link_to sanitize(_('Download plans <em class="sr-only">(new window)</em><span class="new-window-popup-info">%{open_in_new_window_text}</span>') %
+    <% if @plans.length > 0  %>
+      <% unless @super_admin %>
+        <%= link_to sanitize(_('Download plans <em class="sr-only">(new window)</em><span class="new-window-popup-info">%{open_in_new_window_text}</span>') %
                            { open_in_new_window_text: _('Opens in new window') },
                            tags: %w{ span em }),
                   org_admin_download_plans_path(format: :csv),
                   target: '_blank',
                   class: 'btn btn-default pull-right has-new-window-popup-info' %>
-      <%= paginable_renderise(
-        partial: '/paginable/plans/org_admin',
-        controller: 'paginable/plans',
-        action: 'org_admin',
-        scope: @plans,
-        query_params: { sort_field: 'plans.updated_at', sort_direction: :desc }) %>
+      <% end %>
+      <div class="table-responsive">
+        <%= paginable_renderise(
+          partial: '/paginable/plans/org_admin',
+          controller: 'paginable/plans',
+          action: 'org_admin',
+          scope: @plans,
+          view_all: !current_user.can_super_admin?,
+          query_params: { sort_field: 'plans.updated_at', sort_direction: :desc }) %>
+      </div>
     <% end %>
   </div>
 </div>

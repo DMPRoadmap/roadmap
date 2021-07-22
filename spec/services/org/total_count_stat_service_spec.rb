@@ -1,16 +1,18 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe Org::TotalCountStatService do
-  describe '.do' do
-    it 'returns the total stats for each org' do
+  describe ".do" do
+    it "returns the total stats for each org" do
       Org::TotalCountJoinedUserService.stubs(:call).returns([
-        { org_name: "Org 1", count: 10 },
-        { org_name: "Org 2", count: 20 }
-      ])
+                                                              { org_name: "Org 1", count: 10 },
+                                                              { org_name: "Org 2", count: 20 }
+                                                            ])
       Org::TotalCountCreatedPlanService.stubs(:call).returns([
-        { org_name: "Org 2", count: 10 },
-        { org_name: "Org 3", count: 15 }
-      ])
+                                                               { org_name: "Org 2", count: 10 },
+                                                               { org_name: "Org 3", count: 15 }
+                                                             ])
 
       totals = described_class.call
 

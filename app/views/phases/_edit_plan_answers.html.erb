@@ -1,5 +1,5 @@
 <div class="tab-panels" role="tabpanel">
-  <div id="phase-#<%= phase.id %>-panel" class="tab-panel active" aria-hidden="false" aria-labelledby="phase-#<%= phase.id %>-tab">
+  <div id="phase-#<%= phase.id %>-panel" class="tab-panel active answering-phase" aria-hidden="false" aria-labelledby="phase-#<%= phase.id %>-tab">
     <div class="row">
       <div class="col-md-8">
         <div class="row">
@@ -11,6 +11,8 @@
                 <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
               </div>
             </div>
+          </div>
+          <div id="progress-data" data-sections="<%= sections_info(plan).to_json %>" data-remove="<%= remove_list(plan).to_json %>">
           </div>
           <div class="col-md-4">
             <% if plan.present? && phase.present? %>
@@ -25,7 +27,7 @@
     </div>
     <div class="panel-group" id="sections-accordion" role="tablist"
          aria-multiselectable="true">
-    <% phase.sections.order(:number).each do |section| %>
+    <% phase.sections.sort {|a,b| a.number <=> b.number }.each do |section| %>
       <div class="panel panel-default">
         <div class="heading-button" role="button" data-toggle="collapse"
              id="section-panel-<%= section.id %>"
@@ -44,7 +46,7 @@
                   </span>
               <% end %>
             </div>
-            <i class="fa fa-plus pull-right" aria-hidden="true"></i>
+            <i class="fas fa-plus pull-right" aria-hidden="true"></i>
             <div class="clearfix"></div>
           </div>
         </div>
@@ -68,7 +70,7 @@
                     <!-- Answer Section -->
                     <div class="question-form">
                       <div id="<%= "answer-locking-#{question.id}" %>"
-                           class="answer-locking">
+                        class="answer-locking">
                       </div>
                       <div id="<%= "answer-form-#{question.id}" %>" class="answer-form">
                         <%= render(partial: '/answers/new_edit',
@@ -94,6 +96,9 @@
                       answer: answer,
                       guidance_presenter: guidance_presenter } %>
                   </div>
+                  <% if i != section.questions.length - 1 %>
+                    <hr>
+                  <% end %>
                 </div>
                 <% if i != section.questions.length - 1 %>
                   <hr />
@@ -102,7 +107,7 @@
             </div> <!-- panel-body -->
           </div> <!-- panel-collapse -->
         </div> <!-- panel panel-default -->
-      <% end %>   <!-- phase.sections.order(:number).each do -->
+      <% end %>   <!-- phase.sections.sort {|a,b| a.number <=> b.number }.each do -->
     </div>   <!-- panel-group -->
   </div> <!-- tab panel -->
 </div> <!-- tab panels -->

@@ -7,20 +7,15 @@
 # with its default values. The data can then be loaded with the rake db:seed
 # (or created alongside the db with db:setup).
 
-require 'factory_bot'
-require 'faker'
+default_locale = LocaleService.to_i18n(locale: LocaleService.default_locale).to_s
 
-include FactoryBot::Syntax::Methods
-
-I18n.available_locales = ['en', 'en-GB', 'de', 'fr']
-I18n.locale                = LocaleFormatter.new(:en, format: :i18n).to_s
-# Keep this as :en. Faker doesn't have :en-GB
-Faker::Config.locale       = LocaleFormatter.new(:en, format: :i18n).to_s
-FastGettext.default_locale = LocaleFormatter.new(:en, format: :fast_gettext).to_s
-
-
-require 'factory_bot'
-include FactoryBot::Syntax::Methods
+# When this is executed by `db:setup`, the translation initializer did not run
+# so we need to establish the I18n locales manually
+I18n.available_locales = LocaleService.available_locales.map do |locale|
+  LocaleService.to_i18n(locale: locale)
+end
+I18n.available_locales << :en unless I18n.available_locales.include?(:en)
+I18n.default_locale = default_locale
 
 # Identifier Schemes
 # -------------------------------------------------------
@@ -30,58 +25,65 @@ identifier_schemes = [
     description: 'ORCID',
     active: true,
     logo_url:'http://orcid.org/sites/default/files/images/orcid_16x16.png',
-    user_landing_url:'https://orcid.org'
+    identifier_prefix:'https://orcid.org'
   },
   {
     name: 'shibboleth',
     description: 'Your institutional credentials',
     active: true,
     logo_url: 'http://newsite.shibboleth.net/wp-content/uploads/2017/01/Shibboleth-logo_2000x1200-1.png',
-    user_landing_url: "https://example.com"
+    identifier_prefix: "https://example.com"
   },
 ]
-identifier_schemes.map { |is| create(:identifier_scheme, is) }
+identifier_schemes.each { |is| IdentifierScheme.create!(is) }
 
 # Question Formats
 # -------------------------------------------------------
 question_formats = [
   {
     title: "Text area",
+    description: "A Tinymce text area",
     option_based: false,
     formattype: 0
   },
   {
     title: "Text field",
+    description: "A standard HTML text field",
     option_based: false,
     formattype: 1
   },
   {
     title: "Radio buttons",
+    description: "A standard set of HTML radio button fields",
     option_based: true,
     formattype: 2
   },
   {
     title: "Check box",
+    description: "A standard set of HTML checkbox fields",
     option_based: true,
     formattype: 3
   },
   {
     title: "Dropdown",
+    description: "A standard HTML select field",
     option_based: true,
     formattype: 4
   },
   {
     title: "Multi select box",
+    description: "A standard HTML multi-select field",
     option_based: true,
     formattype: 5
   },
   {
     title: "Date",
+    description: "A standard HTML5 date field",
     option_based: false,
     formattype: 6
   }
 ]
-question_formats.map{ |qf| create(:question_format, qf) }
+question_formats.each{ |qf| QuestionFormat.create!(qf) }
 
 # Languages (check config/locales for any ones not defined here)
 # -------------------------------------------------------
@@ -105,26 +107,31 @@ languages = [
   {abbreviation: 'es',
    description: '',
    name: 'Español',
+   default_language: false},
+  {abbreviation: 'pt-BR',
+   description: '',
+   name: 'Português (Brasil)',
    default_language: false}
 ]
-languages.map { |l| create(:language, l) }
+languages.each { |l| Language.create!(l) }
+default_language = Language.find_by(abbreviation: default_locale)
 
-# Scan through the locale files and add an entry if a file is present but
-# not defined in this seed file
-Dir.entries("#{Rails.root.join("config", "locales").to_s}").each do |f|
-  if f[-4..-1] == '.yml'
-    lang = f.gsub('.yml', '')
-
-    if Language.where(abbreviation: lang).empty?
-      Language.create!({
-        abbreviation: lang,
-        description: lang,
-        name: lang,
-        default_language: false
-      })
-    end
-  end
-end
+# # Scan through the locale files and add an entry if a file is present but
+# # not defined in this seed file
+# Dir.entries("#{Rails.root.join("config", "locales").to_s}").each do |f|
+#   if f[-4..-1] == '.yml'
+#     lang = f.gsub('.yml', '')
+#
+#     if Language.where(abbreviation: lang).empty?
+#       Language.create!({
+#         abbreviation: lang,
+#         description: lang,
+#         name: lang,
+#         default_language: false
+#       })
+#     end
+#   end
+# end
 
 # Regions (create the super regions first and then create the rest)
 # -------------------------------------------------------
@@ -186,7 +193,7 @@ perms = [
   {name: 'review_org_plans'}
 ]
 
-perms.map{ |p| create(:perm, p) }
+perms.each{ |p| Perm.create!(p) }
 
 # Guidance Themes
 # -------------------------------------------------------
@@ -206,7 +213,7 @@ themes = [
   {title: 'Budget'},
   {title: 'Related Policies'}
 ]
-themes.map{ |t| create(:theme, t) }
+themes.each { |t| Theme.create!(t.merge(locale: default_locale)) }
 
 # Token Permission Types
 # -------------------------------------------------------
@@ -216,26 +223,30 @@ token_permission_types = [
   {token_type: 'templates', text_description: 'allows a user access to the templates api endpoint'},
   {token_type: 'statistics', text_description: 'allows a user access to the statistics api endpoint'}
 ]
-token_permission_types.map{ |tpt| create(:token_permission_type, tpt) }
+token_permission_types.each{ |tpt| TokenPermissionType.create!(tpt) }
 
 # Create our generic organisation, a funder and a University
 # -------------------------------------------------------
+region = Region.first
 orgs = [
-  {name: Branding.fetch(:organisation, :name),
-   abbreviation: Branding.fetch(:organisation, :abbreviation),
+  {name: Rails.configuration.x.organisation.name,
+   abbreviation: Rails.configuration.x.organisation.abbreviation,
    org_type: 4, links: {"org":[]},
-   language: Language.find_by(abbreviation: 'en-GB'),
-   token_permission_types: TokenPermissionType.all},
+   language: default_language, region: region,
+   token_permission_types: TokenPermissionType.all,
+   is_other: true, managed: true},
   {name: 'Government Agency',
    abbreviation: 'GA',
    org_type: 2, links: {"org":[]},
-   language: Language.find_by(abbreviation: 'en-GB')},
+   language: default_language, region: region,
+   is_other: false, managed: true},
   {name: 'University of Exampleland',
    abbreviation: 'UOS',
    org_type: 1, links: {"org":[]},
-   language: Language.find_by(abbreviation: 'en-GB')}
+   language: default_language, region: region,
+   is_other: false, managed: true}
 ]
-orgs.map{ |o| create(:org, o) }
+orgs.each { |o| Org.create!(o) }
 
 # Create a Super Admin associated with our generic organisation,
 # an Org Admin for our funder and an Org Admin and User for our University
@@ -246,8 +257,8 @@ users = [
    surname: "Admin",
    password: "password123",
    password_confirmation: "password123",
-   org: Org.find_by(abbreviation: Branding.fetch(:organisation, :abbreviation)),
-   language: Language.find_by(abbreviation: FastGettext.locale),
+   org: Org.find_by(abbreviation: Rails.configuration.x.organisation.abbreviation),
+   language: default_language,
    perms: Perm.all,
    accept_terms: true,
    api_token: 'abcd1234',
@@ -258,7 +269,7 @@ users = [
    password: "password123",
    password_confirmation: "password123",
    org: Org.find_by(abbreviation: 'GA'),
-   language: Language.find_by(abbreviation: FastGettext.locale),
+   language: default_language,
    perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation', 'grant_api_to_orgs']),
    accept_terms: true,
    api_token: 'efgh5678',
@@ -269,7 +280,7 @@ users = [
    password: "password123",
    password_confirmation: "password123",
    org: Org.find_by(abbreviation: 'UOS'),
-   language: Language.find_by(abbreviation: FastGettext.locale),
+   language: default_language,
    perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation', 'grant_api_to_orgs']),
    accept_terms: true,
    api_token: 'ijkl9012',
@@ -280,17 +291,17 @@ users = [
    password: "password123",
    password_confirmation: "password123",
    org: Org.find_by(abbreviation: 'UOS'),
-   language: Language.find_by(abbreviation: FastGettext.locale),
+   language: default_language,
    accept_terms: true,
    confirmed_at: Time.zone.now}
 ]
-users.map{ |u| create(:user, u) }
+users.each{ |u| User.create(u) }
 
 # Create a Guidance Group for our organisation and the funder
 # -------------------------------------------------------
 guidance_groups = [
   {name: "Generic Guidance (provided by the example curation centre)",
-   org: Org.find_by(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]),
+   org: Org.find_by(abbreviation: Rails.configuration.x.organisation.abbreviation),
    optional_subset: true,
    published: true},
   {name: "Government Agency Advice (Funder specific guidance)",
@@ -298,7 +309,10 @@ guidance_groups = [
    optional_subset: false,
    published: true}
 ]
-guidance_groups.map{ |gg| create(:guidance_group, gg) }
+guidance_groups.each do |gg|
+  guidance_group = GuidanceGroup.find_or_create_by(org: gg[:org])
+  guidance_group.update!(gg)
+end
 
 # Initialize with the generic Roadmap guidance and a sample funder guidance
 # -------------------------------------------------------
@@ -401,7 +415,7 @@ inimise any restrictions on the reuse (and subsequent sharing) of third-party da
    published: true,
    themes: [Theme.find_by(title: 'Data Description')]}
 ]
-guidances.map{ |g| create(:guidance, g) }
+guidances.each{ |g| Guidance.create!(g) }
 
 # Create a default template for the curation centre and one for the example funder
 # -------------------------------------------------------
@@ -409,8 +423,8 @@ templates = [
   {title: "My Curation Center's Default Template",
    description: "The default template",
    published: true,
-   org: Org.find_by(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]),
-   is_default: true,
+   org: Org.find_by(abbreviation: Rails.configuration.x.organisation.abbreviation),
+   is_default: true, locale: default_locale,
    version: 0,
    visibility: Template.visibilities[:publicly_visible],
    links: {"funder":[],"sample_plan":[]}},
@@ -418,7 +432,7 @@ templates = [
   {title: "OLD - Department of Testing Award",
    published: false,
    org: Org.find_by(abbreviation: 'GA'),
-   is_default: false,
+   is_default: false, locale: default_locale,
    version: 0,
    visibility: Template.visibilities[:organisationally_visible],
    links: {"funder":[],"sample_plan":[]}},
@@ -426,14 +440,14 @@ templates = [
   {title: "Department of Testing Award",
    published: true,
    org: Org.find_by(abbreviation: 'GA'),
-   is_default: false,
+   is_default: false, locale: default_locale,
    version: 0,
    visibility: Template.visibilities[:organisationally_visible],
    links: {"funder":[],"sample_plan":[]}}
 ]
 # Template creation calls defaults handler which sets is_default and
 # published to false automatically, so update them after creation
-templates.each { |atts| create(:template, atts) }
+templates.each { |atts| Template.create!(atts) }
 
 # Create 2 phases for the funder's template and one for our generic template
 # -------------------------------------------------------
@@ -457,7 +471,7 @@ phases = [
    modifiable: false,
    template: Template.find_by(title: "Department of Testing Award")}
 ]
-phases.map{ |p| create(:phase, p) }
+phases.each{ |p| Phase.create!(p) }
 
 generic_template_phase_1 = Phase.find_by(title: "Generic Data Management Planning Template")
 funder_template_phase_1  = Phase.find_by(title: "Preliminary Statement of Work")
@@ -538,7 +552,7 @@ sections = [
     phase: funder_template_phase_2
   }
 ]
-sections.map{ |s| create(:section, s) }
+sections.each{ |s| Section.create!(s) }
 
 text_area = QuestionFormat.find_by(title: "Text area")
 
@@ -694,7 +708,7 @@ questions = [
    modifiable: false,
    themes: [Theme.find_by(title: "Preservation"), Theme.find_by(title: "Data Sharing")]}
 ]
-questions.map{ |q| create(:question, q) }
+questions.each{ |q| Question.create!(q) }
 
 radio_button = Question.new(
     text: "Please select the appropriate formats.",
@@ -809,4 +823,4 @@ annotations = [
    org: Org.find_by(abbreviation: 'GA'),
    question: Question.find_by(text: "What types of data will you collect and how will it be stored?")},
 ]
-annotations.map{ |s| Annotation.create!(s) if Annotation.find_by(text: s[:text]).nil? }
+annotations.each{ |s| Annotation.create!(s) if Annotation.find_by(text: s[:text]).nil? }

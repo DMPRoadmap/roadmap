@@ -33,11 +33,7 @@
 # [+Created:+] 07/07/2014
 # [+Copyright:+] Digital Curation Centre and California Digital Library
 
-class Guidance < ActiveRecord::Base
-
-  include GlobalHelpers
-  include ValidationMessages
-  include ValidationValues
+class Guidance < ApplicationRecord
 
   # ================
   # = Associations =
@@ -46,7 +42,6 @@ class Guidance < ActiveRecord::Base
   belongs_to :guidance_group
 
   has_and_belongs_to_many :themes, join_table: "themes_in_guidance"
-
 
   # ===============
   # = Validations =
@@ -63,14 +58,14 @@ class Guidance < ActiveRecord::Base
   validates :themes, presence: { message: PRESENCE_MESSAGE }, if: :published?
 
   # Retrieves every guidance associated to an org
-  scope :by_org, -> (org) {
+  scope :by_org, lambda { |org|
     joins(:guidance_group).merge(GuidanceGroup.by_org(org))
   }
 
-  scope :search, -> (term) {
+  scope :search, lambda { |term|
     search_pattern = "%#{term}%"
     joins(:guidance_group)
-      .where("lower(guidances.text) LIKE lower(?) OR " +
+      .where("lower(guidances.text) LIKE lower(?) OR " \
             "lower(guidance_groups.name) LIKE lower(?)",
              search_pattern,
              search_pattern)
@@ -82,7 +77,7 @@ class Guidance < ActiveRecord::Base
 
   # Returns whether or not a given user can view a given guidance
   # we define guidances viewable to a user by those owned by a guidance group:
-  #   owned by the managing curation center
+  #   owned by the default orgs
   #   owned by a funder organisation
   #   owned by an organisation, of which the user is a member
   #
@@ -97,28 +92,21 @@ class Guidance < ActiveRecord::Base
     unless guidance.nil?
       unless guidance.guidance_group.nil?
         # guidances are viewable if they are owned by the user's org
-        if guidance.guidance_group.org == user.org
-          viewable = true
-        end
-        # guidance groups are viewable if they are owned by the Managing
-        # Curation Center
-        if Org.managing_orgs.include?(guidance.guidance_group.org)
-          viewable = true
-        end
+        viewable = true if guidance.guidance_group.org == user.org
+        # guidance groups are viewable if they are owned by the Default Orgs
+        viewable = true if Org.default_orgs.include?(guidance.guidance_group.org)
 
         # guidance groups are viewable if they are owned by a funder
-        if Org.funder.include?(guidance.guidance_group.org)
-          viewable = true
-        end
+        viewable = true if Org.funder.include?(guidance.guidance_group.org)
       end
     end
 
-    return viewable
+    viewable
   end
 
   # Returns a list of all guidances which a specified user can view
   # we define guidances viewable to a user by those owned by a guidance group:
-  #   owned by the Managing Curation Center
+  #   owned by the Default Orgs
   #   owned by a funder organisation
   #   owned by an organisation, of which the user is a member
   #
@@ -126,23 +114,21 @@ class Guidance < ActiveRecord::Base
   #
   # Returns Array
   def self.all_viewable(user)
-    managing_groups = Org.includes(guidance_groups: :guidances)
-                         .managing_orgs.collect { |o| o.guidance_groups }
+    default_groups = Org.includes(guidance_groups: :guidances)
+                        .default_orgs.collect(&:guidance_groups)
     # find all groups owned by a Funder organisation
     funder_groups = Org.includes(guidance_groups: :guidances)
-                       .funder.collect { |org| org.guidance_groups }
+                       .funder.collect(&:guidance_groups)
     # find all groups owned by any of the user's organisations
     organisation_groups = user.org.guidance_groups
 
     # find all guidances belonging to any of the viewable groups
-    all_viewable_groups = (managing_groups +
+    all_viewable_groups = (default_groups +
                             funder_groups +
                             organisation_groups).flatten
-    all_viewable_guidances = all_viewable_groups.collect do |group|
-      group.guidances
-    end
+    all_viewable_guidances = all_viewable_groups.collect(&:guidances)
     # pass the list of viewable guidances to the view
-    return all_viewable_guidances.flatten
+    all_viewable_guidances.flatten
   end
 
   # Determine if a guidance is in a group which belongs to a specified
@@ -153,11 +139,9 @@ class Guidance < ActiveRecord::Base
   # Returns Boolean
   def in_group_belonging_to?(org_id)
     unless guidance_group.nil?
-      if guidance_group.org.id == org_id
-        return true
-      end
+      return true if guidance_group.org.id == org_id
     end
-    return false
+    false
   end
 
 end

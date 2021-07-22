@@ -18,18 +18,18 @@ module Versionable
       template = obj
     else
       raise ArgumentError,
-        _("obj should be a Template, Phase, Section, Question, or Annotation")
+            _("obj should be a Template, Phase, Section, Question, or Annotation")
     end
 
     # raises RuntimeError if template is not latest
     new_template = Template.find_or_generate_version!(template)
 
     if new_template != template
-      if obj.is_a?(Template)
-        obj = new_template
-      else
-        obj = find_in_space(obj, new_template.phases)
-      end
+      obj = if obj.is_a?(Template)
+              new_template
+            else
+              find_in_space(obj, new_template.phases)
+            end
     end
     obj
   end
@@ -39,10 +39,11 @@ module Versionable
   # generated and returns a modifiable version of that object
   # NOTE: the obj passed is still not saved however it should belongs to a
   # parent already
+  # rubocop:disable Metrics/MethodLength
   def get_new(obj)
     unless obj.respond_to?(:template)
       raise ArgumentError,
-        _("obj should be a Phase, Section, Question, or Annotation")
+            _("obj should be a Phase, Section, Question, or Annotation")
     end
 
     template = obj.template
@@ -61,7 +62,7 @@ module Versionable
         belongs = :question
       else
         raise ArgumentError,
-          _("obj should be a Phase, Section, Question, or Annotation")
+              _("obj should be a Phase, Section, Question, or Annotation")
       end
 
       if belongs == :template
@@ -75,26 +76,29 @@ module Versionable
     end
     obj
   end
+  # rubocop:enable Metrics/MethodLength
 
   # Locates an object (e.g. phase, section, question, annotation) in a
   # search_space
   # (e.g. phases/sections/questions/annotations) by comparing either the number
   # method or the org_id and text for annotations
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def find_in_space(obj, search_space)
     unless search_space.respond_to?(:each)
       raise ArgumentError, _("The search_space does not respond to each")
     end
-    unless search_space.length > 0
+
+    if search_space.empty?
       raise ArgumentError,
-        _("The search space does not have elements associated")
+            _("The search space does not have elements associated")
     end
 
     if obj.is_a?(search_space.first.class)
       # object is an instance of Phase, Section or Question
-      if obj.respond_to?(:number)
-        return search_space.find { |search| search.number == obj.number }
+      return search_space.find { |search| search.number == obj.number } if obj.respond_to?(:number)
+
       # object is an instance of Annotation
-      elsif obj.respond_to?(:org_id) && obj.respond_to?(:text)
+      if obj.respond_to?(:org_id) && obj.respond_to?(:text)
         return search_space.find do |annotation|
           annotation.org_id == obj.org_id && annotation.text == obj.text
         end
@@ -111,17 +115,22 @@ module Versionable
       relation = :questions
     when Question
       number = obj.question.number
-      relation = :annotations
+      relation = if obj.is_a?(QuestionOption)
+                   :question_options
+                 else
+                   :annotations
+                 end
     else
       return nil
     end
 
     search_space = search_space.find { |search| search.number == number }
 
-    if search_space.present?
-      return find_in_space(obj, search_space.send(relation))
-    end
+    return find_in_space(obj, search_space.send(relation)) if search_space.present?
+
     nil
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable
 
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: user_identifiers
@@ -11,6 +13,7 @@
 #
 # Indexes
 #
+#  fk_rails_fe95df7db0                (identifier_scheme_id)
 #  index_user_identifiers_on_user_id  (user_id)
 #
 # Foreign Keys
@@ -19,8 +22,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 
-class UserIdentifier < ActiveRecord::Base
-  include ValidationMessages
+class UserIdentifier < ApplicationRecord
 
   # ================
   # = Associations =

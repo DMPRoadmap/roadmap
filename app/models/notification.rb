@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: notifications
@@ -10,13 +12,12 @@
 #  notification_type :integer
 #  starts_at         :date
 #  title             :string
+#  enabled            :boolean
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
 
-class Notification < ActiveRecord::Base
-  include ValidationMessages
-  include ValidationValues
+class Notification < ApplicationRecord
 
   enum level: %i[info warning danger]
   enum notification_type: %i[global]
@@ -26,8 +27,7 @@ class Notification < ActiveRecord::Base
   # ================
 
   has_and_belongs_to_many :users, dependent: :destroy,
-                          join_table: 'notification_acknowledgements'
-
+                                  join_table: "notification_acknowledgements"
 
   # ===============
   # = Validations =
@@ -43,24 +43,25 @@ class Notification < ActiveRecord::Base
 
   validates :dismissable, inclusion: { in: BOOLEAN_VALUES }
 
+  validates :enabled, inclusion: { in: BOOLEAN_VALUES }
+
   validates :starts_at, presence: { message: PRESENCE_MESSAGE },
                         after: { date: Date.today, on: :create }
 
   validates :expires_at, presence: { message: PRESENCE_MESSAGE },
                          after: { date: Date.tomorrow, on: :create }
 
-
   # ==========
   # = Scopes =
   # ==========
 
   scope :active, (lambda do
-    where('starts_at <= :now and :now < expires_at', now: Time.now)
+    where("starts_at <= :now and :now < expires_at", now: Time.now).where(enabled: true)
   end)
 
   scope :active_per_user, (lambda do |user|
     if user.present?
-      acknowledgement_ids = user.notifications.map(&:id)
+      acknowledgement_ids = user.notifications.pluck(:id)
       active.where.not(id: acknowledgement_ids)
     else
       active.where(dismissable: false)
@@ -74,4 +75,5 @@ class Notification < ActiveRecord::Base
   def acknowledged?(user)
     dismissable? && user.present? && users.include?(user)
   end
+
 end
