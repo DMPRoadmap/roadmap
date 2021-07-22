@@ -254,7 +254,7 @@ namespace :migrate do
 # -----------------------------------------------
   desc "Initialize plans.visibility to the default specified in application.rb"
   task init_plan_visibility: :environment do
-    default = Rails.configuration.default_plan_visibility.to_sym
+    default = Rails.configuration.x.plans.default_visibility.to_sym
     Plan.all.each{ |p| p.update_attributes(visibility: default) unless p.visibility == default }
   end
 
@@ -314,7 +314,7 @@ namespace :migrate do
 
   desc "Move old Shibboleth Ids from users table to user_identifiers"
   task move_shibs: :environment do
-    if Rails.configuration.shibboleth_enabled
+    if Rails.configuration.x.shibboleth.enabled
       users = User.includes(:user_identifiers).where('users.shibboleth_id IS NOT NULL')
 
       # If we have users with orcid ids

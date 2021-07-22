@@ -1,4 +1,4 @@
-class AddMultipleChoiceAndMultiplePermittedAndIsExpandedToQuestions < ActiveRecord::Migration
+class AddMultipleChoiceAndMultiplePermittedAndIsExpandedToQuestions < ActiveRecord::Migration[4.2]
   def change
     add_column :questions, :multiple_choice, :boolean
     add_column :questions, :multiple_permitted, :boolean

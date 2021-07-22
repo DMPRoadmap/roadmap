@@ -1,0 +1,99 @@
+<%# locals form, plan, contributor %>
+
+<%
+phone_tooltip = _("Phone numbers should only include numbers and dashes ('-').")
+roles_tooltip = _("Select each role that applies to the contributor.")
+%>
+
+<div class="form-group row"><!-- name -->
+  <div class="col-md-12">
+    <%= form.label(:name, _("Name"), class: "control-label") %>
+  </div>
+  <div class="col-md-6">
+    <%= form.text_field :name, class: "form-control", aria: { required: true } %>
+  </div>
+</div>
+
+<div class="form-group row"><!-- email -->
+  <div class="col-md-12">
+    <%= form.label(:email, _("Email"), class: "control-label") %>
+  </div>
+  <div class="col-md-4">
+    <%= form.email_field :email, class: "form-control", aria: { required: true } %>
+  </div>
+</div>
+
+<div class="form-group row"><!-- orcid -->
+  <% orcid = ContributorPresenter.orcid(contributor: contributor) %>
+  <%= form.fields_for :identifiers, orcid do |orcid_fields| %>
+    <%= orcid_fields.hidden_field :id %>
+    <%= orcid_fields.hidden_field :identifier_scheme_id,
+                                  value: orcid.identifier_scheme_id %>
+    <div class="col-md-12">
+      <%= orcid_fields.label(:value, _("ORCID"), class: "control-label") %>
+    </div>
+    <div class="col-md-4">
+      <%= orcid_fields.text_field :value, class: "form-control" %>
+    </div>
+  <% end %>
+</div>
+
+<div class="form-group row"><!-- phone -->
+  <div class="col-md-12">
+    <%= form.label(:phone, _("Phone number"), class: "control-label") %>
+  </div>
+  <div class="col-md-4">
+    <em class="sr-only"><%= phone_tooltip %></em>
+    <%= form.phone_field :phone, class: "form-control",
+                                 title: phone_tooltip,
+                                 data: { toggle: "tooltip" },
+                                 pattern: "[0-9\-\.\(\)\+]+",
+                                 placeholder: "123-123-1234" %>
+  </div>
+</div>
+
+<div class="form-group row" id="contributor-org-controls"><!-- org -->
+  <div class="col-md-8">
+    <%= render partial: "shared/org_selectors/combined",
+               locals: { form: form,
+                         default_org: contributor.org,
+                         required: false,
+                         label: _("Affiliation") } %>
+  </div>
+</div>
+
+<div class="form-group row">
+  <div class="col-md-12">
+    <fieldset>
+      <legend>
+        <span class="red">*</span> <%= _("Roles") %>
+      </legend>
+      <p><%= roles_tooltip.html_safe %></p>
+
+      <% roles = ContributorPresenter.roles_for_radio(contributor: contributor) %>
+      <% roles.each do |hash| %>
+        <div class="col-md-4">
+          <div class="checkbox">
+            <%= form.check_box hash.keys.first.to_sym,
+                               value: hash.values.first,
+                               data: { toggle: "tooltip" },
+                               title: ContributorPresenter.role_tooltip(symbol: hash.keys.first) %>
+            <%= ContributorPresenter.role_symbol_to_string(symbol: hash.keys.first) %>
+          </div>
+        </div>
+      <% end %>
+    </fieldset>
+  </div>
+</div>
+
+<div class="form-group row">
+  <div class="col-md-6">
+    <%= form.button(_("Save"), class: "btn btn-default", type: "submit") %>
+    <% unless contributor.new_record? %>
+      <%= link_to _("Remove"), plan_contributor_path(plan, contributor),
+                               method: :delete, class: "btn btn-default" %>
+      <% end %>
+      <%= link_to _("Cancel"), plan_contributors_path(plan),
+                               class: "btn btn-default" %>
+  </div>
+</div>

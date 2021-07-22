@@ -5,26 +5,27 @@
 # Table name: stats
 #
 #  id         :integer          not null, primary key
-#  count      :integer          default(0)
+#  count      :bigint(8)        default(0)
 #  date       :date             not null
 #  details    :text
+#  filtered   :boolean          default(FALSE)
 #  type       :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  org_id     :integer
 #
 
-class Stat < ActiveRecord::Base
+class Stat < ApplicationRecord
 
   extend OrgDateRangeable
 
-  belongs_to :org
+  belongs_to :org, optional: true
 
-  validates_uniqueness_of :type, scope: [:date, :org_id]
+  validates_uniqueness_of :type, scope: %i[date org_id filtered]
 
   class << self
 
-    def to_csv(stats, sep=",")
+    def to_csv(stats, sep = ",")
       data = stats.map do |stat|
         { date: stat.date, count: stat.count }
       end

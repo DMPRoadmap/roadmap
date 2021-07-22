@@ -1,0 +1,37 @@
+<% title "#{@plan.title} - contributors" %>
+
+<div class="row">
+  <div class="col-md-12">
+    <!-- render the project title -->
+    <h1><%= @plan.title %></h1>
+  </div>
+</div>
+
+<% content_for :plan_tab_body do %>
+  <div class="row">
+    <div class="col-md-12">
+      <p>
+        <%= _("Please list the project’s Principal Investigator(s) and those responsible for data management.") %>
+      </p>
+      <br/>
+
+      <% if @contributors.any? %>
+        <%= paginable_renderise partial: "/paginable/contributors/index",
+                                controller: "paginable/contributors",
+                                action: "index",
+                                scope: @contributors,
+                                locals: { plan: @plan },
+                                query_params: {
+                                  sort_field: 'contributors.name',
+                                  sort_direction: :asc } %>
+      <% else %>
+        <p><%= _("No contributors have been defined.") %></p>
+      <% end %>
+
+      <%= link_to _("Add a contributor"), new_plan_contributor_path(@plan),
+                                          class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
+
+<%= render partial: "plans/navigation", locals: { plan: @plan } %>

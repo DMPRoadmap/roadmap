@@ -1,4 +1,4 @@
-class RemoveSlugFromPlans < ActiveRecord::Migration
+class RemoveSlugFromPlans < ActiveRecord::Migration[4.2]
   def up
     if column_exists?(:plans, :slug)
       remove_column :plans, :slug

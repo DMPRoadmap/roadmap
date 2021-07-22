@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe Section, type: :model do
 
@@ -14,8 +16,8 @@ RSpec.describe Section, type: :model do
     it "validates uniqueness of number" do
       subject.versionable_id = SecureRandom.uuid
       expect(subject).to validate_uniqueness_of(:number)
-                          .scoped_to(:phase_id)
-                          .with_message("must be unique")
+        .scoped_to(:phase_id)
+        .with_message("must be unique")
     end
 
     it { is_expected.to allow_values(true, false).for(:modifiable) }
@@ -31,6 +33,28 @@ RSpec.describe Section, type: :model do
     it { is_expected.to have_one :template }
 
     it { is_expected.to have_many :questions }
+
+  end
+
+  describe "#deep_copy" do
+
+    let!(:options) { {} }
+
+    let!(:section) { create(:section) }
+
+    subject { section.deep_copy(options) }
+
+    context "when no options provided" do
+
+      before do
+        create_list(:question, 3, section: section)
+      end
+
+      it "checks number of questions" do
+        expect(section.questions.size).to eql(section.questions.size)
+      end
+
+    end
 
   end
 
@@ -60,7 +84,7 @@ RSpec.describe Section, type: :model do
 
       before do
         question = create(:question, section: section)
-        create(:answer, question: question, plan: plan, text: '')
+        create(:answer, question: question, plan: plan, text: "")
 
         question = create(:question, section: section)
         create(:answer, question: question, plan: plan)

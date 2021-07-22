@@ -10,6 +10,11 @@
   border-top-left-radius: 0px;
 }
 
+.empty-section {
+  background-color: $color-muted-background !important;
+  cursor: 'auto' !important;
+}
+
 .panel-title a {
   display: block;
   padding: 8px $grid-gutter-width / 2;

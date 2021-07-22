@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe Role, type: :model do
   include RolesHelper
@@ -12,10 +14,12 @@ RSpec.describe Role, type: :model do
 
     it { is_expected.not_to allow_value(nil).for(:active) }
 
-    it { is_expected.to validate_numericality_of(:access)
-                          .only_integer
-                          .is_greater_than(0)
-                          .with_message("can't be less than zero") }
+    it {
+      is_expected.to validate_numericality_of(:access)
+        .only_integer
+        .is_greater_than(0)
+        .with_message("can't be less than zero")
+    }
 
   end
 

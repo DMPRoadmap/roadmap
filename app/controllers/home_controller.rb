@@ -14,11 +14,9 @@ class HomeController < ApplicationController
   def index
     if user_signed_in?
       name = current_user.name(false)
-      # TODO: Investigate if this is even relevant anymore.
-      # The name var will never be blank here because the logic in
-      # User says to return the email if the firstname and surname are empty
-      # regardless of the flag passed in
-      if name.blank?
+      # The RolesController defaults the firstname and surname (both required fields)
+      # to 'FirstName' and 'Surname' when a plan is shared with an unknown user
+      if name == "First Name Surname"
         redirect_to edit_user_registration_path
       else
         redirect_to plans_url

@@ -8,20 +8,21 @@ RSpec.describe Question, type: :model do
 
   context "validations" do
 
-    it { is_expected.to validate_presence_of(:text)
-          .with_message("for 'Question text' can't be blank.") }
+    it {
+      is_expected.to validate_presence_of(:text)
+        .with_message("for 'Question text' can't be blank.")
+    }
 
     it { is_expected.to validate_presence_of(:number) }
 
     it "validates uniqueness of number" do
       subject.versionable_id = SecureRandom.uuid
       expect(subject).to validate_uniqueness_of(:number)
-                          .scoped_to(:section_id)
-                          .with_message("must be unique")
+        .scoped_to(:section_id)
+        .with_message("must be unique")
     end
 
     it { is_expected.to validate_presence_of(:section).on(:update) }
-
 
     it { is_expected.to validate_presence_of(:question_format) }
 
@@ -51,11 +52,12 @@ RSpec.describe Question, type: :model do
 
     it { is_expected.to have_many :annotations }
 
-    it { is_expected.to have_and_belong_to_many(:themes)
-                          .join_table("questions_themes") }
+    it {
+      is_expected.to have_and_belong_to_many(:themes)
+        .join_table("questions_themes")
+    }
 
   end
-
 
   describe "#to_s" do
 
@@ -86,13 +88,14 @@ RSpec.describe Question, type: :model do
 
       let!(:question_format) { create(:question_format, option_based: true) }
 
+      # rubocop:disable Layout/LineLength
       it {
-        expect {
+        expect do
           create(:question, question_format: question_format, options: 0)
-        }.to raise_error(ActiveRecord::RecordInvalid,
-         "Validation failed: You must have at least one option with accompanying text."
-        )
+        end.to raise_error(ActiveRecord::RecordInvalid,
+                           "Validation failed: You must have at least one option with accompanying text.")
       }
+      # rubocop:enable Layout/LineLength
 
       it { is_expected.to eql(true) }
 
@@ -110,19 +113,28 @@ RSpec.describe Question, type: :model do
 
   describe "#deep_copy" do
 
-    let!(:question) { create(:question,
-      default_value: "foo bar",
-      modifiable: true,
-      number: 12,
-      option_comment_display: false,
-      text: "How many foos can bar?",
-    ) }
+    let!(:question) do
+      create(:question,
+             default_value: "foo bar",
+             modifiable: true,
+             number: 12,
+             option_comment_display: false,
+             text: "How many foos can bar?")
+    end
 
-    let!(:options) { Hash.new }
+    let!(:options) { {} }
 
     subject { question.deep_copy(options) }
 
     context "when no options are provided" do
+
+      before do
+        create_list(:question_option, 4, question: question)
+      end
+
+      it "checks number of question options" do
+        expect(subject.question_options.size).to eql(question.question_options.size)
+      end
 
       it "doesn't persist the record" do
         expect(subject).to be_new_record
@@ -254,9 +266,9 @@ RSpec.describe Question, type: :model do
 
       let!(:annotation) do
         create(:annotation,
-                 org: org,
-                 question: question,
-                 type: Annotation.types[:guidance])
+               org: org,
+               question: question,
+               type: Annotation.types[:guidance])
       end
 
       it { is_expected.to eql(annotation) }
@@ -267,9 +279,9 @@ RSpec.describe Question, type: :model do
 
       let!(:annotation) do
         create(:annotation,
-                 org: org,
-                 question: question,
-                 type: Annotation.types[:example_answer])
+               org: org,
+               question: question,
+               type: Annotation.types[:example_answer])
       end
 
       it { is_expected.to be_nil }
@@ -280,8 +292,8 @@ RSpec.describe Question, type: :model do
 
       let!(:annotation) do
         create(:annotation,
-                 question: question,
-                 type: Annotation.types[:guidance])
+               question: question,
+               type: Annotation.types[:guidance])
       end
 
       it { is_expected.to be_nil }
@@ -292,8 +304,8 @@ RSpec.describe Question, type: :model do
 
       let!(:annotation) do
         create(:annotation,
-                 question: question,
-                 type: Annotation.types[:example_answer])
+               question: question,
+               type: Annotation.types[:example_answer])
       end
 
       it { is_expected.to be_nil }

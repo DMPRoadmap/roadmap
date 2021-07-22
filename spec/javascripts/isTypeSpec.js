@@ -9,7 +9,7 @@ import {
   isRegExp,
   isString,
   isUndefined,
-} from '../../app/javascript/utils/isType';
+} from '../../app/javascript/src/utils/isType';
 
 describe('isArray test suite', () => {
   it('expect true for []', () => expect(isArray([])).toBe(true));
