@@ -47,8 +47,8 @@
     "regenerator-runtime": "^0.13.5",
     "timeago.js": "^4.0.2",
     "tinymce": "4.9.11",
-    "turbolinks": "^5.2.0",
     "tinymce-i18n": "^20.4.4",
+    "turbolinks": "^5.2.0",
     "written-number": "^0.9.1"
   },
   "devDependencies": {

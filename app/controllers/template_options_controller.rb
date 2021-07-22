@@ -66,7 +66,7 @@ class TemplateOptionsController < ApplicationController
     if Template.default.present?
       customization = Template.published
                         .latest_customized_version(Template.default.family_id,
-                                                    org_id).first
+                                                    org.id).first
       
       customization = Template.default unless customization
 
