@@ -68,7 +68,7 @@ module DMPRoadmap
     # Active Record will no longer suppress errors raised in after_rollback or after_commit
     # in the next version. Devise appears to be using those callbacks.
     # To accept the new behaviour use 'true' otherwise use 'false'
-    config.active_record.raise_in_transactional_callbacks = true
+    # config.active_record.raise_in_transactional_callbacks = true
 
     # Load Branded terminology (e.g. organization name, application name, etc.)
     if File.exists?(Rails.root.join('config/branding.yml'))

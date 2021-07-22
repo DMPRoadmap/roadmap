@@ -54,21 +54,11 @@ gem "bootsnap", require: false
 
 # Rollbar-gem is the SDK for Ruby apps and includes support for apps using
 # Rails, Sinatra, Rack, plain Ruby, and other frameworks.
-gem "rollbar"
+gem "rollbar", group: :rollbar, require: false
 
 # ======== #
 # DATABASE #
 # ======== #
-
-group :nulldb do
-  # A null db adapter so we can perform tast rake assets:precompile with production environment without a live database.
-  gem "activerecord-nulldb-adapter"
-end
-
-group :thin do
-  # A thin and fast web server (http://code.macournoyer.com/thin/)
-  gem 'thin'
-end
 
 # A simple, fast Mysql library for Ruby, binding to libmysql
 # (http://github.com/brianmario/mysql2)
@@ -77,6 +67,10 @@ gem "mysql2", group: :mysql, require: false
 # Pg is the Ruby interface to the {PostgreSQL
 # RDBMS}[http://www.postgresql.org/](https://bitbucket.org/ged/ruby-pg)
 gem "pg", group: :pgsql, require: false
+
+# A null db adapter so we can perform tast rake assets:precompile with
+# production environment without a live database.
+gem "activerecord-nulldb-adapter", group: :nulldb, require: false
 
 # Bit fields for ActiveRecord (https://github.com/pboling/flag_shih_tzu)
 gem "flag_shih_tzu" # , "~> 0.3.23"
@@ -200,7 +194,8 @@ gem "zaru"
 # INTERNATIONALIZATION #
 # ==================== #
 
-gem "translation"
+# gem "translation"
+gem 'translation', git: "https://github.com/lagoan/translation_io_rails", branch: 'fix/broken_db_fake_method_calls'
 
 # ========= #
 # UTILITIES #
@@ -217,28 +212,16 @@ gem "httparty"
 # Autoload dotenv in Rails. (https://github.com/bkeepers/dotenv)
 gem "dotenv-rails"
 
-# Gem use for validating emails
-gem 'truemail'
-
-# Use translation.io services
-# gem 'translation', git: 'https://github.com/raycarrick-ed/rails'
-# gem 'translation', '~> 1.22'
-# gem 'translation', path: "/home/orodrigu/Workspace/translation_io_rails"
-gem 'translation', git: "https://github.com/lagoan/translation_io_rails", branch: 'fix/broken_db_fake_method_calls'
-
-
 # ================================= #
 # ENVIRONMENT SPECIFIC DEPENDENCIES #
 # ================================= #
 
-# ------------------------------------------------
-# ENVIRONMENT SPECIFIC DEPENDENCIES
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: %i[mri mingw x64_mingw]
 end
 
-group :test do
+group :development, :test do
   # RSpec for Rails (https://github.com/rspec/rspec-rails)
   gem "rspec-rails"
 
