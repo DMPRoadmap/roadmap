@@ -51,7 +51,9 @@ class PlansController < ApplicationController
     flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>" if params.key?(:test)
     @is_test = params[:test] ||= false
 
-    render :new_plan
+    # render :new_plan
+    respond_to :html
+
   end
   # rubocop:enable Metrics/AbcSize
 

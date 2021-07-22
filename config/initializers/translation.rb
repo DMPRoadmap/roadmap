@@ -23,6 +23,10 @@ TranslationIO.configure do |config|
   # Find other useful usage information here:
   # https://github.com/translation/rails#readme
 end
+
+I18n.enforce_available_locales = false
+I18n.default_locale = :"en-CA"
+
 # frozen_string_literal: true
 
 # # Here we define the translation domains for the Roadmap application, `app` will

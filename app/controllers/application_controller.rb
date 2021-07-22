@@ -23,7 +23,6 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordNotFound,
               #XXX Unkown controllers not working ATM
-              ActionController::UnknownController,
               ActionController::RoutingError, with: :render_404
 
 
@@ -37,11 +36,11 @@ class ApplicationController < ActionController::Base
   private
 
 
-  def set_locale
-    FastGettext.set_locale(params[:locale] || session[:locale] || request.env['HTTP_ACCEPT_LANGUAGE'])
-    I18n.locale = FastGettext.locale.to_s.gsub('_', '-')
-    session[:locale] = FastGettext.locale
-  end
+  # def set_locale
+  #   FastGettext.set_locale(params[:locale] || session[:locale] || request.env['HTTP_ACCEPT_LANGUAGE'])
+  #   I18n.locale = FastGettext.locale.to_s.gsub('_', '-')
+  #   session[:locale] = FastGettext.locale
+  # end
 
   def current_org
     current_user.org

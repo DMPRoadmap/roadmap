@@ -121,7 +121,7 @@ module DMPRoadmap
     # Enable shibboleth as an alternative authentication method
     # Requires server configuration and omniauth shibboleth provider configuration
     # See config/initializers/devise.rb
-    config.x.shibboleth.enabled = true
+    config.x.shibboleth.enabled = false
 
     # Relative path to Shibboleth SSO Logouts
     config.x.shibboleth.login_url = "/Shibboleth.sso/Login"
@@ -139,7 +139,7 @@ module DMPRoadmap
     # ------- #
 
     # The default locale (use the i18n format!)
-    config.x.locales.default = "en-GB"
+    config.x.locales.default = "en-CA"
     # The character that separates a locale's ISO code for i18n. (e.g. `en-GB` or `en`)
     # Changing this value is not recommended!
     config.x.locales.i18n_join_character = "-"
@@ -177,7 +177,7 @@ module DMPRoadmap
 
     # Whether or not Super adminis can read all of the user's plans regardless of
     # the plans visibility and whether or not the plan has been shared
-    config.x.plans.org_admins_read_all = true
+    config.x.plans.org_admins_read_all = false
     # Whether or not Organisational administrators can read all of the user's plans
     # regardless of the plans visibility and whether or not the plan has been shared
     config.x.plans.super_admins_read_all = true
@@ -200,7 +200,7 @@ module DMPRoadmap
     # ------------------------------------------------------------------------ #
     # reCAPTCHA - recaptcha appears on the create account and contact us forms #
     # ------------------------------------------------------------------------ #
-    config.x.recaptcha.enabled = false
+    config.x.recaptcha.enabled = true
 
   end
 
