@@ -67,13 +67,19 @@ unless @minimal
     json.title plan.template.title
   end
 
-  # Any related identifiers known by the DMPTool
-  json.dmproadmap_related_identifiers plan.related_identifiers do |related|
-    next unless related.value.present? && related.relation_type.present?
+  # If the plan was created via the API and the external system provided an identifier,
+  # return that value
+  json.external_system_identifier presenter.external_system_identifier&.value
 
-    json.descriptor related.relation_type
-    json.type related.identifier_type
-    json.identifier related.value
+  # Any related identifiers known by the DMPTool
+  if plan.related_identifiers.any?
+    json.dmproadmap_related_identifiers plan.related_identifiers do |related|
+      next unless related.value.present? && related.relation_type.present?
+
+      json.descriptor related.relation_type
+      json.type related.identifier_type
+      json.identifier related.value
+    end
   end
 
   json.dmproadmap_privacy presenter.visibility

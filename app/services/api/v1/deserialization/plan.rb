@@ -80,9 +80,9 @@ module Api
             return nil unless json.present?
 
             id = id_json[:identifier] if id_json.is_a?(Hash)
-            if id.present?
-              schm = IdentifierScheme.find_by(name: id_json[:type].downcase)
+            schm = IdentifierScheme.find_by(name: id_json[:type].downcase)
 
+            if id.present?
               # If the identifier is a DOI/ARK or the api client's internal id for the DMP
               if Api::V1::DeserializationService.doi?(value: id)
                 # Find by the DOI or ARK
@@ -98,7 +98,7 @@ module Api
               else
                 # For URL based identifiers
                 begin
-                  plan = ::Plan.find_by(id: id.split("/").last.to_i)
+                  plan = ::Plan.find_by(id: id.split("/").last.to_i) if id.start_with("http")
                 rescue StandardError
                   # Catches scenarios where the dmp_id is NOT one of our URLs
                   plan = nil
@@ -108,7 +108,11 @@ module Api
             return plan if plan.present?
 
             template = find_template(json: json)
-            ::Plan.new(title: json[:title], template: template)
+            plan = ::Plan.new(title: json[:title], template: template)
+            return plan unless id.present? && schm.present?
+
+            # If the external system provided an identifier and they have an IdentifierScheme
+            Api::V1::DeserializationService.attach_identifier(object: plan, json: id_json)
           end
 
           # Deserialize the datasets and attach to plan

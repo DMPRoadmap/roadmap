@@ -174,6 +174,7 @@ module Api
 
       # Send the owner an email to let them know about the new Plan
       def notify_owner(client:, owner:, plan:)
+        # In Test or Production user the owner defined in the :contact
         if Rails.env.test? || Rails.env.production?
           if owner.new_record?
             # This essentially drops the initializer User (aka owner) and creates a new one via
@@ -188,6 +189,10 @@ module Api
             ).deliver_now
             owner
           end
+
+        else
+          # Otherwise use the ApiClient user since they're testing in Stage or Dev
+          owner = client.user
         end
       end
 
