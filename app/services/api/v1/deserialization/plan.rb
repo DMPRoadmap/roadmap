@@ -80,7 +80,7 @@ module Api
             return nil unless json.present?
 
             id = id_json[:identifier] if id_json.is_a?(Hash)
-            schm = IdentifierScheme.find_by(name: id_json[:type].downcase)
+            schm = IdentifierScheme.find_by(name: id_json[:type].downcase) if id.present?
 
             if id.present?
               # If the identifier is a DOI/ARK or the api client's internal id for the DMP

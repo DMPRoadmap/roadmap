@@ -156,7 +156,7 @@ module Api
         return user if user.present?
 
         id_json = json.fetch(:contact_id, {})
-        orcid = id_json[:identifier] if id_json[:type].downcase == "orcid"
+        orcid = id_json[:identifier] if id_json[:type]&.downcase == "orcid"
         identifier = Identifier.by_scheme_name("orcid", "User").where(value: orcid) if orcid.present?
         return identifier.identifiable if identifier.present?
 
@@ -176,25 +176,18 @@ module Api
 
       # Send the owner an email to let them know about the new Plan
       def notify_owner(client:, owner:, plan:)
-        # In Test or Production user the owner defined in the :contact
-        if Rails.env.test? || Rails.env.production?
-          if owner.new_record?
-            # This essentially drops the initializer User (aka owner) and creates a new one via
-            # the Devise invitation
-            User.invite!({ email: owner.email,
-                          firstname: owner.firstname,
-                          surname: owner.surname,
-                          org: owner.org }, client)
-          else
-            UserMailer.new_plan_via_api(
-              recipient: owner, plan: plan, api_client: client
-            ).deliver_now
-            owner
-          end
-
+        if owner.new_record?
+          # This essentially drops the initializer User (aka owner) and creates a new one via
+          # the Devise invitation
+          User.invite!({ email: owner.email,
+                        firstname: owner.firstname,
+                        surname: owner.surname,
+                        org: owner.org }, client, { api_client: client, plan: plan })
         else
-          # Otherwise use the ApiClient user since they're testing in Stage or Dev
-          owner = client.user
+          UserMailer.new_plan_via_api(
+            recipient: owner, plan: plan, api_client: client
+          ).deliver_now
+          owner
         end
       end
 
