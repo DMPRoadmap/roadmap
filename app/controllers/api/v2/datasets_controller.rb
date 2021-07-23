@@ -19,8 +19,6 @@ module Api
       def create
         datasets = @json.with_indifferent_access.fetch(:items, []).first.fetch(:dmp, {}).fetch(:dataset, [])
 
-pp datasets.inspect
-
         # Do a pass through the raw JSON and check to make sure all required fields
         # were present. If not, return the specific errors
         errs = []
@@ -36,11 +34,6 @@ pp datasets.inspect
               object = Api::V1::Deserialization::Dataset.deserialize(plan: @plan, json: dataset_json)
               # This is a create endpoint so only allow inserts!
               next unless object.new_record?
-
-  p "DATASET:"
-  pp object.inspect
-  pp object.valid?
-  pp object.errors.full_messages
 
               errs << object.errors.full_messages unless object.valid?
               object.plan = @plan if object.respond_to?(:plan_id) && object.plan_id.nil?
