@@ -20,6 +20,7 @@ module Api
       # GET /api/v2/plans
       # -----------------
       def index
+        # Scope here is not the Doorkeeper scope, its just to refine the results
         @scope = "mine"
         @scope = params[:scope].to_s.downcase if %w[mine public both].include?(params[:scope].to_s.downcase)
 
@@ -234,7 +235,7 @@ module Api
 
         @hash           = @plan.as_pdf(@show_coversheet)
         @formatting     = @plan.settings(:export).formatting || @plan.template.settings(:export).formatting
-        @selected_phase = @plan.phases.order("phases.updated_at DESC")
+        @selected_phase = @plan.phases.order("phases.updated_at DESC").first
 
         # limit the filename length to 100 chars. Windows systems have a MAX_PATH allowance
         # of 255 characters, so this should provide enough of the title to allow the user

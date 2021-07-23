@@ -19,10 +19,11 @@ module Api
       def create
         datasets = @json.with_indifferent_access.fetch(:items, []).first.fetch(:dmp, {}).fetch(:dataset, [])
 
+pp datasets.inspect
+
         # Do a pass through the raw JSON and check to make sure all required fields
         # were present. If not, return the specific errors
         errs = []
-
         datasets.each do |dataset_json|
           errs += Api::V2::JsonValidationService.dataset_validation_errors(json: dataset_json)
         end
@@ -30,29 +31,32 @@ module Api
 
         # Convert the JSON into a Plan and it's associations
         unless errs.any?
-          datasets.each do |dataset_json|
-            object = Api::V1::Deserialization::Dataset.deserialize(plan: @plan, json: dataset_json)
-            @plan.research_outputs << object if object.is_a?(ResearchOutput) && object.new_record?
-            @plan.related_identifiers << object if object.is_a?(RelatedIdentifier) && object.new_record?
+          ResearchOutput.transaction do
+            datasets.each do |dataset_json|
+              object = Api::V1::Deserialization::Dataset.deserialize(plan: @plan, json: dataset_json)
+              # This is a create endpoint so only allow inserts!
+              next unless object.new_record?
 
-            Plan.transaction do
-              # If we cannot save for some reason then return an error
-              if @plan.save
-                render("/api/v2/datasets/show", status: :created) and return
-              else
-                # rubocop:disable Layout/LineLength
-                errs += _("Unable to add the datasets to this DMP! %{specific_errors}") % {
-                  specific_errors: @plan.errors.full_messages
-                }
-              end
+  p "DATASET:"
+  pp object.inspect
+  pp object.valid?
+  pp object.errors.full_messages
+
+              errs << object.errors.full_messages unless object.valid?
+              object.plan = @plan if object.respond_to?(:plan_id) && object.plan_id.nil?
+              object.save if object.valid?
             end
           end
-        end
 
-        if errs.flatten.any?
-          render_error(errors: errs.flatten.uniq, status: :bad_request)
-        else
-          render_error(errors: _("Unable to process the request at this time."), status: :server_error)
+          # If we cannot save for some reason then return an error
+          if errs.empty?
+            @items = [@plan.reload]
+            render "/api/v2/plans/index", status: :created
+          else
+            # rubocop:disable Layout/LineLength
+            errs += _("Unable to add the datasets to this DMP! %{specific_errors}")
+            render_error(errors: errs.flatten.uniq, status: :bad_request)
+          end
         end
       end
 

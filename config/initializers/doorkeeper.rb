@@ -263,7 +263,7 @@ Doorkeeper.configure do
   # DMPROADMAP NOTES:
   # -----------------------------------------------------------------------
   # Scopes are used to control access to the API endpoints. Here are a list of scopes and their endpoints
-  # (note: public allows access to :publicly_visible plans)
+  # (note: public allows access to fetch the list of templates and plans)
   #
   # See the relevant API version's Policies for specific details of which endpoints are available to a scope
   #
@@ -407,11 +407,6 @@ Doorkeeper.configure do
   #   http://tools.ietf.org/html/rfc6819#section-4.4.3
   #
   # grant_flows %w[authorization_code client_credentials]
-  #
-  # DMPROADMAP NOTES:
-  # -----------------------------------------------------------------------
-  # See the explanation of how each of these :grant_flows are used in the :scopes_by_grant_type
-  # section above.
   #
   grant_flows %w[authorization_code client_credentials]
 

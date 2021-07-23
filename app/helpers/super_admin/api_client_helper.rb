@@ -9,11 +9,13 @@ module SuperAdmin
     def label_for_scope(scope)
       case scope
       when "read_dmps"
-        _("Read and Download Plans")
+        _("Read and download PDF copies of plans")
       when "edit_dmps"
-        _("Edit Plans")
+        _("Edit plans")
       when "create_dmps"
-        _("Create Plans")
+        _("Create plans")
+      when "public"
+        _("Retrieve a list of templates and plans")
       else
         scope.humanize
       end
@@ -41,6 +43,8 @@ module SuperAdmin
         _("Edit your DMPs")
       when "create_dmps"
         _("Create DMPs on your behalf")
+      when "public"
+        _("Retrieve a list of your DMPs")
       else
         scope.humanize
       end
