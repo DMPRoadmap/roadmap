@@ -19,20 +19,25 @@ json.array! @plans.each do |plan|
   json.funder do
     json.name(plan.template.org.funder? ? plan.template.org.name : plan.funder&.name)
   end
-  json.principal_investigator do
-    investigator = plan.contributors.investigation.first
 
-    json.name         investigator.name
-    json.email        investigator.email
-    json.phone        investigator.phone
+  investigator = plan.contributors.investigation.first
+  if investigator.present?
+    json.principal_investigator do
+      json.name         investigator.name
+      json.email        investigator.email
+      json.phone        investigator.phone
+    end
   end
 
-  json.data_contact do
-    data_contact = plan.contributors.data_curation.first
-    json.name         data_contact.name
-    json.email        data_contact.email
-    json.phone        data_contact.phone
+  data_contact = plan.contributors.data_curation.first || plan.owner
+  if data_contact.present?
+    json.data_contact do
+      json.name   data_contact.is_a?(Contributor) ? data_contact.name : data_contact.name(false)
+      json.email  data_contact.email
+      json.phone  data_contact.phone if data_contact.is_a?(Contributor)
+    end
   end
+
   json.users plan.roles.each do |role|
     json.email role.user.email
   end
