@@ -1,14 +1,14 @@
-# Finnish translations for app package.
-# Copyright (C) 2021 app
-# This file is distributed under the same license as the app package.
+# Finnish translations for roadmap package.
+# Copyright (C) 2021 roadmap
+# This file is distributed under the same license as the roadmap package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: app 1.0\n"
+"Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-07-14 09:05+0000\n"
-"PO-Revision-Date: 2021-07-14 11:05+0200\n"
+"POT-Creation-Date: 2021-06-23 09:12-0700\n"
+"PO-Revision-Date: 2021-06-23 18:12+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Finnish\n"
 "Language: fi\n"
@@ -247,16 +247,15 @@ msgstr "Sähköpostin lähettäminen onnistui."
 msgid "Unable to submit your request"
 msgstr "Pyyntösi ei onnistu"
 
-#: ../../app/controllers/contributors_controller.rb:40
-#: ../../app/controllers/contributors_controller.rb:56
-msgid "add"
-msgstr "lisätä"
-
-#: ../../app/controllers/contributors_controller.rb:54
+#: ../../app/controllers/contributors_controller.rb:47
 msgid "added"
 msgstr "lisä-"
 
-#: ../../app/controllers/contributors_controller.rb:72
+#: ../../app/controllers/contributors_controller.rb:49
+msgid "add"
+msgstr "lisätä"
+
+#: ../../app/controllers/contributors_controller.rb:64
 #: ../../app/controllers/guidance_groups_controller.rb:48
 #: ../../app/controllers/guidances_controller.rb:71
 #: ../../app/controllers/notes_controller.rb:92
@@ -275,7 +274,7 @@ msgstr "lisä-"
 msgid "saved"
 msgstr "tallennettu"
 
-#: ../../app/controllers/contributors_controller.rb:74
+#: ../../app/controllers/contributors_controller.rb:66
 #: ../../app/controllers/guidance_groups_controller.rb:50
 #: ../../app/controllers/guidances_controller.rb:73
 #: ../../app/controllers/notes_controller.rb:110
@@ -292,27 +291,27 @@ msgstr "tallennettu"
 msgid "save"
 msgstr "tallenna"
 
-#: ../../app/controllers/contributors_controller.rb:84
+#: ../../app/controllers/contributors_controller.rb:76
 #: ../../app/controllers/notes_controller.rb:134
 #: ../../app/controllers/org_admin/templates_controller.rb:236
 #: ../../app/controllers/super_admin/orgs_controller.rb:94
 msgid "removed"
 msgstr "poistettu"
 
-#: ../../app/controllers/contributors_controller.rb:87
+#: ../../app/controllers/contributors_controller.rb:79
 #: ../../app/controllers/notes_controller.rb:152
 #: ../../app/controllers/org_admin/templates_controller.rb:238
 #: ../../app/controllers/super_admin/orgs_controller.rb:97
 msgid "remove"
 msgstr "poista"
 
-#: ../../app/controllers/contributors_controller.rb:160
+#: ../../app/controllers/contributors_controller.rb:148
 msgid "plan not found"
 msgstr "Suunnitelmaa ei löytynyt"
 
-#: ../../app/controllers/contributors_controller.rb:168
+#: ../../app/controllers/contributors_controller.rb:156
 msgid "contributor not found"
-msgstr "osallistujaa ei löytynyt"
+msgstr "tekijää ei löytynyt"
 
 #: ../../app/controllers/feedback_requests_controller.rb:9
 msgid "Unable to submit your request for feedback at this time."
@@ -1882,7 +1881,7 @@ msgstr "Puhelinnumeroissa tulisi olla vain numerot ja viivat ('-')."
 
 #: ../../app/views/contributors/_form.html.erb:5
 msgid "Select each role that applies to the contributor."
-msgstr "Valitse kuhunkin osallistujaan liittyvä rooli."
+msgstr "Valitse kuhunkin tekijään liittyvä rooli."
 
 #: ../../app/views/contributors/_form.html.erb:33
 #: ../../app/views/paginable/contributors/_index.html.erb:9
@@ -1944,12 +1943,12 @@ msgstr "Peruuta"
 
 #: ../../app/views/contributors/edit.html.erb:12
 msgid "Editing contributor"
-msgstr "Muokataan osallistujan tietoja"
+msgstr "Muokataan tekijää"
 
 #: ../../app/views/contributors/edit.html.erb:13
 #: ../../app/views/contributors/new.html.erb:13
 msgid "View all contributors"
-msgstr "Näytä kaikki osallistujat"
+msgstr "Näytä kaikki tekijät"
 
 #: ../../app/views/contributors/index.html.erb:14
 msgid ""
@@ -1961,15 +1960,15 @@ msgstr ""
 
 #: ../../app/views/contributors/index.html.erb:28
 msgid "No contributors have been defined."
-msgstr "Osallistujia ei ole määritelty."
+msgstr "Tekijöitä ei ole määritelty."
 
 #: ../../app/views/contributors/index.html.erb:31
 msgid "Add a contributor"
-msgstr "Lisää osallistuja"
+msgstr "Lisää tekijä"
 
 #: ../../app/views/contributors/new.html.erb:12
 msgid "New contributor"
-msgstr "Uusi osallistuja"
+msgstr "Uusi tekijä"
 
 #: ../../app/views/devise/invitations/edit.html.erb:1
 #: ../../app/views/devise/invitations/edit.html.erb:4
@@ -2128,14 +2127,14 @@ msgid "Hello"
 msgstr "Hei"
 
 #: ../../app/views/devise/mailer/unlock_instructions.html.erb:4
-msgid "Your"
-msgstr "Sinun"
-
-#: ../../app/views/devise/mailer/unlock_instructions.html.erb:4
 msgid ""
 "account has been locked due to an excessive number of unsuccessful sign in att"
 "empts."
 msgstr "tili on suljettu liiallisten epäonnistuneiden kirjautumisyritysten vuoksi."
+
+#: ../../app/views/devise/mailer/unlock_instructions.html.erb:4
+msgid "Your"
+msgstr "Sinun"
 
 #: ../../app/views/devise/mailer/unlock_instructions.html.erb:6
 msgid "Click the link below to unlock your account"
@@ -2350,14 +2349,14 @@ msgid "My privileges"
 msgstr "Käyttöoikeuteni"
 
 #: ../../app/views/devise/registrations/_personal_details.html.erb:65
-#: ../../app/views/users/_current_privileges.html.erb:3
-msgid "Super Admin"
-msgstr "Superylläpitäjä"
-
-#: ../../app/views/devise/registrations/_personal_details.html.erb:65
 #: ../../app/views/users/_current_privileges.html.erb:5
 msgid "Organisational Admin"
 msgstr "Organisaation ylläpitäjä"
+
+#: ../../app/views/devise/registrations/_personal_details.html.erb:65
+#: ../../app/views/users/_current_privileges.html.erb:3
+msgid "Super Admin"
+msgstr "Superylläpitäjä"
 
 #: ../../app/views/devise/registrations/edit.html.erb:1
 #: ../../app/views/devise/registrations/edit.html.erb:4
@@ -2761,12 +2760,12 @@ msgid "%{application_name}"
 msgstr "%{application_name}"
 
 #: ../../app/views/layouts/application.html.erb:91
-msgid "Error:"
-msgstr "Virhe:"
-
-#: ../../app/views/layouts/application.html.erb:91
 msgid "Notice:"
 msgstr "Hei!"
+
+#: ../../app/views/layouts/application.html.erb:91
+msgid "Error:"
+msgstr "Virhe:"
 
 #: ../../app/views/layouts/application.html.erb:112
 #: ../../app/views/plans/new.html.erb:2
@@ -3185,12 +3184,12 @@ msgstr ""
 "än."
 
 #: ../../app/views/org_admin/questions/_form.html.erb:4
-msgid "Question %{number}:"
-msgstr "Kysymyksen %{number}:"
-
-#: ../../app/views/org_admin/questions/_form.html.erb:4
 msgid "New question:"
 msgstr "Uusi kysymys:"
+
+#: ../../app/views/org_admin/questions/_form.html.erb:4
+msgid "Question %{number}:"
+msgstr "Kysymyksen %{number}:"
 
 #: ../../app/views/org_admin/questions/_form.html.erb:15
 msgid "Question Number"
@@ -4034,20 +4033,20 @@ msgstr "Näytä"
 
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:73
 msgid ""
+"Are you sure you wish to remove this plan? Any collaborators will still be abl"
+"e to access it."
+msgstr ""
+"Haluatko varmasti poistaa suunnitelman? Yhteistyökumppaneilla on edelleen pääs"
+"y siihen."
+
+#: ../../app/views/paginable/plans/_privately_visible.html.erb:73
+msgid ""
 "Are you sure you wish to remove this public plan? This will remove it from the"
 " Public DMPs page but any collaborators will still be able to access it."
 msgstr ""
 "Haluatko varmasti poistaa tämän julkisen suunnitelman? Silloin se katoaa Julki"
 "sten aineistonhallintasuunnitelmien sivulta mutta yhteistyökumppaneilla on ede"
 "lleen pääsy siihen."
-
-#: ../../app/views/paginable/plans/_privately_visible.html.erb:73
-msgid ""
-"Are you sure you wish to remove this plan? Any collaborators will still be abl"
-"e to access it."
-msgstr ""
-"Haluatko varmasti poistaa suunnitelman? Yhteistyökumppaneilla on edelleen pääs"
-"y siihen."
 
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:17
 msgid "Not Applicable"
@@ -4142,12 +4141,12 @@ msgid "Create a new plan"
 msgstr "Tee uusi suunnitelma"
 
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:13
-msgid "Sample Plans"
-msgstr "Suunnitelmaesimerkkejä"
-
-#: ../../app/views/paginable/templates/_publicly_visible.html.erb:13
 msgid "(if available)"
 msgstr "(Jos saatavilla)"
+
+#: ../../app/views/paginable/templates/_publicly_visible.html.erb:13
+msgid "Sample Plans"
+msgstr "Suunnitelmaesimerkkejä"
 
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:47
 msgid "Copy link to create a new plan"
@@ -4330,7 +4329,7 @@ msgstr "Projektin tiedot"
 
 #: ../../app/views/plans/_navigation.html.erb:7
 msgid "Contributors"
-msgstr "Osallistujat"
+msgstr "Tekijät"
 
 #: ../../app/views/plans/_navigation.html.erb:11
 msgid "Plan overview"
@@ -4926,12 +4925,12 @@ msgid "on the homepage."
 msgstr "kotisivulla."
 
 #: ../../app/views/static_pages/about_us.html.erb:35
-msgid "Please visit the"
-msgstr "Mene"
-
-#: ../../app/views/static_pages/about_us.html.erb:35
 msgid "page for guidance."
 msgstr "ohjeistuksen sivu."
+
+#: ../../app/views/static_pages/about_us.html.erb:35
+msgid "Please visit the"
+msgstr "Mene"
 
 #: ../../app/views/static_pages/about_us.html.erb:37
 msgid "Customising for your Organisation"
@@ -5392,12 +5391,12 @@ msgid "New API Client"
 msgstr "Uusi API-asiakas"
 
 #: ../../app/views/super_admin/api_clients/refresh_credentials.js.erb:1
-msgid "Successfully regenerated the client credentials."
-msgstr "Asiakkaan tunnistetietojen luominen onnistui."
-
-#: ../../app/views/super_admin/api_clients/refresh_credentials.js.erb:1
 msgid "Unable to regenerate the client credentials."
 msgstr "Asiakkaan tunnistetietoja ei voi luoda uudelleen."
+
+#: ../../app/views/super_admin/api_clients/refresh_credentials.js.erb:1
+msgid "Successfully regenerated the client credentials."
+msgstr "Asiakkaan tunnistetietojen luominen onnistui."
 
 #: ../../app/views/super_admin/notifications/_form.html.erb:20
 msgid ""
@@ -5755,6 +5754,10 @@ msgid "Hello %{recipient_name},"
 msgstr "Hei %{recipient_name},"
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
+msgid " based on the template "
+msgstr " perustuu malliin"
+
+#: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " is creating a Data Management Plan and has answered "
 msgstr " on luomassa tiedonhallintasuunnitelmaa ja on vastannut"
 
@@ -5766,16 +5769,14 @@ msgstr " että"
 msgid " in a plan called "
 msgstr " suunnitelmassa nimeltään"
 
-#: ../../app/views/user_mailer/question_answered.html.erb:5
-msgid " based on the template "
-msgstr " perustuu malliin"
-
 #: ../../app/views/user_mailer/sharing_notification.html.erb:5
 msgid ""
-"Your colleague %{inviter_name} has invited you to contribute to\n"
+"Your colleague %{inviter_name} has invited you to contribute to
+\n"
 "          their Data Management Plan in %{tool_name}"
 msgstr ""
-"Kollegasi %{inviter_name} on kutsunut sinut osallistumaan\n"
+"Kollegasi %{inviter_name} on kutsunut sinut osallistumaan
+\n"
 "          heidän tiedonhallintasuunnitelmansa %{tool_name}"
 
 #: ../../app/views/user_mailer/welcome_notification.html.erb:2
@@ -5925,12 +5926,12 @@ msgid "Download users"
 msgstr "Lataa käyttäjät"
 
 #: ../../app/views/users/refresh_token.js.erb:1
-msgid "Successfully regenerate your API token."
-msgstr "Luo API-tunnuksesi onnistuneesti."
-
-#: ../../app/views/users/refresh_token.js.erb:1
 msgid "Unable to regenerate your API token."
 msgstr "API-tunnuksen luominen epäonnistui."
+
+#: ../../app/views/users/refresh_token.js.erb:1
+msgid "Successfully regenerate your API token."
+msgstr "Luo API-tunnuksesi onnistuneesti."
 
 #: i18n_placeholders.rb:4
 msgid "activerecord.errors.messages.record_invalid"

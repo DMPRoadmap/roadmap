@@ -8,7 +8,7 @@ RSpec.describe Api::V1::Deserialization::Org do
     # Org requires a language, so make sure a default is available!
     create(:language, default_language: true) unless Language.default
 
-    @name = Faker::Company.name
+    @name = Faker::Company.unique.name
     @abbrev = Faker::Lorem.word.upcase
     @org = create(:org, name: @name, abbreviation: @abbrev)
     @scheme = create(:identifier_scheme)
@@ -62,7 +62,7 @@ RSpec.describe Api::V1::Deserialization::Org do
     end
     it "is able to initialize a new Org" do
       described_class.stubs(:find_by_name)
-                     .returns(build(:org, name: Faker::Company.name))
+                     .returns(build(:org, name: Faker::Company.unique.name))
       result = described_class.deserialize(json: @json)
       expect(result.new_record?).to eql(true)
       expect(result.abbreviation).to eql(@json[:abbreviation])
