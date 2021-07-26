@@ -121,6 +121,17 @@ fr-CA:
       header:
         one: " 1 erreur a empêché l’enregistrement de %{model}"
         other: "%{count} erreurs ont empêché l’enregistrement de %{model} "
+    unavailable_session: |
+      La session %{id} n’est plus disponible en mémoire.
+
+      S'il vous arrive d’exécuter le processus sur un serveur multi-processus (comme Unicorn ou Puma), le processus cette requête ne stocke pas %{id} en mémoire. Pensez à remettre le nombre de processus ou de travailleurs à un (1) ou à utiliser un autre serveur en développement.
+    unacceptable_request: 'Une version prise en charge est attendue dans l’en-tête
+      Accept.
+
+      '
+    connection_refused: |
+      Oups! Échec de la connexion à l’intergiciel de la console Web.
+      Veuillez vous assurer qu’un serveur de développement Rails est en cours d'exécution.
   activerecord:
     errors:
       messages:

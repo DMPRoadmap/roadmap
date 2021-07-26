@@ -1,15 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
+<<<<<<< HEAD
 # Copyright (C) 2021 app
 # This file is distributed under the same license as the app package.
+=======
+# Copyright (C) 2021 roadmap
+# This file is distributed under the same license as the roadmap package.
+>>>>>>> master
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: app 1.0\n"
+"Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
+<<<<<<< HEAD
 "POT-Creation-Date: 2021-07-14 09:05+0000\n"
 "PO-Revision-Date: 2021-07-14 09:05+0000\n"
+=======
+"POT-Creation-Date: 2021-06-23 09:12-0700\n"
+"PO-Revision-Date: 2021-06-23 09:12-0700\n"
+>>>>>>> master
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -2044,13 +2054,13 @@ msgid "Hello"
 msgstr ""
 
 #: ../../app/views/devise/mailer/unlock_instructions.html.erb:4
-msgid "Your"
-msgstr ""
-
-#: ../../app/views/devise/mailer/unlock_instructions.html.erb:4
 msgid ""
 "account has been locked due to an excessive number of unsuccessful sign in att"
 "empts."
+msgstr ""
+
+#: ../../app/views/devise/mailer/unlock_instructions.html.erb:4
+msgid "Your"
 msgstr ""
 
 #: ../../app/views/devise/mailer/unlock_instructions.html.erb:6
@@ -2237,16 +2247,24 @@ msgstr ""
 
 #: ../../app/views/devise/registrations/_personal_details.html.erb:64
 msgid "My privileges"
+<<<<<<< HEAD
 msgstr ""
 
 #: ../../app/views/devise/registrations/_personal_details.html.erb:65
 #: ../../app/views/users/_current_privileges.html.erb:3
 msgid "Super Admin"
+=======
+>>>>>>> master
 msgstr ""
 
 #: ../../app/views/devise/registrations/_personal_details.html.erb:65
 #: ../../app/views/users/_current_privileges.html.erb:5
 msgid "Organisational Admin"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_personal_details.html.erb:65
+#: ../../app/views/users/_current_privileges.html.erb:3
+msgid "Super Admin"
 msgstr ""
 
 #: ../../app/views/devise/registrations/edit.html.erb:1
@@ -2626,11 +2644,19 @@ msgid "%{application_name}"
 msgstr ""
 
 #: ../../app/views/layouts/application.html.erb:91
+<<<<<<< HEAD
 msgid "Error:"
 msgstr ""
 
 #: ../../app/views/layouts/application.html.erb:91
 msgid "Notice:"
+=======
+msgid "Notice:"
+msgstr ""
+
+#: ../../app/views/layouts/application.html.erb:91
+msgid "Error:"
+>>>>>>> master
 msgstr ""
 
 #: ../../app/views/layouts/application.html.erb:112
@@ -3031,11 +3057,11 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/org_admin/questions/_form.html.erb:4
-msgid "Question %{number}:"
+msgid "New question:"
 msgstr ""
 
 #: ../../app/views/org_admin/questions/_form.html.erb:4
-msgid "New question:"
+msgid "Question %{number}:"
 msgstr ""
 
 #: ../../app/views/org_admin/questions/_form.html.erb:15
@@ -3814,14 +3840,14 @@ msgstr ""
 
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:73
 msgid ""
-"Are you sure you wish to remove this public plan? This will remove it from the"
-" Public DMPs page but any collaborators will still be able to access it."
+"Are you sure you wish to remove this plan? Any collaborators will still be abl"
+"e to access it."
 msgstr ""
 
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:73
 msgid ""
-"Are you sure you wish to remove this plan? Any collaborators will still be abl"
-"e to access it."
+"Are you sure you wish to remove this public plan? This will remove it from the"
+" Public DMPs page but any collaborators will still be able to access it."
 msgstr ""
 
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:17
@@ -3910,11 +3936,11 @@ msgid "Create a new plan"
 msgstr ""
 
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:13
-msgid "Sample Plans"
+msgid "(if available)"
 msgstr ""
 
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:13
-msgid "(if available)"
+msgid "Sample Plans"
 msgstr ""
 
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:47
@@ -4598,11 +4624,11 @@ msgid "on the homepage."
 msgstr ""
 
 #: ../../app/views/static_pages/about_us.html.erb:35
-msgid "Please visit the"
+msgid "page for guidance."
 msgstr ""
 
 #: ../../app/views/static_pages/about_us.html.erb:35
-msgid "page for guidance."
+msgid "Please visit the"
 msgstr ""
 
 #: ../../app/views/static_pages/about_us.html.erb:37
@@ -4952,11 +4978,11 @@ msgid "New API Client"
 msgstr ""
 
 #: ../../app/views/super_admin/api_clients/refresh_credentials.js.erb:1
-msgid "Successfully regenerated the client credentials."
+msgid "Unable to regenerate the client credentials."
 msgstr ""
 
 #: ../../app/views/super_admin/api_clients/refresh_credentials.js.erb:1
-msgid "Unable to regenerate the client credentials."
+msgid "Successfully regenerated the client credentials."
 msgstr ""
 
 #: ../../app/views/super_admin/notifications/_form.html.erb:20
@@ -5280,6 +5306,10 @@ msgid "Hello %{recipient_name},"
 msgstr ""
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
+msgid " based on the template "
+msgstr ""
+
+#: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " is creating a Data Management Plan and has answered "
 msgstr ""
 
@@ -5289,10 +5319,6 @@ msgstr ""
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " in a plan called "
-msgstr ""
-
-#: ../../app/views/user_mailer/question_answered.html.erb:5
-msgid " based on the template "
 msgstr ""
 
 #: ../../app/views/user_mailer/sharing_notification.html.erb:5
@@ -5432,11 +5458,11 @@ msgid "Download users"
 msgstr ""
 
 #: ../../app/views/users/refresh_token.js.erb:1
-msgid "Successfully regenerate your API token."
+msgid "Unable to regenerate your API token."
 msgstr ""
 
 #: ../../app/views/users/refresh_token.js.erb:1
-msgid "Unable to regenerate your API token."
+msgid "Successfully regenerate your API token."
 msgstr ""
 
 #: i18n_placeholders.rb:4

@@ -116,6 +116,18 @@ pt-BR:
         other: "%{count} erros proibiram que esse %{resource} fosse salvo:"
       model_invalid: 'A validação falhou: %{errors}'
       required: é obrigatório(a)
+    unavailable_session: |
+      A sessão %{id} não está mais disponível na memória.
+
+      Se acontecer de você executar em um servidor com vários processos (como Unicorn ou Puma), o processo
+      esta solicitação não armazena %{id} na memória. Considere transformar o número de
+      processos / trabalhadores para um (1) ou usando um servidor diferente em desenvolvimento.
+    unacceptable_request: 'Uma versão suportada é esperada no cabeçalho Accept.
+
+      '
+    connection_refused: |
+      Opa! Falha ao conectar-se ao middleware do console da Web.
+      Por favor, certifique-se de que um servidor de desenvolvimento de trilhos está sendo executado.
     template:
       body: 'Por favor, verifique o(s) seguinte(s) campo(s):'
       header:

@@ -88,10 +88,10 @@ tr-TR:
       inclusion: kabul edilen bir kelime değil
       exclusion: kullanılamaz
       invalid: geçersiz
-      confirmation: "%{attribute} özniteliğiyle uyuşmuyor"
+      confirmation: "%{attribute} teyidiyle uyuşmuyor"
       accepted: kabul edilmeli
-      empty: boş bırakılamaz
-      blank: boş bırakılamaz
+      empty: doldurulmalı
+      blank: doldurulmalı
       present: boş bırakılmalı
       too_long:
         one: çok uzun (en fazla 1 karakter)
@@ -106,7 +106,7 @@ tr-TR:
       not_an_integer: tam sayı olmalı
       greater_than: "%{count} sayısından büyük olmalı"
       greater_than_or_equal_to: "%{count} sayısına eşit veya büyük olmalı"
-      equal_to: tam olarak %{count} adet olmalı
+      equal_to: tam olarak %{count} olmalı
       less_than: "%{count} sayısından küçük olmalı"
       less_than_or_equal_to: "%{count} sayısına eşit veya küçük olmalı"
       other_than: "%{count} karakterden oluşamaz"
@@ -128,6 +128,9 @@ tr-TR:
       header:
         one: 1 hata oluştuğu için %{model} kaydedilemedi
         other: "%{count} hata oluştuğu için %{model} kaydedilemedi"
+    unavailable_session:
+    unacceptable_request:
+    connection_refused:
   activerecord:
     errors:
       messages:
