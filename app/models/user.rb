@@ -398,12 +398,25 @@ class User < ApplicationRecord
   end
   # rubocop:enable Metrics/AbcSize
 
-  # Override devise_invitable email title
+  # Override to Devise invitation emails
   def deliver_invitation(options = {})
-    super(options.merge(subject: _("A Data Management Plan in " \
-      "%{application_name} has been shared with you") %
-      { application_name: ApplicationService.application_name })
-    )
+    # Send a different email when a User is invited by the creation of a Plan via the API
+    #
+    # See the app/controllers/api/v2/plans_controller.rb call to User.invite!
+    if options[:api_client].present? && options[:plan].present?
+      # In Test or Production user the owner defined in the :contact
+      if Rails.env.test? || Rails.env.development? || Rails.env.production?
+        UserMailer.new_plan_via_api(
+          recipient: self, plan: options[:plan], api_client: options[:api_client]
+        ).deliver_now
+      end
+    else
+      # Always override the devise_invitable email title
+      super(options.merge(subject: _("A Data Management Plan in " \
+        "%{application_name} has been shared with you") %
+        { application_name: ApplicationService.application_name })
+      )
+    end
   end
 
   # Case insensitive search over User model

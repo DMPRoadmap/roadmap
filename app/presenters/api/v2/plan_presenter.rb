@@ -36,6 +36,13 @@ module Api
         Identifier.new(value: @helpers.api_v2_plan_url(@plan))
       end
 
+      # Extract the calling system's identifier for the Plan if available
+      def external_system_identifier
+        scheme = IdentifierScheme.find_by(name: @client.name.downcase)
+
+        @plan.identifiers.select { |id| id.identifier_scheme == scheme }.last
+      end
+
       # Related identifiers for the Plan
       def links
         ret = {

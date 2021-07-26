@@ -74,7 +74,8 @@ module Api
 
         # Fetch all of the Plans that belong to the Admin's Org
         def plans_for_org_admin
-          @client.user.can_org_admin? ? @client.user.org.plans.reject { |plan| plan.is_test? } : []
+          # TODO: Update this to use the new method created by @john_pinto
+          @client.user.can_org_admin? ? Plan.where(org: @client.user.org).reject { |p| p.is_test? } : []
         end
 
       end

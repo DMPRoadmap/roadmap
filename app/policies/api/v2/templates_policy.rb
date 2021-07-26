@@ -30,7 +30,7 @@ module Api
         def resolve
           # Only return publicly visible Templates if the caller is an ApiClient
           templates = public_templates
-          return templates if @client.is_a?(ApiClient)
+          return templates unless @client.respond_to?(:user) && @client.user&.org&.present?
 
           org_templates(templates: templates).flatten.compact.uniq
         end
@@ -49,18 +49,15 @@ module Api
 
         # Fetch all of the Org's templates along with their customizations
         def org_templates(templates: [])
-          where_clause = <<-SQL
-            (visibility = 0 AND org_id = ?) OR
-            (visibility = 1 AND customization_of IS NULL)
-          SQL
-          org_owned = Template.includes(org: :identifiers)
-                              .joins(:org)
-                              .published
-                              .where(where_clause, @client.org&.id)
-                              .order(:title)
-          # Favor the Org customized version of any public templates
-          org_owned += templates.reject { |tmplt| org_owned.map(&:customization_of).include?(tmplt.family_id) }
-          org_owned
+
+          org_templates = Template.latest_version_per_org(@client.user.org).published
+          custs = Template.latest_customized_version_per_org(@client.user.org).published
+          return (templates + org_templates).sort{ |a, b| a.title <=> b.title } unless custs.any?
+
+          # Remove any templates that were customized by the org, we will use their customization
+          templates.reject { |t| custs.map { |c| c.customization_of }.include?(t.family_id) }
+
+          (org_templates + custs + templates).sort{ |a, b| a.title <=> b.title }
         end
 
       end

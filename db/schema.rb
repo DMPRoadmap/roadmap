@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_29_183243) do
+ActiveRecord::Schema.define(version: 2021_07_23_164236) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -340,6 +340,8 @@ ActiveRecord::Schema.define(version: 2021_06_29_183243) do
     t.text "feedback_email_msg"
     t.string "contact_name"
     t.boolean "managed", default: false, null: false
+    t.string "api_create_plan_email_subject"
+    t.text "api_create_plan_email_body"
     t.index ["language_id"], name: "fk_rails_5640112cab"
     t.index ["region_id"], name: "fk_rails_5a6adf6bab"
   end

@@ -6,6 +6,8 @@ module Api
 
     class TemplatesController < BaseApiController
 
+      before_action -> { doorkeeper_authorize!(:public) }, only: %i[index]
+
       # GET /api/v2/templates
       # ---------------------
       def index

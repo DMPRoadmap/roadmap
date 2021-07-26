@@ -27,30 +27,38 @@ class ContributorsController < ApplicationController
     authorize @plan
   end
 
+  # rubocop:disable Metrics/AbcSize
   # POST /plans/:plan_id/contributors
   def create
     authorize @plan
 
     args = translate_roles(hash: contributor_params)
-    args = process_orcid_for_create(hash: args)
-    args[:plan_id] = @plan.id
-
-    @contributor = Contributor.new(args)
-    @contributor.org = process_org!(user: current_user)
-    stash_orcid
-
-    if @contributor.save
-      # Now that the model has been ssaved, go ahead and save the identifiers
-      save_orcid
-
-      redirect_to plan_contributors_path(@plan),
-                  notice: success_message(@contributor, _("added"))
-    else
+    args = process_org(hash: args)
+    if args.blank?
+      @contributor = Contributor.new(args)
+      @contributor.errors.add(:affiliation, "invalid")
       flash[:alert] = failure_message(@contributor, _("add"))
       render :new
+    else
+      args = process_orcid_for_create(hash: args)
+      args[:plan_id] = @plan.id
+
+      @contributor = Contributor.new(args)
+      stash_orcid
+
+      if @contributor.save
+        # Now that the model has been ssaved, go ahead and save the identifiers
+        save_orcid
+
+        redirect_to plan_contributors_path(@plan),
+                    notice: success_message(@contributor, _("added"))
+      else
+        flash[:alert] = failure_message(@contributor, _("add"))
+        render :new
+      end
     end
   end
-  # rubocop:enable
+  # rubocop:enable Metrics/AbcSize
 
   # PUT /plans/:plan_id/contributors/:id
   def update
@@ -99,6 +107,23 @@ class ContributorsController < ApplicationController
   def translate_roles(hash:)
     roles = Contributor.new.all_roles
     roles.each { |role| hash[role.to_sym] = hash[role.to_sym] == "1" }
+    hash
+  end
+
+  # Convert the Org Hash into an Org object (creating it if allowed)
+  # and then remove all of the Org args
+  def process_org(hash:)
+    return hash unless hash.present? && hash[:org_id].present?
+
+    allow = !Rails.configuration.x.application.restrict_orgs
+    org = org_from_params(params_in: hash,
+                          allow_create: allow)
+    return nil if org.blank? && !allow
+
+    hash = remove_org_selection_params(params_in: hash)
+    return hash unless org.present?
+
+    hash[:org_id] = org.id
     hash
   end
 

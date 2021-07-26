@@ -7,12 +7,6 @@ plan = plan.first if plan.is_a?(Array)
 
 json.ignore_nil!
 
-extensions = [{ name: "dmproadmap", uri: "https://github.com/DMPRoadmap/api-json-schema" }]
-json.extensions extensions do |extension|
-  json.uri extension[:uri]
-  json.name extension[:name]
-end
-
 presenter = Api::V2::PlanPresenter.new(plan: plan, client: @client)
 # A JSON representation of a Data Management Plan in the
 # RDA Common Standard format
@@ -73,13 +67,19 @@ unless @minimal
     json.title plan.template.title
   end
 
-  # Any related identifiers known by the DMPTool
-  json.dmproadmap_related_identifiers plan.related_identifiers do |related|
-    next unless related.value.present? && related.relation_type.present?
+  # If the plan was created via the API and the external system provided an identifier,
+  # return that value
+  json.dmproadmap_external_system_identifier presenter.external_system_identifier&.value
 
-    json.descriptor related.relation_type
-    json.type related.identifier_type
-    json.identifier related.value
+  # Any related identifiers known by the DMPTool
+  if plan.related_identifiers.any?
+    json.dmproadmap_related_identifiers plan.related_identifiers do |related|
+      next unless related.value.present? && related.relation_type.present?
+
+      json.descriptor related.relation_type
+      json.type related.identifier_type
+      json.identifier related.value
+    end
   end
 
   json.dmproadmap_privacy presenter.visibility

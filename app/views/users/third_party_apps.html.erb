@@ -1,4 +1,4 @@
-<% title _('Edit profile') %>
+<% title _('3rd Party Applications') %>
 
 <div class="row">
   <div class="col-md-12">
@@ -15,10 +15,8 @@
         <label class='control-label'>
           <span class="aria-only" aria-hidden="false"><%= _('Institutional credentials (single sign on)') %></span>
         </label>
-        <p><%= _("Connect your account so that you can log into %{app_name} via your institution ") % { app_name: app_name } %></p>
       <% elsif scheme.name.downcase == 'orcid' %>
         <%= label_tag(:scheme_name, 'ORCID', class: 'control-label') %>
-        <p><%= _("Authorize %{app_name} to fetch your ORCID iD and add DMPs to your ORCID record.") % { app_name: app_name } %></p>
       <% else %>
         <%= label_tag(:scheme_name, scheme.name.capitalize, class: 'control-label') %>
       <% end %>

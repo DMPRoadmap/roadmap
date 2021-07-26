@@ -12,17 +12,20 @@ module Api
 
       # If the Resource Owner (aka User) is in the Doorkeeper AccessToken then it is an authorization_code
       # token and we need to ensure that the ApiClient is authorized for the relevant Scope
-      before_action -> { doorkeeper_authorize!(:read_dmps) if @resource_owner.present? }, only: %i[index show]
-      before_action -> { doorkeeper_authorize!(:create_dmps) if @resource_owner.present? }, only: %i[create]
+      before_action -> { doorkeeper_authorize!(:public) }, only: %i[index]
+      before_action -> { doorkeeper_authorize!(:read_dmps) }, only: %i[show]
+      before_action -> { doorkeeper_authorize!(:create_dmps) }, only: %i[create]
+      before_action -> { doorkeeper_authorize!(:edit_dmps) }, only: %i[update]
 
       # GET /api/v2/plans
       # -----------------
       def index
-        scope = "mine"
-        scope = params[:scope].to_s.downcase if %w[mine public both].include?(params[:scope].to_s.downcase)
+        # Scope here is not the Doorkeeper scope, its just to refine the results
+        @scope = "mine"
+        @scope = params[:scope].to_s.downcase if %w[mine public both].include?(params[:scope].to_s.downcase)
 
         # See the Policy for details on what Plans are returned to the Caller based on the AccessToken
-        plans = Api::V2::PlansPolicy::Scope.new(@client, @resource_owner, scope).resolve
+        plans = Api::V2::PlansPolicy::Scope.new(@client, @resource_owner, @scope).resolve
 
         if plans.present? && plans.any?
           plans = plans.sort { |a, b| b.updated_at <=> a.updated_at }
@@ -30,7 +33,7 @@ module Api
           @minimal = true
           render "api/v2/plans/index", status: :ok
         else
-          render_error(errors: [_("No Plans found")], status: :not_found)
+          render_error(errors: _("No Plans found"), status: :not_found)
         end
       end
 
@@ -38,8 +41,8 @@ module Api
       # ---------------------
       def show
         # See the Policy for details on what Plans are returned to the Caller based on the AccessToken
-        @plan = Api::V2::PlansPolicy::Scope.new(@client, @resource_owner, nil).resolve
-                                           .select { |plan| plan.id = params[:id] }.first
+        @plan = Api::V2::PlansPolicy::Scope.new(@client, @resource_owner, "both").resolve
+                                           .select { |plan| plan.id.to_s == params[:id] }.first
 
         if @plan.present?
           respond_to do |format|
@@ -66,7 +69,7 @@ module Api
             end
           end
         else
-          render_error(errors: [_("Plan not found")], status: :not_found)
+          render_error(errors: _("Plan not found"), status: :not_found)
         end
       end
 
@@ -78,57 +81,55 @@ module Api
 
         # Do a pass through the raw JSON and check to make sure all required fields
         # were present. If not, return the specific errors
-        errs = Api::V1::JsonValidationService.validation_errors(json: dmp)
+        errs = Api::V2::JsonValidationService.validation_errors(json: dmp)
         render_error(errors: errs, status: :bad_request) and return if errs.any?
 
         # Convert the JSON into a Plan and it's associations
-        plan = Api::V1::Deserialization::Plan.deserialize(json: dmp)
+        plan = Api::V2::Deserialization::Plan.deserialize(json: dmp)
+
         if plan.present?
           save_err = _("Unable to create your DMP")
           exists_err = _("Plan already exists. Send an update instead.")
           no_org_err = _("Could not determine ownership of the DMP. Please add an
                           :affiliation to the :contact")
 
-          # Try to determine the Plan's owner
-          owner = determine_owner(client: client, plan: plan)
-          plan.org = owner.org if owner.present? && plan.org.blank?
+          # Skip if this is an existing DMP
+          render_error(errors: exists_err, status: :bad_request) and return unless plan.new_record?
+
+          # Try to find the owner based on the :contact
+          owner = determine_owner(plan: plan, json: dmp.fetch(:contact, {}))
+
+          # Try to determine the Plan's org
+          plan.org = owner.present? ? owner.org : client.user&.org
           render_error(errors: no_org_err, status: :bad_request) and return unless plan.org.present?
 
           # Validate the plan and it's associations and return errors with context
           # e.g. 'Contact affiliation name can't be blank' instead of 'name can't be blank'
-          errs = Api::V1::ContextualErrorService.process_plan_errors(plan: plan)
-
+          errs = Api::V2::ContextualErrorService.contextualize_errors(plan: plan)
           # The resulting plan (our its associations were invalid)
           render_error(errors: errs, status: :bad_request) and return if errs.any?
-          # Skip if this is an existing DMP
-          render_error(errors: exists_err, status: :bad_request) and return unless plan.new_record?
 
           # If we cannot save for some reason then return an error
-          plan = Api::V1::PersistenceService.safe_save(plan: plan)
+          plan = Api::V2::PersistenceService.safe_save(plan: plan)
           # rubocop:disable Layout/LineLength
           render_error(errors: save_err, status: :internal_server_error) and return if plan.new_record?
-
           # rubocop:enable Layout/LineLength
-
-pp dmp
-p "---------------------"
-pp dmp[:dmp_id]
 
           # If the plan was generated by an ApiClient then add a subscription for them
           dmp_id_to_subscription(plan: plan, id_json: dmp[:dmp_id]) if client.is_a?(ApiClient)
 
-          # Invite the Owner if they are a Contributor then attach the Owner to the Plan
-          owner = invite_contributor(contributor: owner) if owner.is_a?(Contributor)
+          # User the Owner if one was found otherwise invite the :contact
+          owner = notify_owner(client: client, owner: owner, plan: plan)
           plan.add_user!(owner.id, :creator)
 
           # Kaminari Pagination requires an ActiveRecord result set :/
           @items = paginate_response(results: Plan.where(id: plan.id))
           render "/api/v2/plans/index", status: :created
         else
-          render_error(errors: [_("Invalid JSON!")], status: :bad_request)
+          render_error(errors: _("Invalid JSON format!"), status: :bad_request)
         end
       rescue JSON::ParserError
-        render_error(errors: [_("Invalid JSON")], status: :bad_request)
+        render_error(errors: _("Invalid JSON"), status: :bad_request)
       end
       # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
@@ -148,51 +149,46 @@ pp dmp[:dmp_id]
       end
 
       # Get the Plan's owner
-      def determine_owner(client:, plan:)
-        contact = plan.contributors.select(&:data_curation?).first
-        # Use the contact if it was sent in and has an affiliation defined
-        return contact if contact.present? && contact.org.present?
+      def determine_owner(plan:, json:)
+        return nil unless plan.present? && json.is_a?(Hash) && json[:mbox].present?
 
-        # If the contact has no affiliation defined, see if they are already a User
-        user = lookup_user(contributor: contact)
+        user = User.find_by(email: json[:mbox])
         return user if user.present?
 
-        # Otherwise just return the client
-        client
-      end
+        id_json = json.fetch(:contact_id, {})
+        orcid = id_json[:identifier] if id_json[:type]&.downcase == "orcid"
+        identifier = Identifier.by_scheme_name("orcid", "User").where(value: orcid) if orcid.present?
+        return identifier.identifiable if identifier.present?
 
-      def lookup_user(contributor:)
-        return nil unless contributor.present?
-
-        identifiers = contributor.identifiers.map do |id|
-          { name: id.identifier_scheme&.name, value: id.value }
-        end
-        user = User.from_identifiers(array: identifiers) if identifiers.any?
-        user = User.find_by(email: contributor.email) unless user.present?
-        user
-      end
-
-      def invite_contributor(contributor:)
-        return nil unless contributor.present?
-
-        # If the user was not found, invite them and attach any know identifiers
-        names = contributor.name&.split || [""]
+        names = json[:name]&.split || [""]
         firstname = names.length > 1 ? names.first : nil
         surname = names.length > 1 ? names.last : names.first
-        user = User.invite!({ email: contributor.email,
-                              firstname: firstname,
-                              surname: surname,
-                              org: contributor.org }, client)
 
-        user = User.create({ email: contributor.email, firstname: firstname,
-                             surname: surname, org: contributor.org,
-                             password: SecureRandom.uuid })
-        contributor.identifiers.each do |id|
-          user.identifiers << Identifier.new(
-            identifier_scheme: id.identifier_scheme, value: id.value
-          )
-        end
+        org = Api::V2::Deserialization::Org.deserialize(json: json[:affiliation])
+
+        user = User.new(firstname: firstname, surname: surname, email: json[:mbox], org: org)
+        return user unless orcid.present?
+
+        scheme = IdentifierScheme.find_by(name: "orcid")
+        user.identifiers << Identifier.new(identifier_scheme: scheme, value: orcid)
         user
+      end
+
+      # Send the owner an email to let them know about the new Plan
+      def notify_owner(client:, owner:, plan:)
+        if owner.new_record?
+          # This essentially drops the initializer User (aka owner) and creates a new one via
+          # the Devise invitation
+          User.invite!({ email: owner.email,
+                        firstname: owner.firstname,
+                        surname: owner.surname,
+                        org: owner.org }, client, { api_client: client, plan: plan })
+        else
+          UserMailer.new_plan_via_api(
+            recipient: owner, plan: plan, api_client: client
+          ).deliver_now
+          owner
+        end
       end
 
       # Convert the dmp_id into an identifier for the ApiClient if applicable
@@ -232,7 +228,7 @@ pp dmp[:dmp_id]
 
         @hash           = @plan.as_pdf(@show_coversheet)
         @formatting     = @plan.settings(:export).formatting || @plan.template.settings(:export).formatting
-        @selected_phase = @plan.phases.order("phases.updated_at DESC")
+        @selected_phase = @plan.phases.order("phases.updated_at DESC").first
 
         # limit the filename length to 100 chars. Windows systems have a MAX_PATH allowance
         # of 255 characters, so this should provide enough of the title to allow the user

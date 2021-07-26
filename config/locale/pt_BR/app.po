@@ -7,13 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-<<<<<<< HEAD
-"POT-Creation-Date: 2021-06-15 13:36-0700\n"
-"PO-Revision-Date: 2021-06-15 22:51+0200\n"
-=======
 "POT-Creation-Date: 2021-06-23 09:12-0700\n"
 "PO-Revision-Date: 2021-06-23 18:12+0200\n"
->>>>>>> roadmap-main
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Portuguese\n"
 "Language: pt_BR\n"
@@ -293,19 +288,6 @@ msgstr "Adicionar"
 #: ../../app/controllers/org_admin/departments_controller.rb:48
 #: ../../app/controllers/org_admin/sections_controller.rb:102
 #: ../../app/controllers/org_admin/templates_controller.rb:203
-<<<<<<< HEAD
-#: ../../app/controllers/orgs_controller.rb:95
-#: ../../app/controllers/plans_controller.rb:253
-#: ../../app/controllers/plans_controller.rb:256
-#: ../../app/controllers/plans_controller.rb:382
-#: ../../app/controllers/registrations_controller.rb:270
-#: ../../app/controllers/registrations_controller.rb:274
-#: ../../app/controllers/registrations_controller.rb:299
-#: ../../app/controllers/registrations_controller.rb:303
-#: ../../app/controllers/research_outputs_controller.rb:59
-#: ../../app/controllers/users_controller.rb:99
-#: ../../app/controllers/users_controller.rb:126
-=======
 #: ../../app/controllers/orgs_controller.rb:87
 #: ../../app/controllers/plans_controller.rb:262
 #: ../../app/controllers/plans_controller.rb:265
@@ -315,7 +297,6 @@ msgstr "Adicionar"
 #: ../../app/controllers/registrations_controller.rb:269
 #: ../../app/controllers/users_controller.rb:98
 #: ../../app/controllers/users_controller.rb:125
->>>>>>> roadmap-main
 msgid "saved"
 msgstr "salvo"
 
@@ -326,16 +307,6 @@ msgstr "salvo"
 #: ../../app/controllers/org_admin/departments_controller.rb:50
 #: ../../app/controllers/org_admin/sections_controller.rb:104
 #: ../../app/controllers/org_admin/templates_controller.rb:208
-<<<<<<< HEAD
-#: ../../app/controllers/orgs_controller.rb:97
-#: ../../app/controllers/plans_controller.rb:262
-#: ../../app/controllers/plans_controller.rb:266
-#: ../../app/controllers/plans_controller.rb:270
-#: ../../app/controllers/plans_controller.rb:273
-#: ../../app/controllers/registrations_controller.rb:277
-#: ../../app/controllers/registrations_controller.rb:306
-#: ../../app/controllers/research_outputs_controller.rb:62
-=======
 #: ../../app/controllers/orgs_controller.rb:89
 #: ../../app/controllers/plans_controller.rb:271
 #: ../../app/controllers/plans_controller.rb:274
@@ -343,7 +314,6 @@ msgstr "salvo"
 #: ../../app/controllers/plans_controller.rb:281
 #: ../../app/controllers/registrations_controller.rb:243
 #: ../../app/controllers/registrations_controller.rb:272
->>>>>>> roadmap-main
 msgid "save"
 msgstr "Salvar"
 
@@ -745,19 +715,11 @@ msgstr "Você deve aceitar os termos e condições para registrar-se."
 msgid "Please select an organisation from the list, or choose Other."
 msgstr "Selecione uma organização da lista ou escolha Outra."
 
-<<<<<<< HEAD
-#: ../../app/controllers/registrations_controller.rb:91
-msgid "That email address is already registered."
-msgstr "Esse email já está registrado."
-
-#: ../../app/controllers/registrations_controller.rb:142
-=======
 #: ../../app/controllers/registrations_controller.rb:77
 msgid "That email address is already registered."
 msgstr "Esse email já está registrado."
 
 #: ../../app/controllers/registrations_controller.rb:108
->>>>>>> roadmap-main
 msgid ""
 "Welcome! You have signed up successfully with your institutional credentials. "
 "You will now be able to access your account with them."
@@ -765,25 +727,6 @@ msgstr ""
 "Bem vinda! Você se inscreveu com sucesso com suas credenciais institucionais. "
 "Agora você poderá acessar sua conta com eles."
 
-<<<<<<< HEAD
-#: ../../app/controllers/registrations_controller.rb:194
-msgid "Save Unsuccessful. "
-msgstr "Falha ao salvar."
-
-#: ../../app/controllers/registrations_controller.rb:198
-msgid "Please enter an email address. "
-msgstr "Por favor insira um endereço de e-mail."
-
-#: ../../app/controllers/registrations_controller.rb:202
-msgid "Please enter a First name. "
-msgstr "Por favor, insira um primeiro nome."
-
-#: ../../app/controllers/registrations_controller.rb:206
-msgid "Please enter a Last name. "
-msgstr "Por favor, insira um sobrenome."
-
-#: ../../app/controllers/registrations_controller.rb:210
-=======
 #: ../../app/controllers/registrations_controller.rb:160
 msgid "Save Unsuccessful. "
 msgstr "Falha ao salvar."
@@ -801,7 +744,6 @@ msgid "Please enter a Last name. "
 msgstr "Por favor, insira um sobrenome."
 
 #: ../../app/controllers/registrations_controller.rb:176
->>>>>>> roadmap-main
 msgid ""
 "Please select an organisation from the list, or enter your organisation's name"
 "."
@@ -809,19 +751,11 @@ msgstr ""
 "Por favor, selecione uma organização na lista, ou insira o nome de sua organiz"
 "ação."
 
-<<<<<<< HEAD
-#: ../../app/controllers/registrations_controller.rb:226
-msgid "Please enter your password to change email address."
-msgstr "Por favor, insira sua senha para mudar seu endereço de email."
-
-#: ../../app/controllers/registrations_controller.rb:231
-=======
 #: ../../app/controllers/registrations_controller.rb:192
 msgid "Please enter your password to change email address."
 msgstr "Por favor, insira sua senha para mudar seu endereço de email."
 
 #: ../../app/controllers/registrations_controller.rb:197
->>>>>>> roadmap-main
 msgid ""
 "Save unsuccessful. \\\n"
 "                That email address is already registered. \\\n"
@@ -831,11 +765,7 @@ msgstr ""
 "                Esse endereço de e-mail já foi registrado. \\\n"
 "                Você deve inserir um endereço de e-mail exclusivo."
 
-<<<<<<< HEAD
-#: ../../app/controllers/registrations_controller.rb:236
-=======
 #: ../../app/controllers/registrations_controller.rb:202
->>>>>>> roadmap-main
 msgid "Invalid password"
 msgstr "Senha inválida"
 
@@ -1278,12 +1208,8 @@ msgstr "Descrição do Plano"
 #: ../../app/views/orgs/_profile_form.html.erb:129
 #: ../../app/views/paginable/templates/_customisable.html.erb:7
 #: ../../app/views/paginable/templates/_organisational.html.erb:12
-<<<<<<< HEAD
-#: ../../app/views/plans/_project_details.html.erb:167
-=======
 #: ../../app/views/plans/_project_details.html.erb:88
 #: ../../app/views/plans/_project_details.html.erb:115
->>>>>>> roadmap-main
 #: ../../app/views/plans/_show_details.html.erb:12
 #: ../../app/views/plans/new.html.erb:86
 msgid "Funder"
@@ -1638,15 +1564,6 @@ msgstr "já atribuiu um valor"
 msgid "Feedback email message"
 msgstr "Mensagem de email de feedback"
 
-<<<<<<< HEAD
-#: ../../app/models/org.rb:145
-msgid "must be one of the following formats: jpeg, jpg, png, gif, bmp svg"
-msgstr "deve ser um dos seguintes formatos: jpeg, jpg, png, gif, bmp svg"
-
-#: ../../app/models/org.rb:154
-msgid "must be one of the following formats: jpeg, jpg, png, gif, bmp, svg"
-msgstr "deve ser um dos seguintes formatos: jpeg, jpg, png, gif, bmp, svg"
-=======
 #: ../../app/models/org.rb:130
 msgid "must be one of the following formats: jpeg, jpg, png, gif, bmp"
 msgstr "deve ser um dos seguintes formatos: jpeg, jpg, png, gif, bmp"
@@ -1654,7 +1571,6 @@ msgstr "deve ser um dos seguintes formatos: jpeg, jpg, png, gif, bmp"
 #: ../../app/models/org.rb:135
 msgid "can't be larger than 500KB"
 msgstr "não pode ser maior que 500KB"
->>>>>>> roadmap-main
 
 #: ../../app/models/plan.rb:69
 msgid "organisational"
@@ -1672,11 +1588,7 @@ msgstr "teste"
 msgid "private"
 msgstr "privado"
 
-<<<<<<< HEAD
-#: ../../app/models/plan.rb:713
-=======
 #: ../../app/models/plan.rb:578 ../../app/models/research_output.rb:119
->>>>>>> roadmap-main
 msgid "must be after the start date"
 msgstr "deve ser posterior à data de início"
 
@@ -1982,11 +1894,7 @@ msgstr "Por favor, espere enquanto os Padrões são carregados."
 #: ../../app/views/contributors/_form.html.erb:92
 #: ../../app/views/devise/passwords/edit.html.erb:28
 #: ../../app/views/devise/registrations/_password_details.html.erb:31
-<<<<<<< HEAD
-#: ../../app/views/devise/registrations/_personal_details.html.erb:91
-=======
 #: ../../app/views/devise/registrations/_personal_details.html.erb:90
->>>>>>> roadmap-main
 #: ../../app/views/guidance_groups/_guidance_group_form.html.erb:23
 #: ../../app/views/guidances/new_edit.html.erb:48
 #: ../../app/views/notes/_edit.html.erb:9
@@ -2735,13 +2643,8 @@ msgid "Create or connect your ORCID iD"
 msgstr "Criar ou conectar seu iD ORCID"
 
 #: ../../app/views/devise/registrations/_external_identifier.html.erb:12
-<<<<<<< HEAD
-#: ../../app/views/devise/registrations/_external_identifier.html.erb:45
-#: ../../app/views/devise/registrations/_personal_details.html.erb:74
-=======
 #: ../../app/views/devise/registrations/_external_identifier.html.erb:40
 #: ../../app/views/devise/registrations/_personal_details.html.erb:73
->>>>>>> roadmap-main
 msgid "Institutional credentials"
 msgstr "Credenciais institucionais"
 
@@ -2871,18 +2774,15 @@ msgstr "Meus privilégios"
 msgid "Super Admin"
 msgstr "Super Administrador"
 
-<<<<<<< HEAD
 #: ../../app/views/devise/registrations/_personal_details.html.erb:65
 #: ../../app/views/users/_current_privileges.html.erb:5
 msgid "Organisational Admin"
 msgstr "Administrador Organizacional"
-=======
 #: ../../app/views/devise/registrations/edit.html.erb:1
 #: ../../app/views/devise/registrations/edit.html.erb:4
 #: ../../app/views/layouts/_signin_signout.html.erb:29
 msgid "Edit profile"
 msgstr "Editar perfil"
->>>>>>> roadmap-main
 
 #: ../../app/views/devise/registrations/_third_parties.html.erb:9
 msgid "3rd party systems %{app_name} can access"
@@ -4732,16 +4632,6 @@ msgstr "Ver"
 
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:88
 msgid ""
-<<<<<<< HEAD
-=======
-"Are you sure you wish to remove this plan? Any collaborators will still be abl"
-"e to access it."
-msgstr ""
-"Tem certeza de que deseja remover esse plano? Quaisquer outros colaboradores a"
-"inda conseguirão acessá-lo."
-
-#: ../../app/views/paginable/plans/_privately_visible.html.erb:88
-msgid ""
 "Are you sure you wish to remove this plan? Any collaborators will still be abl"
 "e to access it."
 msgstr ""
@@ -4750,7 +4640,6 @@ msgstr ""
 
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:73
 msgid ""
->>>>>>> roadmap-main
 "Are you sure you wish to remove this public plan? This will remove it from the"
 " Public DMPs page but any collaborators will still be able to access it."
 msgstr ""
@@ -4758,19 +4647,7 @@ msgstr ""
 "a de PGDs Públicos, mas quaisquer outros colaboradores ainda conseguirão acess"
 "á-lo."
 
-<<<<<<< HEAD
-#: ../../app/views/paginable/plans/_privately_visible.html.erb:88
-msgid ""
-"Are you sure you wish to remove this plan? Any collaborators will still be abl"
-"e to access it."
-msgstr ""
-"Tem certeza de que deseja remover esse plano? Quaisquer outros colaboradores a"
-"inda conseguirão acessá-lo."
-
-#: ../../app/views/paginable/plans/_publicly_visible.html.erb:23
-=======
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:17
->>>>>>> roadmap-main
 msgid "Not Applicable"
 msgstr "Não Aplicável"
 
@@ -7041,10 +6918,12 @@ msgstr "para"
 
 #: ../../app/views/user_mailer/sharing_notification.html.erb:5
 msgid ""
-"Your colleague %{inviter_name} has invited you to contribute to\n"
+"Your colleague %{inviter_name} has invited you to contribute to
+\n"
 "          their Data Management Plan in %{tool_name}"
 msgstr ""
-"Seu colega %{inviter_name} convidou você para contribuir com\n"
+"Seu colega %{inviter_name} convidou você para contribuir com
+\n"
 "          seu plano de gerenciamento de dados em %{tool_name}"
 
 #: ../../app/views/user_mailer/welcome_notification.html.erb:2
