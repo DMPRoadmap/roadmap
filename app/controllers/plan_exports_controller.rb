@@ -31,7 +31,7 @@ class PlanExportsController < ApplicationController
       raise Pundit::NotAuthorizedError
     end
 
-    @hash           = @plan.as_pdf(@show_coversheet)
+    @hash           = @plan.as_pdf(current_user, @show_coversheet)
     @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
     @selected_phase = if params.key?(:phase_id)
                         @plan.phases.find(params[:phase_id])
@@ -58,7 +58,7 @@ class PlanExportsController < ApplicationController
   end
 
   def show_csv
-    send_data @plan.as_csv(@show_sections_questions,
+    send_data @plan.as_csv(current_user, @show_sections_questions,
                            @show_unanswered,
                            @selected_phase,
                            @show_custom_sections,
