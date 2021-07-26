@@ -61,7 +61,7 @@ module Api
         def app_extensions(json: {})
           return {} unless json.present? && json[:extension].present?
 
-          app = ::ApplicationService.application_name.split("-").first
+          app = ::ApplicationService.application_name.split("-").first.downcase
           ext = json[:extension].select { |item| item[app.to_sym].present? }
           ext.first.present? ? ext.first[app.to_sym] : {}
         end

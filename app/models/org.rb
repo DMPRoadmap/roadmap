@@ -147,6 +147,9 @@ class Org < ApplicationRecord
   # TODO: re-evaluate this after moving dragonfly to active_storage
   before_validation :check_for_missing_logo_file
 
+  # This gives all managed orgs api access whenever saved or updated.
+  before_save :ensure_api_access, if: ->(org) { org.managed? }
+
   # If the physical logo file is no longer on disk we do not want it to prevent the
   # model from saving. This typically happens when you copy the database to another
   # environment. The orgs.logo_uid stores the path to the physical logo file that is
@@ -408,6 +411,13 @@ class Org < ApplicationRecord
 
   def native_plan_ids
     plans.map(&:id)
+  end
+
+  # Ensure that the Org has all of the available token permission types prior to save
+  def ensure_api_access
+    TokenPermissionType.all.each do |perm|
+      token_permission_types << perm unless token_permission_types.include?(perm)
+    end
   end
 
 end
