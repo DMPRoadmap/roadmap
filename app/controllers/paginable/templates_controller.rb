@@ -36,24 +36,14 @@ class Paginable::TemplatesController < ApplicationController
     authorize Template
     templates = Template.latest_version_per_org(current_user.org.id)
                         .where(customization_of: nil, org_id: current_user.org.id)
-                        
     case params[:f]
     when "published"
       template_ids = templates.select { |t| t.published? || t.draft? }.collect(&:family_id)
-      if !template_ids.empty?
-        templates = Template.latest_version(template_ids)
-      else 
-        templates = Template.none
-      end
+      templates = Template.latest_version(template_ids)
     when "unpublished"
       template_ids = templates.select { |t| !t.published? && !t.draft? }.collect(&:family_id)
-      if !template_ids.empty?
-        templates = Template.latest_version(template_ids)
-      else 
-        templates = Template.none
-      end
+      templates = Template.latest_version(template_ids)
     end
-    
     paginable_renderise(
       partial: "organisational",
       scope: templates,

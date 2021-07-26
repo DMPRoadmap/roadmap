@@ -1,3 +1,4 @@
+import { initAutocomplete } from '../../utils/autoComplete';
 import { Tinymce } from '../../utils/tinymce.js.erb';
 import { Select2 } from '../../utils/select2';
 import getConstant from '../../constants';
@@ -18,8 +19,7 @@ $(() => {
 
   Tinymce.init();
   $('#is_test').click((e) => {
-    const DefaultVisibility = $('#plan_default_visibility').val();
-    $('#plan_visibility').val($(e.target).is(':checked') ? 'is_test' : DefaultVisibility);
+    $('#plan_visibility').val($(e.target).is(':checked') ? 'is_test' : 'privately_visible');
   });
 
   const showHideDataContact = (el) => {
@@ -130,6 +130,9 @@ $(() => {
   $('#priority-guidance-orgs').find('input[type="checkbox"]').click((e) => {
     syncGuidance($(e.target).closest('ul[id]'));
   });
+
+
+  initAutocomplete('#funder-org-controls .autocomplete');
 
   toggleCheckboxes($('#priority-guidance-orgs input[type="checkbox"]:checked').map((i, el) => $(el).val()).get());
 

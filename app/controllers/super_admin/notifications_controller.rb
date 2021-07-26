@@ -55,6 +55,29 @@ module SuperAdmin
       render :edit
     end
 
+
+    # edit active field displayed in the table
+    def enable
+      notification = Notification.find(params[:id])
+      authorize(Notification)
+      notification.enabled = (params[:enabled] === "1")
+
+      # rubocop:disable Metrics/LineLength
+      if notification.save
+        render json: {
+                 code: 1,
+                 msg: (notification.enabled ? _("Your notification is now active.") : _("Your notification is no longer active."))
+               }
+      else
+        render status: :bad_request, json: {
+                 code: 0, msg: _("Unable to change the notification's active status")
+               }
+      end
+      # rubocop:enable Metrics/LineLength
+    end
+
+
+
     # DELETE /notifications/1
     # DELETE /notifications/1.json
     def destroy
@@ -92,7 +115,7 @@ module SuperAdmin
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def notification_params
-      params.require(:notification).permit(:title, :level, :body, :dismissable,
+      params.require(:notification).permit(:title, :level, :body, :dismissable, :enabled,
                                            :starts_at, :expires_at)
     end
 

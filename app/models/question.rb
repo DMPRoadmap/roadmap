@@ -3,25 +3,29 @@
 #
 # Table name: questions
 #
-#  id                        :integer          not null, primary key
-#  text                      :text
-#  default_value             :text
-#  number                    :integer
-#  section_id                :integer
-#  created_at                :datetime
-#  updated_at                :datetime
-#  question_format_id        :integer
-#  option_comment_display    :boolean          default("true")
-#  modifiable                :boolean
-#  versionable_id            :string(36)
+#  id                     :integer          not null, primary key
+#  default_value          :text
+#  modifiable             :boolean
+#  number                 :integer
+#  option_comment_display :boolean          default(TRUE)
+#  text                   :text
+#  created_at             :datetime
+#  updated_at             :datetime
+#  question_format_id     :integer
+#  section_id             :integer
+#  versionable_id         :string(36)
 #  madmp_schema_id :integer
 #
 # Indexes
 #
-#  index_questions_on_madmp_schema_id  (madmp_schema_id)
-#  index_questions_on_versionable_id             (versionable_id)
-#  questions_question_format_id_idx              (question_format_id)
-#  questions_section_id_idx                      (section_id)
+#  fk_rails_4fbc38c8c7                (question_format_id)
+#  index_questions_on_section_id      (section_id)
+#  index_questions_on_versionable_id  (versionable_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (question_format_id => question_formats.id)
+#  fk_rails_...  (section_id => sections.id)
 #
 
 class Question < ActiveRecord::Base
@@ -64,6 +68,8 @@ class Question < ActiveRecord::Base
 
   belongs_to :madmp_schema, class_name: "MadmpSchema"
 
+  has_many :conditions, dependent: :destroy, inverse_of: :question
+
   # ===============
   # = Validations =
   # ===============
@@ -81,6 +87,8 @@ class Question < ActiveRecord::Base
                                    message: UNIQUENESS_MESSAGE }
 
 
+  before_destroy :check_remove_conditions
+  
   # =====================
   # = Nested Attributes =
   # =====================
@@ -111,13 +119,13 @@ class Question < ActiveRecord::Base
     copy.section_id = options.fetch(:section_id, nil)
     copy.save!(validate: false)  if options.fetch(:save, false)
     options[:question_id] = copy.id
-    self.question_options.each do |question_option|
-      copy.question_options << question_option.deep_copy(options)
-    end
+    self.question_options.each { |question_option| copy.question_options << question_option.deep_copy(options) }
     self.annotations.each do |annotation|
       copy.annotations << annotation.deep_copy(options)
     end
     self.themes.each { |theme| copy.themes << theme }
+    self.conditions.each { |condition| copy.conditions << condition.deep_copy(options) }
+    copy.conditions = copy.conditions.sort_by(&:number)
     copy
   end
 
@@ -193,11 +201,77 @@ class Question < ActiveRecord::Base
     [example_answer, guidance]
   end
 
+  # upon saving of question update conditions (via a delete and create) from params
+  # the old_to_new_opts map allows us to rewrite the question_option ids which may be out of sync
+  # after versioning
+  def update_conditions(param_conditions, old_to_new_opts, question_id_map)
+    res = true
+    self.conditions.destroy_all
+
+    if param_conditions.present?
+      param_conditions.each do |_key, value|
+        saveCondition(value, old_to_new_opts, question_id_map)
+      end
+    end
+  end
+
+
+  def saveCondition(value, opt_map, question_id_map)
+    c = self.conditions.build
+    c.action_type = value["action_type"]
+    c.number = value['number']
+    # question options may have changed so rewrite them
+    c.option_list = value["question_option"]
+    unless opt_map.blank?
+      new_question_options = []
+      c.option_list.each do |qopt|
+        new_question_options << opt_map[qopt]
+      end
+      c.option_list = new_question_options
+    end
+
+    if value["action_type"] == "remove"
+      c.remove_data = value["remove_question_id"]
+      unless question_id_map.blank?
+        new_question_ids = []
+        c.remove_data.each do |qid|
+          new_question_ids << question_id_map[qid]
+        end
+        c.remove_data = new_question_ids
+      end
+    else
+      c.webhook_data = {
+        name: value['webhook-name'],
+        email: value['webhook-email'],
+        subject: value['webhook-subject'],
+        message: value['webhook-message']
+      }.to_json
+    end
+    c.save
+  end
+
   private
 
   def ensure_has_question_options
     if question_options.empty?
       errors.add :base, OPTION_PRESENCE_MESSAGE
+    end
+  end
+  
+  # before destroying a question we need to remove it from
+  # and condition's remove_data and also if that remove_data is empty
+  # destroy the condition.
+  def check_remove_conditions
+    id = self.id.to_s
+    self.template.questions.each do |q|
+      q.conditions.each do |cond|
+        cond.remove_data.delete(id)
+        if cond.remove_data.empty?
+          cond.destroy if cond.remove_data.empty?
+        else
+          cond.save
+        end
+      end
     end
   end
 

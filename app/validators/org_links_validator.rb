@@ -3,7 +3,7 @@ class OrgLinksValidator < ActiveModel::Validator
   def validate(record)
     links = record.links
     if links.is_a?(Hash)
-      if !links.has_key?('org')
+      if !links.with_indifferent_access.has_key?('org')
         record.errors[:links] << _('A key "org" is expected for links hash') %{ :key => k }
       end
     else

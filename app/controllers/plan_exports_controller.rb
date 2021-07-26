@@ -5,6 +5,8 @@ class PlanExportsController < ApplicationController
   prepend Dmpopidor::Controllers::PlanExports
   after_action :verify_authorized
 
+  include ConditionsHelper
+
   # SEE MODULE
   def show
     @plan = Plan.includes(:answers).find(params[:plan_id])
@@ -30,7 +32,7 @@ class PlanExportsController < ApplicationController
     end
 
     @hash           = @plan.as_pdf(@show_coversheet)
-    @formatting     = export_params[:formatting] || @plan.settings(:export).formattingz
+    @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
     if params.key?(:phase_id)
       @selected_phase = @plan.phases.find(params[:phase_id])
     else

@@ -1,6 +1,11 @@
+# frozen_string_literal: true
+
 module Dmpopidor
+
   module Models
+
     module Answer
+
       # If the answer's question is option_based, it is checked if exist any question_option
       # selected. For non option_based (e.g. textarea or textfield), it is checked the
       # presence of text
@@ -20,8 +25,6 @@ module Dmpopidor
         false
       end
 
-
-
       def age
         if question.present?
           if question.question_format.structured
@@ -32,6 +35,8 @@ module Dmpopidor
         end
       end
 
-    end 
+    end
+
   end
+
 end

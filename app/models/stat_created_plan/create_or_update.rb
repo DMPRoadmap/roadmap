@@ -6,19 +6,21 @@ class StatCreatedPlan
 
     class << self
 
-      def do(start_date:, end_date:, org:)
-        count = count_plans(start_date: start_date, end_date: end_date, org: org)
-        by_template = plan_statistics(start_date: start_date, end_date: end_date, org: org)
-        using_template = plan_statistics(start_date: start_date, end_date: end_date, org: org, own_templates: true)
+      def do(start_date:, end_date:, org:, filtered: false)
+        count = count_plans(start_date: start_date, end_date: end_date, org: org, filtered: filtered)
+        by_template = plan_statistics(start_date: start_date, end_date: end_date, org: org, filtered: filtered)
+        using_template = plan_statistics(start_date: start_date, end_date: end_date, org: org, own_templates: true, filtered: filtered)
         attrs = {
           date: end_date.to_date,
           org_id: org.id,
           count: count,
-          details: { by_template: by_template, using_template: using_template }
+          details: { by_template: by_template, using_template: using_template },
+          filtered: filtered
         }
         stat_created_plan = StatCreatedPlan.find_by(
           date: attrs[:date],
-          org_id: attrs[:org_id]
+          org_id: attrs[:org_id],
+          filtered: attrs[:filtered]
         )
 
         if stat_created_plan.present?
@@ -34,28 +36,30 @@ class StatCreatedPlan
         User.where(users: { org_id: org.id })
       end
 
-      def plans(start_date:, end_date:)
-        Plan.where(plans: { created_at: start_date..end_date })
+      def plans(start_date:, end_date:, filtered:)
+        base = Plan
+        base = base.stats_filter if filtered
+        base.where(plans: { created_at: start_date..end_date })
       end
 
       def own_template_plans(org)
         Plan.joins(:template).where(templates: { org_id: org.id })
       end
 
-      def count_plans(start_date:, end_date:, org:)
+      def count_plans(start_date:, end_date:, org:, filtered:)
         Role.joins(:plan, :user)
           .administrator
           .merge(users(org))
-          .merge(plans(start_date: start_date, end_date: end_date))
+          .merge(plans(start_date: start_date, end_date: end_date, filtered: filtered))
           .select(:plan_id)
           .distinct
           .count
       end
 
-      def plan_statistics(start_date:, end_date:, org:, own_templates: false)
+      def plan_statistics(start_date:, end_date:, org:, filtered:, own_templates: false)
         roleable_plans = Role.joins([:plan, :user])
           .administrator
-          .merge(plans(start_date: start_date, end_date: end_date))
+          .merge(plans(start_date: start_date, end_date: end_date, filtered: filtered))
         if own_templates
           roleable_plans = roleable_plans.merge(own_template_plans(org))
         else

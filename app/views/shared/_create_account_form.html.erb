@@ -12,13 +12,14 @@
     <%= f.label(:email, _('Email'), class: "control-label") %>
     <%= f.email_field(:email, class: "form-control", "aria-required": true) %>
   </div>
-  <div class="form-group">
-    <%= render partial: "shared/my_org",
-               locals: {f: f, default_org: @default_org,
-                        orgs: Org.where(is_other: false).order("sort_name ASC, name ASC"),
-                        allow_other_orgs: true, required: false} %>
+  <div class="form-group" id="create-account-org-controls">
+    <%= render partial: "shared/org_selectors/combined",
+               locals: {
+                 form: f,
+                 default_org: resource&.org,
+                 required: true
+               } %>
   </div>
-
   <div class="form-group">
     <%= f.label(:password, _('Password'), class: "control-label") %>
     <%= f.password_field(:password, class: "form-control", "aria-required": true) %>
@@ -39,5 +40,11 @@
       <% end %>
     </div>
   </div>
+  <% if Rails.configuration.branding[:application][:use_recaptcha] %>
+    <div class="form-group">
+      <%= label_tag(nil, _('Security check')) %>
+      <%= recaptcha_tags %>
+    </div>
+  <% end %>
   <%= f.button(_('Create account'), class: "btn btn-default", type: "submit") %>
 <% end %>

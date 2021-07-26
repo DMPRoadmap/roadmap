@@ -1,0 +1,22 @@
+<%
+  recipient_name = @data['name'].to_s
+  question_title = @answer.question.text.to_s
+  user_name = @user.name.to_s
+  answer_text = @options_string.to_s
+  plan_title = @answer.plan.title.to_s
+  template_title = @answer.plan.template.title.to_s
+  message = @data['message'].to_s
+%>
+
+<% FastGettext.with_locale FastGettext.default_locale do %>
+  <p>
+    <%= raw _('Hello %{recipient_name},') %{ recipient_name: recipient_name } %>
+  </p>
+  <p>
+    <%= raw user_name + _(" is creating a Data Management Plan and has answered ") + answer_text + _(" to ") + question_title + _(" in a plan called ") + plan_title + _(" based on the template ") + template_title %>
+  </p>
+  <p>
+    <%= raw message %>
+  </p>
+  <%= render partial: 'email_signature' %>
+<% end %>

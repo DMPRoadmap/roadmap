@@ -18,7 +18,6 @@ class Theme < ActiveRecord::Base
   include ValidationMessages
   prepend Dmpopidor::Models::Theme
 
-
   ##
   # Before save & create, generate the slug, method from Dmpopidor::Models::Theme
   before_save :generate_slug

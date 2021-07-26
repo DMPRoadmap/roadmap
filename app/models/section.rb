@@ -4,19 +4,23 @@
 # Table name: sections
 #
 #  id             :integer          not null, primary key
-#  title          :string
 #  description    :text
+#  modifiable     :boolean
 #  number         :integer
+#  title          :string
 #  created_at     :datetime
 #  updated_at     :datetime
 #  phase_id       :integer
-#  modifiable     :boolean
 #  versionable_id :string(36)
 #
 # Indexes
 #
+#  index_sections_on_phase_id        (phase_id)
 #  index_sections_on_versionable_id  (versionable_id)
-#  sections_phase_id_idx             (phase_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (phase_id => phases.id)
 #
 
 class Section < ActiveRecord::Base
@@ -26,6 +30,8 @@ class Section < ActiveRecord::Base
   include ActsAsSortable
   include VersionableModel
 
+  # Sort order: Number ASC
+  default_scope { order(number: :asc) }
 
   # ================
   # = Associations =
@@ -97,12 +103,15 @@ class Section < ActiveRecord::Base
 
   # Returns the number of answered questions for a given plan
   def num_answered_questions(plan)
-    return 0 if plan.nil?
+    self.answered_questions(plan).count(&:answered?)
+  end
 
-    answered = plan.answers.select do |answer|
-      answer.answered? && questions.include?(answer.question)
-    end
-    answered.length
+  # Returns an array of answered questions for a given plan
+  def answered_questions(plan)
+    return [] if plan.nil?
+    plan.answers.includes({ question: :question_format }, :question_options)
+                .where(question_id: question_ids)
+                .to_a
   end
 
   def deep_copy(**options)

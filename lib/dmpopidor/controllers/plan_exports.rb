@@ -31,7 +31,7 @@ module Dmpopidor
         end
 
         @hash           = @plan.as_pdf(@show_coversheet)
-        @formatting     = export_params[:formatting] || @plan.settings(:export).formattingz
+        @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
         @research_output_export_mode = export_params[:research_output_mode] ? export_params[:research_output_mode] : 'by_section'
         @research_outputs_number = @plan.research_outputs.length
 

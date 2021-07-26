@@ -1,4 +1,4 @@
-FROM phusion/passenger-ruby24:1.0.15
+FROM phusion/passenger-ruby24:1.0.19
 
 LABEL maintainer="Benjamin FAURE benjamin.faure@inist.fr"
 

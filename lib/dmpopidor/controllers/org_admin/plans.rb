@@ -1,6 +1,11 @@
+# frozen_string_literal: true
+
 module Dmpopidor
+
   module Controllers
+
     module OrgAdmin
+
       module Plans
 
         # GET org_admin/plans
@@ -10,12 +15,43 @@ module Dmpopidor
           unless current_user.present? && current_user.can_org_admin?
             raise Pundit::NotAuthorizedError
           end
-          
-          feedback_ids = Role.joins(:user,:plan)
-            .where('plans.feedback_requestor IN (?) AND plans.feedback_requested is TRUE AND roles.active is TRUE',
-              current_user.org.users.pluck(:id).uniq).pluck(:plan_id)
+
+          feedback_ids = Role.joins(:user, :plan)
+            .where("plans.feedback_requestor IN (?) AND plans.feedback_requested is TRUE AND roles.active is TRUE",
+                   current_user.org.users.pluck(:id).uniq).pluck(:plan_id)
           @feedback_plans = Plan.where(id: feedback_ids).reject{|p| p.nil?}
+
+          @super_admin = current_user.can_super_admin?
+          @clicked_through = params[:click_through].present?
           @plans = current_user.org.plans.where.not(visibility: [Plan.visibilities[:privately_visible], Plan.visibilities[:is_test]]).page(1)
+        end
+
+        # GET org_admin/plans/:id/feedback_complete
+        # CHANGES : Added feedback requestor to plan
+        def feedback_complete
+          plan = Plan.find(params[:id])
+          requestor = User.find(plan.feedback_requestor)
+          # Test auth directly and throw Pundit error sincePundit is
+          # unaware of namespacing
+          unless current_user.present? && current_user.can_org_admin?
+            raise Pundit::NotAuthorizedError
+          end
+          unless plan.reviewable_by?(current_user.id)
+            raise Pundit::NotAuthorizedError
+          end
+
+          if plan.complete_feedback(current_user)
+            # rubocop:disable Metrics/LineLength
+            redirect_to(org_admin_plans_path,
+              notice: _("%{plan_owner} has been notified that you have finished providing feedback") % {
+                plan_owner: requestor.name(false)
+              }
+            )
+            # rubocop:enable Metrics/LineLength
+          else
+            redirect_to org_admin_plans_path,
+              alert: _("Unable to notify user that you have finished providing feedback.")
+          end
         end
 
         # CHANGES
@@ -63,7 +99,11 @@ module Dmpopidor
             format.csv  { send_data plans,  filename: "#{file_name}.csv" }
           end
         end
+
       end
+
     end
+
   end
+
 end

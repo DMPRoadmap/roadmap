@@ -3,21 +3,26 @@
 # Table name: question_options
 #
 #  id          :integer          not null, primary key
-#  question_id :integer
-#  text        :string
-#  number      :integer
 #  is_default  :boolean
+#  number      :integer
+#  text        :string
 #  created_at  :datetime
 #  updated_at  :datetime
+#  question_id :integer
 #
 # Indexes
 #
-#  question_options_question_id_idx  (question_id)
+#  index_question_options_on_question_id  (question_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (question_id => questions.id)
 #
 
 class QuestionOption < ActiveRecord::Base
   include ValidationMessages
   include ValidationValues
+  include VersionableModel
 
   # ================
   # = Associations =
@@ -25,8 +30,13 @@ class QuestionOption < ActiveRecord::Base
 
   belongs_to :question
 
-  has_and_belongs_to_many :answers, join_table: :answers_question_options
+  has_one :section, through: :question
 
+  has_one :phase, through: :question
+
+  has_one :template, through: :question
+
+  has_and_belongs_to_many :answers, join_table: :answers_question_options
 
   # ===============
   # = Validations =
@@ -40,6 +50,8 @@ class QuestionOption < ActiveRecord::Base
 
   validates :is_default, inclusion: { in: BOOLEAN_VALUES,
                                       message: INCLUSION_MESSAGE }
+
+  before_destroy :check_condition_options
 
   # ==========
   # = Scopes =
@@ -59,6 +71,23 @@ class QuestionOption < ActiveRecord::Base
   def deep_copy(**options)
     copy = self.dup
     copy.question_id = options.fetch(:question_id, nil)
-    return copy
+    copy.save!(validate: false)  if options.fetch(:save, false)
+    options[:question_option_id] = copy.id
+    copy
   end
+
+  private 
+
+  # if we destroy a question_option
+  # we need to remove any conditions which depend on it
+  # even if they depend on something else as well
+  def check_condition_options
+    id = self.id.to_s
+    self.question.conditions.each do |cond|
+      if cond.option_list.include?(id)
+        cond.destroy
+      end
+    end
+  end
+
 end

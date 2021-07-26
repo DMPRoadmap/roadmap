@@ -209,12 +209,6 @@ msgstr "Plan de gestion de données créé à l'aide de %{application_name}"
 #msgid "A Data Management Plan in %{application_name} has been shared with you"
 #msgstr ""
 
-#, fuzzy
-msgid "A Data Management Plan in %{tool_name} has been shared \"\
-"
-"                   \"with you"
-msgstr ""
-
 #msgid "A Data Management Plan in %{tool_name} has been shared with you"
 #msgstr "Un plan de gestion de données a été partagé avec vous sur %{tool_name}"
 
@@ -497,7 +491,7 @@ msgid "Cannot share plan with %{email} since that email matches with the owner o
 msgstr "Vous ne pouvez pas partager ce plan avec %{email} parce que ce courriel correspond à celui du propriétaire du plan."
 
 msgid "Captcha verification failed, please retry."
-msgstr "La vérification du Captcha a échouée, veuillez réessayer."
+msgstr "La vérification du CAPTCHA a échouée, veuillez réessayer."
 
 msgid "Change affiliation"
 msgstr "Changer d'affiliation"
@@ -714,8 +708,9 @@ msgstr "DMPRoadmap ('l'outil', 'le système"
 #msgid "DOCX"
 #msgstr "DOCX"
 
-#msgid "DOCX <em class=\"sr-only\">(new window)</em>"
-#msgstr ""
+#, fuzzy
+msgid "DOCX <em class=\"sr-only\">(new window)</em>"
+msgstr "DOCX <em class=\"sr-only\">(nouvelle fenêtre)</em>"
 
 msgid "Data Contact Person"
 msgstr "Personne-contact pour les données"
@@ -757,7 +752,7 @@ msgid "Disconnect your account from ORCID. You can reconnect at any time."
 msgstr "Déconnecter votre compte d'ORCID. Vous pouvez vous reconnecter à tout moment."
 
 msgid "Dismissable"
-msgstr "Peut être retiré"
+msgstr "Peut être retirée"
 
 msgid "Display additional comment area."
 msgstr "Afficher un zone de commentaire supplémentaire."
@@ -1195,7 +1190,7 @@ msgid "Link your institutional credentials"
 msgstr "Lier vos identifiants institutionnels"
 
 msgid "Link your institutional credentials to access your account with them."
-msgstr ""
+msgstr "Lier vos identifiants institutionnels afin d'accéder à votre compte avec ceux ci."
 
 msgid "Links"
 msgstr "Liens"
@@ -1327,7 +1322,7 @@ msgid "No additional comment area will be displayed."
 msgstr "Aucune zone de commentaire supplémentaire ne sera affichée."
 
 msgid "No funder associated with this plan or my funder is not listed"
-msgstr ""
+msgstr "Aucun financeur n'est associé à ce plan ou mon financeur n'est pas dans la liste"
 
 msgid "No items available."
 msgstr "Aucun enregistrement disponible."
@@ -1511,11 +1506,12 @@ msgstr "Mail du propriétaire"
 msgid "Owner name"
 msgstr "Nom du propriétaire"
 
-#msgid "PDF"
-#msgstr "PDF"
+msgid "PDF"
+msgstr "PDF"
 
-#msgid "PDF <em class=\"sr-only\">(new window)</em>"
-#msgstr ""
+#, fuzzy
+msgid "PDF <em class=\"sr-only\">(new window)</em>"
+msgstr "PDF <em class=\"sr-only\">(nouvelle fenêtre)</em>"
 
 msgid "PDF formatting"
 msgstr "Mise en forme du PDF"
@@ -1868,8 +1864,11 @@ msgstr "Rôle"
 msgid "Run your own filter"
 msgstr "Filtrer"
 
-#msgid "SAMPLE MESSAGE: A data librarian from %{org_name} will respond to your request within 48"
-#msgstr ""
+#, fuzzy
+msgid "SAMPLE MESSAGE: A data librarian from %{org_name} will respond to your request within 48"
+"       hours. If you have questions pertaining to this action please contact us"
+"       at %{organisation_email}."
+msgstr ""
 
 msgid "Same as Principal Investigator"
 msgstr "Identique au Chercheur Principal"
@@ -2145,7 +2144,7 @@ msgid "Text field"
 msgstr "Champ textuel"
 
 msgid "Thank you for registering. Please confirm your email address"
-msgstr ""
+msgstr "Merci de vous être enregistré. Veuillez confirmer votre courriel"
 
 msgid "That email address is already registered."
 msgstr "Cette adresse électronique est déjà enregistrée."
@@ -2481,7 +2480,7 @@ msgid "Unknown formatting setting"
 msgstr "Réglage de mise en forme"
 
 msgid "Unknown margin. Can only be 'top', 'bottom', 'left' or 'right'"
-msgstr ""
+msgstr "Marge inconnue. Seuls les paramètres 'haut', 'bas', 'gauche' ou 'droite' sont possibles"
 
 msgid "Unknown organisation."
 msgstr "Organisme inconnue."
@@ -2610,7 +2609,7 @@ msgid "We found multiple DMP templates corresponding to your funder."
 msgstr "Nous avons trouvé plusieurs modèles correspondants à votre financeur."
 
 msgid "We invite you to peruse the DMPRoadmap GitHub wiki to learn how to "
-msgstr ""
+msgstr "Nous vous invitons à lire attentivement le wiki du GitHub de DMPRoadmap pour apprendre à "
 
 #msgid "We were unable to verify your account. Please use the following form to create a new account. You will be able to link your new account afterward."
 #msgstr "Impossible de valider votre compte. Veuillez utilisez le formulaire ci-dessous pour créer un nouveau compte. Vous pourrez lier votre nouveau compte plus tard."
@@ -3080,7 +3079,7 @@ msgid "preferences"
 msgstr "préférences"
 
 msgid "private"
-msgstr "Privé"
+msgstr "privé"
 
 msgid "profile"
 msgstr "profil"

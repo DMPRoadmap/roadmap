@@ -1,5 +1,5 @@
 <div class="tab-panels" role="tabpanel">
-  <div id="phase-#<%= phase.id %>-panel" class="tab-panel active" aria-hidden="false" aria-labelledby="phase-#<%= phase.id %>-tab">
+  <div id="phase-#<%= phase.id %>-panel" class="tab-panel active answering-phase" aria-hidden="false" aria-labelledby="phase-#<%= phase.id %>-tab">
     <div class="row">
       <div class="col-md-8">
         <div class="row">
@@ -11,6 +11,8 @@
                 <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
               </div>
             </div>
+          </div>
+          <div id="progress-data" data-sections="<%= sections_info(plan).to_json %>" data-remove="<%= remove_list(plan).to_json %>">
           </div>
           <div class="col-md-4">
             <% if plan.present? && phase.present? %>
@@ -68,7 +70,7 @@
                     <!-- Answer Section -->
                     <div class="question-form">
                       <div id="<%= "answer-locking-#{question.id}" %>"
-                           class="answer-locking">
+                        class="answer-locking">
                       </div>
                       <div id="<%= "answer-form-#{question.id}" %>" class="answer-form">
                         <%= render(partial: '/answers/new_edit',
@@ -94,6 +96,9 @@
                       answer: answer,
                       guidance_presenter: guidance_presenter } %>
                   </div>
+                  <% if i != section.questions.length - 1 %>
+                    <hr>
+                  <% end %> 
                 </div>
                 <% if i != section.questions.length - 1 %>
                   <hr />

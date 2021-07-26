@@ -31,7 +31,6 @@ class TokenPermissionType < ActiveRecord::Base
   ##
   #
   STATISTICS  = TokenPermissionType.where(token_type: 'statistics').first.freeze
-  THEMES      = TokenPermissionType.where(token_type: 'themes').first.freeze
 
 
   # ================

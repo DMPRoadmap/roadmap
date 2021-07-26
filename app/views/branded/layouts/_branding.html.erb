@@ -98,30 +98,24 @@
                 </li>
               <% end %>       
               
-              <h5 class="dropdown-header"><%= _('Super Admin') %></h5>
               <% if current_user.can_super_admin? %>
+                <h5 class="dropdown-header"><%= _('Super Admin') %></h5>
                 <li <%= 'class=active' if active_page?(super_admin_themes_path) %>>
                   <%= link_to(_('Themes'), super_admin_themes_path) %>
                 </li>
-              <% end %>       
-              <% if current_user.can_super_admin? %>
                 <li <%= 'class=active' if active_page?(super_admin_static_pages_path) %>>
                   <%= link_to d_('dmpopidor', 'Static pages'), super_admin_static_pages_path %>
                 </li>
-              <% end %>
-              <% if current_user.can_super_admin? %>
+                <li <%= 'class=active' if active_page?(super_admin_api_clients_path) %>>
+                  <%= link_to(_('Api Clients'), super_admin_api_clients_path) %>
+                </li>
                 <li <%= 'class=active' if active_page?(super_admin_notifications_path) %>>
                   <%= link_to _('Notifications'), super_admin_notifications_path %>
                 </li>
-              <% end %>
-
-              <h5 class="dropdown-header"><%= _('maDMP Features') %></h5>
-              <% if current_user.can_super_admin? %>
+                <h5 class="dropdown-header"><%= _('maDMP Features') %></h5>
                 <li <%= 'class=active' if active_page?(super_admin_madmp_schemas_path) %>>
                   <%= link_to d_('dmpopidor', 'Schemas'), super_admin_madmp_schemas_path %>
                 </li>
-              <% end %>
-              <% if current_user.can_super_admin? %>
                 <li <%= 'class=active' if active_page?(super_admin_registries_path) %>>
                   <%= link_to d_('dmpopidor', 'Registries'), super_admin_registries_path %>
                 </li>

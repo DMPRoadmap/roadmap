@@ -1,11 +1,15 @@
+# frozen_string_literal: true
+
 module Dmpopidor
+
   module Controllers
+
     module OrgAdmin
+
       module Questions
 
-
         # CHANGES
-        # Added Structured Data Schema list
+        # Added  MadmpSchema list
         def edit
           question = Question.includes(:annotations,
                                       :question_options,
@@ -18,10 +22,10 @@ module Dmpopidor
             section: question.section,
             question: question,
             question_formats: allowed_question_formats,
+            conditions: question.conditions,
             madmp_schemas: madmp_schemas
           }
         end
-
 
         # CHANGES
         # Added Structured Data Schema list
@@ -49,7 +53,6 @@ module Dmpopidor
           }
         end
 
-
         # CHANGES
         # Added Structured param
         def question_params
@@ -60,7 +63,11 @@ module Dmpopidor
                         annotations_attributes: %i[id text org_id org type _destroy],
                         theme_ids: [])
         end
+
       end
+
     end
+
   end
+
 end

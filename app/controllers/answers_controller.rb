@@ -3,8 +3,9 @@
 # rubocop:disable
 class AnswersController < ApplicationController
 
-  prepend Dmpopidor::Controllers::Answers
   respond_to :html
+  prepend Dmpopidor::Controllers::Answers
+  include ConditionsHelper
 
   # POST /answers/create_or_update
   # SEE MODULE
@@ -90,8 +91,32 @@ class AnswersController < ApplicationController
       @section = @plan.sections.find_by(id: @question.section_id)
       template = @section.phase.template
 
+      remove_list_after = remove_list(@plan)
+
+      all_question_ids = @plan.questions.pluck(:id)
+      all_answers = @plan.answers
+      qn_data = {
+        to_show: all_question_ids - remove_list_after,
+        to_hide: remove_list_after
+      }
+
+      section_data = []
+      @plan.sections.each do |section|
+        next if section.number < @section.number
+        n_qs, n_ans = check_answered(section, qn_data[:to_show], all_answers)
+        this_section_info = {
+          sec_id: section.id,
+          no_qns: num_section_questions(@plan, section),
+          no_ans: num_section_answers(@plan, section)
+        }
+        section_data << this_section_info
+      end
+
+      send_webhooks(current_user, @answer)
       # rubocop:disable Metrics/LineLength
       render json: {
+        "qn_data": qn_data,
+        "section_data": section_data,
         "question" => {
           "id" => @question.id,
           "answer_lock_version" => @answer.lock_version,
@@ -112,13 +137,6 @@ class AnswersController < ApplicationController
           }, formats: [:html]),
           "answer_status" => render_to_string(partial: "answers/status", locals: {
             answer: @answer
-          }, formats: [:html])
-        },
-        "section" => {
-          "id" => @section.id,
-          "progress" => render_to_string(partial: "/org_admin/sections/progress", locals: {
-            section: @section,
-            plan: @plan
           }, formats: [:html])
         },
         "plan" => {
@@ -153,6 +171,12 @@ class AnswersController < ApplicationController
         permitted[:question_option_ids] = []
     end
     permitted
+  end
+
+  def check_answered(section, q_array, all_answers)
+    n_qs = section.questions.select{ |question| q_array.include?(question.id) }.length
+    n_ans = all_answers.select{ |ans| q_array.include?(ans.question.id) and ans.answered? }.length
+    [n_qs, n_ans]
   end
 
 end

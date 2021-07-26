@@ -6,6 +6,7 @@ import {
 import { Tinymce } from '../../utils/tinymce.js.erb';
 import { Select2 } from '../../utils/select2';
 // import debounce from '../../utils/debounce';
+import { updateSectionProgress, getQuestionDiv } from '../../utils/sectionUpdate';
 import datePicker from '../../utils/datePicker';
 import TimeagoFactory from '../../utils/timeagoFactory';
 
@@ -19,6 +20,17 @@ const questionId = jQuery => jQuery.closest('.form-answer').attr('data-autosave'
 // eslint-disable-next-line max-len
 // const isStale = jQuery => jQuery.closest('.question-form').find('.answer-locking').text().trim().length !== 0;
 const isReadOnly = () => $('.form-answer fieldset:disabled').length > 0;
+const showOrHideQuestions = (data) => {
+  data.section_data.forEach((section) => {
+    updateSectionProgress(section.sec_id, section.no_ans, section.no_qns);
+  });
+  data.qn_data.to_hide.forEach((questionid) => {
+    getQuestionDiv(questionid).slideUp();
+  });
+  data.qn_data.to_show.forEach((questionid) => {
+    getQuestionDiv(questionid).slideDown();
+  });
+};
 const toolbar = 'bold italic | bullist numlist | link | table';
 /*
   * A map of debounced functions, one for each input, textarea or select change at any
@@ -75,13 +87,6 @@ export const doneCallback = (data, jQuery) => {
         $('.progress').html(data.plan.progress);
       }
     }
-    /* if (isObject(data.section)) { // Object related to section within data received
-      if (isNumber(data.section.id)) {
-        if (isString(data.section.progress)) {
-          $(`.section-progress-${data.section.id}`).html(data.section.progress);
-        }
-      }
-    } */
     // Update answer id hidden field from data received
     // Object related to answer within data received
     if (isObject(data.answer) && isObject(data.question)) {
@@ -89,6 +94,7 @@ export const doneCallback = (data, jQuery) => {
         $(`#answer-form-${data.question.id}`).find('#answer_id').val(data.answer.id);
       }
     }
+    showOrHideQuestions(data);
   }
 };
 export const failCallback = (error, jQuery) => {

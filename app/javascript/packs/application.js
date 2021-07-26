@@ -2,10 +2,12 @@
 import 'jquery-ujs';
 import 'jquery-accessible-autocomplete-list-aria/jquery-accessible-autocomplete-list-aria';
 import 'select2';
+import 'bootstrap-select/js/bootstrap-select';
 
 // Generic JS that is applicable across multiple pages
 import '../utils/array';
 import '../utils/charts';
+import '../utils/autoComplete';
 import '../utils/externalLink';
 import '../utils/paginable';
 import '../utils/panelHeading';
@@ -16,11 +18,15 @@ import '../utils/tabHelper';
 import '../utils/tooltipHelper';
 import '../utils/popoverHelper';
 import '../utils/requiredField';
+import '../utils/sectionUpdate';
 import '../utils/cookiebanner';
 
 // Page specific JS
 import '../views/answers/edit';
+import '../views/answers/conditions';
 import '../views/answers/rda_metadata';
+import '../views/contributors/form';
+import '../views/devise/invitations/edit';
 import '../views/devise/passwords/edit';
 import '../views/devise/registrations/edit';
 import '../views/guidances/new_edit';
@@ -46,7 +52,6 @@ import '../views/plans/share';
 import '../views/roles/edit';
 import '../views/shared/create_account_form';
 import '../views/shared/dynamic_form';
-import '../views/shared/my_org';
 import '../views/shared/sign_in_form';
 import '../views/super_admin/themes/new_edit';
 import '../views/super_admin/users/edit';

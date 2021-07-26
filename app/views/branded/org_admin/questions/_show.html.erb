@@ -22,7 +22,7 @@
           <!-- question.option_based? -->
           <% if question.option_based? %>
             <dt><%= _('Question options') %></dt>
-            <dd><%= question.question_options.collect(&:text).join(', ') %></dd>
+            <dd><%= question.question_options.order(:number).collect(&:text).join(', ') %></dd>
           <% end %>
           <!-- Default value -->
           <% if q_format %>
@@ -63,6 +63,13 @@
               <% end %>
             </dd>
           <% end %>
+
+          <!-- question conditions -->
+          <% if conditions.count > 0 %>
+            <dt><%= _('Question conditions') %></dt>
+             <%= raw condition_to_text(conditions) %>
+          <% end %>
+
           <!-- Suggested answer or Example-->
           <% if !question.section.phase.template.org.funder? %>
             <% example_answer = question.example_answers(template.base_org.id).first %>

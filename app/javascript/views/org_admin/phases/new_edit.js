@@ -7,6 +7,7 @@ import { addAsterisks } from '../../../utils/requiredField';
 
 import onChangeQuestionFormat from '../questions/sharedEventHandlers';
 import initQuestionOption from '../question_options/index';
+import updateConditions from '../conditions/updateConditions';
 
 $(() => {
   // Attach handlers for the expand/collapse all accordions
@@ -37,7 +38,7 @@ $(() => {
       initQuestionOption(context);
       addAsterisks(`#${context}`);
       // Swap in the question_formats when the user selects an option based question type
-      $(`#${context} .question_format select`).change((e) => {
+      $(`#${context} select.question_format`).change((e) => {
         onChangeQuestionFormat(e);
       });
     }
@@ -134,6 +135,7 @@ $(() => {
       // Display the section's html
       panelBody.html(data);
       initQuestion(id);
+      updateConditions(id);
       if (panelBody.is('.new-question')) {
         target.hide();
       }

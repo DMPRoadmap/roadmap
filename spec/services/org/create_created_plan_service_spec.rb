@@ -75,7 +75,7 @@ RSpec.describe Org::CreateCreatedPlanService do
 
   def find_by_dates(dates:, org_id:)
     dates.map do |date|
-      StatCreatedPlan.find_by(date: date, org_id: org_id)
+      StatCreatedPlan.find_by(date: date, org_id: org_id, filtered: false)
     end
   end
 
@@ -118,7 +118,7 @@ RSpec.describe Org::CreateCreatedPlanService do
       it "monthly records are either created or updated" do
         described_class.call(org)
 
-        april = StatCreatedPlan.where(date: "2018-04-30", org: org)
+        april = StatCreatedPlan.where(date: "2018-04-30", org: org, filtered: true)
         expect(april).to have(1).items
         expect(april.first.count).to eq(2)
 
@@ -129,7 +129,7 @@ RSpec.describe Org::CreateCreatedPlanService do
 
         described_class.call(org)
 
-        april = StatCreatedPlan.where(date: "2018-04-30", org: org)
+        april = StatCreatedPlan.where(date: "2018-04-30", org: org, filtered: true)
         expect(april).to have(1).items
         expect(april.first.count).to eq(3)
       end
@@ -181,7 +181,7 @@ RSpec.describe Org::CreateCreatedPlanService do
 
         described_class.call
 
-        april = StatCreatedPlan.where(date: "2018-04-30", org: org)
+        april = StatCreatedPlan.where(date: "2018-04-30", org: org, filtered: true)
         expect(april).to have(1).items
         expect(april.first.count).to eq(2)
 
@@ -192,7 +192,7 @@ RSpec.describe Org::CreateCreatedPlanService do
 
         described_class.call
 
-        april = StatCreatedPlan.where(date: "2018-04-30", org: org)
+        april = StatCreatedPlan.where(date: "2018-04-30", org: org, filtered: true)
         expect(april).to have(1).items
         expect(april.first.count).to eq(3)
       end

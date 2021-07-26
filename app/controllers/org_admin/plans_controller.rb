@@ -15,15 +15,18 @@ class OrgAdmin::PlansController < ApplicationController
 
     feedback_ids = Role.creator.joins(:user,:plan)
       .where('users.org_id = ? AND plans.feedback_requested is TRUE AND roles.active is TRUE',
-               current_user.org_id).pluck(:plan_id)
+              current_user.org_id).pluck(:plan_id)
     @feedback_plans = Plan.where(id: feedback_ids).reject{|p| p.nil?}
-    @plans = current_user.org.plans.page(1)
+
+    @super_admin = current_user.can_super_admin?
+    @clicked_through = params[:click_through].present?
+    @plans = @super_admin ? Plan.all.page(1) : current_user.org.plans.page(1)
   end
 
   # GET org_admin/plans/:id/feedback_complete
+  # SEE MODULE
   def feedback_complete
     plan = Plan.find(params[:id])
-    requestor = User.find(plan.feedback_requestor)
     # Test auth directly and throw Pundit error sincePundit is
     # unaware of namespacing
     unless current_user.present? && current_user.can_org_admin?
@@ -37,7 +40,7 @@ class OrgAdmin::PlansController < ApplicationController
       # rubocop:disable Metrics/LineLength
       redirect_to(org_admin_plans_path,
         notice: _("%{plan_owner} has been notified that you have finished providing feedback") % {
-          plan_owner: requestor.name(false)
+          plan_owner: plan.owner.name(false)
         }
       )
       # rubocop:enable Metrics/LineLength

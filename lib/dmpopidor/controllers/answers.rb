@@ -89,54 +89,73 @@ module Dmpopidor
             @section = @plan.sections.find_by(id: @question.section_id)
             template = @section.phase.template
             @research_output = @answer.research_output
-            # rubocop:disable LineLength
-            render json: {
-            "answer" => {
-              "id" => @answer.id
-            },
-            "question" => {
-              "id" => @question.id,
-              "answer_lock_version" => @answer.lock_version,
-              "locking" => @stale_answer ?
-                render_to_string(partial: "answers/locking", locals: {
-                  question: @question,
-                  answer: @stale_answer,
-                  research_output: @research_output,
-                  user: @answer.user
-                }, formats: [:html]) :
-                nil,
-              "form" => render_to_string(partial: "answers/new_edit", locals: {
-                template: template,
-                question: @question,
-                answer: @answer,
-                research_output: @research_output,
-                readonly: false,
-                locking: false,
-                base_template_org: template.base_org
-              }, formats: [:html]),
-              "answer_status" => render_to_string(partial: "answers/status", locals: {
-                answer: @answer
-              }, formats: [:html])
-            },
-            "section" => {
-              "id" => @section.id,
-              "progress" => render_to_string(partial: "/org_admin/sections/progress", locals: {
-                section: @section,
-                plan: @plan
-              }, formats: [:html])
-            },
-            "plan" => {
-              "id" => @plan.id,
-              "progress" => render_to_string(partial: "plans/progress", locals: {
-                plan: @plan,
-                current_phase: @section.phase
-              }, formats: [:html])
-            },
-            "research_output" => {
-              "id" => @research_output.id
+            
+            remove_list_after = remove_list(@plan)
+
+            all_question_ids = @plan.questions.pluck(:id)
+            all_answers = @plan.answers
+            qn_data = {
+              to_show: all_question_ids - remove_list_after,
+              to_hide: remove_list_after
             }
-          }.to_json
+
+            section_data = []
+            @plan.sections.each do |section|
+              next if section.number < @section.number
+              n_qs, n_ans = check_answered(section, qn_data[:to_show], all_answers)
+              this_section_info = {
+                sec_id: section.id,
+                no_qns: num_section_questions(@plan, section),
+                no_ans: num_section_answers(@plan, section)
+              }
+              section_data << this_section_info
+            end
+
+            send_webhooks(current_user, @answer)
+            # rubocop:disable Metrics/LineLength
+            render json: {
+              "qn_data": qn_data,
+              "section_data": section_data,
+              "answer" => {
+                "id" => @answer.id
+              },
+              "question" => {
+                "id" => @question.id,
+                "answer_lock_version" => @answer.lock_version,
+                "locking" => @stale_answer ?
+                  render_to_string(partial: "answers/locking", locals: {
+                    question: @question,
+                    answer: @stale_answer,
+                    research_output: @research_output,
+                    user: @answer.user
+                  }, formats: [:html]) :
+                  nil,
+                "form" => render_to_string(partial: "answers/new_edit", locals: {
+                  template: template,
+                  question: @question,
+                  answer: @answer,
+                  research_output: @research_output,
+                  readonly: false,
+                  locking: false,
+                  base_template_org: template.base_org
+                }, formats: [:html]),
+                "answer_status" => render_to_string(partial: "answers/status", locals: {
+                  answer: @answer
+                }, formats: [:html])
+              },
+              "plan" => {
+                "id" => @plan.id,
+                "progress" => render_to_string(partial: "plans/progress", locals: {
+                  plan: @plan,
+                  current_phase: @section.phase
+                }, formats: [:html])
+              },
+              "research_output" => {
+                "id" => @research_output.id
+              }
+            }.to_json
           # rubocop:enable LineLength
+          end
         end
       end
 

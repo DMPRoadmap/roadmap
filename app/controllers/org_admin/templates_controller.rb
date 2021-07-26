@@ -2,13 +2,12 @@
 
 module OrgAdmin
 
+  # rubocop:disable Metrics/ClassLength
   class TemplatesController < ApplicationController
 
     include Paginable
     include Versionable
     include TemplateMethods
-
-    prepend Dmpopidor::Controllers::OrgAdmin::Templates
 
     after_action :verify_authorized
 
@@ -20,7 +19,7 @@ module OrgAdmin
       templates = Template.latest_version.where(customization_of: nil)
       published = templates.select { |t| t.published? || t.draft? }.length
 
-      @orgs              = Org.all
+      @orgs              = Org.managed
       @title             = _("All Templates")
       @templates         = templates.includes(:org).page(1)
       @query_params      = { sort_field: "templates.title", sort_direction: "asc" }
@@ -156,7 +155,7 @@ module OrgAdmin
       authorize Template
       args = template_params
       # Swap in the appropriate visibility enum value for the checkbox value
-      args[:visibility] = args.fetch(:visibility, "0") == "1" ? "organisationally_visible" : "publicly_visible"
+      args[:visibility] = parse_visibility(args, current_user.org)
 
       # creates a new template with version 0 and new family_id
       @template = Template.new(args)
@@ -184,7 +183,7 @@ module OrgAdmin
       begin
         args = template_params
         # Swap in the appropriate visibility enum value for the checkbox value
-        args[:visibility] = args.fetch(:visibility, '0') == '1' ? 'organisationally_visible' : 'publicly_visible'
+        args[:visibility] = parse_visibility(args, current_user.org)
 
         template.assign_attributes(args)
         if params["template-links"].present?
@@ -355,6 +354,19 @@ module OrgAdmin
       params.require(:template).permit(:title, :description, :visibility, :links)
     end
 
+    def parse_visibility(args, org)
+      # the visibility param is only present in the case of an org that is
+      # both a funder and an institution.
+      # If nil and the org is a funder, we default to public
+      # If nil and the org is not a funder, we default to organisational
+      # If present, we parse to retrieve the value
+      if args[:visibility].nil?
+        return org.funder? ? "publicly_visible" : "organisationally_visible"
+      else
+        return args.fetch(:visibility, "0") == "1" ? "organisationally_visible" : "publicly_visible"
+      end
+    end
+
     def get_referrer(template, referrer)
       return org_admin_templates_path unless referrer.present?
       if referrer.end_with?(new_org_admin_template_path) ||
@@ -372,5 +384,6 @@ module OrgAdmin
     end
 
   end
+  # rubocop:enable Metrics/ClassLength
 
 end

@@ -1,18 +1,22 @@
+# frozen_string_literal: true
+
 module Dmpopidor
+
   module Models
+
     module Theme
 
-      
       def to_slug
-        title.parameterize.truncate(80, omission: '')
+        title.parameterize.truncate(80, omission: "")
       end
+
       # ADDITION: generate slug from title
       def generate_slug
-        if self.title
-          self.slug = self.title.parameterize
-        end
+        self.slug = title.parameterize if title
       end
+
     end
+
   end
+
 end
-  

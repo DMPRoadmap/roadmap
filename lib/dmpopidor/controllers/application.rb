@@ -8,6 +8,7 @@ module Dmpopidor
         # Added Research output Support
         def obj_name_for_display(obj)
           display_name = {
+            ApiClient: _("API client"),
             ResearchOutput: d_('dmpopidor', "research output"),
             ExportedPlan: _("plan"),
             GuidanceGroup: _("guidance group"),
@@ -16,7 +17,8 @@ module Dmpopidor
             Perm: _("permission"),
             Pref: _("preferences"),
             Department: _("department"),
-            User: obj == current_user ? _("profile") : _("user"),
+            User: obj == current_user ? _("profile") : _("user"),,
+            QuestionOption: _("question option")
             MadmpSchema: _("schema"),
             Registry: _("registry"),
             RegistryValue: _("registry value")

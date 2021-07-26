@@ -5,26 +5,31 @@
 # Table name: templates
 #
 #  id               :integer          not null, primary key
-#  title            :string
+#  archived         :boolean
+#  customization_of :integer
 #  description      :text
-#  published        :boolean
-#  org_id           :integer
-#  locale           :string
 #  is_default       :boolean
-#  created_at       :datetime
-#  updated_at       :datetime
+#  links            :text
+#  locale           :string
+#  published        :boolean
+#  title            :string
 #  version          :integer
 #  visibility       :integer
-#  customization_of :integer
+#  created_at       :datetime
+#  updated_at       :datetime
 #  family_id        :integer
-#  archived         :boolean
-#  links            :text
+#  org_id           :integer
 #
 # Indexes
 #
-#  templates_customization_of_version_org_id_key  (customization_of,version,org_id) UNIQUE
-#  templates_family_id_version_key                (family_id,version) UNIQUE
-#  templates_org_id_idx                           (org_id)
+#  index_templates_on_family_id              (family_id)
+#  index_templates_on_family_id_and_version  (family_id,version) UNIQUE
+#  index_templates_on_org_id                 (org_id)
+#  template_organisation_dmptemplate_index   (org_id,family_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (org_id => orgs.id)
 #
 
 class Template < ActiveRecord::Base
@@ -65,6 +70,10 @@ class Template < ActiveRecord::Base
   has_many :questions, through: :sections
 
   has_many :annotations, through: :questions
+
+  has_many :question_options, through: :questions
+
+  has_many :conditions, through: :questions
 
   # ===============
   # = Validations =
@@ -274,6 +283,23 @@ class Template < ActiveRecord::Base
     copy.save! if options.fetch(:save, false)
     options[:template_id] = copy.id
     phases.each { |phase| copy.phases << phase.deep_copy(options) }
+    # transfer the conditions to the new template
+    #  done here as the new questions are not accessible when the conditions deep copy
+    copy.conditions.each do |cond|
+      if cond.option_list.any?
+        versionable_ids = QuestionOption.where(id: cond.option_list).pluck(:versionable_id)
+        cond.option_list = copy.question_options.where(versionable_id: versionable_ids).pluck(:id).map(&:to_s)
+        # TODO: these seem to be stored as strings, not sure if that's required by other code
+      end # TODO: would it be safe to remove conditions without an option list?
+
+      if cond.remove_data.any?
+        versionable_ids = Question.where(id: cond.remove_data).pluck(:versionable_id)
+        cond.remove_data = copy.questions.where(versionable_id: versionable_ids).pluck(:id).map(&:to_s)
+      end
+
+      cond.save if cond.changed?
+    end
+
     copy
   end
 
@@ -426,6 +452,10 @@ class Template < ActiveRecord::Base
       error += _("You can not publish a template without questions in a section.  ")
       publishable = false
     end
+    if invalid_condition_order
+      error += _("Conditions in the template refer backwards")
+      publishable = false
+    end
     return publishable, error
   end
 
@@ -473,4 +503,26 @@ class Template < ActiveRecord::Base
             .update_all(published: false)
   end
 
+  def invalid_condition_order
+    self.questions.each do |question|
+      if question.option_based?
+        question.conditions.each do |condition|
+          if condition.action_type == "remove"
+            condition.remove_data.each do |rem_id|
+              rem_question = Question.find(rem_id.to_s)
+              if before(rem_question,question)
+                return true
+              end
+            end
+          end
+        end
+      end
+    end
+    false
+  end
+
+  def before(q1,q2)
+    q1.section.number < q2.section.number ||
+      (q1.section.number == q2.section.number && q1.number < q2.number)
+  end
 end

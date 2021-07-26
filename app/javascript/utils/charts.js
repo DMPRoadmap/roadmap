@@ -60,8 +60,8 @@ export const initializeCharts = () => {
   });
 };
 
-export const createChart = (selector, data, appendTolabel = '') => {
-  new Chart($(selector), { // eslint-disable-line no-new
+export const createChart = (selector, data, appendTolabel = '', onClickHandler = null) => {
+  const chart = new Chart($(selector), { // eslint-disable-line no-new
     type: 'bar',
     data: {
       labels: Object.keys(data),
@@ -85,8 +85,10 @@ export const createChart = (selector, data, appendTolabel = '') => {
           ticks: { min: 0, suggestedMax: 50 },
         }],
       },
+      onClick: onClickHandler,
     },
   });
+  return chart;
 };
 
 export const drawHorizontalBar = (canvasSelector, data) => {

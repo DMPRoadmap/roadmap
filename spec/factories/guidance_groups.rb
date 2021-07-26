@@ -4,15 +4,19 @@
 #
 #  id              :integer          not null, primary key
 #  name            :string
-#  org_id          :integer
+#  optional_subset :boolean          default(FALSE), not null
+#  published       :boolean          default(FALSE), not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  optional_subset :boolean          default("false"), not null
-#  published       :boolean          default("false"), not null
+#  org_id          :integer
 #
 # Indexes
 #
-#  guidance_groups_org_id_idx  (org_id)
+#  index_guidance_groups_on_org_id  (org_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (org_id => orgs.id)
 #
 
 FactoryBot.define do

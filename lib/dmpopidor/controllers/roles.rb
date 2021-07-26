@@ -1,15 +1,19 @@
+# frozen_string_literal: true
+
 module Dmpopidor
+
   module Controllers
+
     module Roles
-      
+
       # CHANGES : Invited user should be linked to default org
       def create
         registered = true
         @role = Role.new(role_params)
         authorize @role
-    
+
         plan = Plan.find(role_params[:plan_id])
-    
+
         message = ""
         if params[:user].present? && plan.present?
           if @role.plan.owner.present? && @role.plan.owner.email == params[:user]
@@ -21,9 +25,9 @@ module Dmpopidor
           else
             user = User.where_case_insensitive("email", params[:user]).first
             if Role.find_by(plan: @role.plan, user: user) # role already exists
-                flash[:notice] = _("Plan is already shared with %{email}.") % {
+              flash[:notice] = _("Plan is already shared with %{email}.") % {
                 email: params[:user]
-                }
+              }
             else
               if user.nil?
                 registered = false
@@ -44,11 +48,11 @@ module Dmpopidor
                 @role.user = user
               if @role.save
                 if registered
-                    deliver_if(recipients: user, key: "users.added_as_coowner") do |r|
+                  deliver_if(recipients: user, key: "users.added_as_coowner") do |r|
                     UserMailer.sharing_notification(@role, r, inviter: current_user)
-                                .deliver_now
+                              .deliver_now
+                  end
                 end
-              end
                 flash[:notice] = message
               else
                 # rubocop:disable Metrics/LineLength
@@ -62,6 +66,9 @@ module Dmpopidor
         end
         redirect_to controller: "plans", action: "share", id: @role.plan.id
       end
+
     end
+
   end
+
 end

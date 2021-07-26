@@ -1,6 +1,6 @@
 <hr />
 <h1><%= @plan.title %></h1>
-<p><em><%= _("A Data Management Plan created using ") + Rails.configuration.branding[:application][:name] %></em></p>
+<p><em><%= _("A Data Management Plan created using %{application_name}") % { application_name: Rails.configuration.branding[:application].fetch(:name, "DMPRoadmap") } %></em></p>
 <br/>
 <div class="cover-page">
   <%# Using <b> tags as the htmltoword gem does not recognise css styles defined %>
@@ -14,10 +14,12 @@
   <% end %>
 
     <p><b><%= _("Template: ") %></b><%= @hash[:template] + @hash[:customizer] %></p><br>
-  
 
-  <% if @plan.principal_investigator_identifier.present? %>
-    <p><b><%= _("ORCID iD: ") %></b><%= @plan.principal_investigator_identifier %></p> <br>
+  <% @plan.contributors.investigation.each do |contributor| %>
+    <% orcid = contributor.identifier_for_scheme(scheme: "orcid") %>
+    <% next unless orcid.present? && orcid.value.present? %>
+
+    <p><b><%= _("ORCID iD: ") %></b><%= orcid.value_without_scheme_prefix %></p> <br>
   <% end %>
 
   <% if @plan.grant_number.present? %>

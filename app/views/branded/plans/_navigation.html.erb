@@ -3,6 +3,10 @@
   <li role="presentation" class="<%= (active_page?(plan_path(plan), true) ? 'active' : '') %>">
     <a href="<%= plan_path(plan) %>" role="tab" aria-controls="content"><%= d_("dmpopidor", "General informations") %></a>
   </li>
+  <li role="contributors" class="<%= (active_page?(plan_contributors_path(plan)) ? "active" : "") %>">
+    <%= link_to _("Contributors"), plan_contributors_path(plan), role: "tab",
+                aria: { controls: "content" } %>
+  </li>
   <li role="presentation" class="<%= (active_page?(plan_research_outputs_path(plan)) ? 'active' : '') %>">
     <%= link_to(d_('dmpopidor', 'Research outputs'), plan_research_outputs_path(plan), role: 'tab', 'aria-controls': 'content') %>
   </li>
@@ -37,7 +41,7 @@
   <div id="content" role="tabpanel" class="tab-pane active">
     <div class="panel panel-default">
       <div class="panel-body <%= write_plan_class %> ">
-        <%= yield %>
+        <%= yield :plan_tab_body %>
       </div>
     </div>
   </div>

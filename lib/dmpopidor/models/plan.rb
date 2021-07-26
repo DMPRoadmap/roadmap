@@ -8,15 +8,6 @@ module Dmpopidor
 
       include DynamicFormHelper
 
-      # CHANGE : Fix to creator display
-      def owner
-        usr_id = ::Role.where(plan_id: id, active: true)
-                       .administrator
-                       .order(:created_at)
-                       .pluck(:user_id).first
-        usr_id.present? ? ::User.find(usr_id) : nil
-      end
-
       # CHANGES : ADDED RESEARCH OUTPUT SUPPORT
       # The most recent answer to the given question id optionally can create an answer if
       # none exists.
