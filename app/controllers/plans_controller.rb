@@ -124,7 +124,7 @@ class PlansController < ApplicationController
         elsif !@plan.template.customization_of.nil?
           # We used a customized version of the the funder template
           # rubocop:disable Layout/LineLength
-          msg += " #{_('This plan is based on the')} #{@plan.funder&.name}: '#{@plan.template.title}' #{_('template with customisations by the')} #{plan_params[:org_name]}"
+          msg += " #{_('This plan is based on the')} #{@plan.funder&.name}: '#{@plan.template.title}' #{_('template with customisations by the')} #{@plan.template.org.name}"
           # rubocop:enable Layout/LineLength
         else
           # We used the specified org's or funder's template
@@ -219,7 +219,16 @@ class PlansController < ApplicationController
   #       doing this when we refactor the Plan editing UI
   # GET /plans/:plan_id/phases/:id/edit
   def edit
-    plan = Plan.includes({ template: { phases: { sections: :questions } } }, { answers: :notes })
+    plan = Plan.includes(
+      { template: {
+        phases: {
+          sections: {
+            questions: %i[question_format question_options annotations themes]
+          }
+        }
+      } },
+      { answers: :notes }
+    )
                .find(params[:id])
     authorize plan
     phase_id = params[:phase_id].to_i
@@ -258,7 +267,7 @@ class PlansController < ApplicationController
 
       if @plan.update(attrs) # _attributes(attrs)
         format.html do
-          redirect_to plan_contributors_path(@plan),
+          redirect_to plan_path(@plan),
                       notice: success_message(@plan, _("saved"))
         end
         format.json do
@@ -293,7 +302,7 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     if @plan.present?
       authorize @plan
-      @plan_roles = @plan.roles
+      @plan_roles = @plan.roles.where(active: true)
     else
       redirect_to(plans_path)
     end
@@ -306,7 +315,7 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     if @plan.present?
       authorize @plan
-      @plan_roles = @plan.roles
+      @plan_roles = @plan.roles.where(active: true)
     else
       redirect_to(plans_path)
     end

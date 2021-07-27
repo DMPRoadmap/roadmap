@@ -5796,10 +5796,12 @@ msgstr " em um plano chamado"
 
 #: ../../app/views/user_mailer/sharing_notification.html.erb:5
 msgid ""
-"Your colleague %{inviter_name} has invited you to contribute to\n"
+"Your colleague %{inviter_name} has invited you to contribute to
+\n"
 "          their Data Management Plan in %{tool_name}"
 msgstr ""
-"Seu colega %{inviter_name} convidou você para contribuir com\n"
+"Seu colega %{inviter_name} convidou você para contribuir com
+\n"
 "          seu plano de gerenciamento de dados em %{tool_name}"
 
 #: ../../app/views/user_mailer/welcome_notification.html.erb:2
