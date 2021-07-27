@@ -91,19 +91,6 @@
     <div class="col-md-8">
       <%= plan.funder.name %>:
     </div>
-
-    <% id_presenter = IdentifierPresenter.new(identifiable: plan.funder) %>
-    <ul>
-      <% %w[fundref ror].each do |scheme_name| %>
-        <%
-        scheme = id_presenter.scheme_by_name(name: scheme_name).first
-        identifier = id_presenter.id_for_scheme(scheme: scheme)
-        %>
-        <div class="col-md-8">
-          <li><%= id_for_display(id: identifier) %></li>
-        </div>
-      <% end %>
-    </ul>
   <% else %>
     <%# Otherwise display the Org typeahead for funders %>
     <div class="col-md-8">

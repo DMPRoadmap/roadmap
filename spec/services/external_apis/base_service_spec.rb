@@ -53,7 +53,7 @@ RSpec.describe ExternalApis::BaseService do
       end
       it "returns the application name defined in dmproadmap.rb initializer" do
         Rails.configuration.x.application.name = "Foo"
-        expect(described_class.send(:app_name)).to eql("foo")
+        expect(described_class.send(:app_name)).to eql("Foo")
       end
     end
     context "#app_email" do
