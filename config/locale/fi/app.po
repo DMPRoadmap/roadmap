@@ -5771,10 +5771,12 @@ msgstr " suunnitelmassa nimeltään"
 
 #: ../../app/views/user_mailer/sharing_notification.html.erb:5
 msgid ""
-"Your colleague %{inviter_name} has invited you to contribute to\n"
+"Your colleague %{inviter_name} has invited you to contribute to
+\n"
 "          their Data Management Plan in %{tool_name}"
 msgstr ""
-"Kollegasi %{inviter_name} on kutsunut sinut osallistumaan\n"
+"Kollegasi %{inviter_name} on kutsunut sinut osallistumaan
+\n"
 "          heidän tiedonhallintasuunnitelmansa %{tool_name}"
 
 #: ../../app/views/user_mailer/welcome_notification.html.erb:2

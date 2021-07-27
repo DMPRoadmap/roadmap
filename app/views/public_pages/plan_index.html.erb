@@ -22,6 +22,8 @@
         partial: '/paginable/plans/publicly_visible',
         controller: 'paginable/plans',
         action: 'publicly_visible',
+        remote: false,
+        path_params: @args || {},
         query_params: query_params,
         scope: @plans) %>
     <% end %>
