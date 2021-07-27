@@ -108,7 +108,7 @@ class UserMailer < ActionMailer::Base
 
     I18n.with_locale I18n.default_locale do
       mail(to: @recipient.email,
-           subject: _("%{tool_name}: %{user_name} requested feedback on a plan") %
+           subject: _("%{user_name} has requested feedback on a %{tool_name} plan") %
            {
              tool_name: tool_name, user_name: @user.name(false)
            })
