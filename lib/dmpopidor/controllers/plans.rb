@@ -351,7 +351,9 @@ module Dmpopidor
         params.require(:plan)
               .permit(:org_id, :template_id, :funder_name, :visibility,
                       :title, :org_name, :guidance_group_ids,
-                      research_outputs_attributes: %i[_destroy])
+                      research_outputs_attributes: %i[_destroy],
+                      org: [:org_id, :org_name, :org_sources, :org_crosswalk],
+                      funder: [:org_id, :org_name, :org_sources, :org_crosswalk])
       end
 
       # Get the parameters corresponding to the schema
