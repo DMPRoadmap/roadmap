@@ -85,18 +85,10 @@ class Paginable::TemplatesController < ApplicationController
   # GET /paginable/templates/publicly_visible/:page  (AJAX)
   # -----------------------------------------------------
   def publicly_visible
-    templates = Template.live(Template.families(Org.funder.pluck(:id)).pluck(:family_id))
-                        .publicly_visible.pluck(:id) <<
-                Template.where(is_default: true).unarchived.published.pluck(:id)
-    paginable_renderise(
-      partial: "publicly_visible",
-      scope: Template.joins(:org)
-                     .includes(:org)
-                     .where(id: templates.uniq.flatten)
-                     .published,
-      query_params: { sort_field: "templates.title", sort_direction: :asc },
-      format: :json
-    )
+    # We want the pagination/sort/search to be retained in the URL so redirect instead
+    # of processing this as a JSON
+    paginable_params = params.permit(:page, :search, :sort_field, :sort_direction)
+    redirect_to public_templates_path(paginable_params.to_h)
   end
 
   # GET /paginable/templates/:id/history/:page  (AJAX)
