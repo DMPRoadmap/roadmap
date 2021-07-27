@@ -41,65 +41,65 @@
         <!-- Tabs menu -->
         <ul class="nav nav-tabs form-tabs">
           <li class="active">
-            <span data-toggle="tab" data-target="#own_org"><%= @default_org.is_other ? d_('dmpopidor', current_user.other_organisation) : @default_org.name  %> (<%= d_('dmpopidor', 'Your organisation') %>) </span>
+            <span data-toggle="tab" data-target="#own-org-controls"><%= current_user.org.name  %> (<%= d_('dmpopidor', 'Your organisation') %>) </span>
           </li>
           <li>
-            <span data-toggle="tab" data-target="#other_org"><%= d_('dmpopidor', 'Other organisation') %></span>
+            <span data-toggle="tab" data-target="#research-org-controls"><%= d_('dmpopidor', 'Other organisation') %></span>
           </li>
           <li>
-            <span data-toggle="tab" data-target="#funder"><%= _('Funder') %></span>
+            <span data-toggle="tab" data-target="#funder-org-controls"><%= _('Funder') %></span>
           </li>
         </ul>
 
         <!-- Tabs content -->
         <div class="tab-content">
           <!-- "Your organisation" tab -->
-          <div id="own_org" class="tab-pane in active">
-            <% if @default_org %>
-              <%= hidden_field_tag('own_org_name', @default_org.name) %>
-              <%= hidden_field_tag('own_org_id', @default_org.id) %>
-            <% end %>
+          <div id="own-org-controls" class="tab-pane in active">
+            <%= hidden_field_tag(
+              'own_org_id',
+              "{ \"id\":#{current_user.org.id},\"name\": \"#{current_user.org.name}\", \"funder_id\": \"none\" }",
+              class: "autocomplete-result") %>
           </div>
 
           <!-- "Other organisation" tab -->
-          <div id="other_org" class="tab-pane">
+          <div id="research-org-controls" class="tab-pane">
             <h2>
               <%= d_('dmpopidor', 'Would you like to choose the template of another organisation?') %>
             </h2>
             <!-- Combo box for selecting another organisation's template -->
-            <%= render partial: "shared/accessible_combobox",
-                      locals: {name: 'plan[org_name]',
-                                id: 'plan_org_name',
-                                default_selection: @default_org,
-                                models: @orgs,
-                                attribute: 'name',
-                                required: true,
-                                error: _('You must select a research organisation from the list.'),
-                                tooltip: _('Please select a valid research organisation from the list.')} %>
+            <%= fields_for :org, @plan.org do |org_fields| %>
+              <% dflt = @orgs.include?(current_user.org) ? current_user.org : nil %>
+              <%= render partial: "shared/org_selectors/local_only",
+                          locals: {
+                            form: org_fields,
+                            id_field: :id,
+                            default_org: dflt,
+                            orgs: @orgs,
+                            required: false
+                          } %>
+            <% end %>
+            <%= check_box_tag(:plan_no_org, '', true, class: "toggle-autocomplete", style: 'display: none;') %>
           </div>
 
           <!-- "Funder" tab -->
-          <div id="funder" class="tab-pane">
+          <div id="funder-org-controls" class="tab-pane">
             <h2>
               <%= d_('dmpopidor', 'Would you like to choose the template of a funder?') %>
             </h2>
             <!-- Combo box for selecting a funder's template -->
-            <%= render partial: "shared/accessible_combobox",
-                      locals: {name: 'plan[funder_name]',
-                                id: 'plan_funder_name',
-                                default_selection: nil,
-                                models: @funders,
-                                attribute: 'name',
-                                required: true,
-                                error: _('You must select a funding organisation from the list.'),
-                                tooltip: _('Please select a valid funding organisation from the list.')} %>
+            <%= fields_for :funder, @plan.funder = Org.new do |funder_fields| %>
+              <%= render partial: "shared/org_selectors/local_only",
+                          locals: {
+                            form: funder_fields,
+                            id_field: :id,
+                            label: _("Funder"),
+                            default_org: nil,
+                            orgs: @funders,
+                            required: false
+                          } %>
+            <% end %>
+            <%= check_box_tag(:plan_no_funder, '', true, class: "toggle-autocomplete", style: 'display: none;') %>
           </div>
-
-          <!-- Legacy checkboxes from the v1 form, indicates wether or not organisation or funder is present, handled automaticaly by tab changes -->
-          <%= check_box_tag(:plan_no_org, '', false, style: 'display: none;') %>
-          <%= check_box_tag(:plan_no_funder, '', true, style: 'display: none;') %>
-          
-
 
         <!-- Multiple templates div (if more than one templates are provided by organisation) -->
           <div id="available-templates" style="display: none;">
@@ -132,7 +132,7 @@
           </div>
 
           <!-- In case the user does not belong to an organisation -->
-          <% unless @default_org %>
+          <% if current_user.org.nil? %>
           <div id="no_org">
             <h3>
               <%= d_('dmpopidor', 'You are not linked to an organisation, we can\'t suggest you a template. Please choose an organisation in your profile') %>

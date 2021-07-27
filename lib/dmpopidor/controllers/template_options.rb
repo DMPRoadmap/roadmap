@@ -27,7 +27,7 @@ module Dmpopidor
             @templates = Template.latest_customizable
                                  .where(org_id: funder.id)
             if org.present? && !org.new_record?
-              # Swap out any organisational cusotmizations of a funder template
+              # Swap out any organisational customizations of a funder template
               @templates = @templates.map do |tmplt|
                 customization = Template.published
                                         .latest_customized_version(tmplt.family_id,
@@ -44,13 +44,17 @@ module Dmpopidor
           end
 
           # If the no funder was specified OR the funder matches the org
-          if funder_id.blank? || funder.id == org&.id
+          if funder.blank? || funder.id == org&.id
             # Retrieve the Org's templates
             @templates << Template.published.where(org_id: org&.id).to_a
           end
 
-          @templates = @templates.flatten.uniq
+        else
+          @templates = Template.published
+                               .where(org_id: current_user.org.id).to_a
         end
+
+        @templates = @templates.flatten.uniq
 
         @templates.each do |template|
           if !template.customization_of.nil?

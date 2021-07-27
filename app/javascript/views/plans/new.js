@@ -88,7 +88,6 @@ $(() => {
     if ($(context).length > 0) {
       const checkbox = $(context).find('input.toggle-autocomplete');
       const val = getValue(context);
-
       if (val.length > 0 && val !== '{}') {
         const json = JSON.parse(val);
         // If the json ONLY contains a name then it is not a valid selection
@@ -103,12 +102,16 @@ $(() => {
 
   // When one of the autocomplete fields changes, fetch the available templates
   const handleComboboxChange = debounce(() => {
+    const ownOrgContext = $('#own-org-controls');
     const orgContext = $('#research-org-controls');
     const funderContext = $('#funder-org-controls');
+    const validOwnOrg = validOptions(ownOrgContext);
     const validOrg = validOptions(orgContext);
     const validFunder = validOptions(funderContext);
+    console.log(validOwnOrg, validOrg, validFunder);
 
-    if (!validOrg || !validFunder) {
+
+    if (!validOwnOrg || !validOrg || !validFunder) {
       $('#available-templates').fadeOut();
       $('#plan_template_id').find(':selected').removeAttr('selected');
       $('#plan_template_id').val('');
@@ -185,12 +188,12 @@ $(() => {
 
   // When the user checks the 'mock project' box we need to set the
   // visibility to 'is_test'
-  $('#new_plan #is_test').click((e) => {
+  $('#new_plan #is_test').on('click', (e) => {
     $('#plan_visibility').val(($(e.currentTarget)[0].checked ? 'is_test' : defaultVisibility));
   });
 
   // Make sure the checkbox is unchecked if we're entering text
-  $('#new_plan #plan_org_id, #new_plan #plan_funder_id').change((e) => {
+  $('#new_plan #plan_org_id, #new_plan #plan_funder_id').on('change', (e) => {
     const [, whichOne] = $(e.currentTarget).prop('id').split('_');
     $(`#plan_no_${whichOne}`).prop('checked', false);
     handleComboboxChange();
@@ -198,7 +201,7 @@ $(() => {
 
   // If the user clicks the no Org/Funder checkbox disable the dropdown
   // and hide clear button
-  $('#new_plan #plan_no_org, #new_plan #plan_no_funder').click((e) => {
+  $('#new_plan #plan_no_org, #new_plan #plan_no_funder').on('click', (e) => {
     const [, , whichOne] = $(e.currentTarget).prop('id').split('_');
     handleCheckboxClick(whichOne, e.currentTarget.checked);
   });
@@ -207,13 +210,6 @@ $(() => {
   $('#new_plan #available-templates').hide();
   handleComboboxChange();
   toggleSubmit();
-
-  if ($('#plan_no_org').prop('checked')) {
-    handleCheckboxClick('org', $('#plan_no_org').prop('checked'));
-  }
-  if ($('#plan_no_funder').prop('checked')) {
-    handleCheckboxClick('funder', $('#plan_no_funder').prop('checked'));
-  }
 
   // For form v2
 
@@ -236,11 +232,15 @@ $(() => {
   });
 
   // First and second tab are equivalent to checking the "No funder" checkbox
-  $('span[data-target="#own_org"], span[data-target="#other_org"]').on('shown.bs.tab', () => {
-    handleCheckboxClick('org', false);
-    handleCheckboxClick('funder', true);
-    $('#plan_no_org').prop('checked', false).trigger('change');
-    $('#plan_no_funder').prop('checked', true).trigger('change');
+  $('span[data-target="#own-org-controls"], span[data-target="#research-org-controls"]').on('shown.bs.tab', () => {
+    handleCheckboxClick(
+      $('#research-org-controls .autocomplete'),
+      $('#plan_no_org').prop('checked', false),
+    );
+    handleCheckboxClick(
+      $('#funder-org-controls .autocomplete'),
+      $('#plan_no_funder').prop('checked', true),
+    );
   });
 
   // Empty combobox on second tab activation
@@ -251,21 +251,32 @@ $(() => {
   };
 
   // Empty combobox on second & third tab activation
-  $('span[data-target="#other_org"], span[data-target="#funder"]').on('shown.bs.tab', emptyTab);
-  $('span[data-target="#other_org"], span[data-target="#funder"]').on('hidden.bs.tab', emptyTab);
+  $('span[data-target="#research-org-controls"], span[data-target="#funder-org-controls"]').on('shown.bs.tab', emptyTab);
+  $('span[data-target="#research-org-controls"], span[data-target="#funder-org-controls"]').on('hidden.bs.tab', emptyTab);
 
   // Restore default organisation when activating first tab
-  $('span[data-target="#own_org"]').on('shown.bs.tab', () => {
-    $('#plan_org_name').val($('#own_org_name').val());
-    $('#plan_org_id').val($('#own_org_id').val());
+  $('span[data-target="#own-org-controls"]').on('shown.bs.tab', () => {
+    handleCheckboxClick(
+      $('#research-org-controls .autocomplete'),
+      $('#plan_no_org').prop('checked', true),
+    );
+    handleCheckboxClick(
+      $('#funder-org-controls .autocomplete'),
+      $('#plan_no_funder').prop('checked', true),
+    );
+    handleComboboxChange();
   });
 
   //  Last tab is equivalent to checking the "No org" checkbox
-  $('span[data-target="#funder"]').on('shown.bs.tab', () => {
-    handleCheckboxClick('org', true);
-    handleCheckboxClick('funder', false);
-    $('#plan_no_org').prop('checked', true).trigger('change');
-    $('#plan_no_funder').prop('checked', false).trigger('change');
+  $('span[data-target="#funder-org-controls"]').on('shown.bs.tab', () => {
+    handleCheckboxClick(
+      $('#research-org-controls .autocomplete'),
+      $('#plan_no_org').prop('checked', true),
+    );
+    handleCheckboxClick(
+      $('#funder-org-controls .autocomplete'),
+      $('#plan_no_funder').prop('checked', false),
+    );
   });
 
   $('#new_plan #plan_title').on('change', (e) => {

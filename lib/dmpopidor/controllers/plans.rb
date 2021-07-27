@@ -27,6 +27,9 @@ module Dmpopidor
 
         @plan.org_id = current_user.org&.id
 
+        # Get the default template
+        @default_template = Template.default
+
         if params.key?(:test)
           flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>"
         end
