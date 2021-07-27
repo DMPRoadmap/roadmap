@@ -17,7 +17,10 @@ class RolesController < ApplicationController
     authorize @role
 
     message = ""
-    if role_params[:user].present? && plan.present?
+    if role_params[:user].present? &&
+       role_params[:user].key?(:email) &&
+       role_params[:user][:email].present? && plan.present?
+
       if @role.plan.owner.present? && @role.plan.owner.email == role_params[:user][:email]
         # rubocop:disable Layout/LineLength
         flash[:notice] = _("Cannot share plan with %{email} since that email matches with the owner of the plan.") % {
@@ -26,7 +29,11 @@ class RolesController < ApplicationController
         # rubocop:enable Layout/LineLength
       else
         user = User.where_case_insensitive("email", role_params[:user][:email]).first
-        if Role.find_by(plan: @role.plan, user: user) # role already exists
+        if user.present? &&
+           Role.where(plan: @role.plan, user: user, active: true)
+               .count
+               .positive? # role already exists
+
           flash[:notice] = _("Plan is already shared with %{email}.") % {
             email: role_params[:user][:email]
           }
