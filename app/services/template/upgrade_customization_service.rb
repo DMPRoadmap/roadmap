@@ -103,7 +103,7 @@ class Template
     #
     # Returns {Template}
     def init_updated_template
-      @updated_template = @original_funder_template.deep_copy(
+      @updated_template = @original_funder_template&.deep_copy(
         attributes: {
           version: @copy_of_original_customizations.version,
           published: @copy_of_original_customizations.published,
