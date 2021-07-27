@@ -2171,6 +2171,187 @@ msgstr ""
 msgid "Are you sure you want to unlink your institutional credentials?"
 msgstr ""
 
+#: ../../app/views/devise/registrations/_api_client_form.html.erb:75
+#: ../../app/views/orgs/_profile_form.html.erb:60
+#: ../../app/views/super_admin/api_clients/_form.html.erb:93
+msgid "Remove logo"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_api_client_form.html.erb:77
+#: ../../app/views/orgs/_profile_form.html.erb:62
+#: ../../app/views/orgs/shibboleth_ds.html.erb:34
+#: ../../app/views/plans/new.html.erb:64 ../../app/views/plans/new.html.erb:93
+#: ../../app/views/shared/_access_controls.html.erb:26
+#: ../../app/views/shared/_shib_sign_in_form.html.erb:22
+#: ../../app/views/super_admin/api_clients/_form.html.erb:95
+msgid "or"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_api_client_form.html.erb:87
+#: ../../app/views/super_admin/api_clients/_form.html.erb:106
+msgid "Redirect URI(s)"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_api_client_form.html.erb:95
+#: ../../app/views/super_admin/api_clients/_form.html.erb:114
+msgid "Callback method"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_api_client_form.html.erb:101
+#: ../../app/views/super_admin/api_clients/_form.html.erb:120
+msgid "Callback URI"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_api_client_form.html.erb:116
+#: ../../app/views/super_admin/api_clients/_form.html.erb:143
+msgid "Refresh client secret"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_api_token.html.erb:6
+msgid "Access token"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_api_token.html.erb:10
+msgid "Click the button below to generate an API token"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_api_token.html.erb:14
+msgid "Documentation"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_api_token.html.erb:16
+msgid ""
+"See the <a href=\"%{api_v0_wiki}\">documentation for v0</a> for more details on "
+"the original API which includes access to statistics, the full text of plans a"
+"nd the ability to connect users with departments."
+msgstr ""
+
+#: ../../app/views/devise/registrations/_api_token.html.erb:18
+msgid ""
+"See the <a href=\"%{api_v1_wiki}\">documentation for v1</a> for more details on "
+"the API that supports the <a href=\"%{rda_standard_url}\">RDA Common metadata st"
+"andard for DMPs.</a>"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_api_token.html.erb:21
+msgid "Regenerate token"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_developer_tools.html.erb:11
+msgid "Developer Tools"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_developer_tools.html.erb:13
+msgid ""
+"Fill out the form below to register for access to the API. The API provides ac"
+"cess to two types of access levels: 'standard' and 'protected'."
+msgstr ""
+
+#: ../../app/views/devise/registrations/_developer_tools.html.erb:15
+msgid "The 'standard' access level allows you to:"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_developer_tools.html.erb:17
+msgid "Retrieve the names and descriptions of all published DMP templates"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_external_identifier.html.erb:12
+#: ../../app/views/devise/registrations/_external_identifier.html.erb:40
+#: ../../app/views/devise/registrations/_personal_details.html.erb:73
+msgid "Institutional credentials"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_developer_tools.html.erb:19
+msgid "Create DMPs"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_developer_tools.html.erb:21
+msgid "Then depending on your permission level you can:"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_developer_tools.html.erb:23
+msgid "Organisation administrator - Retrieve your user's DMPs"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_developer_tools.html.erb:24
+msgid "Researchers - Retrieve your own DMPs and any organisationally visible plans"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_developer_tools.html.erb:29
+msgid "The 'protected' access level allows you to:"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_developer_tools.html.erb:31
+msgid "Request a user's authorization to access their DMPs"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_developer_tools.html.erb:32
+msgid "Retrieve the user's DMP metadata or PDFs (if they have authorized access)"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_developer_tools.html.erb:35
+msgid "Please see the %{wiki_docs} for full details on how the API works."
+msgstr ""
+
+#: ../../app/views/devise/registrations/_external_identifier.html.erb:5
+#: ../../app/views/devise/registrations/_external_identifier.html.erb:21
+msgid ""
+"ORCID provides a persistent digital identifier that distinguishes you from oth"
+"er researchers. Learn more at orcid.org"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_external_identifier.html.erb:7
+#: ../../app/views/plans/_doi_minter.html.erb:21
+msgid "ORCID logo"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_external_identifier.html.erb:9
+msgid "Create or connect your ORCID iD"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_external_identifier.html.erb:12
+#: ../../app/views/devise/registrations/_external_identifier.html.erb:45
+#: ../../app/views/devise/registrations/_personal_details.html.erb:74
+msgid "Institutional credentials"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_external_identifier.html.erb:14
+msgid "Link your institutional credentials"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_external_identifier.html.erb:16
+msgid "Link your institutional credentials to access your account with them."
+msgstr ""
+
+#: ../../app/views/devise/registrations/_external_identifier.html.erb:22
+msgid "Disconnect your account from ORCID. You can reconnect at any time."
+msgstr ""
+
+#: ../../app/views/devise/registrations/_external_identifier.html.erb:23
+msgid "Are you sure you want to disconnect your ORCID ID?"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_external_identifier.html.erb:27
+msgid ""
+"The DMPTool now allows you to add your DMPs to the works section of your ORCID"
+" record. Please disconnect your account by clicking the 'x' below and then rec"
+"onnect your account to enable this functionality."
+msgstr ""
+
+#: ../../app/views/devise/registrations/_external_identifier.html.erb:41
+msgid ""
+"Your account has been linked to your organisation. You can now login with that"
+" method."
+msgstr ""
+
+#: ../../app/views/devise/registrations/_external_identifier.html.erb:42
+msgid "Unlink your account from your organisation. You can link again at any time."
+msgstr ""
+
+#: ../../app/views/devise/registrations/_external_identifier.html.erb:43
+msgid "Are you sure you want to unlink your institutional credentials?"
+msgstr ""
+
 #: ../../app/views/devise/registrations/_password_confirmation.html.erb:9
 msgid ""
 "Your email address is also your login id and therefore an important part of yo"
@@ -2243,9 +2424,65 @@ msgstr ""
 msgid "Organisational Admin"
 msgstr ""
 
-#: ../../app/views/devise/registrations/_personal_details.html.erb:65
-#: ../../app/views/users/_current_privileges.html.erb:3
 msgid "Super Admin"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_third_parties.html.erb:9
+msgid "3rd party systems %{app_name} can access"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_third_parties.html.erb:15
+msgid "Institutional credentials (single sign on)"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_third_parties.html.erb:17
+msgid ""
+"Connect your account so that you can log into %{app_name} via your institution"
+" "
+msgstr ""
+
+#: ../../app/views/devise/registrations/_third_parties.html.erb:20
+msgid ""
+"Authorize %{app_name} to fetch your ORCID iD and add DMPs to your ORCID record"
+"."
+msgstr ""
+
+#: ../../app/views/devise/registrations/_third_parties.html.erb:37
+msgid "3rd party systems that can access your DMPs"
+msgstr ""
+
+#: ../../app/views/devise/registrations/_third_parties.html.erb:39
+msgid "You have authorized the following list of 3rd party applications."
+msgstr ""
+
+#: ../../app/views/devise/registrations/_third_parties.html.erb:40
+msgid ""
+"These applications have access to the information specified in the 'Activities"
+"' column. You can remove/revoke their access at any time but please note that "
+"this will only prevent future access. For example, if they have downloaded a P"
+"DF copy of a plan in the past they will still retain that copy."
+msgstr ""
+
+#: ../../app/views/devise/registrations/_third_parties.html.erb:45
+msgid "Are you sure? %{application} will no longer be able to access your DMPs."
+msgstr ""
+
+#: ../../app/views/devise/registrations/_third_parties.html.erb:46
+msgid "Revoke %{application}'s ability to access your data."
+msgstr ""
+
+#: ../../app/views/devise/registrations/_third_parties.html.erb:63
+msgid "You have not authorized any 3rd party applications."
+msgstr ""
+
+#: ../../app/views/devise/registrations/api_client_refresh_credentials.js.erb:1
+#: ../../app/views/super_admin/api_clients/refresh_credentials.js.erb:1
+msgid "Unable to regenerate the client credentials."
+msgstr ""
+
+#: ../../app/views/devise/registrations/api_client_refresh_credentials.js.erb:1
+#: ../../app/views/super_admin/api_clients/refresh_credentials.js.erb:1
+msgid "Successfully regenerated the client credentials."
 msgstr ""
 
 #: ../../app/views/devise/registrations/edit.html.erb:1
@@ -2702,6 +2939,53 @@ msgstr ""
 
 #: ../../app/views/layouts/application.html.erb:135
 msgid "Searching ..."
+msgstr ""
+
+#: ../../app/views/layouts/application.html.erb:139
+#: ../../app/views/research_outputs/repositories/_search_result.html.erb:30
+msgid "More info"
+msgstr ""
+
+#: ../../app/views/layouts/application.html.erb:140
+msgid "Less info"
+msgstr ""
+
+#: ../../app/views/layouts/application.html.erb:141
+msgid "Acquiring your DMP ID. This may take a few seconds ..."
+msgstr ""
+
+#: ../../app/views/layouts/modal_search/_form.html.erb:7
+msgid "- Enter a search term %{examples} -"
+msgstr ""
+
+#: ../../app/views/layouts/modal_search/_form.html.erb:8
+#: ../../app/views/layouts/modal_search/_results.html.erb:6
+msgid "No results matched your filter criteria."
+msgstr ""
+
+#: ../../app/views/layouts/modal_search/_form.html.erb:24
+#: ../../app/views/layouts/modal_search/_form.html.erb:66
+msgid "Close"
+msgstr ""
+
+#: ../../app/views/layouts/modal_search/_form.html.erb:27
+msgid "%{topic} search"
+msgstr ""
+
+#: ../../app/views/layouts/modal_search/_form.html.erb:49
+msgid "Apply filter(s)"
+msgstr ""
+
+#: ../../app/views/layouts/modal_search/_result.html.erb:9
+msgid "Select"
+msgstr ""
+
+#: ../../app/views/layouts/modal_search/_result.html.erb:11
+msgid "Click to select %{item_name}"
+msgstr ""
+
+#: ../../app/views/layouts/modal_search/_result.html.erb:14
+msgid "Click to remove %{item_name}"
 msgstr ""
 
 #: ../../app/views/notes/_archive.html.erb:8
@@ -4168,6 +4452,14 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
+#: ../../app/views/plans/_project_details.html.erb:130
+msgid "Research outputs may have ethical concerns"
+msgstr ""
+
+#: ../../app/views/plans/_project_details.html.erb:137
+msgid "Describe any ethical concerns"
+msgstr ""
+
 #: ../../app/views/plans/_project_details.html.erb:127
 msgid "Grant number/url"
 msgstr ""
@@ -4176,6 +4468,10 @@ msgstr ""
 msgid ""
 "Provide a URL to the award's landing page if possible, if not please provide t"
 "he award/grant number."
+msgstr ""
+
+#: ../../app/views/plans/_project_details.html.erb:147
+msgid "Ethical protocols"
 msgstr ""
 
 #: ../../app/views/plans/_request_feedback_form.html.erb:6
@@ -5283,6 +5579,9 @@ msgid " based on the template "
 msgstr ""
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
+msgid " based on the template "
+msgstr ""
+
 msgid " is creating a Data Management Plan and has answered "
 msgstr ""
 
@@ -5291,6 +5590,9 @@ msgid " to "
 msgstr ""
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
+msgid " to "
+msgstr ""
+
 msgid " in a plan called "
 msgstr ""
 

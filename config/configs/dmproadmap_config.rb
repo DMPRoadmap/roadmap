@@ -112,7 +112,8 @@ class DmproadmapConfig < Anyway::Config
               :shibboleth_use_filtered_discovery_service,
               :spdx_active,
 
-              :translation_io_key,
+              :translation_io_key_app,
+              :translation_io_key_client,
 
               :user_group_subscription_url,
               :usersnap_key,

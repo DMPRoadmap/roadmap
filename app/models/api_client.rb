@@ -131,7 +131,7 @@ class ApiClient < ApplicationRecord
 
   # Set the scopes
   def ensure_scopes
-    self.scopes = available_scopes.sort { |a, b| a <=> b }.join(" ")
+    self.scopes = Doorkeeper.config.default_scopes.to_a.sort { |a, b| a <=> b }.join(" ")
   end
 
 end

@@ -29,7 +29,11 @@ class RolesController < ApplicationController
         # rubocop:enable Layout/LineLength
       else
         user = User.where_case_insensitive("email", role_params[:user][:email]).first
-        if Role.find_by(plan: @role.plan, user: user) # role already exists
+        if user.present? &&
+           Role.where(plan: @role.plan, user: user, active: true)
+               .count
+               .positive? # role already exists
+
           flash[:notice] = _("Plan is already shared with %{email}.") % {
             email: role_params[:user][:email]
           }

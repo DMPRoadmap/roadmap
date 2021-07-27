@@ -105,6 +105,7 @@
                   partial: "paginable/templates/#{action_name}",
                   controller: 'paginable/templates',
                   action: action_name,
+                  remote: true,
                   scope: @templates,
                   query_params: @query_params,
                   locals: { customizations: @customizations }) %>

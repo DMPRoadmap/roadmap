@@ -2460,6 +2460,8 @@ msgstr ""
 
 #: ../../app/views/devise/registrations/_developer_tools.html.erb:18
 msgid "Retrieve publicly visible DMPs"
+msgstr ""
+
 #: ../../app/views/devise/registrations/_external_identifier.html.erb:12
 #: ../../app/views/devise/registrations/_external_identifier.html.erb:40
 #: ../../app/views/devise/registrations/_personal_details.html.erb:73
@@ -2684,6 +2686,11 @@ msgstr ""
 #: ../../app/views/devise/registrations/api_client_refresh_credentials.js.erb:1
 #: ../../app/views/super_admin/api_clients/refresh_credentials.js.erb:1
 msgid "Unable to regenerate the client credentials."
+msgstr ""
+
+#: ../../app/views/devise/registrations/api_client_refresh_credentials.js.erb:1
+#: ../../app/views/super_admin/api_clients/refresh_credentials.js.erb:1
+msgid "Successfully regenerated the client credentials."
 msgstr ""
 
 #: ../../app/views/devise/registrations/_personal_details.html.erb:65

@@ -284,7 +284,7 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     if @plan.present?
       authorize @plan
-      @plan_roles = @plan.roles
+      @plan_roles = @plan.roles.where(active: true)
       @orcid_access_token = ExternalApiAccessToken.for_user_and_service(user: current_user, service: "orcid")
     else
       redirect_to(plans_path)
@@ -298,7 +298,7 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     if @plan.present?
       authorize @plan
-      @plan_roles = @plan.roles
+      @plan_roles = @plan.roles.where(active: true)
     else
       redirect_to(plans_path)
     end

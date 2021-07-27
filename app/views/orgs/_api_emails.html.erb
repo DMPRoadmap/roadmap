@@ -1,0 +1,54 @@
+<%# locals: org %>
+
+<%
+default_subject = _("A new data management plan (DMP) has been created for you by %{external_system_name}")
+default_message = _("A new data management plan (DMP) with the title of '%{dmp_title}' has been created for you by the %{external_system_name}.<br>Please sign in to the %{dmptool_url} to complete your DMP. If you have any questions or need help, please contact us at %{org_contact_email}.")
+
+org.api_create_plan_email_subject = default_subject unless org.api_create_plan_email_subject.present?
+org.api_create_plan_email_body = default_message unless org.api_create_plan_email_body.present?
+%>
+
+<%= form_for(org, url: admin_update_org_path(org), html: { multipart: true, method: :put,
+                  id: "edit_org_api_emails" } ) do |f| %>
+
+  <h2><%= _('Plan creation') %></h2>
+
+  <p><%= _("The following email will be sent to users when an external system creates a new DMP (via the API) using one of your templates.") %></p>
+
+  <div class="row">
+    <div class="col-xs-8">
+      <%= f.label :api_create_plan_email_subject, _("Subject"), class: "control-label" %>
+      <%= f.text_field :api_create_plan_email_subject, class: "form-control",
+                       placeholder: default_subject %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-xs-8" data-html="true">
+      <%= f.label :api_create_plan_email_body, _("Message"), class: "control-label" %>
+      <%= f.text_area :api_create_plan_email_body, class: "form-control",
+                      placeholder: default_message, rows: 6 %>
+    </div>
+    <div class="form-group col-xs-4">
+      <h4><%= _('Sample Message') %></h4>
+      <%= sanitize default_message %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <%= _("Note that you can use the following variables to your subject and message. The system will insert the appopriate value when generasting the email.") %>
+      <br>
+      <%= _("Be sure to include the pecent and curly braces '%{}'") %>
+      <ul>
+        <li><%= _("%{external_system_name} - the name of the system that created the DMP via the API") %></li>
+        <li><%= _("%{dmp_title} - the title of the DMP") %></li>
+        <li><%= _("%{dmptool_url} - a hyperlink to the DMPTool homepage") %></li>
+        <li><%= _("%{org_contact_email} - your contact email as defined on the 'Profile information' tab") %></li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-xs-8">
+      <%= f.button(_('Save'), id:"save_org_submit", class: "btn btn-primary", type: "submit") %>
+    </div>
+  </div>
+<% end %>

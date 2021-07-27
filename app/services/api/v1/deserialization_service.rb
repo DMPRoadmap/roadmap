@@ -49,12 +49,25 @@ module Api
 
           # Strip off the URL if present
           url = ::Contributor::ONTOLOGY_BASE_URL
-          role = role.gsub("#{url}/", "").downcase if role.include?(url)
+          role = role.gsub(url, "").downcase if role.include?(url)
+          role = role.gsub("-", "_")
 
           # Return the role if its a valid one otherwise defualt
           return role if ::Contributor.new.respond_to?(role.downcase.to_sym)
 
           default
+        end
+
+        # Translates the RDA Common Standard for the funding status
+        def translate_funding_status(status:)
+          case status
+          when "rejected"
+            "denied"
+          when "granted"
+            "funded"
+          else
+            "planned"
+          end
         end
 
         # Retrieve any JSON schema extensions for this application
