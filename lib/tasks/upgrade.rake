@@ -849,7 +849,7 @@ namespace :upgrade do
                                 .where.not(identifier: nil)
                                 .where.not(identifier: '')
 
-    Parallel.map(identifiers, in_threads: 8) do |ui|
+    Parallel.map(identifiers, in_threads: 2) do |ui|
       # Parallel has trouble with ActiveRecord lazy loading
       require "org" unless Object.const_defined?("Org")
       require "identifier" unless Object.const_defined?("Identifier")
@@ -887,7 +887,7 @@ namespace :upgrade do
                                .where.not(identifier: '')
                                .order(id: :desc)
 
-    Parallel.map(identifiers, in_threads: 8) do |oi|
+    Parallel.map(identifiers, in_threads: 2) do |oi|
       # Parallel has trouble with ActiveRecord lazy loading
       require "org" unless Object.const_defined?("Org")
       require "identifier" unless Object.const_defined?("Identifier")
@@ -1064,7 +1064,7 @@ namespace :upgrade do
     # into Contributors
     plans = Plan.includes(:contributors, roles: :user).joins(roles: :user)
 
-    Parallel.map(plans, in_threads: 8) do |plan|
+    Parallel.map(plans, in_threads: 2) do |plan|
       next if plan.contributors.any?
       owner = plan.owner
 
@@ -1126,7 +1126,7 @@ namespace :upgrade do
                 .joins(template: :org, roles: :user)
 
     p "Attaching Plans to Orgs ... this can take in excess of 5 minutes depending on how many plans you have."
-    Parallel.map(plans, in_threads: 8) do |plan|
+    Parallel.map(plans, in_threads: 2) do |plan|
       next if plan.org_id.present?
 
       # Parallel has trouble with ActiveRecord lazy loading
@@ -1142,7 +1142,7 @@ namespace :upgrade do
     end
 
     p "Attaching Plans to Funders"
-    Parallel.map(plans, in_threads: 8) do |plan|
+    Parallel.map(plans, in_threads: 2) do |plan|
       next if plan.funder_id.present?
 
       # Parallel has trouble with ActiveRecord lazy loading
@@ -1177,7 +1177,7 @@ namespace :upgrade do
     plans = Plan.where.not(grant_number: nil).where.not(grant_number: "")
 
     p "Converting Plan.grant_number into Identifiers"
-    #Parallel.map(plans, in_threads: 8) do |plan|
+    #Parallel.map(plans, in_threads: 2) do |plan|
     plans.each do |plan|
       # Parallel has trouble with ActiveRecord lazy loading
       require "plan" unless Object.const_defined?("Plan")
