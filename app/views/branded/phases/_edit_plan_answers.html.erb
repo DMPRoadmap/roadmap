@@ -5,6 +5,9 @@
         <%= sanitize phase.description %>
       </div>
     </div>
+
+    <div id="progress-data" data-sections="<%= sections_info(plan).to_json %>" data-remove="<%= remove_list(plan).to_json %>">
+    </div>
     
     <div class="panel-group" id="sections">
       <% phase.sections.order(:number).each do |section| %>

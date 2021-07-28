@@ -441,6 +441,8 @@ class MadmpFragmentsController < ApplicationController
       "answer" => {
         "id" => answer&.id
       },
+      "qn_data": { to_hide: [], to_show: [] },
+      "section_data": [],
       "question" => {
         "id" => question&.id,
         "answer_lock_version" => answer&.lock_version,
