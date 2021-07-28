@@ -58,7 +58,7 @@ module Identifiable
 
     # Combines the existing identifiers with the new ones
     def consolidate_identifiers!(array:)
-      return false unless array.present? && array.is_a?(Array)
+      return false unless array.present? && array.any?
 
       array.each do |id|
         next unless id.is_a?(Identifier) && id.value.present?

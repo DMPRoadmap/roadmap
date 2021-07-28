@@ -56,4 +56,7 @@ $(() => {
     e.preventDefault();
     $(e.target).parent('a').tooltip('toggle');
   });
+
+  initAutocomplete('#org-merge-controls .autocomplete');
+  scrubOrgSelectionParamsOnSubmit('form.edit_org');
 });

@@ -72,8 +72,8 @@ tr-TR:
           mb: MB
           gb: GB
           tb: TB
-          pb:
-          eb:
+          pb: PB
+          eb: EB
       decimal_units:
         units:
           thousand: Bin
@@ -121,8 +121,8 @@ tr-TR:
       not_found: bulunamadı
       not_locked: kilitlenmemiş
       not_saved:
-        one:
-        other:
+        one: '1 hata bu %{resource} dosyasının kaydedilmesini engelledi:'
+        other: "%{count} hata bu %{resource} dosyasının kaydedilmesini engelledi:"
     template:
       body: 'Lütfen aşağıdaki hataları düzeltiniz:'
       header:
@@ -193,30 +193,31 @@ tr-TR:
       submit: "%{model} Kaydet"
     page_entries_info:
       entry:
-        zero:
-        one:
-        other:
+        zero: girdiler
+        one: giriş
+        other: girdiler
       one_page:
         display_entries:
-          zero:
-          one:
-          other:
+          zero: "%{entry_name} bulunamadı"
+          one: "<b>1</b> %{entry_name} görüntüleniyor"
+          other: "<b>Tüm %{count}</b> %{entry_name} görüntüleniyor"
       more_pages:
         display_entries: Toplam <b>%{total}</b> %{entry_name}; <b>%{first}&nbsp;-&nbsp;%{last}</b>
-          arası gösteriliyor.
+          arası görüntüleniyor.
   flash:
     actions:
       create:
-        notice:
+        notice: "%{resource_name} başarıyla oluşturuldu."
       update:
-        notice:
+        notice: "%{resource_name} başarıyla güncellendi."
       destroy:
-        notice:
-        alert:
+        notice: "%{resource_name} başarıyla yok edildi."
+        alert: "%{resource_name} yok edilemedi."
   recaptcha:
     errors:
-      verification_failed:
-      recaptcha_unreachable:
+      verification_failed: reCAPTCHA doğrulaması başarısız oldu, lütfen tekrar deneyin.
+      recaptcha_unreachable: Hata! reCAPTCHA yanıtınızı doğrulayamadık. Lütfen tekrar
+        deneyin.
   devise:
     confirmations:
       confirmed: Hesabınız başarıyla onaylandı. Şu an giriş yapmış bulunuyorsunuz.
@@ -235,39 +236,43 @@ tr-TR:
       timeout: Oturumunuz sonlandı. Devam etmek için, lütfen yeniden giriş yapınız.
       unauthenticated: Devam etmeden önce giriş yapmanız veya kayıt olmanız gereklidir.
       unconfirmed: Devam etmeden önce hesabınızı onaylamalısınız.
-      invited:
+      invited: Bekleyen bir davetiniz var, hesabınızın oluşturulmasını tamamlamak
+        için daveti kabul ediniz.
     mailer:
       confirmation_instructions:
         subject: Onaylama talimatları
       reset_password_instructions:
-        subject: Parola sıfırlama talimatları
+        subject: Şifre sıfırlama talimatları
       unlock_instructions:
-        subject: Kilit açma talimatları
+        subject: Kilit kaldırma talimatları
       email_changed:
         subject: E-posta Değiştirildi
       password_change:
-        subject: Parola Değişti
+        subject: Şifre Değişti
       invitation_instructions:
-        subject:
-        hello:
-        someone_invited_you:
-        accept:
-        accept_until:
-        ignore:
+        subject: Davetiye yönergeleri
+        hello: Merhaba %{email}
+        someone_invited_you: Birisi sizi %{url} adresine davet etti, aşağıdaki bağlantıya
+          tıklayarak daveti kabul edebilirsiniz.
+        accept: Daveti kabul et
+        accept_until: Bu davetiye %{due_date} tarihine kadar geçerli olacaktır.
+        ignore: Daveti kabul etmek istemiyorsanız, lütfen bu e-postayı dikkate almayın.
+          Hesabınızın oluşturulması için yukarıdaki bağlantıya tıklayıp şifrenizi
+          belirlemeniz gerekmektedir.
     omniauth_callbacks:
       failure: Sizi %{kind} aracılığıyla tanıyamadık çünkü "%{reason}".
       success: "%{kind} aracılığıyla onaylandınız."
     passwords:
-      no_token: Bu sayfaya parola sıfırlama e-postasındaki bağlantıya tıklayarak gelmeniz
+      no_token: Bu sayfaya şifre sıfırlama e-postasındaki bağlantıya tıklayarak gelmeniz
         gerekmektedir. Bağlantıya tıklamak yerine kopyaladıysanız, hata yapmış olabilirsiniz.
-        Lütfen parola sıfırlama e-postasındaki bağlantıya tıklayın.
-      send_instructions: Birkaç dakika içinde parolanızı nasıl sıfırlayacağınız ile
+        Lütfen şifre sıfırlama e-postasındaki bağlantıya tıklayın.
+      send_instructions: Birkaç dakika içinde şifrenizi nasıl sıfırlayacağınız ile
         ilgili bir e-posta alacaksınız.
       send_paranoid_instructions: Eğer e-posta adresiniz sistemimizde kayıtlı ise,
-        birkaç dakika içinde parolanızı nasıl sıfırlayacağınız ile ilgili bir e-posta
+        birkaç dakika içinde şifrenizi nasıl sıfırlayacağınız ile ilgili bir e-posta
         alacaksınız.
-      updated: Parolanız başarıyla güncellendi. Şu an giriş yapmış bulunuyorsunuz.
-      updated_not_active: Parolanız başarıyla güncellendi.
+      updated: Şifreniz başarıyla değiştirildi. Şu an giriş yapmış bulunuyorsunuz.
+      updated_not_active: Şifreniz başarıyla değiştirildi.
     registrations:
       destroyed: Hesabınız başarıyla kapatıldı. En kısa sürede görüşmek üzere!
       signed_up: Başarıyla giriş yaptınız. Hoşgeldiniz!
@@ -282,8 +287,8 @@ tr-TR:
         adresinizin onaylanması gerek. Yeni e-posta hesabınızın onaylanması için lütfen
         size gönderdiğimiz e-postada bulunan onay bağlantısını açın.
       updated: Hesabınız başarıyla güncellendi.
-      updated_but_not_signed_in: Hesabınız başarıyla güncellendi, ancak parola değiştirildiğinde
-        yeniden giriş yapmalısınız
+      updated_but_not_signed_in: Hesabınız başarıyla güncellendi, ancak şifreniz değiştirildiği
+        için tekrar giriş yapmanız gerekmekte.
     sessions:
       signed_in: Başarıyla giriş yapıldı.
       signed_out: Başarıyla çıkış yapıldı.
@@ -293,49 +298,49 @@ tr-TR:
         içeren bir e-posta alacaksınız.
       send_paranoid_instructions: Eğer hesabınız varsa, birkaç dakika içerisinde hesap
         kilidi açma talimatlarını içeren bir e-posta alacaksınız.
-      unlocked: Hesabınızın kilidi başarıyla açıldı. Devam etmek için lütfen giriş
+      unlocked: Hesabınızın kilidi başarıyla kaldırıldı. Devam etmek için lütfen giriş
         yapın.
     invitations:
-      send_instructions:
-      invitation_token_invalid:
-      updated:
-      updated_not_active:
-      no_invitations_remaining:
-      invitation_removed:
+      send_instructions: "%{email} adresine bir davet e-postası gönderildi."
+      invitation_token_invalid: Sağlanan davetiye tokenı geçerli değil!
+      updated: Şifreniz başarıyla ayarlandı. Başarılı bir şekilde oturum açtınız.
+      updated_not_active: Şifreniz başarıyla ayarlandı.
+      no_invitations_remaining: Davetiye kalmadı
+      invitation_removed: Davetiniz kaldırıldı.
       new:
-        header:
-        submit_button:
+        header: Davetiye gönder
+        submit_button: Bir davet yolla
       edit:
-        header:
-        submit_button:
+        header: Şifrenizi ayarlayın
+        submit_button: Şifremi ayarla
   contact_us:
     contact_mailer:
       contact_email:
-        sent_by_contact_form:
-        sent_by_name:
-        subject:
+        sent_by_contact_form: "%{email} e-posta adresinden iletişim formu ile gönderilmiştir"
+        sent_by_name: "%{email} e-posta adresinden %{name} tarafından gönderilmiştir"
+        subject: "%{email} e-posta adresinden gelen Bize Ulaşın mesajı"
     contacts:
       new:
-        contact_us:
-        email:
-        message:
-        name:
-        subject:
-        submit:
+        contact_us: Bize Ulaşın
+        email: E-posta
+        message: İleti
+        name: isim
+        subject: Konu
+        submit: Gönder
       new_formtastic:
-        contact_us:
-        email:
-        message:
-        name:
-        subject:
-        submit:
+        contact_us: Bize Ulaşın
+        email: E-posta
+        message: İleti
+        name: İsim
+        subject: Konu
+        submit: Gönder
       new_simple_form:
-        contact_us:
-        email:
-        message:
-        name:
-        subject:
-        submit:
+        contact_us: Bize Ulaşın
+        email: E-posta
+        message: İleti
+        name: İsim
+        subject: Konu
+        submit: Gönder
     notices:
-      error:
-      success:
+      error: Her iki alanı da doldurmalısınız.
+      success: İletişim e-postası başarıyla gönderildi.
