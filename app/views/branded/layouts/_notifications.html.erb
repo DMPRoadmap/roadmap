@@ -4,11 +4,11 @@
 has_alert = (alert || flash[:alert] || flash[:error])
 has_notice = (notice || flash[:notice])
 
-classes = has_alert ? 'alert-warning ' : 'alert-info '
+classes = has_alert ? 'c-notification-area__warning ' : 'c-notification-area__info '
 classes += (has_alert or has_notice) ? ' show' : ' hide'
 %>
 <div id="notification-area"
-     class="notification-area alert <%= classes %>"
+     class="c-notification-area <%= classes %>"
      role="<%= (has_notice ? 'status' : (has_alert ? 'alert' : '')) %>">
   <i class="fas <%= has_alert ? ' fa-times-circle' : ' fa-check-circle' %>" aria-hidden="true"></i>
   <span class="aria-only"><%= has_alert ? _('Error:') : _('Notice:') %></span>
@@ -16,10 +16,10 @@ classes += (has_alert or has_notice) ? ' show' : ' hide'
   <%= yield :errors %>
 </div>
 
-<div id="global-notification-area">
+<div id="global-notification-area" class="c-global-notification-area">
   <% Notification.active_per_user(current_user).each do |a| %>
     <% unless a.acknowledged?(current_user) %>
-      <div class="alert alert-<%= a.level %>">
+      <div class="alert c-global-notification-area__<%= a.level %>">
         <span class="fas <%= fa_classes(a) %>"></span>
         <span class="aria-only"><strong><%= "#{a.level.capitalize}:" %></strong></span>
         <span><%= sanitize a.body %></span>

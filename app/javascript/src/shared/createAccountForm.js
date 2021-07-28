@@ -80,8 +80,6 @@ $(() => {
       submit.on('click', (e) => {
         validateFormFields(shibSignInForm);
 
-console.log(shibSignInForm.find('.has-error').length);
-
         if (shibSignInForm.find('.has-error').length > 0) {
           submit.siblings('.form-error-msg').removeClass('hide');
           e.preventDefault();

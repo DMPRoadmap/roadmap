@@ -1,3 +1,6 @@
+<% images = @hero_images.map { |img| image_path("hero/#{img}") } %>
+<%= hidden_field_tag "js-heroimage__images", images.to_json %>
+
 <h1 id="js-calltoaction" class="c-calltoaction">
   <%= _("Create Data Management Plans that meet requirements and promote your research") %>
 </h1>

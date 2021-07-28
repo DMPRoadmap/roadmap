@@ -8,9 +8,15 @@
 
   <button id="js-navtoggle" class="c-navtoggle" aria-label="main navigation"></button>
 
-  <nav aria-label="main" id="js-headernav" class="c-headernav">
+  <nav aria-label="main" id="js-headernav" class="c-headernav"">
     <ul>
-      <li><%= link_to _("Home"), root_path %></li>
+      <li>
+        <% if user_signed_in? %>
+          <%= link_to _("Dashboard"), plans_path %>
+        <% else %>
+          <%= link_to _("Home"), root_path %>
+        <% end %>
+      </li>
       <li><%= link_to _("Funder Requirements"), public_templates_path %></li>
       <li><%= link_to _("Public DMPs"), public_plans_path %></li>
       <li><%= link_to _("Help"), faq_path %></li>
@@ -19,7 +25,7 @@
 
   <% if user_signed_in? %>
     <div id="js-user-profile" class="c-user-profile">
-      <button id="js-user-profile__button" class="c-user-profile__button" aria-label="user profile menu">
+      <button id="js-user-profile__button" class="c-user-profile__button" aria-label="user profile menu" tabindex="1">
         <%= current_user.name(false) %>
       </button>
       <ul id="js-user-profile__menu" class="c-user-profile__menu" hidden>
@@ -29,11 +35,17 @@
         <li><%= link_to _('Logout'), destroy_user_session_path, method: :delete %></li>
       </ul>
     </div>
+  <% elsif !active_page?(root_path, true) %>
+    <div class="c-user-sign-in">
+      <ul>
+        <li><%= link_to _("Sign in"), root_path %></li>
+      </ul>
+    </div>
   <% end %>
 
   <% if languages.present? && languages.any? %>
     <div id="js-language" class="c-language">
-      <button id="js-language__button" class="c-language__button" aria-label="language menu">
+      <button id="js-language__button" class="c-language__button" aria-label="language menu" tabindex="0">
         <%= _("Language") %>
       </button>
       <ul id="js-language__menu" class="c-language__menu" hidden>
@@ -45,88 +57,11 @@
       </ul>
     </div>
   <% end %>
-</header>
 
-<% if user_signed_in? &&
+  <% if user_signed_in? &&
       current_user.org.present? &&
       (current_user.org.managed? || current_user.can_super_admin?) %>
-  <% org = current_user.org %>
-
-  <div class="c-sub-header">
-
-    <div class="c-logo-org">
-      <% if org&.logo&.present? %>
-        <%= image_tag(logo_url_for_org(org), alt: org.name, class: "org-logo", title: org.name) %>
-      <% else %>
-        <p><%= org.name %></p>
-      <% end %>
-    </div>
-
-    <% if org.links.any? && org.links['org'].present? %>
-    <div class="c-links-org">
-        <ul>
-          <% org.links['org'].each do |link| %>
-            <% next unless link['link'].present? %>
-
-            <li>
-              <%= link_to link['link'], :target=>'_blank', :class => 'has-new-window-popup-info' do %>
-                <i class="fas fa-globe" aria-hidden="true">&nbsp;</i>
-                <%= link['text'].blank? ? link['link'] : link['text'] %>
-                <em class="sr-only"> (new window)</em>
-                <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
-              <% end %>
-            </li>
-          <% end %>
-
-          <% if org.contact_email.present? %>
-            <%= mail_to org.contact_email do %>
-              <i class="fas fa-envelope" aria-hidden="true">&nbsp;</i>
-              <%= org.contact_name ? org.contact_name : org.contact_email %>
-            <% end %>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
-    <% if current_user.can_org_admin? %>
-      <div id="js-adminnav" class="c-adminnav">
-        <button id="js-adminnav__button" class="c-adminnav__button" aria-label="administrator menu">
-          <%= _("Admin") %>
-        </button>
-        <ul id="js-adminnav__menu" class="c-adminnav__menu" hidden>
-          <% if current_user.can_super_admin? %>
-            <li><%= link_to(_('Api Clients'), super_admin_api_clients_path) %></li>
-          <% end %>
-          <% if current_user.can_modify_guidance? %>
-            <li><%= link_to _('Guidance'), admin_index_guidance_path(current_user.org_id) %></li>
-          <% end %>
-          <% if current_user.can_super_admin? %>
-            <li><%= link_to _('Notifications'), super_admin_notifications_path %></li>
-          <% end %>
-          <% if current_user.can_modify_org_details? %>
-            <li><%= link_to _('Organisation details'), admin_edit_org_path(current_user.org_id) %></li>
-          <% elsif current_user.can_super_admin? %>
-            <li><%= link_to _('Organisations'), super_admin_orgs_path %></li>
-          <% end %>
-          <% if current_user.can_org_admin? %>
-            <li><%= link_to _('Plans'), org_admin_plans_path %></li>
-          <% end %>
-          <% if current_user.can_modify_templates? %>
-            <% template_path = current_user.can_super_admin? ? org_admin_templates_path : organisational_org_admin_templates_path %>
-            <li><%= link_to _('Templates'), template_path %></li>
-          <% end %>
-          <% if current_user.can_super_admin? %>
-            <li><%= link_to(_('Themes'), super_admin_themes_path) %></li>
-          <% end %>
-          <% if current_user.can_org_admin? %>
-            <li><%= link_to(_('Usage'), usage_index_path) %></li>
-          <% end %>
-          <% if current_user.can_grant_permissions? %>
-            <li><%= link_to _('Users'), admin_index_users_path, class: 'main_nav_last_li' %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
-  </div>
-<% end %>
+    <% org = current_user.org %>
+    <%= render partial: "layouts/sub_header", locals: { org: org } %>
+  <% end %>
+</header>

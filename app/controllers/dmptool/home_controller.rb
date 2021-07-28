@@ -20,6 +20,8 @@ module Dmptool
       # Retrieve/cache the DMPTool blog's latest posts
       @rss = feed
 
+      @hero_images = %w[1-large 2-large 3-large 4-large 5-large]
+
       render "home/index"
     end
 
