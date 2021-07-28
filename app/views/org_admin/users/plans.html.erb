@@ -10,6 +10,7 @@
       partial: '/paginable/plans/org_admin_other_user',
       controller: 'paginable/plans',
       action: 'org_admin_other_user',
+      remote: true,
       scope: @plans,
       query_params: { sort_field: 'plans.updated_at', sort_direction: 'desc' }) %>
   </div>

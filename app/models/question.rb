@@ -166,9 +166,10 @@ class Question < ApplicationRecord
   #
   # Returns ActiveRecord::Relation
   def example_answers(org_ids)
-    annotations.where(org_id: Array(org_ids),
-                      type: Annotation.types[:example_answer])
-               .order(:created_at)
+    org_ids = Array(org_ids)
+    annotations.select { |a| org_ids.include?(a.org_id) }
+               .select(&:example_answer?)
+               .sort { |a, b| a.created_at <=> b.created_at }
   end
 
   alias get_example_answers example_answers
@@ -183,7 +184,9 @@ class Question < ApplicationRecord
   #
   # Returns Annotation
   def guidance_annotation(org_id)
-    annotations.where(org_id: org_id, type: Annotation.types[:guidance]).first
+    annotations.select { |a| a.org_id == org_id }
+               .select(&:guidance?)
+               .first
   end
 
   alias get_guidance_annotation guidance_annotation
