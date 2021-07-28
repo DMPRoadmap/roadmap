@@ -36,7 +36,7 @@ module SuperAdmin
       @notification.notification_type = "global"
       if @notification.save
         flash.now[:notice] = success_message(@notification, _("created"))
-        render :edit
+        redirect_to edit_super_admin_notification_path(@notification)
       else
         flash.now[:alert] = failure_message(@notification, _("create"))
         render :new
@@ -49,6 +49,7 @@ module SuperAdmin
       authorize(Notification)
       if @notification.update(notification_params)
         flash.now[:notice] = success_message(@notification, _("updated"))
+        return redirect_to edit_super_admin_notification_path(@notification)
       else
         flash.now[:alert] = failure_message(@notification, _("update"))
       end

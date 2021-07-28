@@ -16,8 +16,9 @@
         partial: '/paginable/templates/publicly_visible',
         controller: 'paginable/templates',
         action: 'publicly_visible',
+        remote: false,
         scope: @templates,
-        query_params: { sort_field: 'templates.title', sort_direction: :asc }) %>
+        query_params: @templates_query_params) %>
     <% end %>
   </div>
 </div>
