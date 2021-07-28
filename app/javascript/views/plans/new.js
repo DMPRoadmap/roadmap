@@ -108,7 +108,6 @@ $(() => {
     const validOwnOrg = validOptions(ownOrgContext);
     const validOrg = validOptions(orgContext);
     const validFunder = validOptions(funderContext);
-    console.log(validOwnOrg, validOrg, validFunder);
 
 
     if (!validOwnOrg || !validOrg || !validFunder) {
