@@ -3246,3 +3246,77 @@ msgstr ""
 msgid "Sign in or Create account"
 msgstr ""
 
+msgid "Contributors"
+msgstr ""
+
+msgid "Please list the project’s Principle Investigator(s) and those responsible for data management."
+msgstr ""
+
+msgid "No contributors have been defined."
+msgstr ""
+
+msgid "Add a contributor"
+msgstr ""
+
+msgid "New contributor"
+msgstr ""
+
+msgid "View all contributors"
+msgstr ""
+
+msgid "Editing contributor"
+msgstr ""
+
+msgid "Affiliation"
+msgstr ""
+
+msgid "Roles"
+msgstr ""
+
+msgid "You are about to delete '%{contributor_name}'. Are you sure?"
+msgstr ""
+
+msgid "Api Clients"
+msgstr ""
+
+msgid "Create Api Client"
+msgstr ""
+
+msgid "Manage API access for external applications"
+msgstr ""
+
+msgid "Homepage"
+msgstr ""
+
+msgid "Contact Name"
+msgstr ""
+
+msgid "Contact Email"
+msgstr ""
+
+msgid "Client ID"
+msgstr ""
+
+msgid "Client Secret"
+msgstr ""
+
+msgid "Last accessed on"
+msgstr ""
+
+msgid "Never"
+msgstr ""
+
+msgid "Editing API client"
+msgstr ""
+
+msgid "New API Client"
+msgstr ""
+
+msgid "View all API clients"
+msgstr ""
+
+msgid "The credentials have been sent to %{email}."
+msgstr ""
+
+msgid "Successsfully refreshed the client credentials."
+msgstr ""

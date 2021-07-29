@@ -3300,3 +3300,81 @@ msgstr "Is it a test plan ?"
 
 msgid "Sign in or Create account"
 msgstr "Sign in or Create account"
+
+msgid "Contributors"
+msgstr "Contributeurs"
+
+msgid "Please list the project’s Principle Investigator(s) and those responsible for data management."
+msgstr "Please list the project’s Principal Investigator(s) and those responsible for data management."
+
+msgid "No contributors have been defined."
+msgstr "No contributors have been defined."
+
+msgid "Add a contributor"
+msgstr "Add a contributor"
+
+msgid "New contributor"
+msgstr "New contributor"
+
+msgid "View all contributors"
+msgstr "View all contributors"
+
+msgid "Editing contributor"
+msgstr "Editing contributor"
+
+msgid "Affiliation"
+msgstr "Affiliation"
+
+msgid "Roles"
+msgstr "Roles"
+
+msgid "You are about to delete '%{contributor_name}'. Are you sure?"
+msgstr "You are about to delete '%{contributor_name}'. Are you sure?"
+
+msgid "Api Clients"
+msgstr "Api Clients"
+
+msgid "Create Api Client"
+msgstr "Create Api Client"
+
+msgid "Manage API access for external applications"
+msgstr "Manage API access for external applications"
+
+msgid "Homepage"
+msgstr "Homepage"
+
+msgid "Contact Name"
+msgstr "Contact Name"
+
+msgid "Contact Email"
+msgstr "Contact Email"
+
+msgid "Client ID"
+msgstr "Client ID"
+
+msgid "Client Secret"
+msgstr "Client Secret"
+
+msgid "Last accessed on"
+msgstr "Last accessed on"
+
+msgid "Never"
+msgstr "Never"
+
+msgid "Editing API client"
+msgstr "Editing API client"
+
+msgid "New API Client"
+msgstr "New API Client"
+
+msgid "View all API clients"
+msgstr "View all API clients"
+
+msgid "The credentials have been sent to %{email}."
+msgstr "The credentials have been sent to %{email}."
+
+msgid "Successsfully refreshed the client credentials."
+msgstr "Successfully refreshed the client credentials."
+
+
+

@@ -3293,3 +3293,80 @@ msgstr "Est-ce un plan de test ?"
 
 msgid "Sign in or Create account"
 msgstr "Se connecter ou Créer un compte"
+
+msgid "Contributors"
+msgstr "Contributeurs"
+
+msgid "Please list the project’s Principle Investigator(s) and those responsible for data management."
+msgstr "Veuillez lister le Chercher Principal du projet, ainsi que les personnes responsables de la gestion des donénes."
+
+msgid "No contributors have been defined."
+msgstr "Aucun contributeur n'a été créé."
+
+msgid "Add a contributor"
+msgstr "Ajouter un contributeur"
+
+msgid "New contributor"
+msgstr "Nouveau contributeur"
+
+msgid "View all contributors"
+msgstr "Voir tous les contributeurs"
+
+msgid "Editing contributor"
+msgstr "Modifier un contributeur"
+
+msgid "Affiliation"
+msgstr "Affiliation"
+
+msgid "Roles"
+msgstr "Rôles"
+
+msgid "You are about to delete '%{contributor_name}'. Are you sure?"
+msgstr "Vous êtes sur le point de supprimer '%{contributor_name}'. En êtes vous sûr ?"
+
+msgid "Api Clients"
+msgstr "Clients API"
+
+msgid "Create Api Client"
+msgstr "Créer un client API"
+
+msgid "Manage API access for external applications"
+msgstr "Gérer les accès à l'API par des applications externes"
+
+msgid "Homepage"
+msgstr "Page d'accueil"
+
+msgid "Contact Name"
+msgstr "Nom du contact"
+
+msgid "Contact Email"
+msgstr "Courriel du contact"
+
+msgid "Client ID"
+msgstr "ID client"
+
+msgid "Client Secret"
+msgstr "Secret client"
+
+msgid "Last accessed on"
+msgstr "Dernier accès"
+
+msgid "Never"
+msgstr "Jamais"
+
+msgid "Editing API client"
+msgstr "Editer un client API"
+
+msgid "New API Client"
+msgstr "Nouveau client API"
+
+msgid "View all API clients"
+msgstr "Voir tous les clients API"
+
+msgid "The credentials have been sent to %{email}."
+msgstr "Les identifiants ont été envoyés à %{email}."
+
+msgid "Successsfully refreshed the client credentials."
+msgstr "Les identifiants du client ont été actualisés avec succès"
+
+
