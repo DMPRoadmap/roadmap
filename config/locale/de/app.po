@@ -5880,10 +5880,12 @@ msgstr " in einem Plan namens"
 
 #: ../../app/views/user_mailer/sharing_notification.html.erb:5
 msgid ""
-"Your colleague %{inviter_name} has invited you to contribute to\n"
+"Your colleague %{inviter_name} has invited you to contribute to
+\n"
 "          their Data Management Plan in %{tool_name}"
 msgstr ""
-"Ihr Kollege %{inviter_name} hat Sie eingeladen, einen Beitrag zu leisten\n"
+"Ihr Kollege %{inviter_name} hat Sie eingeladen, einen Beitrag zu leisten
+\n"
 "          ihren Datenverwaltungsplan in %{tool_name}"
 
 #: ../../app/views/user_mailer/welcome_notification.html.erb:2

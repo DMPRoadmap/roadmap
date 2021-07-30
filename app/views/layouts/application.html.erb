@@ -94,6 +94,16 @@
         </div>
         <%= render "layouts/notifications", notifications: Notification.active_per_user(current_user) %>
         <%= yield %>
+
+
+        <%# Generic UJS/Ajax spinner. Bootstrap 5+ has built in spinner for this class, so update when
+            we upgrade to remove the img tag %>
+        <div class="spinner-border hidden" role="status">
+          <%spinner_msg = _("Loading...") %>
+          <%= image_tag("spinner.gif", alt: spinner_msg) %>
+          <span class="sr-only"><%= spinner_msg %></span>
+        </div>
+
       </main>
 
       <!-- footer rendering -->

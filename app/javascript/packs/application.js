@@ -38,6 +38,7 @@ import '../src/utils/tooltipHelper';
 // Specific functions from the Utilities files that will be made available to
 // the js.erb templates in the `window.x` statements below
 import { renderAlert, renderNotice } from '../src/utils/notificationHelper';
+import toggleSpinner from '../src/utils/spinner';
 
 // View specific JS
 import '../src/answers/conditions';
@@ -120,3 +121,4 @@ window.jQuery = jQuery;
 // Allow js.erb files to access the notificationHelper functions
 window.renderAlert = renderAlert;
 window.renderNotice = renderNotice;
+window.toggleSpinner = toggleSpinner;
