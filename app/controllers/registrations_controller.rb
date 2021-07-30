@@ -85,7 +85,6 @@ class RegistrationsController < Devise::RegistrationsController
                                       .select(&:active?)
                                       .map { |role| { plan_id: role.plan_id, access: role.access } }
           existing_user.destroy
-
         else
           redirect_to after_sign_up_error_path_for(resource),
                       alert: _("That email address is already registered.")

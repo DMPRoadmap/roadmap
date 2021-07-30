@@ -122,8 +122,7 @@ class GuidanceGroup < ApplicationRecord
     all_viewable_groups = default_org_groups +
                           funder_groups +
                           organisation_groups
-    all_viewable_groups = all_viewable_groups.flatten.uniq
-    all_viewable_groups
+    all_viewable_groups.flatten.uniq
   end
 
   def self.create_org_default(org)

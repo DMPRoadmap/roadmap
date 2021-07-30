@@ -122,5 +122,4 @@ window.jQuery = jQuery;
 // Allow js.erb files to access the notificationHelper functions
 window.renderAlert = renderAlert;
 window.renderNotice = renderNotice;
-
 window.toggleSpinner = toggleSpinner;

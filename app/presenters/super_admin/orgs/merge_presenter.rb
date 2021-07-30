@@ -119,7 +119,6 @@ module SuperAdmin
         }
       end
 
-      # rubocop:disable Metrics/AbcSize
       def mergeable_columns
         out = {}
         out[:target_url] = @from_org.target_url if mergeable_column?(column: :target_url)
@@ -141,7 +140,6 @@ module SuperAdmin
         end
         out
       end
-      # rubocop:enable Metrics/AbcSize
 
       def mergeable_column?(column:)
         case column

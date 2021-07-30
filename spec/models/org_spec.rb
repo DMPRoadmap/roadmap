@@ -392,7 +392,7 @@ RSpec.describe Org, type: :model do
         plan.add_user!(user.id, :editor)
       end
 
-      it { is_expected.not_to include(plan) }
+      it { is_expected.to include(plan) }
 
     end
 
@@ -402,7 +402,7 @@ RSpec.describe Org, type: :model do
         plan.add_user!(user.id, :commenter)
       end
 
-      it { is_expected.not_to include(plan) }
+      it { is_expected.to include(plan) }
 
     end
 
@@ -412,7 +412,70 @@ RSpec.describe Org, type: :model do
         plan.add_user!(user.id, :reviewer)
       end
 
-      it { is_expected.not_to include(plan) }
+      it { is_expected.to include(plan) }
+
+    end
+
+  end
+
+  describe "#org_admin_plans" do
+
+    let!(:org) { create(:org) }
+    let!(:plan) { create(:plan, org: org) }
+    let!(:user) { create(:user, org: org) }
+
+    subject { org.org_admin_plans }
+
+    context "when user belongs to Org and plan owner with role :creator" do
+
+      before do
+        create(:role, :creator, user: user, plan: plan)
+        plan.add_user!(user.id, :creator)
+      end
+
+      it { is_expected.to include(plan) }
+
+    end
+
+    context "when user belongs to Org and plan user with role :administrator" do
+
+      before do
+        plan.add_user!(user.id, :administrator)
+      end
+
+      it {
+        is_expected.to include(plan)
+      }
+
+    end
+
+    context "user belongs to Org and plan user with role :editor, but not :creator and :admin" do
+
+      before do
+        plan.add_user!(user.id, :editor)
+      end
+
+      it { is_expected.to include(plan) }
+
+    end
+
+    context "user belongs to Org and plan user with role :commenter, but not :creator and :admin" do
+
+      before do
+        plan.add_user!(user.id, :commenter)
+      end
+
+      it { is_expected.to include(plan) }
+
+    end
+
+    context "user belongs to Org and plan user with role :reviewer, but not :creator and :admin" do
+
+      before do
+        plan.add_user!(user.id, :reviewer)
+      end
+
+      it { is_expected.to include(plan) }
 
     end
 
@@ -539,7 +602,7 @@ RSpec.describe Org, type: :model do
       expect(@org.templates.length).to eql(expected)
     end
     it "merges associated :token_permission_types" do
-      expected = @org.token_permission_types.length + @to_be_merged.token_permission_types.length
+      expected = (@org.token_permission_types | @to_be_merged.token_permission_types).length
       @org.merge!(to_be_merged: @to_be_merged)
       expect(@org.token_permission_types.length).to eql(expected)
     end
@@ -616,7 +679,7 @@ RSpec.describe Org, type: :model do
       it "returns false unless the specified Org is an Org" do
         expect(@org.send(:merge_departments!, to_be_merged: create(:user))).to eql(false)
       end
-      it "returns false unless the specified Org has token_permission_types" do
+      it "returns false unless the specified Org has department" do
         expect(@org.send(:merge_departments!, to_be_merged: create(:org))).to eql(false)
       end
       it "merges :departments that are not already associated" do
@@ -674,7 +737,10 @@ RSpec.describe Org, type: :model do
         expect(@org.send(:merge_token_permission_types!, to_be_merged: create(:user))).to eql(false)
       end
       it "returns false unless the specified Org has token_permission_types" do
-        expect(@org.send(:merge_token_permission_types!, to_be_merged: create(:org))).to eql(false)
+        o = create(:org)
+        # when org is created tpt gets assigned by default so need to scrub for this test
+        o.token_permission_types = []
+        expect(@org.send(:merge_token_permission_types!, to_be_merged: o)).to eql(false)
       end
       it "merges :token_permission_types that are not already associated" do
         @org.send(:merge_token_permission_types!, to_be_merged: @to_be_merged)
