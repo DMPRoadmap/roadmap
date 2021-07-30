@@ -48,7 +48,6 @@ module Dmpopidor
         end
       end
 
-      
       # CHANGES
       # Mail is sent with user's locale
       def permissions_change_notification(role, user)
@@ -61,7 +60,6 @@ module Dmpopidor
           end
         end
       end
-
 
       # CHANGES
       # Mail is sent with user's locale
@@ -94,7 +92,6 @@ module Dmpopidor
         end
       end
 
-
       # CHANGES
       # Mail is sent with user's locale
       # sender is org's user contact email or no-reply
@@ -121,7 +118,7 @@ module Dmpopidor
         if user.active?
           FastGettext.with_locale current_locale(user) do
             mail(to: @user.email,
-                 subject: _('DMP Visibility Changed: %{plan_title}') %{ :plan_title => @plan.title })
+                 subject: _("DMP Visibility Changed: %{plan_title}") % { :plan_title => @plan.title })
           end
         end
       end
@@ -133,7 +130,7 @@ module Dmpopidor
         if user.active?
           FastGettext.with_locale current_locale(@user) do
             mail(to: user.email, subject:
-              _('Administrator privileges granted in %{tool_name}') %{ :tool_name => Rails.configuration.branding[:application][:name] })
+              _("Administrator privileges granted in %{tool_name}") %{ :tool_name => Rails.configuration.branding[:application][:name] })
           end
         end
       end
@@ -146,24 +143,26 @@ module Dmpopidor
         @end_date = (@user.last_sign_in_at + 5.years).to_date
         FastGettext.with_locale current_locale(@user) do
           mail(to: @user.email, subject:
-            d_('dmpopidor', 'Account expiration in %{tool_name}') %{ :tool_name => Rails.configuration.branding[:application][:name] })
+            d_("dmpopidor", "Account expiration in %{tool_name}") % { :tool_name => Rails.configuration.branding[:application][:name] })
         end
       end
-    
+
       def anonymization_notice(user)
         @user = user
         FastGettext.with_locale current_locale(@user) do
           mail(to: @user.email, subject:
-            d_('dmpopidor', 'Account expired in %{tool_name}') %{ :tool_name => Rails.configuration.branding[:application][:name] })
+            d_("dmpopidor", "Account expired in %{tool_name}") % { :tool_name => Rails.configuration.branding[:application][:name] })
         end
       end
+
+      private
+
+      def current_locale(user)
+        user.get_locale.nil? ? FastGettext.default_locale : user.get_locale
+      end
+
     end
-  end
 
-  private
-
-  def current_locale(user)
-    user.get_locale.nil? ? FastGettext.default_locale : user.get_locale
   end
 
 end
