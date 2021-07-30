@@ -209,6 +209,8 @@ class PlansController < ApplicationController
                   Template.where(family_id: @plan.template.customization_of).first
                 end
 
+    @research_domains = ResearchDomain.all.order(:label)
+
     respond_to :html
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
@@ -260,7 +262,7 @@ class PlansController < ApplicationController
       # TODO: For some reason the `fields_for` isn't adding the
       #       appropriate namespace, so org_id represents our funder
       funder = org_from_params(params_in: attrs, allow_create: true)
-      @plan.funder_id = funder.id if funder.present?
+      @plan.funder_id = funder&.id
       process_grant(grant_params: plan_params[:grant])
       attrs.delete(:grant)
       attrs = remove_org_selection_params(params_in: attrs)
@@ -467,6 +469,8 @@ class PlansController < ApplicationController
     params.require(:plan)
           .permit(:template_id, :title, :visibility, :description, :identifier,
                   :start_date, :end_date, :org_id, :org_name, :org_crosswalk,
+                  :ethical_issues, :ethical_issues_description, :ethical_issues_report,
+                  :research_domain_id, :funding_status,
                   grant: %i[name value],
                   org: %i[id org_id org_name org_sources org_crosswalk],
                   funder: %i[id org_id org_name org_sources org_crosswalk])
