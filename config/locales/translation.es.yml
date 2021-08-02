@@ -116,6 +116,16 @@ es:
         other: "%{count} errores impidieron que este %{resource} fuese guardado:"
       model_invalid: 'La validación falló: %{errors}'
       required: debe existir
+    unavailable_session: |-
+      Sesión %{id} ya no se encuentra disponible en la memoria.
+
+      Si le sucede a ejecutar en un servidor multi-proceso (como el unicornio o Puma) el proceso de
+      esta solicitud golpe no almacena %{id} en la memoria. Considere girando el número de
+      procesos / trabajadores a uno (1) o el uso de un servidor diferente en el desarrollo.
+    unacceptable_request: Una versión compatible Se espera que en la cabecera Aceptar.
+    connection_refused: |-
+      Ups! No se pudo conectar a la consola Web de middleware.
+      Por favor asegúrese de que un servidor de desarrollo carriles se está ejecutando.
     template:
       body: 'Se encontraron problemas con los siguientes campos:'
       header:
