@@ -20,8 +20,6 @@ module Dmpopidor
           )
         end
 
-        
-
       end
 
     end

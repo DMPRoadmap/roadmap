@@ -15,16 +15,49 @@
       </p>
     </div>
     <div id="contributors" class="col-md-12">
-      <% if @contributors.any? %>
-        <%= paginable_renderise partial: "/paginable/contributors/index",
-                                controller: "paginable/contributors",
-                                action: "index",
-                                scope: @contributors,
-                                locals: { plan: @plan } %>
-      <% else %>
-        <p><%= _("No contributors have been defined.") %></p>
-      <% end %>
+      <table class="table table-hover list-contributor">
+        <thead>
+          <tr>
+            <th scope="col"><%= _("Name") %></th>
+            <th scope="col" class="sorter-false"><%= _("Identifier") %></th>
+            <th scope="col"><%= _("Affiliation") %></th>
+            <th scope="col" class="sorter-false"><%= _("Roles") %></th>
+            <th scope="col" class="sorter-false">
+              <span aria-hidden="false" class="sr-only"><%= _("Actions") %></span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= paginable_renderise partial: "/paginable/contributors/index",
+                                  controller: "paginable/contributors",
+                                  action: "index",
+                                  scope: @contributors,
+                                  locals: { plan: @plan } %>
 
+        </tbody>
+      </table>
+
+    </div>
+    <div class="col-md-12">
+      <% if @plan.editable_by?(current_user) %>
+        <span data-toggle="modal" data-target="#modal-window">
+          <%= link_to _("Add a contributor"), new_edit_linked_madmp_fragments_url(
+                  nil, 
+                  :parent_id => @plan.json_fragment.id, 
+                  :schema_id => MadmpSchema.find_by(name: "PersonStandard").id, 
+                  :template_locale => @plan.template.locale,
+                  :source => "list-modal",
+                  :property_name => nil,
+                  :query_id => "contributor"
+          ),  {
+            :remote => true, 
+            :target => "_self",
+            :class => "btn btn-primary",
+            'data-toggle' =>  "tooltip",
+            'data-original-title' => d_("dmpopidor", "Click here to add a new item")
+          }  %>
+        </span>
+      <% end %>
     </div>
   </div>
 <% end %>
