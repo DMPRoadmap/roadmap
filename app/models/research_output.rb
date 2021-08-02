@@ -112,7 +112,7 @@ class ResearchOutput < ActiveRecord::Base
         fragment_description = Fragment::ResearchOutputDescription.new(
           data: {
             "title" => fullname,
-            "type" => other_type_label || type.label
+            "type" => d("dmpopidor", "Dataset")
           },
           madmp_schema: MadmpSchema.find_by(name: "ResearchOutputDescriptionStandard"),
           dmp_id: dmp_fragment.id,

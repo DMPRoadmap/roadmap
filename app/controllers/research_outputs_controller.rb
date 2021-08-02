@@ -2,24 +2,19 @@
 
 class ResearchOutputsController < ApplicationController
 
-  after_action :verify_authorized 
+  after_action :verify_authorized
 
   # GET /plans/:plan_id/research_outputs
   def index
-    begin
-      @plan = Plan.find(params[:plan_id])
-      @research_outputs = @plan.research_outputs
-      @research_output_types = ResearchOutputType.all
-
-      authorize @plan
-      render("plans/research_outputs", locals: { plan: @plan, research_outputs: @research_outputs, 
-                                                 research_output_types: @research_output_types })
-    rescue ActiveRecord::RecordNotFound
-      flash[:alert] = _("There is no plan associated with id %{id}") % {
-        id: params[:id]
-      }
-      redirect_to(:controller => "plans", :action => "index")
-    end
+    @plan = Plan.find(params[:plan_id])
+    @research_outputs = @plan.research_outputs
+    authorize @plan
+    render("plans/research_outputs", locals: { plan: @plan, research_outputs: @research_outputs })
+  rescue ActiveRecord::RecordNotFound
+    flash[:alert] = _("There is no plan associated with id %{id}") % {
+      id: params[:id]
+    }
+    redirect_to(:controller => "plans", :action => "index")
   end
 
   def update
@@ -28,7 +23,6 @@ class ResearchOutputsController < ApplicationController
     attrs = research_output_params
 
     authorize @plan
-
     if @research_output.update(attrs)
       render json: {
         "html" => render_to_string(partial: "research_outputs/list", locals: {
@@ -79,7 +73,6 @@ class ResearchOutputsController < ApplicationController
     @plan.research_outputs.toggle_default
 
     authorize @plan
-
     render json: {
       "html" => render_to_string(partial: "research_outputs/list", locals: {
         plan: @plan,

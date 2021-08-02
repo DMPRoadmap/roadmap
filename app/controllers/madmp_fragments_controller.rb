@@ -380,36 +380,22 @@ class MadmpFragmentsController < ApplicationController
   private
 
   def render_fragment_list(dmp_id, parent_id, schema_id, property_name, template_locale, query_id = nil, readonly = false)
-    schema = MadmpSchema.find(schema_id)
-    case schema.classname
-    when "research_output"
-      @plan = Fragment::Dmp.where(id: dmp_id).first.plan
-      render_to_string(
-        partial: "research_outputs/list",
-        locals: {
-          plan: @plan,
-          research_outputs: @plan.research_outputs,
-          readonly: readonly
-        }
-      )
-    else
-      obj_list = MadmpFragment.where(
-        dmp_id: dmp_id,
-        parent_id: parent_id
-      ).where("additional_info->>'property_name' = ?", property_name)
-      render_to_string(
-        partial: "shared/dynamic_form/linked_fragment/list",
-        locals: {
-          parent_id: parent_id,
-          obj_list: obj_list,
-          schema_id: schema_id,
-          readonly: readonly,
-          deletable: true,
-          template_locale: template_locale,
-          query_id: query_id
-        }
-      )
-    end
+    obj_list = MadmpFragment.where(
+      dmp_id: dmp_id,
+      parent_id: parent_id
+    ).where("additional_info->>'property_name' = ?", property_name)
+    render_to_string(
+      partial: "shared/dynamic_form/linked_fragment/list",
+      locals: {
+        parent_id: parent_id,
+        obj_list: obj_list,
+        schema_id: schema_id,
+        readonly: readonly,
+        deletable: true,
+        template_locale: template_locale,
+        query_id: query_id
+      }
+    )
   end
 
   def render_fragment_select(fragment)
