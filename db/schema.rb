@@ -200,17 +200,6 @@ ActiveRecord::Schema.define(version: 2020_12_16_140226) do
     t.boolean "enabled", default: true
   end
 
-  create_table "org_identifiers", id: :integer, force: :cascade do |t|
-    t.string "identifier"
-    t.integer "identifier_scheme_id"
-    t.string "attrs"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer "org_id"
-    t.index ["identifier_scheme_id"], name: "fk_rails_189ad2e573"
-    t.index ["org_id"], name: "fk_rails_36323c0674"
-  end
-
   create_table "org_token_permissions", id: :integer, force: :cascade do |t|
     t.integer "org_id"
     t.integer "token_permission_type_id"
@@ -553,8 +542,6 @@ ActiveRecord::Schema.define(version: 2020_12_16_140226) do
   add_foreign_key "notes", "users"
   add_foreign_key "notification_acknowledgements", "notifications"
   add_foreign_key "notification_acknowledgements", "users"
-  add_foreign_key "org_identifiers", "identifier_schemes"
-  add_foreign_key "org_identifiers", "orgs"
   add_foreign_key "org_token_permissions", "orgs"
   add_foreign_key "org_token_permissions", "token_permission_types"
   add_foreign_key "orgs", "languages"
