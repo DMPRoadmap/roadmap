@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DynamicFormHelper
 
   def create_text_field(form, value, name, label, field_id, required: false, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil, example: nil, default_value: nil)
@@ -315,6 +317,16 @@ module DynamicFormHelper
       formated_data[key] = nil if formated_data[key].eql?("")
     end
     formated_data
+  end
+
+  def display_identifier(identifier, identifier_type, with_parenthesis = false)
+    return nil if identifier.nil?
+
+    if with_parenthesis
+      "(#{identifier_type}:#{identifier})"
+    else
+      "#{identifier_type}:#{identifier}"
+    end
   end
 
 end

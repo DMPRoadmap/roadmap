@@ -3298,7 +3298,7 @@ msgid "Contributors"
 msgstr "Contributeurs"
 
 msgid "Please list the project’s Principle Investigator(s) and those responsible for data management."
-msgstr "Veuillez lister le Chercher Principal du projet, ainsi que les personnes responsables de la gestion des donénes."
+msgstr "Veuillez lister le Chercher Principal du projet, ainsi que les personnes responsables de la gestion des données."
 
 msgid "No contributors have been defined."
 msgstr "Aucun contributeur n'a été créé."

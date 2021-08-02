@@ -1,0 +1,28 @@
+<%# locals: @plan, scope %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col"><%= _("Name") %></th>
+      <th scope="col" class="sorter-false"><%= _("Identifier") %></th>
+      <th scope="col"><%= _("Affiliation") %></th>
+      <th scope="col" class="sorter-false"><%= _("Roles") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% scope.each do |contributor| %>
+      <tr>
+        <td><%= contributor.to_s %></td>
+        <td><%= display_identifier(contributor.data["personId"], contributor.data["idType"]) %></td>
+        <td><%= "#{contributor.data["affiliationName"]} #{display_identifier(contributor.data["affiliationId"], contributor.data["affiliationIdType"], true)}" %></td>
+        <td>
+          <ul>
+            <% contributor.roles.each do |role| %>
+              <li><%= role %></li>
+            <% end %>
+          </ul>  
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

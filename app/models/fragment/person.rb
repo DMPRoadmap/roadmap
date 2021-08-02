@@ -19,14 +19,18 @@
 
 class Fragment::Person < MadmpFragment
 
-  def roles(selected_research_outputs)
-    Fragment::Contributor.where("(data->'person'->>'dbid')::int = ?", id)
-                         .map do |c|
-                           if c.research_output_id.nil? || selected_research_outputs.include?(c.research_output_id)
-                             c.data["role"]
+  def roles(selected_research_outputs = nil)
+    if selected_research_outputs.nil?
+      Fragment::Contributor.where("(data->'person'->>'dbid')::int = ?", id).pluck("data->'role'")
+    else
+      Fragment::Contributor.where("(data->'person'->>'dbid')::int = ?", id)
+                           .map do |c|
+                             if c.research_output_id.nil? || selected_research_outputs.include?(c.research_output_id)
+                               c.data["role"]
+                             end
                            end
-                         end
-                         .compact
+                           .compact
+    end
   end
 
   def self.sti_name
