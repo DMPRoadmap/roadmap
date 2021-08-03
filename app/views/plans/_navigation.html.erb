@@ -17,6 +17,12 @@
       </a>
     </li>
   <% end %>
+  <% if Rails.configuration.x.madmp.enable_research_outputs %>
+    <li role="research_outputs" class="<%= (active_page?(plan_research_outputs_path(plan)) ? "active" : "") %>">
+      <%= link_to _("Research Outputs"), plan_research_outputs_path(plan), role: "tab",
+                  aria: { controls: "content" } %>
+    </li>
+  <% end %>
   <% if plan.administerable_by?(current_user.id) || (current_user.can_org_admin? && current_user.org.plans.include?(plan)) %>
     <li role="presentation" class="<%= (active_page?(share_plan_path(plan)) ? 'active' : '') %>">
       <a href="<%= share_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Share') %></a>

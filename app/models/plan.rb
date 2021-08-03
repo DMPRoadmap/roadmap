@@ -20,6 +20,7 @@
 #  org_id                            :integer
 #  funder_id                         :integer
 #  grant_id                          :integer
+#  api_client_id                     :integer
 #  research_domain_id                :bigint
 #  funding_status                    :integer
 #  ethical_issues                    :boolean
@@ -37,6 +38,7 @@
 #
 #  fk_rails_...  (template_id => templates.id)
 #  fk_rails_...  (org_id => orgs.id)
+#  fk_rails_...  (api_client_id => api_clients.id)
 #  fk_rails_...  (research_domain_id => research_domains.id)
 #
 
@@ -84,6 +86,8 @@ class Plan < ApplicationRecord
 
   belongs_to :funder, class_name: "Org", optional: true
 
+  belongs_to :api_client, optional: true
+
   belongs_to :research_domain, optional: true
 
   has_many :phases, through: :template
@@ -111,9 +115,13 @@ class Plan < ApplicationRecord
 
   has_and_belongs_to_many :guidance_groups, join_table: :plans_guidance_groups
 
-  has_many :exported_plans
+  has_many :exported_plans, dependent: :destroy
 
   has_many :contributors, dependent: :destroy
+
+  has_one :grant, as: :identifiable, dependent: :destroy, class_name: "Identifier"
+
+  has_many :research_outputs, dependent: :destroy
 
   # =====================
   # = Nested Attributes =
