@@ -65,15 +65,27 @@ export const multipleSelectorHandler = (selectField, value, selected) => {
   });
 };
 
-export const linkedFragmentSelectorHandler = (selectField, value, text) => {
-  /*
-  * Changes the url of the "View" link according to the selected value in the fragment select
-  */
-  const selectedValue = selectField.next('.selected-value');
-  const viewLink = selectedValue.find('a');
-  selectedValue.find('span').html(text);
-  viewLink.attr('href', viewLink.attr('href').replace(/fragment_id=([^&]+)/, `fragment_id=${value}`));
-  selectedValue.show();
+export const linkedFragmentSelectorHandler = (selectField, value) => {
+  const contributorField = selectField.parents('.contributor-field');
+  const role = contributorField.find('input[type=hidden]').val();
+
+  const requestData = {
+    person_id: value,
+    role,
+    locale: contributorField.data('locale'),
+    parent_id: contributorField.data('parent-id'),
+    schema_id: contributorField.data('schema-id'),
+    query_id: contributorField.data('query-id'),
+    property_name: contributorField.data('property-name'),
+    readonly: contributorField.data('readonly'),
+  };
+  $.ajax({
+    url: '/madmp_fragments/create_contributor',
+    method: 'get',
+    data: requestData,
+  }).done((response) => {
+    $(`table.list-${response.query_id} tbody`).html(response.html);
+  });
 };
 
 export const singleSelectHandler = (selectField, target, value, selected) => {

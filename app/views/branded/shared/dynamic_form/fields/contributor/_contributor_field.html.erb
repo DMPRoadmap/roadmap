@@ -5,7 +5,14 @@
 <% role_tooltip= role_property["tooltip@#{template_locale}"]%>
 <% roles = RegistryValue.where(registry_id: role_property["registry_id"])%>
 <% query_id = Digest::MD5.hexdigest("#{current_fragment.id}-#{property_name}") %>
-<div class="col-md-12 dynamic-field contributor-field">
+<div class="col-md-12 dynamic-field contributor-field"
+     data-locale="<%= template_locale %>"
+     data-parent-id="<%= parent_id %>"
+     data-query-id="<%= query_id %>"
+     data-property-name="<%= property_name %>"
+     data-schema-id="<%= contributor_schema.id %>"
+     data-readonly="<%= readonly %>"
+  >
   <fieldset class="sub-fragment">
     <legend class="sub-fragment" data-toggle="tooltip" data-original-title="<%= ttip %>"><%= field_label %></legend>
     <%= render(partial: 'shared/dynamic_form/form', locals: { 
@@ -19,20 +26,6 @@
                     template_locale: template_locale,
                     source: "form"
                   }) %>
-
-    <div class="col-md-12">
-      <% unless parent_id.nil? || readonly %>
-        <span class="btn btn-primary assign-role"
-              data-locale="<%= template_locale %>"
-              data-parent-id="<%= parent_id %>"
-              data-query-id="<%= query_id %>"
-              data-property-name="<%= property_name %>"
-              data-schema-id="<%= contributor_schema.id %>"
-        >
-          <%= d_('dmpopidor', 'Confirm') %>
-        </span>
-      <% end %>
-    </div>
 
     <div class="col-md-12">
       <table class="table table-hover linked-fragments-list <%= property_name %>-list list-<%= query_id %>">

@@ -308,6 +308,7 @@ class MadmpFragmentsController < ApplicationController
     template_locale = params[:locale]
     query_id = params[:query_id]
     person_id = params[:person_id]
+    # readonly = params[:readonly] == "true"
 
     @contributor = MadmpFragment.new(
       dmp_id: parent_fragment.dmp_id,

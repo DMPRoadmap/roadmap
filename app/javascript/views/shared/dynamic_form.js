@@ -88,29 +88,6 @@ $(() => {
     selectField.find('.custom-value input').val('__DELETED__');
     selectField.find('select').val('').trigger('change');
   });
-  $(document).on('click', '.contributor-field .assign-role', (e) => {
-    const target = $(e.target);
-    const selectField = target.parents('.dynamic-field');
-    const userData = selectField.find('.person-select select').select2('data');
-    const role = selectField.find('input[type=hidden]').val();
-
-    const requestData = {
-      person_id: userData[0].id,
-      role,
-      locale: target.data('locale'),
-      parent_id: target.data('parent-id'),
-      schema_id: target.data('schema-id'),
-      query_id: target.data('query-id'),
-      property_name: target.data('property-name'),
-    };
-    $.ajax({
-      url: '/madmp_fragments/create_contributor',
-      method: 'get',
-      data: requestData,
-    }).done((response) => {
-      $(`table.list-${response.query_id} tbody`).html(response.html);
-    });
-  });
 
   $(document).on('click', '.run-zone .run-button', (e) => {
     const target = $(e.target);
