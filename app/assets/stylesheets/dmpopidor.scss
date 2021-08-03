@@ -738,19 +738,6 @@ header .main-nav {
                 display: none;
             }
         }
-
-        .linked-fragments {
-            .actions {
-                width: 20%;
-                .delete{
-                    cursor: pointer;
-                    color: $blue;
-                    &:hover {
-                        text-decoration: underline;
-                    }
-                }
-            }
-        }
         .guidance-configuration {
             border-left: 2px solid $rust;
             border-bottom: 2px solid $very-very-light-blue;
@@ -1417,7 +1404,9 @@ header .main-nav {
         flex: 1;
         text-align: right;
         color: $blue;
-        width: 20%;
+        &:not(.contributors) {
+            width: 20%;
+        }
         .delete{
             cursor: pointer;
             color: $blue;

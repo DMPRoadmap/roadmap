@@ -33,6 +33,10 @@ class Fragment::Person < MadmpFragment
     end
   end
 
+  def contributors
+    Fragment::Contributor.where("(data->'person'->>'dbid')::int = ?", id)
+  end
+
   def self.sti_name
     "person"
   end

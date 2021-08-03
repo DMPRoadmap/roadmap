@@ -37,11 +37,11 @@ class MadmpFragmentPolicy < ApplicationPolicy
   end
 
   def create_from_registry_value?
-    @fragment.plan.readable_by?(@user.id) || @user == @answer.plan.owner
+    @fragment.plan.editable_by?(@user.id) || @user == @answer.plan.owner
   end
 
   def create_contributor?
-    @fragment.plan.readable_by?(@user.id) || @user == @answer.plan.owner
+    @fragment.plan.editable_by?(@user.id) || @user == @answer.plan.owner
   end
 
   def load_fragments?
