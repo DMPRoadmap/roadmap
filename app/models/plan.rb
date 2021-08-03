@@ -115,6 +115,10 @@ class Plan < ApplicationRecord
 
   has_many :contributors, dependent: :destroy
 
+  has_one :grant, as: :identifiable, dependent: :destroy, class_name: "Identifier"
+
+  has_many :research_outputs
+
   # =====================
   # = Nested Attributes =
   # =====================

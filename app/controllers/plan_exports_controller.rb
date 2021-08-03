@@ -17,6 +17,7 @@ class PlanExportsController < ApplicationController
       @show_sections_questions = export_params[:question_headings].present?
       @show_unanswered         = export_params[:unanswered_questions].present?
       @show_custom_sections    = export_params[:custom_sections].present?
+      @show_research_outputs   = export_params[:research_outputs].present?
       @public_plan             = false
 
     elsif publicly_authorized?
@@ -25,6 +26,7 @@ class PlanExportsController < ApplicationController
       @show_sections_questions = true
       @show_unanswered         = true
       @show_custom_sections    = true
+      @show_research_outputs   = @plan.research_outputs&.any? || false
       @public_plan             = true
 
     else
@@ -94,7 +96,8 @@ class PlanExportsController < ApplicationController
   end
 
   def show_json
-    json = render_to_string(partial: "/api/v1/plans/show", locals: { plan: @plan })
+    json = render_to_string(partial: "/api/v1/plans/show",
+                            locals: { plan: @plan, client: current_user })
     render json: "{\"dmp\":#{json}}"
   end
 
@@ -125,9 +128,10 @@ class PlanExportsController < ApplicationController
   end
 
   def export_params
-    params.require(:export).permit(:form, :project_details, :question_headings,
-                                   :unanswered_questions, :custom_sections,
-                                   :formatting)
+    params.require(:export)
+          .permit(:form, :project_details, :question_headings, :unanswered_questions,
+                  :custom_sections, :research_outputs,
+                  formatting: [:font_face, :font_size, margin: %i[top right bottom left]])
   end
 
 end

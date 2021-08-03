@@ -1,0 +1,15 @@
+<%# locals: research_output %>
+
+<% content_for :"filters-metadata_standards" do %>
+
+<% end %>
+
+<%= render partial: "layouts/modal_search/form",
+           locals: {
+             namespace: "metadata_standards",
+             label: "Metadata Standard",
+             search_examples: "(e.g. DataCite, Dublin, Biological, etc.)",
+             model_instance: research_output,
+             search_path: plan_metadata_standard_search_path(research_output.plan),
+             search_method: :get
+           } %>

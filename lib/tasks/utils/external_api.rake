@@ -2,6 +2,25 @@
 
 # rubocop:disable Metrics/BlockLength, Layout/LineLength
 namespace :external_api do
+  desc "Fetch the latest RDA Metadata Standards"
+  task load_rdamsc_standards: :environment do
+    p "Fetching the latest RDAMSC metadata standards and updating the metadata_standards table"
+    ExternalApis::RdamscService.fetch_metadata_standards
+  end
+
+  desc "Load Repositories from re3data"
+  task load_re3data_repos: :environment do
+    p "Fetching the latest re3data repository metadata and updating the repositories table"
+    p "This can take in excess of 10 minutes to complete ..."
+    ExternalApis::Re3dataService.fetch
+  end
+
+  desc "Load Licenses from SPDX"
+  task load_spdx_licenses: :environment do
+    p "Fetching the latest SPDX license metadata and updating the licenses table"
+    ExternalApis::SpdxService.fetch
+  end
+
   desc "Seed the Research Domain table with Field of Science categories"
   task add_field_of_science_to_research_domains: :environment do
     # TODO: If we can identify an external API authority for this information we should switch
@@ -89,13 +108,8 @@ namespace :external_api do
     ].each do |fos|
       p "#{fos[:identifier]} - #{fos[:label]}"
       parent = ResearchDomain.find_or_create_by(identifier: fos[:identifier], label: fos[:label])
-
-      fos[:children].each do |child|
-        child[:parent_id] = parent.id
-        p "    #{child[:identifier]} - #{child[:label]}"
-        ResearchDomain.find_or_create_by(child)
-      end
     end
   end
+
 end
 # rubocop:enable Metrics/BlockLength, Layout/LineLength

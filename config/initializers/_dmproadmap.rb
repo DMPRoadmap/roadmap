@@ -207,9 +207,24 @@ module DMPRoadmap
     # --------------------------------------------------- #
     # Machine Actionable / Networked DMP Features (maDMP) #
     # --------------------------------------------------- #
+    # Enable/disable functionality on the Project Details tab
     config.x.madmp.enable_ethical_issues = false
     config.x.madmp.enable_research_domain = false
 
+    # This flag will enable/disable the entire Research Outputs tab. The others below will
+    # just enable/disable specific functionality on the Research Outputs tab
+    config.x.madmp.enable_research_outputs = true
+    config.x.madmp.enable_license_selection = true
+    config.x.madmp.enable_metadata_standard_selection = true
+    config.x.madmp.enable_repository_selection = true
+
+    # The following flags will allow the system to include the question and answer in the JSON output
+    #   - questions with a theme equal to 'Preservation'
+    config.x.madmp.extract_preservation_statements_from_themed_questions = true
+    #   - questions with a theme equal to 'Data Collection'
+    config.x.madmp.extract_data_quality_statements_from_themed_questions = true
+    #   - questions with a theme equal to 'Ethics & privacy' or 'Storage & security'
+    config.x.madmp.extract_security_privacy_statements_from_themed_questions = true
   end
 
 end

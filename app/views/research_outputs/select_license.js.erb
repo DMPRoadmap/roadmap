@@ -1,0 +1,15 @@
+var resultsDiv = $('.license-selection');
+<% presenter = ResearchOutputPresenter.new(research_output: @research_output) %>
+
+resultsDiv.html('<%=
+  escape_javascript(
+    render(
+      partial: "research_outputs/licenses/form",
+      locals: {
+        research_output: @research_output,
+        presenter: presenter
+      }
+    )
+  ) %>');
+
+toggleSpinner(false);
