@@ -16,6 +16,8 @@ module Api
 
         @plan = plan
 
+        @data_contact = @plan.owner
+
         # Attach the first data_curation role as the data_contact, otherwise
         # add the contributor to the contributors array
         @plan.contributors.each do |contributor|
