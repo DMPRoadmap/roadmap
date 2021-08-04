@@ -249,6 +249,8 @@ namespace :templates do
         end
       end
     rescue NoMethodError
+      # this error occurs when we have a template which had no
+      # questionoptions. So we can safely ignore it.
     end
     version
   end
