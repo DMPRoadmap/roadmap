@@ -1,4 +1,4 @@
-class CreateFos < ActiveRecord::Migration[5.2]
+class CreateResearchDomains < ActiveRecord::Migration[5.2]
   def change
     create_table :research_domains do |t|
       t.string :identifier, null: false
