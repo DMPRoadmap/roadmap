@@ -1,21 +1,32 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+module Api
 
-RSpec.describe Api::V1::FundingPresenter do
+  module V1
 
-  describe "#status(plan:)" do
-    it "returns `planned` if the plan is nil" do
-      expect(described_class.status(plan: nil)).to eql("planned")
+    class FundingPresenter
+
+      class << self
+
+        # If the plan has a grant number then it has been awarded/granted
+        # otherwise it is 'planned'
+        def status(plan:)
+          return "planned" unless plan.present?
+
+          case plan.funding_status
+          when "funded"
+            "granted"
+          when "denied"
+            "rejected"
+          else
+            "planned"
+          end
+        end
+
+      end
+
     end
-    it "returns `planned` if the plan's grant_number is nil" do
-      plan = build(:plan, grant_number: nil)
-      expect(described_class.status(plan: plan)).to eql("planned")
-    end
-    it "returns `granted` if the plan has a grant_number" do
-      plan = build(:plan, grant_number: Faker::Lorem.word)
-      expect(described_class.status(plan: plan)).to eql("granted")
-    end
+
   end
 
 end

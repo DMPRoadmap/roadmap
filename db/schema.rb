@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_16_140226) do
+ActiveRecord::Schema.define(version: 2021_07_29_204611) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -157,15 +157,6 @@ ActiveRecord::Schema.define(version: 2020_12_16_140226) do
     t.boolean "default_language"
   end
 
-  create_table "mime_types", force: :cascade do |t|
-    t.string "description", null: false
-    t.string "category", null: false
-    t.string "value", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["value"], name: "index_mime_types_on_value"
-  end
-
   create_table "notes", id: :integer, force: :cascade do |t|
     t.integer "user_id"
     t.text "text"
@@ -257,18 +248,9 @@ ActiveRecord::Schema.define(version: 2020_12_16_140226) do
     t.integer "template_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "grant_number"
     t.string "identifier"
     t.text "description"
-    t.string "principal_investigator"
-    t.string "principal_investigator_identifier"
-    t.string "data_contact"
-    t.string "funder_name"
     t.integer "visibility", default: 3, null: false
-    t.string "data_contact_email"
-    t.string "data_contact_phone"
-    t.string "principal_investigator_email"
-    t.string "principal_investigator_phone"
     t.boolean "feedback_requested", default: false
     t.boolean "complete", default: false
     t.integer "org_id"
@@ -276,11 +258,16 @@ ActiveRecord::Schema.define(version: 2020_12_16_140226) do
     t.integer "grant_id"
     t.datetime "start_date"
     t.datetime "end_date"
-    t.integer "api_client_id"
+    t.boolean "ethical_issues"
+    t.text "ethical_issues_description"
+    t.string "ethical_issues_report"
+    t.integer "funding_status"
+    t.bigint "research_domain_id"
     t.index ["funder_id"], name: "index_plans_on_funder_id"
     t.index ["grant_id"], name: "index_plans_on_grant_id"
     t.index ["org_id"], name: "index_plans_on_org_id"
     t.index ["template_id"], name: "index_plans_on_template_id"
+    t.index ["research_domain_id"], name: "index_plans_on_research_domain_id"
   end
 
   create_table "plans_guidance_groups", id: :integer, force: :cascade do |t|
@@ -355,6 +342,15 @@ ActiveRecord::Schema.define(version: 2020_12_16_140226) do
     t.integer "super_region_id"
   end
 
+  create_table "research_domains", force: :cascade do |t|
+    t.string "identifier", null: false
+    t.string "label", null: false
+    t.bigint "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_research_domains_on_parent_id"
+  end
+
   create_table "research_outputs", force: :cascade do |t|
     t.integer "plan_id"
     t.integer "output_type", default: 3, null: false
@@ -364,16 +360,11 @@ ActiveRecord::Schema.define(version: 2020_12_16_140226) do
     t.integer "display_order"
     t.boolean "is_default"
     t.text "description"
-    t.integer "mime_type_id"
     t.integer "access", default: 0, null: false
     t.datetime "release_date"
     t.boolean "personal_data"
     t.boolean "sensitive_data"
     t.bigint "byte_size"
-    t.text "mandatory_attribution"
-    t.datetime "coverage_start"
-    t.datetime "coverage_end"
-    t.string "coverage_region"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["output_type"], name: "index_research_outputs_on_output_type"

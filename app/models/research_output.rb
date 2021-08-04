@@ -8,13 +8,9 @@
 #  abbreviation            :string
 #  access                  :integer          default(0), not null
 #  byte_size               :bigint
-#  coverage_end            :datetime
-#  coverage_region         :string
-#  coverage_start          :datetime
 #  description             :text
 #  display_order           :integer
 #  is_default              :boolean         default("false")
-#  mandatory_attribution   :text
 #  output_type             :integer          default(3), not null
 #  output_type_description :string
 #  personal_data           :boolean
@@ -47,7 +43,6 @@ class ResearchOutput < ApplicationRecord
   # ================
 
   belongs_to :plan, optional: true
-  belongs_to :mime_type, optional: true
 
   # ===============
   # = Validations =
@@ -58,23 +53,10 @@ class ResearchOutput < ApplicationRecord
 
   # Ensure presence of the :output_type_description if the user selected 'other'
   validates_presence_of :output_type_description, if: -> { other? }, message: PRESENCE_MESSAGE
-  # Ensure that :coverage_start comes before :coverage_end
-  validate :end_date_after_start_date
 
   # ====================
   # = Instance methods =
   # ====================
-
-  # :mime_type is only applicable for certain :output_types
-  # This method returns the applicable :mime_types
-  def available_mime_types
-    cat = %w[audio video] if audiovisual? || sound?
-    cat = %w[image] if image?
-    cat = %w[model] if model_representation?
-    cat = %w[text] if data_paper? || dataset? || text?
-
-    cat.present? ? MimeType.where(category: cat).order(:description) : []
-  end
 
   # TODO: placeholders for once the License, Repository, Metadata Standard and
   #       Resource Type Lookups feature is built.
@@ -107,16 +89,6 @@ class ResearchOutput < ApplicationRecord
     # return [] unless scheme.present?
     # identifiers.select { |id| id.identifier_scheme = scheme }
     []
-  end
-
-  private
-
-  # Validation to prevent end date from coming before the start date
-  def end_date_after_start_date
-    # allow nil values
-    return true if coverage_end.blank? || coverage_start.blank?
-
-    errors.add(:coverage_end, _("must be after the start date")) if coverage_end < coverage_start
   end
 
 end
