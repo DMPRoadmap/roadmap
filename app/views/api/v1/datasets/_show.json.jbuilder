@@ -63,7 +63,8 @@ if output.is_a?(ResearchOutput)
   if output.plan.research_domain_id.present?
     research_domain = ResearchDomain.find_by(id: output.plan.research_domain_id)
     if research_domain.present?
-      json.keyword [research_domain.label, "#{research_domain.identifier} - #{research_domain.label}"]
+      combined = "#{research_domain.identifier} - #{research_domain.label}"
+      json.keyword [research_domain.label, combined]
     end
   end
 
@@ -75,8 +76,8 @@ else
   if output.research_domain_id.present?
     research_domain = ResearchDomain.find_by(id: output.research_domain_id)
     if research_domain.present?
-      json.keyword [research_domain.label, "#{research_domain.identifier} - #{research_domain.label}"]
+      combined = "#{research_domain.identifier} - #{research_domain.label}"
+      json.keyword [research_domain.label, combined]
     end
   end
 end
-

@@ -108,8 +108,13 @@ namespace :external_api do
     ].each do |fos|
       p "#{fos[:identifier]} - #{fos[:label]}"
       parent = ResearchDomain.find_or_create_by(identifier: fos[:identifier], label: fos[:label])
+
+      fos[:children].each do |child|
+        child[:parent_id] = parent.id
+        p "    #{child[:identifier]} - #{child[:label]}"
+        ResearchDomain.find_or_create_by(child)
+      end
     end
   end
-
 end
 # rubocop:enable Metrics/BlockLength, Layout/LineLength

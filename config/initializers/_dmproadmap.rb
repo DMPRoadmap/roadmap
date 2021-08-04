@@ -225,6 +225,7 @@ module DMPRoadmap
     config.x.madmp.extract_data_quality_statements_from_themed_questions = true
     #   - questions with a theme equal to 'Ethics & privacy' or 'Storage & security'
     config.x.madmp.extract_security_privacy_statements_from_themed_questions = true
+
   end
 
 end
