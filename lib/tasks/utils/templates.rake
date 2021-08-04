@@ -248,7 +248,7 @@ namespace :templates do
           version = obj.versionable_id
         end
       end
-    rescue
+    rescue NoMethodError
     end
     version
   end
