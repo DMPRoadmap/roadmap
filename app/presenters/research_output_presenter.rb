@@ -44,7 +44,9 @@ class ResearchOutputPresenter
 
   # Returns the available licenses for a select tag
   def complete_licenses
-    License.selectable.map { |license| [license.identifier, license.id] }
+    License.selectable
+           .sort { |a, b| a.identifier <=> b.identifier }
+           .map { |license| [license.identifier, license.id] }
   end
 
   # Returns the available licenses for a select tag

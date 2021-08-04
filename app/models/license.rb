@@ -37,7 +37,7 @@ class License < ApplicationRecord
 
   scope :preferred, lambda {
     # Fetch the list of preferred license from the config.
-    preferences = Rails.configuration.x.preferred_licenses || []
+    preferences = Rails.configuration.x.madmp.preferred_licenses || []
     return selectable unless preferences.is_a?(Array) && preferences.any?
 
     licenses = preferences.map do |preference|

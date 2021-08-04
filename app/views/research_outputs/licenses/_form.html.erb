@@ -5,7 +5,7 @@ default_guidance = "https://choosealicense.com/"
 preferred_licenses = presenter.preferred_licenses
 preferred_licenses << ["- Other Licenses - will load a complete list -", "0"]
 
-preferred_guidance = Rails.configuration.x.preferred_licenses_guidance_url
+preferred_guidance = Rails.configuration.x.madmp.preferred_licenses_guidance_url
 preferred_guidance = default_guidance if preferred_guidance.nil? || preferred_guidance.empty?
 
 selected = research_output.license_id
@@ -24,7 +24,7 @@ args[:data] = { remote: true, url: plan_license_selection_path(research_output.p
     <%= label_tag _("Initial license"), _("Initial license"), class: "control-label" %>
     <%= select_tag "research_output[license_id]", options_for_select(options, selected), args %>
   </span>
-  <span class="col-md-3">
+  <span class="col-md-4">
     <div>&nbsp;</div>
     <p>
       <%= _("For guidance on selecting a license:") %><br>

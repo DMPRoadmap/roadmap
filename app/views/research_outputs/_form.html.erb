@@ -132,11 +132,11 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
 
   <div class="form-group row">
     <div class="col-md-12">
-      <span class="col-md-3">
+      <span class="col-md-4">
         <%= f.label(:release_date, _("Anticipated release date"), class: "control-label") %>
         <%= f.date_field :release_date, class: "form-control" %>
       </span>
-      <span class="col-md-3">
+      <span class="col-md-4">
         <%= f.label(:access, _("Initial access level"), class: "control-label") %>
         <%= f.select :access, options_for_select(presenter.selectable_access_types, f.object.access),
                               { selected: f.object.access },

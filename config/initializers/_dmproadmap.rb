@@ -226,6 +226,26 @@ module DMPRoadmap
     #   - questions with a theme equal to 'Ethics & privacy' or 'Storage & security'
     config.x.madmp.extract_security_privacy_statements_from_themed_questions = true
 
+    # Specify a list of the preferred licenses types. These licenses will appear in a select
+    # box on the 'Research Outputs' tab when editing a plan along with the option to select
+    # 'other'. When 'other' is selected, the user is presented with the full list of licenses.
+    #
+    # The licenses will appear in the order you specify here.
+    #
+    # Note that the values you enter must match the :identifier field of the licenses table.
+    # You can use the `%{latest}` markup in place of version numbers if desired.
+    config.x.madmp.preferred_licenses = [
+      "CC-BY-%{latest}",
+      "CC-BY-SA-%{latest}",
+      "CC-BY-NC-%{latest}",
+      "CC-BY-NC-SA-%{latest}",
+      "CC-BY-ND-%{latest}",
+      "CC-BY-NC-ND-%{latest}",
+      "CC0-%{latest}"]
+    # Link to external guidance about selecting one of the preferred licenses. A default
+    # URL will be displayed if none is provided here. See app/views/research_outputs/licenses/_form
+    config.x.madmp.preferred_licenses_guidance_url = "https://creativecommons.org/about/cclicenses/"
+
   end
 
 end

@@ -129,17 +129,6 @@ ActiveRecord::Schema.define(version: 2021_08_02_161120) do
     t.index ["user_id"], name: "index_external_api_access_tokens_on_user_id"
   end
 
-  create_table "fos", force: :cascade do |t|
-    t.string "uri"
-    t.string "identifier", null: false
-    t.string "label", null: false
-    t.text "keywords"
-    t.bigint "parent_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["parent_id"], name: "index_fos_on_parent_id"
-  end
-
   create_table "guidance_groups", id: :integer, force: :cascade do |t|
     t.string "name"
     t.integer "org_id"
@@ -388,8 +377,8 @@ ActiveRecord::Schema.define(version: 2021_08_02_161120) do
     t.index ["funder_id"], name: "index_plans_on_funder_id"
     t.index ["grant_id"], name: "index_plans_on_grant_id"
     t.index ["org_id"], name: "index_plans_on_org_id"
+    t.index ["research_domain_id"], name: "index_plans_on_fos_id"
     t.index ["template_id"], name: "index_plans_on_template_id"
-    t.index ["research_domain_id"], name: "index_plans_on_research_domain_id"
   end
 
   create_table "plans_guidance_groups", id: :integer, force: :cascade do |t|
@@ -464,15 +453,6 @@ ActiveRecord::Schema.define(version: 2021_08_02_161120) do
     t.integer "super_region_id"
   end
 
-  create_table "research_domains", force: :cascade do |t|
-    t.string "identifier", null: false
-    t.string "label", null: false
-    t.bigint "parent_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["parent_id"], name: "index_research_domains_on_parent_id"
-  end
-
   create_table "related_identifiers", force: :cascade do |t|
     t.bigint "identifier_scheme_id"
     t.integer "identifier_type", null: false
@@ -507,6 +487,15 @@ ActiveRecord::Schema.define(version: 2021_08_02_161120) do
     t.bigint "repository_id"
     t.index ["repository_id"], name: "index_repositories_research_outputs_on_repository_id"
     t.index ["research_output_id"], name: "index_repositories_research_outputs_on_research_output_id"
+  end
+
+  create_table "research_domains", force: :cascade do |t|
+    t.string "identifier", null: false
+    t.string "label", null: false
+    t.bigint "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_research_domains_on_parent_id"
   end
 
   create_table "research_outputs", force: :cascade do |t|
@@ -702,7 +691,6 @@ ActiveRecord::Schema.define(version: 2021_08_02_161120) do
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
   add_foreign_key "conditions", "questions"
-  add_foreign_key "fos", "fos", column: "parent_id"
   add_foreign_key "guidance_groups", "orgs"
   add_foreign_key "guidances", "guidance_groups"
   add_foreign_key "notes", "answers"
@@ -725,6 +713,7 @@ ActiveRecord::Schema.define(version: 2021_08_02_161120) do
   add_foreign_key "question_options", "questions"
   add_foreign_key "questions", "question_formats"
   add_foreign_key "questions", "sections"
+  add_foreign_key "research_domains", "research_domains", column: "parent_id"
   add_foreign_key "research_outputs", "licenses"
   add_foreign_key "roles", "plans"
   add_foreign_key "roles", "users"
