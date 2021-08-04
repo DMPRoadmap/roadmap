@@ -241,7 +241,8 @@ module DMPRoadmap
       "CC-BY-NC-SA-%{latest}",
       "CC-BY-ND-%{latest}",
       "CC-BY-NC-ND-%{latest}",
-      "CC0-%{latest}"]
+      "CC0-%{latest}"
+    ]
     # Link to external guidance about selecting one of the preferred licenses. A default
     # URL will be displayed if none is provided here. See app/views/research_outputs/licenses/_form
     config.x.madmp.preferred_licenses_guidance_url = "https://creativecommons.org/about/cclicenses/"

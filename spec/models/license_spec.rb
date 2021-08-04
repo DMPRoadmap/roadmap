@@ -34,14 +34,14 @@ describe License do
         @preferred_latest = create(:license, identifier: "#{@preferred_oldest.identifier}-1.1",
                                              deprecated: false)
 
-        Rails.configuration.x.preferred_licenses = [
+        Rails.configuration.x.madmp.preferred_licenses = [
           @preferred_license.identifier,
           "#{@preferred_oldest.identifier}-%{latest}"
         ]
       end
 
       it "calls :selectable if no preferences are defined in the app config" do
-        Rails.configuration.x.preferred_licenses = nil
+        Rails.configuration.x.madmp.preferred_licenses = nil
         described_class.expects(:selectable).returns([@license])
         described_class.preferred
       end
