@@ -45,8 +45,10 @@ class License < ApplicationRecord
       pref = preference.gsub("%{latest}", "[0-9\\.]+$")
 
       # MySQL and Postgres differ in the way they query with regular expressions
-      where_clause = "identifier REGEXP ?" if ActiveRecord::Base.connection.adapter_name == "Mysql2"
-      where_clause = "identifier ~* ?" unless where.present?
+      mysql_db = ActiveRecord::Base.connection.adapter_name == "Mysql2"
+      where_clause = mysql_db ? "identifier REGEXP ?" : "identifier ~* ?"
+
+p "WHERE CLAUSE: #{where_clause}"
 
       rslts = preference.include?("%{latest}") ? where(where_clause, pref) : where(identifier: pref)
       rslts.order(:identifier).last
