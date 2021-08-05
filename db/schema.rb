@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_02_161120) do
+ActiveRecord::Schema.define(version: 2021_08_05_180215) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -377,7 +377,7 @@ ActiveRecord::Schema.define(version: 2021_08_02_161120) do
     t.index ["funder_id"], name: "index_plans_on_funder_id"
     t.index ["grant_id"], name: "index_plans_on_grant_id"
     t.index ["org_id"], name: "index_plans_on_org_id"
-    t.index ["research_domain_id"], name: "index_plans_on_fos_id"
+    t.index ["research_domain_id"], name: "index_plans_on_research_domain_id"
     t.index ["template_id"], name: "index_plans_on_template_id"
   end
 
@@ -453,27 +453,6 @@ ActiveRecord::Schema.define(version: 2021_08_02_161120) do
     t.integer "super_region_id"
   end
 
-  create_table "registry_orgs", force: :cascade do |t|
-    t.bigint "org_id"
-    t.string "ror_id"
-    t.string "fundref_id"
-    t.string "name"
-    t.string "home_page"
-    t.string "language"
-    t.json "types"
-    t.json "acronyms"
-    t.json "aliases"
-    t.json "country"
-    t.datetime "file_timestamp"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["file_timestamp"], name: "index_org_indices_on_file_timestamp"
-    t.index ["fundref_id"], name: "index_org_indices_on_fundref_id"
-    t.index ["name"], name: "index_org_indices_on_name"
-    t.index ["org_id"], name: "index_org_indices_on_org_id"
-    t.index ["ror_id"], name: "index_org_indices_on_ror_id"
-  end
-
   create_table "related_identifiers", force: :cascade do |t|
     t.bigint "identifier_scheme_id"
     t.integer "identifier_type", null: false
@@ -494,13 +473,12 @@ ActiveRecord::Schema.define(version: 2021_08_02_161120) do
     t.text "description", null: false
     t.string "homepage"
     t.string "contact"
-    t.string "uri", null: false
     t.json "info"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "uri", null: false
     t.index ["homepage"], name: "index_repositories_on_homepage"
     t.index ["name"], name: "index_repositories_on_name"
-    t.index ["uri"], name: "index_repositories_on_uri"
   end
 
   create_table "repositories_research_outputs", force: :cascade do |t|
@@ -712,7 +690,6 @@ ActiveRecord::Schema.define(version: 2021_08_02_161120) do
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
   add_foreign_key "conditions", "questions"
-  add_foreign_key "fos", "fos", column: "parent_id"
   add_foreign_key "guidance_groups", "orgs"
   add_foreign_key "guidances", "guidance_groups"
   add_foreign_key "notes", "answers"
@@ -736,7 +713,6 @@ ActiveRecord::Schema.define(version: 2021_08_02_161120) do
   add_foreign_key "questions", "question_formats"
   add_foreign_key "questions", "sections"
   add_foreign_key "research_domains", "research_domains", column: "parent_id"
-  add_foreign_key "research_outputs", "licenses"
   add_foreign_key "roles", "plans"
   add_foreign_key "roles", "users"
   add_foreign_key "sections", "phases"
