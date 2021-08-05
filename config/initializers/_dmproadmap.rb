@@ -204,6 +204,12 @@ module DMPRoadmap
     # ------------------------------------------------------------------------ #
     config.x.recaptcha.enabled = false
 
+    # --------------------------------------------------- #
+    # Machine Actionable / Networked DMP Features (maDMP) #
+    # --------------------------------------------------- #
+    config.x.madmp.enable_ethical_issues = false
+    config.x.madmp.enable_research_domain = false
+
   end
 
 end
