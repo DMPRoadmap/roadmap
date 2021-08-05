@@ -51,6 +51,8 @@ describe Plan do
 
     it { is_expected.to belong_to :org }
 
+    it { is_expected.to belong_to(:research_domain).optional }
+
     it { is_expected.to belong_to(:funder).optional }
 
     it { is_expected.to have_many :phases }
@@ -1733,6 +1735,34 @@ describe Plan do
           expect(@plan.send(:end_date_after_start_date)).to eql(true)
         end
       end
+    end
+  end
+
+  describe "#grant association sanity checks" do
+    let!(:plan) { create(:plan, :creator) }
+
+    it "allows a grant identifier to be associated" do
+      plan.grant = { value: build(:identifier, identifier_scheme: nil).value }
+      plan.save
+      expect(plan.grant.new_record?).to eql(false)
+    end
+    it "allows a grant identifier to be deleted" do
+      plan.grant = { value: build(:identifier, identifier_scheme: nil).value }
+      plan.save
+      plan.grant = { value: nil }
+      plan.save
+      expect(plan.grant).to eql(nil)
+      expect(Identifier.last).to eql(nil)
+    end
+    it "does not allow multiple grants on a single plan" do
+      plan.grant = { value: build(:identifier, identifier_scheme: nil).value }
+      plan.save
+      val = SecureRandom.uuid
+      plan.grant = { value: build(:identifier, identifier_scheme: nil, value: val).value }
+      plan.save
+      expect(plan.grant.new_record?).to eql(false)
+      expect(plan.grant.value).to eql(val)
+      expect(Identifier.all.length).to eql(1)
     end
   end
 

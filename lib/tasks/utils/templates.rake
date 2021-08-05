@@ -2,6 +2,7 @@
 
 # rubocop:disable Layout/LineLength, Metrics/BlockLength, Metrics/AbcSize
 namespace :templates do
+<<<<<<< HEAD
 
   desc "Initializes the dirty flag on templates"
   task set_dirty_flags: :environment do
@@ -89,6 +90,8 @@ namespace :templates do
     end
   end
 
+=======
+>>>>>>> roadmap-development
   desc "Repair Templates whose descendents have NIL versionable_id values"
   task fix_templates_with_nil_versionable_ids: :environment do
     p "Attempting to repair versionable_ids"
@@ -335,6 +338,9 @@ namespace :templates do
     end
     version
   end
+<<<<<<< HEAD
 
+=======
+>>>>>>> roadmap-development
 end
 # rubocop:enable Layout/LineLength, Metrics/BlockLength, Metrics/AbcSize

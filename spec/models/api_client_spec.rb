@@ -33,7 +33,7 @@ RSpec.describe ApiClient, type: :model do
   end
 
   context "Associations" do
-    it { is_expected.to belong_to(:org).optional }
+    it { is_expected.to belong_to(:user).optional }
     it { is_expected.to have_many(:subscriptions) }
   end
 

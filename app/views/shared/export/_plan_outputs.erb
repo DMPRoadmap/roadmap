@@ -1,6 +1,6 @@
 <%# locals: outputs %>
 
-<h1 class="break-before"><%= _("Planned Research Outputs") %></h1>
+<h1 style="page-break-before:always;"><%= _("Planned Research Outputs") %></h1>
 
 <% outputs.each do |output| %>
   <% presenter = ResearchOutputPresenter.new(research_output: output) %>

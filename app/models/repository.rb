@@ -4,24 +4,24 @@
 #
 # Table name: repositories
 #
-#  id          :bigint(8)        not null, primary key
-#  contact     :string(255)
-#  description :text(65535)      not null
+#  id          :bigint           not null, primary key
+#  contact     :string
+#  description :text             not null
 #  info        :json
-#  name        :string(255)      not null
-#  url         :string(255)
+#  name        :string           not null
+#  homepage    :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  uri         :string           not null
 #
 # Indexes
 #
-#  index_repositories_on_name  (name)
-#  index_repositories_on_url   (url)
+#  index_repositories_on_name     (name)
+#  index_repositories_on_homepage (homepage)
+#  index_repositories_on_uri      (uri)
 #
 
 class Repository < ApplicationRecord
-
-  include Identifiable
 
   # ================
   # = Associations =

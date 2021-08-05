@@ -98,8 +98,9 @@ RSpec.describe ResearchOutputPresenter do
       expect(presenter.display_type).to eql("")
     end
     it "returns the user's description if the output_type is other" do
-      presenter = described_class.new(research_output: build(:research_output, output_type: "other",
-                                                                               output_type_description: "foo"))
+      research_output = build(:research_output, output_type: "other",
+                                                output_type_description: "foo")
+      presenter = described_class.new(research_output: research_output)
       expect(presenter.display_type).to eql("foo")
     end
     it "returns the humanized version of the output_type" do
@@ -147,7 +148,8 @@ RSpec.describe ResearchOutputPresenter do
       expect(presenter.display_release).to eql("Unspecified")
     end
     it "returns a the release_date as a Date" do
-      presenter = described_class.new(research_output: build(:research_output, release_date: Time.now))
+      now = Time.now
+      presenter = described_class.new(research_output: build(:research_output, release_date: now))
       expect(presenter.display_release.is_a?(Date)).to eql(true)
     end
   end
@@ -160,8 +162,8 @@ RSpec.describe ResearchOutputPresenter do
       it "packages the subjects for a selectbox - [['Biology', '21 Biology']]" do
         sample = described_class.selectable_subjects.first
         expect(sample.length).to eql(2)
-        expect(sample[0].scan(/^[a-zA-Z\s\,]*$/).any?).to eql(true)
-        expect(sample[1].scan(/^[0-9]+\s[a-zA-Z\s\,]*$/).any?).to eql(true)
+        expect(sample[0].scan(/^[a-zA-Z\s,]*$/).any?).to eql(true)
+        expect(sample[1].scan(/^[0-9]+\s[a-zA-Z\s,]*$/).any?).to eql(true)
         expect(sample[1].ends_with?(sample[0])).to eql(true)
       end
     end
@@ -170,10 +172,10 @@ RSpec.describe ResearchOutputPresenter do
       it "returns repository types" do
         expect(described_class.selectable_repository_types.any?).to eql(true)
       end
-      it "packages the repository types for a selectbox - [['Discipline specific', 'disciplinary']]" do
+      it "packages the repo types for a selectbox - [['Discipline specific', 'disciplinary']]" do
         sample = described_class.selectable_repository_types.first
         expect(sample.length).to eql(2)
-        expect(sample[0].scan(/^[A-Z]{1}[a-z\s\(\)]*$/).any?).to eql(true)
+        expect(sample[0].scan(/^[A-Z]{1}[a-z\s()]*$/).any?).to eql(true)
         expect(sample[1].scan(/^[a-z]*$/).any?).to eql(true)
       end
     end

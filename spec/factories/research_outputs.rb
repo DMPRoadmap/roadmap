@@ -30,6 +30,7 @@
 #
 FactoryBot.define do
   factory :research_output do
+    license
     abbreviation            { Faker::Lorem.unique.word }
     access                  { ResearchOutput.accesses.keys.sample }
     byte_size               { Faker::Number.number }
@@ -50,7 +51,8 @@ FactoryBot.define do
 
     after(:create) do |research_output, evaluator|
       research_output.repositories = create_list(:repository, evaluator.repositories_count)
-      research_output.metadata_standards = create_list(:metadata_standard, evaluator.metadata_standards_count)
+      research_output.metadata_standards = create_list(:metadata_standard,
+                                                       evaluator.metadata_standards_count)
     end
   end
 end

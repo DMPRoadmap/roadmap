@@ -4,16 +4,15 @@
 #
 # Table name: metadata_standards
 #
-#  id                  :bigint(8)        not null, primary key
-#  description         :text(65535)
-#  discipline_specific :integer          default(0), not null
+#  id                  :bigint           not null, primary key
+#  description         :text
 #  locations           :json
 #  related_entities    :json
-#  title               :string(255)
-#  uri                 :string(255)
+#  title               :string
+#  uri                 :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
-#  rdamsc_id           :string(255)
+#  rdamsc_id           :string
 #
 class MetadataStandard < ApplicationRecord
 

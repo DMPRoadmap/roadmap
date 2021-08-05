@@ -1,3 +1,6 @@
+# Upgrade tasks for 3.x versions. See https://github.com/DMPRoadmap/roadmap/releases for information
+# on how and when to run each task.
+
 namespace :v3 do
 
   desc "Upgrade from v2.2.0 to v3.0.0"

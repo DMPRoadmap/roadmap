@@ -191,6 +191,8 @@ class PlansController < ApplicationController
                   Template.where(family_id: @plan.template.customization_of).first
                 end
 
+    @research_domains = ResearchDomain.all.order(:label)
+
     respond_to :html
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
@@ -454,7 +456,8 @@ class PlansController < ApplicationController
           .permit(:template_id, :title, :visibility, :description, :identifier,
                   :start_date, :end_date, :org_id, :org_name, :org_crosswalk,
                   :ethical_issues, :ethical_issues_description, :ethical_issues_report,
-                  :fos_id, :funding_status, grant: %i[name value],
+                  :research_domain_id, :funding_status,
+                  grant: %i[name value],
                   org: %i[id org_id org_name org_sources org_crosswalk],
                   funder: %i[id org_id org_name org_sources org_crosswalk])
   end

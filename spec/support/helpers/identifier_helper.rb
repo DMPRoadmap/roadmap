@@ -8,12 +8,15 @@ module IdentifierHelper
     create(:identifier, identifiable: user, identifier_scheme: scheme, value: val)
   end
 
+<<<<<<< HEAD
   def create_doi(plan:, val: SecureRandom.uuid)
     scheme = doi_scheme
     val = append_prefix(scheme: scheme, val: val)
     create(:identifier, identifiable: plan, identifier_scheme: scheme, value: val)
   end
 
+=======
+>>>>>>> roadmap-development
   def orcid_scheme
     name = Rails.configuration.x.orcid.name || "orcid"
     landing_page = Rails.configuration.x.orcid.landing_page_url || "https://orcid.org/"
@@ -21,6 +24,7 @@ module IdentifierHelper
     scheme.update(identifier_prefix: landing_page) if scheme.present?
     return scheme if scheme.present?
 
+<<<<<<< HEAD
     create(:identifier_scheme, :for_identification, :for_users, name: name, identifier_prefix: landing_page)
   end
 
@@ -32,6 +36,10 @@ module IdentifierHelper
     return scheme if scheme.present?
 
     create(:identifier_scheme, :for_identification, :for_users, name: name, identifier_prefix: landing_page)
+=======
+    create(:identifier_scheme, :for_identification, :for_users, name: name,
+                                                                identifier_prefix: landing_page)
+>>>>>>> roadmap-development
   end
 
   def append_prefix(scheme:, val:)
@@ -46,8 +54,17 @@ module IdentifierHelper
 
   def landing_page_for(scheme:)
     url = scheme.identifier_prefix
+<<<<<<< HEAD
     url = Rails.configuration.x.send(:"#{scheme.name.downcase}")&.landing_page_url unless url.present?
     url.present? ? (%w[/ : & ?].include?(url.last) ? url : "#{url}/") : nil
+=======
+    unless url.present?
+      url = Rails.configuration.x.send(:"#{scheme.name.downcase}")&.landing_page_url
+    end
+    return nil unless url.present?
+
+    %w[/ : & ?].include?(url.last) ? url : "#{url}/"
+>>>>>>> roadmap-development
   end
 
 end

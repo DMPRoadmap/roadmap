@@ -96,7 +96,8 @@ class PlanExportsController < ApplicationController
   end
 
   def show_json
-    json = render_to_string(partial: "/api/v2/plans/show", locals: { plan: @plan, client: current_user })
+    json = render_to_string(partial: "/api/v2/plans/show",
+                            locals: { plan: @plan, client: current_user })
     render json: "{\"dmp\":#{json}}"
   end
 
@@ -127,9 +128,10 @@ class PlanExportsController < ApplicationController
   end
 
   def export_params
-    params.require(:export).permit(:form, :project_details, :question_headings, :unanswered_questions,
-                                   :custom_sections, :research_outputs,
-                                   formatting: [:font_face, :font_size, margin: [:top, :right, :bottom, :left]])
+    params.require(:export)
+          .permit(:form, :project_details, :question_headings, :unanswered_questions,
+                  :custom_sections, :research_outputs,
+                  formatting: [:font_face, :font_size, margin: %i[top right bottom left]])
   end
 
 end

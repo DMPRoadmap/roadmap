@@ -27,7 +27,6 @@
         <% end %>
     </div>
   <% end %>
-  
   <div class="more-info more-info-<%= result.id %>">
     <%= link_to _("More info"), "#", class: "more-info-link" %>
 
@@ -36,7 +35,7 @@
       <dl>
         <dt><%= _("Repository URL") %></dt>
         <dd>
-          <%= link_to result.url, result.url, target: "_blank", class: "has-new-window-popup-info" %>
+          <%= link_to result.homepage, result.homepage, target: "_blank", class: "has-new-window-popup-info" %>
         </dd>
 
         <dt><%= _("Contact") %></dt>

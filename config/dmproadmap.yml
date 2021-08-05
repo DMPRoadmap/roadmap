@@ -289,30 +289,6 @@ default: &default
   # The links that appear on the home page. Add any number of links
   welcome_links: []
 
-  # ===================================
-  # = License selection configuration =
-  # ===================================
-
-  # Specify a list of the preferred licenses types. These licenses will appear in a select
-  # box on the 'Research Outputs' tab when editing a plan along with the option to select
-  # 'other'. When 'other' is selected, the user is presented with the full list of licenses.
-  #
-  # The licenses will appear in the order you specify here.
-  #
-  # Note that the values you enter must match the :identifier field of the licenses table.
-  # You can use the `%{latest}` markup in place of version numbers if desired.
-  preferred_licenses:
-    - "CC-BY-%{latest}"
-    - "CC-BY-SA-%{latest}"
-    - "CC-BY-NC-%{latest}"
-    - "CC-BY-NC-SA-%{latest}"
-    - "CC-BY-ND-%{latest}"
-    - "CC-BY-NC-ND-%{latest}"
-    - "CC0-%{latest}"
-  # Link to external guidance about selecting one of the preferred licenses. A default
-  # URL will be displayed if none is provided here. See app/views/research_outputs/licenses/_form
-  preferred_licenses_guidance_url: "https://creativecommons.org/about/cclicenses/"
-
   # =================
   # = Plan defaults =
   # =================
@@ -335,7 +311,50 @@ default: &default
   # regardless of the plans visibility and whether or not the plan has been shared
   plans_super_admins_read_all: true
 
-  # ============================
+  # ======================= #
+  # = maDMP functionality = #
+  # ======================= #
+
+  # Enable/disable functionality on the Project Details tab
+  enable_ethical_issues: true
+  enable_research_domain: true
+
+  # This flag will enable/disable the entire Research Outputs tab. The others below will
+  # just enable/disable specific functionality on the Research Outputs tab
+  enable_research_outputs: true
+  enable_license_selection: true
+  enable_metadata_standard_selection: true
+  enable_repository_selection: true
+
+  # The following flags will allow the system to include the question and answer in the JSON output
+  #   - questions with a theme equal to 'Preservation'
+  extract_preservation_statements_from_themed_questions: true
+  #   - questions with a theme equal to 'Data Collection'
+  extract_data_quality_statements_from_themed_questions: true
+  #   - questions with a theme equal to 'Ethics & privacy' or 'Storage & security'
+  extract_security_privacy_statements_from_themed_questions: true
+
+  # Specify a list of the preferred licenses types. These licenses will appear in a select
+  # box on the 'Research Outputs' tab when editing a plan along with the option to select
+  # 'other'. When 'other' is selected, the user is presented with the full list of licenses.
+  #
+  # The licenses will appear in the order you specify here.
+  #
+  # Note that the values you enter must match the :identifier field of the licenses table.
+  # You can use the `%{latest}` markup in place of version numbers if desired.
+  preferred_licenses:
+    - "CC-BY-%{latest}"
+    - "CC-BY-SA-%{latest}"
+    - "CC-BY-NC-%{latest}"
+    - "CC-BY-NC-SA-%{latest}"
+    - "CC-BY-ND-%{latest}"
+    - "CC-BY-NC-ND-%{latest}"
+    - "CC0-%{latest}"
+
+  # Link to external guidance about selecting one of the preferred licenses. A default
+  # URL will be displayed if none is provided here. See app/views/research_outputs/licenses/_form
+  preferred_licenses_guidance_url: "https://creativecommons.org/about/cclicenses/"
+
   # = User preference defaults =
   # ============================
 
