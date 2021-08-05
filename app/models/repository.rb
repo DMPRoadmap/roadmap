@@ -16,9 +16,9 @@
 #
 # Indexes
 #
-#  index_repositories_on_name  (name)
-#  index_repositories_on_url   (homepage)
-#  index_repositories_on_url   (uri)
+#  index_repositories_on_name     (name)
+#  index_repositories_on_homepage (homepage)
+#  index_repositories_on_uri      (uri)
 #
 
 class Repository < ApplicationRecord

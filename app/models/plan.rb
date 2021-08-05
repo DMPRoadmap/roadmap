@@ -111,13 +111,13 @@ class Plan < ApplicationRecord
 
   has_and_belongs_to_many :guidance_groups, join_table: :plans_guidance_groups
 
-  has_many :exported_plans
+  has_many :exported_plans, dependent: :destroy
 
   has_many :contributors, dependent: :destroy
 
   has_one :grant, as: :identifiable, dependent: :destroy, class_name: "Identifier"
 
-  has_many :research_outputs
+  has_many :research_outputs, dependent: :destroy
 
   # =====================
   # = Nested Attributes =
