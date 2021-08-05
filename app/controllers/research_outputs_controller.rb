@@ -86,11 +86,6 @@ class ResearchOutputsController < ApplicationController
     @research_output = ResearchOutput.new(
       plan: @plan, output_type: output_params[:output_type]
     )
-
-    p "SELECTED #{params[:id]} -- #{output_params.inspect}"
-    pp @plan.inspect
-    pp @research_output.inspect
-
     authorize @research_output
   end
 
