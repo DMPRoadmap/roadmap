@@ -213,18 +213,18 @@ module DMPRoadmap
 
     # This flag will enable/disable the entire Research Outputs tab. The others below will
     # just enable/disable specific functionality on the Research Outputs tab
-    config.x.madmp.enable_research_outputs = true
-    config.x.madmp.enable_license_selection = true
-    config.x.madmp.enable_metadata_standard_selection = true
-    config.x.madmp.enable_repository_selection = true
+    config.x.madmp.enable_research_outputs = false
+    config.x.madmp.enable_license_selection = false
+    config.x.madmp.enable_metadata_standard_selection = false
+    config.x.madmp.enable_repository_selection = false
 
     # The following flags will allow the system to include the question and answer in the JSON output
     #   - questions with a theme equal to 'Preservation'
-    config.x.madmp.extract_preservation_statements_from_themed_questions = true
+    config.x.madmp.extract_preservation_statements_from_themed_questions = false
     #   - questions with a theme equal to 'Data Collection'
-    config.x.madmp.extract_data_quality_statements_from_themed_questions = true
+    config.x.madmp.extract_data_quality_statements_from_themed_questions = false
     #   - questions with a theme equal to 'Ethics & privacy' or 'Storage & security'
-    config.x.madmp.extract_security_privacy_statements_from_themed_questions = true
+    config.x.madmp.extract_security_privacy_statements_from_themed_questions = false
 
     # Specify a list of the preferred licenses types. These licenses will appear in a select
     # box on the 'Research Outputs' tab when editing a plan along with the option to select
