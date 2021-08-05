@@ -48,8 +48,6 @@ class License < ApplicationRecord
       mysql_db = ActiveRecord::Base.connection.adapter_name == "Mysql2"
       where_clause = mysql_db ? "identifier REGEXP ?" : "identifier ~* ?"
 
-p "WHERE CLAUSE: #{where_clause}"
-
       rslts = preference.include?("%{latest}") ? where(where_clause, pref) : where(identifier: pref)
       rslts.order(:identifier).last
     end
