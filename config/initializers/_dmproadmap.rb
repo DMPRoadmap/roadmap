@@ -225,7 +225,6 @@ module DMPRoadmap
     # Note that the values you enter must match the :identifier field of the licenses table.
     # You can use the `%{latest}` markup in place of version numbers if desired.
     config.x.madmp.preferred_licenses = Rails.configuration.x.dmproadmap.preferred_licenses
-    ]
     # Link to external guidance about selecting one of the preferred licenses. A default
     # URL will be displayed if none is provided here. See app/views/research_outputs/licenses/_form
     config.x.madmp.preferred_licenses_guidance_url = Rails.configuration.x.dmproadmap.preferred_licenses_guidance_url
