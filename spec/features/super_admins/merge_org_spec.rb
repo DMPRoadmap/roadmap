@@ -25,7 +25,7 @@ RSpec.describe "SuperAdmins Merge Orgs", type: :feature, js: true do
     @to_org = create(:org, :institution, plans: 2, managed: false)
 
     @user = create(:user, :super_admin, org: create(:org))
-    sign_in(@user)
+    sign_in_as_user(@user)
   end
 
   scenario "Super admin merges an Org into another Org" do

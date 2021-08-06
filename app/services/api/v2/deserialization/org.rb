@@ -33,7 +33,13 @@ module Api
 
             # Try to find the Org by name
             org = find_by_name(json: json)
-            return org if org.present?
+
+p "CMON!"
+pp org.inspect
+
+            return org if org.present? && !org.new_record?
+
+pp id_json
 
             # Org model requires a language so just use the default for now
             org.language = Language.default
@@ -56,6 +62,7 @@ module Api
             return nil unless json.present? && json[:name].present?
 
             name = json[:name]
+
             # Search the DB
             org = ::Org.where("LOWER(name) = ?", name.downcase).first
             return org if org.present?

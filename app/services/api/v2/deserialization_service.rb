@@ -29,10 +29,14 @@ module Api
                                json.present? &&
                                json[:type].present? && json[:identifier].present?
 
+pp json
+
           existing = object.identifiers.select do |id|
             id.identifier_scheme&.name&.downcase == json[:type].downcase
           end
           return object if existing.present?
+
+p "HERE"
 
           object.identifiers << Api::V2::Deserialization::Identifier.deserialize(
             class_name: object.class.name, json: json

@@ -103,8 +103,8 @@ module Api
               else
                 # For URL based identifiers
                 begin
-                  plan = ::Plan.find_by(id: id.split("/").last.to_i) if id.start_with("http")
-                rescue StandardError
+                  plan = ::Plan.find_by(id: id.split("/").last.to_i) if id.start_with?("http")
+                rescue StandardError => e
                   # Catches scenarios where the dmp_id is NOT one of our URLs
                   plan = nil
                 end
@@ -154,6 +154,20 @@ module Api
             Api::V2::Deserialization::Funding.deserialize(plan: plan, json: funding)
           end
           # rubocop:enable
+
+          # Deserialize the contact as a Contributor
+          def deserialize_contact(plan:, json: {})
+            return plan unless json.present? && json[:contact].present?
+
+            contact = Api::V1::Deserialization::Contributor.deserialize(
+              json: json[:contact], is_contact: true
+            )
+            return plan unless contact.present?
+
+            plan.contributors << contact
+            plan.org = contact.org
+            plan
+          end
 
           # Deserialize each Contributor and then add to Plan
           def deserialize_contributors(plan:, json: {})

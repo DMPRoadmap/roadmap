@@ -27,7 +27,7 @@ RSpec.describe "Sign in via email and password", type: :feature do
     # -------------------------------------------------------------
     # Action
     #click_link "Sign in"
-    access_sign_in_modal
+    # access_sign_in_modal
     # -------------------------------------------------------------
     # end DMPTool customization
     # -------------------------------------------------------------

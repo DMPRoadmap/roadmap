@@ -195,17 +195,6 @@ Rails.application.routes.draw do
       post "set_test", constraints: { format: [:json] }
       get "mint"
       get "add_orcid_work"
-
-      # Ajax endpoint for ResearchOutput.output_type selection
-      get "output_type_selection", controller: "research_outputs", action: "select_output_type"
-
-      # Ajax endpoint for ResearchOutput.license_id selection
-      get "license_selection", controller: "research_outputs", action: "select_license"
-
-      # AJAX endpoints for repository search and selection
-      get :repository_search, controller: "research_outputs"
-      # AJAX endpoints for metadata standards search and selection
-      get :metadata_standard_search, controller: "research_outputs"
     end
 
     # Ajax endpoint for ResearchOutput.output_type selection

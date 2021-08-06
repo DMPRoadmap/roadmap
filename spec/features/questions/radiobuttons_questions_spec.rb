@@ -18,7 +18,7 @@ RSpec.describe "Questions::Tadio button questions" do
     create(:role, :creator, :editor, :commenter, user: @user, plan: @plan)
 
     stub_openaire
-    sign_in(@user)
+    sign_in_as_user(@user)
   end
 
   scenario "User answers a radio button question", :js do

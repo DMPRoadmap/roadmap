@@ -11,9 +11,9 @@ RSpec.feature "ModalSearchDialog", type: :feature do
 
     @model = create(:repository)
     @template = create(:template)
-    @plan = create(:plan, :creator, org: create(:org), template: @template)
+    @plan = create(:plan, :creator, template: @template)
     @user  = @plan.owner
-    sign_in(@user)
+    sign_in_as_user(@user)
 
     click_link @plan.title
     click_link "Research Outputs"

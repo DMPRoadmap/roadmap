@@ -95,11 +95,7 @@ RSpec.describe Api::V2::Deserialization::Plan do
         }
       ],
       dmp_id: { type: "doi", identifier: @identifier.value },
-      extension: [
-        "#{@app_name}": {
-          template: { id: @template.id, title: @template.title }
-        }
-      ]
+      dmproadmap_template: { id: @template.id, title: @template.title }
     }
 
     # We need to ensure that the deserializer on Funding is called, but
@@ -226,29 +222,6 @@ RSpec.describe Api::V2::Deserialization::Plan do
       end
     end
 
-    describe "#deserialize_contact(plan:, json:)" do
-      it "returns the Plan as-is if json is not present" do
-        result = described_class.send(:deserialize_contact, plan: @plan, json: nil)
-        expect(result).to eql(@plan)
-        expect(result.contributors.length).to eql(0)
-      end
-      it "returns the Plan as-is if json :contact is not present" do
-        @json[:contact] = nil
-        result = described_class.send(:deserialize_contact, plan: @plan, json: @json)
-        expect(result).to eql(@plan)
-        expect(result.contributors.length).to eql(0)
-      end
-      it "calls the Contributor.deserialize! for the contact entry" do
-        Api::V2::Deserialization::Contributor.expects(:deserialize).at_least(1)
-        described_class.send(:deserialize_contact, plan: @plan, json: @json)
-      end
-      it "attaches the Contact to the Plan's contributors" do
-        result = described_class.send(:deserialize_contact, plan: @plan, json: @json)
-        expect(result.contributors.length).to eql(1)
-        expect(result.contributors.first.name).to eql(@json[:contact][:name])
-      end
-    end
-
     describe "#deserialize_contributors(plan:, json:)" do
       it "calls the Contributor.deserialize for each contributor entry" do
         Api::V2::Deserialization::Contributor.expects(:deserialize).at_least(2)
@@ -273,29 +246,6 @@ RSpec.describe Api::V2::Deserialization::Plan do
       end
       it "returns the specified template" do
         expect(described_class.send(:find_template, json: @json)).to eql(@template)
-      end
-    end
-
-    describe "template_id(json:)" do
-      it "returns nil if json not present" do
-        expect(described_class.send(:template_id, json: nil)).to eql(nil)
-      end
-      it "returns nil if extensions for the app were not found" do
-        Api::V2::DeserializationService.stubs(:app_extensions).returns({})
-        expect(described_class.send(:template_id, json: @json)).to eql(nil)
-      end
-      it "returns nil if the extensions have no template info" do
-        expected = { foo: { title: Faker::Lorem.sentence } }
-        Api::V2::DeserializationService.stubs(:app_extensions).returns(expected)
-        expect(described_class.send(:template_id, json: @json)).to eql(nil)
-      end
-      it "returns nil if the extensions have no id for the template info" do
-        expected = { template: { title: Faker::Lorem.sentence } }
-        Api::V2::DeserializationService.stubs(:app_extensions).returns(expected)
-        expect(described_class.send(:template_id, json: @json)).to eql(nil)
-      end
-      it "returns the template id" do
-        expect(described_class.send(:template_id, json: @json)).to eql(@template.id)
       end
     end
 

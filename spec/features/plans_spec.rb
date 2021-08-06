@@ -12,7 +12,7 @@ RSpec.describe "Plans", type: :feature do
     @funding_org  = create(:org, :funder, templates: 1)
     @template     = create(:template, org: @org)
     @user         = create(:user, org: @org)
-    sign_in(@user)
+    sign_in_as_user(@user)
 
     #     OpenURI.expects(:open_uri).returns(<<~XML
     #       <form-value-pairs>

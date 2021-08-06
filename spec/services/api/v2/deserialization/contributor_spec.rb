@@ -161,7 +161,7 @@ RSpec.describe Api::V2::Deserialization::Contributor do
         expect(result.selected_roles).to eql(@contributor.selected_roles)
       end
       it "calls the translate_role" do
-        Api::V1::DeserializationService.expects(:translate_role).at_least(1)
+        Api::V2::DeserializationService.expects(:translate_role).at_least(1)
         described_class.send(:assign_roles, contributor: @contributor, json: @json)
       end
       it "assigns the roles" do

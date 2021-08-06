@@ -10,7 +10,7 @@ RSpec.describe "SuperAdmins OrgSwaps", type: :feature, js: true do
 
   scenario "Org admin attempts to change to new org" do
     @user = create(:user, :org_admin, org: @org1)
-    sign_in(@user)
+    sign_in_as_user(@user)
     click_link "Admin"
     click_link "Templates"
     expect(page).not_to have_text("Change affiliation")
@@ -18,7 +18,7 @@ RSpec.describe "SuperAdmins OrgSwaps", type: :feature, js: true do
 
   scenario "Super admin changes to new org" do
     @user = create(:user, :super_admin, org: @org1)
-    sign_in(@user)
+    sign_in_as_user(@user)
     click_link "Admin"
     click_link "Templates"
     find("#superadmin_user_org_name").click

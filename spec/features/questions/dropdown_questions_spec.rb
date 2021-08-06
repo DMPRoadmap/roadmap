@@ -20,7 +20,7 @@ RSpec.describe "Questions::Dropdown questions" do
     create(:role, :creator, :editor, :commenter, user: @user, plan: @plan)
 
     stub_openaire
-    sign_in(@user)
+    sign_in_as_user(@user)
   end
 
   scenario "User answers a dropdown select question", :js do
