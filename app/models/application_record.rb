@@ -7,5 +7,4 @@ class ApplicationRecord < ActiveRecord::Base
   include ValidationMessages
 
   self.abstract_class = true
-
 end

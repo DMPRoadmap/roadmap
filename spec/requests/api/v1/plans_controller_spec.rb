@@ -48,7 +48,7 @@ RSpec.describe Api::V1::PlansController, type: :request do
 
       context "minimal JSON" do
         before(:each) do
-          @json = JSON.parse(minimal_create_json).with_indifferent_access
+          @json = { items: [JSON.parse(minimal_create_json)] }.with_indifferent_access
         end
 
         it "returns a 400 if the incoming JSON is invalid" do
@@ -57,15 +57,14 @@ RSpec.describe Api::V1::PlansController, type: :request do
           expect(response).to render_template("api/v1/error")
         end
         it "returns a 400 if the incoming DMP is invalid" do
-          create(:plan, api_client_id: ApiClient.first.id)
+          create(:plan)
           @json[:items].first[:dmp][:title] = ""
           post api_v1_plans_path, params: @json.to_json
           expect(response.code).to eql("400")
           expect(response).to render_template("api/v1/error")
         end
         it "returns a 400 if the plan already exists" do
-          plan = create(:plan, created_at: (Time.now - 3.days),
-                               api_client_id: ApiClient.first.id)
+          plan = create(:plan, created_at: (Time.now - 3.days))
           @json[:items].first[:dmp][:dmp_id] = {
             type: "url",
             identifier: Rails.application.routes.url_helpers.api_v1_plan_url(plan)
@@ -85,21 +84,6 @@ RSpec.describe Api::V1::PlansController, type: :request do
           post api_v1_plans_path, params: @json.to_json
           expect(response.code).to eql("201")
           expect(response).to render_template("api/v1/plans/index")
-        end
-
-        it "defaults to api_client.org when no Contact affiliation defined" do
-          @client = ApiClient.first
-          @client.update(org: create(:org))
-          @client.reload
-          mock_authorization_for_api_client
-
-          @json[:items].first[:dmp][:contact].delete(:affiliation)
-          post api_v1_plans_path, params: @json.to_json
-
-          expect(response.code).to eql("201")
-          expect(response).to render_template("api/v1/plans/index")
-          @plan = Plan.last
-          expect(@plan.org).to eql(@client.org)
         end
 
         context "plan inspection" do
@@ -137,7 +121,7 @@ RSpec.describe Api::V1::PlansController, type: :request do
 
       context "complete JSON" do
         before(:each) do
-          @json = JSON.parse(complete_create_json).with_indifferent_access
+          @json = { items: [JSON.parse(complete_create_json)] }.with_indifferent_access
         end
 
         it "returns a 201 if the incoming JSON is valid" do
@@ -339,7 +323,7 @@ RSpec.describe Api::V1::PlansController, type: :request do
   end
 
   context "User" do
-    describe "GET /api/v1/plan/:id - show" do
+    describe "GET /api/v1/plans/:id - show" do
       it "returns the plan if the user owns it" do
         plan = create(:plan, :creator, :organisationally_visible)
         mock_authorization_for_user(user: plan.owner)

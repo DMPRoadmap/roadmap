@@ -22,14 +22,14 @@ RSpec.describe Api::V2::Deserialization::Org do
   describe "#deserialize(json: {})" do
     before(:each) do
       described_class.stubs(:find_by_name).returns(@org)
-      Api::V1::DeserializationService.stubs(:object_from_identifier).returns(nil)
+      Api::V2::DeserializationService.stubs(:object_from_identifier).returns(nil)
     end
 
     it "returns nil if json is not valid" do
       expect(described_class.deserialize(json: nil)).to eql(nil)
     end
     it "returns the Org if found by :object_from_identifier" do
-      Api::V1::DeserializationService.stubs(:object_from_identifier).returns(@org)
+      Api::V2::DeserializationService.stubs(:object_from_identifier).returns(@org)
       result = described_class.deserialize(json: @json)
       expect(result).to eql(@org)
     end

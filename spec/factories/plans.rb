@@ -57,7 +57,9 @@ FactoryBot.define do
     end
     trait :creator do
       after(:create) do |obj|
-        obj.roles << create(:role, :creator, user: create(:user, org: create(:org)))
+        owner = create(:user, org: create(:org))
+        obj.roles << create(:role, :creator, user: owner)
+        obj.update(org: owner.org)
       end
     end
     trait :commenter do

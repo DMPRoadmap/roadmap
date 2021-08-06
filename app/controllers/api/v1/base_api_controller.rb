@@ -44,10 +44,16 @@ module Api
       # CALLBACKS
       # ==========================
       def authorize_request
+
+p "BOOM"
+
         auth_svc = Api::V1::Auth::Jwt::AuthorizationService.new(
           headers: request.headers
         )
         @client = auth_svc.call
+
+pp @client.inspect
+
         log_access if @client.present?
         return true if @client.present?
 

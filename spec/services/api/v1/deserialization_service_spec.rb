@@ -107,7 +107,7 @@ RSpec.describe Api::V1::DeserializationService do
       expect(described_class.send(:translate_role, role: nil)).to eql(@default)
     end
     it "returns the default role if role is not a valid/defined role" do
-      result = described_class.send(:translate_role, role: "foo")
+      result = described_class.send(:translate_role, role: Faker::Lorem.word)
       expect(result).to eql(@default)
     end
     it "returns the role (when it includes the ONTOLOGY_BASE_URL)" do
