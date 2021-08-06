@@ -23,6 +23,11 @@
 
 class Repository < ApplicationRecord
 
+  def self.make_query(field:, value:)
+    mysql_db = ActiveRecord::Base.connection.adapter_name == "Mysql2"
+    mysql_db ? %(info->>'$.types' LIKE  '%\"#{value}\"%') : %(info->>'#{field}' LIKE '%\"#{value}\"%')
+  end
+
   # ================
   # = Associations =
   # ================
@@ -34,23 +39,22 @@ class Repository < ApplicationRecord
   # ==========
 
   scope :by_type, lambda { |type|
-    query_val = type.present? ? "%\"#{type}\"%" : "%"
-    where("info->>'$.types' LIKE ?", query_val)
+    where(make_query(field: 'types', value: type))
   }
 
   scope :by_subject, lambda { |subject|
-    query_val = subject.present? ? "%\"#{subject}\"%" : "%"
-    where("info->>'$.subjects' LIKE ?", query_val)
+    where(make_query(field: 'subjects', value: subject))
   }
 
   scope :search, lambda { |term|
     where("LOWER(name) LIKE ?", "%#{term}%")
-      .or(where("info->>'$.keywords' LIKE ?", "%#{term}%"))
+      .or(where(make_query(field: 'keywords', value: term)))
   }
 
   # A very specific keyword search (e.g. 'gene', 'DNA', etc.)
   scope :by_facet, lambda { |facet|
-    where("info->>'$.keywords' LIKE ?", "%\"#{facet}\"%")
+    #where("info->>'$.keywords' LIKE ?", "%\"#{facet}\"%")
+    where(make_query(field: 'subjects', value: facet))
   }
 
 end
