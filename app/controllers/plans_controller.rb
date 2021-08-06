@@ -61,7 +61,7 @@ class PlansController < ApplicationController
     authorize @plan
 
     # If the template_id is blank then we need to look up the available templates and
-    # return JSON
+    # return JSONs
     if plan_params[:template_id].blank?
       # Something went wrong there should always be a template id
       respond_to do |format|
@@ -244,7 +244,7 @@ class PlansController < ApplicationController
       # TODO: For some reason the `fields_for` isn't adding the
       #       appropriate namespace, so org_id represents our funder
       funder = org_from_params(params_in: attrs, allow_create: true)
-      @plan.funder_id = funder.present? ? funder.id : nil
+      @plan.funder_id = funder&.id
       @plan.grant = plan_params[:grant]
       attrs.delete(:grant)
       attrs = remove_org_selection_params(params_in: attrs)

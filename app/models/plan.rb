@@ -18,6 +18,7 @@
 #  updated_at                        :datetime
 #  funder_id                         :integer
 #  grant_id                          :integer
+#  api_client_id                     :integer
 #  research_domain_id                :bigint
 #  funding_status                    :integer
 #  ethical_issues                    :boolean
@@ -34,6 +35,7 @@
 # Foreign Keys
 #
 #  fk_rails_...  (org_id => orgs.id)
+#  fk_rails_...  (api_client_id => api_clients.id)
 #  fk_rails_...  (research_domain_id => research_domains.id)
 #
 
@@ -80,6 +82,8 @@ class Plan < ApplicationRecord
   belongs_to :org
 
   belongs_to :funder, class_name: "Org", optional: true
+
+  belongs_to :api_client, optional: true
 
   belongs_to :research_domain, optional: true
 

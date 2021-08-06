@@ -82,7 +82,7 @@ class ResearchOutputsController < ApplicationController
 
   # GET  /plans/:id/output_type_selection
   def select_output_type
-    @plan = Plan.find_by(id: params[:id])
+    @plan = Plan.find_by(id: params[:plan_id])
     @research_output = ResearchOutput.new(
       plan: @plan, output_type: output_params[:output_type]
     )

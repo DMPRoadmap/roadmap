@@ -43,11 +43,7 @@ class License < ApplicationRecord
     licenses = preferences.map do |preference|
       # If `%{latest}` was specified then grab the most current version
       pref = preference.gsub("%{latest}", "[0-9\\.]+$")
-
-      # MySQL and Postgres differ in the way they query with regular expressions
-      mysql_db = ActiveRecord::Base.connection.adapter_name == "Mysql2"
-      where_clause = mysql_db ? "identifier REGEXP ?" : "identifier ~* ?"
-
+      where_clause = safe_regexp_where_clause(column: "identifier")
       rslts = preference.include?("%{latest}") ? where(where_clause, pref) : where(identifier: pref)
       rslts.order(:identifier).last
     end
