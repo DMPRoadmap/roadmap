@@ -67,11 +67,7 @@ module Api
               registry_org = RegistryOrg.where("LOWER(name) = ?", name.downcase).first
 
               # If managed_only make sure the org is managed!
-              return org_from_registry_org(registry_org: registry_org) if registry_org.present?
-                (registry_org.nil? || registry_org&.org&.nil? || !registry_org&.org&.managed?)
-
-              # Convert the RegistryOrg to an Org, save it and then update the RegistryOrg if its ok
-              org = create_org_from_registry_org!(registry_org: registry_org)
+              org = org_from_registry_org(registry_org: registry_org) if registry_org.present?
             end
             return org
           end
@@ -82,6 +78,8 @@ module Api
             return registry_org.org if registry_org.org_id.present?
 
             org = registry_org.to_org
+            return nil unless org.present?
+
             org.save
 
             # Attach the identifiers
