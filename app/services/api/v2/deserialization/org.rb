@@ -33,13 +33,7 @@ module Api
 
             # Try to find the Org by name
             org = find_by_name(json: json)
-
-p "CMON!"
-pp org.inspect
-
             return org if org.present? && !org.new_record?
-
-pp id_json
 
             # Org model requires a language so just use the default for now
             org.language = Language.default
@@ -67,18 +61,43 @@ pp id_json
             org = ::Org.where("LOWER(name) = ?", name.downcase).first
             return org if org.present?
 
-            # External ROR search
-            results = OrgSelection::SearchService.search_externally(
-              search_term: name
-            )
+            # Skip if restrict_orgs is set to true!
+            if !Rails.configuration.x.application.restrict_orgs
+              # fetch from the ror table
+              registry_org = RegistryOrg.where("LOWER(name) = ?", name.downcase).first
 
-            # Grab the closest match - only caring about results that 'contain'
-            # the name with preference to those that start with the name
-            result = results.select { |r| %i[0 1].include?(r[:weight]) }.first
+              # If managed_only make sure the org is managed!
+              return org_from_registry_org(registry_org: registry_org) if registry_org.present?
+                (registry_org.nil? || registry_org&.org&.nil? || !registry_org&.org&.managed?)
 
-            # If no good result was found just use the specified name
-            result ||= { name: name }
-            OrgSelection::HashToOrgService.to_org(hash: result)
+              # Convert the RegistryOrg to an Org, save it and then update the RegistryOrg if its ok
+              org = create_org_from_registry_org!(registry_org: registry_org)
+            end
+            return org
+          end
+
+          # Create a new Org from the RegistryOrg entry
+          def org_from_registry_org!(registry_org:)
+            return nil unless registry_org.is_a?(RegistryOrg)
+            return registry_org.org if registry_org.org_id.present?
+
+            org = registry_org.to_org
+            org.save
+
+            # Attach the identifiers
+            %w[fundref ror].each do |scheme_name|
+              value = registry_org.send(:"#{scheme_name}_id")
+              next unless value.present?
+
+              scheme = IdentifierScheme.by_name(scheme_name).first
+              next unless scheme.present?
+
+              Identifier.find_or_create_by(identifier_scheme: scheme, identifiable: org, value: value)
+            end
+
+            # Update the original RegistryOrg with the new org's association
+            registry_org.update(org_id: org.id)
+            org.reload
           end
 
         end
