@@ -159,7 +159,7 @@ module Api
           def deserialize_contact(plan:, json: {})
             return plan unless json.present? && json[:contact].present?
 
-            contact = Api::V1::Deserialization::Contributor.deserialize(
+            contact = Api::V2::Deserialization::Contributor.deserialize(
               json: json[:contact], is_contact: true
             )
             return plan unless contact.present?

@@ -78,9 +78,9 @@ class ApiClient < ApplicationRecord
                             email: { allow_nil: false }
 
   validates_property :format, of: :logo, in: LOGO_FORMATS,
-                      message: _("must be one of the following formats: %{formats}") % {
-                        formats: LOGO_FORMATS.join(", ")
-                      }
+                              message: _("must be one of the following formats: %{formats}") % {
+                                formats: LOGO_FORMATS.join(", ")
+                              }
 
   validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
 
@@ -119,7 +119,7 @@ class ApiClient < ApplicationRecord
 
   # Returns the scopes defined in the Doorkeeper config
   def available_scopes
-    (Doorkeeper.config.default_scopes.to_a << Doorkeeper.config.optional_scopes.to_a).flatten.uniq
+    (default_scopes << Doorkeeper.config.optional_scopes.to_a).flatten.uniq
   end
 
   # Shortcut to fetch all of the plans the client subscribes to
@@ -127,11 +127,16 @@ class ApiClient < ApplicationRecord
     subscriptions.map(&:plan)
   end
 
+  # Returns the default scopes as defined in the Doorkeeper config
+  def default_scopes
+    Doorkeeper.config.default_scopes.to_a
+  end
+
   private
 
   # Set the scopes
   def ensure_scopes
-    self.scopes = Doorkeeper.config.default_scopes.to_a.sort { |a, b| a <=> b }.join(" ")
+    self.scopes = default_scopes.sort { |a, b| a <=> b }.join(" ") unless scopes.present?
   end
 
 end

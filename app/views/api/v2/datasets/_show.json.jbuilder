@@ -3,7 +3,7 @@
 # locals: output
 
 if output.is_a?(ResearchOutput)
-  presenter = Api::V1::ResearchOutputPresenter.new(output: output)
+  presenter = Api::V2::ResearchOutputPresenter.new(output: output)
 
   json.type output.output_type
   json.title output.title

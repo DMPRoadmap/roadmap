@@ -31,7 +31,7 @@ module Api
         unless errs.any?
           ResearchOutput.transaction do
             datasets.each do |dataset_json|
-              object = Api::V1::Deserialization::Dataset.deserialize(plan: @plan, json: dataset_json)
+              object = Api::V2::Deserialization::Dataset.deserialize(plan: @plan, json: dataset_json)
               # This is a create endpoint so only allow inserts!
               next unless object.new_record?
 

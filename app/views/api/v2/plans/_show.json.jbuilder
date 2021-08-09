@@ -19,7 +19,7 @@ json.created plan.created_at.to_formatted_s(:iso8601)
 json.modified plan.updated_at.to_formatted_s(:iso8601)
 
 # TODO: Update this to pull from the appropriate question once the work is complete
-json.ethical_issues_exist Api::V1::ConversionService.boolean_to_yes_no_unknown(plan.ethical_issues)
+json.ethical_issues_exist Api::V2::ConversionService.boolean_to_yes_no_unknown(plan.ethical_issues)
 json.ethical_issues_description plan.ethical_issues_description
 json.ethical_issues_report plan.ethical_issues_report
 
