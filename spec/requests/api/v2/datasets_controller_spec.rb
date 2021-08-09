@@ -4,14 +4,17 @@ require "rails_helper"
 
 RSpec.describe Api::V2::DatasetsController, type: :request do
 
-  include Api::AccessTokenRequestHelper
-  include Api::AuthorizationRequestHelper
-  include Api::RequestSpecHelper
+  include ApiHelper
+  # include Api::AccessTokenRequestHelper
+  # include Api::AuthorizationRequestHelper
+  # include Api::RequestSpecHelper
 
   before(:each) do
+    mock_authorization_for_api_client
+
     @plan = create(:plan, :creator)
-    client_is_authorized(create(:api_client), @plan.owner, { scopes: "create_dmps" })
-    i_am_logged_in
+    # client_is_authorized(create(:api_client), @plan.owner, { scopes: "create_dmps" })
+    # i_am_logged_in
     resource_owner_is_authenticated(@plan.owner)
   end
 
