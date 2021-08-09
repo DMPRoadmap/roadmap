@@ -13,15 +13,15 @@ RSpec.describe Api::V1::FundingPresenter do
       expect(described_class.status(plan: plan)).to eql("planned")
     end
     it "returns `granted` if the :funding_status is 'funded'" do
-      plan = build(:plan, funding_status: 'funded')
+      plan = build(:plan, funding_status: "funded")
       expect(described_class.status(plan: plan)).to eql("granted")
     end
     it "returns `rejected` if the :funding_status is 'denied'" do
-      plan = build(:plan, funding_status: 'denied')
+      plan = build(:plan, funding_status: "denied")
       expect(described_class.status(plan: plan)).to eql("rejected")
     end
     it "returns `planned` if the :funding_status is 'planned'" do
-      plan = build(:plan, funding_status: 'planned')
+      plan = build(:plan, funding_status: "planned")
       expect(described_class.status(plan: plan)).to eql("planned")
     end
   end
