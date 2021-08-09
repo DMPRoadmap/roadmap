@@ -34,6 +34,7 @@ module Api
             # Try to find the Org by name
             org = find_by_name(json: json)
             return org if org.present? && !org.new_record?
+            return nil unless org.present?
 
             # Org model requires a language so just use the default for now
             org.language = Language.default
