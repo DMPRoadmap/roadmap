@@ -29,9 +29,9 @@ describe Repository do
 
   context "scopes" do
     before(:each) do
-      @types = ["Armadillo", "Barracuda"]
-      @subjects = ["Capybara", "Dingo"]
-      @keywords = ["Elephant", "Falcon"]
+      @types = %w[Armadillo Barracuda]
+      @subjects = %w[Capybara Dingo]
+      @keywords = %w[Elephant Falcon]
 
       @never_found = create(:repository, name: "foo", info: { types: [@types.last],
                                                               subjects: [@subjects.last],
