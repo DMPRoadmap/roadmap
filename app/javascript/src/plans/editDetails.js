@@ -1,7 +1,6 @@
 import { Tinymce } from '../utils/tinymce.js.erb';
 import toggleConditionalFields from '../utils/conditionalFields';
 import getConstant from '../utils/constants';
-import toggleConditionalFields from '../utils/conditional';
 
 $(() => {
   const grantIdField = $('.grant-id-typeahead');
