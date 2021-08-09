@@ -47,7 +47,7 @@ class Paginable::PlansController < ApplicationController
     # check if current user if super_admin
     @super_admin = current_user.can_super_admin?
     @clicked_through = params[:click_through].present?
-    plans = @super_admin ? Plan.all : current_user.org.plans
+    plans = @super_admin ? Plan.all : current_user.org.org_admin_plans
     plans = plans.joins(:template, roles: [user: :org]).where(Role.creator_condition)
 
     paginable_renderise(

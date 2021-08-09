@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_23_164236) do
+ActiveRecord::Schema.define(version: 2021_08_05_180215) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -129,17 +129,6 @@ ActiveRecord::Schema.define(version: 2021_07_23_164236) do
     t.index ["user_id"], name: "index_external_api_access_tokens_on_user_id"
   end
 
-  create_table "fos", force: :cascade do |t|
-    t.string "uri"
-    t.string "identifier", null: false
-    t.string "label", null: false
-    t.text "keywords"
-    t.bigint "parent_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["parent_id"], name: "index_fos_on_parent_id"
-  end
-
   create_table "guidance_groups", id: :integer, force: :cascade do |t|
     t.string "name"
     t.integer "org_id"
@@ -194,14 +183,14 @@ ActiveRecord::Schema.define(version: 2021_07_23_164236) do
   create_table "licenses", force: :cascade do |t|
     t.string "name", null: false
     t.string "identifier", null: false
-    t.string "url", null: false
+    t.string "uri", null: false
     t.boolean "osi_approved", default: false
     t.boolean "deprecated", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["identifier", "osi_approved", "deprecated"], name: "index_license_on_identifier_and_criteria"
     t.index ["identifier"], name: "index_licenses_on_identifier"
-    t.index ["url"], name: "index_licenses_on_url"
+    t.index ["uri"], name: "index_licenses_on_uri"
   end
 
   create_table "metadata_standards", force: :cascade do |t|
@@ -370,35 +359,28 @@ ActiveRecord::Schema.define(version: 2021_07_23_164236) do
     t.integer "template_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "grant_number"
     t.string "identifier"
     t.text "description"
-    t.string "principal_investigator"
-    t.string "principal_investigator_identifier"
-    t.string "data_contact"
-    t.string "funder_name"
     t.integer "visibility", default: 3, null: false
-    t.string "data_contact_email"
-    t.string "data_contact_phone"
-    t.string "principal_investigator_email"
-    t.string "principal_investigator_phone"
     t.boolean "feedback_requested", default: false
     t.boolean "complete", default: false
     t.integer "org_id"
     t.integer "funder_id"
     t.integer "grant_id"
+    t.integer "api_client_id"
     t.datetime "start_date"
     t.datetime "end_date"
     t.boolean "ethical_issues"
     t.text "ethical_issues_description"
     t.string "ethical_issues_report"
     t.integer "funding_status"
-    t.bigint "fos_id"
-    t.index ["fos_id"], name: "index_plans_on_fos_id"
+    t.bigint "research_domain_id"
     t.index ["funder_id"], name: "index_plans_on_funder_id"
     t.index ["grant_id"], name: "index_plans_on_grant_id"
     t.index ["org_id"], name: "index_plans_on_org_id"
+    t.index ["research_domain_id"], name: "index_plans_on_fos_id"
     t.index ["template_id"], name: "index_plans_on_template_id"
+    t.index ["api_client_id"], name: "index_plans_on_api_client_id"
   end
 
   create_table "plans_guidance_groups", id: :integer, force: :cascade do |t|
@@ -512,13 +494,15 @@ ActiveRecord::Schema.define(version: 2021_07_23_164236) do
   create_table "repositories", force: :cascade do |t|
     t.string "name", null: false
     t.text "description", null: false
-    t.string "url"
+    t.string "homepage"
     t.string "contact"
+    t.string "uri", null: false
     t.json "info"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["homepage"], name: "index_repositories_on_homepage"
     t.index ["name"], name: "index_repositories_on_name"
-    t.index ["url"], name: "index_repositories_on_url"
+    t.index ["uri"], name: "index_repositories_on_uri"
   end
 
   create_table "repositories_research_outputs", force: :cascade do |t|
@@ -526,6 +510,15 @@ ActiveRecord::Schema.define(version: 2021_07_23_164236) do
     t.bigint "repository_id"
     t.index ["repository_id"], name: "index_repositories_research_outputs_on_repository_id"
     t.index ["research_output_id"], name: "index_repositories_research_outputs_on_research_output_id"
+  end
+
+  create_table "research_domains", force: :cascade do |t|
+    t.string "identifier", null: false
+    t.string "label", null: false
+    t.bigint "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_research_domains_on_parent_id"
   end
 
   create_table "research_outputs", force: :cascade do |t|
@@ -721,7 +714,6 @@ ActiveRecord::Schema.define(version: 2021_07_23_164236) do
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
   add_foreign_key "conditions", "questions"
-  add_foreign_key "fos", "fos", column: "parent_id"
   add_foreign_key "guidance_groups", "orgs"
   add_foreign_key "guidances", "guidance_groups"
   add_foreign_key "notes", "answers"
@@ -744,6 +736,8 @@ ActiveRecord::Schema.define(version: 2021_07_23_164236) do
   add_foreign_key "question_options", "questions"
   add_foreign_key "questions", "question_formats"
   add_foreign_key "questions", "sections"
+  add_foreign_key "research_domains", "research_domains", column: "parent_id"
+  add_foreign_key "research_outputs", "licenses"
   add_foreign_key "roles", "plans"
   add_foreign_key "roles", "users"
   add_foreign_key "sections", "phases"

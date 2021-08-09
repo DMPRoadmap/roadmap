@@ -267,8 +267,8 @@ Doorkeeper.configure do
   #
   # See the relevant API version's Policies for specific details of which endpoints are available to a scope
   #
-  default_scopes  :public
-  optional_scopes :read_dmps, :edit_dmps, :create_dmps
+  default_scopes  :public, :read_dmps
+  optional_scopes :edit_dmps, :create_dmps
 
   # Allows to restrict only certain scopes for grant_type.
   # By default, all the scopes will be available for all the grant types.

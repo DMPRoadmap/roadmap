@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-# frozen_string_literal: true
-
 require "rails_helper"
 
-describe FieldOfScience do
+describe ResearchDomain do
 
   context "associations" do
     it { is_expected.to have_many :sub_fields }

@@ -32,7 +32,7 @@ RSpec.describe Api::V2::Deserialization::Contributor do
 
   describe ":deserialize(json: {})" do
     it "returns nil if json is not valid" do
-      Api::V1::JsonValidationService.stubs(:contributor_valid?).returns(false)
+      Api::V2::JsonValidationService.stubs(:contributor_valid?).returns(false)
       expect(described_class.deserialize(json: nil)).to eql(nil)
     end
     it "attaches the Org to the Contributor" do
@@ -81,7 +81,7 @@ RSpec.describe Api::V2::Deserialization::Contributor do
       end
       it "returns a cloned copy of the Contributor when found by identifier" do
         contributor = create(:contributor, plan: @plan)
-        Api::V1::DeserializationService.expects(:object_from_identifier).returns(contributor)
+        Api::V2::DeserializationService.expects(:object_from_identifier).returns(contributor)
         result = described_class.send(:find_or_initialize, id_json: nil, json: @json)
         expect(result).not_to eql(contributor)
         expect(result.new_record?).to eql(true)
@@ -91,7 +91,7 @@ RSpec.describe Api::V2::Deserialization::Contributor do
       end
       it "returns a cloned copy of the Contributor when found by email" do
         contributor = create(:contributor, email: @json[:mbox], plan: @plan)
-        Api::V1::DeserializationService.expects(:object_from_identifier).returns(nil)
+        Api::V2::DeserializationService.expects(:object_from_identifier).returns(nil)
         result = described_class.send(:find_or_initialize, id_json: nil, json: @json)
         expect(result).not_to eql(contributor)
         expect(result.new_record?).to eql(true)
@@ -104,7 +104,7 @@ RSpec.describe Api::V2::Deserialization::Contributor do
           name: Faker::TvShows::Simpsons.character,
           mbox: Faker::Internet.unique.email
         }
-        Api::V1::DeserializationService.expects(:object_from_identifier).returns(nil)
+        Api::V2::DeserializationService.expects(:object_from_identifier).returns(nil)
         result = described_class.send(:find_or_initialize, id_json: nil, json: json)
         expect(result.new_record?).to eql(true)
         expect(result.plan).to eql(nil)
@@ -161,7 +161,7 @@ RSpec.describe Api::V2::Deserialization::Contributor do
         expect(result.selected_roles).to eql(@contributor.selected_roles)
       end
       it "calls the translate_role" do
-        Api::V1::DeserializationService.expects(:translate_role).at_least(1)
+        Api::V2::DeserializationService.expects(:translate_role).at_least(1)
         described_class.send(:assign_roles, contributor: @contributor, json: @json)
       end
       it "assigns the roles" do

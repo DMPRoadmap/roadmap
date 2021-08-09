@@ -24,12 +24,8 @@ module Api
 
             # If the scheme is present then this is a identifier that must be
             # unique (e.g. ROR, ORCID) so try to find it
-            if scheme.present?
-              val = json[:identifier] if json[:identifier].start_with?(scheme.identifier_prefix)
-              val = "#{scheme.identifier_prefix}#{json[:identifier]}" unless val.present?
-              identifier = ::Identifier.by_scheme_name(scheme, class_name).where(value: val)
-              return identifier if identifier.present?
-            end
+            identifier = ::Identifier.by_scheme_name(scheme, class_name).first if scheme.present?
+            return identifier if identifier.present?
 
             ::Identifier.new(identifier_scheme: scheme, value: json[:identifier])
           end

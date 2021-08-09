@@ -11,7 +11,7 @@ RSpec.describe "Templates", type: :feature do
     @template.phases.each { |phase| create_list(:section, 2, phase: phase) }
     @user = create(:user, org: @org)
     @user.perms << create(:perm, :modify_templates)
-    sign_in(@user)
+    sign_in_as_user(@user)
   end
 
   scenario "Org admin edits a template", :js do

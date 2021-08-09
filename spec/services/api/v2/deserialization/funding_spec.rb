@@ -13,8 +13,8 @@ RSpec.describe Api::V2::Deserialization::Funding do
     @grant = create(:identifier, identifier_scheme: nil, value: SecureRandom.uuid,
                                  identifiable: @plan)
 
-    Api::V1::Deserialization::Org.stubs(:deserialize!).returns(@funder)
-    Api::V1::Deserialization::Identifier.stubs(:deserialize!).returns(@grant)
+    Api::V2::Deserialization::Org.stubs(:deserialize!).returns(@funder)
+    Api::V2::Deserialization::Identifier.stubs(:deserialize!).returns(@grant)
 
     @json = {
       name: @funder.name,

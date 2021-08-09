@@ -33,7 +33,7 @@ class PlanExportsController < ApplicationController
       raise Pundit::NotAuthorizedError
     end
 
-    @hash           = @plan.as_pdf(@show_coversheet)
+    @hash           = @plan.as_pdf(current_user, @show_coversheet)
     @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
     @selected_phase = if params.key?(:phase_id)
                         @plan.phases.find(params[:phase_id])
@@ -60,7 +60,7 @@ class PlanExportsController < ApplicationController
   end
 
   def show_csv
-    send_data @plan.as_csv(@show_sections_questions,
+    send_data @plan.as_csv(current_user, @show_sections_questions,
                            @show_unanswered,
                            @selected_phase,
                            @show_custom_sections,
@@ -96,7 +96,8 @@ class PlanExportsController < ApplicationController
   end
 
   def show_json
-    json = render_to_string(partial: "/api/v2/plans/show", locals: { plan: @plan, client: current_user })
+    json = render_to_string(partial: "/api/v2/plans/show",
+                            locals: { plan: @plan, client: current_user })
     render json: "{\"dmp\":#{json}}"
   end
 
@@ -127,9 +128,10 @@ class PlanExportsController < ApplicationController
   end
 
   def export_params
-    params.require(:export).permit(:form, :project_details, :question_headings, :unanswered_questions,
-                                   :custom_sections, :research_outputs,
-                                   formatting: [:font_face, :font_size, margin: [:top, :right, :bottom, :left]])
+    params.require(:export)
+          .permit(:form, :project_details, :question_headings, :unanswered_questions,
+                  :custom_sections, :research_outputs,
+                  formatting: [:font_face, :font_size, margin: %i[top right bottom left]])
   end
 
 end

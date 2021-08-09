@@ -82,7 +82,7 @@ class ResearchOutputsController < ApplicationController
 
   # GET  /plans/:id/output_type_selection
   def select_output_type
-    @plan = Plan.find_by(id: params[:id])
+    @plan = Plan.find_by(id: params[:plan_id])
     @research_output = ResearchOutput.new(
       plan: @plan, output_type: output_params[:output_type]
     )
@@ -91,7 +91,7 @@ class ResearchOutputsController < ApplicationController
 
   # GET  /plans/:id/license_selection
   def select_license
-    @plan = Plan.find_by(id: params[:id])
+    @plan = Plan.find_by(id: params[:plan_id])
     @research_output = ResearchOutput.new(
       plan: @plan, license_id: output_params[:license_id]
     )
@@ -100,7 +100,7 @@ class ResearchOutputsController < ApplicationController
 
   # GET /plans/:id/repository_search
   def repository_search
-    @plan = Plan.find_by(id: params[:id])
+    @plan = Plan.find_by(id: params[:plan_id])
     @research_output = ResearchOutput.new(plan: @plan)
     authorize @research_output
 
@@ -113,7 +113,7 @@ class ResearchOutputsController < ApplicationController
 
   # PUT /plans/:id/repository_select
   def repository_select
-    @plan = Plan.find_by(id: params[:id])
+    @plan = Plan.find_by(id: params[:plan_id])
     @research_output = ResearchOutput.new(plan: @plan)
     authorize @research_output
 
@@ -122,14 +122,14 @@ class ResearchOutputsController < ApplicationController
 
   # PUT /plans/:id/repository_unselect
   def repository_unselect
-    @plan = Plan.find_by(id: params[:id])
+    @plan = Plan.find_by(id: params[:plan_id])
     @research_output = ResearchOutput.new(plan: @plan)
     authorize @research_output
   end
 
   # GET /plans/:id/metadata_standard_search
   def metadata_standard_search
-    @plan = Plan.find_by(id: params[:id])
+    @plan = Plan.find_by(id: params[:plan_id])
     @research_output = ResearchOutput.new(plan: @plan)
     authorize @research_output
 

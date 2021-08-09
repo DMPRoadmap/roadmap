@@ -11,10 +11,9 @@ describe MetadataStandard do
   context "scopes" do
     before(:each) do
       @name_part = "Foobar"
-      @disciplinary = create(:metadata_standard)
-      @generic = create(:metadata_standard,)
       @by_title = create(:metadata_standard, title: [Faker::Lorem.sentence, @name_part].join(" "))
-      @by_description = create(:metadata_standard, description: [@name_part, Faker::Lorem.paragraph].join(" "))
+      desc = [@name_part, Faker::Lorem.paragraph].join(" ")
+      @by_description = create(:metadata_standard, description: desc)
     end
 
     it ":search returns the expected records" do

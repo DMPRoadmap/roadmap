@@ -21,7 +21,8 @@ module IdentifierHelper
     scheme.update(identifier_prefix: landing_page) if scheme.present?
     return scheme if scheme.present?
 
-    create(:identifier_scheme, :for_identification, :for_users, name: name, identifier_prefix: landing_page)
+    create(:identifier_scheme, :for_identification, :for_users, name: name,
+                                                                identifier_prefix: landing_page)
   end
 
   def doi_scheme
@@ -31,7 +32,8 @@ module IdentifierHelper
     scheme.update(identifier_prefix: landing_page) if scheme.present?
     return scheme if scheme.present?
 
-    create(:identifier_scheme, :for_identification, :for_users, name: name, identifier_prefix: landing_page)
+    create(:identifier_scheme, :for_identification, :for_users, name: name,
+                                                                identifier_prefix: landing_page)
   end
 
   def append_prefix(scheme:, val:)
@@ -46,8 +48,12 @@ module IdentifierHelper
 
   def landing_page_for(scheme:)
     url = scheme.identifier_prefix
-    url = Rails.configuration.x.send(:"#{scheme.name.downcase}")&.landing_page_url unless url.present?
-    url.present? ? (%w[/ : & ?].include?(url.last) ? url : "#{url}/") : nil
+    unless url.present?
+      url = Rails.configuration.x.send(:"#{scheme.name.downcase}")&.landing_page_url
+    end
+    return nil unless url.present?
+
+    %w[/ : & ?].include?(url.last) ? url : "#{url}/"
   end
 
 end

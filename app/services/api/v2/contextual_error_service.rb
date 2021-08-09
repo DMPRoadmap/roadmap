@@ -60,23 +60,6 @@ module Api
           errs = []
           return errs unless dataset.present? && !dataset.valid?
 
-=begin
-          m_errs = dataset.metadata.map do |metadatum|
-            next if metadatum.valid?
-
-            "metadatum : #{metadatum.errors.full_messages}"
-          end
-          errs << m_errs if m_errs.any?
-
-          d_errs = dataset.distributions.map do |distro|
-            next if distro.valid? && distro.host&.valid?
-
-            h_errs = "host '#{distro.host.title}' : #{distro.host.errors.full_messages}" unless distro.host&.valid?
-            ["distribution: #{distro.errors.full_messages}", h_errs].join(', ')
-          end
-          errs << d_errs if d_errs.any?
-=end
-
           errs << dataset.errors.full_messages
           errs = errs.flatten.uniq
           errs.any? ? ["Dataset : #{errs}"] : []

@@ -56,7 +56,7 @@ RSpec.describe Api::V2::Deserialization::Dataset do
 
   describe ":deserialize(json: {})" do
     it "returns nil if json is not valid" do
-      Api::V1::JsonValidationService.stubs(:dataset_valid?).returns(false)
+      Api::V2::JsonValidationService.stubs(:dataset_valid?).returns(false)
       expect(described_class.deserialize(plan: @plan, json: nil)).to eql(nil)
     end
     it "return nil if :find_or_initialize does not return a ResearchOutput" do
@@ -74,8 +74,8 @@ RSpec.describe Api::V2::Deserialization::Dataset do
         described_class.stubs(:find_by_identifier).returns(@research_output)
         result = described_class.deserialize(plan: @plan, json: @json)
         expect(result.description).to eql(@json[:description])
-        expect(result.personal_data).to eql(Api::V1::ConversionService.yes_no_unknown_to_boolean(@json[:personal_data]))
-        expect(result.sensitive_data).to eql(Api::V1::ConversionService.yes_no_unknown_to_boolean(@json[:sensitive_data]))
+        expect(result.personal_data).to eql(Api::V2::ConversionService.yes_no_unknown_to_boolean(@json[:personal_data]))
+        expect(result.sensitive_data).to eql(Api::V2::ConversionService.yes_no_unknown_to_boolean(@json[:sensitive_data]))
         expect(result.release_date).to eql(Time.parse(@json[:issued]))
       end
 
@@ -98,7 +98,7 @@ RSpec.describe Api::V2::Deserialization::Dataset do
         expect(described_class.send(:find_by_identifier, plan: @plan, json: nil)).to eql(nil)
       end
       it "finds the RelatedIdentifier by :dataset_id" do
-        Api::V1::DeserializationService.stubs(:doi?).returns(true)
+        Api::V2::DeserializationService.stubs(:doi?).returns(true)
         related = create(:related_identifier, identifiable: @plan, identifier_type: "DOI",
                                               relation_type: "IsReferencedBy",
                                               value: "http://doi.org/#{@json[:dataset_id][:identifier]}")
@@ -106,19 +106,19 @@ RSpec.describe Api::V2::Deserialization::Dataset do
         expect(result).to eql(related)
       end
       it "finds the ResearchOutput by :dataset_id" do
-        Api::V1::DeserializationService.stubs(:doi?).returns(false)
+        Api::V2::DeserializationService.stubs(:doi?).returns(false)
         result = described_class.send(:find_by_identifier, plan: @plan, json: @json[:dataset_id])
         expect(result).to eql(@research_output)
       end
       it "does not change the :output_type of an existing ResearchOutput" do
-        Api::V1::DeserializationService.stubs(:doi?).returns(false)
+        Api::V2::DeserializationService.stubs(:doi?).returns(false)
         @json[:type] = ResearchOutput.output_types.keys.reject { |key| key == @research_output.output_type }.sample
         result = described_class.send(:find_by_identifier, plan: @plan, json: @json[:dataset_id])
         expect(result.new_record?).to eql(false)
         expect(result.output_type).to eql(@research_output.output_type)
       end
       it "initializes a new RelatedIdentifier" do
-        Api::V1::DeserializationService.stubs(:doi?).returns(true)
+        Api::V2::DeserializationService.stubs(:doi?).returns(true)
         @json[:dataset_id][:identifier] = Faker::Music::PearlJam.song
         result = described_class.send(:find_by_identifier, plan: @plan, json: @json[:dataset_id])
         expect(result.new_record?).to eql(true)
@@ -128,7 +128,7 @@ RSpec.describe Api::V2::Deserialization::Dataset do
         expect(result.value).to eql("http://doi.org/#{@json[:dataset_id][:identifier]}")
       end
       it "does not initialize a new ResearchOutput" do
-        Api::V1::DeserializationService.stubs(:doi?).returns(false)
+        Api::V2::DeserializationService.stubs(:doi?).returns(false)
         @json[:dataset_id][:identifier] = Faker::Music::PearlJam.song
         expect(described_class.send(:find_by_identifier, plan: @plan, json: @json[:dataset_id])).to eql(nil)
       end

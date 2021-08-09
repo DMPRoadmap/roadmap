@@ -16,7 +16,7 @@ module Api
 
           Plan.transaction do
             plan.funder = safe_save_org(org: plan.funder)
-            plan.grant_id = safe_save_identifier(identifier: plan.grant)&.id
+            plan.grant = safe_save_identifier(identifier: plan.grant)
 
             plan.save
 

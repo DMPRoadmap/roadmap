@@ -22,14 +22,14 @@ RSpec.describe Api::V2::Deserialization::Org do
   describe "#deserialize(json: {})" do
     before(:each) do
       described_class.stubs(:find_by_name).returns(@org)
-      Api::V1::DeserializationService.stubs(:object_from_identifier).returns(nil)
+      Api::V2::DeserializationService.stubs(:object_from_identifier).returns(nil)
     end
 
     it "returns nil if json is not valid" do
       expect(described_class.deserialize(json: nil)).to eql(nil)
     end
     it "returns the Org if found by :object_from_identifier" do
-      Api::V1::DeserializationService.stubs(:object_from_identifier).returns(@org)
+      Api::V2::DeserializationService.stubs(:object_from_identifier).returns(@org)
       result = described_class.deserialize(json: @json)
       expect(result).to eql(@org)
     end
@@ -45,20 +45,6 @@ RSpec.describe Api::V2::Deserialization::Org do
     it "sets the abbreviation" do
       result = described_class.deserialize(json: @json)
       expect(result.abbreviation).to eql(@abbrev)
-    end
-    it "returns nil if the Org is not valid" do
-      Org.any_instance.stubs(:valid?).returns(false)
-      expect(described_class.deserialize(json: @json)).to eql(nil)
-    end
-    it "attaches the identifier to the Org" do
-      id = SecureRandom.uuid
-      scheme = create(:identifier_scheme, identifier_prefix: nil, name: "foo")
-      json = @json.merge(
-        { affiliation_id: { type: scheme.name, identifier: id } }
-      )
-      result = described_class.deserialize(json: json)
-      expect(result.identifiers.length).to eql(2)
-      expect(result.identifiers.last.value).to eql(id)
     end
     it "is able to initialize a new Org" do
       Api::V1::DeserializationService.stubs(:name_to_org)

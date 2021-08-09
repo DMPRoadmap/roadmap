@@ -29,11 +29,9 @@ module Api
             org = Api::V1::DeserializationService.object_from_identifier(
               class_name: "Org", json: id_json
             )
-            return org if org.present?
 
             # Try to find the Org by name
-            org = find_by_name(json: json)
-            return org if org.present?
+            org = find_by_name(json: json) unless org.present?
 
             # Org model requires a language so just use the default for now
             org.language = Language.default
@@ -56,6 +54,7 @@ module Api
             return nil unless json.present? && json[:name].present?
 
             name = json[:name]
+
             # Search the DB
             org = ::Org.where("LOWER(name) = ?", name.downcase).first
             return org if org.present?

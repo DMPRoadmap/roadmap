@@ -42,7 +42,7 @@ class PlansController < ApplicationController
     authorize @plan
 
     # If the template_id is blank then we need to look up the available templates and
-    # return JSON
+    # return JSONs
     if plan_params[:template_id].blank?
       # Something went wrong there should always be a template id
       respond_to do |format|
@@ -155,6 +155,8 @@ class PlansController < ApplicationController
                 else
                   Template.where(family_id: @plan.template.customization_of).first
                 end
+
+    @research_domains = ResearchDomain.all.order(:label)
 
     respond_to :html
   end
@@ -415,7 +417,8 @@ class PlansController < ApplicationController
           .permit(:template_id, :title, :visibility, :description, :identifier,
                   :start_date, :end_date, :org_id, :org_name, :org_crosswalk,
                   :ethical_issues, :ethical_issues_description, :ethical_issues_report,
-                  :fos_id, :funding_status, grant: %i[name value],
+                  :research_domain_id, :funding_status,
+                  grant: %i[name value],
                   org: %i[id org_id org_name org_sources org_crosswalk],
                   funder: %i[id org_id org_name org_sources org_crosswalk])
   end

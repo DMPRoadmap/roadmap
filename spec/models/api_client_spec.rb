@@ -33,7 +33,6 @@ RSpec.describe ApiClient, type: :model do
   end
 
   context "Associations" do
-    it { is_expected.to belong_to(:org).optional }
     it { is_expected.to belong_to(:user).optional }
     it { is_expected.to have_many(:subscriptions) }
     it { is_expected.to have_many(:access_tokens) }
@@ -52,6 +51,7 @@ RSpec.describe ApiClient, type: :model do
       expect(@client.client_id).to eql(@client.uid)
     end
 
+<<<<<<< HEAD
     it ":client_secret should return the :secret" do
       expect(@client.client_secret).to eql(@client.secret)
     end
@@ -90,6 +90,8 @@ RSpec.describe ApiClient, type: :model do
       expect(@client.scopes.to_s).to eql("eight nine one three two")
     end
 
+=======
+>>>>>>> development
   end
 
 end

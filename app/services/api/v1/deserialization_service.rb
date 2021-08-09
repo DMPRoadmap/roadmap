@@ -71,32 +71,19 @@ module Api
 
           # Strip off the URL if present
           url = ::Contributor::ONTOLOGY_BASE_URL
-          role = role.gsub(url, "").downcase if role.include?(url)
-          role = role.gsub("-", "_")
+          role = role.gsub("#{url}/", "").downcase if role.include?(url)
 
           # Return the role if its a valid one otherwise defualt
-          return role if ::Contributor.new.respond_to?(role.downcase.to_sym)
+          return role if ::Contributor.new.all_roles.include?(role.downcase.to_sym)
 
           default
-        end
-
-        # Translates the RDA Common Standard for the funding status
-        def translate_funding_status(status:)
-          case status
-          when "rejected"
-            "denied"
-          when "granted"
-            "funded"
-          else
-            "planned"
-          end
         end
 
         # Retrieve any JSON schema extensions for this application
         def app_extensions(json: {})
           return {} unless json.present? && json[:extension].present?
 
-          app = ::ApplicationService.application_name.split("-").first
+          app = ::ApplicationService.application_name.split("-").first.downcase
           ext = json[:extension].select { |item| item[app.to_sym].present? }
           ext.first.present? ? ext.first[app.to_sym] : {}
         end
@@ -108,9 +95,8 @@ module Api
           # The format must match a DOI or ARK and a DOI IdentifierScheme
           # must also be present!
           identifier = ::Identifier.new(value: value)
-          scheme = ::IdentifierScheme.find_by(name: DoiService.scheme_name)
-          scheme.present? &&
-            (identifier.identifier_format.include?("ark") || identifier.identifier_format.include?("doi"))
+          scheme = ::IdentifierScheme.find_by(name: "doi")
+          %w[ark doi].include?(identifier.identifier_format) && scheme.present?
         end
 
         # Converts the string into a UTC Time string

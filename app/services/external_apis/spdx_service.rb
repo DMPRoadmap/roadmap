@@ -70,7 +70,7 @@ module ExternalApis
 
         unless resp.present? && resp.code == 200
           handle_http_failure(method: "SPDX list", http_response: resp)
-          return nil
+          return []
         end
         json = JSON.parse(resp.body)
         return [] unless json.fetch("licenses", []).any?
@@ -85,12 +85,13 @@ module ExternalApis
       def process_license(hash:)
         return nil unless hash.present?
 
+        hash = hash.with_indifferent_access
         license = License.find_or_initialize_by(identifier: hash["licenseId"])
         return nil unless license.present?
 
         license.update(
           name: hash["name"],
-          url: hash["detailsUrl"],
+          uri: hash["detailsUrl"],
           osi_approved: hash["isOsiApproved"],
           deprecated: hash["isDeprecatedLicenseId"]
         )

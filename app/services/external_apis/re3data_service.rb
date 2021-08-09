@@ -100,24 +100,13 @@ module ExternalApis
       def process_repository(id:, node:)
         return nil unless id.present? && node.present?
 
-        scheme = IdentifierScheme.find_by(name: "rethreedata")
-        repo_id = Identifier.where(identifier_scheme: scheme)
-                            .where("value LIKE ?", "%#{id}").first
-        repo = repo_id.identifiable if repo_id.present?
-
-        # If the Repo couldn't be found by it's re3data ID then attempt to find by name
-        # or initialize a new one
-        unless repo.present?
-          repo = Repository.find_or_initialize_by(name: node.xpath("//r3d:repositoryName")&.text)
-        end
-        repo_id = repo.identifier_for_scheme(scheme: scheme) unless repo_id.present?
-
+        # Try to find the Repo by the re3data identifier
+        repo = Repository.find_by(uri: id)
+        homepage = node.xpath("//r3d:repositoryURL")&.text
+        name = node.xpath("//r3d:repositoryName")&.text
+        repo = Repository.find_by(homepage: homepage) unless repo.present?
+        repo = Repository.find_or_initialize_by(uri: id, name: name) unless repo.present?
         repo = parse_repository(repo: repo, node: node)
-        return repo if repo_id.present?
-
-        # Attach the re3data identifier
-        Identifier.create(identifier_scheme: scheme, identifiable: repo,
-                          value: id, attrs: { name: repo.name, url: repo.url })
         repo.reload
       end
 
@@ -128,7 +117,7 @@ module ExternalApis
 
         repo.update(
           description: node.xpath("//r3d:description")&.text,
-          url: node.xpath("//r3d:repositoryURL")&.text,
+          homepage: node.xpath("//r3d:repositoryURL")&.text,
           contact: node.xpath("//r3d:repositoryContact")&.text,
           info: {
             types: node.xpath("//r3d:type").map(&:text),
