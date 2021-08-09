@@ -1,6 +1,6 @@
 import 'jquery-ui/autocomplete';
 import getConstant from './constants';
-import toggleConditionalFields from './conditional';
+import toggleConditionalFields from './conditionalFields';
 import toggleSpinner from './spinner';
 import {
   isObject, isString, isArray, isFunction,

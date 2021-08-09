@@ -17,7 +17,7 @@ $(() => {
     });
 
     const ethicalIssues = $('#plan_ethical_issues');
-    const funderId = $('#plan_org_id');
+    const funderId = $('#org_autocomplete_funder_name');
 
     if (ethicalIssues.length > 0) {
       // If the user checks the ethical_issues field then display the other ethics fields
@@ -27,6 +27,7 @@ $(() => {
 
       toggleConditionalFields(ethicalIssues, ethicalIssues.prop('checked'));
     }
+
     if (funderId.length > 0) {
       // If the plan has a funder defined then display the other funder fields
       funderId.on('change', () => {
