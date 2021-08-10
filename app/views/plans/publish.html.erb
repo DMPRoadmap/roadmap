@@ -1,0 +1,15 @@
+<% title "#{@plan.title} - Publish" %>
+<div class="row">
+  <div class="col-md-12">
+    <!-- render the project title -->
+    <h1><%= @plan.title %></h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= render partial: "plans/publish_form",
+               layout: "plans/navigation",
+               locals: { plan: @plan, plan_roles: @plan_roles } %>
+  </div>
+</div>

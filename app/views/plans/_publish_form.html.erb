@@ -1,0 +1,13 @@
+<%# locals: plan, plan_roles %>
+
+<%= render partial: "plans/visibility_form", locals: { plan: plan } %>
+
+<% if Rails.configuration.x.show_collaborators_on_share_tab %>
+  <hr>
+  <%= render partial: "plans/collaborator_form", locals: { plan: @plan, plan_roles: @plan_roles } %>
+<% end %>
+
+<% if Rails.configuration.x.madmp.enable_dmp_id_registration %>
+  <hr>
+  <%= render partial: 'plans/doi_minter', locals: { plan: @plan } %>
+<% end %>

@@ -299,8 +299,8 @@ class PlansController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-  # GET /plans/:id/share
-  def share
+  # GET /plans/:id/publish
+  def publish
     @plan = Plan.find(params[:id])
     if @plan.present?
       authorize @plan
