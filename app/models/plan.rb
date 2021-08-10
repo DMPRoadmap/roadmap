@@ -554,9 +554,33 @@ class Plan < ApplicationRecord
     end
   end
 
-  # Returns the plan's identifier (either a DOI/ARK)
-  def landing_page
-    identifiers.select { |i| %w[doi ark].include?(i.identifier_format) }.first
+  # Retrieves the Plan's most recent DOI
+  def dmp_id
+    return nil unless Rails.configuration.x.madmp.enable_dmp_id_registration
+
+# TODO: Switch this to get the DOI minting authority instead
+return identifiers.last
+
+    schemes = IdentifierScheme.for_plans
+
+    if schemes.any?
+      identifiers.select { |id| schemes.include?(id.identifier_scheme) }.last
+    else
+      # If there is curently no identifier schemes defined as identification
+      identifiers.select { |id| %w[ark doi].include?(id.identifier_format) }.last
+    end
+  end
+
+  # Returns whether or not minting is allowed for the current plan
+  def registration_allowed?
+    orcid_scheme = IdentifierScheme.where(name: "orcid").first
+    return false unless Rails.configuration.x.madmp.enable_dmp_id_registration && orcid_scheme.present?
+
+    # The owner must have an orcid and have authorized us to add to their record
+    orcid = owner.identifier_for_scheme(scheme: orcid_scheme).present?
+    token = ExternalApiAccessToken.for_user_and_service(user: owner, service: "orcid")
+
+    visibility_allowed? && orcid.present? && token.present? && funder.present?
   end
 
   # Since the Grant is not a normal AR association, override the getter and setter

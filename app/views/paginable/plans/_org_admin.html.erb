@@ -1,3 +1,4 @@
+<% has_dmp_id = scope.select { |plan| plan.dmp_id.present? }.any? %>
 
 <% if @clicked_through %>
   <p><%= _(<<-TEXT
@@ -22,6 +23,9 @@
         <th scope="col" class="date-column"><%= _('Created') %>&nbsp;<%= paginable_sort_link('plans.created_at') %></th>
         <th scope="col" class="date-column"><%= _('Updated') %>&nbsp;<%= paginable_sort_link('plans.updated_at') %></th>
         <th scope="col"><%= _('Visibility') %></th>
+        <% if has_dmp_id %>
+          <th scope="col"><%= _('DMP ID') %></th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -42,6 +46,15 @@
           <td class="plan-visibility">
             <%= plan.visibility === 'is_test' ? _('Test') : sanitize(display_visibility(plan.visibility)) %>
           </td>
+          <% if has_dmp_id %>
+            <td>
+              <% if plan.dmp_id.present? %>
+                <a href="<%= plan.dmp_id.value %>" target="_blank" class="has-new-window-popup-info">
+                  <%= id_for_display(id: plan.dmp_id, with_scheme_name: false).html_safe %>
+                </a>
+              <% end %>
+            </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
