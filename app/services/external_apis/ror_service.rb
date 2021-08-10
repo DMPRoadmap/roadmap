@@ -82,6 +82,8 @@ module ExternalApis
           cntr += 1
           log_message(method: method, message: "Processed #{cntr} out of #{total} records") if cntr % 1000 == 0
 
+          hash = hash.with_indifferent_access if hash.is_a?(Hash)
+
           unless process_ror_record(record: hash, time: time)
             log_message(
               method: method,
@@ -121,6 +123,8 @@ module ExternalApis
         # TODO: We should create some sort of Super Admin page to highlight unmapped
         #       RegistryOrg records so that they can be connected to their Org
 
+
+
         registry_org.save
         true
       rescue StandardError => e
@@ -157,7 +161,6 @@ module ExternalApis
         website = org_website(item: item)
         # If no website or country then just return the name
         return item["name"] unless website.present? || country.present?
-
         # Otherwise return the contextualized name
         "#{item['name']} (#{website || country})"
       end
