@@ -184,6 +184,13 @@ module DMPRoadmap
     # regardless of the plans visibility and whether or not the plan has been shared
     config.x.plans.super_admins_read_all = true
 
+    # If true, this will displays the collaborators section on the share tab
+    # if false, it will display it on the contributors tab
+    config.x.show_collaborators_on_share_tab = false
+
+    # Determines whether or not the user will see the Plan Overview tab
+    config.x.show_overview_tab = false
+
     # ---------------------------------------------------- #
     # CACHING - all values are in seconds (86400 == 1 Day) #
     # ---------------------------------------------------- #
@@ -209,10 +216,6 @@ module DMPRoadmap
     # --------------------------------------------------- #
     config.x.madmp.enable_ethical_issues = false
     config.x.madmp.enable_research_domain = false
-
-    # If true, this will displays the collaborators section on the share tab
-    # if false, it will display it on the contributors tab
-    config.x.madmp.show_collaborators_on_share_tab = false
 
     # Enable/disable the ability for users to register/mint DMP IDs (aka DOIs)
     # this feature also requires you to activate your DOI service

@@ -1,7 +1,7 @@
 <%
 phases = plan.template.phases
 
-if Rails.configuration.x.madmp.show_collaborators_on_share_tab
+if Rails.configuration.x.show_collaborators_on_share_tab
   contrib_label = _("Contributors")
   share_label = _("Share")
 else
@@ -16,9 +16,11 @@ end
   <li role="contributors" class="<%= (active_page?(plan_contributors_path(plan)) ? "active" : "") %>">
       <%= link_to contrib_label, plan_contributors_path(plan), role: "tab", aria: { controls: "content" } %>
   </li>
-  <li role="presentation" class="<%= (active_page?(overview_plan_path(plan)) ? 'active' : '') %>">
-    <%= link_to(_('Plan overview'), overview_plan_path(plan), role: 'tab', 'aria-controls': 'content') %>
-  </li>
+  <% if Rails.configuration.x.show_overview_tab %>
+    <li role="presentation" class="<%= (active_page?(overview_plan_path(plan)) ? 'active' : '') %>">
+      <%= link_to(_('Plan overview'), overview_plan_path(plan), role: 'tab', 'aria-controls': 'content') %>
+    </li>
+  <% end %>
   <% phases.each do |phase| %>
     <li role="presentation" class="<%= (active_page?(edit_plan_path(plan.id, phase_id: phase.id)) ? 'active' : '') %>">
       <a href="<%= edit_plan_path(plan.id, phase_id: phase.id) %>" role="tab" aria-controls="content">
