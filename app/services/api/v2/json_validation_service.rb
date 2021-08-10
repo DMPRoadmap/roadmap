@@ -14,6 +14,7 @@ module Api
       BAD_CONTRIB_MSG = _(":role and either the :name or :email are required for each :contributor").freeze
       BAD_FUNDING_MSG = _(":name, :funder_id or :grant_id are required for each funding").freeze
       BAD_DATASET_MSSG = _(":title is required for each :dataset").freeze
+      BAD_HOST_MSG = _(":host must include either a :url or :dmproadmap_host_id").freeze
       # rubocop:enable Layout/LineLength
 
       class << self
