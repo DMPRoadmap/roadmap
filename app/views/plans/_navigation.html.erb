@@ -1,11 +1,20 @@
-<% phases = plan.template.phases %>
+<%
+phases = plan.template.phases
+
+if Rails.configuration.x.madmp.show_collaborators_on_share_tab
+  contrib_label = _("Contributors")
+  share_label = _("Share")
+else
+  contrib_label = _("Collaborators")
+  share_label = _("Finalise / Publish")
+end
+%>
 <ul class="nav nav-tabs" role="tablist">
   <li role="presentation" class="<%= (active_page?(plan_path(plan), true) ? 'active' : '') %>">
     <a href="<%= plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Project Details') %></a>
   </li>
   <li role="contributors" class="<%= (active_page?(plan_contributors_path(plan)) ? "active" : "") %>">
-    <%= link_to _("Contributors"), plan_contributors_path(plan), role: "tab",
-                aria: { controls: "content" } %>
+      <%= link_to contrib_label, plan_contributors_path(plan), role: "tab", aria: { controls: "content" } %>
   </li>
   <li role="presentation" class="<%= (active_page?(overview_plan_path(plan)) ? 'active' : '') %>">
     <%= link_to(_('Plan overview'), overview_plan_path(plan), role: 'tab', 'aria-controls': 'content') %>
@@ -17,11 +26,6 @@
       </a>
     </li>
   <% end %>
-  <% if plan.administerable_by?(current_user.id) || (current_user.can_org_admin? && current_user.org.plans.include?(plan)) %>
-    <li role="presentation" class="<%= (active_page?(share_plan_path(plan)) ? 'active' : '') %>">
-      <a href="<%= share_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Share') %></a>
-    </li>
-  <% end %>
   <% if (plan.administerable_by?(current_user.id) || (current_user.can_org_admin? && current_user.org.plans.include?(plan))) && plan.owner_and_coowners.include?(current_user) && plan.owner.org.feedback_enabled? %>
     <li role="presentation" class="<%= (active_page?(request_feedback_plan_path(plan)) ? 'active' : '') %>">
       <a href="<%= request_feedback_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Request feedback') %></a>
@@ -30,6 +34,11 @@
   <% if plan.readable_by?(current_user.id) %>
     <li role="presentation" class="<%= (active_page?(download_plan_path(plan)) ? 'active' : '') %>">
       <a href="<%= download_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Download') %></a>
+    </li>
+  <% end %>
+  <% if plan.administerable_by?(current_user.id) || (current_user.can_org_admin? && current_user.org.plans.include?(plan)) %>
+    <li role="presentation" class="<%= (active_page?(share_plan_path(plan)) ? 'active' : '') %>">
+      <a href="<%= share_plan_path(plan) %>" role="tab" aria-controls="content"><%= share_label %></a>
     </li>
   <% end %>
 </ul>

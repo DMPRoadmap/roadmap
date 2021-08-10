@@ -210,6 +210,22 @@ module DMPRoadmap
     config.x.madmp.enable_ethical_issues = false
     config.x.madmp.enable_research_domain = false
 
+    # If true, this will displays the collaborators section on the share tab
+    # if false, it will display it on the contributors tab
+    config.x.madmp.show_collaborators_on_share_tab = false
+
+    # Enable/disable the ability for users to register/mint DMP IDs (aka DOIs)
+    # this feature also requires you to activate your DOI service
+    #
+    # - For DataCite, you must have an account and then need to setup your credentials
+    #   in config/initializers/external_apis/datacite.rb
+    #
+    # - For a local DMPHub installation (https://github.com/CDLUC3/dmphub), setup your
+    #   credentials in config.initializers/external_apis/dmphub.rb
+    #
+    # - You can also define your own service by extending app/services/external_apis/doi_service.rb.
+    #   Use one of the services mentioned above as template.
+    config.x.madmp.enable_dmp_id_registration = true
   end
 
 end
