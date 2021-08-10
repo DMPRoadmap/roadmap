@@ -291,8 +291,8 @@ class Org < ApplicationRecord
 
   # This replaces the old plans method. We now use the native plans method and this.
   def org_admin_plans
-    combined_plan_ids = (native_plan_ids + affiliated_plan_ids).flatten.uniq
-    
+    combined_plan_ids = (native_plan_ids + affiliated_plan_ids).flatten.uni
+  
     if Rails.configuration.x.plans.org_admins_read_all
       Plan.includes(:template, :phases, :roles, :users).where(id: combined_plan_ids)
     else
