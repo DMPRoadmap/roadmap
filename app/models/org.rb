@@ -297,8 +297,8 @@ class Org < ApplicationRecord
       Plan.includes(:template, :phases, :roles, :users).where(id: combined_plan_ids)
     else
       Plan.includes(:template, :phases, :roles, :users).where(id: combined_plan_ids)
-        .where.not(visibility: Plan.visibilities[:privately_visible])
-        .where.not(visibility: Plan.visibilities[:is_test])
+          .where.not(visibility: Plan.visibilities[:privately_visible])
+          .where.not(visibility: Plan.visibilities[:is_test])
     end
   end
 
