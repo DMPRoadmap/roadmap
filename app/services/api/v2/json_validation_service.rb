@@ -116,7 +116,7 @@ module Api
 
           errs << BAD_DATASET_MSG unless dataset_valid?(json: json)
           json.fetch(:distribution, []).each do |distribution|
-            errs << BAD_HOST_MSG unless host_valid?(json: distribution.fetch(:host))
+            errs << BAD_HOST_MSG unless host_valid?(json: distribution.fetch(:host, {}))
           end
           errs
         end
