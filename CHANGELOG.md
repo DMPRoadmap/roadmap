@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [2.1.3+portage-1.0.17] - 2021-08-11
 
 ## Added
  - Configuration for direct_link protocol
