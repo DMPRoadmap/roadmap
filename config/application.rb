@@ -139,5 +139,12 @@ module DMPRoadmap
     # The value can be either 'http' or 'https'
     # TODO: Change production server configuration so that we can ignore this configuration.
     config.direct_link_protocol = 'https'
+
+    # DMP Assistant works with the assumption that the user will not use a
+    # specific funder. The view for choosing a funder when creating a plan
+    # removed the option for selecting a funder. A funder is needed to show the
+    # customized templates. For this reason we are specifying in the
+    # documentation the funder that 
+    config.default_funder_name = Rails.application.secrets.default_funder_name
   end
 end

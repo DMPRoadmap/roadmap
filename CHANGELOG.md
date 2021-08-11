@@ -4,6 +4,7 @@
 
 ## Added
  - Configuration for direct_link protocol
+ - Configuration for default funder name
 
 ## [2.1.3+portage-1.0.16] - 2021-07-21
 
