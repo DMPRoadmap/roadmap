@@ -88,7 +88,7 @@ class PublicPagesController < ApplicationController
   # GET /plans_index
   # ------------------------------------------------------------------------------------
   def plan_index
-    @plans = Plan.publicly_visible.includes(:template)
+    @plans = Plan.where(Role.creator_condition).publicly_visible.includes(:template)
     render "plan_index", locals: {
       query_params: {
         page: paginable_params.fetch(:page, 1),

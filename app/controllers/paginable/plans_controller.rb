@@ -69,7 +69,7 @@ class Paginable::PlansController < ApplicationController
 
     paginable_renderise(
       partial: "org_admin_other_user",
-      scope: Plan.active(@user),
+      scope: Plan.active(@user).where(Role.creator_condition),
       query_params: { sort_field: "plans.updated_at", sort_direction: :desc }
     )
   end
