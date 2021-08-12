@@ -23,7 +23,7 @@ class Identifier < ApplicationRecord
   # = Associations =
   # ================
 
-  belongs_to :identifiable, polymorphic: true
+  belongs_to :identifiable, polymorphic: true, touch: true
 
   belongs_to :identifier_scheme, optional: true
 

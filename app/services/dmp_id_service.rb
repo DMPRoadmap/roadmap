@@ -46,12 +46,17 @@ class DmpIdService
       Rails.configuration.x.madmp.enable_dmp_id_registration && minter.present?
     end
 
-    # Retrieves the identifier_scheme name for the active DMP ID minting service
-    def scheme_name
+    # Retrieves the corresponding IdentifierScheme associated with the
+    def identifier_scheme
       svc = minter
-      return nil unless svc.present?
+      return nil unless svc.present? && svc.name.present?
 
-      scheme(svc: svc)&.name&.downcase
+      # Add the DMP ID service as an IdentifierScheme if it doesn't already exist
+      scheme = IdentifierScheme.find_or_create_by(name: svc.name.downcase)
+      if scheme.new_record?
+        scheme.update(description: svc.description, active: true, for_plans: true)
+      end
+      scheme
     end
 
     # Return the inheriting service's :callback_path (defined in their config)
@@ -82,16 +87,6 @@ class DmpIdService
       # Place additional DMP ID services here
 
       nil
-    end
-
-    # Retrieves or adds the DMP ID minting service's IdentifierScheme record
-    def scheme(svc:)
-      # Add the DMP ID service as an IdentifierScheme if it doesn't already exist
-      scheme = IdentifierScheme.find_or_create_by(name: svc.name)
-      if scheme.new_record?
-        scheme.update(description: svc.description, active: true, for_plans: true)
-      end
-      scheme
     end
 
   end

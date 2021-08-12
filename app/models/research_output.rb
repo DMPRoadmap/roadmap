@@ -42,7 +42,7 @@ class ResearchOutput < ApplicationRecord
   # = Associations =
   # ================
 
-  belongs_to :plan, optional: true
+  belongs_to :plan, optional: true, touch: true
 
   # ===============
   # = Validations =

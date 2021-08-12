@@ -27,6 +27,7 @@
 class ApiClient < ApplicationRecord
 
   include DeviseInvitable::Inviter
+  include Subscribable
 
   extend UniqueRandom
 

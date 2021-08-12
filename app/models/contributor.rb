@@ -38,7 +38,7 @@ class Contributor < ApplicationRecord
 
   belongs_to :org, optional: true
 
-  belongs_to :plan, optional: true
+  belongs_to :plan, optional: true, touch: true
 
   # =====================
   # = Nested attributes =
