@@ -276,6 +276,7 @@ class UserMailer < ActionMailer::Base
     }
     subject = plan.template&.org&.api_create_plan_email_subject || default_subject
 
+    @message = plan.template&.org&.api_create_plan_email_body
     @api_client = api_client
     @user = recipient
     @plan = plan

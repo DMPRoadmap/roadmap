@@ -77,10 +77,24 @@ class OrgsController < ApplicationController
       identifiers += ids.select { |id| id.value.present? }
     end
 
+pp attrs
+
     # Remove the extraneous Org Selector hidden fields
     attrs = remove_org_selection_params(params_in: attrs)
 
+p "BEFORE:"
+p @org.api_create_plan_email_subject
+p @org.api_create_plan_email_body
+pp attrs
+
     if @org.update(attrs)
+
+p "AFTER:"
+p @org.reload
+p @org.api_create_plan_email_subject
+p @org.api_create_plan_email_body
+
+
       # Save any identifiers that were found
       if current_user.can_super_admin? && lookup.present?
         # Loop through the identifiers and then replace the existing
@@ -229,6 +243,7 @@ class OrgsController < ApplicationController
                   :remove_logo, :managed, :feedback_enabled, :org_links,
                   :funder, :institution, :organisation,
                   :feedback_email_msg, :org_id, :org_name, :org_crosswalk,
+                  :api_create_plan_email_subject, :api_create_plan_email_body,
                   identifiers_attributes: %i[identifier_scheme_id value],
                   tracker_attributes: %i[code id])
   end
