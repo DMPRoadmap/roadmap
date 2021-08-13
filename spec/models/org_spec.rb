@@ -420,6 +420,7 @@ RSpec.describe Org, type: :model do
 
   describe "#org_admin_plans" do
 
+    Rails.configuration.x.plans.org_admins_read_all = true
     let!(:org) { create(:org) }
     let!(:plan) { create(:plan, org: org, visibility: "publicly_visible") }
     let!(:user) { create(:user, org: org) }
@@ -473,6 +474,20 @@ RSpec.describe Org, type: :model do
 
       before do
         plan.add_user!(user.id, :reviewer)
+      end
+
+      it { is_expected.to include(plan) }
+
+    end
+    
+    context "read_all is false, visibility private and user org_admin" do
+
+      before do
+        Rails.configuration.x.plans.org_admins_read_all = false
+        @perm = build(:perm)
+        @perm.name = "grant_permissions"
+        user.perms << @perm
+        plan.visibility = Plan.visibilities[:privately_visible]
       end
 
       it { is_expected.to include(plan) }
