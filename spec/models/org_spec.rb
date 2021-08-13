@@ -421,7 +421,7 @@ RSpec.describe Org, type: :model do
   describe "#org_admin_plans" do
 
     let!(:org) { create(:org) }
-    let!(:plan) { create(:plan, org: org) }
+    let!(:plan) { create(:plan, org: org, visibility: "publicly_visible") }
     let!(:user) { create(:user, org: org) }
 
     subject { org.org_admin_plans }
