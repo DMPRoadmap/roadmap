@@ -479,7 +479,7 @@ RSpec.describe Org, type: :model do
       it { is_expected.to include(plan) }
 
     end
- 
+
     context "read_all is false, visibility private and user org_admin" do
 
       before do
