@@ -19,17 +19,16 @@ end
 <% end %>
 
 <% if @plan.dmp_id.present? %>
-  TODO: Make this more generic!!!
-
     <% if dmp_id.value.downcase.start_with?("http") %>
-
-<%# TODO: This should be more generic! %>
-      <%# dmphub_url = dmp_id.value.gsub(%r{https?://doix?.org/}, ExternalApis::DmphubService.landing_page_url) %>
-      <%# val = link_to dmp_id.value, dmphub_url, target: "_blank", class: "has-new-window-popup-info" %>
+      <% val = link_to dmp_id.value, dmp_id.value, target: "_blank", class: "has-new-window-popup-info" %>
     <% else %>
       <% val = dmp_id.value %>
     <% end %>
-    <%= (_('Your DMP ID is: %{dmp_id}.') % { dmp_id: val }).html_safe %>
+
+    <p><%= _('When referencing this DMP in other systems, please use the DMP ID: ') %>
+    <p>&nbsp;&nbsp;<%= val %></p>
+    <p><%= _("When citing this DMP use:") %></p>
+    <p>&nbsp;&nbsp;<%= plan.citation %></p>
   </p>
 
 <% elsif current_user == plan.owner %>

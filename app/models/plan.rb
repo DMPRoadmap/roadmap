@@ -115,6 +115,8 @@ class Plan < ApplicationRecord
 
   has_many :contributors, dependent: :destroy
 
+  has_many :subscriptions, dependent: :destroy
+
   # =====================
   # = Nested Attributes =
   # =====================
@@ -129,8 +131,8 @@ class Plan < ApplicationRecord
   # = Callbacks =
   # =============
 
-  after_update :notify_subscribers, if: :versionable_change?
-  after_touch :notify_subscribers
+  after_update :notify_subscribers!, if: :versionable_change?
+  after_touch :notify_subscribers!
 
   # ===============
   # = Validations =
@@ -565,7 +567,7 @@ class Plan < ApplicationRecord
   def dmp_id
     return nil unless Rails.configuration.x.madmp.enable_dmp_id_registration
 
-    id = identifiers.select { |id| id.identifier_scheme: DmpIdService.identifier_scheme }
+    id = identifiers.select { |id| id.identifier_scheme == DmpIdService.identifier_scheme }
                     .last
     return id if id.present?
 
@@ -577,13 +579,12 @@ class Plan < ApplicationRecord
   # Returns whether or not minting is allowed for the current plan
   def registration_allowed?
     orcid_scheme = IdentifierScheme.where(name: "orcid").first
-    return false unless Rails.configuration.x.madmp.enable_dmp_id_registration && orcid_scheme.present?
+    return false unless Rails.configuration.x.madmp.enable_dmp_id_registration &&
+                        orcid_scheme.present?
 
-    # The owner must have an orcid and have authorized us to add to their record
+    # The owner must have an orcid, a funder and :visibility_allowed? (aka :complete)
     orcid = owner.identifier_for_scheme(scheme: orcid_scheme).present?
-    token = ExternalApiAccessToken.for_user_and_service(user: owner, service: "orcid")
-
-    visibility_allowed? && orcid.present? && token.present? && funder.present?
+    visibility_allowed? && orcid.present? && funder.present?
   end
 
   # Since the Grant is not a normal AR association, override the getter and setter
@@ -609,6 +610,25 @@ class Plan < ApplicationRecord
     self.grant_id = current.id
   end
 
+  # Return the citation for the DMP. For example:
+  #
+  # Jane Doe. (2021). "My DMP" [Data Management Plan]. DMPRoadmap. https://doi.org/10.12/a1.b2
+  #
+  def citation
+    return nil unless owner.present? && dmp_id.is_a?(Identifier)
+
+    # authors = owner_and_coowners.map { |author| author.name(false) }
+    #                             .uniq
+    #                             .sort { |a, b| a <=> b }
+    #                             .join(", ")
+    # TODO: display all authors once we determine the appropriate way to handle on the ORCID side
+    authors = owner.name(false)
+    pub_year = updated_at.strftime('%Y')
+    app_name = ApplicationService.application_name
+    link = dmp_id.value
+    "#{authors}. (#{pub_year}). \"#{title}\" [Data Management Plan]. #{app_name}. #{link}"
+  end
+
   private
 
   # Determines whether or not the attributes that were updated constitute a versionable change
@@ -629,12 +649,24 @@ class Plan < ApplicationRecord
       saved_change_to_ethical_issues_description? || saved_change_to_ethical_issues_report?
   end
 
+  # Sends notifications to the Subscribers of the specified subscription types
+  def notify_subscribers!(subscription_types: [:updates])
+    targets = subscription_types.map do |typ|
+      subscriptions.select { |sub| sub.selected_subscription_types.include?(typ.to_sym) }
+    end
+    targets = targets.flatten.uniq if targets.any?
+
+    targets.each { |subscription| p "foo"; subscription.notify! }
+    true
+  end
+
   # Validation to prevent end date from coming before the start date
   def end_date_after_start_date
     # allow nil values
     return true if end_date.blank? || start_date.blank?
 
     errors.add(:end_date, _("must be after the start date")) if end_date < start_date
+    start_date < end_date
   end
 
 end

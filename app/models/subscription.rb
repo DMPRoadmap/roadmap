@@ -29,7 +29,7 @@ class Subscription < ApplicationRecord
 
   belongs_to :plan
 
-  belongs_to :subscriber, polymorphic: true, dependent: :destroy
+  belongs_to :subscriber, polymorphic: true
 
   ##
   # Define Bit Field values for subscription_types
@@ -43,6 +43,8 @@ class Subscription < ApplicationRecord
   # ====================
 
   def notify!
+    # Do not notify anyone if this is a new record
+    return false if new_record?
     # Do not notify if there is no callback or they've already been notified
     return false unless callback_uri.present? && last_notified < plan.updated_at
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_29_204611) do
+ActiveRecord::Schema.define(version: 2021_08_10_221831) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"

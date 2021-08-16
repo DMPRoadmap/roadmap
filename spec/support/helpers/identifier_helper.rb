@@ -8,6 +8,12 @@ module IdentifierHelper
     create(:identifier, identifiable: user, identifier_scheme: scheme, value: val)
   end
 
+  def create_dmp_id(plan:, val: SecureRandom.uuid)
+    scheme = dmp_id_scheme
+    val = append_prefix(scheme: scheme, val: val)
+    create(:identifier, identifiable: plan, identifier_scheme: scheme, value: val)
+  end
+
   def orcid_scheme
     name = Rails.configuration.x.orcid.name || "orcid"
     landing_page = Rails.configuration.x.orcid.landing_page_url || "https://orcid.org/"
@@ -17,6 +23,16 @@ module IdentifierHelper
 
     create(:identifier_scheme, :for_identification, :for_users, name: name,
                                                                 identifier_prefix: landing_page)
+  end
+
+  def dmp_id_scheme
+    name = DmpIdService.identifier_scheme&.name || "datacite"
+    landing_page = DmpIdService.landing_page_url || "https://doi.org/"
+    scheme = IdentifierScheme.find_by(name: name)
+    scheme.update(identifier_prefix: landing_page) if scheme.present?
+    return scheme if scheme.present?
+
+    create(:identifier_scheme, for_plans: true, name: name, identifier_prefix: landing_page)
   end
 
   def append_prefix(scheme:, val:)
