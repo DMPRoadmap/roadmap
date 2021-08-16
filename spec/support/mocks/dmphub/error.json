@@ -1,0 +1,13 @@
+{
+  "application": "dmphub",
+  "status": "Bad Request",
+  "code": 400,
+  "time": "2020-09-28T22:44:19:00Z",
+  "caller": "dmproadmap",
+  "source": "POST http://localhost:3001/api/v0/data_management_plans",
+  "page": 1,
+  "per_page": 20,
+  "total_items": 0,
+  "items": [],
+  "errors": ["Invalid JSON format", "DataManagementPlan - title cannot by blank"]
+}
