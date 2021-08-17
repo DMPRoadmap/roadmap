@@ -26,12 +26,11 @@
         <a href="#departments" role="tab" aria-controls="form" data-toggle="tab"><%= _('Schools/Departments') %></a>
       </li>
 
-      <%# Uncomment once we're ready with the RAMS integration >
-      <%# if org.templates.any? %>
-        <!-- <li role="form"> -->
-          <!-- <a href="#api-emails" role="tab" aria-controls="form" data-toggle="tab"><%#= _('API Emails') %></a> -->
-        <!-- </li> -->
-      <%# end %>
+      <% if org.templates.any? %>
+        <li role="form">
+          <a href="#api-emails" role="tab" aria-controls="form" data-toggle="tab"><%= _('API Emails') %></a>
+        </li>
+      <% end %>
 
       <% if current_user.can_super_admin? %>
         <li role="merge">
@@ -75,18 +74,17 @@
         </div>
       </div>
 
-      <%# Uncomment once we're ready with the RAMS integration >
-      <%# if org.templates.any? %>
-        <!-- <div role="tabpanel" class="tab-pane" id="api-emails"> -->
-          <!-- <div class="panel panel-default"> -->
-            <!-- <div class="panel-body"> -->
-              <!-- <div> -->
-                <%#= render partial: 'orgs/api_emails', locals: { org: org } %>
-              <!-- </div> -->
-            <!-- </div> -->
-          <!-- </div> -->
-        <!-- </div> -->
-      <%# end %>
+      <% if org.templates.any? %>
+        <div role="tabpanel" class="tab-pane" id="api-emails">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div>
+                <%= render partial: 'orgs/api_emails', locals: { org: org } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
 
       <% if current_user.can_super_admin? %>
         <div role="tabpanel" class="tab-pane" id="merge">
