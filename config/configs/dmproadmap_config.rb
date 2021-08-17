@@ -10,6 +10,7 @@
 #
 class DmproadmapConfig < Anyway::Config
   attr_config :admin_emails,
+              :allow_doi_minting,
               :api_documentation_overview_url,
               :api_documentation_urls,
               :api_max_page_size,
