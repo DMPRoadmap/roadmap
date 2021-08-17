@@ -2,7 +2,7 @@
 
 # locals: plan
 
-json.schema "https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard/tree/master/examples/JSON/JSON-schema/1.0"
+json.schema "https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard/tree/master/examples/JSON/JSON-schema/1.1"
 
 presenter = Api::V1::PlanPresenter.new(plan: plan)
 # A JSON representation of a Data Management Plan in the

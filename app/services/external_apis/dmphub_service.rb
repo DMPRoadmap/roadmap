@@ -70,7 +70,7 @@ module ExternalApis
 
       # Create a new DMP ID
       def mint_dmp_id(plan:)
-        return nil unless active? && auth
+        return nil unless active? && auth && plan.present?
 
         hdrs = {
           "Authorization": @token,
@@ -129,14 +129,15 @@ module ExternalApis
       # Register the ApiClient behind the minter service as a Subscriber to the Plan
       # if the service has a callback URL and ApiClient
       def add_subscription(plan:, dmp_id:)
-        Rails.logger.warn "DMPHubService - No ApiClient available for 'dmphub'!" unless api_client.present?
-        return plan unless plan.present? && dmp_id.present? &&
-                           callback_path.present? && api_client.present?
+        client = api_client
+        path = callback_path
+        Rails.logger.warn "DMPHubService - No ApiClient available for 'dmphub'!" unless client.present?
+        return nil unless plan.present? && dmp_id.present? && path.present? && client.present?
 
         Subscription.create(
           plan: plan,
-          subscriber: api_client,
-          callback_uri: callback_path % { dmp_id: dmp_id.gsub(/https?:\/\/doi.org\//, "") },
+          subscriber: client,
+          callback_uri: path % { dmp_id: dmp_id.gsub(/https?:\/\/doi.org\//, "") },
           updates: true,
           deletions: true
         )
@@ -144,10 +145,15 @@ module ExternalApis
 
       # Bump the last_notified timestamp on the subscription
       def update_subscription(plan:, dmp_id:)
-        Rails.logger.warn "DMPHubService - No ApiClient available for 'dmphub'!" unless api_client.present?
-        return plan unless plan.present? && dmp_id.present? && callback_path.present? && api_client.present?
+        client = api_client
+        Rails.logger.warn "DMPHubService - No ApiClient available for 'dmphub'!" unless client.present?
+        return nil unless plan.present? && dmp_id.present? && callback_path.present? && client.present?
 
-        Subscription.where(plan: plan, subscriber: api_client).update(last_notified: Time.now)
+        subscription = plan.subscriptions.select { |sub| sub.subscriber == client }.last
+        return nil unless subscription.present?
+
+        subscription.update(last_notified: Time.now)
+        subscription
       end
 
       private
@@ -186,7 +192,7 @@ module ExternalApis
       # Prepare the DMP for transmission to the DMPHub (RDA Common Standard format)
       def json_from_template(plan:)
         payload = ActionController::Base.new.render_to_string(
-          partial: "/api/v2/plans/show", locals: { plan: plan, client: api_client }
+          partial: "/api/v1/plans/show", locals: { plan: plan, client: api_client }
         )
 
         { dmp: JSON.parse(payload) }.to_json

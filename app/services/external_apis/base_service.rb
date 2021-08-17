@@ -89,12 +89,14 @@ module ExternalApis
         message += "<br>----------------------------------------<br><br>" if obj.is_a?(Plan)
 
         message += "#{self.name} received the following unexpected response:<br>"
-        message += "#{pp(response.inspect)}"
+        message += "#{response.inspect}"
         message += "<br>----------------------------------------<br><br>"
+
         message += error.message if error.present? && error.is_a?(StandardError)
-        message += error.backtrace if error.present? && error.is_a?(StandardError)
+        message += error.backtrace || "" if error.present? && error.is_a?(StandardError)
 
         UserMailer.notify_administrators(message).deliver_now
+        true
       end
 
       private
@@ -123,8 +125,8 @@ module ExternalApis
         nil
       rescue HTTParty::Error => e
         handle_http_failure(method: "BaseService.http_get #{e.message}",
-                            http_response: resp)
-        resp
+                            http_response: nil)
+        nil
       end
 
       # Makes a POST request to the specified uri with the additional headers.
@@ -143,8 +145,8 @@ module ExternalApis
         nil
       rescue HTTParty::Error => e
         handle_http_failure(method: "BaseService.http_post #{e.message}",
-                            http_response: resp)
-        resp
+                            http_response: nil)
+        nil
       end
       # rubocop:enable Metrics/MethodLength
 
@@ -164,8 +166,8 @@ module ExternalApis
         nil
       rescue HTTParty::Error => e
         handle_http_failure(method: "BaseService.http_put #{e.message}",
-                            http_response: resp)
-        resp
+                            http_response: nil)
+        nil
       end
       # rubocop:enable Metrics/MethodLength
 

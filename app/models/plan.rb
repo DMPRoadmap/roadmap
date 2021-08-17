@@ -656,7 +656,7 @@ class Plan < ApplicationRecord
     end
     targets = targets.flatten.uniq if targets.any?
 
-    targets.each { |subscription| p "foo"; subscription.notify! }
+    targets.each { |subscription| subscription.notify! }
     true
   end
 

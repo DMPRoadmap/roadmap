@@ -15,7 +15,8 @@ end
 json.distribution [plan] do |distribution|
   json.title "PDF - #{distribution.title}"
   json.data_access "open"
-  json.download_url plan_export_url(distribution, format: :pdf)
+  url = Rails.application.routes.url_helpers.plan_export_url(distribution, format: :pdf)
+  json.download_url url
   json.format do
     json.array! ["application/pdf"]
   end

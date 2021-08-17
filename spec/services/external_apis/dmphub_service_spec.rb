@@ -4,42 +4,83 @@ require "rails_helper"
 
 RSpec.describe ExternalApis::DmphubService, type: :model do
   include DmphubMocks
+  include IdentifierHelper
 
   before(:each) do
     Rails.configuration.x.dmphub.active = true
+    Rails.configuration.x.dmphub.api_base_url = "https://api.test.dmphub.org/"
     unless Language.where(default_language: true).any?
       # Org model requires a language so make sure the default is set
       create(:language, default_language: true)
     end
     @plan = create(:plan, :creator)
     create(:contributor, investigation: true, plan: @plan)
-    create(:identifier, identifiable: @plan)
+    create_dmp_id(plan: @plan)
+    @client = create(:api_client)
+    @dmp_id = @plan.dmp_id.value_without_scheme_prefix
     @plan.reload
   end
 
   describe "#mint_dmp_id" do
-    it "returns nil if the service is not active" do
+    it "returns nil if the DMPHubService is not active" do
       Rails.configuration.x.dmphub.active = false
-      stub_minting_success!
-      dmp_id = described_class.mint_dmp_id(plan: @plan)
-      expect(dmp_id).to eql(nil)
+      expect(described_class.mint_dmp_id(plan: @plan)).to eql(nil)
     end
-
-    it "returns the new DMP ID" do
-      stub_minting_success!
-      dmp_id = described_class.mint_dmp_id(plan: @plan)
-      expect(dmp_id).to eql("10.99999/abc123-566")
+    it "returns nil if :auth returns nil" do
+      stub_auth_error!
+      expect(described_class.mint_dmp_id(plan: @plan)).to eql(nil)
     end
-
-    it "returns nil if Datacite returned an error" do
+    it "returns nil if :plan is not present" do
+      stub_auth_success!
+      expect(described_class.mint_dmp_id(plan: nil)).to eql(nil)
+    end
+    it "handles the http failure and notifies admins if HTTP response is not 200" do
+      stub_auth_success!
       stub_minting_error!
-      dmp_id = described_class.mint_dmp_id(plan: @plan)
-      expect(dmp_id).to eql(nil)
+      described_class.expects(:handle_http_failure).returns(true)
+      described_class.expects(:notify_administrators).returns(true)
+      result = described_class.mint_dmp_id(plan: @plan)
+      expect(result).to eql(nil)
+    end
+    it "processes the response, updates the subscription and returns the DMP ID" do
+      stub_auth_success!
+      stub_minting_success!
+      described_class.expects(:process_response).returns("foo")
+      described_class.expects(:add_subscription).returns(true)
+      result = described_class.mint_dmp_id(plan: @plan)
+      expect(result).to eql("foo")
     end
   end
 
   describe "#update_dmp_id(plan:)" do
-
+    it "returns nil if the DMPHubService is not active" do
+      Rails.configuration.x.dmphub.active = false
+      expect(described_class.update_dmp_id(plan: @plan)).to eql(nil)
+    end
+    it "returns nil if :auth returns nil" do
+      stub_auth_error!
+      expect(described_class.update_dmp_id(plan: @plan)).to eql(nil)
+    end
+    it "returns nil if :plan is not present" do
+      stub_auth_success!
+      expect(described_class.update_dmp_id(plan: nil)).to eql(nil)
+    end
+    it "handles the http failure and notifies admins if HTTP response is not 200" do
+      stub_auth_success!
+      stub_update_error!
+      described_class.expects(:handle_http_failure).returns(true)
+      described_class.expects(:notify_administrators).returns(true)
+      result = described_class.update_dmp_id(plan: @plan)
+      expect(result).to eql(nil)
+    end
+    it "processes the response, updates the subscription and returns the DMP ID" do
+      stub_auth_success!
+      stub_update_success!
+      described_class.expects(:process_response).returns("foo")
+      described_class.expects(:update_subscription).returns(true)
+      result = described_class.update_dmp_id(plan: @plan)
+      expect(result).to eql("foo")
+    end
   end
 
   describe "#delete_dmp_id(plan:)" do
@@ -49,115 +90,148 @@ RSpec.describe ExternalApis::DmphubService, type: :model do
   end
 
   describe "#add_subscription(plan:, dmp_id:)" do
+    it "returns nil if the :plan is not present" do
+      result = described_class.add_subscription(plan: nil, dmp_id: @dmp_id)
+      expect(result).to eql(nil)
+    end
+    it "returns nil if the :dmp_id is not present" do
+      result = described_class.add_subscription(plan: @plan, dmp_id: nil)
+      expect(result).to eql(nil)
+    end
+    it "logs a warning and returns nil if no ApiClient is defined" do
+      described_class.expects(:api_client).returns(nil)
+      described_class.expects(:callback_path).returns(nil)
+      Rails.logger.expects(:warn)
+      result = described_class.add_subscription(plan: @plan, dmp_id: @dmp_id)
+      expect(result).to eql(nil)
+    end
+    it "returns nil if the :callback_path is not present" do
+      described_class.expects(:api_client).returns(@client)
+      described_class.expects(:callback_path).returns(nil)
+      result = described_class.add_subscription(plan: @plan, dmp_id: @dmp_id)
+      expect(result).to eql(nil)
+    end
+    it "creates a new Subscription" do
+      described_class.expects(:api_client).returns(@client)
+      described_class.expects(:callback_path).returns("https://doi.org/123.123/%{dmp_id}")
+      result = described_class.add_subscription(plan: @plan, dmp_id: @dmp_id)
+      expect(result.plan).to eql(@plan)
+      expect(result.subscriber).to eql(@client)
+      expect(result.callback_uri).to eql("https://doi.org/123.123/#{@dmp_id}")
+      expect(result.creations?).to eql(false)
+      expect(result.updates?).to eql(true)
+      expect(result.deletions?).to eql(true)
+    end
+  end
 
+  describe "#update_subscription(plan:, dmp_id:)" do
+    it "returns nil if the :plan is not present" do
+      result = described_class.update_subscription(plan: nil, dmp_id: @dmp_id)
+      expect(result).to eql(nil)
+    end
+    it "returns nil if the :dmp_id is not present" do
+      result = described_class.update_subscription(plan: @plan, dmp_id: nil)
+      expect(result).to eql(nil)
+    end
+    it "logs a warning and returns nil if no ApiClient is defined" do
+      described_class.expects(:api_client).returns(nil)
+      described_class.expects(:callback_path).returns(nil)
+      Rails.logger.expects(:warn)
+      result = described_class.update_subscription(plan: @plan, dmp_id: @dmp_id)
+      expect(result).to eql(nil)
+    end
+    it "returns nil if the :callback_path is not present" do
+      described_class.expects(:api_client).returns(@client)
+      described_class.expects(:callback_path).returns(nil)
+      result = described_class.update_subscription(plan: @plan, dmp_id: @dmp_id)
+      expect(result).to eql(nil)
+    end
+    it "returns nil if there is no subscription for the plan+api_client" do
+      described_class.expects(:api_client).returns(@client)
+      described_class.expects(:callback_path).returns(Faker::Internet.unique.url)
+      subscription = create(:subscription, :for_updates, plan: @plan,
+                                                         subscriber: create(:api_client),
+                                                         last_notified: Time.now - 2.hours)
+      result = described_class.update_subscription(plan: @plan, dmp_id: @dmp_id)
+      expect(result).to eql(nil)
+    end
+    it "returns the subscription" do
+      described_class.expects(:api_client).returns(@client)
+      described_class.expects(:callback_path).returns(Faker::Internet.unique.url)
+      subscription = create(:subscription, :for_updates, plan: @plan, subscriber: @client,
+                                                         last_notified: Time.now - 2.hours)
+      result = described_class.update_subscription(plan: @plan, dmp_id: @dmp_id)
+      expect(result.id).to eql(subscription.id)
+      expect(result.last_notified > subscription.last_notified)
+    end
   end
 
   context "private methods" do
     describe "#auth" do
-      before(:each) do
-        @hash = described_class.send(:auth)
+      it "handles a successful auth" do
+        stub_auth_success!
+        described_class.expects(:process_token).returns({ foo: "bar" })
+        expect(described_class.send(:auth).present?).to eql(true)
       end
 
-      it "returns the correct username" do
-        expect(@hash.include?(:username)).to eql(true)
-        expect(@hash[:username]).to eql(Rails.configuration.x.datacite&.repository_id)
-      end
-
-      it "returns the correct password" do
-        expect(@hash.include?(:password)).to eql(true)
-        expect(@hash[:password]).to eql(Rails.configuration.x.datacite&.password)
+      it "handles an unsuccessful auth" do
+        stub_auth_error!
+        described_class.expects(:process_token).never
+        expect(described_class.send(:auth).present?).to eql(false)
       end
     end
 
     describe "#process_token(json:)" do
+      before(:each) do
+        @token_hash = { token_type: Faker::Lorem.word, access_token: SecureRandom.uuid }
+      end
 
+      it "returns nil if :json does not include an :token_type" do
+        @token_hash[:token_type] = nil
+        expect(described_class.send(:process_token, json: @token_hash.to_json)).to eql(nil)
+      end
+      it "returns nil if :json does not include an :access_token" do
+        @token_hash[:access_token] = nil
+        expect(described_class.send(:process_token, json: @token_hash.to_json)).to eql(nil)
+      end
+      it "logs JSON parser errors" do
+        JSON.expects(:parse).raises(JSON::ParserError.new("foo"))
+        Rails.logger.expects(:error).twice
+        result = described_class.send(:process_token, json: @token_hash.to_json)
+        expect(result).to eql(nil)
+      end
+      it "formats the token info for the 'Authorization' header" do
+        expected = "#{@token_hash[:token_type]}: #{@token_hash[:access_token]}"
+        result = described_class.send(:process_token, json: @token_hash.to_json)
+        expect(result).to eql(expected)
+      end
     end
 
     # rubocop:disable Layout/LineLength
     describe "#json_from_template(dmp:)" do
       it "properly generates the JSON for submission to DMPHub" do
-        orcid = create(:identifier_scheme, name: "orcid")
-        ror = create(:identifier_scheme, name: "ror")
-        creator_orcid = create(:identifier, identifiable: @plan.owner,
-                                            identifier_scheme: orcid)
-        contrib = @plan.contributors.reject { |c| c == @plan.owner }.first
-        contrib_orcid = create(:identifier, identifiable: contrib,
-                                            identifier_scheme: orcid)
-        creator_ror = create(:identifier, identifiable: @plan.owner.org,
-                                          identifier_scheme: ror)
-        contributor_ror = create(:identifier, identifiable: contrib.org,
-                                              identifier_scheme: ror)
-
-        json = JSON.parse(described_class.send(:json_from_template, dmp: @plan))
-
-        expect(json["data"].present?).to eql(true)
-        expect(json["data"]["type"]).to eql("dois")
-        expect(json["data"]["attributes"].present?).to eql(true)
-
-        # DMP checks
-        dmp_json = json["data"]["attributes"]
-        expect(dmp_json["prefix"]).to eql(described_class.shoulder)
-        expect(dmp_json["schemaVersion"]).to eql("http://datacite.org/schema/kernel-4")
-        expect(dmp_json["titles"].first["title"]).to eql(@plan.title)
-        expect(dmp_json["descriptions"].first["description"]).to eql(@plan.description)
-        expect(dmp_json["descriptions"].first["descriptionType"]).to eql("Abstract")
-        expect(dmp_json["publisher"]).to eql(ApplicationService.application_name)
-        expect(dmp_json["publicationYear"]).to eql(Time.now.year)
-        expect(dmp_json["dates"].length).to eql(2)
-        expect(dmp_json["dates"].first["dateType"]).to eql("Created")
-        expect(dmp_json["dates"].first["date"]).to eql(@plan.created_at.to_formatted_s(:iso8601))
-        expect(dmp_json["dates"].last["dateType"]).to eql("Updated")
-        expect(dmp_json["dates"].last["date"]).to eql(@plan.updated_at.to_formatted_s(:iso8601))
-
-        # Related Identifiers checks
-        expected = Rails.application.routes.url_helpers.api_v1_plan_url(@plan)
-        expect(dmp_json["relatedIdentifiers"].first.present?).to eql(true)
-        expect(dmp_json["relatedIdentifiers"].first["relatedIdentifier"]).to eql(expected)
-        expect(dmp_json["relatedIdentifiers"].first["relatedIdentifierType"]).to eql("IsMetadataFor")
-
-        # Type checks
-        type = dmp_json["types"]
-        expect(type["resourceType"]).to eql("Data Management Plan")
-        expect(type["resourceTypeGeneral"]).to eql("OutputManagementPlan")
-
-        # Creators check
-        creator = dmp_json["creators"].first
-        expected = @plan.owner.reload
-        expect(creator["name"]).to eql([expected.surname, expected.firstname].join(", "))
-        expect(creator["nameType"]).to eql("Personal")
-        expect(creator["nameIdentifiers"].first["nameIdentifierScheme"]).to eql("ORCID")
-        expect(creator["nameIdentifiers"].first["nameIdentifier"].end_with?(creator_orcid.value)).to eql(true)
-        expect(creator["affiliation"].present?).to eql(true)
-        expect(creator["affiliation"]["name"]).to eql(expected.org.name)
-        expect(creator["affiliation"]["affiliationIdentifierScheme"]).to eql("ROR")
-        expect(creator["affiliation"]["affiliationIdentifier"]).to eql(creator_ror.value)
-
-        # Contributors check
-        contrib = dmp_json["contributors"].first
-        expected = @plan.contributors.last.reload
-        expect(contrib["name"]).to eql(expected.name)
-        expect(contrib["nameType"]).to eql("Personal")
-        expect(contrib["contributorType"]).to eql("ProjectLeader")
-        expect(contrib["nameIdentifiers"].first["nameIdentifierScheme"]).to eql("ORCID")
-        expect(contrib["nameIdentifiers"].first["nameIdentifier"].end_with?(contrib_orcid.value)).to eql(true)
-        expect(contrib["affiliation"].present?).to eql(true)
-        expect(contrib["affiliation"]["name"]).to eql(expected.org.name)
-        expect(contrib["affiliation"]["affiliationIdentifierScheme"]).to eql("ROR")
-        expect(contrib["affiliation"]["affiliationIdentifier"]).to eql(contributor_ror.value)
+        ActionController::Base.any_instance.expects(:render_to_string)
+                              .with(
+                                partial: "/api/v1/plans/show",
+                                locals: { plan: @plan, client: nil }
+                              )
+                              .returns({ foo: "bar" }.to_json)
+        result = described_class.send(:json_from_template, plan: @plan)
+        expect(result).to eql("{\"dmp\":{\"foo\":\"bar\"}}")
       end
     end
 
     describe "#process_response(response:)" do
-      it "returns nil if JSON for Datacite does not have ['data']" do
+      it "returns nil if JSON for DMPHub does not have ['items']" do
         resp = OpenStruct.new(body: { "foo": "bar" }.to_json)
         expect(described_class.send(:process_response, response: resp)).to eql(nil)
       end
-      it "returns nil if JSON for Datacite does not have ['data']['attributes']" do
-        resp = OpenStruct.new(body: { "data": { "type": "dmp_ids" } }.to_json)
+      it "returns nil if JSON for DMPHub does not have ['items'].first['dmp']" do
+        resp = OpenStruct.new(body: { "items": [{ "foo": "bar" }] }.to_json)
         expect(described_class.send(:process_response, response: resp)).to eql(nil)
       end
-      it "returns nil if JSON for Datacite does not have ['data']['attributes']['relatedIdentifiers']" do
-        resp = OpenStruct.new(body: { "data": { "attributes": { "types": [] } } }.to_json)
+      it "returns nil if JSON for DMPHub does not have ['items'].first['dmp']['dmp_id']" do
+        resp = OpenStruct.new(body: { "items": [{ "dmp": { "title": "foo" } }] }.to_json)
         expect(described_class.send(:process_response, response: resp)).to eql(nil)
       end
       it "returns nil if JSON is unparseable" do
@@ -165,9 +239,9 @@ RSpec.describe ExternalApis::DmphubService, type: :model do
         expect(described_class.send(:process_response, response: resp)).to eql(nil)
       end
       it "returns the response as JSON" do
-        expected = { "data": { "attributes": { "doi": ["foo"] } } }
+        expected = { "items": [{ "dmp": { "dmp_id": { "type": "doi", "identifier": "123"}} }] }
         resp = OpenStruct.new(body: expected.to_json)
-        expect(described_class.send(:process_response, response: resp)).to eql(JSON.parse(expected.to_json))
+        expect(described_class.send(:process_response, response: resp)).to eql("123")
       end
     end
     # rubocop:enable Layout/LineLength
