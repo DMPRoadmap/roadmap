@@ -82,4 +82,8 @@ class PlanPolicy < ApplicationPolicy
     @plan.editable_by?(@user.id)
   end
 
+  def mint?
+    @plan.owner == @user || @user.can_super_admin?
+  end
+
 end

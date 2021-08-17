@@ -7,7 +7,12 @@
   <%= render partial: "plans/collaborator_form", locals: { plan: @plan, plan_roles: @plan_roles } %>
 <% end %>
 
-<% if Rails.configuration.x.madmp.enable_dmp_id_registration %>
+<%#
+NOTE: In order for this to be true, you must:
+  - Enable the `madmp.enable_dmp_id_registration` in config/initializers/_dmproadmap.rb
+  - Enabled one of the DMP ID minting services in config/initializers/external_apis/
+%>
+<% if DmpIdService.minting_service_defined? %>
   <hr>
   <%= render partial: 'plans/doi_minter', locals: { plan: @plan } %>
 <% end %>

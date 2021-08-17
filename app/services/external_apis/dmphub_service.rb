@@ -76,6 +76,12 @@ module ExternalApis
           "Authorization": @token,
           "Server-Agent": "#{caller_name} (#{client_id})"
         }
+
+p "----------------"
+pp hdrs
+p "#{api_base_url}#{mint_path}"
+p "----------------"
+
         resp = http_post(uri: "#{api_base_url}#{mint_path}",
                          additional_headers: hdrs, debug: false,
                          data: json_from_template(plan: plan))
@@ -167,6 +173,10 @@ module ExternalApis
           client_id: client_id,
           client_secret: client_secret
         }
+
+p "AUTH: #{api_base_url}#{auth_path}"
+pp headers
+
         resp = http_post(uri: "#{api_base_url}#{auth_path}",
                          additional_headers: {}, data: data.to_json, debug: false)
         unless resp.present? && resp.code == 200

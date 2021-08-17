@@ -456,6 +456,25 @@ class PlansController < ApplicationController
     redirect_to(action: :index)
   end
 
+  # GET /plans/:id/mint
+  def mint
+    @plan = Plan.find(params[:id])
+    authorize @plan
+
+    DmpIdService.mint_dmp_id(plan: @plan)&.save
+
+p @plan.inspect
+
+    @plan = @plan.reload
+
+    render js: render_to_string(template: "plans/mint.js.erb")
+  rescue StandardError => e
+    Rails.logger.error "Unable mint DMP ID for plan #{params[:id]} - #{e.message}"
+    Rails.logger.error e.backtrace
+
+    render js: render_to_string(template: "plans/mint.js.erb")
+  end
+
   # ============================
   # = Private instance methods =
   # ============================
