@@ -11,12 +11,12 @@ describe "layouts/modal_search/_form.html.erb" do
   it "defaults to :search_examples to an empty string and :results to an empty array" do
     render partial: "layouts/modal_search/form",
            locals: {
-              namespace: nil,
-              label: nil,
-              search_examples: nil,
-              model_instance: @model,
-              search_path: nil,
-              search_method: nil
+             namespace: nil,
+             label: nil,
+             search_examples: nil,
+             model_instance: @model,
+             search_path: nil,
+             search_method: nil
            }
     expect(rendered.include?("- Enter a search term  -")).to eql(true)
     expect(rendered.include?("No results matched your filter criteria.")).to eql(true)
@@ -26,12 +26,12 @@ describe "layouts/modal_search/_form.html.erb" do
     examples = Faker::Lorem.sentence
     render partial: "layouts/modal_search/form",
            locals: {
-              namespace: nil,
-              label: nil,
-              search_examples: examples,
-              model_instance: @model,
-              search_path: nil,
-              search_method: nil
+             namespace: nil,
+             label: nil,
+             search_examples: examples,
+             model_instance: @model,
+             search_path: nil,
+             search_method: nil
            }
     expect(rendered.include?(examples)).to eql(true)
   end
@@ -40,12 +40,12 @@ describe "layouts/modal_search/_form.html.erb" do
     namespace = Faker::Lorem.word.downcase
     render partial: "layouts/modal_search/form",
            locals: {
-              namespace: namespace,
-              label: nil,
-              search_examples: nil,
-              model_instance: @model,
-              search_path: nil,
-              search_method: nil
+             namespace: namespace,
+             label: nil,
+             search_examples: nil,
+             model_instance: @model,
+             search_path: nil,
+             search_method: nil
            }
     expect(rendered.include?("modal-search-#{namespace}")).to eql(true)
     expect(rendered.include?("modal-search-#{namespace}-filters")).to eql(true)
@@ -56,12 +56,12 @@ describe "layouts/modal_search/_form.html.erb" do
     label = Faker::Lorem.word
     render partial: "layouts/modal_search/form",
            locals: {
-              namespace: nil,
-              label: label,
-              search_examples: nil,
-              model_instance: @model,
-              search_path: nil,
-              search_method: nil
+             namespace: nil,
+             label: label,
+             search_examples: nil,
+             model_instance: @model,
+             search_path: nil,
+             search_method: nil
            }
     expect(rendered.include?("#{label} search")).to eql(true)
   end
@@ -69,12 +69,12 @@ describe "layouts/modal_search/_form.html.erb" do
   it "Uses the :model_instance when adding the form element" do
     render partial: "layouts/modal_search/form",
            locals: {
-              namespace: nil,
-              label: nil,
-              search_examples: nil,
-              model_instance: @model,
-              search_path: nil,
-              search_method: nil
+             namespace: nil,
+             label: nil,
+             search_examples: nil,
+             model_instance: @model,
+             search_path: nil,
+             search_method: nil
            }
     expect(rendered.include?(plan_path(@model))).to eql(true)
   end
@@ -83,12 +83,12 @@ describe "layouts/modal_search/_form.html.erb" do
     url = Faker::Internet.url
     render partial: "layouts/modal_search/form",
            locals: {
-              namespace: nil,
-              label: nil,
-              search_examples: nil,
-              model_instance: @model,
-              search_path: url,
-              search_method: nil
+             namespace: nil,
+             label: nil,
+             search_examples: nil,
+             model_instance: @model,
+             search_path: url,
+             search_method: nil
            }
     expect(rendered.include?(url)).to eql(true)
   end
@@ -97,12 +97,12 @@ describe "layouts/modal_search/_form.html.erb" do
     method = %i[get put post patch delete].sample
     render partial: "layouts/modal_search/form",
            locals: {
-              namespace: nil,
-              label: nil,
-              search_examples: nil,
-              model_instance: @model,
-              search_path: nil,
-              search_method: method
+             namespace: nil,
+             label: nil,
+             search_examples: nil,
+             model_instance: @model,
+             search_path: nil,
+             search_method: method
            }
     expect(rendered.include?(method.to_s)).to eql(true)
   end

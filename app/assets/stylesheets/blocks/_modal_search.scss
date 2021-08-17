@@ -66,8 +66,8 @@
   font-size: 1.3rem;
 }
 .modal-search-result .modal-search-result-selector {
-  border: 1px solid $color-green;
-  color: $color-green;
+  background-color: $color-green;
+  color: $color-white;
 }
 .modal-search-result .modal-search-result-unselector {
   border: 1px solid $color-red;

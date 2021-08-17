@@ -4,11 +4,12 @@ module ExternalApis
 
   # This service provides an interface to the RDA Metadata Standards Catalog (RDAMSC)
   # It extracts the list of Metadata Standards using two API endpoints from the first extracts
-  # the list of subjects/concepts from the thesaurus and the second collects the standards (aka schemes)
-  # and connects them to their appropriate subjects
+  # the list of subjects/concepts from the thesaurus and the second collects the standards
+  # (aka schemes) and connects them to their appropriate subjects
   #
   # UI to see the standards: https://rdamsc.bath.ac.uk/scheme-index
-  # API: https://app.swaggerhub.com/apis-docs/alex-ball/rda-metadata-standards-catalog/2.0.0#/m/get_api2_m
+  # API:
+  # https://app.swaggerhub.com/apis-docs/alex-ball/rda-metadata-standards-catalog/2.0.0#/m/get_api2_m
   class RdamscService < BaseService
 
     class << self
@@ -52,7 +53,6 @@ module ExternalApis
 
       def fetch_metadata_standards
         query_schemes(path: "#{schemes_path}?pageSize=250")
-        p "DONE"
       end
 
       private
@@ -65,15 +65,7 @@ module ExternalApis
       #     "currentItemCount": 10,
       #     "items": [
       #       {
-      #         "description": "<p>The <a href=\\"http://www.tdwg.org/standards/115/\\">Access to Biological \
-      #                         Collections Data (ABCD) Schema</a> is an evolving comprehensive standard for \
-      #                         the access to and exchange of data about specimens and observations (a.k.a. \
-      #                         primary biodiversity data). The ABCD Schema attempts to be comprehensive and
-      #                         highly structured, supporting data from a wide variety of databases. It is \
-      #                         compatible with several existing data standards. Parallel structures exist so \
-      #                         that either (or both) atomised data and free-text can be accommodated.</p> \
-      #                         <p>Sponsored by Biodiversity Information Standards TDWG - the Taxonomic \
-      #                         Databases Working Group, the current specification was last modified in 2007.</p>",
+      #         "description": "<p>The Access to Biological Collections Data (ABCD) Schema</p>",
       #         "keywords": [
       #           "http://vocabularies.unesco.org/thesaurus/concept4011",
       #           "http://vocabularies.unesco.org/thesaurus/concept230",
@@ -115,7 +107,6 @@ module ExternalApis
         process_scheme_entries(json: json)
         return true unless json.fetch("data", {})["nextLink"].present?
 
-        p "  processing entry #{json["data"]["pageIndex"].to_i * json["data"]["itemsPerPage"].to_i }"
         query_schemes(path: json["data"]["nextLink"])
       end
 
@@ -126,23 +117,25 @@ module ExternalApis
         resp = http_get(uri: "#{api_base_url}#{path}", additional_headers: {}, debug: false)
         unless resp.present? && resp.code == 200
           handle_http_failure(method: "RDAMSC API query - path: '#{path}' -- ", http_response: resp)
-          return false
+          return nil
         end
 
         JSON.parse(resp.body)
       rescue JSON::ParserError => e
         log_error(method: "RDAMSC API query - path: '#{path}' -- ", error: e)
-        false
+        nil
       end
 
       def process_scheme_entries(json:)
-        return false unless json.present? && json["data"].present? && json["data"].fetch("items", []).any?
+        return false unless json.is_a?(Hash)
+
+        json = json.with_indifferent_access
+        return false unless json["data"].present? && json["data"].fetch("items", []).any?
 
         json["data"]["items"].each do |item|
           standard = MetadataStandard.find_or_create_by(uri: item["uri"], title: item["title"])
           standard.update(description: item["description"], locations: item["locations"],
                           related_entities: item["relatedEntities"], rdamsc_id: item["mscid"])
-          standard.save
         end
       end
 

@@ -67,7 +67,7 @@ import '../src/plans/new';
 import '../src/plans/publish';
 import '../src/plans/share';
 import '../src/publicTemplates/show';
-import '../src/research_outputs/form';
+import '../src/researchOutputs/form';
 import '../src/roles/edit';
 import '../src/shared/createAccountForm';
 import '../src/shared/signInForm';
@@ -122,5 +122,4 @@ window.jQuery = jQuery;
 // Allow js.erb files to access the notificationHelper functions
 window.renderAlert = renderAlert;
 window.renderNotice = renderNotice;
-
 window.toggleSpinner = toggleSpinner;

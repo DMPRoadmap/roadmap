@@ -4,24 +4,24 @@
 #
 # Table name: repositories
 #
-#  id          :bigint(8)        not null, primary key
-#  contact     :string(255)
-#  description :text(65535)      not null
+#  id          :bigint           not null, primary key
+#  contact     :string
+#  description :text             not null
 #  info        :json
-#  name        :string(255)      not null
-#  url         :string(255)
+#  name        :string           not null
+#  homepage    :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  uri         :string           not null
 #
 # Indexes
 #
-#  index_repositories_on_name  (name)
-#  index_repositories_on_url   (url)
+#  index_repositories_on_name     (name)
+#  index_repositories_on_homepage (homepage)
+#  index_repositories_on_uri      (uri)
 #
 
 class Repository < ApplicationRecord
-
-  include Identifiable
 
   # ================
   # = Associations =
@@ -34,23 +34,23 @@ class Repository < ApplicationRecord
   # ==========
 
   scope :by_type, lambda { |type|
-    query_val = type.present? ? "%\"#{type}\"%" : "%"
-    where("info->>'$.types' LIKE ?", query_val)
+    where(safe_json_where_clause(column: "info", hash_key: "types"), "%#{type}%")
   }
 
   scope :by_subject, lambda { |subject|
-    query_val = subject.present? ? "%\"#{subject}\"%" : "%"
-    where("info->>'$.subjects' LIKE ?", query_val)
+    where(safe_json_where_clause(column: "info", hash_key: "subjects"), "%#{subject}%")
   }
 
   scope :search, lambda { |term|
+    term = term.downcase
     where("LOWER(name) LIKE ?", "%#{term}%")
-      .or(where("info->>'$.keywords' LIKE ?", "%#{term}%"))
+      .or(where(safe_json_where_clause(column: "info", hash_key: "keywords"), "%#{term}%"))
+      .or(where(safe_json_where_clause(column: "info", hash_key: "subjects"), "%#{term}%"))
   }
 
   # A very specific keyword search (e.g. 'gene', 'DNA', etc.)
   scope :by_facet, lambda { |facet|
-    where("info->>'$.keywords' LIKE ?", "%\"#{facet}\"%")
+    where(safe_json_where_clause(column: "info", hash_key: "keywords"), "%#{facet}%")
   }
 
 end

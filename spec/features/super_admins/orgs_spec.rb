@@ -9,7 +9,7 @@ RSpec.describe "SuperAdmins Orgs", type: :feature, js: true do
   before do
     @org = create(:org)
     @user = create(:user, :super_admin, org: @org)
-    sign_in(@user)
+    sign_in_as_user(@user)
   end
 
   scenario "Super admin submits invalid data" do

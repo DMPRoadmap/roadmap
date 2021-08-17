@@ -226,7 +226,7 @@ module Api
         @public_plan             = @plan.publicly_visible?
         @formatting =
 
-        @hash           = @plan.as_pdf(@show_coversheet)
+        @hash           = @plan.as_pdf(nil, @show_coversheet)
         @formatting     = @plan.settings(:export).formatting || @plan.template.settings(:export).formatting
         @selected_phase = @plan.phases.order("phases.updated_at DESC").first
 

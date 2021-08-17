@@ -5,11 +5,11 @@ require "rails_helper"
 RSpec.describe ExternalApis::Re3dataService do
 
   before(:each) do
-    @scheme = create(:identifier_scheme, name: "rethreedata")
     @repo_id = "r3d#{Faker::Number.number(digits: 6)}"
     @headers = described_class.headers
     @repositories_path = "#{described_class.api_base_url}#{described_class.list_path}"
-    @repository_path = URI("#{described_class.api_base_url}#{described_class.repository_path}#{@repo_id}")
+    path = "#{described_class.api_base_url}#{described_class.repository_path}#{@repo_id}"
+    @repository_path = URI(path)
 
     @repositories_results = <<-XML
       <?xml version="1.0" encoding="utf-8"?>
@@ -20,11 +20,7 @@ RSpec.describe ExternalApis::Re3dataService do
           <link href="#{@repo_id}" rel="self"/>
         </repository>
       </list>
-      XML
-
-    # Append our scheme prefix to the repo_id
-    #@repo_id = "#{@scheme.identifier_prefix}#{@repo_id}"
-
+    XML
     @repository_result = <<-XML
       <?xml version="1.0" encoding="utf-8"?>
       <!--re3data.org Schema for the Description of Research Data Repositories. Version 2.2, December 2014. doi:10.2312/re3.006-->
@@ -96,7 +92,8 @@ RSpec.describe ExternalApis::Re3dataService do
           <r3d:lastUpdate>2021-02-03</r3d:lastUpdate>
         </r3d:repository>
       </r3d:re3data>
-      XML
+    XML
+
   end
 
   describe "#fetch" do
@@ -106,13 +103,16 @@ RSpec.describe ExternalApis::Re3dataService do
         expect(described_class.fetch).to eql([])
       end
       it "fetches individual repository data" do
-        described_class.expects(:query_re3data).returns(Nokogiri::XML(@repositories_results, nil, "utf8"))
+        described_class.expects(:query_re3data)
+                       .returns(Nokogiri::XML(@repositories_results, nil, "utf8"))
         described_class.expects(:query_re3data_repository).at_least(1)
         described_class.fetch
       end
       it "processes the repository data" do
-        described_class.expects(:query_re3data).returns(Nokogiri::XML(@repositories_results, nil, "utf8"))
-        described_class.expects(:query_re3data_repository).returns(Nokogiri::XML(@repository_result, nil, "utf8"))
+        described_class.expects(:query_re3data)
+                       .returns(Nokogiri::XML(@repositories_results, nil, "utf8"))
+        described_class.expects(:query_re3data_repository)
+                       .returns(Nokogiri::XML(@repository_result, nil, "utf8"))
         described_class.expects(:process_repository).at_least(1)
         described_class.fetch
       end
@@ -129,7 +129,11 @@ RSpec.describe ExternalApis::Re3dataService do
       end
       it "returns the response body as XML" do
         stub_request(:get, @repositories_path).with(headers: @headers)
-                                              .to_return(status: 200, body: @repositories_results, headers: {})
+                                              .to_return(
+                                                status: 200,
+                                                body: @repositories_results,
+                                                headers: {}
+                                              )
         expected = Nokogiri::XML(@repositories_results, nil, "utf8").text
         expect(described_class.send(:query_re3data).text).to eql(expected)
       end
@@ -147,9 +151,14 @@ RSpec.describe ExternalApis::Re3dataService do
       end
       it "returns the response body as JSON" do
         stub_request(:get, @repository_path).with(headers: @headers)
-                                            .to_return(status: 200, body: @repository_result, headers: {})
+                                            .to_return(
+                                              status: 200,
+                                              body: @repository_result,
+                                              headers: {}
+                                            )
         expected = Nokogiri::XML(@repository_result, nil, "utf8").text
-        expect(described_class.send(:query_re3data_repository, repo_id: @repo_id).text).to eql(expected)
+        result = described_class.send(:query_re3data_repository, repo_id: @repo_id).text
+        expect(result).to eql(expected)
       end
     end
 
@@ -165,12 +174,11 @@ RSpec.describe ExternalApis::Re3dataService do
         expect(described_class.send(:process_repository, id: @repo_id, node: nil)).to eql(nil)
       end
       it "finds an existing Repository by its identifier" do
-        repo = create(:repository)
-        id = create(:identifier, value: @repo_id, identifiable: repo, identifier_scheme: @scheme)
+        repo = create(:repository, uri: @repo_id)
         expect(described_class.send(:process_repository, id: @repo_id, node: @repo)).to eql(repo)
       end
-      it "finds an existing Repository by its name" do
-        repo = create(:repository, name: @repo.xpath("//r3d:repositoryName")&.text)
+      it "finds an existing Repository by its homepage" do
+        repo = create(:repository, homepage: @repo.xpath("//r3d:repositoryURL")&.text)
         expect(described_class.send(:process_repository, id: @repo_id, node: @repo)).to eql(repo)
       end
       it "creates a new Repository" do
@@ -180,7 +188,7 @@ RSpec.describe ExternalApis::Re3dataService do
       end
       it "attaches the identifier to the Repository (if it is not already defined" do
         repo = described_class.send(:process_repository, id: @repo_id, node: @repo)
-        expect(repo.identifiers.last.value.ends_with?(@repo_id)).to eql(true)
+        expect(repo.uri.ends_with?(@repo_id)).to eql(true)
       end
     end
 
@@ -200,9 +208,9 @@ RSpec.describe ExternalApis::Re3dataService do
         described_class.send(:parse_repository, repo: @repo, node: @node)
         expect(@repo.description).to eql(@node.xpath("//r3d:description")&.text)
       end
-      it "updates the :url" do
+      it "updates the :homepage" do
         described_class.send(:parse_repository, repo: @repo, node: @node)
-        expect(@repo.url).to eql(@node.xpath("//r3d:repositoryURL")&.text)
+        expect(@repo.homepage).to eql(@node.xpath("//r3d:repositoryURL")&.text)
       end
       it "updates the :contact" do
         described_class.send(:parse_repository, repo: @repo, node: @node)
@@ -214,6 +222,13 @@ RSpec.describe ExternalApis::Re3dataService do
       end
       context ":info JSON content" do
         before(:each) do
+          policies = @node.xpath("//r3d:policy").map do |node|
+            described_class.send(:parse_policy, node: node)
+          end
+          upload_types = @node.xpath("//r3d:dataUpload").map do |node|
+            described_class.send(:parse_upload, node: node)
+          end
+
           @expected = {
             types: @node.xpath("//r3d:type").map(&:text),
             subjects: @node.xpath("//r3d:subject").map(&:text),
@@ -221,8 +236,8 @@ RSpec.describe ExternalApis::Re3dataService do
             keywords: @node.xpath("//r3d:keyword").map(&:text),
             access: @node.xpath("//r3d:databaseAccess//r3d:databaseAccessType")&.text,
             pid_system: @node.xpath("//r3d:pidSystem")&.text,
-            policies: @node.xpath("//r3d:policy").map { |n| described_class.send(:parse_policy, node: n) },
-            upload_types: @node.xpath("//r3d:dataUpload").map { |n| described_class.send(:parse_upload, node: n) }
+            policies: policies,
+            upload_types: upload_types
           }
         end
         it "updates the :types" do
@@ -296,7 +311,8 @@ RSpec.describe ExternalApis::Re3dataService do
         expect(described_class.send(:parse_upload, node: @node)[:type]).to eql(@expected[:type])
       end
       it "updates the :restriction" do
-        expect(described_class.send(:parse_upload, node: @node)[:restriction]).to eql(@expected[:restriction])
+        result = described_class.send(:parse_upload, node: @node)[:restriction]
+        expect(result).to eql(@expected[:restriction])
       end
     end
 

@@ -30,7 +30,7 @@ RSpec.feature "Templates::UpgradeCustomisations", type: :feature do
 
   scenario "Admin upgrades customizations from funder Template", :js do
     # pending "Need S3 travis working to debug this test on Travis"
-    sign_in user
+    sign_in_as_user user
     visit org_admin_templates_path
 
     # Customise a Template that belongs to another funder Org

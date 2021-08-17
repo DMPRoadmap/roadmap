@@ -165,19 +165,6 @@ module DMPRoadmap
     # regardless of the plans visibility and whether or not the plan has been shared
     config.x.plans.super_admins_read_all = Rails.configuration.x.dmproadmap.plans_super_admins_read_all
 
-    # Specify a list of the preferred licenses types. These licenses will appear in a select
-    # box on the 'Research Outputs' tab when editing a plan along with the option to select
-    # 'other'. When 'other' is selected, the user is presented with the full list of licenses.
-    #
-    # The licenses will appear in the order you specify here.
-    #
-    # Note that the values you enter must match the :identifier field of the licenses table.
-    # You can use the `%{latest}` markup in place of version numbers if desired.
-    config.x.preferred_licenses = Rails.configuration.x.dmproadmap.preferred_licenses
-    # Link to external guidance about selecting one of the preferred licenses. A default
-    # URL will be displayed if none is provided here. See app/views/research_outputs/licenses/_form
-    config.x.preferred_licenses_guidance_url = Rails.configuration.x.dmproadmap.preferred_licenses_guidance_url
-
     # The default user email preferences used when a new account is created
     config.x.application.preferences = Rails.configuration.x.dmproadmap.preferences
 
@@ -201,16 +188,49 @@ module DMPRoadmap
     # ------------------------------------------------------------------------ #
     config.x.recaptcha.enabled = Rails.configuration.x.dmproadmap.recaptcha_enabled
 
-    # ----------- #
-    # DOI Minting
-    # ----------- #
-    config.x.allow_doi_minting = Rails.configuration.x.dmproadmap.doi_minting
-
     # ----- #
     # ORCID #
     # ----- #
     config.x.orcid_landing_page_url = Rails.configuration.x.dmproadmap.orcid_landing_page_url
     config.x.orcid_api_base_url = Rails.configuration.x.dmproadmap.orcid_api_base_url
+
+    # --------------------------------------------------- #
+    # Machine Actionable / Networked DMP Features (maDMP) #
+    # --------------------------------------------------- #
+    # Enable/disable functionality on the Project Details tab
+    config.x.madmp.enable_ethical_issues = Rails.configuration.x.dmproadmap.enable_ethical_issues
+    config.x.madmp.enable_research_domain = Rails.configuration.x.dmproadmap.enable_research_domain
+
+    # This flag will enable/disable the entire Research Outputs tab. The others below will
+    # just enable/disable specific functionality on the Research Outputs tab
+    config.x.madmp.enable_research_outputs = Rails.configuration.x.dmproadmap.enable_research_outputs
+    config.x.madmp.enable_license_selection = Rails.configuration.x.dmproadmap.enable_license_selection
+    config.x.madmp.enable_metadata_standard_selection = Rails.configuration.x.dmproadmap.enable_metadata_standard_selection
+    config.x.madmp.enable_repository_selection = Rails.configuration.x.dmproadmap.enable_repository_selection
+
+    # The following flags will allow the system to include the question and answer in the JSON output
+    #   - questions with a theme equal to 'Preservation'
+    config.x.madmp.extract_preservation_statements_from_themed_questions = Rails.configuration.x.dmproadmap.extract_preservation_statements_from_themed_questions
+    #   - questions with a theme equal to 'Data Collection'
+    config.x.madmp.extract_data_quality_statements_from_themed_questions = Rails.configuration.x.dmproadmap.extract_data_quality_statements_from_themed_questions
+    #   - questions with a theme equal to 'Ethics & privacy' or 'Storage & security'
+    config.x.madmp.extract_security_privacy_statements_from_themed_questions = Rails.configuration.x.dmproadmap.extract_security_privacy_statements_from_themed_questions
+
+    # Specify a list of the preferred licenses types. These licenses will appear in a select
+    # box on the 'Research Outputs' tab when editing a plan along with the option to select
+    # 'other'. When 'other' is selected, the user is presented with the full list of licenses.
+    #
+    # The licenses will appear in the order you specify here.
+    #
+    # Note that the values you enter must match the :identifier field of the licenses table.
+    # You can use the `%{latest}` markup in place of version numbers if desired.
+    config.x.madmp.preferred_licenses = Rails.configuration.x.dmproadmap.preferred_licenses
+    # Link to external guidance about selecting one of the preferred licenses. A default
+    # URL will be displayed if none is provided here. See app/views/research_outputs/licenses/_form
+    config.x.madmp.preferred_licenses_guidance_url = Rails.configuration.x.dmproadmap.preferred_licenses_guidance_url
+
+    # Whether or not we allow DMP ID minting
+    config.x.allow_doi_minting = Rails.configuration.x.dmproadmap.allow_doi_minting
   end
 
 end

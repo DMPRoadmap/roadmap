@@ -11,9 +11,12 @@ RSpec.feature "ModalSearchDialog", type: :feature do
 
     @model = create(:repository)
     @template = create(:template)
-    @plan = create(:plan, :creator, org: create(:org), template: @template)
-    @user  = @plan.owner
-    sign_in(@user)
+    @plan = create(:plan, :creator, template: @template)
+    @user = @plan.owner
+    sign_in_as_user(@user)
+
+    Rails.configuration.x.madmp.enable_research_outputs = true
+    Rails.configuration.x.madmp.enable_repository_selection = true
 
     click_link @plan.title
     click_link "Research Outputs"

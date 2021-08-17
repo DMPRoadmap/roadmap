@@ -8,7 +8,7 @@ RSpec.describe Api::V2::Deserialization::Plan do
     # Org requires a language, so make sure a default is available!
     create(:language, default_language: true) unless Language.default
 
-    @template = create(:template)
+    @template = create(:template, published: true)
     @plan = create(:plan, template: @template)
     @scheme = create(:identifier_scheme, name: "doi",
                                          identifier_prefix: Faker::Internet.url)
@@ -95,17 +95,13 @@ RSpec.describe Api::V2::Deserialization::Plan do
         }
       ],
       dmp_id: { type: "doi", identifier: @identifier.value },
-      extension: [
-        "#{@app_name}": {
-          template: { id: @template.id, title: @template.title }
-        }
-      ]
+      dmproadmap_template: { id: @template.family_id }
     }
 
     # We need to ensure that the deserializer on Funding is called, but
     # no need to check that class' subsequent calls
-    Api::V1::Deserialization::Org.stubs(:deserialize!).returns(@org)
-    Api::V1::Deserialization::Identifier.stubs(:deserialize!).returns(@identifier)
+    Api::V2::Deserialization::Org.stubs(:deserialize!).returns(@org)
+    Api::V2::Deserialization::Identifier.stubs(:deserialize!).returns(@identifier)
   end
 
   describe "#deserialize!(json: {})" do
@@ -145,7 +141,7 @@ RSpec.describe Api::V2::Deserialization::Plan do
         expect(result).to eql(nil)
       end
       it "returns a the existing Plan when :dmp_id is one of our DOIs" do
-        Api::V1::DeserializationService.expects(:object_from_identifier).returns(@plan)
+        Api::V2::DeserializationService.expects(:object_from_identifier).returns(@plan)
         result = described_class.send(:find_or_initialize, id_json: @json[:dmp_id], json: @json)
         expect(result).to eql(@plan)
         expect(result.new_record?).to eql(false)
@@ -217,41 +213,18 @@ RSpec.describe Api::V2::Deserialization::Plan do
       end
       it "does not call the deserializer for Funding if :funding is not present" do
         @json[:project].first[:funding] = nil
-        Api::V1::Deserialization::Funding.expects(:deserialize).at_most(0)
+        Api::V2::Deserialization::Funding.expects(:deserialize).at_most(0)
         described_class.send(:deserialize_project, plan: @plan, json: @json)
       end
       it "calls the deserializer for Funding if :funding present" do
-        Api::V1::Deserialization::Funding.expects(:deserialize).at_least(1)
+        Api::V2::Deserialization::Funding.expects(:deserialize).at_least(1)
         described_class.send(:deserialize_project, plan: @plan, json: @json)
-      end
-    end
-
-    describe "#deserialize_contact(plan:, json:)" do
-      it "returns the Plan as-is if json is not present" do
-        result = described_class.send(:deserialize_contact, plan: @plan, json: nil)
-        expect(result).to eql(@plan)
-        expect(result.contributors.length).to eql(0)
-      end
-      it "returns the Plan as-is if json :contact is not present" do
-        @json[:contact] = nil
-        result = described_class.send(:deserialize_contact, plan: @plan, json: @json)
-        expect(result).to eql(@plan)
-        expect(result.contributors.length).to eql(0)
-      end
-      it "calls the Contributor.deserialize! for the contact entry" do
-        Api::V1::Deserialization::Contributor.expects(:deserialize).at_least(1)
-        described_class.send(:deserialize_contact, plan: @plan, json: @json)
-      end
-      it "attaches the Contact to the Plan's contributors" do
-        result = described_class.send(:deserialize_contact, plan: @plan, json: @json)
-        expect(result.contributors.length).to eql(1)
-        expect(result.contributors.first.name).to eql(@json[:contact][:name])
       end
     end
 
     describe "#deserialize_contributors(plan:, json:)" do
       it "calls the Contributor.deserialize for each contributor entry" do
-        Api::V1::Deserialization::Contributor.expects(:deserialize).at_least(2)
+        Api::V2::Deserialization::Contributor.expects(:deserialize).at_least(2)
         described_class.send(:deserialize_contributors, plan: @plan, json: @json)
       end
       it "attaches the Contributors to the Plan" do
@@ -273,29 +246,6 @@ RSpec.describe Api::V2::Deserialization::Plan do
       end
       it "returns the specified template" do
         expect(described_class.send(:find_template, json: @json)).to eql(@template)
-      end
-    end
-
-    describe "template_id(json:)" do
-      it "returns nil if json not present" do
-        expect(described_class.send(:template_id, json: nil)).to eql(nil)
-      end
-      it "returns nil if extensions for the app were not found" do
-        Api::V1::DeserializationService.stubs(:app_extensions).returns({})
-        expect(described_class.send(:template_id, json: @json)).to eql(nil)
-      end
-      it "returns nil if the extensions have no template info" do
-        expected = { foo: { title: Faker::Lorem.sentence } }
-        Api::V1::DeserializationService.stubs(:app_extensions).returns(expected)
-        expect(described_class.send(:template_id, json: @json)).to eql(nil)
-      end
-      it "returns nil if the extensions have no id for the template info" do
-        expected = { template: { title: Faker::Lorem.sentence } }
-        Api::V1::DeserializationService.stubs(:app_extensions).returns(expected)
-        expect(described_class.send(:template_id, json: @json)).to eql(nil)
-      end
-      it "returns the template id" do
-        expect(described_class.send(:template_id, json: @json)).to eql(@template.id)
       end
     end
 

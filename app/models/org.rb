@@ -312,14 +312,10 @@ class Org < ApplicationRecord
     User.joins(:perms).where("users.org_id = ? AND perms.name IN (?)", id, admin_perms)
   end
 
-  def plans
-    Rails.cache.fetch("org[#{id}].plans", expires_in: 2.seconds) do
-      plan_ids = Role.administrator
-                     .where(user_id: users.pluck(:id), active: true)
-                     .pluck(:plan_id).uniq
-      Plan.includes(:template, :phases, :roles, :users)
-          .where(id: plan_ids)
-    end
+  # This replaces the old plans method. We now use the native plans method and this.
+  def org_admin_plans
+    combined_plan_ids = (native_plan_ids + affiliated_plan_ids).flatten.uniq
+    Plan.includes(:template, :phases, :roles, :users).where(id: combined_plan_ids)
   end
 
   def grant_api!(token_permission_type)
@@ -427,6 +423,17 @@ class Org < ApplicationRecord
     to_be_merged.token_permission_types.each do |perm_type|
       token_permission_types << perm_type unless token_permission_types.include?(perm_type)
     end
+  end
+
+  def affiliated_plan_ids
+    Rails.cache.fetch("org[#{id}].plans", expires_in: 2.seconds) do
+      Role.administrator.where(user_id: users.pluck(:id), active: true)
+          .pluck(:plan_id).uniq
+    end
+  end
+
+  def native_plan_ids
+    plans.map(&:id)
   end
 
   # Ensure that the Org has all of the available token permission types prior to save

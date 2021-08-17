@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe "SuperAdmins Merge Orgs", type: :feature, js: true do
 
   before do
-    Org.all.destroy_all
+    Org.destroy_all
     @scheme = create(:identifier_scheme)
     tpt = create(:token_permission_type)
     @from_org = create(:org, :organisation, templates: 1, plans: 2, managed: true,
@@ -25,21 +25,12 @@ RSpec.describe "SuperAdmins Merge Orgs", type: :feature, js: true do
     @to_org = create(:org, :institution, plans: 2, managed: false)
 
     @user = create(:user, :super_admin, org: create(:org))
-    sign_in(@user)
+    sign_in_as_user(@user)
   end
 
   scenario "Super admin merges an Org into another Org" do
     org_name = @from_org.name
-    # -------------------------------------------------------------
-    # start DMPTool customization
-    # DMPTool changed the label of the admin menu
-    # -------------------------------------------------------------
-    # click_link "Admin"
-    click_link "Admin Features"
-    # -------------------------------------------------------------
-    # end DMPTool customization
-    # -------------------------------------------------------------
-
+    click_link "Admin"
     sleep(0.5)
     click_link "Organisations"
 
@@ -55,6 +46,7 @@ RSpec.describe "SuperAdmins Merge Orgs", type: :feature, js: true do
     expect(page).to have_text("Merge Organisations")
     find("#org_org_name").click
     fill_in(:org_org_name, with: @to_org.name[0..6])
+    sleep(0.5)
     choose_suggestion(@to_org.name)
 
     click_button "Analyze"

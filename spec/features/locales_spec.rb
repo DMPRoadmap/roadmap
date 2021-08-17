@@ -40,7 +40,7 @@ RSpec.feature "Locales", type: :feature, js: true do
     locales = %w[en-GB de pt-BR]
     I18n.available_locales = locales
     I18n.locale = locales.first
-    sign_in(user)
+    sign_in_as_user(user)
   end
 
   after do

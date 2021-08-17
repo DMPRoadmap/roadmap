@@ -9,13 +9,13 @@ describe "layouts/modal_search/_selections.html.erb" do
     @label = Faker::Lorem.sentence
     render partial: "layouts/modal_search/selections",
            locals: {
-              namespace: @namespace,
-              button_label: @label,
-              results: [],
-              item_name_attr: Faker::Lorem.word ,
-              result_partial: nil,
-              search_path: nil,
-              search_method: nil
+             namespace: @namespace,
+             button_label: @label,
+             results: [],
+             item_name_attr: Faker::Lorem.word,
+             result_partial: nil,
+             search_path: nil,
+             search_method: nil
            }
   end
 

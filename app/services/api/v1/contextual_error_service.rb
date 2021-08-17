@@ -24,7 +24,6 @@ module Api
           return errs unless plan.funder.present? || plan.grant.present?
 
           plan.funder.valid?
-
           errs << contextualize(errors: plan.funder.errors, context: "Funding")
           return errs unless plan.grant.present?
 

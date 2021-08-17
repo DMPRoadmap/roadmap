@@ -58,14 +58,18 @@ module Api
             return nil unless plan.present? && plan.template.present?
 
             plan.description = json[:description] if json[:description].present?
-            plan.ethical_issues = Api::V1::ConversionService.yes_no_unknown_to_boolean(json[:ethical_issues_exist])
+            issues = Api::V1::ConversionService.yes_no_unknown_to_boolean(
+              json[:ethical_issues_exist]
+            )
+            plan.ethical_issues = issues
             plan.ethical_issues_description = json[:ethical_issues_description]
             plan.ethical_issues_report = json[:ethical_issues_report]
 
+            # TODO: Handle ethical issues when the Question is in place
+
             # Process Project, Contributors and Data Contact and Datsets
             plan = deserialize_project(plan: plan, json: json)
-            # The contact is handled from within the controller since the Plan.add_user! method
-            # requires that the Plan has been persisted to the DB
+            plan = deserialize_contact(plan: plan, json: json)
             plan = deserialize_contributors(plan: plan, json: json)
             deserialize_datasets(plan: plan, json: json)
           end
@@ -80,25 +84,16 @@ module Api
             return nil unless json.present?
 
             id = id_json[:identifier] if id_json.is_a?(Hash)
-            schm = IdentifierScheme.find_by(name: id_json[:type].downcase) if id.present?
-
             if id.present?
-              # If the identifier is a DOI/ARK or the api client's internal id for the DMP
               if Api::V1::DeserializationService.doi?(value: id)
                 # Find by the DOI or ARK
                 plan = Api::V1::DeserializationService.object_from_identifier(
                   class_name: "Plan", json: id_json
                 )
-              elsif schm.present?
-                value = id.start_with?(schm.identifier_prefix) ? id : "#{schm.identifier_prefix}#{id}"
-                identifier = ::Identifier.find_by(
-                  identifiable_type: "Plan", identifier_scheme: schm, value: value
-                )
-                plan = identifier.identifiable if identifier.present?
               else
                 # For URL based identifiers
                 begin
-                  plan = ::Plan.find_by(id: id.split("/").last.to_i) if id.start_with("http")
+                  plan = ::Plan.find_by(id: id.split("/").last.to_i)
                 rescue StandardError
                   # Catches scenarios where the dmp_id is NOT one of our URLs
                   plan = nil
@@ -108,27 +103,14 @@ module Api
             return plan if plan.present?
 
             template = find_template(json: json)
-            plan = ::Plan.new(title: json[:title], template: template)
-            return plan unless id.present? && schm.present?
-
-            # If the external system provided an identifier and they have an IdentifierScheme
-            Api::V1::DeserializationService.attach_identifier(object: plan, json: id_json)
+            ::Plan.new(title: json[:title], template: template)
           end
 
           # Deserialize the datasets and attach to plan
+          # TODO: Implement this once we update the data model
           def deserialize_datasets(plan:, json: {})
-            return plan unless json.present? && json[:dataset].present? && json[:dataset].is_a?(Array)
+            return plan unless json.present? && json[:dataset].present?
 
-            research_outputs = json[:dataset].map do |dataset|
-              Api::V1::Deserialization::Dataset.deserialize(plan: plan, json: dataset)
-            end
-
-            # TODO: remove this once we support versioning and are not storing outputs with DOIs as
-            #       RelatedIdentifiers. Once versioning is in place we can update the existing ResearchOutputs
-            research_outputs.each do |output|
-              plan.research_outputs << output if output.is_a?(ResearchOutput)
-              plan.related_identifiers << output if output.is_a?(RelatedIdentifier)
-            end
             plan
           end
 
@@ -150,6 +132,20 @@ module Api
           end
           # rubocop:enable
 
+          # Deserialize the contact as a Contributor
+          def deserialize_contact(plan:, json: {})
+            return plan unless json.present? && json[:contact].present?
+
+            contact = Api::V1::Deserialization::Contributor.deserialize(
+              json: json[:contact], is_contact: true
+            )
+            return plan unless contact.present?
+
+            plan.contributors << contact
+            plan.org = contact.org
+            plan
+          end
+
           # Deserialize each Contributor and then add to Plan
           def deserialize_contributors(plan:, json: {})
             contributors = json.fetch(:contributor, []).map do |hash|
@@ -161,11 +157,20 @@ module Api
 
           # Lookup the Template
           def find_template(json: {})
-            default = Template.find_by(is_default: true)
-            return default unless json.present? && json.fetch(:dmproadmap_template, {})[:id].present?
+            return nil unless json.present?
 
-            template = Template.find_by(id: json.fetch(:dmproadmap_template, {})[:id].to_i)
-            template.present? ? template : default
+            template = ::Template.find_by(id: template_id(json: json))
+            template.present? ? template : Template.find_by(is_default: true)
+          end
+
+          # Extract the Template id from the JSON
+          def template_id(json: {})
+            return nil unless json.present?
+
+            extensions = Api::V1::DeserializationService.app_extensions(json: json)
+            return nil unless extensions.present?
+
+            extensions.fetch(:template, {})[:id]
           end
 
         end

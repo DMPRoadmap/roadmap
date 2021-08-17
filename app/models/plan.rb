@@ -9,33 +9,21 @@
 #
 #  id                                :integer          not null, primary key
 #  complete                          :boolean          default(FALSE)
-#  data_contact                      :string(255)
-#  data_contact_email                :string(255)
-#  data_contact_phone                :string(255)
-#  description                       :text(65535)
-#  end_date                          :datetime
-#  ethical_issues                    :boolean
-#  ethical_issues_description        :text(65535)
-#  ethical_issues_report             :string(255)
+#  description                       :text
 #  feedback_requested                :boolean          default(FALSE)
-#  funder_name                       :string(255)
-#  grant_number                      :string(255)
-#  identifier                        :string(255)
-#  principal_investigator            :string(255)
-#  principal_investigator_email      :string(255)
-#  principal_investigator_identifier :string(255)
-#  principal_investigator_phone      :string(255)
-#  start_date                        :datetime
-#  title                             :string(255)
-#  visibility                        :integer          default("privately_visible"), not null
+#  identifier                        :string
+#  title                             :string
+#  visibility                        :integer          default(3), not null
 #  created_at                        :datetime
 #  updated_at                        :datetime
 #  funder_id                         :integer
 #  grant_id                          :integer
-#  org_id                            :integer
-#  template_id                       :integer
-#  fos_id                            :integer
+#  api_client_id                     :integer
+#  research_domain_id                :bigint
 #  funding_status                    :integer
+#  ethical_issues                    :boolean
+#  ethical_issues_description        :text
+#  ethical_issues_report             :string
 #
 # Indexes
 #
@@ -47,11 +35,10 @@
 # Foreign Keys
 #
 #  fk_rails_...  (org_id => orgs.id)
-#  fk_rails_...  (template_id => templates.id)
+#  fk_rails_...  (api_client_id => api_clients.id)
+#  fk_rails_...  (research_domain_id => research_domains.id)
 #
 
-# TODO: Drop the funder_name and grant_number columns once the funder_id has
-#       been back filled and we're removing the is_other org stuff
 class Plan < ApplicationRecord
 
   include ConditionalUserMailer
@@ -96,6 +83,10 @@ class Plan < ApplicationRecord
 
   belongs_to :funder, class_name: "Org", optional: true
 
+  belongs_to :api_client, optional: true
+
+  belongs_to :research_domain, optional: true
+
   has_many :phases, through: :template
 
   has_many :sections, through: :phases
@@ -121,11 +112,11 @@ class Plan < ApplicationRecord
 
   has_and_belongs_to_many :guidance_groups, join_table: :plans_guidance_groups
 
-  has_many :exported_plans
+  has_many :exported_plans, dependent: :destroy
 
   has_many :contributors, dependent: :destroy
 
-  belongs_to :api_client, optional: true
+  has_one :grant, as: :identifiable, dependent: :destroy, class_name: "Identifier"
 
   has_many :research_outputs, dependent: :destroy
 
@@ -183,7 +174,7 @@ class Plan < ApplicationRecord
 
   # Retrieves any plan organisationally or publicly visible for a given org id
   scope :organisationally_or_publicly_visible, lambda { |user|
-    plan_ids = user.org.plans.where(complete: true).pluck(:id).uniq
+    plan_ids = user.org.org_admin_plans.where(complete: true).pluck(:id).uniq
     includes(:template, roles: :user)
       .where(id: plan_ids, visibility: [
                visibilities[:organisationally_visible],
@@ -209,8 +200,6 @@ class Plan < ApplicationRecord
                 OR lower(orgs.name) LIKE lower (:search_pattern)
                 OR lower(orgs.abbreviation) LIKE lower (:search_pattern)
                 OR lower(templates.title) LIKE lower(:search_pattern)
-                OR lower(plans.principal_investigator) LIKE lower(:search_pattern)
-                OR lower(plans.principal_investigator_identifier) LIKE lower(:search_pattern)
                 OR lower(contributors.name) LIKE lower(:search_pattern)
                 OR lower(identifiers.value) LIKE lower(:search_pattern)",
                search_pattern: search_pattern)
@@ -603,7 +592,7 @@ class Plan < ApplicationRecord
   def doi
     return nil unless Rails.configuration.x.allow_doi_minting
 
-    schemes = IdentifierScheme.for_identification
+    schemes = IdentifierScheme.for_identification.where(name: DoiService.scheme_name)
 
     if schemes.any?
       identifiers.select { |id| schemes.include?(id.identifier_scheme) }.last

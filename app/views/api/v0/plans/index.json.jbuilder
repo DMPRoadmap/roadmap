@@ -8,7 +8,7 @@ json.prettify!
 json.array! @plans.each do |plan|
   json.id             plan.id
   json.title          plan.title
-  json.grant_number   plan.grant_number
+  json.grant_number   plan.grant&.value
   json.last_updated   plan.updated_at
   json.creation_date  plan.created_at
   json.test_plan      plan.is_test?
@@ -30,11 +30,14 @@ json.array! @plans.each do |plan|
   end
 
   data_contact = plan.contributors.data_curation.first || plan.owner
-  json.data_contact do
-    json.name         data_contact.is_a?(Contributor) ? data_contact.name : data_contact.name(false)
-    json.email        data_contact.email
-    json.phone        data_contact.phone if data_contact.is_a?(Contributor)
+  if data_contact.present?
+    json.data_contact do
+      json.name   data_contact.is_a?(Contributor) ? data_contact.name : data_contact.name(false)
+      json.email  data_contact.email
+      json.phone  data_contact.phone if data_contact.is_a?(Contributor)
+    end
   end
+
   json.users plan.roles.each do |role|
     json.email role.user.email
   end

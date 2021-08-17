@@ -12,7 +12,6 @@ module Api
       def show
         plans = Api::V1::PlansPolicy::Scope.new(client, Plan).resolve
                                            .where(id: params[:id]).limit(1)
-
         if plans.present? && plans.any?
           @items = paginate_response(results: plans)
           render "/api/v1/plans/index", status: :ok
@@ -33,6 +32,7 @@ module Api
 
         # Convert the JSON into a Plan and it's associations
         plan = Api::V1::Deserialization::Plan.deserialize(json: dmp)
+
         if plan.present?
           save_err = _("Unable to create your DMP")
           exists_err = _("Plan already exists. Send an update instead.")

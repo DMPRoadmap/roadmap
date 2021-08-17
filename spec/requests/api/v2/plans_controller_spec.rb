@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe Api::V2::PlansController, type: :request do
 
   include ApiHelper
-  include Mocks::ApiJsonSamples
+  include Mocks::ApiV2JsonSamples
   include Webmocks
 
   context "Non-Oauth (client_credentials grant type)" do
@@ -438,7 +438,7 @@ RSpec.describe Api::V2::PlansController, type: :request do
 
         expect(response.code).to eql("201")
         expect(ActionMailer::Base.deliveries).to have_exactly(1).item
-        expect(response).to render_template("devise/mailer/invitation_instructions")
+        expect(response).to render_template("devise/mailer/new_plan_via_api")
 
         owner = Plan.find_by(title: @json[:dmp][:title]).owner
         expect(owner.firstname.present?).to eql(true)

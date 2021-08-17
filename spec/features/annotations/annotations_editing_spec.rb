@@ -27,7 +27,7 @@ RSpec.feature "Annotations::Editing", type: :feature do
     create(:template, :default, :published)
     user.perms << create(:perm, :modify_templates)
     user.perms << create(:perm, :add_organisations)
-    sign_in user
+    sign_in_as_user user
     visit org_admin_templates_path
   end
 
