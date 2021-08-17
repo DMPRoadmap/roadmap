@@ -13,14 +13,14 @@ class NotifySubscriberJob < ApplicationJob
     case subscription.subscriber_type
     when "ApiClient"
       api_client = subscription.subscriber
-      dmp_id_svc = api_client.name.downcase == DmpIdService.scheme_name.downcase
+      dmp_id_svc = api_client.name.downcase == DmpIdService.identifier_scheme&.name&.downcase
 
       # If the ApiClient is the DMP ID service then update the DMP ID metadata
       if DmpIdService.minting_service_defined? && dmp_id_svc
         Rails.logger.info "Sending #{api_client.name} the updated DMP ID metadata \
                           for Plan #{subscription.plan.id}"
 
-        DmpIdService.minter.update_dmp_id(plan: self)
+        DmpIdService.update_dmp_id(plan: subscription.plan)
 
       elsif !dmp_id_svc
         # As long as this isn't the DMP ID service, send the update directly to the callback

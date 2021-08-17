@@ -7,23 +7,14 @@ class DmpIdService
 
     # Registers a DMP ID for the specified plan.
     def mint_dmp_id(plan:)
-
-p "MINTER DEFINED? #{minting_service_defined?}"
-
       # plan must exist and not already have a DMP ID!
       return nil unless minting_service_defined? && plan.present? && plan.is_a?(Plan)
       return plan.dmp_id if plan.dmp_id.present?
 
       svc = minter
-
-p svc.inspect
-
       return nil unless svc.present?
 
       dmp_id = svc.mint_dmp_id(plan: plan)
-
-p "DMP_ID: #{dmp_id.inspect}"
-
       return nil unless dmp_id.present?
 
       dmp_id = "#{svc.landing_page_url}#{dmp_id}" unless dmp_id.downcase.start_with?("http")
