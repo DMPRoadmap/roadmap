@@ -18,8 +18,8 @@ RSpec.describe ExternalApis::DataciteService, type: :model do
     create(:contributor, investigation: true, plan: @plan)
     create_dmp_id(plan: @plan)
     @client = create(:api_client)
-    @dmp_id = @plan.dmp_id.value_without_scheme_prefix
     @plan.reload
+    @dmp_id = @plan.dmp_id.value_without_scheme_prefix
   end
 
   describe "#mint_dmp_id" do
