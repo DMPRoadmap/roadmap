@@ -18,9 +18,9 @@ class DmpIdService
       return nil unless dmp_id.present?
 
       dmp_id = "#{svc.landing_page_url}#{dmp_id}" unless dmp_id.downcase.start_with?("http")
-      Identifier.new(identifier_scheme: scheme(svc: svc),
-                     identifiable: plan, value: dmp_id)
+      Identifier.new(identifier_scheme: identifier_scheme, identifiable: plan, value: dmp_id)
     rescue StandardError => e
+      p e.message
       Rails.logger.error "DmpIdService.mint_dmp_id for Plan #{plan&.id} resulted in: #{e.message}"
       nil
     end
@@ -28,7 +28,9 @@ class DmpIdService
     # Updates the DMP ID metadata
     def update_dmp_id(plan:)
       # plan must exist and have a DMP ID
-      return nil unless minting_service_defined? && plan.present? && plan.is_a?(Plan) && plan.dmp_id.present?
+      unless minting_service_defined? && plan.present? && plan.is_a?(Plan) && plan.dmp_id.present?
+        return nil
+      end
 
       svc = minter
       return nil unless svc.present?

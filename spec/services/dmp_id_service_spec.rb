@@ -7,22 +7,27 @@ RSpec.describe DmpIdService do
 
   before(:each) do
     Rails.configuration.x.enable_dmp_id_registration = true
-    @config = OpenStruct.new(active: true,
-                             name: "datacite",
-                             landing_page_url: Faker::Internet.url,
-                             description: Faker::Lorem.sentence)
 
-    @scheme = create(:identifier_scheme, name: @config.name,
-                                         identifier_prefix: @config.landing_page_url,
-                                         description: @config.description,
-                                         for_plans: true)
+    # Using Datacite for these tests
+    Rails.configuration.x.datacite.active = true
+    Rails.configuration.x.datacite.name = "datacite"
+    Rails.configuration.x.datacite.description = Faker::Lorem.sentence
+    Rails.configuration.x.datacite.landing_page_url = "#{Faker::Internet.url}/"
+
+    @scheme = create(
+      :identifier_scheme,
+      name: Rails.configuration.x.datacite.name,
+      identifier_prefix: Rails.configuration.x.datacite.landing_page_url,
+      description: Rails.configuration.x.datacite.description,
+      for_plans: true
+    )
   end
 
   describe "#mint_dmp_id(plan:)" do
     before(:each) do
       @plan = build(:plan)
       @dmp_id = SecureRandom.uuid
-      @qualified_dmp_id = "#{@config.landing_page_url}#{@dmp_id}"
+      @qualified_dmp_id = "#{Rails.configuration.x.datacite.landing_page_url}#{@dmp_id}"
       stub_x_section(section_sym: :dmphub, open_struct: OpenStruct.new(active: true))
     end
 
@@ -34,8 +39,10 @@ RSpec.describe DmpIdService do
     end
     it "returns the existing DMP ID if :plan already has a :dmp_id" do
       existing = build(:identifier, identifier_scheme: @scheme, value: @qualified_dmp_id)
-      @plan.stubs(:dmp_id).returns(existing)
-      expect(described_class.mint_dmp_id(plan: @plan).value).to eql(@qualified_dmp_id)
+      described_class.stubs(:minter).returns(ExternalApis::DataciteService)
+      ExternalApis::DataciteService.stubs(:mint_dmp_id)
+                                   .returns(existing.value_without_scheme_prefix)
+      expect(described_class.mint_dmp_id(plan: @plan).value).to eql(existing.value)
     end
     it "returns nil if if no DMP ID minting service is active" do
       described_class.stubs(:minter).returns(nil)
@@ -56,8 +63,6 @@ RSpec.describe DmpIdService do
     it "prepends the :landing_page_url if the DMP ID is not a URL" do
       described_class.stubs(:minter).returns(ExternalApis::DataciteService)
       described_class.stubs(:scheme).returns(@scheme)
-      ExternalApis::DataciteService.stubs(:landing_page_url)
-                                   .returns(@config.landing_page_url)
       ExternalApis::DataciteService.stubs(:mint_dmp_id).returns(@dmp_id)
       expect(described_class.mint_dmp_id(plan: @plan).value).to eql(@qualified_dmp_id)
     end
@@ -129,14 +134,14 @@ RSpec.describe DmpIdService do
     it "returns nil if the landing_page is not defined by the service" do
       described_class.stubs(:minter).returns(ExternalApis::DmphubService)
       stub_x_section(section_sym: :dmphub,
-                    open_struct: OpenStruct.new(active: true, landing_page_url: nil))
+                     open_struct: OpenStruct.new(active: true, landing_page_url: nil))
       expect(described_class.landing_page_url).to eql(nil)
     end
     it "returns the landing_page" do
       uri = Faker::Internet.url
       described_class.stubs(:minter).returns(ExternalApis::DmphubService)
       stub_x_section(section_sym: :dmphub,
-                    open_struct: OpenStruct.new(active: true, landing_page_url: uri))
+                     open_struct: OpenStruct.new(active: true, landing_page_url: uri))
       described_class.stubs(:minter).returns(ExternalApis::DmphubService)
       expect(described_class.landing_page_url).to eql(uri)
     end

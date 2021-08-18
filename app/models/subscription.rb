@@ -51,4 +51,5 @@ class Subscription < ApplicationRecord
     NotifySubscriberJob.perform_later(self)
     true
   end
+
 end

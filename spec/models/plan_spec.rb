@@ -1500,7 +1500,8 @@ describe Plan do
     before(:each) do
       Rails.configuration.x.madmp.enable_dmp_id_registration = true
       @plan = create(:plan, :creator, funder: create(:org))
-      create(:identifier, identifier_scheme: create(:identifier_scheme, name: "orcid"), identifiable: @plan.owner)
+      create(:identifier, identifier_scheme: create(:identifier_scheme, name: "orcid"),
+                          identifiable: @plan.owner)
       @plan.reload
     end
 

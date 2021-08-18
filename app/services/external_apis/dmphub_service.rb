@@ -77,11 +77,6 @@ module ExternalApis
           "Server-Agent": "#{caller_name} (#{client_id})"
         }
 
-p "----------------"
-pp hdrs
-p "#{api_base_url}#{mint_path}"
-p "----------------"
-
         resp = http_post(uri: "#{api_base_url}#{mint_path}",
                          additional_headers: hdrs, debug: false,
                          data: json_from_template(plan: plan))
@@ -108,7 +103,9 @@ p "----------------"
           "Server-Agent": "#{caller_name} (#{client_id})"
         }
 
-        target = "#{api_base_url}#{callback_path}" % { dmp_id: plan.dmp_id&.value_without_scheme_prefix }
+        target = "#{api_base_url}#{callback_path}" % {
+          dmp_id: plan.dmp_id&.value_without_scheme_prefix
+        }
         resp = http_put(uri: target, additional_headers: hdrs, debug: false,
                         data: json_from_template(plan: plan))
 
@@ -120,7 +117,7 @@ p "----------------"
         end
 
         dmp_id = process_response(response: resp)
-        update_subscription(plan: plan, dmp_id: dmp_id) if dmp_id.present?
+        update_subscription(plan: plan) if dmp_id.present?
         dmp_id
       end
 
@@ -137,29 +134,37 @@ p "----------------"
       def add_subscription(plan:, dmp_id:)
         client = api_client
         path = callback_path
-        Rails.logger.warn "DMPHubService - No ApiClient available for 'dmphub'!" unless client.present?
-        return nil unless plan.present? && dmp_id.present? && path.present? && client.present?
+        Rails.logger.warn "DMPHubService - No ApiClient defined!" unless client.present?
+        return nil unless plan.present? &&
+                          dmp_id.present? &&
+                          path.present? &&
+                          client.present?
 
         Subscription.create(
           plan: plan,
           subscriber: client,
-          callback_uri: path % { dmp_id: dmp_id.gsub(/https?:\/\/doi.org\//, "") },
+          callback_uri: path % { dmp_id: dmp_id.gsub(%r{https?://doi.org/}, "") },
           updates: true,
           deletions: true
         )
       end
 
       # Bump the last_notified timestamp on the subscription
-      def update_subscription(plan:, dmp_id:)
+      def update_subscription(plan:)
         client = api_client
-        Rails.logger.warn "DMPHubService - No ApiClient available for 'dmphub'!" unless client.present?
-        return nil unless plan.present? && dmp_id.present? && callback_path.present? && client.present?
+        Rails.logger.warn "DMPHubService - No ApiClient defined!" unless client.present?
+        return false unless plan.present? &&
+                            plan.dmp_id.present? &&
+                            callback_path.present? &&
+                            client.present?
 
-        subscription = plan.subscriptions.select { |sub| sub.subscriber == client }.last
-        return nil unless subscription.present?
+        subscriptions = plan.subscriptions.select do |sub|
+          sub.subscriber == client && sub.updates?
+        end
+        return false unless subscriptions.any?
 
-        subscription.update(last_notified: Time.now)
-        subscription
+        subscriptions.each { |sub| sub.update(last_notified: Time.now) }
+        true
       end
 
       private
@@ -173,9 +178,6 @@ p "----------------"
           client_id: client_id,
           client_secret: client_secret
         }
-
-p "AUTH: #{api_base_url}#{auth_path}"
-pp headers
 
         resp = http_post(uri: "#{api_base_url}#{auth_path}",
                          additional_headers: {}, data: data.to_json, debug: false)

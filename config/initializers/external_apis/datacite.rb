@@ -10,6 +10,7 @@ Rails.configuration.x.datacite.description = "The DataCite REST API: https://sup
 Rails.configuration.x.datacite.landing_page_url = "https://doi.org/"
 Rails.configuration.x.datacite.api_base_url = "https://api.test.datacite.org/"
 Rails.configuration.x.datacite.mint_path = "dois"
+Rails.configuration.x.datacite.update_path = "dois/"
 Rails.configuration.x.datacite.delete_path = "dois/"
 
 # Define your organization as the hosting institution for the DataCite record.

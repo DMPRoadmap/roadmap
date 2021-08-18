@@ -124,45 +124,48 @@ RSpec.describe ExternalApis::DmphubService, type: :model do
     end
   end
 
-  describe "#update_subscription(plan:, dmp_id:)" do
-    it "returns nil if the :plan is not present" do
-      result = described_class.update_subscription(plan: nil, dmp_id: @dmp_id)
-      expect(result).to eql(nil)
+  describe "#update_subscription(plan:)" do
+    it "returns false if the :plan is not present" do
+      result = described_class.update_subscription(plan: nil)
+      expect(result).to eql(false)
     end
-    it "returns nil if the :dmp_id is not present" do
-      result = described_class.update_subscription(plan: @plan, dmp_id: nil)
-      expect(result).to eql(nil)
+    it "returns false if the :dmp_id is not present" do
+      @plan.identifiers.clear
+      result = described_class.update_subscription(plan: @plan)
+      expect(result).to eql(false)
     end
     it "logs a warning and returns nil if no ApiClient is defined" do
       described_class.expects(:api_client).returns(nil)
       described_class.expects(:callback_path).returns(nil)
       Rails.logger.expects(:warn)
-      result = described_class.update_subscription(plan: @plan, dmp_id: @dmp_id)
-      expect(result).to eql(nil)
+      result = described_class.update_subscription(plan: @plan)
+      expect(result).to eql(false)
     end
-    it "returns nil if the :callback_path is not present" do
+    it "returns false if the :callback_path is not present" do
       described_class.expects(:api_client).returns(@client)
       described_class.expects(:callback_path).returns(nil)
-      result = described_class.update_subscription(plan: @plan, dmp_id: @dmp_id)
-      expect(result).to eql(nil)
+      result = described_class.update_subscription(plan: @plan)
+      expect(result).to eql(false)
     end
-    it "returns nil if there is no subscription for the plan+api_client" do
+    it "returns false if there is no subscription for the plan+api_client" do
       described_class.expects(:api_client).returns(@client)
       described_class.expects(:callback_path).returns(Faker::Internet.unique.url)
-      subscription = create(:subscription, :for_updates, plan: @plan,
-                                                         subscriber: create(:api_client),
-                                                         last_notified: Time.now - 2.hours)
-      result = described_class.update_subscription(plan: @plan, dmp_id: @dmp_id)
-      expect(result).to eql(nil)
+      create(:subscription, :for_updates, plan: @plan, subscriber: create(:api_client),
+                                          last_notified: Time.now - 2.hours)
+      result = described_class.update_subscription(plan: @plan)
+      expect(result).to eql(false)
     end
-    it "returns the subscription" do
+    it "returns true" do
       described_class.expects(:api_client).returns(@client)
       described_class.expects(:callback_path).returns(Faker::Internet.unique.url)
-      subscription = create(:subscription, :for_updates, plan: @plan, subscriber: @client,
-                                                         last_notified: Time.now - 2.hours)
-      result = described_class.update_subscription(plan: @plan, dmp_id: @dmp_id)
-      expect(result.id).to eql(subscription.id)
-      expect(result.last_notified > subscription.last_notified)
+      orig = Time.now - 2.hours
+      @plan.subscriptions << create(:subscription, :for_updates, plan: @plan,
+                                                                 subscriber: @client,
+                                                                 last_notified: orig,
+                                                                 updates: true)
+      result = described_class.update_subscription(plan: @plan)
+      expect(result).to eql(true)
+      expect(@plan.reload.subscriptions.first.last_notified > orig)
     end
   end
 
@@ -206,8 +209,6 @@ RSpec.describe ExternalApis::DmphubService, type: :model do
         expect(result).to eql(expected)
       end
     end
-
-    # rubocop:disable Layout/LineLength
     describe "#json_from_template(dmp:)" do
       it "properly generates the JSON for submission to DMPHub" do
         ActionController::Base.any_instance.expects(:render_to_string)
@@ -239,12 +240,11 @@ RSpec.describe ExternalApis::DmphubService, type: :model do
         expect(described_class.send(:process_response, response: resp)).to eql(nil)
       end
       it "returns the response as JSON" do
-        expected = { "items": [{ "dmp": { "dmp_id": { "type": "doi", "identifier": "123"}} }] }
+        expected = { "items": [{ "dmp": { "dmp_id": { "type": "doi", "identifier": "123" } } }] }
         resp = OpenStruct.new(body: expected.to_json)
         expect(described_class.send(:process_response, response: resp)).to eql("123")
       end
     end
-    # rubocop:enable Layout/LineLength
 
   end
 

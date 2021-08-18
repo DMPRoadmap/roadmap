@@ -79,17 +79,18 @@ module ExternalApis
       end
 
       # Emails the error and response to the administrators
+      # rubocop:disable Metrics/AbcSize
       def notify_administrators(obj:, response: nil, error: nil)
         return false unless obj.present? && response.present?
 
-        message = "#{obj.class.name} - #{obj.respond_to?(:id) ? obj.id : ""}"
+        message = "#{obj.class.name} - #{obj.respond_to?(:id) ? obj.id : ''}"
         message += "<br>----------------------------------------<br><br>"
 
         message += "Sent: #{pp(json_from_template(plan: obj))}" if obj.is_a?(Plan)
         message += "<br>----------------------------------------<br><br>" if obj.is_a?(Plan)
 
-        message += "#{self.name} received the following unexpected response:<br>"
-        message += "#{response.inspect}"
+        message += "#{name} received the following unexpected response:<br>"
+        message += response.inspect.to_s
         message += "<br>----------------------------------------<br><br>"
 
         message += error.message if error.present? && error.is_a?(StandardError)
@@ -98,6 +99,7 @@ module ExternalApis
         UserMailer.notify_administrators(message).deliver_now
         true
       end
+      # rubocop:enable Metrics/AbcSize
 
       private
 
@@ -131,7 +133,6 @@ module ExternalApis
 
       # Makes a POST request to the specified uri with the additional headers.
       # Additional headers are combined with the base headers defined above.
-      # rubocop:disable Metrics/MethodLength
       def http_post(uri:, additional_headers: {}, data: {}, basic_auth: nil, debug: false)
         return nil unless uri.present?
 
@@ -148,11 +149,9 @@ module ExternalApis
                             http_response: nil)
         nil
       end
-      # rubocop:enable Metrics/MethodLength
 
       # Makes a PUT request to the specified uri with the additional headers.
       # Additional headers are combined with the base headers defined above.
-      # rubocop:disable Metrics/MethodLength
       def http_put(uri:, additional_headers: {}, data: {}, basic_auth: nil, debug: false)
         return nil unless uri.present?
 
@@ -169,7 +168,6 @@ module ExternalApis
                             http_response: nil)
         nil
       end
-      # rubocop:enable Metrics/MethodLength
 
       # Options for the HTTParty call
       def options(additional_headers: {}, debug: false)

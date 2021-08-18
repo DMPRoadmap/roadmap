@@ -229,6 +229,7 @@ module DMPRoadmap
     # - You can also define your own service by extending app/services/external_apis/doi_service.rb.
     #   Use one of the services mentioned above as template.
     config.x.madmp.enable_dmp_id_registration = true
+
   end
 
 end

@@ -5,7 +5,6 @@ module Subscribable
   extend ActiveSupport::Concern
 
   included do
-
     # ================
     # = Associations =
     # ================
@@ -27,7 +26,6 @@ module Subscribable
       plan = plan.is_a?(Plan) ? plan.id : plan
       subscriptions.select { |subscription| subscription.plan_id == plan }
     end
-
   end
 
 end

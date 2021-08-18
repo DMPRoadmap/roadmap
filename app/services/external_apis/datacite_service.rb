@@ -52,6 +52,10 @@ module ExternalApis
         Rails.configuration.x.datacite&.mint_path
       end
 
+      def update_path
+        Rails.configuration.x.datacite&.update_path
+      end
+
       def shoulder
         Rails.configuration.x.datacite&.shoulder
       end
@@ -67,13 +71,14 @@ module ExternalApis
         return nil unless active?
 
         data = json_from_template(dmp: plan)
+
         resp = http_post(uri: "#{api_base_url}#{mint_path}",
-                         additional_headers: {
-                           "Content-Type": "application/vnd.api+json"
-                         },
+                         additional_headers: { "Content-Type": "application/vnd.api+json" },
                          data: data, basic_auth: auth, debug: false)
+
         unless resp.present? && [200, 201].include?(resp.code)
           handle_http_failure(method: "Datacite mint_dmp_id", http_response: resp)
+          notify_administrators(obj: plan, response: resp)
           return nil
         end
 
@@ -81,34 +86,64 @@ module ExternalApis
         return nil unless json.present?
 
         dmp_id = json.fetch("data", "attributes": { "doi": nil })
-                  .fetch("attributes", { "doi": nil })["doi"]
+                     .fetch("attributes", { "doi": nil })["doi"]
 
         add_subscription(plan: plan, dmp_id: dmp_id) if dmp_id.present?
         dmp_id
       end
 
-       # Register the ApiClient behind the minter service as a Subscriber to the Plan
+      # Update the DMP ID
+      def update_dmp_id(plan:)
+        return false unless active? && plan.present? && plan.dmp_id.present?
+
+        data = json_from_template(dmp: plan)
+        id = plan.dmp_id.value_without_scheme_prefix
+        resp = http_put(uri: "#{api_base_url}#{update_path}#{id}",
+                        additional_headers: { "Content-Type": "application/vnd.api+json" },
+                        data: data, basic_auth: auth, debug: false)
+
+        unless resp.present? && resp.code == 200
+          handle_http_failure(method: "Datacite update_dmp_id", http_response: resp)
+          notify_administrators(obj: plan, response: resp)
+          return false
+        end
+
+        update_subscription(plan: plan)
+      end
+
+      # Register the ApiClient behind the minter service as a Subscriber to the Plan
       # if the service has a callback URL and ApiClient
       def add_subscription(plan:, dmp_id:)
-        Rails.logger.warn "DataciteService - No ApiClient available for 'datacite'!" unless api_client.present?
-        return plan unless plan.present? && dmp_id.present? &&
-                           callback_path.present? && api_client.present?
+        client = api_client
+        path = callback_path
+        Rails.logger.warn "DataciteService - No ApiClient defined!" unless client.present?
+        return nil unless plan.present? && dmp_id.present? && path.present? && client.present?
 
         Subscription.create(
           plan: plan,
-          subscriber: api_client,
-          callback_uri: callback_path % { dmp_id: dmp_id.gsub(/https?:\/\/doi.org\//, "") },
+          subscriber: client,
+          callback_uri: path % { dmp_id: dmp_id.gsub(%r{https?://doi.org/}, "") },
           updates: true,
           deletions: true
         )
       end
 
-      # Update the DMP ID
-      def update_dmp_id(plan:)
-        return nil unless active? && plan.present?
+      # Update the subscriptions for the Plan and Datacite
+      def update_subscription(plan:)
+        client = api_client
+        Rails.logger.warn "DataciteService - No ApiClient defined!" unless client.present?
+        return false unless plan.present? &&
+                            plan.dmp_id.present? &&
+                            callback_path.present? &&
+                            client.present?
 
-        # Implement this later once we figure out versioning
-        plan.present?
+        subscriptions = plan.subscriptions.select do |sub|
+          sub.subscriber == client && sub.updates?
+        end
+        return false unless subscriptions.any?
+
+        subscriptions.each { |sub| sub.update(last_notified: Time.now) }
+        true
       end
 
       # Delete the DMP ID
@@ -122,7 +157,10 @@ module ExternalApis
       private
 
       def auth
-        { username: client_id, password: client_secret }
+        {
+          username: Rails.configuration.x.datacite.repository_id,
+          password: Rails.configuration.x.datacite.password
+        }
       end
 
       def json_from_template(dmp:)
@@ -132,7 +170,6 @@ module ExternalApis
         )
       end
 
-      # rubocop:disable Metrics/MethodLength
       def process_response(response:)
         json = JSON.parse(response.body)
         unless json["data"].present? &&
@@ -148,7 +185,6 @@ module ExternalApis
         log_error(method: "Datacite mint_dmp_id", error: e)
         nil
       end
-      # rubocop:enable Metrics/MethodLength
 
     end
 

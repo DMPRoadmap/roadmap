@@ -462,9 +462,6 @@ class PlansController < ApplicationController
     authorize @plan
 
     DmpIdService.mint_dmp_id(plan: @plan)&.save
-
-p @plan.inspect
-
     @plan = @plan.reload
 
     render js: render_to_string(template: "plans/mint.js.erb")

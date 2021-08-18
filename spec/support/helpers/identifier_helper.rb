@@ -21,8 +21,7 @@ module IdentifierHelper
     scheme.update(identifier_prefix: landing_page) if scheme.present?
     return scheme if scheme.present?
 
-    create(:identifier_scheme, :for_identification, :for_users, name: name,
-                                                                identifier_prefix: landing_page)
+    create(:identifier_scheme, for_users: true, name: name, identifier_prefix: landing_page)
   end
 
   def dmp_id_scheme

@@ -12,7 +12,8 @@ describe Subscription do
   context "instance methods" do
     describe "#notify!" do
       before(:each) do
-        @subscription = build(:subscription, :for_updates, plan: create(:plan), subscriber: build(:api_client))
+        @subscription = build(:subscription, :for_updates, plan: create(:plan),
+                                                           subscriber: build(:api_client))
       end
       it "does not notify the subscriber if this is a new record" do
         expect(@subscription.notify!).to eql(false)
