@@ -20,4 +20,25 @@ namespace :dmptool_specific do
     end
   end
 
+  desc "Update Feedback confirmation email defaults"
+  task update_feedback_confirmation: :environment do
+    new_subject = "DMP feedback request"
+    old_subject = "%{application_name}: Your plan has been submitted for feedback"
+
+    new_body = "<p>Dear %{user_name},</p>" \
+      "<p>\"%{plan_name}\" has been sent to your %{application_name} account administrator for feedback.</p>"\
+      "<p>Please email %{organisation_email} with any questions about this process.</p>"
+    old_body = "<p>Hello %{user_name}.</p>"\
+      "<p>Your plan \"%{plan_name}\" has been submitted for feedback from an
+      administrator at your organisation. "\
+      "If you have questions pertaining to this action, please contact us
+      at %{organisation_email}.</p>"
+
+    Org.all.each do |org|
+      org.feedback_email_subject = new_subject if org.feedback_email_subject == old_subject
+      org.feedback_email_msg = new_body if org.feedback_email_msg == old_body
+      org.save
+    end
+  end
+
 end

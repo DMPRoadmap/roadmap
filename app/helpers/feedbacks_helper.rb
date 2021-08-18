@@ -3,15 +3,13 @@
 module FeedbacksHelper
 
   def feedback_confirmation_default_subject
-    _("%{application_name}: Your plan has been submitted for feedback")
+    _("DMP feedback request")
   end
 
   def feedback_confirmation_default_message
-    _("<p>Hello %{user_name}.</p>"\
-      "<p>Your plan \"%{plan_name}\" has been submitted for feedback from an
-      administrator at your organisation. "\
-      "If you have questions pertaining to this action, please contact us
-      at %{organisation_email}.</p>")
+    _("<p>Dear %{user_name},</p>"\
+      "<p>\"%{plan_name}\" has been sent to your %{application_name} account administrator for feedback.</p>"\
+      "<p>Please email %{organisation_email} with any questions about this process.</p>")
   end
 
   def feedback_constant_to_text(text, user, plan, org)
