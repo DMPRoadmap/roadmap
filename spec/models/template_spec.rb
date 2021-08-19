@@ -1412,7 +1412,7 @@ RSpec.describe Template, type: :model do
       end
 
       it "has error_message" do
-        expected = "You can not publish a historical version of this template.  "
+        expected = "You can not publish a historical version of this template. "
         expect(subject[1]).to include(expected)
       end
 

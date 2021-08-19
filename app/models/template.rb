@@ -1,3 +1,4 @@
+
 # frozen_string_literal: true
 
 # == Schema Information
@@ -33,6 +34,7 @@
 #
 
 # rubocop:disable Metrics/ClassLength
+
 class Template < ApplicationRecord
 
   include GlobalHelpers
@@ -172,7 +174,7 @@ class Template < ApplicationRecord
     family_ids = families(org_id).pluck(:family_id)
     latest_customized_version(family_ids, org_id)
   }
-
+  
   # Retrieves templates with distinct family_id. It can be filtered down if
   # org_id is passed
   scope :families, lambda { |org_id = nil|
@@ -189,12 +191,19 @@ class Template < ApplicationRecord
     funder_ids = Org.funder.pluck(:id)
     # Make sure we include the default template
 
-    family_ids = families(funder_ids).distinct
-                                     .pluck(:family_id) + [default.family_id]
+    # family_ids = families(funder_ids).distinct
+    #                                  .pluck(:family_id) + [default.family_id]
 
-    published(family_ids.uniq)
-      .where("visibility = :visibility",
-             visibility: visibilities[:publicly_visible])
+    # published(family_ids.uniq)
+    #   .where("visibility = :visibility",
+    #          visibility: visibilities[:publicly_visible])
+
+       funder_ids = Org.funder.pluck(:id)
+       family_ids = families(funder_ids).distinct
+                                        .pluck(:family_id) + [default.family_id]
+       published(family_ids.uniq)
+         .where("visibility = :visibility OR is_default = :is_default",
+                visibility: visibilities[:publicly_visible], is_default: true)
   }
 
   # Retrieves unarchived templates with public visibility
@@ -209,7 +218,7 @@ class Template < ApplicationRecord
     unarchived.where(visibility: visibilities[:organisationally_visible])
   }
 
-  # Retrieves unarchived templates whose title or org.name includes the term
+    # Retrieves unarchived templates whose title or org.name includes the term
   # passed
   scope :search, lambda { |term|
     unarchived.joins(<<~SQL)
@@ -362,9 +371,9 @@ class Template < ApplicationRecord
   end
 
   # Determines whether or not a customized template should be upgraded
-  def upgrade_customization?
+  def upgrade_customization? 
     return false unless customization_of?
-
+    
     funder_template = Template.published(customization_of).select(:created_at).first
     return false unless funder_template.present?
 
@@ -406,15 +415,16 @@ class Template < ApplicationRecord
     raise _("generate_version! requires a published template") unless published
 
     template = deep_copy(
-      attributes: {
+        attributes: {
         version: version + 1,
         published: false,
         org: org
-      }, save: true
+        }, save: true
     )
     template
   end
-
+  
+  
   # Generates a new copy of self for the specified customizing_org
   def customize!(customizing_org)
     # Assume customizing_org is persisted
@@ -464,18 +474,18 @@ class Template < ApplicationRecord
       error += _("You can not publish a published template.  ")
       publishable = false
     end
-    unless latest?
-      error += _("You can not publish a historical version of this template.  ")
-      publishable = false
+    unless latest? 
+      error += _("You can not publish a historical version of this template. ")
+      publishable = false 
       # all templates have atleast one phase
     end
-    if phases.count <= 0
-      error += _("You can not publish a template without phases.  ")
-      publishable = false
+    if phases.count <= 0 
+      error += _("You can not publish a template without phases. ")
+      publishable = false 
       # all phases must have atleast 1 section
     end
     unless phases.map { |p| p.sections.count.positive? }.reduce(true) { |fin, val| fin and val }
-      error += _("You can not publish a template without sections in a phase.  ")
+      error += _("You can not publish a template without sections in a phase. ")
       publishable = false
       # all sections must have atleast one question
     end
@@ -503,7 +513,7 @@ class Template < ApplicationRecord
   end
 
   private
-
+    
   # ============================
   # = Private instance methods =
   # ============================
@@ -544,4 +554,3 @@ class Template < ApplicationRecord
   end
 
 end
-# rubocop:enable Metrics/ClassLength

@@ -12,6 +12,11 @@ class HomeController < ApplicationController
   # User's contact name is not filled in
   # Is this the desired behavior?
   def index
+    @orgs = (Org.includes(identifiers: :identifier_scheme).organisation +
+             Org.includes(identifiers: :identifier_scheme).institution +
+             Org.includes(identifiers: :identifier_scheme).default_orgs)
+    @orgs = @orgs.flatten.uniq.sort_by(&:name)
+
     if user_signed_in?
       name = current_user.name(false)
       # The RolesController defaults the firstname and surname (both required fields)

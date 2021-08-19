@@ -245,7 +245,7 @@ class User < ApplicationRecord
   # Returns Boolean
   def can_org_admin?
     return true if can_super_admin?
-
+    
     # Automatically false if the user has no Org or the Org is not managed
     return false unless org.present? && org.managed?
 

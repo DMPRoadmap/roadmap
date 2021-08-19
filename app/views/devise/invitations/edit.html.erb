@@ -28,11 +28,12 @@
         <%= f.text_field(:surname, class: "form-control", "aria-required": true, value: @user.surname) %>
       </div>
       <div class="form-group" id="invite-org-controls">
-        <%= render partial: "shared/org_selectors/combined",
+        <%= render partial: "shared/org_selectors/local_only",
                    locals: {
                      form: f,
                      default_org: nil,
-                     required: true
+                     required: true,
+                     orgs: @orgs
                    } %>
       </div>
       <%= f.button(_('Create account'), class: "btn btn-default", type: "submit") %>
