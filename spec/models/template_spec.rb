@@ -499,7 +499,7 @@ RSpec.describe Template, type: :model do
   describe ".latest_customizable" do
 
     before do
-      create(:org, is_other: true) unless Org.where(is_other: true).any?
+      create(:org)
       create(:template, :default, :published)
     end
 

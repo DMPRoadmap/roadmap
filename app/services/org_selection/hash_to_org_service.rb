@@ -14,7 +14,7 @@ module OrgSelection
   # }
   # becomes:
   # An Org with name = "Foo (foo.org)",
-  #             org_identifier (ROR) = "http://example.org/123"
+  #             identifier (ROR) = "http://example.org/123"
   #
   class HashToOrgService
 
@@ -95,7 +95,6 @@ module OrgSelection
           language: language_from_hash(hash: hash),
           target_url: hash[:url],
           institution: true,
-          is_other: false,
           abbreviation: abbreviation_from_hash(hash: hash)
         )
         org

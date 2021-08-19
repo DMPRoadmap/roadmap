@@ -10,8 +10,7 @@ RSpec.describe "FeedbackRequests", type: :feature do
 
   let!(:org) do
     create(:org, feedback_enabled: true,
-                 feedback_email_subject: Faker::Lorem.sentence,
-                 feedback_email_msg: Faker::Lorem.paragraph)
+                 feedback_msg: Faker::Lorem.paragraph)
   end
   let!(:user) { create(:user, org: org) }
 
