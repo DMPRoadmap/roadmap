@@ -12,8 +12,6 @@ class OrgSelectionPresenter
 
     if selection.present?
       orgs = [selection] if !orgs.present? || orgs.empty?
-    else 
-      orgs = []
     end
 
     @crosswalk = orgs.map do |org|
