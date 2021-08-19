@@ -109,7 +109,7 @@ class Org < ApplicationRecord
                                             message: INCLUSION_MESSAGE }
 
   validates :feedback_msg, presence: { message: PRESENCE_MESSAGE,
-                                             if: :feedback_enabled }
+                                       if: :feedback_enabled }
 
   validates :managed, inclusion: { in: BOOLEAN_VALUES,
                                    message: INCLUSION_MESSAGE }
