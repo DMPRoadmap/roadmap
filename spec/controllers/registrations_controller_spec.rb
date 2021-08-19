@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe RegistrationsController, type: :controller do
 
   before(:each) do
-    @org = create(:org, is_other: false)
+    @org = create(:org)
     @user = create(:user, org: @org)
   end
 
