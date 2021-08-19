@@ -31,7 +31,7 @@ class FeedbackRequestsController < ApplicationController
   def request_feedback_flash_notice
     # Use the generic feedback confirmation message unless the Org has
     # specified one
-    text = current_user.org.feedback_email_msg || feedback_confirmation_default_message
+    text = current_user.org.feedback_msg || feedback_confirmation_default_message
     feedback_constant_to_text(text, current_user, @plan, current_user.org)
   end
 

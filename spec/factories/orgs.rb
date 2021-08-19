@@ -8,17 +8,14 @@
 #  abbreviation           :string
 #  contact_email          :string
 #  contact_name           :string
-#  feedback_email_msg     :text
-#  feedback_email_subject :string
+#  feedback_msg           :text
 #  feedback_enabled       :boolean          default(FALSE)
-#  is_other               :boolean          default(FALSE), not null
 #  links                  :text
 #  logo_name              :string
 #  logo_uid               :string
 #  managed                :boolean          default(FALSE), not null
 #  name                   :string
 #  org_type               :integer          default(0), not null
-#  sort_name              :string
 #  target_url             :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
@@ -41,7 +38,6 @@ FactoryBot.define do
     feedback_enabled { false }
     region { Region.first || create(:region) }
     language { Language.default }
-    is_other { false }
     contact_email { Faker::Internet.safe_email }
     contact_name { Faker::Name.name }
     managed { true }
