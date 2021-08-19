@@ -16,7 +16,7 @@ RSpec.describe Api::V1::Deserialization::Plan do
     @identifier = create(:identifier, identifier_scheme: @scheme,
                                       identifiable: @plan, value: @doi)
 
-    @app_name = ApplicationService.application_name.split("-").first&.downcase
+    @app_name = ApplicationService.application_name.split("-").first
     @app_name = "tester" unless @app_name.present?
 
     contrib = Contributor.new

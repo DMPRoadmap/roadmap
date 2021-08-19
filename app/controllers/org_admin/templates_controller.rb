@@ -81,7 +81,7 @@ module OrgAdmin
       published = customizations.select { |t| t.published? || t.draft? }.length
 
       @orgs = current_user.can_super_admin? ? Org.all : []
-      @title = _("Customizable Templates")
+      @title = _("Customisable Templates")
       @templates = funder_templates
       @customizations = customizations
       @query_params = { sort_field: "templates.title", sort_direction: "asc" }
