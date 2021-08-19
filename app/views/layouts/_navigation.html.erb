@@ -54,6 +54,9 @@
         <li <%= 'class=active' if active_page?(help_path, true) %>>
           <%= link_to _('Help'), help_path %>
         </li>
+        <li <%= 'class=active' if active_page?(about_us_path, true) %>>
+          <%= link_to _('About'), about_us_path %>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
           <%= render "layouts/signin_signout" %>

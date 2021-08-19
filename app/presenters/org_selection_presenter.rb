@@ -10,7 +10,11 @@ class OrgSelectionPresenter
     # TODO: Remove this once the is_other Org has been removed
     @name = selection.present? ? selection.name : ""
 
-    orgs = [selection] if !orgs.present? || orgs.empty?
+    if selection.present?
+      orgs = [selection] if !orgs.present? || orgs.empty?
+    else 
+      orgs = []
+    end
 
     @crosswalk = orgs.map do |org|
       next if org.nil?

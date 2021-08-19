@@ -123,7 +123,7 @@ RSpec.describe Api::V1::DeserializationService do
   describe ":app_extensions(json:)" do
     before(:each) do
       @template = create(:template)
-      @app_name = ApplicationService.application_name.split("-").first&.downcase
+      @app_name = ApplicationService.application_name.split("-").first
       @app_name = "tester" unless @app_name.present?
     end
 
