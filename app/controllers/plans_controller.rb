@@ -10,7 +10,7 @@ class PlansController < ApplicationController
   helper SettingsTemplateHelper
 
   after_action :verify_authorized, except: [:overview]
-
+  before_action :setup_local_orgs, only: [:new, :show]
   # GET /plans
   def index
     authorize Plan
@@ -38,11 +38,6 @@ class PlansController < ApplicationController
                   .includes(identifiers: :identifier_scheme)
                   .joins(:templates)
                   .where(templates: { published: true }).uniq.sort_by(&:name)
-    @orgs = (Org.includes(identifiers: :identifier_scheme).organisation +
-             Org.includes(identifiers: :identifier_scheme).institution +
-             Org.includes(identifiers: :identifier_scheme).default_orgs)
-    @orgs = @orgs.flatten.uniq.sort_by(&:name)
-
     @plan.org_id = current_user.org&.id
 
     # TODO: is this still used? We cannot switch this to use the :plan_params
@@ -224,6 +219,7 @@ class PlansController < ApplicationController
     plan = Plan.includes({ template: { phases: { sections: :questions } } }, { answers: :notes })
                .find(params[:id])
     authorize plan
+    
     phase_id = params[:phase_id].to_i
     phase = plan.template.phases.select { |p| p.id == phase_id }.first
     raise ActiveRecord::RecordNotFound if phase.nil?
@@ -306,6 +302,7 @@ class PlansController < ApplicationController
   # GET /plans/:id/request_feedback
   def request_feedback
     @plan = Plan.find(params[:id])
+    
     if @plan.present?
       authorize @plan
       @plan_roles = @plan.roles
@@ -539,6 +536,13 @@ class PlansController < ApplicationController
     end
   end
   # rubocop:enable
+
+  def setup_local_orgs
+    @orgs = (Org.includes(identifiers: :identifier_scheme).organisation +
+             Org.includes(identifiers: :identifier_scheme).institution +
+             Org.includes(identifiers: :identifier_scheme).default_orgs)
+    @orgs = @orgs.flatten.uniq.sort_by(&:name)
+  end
 
 end
 # rubocop:enable Metrics/ClassLength
