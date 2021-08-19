@@ -24,7 +24,6 @@ module Api
 
             # Attach the Funder
             plan.funder = Api::V2::Deserialization::Org.deserialize(json: json)
-            return plan unless json[:grant_id].present?
 
             opportunity = json.fetch(:dmproadmap_funding_opportunity_id, {})
             plan.identifier = opportunity[:identifier] if opportunity[:identifier].present?
@@ -32,6 +31,7 @@ module Api
             plan.funding_status = Api::V2::DeserializationService.translate_funding_status(
               status: json[:funding_status]
             )
+            return plan unless json[:grant_id].present?
 
             # Attach the grant Identifier to the Plan if present
             # Attach the identifier

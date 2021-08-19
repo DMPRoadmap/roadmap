@@ -63,7 +63,7 @@ unless @minimal
 
   # DMPRoadmap extensions to the RDA common metadata standard
   json.dmproadmap_template do
-    json.id plan.template.id
+    json.id plan.template.family_id
     json.title plan.template.title
   end
 

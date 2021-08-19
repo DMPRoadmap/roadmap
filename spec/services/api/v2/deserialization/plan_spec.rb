@@ -8,7 +8,7 @@ RSpec.describe Api::V2::Deserialization::Plan do
     # Org requires a language, so make sure a default is available!
     create(:language, default_language: true) unless Language.default
 
-    @template = create(:template)
+    @template = create(:template, published: true)
     @plan = create(:plan, template: @template)
     @scheme = create(:identifier_scheme, name: "doi",
                                          identifier_prefix: Faker::Internet.url)
@@ -95,7 +95,7 @@ RSpec.describe Api::V2::Deserialization::Plan do
         }
       ],
       dmp_id: { type: "doi", identifier: @identifier.value },
-      dmproadmap_template: { id: @template.id, title: @template.title }
+      dmproadmap_template: { id: @template.family_id }
     }
 
     # We need to ensure that the deserializer on Funding is called, but

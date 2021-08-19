@@ -42,7 +42,7 @@ class PlansController < ApplicationController
     authorize @plan
 
     # If the template_id is blank then we need to look up the available templates and
-    # return JSONs
+    # return JSON
     if plan_params[:template_id].blank?
       # Something went wrong there should always be a template id
       respond_to do |format|

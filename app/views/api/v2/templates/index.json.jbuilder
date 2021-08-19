@@ -18,7 +18,7 @@ json.items @items do |template|
 
     json.template_id do
       identifier = Api::V2::ConversionService.to_identifier(context: @application,
-                                                            value: template.id)
+                                                            value: template.family_id)
       json.partial! "api/v2/identifiers/show", identifier: identifier
     end
   end

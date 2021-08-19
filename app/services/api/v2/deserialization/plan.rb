@@ -183,7 +183,7 @@ module Api
             default = Template.find_by(is_default: true)
             return default unless json.present? && json.fetch(:dmproadmap_template, {})[:id].present?
 
-            template = Template.find_by(id: json.fetch(:dmproadmap_template, {})[:id].to_i)
+            template = Template.published(json.fetch(:dmproadmap_template, {})[:id].to_i).last
             template.present? ? template : default
           end
 

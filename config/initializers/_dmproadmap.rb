@@ -239,6 +239,9 @@ module DMPRoadmap
     # Link to external guidance about selecting one of the preferred licenses. A default
     # URL will be displayed if none is provided here. See app/views/research_outputs/licenses/_form
     config.x.madmp.preferred_licenses_guidance_url = Rails.configuration.x.dmproadmap.preferred_licenses_guidance_url
+
+    # Whether or not we allow DMP ID minting
+    config.x.allow_doi_minting = Rails.configuration.x.dmproadmap.allow_doi_minting
   end
 
 end

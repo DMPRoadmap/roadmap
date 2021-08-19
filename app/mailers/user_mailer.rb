@@ -108,7 +108,7 @@ class UserMailer < ActionMailer::Base
 
     I18n.with_locale I18n.default_locale do
       mail(to: @recipient.email,
-           subject: _("%{user_name} has requested feedback on a %{tool_name} plan") %
+           subject: _("A new DMP is awaiting your feedback") %
            {
              tool_name: tool_name, user_name: @user.name(false)
            })
@@ -276,6 +276,7 @@ class UserMailer < ActionMailer::Base
     }
     subject = plan.template&.org&.api_create_plan_email_subject || default_subject
 
+    @message = plan.template&.org&.api_create_plan_email_body
     @api_client = api_client
     @user = recipient
     @plan = plan

@@ -592,7 +592,7 @@ class Plan < ApplicationRecord
   def doi
     return nil unless Rails.configuration.x.allow_doi_minting
 
-    schemes = IdentifierScheme.for_identification
+    schemes = IdentifierScheme.for_identification.where(name: DoiService.scheme_name)
 
     if schemes.any?
       identifiers.select { |id| schemes.include?(id.identifier_scheme) }.last
