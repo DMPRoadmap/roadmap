@@ -244,7 +244,7 @@ en-US:
         accept: Accept invitation
         accept_until: 'This invitation will be due in %{due_date}.
 
-          '
+'
         ignore:
     omniauth_callbacks:
       failure: Could not authenticate you from %{kind} because "%{reason}".
