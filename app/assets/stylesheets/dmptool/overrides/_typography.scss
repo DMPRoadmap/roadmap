@@ -1,0 +1,31 @@
+/* Fonts */
+
+@font-face {
+  font-family: 'Source Sans 3 VF';
+  font-style: normal;
+  font-weight: 200 900;
+  src:
+    url('node_modules/source-sans/WOFF2/VAR/SourceSans3VF-Roman.ttf.woff2') format('woff2'),
+    url('node_modules/source-sans/WOFF/VAR/SourceSans3VF-Roman.ttf.woff') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Source Sans 3 VF';
+  font-style: italic;
+  font-weight: 200 900;
+  src:
+    url('node_modules/source-sans/WOFF2/VAR/SourceSans3VF-Italic.ttf.woff2') format('woff2'),
+    url('node_modules/source-sans/WOFF/VAR/SourceSans3VF-Italic.ttf.woff') format('woff');
+  font-display: swap;
+}
+
+.fab:not(.small),
+.far:not(.small),
+.fas:not(.small) {
+  font-size: inherit;
+  color: inherit;
+}
+
+// Chosen for Accessibility (added for compliance with DMPRoadmap code)
+$font-family: 'Source Sans 3 VF', Verdana, Trebuchet, Arial, sans-serif;
