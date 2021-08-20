@@ -5,8 +5,8 @@
   font-style: normal;
   font-weight: 200 900;
   src:
-    url('node_modules/source-sans/WOFF2/VAR/SourceSans3VF-Roman.ttf.woff2') format('woff2'),
-    url('node_modules/source-sans/WOFF/VAR/SourceSans3VF-Roman.ttf.woff') format('woff');
+    url(asset-path('SourceSans3VF-Roman.ttf.woff2')) format('woff2'),
+    url(asset-path('SourceSans3VF-Roman.ttf.woff')) format('woff');
   font-display: swap;
 }
 
@@ -15,8 +15,8 @@
   font-style: italic;
   font-weight: 200 900;
   src:
-    url('node_modules/source-sans/WOFF2/VAR/SourceSans3VF-Italic.ttf.woff2') format('woff2'),
-    url('node_modules/source-sans/WOFF/VAR/SourceSans3VF-Italic.ttf.woff') format('woff');
+    url(asset-path('SourceSans3VF-Italic.ttf.woff2')) format('woff2'),
+    url(asset-path('SourceSans3VF-Italic.ttf.woff')) format('woff');
   font-display: swap;
 }
 
