@@ -184,12 +184,24 @@ module DMPRoadmap
     # regardless of the plans visibility and whether or not the plan has been shared
     config.x.plans.super_admins_read_all = true
 
-    # If true, this will displays the collaborators section on the share tab
-    # if false, it will display it on the contributors tab
-    config.x.show_collaborators_on_share_tab = false
+    # Change the location of the Collaborators information (where users are invited
+    # to co-own, edit or comment on a plan).
+    #
+    # If true:
+    #  - A 'Contributors' tab will be displayed that contains the contributors info
+    #  - A 'Share' tab will be displayed that contains the plan visibility setting,
+    #    the collaborators information and the DMP ID information (if enabled, see
+    #    :enable_dmp_id_registration below)
+    #
+    # If false:
+    #  - A 'Collaborators' tab will be displayed that contains both the contributos info
+    #    and the collaborators information
+    #  - A 'Finalise / Publish' tab will be displayed that contains the plan visibility
+    #    settings and the DMP ID information (if enabled, see :enable_dmp_id_registration)
+    config.x.show_collaborators_on_share_tab = true
 
     # Determines whether or not the user will see the Plan Overview tab
-    config.x.show_overview_tab = false
+    config.x.show_overview_tab = true
 
     # ---------------------------------------------------- #
     # CACHING - all values are in seconds (86400 == 1 Day) #
@@ -226,9 +238,13 @@ module DMPRoadmap
     # - For a local DMPHub installation (https://github.com/CDLUC3/dmphub), setup your
     #   credentials in config.initializers/external_apis/dmphub.rb
     #
-    # - You can also define your own service by extending app/services/external_apis/doi_service.rb.
-    #   Use one of the services mentioned above as template.
-    config.x.madmp.enable_dmp_id_registration = true
+    # - You can also define your own service by extending the
+    #   app/services/external_apis/doi_service.rb. Use one of the services mentioned above
+    #   as template.
+    #
+    # The location of this feature is determined by your setting for
+    # :show_collaborators_on_share_tab above
+    config.x.madmp.enable_dmp_id_registration = false
 
   end
 
