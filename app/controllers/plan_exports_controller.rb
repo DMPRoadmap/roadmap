@@ -42,6 +42,11 @@ class PlanExportsController < ApplicationController
                              .detect { |p| p.visibility_allowed?(@plan) }
                       end
 
+    # Bug fix in the event that there was no phase with visibility_allowed
+    unless @selected_phase.present?
+      @selected_phase = @plan.phases.order("phases.updated_at DESC").first
+    end
+
     respond_to do |format|
       format.html { show_html }
       format.csv  { show_csv }
