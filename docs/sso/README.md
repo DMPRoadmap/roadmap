@@ -28,8 +28,8 @@ If your instution is a member of the InCommon Federation but NOT within the Rese
 - [Attribute Release Policies](https://github.com/CDLUC3/dmptool/blob/main/docs/sso/dmptool_attribute_release.xml)
 
 DMPTool Service Provider Metadata
-- [DMPTool stage/test service provider](https://github.com/CDLUC3/dmptool/blob/main/docs/sso/dmp-stage_metadata.xml)
-- [DMPTool production service provider](https://github.com/CDLUC3/dmptool/blob/main/docs/sso/dmp_metadata.xml)
+- [DMPTool stage/test service provider](https://mdq.incommon.org/entities/https%3A%2F%2Fdmp-stage.cdlib.org)
+- [DMPTool production service provider](https://mdq.incommon.org/entities/https%3A%2F%2Fdmp.cdlib.org)
 
 Once that's complete you can send us your identity provider's `entityID` so that we can enable SSO for your users.
 
