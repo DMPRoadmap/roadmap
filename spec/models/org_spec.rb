@@ -649,7 +649,7 @@ RSpec.describe Org, type: :model do
   context "private methods" do
     describe ":merge_attributes!(to_be_merged:)" do
       before(:each) do
-        @org = create(:org, :organisation,is_other: false, managed: false,
+        @org = create(:org, :organisation, is_other: false, managed: false,
                                            feedback_enabled: false, contact_email: nil,
                                            contact_name: nil, feedback_msg: nil)
 
