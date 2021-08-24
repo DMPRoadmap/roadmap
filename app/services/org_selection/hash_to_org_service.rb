@@ -95,6 +95,7 @@ module OrgSelection
           language: language_from_hash(hash: hash),
           target_url: hash[:url],
           institution: true,
+          is_other: false,
           abbreviation: abbreviation_from_hash(hash: hash)
         )
         org

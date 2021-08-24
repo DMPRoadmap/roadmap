@@ -15,11 +15,11 @@ class PlansController < ApplicationController
   def index
     authorize Plan
     @plans = Plan.includes(:roles, :org).active(current_user).page(1)
-    if current_user.org.managed?
+    if current_user.org.is_other?
+      @organisationally_or_publicly_visible = []
+    else
       @organisationally_or_publicly_visible =
         Plan.organisationally_or_publicly_visible(current_user).page(1)
-    else
-      @organisationally_or_publicly_visible = []
     end
     # TODO: Is this still used? We cannot switch this to use the :plan_params
     #       strong params because any calls that do not include `plan` in the
