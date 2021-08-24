@@ -65,6 +65,8 @@ fr-CA:
           mb: Mo
           gb: Go
           tb: To
+          pb: Po
+          eb: Eo
       decimal_units:
         units:
           thousand: millier
@@ -112,29 +114,18 @@ fr-CA:
       not_saved:
         one: 'Une erreur a empêché d’enregistrer ce(tte) %{resource} :'
         other: "%{count} erreurs ont empêché d’enregistrer ce(tte) %{resource} :"
+      model_invalid: 'Validation échouée : %{errors}'
+      required: doit exister
     template:
       body: 'Veuillez vérifier les champs suivants : '
       header:
         one: 'Impossible d''enregistrer ce(tte) %{model} : 1 erreur'
         other: 'Impossible d''enregistrer ce(tte) %{model} : %{count} erreurs'
-    unavailable_session: |-
-      La session %{id} n’est plus disponible en mémoire.
-
-      S'il vous arrive d’exécuter le processus sur un serveur multi-processus (comme Unicorn ou Puma), le processus cette requête ne stocke pas %{id} en mémoire. Pensez à remettre le nombre de processus ou de travailleurs à un (1) ou à utiliser un autre serveur en développement.
-    unacceptable_request: Une version prise en charge est attendue dans l’en-tête
-      Accept.
-    connection_refused: |-
-      Oups! Échec de la connexion à l’intergiciel de la console Web.
-      Veuillez vous assurer qu’un serveur de développement Rails est en cours d'exécution.
   activerecord:
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'
         restrict_dependent_destroy:
-          one: Vous ne pouvez pas supprimer l’enregistrement en raison du (de la)
-            %{record} dépendant(e)
-          many: Vous ne pouvez pas supprimer l'enregistrement parce que les %{record}
-            dépendants existent
           has_one: Vous ne pouvez pas supprimer l'enregistrement car un(e) %{record}
             dépendant(e) existe
           has_many: Vous ne pouvez pas supprimer l'enregistrement parce que les %{record}
