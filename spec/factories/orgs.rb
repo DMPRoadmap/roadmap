@@ -10,6 +10,7 @@
 #  contact_name           :string
 #  feedback_msg           :text
 #  feedback_enabled       :boolean          default(FALSE)
+#  is_other               :boolean          default(FALSE), not null
 #  links                  :text
 #  logo_name              :string
 #  logo_uid               :string
@@ -40,6 +41,7 @@ FactoryBot.define do
     language { Language.default }
     contact_email { Faker::Internet.safe_email }
     contact_name { Faker::Name.name }
+    is_other { false }
     managed { true }
     trait :institution do
       institution { true }

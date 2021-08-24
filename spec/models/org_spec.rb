@@ -16,6 +16,10 @@ RSpec.describe Org, type: :model do
 
     it { is_expected.to validate_presence_of(:abbreviation) }
 
+    it { is_expected.to allow_values(true, false).for(:is_other) }
+
+    it { is_expected.not_to allow_value(nil).for(:is_other) }
+
     it { is_expected.to allow_values(0, 1).for(:managed) }
 
     it "validates presence of contact_email if feedback_enabled" do
@@ -651,6 +655,7 @@ RSpec.describe Org, type: :model do
 
         @to_be_merged = create(:org, :funder, templates: 1, plans: 2, managed: true,
                                               feedback_enabled: true,
+                                              is_other: false,
                                               region: create(:region),
                                               language: create(:language))
       end
@@ -674,6 +679,7 @@ RSpec.describe Org, type: :model do
         original = @to_be_merged.dup
         org = @org.merge!(to_be_merged: @to_be_merged)
         expect(org.abbreviation).not_to eql(original.abbreviation)
+        expect(org.is_other).not_to eql(original.is_other)
         expect(org.name).not_to eql(original.name)
         expect(org.organisation?).to eql(true)
         expect(org.funder?).to eql(false)
