@@ -649,13 +649,13 @@ RSpec.describe Org, type: :model do
   context "private methods" do
     describe ":merge_attributes!(to_be_merged:)" do
       before(:each) do
-        @org = create(:org, :organisation, managed: false,
+        @org = create(:org, :organisation,is_other: false, managed: false,
                                            feedback_enabled: false, contact_email: nil,
                                            contact_name: nil, feedback_msg: nil)
 
         @to_be_merged = create(:org, :funder, templates: 1, plans: 2, managed: true,
                                               feedback_enabled: true,
-                                              is_other: false,
+                                              is_other: true,
                                               region: create(:region),
                                               language: create(:language))
       end
@@ -679,7 +679,6 @@ RSpec.describe Org, type: :model do
         original = @to_be_merged.dup
         org = @org.merge!(to_be_merged: @to_be_merged)
         expect(org.abbreviation).not_to eql(original.abbreviation)
-        expect(org.is_other).not_to eql(original.is_other)
         expect(org.name).not_to eql(original.name)
         expect(org.organisation?).to eql(true)
         expect(org.funder?).to eql(false)
