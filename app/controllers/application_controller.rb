@@ -4,8 +4,6 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-  before_action :set_locale
-
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   # Look for template overrides before rendering
@@ -34,13 +32,6 @@ class ApplicationController < ActionController::Base
 
 
   private
-
-
-  # def set_locale
-  #   FastGettext.set_locale(params[:locale] || session[:locale] || request.env['HTTP_ACCEPT_LANGUAGE'])
-  #   I18n.locale = FastGettext.locale.to_s.gsub('_', '-')
-  #   session[:locale] = FastGettext.locale
-  # end
 
   def current_org
     current_user.org

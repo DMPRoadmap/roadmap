@@ -90,8 +90,11 @@ class SessionsController < Devise::SessionsController
   # rubocop:enable Metrics/AbcSize
 
   def destroy
+    session_locale = session[:locale]
     super
-    session[:locale] = nil
+    # We want to keep the locale even after the user logs out. This way we will
+    # not keep a default language
+    session[:locale] = session_locale
     # Method defined at controllers/application_controller.rb
     set_locale
   end
