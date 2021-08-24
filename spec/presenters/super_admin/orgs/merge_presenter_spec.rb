@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe SuperAdmin::Orgs::MergePresenter do
 
   before(:each) do
-    @to_org = create(:org, :organisation, managed: false,
+    @to_org = create(:org, :organisation, is_other: false, managed: false,
                                           abbreviation: Faker::Lorem.unique.word,
                                           feedback_enabled: false, contact_email: nil,
                                           contact_name: nil, feedback_msg: nil,
@@ -13,7 +13,7 @@ RSpec.describe SuperAdmin::Orgs::MergePresenter do
 
     @tpt = create(:token_permission_type)
     @from_org = create(:org, :funder, templates: 1, plans: 0, managed: true,
-                                      feedback_enabled: true,
+                                      feedback_enabled: true, is_other: true,
                                       abbreviation: Faker::Lorem.unique.word,
                                       target_url: Faker::Internet.url,
                                       contact_name: Faker::Music::PearlJam.musician,

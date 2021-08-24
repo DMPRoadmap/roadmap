@@ -119,7 +119,8 @@ module SuperAdmin
                                    :surname,
                                    :org_id, :org_name, :org_crosswalk,
                                    :department_id,
-                                   :language_id)
+                                   :language_id,
+                                   :other_organisation)
     end
 
     def merge_accounts
