@@ -39,9 +39,9 @@ FactoryBot.define do
     feedback_enabled { false }
     region { Region.first || create(:region) }
     language { Language.default }
+    is_other { false }
     contact_email { Faker::Internet.safe_email }
     contact_name { Faker::Name.name }
-    is_other { false }
     managed { true }
     trait :institution do
       institution { true }
