@@ -42,7 +42,7 @@ RSpec.describe SuperAdmin::OrgsController, type: :controller do
       sign_in(create(:user))
       post :merge_analyze, params: @params
       expect(response.code).to eql("302")
-      expect(response).to redirect_to(plans_path)
+      expect(response).to redirect_to(root_path)
       expect(flash[:alert].present?).to eql(true)
     end
     it "succeeds in analyzing the Orgs" do
@@ -62,9 +62,9 @@ RSpec.describe SuperAdmin::OrgsController, type: :controller do
 
       it "fails if user is not a super admin" do
         sign_in(create(:user))
-        post :merge_commit, params: @params, format: :js
+        post :merge_commit, params: @params
         expect(response.code).to eql("302")
-        expect(response).to redirect_to(plans_path)
+        expect(response).to redirect_to(root_path)
         expect(flash[:alert].present?).to eql(true)
       end
       it "fails if :target_org is not found" do
