@@ -10,6 +10,7 @@
 #  contact_name           :string
 #  feedback_msg           :text
 #  feedback_enabled       :boolean          default(FALSE)
+#  is_other :boolean default(FALSE), not null
 #  links                  :text
 #  logo_name              :string
 #  logo_uid               :string
@@ -94,7 +95,7 @@ class Org < ApplicationRecord
 
   validates :abbreviation, presence: { message: PRESENCE_MESSAGE }
 
-  validates :is_other, presence: { in: BOOLEAN_VALUES,
+  validates :is_other, inclusion: { in: BOOLEAN_VALUES,
                                    message: PRESENCE_MESSAGE }
 
   validates :language, presence: { message: PRESENCE_MESSAGE }
