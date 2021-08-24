@@ -77,7 +77,6 @@ en-CA:
   errors:
     format: "%{attribute} %{message}"
     messages:
-      model_invalid: 'Validation failed: %{errors}'
       inclusion: is not included in the list
       exclusion: is reserved
       invalid: is invalid
@@ -105,7 +104,6 @@ en-CA:
       other_than: must be other than %{count}
       odd: must be odd
       even: must be even
-      required: must exist
       taken: has already been taken
       already_confirmed: was already confirmed, please try signing in
       confirmation_period_expired: needs to be confirmed within %{period}, please
@@ -116,14 +114,13 @@ en-CA:
       not_saved:
         one: '1 error prohibited this %{resource} from being saved:'
         other: "%{count} errors prohibited this %{resource} from being saved:"
+      model_invalid: 'Validation failed: %{errors}'
+      required: must exist
     template:
       body: 'There were problems with the following fields:'
       header:
         one: 1 error prohibited this %{model} from being saved
         other: "%{count} errors prohibited this %{model} from being saved"
-    unavailable_session:
-    unacceptable_request:
-    connection_refused:
   activerecord:
     errors:
       messages:
@@ -232,7 +229,7 @@ en-CA:
       invited: You have a pending invitation, accept it to finish creating your account.
     mailer:
       confirmation_instructions:
-        subject: Confirm your DMP Assistant account
+        subject: Confirm your DMPonline account
       reset_password_instructions:
         subject: Reset password instructions
       unlock_instructions:
