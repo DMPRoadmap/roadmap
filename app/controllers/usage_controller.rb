@@ -54,6 +54,38 @@ class UsageController < ApplicationController
     send_data(data_csvified, filename: "totals.csv")
   end
 
+    # POST /usage_filter
+  # rubocop:disable Metrics/MethodLength
+  def filter
+    # This action is triggered when a user specifies a date range.
+    # A super admin can pass along a nil organization to fetch compounded
+    # statistics
+    authorize :usage
+
+    args = args_from_params
+    @topic = usage_params[:topic]
+
+    case @topic
+    when "plans"
+      plan_data(args: args)
+      total_plans(args: min_max_dates(args: args))
+      @total = @total_org_plans
+      @ranged = @plans_per_month.sum(:count)
+    when 'users'
+      user_data(args: args)
+      total_users(args: min_max_dates(args: args))
+      @total = @total_org_users
+      @ranged = @users_per_month.sum(:count)
+    when 'organisations'
+      @total = Org.count
+      @ranged = ranged_organizations(args: args).count
+    else
+      @total = 0
+      @ranged = 0
+    end
+  end
+  # rubocop:enable Metrics/MethodLength
+
   # GET /usage_yearly_users
   def yearly_users
     # This action is triggered when a user clicks on the 'download csv' button
