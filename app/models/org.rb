@@ -96,7 +96,7 @@ class Org < ApplicationRecord
   validates :abbreviation, presence: { message: PRESENCE_MESSAGE }
 
   validates :is_other, inclusion: { in: BOOLEAN_VALUES,
-                                   message: PRESENCE_MESSAGE }
+                                    message: PRESENCE_MESSAGE }
 
   validates :language, presence: { message: PRESENCE_MESSAGE }
 
