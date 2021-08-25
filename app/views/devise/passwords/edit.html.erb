@@ -24,10 +24,17 @@
           <input type="checkbox" id="passwords_toggle" class="passwords_toggle"/><%= _('Show passwords') %>
         </label>
       </div>
+      
+      <% if Rails.configuration.x.recaptcha.enabled %>
+        <div class="form-group">
+          <%= label_tag(nil, _('Security check')) %>
+          <%= recaptcha_tags %>
+        </div>
+      <% end %>
 
       <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
 
       <%= render "devise/shared/links" %>
     <% end %>
   </div>
-</div>  
+</div>
