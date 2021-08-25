@@ -36,13 +36,16 @@ class TemplateOptionsController < ApplicationController
         end
       end
 
-      # If the no funder was specified OR the funder matches the org
-      if funder_id.blank? || funder_id == org_id
+      # We are using a default funder to provide with the default templates, but
+      # We still want to provide the organization templates.
+      #if funder_id.blank? || funder_id == org_id
         # Retrieve the Org's templates
-        @templates << Template.published
-                              .organisationally_visible
-                              .where(org_id: org_id, customization_of: nil).to_a
-      end
+      @templates << Template.published
+                            .organisationally_visible
+                            .where(org_id: org_id, customization_of: nil).to_a
+      #end
+
+
       
       # DMP Assistant: We do not want to include not customized templates from
       # default funder
