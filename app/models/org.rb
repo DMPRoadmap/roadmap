@@ -8,10 +8,9 @@
 #  abbreviation           :string
 #  contact_email          :string
 #  contact_name           :string
-#  feedback_email_msg     :text
-#  feedback_email_subject :string
+#  feedback_msg           :text
 #  feedback_enabled       :boolean          default(FALSE)
-#  is_other               :boolean          default(FALSE), not null
+#  is_other :boolean default(FALSE), not null
 #  links                  :text
 #  logo_name              :string
 #  logo_uid               :string
@@ -42,14 +41,10 @@ class Org < ApplicationRecord
   LOGO_FORMATS = %w[jpeg png gif jpg bmp].freeze
 
   HUMANIZED_ATTRIBUTES = {
-    feedback_email_msg: _("Feedback email message")
+    feedback_msg: _("Feedback email message")
   }.freeze
 
-  # TODO: we don't allow this to be edited on the frontend, can we remove from DB?
-  # if not, we'll need to add a rake:task to ensure that each of these is set for each
-  # org
-  attribute :feedback_email_subject, :string, default: feedback_confirmation_default_subject
-  attribute :feedback_email_msg, :text, default: feedback_confirmation_default_message
+  attribute :feedback_msg, :text, default: feedback_confirmation_default_message
   attribute :language_id, :integer, default: -> { Language.default&.id }
   attribute :links, :text, default: { "org": [] }
 
@@ -101,7 +96,7 @@ class Org < ApplicationRecord
   validates :abbreviation, presence: { message: PRESENCE_MESSAGE }
 
   validates :is_other, inclusion: { in: BOOLEAN_VALUES,
-                                    message: INCLUSION_MESSAGE }
+                                    message: PRESENCE_MESSAGE }
 
   validates :language, presence: { message: PRESENCE_MESSAGE }
 
@@ -117,11 +112,8 @@ class Org < ApplicationRecord
   validates :feedback_enabled, inclusion: { in: BOOLEAN_VALUES,
                                             message: INCLUSION_MESSAGE }
 
-  validates :feedback_email_subject, presence: { message: PRESENCE_MESSAGE,
-                                                 if: :feedback_enabled }
-
-  validates :feedback_email_msg, presence: { message: PRESENCE_MESSAGE,
-                                             if: :feedback_enabled }
+  validates :feedback_msg, presence: { message: PRESENCE_MESSAGE,
+                                       if: :feedback_enabled }
 
   validates :managed, inclusion: { in: BOOLEAN_VALUES,
                                    message: INCLUSION_MESSAGE }
@@ -372,10 +364,7 @@ class Org < ApplicationRecord
     self.contact_email = to_be_merged.contact_email unless contact_email.present?
     self.contact_name = to_be_merged.contact_name unless contact_name.present?
     self.feedback_enabled = to_be_merged.feedback_enabled unless feedback_enabled?
-    self.feedback_email_msg = to_be_merged.feedback_email_msg unless feedback_email_msg.present?
-    # rubocop:disable Layout/LineLength
-    self.feedback_email_subject = to_be_merged.feedback_email_subject unless feedback_email_subject.present?
-    # rubocop:enable Layout/LineLength
+    self.feedback_msg = to_be_merged.feedback_msg unless feedback_msg.present?
   end
   # rubocop:enable Metrics/AbcSize
 
