@@ -83,9 +83,11 @@ $(() => {
   // When one of the autocomplete fields changes, fetch the available templates
   const handleComboboxChange = debounce(() => {
     const orgContext = $('#research-org-controls');
+    const funderContext = $('#funder-org-controls');
     const validOrg = validOptions(orgContext);
+    const validFunder = validOptions(funderContext);
 
-    if (!validOrg) {
+    if (!validOrg || !validFunder) {
       $('#available-templates').fadeOut();
       $('#plan_template_id').find(':selected').removeAttr('selected');
       $('#plan_template_id').val('');
@@ -95,14 +97,16 @@ $(() => {
       $('#plan_template_id option').remove();
 
       let orgId = orgContext.find('input[id$="org_id"]').val();
-      // let funderId = funderContext.find('input[id$="funder_id"]').val();
-      const funderId = '"none"';
+      let funderId = funderContext.find('input[id$="funder_id"]').val();
+
       // For some reason Rails freaks out it everything is empty so send
       // the word "none" instead and handle on the controller side
       if (orgId.length <= 0) {
         orgId = '"none"';
       }
-
+      if (funderId.length <= 0) {
+        funderId = '"none"';
+      }
       const data = `{"plan": {"research_org_id":${orgId},"funder_id":${funderId}}}`;
 
       // Fetch the available templates based on the funder and research org selected
