@@ -9,10 +9,11 @@
         "endStorageDate": {
             "type": "string",
             "format": "date",
-            "description": "Durée de stockage après projet",
-            "label@fr_FR": "Durée de stockage (en mois)",
-            "label@en_GB": "Storage time (months)",
-            "example@fr_FR": "Durée de stockage après la fin de vie du projet, en mois (pas dans le cas d'un service de type workdir"
+            "description": "Date de fin de stockage",
+            "label@fr_FR": "Fin du stockage",
+            "label@en_GB": "End of storage",
+            "example@fr_FR": "Date de fin de stockage sur l'espace de travail",
+            "example@en_GB": "End date of storage on the workspace"
         },
         "justification": {
             "type": "string",
@@ -26,7 +27,7 @@
             "description": "Volume des données concernées en octets",
             "label@fr_FR": "Taille des données",
             "label@en_GB": "Data size",
-            "example@fr_FR": "Taille totale dans cet espace en To"
+            "example@fr_FR": "Taille totale dans cet espace en Go"
         },
         "volumeUnit": {
             "type": "string",
@@ -36,8 +37,8 @@
             "label@en_GB": "Unit",
             "registry_name": "VolumeUnit",
             "overridable": true,
-            "default@fr_FR": "To",
-            "default@en_GB": "TB"
+            "default@fr_FR": "Go",
+            "default@en_GB": "GB"
         }
     },
     "required": [

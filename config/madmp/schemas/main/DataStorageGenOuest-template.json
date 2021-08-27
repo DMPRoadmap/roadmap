@@ -49,8 +49,8 @@
             },
             "minItems": 1,
             "description": "Informations requises pour une demande de ressources de stockage au Genci (une par type de service)",
-            "label@fr_FR": "Demande de ressources de stockage au GENCI",
-            "label@en_GB": "Request for storage resources from GENCI"
+            "label@fr_FR": "Demande de ressources à GenOuest",
+            "label@en_GB": "Request for GenOuest resources"
         },
         "securityMeasures": {
             "type": "string",
@@ -107,7 +107,7 @@
                     "dbid"
                 ]
             },
-            "description": "Coût total des données stockées dans les différents centres gérés par le Genci",
+            "description": "Coût total des données stockées dans les différents centres gérés par les services GenOuest",
             "label@fr_FR": "Coût total de stockage",
             "label@en_GB": "Total cost of storage"
         },
@@ -146,6 +146,7 @@
         "label@fr_FR": "Notifier GenOuest",
         "label@en_GB": "Notify GenOuest",
         "tooltip@fr_FR": "Envoie à une adresse mail GenOUest une demande d'allocation d'espace de stockage",
-        "tooltip@en_GB": "Sends to the GenOuest facility a query for storage space"
+        "tooltip@en_GB": "Sends to the GenOuest facility a query for storage space",
+        "oneshot": true
     }
 }

@@ -135,8 +135,6 @@
         "script_id": 4,
         "name": "Anr_data_fetcher_v2",
         "label@fr_FR": "Importer informations si projet ANR",
-        "label@en_GB": "Fill informations if ANR project ",
-        "tooltip@fr_FR": "Renseigne les informations projet à partir de l'identifiant de financement ANR",
-        "tooltip@en_GB": "Fills project data based on ANR funding id"
+        "label@en_GB": "Fill informations if ANR project "
     }
 }

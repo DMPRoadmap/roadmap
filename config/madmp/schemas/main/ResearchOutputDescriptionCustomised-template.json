@@ -1,0 +1,161 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "ResearchOutputDescriptionCustomised",
+    "description": "ResearchOutputDescriptionCustomised template",
+    "type": "object",
+    "class": "ResearchOutputDescriptionCustomised",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Titre du produit de recherche généré au cours du projet",
+            "label@fr_FR": "Nom  complet",
+            "label@en_GB": "Full name"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description succincte du produit de recherche",
+            "inputType": "textarea",
+            "label@fr_FR": "Décrire succinctement le produit de recherche",
+            "label@en_GB": "Briefly describe the research product",
+            "tooltip@fr_FR": "Résumé décrivant l'objet et la portée du jeu de données",
+            "tooltip@en_GB": "Summary describing the purpose and scope of the dataset"
+        },
+        "type": {
+            "type": "string",
+            "description": "Type de produit de recherche généré",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type de produit de recherche",
+            "label@en_GB": "Research product type",
+            "registry_name": "ResearchDataType",
+            "overridable": true,
+            "tooltip@fr_FR": "Les types de produits de recherche sont issus du schéma DataCite 4.3.",
+            "tooltip@en_GB": "The types of research outputs are based on resourceTypeGeneral property from DataCite Metadata Schema 4.3. "
+        },
+        "workPackage": {
+            "type": "string",
+            "description": "Nom du workpackage",
+            "label@fr_FR": "Indiquer, si besoin, le workpackage auquel est rattaché le produit de recherche",
+            "label@en_GB": "Indicate, if necessary, the workpackage to which the research product is attached ",
+            "tooltip@fr_FR": "Nom ou numéro du workpackage",
+            "tooltip@en_GB": "Name or number of the workpackage",
+            "example@fr_FR": "WP1, WP2",
+            "example@en_GB": "WP1, WP2"
+        },
+        "controlledKeyword": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "ControlledKeyword",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ControlledKeywordStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Mot(s)-clé(s) issu(s) de vocabulaire(s) contrôlé(s) ou d'ontologie(s)",
+            "label@fr_FR": "Thésaurus INRAE",
+            "label@en_GB": "Thesaurus INRAE",
+            "inputType": "dropdown",
+            "registry_name": "ThesaurusInrae",
+            "tooltip@fr_FR": "Mots-clés décrivant les aspects importants du jeu de données",
+            "tooltip@en_GB": "Key words describing important aspects of the dataset"
+        },
+        "categories": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "Valeurs contrôlées issues d'Inrae https://ist.blogs.inrae.fr/datainrae-guide/metadonnees-controlees-par-une-liste-de-valeurs/#Data_Origin",
+            "inputType": "dropdown",
+            "label@fr_FR": "Catégories",
+            "label@en_GB": "Subjects",
+            "registry_name": "Subjects"
+        },
+        "language": {
+            "type": "string",
+            "length": "3",
+            "description": "Code langue des données (ISO 639-3)",
+            "inputType": "dropdown",
+            "label@fr_FR": "Indiquer la langue dans laquelle est décrit le produit de recherche",
+            "label@en_GB": "Indicate the language in which the research product is described",
+            "registry_name": "ISO639-3"
+        },
+        "contact": {
+            "type": "object",
+            "class": "Contributor",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "ResearchOutputContact",
+            "required": [
+                "dbid"
+            ],
+            "description": "Producteur ou titulaire des données",
+            "label@fr_FR": "Personne contact",
+            "label@en_GB": "Contact",
+            "tooltip@fr_FR": "Personne contact pour ce produit de recherche",
+            "tooltip@en_GB": "Person to contact about this research product"
+        },
+        "datasetId": {
+            "type": "string",
+            "description": "Identifiant pérenne attribué au produit de recherche",
+            "label@fr_FR": "Identifiant pérenne du produit de recherche",
+            "label@en_GB": " Reseach product persistent identifier",
+            "tooltip@fr_FR": "Indiquer l’identifiant du produit de recherche après son éventuelle publication ou dépôt dans un entrepôt de données (ou autres hébergements)",
+            "tooltip@en_GB": "Provide the researchoutput ID after possible publishing or deposit in an data repository (or other hostings)"
+        },
+        "idType": {
+            "type": "string",
+            "description": "Type d'identifiant ressource",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type d'identifiant du produit de recherche",
+            "label@en_GB": " Reseach product identifier",
+            "registry_name": "PIDSystem",
+            "overridable": true
+        },
+        "containsPersonalData": {
+            "type": "string",
+            "description": "Indique si les données incluent des données personnelles",
+            "inputType": "dropdown",
+            "label@fr_FR": "Le produit de recherche contient-il des données personnelles ?",
+            "label@en_GB": "Does the research product contain personal data?",
+            "registry_name": "YesNoUnknown"
+        },
+        "containsSensitiveData": {
+            "type": "string",
+            "description": "Indique si les données sont sensibles en raison de droit de propriété intellectuelle ou de contrat",
+            "inputType": "dropdown",
+            "label@fr_FR": "Le produit de recherche contient-il des données sensibles ?",
+            "label@en_GB": "Does the research product contain sensible data?",
+            "registry_name": "YesNoUnknown"
+        },
+        "hasEthicalIssues": {
+            "type": "string",
+            "description": "Indique si le contexte de production du produit de recherche inclut des implications éthiques",
+            "inputType": "dropdown",
+            "label@fr_FR": "Le contexte de production du produit de recherche prend-t-il en compte des aspects éthiques ?",
+            "label@en_GB": "Does the production context of the research product takes ethical issues into account?",
+            "registry_name": "YesNoUnknown"
+        }
+    },
+    "required": [
+        "title",
+        "description",
+        "type",
+        "controlledKeyword",
+        "language",
+        "containsPersonalData",
+        "containsSensitiveData",
+        "hasEthicalIssues"
+    ],
+    "to_string": []
+}

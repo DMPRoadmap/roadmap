@@ -96,5 +96,9 @@
         "$.firstName",
         " ",
         "$.lastName"
+    ],
+    "unicity": [
+        "firstName",
+        "lastName"
     ]
 }

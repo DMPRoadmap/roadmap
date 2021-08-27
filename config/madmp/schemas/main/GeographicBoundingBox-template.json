@@ -1,0 +1,57 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "GeographicBoundingBox",
+    "description": "GeographicBoundingBox template",
+    "type": "object",
+    "class": "GeographicBoundingBox",
+    "properties": {
+        "westBoundLongitude": {
+            "type": "string",
+            "description": "Longitude ouest en degrés décimaux, avec une précision d’au moins deux chiffres après la virgule",
+            "label@fr_FR": "Longitude ouest",
+            "label@en_GB": "West longitude",
+            "tooltip@fr_FR": "Coordonnées exprimées en degrés décimaux, avec une précision d’au moins deux chiffres après la virgule et dans un système de coordonnées géodésique de référence définissant le méridien de Greenwich comme méridien d’origine",
+            "tooltip@en_GB": "Coordinates expressed in decimal degrees, with a precision of at least two decimal places and in a reference geodetic coordinate system defining the Greenwich meridian as the prime meridian",
+            "example@fr_FR": "-4,24",
+            "example@en_GB": "-4,24"
+        },
+        "eastBoundLongitude": {
+            "type": "string",
+            "description": "Longitude est en degrés décimaux, avec une précision d’au moins deux chiffres après la virgule",
+            "label@fr_FR": "Longitude est",
+            "label@en_GB": "East longitude",
+            "tooltip@fr_FR": "Coordonnées exprimées en degrés décimaux, avec une précision d’au moins deux chiffres après la virgule et dans un système de coordonnées géodésique de référence définissant le méridien de Greenwich comme méridien d’origine",
+            "tooltip@en_GB": "Coordinates expressed in decimal degrees, with a precision of at least two decimal places and in a reference geodetic coordinate system defining the Greenwich meridian as the prime meridian",
+            "example@fr_FR": "10,81",
+            "example@en_GB": "10,81"
+        },
+        "soundBoundLatitude": {
+            "type": "string",
+            "description": "Latitude sud en degrés décimaux, avec une précision d’au moins deux chiffres après la virgule",
+            "label@fr_FR": "Latitude sud",
+            "label@en_GB": "South Latitude",
+            "tooltip@fr_FR": "Coordonnées exprimées en degrés décimaux, avec une précision d’au moins deux chiffres après la virgule et dans un système de coordonnées géodésique de référence définissant le méridien de Greenwich comme méridien d’origine",
+            "tooltip@en_GB": "Coordinates expressed in decimal degrees, with a precision of at least two decimal places and in a reference geodetic coordinate system defining the Greenwich meridian as the prime meridian",
+            "example@fr_FR": "41,34",
+            "example@en_GB": "41,34"
+        },
+        "northBoundLatitude": {
+            "type": "string",
+            "description": "Latitude nord en degrés décimaux, avec une précision d’au moins deux chiffres après la virgule",
+            "label@fr_FR": "Latitude nord",
+            "label@en_GB": "North Latitude",
+            "tooltip@fr_FR": "Coordonnées exprimées en degrés décimaux, avec une précision d’au moins deux chiffres après la virgule et dans un système de coordonnées géodésique de référence définissant le méridien de Greenwich comme méridien d’origine",
+            "tooltip@en_GB": "Coordinates expressed in decimal degrees, with a precision of at least two decimal places and in a reference geodetic coordinate system defining the Greenwich meridian as the prime meridian",
+            "example@fr_FR": "50,79",
+            "example@en_GB": "50,79"
+        }
+    },
+    "required": [
+        "westBoundLongitude",
+        "eastBoundLongitude",
+        "soundBoundLatitude",
+        "northBoundLatitude"
+    ],
+    "to_string": []
+}

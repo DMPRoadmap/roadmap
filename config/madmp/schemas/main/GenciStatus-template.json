@@ -16,10 +16,10 @@
         "volumeUnit": {
             "type": "string",
             "description": "Unité de volume",
-            "inputType": "dropdown",
             "label@fr_FR": "Unité",
             "label@en_GB": "Unit",
-            "registry_name": "VolumeUnit",
+            "const@fr_FR": "To",
+            "const@en_GB": "TB",
             "overridable": true,
             "default@fr_FR": "To",
             "default@en_GB": "TB"

@@ -373,5 +373,30 @@
         "path": "DataPreservationManager-template.json",
         "classname": "contributor",
         "question_id": null
+    },
+    {
+        "path": "ResearchOutputDescriptionCustomised-template.json",
+        "classname": "research_output_description",
+        "question_id": null
+    },
+    {
+        "path": "ResearchOutputDescriptionGeospatial-template.json",
+        "classname": "research_output_description",
+        "question_id": null
+    },
+    {
+        "path": "GeoSpatialData-template.json",
+        "classname": "specific_data",
+        "question_id": null
+    },
+    {
+        "path": "GeographicBoundingBox-template.json",
+        "classname": "specific_data",
+        "question_id": null
+    },
+    {
+        "path": "TemporalElement-template.json",
+        "classname": "specific_data",
+        "question_id": null
     }
 ]

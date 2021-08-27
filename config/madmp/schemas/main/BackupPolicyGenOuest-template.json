@@ -18,16 +18,17 @@
             "type": "string",
             "description": "Fréquence de sauvegarde",
             "label@fr_FR": "Fréquence des sauvegardes",
-            "label@en_GB": "Backup frequency"
+            "label@en_GB": "Backup frequency",
+            "const@fr_FR": "Chaque heure",
+            "const@en_GB": "Hourly"
         },
         "backupType": {
             "type": "string",
             "description": "Mode de sauvegarde (incrémentale, différentielle, complète, miroir, …)",
-            "inputType": "dropdown",
             "label@fr_FR": "Type de sauvegarde",
             "label@en_GB": "Backup type",
-            "registry_name": "BackupType",
-            "overridable": true
+            "const@fr_FR": "complète",
+            "const@en_GB": "complete"
         },
         "storageType": {
             "type": "array",
@@ -35,13 +36,10 @@
                 "type": "string"
             },
             "description": "Support de stockage des données",
-            "inputType": "dropdown",
             "label@fr_FR": "Supports de stockage",
             "label@en_GB": "Storage types",
-            "registry_name": "StorageType",
-            "overridable": true,
-            "default@fr_FR": "Bande magnétique",
-            "default@en_GB": "Magnetic tape"
+            "const@fr_FR": "Disque dur",
+            "const@en_GB": "Hard drive"
         }
     },
     "required": [
