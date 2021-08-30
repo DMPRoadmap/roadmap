@@ -15,6 +15,21 @@ $light-yellow: #fff9e5;
 $green: #2CAD5D;
 $light-grey: #e5e4e7;
 
+@mixin overlay {
+    background: #ffffff;
+    color: #666666;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 50;
+    top: 0;
+    left: 0;
+    float: left;
+    text-align: center;
+    padding-top: 10%;
+    opacity: 0.8;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -595,6 +610,10 @@ header .main-nav {
                 padding-top: 10px;
                 padding-right: 50px;
             }
+        }
+
+        .overlay {
+            @include overlay();
         }
 
         .guidance-section {
@@ -1417,18 +1436,7 @@ header .main-nav {
     }
     
     .overlay {
-        background: #ffffff;
-        color: #666666;
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        z-index: 50;
-        top: 0;
-        left: 0;
-        float: left;
-        text-align: center;
-        padding-top: 25%;
-        opacity: 0.8;
+        @include overlay();
     }
 
  }

@@ -13,8 +13,8 @@ import TimeagoFactory from '../../utils/timeagoFactory';
 const editorClass = 'tinymce_answer';
 const showSavingMessage = jQuery => jQuery.closest('.question-form').find('[data-status="saving"]').show();
 const hideSavingMessage = jQuery => jQuery.closest('.question-form').find('[data-status="saving"]').hide();
-const showLoadingOverlay = jQuery => jQuery.closest('.question-form').find('.overlay').show();
-const hideLoadingOverlay = jQuery => jQuery.closest('.question-form').find('.overlay').hide();
+const showLoadingOverlay = jQuery => jQuery.find('.overlay').show();
+const hideLoadingOverlay = jQuery => jQuery.find('.overlay').hide();
 const closestErrorSavingMessage = jQuery => jQuery.closest('.question-form').find('[data-status="error-saving"]');
 const questionId = jQuery => jQuery.closest('.form-answer').attr('data-autosave');
 // eslint-disable-next-line max-len
@@ -269,6 +269,10 @@ $(() => {
       });
     }
   }); // .click()
+  $('.question-content').on('show.bs.collapse', (e) => {
+    const qId = $(e.target).attr('id');
+    showLoadingOverlay($(`#${qId}`));
+  });
   $('.question-content').on('shown.bs.collapse', (e) => {
     const qId = $(e.target).attr('id');
     // Initial load
@@ -282,6 +286,7 @@ $(() => {
       toolbar,
     });
     $(`#${qId}`).find('.toggle-guidance-section').removeClass('disabled');
+    hideLoadingOverlay($(`#${qId}`));
     if (!isReadOnly()) {
       $(`#${qId} .${editorClass}`).each((i, editor) => {
         // Attaches form and tinymce event handlers
@@ -298,7 +303,9 @@ $(() => {
   $('.question-content').on('hide.bs.collapse', (e) => {
     const qId = $(e.target).attr('id');
     formHandlers({ jQuery: $(`#${qId} .form-answer`), attachment: 'off' });
-    $(`#${qId}`).find('.toggle-guidance-section').trigger('click');
+    if ($(`#${qId}`).find('.guidance-section').is(':visible')) {
+      $(`#${qId}`).find('.toggle-guidance-section').trigger('click');
+    }
     $(`#${qId}`).find('.toggle-guidance-section').addClass('disabled');
     $(`#${qId} .${editorClass}`).each((i, editor) => {
       detachEditorHandlers(Tinymce.findEditorById(`${$(editor).attr('id')}`));
