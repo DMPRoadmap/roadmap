@@ -281,6 +281,7 @@ $(() => {
       selector: `#${qId} .note`,
       toolbar,
     });
+    $(`#${qId}`).find('.toggle-guidance-section').removeClass('disabled');
     if (!isReadOnly()) {
       $(`#${qId} .${editorClass}`).each((i, editor) => {
         // Attaches form and tinymce event handlers
@@ -297,6 +298,8 @@ $(() => {
   $('.question-content').on('hide.bs.collapse', (e) => {
     const qId = $(e.target).attr('id');
     formHandlers({ jQuery: $(`#${qId} .form-answer`), attachment: 'off' });
+    $(`#${qId}`).find('.toggle-guidance-section').trigger('click');
+    $(`#${qId}`).find('.toggle-guidance-section').addClass('disabled');
     $(`#${qId} .${editorClass}`).each((i, editor) => {
       detachEditorHandlers(Tinymce.findEditorById(`${$(editor).attr('id')}`));
       Tinymce.destroyEditorById(`${$(editor).attr('id')}`);
