@@ -4,9 +4,13 @@ import {
 } from '../answers/edit';
 import { Tinymce } from '../../utils/tinymce.js.erb';
 import { Select2 } from '../../utils/select2';
+import expandCollapseAll from '../../utils/expandCollapseAll';
 // import TimeagoFactory from '../../utils/timeagoFactory';
 
 $(() => {
+  // Attach handlers for the expand/collapse all accordions
+  expandCollapseAll();
+
   const showSavingMessage = jQuery => jQuery.parents('.question-form').find('[data-status="saving"]').show();
   const hideSavingMessage = jQuery => jQuery.parents('.question-form').find('[data-status="saving"]').hide();
   const showLoadingOverlay = jQuery => jQuery.find('.overlay').show();

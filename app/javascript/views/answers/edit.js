@@ -5,6 +5,7 @@ import {
 } from '../../utils/isType';
 import { Tinymce } from '../../utils/tinymce.js.erb';
 import { Select2 } from '../../utils/select2';
+import expandCollapseAll from '../../utils/expandCollapseAll';
 // import debounce from '../../utils/debounce';
 import { updateSectionProgress, getQuestionDiv } from '../../utils/sectionUpdate';
 import datePicker from '../../utils/datePicker';
@@ -212,6 +213,8 @@ const attachEventHandlers = (jQueryForm) => {
 
 $(() => {
   datePicker();
+  // Attach handlers for the expand/collapse all accordions
+  expandCollapseAll();
 
   // Example answer toggle
   const toggleIcon = (e) => {

@@ -27,7 +27,7 @@
 
           <div class="row">
             <div class="col-md-8">
-              <div id="questions-accordion-controls">
+              <div id="accordion-controls">
                 <div class="accordion-controls" data-parent="questions-accordion-<%= section.id %>">
                   <a href="#" data-toggle-direction="show"><%= _('expand all') %></a>
                   <span>|</span>
@@ -54,7 +54,8 @@
           <% multiple_ro_class = plan.research_outputs.count > 1 ? "multiple-research-output" : "single-research-output" %>
           <div id="questions-accordion-<%= section.id %>" class="tab-content panel-body research-output-content <%= multiple_ro_class %>">
             <% plan.research_outputs.each_with_index do |research_output, i| %>
-              <div id="research_output_<%= research_output.id %>_section_<%= section.id %>" class="tab-pane fade <%= 'in active' if research_output.main? %> <%= 'main_research_output' if research_output.main? %>">
+              <div id="research_output_<%= research_output.id %>_section_<%= section.id %>" 
+                   class="panel research-output-panel tab-pane fade <%= 'in active' if research_output.main? %> <%= 'main_research_output' if research_output.main? %>">
                 <% if research_output.main? && plan.research_outputs.count > 1 && !plan.template.structured?%>
                   <p>
                     <input type="checkbox" class="is_common_cb" 

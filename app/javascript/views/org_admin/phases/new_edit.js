@@ -2,7 +2,6 @@ import 'bootstrap-sass/assets/javascripts/bootstrap/collapse';
 import { Tinymce } from '../../../utils/tinymce.js.erb';
 import { isObject, isString } from '../../../utils/isType';
 import getConstant from '../../../constants';
-import expandCollapseAll from '../../../utils/expandCollapseAll';
 import { addAsterisks } from '../../../utils/requiredField';
 
 import onChangeQuestionFormat from '../questions/sharedEventHandlers';
@@ -10,9 +9,6 @@ import initQuestionOption from '../question_options/index';
 import updateConditions from '../conditions/updateConditions';
 
 $(() => {
-  // Attach handlers for the expand/collapse all accordions
-  expandCollapseAll();
-
   Tinymce.init({ selector: '.phase' });
   const parentSelector = '.section-group';
 
