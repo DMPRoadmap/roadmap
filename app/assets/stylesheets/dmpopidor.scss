@@ -485,6 +485,14 @@ header .main-nav {
             margin-left: 0px;
             margin-right: 0px;
         }
+        .research-outputs-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            li {
+                flex: 1 1 15%;
+                text-align: center;
+            }
+        }
     }
     // Progress bar 
     .progress-bar {

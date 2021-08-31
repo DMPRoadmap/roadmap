@@ -37,7 +37,7 @@
             </div>
           </div>
 
-          <ul class="nav nav-tabs nav-justified">
+          <ul class="nav nav-tabs research-outputs-tabs">
             <% section_has_common_answers = plan.research_outputs.first.has_common_answers?(section.id) %>
             <% plan.research_outputs.each_with_index do |research_output, i| %>
               <% research_output_fragment = research_output.json_fragment.research_output_description %>
