@@ -8,7 +8,8 @@ class TemplateOptionsController < ApplicationController
   # Collect all of the templates available for the org+funder combination
   def index
     org_id = (plan_params[:org_id] == "-1" ? "" : plan_params[:org_id])
-    funder_id = (plan_params[:funder_id] == "-1" ? "" : plan_params[:funder_id])
+    funder_id = Org.find_by(name: Rails.application.config.default_funder_name).id 
+    # funder_id = (plan_params[:funder_id] == "-1" ? "" : plan_params[:funder_id])
     authorize Template.new, :template_options?
     @templates = []
 
@@ -35,16 +36,22 @@ class TemplateOptionsController < ApplicationController
         end
       end
 
-      # If the no funder was specified OR the funder matches the org
-      if funder_id.blank? || funder_id == org_id
+      # We are using a default funder to provide with the default templates, but
+      # We still want to provide the organization templates.
+      #if funder_id.blank? || funder_id == org_id
         # Retrieve the Org's templates
-        @templates << Template.published
-                              .organisationally_visible
-                              .where(org_id: org_id, customization_of: nil).to_a
-      end
+      @templates << Template.published
+                            .organisationally_visible
+                            .where(org_id: org_id, customization_of: nil).to_a
+      #end
+
+
       
+      # DMP Assistant: We do not want to include not customized templates from
+      # default funder
+
       # Include customizable funder templates
-      @templates << funder_templates = Template.latest_customizable
+      # @templates << funder_templates = Template.latest_customizable
 
       @templates = @templates.flatten.uniq
     end
