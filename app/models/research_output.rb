@@ -60,7 +60,7 @@ class ResearchOutput < ActiveRecord::Base
   # =================
 
   def main?
-    eql?(plan.research_outputs.where(order: 1).first)
+    order.eql?(1)
   end
 
   # Return main research output
@@ -112,7 +112,7 @@ class ResearchOutput < ActiveRecord::Base
         fragment_description = Fragment::ResearchOutputDescription.new(
           data: {
             "title" => fullname,
-            "type" => d("dmpopidor", "Dataset")
+            "type" => d_("dmpopidor", "Dataset")
           },
           madmp_schema: MadmpSchema.find_by(name: "ResearchOutputDescriptionStandard"),
           dmp_id: dmp_fragment.id,
