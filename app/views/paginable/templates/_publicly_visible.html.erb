@@ -41,8 +41,7 @@
             <%= sanitize links_to_a_elements(template.links['funder'], '<br>') %>
           </td>
           <td class="text-center">
-            <% path_url_protocol = request.protocol.gsub('://', '') %>
-            <%= direct_link(template, false, nil, nil, path_url_protocol) %>
+            <%= direct_link(template, false, nil, nil, Rails.application.config.direct_link_protocol) %>
             <a href="" class="copy-link" data-toggle="modal" data-target="#link-modal" title="<%= _('Copy link to create a new plan') %>"><span class="fa fa-clipboard"></span></a>
           </td>
           <td>
