@@ -17,7 +17,8 @@
               <a href="#notes-<%= question.id %>-research-output-<%= research_output.id %>" 
                  aria-controls="notes-<%= question.id %>-research-output-<%= research_output.id %>" role="tab" data-toggle="pill">
                   <span id="notes-title-<%= question.id %>-research-output-<%= research_output.id %>">
-                      <%= render partial: '/notes/title', locals: { answer: answer } %>
+                    <% notes = answer.non_archived_notes %>
+                    <%= _('Comments') %><%= notes.length > 0 ? " (#{notes.length})" : '' %>
                   </span>
               </a>
           </li>
