@@ -132,5 +132,19 @@ module DMPRoadmap
 
     # The percentage of answered questions needed to enable the plan visibility section of the Share plan page
     config.default_plan_percentage_answered = 0
+
+    # This is the protocol that will be used on method 'direct_link' defined in template_helper.rb.
+    # This configuration is required since the current (2021-08-09) production deployment does not
+    # pass the correct protocol from the reverse proxy (HAProxy) to the back end web servers.
+    # The value can be either 'http' or 'https'
+    # TODO: Change production server configuration so that we can ignore this configuration.
+    config.direct_link_protocol = 'https'
+
+    # DMP Assistant works with the assumption that the user will not use a
+    # specific funder. The view for choosing a funder when creating a plan
+    # removed the option for selecting a funder. A funder is needed to show the
+    # customized templates. For this reason we are specifying in the
+    # documentation the funder that 
+    config.default_funder_name = Rails.application.secrets.default_funder_name
   end
 end
