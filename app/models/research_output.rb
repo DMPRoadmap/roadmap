@@ -112,7 +112,8 @@ class ResearchOutput < ActiveRecord::Base
         fragment_description = Fragment::ResearchOutputDescription.new(
           data: {
             "title" => fullname,
-            "type" => d_("dmpopidor", "Dataset")
+            "type" => d_("dmpopidor", "Dataset"),
+            "datasetId" => pid
           },
           madmp_schema: MadmpSchema.find_by(name: "ResearchOutputDescriptionStandard"),
           dmp_id: dmp_fragment.id,
@@ -141,7 +142,9 @@ class ResearchOutput < ActiveRecord::Base
       else
         data = fragment.research_output_description.data.merge(
           {
-            "title" => fullname
+            "title" => fullname,
+            "datasetId" => pid,
+            "type" => other_type_label
           }
         )
         fragment.research_output_description.update(data: data)

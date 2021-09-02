@@ -561,6 +561,9 @@ msgstr ""
 msgid "You can pick a different question form"
 msgstr ""
 
+msgid "Contact"
+msgstr ""
+
 ################
 ### REGISTRIES
 ################

@@ -24,6 +24,15 @@ class ResearchOutputsController < ApplicationController
 
     authorize @plan
     if @research_output.update(attrs)
+      unless @plan.template.structured?
+        research_output_description = @research_output.json_fragment.research_output_description
+        research_output_description.contact.update(
+          data: {
+            "person" => { "dbid" => params[:contact_id] },
+            "role" => d_("dmpopidor", "Data contact")
+          }
+        )
+      end
       render json: {
         "html" => render_to_string(partial: "research_outputs/list", locals: {
             plan: @plan,
@@ -40,7 +49,7 @@ class ResearchOutputsController < ApplicationController
   def destroy
     @plan = Plan.find(params[:plan_id])
     @research_output = ResearchOutput.find(params[:id])
-    research_output_fragment = @research_output.json_fragment 
+    research_output_fragment = @research_output.json_fragment
     authorize @plan
     if @research_output.destroy
       research_output_fragment.destroy!
@@ -86,7 +95,7 @@ class ResearchOutputsController < ApplicationController
 
   def research_output_params
     params.require(:research_output)
-          .permit(:id, :plan_id, :abbreviation, :fullname)
+          .permit(:id, :plan_id, :abbreviation, :fullname, :pid, :other_type_label)
   end
 
 end
