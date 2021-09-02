@@ -30,7 +30,8 @@ namespace :madmpopidor do
           "nameType" => d_("dmpopidor", "Personal"),
           "lastName" => plan.principal_investigator,
           "mbox" => plan.principal_investigator_email,
-          "personId" => plan.principal_investigator_identifier
+          "personId" => plan.principal_investigator_identifier,
+          "idType" => plan.principal_investigator_identifier.present? ? "ORCID" : ""
         }
         pi_person = MadmpFragment.fragment_exists?(
           pi_person_data, MadmpSchema.find_by(name: "PersonStandard"), dmp_fragment.id
