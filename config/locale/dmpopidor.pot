@@ -564,6 +564,12 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
+msgid "Add a person"
+msgstr ""
+
+msgid "Summary of attributed roles"
+msgstr ""
+
 ################
 ### REGISTRIES
 ################

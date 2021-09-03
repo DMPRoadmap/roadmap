@@ -4,8 +4,7 @@
   <tr>
     <td><%= contributor.to_s %></td>
     <td><%= display_identifier(contributor.data["personId"], contributor.data["idType"]) %></td>
-    <td><%= "#{contributor.data["affiliationName"]} #{display_identifier(contributor.data["affiliationId"], contributor.data["affiliationIdType"], true)}" %></td>
-    <td>
+    <td class="roles">
       <ul>
         <% contributor.roles.each do |role| %>
           <li><%= role %></li>

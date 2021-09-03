@@ -1447,6 +1447,10 @@ header .main-nav {
         @include overlay();
     }
 
+    .list-contributor .roles {
+        background-color: $light-grey;
+    }
+
  }
  .spinner {
     margin: 0 auto;

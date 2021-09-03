@@ -584,6 +584,12 @@ msgstr "Dataset"
 msgid "Contact"
 msgstr "Contact"
 
+msgid "Add a person"
+msgstr "Add a person"
+
+msgid "Summary of attributed roles"
+msgstr "Summary of attributed roles"
+
 ################
 ### API
 ################

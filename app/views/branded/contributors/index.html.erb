@@ -20,8 +20,7 @@
           <tr>
             <th scope="col"><%= _("Name") %></th>
             <th scope="col" class="sorter-false"><%= _("Identifier") %></th>
-            <th scope="col"><%= _("Affiliation") %></th>
-            <th scope="col" class="sorter-false"><%= _("Roles") %></th>
+            <th scope="col" class="sorter-false"><%= d_("dmpopidor", "Summary of attributed roles") %></th>
             <th scope="col" class="sorter-false">
               <span aria-hidden="false" class="sr-only"><%= _("Actions") %></span>
             </th>
@@ -41,7 +40,7 @@
     <div class="col-md-12">
       <% if @plan.editable_by?(current_user) %>
         <span data-toggle="modal" data-target="#modal-window">
-          <%= link_to _("Add a contributor"), new_edit_linked_madmp_fragments_url(
+          <%= link_to d_("dmpopidor", "Add a person"), new_edit_linked_madmp_fragments_url(
                   nil, 
                   :parent_id => @plan.json_fragment.id, 
                   :schema_id => MadmpSchema.find_by(name: "PersonStandard").id, 

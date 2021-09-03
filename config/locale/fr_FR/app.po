@@ -3294,6 +3294,9 @@ msgstr "Est-ce un plan de test ?"
 msgid "Sign in or Create account"
 msgstr "Se connecter ou Créer un compte"
 
+msgid "Identifier"
+msgstr "Identifiant"
+
 msgid "Contributors"
 msgstr "Contributeurs"
 

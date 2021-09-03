@@ -21,16 +21,21 @@ class Fragment::Person < MadmpFragment
 
   def roles(selected_research_outputs = nil)
     if selected_research_outputs.nil?
-      Fragment::Contributor.where("(data->'person'->>'dbid')::int = ?", id).pluck("data->'role'")
+      contributors_list = Fragment::Contributor.where("(data->'person'->>'dbid')::int = ?", id)
     else
-      Fragment::Contributor.where("(data->'person'->>'dbid')::int = ?", id)
-                           .map do |c|
-                             if c.research_output_id.nil? || selected_research_outputs.include?(c.research_output_id)
-                               c.data["role"]
-                             end
-                           end
-                           .compact
+      contributors_list = Fragment::Contributor.where("(data->'person'->>'dbid')::int = ?", id)
+                                               .select do |c|
+                                                 c.research_output_id.nil? || selected_research_outputs.include?(c.research_output_id)
+                                               end
     end
+    contributors_list.map do |c|
+      if c.parent&.classname.eql?("research_output_description")
+        ro = ::ResearchOutput.find(c.research_output_id)
+        "#{c.data['role']} (#{ro.abbreviation})"
+      else
+        c.data["role"]
+      end
+    end.compact
   end
 
   def contributors

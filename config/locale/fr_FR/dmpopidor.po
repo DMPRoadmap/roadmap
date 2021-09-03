@@ -586,6 +586,12 @@ msgstr "Jeu de données"
 msgid "Contact"
 msgstr "Personne contact"
 
+msgid "Add a person"
+msgstr "Ajouter une personne"
+
+msgid "Summary of attributed roles"
+msgstr "Synthèse des rôles attribués"
+
 
 ################
 ### API
