@@ -1,11 +1,12 @@
-<%# locals: { dmp_id, field_values, parent_id, schema, field_name, template_locale, ttip } %>
+<%# locals: { dmp_id, field_values, parent_id, schema, field_name, template_locale, ttip, multiple } %>
 <% query_id = Digest::MD5.hexdigest("#{parent_id}-#{property_name}") %>
+<% is_multiple_class = multiple ? "multiple-selector" : "single-selector"%>
 <% unless field_label.nil?%>
   <div class="col-md-12">
     <%= f.label field_id, field_label, class: 'control-label' %>
   </div>
 <% end %>
-<div class="col-md-12 dynamic-field select-field linked-fragments-select <%= schema.classname %>-select select-<%= query_id %>">
+<div class="col-md-12 dynamic-field select-field linked-fragments-select <%= is_multiple_class %> <%= schema.classname %>-select select-<%= query_id %>">
   <% selected_value_id = selected_value.present? ? selected_value.id : nil %>
   <% select_values = selected_value.present? ?  [selected_value] : [] %>
   <%= select_tag field_name,
@@ -49,7 +50,7 @@
   <% end %>
 </div>
 
-<% unless readonly %>
+<% unless multiple || readonly %>
   <div class="col-md-12 selected-value">
     <strong><%= d_('dmpopidor', 'Selected value:') %></strong> <span><%= selected_value.to_s %></span>
     (<%= link_to new_edit_linked_madmp_fragments_url(

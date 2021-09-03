@@ -2,6 +2,7 @@ import {
   projectSelectorHandler,
   multipleSelectorHandler,
   linkedFragmentSelectorHandler,
+  contributorCreationHandler,
   singleSelectHandler,
 } from '../../utils/select2';
 
@@ -67,7 +68,11 @@ $(() => {
     }
 
     if (selectField.hasClass('linked-fragments-select')) {
-      linkedFragmentSelectorHandler(selectField, value, text);
+      if (selectField.hasClass('multiple-selector')) {
+        contributorCreationHandler(selectField, value, text);
+      } else {
+        linkedFragmentSelectorHandler(selectField, value, text);
+      }
     }
 
     if (selectField.hasClass('multiple-select')) {

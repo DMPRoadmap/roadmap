@@ -65,7 +65,7 @@ export const multipleSelectorHandler = (selectField, value, selected) => {
   });
 };
 
-export const linkedFragmentSelectorHandler = (selectField, value) => {
+export const contributorCreationHandler = (selectField, value) => {
   const contributorField = selectField.parents('.contributor-field');
   const role = contributorField.find('input[type=hidden]').val();
 
@@ -86,6 +86,17 @@ export const linkedFragmentSelectorHandler = (selectField, value) => {
   }).done((response) => {
     $(`table.list-${response.query_id} tbody`).html(response.html);
   });
+};
+
+export const linkedFragmentSelectorHandler = (selectField, value, text) => {
+  /*
+  * Changes the url of the "View" link according to the selected value in the fragment select
+  */
+  const selectedValue = selectField.next('.selected-value');
+  const viewLink = selectedValue.find('a');
+  selectedValue.find('span').html(text);
+  viewLink.attr('href', viewLink.attr('href').replace(/fragment_id=([^&]+)/, `fragment_id=${value}`));
+  selectedValue.show();
 };
 
 export const singleSelectHandler = (selectField, target, value, selected) => {

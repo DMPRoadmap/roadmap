@@ -94,7 +94,7 @@ class MadmpFragmentsController < ApplicationController
     authorize @fragment
 
     return unless @fragment.present?
-
+    @fragment.instantiate
     render json: render_fragment_form(@fragment, @stale_fragment)
   end
 
