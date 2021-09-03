@@ -34,7 +34,7 @@ module TemplateHelper
   # @param hidden [Boolean] should the link be hidden?
   # @param text [String] text for the link
   # @param id [String] id for the link element
-  def direct_link(template, hidden = false, text = nil, id = nil)
+  def direct_link(template, hidden = false, text = nil, id = nil, protocol = 'http')
     params = {
       org: { id: "{ \"id\": #{current_user&.org&.id}, \"name\": \"#{current_user&.org&.name}\" }" },
       funder: { id: "{ \"id\": #{template.org&.id}, \"name\": \"#{template.org&.name}\" }" },
@@ -43,7 +43,7 @@ module TemplateHelper
     cls = text.nil? ? "direct-link" : "direct-link btn btn-default"
     style = hidden ? "display: none" : ""
 
-    link_to(plans_url(plan: params), method: :post, title: _("Create plan"),
+    link_to(plans_url(plan: params, protocol: protocol), method: :post, title: _("Create plan"),
                                      class: cls, id: id, style: style) do
       if text.nil?
         "<span class=\"fas fa-plus-square\"></span>".html_safe
