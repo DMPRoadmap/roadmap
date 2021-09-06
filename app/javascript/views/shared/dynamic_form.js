@@ -35,7 +35,7 @@ $(() => {
     if (confirmed) {
       $.ajax({
         url: target.data('url'),
-        method: 'delete',
+        method: 'get',
       }).done((data) => {
         $(`table.list-${data.query_id} tbody`).html(data.html);
       });

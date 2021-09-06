@@ -30,14 +30,14 @@
                 data-original-title="<%= _('Edit') %>" 
                 class="fa fa-edit"></span>
         <% end %>
-        <% if contributor.roles.empty? %>
+        <% if scope.length > 1 %>
           <span class="delete fa fa-times" 
             aria-hidden="true"
             data-toggle="tooltip" 
             data-original-title="<%= _('Delete') %>"
             data-confirm-message="<%= d_('dmpopidor', 'Do you want to delete this element?') %>"
-            data-url="<%= madmp_fragment_path(
-              contributor.id,
+            data-url="<%= destroy_contributor_madmp_fragments_path(
+              contributor_id: contributor.id,
               query_id: "contributor",
               readonly: false,
               template_locale: template_locale) 

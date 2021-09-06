@@ -94,7 +94,7 @@ class MadmpFragmentsController < ApplicationController
     authorize @fragment
 
     return unless @fragment.present?
-    @fragment.instantiate
+
     render json: render_fragment_form(@fragment, @stale_fragment)
   end
 
@@ -337,6 +337,29 @@ class MadmpFragmentsController < ApplicationController
         template_locale,
         query_id,
         true
+      )
+    }
+  end
+
+  def destroy_contributor
+    @person = Fragment::Person.find(params[:contributor_id])
+    contributors_list = @person.contributors
+    query_id = params[:query_id]
+    readonly = params[:readonly] == "true"
+    dmp_id = @person.dmp_id
+    property_name = @person.additional_info["property_name"]
+
+    authorize @person.becomes(MadmpFragment)
+    return unless @person.destroy
+
+    contributors_list.destroy_all # project & meta need reinstantiate, maybe in update_children_references
+
+    render json: {
+      "fragment_id" =>  nil,
+      "query_id" => query_id,
+      "html" => render_fragment_list(
+        dmp_id, nil, @person.madmp_schema_id,
+        property_name, params[:template_locale], query_id, readonly
       )
     }
   end

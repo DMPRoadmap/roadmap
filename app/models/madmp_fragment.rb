@@ -162,12 +162,11 @@ class MadmpFragment < ActiveRecord::Base
           next
         end
       elsif prop["type"].eql?("object") && prop["schema_id"].present?
-        next if classified_children[key].nil?
-
-        updated_data[key] = { "dbid" => classified_children[key][0].id }
+        updated_data[key] = classified_children[key].nil? ? nil : { "dbid" => classified_children[key][0].id }
       end
     end
     update!(data: updated_data)
+    instantiate # parent needs reinstantiate for the deleted children
   end
 
   def update_parent_references
