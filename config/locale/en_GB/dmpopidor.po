@@ -557,21 +557,6 @@ msgstr "An error has occured: "
 msgid "You can pick a different question form"
 msgstr "You can pick a different question form"
 
-################
-### REGISTRIES
-################
-msgid "Export Registry"
-msgstr "Export Registry"
-
-msgid "Create Value"
-msgstr "Create Value"
-
-msgid "Values"
-msgstr "Values"
-
-msgid "View all registries"
-msgstr "View all registries"
-
 msgid "Please enter the acronym, title or identifier of the project"
 msgstr "Please enter the acronym, title or identifier of the project"
 
@@ -589,6 +574,24 @@ msgstr "Add a person"
 
 msgid "Summary of attributed roles"
 msgstr "Summary of attributed roles"
+
+msgid "List of person responsible for research data management during a project and their roles. Assigning a role to a person is done in the \"Write Plan\" tab."
+msgstr "List of person responsible for research data management during a project and their roles. Assigning a role to a person is done in the \"Write Plan\" tab."
+
+################
+### REGISTRIES
+################
+msgid "Export Registry"
+msgstr "Export Registry"
+
+msgid "Create Value"
+msgstr "Create Value"
+
+msgid "Values"
+msgstr "Values"
+
+msgid "View all registries"
+msgstr "View all registries"
 
 ################
 ### API

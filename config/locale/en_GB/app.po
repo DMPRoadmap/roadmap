@@ -3305,7 +3305,7 @@ msgid "Identifier"
 msgstr "Identifier"
 
 msgid "Contributors"
-msgstr "Contributeurs"
+msgstr "Contributors"
 
 msgid "Please list the project’s Principle Investigator(s) and those responsible for data management."
 msgstr "Please list the project’s Principal Investigator(s) and those responsible for data management."

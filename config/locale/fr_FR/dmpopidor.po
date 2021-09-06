@@ -559,21 +559,6 @@ msgstr "Une erreur s'est produite : "
 msgid "You can pick a different question form"
 msgstr "Vous pouvez choisir un formulaire différent"
 
-################
-### REGISTRIES
-################
-msgid "Export Registry"
-msgstr "Exporter référentiel"
-
-msgid "Create Value"
-msgstr "Créer valeur"
-
-msgid "Values"
-msgstr "Valeurs"
-
-msgid "View all registries"
-msgstr "Voir tous les référentiels"
-
 msgid "Please enter the acronym, title or identifier of the project"
 msgstr "Veuillez saisir l’acronyme, le titre ou l’identifiant du projet"
 
@@ -591,6 +576,24 @@ msgstr "Ajouter une personne"
 
 msgid "Summary of attributed roles"
 msgstr "Synthèse des rôles attribués"
+
+msgid "List of person responsible for research data management during a project and their roles. Assigning a role to a person is done in the \"Write Plan\" tab."
+msgstr "Liste des personnes contribuant à la gestion des produits de recherche au cours d'un projet et leurs rôles. L'attribution d'un rôle à une personne s'effectue dans l'onglet \"Rédiger\"."
+
+################
+### REGISTRIES
+################
+msgid "Export Registry"
+msgstr "Exporter référentiel"
+
+msgid "Create Value"
+msgstr "Créer valeur"
+
+msgid "Values"
+msgstr "Valeurs"
+
+msgid "View all registries"
+msgstr "Voir tous les référentiels"
 
 
 ################

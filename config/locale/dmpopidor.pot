@@ -552,6 +552,15 @@ msgstr ""
 msgid "Reload"
 msgstr ""
 
+msgid "Please enter the acronym, title or identifier of the project"
+msgstr ""
+
+msgid "Click here if you have a funded project."
+msgstr ""
+
+msgid "Dataset"
+msgstr ""
+
 msgid "Element is already present in your plan."
 msgstr ""
 
@@ -570,6 +579,9 @@ msgstr ""
 msgid "Summary of attributed roles"
 msgstr ""
 
+msgid "List of person responsible for research data management during a project and their roles. Assigning a role to a person is done in the \"Write Plan\" tab."
+msgstr ""
+
 ################
 ### REGISTRIES
 ################
@@ -583,15 +595,6 @@ msgid "Values"
 msgstr ""
 
 msgid "View all registries"
-msgstr ""
-
-msgid "Please enter the acronym, title or identifier of the project"
-msgstr ""
-
-msgid "Click here if you have a funded project."
-msgstr ""
-
-msgid "Dataset"
 msgstr ""
 
 ################
