@@ -147,7 +147,7 @@ Rails.application.routes.draw do
     get "show_linked", on: :collection, constraints: { format: [:js] }
     get "create_from_registry", action: :create_from_registry_value, on: :collection
     get "create_contributor", action: :create_contributor, on: :collection
-    get "destroy_contributor", action: :destroy_contributor, on: :collection
+    delete "destroy_contributor", action: :destroy_contributor, on: :collection
     get "load_fragments", action: :load_fragments, on: :collection
   end
 
