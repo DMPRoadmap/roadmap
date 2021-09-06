@@ -36,15 +36,12 @@ class Fragment::Person < MadmpFragment
       if c.parent&.classname.eql?("research_output_description")
         ro = ::ResearchOutput.find(c.research_output_id)
         ro_contact_role = "#{c.data['role']} (" if ro_contact_role.nil?
-        ro_contact_role += "#{ro.abbreviation}"
-        unless index.eql?(contributors_list.size - 1)
-          ro_contact_role += ", "
-        end
+        ro_contact_role += "#{ro.abbreviation}, "
       else
         roles_list.push(c.data["role"])
       end
     end
-    roles_list.push(ro_contact_role + ")")
+    roles_list.push(ro_contact_role.chomp(", ") + ")") if ro_contact_role.present?
     return roles_list.compact.sort
   end
 
