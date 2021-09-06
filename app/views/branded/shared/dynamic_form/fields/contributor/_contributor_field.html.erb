@@ -4,9 +4,7 @@
 <% person_property = contributor_schema.schema["properties"]["person"] %>
 <% person_label = person_property["label@#{template_locale}"]%>
 <% person_tooltip= person_property["tooltip@#{template_locale}"]%>
-<% role_label = role_property["label@#{template_locale}"]%>
-<% role_tooltip= role_property["tooltip@#{template_locale}"]%>
-<% roles = RegistryValue.where(registry_id: role_property["registry_id"])%>
+<% role_value = role_property["const@#{template_locale}"]%>
 <% query_id = Digest::MD5.hexdigest("#{current_fragment.id}-#{property_name}") %>
 <div class="col-md-12 dynamic-field contributor-field"
      data-locale="<%= template_locale %>"
@@ -34,6 +32,9 @@
         field_label: person_label, ttip: person_tooltip, answer_id: nil 
         }
       ) %>
+
+      <%= create_hidden_field(f, role_value, "role") %>  
+      <input value="Responsable de la production ou de la collecte des données" class="form-control" type="hidden" name="madmp_fragment[[role]]" id="madmp_fragment_[role]">
     <div class="col-md-12">
       <table class="table table-hover linked-fragments-list <%= property_name %>-list list-<%= query_id %>">
         <thead>
