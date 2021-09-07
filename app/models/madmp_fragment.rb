@@ -170,7 +170,7 @@ class MadmpFragment < ActiveRecord::Base
   end
 
   def update_parent_references
-    return if classname.nil? || parent.nil?
+    return if ["project", "meta", nil].include?(classname) || parent.nil?
 
     parent.update_children_references
   end
