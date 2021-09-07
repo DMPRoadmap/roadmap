@@ -44,7 +44,7 @@
             <%= select_tag "contact_id",
               render(partial: 'shared/dynamic_form/linked_fragment/select_options', locals: {
                     select_values: personsList,
-                    selected_value: research_output_description.contact.person.id
+                    selected_value: research_output_description.contact.person&.id
                   }
               ),
               class: "form-control input edit" %>

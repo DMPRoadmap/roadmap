@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: madmp_fragments
@@ -17,10 +19,11 @@
 #  index_madmp_fragments_on_answer_id                  (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
-
 class Fragment::Contributor < MadmpFragment
 
   def person
+    return nil if data["person"].nil?
+
     Fragment::Person.find(data["person"]["dbid"])
   end
 
