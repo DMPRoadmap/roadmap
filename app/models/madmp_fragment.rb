@@ -149,8 +149,6 @@ class MadmpFragment < ActiveRecord::Base
   # to create the json structure needed to update the "data" field
   # this method should be called when creating or deleting a child fragment
   def update_children_references
-    return if ["dmp", "research_output", nil].include?(classname)
-
     updated_data = data
     classified_children = children.group_by {
       |t| t.additional_info["property_name"] unless t.additional_info.nil?
@@ -164,11 +162,17 @@ class MadmpFragment < ActiveRecord::Base
           next
         end
       elsif prop["type"].eql?("object") && prop["schema_id"].present?
+        # dbid doesn't need to be regenerated for "person" properties
+        # Person fragment don't have a parent_id set because they are used in multiple contributors
+        # without this instruction, the app would set the dbid for the person prop as nil
+        next if key.eql?("person")
+
         updated_data[key] = classified_children[key].nil? ? nil : { "dbid" => classified_children[key][0].id }
       end
     end
     update!(data: updated_data)
-    instantiate # parent needs reinstantiate for the deleted children
+    # parent needs reinstantiate for the deleted children
+    instantiate unless ["dmp", "research_output", nil].include?(classname)
   end
 
   def update_parent_references

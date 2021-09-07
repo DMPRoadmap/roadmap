@@ -47,8 +47,8 @@ module FragmentImport
           sub_fragment.instantiate
         else
           sub_fragment = MadmpFragment.find(data[prop]["dbid"])
-          sub_fragment.raw_import(sub_data, sub_schema)
         end
+        sub_fragment.raw_import(sub_data, sub_schema)
 
       elsif schema_prop["type"].eql?("array") &&
             schema_prop["items"]["schema_id"].present?
