@@ -42,7 +42,6 @@ module Dmpopidor
       def create
         @plan = Plan.new
         authorize @plan
-
         # We set these ids to -1 on the page to trick ariatiseForm into allowing the
         # autocomplete to be blank if the no org/funder checkboxes are checked off
         org_id = (plan_params[:org_id] == "-1" ? "" : plan_params[:org_id])

@@ -126,6 +126,7 @@ module Dmpopidor
 
       def create_plan_fragments
         template_locale = template.locale.eql?("en_GB") ? "eng" : "fra"
+        plan_owner = owner
         FastGettext.with_locale template.locale do
           dmp_fragment = Fragment::Dmp.create(
             data: {
@@ -141,10 +142,10 @@ module Dmpopidor
 
           person_data = {
             "nameType" => d_("dmpopidor", "Personal"),
-            "lastName" => owner.surname,
-            "firstName" => owner.firstname,
-            "mbox" => owner.email
-          } unless owner.nil?
+            "lastName" => plan_owner.surname,
+            "firstName" => plan_owner.firstname,
+            "mbox" => plan_owner.email
+          } unless plan_owner.nil?
 
           person = Fragment::Person.create(
             data: person_data || {},

@@ -149,6 +149,8 @@ class MadmpFragment < ActiveRecord::Base
   # to create the json structure needed to update the "data" field
   # this method should be called when creating or deleting a child fragment
   def update_children_references
+    return if ["dmp", "research_output", nil].include?(classname)
+
     updated_data = data
     classified_children = children.group_by {
       |t| t.additional_info["property_name"] unless t.additional_info.nil?
@@ -170,7 +172,7 @@ class MadmpFragment < ActiveRecord::Base
   end
 
   def update_parent_references
-    return if ["project", "meta", nil].include?(classname) || parent.nil?
+    return if classname.nil? || parent.nil?
 
     parent.update_children_references
   end
