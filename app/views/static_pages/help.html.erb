@@ -8,7 +8,7 @@
 <div class="row">
   <div class="col-md-12">
     <div>
-        <p><%= _("When you log in to %{application_name} you will be directed to the 'My Dashboard' page. From here you can edit, share, download, copy or remove any of your plans. You will also see plans that have been shared with you by others.") % { :application_name => Rails.configuration.x.application.name } %></p>
+        <p><%= _("When you log in to %{application_name} you will be directed to the 'My Dashboard' page. From here you can edit, share, download, copy or remove any of your plans. You will also see plans that have been shared with you by others.") % { application_name: ApplicationService.application_name } %></p>
 
           <h2 class="fontsize-h3"><%= _("Create a plan") %></h2>
 
