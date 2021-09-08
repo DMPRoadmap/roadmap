@@ -76,21 +76,19 @@ RSpec.describe Org, type: :model do
     describe ".default_orgs" do
       subject { Org.default_orgs }
 
-      context "when Org has same abbr as dmproadmap.rb initializer setting" do
+      context "when Org has a default guidance group" do
 
-        let!(:org) do
-          abbrev = Rails.configuration.x.organisation.abbreviation
-          create(:org, abbreviation: abbrev)
-
-        end
+        let!(:org) { create(:org) }
+        let!(:guidance_group) { create(:guidance_group, org: org, is_default: true) }
 
         it { is_expected.to include(org) }
 
       end
 
-      context "when Org doesn't have same abbr as dmproadmap.rb initializer setting" do
+      context "when Org doesn't have a default guidance group" do
 
-        let!(:org) { create(:org, abbreviation: "foo-bar") }
+        let!(:org) { create(:org) }
+        let!(:guidance_group) { create(:guidance_group, org: org, is_default: false) }
 
         it { is_expected.not_to include(org) }
 
