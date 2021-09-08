@@ -76,7 +76,7 @@ class Guidance < ApplicationRecord
 
   # Returns whether or not a given user can view a given guidance
   # we define guidances viewable to a user by those owned by a guidance group:
-  #   is partt of the defailt GuidanceGroup
+  #   is part of the default GuidanceGroup
   #   owned by a funder organisation
   #   owned by an organisation, of which the user is a member
   #
