@@ -9,7 +9,7 @@
 </div>
 
 <% if org.links.any? && org.links['org'].present? %>
-<div class="c-links-org">
+  <div class="c-links-org">
     <ul>
       <% org.links['org'].each do |link| %>
         <% next unless link['link'].present? %>
