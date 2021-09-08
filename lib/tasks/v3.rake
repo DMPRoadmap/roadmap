@@ -3,6 +3,11 @@
 
 namespace :v3 do
 
+  desc "Upgrade from v3.0.3 to v3.0.4"
+  task upgrade_3_0_4: :environment do
+    Rake::Task["v3:define_default_guidance_group"].execute
+  end
+
   desc "Upgrade from v2.2.0 to v3.0.0"
   task upgrade_3_0_0: :environment do
     Rake::Task["v3:ensure_default_languages"].execute
@@ -64,6 +69,43 @@ namespace :v3 do
         id.update(value: id.value.gsub(incorrect_prefix, correct_prefix))
         p "#{id.value} - #{id.valid?}"
         p id.errors.full_messages
+      end
+    end
+  end
+
+  desc "Sets the default guidance group"
+  task define_default_guidance_group: :environment do
+    # The default guidance group used to be derived from the
+    # config/initializers/_dmproradmap.rb config file by connecting the
+    # `organisation.abbreviation` to a record in the Org table.
+    #
+    # This proves to be somewhat fragile and requires us to ensure that the
+    # config always matches the correct Org record.
+    #
+    # This script will set the new `guidance_groups.is_default` flag for the
+    # correct Org.
+    config_val = Rails.configuration.x.organisation.abbreviation
+    dflt_tmplt = Template.where(is_default: true).first
+
+
+
+    org = Org.where("LOWER(abbreviation) = ?", config_val.downcase).first
+    gg = GuidanceGroup.where(org_id: org.id, published: true).first if org.present?
+
+    org = Org.where(id: dflt_tmplt.org_id).first unless gg.present?
+
+    if gg.present?
+      p "Detected default Org '#{org.name}'. Setting their GuidanceGroup \
+         as the default."
+      gg.update(is_default: true)
+    else
+      if org.present?
+        p "FATAL: Unable to set the default GuidanceGroup for '#{org.name}' \
+                  because they have no published GuidanceGroup!"
+      else
+        p "FATAL: Unable to determine the default GuidanceGroup because no Org \
+                  matched the `organisation.abbreviation` defined in the \
+                  '_dmproadmap.rb' initializer and no Default template was defined!"
       end
     end
   end

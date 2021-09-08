@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_19_160319) do
+ActiveRecord::Schema.define(version: 2021_09_08_155816) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -135,6 +135,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.datetime "updated_at", null: false
     t.boolean "optional_subset", default: false, null: false
     t.boolean "published", default: false, null: false
+    t.boolean "is_default", default: false
     t.index ["org_id"], name: "index_guidance_groups_on_org_id"
   end
 

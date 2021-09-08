@@ -44,14 +44,9 @@ RSpec.describe GuidanceGroup, type: :model do
 
     end
 
-    context "when owned by a curation center" do
+    context "when its the default" do
 
-      let!(:org) do
-        create(:org,
-               abbreviation: Rails.configuration.x.organisation.abbreviation)
-      end
-
-      let!(:guidance_group) { create(:guidance_group, org: org) }
+      let!(:guidance_group) { create(:guidance_group, is_default: true) }
 
       it { is_expected.to eql(true) }
 
@@ -118,20 +113,73 @@ RSpec.describe GuidanceGroup, type: :model do
     end
   end
 
+  describe ".primary_selectable(user:, plan:)" do
+    let!(:user) { create(:user, org: create(:org)) }
+    let!(:plan) { create(:plan, org: create(:org)) }
+    let!(:guidance_group) { create(:guidance_group, is_default: true) }
+
+    it "includes the default guidance group when not already selected" do
+      results = described_class.primary_selectable(user: user, plan: plan)
+      expect(results.include?(guidance_group)).to eql(true)
+    end
+    it "includes the default guidance group when already selected" do
+      plan.guidance_groups << guidance_group
+      plan.save
+      results = described_class.primary_selectable(user: user, plan: plan)
+      expect(results.include?(guidance_group)).to eql(true)
+    end
+    it "includes the current user's org's guidance group when not already selected" do
+      gg = create(:guidance_group, org: user.org)
+      results = described_class.primary_selectable(user: user, plan: plan)
+      expect(results.include?(gg)).to eql(true)
+    end
+    it "includes the current user's org's guidance group when not already selected" do
+      gg = create(:guidance_group, org: user.org)
+      plan.guidance_groups << gg
+      plan.save
+      results = described_class.primary_selectable(user: user, plan: plan)
+      expect(results.include?(gg)).to eql(true)
+    end
+    it "includes the plan's org's guidance group when not already selected" do
+      gg = create(:guidance_group, org: plan.org)
+      results = described_class.primary_selectable(user: user, plan: plan)
+      expect(results.include?(gg)).to eql(true)
+    end
+    it "includes the plan's org's guidance group when not already selected" do
+      gg = create(:guidance_group, org: plan.org)
+      plan.guidance_groups << gg
+      plan.save
+      results = described_class.primary_selectable(user: user, plan: plan)
+      expect(results.include?(gg)).to eql(true)
+    end
+    it "includes already selected guidance groups" do
+      gg = create(:guidance_group, org: create(:org))
+      plan.guidance_groups << gg
+      plan.save
+      results = described_class.primary_selectable(user: user, plan: plan.reload)
+      expect(results.include?(gg)).to eql(true)
+    end
+    it "does not include other guidance groups" do
+      gg = create(:guidance_group, org: create(:org))
+      results = described_class.primary_selectable(user: user, plan: plan)
+      expect(results.include?(gg)).to eql(false)
+    end
+    it "does not include unpublished guidance groups" do
+      guidance_group.update(published: false)
+      results = described_class.primary_selectable(user: user, plan: plan)
+      expect(results.include?(guidance_group)).to eql(false)
+    end
+  end
+
   describe ".all_viewable" do
 
     let!(:user) { create(:user) }
 
     subject { GuidanceGroup.all_viewable(user) }
 
-    context "when is owned by managing curation center" do
+    context "when is a default" do
 
-      let!(:org) do
-        create(:org,
-               abbreviation: Rails.configuration.x.organisation.abbreviation)
-      end
-
-      let!(:guidance_group) { create(:guidance_group, org: org) }
+      let!(:guidance_group) { create(:guidance_group, is_default: true) }
 
       it "includes guidance group" do
         expect(subject).to include(guidance_group)
