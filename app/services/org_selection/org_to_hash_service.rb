@@ -12,7 +12,7 @@ module OrgSelection
 
       # Convert an Identifiable Model over to hash results like:
       # An Org with id = 123, name = "Foo (foo.org)",
-      #             org_identifier (ROR) = "http://example.org/123"
+      #             identifier (ROR) = "http://example.org/123"
       # becomes:
       # {
       #   id: "123",

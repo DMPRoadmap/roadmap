@@ -64,12 +64,10 @@ RSpec.describe Guidance, type: :model do
 
     end
 
-    context "when owned by a curation center" do
+    context "when guidance group is a default" do
 
       before do
-        @org = create(:org,
-                      abbreviation: Rails.configuration.x.organisation.abbreviation)
-        @guidance_group = create(:guidance_group, org: @org)
+        @guidance_group = create(:guidance_group, is_default: true)
         @guidance       = create(:guidance, guidance_group: @guidance_group)
       end
 
@@ -169,12 +167,10 @@ RSpec.describe Guidance, type: :model do
 
     subject { Guidance.all_viewable(user) }
 
-    context "when is owned by managing curation center" do
+    context "when guidance group is a default" do
 
       before do
-        @org = create(:org,
-                      abbreviation: Rails.configuration.x.organisation.abbreviation)
-        @guidance_group = create(:guidance_group, org: @org)
+        @guidance_group = create(:guidance_group, is_default: true)
         @guidance       = create(:guidance, guidance_group: @guidance_group)
       end
 

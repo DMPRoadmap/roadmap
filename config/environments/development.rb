@@ -44,6 +44,10 @@ Rails.application.configure do
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
+  # Use the lowest log level to ensure availability of diagnostic information
+  # when problems arise.
+  config.log_level = ENV["RAILS_LOG_LEVEL"]&.to_sym || :debug
+
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
 

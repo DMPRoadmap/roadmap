@@ -6,14 +6,15 @@ RSpec.describe SuperAdmin::Orgs::MergePresenter do
 
   before(:each) do
     @to_org = create(:org, :organisation, is_other: false, managed: false,
+                                          abbreviation: Faker::Lorem.unique.word,
                                           feedback_enabled: false, contact_email: nil,
-                                          contact_name: nil, feedback_email_msg: nil,
-                                          links: { org: [] }, feedback_email_subject: nil)
+                                          contact_name: nil, feedback_msg: nil,
+                                          links: { org: [] })
 
     @tpt = create(:token_permission_type)
     @from_org = create(:org, :funder, templates: 1, plans: 0, managed: true,
                                       feedback_enabled: true, is_other: true,
-                                      sort_name: Faker::Movies::StarWars.planet,
+                                      abbreviation: Faker::Lorem.unique.word,
                                       target_url: Faker::Internet.url,
                                       contact_name: Faker::Music::PearlJam.musician,
                                       contact_email: Faker::Internet.email,
@@ -208,7 +209,7 @@ RSpec.describe SuperAdmin::Orgs::MergePresenter do
         @expected = %i[target_url managed links
                        contact_name contact_email
                        logo_uid logo_name
-                       feedback_enabled feedback_email_msg feedback_email_subject]
+                       feedback_enabled feedback_msg]
         @results = @presenter.send(:org_attributes, org: @from_org)
       end
       it "returns an empty hash if :org is not an Org" do
@@ -226,7 +227,7 @@ RSpec.describe SuperAdmin::Orgs::MergePresenter do
       before(:each) do
         @expected = %i[target_url managed links
                        contact_name contact_email
-                       feedback_enabled feedback_email_msg feedback_email_subject]
+                       feedback_enabled feedback_msg]
         @results = @presenter.send(:mergeable_columns)
       end
       it "includes the expected columns" do
@@ -277,11 +278,8 @@ RSpec.describe SuperAdmin::Orgs::MergePresenter do
       it "returns true for :feedback_enabled" do
         expect(@presenter.send(:mergeable_column?, column: :feedback_enabled)).to eql(true)
       end
-      it "returns true for :feedback_email_msg" do
-        expect(@presenter.send(:mergeable_column?, column: :feedback_email_msg)).to eql(true)
-      end
-      it "returns true for :feedback_email_subject" do
-        expect(@presenter.send(:mergeable_column?, column: :feedback_email_subject)).to eql(true)
+      it "returns true for :feedback_msg" do
+        expect(@presenter.send(:mergeable_column?, column: :feedback_msg)).to eql(true)
       end
     end
   end
