@@ -73,7 +73,10 @@ class PlansController < ApplicationController
 
       if @plan.save
         # pre-select org's guidance and the default org's guidance
-        ids = (Org.default_orgs.pluck(:id) << @plan.org_id).flatten.uniq
+        ids = GuidanceGroup.where(is_default: true).pluck(:org_id)
+        ids << @plan.org_id
+        ids.flatten.uniq
+
         ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
 
         @plan.guidance_groups << ggs unless ggs.empty?
@@ -480,32 +483,19 @@ class PlansController < ApplicationController
   # Fetch all the available Guidance Groups for the specified Plan
   def fetch_guidance_groups(plan_in: plan)
     # Get all Guidance Groups applicable for the plan and group them by org
-    @all_guidance_groups = plan_in.guidance_group_options
+    @all_guidance_groups = @plan.guidance_group_options
     @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
-    @selected_guidance_groups = plan_in.guidance_groups
+    @selected_guidance_groups = @plan.guidance_groups.pluck(:id)
 
     # Important ones come first on the page - we grab the user's org's GGs and
     # "Organisation" org type GGs
-    @important_ggs = []
-
-    if @all_ggs_grouped_by_org.include?(current_user.org)
-      @important_ggs << [current_user.org, @all_ggs_grouped_by_org[current_user.org]]
-    end
-    @all_ggs_grouped_by_org.each do |org, ggs|
-      @important_ggs << [org, ggs] if org.organisation?
-
-      # If this is one of the already selected guidance groups its important!
-      unless (ggs & @selected_guidance_groups).empty?
-        @important_ggs << [org, ggs] unless @important_ggs.include?([org, ggs])
-      end
-    end
+    @important_ggs = GuidanceGroup.primary_selectable(user: current_user, plan: @plan)
+    @important_ggs = @important_ggs.sort.group_by(&:org)
 
     # Sort the rest by org name for the accordion
-    @important_ggs = @important_ggs.sort_by { |org, _gg| (org.nil? ? "" : org.name) }
     @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by do |org, _gg|
       (org.nil? ? "" : org.name)
     end
-    @selected_guidance_groups = @selected_guidance_groups.ids
   end
 
 end

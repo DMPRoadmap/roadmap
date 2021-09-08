@@ -108,8 +108,7 @@ module SuperAdmin
         {
           contact_email: org.contact_email,
           contact_name: org.contact_name,
-          feedback_email_msg: org.feedback_email_msg,
-          feedback_email_subject: org.feedback_email_subject,
+          feedback_msg: org.feedback_msg,
           feedback_enabled: org.feedback_enabled,
           managed: org.managed,
           links: org.links,
@@ -135,8 +134,7 @@ module SuperAdmin
         end
         if mergeable_column?(column: :feedback_enabled)
           out[:feedback_enabled] = @from_org.feedback_enabled
-          out[:feedback_email_subject] = @from_org.feedback_email_subject
-          out[:feedback_email_msg] = @from_org.feedback_email_msg
+          out[:feedback_msg] = @from_org.feedback_msg
         end
         out
       end

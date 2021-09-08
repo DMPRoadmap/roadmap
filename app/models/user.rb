@@ -23,11 +23,9 @@
 #  invited_by_type        :string(255)
 #  last_api_access        :datetime
 #  last_sign_in_at        :datetime
-#  last_sign_in_ip        :string(255)
-#  ldap_password          :string(255)
-#  ldap_username          :string(255)
-#  other_organisation     :string(255)
-#  recovery_email         :string(255)
+#  last_sign_in_ip        :string
+#  other_organisation :string
+#  recovery_email         :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string(255)

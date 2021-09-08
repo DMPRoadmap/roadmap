@@ -9,7 +9,10 @@
 #  text         :text(65535)
 #  created_at   :datetime
 #  updated_at   :datetime
+<<<<<<< HEAD
 #  label_id     :string(255)
+=======
+>>>>>>> roadmap-development
 #  plan_id      :integer
 #  question_id  :integer
 #  user_id      :integer
