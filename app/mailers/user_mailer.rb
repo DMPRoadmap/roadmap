@@ -138,23 +138,6 @@ class UserMailer < ActionMailer::Base
     end
   end
 
-  def feedback_confirmation(recipient, plan, requestor)
-    return unless user.org.present? && recipient.active?
-
-    user    = requestor
-    org     = user.org
-    plan    = plan
-    # Use the generic feedback confirmation message unless the Org has specified one
-    subject = org.feedback_email_subject || feedback_confirmation_default_subject
-    message = org.feedback_email_msg || feedback_confirmation_default_message
-    @body   = feedback_constant_to_text(message, user, plan, org)
-
-    I18n.with_locale I18n.default_locale do
-      mail(to: recipient.email,
-           subject: feedback_constant_to_text(subject, user, plan, org))
-    end
-  end
-
   def plan_visibility(user, plan)
     return unless user.active?
 

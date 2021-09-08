@@ -12,6 +12,7 @@ namespace :templates do
     Phase.attr_readonly.delete("versionable_id")
     Section.attr_readonly.delete("versionable_id")
     Question.attr_readonly.delete("versionable_id")
+    QuestionOption.attr_readonly.delete("versionable_id")
     Annotation.attr_readonly.delete("versionable_id")
 
     # Get each of the latest versions of the non-customized templates
@@ -234,17 +235,22 @@ namespace :templates do
     # rubocop:enable Style/NestedTernaryOperator
     version = nil
 
-    original_template.send(:"#{record.class.name.downcase.pluralize}").each do |obj|
-      next unless obj.versionable_id.present? && version.nil?
+    begin
+      original_template.send(:"#{record.class.name.downcase.pluralize}").each do |obj|
+        next unless obj.versionable_id.present? && version.nil?
 
-      # Use the Number, Title and or Text to try and match the items
-      text_a = [obj[:number], obj[:title], obj[:text]].compact.join(" - ")
-      text_b = [record[:number], record[:title], record[:text]].compact.join(" - ")
+        # Use the Number, Title and or Text to try and match the items
+        text_a = [obj[:number], obj[:title], obj[:text]].compact.join(" - ")
+        text_b = [record[:number], record[:title], record[:text]].compact.join(" - ")
 
-      if fuzzy_match?(text_a, text_b)
-        p "#{' ' * spaces} ** Using versionable_id from more recent version for #{obj.class.name} #{obj.id} - #{obj.versionable_id}"
-        version = obj.versionable_id
+        if fuzzy_match?(text_a, text_b)
+          p "#{' ' * spaces} ** Using versionable_id from more recent version for #{obj.class.name} #{obj.id} - #{obj.versionable_id}"
+          version = obj.versionable_id
+        end
       end
+    rescue NoMethodError
+      # this error occurs when we have a template which had no
+      # questionoptions. So we can safely ignore it.
     end
     version
   end

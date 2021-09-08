@@ -7,7 +7,6 @@ class OrgSelectionPresenter
   def initialize(orgs:, selection:)
     @crosswalk = []
 
-    # TODO: Remove this once the is_other Org has been removed
     @name = selection.present? ? selection.name : ""
 
     orgs = [selection] if !orgs.present? || orgs.empty?
@@ -19,7 +18,6 @@ class OrgSelectionPresenter
     end
   end
 
-  # Return the Org name unless this is the default is_other Org
   attr_reader :name
 
   def crosswalk
