@@ -3,6 +3,7 @@
 <% research_outputs.each_with_index do |research_output, index|%>
   <% research_output_description = research_output&.json_fragment&.research_output_description %>
   <% research_output_data = research_output_description.data if research_output_description.present?%>
+  <% contact = research_output_description.contact%>
   <%= form_for research_output, url: plan_research_output_path(:id => research_output.id, :plan_id => plan.id), html: {method: :put, remote: true, id: nil } do |f| %>
     <div class='research-output-element <%= index != 0 ? '' : 'inactive' %>'>
       <%= hidden_field_tag 'research-output-id', research_output.id, class: 'research-output-id' %>
@@ -35,20 +36,31 @@
                         include_blank: true,
                         "data-toggle": "tooltip",
                         class: "form-control input edit",
+                        "aria-required": true,
                         id: "other_type_label"  %>
             <span class="readonly"><%= research_output_data['type'] %></span>
           </div>
           <div class='research-output-field form-group research-output-contact'>
             <% personsList = research_output_description.dmp.persons %>
             <%= f.label "contact_id", d_('dmpopidor', 'Contact'),  class: 'control-label' %>
-            <%= select_tag "contact_id",
-              render(partial: 'shared/dynamic_form/linked_fragment/select_options', locals: {
-                    select_values: personsList,
-                    selected_value: research_output_description.contact.person&.id
-                  }
-              ),
-              class: "form-control input edit" %>
-            <span class="readonly"><%= research_output_description.contact.person.to_s %></span>
+            <span class="input edit">
+              <%= render(partial: 'shared/dynamic_form/fields/fragment_select_field', locals: {
+                f: f,
+                selected_value: contact.person,
+                readonly: false,
+                parent_id: contact.id,
+                dmp_id: research_output_description.dmp_id,
+                schema: MadmpSchema.find_by(name: "PersonStandard"),
+                required: true,
+                template_locale: template_locale,
+                property_name: nil,
+                field_id: "contact_#{contact.id}_person", field_name: "contact_id",
+                multiple: false,
+                field_label: nil, ttip: nil, answer_id: nil 
+                }
+              ) %>
+            </span>
+            <span class="readonly"><%= contact.person.to_s %></span>
           </div>
           <div class='research-output-field form-group research-output-pid'>
             <%= f.label :pid, d_('dmpopidor', 'Persistent Identifier'),  class: 'control-label' %>

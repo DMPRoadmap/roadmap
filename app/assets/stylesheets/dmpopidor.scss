@@ -617,6 +617,11 @@ header .main-nav {
             .question-form {
                 padding-top: 10px;
                 padding-right: 50px;
+                display: flex;
+                flex-direction: column;
+            }
+            .answer-locking {
+                
             }
         }
 
@@ -1202,8 +1207,19 @@ header .main-nav {
             padding: 5px;
             .research-output-field {
                 padding-top: 7px;
+                display: flex;
+                label {
+                    flex: 1;
+                }
+                .edit, .readonly {
+                    flex: 3;
+                }
                 strong {
                     padding-right: 5px;
+                }
+                .linked-fragments-select {
+                    padding-right: 0px;
+                    padding-left: 0px;
                 }
             }
             .edit, button {
