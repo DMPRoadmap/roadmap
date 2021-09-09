@@ -22,7 +22,7 @@ class Fragment::Person < MadmpFragment
   def roles(selected_research_outputs = nil)
     contributors_list = self.contributors
     roles_list = []
-    ro_contact_role = nil
+    roles_aggregate = {}
     if selected_research_outputs.present?
       contributors_list = contributors_list
                           .select do |c|
@@ -32,17 +32,20 @@ class Fragment::Person < MadmpFragment
     # This part of the code whecks if the contributor is a data contact for a research output
     # if so, the role will be displayed once as a concatenation of the research output abbreviation
     # Ex: Data contact (RO1, RO2)
-    contributors_list.each_with_index do |c, index|
-      if c.parent&.classname.eql?("research_output_description")
-        ro = ::ResearchOutput.find(c.research_output_id)
-        ro_contact_role = "#{c.data['role']} (" if ro_contact_role.nil?
-        ro_contact_role += "#{ro.abbreviation}, "
-      else
+    contributors_list.each do |c|
+      if %w[meta project].include?(c.parent&.classname)
         roles_list.push(c.data["role"])
+        next
+      end
+      ro = ::ResearchOutput.find(c.research_output_id)
+      if roles_aggregate[c.data["role"]].nil?
+        roles_aggregate[c.data["role"]] = [ro.abbreviation]
+      else
+        roles_aggregate[c.data["role"]].push(ro.abbreviation)
       end
     end
-    roles_list.push(ro_contact_role.chomp(", ") + ")") if ro_contact_role.present?
-    return roles_list.compact.sort
+    roles_list += roles_aggregate.map do |k, v| "#{k} (#{v.join(', ')})" end
+    roles_list.compact.sort
   end
 
   def contributors
