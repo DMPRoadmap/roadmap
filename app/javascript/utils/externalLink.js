@@ -7,7 +7,7 @@ $(() => {
     const protocol = new RegExp('^https?');
     const regex = new RegExp(`^https?://${getConstant('HOST')}`);
     const exceptions = {
-      ids: ['connect-orcid-button', 'view-all-templates'],
+      ids: ['connect-orcid-button', 'view-all-templates', 'create-plan-link'],
     };
     // Internal links are typically just the path, but also check for other domains
     if (
@@ -28,7 +28,7 @@ $(() => {
     const protocol = new RegExp('^https?');
     const regex = new RegExp(`^https?://${getConstant('HOST')}`);
     const exceptions = {
-      ids: ['connect-orcid-button', 'view-all-templates'],
+      ids: ['connect-orcid-button', 'view-all-templates', 'create-plan-link'],
     };
     // Internal links are typically just the path, but also check for other domains
     if (

@@ -33,7 +33,7 @@
           </td>
           <% if !current_user.nil? && current_user.org.active? %>
             <td class="text-center">
-              <%= direct_link(template) %>
+              <%= direct_link(template, false, nil, "create-plan-link") %>
               <a href="" class="copy-link" data-toggle="modal" data-target="#link-modal"><span class="fa fa-clipboard"></span></a>
             </td>
           <% end %>

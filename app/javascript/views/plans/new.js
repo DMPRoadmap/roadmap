@@ -281,7 +281,7 @@ $(() => {
   $('#new_plan #plan_title').on('change', (e) => {
     const planTitle = encodeURI(e.target.value);
     const regex = /plan%5Btitle%5D=([^&]+)/;
-    const defaultBtn = $('#new_plan #end-default-btn');
+    const defaultBtn = $('#new_plan #create-plan-link');
     if (!defaultBtn.attr('href').match(regex)) {
       defaultBtn.attr('href', `${defaultBtn.attr('href')}&plan%5Btitle%5D=${planTitle}`);
     } else {
