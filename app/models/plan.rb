@@ -169,13 +169,13 @@ class Plan < ApplicationRecord
   scope :search, lambda { |term|
     if date_range?(term: term)
       joins(:template, roles: [user: :org])
-        .where(Role.creator_condition)
+        .where(roles: { active: true })
         .by_date_range(:created_at, term)
     else
       search_pattern = "%#{term}%"
       joins(:template, roles: [user: :org])
         .left_outer_joins(:identifiers, :contributors)
-        .where(Role.creator_condition)
+        .where(roles: { active: true })
         .where("lower(plans.title) LIKE lower(:search_pattern)
                 OR lower(orgs.name) LIKE lower (:search_pattern)
                 OR lower(orgs.abbreviation) LIKE lower (:search_pattern)
