@@ -107,7 +107,7 @@ export const failCallback = (error, jQuery) => {
 const changeHandler = (e) => {
   const target = $(e.target);
   target.parents('form').find('.answer-save-zone').addClass('unsaved');
-  target.parents('form').find('.answer-save-button').prop('disabled', false);
+  target.parents('form').find('.answer-save-zone .message-zone').show();
   // const id = questionId(target);
   // if (!debounceMap[id]) {
   //   debounceMap[id] = debounce(autoSaving, 10000);
@@ -146,8 +146,7 @@ const submitHandler = (e) => {
 };
 const blurHandler = (editor) => {
   const target = $(editor.getElement());
-  target.parents('form').find('.answer-save-zone').addClass('unsaved');
-  target.parents('form').find('.answer-save-button').prop('disabled', false);
+  target.parents('form').find('.answer-save-zone .message-zone').show();
   // const id = questionId(target);
   if (editor.isDirty()) {
     editor.save(); // Saves contents from editor to the textarea element

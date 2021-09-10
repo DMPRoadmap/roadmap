@@ -163,7 +163,6 @@ $(() => {
       },
     }).done((data) => {
       form.html(data.question.form);
-      form.find('.answer-save-button').prop('disabled', false);
       Tinymce.init({
         toolbar,
       });
@@ -191,7 +190,6 @@ $(() => {
       },
     }).done((data) => {
       form.html(data.question.form);
-      form.find('.answer-save-button').prop('disabled', false);
       Tinymce.init({
         toolbar,
       });

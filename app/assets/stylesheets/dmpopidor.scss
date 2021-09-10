@@ -664,8 +664,8 @@ header .main-nav {
                 font-weight: 700;
                 
                 &.answer-save-button {
-                    background-color: gray;
-                    border-color: gray;
+                    background-color: $rust;
+                    border-color: $rust;
                 }
             }
             .reload-button {
@@ -760,8 +760,8 @@ header .main-nav {
                 font-weight: 700;
                 
                 &.answer-save-button {
-                    background-color: gray;
-                    border-color: gray;
+                    background-color: $rust;
+                    border-color: $rust;
                 }
             }
             .reload-button {
@@ -1412,18 +1412,8 @@ header .main-nav {
                         font-weight: 700;
                         
                         &.answer-save-button {
-                            background-color: gray;
-                            border-color: gray;
-                        }
-                    }
-                    &.unsaved {
-                        .answer-save-button {
                             background-color: $rust;
                             border-color: $rust;
-                        }
-
-                        .message-zone {
-                            visibility: inherit;
                         }
                     }
                 }
