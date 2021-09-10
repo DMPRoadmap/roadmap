@@ -23,6 +23,7 @@ class Fragment::Person < MadmpFragment
     contributors_list = self.contributors
     roles_list = []
     roles_aggregate = {}
+    research_outputs = plan.research_outputs
     if selected_research_outputs.present?
       contributors_list = contributors_list
                           .select do |c|
@@ -37,14 +38,18 @@ class Fragment::Person < MadmpFragment
         roles_list.push(c.data["role"])
         next
       end
-      ro = ::ResearchOutput.find(c.research_output_id)
+      if research_outputs.size.eql?(1)
+        roles_list.push(c.data["role"])
+        next
+      end
+      ro = research_outputs.find(c.research_output_id)
       if roles_aggregate[c.data["role"]].nil?
         roles_aggregate[c.data["role"]] = [ro.abbreviation]
       else
         roles_aggregate[c.data["role"]].push(ro.abbreviation)
       end
     end
-    roles_list += roles_aggregate.map do |k, v| "#{k} (#{v.join(', ')})" end
+    roles_list += roles_aggregate.map { |k, v| "#{k} (#{v.join(', ')})" }
     roles_list.compact.sort
   end
 
