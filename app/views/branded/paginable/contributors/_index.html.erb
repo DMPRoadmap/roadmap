@@ -3,7 +3,7 @@
 <% scope.each do |contributor| %>
   <tr>
     <td><%= contributor.to_s %></td>
-    <td><%= display_identifier(contributor.data["personId"], contributor.data["idType"]) %></td>
+    <td><%= contributor.data["affiliationName"] %></td>
     <td class="roles">
       <ul>
         <% contributor.roles.each do |role| %>

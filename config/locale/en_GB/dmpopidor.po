@@ -572,8 +572,8 @@ msgstr "Contact"
 msgid "Add a person"
 msgstr "Add a person"
 
-msgid "Summary of attributed roles"
-msgstr "Summary of attributed roles"
+msgid "Attributed roles (Associated research outputs)"
+msgstr "Attributed roles (Associated research outputs)"
 
 msgid "List of person responsible for research data management during a project and their roles. Assigning a role to a person is done in the \"Write Plan\" tab."
 msgstr "List of person responsible for research data management during a project and their roles. Assigning a role to a person is done in the \"Write Plan\" tab."
