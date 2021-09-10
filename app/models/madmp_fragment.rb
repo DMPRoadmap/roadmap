@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: madmp_fragments
@@ -82,6 +84,7 @@ class MadmpFragment < ActiveRecord::Base
   # =============
 
   before_save   :set_defaults
+  after_save    :update_meta_title
   after_save    :update_plan_title
   after_create  :update_parent_references
   after_destroy :update_parent_references
@@ -440,8 +443,20 @@ class MadmpFragment < ActiveRecord::Base
     self.parent_id = nil if classname.eql?("person")
   end
 
+  def update_meta_title
+    return unless classname.eql?("project")
+
+    meta = dmp.meta
+    dmp_title = d_("dmpopidor", "\"%{project_title}\" project DMP") % { project_title: data["title"] }
+    meta.update(
+      data: meta.data.merge(title: dmp_title)
+    )
+  end
+
   def update_plan_title
-    plan.update(title: data["title"]) if classname.eql?("meta")
+    return unless classname.eql?("meta")
+
+    plan.update(title: data["title"])
   end
 
 end
