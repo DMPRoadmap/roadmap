@@ -4,6 +4,37 @@ require "rails_helper"
 
 RSpec.describe Api::V2::DeserializationService do
 
+  include IdentifierHelper
+
+  describe "plan_from_dmp_id(dmp_id:)" do
+    before(:each) do
+      @plan = create(:plan)
+    end
+    it "returns nil if :dmp_id is not present" do
+      expect(described_class.plan_from_dmp_id(dmp_id: nil)).to eql(nil)
+    end
+    it "returns nil if :dmp_id has no :type" do
+      expect(described_class.plan_from_dmp_id(dmp_id: { identifier: "foo" })).to eql(nil)
+    end
+    it "returns nil if :dmp_id has no :identifier" do
+      expect(described_class.plan_from_dmp_id(dmp_id: { type: "foo" })).to eql(nil)
+    end
+    it "returns nil if no Plan could be found" do
+      json = { type: "url", identifier: "https://example.org/api/v2/plans/foo" }
+      expect(described_class.plan_from_dmp_id(dmp_id: json)).to eql(nil)
+    end
+    it "returns the Plan based on it's DMP ID" do
+      dmp_id = create_doi(plan: @plan, val: SecureRandom.uuid)
+      json = { type: "doi", identifier: dmp_id.value }
+      expect(described_class.plan_from_dmp_id(dmp_id: json)).to eql(@plan)
+    end
+    it "returns the Plan based on it's URL" do
+      json = { type: "url",
+               identifier: Rails.application.routes.url_helpers.api_v2_plan_url(@plan) }
+      expect(described_class.plan_from_dmp_id(dmp_id: json)).to eql(@plan)
+    end
+  end
+
   describe "object_from_identifier(clazz:, json:)" do
     before(:each) do
       scheme = create(:identifier_scheme, name: "ror")

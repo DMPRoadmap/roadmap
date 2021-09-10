@@ -279,6 +279,8 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :related_identifiers, only: %i[create]
+
       resources :templates, only: [:index]
     end
   end
