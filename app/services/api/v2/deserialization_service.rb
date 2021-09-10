@@ -8,6 +8,19 @@ module Api
 
       class << self
 
+        # Retrieves the Plan based on a DMP ID value (either a DMP ID or API URL)
+        def plan_from_dmp_id(dmp_id:)
+          return nil unless dmp_id.present? && dmp_id[:type].present? &&
+                            dmp_id[:identifier].present?
+
+          if %w[ark doi].include?(dmp_id[:type].downcase)
+            ::Identifier.find_by(identifiable_type: "Plan", value: dmp_id[:identifier])
+                        &.identifiable
+          else
+            ::Plan.find_by(id: dmp_id[:identifier].split("/").last)
+          end
+        end
+
         # Finds the object by the specified identifier
         def object_from_identifier(class_name:, json:)
           return nil unless class_name.present? && json.present? &&
@@ -29,14 +42,10 @@ module Api
                                json.present? &&
                                json[:type].present? && json[:identifier].present?
 
-pp json
-
           existing = object.identifiers.select do |id|
             id.identifier_scheme&.name&.downcase == json[:type].downcase
           end
           return object if existing.present?
-
-p "HERE"
 
           object.identifiers << Api::V2::Deserialization::Identifier.deserialize(
             class_name: object.class.name, json: json

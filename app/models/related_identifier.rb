@@ -42,24 +42,26 @@ class RelatedIdentifier < ApplicationRecord
   # =========
   # = Enums =
   # =========
-  enum identifier_type: %i[ARK arXiv bibcode DOI EAN13 EISSN Handle IGSN ISBN ISSN ISTC LISSN LSID
-                           PMID PURL UPC URL URN w3id]
+  enum identifier_type: %i[ark arxiv bibcode doi ean13 eissn handle igsn isbn issn istc
+                           lissn lsid pmid purl upc url urn w3id]
 
-  enum relation_type: %i[IsCitedBy Cites
-                         IsSupplementTo IsSupplementedBy
-                         IsContinuedBy Continues
-                         IsDescribedBy Describes
-                         HasMetadata IsMetadataFor
-                         HasVersion IsVersionOf IsNewVersionOf IsPreviousVersionOf
-                         IsPartOf HasPart
-                         IsReferencedBy References
-                         IsDocumentedBy Documents
-                         IsCompiledBy Compiles
-                         IsVariantFormOf IsOriginalFormOf IsIdenticalTo
-                         IsReviewedBy Reviews
-                         IsDerivedFrom IsSourceOf
-                         IsRequiredBy Requires
-                         IsObsoletedBy Obsoletes]
+  # Note that the 'references' value is changed to 'does_reference' in this list
+  # because 'references' conflicts with an ActiveRecord method
+  enum relation_type: %i[is_cited_by cites
+                         is_supplement_to is_supplemented_by
+                         is_continued_by continues
+                         is_described_by describes
+                         has_metadata is_metadata_for
+                         has_version is_version_of is_new_version_of is_previous_version_of
+                         is_part_of has_part
+                         is_referenced_by does_reference
+                         is_documented_by documents
+                         is_compiled_by compiles
+                         is_variant_form_of is_original_form_of is_identical_to
+                         is_reviewed_by reviews
+                         is_derived_from is_source_of
+                         is_required_by requires
+                         is_obsoleted_by obsoletes]
 
   # Returns the value sans the identifier scheme's prefix.
   # For example:
