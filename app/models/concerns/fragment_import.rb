@@ -35,7 +35,6 @@ module FragmentImport
           fragmented_data[prop] = { "dbid" => sub_fragment.id }
           next
         end
-
         if data[prop].nil?
           sub_fragment = MadmpFragment.new(
             dmp_id: dmp.id,

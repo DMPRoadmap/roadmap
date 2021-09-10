@@ -319,7 +319,8 @@ class MadmpFragmentsController < ApplicationController
         "role" => params[:role]
       },
       additional_info: {
-        "property_name" => params[:property_name]
+        "property_name" => params[:property_name],
+        "is_multiple_contributor" => true
       }
     )
     @contributor.classname = schema.classname
@@ -352,7 +353,16 @@ class MadmpFragmentsController < ApplicationController
     authorize @person.becomes(MadmpFragment)
     return unless @person.destroy
 
-    contributors_list.destroy_all # project & meta need reinstantiate, maybe in update_children_references
+    # for each contributor associated to the destroyed Person fragment
+    # checks if the contributor is a single (ex PrincipalInvestigator)
+    # or multiple contributor (ex: DataCollector)
+    contributors_list.each do |c|
+      if c.additional_info["is_multiple_contributor"].present?
+        c.destroy
+      else
+        c.update(data: c.data.merge({ "person" => nil }))
+      end
+    end
 
     render json: {
       "fragment_id" =>  nil,

@@ -166,13 +166,10 @@ class MadmpFragment < ActiveRecord::Base
         # Person fragment don't have a parent_id set because they are used in multiple contributors
         # without this instruction, the app would set the dbid for the person prop as nil
         next if key.eql?("person")
-
         updated_data[key] = classified_children[key].nil? ? nil : { "dbid" => classified_children[key][0].id }
       end
     end
     update!(data: updated_data)
-    # parent needs reinstantiate for the deleted children
-    instantiate unless ["dmp", "research_output", nil].include?(classname)
   end
 
   def update_parent_references
