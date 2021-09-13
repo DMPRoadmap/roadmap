@@ -8,19 +8,40 @@
   <% label = prop["label@#{template_locale}"]%>
   <% if prop["type"].eql?("object") %>
     <% sub_fragment = MadmpFragment.find(value["dbid"]) %>
-    <% next if sub_fragment.data.nil? || sub_fragment.data.empty? %>
-    <fieldset class="sub-fragment fragment-display">
-      <legend><%= label %></legend> 
-      <%= render(partial: 'madmp_fragments/display', locals: {
-                  fragment: sub_fragment,
-                  schema: sub_fragment.madmp_schema,
-                  template_locale: template_locale
-      })%>
-    </fieldset>
+    <% if prop["inputType"].eql?("pickOrCreate") %>
+      <span class="fragment-property">
+        <span class="property-label"><%= label %></span> 
+        <span class="property-value"><%= sub_fragment.to_s %></span> 
+      </span>
+    <% else %>
+      <% next if sub_fragment.data.nil? || sub_fragment.data.empty? %>
+      <fieldset class="fragment-display">
+        <legend><%= label %></legend>
+        <%= render(partial: 'madmp_fragments/display', locals: {
+                    fragment: sub_fragment,
+                    schema: sub_fragment.madmp_schema,
+                    template_locale: template_locale
+        })%>
+      </fieldset>
+    <% end %>
+  <% elsif prop["type"].eql?("array") %>
+    <% if prop["items"]["type"].eql?("object") %>
+      <% value.each_with_index do |id_frag, idx| %>
+        <span class="fragment-property">
+          <span class="property-label"><%= label if idx.eql?(0) %></span> 
+          <span class="property-value"><%= MadmpFragment.find(id_frag["dbid"]).to_s %></span> 
+        </span>
+      <% end %>
+    <% else %>
+      <span class="fragment-property">
+        <span class="property-label"><%= label %></span> 
+        <span class="property-value"><%= value.join(", ") %></span> 
+      </span>
+    <% end %>
   <% else %>
-    <span>
-      <strong><%= label %></strong> 
-      <%= value %>
+    <span class="fragment-property">
+      <span class="property-label"><%= label %></span> 
+      <span class="property-value"><%= value %></span> 
     </span>
   <% end %>
 <% end %>

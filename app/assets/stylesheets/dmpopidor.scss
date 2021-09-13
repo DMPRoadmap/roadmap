@@ -620,8 +620,9 @@ header .main-nav {
                 display: flex;
                 flex-direction: column;
             }
-            .answer-locking {
-                
+            .answer-locking p {
+                color: $rust;
+                font-weight: bold;
             }
         }
 
@@ -1473,9 +1474,21 @@ header .main-nav {
 }
 
 .fragment-display {
+    width: 100%;
     display: flex;
     flex-direction: column;
     padding: 5px 20px;
+    .fragment-property {
+        display: flex;
+        .property-label {
+            flex: 1;
+            font-weight: bold;
+            color: $dark-blue;
+        }
+        .property-value {
+            flex: 3;
+        }
+    }
 }
 
 #modal-window {
