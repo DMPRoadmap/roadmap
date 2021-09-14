@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class MadmpFragmentsController < ApplicationController
 
   after_action :verify_authorized
   include DynamicFormHelper
 
-  # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/MethodLength
+  # Method is only called when saving the form in the modal
   def create
     p_params = permitted_params
     @schemas = MadmpSchema.all
@@ -14,6 +16,17 @@ class MadmpFragmentsController < ApplicationController
     source = p_params[:source]
     classname = schema.classname
     parent_id = p_params[:parent_id] unless classname.eql?("person")
+
+    data = data_reformater(
+      schema.schema,
+      schema_params(schema)
+    )
+    if MadmpFragment.fragment_exists?(data, schema, p_params[:dmp_id], parent_id)
+      render json: {
+        "error" => d_("dmpopidor", "Element is already present in your plan.")
+      }, status: 409
+      return
+    end
 
     @fragment = MadmpFragment.new(
       dmp_id: p_params[:dmp_id],
@@ -27,39 +40,14 @@ class MadmpFragmentsController < ApplicationController
 
     authorize @fragment
 
-    if source.eql?("form")
-      @fragment.answer = Answer.create!(
-        research_output_id: p_params[:answer][:research_output_id],
-        plan_id: p_params[:answer][:plan_id],
-        question_id: p_params[:answer][:question_id],
-        lock_version: p_params[:answer][:lock_version],
-        is_common: p_params[:answer][:is_common],
-        user_id: current_user.id
-      )
-      @fragment.instantiate
-    else
-      data = data_reformater(
-        schema.schema,
-        schema_params(schema)
-      )
-      if MadmpFragment.fragment_exists?(data, schema, p_params[:dmp_id], parent_id)
-        render json: {
-          "error" => d_("dmpopidor", "Element is already present in your plan.")
-        }, status: 409
-        return
-      end
-
-      additional_info = @fragment.additional_info.merge(
-        "validations" => MadmpFragment.validate_data(data, schema.schema)
-      )
-      @fragment.assign_attributes(
-        additional_info: additional_info
-      )
-      @fragment.instantiate
-      @fragment.save_form_fragment(data, schema)
-    end
-
-    return unless @fragment.present?
+    additional_info = @fragment.additional_info.merge(
+      "validations" => MadmpFragment.validate_data(data, schema.schema)
+    )
+    @fragment.assign_attributes(
+      additional_info: additional_info
+    )
+    @fragment.instantiate
+    @fragment.save_form_fragment(data, schema)
 
     if source.eql?("list-modal")
       property_name = @fragment.additional_info["property_name"]
@@ -75,28 +63,57 @@ class MadmpFragmentsController < ApplicationController
           p_params[:query_id]
         )
       }.to_json
-    elsif source.eql?("select-modal")
+    else # source.eql?("select-modal")
       render json: {
         "fragment_id" =>  @fragment.id,
         "source" => source,
         "html" => render_fragment_select(@fragment)
       }.to_json
-    else
-      render json: render_fragment_form(@fragment, @stale_fragment)
     end
   end
   # rubocop:enable Metrics/MethodLength
-  # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
+  # If the fragment_id exists, load the fragment
+  # else the form is opened for the first time then fragment is created
   def load_form
-    @fragment = MadmpFragment.find(params[:id])
     @schemas = MadmpSchema.all
-    authorize @fragment
+    if params[:id].present?
+      @fragment = MadmpFragment.find(params[:id])
+      authorize @fragment
+    else
+      p_params = permitted_params
+      schema = @schemas.find(p_params[:schema_id])
+      classname = schema.classname
+      parent_id = p_params[:parent_id] unless classname.eql?("person")
+      @fragment = MadmpFragment.new(
+        dmp_id: p_params[:dmp_id],
+        parent_id: parent_id,
+        madmp_schema: schema,
+        additional_info: {
+          "property_name" => p_params[:property_name]
+        }
+      )
+      @fragment.classname = classname
+      authorize @fragment
 
-    return unless @fragment.present?
+      @fragment.answer = Answer.create!(
+        research_output_id: p_params[:answer][:research_output_id],
+        plan_id: p_params[:answer][:plan_id],
+        question_id: p_params[:answer][:question_id],
+        lock_version: p_params[:answer][:lock_version],
+        is_common: p_params[:answer][:is_common],
+        user_id: current_user.id
+      )
+      @fragment.instantiate
+    end
 
-    render json: render_fragment_form(@fragment, @stale_fragment)
+    render json: render_fragment_form(@fragment, nil)
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
 
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/MethodLength
@@ -112,7 +129,7 @@ class MadmpFragmentsController < ApplicationController
     )
 
     # rubocop:disable Metrics/BlockLength
-    Answer.transaction do
+    MadmpFragment.transaction do
       begin
         @fragment = MadmpFragment.find_by(
           id: params[:id],
@@ -145,7 +162,7 @@ class MadmpFragmentsController < ApplicationController
             user_id: current_user.id
           )
         end
-        # @fragment.save!
+        @fragment.save! # trigger StaleObjectError before updating data
         @fragment.save_form_fragment(data, schema)
       rescue ActiveRecord::StaleObjectError
         @stale_fragment = @fragment
@@ -481,10 +498,8 @@ class MadmpFragmentsController < ApplicationController
         "answer_lock_version" => answer&.lock_version,
         "locking" => stale_fragment ?
           render_to_string(partial: "madmp_fragments/locking", locals: {
-            question: question,
-            answer: answer,
             fragment: stale_fragment,
-            research_output: research_output,
+            template_locale: template.locale,
             user: answer&.user
           }, formats: [:html]) :
           nil,
@@ -546,3 +561,4 @@ class MadmpFragmentsController < ApplicationController
   end
 
 end
+# rubocop:enable Metrics/ClassLength
