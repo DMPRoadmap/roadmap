@@ -176,6 +176,9 @@ class MadmpFragmentsController < ApplicationController
 
     return unless @fragment.present?
 
+    # Callbacks (not using rails callbacks so no infinite callback loop is created)
+    @fragment.update_meta_title if @fragment.classname.eql?("project")
+
     if source.eql?("list-modal")
       property_name = @fragment.additional_info["property_name"]
       render json: {
