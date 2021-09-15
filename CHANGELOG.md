@@ -1,6 +1,6 @@
 # Changelog
 
-## [2.1.3+portage-1.0.18] - 2021-09-15
+## [2.1.3+portage-1.0.19] - 2021-09-15
 
 ## Fixed
   - Usage statistics now show the statistics for the current user's organization
