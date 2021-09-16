@@ -101,6 +101,14 @@
             "en_GB": "Hours"
         }
     ],
+    "GeoNames": [
+    ],
+    "InspireThemes": [
+
+    ],
+    "ISO19115TopicCategory": [
+
+    ],
     "ISO3166-alpha2": [
         {
             "fr_FR": "FR",
@@ -132,6 +140,24 @@
             "fr_FR": "USD",
             "en_GB": "USD"
         }
+    ],
+    "UseRestrictions": [
+
+    ],
+    "SpatialRepresentationTypes": [
+
+    ],
+    "MaintenanceFrequency": [
+
+    ],
+    "IsoPresentationForm": [
+
+    ],
+    "GeoSpatialDataFormat": [
+
+    ],
+    "StatusGeoSpatialData": [
+
     ],
     "DataAccess": [
         {

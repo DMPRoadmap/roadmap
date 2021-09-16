@@ -9,29 +9,29 @@
         "name": {
             "type": "string",
             "description": "Nom de l'organisation ou structure partenaire",
-            "label@fr_FR": "Nom du partenaire",
-            "label@en_GB": "Partner name"
+            "label@fr_FR": "Nom",
+            "label@en_GB": "Name"
         },
         "orgId": {
             "type": "string",
             "description": "Identifiant de l'organisation ou structure partenaire",
-            "label@fr_FR": "Identifiant du partenaire",
-            "label@en_GB": "Partner identifier"
+            "label@fr_FR": "Identifiant",
+            "label@en_GB": "Identifier"
         },
         "idType": {
             "type": "string",
             "description": "Type d'identifiant (ROR)",
             "inputType": "dropdown",
-            "label@fr_FR": "Type d'identifiant du partenaire",
-            "label@en_GB": "Partner identifier type",
+            "label@fr_FR": "Type d'identifiant",
+            "label@en_GB": "Identifier type",
             "registry_name": "AgentIdSystem",
             "overridable": true
         },
         "rnsr": {
             "type": "string",
             "description": "Idenfiant RNSR",
-            "label@fr_FR": "Identifiant RNSR du partenaire",
-            "label@en_GB": "Partner RNSR identifier",
+            "label@fr_FR": "Identifiant RNSR",
+            "label@en_GB": "RNSR identifier",
             "tooltip@fr_FR": "Le RNSR est le Répertoire national des structures de recherche : https://appliweb.dgri.education.fr/rnsr/",
             "tooltip@en_GB": "The RNSR is the French national directory of research structures: https://appliweb.dgri.education.fr/rnsr/"
         },

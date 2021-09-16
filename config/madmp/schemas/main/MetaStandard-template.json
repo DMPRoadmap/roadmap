@@ -17,8 +17,8 @@
         "deliverableNumber": {
             "type": "string",
             "description": "Numéro du livrable auquel est rattaché le DMP",
-            "label@fr_FR": "Numéro du livrable",
-            "label@en_GB": "Deliverable number",
+            "label@fr_FR": "Livrable",
+            "label@en_GB": "Deliverable",
             "tooltip@fr_FR": "Indiquer si besoin le livrable auquel est rattaché le DMP",
             "tooltip@en_GB": "Indicate if necessary the deliverable to which the DMP is attached",
             "example@fr_FR": "Livrable D8.2",
@@ -28,8 +28,8 @@
             "type": "string",
             "description": "Version du DMP",
             "inputType": "dropdown",
-            "label@fr_FR": "Version du DMP",
-            "label@en_GB": "DMP version",
+            "label@fr_FR": "Version",
+            "label@en_GB": "Version",
             "registry_name": "DMPVersion",
             "overridable": true
         },
@@ -37,8 +37,8 @@
             "type": "string",
             "description": "Description de la portée du plan de gestion",
             "inputType": "textarea",
-            "label@fr_FR": "Objet/périmètre du plan et ses  relations avec les autres livrables",
-            "label@en_GB": "Plan purpose/scope and its relation to other deliverables",
+            "label@fr_FR": "Objet/périmètre du plan",
+            "label@en_GB": "Plan purpose/scope",
             "tooltip@fr_FR": "Indiquer l’objet et le périmètre du plan ainsi que ses relations avec les autres livrables. Expliciter brièvement la structure de ce document",
             "tooltip@en_GB": "Define the purpose and scope of the DMP as well as its relation to other deliverables and briefly explains the structure of the document"
         },
@@ -48,7 +48,7 @@
             "description": "Langue utilisée pour rédiger le DMP",
             "inputType": "dropdown",
             "label@fr_FR": "Langue de rédaction du plan",
-            "label@en_GB": "language in which the plan is drafted",
+            "label@en_GB": "Plan language",
             "registry_name": "ISO639-3"
         },
         "contact": {
@@ -88,8 +88,8 @@
         "dmpId": {
             "type": "string",
             "description": "Identifiant pérenne attribué au plan de gestion de données",
-            "label@fr_FR": "Identifiant du plan",
-            "label@en_GB": "Plan identifier",
+            "label@fr_FR": "Identifiant",
+            "label@en_GB": "Identifier",
             "tooltip@fr_FR": "Indiquer l’identifiant du plan après son éventuelle publication ou dépôt dans une archive",
             "tooltip@en_GB": "Provide the plan ID after possible publishing or deposit in an archive"
         },
@@ -115,8 +115,8 @@
                 "dbid"
             ],
             "description": "Licence apposée au plan de gestion de données pour faciliter la réutilisation de son contenu",
-            "label@fr_FR": "Licence du plan",
-            "label@en_GB": "Plan license",
+            "label@fr_FR": "Licence",
+            "label@en_GB": "License",
             "inputType": "dropdown",
             "registry_name": "Licenses",
             "overridable": true
@@ -138,8 +138,8 @@
                 ]
             },
             "description": "Références de documents éventuels à relier au plan de gestion de données (ex publications)",
-            "label@fr_FR": "Lister les documents (publications, rapports, brevets….), sites web associés au plan ",
-            "label@en_GB": "List the documents (publications,reports, patents...), website associated with the DMP ",
+            "label@fr_FR": "Documents (publications, rapports, brevets….), sites web associés",
+            "label@en_GB": "Associated documents (publications,reports, patents...), website",
             "tooltip@fr_FR": "Indiquer les documents (publications, rapports, brevets….) ou sites web à relier au plan de gestion de données ",
             "tooltip@en_GB": "Provide the documents (publications,reports, patents...) and websites associated with the DMP "
         },
@@ -160,8 +160,8 @@
                 ]
             },
             "description": "Autres plans de gestion de données en lien avec le projet, rédigés par exemple pour être autorisé à utiliser une resourceTechniques",
-            "label@fr_FR": "Lister les autres plans de gestion en lien avec le projet",
-            "label@en_GB": "List the other management plans related to the project",
+            "label@fr_FR": "Plans de gestion en lien avec le projet",
+            "label@en_GB": "Management plans related to the project",
             "tooltip@fr_FR": "Indiquer les plans de gestion de données en lien avec le projet",
             "tooltip@en_GB": "Provide the other DMPs associated with the project"
         }

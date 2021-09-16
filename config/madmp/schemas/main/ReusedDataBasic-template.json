@@ -9,21 +9,21 @@
         "title": {
             "type": "string",
             "description": "Titre du produit de recherche réutilisé",
-            "label@fr_FR": "Nom complet",
-            "label@en_GB": "Full name"
+            "label@fr_FR": "Nom",
+            "label@en_GB": "Name"
         },
         "datasetId": {
             "type": "string",
             "description": "Identifiant du produit réutilisé",
-            "label@fr_FR": "Identifiant pérenne du produit de recherche",
-            "label@en_GB": " Reseach product persistent identifier"
+            "label@fr_FR": "Identifiant pérenne",
+            "label@en_GB": " Persistent identifier"
         },
         "idType": {
             "type": "string",
             "description": "Type d'identifiant",
             "inputType": "dropdown",
-            "label@fr_FR": "Type d'identifiant du produit de recherche",
-            "label@en_GB": " Reseach product identifier",
+            "label@fr_FR": "Type d'identifiant",
+            "label@en_GB": " Identifier tyoe",
             "registry_name": "PIDSystem",
             "overridable": true
         },

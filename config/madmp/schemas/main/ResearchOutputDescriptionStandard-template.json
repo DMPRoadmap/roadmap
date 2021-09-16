@@ -9,15 +9,15 @@
         "title": {
             "type": "string",
             "description": "Titre du produit de recherche généré au cours du projet",
-            "label@fr_FR": "Nom  complet",
-            "label@en_GB": "Full name"
+            "label@fr_FR": "Nom",
+            "label@en_GB": "Name"
         },
         "description": {
             "type": "string",
             "description": "Description succincte du produit de recherche",
             "inputType": "textarea",
-            "label@fr_FR": "Décrire succinctement le produit de recherche",
-            "label@en_GB": "Briefly describe the research product",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
             "tooltip@fr_FR": "Résumé décrivant l'objet et la portée du jeu de données",
             "tooltip@en_GB": "Summary describing the purpose and scope of the dataset"
         },
@@ -35,8 +35,8 @@
         "workPackage": {
             "type": "string",
             "description": "Nom du workpackage",
-            "label@fr_FR": "Indiquer, si besoin, le workpackage auquel est rattaché le produit de recherche",
-            "label@en_GB": "Indicate, if necessary, the workpackage to which the research product is attached ",
+            "label@fr_FR": "Workpackage",
+            "label@en_GB": "Workpackage",
             "tooltip@fr_FR": "Nom ou numéro du workpackage",
             "tooltip@en_GB": "Name or number of the workpackage",
             "example@fr_FR": "WP1, WP2",
@@ -60,8 +60,8 @@
             },
             "minItems": 1,
             "description": "Mot(s)-clé(s) issu(s) de vocabulaire(s) contrôlé(s) ou d'ontologie(s)",
-            "label@fr_FR": "Mots clés contrôlés (vocabulaire, thésaurus, lexique...)",
-            "label@en_GB": "Controlled keywords (vocabulary, thesaurus, lexicon...)",
+            "label@fr_FR": "Mots clés",
+            "label@en_GB": "Keywords",
             "tooltip@fr_FR": "Mots-clés décrivant les aspects importants du jeu de données",
             "tooltip@en_GB": "Key words describing important aspects of the dataset"
         },
@@ -72,7 +72,7 @@
             },
             "description": "Mots clés libres",
             "label@fr_FR": "Mots clés (texte libre)",
-            "label@en_GB": "Uncontrolled keyword(s) (free-text)",
+            "label@en_GB": "Keywords (free-text)",
             "tooltip@fr_FR": "Un mot clé par ligne. Cliquer sur + pour ajouter un mot-clé. Eviter les acronymes et les mots clés trop génériques",
             "tooltip@en_GB": "One key word per line. Click on + to add a key word. Avoid acronyms and overly generic keywords"
         },
@@ -81,8 +81,8 @@
             "length": "3",
             "description": "Code langue des données (ISO 639-3)",
             "inputType": "dropdown",
-            "label@fr_FR": "Indiquer la langue dans laquelle est décrit le produit de recherche",
-            "label@en_GB": "Indicate the language in which the research product is described",
+            "label@fr_FR": "Langue",
+            "label@en_GB": "Language",
             "registry_name": "ISO639-3"
         },
         "contact": {
@@ -106,8 +106,8 @@
         "datasetId": {
             "type": "string",
             "description": "Identifiant pérenne attribué au produit de recherche",
-            "label@fr_FR": "Identifiant pérenne du produit de recherche",
-            "label@en_GB": " Reseach product persistent identifier",
+            "label@fr_FR": "Identifiant pérenne",
+            "label@en_GB": " Persistent identifier",
             "tooltip@fr_FR": "Indiquer l’identifiant du produit de recherche après son éventuelle publication ou dépôt dans un entrepôt de données (ou autres hébergements)",
             "tooltip@en_GB": "Provide the researchoutput ID after possible publishing or deposit in an data repository (or other hostings)"
         },
@@ -115,8 +115,8 @@
             "type": "string",
             "description": "Type d'identifiant ressource",
             "inputType": "dropdown",
-            "label@fr_FR": "Type d'identifiant du produit de recherche",
-            "label@en_GB": " Reseach product identifier",
+            "label@fr_FR": "Type d'identifiant",
+            "label@en_GB": " Identifier type",
             "registry_name": "PIDSystem",
             "overridable": true
         },

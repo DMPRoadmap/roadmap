@@ -390,6 +390,11 @@
         "question_id": null
     },
     {
+        "path": "GeographicCoverage-template.json",
+        "classname": "specific_data",
+        "question_id": null
+    },
+    {
         "path": "GeographicBoundingBox-template.json",
         "classname": "specific_data",
         "question_id": null

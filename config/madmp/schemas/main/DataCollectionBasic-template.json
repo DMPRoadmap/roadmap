@@ -10,8 +10,8 @@
             "type": "string",
             "description": "Description de la collecte des données",
             "inputType": "textarea",
-            "label@fr_FR": "Décrire la méthode de collecte ou d'acquisition des données",
-            "label@en_GB": "Describe the method of data collection or acquisition",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
             "tooltip@fr_FR": "Expliquer quelle méthodologie est utilisée pour produire, collecter les données. Préciser si besoin le contexte de production, la fréquence de collecte des données.",
             "tooltip@en_GB": "Explain the methodology used to produce and collect the data. Specify if necessary the context of production, the frequency of data collection."
         },

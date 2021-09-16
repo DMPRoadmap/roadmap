@@ -15,15 +15,15 @@
         "legalDocIdentifier": {
             "type": "string",
             "description": "Identifiant de la ressource",
-            "label@fr_FR": "Identifiant du document juridique",
-            "label@en_GB": "Legal document identifier"
+            "label@fr_FR": "Identifiant",
+            "label@en_GB": "Identifier"
         },
         "idType": {
             "type": "string",
             "description": "Type d'identifiant",
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
-            "label@en_GB": "Identifier",
+            "label@en_GB": "Identifier type",
             "registry_name": "PIDSystem",
             "overridable": true
         }

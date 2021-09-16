@@ -1,0 +1,36 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "GeographicCoverage",
+    "description": "GeographicCoverage template",
+    "type": "object",
+    "class": "GeographicCoverage",
+    "properties": {
+        "country": {
+            "type": "string",
+            "description": "Pays ou nation du jeu de données",
+            "inputType": "dropdown",
+            "label@fr_FR": "Etat/Province",
+            "label@en_GB": "Country/Nation",
+            "registry_name": "GeoNames"
+        },
+        "state": {
+            "type": "string",
+            "description": "Région ou Département du jeu de données",
+            "inputType": "dropdown",
+            "label@fr_FR": "Région/Département",
+            "label@en_GB": "State/Province",
+            "registry_name": "GeoNames"
+        },
+        "city": {
+            "type": "string",
+            "description": "Commune du jeu de données",
+            "inputType": "dropdown",
+            "label@fr_FR": "Commune",
+            "label@en_GB": "City",
+            "registry_name": "GeoNames"
+        }
+    },
+    "required": [],
+    "to_string": []
+}

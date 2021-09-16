@@ -10,8 +10,8 @@
             "type": "string",
             "description": "Description de la politique de sauvegarde appliquée",
             "inputType": "textarea",
-            "label@fr_FR": "Décrire la politique de sauvegarde",
-            "label@en_GB": "Describe the backup policy"
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description"
         },
         "backupFrequency": {
             "type": "string",

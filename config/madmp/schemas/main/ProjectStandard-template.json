@@ -15,15 +15,15 @@
         "acronym": {
             "type": "string",
             "description": "Acronyme du projet",
-            "label@fr_FR": "Acronyme du projet",
-            "label@en_GB": "Project acronym"
+            "label@fr_FR": "Acronyme",
+            "label@en_GB": "Acronym"
         },
         "description": {
             "type": "string",
             "description": "Description du projet",
             "inputType": "textarea",
-            "label@fr_FR": "Résumé du projet",
-            "label@en_GB": "Project abstract"
+            "label@fr_FR": "Résumé",
+            "label@en_GB": "Abstract"
         },
         "funding": {
             "type": "array",
@@ -44,22 +44,22 @@
             },
             "minItems": 1,
             "description": "Source(s) de financement d'un projet ou d'une activité de recherche",
-            "label@fr_FR": "Indiquer les sources de financement du projet",
-            "label@en_GB": "Indicate the funding of the project"
+            "label@fr_FR": "Sources de financement",
+            "label@en_GB": "Funding"
         },
         "startDate": {
             "type": "string",
             "format": "date",
             "description": "Début de projet",
-            "label@fr_FR": "Date de début du projet",
-            "label@en_GB": "Project start date"
+            "label@fr_FR": "Date de début",
+            "label@en_GB": "Start date"
         },
         "endDate": {
             "type": "string",
             "format": "date",
             "description": "Fin de projet",
-            "label@fr_FR": "Date de fin du projet",
-            "label@en_GB": "Project end date"
+            "label@fr_FR": "Date de fin",
+            "label@en_GB": "End date"
         },
         "partner": {
             "type": "array",
@@ -79,8 +79,8 @@
             },
             "minItems": 1,
             "description": "Partenaires d'un projet ou d'une activité de recherche",
-            "label@fr_FR": "Lister les partenaires associés au projet",
-            "label@en_GB": "List the partners associated with the project",
+            "label@fr_FR": "Partenaires",
+            "label@en_GB": "Partners",
             "inputType": "dropdown",
             "registry_name": "Partners",
             "overridable": true
@@ -98,8 +98,8 @@
                 "dbid"
             ],
             "description": "Référence d'une représentation du plan expérimental d'obtention des données",
-            "label@fr_FR": "Indiquer la référence du plan expérimental",
-            "label@en_GB": "Indicate the experimental plan reference"
+            "label@fr_FR": "Référence du plan expérimental",
+            "label@en_GB": "Experimental plan reference"
         },
         "principalInvestigator": {
             "type": "object",

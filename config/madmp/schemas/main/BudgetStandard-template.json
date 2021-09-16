@@ -31,8 +31,8 @@
                 ]
             },
             "description": "Elément de description des coûts",
-            "label@fr_FR": "Liste détaillée des coûts",
-            "label@en_GB": "Details of cost description"
+            "label@fr_FR": "Liste des coûts",
+            "label@en_GB": "List of costs"
         },
         "contributor": {
             "type": "array",

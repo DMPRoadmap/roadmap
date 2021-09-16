@@ -7,12 +7,20 @@
     "class": "GeoSpatialData",
     "properties": {
         "areaName": {
-            "type": "string",
-            "description": "Couverture géographique : Pays / Etat / Région / Département / Commune ??",
-            "inputType": "dropdown",
-            "label@fr_FR": "Pays/Région/Département/Commune ??",
-            "label@en_GB": "Country/Province/Department/City ??",
-            "registry_name": "GeoNames"
+            "type": "object",
+            "class": "SpecificData",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "GeographicCoverage",
+            "required": [
+                "dbid"
+            ],
+            "description": "Informations sur la couverture géographique des données (Pays, Etat, Région, Département, Commune…)",
+            "label@fr_FR": "Couverture géographique",
+            "label@en_GB": "Geographic coverage"
         },
         "geographicBoundingBox": {
             "type": "object",
@@ -80,6 +88,42 @@
             "label@fr_FR": "Type de représentation spatiale",
             "label@en_GB": "Spatial representation type",
             "registry_name": "SpatialRepresentationTypes"
+        },
+        "controlledKeyword": {
+            "type": "object",
+            "class": "ControlledKeyword",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "ControlledKeywordStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Mot(s)-clé(s) issu(s) des thèmes INSPIRE",
+            "label@fr_FR": "Thèmes INSPIRE",
+            "label@en_GB": "INSPIRE Spatial Data Themes",
+            "inputType": "dropdown",
+            "registry_name": "InspireThemes"
+        },
+        "controlledKeyword1": {
+            "type": "object",
+            "class": "ControlledKeyword",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "ControlledKeywordStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Mot(s)-clé(s) issu(s) des catégories thématiques conformément à la norme EN ISO 19115",
+            "label@fr_FR": "Catégories thématiques INSPIRE",
+            "label@en_GB": "INSPIRETopics categories",
+            "inputType": "dropdown",
+            "registry_name": "ISO19115TopicCategory"
         },
         "useRestrictions": {
             "type": "string",
@@ -153,7 +197,9 @@
         "temporalElement",
         "lineage",
         "spatialResolution",
-        "spatialRepresentationType"
+        "spatialRepresentationType",
+        "controlledKeyword",
+        "controlledKeyword1"
     ],
     "to_string": []
 }

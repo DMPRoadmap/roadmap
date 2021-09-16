@@ -60,10 +60,8 @@
             },
             "minItems": 1,
             "description": "Mot(s)-clé(s) issu(s) de vocabulaire(s) contrôlé(s) ou d'ontologie(s)",
-            "label@fr_FR": "Thèmes INSPIRE",
-            "label@en_GB": "INSPIRE Spatial Data Themes",
-            "inputType": "dropdown",
-            "registry_name": "InspireThemes",
+            "label@fr_FR": "Mots clés contrôlés (vocabulaire, thésaurus, lexique...)",
+            "label@en_GB": "Controlled keywords (vocabulary, thesaurus, lexicon...)",
             "tooltip@fr_FR": "Mots-clés décrivant les aspects importants du jeu de données",
             "tooltip@en_GB": "Key words describing important aspects of the dataset"
         },
@@ -164,7 +162,7 @@
             },
             "minItems": 1,
             "description": "Informations pour décrire une donnée ou information géographique selon ISO 19115 ou Directive INSPIRE",
-            "label@fr_FR": "Donnée géographique",
+            "label@fr_FR": "Données géographiques",
             "label@en_GB": "Geospatial data"
         }
     },

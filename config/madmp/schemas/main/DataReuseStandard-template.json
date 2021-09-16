@@ -10,8 +10,8 @@
             "type": "string",
             "description": "Justification de la réutilisation ou non réutilisation de données existantes",
             "inputType": "textarea",
-            "label@fr_FR": "Justifier la réutilisation ou la non-réutilisation de données existantes",
-            "label@en_GB": "Justify the reuse or non-reuse of existing data",
+            "label@fr_FR": "Justification",
+            "label@en_GB": "Justification",
             "tooltip@fr_FR": "Indiquer comment elles seront intégrées au projet",
             "tooltip@en_GB": "Indicate how they will be integrated into the project"
         },
@@ -32,8 +32,8 @@
                 ]
             },
             "description": "Jeu de données réutilisé",
-            "label@fr_FR": "Décrire le ou les produits de recherche réutilisés",
-            "label@en_GB": "Describe the reused research output(s)"
+            "label@fr_FR": "Produits de recherche réutilisés",
+            "label@en_GB": "Reused research outputs"
         },
         "cost": {
             "type": "array",

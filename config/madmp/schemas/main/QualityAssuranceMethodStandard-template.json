@@ -10,8 +10,8 @@
             "type": "string",
             "description": "Description de la méthodologie appliquée pour assurer la qualité scientifique et documentaire des données",
             "inputType": "textarea",
-            "label@fr_FR": "Décrire les procédures de contrôle qualité mises en place",
-            "label@en_GB": "Describe the quality control procedures applied",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
             "tooltip@fr_FR": "Par exemple : répétition des expériences, démarche de relecture par des tiers, essais croisés",
             "tooltip@en_GB": "For example: repetition of experiments, proofreading by third parties, cross-testing"
         },
@@ -32,8 +32,8 @@
                 ]
             },
             "description": "Référence(s) de protocole(s) d'assurance qualité",
-            "label@fr_FR": "Indiquer le ou les documents de référence",
-            "label@en_GB": "Indicate the reference document(s)",
+            "label@fr_FR": "Références associées",
+            "label@en_GB": "Related references",
             "tooltip@fr_FR": "Par exemple : le plan d'assurance qualité des données",
             "tooltip@en_GB": "For example: data quality assurance plan"
         },

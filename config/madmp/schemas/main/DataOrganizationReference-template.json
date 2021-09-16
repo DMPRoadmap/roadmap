@@ -15,14 +15,14 @@
         "documentIdentifier": {
             "type": "string",
             "description": "Identification du document associé à cet aspect organisationnel",
-            "label@fr_FR": "Identifiant du document",
-            "label@en_GB": "Document identifier"
+            "label@fr_FR": "Identifiant",
+            "label@en_GB": "Identifier"
         },
         "idType": {
             "type": "string",
             "description": "Type d'identifiant ressource",
             "inputType": "dropdown",
-            "label@fr_FR": "Type d'identifiant de la ressource",
+            "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
             "registry_name": "PIDSystem",
             "overridable": true
