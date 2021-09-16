@@ -8,8 +8,8 @@
 <p><em><%= _("A Data Management Plan created using ") + Rails.configuration.branding[:application][:name] %></em></p>
 <br/>
 <div class="cover-page">
-  <h2><%= _("Project Details") %></h2>
-  <div class="question">
+  <h2><%= d_("dmpopidor", "Plan Details") %></h2>
+  <div class="plan-details">
     <%= render(partial: 'shared/export/display_madmp_fragment', locals: {
             fragment: plan_fragment.meta,
             schema: plan_fragment.meta.madmp_schema,
@@ -18,8 +18,8 @@
     } ) %>
   </div>
 
-  <h2><%= d_("dmpopidor", "Plan Details") %></h2>
-  <div class="question">
+  <h2><%= _("Project Details") %></h2>
+  <div class="plan-details">
     <%= render(partial: 'shared/export/display_madmp_fragment', locals: {
             fragment: plan_fragment.project,
             schema: plan_fragment.project.madmp_schema,
@@ -47,7 +47,16 @@
     <thead><tr><th>Contributeur</th><th>Roles</th></tr></thead>
     <tbody>
     <% contributors.each do |contributor| %>
-      <tr><td><%= contributor.to_s %></td><td><%= contributor.roles.join(", ") %></td></tr>
+      <tr>
+        <td><%= contributor.to_s %></td>
+        <td>
+          <ul>
+            <% contributor.roles.each do |role| %>
+              <li><%= role %></li>
+            <% end %>
+          </ul>  
+        </td>
+      </tr>
     <% end %>
     </tbody>
   </table>

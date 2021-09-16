@@ -62,9 +62,12 @@
   .cover-page {
     font-size: 1.1rem; 
   }
-  .question {
+  .question, .plan-details {
     margin-top: 15px;
     margin-bottom: 10px;
+  }
+  .question {
+    border-bottom: 1px solid #1c5170;
   }
   .question:first-child {
     margin-top: 0;
@@ -88,27 +91,32 @@
   }
 
   .fragment-display {
-    width: 75%;
-  }
-  .sub-fragment .fragment-display {
     width: 100%;
-  }
-
-  .fragment-attribute {
     display: -webkit-box; /* wkhtmltopdf uses this one */
     display: -webkit-flex;
     display: flex;
-    padding-bottom: 5px;
+    flex-direction: column;
+    padding: 5px 20px;
+    border: none;
+    border-left: 2px solid #1c5170;
   }
 
-  .attribute-name {
+  .fragment-property {
+    display: -webkit-box; /* wkhtmltopdf uses this one */
+    display: -webkit-flex;
+    display: flex;
+    padding: 5px 0px;
+  }
+
+  .property-label {
     -webkit-box-flex: 1;
     -webkit-flex: 1;
     flex: 1;
-    font-weight: 700;
+    font-weight: bold;
+    color: #1c5170;
   }
 
-  .attribute-value {
+  .property-value {
     -webkit-box-flex: 3;
     -webkit-flex: 3;
     flex: 3;
@@ -119,8 +127,6 @@
   }
   .sub-fragment-list {
     width: 100%;
-    border-collapse:separate; 
-    border-spacing:5px;
   }
 
 </style>
