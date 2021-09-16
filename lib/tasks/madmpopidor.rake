@@ -183,7 +183,7 @@ namespace :madmpopidor do
 
     registries.each do |registry_name, values|
       registry_values = []
-      registry = Registry.find_or_initialize_by(name: registry_name) do |r|
+      registry = Registry.find_or_create_by(name: registry_name) do |r|
         r.name = registry_name
         r.version = 1
       end
