@@ -1489,6 +1489,10 @@ header .main-nav {
             flex: 3;
         }
     }
+    &.sub-fragment {
+        border: none;
+        border-left: 2px solid $dark-blue;
+    }
 }
 
 #modal-window {

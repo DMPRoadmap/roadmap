@@ -146,12 +146,10 @@ class MadmpFragmentsController < ApplicationController
           return
         end
 
-        # data = @fragment.data.merge(data)
         additional_info = @fragment.additional_info.merge(
           "validations" => MadmpFragment.validate_data(data, schema.schema)
         )
         @fragment.assign_attributes(
-          # data: data,
           additional_info: additional_info,
           madmp_schema_id: schema.id
         )
@@ -162,10 +160,12 @@ class MadmpFragmentsController < ApplicationController
             user_id: current_user.id
           )
         end
-        @fragment.save! # trigger StaleObjectError before updating data
+
         @fragment.save_form_fragment(data, schema)
       rescue ActiveRecord::StaleObjectError
         @stale_fragment = @fragment
+        @stale_fragment.data = @fragment.data.merge(stale_data(data, schema))
+
         @fragment = MadmpFragment.find_by(
           id: params[:id],
           dmp_id: p_params[:dmp_id]
@@ -547,6 +547,26 @@ class MadmpFragmentsController < ApplicationController
         "id" => research_output&.id
       }
     }.to_json
+  end
+
+  # Since the StaleObjectError is triggered on the Answer we need to recover the 
+  # MadmpFragment data from the form, because the stale MadmpFragment has not yet been modified
+  # This method takes the form data and remove every "sub fragment" data so it can be merged 
+  # to the real fragment data (with dbids)
+  def stale_data(form_data, schema)
+    stale_data = {}
+    form_data.each do |prop, content|
+      schema_prop = schema.schema["properties"][prop]
+
+      next if schema_prop&.dig("type").nil?
+      next if schema_prop["type"].eql?("object") &&
+              schema_prop["schema_id"].present?
+      next if schema_prop["type"].eql?("array") &&
+              schema_prop["items"]["schema_id"].present?
+
+      stale_data[prop] = content
+    end
+    stale_data
   end
 
   # Get the parameters conresponding to the schema

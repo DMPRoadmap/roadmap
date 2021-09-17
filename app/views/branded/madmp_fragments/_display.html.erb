@@ -15,7 +15,7 @@
       </span>
     <% else %>
       <% next if sub_fragment.data.nil? || sub_fragment.data.empty? %>
-      <fieldset class="fragment-display">
+      <fieldset class="fragment-display sub-fragment">
         <legend><%= label %></legend>
         <%= render(partial: 'madmp_fragments/display', locals: {
                     fragment: sub_fragment,
