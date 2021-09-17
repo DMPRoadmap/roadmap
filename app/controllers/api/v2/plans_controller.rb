@@ -12,7 +12,7 @@ module Api
 
       # If the Resource Owner (aka User) is in the Doorkeeper AccessToken then it is an authorization_code
       # token and we need to ensure that the ApiClient is authorized for the relevant Scope
-      before_action -> { doorkeeper_authorize!(:public) }, only: %i[index]
+      before_action -> { doorkeeper_authorize!(:public, :read_dmps) }, only: %i[index]
       before_action -> { doorkeeper_authorize!(:read_dmps) }, only: %i[show]
       before_action -> { doorkeeper_authorize!(:create_dmps) }, only: %i[create]
       before_action -> { doorkeeper_authorize!(:edit_dmps) }, only: %i[update]

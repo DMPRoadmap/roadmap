@@ -243,6 +243,7 @@ class PlansController < ApplicationController
                              params[:guidance_group_ids].map(&:to_i).uniq
                            end
       @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
+      @research_domains = ResearchDomain.all.order(:label)
 
       # TODO: For some reason the `fields_for` isn't adding the
       #       appropriate namespace, so org_id represents our funder
@@ -251,6 +252,9 @@ class PlansController < ApplicationController
       @plan.grant = plan_params[:grant]
       attrs.delete(:grant)
       attrs = remove_org_selection_params(params_in: attrs)
+      attrs = process_related_identifiers(attrs: attrs)
+
+# pp attrs.inspect
 
       if @plan.update(attrs) # _attributes(attrs)
         format.html do
@@ -462,7 +466,8 @@ class PlansController < ApplicationController
                   :research_domain_id, :funding_status,
                   grant: %i[name value],
                   org: %i[id org_id org_name org_sources org_crosswalk],
-                  funder: %i[id org_id org_name org_sources org_crosswalk])
+                  funder: %i[id org_id org_name org_sources org_crosswalk],
+                  related_identifier_attributes: %i[id work_type value])
   end
 
   # different versions of the same template have the same family_id
@@ -535,6 +540,32 @@ class PlansController < ApplicationController
     @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by do |org, _gg|
       (org.nil? ? "" : org.name)
     end
+  end
+
+  # Convert the incoming related_identifiers to RelatedIdentifier objects
+  def process_related_identifiers(attrs:)
+    return attrs unless attrs.present? && attrs[:related_identifier_attributes].present?
+
+    related_identifiers = []
+    attrs[:related_identifier_attributes].each do |id, parameters|
+      # The form contains a hidden placeholder row used by the JS to add a new row
+      # Skip this hidden row or if the value/url is blank
+      next if id == "0" || parameters[:value].nil? || parameters[:value].blank?
+
+      # Try to find the RelatedIdentifier by the id otherwise its a new one
+      related = RelatedIdentifier.find_by(id: id, identifiable: @plan)
+      related = RelatedIdentifier.new(identifiable: @plan) unless related.present?
+
+      related.work_type = parameters[:work_type]
+      related.value = parameters[:value]
+      related.fetch_citation
+
+      related_identifiers << related
+    end
+    @plan.related_identifiers = related_identifiers
+
+    attrs.delete(:related_identifier_attributes)
+    attrs
   end
 
 end

@@ -1,0 +1,10 @@
+<%# locals: plan %>
+
+<% presenter = RelatedIdentifierPresenter.new(plan: plan) %>
+
+<h2><%= _("Related works") %></h2>
+<ul>
+  <% presenter.for_display.each do |related| %>
+    <li><%= sanitize(related) %></li>
+  <% end %>
+</ul>

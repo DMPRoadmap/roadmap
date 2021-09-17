@@ -6,7 +6,7 @@
   <% presenter = ResearchOutputPresenter.new(research_output: output) %>
   <h2><%= "#{presenter.display_type} - \"#{output.title}\"" %></h2>
 
-  <p><%= output.description.html_safe %></p>
+  <p><%= output.description&.html_safe %></p>
 <% end %>
 
 <br/><br/><hr/>
