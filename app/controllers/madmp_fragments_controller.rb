@@ -85,29 +85,42 @@ class MadmpFragmentsController < ApplicationController
       authorize @fragment
     else
       p_params = permitted_params
-      schema = @schemas.find(p_params[:schema_id])
-      classname = schema.classname
-      parent_id = p_params[:parent_id] unless classname.eql?("person")
-      @fragment = MadmpFragment.new(
-        dmp_id: p_params[:dmp_id],
-        parent_id: parent_id,
-        madmp_schema: schema,
-        additional_info: {
-          "property_name" => p_params[:property_name]
-        }
-      )
-      @fragment.classname = classname
-      authorize @fragment
-
-      @fragment.answer = Answer.create!(
+      answer = Answer.find_by(
         research_output_id: p_params[:answer][:research_output_id],
         plan_id: p_params[:answer][:plan_id],
-        question_id: p_params[:answer][:question_id],
-        lock_version: p_params[:answer][:lock_version],
-        is_common: p_params[:answer][:is_common],
-        user_id: current_user.id
+        question_id: p_params[:answer][:question_id]
       )
-      @fragment.instantiate
+      # Checks if an answer has already been created for plan/question/research_output
+      # This is needed in the case where two users open the save "new" form at the same time.
+      # There was a case where two answers could be created for the question
+      if answer.present?
+        @fragment = answer.madmp_fragment
+        authorize @fragment
+      else
+        schema = @schemas.find(p_params[:schema_id])
+        classname = schema.classname
+        parent_id = p_params[:parent_id] unless classname.eql?("person")
+        @fragment = MadmpFragment.new(
+          dmp_id: p_params[:dmp_id],
+          parent_id: parent_id,
+          madmp_schema: schema,
+          additional_info: {
+            "property_name" => p_params[:property_name]
+          }
+        )
+        @fragment.classname = classname
+        authorize @fragment
+
+        @fragment.answer = Answer.create!(
+          research_output_id: p_params[:answer][:research_output_id],
+          plan_id: p_params[:answer][:plan_id],
+          question_id: p_params[:answer][:question_id],
+          lock_version: p_params[:answer][:lock_version],
+          is_common: p_params[:answer][:is_common],
+          user_id: current_user.id
+        )
+        @fragment.instantiate
+      end
     end
 
     render json: render_fragment_form(@fragment, nil)
