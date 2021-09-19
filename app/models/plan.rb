@@ -212,6 +212,13 @@ class Plan < ApplicationRecord
   end
   alias super_settings settings
 
+  # =============
+  # = Callbacks =
+  # =============
+
+  #sanitise html tags from fields
+  before_save :sanitise_fields
+
   # =================
   # = Class methods =
   # =================
@@ -569,6 +576,16 @@ class Plan < ApplicationRecord
   end
 
   private
+
+  #sanitise fields
+  def sanitise_fields
+    self.title = ActionController::Base.helpers.sanitize(self.title)
+    self.funder_name = ActionController::Base.helpers.sanitize(self.funder_name)
+    self.grant_number = ActionController::Base.helpers.sanitize(self.grant_number)
+    self.identifier = ActionController::Base.helpers.sanitize(self.identifier)
+    self.description = ActionController::Base.helpers.sanitize(self.identifier)
+  end
+
 
   # Validation to prevent end date from coming before the start date
   def end_date_after_start_date
