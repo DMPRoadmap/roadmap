@@ -144,6 +144,12 @@ $(() => {
 
   Select2.init('.plan-details');
 
+  $('.plan-details form.madmp-fragment').on('change', (e) => {
+    e.preventDefault();
+    const target = $(e.target);
+    target.parents('form').find('.answer-bottom-zone .message-zone').show();
+  });
+
   $('.plan-details form.madmp-fragment').on('submit', (e) => {
     e.preventDefault();
     const target = $(e.target);
