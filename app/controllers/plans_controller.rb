@@ -194,8 +194,9 @@ class PlansController < ApplicationController
     if @all_ggs_grouped_by_org.include?(current_user.org)
       @important_ggs << [current_user.org, @all_ggs_grouped_by_org[current_user.org]]
     end
+
     @all_ggs_grouped_by_org.each do |org, ggs|
-      @important_ggs << [org, ggs] if org.organisation?
+      @important_ggs << [org, ggs] if Org.default_orgs.include?(org)
 
       # If this is one of the already selected guidance groups its important!
       unless (ggs & @selected_guidance_groups).empty?

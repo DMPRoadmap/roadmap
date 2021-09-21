@@ -231,7 +231,7 @@ default: &default
   # Your organisation name, used in various places throught the application
   organisation_name: "University of California Curation Center (UC3)"
   # Your orgsanisation abbreviation
-  organisation_abbreviation: "UC3"
+  organisation_abbreviation: "DMPTool"
   # Your organisation's homepage, used in some of the public facing pages
   organisation_url: "https://www.cdlib.org/"
   # Your organisation's legal (official) name - used in the copyright portion of the footer
