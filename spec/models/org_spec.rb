@@ -40,12 +40,6 @@ RSpec.describe Org, type: :model do
     # validates :feedback_enabled, inclusion: { in: BOOLEAN_VALUES,
     #                                           message: INCLUSION_MESSAGE }
     #
-    # validates :feedback_email_subject, presence: { message: PRESENCE_MESSAGE,
-    #                                                if: :feedback_enabled }
-    #
-    # validates :feedback_email_msg, presence: { message: PRESENCE_MESSAGE,
-    #                                            if: :feedback_enabled }
-    #
   end
 
   context "associations" do
@@ -657,12 +651,11 @@ RSpec.describe Org, type: :model do
       before(:each) do
         @org = create(:org, :organisation, is_other: false, managed: false,
                                            feedback_enabled: false, contact_email: nil,
-                                           contact_name: nil, feedback_email_msg: nil,
-                                           feedback_email_subject: nil)
+                                           contact_name: nil, feedback_msg: nil)
 
         @to_be_merged = create(:org, :funder, templates: 1, plans: 2, managed: true,
-                                              feedback_enabled: true, is_other: true,
-                                              sort_name: Faker::Movies::StarWars.planet,
+                                              feedback_enabled: true,
+                                              is_other: true,
                                               region: create(:region),
                                               language: create(:language))
       end
@@ -680,18 +673,15 @@ RSpec.describe Org, type: :model do
         expect(org.contact_email).to eql(original.contact_email)
         expect(org.contact_name).to eql(original.contact_name)
         expect(org.feedback_enabled).to eql(original.feedback_enabled)
-        expect(org.feedback_email_msg).to eql(original.feedback_email_msg)
-        expect(org.feedback_email_subject).to eql(original.feedback_email_subject)
+        expect(org.feedback_msg).to eql(original.feedback_msg)
       end
       it "does not merge the attributes it should not merge" do
         original = @to_be_merged.dup
         org = @org.merge!(to_be_merged: @to_be_merged)
         expect(org.abbreviation).not_to eql(original.abbreviation)
-        expect(org.is_other).not_to eql(original.is_other)
         expect(org.name).not_to eql(original.name)
         expect(org.organisation?).to eql(true)
         expect(org.funder?).to eql(false)
-        expect(org.sort_name).not_to eql(original.sort_name)
         expect(org.region).not_to eql(original.region)
         expect(org.language).not_to eql(original.language)
       end

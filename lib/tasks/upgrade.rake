@@ -1268,8 +1268,12 @@ namespace :upgrade do
   desc "explicitly set some column-defaults in the database"
   task column_defaults: :environment do
     Org.where(links:  nil).update_all(links: { "org": [] })
-    Org.where(feedback_email_subject: nil).update_all(feedback_email_subject: Org.feedback_confirmation_default_subject)
-    Org.where(feedback_email_msg: nil).update_all(feedback_email_msg: Org.feedback_confirmation_default_message)
+    if Org.respond_to?(:feedback_email_subject)
+      Org.where(feedback_email_subject: nil).update_all(feedback_email_subject: Org.feedback_confirmation_default_subject)
+      Org.where(feedback_email_msg: nil).update_all(feedback_email_msg: Org.feedback_confirmation_default_message)
+    else
+      Org.where(feedback_msg: nil).update_all(feedback_msg: Org.feedback_confirmation_default_message)
+    end
     Org.where(language_id: nil).update_all(language_id: Language.default&.id)
   end
 

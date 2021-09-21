@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_10_221831) do
+ActiveRecord::Schema.define(version: 2021_08_19_160319) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -33,7 +33,6 @@ ActiveRecord::Schema.define(version: 2021_08_10_221831) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "lock_version", default: 0
-    t.string "label_id"
     t.index ["plan_id"], name: "fk_rails_84a6005a3e"
     t.index ["plan_id"], name: "index_answers_on_plan_id"
     t.index ["question_id"], name: "fk_rails_3d5ed4418f"
@@ -207,7 +206,6 @@ ActiveRecord::Schema.define(version: 2021_08_10_221831) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_other", default: false, null: false
-    t.string "sort_name"
     t.integer "region_id"
     t.integer "language_id"
     t.string "logo_uid"
@@ -216,8 +214,7 @@ ActiveRecord::Schema.define(version: 2021_08_10_221831) do
     t.integer "org_type", default: 0, null: false
     t.text "links"
     t.boolean "feedback_enabled", default: false
-    t.string "feedback_email_subject"
-    t.text "feedback_email_msg"
+    t.text "feedback_msg"
     t.string "contact_name"
     t.boolean "managed", default: false, null: false
     t.index ["language_id"], name: "fk_rails_5640112cab"
