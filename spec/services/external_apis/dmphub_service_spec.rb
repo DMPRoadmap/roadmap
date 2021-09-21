@@ -9,14 +9,16 @@ RSpec.describe ExternalApis::DmphubService, type: :model do
   before(:each) do
     Rails.configuration.x.dmphub.active = true
     Rails.configuration.x.dmphub.api_base_url = "https://api.test.dmphub.org/"
+    Rails.configuration.x.madmp.enable_dmp_id_registration = true
     unless Language.where(default_language: true).any?
       # Org model requires a language so make sure the default is set
       create(:language, default_language: true)
     end
     @plan = create(:plan, :creator)
     create(:contributor, investigation: true, plan: @plan)
-    create_dmp_id(plan: @plan)
+    id = create_dmp_id(plan: @plan)
     @client = create(:api_client)
+
     @dmp_id = @plan.dmp_id.value_without_scheme_prefix
     @plan.reload
   end
