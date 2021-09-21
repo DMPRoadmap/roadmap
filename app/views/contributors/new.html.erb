@@ -17,7 +17,7 @@
     <div class="col-md-12">
       <%= form_for @contributor, url: plan_contributors_path do |f| %>
         <%= render partial: "contributors/form",
-                   locals: { form: f, plan: @plan, contributor: @contributor, orgs: @orgs, org_partial: @org_partial } %>
+                   locals: { form: f, plan: @plan, contributor: @contributor, orgs: @all_orgs, org_partial: @org_partial } %>
       <% end %>
     </div>
   </div>
