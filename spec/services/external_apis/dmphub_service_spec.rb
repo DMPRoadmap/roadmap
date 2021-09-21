@@ -16,7 +16,7 @@ RSpec.describe ExternalApis::DmphubService, type: :model do
     end
     @plan = create(:plan, :creator)
     create(:contributor, investigation: true, plan: @plan)
-    id = create_dmp_id(plan: @plan)
+    create_dmp_id(plan: @plan)
     @client = create(:api_client)
 
     @dmp_id = @plan.dmp_id.value_without_scheme_prefix
