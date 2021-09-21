@@ -126,6 +126,7 @@ class Answer < ActiveRecord::Base
   # empty hml tags and check.
   #
   # Returns Boolean
+  # SEE MODULE
   def is_blank?
     if text.present?
       return text.gsub(/<\/?p>/, "").gsub(/<br\s?\/?>/, "").chomp.blank?

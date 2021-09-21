@@ -35,6 +35,17 @@ module Dmpopidor
         end
       end
 
+      def is_blank?
+        if madmp_fragment.present?
+          return madmp_fragment.data.nil? || madmp_fragment.data.compact.empty?
+        end
+        if text.present?
+          return text.gsub(/<\/?p>/, "").gsub(/<br\s?\/?>/, "").chomp.blank?
+        end
+        # no text so blank
+        true
+      end
+
     end
 
   end

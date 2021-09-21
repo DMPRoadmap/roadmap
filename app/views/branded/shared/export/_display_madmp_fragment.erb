@@ -24,7 +24,7 @@
       %>
       <% unless values.empty? %>
         <% values.each_with_index do |val, idx| %>
-          <span class="fragment-property">
+          <span class="fragment-property fragment-list">
             <span class="property-label"><%= label if idx.eql?(0) %></span> 
             <span class="property-value"><%= val.to_s %></span> 
           </span>
@@ -38,13 +38,13 @@
     <% end %>
   <% when 'object' %>
     <% sub_fragment = dmp_fragments.find(value["dbid"]) %>
-    <% if prop["inputType"].eql?("pickOrCreate") %>
+    <% next if sub_fragment.data.nil? || sub_fragment.data.compact.empty? %>
+    <% if sub_fragment.classname.eql?("contributor")  || prop["registry_id"].present? %>
       <span class="fragment-property">
         <span class="property-label"><%= label %></span> 
         <span class="property-value"><%= sub_fragment.to_s %></span> 
       </span>
     <% else %>
-      <% next if sub_fragment.data.nil? || sub_fragment.data.compact.empty? %>
       <fieldset class="fragment-display">
         <legend><%= label %></legend>
         <%= render(partial: 'shared/export/display_madmp_fragment', locals: {
