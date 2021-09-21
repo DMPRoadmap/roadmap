@@ -67,7 +67,7 @@ const resizeEditors = (editors) => {
   behind the scenes) to the Tinymce iframe so that screen readers read the correct
   label when the tinymce iframe receives focus.
  */
-const attachLabelToIframe = (tinymceContext) => {
+const attachLabelToIframe = (tinymceContext, hiddenFieldSelector) => {
   const iframe = $(tinymceContext).siblings('.mce-container').find('iframe');
   const hiddenField = $(hiddenFieldSelector);
 
