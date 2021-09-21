@@ -171,7 +171,11 @@ class PlansController < ApplicationController
                   else
                     Rails.configuration.x.plans.default_visibility
                   end
-
+    # Get all of the available funders
+    @funders = Org.funder
+                  .includes(identifiers: :identifier_scheme)
+                  .joins(:templates)
+                  .where(templates: { published: true }).uniq.sort_by(&:name)
     # TODO: Seems strange to do this. Why are we just not using an `edit` route?
     @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
 
@@ -261,7 +265,9 @@ class PlansController < ApplicationController
 
       # TODO: For some reason the `fields_for` isn't adding the
       #       appropriate namespace, so org_id represents our funder
-      funder = org_from_params(params_in: attrs, allow_create: true)
+      funder_attrs = plan_params[:funder]
+      funder_attrs[:org_id] = plan_params[:funder][:id]
+      funder = org_from_params(params_in: funder_attrs, allow_create: true)
       @plan.funder_id = funder&.id
       @plan.grant = plan_params[:grant]
       attrs.delete(:grant)
