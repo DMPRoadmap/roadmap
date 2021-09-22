@@ -6,7 +6,7 @@
       <h2><%= _('Request expert feedback') %></h2>
       <p><%= _("Click below to give data management staff at #{plan.owner.org.name}, the Plan Owner's org, access to read and comment on your plan.") %></p>
       <div class="well well-sm">
-        <%= sanitize plan.owner.org.feedback_email_msg.to_s % { user_name: current_user.name(false), plan_name: plan.title, organisation_email: current_user.org.contact_email } %>
+        <%= sanitize plan.owner.org.feedback_msg.to_s % { user_name: current_user.name(false), plan_name: plan.title, organisation_email: current_user.org.contact_email } %>
       </div>
       <p><%= _('You can continue to edit and download the plan in the interim.') %></p>
       <div class="form-group col-xs-8">
