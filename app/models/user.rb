@@ -57,7 +57,6 @@ class User < ApplicationRecord
   include ConditionalUserMailer
   include DateRangeable
   include Identifiable
-  include SanitiseFieldsCallback
 
   extend UniqueRandom
 
@@ -164,7 +163,7 @@ class User < ApplicationRecord
   # =============
 
   #sanitise html tags from fields
-  before_save :sanitise_fields #{ |data| data.sanitise_fields(self.firstname)}
+  before_validation lambda{|data| data.sanitize_fields(:firstname, :surname)}
 
   after_update :clear_department_id, if: :saved_change_to_org_id?
 
@@ -459,11 +458,6 @@ class User < ApplicationRecord
   # = Private instance methods =
   # ============================
 
-  #sanitise fields
-  def sanitise_fields
-    self.firstname = ActionController::Base.helpers.sanitize(self.firstname)
-    self.surname = ActionController::Base.helpers.sanitize(self.surname)
-  end
 
   def delete_perms!
     perms.destroy_all
