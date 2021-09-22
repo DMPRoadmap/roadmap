@@ -93,7 +93,9 @@ class RelatedIdentifier < ApplicationRecord
 
   # Use the CitationService to fetch the citation from the identifier
   def fetch_citation
-    self.citation = ExternalApis::CitationService.fetch(id: self) if doi? && citation.nil?
+    id_type = detect_identifier_type
+    self.citation = ExternalApis::CitationService.fetch(id: self) if id_type == "doi" &&
+                                                                     citation.nil?
   end
 
   private
