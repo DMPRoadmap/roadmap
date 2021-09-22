@@ -46,7 +46,7 @@
 
 # TODO: Drop the funder_name and grant_number columns once the funder_id has
 #       been back filled and we're removing the is_other org stuff
-class Plan < ApplicationRecord
+class Plan < ApplicationRecord::Base
 
   include ConditionalUserMailer
   include ExportablePlan
@@ -217,7 +217,7 @@ class Plan < ApplicationRecord
   # =============
 
   #sanitise html tags from fields
-  before_save :sanitise_fields
+  before_validation lambda{|data| data.sanitize_fields(:title, :funder_name, :grant_number, :identifier, :description)}
 
   # =================
   # = Class methods =
@@ -575,16 +575,10 @@ class Plan < ApplicationRecord
     identifiers.select { |i| %w[doi ark].include?(i.identifier_format) }.first
   end
 
+  # ============================
+  # = Private instance methods =
+  # ============================
   private
-
-  #sanitise fields
-  def sanitise_fields
-    self.title = ActionController::Base.helpers.sanitize(self.title)
-    self.funder_name = ActionController::Base.helpers.sanitize(self.funder_name)
-    self.grant_number = ActionController::Base.helpers.sanitize(self.grant_number)
-    self.identifier = ActionController::Base.helpers.sanitize(self.identifier)
-    self.description = ActionController::Base.helpers.sanitize(self.identifier)
-  end
 
 
   # Validation to prevent end date from coming before the start date
