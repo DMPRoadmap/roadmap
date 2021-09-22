@@ -5,7 +5,7 @@
 %>
 <hr />
 <h1><%= @plan.title %></h1>
-<p><em><%= _("A Data Management Plan created using ") + Rails.configuration.branding[:application][:name] %></em></p>
+<em><%= _("A Data Management Plan created using ") + Rails.configuration.branding[:application][:name] %></em>
 <br/>
 <div class="cover-page">
   <h2><%= d_("dmpopidor", "Plan Details") %></h2>
@@ -14,7 +14,8 @@
             fragment: plan_fragment.meta,
             schema: plan_fragment.meta.madmp_schema,
             classname: plan_fragment.meta.classname,
-            locale: locale
+            locale: locale,
+            table_header: nil
     } ) %>
   </div>
 
@@ -24,7 +25,8 @@
             fragment: plan_fragment.project,
             schema: plan_fragment.project.madmp_schema,
             classname: plan_fragment.meta.classname,
-            locale: locale
+            locale: locale,
+            table_header: nil
     } ) %>
   </div>
 
@@ -40,10 +42,10 @@
         %> )</li>
       <% end %>
     </ol>
-    <br>
+    <br/>
   <% end %>
-  <p><b><%= _("Contributors") %></b></p> <br>
-  <table>
+  <p><b><%= _("Contributors") %></b></p> <br/>
+  <table class="real-table">
     <thead><tr><th><%= _("Contributors") %></th><th><%= _("Roles") %></th></tr></thead>
     <tbody>
     <% contributors.each do |contributor| %>

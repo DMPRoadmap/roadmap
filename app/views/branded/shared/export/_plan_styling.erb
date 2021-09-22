@@ -50,12 +50,23 @@
     page-break-inside: avoid !important; 
   }
   table { 
-    border-collapse: collapse; 
+    border-spacing: 5px;
+    width: 100%;
   }
   th, td { 
-    border: 1px solid black !important; 
-    padding: 2px;
+    padding: 0 0 5px 0;
   }
+
+  table.real-table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+  }
+  table.real-table th, 
+  table.real-table td {
+    border: 1px solid black !important; 
+    padding: 5px 0;
+  }
+
   p { 
     margin: 0.25em 0;
   }
@@ -92,10 +103,6 @@
 
   .fragment-display {
     width: 100%;
-    display: -webkit-box; /* wkhtmltopdf uses this one */
-    display: -webkit-flex;
-    display: flex;
-    flex-direction: column;
     padding: 5px 20px;
     border: none;
     border-left: 2px solid #1c5170;
@@ -104,9 +111,10 @@
     font-weight: bold;
     color: #000;
   }
-  .fragment-display legend{
+  .fragment-display thead{
     font-weight: bold;
     color: #1c5170;
+    font-size: 14px;
   }
 
   .fragment-property.fragment-list {
@@ -119,24 +127,17 @@
   }
 
   .fragment-property {
-    display: -webkit-box; /* wkhtmltopdf uses this one */
-    display: -webkit-flex;
-    display: flex;
     padding: 5px 0px;
   }
 
   .property-label {
-    -webkit-box-flex: 1;
-    -webkit-flex: 1;
-    flex: 1;
     font-weight: bold;
     color: #1c5170;
+    width: 25%;
   }
 
   .property-value {
-    -webkit-box-flex: 3;
-    -webkit-flex: 3;
-    flex: 3;
+    width: 75%;
   }
 
   .sub-fragment {

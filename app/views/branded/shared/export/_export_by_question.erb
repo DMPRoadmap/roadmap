@@ -23,9 +23,9 @@
           <% else %>
             <div class="bold"><h3><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></h3></div>
           <% end %>
-          <br>
+          <br/>
         </p>
-        <br>
+        <br/>
         <% end %>
         <% question_displayed = true %>
 
@@ -55,23 +55,24 @@
             </ul>
             <% end %>
             <p><%= sanitize ah['text'] %></p>
-            <br>
+            <br/>
           <% elsif question[:format].structured? && fragment.present? %>
             <%= render partial: 'shared/export/display_madmp_fragment', 
                         locals: {
                             fragment: fragment,
                             schema: fragment.madmp_schema,
                             classname: fragment.classname,
-                            locale: @plan.template.locale
+                            locale: @plan.template.locale,
+                            table_header: nil
                         } %>
           <%# case for displaying comments OR text %>
           <% elsif !blank %>
             <%= sanitize answer.text %>
-            <br>
+            <br/>
           <% else %>
-            <br>
+            <br/>
             <p><%= _('Question not answered.') -%></p>
-            <br><br>
+            <br/><br/>
             <br />
           <% end %>
           <br />

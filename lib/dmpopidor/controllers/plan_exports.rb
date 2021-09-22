@@ -62,16 +62,18 @@ module Dmpopidor
 
       # CHANGES: Changed footer
       def show_pdf
+        license = @plan.json_fragment.meta.license if @plan.template.structured?
+        license_details = license.present? && !license.data.compact.empty? ? 
+                          "#{license.data['licenseName']} (#{license.data['licenseUrl']})" : 
+                          nil
         render pdf: file_name,
                margin: @formatting[:margin],
-               footer: {
-                 center: d_("dmpopidor", "%{plan_title} - Last modified %{date}") % {
-                   plan_title: @plan.title,
-                   date: l(@plan.updated_at.to_date, format: :readable)
-                 },
+               footer:
+               {
+                 center: license_details,
                  font_size: 8,
-                 spacing:   (Integer(@formatting[:margin][:bottom]) / 2) - 4,
-                 right:     "[page] of [topage]",
+                 spacing: (Integer(@formatting[:margin][:bottom]) / 2) - 4,
+                 right: "[page] of [topage]",
                  encoding: "utf8"
                }
       end
