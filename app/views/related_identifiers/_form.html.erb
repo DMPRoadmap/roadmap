@@ -7,9 +7,22 @@
 %>
 
 <div class="row related-work-row <%= related_identifier.new_record? ? "hidden" : "" %>">
+  <%= hidden_field_tag :id, related_identifier.id,
+                       name: "#{name_base}[id]]",
+                       id: "#{id_base}_id" %>
+
   <% if related_identifier.citation.present? %>
     <div class="col-md-12 citation">
       <span class="col-md-10">
+
+        <%= hidden_field_tag :work_type, related_identifier.work_type,
+                             name: "#{name_base}[work_type]]",
+                             id: "#{id_base}_work_type" %>
+
+        <%= hidden_field_tag :value, related_identifier.value,
+                             name: "#{name_base}[value]]",
+                             id: "#{id_base}_value" %>
+
         <%= sanitize(related_identifier.citation) %>
       </span>
       <span class="col-md-2">
@@ -31,10 +44,6 @@
     </div>
     <div class="col-md-12">
       <span class="col-md-4">
-        <%= hidden_field_tag :id, related_identifier.id,
-                            name: "#{name_base}[id]]",
-                            id: "#{id_base}_id" %>
-
         <% opts = options_for_select(presenter.selectable_related_identifiers,
                                     related_identifier.work_type) %>
         <%= select_tag :work_type, opts,
