@@ -27,7 +27,6 @@ FactoryBot.define do
     org
     published { true }
     optional_subset { false }
-    is_default { false }
     trait :unpublished do
       published { false }
     end

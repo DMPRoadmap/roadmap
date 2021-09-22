@@ -8,8 +8,7 @@ module Api
 
       respond_to :json
 
-      # If the Resource Owner (aka User) is in the Doorkeeper AccessToken then it is an authorization_code
-      # token and we need to ensure that the ApiClient is authorized for the relevant Scope
+      # Ensure that the Client is able to perform the necessary operation
       before_action -> { doorkeeper_authorize!(:edit_dmps) }, only: %i[create]
 
       # POST /api/v2/related_identifiers

@@ -68,8 +68,6 @@ class GuidanceGroup < ApplicationRecord
 
   scope :published, -> { where(published: true) }
 
-  scope :default, -> { where(is_default: true) }
-
   # =================
   # = Class methods =
   # =================
@@ -88,32 +86,14 @@ class GuidanceGroup < ApplicationRecord
     viewable = false
     # groups are viewable if they are owned by any of the user's organisations
     viewable = true if guidance_group.org == user.org
-    # groups are viewable if this is a default GuidanceGroup
-    viewable = true if guidance_group.is_default?
+    # groups are viewable if they are owned by the default org
+    Org.default_orgs.each do |default_org|
+      viewable = true if guidance_group.org.id == default_org.id
+    end
     # groups are viewable if they are owned by a funder
     viewable = true if guidance_group.org.funder?
 
     viewable
-  end
-
-  # Returns all of the "important" guidance groups that the user can select from on the
-  # Edit plan page. The "important" guidance groups appear on the page without requiring
-  # the user to click the link to open the modal containg all available guidance groups
-  #
-  # A guidance group is considered primary/important if:
-  # - It is marked as a default guidance group
-  # - It belongs to the user's Org
-  # - It belongs to the plan's Org (aka the Research Org associated with the Plan)
-  # - It has already been selected previously
-  #
-  # This will only return 'published' guidance groups!
-  def self.primary_selectable(user:, plan:)
-    includes(:org).joins(:org)
-                  .where(is_default: true)
-                  .or(includes(:org).joins(:org).where(org_id: user&.org&.id))
-                  .or(includes(:org).joins(:org).where(org_id: plan&.org&.id))
-                  .or(includes(:org).joins(:org).where(id: plan&.guidance_groups&.ids))
-                  .published
   end
 
   # A list of all guidance groups which a specified user can view

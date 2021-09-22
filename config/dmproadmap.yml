@@ -244,7 +244,7 @@ default: &default
   # Your organisation name, used in various places throught the application
   organisation_name: "University of California Curation Center (UC3)"
   # Your orgsanisation abbreviation
-  organisation_abbreviation: "UC3"
+  organisation_abbreviation: "DMPTool"
   # Your organisation's homepage, used in some of the public facing pages
   organisation_url: "https://www.cdlib.org/"
   # Your organisation's legal (official) name - used in the copyright portion of the footer
@@ -367,6 +367,9 @@ default: &default
   # Link to external guidance about selecting one of the preferred licenses. A default
   # URL will be displayed if none is provided here. See app/views/research_outputs/licenses/_form
   preferred_licenses_guidance_url: "https://creativecommons.org/about/cclicenses/"
+
+  # Whether or not to allow users to manually add related_identifiers to a plan
+  enable_related_identifiers: true
 
   # Allow DMP ID minting
   allow_doi_minting: true

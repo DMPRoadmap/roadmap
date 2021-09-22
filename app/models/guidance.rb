@@ -76,7 +76,7 @@ class Guidance < ApplicationRecord
 
   # Returns whether or not a given user can view a given guidance
   # we define guidances viewable to a user by those owned by a guidance group:
-  #   is part of the default GuidanceGroup
+  #   owned by the default orgs
   #   owned by a funder organisation
   #   owned by an organisation, of which the user is a member
   #
@@ -93,7 +93,7 @@ class Guidance < ApplicationRecord
         # guidances are viewable if they are owned by the user's org
         viewable = true if guidance.guidance_group.org == user.org
         # guidance groups are viewable if they are owned by the Default Orgs
-        viewable = true if guidance.guidance_group.is_default?
+        viewable = true if Org.default_orgs.include?(guidance.guidance_group.org)
 
         # guidance groups are viewable if they are owned by a funder
         viewable = true if Org.funder.include?(guidance.guidance_group.org)
@@ -113,7 +113,8 @@ class Guidance < ApplicationRecord
   #
   # Returns Array
   def self.all_viewable(user)
-    default_groups = GuidanceGroup.includes(:guidances).where(is_default: true)
+    default_groups = Org.includes(guidance_groups: :guidances)
+                        .default_orgs.collect(&:guidance_groups)
     # find all groups owned by a Funder organisation
     funder_groups = Org.includes(guidance_groups: :guidances)
                        .funder.collect(&:guidance_groups)

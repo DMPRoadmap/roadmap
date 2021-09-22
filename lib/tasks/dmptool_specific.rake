@@ -41,12 +41,15 @@ namespace :dmptool_specific do
     end
   end
 
-  desc "Set the DMPTool guidance group as the default"
-  task set_default_guidance_group: :environment do
-    org = Org.where("LOWER(name) LIKE ?", "dmptool%").first
-    p "No DMPTool org found!" unless org.present?
-    p "Setting '#{org.name}' GuidanceGroup as the default" if org.present?
-    GuidanceGroup.where(org_id: org.id).update(is_default: true) if org.present?
+  desc "Adds the UCNRS RAMS IdentifierScheme for Plans"
+  task init_rams: :environment do
+    rams = IdentifierScheme.find_or_initialize_by(name: "rams")
+    rams.for_plans = true
+    rams.for_identification = true
+    rams.description = "UCNRS RAMS System"
+    rams.identifier_prefix = "https://rams.ucnrs.org/manager/reserves/100501/applications/"
+    rams.active = true
+    rams.save
   end
 
 end

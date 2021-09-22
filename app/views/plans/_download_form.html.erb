@@ -47,6 +47,14 @@
           <% end %>
         </div>
       <% end %>
+      <% if @plan.related_identifiers.any? %>
+        <div class="checkbox">
+          <%= label_tag 'export[related_identifiers]' do %>
+            <%= check_box_tag 'export[related_identifiers]', true, false %>
+            <%= _('related works') %>
+          <% end %>
+        </div>
+      <% end %>
       <% if @plan.template.customization_of.present? %>
         <div class="checkbox">
           <%= label_tag 'export[custom_sections]' do %>

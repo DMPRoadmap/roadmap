@@ -73,10 +73,7 @@ class PlansController < ApplicationController
 
       if @plan.save
         # pre-select org's guidance and the default org's guidance
-        ids = GuidanceGroup.where(is_default: true).pluck(:org_id)
-        ids << @plan.org_id
-        ids.flatten.uniq
-
+        ids = (Org.default_orgs.pluck(:id) << @plan.org_id).flatten.uniq
         ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
 
         @plan.guidance_groups << ggs unless ggs.empty?
@@ -150,8 +147,34 @@ class PlansController < ApplicationController
     # TODO: Seems strange to do this. Why are we just not using an `edit` route?
     @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
 
-    # Get the selected and possible guidance options for the plan
-    fetch_guidance_groups(plan_in: @plan)
+    # Get all Guidance Groups applicable for the plan and group them by org
+    @all_guidance_groups = @plan.guidance_group_options
+    @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
+    @selected_guidance_groups = @plan.guidance_groups
+
+    # Important ones come first on the page - we grab the user's org's GGs and
+    # "Organisation" org type GGs
+    @important_ggs = []
+
+    if @all_ggs_grouped_by_org.include?(current_user.org)
+      @important_ggs << [current_user.org, @all_ggs_grouped_by_org[current_user.org]]
+    end
+
+    @all_ggs_grouped_by_org.each do |org, ggs|
+      @important_ggs << [org, ggs] if Org.default_orgs.include?(org)
+
+      # If this is one of the already selected guidance groups its important!
+      unless (ggs & @selected_guidance_groups).empty?
+        @important_ggs << [org, ggs] unless @important_ggs.include?([org, ggs])
+      end
+    end
+
+    # Sort the rest by org name for the accordion
+    @important_ggs = @important_ggs.sort_by { |org, _gg| (org.nil? ? "" : org.name) }
+    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by do |org, _gg|
+      (org.nil? ? "" : org.name)
+    end
+    @selected_guidance_groups = @selected_guidance_groups.ids
 
     @based_on = if @plan.template.customization_of.nil?
                   @plan.template
@@ -208,10 +231,12 @@ class PlansController < ApplicationController
                              params[:guidance_group_ids].map(&:to_i).uniq
                            end
       @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
+      @research_domains = ResearchDomain.all.order(:label)
 
       @plan.funder = process_org!(user: current_user, namespace: "funder")
       @plan.grant = plan_params[:grant]
       attrs.delete(:grant)
+      attrs = process_related_identifiers(attrs: attrs)
 
       if @plan.update(attrs) # _attributes(attrs)
         format.html do
@@ -423,7 +448,8 @@ class PlansController < ApplicationController
                   :research_domain_id, :funding_status,
                   grant: %i[name value],
                   org: %i[id org_id org_name org_sources org_crosswalk],
-                  funder: %i[id org_id org_name org_sources org_crosswalk])
+                  funder: %i[id org_id org_name org_sources org_crosswalk],
+                  related_identifier_attributes: %i[id work_type value])
   end
 
   # different versions of the same template have the same family_id
@@ -480,22 +506,30 @@ class PlansController < ApplicationController
            })
   end
 
-  # Fetch all the available Guidance Groups for the specified Plan
-  def fetch_guidance_groups(plan_in: plan)
-    # Get all Guidance Groups applicable for the plan and group them by org
-    @all_guidance_groups = @plan.guidance_group_options
-    @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
-    @selected_guidance_groups = @plan.guidance_groups.pluck(:id)
+  # Convert the incoming related_identifiers to RelatedIdentifier objects
+  def process_related_identifiers(attrs:)
+    return attrs unless attrs.present? && attrs[:related_identifier_attributes].present?
 
-    # Important ones come first on the page - we grab the user's org's GGs and
-    # "Organisation" org type GGs
-    @important_ggs = GuidanceGroup.primary_selectable(user: current_user, plan: @plan)
-    @important_ggs = @important_ggs.sort.group_by(&:org)
+    related_identifiers = []
+    attrs[:related_identifier_attributes].each do |id, parameters|
+      # The form contains a hidden placeholder row used by the JS to add a new row
+      # Skip this hidden row or if the value/url is blank
+      next if id == "0" || parameters[:value].nil? || parameters[:value].blank?
 
-    # Sort the rest by org name for the accordion
-    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by do |org, _gg|
-      (org.nil? ? "" : org.name)
+      # Try to find the RelatedIdentifier by the id otherwise its a new one
+      related = RelatedIdentifier.find_by(id: id, identifiable: @plan)
+      related = RelatedIdentifier.new(identifiable: @plan) unless related.present?
+
+      related.work_type = parameters[:work_type]
+      related.value = parameters[:value]
+      related.fetch_citation
+
+      related_identifiers << related
     end
+    @plan.related_identifiers = related_identifiers
+
+    attrs.delete(:related_identifier_attributes)
+    attrs
   end
 
 end

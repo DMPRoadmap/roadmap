@@ -191,11 +191,6 @@ class Org < ApplicationRecord
   # The default Org is the one whose guidance is auto-attached to
   # plans when a plan is created
   def self.default_orgs
-    defaults = GuidanceGroup.where(is_default: true).pluck(:org_id)
-    return where(id: defaults) if defaults.any?
-
-    # Default to the old approach of linking the default Org to the one defined
-    # in the config
     where(abbreviation: Rails.configuration.x.organisation.abbreviation)
   end
 

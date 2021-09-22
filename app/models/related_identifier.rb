@@ -23,6 +23,10 @@
 #
 class RelatedIdentifier < ApplicationRecord
 
+  URL_REGEX = %r{^https?:\/\.}.freeze
+  DOI_REGEX = %r{(doi:)?10\.[0-9]+\/[a-zA-Z0-9\.\-\/]+}.freeze
+  ARK_REGEX = %r{ark:[a-zA-Z0-9]+\/[a-zA-Z0-9]+}.freeze
+
   # ================
   # = Associations =
   # ================
@@ -42,9 +46,15 @@ class RelatedIdentifier < ApplicationRecord
   # =========
   # = Enums =
   # =========
-  enum identifier_type: %i[ark arxiv bibcode doi ean13 eissn handle igsn isbn issn istc
-                           lissn lsid pmid purl upc url urn w3id]
 
+  # Broad categories to identify the type of work the related identifier represents
+  enum work_type: %i[article dataset preprint software supplemental_information]
+
+  # The type of identifier based on the DataCite metadata schema
+  enum identifier_type: %i[ark arxiv bibcode doi ean13 eissn handle igsn isbn issn istc
+                           lissn lsid pmid purl upc url urn w3id other]
+
+  # The relationship type between the related item and the Plan
   # Note that the 'references' value is changed to 'does_reference' in this list
   # because 'references' conflicts with an ActiveRecord method
   enum relation_type: %i[is_cited_by cites
@@ -63,6 +73,12 @@ class RelatedIdentifier < ApplicationRecord
                          is_required_by requires
                          is_obsoleted_by obsoletes]
 
+  # =============
+  # = CALLBACKS =
+  # =============
+
+  before_validation :ensure_defaults
+
   # Returns the value sans the identifier scheme's prefix.
   # For example:
   #   value   'https://orcid.org/0000-0000-0000-0001'
@@ -74,4 +90,29 @@ class RelatedIdentifier < ApplicationRecord
     base = identifier_scheme.identifier_prefix
     value.gsub(base, "").sub(%r{^/}, "")
   end
+
+  # Use the CitationService to fetch the citation from the identifier
+  def fetch_citation
+    self.citation = ExternalApis::CitationService.fetch(id: self) if doi? && citation.nil?
+  end
+
+  private
+
+  def ensure_defaults
+    self.identifier_type = detect_identifier_type
+    self.relation_type = detect_relation_type
+  end
+
+  def detect_identifier_type
+    return "doi" unless (value =~ DOI_REGEX).nil?
+    return "ark" unless (value =~ ARK_REGEX).nil?
+    return "url" unless (value =~ URL_REGEX).nil?
+
+    "other"
+  end
+
+  def detect_relation_type
+    relation_type.present? ? relation_type : "is_referenced_by"
+  end
+
 end

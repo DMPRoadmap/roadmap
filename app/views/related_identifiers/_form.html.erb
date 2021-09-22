@@ -1,0 +1,64 @@
+<%# locals: presenter, related_identifier %>
+
+<%
+  id = related_identifier.id.nil? ? 0 : related_identifier.id
+  name_base = "plan[related_identifier_attributes[#{id}]"
+  id_base = "plan_related_identifier_attributes_#{id}"
+%>
+
+<div class="row related-work-row <%= related_identifier.new_record? ? "hidden" : "" %>">
+  <% if related_identifier.citation.present? %>
+    <div class="col-md-12 citation">
+      <span class="col-md-10">
+        <%= sanitize(related_identifier.citation) %>
+      </span>
+      <span class="col-md-2">
+        <a href="#" class="delete" aria-label="<%= _('Remove this related work') %>">
+          <i class="fas fa-times-circle fa-reverse remove-related-work" aria-hidden="true"></i>
+        </a>
+      </span>
+    </div>
+
+  <% else %>
+    <div class="col-md-12">
+      <span class="col-md-4">
+        <%= label_tag("#{id_base}_work_type", _("Work Type"), class: "control-label") %>
+      </span>
+      <span class="col-md-6">
+        <%= label_tag("#{id_base}_value", _("Identifier or external URL"),
+                      class: "control-label") %>
+      </span>
+    </div>
+    <div class="col-md-12">
+      <span class="col-md-4">
+        <%= hidden_field_tag :id, related_identifier.id,
+                            name: "#{name_base}[id]]",
+                            id: "#{id_base}_id" %>
+
+        <% opts = options_for_select(presenter.selectable_related_identifiers,
+                                    related_identifier.work_type) %>
+        <%= select_tag :work_type, opts,
+                      {
+                        include_blank: _("- Please select one -"),
+                        selected: related_identifier.work_type,
+                        class: "form-control",
+                        name: "#{name_base}[work_type]]",
+                        id: "#{id_base}_work_type"
+                      } %>
+      </span>
+      <span class="col-md-6">
+        <%= text_field_tag :value, related_identifier.value,
+                          class: "form-control",
+                          name: "#{name_base}[value]]",
+                          id: "#{id_base}_value" %>
+      </span>
+      <span class="col-md-2">
+        <a href="#" class="delete" aria-label="<%= _('Remove this related work') %>">
+          <i class="fas fa-times-circle fa-reverse remove-related-work" aria-hidden="true"></i>
+        </a>
+      </span>
+    </div>
+  <% end %>
+
+
+</div>

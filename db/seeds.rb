@@ -53,7 +53,6 @@ identifier_schemes = [
     active: true,
     for_orgs: true,
     identifier_prefix: "https://ror.org/",
-    external_service: "ExternalApis::RorService"
   },
   {
     name: "openaire",
@@ -61,7 +60,6 @@ identifier_schemes = [
     active: true,
     identifier_prefix: "",
     for_research_outputs: true,
-    external_service: "ExternalApis::OpenAireService"
   },
   {
     name: "rethreedata",
@@ -69,7 +67,6 @@ identifier_schemes = [
     active: true,
     identifier_prefix: "https://www.re3data.org/api/v1/repository/",
     for_research_outputs: true,
-    external_service: "ExternalApis::Re3dataService"
   }
 ]
 identifier_schemes.each { |is| IdentifierScheme.create!(is) }

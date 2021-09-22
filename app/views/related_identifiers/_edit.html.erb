@@ -1,0 +1,27 @@
+<%# locals: plan, form %>
+
+<% presenter = RelatedIdentifierPresenter.new(plan: plan) %>
+
+<hr>
+<h2><%= _("Related works") %></h2>
+
+<div class="form-group related-works">
+  <% if plan.related_identifiers.any? %>
+    <% plan.related_identifiers
+           .order(citation: :desc, work_type: :asc)
+           .each do |related_identifier| %>
+      <%= render partial: "related_identifiers/form",
+                 locals: { related_identifier: related_identifier, presenter: presenter } %>
+    <% end %>
+  <% end %>
+
+  <%= render partial: "related_identifiers/form",
+              locals: { related_identifier: RelatedIdentifier.new(identifiable: plan),
+                        presenter: presenter } %>
+</div>
+
+<div class="form-group row add-related-work">
+  <div class="col-md-4">
+    <%= link_to _("+ Add a related work"), "#" %>
+  </div>
+</div>
