@@ -161,7 +161,7 @@ class User < ApplicationRecord
   # =============
 
   #sanitise html tags from fields
-  before_validation lambda { |data| data.sanitize_fields(:firstname, :surname) }
+  before_validation ->(data) { data.sanitize_fields(:firstname, :surname) }
 
   after_update :clear_department_id, if: :saved_change_to_org_id?
 
