@@ -37,7 +37,6 @@ RUN apt-get -qqy update \
     xfonts-75dpi \
     yarn \
     python \
-    wkhtmltopdf \
     ca-certificates -qqy \
     && rm -rf /var/lib/apt/lists/*
 
@@ -62,6 +61,9 @@ RUN echo $RUBY_VERSION > .ruby-version \
     # && bundle install --without mysql puma thin
     && bundle install --without mysql
 RUN yarn
+
+RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.focal_amd64.deb \
+    && apt install ./wkhtmltox_0.12.6-1.focal_amd64.deb
 
 # Run the app using the rails.sh script
 COPY ./rails.sh /usr/local/bin/
