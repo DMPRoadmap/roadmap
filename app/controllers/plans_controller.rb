@@ -277,8 +277,6 @@ class PlansController < ApplicationController
       attrs = remove_org_selection_params(params_in: attrs)
       attrs = process_related_identifiers(attrs: attrs)
 
-# pp attrs.inspect
-
       if @plan.update(attrs) # _attributes(attrs)
         format.html do
           redirect_to plan_path(@plan),

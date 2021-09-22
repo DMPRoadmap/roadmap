@@ -8,11 +8,11 @@
 
 <div class="row related-work-row <%= related_identifier.new_record? ? "hidden" : "" %>">
   <% if related_identifier.citation.present? %>
-    <div class="col-md-12">
+    <div class="col-md-12 citation">
       <span class="col-md-10">
         <%= sanitize(related_identifier.citation) %>
       </span>
-      <span class="col-md-2 citation">
+      <span class="col-md-2">
         <a href="#" class="delete" aria-label="<%= _('Remove this related work') %>">
           <i class="fas fa-times-circle fa-reverse remove-related-work" aria-hidden="true"></i>
         </a>

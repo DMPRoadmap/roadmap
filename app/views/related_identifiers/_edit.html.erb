@@ -7,7 +7,9 @@
 
 <div class="form-group related-works">
   <% if plan.related_identifiers.any? %>
-    <% plan.related_identifiers.each do |related_identifier| %>
+    <% plan.related_identifiers
+           .order(citation: :desc, work_type: :asc)
+           .each do |related_identifier| %>
       <%= render partial: "related_identifiers/form",
                  locals: { related_identifier: related_identifier, presenter: presenter } %>
     <% end %>

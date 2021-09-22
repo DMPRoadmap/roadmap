@@ -20,9 +20,14 @@ module ExternalApis
       # Create a new DOI
       # rubocop:disable Metrics/CyclomaticComplexity
       def fetch(id:)
-        return nil unless active && id.present? && id.is_a?(Identifier)
+        return nil unless active && id.present? && id.is_a?(RelatedIdentifier)
+
+p "URI: #{id_to_uri(id: id.value)}"
 
         resp = http_get(uri: id_to_uri(id: id.value)) # , debug: true)
+
+p resp.code
+pp resp.body
 
         unless resp.present? && resp.code == 200
           handle_http_failure(method: 'CitationService fetch', http_response: resp)

@@ -7,6 +7,7 @@ class RelatedIdentifierPresenter
 
   def initialize(plan:)
     @related_identifiers = plan.related_identifiers
+    @related_identifiers = @related_identifiers.order(:work_type, :created_at)
   end
 
   # Returns all of the work types for the select box
@@ -19,7 +20,7 @@ class RelatedIdentifierPresenter
     return "" unless related_identifiers.any?
 
     related_identifiers.map do |related|
-      return "" unless related.is_a?(RelatedIdentifier)
+      next unless related.is_a?(RelatedIdentifier)
       return related.citation if related.citation.present?
 
       "#{work_type} - <a href=\"#{url}\" target=\"_blank\">%{url}</a>" % {
