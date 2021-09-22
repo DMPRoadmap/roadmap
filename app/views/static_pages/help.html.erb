@@ -8,7 +8,7 @@
 <div class="row">
   <div class="col-md-12">
     <div>
-        <p><%= _("When you log in to DMPRoadmap you will be directed to the 'My Dashboard' page. From here you can edit, share, download, copy or remove any of your plans. You will also see plans that have been shared with you by others.") %></p>
+        <p><%= _("When you log in to %{application_name} you will be directed to the 'My Dashboard' page. From here you can edit, share, download, copy or remove any of your plans. You will also see plans that have been shared with you by others.") % { application_name: ApplicationService.application_name } %></p>
 
           <h2 class="fontsize-h3"><%= _("Create a plan") %></h2>
 
@@ -47,7 +47,7 @@
 
 
           <h2 class="fontsize-h3"><%= _("Download plans") %></h2>
-          <p><%= _("From here you can download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application. Choose what format you would like to view/download your plan in and click to download. You can also adjust the formatting (font type, size and margins) for PDF files, which may be helpful if working to page limits.</p>") %>
+          <p><%= _("From here you can download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application. Choose what format you would like to view/download your plan in and click to download. You can also adjust the formatting (font type, size and margins) for PDF files, which may be helpful if working to page limits.") %></p>
     </div>
   </div>
 </div>
