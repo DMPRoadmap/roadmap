@@ -67,10 +67,13 @@ const resizeEditors = (editors) => {
   behind the scenes) to the Tinymce iframe so that screen readers read the correct
   label when the tinymce iframe receives focus.
  */
-const attachLabelToIframe = (tinymceContext) => {
+const attachLabelToIframe = (tinymceContext, hiddenFieldSelector) => {
   const iframe = $(tinymceContext).siblings('.mce-container').find('iframe');
-  if (isObject(iframe)) {
-    const lbl = iframe.closest('form').find('label');
+  const hiddenField = $(hiddenFieldSelector);
+
+  if (isObject(iframe) && isObject(hiddenField)) {
+    const id = hiddenField.attr('id');
+    const lbl = iframe.closest('form').find(`label[for="${id}"]`);
     if (isObject(lbl)) {
       // Connect the label to the iframe
       lbl.attr('for', iframe.attr('id'));
@@ -93,7 +96,7 @@ export const Tinymce = {
 
     // Connect the label to the Tinymce iframe
     $(options.selector).each((idx, el) => {
-      attachLabelToIframe(el);
+      attachLabelToIframe(el, options.selector);
     });
   },
   /*
