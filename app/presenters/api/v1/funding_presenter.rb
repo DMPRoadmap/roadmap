@@ -11,9 +11,16 @@ module Api
         # If the plan has a grant number then it has been awarded/granted
         # otherwise it is 'planned'
         def status(plan:)
-          return "planned" unless plan.present? && plan.grant_number.present?
+          return "planned" unless plan.present?
 
-          "granted"
+          case plan.funding_status
+          when "funded"
+            "granted"
+          when "denied"
+            "rejected"
+          else
+            "planned"
+          end
         end
 
       end
