@@ -4,7 +4,7 @@
       <div class="display-readonly-textarea-content">
         <%= sanitize phase.description %>
         <%= _('This plan is based on the "%{template_title}" template provided by %{org_name}.') %{ :template_title => plan.template.title, :org_name => plan.template.org.name } %>
-        <span class="bold"><%= _('(ver: %{template_version}, pub: %{published_date})') \
+        <span class="bold"><%= d_('dmpopidor', '(version: %{template_version}, published: %{published_date})') \
                       %{ :template_version => plan.template.version, \
                         :published_date =>  l(plan.template.updated_at.to_date, format: :readable) } %>
             </span>

@@ -594,6 +594,9 @@ msgstr ""
 msgid "Lifecycle stage"
 msgstr ""
 
+msgid "(version: %{template_version}, published: %{published_date})"
+msgstr ""
+
 ################
 ### REGISTRIES
 ################

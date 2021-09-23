@@ -592,6 +592,9 @@ msgstr "Montant"
 msgid "Lifecycle stage"
 msgstr "Etape du cycle de vie"
 
+msgid "(version: %{template_version}, published: %{published_date})"
+msgstr "(version: %{template_version}, publiée: %{published_date})"
+
 ################
 ### REGISTRIES
 ################
