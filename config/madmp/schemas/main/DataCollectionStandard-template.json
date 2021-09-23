@@ -118,8 +118,8 @@
                 ]
             },
             "description": "Coûts éventuels liés à la collecte des données",
-            "label@fr_FR": "Coûts d'acquisition",
-            "label@en_GB": "Acquisition costs"
+            "label@fr_FR": "Coûts",
+            "label@en_GB": "Costs"
         }
     },
     "required": [

@@ -110,7 +110,7 @@
             },
             "description": "Coût total des données stockées dans les différents centres gérés par le Genci",
             "label@fr_FR": "Coût total de stockage (calcul automatique)",
-            "label@en_GB": "Total cost of storage (Automatic calculation)"
+            "label@en_GB": "Total cost of storage (automatic calculation)"
         },
         "contributor": {
             "type": "array",

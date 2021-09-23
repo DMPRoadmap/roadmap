@@ -97,8 +97,8 @@
                 ]
             },
             "description": "Coûts éventuels liés aux traitements des données",
-            "label@fr_FR": "Coûts liés au traitement des données",
-            "label@en_GB": "Data treatment associated costs"
+            "label@fr_FR": "Coûts",
+            "label@en_GB": "Costs"
         }
     },
     "required": [

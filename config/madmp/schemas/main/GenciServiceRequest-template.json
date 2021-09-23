@@ -61,8 +61,8 @@
         "amount": {
             "type": "number",
             "description": "Coût du service",
-            "label@fr_FR": "Coût du service",
-            "label@en_GB": "Cost of the service"
+            "label@fr_FR": "Coût du service (calcul automatique)",
+            "label@en_GB": "Cost of the service (automatic calculation)"
         },
         "currency": {
             "type": "string",

@@ -113,8 +113,8 @@
                 ]
             },
             "description": "Coûts éventuels liés au stockage des données",
-            "label@fr_FR": "Coûts liés au stockage et à la sauvegarde",
-            "label@en_GB": "Storage and backup costs"
+            "label@fr_FR": "Coûts",
+            "label@en_GB": "Costs"
         }
     },
     "required": [

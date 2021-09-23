@@ -31,29 +31,8 @@
                 ]
             },
             "description": "Elément de description des coûts",
-            "label@fr_FR": "Liste des coûts",
-            "label@en_GB": "List of costs"
-        },
-        "contributor": {
-            "type": "array",
-            "table_header@fr_FR": "Nom (rôle)",
-            "table_header@en_GB": "Name (role)",
-            "items": {
-                "type": "object",
-                "class": "Contributor",
-                "properties": {
-                    "dbid": {
-                        "type": "number"
-                    }
-                },
-                "template_name": "ContributorStandard",
-                "required": [
-                    "dbid"
-                ]
-            },
-            "description": "Contributeurs ayant un rôle et des responsabilités dans la gestion des données",
-            "label@fr_FR": "Liste des contributeurs ",
-            "label@en_GB": "List of contributors"
+            "label@fr_FR": "Liste des coûts, s'ils n'ont pas été détaillés dans les questions précédentes",
+            "label@en_GB": "List of costs, if they have not been detailed in the previous questions"
         }
     },
     "required": [

@@ -9,8 +9,8 @@
         "title": {
             "type": "string",
             "description": "Titre du plan de gestion de données",
-            "label@fr_FR": "Titre du plan",
-            "label@en_GB": "Plan title",
+            "label@fr_FR": "* Titre du plan",
+            "label@en_GB": "* Plan title",
             "tooltip@fr_FR": "Titre généré automatiquement à partir du titre du projet et modifiable. Titre affiché dans le tableau de bord",
             "tooltip@en_GB": "Title automatically generated from the project title and editable. Title displayed in the dashboard"
         },
@@ -47,8 +47,8 @@
             "length": "3",
             "description": "Langue utilisée pour rédiger le DMP",
             "inputType": "dropdown",
-            "label@fr_FR": "Langue de rédaction du plan",
-            "label@en_GB": "Plan language",
+            "label@fr_FR": "* Langue de rédaction du plan",
+            "label@en_GB": "* Plan language",
             "registry_name": "ISO639-3"
         },
         "contact": {
@@ -64,8 +64,8 @@
                 "dbid"
             ],
             "description": "Personne responsable de la réalisation et suivi du plan de gestion de données",
-            "label@fr_FR": "Responsable du plan",
-            "label@en_GB": "DMP manager",
+            "label@fr_FR": "* Responsable du plan",
+            "label@en_GB": "* DMP manager",
             "tooltip@fr_FR": "Personne qui coordonne la planification de la gestion des données, aussi appelée auteur ou responsable du DMP. Par défaut, la personne qui crée le DMP sur DMP OPIDoR",
             "tooltip@en_GB": "Person who coordinates data management planning, also called DMP author or manager. By default, the person who creates the DMP with DMP OPIDoR"
         },
@@ -73,23 +73,23 @@
             "type": "string",
             "format": "date",
             "description": "Date de création du DMP",
-            "label@fr_FR": "Date de création",
-            "label@en_GB": "Creation date",
+            "label@fr_FR": "* Date de création",
+            "label@en_GB": "* Creation date",
             "hidden": true
         },
         "lastModifiedDate": {
             "type": "string",
             "format": "date",
             "description": "Date de dernière modification du DMP",
-            "label@fr_FR": "Date de dernière modification",
-            "label@en_GB": "Last modification date",
+            "label@fr_FR": "* Date de dernière modification",
+            "label@en_GB": "* Last modification date",
             "hidden": true
         },
         "dmpId": {
             "type": "string",
             "description": "Identifiant pérenne attribué au plan de gestion de données",
-            "label@fr_FR": "Identifiant",
-            "label@en_GB": "Identifier",
+            "label@fr_FR": "* Identifiant",
+            "label@en_GB": "* Identifier",
             "tooltip@fr_FR": "Indiquer l’identifiant du plan après son éventuelle publication ou dépôt dans une archive",
             "tooltip@en_GB": "Provide the plan ID after possible publishing or deposit in an archive"
         },
@@ -97,8 +97,8 @@
             "type": "string",
             "description": "Type d'identifiant ressource",
             "inputType": "dropdown",
-            "label@fr_FR": "Type d'identifiant",
-            "label@en_GB": "Identifier type",
+            "label@fr_FR": "* Type d'identifiant",
+            "label@en_GB": "* Identifier type",
             "registry_name": "PIDSystem",
             "overridable": true
         },

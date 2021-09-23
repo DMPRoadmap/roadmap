@@ -27,5 +27,7 @@
     "required": [
         "licenseName"
     ],
-    "to_string": []
+    "to_string": [
+        "$.licenseName"
+    ]
 }

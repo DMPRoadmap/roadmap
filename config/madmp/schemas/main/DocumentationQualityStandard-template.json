@@ -54,8 +54,8 @@
             },
             "minItems": 1,
             "description": "Standard(s) de métadonnées ou données utilisé(s) en application des principes FAIR",
-            "label@fr_FR": "Standards de métadonnées/données utilisés",
-            "label@en_GB": "Metadata/data standards used",
+            "label@fr_FR": "Standards de métadonnées/données",
+            "label@en_GB": "Metadata/data standards",
             "inputType": "dropdown",
             "registry_name": "Standards",
             "overridable": true
@@ -111,8 +111,8 @@
                 ]
             },
             "description": "Côuts éventuels en terme de ressources humaines ou acquisition de logiciels pour la documentation des données",
-            "label@fr_FR": "Coûts liés à la documentation",
-            "label@en_GB": "Documentation related costs"
+            "label@fr_FR": "Coûts",
+            "label@en_GB": "Costs"
         }
     },
     "required": [

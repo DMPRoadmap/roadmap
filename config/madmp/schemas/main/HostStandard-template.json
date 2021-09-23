@@ -96,5 +96,7 @@
         "hasVersioningPolicy",
         "metadataStandard"
     ],
-    "to_string": []
+    "to_string": [
+        "$.title"
+    ]
 }

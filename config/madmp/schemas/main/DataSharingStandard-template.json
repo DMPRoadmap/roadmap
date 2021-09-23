@@ -62,8 +62,8 @@
             },
             "minItems": 1,
             "description": "Distribution physique des données",
-            "label@fr_FR": "Fichiers",
-            "label@en_GB": "Files",
+            "label@fr_FR": "Caractéristiques des fichiers déposés",
+            "label@en_GB": "Uploaded files characteristics",
             "tooltip@fr_FR": "Un ensemble de données peut être composé de plusieurs fichiers, disponibles sous différents formats",
             "tooltip@en_GB": "A dataset can be composed of several files, available in different formats"
         },
@@ -80,8 +80,8 @@
                 "dbid"
             ],
             "description": "Catalogue dans lequel les données sont indexées",
-            "label@fr_FR": "Catalogue",
-            "label@en_GB": "Catalog",
+            "label@fr_FR": "Catalogues de données",
+            "label@en_GB": "Data catalogs",
             "inputType": "dropdown",
             "registry_name": "Catalogs",
             "overridable": true,
@@ -128,8 +128,8 @@
                 ]
             },
             "description": "Coûts éventuels liés au dépôt des données dans un entrepôt",
-            "label@fr_FR": "Coûts liés au dépôt et à la diffusion des données",
-            "label@en_GB": "Data deposit and diffusion costs"
+            "label@fr_FR": "Coûts",
+            "label@en_GB": "Costs"
         }
     },
     "required": [
