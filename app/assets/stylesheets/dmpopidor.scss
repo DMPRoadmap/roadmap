@@ -718,7 +718,12 @@ header .main-nav {
                 text-decoration: underline;
             }
         }
-        
+        .project-form {
+            padding-top: 0;
+            .checkbox {
+                padding-left: 15px;;
+            }
+        }
         .question-text {
             border-color: $rust;
             color: $rust;

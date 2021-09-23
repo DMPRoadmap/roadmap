@@ -204,4 +204,9 @@ $(() => {
       failCallback(error, target);
     });
   });
+
+  $('.project-form').on('click, change', '.set_test_plan input[type="checkbox"]', (e) => {
+    const form = $(e.target).closest('form');
+    form.trigger('submit');
+  });
 });
