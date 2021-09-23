@@ -175,12 +175,6 @@ sections = [
     modifiable: true,
     phase: se_standard_phase_fr
   },
-  {
-    title: "Ressources allouées pour la gestion",
-    number: 7,
-    modifiable: true,
-    phase: se_standard_phase_fr
-  },
   ####################################################
   ##################### ENGLISH ######################
   ####################################################
@@ -217,12 +211,6 @@ sections = [
   {
     title: "Data sharing and long-term preservation",
     number: 6,
-    modifiable: true,
-    phase: se_standard_phase_en
-  },
-  {
-    title: "Resources for data management",
-    number: 7,
     modifiable: true,
     phase: se_standard_phase_en
   },
@@ -266,12 +254,6 @@ sections = [
     modifiable: true,
     phase: se_basic_phase_fr
   },
-  {
-    title: "Ressources allouées pour la gestion",
-    number: 7,
-    modifiable: true,
-    phase: se_basic_phase_fr
-  },
   ####################################################
   ##################### ENGLISH ######################
   ####################################################
@@ -308,12 +290,6 @@ sections = [
   {
     title: "Data sharing and long-term preservation",
     number: 6,
-    modifiable: true,
-    phase: se_basic_phase_en
-  },
-  {
-    title: "Resources for data management",
-    number: 7,
     modifiable: true,
     phase: se_basic_phase_en
   }
@@ -469,17 +445,6 @@ questions = [
     madmp_schema: MadmpSchema.find_by(name: "DataPreservationStandard"),
     modifiable: true
   },
-  {
-    text: "Décrire la répartition des rôles et responsabilités parmi les contributeurs ainsi que les coûts induits pour la gestion des données",
-    number: 1,
-    section: Section.find_by(
-      title: "Ressources allouées pour la gestion",
-      phase: se_standard_phase_fr
-    ),
-    question_format: structured,
-    madmp_schema: MadmpSchema.find_by(name: "BudgetStandard"),
-    modifiable: true
-  },
   ####################################################
   ##################### ENGLISH ######################
   ####################################################
@@ -621,17 +586,6 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataPreservationStandard"),
-    modifiable: true
-  },
-  {
-    text: "Outline the roles and responsibilities for data management/stewardship activities and the dedicated costs",
-    number: 1,
-    section: Section.find_by(
-      title: "Resources for data management",
-      phase: se_standard_phase_en
-    ),
-    question_format: structured,
-    madmp_schema: MadmpSchema.find_by(name: "BudgetStandard"),
     modifiable: true
   },
   # Questions for "Sections for Modèle structuré basique Science Europe" Phase,
@@ -778,17 +732,6 @@ questions = [
     madmp_schema: MadmpSchema.find_by(name: "DataPreservationBasic"),
     modifiable: true
   },
-  {
-    text: "Décrire la répartition des rôles et responsabilités parmi les contributeurs ainsi que les coûts induits pour la gestion des données",
-    number: 1,
-    section: Section.find_by(
-      title: "Ressources allouées pour la gestion",
-      phase: se_basic_phase_fr
-    ),
-    question_format: structured,
-    madmp_schema: MadmpSchema.find_by(name: "BudgetStandard"),
-    modifiable: true
-  },
   ####################################################
   ##################### ENGLISH ######################
   ####################################################
@@ -930,17 +873,6 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataPreservationBasic"),
-    modifiable: true
-  },
-  {
-    text: "Outline the roles and responsibilities for data management/stewardship activities and the dedicated costs",
-    number: 1,
-    section: Section.find_by(
-      title: "Resources for data management",
-      phase: se_basic_phase_en
-    ),
-    question_format: structured,
-    madmp_schema: MadmpSchema.find_by(name: "BudgetStandard"),
     modifiable: true
   },
 ]
