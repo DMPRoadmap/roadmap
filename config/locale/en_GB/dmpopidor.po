@@ -580,6 +580,16 @@ msgstr "List of person responsible for research data management during a project
 
 msgid "You have pending changes, please save"
 msgstr "You have pending changes, please save"
+msgstr ""
+
+msgid "List of costs related to data management. Creating a cost is done in the \"Write Plan\" tab."
+msgstr "List of costs related to data management. Creating a cost is done in the \"Write Plan\" tab."
+
+msgid "Amount"
+msgstr "Amount"
+
+msgid "Lifecycle stage"
+msgstr "Lifecycle stage"
 
 ################
 ### REGISTRIES

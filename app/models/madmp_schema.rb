@@ -81,6 +81,10 @@ class MadmpSchema < ActiveRecord::Base
     label + " ( " + name + "_V" + version.to_s + " )"
   end
 
+  def description
+    schema["description"]
+  end
+
   def sub_schemas
     path = JsonPath.new("$..schema_id")
     ids = path.on(schema)

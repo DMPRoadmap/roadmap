@@ -343,6 +343,14 @@ module Dmpopidor
         end
       end
 
+      def budget
+        @plan = Plan.find(params[:id])
+        dmp_fragment = @plan.json_fragment
+        @costs = Fragment::Cost.where(dmp_id: dmp_fragment.id)
+        authorize @plan
+        render(:budget, locals: { plan: @plan, costs: @costs })
+      end
+
       private
       # CHANGES : Removed everything except guidances group info. The rest of the info is 
       # handled by MadmpFragmentController

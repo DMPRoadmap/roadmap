@@ -1,0 +1,41 @@
+<%# locals: { plan, costs } %>
+
+<% title "#{plan.title}" %>
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= plan.title %></h1>
+  </div>
+</div>
+<% content_for :plan_tab_body do %>
+  <div class="row">
+    <div class="col-md-12">
+      <p>
+        <%= d_("dmpopidor", "List of costs related to data management. Creating a cost is done in the \"Write Plan\" tab.") %>
+      </p>
+    </div>
+    <div class="col-md-12 madmp-fragment">
+      <table class="table table-hover list-contributor linked-fragments-list">
+        <thead>
+          <tr>
+            <th scope="col"><%= _("Title") %></th>
+            <th scope="col" class="sorter-false"><%= d_("dmpopidor", "Amount") %></th>
+            <th scope="col" class="sorter-false"><%= d_("dmpopidor", "Lifecycle stage") %></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% costs.each do |cost| %>
+          <% ro = ResearchOutput.find(cost.research_output_id)%>
+          <% cost_label = cost.parent.madmp_schema.schema["properties"]["cost"]["label@#{plan.template.locale}"] %>
+          <tr>
+            <td><%= "#{cost.data["title"]} (#{cost.data["costType"]})"%></td>
+            <td><%= "#{cost.data["amount"]} #{cost.data["currency"]}"%></td>
+            <td><%= "#{cost_label} - " %><b><%= ro.fullname %></b></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+<% end %>
+<%= render partial: "plans/navigation", locals: { plan: @plan } %>

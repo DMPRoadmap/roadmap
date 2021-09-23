@@ -583,6 +583,15 @@ msgstr "Liste des personnes contribuant à la gestion des produits de recherche 
 msgid "You have pending changes, please save"
 msgstr "Vous avez des changements en attente, veuillez sauvegarder"
 
+msgid "List of costs related to data management. Creating a cost is done in the \"Write Plan\" tab."
+msgstr "Liste des coûts engagés dans la gestion des données. La création d'un coût s'effectue dans l'onglet \"Rédiger\"."
+
+msgid "Amount"
+msgstr "Montant"
+
+msgid "Lifecycle stage"
+msgstr "Etape du cycle de vie"
+
 ################
 ### REGISTRIES
 ################

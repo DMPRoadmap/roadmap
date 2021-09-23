@@ -126,10 +126,10 @@ Rails.application.routes.draw do
       get 'share'
       get 'request_feedback'
       get 'download'
+      get 'budget'
       post 'duplicate'
       post 'visibility', constraints: {format: [:json]}
       post 'set_test', constraints: {format: [:json]}
-      get 'overview'
     end
     resources :research_outputs, only: [:index, :update, :destroy], controller: 'research_outputs'
   end

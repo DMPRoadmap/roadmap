@@ -585,6 +585,15 @@ msgstr ""
 msgid "You have pending changes, please save"
 msgstr ""
 
+msgid "List of costs related to data management. Creating a cost is done in the \"Write Plan\" tab."
+msgstr ""
+
+msgid "Amount"
+msgstr ""
+
+msgid "Lifecycle stage"
+msgstr ""
+
 ################
 ### REGISTRIES
 ################
