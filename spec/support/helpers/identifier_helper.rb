@@ -2,13 +2,13 @@
 
 module IdentifierHelper
 
-  def create_orcid(user:, val: SecureRandom.uuid)
+  def create_orcid(user:, val: random_orcid)
     scheme = orcid_scheme
     val = append_prefix(scheme: scheme, val: val)
     create(:identifier, identifiable: user, identifier_scheme: scheme, value: val)
   end
 
-  def create_dmp_id(plan:, val: SecureRandom.uuid)
+  def create_dmp_id(plan:, val: random_doi)
     scheme = dmp_id_scheme
     val = append_prefix(scheme: scheme, val: val)
     create(:identifier, identifiable: plan, identifier_scheme: scheme, value: val)
@@ -32,6 +32,28 @@ module IdentifierHelper
     return scheme if scheme.present?
 
     create(:identifier_scheme, for_plans: true, name: name, identifier_prefix: landing_page)
+  end
+
+  def random_orcid
+    id = [
+      Faker::Number.number(digits: 4),
+      Faker::Number.number(digits: 4),
+      Faker::Number.number(digits: 4),
+      Faker::Number.number(digits: 4)
+    ]
+    id.join("-")
+  end
+
+  def random_doi
+    shoulder = [
+      Faker::Number.number(digits: 2),
+      Faker::Number.number(digits: 4)
+    ]
+    id = [
+      Faker::Alphanumeric.alphanumeric(number: 5),
+      Faker::Alphanumeric.alphanumeric(number: 4)
+    ]
+    [shoulder.join("."), id.join(".")].join("/")
   end
 
   def append_prefix(scheme:, val:)

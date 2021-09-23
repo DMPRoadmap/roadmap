@@ -4,7 +4,11 @@ require "rails_helper"
 
 describe "api/v1/plans/_show.json.jbuilder" do
 
+  include IdentifierHelper
+
   before(:each) do
+    Rails.configuration.x.madmp.enable_dmp_id_registration = true
+
     @plan = create(:plan)
     @data_contact = create(:contributor, data_curation: true, plan: @plan)
     @pi = create(:contributor, investigation: true, plan: @plan)
@@ -91,13 +95,16 @@ describe "api/v1/plans/_show.json.jbuilder" do
 
   describe "when the system mints DOIs" do
     before(:each) do
-      @doi = create(:identifier, value: "10.9999/123abc.zy/x23", identifiable: @plan)
+      @doi = create_dmp_id(plan: @plan)
       @plan.reload
       render partial: "api/v1/plans/show", locals: { plan: @plan }
       @json = JSON.parse(rendered).with_indifferent_access
     end
 
     it "returns the DOI for the :dmp_id if one is present" do
+
+pp @json
+
       expect(@json[:dmp_id][:type]).to eql("doi")
       expect(@json[:dmp_id][:identifier]).to eql(@doi.value)
     end
