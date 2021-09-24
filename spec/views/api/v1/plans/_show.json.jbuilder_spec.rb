@@ -103,7 +103,7 @@ describe "api/v1/plans/_show.json.jbuilder" do
 
     it "returns the DOI for the :dmp_id if one is present" do
 
-pp @json
+      pp @json
 
       expect(@json[:dmp_id][:type]).to eql("doi")
       expect(@json[:dmp_id][:identifier]).to eql(@doi.value)
