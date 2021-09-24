@@ -274,13 +274,9 @@ class PlansController < ApplicationController
 
       # TODO: For some reason the `fields_for` isn't adding the
       #       appropriate namespace, so org_id represents our funder
-      funder_attrs = plan_params[:funder]
-      funder_attrs[:org_id] = plan_params[:funder][:id]
-      funder = org_from_params(params_in: funder_attrs, allow_create: true)
+      funder = org_from_params(params_in: attrs, allow_create: true)
       @plan.funder_id = funder&.id
-      attrs.delete(:funder)
-
-      process_grant(grant_params: plan_params[:grant])
+      @plan.grant = plan_params[:grant]
       attrs.delete(:grant)
       attrs = remove_org_selection_params(params_in: attrs)
       attrs = process_related_identifiers(attrs: attrs)
