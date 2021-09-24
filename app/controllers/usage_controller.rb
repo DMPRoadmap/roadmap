@@ -48,7 +48,7 @@ class UsageController < ApplicationController
   def org_statistics
     authorize :usage
 
-    data = Org::MonthlyUsageService.call
+    data = Org::MonthlyUsageService.call(current_user)
     sep = sep_param
     data_csvified = Csvable.from_array_of_hashes(data, true, sep)
 
