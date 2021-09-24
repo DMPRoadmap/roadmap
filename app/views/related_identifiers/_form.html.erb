@@ -8,8 +8,8 @@
 
 <div class="row related-work-row <%= related_identifier.new_record? ? "hidden" : "" %>">
   <%= hidden_field_tag :id, related_identifier.id,
-                            name: "#{name_base}[id]]",
-                            id: "#{id_base}_id" %>
+                       name: "#{name_base}[id]]",
+                       id: "#{id_base}_id" %>
 
   <% if related_identifier.citation.present? %>
     <div class="col-md-12 citation">
@@ -43,10 +43,6 @@
     </div>
     <div class="col-md-12">
       <span class="col-md-4">
-        <%= hidden_field_tag :id, related_identifier.id,
-                            name: "#{name_base}[id]]",
-                            id: "#{id_base}_id" %>
-
         <% opts = options_for_select(presenter.selectable_related_identifiers,
                                     related_identifier.work_type) %>
         <%= select_tag :work_type, opts,

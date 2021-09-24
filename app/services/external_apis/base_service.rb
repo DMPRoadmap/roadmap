@@ -180,7 +180,8 @@ module ExternalApis
       def options(additional_headers: {}, debug: false)
         hash = {
           headers: headers.merge(additional_headers),
-          follow_redirects: true
+          follow_redirects: true,
+          limit: 6
         }
         hash[:debug_output] = $stdout if debug
         hash

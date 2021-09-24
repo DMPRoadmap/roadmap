@@ -17,17 +17,21 @@ class RelatedIdentifierPresenter
 
   # Return the related identifiers for read only display
   def for_display
-    return "" unless related_identifiers.any?
+    return [] unless related_identifiers.any?
 
-    related_identifiers.map do |related|
+    out = related_identifiers.map do |related|
       next unless related.is_a?(RelatedIdentifier)
-      return related.citation if related.citation.present?
 
-      "#{work_type} - <a href=\"#{url}\" target=\"_blank\">%{url}</a>" % {
+      dflt = "%{work_type} - <a href=\"%{url}\" target=\"_blank\">%{url}</a>" % {
         work_type: related.work_type.humanize,
         url: related.value
       }
+      related.citation.present? ? related.citation : dflt
     end
+
+pp out
+    out
+
   end
 
 end

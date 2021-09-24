@@ -5,6 +5,6 @@
 <h2><%= _("Related works") %></h2>
 <ul>
   <% presenter.for_display.each do |related| %>
-    <li><%= sanitize(related) %></li>
+    <li class="citation"><%= sanitize(related) %></li>
   <% end %>
 </ul>
