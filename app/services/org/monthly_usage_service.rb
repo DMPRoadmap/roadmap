@@ -6,7 +6,8 @@ class Org
 
     class << self
 
-      def call
+      def call(current_user = nil)
+        @current_user = current_user
         total = build_from_joined_user
         build_from_created_plan(total)
         build_from_shared_plan(total)
@@ -15,10 +16,6 @@ class Org
       end
 
       private
-
-      def current_user
-        User.find_by_email 'xsrust@gmail.com'
-      end
 
       def build_model(month:, new_plans: 0, new_users: 0, downloads: 0, plans_shared: 0)
         {
@@ -46,28 +43,28 @@ class Org
       end
 
       def build_from_joined_user(total = {})
-        joined_users = StatJoinedUser.monthly_range(org: current_user.org).order(:date)
+        joined_users = StatJoinedUser.monthly_range(org: @current_user.org).order(:date)
         joined_users.reduce(total) do |acc, rec|
           reducer_body(acc, rec, :new_users)
         end
       end
 
       def build_from_created_plan(total = {})
-        created_plans = StatCreatedPlan.monthly_range(org: current_user.org).order(:date)
+        created_plans = StatCreatedPlan.monthly_range(org: @current_user.org).order(:date)
         created_plans.reduce(total) do |acc, rec|
           reducer_body(acc, rec, :new_plans)
         end
       end
 
       def build_from_shared_plan(total = {})
-        shared_plans = StatSharedPlan.monthly_range(org: current_user.org).order(:date)
+        shared_plans = StatSharedPlan.monthly_range(org: @current_user.org).order(:date)
         shared_plans.reduce(total) do |acc, rec|
           reducer_body(acc, rec, :plans_shared)
         end
       end
 
       def build_from_exported_plan(total = {})
-        exported_plans = StatExportedPlan.monthly_range(org: current_user.org).order(:date)
+        exported_plans = StatExportedPlan.monthly_range(org: @current_user.org).order(:date)
         exported_plans.reduce(total) do |acc, rec|
           reducer_body(acc, rec, :downloads)
         end
