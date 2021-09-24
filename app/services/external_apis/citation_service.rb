@@ -29,7 +29,7 @@ module ExternalApis
 
         bibtex = BibTeX.parse(resp.body)
 
-        build_citation(work_type: id.work_type, bibtex: bibtex)
+        build_citation(id: id, bibtex: bibtex)
       rescue JSON::ParserError => e
         log_error(method: 'CitationService fetch JSON parse error', error: e)
         nil
@@ -59,26 +59,31 @@ module ExternalApis
       end
 
       # Convert the BibTeX item to a citation
-      def build_citation(work_type:, bibtex:)
-        return nil unless work_type.present? && bibtex.data.first.id.present?
+      def build_citation(id:, bibtex:)
+        return nil unless id.present? && bibtex.data.first.id.present?
 
         cp = CiteProc::Processor.new(style: "chicago-author-date", format: "html")
         cp.import(bibtex.to_citeproc)
         citation = cp.render(:bibliography, id: bibtex.data.first.id)
         return nil unless citation.present? && citation.any?
 
-        #citation = citation.first.gsub(/(“|“)#{bibtex.data.first.title.value}\.(”|”)/i) do |title|
-        #  "#{title} [#{work_type.humanize}]."
-        #end
-
         # The CiteProc renderer has trouble with some things so fix them here
+        #
+        #   - It has a '{textendash}' sometimes because it cannot render the correct char
+        #   - For some reason words in all caps in the title get wrapped in curl brackets
+        #   - We want to add the work type after the title. e.g. `[Dataset].`
+        #
         citation = citation.first.gsub(/{\\Textendash}/i, "-")
                                  .gsub("{", "").gsub("}", "")
-                                 .gsub(/\.”\s+/, "\.” [#{work_type.humanize}]. ")
+                                 .gsub(/\.”\s+/, "\.” [#{id.work_type.humanize}]. ")
 
+        # Convert the URL into a link. Ensure that the trailing period is not a part of
+        # the link!
         citation.gsub(URI.regexp) do |url|
           if url.start_with?('http')
-            "<a href=\"%{url}\" target=\"_blank\">%{url}</a>" % { url: url }
+            "<a href=\"%{url}\" target=\"_blank\">%{url}</a>." % {
+              url: url.ends_with?(".") ? url[0..url.length - 2] : url
+            }
           else
             url
           end
