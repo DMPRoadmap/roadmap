@@ -138,8 +138,8 @@ module ExportablePlan
            else
              [_("Template: "), _("%{template}") % { template: hash[:template] + hash[:customizer] }]
            end
-    if grant_number.present?
-      csv << [_("Grant number: "), _("%{grant_number}") % { grant_number: grant_number }]
+    if grant&.value.present?
+      csv << [_("Grant number: "), _("%{grant_number}") % { grant_number: grant&.value }]
     end
     if description.present?
       csv << [_("Project abstract: "), _("%{description}") %
