@@ -7,6 +7,7 @@ RSpec.describe ExternalApis::DataciteService, type: :model do
   include IdentifierHelper
 
   before(:each) do
+    Rails.configuration.x.madmp.enable_dmp_id_registration = true
     Rails.configuration.x.datacite.active = true
     Rails.configuration.x.datacite.api_base_url = "https://api.test.datacite.org/"
 
