@@ -210,8 +210,7 @@ class Plan < ApplicationRecord
 
   # sanitise html tags from fields
   before_validation lambda { |data|
-    data.sanitize_fields(:title, :funder_name, :grant_number, :identifier,
-                         :description)
+    data.sanitize_fields(:title, :identifier, :description)
   }
 
   # =================
