@@ -46,7 +46,7 @@ class ExportedPlan < ApplicationRecord
   end
 
   def grant_title
-    plan.grant_number
+    plan.grant&.value
   end
 
   def principal_investigator
