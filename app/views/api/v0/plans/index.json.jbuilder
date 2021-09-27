@@ -8,7 +8,7 @@ json.prettify!
 json.array! @plans.each do |plan|
   json.id             plan.id
   json.title          plan.title
-  json.grant_number   plan.grant_number
+  json.grant_number   plan.grant&.value
   json.last_updated   plan.updated_at
   json.creation_date  plan.created_at
   json.test_plan      plan.is_test?
