@@ -128,21 +128,6 @@ class Plan < ActiveRecord::Base
     def default
       find_by(is_default: true)
     end
-
-    # Toggles the default research output between default and normal
-    # Uses the 'is_default' flag:
-    # - Removes it if there are more than one research output
-    # - Adds it back is there's only one research output left
-    def toggle_default
-      if count > 1
-        unless default.nil?
-          default.update(abbreviation: "Default", fullname: "Default research output" ) if default.abbreviation.nil?
-          default.update(is_default: false)
-        end
-      else
-        last&.update(is_default: true)
-      end
-    end
   end
 
   has_many :contributors, dependent: :destroy

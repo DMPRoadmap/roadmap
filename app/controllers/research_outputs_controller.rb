@@ -24,6 +24,7 @@ class ResearchOutputsController < ApplicationController
 
     authorize @plan
     if @research_output.update(attrs)
+      @research_output.create_json_fragments
       unless @plan.template.structured?
         research_output_description = @research_output.json_fragment.research_output_description
         research_output_description.contact.update(
@@ -79,7 +80,6 @@ class ResearchOutputsController < ApplicationController
       type: ResearchOutputType.find_by(label: "Dataset"),
       order: max_order
     )
-    @plan.research_outputs.toggle_default
 
     authorize @plan
     render json: {
