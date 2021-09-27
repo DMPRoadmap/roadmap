@@ -5,7 +5,7 @@
   ul_list = sanitize(privileges_list(@user))
 %>
 <p>
-  <%= _('Hello %{user_name}') %{ :user_name => user_name } %>
+  <%= _('Hello %{user_name}') % { :user_name => user_name } %>
 </p>
 <% if @user.perms.size > 0 %>
   <p>

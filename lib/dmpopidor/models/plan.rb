@@ -55,29 +55,29 @@ module Dmpopidor
       #  emails org admins and org contact
       #  adds org admins to plan with the 'reviewer' Role
       # CHANGES : Added feedback_requestor & request_date columns
-      def request_feedback(user)
-        ::Plan.transaction do
-          begin
-            self.feedback_requested = true
-            self.feedback_requestor = user
-            self.feedback_request_date = DateTime.current()
-            if save!
-              # Send an email to the org-admin contact
-              if user.org.contact_email.present?
-                contact = ::User.new(email: user.org.contact_email,
-                                  firstname: user.org.contact_name)
-                UserMailer.feedback_notification(contact, self, user).deliver_now
-              end
-              return true
-            else
-              return false
-            end
-          rescue Exception => e
-            Rails.logger.error e
-            return false
-          end
-        end
-      end
+      # def request_feedback(user)
+      #   ::Plan.transaction do
+      #     begin
+      #       self.feedback_requested = true
+      #       self.feedback_requestor = user
+      #       self.feedback_request_date = DateTime.current()
+      #       if save!
+      #         # Send an email to the org-admin contact
+      #         if user.org.contact_email.present?
+      #           contact = ::User.new(email: user.org.contact_email,
+      #                             firstname: user.org.contact_name)
+      #           UserMailer.feedback_notification(contact, self, user).deliver_now
+      #         end
+      #         return true
+      #       else
+      #         return false
+      #       end
+      #     rescue Exception => e
+      #       Rails.logger.error e
+      #       return false
+      #     end
+      #   end
+      # end
 
       ##
       # Finalizes the feedback for the plan: Emails confirmation messages to owners

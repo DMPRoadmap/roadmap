@@ -50,7 +50,7 @@
   <% if !readonly %>
     <%= f.hidden_field :plan_id, id: nil %>
     <%= f.hidden_field :question_id, id: nil %>
-    <%= f.hidden_field :lock_version, id: nil %>
+    <%= f.hidden_field :lock_version, id: nil, class: "answer_lock_version" %>
     <%= f.hidden_field :research_output_id, :value => research_output.id, id: nil%>
     <%= f.hidden_field :is_common, class: 'ans_is_common' if answer.research_output.main? %>
     <%= f.hidden_field :id, id: nil, class: 'answer_id' %>
