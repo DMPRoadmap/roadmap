@@ -10,7 +10,7 @@ class ApplicationRecord < ActiveRecord::Base
 
   def sanitize_fields(*attrs)
     attrs.each do |attr|
-      self.send("#{attr.to_s}=", ActionController::Base.helpers.sanitize(self.send(attr)))
+      self.send("#{attr}=", ActionController::Base.helpers.sanitize(self.send(attr)))
     end
   end
 
