@@ -107,7 +107,7 @@ module Dmpopidor
               # We used a customized version of the the funder template
               # rubocop:disable Metrics/LineLength
               msg += " #{d_('dmpopidor', 'This plan is based on the %{funder_name}: %{template_name} template with customisations by the %{org_name}') % { 
-                  funder_name: plan.funder&.name,
+                  funder_name: @plan.funder&.name,
                   template_name: @plan.template.title,
                   org_name: plan_params[:org_name]
               } }"
