@@ -178,12 +178,9 @@ $(() => {
     });
   });
 
-  $('.panel-collapse').on('reload.form', (e) => {
+  $('#plan_project').on('reload.project_form', (e) => {
     const target = $(e.target);
-    if (!target.hasClass('plan-details-content')) {
-      return;
-    }
-    const form = target.find('form');
+    const form = target.find('form.madmp-fragment');
     const fragmentId = target.find('.fragment-id').val();
     $.ajax({
       method: 'get',

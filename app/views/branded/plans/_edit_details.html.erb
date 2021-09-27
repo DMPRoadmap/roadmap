@@ -59,7 +59,7 @@
         
         
         <%= hidden_field_tag 'fragment-id', project_fragment.id, class: "fragment-id" %>
-        <div class="panel-body project-form  madmp-fragment"><!-- accordion body -->
+        <div class="panel-body project-form madmp-fragment"><!-- accordion body -->
           <% I18n.with_locale locale do %>
             <div class="checkbox">
               <%= form_for plan, url: set_test_plan_path(plan), html: { method: :post, class: 'set_test_plan', remote: true } do |f| %>
