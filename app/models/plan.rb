@@ -40,6 +40,7 @@
 #  fk_rails_...  (research_domain_id => research_domains.id)
 #
 
+# rubocop:disable Metrics/ClassLength
 class Plan < ApplicationRecord
 
   include ConditionalUserMailer
@@ -603,3 +604,4 @@ class Plan < ApplicationRecord
   end
 
 end
+# rubocop:enable
