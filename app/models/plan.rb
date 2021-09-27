@@ -40,8 +40,6 @@
 #  fk_rails_...  (research_domain_id => research_domains.id)
 #
 
-# rubocop:disable Metrics/ClassLength
-
 class Plan < ApplicationRecord
 
   include ConditionalUserMailer
@@ -209,8 +207,7 @@ class Plan < ApplicationRecord
   # = Callbacks =
   # =============
 
-  # sanitise html tags
-  # e.g remove unwanted 'script'
+  # sanitise html tags e.g remove unwanted 'script'
   before_validation lambda { |data|
     data.sanitize_fields(:title, :identifier, :description)
   }
@@ -605,4 +602,3 @@ class Plan < ApplicationRecord
   end
 
 end
-# rubocop:enable Metrics/ClassLength
