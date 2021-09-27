@@ -85,6 +85,7 @@ export const contributorCreationHandler = (selectField, value) => {
     data: requestData,
   }).done((response) => {
     $(`table.list-${response.query_id} tbody`).html(response.html);
+    selectField.find('select').val('').trigger('change');
   });
 };
 
