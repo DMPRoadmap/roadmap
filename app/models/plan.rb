@@ -604,4 +604,4 @@ class Plan < ApplicationRecord
   end
 
 end
-# rubocop:enable
+# rubocop:enable Metrics/ClassLength
