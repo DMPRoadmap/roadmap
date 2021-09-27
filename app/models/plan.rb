@@ -207,8 +207,11 @@ class Plan < ApplicationRecord
   # = Callbacks =
   # =============
 
-  #sanitise html tags from fields
-  before_validation ->(data) { data.sanitize_fields(:title, :funder_name, :grant_number, :identifier, :description) }
+  # sanitise html tags from fields
+  before_validation lambda { |data|
+                      data.sanitize_fields(:title, :funder_name, :grant_number, :identifier,
+                                           :description)
+                    }
 
   # =================
   # = Class methods =
@@ -234,7 +237,7 @@ class Plan < ApplicationRecord
   # Returns Plan
   def self.deep_copy(plan)
     plan_copy = plan.dup
-    plan_copy.title = "Copy of " + plan.title
+    plan_copy.title = "Copy of #{plan.title}"
     plan_copy.feedback_requested = false
     plan_copy.save!
     plan.answers.each do |answer|
@@ -590,7 +593,6 @@ class Plan < ApplicationRecord
   end
 
   private
-
 
   # Validation to prevent end date from coming before the start date
   def end_date_after_start_date

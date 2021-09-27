@@ -160,7 +160,7 @@ class User < ApplicationRecord
   # = Callbacks =
   # =============
 
-  #sanitise html tags from fields
+  # sanitise html tags from fields
   before_validation ->(data) { data.sanitize_fields(:firstname, :surname) }
 
   after_update :clear_department_id, if: :saved_change_to_org_id?
@@ -455,7 +455,6 @@ class User < ApplicationRecord
   # ============================
   # = Private instance methods =
   # ============================
-
 
   def delete_perms!
     perms.destroy_all
