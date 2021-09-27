@@ -357,6 +357,8 @@ default: &default
 
   # Whether or not to allow users to manually add related_identifiers to a plan
   enable_related_identifiers: true
+  # Whether or not to allow the system to fetch citations for RelatedIdentifiers
+  enable_citation_lookup: true
 
   # Allow DMP ID minting
   allow_doi_minting: true

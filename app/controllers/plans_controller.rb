@@ -280,9 +280,8 @@ class PlansController < ApplicationController
       attrs.delete(:funder)
       attrs.delete(:grant)
       attrs = remove_org_selection_params(params_in: attrs)
-      attrs = process_related_identifiers(attrs: attrs)
 
-      if @plan.update(attrs) # _attributes(attrs)
+      if @plan.update(attrs)
         format.html do
           redirect_to plan_path(@plan),
                       notice: success_message(@plan, _("saved"))
@@ -493,7 +492,7 @@ class PlansController < ApplicationController
                   grant: %i[name value],
                   org: %i[id org_id org_name org_sources org_crosswalk],
                   funder: %i[id org_id org_name org_sources org_crosswalk],
-                  related_identifier_attributes: %i[id work_type value])
+                  related_identifiers_attributes: %i[id work_type value])
   end
 
   # different versions of the same template have the same family_id
@@ -548,35 +547,6 @@ class PlansController < ApplicationController
              answers: answers,
              guidance_presenter: GuidancePresenter.new(plan)
            })
-  end
-
-  # Convert the incoming related_identifiers to RelatedIdentifier objects
-  def process_related_identifiers(attrs:)
-    return attrs unless attrs.present? && attrs[:related_identifier_attributes].present?
-
-pp attrs[:related_identifier_attributes]
-
-    # Clear all of the existing related identifiers first, we will add all of
-    # the ones the user left on the page below.
-    @plan.related_identifiers = []
-
-    attrs[:related_identifier_attributes].each do |id, parameters|
-      # The form contains a hidden placeholder row used by the JS to add a new row
-      # Skip this hidden row or if the value/url is blank
-      next if id == "0" || parameters[:value].nil? || parameters[:value].blank?
-
-      # Try to find the RelatedIdentifier by the id otherwise its a new one
-      related = RelatedIdentifier.find_by(id: id, identifiable: @plan)
-      related = RelatedIdentifier.new(identifiable: @plan) unless related.present?
-
-      related.work_type = parameters[:work_type]
-      related.value = parameters[:value]
-      @plan.related_identifiers << related
-    end
-    @plan.save
-
-    attrs.delete(:related_identifier_attributes)
-    attrs
   end
 
 end

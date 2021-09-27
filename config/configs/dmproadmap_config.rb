@@ -47,6 +47,7 @@ class DmproadmapConfig < Anyway::Config
               :dragonfly_url_scheme,
 
               :email_from_address,
+              :enable_citation_lookup,
               :enable_ethical_issues,
               :enable_license_selection,
               :enable_metadata_standard_selection,
