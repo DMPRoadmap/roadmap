@@ -209,8 +209,8 @@ class Plan < ApplicationRecord
   # = Callbacks =
   # =============
 
-  # sanitise html tags 
-  # e.g remove unwanted 'script'  
+  # sanitise html tags
+  # e.g remove unwanted 'script'
   before_validation lambda { |data|
     data.sanitize_fields(:title, :identifier, :description)
   }
