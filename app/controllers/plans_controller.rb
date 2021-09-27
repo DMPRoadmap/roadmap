@@ -554,7 +554,12 @@ class PlansController < ApplicationController
   def process_related_identifiers(attrs:)
     return attrs unless attrs.present? && attrs[:related_identifier_attributes].present?
 
-    related_identifiers = []
+pp attrs[:related_identifier_attributes]
+
+    # Clear all of the existing related identifiers first, we will add all of
+    # the ones the user left on the page below.
+    @plan.related_identifiers = []
+
     attrs[:related_identifier_attributes].each do |id, parameters|
       # The form contains a hidden placeholder row used by the JS to add a new row
       # Skip this hidden row or if the value/url is blank
@@ -566,11 +571,9 @@ class PlansController < ApplicationController
 
       related.work_type = parameters[:work_type]
       related.value = parameters[:value]
-      related.fetch_citation
-
-      related_identifiers << related
+      @plan.related_identifiers << related
     end
-    @plan.related_identifiers = related_identifiers
+    @plan.save
 
     attrs.delete(:related_identifier_attributes)
     attrs
