@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/CDLUC3/uc3-citation
-  revision: 5641f180b23feff2685e324b8ee3c22fed874f92
+  revision: 136a17eb71925738b8a0878de19a49e7a199716a
   branch: main
   specs:
-    uc3-citation (0.0.2)
+    uc3-citation (0.0.3)
       bibtex-ruby (~> 6.0)
       citeproc-ruby (~> 1.1)
       csl-styles (~> 1.0)
