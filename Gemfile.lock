@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/CDLUC3/uc3-citation
-  revision: d25252810c8b7caa4e81ef84cf9f64889b953860
+  revision: 5641f180b23feff2685e324b8ee3c22fed874f92
   branch: main
   specs:
-    uc3-citation (0.0.1.pre.beta15)
+    uc3-citation (0.0.2)
       bibtex-ruby (~> 6.0)
       citeproc-ruby (~> 1.1)
       csl-styles (~> 1.0)
@@ -72,7 +72,7 @@ GEM
       rake (>= 10.4, < 14.0)
     annotate_gem (0.0.14)
       bundler (>= 1.1)
-    anyway_config (2.1.0)
+    anyway_config (2.2.1)
       ruby-next-core (>= 0.11.0)
     api-pagination (4.8.2)
     arel (9.0.0)
@@ -458,7 +458,7 @@ GEM
       rubocop-ast (>= 1.9.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.11.0)
+    rubocop-ast (1.12.0)
       parser (>= 3.0.1.1)
     rubocop-dmp_roadmap (1.1.2)
       rubocop (>= 0.58.2)
