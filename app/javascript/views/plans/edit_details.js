@@ -178,7 +178,7 @@ $(() => {
     });
   });
 
-  $('#plan_project').on('reload.project_form', (e) => {
+  $('#plan_project').on('reload.project-form', (e) => {
     const target = $(e.target);
     const form = target.find('form.madmp-fragment');
     const fragmentId = target.find('.fragment-id').val();
