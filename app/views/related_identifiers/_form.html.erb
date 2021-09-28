@@ -16,7 +16,7 @@
                     class: "control-label") %>
     </span>
   </div>
-  <div class="col-md-12" title="<%= tooltip %>" data-toggle="tooltip">
+  <div class="col-md-12">
     <span class="col-md-4">
       <% opts = options_for_select(presenter.selectable_related_identifiers,
                                   related_identifier.work_type) %>
@@ -26,14 +26,18 @@
                       selected: related_identifier.work_type,
                       class: "form-control",
                       name: "plan[related_identifiers_attributes[0][work_type]]",
-                      id: "plan_related_identifiers_attributes_0_work_type"
+                      id: "plan_related_identifiers_attributes_0_work_type",
+                      title: tooltip,
+                      data: { toggle: "tooltip" }
                     } %>
     </span>
     <span class="col-md-6">
       <%= text_field_tag :value, related_identifier.value,
                         class: "form-control",
                         name: "plan[related_identifiers_attributes[0][value]]",
-                        id: "plan_related_identifiers_attributes_0_value" %>
+                        id: "plan_related_identifiers_attributes_0_value",
+                        title: tooltip,
+                        data: { toggle: "tooltip" } %>
     </span>
     <span class="col-md-2">
       <a href="#" class="delete" aria-label="<%= _('Remove this related work') %>">
