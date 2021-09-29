@@ -1,16 +1,4 @@
 GIT
-  remote: https://github.com/CDLUC3/uc3-citation
-  revision: 3c6dcfecc6afe9ca8367dad1df11a5799647f9ca
-  branch: main
-  specs:
-    uc3-citation (0.0.5)
-      bibtex-ruby (~> 6.0)
-      citeproc-ruby (~> 1.1)
-      csl-styles (~> 1.0)
-      httparty (~> 0.19)
-      logger (~> 1.4)
-
-GIT
   remote: https://github.com/CDLUC3/uc3-ssm
   revision: 5af8578418e9f6563f68ad92af54350b25396846
   branch: 0.3.1
@@ -271,7 +259,7 @@ GEM
       actionpack
       nokogiri
       rubyzip (>= 1.0)
-    httparty (0.19.0)
+    httparty (0.20.0)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
     i18n (1.8.10)
@@ -450,13 +438,13 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.10.2)
-    rubocop (1.21.0)
+    rubocop (1.22.0)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml
-      rubocop-ast (>= 1.9.1, < 2.0)
+      rubocop-ast (>= 1.12.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.12.0)
@@ -546,6 +534,12 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (1.2.9)
       thread_safe (~> 0.1)
+    uc3-citation (0.0.5)
+      bibtex-ruby (~> 6.0)
+      citeproc-ruby (~> 1.1)
+      csl-styles (~> 1.0)
+      httparty (~> 0.19)
+      logger (~> 1.4)
     unicode-display_width (2.1.0)
     uniform_notifier (1.14.2)
     warden (1.2.9)
@@ -659,7 +653,7 @@ DEPENDENCIES
   text
   translation
   turbolinks
-  uc3-citation!
+  uc3-citation
   uc3-ssm!
   web-console
   webdrivers
