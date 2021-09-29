@@ -291,10 +291,9 @@ class PlansController < ApplicationController
         end
       else
         format.html do
-          # Get the selected and possible guidance options for the plan
-          fetch_guidance_groups(plan_in: @plan)
-          flash[:alert] = failure_message(@plan, _("save"))
-          render "show"
+          # TODO: Should do a `render :show` here instead but show defines too many
+          #       instance variables in the controller
+          redirect_to plan_path(@plan).to_s, alert: failure_message(@plan, _("save"))
         end
         format.json do
           render json: { code: 0, msg: failure_message(@plan, _("save")) }
