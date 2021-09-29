@@ -160,6 +160,9 @@ class User < ApplicationRecord
   # = Callbacks =
   # =============
 
+  # sanitise html tags from fields
+  before_validation ->(data) { data.sanitize_fields(:firstname, :surname) }
+
   after_update :clear_department_id, if: :saved_change_to_org_id?
 
   after_update :delete_perms!, if: :saved_change_to_org_id?, unless: :can_change_org?
