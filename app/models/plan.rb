@@ -223,6 +223,15 @@ class Plan < ApplicationRecord
   end
   alias super_settings settings
 
+  # =============
+  # = Callbacks =
+  # =============
+
+  # sanitise html tags e.g remove unwanted 'script'
+  before_validation lambda { |data|
+    data.sanitize_fields(:title, :identifier, :description)
+  }
+
   # =================
   # = Class methods =
   # =================
@@ -247,7 +256,7 @@ class Plan < ApplicationRecord
   # Returns Plan
   def self.deep_copy(plan)
     plan_copy = plan.dup
-    plan_copy.title = "Copy of " + plan.title
+    plan_copy.title = "Copy of #{plan.title}"
     plan_copy.feedback_requested = false
     plan_copy.save!
     plan.answers.each do |answer|
