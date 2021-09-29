@@ -2,13 +2,16 @@
 
 require "uc3-ssm"
 
+# set vars for DMPTool-UI submodule https://github.com/cdlib/dmptool-ui
+set :scm,              :git
+set :git_strategy,     Capistrano::Git::SubmoduleStrategy
+set :default_env,      { path: "$PATH" }
+
 # set vars from ENV
 set :deploy_to,        ENV['DEPLOY_TO']       || '/dmp/apps/dmptool'
 set :rails_env,        ENV['RAILS_ENV']       || 'production'
 set :repo_url,         ENV['REPO_URL']        || 'https://github.com/cdluc3/dmptool.git'
 set :branch,           ENV['BRANCH']          || 'master'
-
-set :default_env,      { path: "$PATH" }
 
 # Gets the current Git tag and revision
 set :version_number, `git describe --tags`
@@ -28,7 +31,10 @@ set :keep_releases, 5
 
 namespace :deploy do
   before :compile_assets, "deploy:retrieve_credentials"
+  before :compile_assets, "deploy:build_ui_assets"
+
   after :deploy, "hackery:copy_tinymce_skins"
+  after :deploy, "hackery:copy_ui_assets"
   after :deploy, "git:version"
   after :deploy, "cleanup:remove_example_configs"
 
@@ -38,6 +44,16 @@ namespace :deploy do
       ssm = Uc3Ssm::ConfigResolver.new
       credentials_yml_enc = ssm.parameter_for_key('credentials_yml_enc')
       IO.write("#{release_path}/config/credentials.yml.enc", credentials_yml_enc.chomp)
+    end
+  end
+
+  desc 'Build the DMPTool-UI repo submodule and copy assets to app/assets pre-compile'
+  task :build_ui_assets do
+    on roles(:app), wait: 1 do
+      execute "cd #{release_path}/dmptool-ui && npm install && npm run build"
+      execute "cp #{release_path}/dmptool-ui/dist/ui-assets/application.css #{release_path}/app/assets/stylesheets/vendor/dmptool-ui.css"
+      execute "cp #{release_path}/dmptool-ui/dist/ui-assets/application.js #{release_path}/app/javascript/vendor/dmptoolUi.js"
+      execute "cp #{release_path}/dmptool-ui/dist/ui-assets/*.wof* #{release_path}/app/assets/fonts"
     end
   end
 end
@@ -72,6 +88,17 @@ namespace :hackery do
       execute "mkdir -p #{release_path}/public/tinymce/skins/"
       execute "cp -r #{release_path}/node_modules/tinymce/skins/lightgray/ #{release_path}/public/tinymce/skins/"
       execute "cp #{release_path}/app/assets/stylesheets/tinymce.css #{release_path}/public/tinymce/tinymce.css"
+    end
+  end
+
+  desc "Copy over DMPTool-UI repo's images to the public/dmptool-ui-raw-images dir"
+  task :copy_ui_assets do
+    on roles(:app), wait: 1 do
+      execute "mkdir -p #{release_path}/public/dmptool-ui-raw-images/"
+      execute "cp #{release_path}/dmptool-ui/dist/ui-assets/*.ico #{release_path}/public/dmptool-ui-raw-images/"
+      execute "cp #{release_path}/dmptool-ui/dist/ui-assets/*.jpg #{release_path}/public/dmptool-ui-raw-images/"
+      execute "cp #{release_path}/dmptool-ui/dist/ui-assets/*.png #{release_path}/public/dmptool-ui-raw-images/"
+      execute "cp #{release_path}/dmptool-ui/dist/ui-assets/*.svg #{release_path}/public/dmptool-ui-raw-images/"
     end
   end
 end
