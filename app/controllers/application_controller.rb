@@ -24,6 +24,8 @@ class ApplicationController < ActionController::Base
 
   rescue_from StandardError, with: :handle_server_error
 
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   private
 
   def current_org
@@ -224,6 +226,15 @@ class ApplicationController < ActionController::Base
   end
 
   def handle_server_error(exception)
+    unless Rails.env.development?
+      # DMPTool customization to notify admin of 500 level error
+      message = "#{ApplicationService.application_name} - #{exception.message}"
+      message += "<br>----------------------------------------<br><br>"
+      message += exception&.backtrace&.to_s if exception.present? &&
+                                              exception.respond_to?(:backtrace)
+      UserMailer.notify_administrators(message).deliver_now
+    end
+
     msg = exception.message.to_s if exception.present?
     render_respond_to_format_with_error_message(msg, root_url, 500, exception)
   end

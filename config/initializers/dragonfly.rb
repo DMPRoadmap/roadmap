@@ -1,5 +1,8 @@
 require 'dragonfly'
-require 'dragonfly/s3_data_store'
+
+unless Rails.env.test?
+  require 'dragonfly/s3_data_store'
+end
 
 # Configure
 Dragonfly.app.configure do

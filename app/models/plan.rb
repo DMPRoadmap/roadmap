@@ -189,13 +189,13 @@ class Plan < ApplicationRecord
   scope :search, lambda { |term|
     if date_range?(term: term)
       joins(:template, roles: [user: :org])
-        .where(Role.creator_condition)
+        .where(roles: { active: true })
         .by_date_range(:created_at, term)
     else
       search_pattern = "%#{term}%"
       joins(:template, roles: [user: :org])
         .left_outer_joins(:identifiers, :contributors)
-        .where(Role.creator_condition)
+        .where(roles: { active: true })
         .where("lower(plans.title) LIKE lower(:search_pattern)
                 OR lower(orgs.name) LIKE lower (:search_pattern)
                 OR lower(orgs.abbreviation) LIKE lower (:search_pattern)
@@ -223,6 +223,15 @@ class Plan < ApplicationRecord
   end
   alias super_settings settings
 
+  # =============
+  # = Callbacks =
+  # =============
+
+  # sanitise html tags e.g remove unwanted 'script'
+  before_validation lambda { |data|
+    data.sanitize_fields(:title, :identifier, :description)
+  }
+
   # =================
   # = Class methods =
   # =================
@@ -247,7 +256,7 @@ class Plan < ApplicationRecord
   # Returns Plan
   def self.deep_copy(plan)
     plan_copy = plan.dup
-    plan_copy.title = "Copy of " + plan.title
+    plan_copy.title = "Copy of #{plan.title}"
     plan_copy.feedback_requested = false
     plan_copy.save!
     plan.answers.each do |answer|
@@ -656,6 +665,46 @@ class Plan < ApplicationRecord
   # Returns the Subscription for the specified subscriber or nil if none exists
   def subscription_for(subscriber:)
     subscriptions.select { |subscription| subscription.subscriber == subscriber }
+  end
+
+  # Helper method to convert related_identifier entries from standard form params into
+  # RelatedIdentifier objects.
+  #
+  # Expecting the hash to look like the following, where the initial key is the
+  # RelatedIdentifier.id or "0" if its an empty entry or an absurdly long value
+  # indicating that its a new entry.
+  # The form's JS makes a copy of the "0" entry and generate a long value for an id
+  # when the user clicks the '+add a related identifier' link. We need to do this so
+  # that the user is able to add multiple entries at one time.
+  #
+  #  {
+  #    "56": {
+  #      "work_type": "software", "value": "https://doi.org/10.48321/D1MP4Z"
+  #    },
+  #    "0": {
+  #      "work_type": "article", "value": ""
+  #    },
+  #    "1632773961597": {
+  #      "work_type": "dataset", "value": "http://foo.bar"
+  #    }
+  #  }
+  def related_identifiers_attributes=(params)
+    # Remove any that the user may have deleted
+    related_identifiers.reject { |r_id| params.keys.include?(r_id.id.to_s) }
+                       .each { |r_id| r_id.destroy }
+
+    # Update existing or add new
+    params.each do |id, related_identifier_hash|
+      next unless id.present? && id != "0"
+
+      related = RelatedIdentifier.find_by(id: id)
+      related = RelatedIdentifier.new(identifiable: self) unless related.present?
+      related.update(related_identifier_hash)
+
+p related.inspect
+
+      related_identifiers << related
+    end
   end
 
   private

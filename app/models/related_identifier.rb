@@ -9,6 +9,7 @@
 #  identifier_type      :integer          not null
 #  relation_type        :integer          not null
 #  value                :string(255)      not null
+#  citation             :text
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  identifiable_id      :bigint(8)
@@ -22,6 +23,8 @@
 #  index_relateds_on_identifiable_and_relation_type   (identifiable_id,identifiable_type,relation_type)
 #
 class RelatedIdentifier < ApplicationRecord
+
+  include Uc3Citation
 
   URL_REGEX = %r{^https?:\/\.}.freeze
   DOI_REGEX = %r{(doi:)?10\.[0-9]+\/[a-zA-Z0-9\.\-\/]+}.freeze
@@ -48,7 +51,7 @@ class RelatedIdentifier < ApplicationRecord
   # =========
 
   # Broad categories to identify the type of work the related identifier represents
-  enum work_type: %i[article dataset preprint software supplemental_information]
+  enum work_type: %i[article dataset preprint software supplemental_information paper book]
 
   # The type of identifier based on the DataCite metadata schema
   enum identifier_type: %i[ark arxiv bibcode doi ean13 eissn handle igsn isbn issn istc
@@ -79,6 +82,10 @@ class RelatedIdentifier < ApplicationRecord
 
   before_validation :ensure_defaults
 
+  # If we've enabled citation lookups, then try to fetch the citation after its created
+  # or the value has changed
+  after_save :load_citation
+
   # Returns the value sans the identifier scheme's prefix.
   # For example:
   #   value   'https://orcid.org/0000-0000-0000-0001'
@@ -89,13 +96,6 @@ class RelatedIdentifier < ApplicationRecord
 
     base = identifier_scheme.identifier_prefix
     value.gsub(base, "").sub(%r{^/}, "")
-  end
-
-  # Use the CitationService to fetch the citation from the identifier
-  def fetch_citation
-    id_type = detect_identifier_type
-    self.citation = ExternalApis::CitationService.fetch(id: self) if id_type == "doi" &&
-                                                                     citation.blank?
   end
 
   private
@@ -115,6 +115,17 @@ class RelatedIdentifier < ApplicationRecord
 
   def detect_relation_type
     relation_type.present? ? relation_type : "is_referenced_by"
+  end
+
+  def load_citation
+    # Only attempt to load the citation if that functionality has been enabled in the
+    # config, this is a DOI and its either a new record or the value has changed
+    if Rails.configuration.x.madmp.enable_citation_lookup && identifier_type == "doi" &&
+       citation.nil?
+      wrk_type = work_type == "supplemental_information" ? "" : work_type
+      # Use the UC3Citation service to fetch the citation for the DOI
+      self.citation = fetch_citation(doi: value, work_type: wrk_type) #, debug: true)
+    end
   end
 
 end

@@ -8,7 +8,7 @@ namespace :plan do
     RelatedIdentifier.where(citation: nil)
                      .or(RelatedIdentifier.where(citation: "")).each do |related|
       p "Fetching citation for: '#{related.value}'"
-      related.fetch_citation
+      related.fetch_citation(doi: related.value, work_type: related.work_type)
       p "    #{related.citation.present? ? related.citation : "none found."}"
       related.save if related.citation_changed?
     end

@@ -143,7 +143,11 @@ class PlansController < ApplicationController
                   else
                     Rails.configuration.x.plans.default_visibility
                   end
-
+    # Get all of the available funders
+    @funders = Org.funder
+                  .includes(identifiers: :identifier_scheme)
+                  .joins(:templates)
+                  .where(templates: { published: true }).uniq.sort_by(&:name)
     # TODO: Seems strange to do this. Why are we just not using an `edit` route?
     @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
 
@@ -235,10 +239,12 @@ class PlansController < ApplicationController
 
       @plan.funder = process_org!(user: current_user, namespace: "funder")
       @plan.grant = plan_params[:grant]
+      attrs.delete(:funder)
       attrs.delete(:grant)
       attrs = process_related_identifiers(attrs: attrs)
+      attrs = remove_org_selection_params(params_in: attrs)
 
-      if @plan.update(attrs) # _attributes(attrs)
+      if @plan.update(attrs)
         format.html do
           redirect_to plan_path(@plan),
                       notice: success_message(@plan, _("saved"))
@@ -248,10 +254,9 @@ class PlansController < ApplicationController
         end
       else
         format.html do
-          # Get the selected and possible guidance options for the plan
-          fetch_guidance_groups(plan_in: @plan)
-          flash[:alert] = failure_message(@plan, _("save"))
-          render "show"
+          # TODO: Should do a `render :show` here instead but show defines too many
+          #       instance variables in the controller
+          redirect_to plan_path(@plan).to_s, alert: failure_message(@plan, _("save"))
         end
         format.json do
           render json: { code: 0, msg: failure_message(@plan, _("save")) }
@@ -449,7 +454,7 @@ class PlansController < ApplicationController
                   grant: %i[name value],
                   org: %i[id org_id org_name org_sources org_crosswalk],
                   funder: %i[id org_id org_name org_sources org_crosswalk],
-                  related_identifier_attributes: %i[id work_type value])
+                  related_identifiers_attributes: %i[id work_type value])
   end
 
   # different versions of the same template have the same family_id
@@ -504,32 +509,6 @@ class PlansController < ApplicationController
              answers: answers,
              guidance_presenter: GuidancePresenter.new(plan)
            })
-  end
-
-  # Convert the incoming related_identifiers to RelatedIdentifier objects
-  def process_related_identifiers(attrs:)
-    return attrs unless attrs.present? && attrs[:related_identifier_attributes].present?
-
-    related_identifiers = []
-    attrs[:related_identifier_attributes].each do |id, parameters|
-      # The form contains a hidden placeholder row used by the JS to add a new row
-      # Skip this hidden row or if the value/url is blank
-      next if id == "0" || parameters[:value].nil? || parameters[:value].blank?
-
-      # Try to find the RelatedIdentifier by the id otherwise its a new one
-      related = RelatedIdentifier.find_by(id: id, identifiable: @plan)
-      related = RelatedIdentifier.new(identifiable: @plan) unless related.present?
-
-      related.work_type = parameters[:work_type]
-      related.value = parameters[:value]
-      related.fetch_citation
-
-      related_identifiers << related
-    end
-    @plan.related_identifiers = related_identifiers
-
-    attrs.delete(:related_identifier_attributes)
-    attrs
   end
 
 end

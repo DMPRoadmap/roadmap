@@ -67,6 +67,7 @@ gem "anyway_config"
 # Our homegrown artisinal SSM gem
 gem "uc3-ssm", git: "https://github.com/CDLUC3/uc3-ssm", branch: "0.3.1"
 
+
 # ============== #
 # ERROR HANDLING #
 # ============== #
@@ -243,18 +244,9 @@ gem "httparty"
 # Autoload dotenv in Rails. (https://github.com/bkeepers/dotenv)
 gem "dotenv-rails"
 
-# BibTeX-Ruby is the Rubyist's swiss-army-knife for all things BibTeX.
-# https://github.com/inukshuk/bibtex-ruby
-gem "bibtex-ruby"
-
-# CSL-Ruby provides a Ruby parser and a comprehensive API for the
-# Citation Style Language (CSL), an XML-based format to describe the formatting
-# of citations, notes and bibliographies. (https://github.com/inukshuk/csl-ruby)
-gem 'csl-styles'
-
-# CiteProc-Ruby is a Citation Style Language (CSL) 1.0.1 cite processor written
-# in pure Ruby. (https://github.com/inukshuk/citeproc-ruby)
-gem 'citeproc-ruby'
+# A library that retrieves an citation for the specified DOI.
+# https://github.com/CDLUC3/uc3-citation
+gem 'uc3-citation'
 
 # ================================= #
 # ENVIRONMENT SPECIFIC DEPENDENCIES #

@@ -59,7 +59,7 @@ $(() => {
     // Remove the entire row if the user clicks the 'X' delete link
     relatedIdentifierBlock.on('click', '.remove-related-work', (e) => {
       e.preventDefault();
-      $(e.target).closest('.related-work-row').remove();
+      $(e.target).closest('.citation').remove();
     });
   }
 });

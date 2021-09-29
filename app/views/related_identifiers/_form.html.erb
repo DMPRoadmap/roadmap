@@ -1,72 +1,48 @@
-<%# locals: presenter, related_identifier %>
+<%# locals: presenter, related_identifier, tooltip %>
 
 <%
   id = related_identifier.id.nil? ? 0 : related_identifier.id
-  name_base = "plan[related_identifier_attributes[#{id}]"
-  id_base = "plan_related_identifier_attributes_#{id}"
+  name_base = "plan[related_identifiers_attributes[#{id}]"
+  id_base = "plan_related_identifiers_attributes_#{id}"
 %>
 
 <div class="row related-work-row <%= related_identifier.new_record? ? "hidden" : "" %>">
-  <%= hidden_field_tag :id, related_identifier.id,
-                       name: "#{name_base}[id]]",
-                       id: "#{id_base}_id" %>
-
-  <% if related_identifier.citation.present? %>
-    <div class="col-md-12 citation">
-      <span class="col-md-10">
-        <%= hidden_field_tag :work_type, related_identifier.work_type,
-                             name: "#{name_base}[work_type]]",
-                             id: "#{id_base}_work_type" %>
-
-        <%= hidden_field_tag :value, related_identifier.value,
-                             name: "#{name_base}[value]]",
-                             id: "#{id_base}_value" %>
-
-        <%= sanitize(related_identifier.citation) %>
-      </span>
-      <span class="col-md-2">
-        <a href="#" class="delete" aria-label="<%= _('Remove this related work') %>">
-          <i class="fas fa-times-circle fa-reverse remove-related-work" aria-hidden="true"></i>
-        </a>
-      </span>
-    </div>
-
-  <% else %>
-    <div class="col-md-12">
-      <span class="col-md-4">
-        <%= label_tag("#{id_base}_work_type", _("Work Type"), class: "control-label") %>
-      </span>
-      <span class="col-md-6">
-        <%= label_tag("#{id_base}_value", _("Identifier or external URL"),
-                      class: "control-label") %>
-      </span>
-    </div>
-    <div class="col-md-12">
-      <span class="col-md-4">
-        <% opts = options_for_select(presenter.selectable_related_identifiers,
-                                    related_identifier.work_type) %>
-        <%= select_tag :work_type, opts,
-                      {
-                        include_blank: _("- Please select one -"),
-                        selected: related_identifier.work_type,
+  <div class="col-md-12">
+    <span class="col-md-4">
+      <%= label_tag("#{id_base}_work_type", _("Work Type"), class: "control-label") %>
+    </span>
+    <span class="col-md-6">
+      <%= label_tag("#{id_base}_value", _("Identifier or external URL"),
+                    class: "control-label") %>
+    </span>
+  </div>
+  <div class="col-md-12">
+    <span class="col-md-4">
+      <% opts = options_for_select(presenter.selectable_related_identifiers,
+                                  related_identifier.work_type) %>
+      <%= select_tag :work_type, opts,
+                    {
+                      include_blank: _("- Please select one -"),
+                      selected: related_identifier.work_type,
+                      class: "form-control",
+                      name: "plan[related_identifiers_attributes[0][work_type]]",
+                      id: "plan_related_identifiers_attributes_0_work_type",
+                      title: tooltip,
+                      data: { toggle: "tooltip" }
+                    } %>
+    </span>
+    <span class="col-md-6">
+      <%= text_field_tag :value, related_identifier.value,
                         class: "form-control",
-                        name: "#{name_base}[work_type]]",
-                        id: "#{id_base}_work_type"
-                      } %>
-      </span>
-      <span class="col-md-6">
-        <%= text_field_tag :value, related_identifier.value,
-                          class: "form-control",
-                          name: "#{name_base}[value]]",
-                          id: "#{id_base}_value" %>
-      </span>
-      <span class="col-md-2">
-        <a href="#" class="delete" aria-label="<%= _('Remove this related work') %>">
-          <i class="fas fa-times-circle fa-reverse remove-related-work" aria-hidden="true"></i>
-        </a>
-      </span>
-    </div>
-  <% end %>
-
-
+                        name: "plan[related_identifiers_attributes[0][value]]",
+                        id: "plan_related_identifiers_attributes_0_value",
+                        title: tooltip,
+                        data: { toggle: "tooltip" } %>
+    </span>
+    <span class="col-md-2">
+      <a href="#" class="delete" aria-label="<%= _('Remove this related work') %>">
+        <i class="fas fa-times-circle fa-reverse remove-related-work" aria-hidden="true"></i>
+      </a>
+    </span>
+  </div>
 </div>

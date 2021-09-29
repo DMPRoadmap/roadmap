@@ -19,6 +19,8 @@ class PlanExportsController < ApplicationController
       @show_custom_sections     = export_params[:custom_sections].present?
       @show_research_outputs    = export_params[:research_outputs].present?
       @show_related_identifiers = export_params[:related_identifiers].present?
+      @formatting               = export_params[:formatting]
+      @formatting               = @plan.settings(:export)&.formatting if @formatting.nil?
       @public_plan              = false
 
     elsif publicly_authorized?
@@ -29,6 +31,8 @@ class PlanExportsController < ApplicationController
       @show_custom_sections     = true
       @show_research_outputs    = @plan.research_outputs&.any? || false
       @show_related_identifiers = @plan.related_identifiers&.any? || false
+      @formatting               = @plan.settings(:export)&.formatting
+      @formatting               = Settings::Template::DEFAULT_SETTINGS if @formatting.nil?
       @public_plan              = true
 
     else
@@ -36,7 +40,7 @@ class PlanExportsController < ApplicationController
     end
 
     @hash           = @plan.as_pdf(current_user, @show_coversheet)
-    @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
+
     @selected_phase = if params.key?(:phase_id)
                         @plan.phases.find(params[:phase_id])
                       else
