@@ -33,7 +33,7 @@ If you would like to install and run this application, we encourage you to start
 
 If the basic DMPRoadmap system does not provide the functionality you require please review the list of customizations that we have made below. If our additional changes do not meet your needs, you are encouraged to fork the DMPRoadmap codebase and customize it to your needs. If you do customize it please contact the DMPRoadmap team to let the community know about the additional functionality you plan to offer. It may be useful to the larger community.
 
-If DMPTool meets your organization's needs, you should install it following the DMPRoadmap installation instructions and then perform the folowing tasks:
+If DMPTool meets your organization's needs, you should install it following the [installation instructions on our wiki](https://github.com/CDLUC3/dmptool/wiki/installation) then perform the folowing tasks:
 
 - **Homepage images:** While you are free to use the images provided along with this repository, it is advisable to replace them with ones more relevant to your user base. The system randomly serves up one of five images that are located in `app/assets/images/homepage/`. Each image has 3 sizes geared towards various device resolutions/format (e.g. smart phone). Follow the image sizes in the provided examples for your images. You must also retain the file names as the `app/assets/stylesheets/dmptool/blocks/_home_welcome.scss` references them by name
 - **Rotating news on the homepage:** Update the `config.rss` value in `config/application.rb` with the address of your blog's RSS feed.
