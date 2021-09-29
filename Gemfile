@@ -244,8 +244,8 @@ gem "httparty"
 # Autoload dotenv in Rails. (https://github.com/bkeepers/dotenv)
 gem "dotenv-rails"
 
-# A library that retrieves an citation for the specified DOI following the
-# Chicago Author-Date standard. https://github.com/CDLUC3/uc3-citation
+# A library that retrieves an citation for the specified DOI.
+# https://github.com/CDLUC3/uc3-citation
 gem 'uc3-citation'
 
 # ================================= #
