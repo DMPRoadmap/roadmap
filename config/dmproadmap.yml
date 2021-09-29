@@ -4,6 +4,7 @@ default: &default
   #   - dmproadmap.yml (this file)
   #   - secrets.yml
   #   - credentials.yml.enc
+  #   - AWS SSM variables (if running on an AWS EC2 instance)
   #   - ENV variables (from either the .env file or ENV variables)
   #
   # If a variable is defined in the dmproadmap.yml and also in the credentials.yml.enc, the value
@@ -17,6 +18,10 @@ default: &default
   # For example:
   #  "Anyway::Config::ValidationError: The following config parameters are missing or empty: database_password
   #
+  # If you are not on an AWS EC2 environment and/or do not have access to SSM then you will see the
+  # following warnings. They can be ignored.
+  #   "UC3 SSM Error: SSM parameter name is not fully qualified and no ssm_root_path defined."
+  #
   # We have added a lib/tasks/utils/config.rake task file which can be used to help debug any config
   # issues. For example you can run `rails config:trace` which will return something like this (note:
   # ':secrets' is the Rails credentials file, :env is either an ENV of .env variable):
@@ -28,17 +33,17 @@ default: &default
   #   {:value=> "blah...blah...blah",
   #    :source=>{:type=>:credentials, :store=>"config/credentials.yml.enc"}},
   #  "server_host"=>
-  #   {:value=>"https://foo.bar",
-  #    :source=>{:type=>:env, :key=>"DMPROADMAP_SERVER_HOST"}},
+  #    {:value=>"example.org",
+  #     :source=>{:type=>:ssm_parameter_store, :ssm_root_path=>"/my/path/env:/my/path/app/default"}},
   #  "port"=>
   #    {:value=>"3000", :source=>{:type=>:yml, :path=>"config/dmproadmap.yml"}}}
   #
   # In Summary:
   #   If an entry here is blank then you MUST define it in the credentials.yml.enc (preferred) or in an
-  #   SSM variable (as `/uc3/dmp/tool/[env]/dmproadmap/[variable_name]`)
+  #   ENV variable (`DMPROADMAP_VARIABLE_NAME`)
   #
   #   If you would like to override one of the other values in this file then you should define it as
-  #   an SSM variable (as `/uc3/dmp/tool/[env]/dmproadmap/[variable_name]`)
+  #   an ENV variable (`DMPROADMAP_VARIABLE_NAME`)
 
   # ============================
   # = Base Rails configuration =
@@ -48,7 +53,7 @@ default: &default
   server_host: "localhost"
   port: "3000"
   web_concurrency: 2
-  cookie_key: "_dmptool_session"
+  cookie_key: "_my_application_session"
   rails_log_to_stdout: true
   rails_max_threads: 5
   rails_serve_static_files: true
@@ -64,7 +69,7 @@ default: &default
 
   # See https://guides.rubyonrails.org/v5.0/configuring.html#configuring-a-database
   database_adapter: "mysql2"
-  database_name: "dmp"
+  database_name: "my_app"
   database_host: "localhost"
   database_pool_size: 16
   database_username: "root"
@@ -84,7 +89,7 @@ default: &default
 
   # Security configuration used by the Devise gem to encrypt/decrypt passwords
   # See https://github.com/heartcombo/devise
-  devise_secret:
+  # add your unique value by running `rails secret` and pasting the response here"
   devise_pepper:
 
   # ==========================================
@@ -94,7 +99,7 @@ default: &default
   # Org logo store configuration.
   # See https://github.com/markevans/dragonfly
   dragonfly_aws: false
-  dragonfly_bucket:
+  dragonfly_bucket: ""
   dragonfly_host: ""
   dragonfly_root_path: "logos"
   dragonfly_secret: ""
@@ -107,33 +112,37 @@ default: &default
 
   # Generic DOI service will mint DMP IDs (aka DOIs)
   doi_minting: true
-  # DMPHub will mint DMP IDs (aka DOIs).
+
+  # DataCite (populate if you're using them as your DOI registrar)
+  datacite_active: false
+  datacite_shoulder: "10.1234"
+  datacite_api_base_url: "https://api.test.datacite.org/"
+  datacite_landing_page_url: "https://doi.org/"
+  # You should also check the config/initializers/external_apis/datacite.rb config
+
+  # DMPHub is a DMP metadata repository that will mint DMP IDs and provide a landing page for them.
   # See https://github.com/CDLUC3/dmphub
-  dmphub_active: true
-  dmphub_url: "http://localhost:3001/api/v0/"
+  dmphub_active: false
+  dmphub_url: "https://localhost:3001/api/v0/"
   dmphub_landing_page_url: "http://localhost:3001/dmps/doi:"
-  #dmphub_client_id: "[add your unique client_id from the DMPHub system's api_client table]"
-  dmphub_client_id:
-  #dmphub_client_secret: "[add your unique client_secret from the DMPHub system's api_client table]"
-  dmphub_client_secret:
+  # You should also check the config/initializers/external_apis/dmphub.rb config
 
   # Google Analytics config. Tracker root is the base key for your application
-  google_analytics_tracker_root: "DMPTool"
+  # NOTE: This value must match the :name of the application you define below
+  google_analytics_tracker_root: "MyApp"
 
   # The OpenAire API is used to retrieve grant ids on the Project Details page
   openaire_active: false
 
   # The re3data API is used to retrieve repositories for selection on the Research Outputs page
-  re3data_active: false
+  re3data_active: true
 
   # The SPDX License API is used to license information for selection on the Research Outputs page
-  spdx_active: false
+  spdx_active: true
 
   # ORCID provides identifiers for people.
   # See the public api docs https://info.orcid.org/documentation/features/public-api/
   # Or the member api docs https://info.orcid.org/documentation/features/member-api/
-  orcid_client_id:
-  orcid_client_secret:
   orcid_sandbox: true
   orcid_api_base_url: "https://api.sandbox.orcid.org/v3.0/"
   orcid_landing_page_url: "https://sandbox.orcid.org/"
@@ -141,16 +150,15 @@ default: &default
   # Recaptcha is used to prevent malicious use of the Contact Us and Create Account forms
   # See https://developers.google.com/recaptcha/intro
   recaptcha_enabled: false
-  recaptcha_site_key:
-  recaptcha_secret_key:
 
   # Rollbar converts errors into GutHub issues
   # See https://docs.rollbar.com/docs/gem-configuration-reference
+  # If you have a Rollbar account uncomment these lines and add your access_token
   # rollbar_env: production
-  # rollbar_access_token: ABCD1234
+  # rollbar_access_token:
 
   # Will use the ROR api to search for Org's as the user types
-  ror_active: true
+  ror_active: false
 
   # Translation IO can be used to help failitate translating your custom code.Translations for the
   # core DMPRoadmap codebase are handled by the development team (DEV only)
@@ -181,29 +189,30 @@ default: &default
   #
   # A super admin will also be able to associate orgs with their shibboleth entityIds if this is
   # set to true
-  shibboleth_use_filtered_discovery_service: true
+  shibboleth_use_filtered_discovery_service: false
 
   # =============================================
   # = PDF generator configuration (wkhtmltoprf) =
   # =============================================
 
-  # Location of the wkhtmltopdf executable
+  # Location of the wkhtmltopdf executable.
   wkhtmltopdf_path: <%= Rails.root.join("bin", "wkhtmltopdf").to_s %>
 
   # ==================================
   # = Base application configuration =
   # ==================================
 
-  name: "DMPTool"
+  # This name is used throughout the system to identify your application. (e.g. in
+  # email communications, API calls to external systems, etc.)
+  # NOTE - This name must match the Google Analytics Tracker in this file!
+  name: "MyApp"
   # The :from email address used in emails sent by the application
-  do_not_reply_email: "do-not-reply-dmptool-dev@cdlib.org"
+  do_not_reply_email: "do-not-reply-my-app-dev@cdlib.org"
   # The helpdesk email
-  helpdesk_email: "uc3@ucop.edu"
-  # Administrator email:
-  admin_emails: "uc3@ucop.edu"
+  helpdesk_email: "help@example.org"
   # Used as the default domain when 'archiving' (aka anonymizing) a user account
   # for example `jane.doe@uni.edu` becomes `1234@removed_accounts-example.org`
-  archived_accounts_email_suffix: "@removed_accounts_dmptool.org"
+  archived_accounts_email_suffix: "@removed_accounts_dmproadmap.org"
 
   # Available CSV separators, the default is ','
   csv_separators: [",", "|", "#"]
@@ -229,24 +238,26 @@ default: &default
   # contact_us_url: "https//example.org/default_contact_us_page"
 
   # Your organisation name, used in various places throught the application
-  organisation_name: "University of California Curation Center (UC3)"
+  organisation_name: "My institution's name"
   # Your orgsanisation abbreviation
-  organisation_abbreviation: "UC3"
+  # NOTE - This must match an Org abbreviation in the orgs table. It is used to determine
+  #        who owns the default guidance
+  organisation_abbreviation: "MY-ORG"
   # Your organisation's homepage, used in some of the public facing pages
-  organisation_url: "https://www.cdlib.org/"
+  organisation_url: "https://example.org/"
   # Your organisation's legal (official) name - used in the copyright portion of the footer
-  organisation_copywrite_name: "The Regents of the University of California"
-  email_from_address: "uc3@ucop.edu"
+  organisation_copywrite_name: "My institution's official name"
+  email_from_address:
 
-  # Your organisation's telephone number - used on the contact us page
-  organisation_phone: "+1-510-987-0555"
+  # Your organisation's telephone number - used on the contact us page. This can be left blank.
+  organisation_phone: "My institution's phone number"
 
   # Your organisation's address - used on the contact us page
-  organisation_address_line1: "University of California"
-  organisation_address_line2: "Office of the President"
-  organisation_address_line3: "1111 Franklin Street"
-  organisation_address_line4: "Oakland, CA 94607"
-  organisation_country: "USA"
+  organisation_address_line1: "My institution"
+  organisation_address_line2: "Department"
+  organisation_address_line3: "Address"
+  organisation_address_line4: "City and postal code"
+  organisation_country: "ZZZ"
 
   # The Google maps link to your organisation's location - used to display the
   # Google map on the contact us page.
@@ -255,7 +266,7 @@ default: &default
   # once the menu opens, click the 'share or embed' link and the 'embed' tab on
   # the dialog window that opens. DO NOT place the entire <iframe> tag below, just
   # the address!
-  organisation_google_maps_link: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3152.472655341696!2d-122.2735146846817!3d37.8023965797545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808f80b6a4eac021%3A0xc990eee75729175f!2s1111%20Franklin%20St%2C%20Oakland%2C%20CA%2094607!5e0!3m2!1sen!2sus!4v1616173914168!5m2!1sen!2sus"
+  organisation_google_maps_link:
 
   # =====================
   # = API configuration =
@@ -264,7 +275,7 @@ default: &default
   # The largest page size allowed in requests to the API (all versions)
   api_max_page_size: 100
 
-  # The link to the API documentation - used in emails about the API
+  # The link to the API documentation - used in emails about the API.
   api_documentation_urls:
     v0: "https://github.com/CDLUC3/dmptool/wiki/api-v0-documentation"
     v1: "https://github.com/CDLUC3/dmptool/wiki/api-v1-documentation"
@@ -282,9 +293,10 @@ default: &default
   # The link to your issues list
   issue_list_url: "https://github.com/CDLUC3/dmptool/issues"
   # The link to your Listserv
-  user_group_subscription_url: "http://listserv.ucop.edu/cgi-bin/wa.exe?SUBED1=ROADMAP-L&A=1"
+  user_group_subscription_url: ""
   # The link to your blog
-  blog_rss: "https://blog.dmptool.org/feed"
+  blog_rss: "https://example.org/feed"
+
 
   # The links that appear on the home page. Add any number of links
   welcome_links: []
@@ -311,28 +323,28 @@ default: &default
   # regardless of the plans visibility and whether or not the plan has been shared
   plans_super_admins_read_all: true
 
-  # ======================= #
-  # = maDMP functionality = #
-  # ======================= #
+  # ======================================= #
+  # = maDMP / Networked DMP functionality = #
+  # ======================================= #
 
   # Enable/disable functionality on the Project Details tab
-  enable_ethical_issues: true
-  enable_research_domain: true
+  enable_ethical_issues: false
+  enable_research_domain: false
 
   # This flag will enable/disable the entire Research Outputs tab. The others below will
   # just enable/disable specific functionality on the Research Outputs tab
-  enable_research_outputs: true
-  enable_license_selection: true
-  enable_metadata_standard_selection: true
-  enable_repository_selection: true
+  enable_research_outputs: false
+  enable_license_selection: false
+  enable_metadata_standard_selection: false
+  enable_repository_selection: false
 
   # The following flags will allow the system to include the question and answer in the JSON output
   #   - questions with a theme equal to 'Preservation'
-  extract_preservation_statements_from_themed_questions: true
+  extract_preservation_statements_from_themed_questions: false
   #   - questions with a theme equal to 'Data Collection'
-  extract_data_quality_statements_from_themed_questions: true
+  extract_data_quality_statements_from_themed_questions: false
   #   - questions with a theme equal to 'Ethics & privacy' or 'Storage & security'
-  extract_security_privacy_statements_from_themed_questions: true
+  extract_security_privacy_statements_from_themed_questions: false
 
   # Specify a list of the preferred licenses types. These licenses will appear in a select
   # box on the 'Research Outputs' tab when editing a plan along with the option to select
@@ -355,9 +367,10 @@ default: &default
   # URL will be displayed if none is provided here. See app/views/research_outputs/licenses/_form
   preferred_licenses_guidance_url: "https://creativecommons.org/about/cclicenses/"
 
-  # Allow DMP ID minting
-  allow_doi_minting: true
+  # Allow DMP ID minting (requires you to setup either the DMPHub or DataCite config above)
+  allow_doi_minting: false
 
+  # ============================
   # = User preference defaults =
   # ============================
 

@@ -13,7 +13,7 @@ development:
 test:
   <<: *defaults
 
-  database: "dmp_test"
+  database: "<%= Rails.configuration.x.dmproadmap.database_name %>_test"
 
 stage:
   <<: *defaults
