@@ -2,7 +2,7 @@
 
 <%
 presenter = RelatedIdentifierPresenter.new(plan: plan)
-tooltip = _("List products related to this project, such as journal articles or datasets.")
+tooltip = _("List products related to this project, such as journal articles, software or datasets. For example: 'https://doi.org/10.5281/zenodo.5117892', 'https://github.com/CDLUC3/dmphub/releases/tag/v1.0.12'")
 %>
 
 <hr>
@@ -31,6 +31,7 @@ tooltip = _("List products related to this project, such as journal articles or 
           <% if related_identifier.citation.present? %>
             <%= sanitize(related_identifier.citation) %>
           <% else %>
+            <%= related_identifier.work_type.humanize %>:&nbsp;
             <%= link_to related_identifier.value, target: "_blank" %>&nbsp;
             <%= _("No citation available.") %>
           <% end %>
@@ -49,8 +50,8 @@ tooltip = _("List products related to this project, such as journal articles or 
                         presenter: presenter, tooltip: tooltip } %>
 </div>
 
-<div class="form-group row add-related-work" title="<%= tooltip %>" data-toggle="tooltip">
+<div class="form-group row add-related-work">
   <div class="col-md-4">
-    <%= link_to _("+ Add a related work"), "#" %>
+    <%= link_to _("+ Add a related work"), "#", title: tooltip, data: { toggle: "tooltip" } %>
   </div>
 </div>
