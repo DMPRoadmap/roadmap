@@ -202,3 +202,8 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
     <% end %>
   </div>
 </conditional>
+
+<% if Rails.configuration.x.madmp.enable_related_identifiers %>
+  <%= render partial: "related_identifiers/edit",
+            locals: { plan: form.object, form: form } %>
+<% end %>

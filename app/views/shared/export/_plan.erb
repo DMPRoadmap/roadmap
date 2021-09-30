@@ -86,5 +86,10 @@
         <% end %> <!-- sections.each -->
       <% end %>
     <% end %>
+
+    <% if @show_related_identifiers %>
+      <%= render partial: 'shared/export/plan_related_identifiers',
+                 locals: { plan: @plan } %>
+    <% end %>
   </body>
 </html>

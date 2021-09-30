@@ -61,6 +61,15 @@ unless @minimal
         json.id template.id
         json.title template.title
       end
+
+      json.related_identifiers plan.related_identifiers do |related|
+        next unless related.value.present? && related.relation_type.present?
+
+        json.descriptor related.relation_type
+        json.type related.identifier_type
+        json.identifier related.value
+        json.work_type related.work_type
+      end
     end
   end
 end

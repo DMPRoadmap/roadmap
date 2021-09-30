@@ -115,6 +115,8 @@ class Plan < ApplicationRecord
 
   has_many :contributors, dependent: :destroy
 
+  has_many :related_identifiers, dependent: :destroy
+
   # =====================
   # = Nested Attributes =
   # =====================
@@ -124,6 +126,8 @@ class Plan < ApplicationRecord
   accepts_nested_attributes_for :roles
 
   accepts_nested_attributes_for :contributors
+
+  accepts_nested_attributes_for :related_identifiers
 
   # ===============
   # = Validations =
@@ -589,6 +593,43 @@ class Plan < ApplicationRecord
 
     current = Identifier.create(identifiable: self, value: val)
     self.grant_id = current.id
+  end
+
+  # Helper method to convert related_identifier entries from standard form params into
+  # RelatedIdentifier objects.
+  #
+  # Expecting the hash to look like the following, where the initial key is the
+  # RelatedIdentifier.id or "0" if its an empty entry or an absurdly long value
+  # indicating that its a new entry.
+  # The form's JS makes a copy of the "0" entry and generate a long value for an id
+  # when the user clicks the '+add a related identifier' link. We need to do this so
+  # that the user is able to add multiple entries at one time.
+  #
+  #  {
+  #    "56": {
+  #      "work_type": "software", "value": "https://doi.org/10.48321/D1MP4Z"
+  #    },
+  #    "0": {
+  #      "work_type": "article", "value": ""
+  #    },
+  #    "1632773961597": {
+  #      "work_type": "dataset", "value": "http://foo.bar"
+  #    }
+  #  }
+  def related_identifiers_attributes=(params)
+    # Remove any that the user may have deleted
+    related_identifiers.reject { |r_id| params.keys.include?(r_id.id.to_s) }
+                       .each { |r_id| r_id.destroy }
+
+    # Update existing or add new
+    params.each do |id, related_identifier_hash|
+      next unless id.present? && id != "0"
+
+      related = RelatedIdentifier.find_by(id: id)
+      related = RelatedIdentifier.new(identifiable: self) unless related.present?
+      related.update(related_identifier_hash)
+      related_identifiers << related
+    end
   end
 
   private

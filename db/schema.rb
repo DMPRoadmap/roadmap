@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_19_160319) do
+ActiveRecord::Schema.define(version: 2021_09_30_212541) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -330,6 +330,23 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.integer "question_id", null: false
     t.integer "theme_id", null: false
     t.index ["question_id"], name: "index_questions_themes_on_question_id"
+  end
+
+  create_table "related_identifiers", force: :cascade do |t|
+    t.bigint "identifier_scheme_id"
+    t.integer "identifier_type", null: false
+    t.integer "relation_type", null: false
+    t.integer "work_type", default: 0
+    t.string "value", null: false, index: true
+    t.text "citation"
+    t.bigint "identifiable_id"
+    t.string "identifiable_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["identifiable_id", "identifiable_type", "work_type"], name: "index_relateds_on_identifiable_and_work_type"
+    t.index ["identifier_scheme_id"], name: "index_related_identifiers_on_identifier_scheme_id"
+    t.index ["identifier_type"], name: "index_related_identifiers_on_identifier_type"
+    t.index ["relation_type"], name: "index_related_identifiers_on_relation_type"
   end
 
   create_table "regions", id: :integer, force: :cascade do |t|
