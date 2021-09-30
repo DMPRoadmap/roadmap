@@ -874,7 +874,7 @@ questions = [
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataPreservationBasic"),
     modifiable: true
-  },
+  }
 ]
 questions.map { |q| Question.create!(q) }
 # questions.each do |q|
@@ -883,21 +883,3 @@ questions.map { |q| Question.create!(q) }
 
 #   return
 # end
-
-# Create suggested answers for a few questions
-# -------------------------------------------------------
-annotations = [
-  {
-    text: "Les données seront partagées dans un entrepôt ouvert tel que Zenodo s'il n'existe pas d'entrepôt thématique adéquat.",
-    type: Annotation.types[:example_answer],
-    org: Org.find_by(abbreviation: "Science Europe"),
-    question: Question.find_by(text: "Comment les données seront-elles partagées ?")
-  },
-  {
-    text: "Aucunes données existantes (au sein du laboratoire ou accessibles via) ne peuvent être réutilisées dans cette étude. ",
-    type: Annotation.types[:example_answer],
-    org: Org.find_by(abbreviation: "Science Europe"),
-    question: Question.find_by(text: "Est-ce que des données existantes seront réutilisées ?")
-  }
-]
-annotations.map { |s| Annotation.create!(s) if Annotation.find_by(text: s[:text]).nil? }
