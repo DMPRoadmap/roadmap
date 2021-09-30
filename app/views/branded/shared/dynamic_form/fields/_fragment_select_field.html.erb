@@ -3,9 +3,6 @@
 <% is_multiple_class = multiple ? "multiple-selector" : "single-selector"%>
 <% unless field_label.nil?%>
   <div class="col-md-12">
-    <% if required %>
-      <span class="red" title="<%= _('This field is required.') %>">* </span>
-    <% end %>
     <%= f.label field_id, field_label, class: 'control-label' %>
   </div>
 <% end %>
@@ -24,6 +21,7 @@
       "ajax--delay" => 250
     },
     disabled: readonly,
+    "aria-required": required,
     include_blank: false,
     "data-toggle": "tooltip",
     title: ttip,
