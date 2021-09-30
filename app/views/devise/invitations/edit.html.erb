@@ -21,7 +21,8 @@
       </div>
       <div class="form-group">
         <%= f.label(:firstname, _('First name'), class: 'control-label') %>
-        <%= f.text_field(:firstname, class: "form-control", "aria-required": true, value: @user.firstname) %>
+        <%= f.text_field(:firstname, class: "form-control", "aria-required": true,
+                         spellcheck: true, value: @user.firstname) %>
       </div>
       <div class="form-group">
         <%= f.label(:surname, _('Last name'), class: 'control-label') %>
