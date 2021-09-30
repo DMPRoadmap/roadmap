@@ -13,28 +13,34 @@ class PlanExportsController < ApplicationController
 
     if privately_authorized? && export_params[:form].present?
       skip_authorization
-      @show_coversheet         = export_params[:project_details].present?
-      @show_sections_questions = export_params[:question_headings].present?
-      @show_unanswered         = export_params[:unanswered_questions].present?
-      @show_custom_sections    = export_params[:custom_sections].present?
-      @show_research_outputs   = export_params[:research_outputs].present?
-      @public_plan             = false
+      @show_coversheet          = export_params[:project_details].present?
+      @show_sections_questions  = export_params[:question_headings].present?
+      @show_unanswered          = export_params[:unanswered_questions].present?
+      @show_custom_sections     = export_params[:custom_sections].present?
+      @show_research_outputs    = export_params[:research_outputs].present?
+      @show_related_identifiers = export_params[:related_identifiers].present?
+      @formatting               = export_params[:formatting]
+      @formatting               = @plan.settings(:export)&.formatting if @formatting.nil?
+      @public_plan              = false
 
     elsif publicly_authorized?
       skip_authorization
-      @show_coversheet         = true
-      @show_sections_questions = true
-      @show_unanswered         = true
-      @show_custom_sections    = true
-      @show_research_outputs   = @plan.research_outputs&.any? || false
-      @public_plan             = true
+      @show_coversheet          = true
+      @show_sections_questions  = true
+      @show_unanswered          = true
+      @show_custom_sections     = true
+      @show_research_outputs    = @plan.research_outputs&.any? || false
+      @show_related_identifiers = @plan.related_identifiers&.any? || false
+      @formatting               = @plan.settings(:export)&.formatting
+      @formatting               = Settings::Template::DEFAULT_SETTINGS if @formatting.nil?
+      @public_plan              = true
 
     else
       raise Pundit::NotAuthorizedError
     end
 
     @hash           = @plan.as_pdf(current_user, @show_coversheet)
-    @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
+
     @selected_phase = if params.key?(:phase_id)
                         @plan.phases.find(params[:phase_id])
                       else
@@ -135,7 +141,7 @@ class PlanExportsController < ApplicationController
   def export_params
     params.require(:export)
           .permit(:form, :project_details, :question_headings, :unanswered_questions,
-                  :custom_sections, :research_outputs,
+                  :custom_sections, :research_outputs, :related_identifiers,
                   formatting: [:font_face, :font_size, margin: %i[top right bottom left]])
   end
 

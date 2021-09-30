@@ -67,7 +67,8 @@ module Api
 
         # Fetch all of the User's Plans
         def plans_for_user(user:, complete: false, mine: false)
-          plans = complete ? user.plans.select { |plan| plan.complete? && !plan.is_test? } : user.plans
+          plans = Plan.active(user)
+          plans = plans.select { |plan| plan.complete? && !plan.is_test? } if complete
           plans += user.org.plans.organisationally_visible unless mine
           plans.to_a.flatten.compact.uniq
         end

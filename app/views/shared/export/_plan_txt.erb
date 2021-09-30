@@ -8,8 +8,8 @@
   <% else %>
 <%= _("Template: ") + @hash[:template] + @hash[:customizer] %>
   <% end %>
-  <% if @plan.grant_number.present? %>
-<%= _("Grant number: ") + @plan.grant_number %>
+  <% if @plan.grant&.value.present? %>
+<%= _("Grant number: ") + @plan.grant&.value %>
   <% end %>
   <% if @plan.description.present? %>
 <%= _("Project abstract: ") %>

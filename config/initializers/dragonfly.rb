@@ -1,5 +1,8 @@
 require 'dragonfly'
-require 'dragonfly/s3_data_store'
+
+unless Rails.env.test?
+  require 'dragonfly/s3_data_store'
+end
 
 # Configure
 Dragonfly.app.configure do
@@ -9,7 +12,7 @@ Dragonfly.app.configure do
 
   url_format "/media/:job/:name"
 
-  if Rails.env.development?
+  if Rails.env.development? || Rails.env.test?
     datastore :file,
               root_path: Rails.root.join("public/system/dragonfly", Rails.env),
               server_root: Rails.root.join("public")

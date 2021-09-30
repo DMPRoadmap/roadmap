@@ -67,6 +67,7 @@ gem "anyway_config"
 # Our homegrown artisinal SSM gem
 gem "uc3-ssm", git: "https://github.com/CDLUC3/uc3-ssm", branch: "0.3.1"
 
+
 # ============== #
 # ERROR HANDLING #
 # ============== #
@@ -242,6 +243,10 @@ gem "httparty"
 
 # Autoload dotenv in Rails. (https://github.com/bkeepers/dotenv)
 gem "dotenv-rails"
+
+# A library that retrieves an citation for the specified DOI.
+# https://github.com/CDLUC3/uc3-citation
+gem 'uc3-citation'
 
 # ================================= #
 # ENVIRONMENT SPECIFIC DEPENDENCIES #

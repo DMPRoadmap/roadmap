@@ -15,6 +15,7 @@ module Api
       BAD_FUNDING_MSG = _(":name, :funder_id or :grant_id are required for each funding").freeze
       BAD_DATASET_MSSG = _(":title is required for each :dataset").freeze
       BAD_HOST_MSG = _(":host must include either a :url or :dmproadmap_host_id").freeze
+      BAD_RELATED_IDENTIFIER_MSG = _(":descriptor, :type and :identifier are required for all dmproadmap_related_identifiers").freeze
       # rubocop:enable Layout/LineLength
 
       class << self
@@ -59,6 +60,11 @@ module Api
 
           host_id = json.fetch(:dmproadmap_host_id, {})[:identifier]
           json[:url].present? || host_id.present?
+        end
+
+        def related_identifier_valid?(json:)
+          json.present? && json[:descriptor].present? && json[:type].present? &&
+            json[:identifier].present?
         end
 
         # rubocop:disable Metrics/AbcSize
@@ -142,6 +148,18 @@ module Api
           id = json.fetch(:affiliation_id, json[:funder_id])
           if id.present?
             errs << BAD_ID_MSG unless identifier_valid?(json: id)
+          end
+          errs
+        end
+
+        def related_identifiers_errors(json:)
+          errs = []
+          return errs unless json.present?
+
+          json.each do |related_identifier|
+            next if related_identifier_valid?(json: related_identifier)
+
+            errs << BAD_RELATED_IDENTIFIER_MSG
           end
           errs
         end

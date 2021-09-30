@@ -185,6 +185,9 @@ Rails.application.routes.draw do
     resources :contributors, except: %i[show]
 
     resources :research_outputs, except: %i[show]
+
+    resources :related_identifiers, only: %i[new]
+
     member do
       get "answer"
       get "publish"
@@ -278,6 +281,8 @@ Rails.application.routes.draw do
           resources :datasets, only: %i[create update]
         end
       end
+
+      resources :related_identifiers, only: %i[create]
 
       resources :templates, only: [:index]
     end

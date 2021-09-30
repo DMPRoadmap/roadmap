@@ -229,6 +229,12 @@ module DMPRoadmap
     # URL will be displayed if none is provided here. See app/views/research_outputs/licenses/_form
     config.x.madmp.preferred_licenses_guidance_url = Rails.configuration.x.dmproadmap.preferred_licenses_guidance_url
 
+    # Whether or not to allow users to manually add related_identifiers to a plan
+    config.x.madmp.enable_related_identifiers = Rails.configuration.x.dmproadmap.enable_related_identifiers
+
+    # Whether or not to allow the system to fetch citations for RelatedIdentifiers
+    config.x.madmp.enable_citation_lookup = Rails.configuration.x.dmproadmap.enable_citation_lookup
+
     # Whether or not we allow DMP ID minting
     config.x.allow_doi_minting = Rails.configuration.x.dmproadmap.allow_doi_minting
   end

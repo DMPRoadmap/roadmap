@@ -14,7 +14,7 @@ module OrgSelection
   # }
   # becomes:
   # An Org with name = "Foo (foo.org)",
-  #             org_identifier (ROR) = "http://example.org/123"
+  #             identifier (ROR) = "http://example.org/123"
   #
   class HashToOrgService
 

@@ -53,7 +53,6 @@ identifier_schemes = [
     active: true,
     for_orgs: true,
     identifier_prefix: "https://ror.org/",
-    external_service: "ExternalApis::RorService"
   },
   {
     name: "openaire",
@@ -61,7 +60,6 @@ identifier_schemes = [
     active: true,
     identifier_prefix: "",
     for_research_outputs: true,
-    external_service: "ExternalApis::OpenAireService"
   },
   {
     name: "rethreedata",
@@ -69,7 +67,6 @@ identifier_schemes = [
     active: true,
     identifier_prefix: "https://www.re3data.org/api/v1/repository/",
     for_research_outputs: true,
-    external_service: "ExternalApis::Re3dataService"
   }
 ]
 identifier_schemes.each { |is| IdentifierScheme.create!(is) }
@@ -870,4 +867,4 @@ annotations = [
 ]
 annotations.each{ |s| Annotation.create!(s) if Annotation.find_by(text: s[:text]).nil? }
 
-Rake::Task["external_api:load_field_of_science"].execute
+Rake::Task["external_api:add_field_of_science_to_research_domains"].execute

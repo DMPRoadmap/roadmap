@@ -89,7 +89,12 @@
     <% end %>
 
     <% if @show_research_outputs %>
-      <%= render partial: 'shared/export/plan_outputs', locals: { outputs: @plan.research_outputs } %>
+      <%= render partial: 'shared/export/plan_outputs',
+                 locals: { outputs: @plan.research_outputs } %>
+    <% end %>
+    <% if @show_related_identifiers %>
+      <%= render partial: 'shared/export/plan_related_identifiers',
+                 locals: { plan: @plan } %>
     <% end %>
   </body>
 </html>

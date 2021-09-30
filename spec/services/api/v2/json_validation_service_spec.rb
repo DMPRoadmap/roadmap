@@ -140,6 +140,29 @@ RSpec.describe Api::V2::JsonValidationService do
     end
   end
 
+  describe ":related_identifier_valid?(json:)" do
+    it "returns `false` when json is not present" do
+      expect(described_class.related_identifier_valid?(json: nil)).to eql(false)
+    end
+    it "returns `false` when json[:descriptor] is not present" do
+      json = { type: Faker::Lorem.word, identifier: SecureRandom.uuid }
+      expect(described_class.related_identifier_valid?(json: json)).to eql(false)
+    end
+    it "returns `false` when json[:type] is not present" do
+      json = { descriptor: Faker::Lorem.word, identifier: SecureRandom.uuid }
+      expect(described_class.related_identifier_valid?(json: json)).to eql(false)
+    end
+    it "returns `false` when json[:identifier] is not present" do
+      json = { type: Faker::Lorem.word, descriptor: Faker::Lorem.word }
+      expect(described_class.related_identifier_valid?(json: json)).to eql(false)
+    end
+    it "returns `true` when :descriptor, :type and :identifier are present" do
+      json = { descriptor: Faker::Lorem.word, type: Faker::Lorem.word,
+               identifier: SecureRandom.uuid }
+      expect(described_class.related_identifier_valid?(json: json)).to eql(true)
+    end
+  end
+
   describe "validation_errors(json:)" do
     before(:each) do
       @json = {
@@ -312,6 +335,28 @@ RSpec.describe Api::V2::JsonValidationService do
       results = described_class.org_validation_errors(json: @json)
       expect(results.include?(described_class::BAD_ORG_MSG)).to eql(true)
       expect(results.include?(described_class::BAD_ID_MSG)).to eql(true)
+    end
+  end
+
+  describe ":related_identifiers_errors(json:)" do
+    before(:each) do
+      @json = [{
+        descriptor: RelatedIdentifier.relation_types.keys.sample,
+        type: RelatedIdentifier.identifier_types.keys.sample,
+        identifier: SecureRandom.uuid
+      }]
+    end
+
+    it "returns an empty array if :json is not present" do
+      expect(described_class.related_identifiers_errors(json: nil)).to eql([])
+    end
+    it "returns an empty array if everything is valid" do
+      expect(described_class.related_identifiers_errors(json: @json)).to eql([])
+    end
+    it "returns the BAD_RELATED_IDENTIFIER_MSG if the related_identifier is not valid" do
+      described_class.stubs(:related_identifier_valid?).returns(false)
+      results = described_class.related_identifiers_errors(json: @json)
+      expect(results.include?(described_class::BAD_RELATED_IDENTIFIER_MSG)).to eql(true)
     end
   end
 

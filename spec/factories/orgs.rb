@@ -5,11 +5,10 @@
 # Table name: orgs
 #
 #  id                     :integer          not null, primary key
-#  abbreviation           :string(255)
-#  contact_email          :string(255)
-#  contact_name           :string(255)
-#  feedback_email_msg     :text(65535)
-#  feedback_email_subject :string(255)
+#  abbreviation           :string
+#  contact_email          :string
+#  contact_name           :string
+#  feedback_msg           :text
 #  feedback_enabled       :boolean          default(FALSE)
 #  is_other               :boolean          default(FALSE), not null
 #  links                  :text(65535)
@@ -18,9 +17,7 @@
 #  managed                :boolean          default(FALSE), not null
 #  name                   :string(255)
 #  org_type               :integer          default(0), not null
-#  sort_name              :string(255)
-#  target_url             :string(255)
-#  users_count            :integer
+#  target_url             :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  language_id            :integer

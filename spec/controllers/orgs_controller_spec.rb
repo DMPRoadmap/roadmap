@@ -32,7 +32,7 @@ RSpec.describe OrgsController, type: :controller do
                 funder: [true, false].sample, institution: [true, false].sample,
                 managed: Faker::Number.within(range: 0..1).to_s,
                 feedback_enabled: Faker::Boolean.boolean,
-                feedback_email_msg: Faker::Lorem.paragraph,
+                feedback_msg: Faker::Lorem.paragraph,
                 org_id: org_selector_id_field(org: other_org), org_name: other_org.name,
                 org_crosswalk: org_selector_crosswalk_field(org: other_org) }
       @link_args = org_links_field
@@ -64,7 +64,7 @@ RSpec.describe OrgsController, type: :controller do
       expect(flash[:notice].present?).to eql(true)
       @org.reload
       expect(@org.feedback_enabled).to eql(@args[:feedback_enabled])
-      expect(@org.feedback_email_msg).to eql(@args[:feedback_email_msg])
+      expect(@org.feedback_msg).to eql(@args[:feedback_msg])
     end
     it "updates the shibboleth entityID if super_admin and enabled" do
       @args.delete(:feedback_enabled)
