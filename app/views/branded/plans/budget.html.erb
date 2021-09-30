@@ -17,7 +17,7 @@
       <table class="table table-hover list-contributor linked-fragments-list">
         <thead>
           <tr>
-            <th scope="col"><%= _("Title") %></th>
+            <th scope="col"><%= d_("dmpopidor", "Cost type (Title)") %></th>
             <th scope="col" class="sorter-false"><%= d_("dmpopidor", "Amount") %></th>
             <th scope="col" class="sorter-false"><%= d_("dmpopidor", "Lifecycle stage") %></th>
           </tr>
@@ -25,11 +25,17 @@
         <tbody>
         <% costs.each do |cost| %>
           <% ro = ResearchOutput.find(cost.research_output_id)%>
-          <% cost_label = cost.parent.madmp_schema.schema["properties"]["cost"]["label@#{plan.template.locale}"] %>
+          <% cost_label = form_label(cost.parent.madmp_schema.schema["properties"]["cost"], plan.template.locale, false) %>
+          <% cost_title = cost.data["costType"] %>
+          <% cost_title +=  "(#{cost.data["title"]})" if cost.data["title"].present?%>
           <tr>
-            <td><%= "#{cost.data["title"]} (#{cost.data["costType"]})"%></td>
+            <td><%=  cost_title %></td>
             <td><%= "#{cost.data["amount"]} #{cost.data["currency"]}"%></td>
-            <td><%= "#{cost_label} - " %><b><%= ro.fullname %></b></td>
+            <% if @plan.research_outputs.length > 1 %>
+              <td><%= "#{cost_label} - " %><b><%= ro.abbreviation %></b></td>
+            <% else %>
+              <td><%= cost_label %></td>
+            <% end %>
           </tr>
         <% end %>
         </tbody>

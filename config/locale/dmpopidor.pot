@@ -597,6 +597,9 @@ msgstr ""
 msgid "(version: %{template_version}, published: %{published_date})"
 msgstr ""
 
+msgid "Cost type (Title)"
+msgstr ""
+
 ################
 ### REGISTRIES
 ################

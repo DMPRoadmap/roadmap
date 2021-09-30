@@ -595,6 +595,9 @@ msgstr "Etape du cycle de vie"
 msgid "(version: %{template_version}, published: %{published_date})"
 msgstr "(version: %{template_version}, publiée: %{published_date})"
 
+msgid "Cost type (Title)"
+msgstr "Type de coût (Titre)"
+
 ################
 ### REGISTRIES
 ################
