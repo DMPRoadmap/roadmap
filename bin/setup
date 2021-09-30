@@ -17,11 +17,11 @@ chdir APP_ROOT do
   system! 'gem install bundler --conservative'
   system('bundle check') || system!('bundle install')
 
-  puts "\n== Copying sample files =="
-  puts "\n   creating new file ./.env"
-  cp ".env.sample", ".env"
-  puts "\n   creating new file ./config/dmproadmap.yml"
-  cp "config/dmproadmap.yml.example", "config/dmproadmap.yml"
+  # puts "\n== Copying sample files =="
+  # puts "\n   creating new file ./.env"
+  # cp ".env.sample", ".env"
+  # puts "\n   creating new file ./config/dmproadmap.yml"
+  # cp "config/dmproadmap.yml.example", "config/dmproadmap.yml"
 
   puts "\n== Preparing database =="
   system! 'bin/rails db:setup'
