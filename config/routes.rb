@@ -186,8 +186,6 @@ Rails.application.routes.draw do
 
     resources :research_outputs, except: %i[show]
 
-    resources :related_identifiers, only: %i[new]
-
     member do
       get "answer"
       get "publish"

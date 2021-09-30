@@ -76,6 +76,7 @@ unless @minimal
     json.descriptor related.relation_type
     json.type related.identifier_type
     json.identifier related.value
+    json.work_type related.work_type
   end
 
   json.dmproadmap_privacy presenter.visibility

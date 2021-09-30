@@ -700,9 +700,6 @@ class Plan < ApplicationRecord
       related = RelatedIdentifier.find_by(id: id)
       related = RelatedIdentifier.new(identifiable: self) unless related.present?
       related.update(related_identifier_hash)
-
-p related.inspect
-
       related_identifiers << related
     end
   end
