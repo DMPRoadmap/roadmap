@@ -6,7 +6,8 @@
   <%= f.hidden_field :plan_id, value: plan.id %>
   <div class="form-group">
     <%= f.label(:text, _('Add comments to share with collaborators')) %>
-    <%= f.text_area(:text, class: 'form-control note', id: "note-#{question.id}") %>
+    <%= f.text_area(:text, class: 'form-control note', id: "note-#{question.id}",
+                    spellcheck: true) %>
   </div>
   <div class="pull-right">
     <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
