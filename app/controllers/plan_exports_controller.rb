@@ -17,6 +17,7 @@ class PlanExportsController < ApplicationController
       @show_sections_questions = export_params[:question_headings].present?
       @show_unanswered         = export_params[:unanswered_questions].present?
       @show_custom_sections    = export_params[:custom_sections].present?
+      @show_related_identifiers = export_params[:related_identifiers].present?
       @public_plan             = false
 
     elsif publicly_authorized?
@@ -25,6 +26,7 @@ class PlanExportsController < ApplicationController
       @show_sections_questions = true
       @show_unanswered         = true
       @show_custom_sections    = true
+      @show_related_identifiers = @plan.related_identifiers&.any? || false
       @public_plan             = true
 
     else
@@ -127,7 +129,7 @@ class PlanExportsController < ApplicationController
   def export_params
     params.require(:export).permit(:form, :project_details, :question_headings,
                                    :unanswered_questions, :custom_sections,
-                                   :formatting)
+                                   :related_identifiers, :formatting)
   end
 
 end

@@ -2,6 +2,7 @@ class CreateRelatedIdentifiers < ActiveRecord::Migration[5.2]
   def change
     create_table :related_identifiers do |t|
       t.references  :identifier_scheme, null: true,  index: true
+      t.references  :plan, index: true
       t.integer     :identifier_type,   null: false, index: true
       t.integer     :relation_type,     null: false, index: true
       t.integer     :work_type,         null: false, index: true, default: 0
