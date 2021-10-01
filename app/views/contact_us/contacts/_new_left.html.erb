@@ -22,7 +22,7 @@
         <%= f.label(:subject, _('Subject')) %>
         <%= f.text_field(:subject,
             class: "form-control",
-            spellcheck: "true",
+            spellcheck: true,
             "aria-required": true) %>
     </div>
 <% end %>
@@ -31,6 +31,7 @@
         <%= f.text_area(:message,
             class: "form-control",
             rows: 10,
+            spellcheck: true,
             "aria-required": true) %>
     </div>
 <% if !user_signed_in? && Rails.configuration.x.recaptcha.enabled then %>

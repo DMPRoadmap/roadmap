@@ -37,7 +37,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
   <div class="col-md-8" data-toggle="tooltip" title="<%= project_abstract_tooltip %>">
     <em class="sr-only"><%= project_abstract_tooltip %></em>
     <%= form.text_area :description, rows: 6, class: 'form-control tinymce',
-                                     "aria-required": false %>
+                       spellcheck: true, "aria-required": false %>
   </div>
 </div>
 
@@ -94,10 +94,12 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
     </div>
     <div class="col-md-8">
       <em class="sr-only"><%= id_tooltip %></em>
-      <%= form.text_field :identifier, class: "form-control",
-                                       aria: { required: false },
-                                       data: { toggle: "tooltip" },
-                                       spellcheck: true, title: id_tooltip %>
+      <%= form.text_field :identifier,
+                          class: "form-control",
+                          aria: { required: false },
+                          data: { toggle: "tooltip" },
+                          spellcheck: true,
+                          title: id_tooltip %>
     </div>
   </div>
 <% end %>
@@ -120,8 +122,11 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
       </div>
       <div class="col-md-8" data-toggle="tooltip" title="<%= ethics_description_tooltip %>">
         <em class="sr-only"><%= ethics_description_tooltip %></em>
-        <%= form.text_area :ethical_issues_description, rows: 6, class: 'form-control tinymce',
-                                        "aria-required": false %>
+        <%= form.text_area :ethical_issues_description,
+                           rows: 6,
+                           class: 'form-control tinymce',
+                           spellcheck: true,
+                           "aria-required": false %>
       </div>
     </div>
     <div class="form-group toggleable-field">
@@ -130,9 +135,11 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
       </div>
       <div class="col-md-8">
         <em class="sr-only"><%= ethics_report_tooltip %></em>
-        <%= form.url_field(:ethical_issues_report, class: "form-control", "aria-required": false,
-                                    'data-toggle': 'tooltip',
-                                    title: ethics_report_tooltip) %>
+        <%= form.url_field(:ethical_issues_report,
+                           class: "form-control",
+                           "aria-required": false,
+                           'data-toggle': 'tooltip',
+                           title: ethics_report_tooltip) %>
       </div>
     </div>
   </conditional>
@@ -178,8 +185,12 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
         <%# If the OpenAire grant typeahead if enabled use it %>
         <% if Rails.configuration.x.open_aire.active %>
           <!-- Using the research_project.json source for typeahead -->
-          <%= grant_fields.text_field :name, value: plan.grant&.value, class: "form-control grant-id-typeahead",
-                                            autocomplete: "off", aria: { required: false } %>
+          <%= grant_fields.text_field :name,
+                                      value: plan.grant&.value,
+                                      class: "form-control grant-id-typeahead",
+                                      spellcheck: true,
+                                      autocomplete: "off",
+                                      aria: { required: false } %>
           <%= grant_fields.hidden_field :value %>
           <span class="text-muted" id="grant_number_info">Grant number: <%= plan.grant&.value %></span>
         <% else %>
