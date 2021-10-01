@@ -41,8 +41,8 @@
 
   <p><b><%= _("Last modified: ") %></b><%=  l(@plan.updated_at.to_date, formats: :short) %></p> <br>
 
-  <% if @plan.grant_number.present? %>
-    <p><b><%= _("Grant number / URL: ") %></b><%= @plan.grant_number %></p> <br>
+  <% if @plan.grant.present? %>
+    <p><b><%= _("Grant number / URL: ") %></b><%= @plan.grant.value %></p> <br>
   <% end %>
 
   <% if @public_plan %>
