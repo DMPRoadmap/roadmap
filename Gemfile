@@ -294,13 +294,21 @@ group :ci, :development do
   # (http://brakemanscanner.org)
   gem "brakeman"
 
+  # Helper gem to require bundler-audit
+  # (http://github.com/stewartmckee/bundle-audit)
+  gem "bundle-audit"
+
   # RuboCop is a Ruby code style checking and code formatting tool. It aims to enforce
   # the community-driven Ruby Style Guide.
   gem "rubocop"
 
-  # Helper gem to require bundler-audit
-  # (http://github.com/stewartmckee/bundle-audit)
-  gem "bundle-audit"
+  # Automatic Rails code style checking tool. A RuboCop extension focused on enforcing
+  # Rails best practices and coding conventions.
+  gem "rubocop-rails"
+
+  # Code style checking for RSpec files. A plugin for the RuboCop code style enforcing
+  # & linting tool.
+  gem "rubocop-rspec"
 end
 
 group :development do
