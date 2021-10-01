@@ -199,7 +199,7 @@ class MadmpFragmentsController < ApplicationController
         "source" => source,
         "html" => render_fragment_list(
           @fragment.dmp_id,
-          @fragment.parent_id,
+          p_params[:parent_id].to_i,
           schema.id,
           property_name,
           p_params[:template_locale],
@@ -359,18 +359,17 @@ class MadmpFragmentsController < ApplicationController
     @contributor.classname = schema.classname
     authorize @contributor
     return unless @contributor.save!
-
+    @contributor = @contributor.becomes(Fragment::Contributor)
     render json: {
       "fragment_id" =>  parent_fragment.id,
       "query_id" => query_id,
       "html" => render_fragment_list(
         @contributor.dmp_id,
         parent_fragment.id,
-        @contributor.madmp_schema_id,
+        @contributor.person.madmp_schema_id,
         params[:property_name],
         template_locale,
-        query_id,
-        true
+        query_id
       )
     }
   end
@@ -379,7 +378,6 @@ class MadmpFragmentsController < ApplicationController
     @person = Fragment::Person.find(params[:contributor_id])
     contributors_list = @person.contributors
     query_id = params[:query_id]
-    readonly = params[:readonly] == "true"
     dmp_id = @person.dmp_id
     property_name = @person.additional_info["property_name"]
 
@@ -402,7 +400,7 @@ class MadmpFragmentsController < ApplicationController
       "query_id" => query_id,
       "html" => render_fragment_list(
         dmp_id, nil, @person.madmp_schema_id,
-        property_name, params[:template_locale], query_id, readonly
+        property_name, params[:template_locale], query_id
       )
     }
   end
@@ -448,14 +446,32 @@ class MadmpFragmentsController < ApplicationController
 
   def render_fragment_list(dmp_id, parent_id, schema_id, property_name, template_locale, query_id = nil, readonly = false)
     schema = MadmpSchema.find(schema_id)
-    case schema.classname
-    when "person"
+    if query_id.eql?("contributor")
       dmp = Fragment::Dmp.where(id: dmp_id).first
       @plan = dmp.plan
       render_to_string(
         partial: "paginable/contributors/index",
         locals: {
           scope: dmp.persons
+        }
+      )
+    elsif schema.classname.eql?("person")
+      contributors = Fragment::Contributor.where(
+        dmp_id: dmp_id,
+        parent_id: parent_id
+      )
+      # if the fragment is a Person, we consider that it's been edited from a Contributor list
+      # we need to indicate that we want the contributor list to be displayed
+      render_to_string(
+        partial: "shared/dynamic_form/fields/contributor/contributor_list",
+        locals: {
+          contributors: contributors,
+          parent_id: parent_id,
+          schema_id: schema_id,
+          readonly: readonly,
+          deletable: true,
+          template_locale: template_locale,
+          query_id: query_id
         }
       )
     else
