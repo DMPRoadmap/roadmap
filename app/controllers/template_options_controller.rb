@@ -79,7 +79,7 @@ class TemplateOptionsController < ApplicationController
   end
 
   def org_params
-    %i[id name sort_name url language abbreviation ror fundref weight score]
+    %i[id name url language abbreviation ror fundref weight score]
   end
 
 end

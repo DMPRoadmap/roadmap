@@ -25,7 +25,13 @@ RSpec.describe Api::V1::PlanPresenter do
       expect(presenter.data_contact).to eql(nil)
       expect(presenter.contributors).to eql([])
     end
-    it "sets data_contact" do
+    it "sets data_contact to the owner" do
+      # Plan.owner stupidly requires that the record be persisted, so need to create here
+      plan = create(:plan, :creator)
+      presenter = described_class.new(plan: plan)
+      expect(presenter.data_contact).to eql(plan.owner)
+    end
+    it "sets data_contact to the data_curation contributor if there is no owner" do
       expect(@presenter.data_contact).to eql(@data_contact)
     end
     it "sets other contributors (including the data_contact)" do
