@@ -79,6 +79,8 @@ describe Plan do
 
     it { is_expected.to have_many(:contributors) }
 
+    it { is_expected.to have_many(:related_identifiers) }
+
   end
 
   describe ".publicly_visible" do
@@ -1576,6 +1578,85 @@ describe Plan do
       expect(plan.grant.new_record?).to eql(false)
       expect(plan.grant.value).to eql(val)
       expect(Identifier.all.length).to eql(1)
+    end
+  end
+
+  describe "#related_identifiers_attributes=(params)" do
+    before(:each) do
+      @plan = create(:plan, :creator)
+      @related = create(:related_identifier, identifiable: @plan)
+      @plan.reload
+    end
+
+    it "removes existing related identifiers that are not part of :params" do
+      old_id = @related.id
+      val = SecureRandom.uuid
+      params = {
+        "#{Faker::Number.number(digits: 10)}": {
+          "work_type": RelatedIdentifier.work_types.keys.sample,
+          "value": val
+        }
+      }
+      @plan.related_identifiers_attributes= JSON.parse(params.to_json)
+      expect(@plan.related_identifiers.length).to eql(1)
+      expect(@plan.related_identifiers.first.id).not_to eql(old_id)
+      expect(@plan.related_identifiers.first.value).to eql(val)
+    end
+    it "skips the hidden entry used by JS as a template for new related identifiers" do
+      params = {
+        "#{@related.id}": {
+          "work_type": @related.work_type,
+          "value": @related.value
+        },
+        "0": {
+          "work_type": RelatedIdentifier.work_types.keys.sample,
+          "value": SecureRandom.uuid
+        }
+      }
+      @plan.related_identifiers_attributes= JSON.parse(params.to_json)
+      expect(@plan.related_identifiers.length).to eql(1)
+      expect(@plan.related_identifiers.first).to eql(@related)
+    end
+    it "updates the existing related identifier" do
+      work_type = RelatedIdentifier.work_types
+                                   .reject { |wt| wt == @related.work_type }
+                                   .keys.sample
+      val = SecureRandom.uuid
+      params = {
+        "#{@related.id}": {
+          "work_type": work_type,
+          "value": val
+        }
+      }
+      @plan.related_identifiers_attributes= JSON.parse(params.to_json)
+      expect(@plan.related_identifiers.length).to eql(1)
+      expect(@plan.related_identifiers.first.id).to eql(@related.id)
+      expect(@plan.related_identifiers.first.work_type).to eql(work_type)
+      expect(@plan.related_identifiers.first.value).to eql(val)
+    end
+    it "adds a new related identifier" do
+      work_type = RelatedIdentifier.work_types
+                                   .reject { |wt| wt == @related.work_type }
+                                   .keys.sample
+      val = SecureRandom.uuid
+      params = {
+        "#{@related.id}": {
+          "work_type": @related.work_type,
+          "value": @related.value
+        },
+        "#{Faker::Number.number(digits: 10)}": {
+          "work_type": work_type,
+          "value": val
+        }
+      }
+      @plan.related_identifiers_attributes= JSON.parse(params.to_json)
+      expect(@plan.related_identifiers.length).to eql(2)
+      @plan.related_identifiers.order(:created_at)
+      expect(@plan.related_identifiers.first.id).to eql(@related.id)
+      expect(@plan.related_identifiers.first.work_type).to eql(@related.work_type)
+      expect(@plan.related_identifiers.first.value).to eql(@related.value)
+      expect(@plan.related_identifiers.last.work_type).to eql(work_type)
+      expect(@plan.related_identifiers.last.value).to eql(val)
     end
   end
 
