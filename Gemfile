@@ -294,11 +294,9 @@ group :ci, :development do
   # (http://brakemanscanner.org)
   gem "brakeman"
 
-  # Automatic Ruby code style checking tool.
-  # (https://github.com/rubocop-hq/rubocop)
-  # Rubocop style checks for DMP Roadmap projects.
-  # (https://github.com/DMPRoadmap/rubocop-DMP_Roadmap)
-  gem "rubocop-dmp_roadmap"
+  # RuboCop is a Ruby code style checking and code formatting tool. It aims to enforce
+  # the community-driven Ruby Style Guide.
+  gem "rubocop"
 
   # Helper gem to require bundler-audit
   # (http://github.com/stewartmckee/bundle-audit)
