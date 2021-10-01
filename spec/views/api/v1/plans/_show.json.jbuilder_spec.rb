@@ -10,6 +10,8 @@ describe "api/v1/plans/_show.json.jbuilder" do
     @pi = create(:contributor, investigation: true, plan: @plan)
     @plan.contributors = [@data_contact, @pi]
     create(:identifier, identifiable: @plan)
+    @plan.related_identifiers << create(:related_identifier, identifiable: @plan)
+    @plan.save
     @plan.reload
   end
 
@@ -85,6 +87,17 @@ describe "api/v1/plans/_show.json.jbuilder" do
       tmplt = @plan.template
       expect(@section[app.to_sym][:template][:id]).to eql(tmplt.id)
       expect(@section[app.to_sym][:template][:title]).to eql(tmplt.title)
+    end
+    it "includes the :related_identifiers in :extension" do
+      app = ApplicationService.application_name.split("-").first
+      @section = @json[:extension].select { |hash| hash.keys.first == app }.first
+      expect(@section[app.to_sym].present?).to eql(true)
+      expect(@section[app.to_sym][:related_identifiers].length).to eql(1)
+      related = @section[app.to_sym][:related_identifiers].first
+      expect(related["work_type"]).to eql(@plan.related_identifiers.first.work_type)
+      expect(related["type"]).to eql(@plan.related_identifiers.first.identifier_type)
+      expect(related["descriptor"]).to eql(@plan.related_identifiers.first.relation_type)
+      expect(related["identifier"]).to eql(@plan.related_identifiers.first.value)
     end
 
   end
