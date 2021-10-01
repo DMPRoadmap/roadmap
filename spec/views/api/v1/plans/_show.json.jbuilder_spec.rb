@@ -38,6 +38,16 @@ describe "api/v1/plans/_show.json.jbuilder" do
     it "includes the :modified" do
       expect(@json[:modified]).to eql(@plan.updated_at.to_formatted_s(:iso8601))
     end
+    it "includes :ethical_issues" do
+      expected = Api::V1::ConversionService.boolean_to_yes_no_unknown(@plan.ethical_issues)
+      expect(@json[:ethical_issues_exist]).to eql(expected)
+    end
+    it "includes :ethical_issues_description" do
+      expect(@json[:ethical_issues_description]).to eql(@plan.ethical_issues_description)
+    end
+    it "includes :ethical_issues_report" do
+      expect(@json[:ethical_issues_report]).to eql(@plan.ethical_issues_report)
+    end
 
     it "returns the URL of the plan as the :dmp_id if no DOI is defined" do
       expected = Rails.application.routes.url_helpers.api_v1_plan_url(@plan)

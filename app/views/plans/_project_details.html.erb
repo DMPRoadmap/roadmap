@@ -1,8 +1,13 @@
-<%# locals: form, plan %>
+<%# locals: form, plan, research_domains %>
 
-<% project_title_tooltip =  _('If applying for funding, state the name exactly as in the grant proposal.') %>
-<% project_abstract_tooltip = _("Briefly summarise your research project to help others understand the purposes for which the data are being collected or created.") %>
-<% id_tooltip = _('A pertinent ID as determined by the funder and/or organisation.') %>
+<%
+project_title_tooltip =  _('If applying for funding, state the name exactly as in the grant proposal.')
+project_abstract_tooltip = _("Briefly summarise your research project to help others understand the purposes for which the data are being collected or created.")
+id_tooltip = _('A pertinent ID as determined by the funder and/or organisation.')
+ethics_tooltip = _("Whether there are any potential ethical issues related to data that this DMP describes")
+ethics_description_tooltip = _("Description of the ethical issues")
+ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics commitee")
+%>
 
 <div class="form-group"><!-- title -->
   <div class="col-md-12">
@@ -32,9 +37,25 @@
   <div class="col-md-8" data-toggle="tooltip" title="<%= project_abstract_tooltip %>">
     <em class="sr-only"><%= project_abstract_tooltip %></em>
     <%= form.text_area :description, rows: 6, class: 'form-control tinymce',
-                                     "aria-required": false %>
+                       spellcheck: true, "aria-required": false %>
   </div>
 </div>
+
+<% if Rails.configuration.x.madmp.enable_research_domain %>
+  <div class="form-group">
+    <div class="col-md-8">
+      <%= form.label(:research_domain_id, _("Research domain"), class: "control-label") %>
+
+      <% options = research_domains.map { |rd| [rd.label, rd.id] } %>
+      <%= form.select :research_domain_id, options_for_select(options, form.object.research_domain_id),
+                            {
+                              include_blank: _("- Please select one -"),
+                              selected: form.object.research_domain_id
+                            },
+                            { class: "form-control" } %>
+    </div>
+  </div>
+<% end %>
 
 <div class="form-group"><!-- start / end dates -->
   <div class="col-md-4">
@@ -73,61 +94,111 @@
     </div>
     <div class="col-md-8">
       <em class="sr-only"><%= id_tooltip %></em>
-      <%= form.text_field :identifier, class: "form-control",
-                                       aria: { required: false },
-                                       data: { toggle: "tooltip" },
-                                       spellcheck: true, title: id_tooltip %>
+      <%= form.text_field :identifier,
+                          class: "form-control",
+                          aria: { required: false },
+                          data: { toggle: "tooltip" },
+                          spellcheck: true,
+                          title: id_tooltip %>
     </div>
   </div>
 <% end %>
 
-<div id="funder-org-controls" class="form-group">
-  <% if plan.template.org == plan.funder %>
-    <%# If the plan's funder is the same as the template owner then just
-        display the identifiers %>
-    <div class="col-md-12">
-      <%= form.label(:funder_name, _('Funder'), class: 'control-label') %>
+<% if Rails.configuration.x.madmp.enable_ethical_issues %>
+  <conditional>
+    <div class="form-group">
+      <div class="col-md-8">
+        <div class="checkbox">
+          <%= form.label(:ethical_issues, class: 'control-label', title: ethics_tooltip) do %>
+            <%= form.check_box(:ethical_issues) %>
+            <%= _('Research outputs may have ethical concerns') %>
+          <% end %>
+        </div>
+      </div>
     </div>
-    <div class="col-md-8">
-      <%= plan.funder.name %>:
+    <div class="form-group toggleable-field">
+      <div class="col-md-12">
+        <%= form.label(:ethical_issues_description, _('Describe any ethical concerns'), class: 'control-label') %>
+      </div>
+      <div class="col-md-8" data-toggle="tooltip" title="<%= ethics_description_tooltip %>">
+        <em class="sr-only"><%= ethics_description_tooltip %></em>
+        <%= form.text_area :ethical_issues_description,
+                           rows: 6,
+                           class: 'form-control tinymce',
+                           spellcheck: true,
+                           "aria-required": false %>
+      </div>
     </div>
-  <% else %>
-    <%# Otherwise display the Org typeahead for funders %>
+    <div class="form-group toggleable-field">
+      <div class="col-md-12">
+        <%= form.label(:ethical_issues_report, _('Ethical protocols'), class: 'control-label') %>
+      </div>
+      <div class="col-md-8">
+        <em class="sr-only"><%= ethics_report_tooltip %></em>
+        <%= form.url_field(:ethical_issues_report,
+                           class: "form-control",
+                           "aria-required": false,
+                           'data-toggle': 'tooltip',
+                           title: ethics_report_tooltip) %>
+      </div>
+    </div>
+  </conditional>
+<% end %>
+
+<conditional>
+  <div id="funder-org-controls" class="form-group">
     <div class="col-md-8">
-      <%= fields_for :funder, plan.funder do |funder_fields| %>
-        <%= render partial: org_partial,
-           locals: {
-             form: form,
-             orgs: orgs,
-             funder_only: true,
-             label: _("Funder"),
-             default_org: plan.funder,
-             required: false
-           } %>
+      <%= form.fields_for :funder, Org.new do |funder_fields| %>
+        <%= render partial: "shared/org_selectors/local_only",
+                    locals: {
+                      form: funder_fields,
+                      id_field: :id,
+                      label: _("Funder"),
+                      default_org: plan.funder,
+                      orgs: @funders,
+                      required: false
+                    } %>
       <% end %>
     </div>
-  <% end %>
-</div>
+  </div>
 
-<div class="form-group"><!-- grant_number -->
-  <%= form.fields_for :grant, @plan.grant do |grant_fields| %>
+  <div class="form-group toggleable-field">
     <div class="col-md-12">
-      <%= grant_fields.label(:value, _("Grant number/url"), class: "control-label") %>
+      <%= form.label(:funding_status, _("Funding status"), class: "control-label") %>
+    </div>
+    <div class="col-md-8">
+      <% funding_statuses = Plan.funding_statuses.map { |status| [status[0].capitalize, status[0]] } %>
+      <%= form.select :funding_status, options_for_select(funding_statuses, form.object.funding_status),
+                            {
+                              include_blank: _("- Please select one -"),
+                              selected: form.object.funding_status
+                            },
+                            { class: "form-control" } %>
     </div>
 
-    <div class="col-md-8">
-      <%# If the OpenAire grant typeahead if enabled use it %>
-      <% if Rails.configuration.x.open_aire.active %>
-        <!-- Using the research_project.json source for typeahead -->
-        <%= grant_fields.text_field :name, value: @plan.grant&.value, class: "form-control grant-id-typeahead",
-                                           autocomplete: "off", aria: { required: false } %>
-        <%= grant_fields.hidden_field :value %>
-        <span class="text-muted" id="grant_number_info">Grant number: <%= @plan.grant_number %></span>
-      <% else %>
-        <%= grant_fields.text_field(:value, class: "form-control",
-                                           data: { toggle: "tooltip" },
-                                           title: _("Provide a URL to the award's landing page if possible, if not please provide the award/grant number.")) %>
-      <% end %>
-    </div>
-  <% end %>
-</div>
+    <%= form.fields_for :grant, plan.grant do |grant_fields| %>
+      <div class="col-md-12">
+        <%= grant_fields.label(:value, _("Grant number/url"), class: "control-label") %>
+      </div>
+
+      <div class="col-md-8">
+        <%# If the OpenAire grant typeahead if enabled use it %>
+        <% if Rails.configuration.x.open_aire.active %>
+          <!-- Using the research_project.json source for typeahead -->
+          <%= grant_fields.text_field :name,
+                                      value: plan.grant&.value,
+                                      class: "form-control grant-id-typeahead",
+                                      spellcheck: true,
+                                      autocomplete: "off",
+                                      aria: { required: false } %>
+          <%= grant_fields.hidden_field :value %>
+          <span class="text-muted" id="grant_number_info">Grant number: <%= plan.grant&.value %></span>
+        <% else %>
+          <%= grant_fields.text_field(:value, class: "form-control",
+                                            data: { toggle: "tooltip" },
+                                            title: _("Provide a URL to the award's landing page if possible, if not please provide the award/grant number.")) %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</conditional>

@@ -23,9 +23,7 @@
 #  invited_by_type        :string
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :string
-#  ldap_password          :string
-#  ldap_username          :string
-#  other_organisation     :string
+#  other_organisation :string
 #  recovery_email         :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
@@ -161,6 +159,9 @@ class User < ApplicationRecord
   # =============
   # = Callbacks =
   # =============
+
+  # sanitise html tags from fields
+  before_validation ->(data) { data.sanitize_fields(:firstname, :surname) }
 
   after_update :clear_department_id, if: :saved_change_to_org_id?
 

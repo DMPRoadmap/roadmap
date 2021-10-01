@@ -9,18 +9,9 @@
 #
 #  id                                :integer          not null, primary key
 #  complete                          :boolean          default(FALSE)
-#  data_contact                      :string
-#  data_contact_email                :string
-#  data_contact_phone                :string
 #  description                       :text
 #  feedback_requested                :boolean          default(FALSE)
-#  funder_name                       :string
-#  grant_number                      :string
 #  identifier                        :string
-#  principal_investigator            :string
-#  principal_investigator_email      :string
-#  principal_investigator_identifier :string
-#  principal_investigator_phone      :string
 #  title                             :string
 #  visibility                        :integer          default(3), not null
 #  created_at                        :datetime
@@ -29,7 +20,11 @@
 #  org_id                            :integer
 #  funder_id                         :integer
 #  grant_id                          :integer
-#  api_client_id                     :integer
+#  research_domain_id                :bigint
+#  funding_status                    :integer
+#  ethical_issues                    :boolean
+#  ethical_issues_description        :text
+#  ethical_issues_report             :string
 #
 # Indexes
 #
@@ -42,10 +37,9 @@
 #
 #  fk_rails_...  (template_id => templates.id)
 #  fk_rails_...  (org_id => orgs.id)
+#  fk_rails_...  (research_domain_id => research_domains.id)
 #
 
-# TODO: Drop the funder_name and grant_number columns once the funder_id has
-#       been back filled and we're removing the is_other org stuff
 class Plan < ApplicationRecord
 
   include ConditionalUserMailer
@@ -74,6 +68,8 @@ class Plan < ApplicationRecord
   enum visibility: %i[organisationally_visible publicly_visible
                       is_test privately_visible]
 
+  enum funding_status: %i[planned funded denied]
+
   alias_attribute :name, :title
 
   attribute :visibility, :integer, default: 3
@@ -87,6 +83,8 @@ class Plan < ApplicationRecord
   belongs_to :org
 
   belongs_to :funder, class_name: "Org", optional: true
+
+  belongs_to :research_domain, optional: true
 
   has_many :phases, through: :template
 
@@ -116,10 +114,6 @@ class Plan < ApplicationRecord
   has_many :exported_plans
 
   has_many :contributors, dependent: :destroy
-
-  has_one :grant, as: :identifiable, dependent: :destroy, class_name: "Identifier"
-
-  belongs_to :api_client, optional: true
 
   # =====================
   # = Nested Attributes =
@@ -172,25 +166,22 @@ class Plan < ApplicationRecord
       )
   }
 
-  # TODO: Add in a left join here so we can search contributors as well when
-  #       we move to Rails 5:
-  #           OR lower(contributors.name) LIKE lower(:search_pattern)
-  #           OR lower(identifiers.value) LIKE lower(:search_pattern)",
   scope :search, lambda { |term|
     if date_range?(term: term)
       joins(:template, roles: [user: :org])
-        .where(Role.creator_condition)
+        .where(roles: { active: true })
         .by_date_range(:created_at, term)
     else
       search_pattern = "%#{term}%"
       joins(:template, roles: [user: :org])
-        .where(Role.creator_condition)
+        .left_outer_joins(:identifiers, :contributors)
+        .where(roles: { active: true })
         .where("lower(plans.title) LIKE lower(:search_pattern)
                 OR lower(orgs.name) LIKE lower (:search_pattern)
                 OR lower(orgs.abbreviation) LIKE lower (:search_pattern)
                 OR lower(templates.title) LIKE lower(:search_pattern)
-                OR lower(plans.principal_investigator) LIKE lower(:search_pattern)
-                OR lower(plans.principal_investigator_identifier) LIKE lower(:search_pattern)",
+                OR lower(contributors.name) LIKE lower(:search_pattern)
+                OR lower(identifiers.value) LIKE lower(:search_pattern)",
                search_pattern: search_pattern)
     end
   }
@@ -211,6 +202,15 @@ class Plan < ApplicationRecord
     s.key :export, defaults: Settings::Template::DEFAULT_SETTINGS
   end
   alias super_settings settings
+
+  # =============
+  # = Callbacks =
+  # =============
+
+  # sanitise html tags e.g remove unwanted 'script'
+  before_validation lambda { |data|
+    data.sanitize_fields(:title, :identifier, :description)
+  }
 
   # =================
   # = Class methods =
@@ -236,7 +236,7 @@ class Plan < ApplicationRecord
   # Returns Plan
   def self.deep_copy(plan)
     plan_copy = plan.dup
-    plan_copy.title = "Copy of " + plan.title
+    plan_copy.title = "Copy of #{plan.title}"
     plan_copy.feedback_requested = false
     plan_copy.save!
     plan.answers.each do |answer|
@@ -566,6 +566,29 @@ class Plan < ApplicationRecord
   # Returns the plan's identifier (either a DOI/ARK)
   def landing_page
     identifiers.select { |i| %w[doi ark].include?(i.identifier_format) }.first
+  end
+
+  # Since the Grant is not a normal AR association, override the getter and setter
+  def grant
+    Identifier.find_by(id: grant_id)
+  end
+
+  # Helper method to convert the grant id value entered by the user into an Identifier
+  # works with both controller params or an instance of Identifier
+  def grant=(params)
+    val = params.present? ? params[:value] : nil
+    current = grant
+
+    # Remove it if it was blanked out by the user
+    current.destroy if current.present? && !val.present?
+    return unless val.present?
+
+    # Create the Identifier if it doesn't exist and then set the id
+    current.update(value: val) if current.present? && current.value != val
+    return if current.present?
+
+    current = Identifier.create(identifiable: self, value: val)
+    self.grant_id = current.id
   end
 
   private
