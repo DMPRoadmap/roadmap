@@ -1,6 +1,7 @@
 import { Tinymce } from '../../utils/tinymce.js.erb';
 import { Select2 } from '../../utils/select2';
 import getConstant from '../../constants';
+import * as notifier from '../../utils/notificationHelper';
 import {
   failCallback,
 } from '../answers/edit';
@@ -205,5 +206,13 @@ $(() => {
   $('.project-form').on('click, change', '.set_test_plan input[type="checkbox"]', (e) => {
     const form = $(e.target).closest('form');
     form.trigger('submit');
+  });
+
+  $('.project-form').on('ajax:success', '.set_test_plan', (e, data) => {
+    if (data.code === 1 && data.msg && data.msg !== '') {
+      notifier.renderNotice(data.msg, { autoDismiss: true });
+    } else {
+      notifier.renderAlert(data.msg);
+    }
   });
 });
