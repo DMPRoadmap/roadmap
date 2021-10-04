@@ -47,7 +47,8 @@
     "regenerator-runtime": "^0.13.5",
     "timeago.js": "^4.0.2",
     "tinymce": "4.9.11",
-    "turbolinks": "^5.2.0"
+    "turbolinks": "^5.2.0",
+    "webpack": "^4.42.1"
   },
   "devDependencies": {
     "eslint": "^7.1.0",

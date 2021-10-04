@@ -62,7 +62,7 @@ RSpec.describe SuperAdmin::OrgsController, type: :controller do
 
       it "fails if user is not a super admin" do
         sign_in(create(:user))
-        post :merge_commit, params: @params, format: :js
+        post :merge_commit, params: @params
         expect(response.code).to eql("302")
         expect(response).to redirect_to(plans_path)
         expect(flash[:alert].present?).to eql(true)

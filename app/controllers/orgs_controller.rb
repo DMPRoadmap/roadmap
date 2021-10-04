@@ -215,7 +215,7 @@ class OrgsController < ApplicationController
           .permit(:name, :abbreviation, :logo, :contact_email, :contact_name,
                   :remove_logo, :managed, :feedback_enabled, :org_links,
                   :funder, :institution, :organisation,
-                  :feedback_email_msg, :org_id, :org_name, :org_crosswalk,
+                  :feedback_msg, :org_id, :org_name, :org_crosswalk,
                   identifiers_attributes: %i[identifier_scheme_id value],
                   tracker_attributes: %i[code id])
   end
