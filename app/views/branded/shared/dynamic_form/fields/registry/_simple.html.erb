@@ -3,7 +3,15 @@
 <% include_blank = !selected_value && !default_value %>
 <% field_name = defined?(form_prefix) ? "#{form_prefix}[#{property_name}]" : property_name %>
 <% intermediate_message = overridable ? d_("dmpopidor", "Select a value from the list or type a new one.") : d_("dmpopidor", "Select a value from the list.")%>
-
+<% 
+  formatted_values = select_values.map {|v| [v.to_s(locale), select_value(v, locale)]}
+  # Here we concat the selected values with the available values in the select
+  # This is need for multiple select where the user can enter custom values
+  # Is this case Select2 doesn't recognise custom values so wee need to add them manually to the select
+  if multiple && selected_value.present?
+    formatted_values |= selected_value.map {|v| [v, v] }
+  end 
+%>
 <% unless field_label.nil? %>
   <div class="col-md-12">
     <%= f.label field_id, field_label, class: 'control-label' %>
@@ -14,11 +22,7 @@
   <div class="field-button-combo">
     <%= select_tag "#{f.object_name}[#{field_name}]",
                 options_for_select(
-                    select_values.map {|v| [ 
-                            v.to_s(locale), 
-                            select_value(v, locale) 
-                        ] 
-                    },
+                    formatted_values,
                     selected: selected_value
                 ),
                 data: {
