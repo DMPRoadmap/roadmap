@@ -8,7 +8,7 @@
 <div class="form-group col-xs-8" data-toggle="tooltip" title="<%=  description_tooltip %>">
   <em class="sr-only"><%= description_tooltip %></em>
   <%= f.label(:description, _('Description'), class: "control-label") %>
-  <%= f.text_area(:description, class: "template") %>
+  <%= f.text_area(:description, class: "template", spellcheck: true) %>
 </div>
 
 <% if current_user.org.funder? && !current_user.org.funder_only? %>

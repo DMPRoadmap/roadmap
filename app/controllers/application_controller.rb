@@ -20,7 +20,11 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   # When we are in production reroute Record Not Found errors to the branded 404 page
-  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found if Rails.env.production?
+  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
+
+  rescue_from StandardError, with: :handle_server_error
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
 
@@ -30,9 +34,13 @@ class ApplicationController < ActionController::Base
 
   def user_not_authorized
     if user_signed_in?
-      redirect_to plans_url, alert: _("You are not authorized to perform this action.")
+      # redirect_to plans_url, alert: _("You are not authorized to perform this action.")
+      msg = _("You are not authorized to perform this action.")
+      render_respond_to_format_with_error_message(msg, plans_url, 403, nil)
     else
-      redirect_to root_url, alert: _("You need to sign in or sign up before continuing.")
+      # redirect_to root_url, alert: _("You need to sign in or sign up before continuing.")
+      msg = _("You need to sign in or sign up before continuing.")
+      render_respond_to_format_with_error_message(msg, root_url, 401, nil)
     end
   end
 
@@ -170,6 +178,31 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:accept_invitation, keys: %i[firstname surname org_id])
+  end
+
+  def render_not_found(exception)
+    msg = _("Record Not Found") + ": #{exception.message}"
+    render_respond_to_format_with_error_message(msg, root_url, 404, exception)
+  end
+
+  def handle_server_error(exception)
+    msg = exception.message.to_s if exception.present?
+    render_respond_to_format_with_error_message(msg, root_url, 500, exception)
+  end
+
+  def render_respond_to_format_with_error_message(msg, url_or_path, http_status, exception)
+    Rails.logger.error msg
+    Rails.logger.error exception&.backtrace if exception.present?
+
+    respond_to do |format|
+      # Redirect use to the path and display the error message
+      format.html { redirect_to url_or_path, alert: msg }
+      # Render the JSON error message (using API V1)
+      format.json do
+        @payload = { errors: [msg] }
+        render "/api/v1/error", status: http_status
+      end
+    end
   end
 
 end

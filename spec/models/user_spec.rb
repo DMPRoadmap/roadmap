@@ -296,7 +296,7 @@ RSpec.describe User, type: :model do
       it { is_expected.to eql(identifier) }
     end
 
-    context "when user has no user_identifier present" do
+    context "when user has no identifier" do
       it { is_expected.not_to eql("") }
     end
   end
