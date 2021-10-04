@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
+# Security rules for options of multi select questions
+# Note the method names here correspond with controller actions
 class QuestionOptionPolicy < ApplicationPolicy
-
   attr_reader :user, :question_option
 
   def initialize(user, question_option)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, 'must be logged in' unless user
 
+    super(user)
     @user = user
     @question_option = question_option
   end
@@ -23,5 +25,4 @@ class QuestionOptionPolicy < ApplicationPolicy
     user.can_modify_templates? &&
       (question_option.question.section.phase.template.org_id == user.org_id)
   end
-
 end

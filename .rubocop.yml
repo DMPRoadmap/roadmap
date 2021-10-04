@@ -104,7 +104,16 @@ Lint/UnmodifiedReduceAccumulator: # new in 1.1
 # -----------
 # - METRICS -
 # -----------
-
+# briley Oct. 4th 2021
+# Default is 100 lines. Most of our controllers, models, etc. violate this
+# Cop, so setting it to 300 since we do not have time to refactor everything
+Metrics/ClassLength:
+  Max: 300
+# briley Oct. 4th 2021
+# Default is 10 lines which feels very restrictive but would also require us to do
+# too much refactoring at this point.
+Metrics/MethodLength:
+  Max: 20
 
 # ------------
 # - SECURITY -

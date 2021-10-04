@@ -41,7 +41,6 @@
 #
 
 class Plan < ApplicationRecord
-
   include ConditionalUserMailer
   include ExportablePlan
   include DateRangeable
@@ -54,10 +53,10 @@ class Plan < ApplicationRecord
   # Returns visibility message given a Symbol type visibility passed, otherwise
   # nil
   VISIBILITY_MESSAGE = {
-    organisationally_visible: _("organisational"),
-    publicly_visible: _("public"),
-    is_test: _("test"),
-    privately_visible: _("private")
+    organisationally_visible: _('organisational'),
+    publicly_visible: _('public'),
+    is_test: _('test'),
+    privately_visible: _('private')
   }.freeze
 
   # ==============
@@ -82,7 +81,7 @@ class Plan < ApplicationRecord
 
   belongs_to :org
 
-  belongs_to :funder, class_name: "Org", optional: true
+  belongs_to :funder, class_name: 'Org', optional: true
 
   belongs_to :research_domain, optional: true
 
@@ -96,10 +95,10 @@ class Plan < ApplicationRecord
 
   has_many :guidances, through: :themes
 
-  has_many :guidance_group_options, -> { distinct.published.reorder("id") },
+  has_many :guidance_group_options, -> { distinct.published.reorder('id') },
            through: :guidances,
            source: :guidance_group,
-           class_name: "GuidanceGroup"
+           class_name: 'GuidanceGroup'
 
   has_many :answers, dependent: :destroy
 
@@ -161,7 +160,7 @@ class Plan < ApplicationRecord
                visibilities[:publicly_visible]
              ])
       .where(
-        "NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)",
+        'NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)',
         user.id
       )
   }
@@ -198,7 +197,7 @@ class Plan < ApplicationRecord
 
   ##
   # Settings for the template
-  has_settings :export, class_name: "Settings::Template" do |s|
+  has_settings :export, class_name: 'Settings::Template' do |s|
     s.key :export, defaults: Settings::Template::DEFAULT_SETTINGS
   end
   alias super_settings settings
@@ -335,7 +334,7 @@ class Plan < ApplicationRecord
 
       # Send an email confirmation to the owners and co-owners
       deliver_if(recipients: owner_and_coowners,
-                 key: "users.feedback_provided") do |r|
+                 key: 'users.feedback_provided') do |r|
         UserMailer.feedback_complete(
           r,
           self,
@@ -526,7 +525,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def question_exists?(question_id)
-    Plan.joins(:questions).exists?(id: id, "questions.id": question_id)
+    Plan.joins(:questions).exists?(id: id, 'questions.id': question_id)
   end
 
   # Determines what percentage of the Plan's questions have been num_answered_questions
@@ -598,7 +597,6 @@ class Plan < ApplicationRecord
     # allow nil values
     return true if end_date.blank? || start_date.blank?
 
-    errors.add(:end_date, _("must be after the start date")) if end_date < start_date
+    errors.add(:end_date, _('must be after the start date')) if end_date < start_date
   end
-
 end

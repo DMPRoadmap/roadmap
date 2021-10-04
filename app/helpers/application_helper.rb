@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-
   def resource_name
     :user
   end
@@ -45,5 +44,4 @@ module ApplicationHelper
     record_id = record_key_for_dom_id(record) || record.object_id
     "#{klass}_#{record_id}"
   end
-
 end

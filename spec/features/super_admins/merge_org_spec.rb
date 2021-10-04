@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.describe "SuperAdmins Merge Orgs", type: :feature, js: true do
-
+RSpec.describe 'SuperAdmins Merge Orgs', type: :feature, js: true do
   before do
     Org.destroy_all
     @scheme = create(:identifier_scheme)
@@ -28,55 +27,54 @@ RSpec.describe "SuperAdmins Merge Orgs", type: :feature, js: true do
     sign_in(@user)
   end
 
-  scenario "Super admin merges an Org into another Org" do
+  scenario 'Super admin merges an Org into another Org' do
     org_name = @from_org.name
-    click_link "Admin"
+    click_link 'Admin'
     sleep(0.5)
-    click_link "Organisations"
+    click_link 'Organisations'
 
     fill_in(:search, with: @from_org.name)
-    click_button "Search"
+    click_button 'Search'
     sleep(0.5)
 
     first("#org-#{@from_org.id}-actions").click
     first("a[href=\"/org/admin/#{@from_org.id}/admin_edit\"]").click
 
-    click_link "Merge"
+    click_link 'Merge'
     sleep(0.3)
-    expect(page).to have_text("Merge Organisations")
-    find("#org_org_name").click
+    expect(page).to have_text('Merge Organisations')
+    find('#org_org_name').click
     fill_in(:org_org_name, with: @to_org.name[0..6])
     sleep(0.5)
     choose_suggestion(@to_org.name)
 
-    click_button "Analyze"
+    click_button 'Analyze'
     # Wait for response
     sleep(0.3)
-    expect(page).to have_text("Summary:")
+    expect(page).to have_text('Summary:')
 
-    click_button "Merge records"
+    click_button 'Merge records'
     # Wait for redirect
     sleep(0.3)
-    expect(page).to have_text("Organisations")
-    expect(page).to have_text("Successfully merged")
+    expect(page).to have_text('Organisations')
+    expect(page).to have_text('Successfully merged')
 
     # Make sure that the correct org was deleted
     expect(Org.where(name: org_name).any?).to eql(false)
     expect(Org.where(name: @to_org.name).any?).to eql(true)
 
     # Make sure the Org we merged is no longer findable
-    find("#search").click
+    find('#search').click
     fill_in(:search, with: org_name)
-    click_button "Search"
+    click_button 'Search'
     sleep(0.3)
-    expect(page).to have_text("There are no records associated")
+    expect(page).to have_text('There are no records associated')
 
     # Make sure the Org we merged into is findable
-    find("#search").click
+    find('#search').click
     fill_in(:search, with: @to_org.name)
-    click_button "Search"
+    click_button 'Search'
     sleep(0.3)
     expect(page).to have_text(@to_org.name)
   end
-
 end

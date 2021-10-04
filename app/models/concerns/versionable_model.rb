@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module VersionableModel
-
   extend ActiveSupport::Concern
 
   included do
@@ -12,8 +11,7 @@ module VersionableModel
     attribute :versionable_id,
               :string,
               default: lambda {
-                         unique_uuid(field_name: "versionable_id")
+                         unique_uuid(field_name: 'versionable_id')
                        }
   end
-
 end

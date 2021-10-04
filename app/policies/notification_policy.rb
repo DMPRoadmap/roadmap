@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
+# Security rules for system wide notifications
+# Note the method names here correspond with controller actions
 class NotificationPolicy < ApplicationPolicy
-
   def initialize(user, *_args)
-    raise Pundit::NotAuthorizedError, _("must be logged in") unless user
+    raise Pundit::NotAuthorizedError, _('must be logged in') unless user
 
+    super(user)
     @user = user
   end
 
@@ -35,5 +37,4 @@ class NotificationPolicy < ApplicationPolicy
   def enable?
     @user.can_super_admin?
   end
-
 end

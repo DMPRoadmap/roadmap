@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module Identifiable
-
   extend ActiveSupport::Concern
 
   # rubocop:disable Metrics/BlockLength
@@ -75,5 +74,4 @@ module Identifiable
     end
   end
   # rubocop:enable Metrics/BlockLength
-
 end

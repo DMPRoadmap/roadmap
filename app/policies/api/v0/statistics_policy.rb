@@ -1,19 +1,18 @@
 # frozen_string_literal: true
 
 module Api
-
   module V0
-
+    # Security rules for API V0 Usage Statistic endpoints
     class StatisticsPolicy < ApplicationPolicy
-
       attr_reader :user
 
       def initialize(user, statistic)
-        raise Pundit::NotAuthorizedError, _("must be logged in") unless user
+        raise Pundit::NotAuthorizedError, _('must be logged in') unless user
         unless user.org.token_permission_types.include? TokenPermissionType::STATISTICS
-          raise Pundit::NotAuthorizedError, _("must have access to guidances api")
+          raise Pundit::NotAuthorizedError, _('must have access to guidances api')
         end
 
+        super(user)
         @user = user
         @statistic = statistic
       end
@@ -45,9 +44,6 @@ module Api
       def plans?
         true
       end
-
     end
-
   end
-
 end

@@ -1,13 +1,8 @@
 # frozen_string_literal: true
 
-if File.exist?(Rails.root.join("lib", "data_cleanup", "rules", "base.rb"))
-  require_relative "rules/base"
-end
+require_relative 'rules/base' if File.exist?(Rails.root.join('lib', 'data_cleanup', 'rules', 'base.rb'))
 
 module DataCleanup
-
   module Rules
-
   end
-
 end

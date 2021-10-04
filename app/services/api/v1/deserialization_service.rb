@@ -1,13 +1,9 @@
 # frozen_string_literal: true
 
 module Api
-
   module V1
-
     class DeserializationService
-
       class << self
-
         # Finds the object by the specified identifier
         def object_from_identifier(class_name:, json:)
           return nil unless class_name.present? && json.present? &&
@@ -49,7 +45,7 @@ module Api
 
           # Strip off the URL if present
           url = ::Contributor::ONTOLOGY_BASE_URL
-          role = role.gsub("#{url}/", "").downcase if role.include?(url)
+          role = role.gsub("#{url}/", '').downcase if role.include?(url)
 
           # Return the role if its a valid one otherwise defualt
           return role if ::Contributor.new.all_roles.include?(role.downcase.to_sym)
@@ -61,7 +57,7 @@ module Api
         def app_extensions(json: {})
           return {} unless json.present? && json[:extension].present?
 
-          app = ::ApplicationService.application_name.split("-").first.downcase
+          app = ::ApplicationService.application_name.split('-').first.downcase
           ext = json[:extension].select { |item| item[app.to_sym].present? }
           ext.first.present? ? ext.first[app.to_sym] : {}
         end
@@ -73,7 +69,7 @@ module Api
           # The format must match a DOI or ARK and a DOI IdentifierScheme
           # must also be present!
           identifier = ::Identifier.new(value: value)
-          scheme = ::IdentifierScheme.find_by(name: "doi")
+          scheme = ::IdentifierScheme.find_by(name: 'doi')
           %w[ark doi].include?(identifier.identifier_format) && scheme.present?
         end
 
@@ -85,11 +81,7 @@ module Api
         rescue ArgumentError
           value.to_s
         end
-
       end
-
     end
-
   end
-
 end

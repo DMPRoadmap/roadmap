@@ -1,14 +1,10 @@
 # frozen_string_literal: true
 
 module Api
-
   module V1
-
     # Service used to ensure the entire DMP stack is saved
     class PersistenceService
-
       class << self
-
         def safe_save(plan:)
           return nil unless plan.is_a?(Plan) && plan.valid?
 
@@ -115,11 +111,7 @@ module Api
           %w[id created_at updated_at].each { |key| attrs.delete(key) }
           attrs
         end
-
       end
-
     end
-
   end
-
 end

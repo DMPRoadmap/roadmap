@@ -25,7 +25,6 @@
 #
 
 class Section < ApplicationRecord
-
   include ActsAsSortable
   include VersionableModel
 
@@ -132,5 +131,4 @@ class Section < ApplicationRecord
   def unmodifiable?
     !modifiable?
   end
-
 end

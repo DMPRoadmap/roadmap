@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+# Security rules for the public pages
+# Note the method names here correspond with controller actions
 class PublicPagePolicy < ApplicationPolicy
-
   def initialize(object, object2 = nil)
+    super(object)
     @object = object
     @object2 = object2
   end
@@ -33,5 +35,4 @@ class PublicPagePolicy < ApplicationPolicy
 
     false
   end
-
 end

@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
 module Csvable
-
-  require "csv"
+  require 'csv'
   class << self
-
-    def from_array_of_hashes(data = [], humanize = true, sep = ",")
-      return "" unless data.first&.keys
+    def from_array_of_hashes(data = [], humanize = true, sep = ',')
+      return '' unless data.first&.keys
 
       headers = if humanize
                   data.first.keys
@@ -25,7 +23,5 @@ module Csvable
       end
     end
     # rubocop:enable
-
   end
-
 end

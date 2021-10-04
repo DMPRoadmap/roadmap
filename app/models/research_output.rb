@@ -28,7 +28,6 @@
 #  index_research_outputs_on_plan_id      (plan_id)
 #
 class ResearchOutput < ApplicationRecord
-
   include Identifiable
   include ValidationMessages
 
@@ -90,5 +89,4 @@ class ResearchOutput < ApplicationRecord
     # identifiers.select { |id| id.identifier_scheme = scheme }
     []
   end
-
 end

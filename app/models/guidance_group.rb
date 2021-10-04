@@ -25,7 +25,6 @@
 #
 
 class GuidanceGroup < ApplicationRecord
-
   attribute :optional_subset, :boolean, default: true
   attribute :published, :boolean, default: false
 
@@ -63,7 +62,7 @@ class GuidanceGroup < ApplicationRecord
 
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
-    where("lower(name) LIKE lower(?)", search_pattern)
+    where('lower(name) LIKE lower(?)', search_pattern)
   }
 
   scope :published, -> { where(published: true) }
@@ -160,5 +159,4 @@ class GuidanceGroup < ApplicationRecord
       reload
     end
   end
-
 end

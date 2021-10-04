@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe Org::CreateLastMonthCreatedPlanService do
   let(:org) do
@@ -46,8 +46,8 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
     FactoryBot.create(:role, :creator, plan: plan4, user: user3)
   end
 
-  describe ".call" do
-    context "when org is passed" do
+  describe '.call' do
+    context 'when org is passed' do
       it "generates counts from today's last month" do
         described_class.call(org)
 
@@ -68,8 +68,8 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
 
         expect(last_month_details).to match_array(
           [
-            { "name" => template.title, "count" => 2 },
-            { "name" => template2.title, "count" => 1 }
+            { 'name' => template.title, 'count' => 2 },
+            { 'name' => template2.title, 'count' => 1 }
           ]
         )
       end
@@ -84,13 +84,13 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
 
         expect(last_month_details).to match_array(
           [
-            { "name" => template.title, "count" => 2 },
-            { "name" => template2.title, "count" => 2 }
+            { 'name' => template.title, 'count' => 2 },
+            { 'name' => template2.title, 'count' => 2 }
           ]
         )
       end
 
-      it "monthly records are either created or updated" do
+      it 'monthly records are either created or updated' do
         described_class.call(org)
 
         last_month = StatCreatedPlan.where(
@@ -118,7 +118,7 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
       end
     end
 
-    context "when no org is passed" do
+    context 'when no org is passed' do
       it "generates counts from today's last month" do
         Org.expects(:all).returns([org])
 
@@ -144,8 +144,8 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
 
         expect(last_month_details).to match_array(
           [
-            { "name" => template.title, "count" => 2 },
-            { "name" => template2.title, "count" => 1 }
+            { 'name' => template.title, 'count' => 2 },
+            { 'name' => template2.title, 'count' => 1 }
           ]
         )
       end
@@ -162,13 +162,13 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
 
         expect(last_month_details).to match_array(
           [
-            { "name" => template.title, "count" => 2 },
-            { "name" => template2.title, "count" => 2 }
+            { 'name' => template.title, 'count' => 2 },
+            { 'name' => template2.title, 'count' => 2 }
           ]
         )
       end
 
-      it "monthly records are either created or updated" do
+      it 'monthly records are either created or updated' do
         Org.stubs(:all).returns([org])
 
         described_class.call

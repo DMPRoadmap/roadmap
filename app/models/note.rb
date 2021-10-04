@@ -25,7 +25,6 @@
 #
 
 class Note < ApplicationRecord
-
   # ================
   # = Associations =
   # ================
@@ -46,5 +45,4 @@ class Note < ApplicationRecord
 
   validates :archived, inclusion: { in: BOOLEAN_VALUES,
                                     message: INCLUSION_MESSAGE }
-
 end

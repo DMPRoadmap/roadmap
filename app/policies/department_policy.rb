@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
+# Security rules for department editing
+# Note the method names here correspond with controller actions
 class DepartmentPolicy < ApplicationPolicy
-
-  attr_reader :user
-  attr_reader :department
+  attr_reader :user, :department
 
   def initialize(user, department)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, 'must be logged in' unless user
 
+    super(user)
     @user = user
     @department = department
   end
@@ -34,5 +35,4 @@ class DepartmentPolicy < ApplicationPolicy
     (@user.can_org_admin? && @user.org.id == @department.org_id) ||
       @user.can_super_admin?
   end
-
 end

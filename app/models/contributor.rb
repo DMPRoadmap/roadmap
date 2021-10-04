@@ -27,7 +27,6 @@
 #  fk_rails_...  (plan_id => plans.id)
 
 class Contributor < ApplicationRecord
-
   include FlagShihTzu
   include ValidationMessages
   include Identifiable
@@ -53,13 +52,13 @@ class Contributor < ApplicationRecord
   validates :roles, presence: { message: PRESENCE_MESSAGE }
 
   validates :roles, numericality: { greater_than: 0,
-                                    message: _("You must specify at least one role.") }
+                                    message: _('You must specify at least one role.') }
 
   validate :name_or_email_presence
 
-  ONTOLOGY_NAME = "CRediT - Contributor Roles Taxonomy"
-  ONTOLOGY_LANDING_PAGE = "https://credit.niso.org/"
-  ONTOLOGY_BASE_URL = "http://credit.niso.org/contributor-roles/"
+  ONTOLOGY_NAME = 'CRediT - Contributor Roles Taxonomy'
+  ONTOLOGY_LANDING_PAGE = 'https://credit.niso.org/'
+  ONTOLOGY_BASE_URL = 'http://credit.niso.org/contributor-roles/'
 
   ##
   # Define Bit Field values for roles
@@ -68,7 +67,7 @@ class Contributor < ApplicationRecord
             2 => :investigation,
             3 => :project_administration,
             4 => :other,
-            column: "roles"
+            column: 'roles'
 
   # ==========
   # = Scopes =
@@ -89,20 +88,18 @@ class Contributor < ApplicationRecord
   # ========================
 
   class << self
-
     # returns the default role
     def default_role
-      "other"
+      'other'
     end
-
   end
 
   # Check for equality by matching on Plan, ORCID, email or name
   def ==(other)
     return false unless other.is_a?(Contributor) && plan == other.plan
 
-    current_orcid = identifier_for_scheme(scheme: "orcid")&.value
-    new_orcid = other.identifier_for_scheme(scheme: "orcid")&.value
+    current_orcid = identifier_for_scheme(scheme: 'orcid')&.value
+    new_orcid = other.identifier_for_scheme(scheme: 'orcid')&.value
 
     email == other.email || name == other.name ||
       (current_orcid.present? && current_orcid == new_orcid)
@@ -136,5 +133,4 @@ class Contributor < ApplicationRecord
     errors.add(:name, _("can't be blank if no email is provided"))
     errors.add(:email, _("can't be blank if no name is provided"))
   end
-
 end

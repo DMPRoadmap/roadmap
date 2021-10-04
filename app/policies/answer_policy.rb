@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
+# Security rules for answering questions
+# Note the method names here correspond with controller actions
 class AnswerPolicy < ApplicationPolicy
-
-  attr_reader :user
-  attr_reader :answer
+  attr_reader :user, :answer
 
   def initialize(user, answer)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, 'must be logged in' unless user
 
+    super(user)
     @user = user
     @answer = answer
   end
@@ -17,5 +18,4 @@ class AnswerPolicy < ApplicationPolicy
     # is the plan editable by the user or the user is the owner of the plan
     @answer.plan.editable_by?(@user.id) || @user == @answer.plan.owner
   end
-
 end

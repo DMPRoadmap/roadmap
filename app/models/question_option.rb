@@ -22,7 +22,6 @@
 #
 
 class QuestionOption < ApplicationRecord
-
   include VersionableModel
 
   # ================
@@ -95,5 +94,4 @@ class QuestionOption < ApplicationRecord
       cond.destroy if cond.option_list.include?(id)
     end
   end
-
 end

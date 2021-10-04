@@ -1,20 +1,18 @@
 # frozen_string_literal: true
 
 module Api
-
   module V0
-
+    # Security rules for API V0 Guidance endpoints
     class GuidancePolicy < ApplicationPolicy
-
-      attr_reader :user
-      attr_reader :guidance
+      attr_reader :user, :guidance
 
       def initialize(user, guidance)
-        raise Pundit::NotAuthorizedError, _("must be logged in") unless user
+        raise Pundit::NotAuthorizedError, _('must be logged in') unless user
         unless user.org.token_permission_types.include? TokenPermissionType::GUIDANCES
-          raise Pundit::NotAuthorizedError, _("must have access to guidances api")
+          raise Pundit::NotAuthorizedError, _('must have access to guidances api')
         end
 
+        super(user)
         @user = user
         @guidance = guidance
       end
@@ -30,9 +28,6 @@ module Api
       def index?
         true
       end
-
     end
-
   end
-
 end

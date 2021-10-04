@@ -16,13 +16,9 @@
 #
 
 class StatExportedPlan < Stat
-
   class << self
-
     def to_csv(exported_plans)
       Stat.to_csv(exported_plans)
     end
-
   end
-
 end

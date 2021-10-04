@@ -1,16 +1,15 @@
 # frozen_string_literal: true
 
 module Api
-
   module V0
-
+    # Security rules for API V0 Departments endpoints
     class DepartmentsPolicy < ApplicationPolicy
-
       attr_reader :user, :department
 
       def initialize(user, department)
-        raise Pundit::NotAuthorizedError, _("must be logged in") unless user
+        raise Pundit::NotAuthorizedError, _('must be logged in') unless user
 
+        super(user)
         @user = user
         @department = department
       end
@@ -46,9 +45,6 @@ module Api
       def unassign_users?
         @user.can_org_admin?
       end
-
     end
-
   end
-
 end

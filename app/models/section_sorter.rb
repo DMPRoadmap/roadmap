@@ -9,7 +9,6 @@
 #
 #
 class SectionSorter
-
   ##
   # Access the array of Sections
   #
@@ -106,5 +105,4 @@ class SectionSorter
   def sort_as_homogenous_group
     sections.sort_by { |section| [section.number, section.id] }
   end
-
 end

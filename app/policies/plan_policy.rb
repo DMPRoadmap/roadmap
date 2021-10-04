@@ -1,16 +1,17 @@
 # frozen_string_literal: true
 
+# Security rules for plans
+# Note the method names here correspond with controller actions
 class PlanPolicy < ApplicationPolicy
-
-  attr_reader :user
-  attr_reader :plan
+  attr_reader :user, :plan
 
   def initialize(user, plan)
-    raise Pundit::NotAuthorizedError, _("must be logged in") unless user
+    raise Pundit::NotAuthorizedError, _('must be logged in') unless user
 
+    super(user)
     unless plan || plan.publicly_visible?
       raise Pundit::NotAuthorizedError,
-            _("are not authorized to view that plan")
+            _('are not authorized to view that plan')
     end
     @user = user
     @plan = plan
@@ -81,5 +82,4 @@ class PlanPolicy < ApplicationPolicy
   def update_guidances_list?
     @plan.editable_by?(@user.id)
   end
-
 end

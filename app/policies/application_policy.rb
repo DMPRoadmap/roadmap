@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
+# Security rules for ?? Not sure where or how these are used, look like defaults
 class ApplicationPolicy
-
   attr_reader :user, :record
 
   def initialize(user, record)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, 'must be logged in' unless user
 
+    super(user)
     @user = user
     @record = record
   end
@@ -43,8 +44,8 @@ class ApplicationPolicy
     Pundit.policy_scope!(user, record.class)
   end
 
+  # Default scope
   class Scope
-
     attr_reader :user, :scope
 
     def initialize(user, scope)
@@ -55,7 +56,5 @@ class ApplicationPolicy
     def resolve
       @scope = []
     end
-
   end
-
 end

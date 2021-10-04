@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
 module ActiveRecord
-
   # The Rails 5.x SchemaDumper includes an `options:` arrgument on table definitions
   # that is not DB agnostic. This Monkey Patch comments out the `options:` section.
   #
   # TODO: Determine if this is still necessary in Rails 6.x+
   class SchemaDumper
-
     # Method definition taken from the 5.2-stable branch of ActiveRecord:
     #  https://github.com/rails/rails/blob/5-2-stable/activerecord/lib/active_record/schema_dumper.rb
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -23,14 +21,14 @@ module ActiveRecord
 
         case pk
         when String
-          tbl.print ", primary_key: #{pk.inspect}" unless pk == "id"
+          tbl.print ", primary_key: #{pk.inspect}" unless pk == 'id'
           pkcol = columns.detect { |c| c.name == pk }
           pkcolspec = column_spec_for_primary_key(pkcol)
           tbl.print ", #{format_colspec(pkcolspec)}" if pkcolspec.present?
         when Array
           tbl.print ", primary_key: #{pk.inspect}"
         else
-          tbl.print ", id: false"
+          tbl.print ', id: false'
         end
 
         # Commenting out Table Options because they are not DB agnostic
@@ -39,7 +37,7 @@ module ActiveRecord
         #   tbl.print ", #{format_options(table_options)}"
         # end
 
-        tbl.puts ", force: :cascade do |t|"
+        tbl.puts ', force: :cascade do |t|'
 
         # then dump all non-primary key columns
         columns.each do |column|
@@ -56,7 +54,7 @@ module ActiveRecord
 
         indexes_in_create(table, tbl)
 
-        tbl.puts "  end"
+        tbl.puts '  end'
         tbl.puts
 
         tbl.rewind
@@ -68,7 +66,5 @@ module ActiveRecord
       end
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-
   end
-
 end

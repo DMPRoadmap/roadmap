@@ -8,11 +8,8 @@ StatJoinedUser::CreateOrUpdate.class
 User.class
 
 class Org
-
   class CreateJoinedUserService
-
     class << self
-
       def call(org = nil, threads: 0)
         orgs = org.nil? ? Org.all : [org]
 
@@ -27,9 +24,6 @@ class Org
         end
         # pp StatJoinedUser.where.not(count: 0)
       end
-
     end
-
   end
-
 end

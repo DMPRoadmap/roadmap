@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Template
-
   # Service object to upgrade a customization Template with new changes from the original
   # funder Template. Remember: {updated_template} is a customization of funder Template.
   #
@@ -22,7 +21,6 @@ class Template
   #   {#updated_template}
   #
   class UpgradeCustomizationService
-
     # Exception raised when the Template is not a customization.
     class NotACustomizationError < StandardError
     end
@@ -65,13 +63,11 @@ class Template
       Template.transaction do
         if @source_template.customization_of.blank?
           raise NotACustomizationError,
-                _("upgrade_customization! requires a customised template")
+                _('upgrade_customization! requires a customised template')
         end
         if @original_funder_template.nil?
-          # rubocop:disable Layout/LineLength
           raise NoFunderTemplateError,
-                _("upgrade cannot be carried out since there is no published template of its current funder")
-          # rubocop:enable Layout/LineLength
+                _('upgrade cannot be carried out since there is no published template of its current funder')
         end
 
         # Merges modifiable sections or questions from source into updated_template object
@@ -160,7 +156,5 @@ class Template
     def template_org
       @source_template.org
     end
-
   end
-
 end

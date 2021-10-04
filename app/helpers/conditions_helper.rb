@@ -4,7 +4,6 @@ DISPLAY_LENGTH = 50
 
 # rubocop:disable Metrics/ModuleLength
 module ConditionsHelper
-
   # return a list of question ids to open/hide
   def remove_list(object)
     id_list = []
@@ -33,12 +32,12 @@ module ConditionsHelper
       action = cond.action_type
       chosen = answer.question_option_ids.sort
       if chosen == opts
-        if action == "remove"
+        if action == 'remove'
           rems = cond.remove_data.map(&:to_i)
           id_list += rems
         elsif !user.nil?
           UserMailer.question_answered(JSON.parse(cond.webhook_data), user, answer,
-                                       chosen.join(" and ")).deliver_now
+                                       chosen.join(' and ')).deliver_now
         end
       end
     end
@@ -60,10 +59,10 @@ module ConditionsHelper
       chosen = answer.question_option_ids.sort
       next unless chosen == opts
 
-      email_list << JSON.parse(cond.webhook_data)["email"] if action == "add_webhook"
+      email_list << JSON.parse(cond.webhook_data)['email'] if action == 'add_webhook'
     end
     # uniq because could get same remove id from diff conds
-    email_list.uniq.join(",")
+    email_list.uniq.join(',')
   end
 
   # number of answers in a section after answers updated with conditions
@@ -168,18 +167,18 @@ module ConditionsHelper
   # rubocop:enable
 
   def question_title(question)
-    raw "Qn. " + question.number.to_s + ": " +
+    raw 'Qn. ' + question.number.to_s + ': ' +
         truncate(strip_tags(question.text),
                  length: DISPLAY_LENGTH,
-                 separator: " ",
+                 separator: ' ',
                  escape: false)
   end
 
   def section_title(section)
-    raw "Sec. " + section.number.to_s + ": " +
+    raw 'Sec. ' + section.number.to_s + ': ' +
         truncate(strip_tags(section.title),
                  length: DISPLAY_LENGTH,
-                 separator: " ",
+                 separator: ' ',
                  escape: false)
   end
 
@@ -187,25 +186,25 @@ module ConditionsHelper
   # converts condition into text
   # rubocop:disable Metrics/AbcSize
   def condition_to_text(conditions)
-    return_string = ""
+    return_string = ''
     conditions.each do |cond|
       opts = cond.option_list.map { |opt| QuestionOption.find(opt).text }
-      return_string += "</dd>" unless return_string.empty?
-      return_string += "<dd>" + _("Answering") + " "
-      return_string += opts.join(" and ")
-      if cond.action_type == "add_webhook"
-        subject_string = text_formatted(JSON.parse(cond.webhook_data)["subject"])
-        return_string += _(" will <b>send an email</b> with subject ") + subject_string
+      return_string += '</dd>' unless return_string.empty?
+      return_string += '<dd>' + _('Answering') + ' '
+      return_string += opts.join(' and ')
+      if cond.action_type == 'add_webhook'
+        subject_string = text_formatted(JSON.parse(cond.webhook_data)['subject'])
+        return_string += _(' will <b>send an email</b> with subject ') + subject_string
       else
         remove_data = cond.remove_data
         rems = remove_data.map { |rem| '"' + Question.find(rem).text + '"' }
 
-        return_string += _(" will <b>remove</b> question ") if rems.length == 1
-        return_string += _(" will <b>remove</b> questions ") if rems.length > 1
-        return_string += rems.join(" and ")
+        return_string += _(' will <b>remove</b> question ') if rems.length == 1
+        return_string += _(' will <b>remove</b> questions ') if rems.length > 1
+        return_string += rems.join(' and ')
       end
     end
-    return_string + "</dd>"
+    return_string + '</dd>'
   end
   # rubocop:enable Metrics/AbcSize
 
@@ -215,11 +214,11 @@ module ConditionsHelper
     elsif object.is_a?(String) # when email subject
       text = object
     else
-      pp "type error"
+      pp 'type error'
     end
     cleaned_text = text
     text = ActionController::Base.helpers.truncate(cleaned_text, length: DISPLAY_LENGTH,
-                                                                 separator: " ", escape: false)
+                                                                 separator: ' ', escape: false)
     _('"') + text + _('"')
   end
 
@@ -227,7 +226,7 @@ module ConditionsHelper
   def conditions_to_param_form(conditions)
     param_conditions = {}
     conditions.each do |condition|
-      title = "condition" + condition[:number].to_s
+      title = 'condition' + condition[:number].to_s
       condition_hash = { title =>
                         { question_option_id: condition.option_list,
                           action_type: condition.action_type,
@@ -258,6 +257,5 @@ module ConditionsHelper
     end
     web_hash
   end
-
 end
 # rubocop:enable Metrics/ModuleLength

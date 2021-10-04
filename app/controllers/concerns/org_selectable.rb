@@ -54,7 +54,6 @@
 #
 # See the comments on OrgsController#search for more info on how the typeaheads work
 module OrgSelectable
-
   extend ActiveSupport::Concern
 
   # rubocop:disable Metrics/BlockLength
@@ -125,11 +124,10 @@ module OrgSelectable
     end
 
     def prep_org_partial
-      name = Rails.configuration.x.application.restrict_orgs ? "local_only" : "combined"
+      name = Rails.configuration.x.application.restrict_orgs ? 'local_only' : 'combined'
       @org_partial = "shared/org_selectors/#{name}"
       @all_orgs = Org.includes(identifiers: [:identifier_scheme]).all
     end
   end
   # rubocop:enable Metrics/BlockLength
-
 end

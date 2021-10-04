@@ -1,15 +1,10 @@
 # frozen_string_literal: true
 
 module Api
-
   module V1
-
     module Deserialization
-
       class Funding
-
         class << self
-
           # Convert the funding information and attach to the Plan
           #    {
           #      "$ref": "SEE Org.deserialize! for details",
@@ -33,13 +28,8 @@ module Api
             )
             plan
           end
-
         end
-
       end
-
     end
-
   end
-
 end

@@ -1,15 +1,10 @@
 # frozen_string_literal: true
 
 module Api
-
   module V1
-
     module Deserialization
-
       class Plan
-
         class << self
-
           # Convert the incoming JSON into a Plan
           #   {
           #     "dmp": {
@@ -88,12 +83,12 @@ module Api
               if Api::V1::DeserializationService.doi?(value: id)
                 # Find by the DOI or ARK
                 plan = Api::V1::DeserializationService.object_from_identifier(
-                  class_name: "Plan", json: id_json
+                  class_name: 'Plan', json: id_json
                 )
               else
                 # For URL based identifiers
                 begin
-                  plan = ::Plan.find_by(id: id.split("/").last.to_i)
+                  plan = ::Plan.find_by(id: id.split('/').last.to_i)
                 rescue StandardError
                   # Catches scenarios where the dmp_id is NOT one of our URLs
                   plan = nil
@@ -172,13 +167,8 @@ module Api
 
             extensions.fetch(:template, {})[:id]
           end
-
         end
-
       end
-
     end
-
   end
-
 end

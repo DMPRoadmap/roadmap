@@ -17,7 +17,6 @@
 #
 
 class Department < ApplicationRecord
-
   belongs_to :org
 
   has_many :users, dependent: :nullify
@@ -37,5 +36,4 @@ class Department < ApplicationRecord
 
   # Retrieves every department associated to an org
   scope :by_org, ->(org) { where(org_id: org.id) }
-
 end

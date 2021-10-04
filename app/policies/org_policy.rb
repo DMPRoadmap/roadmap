@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
+# Security rules for orgs
+# Note the method names here correspond with controller actions
 class OrgPolicy < ApplicationPolicy
-
   attr_reader :user, :org
 
   def initialize(user, org)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, 'must be logged in' unless user
 
+    super(user)
     @user = user
     @org = org
   end
@@ -58,5 +60,4 @@ class OrgPolicy < ApplicationPolicy
   def merge_commit?
     user.can_super_admin?
   end
-
 end

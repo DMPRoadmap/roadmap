@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
+# Security rules for guidance
+# Note the method names here correspond with controller actions
 class GuidancePolicy < ApplicationPolicy
-
   attr_reader :user, :guidance
 
   def initialize(user, guidance)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, 'must be logged in' unless user
 
+    super(user)
     @user = user
     @guidance = guidance
   end
@@ -50,5 +52,4 @@ class GuidancePolicy < ApplicationPolicy
   def admin_unpublish?
     user.can_modify_guidance?
   end
-
 end

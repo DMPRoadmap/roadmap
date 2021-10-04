@@ -14,7 +14,7 @@ json.plans @org_plans.each do |plan|
   end
 
   json.funder do
-    json.name         plan.template.org.funder? ? plan.template.org.name : ""
+    json.name         plan.template.org.funder? ? plan.template.org.name : ''
   end
 
   json.principal_investigator do

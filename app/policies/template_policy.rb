@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
+# Security rules for templates
+# Note the method names here correspond with controller actions
 class TemplatePolicy < ApplicationPolicy
-
   attr_reader :user, :template
 
   def initialize(user, template = Template.new)
-    raise Pundit::NotAuthorizedError, _("must be logged in") unless user.is_a?(User)
+    raise Pundit::NotAuthorizedError, _('must be logged in') unless user.is_a?(User)
 
+    super(user)
     @user = user
     @template = template
   end
@@ -87,5 +89,4 @@ class TemplatePolicy < ApplicationPolicy
   def template_options?
     user.present?
   end
-
 end

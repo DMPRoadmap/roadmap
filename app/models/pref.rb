@@ -10,7 +10,6 @@
 #
 
 class Pref < ApplicationRecord
-
   ##
   # Serialize prefs to JSON
   serialize :settings, JSON
@@ -34,5 +33,4 @@ class Pref < ApplicationRecord
   def self.default_settings
     Rails.configuration.x.application.preferences
   end
-
 end

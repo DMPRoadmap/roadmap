@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
+# Security rules for template sections
+# Note the method names here correspond with controller actions
 class SectionPolicy < ApplicationPolicy
-
   attr_reader :user, :section
 
   def initialize(user, section)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, 'must be logged in' unless user
 
+    super(user)
     @user = user
     @section = section
   end
@@ -44,5 +46,4 @@ class SectionPolicy < ApplicationPolicy
   def destroy?
     user.can_modify_templates?  &&  (section.phase.template.org_id == user.org_id)
   end
-
 end

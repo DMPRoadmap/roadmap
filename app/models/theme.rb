@@ -13,13 +13,12 @@
 #
 
 class Theme < ApplicationRecord
-
   # ================
   # = Associations =
   # ================
 
-  has_and_belongs_to_many :questions, join_table: "questions_themes"
-  has_and_belongs_to_many :guidances, join_table: "themes_in_guidance"
+  has_and_belongs_to_many :questions, join_table: 'questions_themes'
+  has_and_belongs_to_many :guidances, join_table: 'themes_in_guidance'
 
   # ===============
   # = Validations =
@@ -33,7 +32,7 @@ class Theme < ApplicationRecord
 
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
-    where("lower(title) LIKE lower(?) OR description LIKE lower(?)",
+    where('lower(title) LIKE lower(?) OR description LIKE lower(?)',
           search_pattern, search_pattern)
   }
 
@@ -47,5 +46,4 @@ class Theme < ApplicationRecord
   def to_s
     title
   end
-
 end

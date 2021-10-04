@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 
 class StatExportedPlan
-
   class CreateOrUpdate
-
     class << self
-
       def do(start_date:, end_date:, org:, filtered: false)
         count = exported_plans(start_date: start_date, end_date: end_date,
                                org_id: org.id, filtered: filtered)
@@ -46,9 +43,6 @@ class StatExportedPlan
                     .where(created_at: start_date..end_date)
                     .count
       end
-
     end
-
   end
-
 end

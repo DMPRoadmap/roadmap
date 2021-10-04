@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
+# Security rules for changing a Users role on a plan from the collaborators section
+# Note the method names here correspond with controller actions
 class RolePolicy < ApplicationPolicy
-
-  attr_reader :user
-  attr_reader :role
+  attr_reader :user, :role
 
   def initialize(user, role)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, 'must be logged in' unless user
 
+    super(user)
     @user = user
     @role = role
   end
@@ -27,5 +28,4 @@ class RolePolicy < ApplicationPolicy
   def deactivate?
     @role.user_id == @user.id
   end
-
 end

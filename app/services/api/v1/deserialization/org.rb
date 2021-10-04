@@ -1,15 +1,10 @@
 # frozen_string_literal: true
 
 module Api
-
   module V1
-
     module Deserialization
-
       class Org
-
         class << self
-
           # Convert the incoming JSON into an Org
           #     {
           #       "name": "University of Somewhere",
@@ -27,7 +22,7 @@ module Api
             # Try to find the Org by the identifier
             id_json = json.fetch(:affiliation_id, json.fetch(:funder_id, {}))
             org = Api::V1::DeserializationService.object_from_identifier(
-              class_name: "Org", json: id_json
+              class_name: 'Org', json: id_json
             )
 
             # Try to find the Org by name
@@ -56,7 +51,7 @@ module Api
             name = json[:name]
 
             # Search the DB
-            org = ::Org.where("LOWER(name) = ?", name.downcase).first
+            org = ::Org.where('LOWER(name) = ?', name.downcase).first
             return org if org.present?
 
             # External ROR search
@@ -72,13 +67,8 @@ module Api
             result ||= { name: name }
             OrgSelection::HashToOrgService.to_org(hash: result)
           end
-
         end
-
       end
-
     end
-
   end
-
 end

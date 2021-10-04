@@ -1,15 +1,10 @@
 # frozen_string_literal: true
 
 module Api
-
   module V1
-
     module Deserialization
-
       class Identifier
-
         class << self
-
           # Convert the incoming JSON into an Identifier
           #    {
           #      "type": "ror",
@@ -29,13 +24,8 @@ module Api
 
             ::Identifier.new(identifier_scheme: scheme, value: json[:identifier])
           end
-
         end
-
       end
-
     end
-
   end
-
 end

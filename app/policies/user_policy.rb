@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
+# Security rules for users
+# Note the method names here correspond with controller actions
 class UserPolicy < ApplicationPolicy
-
-  attr_reader :signed_in_user
-  attr_reader :user
+  attr_reader :signed_in_user, :user
 
   def initialize(signed_in_user, user)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless signed_in_user
+    raise Pundit::NotAuthorizedError, 'must be logged in' unless signed_in_user
 
+    super(signed_in_user)
     @signed_in_user = signed_in_user
     @user = user
   end
@@ -80,12 +81,10 @@ class UserPolicy < ApplicationPolicy
     signed_in_user.can_super_admin? || signed_in_user.can_org_admin?
   end
 
+  # returns the users for the org
   class Scope < Scope
-
     def resolve
       scope.where(org_id: user.org_id)
     end
-
   end
-
 end

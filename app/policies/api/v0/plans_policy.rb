@@ -1,20 +1,18 @@
 # frozen_string_literal: true
 
 module Api
-
   module V0
-
+    # Security rules for API V0 Plan endpoints
     class PlansPolicy < ApplicationPolicy
-
-      attr_reader :user
-      attr_reader :template
+      attr_reader :user, :template
 
       def initialize(user, template)
-        raise Pundit::NotAuthorizedError, _("must be logged in") unless user
+        raise Pundit::NotAuthorizedError, _('must be logged in') unless user
         unless user.org.token_permission_types.include? TokenPermissionType::PLANS
-          raise Pundit::NotAuthorizedError, _("must have access to plans api")
+          raise Pundit::NotAuthorizedError, _('must have access to plans api')
         end
 
+        super(user)
         @user     = user
         @template = template
       end
@@ -28,9 +26,6 @@ module Api
       def index?
         @user.can_org_admin?
       end
-
     end
-
   end
-
 end

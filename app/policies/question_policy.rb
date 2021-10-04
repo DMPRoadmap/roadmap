@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
+# Security rules for questions
+# Note the method names here correspond with controller actions
 class QuestionPolicy < ApplicationPolicy
-
   attr_reader :user, :question
 
   def initialize(user, question)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, 'must be logged in' unless user
 
+    super(user)
     @user = user
     @question = question
   end
@@ -53,5 +55,4 @@ class QuestionPolicy < ApplicationPolicy
   def admin_update?
     user.can_modify_templates?  &&  (question.section.phase.template.org_id == user.org_id)
   end
-
 end

@@ -11,11 +11,8 @@ User.class
 ExportedPlan.class
 
 class Org
-
   class CreateLastMonthExportedPlanService
-
     class << self
-
       def call(org = nil, threads: 0)
         orgs = org.nil? ? Org.all : [org]
 
@@ -37,9 +34,6 @@ class Org
           )
         end
       end
-
     end
-
   end
-
 end
