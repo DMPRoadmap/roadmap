@@ -4,6 +4,7 @@ require "rails_helper"
 
 describe Plan do
 
+  include IdentifierHelper
   include RolesHelper
   include TemplateHelper
 
@@ -49,6 +50,8 @@ describe Plan do
     it { is_expected.to belong_to :template }
 
     it { is_expected.to belong_to :org }
+
+    it { is_expected.to belong_to(:research_domain).optional }
 
     it { is_expected.to belong_to(:funder).optional }
 
@@ -529,12 +532,11 @@ describe Plan do
 
     end
 
-    # TODO: Add this one in once we are able to easily do LEFT JOINs in Rails 5
     context "when Contributor name matches term" do
       let!(:plan) { create(:plan, :creator, description: "foolike desc") }
       let!(:contributor) { create(:contributor, plan: plan, name: "Dr. Foo Bar") }
 
-      xit "returns contributor name" do
+      it "returns contributor name" do
         expect(subject).to include(plan)
       end
     end
@@ -1542,11 +1544,38 @@ describe Plan do
       plan.grant = id
       plan.save
       plan2 = create(:plan, grant: id)
-      expect(plan2.grant).to eql(plan.grant)
       expect(plan2.grant.value).to eql(plan.grant.value)
       # Make sure that deleting the plan does not delete the shared grant!
       plan.destroy
       expect(plan2.grant).not_to eql(nil)
+    end
+  end
+
+  describe "#grant association sanity checks" do
+    let!(:plan) { create(:plan, :creator) }
+
+    it "allows a grant identifier to be associated" do
+      plan.grant = { value: build(:identifier, identifier_scheme: nil).value }
+      plan.save
+      expect(plan.grant.new_record?).to eql(false)
+    end
+    it "allows a grant identifier to be deleted" do
+      plan.grant = { value: build(:identifier, identifier_scheme: nil).value }
+      plan.save
+      plan.grant = { value: nil }
+      plan.save
+      expect(plan.grant).to eql(nil)
+      expect(Identifier.last).to eql(nil)
+    end
+    it "does not allow multiple grants on a single plan" do
+      plan.grant = { value: build(:identifier, identifier_scheme: nil).value }
+      plan.save
+      val = SecureRandom.uuid
+      plan.grant = { value: build(:identifier, identifier_scheme: nil, value: val).value }
+      plan.save
+      expect(plan.grant.new_record?).to eql(false)
+      expect(plan.grant.value).to eql(val)
+      expect(Identifier.all.length).to eql(1)
     end
   end
 

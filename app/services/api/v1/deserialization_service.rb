@@ -52,7 +52,7 @@ module Api
           role = role.gsub("#{url}/", "").downcase if role.include?(url)
 
           # Return the role if its a valid one otherwise defualt
-          return role if ::Contributor.new.respond_to?(role.downcase.to_sym)
+          return role if ::Contributor.new.all_roles.include?(role.downcase.to_sym)
 
           default
         end

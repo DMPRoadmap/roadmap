@@ -36,17 +36,19 @@
               <% end %>
               <div class="question">
                 <% if @show_sections_questions%>
-                  <%# Hack: for DOCX export - otherwise, bold highlighting of question inconsistent. %>
-                  <% if local_assigns[:export_format] && export_format == 'docx' %>
-                    <strong><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></strong>
-                  <% else %>
-                    <div class="bold"><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></div>
+                  <% answer = @plan.answer(question[:id], false) %>
+                  <% blank = answer.present? ? answer.blank? : true %>
+                  <% options = answer.present? ? answer.question_options : [] %>
+                  <% if @show_unanswered %>
+                    <%# Hack: for DOCX export - otherwise, bold highlighting of question inconsistent. %>
+                    <% if local_assigns[:export_format] && export_format == 'docx' %>
+                      <strong><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></strong>
+                    <% else %>
+                     <div class="bold"><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></div>
+                    <% end %>
+                    <br>
                   <% end %>
-                  <br>
                 <% end %>
-                <% answer = @plan.answer(question[:id], false) %>
-                <% blank = answer.present? ? answer.blank? : true %>
-                <% options = answer.present? ? answer.question_options : [] %>
                 <%# case where question has not been answered sufficiently to display%>
                 <% if @show_unanswered && blank %>
                   <br>
