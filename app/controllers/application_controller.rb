@@ -22,9 +22,11 @@ class ApplicationController < ActionController::Base
   # When we are in production reroute Record Not Found errors to the branded 404 page
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
-  rescue_from StandardError, with: :handle_server_error
-
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
+  rescue_from ActionController::InvalidAuthenticityToken, with: :ignore_error
+
+  rescue_from StandardError, with: :handle_server_error
 
   private
 
@@ -225,11 +227,23 @@ class ApplicationController < ActionController::Base
     render_respond_to_format_with_error_message(msg, root_url, 404, exception)
   end
 
+  # Logs the error but then just redirects the user to the root path
+  def ignore_error(exception)
+    Rails.logger.error exception.message
+    Rails.logger.error exception&.backtrace
+    redirect_to root_path
+  end
+
   def handle_server_error(exception)
     unless Rails.env.development?
       # DMPTool customization to notify admin of 500 level error
       message = "#{ApplicationService.application_name} - #{exception.message}"
       message += "<br>----------------------------------------<br><br>"
+      message += "Referrer: #{request&.referer}"
+      message += "<br>----------------------------------------<br><br>"
+      message += "Params: #{params.inspect}"
+      message += "<br>----------------------------------------<br><br>"
+      message += "Backtrace:"
       message += exception&.backtrace&.to_s if exception.present? &&
                                               exception.respond_to?(:backtrace)
       UserMailer.notify_administrators(message).deliver_now
