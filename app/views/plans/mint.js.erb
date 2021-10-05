@@ -2,7 +2,7 @@ var target = $('.doi-minter');
 
 if (target != undefined) {
   <% if @plan.dmp_id.present? %>
-    target.html(`<%= escape_javascript(render partial: "plans/doi_minter", locals: { plan: @plan, orcid_access_token: @orcid_access_token }) %>`);
+    target.html(`<%= escape_javascript(render partial: "plans/dmp_id_minter", locals: { plan: @plan, orcid_access_token: @orcid_access_token }) %>`);
 
   <% else %>
     var response = $('.doi-minter-response');
