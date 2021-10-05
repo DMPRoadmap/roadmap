@@ -54,6 +54,7 @@ class DmproadmapConfig < Anyway::Config
 
               :email_from_address,
               :enable_citation_lookup,
+              :enable_dmp_id_registration,
               :enable_ethical_issues,
               :enable_license_selection,
               :enable_metadata_standard_selection,
@@ -128,6 +129,7 @@ class DmproadmapConfig < Anyway::Config
               :shibboleth_login_url,
               :shibboleth_logout_url,
               :shibboleth_use_filtered_discovery_service,
+              :show_overview_tab,
               :spdx_active,
 
               :translation_io_key_app,

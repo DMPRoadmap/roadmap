@@ -275,9 +275,9 @@ module DMPRoadmap
     # Related Identifiers #
     # ------------------- #
     # Allow researchers to specify related works for the DMP
-    config.x.madmp.enable_related_identifiers = false
+    config.x.madmp.enable_related_identifiers = Rails.configuration.x.dmproadmap.enable_related_identifiers
     # Allow the system to fetch citations for RelatedIdentifiers via the Uc3Citation gem
-    config.x.madmp.enable_citation_lookup = false
+    config.x.madmp.enable_citation_lookup = Rails.configuration.x.dmproadmap.enable_citation_lookup
   end
 
 end
