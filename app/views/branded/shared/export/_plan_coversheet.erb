@@ -1,6 +1,7 @@
 <% 
   plan_fragment = @plan.json_fragment
   contributors = plan_fragment.contributors
+  costs = Fragment::Cost.where(dmp_id: plan_fragment.id)
   locale = @plan.template.locale
 %>
 <hr />
@@ -62,6 +63,36 @@
     <% end %>
     </tbody>
   </table>
+  <% if @plan.template.structured? && !costs.empty?%>
+    <br/>
+    <p><b><%= _("Budget") %></b></p> <br/>
+    <table class="real-table">
+      <thead>
+        <tr>
+          <th scope="col"><%= d_("dmpopidor", "Cost type (Title)") %></th>
+          <th scope="col" class="sorter-false"><%= d_("dmpopidor", "Amount") %></th>
+          <th scope="col" class="sorter-false"><%= d_("dmpopidor", "Lifecycle stage") %></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% costs.each do |cost| %>
+        <% ro = ResearchOutput.find(cost.research_output_id)%>
+        <% cost_label = form_label(cost.parent.madmp_schema.schema["properties"]["cost"], @plan.template.locale, false) %>
+        <% cost_title = cost.data["costType"] %>
+        <% cost_title +=  "(#{cost.data["title"]})" if cost.data["title"].present?%>
+        <tr>
+          <td><%=  cost_title %></td>
+          <td><%= "#{cost.data["amount"]} #{cost.data["currency"]}"%></td>
+          <% if @plan.research_outputs.length > 1 %>
+            <td><%= "#{cost_label} - " %><b><%= ro.abbreviation %></b></td>
+          <% else %>
+            <td><%= cost_label %></td>
+          <% end %>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  <% end %>
 
   <% if @public_plan %>
     <p><%= _("Copyright information:") %></p>

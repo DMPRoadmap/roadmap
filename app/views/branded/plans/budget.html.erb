@@ -31,7 +31,7 @@
           <tr>
             <td><%=  cost_title %></td>
             <td><%= "#{cost.data["amount"]} #{cost.data["currency"]}"%></td>
-            <% if @plan.research_outputs.length > 1 %>
+            <% if plan.research_outputs.length > 1 %>
               <td><%= "#{cost_label} - " %><b><%= ro.abbreviation %></b></td>
             <% else %>
               <td><%= cost_label %></td>
