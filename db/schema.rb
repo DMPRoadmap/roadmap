@@ -480,6 +480,19 @@ ActiveRecord::Schema.define(version: 2021_09_13_194202) do
     t.boolean "filtered", default: false
   end
 
+  create_table "subscriptions", force: :cascade do |t|
+    t.bigint "plan_id"
+    t.integer "subscription_types", null: false
+    t.string "callback_uri"
+    t.bigint "subscriber_id"
+    t.string "subscriber_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "last_notified"
+    t.index ["plan_id"], name: "index_subscriptions_on_plan_id"
+    t.index ["subscriber_id", "subscriber_type", "plan_id"], name: "index_subscribers_on_identifiable_and_plan_id"
+  end
+
   create_table "templates", id: :integer, force: :cascade do |t|
     t.string "title"
     t.text "description"

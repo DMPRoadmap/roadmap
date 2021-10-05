@@ -1,4 +1,4 @@
-<% has_dois = scope.select { |plan| plan.doi.present? }.any? %>
+<% has_dmp_id = scope.select { |plan| plan.dmp_id.present? }.any? %>
 
 <div class="table-responsive">
   <table class="table table-hover" id="my-plans">
@@ -10,7 +10,7 @@
         <th scope="col"><%= _('Owner') %></th>
         <th scope="col" class="date-column"><%= _('Updated') %>&nbsp;<%= paginable_sort_link('plans.updated_at') %></th>
         <th scope="col"><%= _('Visibility') %></th>
-        <% if has_dois %>
+        <% if has_dmp_id %>
           <th scope="col"><%= _('DMP ID') %></th>
         <% end %>
       </tr>
@@ -33,11 +33,12 @@
           <td class="plan-visibility">
             <%= plan.visibility === 'is_test' ? _('Test') : sanitize(display_visibility(plan.visibility)) %>
           </td>
-          <% if has_dois %>
+          <% if has_dmp_id %>
             <td>
-              <% doi = plan.doi %>
-              <% if doi.present? %>
-                <a href="<%= doi.value %>" target="_blank" class="has-new-window-popup-info"><%= id_for_display(id: doi, with_scheme_name: false).html_safe %></a>
+              <% if plan.dmp_id.present? %>
+                <a href="<%= plan.dmp_id.value %>" target="_blank" class="has-new-window-popup-info">
+                  <%= id_for_display(id: plan.dmp_id, with_scheme_name: false).html_safe %>
+                </a>
               <% end %>
             </td>
           <% end %>

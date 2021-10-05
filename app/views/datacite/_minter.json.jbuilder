@@ -76,7 +76,7 @@ json.data do
       json.fundingReferences [data_management_plan.funder] do |funder|
         json.funderName funder.name
 
-        fundref = creator.org.identifier_for_scheme(scheme: fundref_scheme)
+        fundref = funder.identifier_for_scheme(scheme: fundref_scheme)
         if fundref_scheme.present? && fundref.present?
           json.funderIdentifier fundref.value
           json.funderIdentifierType "Crossref Funder"

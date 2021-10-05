@@ -1,52 +1,18 @@
-<h2><%= _('Set plan visibility') %></h2>
-<p class="form-control-static"><%= _('Public or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default.') % { :percentage => Rails.configuration.x.plans.default_percentage_answered } %></p>
-<% allow_visibility = @plan.visibility_allowed? %>
-<% if @plan.administerable_by?(current_user.id) %>
-  <%= form_for(@plan, url: visibility_plan_path, method: :post, html: { id: 'set_visibility' }) do |f| %>
-    <fieldset<%= (allow_visibility ? '' : ' disabled') %>>
-      <div class="form-group col-xs-8">
-        <div class="radio">
-          <%= f.label :visibility_privately_visible do %>
-            <%= f.radio_button :visibility, :privately_visible %>
-            <%= _('Private: visible to me, specified collaborators and administrators at my organisation') %>
-          <% end %>
-        </div>
-        <div class="radio">
-          <%= f.label :visibility_organisationally_visible do %>
-            <%= f.radio_button :visibility, :organisationally_visible %>
-            <%= _('Organisation: anyone at my organisation can view') %>
-          <% end %>
-        </div>
-        <div class="radio">
-          <%= f.label :visibility_publicly_visible do %>
-            <%= f.radio_button :visibility, :publicly_visible %>
-            <%= _('Public: anyone can view') %>
-          <% end %>
-        </div>
-      </div>
-      <div class="col-xs-8">
-        <%= f.submit _('Save'), class: "btn btn-default" %>
-      </div>
-    </fieldset>
-  <% end %>
-<% else %>
-  <p>&nbsp;<%= _("This plan is currently set to: ") %>
-    <% if plan.publicly_visible? %>
-      <%= _('<strong>Public visibilty</strong> - anyone can view').html_safe %>
-    <% elsif plan.organisationally_visible? %>
-      <%= _('<strong>Organisation visibility</strong> - anyone at my organisation can view').html_safe %>
-    <% else %>
-      <%= _('<strong>Private visibility</strong> - visible to me, specified collaborators and administrators at my organisation').html_safe %>
-    <% end %>
-  </p>
+<%# locals: plan, plan_roles %>
+
+<%= render partial: "plans/visibility_form", locals: { plan: plan } %>
+
+<% if Rails.configuration.x.show_collaborators_on_share_tab %>
+  <hr>
+  <%= render partial: "plans/collaborator_form", locals: { plan: @plan, plan_roles: @plan_roles } %>
 <% end %>
 
-<% if Rails.configuration.x.allow_doi_minting && IdentifierScheme.for_identification.any? && current_user == @plan.owner %>
-  <br>
-  <h2>
-    <%= @plan.doi.present? ? _("Your plan has been registered") : _("Register your plan and add to ORCID") %>
-  </h2>
-  <div class="doi-minter">
-    <%= render partial: 'plans/doi_minter', locals: { plan: @plan, orcid_access_token: @orcid_access_token } %>
-  </div>
+<%#
+NOTE: In order for this to be true, you must:
+  - Enable the `madmp.enable_dmp_id_registration` in config/initializers/_dmproadmap.rb
+  - Enabled one of the DMP ID minting services in config/initializers/external_apis/
+%>
+<% if DmpIdService.minting_service_defined? %>
+  <hr>
+  <%= render partial: 'plans/doi_minter', locals: { plan: @plan } %>
 <% end %>

@@ -83,17 +83,16 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
 </div>
 
 <%# if DOI minting is enabled %>
-<% landing_page = plan.landing_page %>
-<% if Rails.configuration.x.doi&.active && landing_page.present? %>
+<% if Rails.configuration.x.madmp&.enable_dmp_id_registration && plan.dmp_id.present? %>
   <div class="form-group"><!-- identifier -->
     <div class="col-md-12">
       <%= form.label(:identifier, _('Landing page'), class: 'control-label') %>
     </div>
     <div class="col-md-8">
-      <% if landing_page.value.starts_with?("http") %>
-        <%= link_to landing_page.value, landing_page.value %>
+      <% if plan.dmp_id.value.starts_with?("http") %>
+        <%= link_to plan.dmp_id.value, plan.dmp_id.value %>
       <% else %>
-        <%= landing_page.value %>
+        <%= plan.dmp_id.value %>
       <% end %>
     </div>
   </div>

@@ -2,14 +2,14 @@
 
 module IdentifierHelper
 
-  def create_orcid(user:, val: SecureRandom.uuid)
+  def create_orcid(user:, val: random_orcid)
     scheme = orcid_scheme
     val = append_prefix(scheme: scheme, val: val)
     create(:identifier, identifiable: user, identifier_scheme: scheme, value: val)
   end
 
-  def create_doi(plan:, val: SecureRandom.uuid)
-    scheme = doi_scheme
+  def create_dmp_id(plan:, val: random_doi)
+    scheme = dmp_id_scheme
     val = append_prefix(scheme: scheme, val: val)
     create(:identifier, identifiable: plan, identifier_scheme: scheme, value: val)
   end
@@ -21,8 +21,39 @@ module IdentifierHelper
     scheme.update(identifier_prefix: landing_page) if scheme.present?
     return scheme if scheme.present?
 
-    create(:identifier_scheme, :for_identification, :for_users, name: name,
-                                                                identifier_prefix: landing_page)
+    create(:identifier_scheme, for_users: true, name: name, identifier_prefix: landing_page)
+  end
+
+  def dmp_id_scheme
+    name = DmpIdService.identifier_scheme&.name || "datacite"
+    landing_page = DmpIdService.landing_page_url || "https://doi.org/"
+    scheme = IdentifierScheme.find_by(name: name)
+    scheme.update(identifier_prefix: landing_page) if scheme.present?
+    return scheme if scheme.present?
+
+    create(:identifier_scheme, for_plans: true, name: name, identifier_prefix: landing_page)
+  end
+
+  def random_orcid
+    id = [
+      Faker::Number.number(digits: 4),
+      Faker::Number.number(digits: 4),
+      Faker::Number.number(digits: 4),
+      Faker::Number.number(digits: 4)
+    ]
+    id.join("-")
+  end
+
+  def random_doi
+    shoulder = [
+      Faker::Number.number(digits: 2),
+      Faker::Number.number(digits: 4)
+    ]
+    id = [
+      Faker::Alphanumeric.alphanumeric(number: 5),
+      Faker::Alphanumeric.alphanumeric(number: 4)
+    ]
+    [shoulder.join("."), id.join(".")].join("/")
   end
 
   def doi_scheme

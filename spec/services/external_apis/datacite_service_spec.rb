@@ -4,37 +4,152 @@ require "rails_helper"
 
 RSpec.describe ExternalApis::DataciteService, type: :model do
   include DataciteMocks
+  include IdentifierHelper
 
   before(:each) do
+    Rails.configuration.x.madmp.enable_dmp_id_registration = true
     Rails.configuration.x.datacite.active = true
+    Rails.configuration.x.datacite.api_base_url = "https://api.test.datacite.org/"
+
     unless Language.where(default_language: true).any?
       # Org model requires a language so make sure the default is set
       create(:language, default_language: true)
     end
     @plan = create(:plan, :creator)
     create(:contributor, investigation: true, plan: @plan)
-    create(:identifier, identifiable: @plan)
+    create_dmp_id(plan: @plan)
+    @client = create(:api_client)
     @plan.reload
+    @dmp_id = @plan.dmp_id.value_without_scheme_prefix
   end
 
-  describe "#mint_doi" do
+  describe "#mint_dmp_id" do
     it "returns nil if the service is not active" do
       Rails.configuration.x.datacite.active = false
       stub_minting_success!
-      doi = described_class.mint_doi(plan: @plan)
-      expect(doi).to eql(nil)
+      dmp_id = described_class.mint_dmp_id(plan: @plan)
+      expect(dmp_id).to eql(nil)
     end
-
-    it "returns the new DOI" do
-      stub_minting_success!
-      doi = described_class.mint_doi(plan: @plan)
-      expect(doi).to eql("10.99999/abc123-566")
-    end
-
-    it "returns nil if Datacite returned an error" do
+    it "handles the http failure and notifies admins if HTTP response is not 200" do
       stub_minting_error!
-      doi = described_class.mint_doi(plan: @plan)
-      expect(doi).to eql(nil)
+      described_class.expects(:handle_http_failure).returns(true)
+      described_class.expects(:notify_administrators).returns(true)
+      result = described_class.mint_dmp_id(plan: @plan)
+      expect(result).to eql(nil)
+    end
+    it "returns the new DMP ID" do
+      stub_minting_success!
+      dmp_id = described_class.mint_dmp_id(plan: @plan)
+      expect(dmp_id).to eql("10.99999/abc123-566")
+    end
+  end
+
+  describe "#update_dmp_id(plan:)" do
+    it "returns false if the DataciteService is not active" do
+      Rails.configuration.x.datacite.active = false
+      expect(described_class.update_dmp_id(plan: @plan)).to eql(false)
+    end
+    it "returns false if :plan is not present" do
+      expect(described_class.update_dmp_id(plan: nil)).to eql(false)
+    end
+    it "handles the http failure and notifies admins if HTTP response is not 200" do
+      stub_update_error!
+      described_class.expects(:handle_http_failure).returns(true)
+      described_class.expects(:notify_administrators).returns(true)
+      result = described_class.update_dmp_id(plan: @plan)
+      expect(result).to eql(false)
+    end
+    it "processes the response, updates the subscription and returns true" do
+      stub_update_success!
+      described_class.expects(:update_subscription).returns(true)
+      result = described_class.update_dmp_id(plan: @plan)
+      expect(result).to eql(true)
+    end
+  end
+
+  describe "#delete_dmp_id(plan:)" do
+    xit "should be tested when it is implemented!" do
+
+    end
+  end
+
+  describe "#add_subscription(plan:, dmp_id:)" do
+    it "returns nil if the :plan is not present" do
+      result = described_class.add_subscription(plan: nil, dmp_id: @dmp_id)
+      expect(result).to eql(nil)
+    end
+    it "returns nil if the :dmp_id is not present" do
+      result = described_class.add_subscription(plan: @plan, dmp_id: nil)
+      expect(result).to eql(nil)
+    end
+    it "logs a warning and returns nil if no ApiClient is defined" do
+      described_class.expects(:api_client).returns(nil)
+      described_class.expects(:callback_path).returns(nil)
+      Rails.logger.expects(:warn)
+      result = described_class.add_subscription(plan: @plan, dmp_id: @dmp_id)
+      expect(result).to eql(nil)
+    end
+    it "returns nil if the :callback_path is not present" do
+      described_class.expects(:api_client).returns(@client)
+      described_class.expects(:callback_path).returns(nil)
+      result = described_class.add_subscription(plan: @plan, dmp_id: @dmp_id)
+      expect(result).to eql(nil)
+    end
+    it "creates a new Subscription" do
+      described_class.expects(:api_client).returns(@client)
+      described_class.expects(:callback_path).returns("https://doi.org/123.123/%{dmp_id}")
+      result = described_class.add_subscription(plan: @plan, dmp_id: @dmp_id)
+      expect(result.plan).to eql(@plan)
+      expect(result.subscriber).to eql(@client)
+      expect(result.callback_uri).to eql("https://doi.org/123.123/#{@dmp_id}")
+      expect(result.creations?).to eql(false)
+      expect(result.updates?).to eql(true)
+      expect(result.deletions?).to eql(true)
+    end
+  end
+
+  describe "#update_subscription(plan:)" do
+    it "returns false if the :plan is not present" do
+      result = described_class.update_subscription(plan: nil)
+      expect(result).to eql(false)
+    end
+    it "returns false if the :dmp_id is not present" do
+      @plan.identifiers.clear
+      result = described_class.update_subscription(plan: @plan)
+      expect(result).to eql(false)
+    end
+    it "logs a warning and returns nil if no ApiClient is defined" do
+      described_class.expects(:api_client).returns(nil)
+      described_class.expects(:callback_path).returns(nil)
+      Rails.logger.expects(:warn)
+      result = described_class.update_subscription(plan: @plan)
+      expect(result).to eql(false)
+    end
+    it "returns false if the :callback_path is not present" do
+      described_class.expects(:api_client).returns(@client)
+      described_class.expects(:callback_path).returns(nil)
+      result = described_class.update_subscription(plan: @plan)
+      expect(result).to eql(false)
+    end
+    it "returns false if there is no subscription for the plan+api_client" do
+      described_class.expects(:api_client).returns(@client)
+      described_class.expects(:callback_path).returns(Faker::Internet.unique.url)
+      create(:subscription, :for_updates, plan: @plan, subscriber: create(:api_client),
+                                          last_notified: Time.now - 2.hours)
+      result = described_class.update_subscription(plan: @plan)
+      expect(result).to eql(false)
+    end
+    it "returns true" do
+      described_class.expects(:api_client).returns(@client)
+      described_class.expects(:callback_path).returns(Faker::Internet.unique.url)
+      orig = Time.now - 2.hours
+      @plan.subscriptions << create(:subscription, :for_updates, plan: @plan,
+                                                                 subscriber: @client,
+                                                                 last_notified: orig,
+                                                                 updates: true)
+      result = described_class.update_subscription(plan: @plan)
+      expect(result).to eql(true)
+      expect(@plan.reload.subscriptions.first.last_notified > orig)
     end
   end
 
@@ -135,7 +250,7 @@ RSpec.describe ExternalApis::DataciteService, type: :model do
         expect(described_class.send(:process_response, response: resp)).to eql(nil)
       end
       it "returns nil if JSON for Datacite does not have ['data']['attributes']" do
-        resp = OpenStruct.new(body: { "data": { "type": "dois" } }.to_json)
+        resp = OpenStruct.new(body: { "data": { "type": "dmp_ids" } }.to_json)
         expect(described_class.send(:process_response, response: resp)).to eql(nil)
       end
       it "returns nil if JSON for Datacite does not have ['data']['attributes']['relatedIdentifiers']" do

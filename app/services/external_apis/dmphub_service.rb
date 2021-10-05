@@ -3,7 +3,7 @@
 module ExternalApis
 
   # This service provides an interface to a DMPHub system: https://github.com/CDLUC3/dmphub.
-  class DmphubService < BaseDoiService
+  class DmphubService < BaseDmpIdService
 
     class << self
 
@@ -68,9 +68,9 @@ module ExternalApis
         Rails.configuration.x.dmphub&.callback_method&.downcase&.to_sym || super
       end
 
-      # Create a new DOI
-      def mint_doi(plan:)
-        return nil unless active? && auth
+      # Create a new DMP ID
+      def mint_dmp_id(plan:)
+        return nil unless active? && auth && plan.present?
 
         hdrs = {
           "Authorization": @token,
@@ -80,21 +80,21 @@ module ExternalApis
                          additional_headers: hdrs, debug: false,
                          data: json_from_template(plan: plan))
 
-        # DMPHub returns a 201 (created) when a new DOI has been minted or
-        #                a 405 (method_not_allowed) when a DOI already exists
+        # DMPHub returns a 201 (created) when a new DMP ID has been minted or
+        #                a 405 (method_not_allowed) when a DMP ID already exists
         unless resp.present? && [201, 405].include?(resp.code)
-          handle_http_failure(method: "DMPHub mint_doi", http_response: resp)
+          handle_http_failure(method: "DMPHub mint_dmp_id", http_response: resp)
           notify_administrators(obj: plan, response: resp)
           return nil
         end
 
-        doi = process_response(response: resp)
-        add_subscription(plan: plan, doi: doi) if doi.present?
-        doi
+        dmp_id = process_response(response: resp)
+        add_subscription(plan: plan, dmp_id: dmp_id) if dmp_id.present?
+        dmp_id
       end
 
-      # Update the DOI
-      def update_doi(plan:)
+      # Update the DMP ID
+      def update_dmp_id(plan:)
         return nil unless active? && auth && plan.present?
 
         hdrs = {
@@ -102,52 +102,68 @@ module ExternalApis
           "Server-Agent": "#{caller_name} (#{client_id})"
         }
 
-        target = "#{api_base_url}#{callback_path}" % { dmp_id: plan.doi.value_without_scheme_prefix }
+        target = "#{api_base_url}#{callback_path}" % {
+          dmp_id: plan.dmp_id&.value_without_scheme_prefix
+        }
         resp = http_put(uri: target, additional_headers: hdrs, debug: false,
                         data: json_from_template(plan: plan))
 
         # DMPHub returns a 200 when successful
         unless resp.present? && resp.code == 200
-          handle_http_failure(method: "DMPHub update_doi", http_response: resp)
+          handle_http_failure(method: "DMPHub update_dmp_id", http_response: resp)
           notify_administrators(obj: plan, response: resp)
           return nil
         end
 
-        doi = process_response(response: resp)
-        update_subscription(plan: plan, doi: doi) if doi.present?
-        doi
+        dmp_id = process_response(response: resp)
+        update_subscription(plan: plan) if dmp_id.present?
+        dmp_id
       end
 
-      # Delete the DOI
-      def delete_doi(plan:)
+      # Delete the DMP ID
+      def delete_dmp_id(plan:)
         return nil unless active? && plan.present?
 
-        # implement this later if necessary and if reasonable. Is deleting a DOI feasible?
+        # implement this later once the DMPHub supports it
         plan.present?
       end
 
       # Register the ApiClient behind the minter service as a Subscriber to the Plan
       # if the service has a callback URL and ApiClient
-      def add_subscription(plan:, doi:)
-        Rails.logger.warn "DMPHubService - No ApiClient available for 'dmphub'!" unless api_client.present?
-        return plan unless plan.present? && doi.present? &&
-                           callback_path.present? && api_client.present?
+      def add_subscription(plan:, dmp_id:)
+        client = api_client
+        path = callback_path
+        Rails.logger.warn "DMPHubService - No ApiClient defined!" unless client.present?
+        return nil unless plan.present? &&
+                          dmp_id.present? &&
+                          path.present? &&
+                          client.present?
 
         Subscription.create(
           plan: plan,
-          subscriber: api_client,
-          callback_uri: callback_path % { dmp_id: doi.gsub(/https?:\/\/doi.org\//, "") },
+          subscriber: client,
+          callback_uri: path % { dmp_id: dmp_id.gsub(%r{https?://doi.org/}, "") },
           updates: true,
           deletions: true
         )
       end
 
       # Bump the last_notified timestamp on the subscription
-      def update_subscription(plan:, doi:)
-        Rails.logger.warn "DMPHubService - No ApiClient available for 'dmphub'!" unless api_client.present?
-        return plan unless plan.present? && doi.present? && callback_path.present? && api_client.present?
+      def update_subscription(plan:)
+        client = api_client
+        Rails.logger.warn "DMPHubService - No ApiClient defined!" unless client.present?
+        return false unless plan.present? &&
+                            plan.dmp_id.present? &&
+                            callback_path.present? &&
+                            client.present?
 
-        Subscription.where(plan: plan, subscriber: api_client).update(last_notified: Time.now)
+        subscriptions = plan.subscriptions.select do |sub|
+          sub.subscriber == client && sub.updates?
+        end
+        return false unless subscriptions.any?
+
+        subscriptions.each { |sub| sub.update(last_notified: Time.now) }
+        true
       end
 
       private
@@ -161,10 +177,11 @@ module ExternalApis
           client_id: client_id,
           client_secret: client_secret
         }
+
         resp = http_post(uri: "#{api_base_url}#{auth_path}",
                          additional_headers: {}, data: data.to_json, debug: false)
         unless resp.present? && resp.code == 200
-          handle_http_failure(method: "DMPHub mint_doi", http_response: resp)
+          handle_http_failure(method: "DMPHub mint_dmp_id", http_response: resp)
           return nil
         end
         @token = process_token(json: resp.body)
@@ -192,7 +209,7 @@ module ExternalApis
         { dmp: JSON.parse(payload) }.to_json
       end
 
-      # Extract the DOI from the response from the DMPHub
+      # Extract the DMP ID from the response from the DMPHub
       def process_response(response:)
         hash = JSON.parse(response.body).with_indifferent_access
         return nil unless hash.fetch(:items, []).length == 1

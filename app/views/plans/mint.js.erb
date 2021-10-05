@@ -1,7 +1,7 @@
 var target = $('.doi-minter');
 
 if (target != undefined) {
-  <% if @plan.doi.present? %>
+  <% if @plan.dmp_id.present? %>
     target.html(`<%= escape_javascript(render partial: "plans/doi_minter", locals: { plan: @plan, orcid_access_token: @orcid_access_token }) %>`);
 
   <% else %>

@@ -4,15 +4,15 @@
 #
 # Table name: subscriptions
 #
-#  id                 :bigint(8)        not null, primary key
-#  callback_uri       :string(255)
+#  id                 :bigint           not null, primary key
+#  callback_uri       :string
 #  last_notified      :datetime
-#  subscriber_type    :string(255)
+#  subscriber_type    :string
 #  subscription_types :integer          not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
-#  plan_id            :bigint(8)
-#  subscriber_id      :bigint(8)
+#  plan_id            :bigint
+#  subscriber_id      :bigint
 #
 # Indexes
 #
@@ -43,14 +43,13 @@ class Subscription < ApplicationRecord
   # ====================
 
   def notify!
+    # Do not notify anyone if this is a new record
+    return false if new_record?
     # Do not notify if there is no callback or they've already been notified
     return false unless callback_uri.present? && last_notified < plan.updated_at
 
-    # TODO: Update the ApiClient and this model to store the callback information.
-    #       then replace the Plan.notify_subscribers logic.
-    #       We should likely store the base portion of the callback_uri on the ApiClient
-    #       record and let this record store the unique DMP identify there are looking for.
-
-    update(last_notified: Time.now)
+    NotifySubscriberJob.perform_later(self)
+    true
   end
+
 end

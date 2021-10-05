@@ -37,17 +37,16 @@
     </div>
   </div>
 
-  <hr>
+  <% unless Rails.configuration.x.show_collaborators_on_share_tab %>
+    <hr>
 
-  <div class="row">
-    <div class="col-md-12">
-      <h2><%= _('DMP Collaborators')%></h2>
-      <p><%= _('Invite specific people to read, edit, or administer your plan. Invitees will receive an email notification that they have access to this plan.') %></p>
-
-      <%= render partial: "plans/collaborator_form",
-                 locals: { plan: @plan, plan_roles: @plan.roles } %>
+    <div class="row">
+      <div class="col-md-12">
+        <%= render partial: "plans/collaborator_form",
+                  locals: { plan: @plan, plan_roles: @plan.roles } %>
+      </div>
     </div>
-  </div>
+  <% end %>
 <% end %>
 
 <%= render partial: "plans/navigation", locals: { plan: @plan } %>

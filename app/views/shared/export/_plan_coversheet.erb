@@ -5,6 +5,16 @@
 <div class="cover-page">
   <p><b><%= _("Title: ") %></b><%= @hash[:title] %></p><br>
 
+  <% if @plan.dmp_id.present? %>
+    <p><b><%= _("DMP ID: ") %></b>
+      <% if @plan.dmp_id.value&.starts_with?("http") %>
+        <%= link_to @plan.dmp_id.value, @plan.dmp_id.value %>
+      <% else %>
+        <%= @plan.dmp_id.value %>
+      <% end %>
+    </p><br>
+  <% end %>
+
   <%# Using <b> tags as the htmltoword gem does not recognise css styles defined %>
   <%# Allow raw html (==) for plan_attribution as it has <b> tags %>
   <p><%== plan_attribution(@hash[:attribution]) %></p><br>

@@ -313,6 +313,7 @@ class PlansController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+  # GET /plans/:id/publish
   def publish
     @plan = Plan.find(params[:id])
     if @plan.present?
@@ -468,6 +469,22 @@ class PlansController < ApplicationController
     render js: render_to_string(template: "plans/mint.js.erb")
   rescue StandardError => e
     Rails.logger.error "Unable to add plan #{params[:id]} to the user #{current_user.id}'s ORCID record - #{e.message}"
+    Rails.logger.error e.backtrace
+
+    render js: render_to_string(template: "plans/mint.js.erb")
+  end
+
+  # GET /plans/:id/mint
+  def mint
+    @plan = Plan.find(params[:id])
+    authorize @plan
+
+    DmpIdService.mint_dmp_id(plan: @plan)&.save
+    @plan = @plan.reload
+
+    render js: render_to_string(template: "plans/mint.js.erb")
+  rescue StandardError => e
+    Rails.logger.error "Unable mint DMP ID for plan #{params[:id]} - #{e.message}"
     Rails.logger.error e.backtrace
 
     render js: render_to_string(template: "plans/mint.js.erb")
