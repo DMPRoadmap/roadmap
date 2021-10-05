@@ -115,7 +115,7 @@ class Plan < ApplicationRecord
 
   has_many :contributors, dependent: :destroy
 
-  has_many :related_identifiers, dependent: :destroy
+  has_many :related_identifiers, as: :identifiable, dependent: :destroy
 
   # =====================
   # = Nested Attributes =
