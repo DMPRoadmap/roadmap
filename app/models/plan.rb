@@ -47,7 +47,7 @@
 # TODO: Drop the funder_name and grant_number columns once the funder_id has
 #       been back filled and we're removing the is_other org stuff
 
-class Plan < ActiveRecord::Base
+class Plan < ApplicationRecord
 
   include ConditionalUserMailer
   include ExportablePlan
@@ -167,6 +167,10 @@ class Plan < ActiveRecord::Base
   # =============
 
   before_validation :set_creation_defaults
+  # sanitise html tags e.g remove unwanted 'script'
+  before_validation lambda { |data|
+    data.sanitize_fields(:title, :identifier, :description)
+  }
 
   # ==========
   # = Scopes =

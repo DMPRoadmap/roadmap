@@ -52,7 +52,7 @@
 #  fk_rails_...  (org_id => orgs.id)
 #
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
 
   include ConditionalUserMailer
   include ValidationMessages
@@ -169,6 +169,9 @@ class User < ActiveRecord::Base
   after_update :delete_perms!, if: :org_id_changed?, unless: :can_change_org?
 
   after_update :remove_token!, if: :org_id_changed?, unless: :can_change_org?
+
+  # sanitise html tags from fields
+  before_validation ->(data) { data.sanitize_fields(:firstname, :surname) }
 
   # =================
   # = Class methods =
