@@ -7,8 +7,8 @@ Rails.configuration.x.datacite.description = "The DataCite REST API: https://sup
 
 # Credentials for minting DMP IDs via DataCite
 # To disable this feature, simply set 'active' to false
-Rails.configuration.x.datacite.landing_page_url = "https://doi.org/"
-Rails.configuration.x.datacite.api_base_url = "https://api.test.datacite.org/"
+Rails.configuration.x.datacite.landing_page_url = Rails.configuration.x.dmproadmap.datacite_landing_page_url
+Rails.configuration.x.datacite.api_base_url = Rails.configuration.x.dmproadmap.datacite_api_base_url
 Rails.configuration.x.datacite.mint_path = "dois"
 Rails.configuration.x.datacite.update_path = "dois/"
 Rails.configuration.x.datacite.delete_path = "dois/"

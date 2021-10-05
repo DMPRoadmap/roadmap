@@ -185,7 +185,7 @@ module DMPRoadmap
     config.x.show_collaborators_on_share_tab = true
 
     # Determines whether or not the user will see the Plan Overview tab
-    config.x.show_overview_tab = true
+    config.x.show_overview_tab = Rails.configuration.x.dmproadmap.show_overview_tab
 
     # ---------------------------------------------------- #
     # CACHING - all values are in seconds (86400 == 1 Day) #
@@ -269,7 +269,7 @@ module DMPRoadmap
     #
     # The location of this feature is determined by your setting for
     # :show_collaborators_on_share_tab above
-    config.x.madmp.enable_dmp_id_registration = false
+    config.x.madmp.enable_dmp_id_registration = Rails.configuration.x.dmproadmap.enable_dmp_id_registration
 
     # ------------------- #
     # Related Identifiers #

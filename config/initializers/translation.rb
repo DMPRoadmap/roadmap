@@ -61,7 +61,7 @@ if table
 
   I18n.available_locales = Language.all.pluck(:abbreviation)
 
-  I18n.default_locale = Language.default.try(:abbreviation) || "en-US"
+  I18n.default_locale = Language.default.try(:abbreviation) || "en" #|| "en-US"
 else
   def default_locale
     Rails.application.config.i18n.available_locales.first || "en-US"
