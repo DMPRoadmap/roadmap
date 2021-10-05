@@ -1,5 +1,4 @@
 <%# locals: plan, form %>
-
 <%
 presenter = RelatedIdentifierPresenter.new(plan: plan)
 tooltip = _("List products related to this project, such as journal articles, software or datasets. For example: 'https://doi.org/10.5281/zenodo.5117892', 'https://github.com/CDLUC3/dmphub/releases/tag/v1.0.12'")
@@ -23,11 +22,9 @@ tooltip = _("List products related to this project, such as journal articles, so
           <%= hidden_field_tag :work_type, related_identifier.work_type,
                               name: "#{name_base}[work_type]]",
                               id: "#{id_base}_work_type" %>
-
           <%= hidden_field_tag :value, related_identifier.value,
                               name: "#{name_base}[value]]",
                               id: "#{id_base}_value" %>
-
           <% if related_identifier.citation.present? %>
             <%= sanitize(related_identifier.citation) %>
           <% else %>
@@ -44,7 +41,6 @@ tooltip = _("List products related to this project, such as journal articles, so
       </div>
     <% end %>
   <% end %>
-
   <%= render partial: "related_identifiers/form",
               locals: { related_identifier: RelatedIdentifier.new(identifiable: plan),
                         presenter: presenter, tooltip: tooltip } %>

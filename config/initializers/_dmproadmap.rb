@@ -271,6 +271,13 @@ module DMPRoadmap
     # :show_collaborators_on_share_tab above
     config.x.madmp.enable_dmp_id_registration = false
 
+    # ------------------- #
+    # Related Identifiers #
+    # ------------------- #
+    # Allow researchers to specify related works for the DMP
+    config.x.madmp.enable_related_identifiers = false
+    # Allow the system to fetch citations for RelatedIdentifiers via the Uc3Citation gem
+    config.x.madmp.enable_citation_lookup = false
   end
 
 end
