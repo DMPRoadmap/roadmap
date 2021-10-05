@@ -333,6 +333,10 @@ default: &default
   # regardless of the plans visibility and whether or not the plan has been shared
   plans_super_admins_read_all: true
 
+  # Whether or not to display they Plan Overview tab to users when they're editing
+  # their DMP
+  show_overview_tab: false
+
   # ============================
   # = User preference defaults =
   # ============================

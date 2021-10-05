@@ -190,6 +190,7 @@ Rails.application.routes.draw do
       get "answer"
       get "publish"
       get "request_feedback"
+      get "overview"
       get "download"
       post "duplicate"
       post "visibility", constraints: { format: [:json] }
