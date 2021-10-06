@@ -115,6 +115,18 @@ Metrics/ClassLength:
 Metrics/MethodLength:
   Max: 20
 
+# mnicholson Oct. 6th 2021
+# Default lenght for block is 25 lines, which it would be very restrictive for
+# the Rspec views methods. So I'll just exclude some files.
+Metrics/BlockLength:
+  Exclude:
+     - 'lib/tasks/*.rake'
+     - 'lib/tasks/utils/*.rake'
+     - 'spec/**/*'
+
+  IgnoredMethods: ['describe', 'context', 'task', 'namespace']
+
+
 # ------------
 # - SECURITY -
 # ------------
