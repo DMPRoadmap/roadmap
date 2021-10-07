@@ -25,7 +25,7 @@ org.api_create_plan_email_body = default_message unless org.api_create_plan_emai
   <div class="row">
     <div class="form-group col-xs-8" data-html="true">
       <%= f.label :api_create_plan_email_body, _("Message"), class: "control-label" %>
-      <%= f.text_area :api_create_plan_email_body, class: "form-control",
+      <%= f.text_area :api_create_plan_email_body, class: "form-control tinymce",
                       placeholder: default_message, rows: 6 %>
     </div>
     <div class="form-group col-xs-4">

@@ -223,7 +223,7 @@ class PlansController < ApplicationController
 
     @research_domains = ResearchDomain.all.order(:label)
 
-    :html
+    respond_to :html
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable

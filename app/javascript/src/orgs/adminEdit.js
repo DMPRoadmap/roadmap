@@ -59,4 +59,6 @@ $(() => {
 
   initAutocomplete('#org-merge-controls .autocomplete');
   scrubOrgSelectionParamsOnSubmit('form.edit_org');
+
+  Tinymce.init({ selector: '#org_api_create_plan_email_body' });
 });

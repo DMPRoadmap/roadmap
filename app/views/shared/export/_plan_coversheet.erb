@@ -15,9 +15,7 @@
     </p><br>
   <% end %>
 
-  <%# Using <b> tags as the htmltoword gem does not recognise css styles defined %>
-  <%# Allow raw html (==) for plan_attribution as it has <b> tags %>
-  <p><%== plan_attribution(@hash[:attribution]) %></p><br>
+  <p><strong><%= _("Creator:") %></strong><%= @hash[:attribution] %></p><br>
 
   <% if @plan.doi.present? %>
     <p><b><%= _("DMP ID: ") %></b><%= @plan.doi.value %></p><br>
