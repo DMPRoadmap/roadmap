@@ -182,7 +182,7 @@ module DMPRoadmap
     #    and the collaborators information
     #  - A 'Finalise / Publish' tab will be displayed that contains the plan visibility
     #    settings and the DMP ID information (if enabled, see :enable_dmp_id_registration)
-    config.x.show_collaborators_on_share_tab = true
+    config.x.show_collaborators_on_share_tab = Rails.configuration.x.dmproadmap.show_collaborators_on_share_tab
 
     # Determines whether or not the user will see the Plan Overview tab
     config.x.show_overview_tab = Rails.configuration.x.dmproadmap.show_overview_tab

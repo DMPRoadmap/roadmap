@@ -28,7 +28,6 @@ class Subscription < ApplicationRecord
   # ================
 
   belongs_to :plan
-
   belongs_to :subscriber, polymorphic: true
 
   ##
@@ -46,7 +45,8 @@ class Subscription < ApplicationRecord
     # Do not notify anyone if this is a new record
     return false if new_record?
     # Do not notify if there is no callback or they've already been notified
-    return false unless callback_uri.present? && last_notified < plan.updated_at
+    return false unless callback_uri.present? &&
+                        (last_notified.nil? || last_notified < plan.updated_at)
 
     NotifySubscriberJob.perform_later(self)
     true

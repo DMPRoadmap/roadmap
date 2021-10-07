@@ -44,7 +44,6 @@ class DmproadmapConfig < Anyway::Config
               :dmphub_client_secret,
               :dmphub_landing_page_url,
               :do_not_reply_email,
-              :doi_minting,
               :dragonfly_aws,
               :dragonfly_bucket,
               :dragonfly_host,
@@ -129,6 +128,7 @@ class DmproadmapConfig < Anyway::Config
               :shibboleth_login_url,
               :shibboleth_logout_url,
               :shibboleth_use_filtered_discovery_service,
+              :show_collaborators_on_share_tab,
               :show_overview_tab,
               :spdx_active,
 
@@ -151,7 +151,6 @@ class DmproadmapConfig < Anyway::Config
            # TODO: Re-enable this once we've added a pepper
            # :devise_pepper,
            :do_not_reply_email,
-           :doi_minting,
 
            :helpdesk_email,
 

@@ -14,5 +14,6 @@ NOTE: In order for this to be true, you must:
 %>
 <% if DmpIdService.minting_service_defined? %>
   <hr>
-  <%= render partial: 'plans/doi_minter', locals: { plan: @plan } %>
+  <%= render partial: 'plans/dmp_id_minter',
+             locals: { plan: @plan, orcid_access_token: @orcid_access_token } %>
 <% end %>

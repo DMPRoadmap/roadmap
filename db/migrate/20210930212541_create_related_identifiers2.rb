@@ -1,4 +1,4 @@
-class CreateRelatedIdentifiers < ActiveRecord::Migration[5.2]
+class CreateRelatedIdentifiers2 < ActiveRecord::Migration[5.2]
   def change
     create_table :related_identifiers do |t|
       t.references  :identifier_scheme, null: true,  index: true

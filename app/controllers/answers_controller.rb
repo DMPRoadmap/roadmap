@@ -65,6 +65,7 @@ class AnswersController < ApplicationController
         )
         @answer.save!
       end
+    # TODO: this is madness. Why not just do a find_or_initialize_by above?
     rescue ActiveRecord::RecordNotFound
       @answer = Answer.new(args.merge(user_id: current_user.id))
       @answer.lock_version = 1

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_30_212541) do
+ActiveRecord::Schema.define(version: 2021_10_05_164526) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -44,7 +44,6 @@ ActiveRecord::Schema.define(version: 2021_09_30_212541) do
     t.integer "answer_id", null: false
     t.integer "question_option_id", null: false
     t.index ["answer_id"], name: "index_answers_question_options_on_answer_id"
-    t.index ["question_option_id"], name: "fk_rails_01ba00b569"
   end
 
   create_table "api_clients", id: :integer, force: :cascade do |t|
@@ -316,7 +315,6 @@ ActiveRecord::Schema.define(version: 2021_09_30_212541) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_other", default: false, null: false
-    t.string "sort_name"
     t.integer "region_id"
     t.integer "language_id"
     t.string "logo_uid"
@@ -325,8 +323,7 @@ ActiveRecord::Schema.define(version: 2021_09_30_212541) do
     t.integer "org_type", default: 0, null: false
     t.text "links"
     t.boolean "feedback_enabled", default: false
-    t.string "feedback_email_subject"
-    t.text "feedback_email_msg"
+    t.text "feedback_msg"
     t.string "contact_name"
     t.boolean "managed", default: false, null: false
     t.string "api_create_plan_email_subject"
@@ -378,7 +375,7 @@ ActiveRecord::Schema.define(version: 2021_09_30_212541) do
     t.index ["funder_id"], name: "index_plans_on_funder_id"
     t.index ["grant_id"], name: "index_plans_on_grant_id"
     t.index ["org_id"], name: "index_plans_on_org_id"
-    t.index ["research_domain_id"], name: "index_plans_on_fos_id"
+    t.index ["research_domain_id"], name: "index_plans_on_research_domain_id"
     t.index ["template_id"], name: "index_plans_on_template_id"
   end
 
@@ -477,23 +474,19 @@ ActiveRecord::Schema.define(version: 2021_09_30_212541) do
 
   create_table "related_identifiers", force: :cascade do |t|
     t.bigint "identifier_scheme_id"
-    t.bigint "plan_id"
     t.integer "identifier_type", null: false
     t.integer "relation_type", null: false
-    t.integer "work_type", default: 0, null: false
-    t.string "value", null: false
-    t.text "citation"
     t.bigint "identifiable_id"
     t.string "identifiable_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["identifiable_id", "identifiable_type", "work_type"], name: "index_relateds_on_identifiable_and_work_type"
+    t.string "value", null: false
+    t.integer "work_type", default: 0
+    t.text "citation"
+    t.index ["identifiable_id", "identifiable_type", "relation_type"], name: "index_relateds_on_identifiable_and_relation_type"
     t.index ["identifier_scheme_id"], name: "index_related_identifiers_on_identifier_scheme_id"
     t.index ["identifier_type"], name: "index_related_identifiers_on_identifier_type"
-    t.index ["plan_id"], name: "index_related_identifiers_on_plan_id"
     t.index ["relation_type"], name: "index_related_identifiers_on_relation_type"
-    t.index ["value"], name: "index_related_identifiers_on_value"
-    t.index ["work_type"], name: "index_related_identifiers_on_work_type"
   end
 
   create_table "repositories", force: :cascade do |t|
@@ -609,6 +602,8 @@ ActiveRecord::Schema.define(version: 2021_09_30_212541) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "last_notified"
+    t.bigint "oauth_application_id"
+    t.index ["oauth_application_id"], name: "index_subscriptions_on_oauth_application_id"
     t.index ["plan_id"], name: "index_subscriptions_on_plan_id"
     t.index ["subscriber_id", "subscriber_type", "plan_id"], name: "index_subscribers_on_identifiable_and_plan_id"
   end
@@ -712,13 +707,9 @@ ActiveRecord::Schema.define(version: 2021_09_30_212541) do
     t.index ["user_id"], name: "index_users_perms_on_user_id"
   end
 
-  add_foreign_key "annotations", "orgs"
-  add_foreign_key "annotations", "questions"
   add_foreign_key "answers", "plans"
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
-  add_foreign_key "answers_question_options", "answers"
-  add_foreign_key "answers_question_options", "question_options"
   add_foreign_key "conditions", "questions"
   add_foreign_key "guidance_groups", "orgs"
   add_foreign_key "guidances", "guidance_groups"
@@ -743,7 +734,6 @@ ActiveRecord::Schema.define(version: 2021_09_30_212541) do
   add_foreign_key "questions", "question_formats"
   add_foreign_key "questions", "sections"
   add_foreign_key "research_domains", "research_domains", column: "parent_id"
-  add_foreign_key "research_outputs", "licenses"
   add_foreign_key "roles", "plans"
   add_foreign_key "roles", "users"
   add_foreign_key "sections", "phases"

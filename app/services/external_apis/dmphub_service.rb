@@ -144,7 +144,8 @@ module ExternalApis
           subscriber: client,
           callback_uri: path % { dmp_id: dmp_id.gsub(%r{https?://doi.org/}, "") },
           updates: true,
-          deletions: true
+          deletions: true,
+          last_notified: Time.now
         )
       end
 

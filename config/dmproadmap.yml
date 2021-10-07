@@ -110,9 +110,6 @@ default: &default
   # = External Api service configuration =
   # ======================================
 
-  # Generic DOI service will mint DMP IDs (aka DOIs)
-  doi_minting: true
-
   # DataCite (populate if you're using them as your DOI registrar)
   datacite_active: false
   datacite_shoulder: "10.1234"
@@ -122,8 +119,8 @@ default: &default
 
   # DMPHub is a DMP metadata repository that will mint DMP IDs and provide a landing page for them.
   # See https://github.com/CDLUC3/dmphub
-  dmphub_active: false
-  dmphub_url: "https://localhost:3001/api/v0/"
+  dmphub_active: true
+  dmphub_url: "http://localhost:3001/api/v0/"
   dmphub_landing_page_url: "http://localhost:3001/dmps/doi:"
   # You should also check the config/initializers/external_apis/dmphub.rb config
 
@@ -324,6 +321,12 @@ default: &default
   # Whether or not to display they Plan Overview tab to users when they're editing
   # their DMP
   show_overview_tab: false
+
+  # Whether the collaborators section of the DMP (people who co-owner, can edit or comment)
+  # are displayed on the 'Share' tab.
+  # If true: The 'Share' tab appears with Plan Visibility and Collaborators
+  # If false: It appears on the Contributors tab and the 'Share' tab becomes 'Publish'
+  show_collaborators_on_share_tab: false
 
   # ======================================= #
   # = maDMP / Networked DMP functionality = #

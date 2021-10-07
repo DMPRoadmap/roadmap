@@ -38,6 +38,10 @@ class NotifySubscriberJob < ApplicationJob
     api_client = subscription.subscriber
     dmp_id_svc = api_client.name.downcase == DmpIdService.identifier_scheme&.name&.downcase
 
+
+p "SHOULD WE NOTIFY? ***********************"
+p "#{DmpIdService.minting_service_defined?} && #{dmp_id_svc}"
+
     # If the ApiClient is the DMP ID service then update the DMP ID metadata
     if DmpIdService.minting_service_defined? && dmp_id_svc
       Rails.logger.info "Sending #{api_client.name} the updated DMP ID metadata \

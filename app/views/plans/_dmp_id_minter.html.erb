@@ -7,6 +7,7 @@ general_tooltip = _("DMP IDs track connections between your DMP and research out
 
 if current_user == plan.owner
   orcid = plan.owner.identifier_for_scheme(scheme: "orcid")
+  orcid_access_token =
   orcid_logo = "https://orcid.org/sites/default/files/images/orcid_16x16.png"
   orcid_link = "<a href=\"#{orcid&.value}\" target=\"_blank\" aria-label=\"link to ORCID record\">ORCID record</a>"
 end

@@ -139,13 +139,6 @@ class Plan < ApplicationRecord
 
   accepts_nested_attributes_for :related_identifiers
 
-  # =============
-  # = Callbacks =
-  # =============
-
-  after_update :notify_subscribers!, if: :versionable_change?
-  after_touch :notify_subscribers!
-
   # ===============
   # = Validations =
   # ===============
@@ -164,8 +157,8 @@ class Plan < ApplicationRecord
   # = Callbacks =
   # =============
 
-  after_update :notify_subscribers, if: :versionable_change?
-  after_touch :notify_subscribers
+  after_update :notify_subscribers!, if: :versionable_change?
+  after_touch :notify_subscribers!
 
   # ==========
   # = Scopes =
@@ -729,7 +722,8 @@ class Plan < ApplicationRecord
 
       related = RelatedIdentifier.find_by(id: id)
       related = RelatedIdentifier.new(identifiable: self) unless related.present?
-      related.update(related_identifier_hash)
+      related.work_type = related_identifier_hash[:work_type]
+      related.value = related_identifier_hash[:value].strip
       related_identifiers << related
     end
   end
@@ -760,7 +754,6 @@ class Plan < ApplicationRecord
       subscriptions.select { |sub| sub.selected_subscription_types.include?(typ.to_sym) }
     end
     targets = targets.flatten.uniq if targets.any?
-
     targets.each(&:notify!)
     true
   end

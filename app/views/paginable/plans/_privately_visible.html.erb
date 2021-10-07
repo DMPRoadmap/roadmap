@@ -70,15 +70,13 @@
               <% if plan.editable_by?(current_user.id) then %>
                 <li><%= link_to _('Edit'), plan_path(plan) %></li>
 
-<<<<<<< HEAD
-                      <% if plan.administerable_by?(current_user.id) %>
-                        <li><%= link_to _('Finalise / Publish'), publish_plan_path(plan) %></li>
-                      <% end %>
-=======
                 <% if plan.administerable_by?(current_user.id) %>
-                  <li><%= link_to _('Share'), plan_contributors_path(plan) %></li>
+                  <% if Rails.configuration.x.show_collaborators_on_share_tab %>
+                    <li><%= link_to _('Share'), plan_contributors_path(plan) %></li>
+                  <% else %>
+                    <li><%= link_to _('Publish'), publish_plan_path(plan) %></li>
+                  <% end %>
                 <% end %>
->>>>>>> 2367d33e860e1f9653f7e5f6b60f760f4a23619f
 
                 <li><%= link_to _('Download'), download_plan_path(plan) %></li>
                 <li><%= link_to(_('Copy'), duplicate_plan_path(plan), data: { method: :post }) %></li>

@@ -223,7 +223,7 @@ class PlansController < ApplicationController
 
     @research_domains = ResearchDomain.all.order(:label)
 
-    respond_to :html
+    :html
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable
@@ -479,7 +479,8 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     authorize @plan
 
-    DmpIdService.mint_dmp_id(plan: @plan)&.save
+    dmp_id = DmpIdService.mint_dmp_id(plan: @plan)
+    dmp_id.save
     @plan = @plan.reload
 
     render js: render_to_string(template: "plans/mint.js.erb")
