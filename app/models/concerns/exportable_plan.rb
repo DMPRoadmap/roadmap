@@ -104,11 +104,10 @@ module ExportablePlan
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def prepare_coversheet
     hash = {}
-    # name of owner and any co-owners
-    attribution = owner.present? ? [owner.name(false)] : []
-    roles.administrator.not_creator.each do |role|
-      attribution << role.user.name(false)
-    end
+    # Use the name of the DMP owner/creator OR the first Co-owner if there is no
+    # owner for some reason
+    attribution = roles.creator.first&.user&.name(false)
+    roles.administrator.not_creator.first&.user&.name(false) unless attribution.present?
     hash[:attribution] = attribution
 
     # Org name of plan owner's org
