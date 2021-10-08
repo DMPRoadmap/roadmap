@@ -15,11 +15,7 @@
     </p><br>
   <% end %>
 
-  <p><strong><%= _("Creator:") %></strong><%= @hash[:attribution] %></p><br>
-
-  <% if @plan.doi.present? %>
-    <p><b><%= _("DMP ID: ") %></b><%= @plan.doi.value %></p><br>
-  <% end %>
+  <p><strong><%= _("Creator:") %></strong> <%= sanitize(@hash[:attribution]) %></p><br>
 
   <p><b><%= _("Affiliation: ") %></b><%= @hash[:affiliation] %></p><br>
 
@@ -27,22 +23,24 @@
     <p><b><%= _("Funder: ") %></b><%= @hash[:funder] %></p><br>
   <% end %>
 
-    <p><b><%= _("Template: ") %></b><%= @hash[:template] + @hash[:customizer] %></p><br>
-
-  <% @plan.contributors.investigation.each do |contributor| %>
-    <% orcid = contributor.identifier_for_scheme(scheme: "orcid") %>
-    <% next unless orcid.present? && orcid.value.present? %>
-
-    <p><b><%= _("ORCID iD: ") %></b><%= orcid.value_without_scheme_prefix %></p> <br>
+  <% if @plan.identifier.present? %>
+    <p><b><%= _("Funding opportunity number: ") %></b><%= sanitize(@plan.identifier) %></p> <br>
   <% end %>
+  <% if @plan.grant.present? %>
+    <p><b><%= _("Grant: ") %></b>
+    <% if @plan.grant.value.starts_with?("http") %>
+      <a href="<%= sanitize(@plan.grant.value) %>" target="_blank"><%= sanitize(@plan.grant.value) %></a>
+    <% else %>
+      <%= sanitize(@plan.grant.value) %>
+    <% end %>
+    </p> <br>
+  <% end %>
+
+  <p><b><%= _("Template: ") %></b><%= @hash[:template] + @hash[:customizer] %></p><br>
 
   <% if @plan.description.present? %>
     <p><b><%= _("Project abstract: ") %></b></p>
     <div style="margin-left: 15px;"><%= sanitize(@plan.description) %></div><br>
-  <% end %>
-
-  <% if @plan.id.present? %>
-    <p><b><%= _("ID: ") %></b><%= @plan.id %></p> <br>
   <% end %>
 
   <% if @plan.start_date.present? %>

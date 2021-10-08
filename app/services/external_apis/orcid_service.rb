@@ -10,7 +10,7 @@ module ExternalApis
   # It makes use of OAuth access tokens supplied by ORCID through the ORCID Omniauth gem for Devise.
   # The tokens are created when the user either signs in via ORCID, when the user links their account
   # on the Edit profile page or when the user tries to submit their DMP to ORCID but no valid token exists
-  class OrcidService < BaseDoiService
+  class OrcidService < BaseDmpIdService
 
     class << self
 
