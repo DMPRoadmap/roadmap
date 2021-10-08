@@ -1,6 +1,7 @@
 import { Tinymce } from '../utils/tinymce.js.erb';
 import toggleConditionalFields from '../utils/conditionalFields';
 import getConstant from '../utils/constants';
+import toggleSpinner from '../utils/spinner';
 
 $(() => {
   const grantIdField = $('.grant-id-typeahead');
@@ -145,5 +146,9 @@ $(() => {
     toggleCheckboxes($('#priority-guidance-orgs input[type="checkbox"]:checked').map((i, el) => $(el).val()).get());
 
     setUpTypeahead();
+
+    form.on('submit', () => {
+      toggleSpinner(true);
+    });
   }
 });

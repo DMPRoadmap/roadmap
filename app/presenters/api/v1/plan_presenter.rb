@@ -28,8 +28,7 @@ module Api
 
       # Extract the ARK or DOI for the DMP OR use its URL if none exists
       def identifier
-        doi = @plan.doi
-        return doi if doi.present?
+        return @plan.dmp_id if @plan.dmp_id.present?
 
         # if no DOI then use the URL for the API's 'show' method
         Identifier.new(value: Rails.application.routes.url_helpers.api_v1_plan_url(@plan))

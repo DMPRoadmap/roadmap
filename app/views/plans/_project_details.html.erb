@@ -27,7 +27,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
     <em class="sr-only"><%= project_title_tooltip %></em>
     <%= form.text_field(:title, class: "form-control", "aria-required": true,
                                 'data-toggle': 'tooltip', spellcheck: true,
-                                title: project_title_tooltip) %>
+                                size: 250, title: project_title_tooltip) %>
   </div>
   <div class="col-md-8">
     <div class="checkbox">
@@ -47,7 +47,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
   <div class="col-md-8" data-toggle="tooltip" title="<%= project_abstract_tooltip %>">
     <em class="sr-only"><%= project_abstract_tooltip %></em>
     <%= form.text_area :description, rows: 6, class: 'form-control tinymce',
-                                     "aria-required": false %>
+                       spellcheck: true, "aria-required": false %>
   </div>
 </div>
 
@@ -83,17 +83,16 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
 </div>
 
 <%# if DOI minting is enabled %>
-<% landing_page = plan.landing_page %>
-<% if Rails.configuration.x.doi&.active && landing_page.present? %>
+<% if Rails.configuration.x.madmp&.enable_dmp_id_registration && plan.dmp_id.present? %>
   <div class="form-group"><!-- identifier -->
     <div class="col-md-12">
       <%= form.label(:identifier, _('Landing page'), class: 'control-label') %>
     </div>
     <div class="col-md-8">
-      <% if landing_page.value.starts_with?("http") %>
-        <%= link_to landing_page.value, landing_page.value %>
+      <% if plan.dmp_id.value.starts_with?("http") %>
+        <%= link_to plan.dmp_id.value, plan.dmp_id.value %>
       <% else %>
-        <%= landing_page.value %>
+        <%= plan.dmp_id.value %>
       <% end %>
     </div>
   </div>
@@ -117,8 +116,11 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
       </div>
       <div class="col-md-8" data-toggle="tooltip" title="<%= ethics_description_tooltip %>">
         <em class="sr-only"><%= ethics_description_tooltip %></em>
-        <%= form.text_area :ethical_issues_description, rows: 6, class: 'form-control tinymce',
-                                        "aria-required": false %>
+        <%= form.text_area :ethical_issues_description,
+                           rows: 6,
+                           class: 'form-control tinymce',
+                           spellcheck: true,
+                           "aria-required": false %>
       </div>
     </div>
     <div class="form-group toggleable-field">
@@ -127,9 +129,11 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
       </div>
       <div class="col-md-8">
         <em class="sr-only"><%= ethics_report_tooltip %></em>
-        <%= form.url_field(:ethical_issues_report, class: "form-control", "aria-required": false,
-                                    'data-toggle': 'tooltip',
-                                    title: ethics_report_tooltip) %>
+        <%= form.url_field(:ethical_issues_report,
+                           class: "form-control",
+                           "aria-required": false,
+                           'data-toggle': 'tooltip',
+                           title: ethics_report_tooltip) %>
       </div>
     </div>
   </conditional>
@@ -184,8 +188,12 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
         <%# If the OpenAire grant typeahead if enabled use it %>
         <% if Rails.configuration.x.open_aire.active %>
           <!-- Using the research_project.json source for typeahead -->
-          <%= grant_fields.text_field :name, value: plan.grant&.value, class: "form-control grant-id-typeahead",
-                                            autocomplete: "off", aria: { required: false } %>
+          <%= grant_fields.text_field :name,
+                                      value: plan.grant&.value,
+                                      class: "form-control grant-id-typeahead",
+                                      spellcheck: true,
+                                      autocomplete: "off",
+                                      aria: { required: false } %>
           <%= grant_fields.hidden_field :value %>
           <span class="text-muted" id="grant_number_info">Grant number: <%= plan.grant&.value %></span>
         <% else %>

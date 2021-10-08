@@ -4,12 +4,18 @@ require "rails_helper"
 
 describe "api/v1/plans/_show.json.jbuilder" do
 
+  include IdentifierHelper
+
   before(:each) do
+    Rails.configuration.x.madmp.enable_dmp_id_registration = true
+
     @plan = create(:plan)
     @data_contact = create(:contributor, data_curation: true, plan: @plan)
     @pi = create(:contributor, investigation: true, plan: @plan)
     @plan.contributors = [@data_contact, @pi]
     create(:identifier, identifiable: @plan)
+    @plan.related_identifiers << create(:related_identifier, identifiable: @plan)
+    @plan.save
     @plan.reload
   end
 
@@ -82,13 +88,23 @@ describe "api/v1/plans/_show.json.jbuilder" do
       expect(@json[:dmproadmap_template][:id]).to eql(@plan.template.id)
       expect(@json[:dmproadmap_template][:title]).to eql(@plan.template.title)
     end
+    it "includes the :related_identifiers in :extension" do
+      app = ApplicationService.application_name.split("-").first
+      @section = @json[:extension].select { |hash| hash.keys.first == app }.first
+      expect(@section[app.to_sym].present?).to eql(true)
+      expect(@section[app.to_sym][:related_identifiers].length).to eql(1)
+      related = @section[app.to_sym][:related_identifiers].first
+      expect(related["work_type"]).to eql(@plan.related_identifiers.first.work_type)
+      expect(related["type"]).to eql(@plan.related_identifiers.first.identifier_type)
+      expect(related["descriptor"]).to eql(@plan.related_identifiers.first.relation_type)
+      expect(related["identifier"]).to eql(@plan.related_identifiers.first.value)
+    end
 
   end
 
   describe "when the system mints DOIs" do
     before(:each) do
-    Rails.configuration.x.allow_doi_minting = true
-      @doi = create(:identifier, value: "10.9999/123abc.zy/x23", identifiable: @plan)
+      @doi = create_dmp_id(plan: @plan)
       @plan.reload
       render partial: "api/v1/plans/show", locals: { plan: @plan }
       @json = JSON.parse(rendered).with_indifferent_access

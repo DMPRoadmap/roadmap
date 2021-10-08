@@ -48,4 +48,6 @@ $(() => {
     e.preventDefault();
     $(e.target).parent('a').tooltip('toggle');
   });
+
+  Tinymce.init({ selector: '#org_api_create_plan_email_body' });
 });

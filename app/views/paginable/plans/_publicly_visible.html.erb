@@ -1,4 +1,5 @@
-<% has_dois = scope.select { |plan| plan.doi.present? }.any? %>
+<% has_dmp_id = scope.select { |plan| plan.dmp_id.present? }.any? %>
+
 <div class="table-responsive">
   <table class="table table-hover">
     <thead>
@@ -7,7 +8,7 @@
         <th scope="col"><%= _('Template') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
         <th scope="col"><%= _('Organisation') %></th>
         <th scope="col"><%= _('Owner') %></th>
-        <% if has_dois %>
+        <% if has_dmp_id %>
           <th scope="col"><%= _('DMP ID') %></th>
         <% end %>
         <th scope="col" class="sorter-false text-center download-column"><%= _('Download') %></th>
@@ -22,11 +23,12 @@
           <td><%= plan.template.title %></td>
           <td><%= (plan.owner.nil? || plan.owner.org.nil? ? _('Not Applicable') : plan.owner.org.name) %></td>
           <td><%= (plan.owner.nil? ? _('Unknown') : plan.owner.name(false)) %></td>
-          <% if has_dois %>
+          <% if has_dmp_id %>
             <td>
-              <% doi = plan.doi %>
-              <% if doi.present? %>
-                <a href="<%= doi.value %>" target="_blank" class="has-new-window-popup-info"><%= id_for_display(id: doi, with_scheme_name: false).html_safe %></a>
+              <% if plan.dmp_id.present? %>
+                <a href="<%= plan.dmp_id.value %>" target="_blank" class="has-new-window-popup-info">
+                  <%= id_for_display(id: plan.dmp_id, with_scheme_name: false).html_safe %>
+                </a>
               <% end %>
             </td>
           <% end %>

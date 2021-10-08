@@ -2,13 +2,7 @@
 
 # locals: plan
 
-json.ignore_nil!
-
-extensions = [{ name: "dmproadmap", uri: "https://github.com/DMPRoadmap/api-json-schema" }]
-json.extensions extensions do |extension|
-  json.uri extension[:uri]
-  json.name extension[:name]
-end
+json.schema "https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard/tree/master/examples/JSON/JSON-schema/1.1"
 
 presenter = Api::V1::PlanPresenter.new(plan: plan)
 # A JSON representation of a Data Management Plan in the
@@ -63,19 +57,22 @@ unless @minimal
     json.partial! "api/v1/datasets/show", output: output
   end
 
-  # DMPRoadmap extensions to the RDA common metadata standard
-  json.dmproadmap_template do
-    json.id plan.template.id
-    json.title plan.template.title
-  end
+  json.extension [plan.template] do |template|
+    json.set! ApplicationService.application_name.split("-").first.to_sym do
+      json.template do
+        json.id template.id
+        json.title template.title
+      end
 
-  # Any related identifiers known by the DMPTool
-  json.dmproadmap_related_identifiers plan.related_identifiers do |related|
-    next unless related.value.present? && related.relation_type.present?
+      json.related_identifiers plan.related_identifiers do |related|
+        next unless related.value.present? && related.relation_type.present?
 
-    json.descriptor related.relation_type
-    json.type related.identifier_type
-    json.identifier related.value
+        json.descriptor related.relation_type
+        json.type related.identifier_type
+        json.identifier related.value
+        json.work_type related.work_type
+      end
+    end
   end
 
   json.dmproadmap_privacy presenter.visibility

@@ -1,5 +1,4 @@
 <%# locals: presenter, related_identifier, tooltip %>
-
 <%
   id = related_identifier.id.nil? ? 0 : related_identifier.id
   name_base = "plan[related_identifiers_attributes[#{id}]"
@@ -12,7 +11,7 @@
       <%= label_tag("#{id_base}_work_type", _("Work Type"), class: "control-label") %>
     </span>
     <span class="col-md-6">
-      <%= label_tag("#{id_base}_value", _("Identifier or external URL"),
+      <%= label_tag("#{id_base}_value", _("DOI or other identifier"),
                     class: "control-label") %>
     </span>
   </div>
