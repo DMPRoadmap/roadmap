@@ -221,10 +221,12 @@ module ExportablePlan
     user = roles.administrator.not_creator.first&.user unless user.present?
     text = user&.name(false)
     orcid = user.identifier_for_scheme(scheme: "orcid")
-    text += " - <strong>ORCID:</strong> <a href=\"%{orcid_url}\" target=\"_blank\">%{orcid}</a>" % {
-      orcid_url: orcid.value,
-      orcid: orcid.value_without_scheme_prefix
-    }
+    if orcid.present?
+      text += " - <strong>ORCID:</strong> <a href=\"%{orcid_url}\" target=\"_blank\">%{orcid}</a>" % {
+        orcid_url: orcid.value,
+        orcid: orcid.value_without_scheme_prefix
+      }
+    end
     text
   end
 
