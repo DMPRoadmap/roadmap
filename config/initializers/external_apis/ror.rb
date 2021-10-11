@@ -11,4 +11,4 @@ Rails.configuration.x.ror.search_path = "organizations"
 Rails.configuration.x.ror.max_pages = 2
 Rails.configuration.x.ror.max_results_per_page = 20
 Rails.configuration.x.ror.max_redirects = 3
-Rails.configuration.x.ror.active = true
+Rails.configuration.x.ror.active = false
