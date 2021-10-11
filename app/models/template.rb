@@ -164,9 +164,9 @@ class Template < ActiveRecord::Base
   # org_id is passed
   scope :families, lambda { |org_id = nil|
     if org_id.respond_to?(:each)
-      unarchived.where(org_id: org_id, customization_of: nil).distinct
+      unarchived.where(org_id: org_id).distinct
     else
-      unarchived.where(customization_of: nil).distinct
+      unarchived.distinct
     end
   }
 
