@@ -19,7 +19,9 @@ orgs = Org.where(is_other: false)
   <div class="row">
     <div class="form-group col-xs-8">
       <%= f.label :description, _('Description'), class: 'control-label' %>
-      <%= f.text_area :description, class: 'form-control api-client-text' %>
+      <%= f.text_area :description,
+                      class: 'form-control api-client-text',
+                      spellcheck: true %>
     </div>
   </div>
   <div class="row">
