@@ -39,7 +39,7 @@ $(() => {
           $('#multiple-templates').hide();
           if ($('#plan_org_id').val() !== '-1') {
             if ($('#single-template .single-template-name').length) {
-              $('#single-template .single-template-name').html($('#single-template .single-template-name').html().replace('__template_title__', templateTitle));
+              $('#single-template .single-template-name .template_title').html(templateTitle);
             }
             $('#create-btn').show();
             $('#single-template').show();
@@ -47,7 +47,7 @@ $(() => {
             $('#default-template').hide();
           } else if ($('#plan_funder_id').val() !== '-1') {
             if ($('#single-template .single-template-name').length) {
-              $('#single-template .single-template-name').html($('#single-template .single-template-name').html().replace('__template_title__', templateTitle));
+              $('#single-template .single-template-name .template_title').html(templateTitle);
             }
             $('#create-btn').show();
             $('#single-template').show();

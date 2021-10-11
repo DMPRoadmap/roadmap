@@ -1094,7 +1094,7 @@ msgid "If you have any questions, please contact the %{application_name} team at
 msgstr "Si vous avez des questions, contactez l'équipe %{application_name} ici : <a href='mailto:%{helpdesk_email}'>%{helpdesk_email}</a>"
 
 msgid "If you wish to add an organisational template for a Data Management Plan, use the 'create template' button. You can create more than one template if desired e.g. one for researchers and one for PhD students. Your template will be presented to users within your organisation when no funder templates apply. If you want to add questions to funder templates use the 'customise template' options below."
-msgstr "Si vous souhaitez ajouter un modèle organisme, utilisez le bouton 'créer un modèle'. Si vous le souhaitez vous pouvez créer plusieurs modèles (ex: pour les chercheurs, pour les doctorants). Votre modèle sera proposé aux utilisateurs de votre organisme lorsqu'aucun modèle finance ne s'applique. Si vous souhaitez ajouter des questions aux modèles financeurs, utilisez l'option 'personnaliser le modèler'."
+msgstr "Si vous souhaitez ajouter un modèle organisme, utilisez le bouton 'créer un modèle'. Si vous le souhaitez vous pouvez créer plusieurs modèles (ex: pour les chercheurs, pour les doctorants). Votre modèle sera proposé aux utilisateurs de votre organisme lorsqu'aucun modèle finance ne s'applique. Si vous souhaitez ajouter des questions aux modèles financeurs, utilisez l'option 'personnaliser le modèle'."
 
 msgid "If you would like to change your password please complete the following fields."
 msgstr "Si vous souhaitez changer votre mot de passe, renseignez les champs suivants."
@@ -1970,7 +1970,7 @@ msgid "Selected option(s)"
 msgstr "Option(s) choisie(s)"
 
 msgid "Send"
-msgstr "Sauvegarder"
+msgstr "Envoyer"
 
 msgid "Set plan visibility"
 msgstr "Définir la visibilité du plan"
@@ -2544,6 +2544,9 @@ msgstr "Les graphiques affichent les nouveaux utilisateurs et plans de votre org
 
 msgid "Move the mouse pointer over the bars of a chart to see numbers."
 msgstr "Passez la souris sur le graphique pour voir les nombres."
+
+msgid "Move the mouse pointer over the bars of a chart to see numbers. Click on the bar to see the list of these users/plans to interrogate statistics in more detail"
+msgstr "Passez la souris sur le graphique pour voir les nombres. Cliquez sur une des barres de la liste des utilisateurs ou plans afin d'avoir plus de détails sur les statistiques"
 
 msgid "Use API"
 msgstr "Utiliser l'API"

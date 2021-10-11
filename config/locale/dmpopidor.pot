@@ -183,7 +183,7 @@ msgstr ""
 msgid "Multiple templates are available, which one would you like to use?"
 msgstr ""
 
-msgid "The template \"__template_title__\" is available. Would you like to create a plan from this template?"
+msgid "The template \"<span class=\"template_title\"></span>\" is available. Would you like to create a plan from this template?"
 msgstr ""
 
 msgid "No template available."

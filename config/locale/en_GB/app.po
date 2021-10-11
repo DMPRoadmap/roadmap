@@ -1256,6 +1256,9 @@ msgstr ""
 msgid "Move the mouse pointer over the bars of a chart to see numbers."
 msgstr ""
 
+msgid "Move the mouse pointer over the bars of a chart to see numbers. Click on the bar to see the list of these users/plans to interrogate statistics in more detail"
+msgstr "Move the mouse pointer over the bars of a chart to see numbers. Click on the bar to see the list of these users/plans to interrogate statistics in more detail"
+
 msgid "My DMP's visibility has changed"
 msgstr ""
 
