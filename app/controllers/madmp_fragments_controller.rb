@@ -565,6 +565,7 @@ class MadmpFragmentsController < ApplicationController
       },
       "plan" => {
         "id" => plan.id,
+        "title" => plan.title,
         "progress" => section.present? ?
           render_to_string(partial: "plans/progress", locals: {
             plan: plan,

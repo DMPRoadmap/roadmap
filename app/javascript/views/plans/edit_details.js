@@ -170,6 +170,8 @@ $(() => {
       },
     }).done((data) => {
       form.html(data.question.form);
+      $('#plan-title').html(data.plan.title);
+      $(document).prop('title', data.plan.title);
       Tinymce.init({
         toolbar,
       });
