@@ -30,15 +30,15 @@ module Api
           if client.is_a?(User)
             @plan.readable_by?(client.id)
           else
-            false
+            true
           end
         end
-      
+
         def rda_export?
           if client.is_a?(User)
             @plan.readable_by?(client.id)
           else
-            false
+            true
           end
         end
 

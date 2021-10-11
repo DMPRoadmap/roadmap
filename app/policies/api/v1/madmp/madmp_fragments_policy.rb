@@ -31,7 +31,7 @@ module Api
             plan = @fragment.plan
             plan.readable_by?(@client.id)
           else
-            false
+            true
           end
         end
 
@@ -40,16 +40,16 @@ module Api
             plan = @fragment.plan
             plan.readable_by?(@client.id)
           else
-            false
+            true
           end
         end
-      
+
         def update?
           if client.is_a?(User)
             plan = @fragment.plan
             plan.editable_by?(@client.id)
           else
-            false
+            true
           end
         end
 
