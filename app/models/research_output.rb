@@ -11,13 +11,10 @@
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  pid                     :string
-#  other_type_label        :string
-#  research_output_type_id :integer
 #
 # Indexes
 #
 #  index_research_outputs_on_plan_id                  (plan_id)
-#  index_research_outputs_on_research_output_type_id  (research_output_type_id)
 #
 
 class ResearchOutput < ActiveRecord::Base
@@ -32,8 +29,6 @@ class ResearchOutput < ActiveRecord::Base
   # ================
   belongs_to :plan
 
-  belongs_to :type, class_name: ResearchOutputType, foreign_key: "research_output_type_id"
-
   has_many :answers, dependent: :destroy
 
   # ===============
@@ -43,8 +38,6 @@ class ResearchOutput < ActiveRecord::Base
   validates :abbreviation, presence: { message: PRESENCE_MESSAGE }
 
   validates :fullname, presence: { message: PRESENCE_MESSAGE }
-
-  validates :type, presence: { message: PRESENCE_MESSAGE }
 
   validates :plan, presence: { message: PRESENCE_MESSAGE }
 
@@ -111,7 +104,6 @@ class ResearchOutput < ActiveRecord::Base
         fragment_description = Fragment::ResearchOutputDescription.new(
           data: {
             "title" => fullname,
-            "type" => d_("dmpopidor", "Dataset"),
             "datasetId" => pid
           },
           madmp_schema: MadmpSchema.find_by(name: "ResearchOutputDescriptionStandard"),

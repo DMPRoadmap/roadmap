@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210426122152) do
+ActiveRecord::Schema.define(version: 20211011124227) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -437,14 +437,6 @@ ActiveRecord::Schema.define(version: 20210426122152) do
 
   add_index "registry_values", ["registry_id"], name: "index_registry_values_on_registry_id", using: :btree
 
-  create_table "research_output_types", force: :cascade do |t|
-    t.string   "label",                      null: false
-    t.string   "slug",                       null: false
-    t.boolean  "is_other",   default: false, null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-  end
-
   create_table "research_outputs", force: :cascade do |t|
     t.string   "abbreviation"
     t.integer  "order"
@@ -690,7 +682,6 @@ ActiveRecord::Schema.define(version: 20210426122152) do
   add_foreign_key "registries", "orgs"
   add_foreign_key "registry_values", "registries"
   add_foreign_key "research_outputs", "plans"
-  add_foreign_key "research_outputs", "research_output_types"
   add_foreign_key "roles", "plans"
   add_foreign_key "roles", "users"
   add_foreign_key "sections", "phases"
