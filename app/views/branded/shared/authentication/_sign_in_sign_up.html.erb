@@ -1,0 +1,23 @@
+<%= form_with model: @user, url: user_session_path, local: false do |f| %>
+
+  <% if @user.email.present? %>
+    <% if @user.new_record? %>
+      <%# It is a new record so start the sign up process %>
+      <h2><%= _("New account sign up") %></h2>
+      <%= render partial: "shared/authentication/sign_up", locals: { form: f } %>
+    <% else %>
+      <%# It is not a new record so start the sign in process %>
+      <h2><%= _("Sign in") %></h2>
+      <%= render partial: "shared/authentication/sign_in", locals: { form: f } %>
+    <% end %>
+
+    <%= link_to _("< Go back"), root_path %>
+    <%= sanitize(_("Problems signing in? %{contact_us_link}.") % {
+      contact_us_link: link_to(_("Contact us"), contact_us_path)
+    }) %>
+  <% else %>
+    <%# No email is present, so the homepage has just been loaded %>
+    <h2><%= _("Sign in / Sign up") %></h2>
+    <%= render partial: "shared/authentication/email_address", locals: { form: f } %>
+  <% end %>
+<% end %>

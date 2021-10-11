@@ -213,17 +213,6 @@ module DMPRoadmap
     config.x.orcid_landing_page_url = Rails.configuration.x.dmproadmap.orcid_landing_page_url
     config.x.orcid_api_base_url = Rails.configuration.x.dmproadmap.orcid_api_base_url
 
-    # ============== #
-    # SIGNIN OPTIONS #
-    # ============== #
-    # The list of partial names to use for sign in options on the home page. At least one entry is
-    # required! The forms will be displayed in the order they appear here. For example if you want
-    # the Shibboleth login option to appear first then you should list it first here.
-    # The options are:
-    #   Username + Password -> sign_in_form
-    #   Shibboleth          -> shib_sign_in_form
-    config.x.sign_in_options = Rails.configuration.x.dmproadmap.sign_in_options
-
     # --------------------------------------------------- #
     # Machine Actionable / Networked DMP Features (maDMP) #
     # --------------------------------------------------- #

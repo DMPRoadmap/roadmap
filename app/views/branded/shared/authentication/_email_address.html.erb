@@ -1,0 +1,19 @@
+<%# locals: form %>
+<div class="form-group">
+  <%= form.label(:email, _('Email address'), class: 'control-label', id: "sign-in-email-lbl") %>
+  <%= form.email_field(:email,
+                       class: 'form-control',
+                       aria: {
+                         required: true,
+                         labelledby: "sign-in-email-lbl sign-in-email-desc"
+                       }) %>
+  <% unless @user.org.present? %>
+    <%# only show this if we're on the initial phase of the sign in /sign up workflow %>
+    <p id="sign-in-email-desc" tabindex="-1" class="control-desc">
+      <%= _("For SSO, use institutional address.") %>
+    </p>
+  <% end %>
+</div>
+<div class="form-group">
+  <%= form.submit _("Continue"), class: "btn btn-default" %>
+</div>

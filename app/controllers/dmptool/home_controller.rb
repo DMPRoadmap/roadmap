@@ -22,6 +22,8 @@ module Dmptool
 
       @hero_images = %w[1-large.jpg 2-large.jpg 3-large.jpg 4-large.jpg 5-large.jpg]
 
+      @user = User.new
+
       render "home/index"
     end
 

@@ -58,6 +58,10 @@ class RegistryOrg < ApplicationRecord
     where("LOWER(registry_orgs.types) LIKE LOWER(?)", "%#{term}%")
   }
 
+  scope :by_domain, lambda { |term|
+    where("LOWER(registry_orgs.home_page) LIKE LOWER(?)", "%@#{term}%")
+  }
+
   # Get all of the RegistryOrg entries that have been connected to another object (e.g. Plan, User, etc.)
   scope :known, lambda {
     where.not(org_id: nil)

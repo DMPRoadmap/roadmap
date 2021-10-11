@@ -106,7 +106,6 @@ module ExternalApis
         return nil unless record.present? && record.is_a?(Hash) && record["id"].present?
 
         registry_org = RegistryOrg.find_or_create_by(ror_id: record["id"])
-
         registry_org.name = safe_string(value: org_name(item: record))
         registry_org.acronyms = record["acronyms"]
         registry_org.aliases = record["aliases"]
@@ -118,13 +117,10 @@ module ExternalApis
         registry_org.home_page = safe_string(value: record.fetch("links", []).first)
 
         # Attempt to find a matching Org record
-        registry_org = check_for_org_association(registry_org: registry_org)
+        registry_org.org_id = check_for_org_association(registry_org: registry_org)
 
         # TODO: We should create some sort of Super Admin page to highlight unmapped
         #       RegistryOrg records so that they can be connected to their Org
-
-
-
         registry_org.save
         true
       rescue StandardError => e
@@ -141,13 +137,14 @@ module ExternalApis
 
       # Determine if there is a matching Org record in the DB if so, attach it
       def check_for_org_association(registry_org:)
-        return registry_org if registry_org.org.present?
+        return registry_org.org&.id if registry_org.org.present?
 
         ror = Identifier.by_scheme_name("ror", "Org")
-        return registry_org unless ror.present?
+                        .where(value: registry_org.ror_id)
+                        .first
+        return nil unless ror.present?
 
-        registry_org.org_id = ror.identifiable_id if ror.present?
-        rgistry_org
+        ror.present? ? ror.identifiable_id : nil
       end
 
       # Org names are not unique, so include the Org URL if available or

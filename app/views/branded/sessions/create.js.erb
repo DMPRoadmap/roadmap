@@ -1,0 +1,8 @@
+var authenticationBlock = $('.c-login');
+
+if (authenticationBlock) {
+  authenticationBlock.html('<%=
+    escape_javascript(render(partial: "shared/authentication/sign_in_sign_up")
+  ) %>');
+}
+toggleSpinner(false);

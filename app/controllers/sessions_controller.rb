@@ -2,14 +2,17 @@
 
 class SessionsController < Devise::SessionsController
 
+  include Dmptool::SessionsController
+
   def new
     redirect_to(root_path)
   end
 
+=begin
   # Capture the user's shibboleth id if they're coming in from an IDP
   # ---------------------------------------------------------------------
   # rubocop:disable Metrics/AbcSize
-  def create
+  def creates
     existing_user = User.find_by(email: params[:user][:email])
 
     unless existing_user.nil?
@@ -38,6 +41,7 @@ class SessionsController < Devise::SessionsController
     end
   end
   # rubocop:enable Metrics/AbcSize
+=end
 
   def destroy
     super
