@@ -44,7 +44,7 @@ module OrgAdmin
     private
 
     def user_params
-      params.require(:user).permit(:department_id)
+      params.require(:user).permit(:department_id, :email)
     end
 
   end

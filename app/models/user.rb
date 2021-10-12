@@ -401,6 +401,7 @@ class User < ApplicationRecord
 
   # Override to Devise invitation emails
   def deliver_invitation(options = {})
+    # DMPTool customization
     # Send a different email when a User is invited by the creation of a Plan via the API
     #
     # See the app/controllers/api/v2/plans_controller.rb call to User.invite!
@@ -411,6 +412,14 @@ class User < ApplicationRecord
           recipient: self, plan: options[:plan], api_client: options[:api_client]
         ).deliver_now
       end
+    elsif options[:plan].present? && options[:org_admin].present?
+      # DMPTool customization
+      # An Org Admin has invited the user via the 'Email template' form on their
+      # templates page
+      admin = User.find_by(email: options[:org_admin])
+      UserMailer.new_plan_via_template(
+        recipient: self, sender: admin, plan: options[:plan]
+      ).deliver_now
     else
       # Always override the devise_invitable email title
       super(options.merge(subject: _("A Data Management Plan in " \

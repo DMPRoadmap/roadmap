@@ -1,0 +1,14 @@
+<p>
+  <%= _('Hello %{user_name},') % {user_name: @user.name(false)} %>
+</p>
+<p>
+  <%= sanitize(@message % {
+    dmp_title: @plan.title,
+    org_name: @sender.org.name,
+    org_admin_email: @sender.org.contact_email
+    }) %>
+</p>
+
+<p><%= _("Please sign in to the %{dmptool_url} to complete your DMP. Once you have logged in you will find the new DMP on your Dashboard.") %></p>
+
+<%= render partial: 'email_signature', locals: { allow_change_prefs: false } %>

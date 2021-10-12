@@ -1,0 +1,21 @@
+var emailTemplateModal = $('#modal-invite');
+
+toggleSpinner(false);
+
+if (emailTemplateModal) {
+  emailTemplateModal.find('.modal-body').html('<%=
+    escape_javascript(
+      render(
+        partial: "paginable/templates/invite_modal_content",
+        locals: { template: @template }
+      )
+    ) %>');
+
+  emailTemplateModal.modal('show');
+  Tinymce.init({ selector: '#plan_template_attributes_email_body' });
+
+  emailTemplateModal.find('form').on('submit', () => {
+    emailTemplateModal.modal('hide');
+    toggleSpinner(true);
+  });
+}

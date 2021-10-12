@@ -271,4 +271,20 @@ class UserMailer < ActionMailer::Base
     end
   end
 
+  # Sends an email to the recipient notifying them of the new Plan created for them by
+  # the sender
+  def new_plan_via_template(recipient:, sender:, plan:)
+    return false unless recipient.is_a?(User) && sender.is_a?(User) && plan.is_a?(Plan)
+
+    subject = plan.template.email_subject
+
+    @message = plan.template.email_body
+    @user = recipient
+    @plan = plan
+    @sender = sender
+    I18n.with_locale I18n.default_locale do
+      mail(to: recipient.email, cc: sender.email, subject: subject)
+    end
+  end
+
 end

@@ -22,7 +22,8 @@
     <% scope.each do |template| %>
       <tr id="<%= dom_id(template) %>">
         <td>
-          <%= link_to "#{template.title}", edit_org_admin_template_path(template.id) %>
+          <%= link_to "#{template.title}", edit_org_admin_template_path(template.id),
+                      class: 'c-template-title' %>
         </td>
           <td>
             <%= action_name == 'organisational' ? sanitize(template.description) : template.org.name %>
@@ -72,7 +73,10 @@
                   <% if template.published? %>
                     <li>
                       <%= link_to _("Email template"),
-                                  invite_org_admin_template_path(template) %>
+                                  email_org_admin_template_path(template),
+                                  class: "c-template-invitation",
+                                  remote: true,
+                                  method: :get %>
                     </li>
                   <% end %>
                   <% if template.removable? %>
@@ -106,3 +110,4 @@
 </div>
 
 <%= render 'shared/copy_link_modal' %>
+<%= render 'paginable/templates/invite_modal' %>

@@ -1,0 +1,45 @@
+<%# locals: template %>
+
+<% plan = Plan.new(template: template) %>
+
+<p class="c-modal-invite-instructions">
+  <%= _("Create a new plan for the specified user based off of %{template_name}. If the user does not already have an account, they will receive an invitation to sign up.") % {
+    template_name: template&.title
+  } %>
+</p>
+
+<%= form_with model: plan, url: org_admin_plans_path, method: :post, local: true  do |f| %>
+  <div class="form-group">
+    <%= f.fields_for :user, User.new do |user_fields| %>
+      <%= user_fields.label :email, _("User's email"), class: 'control-label' %>
+      <%= user_fields.email_field :email, class: 'form-control' %>
+    <% end %>
+  </div>
+  <p>
+    <%= _("You can use the default email subject and body below or replace them with your own message. The subject and body you enter will be saved and available the next time you create a DMP for a user.") %>
+  </p>
+  <div class="form-group">
+    <%= f.fields_for :template, template do |tmplt_fields| %>
+      <%= tmplt_fields.hidden_field :id, value: template.id %>
+
+      <%= tmplt_fields.label :email_subject, _("Email subject"),
+                              class: 'control-label' %>
+      <%= tmplt_fields.text_field :email_subject, class: 'form-control' %>
+
+      <%= tmplt_fields.label :email_body, _("Email body"),
+                              class: 'control-label' %>
+      <%= tmplt_fields.text_area :email_body, row: 4, class: 'form-control tinymce' %>
+    <% end %>
+  </div>
+  <p>
+    <%= _("You can use the following variables in the subject and body above. These variables will be replaced by the system when sending the email. The email will begin with a personalized `Hello %{user_name},`") %>
+    <ul>
+      <li>%{org_name} - <%= _("Your institution's name") %></li>
+      <li>%{dmptool_url} - <%= _("The URL to the DMPTool") %></li>
+      <li>%{org_admin_email} - <%= _("Your institution's contact email") %></li>
+    </ul>
+  </p>
+  <div class="form-group">
+    <%= f.submit _("Send email"), class: "btn btn-default" %>
+  </div>
+<% end %>
