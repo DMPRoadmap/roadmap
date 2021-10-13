@@ -615,6 +615,10 @@ msgstr ""
 msgid "View all registries"
 msgstr ""
 
+msgid "Click here to find out more about registries."
+msgstr ""
+
+
 ################
 ### API
 ################

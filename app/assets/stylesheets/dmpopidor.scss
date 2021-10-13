@@ -702,6 +702,9 @@ header .main-nav {
 
     .plan-details {
 
+        .registry-info  {
+            font-size: 15px;
+        }
         .project-selector {
             display: none;
             .error-zone {
@@ -1359,6 +1362,9 @@ header .main-nav {
     fieldset {
         .intermediate-label {
             color: $dark-blue
+        }
+        .registry-info  {
+            font-size: 15px;
         }
         &.sub-fragment {
             width: 100%;

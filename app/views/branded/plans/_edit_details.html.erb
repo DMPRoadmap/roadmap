@@ -39,7 +39,13 @@
           <div class="col-md-12 dynamic-field select-field project-selector"
               data-fragment-id="<%= project_fragment.id%>"
               data-script-id="<%= run_parameters["script_id"]%>">
-            <label class="control-label"><%= d_("dmpopidor", "Please enter the acronym, title or identifier of the project") %></label>
+            <label class="control-label">
+              <%= d_("dmpopidor", "Please enter the acronym, title or identifier of the project") %>
+              <a href="<%= about_registries_path %>" target="_blank"
+                data-toggle="tooltip" data-original-title="<%= d_("dmpopidor", "Find out more.") %>">
+                <span class="registry-info fa fa-info-circle"></span>
+              </a>
+            </label>
             <%= select_tag "anr_project",
                         options_for_select(
                             select_values.sort_by { |v| v.to_s(locale)}

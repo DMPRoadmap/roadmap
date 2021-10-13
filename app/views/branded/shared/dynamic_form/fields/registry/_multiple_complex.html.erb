@@ -6,7 +6,13 @@
 <% intermediate_message = overridable ? d_("dmpopidor", "Select a value you want to add to your plan or type a new one.") : d_("dmpopidor", "Select a value you want to add to your plan.")%>
 
 <fieldset class="sub-fragment registry">
-  <legend class="sub-fragment registry"><%= field_label %></legend>
+  <legend class="sub-fragment registry">
+    <%= field_label %>
+    <a href="<%= about_registries_path %>" target="_blank"
+      data-toggle="tooltip" data-original-title="<%= d_("dmpopidor", "Find out more.") %>">
+      <span class="registry-info fa fa-info-circle"></span>
+    </a>
+  </legend>
   <div class="col-md-12 dynamic-field select-field multiple-select"
         data-locale="<%= locale %>"
         data-parent-id="<%= parent_id %>"

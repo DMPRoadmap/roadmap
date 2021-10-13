@@ -613,6 +613,9 @@ msgstr "Valeurs"
 msgid "View all registries"
 msgstr "Voir tous les référentiels"
 
+msgid "Find out more."
+msgstr "Pour en savoir plus."
+
 
 ################
 ### API

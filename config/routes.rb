@@ -54,6 +54,7 @@ Rails.application.routes.draw do
   get 'terms', to: 'static/static_pages#show', name: 'termsuse'
   get 'privacy', to: 'static/static_pages#show', name: 'privacy'
   get 'research_output_types', to: 'static/static_pages#show', name: 'research_output_types'
+  get "about_registries", to: "static/static_pages#show", name: "about_registries"
 
   get "tutorials", to: 'static_pages#tutorials'
   get "news_feed", to: 'static_pages#news_feed'
