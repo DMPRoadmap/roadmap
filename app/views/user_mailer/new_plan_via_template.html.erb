@@ -5,6 +5,7 @@
   <%= sanitize(@message % {
     dmp_title: @plan.title,
     org_name: @sender.org.name,
+    dmptool_url: link_to(ApplicationService.application_name, root_url),
     org_admin_email: @sender.org.contact_email
     }) %>
 </p>
@@ -13,4 +14,9 @@
   dmptool_url: root_url
 } %></p>
 
-<%= render partial: 'email_signature', locals: { allow_change_prefs: false } %>
+<br>
+<p><%= _("Thank you,") %></p>
+<p><%= _("The %{org_name} DMPTool team") % { org_name: @sender.org.name } %></p>
+<p><%= _("Please do not reply to this email. If you have any questions or need help, please contact us at %{org_admin_email}") % {
+  org_admin_email: @sender.org.contact_email
+} %></p>
