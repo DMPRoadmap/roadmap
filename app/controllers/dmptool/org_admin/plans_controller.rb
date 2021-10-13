@@ -21,14 +21,14 @@ module Dmptool
         # Find or initialize the User and then create a new Plan for the template and
         # either the user's org or the org admin's org if the user is new
         user = User.find_or_initialize_by(email: plan_params[:user][:email])
-        plan = Plan.create(template: template, title: "My data management plan",
-                           org: user.org || current_user.org)
+        plan = Plan.create(template: template, title: "#{template.title} DMP",
+                          org: user.org || current_user.org)
 
         if user.new_record?
           # The email address was unknown so send the user an invitation.
           # See User.deliver_invitation for handling of the email
-          user = User.invite!({ email: user.email }, current_user,
-                              { plan: plan, org_admin: current_user.email })
+          user = User.invite!({ email: user.email, invitation_plan_id: plan.id },
+                              current_user.org)
         else
           UserMailer.new_plan_via_template(
             recipient: user, sender: current_user, plan: plan
@@ -39,7 +39,7 @@ module Dmptool
         plan.add_user!(user.id, :creator)
 
         msg = _("A new DMP has been created and an email sent to '%{email}'.") % {
-          email: user.email
+          email: plan_params[:user][:email]
         }
         redirect_to organisational_org_admin_templates_path, notice: msg
       end

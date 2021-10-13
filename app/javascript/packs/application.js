@@ -126,4 +126,3 @@ window.renderAlert = renderAlert;
 window.renderNotice = renderNotice;
 window.toggleSpinner = toggleSpinner;
 window.Tinymce = Tinymce;
-

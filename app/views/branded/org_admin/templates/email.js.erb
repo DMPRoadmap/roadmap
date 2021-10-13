@@ -3,6 +3,7 @@ var emailTemplateModal = $('#modal-invite');
 toggleSpinner(false);
 
 if (emailTemplateModal) {
+  // Redraw the modal based on the selected Template
   emailTemplateModal.find('.modal-body').html('<%=
     escape_javascript(
       render(
@@ -10,10 +11,29 @@ if (emailTemplateModal) {
         locals: { template: @template }
       )
     ) %>');
-
   emailTemplateModal.modal('show');
+
+  // Make the email body editor a TinyMCE editor
   Tinymce.init({ selector: '#plan_template_attributes_email_body' });
 
+  var emailControl = emailTemplateModal.find('#plan_user_email');
+  var emailBodyControl = Tinymce.findEditorById('plan_template_attributes_email_body');
+  var emailWelcomePreview = emailTemplateModal.find('.replaceable-email-welcome');
+  var emailPreview = emailTemplateModal.find('.replaceable-email-content');
+
+  // Add handlers to the email address and TinyMCE editor so that changes update
+  // the preview section
+  if (emailControl && emailBodyControl && emailPreview) {
+    emailControl.on('keyup', (e) => {
+      emailWelcomePreview.html(`Hello ${$(e.target).val()},`);
+    });
+
+    emailBodyControl.on('keyup', (e) => {
+      emailPreview.html($(e.target).html());
+    });
+  }
+
+  // Hide the modal and display the spinner after the user submits the form
   emailTemplateModal.find('form').on('submit', () => {
     emailTemplateModal.modal('hide');
     toggleSpinner(true);

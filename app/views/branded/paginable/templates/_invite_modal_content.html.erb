@@ -16,7 +16,7 @@
     <% end %>
   </div>
   <p>
-    <%= _("You can use the default email subject and body below or replace them with your own message. The subject and body you enter will be saved and available the next time you create a DMP for a user.") %>
+    <%= _("You can use the default email subject and body below or replace them with your own message. Refer to ther preview section below to see what the email will look like.") %>
   </p>
   <div class="form-group">
     <%= f.fields_for :template, template do |tmplt_fields| %>
@@ -31,14 +31,33 @@
       <%= tmplt_fields.text_area :email_body, row: 4, class: 'form-control tinymce' %>
     <% end %>
   </div>
-  <p>
-    <%= _("You can use the following variables in the subject and body above. These variables will be replaced by the system when sending the email. The email will begin with a personalized `Hello %{user_name},`") %>
-    <ul>
-      <li>%{org_name} - <%= _("Your institution's name") %></li>
-      <li>%{dmptool_url} - <%= _("The URL to the DMPTool") %></li>
-      <li>%{org_admin_email} - <%= _("Your institution's contact email") %></li>
-    </ul>
-  </p>
+
+  <div class="panel panel-default email-preview-panel">
+    <div class="panel-header">
+      Email Preview:
+    </div>
+    <div class="panel-body">
+      <p class="replaceable-email-welcome">
+        Hello jane.doe@example.org,
+      </p>
+      <p class="replaceable-email-content">
+        <%= sanitize(plan.template.email_body) %>
+      </p>
+      <p>
+        <%= sanitize(_("%{click_here} to setup your account (or copy %{link} into your browser). Once you have signed in, you can begin filling out your DMP.") % {
+          click_here: link_to(_('Click here'), '#'),
+          link: "#{accept_user_invitation_url}/abc123"
+        }) %>
+      </p>
+      <br>
+      <p><%= _("Thank you,") %></p>
+      <p><%= _("The %{org_name} DMPTool team") % { org_name: template.org.name } %></p>
+      <p><%= _("Please do not reply to this email. If you have any questions or need help, please contact us at %{org_admin_email}") % {
+        org_admin_email: template.org.contact_email
+      } %></p>
+    </div>
+  </div>
+
   <div class="form-group">
     <%= f.submit _("Send email"), class: "btn btn-default" %>
   </div>
