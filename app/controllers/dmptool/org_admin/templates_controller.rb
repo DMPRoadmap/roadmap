@@ -13,7 +13,7 @@ module Dmptool
         authorize @template
 
         subject = _("A new data management plan (DMP) has been created for you by an administrator of the %{org_name}.")
-        body = _("An administrator from the %{org_name} has created a new data management plan (DMP) for yous. If you have any questions or need help, please contact us at %{org_admin_email}.")
+        body = _("An administrator from the %{org_name} has created a new data management plan (DMP) for you. If you have any questions or need help, please contact them at %{org_admin_email}.")
 
         @template.email_subject = subject unless @template.email_subject.present?
         @template.email_body = body unless @template.email_body.present?

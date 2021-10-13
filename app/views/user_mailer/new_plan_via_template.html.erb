@@ -9,6 +9,8 @@
     }) %>
 </p>
 
-<p><%= _("Please sign in to the %{dmptool_url} to complete your DMP. Once you have logged in you will find the new DMP on your Dashboard.") %></p>
+<p><%= _("Please sign in to the %{dmptool_url} to complete your DMP. Once you have logged in you will find the new DMP on your Dashboard.") % {
+  dmptool_url: root_url
+} %></p>
 
 <%= render partial: 'email_signature', locals: { allow_change_prefs: false } %>
