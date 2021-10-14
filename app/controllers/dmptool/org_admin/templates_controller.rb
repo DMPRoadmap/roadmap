@@ -17,7 +17,9 @@ module Dmptool
         }
         body = _("An administrator from the %{org_name} has created a new data management plan (DMP) for you. If you have any questions or need help, please contact them at %{org_admin_email}.") % {
           org_name: @template.org.name,
-          org_admin_email: @template.org.contact_email
+          org_admin_email: helpers.link_to(
+            @template.org.contact_email, @template.org.contact_email
+          )
         }
 
         @template.email_subject = subject unless @template.email_subject.present?

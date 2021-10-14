@@ -64,7 +64,7 @@ $(() => {
 
   // JS to update the email preview as the user edits the email body field
   const emailBodyControl = Tinymce.findEditorById('org_api_create_plan_email_body');
-  const emailPreview = $('.replaceable-email-content');
+  const emailPreview = $('.replaceable-api-email-content');
 
   // Add handlers to the TinyMCE editor so that changes update the preview section
   if (emailBodyControl && emailPreview) {
