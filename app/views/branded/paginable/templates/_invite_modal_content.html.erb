@@ -53,7 +53,7 @@
       <p><%= _("Thank you,") %></p>
       <p><%= _("The %{org_name} DMPTool team") % { org_name: template.org.name } %></p>
       <p><%= _("Please do not reply to this email. If you have any questions or need help, please contact us at %{org_admin_email}") % {
-        org_admin_email: template.org.contact_email
+        org_admin_email: link_to(template.org.contact_email, template.org.contact_email)
       } %></p>
     </div>
   </div>

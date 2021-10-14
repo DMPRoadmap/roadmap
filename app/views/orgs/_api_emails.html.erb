@@ -1,8 +1,14 @@
 <%# locals: org %>
 
 <%
-default_subject = _("A new data management plan (DMP) has been created for you by %{external_system_name}")
-default_message = _("A new data management plan (DMP) with the title of '%{dmp_title}' has been created for you by the %{external_system_name}.<br>Please sign in to the %{dmptool_url} to complete your DMP. If you have any questions or need help, please contact us at %{org_contact_email}.")
+default_subject = _("A new data management plan (DMP) for the %{org_name} was created for you.") % {
+  org_name: org.name
+}
+default_message = _("A new data management plan (DMP) has been created for you by the %{external_system_name}. If you have any questions or need help, please contact the administrator for the %{org_name} at %{org_admin_email}.") % {
+  org_name: org.name,
+  org_admin_email: link_to(org.contact_email, org.contact_email),
+  external_system_name: "%{external_system_name}"
+}
 
 org.api_create_plan_email_subject = default_subject unless org.api_create_plan_email_subject.present?
 org.api_create_plan_email_body = default_message unless org.api_create_plan_email_body.present?
@@ -11,7 +17,7 @@ org.api_create_plan_email_body = default_message unless org.api_create_plan_emai
 <%= form_for(org, url: admin_update_org_path(org), html: { multipart: true, method: :put,
                   id: "edit_org_api_emails" } ) do |f| %>
 
-  <h2><%= _('Plan creation') %></h2>
+  <h2><%= _('Plan creation via the API') %></h2>
 
   <p><%= _("The following email will be sent to users when an external system creates a new DMP (via the API) using one of your templates.") %></p>
 
@@ -33,17 +39,36 @@ org.api_create_plan_email_body = default_message unless org.api_create_plan_emai
       <%= sanitize default_message %>
     </div>
   </div>
+  <p class="col-xs-8"><%= _("Note that you can use the '%{external_system_name}' variable in the subject and/or body. The system will insert the name of the external system before sending the email (for example 'Example University - RDMS').") %></p>
   <div class="row">
-    <div class="col-xs-12">
-      <%= _("Note that you can use the following variables to your subject and message. The system will insert the appopriate value when generasting the email.") %>
-      <br>
-      <%= _("Be sure to include the pecent and curly braces '%{}'") %>
-      <ul>
-        <li><%= _("%{external_system_name} - the name of the system that created the DMP via the API") %></li>
-        <li><%= _("%{dmp_title} - the title of the DMP") %></li>
-        <li><%= _("%{dmptool_url} - a hyperlink to the DMPTool homepage") %></li>
-        <li><%= _("%{org_contact_email} - your contact email as defined on the 'Profile information' tab") %></li>
-      </ul>
+    <div class="col-xs-8">
+      <div class="panel panel-default email-preview-panel">
+        <div class="panel-header">
+          Email Preview:
+        </div>
+        <div class="panel-body">
+          <p class="replaceable-email-welcome">
+            Hello jane.doe@example.org,
+          </p>
+          <p class="replaceable-email-content">
+            <%= sanitize(org.api_create_plan_email_body) % {
+              external_system_name: "[placeholder for external system name]"
+            } %>
+          </p>
+          <p>
+            <%= sanitize(_("%{click_here} to setup your account (or copy %{link} into your browser). Once you have signed in, you can begin filling out your DMP.") % {
+              click_here: link_to(_('Click here'), '#'),
+              link: "#{accept_user_invitation_url}/abc123"
+            }) %>
+          </p>
+          <br>
+          <p><%= _("Thank you,") %></p>
+          <p><%= _("The %{org_name} DMPTool team") % { org_name: org.name } %></p>
+          <p><%= _("Please do not reply to this email. If you have any questions or need help, please contact us at %{org_admin_email}") % {
+            org_admin_email: link_to(org.contact_email, org.contact_email)
+          } %></p>
+        </div>
+      </div>
     </div>
   </div>
   <div class="row">
