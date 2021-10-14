@@ -1,10 +1,10 @@
 <%# locals: org %>
 
 <%
-default_subject = _("A new data management plan (DMP) for the %{org_name} was created for you.") % {
+default_subject = _("A new data management plan (DMP) for the %{org_name} was started for you.") % {
   org_name: org.name
 }
-default_message = _("A new data management plan (DMP) has been created for you by the %{external_system_name}. If you have any questions or need help, please contact the administrator for the %{org_name} at %{org_admin_email}.") % {
+default_message = _("A new data management plan (DMP) has been started for you by the %{external_system_name}. If you have any questions or need help, please contact the administrator for the %{org_name} at %{org_admin_email}.") % {
   org_name: org.name,
   org_admin_email: link_to(org.contact_email, org.contact_email),
   external_system_name: "%{external_system_name}"

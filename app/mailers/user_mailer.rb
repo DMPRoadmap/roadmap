@@ -254,7 +254,7 @@ class UserMailer < ActionMailer::Base
   def new_plan_via_api(recipient:, plan:, api_client:)
     return false unless recipient.is_a?(User) && plan.is_a?(Plan) && api_client.is_a?(ApiClient)
 
-    default_subject = _("A new data management plan (DMP) has been created for you by %{external_system_name}") % {
+    default_subject = _("A new data management plan (DMP) has been started for you by %{external_system_name}") % {
       external_system_name: api_client.description
     }
     subject = plan.template&.org&.api_create_plan_email_subject || default_subject
@@ -266,6 +266,7 @@ class UserMailer < ActionMailer::Base
     I18n.with_locale I18n.default_locale do
       mail(
         to: Rails.env.production? ? recipient.email : api_client.contact_email,
+        cc: plan.template.org&.contact_email,
         subject: subject
       )
     end

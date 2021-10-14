@@ -12,7 +12,7 @@ module Dmptool
         @template = Template.find_by(id: params[:id])
         authorize @template
 
-        subject = _("A new data management plan (DMP) for the %{org_name} was created for you.") % {
+        subject = _("A new data management plan (DMP) for the %{org_name} was started for you.") % {
           org_name: @template.org.name
         }
         body = _("An administrator from the %{org_name} has created a new data management plan (DMP) for you. If you have any questions or need help, please contact them at %{org_admin_email}.") % {
