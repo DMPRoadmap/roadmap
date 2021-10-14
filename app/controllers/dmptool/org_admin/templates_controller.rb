@@ -15,7 +15,7 @@ module Dmptool
         subject = _("A new data management plan (DMP) for the %{org_name} was started for you.") % {
           org_name: @template.org.name
         }
-        body = _("An administrator from the %{org_name} has created a new data management plan (DMP) for you. If you have any questions or need help, please contact them at %{org_admin_email}.") % {
+        body = _("An administrator from the %{org_name} has started a new data management plan (DMP) for you. If you have any questions or need help, please contact them at %{org_admin_email}.") % {
           org_name: @template.org.name,
           org_admin_email: helpers.link_to(
             @template.org.contact_email, @template.org.contact_email
