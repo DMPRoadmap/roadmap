@@ -112,11 +112,12 @@ $(() => {
       },
     }).done((data) => {
       target.hide();
-      messageZone.addClass('valid');
-      messageZone.html(data.message);
-      messageZone.show();
       if (data.needs_reload) {
         target.parents('.fragment-content').trigger('reload.form');
+      } else {
+        messageZone.addClass('valid');
+        messageZone.html(data.message);
+        messageZone.show();
       }
     }).fail((response) => {
       messageZone.html(response.responseJSON.error);
