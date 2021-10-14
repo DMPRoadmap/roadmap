@@ -50,11 +50,15 @@ namespace :madmpopidor do
         end
 
         # Data Contact
-        dc_person_data = {
-          "nameType" => d_("dmpopidor", "Personal"),
-          "lastName" => plan.data_contact,
-          "mbox" => plan.data_contact_email
-        }
+        if plan.data_contact.nil? && plan.data_contact_email.nil?
+          dc_person_data = pi_person_data
+        else
+          dc_person_data = {
+            "nameType" => d_("dmpopidor", "Personal"),
+            "lastName" => plan.data_contact,
+            "mbox" => plan.data_contact_email
+          }
+        end
         data_contact = meta_fragment.contact
         dc_person =  MadmpFragment.fragment_exists?(
           dc_person_data, MadmpSchema.find_by(name: "PersonStandard"), dmp_fragment.id
