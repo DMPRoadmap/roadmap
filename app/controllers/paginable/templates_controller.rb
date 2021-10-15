@@ -45,11 +45,6 @@ class Paginable::TemplatesController < ApplicationController
       templates = Template.latest_version(template_ids)
     end
 
-    # DMPTool customization
-    # Need to set this here for the invite modal because it doesn't like `Template.new`
-    # in the ERB template
-    @stub_template = Template.new
-
     paginable_renderise(
       partial: "organisational",
       scope: templates,

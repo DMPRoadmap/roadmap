@@ -39,9 +39,6 @@ class RolesController < ApplicationController
           }
         else
           if user.nil?
-
-p "INVITING! &&&&&&&&&&&&&&&&&&&&&"
-
             registered = false
             User.invite!({ email: role_params[:user][:email],
                            firstname: _("First Name"),
@@ -61,9 +58,6 @@ p "INVITING! &&&&&&&&&&&&&&&&&&&&&"
 
           if @role.save
             if registered
-
-p "SHARING! &&&&&&&&&&&&&&&&&&&&&"
-
               deliver_if(recipients: user, key: "users.added_as_coowner") do |r|
                 UserMailer.sharing_notification(@role, r, inviter: current_user)
                           .deliver_now

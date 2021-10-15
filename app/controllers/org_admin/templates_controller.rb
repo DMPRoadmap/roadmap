@@ -45,12 +45,6 @@ module OrgAdmin
                           .where(customization_of: nil, org_id: current_user.org.id)
       published = templates.select { |t| t.published? || t.draft? }.length
 
-
-      # DMPTool customization
-      # Need to set this here for the invite modal because it doesn't like `Template.new`
-      # in the ERB template
-      @stub_template = Template.new
-
       @orgs  = Org.includes(identifiers: :identifier_scheme).all if current_user.can_super_admin?
       @title = if current_user.can_super_admin?
                  _("%{org_name} Templates") % { org_name: current_user.org.name }
