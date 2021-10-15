@@ -1,0 +1,11 @@
+<%# locals: show_contact_us %>
+
+<div class="c-login-go-back">
+  <%= link_to _("< Go back"), root_path, class: "btn btn-reverse" %>
+
+  <% if show_contact_us %>
+    <%= sanitize(_("Problems signing in? %{contact_us_link}.") % {
+      contact_us_link: link_to(_("Contact us"), contact_us_path)
+    }) %>
+  <% end %>
+</div>

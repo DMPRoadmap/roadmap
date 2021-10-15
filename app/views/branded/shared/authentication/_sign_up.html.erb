@@ -2,7 +2,7 @@
 <%= render partial: "shared/authentication/email_address", locals: { form: form } %>
 
 <div class="form-group">
-  <% if @user.org.shibbolized? %>
+  <% if @user.org.present? && @user.org.shibbolized? %>
     <%= render partial: "shared/authentication/shib_sign_in", locals: { form: form } %>
 
   <% else %>
@@ -21,13 +21,13 @@
                            label: _("Institution") } %>
     </div>
 
-    <%= form.label(:password, _('Password'), class: "control-label") %>
+    <%= form.label(:password, _('Password'), class: "control-label checkbox-label") %>
     <%= form.password_field(:password, class: "form-control", "aria-required": true) %>
-    <%= form.label(:password_toggle) do %>
+    <%= form.label(:password_toggle, class: "checkbox-label") do %>
       <%= check_box_tag("passwords_toggle_sign_up", class: "passwords_toggle") %>
       <%= _('Show password') %>
     <% end %>
-
+    <br>
     <%= form.label(:accept_terms) do %>
       <%= form.check_box(:accept_terms, "aria-required": true) %>
       <%= _('I accept the') %>
@@ -44,3 +44,4 @@
   }) %>
 </p>
 
+<%= render partial: "shared/authentication/go_back", locals: { show_contact_us: false } %>

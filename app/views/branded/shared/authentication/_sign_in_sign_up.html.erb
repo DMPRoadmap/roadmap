@@ -11,10 +11,6 @@
       <%= render partial: "shared/authentication/sign_in", locals: { form: f } %>
     <% end %>
 
-    <%= link_to _("< Go back"), root_path %>
-    <%= sanitize(_("Problems signing in? %{contact_us_link}.") % {
-      contact_us_link: link_to(_("Contact us"), contact_us_path)
-    }) %>
   <% else %>
     <%# No email is present, so the homepage has just been loaded %>
     <h2><%= _("Sign in / Sign up") %></h2>
