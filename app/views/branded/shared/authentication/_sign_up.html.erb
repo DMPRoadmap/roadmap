@@ -20,6 +20,9 @@
                            required: true,
                            label: _("Institution") } %>
     </div>
+    <script type="text/javascript">
+      initAutoComplete('#org_autocomplete_name');
+    </script>
 
     <%= form.label(:password, _('Password'), class: "control-label checkbox-label") %>
     <%= form.password_field(:password, class: "form-control", "aria-required": true) %>

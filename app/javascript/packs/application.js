@@ -24,7 +24,6 @@ import 'bootstrap-select';
 
 // Utilities
 import '../src/utils/accordion';
-import '../src/utils/autoComplete';
 import '../src/utils/externalLink';
 import '../src/utils/modalSearch';
 import '../src/utils/outOfFocus';
@@ -40,6 +39,7 @@ import '../src/utils/tooltipHelper';
 import { renderAlert, renderNotice } from '../src/utils/notificationHelper';
 import toggleSpinner from '../src/utils/spinner';
 import { Tinymce } from '../src/utils/tinymce.js.erb';
+import { initAutoComplete, listenForAutocompleteChange } from '../src/utils/autoComplete';
 
 // View specific JS
 import '../src/answers/conditions';
@@ -126,3 +126,11 @@ window.renderAlert = renderAlert;
 window.renderNotice = renderNotice;
 window.toggleSpinner = toggleSpinner;
 window.Tinymce = Tinymce;
+window.initAutoComplete = initAutoComplete;
+
+$(() => {
+  // Initialize any org autocompletes
+  $('body').find('.auto-complete').each((_idx, el) => {
+    initAutoComplete(`#${$(el).attr('id')}`);
+  });
+});

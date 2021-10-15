@@ -79,7 +79,7 @@ const processAjaxResults = (autocomplete, crosswalk, results) => {
   }
 
   // Toggle the spinner after the AJAX call
-  toggleSpinner();
+  toggleSpinner(false);
   return results;
 };
 
@@ -92,7 +92,7 @@ const search = (autocomplete, term, crosswalk, callback) => {
     const data = JSON.parse(`{"org_autocomplete":{"name":"${term}"}}`);
 
     if (isString(url) && term.length > 2) {
-      toggleSpinner();
+      toggleSpinner(true);
 
       $.ajax({
         url, method, data,
@@ -141,70 +141,68 @@ const handleSelection = (autocomplete, crosswalk, selection) => {
   return true;
 };
 
-$(() => {
-  // Initialize the org autocompletes
-  $('body').find('.auto-complete').each((_idx, el) => {
-    const autocomplete = $(el);
-    const id = getId(autocomplete, 'list');
-    const crosswalk = relatedJsonCrosswalk(id);
-    const suggestions = relatedSuggestions(id);
-    const checkbox = relatedNotInListCheckbox(id);
-    const textbox = relatedCustomOrgField(id);
-    const form = autocomplete.closest('form');
+// Initialize the specified AutoComplete
+export const initAutoComplete = (selector) => {
+  const autocomplete = $(selector);
+  const id = getId(autocomplete, 'list');
+  const crosswalk = relatedJsonCrosswalk(id);
+  const suggestions = relatedSuggestions(id);
+  const checkbox = relatedNotInListCheckbox(id);
+  const textbox = relatedCustomOrgField(id);
+  const form = autocomplete.closest('form');
 
-    // Initialize the JQuery autocomplete functionality
-    autocomplete.autocomplete({
-      source: (req, resp) => search(autocomplete, req.term, crosswalk, resp),
-      select: (_e, ui) => handleSelection(autocomplete, crosswalk, ui.item.label),
-      minLength: 1,
-      delay: 300,
-      appendTo: suggestions,
-    });
-
-    // If the crosswalk is empty, make sure it is valid JSON
-    if (!crosswalk.val()) {
-      crosswalk.val(JSON.stringify([]));
-    }
-
-    // Toggle the warning and conditional on page load
-    toggleWarning(autocomplete, false);
-
-    // When the autocomplete loses focus display the warning if they did not select an item
-    autocomplete.on('blur', (e) => {
-      const selection = findInCrosswalk($(e.currentTarget).val(), crosswalk);
-      toggleWarning(autocomplete, selection === undefined);
-    });
-
-    // If the checkbox and textbox are present make sure they are cleared if the user starts
-    // typing in the autocomplete box
-    if (checkbox.length > 0) {
-      autocomplete.on('input', () => {
-        toggleConditionalFields(checkbox, false);
-        checkbox.prop('checked', false);
-      });
-
-      // When user ticks the checkbox, display the conditional field and then blank the contents
-      // of the autocomplete
-      checkbox.on('click', () => {
-        toggleConditionalFields(checkbox, checkbox.prop('checked'));
-        autocomplete.val('');
-      });
-
-      toggleConditionalFields(checkbox, textbox.val().length > 0);
-    }
-
-    // Set the form so that the extra autocomplete data isn't sent to the server on form submission
-    if (form.length > 0) {
-      form.on('submit', () => {
-        crosswalk.val('');
-      });
-    }
+  // Initialize the JQuery autocomplete functionality
+  autocomplete.autocomplete({
+    source: (req, resp) => search(autocomplete, req.term, crosswalk, resp),
+    select: (_e, ui) => handleSelection(autocomplete, crosswalk, ui.item.label),
+    minLength: 1,
+    delay: 300,
+    appendTo: suggestions,
   });
-});
+
+  // If the crosswalk is empty, make sure it is valid JSON
+  if (!crosswalk.val()) {
+    crosswalk.val(JSON.stringify([]));
+  }
+
+  // Toggle the warning and conditional on page load
+  toggleWarning(autocomplete, false);
+
+  // When the autocomplete loses focus display the warning if they did not select an item
+  autocomplete.on('blur', (e) => {
+    const selection = findInCrosswalk($(e.currentTarget).val(), crosswalk);
+    toggleWarning(autocomplete, selection === undefined);
+  });
+
+  // If the checkbox and textbox are present make sure they are cleared if the user starts
+  // typing in the autocomplete box
+  if (checkbox.length > 0) {
+    autocomplete.on('input', () => {
+      toggleConditionalFields(checkbox, false);
+      checkbox.prop('checked', false);
+    });
+
+    // When user ticks the checkbox, display the conditional field and then blank the contents
+    // of the autocomplete
+    checkbox.on('click', () => {
+      toggleConditionalFields(checkbox, checkbox.prop('checked'));
+      autocomplete.val('');
+    });
+
+    toggleConditionalFields(checkbox, textbox.val().length > 0);
+  }
+
+  // Set the form so that the extra autocomplete data isn't sent to the server on form submission
+  if (form.length > 0) {
+    form.on('submit', () => {
+      crosswalk.val('');
+    });
+  }
+};
 
 // Callable method that allows another JS file to check whether or not the autocomplete has a
 // valid selection
-export default function listenForAutocompleteChange(autocomplete, callback) {
+export const listenForAutocompleteChange = (autocomplete, callback) => {
   if (autocomplete.length > 0 && isFunction(callback)) {
     const crosswalk = relatedJsonCrosswalk(getId(autocomplete, 'list'));
 
