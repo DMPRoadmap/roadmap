@@ -39,6 +39,7 @@ import '../src/utils/tooltipHelper';
 // the js.erb templates in the `window.x` statements below
 import { renderAlert, renderNotice } from '../src/utils/notificationHelper';
 import toggleSpinner from '../src/utils/spinner';
+import { Tinymce } from '../src/utils/tinymce.js.erb';
 
 // View specific JS
 import '../src/answers/conditions';
@@ -124,3 +125,4 @@ window.jQuery = jQuery;
 window.renderAlert = renderAlert;
 window.renderNotice = renderNotice;
 window.toggleSpinner = toggleSpinner;
+window.Tinymce = Tinymce;

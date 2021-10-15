@@ -182,7 +182,8 @@ module Api
           User.invite!({ email: owner.email,
                         firstname: owner.firstname,
                         surname: owner.surname,
-                        org: owner.org }, client, { api_client: client, plan: plan })
+                        invitation_plan_id: plan.id,
+                        org: owner.org }, client)
         else
           UserMailer.new_plan_via_api(
             recipient: owner, plan: plan, api_client: client

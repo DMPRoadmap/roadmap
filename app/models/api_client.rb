@@ -45,6 +45,9 @@ class ApiClient < ApplicationRecord
   extend Dragonfly::Model::Validations
   extend UniqueRandom
 
+  # Allows an ApiClient to invite a new user via the 'create_dmps' scope
+  devise :invitable
+
   enum callback_methods: %i[put post patch]
 
   LOGO_FORMATS = %w[jpeg png gif jpg bmp svg].freeze

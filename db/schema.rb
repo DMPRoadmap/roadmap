@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_30_212541) do
+ActiveRecord::Schema.define(version: 2021_10_13_172016) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -602,8 +602,6 @@ ActiveRecord::Schema.define(version: 2021_09_30_212541) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "last_notified"
-    t.bigint "oauth_application_id"
-    t.index ["oauth_application_id"], name: "index_subscriptions_on_oauth_application_id"
     t.index ["plan_id"], name: "index_subscriptions_on_plan_id"
     t.index ["subscriber_id", "subscriber_type", "plan_id"], name: "index_subscribers_on_identifiable_and_plan_id"
   end
@@ -623,6 +621,8 @@ ActiveRecord::Schema.define(version: 2021_09_30_212541) do
     t.integer "family_id"
     t.boolean "archived"
     t.text "links"
+    t.string "email_subject"
+    t.text "email_body"
     t.index ["family_id", "version"], name: "index_templates_on_family_id_and_version", unique: true
     t.index ["family_id"], name: "index_templates_on_family_id"
     t.index ["org_id", "family_id"], name: "template_organisation_dmptemplate_index"
@@ -694,6 +694,7 @@ ActiveRecord::Schema.define(version: 2021_09_30_212541) do
     t.boolean "active", default: true
     t.integer "department_id"
     t.datetime "last_api_access"
+    t.integer "invitation_plan_id"
     t.index ["department_id"], name: "fk_rails_f29bf9cdf2"
     t.index ["email"], name: "index_users_on_email"
     t.index ["language_id"], name: "fk_rails_45f4f12508"

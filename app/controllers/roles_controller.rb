@@ -43,7 +43,8 @@ class RolesController < ApplicationController
             User.invite!({ email: role_params[:user][:email],
                            firstname: _("First Name"),
                            surname: _("Surname"),
-                           org: current_user.org },
+                           org: current_user.org,
+                           invitation_plan_id: @role.plan.id },
                          current_user)
             message = _("Invitation to %{email} issued successfully.") % {
               email: role_params[:user][:email]

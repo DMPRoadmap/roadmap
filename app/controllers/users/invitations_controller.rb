@@ -59,6 +59,13 @@ class Users::InvitationsController < Devise::InvitationsController
     end
 
     resource.update(org_id: lookup.id)
+    return true unless resource.invitation_plan_id.present?
+
+    # Set the plan associated with this invitation org_id
+    # If the user was invited via the 'create_dmps' scope for API V2 or an OrgAdmin
+    # using the 'Email template' workflow.
+    plan = Plan.find_by(id: resource.invitation_plan_id)
+    plan.update(org_id: lookup.id)
   end
 
 end
