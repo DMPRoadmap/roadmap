@@ -52,4 +52,19 @@ namespace :dmptool_specific do
     rams.save
   end
 
+  desc "Initialize the Template email subject and body"
+  task init_template_emails: :environment do
+    Template.published.where(email_body: nil).each do |template|
+      template.update(
+        email_subject: _("A new data management plan (DMP) for the %{org_name} was started for you.") % {
+          org_name: template.org.name
+        },
+        email_body: _("An administrator from the %{org_name} has started a new data management plan (DMP) for you. If you have any questions or need help, please contact them at %{org_admin_email}.") % {
+          org_name: template.org.name,
+          org_admin_email: "<a href=\"mailto:#{template.org.contact_email}\">#{template.org.contact_email}</a>"
+        }
+      )
+    end
+  end
+
 end
