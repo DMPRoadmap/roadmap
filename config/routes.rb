@@ -231,6 +231,11 @@ Rails.application.routes.draw do
       resources :plans, only: [:create, :show, :index]
       resources :templates, only: [:index]
 
+      resources :themes, param: :slug, only: [] do
+        member do
+          get "extract", to: "themes#extract"
+        end
+      end
       namespace :madmp do
         resources :dmp_fragments, controller: "madmp_fragments", action: "dmp_fragments"
         resources :madmp_fragments, only: [:show, :update], controller: "madmp_fragments", path: "fragments"
