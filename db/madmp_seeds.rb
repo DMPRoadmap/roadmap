@@ -140,7 +140,7 @@ sections = [
   ##################### FRENCH #######################
   ####################################################
   {
-    title: "Description des données et collecte des données ou réutilisation de données existantes",
+    title: "Description des données et collecte ou réutilisation de données existantes",
     number: 1,
     modifiable: true,
     phase: se_standard_phase_fr
@@ -219,7 +219,7 @@ sections = [
   ##################### FRENCH #######################
   ####################################################
   {
-    title: "Description des données et collecte des données ou réutilisation de données existantes",
+    title: "Description des données et collecte ou réutilisation de données existantes",
     number: 1,
     modifiable: true,
     phase: se_basic_phase_fr
@@ -309,7 +309,7 @@ questions = [
     text: "Description générale du produit de recherche",
     number: 1,
     section: Section.find_by(
-      title: "Description des données et collecte des données ou réutilisation de données existantes",
+      title: "Description des données et collecte ou réutilisation de données existantes",
       phase: se_standard_phase_fr
     ),
     question_format: structured,
@@ -321,7 +321,7 @@ questions = [
     text: "Est-ce que des données existantes seront réutilisées ?",
     number: 2,
     section: Section.find_by(
-      title: "Description des données et collecte des données ou réutilisation de données existantes",
+      title: "Description des données et collecte ou réutilisation de données existantes",
       phase: se_standard_phase_fr
     ),
     question_format: structured,
@@ -332,7 +332,7 @@ questions = [
     text: "Comment seront produites/collectées les nouvelles données ?",
     number: 3,
     section: Section.find_by(
-      title: "Description des données et collecte des données ou réutilisation de données existantes",
+      title: "Description des données et collecte ou réutilisation de données existantes",
       phase: se_standard_phase_fr
     ),
     question_format: structured,
@@ -596,7 +596,7 @@ questions = [
     text: "Description générale du produit de recherche",
     number: 1,
     section: Section.find_by(
-      title: "Description des données et collecte des données ou réutilisation de données existantes",
+      title: "Description des données et collecte ou réutilisation de données existantes",
       phase: se_basic_phase_fr
     ),
     question_format: structured,
@@ -608,7 +608,7 @@ questions = [
     text: "Est-ce que des données existantes seront réutilisées ?",
     number: 2,
     section: Section.find_by(
-      title: "Description des données et collecte des données ou réutilisation de données existantes",
+      title: "Description des données et collecte ou réutilisation de données existantes",
       phase: se_basic_phase_fr
     ),
     question_format: structured,
@@ -619,7 +619,7 @@ questions = [
     text: "Comment seront produites/collectées les nouvelles données ?",
     number: 3,
     section: Section.find_by(
-      title: "Description des données et collecte des données ou réutilisation de données existantes",
+      title: "Description des données et collecte ou réutilisation de données existantes",
       phase: se_basic_phase_fr
     ),
     question_format: structured,
