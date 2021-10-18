@@ -181,10 +181,11 @@ $(() => {
     });
   });
 
-  $('#plan_project').on('reload.project-form', (e) => {
+  $('.panel-collapse').on('shown.bs.collapse reload.form', (e) => {
     const target = $(e.target);
     const form = target.find('form.madmp-fragment');
     const fragmentId = target.find('.fragment-id').val();
+
     $.ajax({
       method: 'get',
       url: `/madmp_fragments/load_form/${fragmentId}`,
@@ -196,6 +197,8 @@ $(() => {
       },
     }).done((data) => {
       form.html(data.question.form);
+      $('#plan-title').html(data.plan.title);
+      $(document).prop('title', data.plan.title);
       Tinymce.init({
         toolbar,
       });

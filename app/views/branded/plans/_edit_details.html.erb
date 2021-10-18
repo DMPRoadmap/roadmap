@@ -143,7 +143,7 @@
 
       <div id="plan_metadata" class="panel-collapse collapse plan-details-content" role="tabpanel" aria-labelledby="heading-plan-metadata">
         <% meta_schema = MadmpSchema.find_by(name: "MetaStandard") %>
-        <%= hidden_field_tag 'fragment-id', project_fragment.id, class: "meta_fragment-id" %>
+        <%= hidden_field_tag 'fragment-id', meta_fragment.id, class: "fragment-id" %>
         <div class="panel-body madmp-fragment"><!-- accordion body -->
           <% I18n.with_locale locale do %>
             <%= form_for :madmp_fragment, url: madmp_fragment_path(id: meta_fragment.id), 
