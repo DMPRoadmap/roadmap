@@ -52,8 +52,9 @@ namespace :dmptool_specific do
     rams.save
   end
 
-  desc "Initialize the Template email subject and body"
-  task init_template_emails: :environment do
+  desc "Initialize the Template and Org email subject and body"
+  task init_template_and_org_emails: :environment do
+    p "Initializing empty Template emails"
     Template.published.where(email_body: nil).each do |template|
       template.update(
         email_subject: _("A new data management plan (DMP) for the %{org_name} was started for you.") % {
@@ -62,6 +63,20 @@ namespace :dmptool_specific do
         email_body: _("An administrator from the %{org_name} has started a new data management plan (DMP) for you. If you have any questions or need help, please contact them at %{org_admin_email}.") % {
           org_name: template.org.name,
           org_admin_email: "<a href=\"mailto:#{template.org.contact_email}\">#{template.org.contact_email}</a>"
+        }
+      )
+    end
+
+    p "Initializing empty Org emails"
+    Org.where(managed: true, api_create_plan_email_body: nil).each do |org|
+      org.update(
+        api_create_plan_email_subject: _("A new data management plan (DMP) for the %{org_name} was started for you.") % {
+          org_name: org.name
+        },
+        api_create_plan_email_body: _("A new data management plan (DMP) has been started for you by the %{external_system_name}. If you have any questions or need help, please contact the administrator for the %{org_name} at %{org_admin_email}.") % {
+          org_name: org.name,
+          org_admin_email: "<a href=\"mailto:#{org.contact_email}\">#{org.contact_email}</a>",
+          external_system_name: "%{external_system_name}"
         }
       )
     end
