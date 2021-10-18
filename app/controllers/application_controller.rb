@@ -221,7 +221,12 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
+    # DMPTool customization for new sign in / sign up
     devise_parameter_sanitizer.permit(:accept_invitation, keys: %i[firstname surname org_id])
+    # devise_parameter_sanitizer.permit(:accept_invitation,
+    #                                   org_autocomplete: %i[name crosswalk not_in_list
+    #                                                        user_entered_name],
+    #                                   keys: %i[firstname surname accept_terms])
   end
 
   def render_not_found(exception)

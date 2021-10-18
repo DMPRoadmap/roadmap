@@ -4,6 +4,12 @@ class RegistrationsController < Devise::RegistrationsController
 
   include OrgSelectable
 
+  include Dmptool::RegistrationsController
+
+  # DMPTool customization - this method is stored in the Dmptool module
+  before_action :org_lookup, if: :devise_controller?
+
+=begin
   def edit
     @user = current_user
     @prefs = @user.get_preferences(:email)
@@ -171,6 +177,7 @@ class RegistrationsController < Devise::RegistrationsController
       render(file: File.join(Rails.root, "public/403.html"), status: 403, layout: false)
     end
   end
+=end
 
   private
 
