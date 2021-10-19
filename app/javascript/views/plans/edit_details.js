@@ -181,7 +181,7 @@ $(() => {
     });
   });
 
-  $('.panel-collapse').on('shown.bs.collapse reload.form', (e) => {
+  $('.panel-collapse').on('reload.form', (e) => {
     const target = $(e.target);
     const form = target.find('form.madmp-fragment');
     const fragmentId = target.find('.fragment-id').val();
