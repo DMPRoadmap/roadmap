@@ -37,7 +37,7 @@ module Paginable
   # one approach to just include everything in the double splat `**options` param
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/ParameterLists
-  def paginable_renderise(partial: nil, controller: nil, action: nil,
+  def paginable_renderise(partial: nil, template: nil, controller: nil, action: nil,
                           path_params: {}, query_params: {}, scope: nil,
                           locals: {}, **options)
     unless scope.is_a?(ActiveRecord::Relation)
@@ -50,6 +50,7 @@ module Paginable
     # Default options
     @paginable_options = {}.merge(options)
     @paginable_options[:view_all] = options.fetch(:view_all, true)
+    @paginable_options[:remote] = options.fetch(:remote, true)
     # Assignment for paginable_params based on arguments passed to the method
     @args = paginable_params.to_h
     @args[:controller] = controller if controller
@@ -72,14 +73,17 @@ module Paginable
       locals = locals.merge(
         scope: @refined_scope,
         paginable_params: @args,
-        search_term: @args[:search]
+        search_term: @args[:search],
+        remote: @paginable_options[:remote]
       )
       # If this was an ajax call then render as JSON
       if options[:format] == :json
         render json: { html: render_to_string(layout: "/layouts/paginable",
                                               partial: partial, locals: locals) }
-      else
+      elsif partial.present?
         render(layout: "/layouts/paginable", partial: partial, locals: locals)
+      else
+        render(template: template, locals: locals)
       end
     end
   end
@@ -104,7 +108,7 @@ module Paginable
       sort_link_name(sort_field),
       sort_link_url(sort_field),
       class: "paginable-action",
-      data: { remote: true },
+      data: { remote: @paginable_options[:remote] },
       aria: { label: sort_field }
     )
   end

@@ -7,7 +7,6 @@ class OrgSelectionPresenter
   def initialize(orgs:, selection:)
     @crosswalk = []
 
-    # TODO: Remove this once the is_other Org has been removed
     @name = selection.present? ? selection.name : ""
 
     if selection.present?
@@ -21,7 +20,6 @@ class OrgSelectionPresenter
     end
   end
 
-  # Return the Org name unless this is the default is_other Org
   attr_reader :name
 
   def crosswalk
@@ -30,6 +28,8 @@ class OrgSelectionPresenter
 
   def select_list
     @crosswalk.map { |rec| rec[:name] }.to_json
+  rescue StandardError
+    nil
   end
 
   def crosswalk_entry_from_org_id(value:)
@@ -37,6 +37,8 @@ class OrgSelectionPresenter
 
     entry = @crosswalk.select { |item| item[:id].to_s == value.to_s }.first
     entry.present? ? entry.to_json : {}.to_json
+  rescue StandardError
+    {}.to_json
   end
 
 end

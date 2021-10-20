@@ -1,3 +1,6 @@
+# Upgrade tasks for 3.x versions. See https://github.com/DMPRoadmap/roadmap/releases for information
+# on how and when to run each task.
+
 namespace :v3 do
 
   desc "Upgrade from v2.2.0 to v3.0.0"
@@ -37,8 +40,12 @@ namespace :v3 do
   task ensure_feedback_defaults: :environment do
     include FeedbacksHelper
 
-    Org.where(feedback_email_subject: nil).update_all(feedback_email_subject: feedback_confirmation_default_subject)
-    Org.where(feedback_email_msg: nil).update_all(feedback_email_msg: feedback_confirmation_default_message)
+    if Org.respond_to?(:feedback_email_subject)
+      Org.where(feedback_email_subject: nil).update_all(feedback_email_subject: feedback_confirmation_default_subject)
+      Org.where(feedback_email_msg: nil).update_all(feedback_email_msg: feedback_confirmation_default_message)
+    else
+      Org.where(feedback_msg: nil).update_all(feedback_msg: feedback_confirmation_default_message)
+    end
   end
 
   # E.G. change 'https://api.crossref.org/funders/100000060' to 'https://doi.org/10.13039/100000060'

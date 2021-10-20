@@ -23,9 +23,7 @@
 #  invited_by_type        :string
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :string
-#  ldap_password          :string
-#  ldap_username          :string
-#  other_organisation     :string
+#  other_organisation :string
 #  recovery_email         :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
@@ -119,7 +117,9 @@ class User < ApplicationRecord
   # = Scopes =
   # ==========
 
-  default_scope { includes(:org, :perms) }
+  # because of the way this generates SQL it breaks with > 65k users
+  # needs rethought
+  # default_scope { includes(:org, :perms) }
 
   # Retrieves all of the org_admins for the specified org
   scope :org_admins, lambda { |org_id|
@@ -160,11 +160,14 @@ class User < ApplicationRecord
   # = Callbacks =
   # =============
 
-  before_update :clear_department_id, if: :org_id_changed?
+  # sanitise html tags from fields
+  before_validation ->(data) { data.sanitize_fields(:firstname, :surname) }
 
-  after_update :delete_perms!, if: :org_id_changed?, unless: :can_change_org?
+  after_update :clear_department_id, if: :saved_change_to_org_id?
 
-  after_update :remove_token!, if: :org_id_changed?, unless: :can_change_org?
+  after_update :delete_perms!, if: :saved_change_to_org_id?, unless: :can_change_org?
+
+  after_update :remove_token!, if: :saved_change_to_org_id?, unless: :can_change_org?
 
   # =================
   # = Class methods =
@@ -228,7 +231,7 @@ class User < ApplicationRecord
   #
   # Returns UserIdentifier
   def identifier_for(scheme)
-    identifiers.by_scheme_name(scheme, "User").first
+    identifiers.by_scheme_name(scheme, "User")&.first
   end
 
   # Checks if the user is a super admin. If the user has any privelege which requires

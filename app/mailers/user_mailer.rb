@@ -108,7 +108,7 @@ class UserMailer < ActionMailer::Base
 
     I18n.with_locale I18n.default_locale do
       mail(to: @recipient.email,
-           subject: _("%{tool_name}: %{user_name} requested feedback on a plan") %
+           subject: _("%{user_name} has requested feedback on a %{tool_name} plan") %
            {
              tool_name: tool_name, user_name: @user.name(false)
            })
@@ -135,23 +135,6 @@ class UserMailer < ActionMailer::Base
            {
              tool_name: tool_name, plan_title: @plan.title
            })
-    end
-  end
-
-  def feedback_confirmation(recipient, plan, requestor)
-    return unless user.org.present? && recipient.active?
-
-    user    = requestor
-    org     = user.org
-    plan    = plan
-    # Use the generic feedback confirmation message unless the Org has specified one
-    subject = org.feedback_email_subject || feedback_confirmation_default_subject
-    message = org.feedback_email_msg || feedback_confirmation_default_message
-    @body   = feedback_constant_to_text(message, user, plan, org)
-
-    I18n.with_locale I18n.default_locale do
-      mail(to: recipient.email,
-           subject: feedback_constant_to_text(subject, user, plan, org))
     end
   end
 
@@ -211,7 +194,7 @@ class UserMailer < ActionMailer::Base
 
     @user      = user
     @username  = @user.name
-    @ul_list   = sanitize(privileges_list(@user))
+    @ul_list   = privileges_list(@user)
 
     I18n.with_locale I18n.default_locale do
       mail(to: user.email,

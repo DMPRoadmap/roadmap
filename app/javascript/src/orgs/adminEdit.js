@@ -9,7 +9,7 @@ import { initAutocomplete, scrubOrgSelectionParamsOnSubmit } from '../utils/auto
 
 $(() => {
   const toggleFeedback = () => {
-    const editor = Tinymce.findEditorById('org_feedback_email_msg');
+    const editor = Tinymce.findEditorById('org_feedback_msg');
     if (isObject(editor)) {
       if ($('#org_feedback_enabled_true').is(':checked')) {
         editor.setMode('code');
@@ -24,7 +24,7 @@ $(() => {
   });
 
   // Initialises tinymce for any target element with class tinymce_answer
-  Tinymce.init({ selector: '#org_feedback_email_msg' });
+  Tinymce.init({ selector: '#org_feedback_msg' });
   toggleFeedback();
 
   if ($('#org-details-org-controls').length > 0) {
@@ -58,4 +58,7 @@ $(() => {
     e.preventDefault();
     $(e.target).parent('a').tooltip('toggle');
   });
+
+  initAutocomplete('#org-merge-controls .autocomplete');
+  scrubOrgSelectionParamsOnSubmit('form.edit_org');
 });

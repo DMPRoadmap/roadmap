@@ -4,14 +4,23 @@ class PublicPagesController < ApplicationController
 
   # GET template_index
   # -----------------------------------------------------
+  # rubocop:disable Metrics/AbcSize
   def template_index
+    @templates_query_params = {
+      page: paginable_params.fetch(:page, 1),
+      search: paginable_params.fetch(:search, ""),
+      sort_field: paginable_params.fetch(:sort_field, "templates.title"),
+      sort_direction: paginable_params.fetch(:sort_direction, "asc")
+    }
+
     templates = Template.live(Template.families(Org.funder.pluck(:id)).pluck(:family_id))
                         .publicly_visible.pluck(:id) <<
                 Template.where(is_default: true).unarchived.published.pluck(:id)
     @templates = Template.includes(:org)
                          .where(id: templates.uniq.flatten)
-                         .unarchived.published.order(title: :asc).page(1)
+                         .unarchived.published
   end
+  # rubocop:enable Metrics/AbcSize
 
   # GET template_export/:id
   # -----------------------------------------------------
@@ -79,13 +88,21 @@ class PublicPagesController < ApplicationController
   # GET /plans_index
   # ------------------------------------------------------------------------------------
   def plan_index
-    @plans = Plan.publicly_visible.includes(:template).page(1)
+    @plans = Plan.publicly_visible.includes(:template)
     render "plan_index", locals: {
       query_params: {
-        sort_field: "plans.updated_at",
-        sort_direction: "desc"
+        page: paginable_params.fetch(:page, 1),
+        search: paginable_params.fetch(:search, ""),
+        sort_field: paginable_params.fetch(:sort_field, "plans.updated_at"),
+        sort_direction: paginable_params.fetch(:sort_direction, "desc")
       }
     }
+  end
+
+  private
+
+  def paginable_params
+    params.permit(:page, :search, :sort_field, :sort_direction)
   end
 
 end

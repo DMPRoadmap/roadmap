@@ -1,0 +1,10 @@
+var target = $('#merge-analysis');
+
+if (target != undefined) {
+  <% if @org.present? && @target_org.present? %>
+    target.html(`<%= escape_javascript(render partial: "super_admin/orgs/analysis", locals: { org: @org, target_org: @target_org }) %>`);
+  <% else %>
+    target.html(`<%= _("Something went wrong and we were unable to analyze a merge between these two organisations.") %>`);
+  <% end %>
+}
+toggleSpinner(false);

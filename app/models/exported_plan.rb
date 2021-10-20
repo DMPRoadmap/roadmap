@@ -18,7 +18,7 @@ class ExportedPlan < ApplicationRecord
 
   # associations between tables
   belongs_to :plan
-  belongs_to :user
+  belongs_to :user, optional: true
 
   validates :plan, presence: { message: PRESENCE_MESSAGE }
 
@@ -46,7 +46,7 @@ class ExportedPlan < ApplicationRecord
   end
 
   def grant_title
-    plan.grant_number
+    plan.grant&.value
   end
 
   def principal_investigator
