@@ -1,3 +1,5 @@
+# These Tasks are for the early migrations of the codebase
+
 namespace :migrate do
 
   desc "migrate to 1.0"

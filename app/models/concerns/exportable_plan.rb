@@ -1,21 +1,25 @@
 # frozen_string_literal: true
 
+# TODO: This code here doesn't make a lot of sense as a Concern since no other model would
+#       ever use the functionality. It would be better to make it a Service.
+
 # rubocop:disable Metrics/ModuleLength
 module ExportablePlan
 
   include ConditionsHelper
 
-  def as_pdf(coversheet = false)
-    prepare(coversheet)
+  def as_pdf(user, coversheet = false)
+    prepare(user, coversheet)
   end
 
-  # rubocop:disable Metrics/AbcSize
-  def as_csv(headings = true,
+  # rubocop:disable Metrics/AbcSize, Metrics/ParameterLists
+  def as_csv(user,
+             headings = true,
              unanswered = true,
              selected_phase = nil,
              show_custom_sections = true,
              show_coversheet = false)
-    hash = prepare(show_coversheet)
+    hash = prepare(user, show_coversheet)
     CSV.generate do |csv|
       prepare_coversheet_for_csv(csv, headings, hash) if show_coversheet
 
@@ -44,13 +48,12 @@ module ExportablePlan
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize
-  # rubocop:enable
+  # rubocop:enable Metrics/AbcSize, Metrics/ParameterLists
 
   private
 
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-  def prepare(coversheet = false)
+  def prepare(user, coversheet = false)
     hash = coversheet ? prepare_coversheet : {}
     template = Template.includes(phases: { sections: { questions: :question_format } })
                        .joins(phases: { sections: { questions: :question_format } })
@@ -83,7 +86,7 @@ module ExportablePlan
     end
     hash[:phases] = phases
 
-    record_plan_export(:pdf)
+    record_plan_export(user, :pdf)
 
     hash
   end
@@ -135,8 +138,8 @@ module ExportablePlan
            else
              [_("Template: "), _("%{template}") % { template: hash[:template] + hash[:customizer] }]
            end
-    if grant_number.present?
-      csv << [_("Grant number: "), _("%{grant_number}") % { grant_number: grant_number }]
+    if grant&.value.present?
+      csv << [_("Grant number: "), _("%{grant_number}") % { grant_number: grant&.value }]
     end
     if description.present?
       csv << [_("Project abstract: "), _("%{description}") %
@@ -195,8 +198,15 @@ module ExportablePlan
   # rubocop:enable
   # rubocop:enable Metrics/ParameterLists
 
-  def record_plan_export(format)
+  def record_plan_export(user, format)
+    # TODO: Re-evaluate how/why we are doing this. The only place it is used is in statistics
+    #       generation as 'downloads' without any regard for the format (although we only call this
+    #       here when a PDF is generated). It would be more efficient to probably just have a
+    #       counter on the plans table itself. (e.g. plans.nbr_downloads)
+    #       This would require a fair bit of work though, as the column would need to be added,
+    #       the ExportedPlan model/table removed, statistics generation Rake task updated
     exported_plan = ExportedPlan.new.tap do |ep|
+      ep.user_id = user&.id
       ep.plan = self
       ep.phase_id = phases.first.id
       ep.format = format

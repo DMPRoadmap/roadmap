@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_16_140226) do
+ActiveRecord::Schema.define(version: 2021_08_19_160319) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2020_12_16_140226) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "lock_version", default: 0
+    t.index ["plan_id"], name: "fk_rails_84a6005a3e"
     t.index ["plan_id"], name: "index_answers_on_plan_id"
     t.index ["question_id"], name: "index_answers_on_question_id"
     t.index ["user_id"], name: "fk_rails_584be190c2"
@@ -247,15 +248,6 @@ ActiveRecord::Schema.define(version: 2020_12_16_140226) do
     t.boolean "default_language"
   end
 
-  create_table "mime_types", force: :cascade do |t|
-    t.string "description", null: false
-    t.string "category", null: false
-    t.string "value", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["value"], name: "index_mime_types_on_value"
-  end
-
   create_table "notes", id: :integer, force: :cascade do |t|
     t.integer "user_id"
     t.text "text", limit: 16777215
@@ -290,34 +282,6 @@ ActiveRecord::Schema.define(version: 2020_12_16_140226) do
     t.boolean "enabled", default: true
   end
 
-  create_table "option_warnings", id: :integer, force: :cascade do |t|
-    t.integer "organisation_id"
-    t.integer "option_id"
-    t.text "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "options", id: :integer, force: :cascade do |t|
-    t.integer "question_id"
-    t.string "text"
-    t.integer "number"
-    t.boolean "is_default"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "org_identifiers", id: :integer, force: :cascade do |t|
-    t.string "identifier"
-    t.string "attrs"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer "org_id"
-    t.integer "identifier_scheme_id"
-    t.index ["identifier_scheme_id"], name: "fk_rails_189ad2e573"
-    t.index ["org_id"], name: "fk_rails_36323c0674"
-  end
-
   create_table "org_token_permissions", id: :integer, force: :cascade do |t|
     t.integer "org_id"
     t.integer "token_permission_type_id"
@@ -344,16 +308,7 @@ ActiveRecord::Schema.define(version: 2020_12_16_140226) do
     t.integer "stylesheet_file_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "parent_id"
-    t.boolean "is_other"
-    t.string "sort_name"
-    t.text "banner_text"
-    t.string "logo_file_name"
-    t.boolean "display_in_registration"
-    t.string "logo_uid"
-    t.string "logo_name"
-    t.string "banner_uid"
-    t.string "banner_name"
+    t.boolean "is_other", default: false, null: false
     t.integer "region_id"
     t.integer "language_id"
     t.string "contact_email"
@@ -379,8 +334,8 @@ ActiveRecord::Schema.define(version: 2020_12_16_140226) do
     t.text "links", limit: 16777215
     t.string "contact_name"
     t.boolean "feedback_enabled", default: false
-    t.string "feedback_email_subject"
-    t.text "feedback_email_msg", limit: 16777215
+    t.text "feedback_msg"
+    t.string "contact_name"
     t.boolean "managed", default: false, null: false
     t.index ["language_id"], name: "fk_rails_5640112cab"
     t.index ["region_id"], name: "fk_rails_5a6adf6bab"
@@ -430,18 +385,9 @@ ActiveRecord::Schema.define(version: 2020_12_16_140226) do
     t.integer "template_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "grant_number"
     t.string "identifier"
-    t.text "description", limit: 16777215
-    t.string "principal_investigator"
-    t.string "principal_investigator_identifier"
-    t.string "data_contact"
-    t.string "funder_name"
+    t.text "description"
     t.integer "visibility", default: 3, null: false
-    t.string "data_contact_email"
-    t.string "data_contact_phone"
-    t.string "principal_investigator_email"
-    t.string "principal_investigator_phone"
     t.boolean "feedback_requested", default: false
     t.boolean "complete", default: false
     t.integer "org_id"
@@ -449,11 +395,16 @@ ActiveRecord::Schema.define(version: 2020_12_16_140226) do
     t.integer "grant_id"
     t.datetime "start_date"
     t.datetime "end_date"
-    t.integer "api_client_id"
+    t.boolean "ethical_issues"
+    t.text "ethical_issues_description"
+    t.string "ethical_issues_report"
+    t.integer "funding_status"
+    t.bigint "research_domain_id"
     t.index ["funder_id"], name: "index_plans_on_funder_id"
     t.index ["grant_id"], name: "index_plans_on_grant_id"
     t.index ["org_id"], name: "index_plans_on_org_id"
     t.index ["template_id"], name: "index_plans_on_template_id"
+    t.index ["research_domain_id"], name: "index_plans_on_research_domain_id"
   end
 
   create_table "plans_guidance_groups", id: :integer, force: :cascade do |t|
@@ -579,6 +530,15 @@ ActiveRecord::Schema.define(version: 2020_12_16_140226) do
     t.integer "super_region_id"
   end
 
+  create_table "research_domains", force: :cascade do |t|
+    t.string "identifier", null: false
+    t.string "label", null: false
+    t.bigint "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_research_domains_on_parent_id"
+  end
+
   create_table "research_outputs", force: :cascade do |t|
     t.integer "plan_id"
     t.integer "output_type", default: 3, null: false
@@ -588,16 +548,11 @@ ActiveRecord::Schema.define(version: 2020_12_16_140226) do
     t.integer "display_order"
     t.boolean "is_default"
     t.text "description"
-    t.integer "mime_type_id"
     t.integer "access", default: 0, null: false
     t.datetime "release_date"
     t.boolean "personal_data"
     t.boolean "sensitive_data"
     t.bigint "byte_size"
-    t.text "mandatory_attribution"
-    t.datetime "coverage_start"
-    t.datetime "coverage_end"
-    t.string "coverage_region"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["output_type"], name: "index_research_outputs_on_output_type"
@@ -852,8 +807,6 @@ ActiveRecord::Schema.define(version: 2020_12_16_140226) do
   add_foreign_key "notes", "users"
   add_foreign_key "notification_acknowledgements", "notifications"
   add_foreign_key "notification_acknowledgements", "users"
-  add_foreign_key "org_identifiers", "identifier_schemes"
-  add_foreign_key "org_identifiers", "orgs"
   add_foreign_key "org_token_permissions", "orgs"
   add_foreign_key "org_token_permissions", "token_permission_types"
   add_foreign_key "orgs", "languages"

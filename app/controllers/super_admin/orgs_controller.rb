@@ -12,7 +12,7 @@ module SuperAdmin
     def index
       authorize Org
       render "index", locals: {
-        orgs: Org.with_template_and_user_counts.page(1)
+        orgs: Org.includes(:contributors, :plans).with_template_and_user_counts.page(1)
       }
     end
 
@@ -104,15 +104,62 @@ module SuperAdmin
       end
     end
 
+    # POST /super_admin/:id/merge_analyze
+    def merge_analyze
+      @org = Org.includes(:templates, :tracker, :annotations,
+                          :departments, :token_permission_types, :funded_plans,
+                          identifiers: [:identifier_scheme],
+                          guidance_groups: [guidances: [:themes]],
+                          users: [identifiers: [:identifier_scheme]])
+                .find(params[:id])
+      authorize @org
+
+      lookup = OrgSelection::HashToOrgService.to_org(
+        hash: JSON.parse(merge_params[:id]), allow_create: false
+      )
+      @target_org = Org.includes(:templates, :tracker, :annotations,
+                                 :departments, :token_permission_types, :funded_plans,
+                                 identifiers: [:identifier_scheme],
+                                 guidance_groups: [guidances: [:themes]],
+                                 users: [identifiers: [:identifier_scheme]])
+                       .find(lookup.id)
+    end
+
+    # POST /super_admin/:id/merge_commit
+    def merge_commit
+      @org = Org.find(params[:id])
+      authorize @org
+
+      @target_org = Org.find_by(id: merge_params[:target_org])
+
+      if @target_org.present?
+        if @target_org.merge!(to_be_merged: @org)
+          msg = "Successfully merged '#{@org.name}' into '#{@target_org.name}'"
+          redirect_to super_admin_orgs_path, notice: msg
+        else
+          msg = _("An error occurred while trying to merge the Organisations.")
+          redirect_to admin_edit_org_path(@org), alert: msg
+        end
+      else
+        msg = _("Unable to merge the two Organisations at this time.")
+        redirect_to admin_edit_org_path(@org), alert: msg
+      end
+    rescue JSON::ParserError
+      msg = _("Unable to determine what records need to be merged.")
+      redirect_to admin_edit_org_path(@org), alert: msg
+    end
+
     private
 
     def org_params
       params.require(:org).permit(:name, :abbreviation, :logo, :managed,
                                   :contact_email, :contact_name,
-                                  :remove_logo, :feedback_enabled,
-                                  :feedback_email_subject,
-                                  :feedback_email_msg,
+                                  :remove_logo, :feedback_enabled, :feedback_msg,
                                   :org_id, :org_name, :org_crosswalk)
+    end
+
+    def merge_params
+      params.require(:org).permit(:org_name, :org_sources, :org_crosswalk, :id, :target_org)
     end
 
   end

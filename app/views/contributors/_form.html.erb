@@ -10,7 +10,7 @@ roles_tooltip = _("Select each role that applies to the contributor.")
     <%= form.label(:name, _("Name"), class: "control-label") %>
   </div>
   <div class="col-md-6">
-    <%= form.text_field :name, class: "form-control", aria: { required: true } %>
+    <%= form.text_field :name, class: "form-control", spellcheck: true, aria: { required: true } %>
   </div>
 </div>
 
@@ -42,7 +42,7 @@ roles_tooltip = _("Select each role that applies to the contributor.")
   <div class="col-md-12">
     <%= form.label(:phone, _("Phone number"), class: "control-label") %>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-3">
     <em class="sr-only"><%= phone_tooltip %></em>
     <%= form.phone_field :phone, class: "form-control",
                                  title: phone_tooltip,
@@ -54,8 +54,9 @@ roles_tooltip = _("Select each role that applies to the contributor.")
 
 <div class="form-group row" id="contributor-org-controls"><!-- org -->
   <div class="col-md-8">
-    <%= render partial: "shared/org_selectors/local_only",
+    <%= render partial: org_partial,
                locals: { form: form,
+                         orgs: orgs,
                          default_org: contributor.org,
                          required: false,
                          orgs: @orgs,
@@ -73,7 +74,7 @@ roles_tooltip = _("Select each role that applies to the contributor.")
 
       <% roles = ContributorPresenter.roles_for_radio(contributor: contributor) %>
       <% roles.each do |hash| %>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="checkbox">
             <%= form.check_box hash.keys.first.to_sym,
                                value: hash.values.first,

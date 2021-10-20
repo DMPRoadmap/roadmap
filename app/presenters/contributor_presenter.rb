@@ -43,8 +43,10 @@ class ContributorPresenter
         _("Data Manager")
       when :project_administration
         _("Project Administrator")
-      else
+      when :investigation
         _("Principal Investigator")
+      else
+        _("Other")
       end
     end
 
