@@ -113,6 +113,8 @@ module DMPRoadmap
         }
       }
     }
+    # Setting to only take orgs from local and not allow on-the-fly creation
+    config.x.application.restrict_orgs = false
 
     # ------------------- #
     # SHIBBOLETH SETTINGS #
@@ -201,6 +203,12 @@ module DMPRoadmap
     # reCAPTCHA - recaptcha appears on the create account and contact us forms #
     # ------------------------------------------------------------------------ #
     config.x.recaptcha.enabled = true
+
+    # --------------------------------------------------- #
+    # Machine Actionable / Networked DMP Features (maDMP) #
+    # --------------------------------------------------- #
+    config.x.madmp.enable_ethical_issues = false
+    config.x.madmp.enable_research_domain = false
 
   end
 

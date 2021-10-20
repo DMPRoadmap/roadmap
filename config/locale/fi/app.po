@@ -1,21 +1,21 @@
 # Finnish translations for app package.
-# Copyright (C) 2020 app
+# Copyright (C) 2021 app
 # This file is distributed under the same license as the app package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2020-12-18 15:00+0000\n"
-"PO-Revision-Date: 2020-12-18 16:01+0100\n"
+"POT-Creation-Date: 2021-10-01 11:19+0000\n"
+"PO-Revision-Date: 2021-10-01 13:19+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Finnish\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=2; plural=n!=1;\n"
 "\n"
 
 #: ../../app/controllers/answers_controller.rb:24
@@ -40,32 +40,32 @@ msgstr "Tunnistetiedot eivät kelpaa"
 msgid "Departments code and name must be unique"
 msgstr "Osaston koodin ja nimen on oltava yksilöivä"
 
-#: ../../app/controllers/api/v0/plans_controller.rb:24
+#: ../../app/controllers/api/v0/plans_controller.rb:26
 msgid "user must be in your organisation"
 msgstr "Käyttäjän on oltava organisaatiostasi"
 
-#: ../../app/controllers/api/v0/plans_controller.rb:54
+#: ../../app/controllers/api/v0/plans_controller.rb:56
 msgid "Bad Parameters"
 msgstr "Virheelliset parametrit"
 
 #: ../../app/controllers/api/v0/statistics_controller.rb:40
 #: ../../app/controllers/api/v0/statistics_controller.rb:89
 #: ../../app/controllers/api/v0/statistics_controller.rb:135
-#: ../../app/controllers/usage_controller.rb:66
-#: ../../app/controllers/usage_controller.rb:85
+#: ../../app/controllers/usage_controller.rb:68
+#: ../../app/controllers/usage_controller.rb:87
 msgid "Month"
 msgstr "Kuukausi"
 
 #: ../../app/controllers/api/v0/statistics_controller.rb:40
-#: ../../app/controllers/usage_controller.rb:66
+#: ../../app/controllers/usage_controller.rb:68
 msgid "No. Users joined"
 msgstr "Liittyneet käyttäjät"
 
 #: ../../app/controllers/api/v0/statistics_controller.rb:46
 #: ../../app/controllers/api/v0/statistics_controller.rb:95
 #: ../../app/controllers/api/v0/statistics_controller.rb:141
-#: ../../app/controllers/usage_controller.rb:72
-#: ../../app/controllers/usage_controller.rb:91
+#: ../../app/controllers/usage_controller.rb:74
+#: ../../app/controllers/usage_controller.rb:93
 msgid "Total"
 msgstr "Yhteensä"
 
@@ -74,7 +74,7 @@ msgid "users_joined"
 msgstr "users_joined"
 
 #: ../../app/controllers/api/v0/statistics_controller.rb:89
-#: ../../app/controllers/usage_controller.rb:85
+#: ../../app/controllers/usage_controller.rb:87
 msgid "No. Completed Plans"
 msgstr "Valmiiden suunnitelmien määrä"
 
@@ -202,11 +202,11 @@ msgstr "query_params pitäisi olla Hash object"
 msgid "locals should be a Hash object"
 msgstr "paikalliset pitäisi olla Hash objekti"
 
-#: ../../app/controllers/concerns/paginable.rb:68
+#: ../../app/controllers/concerns/paginable.rb:69
 msgid "Restricted access to View All the records"
 msgstr "Kaikkien tietojen tarkastelu on rajoitettu"
 
-#: ../../app/controllers/concerns/paginable.rb:161
+#: ../../app/controllers/concerns/paginable.rb:180
 msgid "Sort by %{sort_field}"
 msgstr "Järjestä %{sort_field}"
 
@@ -247,15 +247,16 @@ msgstr "Sähköpostin lähettäminen onnistui."
 msgid "Unable to submit your request"
 msgstr "Pyyntösi ei onnistu"
 
-#: ../../app/controllers/contributors_controller.rb:47
-msgid "added"
-msgstr "lisä-"
-
-#: ../../app/controllers/contributors_controller.rb:49
+#: ../../app/controllers/contributors_controller.rb:40
+#: ../../app/controllers/contributors_controller.rb:56
 msgid "add"
 msgstr "lisätä"
 
-#: ../../app/controllers/contributors_controller.rb:64
+#: ../../app/controllers/contributors_controller.rb:54
+msgid "added"
+msgstr "lisä-"
+
+#: ../../app/controllers/contributors_controller.rb:72
 #: ../../app/controllers/guidance_groups_controller.rb:48
 #: ../../app/controllers/guidances_controller.rb:71
 #: ../../app/controllers/notes_controller.rb:92
@@ -263,18 +264,18 @@ msgstr "lisätä"
 #: ../../app/controllers/org_admin/sections_controller.rb:102
 #: ../../app/controllers/org_admin/templates_controller.rb:203
 #: ../../app/controllers/orgs_controller.rb:87
-#: ../../app/controllers/plans_controller.rb:257
-#: ../../app/controllers/plans_controller.rb:260
-#: ../../app/controllers/registrations_controller.rb:236
-#: ../../app/controllers/registrations_controller.rb:240
-#: ../../app/controllers/registrations_controller.rb:265
-#: ../../app/controllers/registrations_controller.rb:269
+#: ../../app/controllers/plans_controller.rb:271
+#: ../../app/controllers/plans_controller.rb:274
+#: ../../app/controllers/registrations_controller.rb:247
+#: ../../app/controllers/registrations_controller.rb:251
+#: ../../app/controllers/registrations_controller.rb:276
+#: ../../app/controllers/registrations_controller.rb:280
 #: ../../app/controllers/users_controller.rb:98
 #: ../../app/controllers/users_controller.rb:125
 msgid "saved"
 msgstr "tallennettu"
 
-#: ../../app/controllers/contributors_controller.rb:66
+#: ../../app/controllers/contributors_controller.rb:74
 #: ../../app/controllers/guidance_groups_controller.rb:50
 #: ../../app/controllers/guidances_controller.rb:73
 #: ../../app/controllers/notes_controller.rb:110
@@ -282,36 +283,36 @@ msgstr "tallennettu"
 #: ../../app/controllers/org_admin/sections_controller.rb:104
 #: ../../app/controllers/org_admin/templates_controller.rb:208
 #: ../../app/controllers/orgs_controller.rb:89
-#: ../../app/controllers/plans_controller.rb:266
-#: ../../app/controllers/plans_controller.rb:269
-#: ../../app/controllers/plans_controller.rb:273
-#: ../../app/controllers/plans_controller.rb:276
-#: ../../app/controllers/registrations_controller.rb:243
-#: ../../app/controllers/registrations_controller.rb:272
+#: ../../app/controllers/plans_controller.rb:280
+#: ../../app/controllers/plans_controller.rb:283
+#: ../../app/controllers/plans_controller.rb:287
+#: ../../app/controllers/plans_controller.rb:290
+#: ../../app/controllers/registrations_controller.rb:254
+#: ../../app/controllers/registrations_controller.rb:283
 msgid "save"
 msgstr "tallenna"
 
-#: ../../app/controllers/contributors_controller.rb:76
+#: ../../app/controllers/contributors_controller.rb:84
 #: ../../app/controllers/notes_controller.rb:134
 #: ../../app/controllers/org_admin/templates_controller.rb:236
 #: ../../app/controllers/super_admin/orgs_controller.rb:94
 msgid "removed"
 msgstr "poistettu"
 
-#: ../../app/controllers/contributors_controller.rb:79
+#: ../../app/controllers/contributors_controller.rb:87
 #: ../../app/controllers/notes_controller.rb:152
 #: ../../app/controllers/org_admin/templates_controller.rb:238
 #: ../../app/controllers/super_admin/orgs_controller.rb:97
 msgid "remove"
 msgstr "poista"
 
-#: ../../app/controllers/contributors_controller.rb:148
+#: ../../app/controllers/contributors_controller.rb:160
 msgid "plan not found"
 msgstr "Suunnitelmaa ei löytynyt"
 
-#: ../../app/controllers/contributors_controller.rb:156
+#: ../../app/controllers/contributors_controller.rb:168
 msgid "contributor not found"
-msgstr "avustajaa ei löytynyt"
+msgstr "osallistujaa ei löytynyt"
 
 #: ../../app/controllers/feedback_requests_controller.rb:9
 msgid "Unable to submit your request for feedback at this time."
@@ -378,9 +379,9 @@ msgstr "piilota"
 #: ../../app/controllers/org_admin/question_options_controller.rb:25
 #: ../../app/controllers/org_admin/questions_controller.rb:197
 #: ../../app/controllers/org_admin/sections_controller.rb:126
-#: ../../app/controllers/plans_controller.rb:318
+#: ../../app/controllers/plans_controller.rb:332
 #: ../../app/controllers/super_admin/api_clients_controller.rb:79
-#: ../../app/controllers/super_admin/notifications_controller.rb:83
+#: ../../app/controllers/super_admin/notifications_controller.rb:84
 #: ../../app/controllers/super_admin/themes_controller.rb:50
 msgid "deleted"
 msgstr "poistettu"
@@ -392,9 +393,9 @@ msgstr "poistettu"
 #: ../../app/controllers/org_admin/question_options_controller.rb:27
 #: ../../app/controllers/org_admin/questions_controller.rb:199
 #: ../../app/controllers/org_admin/sections_controller.rb:128
-#: ../../app/controllers/plans_controller.rb:323
+#: ../../app/controllers/plans_controller.rb:337
 #: ../../app/controllers/super_admin/api_clients_controller.rb:82
-#: ../../app/controllers/super_admin/notifications_controller.rb:86
+#: ../../app/controllers/super_admin/notifications_controller.rb:87
 #: ../../app/controllers/super_admin/themes_controller.rb:53
 msgid "delete"
 msgstr "poista"
@@ -442,7 +443,7 @@ msgstr "Suunnitelmapohjsta ei voitu luoda uutta versiota."
 #: ../../app/controllers/org_admin/phases_controller.rb:144
 #: ../../app/controllers/org_admin/questions_controller.rb:166
 #: ../../app/controllers/org_admin/users_controller.rb:30
-#: ../../app/controllers/plans_controller.rb:386
+#: ../../app/controllers/plans_controller.rb:400
 #: ../../app/controllers/super_admin/api_clients_controller.rb:67
 #: ../../app/controllers/super_admin/notifications_controller.rb:51
 #: ../../app/controllers/super_admin/themes_controller.rb:39
@@ -454,9 +455,9 @@ msgstr "päivitetty"
 #: ../../app/controllers/org_admin/phases_controller.rb:146
 #: ../../app/controllers/org_admin/questions_controller.rb:169
 #: ../../app/controllers/org_admin/users_controller.rb:32
-#: ../../app/controllers/plans_controller.rb:389
+#: ../../app/controllers/plans_controller.rb:403
 #: ../../app/controllers/super_admin/api_clients_controller.rb:69
-#: ../../app/controllers/super_admin/notifications_controller.rb:53
+#: ../../app/controllers/super_admin/notifications_controller.rb:54
 #: ../../app/controllers/super_admin/themes_controller.rb:41
 #: ../../app/controllers/super_admin/users_controller.rb:57
 msgid "update"
@@ -531,12 +532,12 @@ msgid "Unable to create a new section. The phase you specified does not exist."
 msgstr "Uutta osiota ei voitu luoda. Määriteltyä vaihetta ei ole olemassa."
 
 #: ../../app/controllers/org_admin/template_copies_controller.rb:18
-#: ../../app/controllers/plans_controller.rb:366
+#: ../../app/controllers/plans_controller.rb:380
 msgid "copy"
 msgstr "kopio"
 
 #:
-#: ../../app/controllers/org_admin/template_customization_transfers_controller.rb:17
+#: ../../app/controllers/org_admin/template_customization_transfers_controller.rb:27
 msgid "That template is no longer customizable."
 msgstr "Suunnitelmapohjaa ei voi enää mukauttaa."
 
@@ -572,30 +573,30 @@ msgid "Error parsing links for a %{template}"
 msgstr "Virhe linkkien jäsentämisessä %{template}:ssa"
 
 #: ../../app/controllers/org_admin/templates_controller.rb:345
-#: ../../app/controllers/public_pages_controller.rb:59
+#: ../../app/controllers/public_pages_controller.rb:68
 msgid "Template created using the %{application_name} service. Last modified %{date}"
 msgstr ""
 "Suunnitelmapohjan tekemiseen on käytetty %{application_name}:a. Viimeksi muoka"
 "ttu %{date}"
 
 #: ../../app/controllers/org_admin/templates_controller.rb:360
-#: ../../app/controllers/public_pages_controller.rb:74
+#: ../../app/controllers/public_pages_controller.rb:83
 msgid "Unable to download the DMP Template at this time."
 msgstr "Aineistonhallinnan suunnitelmapohjan lataaminen ei onnistu tällä hetkellä."
 
-#: ../../app/controllers/orgs_controller.rb:111
+#: ../../app/controllers/orgs_controller.rb:114
 msgid "No organisations are currently registered."
 msgstr "Yhtään organisaatiota ei ole rekisteröity."
 
-#: ../../app/controllers/orgs_controller.rb:133
+#: ../../app/controllers/orgs_controller.rb:137
 msgid "Your organisation does not seem to be properly configured."
 msgstr "Organisaatiotasi määrittelyssä on ongelmia."
 
-#: ../../app/controllers/orgs_controller.rb:138
+#: ../../app/controllers/orgs_controller.rb:142
 msgid "Please choose an organisation"
 msgstr "Valitse organisaatio"
 
-#: ../../app/controllers/plan_exports_controller.rb:84
+#: ../../app/controllers/plan_exports_controller.rb:85
 msgid "Created using %{application_name}. Last modified %{date}"
 msgstr "Luotu käyttäen DMPTuulia. "
 
@@ -632,11 +633,11 @@ msgstr "Suunnitelma perustuu"
 msgid "template with customisations by the"
 msgstr "malli asiakassuhteiden mukauttamisella"
 
-#: ../../app/controllers/plans_controller.rb:364
+#: ../../app/controllers/plans_controller.rb:378
 msgid "copied"
 msgstr "kopionti"
 
-#: ../../app/controllers/plans_controller.rb:394
+#: ../../app/controllers/plans_controller.rb:408
 msgid ""
 "Unable to change the plan's status since it is needed at least %{percentage} p"
 "ercentage responded"
@@ -644,51 +645,51 @@ msgstr ""
 "Suunnitelman tilan muuttaminen ei onnistunut, koska vähintään %{percentage}:a "
 "vastauksista pitää olla vastattuna"
 
-#: ../../app/controllers/plans_controller.rb:402
+#: ../../app/controllers/plans_controller.rb:416
 msgid "Unable to find plan id %{plan_id}"
 msgstr "Suunnitelman tunnistetta %{plan_id} ei löydy"
 
-#: ../../app/controllers/plans_controller.rb:419
+#: ../../app/controllers/plans_controller.rb:433
 msgid "Your project is now a test."
 msgstr "Projektisi on nyt testimuodossa."
 
-#: ../../app/controllers/plans_controller.rb:419
+#: ../../app/controllers/plans_controller.rb:433
 msgid "Your project is no longer a test."
 msgstr "Projektisi ei ole enää testimuodossa."
 
-#: ../../app/controllers/plans_controller.rb:423
+#: ../../app/controllers/plans_controller.rb:437
 msgid "Unable to change the plan's test status"
 msgstr "Suunnitelman testistatuksen muuttaminen ei onnistu"
 
-#: ../../app/controllers/plans_controller.rb:437
+#: ../../app/controllers/plans_controller.rb:451
 msgid "There is no plan associated with id %{id}"
 msgstr "Tunnisteeseen %{id} ei vielä liity suunnitelmaa"
 
-#: ../../app/controllers/registrations_controller.rb:37
+#: ../../app/controllers/registrations_controller.rb:35
 msgid ""
-"Please make a choice below. After linking your details to a %{application_name"
-"} account, you will be able to sign in directly with your institutional creden"
-"tials."
+"Please make a choice below. After linking your\n"
+"                       details to a %{application_name} account,\n"
+"                       you will be able to sign in directly with your\n"
+"                       institutional credentials."
 msgstr ""
-"Valitse alla olevista vaihtoehdoista. Kun olet liittänyt tietosi %{application"
-"_name} -tiliin, voit kirjautua suoraan sisään organisaatiosi tunnisteella."
+"Tee valinta alla. Kun olet linkittänyt\n"
+"                       tiedot %{application_name} -tilille,\n"
+"                       voit kirjautua suoraan sisään\n"
+"                       institutionaaliset valtakirjat."
 
-#: ../../app/controllers/registrations_controller.rb:57
+#: ../../app/controllers/registrations_controller.rb:61
 msgid "You must accept the terms and conditions to register."
 msgstr "Sinun on hyväksyttävä käyttöehdot, että voit rekisteröityä käyttäjäksi."
 
-#: ../../app/controllers/registrations_controller.rb:60
-#: ../../app/controllers/registrations_controller.rb:173
-msgid ""
-"Please select an organisation from the list, or enter your organisation's name"
-"."
-msgstr "Valitse organisaatio listasta tai kirjoita organisaatiosi nimi."
+#: ../../app/controllers/registrations_controller.rb:64
+msgid "Please select an organisation from the list, or choose Other."
+msgstr "Valitse organisaatio luettelosta tai valitse Muu."
 
-#: ../../app/controllers/registrations_controller.rb:73
+#: ../../app/controllers/registrations_controller.rb:77
 msgid "That email address is already registered."
 msgstr "Sähköposti on jo rekisteröity."
 
-#: ../../app/controllers/registrations_controller.rb:104
+#: ../../app/controllers/registrations_controller.rb:119
 msgid ""
 "Welcome! You have signed up successfully with your institutional credentials. "
 "You will now be able to access your account with them."
@@ -696,27 +697,33 @@ msgstr ""
 "Tervetuloa! Olet kirjautunut onnistuneesti organisaatiosi tunnuksilla. Nyt voi"
 "t kirjautua sisään tiliisi niiden avulla."
 
-#: ../../app/controllers/registrations_controller.rb:156
+#: ../../app/controllers/registrations_controller.rb:171
 msgid "Save Unsuccessful. "
 msgstr "Tallennus ei onnistunut."
 
-#: ../../app/controllers/registrations_controller.rb:160
+#: ../../app/controllers/registrations_controller.rb:175
 msgid "Please enter an email address. "
 msgstr "Lisää sähköpostiosoitteesi."
 
-#: ../../app/controllers/registrations_controller.rb:164
+#: ../../app/controllers/registrations_controller.rb:179
 msgid "Please enter a First name. "
 msgstr "Kirjoita etunimi."
 
-#: ../../app/controllers/registrations_controller.rb:168
+#: ../../app/controllers/registrations_controller.rb:183
 msgid "Please enter a Last name. "
 msgstr "Kirjoita sukunimi."
 
-#: ../../app/controllers/registrations_controller.rb:191
+#: ../../app/controllers/registrations_controller.rb:187
+msgid ""
+"Please select an organisation from the list, or enter your organisation's name"
+"."
+msgstr "Valitse organisaatio listasta tai kirjoita organisaatiosi nimi."
+
+#: ../../app/controllers/registrations_controller.rb:203
 msgid "Please enter your password to change email address."
 msgstr "Anna salasanasi, jotta voit vaihtaa sähköpostiosoitteesi."
 
-#: ../../app/controllers/registrations_controller.rb:196
+#: ../../app/controllers/registrations_controller.rb:208
 msgid ""
 "Save unsuccessful. \\\n"
 "                That email address is already registered. \\\n"
@@ -726,23 +733,23 @@ msgstr ""
 "                Tämä sähköpostiosoite on jo rekisteröity. \\\n"
 "                Sinun on annettava yksilöllinen sähköpostiosoite."
 
-#: ../../app/controllers/registrations_controller.rb:201
+#: ../../app/controllers/registrations_controller.rb:213
 msgid "Invalid password"
 msgstr "Väärä salasana"
 
-#: ../../app/controllers/registrations_controller.rb:253
+#: ../../app/controllers/registrations_controller.rb:264
 msgid "Please enter your current password"
 msgstr "Kirjoita nykyinen salasanasi"
 
-#: ../../app/controllers/registrations_controller.rb:255
+#: ../../app/controllers/registrations_controller.rb:266
 msgid "Please enter a password confirmation"
 msgstr "Vahvista salasana"
 
-#: ../../app/controllers/registrations_controller.rb:257
+#: ../../app/controllers/registrations_controller.rb:268
 msgid "Password and comfirmation must match"
 msgstr "Salasanan ja sen vahvistuksen on oltava samoja"
 
-#: ../../app/controllers/roles_controller.rb:23
+#: ../../app/controllers/roles_controller.rb:26
 msgid ""
 "Cannot share plan with %{email} since that email matches with the owner of the"
 " plan."
@@ -750,36 +757,36 @@ msgstr ""
 "Suunnitelmaa ei voi jakaa %{email}:n kanssa, koska sähköposti on sama kuin suu"
 "nnitelman omistajalla."
 
-#: ../../app/controllers/roles_controller.rb:30
+#: ../../app/controllers/roles_controller.rb:37
 msgid "Plan is already shared with %{email}."
 msgstr "Suunnitelma on jo jaettu %{email}:n kanssa."
 
-#: ../../app/controllers/roles_controller.rb:37
+#: ../../app/controllers/roles_controller.rb:44
 #: ../../app/views/shared/_create_account_form.html.erb:4
 msgid "First Name"
 msgstr "Etunimi"
 
-#: ../../app/controllers/roles_controller.rb:38
+#: ../../app/controllers/roles_controller.rb:45
 msgid "Surname"
 msgstr "Sukunimi"
 
-#: ../../app/controllers/roles_controller.rb:41
+#: ../../app/controllers/roles_controller.rb:48
 msgid "Invitation to %{email} issued successfully."
 msgstr "Kutsun lähettäminen %{email}:lle onnistui."
 
-#: ../../app/controllers/roles_controller.rb:46
+#: ../../app/controllers/roles_controller.rb:53
 msgid "Plan shared with %{email}."
 msgstr "Suunnitelma on jaettu %{email}:n kanssa."
 
-#: ../../app/controllers/roles_controller.rb:61
+#: ../../app/controllers/roles_controller.rb:68
 msgid "You must provide a valid email address and select a permission level."
-msgstr "Sinun on annettava voimassa oleva sähköpostiosoite ja valittava lupataso."
+msgstr "Sinun on annettava voimassa oleva sähköpostiosoite ja oikeudet."
 
-#: ../../app/controllers/roles_controller.rb:67
+#: ../../app/controllers/roles_controller.rb:74
 msgid "Please enter an email address"
 msgstr "Anna sähköpostiosoite"
 
-#: ../../app/controllers/roles_controller.rb:86
+#: ../../app/controllers/roles_controller.rb:93
 msgid ""
 "Successfully changed the permissions for %{email}. They have been notified via"
 " email."
@@ -787,15 +794,15 @@ msgstr ""
 "Vaihdettiin %{email} -oikeuksien onnistuminen. Heille on ilmoitettu sähköposti"
 "tse."
 
-#: ../../app/controllers/roles_controller.rb:101
+#: ../../app/controllers/roles_controller.rb:108
 msgid "Access removed"
 msgstr "Pääsy suunnitelmaan poistettu"
 
-#: ../../app/controllers/roles_controller.rb:115
+#: ../../app/controllers/roles_controller.rb:122
 msgid "Plan removed"
 msgstr "Suunnnitelma on poistettu"
 
-#: ../../app/controllers/roles_controller.rb:117
+#: ../../app/controllers/roles_controller.rb:124
 msgid "Unable to remove the plan"
 msgstr "Suunnitelman poistaminen ei onnistu"
 
@@ -819,19 +826,19 @@ msgstr "Tapahtui virhe vientiasetuksia tallennettaessa/säädettäessä."
 msgid ". The API credentials have been emailed to %{email}"
 msgstr ". API-käyttöoikeustiedot on lähetetty sähköpostitse osoitteeseen %{email}"
 
-#: ../../app/controllers/super_admin/notifications_controller.rb:68
+#: ../../app/controllers/super_admin/notifications_controller.rb:69
 msgid "Your notification is now active."
 msgstr "Ilmoituksesi on nyt aktiivinen."
 
-#: ../../app/controllers/super_admin/notifications_controller.rb:68
+#: ../../app/controllers/super_admin/notifications_controller.rb:69
 msgid "Your notification is no longer active."
 msgstr "Ilmoituksesi ei ole enää aktiivinen."
 
-#: ../../app/controllers/super_admin/notifications_controller.rb:72
+#: ../../app/controllers/super_admin/notifications_controller.rb:73
 msgid "Unable to change the notification's active status"
 msgstr "Ilmoituksen aktiivista tilaa ei voi muuttaa"
 
-#: ../../app/controllers/super_admin/notifications_controller.rb:103
+#: ../../app/controllers/super_admin/notifications_controller.rb:104
 msgid "There is no notification associated with id  %{id}"
 msgstr "Tunnisteeseen %{id} ei liity ilmoituksia"
 
@@ -855,23 +862,43 @@ msgstr "Tuntematon organisaatio."
 msgid "There seems to be a problem with your logo. Please upload it again."
 msgstr "Logossa oli jokin ongelma. Yritä ladata se uudelleen."
 
-#: ../../app/controllers/super_admin/users_controller.rb:70
-msgid "merged"
-msgstr "yhdistyivät"
+#: ../../app/controllers/super_admin/orgs_controller.rb:135
+msgid "An error occurred while trying to merge the Organisations."
+msgstr "Organisaatioiden yhdistämisessä tapahtui virhe."
 
-#: ../../app/controllers/super_admin/users_controller.rb:72
-msgid "merge"
-msgstr "yhdistää"
+#: ../../app/controllers/super_admin/orgs_controller.rb:139
+msgid "Unable to merge the two Organisations at this time."
+msgstr "Kahden organisaation yhdistäminen epäonnistui tällä hetkellä."
 
-#: ../../app/controllers/super_admin/users_controller.rb:105
+#: ../../app/controllers/super_admin/orgs_controller.rb:143
+msgid "Unable to determine what records need to be merged."
+msgstr "Ei voida määrittää, mitkä tietueet on yhdistettävä."
+
+#: ../../app/controllers/super_admin/users_controller.rb:71
+msgid ""
+"You attempted to merge 2 accounts with the same email address.\n"
+"           Please merge with a different email address."
+msgstr ""
+"Yritit yhdistää 2 tiliä samalla sähköpostiosoitteella.\n"
+"           Yhdistä toisella sähköpostiosoitteella."
+
+#: ../../app/controllers/super_admin/users_controller.rb:107
 msgid "archived"
 msgstr "arkistoitu"
 
-#: ../../app/controllers/super_admin/users_controller.rb:107
+#: ../../app/controllers/super_admin/users_controller.rb:109
 msgid "archive"
 msgstr "Archive"
 
-#: ../../app/controllers/users/invitations_controller.rb:25
+#: ../../app/controllers/super_admin/users_controller.rb:129
+msgid "merged"
+msgstr "yhdistyivät"
+
+#: ../../app/controllers/super_admin/users_controller.rb:131
+msgid "merge"
+msgstr "yhdistää"
+
+#: ../../app/controllers/users/invitations_controller.rb:33
 msgid ""
 "You are already signed in as another user. Please log out to activate your inv"
 "itation."
@@ -933,23 +960,23 @@ msgstr ""
 " lteemojen mukaan, nämä tuodaan esiin valintojesi perusteella, joten ei kannat"
 "a toistaa liikaa tekstiä."
 
-#: ../../app/helpers/conditions_helper.rb:191
+#: ../../app/helpers/conditions_helper.rb:194
 msgid "Answering"
 msgstr "Vastaaminen"
 
-#: ../../app/helpers/conditions_helper.rb:195
+#: ../../app/helpers/conditions_helper.rb:198
 msgid " will <b>send an email</b> with subject "
 msgstr "<b>lähettää</b> aiheen <b>sisältävän sähköpostin</b>"
 
-#: ../../app/helpers/conditions_helper.rb:200
+#: ../../app/helpers/conditions_helper.rb:203
 msgid " will <b>remove</b> question "
 msgstr "<b>poistaa</b> kysymyksen"
 
-#: ../../app/helpers/conditions_helper.rb:201
+#: ../../app/helpers/conditions_helper.rb:204
 msgid " will <b>remove</b> questions "
 msgstr "<b>poistaa</b> kysymyksiä"
 
-#: ../../app/helpers/conditions_helper.rb:220
+#: ../../app/helpers/conditions_helper.rb:223
 msgid "\""
 msgstr "\""
 
@@ -970,7 +997,7 @@ msgid "Creators:"
 msgstr "Tekijät:"
 
 #: ../../app/helpers/exports_helper.rb:38
-#: ../../app/models/concerns/exportable_plan.rb:130
+#: ../../app/models/concerns/exportable_plan.rb:133
 #: ../../app/views/shared/export/_plan_txt.erb:4
 msgid "Creator:"
 msgstr "Tekijä:"
@@ -1077,17 +1104,17 @@ msgid "Owner"
 msgstr "Omistaja"
 
 #: ../../app/helpers/plans_helper.rb:10
-#: ../../app/views/plans/_share_form.html.erb:126
+#: ../../app/views/plans/_share_form.html.erb:127
 msgid "Co-owner"
 msgstr "Yhteisomistaja"
 
 #: ../../app/helpers/plans_helper.rb:12
-#: ../../app/views/plans/_share_form.html.erb:132
+#: ../../app/views/plans/_share_form.html.erb:133
 msgid "Editor"
 msgstr "Muokkaaja"
 
 #: ../../app/helpers/plans_helper.rb:14
-#: ../../app/views/plans/_share_form.html.erb:138
+#: ../../app/views/plans/_share_form.html.erb:139
 msgid "Read only"
 msgstr "Vain lukuoikeus"
 
@@ -1096,7 +1123,7 @@ msgid "Public"
 msgstr "Julkinen"
 
 #: ../../app/helpers/plans_helper.rb:26 ../../app/helpers/plans_helper.rb:28
-#: ../../app/views/layouts/application.html.erb:120
+#: ../../app/views/layouts/application.html.erb:128
 msgid "Private"
 msgstr "Yksityinen"
 
@@ -1109,7 +1136,7 @@ msgid "Public: anyone can view."
 msgstr "Avattu: näkyvissä kaikille ilman DMPTuuli-kirjautumista"
 
 #: ../../app/helpers/plans_helper.rb:39
-#: ../../app/views/layouts/application.html.erb:121
+#: ../../app/views/layouts/application.html.erb:129
 msgid "Private: restricted to me and people I invite."
 msgstr "Yksityinen: rajattu minulle ja kutsumilleni henkilöille."
 
@@ -1148,7 +1175,7 @@ msgstr "Suunnitelman kuvaus"
 #: ../../app/views/paginable/templates/_customisable.html.erb:7
 #: ../../app/views/paginable/templates/_organisational.html.erb:12
 #: ../../app/views/plans/_project_details.html.erb:88
-#: ../../app/views/plans/_project_details.html.erb:114
+#: ../../app/views/plans/_project_details.html.erb:102
 #: ../../app/views/plans/_show_details.html.erb:12
 #: ../../app/views/plans/new.html.erb:86
 msgid "Funder"
@@ -1157,6 +1184,22 @@ msgstr "Rahoittaja"
 #: ../../app/helpers/settings_template_helper.rb:16
 msgid "Your ORCID"
 msgstr "ORCID tunnisteesi"
+
+#: ../../app/helpers/super_admin/orgs/merge_helper.rb:21
+msgid "None"
+msgstr "Ei mitään"
+
+#: ../../app/helpers/super_admin/orgs/merge_helper.rb:31
+msgid "Guidance for: %{themes}"
+msgstr "Ohjeita: %{themes}"
+
+#: ../../app/helpers/super_admin/orgs/merge_helper.rb:53
+msgid "Nothing to merge"
+msgstr "Ei mitään yhdistettävää"
+
+#: ../../app/helpers/super_admin/orgs/merge_helper.rb:55
+msgid "<p>The following %{object_types} will be moved over to '%{org_name}':</p>"
+msgstr "<p>Seuraava %{object_types} siirretään kohtaan %{org_name}:</p>"
 
 #: ../../app/helpers/template_helper.rb:46
 #: ../../app/views/plans/index.html.erb:29
@@ -1213,8 +1256,8 @@ msgid "Permissions removed on a DMP in %{tool_name}"
 msgstr "DMP: ltä poistetut käyttöoikeudet %{tool_name}"
 
 #: ../../app/mailers/user_mailer.rb:111
-msgid "%{tool_name}: %{user_name} requested feedback on a plan"
-msgstr "%{tool_name}: %{user_name} pyysi palautetta suunnitelmasta"
+msgid "%{user_name} has requested feedback on a %{tool_name} plan"
+msgstr "%{user_name} on pyytänyt palautetta %{tool_name} -suunnitelmasta"
 
 #: ../../app/mailers/user_mailer.rb:134
 msgid "%{tool_name}: Expert feedback has been provided for %{plan_title}"
@@ -1236,97 +1279,96 @@ msgstr "Minulle myönnetyt ylläpito-oikeudet %{tool_name}:ssa"
 msgid "%{tool_name} API changes"
 msgstr "%{tool_name} API-muutokset"
 
-#: ../../app/models/concerns/exportable_plan.rb:22
+#: ../../app/models/concerns/exportable_plan.rb:26
 msgid "Phase"
 msgstr "Vaihe"
 
-#: ../../app/models/concerns/exportable_plan.rb:24
+#: ../../app/models/concerns/exportable_plan.rb:28
 #: ../../app/models/exported_plan.rb:114 ../../app/models/exported_plan.rb:117
 msgid "Section"
 msgstr "Osio"
 
-#: ../../app/models/concerns/exportable_plan.rb:24
+#: ../../app/models/concerns/exportable_plan.rb:28
 #: ../../app/models/exported_plan.rb:114
 msgid "Question"
 msgstr "Kysymys"
 
-#: ../../app/models/concerns/exportable_plan.rb:24
-#: ../../app/models/concerns/exportable_plan.rb:26
+#: ../../app/models/concerns/exportable_plan.rb:28
+#: ../../app/models/concerns/exportable_plan.rb:30
 #: ../../app/models/exported_plan.rb:114 ../../app/models/exported_plan.rb:117
 msgid "Answer"
 msgstr "Vastaus"
 
-#: ../../app/models/concerns/exportable_plan.rb:117
+#: ../../app/models/concerns/exportable_plan.rb:120
 msgid " Customised By: "
 msgstr "Muokkaaja:"
 
-#: ../../app/models/concerns/exportable_plan.rb:128
+#: ../../app/models/concerns/exportable_plan.rb:131
 #: ../../app/views/shared/export/_plan_txt.erb:4
 msgid "Creators: "
 msgstr "Tekijät:"
 
-#: ../../app/models/concerns/exportable_plan.rb:131
+#: ../../app/models/concerns/exportable_plan.rb:134
 msgid "%{authors}"
 msgstr "%{authors}"
 
-#: ../../app/models/concerns/exportable_plan.rb:132
+#: ../../app/models/concerns/exportable_plan.rb:135
 msgid "%{affiliation}"
 msgstr "%{affiliation}"
 
-#: ../../app/models/concerns/exportable_plan.rb:134
-#: ../../app/models/concerns/exportable_plan.rb:136
+#: ../../app/models/concerns/exportable_plan.rb:137
+#: ../../app/models/concerns/exportable_plan.rb:139
 #: ../../app/views/shared/export/_plan_coversheet.erb:16
 #: ../../app/views/shared/export/_plan_txt.erb:7
 #: ../../app/views/shared/export/_plan_txt.erb:9
 msgid "Template: "
 msgstr "Suunnitelmapohja:"
 
-#: ../../app/models/concerns/exportable_plan.rb:134
+#: ../../app/models/concerns/exportable_plan.rb:137
 msgid "%{funder}"
 msgstr "%{funder}"
 
-#: ../../app/models/concerns/exportable_plan.rb:136
+#: ../../app/models/concerns/exportable_plan.rb:139
 msgid "%{template}"
 msgstr "%{template}"
 
-#: ../../app/models/concerns/exportable_plan.rb:139
-#: ../../app/views/shared/export/_plan_coversheet.erb:26
+#: ../../app/models/concerns/exportable_plan.rb:142
 #: ../../app/views/shared/export/_plan_txt.erb:12
 msgid "Grant number: "
 msgstr ""
 "Rahoitusnumero:\n"
 
-#: ../../app/models/concerns/exportable_plan.rb:139
+#: ../../app/models/concerns/exportable_plan.rb:142
 msgid "%{grant_number}"
 msgstr "%{grant_number}"
 
-#: ../../app/models/concerns/exportable_plan.rb:142
-#: ../../app/views/shared/export/_plan_coversheet.erb:30
+#: ../../app/models/concerns/exportable_plan.rb:145
+#: ../../app/views/shared/export/_plan_coversheet.erb:26
 #: ../../app/views/shared/export/_plan_txt.erb:15
 msgid "Project abstract: "
 msgstr "Projektin tiivistelmä:"
 
-#: ../../app/models/concerns/exportable_plan.rb:142
+#: ../../app/models/concerns/exportable_plan.rb:145
 msgid "%{description}"
 msgstr "%{description}"
 
-#: ../../app/models/concerns/exportable_plan.rb:145
-#: ../../app/views/shared/export/_plan_coversheet.erb:34
+#: ../../app/models/concerns/exportable_plan.rb:148
+#: ../../app/views/shared/export/_plan_coversheet.erb:42
 #: ../../app/views/shared/export/_plan_txt.erb:18
 msgid "Last modified: "
 msgstr "Viimeksi muokattu:"
 
-#: ../../app/models/concerns/exportable_plan.rb:145
+#: ../../app/models/concerns/exportable_plan.rb:148
 msgid "%{date}"
 msgstr "%{date}"
 
-#: ../../app/models/concerns/exportable_plan.rb:146
-#: ../../app/views/shared/export/_plan_coversheet.erb:37
+#: ../../app/models/concerns/exportable_plan.rb:149
+#: ../../app/views/shared/export/_plan_coversheet.erb:49
 #: ../../app/views/shared/export/_plan_txt.erb:19
 msgid "Copyright information:"
 msgstr "Tekijänoikeustiedot:"
 
-#: ../../app/models/concerns/exportable_plan.rb:147
+#: ../../app/models/concerns/exportable_plan.rb:150
 msgid ""
 "The above plan creator(s) have agreed that others may use as\n"
 "             much of the text of this plan as they would like in their own pla"
@@ -1345,7 +1387,7 @@ msgstr ""
 "yttö merkitse sitä, että tekijä kannattaisi suunnitelmaa tai että hänellä olis"
 "i jonkinlainen suhde projektiin tai esitykseen"
 
-#: ../../app/models/concerns/exportable_plan.rb:172
+#: ../../app/models/concerns/exportable_plan.rb:175
 msgid "Not Answered"
 msgstr "Ei vastausta"
 
@@ -1375,11 +1417,11 @@ msgstr "'Kysymys teksti' ei voi olla tyhjä."
 msgid "You must specify at least one role."
 msgstr "Sinun on määritettävä ainakin yksi rooli."
 
-#: ../../app/models/contributor.rb:135
+#: ../../app/models/contributor.rb:136
 msgid "can't be blank if no email is provided"
 msgstr "ei voi olla tyhjä, jos sähköposteja ei ole annettu"
 
-#: ../../app/models/contributor.rb:136
+#: ../../app/models/contributor.rb:137
 msgid "can't be blank if no name is provided"
 msgstr "ei voi olla tyhjä, jos nimeä ei ole annettu"
 
@@ -1417,11 +1459,11 @@ msgstr "jo määritetty arvo"
 msgid "Feedback email message"
 msgstr "Palautteen sähköpostiviesti"
 
-#: ../../app/models/org.rb:128
+#: ../../app/models/org.rb:130
 msgid "must be one of the following formats: jpeg, jpg, png, gif, bmp"
 msgstr "täytyy olla yksi seuraavista tiedostomuodoista: jpeg, jpg, png, gif, bmp"
 
-#: ../../app/models/org.rb:133
+#: ../../app/models/org.rb:135
 msgid "can't be larger than 500KB"
 msgstr "ei voi olla suurempi kuin 500KB"
 
@@ -1441,7 +1483,7 @@ msgstr "testi"
 msgid "private"
 msgstr "yksityinen"
 
-#: ../../app/models/plan.rb:585 ../../app/models/research_output.rb:119
+#: ../../app/models/plan.rb:578 ../../app/models/research_output.rb:119
 msgid "must be after the start date"
 msgstr "on oltava alkamispäivän jälkeen"
 
@@ -1533,7 +1575,7 @@ msgstr "Et voi julkaista mallipohjaa ilman kysymyksiä."
 msgid "Conditions in the template refer backwards"
 msgstr "Mallin ehdot viittaavat taaksepäin"
 
-#: ../../app/models/user.rb:377
+#: ../../app/models/user.rb:379
 msgid "A Data Management Plan in %{application_name} has been shared with you"
 msgstr ""
 "%{application_name}lla kirjoitettu aineistonhallintasuunnitelma on jaettu kans"
@@ -1567,7 +1609,7 @@ msgstr "täytyy olla pääsy suunnitelmien api:in"
 msgid "are not authorized to view that plan"
 msgstr "ei ole oikeutta tarkastella suunnitelmaa"
 
-#: ../../app/presenters/contributor_presenter.rb:55
+#: ../../app/presenters/contributor_presenter.rb:57
 msgid ""
 "Management activities to annotate (produce metadata), scrub data and maintain "
 "research data (including software code, where it is necessary for interpreting"
@@ -1578,7 +1620,7 @@ msgstr ""
 "se on tarpeen itse tietojen tulkitsemiseksi) ylläpitämiseksi alkuperäistä käyt"
 "töä ja myöhempää uudelleenkäyttöä varten."
 
-#: ../../app/presenters/contributor_presenter.rb:57
+#: ../../app/presenters/contributor_presenter.rb:59
 msgid ""
 "Conducting a research and investigation process, specifically performing the e"
 "xperiments, or data/evidence collection."
@@ -1586,7 +1628,7 @@ msgstr ""
 "Tutkimus- ja tutkimusprosessin suorittaminen, erityisesti kokeiden suorittamin"
 "en tai tietojen / todisteiden kerääminen."
 
-#: ../../app/presenters/contributor_presenter.rb:59
+#: ../../app/presenters/contributor_presenter.rb:61
 msgid ""
 "Management and coordination responsibility for the research activity planning "
 "and execution."
@@ -1628,7 +1670,7 @@ msgstr ": nimi vaaditaan jokaiselle: yhteys ja rahoitus"
 
 #: ../../app/services/api/v1/json_validation_service.rb:14
 msgid ":role and either the :name or :email are required for each :contributor"
-msgstr ": rooli ja joko: nimi tai: sähköposti vaaditaan jokaiselle: avustajalle"
+msgstr ": rooli ja joko: nimi tai: sähköposti vaaditaan jokaiselle: tekijälle"
 
 #: ../../app/services/api/v1/json_validation_service.rb:15
 msgid ":name, :funder_id or :grant_id are required for each funding"
@@ -1643,11 +1685,11 @@ msgstr ": otsikko vaaditaan jokaiselle: tietojoukolle"
 msgid "invalid JSON"
 msgstr "Virheellinen JSON"
 
-#: ../../app/services/template/upgrade_customization_service.rb:66
+#: ../../app/services/template/upgrade_customization_service.rb:68
 msgid "upgrade_customization! requires a customised template"
 msgstr "upgrade_customization! vaatii mukautetun mallipohjan"
 
-#: ../../app/services/template/upgrade_customization_service.rb:71
+#: ../../app/services/template/upgrade_customization_service.rb:73
 msgid ""
 "upgrade cannot be carried out since there is no published template of its curr"
 "ent funder"
@@ -1713,10 +1755,10 @@ msgid "Please wait, Standards are loading"
 msgstr "Odota, standardit latautuvat"
 
 #: ../../app/views/answers/_new_edit.html.erb:68
-#: ../../app/views/contributors/_form.html.erb:91
+#: ../../app/views/contributors/_form.html.erb:92
 #: ../../app/views/devise/passwords/edit.html.erb:28
 #: ../../app/views/devise/registrations/_password_details.html.erb:31
-#: ../../app/views/devise/registrations/_personal_details.html.erb:89
+#: ../../app/views/devise/registrations/_personal_details.html.erb:90
 #: ../../app/views/guidance_groups/_guidance_group_form.html.erb:23
 #: ../../app/views/guidances/new_edit.html.erb:48
 #: ../../app/views/notes/_edit.html.erb:9
@@ -1817,12 +1859,12 @@ msgid "Message"
 msgstr "Viesti"
 
 #: ../../app/views/contact_us/contacts/_new_left.html.erb:38
-#: ../../app/views/shared/_create_account_form.html.erb:45
+#: ../../app/views/shared/_create_account_form.html.erb:46
 msgid "Security check"
 msgstr "Varmennus"
 
 #: ../../app/views/contact_us/contacts/_new_left.html.erb:42
-#: ../../app/views/plans/_share_form.html.erb:145
+#: ../../app/views/plans/_share_form.html.erb:146
 msgid "Submit"
 msgstr "Lähetä"
 
@@ -1852,16 +1894,16 @@ msgstr ""
 
 #: ../../app/views/contact_us/contacts/new.html.erb:10
 #: ../../app/views/layouts/_branding.html.erb:37
-#: ../../app/views/layouts/_footer.html.erb:23
-#: ../../app/views/layouts/_footer.html.erb:29
+#: ../../app/views/layouts/_footer.html.erb:24
+#: ../../app/views/layouts/_footer.html.erb:30
 #: ../../app/views/org_admin/plans/index.html.erb:40
 #: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:39
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:24
 #: ../../app/views/paginable/templates/_history.html.erb:28
 #: ../../app/views/paginable/templates/_history.html.erb:35
 #: ../../app/views/paginable/templates/_organisational.html.erb:85
-#: ../../app/views/paginable/templates/_publicly_visible.html.erb:28
-#: ../../app/views/paginable/templates/_publicly_visible.html.erb:35
+#: ../../app/views/paginable/templates/_publicly_visible.html.erb:29
+#: ../../app/views/paginable/templates/_publicly_visible.html.erb:36
 #: ../../app/views/plans/_download_form.html.erb:119
 #: ../../app/views/static_pages/about_us.html.erb:22
 #: ../../app/views/static_pages/about_us.html.erb:29
@@ -1875,7 +1917,7 @@ msgstr "Puhelinnumeroissa tulisi olla vain numerot ja viivat ('-')."
 
 #: ../../app/views/contributors/_form.html.erb:5
 msgid "Select each role that applies to the contributor."
-msgstr "Valitse kukin osallistujaan liittyvä rooli."
+msgstr "Valitse kuhunkin osallistujaan liittyvä rooli."
 
 #: ../../app/views/contributors/_form.html.erb:33
 #: ../../app/views/paginable/contributors/_index.html.erb:9
@@ -1884,19 +1926,19 @@ msgstr "ORCID"
 
 #: ../../app/views/contributors/_form.html.erb:43
 msgid "Phone number"
-msgstr "puhelinnumero"
+msgstr "Puhelinnumero"
 
-#: ../../app/views/contributors/_form.html.erb:61
+#: ../../app/views/contributors/_form.html.erb:62
 #: ../../app/views/paginable/contributors/_index.html.erb:14
 msgid "Affiliation"
-msgstr "kuuluminen"
+msgstr "Organisaatio"
 
-#: ../../app/views/contributors/_form.html.erb:69
+#: ../../app/views/contributors/_form.html.erb:70
 #: ../../app/views/paginable/contributors/_index.html.erb:16
 msgid "Roles"
 msgstr "roolit"
 
-#: ../../app/views/contributors/_form.html.erb:93
+#: ../../app/views/contributors/_form.html.erb:94
 #: ../../app/views/notes/_archive.html.erb:10
 #: ../../app/views/notes/_list.html.erb:16
 #: ../../app/views/notes/_list.html.erb:19
@@ -1916,7 +1958,7 @@ msgstr "roolit"
 msgid "Remove"
 msgstr "Poista"
 
-#: ../../app/views/contributors/_form.html.erb:96
+#: ../../app/views/contributors/_form.html.erb:97
 #: ../../app/views/guidance_groups/_guidance_group_form.html.erb:24
 #: ../../app/views/guidances/new_edit.html.erb:49
 #: ../../app/views/notes/_archive.html.erb:11
@@ -1937,30 +1979,32 @@ msgstr "Peruuta"
 
 #: ../../app/views/contributors/edit.html.erb:12
 msgid "Editing contributor"
-msgstr "Muokataan avustajaa"
+msgstr "Muokataan osallistujan tietoja"
 
 #: ../../app/views/contributors/edit.html.erb:13
 #: ../../app/views/contributors/new.html.erb:13
 msgid "View all contributors"
-msgstr "Näytä kaikki avustajat"
+msgstr "Näytä kaikki osallistujat"
 
 #: ../../app/views/contributors/index.html.erb:14
 msgid ""
 "Please list the project’s Principal Investigator(s) and those responsible for "
 "data management."
-msgstr "Luettele projektin johtava tutkija (t) ja vastuuhenkilöt."
+msgstr ""
+"Luettele projektin vastuulliset tutkijat ja datanhallinnasta vastaavat henkilö"
+"t."
 
-#: ../../app/views/contributors/index.html.erb:28
+#: ../../app/views/contributors/index.html.erb:29
 msgid "No contributors have been defined."
-msgstr "Vastaajia ei ole määritelty."
+msgstr "Osallistujia ei ole määritelty."
 
-#: ../../app/views/contributors/index.html.erb:31
+#: ../../app/views/contributors/index.html.erb:32
 msgid "Add a contributor"
-msgstr "Lisää avustaja"
+msgstr "Lisää osallistuja"
 
 #: ../../app/views/contributors/new.html.erb:12
 msgid "New contributor"
-msgstr "Uusi avustaja"
+msgstr "Uusi osallistuja"
 
 #: ../../app/views/devise/invitations/edit.html.erb:1
 #: ../../app/views/devise/invitations/edit.html.erb:4
@@ -2001,11 +2045,11 @@ msgstr "Etunimi"
 msgid "Last name"
 msgstr "Sukunimi"
 
-#: ../../app/views/devise/invitations/edit.html.erb:38
+#: ../../app/views/devise/invitations/edit.html.erb:39
 #: ../../app/views/devise/registrations/new.html.erb:43
 #: ../../app/views/devise/registrations/new.html.erb:58
 #: ../../app/views/shared/_access_controls.html.erb:11
-#: ../../app/views/shared/_create_account_form.html.erb:49
+#: ../../app/views/shared/_create_account_form.html.erb:50
 msgid "Create account"
 msgstr "Rekisteröidy"
 
@@ -2224,7 +2268,7 @@ msgstr "Hanki ORCID tunniste tai liitä olemassaoleva tunniste"
 
 #: ../../app/views/devise/registrations/_external_identifier.html.erb:12
 #: ../../app/views/devise/registrations/_external_identifier.html.erb:40
-#: ../../app/views/devise/registrations/_personal_details.html.erb:72
+#: ../../app/views/devise/registrations/_personal_details.html.erb:73
 msgid "Institutional credentials"
 msgstr "Instituution tunnukset"
 
@@ -2276,7 +2320,7 @@ msgstr ""
 
 #: ../../app/views/devise/registrations/_password_confirmation.html.erb:11
 #: ../../app/views/devise/registrations/edit.html.erb:17
-#: ../../app/views/shared/_create_account_form.html.erb:24
+#: ../../app/views/shared/_create_account_form.html.erb:25
 #: ../../app/views/shared/_sign_in_form.html.erb:7
 msgid "Password"
 msgstr "Salasana"
@@ -2323,29 +2367,29 @@ msgstr ""
 "Organisaation vaihtaminen johtaa järjestelmänvalvojan oikeuksien menettämiseen"
 "."
 
-#: ../../app/views/devise/registrations/_personal_details.html.erb:42
+#: ../../app/views/devise/registrations/_personal_details.html.erb:43
 #: ../../app/views/org_admin/users/edit.html.erb:31
 #: ../../app/views/super_admin/users/edit.html.erb:41
 msgid "Department or school"
 msgstr "Laitos tai koulu"
 
-#: ../../app/views/devise/registrations/_personal_details.html.erb:54
+#: ../../app/views/devise/registrations/_personal_details.html.erb:55
 #: ../../app/views/layouts/_signin_signout.html.erb:6
 #: ../../app/views/org_admin/users/edit.html.erb:43
 #: ../../app/views/super_admin/users/edit.html.erb:53
 msgid "Language"
 msgstr "Kieli"
 
-#: ../../app/views/devise/registrations/_personal_details.html.erb:63
+#: ../../app/views/devise/registrations/_personal_details.html.erb:64
 msgid "My privileges"
 msgstr "Käyttöoikeuteni"
 
-#: ../../app/views/devise/registrations/_personal_details.html.erb:64
+#: ../../app/views/devise/registrations/_personal_details.html.erb:65
 #: ../../app/views/users/_current_privileges.html.erb:3
 msgid "Super Admin"
 msgstr "Superylläpitäjä"
 
-#: ../../app/views/devise/registrations/_personal_details.html.erb:64
+#: ../../app/views/devise/registrations/_personal_details.html.erb:65
 #: ../../app/views/users/_current_privileges.html.erb:5
 msgid "Organisational Admin"
 msgstr "Organisaation ylläpitäjä"
@@ -2497,15 +2541,15 @@ msgstr ""
 msgid "Guidance group list"
 msgstr "Lista ohjeryhmistä"
 
-#: ../../app/views/guidances/admin_index.html.erb:25
+#: ../../app/views/guidances/admin_index.html.erb:26
 msgid "Create a guidance group"
 msgstr "Luo ohjeryhmä"
 
-#: ../../app/views/guidances/admin_index.html.erb:28
+#: ../../app/views/guidances/admin_index.html.erb:29
 msgid "Guidance list"
 msgstr "Ohjelista"
 
-#: ../../app/views/guidances/admin_index.html.erb:31
+#: ../../app/views/guidances/admin_index.html.erb:32
 msgid ""
 "You can write pieces of guidance to be displayed by theme (e.g. generic guidan"
 "ce on storage and backup that should present across the board). Writing generi"
@@ -2519,7 +2563,7 @@ msgstr ""
 "sti kaikissa mallipohjissa sen sijaan että joutuisi kirjoittamaan ohjeistusta "
 "jokaiseen erikseen."
 
-#: ../../app/views/guidances/admin_index.html.erb:34
+#: ../../app/views/guidances/admin_index.html.erb:35
 msgid ""
 "If you do have a need to provide guidance for specific funders that would not "
 "be useful to a wider audience (e.g. if you have specific instructions for appl"
@@ -2531,7 +2575,7 @@ msgstr ""
 "t esim. BBSCR hakijoille), voit tehdä sen lisäämällä ohjeen tiettyyn kysymykse"
 "en, kun muokkaat suunnitelmapohjaasi."
 
-#: ../../app/views/guidances/admin_index.html.erb:46
+#: ../../app/views/guidances/admin_index.html.erb:48
 msgid "Create guidance"
 msgstr "Luo ohje"
 
@@ -2672,7 +2716,11 @@ msgid "Privacy statement"
 msgstr "Tietosuojaseloste"
 
 #: ../../app/views/layouts/_footer.html.erb:17
-msgid "GitHub"
+msgid "Accessibility statement"
+msgstr "Esteettömyyslausunto"
+
+#: ../../app/views/layouts/_footer.html.erb:18
+msgid "Github"
 msgstr "GitHub"
 
 #: ../../app/views/layouts/_navigation.html.erb:12
@@ -2748,50 +2796,54 @@ msgstr "Näytä vähemmän"
 msgid "Logout"
 msgstr "Kirjaudu ulos"
 
-#: ../../app/views/layouts/application.html.erb:33
+#: ../../app/views/layouts/application.html.erb:32
 msgid "%{application_name}"
 msgstr "%{application_name}"
 
-#: ../../app/views/layouts/application.html.erb:92
+#: ../../app/views/layouts/application.html.erb:91
 msgid "Error:"
 msgstr "Virhe:"
 
-#: ../../app/views/layouts/application.html.erb:92
+#: ../../app/views/layouts/application.html.erb:91
 msgid "Notice:"
 msgstr "Hei!"
 
-#: ../../app/views/layouts/application.html.erb:113
+#: ../../app/views/layouts/application.html.erb:101
+msgid "Loading..."
+msgstr "Ladataan ..."
+
+#: ../../app/views/layouts/application.html.erb:121
 #: ../../app/views/plans/new.html.erb:2
 msgid "This field is required."
 msgstr "Tämä kenttä on pakollinen."
 
-#: ../../app/views/layouts/application.html.erb:115
-#: ../../app/views/shared/_create_account_form.html.erb:30
+#: ../../app/views/layouts/application.html.erb:123
+#: ../../app/views/shared/_create_account_form.html.erb:31
 msgid "Show password"
 msgstr "Näytä salasana"
 
-#: ../../app/views/layouts/application.html.erb:116
+#: ../../app/views/layouts/application.html.erb:124
 msgid "Select an organisation from the list."
 msgstr "Valitse organisaatio listalta."
 
-#: ../../app/views/layouts/application.html.erb:117
+#: ../../app/views/layouts/application.html.erb:125
 msgid "My organisation isn't listed"
 msgstr "Organisaationi puuttuu listasta"
 
-#: ../../app/views/layouts/application.html.erb:119
+#: ../../app/views/layouts/application.html.erb:127
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:38
 msgid "N/A"
 msgstr "Ei käytettävissä"
 
-#: ../../app/views/layouts/application.html.erb:123
+#: ../../app/views/layouts/application.html.erb:131
 msgid "Hide list."
 msgstr "Piilota lista."
 
-#: ../../app/views/layouts/application.html.erb:124
+#: ../../app/views/layouts/application.html.erb:132
 msgid "See the full list of partner institutions."
 msgstr "Katso lista partneri-instituutioista."
 
-#: ../../app/views/layouts/application.html.erb:126
+#: ../../app/views/layouts/application.html.erb:134
 msgid ""
 "Unable to find a suitable template for the research organisation and funder yo"
 "u selected."
@@ -2799,27 +2851,27 @@ msgstr ""
 "Valitsemallesi tutkimusorganisaatiolle ja rahoittajalle ei löydy sopivaa malli"
 "pohjaa."
 
-#: ../../app/views/layouts/application.html.erb:127
+#: ../../app/views/layouts/application.html.erb:135
 msgid "Please select a research organisation and funder to continue."
 msgstr "Valitse tutkimusorganisaatio ja rahoittaja ennen kuin jatkat."
 
-#: ../../app/views/layouts/application.html.erb:129
+#: ../../app/views/layouts/application.html.erb:137
 msgid "Loading ..."
 msgstr "Latautuu ..."
 
-#: ../../app/views/layouts/application.html.erb:130
+#: ../../app/views/layouts/application.html.erb:138
 msgid "Unable to load the section's content at this time."
 msgstr "Osion sisällön lataaminen ei onnistu tällä hetkellä."
 
-#: ../../app/views/layouts/application.html.erb:131
+#: ../../app/views/layouts/application.html.erb:139
 msgid "Unable to load the question's content at this time."
 msgstr "Kysymyksen sisällön lataaminen ei onnistu tällä hetkellä."
 
-#: ../../app/views/layouts/application.html.erb:132
+#: ../../app/views/layouts/application.html.erb:140
 msgid "Opens in a new window"
 msgstr "Avautuu uuteen ikkunaan"
 
-#: ../../app/views/layouts/application.html.erb:134
+#: ../../app/views/layouts/application.html.erb:142
 msgid ""
 "%{n} results are available, use up and down arrows to navigate suggestions. Us"
 "e the Enter key to select a suggestion or the Escape key to close the suggesti"
@@ -2829,9 +2881,13 @@ msgstr ""
 "ksiin. Käytä Enter-näppäintä valitaksesi ehdotuksen tai Escape-näppäintä sulke"
 "aksesi ehdotukset."
 
-#: ../../app/views/layouts/application.html.erb:135
+#: ../../app/views/layouts/application.html.erb:143
 msgid "No results are available for your entry."
 msgstr "Tuloillesi ei ole tuloksia."
+
+#: ../../app/views/layouts/application.html.erb:144
+msgid "Searching ..."
+msgstr "Etsitään ..."
 
 #: ../../app/views/notes/_archive.html.erb:8
 msgid "Are you sure you want to remove this comment?"
@@ -2885,6 +2941,7 @@ msgid "Option"
 msgstr "Vaihtoehto"
 
 #: ../../app/views/org_admin/conditions/_container.html.erb:8
+#: ../../app/views/super_admin/orgs/_analysis.html.erb:47
 msgid "Action"
 msgstr "Toiminta"
 
@@ -3519,7 +3576,7 @@ msgstr ""
 "Täällä näet aiemmin julkaistut versiot suunnitelmapohjistasi. Niitä ei voi enä"
 "ä muokata."
 
-#: ../../app/views/org_admin/templates/history.html.erb:27
+#: ../../app/views/org_admin/templates/history.html.erb:28
 msgid "This template is new and does not yet have any publication history."
 msgstr "Suunnitelmapohja on uusi ja sillä ei ole vielä julkaisuhistoriaa."
 
@@ -3571,7 +3628,7 @@ msgstr "Julkaisematta (%{count})"
 msgid "Not customised (%{count})"
 msgstr "Ei mukautettu (%{count})"
 
-#: ../../app/views/org_admin/templates/index.html.erb:117
+#: ../../app/views/org_admin/templates/index.html.erb:118
 msgid "Create a template"
 msgstr "Luo suunnitelmapohja"
 
@@ -3640,6 +3697,31 @@ msgstr "Pyydä asiantuntijapalautetta - viesti näkyy Share Plan -välilehdessä
 #: ../../app/views/orgs/_feedback_form.html.erb:31
 msgid "Sample Message"
 msgstr "Esimerkkiviesti"
+
+#: ../../app/views/orgs/_merge_form.html.erb:3
+msgid "Merge Organisations"
+msgstr "Yhdistä organisaatiot"
+
+#: ../../app/views/orgs/_merge_form.html.erb:7
+msgid ""
+"Please select the Organisation that will replace the current organisation: '<s"
+"trong>%{org_name}</strong>'."
+msgstr ""
+"Valitse organisaatio, joka korvaa nykyisen organisaation: ' <strong>%{org_name"
+"}</strong> '."
+
+#: ../../app/views/orgs/_merge_form.html.erb:8
+msgid ""
+" Then click the 'analyze' button to review the proposed changes. Note that no "
+"changes will take place until you have reviewed and approve of the changes."
+msgstr ""
+"Napsauta sitten 'analysoi' -painiketta tarkastellaksesi ehdotettuja muutoksia."
+" Huomaa, että muutoksia ei tapahdu, ennen kuin olet tarkistanut ja hyväksynyt "
+"muutokset."
+
+#: ../../app/views/orgs/_merge_form.html.erb:18
+msgid "Analyze"
+msgstr "Analysoida"
 
 #: ../../app/views/orgs/_profile_form.html.erb:4
 msgid "Links will be displayed next to your organisation's logo"
@@ -3749,6 +3831,11 @@ msgstr "Käyttäjätiedot"
 msgid "Request feedback"
 msgstr "Pyydä palautetta"
 
+#: ../../app/views/orgs/admin_edit.html.erb:31
+#: ../../app/views/super_admin/users/_confirm_merge.html.erb:14
+msgid "Merge"
+msgstr "yhdistää"
+
 #: ../../app/views/orgs/shibboleth_ds.html.erb:1
 #: ../../app/views/orgs/shibboleth_ds.html.erb:4
 msgid "Find your organisation to sign in"
@@ -3780,6 +3867,7 @@ msgid "Create an account with any email address"
 msgstr "Tilin tekeminen onnistuu millä tahansa sähköpostiosoitteella"
 
 #: ../../app/views/paginable/api_clients/_index.html.erb:9
+#: ../../app/views/super_admin/orgs/_analysis.html.erb:57
 msgid "Org"
 msgstr "Org"
 
@@ -3899,10 +3987,6 @@ msgstr "Päättyminen"
 msgid "Active"
 msgstr "Aktiivinen"
 
-#: ../../app/views/paginable/notifications/_index.html.erb:23
-msgid "Update"
-msgstr "Päivitä"
-
 #: ../../app/views/paginable/orgs/_index.html.erb:6
 msgid "Administrator Email"
 msgstr "Ylläpitäjän sähköposti"
@@ -3992,8 +4076,8 @@ msgstr "Tuntematon"
 #: ../../app/views/paginable/templates/_history.html.erb:27
 #: ../../app/views/paginable/templates/_history.html.erb:34
 #: ../../app/views/paginable/templates/_organisational.html.erb:84
-#: ../../app/views/paginable/templates/_publicly_visible.html.erb:27
-#: ../../app/views/paginable/templates/_publicly_visible.html.erb:34
+#: ../../app/views/paginable/templates/_publicly_visible.html.erb:28
+#: ../../app/views/paginable/templates/_publicly_visible.html.erb:35
 msgid "(new window)"
 msgstr "(uusi ikkuna)"
 
@@ -4017,7 +4101,7 @@ msgstr "Jaa"
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:64
 #: ../../app/views/paginable/templates/_organisational.html.erb:67
 msgid "Copy"
-msgstr "Kopio"
+msgstr "Kopioi"
 
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:66
 #: ../../app/views/paginable/templates/_history.html.erb:58
@@ -4141,9 +4225,13 @@ msgstr "Suunnitelmaesimerkkejä"
 msgid "(if available)"
 msgstr "(Jos saatavilla)"
 
-#: ../../app/views/paginable/templates/_publicly_visible.html.erb:45
+#: ../../app/views/paginable/templates/_publicly_visible.html.erb:47
 msgid "Copy link to create a new plan"
 msgstr "Luo uusi suunnitelma kopioimalla linkki"
+
+#: ../../app/views/paginable/templates/_publicly_visible.html.erb:49
+msgid "Requires login"
+msgstr "Edellyttää kirjautumista"
 
 #: ../../app/views/paginable/users/_index.html.erb:4
 msgid ""
@@ -4412,11 +4500,11 @@ msgstr "Aloitussivu"
 msgid "ID"
 msgstr "Rahoittajan tai organisaation tunniste (ei pakollinen)"
 
-#: ../../app/views/plans/_project_details.html.erb:126
+#: ../../app/views/plans/_project_details.html.erb:114
 msgid "Grant number/url"
 msgstr "Apurahan numero / URL"
 
-#: ../../app/views/plans/_project_details.html.erb:140
+#: ../../app/views/plans/_project_details.html.erb:128
 msgid ""
 "Provide a URL to the award's landing page if possible, if not please provide t"
 "he award/grant number."
@@ -4445,9 +4533,9 @@ msgid ""
 msgstr ""
 "Yhteisomistaja: Hänellä on järjestelmänvalvojan oikeudet suunnitelmaan (voi ku"
 "tsua muita käyttäjiä, katsella suunnitelmaa, vastata kysymyksiin tai kommentoi"
-"da). Toimittaja: Hänellä on suunnitelman muokkausoikeudet (voi tarkastella suu"
-"nnitelmaa, vastata kysymyksiin tai kommentoida). Vain luku: On lukuoikeuksia s"
-"uunnitelmaan (voi tarkastella suunnitelmaa tai kommentoida)"
+"da). Muokkaaja: Hänellä on suunnitelman muokkausoikeudet (voi tarkastella suun"
+"nitelmaa, vastata kysymyksiin tai kommentoida). Vain luku: On lukuoikeuksia su"
+"unnitelmaan (voi tarkastella suunnitelmaa tai kommentoida)."
 
 #: ../../app/views/plans/_share_form.html.erb:8
 msgid "Set plan visibility"
@@ -4496,7 +4584,7 @@ msgid "Email address"
 msgstr "Sähköpostiosoite"
 
 #: ../../app/views/plans/_share_form.html.erb:49
-#: ../../app/views/plans/_share_form.html.erb:121
+#: ../../app/views/plans/_share_form.html.erb:122
 msgid "Permissions"
 msgstr "Oikeudet"
 
@@ -4530,9 +4618,9 @@ msgid ""
 "ed with you by others. You can edit, share, download, make a copy, or remove t"
 "hese plans at any time."
 msgstr ""
-"Taulokossa näet sekä omat että kanssasi jaetut suunnitelmat. Oikeassa reunassa"
+"Taulukossa näet sekä omat että kanssasi jaetut suunnitelmat. Oikeassa reunassa"
 " olevilla toiminnoilla voit muokata, jakaa, ladata, kopioida ja poistaa suunni"
-"telmiasi."
+"telmiasi.\n"
 
 #: ../../app/views/plans/index.html.erb:10
 msgid "Welcome"
@@ -4638,10 +4726,10 @@ msgid ""
 " publicly by their owners. They are not vetted for quality, completeness, or a"
 "dherence to funder guidelines."
 msgstr ""
-"Julkisten aineistonhallinstasuunnitelmien omistajat ovat luoneet suunnitelmat "
-"%{application_name}:lla ja jakaneet ne julkisesti. Julkisia aineistonhallintas"
-"uunnitelmia ei ole tarkastettu laadun, täydellisyyden tai rahoittajan vaatimus"
-"ten osalta."
+"Julkisten aineistonhallintasuunnitelmien omistajat ovat luoneet suunnitelmat %"
+"{application_name}:lla ja jakaneet ne julkisesti. Julkisia aineistonhallintasu"
+"unnitelmia ei ole tarkastettu laadun, täydellisyyden tai rahoittajan vaatimust"
+"en osalta."
 
 #: ../../app/views/public_pages/plan_index.html.erb:12
 msgid "There are currently no public DMPs."
@@ -4679,11 +4767,11 @@ msgstr "Vastaamatta"
 msgid "Last Name"
 msgstr "Sukunimi"
 
-#: ../../app/views/shared/_create_account_form.html.erb:38
+#: ../../app/views/shared/_create_account_form.html.erb:39
 msgid "I accept the"
 msgstr "Hyväksyn"
 
-#: ../../app/views/shared/_create_account_form.html.erb:39
+#: ../../app/views/shared/_create_account_form.html.erb:40
 msgid "terms and conditions"
 msgstr "käyttöehdot"
 
@@ -4760,7 +4848,23 @@ msgstr "rahoittaja:"
 msgid "ORCID iD: "
 msgstr "ORCID tunniste:"
 
-#: ../../app/views/shared/export/_plan_coversheet.erb:40
+#: ../../app/views/shared/export/_plan_coversheet.erb:31
+msgid "ID: "
+msgstr "Tunnus:"
+
+#: ../../app/views/shared/export/_plan_coversheet.erb:35
+msgid "Start date: "
+msgstr "Aloituspäivämäärä:"
+
+#: ../../app/views/shared/export/_plan_coversheet.erb:39
+msgid "End date: "
+msgstr "Päättymispäivä:"
+
+#: ../../app/views/shared/export/_plan_coversheet.erb:45
+msgid "Grant number / URL: "
+msgstr "Apurahan numero / URL:"
+
+#: ../../app/views/shared/export/_plan_coversheet.erb:52
 #: ../../app/views/shared/export/_plan_txt.erb:20
 msgid ""
 " The above plan creator(s) have agreed that others may use as much of the text"
@@ -5433,9 +5537,107 @@ msgstr "Uusi ilmoitus"
 msgid "New Notification"
 msgstr "Uusi ilmoitus"
 
+#: ../../app/views/super_admin/orgs/_analysis.html.erb:9
+msgid "Merging '%{from_org_name}' into '%{to_org_name}'"
+msgstr "Yhdistetään %{from_org_name} osaksi %{to_org_name}"
+
+#: ../../app/views/super_admin/orgs/_analysis.html.erb:11
+msgid "Summary:"
+msgstr "Yhteenveto:"
+
+#: ../../app/views/super_admin/orgs/_analysis.html.erb:12
+msgid ""
+"Counts of '%{to_org_name}' records before and after a merge with %{from_org_na"
+"me}."
+msgstr ""
+"%{to_org_name} -tietueiden lukumäärä ennen ja jälkeen sulautumisen %{from_org_"
+"name} -tietoon."
+
+#: ../../app/views/super_admin/orgs/_analysis.html.erb:17
+#: ../../app/views/super_admin/orgs/_analysis.html.erb:44
+msgid "Record Type"
+msgstr "Tietueen tyyppi"
+
+#: ../../app/views/super_admin/orgs/_analysis.html.erb:18
+msgid "'%{to_org_name}' Count - before merge"
+msgstr "'%{to_org_name}' Count - ennen yhdistämistä"
+
+#: ../../app/views/super_admin/orgs/_analysis.html.erb:19
+msgid "'%{to_org_name}' Count - after merge"
+msgstr "'%{to_org_name}' Count - yhdistämisen jälkeen"
+
+#: ../../app/views/super_admin/orgs/_analysis.html.erb:38
+msgid "Details:"
+msgstr "Yksityiskohdat:"
+
+#: ../../app/views/super_admin/orgs/_analysis.html.erb:39
+msgid ""
+"The table below shows the specific changes that will occur during the merge pr"
+"ocess. Once the merge is complete, '%{from_org_name}' will be deleted. You can"
+" then consolidate/correct any merge issues (e.g. remove any departments that w"
+"ere duplicated)"
+msgstr ""
+"Alla olevassa taulukossa esitetään sulautumisprosessin aikana tapahtuvat muuto"
+"kset. Kun yhdistäminen on valmis, %{from_org_name} poistetaan. Voit sitten yhd"
+"istää / korjata kaikki yhdistämisongelmat (esim. Poistaa kaikki päällekkäiset "
+"osastot)"
+
+#: ../../app/views/super_admin/orgs/_analysis.html.erb:45
+msgid "%{from_org_name} - Before"
+msgstr "%{from_org_name} - Ennen"
+
+#: ../../app/views/super_admin/orgs/_analysis.html.erb:46
+msgid "%{to_org_name} - Before"
+msgstr "%{to_org_name} - Ennen"
+
+#: ../../app/views/super_admin/orgs/_analysis.html.erb:61
+msgid "The following attributes will be updated"
+msgstr "Seuraavat määritteet päivitetään"
+
+#: ../../app/views/super_admin/orgs/_analysis.html.erb:91
+msgid ""
+"Warning: The changes proposed above will be committed to the database. '%{org_"
+"name}' will then be deleted."
+msgstr ""
+"Varoitus: Edellä ehdotetut muutokset sitoutuvat tietokantaan. '%{org_name}' po"
+"istetaan sitten."
+
+#: ../../app/views/super_admin/orgs/_analysis.html.erb:92
+msgid "These changes cannot be undone! Do not proceed unless you are certain."
+msgstr "Näitä muutoksia ei voi kumota! Älä jatka, ellet ole varma."
+
+#: ../../app/views/super_admin/orgs/_analysis.html.erb:93
+msgid ""
+"You may find it helpful to make a note of the expected number of records for e"
+"ach category that will be merged before continuing."
+msgstr ""
+"Saatat olla hyödyllistä tehdä muistiinpano kunkin yhdistettävän luokan odotetu"
+"sta tietueista ennen jatkamista."
+
+#: ../../app/views/super_admin/orgs/_analysis.html.erb:95
+msgid ""
+"Warning: '%{from_org_name}' has Plans that are currently in the review process"
+". The Org admins may not be able to see these plans after the merge!"
+msgstr ""
+"Varoitus: Kohteella %{from_org_name} on suunnitelmia, jotka ovat parhaillaan t"
+"arkistusprosessissa. Organisaation järjestelmänvalvojat eivät ehkä näe näitä s"
+"uunnitelmia yhdistämisen jälkeen!"
+
+#: ../../app/views/super_admin/orgs/_analysis.html.erb:97
+msgid "Merge records"
+msgstr "Yhdistä tietueet"
+
 #: ../../app/views/super_admin/orgs/index.html.erb:8
 msgid "Create Organisation"
 msgstr "Luo organisaatio"
+
+#: ../../app/views/super_admin/orgs/merge_analyze.js.erb:7
+msgid ""
+"Something went wrong and we were unable to analyze a merge between these two o"
+"rganisations."
+msgstr ""
+"Jotain meni pieleen, emmekä voineet analysoida näiden kahden organisaation yhd"
+"istämistä."
 
 #: ../../app/views/super_admin/orgs/new.html.erb:4
 msgid "New organisation"
@@ -5465,10 +5667,6 @@ msgid ""
 msgstr ""
 "<br> Valitun käyttäjän sisältö yhdistetään tilille %{user_email}. <br> Valittu"
 " tili poistetaan sitten"
-
-#: ../../app/views/super_admin/users/_confirm_merge.html.erb:14
-msgid "Merge"
-msgstr "yhdistää"
 
 #: ../../app/views/super_admin/users/edit.html.erb:63
 msgid "Archive"

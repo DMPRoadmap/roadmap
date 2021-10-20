@@ -22,16 +22,28 @@
     <p><b><%= _("ORCID iD: ") %></b><%= orcid.value_without_scheme_prefix %></p> <br>
   <% end %>
 
-  <% if @plan.grant_number.present? %>
-    <p><b><%= _("Grant number: ") %></b><%= @plan.grant_number %></p> <br>
-  <% end %>
-
   <% if @plan.description.present? %>
     <p><b><%= _("Project abstract: ") %></b></p>
     <div style="margin-left: 15px;"><%= sanitize(@plan.description) %></div><br>
   <% end %>
 
+  <% if @plan.id.present? %>
+    <p><b><%= _("ID: ") %></b><%= @plan.id %></p> <br>
+  <% end %>
+
+  <% if @plan.start_date.present? %>
+    <p><b><%= _("Start date: ") %></b><%=  l(@plan.start_date.to_date, formats: :short) %></p> <br>
+  <% end %>
+
+  <% if @plan.end_date.present? %>
+    <p><b><%= _("End date: ") %></b><%=  l(@plan.end_date.to_date, formats: :short) %></p> <br>
+  <% end %>
+
   <p><b><%= _("Last modified: ") %></b><%=  l(@plan.updated_at.to_date, formats: :short) %></p> <br>
+
+  <% if @plan.grant.present? %>
+    <p><b><%= _("Grant number / URL: ") %></b><%= @plan.grant.value %></p> <br>
+  <% end %>
 
   <% if @public_plan %>
     <p><b><%= _("Copyright information:") %></b></p>

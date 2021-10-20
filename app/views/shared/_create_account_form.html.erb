@@ -13,13 +13,15 @@
     <%= f.email_field(:email, class: "form-control", "aria-required": true) %>
   </div>
   <div class="form-group" id="create-account-org-controls">
-    <%= render partial: "shared/org_selectors/local_only",
-            locals: {
-              form: f,
-              default_org: nil,
-              orgs: @orgs,
-              required: true
-            } %>
+    <%= render partial: org_partial,
+               locals: {
+                 form: f,
+                 orgs: orgs,
+                 # If not default org is required we can set default_org to nil
+                 # default_org: nil,
+                 default_org: resource&.org,
+                 required: true
+               } %>
   </div>
   <div class="form-group">
     <%= f.label(:password, _('Password'), class: "control-label") %>

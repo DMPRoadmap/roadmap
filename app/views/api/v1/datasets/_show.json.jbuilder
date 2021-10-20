@@ -20,3 +20,10 @@ json.distribution [plan] do |distribution|
     json.array! ["application/pdf"]
   end
 end
+
+if plan.research_domain_id.present?
+  research_domain = ResearchDomain.find_by(id: plan.research_domain_id)
+  if research_domain.present?
+    json.keyword [research_domain.label, "#{research_domain.identifier} - #{research_domain.label}"]
+  end
+end

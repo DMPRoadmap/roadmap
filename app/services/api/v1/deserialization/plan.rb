@@ -58,6 +58,12 @@ module Api
             return nil unless plan.present? && plan.template.present?
 
             plan.description = json[:description] if json[:description].present?
+            issues = Api::V1::ConversionService.yes_no_unknown_to_boolean(
+              json[:ethical_issues_exist]
+            )
+            plan.ethical_issues = issues
+            plan.ethical_issues_description = json[:ethical_issues_description]
+            plan.ethical_issues_report = json[:ethical_issues_report]
 
             # TODO: Handle ethical issues when the Question is in place
 

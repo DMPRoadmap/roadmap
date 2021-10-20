@@ -53,12 +53,12 @@ module Identifiable
     # gets the identifier for the scheme
     def identifier_for_scheme(scheme:)
       scheme = IdentifierScheme.by_name(scheme.downcase).first if scheme.is_a?(String)
-      identifiers.select { |id| id.identifier_scheme == scheme }.first
+      identifiers.select { |id| id.identifier_scheme == scheme }.last
     end
 
     # Combines the existing identifiers with the new ones
     def consolidate_identifiers!(array:)
-      return false unless array.present? && array.is_a?(Array)
+      return false unless array.present? && array.any?
 
       array.each do |id|
         next unless id.is_a?(Identifier) && id.value.present?

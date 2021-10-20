@@ -2,8 +2,6 @@
 
 class IdentifierPolicy < ApplicationPolicy
 
-  attr_reader :user_identifier
-
   def initialize(user, users)
     raise Pundit::NotAuthorizedError, "must be logged in" unless user
 
