@@ -59,9 +59,12 @@ module Api
 
         # Retrieve any JSON schema extensions for this application
         def app_extensions(json: {})
+
           return {} unless json.present? && json[:extension].present?
 
-          app = ::ApplicationService.application_name.split("-").first.downcase
+          app = I18n.with_locale I18n.default_locale do
+            ::ApplicationService.application_name
+          end
           ext = json[:extension].select { |item| item[app.to_sym].present? }
           ext.first.present? ? ext.first[app.to_sym] : {}
         end
