@@ -34,6 +34,9 @@ allow_custom_org_entry = local_assigns.fetch(:allow_custom_org_entry, true)
 # The label to use
 label = local_assigns.fetch(:label, _("Organisation"))
 
+# Any additional classes to add to the control
+classes = local_assigns.fetch(:classes, "")
+
 # Namespace used to differentiate between multiple Org Autocompletes on the same page. This namespace
 # will be used when submitting back to the controller. (e.g. A namespace of 'funder' would result in:
 # `org_autocomplete[funder_name]` instead or the default `org_autocomplete[name]`)
@@ -50,9 +53,9 @@ autocomplete_id = SecureRandom.hex(6)
     <%= org_fields.label :"#{[namespace, "name"].compact.join("_")}", label %>
 
     <%= org_fields.text_field :"#{[namespace, "name"].compact.join("_")}",
-                              class: "form-control auto-complete",
+                              class: "form-control auto-complete #{classes}",
                               placeholder: placeholder,
-                              value: default_org&.name,
+                              value: default_org&.new_record? ? nil : default_org&.name,
                               list: "autocomplete-#{autocomplete_id}",
                               autocomplete: "off",
                               aria: { label: placeholder, autocomplete: "list", required: required },
@@ -88,12 +91,14 @@ autocomplete_id = SecureRandom.hex(6)
       <div class="col-md-<%= col_size %>">
         <%= org_fields.label(:"#{[namespace, "not_in_list"].compact.join("_")}", class: 'control-label') do %>
           <%= org_fields.check_box(:"#{[namespace, "not_in_list"].compact.join("_")}", class: "new-org-entry",
-                                   context: "not-in-list-#{autocomplete_id}") %>
+                                   context: "not-in-list-#{autocomplete_id}",
+                                   value: default_org&.new_record?) %>
           <%= _('I cannot find my %{item_label} in the list') % { item_label: label.downcase } %>
         <% end %>
       </div>
       <div class="col-md-<%= col_size %>">
         <%= org_fields.text_field :"#{[namespace, "user_entered_name"].compact.join("_")}",
+                                  value: default_org&.new_record? ? default_org&.name : nil,
                                   placeholder: _("Please enter the %{item_label} name") % { item_label: label.downcase },
                                   class: "form-control toggleable-field user-entered-org-#{autocomplete_id}" %>
       </div>

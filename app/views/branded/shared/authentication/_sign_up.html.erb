@@ -7,35 +7,57 @@
 
   <% else %>
     <%# Display the standard Sign up form %>
-    <%= form.label(:firstname, _('First Name'), class: "control-label") %>
-    <%= form.text_field(:firstname, class: "form-control", "aria-required": true) %>
+    <span class="form-group">
+      <%= form.label(:firstname, _('First Name'), class: "control-label") %>
+      <%= form.text_field(:firstname, aria: { required: true }, spellcheck: false,
+                          autocomplete: "off",
+                          class: "form-control #{auth_has_error?(:firstname) ? 'error' : ''}") %>
+    </span>
+    <span class="form-group">
+      <%= form.label(:surname, _('Last Name'), class: "control-label") %>
+      <%= form.text_field(:surname, aria: { required: true }, spellcheck: false,
+                          autocomplete: "off",
+                          class: "form-control #{auth_has_error?(:surname) ? 'error' : ''}") %>
+    </span>
 
-    <%= form.label(:surname, _('Last Name'), class: "control-label") %>
-    <%= form.text_field(:surname, class: "form-control", "aria-required": true) %>
-
-    <div id="create-account-org-controls">
+    <span id="create-account-org-controls" class="form-group">
       <%= render partial: "shared/org_autocomplete",
                  locals: { form: form,
                            default_org: @user&.org,
                            required: true,
+                           classes: "#{auth_has_error?(:org) ? 'error' : ''}",
                            label: _("Institution") } %>
-    </div>
-    <script type="text/javascript">
-      initAutoComplete('#org_autocomplete_name');
-    </script>
-
-    <%= form.label(:password, _('Password'), class: "control-label checkbox-label") %>
-    <%= form.password_field(:password, class: "form-control", "aria-required": true) %>
-    <%= form.label(:password_toggle, class: "checkbox-label") do %>
-      <%= check_box_tag("passwords_toggle_sign_up", class: "passwords_toggle") %>
-      <%= _('Show password') %>
-    <% end %>
+      <script type="text/javascript">
+        initAutoComplete('#org_autocomplete_name');
+      </script>
+    </span>
+    <span id="password-controls" class="form-group">
+      <%= form.label(:password, _('Password'), class: "control-label checkbox-label") %>
+      <%= form.password_field(:password, aria: { required: true },
+                              class: "form-control #{auth_has_error?(:password) ? 'error' : ''}") %>
+      <%= form.label(:password_toggle, class: "checkbox-label") do %>
+        <%= check_box_tag("passwords_toggle_sign_up", nil, false, class: "passwords_toggle" ) %>
+        <%= _('Show password') %>
+      <% end %>
+    </span>
     <br>
-    <%= form.label(:accept_terms) do %>
-      <%= form.check_box(:accept_terms, "aria-required": true) %>
-      <%= _('I accept the') %>
-      <%= link_to _('terms and conditions'), terms_path %>
-    <% end %>
+    <span class="form-group">
+      <%= form.label(:accept_terms) do %>
+        <%= form.check_box(:accept_terms, aria: { required: true },
+                          class: "#{auth_has_error?(:accept_terms) ? 'error' : ''}") %>
+        <%= _('I accept the') %>
+        <%= link_to _('terms and conditions'), terms_path %>
+      <% end %>
+    </span>
+
+    <span class="form-group">
+      <% if Rails.configuration.x.recaptcha.enabled %>
+        <div class="form-group">
+          <%= label_tag(nil, _('Security check')) %>
+          <%= recaptcha_tags %>
+        </div>
+      <% end %>
+    </span>
 
     <%= form.submit _("Sign up"), class: "btn btn-default" %>
   <% end %>

@@ -2,6 +2,7 @@
 
 class CustomFailure < Devise::FailureApp
 
+=begin
   def redirect_url
     # Login failed! If we're in an Oauth workflow return to that workflow otherwise return to root
     session["oauth-referer"].present? ? session["oauth-referer"] : root_path
@@ -14,5 +15,6 @@ class CustomFailure < Devise::FailureApp
       redirect
     end
   end
+=end
 
 end

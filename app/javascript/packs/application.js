@@ -30,16 +30,17 @@ import '../src/utils/outOfFocus';
 import '../src/utils/paginable';
 import '../src/utils/panelHeading';
 import '../src/utils/popoverHelper';
-import '../src/utils/requiredField';
 import '../src/utils/tabHelper';
 import '../src/utils/tooltipHelper';
 
 // Specific functions from the Utilities files that will be made available to
 // the js.erb templates in the `window.x` statements below
-import { renderAlert, renderNotice } from '../src/utils/notificationHelper';
+import { renderAlert, renderNotice, hideNotifications } from '../src/utils/notificationHelper';
 import toggleSpinner from '../src/utils/spinner';
 import { Tinymce } from '../src/utils/tinymce.js.erb';
-import { initAutoComplete, listenForAutocompleteChange } from '../src/utils/autoComplete';
+import { initAutoComplete } from '../src/utils/autoComplete';
+import { addAsterisks } from '../src/utils/requiredField';
+import { togglisePasswords } from '../src/utils/passwordHelper';
 
 // View specific JS
 import '../src/answers/conditions';
@@ -122,15 +123,21 @@ window.$ = jQuery;
 window.jQuery = jQuery;
 
 // Allow js.erb files to access the notificationHelper functions
+window.addAsterisks = addAsterisks;
 window.renderAlert = renderAlert;
 window.renderNotice = renderNotice;
+window.hideNotifications = hideNotifications;
 window.toggleSpinner = toggleSpinner;
 window.Tinymce = Tinymce;
 window.initAutoComplete = initAutoComplete;
+window.togglisePasswords = togglisePasswords;
 
 $(() => {
   // Initialize any org autocompletes
   $('body').find('.auto-complete').each((_idx, el) => {
     initAutoComplete(`#${$(el).attr('id')}`);
   });
+
+  // Add red asterisk to any input/select fields that have `aria-required="true"`
+  addAsterisks('body');
 });

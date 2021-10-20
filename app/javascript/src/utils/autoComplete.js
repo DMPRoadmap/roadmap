@@ -180,6 +180,7 @@ export const initAutoComplete = (selector) => {
     autocomplete.on('input', () => {
       toggleConditionalFields(checkbox, false);
       checkbox.prop('checked', false);
+      textbox.val('');
     });
 
     // When user ticks the checkbox, display the conditional field and then blank the contents
@@ -222,4 +223,4 @@ export const listenForAutocompleteChange = (autocomplete, callback) => {
       });
     }
   }
-}
+};

@@ -1,13 +1,23 @@
 <%# locals: form %>
-<div class="form-group">
+
+<% pp @user.inspect %>
+<% pp @errors %>
+
+<span class="form-group">
   <%= form.label(:email, _('Email address'), class: "control-label", id: "sign-in-email-lbl") %>
   <% if @user.email.present? %>
     <%# They already supplied the email so disable it %>
-    <%= form.email_field(:email, class: "form-control", disabled: "disabled") %>
+    <%= form.email_field(:disabled_email, class: "form-control", value: @user.email,
+                         aria: {
+                          required: true,
+                          labelledby: "sign-in-email-lbl"
+                        },
+                        disabled: "disabled") %>
+    <%= form.hidden_field(:email, value: @user.email) %>
 
   <% else %>
     <%= form.email_field(:email,
-                        class: "form-control",
+                        class: "form-control #{auth_has_error?(:email) ? 'error' : ''}",
                         aria: {
                           required: true,
                           labelledby: "sign-in-email-lbl sign-in-email-desc"
@@ -19,9 +29,9 @@
       </p>
     <% end %>
   <% end %>
-</div>
+</span>
 <% unless @user.email.present? %>
-  <div class="form-group">
+  <span class="form-group">
     <%= form.submit _("Continue"), class: "btn btn-default" %>
-  </div>
+  </span>
 <% end %>

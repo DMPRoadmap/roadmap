@@ -22,7 +22,8 @@ module Dmptool
 
       @hero_images = %w[1-large.jpg 2-large.jpg 3-large.jpg 4-large.jpg 5-large.jpg]
 
-      @user = User.new
+      # If this is a new session initialize a User
+      @user = User.new unless @user.present?
 
       render "home/index"
     end

@@ -30,7 +30,3 @@ export const addAsterisks = (el) => {
     addAsterisk(jqObject);
   });
 };
-
-$(() => {
-  addAsterisks('body');
-});

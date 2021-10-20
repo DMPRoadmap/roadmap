@@ -1,8 +1,17 @@
 var authenticationBlock = $('.c-login');
 
 if (authenticationBlock) {
-  authenticationBlock.html('<%=
-    escape_javascript(render(partial: "shared/authentication/sign_in_sign_up")
-  ) %>');
+  <% if @errors.present? && @errors.any? %>
+    renderAlert('<%= escape_javascript(sanitize(@errors.join("<br>"))) %>');
+  <% else %>
+    hideNotifications();
+  <% end %>
+
+  authenticationBlock.html(
+    '<%= escape_javascript(render(partial: "shared/authentication/sign_in_sign_up")) %>'
+  );
+
+  addAsterisks('.c-login');
+  togglisePasswords({ selector: '#password-controls' });
 }
 toggleSpinner(false);

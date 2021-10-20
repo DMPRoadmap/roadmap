@@ -1,6 +1,6 @@
 import debounce from '../utils/debounce';
 import getConstant from '../utils/constants';
-import listenForAutocompleteChange from '../utils/autoComplete';
+import { listenForAutocompleteChange } from '../utils/autoComplete';
 import toggleSpinner from '../utils/spinner';
 import { isArray, isString } from '../utils/isType';
 import { renderAlert, hideNotifications } from '../utils/notificationHelper';

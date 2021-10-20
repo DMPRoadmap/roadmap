@@ -37,6 +37,9 @@ class ApplicationController < ActionController::Base
   end
 
   def user_not_authorized
+
+p "UNAUTHORIZED!!!!!!!"
+
     if user_signed_in?
       # redirect_to plans_url, alert: _("You are not authorized to perform this action.")
       msg = _("You are not authorized to perform this action.")
@@ -70,6 +73,9 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(_resource)
+    plans_path
+
+=begin
     referer_path = URI(request.referer).path unless request.referer.nil?
     # ---------------------------------------------------------
     # Start DMPTool Customization
@@ -99,10 +105,15 @@ class ApplicationController < ActionController::Base
     else
       request.referer
     end
+=end
   end
 
   def after_sign_up_path_for(_resource)
     referer_path = URI(request.referer).path unless request.referer.nil?
+
+p "AFTER SIGN UP &&&&&&&&&&&&&&&&&&&&&"
+p referer_path
+
     # ---------------------------------------------------------
     # Start DMPTool Customization
     # Added `new_user_registration_path` to if statement below
@@ -131,6 +142,11 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_error_path_for(_resource)
+
+p "AFTER SIGN IN ERROR PATH FOR:"
+pp _resource.inspect
+pp request.referer
+
     (from_external_domain? ? root_path : request.referer || root_path)
   end
 

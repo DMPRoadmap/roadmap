@@ -62,6 +62,10 @@ export const togglisePasswords = (options) => {
   if (isObject(options) && isString(options.selector)) {
     const toggle = $(`${options.selector} .passwords_toggle`);
     const pwds = $(`${options.selector} input[type="password"]`);
+
+console.log(toggle);
+console.log(pwds);
+
     if (pwds && toggle) {
       toggle.on('change', () => {
         if (isArray(pwds)) {

@@ -7,7 +7,9 @@ class RegistrationsController < Devise::RegistrationsController
   include Dmptool::RegistrationsController
 
   # DMPTool customization - this method is stored in the Dmptool module
-  before_action :org_lookup, if: :devise_controller?
+  # before_action :org_lookup, if: :devise_controller?
+
+  before_action :check_oauth, if: :devise_controller?
 
 =begin
   def edit

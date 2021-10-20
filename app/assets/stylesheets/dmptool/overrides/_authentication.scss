@@ -27,3 +27,8 @@
   bottom: 0;
   margin-bottom: 10px;
 }
+
+.c-login input.error,
+.c-login select.error {
+  border-color: $color-red;
+}
