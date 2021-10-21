@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe Notification, type: :model do
 
@@ -40,8 +42,10 @@ RSpec.describe Notification, type: :model do
 
     context "when enabled and now is before starts_at" do
 
-      let!(:notification) { create(:notification, starts_at: 1.week.from_now,
-                                                  enabled: true) }
+      let!(:notification) do
+        create(:notification, starts_at: 1.week.from_now,
+                              enabled: true)
+      end
 
       it { is_expected.not_to include(notification) }
 

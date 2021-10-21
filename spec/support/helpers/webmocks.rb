@@ -24,7 +24,6 @@ module Webmocks
     stub_request(:get, url).to_return(status: 200, body: "", headers: {})
   end
 
-  # rubocop:disable Metrics/MethodLength
   def mocked_ror_response
     body = { number_of_results: 10, time_taken: 10, items: [] }
     10.times.each do
@@ -40,6 +39,5 @@ module Webmocks
     end
     body.to_json
   end
-  # rubocop:enable Metrics/MethodLength
 
 end

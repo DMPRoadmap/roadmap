@@ -3,10 +3,15 @@
 # Mock JSON submissions
 module Mocks
 
+  # Disabling rubocop checks here since its basically just large hashes and
+  # would be difficult to read if broken up into multiple smaller functions.
+  # One option might be to store them as .json files and then just load them here
+  # but we would lose the use of Faker
+
+  # rubocop:disable Metrics/ModuleLength, Metrics/MethodLength
   module ApiJsonSamples
 
     ROLES = %w[Investigation Project_administration Data_curation].freeze
-
 
     def mock_identifier_schemes
       create(:identifier_scheme, name: "ror")
@@ -24,7 +29,8 @@ module Mocks
               "title": Faker::Lorem.sentence,
               "contact": {
                 "name": Faker::TvShows::Simpsons.character,
-                "mbox": Faker::Internet.email
+                "mbox": Faker::Internet.email,
+                "affiliation": { "name": Faker::Movies::StarWars.planet }
               },
               "dataset": [{
                 "title": Faker::Lorem.sentence
@@ -48,7 +54,8 @@ module Mocks
               "title": Faker::Lorem.sentence,
               "contact": {
                 "name": Faker::TvShows::Simpsons.character,
-                "mbox": Faker::Internet.email
+                "mbox": Faker::Internet.email,
+                "affiliation": { "name": Faker::Movies::StarWars.planet }
               },
               "dataset": [{
                 "title": Faker::Lorem.sentence
@@ -67,6 +74,7 @@ module Mocks
       }.to_json
     end
 
+    # rubocop:disable Metrics/AbcSize
     def complete_create_json
       lang = Language.all.pluck(:abbreviation).sample || "en-UK"
       contact = {
@@ -105,8 +113,8 @@ module Mocks
               },
               "contributor": [{
                 "role": [
-                  "https://dictionary.casrai.org/Contributor_Roles/Project_administration",
-                  "https://dictionary.casrai.org/Contributor_Roles/Investigation"
+                  "http://credit.niso.org/contributor-roles/project-administration",
+                  "http://credit.niso.org/contributor-roles/investigation"
                 ],
                 "name": Faker::Movies::StarWars.character,
                 "mbox": Faker::Internet.email,
@@ -124,7 +132,7 @@ module Mocks
                 }
               }, {
                 "role": [
-                  "https://dictionary.casrai.org/Contributor_Roles/Investigation"
+                  "http://credit.niso.org/contributor-roles/investigation"
                 ],
                 "name": contact[:name],
                 "mbox": contact[:email],
@@ -181,6 +189,9 @@ module Mocks
         ]
       }.to_json
     end
+    # rubocop:enable Metrics/AbcSize
+
   end
+  # rubocop:enable Metrics/ModuleLength, Metrics/MethodLength
 
 end

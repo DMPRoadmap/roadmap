@@ -1,0 +1,6 @@
+var msg = '<%= @success ? _("Successfully regenerate your API token.") : _("Unable to regenerate your API token.") %>';
+
+var context = $('#api-token');
+context.html('<%= escape_javascript(render partial: "/devise/registrations/api_token", locals: { user: current_user }) %>');
+renderNotice(msg);
+toggleSpinner(false);

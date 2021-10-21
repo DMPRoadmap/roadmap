@@ -36,7 +36,7 @@ module SuperAdmin
       @notification.notification_type = "global"
       if @notification.save
         flash.now[:notice] = success_message(@notification, _("created"))
-        render :edit
+        redirect_to edit_super_admin_notification_path(@notification)
       else
         flash.now[:alert] = failure_message(@notification, _("create"))
         render :new
@@ -49,34 +49,32 @@ module SuperAdmin
       authorize(Notification)
       if @notification.update(notification_params)
         flash.now[:notice] = success_message(@notification, _("updated"))
+        return redirect_to edit_super_admin_notification_path(@notification)
       else
         flash.now[:alert] = failure_message(@notification, _("update"))
       end
       render :edit
     end
 
-
     # edit active field displayed in the table
     def enable
       notification = Notification.find(params[:id])
       authorize(Notification)
-      notification.enabled = (params[:enabled] === "1")
+      notification.enabled = (params[:enabled] == "1")
 
-      # rubocop:disable Metrics/LineLength
+      # rubocop:disable Layout/LineLength
       if notification.save
         render json: {
-                 code: 1,
-                 msg: (notification.enabled ? _("Your notification is now active.") : _("Your notification is no longer active."))
-               }
+          code: 1,
+          msg: (notification.enabled ? _("Your notification is now active.") : _("Your notification is no longer active."))
+        }
       else
         render status: :bad_request, json: {
-                 code: 0, msg: _("Unable to change the notification's active status")
-               }
+          code: 0, msg: _("Unable to change the notification's active status")
+        }
       end
-      # rubocop:enable Metrics/LineLength
+      # rubocop:enable Layout/LineLength
     end
-
-
 
     # DELETE /notifications/1
     # DELETE /notifications/1.json
@@ -104,7 +102,7 @@ module SuperAdmin
       @notification = Notification.find(params[:id] || params[:notification_id])
     rescue ActiveRecord::RecordNotFound
       flash[:alert] = _("There is no notification associated with id  %{id}") %
-          { id: params[:id] }
+                      { id: params[:id] }
       redirect_to action: :index
     end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: answers
@@ -7,7 +9,6 @@
 #  text         :text
 #  created_at   :datetime
 #  updated_at   :datetime
-#  label_id     :string(255)
 #  plan_id      :integer
 #  question_id  :integer
 #  user_id      :integer

@@ -28,7 +28,7 @@ describe "api/v1/contributors/_show.json.jbuilder" do
     end
 
     it "includes the :role" do
-      expect(@json[:role].first.ends_with?("Data_curation")).to eql(true)
+      expect(@json[:role].first.ends_with?("data-curation")).to eql(true)
     end
 
     it "includes :affiliation" do

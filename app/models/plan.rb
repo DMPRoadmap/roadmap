@@ -9,18 +9,9 @@
 #
 #  id                                :integer          not null, primary key
 #  complete                          :boolean          default(FALSE)
-#  data_contact                      :string
-#  data_contact_email                :string
-#  data_contact_phone                :string
 #  description                       :text
 #  feedback_requested                :boolean          default(FALSE)
-#  funder_name                       :string
-#  grant_number                      :string
 #  identifier                        :string
-#  principal_investigator            :string
-#  principal_investigator_email      :string
-#  principal_investigator_identifier :string
-#  principal_investigator_phone      :string
 #  title                             :string
 #  visibility                        :integer          default(3), not null
 #  created_at                        :datetime
@@ -29,7 +20,11 @@
 #  org_id                            :integer
 #  funder_id                         :integer
 #  grant_id                          :integer
-#  api_client_id                     :integer
+#  research_domain_id                :bigint
+#  funding_status                    :integer
+#  ethical_issues                    :boolean
+#  ethical_issues_description        :text
+#  ethical_issues_report             :string
 #
 # Indexes
 #
@@ -42,17 +37,13 @@
 #
 #  fk_rails_...  (template_id => templates.id)
 #  fk_rails_...  (org_id => orgs.id)
+#  fk_rails_...  (research_domain_id => research_domains.id)
 #
 
-# TODO: Drop the funder_name and grant_number columns once the funder_id has
-#       been back filled and we're removing the is_other org stuff
-
-class Plan < ActiveRecord::Base
+class Plan < ApplicationRecord
 
   include ConditionalUserMailer
   include ExportablePlan
-  include ValidationMessages
-  include ValidationValues
   include DateRangeable
   include Identifiable
 
@@ -67,7 +58,7 @@ class Plan < ActiveRecord::Base
     publicly_visible: _("public"),
     is_test: _("test"),
     privately_visible: _("private")
-  }
+  }.freeze
 
   # ==============
   # = Attributes =
@@ -77,9 +68,11 @@ class Plan < ActiveRecord::Base
   enum visibility: %i[organisationally_visible publicly_visible
                       is_test privately_visible]
 
+  enum funding_status: %i[planned funded denied]
 
   alias_attribute :name, :title
 
+  attribute :visibility, :integer, default: 3
 
   # ================
   # = Associations =
@@ -89,7 +82,9 @@ class Plan < ActiveRecord::Base
 
   belongs_to :org
 
-  belongs_to :funder, class_name: "Org"
+  belongs_to :funder, class_name: "Org", optional: true
+
+  belongs_to :research_domain, optional: true
 
   has_many :phases, through: :template
 
@@ -101,7 +96,7 @@ class Plan < ActiveRecord::Base
 
   has_many :guidances, through: :themes
 
-  has_many :guidance_group_options, -> { uniq.published.reorder("id") },
+  has_many :guidance_group_options, -> { distinct.published.reorder("id") },
            through: :guidances,
            source: :guidance_group,
            class_name: "GuidanceGroup"
@@ -118,13 +113,7 @@ class Plan < ActiveRecord::Base
 
   has_many :exported_plans
 
-  has_many :roles
-
   has_many :contributors, dependent: :destroy
-
-  has_one :grant, as: :identifiable, dependent: :destroy, class_name: "Identifier"
-
-  belongs_to :api_client#, optional: true # UNCOMMENT After Rails 5
 
   # =====================
   # = Nested Attributes =
@@ -150,12 +139,6 @@ class Plan < ActiveRecord::Base
 
   validate :end_date_after_start_date
 
-  # =============
-  # = Callbacks =
-  # =============
-
-  before_validation :set_creation_defaults
-
   # ==========
   # = Scopes =
   # ==========
@@ -166,43 +149,39 @@ class Plan < ActiveRecord::Base
     plan_ids = Role.where(active: true, user_id: user.id).pluck(:plan_id)
 
     includes(:template, :roles)
-    .where(id: plan_ids)
+      .where(id: plan_ids)
   }
 
   # Retrieves any plan organisationally or publicly visible for a given org id
-  scope :organisationally_or_publicly_visible, -> (user) {
-    plan_ids = user.org.plans.where(complete: true).pluck(:id)
-
+  scope :organisationally_or_publicly_visible, lambda { |user|
+    plan_ids = user.org.org_admin_plans.where(complete: true).pluck(:id).uniq
     includes(:template, roles: :user)
-    .where(id: plan_ids, visibility: [
-      visibilities[:organisationally_visible],
-      visibilities[:publicly_visible]
-    ])
-    .where(
-      "NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)",
-      user.id
-    )
+      .where(id: plan_ids, visibility: [
+               visibilities[:organisationally_visible],
+               visibilities[:publicly_visible]
+             ])
+      .where(
+        "NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)",
+        user.id
+      )
   }
 
-  # TODO: Add in a left join here so we can search contributors as well when
-  #       we move to Rails 5:
-  #           OR lower(contributors.name) LIKE lower(:search_pattern)
-  #           OR lower(identifiers.value) LIKE lower(:search_pattern)",
   scope :search, lambda { |term|
     if date_range?(term: term)
       joins(:template, roles: [user: :org])
-        .where(Role.creator_condition)
+        .where(roles: { active: true })
         .by_date_range(:created_at, term)
     else
       search_pattern = "%#{term}%"
       joins(:template, roles: [user: :org])
-        .where(Role.creator_condition)
+        .left_outer_joins(:identifiers, :contributors)
+        .where(roles: { active: true })
         .where("lower(plans.title) LIKE lower(:search_pattern)
                 OR lower(orgs.name) LIKE lower (:search_pattern)
                 OR lower(orgs.abbreviation) LIKE lower (:search_pattern)
                 OR lower(templates.title) LIKE lower(:search_pattern)
-                OR lower(plans.principal_investigator) LIKE lower(:search_pattern)
-                OR lower(plans.principal_investigator_identifier) LIKE lower(:search_pattern)",
+                OR lower(contributors.name) LIKE lower(:search_pattern)
+                OR lower(identifiers.value) LIKE lower(:search_pattern)",
                search_pattern: search_pattern)
     end
   }
@@ -210,7 +189,7 @@ class Plan < ActiveRecord::Base
   ##
   # Defines the filter_logic used in the statistics objects.
   # For now, we filter out any test plans
-  scope :stats_filter, -> { where.not(visibility: visibilities[:is_test])}
+  scope :stats_filter, -> { where.not(visibility: visibilities[:is_test]) }
 
   # Retrieves plan, template, org, phases, sections and questions
   scope :overview, lambda { |id|
@@ -224,6 +203,14 @@ class Plan < ActiveRecord::Base
   end
   alias super_settings settings
 
+  # =============
+  # = Callbacks =
+  # =============
+
+  # sanitise html tags e.g remove unwanted 'script'
+  before_validation lambda { |data|
+    data.sanitize_fields(:title, :identifier, :description)
+  }
 
   # =================
   # = Class methods =
@@ -243,13 +230,13 @@ class Plan < ActiveRecord::Base
   end
 
   # deep copy the given plan and all of it's associations
-  #
+  # create
   # plan - Plan to be deep copied
   #
   # Returns Plan
   def self.deep_copy(plan)
     plan_copy = plan.dup
-    plan_copy.title = "Copy of " + plan.title
+    plan_copy.title = "Copy of #{plan.title}"
     plan_copy.feedback_requested = false
     plan_copy.save!
     plan.answers.each do |answer|
@@ -278,6 +265,7 @@ class Plan < ActiveRecord::Base
   def settings(key)
     self_settings = super_settings(key)
     return self_settings if self_settings.value?
+
     template&.settings(key)
   end
 
@@ -291,10 +279,11 @@ class Plan < ActiveRecord::Base
   # Returns Answer
   # Returns nil
   def answer(qid, create_if_missing = true)
-    answer = answers.where(question_id: qid).order("created_at DESC").first
-    question = Question.find(qid)
+    answer = answers.select { |a| a.question_id == qid }
+                    .max { |a, b| a.created_at <=> b.created_at }
     if answer.nil? && create_if_missing
-      answer             = Answer.new
+      question = Question.find(qid)
+      answer = Answer.new
       answer.plan_id     = id
       answer.question_id = qid
       answer.text        = question.default_value
@@ -319,23 +308,19 @@ class Plan < ActiveRecord::Base
   #  adds org admins to plan with the 'reviewer' Role
   def request_feedback(user)
     Plan.transaction do
-      begin
-        self.feedback_requested = true
-        if save!
-          # Send an email to the org-admin contact
-          if user.org.contact_email.present?
-            contact = User.new(email: user.org.contact_email,
-                               firstname: user.org.contact_name)
-            UserMailer.feedback_notification(contact, self, user).deliver_now
-          end
-          return true
-        else
-          return false
-        end
-      rescue Exception => e
-        Rails.logger.error e
-        return false
+      self.feedback_requested = true
+      return false unless save!
+
+      # Send an email to the org-admin contact
+      if user.org.contact_email.present?
+        contact = User.new(email: user.org.contact_email,
+                           firstname: user.org.contact_name)
+        UserMailer.feedback_notification(contact, self, user).deliver_now
       end
+      true
+    rescue StandardError => e
+      Rails.logger.error e
+      false
     end
   end
 
@@ -345,25 +330,22 @@ class Plan < ActiveRecord::Base
   # 'reviewer' Role for the Plan.
   def complete_feedback(org_admin)
     Plan.transaction do
-      begin
-        self.feedback_requested = false
-        if save!
-          # Send an email confirmation to the owners and co-owners
-          deliver_if(recipients: owner_and_coowners,
-                     key: "users.feedback_provided") do |r|
-                         UserMailer.feedback_complete(
-                           r,
-                           self,
-                           org_admin).deliver_now
-                       end
-          true
-        else
-          false
-        end
-      rescue ArgumentError => e
-        Rails.logger.error e
-        false
+      self.feedback_requested = false
+      return false unless save!
+
+      # Send an email confirmation to the owners and co-owners
+      deliver_if(recipients: owner_and_coowners,
+                 key: "users.feedback_provided") do |r|
+        UserMailer.feedback_complete(
+          r,
+          self,
+          org_admin
+        ).deliver_now
       end
+      true
+    rescue StandardError => e
+      Rails.logger.error e
+      false
     end
   end
 
@@ -374,7 +356,7 @@ class Plan < ActiveRecord::Base
   #
   # Returns Boolean
   def editable_by?(user_id)
-    Role.editor.where(plan_id: id, user_id: user_id, active: true).any?
+    roles.select { |r| r.user_id == user_id && r.active && r.editor }.any?
   end
 
   ##
@@ -385,20 +367,21 @@ class Plan < ActiveRecord::Base
   # Returns Boolean
   def readable_by?(user_id)
     return true if commentable_by?(user_id)
+
     current_user = User.find(user_id)
     return false unless current_user.present?
+
     # If the user is a super admin and the config allows for supers to view plans
-    if current_user.can_super_admin? &&
-        Branding.fetch(:service_configuration, :plans, :super_admins_read_all)
+    if current_user.can_super_admin? && Rails.configuration.x.plans.super_admins_read_all
       true
     # If the user is an org admin and the config allows for org admins to view plans
-    elsif current_user.can_org_admin? &&
-        Branding.fetch(:service_configuration, :plans, :org_admins_read_all)
+    elsif current_user.can_org_admin? && Rails.configuration.x.plans.org_admins_read_all
       owner_and_coowners.map(&:org_id).include?(current_user.org_id)
     else
       false
     end
   end
+  # rubocop:enable
 
   # determines if the plan is readable by the specified user.
   #
@@ -406,7 +389,8 @@ class Plan < ActiveRecord::Base
   #
   # Returns Boolean
   def commentable_by?(user_id)
-    Role.commenter.where(plan_id: id, user_id: user_id, active: true).any? || reviewable_by?(user_id)
+    roles.select { |r| r.user_id == user_id && r.active && r.commenter }.any? ||
+      reviewable_by?(user_id)
   end
 
   # determines if the plan is administerable by the specified user
@@ -415,7 +399,7 @@ class Plan < ActiveRecord::Base
   #
   # Returns Boolean
   def administerable_by?(user_id)
-    Role.administrator.where(plan_id: id, user_id: user_id, active: true).any?
+    roles.select { |r| r.user_id == user_id && r.active && r.administrator }.any?
   end
 
   # determines if the plan is reviewable by the specified user
@@ -426,9 +410,9 @@ class Plan < ActiveRecord::Base
   def reviewable_by?(user_id)
     reviewer = User.find(user_id)
     feedback_requested? &&
-    reviewer.present? &&
-    reviewer.org_id == owner&.org_id &&
-    reviewer.can_review_plans?
+      reviewer.present? &&
+      reviewer.org_id == owner&.org_id &&
+      reviewer.can_review_plans?
   end
 
   # the datetime for the latest update of this plan
@@ -443,11 +427,9 @@ class Plan < ActiveRecord::Base
   # Returns User
   # Returns nil
   def owner
-    usr_id = Role.where(plan_id: id, active: true)
-                  .administrator
-                  .order(:created_at)
-                  .pluck(:user_id).first
-    usr_id.present? ? User.find(usr_id) : nil
+    r = roles.select { |rr| rr.active && rr.administrator }
+             .min { |a, b| a.created_at <=> b.created_at }
+    r.nil? ? nil : r.user
   end
 
   # Creates a role for the specified user (will update the user's
@@ -460,7 +442,7 @@ class Plan < ActiveRecord::Base
   def add_user!(user_id, access_type = :commenter)
     user = User.where(id: user_id).first
     if user.present?
-      role = Role.find_or_initialize_by(user_id: user_id, plan_id: self.id)
+      role = Role.find_or_initialize_by(user_id: user_id, plan_id: id)
 
       # Access is cumulative, so set the appropriate flags
       # (e.g. an administrator can also edit and comment)
@@ -487,7 +469,7 @@ class Plan < ActiveRecord::Base
   #
   # Returns Boolean
   def shared?
-    roles.where(Role.not_creator_condition).any?
+    roles.reject(&:creator).any?
   end
 
   alias shared shared?
@@ -500,10 +482,7 @@ class Plan < ActiveRecord::Base
   def owner_and_coowners
     # We only need to search for :administrator in the bitflag
     # since :creator includes :administrator rights
-    usr_ids = Role.where(plan_id: id, active: true)
-                  .administrator
-                  .pluck(:user_id).uniq
-    User.where(id: usr_ids)
+    roles.select { |r| r.active && r.administrator }.map(&:user).uniq
   end
 
   # The creator, administrator and editors
@@ -512,17 +491,14 @@ class Plan < ActiveRecord::Base
   def authors
     # We only need to search for :editor in the bitflag
     # since :creator and :administrator include :editor rights
-    usr_ids = Role.where(plan_id: id, active: true)
-                  .editor
-                  .pluck(:user_id).uniq
-    User.where(id: usr_ids)
+    roles.select { |r| r.active && r.editor }.map(&:user).uniq
   end
 
   # The number of answered questions from the entire plan
   #
   # Returns Integer
   def num_answered_questions(phase = nil)
-    return answers.select { |answer| answer.answered? }.length unless phase.present?
+    return answers.select(&:answered?).length unless phase.present?
 
     answered = answers.select do |answer|
       answer.answered? && phase.questions.include?(answer.question)
@@ -553,12 +529,12 @@ class Plan < ActiveRecord::Base
     Plan.joins(:questions).exists?(id: id, "questions.id": question_id)
   end
 
-  # Checks whether or not the number of questions matches the number of valid
-  # answers
+  # Determines what percentage of the Plan's questions have been num_answered_questions
   #
-  # Returns Boolean
-  def no_questions_matches_no_answers?
+  def percent_answered
     num_questions = question_ids.length
+    return 0 unless num_questions.positive?
+
     pre_fetched_answers = Answer.includes(:question_options,
                                           question: :question_format)
                                 .where(id: answer_ids)
@@ -566,7 +542,9 @@ class Plan < ActiveRecord::Base
       m += 1 if a.answered?
       m
     end
-    num_questions == num_answers
+    return 0 unless num_answers.positive?
+
+    (num_answers / num_questions.to_f) * 100
   end
 
   # Deactivates the plan (sets all roles to inactive and visibility to :private)
@@ -576,7 +554,7 @@ class Plan < ActiveRecord::Base
     # If no other :creator, :administrator or :editor is attached
     # to the plan, then also deactivate all other active roles
     # and set the plan's visibility to :private
-    if authors.size == 0
+    if authors.empty?
       roles.where(active: true).update_all(active: false)
       self.visibility = Plan.visibilities[:privately_visible]
       save!
@@ -590,19 +568,30 @@ class Plan < ActiveRecord::Base
     identifiers.select { |i| %w[doi ark].include?(i.identifier_format) }.first
   end
 
-  private
-
-  # Initialize the title for new templates
-  #
-  # Returns nil
-  # Returns String
-  def set_creation_defaults
-    # Only run this before_validation because rails fires this before
-    # save/create
-    return if id?
-
-    self.title = "My plan (#{template.title})" if title.nil? && !template.nil?
+  # Since the Grant is not a normal AR association, override the getter and setter
+  def grant
+    Identifier.find_by(id: grant_id)
   end
+
+  # Helper method to convert the grant id value entered by the user into an Identifier
+  # works with both controller params or an instance of Identifier
+  def grant=(params)
+    val = params.present? ? params[:value] : nil
+    current = grant
+
+    # Remove it if it was blanked out by the user
+    current.destroy if current.present? && !val.present?
+    return unless val.present?
+
+    # Create the Identifier if it doesn't exist and then set the id
+    current.update(value: val) if current.present? && current.value != val
+    return if current.present?
+
+    current = Identifier.create(identifiable: self, value: val)
+    self.grant_id = current.id
+  end
+
+  private
 
   # Validation to prevent end date from coming before the start date
   def end_date_after_start_date

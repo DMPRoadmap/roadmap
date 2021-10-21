@@ -1,4 +1,4 @@
-class CreatePlanSections < ActiveRecord::Migration
+class CreatePlanSections < ActiveRecord::Migration[4.2]
   def change
     create_table :plan_sections do |t|
       t.boolean :plan_section_edit

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: notifications
@@ -24,7 +26,7 @@ FactoryBot.define do
     dismissable { false }
     starts_at { Time.current }
     enabled { false }
-    expires_at { starts_at + 2.days  }
+    expires_at { starts_at + 2.days }
 
     trait :active do
       starts_at { Date.today }

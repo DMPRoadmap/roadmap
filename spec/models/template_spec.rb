@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe Template, type: :model do
 
@@ -54,7 +56,7 @@ RSpec.describe Template, type: :model do
 
   end
 
-  describe '.archived' do
+  describe ".archived" do
 
     subject { Template.archived }
 
@@ -75,7 +77,7 @@ RSpec.describe Template, type: :model do
     end
   end
 
-  describe '.unarchived' do
+  describe ".unarchived" do
 
     subject { Template.unarchived }
 
@@ -96,12 +98,11 @@ RSpec.describe Template, type: :model do
     end
   end
 
-  describe '.default' do
+  describe ".default" do
 
     subject { Template.default }
 
     context "when default published template exists" do
-
 
       before do
         @a = create(:template, :default, :published)
@@ -207,19 +208,19 @@ RSpec.describe Template, type: :model do
 
   describe ".published" do
 
-
-    subject { Template.published(family_id) }
+    subject { Template.published(family_id_search) }
 
     before do
-      @a = create(:template, :published, family_id: family_id, version: 1)
+      @a = create(:template, :published, family_id: family_id_set, version: 1)
       @b = create(:template, :published, version: 3)
-      @c = create(:template, :unpublished, family_id: family_id, version: 2)
+      @c = create(:template, :unpublished, family_id: family_id_set, version: 2)
       @d = create(:template, :unpublished, version: 5)
     end
 
     context "when family_id is present" do
 
-      let!(:family_id) { "1234" }
+      let!(:family_id_search) { "1234" }
+      let!(:family_id_set) { "1234" }
 
       it "includes records with family id" do
         expect(subject).to include(@a)
@@ -238,7 +239,8 @@ RSpec.describe Template, type: :model do
 
     context "when family_id is absent" do
 
-      let!(:family_id) { nil }
+      let!(:family_id_search) { nil }
+      let!(:family_id_set) { "1234" }
 
       it "includes all published records" do
         expect(subject).to include(@a)
@@ -675,7 +677,6 @@ RSpec.describe Template, type: :model do
 
   describe ".live" do
 
-
     context "when family ID is an Array" do
 
       subject { Template.live([1234, 1235]) }
@@ -898,7 +899,6 @@ RSpec.describe Template, type: :model do
 
     end
 
-
     context "when Template is not the latest in its family" do
 
       let!(:template) do
@@ -999,7 +999,7 @@ RSpec.describe Template, type: :model do
 
     context "when param not Org" do
 
-      let!(:org) { stub(:banana) }
+      let!(:org) { build(:plan) }
 
       let!(:template) { create(:template, org: create(:org, :funder)) }
 
@@ -1011,7 +1011,7 @@ RSpec.describe Template, type: :model do
 
   describe "#upgrade_customization?" do
 
-    let!(:org) { create(:org, :funder)  }
+    let!(:org) { create(:org, :funder) }
 
     context "when not a customization of another template" do
 
@@ -1077,7 +1077,6 @@ RSpec.describe Template, type: :model do
         create(:template, :unpublished, family_id: template.family_id)
       end
 
-
       it { is_expected.to eql(false) }
 
     end
@@ -1089,7 +1088,6 @@ RSpec.describe Template, type: :model do
       before do
         create(:template, :published, family_id: template.family_id)
       end
-
 
       it { is_expected.to eql(true) }
 
@@ -1148,7 +1146,7 @@ RSpec.describe Template, type: :model do
 
     context "when org is not an Org" do
 
-      let!(:org) { stub(:banana) }
+      let!(:org) { build(:plan) }
 
       it "raises a StandardError" do
         expect { subject }.to raise_error(StandardError)
@@ -1181,7 +1179,7 @@ RSpec.describe Template, type: :model do
       end
 
       it "sets title to include 'Copy of'" do
-        expect(subject.title).to include('Copy of')
+        expect(subject.title).to include("Copy of")
       end
 
       it "sets title to include original title" do
@@ -1370,7 +1368,6 @@ RSpec.describe Template, type: :model do
 
   end
 
-
   describe "#publishability" do
 
     subject { template.publishability }
@@ -1378,12 +1375,15 @@ RSpec.describe Template, type: :model do
     # Added an additional type to Org so that funder_only? fails
     let!(:org) { create(:org, :funder, :organisation) }
 
-    #let!(:template) { create(:template, :default, org: org) }
+    # let!(:template) { create(:template, :default, org: org) }
 
     # case when template is correctly generated
     context "When the Template has all components, is latest, and unpublished" do
 
-      let(:template) { create(:template, :default, published: false, org: org, phases: 1, sections: 1, questions: 1)}
+      let(:template) do
+        create(:template, :default, published: false, org: org, phases: 1,
+                                    sections: 1, questions: 1)
+      end
 
       it "returns true" do
         expect(subject[0]).to eql(true)
@@ -1397,11 +1397,14 @@ RSpec.describe Template, type: :model do
 
     # case when the template is historical
     context "When the template is an historical version" do
-      let(:template) { create(:template, :default, published: true, org: org, phases: 3, version: 1, sections: 1, questions: 1)}
+      let(:template) do
+        create(:template, :default, published: true, org: org, phases: 3,
+                                    version: 1, sections: 1, questions: 1)
+      end
 
       before do
         template.generate_version!
-        template.update_column(:published,  false)
+        template.update_column(:published, false)
       end
 
       it "returns false" do
@@ -1409,7 +1412,8 @@ RSpec.describe Template, type: :model do
       end
 
       it "has error_message" do
-        expect(subject[1]).to include("You can not publish a historical version of this template.  ")
+        expected = "You can not publish a historical version of this template.  "
+        expect(subject[1]).to include(expected)
       end
 
     end
@@ -1417,7 +1421,10 @@ RSpec.describe Template, type: :model do
     # case when the template is published
     context "When the Template has all components, is latest, and already published" do
 
-      let(:template) { create(:template, :default, published: true, org: org, phases: 1, sections: 1, questions: 1)}
+      let(:template) do
+        create(:template, :default, published: true, org: org, phases: 1,
+                                    sections: 1, questions: 1)
+      end
 
       it "is not publishable" do
         expect(subject[0]).to eql(false)
@@ -1431,7 +1438,7 @@ RSpec.describe Template, type: :model do
     # case when template has no phases
     context "When the Template has no phases" do
 
-      let(:template) { create(:template, :default, published: true, org: org, phases: 0)}
+      let(:template) { create(:template, :default, published: true, org: org, phases: 0) }
 
       it "is not publishable" do
         expect(subject[0]).to eql(false)
@@ -1445,7 +1452,9 @@ RSpec.describe Template, type: :model do
     # case when a template has no sections
     context "When the Template has no sections" do
 
-      let(:template) { create(:template, :default, published: true, org: org, phases: 1, sections: 0)}
+      let(:template) do
+        create(:template, :default, published: true, org: org, phases: 1, sections: 0)
+      end
 
       it "is not publishable" do
         expect(subject[0]).to eql(false)
@@ -1459,14 +1468,18 @@ RSpec.describe Template, type: :model do
     # case when a section has no questions
     context "When the Template has no questions" do
 
-      let(:template) { create(:template, :default, published: true, org: org, phases: 1, sections: 1, questions: 0)}
+      let(:template) do
+        create(:template, :default, published: true, org: org, phases: 1,
+                                    sections: 1, questions: 0)
+      end
 
       it "is not publishable" do
         expect(subject[0]).to eql(false)
       end
 
       it "has error_message" do
-        expect(subject[1]).to include("You can not publish a template without questions in a section")
+        expected = "You can not publish a template without questions in a section"
+        expect(subject[1]).to include(expected)
       end
 
     end

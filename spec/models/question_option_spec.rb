@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe QuestionOption, type: :model do
 
@@ -20,8 +22,10 @@ RSpec.describe QuestionOption, type: :model do
 
     it { is_expected.to belong_to(:question) }
 
-    it { is_expected.to have_and_belong_to_many(:answers)
-                          .join_table("answers_question_options") }
+    it {
+      is_expected.to have_and_belong_to_many(:answers)
+        .join_table("answers_question_options")
+    }
   end
 
   describe ".by_number" do
@@ -43,7 +47,7 @@ RSpec.describe QuestionOption, type: :model do
 
   describe "#deep_copy" do
 
-    let!(:options) { Hash.new }
+    let!(:options) { {} }
 
     let!(:question_option) { create(:question_option, is_default: true) }
 

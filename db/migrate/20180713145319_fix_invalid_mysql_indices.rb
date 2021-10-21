@@ -1,4 +1,4 @@
-class FixInvalidMysqlIndices < ActiveRecord::Migration
+class FixInvalidMysqlIndices < ActiveRecord::Migration[4.2]
   def up
     if index_exists?("settings", ["target_type", "target_id", "var"])
       remove_index "settings", ["target_type", "target_id", "var"]

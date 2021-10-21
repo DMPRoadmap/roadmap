@@ -1,4 +1,4 @@
-class SingleOrganisationForUsers < ActiveRecord::Migration
+class SingleOrganisationForUsers < ActiveRecord::Migration[4.2]
 
   def up
     unless Rails.env.test?

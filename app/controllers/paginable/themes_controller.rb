@@ -7,7 +7,7 @@ class Paginable::ThemesController < ApplicationController
   # /paginable/themes/index/:page
   def index
     authorize(Theme)
-    paginable_renderise(partial: "index", scope: Theme.all)
+    paginable_renderise(partial: "index", scope: Theme.all, format: :json)
   end
 
 end

@@ -16,9 +16,7 @@
 #  index_departments_on_org_id  (org_id)
 #
 
-class Department < ActiveRecord::Base
-
-  include ValidationMessages
+class Department < ApplicationRecord
 
   belongs_to :org
 
@@ -31,8 +29,8 @@ class Department < ActiveRecord::Base
   validates :org, presence: { message: PRESENCE_MESSAGE }
 
   validates :name, presence: { message: PRESENCE_MESSAGE },
-                      uniqueness: { message: UNIQUENESS_MESSAGE,
-                                    scope: :org_id }
+                   uniqueness: { message: UNIQUENESS_MESSAGE,
+                                 scope: :org_id }
 
   validates :name, uniqueness: { message: UNIQUENESS_MESSAGE,
                                  scope: :org_id }
