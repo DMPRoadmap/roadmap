@@ -1,8 +1,5 @@
 <%# locals: form %>
 
-<% pp @user.inspect %>
-<% pp @errors %>
-
 <span class="form-group">
   <%= form.label(:email, _('Email address'), class: "control-label", id: "sign-in-email-lbl") %>
   <% if @user.email.present? %>

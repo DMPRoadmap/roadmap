@@ -6,7 +6,16 @@
 </h1>
 
 <div id="js-login" class="c-login">
-  <%= render partial: "shared/authentication/sign_in_sign_up" %>
+  <% if @user.present? && @user.email.present? && @user.new_record? %>
+    <%# This is a new user sign up %>
+    <%= render partial: "users/registrations/new", locals: { resource: @user } %>
+  <% elsif @user.present? && @user.email.present? %>
+    <%# This is a user sign in %>
+    <%= render partial: "users/sessions/new", locals: { resource: @user } %>
+  <% else %>
+    <%# We don't know the user's email address yet %>
+    <%= render partial: "users/sessions/validate", locals: { resource: @user } %>
+  <% end %>
 </div>
 
 <div class="c-home-stats">

@@ -15,10 +15,11 @@
       <%= render partial: "shared/authentication/sign_in", locals: { form: f } %>
     <% end %>
   <% else %>
-    <%= form_with model: @user, url: user_session_path, method: :post do |f| %>
+    <%= form_with model: resource, url: users_validate_path do |f| %>
       <%# No email is present, so the homepage has just been loaded %>
       <h2><%= _("Sign in / Sign up") %></h2>
-      <%= render partial: "shared/authentication/email_address", locals: { form: f } %>
+      <%#= render partial: "shared/authentication/email_address", locals: { form: f } %>
+      <%= render partial: "users/sessions/new" %>
     <% end %>
   <% end %>
 <% end %>

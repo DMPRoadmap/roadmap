@@ -39,10 +39,49 @@ module OrgSelectable
   # rubocop:disable Metrics/BlockLength
   included do
 
+    # Converts the incoming org_autocomplete params into Org params
+    def autocomplete_to_controller_params
+      not_in_list = org_selectable_params["not_in_list"] == "1"
+      name = org_selectable_params["user_entered_name"] if not_in_list
+      name = org_selectable_params["name"] unless name.present?
+      return {} unless name.present?
+
+      # If it matches an existing Org record, just return the org_id
+      org = Org.find_by("LOWER(name) = ?", name.downcase)
+      return { org_id: org.id } if org.present?
+
+      # If it matches a RegistryOrg and it has an Org association, just return the org_id
+      registry_org = RegistryOrg.find_by("LOWER(name) = ?", name.downcase)
+      return { org_id: registry_org.org_id } if registry_org.present? &&
+                                                registry_org.org_id.present?
+
+      # Return nothing if we are not allowing users to create orgs
+      return {} if Rails.configuration.x.application.restrict_orgs &&
+                   !current_user.present?
+      return {} if Rails.configuration.x.application.restrict_orgs &&
+                   (current_user.present? && !current_user.can_super_admin?)
+
+      # If it matches a RegistryOrg convert it to an Org OR initialize a new Org
+      org = registry_org.to_org if registry_org.present?
+      org = Org.new(name: name) unless org.present?
+
+      {
+        org_attributes: {
+          name: org.name,
+          abbreviation: org.abbreviation || org.name_to_abbreviation,
+          contact_email: org.contact_email || Rails.configuration.x.organisation.helpdesk_email,
+          contact_name: org.contact_name || _("%{app_name} helpdesk") % { app_name: ApplicationService.application_name },
+          links: org.links || { "org": [] },
+          target_url: org.target_url,
+          is_other: org.is_other?,
+          managed: org.managed?,
+          org_type: org.org_type
+        }
+      }
+    end
+
     def process_org!(user: nil, managed_only: false, namespace: nil)
-      user_provided = "#{[namespace, "user_entered_name"].compact.join("_")}"
-      name = org_selectable_params[:"#{user_provided}"]
-      name = org_selectable_params[:"#{[namespace, "name"].compact.join("_")}"] unless name.present?
+      name = contextualized_name(namespace: namespace)
       return nil unless name.present?
 
       # check the Orgs table first
@@ -80,6 +119,14 @@ module OrgSelectable
             .permit(%i[name not_in_list user_entered_name
                        funder_name funder_not_in_list funder_user_entered_name
                        crosswalk])
+    end
+
+    # Add namespace to the incoming name
+    def contextualized_name(namespace: "")
+      user_provided = "#{[namespace, "user_entered_name"].compact.join("_")}"
+      name = org_selectable_params[:"#{user_provided}"]
+      name = org_selectable_params[:"#{[namespace, "name"].compact.join("_")}"] unless name.present?
+      name
     end
 
     # Create a new Org

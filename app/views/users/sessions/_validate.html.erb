@@ -1,0 +1,23 @@
+<%# Devise Sign in / Sign up (validate) form that allows User to provide an email %>
+
+<%= form_with model: resource, url: users_validate_path, method: :pst, local: true do |form| %>
+  <%# No email is present, so the homepage has just been loaded %>
+  <h2><%= _("Sign in / Sign up") %></h2>
+
+  <span class="form-group">
+    <%= form.label(:email, _('Email address'), class: "control-label", id: "sign-in-email-lbl") %>
+    <%= form.email_field(:email,
+                        class: "form-control #{auth_has_error?(:email) ? 'error' : ''}",
+                        aria: {
+                          required: true,
+                          labelledby: "sign-in-email-lbl sign-in-email-desc"
+                        }) %>
+    <p id="sign-in-email-desc" tabindex="-1" class="control-desc">
+      <%= _("For SSO, use institutional address.") %>
+    </p>
+  </span>
+
+  <span class="form-group">
+    <%= form.submit _("Continue"), class: "btn btn-default" %>
+  </span>
+<% end %>

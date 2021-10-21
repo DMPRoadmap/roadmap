@@ -1,0 +1,38 @@
+var authenticationBlock = $('.c-login');
+
+if (authenticationBlock) {
+  <% if @errors.present? && @errors.any? %>
+    renderAlert('<%= escape_javascript(sanitize(@errors.join("<br>"))) %>');
+  <% else %>
+    hideNotifications();
+  <% end %>
+
+  <% if @user.email.present? && @user.new_record? %>
+    // This is a Sign Up
+    authenticationBlock.html(
+      '<%= escape_javascript(
+        render(partial: "users/registrations/new", locals: { resource: @user })
+      ) %>'
+    );
+  <% else %>
+    // This is a Sign In
+    <% if @user.email.present? %>
+      authenticationBlock.html(
+        '<%= escape_javascript(
+          render(partial: "users/sessions/new", locals: { resource: @user })
+        ) %>'
+      );
+    <% else %>
+      // Something went wrong so redisplay the initial email validation form
+      authenticationBlock.html(
+        '<%= escape_javascript(
+          render(partial: "users/sessions/validate", locals: { resource: @user })
+        ) %>'
+      );
+    <% end %>
+  <% end %>
+
+  addAsterisks('.c-login');
+  togglisePasswords({ selector: '#password-controls' });
+}
+toggleSpinner(false);

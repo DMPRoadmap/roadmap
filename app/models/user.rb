@@ -64,9 +64,15 @@ class User < ApplicationRecord
   #   Include default devise modules. Others available are:
   #   :token_authenticatable, :confirmable,
   #   :lockable, :timeoutable and :omniauthable
-  devise :invitable, :database_authenticatable, :registerable, :recoverable,
-         :rememberable, :trackable, :validatable, :omniauthable,
-         omniauth_providers: %i[shibboleth orcid]
+  # devise :invitable, :database_authenticatable, :registerable, :recoverable,
+  #        :rememberable, :trackable, :validatable, :omniauthable,
+  #        omniauth_providers: %i[shibboleth orcid]
+
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable,
+         :trackable, :invitable
 
   ##
   # User Notification Preferences
@@ -125,6 +131,9 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :external_api_access_tokens
   accepts_nested_attributes_for :plans
 
+  # Added to allow creation of Orgs at sign up / edit profile
+  accepts_nested_attributes_for :org
+
   # ===============
   # = Validations =
   # ===============
@@ -136,6 +145,8 @@ class User < ApplicationRecord
   validates :surname, presence: { message: PRESENCE_MESSAGE }
 
   validates :org, presence: { message: PRESENCE_MESSAGE }
+
+  validates :accept_terms, inclusion: { in: [true, nil] }
 
   # ==========
   # = Scopes =

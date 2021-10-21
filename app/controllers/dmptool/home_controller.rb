@@ -22,8 +22,41 @@ module Dmptool
 
       @hero_images = %w[1-large.jpg 2-large.jpg 3-large.jpg 4-large.jpg 5-large.jpg]
 
-      # If this is a new session initialize a User
-      @user = User.new unless @user.present?
+      # Retrieve the user's email address from the session if applicable
+      hash = fetch_session_variable(name: :validation_token, purpose: :sign_in)
+      errs = fetch_session_variable(name: :errors, purpose: :sign_in)
+
+      begin
+        json = JSON.parse(hash).with_indifferent_access if hash.present?
+
+        @errors = JSON.parse(errs) if errs.present?
+      rescue JSON::ParserError => e
+        Rails.logger.error "HomeController - unable to parse JSON in :validation_token"
+        Rails.logger.error hash.inspect
+      end
+
+      if json.present? && json[:email].present?
+        @user = User.includes(:org, :identifiers).find_or_initialize_by(email: json["email"])
+
+        @user.firstname = json[:firstname]
+        @user.surname = json[:surname]
+        @user.accept_terms = json[:accept_terms]
+        @user.org_id = json[:org_id]
+        @user.org = json[:org]
+
+        # If the user is a super admin (because they can change their org affiliation)
+        # or they have no Org for some reason, try to determine what Org they belong to
+        if @user.present? &&
+           (@user.new_record? || (@user.can_super_admin? || @user.org_id.nil?))
+          email_domain = @user.email.split("@").last
+          @user.org = org_from_email_domain(email_domain: email_domain)
+        end
+
+      else
+        @user = User.new
+      end
+
+      flash[:alert] = @errors.join("<br>") if @errors.present?
 
       render "home/index"
     end

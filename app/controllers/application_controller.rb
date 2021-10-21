@@ -22,24 +22,74 @@ class ApplicationController < ActionController::Base
   # When we are in production reroute Record Not Found errors to the branded 404 page
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-
   rescue_from ActionController::InvalidAuthenticityToken, with: :ignore_error
 
   rescue_from StandardError, with: :handle_server_error
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  protected
+
+  # Encrypt the variables and then store them in the session
+  def store_session_variable(name:, payload:, purpose:)
+    return false unless name.present? && payload.is_a?(String) && purpose.present?
+
+    session[name.to_sym] = crypto.encrypt_and_sign(payload, purpose: purpose.to_sym)
+    true
+  rescue ActiveSupport::MessageEncryptor::InvalidMessage => e
+    Rails.logger "Failure attempting to set a session variable - name: %{name}, purpose: %{purpose}" % {
+      name: name, purpose: purpose
+    }
+    Rails.logger "Payload: %{payload}" % { payload: payload }
+    false
+  end
+
+  # Fetch encrypted session variables and decrypt them
+  def fetch_session_variable(name:, purpose:)
+    return nil unless name.present? && purpose.present? && session[name.to_sym].present?
+
+    out = crypto.decrypt_and_verify(session[name.to_sym], purpose: purpose.to_sym)
+    session.delete(name.to_sym) if session[name.to_sym].present?
+    out
+  rescue ActiveSupport::MessageEncryptor::InvalidMessage => e
+    Rails.logger "Failure attempting to fetch a session variable - name: %{name}, purpose: %{purpose}" % {
+      name: name, purpose: purpose
+    }
+    session.delete(name.to_sym) if session[name.to_sym].present?
+    nil
+  end
+
   private
+
+  # Shortcut to the MessageEncryptor
+  def crypto
+    crypt = ActiveSupport::MessageEncryptor.new(
+      Rails.application.secrets.secret_key_base[0..31]
+    )
+  end
+
+  # Attempt to determine the Org (or RegistryOrg) based on the email's domain
+  def org_from_email_domain(email_domain:)
+    ignored_email_domains = %w[aol.com duck.com gmail.com hotmail.com icloud.com outlook.com
+                               pm.me qq.com yahoo.com]
+    return nil unless email_domain.present?
+    return nil if ignored_email_domains.include?(email_domain.downcase)
+
+    registry_org = RegistryOrg.by_domain(email_domain).first
+    return registry_org.org if registry_org.present? && registry_org.org.present?
+
+    hash = User.where("email LIKE ?", "%@#{email_domain.downcase}").group(:org_id).count
+    return nil unless hash.present?
+
+    selected = hash.select { |k, v| v == hash.values.sort { |a, b| b <=> a }.first }
+    Org.find_by(id: selected.keys.first)
+  end
 
   def current_org
     current_user.org
   end
 
   def user_not_authorized
-
-p "UNAUTHORIZED!!!!!!!"
-
     if user_signed_in?
       # redirect_to plans_url, alert: _("You are not authorized to perform this action.")
       msg = _("You are not authorized to perform this action.")
@@ -113,7 +163,7 @@ p "UNAUTHORIZED!!!!!!!"
 
 p "AFTER SIGN UP &&&&&&&&&&&&&&&&&&&&&"
 p referer_path
-
+=begin
     # ---------------------------------------------------------
     # Start DMPTool Customization
     # Added `new_user_registration_path` to if statement below
@@ -139,6 +189,7 @@ p referer_path
     else
       request.referer
     end
+=end
   end
 
   def after_sign_in_error_path_for(_resource)
@@ -146,12 +197,15 @@ p referer_path
 p "AFTER SIGN IN ERROR PATH FOR:"
 pp _resource.inspect
 pp request.referer
-
+=begin
     (from_external_domain? ? root_path : request.referer || root_path)
+=end
   end
 
   def after_sign_up_error_path_for(_resource)
+=begin
     (from_external_domain? ? root_path : request.referer || root_path)
+=end
   end
 
   def authenticate_admin!

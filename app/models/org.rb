@@ -159,6 +159,11 @@ class Org < ApplicationRecord
   # This gives all managed orgs api access whenever saved or updated.
   before_save :ensure_api_access, if: ->(org) { org.managed? }
 
+  # If the org was created and has a fundref/ror id then it was derived from a
+  # User's selection of a RegistryOrg in the UI. We need to update the registry_orgs.org_id
+  # to establish the relationship
+  after_create :connect_to_registry_org
+
   # If the physical logo file is no longer on disk we do not want it to prevent the
   # model from saving. This typically happens when you copy the database to another
   # environment. The orgs.logo_uid stores the path to the physical logo file that is
@@ -460,6 +465,30 @@ class Org < ApplicationRecord
     TokenPermissionType.all.each do |perm|
       token_permission_types << perm unless token_permission_types.include?(perm)
     end
+  end
+
+  # If the org was created and has a fundref/ror id then it was derived from a
+  # User's selection of a RegistryOrg in the UI. We need to update the registry_orgs.org_id
+  # to establish the relationship
+  def connect_to_registry_org
+    registry_org = RegistryOrg.find_by("LOWER(name) = ?", self.name.downcase)
+    return true unless registry_org.present?
+
+    # Attach the identifiers
+    %w[fundref ror].each do |scheme_name|
+      value = registry_org.send(:"#{scheme_name}_id")
+      next unless value.present?
+
+      scheme = IdentifierScheme.by_name(scheme_name).first
+      next unless scheme.present?
+
+      Identifier.find_or_create_by(
+        identifier_scheme: scheme, identifiable: self, value: value
+      )
+    end
+
+    # Update the original RegistryOrg with the new org's association
+    registry_org.update(org_id: self.id)
   end
 
 end

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
                                                     as: "oauth_revoke_access_token"
 
   # Devise Authentication
+=begin
   devise_for(:users, controllers: {
                registrations: "registrations",
                passwords: "passwords",
@@ -27,11 +28,24 @@ Rails.application.routes.draw do
              }) do
     get "/users/sign_out", to: "devise/sessions#destroy"
   end
+=end
+  # Base Devise controller setup
+  devise_for :users, controllers: {
+    invitations: "users/invitations",
+    passwords: "users/passwords",
+    registrations: "users/registrations",
+    sessions: 'users/sessions'
+  }
+  devise_scope :user do
+    # Custom route that checks the users email to determine if its a sign in / sign up
+    # and whether or not this is SSO
+    post "users/validate", to: "users/sessions#validate"
 
-  get "/users/third_party_apps", to: "users#third_party_apps"
-  get "/users/developer_tools", to: "users#developer_tools"
+    get "/users/third_party_apps", to: "users#third_party_apps"
+    get "/users/developer_tools", to: "users#developer_tools"
 
-  delete "/users/identifiers/:id", to: "identifiers#destroy", as: "destroy_user_identifier"
+    #delete "/users/identifiers/:id", to: "identifiers#destroy", as: "destroy_user_identifier"
+  end
 
   get "/orgs/shibboleth", to: "orgs#shibboleth_ds", as: "shibboleth_ds"
   get "/orgs/shibboleth/:org_id", to: "orgs#shibboleth_ds_passthru"
