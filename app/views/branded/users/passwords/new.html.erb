@@ -1,0 +1,30 @@
+<%# Devise Forgotten Password form %>
+
+<% content_for :authentication do %>
+  <h2>Forgot your password?</h2>
+
+  <%= form_with model: User.new, url: user_password_path, method: :post, local: true do |form| %>
+    <div class="form-group">
+      <%= form.label :email, class: "control-label" %><br />
+      <%= form.email_field :email, autofocus: true, autocomplete: "email",
+                           class: "form-control" %>
+    </div>
+
+    <div class="form-group actions">
+      <%= form.submit _("Send me reset password instructions"), class: "btn btn-default" %>
+    </div>
+  <% end %>
+
+  <span class="form-group">
+    <%= render partial: "users/shared/links", locals: { show_contact_us: true } %>
+  </span>
+<% end %>
+
+<% content_for :errors do %>
+  <%= render partial: "users/shared/error_messages" %>
+<% end %>
+
+
+<% content_for :home do %>
+  <%= render partial: "layouts/home" %>
+<% end %>

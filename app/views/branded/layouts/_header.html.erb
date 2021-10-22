@@ -35,7 +35,7 @@
         <li><%= link_to _('Logout'), destroy_user_session_path, method: :delete %></li>
       </ul>
     </div>
-  <% elsif !active_page?(root_path, true) %>
+  <% elsif page_body_template != "t-home" %>
     <div class="c-user-sign-in">
       <ul>
         <li><%= link_to _("Sign in"), root_path %></li>

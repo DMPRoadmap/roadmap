@@ -49,7 +49,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   </head>
-  <body class="<%= active_page?(root_path, true) ? "t-home" : "t-generic" %>">
+  <body class="<%= page_body_template %>">
 
     <a href="#maincontent" class="c-skipnav">Skip to main content</a>
 
@@ -61,7 +61,7 @@
 
     <main id="maincontent" class="<%= @main_class %>">
 
-      <%= yield %>
+      <%= content_for?(:home) ? yield(:home) : yield %>
 
       <%# Generic UJS/Ajax spinner. Bootstrap 5+ has built in spinner for this class %>
       <div class="spinner-border hidden" role="status">

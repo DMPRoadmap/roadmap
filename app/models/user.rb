@@ -74,6 +74,17 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :trackable, :invitable
 
+  # DMPTool customization
+  #
+  # Alias 'institution' for 'org' and define message for 'accept_terms'
+  attr_accessor :institution
+  validates :institution, presence: { message: PRESENCE_MESSAGE }
+  before_validation ->(user) { user.institution = user.org }
+  validates :accept_terms, inclusion: {
+    in: [true, nil],
+    message: _("and conditions" )
+  }
+
   ##
   # User Notification Preferences
   serialize :prefs, Hash
@@ -89,7 +100,7 @@ class User < ApplicationRecord
 
   belongs_to :language
 
-  belongs_to :org
+  belongs_to :org, optional: true
 
   belongs_to :department, required: false
 
@@ -144,10 +155,6 @@ class User < ApplicationRecord
 
   validates :surname, presence: { message: PRESENCE_MESSAGE }
 
-  validates :org, presence: { message: PRESENCE_MESSAGE }
-
-  validates :accept_terms, inclusion: { in: [true, nil] }
-
   # ==========
   # = Scopes =
   # ==========
@@ -196,7 +203,7 @@ class User < ApplicationRecord
   # =============
 
   # sanitise html tags from fields
-  before_validation ->(data) { data.sanitize_fields(:firstname, :surname) }
+  before_validation ->(data) { data.sanitize_fields(:email, :firstname, :surname) }
 
   after_update :clear_department_id, if: :saved_change_to_org_id?
 

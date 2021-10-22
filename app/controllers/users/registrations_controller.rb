@@ -15,24 +15,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # This is a customization of the Devise action that displays the sign up form
   #
   # GET /resource/sign_up
-  def new
-    # super
-    email = crypto.decrypt_and_verify(
-      session.fetch(:validation_token, ""), purpose: :sign_in
-    )
-    if email.present?
-      resource = User.includes(:org, :identifiers)
-                     .find_or_initialize_by(email: email)
-
-      # If the user has no Org for some reason(because this is a new record), try to
-      # determine what Org they belong to
-      if resource.present? && resource.org_id.nil?
-        email_domain = resource.email.split("@").last
-        resource.org = org_from_email_domain(email_domain: email_domain)
-      end
-    end
-    render_home_page
-  end
+  # def new
+  #   super
+  # end
 
   # This is a customization of the Devise action that creates a new user account
   # It was copied over verbatim. The modifications are noted below:
@@ -40,6 +25,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     # super
+
     build_resource(sign_up_params)
     resource.save
     yield resource if block_given?
@@ -60,15 +46,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
       # Encrypt the form values and any validation errrors and stuff it into the session
       # for UI continuity since Devise wants to redirect everything
-      store_session_variable(
-        name: :validation_token, payload: sign_up_params.to_h.to_json, purpose: :sign_in
-      )
-      store_session_variable(
-        name: :errors, payload: errors_to_json(resource: resource), purpose: :sign_in
-      )
-      # Redirect to the Homepage which will fetch the session vars to repopulate the
-      # user's entries
-      redirect_to root_path
+      @main_class = "js-heroimage"
+      flash[:alert] = "Unable to create your account!"
+      render :new
     end
   end
 
@@ -117,28 +97,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # The path used after sign up.
   def after_sign_up_path_for(resource)
     plans_path
-  end
-
-  # The path used after sign up for inactive accounts.
-  # def after_inactive_sign_up_path_for(resource)
-  #   super(resource)
-  # end
-
-  #
-  def errors_to_json(resource:)
-    out = []
-    return out.to_json unless resource.present? && !resource.valid?
-
-    out = resource.errors.full_messages.map do |err|
-      if err.start_with?("Org")
-        _("You must specify your Institution")
-      elsif err.start_with?("Accept")
-        _("You must accept the terms and conditions")
-      else
-        err
-      end
-    end
-    out.flatten.uniq.to_json
   end
 
   # Set the Language to the one the user has selected

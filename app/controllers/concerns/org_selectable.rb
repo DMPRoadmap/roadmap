@@ -42,7 +42,7 @@ module OrgSelectable
     # Converts the incoming org_autocomplete params into Org params
     def autocomplete_to_controller_params
       not_in_list = org_selectable_params["not_in_list"] == "1"
-      name = org_selectable_params["user_entered_name"] if not_in_list
+      name = org_selectable_params["user_entered_name"]&.humanize if not_in_list
       name = org_selectable_params["name"] unless name.present?
       return {} unless name.present?
 

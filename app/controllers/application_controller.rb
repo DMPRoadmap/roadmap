@@ -59,15 +59,6 @@ class ApplicationController < ActionController::Base
     nil
   end
 
-  private
-
-  # Shortcut to the MessageEncryptor
-  def crypto
-    crypt = ActiveSupport::MessageEncryptor.new(
-      Rails.application.secrets.secret_key_base[0..31]
-    )
-  end
-
   # Attempt to determine the Org (or RegistryOrg) based on the email's domain
   def org_from_email_domain(email_domain:)
     ignored_email_domains = %w[aol.com duck.com gmail.com hotmail.com icloud.com outlook.com
@@ -83,6 +74,15 @@ class ApplicationController < ActionController::Base
 
     selected = hash.select { |k, v| v == hash.values.sort { |a, b| b <=> a }.first }
     Org.find_by(id: selected.keys.first)
+  end
+
+  private
+
+  # Shortcut to the MessageEncryptor
+  def crypto
+    crypt = ActiveSupport::MessageEncryptor.new(
+      Rails.application.secrets.secret_key_base[0..31]
+    )
   end
 
   def current_org
@@ -159,10 +159,8 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_up_path_for(_resource)
-    referer_path = URI(request.referer).path unless request.referer.nil?
+    plans_path
 
-p "AFTER SIGN UP &&&&&&&&&&&&&&&&&&&&&"
-p referer_path
 =begin
     # ---------------------------------------------------------
     # Start DMPTool Customization
@@ -192,21 +190,15 @@ p referer_path
 =end
   end
 
-  def after_sign_in_error_path_for(_resource)
-
-p "AFTER SIGN IN ERROR PATH FOR:"
-pp _resource.inspect
-pp request.referer
 =begin
+  def after_sign_in_error_path_for(_resource)
     (from_external_domain? ? root_path : request.referer || root_path)
-=end
   end
 
   def after_sign_up_error_path_for(_resource)
-=begin
     (from_external_domain? ? root_path : request.referer || root_path)
-=end
   end
+=end
 
   def authenticate_admin!
     # currently if admin has any super-admin task, they can view the super-admin

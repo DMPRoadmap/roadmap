@@ -1,0 +1,29 @@
+<% content_for :home do %>
+  <% images = hero_images.map { |img| asset_path("hero/#{img}") } %>
+  <%= hidden_field_tag "js-heroimage__images", images.to_json %>
+
+  <h1 id="js-calltoaction" class="c-calltoaction">
+    <%= _("Create Data Management Plans that meet requirements and promote your research") %>
+  </h1>
+
+  <div id="js-login" class="c-login">
+    <%= yield(:authentication) %>
+  </div>
+
+  <div class="c-home-stats">
+    <% stats = statistics %>
+    <ul>
+      <li class="c-home-stats__users">
+        <%= number_with_delimiter(stats[:user_count]) || '?' %> <%= _("Users") %>
+      </li>
+      <li class="c-home-stats__participants">
+        <a href="<%= public_orgs_path %>">
+          <%= number_with_delimiter(stats[:institution_count]) || '?' %> <%= _("Participating Institutions") %>
+        </a>
+      </li>
+      <li class="c-home-stats__plans">
+        <%= number_with_delimiter(stats[:completed_plan_count]) || '?' %> <%= _("Plans") %>
+      </li>
+    </ul>
+  </div>
+<% end %>

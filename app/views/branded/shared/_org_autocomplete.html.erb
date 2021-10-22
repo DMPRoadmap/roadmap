@@ -92,7 +92,7 @@ autocomplete_id = SecureRandom.hex(6)
         <%= org_fields.label(:"#{[namespace, "not_in_list"].compact.join("_")}", class: 'control-label') do %>
           <%= org_fields.check_box(:"#{[namespace, "not_in_list"].compact.join("_")}", class: "new-org-entry",
                                    context: "not-in-list-#{autocomplete_id}",
-                                   value: default_org&.new_record?) %>
+                                   checked: default_org&.new_record?) %>
           <%= _('I cannot find my %{item_label} in the list') % { item_label: label.downcase } %>
         <% end %>
       </div>
@@ -100,7 +100,8 @@ autocomplete_id = SecureRandom.hex(6)
         <%= org_fields.text_field :"#{[namespace, "user_entered_name"].compact.join("_")}",
                                   value: default_org&.new_record? ? default_org&.name : nil,
                                   placeholder: _("Please enter the %{item_label} name") % { item_label: label.downcase },
-                                  class: "form-control toggleable-field user-entered-org-#{autocomplete_id}" %>
+                                  class: "form-control toggleable-field user-entered-org-#{autocomplete_id}",
+                                  maxlength: 80 %>
       </div>
     </conditional>
   <% end %>

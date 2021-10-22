@@ -2,8 +2,6 @@
 
 class Users::SessionsController < Devise::SessionsController
 
-  include Dmptool::HomeController
-
   before_action :configure_sign_in_params, only: [:create]
 
   # This is a customization of the Devise action that displays the sign in form
@@ -14,15 +12,31 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  def create
+    if sign_in_params[:org_id].present?
+      super
+    else
+      self.resource = User.includes(:org, :identifiers)
+                          .find_or_initialize_by(email: sign_in_params[:email])
+
+      resource.org = org_from_email_domain(email_domain: resource.email&.split("@")&.last)
+
+p "EMAIL LENGTH: #{resource.email.length}"
+
+      clean_up_passwords(resource)
+      yield resource if block_given?
+
+      @main_class = "js-heroimage"
+      render resource.new_record? ? "users/registrations/new" : :new
+    end
+  end
 
   # DELETE /resource/sign_out
   # def destroy
   #   super
   # end
 
+=begin
   # This is a custom action that responds to a User having entered their email address
   #
   # POST /resource/validate
@@ -31,16 +45,8 @@ class Users::SessionsController < Devise::SessionsController
     # existing user
     @user = User.includes(:org, :identifiers)
                 .find_or_initialize_by(email: sign_in_params[:email])
-
-    # Encrypt the email value and stuff it into the session for UI continuity since
-    # Devise wants to redirect everything
-    store_session_variable(
-      name: :validation_token, payload: sign_in_params.to_h.to_json, purpose: :sign_in
-    )
-    # Redirect to the Homepage which will fetch the session vars to repopulate the
-    # user's entries for the follow up sign in /sign up info
-    redirect_to root_path
   end
+=end
 
   protected
 

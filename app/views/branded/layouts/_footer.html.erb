@@ -46,11 +46,11 @@
       <h2>Latest News from DMPTool</h2>
     </header>
     <div class="c-blog__content">
-      <% if @rss.present? %>
+      <% if feed.present? %>
         <p id="home-news-link"></p>
         <%
           json = []
-          @rss.each do |i|
+          feed.each do |i|
             json << { "title": "#{truncate(i.title, length: 120)}", "link": "#{i.link}" }
           end
         %>

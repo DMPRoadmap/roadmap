@@ -1,35 +1,12 @@
-<% images = @hero_images.map { |img| asset_path("hero/#{img}") } %>
-<%= hidden_field_tag "js-heroimage__images", images.to_json %>
+<%#
+The home page should show the initial User sign in / sign up form
+%>
+<% content_for :authentication do %>
+  <%= render partial: "users/sessions/validate",
+             layout: "layouts/home",
+             locals: { resource: @user } %>
+<% end %>
 
-<h1 id="js-calltoaction" class="c-calltoaction">
-  <%= _("Create Data Management Plans that meet requirements and promote your research") %>
-</h1>
-
-<div id="js-login" class="c-login">
-  <% if @user.present? && @user.email.present? && @user.new_record? %>
-    <%# This is a new user sign up %>
-    <%= render partial: "users/registrations/new", locals: { resource: @user } %>
-  <% elsif @user.present? && @user.email.present? %>
-    <%# This is a user sign in %>
-    <%= render partial: "users/sessions/new", locals: { resource: @user } %>
-  <% else %>
-    <%# We don't know the user's email address yet %>
-    <%= render partial: "users/sessions/validate", locals: { resource: @user } %>
-  <% end %>
-</div>
-
-<div class="c-home-stats">
-  <ul>
-    <li class="c-home-stats__users">
-      <%= number_with_delimiter(@stats[:user_count]) || '?' %> <%= _("Users") %>
-    </li>
-    <li class="c-home-stats__participants">
-      <a href="<%= public_orgs_path %>">
-        <%= number_with_delimiter(@stats[:institution_count]) || '?' %> <%= _("Participating Institutions") %>
-      </a>
-    </li>
-    <li class="c-home-stats__plans">
-      <%= number_with_delimiter(@stats[:completed_plan_count]) || '?' %> <%= _("Plans") %>
-    </li>
-  </ul>
-</div>
+<% content_for :errors do %>
+  <%= render partial: "users/shared/error_messages" %>
+<% end %>
