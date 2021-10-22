@@ -1,6 +1,0 @@
-<%# Display the Institutional Sign in form %>
-    <%= _("Your address is associated with:") %>
-
-    <h3><%= @user.org.name %></h3>
-    <%= form.hidden_field :org_id, value: @user.org_id %>
-    <%= form.submit _("Sign in with Institution to Continue"), class: "btn btn-default" %>
