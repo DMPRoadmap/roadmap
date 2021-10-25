@@ -6,12 +6,11 @@
   </div>
 </div>
 
+<% partial = @plan.editable_by?(current_user.id) ? "edit_details" : "show_details" %>
+
 <div class="row">
   <div class="col-md-12">
-    <% if @plan.editable_by?(current_user) %>
-      <%= render partial: 'edit_details', layout: 'navigation', locals: {plan: @plan, visibility: @visibility} %>
-    <% else %>
-      <%= render partial: 'show_details', layout: 'navigation', locals: { plan: @plan, visibility: @visibility } %>
-    <% end %>
+    <%= render partial: partial, layout: 'navigation',
+               locals: { plan: @plan, visibility: @visibility, orgs: @orgs, org_partial: @org_partial } %>
   </div>
 </div>

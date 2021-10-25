@@ -1,0 +1,51 @@
+<%# locals: form, default_org, required, funder_only, label %>
+
+<%# Note the 'data' args in the org_name definition. These are used by the utils/autocomplete.js to determine how to process the AJAX call to the controller. In this case it will make a POST to OrgsController#search with the { org: { name: 'foo' } } params %>
+
+<%
+# Whether or not the org selection is required
+required = required || false
+# Whether or not to restrict the Orgs to funders
+funder_only = funder_only || false
+# The label to use
+label = label || _("Organisation")
+
+presenter = OrgSelectionPresenter.new(orgs: [default_org],
+                                      selection: default_org)
+placeholder = _("Begin typing to see a list of suggestions.")
+%>
+
+<%= form.label :org_name, label %>
+<%= form.text_field :org_name, class: "form-control autocomplete",
+                            placeholder: placeholder,
+                            value: presenter.name,
+                            spellcheck: true,
+                            aria: {
+                              label: placeholder,
+                              autocomplete: "list",
+                              required: required
+                            },
+                            authenticity_token: true,
+                            data: {
+                              url: orgs_search_path(
+                                type: "combined",
+                                funder_only: funder_only.to_s
+                              ),
+                              method: "POST",
+                              namespace: "org",
+                              attribute: "name"
+                            } %>
+<span class="autocomplete-help sr-only" role="status"></span>
+<div id="<%= SecureRandom.hex(6) %>_ui-front" class="ui-front"></div>
+
+<%# crosswalk contains an array of hashes that contain the Org name, id,
+    identifiers like ROR and other info used by the OrgSelectionService %>
+<%= form.hidden_field :org_crosswalk, value: presenter.crosswalk %>
+<%# gets updated with the matching record from crosswalk when the user
+    selects or enters something %>
+<%= form.hidden_field :org_id, value: default_org,
+                               class: "autocomplete-result" %>
+
+<p class="autocomplete-warning red hide">
+  <%= _("A new entry will be created for the organisation you have named above. Please double check that your organisation does not appear in the list in a slightly different form.").html_safe %>
+</p>

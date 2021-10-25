@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: orgs
@@ -6,26 +8,27 @@
 #  abbreviation           :string
 #  contact_email          :string
 #  contact_name           :string
-#  feedback_email_msg     :text
-#  feedback_email_subject :string
+#  feedback_msg           :text
 #  feedback_enabled       :boolean          default(FALSE)
 #  is_other               :boolean          default(FALSE), not null
 #  links                  :text
 #  logo_name              :string
 #  logo_uid               :string
+#  managed                :boolean          default(FALSE), not null
 #  name                   :string
 #  org_type               :integer          default(0), not null
-#  sort_name              :string
 #  target_url             :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  language_id            :integer
-#  region_id              :integer
+#
+# Indexes
+#
+#  fk_rails_5640112cab  (language_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (language_id => languages.id)
-#  fk_rails_...  (region_id => regions.id)
 #
 
 FactoryBot.define do
@@ -35,13 +38,11 @@ FactoryBot.define do
     abbreviation { SecureRandom.hex(4) }
     feedback_enabled { false }
     region { Region.first || create(:region) }
-    language do
-      Language.first_or_create(name: "English", abbreviation: "en-GB") ||
-        create(:language, name: "English", abbreviation: "en-GB")
-    end
+    language { Language.default }
     is_other { false }
     contact_email { Faker::Internet.safe_email }
     contact_name { Faker::Name.name }
+    managed { true }
     trait :institution do
       institution { true }
     end
@@ -63,12 +64,12 @@ FactoryBot.define do
 
     transient do
       templates { 0 }
+      plans { 0 }
     end
 
     after :create do |org, evaluator|
       create_list(:template, evaluator.templates, :published, org: org)
+      create_list(:plan, evaluator.plans)
     end
   end
 end
-
-

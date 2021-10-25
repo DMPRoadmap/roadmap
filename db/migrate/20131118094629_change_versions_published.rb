@@ -1,4 +1,4 @@
-class ChangeVersionsPublished < ActiveRecord::Migration
+class ChangeVersionsPublished < ActiveRecord::Migration[4.2]
   def change
     add_column :versions, :published_tmp, :boolean
 

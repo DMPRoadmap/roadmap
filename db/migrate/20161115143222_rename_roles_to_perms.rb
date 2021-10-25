@@ -1,4 +1,4 @@
-class RenameRolesToPerms < ActiveRecord::Migration
+class RenameRolesToPerms < ActiveRecord::Migration[4.2]
   def self.up
     rename_table :roles, :perms
     rename_table :users_roles, :users_perms

@@ -16,16 +16,19 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html do
-        if current_user.can_super_admin?
-          @users = User.includes(:roles).page(1)
-        else
-          @users = current_user.org.users.includes(:roles).page(1)
-        end
+        @clicked_through = params[:click_through].present?
+        @filter_admin = false
+
+        @users = if current_user.can_super_admin?
+                   User.includes(:roles).page(1)
+                 else
+                   current_user.org.users.includes(:roles).page(1)
+                 end
       end
 
       format.csv do
         send_data User.to_csv(current_user.org.users.order(:surname)),
-        filename: "users-accounts-#{Date.today}.csv"
+                  filename: "users-accounts-#{Date.today}.csv"
       end
     end
   end
@@ -40,11 +43,11 @@ class UsersController < ApplicationController
 
     # Super admin can grant any Perm, org admins can only grant Perms they
     # themselves have access to
-    if current_user.can_super_admin?
-      perms = Perm.all
-    else
-      perms = current_user.perms
-    end
+    perms = if current_user.can_super_admin?
+              Perm.all
+            else
+              current_user.perms
+            end
 
     render json: {
       "user" => {
@@ -60,28 +63,26 @@ class UsersController < ApplicationController
   # POST - updates the permissions for a user
   # redirects to the admin_index action
   # should add validation that the perms given are current perms of the current_user
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def admin_update_permissions
     @user = User.find(params[:id])
     authorize @user
-    perms_ids = params[:perm_ids].blank? ? [] : params[:perm_ids].map(&:to_i)
+
+    perms_ids = permission_params[:perm_ids].blank? ? [] : permission_params[:perm_ids].map(&:to_i)
     perms = Perm.where(id: perms_ids)
     privileges_changed = false
     current_user.perms.each do |perm|
       if @user.perms.include? perm
-        if ! perms.include? perm
+        unless perms.include? perm
           @user.perms.delete(perm)
-          if perm.id == Perm.use_api.id
-            @user.remove_token!
-          end
+          @user.remove_token! if perm.id == Perm.use_api.id
           privileges_changed = true
         end
-      else
-        if perms.include? perm
-          @user.perms << perm
-          if perm.id == Perm.use_api.id
-            @user.keep_or_generate_token!
-            privileges_changed = true
-          end
+      elsif perms.include? perm
+        @user.perms << perm
+        if perm.id == Perm.use_api.id
+          @user.keep_or_generate_token!
+          privileges_changed = true
         end
       end
     end
@@ -93,18 +94,21 @@ class UsersController < ApplicationController
         end
       end
       render(json: {
-        code: 1,
-        msg: success_message(perms.first_or_initialize, _("saved")),
-        current_privileges: render_to_string(partial: "users/current_privileges",
-                                             locals: { user: @user }, formats: [:html])
-        })
+               code: 1,
+               msg: success_message(perms.first_or_initialize, _("saved")),
+               current_privileges: render_to_string(partial: "users/current_privileges",
+                                                    locals: { user: @user }, formats: [:html])
+             })
     else
       render(json: { code: 0, msg: failure_message(@user, _("updated")) })
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable
 
+  # PUT /users/:id/update_email_preferences
   def update_email_preferences
-    prefs = params[:prefs]
+    prefs = preference_params
     authorize User
     pref = current_user.pref
     # does user not have prefs?
@@ -113,7 +117,7 @@ class UsersController < ApplicationController
       pref.settings = {}
       pref.user = current_user
     end
-    pref.settings[:email] = booleanize_hash(prefs)
+    pref.settings["email"] = booleanize_hash(prefs["prefs"])
     pref.save
 
     # Include active tab in redirect path
@@ -127,50 +131,80 @@ class UsersController < ApplicationController
     authorize current_user
 
     user = User.find(params[:id])
-    if user.present?
-      begin
-        user.active = !user.active
-        user.save!
-        render json: {
-          code: 1,
-          msg: _("Successfully %{action} %{username}'s account.") % {
-            action: user.active ? _("activated") : _("deactivated"),
-            username: user.name(false)
-          }
+    return unless user.present?
+
+    begin
+      user.active = !user.active
+      user.save!
+      render json: {
+        code: 1,
+        msg: _("Successfully %{action} %{username}'s account.") % {
+          action: user.active ? _("activated") : _("deactivated"),
+          username: user.name(false)
         }
-      rescue Exception
-        render json: {
-          code: 0,
-          msg: _("Unable to %{action} %{username}") % {
-            action: user.active ? _("activate") : _("deactivate"),
-            username: user.name(false)
-          }
+      }
+    rescue StandardError
+      render json: {
+        code: 0,
+        msg: _("Unable to %{action} %{username}") % {
+          action: user.active ? _("activate") : _("deactivate"),
+          username: user.name(false)
         }
-      end
+      }
     end
   end
 
   # POST /users/acknowledge_notification
   def acknowledge_notification
     authorize current_user
-    @notification = Notification.find(params[:notification_id])
+    @notification = Notification.find(notification_params[:notification_id])
     current_user.acknowledge(@notification)
-    render nothing: true
+    render body: nil
+  end
+
+  # GET /users/:id/refresh_token (accessed via JSON call from profile page)
+  def refresh_token
+    authorize current_user
+    original = current_user.api_token
+    current_user.generate_token!
+    @success = current_user.api_token != original
   end
 
   private
+
+  def permission_params
+    params.permit(:super_admin_privileges, :org_admin_privileges, perm_ids: [])
+  end
+
+  def notification_params
+    params.permit(:notification_id)
+  end
+
+  def preference_params
+    params.require(:user).permit(
+      prefs: [
+        users: %i[new_comment
+                  added_as_coowner
+                  admin_privileges
+                  feedback_requested
+                  feedback_provided],
+        owners_and_coowners: %i[visibility_changed]
+      ]
+    )
+  end
 
   ##
   # html forms return our boolean values as strings, this converts them to true/false
   def booleanize_hash(node)
     # leaf: convert to boolean and return
     # hash: iterate over leaves
-    unless node.is_a?(Hash)
-      return node == "true"
-    end
+    return node == "true" unless node.is_a?(ActionController::Parameters)
+
+    newnode = {}
     node.each do |key, value|
-      node[key] = booleanize_hash(value)
+      newnode[key] = booleanize_hash(value)
     end
+    newnode
   end
 
 end

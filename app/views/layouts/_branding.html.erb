@@ -58,13 +58,11 @@
         <% if current_user.can_org_admin? %>
           <li class="dropdown navbar-default" id="admin-dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="admin-menu" href="#">
-              <i class="fa fa-lock" aria-hidden="true">&nbsp;</i>
+              <i class="fas fa-lock" aria-hidden="true">&nbsp;</i>
               <%= _('Admin') %>
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" aria-labelledby="admin-menu">
-              
-                        
               
               <!-- ORGANISATION -->
               <% if current_user.can_super_admin? %>
@@ -86,8 +84,8 @@
                     <%= link_to _('Templates'), template_path %>
                   </li>
               <% end %>
-              
-              <!-- GUIDANCE -->              
+
+              <!-- GUIDANCE -->
               <% if current_user.can_modify_guidance? %>
                   <li <%= 'class=active' if active_page?(admin_index_guidance_path(current_user.org_id)) %>>
                     <%= link_to _('Guidance'), admin_index_guidance_path(current_user.org_id) %>
@@ -99,7 +97,7 @@
                 <li <%= 'class=active' if active_page?(org_admin_plans_path) %>>
                   <%= link_to _('Plans'), org_admin_plans_path %>
                 </li>
-              <% end %> 
+              <% end %>
 
               <!-- USERS -->
               <% if current_user.can_grant_permissions? %>
@@ -107,23 +105,27 @@
                     <%= link_to _('Users'), admin_index_users_path, class: 'main_nav_last_li' %>
                   </li>
               <% end %>
-              
-              <!-- THEMES -->                
+
+              <!-- THEMES -->
               <% if current_user.can_super_admin? %>
                 <li <%= 'class=active' if active_page?(super_admin_themes_path) %>>
                   <%= link_to(_('Themes'), super_admin_themes_path) %>
                 </li>
               <% end %>
               
-              <!-- USAGE -->
+              <!-- USAGE STATISTICS-->
               <% if current_user.can_org_admin? || current_user.can_super_admin? %>
                 <li <%= 'class=active' if active_page?(usage_index_path) %>>
                   <%= link_to(_('Usage statistics'), usage_index_path) %>
                 </li>
               <% end %>
-              
-              <!-- NOTIFICATIONS -->
               <% if current_user.can_super_admin? %>
+                <!-- API -->
+                <li <%= 'class=active' if active_page?(super_admin_api_clients_path) %>>
+                  <%= link_to(_('Api Clients'), super_admin_api_clients_path) %>
+                </li>
+
+                <!-- NOTIFICATIONS -->
                 <li <%= 'class=active' if active_page?(super_admin_notifications_path) %>>
                   <%= link_to _('Notifications'), super_admin_notifications_path %>
                 </li>

@@ -14,9 +14,9 @@ module UsageHelper
   # for each point on the Y axis (date) so we need to format the information
   # appropriately by passing along the labels for the Y axis and the datasets
   # for the X axis
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
   def prep_data_for_template_plans_chart(data:, subset: "by_template")
-    last_month = Date.today.last_month.end_of_month.strftime('%b-%y')
+    last_month = Date.today.last_month.end_of_month.strftime("%b-%y")
     return { labels: [last_month], datasets: [] }.to_json if data.blank? || data.empty?
 
     datasets = {}
@@ -42,8 +42,8 @@ module UsageHelper
 
         # Replace any of the month/year plan counts for this template IF it has
         # any plans defined
-        template_hash[:data] = template_hash[:data].map do |data|
-          data[:y] == date ? { x: template["count"] + data[:x], y: data[:y] } : data
+        template_hash[:data] = template_hash[:data].map do |dat|
+          dat[:y] == date ? { x: template["count"] + dat[:x], y: dat[:y] } : dat
         end
         datasets[template["name"]] = template_hash
       end
@@ -55,7 +55,7 @@ module UsageHelper
       labels: labels
     }.to_json
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize
 
   def plans_per_template_ranges
     [

@@ -1,4 +1,4 @@
-class RemoveRegionGroupAndAddSuperRegionIdToRegions < ActiveRecord::Migration
+class RemoveRegionGroupAndAddSuperRegionIdToRegions < ActiveRecord::Migration[4.2]
   def change
     drop_table :region_groups if table_exists?(:region_groups)
     

@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 module PermsHelper
-  # Returns a hash whose keys are the names associated to Perms and values are the text to be displayed to the end user
+
+  # Returns a hash whose keys are the names associated to Perms and values are
+  # the text to be displayed to the end user
   def name_and_text
     {
       add_organisations:  _('Add organisations'),
@@ -13,4 +17,5 @@ module PermsHelper
       review_org_plans: ''
     }
   end
+
 end

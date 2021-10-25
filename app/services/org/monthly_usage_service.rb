@@ -6,12 +6,11 @@ class Org
 
     class << self
 
-      def call(current_user = nil)
-        @current_user = current_user
-        total = build_from_joined_user
-        build_from_created_plan(total)
-        build_from_shared_plan(total)
-        build_from_exported_plan(total)
+      def call(current_user, filtered: false)
+        total = build_from_joined_user(current_user, filtered)
+        build_from_created_plan(current_user, filtered, total)
+        build_from_shared_plan(current_user, filtered, total)
+        build_from_exported_plan(current_user, filtered, total)
         total.values
       end
 
@@ -42,29 +41,33 @@ class Org
         acc
       end
 
-      def build_from_joined_user(total = {})
-        joined_users = StatJoinedUser.monthly_range(org: @current_user.org).order(:date)
+      def build_from_joined_user(current_user, filtered, total = {})
+        joined_users = StatJoinedUser.monthly_range(org: current_user.org,
+                                                    filtered: filtered).order(:date)
         joined_users.reduce(total) do |acc, rec|
           reducer_body(acc, rec, :new_users)
         end
       end
 
-      def build_from_created_plan(total = {})
-        created_plans = StatCreatedPlan.monthly_range(org: @current_user.org).order(:date)
+      def build_from_created_plan(current_user, filtered, total = {})
+        created_plans = StatCreatedPlan.monthly_range(org: current_user.org,
+                                                      filtered: filtered).order(:date)
         created_plans.reduce(total) do |acc, rec|
           reducer_body(acc, rec, :new_plans)
         end
       end
 
-      def build_from_shared_plan(total = {})
-        shared_plans = StatSharedPlan.monthly_range(org: @current_user.org).order(:date)
+      def build_from_shared_plan(current_user, filtered, total = {})
+        shared_plans = StatSharedPlan.monthly_range(org: current_user.org,
+                                                    filtered: filtered).order(:date)
         shared_plans.reduce(total) do |acc, rec|
           reducer_body(acc, rec, :plans_shared)
         end
       end
 
-      def build_from_exported_plan(total = {})
-        exported_plans = StatExportedPlan.monthly_range(org: @current_user.org).order(:date)
+      def build_from_exported_plan(current_user, filtered, total = {})
+        exported_plans = StatExportedPlan.monthly_range(org: current_user.org,
+                                                        filtered: filtered).order(:date)
         exported_plans.reduce(total) do |acc, rec|
           reducer_body(acc, rec, :downloads)
         end

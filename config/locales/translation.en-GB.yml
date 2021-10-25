@@ -65,6 +65,8 @@ en-GB:
           mb: MB
           gb: GB
           tb: TB
+          pb: PB
+          eb: EB
       decimal_units:
         units:
           thousand: Thousand
@@ -112,21 +114,18 @@ en-GB:
       not_saved:
         one: '1 error prohibited this %{resource} from being saved:'
         other: "%{count} errors prohibited this %{resource} from being saved:"
+      model_invalid: 'Validation failed: %{errors}'
+      required: must exist
     template:
       body: 'There were problems with the following fields:'
       header:
         one: 1 error prohibited this %{model} from being saved
         other: "%{count} errors prohibited this %{model} from being saved"
-    unavailable_session:
-    unacceptable_request:
-    connection_refused:
   activerecord:
     errors:
       messages:
         record_invalid: 'Validation failed: %{errors}'
         restrict_dependent_destroy:
-          one:
-          many:
           has_one: Cannot delete record because a dependent %{record} exists
           has_many: Cannot delete record because dependent %{record} exist
   datetime:

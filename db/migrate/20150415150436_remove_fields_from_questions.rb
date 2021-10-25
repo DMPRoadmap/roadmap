@@ -1,4 +1,4 @@
-class RemoveFieldsFromQuestions < ActiveRecord::Migration
+class RemoveFieldsFromQuestions < ActiveRecord::Migration[4.2]
   def change
     remove_column :questions, :question_type
     remove_column :questions, :multiple_choice  

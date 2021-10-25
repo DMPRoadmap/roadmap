@@ -1,0 +1,10 @@
+<p>
+  <%= raw _('Hello %{recipient_name},') %{ recipient_name: @recipient_name } %>
+</p>
+<p>
+  <%= raw @username + _(" is creating a Data Management Plan and has answered ") + @answer_text + _(" to ") + @question_title + _(" in a plan called ") + @plan_title + _(" based on the template ") + @template_title %>
+</p>
+<p>
+  <%= raw @message %>
+</p>
+<%= render partial: 'email_signature' %>

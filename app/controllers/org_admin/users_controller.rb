@@ -26,9 +26,6 @@ module OrgAdmin
       authorize @user
       @departments = @user.org.departments.order(:name)
       @plans = Plan.active(@user).page(1)
-      # Replace the 'your' word from the canned responses so that it does
-      # not read 'Successfully updated your profile for John Doe'
-      topic = _("profile for %{username}") % { username: @user.name(false) }
       if @user.update_attributes(user_params)
         flash.now[:notice] = success_message(@user, _("updated"))
       else
@@ -44,8 +41,8 @@ module OrgAdmin
       render "org_admin/users/plans"
     end
 
-
     private
+
     def user_params
       params.require(:user).permit(:department_id)
     end

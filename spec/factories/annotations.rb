@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: annotations
@@ -13,6 +15,7 @@
 #
 # Indexes
 #
+#  fk_rails_aca7521f72                  (org_id)
 #  index_annotations_on_question_id     (question_id)
 #  index_annotations_on_versionable_id  (versionable_id)
 #
@@ -27,6 +30,6 @@ FactoryBot.define do
     question
     org
     text { Faker::Lorem.paragraph }
-    type { [0,1].sample }
+    type { [0, 1].sample }
   end
 end

@@ -1,3 +1,5 @@
+require 'syslog/logger'
+
 Rails.application.configure do
   # Verifies that versions and hashed value of the package contents in the project's
   # package.json
@@ -76,7 +78,7 @@ Rails.application.configure do
   # logger.formatter = ::Logger::Formatter.new
   # config.logger = ActiveSupport::TaggedLogging.new(logger)
   # config.log_tags = [ Rails.root.to_s.split('/').last ]
-  
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 

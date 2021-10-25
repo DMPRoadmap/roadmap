@@ -58,12 +58,12 @@
                   <div class="col-sm-6">
                     <div class='text-right text-muted'>
                       <% if template.latest? && (modifiable || template.customization_of.present?) %>
-                        <i class="fa fa-info-circle small"></i>
+                        <i class="fas fa-info-circle small"></i>
                         <%= _("Drag arrows to rearrange sections.") %>
                         <% unless phase.sections.all?(&:modifiable?) %>
                           <%= _("You may place them before or after the main template sections.") %>
                         <% end %>
-                      <% else %>
+                      <% elsif template.latest? %>
                         <%= link_to _('Re-order sections'),
                             org_admin_template_phase_versions_path(phase.template, phase),
                             method: "post",

@@ -1,22 +1,16 @@
-<%
-  tool_name = _(Rails.configuration.branding[:application][:name])
-  user_name = @user.name
-  help_url = Rails.configuration.branding[:organisation][:url]
-  ul_list = sanitize(privileges_list(@user))
-%>
 <p>
-  <%= _('Hello %{user_name}') %{ :user_name => user_name } %>
+  <%= _('Hello %{username}') %{ username: @username } %>
 </p>
 <% if @user.perms.size > 0 %>
   <p>
-    <%= _('You have been granted administrator privileges in %{tool_name}:') %{ :tool_name => tool_name } %>
+    <%= _('You have been granted administrator privileges in %{tool_name}:') %{ tool_name: tool_name } %>
   </p>
   <p>
-    <%= ul_list %>
+    <%= sanitize(@ul_list) %>
   </p>
 <% else %>
   <p>
-    <%= _('You have been revoked administrator privileges in %{tool_name}.') %{ :tool_name => tool_name } %>
+    <%= _('You have been revoked administrator privileges in %{tool_name}.') %{ tool_name: tool_name } %>
   </p>
 <% end %>
 <p>

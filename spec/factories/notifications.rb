@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: notifications
@@ -10,6 +12,7 @@
 #  notification_type :integer
 #  starts_at         :date
 #  title             :string
+#  enable            :boolean
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
@@ -22,10 +25,12 @@ FactoryBot.define do
     body { Faker::Lorem.paragraph }
     dismissable { false }
     starts_at { Time.current }
-    expires_at { starts_at + 2.days  }
+    enabled { false }
+    expires_at { starts_at + 2.days }
 
     trait :active do
       starts_at { Date.today }
+      enabled { true }
     end
     trait :dismissable do
       dismissable { true }

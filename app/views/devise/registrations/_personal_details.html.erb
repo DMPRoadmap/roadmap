@@ -23,8 +23,15 @@
   </div>
 
   <% org_admin = (current_user.can_org_admin? && !current_user.can_super_admin?) %>
-  <div class="form-group col-xs-8" id="org-controls" <%= "data-toggle=\"tooltip\" title=\"#{_('Changing your organisation will result in the loss of your administrative privileges.')}\"" if org_admin %>>
-    <%= render partial: "shared/my_org", locals: {f: f, default_org: @default_org, orgs: @orgs, allow_other_orgs: true, required: true} %>
+  <div class="form-group col-xs-8" id="profile-org-controls" <%= "data-toggle=\"tooltip\" title=\"#{_('Changing your organisation will result in the loss of your administrative privileges.')}\"" if org_admin %>>
+    <%= render partial: org_partial,
+               locals: {
+                 form: f,
+                 orgs: orgs,
+                 default_org: current_user.org,
+                 required: true,
+                 orgs: @orgs
+               } %>
   </div>
   <% if org_admin %>
     <input type="hidden" id="original_org" value="<%= @user.org_id %>">
@@ -77,19 +84,8 @@
       <div class='identifier-scheme'>
         <%= render partial: "external_identifier",
                    locals: { scheme: scheme,
-                             id: current_user.identifier_for(scheme)} %>
+                             id: current_user.identifier_for(scheme.name)} %>
       </div>
-    </div>
-  <% end %>
-
-  <% unless @user.api_token.blank? %>
-    <div class="form-group col-xs-8">
-      <%= f.label(:api_token, _('API token'), class: 'control-label') %>
-      <%= @user.api_token %>
-    </div>
-    <div class="form-group col-xs-8">
-      <%= label_tag(:api_information, _('API Information'), class: 'control-label') %>
-      <a href="https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation"><%= _('How to use the API') %></a>
     </div>
   <% end %>
 

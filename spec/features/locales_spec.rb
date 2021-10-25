@@ -1,8 +1,15 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.feature "Locales", type: :feature, js: true do
 
-  let!(:languages) {
+  before(:each) do
+    # Clear out the default defined in the locales support file
+    Language.destroy_all
+  end
+
+  let!(:languages) do
     [
       Language.where(
         default_language: true,
@@ -23,25 +30,21 @@ RSpec.feature "Locales", type: :feature, js: true do
       ).first_or_create
 
     ]
-  }
+  end
 
   let!(:user) { create(:user, language: languages.first) }
 
   before do
-    #locale_set = LocaleSet.new(%w[en-GB de pt-BR])
-    locale_set = LocaleSet.new(%w[en-GB en-CA fr-CA])
-    I18n.available_locales        = locale_set.for(:i18n)
-    FastGettext.default_available_locales = locale_set.for(:fast_gettext)
-    I18n.locale                   = locale_set.for(:i18n).first
-    FastGettext.locale            = locale_set.for(:fast_gettext).first
+    locales = %w[en-GB en-CA fr-CA]
+    I18n.available_locales = locales
+    I18n.locale = locales.first
     sign_in(user)
   end
 
   after do
-    I18n.available_locales        = AVAILABLE_TEST_LOCALES.for(:i18n)
-    FastGettext.default_available_locales = AVAILABLE_TEST_LOCALES.for(:fast_gettext)
-    I18n.default_locale           = AVAILABLE_TEST_LOCALES.for(:i18n).first
-    FastGettext.default_locale    = AVAILABLE_TEST_LOCALES.for(:fast_gettext).first
+    locales = AVAILABLE_TEST_LOCALES
+    I18n.available_locales = locales
+    I18n.default_locale = locales.first
   end
 
   context "when new locale has no region" do

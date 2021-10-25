@@ -1,4 +1,4 @@
-class RemoveDefaultsFromLinks < ActiveRecord::Migration
+class RemoveDefaultsFromLinks < ActiveRecord::Migration[4.2]
   def up
     change_column :templates, :links, :text, default: nil
     change_column :orgs, :links, :text, default: nil

@@ -1,0 +1,67 @@
+<%# locals: @plan, scope %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">
+        <%= _("Name") %>&nbsp;<%= paginable_sort_link("contributors.name") %>
+      </th>
+      <th scope="col" class="sorter-false"><%= _("ORCID") %></th>
+      <th scope="col">
+        <%= _("Email") %>&nbsp;<%= paginable_sort_link("contributors.email") %>
+      </th>
+      <th scope="col">
+        <%= _("Affiliation") %>&nbsp;<%= paginable_sort_link("orgs.name") %>
+      </th>
+      <th scope="col" class="sorter-false"><%= _("Roles") %></th>
+      <% if @plan.administerable_by?(current_user.id) %>
+        <th scope="col" class="sorter-false">
+          <span aria-hidden="false" class="sr-only"><%= _("Actions") %></span>
+        </th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% ror_scheme = IdentifierScheme.by_name("ror").first %>
+    <% scope.each do |contributor| %>
+      <tr>
+        <td><%= ContributorPresenter.display_name(name: contributor.name) %></td>
+        <td>
+          <% orcid = contributor.identifier_for_scheme(scheme: "orcid") %>
+          <% if orcid.present? %>
+            <%= link_to orcid.value_without_scheme_prefix, orcid.value %>
+          <% end %>
+        </td>
+        <td><%= contributor.email %></td>
+        <td>
+          <% if contributor.org.present? %>
+            <%= contributor.org&.name %>
+          <% end %>
+        </td>
+        <td><%= ContributorPresenter.display_roles(roles: contributor.selected_roles) %></td>
+        <% if @plan.administerable_by?(current_user.id) %>
+          <td>
+            <div class="dropdown">
+              <button class="btn btn-link dropdown-toggle"
+                      type="button"
+                      id="contributor-<%= contributor.id %>-actions"
+                      data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="true">
+                <%= _('Actions') %><span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="contributor-<%= contributor.id %>-actions">
+                <li><%= link_to _('Edit'),
+                        edit_plan_contributor_path(plan_id: @plan.id, id: contributor) %></li>
+                <li><%= link_to _('Remove'),
+                                plan_contributor_path(@plan.id, contributor),
+                                data: { confirm: _("You are about to delete '%{contributor_name}'. Are you sure?") % { contributor_name: contributor.name } },
+                                method: :delete %>
+                </li>
+              </ul>
+            </div>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

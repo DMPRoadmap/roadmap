@@ -1,8 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Version: <%= version %> -->
-    <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % { :application_name => _(Rails.configuration.branding[:application][:name]) } %>
+    <% if Rails.configuration.x.google_analytics.tracker_root.present? %>
+      <% root_abbr = Rails.configuration.x.google_analytics.tracker_root %>
+      <% root_org = Org.where(abbreviation: root_abbr).first %>
+      <% if root_org.tracker.present? %>
+        <% root_code = root_org.tracker.code %>
+        <!-- Google Analytics -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+           })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+          ga('create', '<%=root_code%>', 'auto');
+          ga('send', 'pageview');
+          <% if current_user.present? and current_user.org.present? %>
+            <% client_org = current_user.org %>
+            <% if client_org.tracker.present? %>
+              <% client_code = client_org.tracker.code %>
+              <% unless root_code == client_code %>
+                ga('create', '<%=client_code%>', 'auto','clientTracker');
+                ga('clientTracker.send', 'pageview');
+              <% end %>
+            <% end %>
+          <% end %>
+        </script>
+      <% end %>
+    <% end %>
+    <!-- End Google Analytics -->
+    <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % { :application_name => ApplicationService.application_name } %>
     </title>
     
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -45,7 +72,7 @@
     </script>
 
     <%= stylesheet_link_tag(stylesheet_manifest_file) %>
-    <%= javascript_pack_tag(javascript_manifest_file) %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= csrf_meta_tags %>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -74,13 +101,23 @@
              class="notification-area alert <%= has_alert ? 'alert-warning ' : 'alert-info ' %>
                     <%= (has_alert or has_notice) ? 'show' : 'hide' %>"
              role="<%= (has_notice ? 'status' : (has_alert ? 'alert' : '')) %>">
-          <i class="fa <%= has_alert ? ' fa-times-circle' : ' fa-check-circle' %>" aria-hidden="true"></i>
+          <i class="fas <%= has_alert ? ' fa-times-circle' : ' fa-check-circle' %>" aria-hidden="true"></i>
           <span class="aria-only"><%= has_alert ? _('Error:') : _('Notice:') %></span>
           <span><%= sanitize (has_alert ? alert : notice) %></span>
           <%= yield :errors %>
         </div>
         <%= render "layouts/notifications", notifications: Notification.active_per_user(current_user) %>
         <%= yield %>
+
+
+        <%# Generic UJS/Ajax spinner. Bootstrap 5+ has built in spinner for this class, so update when
+            we upgrade to remove the img tag %>
+        <div class="spinner-border hidden" role="status">
+          <%spinner_msg = _("Loading...") %>
+          <%= image_tag("spinner.gif", alt: spinner_msg) %>
+          <span class="sr-only"><%= spinner_msg %></span>
+        </div>
+
       </main>
 
       <!-- footer rendering -->
@@ -90,7 +127,7 @@
 
     <%
     constants_json = {
-      HOST: (Rails.env.development? || Rails.env.test? ? 'localhost' : Socket.gethostname),
+      HOST: request.host,
       PASSWORD_MIN_LENGTH: 8,
       PASSWORD_MAX_LENGTH: 128,
       MAX_NUMBER_ORG_URLS: 3,
@@ -116,6 +153,12 @@
       AJAX_UNABLE_TO_LOAD_TEMPLATE_SECTION: _('Unable to load the section\'s content at this time.'),
       AJAX_UNABLE_TO_LOAD_TEMPLATE_SECTION_QUESTION: _('Unable to load the question\'s content at this time.'),
       OPENS_IN_A_NEW_WINDOW_TEXT: _('Opens in a new window'),
+
+      AUTOCOMPLETE_ARIA_HELPER: _("%{n} results are available, use up and down arrows to navigate suggestions. Use the Enter key to select a suggestion or the Escape key to close the suggestions."),
+      AUTOCOMPLETE_ARIA_HELPER_EMPTY: _("No results are available for your entry."),
+      AUTOCOMPLETE_SEARCHING: _("Searching ..."),
+
+      CURRENT_LOCALE: LocaleService.to_gettext(locale: @current_locale.to_s)
     }.to_json
     %>
 
