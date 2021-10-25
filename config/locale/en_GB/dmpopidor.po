@@ -193,6 +193,9 @@ msgstr "You are not linked to an organisation, we can\'t suggest you a template.
 msgid "Customized by "
 msgstr "Customized by "
 
+msgid "Customized"
+msgstr "Customized"
+
 msgid "Copy link"
 msgstr "Copy link"
 

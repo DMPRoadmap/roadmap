@@ -192,6 +192,9 @@ msgstr "Vous n'êtes pas liés à un organisme, nous ne pouvons vous proposer un
 msgid "Customized by "
 msgstr "Personnalisé par "
 
+msgid "Customized"
+msgstr "Personnalisé"
+
 msgid "Copy link"
 msgstr "Copier le lien"
 

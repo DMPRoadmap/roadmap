@@ -1,13 +1,21 @@
+<% template = plan.template %>
+<% template_title = template.title %>
+<% template_title += " - #{d_('dmpopidor', 'Customized')}" if template.customization_of.present? %>
 <div class="tab-panels" role="tabpanel">
   <div id="phase-#<%= phase.id %>-panel" class="tab-panel active answering-phase" aria-hidden="false" aria-labelledby="phase-#<%= phase.id %>-tab">
     <div class="section-description">
       <div class="display-readonly-textarea-content">
         <%= sanitize phase.description %>
-        <%= _('This plan is based on the "%{template_title}" template provided by %{org_name}.') %{ :template_title => plan.template.title, :org_name => plan.template.org.name } %>
-        <span class="bold"><%= d_('dmpopidor', '(version: %{template_version}, published: %{published_date})') \
-                      %{ :template_version => plan.template.version, \
-                        :published_date =>  l(plan.template.updated_at.to_date, format: :readable) } %>
-            </span>
+        <%= _('This plan is based on the "%{template_title}" template provided by %{org_name}.') % { 
+          :template_title => template_title, 
+          :org_name => template.org.name 
+        } %>
+        <span class="bold">
+          <%= d_('dmpopidor', '(version: %{template_version}, published: %{published_date})') % { 
+            :template_version => template.version,
+            :published_date =>  l(template.updated_at.to_date, format: :readable) 
+          } %>
+        </span>
       </div>
     </div>
 
@@ -61,7 +69,7 @@
             <% plan.research_outputs.each_with_index do |research_output, i| %>
               <div id="research_output_<%= research_output.id %>_section_<%= section.id %>" 
                    class="panel research-output-panel tab-pane fade <%= 'in active' if research_output.main? %> <%= 'main_research_output' if research_output.main? %>">
-                <% if research_output.main? && plan.research_outputs.count > 1 && !plan.template.structured?%>
+                <% if research_output.main? && plan.research_outputs.count > 1 && !template.structured?%>
                   <p>
                     <input type="checkbox" class="is_common_cb" 
                           data-target-url="<%= set_answers_as_common_answers_path %>"

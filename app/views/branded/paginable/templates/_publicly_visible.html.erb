@@ -16,7 +16,12 @@
     <tbody>
       <% scope.each do |template| %>
         <tr id="<%= dom_id(template) %>">
-          <td><%= template.title %></td>
+          <td>
+            <%= template.title %>
+            <% if template.customization_of.present? %>
+               - <%= d_('dmpopidor', 'Customized') %>
+            <% end %>
+          </td>
           <td><%= template.org.name %></td>
           <td><%= _(template.org.org_type_to_s) %></td>
           <td><%= raw template.description %></td>

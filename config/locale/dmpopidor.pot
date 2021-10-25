@@ -195,6 +195,9 @@ msgstr ""
 msgid "Customized by "
 msgstr ""
 
+msgid "Customized"
+msgstr ""
+
 msgid "Copy link"
 msgstr ""
 
