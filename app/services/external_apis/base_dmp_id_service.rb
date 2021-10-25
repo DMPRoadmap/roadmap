@@ -4,11 +4,15 @@ module ExternalApis
 
   # This service provides an interface to minting/registering DOIs
   # To enable the feature you will need to:
-  #   - Identify a DOI minting authority (e.g. Datacite, Crossref, etc.)
+  #   - Identify a DMP ID minting authority (e.g. Datacite, Crossref, etc.)
   #   - Create an account with them and gain access to their API
-  #   - Update the `config/initializers/external_apis/doi.rb`
-  #   - Update this service to mint DOIs (based on their API documentation)
-  class BaseDoiService < BaseService
+  #   - Add a `config/initializers/external_apis/[service_name].rb`. Copy one of the
+  #     existing ones as reference.
+  #   - Create a new service in this directory that inherits from this class.
+  #     Then define use the service's API documentation to build mint/update/delete functions
+  #   - Also make sure that the `madmp.enable_dmp_id_registration` is set to true in
+  #     config/initializers/_dmproadmap.rb
+  class BaseDmpIdService < BaseService
 
     class << self
 
@@ -61,12 +65,12 @@ module ExternalApis
 
       # Implement the call to retrieve/mint a new DOI
       # rubocop:disable Lint/UnusedMethodArgument
-      def mint(plan:)
+      def mint_dmp_id(plan:)
         SecureRandom.uuid
 
         # Minted DOIs should be stored as an Identifier. For example:
-        #    doi_url = "#{landing_page_url}#{doi}"
-        #    Identifier.new(identifiable: plan, value: doi_url)
+        #    val = "#{landing_page_url}#{dmp_id}"
+        #    Identifier.new(identifiable: plan, value: val)
 
         # When this service is active and the above identifier is available,
         # the link to the DOI will appear on the Project Details page, in plan
@@ -76,21 +80,21 @@ module ExternalApis
 
       # Implement the call to register an associated ApiClient as a Subscriber to the Plan
       # rubocop:disable Lint/UnusedMethodArgument
-      def add_subscription(plan:, doi:)
+      def add_subscription(plan:, dmp_id:)
         true
       end
       # rubocop:enable Lint/UnusedMethodArgument
 
       # Implement the call to update the DOI
       # rubocop:disable Lint/UnusedMethodArgument
-      def update_doi(plan:)
+      def update_dmp_id(plan:)
         true
       end
       # rubocop:enable Lint/UnusedMethodArgument
 
       # Implement the call to delete the DOI
       # rubocop:disable Lint/UnusedMethodArgument
-      def delete_doi(plan:)
+      def delete_dmp_id(plan:)
         true
       end
       # rubocop:enable Lint/UnusedMethodArgument

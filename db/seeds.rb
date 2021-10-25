@@ -866,5 +866,3 @@ annotations = [
    question: Question.find_by(text: "What types of data will you collect and how will it be stored?")},
 ]
 annotations.each{ |s| Annotation.create!(s) if Annotation.find_by(text: s[:text]).nil? }
-
-Rake::Task["external_api:add_field_of_science_to_research_domains"].execute

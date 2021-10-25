@@ -178,9 +178,9 @@ class UsersController < ApplicationController
     token = Doorkeeper::AccessToken.find_by(id: params[:id])
     if token.present?
       token.update(revoked_at: Time.now)
-      redirect_to edit_user_registration_path, notice: _("The application is no longer authorized to access your data.")
+      redirect_to users_third_party_apps_path, notice: _("The application is no longer authorized to access your data.")
     else
-      redirect_to edit_user_registration_path, alert: _("Unable to revoke the authorized application.")
+      redirect_to users_third_party_apps_path, alert: _("Unable to revoke the authorized application.")
     end
   end
 

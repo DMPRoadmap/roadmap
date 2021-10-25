@@ -1,4 +1,3 @@
-
 # frozen_string_literal: true
 
 class RelatedIdentifierPresenter
@@ -19,7 +18,7 @@ class RelatedIdentifierPresenter
   def for_display
     return [] unless related_identifiers.any?
 
-    out = related_identifiers.map do |related|
+    related_identifiers.map do |related|
       next unless related.is_a?(RelatedIdentifier)
 
       dflt = "%{work_type} - <a href=\"%{url}\" target=\"_blank\">%{url}</a>" % {
@@ -28,10 +27,6 @@ class RelatedIdentifierPresenter
       }
       related.citation.present? ? related.citation : dflt
     end
-
-pp out
-    out
-
   end
 
 end

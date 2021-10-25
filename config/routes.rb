@@ -186,12 +186,11 @@ Rails.application.routes.draw do
 
     resources :research_outputs, except: %i[show]
 
-    resources :related_identifiers, only: %i[new]
-
     member do
       get "answer"
       get "publish"
       get "request_feedback"
+      get "overview"
       get "download"
       post "duplicate"
       post "visibility", constraints: { format: [:json] }
@@ -384,7 +383,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :plans, only: [:index] do
+    resources :plans, only: [:index, :create] do
       member do
         get "feedback_complete"
       end
@@ -402,6 +401,7 @@ Rails.application.routes.draw do
 
       member do
         get "history"
+        get "email"
         get "template_export", action: :template_export
         patch "publish", action: :publish, constraints: { format: [:json] }
         patch "unpublish", action: :unpublish, constraints: { format: [:json] }

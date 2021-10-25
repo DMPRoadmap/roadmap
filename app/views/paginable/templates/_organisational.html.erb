@@ -69,6 +69,12 @@
                         data: { method: 'post' }
                     %>
                   </li>
+                  <% if template.published? %>
+                    <li>
+                      <%= link_to _("Email template"),
+                                  invite_org_admin_template_path(template) %>
+                    </li>
+                  <% end %>
                   <% if template.removable? %>
                     <li>
                       <%= link_to _('Remove'), org_admin_template_path(id: template.id),

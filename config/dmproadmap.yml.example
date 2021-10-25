@@ -33,8 +33,8 @@ default: &default
   #   {:value=> "blah...blah...blah",
   #    :source=>{:type=>:credentials, :store=>"config/credentials.yml.enc"}},
   #  "server_host"=>
-  #    {:value=>"dmptool-stg.cdlib.org",
-  #     :source=>{:type=>:ssm_parameter_store, :ssm_root_path=>"/uc3/dmp/tool/stg:/uc3/dmp/tool/default"}},
+  #    {:value=>"example.org",
+  #     :source=>{:type=>:ssm_parameter_store, :ssm_root_path=>"/my/path/env:/my/path/app/default"}},
   #  "port"=>
   #    {:value=>"3000", :source=>{:type=>:yml, :path=>"config/dmproadmap.yml"}}}
   #
@@ -53,7 +53,7 @@ default: &default
   server_host: "localhost"
   port: "3000"
   web_concurrency: 2
-  cookie_key: "_dmproadmap_session"
+  cookie_key: "_my_application_session"
   rails_log_to_stdout: true
   rails_max_threads: 5
   rails_serve_static_files: true
@@ -68,18 +68,18 @@ default: &default
   # ==========================
 
   # See https://guides.rubyonrails.org/v5.0/configuring.html#configuring-a-database
-  database_adapter: "postgresql"
-  database_name: "dmp"
+  database_adapter: "mysql2"
+  database_name: "my_app"
   database_host: "localhost"
   database_pool_size: 16
-  database_username: "postgres"
+  database_username: "root"
   database_password:
 
   # =========================
   # = Locales configuration =
   # =========================
 
-  locales_default: "en-GB"
+  locales_default: "en-US"
   locales_i18n_join_character: "-"
   locales_gettext_join_character: "_"
 
@@ -99,10 +99,11 @@ default: &default
   # Org logo store configuration.
   # See https://github.com/markevans/dragonfly
   dragonfly_aws: false
-  dragonfly_bucket:
-  dragonfly_host:
+  dragonfly_bucket: ""
+  dragonfly_host: ""
   dragonfly_root_path: "logos"
-  dragonfly_secret:
+  dragonfly_secret: ""
+  dragonfly_region: "us-west-2"
   dragonfly_url_scheme: "s3"
 
   # ======================================
@@ -112,15 +113,23 @@ default: &default
   # Generic DOI service will mint DMP IDs (aka DOIs)
   doi_minting: true
 
+  # DataCite (populate if you're using them as your DOI registrar)
+  datacite_active: false
+  datacite_shoulder: "10.1234"
+  datacite_api_base_url: "https://api.test.datacite.org/"
+  datacite_landing_page_url: "https://doi.org/"
+  # You should also check the config/initializers/external_apis/datacite.rb config
+
   # DMPHub is a DMP metadata repository that will mint DMP IDs and provide a landing page for them.
   # See https://github.com/CDLUC3/dmphub
   dmphub_active: false
   dmphub_url: "https://localhost:3001/api/v0/"
-  dmphub_client_id:
-  dmphub_client_secret:
+  dmphub_landing_page_url: "http://localhost:3001/dmps/doi:"
+  # You should also check the config/initializers/external_apis/dmphub.rb config
 
   # Google Analytics config. Tracker root is the base key for your application
-  google_analytics_tracker_root:
+  # NOTE: This value must match the :name of the application you define below
+  google_analytics_tracker_root: "MyApp"
 
   # The OpenAire API is used to retrieve grant ids on the Project Details page
   openaire_active: false
@@ -134,15 +143,13 @@ default: &default
   # ORCID provides identifiers for people.
   # See the public api docs https://info.orcid.org/documentation/features/public-api/
   # Or the member api docs https://info.orcid.org/documentation/features/member-api/
-  orcid_client_id:
-  orcid_client_secret:
   orcid_sandbox: true
+  orcid_api_base_url: "https://api.sandbox.orcid.org/v3.0/"
+  orcid_landing_page_url: "https://sandbox.orcid.org/"
 
   # Recaptcha is used to prevent malicious use of the Contact Us and Create Account forms
   # See https://developers.google.com/recaptcha/intro
   recaptcha_enabled: false
-  recaptcha_site_key:
-  recaptcha_secret_key:
 
   # Rollbar converts errors into GutHub issues
   # See https://docs.rollbar.com/docs/gem-configuration-reference
@@ -151,7 +158,7 @@ default: &default
   # rollbar_access_token:
 
   # Will use the ROR api to search for Org's as the user types
-  ror_active: true
+  ror_active: false
 
   # Translation IO can be used to help failitate translating your custom code.Translations for the
   # core DMPRoadmap codebase are handled by the development team (DEV only)
@@ -195,11 +202,14 @@ default: &default
   # = Base application configuration =
   # ==================================
 
-  name: "DMPRoadmap"
+  # This name is used throughout the system to identify your application. (e.g. in
+  # email communications, API calls to external systems, etc.)
+  # NOTE - This name must match the Google Analytics Tracker in this file!
+  name: "MyApp"
   # The :from email address used in emails sent by the application
-  do_not_reply_email: "do-not-reply-dmproadmap-dev@cdlib.org"
+  do_not_reply_email: "do-not-reply-my-app-dev@cdlib.org"
   # The helpdesk email
-  helpdesk_email:
+  helpdesk_email: "help@example.org"
   # Used as the default domain when 'archiving' (aka anonymizing) a user account
   # for example `jane.doe@uni.edu` becomes `1234@removed_accounts-example.org`
   archived_accounts_email_suffix: "@removed_accounts_dmproadmap.org"
@@ -230,6 +240,8 @@ default: &default
   # Your organisation name, used in various places throught the application
   organisation_name: "My institution's name"
   # Your orgsanisation abbreviation
+  # NOTE - This must match an Org abbreviation in the orgs table. It is used to determine
+  #        who owns the default guidance
   organisation_abbreviation: "MY-ORG"
   # Your organisation's homepage, used in some of the public facing pages
   organisation_url: "https://example.org/"
@@ -265,51 +277,29 @@ default: &default
 
   # The link to the API documentation - used in emails about the API.
   api_documentation_urls:
-    v0: "https://github.com/DMPRoadmap/roadmap/wiki/API-V0-Documentation"
-    v1: "https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation-V1"
+    v0: "https://github.com/CDLUC3/dmptool/wiki/api-v0-documentation"
+    v1: "https://github.com/CDLUC3/dmptool/wiki/api-v1-documentation"
+    v2: "https://github.com/CDLUC3/dmptool/wiki/api-v2-documentation"
 
   # The current landing page for API documentation
-  api_documentation_overview_url: "https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation-V1"
+  api_documentation_overview_url: "https://github.com/CDLUC3/dmptool/wiki/API-Overview"
 
   # =============================
   # = Static page configuration =
   # =============================
 
   # The link to your release notes
-  release_notes_url: "https://github.com/DMPRoadmap/roadmap/releases"
+  release_notes_url: "https://github.com/CDLUC3/dmptool/releases"
   # The link to your issues list
-  issue_list_url: "https://github.com/DMPRoadmap/roadmap/issues"
+  issue_list_url: "https://github.com/CDLUC3/dmptool/issues"
   # The link to your Listserv
-  user_group_subscription_url:
+  user_group_subscription_url: ""
   # The link to your blog
-  blog_rss:
+  blog_rss: "https://example.org/feed"
+
 
   # The links that appear on the home page. Add any number of links
   welcome_links: []
-
-  # ===================================
-  # = License selection configuration =
-  # ===================================
-
-  # Specify a list of the preferred licenses types. These licenses will appear in a select
-  # box on the 'Research Outputs' tab when editing a plan along with the option to select
-  # 'other'. When 'other' is selected, the user is presented with the full list of licenses.
-  #
-  # The licenses will appear in the order you specify here.
-  #
-  # Note that the values you enter must match the :identifier field of the licenses table.
-  # You can use the `%{latest}` markup in place of version numbers if desired.
-  preferred_licenses:
-    - "CC-BY-%{latest}"
-    - "CC-BY-SA-%{latest}"
-    - "CC-BY-NC-%{latest}"
-    - "CC-BY-NC-SA-%{latest}"
-    - "CC-BY-ND-%{latest}"
-    - "CC-BY-NC-ND-%{latest}"
-    - "CC0-%{latest}"
-  # Link to external guidance about selecting one of the preferred licenses. A default
-  # URL will be displayed if none is provided here. See app/views/research_outputs/licenses/_form
-  preferred_licenses_guidance_url: "https://creativecommons.org/about/cclicenses/"
 
   # =================
   # = Plan defaults =
@@ -332,6 +322,62 @@ default: &default
   # Whether or not Organisational administrators can read all of the user's plans
   # regardless of the plans visibility and whether or not the plan has been shared
   plans_super_admins_read_all: true
+
+  # Whether or not to display they Plan Overview tab to users when they're editing
+  # their DMP
+  show_overview_tab: false
+
+  # ======================================= #
+  # = maDMP / Networked DMP functionality = #
+  # ======================================= #
+
+  # Enable/disable functionality on the Project Details tab
+  enable_ethical_issues: false
+  enable_research_domain: false
+
+  # This flag will enable/disable the entire Research Outputs tab. The others below will
+  # just enable/disable specific functionality on the Research Outputs tab
+  enable_research_outputs: false
+  enable_license_selection: false
+  enable_metadata_standard_selection: false
+  enable_repository_selection: false
+
+  # The following flags will allow the system to include the question and answer in the JSON output
+  #   - questions with a theme equal to 'Preservation'
+  extract_preservation_statements_from_themed_questions: false
+  #   - questions with a theme equal to 'Data Collection'
+  extract_data_quality_statements_from_themed_questions: false
+  #   - questions with a theme equal to 'Ethics & privacy' or 'Storage & security'
+  extract_security_privacy_statements_from_themed_questions: false
+
+  # Specify a list of the preferred licenses types. These licenses will appear in a select
+  # box on the 'Research Outputs' tab when editing a plan along with the option to select
+  # 'other'. When 'other' is selected, the user is presented with the full list of licenses.
+  #
+  # The licenses will appear in the order you specify here.
+  #
+  # Note that the values you enter must match the :identifier field of the licenses table.
+  # You can use the `%{latest}` markup in place of version numbers if desired.
+  preferred_licenses:
+    - "CC-BY-%{latest}"
+    - "CC-BY-SA-%{latest}"
+    - "CC-BY-NC-%{latest}"
+    - "CC-BY-NC-SA-%{latest}"
+    - "CC-BY-ND-%{latest}"
+    - "CC-BY-NC-ND-%{latest}"
+    - "CC0-%{latest}"
+
+  # Link to external guidance about selecting one of the preferred licenses. A default
+  # URL will be displayed if none is provided here. See app/views/research_outputs/licenses/_form
+  preferred_licenses_guidance_url: "https://creativecommons.org/about/cclicenses/"
+
+  # Whether or not to allow users to manually add related_identifiers to a plan
+  enable_related_identifiers: true
+  # Whether or not to allow the system to fetch citations for RelatedIdentifiers
+  enable_citation_lookup: true
+
+  # Allow DMP ID minting (requires you to setup either the DMPHub or DataCite config above)
+  enable_dmp_id_registration: false
 
   # ============================
   # = User preference defaults =

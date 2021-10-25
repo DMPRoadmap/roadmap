@@ -168,6 +168,25 @@ module DMPRoadmap
     # The default user email preferences used when a new account is created
     config.x.application.preferences = Rails.configuration.x.dmproadmap.preferences
 
+    # Change the location of the Collaborators information (where users are invited
+    # to co-own, edit or comment on a plan).
+    #
+    # If true:
+    #  - A 'Contributors' tab will be displayed that contains the contributors info
+    #  - A 'Share' tab will be displayed that contains the plan visibility setting,
+    #    the collaborators information and the DMP ID information (if enabled, see
+    #    :enable_dmp_id_registration below)
+    #
+    # If false:
+    #  - A 'Collaborators' tab will be displayed that contains both the contributos info
+    #    and the collaborators information
+    #  - A 'Finalise / Publish' tab will be displayed that contains the plan visibility
+    #    settings and the DMP ID information (if enabled, see :enable_dmp_id_registration)
+    config.x.show_collaborators_on_share_tab = Rails.configuration.x.dmproadmap.show_collaborators_on_share_tab
+
+    # Determines whether or not the user will see the Plan Overview tab
+    config.x.show_overview_tab = Rails.configuration.x.dmproadmap.show_overview_tab
+
     # ---------------------------------------------------- #
     # CACHING - all values are in seconds (86400 == 1 Day) #
     # ---------------------------------------------------- #
@@ -235,8 +254,30 @@ module DMPRoadmap
     # Whether or not to allow the system to fetch citations for RelatedIdentifiers
     config.x.madmp.enable_citation_lookup = Rails.configuration.x.dmproadmap.enable_citation_lookup
 
-    # Whether or not we allow DMP ID minting
-    config.x.allow_doi_minting = Rails.configuration.x.dmproadmap.allow_doi_minting
+    # Enable/disable the ability for users to register/mint DMP IDs (aka DOIs)
+    # this feature also requires you to activate your DOI service
+    #
+    # - For DataCite, you must have an account and then need to setup your credentials
+    #   in config/initializers/external_apis/datacite.rb
+    #
+    # - For a local DMPHub installation (https://github.com/CDLUC3/dmphub), setup your
+    #   credentials in config.initializers/external_apis/dmphub.rb
+    #
+    # - You can also define your own service by extending the
+    #   app/services/external_apis/doi_service.rb. Use one of the services mentioned above
+    #   as template.
+    #
+    # The location of this feature is determined by your setting for
+    # :show_collaborators_on_share_tab above
+    config.x.madmp.enable_dmp_id_registration = Rails.configuration.x.dmproadmap.enable_dmp_id_registration
+
+    # ------------------- #
+    # Related Identifiers #
+    # ------------------- #
+    # Allow researchers to specify related works for the DMP
+    config.x.madmp.enable_related_identifiers = Rails.configuration.x.dmproadmap.enable_related_identifiers
+    # Allow the system to fetch citations for RelatedIdentifiers via the Uc3Citation gem
+    config.x.madmp.enable_citation_lookup = Rails.configuration.x.dmproadmap.enable_citation_lookup
   end
 
 end

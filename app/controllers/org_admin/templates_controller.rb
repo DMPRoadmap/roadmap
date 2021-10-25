@@ -9,6 +9,8 @@ module OrgAdmin
     include Versionable
     include TemplateMethods
 
+    include Dmptool::OrgAdmin::TemplatesController
+
     after_action :verify_authorized
 
     # The root version of index which returns all templates
@@ -19,7 +21,7 @@ module OrgAdmin
       templates = Template.latest_version.where(customization_of: nil)
       published = templates.select { |t| t.published? || t.draft? }.length
 
-      @orgs              = Org.managed
+      @orgs              = Org.includes(identifiers: :identifier_scheme).managed
       @title             = _("All Templates")
       @templates         = templates.includes(:org).page(1)
       @query_params      = { sort_field: "templates.title", sort_direction: "asc" }
@@ -43,7 +45,7 @@ module OrgAdmin
                           .where(customization_of: nil, org_id: current_user.org.id)
       published = templates.select { |t| t.published? || t.draft? }.length
 
-      @orgs  = current_user.can_super_admin? ? Org.all : nil
+      @orgs  = Org.includes(identifiers: :identifier_scheme).all if current_user.can_super_admin?
       @title = if current_user.can_super_admin?
                  _("%{org_name} Templates") % { org_name: current_user.org.name }
                else
@@ -80,7 +82,7 @@ module OrgAdmin
       end
       published = customizations.select { |t| t.published? || t.draft? }.length
 
-      @orgs = current_user.can_super_admin? ? Org.all : []
+      @orgs  = Org.includes(identifiers: :identifier_scheme).all if current_user.can_super_admin?
       @title = _("Customizable Templates")
       @templates = funder_templates
       @customizations = customizations

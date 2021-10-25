@@ -95,11 +95,6 @@ module ExportablePlan
   # rubocop:disable Metrics/AbcSize
   def prepare_coversheet
     hash = {}
-    # name of owner and any co-owners
-    attribution = owner.present? ? [owner.name(false)] : []
-    roles.administrator.not_creator.each do |role|
-      attribution << role.user.name(false)
-    end
     hash[:attribution] = attribution
 
     # Org name of plan owner's org
@@ -127,11 +122,7 @@ module ExportablePlan
 
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def prepare_coversheet_for_csv(csv, _headings, hash)
-    csv << [if hash[:attribution].many?
-              _("Creators: ")
-            else
-              _("Creator:")
-            end, _("%{authors}") % { authors: hash[:attribution].join(", ") }]
+    csv << [_("Creator:"), _("%{authors}") % { authors: hash[:attribution].join(", ") }]
     csv << ["Affiliation: ", _("%{affiliation}") % { affiliation: hash[:affiliation] }]
     csv << if hash[:funder].present?
              [_("Template: "), _("%{funder}") % { funder: hash[:funder] }]
@@ -221,6 +212,22 @@ module ExportablePlan
 
   def sanitize_text(text)
     ActionView::Base.full_sanitizer.sanitize(text.to_s.gsub(/&nbsp;/i, ""))
+  end
+
+  # Use the name of the DMP owner/creator OR the first Co-owner if there is no
+  # owner for some reason
+  def attribution
+    user = roles.creator.first&.user
+    user = roles.administrator.not_creator.first&.user unless user.present?
+    text = user&.name(false)
+    orcid = user.identifier_for_scheme(scheme: "orcid")
+    if orcid.present?
+      text += " - <strong>ORCID:</strong> <a href=\"%{orcid_url}\" target=\"_blank\">%{orcid}</a>" % {
+        orcid_url: orcid.value,
+        orcid: orcid.value_without_scheme_prefix
+      }
+    end
+    text
   end
 
 end

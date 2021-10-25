@@ -88,4 +88,14 @@ class TemplatePolicy < ApplicationPolicy
     user.present?
   end
 
+  # DMPTool customizations to allow Org Admins to create a plan from one of their
+  # templates on behalf of a user
+  def email?
+    user.can_super_admin? || (user.can_modify_templates? && template.org_id == user.org_id)
+  end
+
+  def invite?
+    user.can_super_admin? || (user.can_modify_templates? && template.org_id == user.org_id)
+  end
+
 end

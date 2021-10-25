@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # locals: contributor, orcid_scheme, ror_scheme
 
 if contributor.is_a?(Hash)

@@ -114,14 +114,16 @@ module OrgSelectable
       return org unless org.present? && org.new_record?
 
       # Save the Org before attaching identifiers
-      org.save
-      identifiers_from_params(params_in: params_in).each do |identifier|
-        next unless identifier.value.present?
+      if org.save
+        identifiers_from_params(params_in: params_in).each do |identifier|
+          next unless identifier.value.present?
 
-        identifier.identifiable = org
-        identifier.save
+          identifier.identifiable = org
+          identifier.save
+        end
+        org.reload
       end
-      org.reload
+      org
     end
 
     def prep_org_partial

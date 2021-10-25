@@ -2,6 +2,8 @@
 
 class OrgAdmin::PlansController < ApplicationController
 
+  include Dmptool::OrgAdmin::PlansController
+
   # GET org_admin/plans
   def index
     # Test auth directly and throw Pundit error sincePundit

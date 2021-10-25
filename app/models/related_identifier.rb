@@ -8,6 +8,7 @@
 #  identifiable_type    :string(255)
 #  identifier_type      :integer          not null
 #  relation_type        :integer          not null
+#  work_type            :integer          not null
 #  value                :string(255)      not null
 #  citation             :text
 #  created_at           :datetime         not null
@@ -26,7 +27,7 @@ class RelatedIdentifier < ApplicationRecord
 
   include Uc3Citation
 
-  URL_REGEX = %r{^https?:\/\.}.freeze
+  URL_REGEX = %r{^http}.freeze
   DOI_REGEX = %r{(doi:)?10\.[0-9]+\/[a-zA-Z0-9\.\-\/]+}.freeze
   ARK_REGEX = %r{ark:[a-zA-Z0-9]+\/[a-zA-Z0-9]+}.freeze
 
@@ -106,8 +107,8 @@ class RelatedIdentifier < ApplicationRecord
   end
 
   def detect_identifier_type
-    return "doi" unless (value =~ DOI_REGEX).nil?
     return "ark" unless (value =~ ARK_REGEX).nil?
+    return "doi" unless (value =~ DOI_REGEX).nil?
     return "url" unless (value =~ URL_REGEX).nil?
 
     "other"

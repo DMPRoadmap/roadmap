@@ -44,6 +44,7 @@ class Paginable::TemplatesController < ApplicationController
       template_ids = templates.select { |t| !t.published? && !t.draft? }.collect(&:family_id)
       templates = Template.latest_version(template_ids)
     end
+
     paginable_renderise(
       partial: "organisational",
       scope: templates,

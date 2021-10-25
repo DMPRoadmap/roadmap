@@ -16,8 +16,13 @@ if output.is_a?(ResearchOutput)
   json.security_and_privacy presenter.security_and_privacy
   json.data_quality_assurance presenter.data_quality_assurance
 
-  json.dataset_id do
-    json.partial! "api/v1/identifiers/show", identifier: presenter.dataset_id
+json.distribution [plan] do |distribution|
+  json.title "PDF - #{distribution.title}"
+  json.data_access "open"
+  url = Rails.application.routes.url_helpers.plan_export_url(distribution, format: :pdf)
+  json.download_url url
+  json.format do
+    json.array! ["application/pdf"]
   end
 
   json.distribution output.repositories do |repository|

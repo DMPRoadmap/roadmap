@@ -152,7 +152,7 @@ $(() => {
 
     setUpTypeahead();
 
-    form.on('submit', () =>{
+    form.on('submit', () => {
       toggleSpinner(true);
     });
   }
