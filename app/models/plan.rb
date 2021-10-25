@@ -584,6 +584,11 @@ class Plan < ApplicationRecord
     end
   end
 
+  # Returns the plan's identifier (either a DOI/ARK)
+  def landing_page
+    identifiers.select { |i| %w[doi ark].include?(i.identifier_format) }.first
+  end
+
   # Retrieves the Plan's most recent DOI
   def dmp_id
     return nil unless Rails.configuration.x.madmp.enable_dmp_id_registration
