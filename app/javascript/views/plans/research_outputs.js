@@ -1,4 +1,6 @@
 
+import { Select2 } from '../../utils/select2';
+
 $(() => {
   $('#research-outputs').sortable({
     items: '.research-output-element:not(.inactive)',
@@ -21,6 +23,7 @@ $(() => {
   });
   $('#research-outputs').on('ajax:success', (e, data) => {
     $('#research-outputs-list').html(data.html);
+    Select2.init('#research-outputs-list');
   });
 
   $('#research-outputs').on('click', '.research-output-actions .edit', (e) => {
