@@ -5,6 +5,7 @@
       <th scope="col"><%= _('Level') %>&nbsp;<%= paginable_sort_link('notifications.level') %></th>
       <th scope="col"><%= _('Start') %>&nbsp;<%= paginable_sort_link('notifications.starts_at') %></th>
       <th scope="col"><%= _('Expiration') %>&nbsp;<%= paginable_sort_link('notifications.expires_at') %></th>
+      <th scope="col"><%= _('Active') %>&nbsp;<%= paginable_sort_link('notifications.enabled') %></th>
     </tr>
   </thead>
   <tbody>
@@ -14,6 +15,10 @@
         <td><%= notification.level %></td>
         <td><%= notification.starts_at %></td>
         <td><%= notification.expires_at %></td>
+        <td class="enable_notification">
+          <%= check_box_tag(:enabled, "1", notification.enabled, "aria-label": "active",
+                            data: { remote: true, method: :post, url: enable_super_admin_notification_path(notification) } ) %>
+        </td>
       </tr>
     <% end %>
   </tbody>

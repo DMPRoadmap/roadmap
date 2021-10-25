@@ -4,6 +4,6 @@
   </div>
 
   <div class="col-md-4">
-    <%= render partial: 'shared/access_controls' %>
+    <%= render partial: 'shared/access_controls', locals: {orgs: @all_orgs, org_partial: @org_partial} %>
   </div>
 </div>

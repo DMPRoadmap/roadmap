@@ -1,8 +1,12 @@
+# frozen_string_literal: true
+
 class TemplatePolicy < ApplicationPolicy
+
   attr_reader :user, :template
 
   def initialize(user, template = Template.new)
     raise Pundit::NotAuthorizedError, _("must be logged in") unless user.is_a?(User)
+
     @user = user
     @template = template
   end
@@ -40,7 +44,7 @@ class TemplatePolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.can_super_admin? || (user.can_modify_templates?  &&  (template.org_id == user.org_id))
+    user.can_super_admin? || (user.can_modify_templates? && (template.org_id == user.org_id))
   end
 
   def history?
@@ -63,13 +67,14 @@ class TemplatePolicy < ApplicationPolicy
   def copy?
     user.can_super_admin? || (user.can_modify_templates?  &&  (template.org_id == user.org_id))
   end
+
   def publish?
     user.can_super_admin? || (user.can_modify_templates?  &&  (template.org_id == user.org_id))
   end
+
   def unpublish?
     user.can_super_admin? || (user.can_modify_templates?  &&  (template.org_id == user.org_id))
   end
-
 
   ##
   # Users can modify templates if:
@@ -77,13 +82,10 @@ class TemplatePolicy < ApplicationPolicy
   #  - The template which they are modifying belongs to their org
   ##
 
-
-
   # Anyone with an account should be able to get templates for the sepecified research_org + funder
   # This policy is applicable to the Create Plan page
   def template_options?
     user.present?
   end
-
 
 end

@@ -1,4 +1,4 @@
-class CreateStructureForApiAuthentication < ActiveRecord::Migration
+class CreateStructureForApiAuthentication < ActiveRecord::Migration[4.2]
   def change
     create_table :token_permissions do |t|
       t.string  :api_token

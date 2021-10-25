@@ -1,0 +1,25 @@
+<% title _('API Clients') %>
+
+<div class="row">
+  <div class="col-md-12">
+    <h1>
+      <%= _('API Clients') %>
+      <a href="<%= new_super_admin_api_client_path %>"
+         class="btn btn-primary pull-right"><%= _('Create Api Client') %></a>
+    </h1>
+    <p>Manage API access for external applications</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <!-- List of guidance groups -->
+    <%= paginable_renderise(
+      partial: '/paginable/api_clients/index',
+      controller: 'paginable/api_clients',
+      action: 'index',
+      remote: true,
+      scope: @api_clients,
+      query_params: { sort_field: 'api_clients.name', sort_direction: :asc }) %>
+    <div>
+  </div>
+</div>

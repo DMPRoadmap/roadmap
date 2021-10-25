@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: prefs
@@ -7,12 +9,10 @@
 #  user_id  :integer
 #
 
-class Pref < ActiveRecord::Base
-  include ValidationMessages
+class Pref < ApplicationRecord
 
   ##
   # Serialize prefs to JSON
-  # The settings object only stores deviations from the default
   serialize :settings, JSON
 
   # ================
@@ -32,7 +32,7 @@ class Pref < ActiveRecord::Base
   #
   # Returns Hash
   def self.default_settings
-    Branding.fetch(:preferences)
+    Rails.configuration.x.application.preferences
   end
 
 end

@@ -1,5 +1,5 @@
 <%
-  application_name = _(Rails.configuration.branding[:application][:name])
+  application_name = ApplicationService.application_name
 %>
 
 <% title _("Welcome to %{application_name}.") % {application_name: application_name} %>

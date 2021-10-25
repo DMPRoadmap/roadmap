@@ -1,28 +1,25 @@
-<div class="form-group">
-  <%= f.label _('Name'), for: :name, class: "control-label" %>
-  <%= f.text_field :name, as: :string, class: "form-control", 'data-toggle': 'tooltip',
-      title: _('Add an appropriate name for your guidance group. This name will be used to tell the end user where the guidance has come from. It will be appended to text identifying the theme e.g. "[guidance group name]: guidance on data sharing" so we suggest you just use the organisation or department name.'),
-      spellcheck: true, 'aria-required': true %>
+<%# locals: form %>
+<%
+name_tip = _('Add an appropriate name for your guidance group. This name will tell the end user where the guidance has come from. We suggest you use the organisation or department name e.g. "OU" or "Maths & Stats"')
+published_tip = _("Check this box when you are ready for guidance associated with this group to appear on user's plans.")
+subset_tip = _("If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the 'create plan' wizard.")
+%>
+ <div class="form-group col-xs-8">
+  <%= form.label :name, class: "control-label" %>
+  <%= form.text_field :name, class: "form-control", spellcheck: true, aria: { required: true },
+                             data: { toggle: 'tooltip' }, title: name_tip %>
 </div>
-<fieldset>
-	<div class="checkbox">
-	  <%= f.label :published do %>
-      <%= f.check_box :published,
-                      data: { toggle: 'tooltip' },
-                      title: _('Check this box when you are ready for guidance associated with this group to appear on user\'s plans.')
-      %>
-      <%= _('Published') %>
-    <% end %>
-	</div>
 
-	<div class="checkbox">
-	  <%= f.label :optional_subset do %>
-      <%= f.check_box :optional_subset,
-                      data: { toggle: 'tooltip' },
-                      title: _('If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the \'create plan\' wizard.')
-      %>
-      <%= _('Optional Subset (e.g. School/Department)') %>
-    <% end %>
-	</div>
-</fieldset>
-<%= f.submit _('Save'), class: 'btn btn-primary' %>
+ <div class='form-input col-xs-8'>
+  <%= form.check_box :published, data: { toggle: 'tooltip' }, title: published_tip %>
+  <%= form.label :published, class: "control-label" %>
+</div>
+<div class='form-input col-xs-8'>
+  <%= form.check_box :optional_subset, data: { toggle: 'tooltip' }, title: subset_tip %>
+  <%= form.label :optional_subset, class: "control-label" %><%= _(' (e.g. School/ Department) ') %>
+</div>
+<div class="form-group col-xs-8">
+  <%= form.hidden_field :org_id %>
+  <%= form.submit _('Save'), class: "btn btn-primary" %>
+  <%= link_to _('Cancel'), admin_index_guidance_path, class: "btn btn-primary", role: 'button' %>
+</div>

@@ -10,7 +10,8 @@ class Paginable::GuidanceGroupsController < ApplicationController
     paginable_renderise(
       partial: "index",
       scope: GuidanceGroup.by_org(current_user.org),
-      query_params: { sort_field: "guidance_groups.name", sort_direction: :asc }
+      query_params: { sort_field: "guidance_groups.name", sort_direction: :asc },
+      format: :json
     )
   end
 

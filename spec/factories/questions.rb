@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: questions
@@ -16,6 +18,7 @@
 #
 # Indexes
 #
+#  fk_rails_4fbc38c8c7                (question_format_id)
 #  index_questions_on_section_id      (section_id)
 #  index_questions_on_versionable_id  (versionable_id)
 #

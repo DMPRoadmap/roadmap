@@ -1,4 +1,4 @@
-FROM ruby:2.5.9
+FROM ruby:2.6.3
 
 # Setup bundle to install gems to volume
 ENV BUNDLE_PATH=/bundle/ \
@@ -38,11 +38,12 @@ RUN gem install bundler
 COPY Gemfile* $INSTALL_PATH
 
 RUN bundle config --local build.sassc --disable-march-tune-native
-RUN RAILS_ENV=production bundle install --without development test pgsql thin aws ci --jobs=3 --retry=3
+RUN bundle config set --local without 'development test pgsql thin aws ci'
+RUN RAILS_ENV=production bundle install --jobs=3 --retry=3
 
 COPY . $INSTALL_PATH
 RUN NODE_ENV=production yarn install --prod --check-files
-RUN DATABASE_URL=nulldb://user:test@127.0.0.1/roadmap RAILS_ENV=production DEVISE_SECRET_KEY=pickasecuretoken bundle exec rake assets:precompile
+RUN DATABASE_URL=nulldb://user:test@127.0.0.1/roadmap RAILS_ENV=production SECRET_KEY_BASE=change_me DEVISE_SECRET_KEY=pickasecuretoken bundle exec rake assets:precompile
 
 EXPOSE 3000
 CMD bundle exec puma -C config/puma.rb

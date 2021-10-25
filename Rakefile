@@ -1,19 +1,17 @@
 #!/usr/bin/env rake
+# frozen_string_literal: true
+
 # Add your own tasks in files placed in lib/tasks ending in .rake,
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
-require 'rake/testtask'
-require_relative 'config/application'
-Rails.application.load_tasks
-# TODO: destroy rdoc rake task once finished with new documentation
+# require 'rake/testtask'
+# require File.expand_path('../config/application', __FILE__)
 
-RDoc::Task.new :rdoc do |rdoc|
-  rdoc.main = "README.rdoc"
+# DMPRoadmap::Application.load_tasks
 
-  rdoc.rdoc_files.include("README.rdoc", "doc/*.rdoc", "app/**/*.rb", "lib/*.rb", "config/**/*.rb")
-  #change above to fit needs
+# task default: :test
 
-  rdoc.title = "DMPRoadmap Documentation"
-  rdoc.options << "--all" 
-end
+require_relative "config/application"
+
+DMPRoadmap::Application.load_tasks
 
 task default: :test

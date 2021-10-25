@@ -1,4 +1,4 @@
-class AddAnswerOptionsRelation < ActiveRecord::Migration
+class AddAnswerOptionsRelation < ActiveRecord::Migration[4.2]
   def up
   	create_table :answers_options, :id => false do |t|
 	  t.references :answer, :null => false

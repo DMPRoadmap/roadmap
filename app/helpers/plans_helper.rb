@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 module PlansHelper
 
   # display the role of the user for a given plan
   def display_role(role)
     if role.creator?
-      _('Owner')
+      _("Owner")
     elsif role.administrator?
-      _('Co-owner')
+      _("Co-owner")
     elsif role.editor?
-      _('Editor')
+      _("Editor")
     elsif role.commenter?
-      _('Read only')
+      _("Read only")
     end
   end
 
@@ -61,13 +63,14 @@ module PlansHelper
 
   def download_plan_page_title(plan, phase, hash)
     # If there is more than one phase show the plan title and phase title
-    return hash[:phases].many? ? "#{plan.title} - #{phase[:title]}" : plan.title
+    hash[:phases].many? ? "#{plan.title} - #{phase[:title]}" : plan.title
   end
 
   def display_section?(customization, section, show_custom_sections)
     display = !customization
     display ||= customization && !section[:modifiable]
     display ||= customization && section[:modifiable] && show_custom_sections
-    return display
+    display
   end
+
 end

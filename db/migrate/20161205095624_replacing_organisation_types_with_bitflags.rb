@@ -1,4 +1,4 @@
-class ReplacingOrganisationTypesWithBitflags < ActiveRecord::Migration
+class ReplacingOrganisationTypesWithBitflags < ActiveRecord::Migration[4.2]
   # requires flag_shih_tzu for bitfields
   def change
     # add org_type field to orgs

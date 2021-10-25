@@ -1,9 +1,13 @@
+# frozen_string_literal: true
+
 class RolePolicy < ApplicationPolicy
+
   attr_reader :user
   attr_reader :role
 
   def initialize(user, role)
     raise Pundit::NotAuthorizedError, "must be logged in" unless user
+
     @user = user
     @role = role
   end
@@ -23,4 +27,5 @@ class RolePolicy < ApplicationPolicy
   def deactivate?
     @role.user_id == @user.id
   end
+
 end

@@ -1,8 +1,12 @@
+# frozen_string_literal: true
+
 class GuidanceGroupPolicy < ApplicationPolicy
+
   attr_reader :user, :guidance_group
 
   def initialize(user, guidance_group)
     raise Pundit::NotAuthorizedError, "must be logged in" unless user
+
     @user = user
     @guidance_group = guidance_group
   end
@@ -40,9 +44,11 @@ class GuidanceGroupPolicy < ApplicationPolicy
   end
 
   class Scope < Scope
+
     def resolve
       scope.where(org_id: user.org_id)
     end
+
   end
 
 end

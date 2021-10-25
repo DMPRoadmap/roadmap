@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: notes
@@ -13,6 +15,7 @@
 #
 # Indexes
 #
+#  fk_rails_7f2323ad43       (user_id)
 #  index_notes_on_answer_id  (answer_id)
 #
 # Foreign Keys
@@ -21,9 +24,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 
-class Note < ActiveRecord::Base
-  include ValidationMessages
-  include ValidationValues
+class Note < ApplicationRecord
 
   # ================
   # = Associations =

@@ -7,7 +7,7 @@ class Paginable::NotificationsController < ApplicationController
   # /paginable/notifications/index/:page
   def index
     authorize(Notification)
-    paginable_renderise(partial: "index", scope: Notification.all)
+    paginable_renderise(partial: "index", scope: Notification.all, format: :json)
   end
 
 end

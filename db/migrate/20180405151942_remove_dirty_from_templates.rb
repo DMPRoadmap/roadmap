@@ -1,4 +1,4 @@
-class RemoveDirtyFromTemplates < ActiveRecord::Migration
+class RemoveDirtyFromTemplates < ActiveRecord::Migration[4.2]
   def up
     remove_column :templates, :dirty
   end
