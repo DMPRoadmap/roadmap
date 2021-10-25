@@ -29,8 +29,12 @@ tooltip = _("List products related to this project, such as journal articles, so
             <%= sanitize(related_identifier.citation) %>
           <% else %>
             <%= related_identifier.work_type.humanize %>:&nbsp;
-            <%= link_to related_identifier.value, target: "_blank" %>&nbsp;
-            <%= _("No citation available.") %>
+            <% if related_identifier.value.start_with?("http") %>
+              <%= link_to related_identifier.value, target: "_blank" %>&nbsp;
+            <% else %>
+              <%= related_identifier.value %>
+            <% end %>
+            <%= _(" - No citation available.") %>
           <% end %>
         </span>
         <span class="col-md-2">
