@@ -18,6 +18,7 @@ $(() => {
 
 
   Tinymce.init();
+  /*
   $('#is_test').click((e) => {
     $('#plan_visibility').val($(e.target).is(':checked') ? 'is_test' : 'privately_visible');
   });
@@ -34,6 +35,7 @@ $(() => {
     showHideDataContact($(e.currentTarget));
   });
   showHideDataContact($('#show_data_contact'));
+  */
 
   // Toggle the disabled flags
   const toggleCheckboxes = (selections) => {
@@ -176,6 +178,9 @@ $(() => {
         toolbar,
       });
       Select2.init('.plan-details');
+      if (form.parent().hasClass('project-form')) {
+        $('#plan_metadata').trigger('reload.form');
+      }
     }).fail((error) => {
       failCallback(error, target);
     });
