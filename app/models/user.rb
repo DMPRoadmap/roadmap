@@ -57,8 +57,14 @@ class User < ApplicationRecord
   include DateRangeable
   include Identifiable
 
+  include Dmptool::User
+
   extend UniqueRandom
 
+  # DMPTool customization
+  #
+  # commenting out Devise which we re-implement below
+  #
   ##
   # Devise
   #   Include default devise modules. Others available are:
@@ -71,19 +77,14 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,
-         :trackable, :invitable
+          :recoverable, :rememberable, :validatable,
+          :trackable, :invitable,
+          :omniauthable, omniauth_providers: %i[shibboleth orcid]
 
   # DMPTool customization
   #
-  # Alias 'institution' for 'org' and define message for 'accept_terms'
+  # Alias 'institution' for 'org'
   attr_accessor :institution
-  validates :institution, presence: { message: PRESENCE_MESSAGE }
-  before_validation ->(user) { user.institution = user.org }
-  validates :accept_terms, inclusion: {
-    in: [true, nil],
-    message: _("and conditions" )
-  }
 
   ##
   # User Notification Preferences
@@ -100,7 +101,15 @@ class User < ApplicationRecord
 
   belongs_to :language
 
+  # DMPTool customization
+  #
+  # commenting out because we make it optional in Dmptool::User concern
+  #
+  # belongs_to :org
   belongs_to :org, optional: true
+
+  # Added to allow creation of Orgs at sign up / edit profile
+  accepts_nested_attributes_for :org
 
   belongs_to :department, required: false
 
@@ -119,32 +128,6 @@ class User < ApplicationRecord
   has_and_belongs_to_many :notifications, dependent: :destroy,
                                           join_table: "notification_acknowledgements"
 
-  # ================================
-  # = Dookeeper OAuth Associations =
-  # ================================
-
-  # Access Grants are created when a user authorizes an ApiClient to access their data via the
-  # OAuth workflow. They are sent back to the ApiClient as 'code' which is in turn used to
-  # retrieve an AccessToken
-  has_many :access_grants, class_name: 'Doorkeeper::AccessGrant',
-                           foreign_key: :resource_owner_id,
-                           dependent: :delete_all
-
-  # Access Tokens are created when an ApiClient authenticates a User via an access grant code.
-  # The access token is then used instead of credentials in calls to the API. These tokens can be revoked
-  # by a user on their profile page.
-  has_many :access_tokens, class_name: 'Doorkeeper::AccessToken',
-                           foreign_key: :resource_owner_id,
-                           dependent: :delete_all
-
-  # Table that stores OAuth access tokens for other external systems like ORCID
-  has_many :external_api_access_tokens, dependent: :destroy
-  accepts_nested_attributes_for :external_api_access_tokens
-  accepts_nested_attributes_for :plans
-
-  # Added to allow creation of Orgs at sign up / edit profile
-  accepts_nested_attributes_for :org
-
   # ===============
   # = Validations =
   # ===============
@@ -154,6 +137,39 @@ class User < ApplicationRecord
   validates :firstname, presence: { message: PRESENCE_MESSAGE }
 
   validates :surname, presence: { message: PRESENCE_MESSAGE }
+
+  # DMPTool customization
+  #
+  # commenting out Devise which we re-implement in the Dmptool::User concern
+  #
+  # validates :org, presence: { message: PRESENCE_MESSAGE }
+
+  # Validations to support ouur sign in / sign up workflow
+  validates :institution, presence: { message: PRESENCE_MESSAGE }
+  validates :accept_terms, inclusion: { in: [true, nil], message: _("and conditions" ) }
+
+  # DMPTool customization
+  #
+  # Associations to support Doorkeeper security for API v2
+  #
+  # Access Grants are created when a user authorizes an ApiClient to access their
+  # data via the OAuth workflow. They are sent back to the ApiClient as 'code' which
+  # is in turn used to retrieve an AccessToken
+  has_many :access_grants, class_name: 'Doorkeeper::AccessGrant',
+                            foreign_key: :resource_owner_id,
+                            dependent: :delete_all
+
+  # Access Tokens are created when an ApiClient authenticates a User via an access
+  # grant code. The access token is then used instead of credentials in calls to the
+  # API. These tokens can be revoked by a user on their profile page.
+  has_many :access_tokens, class_name: 'Doorkeeper::AccessToken',
+                          foreign_key: :resource_owner_id,
+                          dependent: :delete_all
+
+  # Table that stores OAuth access tokens for other external systems like ORCID
+  has_many :external_api_access_tokens, dependent: :destroy
+  accepts_nested_attributes_for :external_api_access_tokens
+  accepts_nested_attributes_for :plans
 
   # ==========
   # = Scopes =
@@ -211,17 +227,25 @@ class User < ApplicationRecord
 
   after_update :remove_token!, if: :saved_change_to_org_id?, unless: :can_change_org?
 
+  # DMPTool customization
+  #
+  # Callbacks to support our sign in / sign up workflow
+  before_validation ->(user) { user.institution = user.org }
+  before_validation ->(data) { data.sanitize_fields(:email, :firstname, :surname) }
+
   # =================
   # = Class methods =
   # =================
 
-  ##
+  # DMPTool customization
+  #
+  # commenting out Devise which we re-implement in the Dmptool::User concern
+  #
   # Load the user based on the scheme and id provided by the Omniauth call
-  def self.from_omniauth(auth)
-    Identifier.by_scheme_name(auth.provider.downcase, "User")
-              .where(value: auth.uid)
-              .first&.identifiable
-  end
+  # def self.from_omniauth(auth)
+  #   Identifier.by_scheme_name(auth.provider.downcase, "User")
+  #             .where(value: auth.uid)
+  # end
 
   def self.to_csv(users)
     User::AtCsv.new(users).to_csv
@@ -492,16 +516,6 @@ class User < ApplicationRecord
                 .update_all(identifiable_id: id)
     # => ignore any perms the deleted user has
     to_be_merged.destroy
-  end
-
-  # Fetch the access token for the specified service
-  def access_token_for(external_service_name:)
-    return nil unless external_service_name.present? && external_api_access_tokens.any?
-
-    tokens = external_api_access_tokens.select do |token|
-      token.external_service_name == external_service_name && token.active?
-    end
-    tokens.first
   end
 
   private

@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   # Base Devise controller setup
   devise_for :users, controllers: {
     invitations: "users/invitations",
+    omniauth_callbacks: "users/omniauth_callbacks",
     passwords: "users/passwords",
     registrations: "users/registrations",
     sessions: 'users/sessions'

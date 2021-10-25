@@ -4,7 +4,18 @@ that they do NOT have an existing account
 %>
 <% content_for :authentication do %>
 
-  <%= form_with model: resource, url: user_registration_path, method: :post, local: true do |form| %>
+  <%
+  if #!Rails.env.development? &&
+     resource.org.present? &&
+     resource.org.shibbolized? &&
+     resource.identifier_for_scheme(scheme: "shibboleth").present?
+
+    url = user_shibboleth_omniauth_authorize_path
+  else
+    url = user_registration_path
+  end
+  %>
+  <%= form_with model: resource, url: url, method: :post, local: true do |form| %>
     <h2><%= _("Sign up") %></h2>
 
     <span class="form-group">
@@ -18,7 +29,7 @@ that they do NOT have an existing account
       <%= form.hidden_field(:email, value: resource.email) %>
     </span>
 
-    <% if resource.org.present? && resource.org.shibbolized? %>
+    <% if url == user_shibboleth_omniauth_authorize_path %>
       <%# The Org is Shibbolized so display the Institutional Sign in %>
       <%= render partial: "users/shared/sso", locals: { form: form } %>
 
