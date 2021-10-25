@@ -14,7 +14,7 @@ $(() => {
   const hideSavingMessage = jQuery => jQuery.parents('.question-form').find('[data-status="saving"]').hide();
   const showLoadingOverlay = jQuery => jQuery.find('.overlay').show();
   const hideLoadingOverlay = jQuery => jQuery.find('.overlay').hide();
-  const toolbar = 'bold italic | bullist numlist | link | table';
+  const toolbar = 'bold italic underline | fontsizeselect forecolor | bullist numlist | link | table';
 
 
   Tinymce.init();
