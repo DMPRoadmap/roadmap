@@ -15,9 +15,11 @@
         <%= section.title %>
       </div>
       <div class="pull-right">
-        <i class="fa fa-plus pull-right" aria-hidden="true" title="Click to expand"></i>
+        <% plussign = "fa-plus" %>
+        <% plussign = "fa-minus" if current_section.present? && section.id == current_section.id %>
+        <i class="fas <%= plussign %> pull-right" aria-hidden="true" title="Click to expand"></i>
         <% if local_assigns[:draggable] %>
-          <i class="fa fa-arrows pull-right" aria-hidden="true"
+          <i class="fas fa-arrows-alt pull-right" aria-hidden="true"
              title="Drag to reposition">
           </i>
         <% end %>

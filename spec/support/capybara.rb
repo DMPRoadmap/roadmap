@@ -1,19 +1,15 @@
 # frozen_string_literal: true
 
-require 'webdrivers/chromedriver'
+require "webdrivers/chromedriver"
 require_relative "helpers/capybara_helper"
 require_relative "helpers/sessions_helper"
 require_relative "helpers/tiny_mce_helper"
-require_relative "helpers/combobox_helper"
-
-SCREEN_SIZE = [2400, 1350]
-DIMENSION   = Selenium::WebDriver::Dimension.new(*SCREEN_SIZE)
+require_relative "helpers/autocomplete_helper"
 
 Capybara.default_driver = :rack_test
 
 # Cache for one hour
 Webdrivers.cache_time = 3600
-
 # This is a customisation of the default :selenium_chrome_headless config in:
 # https://github.com/teamcapybara/capybara/blob/master/lib/capybara.rb
 #
@@ -22,9 +18,9 @@ Webdrivers.cache_time = 3600
 Capybara.register_driver :selenium_chrome_headless do |app|
   Capybara::Selenium::Driver.load_selenium
   browser_options = ::Selenium::WebDriver::Chrome::Options.new
-  browser_options.args << '--headless'
-  browser_options.args << '--no-sandbox'
-  browser_options.args << '--disable-gpu' if Gem.win_platform?
+  browser_options.args << "--headless"
+  browser_options.args << "--no-sandbox"
+  browser_options.args << "--disable-gpu" if Gem.win_platform?
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
 end
 
@@ -36,7 +32,6 @@ RSpec.configure do |config|
 
   config.before(:each, type: :feature, js: true) do
     Capybara.current_driver = :selenium_chrome_headless
-    Capybara.page.driver.browser.manage.window.size = DIMENSION
   end
 
 end
@@ -51,5 +46,5 @@ RSpec.configure do |config|
   config.include(CapybaraHelper, type: :feature)
   config.include(SessionsHelper, type: :feature)
   config.include(TinyMceHelper,  type: :feature)
-  config.include(ComboboxHelper, type: :feature)
+  config.include(AutoCompleteHelper, type: :feature)
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # builds a json response to api query for a list of all templates
 json.prettify!
 
@@ -10,7 +12,7 @@ json.templates @org_templates.each do |org, templates|
     json.id                 template.family_id
     json.description        template.description
   end
-  json.customized_templates  templates[:cust].each do |_,template|
+  json.customized_templates templates[:cust].each do |_, template|
     json.title              template.title
     json.id                 template.family_id
     json.customization_of   template.customization_of

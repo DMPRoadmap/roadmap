@@ -8,8 +8,8 @@
   <% else %>
 <%= _("Template: ") + @hash[:template] + @hash[:customizer] %>
   <% end %>
-  <% if @plan.grant_number.present? %>
-<%= _("Grant number: ") + @plan.grant_number %>
+  <% if @plan.grant&.value.present? %>
+<%= _("Grant number: ") + @plan.grant&.value %>
   <% end %>
   <% if @plan.description.present? %>
 <%= _("Project abstract: ") %>
@@ -26,22 +26,27 @@
 <% if phase[:title] == @selected_phase.title %>
 <%= (@hash[:phases].many? ? "#{phase[:title]}" : "") %>
   <% phase[:sections].each do |section| %>
-    <% if display_section?(@hash[:customization], section, @show_custom_sections) %>
+    <% if display_section?(@hash[:customization], section, @show_custom_sections) && num_section_questions(@plan, section, phase) > 0 %>
       <% if @show_sections_questions %>
         <%= "#{section[:title]}\n" %>
       <% end %>
       <% section[:questions].each do |question| %>
+        <% if remove_list(@plan).include?(question[:id]) %>
+          <% next %>
+        <% end %>
         <%# text in this case is an array to accomodate for option_based %>
         <% if @show_sections_questions %>
-          <% if question[:text].respond_to?(:each) %>
-            <% question[:text].each do |txt| %>
-              <%= "#{strip_tags(txt.gsub(/<br\/?>/, '\n'))}\n" %>
+          <% answer = @plan.answer(question[:id], false) %>
+          <% if @show_unanswered %>
+            <% if question[:text].respond_to?(:each) %>
+              <% question[:text].each do |txt| %>
+                <%= "#{strip_tags(txt.gsub(/<br\/?>/, '\n'))}\n" %>
+              <% end %>
+            <% else %>
+              <%= "#{strip_tags(question[:text].gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,""))}\n" if question[:text].present? && question[:text][0].present? %>
             <% end %>
-          <% else %>
-            <%= "#{strip_tags(question[:text].gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,""))}\n" if question[:text].present? && question[:text][0].present? %>
           <% end %>
         <% end %>
-        <% answer = @plan.answer(question[:id], false) %>
         <% blank = not(answer.present? && answer.answered?) %>
         <% if blank && @show_unanswered %>
           <%= "    #{_("Question not answered.")}\n\n" %>
@@ -59,4 +64,4 @@
   <% end %>
 <% end %>
 <%= "----------------------------------------------------------" %>
-<%= _("A Data Management Plan created using %{application_name}") % { application_name: _(Rails.configuration.branding[:application][:name]) } %>
+<%= _("A Data Management Plan created using %{application_name}") % { application_name: ApplicationService.application_name } %>

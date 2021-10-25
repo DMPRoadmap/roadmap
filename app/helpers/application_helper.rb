@@ -45,7 +45,7 @@ module ApplicationHelper
   # Where xx_XX is the current locale in ww-WW format. Examples of this are
   # en_CA, fr_CA
   def current_locale_logo
-    file_name = "dmp_logo_#{FastGettext.locale}.png"
+    file_name = "dmp_logo_#{I18n.locale}.png"
   end
 
   # We are overriding this method in order to provide different contact us urls
@@ -53,7 +53,7 @@ module ApplicationHelper
   # we need different urls. This will be changed when we move to DMPRoadmap 3.0 
   # as there is a service that handles fetching this information.
   def contact_us_path
-    if (FastGettext.locale == 'fr_CA') 
+    if (I18n.locale == 'fr_CA') 
       'https://portagenetwork.ca/fr/contactez-nous/'
     else
       # Handling 'en_CA' locale
@@ -62,7 +62,7 @@ module ApplicationHelper
   end
 
   def terms_of_use_path
-    if (FastGettext.locale == 'fr_CA') 
+    if (I18n.locale == 'fr_CA') 
       'https://portagenetwork.ca/fr/outils-et-ressources/assistant-pgd/conditions-dutilisation-de-lassistant-pgd/'
     else
       # Handling 'en_CA' locale
@@ -71,7 +71,7 @@ module ApplicationHelper
   end
 
   def how_to_manage_your_data_path
-    if (FastGettext.locale == 'fr_CA') 
+    if (I18n.locale == 'fr_CA') 
       'https://portagenetwork.ca/fr/outils-et-ressources/assistant-pgd/comment-gerer-vos-donnees/'
     else
       # Handling 'en_CA' locale
@@ -80,7 +80,7 @@ module ApplicationHelper
   end
 
   def contacts_at_your_instutution_path
-    if (FastGettext.locale == 'fr_CA') 
+    if (I18n.locale == 'fr_CA') 
       'https://portagenetwork.ca/fr/outils-et-ressources/personnes-ressources-pour-la-gdr-dans-les-etablissements/'
     else
       # Handling 'en_CA' locale

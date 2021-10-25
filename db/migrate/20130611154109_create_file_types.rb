@@ -1,4 +1,4 @@
-class CreateFileTypes < ActiveRecord::Migration
+class CreateFileTypes < ActiveRecord::Migration[4.2]
   def change
     create_table :file_types do |t|
       t.string :file_type_name

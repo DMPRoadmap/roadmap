@@ -1,0 +1,70 @@
+<%# locals: form, org, editable %>
+
+<% presenter = IdentifierPresenter.new(identifiable: org) %>
+
+<h3><%= _('Identifiers') %></h3>
+<br>
+
+<%# If the user is a super admin then they can edit these identifiers %>
+<% if editable %>
+  <% if !org.new_record? %>
+    <%
+    schemes = presenter.schemes.select do |s|
+      %w[ror fundref].include?(s.name)
+    end
+    schemes.each do |scheme| %>
+      <div class="row">
+        <div class="form-group col-xs-10">
+          <% id = presenter.id_for_scheme(scheme: scheme) %>
+          <span class="bold"><%= scheme.description %>:</span>
+          <%= id_for_display(id: id) %>
+        </div>
+      </div>
+    <% end %>
+
+    <%
+    # Shibboleth Org identifiers are only for use by installations that have
+    # a curated list of Orgs that can use institutional login
+    shib = presenter.scheme_by_name(name: "shibboleth").first
+    if shib.present?
+      shib_id = presenter.id_for_scheme(scheme: shib)
+    %>
+      <br>
+      <div class="row">
+        <div class="form-group col-xs-6">
+          <%= form.fields_for :identifiers, shib_id do |ident_fields| %>
+            <%= ident_fields.hidden_field :identifier_scheme_id %>
+            <%= ident_fields.label :value, "#{shib.description} - entityID", class: "control-label" %>
+            <%= ident_fields.text_field :value, class: "form-control", placeholder: _("Please enter your Shibboleth Entity ID") %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+  <% else %>
+    <div class="row">
+       <div id="org-details-org-controls" class="form-group col-xs-10">
+         <%= render partial: "shared/org_selectors/external_only",
+                locals: {
+                  form: form,
+                  label: _("Organisation Lookup"),
+                  default_org: nil,
+                  required: false
+                } %>
+       </div>
+     </div>
+  <% end %>
+
+<%# Otherwise this is an Org Admin so just display the identifiers %>
+<% else %>
+  <% presenter.schemes.each do |scheme| %>
+    <div class="row">
+      <div class="form-group col-xs-10">
+        <% id = presenter.id_for_scheme(scheme: scheme) %>
+        <span class="bold"><%= scheme.description %>:</span>
+        <%= id_for_display(id: id) %>
+      </div>
+    </div>
+  <% end %>
+  <p><%= _("If any of the above identifiers are incorrect or missing, please <a href=\"%{contact_us_url}\">contact us</a> to have them updated.").html_safe % { contact_us_url: contact_us_path } %></p>
+<% end %>

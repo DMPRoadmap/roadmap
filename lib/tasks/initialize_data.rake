@@ -13,7 +13,7 @@ namespace :initialize_data do
     end
     rda_q.option_based = false # keeping this false as options not stored locally
     rda_q.formattype = QuestionFormat.formattypes[:rda_metadata]
-    rda_q.description = "https://dmponline-test.dcc.ac.uk/rda/api/" # TODO: Update to permanant API address once HTTPS is added
+    rda_q.description = "https://rdamsc.bath.ac.uk/api/"
     if rda_q.save
       puts 'Sucessfully added/updated'
     else

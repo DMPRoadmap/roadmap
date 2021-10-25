@@ -1,5 +1,12 @@
 # frozen_string_literal: true
 
+begin
+  # If Rollbar has been included in the Bundle, load it here.
+  require "rollbar"
+rescue LoadError
+  # noop
+end
+
 if defined?(Rollbar)
   Rollbar.configure do |config|
     # Without configuration, Rollbar is enabled in all environments.
@@ -8,9 +15,7 @@ if defined?(Rollbar)
     config.access_token = Rails.application.secrets.rollbar_access_token
 
     # Here we'll disable in 'test':
-    if Rails.env.test?
-      config.enabled = false
-    end
+    config.enabled = false if Rails.env.test?
 
     # By default, Rollbar will try to call the `current_user` controller method
     # to fetch the logged-in user object, and then call that object's `id`
@@ -83,6 +88,6 @@ if defined?(Rollbar)
     # environment variable like this: `ROLLBAR_ENV=staging`. This is a recommended
     # setup for Heroku. See:
     # https://devcenter.heroku.com/articles/deploying-to-a-custom-rails-environment
-    config.environment = ENV['ROLLBAR_ENV'].presence || Rails.env
+    config.environment = ENV["ROLLBAR_ENV"].presence || Rails.env
   end
 end

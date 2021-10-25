@@ -10,7 +10,6 @@
            locals: { user_count: @total_org_users,
                      plan_count: @total_org_plans,
                      separators: @separators } %>
-
 <% if @funder.present? %>
   <%= render partial: 'usage/template_statistics' %>
 <% else %>

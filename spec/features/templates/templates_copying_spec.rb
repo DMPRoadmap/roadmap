@@ -1,12 +1,14 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.feature "Templates::Copying", type: :feature do
 
   let!(:org) { create(:org, :funder, :organisation) }
 
-  let!(:parent_template) {
+  let!(:parent_template) do
     create(:template, :published, org: org)
-  }
+  end
 
   let!(:user) { create(:user, org: org) }
 

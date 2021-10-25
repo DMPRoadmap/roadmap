@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: prefs
@@ -9,6 +11,6 @@
 
 FactoryBot.define do
   factory :pref do
-    
+
   end
 end

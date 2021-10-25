@@ -9,7 +9,7 @@
                locals: local_assigns.merge({ method: :put, url: org_admin_template_phase_section_path(template_id: template.id, phase_id: section.phase.id, id: section) }) %>
   </div>
   <div class="col-md-12">
-    <%= render partial: 'org_admin/questions/index', 
+    <%= render partial: 'org_admin/questions/index',
                locals: local_assigns.merge({ editing: true }) %>
   </div>
 </div>

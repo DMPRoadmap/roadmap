@@ -1,6 +1,6 @@
 <hr />
 <h1><%= @plan.title %></h1>
-<p><em><%= _("A Data Management Plan created using ") + _(Rails.configuration.branding[:application][:name]) %></em></p>
+<p><em><%= _("A Data Management Plan created using %{application_name}") % { application_name: ApplicationService.application_name } %></em></p>
 <br/>
 <div class="cover-page">
   <%# Using <b> tags as the htmltoword gem does not recognise css styles defined %>
@@ -14,14 +14,12 @@
   <% end %>
 
     <p><b><%= _("Template: ") %></b><%= @hash[:template] + @hash[:customizer] %></p><br>
-  
 
-  <% if @plan.principal_investigator_identifier.present? %>
-    <p><b><%= _("ORCID iD: ") %></b><%= @plan.principal_investigator_identifier %></p> <br>
-  <% end %>
+  <% @plan.contributors.investigation.each do |contributor| %>
+    <% orcid = contributor.identifier_for_scheme(scheme: "orcid") %>
+    <% next unless orcid.present? && orcid.value.present? %>
 
-  <% if @plan.grant_number.present? %>
-    <p><b><%= _("Grant number: ") %></b><%= @plan.grant_number %></p> <br>
+    <p><b><%= _("ORCID iD: ") %></b><%= orcid.value_without_scheme_prefix %></p> <br>
   <% end %>
 
   <% if @plan.description.present? %>
@@ -29,7 +27,23 @@
     <div style="margin-left: 15px;"><%= sanitize(@plan.description) %></div><br>
   <% end %>
 
+  <% if @plan.id.present? %>
+    <p><b><%= _("ID: ") %></b><%= @plan.id %></p> <br>
+  <% end %>
+
+  <% if @plan.start_date.present? %>
+    <p><b><%= _("Start date: ") %></b><%=  l(@plan.start_date.to_date, formats: :short) %></p> <br>
+  <% end %>
+
+  <% if @plan.end_date.present? %>
+    <p><b><%= _("End date: ") %></b><%=  l(@plan.end_date.to_date, formats: :short) %></p> <br>
+  <% end %>
+
   <p><b><%= _("Last modified: ") %></b><%=  l(@plan.updated_at.to_date, formats: :short) %></p> <br>
+
+  <% if @plan.grant.present? %>
+    <p><b><%= _("Grant number / URL: ") %></b><%= @plan.grant.value %></p> <br>
+  <% end %>
 
   <% if @public_plan %>
     <p><b><%= _("Copyright information:") %></b></p>

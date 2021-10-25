@@ -1,4 +1,4 @@
-class RemovingIntermediaryTables < ActiveRecord::Migration
+class RemovingIntermediaryTables < ActiveRecord::Migration[4.2]
   def up
     # removing intermediary structures
 

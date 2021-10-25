@@ -4,6 +4,7 @@
 # a policy that is not associated with a model (per the pundit README)
 # rubocop:disable Style/StructInheritance
 class UsagePolicy < Struct.new(:user, :usage)
+
   attr_reader :user
 
   def initialize(user, _usage)
@@ -43,5 +44,6 @@ class UsagePolicy < Struct.new(:user, :usage)
   def filter?
     @user.can_org_admin?
   end
+
 end
 # rubocop:enable Style/StructInheritance

@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe GuidanceGroup, type: :model do
 
@@ -8,11 +10,11 @@ RSpec.describe GuidanceGroup, type: :model do
 
     it { is_expected.to validate_presence_of(:org) }
 
-    it { is_expected.to allow_value(true).for(:optional_subset)  }
+    it { is_expected.to allow_value(true).for(:optional_subset) }
 
     it { is_expected.to allow_value(true).for(:published) }
 
-    it { is_expected.to allow_value(false).for(:optional_subset)  }
+    it { is_expected.to allow_value(false).for(:optional_subset) }
 
     it { is_expected.to allow_value(false).for(:published) }
 
@@ -34,7 +36,6 @@ RSpec.describe GuidanceGroup, type: :model do
 
     subject { GuidanceGroup.can_view?(user, guidance_group) }
 
-
     context "when owned by an Org which the user is a member" do
 
       let!(:guidance_group) { create(:guidance_group, org: user.org) }
@@ -47,8 +48,7 @@ RSpec.describe GuidanceGroup, type: :model do
 
       let!(:org) do
         create(:org,
-          abbreviation: Rails.configuration
-                             .branding.dig(:organisation, :abbreviation))
+               abbreviation: Rails.configuration.x.organisation.abbreviation)
       end
 
       let!(:guidance_group) { create(:guidance_group, org: org) }
@@ -128,8 +128,7 @@ RSpec.describe GuidanceGroup, type: :model do
 
       let!(:org) do
         create(:org,
-          abbreviation: Rails.configuration
-                             .branding.dig(:organisation, :abbreviation))
+               abbreviation: Rails.configuration.x.organisation.abbreviation)
       end
 
       let!(:guidance_group) { create(:guidance_group, org: org) }
@@ -211,5 +210,45 @@ RSpec.describe GuidanceGroup, type: :model do
       end
 
     end
+
+    context ":merge!(to_be_merged:)" do
+      before(:each) do
+        org = create(:org)
+        @guidance_group = create(:guidance_group, org: org)
+        @to_be_merged = create(:guidance_group, org: org, plans: [create(:plan)],
+                                                guidances: [create(:guidance)])
+      end
+
+      it "returns false if to_be_merged is not a GuidanceGroup" do
+        result = @guidance_group.merge!(to_be_merged: build(:user))
+        expect(result).to eql(@guidance_group)
+      end
+      it "occurs inside a transaction" do
+        GuidanceGroup.any_instance.stubs(:save).returns(false)
+        result = @guidance_group.merge!(to_be_merged: @to_be_merged)
+        expect(result).to eql(nil)
+        # Since the save will fail and we reload the Object it should be valid
+        expect(@guidance_group.valid?).to eql(true)
+        expect(@to_be_merged.reload.new_record?).to eql(false)
+        expect(@to_be_merged.guidances.length).not_to eql(0)
+      end
+      it "merges associated :plans" do
+        expected = @guidance_group.plans.length + @to_be_merged.plans.length
+        @guidance_group.merge!(to_be_merged: @to_be_merged)
+        expect(@guidance_group.plans.length).to eql(expected)
+      end
+      it "merges associated :guidances" do
+        expected = @guidance_group.guidances.length + @to_be_merged.guidances.length
+        @guidance_group.merge!(to_be_merged: @to_be_merged)
+        expect(@guidance_group.guidances.length).to eql(expected)
+      end
+      it "removes the :to_be_merged GuidanceGroup" do
+        original_id = @to_be_merged.id
+        expect(@guidance_group.merge!(to_be_merged: @to_be_merged)).to eql(@guidance_group)
+        expect(Guidance.where(guidance_group_id: original_id).any?).to eql(false)
+        expect(GuidanceGroup.find_by(id: original_id).present?).to eql(false)
+      end
+    end
+
   end
 end

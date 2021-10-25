@@ -19,7 +19,7 @@ class SortDirection
 
   ##
   # Possible sort direction values
-  DIRECTIONS = %w[ASC DESC]
+  DIRECTIONS = %w[ASC DESC].freeze
 
   ##
   # The direction represented as an uppercase, abbreviated String

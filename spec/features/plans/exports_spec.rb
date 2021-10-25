@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe "PlansExports", type: :feature, js: true do
 
   let!(:template) { create(:template, phases: 2) }
-  let!(:user) { create(:user) }
+  let!(:org) { create(:org, managed: true, is_other: false) }
+  let!(:user) { create(:user, org: org) }
   let!(:plan) { create(:plan, template: template) }
-  let!(:org) { user.org }
 
   before do
     template.phases.each { |p| create_list(:section, 2, phase: p) }
@@ -15,7 +17,7 @@ RSpec.describe "PlansExports", type: :feature, js: true do
     sign_in(user)
   end
 
-  scenario "User downloads plan from dashboard" do
+  scenario "User downloads plan from organisational plans portion of the dashboard" do
     new_plan  = create(:plan, :publicly_visible, template: template)
     new_phase = create(:phase, template: template, sections: 2)
     new_phase.sections do |sect|
@@ -24,12 +26,13 @@ RSpec.describe "PlansExports", type: :feature, js: true do
     new_plan.questions.each do |question|
       create(:answer, question: question, plan: new_plan)
     end
-    new_user  = create(:user, org: org)
+    new_plan.update(complete: true)
+    new_user = create(:user, org: org)
     create(:role, :creator, :commenter, :administrator, :editor,
            plan: new_plan,
            user: new_user)
     sign_in(user)
-    find(:css, 'a i.fa.fa-file-pdf-o').click
+    find(:css, "a[href*=\"/#{new_plan.id}/export.pdf\"]", visible: false).click
   end
 
   scenario "User downloads public plan belonging to other User" do
@@ -49,7 +52,7 @@ RSpec.describe "PlansExports", type: :feature, js: true do
 
   scenario "User downloads org plan belonging to User in same org" do
     new_plan = create(:plan, :organisationally_visible, template: template)
-    role = create(:role, :creator, plan: new_plan, user: create(:user, org: org))
+    create(:role, :creator, plan: new_plan, user: create(:user, org: org))
     sign_in(user)
     within("#plan_#{plan.id}") do
       click_button("Actions")
@@ -64,14 +67,14 @@ RSpec.describe "PlansExports", type: :feature, js: true do
 
   scenario "User downloads org plan belonging to User in other org" do
     new_plan = create(:plan, :organisationally_visible, template: template)
-    role = create(:role, :creator, plan: new_plan)
+    create(:role, :creator, plan: new_plan)
     sign_in(create(:user))
     expect(page).not_to have_text(new_plan.title)
   end
 
   scenario "User attempts to download private plan belonging to User in same" do
     new_plan = create(:plan, :privately_visible, template: template)
-    role = create(:role, :creator, plan: new_plan)
+    create(:role, :creator, plan: new_plan)
     sign_in(create(:user))
     expect(page).not_to have_text(new_plan.title)
   end

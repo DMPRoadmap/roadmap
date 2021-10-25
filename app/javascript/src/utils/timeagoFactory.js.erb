@@ -1,0 +1,45 @@
+import getConstant from './constants';
+
+// Dynamically register all of the available locales if they have a timeago file
+<% available = [] %>
+<% LocaleService.available_locales.each do |locale| %>
+  <% name = LocaleService.to_gettext(locale: locale) %>
+  <% if File.exist?("app/javascript/src/locale/#{name}/timeago.js") %>
+    <% available << name %>
+    import <%= name %> from '../locale/<%= name %>/timeago';
+  <% else %>
+    // Issue warnings about the missing Timeago file for the locale
+    <% Rails.logger.warn "Warning, no Timeago JS for #{name}" %>
+    console.log('No Timeago registered for <%= name %>');
+  <% end %>
+<% end %>
+
+const TimeagoFactory = (() => {
+  // Register all of the locales with Timeago
+  <% available.each do |locale| %>
+    timeago.register('<%= locale %>', <%= locale %>);
+  <% end %>
+
+  const defaultLocale = '<%= LocaleService.to_gettext(locale: LocaleService.default_locale) %>'
+
+  const convertTime = (currentLocale, el) => {
+    return timeago.format($(el).attr('datetime'), `${currentLocale}`);
+  };
+
+  return {
+    render: (el) => {
+      const currentLocale = getConstant('CURRENT_LOCALE') || defaultLocale;
+
+      if (el.length > 1) {
+        // If we were passed an array of JQuery elements then handle each one
+        $(el).each((idx, e) => {
+          $(e).text(convertTime(currentLocale, e));
+        });
+      } else {
+        $(el).text(convertTime(currentLocale, el));
+      }
+    },
+  };
+})();
+
+export default TimeagoFactory;

@@ -1,6 +1,6 @@
 <%# locals: { note } %>
 <% if !note.nil? %>
-    <% user = User.find(note.user_id) %>
+    <% user = note.user %>
     <ul class="list-unstyled">
         <li>
           <div class="display-readonly-textarea-content">

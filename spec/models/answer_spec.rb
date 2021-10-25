@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe Answer, type: :model do
 
@@ -11,9 +13,11 @@ RSpec.describe Answer, type: :model do
 
     it { is_expected.to validate_presence_of(:question) }
 
-    it { is_expected.to validate_uniqueness_of(:question)
-                          .scoped_to(:plan_id)
-                          .with_message("must be unique") }
+    it {
+      is_expected.to validate_uniqueness_of(:question)
+        .scoped_to(:plan_id)
+        .with_message("must be unique")
+    }
   end
 
   describe ".deep_copy" do
@@ -47,13 +51,13 @@ RSpec.describe Answer, type: :model do
     end
   end
 
-  describe "#has_question_option" do
+  describe "#options_selected?" do
 
     let!(:answer) { create(:answer) }
 
     let!(:question_option) { create(:question_option) }
 
-    subject { answer.has_question_option(question_option.id) }
+    subject { answer.options_selected?(question_option.id) }
 
     context "when answer has QuestionOption" do
 
@@ -75,67 +79,115 @@ RSpec.describe Answer, type: :model do
 
   describe "#answered?" do
 
-    let!(:answer) { create(:answer) }
-
     subject { answer.answered? }
 
-    context "question present, question format is option and options empty" do
+    describe "text based answer" do
 
-      before do
-        answer.question.update(question_format:
-                                 create(:question_format, option_based: true))
+      context "when text is nil" do
+
+        let!(:answer) { build(:answer, text: nil) }
+
+        it { is_expected.to eql(false) }
+
       end
 
-      it { is_expected.to eql(false) }
+      context "when text is ''" do
+
+        let!(:answer) { build(:answer, text: "") }
+
+        it { is_expected.to eql(false) }
+
+      end
+
+      context "when text is plain text" do
+
+        let!(:answer) { build(:answer, text: "Foo bar") }
+
+        it { is_expected.to eql(true) }
+
+      end
+
+      context "when text is empty html" do
+
+        let!(:answer) { build(:answer, text: "<p><br/></p>") }
+
+        it { is_expected.to eql(false) }
+
+      end
+
+      context "when text is html text" do
+
+        let!(:answer) { build(:answer, text: "<p>Foo bar</p>") }
+
+        it { is_expected.to eql(true) }
+
+      end
 
     end
 
-    context "question present, question format is option and options present" do
+    describe "option based question" do
 
-      before do
-        answer.question.update(question_format:
-                                 create(:question_format, option_based: true))
+      let!(:answer) { create(:answer) }
 
-        answer.question_options << create_list(:question_option, 2)
+      context "question present, question format is option and options empty" do
+
+        before do
+          answer.question.update(question_format:
+                                   create(:question_format, option_based: true))
+        end
+
+        it { is_expected.to eql(false) }
+
       end
 
-      it { is_expected.to eql(true) }
+      context "question present, question format is option and options present" do
 
-    end
+        before do
+          answer.question.update(question_format:
+                                   create(:question_format, option_based: true))
 
-    context "question present, question format not option and text empty" do
+          answer.question_options << create_list(:question_option, 2)
+        end
 
-      before do
-        answer.question.update(question_format:
-                                 create(:question_format, option_based: false))
+        it { is_expected.to eql(true) }
 
-        answer.text = ""
       end
 
-      it { is_expected.to eql(false) }
+      context "question present, question format not option and text empty" do
 
-    end
+        before do
+          answer.question.update(question_format:
+                                   create(:question_format, option_based: false))
 
-    context "question present, question format not option and text present" do
+          answer.text = ""
+        end
 
-      before do
-        answer.question.update(question_format:
-                                 create(:question_format, option_based: false))
+        it { is_expected.to eql(false) }
 
-        answer.text = "This is an answer"
       end
 
-      it { is_expected.to eql(true) }
+      context "question present, question format not option and text present" do
 
-    end
+        before do
+          answer.question.update(question_format:
+                                   create(:question_format, option_based: false))
 
-    context "question absent" do
+          answer.text = "This is an answer"
+        end
 
-      before do
-        answer.update(question: nil)
+        it { is_expected.to eql(true) }
+
       end
 
-      it { is_expected.to eql(false) }
+      context "question absent" do
+
+        before do
+          answer.update(question: nil)
+        end
+
+        it { is_expected.to eql(false) }
+
+      end
 
     end
 
@@ -172,55 +224,11 @@ RSpec.describe Answer, type: :model do
 
   end
 
-  describe "#is_blank?" do
-
-    context "when text is nil" do
-
-      let!(:answer) { build(:answer, text: nil) }
-
-      subject { answer }
-
-      it { is_expected.to be_is_blank }
-
-    end
-
-    context "when text is ''" do
-
-      let!(:answer) { build(:answer, text: "") }
-
-      subject { answer }
-
-      it { is_expected.to be_is_blank }
-
-    end
-
-    context "when text is plain text" do
-
-      let!(:answer) { build(:answer, text: "Foo bar") }
-
-      subject { answer }
-
-      it { is_expected.not_to be_is_blank }
-
-    end
-
-    context "when text is html text" do
-
-      let!(:answer) { build(:answer, text: "<p>Foo bar</p>") }
-
-      subject { answer }
-
-      it { is_expected.not_to be_is_blank }
-
-    end
-
-  end
-
   describe "#answer_hash" do
 
     let!(:answer) { build(:answer) }
 
-    let(:default_json) { {'standards' => {}, 'text' => ''} }
+    let(:default_json) { { "standards" => {}, "text" => "" } }
 
     subject { answer.answer_hash }
 
@@ -237,7 +245,7 @@ RSpec.describe Answer, type: :model do
     context "when text is blank" do
 
       before do
-        answer.text = ''
+        answer.text = ""
       end
 
       it { is_expected.to eql(default_json) }
@@ -257,7 +265,7 @@ RSpec.describe Answer, type: :model do
     context "when text is HTML" do
 
       before do
-        answer.text = '<p>foo bar</p>'
+        answer.text = "<p>foo bar</p>"
       end
 
       it { is_expected.to eql(default_json) }
@@ -275,33 +283,34 @@ RSpec.describe Answer, type: :model do
     context "when standards parameter is present" do
 
       before do
-        answer.update_answer_hash({foo: 'bar'})
+        answer.update_answer_hash({ foo: "bar" })
       end
 
-      it { is_expected.to eql({"standards" => {"foo" => "bar"}, "text" => ""}) }
+      it { is_expected.to eql({ "standards" => { "foo" => "bar" }, "text" => "" }) }
 
     end
 
     context "when both params are absent" do
 
       before do
-        answer.update_answer_hash()
+        answer.update_answer_hash
       end
 
-      it { is_expected.to eql({"standards" => {}, "text" => ""}) }
+      it { is_expected.to eql({ "standards" => {}, "text" => "" }) }
 
     end
 
     context "when both params are present" do
 
       before do
-        answer.update_answer_hash({foo: 'bar'}, "baz")
+        answer.update_answer_hash({ foo: "bar" }, "baz")
       end
 
-      it { is_expected.to eql({
-        "standards" => {"foo" => "bar"},
-        "text" => "baz"
-        })
+      it {
+        is_expected.to eql({
+                             "standards" => { "foo" => "bar" },
+                             "text" => "baz"
+                           })
       }
 
     end

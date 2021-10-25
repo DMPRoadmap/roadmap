@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'GillSansLight';
-  src: font-url('GillSansLight.ttf') format('truetype');
+  src: url(asset-path('GillSans-Light.ttf')) format("truetype");
   font-weight: normal;
 }
 
