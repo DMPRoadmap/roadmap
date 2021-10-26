@@ -2,7 +2,7 @@
 
 class StaticPagesController < ApplicationController
 
-  prepend Dmpopidor::Controllers::StaticPages
+  prepend Dmpopidor::StaticPages
 
   def about_us
   end

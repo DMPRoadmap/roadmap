@@ -33,7 +33,7 @@
 
 class Answer < ApplicationRecord
 
-  prepend Dmpopidor::Models::Answer
+  prepend Dmpopidor::Answer
 
   # ================
   # = Associations =

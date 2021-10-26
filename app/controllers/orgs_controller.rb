@@ -2,7 +2,7 @@
 
 class OrgsController < ApplicationController
 
-  prepend Dmpopidor::Controllers::Orgs
+  prepend Dmpopidor::Orgs
   include OrgSelectable
 
   after_action :verify_authorized, except: %w[

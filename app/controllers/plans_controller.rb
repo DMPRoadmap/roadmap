@@ -5,7 +5,7 @@ class PlansController < ApplicationController
 
   include ConditionalUserMailer
   include OrgSelectable
-  prepend Dmpopidor::Controllers::Plans
+  prepend Dmpopidor::Plans
 
   helper PaginableHelper
   helper SettingsTemplateHelper

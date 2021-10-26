@@ -54,7 +54,7 @@ class User < ApplicationRecord
   include ConditionalUserMailer
   include DateRangeable
   include Identifiable
-  prepend Dmpopidor::Models::User
+  prepend Dmpopidor::User
 
   extend UniqueRandom
 

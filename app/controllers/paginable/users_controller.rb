@@ -2,7 +2,7 @@
 
 class Paginable::UsersController < ApplicationController
 
-  prepend Dmpopidor::Controllers::Paginable::Users
+  prepend Dmpopidor::Paginable::Users
   include Paginable
 
   # /paginable/users/index/:page

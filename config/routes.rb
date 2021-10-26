@@ -65,6 +65,11 @@ Rails.application.routes.draw do
   get "public_templates" => "public_pages#template_index"
   get "template_export/:id" => "public_pages#template_export", as: "template_export"
 
+  # Static pages
+  namespace :static do
+    get ":name", to: "static_pages#show"
+  end
+
   # AJAX call used to search for Orgs based on user input into autocompletes
   post "orgs" => "orgs#search", as: "orgs_search"
 
@@ -348,10 +353,6 @@ Rails.application.routes.draw do
     resources :registry_values, only: [] do
       get ":id/index/:page", action: :index, on: :collection, as: :index
     end
-    # Paginable actions for api_clients
-     resources :api_clients, only: [] do
-       get "index/:page", action: :index, on: :collection, as: :index
-     end
   end
 
   resources :template_options, only: [:index], constraints: { format: /json/ }

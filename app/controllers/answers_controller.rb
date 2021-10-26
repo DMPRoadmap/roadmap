@@ -5,7 +5,7 @@ class AnswersController < ApplicationController
 
   respond_to :html
   include ConditionsHelper
-  prepend Dmpopidor::Controllers::Answers
+  prepend Dmpopidor::Answers
 
   # POST /answers/create_or_update
   # TODO: Why!? This method is overly complex. Needs a serious refactor!

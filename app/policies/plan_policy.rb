@@ -4,7 +4,8 @@ class PlanPolicy < ApplicationPolicy
 
   attr_reader :user
   attr_reader :plan
-  prepend Dmpopidor::Policies::Plan
+
+  prepend Dmpopidor::Plan
 
   def initialize(user, plan)
     raise Pundit::NotAuthorizedError, _("must be logged in") unless user

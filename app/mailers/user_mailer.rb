@@ -7,6 +7,7 @@ class UserMailer < ActionMailer::Base
   include MailerHelper
   helper MailerHelper
   helper FeedbacksHelper
+  prepend Dmpopidor::UserMailer
 
   default from: Rails.configuration.x.organisation.email
 

@@ -44,7 +44,7 @@ class Plan < ApplicationRecord
 
   include ConditionalUserMailer
   include ExportablePlan
-  prepend Dmpopidor::Models::Plan
+  prepend Dmpopidor::Plan
   include DateRangeable
   include Identifiable
 

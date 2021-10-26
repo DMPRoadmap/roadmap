@@ -2,7 +2,7 @@
 
 class RegistrationsController < Devise::RegistrationsController
 
-  prepend Dmpopidor::Controllers::Registrations
+  prepend Dmpopidor::Registrations
   include OrgSelectable
 
   def edit

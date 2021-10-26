@@ -36,7 +36,7 @@ class Registry < ApplicationRecord
   # = Scopes =
   # ==========
 
-  scope :search, lambda(term) {
+  scope :search, lambda { |term|
     search_pattern = "%#{term}%"
     where("lower(registries.name) LIKE lower(?) OR " \
           "lower(registries.description) LIKE lower(?)",

@@ -6,7 +6,7 @@
 # rubocop:disable Metrics/ModuleLength
 module ExportablePlan
 
-  prepend Dmpopidor::Models::Concerns::ExportablePlan
+  prepend Dmpopidor::Concerns::ExportablePlan
   include ConditionsHelper
 
   def as_pdf(coversheet = false)

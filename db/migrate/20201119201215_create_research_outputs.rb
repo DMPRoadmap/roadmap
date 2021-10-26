@@ -25,7 +25,6 @@ class CreateResearchOutputs < ActiveRecord::Migration[5.2]
     add_column :research_outputs, :output_type_description, :string
     add_column :research_outputs, :title, :string
     add_column :research_outputs, :display_order, :integer
-    add_column :research_outputs, :is_default, :boolean
     add_column :research_outputs, :description, :text
     add_column :research_outputs, :mime_type_id, :integer
     add_column :research_outputs, :access, :integer, null: false, default: 0
@@ -37,4 +36,5 @@ class CreateResearchOutputs < ActiveRecord::Migration[5.2]
     add_column :research_outputs, :coverage_start, :datetime
     add_column :research_outputs, :coverage_end, :datetime
     add_column :research_outputs, :coverage_region, :string
+  end
 end

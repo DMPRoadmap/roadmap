@@ -2,7 +2,7 @@
 
 class OrgAdmin::PlansController < ApplicationController
 
-  prepend Dmpopidor::Controllers::OrgAdmin::Plans
+  prepend Dmpopidor::OrgAdmin::Plans
 
   # GET org_admin/plans
   def index

@@ -37,7 +37,7 @@ class RegistryValue < ApplicationRecord
   # = Scopes =
   # ==========
 
-  scope :search, lambda(term) {
+  scope :search, lambda { |term|
     search_pattern = "%#{term}%"
     where("lower(registry_values.data::text) LIKE lower(?)", search_pattern)
   }

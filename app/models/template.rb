@@ -37,7 +37,7 @@ class Template < ApplicationRecord
 
   include GlobalHelpers
   extend UniqueRandom
-  prepend Dmpopidor::Models::Template
+  prepend Dmpopidor::Template
 
   validates_with TemplateLinksValidator
 

@@ -2,7 +2,7 @@
 
 class ApplicationController < ActionController::Base
 
-  prepend Dmpopidor::Controllers::Application
+  prepend Dmpopidor::Application
   # Set Static Pages to use in navigation
   before_action :set_nav_static_pages
 

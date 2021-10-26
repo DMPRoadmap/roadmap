@@ -34,7 +34,7 @@ class Phase < ApplicationRecord
 
   include ActsAsSortable
   include VersionableModel
-  prepend Dmpopidor::Models::Phase
+  prepend Dmpopidor::Phase
 
   include ConditionsHelper
 

@@ -14,7 +14,8 @@
 #
 
 class Theme < ApplicationRecord
-  prepend Dmpopidor::Models::Theme
+
+  prepend Dmpopidor::Theme
 
   ##
   # Before save & create, generate the slug, method from Dmpopidor::Models::Theme

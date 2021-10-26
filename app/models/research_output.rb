@@ -28,7 +28,8 @@
 #  index_research_outputs_on_plan_id      (plan_id)
 #
 class ResearchOutput < ApplicationRecord
-  prepend Dmpopidor::Models::ResearchOutput
+
+  prepend Dmpopidor::ResearchOutput
 
   include Identifiable
   include ValidationMessages

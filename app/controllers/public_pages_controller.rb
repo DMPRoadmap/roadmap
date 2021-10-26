@@ -2,7 +2,7 @@
 
 class PublicPagesController < ApplicationController
 
-  prepend Dmpopidor::Controllers::PublicPages
+  prepend Dmpopidor::PublicPages
 
   # GET template_index
   # -----------------------------------------------------

@@ -66,7 +66,7 @@ class MadmpSchema < ApplicationRecord
   # = Scopes =
   # ==========
 
-  scope :search, lambda(term) {
+  scope :search, lambda { |term|
     search_pattern = "%#{term}%"
     where("lower(madmp_schemas.name) LIKE lower(?) OR " \
           "lower(madmp_schemas.classname) LIKE lower(?)",
