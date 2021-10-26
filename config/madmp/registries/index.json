@@ -101,14 +101,6 @@
             "en_GB": "Hours"
         }
     ],
-    "GeoNames": [
-    ],
-    "InspireThemes": [
-
-    ],
-    "ISO19115TopicCategory": [
-
-    ],
     "ISO3166-alpha2": [
         {
             "fr_FR": "FR",
@@ -140,24 +132,6 @@
             "fr_FR": "USD",
             "en_GB": "USD"
         }
-    ],
-    "UseRestrictions": [
-
-    ],
-    "SpatialRepresentationTypes": [
-
-    ],
-    "MaintenanceFrequency": [
-
-    ],
-    "IsoPresentationForm": [
-
-    ],
-    "GeoSpatialDataFormat": [
-
-    ],
-    "StatusGeoSpatialData": [
-
     ],
     "DataAccess": [
         {
@@ -1041,24 +1015,6 @@
             "fr_FR": "Texte"
         }
     ],
-    "ResourceIdSystem": [
-        {
-            "fr_FR": "DOI",
-            "en_GB": "DOI"
-        },
-        {
-            "fr_FR": "ARK",
-            "en_GB": "ARK"
-        },
-        {
-            "fr_FR": "Handle",
-            "en_GB": "Handle"
-        },
-        {
-            "fr_FR": "IGSN",
-            "en_GB": "IGSN"
-        }
-    ],
     "Role": [
         {
             "en_GB": "Project coordinator",
@@ -1386,74 +1342,16 @@
     "ANRProjects": {
         "path": "ANRProjects.json"
     },
-    "ParentName": [
-        "BackupPolicy",
-        "Budget",
-        "Contributor",
-        "ControlledKeyword",
-        "Cost",
-        "DataCollection",
-        "DataPreservation",
-        "DataProcessing",
-        "DataReuse",
-        "DataSharing",
-        "DataStorage",
-        "DataStorageStandard",
-        "Distribution",
-        "DocumentationQuality",
-        "EthicalIssues",
-        "Funder",
-        "Funding",
-        "LegalIssues",
-        "License",
-        "Meta",
-        "MetadataStandard",
-        "Partner",
-        "Person",
-        "PersonalDataIssues",
-        "Project",
-        "QualityAssuranceMethod",
-        "ResearchOutput",
-        "ResearchOutputDescription",
-        "ResourceReference",
-        "ResourceReferenceStandard",
-        "ReusedData",
-        "SpecificData",
-        "TechnicalResource",
-        "TechnicalResourceStandard"
-    ],
-    "Cardinalities": [
-        "0..1",
-        "0..*",
-        "1..1",
-        "1..*"
-    ],
-    "PropertyTypes": [
-        "string",
-        "number",
-        "string:format=email",
-        "string:format=uri",
-        "string:format=date",
-        "string:length=3",
-        "DataCollectionBasic",
-        "DataCollectionStandard",
-        "DataStorageBasic",
-        "DataStorageStandard",
-        "SpecificDataStandard"
-    ],
-    "InputTypes": [
-        "textarea",
-        "dropdown",
-        "fixed"
-    ],
-    "YesNo": [
-        {
-            "fr_FR": "Oui",
-            "en_GB": "Yes"
-        },
-        {
-            "fr_FR": "Non",
-            "en_GB": "No"
-        }
-    ]
+    "CollectionServices": {
+        "path": "CollectionServices.json"
+    },
+    "ProcessingServices": {
+        "path": "ProcessingServices.json"
+    },
+    "StorageServices": {
+        "path": "StorageServices.json"
+    },
+    "BackupPolicyGenci": {
+        "path": "BackupPolicyGenci.json"
+    }
 }

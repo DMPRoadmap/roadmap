@@ -1,0 +1,22 @@
+[
+    {
+        "label": {
+            "en_GB": "CoCoLab",
+            "fr_FR": "CoCoLab"
+        },
+        "title": "CoCoLab",
+        "technicalResourceId": "http://mshs.unice.fr/?page id=8382",
+        "idType": "URL",
+        "serviceContact": " \tAlban.Fournier(at)unice.fr"
+    },
+    {
+        "label": {
+            "en_GB": "Constances",
+            "fr_FR": "Constances"
+        },
+        "title": "Constances",
+        "technicalResourceId": "http://www.constances.fr/",
+        "idType": "URL",
+        "serviceContact": "contact@constances.fr"
+    }
+]

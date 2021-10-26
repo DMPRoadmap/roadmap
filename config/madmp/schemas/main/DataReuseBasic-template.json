@@ -13,7 +13,9 @@
             "label@fr_FR": "Justification",
             "label@en_GB": "Justification",
             "tooltip@fr_FR": "Indiquer comment elles seront intégrées au projet",
-            "tooltip@en_GB": "Indicate how they will be integrated into the project"
+            "tooltip@en_GB": "Indicate how they will be integrated into the project",
+            "form_label@fr_FR": "Justifier la réutilisation ou la non-réutilisation de données existantes",
+            "form_label@en_GB": "Justify the reuse or non-reuse of existing data"
         },
         "reusedData": {
             "type": "array",
@@ -32,8 +34,10 @@
                 ]
             },
             "description": "Jeu de données réutilisé",
-            "label@fr_FR": "Produits de recherche réutilisés",
-            "label@en_GB": "Reused research outputs"
+            "label@fr_FR": "Données réutilisées",
+            "label@en_GB": "Reused data",
+            "form_label@fr_FR": "Décrire le ou les produits de recherche réutilisés",
+            "form_label@en_GB": "Describe the reused research output(s)"
         }
     },
     "required": [

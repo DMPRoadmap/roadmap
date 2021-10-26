@@ -13,7 +13,9 @@
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
             "tooltip@fr_FR": "Facultatif si vous détaillez des aspects particuliers",
-            "tooltip@en_GB": "Optional if specific issues are detailed"
+            "tooltip@en_GB": "Optional if specific issues are detailed",
+            "form_label@fr_FR": "Décrire les aspects juridiques généraux de votre projet",
+            "form_label@en_GB": "Describe the general legal issues of your project"
         },
         "legalReference": {
             "type": "array",
@@ -35,7 +37,9 @@
             "label@fr_FR": "Références associées",
             "label@en_GB": "Related references",
             "tooltip@fr_FR": "Par exemple, accord de consortium",
-            "tooltip@en_GB": "For example, consortium agreement"
+            "tooltip@en_GB": "For example, consortium agreement",
+            "form_label@fr_FR": "Indiquer le ou les références de documents en lien avec les aspects juridiques",
+            "form_label@en_GB": "Indicate the reference(s) of documents related to legal aspects"
         }
     },
     "required": [

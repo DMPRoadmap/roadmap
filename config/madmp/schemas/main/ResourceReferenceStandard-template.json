@@ -10,13 +10,17 @@
             "type": "string",
             "description": "Titre d'une ressource",
             "label@fr_FR": "Titre",
-            "label@en_GB": "Title"
+            "label@en_GB": "Title",
+            "form_label@fr_FR": "Titre de la ressource",
+            "form_label@en_GB": "Resource title"
         },
         "docIdentifier": {
             "type": "string",
             "description": "Identifiant de la ressource",
             "label@fr_FR": "Identifiant",
-            "label@en_GB": "Identifier"
+            "label@en_GB": "Identifier",
+            "form_label@fr_FR": "Identifiant de la ressource",
+            "form_label@en_GB": "Resource identifier"
         },
         "idType": {
             "type": "string",
@@ -25,7 +29,9 @@
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
             "registry_name": "PIDSystem",
-            "overridable": true
+            "overridable": true,
+            "form_label@fr_FR": "Type d'identifiant de la ressource",
+            "form_label@en_GB": "Resource identifier type"
         }
     },
     "required": [

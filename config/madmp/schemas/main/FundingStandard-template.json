@@ -23,7 +23,11 @@
             "label@en_GB": "Funders",
             "inputType": "dropdown",
             "registry_name": "Funders",
-            "overridable": true
+            "overridable": true,
+            "tooltip@fr_FR": "Liste interne en cours d'élaboration",
+            "tooltip@en_GB": "Internal list in progress",
+            "form_label@fr_FR": "Financeurs",
+            "form_label@en_GB": "Funders"
         },
         "grantId": {
             "type": "string",
@@ -31,7 +35,9 @@
             "label@fr_FR": "Identifiant du financement",
             "label@en_GB": "Grant Identifier",
             "tooltip@fr_FR": "Aussi appelé Code de décision, Identifiant de la convention de subvention, Numéro de la convention de subvention, Numéro de subvention",
-            "tooltip@en_GB": "Also called Decision code, Grant agreement ID, Grant agreement number, Award number"
+            "tooltip@en_GB": "Also called Decision code, Grant agreement ID, Grant agreement number, Award number",
+            "form_label@fr_FR": "Identifiant du financement",
+            "form_label@en_GB": "Grant Identifier"
         },
         "fundingStatus": {
             "type": "string",
@@ -39,7 +45,9 @@
             "inputType": "dropdown",
             "label@fr_FR": "Statut du financement",
             "label@en_GB": "Funding status",
-            "registry_name": "FundingStatus"
+            "registry_name": "FundingStatus",
+            "form_label@fr_FR": "Statut du financement",
+            "form_label@en_GB": "Funding status"
         }
     },
     "required": [

@@ -11,7 +11,9 @@
             "description": "Description générale des coûts et des ressources (rôles, responsabilités, …) utilisés pour la gestion des données de la recherche",
             "inputType": "textarea",
             "label@fr_FR": "Description",
-            "label@en_GB": "Description"
+            "label@en_GB": "Description",
+            "form_label@fr_FR": "Description",
+            "form_label@en_GB": "Description"
         },
         "cost": {
             "type": "array",
@@ -32,7 +34,9 @@
             },
             "description": "Elément de description des coûts",
             "label@fr_FR": "Liste des coûts, s'ils n'ont pas été détaillés dans les questions précédentes",
-            "label@en_GB": "List of costs, if they have not been detailed in the previous questions"
+            "label@en_GB": "List of costs, if they have not been detailed in the previous questions",
+            "form_label@fr_FR": "Liste détaillée des coûts",
+            "form_label@en_GB": "Details of cost description"
         }
     },
     "required": [

@@ -10,13 +10,17 @@
             "type": "string",
             "description": "Titre du produit de recherche réutilisé",
             "label@fr_FR": "Nom",
-            "label@en_GB": "Name"
+            "label@en_GB": "Name",
+            "form_label@fr_FR": "Nom complet",
+            "form_label@en_GB": "Full name"
         },
         "datasetId": {
             "type": "string",
             "description": "Identifiant du produit réutilisé",
             "label@fr_FR": "Identifiant pérenne",
-            "label@en_GB": " Persistent identifier"
+            "label@en_GB": " Persistent identifier",
+            "form_label@fr_FR": "Identifiant pérenne du produit de recherche",
+            "form_label@en_GB": " Reseach product persistent identifier"
         },
         "idType": {
             "type": "string",
@@ -25,7 +29,9 @@
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": " Identifier tyoe",
             "registry_name": "PIDSystem",
-            "overridable": true
+            "overridable": true,
+            "form_label@fr_FR": "Type d'identifiant du produit de recherche",
+            "form_label@en_GB": " Reseach product identifier type"
         },
         "license": {
             "type": "object",
@@ -44,7 +50,11 @@
             "label@en_GB": "License",
             "inputType": "dropdown",
             "registry_name": "Licenses",
-            "overridable": true
+            "overridable": true,
+            "tooltip@fr_FR": "Liste de licences SPDX. Version : 3.14 2021-08-08",
+            "tooltip@en_GB": "SPDX license list. Version: 3.14 2021-08-08",
+            "form_label@fr_FR": "Licence",
+            "form_label@en_GB": "License"
         }
     },
     "required": [

@@ -10,20 +10,17 @@
             "type": "string",
             "description": "Intitulé de l'hôte",
             "label@fr_FR": "Titre",
-            "label@en_GB": "Title"
-        },
-        "description": {
-            "type": "string",
-            "description": "Description succinte de l'hôte",
-            "inputType": "textarea",
-            "label@fr_FR": "Description",
-            "label@en_GB": "Description"
+            "label@en_GB": "Title",
+            "form_label@fr_FR": "Titre",
+            "form_label@en_GB": "Title"
         },
         "hostId": {
             "type": "string",
             "description": "Identifiant pérenne ou Url de référence",
             "label@fr_FR": "Identifiant de l'entrepôt",
-            "label@en_GB": "Repository ID"
+            "label@en_GB": "Repository ID",
+            "form_label@fr_FR": "Identifiant de l'entrepôt",
+            "form_label@en_GB": "Repository ID"
         },
         "idType": {
             "type": "string",
@@ -32,7 +29,9 @@
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
             "registry_name": "PIDSystem",
-            "overridable": true
+            "overridable": true,
+            "form_label@fr_FR": "Type d'identifiant",
+            "form_label@en_GB": "Identifier type"
         },
         "geoLocation": {
             "type": "string",
@@ -40,7 +39,9 @@
             "inputType": "dropdown",
             "label@fr_FR": "Localisation géographique (pays)",
             "label@en_GB": "Geo location (country)",
-            "registry_name": "ISO3166-alpha2"
+            "registry_name": "ISO3166-alpha2",
+            "form_label@fr_FR": "Localisation géographique (pays)",
+            "form_label@en_GB": "Geo location (country)"
         },
         "certification": {
             "type": "string",
@@ -49,7 +50,9 @@
             "label@fr_FR": "Certification",
             "label@en_GB": "Certification",
             "registry_name": "Certification",
-            "overridable": true
+            "overridable": true,
+            "form_label@fr_FR": "Certification",
+            "form_label@en_GB": "Certification"
         },
         "pidSystem": {
             "type": "array",
@@ -61,7 +64,9 @@
             "label@fr_FR": "Système d'identifiants",
             "label@en_GB": "PID system",
             "registry_name": "PIDSystem",
-            "overridable": true
+            "overridable": true,
+            "form_label@fr_FR": "Système d'identifiants",
+            "form_label@en_GB": "PID system"
         },
         "hasVersioningPolicy": {
             "type": "string",
@@ -69,13 +74,17 @@
             "inputType": "dropdown",
             "label@fr_FR": "Politique de gestion des versions",
             "label@en_GB": "Versioning policy",
-            "registry_name": "YesNoUnknown"
+            "registry_name": "YesNoUnknown",
+            "form_label@fr_FR": "Politique de gestion des versions",
+            "form_label@en_GB": "Versioning policy"
         },
         "availability": {
             "type": "number",
             "description": "Disponibilité/pérennité de l'hôte en années (jusqu'à quelle année?)",
             "label@fr_FR": "Disponibilité (années)",
-            "label@en_GB": "Availability (years)"
+            "label@en_GB": "Availability (years)",
+            "form_label@fr_FR": "Disponibilité (années)",
+            "form_label@en_GB": "Availability (years)"
         },
         "metadataStandard": {
             "type": "array",
@@ -85,7 +94,9 @@
             "minItems": 1,
             "description": "Standard(s) de métadonnées disponible(s)",
             "label@fr_FR": "Standards de métadonnées disponibles",
-            "label@en_GB": "Available metadata standards"
+            "label@en_GB": "Available metadata standards",
+            "form_label@fr_FR": "Standards de métadonnées disponibles",
+            "form_label@en_GB": "Available metadata standards"
         }
     },
     "required": [

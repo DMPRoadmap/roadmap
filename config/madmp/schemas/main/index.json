@@ -1,16 +1,16 @@
 [
     {
-        "path": "BackupPolicyStandard-template.json",
-        "classname": "backup_policy",
-        "question_id": null
-    },
-    {
         "path": "BackupPolicyGenci-template.json",
         "classname": "backup_policy",
         "question_id": null
     },
     {
         "path": "BackupPolicyGenOuest-template.json",
+        "classname": "backup_policy",
+        "question_id": null
+    },
+    {
+        "path": "BackupPolicyStandard-template.json",
         "classname": "backup_policy",
         "question_id": null
     },
@@ -55,6 +55,16 @@
         "question_id": null
     },
     {
+        "path": "DataCollector-template.json",
+        "classname": "contributor",
+        "question_id": null
+    },
+    {
+        "path": "DataDocumentationManager-template.json",
+        "classname": "contributor",
+        "question_id": null
+    },
+    {
         "path": "DataOrganizationReference-template.json",
         "classname": "resource_reference",
         "question_id": null
@@ -62,6 +72,11 @@
     {
         "path": "DataPreservationBasic-template.json",
         "classname": "data_preservation",
+        "question_id": null
+    },
+    {
+        "path": "DataPreservationManager-template.json",
+        "classname": "contributor",
         "question_id": null
     },
     {
@@ -75,8 +90,23 @@
         "question_id": null
     },
     {
+        "path": "DataProcessingManager-template.json",
+        "classname": "contributor",
+        "question_id": null
+    },
+    {
         "path": "DataProcessingStandard-template.json",
         "classname": "data_processing",
+        "question_id": null
+    },
+    {
+        "path": "DataProtectionManager-template.json",
+        "classname": "contributor",
+        "question_id": null
+    },
+    {
+        "path": "DataQualityManager-template.json",
+        "classname": "contributor",
         "question_id": null
     },
     {
@@ -92,6 +122,11 @@
     {
         "path": "DataSharingBasic-template.json",
         "classname": "data_sharing",
+        "question_id": null
+    },
+    {
+        "path": "DataSharingManager-template.json",
+        "classname": "contributor",
         "question_id": null
     },
     {
@@ -115,6 +150,11 @@
         "question_id": null
     },
     {
+        "path": "DataStorageManager-template.json",
+        "classname": "contributor",
+        "question_id": null
+    },
+    {
         "path": "DataStorageStandard-template.json",
         "classname": "data_storage",
         "question_id": null
@@ -122,6 +162,11 @@
     {
         "path": "DistributionStandard-template.json",
         "classname": "distribution",
+        "question_id": null
+    },
+    {
+        "path": "DMPCoordinator-template.json",
+        "classname": "contributor",
         "question_id": null
     },
     {
@@ -145,6 +190,11 @@
         "question_id": null
     },
     {
+        "path": "EthicalIssuesManager-template.json",
+        "classname": "contributor",
+        "question_id": null
+    },
+    {
         "path": "EthicalIssuesStandard-template.json",
         "classname": "ethical_issues",
         "question_id": null
@@ -165,17 +215,7 @@
         "question_id": null
     },
     {
-        "path": "GenOuestRequest-template.json",
-        "classname": "specific_data",
-        "question_id": null
-    },
-    {
         "path": "GenciServiceRequest-template.json",
-        "classname": "specific_data",
-        "question_id": null
-    },
-    {
-        "path": "GenOuestServiceRequest-template.json",
         "classname": "specific_data",
         "question_id": null
     },
@@ -185,8 +225,23 @@
         "question_id": null
     },
     {
+        "path": "GenOuestRequest-template.json",
+        "classname": "specific_data",
+        "question_id": null
+    },
+    {
+        "path": "GenOuestServiceRequest-template.json",
+        "classname": "specific_data",
+        "question_id": null
+    },
+    {
         "path": "HostStandard-template.json",
         "classname": "host",
+        "question_id": null
+    },
+    {
+        "path": "LegalExpert-template.json",
+        "classname": "contributor",
         "question_id": null
     },
     {
@@ -250,6 +305,11 @@
         "question_id": null
     },
     {
+        "path": "PrincipalInvestigator-template.json",
+        "classname": "contributor",
+        "question_id": null
+    },
+    {
         "path": "ProjectStandard-template.json",
         "classname": "project",
         "question_id": null
@@ -262,6 +322,16 @@
     {
         "path": "QualityAssuranceMethodStandard-template.json",
         "classname": "quality_assurance_method",
+        "question_id": null
+    },
+    {
+        "path": "ResearchOutputContact-template.json",
+        "classname": "contributor",
+        "question_id": null
+    },
+    {
+        "path": "ResearchOutputDescriptionCustomised-template.json",
+        "classname": "research_output_description",
         "question_id": null
     },
     {
@@ -295,11 +365,6 @@
         "question_id": null
     },
     {
-        "path": "TechnicalResourceStandard-template.json",
-        "classname": "technical_resource",
-        "question_id": null
-    },
-    {
         "path": "TechnicalResourceGenci-template.json",
         "classname": "technical_resource",
         "question_id": null
@@ -310,98 +375,8 @@
         "question_id": null
     },
     {
-        "path": "DMPCoordinator-template.json",
-        "classname": "contributor",
-        "question_id": null
-    },
-    {
-        "path": "ResearchOutputContact-template.json",
-        "classname": "contributor",
-        "question_id": null
-    },
-    {
-        "path": "PrincipalInvestigator-template.json",
-        "classname": "contributor",
-        "question_id": null
-    },
-    {
-        "path": "DataCollector-template.json",
-        "classname": "contributor",
-        "question_id": null
-    },
-    {
-        "path": "DataDocumentationManager-template.json",
-        "classname": "contributor",
-        "question_id": null
-    },
-    {
-        "path": "DataQualityManager-template.json",
-        "classname": "contributor",
-        "question_id": null
-    },
-    {
-        "path": "DataProtectionManager-template.json",
-        "classname": "contributor",
-        "question_id": null
-    },
-    {
-        "path": "LegalExpert-template.json",
-        "classname": "contributor",
-        "question_id": null
-    },
-    {
-        "path": "EthicalIssuesManager-template.json",
-        "classname": "contributor",
-        "question_id": null
-    },
-    {
-        "path": "DataProcessingManager-template.json",
-        "classname": "contributor",
-        "question_id": null
-    },
-    {
-        "path": "DataStorageManager-template.json",
-        "classname": "contributor",
-        "question_id": null
-    },
-    {
-        "path": "DataSharingManager-template.json",
-        "classname": "contributor",
-        "question_id": null
-    },
-    {
-        "path": "DataPreservationManager-template.json",
-        "classname": "contributor",
-        "question_id": null
-    },
-    {
-        "path": "ResearchOutputDescriptionCustomised-template.json",
-        "classname": "research_output_description",
-        "question_id": null
-    },
-    {
-        "path": "ResearchOutputDescriptionGeospatial-template.json",
-        "classname": "research_output_description",
-        "question_id": null
-    },
-    {
-        "path": "GeoSpatialData-template.json",
-        "classname": "specific_data",
-        "question_id": null
-    },
-    {
-        "path": "GeographicCoverage-template.json",
-        "classname": "specific_data",
-        "question_id": null
-    },
-    {
-        "path": "GeographicBoundingBox-template.json",
-        "classname": "specific_data",
-        "question_id": null
-    },
-    {
-        "path": "TemporalElement-template.json",
-        "classname": "specific_data",
+        "path": "TechnicalResourceStandard-template.json",
+        "classname": "technical_resource",
         "question_id": null
     }
 ]

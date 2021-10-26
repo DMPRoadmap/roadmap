@@ -1,10 +1,10 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "../Documentation/Implementation/data_model/Json/",
-    "title": "GenciServiceRequest",
-    "description": "GenciServiceRequest template",
+    "title": "GenciServiceRequestShort",
+    "description": "GenciServiceRequestShort template",
     "type": "object",
-    "class": "GenciServiceRequest",
+    "class": "GenciServiceRequestShort",
     "properties": {
         "serviceType": {
             "type": "string",
@@ -12,9 +12,7 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type de service",
             "label@en_GB": "Service type",
-            "registry_name": "GenciServiceType",
-            "form_label@fr_FR": "Type de service",
-            "form_label@en_GB": "Service type"
+            "registry_name": "GenciServiceType"
         },
         "nationalCenter": {
             "type": "array",
@@ -26,9 +24,7 @@
             "inputType": "dropdown",
             "label@fr_FR": "Centre national",
             "label@en_GB": "National center",
-            "registry_name": "GenciCenter",
-            "form_label@fr_FR": "Centre national",
-            "form_label@en_GB": "National center"
+            "registry_name": "GenciCenter"
         },
         "initialRequest": {
             "type": "object",
@@ -44,17 +40,13 @@
             ],
             "description": "La demande initiale",
             "label@fr_FR": "Demande initiale",
-            "label@en_GB": "Initial request",
-            "form_label@fr_FR": "Demande initiale",
-            "form_label@en_GB": "Initial request"
+            "label@en_GB": "Initial request"
         },
         "amount": {
             "type": "number",
             "description": "Coût du service",
             "label@fr_FR": "Coût du service (calcul automatique)",
-            "label@en_GB": "Cost of the service (automatic calculation)",
-            "form_label@fr_FR": "Coût du service",
-            "form_label@en_GB": "Cost of the service"
+            "label@en_GB": "Cost of the service (automatic calculation)"
         },
         "currency": {
             "type": "string",
@@ -64,9 +56,7 @@
             "label@en_GB": "Currency",
             "registry_name": "ISO4217",
             "default@fr_FR": "EUR",
-            "default@en_GB": "EUR",
-            "form_label@fr_FR": "Devise",
-            "form_label@en_GB": "Currency"
+            "default@en_GB": "EUR"
         }
     },
     "required": [
