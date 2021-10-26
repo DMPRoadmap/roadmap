@@ -36,7 +36,7 @@ class PlanExportsController < ApplicationController
       @public_plan              = true
 
     else
-      raise Pundit::NotAuthorizedError
+      raise Pundit::NotAuthorizedError, _("are not authorized to view that plan")
     end
 
     @hash           = @plan.as_pdf(current_user, @show_coversheet)
