@@ -44,7 +44,7 @@
         click_here: link_to(_('Click here'), link), link: link
       }) %>
     </p>
-    <%= render partial: 'email_signature', locals: { allow_change_prefs: false } %>
+    <%= render partial: 'user_mailer/email_signature', locals: { allow_change_prefs: false } %>
   <% else %>
     <p>
       <%= sanitize(_("%{click_here} to setup your account (or copy %{link} into your browser). Once you have signed in, you can begin filling out your DMP.") % {
