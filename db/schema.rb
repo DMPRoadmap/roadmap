@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
     t.integer "org_id"
-    t.text "text", limit: 16777215
+    t.text "text"
     t.integer "type", default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -26,29 +26,24 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
   end
 
   create_table "answers", id: :integer, force: :cascade do |t|
-    t.text "text", limit: 16777215
+    t.text "text"
     t.integer "plan_id"
     t.integer "user_id"
     t.integer "question_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "lock_version", default: 0
+    t.index ["plan_id"], name: "fk_rails_84a6005a3e"
     t.index ["plan_id"], name: "index_answers_on_plan_id"
+    t.index ["question_id"], name: "fk_rails_3d5ed4418f"
     t.index ["question_id"], name: "index_answers_on_question_id"
     t.index ["user_id"], name: "fk_rails_584be190c2"
-  end
-
-  create_table "answers_options", id: false, force: :cascade do |t|
-    t.integer "answer_id", null: false
-    t.integer "option_id", null: false
-    t.index ["answer_id", "option_id"], name: "index_answers_options_on_answer_id_and_option_id"
   end
 
   create_table "answers_question_options", id: false, force: :cascade do |t|
     t.integer "answer_id", null: false
     t.integer "question_option_id", null: false
     t.index ["answer_id"], name: "index_answers_question_options_on_answer_id"
-    t.index ["question_option_id"], name: "fk_rails_01ba00b569"
   end
 
   create_table "api_clients", id: :integer, force: :cascade do |t|
@@ -64,17 +59,6 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.datetime "updated_at", null: false
     t.integer "org_id"
     t.index ["name"], name: "index_api_clients_on_name"
-  end
-
-  create_table "comments", id: :integer, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "question_id"
-    t.text "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "archived"
-    t.integer "plan_id"
-    t.integer "archived_by"
   end
 
   create_table "conditions", id: :integer, force: :cascade do |t|
@@ -113,34 +97,6 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.index ["org_id"], name: "index_departments_on_org_id"
   end
 
-  create_table "dmptemplate_translations", id: :integer, force: :cascade do |t|
-    t.integer "dmptemplate_id"
-    t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "title"
-    t.text "description", limit: 16777215
-    t.index ["dmptemplate_id"], name: "index_dmptemplate_translations_on_dmptemplate_id"
-    t.index ["locale"], name: "index_dmptemplate_translations_on_locale"
-  end
-
-  create_table "dmptemplates", id: :integer, force: :cascade do |t|
-    t.string "title"
-    t.text "description"
-    t.boolean "published"
-    t.integer "user_id"
-    t.integer "organisation_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "locale"
-    t.boolean "is_default"
-  end
-
-  create_table "dmptemplates_guidance_groups", id: false, force: :cascade do |t|
-    t.integer "dmptemplate_id"
-    t.integer "guidance_group_id"
-  end
-
   create_table "exported_plans", id: :integer, force: :cascade do |t|
     t.integer "plan_id"
     t.integer "user_id"
@@ -148,37 +104,6 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "phase_id"
-  end
-
-  create_table "file_types", id: :integer, force: :cascade do |t|
-    t.string "name"
-    t.string "icon_name"
-    t.integer "icon_size"
-    t.string "icon_location"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "file_uploads", id: :integer, force: :cascade do |t|
-    t.string "name"
-    t.string "title"
-    t.text "description"
-    t.integer "size"
-    t.boolean "published"
-    t.string "location"
-    t.integer "file_type_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "friendly_id_slugs", id: :integer, force: :cascade do |t|
-    t.string "slug", null: false
-    t.integer "sluggable_id", null: false
-    t.string "sluggable_type", limit: 40
-    t.datetime "created_at"
-    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", unique: true
-    t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
-    t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
   create_table "guidance_groups", id: :integer, force: :cascade do |t|
@@ -191,24 +116,8 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.index ["org_id"], name: "index_guidance_groups_on_org_id"
   end
 
-  create_table "guidance_in_group", id: false, force: :cascade do |t|
-    t.integer "guidance_id", null: false
-    t.integer "guidance_group_id", null: false
-    t.index ["guidance_id", "guidance_group_id"], name: "index_guidance_in_group_on_guidance_id_and_guidance_group_id"
-  end
-
-  create_table "guidance_translations", id: :integer, force: :cascade do |t|
-    t.integer "guidance_id"
-    t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "text", limit: 16777215
-    t.index ["guidance_id"], name: "index_guidance_translations_on_guidance_id"
-    t.index ["locale"], name: "index_guidance_translations_on_locale"
-  end
-
   create_table "guidances", id: :integer, force: :cascade do |t|
-    t.text "text", limit: 16777215
+    t.text "text"
     t.integer "guidance_group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -222,8 +131,8 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.boolean "active"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text "logo_url", limit: 16777215
-    t.text "identifier_prefix", limit: 16777215
+    t.string "logo_url"
+    t.string "identifier_prefix"
     t.integer "context"
   end
 
@@ -231,8 +140,8 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.string "value", null: false
     t.text "attrs"
     t.integer "identifier_scheme_id"
-    t.string "identifiable_type"
     t.integer "identifiable_id"
+    t.string "identifiable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["identifiable_type", "identifiable_id"], name: "index_identifiers_on_identifiable_type_and_identifiable_id"
@@ -249,7 +158,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
 
   create_table "notes", id: :integer, force: :cascade do |t|
     t.integer "user_id"
-    t.text "text", limit: 16777215
+    t.text "text"
     t.boolean "archived", default: false, null: false
     t.integer "answer_id"
     t.integer "archived_by"
@@ -272,30 +181,13 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.integer "notification_type"
     t.string "title"
     t.integer "level"
-    t.text "body", limit: 16777215
+    t.text "body"
     t.boolean "dismissable"
     t.date "starts_at"
     t.date "expires_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "enabled", default: true
-  end
-
-  create_table "option_warnings", id: :integer, force: :cascade do |t|
-    t.integer "organisation_id"
-    t.integer "option_id"
-    t.text "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "options", id: :integer, force: :cascade do |t|
-    t.integer "question_id"
-    t.string "text"
-    t.integer "number"
-    t.boolean "is_default"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "org_token_permissions", id: :integer, force: :cascade do |t|
@@ -307,38 +199,6 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.index ["token_permission_type_id"], name: "fk_rails_2aa265f538"
   end
 
-  create_table "organisation_types", id: :integer, force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "organisations", id: :integer, force: :cascade do |t|
-    t.string "name"
-    t.string "abbreviation"
-    t.string "target_url"
-    t.integer "organisation_type_id"
-    t.string "domain"
-    t.string "wayfless_entity"
-    t.integer "stylesheet_file_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "parent_id"
-    t.boolean "is_other"
-    t.string "sort_name"
-    t.text "banner_text"
-    t.string "logo_file_name"
-    t.boolean "display_in_registration"
-    t.string "logo_uid"
-    t.string "logo_name"
-    t.string "banner_uid"
-    t.string "banner_name"
-    t.integer "region_id"
-    t.integer "language_id"
-    t.string "contact_email"
-  end
-
   create_table "orgs", id: :integer, force: :cascade do |t|
     t.string "name"
     t.string "abbreviation"
@@ -346,19 +206,16 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_other", default: false, null: false
-    t.boolean "display_in_registration"
-    t.string "logo_uid"
-    t.string "logo_name"
-    t.string "banner_uid"
-    t.string "banner_name"
     t.integer "region_id"
     t.integer "language_id"
+    t.string "logo_uid"
+    t.string "logo_name"
     t.string "contact_email"
     t.integer "org_type", default: 0, null: false
-    t.text "links", limit: 16777215
-    t.string "contact_name"
+    t.text "links"
     t.boolean "feedback_enabled", default: false
-    t.text "feedback_msg", limit: 16777215
+    t.text "feedback_msg"
+    t.string "contact_name"
     t.boolean "managed", default: false, null: false
     t.index ["language_id"], name: "fk_rails_5640112cab"
     t.index ["region_id"], name: "fk_rails_5a6adf6bab"
@@ -370,20 +227,9 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "phase_translations", id: :integer, force: :cascade do |t|
-    t.integer "phase_id"
-    t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "title"
-    t.text "description", limit: 16777215
-    t.index ["locale"], name: "index_phase_translations_on_locale"
-    t.index ["phase_id"], name: "index_phase_translations_on_phase_id"
-  end
-
   create_table "phases", id: :integer, force: :cascade do |t|
     t.string "title"
-    t.text "description", limit: 16777215
+    t.text "description"
     t.integer "number"
     t.integer "template_id"
     t.datetime "created_at"
@@ -394,22 +240,13 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.index ["versionable_id"], name: "index_phases_on_versionable_id"
   end
 
-  create_table "plan_sections", id: :integer, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "section_id"
-    t.integer "plan_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "release_time"
-  end
-
   create_table "plans", id: :integer, force: :cascade do |t|
     t.string "title"
     t.integer "template_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "identifier"
-    t.text "description", limit: 16777215
+    t.text "description"
     t.integer "visibility", default: 3, null: false
     t.boolean "feedback_requested", default: false
     t.boolean "complete", default: false
@@ -418,77 +255,43 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.integer "grant_id"
     t.datetime "start_date"
     t.datetime "end_date"
-    t.bigint "research_domain_id"
     t.boolean "ethical_issues"
     t.text "ethical_issues_description"
     t.string "ethical_issues_report"
     t.integer "funding_status"
+    t.bigint "research_domain_id"
     t.index ["funder_id"], name: "index_plans_on_funder_id"
     t.index ["grant_id"], name: "index_plans_on_grant_id"
     t.index ["org_id"], name: "index_plans_on_org_id"
-    t.index ["research_domain_id"], name: "index_plans_on_research_domain_id"
     t.index ["template_id"], name: "index_plans_on_template_id"
+    t.index ["research_domain_id"], name: "index_plans_on_research_domain_id"
   end
 
   create_table "plans_guidance_groups", id: :integer, force: :cascade do |t|
     t.integer "guidance_group_id"
     t.integer "plan_id"
     t.index ["guidance_group_id", "plan_id"], name: "index_plans_guidance_groups_on_guidance_group_id_and_plan_id"
+    t.index ["guidance_group_id"], name: "fk_rails_ec1c5524d7"
     t.index ["plan_id"], name: "fk_rails_13d0671430"
   end
 
   create_table "prefs", id: :integer, force: :cascade do |t|
-    t.text "settings", limit: 16777215
+    t.text "settings"
     t.integer "user_id"
   end
 
-  create_table "project_groups", id: :integer, force: :cascade do |t|
-    t.boolean "project_creator"
-    t.boolean "project_editor"
-    t.integer "user_id"
-    t.integer "project_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "project_administrator"
-  end
-
-  create_table "project_guidance", id: false, force: :cascade do |t|
-    t.integer "project_id", null: false
-    t.integer "guidance_group_id", null: false
-    t.index ["project_id", "guidance_group_id"], name: "index_project_guidance_on_project_id_and_guidance_group_id"
-  end
-
-  create_table "projects", id: :integer, force: :cascade do |t|
-    t.string "title"
-    t.integer "dmptemplate_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "slug"
-    t.integer "organisation_id"
-    t.string "grant_number"
-    t.string "identifier"
-    t.text "description"
-    t.string "principal_investigator"
-    t.string "principal_investigator_identifier"
-    t.string "data_contact"
-    t.string "funder_name"
-    t.index ["slug"], name: "index_projects_on_slug", unique: true
-  end
-
-  create_table "question_format_translations", id: :integer, force: :cascade do |t|
-    t.integer "question_format_id"
-    t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "title"
-    t.text "description", limit: 16777215
-    t.index ["locale"], name: "index_question_format_translations_on_locale"
-    t.index ["question_format_id"], name: "index_question_format_translations_on_question_format_id"
+  create_table "question_format_labels", id: false, force: :cascade do |t|
+    t.integer "id"
+    t.string "description"
+    t.integer "question_id"
+    t.integer "number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "question_formats", id: :integer, force: :cascade do |t|
     t.string "title"
-    t.text "description", limit: 16777215
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "option_based", default: false
@@ -507,20 +310,9 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.index ["versionable_id"], name: "index_question_options_on_versionable_id"
   end
 
-  create_table "question_translations", id: :integer, force: :cascade do |t|
-    t.integer "question_id"
-    t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "text", limit: 16777215
-    t.text "guidance", limit: 16777215
-    t.index ["locale"], name: "index_question_translations_on_locale"
-    t.index ["question_id"], name: "index_question_translations_on_question_id"
-  end
-
   create_table "questions", id: :integer, force: :cascade do |t|
-    t.text "text", limit: 16777215
-    t.text "default_value", limit: 16777215
+    t.text "text"
+    t.text "default_value"
     t.integer "number"
     t.integer "section_id"
     t.datetime "created_at"
@@ -538,12 +330,6 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.integer "question_id", null: false
     t.integer "theme_id", null: false
     t.index ["question_id"], name: "index_questions_themes_on_question_id"
-    t.index ["theme_id"], name: "fk_rails_0489d5eeba"
-  end
-
-  create_table "region_groups", id: :integer, force: :cascade do |t|
-    t.integer "super_region_id"
-    t.integer "region_id"
   end
 
   create_table "regions", id: :integer, force: :cascade do |t|
@@ -593,20 +379,9 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.index ["user_id"], name: "index_roles_on_user_id"
   end
 
-  create_table "section_translations", id: :integer, force: :cascade do |t|
-    t.integer "section_id"
-    t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "title"
-    t.text "description", limit: 16777215
-    t.index ["locale"], name: "index_section_translations_on_locale"
-    t.index ["section_id"], name: "index_section_translations_on_section_id"
-  end
-
   create_table "sections", id: :integer, force: :cascade do |t|
     t.string "title"
-    t.text "description", limit: 16777215
+    t.text "description"
     t.integer "number"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -619,7 +394,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
 
   create_table "sessions", id: :integer, force: :cascade do |t|
     t.string "session_id", limit: 64, null: false
-    t.text "data", limit: 16777215
+    t.text "data"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
@@ -627,16 +402,10 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
   end
 
   create_table "settings", id: :integer, force: :cascade do |t|
-    t.string "var", null: false
-    t.text "value", limit: 16777215
+    t.string "var"
+    t.text "value"
     t.integer "target_id", null: false
-    t.string "target_type", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "splash_logs", id: :integer, force: :cascade do |t|
-    t.string "destination"
+    t.string "target_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -648,30 +417,13 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.integer "org_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "details", limit: 16777215
+    t.text "details"
     t.boolean "filtered", default: false
-  end
-
-  create_table "stylesheets", id: :integer, force: :cascade do |t|
-    t.string "file_uid"
-    t.string "file_name"
-    t.integer "organisation_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "suggested_answers", id: :integer, force: :cascade do |t|
-    t.integer "question_id"
-    t.integer "organisation_id"
-    t.text "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "is_example"
   end
 
   create_table "templates", id: :integer, force: :cascade do |t|
     t.string "title"
-    t.text "description", limit: 16777215
+    t.text "description"
     t.boolean "published"
     t.integer "org_id"
     t.string "locale"
@@ -683,7 +435,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.integer "customization_of"
     t.integer "family_id"
     t.boolean "archived"
-    t.text "links", limit: 16777215
+    t.text "links"
     t.index ["family_id", "version"], name: "index_templates_on_family_id_and_version", unique: true
     t.index ["family_id"], name: "index_templates_on_family_id"
     t.index ["org_id", "family_id"], name: "template_organisation_dmptemplate_index"
@@ -692,7 +444,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
 
   create_table "themes", id: :integer, force: :cascade do |t|
     t.string "title"
-    t.text "description", limit: 16777215
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "locale"
@@ -707,7 +459,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
 
   create_table "token_permission_types", id: :integer, force: :cascade do |t|
     t.string "token_type"
-    t.text "text_description", limit: 16777215
+    t.text "text_description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -720,34 +472,13 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.index ["org_id"], name: "index_trackers_on_org_id"
   end
 
-  create_table "user_role_types", id: :integer, force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "user_statuses", id: :integer, force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "user_types", id: :integer, force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "users", id: :integer, force: :cascade do |t|
     t.string "firstname"
     t.string "surname"
     t.string "email", limit: 80, default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "encrypted_password", default: ""
+    t.string "encrypted_password"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -764,7 +495,6 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"
     t.string "other_organisation"
-    t.boolean "dmponline3"
     t.boolean "accept_terms"
     t.integer "org_id"
     t.string "api_token"
@@ -772,11 +502,13 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.string "invited_by_type"
     t.integer "language_id"
     t.string "recovery_email"
+    t.string "ldap_password"
+    t.string "ldap_username"
     t.boolean "active", default: true
     t.integer "department_id"
     t.datetime "last_api_access"
     t.index ["department_id"], name: "fk_rails_f29bf9cdf2"
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["email"], name: "index_users_on_email"
     t.index ["language_id"], name: "fk_rails_45f4f12508"
     t.index ["org_id"], name: "index_users_on_org_id"
   end
@@ -788,41 +520,9 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.index ["user_id"], name: "index_users_perms_on_user_id"
   end
 
-  create_table "users_roles", id: false, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "role_id"
-    t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
-  end
-
-  create_table "version_translations", id: :integer, force: :cascade do |t|
-    t.integer "version_id"
-    t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "title"
-    t.text "description", limit: 16777215
-    t.index ["locale"], name: "index_version_translations_on_locale"
-    t.index ["version_id"], name: "index_version_translations_on_version_id"
-  end
-
-  create_table "versions", id: :integer, force: :cascade do |t|
-    t.string "title"
-    t.text "description"
-    t.boolean "published"
-    t.integer "number"
-    t.integer "phase_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["phase_id"], name: "index_versions_on_phase_id"
-  end
-
-  add_foreign_key "annotations", "orgs"
-  add_foreign_key "annotations", "questions"
   add_foreign_key "answers", "plans"
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
-  add_foreign_key "answers_question_options", "answers"
-  add_foreign_key "answers_question_options", "question_options"
   add_foreign_key "conditions", "questions"
   add_foreign_key "guidance_groups", "orgs"
   add_foreign_key "guidances", "guidance_groups"
@@ -842,9 +542,6 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
   add_foreign_key "question_options", "questions"
   add_foreign_key "questions", "question_formats"
   add_foreign_key "questions", "sections"
-  add_foreign_key "questions_themes", "questions"
-  add_foreign_key "questions_themes", "themes"
-  add_foreign_key "research_domains", "research_domains", column: "parent_id"
   add_foreign_key "roles", "plans"
   add_foreign_key "roles", "users"
   add_foreign_key "sections", "phases"
@@ -855,6 +552,4 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
   add_foreign_key "users", "departments"
   add_foreign_key "users", "languages"
   add_foreign_key "users", "orgs"
-  add_foreign_key "users_perms", "perms"
-  add_foreign_key "users_perms", "users"
 end
