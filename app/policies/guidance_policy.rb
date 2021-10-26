@@ -1,8 +1,12 @@
+# frozen_string_literal: true
+
 class GuidancePolicy < ApplicationPolicy
+
   attr_reader :user, :guidance
 
   def initialize(user, guidance)
     raise Pundit::NotAuthorizedError, "must be logged in" unless user
+
     @user = user
     @guidance = guidance
   end
@@ -46,4 +50,5 @@ class GuidancePolicy < ApplicationPolicy
   def admin_unpublish?
     user.can_modify_guidance?
   end
+
 end

@@ -15,11 +15,11 @@ class Org
 
       def for_orgs(filtered)
         result = ::StatJoinedUser
-          .where(filtered: filtered)
-          .includes(:org)
-          .select(:"orgs.name", :count)
-          .group(:"orgs.name")
-          .sum(:count)
+                 .where(filtered: filtered)
+                 .includes(:org)
+                 .select(:"orgs.name", :count)
+                 .group(:"orgs.name")
+                 .sum(:count)
         result.each_pair.map do |pair|
           build_model(org_name: pair[0], count: pair[1].to_i)
         end

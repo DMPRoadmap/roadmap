@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
-#import statements fix Circular dependancy errors
-import OrgDateRangeable
-import StatExportedPlan
-import StatExportedPlan::CreateOrUpdate
-import Role
-import Plan
-import User
-import ExportedPlan
+# statements fix Circular dependancy errors due to threading
+# see: https://github.com/grosser/parallel#nameerror-uninitialized-constant
+OrgDateRangeable.class
+StatExportedPlan.class
+StatExportedPlan::CreateOrUpdate.class
+Role.class
+Plan.class
+User.class
+ExportedPlan.class
 
 class Org
 
@@ -18,22 +19,22 @@ class Org
       def call(org = nil, threads: 0)
         orgs = org.nil? ? Org.all : [org]
 
-        Parallel.each(orgs, in_threads: threads) do |org|
-          months = OrgDateRangeable.split_months_from_creation(org)
+        Parallel.each(orgs, in_threads: threads) do |org_obj|
+          months = OrgDateRangeable.split_months_from_creation(org_obj)
           last = months.last
-          if last.present?
-            StatExportedPlan::CreateOrUpdate.do(
-              start_date: last[:start_date],
-              end_date: last[:end_date],
-              org: org
-            )
-            StatExportedPlan::CreateOrUpdate.do(
-              start_date: last[:start_date],
-              end_date: last[:end_date],
-              org: org,
-              filtered: true
-            )
-          end
+          next unless last.present?
+
+          StatExportedPlan::CreateOrUpdate.do(
+            start_date: last[:start_date],
+            end_date: last[:end_date],
+            org: org_obj
+          )
+          StatExportedPlan::CreateOrUpdate.do(
+            start_date: last[:start_date],
+            end_date: last[:end_date],
+            org: org_obj,
+            filtered: true
+          )
         end
       end
 

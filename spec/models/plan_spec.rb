@@ -1,7 +1,10 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 describe Plan do
 
+  include IdentifierHelper
   include RolesHelper
   include TemplateHelper
 
@@ -48,7 +51,9 @@ describe Plan do
 
     it { is_expected.to belong_to :org }
 
-    it { is_expected.to belong_to :funder }
+    it { is_expected.to belong_to(:research_domain).optional }
+
+    it { is_expected.to belong_to(:funder).optional }
 
     it { is_expected.to have_many :phases }
 
@@ -70,8 +75,6 @@ describe Plan do
 
     it { is_expected.to have_many :setting_objects }
 
-    it { is_expected.to have_many :research_outputs }
-    
     it { is_expected.to have_many(:identifiers) }
 
     it { is_expected.to have_many(:contributors) }
@@ -251,13 +254,15 @@ describe Plan do
       before do
         new_user = create(:user, org: user.org)
         create(:role, :creator, :administrator, :editor, :commenter,
-                      user: new_user, plan: plan)
+               user: new_user, plan: plan)
       end
 
       let!(:template) { build_template(1, 1, 1) }
       let!(:plan) { create(:plan, :creator, :organisationally_visible, template: template) }
-      let!(:answer) { create(:answer, plan: plan,
-                             question: template.phases.first.sections.first.questions.first) }
+      let!(:answer) do
+        create(:answer, plan: plan,
+                        question: template.phases.first.sections.first.questions.first)
+      end
 
       it "includes publicly_visible plans" do
         is_expected.to include(plan)
@@ -270,13 +275,15 @@ describe Plan do
       before do
         new_user = create(:user, org: user.org)
         create(:role, :creator, :administrator, :editor, :commenter,
-                      user: new_user, plan: plan)
+               user: new_user, plan: plan)
       end
 
       let!(:template) { build_template(1, 1, 1) }
       let!(:plan) { create(:plan, :creator, :organisationally_visible, template: template) }
-      let!(:answer) { create(:answer, plan: plan,
-                             question: template.phases.first.sections.first.questions.first) }
+      let!(:answer) do
+        create(:answer, plan: plan,
+                        question: template.phases.first.sections.first.questions.first)
+      end
 
       it "includes organisationally_visible plans" do
         is_expected.to include(plan)
@@ -289,7 +296,7 @@ describe Plan do
       before do
         new_user = create(:user, org: user.org)
         create(:role, :creator, :administrator, :editor, :commenter,
-                      user: new_user, plan: plan)
+               user: new_user, plan: plan)
       end
 
       let!(:plan) { create(:plan, :creator, :organisationally_visible) }
@@ -321,7 +328,7 @@ describe Plan do
       let!(:plan) { build_plan }
 
       it "should not be included" do
-        plan.roles.inject{ |r| r.deactivate! }
+        plan.roles.inject(&:deactivate!)
         is_expected.to_not include(plan)
       end
 
@@ -453,8 +460,10 @@ describe Plan do
 
   describe ".deep_copy" do
 
-    let!(:plan) { create(:plan, :creator, research_outputs: 1,  answers: 2,
-                         guidance_groups: 2, feedback_requested: true) }
+    let!(:plan) do
+      create(:plan, :creator, answers: 2, guidance_groups: 2,
+                              feedback_requested: true)
+    end
 
     subject { Plan.deep_copy(plan) }
 
@@ -489,7 +498,7 @@ describe Plan do
 
     context "when Plan title matches term" do
 
-      let!(:plan)  { create(:plan, :creator, title: "foolike title") }
+      let!(:plan) { create(:plan, :creator, title: "foolike title") }
 
       it { is_expected.to include(plan) }
 
@@ -499,7 +508,7 @@ describe Plan do
 
       let!(:template) { create(:template, title: "foolike title") }
 
-      let!(:plan)  { create(:plan, :creator, template: template) }
+      let!(:plan) { create(:plan, :creator, template: template) }
 
       it { is_expected.to include(plan) }
 
@@ -509,7 +518,7 @@ describe Plan do
 
       let!(:plan)  { create(:plan, :creator, description: "foolike desc") }
 
-      let!(:org) { create(:org, name: 'foolike name') }
+      let!(:org) { create(:org, name: "foolike name") }
 
       before do
         user = plan.owner
@@ -523,24 +532,22 @@ describe Plan do
 
     end
 
-    # TODO: Add this one in once we are able to easily do LEFT JOINs in Rails 5
     context "when Contributor name matches term" do
       let!(:plan) { create(:plan, :creator, description: "foolike desc") }
       let!(:contributor) { create(:contributor, plan: plan, name: "Dr. Foo Bar") }
 
-      xit "returns contributor name" do
+      it "returns contributor name" do
         expect(subject).to include(plan)
       end
     end
 
     context "when neither title matches term" do
 
-      let!(:plan)  { create(:plan, :creator, description: "foolike desc") }
+      let!(:plan) { create(:plan, :creator, description: "foolike desc") }
 
       it { is_expected.not_to include(plan) }
 
     end
-
 
   end
 
@@ -575,7 +582,6 @@ describe Plan do
     let!(:question) { create(:question) }
 
     subject { plan.answer(question.id, create_if_missing, research_output.id) }
-
 
     context "when create_if_missing is true and answer exists on the DB" do
 
@@ -680,7 +686,7 @@ describe Plan do
     before do
       # Create 2 Org admins for this Org.
       create_list(:user, 2, org: org).each do |user|
-        user.perms << Perm.where(name: 'modify_guidance').first_or_create
+        user.perms << Perm.where(name: "modify_guidance").first_or_create
       end
       ActionMailer::Base.deliveries = []
     end
@@ -723,8 +729,10 @@ describe Plan do
 
     let!(:template) { create(:template, phases: 2) }
 
-    let!(:plan) { create(:plan, feedback_requested: true,
-                                template: template) }
+    let!(:plan) do
+      create(:plan, feedback_requested: true,
+                    template: template)
+    end
 
     before do
       create(:role, :creator, plan: plan, user: user)
@@ -740,7 +748,7 @@ describe Plan do
 
     it "doesn't send any emails" do
       User.any_instance.stubs(:get_preferences)
-          .returns(:users => { :feedback_provided => false })
+          .returns(users: { feedback_provided: false })
       expect { subject }.not_to change { ActionMailer::Base.deliveries.size }
     end
 
@@ -748,7 +756,7 @@ describe Plan do
 
       before do
         User.any_instance.stubs(:get_preferences)
-            .returns(:users => { :feedback_provided => true })
+            .returns(users: { feedback_provided: true })
       end
 
       it "emails the owners" do
@@ -819,18 +827,13 @@ describe Plan do
     context "config allows for admin viewing" do
 
       it "super admins" do
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :super_admins_read_all)
-                .returns(true)
-
+        Rails.configuration.x.plans.super_admins_read_all = true
         user.perms << create(:perm, name: "add_organisations")
         expect(subject.readable_by?(user.id)).to eql(true)
       end
 
       it "org admins" do
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :org_admins_read_all)
-                .returns(true)
+        Rails.configuration.x.plans.org_admins_read_all = true
         user.org_id = plan.owner.org_id
         user.save
         user.perms << create(:perm, name: "modify_guidance")
@@ -841,16 +844,11 @@ describe Plan do
     context "config does not allow admin viewing" do
 
       before(:each) do
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :org_admins_read_all)
-                .returns(false)
+        Rails.configuration.x.plans.org_admins_read_all = false
       end
 
       it "super admins" do
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :super_admins_read_all)
-                .returns(false)
-
+        Rails.configuration.x.plans.super_admins_read_all = false
         user.perms << create(:perm, name: "add_organisations")
         expect(subject.readable_by?(user.id)).to eql(false)
       end
@@ -913,10 +911,7 @@ describe Plan do
         end
 
         it "when user is a reviewer and feedback not requested" do
-          Branding.expects(:fetch)
-                  .with(:service_configuration, :plans, :org_admins_read_all)
-                  .returns(false)
-
+          Rails.configuration.x.plans.org_admins_read_all = false
           plan.feedback_requested = false
           plan.save
           expect(subject.readable_by?(user.id)).to eql(false)
@@ -946,11 +941,7 @@ describe Plan do
     context "explicit sharing does not conflict with admin-viewing" do
 
       it "super admins" do
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :super_admins_read_all)
-                .at_most_once
-                .returns(false)
-
+        Rails.configuration.x.plans.super_admins_read_all = false
         user.perms << create(:perm, name: "add_organisations")
         role = subject.roles.commenter.first
         role.user_id = user.id
@@ -960,11 +951,7 @@ describe Plan do
       end
 
       it "org admins" do
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :org_admins_read_all)
-                .at_most_once
-                .returns(false)
-
+        Rails.configuration.x.plans.org_admins_read_all = false
         user.perms << create(:perm, name: "modify_guidance")
         role = subject.roles.commenter.first
         role.user_id = user.id
@@ -1108,7 +1095,6 @@ describe Plan do
   end
 
   describe "#reviewable_by?" do
-
     let!(:plan) { build_plan(true, true, true) }
     let!(:user) { create(:user) }
 
@@ -1206,7 +1192,7 @@ describe Plan do
     subject { plan }
 
     it "returns false if user does not exist" do
-      expect(subject.add_user!(326465)).to eql(false)
+      expect(subject.add_user!(326_465)).to eql(false)
     end
 
     it "adds the creator" do
@@ -1351,20 +1337,20 @@ describe Plan do
     end
   end
 
-  describe "#num_answered_questions" do
+  describe "#percent_answered" do
 
     let!(:template) { create(:template) }
 
     let!(:plan) { create(:plan, :creator, template: template) }
 
-    subject { plan.num_answered_questions }
+    subject { plan.percent_answered }
 
     before do
       @phase     = create(:phase, template: template)
       @section   = create(:section, phase: @phase)
       @questions = create_list(:question, 3, :textarea, section: @section)
-      # 2 valid answers
-      @questions.first(2).each do |question|
+      # 1 valid answers
+      @questions.first(1).each do |question|
         create(:answer, question: question, plan: plan)
       end
       # 1 valid answers
@@ -1373,8 +1359,8 @@ describe Plan do
       end
     end
 
-    it "returns the number of questions with valid answers" do
-      expect(subject).to eql(2)
+    it "returns the percentage of questions with valid answers" do
+      expect(subject.to_i).to eql(33)
     end
 
   end
@@ -1423,7 +1409,7 @@ describe Plan do
     context "when requisite number of questions answered" do
 
       before do
-        Rails.application.config.default_plan_percentage_answered = 75
+        Rails.configuration.x.plans.default_percentage_answered = 75
       end
 
       it { is_expected.to eql(true) }
@@ -1433,7 +1419,7 @@ describe Plan do
     context "when requisite number of questions not answered" do
 
       before do
-        Rails.application.config.default_plan_percentage_answered = 76
+        Rails.configuration.x.plans.default_percentage_answered = 76
       end
 
       it { is_expected.to eql(false) }
@@ -1469,40 +1455,131 @@ describe Plan do
 
   end
 
-  describe "#no_questions_matches_no_answers?" do
+  describe "#percent_answered" do
 
-    let!(:plan) { create(:plan, :creator) }
+    let!(:template) { create(:template, phases: 1, sections: 1, questions: 1) }
 
-    subject { plan.no_questions_matches_no_answers? }
+    let!(:plan) { create(:plan, :creator, template: template) }
+
+    subject { plan.percent_answered }
 
     context "when has no answers" do
 
-      it { is_expected.to eql(true) }
+      it { is_expected.to eql(0) }
 
     end
 
     context "when has answers that are not valid" do
 
-      let!(:question) { create(:question, :textarea) }
+      let!(:question) do
+        create(:question, :textarea, section: template.phases.first.sections.first)
+      end
 
       before do
         create_list(:answer, 1, text: "", plan: plan, question: question)
       end
 
-      it { is_expected.to eql(true) }
+      it { is_expected.to eql(0) }
 
     end
 
     context "when has answers that are valid" do
 
-      let!(:question) { create(:question, :textarea) }
-
-      before do
-        create_list(:answer, 1, plan: plan, question: question)
+      let!(:question) do
+        create(:question, :textarea, section: template.phases.first.sections.first)
       end
 
-      it { is_expected.to eql(false) }
+      before do
+        create_list(:answer, 1, plan: plan, question: question, text: Faker::Lorem.paragraph)
+      end
 
+      it { is_expected.to eql(50.0) }
+
+    end
+  end
+
+  describe "#landing_page" do
+    let!(:plan) { create(:plan, :creator) }
+
+    it "returns nil if no DOI or ARK is available" do
+      expect(plan.landing_page).to eql(nil)
+    end
+    it "returns the DOI if available" do
+      id = create(:identifier, identifiable: plan, value: "10.9999/123erge/45f")
+      plan.reload
+      expect(plan.landing_page).to eql(id)
+    end
+    it "returns the ARK if available" do
+      id = create(:identifier, identifiable: plan, value: "ark:10.9999/123")
+      plan.reload
+      expect(plan.landing_page).to eql(id)
+    end
+  end
+
+  describe "#grant association sanity checks" do
+    let!(:plan) { create(:plan, :creator) }
+
+    it "allows a grant identifier to be associated" do
+      plan.grant = build(:identifier, identifier_scheme: nil)
+      plan.save
+      expect(plan.grant.new_record?).to eql(false)
+    end
+    it "allows a grant identifier to be deleted" do
+      plan.grant = build(:identifier, identifier_scheme: nil)
+      plan.save
+      plan.grant = nil
+      plan.save
+      expect(plan.grant).to eql(nil)
+      expect(Identifier.last).to eql(nil)
+    end
+    it "does not allow multiple grants on a single plan" do
+      plan.grant = build(:identifier, identifier_scheme: nil)
+      plan.save
+      val = SecureRandom.uuid
+      plan.grant = build(:identifier, identifier_scheme: nil, value: val)
+      plan.save
+      expect(plan.grant.new_record?).to eql(false)
+      expect(plan.grant.value).to eql(val)
+      expect(Identifier.all.length).to eql(1)
+    end
+    it "allows the same grant to be associated with different plans" do
+      val = SecureRandom.uuid
+      id = build(:identifier, identifier_scheme: nil, value: val)
+      plan.grant = id
+      plan.save
+      plan2 = create(:plan, grant: id)
+      expect(plan2.grant.value).to eql(plan.grant.value)
+      # Make sure that deleting the plan does not delete the shared grant!
+      plan.destroy
+      expect(plan2.grant).not_to eql(nil)
+    end
+  end
+
+  describe "#grant association sanity checks" do
+    let!(:plan) { create(:plan, :creator) }
+
+    it "allows a grant identifier to be associated" do
+      plan.grant = { value: build(:identifier, identifier_scheme: nil).value }
+      plan.save
+      expect(plan.grant.new_record?).to eql(false)
+    end
+    it "allows a grant identifier to be deleted" do
+      plan.grant = { value: build(:identifier, identifier_scheme: nil).value }
+      plan.save
+      plan.grant = { value: nil }
+      plan.save
+      expect(plan.grant).to eql(nil)
+      expect(Identifier.last).to eql(nil)
+    end
+    it "does not allow multiple grants on a single plan" do
+      plan.grant = { value: build(:identifier, identifier_scheme: nil).value }
+      plan.save
+      val = SecureRandom.uuid
+      plan.grant = { value: build(:identifier, identifier_scheme: nil, value: val).value }
+      plan.save
+      expect(plan.grant.new_record?).to eql(false)
+      expect(plan.grant.value).to eql(val)
+      expect(Identifier.all.length).to eql(1)
     end
   end
 

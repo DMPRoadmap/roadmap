@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: registry_values
@@ -9,7 +11,7 @@
 #  registry_id :integer
 #
 
-class RegistryValue < ActiveRecord::Base
+class RegistryValue < ApplicationRecord
 
   include ValidationMessages
 
@@ -35,7 +37,7 @@ class RegistryValue < ActiveRecord::Base
   # = Scopes =
   # ==========
 
-  scope :search, ->(term) {
+  scope :search, lambda(term) {
     search_pattern = "%#{term}%"
     where("lower(registry_values.data::text) LIKE lower(?)", search_pattern)
   }

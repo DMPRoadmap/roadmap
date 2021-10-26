@@ -1,9 +1,13 @@
+# frozen_string_literal: true
+
 class NotePolicy < ApplicationPolicy
+
   attr_reader :user
   attr_reader :note
 
   def initialize(user, note)
     raise Pundit::NotAuthorizedError, "must be logged in" unless user
+
     @user = user
     @note = note
   end

@@ -19,7 +19,7 @@
 #  index_madmp_schemas_on_org_id  (org_id)
 #
 
-class MadmpSchema < ActiveRecord::Base
+class MadmpSchema < ApplicationRecord
 
   include ValidationMessages
 
@@ -37,7 +37,7 @@ class MadmpSchema < ActiveRecord::Base
            :research_outputs, to: :madmp_fragments
 
   validates :name, presence: { message: PRESENCE_MESSAGE },
-                      uniqueness: { message: UNIQUENESS_MESSAGE }
+                   uniqueness: { message: UNIQUENESS_MESSAGE }
 
   # validates :schema, presence:  { message: PRESENCE_MESSAGE },
   #                     json: true
@@ -66,7 +66,7 @@ class MadmpSchema < ActiveRecord::Base
   # = Scopes =
   # ==========
 
-  scope :search, ->(term) {
+  scope :search, lambda(term) {
     search_pattern = "%#{term}%"
     where("lower(madmp_schemas.name) LIKE lower(?) OR " \
           "lower(madmp_schemas.classname) LIKE lower(?)",

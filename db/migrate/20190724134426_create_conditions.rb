@@ -1,4 +1,4 @@
-class CreateConditions < ActiveRecord::Migration
+class CreateConditions < ActiveRecord::Migration[4.2]
   def change
     create_table :conditions do |t|
       t.references :question, index: true, foreign_key: true

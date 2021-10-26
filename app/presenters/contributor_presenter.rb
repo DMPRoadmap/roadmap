@@ -8,7 +8,7 @@ class ContributorPresenter
     def display_name(name:)
       return "" unless name.present?
 
-      name.split.map { |part| part.capitalize }.join(" ")
+      name.split.map(&:capitalize).join(" ")
     end
 
     # Returns the string name for each role
@@ -43,11 +43,14 @@ class ContributorPresenter
         "Data Manager"
       when :project_administration
         "Project Administrator"
-      else
+      when :investigation
         "Principal Investigator"
+      else
+        "Other"
       end
     end
 
+    # rubocop:disable Layout/LineLength
     def role_tooltip(symbol:)
       case symbol
       when :data_curation
@@ -60,6 +63,7 @@ class ContributorPresenter
         ""
       end
     end
+    # rubocop:enable Layout/LineLength
 
   end
 

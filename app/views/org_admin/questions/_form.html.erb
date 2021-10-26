@@ -20,7 +20,7 @@
     <!--Question text -->
     <div class="form-group col-md-10">
       <%= f.label(:text, _('Question text'), class: "control-label") %>
-      <%= f.text_area(:text, class: "question", "aria-required": true) %>
+      <%= f.text_area(:text, class: "question", spellcheck: true, "aria-required": true) %>
     </div>
 
     <!-- Question format -->
@@ -52,7 +52,7 @@
             <%= render partial: 'org_admin/conditions/container', locals: { f: f, question: question, conditions: conditions } %>
           </p>
         </div>
-      <% else %> 
+      <% else %>
         <div class="form-group" data-toggle="tooltip", title="<%= _('Save this question before adding conditions.') %>" >
           <%= link_to _('Add Conditions'), '#', class: "add-logic btn btn-default disabled" %>
         </div>

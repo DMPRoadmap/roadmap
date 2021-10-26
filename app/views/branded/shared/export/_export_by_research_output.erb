@@ -10,7 +10,7 @@
       <h2><%= research_output_description.data['title'] %></h2>
   <% end %>
   <% sections.each do |section| %>
-    <% section_has_common_answers = research_output.get_main().has_common_answers?(section[:id]) %>
+    <% section_has_common_answers = research_output.main().common_answers?(section[:id]) %>
     <% if @show_sections_questions %>
       <br/>
       <h3><%= section[:title] %></h3>
@@ -18,7 +18,7 @@
     <% end %>
     <% section[:questions].each do |question| %>
       <% answer = section_has_common_answers ? 
-            @plan.answer(question[:id], false, research_output.get_main().id) : 
+            @plan.answer(question[:id], false, research_output.main().id) : 
             @plan.answer(question[:id], false, research_output[:id]) %>
       <% blank = answer.present? ? answer.is_blank? : true %>
       <% options = answer.present? ? answer.question_options : [] %>

@@ -10,7 +10,7 @@ module OrgAdmin
     include TemplateMethods
 
     prepend Dmpopidor::Controllers::OrgAdmin::Templates
-    
+
     after_action :verify_authorized
 
     # The root version of index which returns all templates
@@ -38,6 +38,7 @@ module OrgAdmin
     # A version of index that displays only templates that belong to the user's org
     # GET /org_admin/templates/organisational
     # -----------------------------------------------------
+    # rubocop:disable Metrics/AbcSize
     def organisational
       authorize Template
       templates = Template.latest_version_per_org(current_user.org.id)
@@ -50,10 +51,10 @@ module OrgAdmin
                else
                  _("Own Templates")
                end
-      @templates         = templates.page(1)
-      @query_params      = { sort_field: "templates.title", sort_direction: "asc" }
-      @all_count         = templates.length
-      @published_count   = published.present? ? published : 0
+      @templates = templates.page(1)
+      @query_params = { sort_field: "templates.title", sort_direction: "asc" }
+      @all_count = templates.length
+      @published_count = published.present? ? published : 0
       @unpublished_count = if published.present?
                              templates.length - published
                            else
@@ -61,10 +62,12 @@ module OrgAdmin
                            end
       render :index
     end
+    # rubocop:enable Metrics/AbcSize
 
     # A version of index that displays only templates that are customizable
     # GET /org_admin/templates/customisable
     # -----------------------------------------------------
+    # rubocop:disable Metrics/AbcSize
     def customisable
       authorize Template
       customizations = Template.latest_customized_version_per_org(current_user.org.id)
@@ -74,8 +77,9 @@ module OrgAdmin
       # customized but the base template org is no longer a funder
       funder_template_families = funder_templates.collect(&:family_id)
       # filter only customizations of valid(published) funder templates
-      customizations = customizations.select { |t|
-                  funder_template_families.include?(t.customization_of) }
+      customizations = customizations.select do |t|
+        funder_template_families.include?(t.customization_of)
+      end
       published = customizations.select { |t| t.published? || t.draft? }.length
 
       @orgs = current_user.can_super_admin? ? Org.all : []
@@ -94,6 +98,7 @@ module OrgAdmin
 
       render :index
     end
+    # rubocop:enable Metrics/AbcSize
 
     # GET /org_admin/templates/[:id]
     def show
@@ -106,16 +111,17 @@ module OrgAdmin
                               "question_options.number")
                        .select("phases.title", "phases.description", "sections.title",
                                "questions.text", "question_options.text")
-      if !template.latest?
-        # rubocop:disable Metrics/LineLength
+      unless template.latest?
+        # rubocop:disable Layout/LineLength
         flash[:notice] = _("You are viewing a historical version of this template. You will not be able to make changes.")
-        # rubocop:enable Metrics/LineLength
+        # rubocop:enable Layout/LineLength
       end
       render "container", locals: {
         partial_path: "show",
         template: template,
         phases: phases,
-        referrer: get_referrer(template, request.referrer) }
+        referrer: get_referrer(template, request.referrer)
+      }
     end
 
     # GET /org_admin/templates/:id/edit
@@ -124,12 +130,12 @@ module OrgAdmin
       template = Template.includes(:org, :phases).find(params[:id])
       authorize template
       # Load the info needed for the overview section if the authorization check passes!
-      phases = template.phases.includes(sections: { questions: :question_options }).
-                        order("phases.number",
+      phases = template.phases.includes(sections: { questions: :question_options })
+                       .order("phases.number",
                               "sections.number",
                               "questions.number",
-                              "question_options.number").
-                        select("phases.title",
+                              "question_options.number")
+                       .select("phases.title",
                                "phases.description",
                                "sections.title",
                                "questions.text",
@@ -141,7 +147,8 @@ module OrgAdmin
           partial_path: "edit",
           template: template,
           phases: phases,
-          referrer: get_referrer(template, request.referrer) }
+          referrer: get_referrer(template, request.referrer)
+        }
       end
     end
 
@@ -153,6 +160,7 @@ module OrgAdmin
     end
 
     # POST /org_admin/templates
+    # rubocop:disable Metrics/AbcSize
     def create
       authorize Template
       args = template_params
@@ -176,9 +184,11 @@ module OrgAdmin
         render :new
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     # PUT /org_admin/templates/:id (AJAXable)
     # -----------------------------------------------------
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def update
       template = Template.find(params[:id])
       authorize template
@@ -193,36 +203,38 @@ module OrgAdmin
         end
         if template.save
           render(json: {
-            status: 200,
-            msg: success_message(template, _("saved"))
-          })
+                   status: 200,
+                   msg: success_message(template, _("saved"))
+                 })
         else
           render(json: {
-            status: :bad_request,
-            msg: failure_message(template, _("save"))
-          })
+                   status: :bad_request,
+                   msg: failure_message(template, _("save"))
+                 })
         end
       rescue ActiveSupport::JSON.parse_error
         render(json: {
-          status: :bad_request,
-          msg: _("Error parsing links for a %{template}") %
+                 status: :bad_request,
+                 msg: _("Error parsing links for a %{template}") %
                { template: template_type(template) }
-        })
-        return
-      rescue => e
+               })
+        nil
+      rescue StandardError => e
         render(json: {
-          status: :forbidden,
-          msg: e.message
-        }) and return
+                 status: :forbidden,
+                 msg: e.message
+               }) and return
       end
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # DELETE /org_admin/templates/:id
+    # rubocop:disable Metrics/AbcSize
     def destroy
       template = Template.find(params[:id])
       authorize template
       versions = Template.includes(:plans).where(family_id: template.family_id)
-      if versions.select { |t| t.plans.length > 0 }.empty?
+      if versions.reject { |t| t.plans.empty? }.empty?
         versions.each do |version|
           if version.destroy!
             flash[:notice] = success_message(template, _("removed"))
@@ -231,9 +243,9 @@ module OrgAdmin
           end
         end
       else
-        # rubocop:disable Metrics/LineLength
+        # rubocop:disable Layout/LineLength
         flash[:alert] = _("You cannot delete a #{template_type(template)} that has been used to create plans.")
-        # rubocop:enable Metrics/LineLength
+        # rubocop:enable Layout/LineLength
       end
       if request.referrer.present?
         redirect_to request.referrer
@@ -241,6 +253,7 @@ module OrgAdmin
         redirect_to org_admin_templates_path
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     # GET /org_admin/templates/:id/history
     def history
@@ -264,7 +277,7 @@ module OrgAdmin
     def publish
       template = Template.find(params[:id])
       authorize template
-      # rubocop:disable Metrics/LineLength
+      # rubocop:disable Layout/LineLength
       publishable, errors = template.publishability
       if publishable
         if template.publish!
@@ -275,7 +288,7 @@ module OrgAdmin
       else
         flash[:alert] = errors
       end
-      # rubocop:enable Metrics/LineLength
+      # rubocop:enable Layout/LineLength
       redirect_to request.referrer.present? ? request.referrer : org_admin_templates_path
     end
 
@@ -297,6 +310,7 @@ module OrgAdmin
 
     # GET template_export/:id
     # -----------------------------------------------------
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def template_export
       @template = Template.find(params[:id])
 
@@ -306,10 +320,10 @@ module OrgAdmin
         :org,
         phases: {
           sections: {
-            questions: [
-              :question_options,
-              :question_format,
-              :annotations
+            questions: %i[
+              question_options
+              question_format
+              annotations
             ]
           }
         }
@@ -318,41 +332,58 @@ module OrgAdmin
       @formatting = Settings::Template::DEFAULT_SETTINGS[:formatting]
 
       begin
-        file_name = @template.title.gsub(/[^a-zA-Z\d\s]/, "").gsub(/ /, "_") + '_v' + @template.version.to_s
+        # rubocop:disable Layout/LineLength
+        file_name = @template.title.gsub(/[^a-zA-Z\d\s]/, "").gsub(/ /, "_") + "_v" + @template.version.to_s
+        # rubocop:enable Layout/LineLength
         respond_to do |format|
           format.docx do
             render docx: "template_exports/template_export", filename: "#{file_name}.docx"
           end
 
           format.pdf do
-            # rubocop:disable Metrics/LineLength
+            # rubocop:disable Layout/LineLength
             render pdf: file_name,
-              template: "template_exports/template_export",
-              margin: @formatting[:margin],
-              footer: {
-                center:    _("Template created using the %{application_name} service. Last modified %{date}") % {
-                application_name: Rails.configuration.branding[:application][:name],
-                date: l(@template.updated_at.to_date, formats: :short)
-              },
-              font_size: 8,
-              spacing: (@formatting[:margin][:bottom] / 2) - 4,
-              right: "[page] of [topage]",
-              encoding: "utf8"
-            }
-            # rubocop:enable Metrics/LineLength
+                   template: "template_exports/template_export",
+                   margin: @formatting[:margin],
+                   footer: {
+                     center: _("Template created using the %{application_name} service. Last modified %{date}") % {
+                       application_name: ApplicationService.application_name,
+                       date: l(@template.updated_at.to_date, formats: :short)
+                     },
+                     font_size: 8,
+                     spacing: (@formatting[:margin][:bottom] / 2) - 4,
+                     right: "[page] of [topage]",
+                     encoding: "utf8"
+                   }
+            # rubocop:enable Layout/LineLength
           end
         end
-      rescue ActiveRecord::RecordInvalid => e
+      rescue ActiveRecord::RecordInvalid
         # What scenario is this triggered in? it's common to our export pages
         redirect_to public_templates_path,
                     alert: _("Unable to download the DMP Template at this time.")
       end
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     private
 
     # SEE MODULE
     def template_params
+      # TODO: For some reason the sample plans and funder links are sent outside
+      #       the context of the form as :template-links like this:
+      #         { "template-links"=>"{
+      #           \"funder\":[{
+      #             \"link\":\"https://sloan.org/grants/apply#tab-grant-proposal-guidelines\",
+      #             \"text\":\"Sloan Grant Proposal Guidelines\"
+      #           }],
+      #           \"sample_plan\":[{
+      #             \"link\":\"https://dmptool.org\",
+      #             \"text\":\"DMPTool\"
+      #           }]
+      #         }
+      # While this is working as-is we should consider folding these into
+      # the template: :links context.
       params.require(:template).permit(:title, :description, :visibility, :links)
     end
 
@@ -363,17 +394,18 @@ module OrgAdmin
       # If nil and the org is not a funder, we default to organisational
       # If present, we parse to retrieve the value
       if args[:visibility].nil?
-        return org.funder? ? "publicly_visible" : "organisationally_visible"
+        org.funder? ? "publicly_visible" : "organisationally_visible"
       else
-        return args.fetch(:visibility, "0") == "1" ? "organisationally_visible" : "publicly_visible"
+        args.fetch(:visibility, "0") == "1" ? "organisationally_visible" : "publicly_visible"
       end
     end
 
     def get_referrer(template, referrer)
       return org_admin_templates_path unless referrer.present?
+
       if referrer.end_with?(new_org_admin_template_path) ||
-           referrer.end_with?(edit_org_admin_template_path) ||
-           referrer.end_with?(org_admin_template_path)
+         referrer.end_with?(edit_org_admin_template_path) ||
+         referrer.end_with?(org_admin_template_path)
 
         if template.customization_of.present?
           customisable_org_admin_templates_path

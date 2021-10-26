@@ -5,9 +5,9 @@
 
     <% research_outputs.each do |research_output| %>
       <% research_output_description = research_output.json_fragment.research_output_description %>
-      <% section_has_common_answers = research_output.get_main().has_common_answers?(section[:id]) %>
+      <% section_has_common_answers = research_output.main().common_answers?(section[:id]) %>
       <% answer = section_has_common_answers ? 
-            @plan.answer(question[:id], false, research_output.get_main().id) : 
+            @plan.answer(question[:id], false, research_output.main().id) : 
             @plan.answer(question[:id], false, research_output[:id]) %>
       <% blank = answer.present? ? answer.is_blank? : true %>
       <% options = answer.present? ? answer.question_options : [] %>

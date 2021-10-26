@@ -43,7 +43,7 @@
           </div>
 
           <ul class="nav nav-tabs research-outputs-tabs">
-            <% section_has_common_answers = plan.research_outputs.first.has_common_answers?(section.id) %>
+            <% section_has_common_answers = plan.research_outputs.first.common_answers?(section.id) %>
             <% plan.research_outputs.each_with_index do |research_output, i| %>
               <% research_output_fragment = research_output.json_fragment.research_output_description %>
               <li class="research_outputs_tabs <%= 'active' if research_output.main? %> <%= 'disabled' if section_has_common_answers %>">
@@ -91,7 +91,7 @@
                         <div class="panel-title pull-left">
                           <%= sanitize(question.text) %> 
                         </div>
-                        <i class="fa fa-chevron-right pull-right" aria-hidden="true"></i>
+                        <i class="fas fa-chevron-right pull-right" aria-hidden="true"></i>
                         <div class="clearfix"></div>
                       </div>
                     </div>
@@ -103,7 +103,7 @@
                         <div class="answer-section">
                           <% unless question.question_format.structured? && answer.nil? %>
                             <div class="toggle-guidance-section disabled">
-                              <span class="fa fa-chevron-left"></span> <span><%= d_('dmpopidor','Comments & Guidance') %></span>
+                              <span class="fas fa-chevron-left"></span> <span><%= d_('dmpopidor','Comments & Guidance') %></span>
                             </div>
                           <% end %>
                           <!-- Answer Section -->

@@ -45,7 +45,7 @@ RSpec.describe Api::V1::Deserialization::Plan do
           start: Time.now.to_formatted_s(:iso8601),
           end: (Time.now + 2.years).to_formatted_s(:iso8601),
           funding: [
-            { name: Faker::Movies::StarWars.planet }
+            { name: create(:org, name: Faker::Movies::StarWars.planet).name }
           ]
         }
       ],
@@ -68,7 +68,7 @@ RSpec.describe Api::V1::Deserialization::Plan do
 
   describe "#deserialize!(json: {})" do
     before(:each) do
-      described_class.stubs(:marshal_plan).returns(@plan)
+      described_class.stubs(:find_or_initialize).returns(@plan)
       described_class.stubs(:deserialize_project).returns(@plan)
       described_class.stubs(:deserialize_contact).returns(@plan)
       described_class.stubs(:deserialize_contributors).returns(@plan)
@@ -76,85 +76,63 @@ RSpec.describe Api::V1::Deserialization::Plan do
     end
 
     it "returns nil if json is not valid" do
-      expect(described_class.deserialize!(json: nil)).to eql(nil)
+      expect(described_class.deserialize(json: nil)).to eql(nil)
     end
     it "returns nil if no :dmp_id, :template or default template available" do
-      described_class.stubs(:marshal_plan).returns(nil)
-      described_class.deserialize!(json: @json)
+      @plan.template = nil
+      described_class.stubs(:find_or_initialize).returns(@plan)
+      expect(described_class.deserialize(json: @json)).to eql(nil)
     end
     it "returns the Plan" do
-      expect(described_class.deserialize!(json: @json)).to eql(@plan)
+      expect(described_class.deserialize(json: @json)).to eql(@plan)
     end
-    it "sets the title to the default" do
-      described_class.stubs(:marshal_plan).returns(Plan.new)
-      result = described_class.deserialize!(json: @json)
+    it "sets the title" do
+      result = described_class.deserialize(json: @json)
       expect(result.title).to eql(@plan.title)
     end
     it "sets the description" do
-      described_class.stubs(:marshal_plan).returns(Plan.new)
-      result = described_class.deserialize!(json: @json)
+      result = described_class.deserialize(json: @json)
       expect(result.description).to eql(@plan.description)
     end
   end
 
   context "private methods" do
-
-    describe "#valid?(json:)" do
-      it "returns false if json is not present" do
-        expect(described_class.send(:valid?, json: nil)).to eql(false)
-      end
-      it "returns false if :name is not present" do
-        json = { abbreviation: @abbrev }
-        expect(described_class.send(:valid?, json: json)).to eql(false)
-      end
-      it "returns false if no default template, no :template and no :dmp_id" do
-        Template.find_by(is_default: true)&.destroy
-        @json[:dmp_id] = nil
-        @json[:extension] = []
-        expect(described_class.send(:valid?, json: @json)).to eql(false)
-      end
-      it "returns true" do
-        expect(described_class.send(:valid?, json: @json)).to eql(true)
-      end
-    end
-
-    describe "#marshal_plan(json:)" do
+    describe ":find_or_initialize(id_json:, json: {})" do
       it "returns nil if json is not present" do
-        expect(described_class.send(:marshal_plan, json: nil)).to eql(nil)
+        result = described_class.send(:find_or_initialize, id_json: nil, json: nil)
+        expect(result).to eql(nil)
       end
-      it "returns nil there is no :dmp_id and no :template" do
-        @json[:dmp_id] = nil
-        @json[:extension] = []
-        expect(described_class.send(:marshal_plan, json: @json)).to eql(nil)
+      it "returns a the existing Plan when :dmp_id is one of our DOIs" do
+        Api::V1::DeserializationService.expects(:object_from_identifier).returns(@plan)
+        result = described_class.send(:find_or_initialize, id_json: @json[:dmp_id], json: @json)
+        expect(result).to eql(@plan)
+        expect(result.new_record?).to eql(false)
+        expect(result.title).to eql(@plan.title)
       end
-      it "returns nil if :dmp_id was not found, no :template, no default template" do
-        @json[:dmp_id][:identifier] = SecureRandom.uuid
-        @json[:extension] = []
-        expect(described_class.send(:marshal_plan, json: @json)).to eql(nil)
+      it "returns a the existing Plan when the :dmp_id is one of our URLs" do
+        @json[:dmp_id] = {
+          type: "URL", identifier: Rails.application.routes.url_helpers.plan_url(@plan)
+        }
+        result = described_class.send(:find_or_initialize, id_json: @json[:dmp_id], json: @json)
+        expect(result).to eql(@plan)
+        expect(result.new_record?).to eql(false)
+        expect(result.title).to eql(@plan.title)
       end
-      it "finds the Plan by :dmp_id" do
-        expect(described_class.send(:marshal_plan, json: @json)).to eql(@plan)
-      end
-      it "creates a new Plan with default template if no :dmp_id and no :template" do
-        @json[:dmp_id] = []
-        @json[:extension] = []
-        default = Template.find_by(is_default: true)
-        default = create(:template, is_default: true) unless default.present?
-        result = described_class.send(:marshal_plan, json: @json)
+      it "initializes the Plan if the :dmp_id had no matches" do
+        @json[:dmp_id] = { type: "URL", identifier: Faker::Internet.url }
+        result = described_class.send(:find_or_initialize, id_json: @json[:dmp_id], json: @json)
+        expect(result).not_to eql(@plan)
         expect(result.new_record?).to eql(true)
-        expect(result.template_id).to eql(default.id)
+        expect(result.title).to eql(@json[:title])
       end
-      it "creates a new Plan if :dmp_id was not present" do
-        @json[:dmp_id] = []
-        result = described_class.send(:marshal_plan, json: @json)
+      it "initializes the Plan if there were no viable matches" do
+        json = {
+          title: Faker::Lorem.sentence,
+          contact: { email: Faker::Internet.email }
+        }
+        result = described_class.send(:find_or_initialize, id_json: nil, json: json)
         expect(result.new_record?).to eql(true)
-        expect(result.template_id).to eql(@template.id)
-      end
-      it "creates a new Plan if :dmp_id was not found" do
-        @json[:dmp_id][:identifier] = SecureRandom.uuid
-        result = described_class.send(:marshal_plan, json: @json)
-        expect(result.new_record?).to eql(true)
-        expect(result.template_id).to eql(@template.id)
+        expect(result.title).to eql(json[:title])
       end
     end
 
@@ -187,21 +165,21 @@ RSpec.describe Api::V1::Deserialization::Plan do
       end
       it "assigns the start_date of the Plan" do
         result = described_class.send(:deserialize_project, plan: @plan, json: @json)
-        expected = Time.new(@json[:project].first[:start]).utc.to_formatted_s(:iso8601)
+        expected = Time.parse(@json[:project].first[:start]).utc.to_formatted_s(:iso8601)
         expect(result.start_date.to_formatted_s(:iso8601)).to eql(expected)
       end
       it "assigns the end_date of the Plan" do
         result = described_class.send(:deserialize_project, plan: @plan, json: @json)
-        expected = Time.new(@json[:project].first[:end]).utc.to_formatted_s(:iso8601)
+        expected = Time.parse(@json[:project].first[:end]).utc.to_formatted_s(:iso8601)
         expect(result.end_date.to_formatted_s(:iso8601)).to eql(expected)
       end
       it "does not call the deserializer for Funding if :funding is not present" do
         @json[:project].first[:funding] = nil
-        Api::V1::Deserialization::Funding.expects(:deserialize!).at_most(0)
+        Api::V1::Deserialization::Funding.expects(:deserialize).at_most(0)
         described_class.send(:deserialize_project, plan: @plan, json: @json)
       end
       it "calls the deserializer for Funding if :funding present" do
-        Api::V1::Deserialization::Funding.expects(:deserialize!).at_least(1)
+        Api::V1::Deserialization::Funding.expects(:deserialize).at_least(1)
         described_class.send(:deserialize_project, plan: @plan, json: @json)
       end
     end
@@ -219,10 +197,10 @@ RSpec.describe Api::V1::Deserialization::Plan do
         expect(result.contributors.length).to eql(0)
       end
       it "calls the Contributor.deserialize! for the contact entry" do
-        Api::V1::Deserialization::Contributor.expects(:deserialize!).at_least(1)
+        Api::V1::Deserialization::Contributor.expects(:deserialize).at_least(1)
         described_class.send(:deserialize_contact, plan: @plan, json: @json)
       end
-      it "attaches the Contributors to the Plan" do
+      it "attaches the Contact to the Plan's contributors" do
         result = described_class.send(:deserialize_contact, plan: @plan, json: @json)
         expect(result.contributors.length).to eql(1)
         expect(result.contributors.first.name).to eql(@json[:contact][:name])
@@ -230,8 +208,8 @@ RSpec.describe Api::V1::Deserialization::Plan do
     end
 
     describe "#deserialize_contributors(plan:, json:)" do
-      it "calls the Contributor.deserialize! for each contributor entry" do
-        Api::V1::Deserialization::Contributor.expects(:deserialize!).at_least(2)
+      it "calls the Contributor.deserialize for each contributor entry" do
+        Api::V1::Deserialization::Contributor.expects(:deserialize).at_least(2)
         described_class.send(:deserialize_contributors, plan: @plan, json: @json)
       end
       it "attaches the Contributors to the Plan" do
@@ -240,58 +218,6 @@ RSpec.describe Api::V1::Deserialization::Plan do
         expect(result.contributors.length).to eql(2)
         expect(result.contributors.first.name).to eql(@json[:contributor].first[:name])
         expect(result.contributors.last.name).to eql(@json[:contributor].last[:name])
-      end
-    end
-
-    describe "#find_by_identifier(json:)" do
-      it "returns nil if json is not present" do
-        expect(described_class.send(:find_by_identifier, json: nil)).to eql(nil)
-      end
-      it "returns nil if json has no :dmp_id" do
-        json = { contact_id: { type: "url", identifier: SecureRandom.uuid } }
-        expect(described_class.send(:find_by_identifier, json: json)).to eql(nil)
-      end
-      it "calls Plan.from_identifiers if the :dmp_id is a DOI/ARK" do
-        described_class.stubs(:doi?).returns(true)
-        Plan.expects(:from_identifiers).at_least(1)
-        described_class.send(:find_by_identifier, json: @json)
-      end
-      it "calls Plan.find_by if the :dmp_id is not a DOI/ARK" do
-        described_class.stubs(:doi?).returns(false)
-        Plan.expects(:find_by).at_least(1)
-        described_class.send(:find_by_identifier, json: @json)
-      end
-    end
-
-    describe "doi?(value:)" do
-      it "returns false if value is not present" do
-        expect(described_class.send(:doi?, value: nil)).to eql(false)
-      end
-      it "returns false if the value does not match ARK or DOI pattern" do
-        url = Faker::Internet.url
-        expect(described_class.send(:doi?, value: url)).to eql(false)
-      end
-      it "returns false if the value does not match a partial ARK/DOI pattern" do
-        val = "23645gy3d"
-        expect(described_class.send(:doi?, value: val)).to eql(false)
-        val = "10.999"
-        expect(described_class.send(:doi?, value: val)).to eql(false)
-      end
-      it "returns false if there is no 'doi' identifier scheme" do
-        val = "10.999/23645gy3d"
-        @scheme.destroy
-        expect(described_class.send(:doi?, value: val)).to eql(false)
-      end
-      it "returns false if 'doi' identifier scheme exists but value is not doi" do
-        expect(described_class.send(:doi?, value: SecureRandom.uuid)).to eql(false)
-      end
-      it "returns true (identifier only)" do
-        val = "10.999/23645gy3d"
-        expect(described_class.send(:doi?, value: val)).to eql(true)
-      end
-      it "returns true (fully qualified ARK/DOI url)" do
-        url = "#{Faker::Internet.url}/10.999/23645gy3d"
-        expect(described_class.send(:doi?, value: url)).to eql(true)
       end
     end
 
@@ -313,43 +239,21 @@ RSpec.describe Api::V1::Deserialization::Plan do
         expect(described_class.send(:template_id, json: nil)).to eql(nil)
       end
       it "returns nil if extensions for the app were not found" do
-        described_class.stubs(:app_extensions).returns({})
+        Api::V1::DeserializationService.stubs(:app_extensions).returns({})
         expect(described_class.send(:template_id, json: @json)).to eql(nil)
       end
       it "returns nil if the extensions have no template info" do
         expected = { foo: { title: Faker::Lorem.sentence } }
-        described_class.stubs(:app_extensions).returns(expected)
+        Api::V1::DeserializationService.stubs(:app_extensions).returns(expected)
         expect(described_class.send(:template_id, json: @json)).to eql(nil)
       end
       it "returns nil if the extensions have no id for the template info" do
         expected = { template: { title: Faker::Lorem.sentence } }
-        described_class.stubs(:app_extensions).returns(expected)
+        Api::V1::DeserializationService.stubs(:app_extensions).returns(expected)
         expect(described_class.send(:template_id, json: @json)).to eql(nil)
       end
       it "returns the template id" do
         expect(described_class.send(:template_id, json: @json)).to eql(@template.id)
-      end
-    end
-
-    describe "#app_extensions(json:)" do
-      it "returns an empty hash is json is not present" do
-        expect(described_class.send(:app_extensions, json: nil)).to eql({})
-      end
-      it "returns an empty hash is json :extended_attributes is not present" do
-        json = { title: Faker::Lorem.sentence }
-        expect(described_class.send(:app_extensions, json: json)).to eql({})
-      end
-      it "returns an empty hash if there is no extension for the current application" do
-        expected = { template: { id: @template.id } }
-        ApplicationService.expects(:application_name).returns("tester")
-        json = { extension: [{ foo: expected }] }
-        expect(described_class.send(:app_extensions, json: json)).to eql({})
-      end
-      it "returns the hash for the current application" do
-        expected = { template: { id: @template.id } }
-        json = { extension: [{ "#{@app_name}": expected }] }
-        result = described_class.send(:app_extensions, json: json)
-        expect(result).to eql(expected)
       end
     end
 

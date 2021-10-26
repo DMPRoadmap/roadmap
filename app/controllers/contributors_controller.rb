@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 class ContributorsController < ApplicationController
 
   include OrgSelectable
@@ -29,33 +28,40 @@ class ContributorsController < ApplicationController
     authorize @plan
   end
 
+  # rubocop:disable Metrics/AbcSize
   # POST /plans/:plan_id/contributors
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def create
     authorize @plan
+
     args = translate_roles(hash: contributor_params)
     args = process_org(hash: args)
-    args = process_orcid_for_create(hash: args)
-    args[:plan_id] = @plan.id
-
-    @contributor = Contributor.new(args)
-    stash_orcid
-
-    if @contributor.save
-      # Now that the model has been ssaved, go ahead and save the identifiers
-      save_orcid
-
-      redirect_to plan_contributors_path(@plan),
-                  notice: success_message(@contributor, _("added"))
-    else
+    if args.blank?
+      @contributor = Contributor.new(args)
+      @contributor.errors.add(:affiliation, "invalid")
       flash[:alert] = failure_message(@contributor, _("add"))
       render :new
+    else
+      args = process_orcid_for_create(hash: args)
+      args[:plan_id] = @plan.id
+
+      @contributor = Contributor.new(args)
+      stash_orcid
+
+      if @contributor.save
+        # Now that the model has been ssaved, go ahead and save the identifiers
+        save_orcid
+
+        redirect_to plan_contributors_path(@plan),
+                    notice: success_message(@contributor, _("added"))
+      else
+        flash[:alert] = failure_message(@contributor, _("add"))
+        render :new
+      end
     end
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize
 
   # PUT /plans/:plan_id/contributors/:id
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def update
     authorize @plan
     args = translate_roles(hash: contributor_params)
@@ -70,7 +76,7 @@ class ContributorsController < ApplicationController
       render :edit
     end
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:enable
 
   # DELETE /plans/:plan_id/contributors/:id
   def destroy
@@ -104,12 +110,16 @@ class ContributorsController < ApplicationController
     hash
   end
 
-  # Convert the Org Hash into an Org object (creating it if necessary)
+  # Convert the Org Hash into an Org object (creating it if allowed)
   # and then remove all of the Org args
   def process_org(hash:)
     return hash unless hash.present? && hash[:org_id].present?
 
-    org = org_from_params(params_in: hash, allow_create: true)
+    allow = !Rails.configuration.x.application.restrict_orgs
+    org = org_from_params(params_in: hash,
+                          allow_create: allow)
+    return nil if org.blank? && !allow
+
     hash = remove_org_selection_params(params_in: hash)
     return hash unless org.present?
 
@@ -188,4 +198,3 @@ class ContributorsController < ApplicationController
   end
 
 end
-# rubocop:enable Metrics/ClassLength

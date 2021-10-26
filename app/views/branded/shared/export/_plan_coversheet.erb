@@ -6,7 +6,7 @@
 %>
 <hr />
 <h1><%= @plan.title %></h1>
-<em><%= _("A Data Management Plan created using ") + Rails.configuration.branding[:application][:name] %></em>
+<em><%= _("A Data Management Plan created using %{application_name}") % { application_name: ApplicationService.application_name } %></em>
 <br/>
 <div class="cover-page">
   <h2><%= d_("dmpopidor", "Plan Details") %></h2>

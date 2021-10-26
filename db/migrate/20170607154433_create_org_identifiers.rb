@@ -1,4 +1,4 @@
-class CreateOrgIdentifiers < ActiveRecord::Migration
+class CreateOrgIdentifiers < ActiveRecord::Migration[4.2]
   def change
     create_table :org_identifiers do |t|
       t.string :identifier

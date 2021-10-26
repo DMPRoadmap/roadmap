@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RolesHelper
 
   def build_plan(administrator = false, editor = false, commenter = false)
@@ -9,12 +11,8 @@ module RolesHelper
     if administrator
       create(:role, :administrator, :active, plan: plan, user: create(:user, org: org))
     end
-    if editor
-      create(:role, :editor, :active, plan: plan, user: create(:user, org: org))
-    end
-    if commenter
-      create(:role, :commenter, :active, plan: plan, user: create(:user, org: org))
-    end
+    create(:role, :editor, :active, plan: plan, user: create(:user, org: org)) if editor
+    create(:role, :commenter, :active, plan: plan, user: create(:user, org: org)) if commenter
     plan
   end
 

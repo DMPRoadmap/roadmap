@@ -1,4 +1,4 @@
-class RenameTemplateFields < ActiveRecord::Migration
+class RenameTemplateFields < ActiveRecord::Migration[4.2]
   def up
     rename_column :templates, :migrated, :archived
     rename_column :templates, :dmptemplate_id, :family_id

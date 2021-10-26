@@ -1,5 +1,5 @@
-<% FastGettext.with_locale FastGettext.default_locale do %>
-	<p><%= _("Welcome to %{application_name}") % {application_name: Rails.configuration.branding[:application][:name]} %>, <%= @email %>!</p>
+<% I18n.with_locale I18n.default_locale do %>
+	<p><%= _("Welcome to %{application_name}") % {application_name: ApplicationService.application_name} %>, <%= @email %>!</p>
 
 	<p><%= _("Thank you for registering. Please confirm your email address") %>:</p>
 

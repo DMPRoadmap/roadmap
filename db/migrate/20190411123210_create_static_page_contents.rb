@@ -1,4 +1,4 @@
-class CreateStaticPageContents < ActiveRecord::Migration
+class CreateStaticPageContents < ActiveRecord::Migration[4.2]
   def change
     create_table :static_page_contents do |t|
       t.string :title

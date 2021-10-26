@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 class Settings::ProjectPolicy < ApplicationPolicy
+
   # this is the policy for app/controllers/settings/projects_controller.rb
 
   attr_reader :user
@@ -6,6 +9,7 @@ class Settings::ProjectPolicy < ApplicationPolicy
 
   def initialize(user, settings)
     raise Pundit::NotAuthorizedError, "must be logged in" unless user
+
     @user = user
     @settings = settings
   end

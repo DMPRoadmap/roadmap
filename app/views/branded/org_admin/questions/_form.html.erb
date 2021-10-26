@@ -20,7 +20,7 @@
     <!--Question text -->
     <div class="form-group col-md-10">
       <%= f.label(:text, _('Question text'), class: "control-label") %>
-      <%= f.text_area(:text, class: "question", "aria-required": true) %>
+      <%= f.text_area(:text, class: "question", spellcheck: true, "aria-required": true) %>
     </div>
 
     <!-- Question format -->

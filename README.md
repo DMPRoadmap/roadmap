@@ -1,6 +1,12 @@
 # DMP OPIDoR
 
-## Démarrage rapide
+[![Actions Status](https://github.com/DMPRoadmap/roadmap/workflows/Brakeman/badge.svg)](https://github.com/DMPRoadmap/roadmap/actions)
+[![Actions Status](https://github.com/DMPRoadmap/roadmap/workflows/Rubocop/badge.svg)](https://github.com/DMPRoadmap/roadmap/actions)
+[![Actions Status](https://github.com/DMPRoadmap/roadmap/workflows/ESLint/badge.svg)](https://github.com/DMPRoadmap/roadmap/actions)
+[![Actions Status](https://github.com/DMPRoadmap/roadmap/workflows/Tests%20-%20PostgreSQL/badge.svg)](https://github.com/DMPRoadmap/roadmap/actions)
+[![Actions Status](https://github.com/DMPRoadmap/roadmap/workflows/Tests%20-%20MySQL/badge.svg)](https://github.com/DMPRoadmap/roadmap/actions)
+
+DMP Roadmap is a Data Management Planning tool. Management and development of DMP Roadmap is jointly provided by the Digital Curation Centre (DCC), http://www.dcc.ac.uk/, and the University of California Curation Center (UC3), http://www.cdlib.org/services/uc3/.
 
 ### Requis
 
@@ -9,20 +15,15 @@
 - NodeJS LTS
 - PostgreSQL 9.x
 
-### Installation
+Click here for the latest [releases](https://github.com/DMPRoadmap/roadmap/releases/).
 
-Une installation rapide en mode développement de DMP OPIDoR est possible en suivant ces étapes :
+#### Pre-requisites
+Roadmap is a Ruby on Rails application and you will need to have:
+* Ruby = 2.4.0 - 2.4.4
+* Rails = 4.2
+* MySQL >= 5.0 OR PostgreSQL
 
-1. Récupération du code : `git clone <URL> dmpopidor` puis `cd dmpopidor`
-2. Installation des dépendances Ruby et Node : `bundle` et `npm install`
-3. Configuration de la base de données :
-    - Déplacer *config/database.yml.sample* en *config/database.yml*
-    - Configurer *config/database.yml* avec une base de donnée valide
-4. Créer la base et executer les migrations :
-    - `rake db:create`
-    - `rake db:schema:load` **OU** importer un dump existant
-    - `rake db:migrate`
-5. Enfin, lancer l'application avec : `rails s` ou `rails server`
+Further detail on how to install Ruby on Rails applications are available from the Ruby on Rails site: http://rubyonrails.org.
 
 L'application se lance par défaut en mode développement.
 
@@ -30,12 +31,30 @@ L'application se lance par défaut en mode développement.
 
 ### Structure du dépôt Git
 
-Le dépôt git est composé de deux branches principales permanentes :
+#### Installation
+See the [Installation Guide](https://github.com/DMPRoadmap/roadmap/wiki/Installation) on the Wiki.
 
-- *master* qui est la branche dite "stable", elle ne contient une version fonctionnelle et testée sans fonctionnalité en cours de développement.
-- *dev* qui est la branche dite "de développement", elle contient une version du code qui n'est pas nécessairement complète ni même fonctionnelle. Cette branche est notamment le point de fusion entre les différentes branches dédiées à des fonctionnalité spécifiques.
+#### Troubleshooting
+See the [Troubleshooting Guide](https://github.com/DMPRoadmap/roadmap/wiki/Troubleshooting) on the Wiki.
 
-En plus de ces deux branches il peut exister des branches dédiées à des développements précis, ces dernières sont préfixées selon leur type, exemples :
+#### Support
+Issues should be reported here on [Github Issues](https://github.com/DMPRoadmap/roadmap/issues)
+Please be advised though that we can only provide limited support for your local installations.
+Any security patches and bugfixes will be applied to the most recent version, and we will endeavour to support migrations to the current release.
 
-- *feature/dynamic_form* serait une branche concernant une nouvelle fonctionnalité de formulaire dynamique
-- *fix/dataset* serait une branche apportant une correction à une fonctionnalité de datasets
+#### Contributing
+If you would like to contribute to the project. Please follow these steps to submit a contribution:
+* Comment on the Github issue (or create one if one does not exist) and let us know that you're working on it.
+* Fork the project (if you have not already) or rebase your fork so that it is up to date with the current repository's '_**development**_' branch
+* Create a new branch in your fork. This will ensure that you are able to work at your own pace and continue to pull in any updates made to this project.
+* Make your changes in the new branch
+* When you have finished your work, make sure that your version of the '_**development**_' branch is still up to date with this project. Then merge your new branch into your '_**development**_' branch.
+* Then create a new Pull Request (PR) from your branch to this project's '_**development**_' branch in GitHub
+* The project team will then review your PR and communicate with you to convey any additional changes that would ensure that your work adheres to our guidelines.
+
+See the [Contribution Guide](https://github.com/DMPRoadmap/roadmap/blob/development/CONTRIBUTING.md) on the Wiki for more details.
+
+#### License
+The DMP Roadmap project uses the <a href="./LICENSE.md">MIT License</a>.
+
+foobar

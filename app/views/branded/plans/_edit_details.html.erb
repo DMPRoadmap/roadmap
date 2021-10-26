@@ -18,7 +18,7 @@
             <%= _("Project Details") %>
             <% end %>
           </div>
-          <i class="fa fa-chevron-down pull-right" aria-hidden="true"></i>
+          <i class="fas fa-chevron-down pull-right" aria-hidden="true"></i>
           <div class="clearfix"></div>
         </div>
       </div>
@@ -43,7 +43,7 @@
               <%= d_("dmpopidor", "Please enter the acronym, title or identifier of the project") %>
               <a href="<%= about_registries_path %>" target="_blank"
                 data-toggle="tooltip" data-original-title="<%= d_("dmpopidor", "Find out more.") %>">
-                <span class="registry-info fa fa-info-circle"></span>
+                <span class="registry-info fas fa-info-circle"></span>
               </a>
             </label>
             <%= select_tag "anr_project",
@@ -136,7 +136,7 @@
               <%= d_("dmpopidor", "Plan Details") %>
             <% end %>
           </div>
-          <i class="fa fa-chevron-right pull-right" aria-hidden="true"></i>
+          <i class="fas fa-chevron-right pull-right" aria-hidden="true"></i>
           <div class="clearfix"></div>
         </div>
       </div>
@@ -196,7 +196,14 @@
       <div class="col-md-4 guidance-configuration">
         <!-- "Guidance Configuration" tab -->
         <div id="guidance_configuration" class="tab-pane">
-          <%= render(partial: 'plans/guidance_configuration', locals: { f: f } ) %>
+          <h2><%= _('Plan Guidance Configuration') %></h2>
+          <%= render partial: "plans/guidance_selection",
+                    locals: {
+                      form: f,
+                      all_guidance_groups: @all_guidance_groups,
+                      important_ggs: @important_ggs,
+                      selected_guidance_groups: @selected_guidance_groups
+                    } %>
         </div>
       </div>
     <% end %>

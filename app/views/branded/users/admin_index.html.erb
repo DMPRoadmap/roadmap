@@ -10,7 +10,8 @@
 <div class="row org-admin">
   <div class="col-md-12 ">
     <p class="text-justify">
-      <%= _('Below is a list of users registered for your organisation. You can sort the data by each field.')%>
+      <%= _('Below is a list of users registered for your organisation. You can
+        sort the data by each field.')%>
     </p>
   </div>
 </div>
@@ -26,6 +27,7 @@
         partial: '/paginable/users/index',
         controller: 'paginable/users',
         action: 'index',
+        remote: true,
         scope: @users,
         view_all: !current_user.can_super_admin?) %>
     </div>

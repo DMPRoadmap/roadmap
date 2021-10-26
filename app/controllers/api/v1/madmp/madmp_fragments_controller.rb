@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "jsonpath"
 
 module Api
@@ -20,11 +21,14 @@ module Api
             render_error(errors: "Unauthorized to access plan", status: :unauthorized)
             return
           end
-      
-          fragment_data = query_params[:mode] == "fat" ? @fragment.get_full_fragment(with_ids: true) : @fragment.data
-      
+
+          fragment_data = if query_params[:mode].eql?("fat")
+                            @fragment.get_full_fragment(with_ids: true)
+                          else
+                            @fragment.data
+                          end
           fragment_data = select_property(fragment_data, query_params[:property])
-      
+
           render json: {
             "data" => fragment_data,
             "dmp_id" => @fragment.dmp_id,
@@ -48,11 +52,13 @@ module Api
               "schema" => f.madmp_schema.schema
             }
           end
-          @dmp_fragments.unshift({
-            "id" => @dmp_fragment.id,
-            "data" => @dmp_fragment.data,
-            "schema" => @dmp_fragment.madmp_schema.schema
-          })
+          @dmp_fragments.unshift(
+            {
+              "id" => @dmp_fragment.id,
+              "data" => @dmp_fragment.data,
+              "schema" => @dmp_fragment.madmp_schema.schema
+            }
+          )
           render json: {
             "dmp_id" => @dmp_fragment.id,
             "data" => @dmp_fragments,
@@ -87,7 +93,7 @@ module Api
           end
           fragment_data
         end
-      
+
         def query_params
           params.permit(:mode, :property)
         end
@@ -100,6 +106,9 @@ module Api
         end
 
       end
+
     end
+
   end
+
 end

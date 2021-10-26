@@ -17,7 +17,7 @@
     <%= f.label field_id, field_label, class: 'control-label' %>
     <a href="<%= about_registries_path %>" target="_blank"
       data-toggle="tooltip" data-original-title="<%= d_("dmpopidor", "Find out more.") %>">
-      <span class="registry-info fa fa-info-circle"></span>
+      <span class="registry-info fas fa-info-circle"></span>
     </a>
   </div>
 <% end %>
@@ -40,7 +40,7 @@
                 class: "#{field_class}",
                 id: field_id  %>
     <% unless readonly %>
-      <span class="remove-button fa fa-times"></span>
+      <span class="remove-button fas fa-times"></span>
     <% end %>
   </div>
   <% if overridable && !multiple %>

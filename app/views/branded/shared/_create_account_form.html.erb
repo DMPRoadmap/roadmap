@@ -13,9 +13,10 @@
     <%= f.email_field(:email, class: "form-control", "aria-required": true) %>
   </div>
   <div class="form-group" id="create-account-org-controls">
-    <%= render partial: "shared/org_selectors/combined",
+    <%= render partial: org_partial,
                locals: {
                  form: f,
+                 orgs: orgs,
                  default_org: resource&.org,
                  required: true
                } %>
@@ -33,11 +34,14 @@
   </div>
   <div class="form-group">
     <div class="checkbox">
-      <%= f.label(:accept_terms,
-          raw("#{ f.check_box(:accept_terms, "aria-required": true, "data-validation-error": _('You must agree to the term and conditions.')) } #{_('I accept the')} <a href=\"#{terms_path}\" target=\"_blank\">#{_('terms and conditions')}</a>")) %>
+      <%= f.label(:accept_terms) do %>
+        <%= f.check_box(:accept_terms, "aria-required": true) %>
+        <%= _('I accept the') %>
+        <%= link_to _('terms and conditions'), terms_path %>
+      <% end %>
     </div>
   </div>
-  <% if Rails.configuration.branding[:application][:use_recaptcha] %>
+  <% if Rails.configuration.x.recaptcha.enabled %>
     <div class="form-group">
       <%= label_tag(nil, _('Security check')) %>
       <%= recaptcha_tags %>
@@ -46,7 +50,7 @@
 
   <div class="cil_message">
   <p><%= raw d_('dmpopidor', "The information collected that concerns you will be processed and is destined for the Inist-CNRS (UPS76) and the correspondent for Computing and Liberties (CIL). For the following goal: management of user accounts. The recipients of this data are the administrators of the Inist-CNRS. The duration of conservation of the data is 5 years following the last login.") %></p>
-  <p><%= raw d_('dmpopidor', "You have the right of access, of correction, of portability, or of removal of this data, or of a limitation of their processing. You can oppose the processing of the data that concerns you and you have the right to withdraw your agreement at any time, by contacting: <a href='mailto:%{contact_url}'>%{contact_url}</a>. You can also direct a complaint at a controlling body.") % {contact_url: Rails.configuration.branding[:organisation][:email]} %></p>
+  <p><%= raw d_('dmpopidor', "You have the right of access, of correction, of portability, or of removal of this data, or of a limitation of their processing. You can oppose the processing of the data that concerns you and you have the right to withdraw your agreement at any time, by contacting: <a href='mailto:%{contact_url}'>%{contact_url}</a>. You can also direct a complaint at a controlling body.") % {contact_url: Rails.configuration.x.organisation.email} %></p>
   </div>
 
   <%= f.button(_('Create account'), class: "btn btn-default", type: "submit") %>

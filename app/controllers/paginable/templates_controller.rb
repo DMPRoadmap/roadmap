@@ -2,12 +2,11 @@
 
 class Paginable::TemplatesController < ApplicationController
 
-  prepend Dmpopidor::Controllers::Paginable::Templates
   include CustomizableTemplateLinkHelper
   include Paginable
 
   # TODO: Clean up this code for Rubocop
-  # rubocop:disable Metrics/LineLength
+  # rubocop:disable Layout/LineLength
 
   # GET /paginable/templates/:page  (AJAX)
   # -----------------------------------------------------
@@ -25,8 +24,9 @@ class Paginable::TemplatesController < ApplicationController
     paginable_renderise(
       partial: "index",
       scope: templates.includes(:org),
-      query_params: { sort_field: 'templates.title', sort_direction: :asc },
-      locals: { action: "index" }
+      query_params: { sort_field: "templates.title", sort_direction: :asc },
+      locals: { action: "index" },
+      format: :json
     )
   end
 
@@ -47,13 +47,15 @@ class Paginable::TemplatesController < ApplicationController
     paginable_renderise(
       partial: "organisational",
       scope: templates,
-      query_params: { sort_field: 'templates.title', sort_direction: :asc },
-      locals: { action: "organisational" }
+      query_params: { sort_field: "templates.title", sort_direction: :asc },
+      locals: { action: "organisational" },
+      format: :json
     )
   end
 
   # GET /paginable/templates/customisable/:page  (AJAX)
   # -----------------------------------------------------
+  # rubocop:disable Metrics/AbcSize
   def customisable
     authorize Template
     customizations = Template.latest_customized_version_per_org(current_user.org.id)
@@ -71,28 +73,23 @@ class Paginable::TemplatesController < ApplicationController
     paginable_renderise(
       partial: "customisable",
       scope: templates.joins(:org).includes(:org),
-      query_params: { sort_field: 'templates.title', sort_direction: :asc },
-      locals: { action: "customisable", customizations: customizations }
+      query_params: { sort_field: "templates.title", sort_direction: :asc },
+      locals: { action: "customisable", customizations: customizations },
+      format: :json
     )
   end
+  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:enable Metrics/LineLength
+  # rubocop:enable Layout/LineLength
 
   # GET /paginable/templates/publicly_visible/:page  (AJAX)
   # -----------------------------------------------------
   # SEE MODULE
   def publicly_visible
-    templates = Template.live(Template.families(Org.funder.pluck(:id)).pluck(:family_id))
-                        .publicly_visible.pluck(:id) <<
-      Template.where(is_default: true).unarchived.published.pluck(:id)
-    paginable_renderise(
-      partial: "publicly_visible",
-      scope: Template.joins(:org)
-                     .includes(:org)
-                     .where(id: templates.uniq.flatten)
-                     .published,
-      query_params: { sort_field: 'templates.title', sort_direction: :asc }
-    )
+    # We want the pagination/sort/search to be retained in the URL so redirect instead
+    # of processing this as a JSON
+    paginable_params = params.permit(:page, :search, :sort_field, :sort_direction)
+    redirect_to public_templates_path(paginable_params.to_h)
   end
 
   # GET /paginable/templates/:id/history/:page  (AJAX)
@@ -105,7 +102,7 @@ class Paginable::TemplatesController < ApplicationController
     paginable_renderise(
       partial: "history",
       scope: @templates,
-      query_params: { sort_field: 'templates.title', sort_direction: :asc },
+      query_params: { sort_field: "templates.title", sort_direction: :asc },
       locals: { current: @templates.maximum(:version) }
     )
   end

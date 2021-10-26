@@ -14,7 +14,7 @@ module ExternalApis
         Rails.configuration.x.open_aire&.api_base_url || super
       end
 
-      def active
+      def active?
         Rails.configuration.x.open_aire&.active || super
       end
 
@@ -27,8 +27,11 @@ module ExternalApis
       end
 
       # Search the OpenAire API for the specified Funder OR the Default Funder
-      # rubocop:disable Metrics/MethodLength
+      # Note this functions result gets cached by the ResearchProjectsController
+      # ToDo: Evaluate for ActiveJob
       def search(funder: default_funder)
+        return [] unless active?
+
         target = "#{api_base_url}#{search_path % funder}"
         hdrs = {
           "Accept": "application/xml",
@@ -42,7 +45,6 @@ module ExternalApis
         end
         parse_xml(xml: resp.body)
       end
-      # rubocop:enable Metrics/MethodLength
 
       private
 

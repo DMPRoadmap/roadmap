@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: conditions
@@ -20,11 +22,12 @@
 #
 #  fk_rails_...  (question_id => question.id)
 #
-# 
+#
 
-class Condition < ActiveRecord::Base
+class Condition < ApplicationRecord
+
   belongs_to :question
-  enum action_type: [:remove, :add_webhook]
+  enum action_type: %i[remove add_webhook]
   serialize :option_list, Array
   serialize :remove_data, Array
   serialize :webhook_data, JSON
@@ -33,9 +36,11 @@ class Condition < ActiveRecord::Base
   default_scope { order(number: :asc) }
 
   def deep_copy(**options)
-  	copy = self.dup
-  	copy.question_id = options.fetch(:question_id, nil)
-  	copy.save!(validate: false) if options.fetch(:save, false)
-  	copy
+    copy = dup
+    copy.question_id = options.fetch(:question_id, nil)
+    # TODO: why call validate false here
+    copy.save!(validate: false) if options.fetch(:save, false)
+    copy
   end
+
 end

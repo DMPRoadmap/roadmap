@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: notes
@@ -22,9 +24,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 
-class Note < ActiveRecord::Base
-  include ValidationMessages
-  include ValidationValues
+class Note < ApplicationRecord
 
   # ================
   # = Associations =

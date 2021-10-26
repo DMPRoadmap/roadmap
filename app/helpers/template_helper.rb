@@ -6,11 +6,7 @@ module TemplateHelper
     if template_modifiable?(template)
       edit_org_admin_template_path(template)
     else
-      if template.persisted?
-        org_admin_template_path(template)
-      else
-        org_admin_templates_path
-      end
+      template.persisted? ? org_admin_template_path(template) : org_admin_templates_path
     end
   end
 
@@ -40,8 +36,8 @@ module TemplateHelper
   # @param id [String] id for the link element
   def direct_link(template, hidden = false, text = nil, id = nil)
     params = {
-      org: { id: current_user&.org&.id },
-      funder: { id: template.org&.id },
+      org: { id: "{ \"id\": #{current_user&.org&.id}, \"name\": \"#{current_user&.org&.name}\" }" },
+      funder: { id: "{ \"id\": #{template.org&.id}, \"name\": \"#{template.org&.name}\" }" },
       template_id: template.id
     }
     cls = text.nil? ? "direct-link" : "direct-link btn btn-default"
@@ -50,10 +46,11 @@ module TemplateHelper
     link_to(plans_url(plan: params), method: :post, title: _("Create plan"),
                                      class: cls, id: id, style: style) do
       if text.nil?
-        "<span class=\"fa fa-plus-square\"></span>".html_safe
+        "<span class=\"fas fa-plus-square\"></span>".html_safe
       else
         text.html_safe
       end
     end
   end
+
 end

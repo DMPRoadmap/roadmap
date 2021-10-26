@@ -50,15 +50,15 @@ namespace :madmpopidor do
         end
 
         # Data Contact
-        if plan.data_contact.nil? && plan.data_contact_email.nil?
-          dc_person_data = pi_person_data
-        else
-          dc_person_data = {
-            "nameType" => d_("dmpopidor", "Personal"),
-            "lastName" => plan.data_contact,
-            "mbox" => plan.data_contact_email
-          }
-        end
+        dc_person_data = if plan.data_contact.nil? && plan.data_contact_email.nil?
+                           pi_person_data
+                         else
+                           {
+                             "nameType" => d_("dmpopidor", "Personal"),
+                             "lastName" => plan.data_contact,
+                             "mbox" => plan.data_contact_email
+                           }
+                         end
         data_contact = meta_fragment.contact
         dc_person =  MadmpFragment.fragment_exists?(
           dc_person_data, MadmpSchema.find_by(name: "PersonStandard"), dmp_fragment.id
@@ -167,12 +167,10 @@ namespace :madmpopidor do
 
     # Replace all "template_name" key/values with "schema_id" equivalent in loaded schemas
     MadmpSchema.all.each do |schema|
-      begin
-        schema.update(schema: MadmpSchema.substitute_names(schema.schema))
-      rescue ActiveRecord::RecordNotFound => e
-        p "ERROR: template name substitution failed in #{schema.name}: #{e.message}"
-        next
-      end
+      schema.update(schema: MadmpSchema.substitute_names(schema.schema))
+    rescue ActiveRecord::RecordNotFound => e
+      p "ERROR: template name substitution failed in #{schema.name}: #{e.message}"
+      next
     end
   end
 

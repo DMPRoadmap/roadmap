@@ -14,6 +14,7 @@
         partial: '/paginable/notifications/index',
         controller: 'paginable/notifications',
         action: 'index',
+        remote: true,
         scope: notifications,
         query_params: { sort_field: 'notifications.starts_at', sort_direction: 'desc' })
       %>

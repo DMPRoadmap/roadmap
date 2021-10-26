@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # builds a json response to api query for a list of guidance groups
 json.prettify!
 

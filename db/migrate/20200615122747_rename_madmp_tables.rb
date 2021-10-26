@@ -1,4 +1,4 @@
-class RenameMadmpTables < ActiveRecord::Migration
+class RenameMadmpTables < ActiveRecord::Migration[4.2]
   def change
     remove_foreign_key :structured_answers, :structured_data_schemas
     remove_reference :structured_answers, :structured_data_schema

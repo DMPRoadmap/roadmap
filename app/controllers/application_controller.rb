@@ -4,18 +4,18 @@ class ApplicationController < ActionController::Base
 
   prepend Dmpopidor::Controllers::Application
   # Set Static Pages to use in navigation
-  before_filter :set_nav_static_pages
+  before_action :set_nav_static_pages
 
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   # Look for template overrides before rendering
-  before_filter :prepend_view_paths
+  before_action :prepend_view_paths
 
-  before_filter :set_gettext_locale
+  before_action :set_locale
 
-  after_filter :store_location
+  after_action :store_location
 
   include GlobalHelpers
   include Pundit
@@ -24,9 +24,11 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   # When we are in production reroute Record Not Found errors to the branded 404 page
-  if Rails.env.production?
-    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
-  end
+  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
+
+  rescue_from StandardError, with: :handle_server_error
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
 
@@ -36,19 +38,23 @@ class ApplicationController < ActionController::Base
 
   def user_not_authorized
     if user_signed_in?
-      redirect_to plans_url, alert: _("You are not authorized to perform this action.")
+      # redirect_to plans_url, alert: _("You are not authorized to perform this action.")
+      msg = _("You are not authorized to perform this action.")
+      render_respond_to_format_with_error_message(msg, plans_url, 403, nil)
     else
-      redirect_to root_url, alert: _("You need to sign in or sign up before continuing.")
+      # redirect_to root_url, alert: _("You need to sign in or sign up before continuing.")
+      msg = _("You need to sign in or sign up before continuing.")
+      render_respond_to_format_with_error_message(msg, root_url, 401, nil)
     end
   end
 
-  # Sets FastGettext locale for every request made
-  def set_gettext_locale
-    FastGettext.locale = LocaleFormatter.new(current_locale, format: :fast_gettext).to_s
+  # Sets I18n locale for every request made
+  def set_locale
+    I18n.locale = current_locale
   end
 
   def current_locale
-    session[:locale] || FastGettext.default_locale
+    @current_locale ||= session[:locale].present? ? session[:locale] : I18n.default_locale
   end
 
   def store_location
@@ -57,40 +63,39 @@ class ApplicationController < ActionController::Base
     unless ["/users/sign_in",
             "/users/sign_up",
             "/users/password",
-            "/users/invitation/accept",
-           ].any? { |ur| request.fullpath.include?(ur) } \
+            "/users/invitation/accept"].any? { |ur| request.fullpath.include?(ur) } \
     or request.xhr? # don't store ajax calls
       session[:previous_url] = request.fullpath
     end
   end
 
-  def after_sign_in_path_for(resource)
-    referer_path = URI(request.referer).path unless request.referer.nil? or nil
+  def after_sign_in_path_for(_resource)
+    referer_path = URI(request.referer).path unless request.referer.nil?
     if from_external_domain? || referer_path.eql?(new_user_session_path) ||
-         referer_path.eql?(new_user_registration_path) ||
-         referer_path.nil?
+       referer_path.eql?(new_user_registration_path) ||
+       referer_path.nil?
       root_path
     else
       request.referer
     end
   end
 
-  def after_sign_up_path_for(resource)
+  def after_sign_up_path_for(_resource)
     referer_path = URI(request.referer).path unless request.referer.nil?
     if from_external_domain? ||
-         referer_path.eql?(new_user_session_path) ||
-         referer_path.nil?
+       referer_path.eql?(new_user_session_path) ||
+       referer_path.nil?
       root_path
     else
       request.referer
     end
   end
 
-  def after_sign_in_error_path_for(resource)
+  def after_sign_in_error_path_for(_resource)
     (from_external_domain? ? root_path : request.referer || root_path)
   end
 
-  def after_sign_up_error_path_for(resource)
+  def after_sign_up_error_path_for(_resource)
     (from_external_domain? ? root_path : request.referer || root_path)
   end
 
@@ -107,7 +112,7 @@ class ApplicationController < ActionController::Base
     _("Unable to %{action} the %{object}.%{errors}") % {
       object: obj_name_for_display(obj),
       action: action || "save",
-      errors: errors_for_display(obj),
+      errors: errors_for_display(obj)
     }
   end
 
@@ -115,15 +120,15 @@ class ApplicationController < ActionController::Base
   def success_message(obj, action = "saved")
     _("Successfully %{action} the %{object}.") % {
       object: obj_name_for_display(obj),
-      action: action || "save",
+      action: action || "save"
     }
   end
 
   def errors_for_display(obj)
-    if obj.present? && obj.errors.any?
-      msgs = obj.errors.full_messages.uniq.collect { |msg| "<li>#{msg}</li>" }
-      "<ul>#{msgs.join('')}</li></ul>"
-    end
+    return "" unless obj.present? && obj.errors.any?
+
+    msgs = obj.errors.full_messages.uniq.collect { |msg| "<li>#{msg}</li>" }
+    "<ul>#{msgs.join('')}</li></ul>"
   end
 
   # SEE MODULE
@@ -153,19 +158,17 @@ class ApplicationController < ActionController::Base
   # replacing. For example:
   #  app/views/branded/layouts/_header.html.erb -> app/views/layouts/_header.html.erb
   def prepend_view_paths
-    prepend_view_path "app/views/branded"
+    prepend_view_path Rails.root.join("app", "views", "branded")
   end
 
   ##
   # Sign out of Shibboleth SP local session too.
   # -------------------------------------------------------------
   def after_sign_out_path_for(resource_or_scope)
-    if Rails.application.config.shibboleth_enabled
-      return Rails.application.config.shibboleth_logout_url + root_url
-      super
-    else
-      super
-    end
+    url = "#{Rails.configuration.x.shibboleth&.logout_url}#{root_url}"
+    return url if Rails.configuration.x.shibboleth&.enabled
+
+    super
   end
   # -------------------------------------------------------------
 
@@ -180,6 +183,32 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:accept_invitation, keys: [:firstname, :surname, :org_id])
+    devise_parameter_sanitizer.permit(:accept_invitation, keys: %i[firstname surname org_id])
   end
+
+  def render_not_found(exception)
+    msg = _("Record Not Found") + ": #{exception.message}"
+    render_respond_to_format_with_error_message(msg, root_url, 404, exception)
+  end
+
+  def handle_server_error(exception)
+    msg = exception.message.to_s if exception.present?
+    render_respond_to_format_with_error_message(msg, root_url, 500, exception)
+  end
+
+  def render_respond_to_format_with_error_message(msg, url_or_path, http_status, exception)
+    Rails.logger.error msg
+    Rails.logger.error exception&.backtrace if exception.present?
+
+    respond_to do |format|
+      # Redirect use to the path and display the error message
+      format.html { redirect_to url_or_path, alert: msg }
+      # Render the JSON error message (using API V1)
+      format.json do
+        @payload = { errors: [msg] }
+        render "/api/v1/error", status: http_status
+      end
+    end
+  end
+
 end

@@ -21,7 +21,7 @@
 #
 require "jsonpath"
 
-class MadmpFragment < ActiveRecord::Base
+class MadmpFragment < ApplicationRecord
 
   include ValidationMessages
   include DynamicFormHelper
@@ -128,13 +128,13 @@ class MadmpFragment < ActiveRecord::Base
 
           next if match.empty? || match.first.nil?
 
-          if match.first.is_a?(Array)
-            displayable += match.first.join("/")
-          elsif match.first.is_a?(Integer) || match.first.is_a?(Float)
-            displayable += match.first.to_s
-          else
-            displayable += match.first
-          end
+          displayable += if match.first.is_a?(Array)
+                           match.first.join("/")
+                         elsif match.first.is_a?(Integer) || match.first.is_a?(Float)
+                           match.first.to_s
+                         else
+                           match.first
+                         end
         else
           displayable += pattern
         end
@@ -168,6 +168,7 @@ class MadmpFragment < ActiveRecord::Base
         # Person fragment don't have a parent_id set because they are used in multiple contributors
         # without this instruction, the app would set the dbid for the person prop as nil
         next if key.eql?("person")
+
         updated_data[key] = classified_children[key].nil? ? nil : { "dbid" => classified_children[key][0].id }
       end
     end
@@ -190,44 +191,39 @@ class MadmpFragment < ActiveRecord::Base
     editable_data.each do |prop, value|
       if value.is_a?(Hash) && value["dbid"].present?
         child = children.exists?(value["dbid"]) ? children.find(value["dbid"]) : MadmpFragment.find(value["dbid"])
-        child_data = nil
-        if child.additional_info["custom_value"].present?
-          child_data = { "custom_value" => child.additional_info["custom_value"] }
-        else
-          child_data = child.get_full_fragment(
-            with_ids: with_ids,
-            with_template_name: with_template_name
-          )
-        end
+        child_data = if child.additional_info["custom_value"].present?
+                       { "custom_value" => child.additional_info["custom_value"] }
+                     else
+                       child.get_full_fragment(
+                         with_ids: with_ids,
+                         with_template_name: with_template_name
+                       )
+                     end
         editable_data = editable_data.merge(prop => child_data)
       end
+      next if value.is_a?(Array) && value.empty?
 
-      if value.is_a?(Array) && !value.empty?
-        fragment_tab = []
-        value.each do |v|
-          next if v.nil?
+      fragment_tab = []
+      value.each do |v|
+        next if v.nil?
 
-          if v.is_a?(Hash) && v["dbid"].present?
-            child_data = children.exists?(v["dbid"]) ? children.find(v["dbid"]) : MadmpFragment.find(v["dbid"])
-            fragment_tab.push(
-              child_data.get_full_fragment(
-                with_ids: with_ids,
-                with_template_name: with_template_name
-              )
+        if v.is_a?(Hash) && v["dbid"].present?
+          child_data = children.exists?(v["dbid"]) ? children.find(v["dbid"]) : MadmpFragment.find(v["dbid"])
+          fragment_tab.push(
+            child_data.get_full_fragment(
+              with_ids: with_ids,
+              with_template_name: with_template_name
             )
-          else
-            fragment_tab.push(v)
-          end
+          )
+        else
+          fragment_tab.push(v)
         end
         editable_data = editable_data.merge(prop => fragment_tab)
       end
     end
-    if with_ids
-      editable_data = { "id" => id, "schema_id" => madmp_schema_id }.merge(editable_data)
-    end
-    if with_template_name
-      editable_data = { "template_name" => madmp_schema.name }.merge(editable_data)
-    end
+    editable_data = { "id" => id, "schema_id" => madmp_schema_id }.merge(editable_data) if with_ids
+    editable_data = { "template_name" => madmp_schema.name }.merge(editable_data) if with_template_name
+
     editable_data
   end
 
@@ -296,23 +292,23 @@ class MadmpFragment < ActiveRecord::Base
 
     new_data = data
     madmp_schema.schema["properties"].each do |key, prop|
-      if prop["type"].eql?("object") && prop["schema_id"].present?
-        sub_schema = MadmpSchema.find(prop["schema_id"])
+      next if prop["type"].eql?("object") && prop["schema_id"].nil?
 
-        next if sub_schema.classname.eql?("person") || new_data[key].present?
+      sub_schema = MadmpSchema.find(prop["schema_id"])
 
-        sub_fragment = MadmpFragment.new(
-          data: {},
-          answer_id: nil,
-          dmp_id: dmp.id,
-          parent_id: id,
-          madmp_schema: sub_schema,
-          additional_info: { property_name: key }
-        )
-        sub_fragment.assign_attributes(classname: sub_schema.classname)
-        sub_fragment.instantiate
-        new_data[key] = { "dbid" => sub_fragment.id }
-      end
+      next if sub_schema.classname.eql?("person") || new_data[key].present?
+
+      sub_fragment = MadmpFragment.new(
+        data: {},
+        answer_id: nil,
+        dmp_id: dmp.id,
+        parent_id: id,
+        madmp_schema: sub_schema,
+        additional_info: { property_name: key }
+      )
+      sub_fragment.assign_attributes(classname: sub_schema.classname)
+      sub_fragment.instantiate
+      new_data[key] = { "dbid" => sub_fragment.id }
     end
     update!(data: new_data)
   end

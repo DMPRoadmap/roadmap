@@ -13,52 +13,47 @@ module Api
 
         # GET /api/v1/madmp/plans/:id
         def show
-          begin
-            plan = Plan.find(params[:id])
-            plan_fragment = plan.json_fragment
-            selected_research_outputs = query_params[:research_outputs]&.map(&:to_i) || plan.research_output_ids
-            # check if the user has permissions to use the API
-            unless Api::V1::Madmp::PlansPolicy.new(client, plan).show?
-              render_error(errors: "Unauthorized to access plan", status: :unauthorized)
-              return
-            end
-
-            respond_to do |format|
-              format.json
-              render "shared/export/madmp_export_templates/default/plan", locals: {
-                dmp: plan_fragment, selected_research_outputs: selected_research_outputs
-              }
-              return
-            end
-          rescue ActiveRecord::RecordNotFound
-            render_error(errors: [_("Plan not found")], status: :not_found)
+          plan = Plan.find(params[:id])
+          plan_fragment = plan.json_fragment
+          selected_research_outputs = query_params[:research_outputs]&.map(&:to_i) || plan.research_output_ids
+          # check if the user has permissions to use the API
+          unless Api::V1::Madmp::PlansPolicy.new(client, plan).show?
+            render_error(errors: "Unauthorized to access plan", status: :unauthorized)
+            return
           end
+
+          respond_to do |format|
+            format.json
+            render "shared/export/madmp_export_templates/default/plan", locals: {
+              dmp: plan_fragment, selected_research_outputs: selected_research_outputs
+            }
+            return
+          end
+        rescue ActiveRecord::RecordNotFound
+          render_error(errors: [_("Plan not found")], status: :not_found)
         end
 
         # GET /api/v1/madmp/plans/:id/rda_export
         def rda_export
-          begin
-            plan = Plan.find(params[:id])
-            plan_fragment = plan.json_fragment
-            selected_research_outputs = query_params[:research_outputs]&.map(&:to_i) || plan.research_output_ids
-            # check if the user has permissions to use the API
-            unless Api::V1::Madmp::PlansPolicy.new(client, plan).rda_export?
-              render_error(errors: "Unauthorized to access plan", status: :unauthorized)
-              return 
-            end
-        
-            respond_to do |format|
-              format.json
-              render "shared/export/madmp_export_templates/rda/plan", locals: {
-                dmp: plan_fragment, selected_research_outputs: selected_research_outputs
-              }
-              return
-            end
-          rescue ActiveRecord::RecordNotFound
-            render_error(errors: [_("Plan not found")], status: :not_found)
+          plan = Plan.find(params[:id])
+          plan_fragment = plan.json_fragment
+          selected_research_outputs = query_params[:research_outputs]&.map(&:to_i) || plan.research_output_ids
+          # check if the user has permissions to use the API
+          unless Api::V1::Madmp::PlansPolicy.new(client, plan).rda_export?
+            render_error(errors: "Unauthorized to access plan", status: :unauthorized)
+            return
           end
-        end
 
+          respond_to do |format|
+            format.json
+            render "shared/export/madmp_export_templates/rda/plan", locals: {
+              dmp: plan_fragment, selected_research_outputs: selected_research_outputs
+            }
+            return
+          end
+        rescue ActiveRecord::RecordNotFound
+          render_error(errors: [_("Plan not found")], status: :not_found)
+        end
 
         private
 
@@ -74,6 +69,9 @@ module Api
         end
 
       end
+
     end
+
   end
+
 end

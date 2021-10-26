@@ -11,7 +11,7 @@
       <h2><%= _('Notifications') %></h2>
       <div class="panel panel-default">
         <div class="panel-body notifications">
-          <table class="table table-hover">
+          <table class="table">
             <thead>
               <th scope="col"><%= _('Plan') %></th>
               <th scope="col"><%= d_('dmpopidor', 'Template') %></th>
@@ -42,6 +42,7 @@
           partial: '/paginable/plans/org_admin',
           controller: 'paginable/plans',
           action: 'org_admin',
+          remote: true,
           scope: @plans,
           view_all: !current_user.can_super_admin?,
           query_params: { sort_field: 'plans.updated_at', sort_direction: :desc }) %>

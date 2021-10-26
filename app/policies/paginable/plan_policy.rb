@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module Paginable
+
   class PlanPolicy < ApplicationPolicy
 
     prepend Dmpopidor::Policies::Paginable::Plan
@@ -6,6 +9,7 @@ module Paginable
     def initialize(user)
       @user = user
     end
+
     def privately_visible?
       @user.is_a?(User)
     end
@@ -13,5 +17,7 @@ module Paginable
     def organisationally_or_publicly_visible?
       @user.is_a?(User)
     end
+
   end
+
 end

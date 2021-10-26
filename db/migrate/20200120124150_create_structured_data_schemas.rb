@@ -1,4 +1,4 @@
-class CreateStructuredDataSchemas < ActiveRecord::Migration
+class CreateStructuredDataSchemas < ActiveRecord::Migration[4.2]
   def change
     create_table :structured_data_schemas do |t|
       t.string :label

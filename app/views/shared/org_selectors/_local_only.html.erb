@@ -17,11 +17,13 @@ placeholder = _("Begin typing to see a list of suggestions.")
 <%= form.text_field :org_name, class: "form-control autocomplete",
                             placeholder: placeholder,
                             value: presenter.name,
+                            spellcheck: true,
                             aria: {
                               label: placeholder,
                               autocomplete: "list",
                               required: required
                             },
+                            authenticity_token: true,
                             data: { source: "" } %>
 <span class="autocomplete-help sr-only" role="status"></span>
 <div id="<%= SecureRandom.hex(6) %>_ui-front" class="ui-front"></div>

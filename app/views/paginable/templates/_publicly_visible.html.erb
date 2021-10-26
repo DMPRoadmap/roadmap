@@ -16,6 +16,7 @@
       </tr>
     </thead>
     <tbody>
+      <% signed_in = user_signed_in? %>
       <% scope.each do |template| %>
         <tr id="<%= dom_id(template) %>">
           <td><%= template.title %></td>
@@ -23,14 +24,14 @@
             <%= link_to template_export_path(template.family_id, format: :docx),
                         target: '_blank',
                         class: 'has-new-window-popup-info' do %>
-               <i class="fa fa-file-word-o" aria-hidden="true"></i>
+               <i class="fas fa-file-word" aria-hidden="true"></i>
                <em class="sr-only"><%= _('(new window)') %></em>
                <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
             <% end %>
             <%= link_to template_export_path(template.family_id, format: :pdf),
                         target: '_blank',
                         class: 'has-new-window-popup-info' do %>
-               <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+               <i class="fas fa-file-pdf" aria-hidden="true"></i>
                <em class="sr-only"><%= _('(new window)') %></em>
                <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
             <% end %>
@@ -41,8 +42,12 @@
             <%= sanitize links_to_a_elements(template.links['funder'], '<br>') %>
           </td>
           <td class="text-center">
+          <% if signed_in %>
             <%= direct_link(template) %>
-            <a href="" class="copy-link" data-toggle="modal" data-target="#link-modal" title="<%= _('Copy link to create a new plan') %>"><span class="fa fa-clipboard"></span></a>
+            <a href="" class="copy-link" data-toggle="modal" data-target="#link-modal" title="<%= _('Copy link to create a new plan') %>"><span class="fas fa-clipboard"></span></a>
+          <% else %>
+            <%= _('Requires login') %>
+          <% end %>
           </td>
           <td>
             <%= sanitize links_to_a_elements(template.links['sample_plan'], '<br>') %>
