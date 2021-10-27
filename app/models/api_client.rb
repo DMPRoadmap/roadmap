@@ -23,14 +23,14 @@
 #  uid             :string(255)      default(""), not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  org_id          :integer
-#  user_id         :bigint(8)
+#  owner_id        :bigint(8)
+#  owner_type      :string(255)
 #
 # Indexes
 #
 #  index_oauth_applications_on_name     (name)
 #  index_oauth_applications_on_uid      (uid) UNIQUE
-#  index_oauth_applications_on_user_id  (user_id)
+#  index_oauth_applications_on_owner_id (owner_id, owner_type)
 #
 
 class ApiClient < ApplicationRecord
@@ -53,15 +53,6 @@ class ApiClient < ApplicationRecord
   LOGO_FORMATS = %w[jpeg png gif jpg bmp svg].freeze
 
   dragonfly_accessor :logo
-
-  # ================
-  # = Associations =
-  # ================
-
-  belongs_to :org, optional: true
-
-  # TODO: Make this required once we've transitioned away from the old :contact_name + :contact_email
-  belongs_to :user, optional: true
 
   # Access Tokens are created when an ApiClient authenticates themselves and is then used instead
   # of credentials when calling the API.
@@ -133,6 +124,10 @@ class ApiClient < ApplicationRecord
   # Returns the default scopes as defined in the Doorkeeper config
   def default_scopes
     Doorkeeper.config.default_scopes.to_a
+  end
+
+  def owner
+    User.find_by(id: self.owner_id) if self.owner_type == "User"
   end
 
   private

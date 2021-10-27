@@ -52,11 +52,11 @@ module Api
           return (plans + public_plans).flatten.uniq if plans.present?
 
           # If the Client is an Org Admin then get all of the Org's plans
-          plans = plans_for_org_admin + plans_for_user(user: @client.user) if @client.user&.can_org_admin?
+          plans = plans_for_org_admin + plans_for_user(user: @client.owner) if @client.owner&.can_org_admin?
           return (plans + public_plans).flatten.uniq if plans.present?
 
           # Otherwise just return the User's plans
-          plans_for_user(user: @client.user, complete: false)
+          plans_for_user(user: @client.owner, complete: false)
         end
 
         private
@@ -76,7 +76,7 @@ module Api
         # Fetch all of the Plans that belong to the Admin's Org
         def plans_for_org_admin
           # TODO: Update this to use the new method created by @john_pinto
-          @client.user.can_org_admin? ? Plan.where(org: @client.user.org).reject { |p| p.is_test? } : []
+          @client.owner.can_org_admin? ? Plan.where(org: @client.owner.org).reject { |p| p.is_test? } : []
         end
 
       end

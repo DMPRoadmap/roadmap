@@ -33,12 +33,7 @@ module SuperAdmin
       @api_client = ApiClient.find(params[:id])
       authorize(@api_client)
 
-      # Translate the Org selection
-      org = org_from_params(params_in: api_client_params, allow_create: false)
-      @api_client.org = org
-      attrs = remove_org_selection_params(params_in: api_client_params)
-
-      if @api_client.update(attrs)
+      if @api_client.update(api_client_params)
         flash.now[:notice] = success_message(@api_client, _("updated"))
       else
         flash.now[:alert] = failure_message(@api_client, _("update"))
@@ -84,7 +79,6 @@ module SuperAdmin
                                          :contact_name, :contact_email,
                                          :client_id, :client_secret, :redirect_uri,
                                          :callback_uri, :callback_method,
-                                         :org_id, :org_name, :org_sources, :org_crosswalk,
                                          :trusted, scopes: [])
     end
 

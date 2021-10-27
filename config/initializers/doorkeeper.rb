@@ -26,6 +26,9 @@ Doorkeeper.configure do
   # app/views/doorkeeper/new.html.erb using the app/views/layouts/doorkeeper/application.html.erb layout
   #
   resource_owner_authenticator do
+
+p "RESOURCE OWNER AUTHENTICATOR"
+
     # The user must be signed_in in to provide authorization for the ApiClient
     current_user
   end
@@ -34,7 +37,6 @@ Doorkeeper.configure do
   # file then you need to declare this block in order to restrict access to the web interface for
   # adding oauth authorized applications. In other case it will return 403 Forbidden response
   # every time somebody will try to access the admin web interface.
-  #
   admin_authenticator do
   #   # Put your admin authentication logic here.
   #   # Example implementation:
@@ -254,7 +256,7 @@ Doorkeeper.configure do
   # NOTE: you must also run the rails g doorkeeper:application_owner generator
   # to provide the necessary support
   #
-  # enable_application_owner confirmation: false
+  # enable_application_owner confirmation: true
 
   # Define access token scopes for your provider
   # For more information go to
@@ -434,12 +436,17 @@ Doorkeeper.configure do
   # @param allow_grant_flow_for_client [Proc] Block or any object respond to #call
   # @return [Boolean] `true` if allow or `false` if forbid the request
   #
-  # allow_grant_flow_for_client do |grant_flow, client|
+  allow_grant_flow_for_client do |grant_flow, client|
+
+p "ALLOW GRANT FLOW FOR CLIENT:"
+pp grant_flow
+pp client&.inspect
+
   #   # `grant_flows` is an Array column with grant
   #   # flows that application supports
   #
   #   client.grant_flows.include?(grant_flow)
-  # end
+  end
 
   # If you need arbitrary Resource Owner-Client authorization you can enable this option
   # and implement the check your need. Config option must respond to #call and return
@@ -469,20 +476,30 @@ Doorkeeper.configure do
   # (Doorkeeper::OAuth::Hooks::Context instance) which provides pre auth
   # or auth objects with issued token based on hook type (before or after).
   #
-  # before_successful_authorization do |controller, context|
-  #   Rails.logger.info(controller.request.params.inspect)
-  #   Rails.logger.info(context.pre_auth.inspect)
-  # end
+  before_successful_authorization do |controller, context|
+p "BEFORE SUCCESSFUL AUTHORIZATION:"
+    Rails.logger.info(controller.request.params.inspect)
+    Rails.logger.info(context.pre_auth.inspect)
+
+p "VALID TOKEN???"
+pp context.inspect
+p context.pre_auth.resource_owner&.inspect
+
+p "RESPONSE_TYPE: #{context.pre_auth.response_type}, RESOURCE OWNER: #{context.pre_auth.resource_owner&.id}"
+p context.pre_auth.redirect_uri
+
+  end
   #
-  # after_successful_authorization do |controller, context|
+  after_successful_authorization do |controller, context|
   #   controller.session[:logout_urls] <<
   #     Doorkeeper::Application
   #       .find_by(controller.request.params.slice(:redirect_uri))
   #       .logout_uri
   #
-  #   Rails.logger.info(context.auth.inspect)
-  #   Rails.logger.info(context.issued_token)
-  # end
+p "AFTER SUCCESSFUL AUTHORIZATION:"
+    Rails.logger.info(context.auth.inspect)
+    Rails.logger.info(context.issued_token)
+  end
 
   # Under some circumstances you might want to have applications auto-approved,
   # so that the user skips the authorization step.
@@ -493,6 +510,9 @@ Doorkeeper.configure do
   # If the ApiClient is a trusted application, then we can bypass the normal resource_owner authorization
   #
   skip_authorization do |resource_owner, client|
+
+p "SKIP AUTHORIZATION:"
+
     ApiClient.find_by(id: client.id, trusted: true).present?
   end
 
@@ -529,7 +549,7 @@ Doorkeeper.configure do
   #
   # You can define your custom check:
   #
-  # allow_token_introspection do |token, authorized_client, authorized_token|
+  allow_token_introspection do |token, authorized_client, authorized_token|
   #   if authorized_token
   #     # customize: require `introspection` scope
   #     authorized_token.application == token&.application ||
@@ -541,7 +561,11 @@ Doorkeeper.configure do
   #     # public token (when token.application is nil, token doesn't belong to any application)
   #     true
   #   end
-  # end
+  p "ALLOW TOKEN INTROSPECTION:"
+  pp token&.inspect
+  pp authorized_client&.inspect
+  pp authorized_token&.inspect
+  end
   #
   # Or you can completely disable any token introspection:
   #
