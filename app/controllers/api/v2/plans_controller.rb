@@ -100,7 +100,7 @@ module Api
           owner = determine_owner(plan: plan, json: dmp.fetch(:contact, {}))
 
           # Try to determine the Plan's org
-          plan.org = owner.present? ? owner.org : client.user&.org
+          plan.org = owner.present? ? owner.org : client.owner&.org
           render_error(errors: no_org_err, status: :bad_request) and return unless plan.org.present?
 
           # Validate the plan and it's associations and return errors with context

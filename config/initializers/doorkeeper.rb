@@ -27,14 +27,16 @@ Doorkeeper.configure do
   #
   resource_owner_authenticator do
     # The user must be signed_in in to provide authorization for the ApiClient
-    current_user
+    # if they are not, send them to the oauth sign in page
+    current_user || render("/users/oauth_signin",
+                           layout: "doorkeeper/application",
+                           locals: { client: ApiClient.find_by(uid: params["client_id"]) })
   end
 
   # If you didn't skip applications controller from Doorkeeper routes in your application routes.rb
   # file then you need to declare this block in order to restrict access to the web interface for
   # adding oauth authorized applications. In other case it will return 403 Forbidden response
   # every time somebody will try to access the admin web interface.
-  #
   admin_authenticator do
   #   # Put your admin authentication logic here.
   #   # Example implementation:
@@ -254,7 +256,7 @@ Doorkeeper.configure do
   # NOTE: you must also run the rails g doorkeeper:application_owner generator
   # to provide the necessary support
   #
-  # enable_application_owner confirmation: false
+  # enable_application_owner confirmation: true
 
   # Define access token scopes for your provider
   # For more information go to

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_13_172016) do
+ActiveRecord::Schema.define(version: 2021_10_26_204758) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -285,18 +285,19 @@ ActiveRecord::Schema.define(version: 2021_10_13_172016) do
     t.datetime "last_access"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "org_id"
     t.text "redirect_uri"
     t.string "scopes", default: "", null: false
     t.boolean "confidential", default: true
     t.boolean "trusted", default: false
-    t.bigint "user_id"
+    t.bigint "owner_id"
     t.string "logo_uid"
     t.string "logo_name"
     t.string "callback_uri"
     t.integer "callback_method"
+    t.string "owner_type", default: "User"
     t.index ["name"], name: "index_oauth_applications_on_name"
-    t.index ["user_id"], name: "index_oauth_applications_on_user_id"
+    t.index ["owner_id", "owner_type"], name: "index_oauth_applications_on_owner_id_and_owner_type"
+    t.index ["owner_id"], name: "index_oauth_applications_on_owner_id"
   end
 
   create_table "org_token_permissions", id: :integer, force: :cascade do |t|
