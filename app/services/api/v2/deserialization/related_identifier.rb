@@ -32,6 +32,9 @@ module Api
             relation_type = "does_reference" if relation_type == "references"
 
             work_type = json[:work_type].downcase if valid_work_type?(json: json)
+            # Default to dataset
+            work_type = "dataset" unless work_type.present?
+
             r_id.relation_type = relation_type
             r_id.work_type = json[:work_type] if work_type
             r_id.identifier_type = json[:type].underscore
