@@ -11,7 +11,7 @@
       <div class="form-group col-xs-8">
         <%= f.label(:org_name, _('Look up your organisation here'), class: "control-label") %>
 
-        <% if @orgs.length <= 10 %>
+        <% if @orgs.present? && @orgs.length <= 10 %>
           <select id="org_id" name="org_id">
             <option value=""><%= _('Please select one') %></option>
             <%= options_for_select(@orgs.map { |o| [o.name, o.id] }) %>
@@ -29,7 +29,7 @@
 
         <%= f.button(_('Go'), class: "btn btn-default", type: "submit") %>
 
-        <% if @orgs.length > 10 %>
+        <% if @orgs.present? && @orgs.length > 10 %>
           <p class="centered">
             <strong>- <%= _('or') %> -</strong>
             <br />
