@@ -4,17 +4,15 @@ import {
 } from '../answers/edit';
 import { Tinymce } from '../utils/tinymce.js.erb';
 import { Select2 } from '../utils/select2';
-import expandCollapseAll from '../utils/expandCollapseAll';
 // import TimeagoFactory from '../../utils/timeagoFactory';
 
 $(() => {
   // Attach handlers for the expand/collapse all accordions
-  expandCollapseAll();
 
-  const showSavingMessage = jQuery => jQuery.parents('.question-form').find('[data-status="saving"]').show();
-  const hideSavingMessage = jQuery => jQuery.parents('.question-form').find('[data-status="saving"]').hide();
-  const showLoadingOverlay = jQuery => jQuery.find('.overlay').show();
-  const hideLoadingOverlay = jQuery => jQuery.find('.overlay').hide();
+  const showSavingMessage = (jQuery) => jQuery.parents('.question-form').find('[data-status="saving"]').show();
+  const hideSavingMessage = (jQuery) => jQuery.parents('.question-form').find('[data-status="saving"]').hide();
+  const showLoadingOverlay = (jQuery) => jQuery.find('.overlay').show();
+  const hideLoadingOverlay = (jQuery) => jQuery.find('.overlay').hide();
   const toolbar = 'bold italic | bullist numlist | link | table';
 
   $('.panel-collapse').on('shown.bs.collapse reload.form', (e) => {
@@ -89,7 +87,6 @@ $(() => {
       .find('i.fa-chevron-right, i.fa-chevron-down')
       .toggleClass('fa-chevron-right fa-chevron-down');
   });
-
 
   // When selecting a new form in the form selector, sends the new schema and
   // fragment id to the server

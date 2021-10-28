@@ -1,8 +1,8 @@
-import debounce from '../../utils/debounce';
-import { initAutocomplete } from '../../utils/autoComplete';
-import getConstant from '../../constants';
-import { isObject, isArray, isString } from '../../utils/isType';
-import { renderAlert, hideNotifications } from '../../utils/notificationHelper';
+import debounce from '../utils/debounce';
+import { initAutocomplete } from '../utils/autoComplete';
+import getConstant from '../utils/constants';
+import { isObject, isArray, isString } from '../utils/isType';
+import { renderAlert, hideNotifications } from '../utils/notificationHelper';
 
 $(() => {
   const toggleSubmit = () => {
@@ -70,7 +70,6 @@ $(() => {
     }
   };
 
-
   // TODO: Refactor this whole thing when we redo the create plan
   //       workflow and use js.erb instead!
   const getValue = (context) => {
@@ -109,7 +108,6 @@ $(() => {
     const validOwnOrg = validOptions(ownOrgContext);
     const validOrg = validOptions(orgContext);
     const validFunder = validOptions(funderContext);
-
 
     if (!validOwnOrg || !validOrg || !validFunder) {
       $('#available-templates').fadeOut();
