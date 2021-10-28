@@ -35,7 +35,7 @@ module Dmpopidor
     end
 
     def create_json_fragments
-      FastGettext.with_locale plan.template.locale do
+      I18n.with_locale plan.template.locale do
         fragment = json_fragment
         dmp_fragment = plan.json_fragment
         contact_person = dmp_fragment.persons.first

@@ -21,7 +21,7 @@ namespace :madmpopidor do
       project_fragment = dmp_fragment.project
       meta_fragment = dmp_fragment.meta
 
-      FastGettext.with_locale plan.template.locale do
+      I18n.with_locale plan.template.locale do
         #################################
         # PERSON & CONTRIBUTORS FRAGMENTS
         #################################

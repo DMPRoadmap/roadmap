@@ -127,7 +127,7 @@ module Dmpopidor
     def create_plan_fragments
       template_locale = template.locale.eql?("en_GB") ? "eng" : "fra"
       plan_owner = owner
-      FastGettext.with_locale template.locale do
+      I18n.with_locale template.locale do
         dmp_fragment = Fragment::Dmp.create(
           data: {
             "plan_id" => id
