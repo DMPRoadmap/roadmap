@@ -1,7 +1,7 @@
 <% url = @registry_value.new_record? ? super_admin_registry_values_path : super_admin_registry_value_path(@registry_value) %>
 
   <%= form_for @registry_value, url: url, html: { class: 'registry-value' } do |f| %>
-    <div class="row super-admin">
+    <div class="row">
       <%= f.hidden_field :registry_id, value: @registry.id %>
       <div class="form-group">
         <%= f.label(:data, _('Data'), class: 'control-label') %>

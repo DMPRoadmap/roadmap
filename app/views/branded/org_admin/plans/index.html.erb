@@ -1,11 +1,11 @@
 <% title "#{current_user.org.name} Plans" %>
-<div class="row org-admin">
+<div class="row">
   <div class="col-md-12">    
     <h1><%= _('%{org_name} Plans') % { org_name: current_user.org.name } %></h1>
   </div>
 </div>
 
-<div class="row org-admin">
+<div class="row">
   <div class="col-md-12">
     <% if @feedback_plans.length > 0 %>
       <h2><%= _('Notifications') %></h2>

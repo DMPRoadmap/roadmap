@@ -1,7 +1,7 @@
 <% url = @registry.new_record? ? super_admin_registries_path : super_admin_registry_path(@registry) %>
 
   <%= form_for @registry, url: url, html: { class: 'registry' }, multipart: true do |f| %>
-    <div class="row super-admin">
+    <div class="row">
       <div class="form-group">
         <%= f.label(:name, _('Name'), class: 'control-label') %>
         <%= f.text_field(:name, class: "form-control", spellcheck: true, "aria-required": true) %>

@@ -97,7 +97,16 @@
       %>
 
       <!-- main page content rendering -->
-      <main class="container dmpopidor-branding" id="maincontent">
+      <% 
+        user_access_class = if request.path.starts_with?('/super_admin')
+                              "super-admin"
+                            elsif request.path.starts_with?('/org_admin')
+                              "org-admin"
+                            else
+                              ""
+                            end 
+      %>
+      <main class="container dmpopidor-branding <%= user_access_class %>" id="maincontent">
         <div id="notification-area"
              class="notification-area alert <%= has_alert ? 'alert-warning ' : 'alert-info ' %>
                     <%= (has_alert or has_notice) ? 'show' : 'hide' %>"
