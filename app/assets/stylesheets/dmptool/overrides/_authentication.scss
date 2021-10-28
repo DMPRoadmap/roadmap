@@ -32,3 +32,9 @@
 .c-login select.error {
   border-color: $color-red;
 }
+
+// Force links in the notification area to be colored white and underlined
+#notification-area a {
+  color: $color-primary-text;
+  text-decoration: underline;
+}

@@ -5,90 +5,13 @@ that they do NOT have an existing account
 <% content_for :authentication do %>
 
   <%
-  if #!Rails.env.development? &&
-     resource.org.present? &&
-     resource.org.shibbolized? &&
-     resource.identifier_for_scheme(scheme: "shibboleth").present?
-
-    url = user_shibboleth_omniauth_authorize_path
-  else
-    url = user_registration_path
-  end
+    url = @shibbolized ? user_shibboleth_omniauth_authorize_path : user_registration_path
   %>
   <%= form_with model: resource, url: url, method: :post, local: true do |form| %>
     <h2><%= _("Sign up") %></h2>
 
-    <span class="form-group">
-      <%= form.label(:email, _('Email address'), class: "control-label", id: "sign-in-email-lbl") %>
-      <%= form.email_field(:disabled_email, class: "form-control", value: resource.email,
-                          aria: {
-                            required: true,
-                            labelledby: "sign-in-email-lbl"
-                          },
-                          disabled: "disabled", size: 80) %>
-      <%= form.hidden_field(:email, value: resource.email) %>
-    </span>
-
-    <% if url == user_shibboleth_omniauth_authorize_path %>
-      <%# The Org is Shibbolized so display the Institutional Sign in %>
-      <%= render partial: "users/shared/sso", locals: { form: form } %>
-
-    <% else %>
-      <%# Display the standard Sign up form %>
-      <span class="form-group">
-        <%= form.label(:firstname, _('First Name'), class: "control-label") %>
-        <%= form.text_field(:firstname, aria: { required: true }, spellcheck: false,
-                            autocomplete: "off", maxlength: 40,
-                            class: "form-control #{auth_has_error?(:firstname) ? 'error' : ''}") %>
-      </span>
-      <span class="form-group">
-        <%= form.label(:surname, _('Last Name'), class: "control-label") %>
-        <%= form.text_field(:surname, aria: { required: true }, spellcheck: false,
-                            autocomplete: "off", maxlength: 40,
-                            class: "form-control #{auth_has_error?(:surname) ? 'error' : ''}") %>
-      </span>
-
-      <span id="create-account-org-controls" class="form-group">
-        <%= render partial: "shared/org_autocomplete",
-                  locals: { form: form,
-                            default_org: resource&.org,
-                            required: true,
-                            classes: "#{auth_has_error?(:org) ? 'error' : ''}",
-                            label: _("Institution") } %>
-        <script type="text/javascript">
-          initAutoComplete('#org_autocomplete_name');
-        </script>
-      </span>
-      <span id="password-controls" class="form-group">
-        <%= form.label(:password, _('Password'), class: "control-label checkbox-label") %>
-        <%= form.password_field(:password, aria: { required: true },
-                                class: "form-control #{auth_has_error?(:password) ? 'error' : ''}") %>
-        <%= form.label(:password_toggle, class: "checkbox-label") do %>
-          <%= check_box_tag("passwords_toggle_sign_up", nil, false, class: "passwords_toggle" ) %>
-          <%= _('Show password') %>
-        <% end %>
-      </span>
-      <br>
-      <span class="form-group">
-        <%= form.label(:accept_terms) do %>
-          <%= form.check_box(:accept_terms, aria: { required: true },
-                            class: "#{auth_has_error?(:accept_terms) ? 'error' : ''}") %>
-          <%= _('I accept the') %>
-          <%= link_to _('terms and conditions'), terms_path %>
-        <% end %>
-      </span>
-
-      <span class="form-group">
-        <% if Rails.configuration.x.recaptcha.enabled %>
-          <div class="form-group">
-            <%= label_tag(nil, _('Security check')) %>
-            <%= recaptcha_tags %>
-          </div>
-        <% end %>
-      </span>
-
-      <%= form.submit _("Sign up"), class: "btn btn-default" %>
-    <% end %>
+    <%= render partial: "users/registrations/form",
+               locals: { form: form, shibbolized: @shibbolized } %>
   <% end %>
   <p>
     <%= sanitize(_("This will create a new account. If you already have an account, %{go_back_link} to try a different email address, or %{contact_us_link}.") % {

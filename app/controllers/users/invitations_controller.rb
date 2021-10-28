@@ -4,18 +4,54 @@ class Users::InvitationsController < Devise::InvitationsController
 
   include OrgSelectable
 
-  # Creates the selected Org if necessary and then attaches the invited user
-  # to the Org after Devise does its thing
-  prepend_after_action :handle_org, only: [:update]
-  prepend_before_action :fix_org_params, only: [:update]
+  before_action :configure_invite_params
+
+  before_action :prepare_params, only: [:update]
+
+  # POST /users/invitation/resend
+  def resend
+    user = User.find_by(id: params[:id])
+    if user.present? && !user.accepted_or_not_invited?
+      # Resend the invitation
+      user.deliver_invitation
+      flash[:notice] = _("The invitation email has been re-sent to %{email}.") % {
+        email: user.email
+      }
+    else
+      flash[:alert] = _("Unable to resend your invitation.")
+    end
+    redirect_to root_path
+  end
 
   protected
 
-  def fix_org_params
-    hash = org_hash_from_params(params_in: params[:user])
-    org = OrgSelection::HashToOrgService.to_org(hash: hash,
-                                                allow_create: false)
-    params[:user][:org_id] = org&.id
+  # If you have extra params to permit, append them to the sanitizer.
+  def configure_invite_params
+    devise_parameter_sanitizer.permit(
+      :accept_invitation, keys: [:accept_terms, :firstname, :language_id, :org_id, :surname,
+                                 org_attributes: [:name, :abbreviation, :contact_email,
+                                 :contact_name, :links, :target_url, :is_other, :managed,
+                                 :org_type]]
+    )
+  end
+
+  def resend_params
+    params.require(:user).permit(:email)
+  end
+
+  # Override the default Devise Invitable controller to attach the User's Org
+  def resource_from_invitation_token
+    if params[:invitation_token] && self.resource = resource_class.find_by_invitation_token(params[:invitation_token], true)
+      # If the User's Org is not defined, try to determine it based on their email
+      unless resource.org_id.present?
+        resource.org = org_from_email_domain(
+          email_domain: resource.email&.split("@")&.last
+        )
+      end
+    else
+      set_flash_message(:alert, :invitation_token_invalid) if is_flashing_format?
+      redirect_to after_sign_out_path_for(resource_name)
+    end
   end
 
   # Override require_no_authentication method defined at DeviseController
@@ -34,38 +70,22 @@ class Users::InvitationsController < Devise::InvitationsController
     # rubocop:enable Layout/LineLength
   end
 
-  # Handle the user's Org selection
-  def handle_org
-    attrs = update_resource_params
-
-    return unless attrs[:org_id].present?
-
-    # See if the user selected a new Org via the Org Lookup and
-    # convert it into an Org
-    lookup = org_from_params(params_in: attrs)
-    return nil unless lookup.present?
-
-    # If this is a new Org we need to save it first before attaching
-    # it to the user
-    if lookup.new_record?
-      lookup.save
-      identifiers_from_params(params_in: attrs).each do |identifier|
-        next unless identifier.value.present?
-
-        identifier.identifiable = lookup
-        identifier.save
-      end
-      lookup.reload
+  # Set the Language to the one the user has selected
+  def prepare_params
+    unless I18n.locale.nil? || update_resource_params[:language_id].present?
+      params[:user][:language_id] = Language.id_for(I18n.locale)
     end
 
-    resource.update(org_id: lookup.id)
-    return true unless resource.invitation_plan_id.present?
+pp update_resource_params
 
-    # Set the plan associated with this invitation org_id
-    # If the user was invited via the 'create_dmps' scope for API V2 or an OrgAdmin
-    # using the 'Email template' workflow.
-    plan = Plan.find_by(id: resource.invitation_plan_id)
-    plan.update(org_id: lookup.id)
+    # Capitalize the first and last names
+    params[:user][:firstname] = update_resource_params[:firstname]&.humanize
+    params[:user][:surname] = update_resource_params[:surname]&.humanize
+
+    # Convert the selected/specified Org name into attributes
+    org_params = autocomplete_to_controller_params
+    params[:user][:org_id] = org_params[:org_id] if org_params[:org_id].present?
+    params[:user][:org_attributes] = org_params[:org_attributes] unless org_params[:org_id].present?
   end
 
 end

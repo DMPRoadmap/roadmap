@@ -5,45 +5,14 @@ that they have an existing account
 <% content_for :authentication do %>
 
   <%
-  if #!Rails.env.development? &&
-     resource.org.present? &&
-     resource.org.shibbolized? &&
-     resource.identifier_for_scheme(scheme: "shibboleth").present?
-
-    url = user_shibboleth_omniauth_authorize_path
-  else
-    url = user_session_path
-  end
+  url = @shibbolized ? user_shibboleth_omniauth_authorize_path : user_session_path
   %>
+
   <%= form_with model: resource, url: url, method: :post, local: true do |form| %>
     <h2><%= _("Sign in") %></h2>
 
-    <span class="form-group">
-      <%= form.label(:email, _('Email address'), class: "control-label", id: "sign-in-email-lbl") %>
-      <%= form.email_field(:disabled_email, class: "form-control", value: resource.email,
-                          aria: {
-                            required: true,
-                            labelledby: "sign-in-email-lbl"
-                          },
-                          disabled: "disabled") %>
-      <%= form.hidden_field(:email, value: resource.email) %>
-    </span>
-    <span class="form-group">
-      <% if url == user_shibboleth_omniauth_authorize_path %>
-        <%# If the Org is shibbolized and the user has an EPPN %>
-        <%= render partial: "users/shared/sso", locals: { form: form } %>
-
-      <% else %>
-        <%# Display the standard Sign in form %>
-        <%= form.hidden_field :org_id, value: resource.org_id %>
-
-        <%= form.label(:password, _('Password'), class: "control-label") %>
-        <%= form.password_field(:password, class: "form-control", "aria-required": true) %>
-        <%= link_to _('Forgot password?'), new_password_path('user') %>
-
-        <%= form.submit _("Sign in"), class: "btn btn-default" %>
-      <% end %>
-    </span>
+    <%= render partial: "users/sessions/form",
+               locals: { form: form, shibbolized: @shibbolized } %>
   <% end %>
 
   <span class="form-group">

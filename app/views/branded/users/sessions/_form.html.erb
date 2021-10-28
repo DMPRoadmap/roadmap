@@ -1,0 +1,28 @@
+<%# locals: form, shibbolized %>
+
+<span class="form-group">
+  <%= form.label(:email, _('Email address'), class: "control-label", id: "sign-in-email-lbl") %>
+  <%= form.email_field(:disabled_email, class: "form-control", value: resource.email,
+                      aria: {
+                        required: true,
+                        labelledby: "sign-in-email-lbl"
+                      },
+                      disabled: "disabled") %>
+  <%= form.hidden_field(:email, value: resource.email) %>
+</span>
+<span class="form-group">
+  <% if shibbolized %>
+    <%# If the Org is shibbolized and the user has an EPPN %>
+    <%= render partial: "users/shared/sso", locals: { form: form } %>
+
+  <% else %>
+    <%# Display the standard Sign in form %>
+    <%= form.hidden_field :org_id, value: resource.org_id %>
+
+    <%= form.label(:password, _('Password'), class: "control-label") %>
+    <%= form.password_field(:password, class: "form-control", "aria-required": true) %>
+    <%= link_to _('Forgot password?'), new_password_path('user') %>
+
+    <%= form.submit _("Sign in"), class: "btn btn-default" %>
+  <% end %>
+</span>

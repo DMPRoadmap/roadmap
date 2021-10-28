@@ -38,13 +38,10 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
   }
   devise_scope :user do
-    # Custom route that checks the users email to determine if its a sign in / sign up
-    # and whether or not this is SSO
-    post "users/validate", to: "users/sessions#validate"
-
     get "/users/third_party_apps", to: "users#third_party_apps"
     get "/users/developer_tools", to: "users#developer_tools"
-
+    get "/users/invitations/resend/:id", to: "users/invitations#resend",
+                                         as: "resend_invitation"
     #delete "/users/identifiers/:id", to: "identifiers#destroy", as: "destroy_user_identifier"
   end
 

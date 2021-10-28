@@ -2,6 +2,7 @@
 
 module DmptoolHelper
 
+  # Converts some of the language of User validation errors
   def auth_has_error?(attribute)
     return false unless attribute.present? && @user.present? &&
                         @errors.present? && @errors.any?

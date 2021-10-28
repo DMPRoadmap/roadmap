@@ -44,10 +44,21 @@ class Org < ApplicationRecord
   # ----------------------------------------
   # Start DMPTool Customization
   # ----------------------------------------
-  include DmptoolOrg
+  include Dmptool::Org
 
   # Allows an Org to invite a user via the 'Email template' link on the Templates page
   devise :invitable
+
+  dragonfly_accessor :logo
+
+  validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif', 'jpg', 'bmp', 'svg'], message: _("must be one of the following formats: jpeg, jpg, png, gif, bmp, svg")
+  validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
+
+  # If the org was created and has a fundref/ror id then it was derived from a
+  # User's selection of a RegistryOrg in the UI. We need to update the registry_orgs.org_id
+  # to establish the relationship
+  after_create :connect_to_registry_org
+
   # ----------------------------------------
   # End DMPTool Customization
   # ----------------------------------------
@@ -143,10 +154,10 @@ class Org < ApplicationRecord
                     maximum: 500.kilobytes,
                     message: _("can't be larger than 500KB")
 
-  dragonfly_accessor :logo
-
-  validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif', 'jpg', 'bmp', 'svg'], message: _("must be one of the following formats: jpeg, jpg, png, gif, bmp, svg")
-  validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
+  # # allow validations for logo upload
+  # dragonfly_accessor :logo do
+  #   after_assign :resize_image
+  # end
 
   # =============
   # = Callbacks =
@@ -158,11 +169,6 @@ class Org < ApplicationRecord
 
   # This gives all managed orgs api access whenever saved or updated.
   before_save :ensure_api_access, if: ->(org) { org.managed? }
-
-  # If the org was created and has a fundref/ror id then it was derived from a
-  # User's selection of a RegistryOrg in the UI. We need to update the registry_orgs.org_id
-  # to establish the relationship
-  after_create :connect_to_registry_org
 
   # If the physical logo file is no longer on disk we do not want it to prevent the
   # model from saving. This typically happens when you copy the database to another
@@ -223,14 +229,6 @@ class Org < ApplicationRecord
       .select("orgs.*,
               count(distinct templates.family_id) as template_count,
               count(users.id) as user_count")
-  }
-
-  # Returns all Org's with a Shibboleth entityID stored in the Identifiers table
-  # This is used on the app/views/shared/_shib_sign_in_form.html.erb partial which
-  # is only used if you have `shibboleth.use_filtered_discovery_service` enabled.
-  scope :shibbolized, lambda {
-    org_ids = Identifier.by_scheme_name("shibboleth", "Org").pluck(:identifiable_id)
-    where(managed: true, id: org_ids)
   }
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
@@ -329,13 +327,6 @@ class Org < ApplicationRecord
       token_permission_types.include? token_permission_type
   end
 
-  # Returns the name of the Org excluding anything in parenthesis. For example:
-  #    'Example University (EU)'  ->  'Example University'
-  #    'Sample College (sample.edu)'  ->  'Sample College'
-  def name_without_alias
-    name&.split(" (")&.first&.strip
-  end
-
   # Merges the specified Org into this Org
   # rubocop:disable Metrics/AbcSize
   def merge!(to_be_merged:)
@@ -375,22 +366,6 @@ class Org < ApplicationRecord
     end
   end
   # rubocop:enable Metrics/AbcSize
-
-  # Convert the Org's name into an abbreviation
-  def name_to_abbreviation
-    stopwords = %w[a of the and]
-    name_without_alias.split(" ")
-                      .reject { |word| stopwords.include?(word) }
-                      .map { |word| word[0].upcase }
-                      .join
-  end
-
-  # Class method shortcut to the name_to_abbreviation instance method
-  def self.name_to_abbreviation(name:)
-    return "" unless name.present?
-
-    Org.new(name: name).name_to_abbreviation
-  end
 
   private
 
@@ -465,30 +440,6 @@ class Org < ApplicationRecord
     TokenPermissionType.all.each do |perm|
       token_permission_types << perm unless token_permission_types.include?(perm)
     end
-  end
-
-  # If the org was created and has a fundref/ror id then it was derived from a
-  # User's selection of a RegistryOrg in the UI. We need to update the registry_orgs.org_id
-  # to establish the relationship
-  def connect_to_registry_org
-    registry_org = RegistryOrg.find_by("LOWER(name) = ?", self.name.downcase)
-    return true unless registry_org.present?
-
-    # Attach the identifiers
-    %w[fundref ror].each do |scheme_name|
-      value = registry_org.send(:"#{scheme_name}_id")
-      next unless value.present?
-
-      scheme = IdentifierScheme.by_name(scheme_name).first
-      next unless scheme.present?
-
-      Identifier.find_or_create_by(
-        identifier_scheme: scheme, identifiable: self, value: value
-      )
-    end
-
-    # Update the original RegistryOrg with the new org's association
-    registry_org.update(org_id: self.id)
   end
 
 end
