@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 module Dmpopidor
-  module Plan
+
+  module PlanPolicy
 
     def research_outputs?
       @plan.readable_by?(@user.id)

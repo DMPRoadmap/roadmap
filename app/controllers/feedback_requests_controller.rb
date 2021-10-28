@@ -2,7 +2,7 @@
 
 class FeedbackRequestsController < ApplicationController
 
-  prepend Dmpopidor::FeedbackRequests
+  prepend Dmpopidor::FeedbackRequestsController
   include FeedbacksHelper
 
   after_action :verify_authorized

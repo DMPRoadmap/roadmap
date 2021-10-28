@@ -4,7 +4,7 @@ module Dmpopidor
 
   module Paginable
 
-    module Users
+    module UsersController
 
       # /paginable/users/index/:page
       # Users without activity should not be displayed first

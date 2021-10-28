@@ -2,7 +2,7 @@
 
 module ExportsHelper
 
-  prepend Dmpopidor::Exports
+  prepend Dmpopidor::ExportsHelper
 
   PAGE_MARGINS = {
     top: "5",

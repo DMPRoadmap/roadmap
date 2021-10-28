@@ -4,7 +4,7 @@ module Dmpopidor
 
   module OrgAdmin
 
-    module Questions
+    module QuestionsController
 
       # CHANGES
       # Added  MadmpSchema list

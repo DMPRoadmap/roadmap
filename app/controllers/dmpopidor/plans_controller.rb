@@ -3,7 +3,7 @@
 module Dmpopidor
 
   # rubocop:disable Metrics/ModuleLength
-  module Plans
+  module PlansController
 
     # CHANGES:
     # Added Active Flag on Org
@@ -111,7 +111,7 @@ module Dmpopidor
           else
             # We used the specified org's or funder's template
             # rubocop:disable Metrics/LineLength
-            msg += " #{d_('dmpopidor', 'This plan is based on the %{org_name}: %{template_name} template') % { org_name: @plan.template.org.name, template_name: @plan.template.title} }"
+            msg += " #{_('This plan is based on the %{org_name}: %{template_name} template') % { org_name: @plan.template.org.name, template_name: @plan.template.title} }"
             # rubocop:enable Metrics/LineLength
           end
 

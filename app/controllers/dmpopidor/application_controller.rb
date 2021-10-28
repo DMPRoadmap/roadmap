@@ -2,7 +2,7 @@
 
 module Dmpopidor
 
-  module Application
+  module ApplicationController
 
     # Set Static Pages collection to use in navigation
     def set_nav_static_pages

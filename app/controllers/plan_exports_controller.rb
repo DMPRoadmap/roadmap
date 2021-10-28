@@ -2,7 +2,7 @@
 
 class PlanExportsController < ApplicationController
 
-  prepend Dmpopidor::PlanExports
+  prepend Dmpopidor::PlanExportsController
   after_action :verify_authorized
 
   include ConditionsHelper

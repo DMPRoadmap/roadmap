@@ -2,7 +2,7 @@
 
 module PlansHelper
 
-  prepend Dmpopidor::Plans
+  include Dmpopidor::PlansHelper
 
   # display the role of the user for a given plan
   def display_role(role)

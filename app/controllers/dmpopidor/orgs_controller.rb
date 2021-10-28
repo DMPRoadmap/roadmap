@@ -2,7 +2,7 @@
 
 module Dmpopidor
 
-  module Orgs
+  module OrgsController
 
     # CHANGE: ADDED BANNER TEXT and ACTIVE
     def admin_update

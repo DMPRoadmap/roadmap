@@ -4,7 +4,7 @@ module Dmpopidor
 
   module OrgAdmin
 
-    module Users
+    module UsersController
 
       # CHANGES : Org Admin should access plan with administrator, organisation & public plan when editing a user
       def edit

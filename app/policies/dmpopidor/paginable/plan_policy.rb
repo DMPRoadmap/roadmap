@@ -4,7 +4,7 @@ module Dmpopidor
 
   module Paginable
 
-    module Plan
+    module PlanPolicy
 
       def administrator_visible?
         @user.is_a?(User)

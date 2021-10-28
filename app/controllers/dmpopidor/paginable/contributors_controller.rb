@@ -4,7 +4,7 @@ module Dmpopidor
 
   module Paginable
 
-    module Contributors
+    module ContributorsController
 
       # GET /paginable/plans/:plan_id/contributors
       # GET /paginable/plans/:plan_id/contributors/index/:page
@@ -22,5 +22,5 @@ module Dmpopidor
     end
 
   end
-  
+
 end

@@ -5,7 +5,7 @@ module Paginable
   class ContributorsController < ApplicationController
 
     after_action :verify_authorized
-    prepend Dmpopidor::Paginable::Contributors
+    prepend Dmpopidor::Paginable::ContributorsController
     respond_to :html
 
     include Paginable

@@ -4,7 +4,7 @@ module Dmpopidor
 
   module OrgAdmin
 
-    module Plans
+    module PlansController
 
       # GET org_admin/plans/:id/feedback_complete
       # CHANGES : Added feedback requestor to plan

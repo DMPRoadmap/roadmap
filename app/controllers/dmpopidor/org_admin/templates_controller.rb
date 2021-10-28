@@ -4,7 +4,7 @@ module Dmpopidor
 
   module OrgAdmin
 
-    module Templates
+    module TemplatesController
 
       # GET /org_admin/templates/:id/edit
       # CHANGES : Added Locales list for view

@@ -2,7 +2,7 @@
 
 module Dmpopidor
 
-  module Registrations
+  module RegistrationsController
 
     # Excluded funder orgs from registrations
     def edit

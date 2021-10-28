@@ -2,7 +2,7 @@
 
 module Dmpopidor
 
-  module PlanExports
+  module PlanExportsController
 
     # CHANGES: Can now send multiple phases when exporting
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength

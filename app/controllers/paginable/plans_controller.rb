@@ -3,6 +3,7 @@
 class Paginable::PlansController < ApplicationController
 
   include Paginable
+  prepend Dmpopidor::Paginable::PlansController
 
   # /paginable/plans/privately_visible/:page
   def privately_visible

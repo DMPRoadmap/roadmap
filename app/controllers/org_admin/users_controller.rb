@@ -4,7 +4,7 @@ module OrgAdmin
 
   class UsersController < ApplicationController
 
-    prepend Dmpopidor::OrgAdmin::Users
+    prepend Dmpopidor::OrgAdmin::UsersController
 
     after_action :verify_authorized
 

@@ -3,9 +3,10 @@
 # rubocop:disable Metrics/ClassLength
 class PlansController < ApplicationController
 
+  include Dmpopidor::PlansController
+
   include ConditionalUserMailer
   include OrgSelectable
-  prepend Dmpopidor::Plans
 
   helper PaginableHelper
   helper SettingsTemplateHelper
@@ -179,64 +180,64 @@ class PlansController < ApplicationController
   # GET /plans/show
   # SEE MODULE
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  def show
-    @plan = Plan.includes(
-      template: { phases: { sections: { questions: :answers } } },
-      plans_guidance_groups: { guidance_group: :guidances }
-    ).find(params[:id])
-    authorize @plan
+  # def show
+  #   @plan = Plan.includes(
+  #     template: { phases: { sections: { questions: :answers } } },
+  #     plans_guidance_groups: { guidance_group: :guidances }
+  #   ).find(params[:id])
+  #   authorize @plan
 
-    @visibility = if @plan.visibility.present?
-                    @plan.visibility.to_s
-                  else
-                    Rails.configuration.x.plans.default_visibility
-                  end
-    # Get all of the available funders
-    @funders = Org.funder
-                  .includes(identifiers: :identifier_scheme)
-                  .joins(:templates)
-                  .where(templates: { published: true }).uniq.sort_by(&:name)
-    # TODO: Seems strange to do this. Why are we just not using an `edit` route?
-    @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
+  #   @visibility = if @plan.visibility.present?
+  #                   @plan.visibility.to_s
+  #                 else
+  #                   Rails.configuration.x.plans.default_visibility
+  #                 end
+  #   # Get all of the available funders
+  #   @funders = Org.funder
+  #                 .includes(identifiers: :identifier_scheme)
+  #                 .joins(:templates)
+  #                 .where(templates: { published: true }).uniq.sort_by(&:name)
+  #   # TODO: Seems strange to do this. Why are we just not using an `edit` route?
+  #   @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
 
-    # Get all Guidance Groups applicable for the plan and group them by org
-    @all_guidance_groups = @plan.guidance_group_options
-    @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
-    @selected_guidance_groups = @plan.guidance_groups
+  #   # Get all Guidance Groups applicable for the plan and group them by org
+  #   @all_guidance_groups = @plan.guidance_group_options
+  #   @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
+  #   @selected_guidance_groups = @plan.guidance_groups
 
-    # Important ones come first on the page - we grab the user's org's GGs and
-    # "Organisation" org type GGs
-    @important_ggs = []
+  #   # Important ones come first on the page - we grab the user's org's GGs and
+  #   # "Organisation" org type GGs
+  #   @important_ggs = []
 
-    if @all_ggs_grouped_by_org.include?(current_user.org)
-      @important_ggs << [current_user.org, @all_ggs_grouped_by_org[current_user.org]]
-    end
-    @all_ggs_grouped_by_org.each do |org, ggs|
-      @important_ggs << [org, ggs] if Org.default_orgs.include?(org)
+  #   if @all_ggs_grouped_by_org.include?(current_user.org)
+  #     @important_ggs << [current_user.org, @all_ggs_grouped_by_org[current_user.org]]
+  #   end
+  #   @all_ggs_grouped_by_org.each do |org, ggs|
+  #     @important_ggs << [org, ggs] if Org.default_orgs.include?(org)
 
-      # If this is one of the already selected guidance groups its important!
-      unless (ggs & @selected_guidance_groups).empty?
-        @important_ggs << [org, ggs] unless @important_ggs.include?([org, ggs])
-      end
-    end
+  #     # If this is one of the already selected guidance groups its important!
+  #     unless (ggs & @selected_guidance_groups).empty?
+  #       @important_ggs << [org, ggs] unless @important_ggs.include?([org, ggs])
+  #     end
+  #   end
 
-    # Sort the rest by org name for the accordion
-    @important_ggs = @important_ggs.sort_by { |org, _gg| (org.nil? ? "" : org.name) }
-    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by do |org, _gg|
-      (org.nil? ? "" : org.name)
-    end
-    @selected_guidance_groups = @selected_guidance_groups.ids
+  #   # Sort the rest by org name for the accordion
+  #   @important_ggs = @important_ggs.sort_by { |org, _gg| (org.nil? ? "" : org.name) }
+  #   @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by do |org, _gg|
+  #     (org.nil? ? "" : org.name)
+  #   end
+  #   @selected_guidance_groups = @selected_guidance_groups.ids
 
-    @based_on = if @plan.template.customization_of.nil?
-                  @plan.template
-                else
-                  Template.where(family_id: @plan.template.customization_of).first
-                end
+  #   @based_on = if @plan.template.customization_of.nil?
+  #                 @plan.template
+  #               else
+  #                 Template.where(family_id: @plan.template.customization_of).first
+  #               end
 
-    @research_domains = ResearchDomain.all.order(:label)
+  #   @research_domains = ResearchDomain.all.order(:label)
 
-    respond_to :html
-  end
+  #   respond_to :html
+  # end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable
 

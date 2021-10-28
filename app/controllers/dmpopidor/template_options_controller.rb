@@ -2,7 +2,7 @@
 
 module Dmpopidor
 
-  module TemplateOptions
+  module TemplateOptionsController
 
     # CHANGES : Default template should appear in template lists
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength

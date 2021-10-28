@@ -9,7 +9,7 @@ module OrgAdmin
     include Versionable
     include TemplateMethods
 
-    prepend Dmpopidor::OrgAdmin::Templates
+    prepend Dmpopidor::OrgAdmin::TemplatesController
 
     after_action :verify_authorized
 

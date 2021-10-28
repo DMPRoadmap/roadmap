@@ -2,7 +2,7 @@
 
 module Dmpopidor
 
-  module StaticPages
+  module StaticPagesController
 
     # Changed News feed
     def news_feed

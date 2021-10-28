@@ -3,7 +3,7 @@
 module Dmpopidor
 
   # rubocop:disable Metrics/ModuleLength
-  module Notes
+  module NotesController
 
     # CHANGES
     # Delivered mail contains the name of the collaborator leaving the note

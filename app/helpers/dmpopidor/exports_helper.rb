@@ -2,7 +2,7 @@
 
 module Dmpopidor
 
-  module Exports
+  module ExportsHelper
 
     # Changed label
     def plan_attribution(attribution)

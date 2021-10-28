@@ -2,7 +2,7 @@
 
 module Dmpopidor
 
-  module Answers
+  module AnswersController
 
     # Added Research outputs support
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength

@@ -2,17 +2,16 @@
 
 module Dmpopidor
 
-  module Plans
+  module PlansHelper
 
     # display the name of the owner of a plan
     # CHANGE : Added translation
     def display_owner(owner)
-      name = if owner == current_user
-               d_("dmpopidor", "You")
-             else
-               owner&.name(false)
-             end
-      name
+      if owner == current_user
+        _("You")
+      else
+        owner&.name(false)
+      end
     end
 
     # display the visibility of the plan
@@ -24,7 +23,7 @@ module Dmpopidor
       when "publicly_visible"
         "<span title=\"#{ visibility_tooltip(val) }\">#{_('Public')}</span>"
       when "administrator_visible"
-        "<span title=\"#{ visibility_tooltip(val) }\">#{d_('dmpopidor', 'Administrator')}</span>"
+        "<span title=\"#{ visibility_tooltip(val) }\">#{_('Administrator')}</span>"
       when "privately_visible"
         "<span title=\"#{ visibility_tooltip(val) }\">#{_('Private')}</span>"
       else
@@ -40,7 +39,7 @@ module Dmpopidor
       when "publicly_visible"
         _("Public: anyone can view.")
       when "administrator_visible"
-        d_("dmpopidor", "Administrator: visible to me, specified collaborators and administrators at my organisation.")
+        _("Administrator: visible to me, specified collaborators and administrators at my organisation.")
       else
         _("Private: restricted to me and people I invite.")
       end

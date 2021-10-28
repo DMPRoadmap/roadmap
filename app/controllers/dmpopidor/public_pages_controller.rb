@@ -2,7 +2,7 @@
 
 module Dmpopidor
 
-  module PublicPages
+  module PublicPagesController
 
     # GET template_index
     # -----------------------------------------------------

@@ -2,7 +2,7 @@
 
 class TemplateOptionsController < ApplicationController
 
-  prepend Dmpopidor::TemplateOptions
+  prepend Dmpopidor::TemplateOptionsController
   include OrgSelectable
 
   after_action :verify_authorized

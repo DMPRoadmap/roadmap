@@ -2,7 +2,7 @@
 
 module Dmpopidor
 
-  module FeedbackRequests
+  module FeedbackRequestsController
 
     ALERT = _("Unable to submit your request for feedback at this time.")
     ERROR = _("An error occurred when requesting feedback for this plan.")

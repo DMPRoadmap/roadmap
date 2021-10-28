@@ -4,7 +4,7 @@ module OrgAdmin
 
   class QuestionsController < ApplicationController
 
-    prepend Dmpopidor::OrgAdmin::Questions
+    prepend Dmpopidor::OrgAdmin::QuestionsController
     include AllowedQuestionFormats
     include Versionable
     include ConditionsHelper

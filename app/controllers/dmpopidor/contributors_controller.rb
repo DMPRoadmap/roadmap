@@ -2,7 +2,7 @@
 
 module Dmpopidor
 
-  module Contributors
+  module ContributorsController
 
     # GET /plans/:plan_id/contributors
     # CHANGES: Contributors Tab uses maDMP Fragments

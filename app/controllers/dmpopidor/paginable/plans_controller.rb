@@ -4,7 +4,7 @@ module Dmpopidor
 
   module Paginable
 
-    module Plans
+    module PlansController
 
       # GET /paginable/plans/org_admin/:page
       # Renders only the plans with a visibility superior to privately

@@ -2,7 +2,7 @@
 
 class UsersController < ApplicationController
 
-  prepend Dmpopidor::Users
+  prepend Dmpopidor::UsersController
 
   helper PaginableHelper
   helper PermsHelper
