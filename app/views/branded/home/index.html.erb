@@ -6,7 +6,3 @@ The home page should show the initial User sign in / sign up form
              layout: "layouts/home",
              locals: { resource: @user } %>
 <% end %>
-
-<% content_for :errors do %>
-  <%= render partial: "users/shared/error_messages" %>
-<% end %>

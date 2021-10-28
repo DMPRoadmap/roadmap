@@ -45,16 +45,17 @@
     <%= form.label(:password, _('Password'), class: "control-label checkbox-label") %>
     <%= form.password_field(:password, aria: { required: true },
                             class: "form-control #{auth_has_error?(:password) ? 'error' : ''}") %>
-    <%= form.label(:password_toggle, class: "checkbox-label") do %>
-      <%= check_box_tag("passwords_toggle_sign_up", nil, false, class: "passwords_toggle" ) %>
-      <%= _('Show password') %>
-    <% end %>
     <% if @minimum_password_length %>
       <em>
         <%= _("(%{min_password_length} characters minimum)") % {
           min_password_length: @minimum_password_length }
         %>
       </em>
+      <br>
+    <% end %>
+    <%= form.label(:password_toggle, class: "checkbox-label") do %>
+      <%= check_box_tag("passwords_toggle_sign_up", nil, false, class: "passwords_toggle" ) %>
+      <%= _('Show password') %>
     <% end %>
   </span>
   <br>

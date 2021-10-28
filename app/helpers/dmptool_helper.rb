@@ -4,16 +4,18 @@ module DmptoolHelper
 
   # Converts some of the language of User validation errors
   def auth_has_error?(attribute)
-    return false unless attribute.present? && @user.present? &&
-                        @errors.present? && @errors.any?
+    return false unless attribute.present? && resource.present? &&
+                        resource.errors.present? && resource.errors.any?
+
+    errs = resource.errors.full_messages
 
     case attribute.to_sym
     when :org, :org_id
-      @errors.select { |err| err.start_with?("Institution") }.any?
+      errs.select { |err| err.start_with?("Institution") }.any?
     when :accept_terms
-      @errors.select { |err| err.include?("accept the terms") }.any?
+      errs.select { |err| err.include?("the terms") }.any?
     else
-      @errors.select { |err| err.start_with?(attribute.to_s.humanize) }.any?
+      errs.select { |err| err.start_with?(attribute.to_s.humanize) }.any?
     end
   end
 

@@ -115,10 +115,9 @@ module OrgSelectable
     def org_selectable_params
       # Note that any time we create a new namespace (e.g. funder), we need to add the corresponding
       # params to this list below!
-      params.require(:org_autocomplete)
-            .permit(%i[name not_in_list user_entered_name
-                       funder_name funder_not_in_list funder_user_entered_name
-                       crosswalk])
+      params.permit(org_autocomplete: %i[crosswalk funder_name funder_not_in_list
+                                         funder_user_entered_name name not_in_list
+                                         user_entered_name])
     end
 
     # Add namespace to the incoming name
