@@ -15,10 +15,6 @@
 <% unless field_label.nil? %>
   <div class="col-md-12">
     <%= f.label field_id, field_label, class: 'control-label' %>
-    <a href="<%= about_registries_path %>" target="_blank"
-      data-toggle="tooltip" data-original-title="<%= d_("dmpopidor", "Find out more.") %>">
-      <span class="registry-info fa fa-info-circle"></span>
-    </a>
   </div>
 <% end %>
 <div class="col-md-12 dynamic-field select-field single-select">
