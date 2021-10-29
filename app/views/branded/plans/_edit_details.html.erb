@@ -136,12 +136,12 @@
               <%= d_("dmpopidor", "Plan Details") %>
             <% end %>
           </div>
-          <i class="fa fa-chevron-right pull-right" aria-hidden="true"></i>
+          <i class="fa fa-chevron-down pull-right" aria-hidden="true"></i>
           <div class="clearfix"></div>
         </div>
       </div>
 
-      <div id="plan_metadata" class="panel-collapse collapse plan-details-content" role="tabpanel" aria-labelledby="heading-plan-metadata">
+      <div id="plan_metadata" class="panel-collapse collapse in plan-details-content" role="tabpanel" aria-labelledby="heading-plan-metadata">
         <% meta_schema = MadmpSchema.find_by(name: "MetaStandard") %>
         <%= hidden_field_tag 'fragment-id', meta_fragment.id, class: "fragment-id" %>
         <div class="panel-body madmp-fragment"><!-- accordion body -->
