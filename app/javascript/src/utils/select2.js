@@ -1,4 +1,3 @@
-
 export const Select2 = {
   init(questionId = null) {
     $(`${questionId} .select-field select, .linked-fragments-select select, .schema-picker-zone select`).select2({

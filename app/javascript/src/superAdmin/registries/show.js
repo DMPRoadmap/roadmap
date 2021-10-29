@@ -1,4 +1,3 @@
-
 $(() => {
   const sortableRegistryValues = () => {
     $('#registry-values').sortable({

@@ -5,4 +5,3 @@ $(() => {
   // signs in via institutional credentials but has no matching user record
   initAutocomplete('#create-account-org-controls .autocomplete');
 });
- 

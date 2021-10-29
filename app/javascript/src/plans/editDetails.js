@@ -10,12 +10,11 @@ import 'bootstrap-3-typeahead';
 $(() => {
   const grantIdField = $('.grant-id-typeahead');
   const grantIdHidden = $('input#plan_grant_number');
-  const showSavingMessage = jQuery => jQuery.parents('.question-form').find('[data-status="saving"]').show();
-  const hideSavingMessage = jQuery => jQuery.parents('.question-form').find('[data-status="saving"]').hide();
-  const showLoadingOverlay = jQuery => jQuery.find('.overlay').show();
-  const hideLoadingOverlay = jQuery => jQuery.find('.overlay').hide();
+  const showSavingMessage = (jQuery) => jQuery.parents('.question-form').find('[data-status="saving"]').show();
+  const hideSavingMessage = (jQuery) => jQuery.parents('.question-form').find('[data-status="saving"]').hide();
+  const showLoadingOverlay = (jQuery) => jQuery.find('.overlay').show();
+  const hideLoadingOverlay = (jQuery) => jQuery.find('.overlay').hide();
   const toolbar = 'bold italic | bullist numlist | link | table';
-
 
   Tinymce.init();
   $('#is_test').click((e) => {
@@ -68,12 +67,12 @@ $(() => {
     toggleCheckboxes(selections);
   };
 
-  const grantNumberInfo = grantId => `Grant number: ${grantId}`;
+  const grantNumberInfo = (grantId) => `Grant number: ${grantId}`;
 
   const setInitialGrantProjectName = () => {
     const grantId = grantIdHidden.val();
     const researchProjects = window.researchProjects;
-    const researchProject = researchProjects.find(datum => datum.grant_id === grantId);
+    const researchProject = researchProjects.find((datum) => datum.grant_id === grantId);
     if (researchProject) {
       grantIdField.val(researchProject.description);
     }

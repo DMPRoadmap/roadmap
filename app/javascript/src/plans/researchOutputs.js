@@ -1,4 +1,3 @@
-
 $(() => {
   $('#research-outputs').sortable({
     items: '.research-output-element:not(.inactive)',
