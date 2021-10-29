@@ -57,23 +57,6 @@ class ApplicationController < ActionController::Base
     nil
   end
 
-  # Attempt to determine the Org (or RegistryOrg) based on the email's domain
-  def org_from_email_domain(email_domain:)
-    ignored_email_domains = %w[aol.com duck.com gmail.com hotmail.com icloud.com outlook.com
-                               pm.me qq.com yahoo.com]
-    return nil unless email_domain.present?
-    return nil if ignored_email_domains.include?(email_domain.downcase)
-
-    registry_org = RegistryOrg.by_domain(email_domain).first
-    return registry_org.org if registry_org.present? && registry_org.org.present?
-
-    hash = User.where("email LIKE ?", "%@#{email_domain.downcase}").group(:org_id).count
-    return nil unless hash.present?
-
-    selected = hash.select { |k, v| v == hash.values.sort { |a, b| b <=> a }.first }
-    Org.find_by(id: selected.keys.first)
-  end
-
   private
 
   # Shortcut to the MessageEncryptor

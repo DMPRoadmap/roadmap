@@ -2,41 +2,17 @@
 
 class Users::InvitationsController < Devise::InvitationsController
 
-  include OrgSelectable
+  include Dmptool::Authenticatable
 
   before_action :configure_invite_params
-
-  before_action :prepare_params, only: [:update]
-
-  # POST /users/invitation/resend
-  def resend
-    user = User.find_by(id: params[:id])
-    if user.present? && !user.accepted_or_not_invited?
-      # Resend the invitation
-      user.deliver_invitation
-      flash[:notice] = _("The invitation email has been re-sent to %{email}.") % {
-        email: user.email
-      }
-    else
-      flash[:alert] = _("Unable to resend your invitation.")
-    end
-    redirect_to root_path
-  end
 
   protected
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_invite_params
     devise_parameter_sanitizer.permit(
-      :accept_invitation, keys: [:accept_terms, :firstname, :language_id, :org_id, :surname,
-                                 org_attributes: [:name, :abbreviation, :contact_email,
-                                 :contact_name, :links, :target_url, :is_other, :managed,
-                                 :org_type]]
+      :accept_invitation, keys: authentication_params(type: :invitation)
     )
-  end
-
-  def resend_params
-    params.require(:user).permit(:email)
   end
 
   # Override the default Devise Invitable controller to attach the User's Org
@@ -68,24 +44,6 @@ class Users::InvitationsController < Devise::InvitationsController
     # rubocop:disable Layout/LineLength
     flash[:notice] = _("You are already signed in as another user. Please log out to activate your invitation.")
     # rubocop:enable Layout/LineLength
-  end
-
-  # Set the Language to the one the user has selected
-  def prepare_params
-    unless I18n.locale.nil? || update_resource_params[:language_id].present?
-      params[:user][:language_id] = Language.id_for(I18n.locale)
-    end
-
-pp update_resource_params
-
-    # Capitalize the first and last names
-    params[:user][:firstname] = update_resource_params[:firstname]&.humanize
-    params[:user][:surname] = update_resource_params[:surname]&.humanize
-
-    # Convert the selected/specified Org name into attributes
-    org_params = autocomplete_to_controller_params
-    params[:user][:org_id] = org_params[:org_id] if org_params[:org_id].present?
-    params[:user][:org_attributes] = org_params[:org_attributes] unless org_params[:org_id].present?
   end
 
 end

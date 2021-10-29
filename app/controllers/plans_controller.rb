@@ -71,6 +71,12 @@ class PlansController < ApplicationController
       @plan.org = process_org!(user: current_user)
       @plan.funder = process_org!(user: current_user, namespace: "funder")
 
+p "RESEARCh ORG:"
+p @plan.org&.inspect
+p "FUNDER:"
+p @plan.funder&.inspect
+
+
       if @plan.save
         # pre-select org's guidance and the default org's guidance
         ids = (Org.default_orgs.pluck(:id) << @plan.org_id).flatten.uniq

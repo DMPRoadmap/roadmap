@@ -32,13 +32,35 @@ module Dmptool
         case type.to_sym
         when :sign_up
           [:accept_terms, :email, :firstname, :language_id, :org_id, :password, :surname,
-           org_attributes: %i[abbreviation contact_email contact_name is_other links
-                              managed name org_type target_url]]
+           org_attributes: [:abbreviation, :contact_email, :contact_name, :is_other,
+                            :managed, :name, :org_type, :target_url, links: [org: []]]]
+        when :invitation
+          [:accept_terms, :email, :firstname, :invitation_token, :language_id, :org_id,
+           :password, :surname,
+           org_attributes: [:abbreviation, :contact_email, :contact_name, :is_other,
+                            :managed, :name, :org_type, :target_url, links: [org: []]]]
         when :sign_in
           %i[email org_id password]
         else
           %i[email]
         end
+      end
+
+      # Attempt to determine the Org (or RegistryOrg) based on the email's domain
+      def org_from_email_domain(email_domain:)
+        ignored_email_domains = %w[aol.com duck.com gmail.com hotmail.com icloud.com
+                                   outlook.com pm.me qq.com yahoo.com]
+        return nil unless email_domain.present?
+        return nil if ignored_email_domains.include?(email_domain.downcase)
+
+        registry_org = RegistryOrg.by_domain(email_domain).first
+        return registry_org.org if registry_org.present? && registry_org.org.present?
+
+        hash = User.where("email LIKE ?", "%@#{email_domain.downcase}").group(:org_id).count
+        return nil unless hash.present?
+
+        selected = hash.select { |k, v| v == hash.values.sort { |a, b| b <=> a }.first }
+        Org.find_by(id: selected.keys.first)
       end
 
       # =============
@@ -52,11 +74,13 @@ module Dmptool
 
         # If the User has an invitation then clear their Org. In order to invite the
         # User we needed a default Org so the Inviter's Org was used
-        self.resource.org = nil if resource.valid_invitation?
+        resource.org = nil if resource.valid_invitation?
 
-        # If the User's Org is not defined, try to determine it based on their email
-        unless self.resource.org_id.present?
-          self.resource.org = org_from_email_domain(
+        # If the User's Org is not defined or they are a super admin (because super
+        # admins have the ability to alter their affiliation), try to determine the
+        # Org based on their email domain
+        if resource.org_id.nil? || resource.can_super_admin?
+          resource.org = org_from_email_domain(
             email_domain: resource.email&.split("@")&.last
           )
         end

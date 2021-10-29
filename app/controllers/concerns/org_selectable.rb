@@ -41,9 +41,10 @@ module OrgSelectable
 
     # Converts the incoming org_autocomplete params into Org params
     def autocomplete_to_controller_params
-      not_in_list = org_selectable_params["not_in_list"] == "1"
-      name = org_selectable_params["user_entered_name"]&.humanize if not_in_list
-      name = org_selectable_params["name"] unless name.present?
+      o_params = org_selectable_params.fetch(:org_autocomplete, {})
+      not_in_list = o_params["not_in_list"] == "1"
+      name = o_params["user_entered_name"]&.humanize if not_in_list
+      name = o_params["name"] unless name.present?
       return {} unless name.present?
 
       # If it matches an existing Org record, just return the org_id
@@ -104,7 +105,8 @@ module OrgSelectable
       end
 
       # We only want to create it if the user provided a custom name
-      return nil unless org_selectable_params[:"#{user_provided}"].present?
+      o_parms = org_selectable_params.fetch(:org_autocomplete, {})
+      return nil unless o_params[:"#{user_provided}"].present?
 
       # otherwise initialize a new org
       create_org!(name: name)
@@ -122,9 +124,10 @@ module OrgSelectable
 
     # Add namespace to the incoming name
     def contextualized_name(namespace: "")
+      o_params = org_selectable_params.fetch(:org_autocomplete, {})
       user_provided = "#{[namespace, "user_entered_name"].compact.join("_")}"
-      name = org_selectable_params[:"#{user_provided}"]
-      name = org_selectable_params[:"#{[namespace, "name"].compact.join("_")}"] unless name.present?
+      name = o_params[:"#{user_provided}"]
+      name = o_params[:"#{[namespace, "name"].compact.join("_")}"] unless name.present?
       name
     end
 

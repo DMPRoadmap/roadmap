@@ -1,21 +1,35 @@
-<div class="row">
-  <div class="col-md-12">
-    <h1><%= _("Sign up to view the DMP") %></h1>
-    <p><%= _("You will need to create an account in order to accept your invitation to view the data management plan (DMP).") %></p>
-  </div>
-</div>
-
+<%#
+Devise Invitation acceptance form arrived at after the user visits the site directly or
+clicks the invitation link their email
+%>
 <%
-url = invitation_path(resource_name)
-url = user_shibboleth_omniauth_authorize_path if auth_shibbolized_org?
+  method = @shibbolized ? :post : :put
+  url = @shibbolized ? user_shibboleth_omniauth_authorize_path : invitation_path(resource_name)
 %>
 
-<div class="col-md-6">
-  <%= form_for resource, as: resource_name, url: url, html: {method: :put, id: "invitation_create_account_form"} do |f| %>
-    <%= devise_error_messages! %>
-    <%= f.hidden_field :invitation_token %>
+<% content_for :authentication do %>
 
+  <%= form_with model: resource, url: url, method: method, local: true do |form| %>
+    <h2><%= _("Sign up") %></h2>
 
-    <%= render partial: "users/registrations/form", locals: { form: f, url: url } %>
+    <%= form.hidden_field :invitation_token %>
+
+    <%= render partial: "users/registrations/form",
+               locals: { form: form, shibbolized: @shibbolized } %>
   <% end %>
-</div>
+  <p>
+    <%= sanitize(_("This will create a new account. If you already have an account, %{go_back_link} to try a different email address, or %{contact_us_link}.") % {
+      go_back_link: link_to(_("go back"), root_path),
+      contact_us_link: link_to(_("contact us"), contact_us_path)
+    }) %>
+  </p>
+
+  <span class="form-group">
+    <%= render partial: "users/shared/links", locals: { show_contact_us: false } %>
+  </span>
+
+<% end %>
+
+<% content_for :home do %>
+  <%= render partial: "layouts/home" %>
+<% end %>
