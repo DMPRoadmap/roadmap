@@ -11,7 +11,9 @@
             "description": "Volume des données concernées en octets",
             "label@fr_FR": "Taille des données",
             "label@en_GB": "Data size",
-            "example@fr_FR": "Taille totale dans cet espace en To"
+            "example@fr_FR": "Taille totale dans cet espace en To",
+            "form_label@fr_FR": "Taille des données",
+            "form_label@en_GB": "Data size"
         },
         "volumeUnit": {
             "type": "string",
@@ -20,21 +22,24 @@
             "label@en_GB": "Unit",
             "const@fr_FR": "To",
             "const@en_GB": "TB",
-            "overridable": true,
-            "default@fr_FR": "To",
-            "default@en_GB": "TB"
+            "form_label@fr_FR": "Unité",
+            "form_label@en_GB": "Unit"
         },
         "numberOfFiles": {
             "type": "number",
             "description": "Nombre de fichiers",
             "label@fr_FR": "Nombre de fichiers",
-            "label@en_GB": "Number of files"
+            "label@en_GB": "Number of files",
+            "form_label@fr_FR": "Nombre de fichiers",
+            "form_label@en_GB": "Number of files"
         },
         "numberOfDirectories": {
             "type": "number",
             "description": "Nombre de répertoires",
             "label@fr_FR": "Nombre de répertoires",
-            "label@en_GB": "Number of directories"
+            "label@en_GB": "Number of directories",
+            "form_label@fr_FR": "Nombre de répertoires",
+            "form_label@en_GB": "Number of directories"
         }
     },
     "required": [

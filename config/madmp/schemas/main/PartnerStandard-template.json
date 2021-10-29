@@ -10,13 +10,17 @@
             "type": "string",
             "description": "Nom de l'organisation ou structure partenaire",
             "label@fr_FR": "Nom",
-            "label@en_GB": "Name"
+            "label@en_GB": "Name",
+            "form_label@fr_FR": "Nom du partenaire",
+            "form_label@en_GB": "Partner name"
         },
         "orgId": {
             "type": "string",
             "description": "Identifiant de l'organisation ou structure partenaire",
             "label@fr_FR": "Identifiant",
-            "label@en_GB": "Identifier"
+            "label@en_GB": "Identifier",
+            "form_label@fr_FR": "Identifiant du partenaire",
+            "form_label@en_GB": "Partner identifier"
         },
         "idType": {
             "type": "string",
@@ -25,7 +29,9 @@
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
             "registry_name": "AgentIdSystem",
-            "overridable": true
+            "overridable": true,
+            "form_label@fr_FR": "Type d'identifiant du partenaire",
+            "form_label@en_GB": "Partner identifier type"
         },
         "rnsr": {
             "type": "string",
@@ -33,7 +39,9 @@
             "label@fr_FR": "Identifiant RNSR",
             "label@en_GB": "RNSR identifier",
             "tooltip@fr_FR": "Le RNSR est le Répertoire national des structures de recherche : https://appliweb.dgri.education.fr/rnsr/",
-            "tooltip@en_GB": "The RNSR is the French national directory of research structures: https://appliweb.dgri.education.fr/rnsr/"
+            "tooltip@en_GB": "The RNSR is the French national directory of research structures: https://appliweb.dgri.education.fr/rnsr/",
+            "form_label@fr_FR": "Identifiant RNSR du partenaire",
+            "form_label@en_GB": "Partner RNSR identifier"
         }
     },
     "required": [

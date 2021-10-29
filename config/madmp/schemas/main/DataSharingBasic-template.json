@@ -11,7 +11,9 @@
             "description": "Aspects relatifs au partage des données",
             "inputType": "textarea",
             "label@fr_FR": "Modalités de partage",
-            "label@en_GB": "Modalities of sharing"
+            "label@en_GB": "Modalities of sharing",
+            "form_label@fr_FR": "Décrire les modalités de partage",
+            "form_label@en_GB": "Describe the modalities of sharing"
         },
         "host": {
             "type": "object",
@@ -30,7 +32,9 @@
             "label@en_GB": "Data repository or other hostings ",
             "inputType": "dropdown",
             "registry_name": "Repositories",
-            "overridable": true
+            "overridable": true,
+            "form_label@fr_FR": "Entrepôts de données ou autres hébergements",
+            "form_label@en_GB": "Data repository or other hostings "
         }
     },
     "required": [

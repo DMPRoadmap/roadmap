@@ -13,23 +13,66 @@
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
             "example@fr_FR": "Des demandes d'heures de calcul et de stockage sont soumises auprès de centres de calcul gérés par le GENCI ",
-            "example@en_GB": "Requests for computing hours and storage are submitted to computing centers managed by GENCI"
+            "example@en_GB": "Requests for computing hours and storage are submitted to computing centers managed by GENCI",
+            "form_label@fr_FR": "Description",
+            "form_label@en_GB": "Description"
         },
         "facility": {
-            "type": "object",
-            "class": "TechnicalResourceStandard",
-            "properties": {
-                "dbid": {
-                    "type": "number"
-                }
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "TechnicalResourceStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "TechnicalResourceGenci",
+                "required": [
+                    "dbid"
+                ]
             },
-            "template_name": "TechnicalResourceGenci",
-            "required": [
-                "dbid"
-            ],
             "description": "Ressource/équipement utilisé pour le stockage et sauvegarde des données",
             "label@fr_FR": "Identification de la ressource",
-            "label@en_GB": "Resource identification"
+            "label@en_GB": "Resource identification",
+            "form_label@fr_FR": "Identification de la ressource",
+            "form_label@en_GB": "Resource identification"
+        },
+        "backupPolicy": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "BackupPolicyStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "BackupPolicyGenci",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Informations relatives à la politique de sauvegarde",
+            "label@fr_FR": "Politique de sauvegarde",
+            "label@en_GB": "Backup policy",
+            "inputType": "dropdown",
+            "registry_name": "BackupPolicyGenci",
+            "form_label@fr_FR": "Politique de sauvegarde",
+            "form_label@en_GB": "Backup policy"
+        },
+        "securityMeasures": {
+            "type": "string",
+            "description": "Description des mesures prises pour assurer la sécurité des données",
+            "inputType": "textarea",
+            "label@fr_FR": "Mesures de sécurité",
+            "label@en_GB": "Security measures",
+            "example@fr_FR": "Les données étant précieuses car impossibles ou coûteuses à reproduire, une copie des données sur une autre cassette est requise.",
+            "example@en_GB": "Since the data is valuable because it is impossible or expensive to reproduce, a copy of the data on another tape is required",
+            "form_label@fr_FR": "Mesures de sécurité",
+            "form_label@en_GB": "Security measures"
         },
         "genciServiceRequest": {
             "type": "array",
@@ -50,38 +93,17 @@
             "minItems": 1,
             "description": "Informations requises pour une demande de ressources de stockage au Genci (une par type de service)",
             "label@fr_FR": "Demande de ressources de stockage au GENCI",
-            "label@en_GB": "Request for storage resources from GENCI"
-        },
-        "securityMeasures": {
-            "type": "string",
-            "description": "Description des mesures prises pour assurer la sécurité des données",
-            "inputType": "textarea",
-            "label@fr_FR": "Mesures de sécurité",
-            "label@en_GB": "Security measures",
-            "example@fr_FR": "Les données étant précieuses car impossibles ou coûteuses à reproduire, une copie des données sur une autre cassette est requise.",
-            "example@en_GB": "Since the data is valuable because it is impossible or expensive to reproduce, a copy of the data on another tape is required"
-        },
-        "backupPolicy": {
-            "type": "object",
-            "class": "BackupPolicyStandard",
-            "properties": {
-                "dbid": {
-                    "type": "number"
-                }
-            },
-            "template_name": "BackupPolicyGenci",
-            "required": [
-                "dbid"
-            ],
-            "description": "Informations relatives à la politique de sauvegarde",
-            "label@fr_FR": "Politique de sauvegarde",
-            "label@en_GB": "Backup policy"
+            "label@en_GB": "Request for storage resources from GENCI",
+            "form_label@fr_FR": "Demande de ressources de stockage au GENCI",
+            "form_label@en_GB": "Request for storage resources from GENCI"
         },
         "estimatedVolume": {
             "type": "number",
             "description": "Volume total des données stockées dans les différents centres gérés par le Genci",
             "label@fr_FR": "Volume total des données (calcul automatique)",
-            "label@en_GB": "Total data volume (Automatic  calculation)"
+            "label@en_GB": "Total data volume (Automatic  calculation)",
+            "form_label@fr_FR": "Volume total des données (calcul automatique)",
+            "form_label@en_GB": "Total data volume (Automatic  calculation)"
         },
         "volumeUnit": {
             "type": "string",
@@ -89,7 +111,9 @@
             "label@fr_FR": "Unité",
             "label@en_GB": "Unit",
             "const@fr_FR": "To",
-            "const@en_GB": "TB"
+            "const@en_GB": "TB",
+            "form_label@fr_FR": "Unité",
+            "form_label@en_GB": "Unit"
         },
         "cost": {
             "type": "array",
@@ -110,7 +134,9 @@
             },
             "description": "Coût total des données stockées dans les différents centres gérés par le Genci",
             "label@fr_FR": "Coût total de stockage (calcul automatique)",
-            "label@en_GB": "Total cost of storage (automatic calculation)"
+            "label@en_GB": "Total cost of storage (automatic calculation)",
+            "form_label@fr_FR": "Coût total de stockage (calcul automatique)",
+            "form_label@en_GB": "Total cost of storage (Automatic calculation)"
         },
         "contributor": {
             "type": "array",
@@ -133,7 +159,9 @@
             "label@fr_FR": "Personne en charge de la gestion du stockage des données",
             "label@en_GB": "Person in charge of  data storage management",
             "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
-            "tooltip@en_GB": "Person in charge can be a person, a team, a department"
+            "tooltip@en_GB": "Person in charge can be a person, a team, a department",
+            "form_label@fr_FR": "Personne en charge de la gestion du stockage des données",
+            "form_label@en_GB": "Person in charge of  data storage management"
         }
     },
     "required": [

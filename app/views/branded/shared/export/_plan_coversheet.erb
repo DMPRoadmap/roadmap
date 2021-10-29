@@ -3,10 +3,19 @@
   contributors = plan_fragment.contributors
   costs = Fragment::Cost.where(dmp_id: plan_fragment.id)
   locale = @plan.template.locale
+  template = @plan.template 
+  template_title = template.title
+  template_title += " - #{d_('dmpopidor', 'Customized')}" if template.customization_of.present?
 %>
 <hr />
 <h1><%= @plan.title %></h1>
-<em><%= _("A Data Management Plan created using %{application_name}") % { application_name: ApplicationService.application_name } %></em>
+<em>
+  <%= d_("dmpopidor", "A Data Management Plan created using %{application_name}, based on the \"%{template_title}\" template provided by %{org_name}.") % {
+      application_name:  ApplicationService.application_name,
+      template_title: template_title,
+      org_name: template.org.name
+    } %>
+</em>
 <br/>
 <div class="cover-page">
   <h2><%= d_("dmpopidor", "Plan Details") %></h2>

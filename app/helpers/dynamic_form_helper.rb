@@ -293,12 +293,14 @@ module DynamicFormHelper
             next
           end
 
-          formated_data[key] = data_reformater(
-            sub_schema.schema,
-            RegistryValue.find(data[key].to_i).data.merge(
-              "id": data[key].to_i
-            )
-          ) if data[key].present?
+          formated_data[key] = if data[key].present?
+                                 data_reformater(
+                                   sub_schema.schema,
+                                   RegistryValue.find(data[key].to_i).data.merge(
+                                     "id": data[key].to_i
+                                   )
+                                 )
+                               end
         else
           formated_data[key] = data_reformater(
             sub_schema.schema,
@@ -308,9 +310,19 @@ module DynamicFormHelper
       else # type = string
         # if the field is overridable, check if there's a custom value
         if prop["overridable"].present? && data["#{key}_custom"].present?
-          formated_data[key] = data["#{key}_custom"].eql?("__DELETED__") ? "" : ActionController::Base.helpers.sanitize(data["#{key}_custom"])
+          formated_data[key] = if data["#{key}_custom"].eql?("__DELETED__")
+                                 ""
+                               else
+                                 ActionController::Base.helpers.sanitize(
+                                   data["#{key}_custom"],
+                                   { scrubber: DynamicFormScrubber.new }
+                                 )
+                               end
         else
-          formated_data[key] = ActionController::Base.helpers.sanitize(data[key])
+          formated_data[key] = ActionController::Base.helpers.sanitize(
+            data[key],
+            { scrubber: DynamicFormScrubber.new }
+          )
         end
       end
 

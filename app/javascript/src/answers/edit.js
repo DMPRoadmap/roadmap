@@ -31,7 +31,7 @@ const showOrHideQuestions = (data) => {
     getQuestionDiv(questionid).slideDown();
   });
 };
-const toolbar = 'bold italic | bullist numlist | link | table';
+const toolbar = 'bold italic underline | fontsizeselect forecolor | bullist numlist | link | table';
 /*
   * A map of debounced functions, one for each input, textarea or select change at any
   * form with class form-answer. The key represents a question id and the value holds

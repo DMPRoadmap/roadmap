@@ -13,23 +13,62 @@
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
             "example@fr_FR": "Des demandes d'espaces de calcul, analyses sont soumises à la plateforme GenOuest ",
-            "example@en_GB": "Requests for computing spaces are submitted to GenOuest platform"
+            "example@en_GB": "Requests for computing spaces are submitted to GenOuest platform",
+            "form_label@fr_FR": "Description",
+            "form_label@en_GB": "Description"
         },
         "facility": {
-            "type": "object",
-            "class": "TechnicalResourceStandard",
-            "properties": {
-                "dbid": {
-                    "type": "number"
-                }
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "TechnicalResourceStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "TechnicalResourceGenOuest",
+                "required": [
+                    "dbid"
+                ]
             },
-            "template_name": "TechnicalResourceGenOuest",
-            "required": [
-                "dbid"
-            ],
             "description": "Ressource/équipement utilisé pour le stockage et sauvegarde des données",
             "label@fr_FR": "Identification de la ressource",
-            "label@en_GB": "Resource identification"
+            "label@en_GB": "Resource identification",
+            "form_label@fr_FR": "Identification de la ressource",
+            "form_label@en_GB": "Resource identification"
+        },
+        "backupPolicy": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "BackupPolicyStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "BackupPolicyGenOuest",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Informations relatives à la politique de sauvegarde",
+            "label@fr_FR": "Politique de sauvegarde",
+            "label@en_GB": "Backup policy",
+            "form_label@fr_FR": "Politique de sauvegarde",
+            "form_label@en_GB": "Backup policy"
+        },
+        "securityMeasures": {
+            "type": "string",
+            "description": "Description des mesures prises pour assurer la sécurité des données",
+            "inputType": "textarea",
+            "label@fr_FR": "Mesures de sécurité",
+            "label@en_GB": "Security measures",
+            "form_label@fr_FR": "Mesures de sécurité",
+            "form_label@en_GB": "Security measures"
         },
         "genOuestServiceRequest": {
             "type": "array",
@@ -50,36 +89,17 @@
             "minItems": 1,
             "description": "Informations requises pour une demande de ressources de stockage au Genci (une par type de service)",
             "label@fr_FR": "Demande de ressources à GenOuest",
-            "label@en_GB": "Request for GenOuest resources"
-        },
-        "securityMeasures": {
-            "type": "string",
-            "description": "Description des mesures prises pour assurer la sécurité des données",
-            "inputType": "textarea",
-            "label@fr_FR": "Mesures de sécurité",
-            "label@en_GB": "Security measures"
-        },
-        "backupPolicy": {
-            "type": "object",
-            "class": "BackupPolicyStandard",
-            "properties": {
-                "dbid": {
-                    "type": "number"
-                }
-            },
-            "template_name": "BackupPolicyGenOuest",
-            "required": [
-                "dbid"
-            ],
-            "description": "Informations relatives à la politique de sauvegarde",
-            "label@fr_FR": "Politique de sauvegarde",
-            "label@en_GB": "Backup policy"
+            "label@en_GB": "Request for GenOuest resources",
+            "form_label@fr_FR": "Demande de ressources à GenOuest",
+            "form_label@en_GB": "Request for GenOuest resources"
         },
         "estimatedVolume": {
             "type": "number",
             "description": "Volume total des données stockées dans les différents centres gérés par le Genci",
             "label@fr_FR": "Volume estimé des données",
-            "label@en_GB": "Estimated data volume "
+            "label@en_GB": "Estimated data volume ",
+            "form_label@fr_FR": "Volume estimé des données",
+            "form_label@en_GB": "Estimated data volume "
         },
         "volumeUnit": {
             "type": "string",
@@ -88,7 +108,9 @@
             "label@fr_FR": "Unité",
             "label@en_GB": "Unit",
             "registry_name": "VolumeUnit",
-            "overridable": true
+            "overridable": true,
+            "form_label@fr_FR": "Unité",
+            "form_label@en_GB": "Unit"
         },
         "cost": {
             "type": "array",
@@ -109,7 +131,9 @@
             },
             "description": "Coût total des données stockées dans les différents centres gérés par les services GenOuest",
             "label@fr_FR": "Coût total de stockage",
-            "label@en_GB": "Total cost of storage"
+            "label@en_GB": "Total cost of storage",
+            "form_label@fr_FR": "Coût total de stockage",
+            "form_label@en_GB": "Total cost of storage"
         },
         "contributor": {
             "type": "array",
@@ -132,7 +156,9 @@
             "label@fr_FR": "Personne en charge de la gestion du stockage des données",
             "label@en_GB": "Person in charge of data storage management",
             "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
-            "tooltip@en_GB": "Person in charge can be a person, a team, a department"
+            "tooltip@en_GB": "Person in charge can be a person, a team, a department",
+            "form_label@fr_FR": "Personne en charge de la gestion du stockage des données",
+            "form_label@en_GB": "Person in charge of data storage management"
         }
     },
     "required": [

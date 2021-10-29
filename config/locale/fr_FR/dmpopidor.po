@@ -192,6 +192,9 @@ msgstr "Vous n'êtes pas liés à un organisme, nous ne pouvons vous proposer un
 msgid "Customized by "
 msgstr "Personnalisé par "
 
+msgid "Customized"
+msgstr "Personnalisé"
+
 msgid "Copy link"
 msgstr "Copier le lien"
 
@@ -597,6 +600,9 @@ msgstr "(version: %{template_version}, publiée: %{published_date})"
 
 msgid "Cost type (Title)"
 msgstr "Type de coût (Titre)"
+
+msgid "A Data Management Plan created using %{application_name}, based on the \"%{template_title}\" template provided by %{org_name}."
+msgstr "Plan de gestion de données créé à l'aide de %{application_name}, basé sur le modèle \"%{template_title}\" fourni par %{org_name}."
 
 ################
 ### REGISTRIES

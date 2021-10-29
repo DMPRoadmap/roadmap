@@ -195,6 +195,9 @@ msgstr ""
 msgid "Customized by "
 msgstr ""
 
+msgid "Customized"
+msgstr ""
+
 msgid "Copy link"
 msgstr ""
 
@@ -599,6 +602,9 @@ msgstr ""
 
 msgid "Cost type (Title)"
 msgstr ""
+
+msgid "A Data Management Plan created using %{application_name}, based on the \"%{template_title}\" template provided by %{org_name}."
+msgstr "A Data Management Plan created using %{application_name}, based on the \"%{template_title}\" template provided by %{org_name}."
 
 ################
 ### REGISTRIES

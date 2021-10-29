@@ -11,13 +11,17 @@
             "description": "Description de la politique de sauvegarde appliquée",
             "inputType": "textarea",
             "label@fr_FR": "Description",
-            "label@en_GB": "Description"
+            "label@en_GB": "Description",
+            "form_label@fr_FR": "Décrire la politique de sauvegarde",
+            "form_label@en_GB": "Describe the backup policy"
         },
         "backupFrequency": {
             "type": "string",
             "description": "Fréquence de sauvegarde",
             "label@fr_FR": "Fréquence des sauvegardes",
-            "label@en_GB": "Backup frequency"
+            "label@en_GB": "Backup frequency",
+            "form_label@fr_FR": "Fréquence des sauvegardes",
+            "form_label@en_GB": "Backup frequency"
         },
         "backupType": {
             "type": "string",
@@ -26,7 +30,9 @@
             "label@fr_FR": "Type de sauvegarde",
             "label@en_GB": "Backup type",
             "registry_name": "BackupType",
-            "overridable": true
+            "overridable": true,
+            "form_label@fr_FR": "Type de sauvegarde",
+            "form_label@en_GB": "Backup type"
         },
         "storageType": {
             "type": "array",
@@ -38,11 +44,15 @@
             "label@fr_FR": "Supports de stockage",
             "label@en_GB": "Storage types",
             "registry_name": "StorageType",
-            "overridable": true
+            "overridable": true,
+            "form_label@fr_FR": "Supports de stockage",
+            "form_label@en_GB": "Storage types"
         }
     },
     "required": [
         "description"
     ],
-    "to_string": []
+    "to_string": [
+        "$.description"
+    ]
 }

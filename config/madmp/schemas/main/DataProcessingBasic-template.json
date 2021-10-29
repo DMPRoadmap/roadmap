@@ -11,7 +11,9 @@
             "description": "Description des méthodes/protocoles de traitement des données",
             "inputType": "textarea",
             "label@fr_FR": "Description",
-            "label@en_GB": "Description"
+            "label@en_GB": "Description",
+            "form_label@fr_FR": "Décrire les méthodes ou protocoles de traitement des données",
+            "form_label@en_GB": "Describe data processing methods or protocols"
         }
     },
     "required": [

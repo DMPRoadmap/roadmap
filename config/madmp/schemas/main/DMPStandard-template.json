@@ -24,7 +24,9 @@
             ],
             "description": "Ensemble des métadonnées concernant le plan de gestion de données",
             "label@fr_FR": "Métadonnées du plan",
-            "label@en_GB": "Plan Metadata"
+            "label@en_GB": "Plan Metadata",
+            "form_label@fr_FR": "Métadonnées du plan",
+            "form_label@en_GB": "Plan Metadata"
         },
         "project": {
             "type": "object",
@@ -40,7 +42,9 @@
             ],
             "description": "Aspects relatifs au projet de recherche ou activité de recherche",
             "label@fr_FR": "Renseignements sur le projet",
-            "label@en_GB": "Project Details"
+            "label@en_GB": "Project Details",
+            "form_label@fr_FR": "Renseignements sur le projet",
+            "form_label@en_GB": "Project Details"
         },
         "researchOutput": {
             "type": "array",

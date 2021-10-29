@@ -10,7 +10,7 @@ $(() => {
     $('input.select2-search__field').prop('placeholder', 'Select a value or enter a new one.');
   });
   
-  $('#modal-window').modal();
+  $('#modal-window').modal({backdrop: 'static'});
   tinymce.init({
     selector: '.tinymce',
     statusbar: true,

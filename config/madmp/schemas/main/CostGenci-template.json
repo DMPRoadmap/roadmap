@@ -13,7 +13,9 @@
             "label@en_GB": "Cost type",
             "const@fr_FR": "Stockage",
             "const@en_GB": "Storage",
-            "overridable": true
+            "overridable": true,
+            "form_label@fr_FR": "Type de coût",
+            "form_label@en_GB": "Cost type"
         },
         "amount": {
             "type": "number",
@@ -21,7 +23,9 @@
             "label@fr_FR": "Montant",
             "label@en_GB": "Amount",
             "tooltip@fr_FR": "Saisir le montant",
-            "tooltip@en_GB": "Enter the amount"
+            "tooltip@en_GB": "Enter the amount",
+            "form_label@fr_FR": "Montant",
+            "form_label@en_GB": "Amount"
         },
         "currency": {
             "type": "string",
@@ -29,7 +33,9 @@
             "label@fr_FR": "Devise",
             "label@en_GB": "Currency",
             "const@fr_FR": "EUR",
-            "const@en_GB": "EUR"
+            "const@en_GB": "EUR",
+            "form_label@fr_FR": "Devise",
+            "form_label@en_GB": "Currency"
         },
         "title": {
             "type": "string",
@@ -37,7 +43,9 @@
             "label@fr_FR": "Titre",
             "label@en_GB": "Title",
             "const@fr_FR": "Estimation du coût de stockage",
-            "const@en_GB": "Estimated cost of storage"
+            "const@en_GB": "Estimated cost of storage",
+            "form_label@fr_FR": "Titre",
+            "form_label@en_GB": "Title"
         }
     },
     "required": [

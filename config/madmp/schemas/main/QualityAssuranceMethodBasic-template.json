@@ -13,7 +13,9 @@
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
             "tooltip@fr_FR": "Par exemple : répétition des expériences, démarche de relecture par des tiers, essais croisés",
-            "tooltip@en_GB": "For example: repetition of experiments, proofreading by third parties, cross-testing"
+            "tooltip@en_GB": "For example: repetition of experiments, proofreading by third parties, cross-testing",
+            "form_label@fr_FR": "Décrire les procédures de contôle qualité mises en place",
+            "form_label@en_GB": "Describe the quality control procedures applied"
         }
     },
     "required": [

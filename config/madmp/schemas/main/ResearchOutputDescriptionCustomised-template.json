@@ -10,7 +10,9 @@
             "type": "string",
             "description": "Titre du produit de recherche généré au cours du projet",
             "label@fr_FR": "Nom",
-            "label@en_GB": "Name"
+            "label@en_GB": "Name",
+            "form_label@fr_FR": "Nom  complet",
+            "form_label@en_GB": "Full name"
         },
         "description": {
             "type": "string",
@@ -19,7 +21,9 @@
             "label@fr_FR": "Description",
             "label@en_GB": "Description",
             "tooltip@fr_FR": "Résumé décrivant l'objet et la portée du jeu de données",
-            "tooltip@en_GB": "Summary describing the purpose and scope of the dataset"
+            "tooltip@en_GB": "Summary describing the purpose and scope of the dataset",
+            "form_label@fr_FR": "Décrire succinctement le produit de recherche",
+            "form_label@en_GB": "Briefly describe the research product"
         },
         "type": {
             "type": "string",
@@ -29,8 +33,10 @@
             "label@en_GB": "Type",
             "registry_name": "ResearchDataType",
             "overridable": true,
-            "tooltip@fr_FR": "Les types de produits de recherche sont issus du schéma DataCite 4.3.",
-            "tooltip@en_GB": "The types of research outputs are based on resourceTypeGeneral property from DataCite Metadata Schema 4.3. "
+            "tooltip@fr_FR": "Les types de produits de recherche sont issus du schéma DataCite 4.4.",
+            "tooltip@en_GB": "The types of research outputs are based on resourceTypeGeneral property from DataCite Metadata Schema 4.4. ",
+            "form_label@fr_FR": "Type de produit de recherche",
+            "form_label@en_GB": "Research product type"
         },
         "workPackage": {
             "type": "string",
@@ -40,7 +46,9 @@
             "tooltip@fr_FR": "Nom ou numéro du workpackage",
             "tooltip@en_GB": "Name or number of the workpackage",
             "example@fr_FR": "WP1, WP2",
-            "example@en_GB": "WP1, WP2"
+            "example@en_GB": "WP1, WP2",
+            "form_label@fr_FR": "Indiquer, si besoin, le workpackage auquel est rattaché le produit de recherche",
+            "form_label@en_GB": "Indicate, if necessary, the workpackage to which the research product is attached "
         },
         "controlledKeyword": {
             "type": "array",
@@ -65,18 +73,22 @@
             "inputType": "dropdown",
             "registry_name": "ThesaurusInrae",
             "tooltip@fr_FR": "Mots-clés décrivant les aspects importants du jeu de données",
-            "tooltip@en_GB": "Key words describing important aspects of the dataset"
+            "tooltip@en_GB": "Key words describing important aspects of the dataset",
+            "form_label@fr_FR": "Thésaurus INRAE",
+            "form_label@en_GB": "Thesaurus INRAE"
         },
-        "categories": {
+        "subject": {
             "type": "array",
             "items": {
                 "type": "string"
             },
-            "description": "Valeurs contrôlées issues d'Inrae https://ist.blogs.inrae.fr/datainrae-guide/metadonnees-controlees-par-une-liste-de-valeurs/#Data_Origin",
+            "description": "Subject : construit à partir de la classification de l’OCDE pour DataInrae https://ist.blogs.inrae.fr/datainrae-guide/metadonnees-controlees-par-une-liste-de-valeurs/#Subject_construit_a_partir_de_la_classification_de_lOCDE",
             "inputType": "dropdown",
-            "label@fr_FR": "Catégories",
-            "label@en_GB": "Subjects",
-            "registry_name": "Subjects"
+            "label@fr_FR": "Subject",
+            "label@en_GB": "Subject",
+            "registry_name": "Subjects",
+            "form_label@fr_FR": "Subject",
+            "form_label@en_GB": "Subject"
         },
         "language": {
             "type": "string",
@@ -85,7 +97,9 @@
             "inputType": "dropdown",
             "label@fr_FR": "Langue",
             "label@en_GB": "Language",
-            "registry_name": "ISO639-3"
+            "registry_name": "ISO639-3",
+            "form_label@fr_FR": "Indiquer la langue dans laquelle est décrit le produit de recherche",
+            "form_label@en_GB": "Indicate the language in which the research product is described"
         },
         "contact": {
             "type": "object",
@@ -103,7 +117,9 @@
             "label@fr_FR": "Personne contact",
             "label@en_GB": "Contact",
             "tooltip@fr_FR": "Personne contact pour ce produit de recherche",
-            "tooltip@en_GB": "Person to contact about this research product"
+            "tooltip@en_GB": "Person to contact about this research product",
+            "form_label@fr_FR": "Personne contact",
+            "form_label@en_GB": "Contact"
         },
         "datasetId": {
             "type": "string",
@@ -111,7 +127,9 @@
             "label@fr_FR": "Identifiant pérenne",
             "label@en_GB": "Persistent identifier",
             "tooltip@fr_FR": "Indiquer l’identifiant du produit de recherche après son éventuelle publication ou dépôt dans un entrepôt de données (ou autres hébergements)",
-            "tooltip@en_GB": "Provide the researchoutput ID after possible publishing or deposit in an data repository (or other hostings)"
+            "tooltip@en_GB": "Provide the researchoutput ID after possible publishing or deposit in an data repository (or other hostings)",
+            "form_label@fr_FR": "Identifiant pérenne du produit de recherche",
+            "form_label@en_GB": " Reseach product persistent identifier"
         },
         "idType": {
             "type": "string",
@@ -120,7 +138,9 @@
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": " Identifier type",
             "registry_name": "PIDSystem",
-            "overridable": true
+            "overridable": true,
+            "form_label@fr_FR": "Type d'identifiant du produit de recherche",
+            "form_label@en_GB": " Reseach product identifier"
         },
         "containsPersonalData": {
             "type": "string",
@@ -128,7 +148,9 @@
             "inputType": "dropdown",
             "label@fr_FR": "Contient des données personnelles ?",
             "label@en_GB": "May contain personal data?",
-            "registry_name": "YesNoUnknown"
+            "registry_name": "YesNoUnknown",
+            "form_label@fr_FR": "Le produit de recherche contient-il des données personnelles ?",
+            "form_label@en_GB": "Does the research product contain personal data?"
         },
         "containsSensitiveData": {
             "type": "string",
@@ -136,7 +158,9 @@
             "inputType": "dropdown",
             "label@fr_FR": "Contient des données sensibles ?",
             "label@en_GB": "May contain sensible data?",
-            "registry_name": "YesNoUnknown"
+            "registry_name": "YesNoUnknown",
+            "form_label@fr_FR": "Le produit de recherche contient-il des données sensibles ?",
+            "form_label@en_GB": "Does the research product contain sensible data?"
         },
         "hasEthicalIssues": {
             "type": "string",
@@ -144,7 +168,9 @@
             "inputType": "dropdown",
             "label@fr_FR": "Prend en compte des aspects éthiques ?",
             "label@en_GB": "May take ethical issues into account?",
-            "registry_name": "YesNoUnknown"
+            "registry_name": "YesNoUnknown",
+            "form_label@fr_FR": "Le contexte de production du produit de recherche prend-t-il en compte des aspects éthiques ?",
+            "form_label@en_GB": "Does the production context of the research product takes ethical issues into account?"
         }
     },
     "required": [

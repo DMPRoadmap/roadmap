@@ -193,6 +193,9 @@ msgstr "You are not linked to an organisation, we can\'t suggest you a template.
 msgid "Customized by "
 msgstr "Customized by "
 
+msgid "Customized"
+msgstr "Customized"
+
 msgid "Copy link"
 msgstr "Copy link"
 
@@ -595,6 +598,10 @@ msgstr "(version: %{template_version}, published: %{published_date})"
 
 msgid "Cost type (Title)"
 msgstr "Cost type (Title)"
+
+msgid "A Data Management Plan created using %{application_name}, based on the \"%{template_title}\" template provided by %{org_name}."
+msgstr "A Data Management Plan created using %{application_name}, based on the \"%{template_title}\" template provided by %{org_name}."
+
 
 ################
 ### REGISTRIES
