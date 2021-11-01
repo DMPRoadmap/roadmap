@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+# Org usage --- TODO: This should likely be a module
 class Org
+  # Usage by month
   class MonthlyUsageService
     class << self
       def call(current_user, filtered: false)

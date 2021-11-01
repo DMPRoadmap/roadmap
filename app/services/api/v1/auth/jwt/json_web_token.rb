@@ -4,6 +4,7 @@ module Api
   module V1
     module Auth
       module Jwt
+        # Class to handle encryption/descryption of the JWT
         class JsonWebToken
           class << self
             def encode(payload:, exp: 24.hours.from_now)

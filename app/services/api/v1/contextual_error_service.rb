@@ -30,6 +30,7 @@ module Api
         # rubocop:enable Metrics/AbcSize
 
         # Add context to the standard error message
+        # rubocop:disable Metrics/AbcSize
         def contextualize(errors:, context: 'DMP')
           errs = errors.is_a?(ActiveModel::Errors) ? errors.full_messages : []
           errs = errors if errors.is_a?(Array) && errs.empty?
@@ -45,6 +46,7 @@ module Api
                .gsub(/^Value/, "#{context.capitalize} value")
           end
         end
+        # rubocop:enable Metrics/AbcSize
 
         # Checks the plan and optional associations for validity
         def valid_plan?(plan:)

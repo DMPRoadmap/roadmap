@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+# Org usage --- TODO: This should likely be a module
 class Org
+  # Usage - total nbr of created users
   class TotalCountJoinedUserService
     class << self
       def call(org = nil, filtered: false)

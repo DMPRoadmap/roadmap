@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Validation for the format of the JSON for Org links
 class OrgLinksValidator < ActiveModel::Validator
   include JSONLinkValidator
   def validate(record)

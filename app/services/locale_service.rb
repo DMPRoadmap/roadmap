@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Helpers methods for handling I18n and GetText
 class LocaleService
   class << self
     # Returns the default locale/language

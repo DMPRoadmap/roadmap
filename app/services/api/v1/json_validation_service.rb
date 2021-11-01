@@ -47,6 +47,7 @@ module Api
         # rubocop:disable Metrics/AbcSize
         # Scans the entire JSON document for invalid metadata and returns
         # friendly errors to help the caller resolve the issue
+        # rubocop:disable Metrics/CyclomaticComplexity
         def validation_errors(json:)
           errs = []
           return [_('invalid JSON')] unless json.present?
@@ -61,6 +62,7 @@ module Api
           errs << json.fetch(:contributor, []).map do |contributor|
             contributor_validation_errors(json: contributor)
           end
+          # rubocop:enable Metrics/CyclomaticComplexity
 
           # Handle the Project and Fundings
           json.fetch(:project, []).each do |project|

@@ -5,6 +5,7 @@ module Api
     # Service used to ensure the entire DMP stack is saved
     class PersistenceService
       class << self
+        # rubocop:disable Metrics/AbcSize
         def safe_save(plan:)
           return nil unless plan.is_a?(Plan) && plan.valid?
 
@@ -28,6 +29,7 @@ module Api
             plan.reload
           end
         end
+        # rubocop:enable Metrics/AbcSize
 
         private
 
@@ -63,6 +65,7 @@ module Api
           end
         end
 
+        # rubocop:disable Metrics/AbcSize
         def safe_save_contributor(contributor:)
           return nil unless contributor.is_a?(Contributor) && contributor.valid?
 
@@ -81,9 +84,11 @@ module Api
             contrib.reload
           end
         end
+        # rubocop:enable Metrics/AbcSize
 
         # Consolidate the contributors so that we don't end up trying to insert
         # duplicate records!
+        # rubocop:disable Metrics/CyclomaticComplexity
         def deduplicate_contributors(contributors:)
           out = []
           return out unless contributors.respond_to?(:any?) && contributors.any?
@@ -100,6 +105,7 @@ module Api
           end
           out.flatten.compact.uniq
         end
+        # rubocop:enable Metrics/CyclomaticComplexity
 
         def id_for(model, scheme)
           return nil unless model.respond_to?(:identifier_for_scheme) && scheme.present?

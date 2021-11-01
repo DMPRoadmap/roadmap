@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Generic methods used throughout the site
 class ApplicationService
   class << self
     # Returns either the name specified in dmproadmap.rb initializer or

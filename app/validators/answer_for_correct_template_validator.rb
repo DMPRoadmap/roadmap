@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Validation to ensure that the question for the plan exists in the template
 class AnswerForCorrectTemplateValidator < ActiveModel::Validator
   def validate(record)
     return if record.plan.nil? || record.question.nil?

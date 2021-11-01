@@ -3,6 +3,7 @@
 module Api
   module V1
     module Deserialization
+      # Logic to deserialize RDA common standard to a Contributor object
       class Contributor
         class << self
           # Convert the incoming JSON into a Contributor

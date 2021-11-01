@@ -3,6 +3,7 @@
 module Api
   module V1
     module Deserialization
+      # Logic to deserialize RDA common standard to a Org object
       class Org
         class << self
           # Convert the incoming JSON into an Org
@@ -14,6 +15,7 @@ module Api
           #         "identifier": "https://ror.org/43y4g4"
           #       }
           #     }
+          # rubocop:disable Metrics/AbcSize
           def deserialize(json: {})
             return nil unless Api::V1::JsonValidationService.org_valid?(json: json)
 
@@ -37,6 +39,7 @@ module Api
             # Attach the identifier
             Api::V1::DeserializationService.attach_identifier(object: org, json: id_json)
           end
+          # rubocop:enable Metrics/AbcSize
 
           # ===================
           # = PRIVATE METHODS =

@@ -3,6 +3,7 @@
 module Api
   module V1
     module Deserialization
+      # Logic to deserialize RDA common standard to a ResearchOutput object
       class Dataset
         class << self
           # Convert incoming JSON into a Dataset

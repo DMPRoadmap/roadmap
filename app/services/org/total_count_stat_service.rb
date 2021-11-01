@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+# Org usage --- TODO: This should likely be a module
 class Org
+  # Usage - totals
   class TotalCountStatService
     class << self
       def call(filtered: false)

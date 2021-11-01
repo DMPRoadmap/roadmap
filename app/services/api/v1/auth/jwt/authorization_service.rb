@@ -4,6 +4,7 @@ module Api
   module V1
     module Auth
       module Jwt
+        # Class to handle User authorization
         class AuthorizationService
           def initialize(headers: {})
             @headers = headers.nil? ? {} : headers
@@ -19,6 +20,7 @@ module Api
           private
 
           # Lookup the Client bassed on the client_id embedded in the JWT
+          # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
           def client
             return @api_client if @api_client.present?
 
@@ -33,7 +35,7 @@ module Api
 
             @api_client = User.where(email: token[:client_id]).first
           end
-          # rubocop:enable
+          # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
           def decoded_auth_token
             return @token if @token.present?

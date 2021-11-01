@@ -59,6 +59,7 @@ class Template
     # Run the script
     #
     # Returns {Template}
+    # rubocop:disable Metrics/MethodLength
     def call
       Template.transaction do
         if @source_template.customization_of.blank?
@@ -91,6 +92,7 @@ class Template
       end
       @updated_template
     end
+    # rubocop:enable Metrics/MethodLength
 
     private
 

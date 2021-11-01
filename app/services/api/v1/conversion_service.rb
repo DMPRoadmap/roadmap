@@ -2,6 +2,7 @@
 
 module Api
   module V1
+    # Helper service that translates to/from the RDA common standard
     class ConversionService
       class << self
         # Converts a boolean field to [yes, no, unknown]

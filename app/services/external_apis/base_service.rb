@@ -3,8 +3,10 @@
 require 'httparty'
 
 module ExternalApis
+  # Errors for External Api services
   class ExternalApiError < StandardError; end
 
+  # Abstract service that provides HTTP methods for individual external api services
   class BaseService
     class << self
       # The following should be defined in each inheriting service's initializer.

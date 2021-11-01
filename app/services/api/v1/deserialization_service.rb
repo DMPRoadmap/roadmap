@@ -2,6 +2,7 @@
 
 module Api
   module V1
+    # Generic deserialization helper methods
     class DeserializationService
       class << self
         # Finds the object by the specified identifier
@@ -20,6 +21,7 @@ module Api
         end
 
         # Attach the identifier to the object if it does not already exist
+        # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def attach_identifier(object:, json:)
           return object unless object.present? && object.respond_to?(:identifiers) &&
                                json.present? &&
@@ -35,6 +37,7 @@ module Api
           )
           object
         end
+        # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
         # Translates the role in the json to a Contributor role
         def translate_role(role:)
@@ -54,6 +57,7 @@ module Api
         end
 
         # Retrieve any JSON schema extensions for this application
+        # rubocop:disable Metrics/AbcSize
         def app_extensions(json: {})
           return {} unless json.present? && json[:extension].present?
 
@@ -61,6 +65,7 @@ module Api
           ext = json[:extension].select { |item| item[app.to_sym].present? }
           ext.first.present? ? ext.first[app.to_sym] : {}
         end
+        # rubocop:enable Metrics/AbcSize
 
         # Determines whether or not the value is a DOI/ARK
         def doi?(value:)

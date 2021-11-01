@@ -40,6 +40,7 @@ module OrgSelection
         allow_create ? initialize_org(hash: hash) : nil
       end
 
+      # rubocop:disable Metrics/AbcSize
       def to_identifiers(hash:)
         return [] unless hash.present?
 
@@ -58,6 +59,7 @@ module OrgSelection
         end
         out
       end
+      # rubocop:enable Metrics/AbcSize
 
       private
 
@@ -112,7 +114,7 @@ module OrgSelection
 
         # Get the first letter of each word if no abbreviiation was provided
         OrgSelection::SearchService.name_without_alias(name: hash[:name])
-                                   .split(' ').map(&:first).join.upcase
+                                   .split.map(&:first).join.upcase
       end
 
       # Get the language from the hash or use the default

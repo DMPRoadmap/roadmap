@@ -9,7 +9,9 @@ User.class
 Plan.class
 Role.class
 
+# Org usage --- TODO: This should likely be a module
 class Org
+  # Usage for Nbr of shared plans in the prior month
   class CreateLastMonthSharedPlanService
     class << self
       def call(org = nil, threads: 0)
