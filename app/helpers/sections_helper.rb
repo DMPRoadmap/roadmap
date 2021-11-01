@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Helper methods for Template Sections
 module SectionsHelper
   # HREF attribute value for headers in the section partials. If the section
   # is modifiable, returns the section path, otherwise the edit section path.

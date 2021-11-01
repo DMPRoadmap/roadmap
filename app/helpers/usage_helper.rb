@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Helper methods for Usage dashboard
 module UsageHelper
   def prep_data_for_yearly_users_chart(data:)
     default_chart_prep(data: data)
@@ -13,7 +14,8 @@ module UsageHelper
   # for each point on the Y axis (date) so we need to format the information
   # appropriately by passing along the labels for the Y axis and the datasets
   # for the X axis
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def prep_data_for_template_plans_chart(data:, subset: 'by_template')
     last_month = Date.today.last_month.end_of_month.strftime('%b-%y')
     return { labels: [last_month], datasets: [] }.to_json if data.blank? || data.empty?
@@ -54,8 +56,10 @@ module UsageHelper
       labels: labels
     }.to_json
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
+  # rubocop:disable Metrics/AbcSize
   def plans_per_template_ranges
     [
       [_('Last month'), Date.today.last_month.end_of_month],
@@ -65,6 +69,7 @@ module UsageHelper
       [_('Last 12 months'), Date.today.months_ago(12).end_of_month]
     ]
   end
+  # rubocop:enable Metrics/AbcSize
 
   def default_chart_prep(data:)
     hash = {}

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Helper methods for Templates
 module TemplateHelper
   def template_details_path(template)
     if template_modifiable?(template)
@@ -33,6 +34,8 @@ module TemplateHelper
   # @param hidden [Boolean] should the link be hidden?
   # @param text [String] text for the link
   # @param id [String] id for the link element
+  # rubocop:disable Style/OptionalBooleanParameter
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def direct_link(template, hidden = false, text = nil, id = nil)
     params = {
       org: { id: "{ \"id\": #{current_user&.org&.id}, \"name\": \"#{current_user&.org&.name}\" }" },
@@ -51,4 +54,6 @@ module TemplateHelper
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable Style/OptionalBooleanParameter
 end

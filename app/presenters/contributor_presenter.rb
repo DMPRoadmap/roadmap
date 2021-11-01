@@ -39,6 +39,7 @@ class ContributorPresenter
     def role_symbol_to_string(symbol:)
       case symbol
       when :data_curation
+<<<<<<< HEAD
         'Data Manager'
       when :project_administration
         'Project Administrator'
@@ -46,6 +47,15 @@ class ContributorPresenter
         'Principal Investigator'
       else
         'Other'
+=======
+        _("Data Manager")
+      when :project_administration
+        _("Project Administrator")
+      when :investigation
+        _("Principal Investigator")
+      else
+        _("Other")
+>>>>>>> development
       end
     end
 

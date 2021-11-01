@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Helper methods for Plans
 module PlansHelper
   # display the role of the user for a given plan
   def display_role(role)

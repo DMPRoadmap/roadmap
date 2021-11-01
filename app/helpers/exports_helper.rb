@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Helper methods for Plan exports
 module ExportsHelper
   PAGE_MARGINS = {
     top: '5',

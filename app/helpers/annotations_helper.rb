@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Helper methods for Annotations
 module AnnotationsHelper
   # rubocop:disable all
   TOOLTIPS_FOR_TEXT = {

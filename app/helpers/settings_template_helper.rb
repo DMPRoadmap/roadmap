@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
+# Helper methods for Settings
 module SettingsTemplateHelper
   # Retrieves an msgstr for a given admin_field
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def admin_field_t(admin_field)
     return _('Unknown column name.') if Settings::Template::VALID_ADMIN_FIELDS.include?(admin_field)
     return _('Plan Name') if admin_field == 'project_name'
@@ -16,5 +18,5 @@ module SettingsTemplateHelper
 
     _('Unknown column name.')
   end
-  # rubocop:enable
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end

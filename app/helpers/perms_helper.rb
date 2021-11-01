@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Helper methods for User permissions
 module PermsHelper
   # Returns a hash whose keys are the names associated to Perms and values are
   # the text to be displayed to the end user

@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+# Helper methods for generating links for customizing templates
 module CustomizableTemplateLinkHelper
   # Link to the appropriate customizable template.
   # Default link name set if name not set which can be overwritten.
+  # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
   def link_to_customizable_template(name, customization, template)
     name = nil unless name.present?
 
@@ -23,4 +25,5 @@ module CustomizableTemplateLinkHelper
               'data-method': 'post'
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity
 end
