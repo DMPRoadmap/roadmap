@@ -19,6 +19,8 @@
 #
 #  fk_rails_...  (parent_id => research_domains.id)
 #
+
+# Object that represents a disciple (e.g. Physics, Social Sciences, etc.)
 class ResearchDomain < ApplicationRecord
   # ================
   # = Associations =

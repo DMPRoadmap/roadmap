@@ -32,6 +32,7 @@
 #  fk_rails_...  (org_id => orgs.id)
 #
 
+# Object that represents a DMP template
 # rubocop:disable Metrics/ClassLength
 class Template < ApplicationRecord
   include GlobalHelpers
@@ -275,7 +276,8 @@ class Template < ApplicationRecord
   # Creates a copy of the current template
   # raises ActiveRecord::RecordInvalid when save option is true and validations
   # fails.
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def deep_copy(attributes: {}, **options)
     copy = dup
     if attributes.respond_to?(:each_pair)
@@ -308,7 +310,8 @@ class Template < ApplicationRecord
 
     copy
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # Retrieves the template's org or the org of the template this one is derived
   # from of it is a customization
@@ -376,7 +379,7 @@ class Template < ApplicationRecord
         family_id: new_family_id,
         org: org,
         is_default: false,
-        title: format(_('Copy of %{template}'), template: title)
+        title: format(_('Copy of %<template>s'), template: title)
       }, modifiable: true, save: true
     )
   end
@@ -430,6 +433,7 @@ class Template < ApplicationRecord
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def publishability
     error = ''
     publishable = true
@@ -448,12 +452,12 @@ class Template < ApplicationRecord
       publishable = false
       # all phases must have atleast 1 section
     end
-    unless phases.map { |p| p.sections.count.positive? }.reduce(true) { |fin, val| fin and val }
+    unless phases.map { |p| p.sections.count.positive? }.reduce(true) { |fin, val| fin && val }
       error += _('You can not publish a template without sections in a phase.  ')
       publishable = false
       # all sections must have atleast one question
     end
-    unless sections.map { |s| s.questions.count.positive? }.reduce(true) { |fin, val| fin and val }
+    unless sections.map { |s| s.questions.count.positive? }.reduce(true) { |fin, val| fin && val }
       error += _('You can not publish a template without questions in a section.  ')
       publishable = false
     end
@@ -464,7 +468,7 @@ class Template < ApplicationRecord
     [publishable, error]
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # TODO: refactor to use UniqueRandom
   # Generate a new random family identifier

@@ -24,6 +24,7 @@
 #
 #  fk_rails_...  (org_id => orgs.id)
 
+# Object that represents an external system
 class ApiClient < ApplicationRecord
   include DeviseInvitable::Inviter
 

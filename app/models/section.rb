@@ -24,6 +24,7 @@
 #  fk_rails_...  (phase_id => phases.id)
 #
 
+# Object that represents a Template section
 class Section < ApplicationRecord
   include ActsAsSortable
   include VersionableModel

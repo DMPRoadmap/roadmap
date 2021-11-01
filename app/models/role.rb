@@ -23,6 +23,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 
+# Object that represents a User's relationship to a Plan
 class Role < ApplicationRecord
   include FlagShihTzu
 

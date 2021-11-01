@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Module that helps validate Template and Org links
 module JSONLinkValidator
   # Validates whether or not the value passed is conforming to
   # [{ link: String, text: String}, ...]

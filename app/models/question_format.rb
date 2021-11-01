@@ -13,6 +13,7 @@
 #  updated_at   :datetime         not null
 #
 
+# Object that represents a question type
 class QuestionFormat < ApplicationRecord
   ##
   #

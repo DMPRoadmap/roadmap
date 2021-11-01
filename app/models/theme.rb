@@ -12,6 +12,7 @@
 #  updated_at  :datetime         not null
 #
 
+# Object that represents a question/guidance theme
 class Theme < ApplicationRecord
   # ================
   # = Associations =

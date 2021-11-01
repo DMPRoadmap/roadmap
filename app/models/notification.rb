@@ -17,6 +17,7 @@
 #  updated_at        :datetime         not null
 #
 
+# Object that represents a global notification
 class Notification < ApplicationRecord
   enum level: %i[info warning danger]
   enum notification_type: %i[global]

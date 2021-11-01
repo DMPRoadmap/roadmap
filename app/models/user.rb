@@ -50,6 +50,8 @@
 #  fk_rails_...  (language_id => languages.id)
 #  fk_rails_...  (org_id => orgs.id)
 #
+
+# Object that represents a User
 class User < ApplicationRecord
   include ConditionalUserMailer
   include DateRangeable
@@ -215,6 +217,7 @@ class User < ApplicationRecord
   # user_email - Use the email if there is no firstname or surname (defaults: true)
   #
   # Returns String
+  # rubocop:disable Style/OptionalBooleanParameter
   def name(use_email = true)
     if (firstname.blank? && surname.blank?) || use_email
       email
@@ -223,6 +226,7 @@ class User < ApplicationRecord
       name.strip
     end
   end
+  # rubocop:enable Style/OptionalBooleanParameter
 
   # The user's identifier for the specified scheme name
   #
@@ -245,6 +249,7 @@ class User < ApplicationRecord
   # requires them to see the org-admin pages then they are an org admin.
   #
   # Returns Boolean
+  # rubocop:disable Metrics/CyclomaticComplexity
   def can_org_admin?
     return true if can_super_admin?
 
@@ -255,7 +260,7 @@ class User < ApplicationRecord
       can_modify_templates? || can_modify_org_details? ||
       can_review_plans?
   end
-  # rubocop:enable
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   # Can the User add new organisations?
   #
@@ -376,8 +381,8 @@ class User < ApplicationRecord
 
   # Override devise_invitable email title
   def deliver_invitation(options = {})
-    super(options.merge(subject: format(_('A Data Management Plan in ' \
-                                          '%{application_name} has been shared with you'), application_name: ApplicationService.application_name))
+    super(options.merge(subject: format(_('A Data Management Plan in %<application_name>s has been shared with you'),
+                                        application_name: ApplicationService.application_name))
     )
   end
 
@@ -409,6 +414,7 @@ class User < ApplicationRecord
   # leave account in-place, with org for statistics (until we refactor those)
   #
   # Returns boolean
+  # rubocop:disable Metrics/AbcSize
   def archive
     suffix = Rails.configuration.x.application.fetch(:archived_accounts_email_suffix, '@example.org')
     self.firstname = 'Deleted'
@@ -425,7 +431,9 @@ class User < ApplicationRecord
     self.active = false
     save
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def merge(to_be_merged)
     scheme_ids = identifiers.pluck(:identifier_scheme_id)
     # merge logic
@@ -443,6 +451,7 @@ class User < ApplicationRecord
     # => ignore any perms the deleted user has
     to_be_merged.destroy
   end
+  # rubocop:enable Metrics/AbcSize
 
   private
 

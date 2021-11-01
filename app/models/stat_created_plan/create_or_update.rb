@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
+# Usage Stats
 class StatCreatedPlan
+  # Usage statistics helper
   class CreateOrUpdate
     class << self
+      # rubocop:disable Metrics/MethodLength
       def do(start_date:, end_date:, org:, filtered: false)
         count = count_plans(start_date: start_date, end_date: end_date, org: org,
                             filtered: filtered)
@@ -29,6 +32,7 @@ class StatCreatedPlan
           StatCreatedPlan.create(attrs)
         end
       end
+      # rubocop:enable Metrics/MethodLength
 
       private
 

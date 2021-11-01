@@ -11,6 +11,7 @@
 #  name             :string
 #
 
+# Object that represents a locale/language
 class Language < ApplicationRecord
   # =============
   # = Constants =

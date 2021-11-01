@@ -11,6 +11,7 @@
 #  updated_at       :datetime
 #
 
+# Object that represents an API permission for V0
 class TokenPermissionType < ApplicationRecord
   # =============
   # = Constants =

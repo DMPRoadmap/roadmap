@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Module that allows a Model to be versioned
 module VersionableModel
   extend ActiveSupport::Concern
 

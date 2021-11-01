@@ -15,6 +15,7 @@
 #  org_id     :integer
 #
 
+# Object that represents a Nbr of Plans exported usage statistic
 class StatExportedPlan < Stat
   class << self
     def to_csv(exported_plans)

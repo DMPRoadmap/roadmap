@@ -8,6 +8,8 @@
 #   SectionSorter.new(*@phase.sections).sort! # => Array of sorted Sections
 #
 #
+
+# Object allows a user to sort sections of a Template via drag-drop
 class SectionSorter
   ##
   # Access the array of Sections
@@ -28,10 +30,9 @@ class SectionSorter
   #
   # Returns Array of Sections
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def sort!
-    if all_sections_unmodifiable?
-      sort_as_homogenous_group
-    elsif all_sections_modifiable?
+    if all_sections_unmodifiable? || all_sections_modifiable?
       sort_as_homogenous_group
     else
       # If there are duplicates in the #1 position
@@ -72,7 +73,7 @@ class SectionSorter
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   private
 

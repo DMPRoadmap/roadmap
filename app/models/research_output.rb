@@ -27,6 +27,8 @@
 #  index_research_outputs_on_output_type  (output_type)
 #  index_research_outputs_on_plan_id      (plan_id)
 #
+
+# Object that represents a proposed output for a project
 class ResearchOutput < ApplicationRecord
   include Identifiable
   include ValidationMessages

@@ -40,6 +40,7 @@
 #  fk_rails_...  (research_domain_id => research_domains.id)
 #
 
+# Object that represents an DMP
 class Plan < ApplicationRecord
   include ConditionalUserMailer
   include ExportablePlan
@@ -233,6 +234,7 @@ class Plan < ApplicationRecord
   # plan - Plan to be deep copied
   #
   # Returns Plan
+  # rubocop:disable Metrics/AbcSize
   def self.deep_copy(plan)
     plan_copy = plan.dup
     plan_copy.title = "Copy of #{plan.title}"
@@ -248,6 +250,7 @@ class Plan < ApplicationRecord
     end
     plan_copy
   end
+  # rubocop:enable Metrics/AbcSize
 
   # ===========================
   # = Public instance methods =
@@ -277,6 +280,7 @@ class Plan < ApplicationRecord
   #
   # Returns Answer
   # Returns nil
+  # rubocop:disable Metrics/AbcSize, Style/OptionalBooleanParameter
   def answer(qid, create_if_missing = true)
     answer = answers.select { |a| a.question_id == qid }
                     .max { |a, b| a.created_at <=> b.created_at }
@@ -294,6 +298,7 @@ class Plan < ApplicationRecord
     end
     answer
   end
+  # rubocop:enable Metrics/AbcSize, Style/OptionalBooleanParameter
 
   alias get_guidance_group_options guidance_group_options
 
@@ -364,6 +369,7 @@ class Plan < ApplicationRecord
   # user_id - The Integer id for a user
   #
   # Returns Boolean
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def readable_by?(user_id)
     return true if commentable_by?(user_id)
 
@@ -380,7 +386,7 @@ class Plan < ApplicationRecord
       false
     end
   end
-  # rubocop:enable
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # determines if the plan is readable by the specified user.
   #
@@ -574,6 +580,7 @@ class Plan < ApplicationRecord
 
   # Helper method to convert the grant id value entered by the user into an Identifier
   # works with both controller params or an instance of Identifier
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   def grant=(params)
     val = params.present? ? params[:value] : nil
     current = grant
@@ -589,6 +596,7 @@ class Plan < ApplicationRecord
     current = Identifier.create(identifiable: self, value: val)
     self.grant_id = current.id
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
   private
 

@@ -24,6 +24,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 
+# Object that represents a comment on a Plan
 class Note < ApplicationRecord
   # ================
   # = Associations =

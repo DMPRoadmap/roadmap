@@ -10,6 +10,7 @@
 #  updated_at :datetime         not null
 #
 
+# Object that represents a User permission
 class Perm < ApplicationRecord
   class << self
     private

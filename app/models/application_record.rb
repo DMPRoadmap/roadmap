@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Base ActiveRecord object
 class ApplicationRecord < ActiveRecord::Base
   include GlobalHelpers
   include ValidationValues

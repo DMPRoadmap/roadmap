@@ -15,6 +15,7 @@
 #  org_id     :integer
 #
 
+# Object that represents a Nbr of Users created usage statistic
 class StatJoinedUser < Stat
   class << self
     def to_csv(joined_users)

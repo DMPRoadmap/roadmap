@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+# Helper for Admins
 class User
+  # Helper to export a list of Users as CSV
   class AtCsv
     HEADERS = ['Name', 'E-Mail', 'Created Date', 'Last Activity', 'Plans',
                'Current Privileges', 'Active', 'Department'].freeze
@@ -9,6 +11,8 @@ class User
       @users = users
     end
 
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def to_csv
       CSV.generate(headers: true) do |csv|
         csv << HEADERS
@@ -35,5 +39,7 @@ class User
         end
       end
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   end
 end

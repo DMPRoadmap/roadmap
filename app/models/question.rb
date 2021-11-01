@@ -27,6 +27,8 @@
 #  fk_rails_...  (question_format_id => question_formats.id)
 #  fk_rails_...  (section_id => sections.id)
 #
+
+# Object that represents a Template question
 class Question < ApplicationRecord
   include ActsAsSortable
   include VersionableModel
@@ -137,6 +139,7 @@ class Question < ApplicationRecord
   # org - The Org to find guidance for
   #
   # Returns Hash
+  # rubocop:disable Metrics/AbcSize
   def guidance_for_org(org)
     # pulls together guidance from various sources for question
     guidances = {}
@@ -153,6 +156,7 @@ class Question < ApplicationRecord
 
     guidances
   end
+  # rubocop:enable Metrics/AbcSize
 
   # get example answer belonging to the currents user for this question
   #
@@ -256,6 +260,7 @@ class Question < ApplicationRecord
   # and condition's remove_data and also if that remove_data is empty
   # destroy the condition.
   # abort callback chain if we can't update the condition
+  # rubocop:disable Metrics/AbcSize
   def check_remove_conditions
     id = self.id.to_s
     template.questions.each do |q|
@@ -269,4 +274,5 @@ class Question < ApplicationRecord
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize
 end

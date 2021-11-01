@@ -30,6 +30,8 @@
 #
 # [+Created:+] 03/09/2014
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
+
+# Object that represents a Template phase
 class Phase < ApplicationRecord
   include ActsAsSortable
   include VersionableModel

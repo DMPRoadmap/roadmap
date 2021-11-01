@@ -29,6 +29,8 @@
 #
 #  fk_rails_...  (language_id => languages.id)
 #
+
+# Object that represents an Organization/Institution/Funder
 class Org < ApplicationRecord
   extend FeedbacksHelper
   include FlagShihTzu
@@ -231,6 +233,7 @@ class Org < ApplicationRecord
   # Tests are setup currently to work with this issue.
   #
   # Returns String
+  # rubocop:disable Metrics/CyclomaticComplexity
   def org_type_to_s
     ret = []
     ret << 'Institution' if institution?
@@ -241,7 +244,7 @@ class Org < ApplicationRecord
     ret << 'School' if school?
     (ret.empty? ? 'None' : ret.join(', '))
   end
-  # rubocop:enable
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def funder_only?
     org_type == Org.org_type_values_for(:funder).min
@@ -281,6 +284,7 @@ class Org < ApplicationRecord
   end
 
   # This replaces the old plans method. We now use the native plans method and this.
+  # rubocop:disable Metrics/AbcSize
   def org_admin_plans
     combined_plan_ids = (native_plan_ids + affiliated_plan_ids).flatten.uniq
 
@@ -292,6 +296,7 @@ class Org < ApplicationRecord
           .where.not(visibility: Plan.visibilities[:is_test])
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def grant_api!(token_permission_type)
     token_permission_types << token_permission_type unless
@@ -351,7 +356,7 @@ class Org < ApplicationRecord
     self.logo = logo.thumb('x100') # resize height and maintain aspect ratio
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def merge_attributes!(to_be_merged:)
     return false unless to_be_merged.is_a?(Org)
 
@@ -365,8 +370,9 @@ class Org < ApplicationRecord
     self.feedback_enabled = to_be_merged.feedback_enabled unless feedback_enabled?
     self.feedback_msg = to_be_merged.feedback_msg unless feedback_msg.present?
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
+  # rubocop:disable Metrics/AbcSize
   def merge_departments!(to_be_merged:)
     return false unless to_be_merged.is_a?(Org) && to_be_merged.departments.any?
 
@@ -377,6 +383,7 @@ class Org < ApplicationRecord
       department.update(org_id: id) unless existing.include?(department.name.downcase)
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def merge_guidance_groups!(to_be_merged:)
     return false unless to_be_merged.is_a?(Org) && to_be_merged.guidance_groups.any?

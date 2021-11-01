@@ -21,6 +21,7 @@
 #  fk_rails_...  (question_id => questions.id)
 #
 
+# Object that represents an option for a multi-select question
 class QuestionOption < ApplicationRecord
   include VersionableModel
 

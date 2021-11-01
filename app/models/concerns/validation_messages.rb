@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Module that provides consistent validation messaging
 module ValidationMessages
   # workaround for errors thrown by puma when eager loading application
   # TODO: see if this is still a problem with translations gem

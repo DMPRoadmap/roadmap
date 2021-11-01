@@ -15,6 +15,7 @@
 #  updated_at       :datetime
 #
 
+# Object that represents a type of identifiaction (e.g. ORCID, ROR, etc.)
 class IdentifierScheme < ApplicationRecord
   include FlagShihTzu
 

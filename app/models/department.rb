@@ -16,6 +16,7 @@
 #  index_departments_on_org_id  (org_id)
 #
 
+# Object that a department within an Org
 class Department < ApplicationRecord
   belongs_to :org
 

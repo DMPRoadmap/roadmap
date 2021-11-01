@@ -15,6 +15,7 @@
 #  org_id     :integer
 #
 
+# Object that represents a generic usage statistic
 class Stat < ApplicationRecord
   extend OrgDateRangeable
 

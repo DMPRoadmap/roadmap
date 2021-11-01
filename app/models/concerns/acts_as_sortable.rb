@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
+# Module that allows us to sort query results for paginated tables
+# rubocop:disable Metrics/BlockLength
 module ActsAsSortable
   extend ActiveSupport::Concern
 
-  module ClassMethods
+  class_methods do
     def update_numbers!(ids, parent:)
       # Ensure only records belonging to this parent are included.
       ids = ids.map(&:to_i) & parent.public_send("#{model_name.singular}_ids")
@@ -45,3 +47,4 @@ module ActsAsSortable
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

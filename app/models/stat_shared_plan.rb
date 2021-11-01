@@ -15,6 +15,7 @@
 #  org_id     :integer
 #
 
+# Object that represents a Nbr of Plans shared usage statistic
 class StatSharedPlan < Stat
   class << self
     def to_csv(shared_plans)

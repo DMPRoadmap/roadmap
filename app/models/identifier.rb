@@ -17,6 +17,8 @@
 #
 #  index_identifiers_on_identifiable_type_and_identifiable_id  (identifiable_type,identifiable_id)
 #
+
+# Object that represents an identifier for an object
 class Identifier < ApplicationRecord
   # ================
   # = Associations =
@@ -66,6 +68,7 @@ class Identifier < ApplicationRecord
   # For example:
   #   value   '0000-0000-0000-0001'
   #   becomes 'https://orcid.org/0000-0000-0000-0001'
+  # rubocop:disable Metrics/AbcSize
   def value=(val)
     if identifier_scheme.present? &&
        identifier_scheme.identifier_prefix.present? &&
@@ -79,6 +82,7 @@ class Identifier < ApplicationRecord
       super(val)
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # ===========================
   # = Public instance methods =

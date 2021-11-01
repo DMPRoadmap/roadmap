@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+# Usage Stats
 class StatJoinedUser
+  # Usage statistics helper
   class CreateOrUpdate
     class << self
       def do(start_date:, end_date:, org:, filtered: false)

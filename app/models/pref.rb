@@ -9,6 +9,7 @@
 #  user_id  :integer
 #
 
+# Object that represents a User's email preferences
 class Pref < ApplicationRecord
   ##
   # Serialize prefs to JSON

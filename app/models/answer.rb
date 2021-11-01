@@ -28,6 +28,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 
+# Object that represents an Answer to a Plan question
 class Answer < ApplicationRecord
   # ================
   # = Associations =
