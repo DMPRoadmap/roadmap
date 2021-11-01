@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/BlockLength
 namespace :external_api do
   desc 'Seed the Research Domain table with Field of Science categories'
   task add_field_of_science_to_research_domains: :environment do
@@ -98,4 +97,3 @@ namespace :external_api do
     end
   end
 end
-# rubocop:enable Metrics/BlockLength

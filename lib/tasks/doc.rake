@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :tomdoc do
   desc 'Removes the docs from the ./doc directory'
   task :clear do
@@ -32,6 +34,7 @@ namespace :tomdoc do
 end
 
 task tomdoc: ['tomdoc:clear', 'tomdoc:app', 'tomdoc:open'] do
+  # Not sure qwhat all this is for
 end
 
 # Clear Rails' default doc tasks first.

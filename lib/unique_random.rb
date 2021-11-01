@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Helper method for generating a unique value and checking the DB
 module UniqueRandom
   def unique_random(field_name:, prefix: '', suffix: '', length: nil)
     loop do

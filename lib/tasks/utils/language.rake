@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/BlockLength
 namespace :translatable do
   desc 'Add the specified language to the database'
   task :add_language_to_db, %i[code name is_default] => [:environment] do |_t, args|
@@ -39,4 +38,3 @@ namespace :translatable do
     end
   end
 end
-# rubocop:enable Metrics/BlockLength

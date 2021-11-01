@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Layout/LineLength, Metrics/BlockLength, Metrics/AbcSize
+# rubocop:disable Layout/LineLength, Metrics/AbcSize
 namespace :templates do
   desc 'Repair Templates whose descendents have NIL versionable_id values'
   task fix_templates_with_nil_versionable_ids: :environment do
@@ -229,6 +229,7 @@ namespace :templates do
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def find_related_versionable_id(original_template:, record:)
     # rubocop:disable Style/NestedTernaryOperator
     spaces = record.is_a?(Phase) ? 4 : (record.is_a?(Section) ? 6 : (record.is_a?(Question) ? 8 : 10))
@@ -254,5 +255,6 @@ namespace :templates do
     end
     version
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end
-# rubocop:enable Layout/LineLength, Metrics/BlockLength, Metrics/AbcSize
+# rubocop:enable Layout/LineLength, Metrics/AbcSize

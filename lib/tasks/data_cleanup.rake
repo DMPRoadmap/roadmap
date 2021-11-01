@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'data_cleanup'
 
 namespace :data_cleanup do
@@ -103,7 +105,7 @@ namespace :data_cleanup do
   desc 'Deactivate the roles and plan for any plan that no longer has an owner'
   task deactivate_orphaned_plans: :environment do
     p 'Deactiviating plans that no longer have a owner, coowner or editor'
-    Plan.all.each { |plan| plan.deactivate! }
+    Plan.all.each(&:deactivate!)
     p 'Done'
   end
 
@@ -130,6 +132,8 @@ namespace :data_cleanup do
     str.pluralize != str && str.singularize == str
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def check_presence(klass, filter)
     table = klass.name.tableize
     instance = klass.new
@@ -168,7 +172,10 @@ namespace :data_cleanup do
     end
     [ids, msg]
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
+  # rubocop:disable Metrics/AbcSize
   def check_uniqueness(klass, filter)
     instance = klass.new
     group = [filter.attributes.map { |a| instance.respond_to?("#{a}_id") ? "#{a}_id".to_sym : a }]
@@ -178,7 +185,9 @@ namespace :data_cleanup do
     ids = klass.group(group).count.select { |_k, v| v > 1 }
     [ids, "  #{ids.count} records that are not unique per (#{group.join(', ')})"]
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def check_inclusion(klass, filter)
     ids = []
     msg = ''
@@ -187,11 +196,15 @@ namespace :data_cleanup do
         ids << klass.where.not(attr.to_sym => filter.options[:in]).pluck(:id)
       end
       ids = ids.flatten.uniq
+      # rubocop:disable Layout/LineLength
       msg = "  #{ids.count} records that do not have a valid value for #{filter.attributes}, should be #{filter.options[:in]}"
+      # rubocop:enable Layout/LineLength
     end
     [ids, msg]
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def check_format(klass, filter)
     ids = []
     if filter.options[:with].present?
@@ -201,7 +214,7 @@ namespace :data_cleanup do
           # If this is the users.email field send it to the EmailValidator. Devise has its own Regex
           # but running a Regex query gets messy between different DB types
           if klass.name == 'User' && attr == :email
-            ids, msg = check_local_validators(klass, [attr], EmailValidator)
+            ids, _msg = check_local_validators(klass, [attr], EmailValidator)
           else
             ids = klass.where.not(attr.to_sym => filter.options[:when]).pluck(:id)
           end
@@ -211,7 +224,9 @@ namespace :data_cleanup do
     end
     [ids.flatten.uniq, "  #{ids.count} records that do not have valid #{filter.attributes}"]
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def check_length(klass, filter)
     ids = []
     shoulda = ''
@@ -227,7 +242,7 @@ namespace :data_cleanup do
       if filter.options[:maximum].present?
         unless qry.blank?
           qry += ' OR '
-          should += ' and '
+          shoulda += ' and '
         end
         qry += "CHAR_LENGTH(#{attr}) > #{filter.options[:maximum]}"
         shoulda += "<= #{filter.options[:maximum]}"
@@ -238,7 +253,10 @@ namespace :data_cleanup do
     ids = ids.flatten.uniq
     [ids, "  #{ids.count} records that are an invalid length for fields #{filter.attributes} should be #{shoulda}"]
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def check_numericality(klass, filter)
     filter.attributes.each do |attr|
       qry = ''
@@ -261,9 +279,14 @@ namespace :data_cleanup do
       end
 
       ids = klass.where(qry).pluck(:id)
-      [ids, "  #{ids.count} records that are an invalid #{filter.attributes} because it should #{shoulda}"]
+      msg = "  #{ids.count} records that are an invalid #{filter.attributes} because it should #{shoulda}"
+      # rubocop:disable Lint/Void
+      [ids, msg]
+      # rubocop:enable Lint/Void
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   def check_local_validators(klass, attributes, validator)
     ids = []

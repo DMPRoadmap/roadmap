@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+require 'English'
+
 namespace :factory_bot do
   desc 'Verify that all FactoryBot factories are valid'
   task lint: :environment do
@@ -7,7 +11,7 @@ namespace :factory_bot do
       # end
     else
       system("bundle exec rails factory_bot:lint RAILS_ENV='test'")
-      exit $?.exitstatus
+      exit $CHILD_STATUS.exitstatus
     end
   end
 end

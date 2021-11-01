@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :stat do
   desc 'Build all stats'
   task build: :environment do
@@ -21,9 +23,8 @@ namespace :stat do
              'stat:create_last_month:shared_plan',
              'stat:create_last_month:exported_plan']
 
-    Parallel.each(tasks, progress: 'Building Stats', in_processes: 4) do |task|
-      Rake::Task[task].execute
-      task
+    Parallel.each(tasks, progress: 'Building Stats', in_processes: 4) do |tsk|
+      Rake::Task[tsk].execute
     end
   end
 
@@ -33,8 +34,8 @@ namespace :stat do
              'stat:create_last_month:shared_plan',
              'stat:create_last_month:exported_plan']
 
-    tasks.each do |task|
-      Rake::Task[task].execute
+    tasks.each do |tsk|
+      Rake::Task[tsk].execute
     end
   end
 
@@ -44,8 +45,8 @@ namespace :stat do
              'stat:create_last_month:shared_plan',
              'stat:create_last_month:exported_plan']
 
-    Parallel.each(tasks) do |task|
-      Rake::Task[task].execute
+    Parallel.each(tasks) do |tsk|
+      Rake::Task[tsk].execute
       task
     end
   end

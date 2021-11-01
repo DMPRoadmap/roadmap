@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :initialize_data do
   desc 'Add RDA Question Type'
   task rda_ques: :environment do

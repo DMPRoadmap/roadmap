@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
+# Helper for exporting to CSV format
 module Csvable
   require 'csv'
   class << self
+    # rubocop:disable Style/OptionalBooleanParameter
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def from_array_of_hashes(data = [], humanize = true, sep = ',')
       return '' unless data.first&.keys
 
@@ -22,6 +25,7 @@ module Csvable
         end
       end
     end
-    # rubocop:enable
+    # rubocop:enable Style/OptionalBooleanParameter
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   end
 end

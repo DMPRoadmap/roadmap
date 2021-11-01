@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Faker
+  # Monkey patch for Faker to add support for our locales
   class Language < Base
     class << self
       def name

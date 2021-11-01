@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 # Upgrade tasks for versions < 3.0. See https://github.com/DMPRoadmap/roadmap/releases for information
 # on how and when to run each task.
-
 require 'set'
+
+# rubocop:disable Naming/VariableNumber
 namespace :upgrade do
   desc 'upgrade to Rails 5, rename task after naming release'
   task v2_3_0: :environment do
@@ -174,7 +177,8 @@ namespace :upgrade do
     users.each do |user|
       next unless user.can_org_admin? && user.api_token.blank?
 
-      # Generate the tokens directly instead of via the User.keep_or_generate_token! method so that we do not spam users!!
+      # Generate the tokens directly instead of via the User.keep_or_generate_token!
+      # method so that we do not spam users!!
       user.api_token = loop do
         random_token = SecureRandom.urlsafe_base64(nil, false)
         break random_token unless User.exists?(api_token: random_token)
@@ -187,18 +191,18 @@ namespace :upgrade do
   task remove_duplicate_answers: :environment do
     ## Concat Duplicate Answers
     ActiveRecord::Base.transaction do
+      # rubocop:disable Layout/LineLength
       plan_ids = ActiveRecord::Base.connection.select_all('SELECT a1.plan_id as plan_id FROM Answers a1 INNER JOIN Answers a2 ON a1.plan_id = a2.plan_id AND a1.question_id = a2.question_id WHERE a1.id > a2.id').to_a.map do |h|
         h['plan_id']
       end.uniq
+      # rubocop:enable Layout/LineLength
       plans = Plan.where(id: plan_ids)
       plans.each do |plan|
         plan.answers.pluck(:question_id).uniq.each do |question_id|
           answers = Answer.where(plan_id: plan.id, question_id: question_id).order(:updated_at)
           next unless answers.length > 1 # Duplicates found
 
-          puts "found duplicate for plan:#{plan.id}\tquestion:#{question_id} \n\tanswers:[#{answers.map do |answer|
-                                                                                              answer.id
-                                                                                            end }]"
+          puts "found duplicate for plan:#{plan.id}\tquestion:#{question_id} \n\tanswers:[#{answers.map(&:id)}]"
           new_answer = Answer.new
           new_answer.user_id = answers.last.user_id
           new_answer.plan_id = plan.id
@@ -214,14 +218,14 @@ namespace :upgrade do
             end
           end
           answers.reverse.each do |answer|
-            if num_text == 0 && answer.text.present? # case first present text
+            if num_text.zero? && answer.text.present? # case first present text
               new_answer.text = answer.text
               num_text += 1
             end
             if num_text == 1 && answer.text.present?
               text = '<p><strong>ANSWER SAVED TWICE - REQUIRES MERGING</strong></p>'
               text += new_answer.text
-              new_answer.text = text + '<p><strong>-------------</strong></p>' + answer.text
+              new_answer.text = "#{text}<p><strong>-------------</strong></p>#{answer.text}"
             end
             new_answer.save
             new_answer.reload
@@ -246,10 +250,10 @@ namespace :upgrade do
 
   desc 'Remove deprecated themes'
   task theme_delete_deprecated: :environment do
-    if t = Theme.find_by(title: 'Project Description') then t.destroy end
-    if t = Theme.find_by(title: 'Project Name') then t.destroy end
-    if t = Theme.find_by(title: 'ID') then t.destroy end
-    if t = Theme.find_by(title: 'PI / Researcher') then t.destroy end
+    t.destroy if t == Theme.find_by(title: 'Project Description')
+    t.destroy if t == Theme.find_by(title: 'Project Name')
+    t.destroy if t == Theme.find_by(title: 'ID')
+    t.destroy if t == Theme.find_by(title: 'PI / Researcher')
   end
 
   desc 'Create new Theme list'
@@ -318,7 +322,7 @@ namespace :upgrade do
        'Data Format', 'Data Capture Methods', 'Metadata ', 'Ethical Issues',
        'IPR Ownership and Licencing', 'Storage and Backup', 'Preservation Plan', 'Data Repository',
        'Method For Data Sharing', 'Responsibilities', 'Resourcing'].each do |t|
-         if deltheme = Theme.find_by(title: t) then deltheme.destroy end
+         deltheme.destroy if deltheme == Theme.find_by(title: t)
        end
     end
   end
@@ -327,7 +331,6 @@ namespace :upgrade do
   task theme_deduplicate_questions: :environment do
     ActiveRecord::Base.transaction do
       Question.all.each do |q|
-        themelist = []
         next unless q.themes.present?
 
         q.themes.each do |qt|
@@ -351,12 +354,12 @@ namespace :upgrade do
           next unless themeguidances.present? && themeguidances.length >= 2
 
           themeguidances.drop(1).each do |guidance|
-            themeguidances.first.text += '<p>——</p>' + guidance.text
+            themeguidances.first.text += "<p>——</p>#{guidance.text}"
             guidance.destroy
-          end # themeguidances loop
+          end
           themeguidances.first.save
-        end # allthemes loop
-      end # GuidanceGroup loop
+        end
+      end
     end
   end
 
@@ -385,7 +388,8 @@ namespace :upgrade do
         version_counter = nil
       end
       num_plans = Plan.where(template_id: template.id).count
-      if num_plans > 0
+      # rubocop:disable Layout/LineLength
+      if num_plans.any?
         version_counter = version_counter.nil? ? -1 : version_counter - 1
         unsaved_template = Template.find(template.id)
         unsaved_template.version = version_counter
@@ -400,6 +404,7 @@ namespace :upgrade do
         Template.destroy(template.id)
         puts "template with id: #{template.id} has been REMOVED since it had no plans associated"
       end
+      # rubocop:enable Layout/LineLength
     end
     puts 'remove_duplicated_non_customised_template_versions DONE'
   end
@@ -431,7 +436,7 @@ namespace :upgrade do
         version_counter = nil
       end
       num_plans = Plan.where(template_id: template.id).count
-      if num_plans > 0
+      if num_plans.any?
         version_counter = version_counter.nil? ? -1 : version_counter - 1
         unsaved_template = Template.find(template.id)
         unsaved_template.version = version_counter
@@ -451,6 +456,7 @@ namespace :upgrade do
     Rake::Task['upgrade:remove_duplicated_customised_template_versions'].execute
   end
 
+  # rubocop:disable Layout/LineLength
   desc 'Org.contact_email is now required, sets any nil values to the helpdesk email defined in dmproadmap.rb initializer'
   task check_org_contact_emails: :environment do
     email = Rails.configuration.x.organisation.helpdesk_email
@@ -471,6 +477,7 @@ namespace :upgrade do
     puts 'Search complete'
     puts ''
   end
+  # rubocop:enable Layout/LineLength
 
   desc 'The system now only allows for one theme selection per guidance, so check for violations'
   task check_for_guidance_multiple_themes: :environment do
@@ -486,7 +493,6 @@ namespace :upgrade do
     puts 'Search complete'
     puts ''
   end
-
   desc 'Remove admin preferences'
   task remove_admin_preferences: :environment do
     Pref.all.each do |p|
@@ -879,6 +885,7 @@ namespace :upgrade do
     end
     count = Identifier.where(identifiable_type: 'Org').length
     p "Transfer complete. Orginal org_identifier count #{identifiers.length}, new identifiers count #{count}"
+    # rubocop:disable Layout/LineLength
     if identifiers.length > count
       p ''
       p "#{identifiers.length - count} records could not be transferred. Run the following query manually to identify them:"
@@ -888,6 +895,7 @@ namespace :upgrade do
       p '  );'
       p 'Then transfer them manually.'
     end
+    # rubocop:enable Layout/LineLength
   end
 
   desc 'Sets the new managed flag for all existing Orgs to managed = true'
@@ -904,11 +912,13 @@ namespace :upgrade do
       csv << %w[org_id org_name ror_name ror_id fundref_id]
 
       if ExternalApis::RorService.ping
+        # rubocop:disable Layout/LineLength
         p 'Scanning ROR for each of your existing Orgs'
         p 'The results will be written to tmp/ror_fundref_ids.csv to facilitate review and any corrections that may need to be made.'
         p 'The CSV file contains the Org name stored in your DB next to the ROR org name that was matched. Use these 2 values to determine if the match was valid.'
         p 'You can use the ROR search page to find the correct match for any organizations that need to be corrected: https://ror.org/search'
         p ''
+        # rubocop:enable Layout/LineLength
         orgs = Org.includes(identifiers: :identifier_scheme)
                   .where(is_other: false).order(:name)
 
@@ -923,7 +933,7 @@ namespace :upgrade do
           next unless rslts.any?
 
           # Just use the first match that contains the search term
-          rslt = rslts.select { |rslt| rslt[:weight] <= 1 }.first
+          rslt = rslts.select { |r| r[:weight] <= 1 }.first
           next unless rslt.present?
 
           ror_id = rslt[:ror]
@@ -949,7 +959,9 @@ namespace :upgrade do
           end
         end
       else
+        # rubocop:disable Layout/LineLength
         p 'ROR appears to be offline or your configuration is invalid. Heartbeat check failed. Refer to the log for more information.'
+        # rubocop:enable Layout/LineLength
       end
     end
 
@@ -1005,7 +1017,7 @@ namespace :upgrade do
         term = user.other_organisation
         matches = OrgSelection::SearchService.search_externally(search_term: term)
         # Only allow results that START WITH the search term
-        matches = matches.select { |result| result[:weight] == 0 }
+        matches = matches.select { |result| result[:weight].zero? }
         org = OrgSelection::HashToOrgService.to_org(hash: matches.first, allow_create: true) if matches.any?
         org = create_org(org, matches.first) if org.present? && org.valid?
       end
@@ -1014,7 +1026,7 @@ namespace :upgrade do
       if org.nil? && user.other_organisation.present?
         name = user.other_organisation
         abbrev = OrgSelection::SearchService.name_without_alias(name: name)
-                                            .split(' ').map(&:first).join.upcase
+                                            .split.map(&:first).join.upcase
         org = Org.new(name: name, managed: false, is_other: false,
                       abbreviation: abbrev, language: Language.default)
         org.save if org.present? && org.valid?
@@ -1090,9 +1102,7 @@ namespace :upgrade do
       end
 
       plan.reload
-      if plan.contributors.length > 0
-        p "Processed Plan #{plan.id} - which now has #{plan.contributors.length} contributor(s)"
-      end
+      p "Processed Plan #{plan.id} - which now has #{plan.contributors.length} contributor(s)" if plan.contributors.any?
     end
   end
 
@@ -1180,6 +1190,7 @@ namespace :upgrade do
     rors_added = Identifier.where(identifiable_type: 'Org', identifier_scheme: ror).count
     fundrefs_added = Identifier.where(identifiable_type: 'Org', identifier_scheme: fundref).count
 
+    # rubocop:disable Layout/LineLength
     p '---------------------------------------------------------------'
     p 'Results of v2.2.0 part 1 upgrade:'
     p "    Added new IdentifierScheme: #{ror.id}, '#{ror.name}', '#{ror.description}'"
@@ -1200,12 +1211,11 @@ namespace :upgrade do
     p "               insert into identifiers (identifiable_type, identifier_scheme_id, attrs, identifiable_id, value) values ('Org', [identifier_scheme_id], '{}', [orgs.id], 'https://doi.org/10.13039/0000000000');"
     p "               update identifiers set `value` = 'https://ror.org/123456789' where identifiable_id = [orgs.id] and identifier_scheme_id = [identifier_scheme_id] and identifiable_type= 'Org';"
     p '---------------------------------------------------------------'
+    # rubocop:enable Layout/LineLength
   end
 
   desc 'Generate stats for all of the 2.2.0 upgrade scripts'
   task results_2_2_0_part2: :environment do
-    ror = IdentifierScheme.find_by(name: 'ror')
-    fundref = IdentifierScheme.find_by(name: 'fundref')
     is_other = Org.find_by(is_other: true)
     unaffiliated = User.where(org_id: is_other.id).count
     unmanaged_orgs = Org.where(managed: false).count
@@ -1215,6 +1225,7 @@ namespace :upgrade do
     funders_converted = Plan.where.not(funder_id: nil).count
     grants_converted = Plan.where.not(grant_id: nil).count
 
+    # rubocop:disable Layout/LineLength
     p '---------------------------------------------------------------'
     p 'Results of v2.2.0 part 2 upgrade:'
     p "    Set #{number_with_delimiter(managed_orgs)} Orgs to 'managed: true' (all of your existing Orgs)"
@@ -1239,16 +1250,21 @@ namespace :upgrade do
     p ''
     p "    #{number_with_delimiter(unaffiliated)} users are still associated with '#{is_other.name}' (is_other Org)."
     p '---------------------------------------------------------------'
+    # rubocop:enable Layout/LineLength
   end
 
   desc 'explicitly set some column-defaults in the database'
   task column_defaults: :environment do
     Org.where(links: nil).update_all(links: { org: [] })
     if Org.respond_to?(:feedback_email_subject)
-      Org.where(feedback_email_subject: nil).update_all(feedback_email_subject: Org.feedback_confirmation_default_subject)
-      Org.where(feedback_email_msg: nil).update_all(feedback_email_msg: Org.feedback_confirmation_default_message)
+      Org.where(feedback_email_subject: nil)
+         .update_all(feedback_email_subject: Org.feedback_confirmation_default_subject)
+
+      Org.where(feedback_email_msg: nil)
+         .update_all(feedback_email_msg: Org.feedback_confirmation_default_message)
     else
-      Org.where(feedback_msg: nil).update_all(feedback_msg: Org.feedback_confirmation_default_message)
+      Org.where(feedback_msg: nil)
+         .update_all(feedback_msg: Org.feedback_confirmation_default_message)
     end
     Org.where(language_id: nil).update_all(language_id: Language.default&.id)
   end
@@ -1269,6 +1285,8 @@ namespace :upgrade do
 
   # Converts the names, email and phone into a Contributor and an
   # Identifier model
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/ParameterLists
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def to_contributor(plan, name, email, phone, identifier, org)
     return nil, nil unless name.present? || email.present?
 
@@ -1306,6 +1324,8 @@ namespace :upgrade do
     id.value = orcid_id
     [contributor, id]
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/ParameterLists
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   def create_org(org, match)
     org.save
@@ -1322,3 +1342,4 @@ namespace :upgrade do
     number.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
   end
 end
+# rubocop:enable Naming/VariableNumber

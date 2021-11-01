@@ -271,8 +271,7 @@ Rails.application.routes.draw do
 
     resources :questions, only: [] do
       get 'open_conditions'
-      resources :conditions, only: %i[new show] do
-      end
+      resources :conditions, only: %i[new show]
     end
 
     resources :plans, only: [:index] do
@@ -313,8 +312,7 @@ Rails.application.routes.draw do
         end
 
         resources :sections, only: %i[index show edit update create destroy] do
-          resources :questions, only: %i[show edit new update create destroy] do
-          end
+          resources :questions, only: %i[show edit new update create destroy]
         end
       end
     end

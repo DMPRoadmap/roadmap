@@ -5,6 +5,7 @@ require_relative 'data_cleanup/instance_check'
 require_relative 'data_cleanup/reporting'
 require_relative 'data_cleanup/rules'
 
+# Some legacy cleanup helpers
 module DataCleanup
   COLOR_CODES = { red: 31, green: 32 }.freeze
 

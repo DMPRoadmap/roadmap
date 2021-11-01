@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Helpers for generating usage statistics
 module OrgDateRangeable
   def monthly_range(org:, start_date: nil, end_date: Date.today.end_of_month, filtered: false)
     query_string = 'org_id = :org_id and filtered = :filtered'

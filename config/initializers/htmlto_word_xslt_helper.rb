@@ -6,6 +6,7 @@
 # We applied this gem gem htmltoword-1.1.0.
 
 module Htmltoword
+  # Helper for the HtmlToWord library
   module XSLTHelper
     def xslt_path(template_name)
       if template_name == 'numbering'

@@ -1,12 +1,16 @@
-# These Tasks are for the early migrations of the codebase
+# frozen_string_literal: true
 
+# These Tasks are for the early migrations of the codebase
 namespace :migrate do
+  # rubocop:disable Naming/VariableNumber
   desc 'migrate to 1.0'
   task prep_for_1_0: :environment do
     # Convert existing orgs.target_url to the orgs.links JSON arrays
     Rake::Task['migrate:org_target_url_to_links'].execute
   end
+  # rubocop:enable Naming/VariableNumber
 
+  # rubocop:disable Naming/VariableNumber
   desc 'migrate to 0.4'
   task to_04: :environment do
     # Default all plans.visibility to the value specified in application.rb
@@ -18,6 +22,7 @@ namespace :migrate do
     # Move users.shibboleth_id to the user_identifiers table
     Rake::Task['migrate:move_shibs'].execute
   end
+  # rubocop:enable Naming/VariableNumber
 
   desc 'TODO'
   task permissions: :environment do
@@ -70,7 +75,7 @@ namespace :migrate do
         name: 'grant_api_to_orgs'
       }
     }
-    roles.each do |role, details|
+    roles.each do |_r, details|
       next unless Role.where(name: details[:name]).empty?
 
       role = Role.new
@@ -283,7 +288,7 @@ namespace :migrate do
     users = User.includes(:user_identifiers).where('users.orcid_id IS NOT NULL')
 
     # If we have users with orcid ids
-    if users.length > 0
+    if users.any?
       # If orcid isn't defined in the identifier_schemes table add it
       if IdentifierScheme.find_by(name: 'orcid').nil?
         IdentifierScheme.create!(name: 'orcid',
@@ -299,7 +304,7 @@ namespace :migrate do
         users.each do |u|
           next unless u.orcid_id.gsub('orcid.org/', '').match(/^[\d-]+/)
 
-          schemes = u.user_identifiers.collect { |i| i.identifier_scheme_id }
+          schemes = u.user_identifiers.collect(&:identifier_scheme_id)
 
           unless schemes.include?(scheme.id)
             UserIdentifier.create(user: u, identifier_scheme: scheme,
@@ -316,7 +321,7 @@ namespace :migrate do
       users = User.includes(:user_identifiers).where('users.shibboleth_id IS NOT NULL')
 
       # If we have users with orcid ids
-      if users.length > 0
+      if users.any?
         # If orcid isn't defined in the identifier_schemes table add it
         if IdentifierScheme.find_by(name: 'shibboleth').nil?
           IdentifierScheme.create!(name: 'shibboleth',
@@ -326,9 +331,10 @@ namespace :migrate do
 
         scheme = IdentifierScheme.find_by(name: 'shibboleth')
 
+        # rubocop:disable Metrics/BlockNesting
         unless scheme.nil?
           users.each do |u|
-            schemes = u.user_identifiers.collect { |i| i.identifier_scheme_id }
+            schemes = u.user_identifiers.collect(&:identifier_scheme_id)
 
             next if schemes.include?(scheme.id)
             # TODO: Add logic to move shib identifiers over
@@ -336,20 +342,23 @@ namespace :migrate do
             #                                    identifier: u.orcid_id.gsub('orcid.org/', ''))
           end
         end
+        # rubocop:enable Metrics/BlockNesting
       end
     end
   end
 
   desc 'remove duplicate annotations caused by bug'
   task remove_duplicate_annotations: :environment do
-    questions = Question.joins(:annotations).group('questions.id').having('count(annotations.id) > count(DISTINCT annotations.text)')
+    questions = Question.joins(:annotations)
+                        .group('questions.id')
+                        .having('count(annotations.id) > count(DISTINCT annotations.text)')
     questions.each do |q|
       # store already de-duplicated id's so we dont remove them in later iterations
       removed = []
       q.annotations.each do |a|
         removed << a.id
         conflicts = Annotation.where(question_id: a.question_id, text: a.text).where.not(id: removed)
-        conflicts.each { |c| c.destroy }
+        conflicts.each(&:destroy)
       end
     end
   end

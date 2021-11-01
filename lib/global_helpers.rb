@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Helpers for GetText strings
 module GlobalHelpers
   # overloading the method
   # came across a wierd issue where the function would refused to be called from
