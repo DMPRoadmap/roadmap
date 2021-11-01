@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Helper class for the contributors pages
+# Helper class for the Contributor pages
 class ContributorPresenter
   class << self
     # Returns the name with each word capitalized
@@ -39,15 +39,6 @@ class ContributorPresenter
     def role_symbol_to_string(symbol:)
       case symbol
       when :data_curation
-<<<<<<< HEAD
-        'Data Manager'
-      when :project_administration
-        'Project Administrator'
-      when :investigation
-        'Principal Investigator'
-      else
-        'Other'
-=======
         _("Data Manager")
       when :project_administration
         _("Project Administrator")
@@ -55,7 +46,6 @@ class ContributorPresenter
         _("Principal Investigator")
       else
         _("Other")
->>>>>>> development
       end
     end
 
