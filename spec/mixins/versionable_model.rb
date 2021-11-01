@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-UUID_REGEX ||= /\A[\w\d]{8}(-[\w\d]{4}){3}-[\w\d]{12}\Z/i.freeze
+UUID_REGEX = /\A[\w\d]{8}(-[\w\d]{4}){3}-[\w\d]{12}\Z/i.freeze
 
 shared_examples_for 'VersionableModel' do
   context 'attributes' do
@@ -24,7 +24,7 @@ shared_examples_for 'VersionableModel' do
 
     it "doesn't change if already set" do
       subject.versionable_id = SecureRandom.uuid
-      expect { subject.valid? }.not_to change { subject.versionable_id }
+      expect { subject.valid? }.not_to change(subject.versionable_id)
     end
   end
 end

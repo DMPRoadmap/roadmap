@@ -420,25 +420,25 @@ RSpec.describe User, type: :model do
     context 'when user is not a new record and api_token is not blank' do
       let!(:user) { create(:user, api_token: 'an token string') }
 
-      it { expect { subject }.to change { user.api_token }.to(nil) }
+      it { expect { subject }.to change(user.api_token).to(nil) }
     end
 
     context 'when user is not a new record and api_token is nil' do
       let!(:user) { create(:user, api_token: nil) }
 
-      it { expect { subject }.not_to change { user.api_token } }
+      it { expect { subject }.not_to change(user.api_token) }
     end
 
     context 'when user is not a new record and api_token is an empty string' do
       let!(:user) { create(:user, api_token: '') }
 
-      it { expect { subject }.to change { user.api_token }.to(nil) }
+      it { expect { subject }.to change(user.api_token).to(nil) }
     end
 
     context 'when user is a new record' do
       let!(:user) { build(:user, api_token: 'an token string') }
 
-      it { expect { subject }.not_to change { user.api_token } }
+      it { expect { subject }.not_to change(user.api_token) }
     end
   end
 
@@ -448,19 +448,19 @@ RSpec.describe User, type: :model do
     context 'when user is not a new record and api_token is an empty string' do
       let!(:user) { create(:user, api_token: '') }
 
-      it { expect { subject }.to change { user.api_token } }
+      it { expect { subject }.to change(user.api_token) }
     end
 
     context 'when user is not a new record and api_token is nil' do
       let!(:user) { create(:user, api_token: nil) }
 
-      it { expect { subject }.to change { user.api_token } }
+      it { expect { subject }.to change(user.api_token) }
     end
 
     context 'when user is a new record and api_token is an empty string' do
       let!(:user) { build(:user, api_token: '') }
 
-      it { expect { subject }.not_to change { user.api_token } }
+      it { expect { subject }.not_to change(user.api_token) }
     end
   end
 

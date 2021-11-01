@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Style/OptionalBooleanParameter
 module RolesHelper
   def build_plan(administrator = false, editor = false, commenter = false)
     org = create(:org)
@@ -13,3 +14,4 @@ module RolesHelper
     plan
   end
 end
+# rubocop:enable Style/OptionalBooleanParameter

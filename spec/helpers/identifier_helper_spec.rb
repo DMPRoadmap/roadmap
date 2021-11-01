@@ -43,7 +43,7 @@ describe IdentifierHelper do
       @user_scheme.save
       @identifier.value = val
       rslt = id_for_display(id: @identifier)
-      expect(rslt).to eql(@user_scheme.description + ': ' + val)
+      expect(rslt).to eql("#{@user_scheme.description}: #{val}")
     end
     it 'returns the value as a link when the scheme has a identifier_prefix' do
       rslt = id_for_display(id: @identifier)

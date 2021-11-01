@@ -6,7 +6,7 @@ module CapybaraHelper
     if browser.respond_to?(:clear_cookies)
       # Rack::MockSession
       browser.clear_cookies
-    elsif browser.respond_to?(:manage) and browser.manage.respond_to?(:delete_all_cookies)
+    elsif browser.respond_to?(:manage) && browser.manage.respond_to?(:delete_all_cookies)
       # Selenium::WebDriver
       browser.manage.delete_all_cookies
     else

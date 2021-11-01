@@ -587,7 +587,7 @@ describe Plan do
     end
 
     it "doesn't send any emails" do
-      expect { subject }.not_to change { ActionMailer::Base.deliveries.size }
+      expect { subject }.not_to change(ActionMailer::Base.deliveries.size)
     end
 
     context 'when org contact_email present' do
@@ -634,7 +634,7 @@ describe Plan do
     it "doesn't send any emails" do
       User.any_instance.stubs(:get_preferences)
           .returns(users: { feedback_provided: false })
-      expect { subject }.not_to change { ActionMailer::Base.deliveries.size }
+      expect { subject }.not_to change(ActionMailer::Base.deliveries.size)
     end
 
     context 'when user feedback provided pref is true' do
@@ -649,9 +649,6 @@ describe Plan do
         }.by(2)
       end
     end
-  end
-
-  describe '#guidance_by_question_as_hash' do
   end
 
   describe '#editable_by?' do
