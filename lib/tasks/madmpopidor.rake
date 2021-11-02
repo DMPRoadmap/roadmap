@@ -5,15 +5,20 @@ require "set"
 namespace :madmpopidor do
   desc "Upgrade to v3.0.0"
   task v3_0_0: :environment do
+    p "Upgrading to DMP OPIDoR v3.0.0"
+    p "------------------------------------------------------------------------"
     Rake::Task["madmpopidor:add_structure_question_format"].execute
     Rake::Task["madmpopidor:initialize_template_locale"].execute
     Rake::Task["madmpopidor:load_registries"].execute
     Rake::Task["madmpopidor:seed"].execute
     Rake::Task["madmpopidor:initialize_plan_fragments"].execute
+    p "------------------------------------------------------------------------"
+    p "Upgrade complete"
   end
 
   desc "Initialize Dmp, Project, Meta & ResearchOutputs JSON fragments for the ancient plans"
   task initialize_plan_fragments: :environment do
+    p "Creating plans fragments..."
     Plan.all.each do |plan|
       plan.create_plan_fragments if plan.json_fragment.nil?
 
@@ -103,11 +108,13 @@ namespace :madmpopidor do
         research_output.create_json_fragments
       end
     end
+    p "Done."
   end
 
   desc "Add Structured question format in table"
   task add_structure_question_format: :environment do
     if QuestionFormat.find_by(title: "Structured").nil?
+      p "Adding Structured question format..."
       QuestionFormat.create!(
         {
           title: "Structured",
@@ -117,21 +124,25 @@ namespace :madmpopidor do
           structured: true
         }
       )
+      p "Done."
     end
   end
 
   desc "Initialize the template locale to the default language of the application"
   task initialize_template_locale: :environment do
+    p "Updating template with default locale..."
     languages = Language.all
     Template.all.each do |template|
       if languages.find_by(abbreviation: template.locale).nil?
         template.update(locale: Language.default.abbreviation)
       end
     end
+    p "Done"
   end
 
   desc "Seeds the database with the madmp data"
   task seed: :environment do
+    p "Seeding database..."
     Rake::Task["madmpopidor:load_templates"].execute
     load(Rails.root.join("db", "madmp_seeds.rb"))
   end
@@ -139,6 +150,7 @@ namespace :madmpopidor do
   # Load templates form an index file
   desc "Load JSON templates for structured questions in the database"
   task load_templates: :environment do
+    p "Loading maDMP Templates..."
     # Read and parse index.json file
     index_path = Rails.root.join("config/madmp/schemas/main/index.json")
     schemas_index = JSON.load(File.open(index_path))
@@ -160,6 +172,7 @@ namespace :madmpopidor do
           s.classname = classname
         end
         schema.update(schema: json_schema.to_json)
+        p "#{schema.name} loaded"
       rescue ActiveRecord::RecordInvalid
         p "ERROR: template #{title} is invalid (model validations)"
       end
@@ -168,17 +181,21 @@ namespace :madmpopidor do
     # Replace all "template_name" key/values with "schema_id" equivalent in loaded schemas
     MadmpSchema.all.each do |schema|
       begin
+        p "Substituting template_name..."
         schema.update(schema: MadmpSchema.substitute_names(schema.schema))
+        p "Done."
       rescue ActiveRecord::RecordNotFound => e
         p "ERROR: template name substitution failed in #{schema.name}: #{e.message}"
         next
       end
     end
+    p "maDMP Templates loaded."
   end
 
   # Load registries
   desc "Load JSON registries"
   task load_registries: :environment do
+    p "Loading maDMP registries..."
     registries_path = Rails.root.join("config/madmp/registries/index.json")
     registries = JSON.load(File.open(registries_path))
 
@@ -200,7 +217,9 @@ namespace :madmpopidor do
       registry_values.each_with_index do |reg_val, idx|
         RegistryValue.create!(data: reg_val, registry: registry, order: idx)
       end
+      p "#{registry_name} loaded."
     end
+    p "Done."
   end
 end
 # rubocop:enable Metrics/BlockLength
