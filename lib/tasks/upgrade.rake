@@ -1138,7 +1138,7 @@ namespace :upgrade do
 
       next unless plan.owner.present? && plan.owner.org.present?
 
-      plan.update_columns(:org_id, plan.owner.org.id)
+      plan.update_columns(org_id: plan.owner.org.id)
     end
 
     p "Attaching Plans to Funders"
@@ -1167,7 +1167,7 @@ namespace :upgrade do
         funder_id = org.id if org.present?
       end
 
-      plan.update_columns(:funder_id, funder_id) if funder_id.present?
+      plan.update_columns(funder_id: funder_id) if funder_id.present?
     end
     p "Complete"
   end
@@ -1186,7 +1186,7 @@ namespace :upgrade do
       identifier = Identifier.find_or_create_by(
         identifier_scheme_id: nil, identifiable: plan, value: plan.grant_number
       )
-      plan.update_columns(:grant_id, identifier.id)
+      plan.update_columns(grant_id: identifier.id)
     end
     p "Complete"
   end

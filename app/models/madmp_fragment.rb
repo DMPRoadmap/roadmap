@@ -456,7 +456,7 @@ class MadmpFragment < ActiveRecord::Base
   def update_plan_title
     return unless classname.eql?("meta")
 
-    plan.update(title: data["title"])
+    plan.update_columns(title: data["title"])
   end
 
 end
