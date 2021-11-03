@@ -46,6 +46,10 @@ namespace = local_assigns.fetch(:namespace, nil)
 
 placeholder = _("Begin typing to see a list of suggestions.")
 autocomplete_id = SecureRandom.hex(6)
+
+user_entered = default_org.present? &&
+               default_org.new_record? &&
+               !default_org.is_a?(RegistryOrg)
 %>
 
 <%= fields_for :org_autocomplete do |org_fields| %>
@@ -55,7 +59,7 @@ autocomplete_id = SecureRandom.hex(6)
     <%= org_fields.text_field :"#{[namespace, "name"].compact.join("_")}",
                               class: "form-control auto-complete #{classes}",
                               placeholder: placeholder,
-                              value: default_org&.new_record? ? nil : default_org&.name,
+                              value: user_entered ? nil : default_org&.name,
                               list: "autocomplete-#{autocomplete_id}",
                               autocomplete: "off",
                               aria: { label: placeholder, autocomplete: "list", required: required },
@@ -92,13 +96,13 @@ autocomplete_id = SecureRandom.hex(6)
         <%= org_fields.label(:"#{[namespace, "not_in_list"].compact.join("_")}", class: 'control-label') do %>
           <%= org_fields.check_box(:"#{[namespace, "not_in_list"].compact.join("_")}", class: "new-org-entry",
                                    context: "not-in-list-#{autocomplete_id}",
-                                   checked: default_org&.new_record?) %>
+                                   checked: user_entered) %>
           <%= _('I cannot find my %{item_label} in the list') % { item_label: label.downcase } %>
         <% end %>
       </div>
       <div class="col-md-<%= col_size %>">
         <%= org_fields.text_field :"#{[namespace, "user_entered_name"].compact.join("_")}",
-                                  value: default_org&.new_record? ? default_org&.name : nil,
+                                  value: user_entered ? default_org&.name : nil,
                                   placeholder: _("Please enter the %{item_label} name") % { item_label: label.downcase },
                                   class: "form-control toggleable-field user-entered-org-#{autocomplete_id}",
                                   maxlength: 80 %>

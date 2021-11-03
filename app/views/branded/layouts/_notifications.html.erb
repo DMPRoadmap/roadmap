@@ -1,21 +1,22 @@
 <%# locals: notice, alert %>
 
-<%
-has_alert = (alert || flash[:alert] || flash[:error])
-has_notice = (notice || flash[:notice])
+<%# Success/notice messages %>
+<% if flash[:alert].present? || flash[:error].present? %>
+  <div id="notification-area" class="c-notification-area c-notification-area__warning" role="alert">
+    <i class="fas fa-times-circle" aria-hidden="true"></i>
+    <span class="aria-only"><%= _('Error:') %></span>
+    <span><%= sanitize((flash[:alert].present? ? flash[:alert] : flash[:error])) %></span>
+    <%= yield :model_errors %>
+  </div>
+<% elsif flash[:notice].present? %>
+  <div id="notification-area" class="c-notification-area c-notification-area__info" role="status">
+    <i class="fas fa-check-circle" aria-hidden="true"></i>
+    <span class="aria-only"><%= _('Notice:') %></span>
+    <span><%= sanitize(flash[:notice]) %></span>
+  </div>
+<% end %>
 
-classes = has_alert ? 'c-notification-area__warning ' : 'c-notification-area__info '
-classes += (has_alert or has_notice) ? ' show' : ' hide'
-%>
-<div id="notification-area"
-     class="c-notification-area <%= classes %>"
-     role="<%= (has_notice ? 'status' : (has_alert ? 'alert' : '')) %>">
-  <i class="fas <%= has_alert ? ' fa-times-circle' : ' fa-check-circle' %>" aria-hidden="true"></i>
-  <span class="aria-only"><%= has_alert ? _('Error:') : _('Notice:') %></span>
-  <span><%= sanitize (has_alert ? alert : notice) %></span>
-  <%= yield :errors %>
-</div>
-
+<%# Global messages visible to all users %>
 <div id="global-notification-area" class="c-global-notification-area">
   <% Notification.active_per_user(current_user).each do |a| %>
     <% unless a.acknowledged?(current_user) %>

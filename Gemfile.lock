@@ -171,9 +171,6 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    devise_invitable (2.0.5)
-      actionmailer (>= 5.0)
-      devise (>= 4.6)
     diff-lcs (1.4.4)
     docile (1.4.0)
     doorkeeper (5.5.4)
@@ -612,7 +609,6 @@ DEPENDENCIES
   contact_us
   database_cleaner
   devise
-  devise_invitable
   doorkeeper (~> 5.5)
   dotenv-rails
   dragonfly

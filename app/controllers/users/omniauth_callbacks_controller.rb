@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  # You should configure your model like this:
-  # devise :omniauthable, omniauth_providers: [:twitter]
 
   # See https://github.com/omniauth/omniauth/wiki/FAQ#rails-session-is-clobbered-after-callback-on-developer-strategy
   skip_before_action :verify_authenticity_token, only: %i[orcid shibboleth]
@@ -15,26 +13,37 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # GET|POST /users/auth/shibboleth
   def passthru
 
-p "PASSTHRU"
+p "PASSTHRU!"
+
     super
 
   end
 
+  def failure
+
+p "FAILURE!"
+p failed_strategy.name
+pp resource&.inspect
+
+  end
 
   # Shibboleth callback (the action invoked after the user signs in)
   #
   # GET|POST /users/auth/shibboleth/callback
   def shibboleth
 
-p "CALLBACK"
+p "CALLBACK!"
 
+    # TODO: If they already had an account auto merge/link the eppn to the existing account
 
-    # You need to implement the method below in your model (e.g. app/models/user.rb)
     @user = User.from_omniauth(request.env["omniauth.auth"])
+
+pp @user.inspect
 
     if @user.persisted?
 
-      @
+      # TODO: If this is a new user then direct them to the profile page and ask them to
+      # finish setting up their account. Once they save that redirect to the Dashboard
 
       # this will throw if @user is not activated
       sign_in_and_redirect @user, event: :authentication
@@ -46,18 +55,12 @@ p "CALLBACK"
     end
   end
 
-  # GET|POST /users/auth/shibboleth/callback
-  def failure
-    redirect_to root_path
+  # ORCID callback (the action invoked after the user signs in)
+  #
+  # GET|POST /users/auth/orcid/callback
+  def orcid
+
   end
-
-  # More info at:
-  # https://github.com/heartcombo/devise#omniauth
-
-  # GET|POST /resource/auth/twitter
-  # def passthru
-  #   super
-  # end
 
   protected
 

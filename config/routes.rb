@@ -31,7 +31,6 @@ Rails.application.routes.draw do
 =end
   # Base Devise controller setup
   devise_for :users, controllers: {
-    invitations: "users/invitations",
     omniauth_callbacks: "users/omniauth_callbacks",
     passwords: "users/passwords",
     registrations: "users/registrations",
@@ -40,22 +39,20 @@ Rails.application.routes.draw do
   devise_scope :user do
     get "/users/third_party_apps", to: "users#third_party_apps"
     get "/users/developer_tools", to: "users#developer_tools"
-    get "/users/invitations/resend/:id", to: "users/invitations#resend",
-                                         as: "resend_invitation"
     #delete "/users/identifiers/:id", to: "identifiers#destroy", as: "destroy_user_identifier"
   end
 
-  get "/orgs/shibboleth", to: "orgs#shibboleth_ds", as: "shibboleth_ds"
-  get "/orgs/shibboleth/:org_id", to: "orgs#shibboleth_ds_passthru"
-  post "/orgs/shibboleth", to: "orgs#shibboleth_ds_passthru"
+  # get "/orgs/shibboleth", to: "orgs#shibboleth_ds", as: "shibboleth_ds"
+  # get "/orgs/shibboleth/:org_id", to: "orgs#shibboleth_ds_passthru"
+  # post "/orgs/shibboleth", to: "orgs#shibboleth_ds_passthru"
 
   # ------------------------------------------
   # Start DMPTool customizations
   # ------------------------------------------
   # GET is triggered by user clicking an org in the list
-  get "/orgs/shibboleth/:id", to: "orgs#shibboleth_ds_passthru"
+  # get "/orgs/shibboleth/:id", to: "orgs#shibboleth_ds_passthru"
   # POST is triggered by user selecting an org from autocomplete
-  post "/orgs/shibboleth/:id", to: "orgs#shibboleth_ds_passthru"
+  # post "/orgs/shibboleth/:id", to: "orgs#shibboleth_ds_passthru"
   # ------------------------------------------
   # End DMPTool Customization
   # ------------------------------------------

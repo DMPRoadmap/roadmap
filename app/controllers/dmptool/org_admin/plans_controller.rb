@@ -26,9 +26,11 @@ module Dmptool
 
         if user.new_record?
           # The email address was unknown so send the user an invitation.
-          # See User.deliver_invitation for handling of the email
-          user = User.invite!({ email: user.email, invitation_plan_id: plan.id },
-                              current_user.org)
+          user = User.invite!(
+            inviter: current_user,
+            plan: plan,
+            params: { email: plan_params[:user][:email], org: current_user.org }
+          )
         else
           UserMailer.new_plan_via_template(
             recipient: user, sender: current_user, plan: plan

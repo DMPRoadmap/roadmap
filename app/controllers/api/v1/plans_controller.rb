@@ -64,7 +64,7 @@ module Api
           plan.update(api_client_id: client.id) if client.is_a?(ApiClient)
 
           # Invite the Owner if they are a Contributor then attach the Owner to the Plan
-          owner = invite_contributor(contributor: owner) if owner.is_a?(Contributor)
+          owner = invite_contributor(plan: plan, contributor: owner) if owner.is_a?(Contributor)
           plan.add_user!(owner.id, :creator)
 
           # Kaminari Pagination requires an ActiveRecord result set :/
@@ -134,21 +134,32 @@ module Api
         user
       end
 
-      def invite_contributor(contributor:)
+      def invite_contributor(plan:, contributor:)
         return nil unless contributor.present?
 
         # If the user was not found, invite them and attach any know identifiers
         names = contributor.name&.split || [""]
         firstname = names.length > 1 ? names.first : nil
         surname = names.length > 1 ? names.last : names.first
-        user = User.invite!({ email: contributor.email,
-                              firstname: firstname,
-                              surname: surname,
-                              org: contributor.org }, client)
+        # DMPTool customization
+        user = User.invite!(
+          inviter: client,
+          plan: plan,
+          params: {
+            email: contributor.email,
+            firstname: firstname,
+            surname: surname,
+            org: contributor.org
+          }
+        )
+        # user = User.invite!({ email: contributor.email,
+        #                       firstname: firstname,
+        #                       surname: surname,
+        #                       org: contributor.org }, client)
 
-        user = User.create({ email: contributor.email, firstname: firstname,
-                             surname: surname, org: contributor.org,
-                             password: SecureRandom.uuid })
+        # user = User.create({ email: contributor.email, firstname: firstname,
+        #                      surname: surname, org: contributor.org,
+        #                      password: SecureRandom.uuid })
         contributor.identifiers.each do |id|
           user.identifiers << Identifier.new(
             identifier_scheme: id.identifier_scheme, value: id.value

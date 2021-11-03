@@ -10,6 +10,31 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   before_action :configure_account_update_params, only: [:update]
 
+  def create
+    if resource.has_active_invitation? && !resource.new_record?
+      # The user record already existed
+      if resource.update(sign_up_params)
+        resource.accept_invitation
+
+        # Follow the standard Devise logic to sign in
+        set_flash_message! :notice, :signed_up
+        sign_up(resource_name, resource)
+        respond_with resource, location: after_sign_up_path_for(resource)
+      else
+        # Follow the standard Devise failed registration logic
+        clean_up_passwords resource
+        set_minimum_password_length
+        respond_with resource
+      end
+    else
+      # Devise doesn't set a flash message for some reason if its going to fail
+      # so do it here
+      super do |user|
+        flash[:alert] = _("Unable to create your account!") unless user.valid?
+      end
+    end
+  end
+
   protected
 
   # If you have extra params to permit, append them to the sanitizer.

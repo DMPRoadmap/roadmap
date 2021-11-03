@@ -46,9 +46,6 @@ class Org < ApplicationRecord
   # ----------------------------------------
   include Dmptool::Org
 
-  # Allows an Org to invite a user via the 'Email template' link on the Templates page
-  devise :invitable
-
   dragonfly_accessor :logo
 
   validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif', 'jpg', 'bmp', 'svg'], message: _("must be one of the following formats: jpeg, jpg, png, gif, bmp, svg")
@@ -58,6 +55,9 @@ class Org < ApplicationRecord
   # User's selection of a RegistryOrg in the UI. We need to update the registry_orgs.org_id
   # to establish the relationship
   after_create :connect_to_registry_org
+
+  # Prevent XSS attempts
+  before_validation ->(data) { data.sanitize_fields(:name) }
 
   # ----------------------------------------
   # End DMPTool Customization

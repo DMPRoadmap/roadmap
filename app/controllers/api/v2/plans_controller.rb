@@ -177,13 +177,18 @@ module Api
       # Send the owner an email to let them know about the new Plan
       def notify_owner(client:, owner:, plan:)
         if owner.new_record?
-          # This essentially drops the initializer User (aka owner) and creates a new one via
-          # the Devise invitation
-          User.invite!({ email: owner.email,
-                        firstname: owner.firstname,
-                        surname: owner.surname,
-                        invitation_plan_id: plan.id,
-                        org: owner.org }, client)
+          # This essentially drops the initializer User (aka owner) and creates a new one
+          # via the Devise invitation methods
+          User.invite!(
+            inviter: client,
+            plan: plan,
+            params: {
+              email: owner.email,
+              firstname: owner.firstname,
+              surname: owner.surname,
+              org: owner.org
+            }
+          )
         else
           UserMailer.new_plan_via_api(
             recipient: owner, plan: plan, api_client: client

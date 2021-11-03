@@ -16,10 +16,16 @@ class Api::V0::PlansController < Api::V0::BaseController
     plan_user = User.find_by(email: params[:plan][:email])
     # ensure user exists
     if plan_user.blank?
-      User.invite!({ email: params[:plan][:email] }, @user)
-      plan_user = User.find_by(email: params[:plan][:email])
-      plan_user.org = @user.org
-      plan_user.save
+      # DMPTool customization
+      plan_user = User.invite!(
+        inviter: @user,
+        plan: Plan.new(title: params[:plan][:title], template: @template),
+        params: { email: params[:plan][:email], org: @user.org }
+      )
+      # User.invite!({ email: params[:plan][:email] }, @user)
+      # plan_user = User.find_by(email: params[:plan][:email])
+      # plan_user.org = @user.org
+      # plan_user.save
     end
     # ensure user's organisation is the same as api user's
     unless plan_user.org == @user.org

@@ -14,17 +14,6 @@ class Users::SessionsController < Devise::SessionsController
       # If the email was left blank display an error
       redirect_to root_path, alert: _("Invalid email address!")
 
-    elsif resource&.invitation_token&.present? && !resource&.accepted_or_not_invited?
-      # The user has an open invitation
-      clean_up_passwords(resource)
-
-      # Clear out the stub values used to make the initial invited User valid
-      resource.firstname = nil
-      resource.surname = nil
-      resource.org = nil
-
-      render "users/invitations/edit"
-
     elsif sign_in_params[:org_id].present?
       # If there is an Org in the params then this is step 2 of the email+password workflow
       # so just let Devise sign them in normally
@@ -34,7 +23,14 @@ class Users::SessionsController < Devise::SessionsController
       # If there is no Org then the user provided their email in step 1 so we need
       # to send them to the Sign in OR Sign up page
       clean_up_passwords(resource)
-      render resource.new_record? ? "users/registrations/new" : :new
+
+      # If this is a user with an invitation, then clean up the stub data
+      resource.firstname = nil if resource.has_active_invitation?
+      resource.surname = nil if resource.has_active_invitation?
+      resource.org = nil if resource.has_active_invitation?
+
+      is_new_user = resource.new_record? || resource.has_active_invitation?
+      render is_new_user ? "users/registrations/new" : :new
     end
   end
 

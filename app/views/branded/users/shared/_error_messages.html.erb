@@ -1,15 +1,4 @@
 <% if resource.errors.any? %>
-  <div id="notification-area" role="alert"
-       class="c-notification-area c-notification-area__warning">
-    <i class="fas fa-times-circle"></i>
-
-    <% errs = resource.errors.full_messages %>
-
-    <% if errs.length <= 1 %>
-      <span class="aria-only"><%= _("Error: ") %> <%= errs.join %></span>
-    <% else %>
-      <span class="aria-only"><%= _("Errors: ") %></span>
-      <% resource.errors.full_messages.sort { |a, b| a <=> b }.join("<br>") %>
-    <% end %>
-  </div>
+  <br>
+  <%= sanitize(resource.errors.full_messages.sort { |a, b| a <=> b }.join("<br>")) %>
 <% end %>

@@ -94,7 +94,7 @@ class RegistryOrg < ApplicationRecord
       contact_email: Rails.configuration.x.organisation.helpdesk_email,
       contact_name: _("%{app_name} helpdesk") % { app_name: ApplicationService.application_name },
       is_other: false,
-      links: { "org": [{ "link": home_page, "text": "Home Page" }] },
+      links: { org: [{ link: home_page, text: "Home Page" }] },
       managed: false,
       target_url: home_page,
       funder: funder,

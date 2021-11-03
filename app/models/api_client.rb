@@ -37,7 +37,6 @@ class ApiClient < ApplicationRecord
 
   self.table_name = "oauth_applications"
 
-  include DeviseInvitable::Inviter
   include Subscribable
   include ::Doorkeeper::Orm::ActiveRecord::Mixins::Application
   include ::Doorkeeper::Models::Scopes
@@ -45,8 +44,6 @@ class ApiClient < ApplicationRecord
   extend Dragonfly::Model::Validations
   extend UniqueRandom
 
-  # Allows an ApiClient to invite a new user via the 'create_dmps' scope
-  devise :invitable
 
   enum callback_methods: %i[put post patch]
 

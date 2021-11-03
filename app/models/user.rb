@@ -76,10 +76,9 @@ class User < ApplicationRecord
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-          :recoverable, :rememberable, :validatable,
-          :trackable, :invitable,
-          :omniauthable, omniauth_providers: %i[shibboleth orcid]
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable,
+         :validatable, :trackable,
+         :omniauthable, omniauth_providers: %i[shibboleth orcid]
 
   # DMPTool customization
   #
@@ -231,7 +230,6 @@ class User < ApplicationRecord
   #
   # Callbacks to support our sign in / sign up workflow
   before_validation ->(user) { user.institution = user.org }
-  before_validation ->(data) { data.sanitize_fields(:email, :firstname, :surname) }
 
   # =================
   # = Class methods =
@@ -443,13 +441,13 @@ class User < ApplicationRecord
   # rubocop:enable Metrics/AbcSize
 
   # Override to Devise invitation emails
-  def deliver_invitation(options = {})
-    # Always override the devise_invitable email title
-    super(options.merge(subject: _("A Data Management Plan in " \
-      "%{application_name} has been shared with you") %
-      { application_name: ApplicationService.application_name })
-    )
-  end
+  # def deliver_invitation(options = {})
+  #   # Always override the devise_invitable email title
+  #   super(options.merge(subject: _("A Data Management Plan in " \
+  #     "%{application_name} has been shared with you") %
+  #     { application_name: ApplicationService.application_name })
+  #   )
+  # end
 
   # Case insensitive search over User model
   #

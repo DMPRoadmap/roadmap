@@ -8,6 +8,45 @@ module Dmptool
 
     class_methods do
 
+      # ===============
+      # = Invitations =
+      # ===============
+
+      # Devise Invitable was cumbersome and did not work well with our workflow
+      # so we removed that gem but still use the invitation_token field to allow us
+      # to create the stub User record and attach it to the Plan.
+      #
+      # We still want to allow users to be invited though and need to create a stub
+      # User record that can be associated with the Plan (via a Role). When the
+      # invitation is accepted, the user will have an opportunity to overwrite
+      # the stub :firstname, :surname and :org
+
+      # Create the stub User and sent them the invitation email
+      def invite!(inviter:, plan:, params:)
+        return nil unless inviter.present? && plan.present? &&
+                          params.present? && params[:email].present?
+
+        params[:firstname] = "First" unless params[:firstname].present?
+        params[:surname] = "Last" unless params[:surname].present?
+        params[:password] = SecureRandom.uuid unless params[:password].present?
+        params[:invitation_token] = SecureRandom.uuid
+        params[:invitation_created_at] = Time.now
+        params[:invited_by_id] = inviter.id
+        params[:invited_by_type] = inviter.class.name
+        params[:invitation_plan_id] = plan&.id
+
+        ::User.transaction do
+          invitee = ::User.new(params)
+          if invitee.save(params)
+            UserMailer.invitation(inviter, invitee, plan).deliver_now
+            invitee.update(invitation_sent_at: Time.now)
+            invitee
+          else
+            nil
+          end
+        end
+      end
+
       # ============
       # = Omniauth =
       # ============
@@ -74,6 +113,29 @@ module Dmptool
     end
 
     included do
+
+      # ===============
+      # = Invitations =
+      # ===============
+
+      # Devise Invitable was cumbersome and did not work well with our workflow
+      # so we removed that gem but still use the invitation_token field to allow us
+      # to create the stub User record and attach it to the Plan.
+      #
+      # We still want to allow users to be invited though and need to create a stub
+      # User record that can be associated with the Plan (via a Role). When the
+      # invitation is accepted, the user will have an opportunity to overwrite
+      # the stub :firstname, :surname and :org
+
+      # Whether or not  the user has an a ctive invitation
+      def has_active_invitation?
+        invitation_token.present? && invitation_accepted_at.nil?
+      end
+
+      # Updates the accept date.
+      def accept_invitation
+        update(invitation_accepted_at: Time.now)
+      end
 
       # ==================
       # = API V2 HELPERS =
