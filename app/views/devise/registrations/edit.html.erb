@@ -16,7 +16,7 @@
           <a href="#password-details" role="tab" class="nav-link"
              aria-controls="password-details" data-toggle="tab"><%= _('Password') %></a>
         </li>
-        <% if @user.can_org_admin? %>
+        <% if @user.can_use_api? %>
           <li role="api-details" class="nav-item">
             <a href="#api-details" role="tab" class="nav-link"
                aria-controls="api-details" data-toggle="tab"><%= _('API Access') %></a>
@@ -43,7 +43,7 @@
             </div>
           </div>
         </div>
-        <% if @user.can_org_admin? %>
+        <% if @user.can_use_api? %>
           <div id="api-details" role="tabpanel" class="tab-pane">
             <div class="panel panel-default">
               <div class="panel-body">
