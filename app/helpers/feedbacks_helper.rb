@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+# Helper methods for Feedback messages
 module FeedbacksHelper
-
   def feedback_confirmation_default_subject
     _("DMP feedback request")
   end
@@ -13,10 +13,7 @@ module FeedbacksHelper
   end
 
   def feedback_constant_to_text(text, user, plan, org)
-    _(text.to_s) % { application_name: ApplicationService.application_name,
-                     user_name: user.name(false),
-                     plan_name: plan.title,
-                     organisation_email: org.contact_email }
+    format(_(text.to_s), application_name: ApplicationService.application_name, user_name: user.name(false),
+                         plan_name: plan.title, organisation_email: org.contact_email)
   end
-
 end

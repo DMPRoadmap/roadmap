@@ -38,5 +38,4 @@ module AutoCompleteHelper
       find("#org_autocomplete_user_entered_name").set(org_name)
     end
   end
-
 end

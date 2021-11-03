@@ -33,7 +33,6 @@
 #     Otherwise a new Org is created from the :user_entered_name value
 #
 module OrgSelectable
-
   extend ActiveSupport::Concern
 
   # rubocop:disable Metrics/BlockLength
@@ -173,5 +172,4 @@ module OrgSelectable
 
   end
   # rubocop:enable Metrics/BlockLength
-
 end

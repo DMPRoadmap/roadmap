@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+# Controller for the home page that users see when not logged in
 class HomeController < ApplicationController
-
   include OrgSelectable
 
   # --------------------------------
@@ -26,7 +26,7 @@ class HomeController < ApplicationController
       name = current_user.name(false)
       # The RolesController defaults the firstname and surname (both required fields)
       # to 'FirstName' and 'Surname' when a plan is shared with an unknown user
-      if name == "First Name Surname"
+      if name == 'First Name Surname'
         redirect_to edit_user_registration_path
       else
         redirect_to plans_url
@@ -42,5 +42,4 @@ class HomeController < ApplicationController
     # -------------------------------------------------
     end
   end
-
 end

@@ -22,7 +22,7 @@ json.distribution [plan] do |distribution|
   url = Rails.application.routes.url_helpers.plan_export_url(distribution, format: :pdf)
   json.download_url url
   json.format do
-    json.array! ["application/pdf"]
+    json.array! ['application/pdf']
   end
 
   json.distribution output.repositories do |repository|

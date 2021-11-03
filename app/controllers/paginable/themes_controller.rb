@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
-class Paginable::ThemesController < ApplicationController
+module Paginable
+  # Controller for paginating/sorting/searching the themes table
+  class ThemesController < ApplicationController
+    include Paginable
 
-  include Paginable
-
-  # /paginable/themes/index/:page
-  def index
-    authorize(Theme)
-    paginable_renderise(partial: "index", scope: Theme.all, format: :json)
+    # /paginable/themes/index/:page
+    def index
+      authorize(Theme)
+      paginable_renderise(partial: 'index', scope: Theme.all, format: :json)
+    end
   end
-
 end

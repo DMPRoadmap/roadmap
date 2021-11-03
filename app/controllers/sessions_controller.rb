@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Controller that handles user login and logout
 class SessionsController < Devise::SessionsController
 
   include Dmptool::SessionsController
@@ -17,12 +18,12 @@ class SessionsController < Devise::SessionsController
 
     unless existing_user.nil?
       # Until ORCID login is supported
-      unless session["devise.shibboleth_data"].nil?
+      unless session['devise.shibboleth_data'].nil?
         args = {
-          identifier_scheme: IdentifierScheme.find_by(name: "shibboleth"),
-          value: session["devise.shibboleth_data"]["uid"],
+          identifier_scheme: IdentifierScheme.find_by(name: 'shibboleth'),
+          value: session['devise.shibboleth_data']['uid'],
           identifiable: existing_user,
-          attrs: session["devise.shibboleth_data"]
+          attrs: session['devise.shibboleth_data']
         }
         @ui = Identifier.new(args)
       end
@@ -35,7 +36,7 @@ class SessionsController < Devise::SessionsController
       if !@ui.nil? && @ui.save
         # This is a user attempting to link their account via the Edit Profile page
         # rubocop:disable Layout/LineLength
-        flash[:notice] = _("Your account has been successfully linked to your institutional credentials. You will now be able to sign in with them.")
+        flash[:notice] = _('Your account has been successfully linked to your institutional credentials. You will now be able to sign in with them.')
         # rubocop:enable Layout/LineLength
       end
     end
@@ -49,5 +50,4 @@ class SessionsController < Devise::SessionsController
     # Method defined at controllers/application_controller.rb
     set_locale
   end
-
 end

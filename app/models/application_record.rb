@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+# Base ActiveRecord object
 class ApplicationRecord < ActiveRecord::Base
-
   include GlobalHelpers
   include ValidationValues
   include ValidationMessages
@@ -40,5 +40,4 @@ class ApplicationRecord < ActiveRecord::Base
       send("#{attr}=", ActionController::Base.helpers.sanitize(send(attr)))
     end
   end
-
 end

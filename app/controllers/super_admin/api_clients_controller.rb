@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 module SuperAdmin
-
+  # Controller for managing ApiClients for API V1
   class ApiClientsController < ApplicationController
-
     respond_to :html
 
     include OrgSelectable
@@ -29,6 +28,7 @@ module SuperAdmin
     end
 
     # PATCH/PUT /api_clients/:id
+    # rubocop:disable Metrics/AbcSize
     def update
       @api_client = ApiClient.find(params[:id])
       authorize(@api_client)
@@ -36,20 +36,21 @@ module SuperAdmin
       if @api_client.update(api_client_params)
         flash.now[:notice] = success_message(@api_client, _("updated"))
       else
-        flash.now[:alert] = failure_message(@api_client, _("update"))
+        flash.now[:alert] = failure_message(@api_client, _('update'))
       end
       render :edit
     end
+    # rubocop:enable Metrics/AbcSize
 
     # DELETE /api_clients/:id
     def destroy
       api_client = ApiClient.find(params[:id])
       authorize(api_client)
       if api_client.destroy
-        msg = success_message(api_client, _("deleted"))
+        msg = success_message(api_client, _('deleted'))
         redirect_to super_admin_api_clients_path, notice: msg
       else
-        flash.now[:alert] = failure_message(api_client, _("delete"))
+        flash.now[:alert] = failure_message(api_client, _('delete'))
         render :edit
       end
     end
@@ -81,7 +82,5 @@ module SuperAdmin
                                          :callback_uri, :callback_method,
                                          :trusted, scopes: [])
     end
-
   end
-
 end

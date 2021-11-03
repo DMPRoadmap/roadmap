@@ -34,8 +34,9 @@
 #  fk_rails_...  (language_id => languages.id)
 #  fk_rails_...  (region_id => regions.id)
 #
-class Org < ApplicationRecord
 
+# Object that represents an Organization/Institution/Funder
+class Org < ApplicationRecord
   extend FeedbacksHelper
   include FlagShihTzu
   include Identifiable
@@ -69,12 +70,12 @@ class Org < ApplicationRecord
   LOGO_FORMATS = %w[jpeg png gif jpg bmp svg].freeze
 
   HUMANIZED_ATTRIBUTES = {
-    feedback_msg: _("Feedback email message")
+    feedback_msg: _('Feedback email message')
   }.freeze
 
   attribute :feedback_msg, :text, default: feedback_confirmation_default_message
   attribute :language_id, :integer, default: -> { Language.default&.id }
-  attribute :links, :text, default: { "org": [] }
+  attribute :links, :text, default: { org: [] }
 
   # Stores links as an JSON object:
   #  { org: [{"link":"www.example.com","text":"foo"}, ...] }
@@ -98,7 +99,7 @@ class Org < ApplicationRecord
 
   has_many :plans
 
-  has_many :funded_plans, class_name: "Plan", foreign_key: "funder_id"
+  has_many :funded_plans, class_name: 'Plan', foreign_key: 'funder_id'
 
   has_many :templates
 
@@ -109,7 +110,7 @@ class Org < ApplicationRecord
   has_many :annotations
 
   has_and_belongs_to_many :token_permission_types,
-                          join_table: "org_token_permissions",
+                          join_table: 'org_token_permissions',
                           unique: true
 
   has_many :departments
@@ -183,11 +184,11 @@ class Org < ApplicationRecord
 
     # Attempt to locate the file by name. If it exists update the uid
     logo = Dir.glob("#{data_store_path}/**/*#{logo_name}")
-    if !logo.empty?
-      self.logo_uid = logo.first.gsub(data_store_path, "")
-    else
+    if logo.empty?
       # Otherwise the logo is missing so clear it to prevent save failures
       self.logo = nil
+    else
+      self.logo_uid = logo.first.gsub(data_store_path, '')
     end
   end
 
@@ -200,7 +201,7 @@ class Org < ApplicationRecord
             4 => :research_institute,
             5 => :project,
             6 => :school,
-            column: "org_type"
+            column: 'org_type'
 
   # The default Org is the one whose guidance is auto-attached to
   # plans when a plan is created
@@ -223,9 +224,9 @@ class Org < ApplicationRecord
 
   # Scope used in several controllers
   scope :with_template_and_user_counts, lambda {
-    joins("LEFT OUTER JOIN templates ON orgs.id = templates.org_id")
-      .joins("LEFT OUTER JOIN users ON orgs.id = users.org_id")
-      .group("orgs.id")
+    joins('LEFT OUTER JOIN templates ON orgs.id = templates.org_id')
+      .joins('LEFT OUTER JOIN users ON orgs.id = users.org_id')
+      .group('orgs.id')
       .select("orgs.*,
               count(distinct templates.family_id) as template_count,
               count(users.id) as user_count")
@@ -260,17 +261,18 @@ class Org < ApplicationRecord
   # Tests are setup currently to work with this issue.
   #
   # Returns String
+  # rubocop:disable Metrics/CyclomaticComplexity
   def org_type_to_s
     ret = []
-    ret << "Institution" if institution?
-    ret << "Funder" if funder?
-    ret << "Organisation" if organisation?
-    ret << "Research Institute" if research_institute?
-    ret << "Project" if project?
-    ret << "School" if school?
-    (!ret.empty? ? ret.join(", ") : "None")
+    ret << 'Institution' if institution?
+    ret << 'Funder' if funder?
+    ret << 'Organisation' if organisation?
+    ret << 'Research Institute' if research_institute?
+    ret << 'Project' if project?
+    ret << 'School' if school?
+    (ret.empty? ? 'None' : ret.join(', '))
   end
-  # rubocop:enable
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def funder_only?
     org_type == Org.org_type_values_for(:funder).min
@@ -301,15 +303,16 @@ class Org < ApplicationRecord
   #
   # Returns ActiveRecord::Relation
   def published_templates
-    templates.where("published = ?", true)
+    templates.where('published = ?', true)
   end
 
   def org_admins
     admin_perms = %w[grant_permissions modify_templates modify_guidance change_org_details]
-    User.joins(:perms).where("users.org_id = ? AND perms.name IN (?)", id, admin_perms)
+    User.joins(:perms).where('users.org_id = ? AND perms.name IN (?)', id, admin_perms)
   end
 
   # This replaces the old plans method. We now use the native plans method and this.
+  # rubocop:disable Metrics/AbcSize
   def org_admin_plans
     combined_plan_ids = (native_plan_ids + affiliated_plan_ids).flatten.uniq
 
@@ -321,6 +324,7 @@ class Org < ApplicationRecord
           .where.not(visibility: Plan.visibilities[:is_test])
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def grant_api!(token_permission_type)
     token_permission_types << token_permission_type unless
@@ -375,16 +379,16 @@ class Org < ApplicationRecord
   def resize_image
     return if logo.nil? || logo.height == 100
 
-    self.logo = logo.thumb("x100") # resize height and maintain aspect ratio
+    self.logo = logo.thumb('x100') # resize height and maintain aspect ratio
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def merge_attributes!(to_be_merged:)
     return false unless to_be_merged.is_a?(Org)
 
     self.target_url = to_be_merged.target_url unless target_url.present?
     self.managed = true if !managed? && to_be_merged.managed?
-    self.links = to_be_merged.links unless links.nil? || links == "{\"org\":[]}"
+    self.links = to_be_merged.links unless links.nil? || links == '{"org":[]}'
     self.logo_uid = to_be_merged.logo_uid unless logo.present?
     self.logo_name = to_be_merged.logo_name unless logo.present?
     self.contact_email = to_be_merged.contact_email unless contact_email.present?
@@ -392,8 +396,9 @@ class Org < ApplicationRecord
     self.feedback_enabled = to_be_merged.feedback_enabled unless feedback_enabled?
     self.feedback_msg = to_be_merged.feedback_msg unless feedback_msg.present?
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
+  # rubocop:disable Metrics/AbcSize
   def merge_departments!(to_be_merged:)
     return false unless to_be_merged.is_a?(Org) && to_be_merged.departments.any?
 
@@ -404,6 +409,7 @@ class Org < ApplicationRecord
       department.update(org_id: id) unless existing.include?(department.name.downcase)
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def merge_guidance_groups!(to_be_merged:)
     return false unless to_be_merged.is_a?(Org) && to_be_merged.guidance_groups.any?
@@ -441,5 +447,4 @@ class Org < ApplicationRecord
       token_permission_types << perm unless token_permission_types.include?(perm)
     end
   end
-
 end

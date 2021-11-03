@@ -33,6 +33,7 @@
 #  index_oauth_applications_on_owner_id (owner_id, owner_type)
 #
 
+# Object that represents an external system
 class ApiClient < ApplicationRecord
 
   self.table_name = "oauth_applications"
@@ -133,5 +134,4 @@ class ApiClient < ApplicationRecord
   def ensure_scopes
     self.scopes = default_scopes.sort { |a, b| a <=> b }.join(" ") unless scopes.present?
   end
-
 end

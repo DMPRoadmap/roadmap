@@ -37,8 +37,8 @@
 FactoryBot.define do
   factory :org do
     name { Faker::Company.unique.name }
-    links { { "org" => [] } }
-    abbreviation { SecureRandom.hex(6) }
+    links { { 'org' => [] } }
+    abbreviation { SecureRandom.hex(4) }
     feedback_enabled { false }
     region { Region.first || create(:region) }
     language { Language.default }

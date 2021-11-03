@@ -24,9 +24,14 @@
 #  fk_rails_...  (org_id => orgs.id)
 #
 
+# Object that represents a grouping of themed guidance
 class GuidanceGroup < ApplicationRecord
+<<<<<<< HEAD
 
   attribute :optional_subset, :boolean, default: false
+=======
+  attribute :optional_subset, :boolean, default: true
+>>>>>>> 9e252de5049794dcf2f990010936a13d613c6786
   attribute :published, :boolean, default: false
 
   # ================
@@ -63,7 +68,7 @@ class GuidanceGroup < ApplicationRecord
 
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
-    where("lower(name) LIKE lower(?)", search_pattern)
+    where('lower(name) LIKE lower(?)', search_pattern)
   }
 
   scope :published, -> { where(published: true) }
@@ -137,6 +142,7 @@ class GuidanceGroup < ApplicationRecord
   # = Instance methods =
   # ====================
 
+  # rubocop:disable Metrics/AbcSize
   def merge!(to_be_merged:)
     return self unless to_be_merged.is_a?(GuidanceGroup)
 
@@ -160,5 +166,5 @@ class GuidanceGroup < ApplicationRecord
       reload
     end
   end
-
+  # rubocop:enable Metrics/AbcSize
 end

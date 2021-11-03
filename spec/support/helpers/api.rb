@@ -18,9 +18,7 @@ module ApiHelper
     create(:org) unless Org.any?
     user = User.org_admins(Org.last).first unless user.present?
 
-    unless user.present?
-      user = create(:user, :org_admin, api_token: SecureRandom.uuid, org: Org.last)
-    end
+    user = create(:user, :org_admin, api_token: SecureRandom.uuid, org: Org.last) unless user.present?
 
     Api::V1::BaseApiController.any_instance.stubs(:authorize_request).returns(true)
     Api::V1::BaseApiController.any_instance.stubs(:client).returns(user)

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative "boot"
+require_relative 'boot'
 
-require "rails/all"
+require 'rails/all'
 
 require "csv"
 require "uc3-ssm"
@@ -30,9 +30,8 @@ if ENV.has_key?('SSM_ROOT_PATH')
 end
 
 module DMPRoadmap
-
+  # DMPRoadmap application
   class Application < Rails::Application
-
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
@@ -72,5 +71,4 @@ module DMPRoadmap
     # Set the default host for mailer URLs
     config.action_mailer.default_url_options = { host: config.x.dmproadmap.server_host }
   end
-
 end

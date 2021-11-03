@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
-class Paginable::OrgsController < ApplicationController
+module Paginable
+  # Controller for paginating/sorting/searching the orgs table
+  class OrgsController < ApplicationController
+    include Paginable
 
   # --------------------------------
   # Start DMPTool Customization
@@ -22,5 +25,4 @@ class Paginable::OrgsController < ApplicationController
       format: :json
     )
   end
-
 end

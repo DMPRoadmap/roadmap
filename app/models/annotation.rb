@@ -20,8 +20,8 @@
 #  index_annotations_on_versionable_id  (versionable_id)
 #
 
+# Object that represents Question level guidance or example answers
 class Annotation < ApplicationRecord
-
   include VersionableModel
 
   ##
@@ -74,5 +74,4 @@ class Annotation < ApplicationRecord
     copy.question_id = options.fetch(:question_id, nil)
     copy
   end
-
 end

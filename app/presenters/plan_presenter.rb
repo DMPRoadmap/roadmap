@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+# Helper class for plans
 class PlanPresenter
-
   attr_accessor :plan
 
   def initialize(plan)
@@ -17,7 +17,6 @@ class PlanPresenter
     return "Starts on #{sd}" if sd.present?
     return "Ends on #{ed}" if ed.present?
 
-    ""
+    ''
   end
-
 end

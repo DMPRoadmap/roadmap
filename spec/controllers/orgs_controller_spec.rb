@@ -1,27 +1,26 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe OrgsController, type: :controller do
-
   include Mocks::FormFieldJsonValues
 
   before(:each) do
     @name = Faker::Company.name
     @org = create(:org)
     @user = create(:user, :super_admin, org: @org)
-    @logo = Rack::Test::UploadedFile.new "spec/support/mocks/logo_file.png", "image/png"
+    @logo = Rack::Test::UploadedFile.new 'spec/support/mocks/logo_file.png', 'image/png'
 
     @controller = OrgsController.new
   end
 
-  it "GET /org/admin/:id/admin_edit" do
+  it 'GET /org/admin/:id/admin_edit' do
     sign_in(@user)
     get :admin_edit, params: { id: @org.id }
-    expect(response).to render_template("orgs/admin_edit")
+    expect(response).to render_template('orgs/admin_edit')
   end
 
-  describe "PUT /org/admin/:id/admin_update" do
+  describe 'PUT /org/admin/:id/admin_update' do
     before(:each) do
       other_org = build(:org, name: Faker::Movies::StarWars.unique.planet)
       @args = { name: Faker::Movies::StarWars.unique.planet,
@@ -40,7 +39,7 @@ RSpec.describe OrgsController, type: :controller do
       sign_in(@user)
     end
 
-    it "succeeds" do
+    it 'succeeds' do
       @args.delete(:feedback_enabled)
       put :admin_update, params: { id: @org.id, org_links: @link_args, org: @args }
       expect(response).to redirect_to("#{admin_edit_org_path(@org)}#profile")
@@ -53,12 +52,12 @@ RSpec.describe OrgsController, type: :controller do
       expect(@org.funder?).to eql(@args[:funder])
       expect(@org.institution?).to eql(@args[:institution])
       expect(@org.organisation?).to eql(@args[:organisation])
-      expect(@org.managed).to eql(@args[:managed] == "1")
+      expect(@org.managed).to eql(@args[:managed] == '1')
       expect(@org.links.to_json).to eql(@link_args)
-      expect(@org.logo_name).to eql("logo_file.png")
+      expect(@org.logo_name).to eql('logo_file.png')
       expect(@org.logo_uid.present?).to eql(true)
     end
-    it "succeeds for feedback changes" do
+    it 'succeeds for feedback changes' do
       put :admin_update, params: { id: @org.id, org: @args }
       expect(response).to redirect_to("#{admin_edit_org_path(@org)}#feedback")
       expect(flash[:notice].present?).to eql(true)
@@ -66,11 +65,11 @@ RSpec.describe OrgsController, type: :controller do
       expect(@org.feedback_enabled).to eql(@args[:feedback_enabled])
       expect(@org.feedback_msg).to eql(@args[:feedback_msg])
     end
-    it "updates the shibboleth entityID if super_admin and enabled" do
+    it 'updates the shibboleth entityID if super_admin and enabled' do
       @args.delete(:feedback_enabled)
       Rails.configuration.x.shibboleth.use_filtered_discovery_service = true
-      scheme = create(:identifier_scheme, name: "shibboleth")
-      @args[:identifiers_attributes] = { "0": { identifier_scheme_id: scheme.id,
+      scheme = create(:identifier_scheme, name: 'shibboleth')
+      @args[:identifiers_attributes] = { '0': { identifier_scheme_id: scheme.id,
                                                 value: SecureRandom.uuid } }
       put :admin_update, params: { id: @org.id, org: @args }
       expect(response).to redirect_to("#{admin_edit_org_path(@org)}#profile")
@@ -78,37 +77,37 @@ RSpec.describe OrgsController, type: :controller do
       identifier = @org.reload.identifiers.last
       expect(identifier.present?).to eql(true)
       expect(identifier.identifier_scheme).to eql(scheme)
-      expected = @args[:identifiers_attributes][:"0"][:value]
+      expected = @args[:identifiers_attributes][:'0'][:value]
       expect(identifier.value.end_with?(expected)).to eql(true)
     end
-    it "fails" do
+    it 'fails' do
       put :admin_update, params: { id: @org.id, org: { name: nil } }
       expect(response).to redirect_to("#{admin_edit_org_path(@org)}#profile")
       expect(flash[:alert].present?).to eql(true)
     end
   end
 
-  describe "GET /orgs/shibboleth_ds" do
+  describe 'GET /orgs/shibboleth_ds' do
     before(:each) do
-      shib = create(:identifier_scheme, name: "shibboleth")
+      shib = create(:identifier_scheme, name: 'shibboleth')
       @identifier = create(:identifier, identifier_scheme: shib,
                                         identifiable: @org, value: SecureRandom.uuid)
       @controller.stubs(:process_org!).returns(create(:org))
     end
 
-    it "succeeds" do
+    it 'succeeds' do
       get :shibboleth_ds
-      expect(response).to render_template("orgs/shibboleth_ds")
+      expect(response).to render_template('orgs/shibboleth_ds')
       expect(assigns(:user).new_record?).to eql(true)
       expect(assigns(:orgs).any?).to eql(true)
       expect(assigns(:orgs).first.identifiers.include?(@identifier)).to eql(true)
     end
-    it "redirects to the dashboard if user is logged in" do
+    it 'redirects to the dashboard if user is logged in' do
       sign_in(@user)
       get :shibboleth_ds
       expect(response).to redirect_to(root_path)
     end
-    it "redirects to the user omniauth path if no Orgs have shib entityIDs" do
+    it 'redirects to the user omniauth path if no Orgs have shib entityIDs' do
       @identifier.destroy
       get :shibboleth_ds
       expect(response).to redirect_to(user_shibboleth_omniauth_authorize_path)
@@ -116,9 +115,9 @@ RSpec.describe OrgsController, type: :controller do
     end
   end
 
-  describe "POST /orgs/shibboleth_ds" do
+  describe 'POST /orgs/shibboleth_ds' do
     before(:each) do
-      shib = create(:identifier_scheme, name: "shibboleth")
+      shib = create(:identifier_scheme, name: 'shibboleth')
       @identifier = create(:identifier, identifier_scheme: shib,
                                         identifiable: @org, value: SecureRandom.uuid)
       @args = { org_id: @org.id, org_name: @org.name }
@@ -147,5 +146,4 @@ RSpec.describe OrgsController, type: :controller do
       expect(flash[:notice].present?).to eql(true)
     end
   end
-
 end

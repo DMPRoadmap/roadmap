@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 module Api
-
   module V1
-
+    # Helper class for the API V1 project / DMP
     class PlanPresenter
-
       attr_reader :data_contact, :contributors, :costs
 
       def initialize(plan:)
@@ -60,7 +58,7 @@ module Api
 
       # Retrieve the answers that have the Budget theme
       def plan_costs(plan:)
-        theme = Theme.where(title: "Cost").first
+        theme = Theme.where(title: 'Cost').first
         return [] unless theme.present?
 
         # TODO: define a new 'Currency' question type that includes a float field
@@ -72,12 +70,9 @@ module Api
         answers.map do |answer|
           # TODO: Investigate whether question level guidance should be the description
           { title: answer.question.text, description: nil,
-            currency_code: "usd", value: answer.text }
+            currency_code: 'usd', value: answer.text }
         end
       end
-
     end
-
   end
-
 end

@@ -1,14 +1,11 @@
 # frozen_string_literal: true
 
 module ExternalApis
-
   # This service provides an interface to the Research Organization Registry (ROR)
   # API.
   # For more information: https://github.com/ror-community/ror-api
   class RorService < BaseService
-
     class << self
-
       # Retrieve the config settings from the initializer
       def landing_page_url
         Rails.configuration.x.ror&.landing_page_url || super
@@ -146,15 +143,16 @@ module ExternalApis
 
         ror.present? ? ror.identifiable_id : nil
       end
+      # rubocop:enable Metrics/AbcSize
 
       # Org names are not unique, so include the Org URL if available or
       # the country. For example:
       #    "Example College (example.edu)"
       #    "Example College (Brazil)"
       def org_name(item:)
-        return "" unless item.present? && item["name"].present?
+        return '' unless item.present? && item['name'].present?
 
-        country = item.fetch("country", {}).fetch("country_name", "")
+        country = item.fetch('country', {}).fetch('country_name', '')
         website = org_website(item: item)
         # If no website or country then just return the name
         return item["name"] unless website.present? || country.present?
@@ -164,39 +162,36 @@ module ExternalApis
 
       # Extracts the org's ISO639 if available
       def org_language(item:)
-        dflt = I18n.default_locale || "en"
+        dflt = I18n.default_locale || 'en'
         return dflt unless item.present?
 
-        labels = item.fetch("labels", [{ "iso639": dflt }])
-        labels.first&.fetch("iso639", I18n.default_locale) || dflt
+        labels = item.fetch('labels', [{ iso639: dflt }])
+        labels.first&.fetch('iso639', I18n.default_locale) || dflt
       end
 
       # Extracts the website domain from the item
       def org_website(item:)
-        return nil unless item.present? && item.fetch("links", [])&.any?
-        return nil if item["links"].first.blank?
+        return nil unless item.present? && item.fetch('links', [])&.any?
+        return nil if item['links'].first.blank?
 
         # A website was found, so extract just the domain without the www
         domain_regex = %r{^(?:http://|www\.|https://)([^/]+)}
-        website = item["links"].first.scan(domain_regex).last.first
-        website.gsub("www.", "")
+        website = item['links'].first.scan(domain_regex).last.first
+        website.gsub('www.', '')
       end
 
       # Extracts the FundRef Id if available
       def fundref_id(item:)
-        return "" unless item.present? && item["external_ids"].present?
-        return "" unless item["external_ids"].fetch("FundRef", {}).any?
+        return '' unless item.present? && item['external_ids'].present?
+        return '' unless item['external_ids'].fetch('FundRef', {}).any?
 
         # If a preferred Id was specified then use it
-        ret = item["external_ids"].fetch("FundRef", {}).fetch("preferred", "")
+        ret = item['external_ids'].fetch('FundRef', {}).fetch('preferred', '')
         return ret if ret.present?
 
         # Otherwise take the first one listed
-        item["external_ids"].fetch("FundRef", {}).fetch("all", []).first
+        item['external_ids'].fetch('FundRef', {}).fetch('all', []).first
       end
-
     end
-
   end
-
 end

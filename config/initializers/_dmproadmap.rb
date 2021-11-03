@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "csv"
+require 'csv'
 
 # DMPRoadmap constants
 #
@@ -21,9 +21,8 @@ require "csv"
 #           AnywayConfig then this file can be deleted and all of it's referenced variables
 #           can be updated to point directly at the AnywayConfig file.
 module DMPRoadmap
-
+  # Base configuration for the DMPRoadmap system
   class Application < Rails::Application
-
     # --------------------- #
     # ORGANISATION SETTINGS #
     # --------------------- #
@@ -279,5 +278,4 @@ module DMPRoadmap
     # Allow the system to fetch citations for RelatedIdentifiers via the Uc3Citation gem
     config.x.madmp.enable_citation_lookup = Rails.configuration.x.dmproadmap.enable_citation_lookup
   end
-
 end

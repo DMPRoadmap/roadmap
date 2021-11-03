@@ -9,12 +9,12 @@
 #
 # When generating the translations, the rake:tasks will need to be run with each
 # domain specified in order to generate both sets of translation keys.
-if !ENV["DOMAIN"] || ENV["DOMAIN"] == "app"
+if !ENV['DOMAIN'] || ENV['DOMAIN'] == 'app'
   TranslationIO.configure do |config|
     config.api_key              = Rails.configuration.x.dmproadmap.translation_io_key_app
     config.source_locale        = "en"
     config.target_locales       = %w[de en-GB en-US es fr-FR fi sv-FI pt-BR en-CA fr-CA tr-TR]
-    config.text_domain          = "app"
+    config.text_domain          = 'app'
     config.bound_text_domains   = %w[app client]
     config.ignored_source_paths = Dir.glob("**/*").select { |f| File.directory? f }
                                      .collect { |name| "#{name}/" }
@@ -41,14 +41,14 @@ elsif ENV["DOMAIN"] == "client"
                                        path.include?("branded/") || path.include?("dmptool/")
                                      }
     config.disable_yaml         = true
-    config.locales_path         = Rails.root.join("config", "locale")
+    config.locales_path         = Rails.root.join('config', 'locale')
   end
   # rubocop:enable Metrics/BlockLength
 end
 
 # Setup languages
 # rubocop:disable Style/RescueModifier
-table = ActiveRecord::Base.connection.table_exists?("languages") rescue false
+table = ActiveRecord::Base.connection.table_exists?('languages') rescue false
 # rubocop:enable Style/RescueModifier
 if table
   def default_locale

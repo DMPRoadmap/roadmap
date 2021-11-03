@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "recaptcha/rails"
+require 'recaptcha/rails'
 
 # the keys are set in config/credentials.yml.env
 

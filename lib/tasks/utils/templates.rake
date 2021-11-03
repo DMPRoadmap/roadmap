@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-# rubocop:disable Layout/LineLength, Metrics/BlockLength, Metrics/AbcSize
+# rubocop:disable Layout/LineLength, Metrics/AbcSize
 namespace :templates do
-  desc "Repair Templates whose descendents have NIL versionable_id values"
+  desc 'Repair Templates whose descendents have NIL versionable_id values'
   task fix_templates_with_nil_versionable_ids: :environment do
-    p "Attempting to repair versionable_ids"
+    p 'Attempting to repair versionable_ids'
 
-    safe_require "text"
+    safe_require 'text'
 
     # Remove attr_readonly restrictions form these models
-    Phase.attr_readonly.delete("versionable_id")
-    Section.attr_readonly.delete("versionable_id")
-    Question.attr_readonly.delete("versionable_id")
-    QuestionOption.attr_readonly.delete("versionable_id")
-    Annotation.attr_readonly.delete("versionable_id")
+    Phase.attr_readonly.delete('versionable_id')
+    Section.attr_readonly.delete('versionable_id')
+    Question.attr_readonly.delete('versionable_id')
+    QuestionOption.attr_readonly.delete('versionable_id')
+    Annotation.attr_readonly.delete('versionable_id')
 
     # Get each of the latest versions of the non-customized templates
     Template.latest_version.where(customization_of: nil)
@@ -216,8 +216,8 @@ namespace :templates do
 
     related_records.each do |record|
       # Use the Number, Title and or Text to try and match the items
-      text_a = [original[:number], original[:title], original[:text]].compact.join(" - ")
-      text_b = [record[:number], record[:title], record[:text]].compact.join(" - ")
+      text_a = [original[:number], original[:title], original[:text]].compact.join(' - ')
+      text_b = [record[:number], record[:title], record[:text]].compact.join(' - ')
 
       if fuzzy_match?(text_a, text_b)
         p "#{' ' * spaces} ** Using versionable_id from more recent version for #{record.class.name} #{record.id}"
@@ -229,6 +229,7 @@ namespace :templates do
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def find_related_versionable_id(original_template:, record:)
     # rubocop:disable Style/NestedTernaryOperator
     spaces = record.is_a?(Phase) ? 4 : (record.is_a?(Section) ? 6 : (record.is_a?(Question) ? 8 : 10))
@@ -240,8 +241,8 @@ namespace :templates do
         next unless obj.versionable_id.present? && version.nil?
 
         # Use the Number, Title and or Text to try and match the items
-        text_a = [obj[:number], obj[:title], obj[:text]].compact.join(" - ")
-        text_b = [record[:number], record[:title], record[:text]].compact.join(" - ")
+        text_a = [obj[:number], obj[:title], obj[:text]].compact.join(' - ')
+        text_b = [record[:number], record[:title], record[:text]].compact.join(' - ')
 
         if fuzzy_match?(text_a, text_b)
           p "#{' ' * spaces} ** Using versionable_id from more recent version for #{obj.class.name} #{obj.id} - #{obj.versionable_id}"
@@ -254,5 +255,6 @@ namespace :templates do
     end
     version
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end
-# rubocop:enable Layout/LineLength, Metrics/BlockLength, Metrics/AbcSize
+# rubocop:enable Layout/LineLength, Metrics/AbcSize

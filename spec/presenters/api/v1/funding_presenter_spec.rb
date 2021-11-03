@@ -3,7 +3,6 @@
 require "rails_helper"
 
 RSpec.describe Api::V1::FundingPresenter do
-
   describe "#status(plan:)" do
     it "returns `planned` if the plan is nil" do
       expect(described_class.status(plan: nil)).to eql("planned")
@@ -25,5 +24,4 @@ RSpec.describe Api::V1::FundingPresenter do
       expect(described_class.status(plan: plan)).to eql("planned")
     end
   end
-
 end

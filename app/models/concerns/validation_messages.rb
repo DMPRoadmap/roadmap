@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+# Module that provides consistent validation messaging
 module ValidationMessages
-
   # workaround for errors thrown by puma when eager loading application
   # TODO: see if this is still a problem with translations gem
   # I18n.add_text_domain "app", path: "config/locale", type: :po,
@@ -10,12 +10,11 @@ module ValidationMessages
 
   PRESENCE_MESSAGE = _("can't be blank")
 
-  UNIQUENESS_MESSAGE = _("must be unique")
+  UNIQUENESS_MESSAGE = _('must be unique')
 
   INCLUSION_MESSAGE = _("isn't a valid value")
 
-  OPTION_PRESENCE_MESSAGE = _("You must have at least one option with accompanying text.")
+  OPTION_PRESENCE_MESSAGE = _('You must have at least one option with accompanying text.')
 
   QUESTION_TEXT_PRESENCE_MESSAGE = _("for 'Question text' can't be blank.")
-
 end

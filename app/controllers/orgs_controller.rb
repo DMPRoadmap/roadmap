@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+# Controller for Org pages for Admins
 class OrgsController < ApplicationController
-
   include OrgSelectable
 
   after_action :verify_authorized, except: %w[
@@ -19,30 +19,32 @@ class OrgsController < ApplicationController
   def admin_edit
     org = Org.find(params[:id])
     authorize org
-    languages = Language.all.order("name")
-    org.links = { "org": [] } unless org.links.present?
-    render "admin_edit", locals: { org: org, languages: languages, method: "PUT",
+    languages = Language.all.order('name')
+    org.links = { org: [] } unless org.links.present?
+    render 'admin_edit', locals: { org: org, languages: languages, method: 'PUT',
                                    url: admin_update_org_path(org) }
   end
 
   # PUT /org/admin/:id/admin_update
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def admin_update
     attrs = org_params
     @org = Org.find(params[:id])
     authorize @org
+
     @org.logo = attrs[:logo] if attrs[:logo]
-    tab = (attrs[:feedback_enabled].present? ? "feedback" : "profile")
+    tab = (attrs[:feedback_enabled].present? ? 'feedback' : 'profile')
     @org.links = ActiveSupport::JSON.decode(params[:org_links]) if params[:org_links].present?
 
     # Only allow super admins to change the org types and shib info
     if current_user.can_super_admin?
       identifiers = []
-      attrs[:managed] = attrs[:managed] == "1"
+      attrs[:managed] = attrs[:managed] == '1'
 
       # Handle Shibboleth identifier if that is enabled
       if Rails.configuration.x.shibboleth.use_filtered_discovery_service
-        shib = IdentifierScheme.by_name("shibboleth").first
+        shib = IdentifierScheme.by_name('shibboleth').first
 
         if shib.present? && attrs[:identifiers_attributes].present?
           key = attrs[:identifiers_attributes].keys.first
@@ -64,17 +66,28 @@ class OrgsController < ApplicationController
     end
 
     if @org.update(attrs)
+      # Save any identifiers that were found
+      if current_user.can_super_admin? && lookup.present?
+        # Loop through the identifiers and then replace the existing
+        # identifier and save the new one
+        identifiers.each do |id|
+          @org = process_identifier_change(org: @org, identifier: id)
+        end
+        @org.save
+      end
       redirect_to "#{admin_edit_org_path(@org)}\##{tab}",
-                  notice: success_message(@org, _("saved"))
+                  notice: success_message(@org, _('saved'))
     else
-      failure = failure_message(@org, _("save")) if failure.blank?
+      failure = failure_message(@org, _('save')) if failure.blank?
       redirect_to "#{admin_edit_org_path(@org)}\##{tab}", alert: failure
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # This action is used by installations that have the following config enabled:
   #   Rails.configuration.x.shibboleth.use_filtered_discovery_service
+  # rubocop:disable Metrics/AbcSize
   def shibboleth_ds
     unless current_user.nil?
       redirect_to root_path
@@ -83,7 +96,7 @@ class OrgsController < ApplicationController
 
     @user = User.new
     # Display the custom Shibboleth discovery service page.
-    @orgs = Identifier.by_scheme_name("shibboleth", "Org")
+    @orgs = Identifier.by_scheme_name('shibboleth', 'Org')
                       .sort { |a, b| a.identifiable.name <=> b.identifiable.name }
                       .map(&:identifiable)
 
@@ -91,7 +104,7 @@ class OrgsController < ApplicationController
     # if the ``@orgs` array has items ... it renders the shibboleth_ds view
     # rubocop:disable Style/GuardClause, Style/RedundantReturn
     if @orgs.empty?
-      flash.now[:alert] = _("No organisations are currently registered.")
+      flash.now[:alert] = _('No organisations are currently registered.')
       redirect_to user_shibboleth_omniauth_authorize_path
       return
     end
@@ -146,7 +159,7 @@ p "REDIRECTING TO IDP: #{shib_login_url}?#{shib_callback_url}&entityID=#{entity_
   end
 
   def shib_params
-    params.permit("org_id")
+    params.permit('org_id')
   end
 
   def search_params
@@ -164,6 +177,7 @@ p "REDIRECTING TO IDP: #{shib_login_url}?#{shib_callback_url}&entityID=#{entity_
   # Destroy the identifier if it exists and was blanked out, replace the
   # identifier if it was updated, create the identifier if its new, or
   # ignore it
+  # rubocop:disable Metrics/AbcSize
   def process_identifier_change(org:, identifier:)
     return org unless identifier.is_a?(Identifier)
 
@@ -181,5 +195,5 @@ p "REDIRECTING TO IDP: #{shib_login_url}?#{shib_callback_url}&entityID=#{entity_
 
     org
   end
-
+  # rubocop:enable Metrics/AbcSize
 end

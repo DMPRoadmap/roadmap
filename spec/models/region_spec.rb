@@ -1,27 +1,24 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe Region, type: :model do
+  context 'validations' do
+    it { is_expected.to validate_presence_of(:abbreviation) }
 
-  context "validations" do
-    before(:each) do
-      @subject = create(:region, abbreviation: Faker::Lorem.unique.word.upcase)
-    end
-
-    it { expect(@subject).to validate_uniqueness_of(:abbreviation).with_message("must be unique") }
+    it {
+      is_expected.to validate_uniqueness_of(:abbreviation)
+        .with_message('must be unique')
+    }
 
     it { is_expected.to validate_presence_of(:description) }
 
     it { is_expected.to validate_presence_of(:name) }
   end
 
-  context "associations" do
-
+  context 'associations' do
     it { is_expected.to belong_to(:super_region).optional }
 
     it { is_expected.to have_many :sub_regions }
-
   end
-
 end

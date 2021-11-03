@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 module SuperAdmin
-
+  # Controller for creating and deleting Orgs
   class OrgsController < ApplicationController
-
     include OrgSelectable
 
     after_action :verify_authorized
@@ -11,7 +10,7 @@ module SuperAdmin
     # GET /super_admin/orgs
     def index
       authorize Org
-      render "index", locals: {
+      render 'index', locals: {
         orgs: Org.includes(:contributors, :plans).with_template_and_user_counts.page(1)
       }
     end
@@ -20,11 +19,11 @@ module SuperAdmin
     def new
       @org = Org.new(managed: true)
       authorize @org
-      @org.links = { "org": [] }
+      @org.links = { org: [] }
     end
 
     # POST /super_admin/orgs
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
     def create
       authorize Org
       attrs = org_params
@@ -56,25 +55,26 @@ module SuperAdmin
           msg = success_message(org, _("created"))
           redirect_to admin_edit_org_path(org.id), notice: msg
         else
-          flash.now[:alert] = failure_message(org, _("create"))
+          flash.now[:alert] = failure_message(org, _('create'))
           @org = org
-          @org.links = { "org": [] } unless org.links.present?
-          render "super_admin/orgs/new"
+          @org.links = { org: [] } unless org.links.present?
+          render 'super_admin/orgs/new'
         end
       rescue Dragonfly::Job::Fetch::NotFound
-        failure = _("There seems to be a problem with your logo. Please upload it again.")
+        failure = _('There seems to be a problem with your logo. Please upload it again.')
         redirect_to admin_edit_org_path(org), alert: failure
-        render "orgs/admin_edit", locals: {
+        render 'orgs/admin_edit', locals: {
           org: org,
-          languages: Language.all.order("name"),
-          method: "POST",
+          languages: Language.all.order('name'),
+          method: 'POST',
           url: super_admin_orgs_path
         }
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
 
     # DELETE /super_admin/orgs/:id
+    # rubocop:disable Metrics/AbcSize
     def destroy
       org = Org.includes(:users, :templates, :guidance_groups).find(params[:id])
       authorize org
@@ -85,13 +85,14 @@ module SuperAdmin
       org.guidance_groups.delete_all
 
       if org.destroy!
-        msg = success_message(org, _("removed"))
+        msg = success_message(org, _('removed'))
         redirect_to super_admin_orgs_path, notice: msg
       else
-        failure = failure_message(org, _("remove"))
+        failure = failure_message(org, _('remove'))
         redirect_to super_admin_orgs_path, alert: failure
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     # POST /super_admin/:id/merge_analyze
     def merge_analyze
@@ -111,6 +112,7 @@ module SuperAdmin
     end
 
     # POST /super_admin/:id/merge_commit
+    # rubocop:disable Metrics/AbcSize
     def merge_commit
       @org = Org.find(params[:id])
       authorize @org
@@ -122,17 +124,18 @@ module SuperAdmin
           msg = "Successfully merged '#{@org.name}' into '#{@target_org.name}'"
           redirect_to super_admin_orgs_path, notice: msg
         else
-          msg = _("An error occurred while trying to merge the Organisations.")
+          msg = _('An error occurred while trying to merge the Organisations.')
           redirect_to admin_edit_org_path(@org), alert: msg
         end
       else
-        msg = _("Unable to merge the two Organisations at this time.")
+        msg = _('Unable to merge the two Organisations at this time.')
         redirect_to admin_edit_org_path(@org), alert: msg
       end
     rescue JSON::ParserError
-      msg = _("Unable to determine what records need to be merged.")
+      msg = _('Unable to determine what records need to be merged.')
       redirect_to admin_edit_org_path(@org), alert: msg
     end
+    # rubocop:enable Metrics/AbcSize
 
     private
 
@@ -146,7 +149,5 @@ module SuperAdmin
     def merge_params
       params.require(:org).permit(:org_name, :org_sources, :org_crosswalk, :id, :target_org)
     end
-
   end
-
 end

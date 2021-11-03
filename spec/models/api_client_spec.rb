@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe ApiClient, type: :model do
-
-  context "validations" do
-
+  context 'validations' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:contact_email) }
 
@@ -17,19 +15,18 @@ RSpec.describe ApiClient, type: :model do
       subject.client_secret = Faker::Lorem.word
       is_expected.to validate_uniqueness_of(:name)
         .case_insensitive
-        .with_message("must be unique")
+        .with_message('must be unique')
     }
 
     # Email format validation
     it {
-      is_expected.to allow_values("one@example.com", "foo-bar@ed.ac.uk")
+      is_expected.to allow_values('one@example.com', 'foo-bar@ed.ac.uk')
         .for(:contact_email)
     }
     it {
-      is_expected.not_to allow_values("example.com", "foo bar@ed.ac.uk")
+      is_expected.not_to allow_values('example.com', 'foo bar@ed.ac.uk')
         .for(:contact_email)
     }
-
   end
 
   context "Associations" do
@@ -38,7 +35,7 @@ RSpec.describe ApiClient, type: :model do
     it { is_expected.to have_many(:access_tokens) }
   end
 
-  context "Instance Methods" do
+  context 'Instance Methods' do
     before(:each) do
       @client = build(:api_client)
     end
@@ -51,7 +48,6 @@ RSpec.describe ApiClient, type: :model do
       expect(@client.client_id).to eql(@client.uid)
     end
 
-<<<<<<< HEAD
     it ":client_secret should return the :secret" do
       expect(@client.client_secret).to eql(@client.secret)
     end
@@ -89,9 +85,5 @@ RSpec.describe ApiClient, type: :model do
       # Note that it should sort them alphabetically
       expect(@client.scopes.to_s).to eql("eight nine one three two")
     end
-
-=======
->>>>>>> development
   end
-
 end

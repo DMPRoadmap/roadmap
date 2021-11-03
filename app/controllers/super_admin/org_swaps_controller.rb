@@ -21,13 +21,10 @@ class SuperAdmin::OrgSwapsController < ApplicationController
         redirect_back(fallback_location: root_path,
                       notice: _("Your organisation affiliation has been changed. You may now edit templates for %{org_name}.") % { org_name: current_user.org.name })
       else
-        redirect_back(fallback_location: root_path,
-                      alert: _("Unable to change your organisation affiliation at this time."))
+        redirect_back(fallback_location: root_path, alert: _('Unknown organisation.'))
       end
-    else
-      redirect_back(fallback_location: root_path, alert: _("Unknown organisation."))
+      # rubocop:enable Layout/LineLength
     end
-    # rubocop:enable Layout/LineLength
-  end
+    # rubocop:enable Metrics/AbcSize
 
 end

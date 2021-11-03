@@ -10,7 +10,7 @@ Dragonfly.app.configure do
 
   secret Rails.configuration.x.dmproadmap.dragonfly_secret
 
-  url_format "/media/:job/:name"
+  url_format '/media/:job/:name'
 
   if Rails.env.development? || Rails.env.test?
     datastore :file,
