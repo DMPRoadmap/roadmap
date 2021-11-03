@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Questions::Check box questions' do
+RSpec.describe 'Questions::Check box questions', type: :feature do
   before do
     @default_template  = create(:template, :default, :published)
     @phase             = create(:phase, template: @default_template)
