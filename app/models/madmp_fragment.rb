@@ -319,6 +319,8 @@ class MadmpFragment < ActiveRecord::Base
 
   def save_form_fragment(param_data, schema)
     fragmented_data = {}
+    return if param_data.nil?
+
     param_data.each do |prop, content|
       schema_prop = schema.schema["properties"][prop]
 
@@ -329,7 +331,6 @@ class MadmpFragment < ActiveRecord::Base
         sub_data = content # TMP: for readability
         sub_schema = MadmpSchema.find(schema_prop["schema_id"])
         instantiate unless data[prop].present?
-        next if param_data.nil?
 
         if schema_prop&.dig("inputType").eql?("pickOrCreate")
           fragmented_data[prop] = content
