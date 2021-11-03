@@ -8,7 +8,6 @@ class UsageController < ApplicationController
   # GET /usage
   def index
     authorize :usage
-
     args = default_query_args
     user_data(args: args, as_json: true)
     plan_data(args: args, as_json: true)

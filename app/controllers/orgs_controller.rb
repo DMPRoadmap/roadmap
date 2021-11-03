@@ -32,6 +32,7 @@ class OrgsController < ApplicationController
     attrs = org_params
     @org = Org.find(params[:id])
     authorize @org
+
     @org.logo = attrs[:logo] if attrs[:logo]
     tab = (attrs[:feedback_enabled].present? ? 'feedback' : 'profile')
     @org.links = ActiveSupport::JSON.decode(params[:org_links]) if params[:org_links].present?
@@ -83,7 +84,6 @@ class OrgsController < ApplicationController
         end
         @org.save
       end
-
       redirect_to "#{admin_edit_org_path(@org)}\##{tab}",
                   notice: success_message(@org, _('saved'))
     else
