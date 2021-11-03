@@ -53,14 +53,7 @@ RSpec.feature 'Locales', type: :feature, js: true do
         _('Create plan')
       end
 
-      p visit contact_us_path
-      pp page.body
-
-      p visit '/'
-      pp page.body
-
       click_link 'Language'
-
       expect(current_path).to eql(plans_path)
       expect(page).not_to have_text(create_plan_text)
 

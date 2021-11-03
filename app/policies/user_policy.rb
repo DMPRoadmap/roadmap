@@ -8,38 +8,38 @@ class UserPolicy < ApplicationPolicy
   end
 
   def admin_index?
-    signed_in_user.can_grant_permissions?
+    @user.can_grant_permissions?
   end
 
   def admin_grant_permissions?
-    (signed_in_user.can_grant_permissions? && user.org_id == signed_in_user.org_id) ||
-      signed_in_user.can_super_admin?
+    (@user.can_grant_permissions? && user.org_id == @user.org_id) ||
+      @user.can_super_admin?
   end
 
   def admin_update_permissions?
-    (signed_in_user.can_grant_permissions? && user.org_id == signed_in_user.org_id) ||
-      signed_in_user.can_super_admin?
+    (@user.can_grant_permissions? && user.org_id == @user.org_id) ||
+      @user.can_super_admin?
   end
 
   # Allows the user to swap their org affiliation on the fly
   def org_swap?
-    signed_in_user.can_super_admin?
+    @user.can_super_admin?
   end
 
   def activate?
-    signed_in_user.can_super_admin?
+    @user.can_super_admin?
   end
 
   def edit?
-    signed_in_user.can_super_admin? || signed_in_user.can_org_admin?
+    @user.can_super_admin? || @user.can_org_admin?
   end
 
   def update?
-    signed_in_user.can_super_admin? || signed_in_user.can_org_admin?
+    @user.can_super_admin? || @user.can_org_admin?
   end
 
   def user_plans?
-    signed_in_user.can_super_admin? || signed_in_user.can_org_admin?
+    @user.can_super_admin? || @user.can_org_admin?
   end
 
   def update_email_preferences?
@@ -51,24 +51,24 @@ class UserPolicy < ApplicationPolicy
   end
 
   def refresh_token?
-    signed_in_user.can_super_admin? ||
-      (signed_in_user.can_org_admin? && signed_in_user.can_use_api?)
+    @user.can_super_admin? ||
+      (@user.can_org_admin? && @user.can_use_api?)
   end
 
   def merge?
-    signed_in_user.can_super_admin?
+    @user.can_super_admin?
   end
 
   def archive?
-    signed_in_user.can_super_admin?
+    @user.can_super_admin?
   end
 
   def search?
-    signed_in_user.can_super_admin?
+    @user.can_super_admin?
   end
 
   def org_admin_other_user?
-    signed_in_user.can_super_admin? || signed_in_user.can_org_admin?
+    @user.can_super_admin? || @user.can_org_admin?
   end
 
   # returns the users for the org

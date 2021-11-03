@@ -10,7 +10,7 @@ module SuperAdmin
     # rubocop:disable Metrics/AbcSize
     def create
       # Allows the user to swap their org affiliation on the fly
-      authorize current_user, :org_swap?
+      authorize(current_user, :org_swap?)
 
       # See if the user selected a new Org via the Org Lookup and
       # convert it into an Org
