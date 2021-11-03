@@ -24,7 +24,7 @@ shared_examples_for 'VersionableModel' do
 
     it "doesn't change if already set" do
       subject.versionable_id = SecureRandom.uuid
-      expect { subject.valid? }.not_to change(subject.versionable_id)
+      expect { subject.valid? }.not_to change { subject.versionable_id }
     end
   end
 end

@@ -4,17 +4,14 @@ module Api
   module V0
     # Security rules for API V0 Usage Statistic endpoints
     class StatisticsPolicy < ApplicationPolicy
-      attr_reader :user
+      # NOTE: @user is the signed_in_user and @record is the statistic
 
       def initialize(user, statistic)
-        raise Pundit::NotAuthorizedError, _('must be logged in') unless user
         unless user.org.token_permission_types.include? TokenPermissionType::STATISTICS
           raise Pundit::NotAuthorizedError, _('must have access to guidances api')
         end
 
-        super(user)
-        @user = user
-        @statistic = statistic
+        super(user, statistic)
       end
 
       ##
@@ -30,7 +27,7 @@ module Api
       ##
       # need to check if your org owns this template
       def using_template?
-        @statistic.org_id == @user.org_id
+        @record.org_id == @user.org_id
       end
 
       ##

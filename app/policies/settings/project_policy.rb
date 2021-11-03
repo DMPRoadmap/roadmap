@@ -4,20 +4,8 @@ module Settings
   # Security rules project export settings
   class ProjectPolicy < ApplicationPolicy
     # this is the policy for app/controllers/settings/projects_controller.rb
-
-    attr_reader :user, :projects
-
-    def initialize(user, settings)
-      raise Pundit::NotAuthorizedError, 'must be logged in' unless user
-
-      super(user)
-      @user = user
-      @settings = settings
-    end
-
     # for this controller, we allow all actions as the "settings" object
     # is curated by rails based on user, not on a passed param
-
     def show?
       true
     end

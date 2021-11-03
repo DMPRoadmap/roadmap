@@ -3,10 +3,7 @@
 module Paginable
   # Security rules for plan tables
   class PlanPolicy < ApplicationPolicy
-    def initialize(user)
-      super(user)
-      @user = user
-    end
+    # NOTE: @user is the signed_in_user
 
     def privately_visible?
       @user.is_a?(User)

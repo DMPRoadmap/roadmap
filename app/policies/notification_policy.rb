@@ -3,12 +3,7 @@
 # Security rules for system wide notifications
 # Note the method names here correspond with controller actions
 class NotificationPolicy < ApplicationPolicy
-  def initialize(user, *_args)
-    raise Pundit::NotAuthorizedError, _('must be logged in') unless user
-
-    super(user)
-    @user = user
-  end
+  # NOTE: @user is the signed_in_user
 
   def index?
     @user.can_super_admin?

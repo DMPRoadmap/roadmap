@@ -31,11 +31,9 @@ class NotesController < ApplicationController
 
     @note.answer = @answer
     @note.text = note_params[:text]
-
     authorize @note
 
     @plan = @answer.plan
-
     @question = Question.find(note_params[:question_id])
 
     if @note.save

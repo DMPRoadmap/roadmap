@@ -3,15 +3,7 @@
 # Security rules for department editing
 # Note the method names here correspond with controller actions
 class DepartmentPolicy < ApplicationPolicy
-  attr_reader :user, :department
-
-  def initialize(user, department)
-    raise Pundit::NotAuthorizedError, 'must be logged in' unless user
-
-    super(user)
-    @user = user
-    @department = department
-  end
+  # NOTE: @user is the signed_in_user and @record is an instance of Department
 
   def new?
     @user.can_org_admin? || @user.can_super_admin?
@@ -22,17 +14,17 @@ class DepartmentPolicy < ApplicationPolicy
   end
 
   def edit?
-    (@user.can_org_admin? && @user.org.id == @department.org_id) ||
+    (@user.can_org_admin? && @user.org.id == @record.org_id) ||
       @user.can_super_admin?
   end
 
   def update?
-    (@user.can_org_admin? && @user.org.id == @department.org_id) ||
+    (@user.can_org_admin? && @user.org.id == @record.org_id) ||
       @user.can_super_admin?
   end
 
   def destroy?
-    (@user.can_org_admin? && @user.org.id == @department.org_id) ||
+    (@user.can_org_admin? && @user.org.id == @record.org_id) ||
       @user.can_super_admin?
   end
 end

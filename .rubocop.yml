@@ -60,6 +60,9 @@ Layout/SpaceBeforeBrackets: # new in 1.7
 # --------
 Lint/AmbiguousAssignment: # new in 1.7
   Enabled: true
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - 'spec/**/*'
 Lint/AmbiguousOperatorPrecedence: # new in 1.21
   Enabled: true
 Lint/AmbiguousRange: # new in 1.19

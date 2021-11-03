@@ -4,23 +4,20 @@ module Api
   module V0
     # Security rules for API V0 Plan endpoints
     class PlansPolicy < ApplicationPolicy
-      attr_reader :user, :template
+      # NOTE: @user is the signed_in_user and @record is the plan
 
-      def initialize(user, template)
-        raise Pundit::NotAuthorizedError, _('must be logged in') unless user
+      def initialize(user, plan)
         unless user.org.token_permission_types.include? TokenPermissionType::PLANS
           raise Pundit::NotAuthorizedError, _('must have access to plans api')
         end
 
-        super(user)
-        @user     = user
-        @template = template
+        super(user, plan)
       end
 
       ##
       # users can create a plan if their template exists
       def create?
-        @template.present?
+        @record.present?
       end
 
       def index?

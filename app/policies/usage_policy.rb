@@ -4,14 +4,7 @@
 # a policy that is not associated with a model (per the pundit README)
 # rubocop:disable Style/StructInheritance
 class UsagePolicy < Struct.new(:user, :usage)
-  attr_reader :user
-
-  def initialize(user, _usage)
-    raise Pundit::NotAuthorizedError, 'must be logged in' unless user
-
-    super(user)
-    @user = user
-  end
+  # @user == signed_in_user
 
   def index?
     @user.can_org_admin?

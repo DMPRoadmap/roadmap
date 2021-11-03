@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.feature 'Locales', type: :feature, js: true do
+RSpec.feature 'Locales', type: :system, js: true do
   before(:each) do
     # Clear out the default defined in the locales support file
     Language.destroy_all
@@ -38,6 +38,7 @@ RSpec.feature 'Locales', type: :feature, js: true do
     I18n.available_locales = locales
     I18n.locale = locales.first
     sign_in(user)
+    visit root_path
   end
 
   after do
@@ -51,7 +52,15 @@ RSpec.feature 'Locales', type: :feature, js: true do
       create_plan_text = I18n.with_locale(:de) do
         _('Create plan')
       end
+
+      p visit contact_us_path
+      pp page.body
+
+      p visit '/'
+      pp page.body
+
       click_link 'Language'
+
       expect(current_path).to eql(plans_path)
       expect(page).not_to have_text(create_plan_text)
 
