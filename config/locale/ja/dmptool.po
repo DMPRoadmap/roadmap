@@ -35,32 +35,32 @@ msgid "- or - "
 msgstr ""
 
 #, fuzzy
-msgid "<a href=\"%{ncbi_url}\">NCBI (National Center for Biotechnology Information) ACCESSION</a></li>"
+msgid "<a href=\"%<ncbi_url>s\">NCBI (National Center for Biotechnology Information) ACCESSION</a></li>"
 "    <li>a non-actionable number in use by NCBI."
 msgstr ""
 
-msgid "<a href=\"%{ark_url}\">ARK (Archival Resource Key)</a> – a URL with extra features allowing you to ask for descriptive and archival metadata and to recognize certain kinds of relationships between identifiers. ARKs are used by memory organizations such as libraries, archives, and museums. They are resolved at \"%{nt2_url}\". Resolution depends on HTTP redirection and can be managed through an API or a user interface."
+msgid "<a href=\"%<ark_url>s\">ARK (Archival Resource Key)</a> – a URL with extra features allowing you to ask for descriptive and archival metadata and to recognize certain kinds of relationships between identifiers. ARKs are used by memory organizations such as libraries, archives, and museums. They are resolved at \"%<nt2_url>s\". Resolution depends on HTTP redirection and can be managed through an API or a user interface."
 msgstr ""
 
-msgid "<a href=\"%{doi_url}\">DOI (Digital Object Identifier)</a> – an identifier that becomes actionable when embedded in a URL. DOIs are very popular in academic journal publishing. They are resolved at \"%{doi_resolver_url}\". Resolution depends on HTTP redirection and the Handle identifier protocol, and can be managed through an API or a user interface."
+msgid "<a href=\"%<doi_url>s\">DOI (Digital Object Identifier)</a> – an identifier that becomes actionable when embedded in a URL. DOIs are very popular in academic journal publishing. They are resolved at \"%<doi_resolver_url>s\". Resolution depends on HTTP redirection and the Handle identifier protocol, and can be managed through an API or a user interface."
 msgstr ""
 
-msgid "<a href=\"%{handle_url}\">Handle</a> – an identifier that becomes actionable when embedded in a URL. Handles are resolved at \"%{handle_url}\". Resolution depends on HTTP redirection and the Handle protocol, and can be managed through an API or a user interface."
+msgid "<a href=\"%<handle_url>s\">Handle</a> – an identifier that becomes actionable when embedded in a URL. Handles are resolved at \"%<handle_url>s\". Resolution depends on HTTP redirection and the Handle protocol, and can be managed through an API or a user interface."
 msgstr ""
 
-msgid "<a href=\"%{inchi_url}\">InChI (IUPAC International Chemical Identifier)</a> – a non-actionable identifier for chemical substances that can be used in printed and electronic data sources, thus enabling easier linking of diverse data compilations."
+msgid "<a href=\"%<inchi_url>s\">InChI (IUPAC International Chemical Identifier)</a> – a non-actionable identifier for chemical substances that can be used in printed and electronic data sources, thus enabling easier linking of diverse data compilations."
 msgstr ""
 
-msgid "<a href=\"%{lsid_url}\">LSID (Life Sciences Identifier)</a> – a kind of URN that identifies a biologically significant resources, including species names, concepts, occurrences, and genes or proteins, or data objects that encode information about them. Like other URNs, it becomes actionable when embedded in a URL."
+msgid "<a href=\"%<lsid_url>s\">LSID (Life Sciences Identifier)</a> – a kind of URN that identifies a biologically significant resources, including species names, concepts, occurrences, and genes or proteins, or data objects that encode information about them. Like other URNs, it becomes actionable when embedded in a URL."
 msgstr ""
 
-#msgid "<a href=\"%{ncbi_url}\">NCBI (National Center for Biotechnology Information) ACCESSION</a></li>"
+#msgid "<a href=\"%<ncbi_url>s\">NCBI (National Center for Biotechnology Information) ACCESSION</a></li>"
 #msgstr ""
 
-msgid "<a href=\"%{purl_url}\">PURL (Persistent Uniform Resource Locator)</a> – a URL that is always redirected through a hostname (often purl.org). Resolution depends on HTTP redirection and can be managed through an API or a user interface."
+msgid "<a href=\"%<purl_url>s\">PURL (Persistent Uniform Resource Locator)</a> – a URL that is always redirected through a hostname (often purl.org). Resolution depends on HTTP redirection and can be managed through an API or a user interface."
 msgstr ""
 
-msgid "<ol type=\"1\"><li>Enter a title for your research project. If applying for funding, use the project title as it appears in the proposal.</li><li>Select the primary research organization. If you are associated with a participating institution/organization, this field will be pre-populated. You have the option to clear the field and select another organization from the list. Based on your selection, you will be presented with institution-specific templates and guidance. You can also check the box that “No organization is associated with this plan.”</li><li>Select the primary funding organization. If you are required to include a data management plan as part of a grant proposal, select your funder from the list. You may be presented with a secondary dropdown menu if your funder has different requirements for specific programs (e.g., NSF, DOE). See the complete list of <a href=\"%{public_templates_url}\">funder requirements</a> supported by DMPTool. If your funder is not in the list or you are not applying for a grant, check the box for “No funder associated with this plan;” this selection will provide you with a generic template.</li></ol>"
+msgid "<ol type=\"1\"><li>Enter a title for your research project. If applying for funding, use the project title as it appears in the proposal.</li><li>Select the primary research organization. If you are associated with a participating institution/organization, this field will be pre-populated. You have the option to clear the field and select another organization from the list. Based on your selection, you will be presented with institution-specific templates and guidance. You can also check the box that “No organization is associated with this plan.”</li><li>Select the primary funding organization. If you are required to include a data management plan as part of a grant proposal, select your funder from the list. You may be presented with a secondary dropdown menu if your funder has different requirements for specific programs (e.g., NSF, DOE). See the complete list of <a href=\"%<public_templates_url>s\">funder requirements</a> supported by DMPTool. If your funder is not in the list or you are not applying for a grant, check the box for “No funder associated with this plan;” this selection will provide you with a generic template.</li></ol>"
 msgstr ""
 
 msgid "<strong>Access information</strong>: Where and how your data can be accessed by other researchers"
@@ -72,10 +72,10 @@ msgstr ""
 msgid "<strong>Code list</strong>: Explanation of codes or abbreviations used in either the file names or the variables in the data files (e.g. \"999 indicates a missing value in the data\")"
 msgstr ""
 
-msgid "<strong>Comply with UC regulations.</strong> Researchers concerned about confidentiality issues with their data should consult the <a href=\"%{uc_policy_url}\">UC policy for Protection of Human Subjects in Research</a>."
+msgid "<strong>Comply with UC regulations.</strong> Researchers concerned about confidentiality issues with their data should consult the <a href=\"%<uc_policy_url>s\">UC policy for Protection of Human Subjects in Research</a>."
 msgstr ""
 
-msgid "<strong>Comply with regulations for health research</strong> set forth in the <a href=\"%{hippa_url}\">Health Insurance Portability and Accountability Act (HIPPA)</a>."
+msgid "<strong>Comply with regulations for health research</strong> set forth in the <a href=\"%<hippa_url>s\">Health Insurance Portability and Accountability Act (HIPPA)</a>."
 msgstr ""
 
 msgid "<strong>Creator</strong>: Names and addresses of the organizations or people who created the data; preferred format for personal names is surname first (e.g., Smith, Jane)"
@@ -135,7 +135,7 @@ msgstr ""
 msgid "<strong>Observational</strong><ul><li>Captured in real-time, typically outside the lab</li><li>Usually irreplaceable and therefore the most important to safeguard</li><li>Examples: Sensor readings, telemetry, survey results, images</li></ul>"
 msgstr ""
 
-msgid "<strong>Obtain a confidentiality review.</strong> A benefit of depositing your data with <a href=\"%{icpsr_url}\">ICPSR</a> is that their staff offers a Disclosure review service to check your data for confidential information."
+msgid "<strong>Obtain a confidentiality review.</strong> A benefit of depositing your data with <a href=\"%<icpsr_url>s\">ICPSR</a> is that their staff offers a Disclosure review service to check your data for confidential information."
 msgstr ""
 
 msgid "<strong>Ownership and Privacy</strong>: Make sure that you have considered the implications of sharing data in terms of copyright, IP ownership, and subject confidentiality. See copyright and confidentiality for details."
@@ -177,7 +177,7 @@ msgstr ""
 msgid "<strong>Version</strong>: Unique date/time stamp and identifier for each version"
 msgstr ""
 
-msgid "<ul><li>DMPTool Logo (blue), with tagline - <a href=\"%{logo_tagline_eps_url}\">EPS</a>, <a href=\"%{logo_tagline_svg_url}\">SVG</a>, <a href=\"%{logo_tagline_png_url}\">PNG</a></li><li>DMPTool Logo (blue), no tagline - <a href=\"%{logo_eps_url}\">EPS</a>, <a href=\"%{logo_svg_url}\">SVG</a>, <a href=\"%{logo_png_url}\">PNG</a></li><li>DMPTool Logo (green v2), with tagline - <a href=\"%{vintage_logo_tagline_png_url}\">PNG</a></li><li>DMPTool Logo (green v2), no tagline - <a href=\"%{vintage_logo_png_url}\">PNG</a></li><li>Original DMPTool Logo - <a href=\"%{original_logo_png_url}\">PNG</a></li></ul>"
+msgid "<ul><li>DMPTool Logo (blue), with tagline - <a href=\"%<logo_tagline_eps_url>s\">EPS</a>, <a href=\"%<logo_tagline_svg_url>s\">SVG</a>, <a href=\"%<logo_tagline_png_url>s\">PNG</a></li><li>DMPTool Logo (blue), no tagline - <a href=\"%<logo_eps_url>s\">EPS</a>, <a href=\"%<logo_svg_url>s\">SVG</a>, <a href=\"%<logo_png_url>s\">PNG</a></li><li>DMPTool Logo (green v2), with tagline - <a href=\"%<vintage_logo_tagline_png_url>s\">PNG</a></li><li>DMPTool Logo (green v2), no tagline - <a href=\"%<vintage_logo_png_url>s\">PNG</a></li><li>Original DMPTool Logo - <a href=\"%<original_logo_png_url>s\">PNG</a></li></ul>"
 msgstr ""
 
 msgid "<ul><li>Email to individual requesters</li><li>Post online via a project or personal website</li><li>Submit as supplemental material to be hosted on a journal publisher's website</li><li>Deposit in an open repository or archive</li><li>Deposit in an open repository and publish a \"data paper\" describing the data</li></ul>"
@@ -192,40 +192,40 @@ msgstr ""
 msgid "A data management plan is a formal document that outlines what you will do with your data during and after a research project. Most researchers collect data with some form of plan in mind, but it's often inadequately documented and incompletely thought out. Many data management issues can be handled easily or avoided entirely by planning ahead. With the right process and framework it doesn't take too long and can pay off enormously in the long run."
 msgstr ""
 
-msgid "A dataset should be cited formally in an article's reference list, not just informally in the text. Many data repositories and publishers provide explicit instructions for citing their contents. If no citation information is provided, you can still construct a citation following generally agreed-upon guidelines from sources such as the <a href=\"%{force11_citation_url}\">Force 11 Joint Declaration of Data Citation Principles</a> and the current <a href=\"%{datacite_standards_url}\">DataCite Metadata Schema</a>."
+msgid "A dataset should be cited formally in an article's reference list, not just informally in the text. Many data repositories and publishers provide explicit instructions for citing their contents. If no citation information is provided, you can still construct a citation following generally agreed-upon guidelines from sources such as the <a href=\"%<force11_citation_url>s\">Force 11 Joint Declaration of Data Citation Principles</a> and the current <a href=\"%<datacite_standards_url>s\">DataCite Metadata Schema</a>."
 msgstr ""
 
-msgid "A login is required to access the DMPTool. If you are a researcher from a <a href=\"%{participating_url}\">participating institutions</a>, you can log in as a user from your institution. If your institution does not participate, you can create your own account."
+msgid "A login is required to access the DMPTool. If you are a researcher from a <a href=\"%<participating_url>s\">participating institutions</a>, you can log in as a user from your institution. If your institution does not participate, you can create your own account."
 msgstr ""
 
-msgid "A searchable and browsable list of repositories can be found at these websites:<ul><li><a href=\"%{re3data_url}\">re3data.org</a>: a REgistry of REsearch data REpositories</li><li><a href=\"%{open_access_url}\">Data Repositories</a> in the Open Access Directory: a list of repositories hosted by Simmons College</li><li><a href=\"%{fairshare_url}\">FAIRSharing</a>: a directory of life sciences databases and reporting standards, now expanded to include all disciplines</li></ul>"
+msgid "A searchable and browsable list of repositories can be found at these websites:<ul><li><a href=\"%<re3data_url>s\">re3data.org</a>: a REgistry of REsearch data REpositories</li><li><a href=\"%<open_access_url>s\">Data Repositories</a> in the Open Access Directory: a list of repositories hosted by Simmons College</li><li><a href=\"%<fairshare_url>s\">FAIRSharing</a>: a directory of life sciences databases and reporting standards, now expanded to include all disciplines</li></ul>"
 msgstr ""
 
-msgid "A:  The <a href=\"%{admin_help_url}\">help menu for administrators</a> contains detailed instructions for creating themed guidance. The basic steps include:<ol><li>Creating a guidance group (you will already have a default guidance group for your organization; it is optional to create additional groups or subgroups, for example, for a specific department)</li><li>Creating guidance by entering text, assigning one or more themes, and attaching it to a guidance group</li><li>Publishing the guidance</li></ol>"
+msgid "A:  The <a href=\"%<admin_help_url>s\">help menu for administrators</a> contains detailed instructions for creating themed guidance. The basic steps include:<ol><li>Creating a guidance group (you will already have a default guidance group for your organization; it is optional to create additional groups or subgroups, for example, for a specific department)</li><li>Creating guidance by entering text, assigning one or more themes, and attaching it to a guidance group</li><li>Publishing the guidance</li></ol>"
 msgstr ""
 
 msgid "A: A data management plan is a formal document that outlines what you will do with your data during and after a research project. Most researchers collect data with some form of plan in mind, but it's often inadequately documented and incompletely thought out. Many data management issues can be handled easily or avoided entirely by planning ahead. With the right process and framework it doesn't take too long and can pay off enormously in the long run."
 msgstr ""
 
-msgid "A: Anyone can create data management plans. If you are a researcher from one of the <a href=\"%{participating_url}\">participating institutions</a>, you can log in as a user from your institution and you will be presented with local guidance to help you complete your plan."
+msgid "A: Anyone can create data management plans. If you are a researcher from one of the <a href=\"%<participating_url>s\">participating institutions</a>, you can log in as a user from your institution and you will be presented with local guidance to help you complete your plan."
 msgstr ""
 
-msgid "A: DMPTool administrators can delete templates. This option is only available if no plans have been created using that template. If you cannot or do not want to delete a template, you can \"Unpublish\" the template so that it will not appear to users. See our <a href=\"%{admin_help_url}\">help documentation</a> on how to do this."
+msgid "A: DMPTool administrators can delete templates. This option is only available if no plans have been created using that template. If you cannot or do not want to delete a template, you can \"Unpublish\" the template so that it will not appear to users. See our <a href=\"%<admin_help_url>s\">help documentation</a> on how to do this."
 msgstr ""
 
-msgid "A: Data management plans are the intellectual property of their creators. The California Digital Library makes no claim of copyright or ownership to the data management plans created using the DMPTool. You can, however, choose to share your plan publicly and it will appear in our library of <a href=\"%{public_plans_url}\">public plans</a> on the DMPTool website. This will benefit other DMPTool users and promote open research."
+msgid "A: Data management plans are the intellectual property of their creators. The California Digital Library makes no claim of copyright or ownership to the data management plans created using the DMPTool. You can, however, choose to share your plan publicly and it will appear in our library of <a href=\"%<public_plans_url>s\">public plans</a> on the DMPTool website. This will benefit other DMPTool users and promote open research."
 msgstr ""
 
 msgid "A: First you must create an account in the DMPTool and begin creating a plan. Then you can add your collaborator(s) to your plan as co-owner(s), or grant editor or read only permissions. You can do this on the “Share” tab for your plan. Enter an email address in the field to \"Invite collaborators,” select the desired level of permissions, and click \"Submit\" to send an email invitation."
 msgstr ""
 
-msgid "A: First, check this <a href=\"%{participating_url}\">participating institutions</a> to make sure your institution is not already participating. Learn more about becoming a <a href=\"%{about_url}\">participating institution</a>."
+msgid "A: First, check this <a href=\"%<participating_url>s\">participating institutions</a> to make sure your institution is not already participating. Learn more about becoming a <a href=\"%<about_url>s\">participating institution</a>."
 msgstr ""
 
 msgid "A: Follow these steps to remove your test plan:<ol><li>Log into the DMPTool.</li><li>On \"My Dashboard\" tick the box in the \"Test\" column next to the title of the appropriate plan. This action will remove the plan from the public list if the visibility was set to public (it will become test/private).</li><li>To delete the plan: select \"Remove\" from the Actions menu next to the title of the appropriate plan. You will be asked to confirm this action.</li></ol>"
 msgstr ""
 
-msgid "A: If your institution <a href=\"%{participating_url}\">participates in the DMPTool</a>, you can log into the tool and click on the “Contact” link in the top banner. Your email will be sent directly to an expert on your campus who can follow up with you. If your institution does not participate in the DMPTool, check with a librarian to see if someone on campus can help."
+msgid "A: If your institution <a href=\"%<participating_url>s\">participates in the DMPTool</a>, you can log into the tool and click on the “Contact” link in the top banner. Your email will be sent directly to an expert on your campus who can follow up with you. If your institution does not participate in the DMPTool, check with a librarian to see if someone on campus can help."
 msgstr ""
 
 msgid "A: No funders have endorsed the use of the DMPTool, although some provide links to the tool or resources within the tool in their public access plans (e.g., NEH, DOT)."
@@ -237,13 +237,13 @@ msgstr ""
 msgid "A: Since the DMPTool account is tied to an email address, the information will not automatically follow a user if they change institutions. However, we can connect users to their plans from previous institutions if they contact us. Users who change institutions and assume new institutional credentials must create a new DMPTool account."
 msgstr ""
 
-msgid "A: The <a href=\"%{public_templates_url}\">Funder Requirements page</a> provides direct links to funder guidelines, as well as sample plans if provided. You do not have to be logged into the DMPTool to access this page."
+msgid "A: The <a href=\"%<public_templates_url>s\">Funder Requirements page</a> provides direct links to funder guidelines, as well as sample plans if provided. You do not have to be logged into the DMPTool to access this page."
 msgstr ""
 
-msgid "A: The DMPTool helps researchers create data management plans (DMPs). It provides guidance from specific funders who require DMPs, but the tool can be used by anyone interested in developing generic DMPs to help facilitate their research. The tool also offers resources and services available at <a href=\"%{participating_url}\">participating institutions</a> to help fulfill data management requirements."
+msgid "A: The DMPTool helps researchers create data management plans (DMPs). It provides guidance from specific funders who require DMPs, but the tool can be used by anyone interested in developing generic DMPs to help facilitate their research. The tool also offers resources and services available at <a href=\"%<participating_url>s\">participating institutions</a> to help fulfill data management requirements."
 msgstr ""
 
-msgid "A: The DMPTool hosts a collection of <a href=\"%{public_plans_url}\">public plans</a>. The collection contains actual plans created by DMPTool users who have opted to share their plans publicly. Please note that these plans have not been vetted for quality. Some funders provide sample plans on their websites; links to these plans are available on the <a href=\"%{public_templates_url}\">Funder Requirements page</a>."
+msgid "A: The DMPTool hosts a collection of <a href=\"%<public_plans_url>s\">public plans</a>. The collection contains actual plans created by DMPTool users who have opted to share their plans publicly. Please note that these plans have not been vetted for quality. Some funders provide sample plans on their websites; links to these plans are available on the <a href=\"%<public_templates_url>s\">Funder Requirements page</a>."
 msgstr ""
 
 msgid "A: The DMPTool is FREE. Anyone can create data management plans using the DMPTool."
@@ -252,16 +252,16 @@ msgstr ""
 msgid "A: The request feedback functionality of the DMPTool is an optional feature that institutions may configure to help researchers create data management plans. Submitting a plan for feedback is within-institution only. If this feature is enabled, a button to \"Request feedback\" will be displayed on the \"Share\" tab when writing a plan. If a user clicks the \"Request feedback\" button, the DMPTool will send an email to the plan owner and the institutional administrator contact. The institutional administrator will be granted read only permissions and be able to provide comments on the plan within the tool."
 msgstr ""
 
-msgid "A: The sample plans on the <a href=\"%{public_templates_url}\">Funder Requirements page</a> are created by funders and offered as guidance on their websites. The <a href=\"%{public_plans_url}\">Public Plans</a> are actual plans created by users of the DMPTool (please note that these have not been vetted for quality). Both provide helpful examples for researchers creating their own data management plans."
+msgid "A: The sample plans on the <a href=\"%<public_templates_url>s\">Funder Requirements page</a> are created by funders and offered as guidance on their websites. The <a href=\"%<public_plans_url>s\">Public Plans</a> are actual plans created by users of the DMPTool (please note that these have not been vetted for quality). Both provide helpful examples for researchers creating their own data management plans."
 msgstr ""
 
 msgid "A: There are multiple actions that generate automatic email notifications from the DMPTool. Users can turn these notifications on/off on the profile page. Navigate to \"Edit profile\" by clicking your name in the upper right dropdown menu, then select the \"Notification preferences\" tab, check/uncheck the appropriate boxes, and click the button to save your changes."
 msgstr ""
 
-msgid "A: There are three visibility options for each plan you create:<ol><li>Private. Your plan will only be visible to you and any specified plan collaborators. Basic plan details (from the project details page, but not the plan content) will be available to administrators at your institution.</li><li>Organization. If your institution/organization participates in the DMPTool, this setting allows administrators and users from your institution to see your plan.</li><li>Public. Your plan will be available on the <a href=\"%{public_plans_url}\">Public Plans</a> page of the DMPTool website. Choose this option to allow others to see your plan without restrictions (under a CC-Zero license).</li></ol>"
+msgid "A: There are three visibility options for each plan you create:<ol><li>Private. Your plan will only be visible to you and any specified plan collaborators. Basic plan details (from the project details page, but not the plan content) will be available to administrators at your institution.</li><li>Organization. If your institution/organization participates in the DMPTool, this setting allows administrators and users from your institution to see your plan.</li><li>Public. Your plan will be available on the <a href=\"%<public_plans_url>s\">Public Plans</a> page of the DMPTool website. Choose this option to allow others to see your plan without restrictions (under a CC-Zero license).</li></ol>"
 msgstr ""
 
-msgid "A: There is an extensive list of <a href=\"%{admin_help_url}\">help topics for administrators</a> customizing the DMPTool located on GitHub. You will find detailed instructions for:<ol><li>Setting up the DMPTool<ul><li>Enabling Shibboleth</li><li>Granting administrator privileges</li><li>Customizing your organizational profile</li><li>Providing feedback on plans</li><li>Usage information</li></ul></li><li>Quick overview of terms</li><li>Creating guidance</li><li>Customizing funder templates</li><li>Creating templates</li></ol>"
+msgid "A: There is an extensive list of <a href=\"%<admin_help_url>s\">help topics for administrators</a> customizing the DMPTool located on GitHub. You will find detailed instructions for:<ol><li>Setting up the DMPTool<ul><li>Enabling Shibboleth</li><li>Granting administrator privileges</li><li>Customizing your organizational profile</li><li>Providing feedback on plans</li><li>Usage information</li></ul></li><li>Quick overview of terms</li><li>Creating guidance</li><li>Customizing funder templates</li><li>Creating templates</li></ol>"
 msgstr ""
 
 msgid "A: We do not plan to delete any plans created with the DMPTool. As a plan owner, however, you can delete plans by going to “My Dashboard” and selecting “Remove” from the Actions menu next to the plan name."
@@ -279,10 +279,10 @@ msgstr ""
 msgid "Access"
 msgstr ""
 
-msgid "Administrators: if you are interested in enabling this functionality for users at your institution, see the \"Request feedback\" section of the <a href=\"%{admin_help_url}\">help for administrators</a> wiki."
+msgid "Administrators: if you are interested in enabling this functionality for users at your institution, see the \"Request feedback\" section of the <a href=\"%<admin_help_url>s\">help for administrators</a> wiki."
 msgstr ""
 
-msgid "Advertise the DMPTool to students and researchers at your institution.<ul><li><a href=\"%{advertise_pdf1_url}\">Postcard 1: Adobe PDF</a></li><li><a href=\"%{advertise_pdf2_url}\">Postcard 2: Adobe PDF</a></li></ul>"
+msgid "Advertise the DMPTool to students and researchers at your institution.<ul><li><a href=\"%<advertise_pdf1_url>s\">Postcard 1: Adobe PDF</a></li><li><a href=\"%<advertise_pdf2_url>s\">Postcard 2: Adobe PDF</a></li></ul>"
 msgstr ""
 
 msgid "After logging in, you will find an email address and URL for help at the top of the page."
@@ -297,7 +297,7 @@ msgstr ""
 msgid "Are there examples of data management plans?"
 msgstr ""
 
-msgid "As noted in the CDL privacy policy, this website uses Google Analytics to capture and analyze usage statistics. You may choose to opt-out of having your website activity tracked by Google Analytics. To do so, visit the <a href=\"%{opt_out_url}\">Google Analytics opt-out page</a> and install the add-on for your browser."
+msgid "As noted in the CDL privacy policy, this website uses Google Analytics to capture and analyze usage statistics. You may choose to opt-out of having your website activity tracked by Google Analytics. To do so, visit the <a href=\"%<opt_out_url>s\">Google Analytics opt-out page</a> and install the add-on for your browser."
 msgstr ""
 
 msgid "Audio: AIFF, WAVE"
@@ -327,10 +327,10 @@ msgstr ""
 msgid "Can I see customized templates and guidance created by administrators at other organizations?"
 msgstr ""
 
-msgid "Can't find the answer you’re looking for? <a href=\"%{contact_url}\">Contact us</a>"
+msgid "Can't find the answer you’re looking for? <a href=\"%<contact_url>s\">Contact us</a>"
 msgstr ""
 
-msgid "Can't find what you’re looking for? <a href=\"%{contact_us_url}\" >Contact us</a>"
+msgid "Can't find what you’re looking for? <a href=\"%<contact_us_url>s\" >Contact us</a>"
 msgstr ""
 
 msgid "Cancel"
@@ -396,7 +396,7 @@ msgstr ""
 msgid "Create your account"
 msgstr ""
 
-msgid "Creator names in non-Roman scripts should be transliterated using the <a href=\"%{romanization_url}\">ALA-LC Romanization Tables</a>."
+msgid "Creator names in non-Roman scripts should be transliterated using the <a href=\"%<romanization_url>s\">ALA-LC Romanization Tables</a>."
 msgstr ""
 
 msgid "DMPTool"
@@ -411,7 +411,7 @@ msgstr ""
 msgid "DMPTool by the Numbers"
 msgstr ""
 
-msgid "DMPTool is free for anyone to create data management plans. As a user, you can:<ul><li>Create your own plans.</li><li>Co-author a plan with collaborators.</li><li> If you are a researcher from one of the <a href=\"%{participating_url}\">participating institutions</a>, you can log in using your institutional credentials. You may then be presented with institution-specific guidance and have the option to get feedback from local data experts.</li></ul>"
+msgid "DMPTool is free for anyone to create data management plans. As a user, you can:<ul><li>Create your own plans.</li><li>Co-author a plan with collaborators.</li><li> If you are a researcher from one of the <a href=\"%<participating_url>s\">participating institutions</a>, you can log in using your institutional credentials. You may then be presented with institution-specific guidance and have the option to get feedback from local data experts.</li></ul>"
 msgstr ""
 
 msgid "DMPTool logo"
@@ -429,7 +429,7 @@ msgstr ""
 msgid "Data can come in many forms, including:<ul><li><strong>Text</strong>: field or laboratory notes, survey responses</li><li><strong>Numeric</strong>: tables, counts, measurements</li><li><strong>Audiovisual</strong>: images, sound recordings, video</li><li><strong>Models, computer code</strong></li><li><strong>Discipline-specific</strong>: FITS in astronomy, CIF in chemistry</li><li><strong>Instrument-specific</strong>: equipment outputs</li></ul>"
 msgstr ""
 
-msgid "Data documentation is commonly called metadata – \"data about data\". Researchers can document their data according to various metadata standards. Some metadata standards are designed for the purpose of documenting the contents of files, others for documenting the technical characteristics of files, and yet others for expressing relationships between files within a set of data. If you want to be able to share or publish your data, the <a href=\"%{datacite_standards_url}\">DataCite metadata standard</a> is of particular signficiance."
+msgid "Data documentation is commonly called metadata – \"data about data\". Researchers can document their data according to various metadata standards. Some metadata standards are designed for the purpose of documenting the contents of files, others for documenting the technical characteristics of files, and yet others for expressing relationships between files within a set of data. If you want to be able to share or publish your data, the <a href=\"%<datacite_standards_url>s\">DataCite metadata standard</a> is of particular signficiance."
 msgstr ""
 
 msgid "Data management general guidance"
@@ -492,19 +492,19 @@ msgstr ""
 msgid "For Researchers"
 msgstr ""
 
-msgid "For a general discussion about publishing your data, applicable to many disciplines, see the <a href=\"%{icpsr_url}\">ICPSR Guide to Social Science Data Preparation and Archiving</a>."
+msgid "For a general discussion about publishing your data, applicable to many disciplines, see the <a href=\"%<icpsr_url>s\">ICPSR Guide to Social Science Data Preparation and Archiving</a>."
 msgstr ""
 
 msgid "For instance, image data typically requires a lot of storage space, so you'll want to decide whether to retain all your images (and, if not, how you will decide which to discard) and where such large data can be housed. Be sure to know your archiving organization's capacity for storage and backups."
 msgstr ""
 
-msgid "For more information on recommended formats, see the <a href=\"%{recommended_formats_url}\">UK Data Service guidance on recommended formats</a>."
+msgid "For more information on recommended formats, see the <a href=\"%<recommended_formats_url>s\">UK Data Service guidance on recommended formats</a>."
 msgstr ""
 
-msgid "For more information, see <a href=\"%{about_url}\">About participating</a>."
+msgid "For more information, see <a href=\"%<about_url>s\">About participating</a>."
 msgstr ""
 
-msgid "For more information, see the <a href=\"%{help_url}\">Quick Start Guide</a>."
+msgid "For more information, see the <a href=\"%<help_url>s\">Quick Start Guide</a>."
 msgstr ""
 
 msgid "For what or whom are the data intended?"
@@ -606,10 +606,10 @@ msgstr ""
 msgid "Identify the activity or project in the file name."
 msgstr ""
 
-msgid "If others at your institution/organization have chose to share their plans internally, you will see a second table of organizational plans. This allows you to download a PDF and view their plans as samples or to discover new research data. Additional samples are available in the list of <a href=\"%{public_plans_url}\">public plans</a>."
+msgid "If others at your institution/organization have chose to share their plans internally, you will see a second table of organizational plans. This allows you to download a PDF and view their plans as samples or to discover new research data. Additional samples are available in the list of <a href=\"%<public_plans_url>s\">public plans</a>."
 msgstr ""
 
-msgid "If you are a researcher or potential user, we suggest you talk to a librarian at your institution. If you are an administrator (librarian or otherwise) and interested in joining, please <a href=\"%{contact_url}\">contact us</a>."
+msgid "If you are a researcher or potential user, we suggest you talk to a librarian at your institution. If you are an administrator (librarian or otherwise) and interested in joining, please <a href=\"%<contact_url>s\">contact us</a>."
 msgstr ""
 
 msgid "If you are just testing the tool or taking a course on data management, check the box “Mock project for test, practice, or educational purposes.” Marking your plans as a test will be reflected in usage statistics and prevent public or organizational sharing; this allows other users to find real sample plans more easily."
@@ -624,13 +624,13 @@ msgstr ""
 msgid "If you have an existing DMPTool account, please enter your username and we will provide the associated email address."
 msgstr ""
 
-msgid "If you have forgotten the username and email for your existing DMPTool account, please %{contact_us_link}."
+msgid "If you have forgotten the username and email for your existing DMPTool account, please %<contact_us_link>s."
 msgstr ""
 
 msgid "If you want to be able to share or cite your dataset, you'll want to assign a public persistent unique identifier to it. There are a variety of public identifier schemes, but common properties of good schemes are that they are:<ul><li>Actionable (you can \"click\" on them in a web browser)</li><li>Globally unique across the internet</li><li>Persistent for at least the life of your data</li></ul>"
 msgstr ""
 
-msgid "If you want to promote sharing and unlimited use of your data, you can make your data available under a <a href=\"%{creative_commons_url}\">Creative Commons CC0 Declaration</a> to make your wishes explicit."
+msgid "If you want to promote sharing and unlimited use of your data, you can make your data available under a <a href=\"%<creative_commons_url>s\">Creative Commons CC0 Declaration</a> to make your wishes explicit."
 msgstr ""
 
 msgid "If your institution does not participate, you can create your own account."
@@ -642,7 +642,7 @@ msgstr ""
 msgid "Image: JPEG, JPG-2000, PNG, TIFF"
 msgstr ""
 
-msgid "In February of 2013, the White House Office of Science and Technology Policy (OSTP) issued a %{memorandum_url} directing Federal agencies that provide significant research funding to develop a plan to expand public access to research. Among other requriments, the plans must:<br><blockquote>\"Ensure that all extramural researchers receiving Federal grants and contracts for scientific research and intramural researchers develop data management plans, as appropriate, describing how they will provide for long-term preservation of, and access to, scientific data in digital formats resulting from federally funded research, or explaining why long-term preservation and access cannot be justified\"</blockquote>"
+msgid "In February of 2013, the White House Office of Science and Technology Policy (OSTP) issued a %<memorandum_url>s directing Federal agencies that provide significant research funding to develop a plan to expand public access to research. Among other requriments, the plans must:<br><blockquote>\"Ensure that all extramural researchers receiving Federal grants and contracts for scientific research and intramural researchers develop data management plans, as appropriate, describing how they will provide for long-term preservation of, and access to, scientific data in digital formats resulting from federally funded research, or explaining why long-term preservation and access cannot be justified\"</blockquote>"
 msgstr ""
 
 msgid "In common usage by the research community"
@@ -681,7 +681,7 @@ msgstr ""
 msgid "Look up your institution here"
 msgstr ""
 
-msgid "Making regular backups is an integral part of data management. You can backup data to your personal computer, external hard drives, or departmental or university servers. Software that makes backups for you automatically can simplify this process considerably. The UK Data Archive provides additional <a href=\"%{storage_guidelines_url}\">guidelines on data storage, backup, and security</a>."
+msgid "Making regular backups is an integral part of data management. You can backup data to your personal computer, external hard drives, or departmental or university servers. Software that makes backups for you automatically can simplify this process considerably. The UK Data Archive provides additional <a href=\"%<storage_guidelines_url>s\">guidelines on data storage, backup, and security</a>."
 msgstr ""
 
 msgid "Metadata: Data Documentation"
@@ -696,7 +696,7 @@ msgstr ""
 msgid "My privileges"
 msgstr ""
 
-msgid "Need to get others on your campus interested in the DMPTool? Use our Talking Points to guide your discussions. In general, a talking points document is designed to help you stay on track during meetings with those outside of your department. It ensures that your major points are at hand and helps you make progress towards the goals of the meeting.<ul><li>Overview of Talking Points: <a href=\"%{talking_points_overview_pdf_url}\">Adobe PDF</a></li><li>Meeting with your IT Group: <a href=\"%{talking_points_it_docx_url}\">Microsoft Word</a> or <a href=\"%{talking_points_it_pdf_url}\">Adobe PDF</a></li><li>Meeting with Administrators: <a href=\"%{talking_points_admin_docx_url}\">Microsoft Word</a> or <a href=\"%{talking_points_admin_pdf_url}\">Adobe PDF</a></li><li>Meeting with Researchers: <a href=\"%{talking_points_researcher_docx_url}\">Microsoft Word</a> or <a href=\"%{talking_points_researcher_pdf_url}\">Adobe PDF</a> </li></ul>"
+msgid "Need to get others on your campus interested in the DMPTool? Use our Talking Points to guide your discussions. In general, a talking points document is designed to help you stay on track during meetings with those outside of your department. It ensures that your major points are at hand and helps you make progress towards the goals of the meeting.<ul><li>Overview of Talking Points: <a href=\"%<talking_points_overview_pdf_url>s\">Adobe PDF</a></li><li>Meeting with your IT Group: <a href=\"%<talking_points_it_docx_url>s\">Microsoft Word</a> or <a href=\"%<talking_points_it_pdf_url>s\">Adobe PDF</a></li><li>Meeting with Administrators: <a href=\"%<talking_points_admin_docx_url>s\">Microsoft Word</a> or <a href=\"%<talking_points_admin_pdf_url>s\">Adobe PDF</a></li><li>Meeting with Researchers: <a href=\"%<talking_points_researcher_docx_url>s\">Microsoft Word</a> or <a href=\"%<talking_points_researcher_pdf_url>s\">Adobe PDF</a> </li></ul>"
 msgstr ""
 
 msgid "News is currently unavailable"
@@ -711,13 +711,13 @@ msgstr ""
 msgid "Open, with documented standards"
 msgstr ""
 
-msgid "Option %{number}: If not affiliated and you need an account."
+msgid "Option %<number>s: If not affiliated and you need an account."
 msgstr ""
 
-msgid "Option %{number}: If your institution is affiliated with DMPTool."
+msgid "Option %<number>s: If your institution is affiliated with DMPTool."
 msgstr ""
 
-msgid "Option %{number}: If your institution is not affiliated with DMPTool."
+msgid "Option %<number>s: If your institution is not affiliated with DMPTool."
 msgstr ""
 
 msgid "Organisation"
@@ -741,7 +741,7 @@ msgstr ""
 msgid "Participating Institutions"
 msgstr ""
 
-msgid "Participating institutions/organizations can configure the tool to point to their resources and services, provide customized help, and provide suggested answers to the questions asked by funding agencies. DMPTool users affiliated with participating institutions can login with their own institutional accounts. For more information visit the %{about_us_link} page."
+msgid "Participating institutions/organizations can configure the tool to point to their resources and services, provide customized help, and provide suggested answers to the questions asked by funding agencies. DMPTool users affiliated with participating institutions can login with their own institutional accounts. For more information visit the %<about_us_link>s page."
 msgstr ""
 
 msgid "Passwords"
@@ -852,7 +852,7 @@ msgstr ""
 msgid "Quick start guide"
 msgstr ""
 
-msgid "Read our <a href=\"%{general_guidance_url}\">Data Management General Guidance</a> for more information about data management plans."
+msgid "Read our <a href=\"%<general_guidance_url>s\">Data Management General Guidance</a> for more information about data management plans."
 msgstr ""
 
 msgid "Record all changes to a file no matter how small. Discard obsolete versions after making backups."
@@ -873,7 +873,7 @@ msgstr ""
 msgid "Security and Storage"
 msgstr ""
 
-msgid "See the <a href=\"%{help_url}\">Quick Start Guide</a> for more information on setting your plan's visibility."
+msgid "See the <a href=\"%<help_url>s\">Quick Start Guide</a> for more information on setting your plan's visibility."
 msgstr ""
 
 msgid "See the full list of participating institutions"
@@ -924,7 +924,7 @@ msgstr ""
 msgid "Text: plain text (TXT), HTML, XML, PDF/A"
 msgstr ""
 
-msgid "The <a href=\"%{cdlib_url}\">California Digital Library (CDL)</a> is supported by the University of California (UC). Our primary constituency is the UC research community; in addition, we provide services to the United States and international higher education sector."
+msgid "The <a href=\"%<cdlib_url>s\">California Digital Library (CDL)</a> is supported by the University of California (UC). Our primary constituency is the UC research community; in addition, we provide services to the United States and international higher education sector."
 msgstr ""
 
 msgid "The CDL holds your plans on your behalf, but they are your property and responsibility. Any FOIA applicants will be referred back to your home institution."
@@ -933,7 +933,7 @@ msgstr ""
 msgid "The National Science Foundation (NSF) requires a 2-page plan as part of the funding proposal process. Most or all US Federally funded grants will eventually require some form of data management plan."
 msgstr ""
 
-msgid "The \"Share\" tab is also where you can set your plan visibility.<ul><li>Private: restricted to you and your collaborators.</li><li>Organizational: anyone at your organization can view your plan.</li><li>Public: anyone can view your plan in the <a href=\"%{public_plans_url}\">public plans</a> list.</li></ul>"
+msgid "The \"Share\" tab is also where you can set your plan visibility.<ul><li>Private: restricted to you and your collaborators.</li><li>Organizational: anyone at your organization can view your plan.</li><li>Public: anyone can view your plan in the <a href=\"%<public_plans_url>s\">public plans</a> list.</li></ul>"
 msgstr ""
 
 msgid "The answer to this question affects how you organize the data as well as the level of versioning you will need to undertake. Keeping track of rapidly changing datasets can be a challenge so it is imperative that you begin with a plan to carry you through the entire data management process."
@@ -942,13 +942,13 @@ msgstr ""
 msgid "The file format you choose for your data is a primary factor in someone else's ability to access it in the future. Think carefully about what file format will be best to manage, share, and preserve your data. Technology continually changes and all contemporary hardware and software should be expected to become obsolete. Consider how your data will be read if the software used to produce it becomes unavailable. Although any file format you choose today may become unreadable in the future, some formats are more likely to be readable than others."
 msgstr ""
 
-msgid "The information you enter into this system can be seen by you, people you have chosen to share access with, and—solely for the purposes of maintaining the service—system administrators at the CDL. We compile anonymized, automated, and aggregated information from plans, but we will not directly access, make use of, or share your content with anyone beyond CDL and your home institution without your permission. Authorized users at your home institution may access your plans for specific purposes—for example, to track compliance with funder/institutional requirements, to calculate storage requirements, or to assess demand for data management services across disciplines. For a detailed description of what information (other than the plans) we collect from visitors to this website and how it is used and managed, please see the CDL Privacy Policy and Baseline Supporting Practices listed at <a href=\"%{policies_url}\">%{policies_url}</a>"
+msgid "The information you enter into this system can be seen by you, people you have chosen to share access with, and—solely for the purposes of maintaining the service—system administrators at the CDL. We compile anonymized, automated, and aggregated information from plans, but we will not directly access, make use of, or share your content with anyone beyond CDL and your home institution without your permission. Authorized users at your home institution may access your plans for specific purposes—for example, to track compliance with funder/institutional requirements, to calculate storage requirements, or to assess demand for data management services across disciplines. For a detailed description of what information (other than the plans) we collect from visitors to this website and how it is used and managed, please see the CDL Privacy Policy and Baseline Supporting Practices listed at <a href=\"%<policies_url>s\">%<policies_url>s</a>"
 msgstr ""
 
 msgid "The sub-directory structure should have clear, documented naming conventions. Separate files or directories could apply, for example, to each run of an experiment, each version of a dataset, and/or each person in the group."
 msgstr ""
 
-msgid "The tabbed interface allows you to navigate through different functions when editing your plan.<ul><li>“Project details” includes basic administrative details. The right-hand side of the page is where you can select up to 6 organizations to view additional guidance as you write your plan. The more information you provide here, the more useful your plan will be to you and others in the future (e.g., for data reuse and proper attribution). On the Edit profile page you can create or connect your ORCID iD; this is required by some funders and a growing list of publishers (Learn more at <a href=\"%{orcid_url}\">orcid.org</a>).</li><li>“Plan overview” provides an overview of the questions that you will be asked. The following tab(s) present the questions to answer. There may be more than one tab if your funder or institution asks different sets of questions at different stages, e.g., at grant application and post-award. Guidance and comments are displayed in the right-hand panel beside each question. If you need more guidance or find there is too much, you can make adjustments on the “Project details” tab.</li><li>“Share” allows you to invite others to contribute to or comment on your plan. This is also where you can set your plan visibility (details below).</li><li>“Download” allows you to download your plan in various formats. You can adjust the formatting (font type, size, and margins) for PDF files, which may be helpful if working to page limits (e.g., NSF data management plans are limited to 2 pages).</li></ul>"
+msgid "The tabbed interface allows you to navigate through different functions when editing your plan.<ul><li>“Project details” includes basic administrative details. The right-hand side of the page is where you can select up to 6 organizations to view additional guidance as you write your plan. The more information you provide here, the more useful your plan will be to you and others in the future (e.g., for data reuse and proper attribution). On the Edit profile page you can create or connect your ORCID iD; this is required by some funders and a growing list of publishers (Learn more at <a href=\"%<orcid_url>s\">orcid.org</a>).</li><li>“Plan overview” provides an overview of the questions that you will be asked. The following tab(s) present the questions to answer. There may be more than one tab if your funder or institution asks different sets of questions at different stages, e.g., at grant application and post-award. Guidance and comments are displayed in the right-hand panel beside each question. If you need more guidance or find there is too much, you can make adjustments on the “Project details” tab.</li><li>“Share” allows you to invite others to contribute to or comment on your plan. This is also where you can set your plan visibility (details below).</li><li>“Download” allows you to download your plan in various formats. You can adjust the formatting (font type, size, and margins) for PDF files, which may be helpful if working to page limits (e.g., NSF data management plans are limited to 2 pages).</li></ul>"
 msgstr ""
 
 msgid "There are 14 themes that represent the most common topics addressed in data management plans (e.g., Data format, Metadata). Themes work like tags to associate questions and guidance. Questions within a template can be tagged with one or more themes, and guidance can be written by theme to allow organizations to apply their advice over all templates at once. This also alleviates the need to update guidance each time a new template is released."
@@ -978,7 +978,7 @@ msgstr ""
 msgid "To create a plan, click the “Create plan” button on My dashboard or the top menu. This will take you to a wizard that helps you select the appropriate template:"
 msgstr ""
 
-msgid "To ethically share confidential data, you may be able to:<ul><li><strong>Gain informed consent</strong> for data sharing (e.g. deposit in a repository or archive)</li><li><strong>Anonymize</strong> the data by removing identifying information. Be aware, however, that any dataset that contains enough information to be useful will always present some risk.</li><li><strong>Restrict the use of your data.</strong> ICPSR provides a sample <a href=\"%{icpsr_user_url}\">Restricted Data Use Contract</a> and <a href=\"%{icpsr_restricted_url}\">Restricted-Use Data Management Guidance</a>.</li></ul>"
+msgid "To ethically share confidential data, you may be able to:<ul><li><strong>Gain informed consent</strong> for data sharing (e.g. deposit in a repository or archive)</li><li><strong>Anonymize</strong> the data by removing identifying information. Be aware, however, that any dataset that contains enough information to be useful will always present some risk.</li><li><strong>Restrict the use of your data.</strong> ICPSR provides a sample <a href=\"%<icpsr_user_url>s\">Restricted Data Use Contract</a> and <a href=\"%<icpsr_restricted_url>s\">Restricted-Use Data Management Guidance</a>.</li></ul>"
 msgstr ""
 
 msgid "To view templates created by others (if available), create a new plan in the tool and choose any organization for the second step: \"Select the primary research organization.\" For the third create plan step, if you tick the box  \"No funder associated with this plan\" you will be presented with any available organizational templates. If the field remains gray and no templates with organizational names appear, then the selected organization has not created any of their own templates and you will be presented with the default DMPTool template after clicking the button to \"Create plan.\""
@@ -1002,7 +1002,7 @@ msgstr ""
 msgid "Unencrypted data will be more easily read by you and others in the future, but you may need to encrypt sensitive data.<ul><li>Use mainstream encryption tools (e.g., PGP)</li><li>Don't rely on third-party encryption alone</li><li>Keep passwords and keys on paper (2 copies)</li></ul>"
 msgstr ""
 
-msgid "Use our <a href=\"%{help_url}\">Quick Start Guide</a> to begin creating a plan."
+msgid "Use our <a href=\"%<help_url>s\">Quick Start Guide</a> to begin creating a plan."
 msgstr ""
 
 msgid "Users"
@@ -1026,7 +1026,7 @@ msgstr ""
 msgid "We can help"
 msgstr ""
 
-msgid "We created a generic slide deck that you can use to introduce researchers and others to the DMPTool.<ul><li><a href=\"%{dmptool_slides_ppt_url}\">Microsoft Powerpoint</a> </li></ul>"
+msgid "We created a generic slide deck that you can use to introduce researchers and others to the DMPTool.<ul><li><a href=\"%<dmptool_slides_ppt_url>s\">Microsoft Powerpoint</a> </li></ul>"
 msgstr ""
 
 msgid "We have been working with internal and external partners to make data management plan development less complicated. By getting to know your research and data, we can match your specific needs with data management best practices in your field to develop a data management plan that works for you. If you do this work at the beginning of your research process, you will have a far easier time following through and complying with funding agency and publisher requirements."
@@ -1083,7 +1083,7 @@ msgstr ""
 msgid "Where can I read more about funder requirements for data management plans?"
 msgstr ""
 
-msgid "While the first three options above are valid ways to share data, a repository is much better able to provide long-term access. Data deposited in a repository can be supplemented with a \"data paper\"—a relatively new type of publication that describes a dataset, but does not analyze it or dsanitize any conclusions—published in a journal such as <a href=\"%{nature_url}\">Nature Scientific Data</a> or <a href=\"%{geoscience_url}\">Geoscience Data Journal</a>."
+msgid "While the first three options above are valid ways to share data, a repository is much better able to provide long-term access. Data deposited in a repository can be supplemented with a \"data paper\"—a relatively new type of publication that describes a dataset, but does not analyze it or dsanitize any conclusions—published in a journal such as <a href=\"%<nature_url>s\">Nature Scientific Data</a> or <a href=\"%<geoscience_url>s\">Geoscience Data Journal</a>."
 msgstr ""
 
 msgid "Who can help me at my institution?"
@@ -1122,7 +1122,7 @@ msgstr ""
 msgid "Write your plan"
 msgstr ""
 
-msgid "Yes! The <a href=\"%{help_url}\">Quick Start Guide</a> is available as a website or a PDF you can download."
+msgid "Yes! The <a href=\"%<help_url>s\">Quick Start Guide</a> is available as a website or a PDF you can download."
 msgstr ""
 
 msgid "You can also make a copy of an existing plan (from the Actions menu next to the plan on My dashboard) and update it for a new research project and/or grant proposal."
@@ -1134,7 +1134,7 @@ msgstr ""
 msgid "You must agree to the term and conditions."
 msgstr ""
 
-msgid "You should select a repository or archive for your data based on the long-term security offered and the ease of discovery and access by colleagues in your field. There are two common types of repository to look for:<ul><li><strong>Discipline specific</strong>: accepts data in a particluar field or of a particluar type (e.g., GenBank accepts nucleotide sequence data)</li><li><strong>Institutional</strong>: accepts data of any type produced within the institution that maintains it (e.g., the University of California's <a href=\"%{dash_url}\">Dash</a>)</li></ul>"
+msgid "You should select a repository or archive for your data based on the long-term security offered and the ease of discovery and access by colleagues in your field. There are two common types of repository to look for:<ul><li><strong>Discipline specific</strong>: accepts data in a particluar field or of a particluar type (e.g., GenBank accepts nucleotide sequence data)</li><li><strong>Institutional</strong>: accepts data of any type produced within the institution that maintains it (e.g., the University of California's <a href=\"%<dash_url>s\">Dash</a>)</li></ul>"
 msgstr ""
 
 msgid "Your account has been verified with your institutional credentials. Please fill out the form below to finish creating your account."
