@@ -7,8 +7,9 @@ class UsagePolicy < Struct.new(:user, :usage)
   attr_reader :user
 
   def initialize(user, _usage)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    raise Pundit::NotAuthorizedError, 'must be logged in' unless user
 
+    super(user, _usage)
     @user = user
   end
 

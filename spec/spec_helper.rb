@@ -132,8 +132,6 @@ RSpec.configure do |config|
   end
 
   config.after(:suite) do |example|
-    if example.metadata[:type] == :feature
-      Capybara::Webmock.stop
-    end
+    Capybara::Webmock.stop if example.metadata[:type] == :feature
   end
 end
