@@ -22,8 +22,6 @@ class ApplicationController < ActionController::Base
   # When we are in production reroute Record Not Found errors to the branded 404 page
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
-  rescue_from StandardError, with: :handle_server_error
-
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
@@ -182,11 +180,6 @@ class ApplicationController < ActionController::Base
   def render_not_found(exception)
     msg = _('Record Not Found') + ": #{exception.message}"
     render_respond_to_format_with_error_message(msg, root_url, 404, exception)
-  end
-
-  def handle_server_error(exception)
-    msg = exception.message.to_s if exception.present?
-    render_respond_to_format_with_error_message(msg, root_url, 500, exception)
   end
 
   def render_respond_to_format_with_error_message(msg, url_or_path, http_status, exception)

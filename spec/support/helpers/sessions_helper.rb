@@ -15,11 +15,6 @@ module SessionsHelper
   def sign_in_as_user(user)
     clear_cookies!
     visit root_path
-
-p "TRYING #{root_path} (#{root_url})"
-p "HOST: #{ENV['HOST']}, SERVER_HOST: #{ENV["SERVER_HOST"]}"
-# pp page.body
-
     within '#sign-in-form' do
       fill_in 'Email', with: user.email
       fill_in 'Password', with: user.password.presence || 'password'
