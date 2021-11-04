@@ -26,7 +26,7 @@
         },
         "reuse": {
             "type": "object",
-            "class": "DataReuseBasic",
+            "class": "DataReuse",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -44,7 +44,7 @@
         },
         "personalDataIssues": {
             "type": "object",
-            "class": "PersonalDataIssuesBasic",
+            "class": "PersonalDataIssues",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -62,7 +62,7 @@
         },
         "legalIssues": {
             "type": "object",
-            "class": "LegalIssuesBasic",
+            "class": "LegalIssues",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -80,7 +80,7 @@
         },
         "ethicalIssues": {
             "type": "object",
-            "class": "EthicalIssuesBasic",
+            "class": "EthicalIssues",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -98,7 +98,7 @@
         },
         "dataCollection": {
             "type": "object",
-            "class": "DataCollectionBasic",
+            "class": "DataCollection",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -116,7 +116,7 @@
         },
         "dataProcessing": {
             "type": "object",
-            "class": "DataProcessingBasic",
+            "class": "DataProcessing",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -134,7 +134,7 @@
         },
         "dataStorage": {
             "type": "object",
-            "class": "DataStorageBasic",
+            "class": "DataStorage",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -152,7 +152,7 @@
         },
         "documentationQuality": {
             "type": "object",
-            "class": "DocumentationQualityBasic",
+            "class": "DocumentationQuality",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -168,7 +168,7 @@
         },
         "qualityAssuranceMethod": {
             "type": "object",
-            "class": "QualityAssuranceMethodBasic",
+            "class": "QualityAssuranceMethod",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -186,7 +186,7 @@
         },
         "sharing": {
             "type": "object",
-            "class": "DataSharingBasic",
+            "class": "DataSharing",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -204,7 +204,7 @@
         },
         "preservationIssues": {
             "type": "object",
-            "class": "DataPreservationBasic",
+            "class": "DataPreservation",
             "properties": {
                 "dbid": {
                     "type": "number"

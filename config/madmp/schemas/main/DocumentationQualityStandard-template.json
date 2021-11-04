@@ -66,11 +66,27 @@
             "form_label@fr_FR": "Lister les standards de métadonnées/données utilisés",
             "form_label@en_GB": "List the metadata/data standards used"
         },
+        "metadataLanguage": {
+            "type": "string",
+            "length": "3",
+            "description": "Code langue des métadonnées",
+            "inputType": "dropdown",
+            "label@fr_FR": "Code langue des métadonnées",
+            "label@en_GB": "Metadata language code",
+            "registry_name": "ISO639-3",
+            "tooltip@fr_FR": "Code de la langue des métadonnées, annotations",
+            "tooltip@en_GB": "Language code of metadata or annotation",
+            "form_label@fr_FR": "Code langue des métadonnées",
+            "form_label@en_GB": "Metadata language code"
+        },
         "documentationSoftware": {
             "type": "string",
             "description": "Outil choisi pour saisir les métadonnées et documentation",
+            "inputType": "dropdown",
             "label@fr_FR": "Logiciel de documentation",
             "label@en_GB": "Documentation software",
+            "registry_name": "MetadataTools",
+            "overridable": true,
             "tooltip@fr_FR": "Logiciel utilisé pour enregistrer les métadonnées ou la description des études",
             "tooltip@en_GB": "Tool used to capture metadata or record research studies",
             "example@fr_FR": "Morpho, Metacat, OMERO, SEEKS, DdiEditor, ...",
@@ -109,7 +125,7 @@
             "table_header@en_GB": "Cost type: amount",
             "items": {
                 "type": "object",
-                "class": "CostBasic",
+                "class": "Cost",
                 "properties": {
                     "dbid": {
                         "type": "number"
@@ -129,7 +145,8 @@
     },
     "required": [
         "description",
-        "metadataStandard"
+        "metadataStandard",
+        "metadataLanguage"
     ],
     "to_string": []
 }

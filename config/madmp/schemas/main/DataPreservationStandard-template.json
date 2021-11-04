@@ -116,7 +116,7 @@
             "table_header@en_GB": "Cost type: amount",
             "items": {
                 "type": "object",
-                "class": "CostBasic",
+                "class": "Cost",
                 "properties": {
                     "dbid": {
                         "type": "number"

@@ -27,19 +27,6 @@
             "form_label@fr_FR": "Description",
             "form_label@en_GB": "Description"
         },
-        "metadataLanguage": {
-            "type": "string",
-            "length": "3",
-            "description": "Code langue des métadonnées",
-            "inputType": "dropdown",
-            "label@fr_FR": "Code langue des métadonnées",
-            "label@en_GB": "Metadata language code",
-            "registry_name": "ISO639-3",
-            "tooltip@fr_FR": "Code de la langue des métadonnées, annotations",
-            "tooltip@en_GB": "Language code of metadata or annotation",
-            "form_label@fr_FR": "Code langue des métadonnées",
-            "form_label@en_GB": "Metadata language code"
-        },
         "metadataStandardId": {
             "type": "string",
             "description": "Identifiant du standard",
@@ -66,7 +53,6 @@
     },
     "required": [
         "name",
-        "metadataLanguage",
         "metadataStandardId",
         "idType"
     ],

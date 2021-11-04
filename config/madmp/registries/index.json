@@ -1119,6 +1119,104 @@
             "fr_FR": "Bande magnétique"
         }
     ],
+    "Subjects": [
+        {
+            "fr_FR": "Animal Breeding and Animal Products",
+            "en_GB": "Animal Breeding and Animal Products"
+        },
+        {
+            "fr_FR": "Animal Health and Pathology",
+            "en_GB": "Animal Health and Pathology"
+        },
+        {
+            "fr_FR": "Chemistry and chemical engineering",
+            "en_GB": "Chemistry and chemical engineering"
+        },
+        {
+            "fr_FR": "Climate",
+            "en_GB": "Climate"
+        },
+        {
+            "fr_FR": "Computer science",
+            "en_GB": "Computer science"
+        },
+        {
+            "fr_FR": "Economics",
+            "en_GB": "Economics"
+        },
+        {
+            "fr_FR": "Farming Systems and Practices",
+            "en_GB": "Farming Systems and Practices"
+        },
+        {
+            "fr_FR": "Fishes and Aquaculture",
+            "en_GB": "Fishes and Aquaculture"
+        },
+        {
+            "fr_FR": "Food and food processing",
+            "en_GB": "Food and food processing"
+        },
+        {
+            "fr_FR": "Food Safety and Toxicology",
+            "en_GB": "Food Safety and Toxicology"
+        },
+        {
+            "fr_FR": "Forests and Forest Products",
+            "en_GB": "Forests and Forest Products"
+        },
+        {
+            "fr_FR": "Human Health and Pathology",
+            "en_GB": "Human Health and Pathology"
+        },
+        {
+            "fr_FR": "Human Nutrition and food security",
+            "en_GB": "Human Nutrition and food security"
+        },
+        {
+            "fr_FR": "Information management",
+            "en_GB": "Information management"
+        },
+        {
+            "fr_FR": "Insects and Entolomology",
+            "en_GB": "Insects and Entomology"
+        },
+        {
+            "fr_FR": "Materials Science and Engineering",
+            "en_GB": "Materials Science and Engineering"
+        },
+        {
+            "fr_FR": "Microorganisms",
+            "en_GB": "Microorganims"
+        },
+        {
+            "fr_FR": "Omics",
+            "en_GB": "Omics"
+        },
+        {
+            "fr_FR": "Plant Breeding and Plant Products",
+            "en_GB": "Plant Breeding and Plant Products"
+        },
+        {
+            "fr_FR": "Plant Health and Pathology",
+            "en_GB": "Plant Health and Pathology"
+        },
+        {
+            "fr_FR": "Rural and Agricultural Sociology",
+            "en_GB": "Rural and Agricultural Sociology"
+        },
+        {
+            "fr_FR": "Soils and soil sciences",
+            "en_GB": "Soils and soil science"
+        },
+        {
+            "fr_FR": "Water resources",
+            "en_GB": "Water resources"
+        },
+        {
+            "fr_FR": "Not specified",
+            "en_GB": "Not specified"
+        }
+    ],
     "YesNoUnknown": [
         {
             "fr_FR": "Oui",
@@ -1252,11 +1350,5 @@
     },
     "BackupPolicyGenci": {
         "path": "BackupPolicyGenci.json"
-    },
-    "Subjects": {
-        "path": "Subjects.json"
-    },
-    "MetadataTools": {
-        "path": "MetadataTools.json"
     }
 }

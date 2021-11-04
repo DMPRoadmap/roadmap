@@ -68,7 +68,7 @@
             "label@fr_FR": "Licence",
             "label@en_GB": "License",
             "inputType": "dropdown",
-            "registry_name": "Licenses",
+            "registry_name": "DataLicenses",
             "overridable": true,
             "tooltip@fr_FR": "Liste de licences SPDX. Version : 3.14 2021-08-08",
             "tooltip@en_GB": "SPDX license list. Version: 3.14 2021-08-08",

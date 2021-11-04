@@ -169,21 +169,10 @@
         "genciServiceRequest"
     ],
     "to_string": [],
-    "run": [
-        {
-            "script_id": 2,
-            "name": "Genci_cost_calculator_v2",
-            "label@fr_FR": "Calculer le coût de stockage",
-            "label@en_GB": "Compute data storage cost"
-        },
-        {
-            "script_id": 5,
-            "name": "Genci_notifyer_v1",
-            "label@fr_FR": "Notifier Genci",
-            "label@en_GB": "Notify Genci",
-            "tooltip@fr_FR": "Envoie à une adresse mail Genci une demande de ressources de stockage",
-            "tooltip@en_GB": "Sends to the Genci facility a query for storage space",
-            "oneshot": true
-        }
-    ]
+    "run": {
+        "script_id": 2,
+        "name": "Genci_cost_calculator_v2",
+        "label@fr_FR": "Calculer le coût de stockage",
+        "label@en_GB": "Compute data storage cost"
+    }
 }

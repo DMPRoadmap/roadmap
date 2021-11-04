@@ -22,7 +22,7 @@
             "table_header": null,
             "items": {
                 "type": "object",
-                "class": "ReusedDataBasic",
+                "class": "ReusedData",
                 "properties": {
                     "dbid": {
                         "type": "number"
@@ -45,7 +45,7 @@
             "table_header@en_GB": "Cost type: amount",
             "items": {
                 "type": "object",
-                "class": "CostBasic",
+                "class": "Cost",
                 "properties": {
                     "dbid": {
                         "type": "number"

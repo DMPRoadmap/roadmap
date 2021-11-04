@@ -496,7 +496,8 @@
         },
         "name": "ProteoRed Tools",
         "description": "<p>Bioinformatics tools to create and extract metadata compliant with the MIBBI-registered MIAPE minimum requirements.<\/p>",
-        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t50", "idType": "URL"
+        "metadataToolsId": "https://rdamsc.bath.ac.uk/msc/t50",
+        "idType": "URL"
     },
     {
         "label": {

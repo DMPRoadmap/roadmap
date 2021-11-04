@@ -3510,7 +3510,7 @@
     },
     "licenseName": "eGenix.com Public License 1.1.0",
     "licenseUrl": "http://spdx.org/licenses/eGenix.json"
-  },
+  },   
   {
     "label": {
       "en_GB": "gSOAP-1.3b",
