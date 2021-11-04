@@ -19,9 +19,7 @@ namespace :madmpopidor do
   desc "Initialize Dmp, Project, Meta & ResearchOutputs JSON fragments for the ancient plans"
   task initialize_plan_fragments: :environment do
     p "Creating plans fragments..."
-    plans = Plan.includes(:contributors)
-
-    Parallel.map(plans, in_threads: 2) do |plan|
+    Plan.includes(:contributors).each do |plan|
       plan.create_plan_fragments if plan.json_fragment.nil?
 
       dmp_fragment = plan.json_fragment
@@ -124,7 +122,7 @@ namespace :madmpopidor do
     languages = Language.all
     Template.all.each do |template|
       if languages.find_by(abbreviation: template.locale).nil?
-        template.update(locale: Language.default.abbreviation)
+        template.update_columns(locale: Language.default.abbreviation)
       end
     end
     p "Done"
