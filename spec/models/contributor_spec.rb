@@ -15,7 +15,7 @@ RSpec.describe Contributor, type: :model do
         .with_message("You must specify at least one role.")
     end
 
-    describe "#name_or_email_presence" do
+    describe "#name_and_email_presence" do
       before(:each) do
         @contributor = build(:contributor, plan: create(:plan), investigation: true)
       end
@@ -27,13 +27,13 @@ RSpec.describe Contributor, type: :model do
         expect(@contributor.errors[:name].present?).to eql(true)
         expect(@contributor.errors[:email].present?).to eql(true)
       end
-      it "is valid if a name is present" do
+      it "is valid if a name is present and email is blank" do
         @contributor.email = nil
-        expect(@contributor.valid?).to eql(true)
+        expect(@contributor.valid?).to eql(false)
       end
-      it "is valid if an email is present" do
+      it "is valid if an email is present and name is blank" do
         @contributor.name = nil
-        expect(@contributor.valid?).to eql(true)
+        expect(@contributor.valid?).to eql(false)
       end
     end
 

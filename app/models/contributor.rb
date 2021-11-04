@@ -55,7 +55,7 @@ class Contributor < ApplicationRecord
   validates :roles, numericality: { greater_than: 0,
                                     message: _("You must specify at least one role.") }
 
-  validate :name_or_email_presence
+  validate :name_and_email_presence
 
   ONTOLOGY_NAME = "CRediT - Contributor Roles Taxonomy"
   ONTOLOGY_LANDING_PAGE = "https://credit.niso.org/"
@@ -130,11 +130,11 @@ class Contributor < ApplicationRecord
 
   private
 
-  def name_or_email_presence
-    return true unless name.blank? && email.blank?
+  def name_and_email_presence
+    return true unless name.blank? || email.blank?
 
-    errors.add(:name, _("can't be blank if no email is provided"))
-    errors.add(:email, _("can't be blank if no name is provided"))
+    errors.add(:name, _("can't be blank.")) if name.blank?
+    errors.add(:email, _("can't be blank.")) if email.blank?
   end
 
 end
