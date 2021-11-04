@@ -19,67 +19,57 @@ namespace :madmpopidor do
   desc "Initialize Dmp, Project, Meta & ResearchOutputs JSON fragments for the ancient plans"
   task initialize_plan_fragments: :environment do
     p "Creating plans fragments..."
-    Plan.all.each do |plan|
+    plans = Plan.includes(:contributors)
+
+    Parallel.map(plans, in_threads: 2) do |plan|
       plan.create_plan_fragments if plan.json_fragment.nil?
 
       dmp_fragment = plan.json_fragment
+      dmp_fragment.persons.first.destroy if plan.owner.present?
+
       project_fragment = dmp_fragment.project
       meta_fragment = dmp_fragment.meta
+      principal_investigator = project_fragment.principal_investigator
+      data_contact = meta_fragment.contact
 
       FastGettext.with_locale plan.template.locale do
-        #################################
-        # PERSON & CONTRIBUTORS FRAGMENTS
-        #################################
-        # Principal Investigator
-        pi_person_data = {
-          "nameType" => d_("dmpopidor", "Personal"),
-          "lastName" => plan.principal_investigator,
-          "mbox" => plan.principal_investigator_email,
-          "personId" => plan.principal_investigator_identifier,
-          "idType" => plan.principal_investigator_identifier.present? ? "ORCID" : ""
-        }
-        pi_person = MadmpFragment.fragment_exists?(
-          pi_person_data, MadmpSchema.find_by(name: "PersonStandard"), dmp_fragment.id
-        )
-        if pi_person.eql?(false)
-          principal_investigator = project_fragment.principal_investigator
-          pi_person = Fragment::Person.create(
-            data: pi_person_data,
-            dmp_id: dmp_fragment.id,
-            madmp_schema: MadmpSchema.find_by(name: "PersonStandard"),
-            additional_info: { property_name: "person" }
-          )
-          principal_investigator.update(
-            data: principal_investigator.data.merge("person" => { "dbid" => pi_person.id })
-          )
-        end
-
-        # Data Contact
-        if plan.data_contact.nil? && plan.data_contact_email.nil?
-          dc_person_data = pi_person_data
-        else
-          dc_person_data = {
+        plan.contributors.each do |contributor|
+          identifier = contributor.identifiers.first
+          person_data = {
             "nameType" => d_("dmpopidor", "Personal"),
-            "lastName" => plan.data_contact,
-            "mbox" => plan.data_contact_email
+            "lastName" => contributor.name,
+            "mbox" => contributor.email,
+            "personId" => identifier&.value,
+            "idType" => identifier.present? ? "ORCID" : ""
           }
-        end
-        data_contact = meta_fragment.contact
-        dc_person =  MadmpFragment.fragment_exists?(
-          dc_person_data, MadmpSchema.find_by(name: "PersonStandard"), dmp_fragment.id
-        )
 
-        if dc_person.eql?(false)
-          dc_person = Fragment::Person.create(
-            data: dc_person_data,
-            dmp_id: dmp_fragment.id,
-            madmp_schema: MadmpSchema.find_by(name: "PersonStandard"),
-            additional_info: { property_name: "person" }
+          person = MadmpFragment.fragment_exists?(
+            person_data, MadmpSchema.find_by(name: "PersonStandard"), dmp_fragment.id
+          )
+          if person.eql?(false)
+            person = Fragment::Person.create(
+              data: person_data,
+              dmp_id: dmp_fragment.id,
+              madmp_schema: MadmpSchema.find_by(name: "PersonStandard"),
+              additional_info: { property_name: "person" }
+            )
+          end
+
+          if contributor.data_curation
+            data_contact.update(
+              data: data_contact.data.merge(
+                "person" => { "dbid" => person.id }
+              )
+            )
+          end
+
+          principal_investigator.update(
+            data: principal_investigator.data.merge(
+              "person" => { "dbid" => person.id }
+            )
           )
         end
-        data_contact.update(
-          data: data_contact.data.merge("person" => { "dbid" => dc_person.id })
-        )
+
         #################################
         # PROJECT FUNDINGS
         #################################
