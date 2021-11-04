@@ -1309,26 +1309,23 @@
             "en_GB": "Organizational (e.g. a research team, unit or group)"
         }
     ],
-    "ThesaurusInrae": {
-        "path": "ThesaurusInrae.json"
+    "ANRProjects": {
+        "path": "ANRProjects.json"
     },
-    "Licenses": {
-        "path": "Licenses.json"
+    "BackupPolicyGenci": {
+        "path": "BackupPolicyGenci.json"
+    },
+    "CollectionServices": {
+        "path": "CollectionServices.json"
+    },
+    "DataLicenses": {
+        "path": "DataLicenses.json"
+    },
+    "DMPLicenses": {
+        "path": "DMPLicenses.json"
     },
     "Funders": {
         "path": "Funders.json"
-    },
-    "Partners": {
-        "path": "Partners.json"
-    },
-    "Repositories": {
-        "path": "Repositories.json"
-    },
-    "Standards": {
-        "path": "Standards.json"
-    },
-    "Catalogs": {
-        "path": "Catalogs.json"
     },
     "ISO639-3": {
         "path": "ISO639-3.json"
@@ -1336,19 +1333,25 @@
     "MediaType": {
         "path": "MediaType.json"
     },
-    "ANRProjects": {
-        "path": "ANRProjects.json"
+    "MetadataTools": {
+        "path": "MetadataTools.json"
     },
-    "CollectionServices": {
-        "path": "CollectionServices.json"
+    "Partners": {
+        "path": "Partners.json"
     },
     "ProcessingServices": {
         "path": "ProcessingServices.json"
     },
+    "Repositories": {
+        "path": "Repositories.json"
+    },
+    "Standards": {
+        "path": "Standards.json"
+    },
     "StorageServices": {
         "path": "StorageServices.json"
     },
-    "BackupPolicyGenci": {
-        "path": "BackupPolicyGenci.json"
+    "ThesaurusInrae": {
+        "path": "ThesaurusInrae.json"
     }
 }
