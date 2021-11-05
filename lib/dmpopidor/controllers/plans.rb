@@ -128,6 +128,7 @@ module Dmpopidor
               abbreviation: "Default",
               fullname: "Default research output",
               is_default: true,
+              type: ResearchOutputType.find_by(label: "Dataset"),
               order: 1
             )
 
