@@ -44,8 +44,6 @@ class ResearchOutput < ActiveRecord::Base
 
   validates :fullname, presence: { message: PRESENCE_MESSAGE }
 
-  validates :type, presence: { message: PRESENCE_MESSAGE }
-
   validates :plan, presence: { message: PRESENCE_MESSAGE }
 
   # ==========
@@ -111,7 +109,6 @@ class ResearchOutput < ActiveRecord::Base
         fragment_description = Fragment::ResearchOutputDescription.new(
           data: {
             "title" => fullname,
-            "type" => d_("dmpopidor", "Dataset"),
             "datasetId" => pid
           },
           madmp_schema: MadmpSchema.find_by(name: "ResearchOutputDescriptionStandard"),

@@ -20,17 +20,16 @@ namespace :madmpopidor do
   task initialize_plan_fragments: :environment do
     p "Creating plans fragments..."
     Plan.includes(:contributors).each do |plan|
-      plan.create_plan_fragments if plan.json_fragment.nil?
-
-      dmp_fragment = plan.json_fragment
-      dmp_fragment.persons.first.destroy if plan.owner.present?
-
-      project_fragment = dmp_fragment.project
-      meta_fragment = dmp_fragment.meta
-      principal_investigator = project_fragment.principal_investigator
-      data_contact = meta_fragment.contact
-
       FastGettext.with_locale plan.template.locale do
+        plan.create_plan_fragments if plan.json_fragment.nil?
+
+        dmp_fragment = plan.json_fragment
+        dmp_fragment.persons.first.destroy if plan.owner.present?
+
+        project_fragment = dmp_fragment.project
+        meta_fragment = dmp_fragment.meta
+        principal_investigator = project_fragment.principal_investigator
+        data_contact = meta_fragment.contact
         plan.contributors.each do |contributor|
           identifier = contributor.identifiers.first
           person_data = {
@@ -88,12 +87,24 @@ namespace :madmpopidor do
             )
           )
         end
-      end
 
-      plan.research_outputs.each do |research_output|
-        next if research_output.nil? && research_output.json_fragment.present?
+        plan.research_outputs.each do |research_output|
+          next if research_output.nil? && research_output.json_fragment.present?
 
-        research_output.create_json_fragments
+          research_output.create_json_fragments
+          research_output_description = research_output.json_fragment.research_output_description
+          ro_type = if research_output.other_type_label.present?
+                      research_output.other_type_label
+                    else
+                      research_output.type.label
+                    end
+
+          research_output_description.update(
+            data: research_output_description.data.merge(
+              "type" => d_("dmpopidor", ro_type)
+            )
+          )
+        end
       end
     end
     p "Done."
