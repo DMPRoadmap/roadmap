@@ -61,4 +61,8 @@ $(() => {
     const errorMessage = response.responseJSON.error;
     target.find('.message-area').html(errorMessage).addClass('alert-danger');
   });
+
+  $('#modal-window form :input').on('change', () => {
+    $('#modal-window button[type=submit]').attr('disabled', false);
+  });
 });
