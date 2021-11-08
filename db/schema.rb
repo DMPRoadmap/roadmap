@@ -231,8 +231,8 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.string "value", null: false
     t.text "attrs"
     t.integer "identifier_scheme_id"
-    t.string "identifiable_type"
     t.integer "identifiable_id"
+    t.string "identifiable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["identifiable_type", "identifiable_id"], name: "index_identifiers_on_identifiable_type_and_identifiable_id"
