@@ -175,6 +175,11 @@ Style/SelectByRegexp: # new in 1.22
   Enabled: true
 Style/StringChars: # new in 1.12
   Enabled: true
+Style/StringLiterals:
+  Enabled: true
+  Exclude:
+    - 'app/views/**/*'
+
 Style/SwapValues: # new in 1.1
   Enabled: true
 
