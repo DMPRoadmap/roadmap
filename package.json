@@ -37,7 +37,6 @@
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.21.1",
-    "eslint-webpack-plugin": "^3.0.1",
     "jquery": "^3.5.1",
     "jquery-ui": "^1.12.1",
     "jquery-ui-sass": "^0.0.1",
