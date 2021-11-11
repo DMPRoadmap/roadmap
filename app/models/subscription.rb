@@ -20,7 +20,6 @@
 #  index_subscriptions_on_plan_id                 (plan_id)
 #
 class Subscription < ApplicationRecord
-
   include FlagShihTzu
 
   # ================
@@ -35,7 +34,7 @@ class Subscription < ApplicationRecord
   has_flags 1 => :updates,
             2 => :deletions,
             3 => :creations,
-            column: "subscription_types"
+            column: 'subscription_types'
 
   # ====================
   # = Instance Methods =
@@ -51,5 +50,4 @@ class Subscription < ApplicationRecord
     NotifySubscriberJob.perform_later(self)
     true
   end
-
 end

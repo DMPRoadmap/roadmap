@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe DoiService do
   include ConfigHelper
@@ -18,41 +18,41 @@ RSpec.describe DoiService do
                                          for_identification: true, for_plans: true)
   end
 
-  describe "#mint_doi(plan:)" do
+  describe '#mint_doi(plan:)' do
     before(:each) do
       @plan = build(:plan)
       @doi = SecureRandom.uuid
       @qualified_doi = "#{@config.landing_page_url}#{@doi}"
     end
 
-    it "returns nil if :plan is not present" do
+    it 'returns nil if :plan is not present' do
       expect(described_class.mint_doi(plan: nil)).to eql(nil)
     end
-    it "returns nil if :plan is not an instance of Plan" do
+    it 'returns nil if :plan is not an instance of Plan' do
       expect(described_class.mint_doi(plan: build(:org))).to eql(nil)
     end
-    it "returns the existing DOI if :plan already has a :doi" do
+    it 'returns the existing DOI if :plan already has a :doi' do
       existing = build(:identifier, identifier_scheme: @scheme, value: @qualified_doi)
       @plan.stubs(:doi).returns(existing)
       expect(described_class.mint_doi(plan: @plan).value).to eql(@qualified_doi)
     end
-    it "returns nil if if no DOI minting service is active" do
+    it 'returns nil if if no DOI minting service is active' do
       described_class.stubs(:minter).returns(nil)
       expect(described_class.mint_doi(plan: @plan)).to eql(nil)
     end
-    it "returns nil if the DOI minting service did not receive a DOI" do
+    it 'returns nil if the DOI minting service did not receive a DOI' do
       described_class.stubs(:minter).returns(ExternalApis::DataciteService)
       described_class.stubs(:scheme).returns(@scheme)
       ExternalApis::DataciteService.stubs(:mint_doi).returns(nil)
       expect(described_class.mint_doi(plan: @plan)).to eql(nil)
     end
-    it "returns the DOI retrieved by the DOI minting service" do
+    it 'returns the DOI retrieved by the DOI minting service' do
       described_class.stubs(:minter).returns(ExternalApis::DataciteService)
       described_class.stubs(:scheme).returns(@scheme)
       ExternalApis::DataciteService.stubs(:mint_doi).returns(@qualified_doi)
       expect(described_class.mint_doi(plan: @plan).value).to eql(@qualified_doi)
     end
-    it "prepends the :landing_page_url if the DOI is not a URL" do
+    it 'prepends the :landing_page_url if the DOI is not a URL' do
       described_class.stubs(:minter).returns(ExternalApis::DataciteService)
       described_class.stubs(:scheme).returns(@scheme)
       ExternalApis::DataciteService.stubs(:landing_page_url)
@@ -60,7 +60,7 @@ RSpec.describe DoiService do
       ExternalApis::DataciteService.stubs(:mint_doi).returns(@doi)
       expect(described_class.mint_doi(plan: @plan).value).to eql(@qualified_doi)
     end
-    it "does not prepend the :landing_page_url if the DOI is already a URL" do
+    it 'does not prepend the :landing_page_url if the DOI is already a URL' do
       described_class.stubs(:minter).returns(ExternalApis::DataciteService)
       described_class.stubs(:scheme).returns(@scheme)
       ExternalApis::DataciteService.stubs(:mint_doi).returns(@qualified_doi)
@@ -69,23 +69,23 @@ RSpec.describe DoiService do
     end
   end
 
-  describe "#minting_service_defined?" do
-    it "returns false if no DOI minting service is active" do
+  describe '#minting_service_defined?' do
+    it 'returns false if no DOI minting service is active' do
       described_class.stubs(:minter).returns(nil)
       expect(described_class.minting_service_defined?).to eql(false)
     end
-    it "returns true if a DOI minting service is active" do
+    it 'returns true if a DOI minting service is active' do
       described_class.stubs(:minter).returns(ExternalApis::DataciteService)
       expect(described_class.minting_service_defined?).to eql(true)
     end
   end
 
-  describe "#scheme_name" do
-    it "returns nil if there is no active Doi minting service" do
+  describe '#scheme_name' do
+    it 'returns nil if there is no active Doi minting service' do
       described_class.stubs(:minter).returns(nil)
       expect(described_class.scheme_name).to eql(nil)
     end
-    it "returns the name of IdentifierScheme associated with the DOI minting service" do
+    it 'returns the name of IdentifierScheme associated with the DOI minting service' do
       @config.name = @config.name.upcase
       described_class.stubs(:minter).returns(ExternalApis::DataciteService)
       described_class.stubs(:scheme).returns(@config)
@@ -93,26 +93,26 @@ RSpec.describe DoiService do
     end
   end
 
-  context "private methods" do
-    describe "#minter" do
-      it "returns nil if no DOI services are active" do
+  context 'private methods' do
+    describe '#minter' do
+      it 'returns nil if no DOI services are active' do
         stub_x_section(section_sym: :datacite, open_struct: OpenStruct.new(active: false))
         stub_x_section(section_sym: :dmphub, open_struct: OpenStruct.new(active: false))
         expect(described_class.send(:minter)).to eql(nil)
       end
-      it "returns the first active service if all DOI services are active" do
+      it 'returns the first active service if all DOI services are active' do
         stub_x_section(section_sym: :datacite, open_struct: OpenStruct.new(active: true))
         stub_x_section(section_sym: :dmphub, open_struct: OpenStruct.new(active: true))
         result = described_class.send(:minter)
         expect(result.name).to eql(ExternalApis::DataciteService.name)
       end
-      it "returns the DataciteService is the only active service" do
+      it 'returns the DataciteService is the only active service' do
         stub_x_section(section_sym: :datacite, open_struct: OpenStruct.new(active: true))
         stub_x_section(section_sym: :dmphub, open_struct: OpenStruct.new(active: false))
         result = described_class.send(:minter)
         expect(result.name).to eql(ExternalApis::DataciteService.name)
       end
-      it "returns the DmphubService is the only active service" do
+      it 'returns the DmphubService is the only active service' do
         stub_x_section(section_sym: :datacite, open_struct: OpenStruct.new(active: false))
         stub_x_section(section_sym: :dmphub, open_struct: OpenStruct.new(active: true))
         result = described_class.send(:minter)
@@ -120,11 +120,11 @@ RSpec.describe DoiService do
       end
     end
 
-    describe "#scheme(svc:)" do
-      it "returns the existing IdentifierScheme associated with the service" do
+    describe '#scheme(svc:)' do
+      it 'returns the existing IdentifierScheme associated with the service' do
         expect(described_class.send(:scheme, svc: @config)).to eql(@scheme)
       end
-      it "creates the IdentifierScheme associated with the service" do
+      it 'creates the IdentifierScheme associated with the service' do
         scheme_count = IdentifierScheme.all.length
         @config.name = Faker::Lorem.unique.word
         result = described_class.send(:scheme, svc: @config)
@@ -136,5 +136,4 @@ RSpec.describe DoiService do
       end
     end
   end
-
 end

@@ -86,10 +86,10 @@ describe 'api/v1/plans/_show.json.jbuilder' do
       expect(@section[app.to_sym].present?).to eql(true)
       expect(@section[app.to_sym][:related_identifiers].length).to eql(1)
       related = @section[app.to_sym][:related_identifiers].first
-      expect(related["work_type"]).to eql(@plan.related_identifiers.first.work_type)
-      expect(related["type"]).to eql(@plan.related_identifiers.first.identifier_type)
-      expect(related["descriptor"]).to eql(@plan.related_identifiers.first.relation_type)
-      expect(related["identifier"]).to eql(@plan.related_identifiers.first.value)
+      expect(related['work_type']).to eql(@plan.related_identifiers.first.work_type)
+      expect(related['type']).to eql(@plan.related_identifiers.first.identifier_type)
+      expect(related['descriptor']).to eql(@plan.related_identifiers.first.relation_type)
+      expect(related['identifier']).to eql(@plan.related_identifiers.first.value)
     end
   end
 

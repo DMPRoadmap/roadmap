@@ -1,17 +1,18 @@
 # frozen_string_literal: true
 
+# Controller that handles RegistryOrgs
 class RegistryOrgsController < ApplicationController
-
   # GET orgs/search
   def search
     term = autocomplete_term
     if term.present? && term.length > 2
       render json: find_by_search_term(
         term: term,
-        funder_only: autocomplete_params[:funder_only] == "true",
-        non_funder_only: autocomplete_params[:non_funder_only] == "true",
-        known_only: autocomplete_params[:known_only] == "true",
-        managed_only: autocomplete_params[:managed_only] == "true"
+        funder_only: autocomplete_params[:funder_only] == 'true',
+        non_funder_only: autocomplete_params[:non_funder_only] == 'true',
+        known_only: autocomplete_params[:known_only] == 'true',
+        unknown_only: autocomplete_params[:unknown_only] == 'true',
+        managed_only: autocomplete_params[:managed_only] == 'true'
       )
     else
       render json: []
@@ -22,8 +23,8 @@ class RegistryOrgsController < ApplicationController
 
   def autocomplete_params
     params.permit(
-      %i[known_only funder_only managed_only non_funder_only context],
-      org_autocomplete: %i[name funder_name org_name],
+      %i[known_only unknown_only funder_only managed_only non_funder_only context],
+      org_autocomplete: %i[name funder_name org_name]
     )
   end
 
@@ -34,6 +35,7 @@ class RegistryOrgsController < ApplicationController
   end
 
   # Search the Orgs and RegistryOrgs tables for the term
+  # rubocop:disable Metrics/AbcSize
   def find_by_search_term(term:, **options)
     return [] unless term.present?
 
@@ -45,6 +47,7 @@ class RegistryOrgsController < ApplicationController
     registry_matches = registry_orgs_search(
       term: term,
       known_only: known_only,
+      unknown_only: options[:unknown_only],
       managed_only: options[:managed_only],
       funder_only: options[:funder_only],
       non_funder_only: options[:non_funder_only]
@@ -53,6 +56,7 @@ class RegistryOrgsController < ApplicationController
     # Search the Orgs table first
     org_matches = orgs_search(
       term: term,
+      unknown_only: options[:unknown_only],
       managed_only: options[:managed_only],
       funder_only: options[:funder_only],
       non_funder_only: options[:non_funder_only]
@@ -61,27 +65,30 @@ class RegistryOrgsController < ApplicationController
     matches = (registry_matches + org_matches).flatten.compact.uniq
     sort_search_results(results: matches, term: term)
   end
+  # rubocop:enable Metrics/AbcSize
 
   # Search Orgs
   def orgs_search(term:, **options)
-    matches = Org.where.not(id: RegistryOrg.all.pluck(:org_id)).search(term)
+    return [] if options[:unknown_only]
 
+    matches = Org.search(term)
     # If we're only allowing for managed Orgs then filter the others out
     matches = matches.where(managed: true) if options.fetch(:managed_only, false)
 
     # If we're filtering by funder status
-    matches = matches.select { |org| org.funder? } if options.fetch(:funder_only, false)
-    matches = matches.reject { |org| org.funder? } if options.fetch(:non_funder_only, false)
+    matches = matches.select(&:funder?) if options.fetch(:funder_only, false)
+    matches = matches.reject(&:funder?) if options.fetch(:non_funder_only, false)
 
     matches
   end
 
   # Search RegistryOrgs
+  # rubocop:disable Metrics/AbcSize
   def registry_orgs_search(term:, **options)
     matches = RegistryOrg.includes(:org).search(term)
-
     # If we are only allowing known Orgs then filter by org_id presence
     matches = matches.where.not(org_id: nil) if options.fetch(:known_only, false)
+    matches = matches.where(org_id: nil) if options.fetch(:unknown_only, false)
 
     # If we're filtering by funder status
     matches = matches.where.not(fundref_id: nil) if options.fetch(:funder_only, false)
@@ -93,8 +100,10 @@ class RegistryOrgsController < ApplicationController
 
     matches
   end
+  # rubocop:enable Metrics/AbcSize
 
   # Sort the results by their weight (desacending) and then name (ascending)
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   def sort_search_results(results:, term:)
     return [] unless results.present? && results.any? && term.present?
 
@@ -103,8 +112,10 @@ class RegistryOrgsController < ApplicationController
            .map { |result| result[:org]&.name }
            .flatten.compact.uniq
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
   # Weighs the result. The greater the weight the closer the match, preferring Orgs already in use
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def weigh(term:, org:)
     score = 0
     return score unless term.present? && (org.is_a?(Org) || org.is_a?(RegistryOrg))
@@ -125,5 +136,5 @@ class RegistryOrgsController < ApplicationController
 
     score
   end
-
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end

@@ -1,41 +1,46 @@
 # frozen_string_literal: true
 
-module AutoCompleteHelper
-
-  def select_an_org(selector, org_name, namespace = nil)
-    suggestions_selector = "#autocomplete-suggestions-"
-
-    # Set the Org Name
+module AutocompleteHelper
+  # rubocop:disable Metrics/AbcSize
+  def select_an_org(selector, org_name, label)
     within(selector) do
-      id = "#org_autocomplete_#{[namespace, "name"].compact.join("_")}"
-      autocomplete = find(id)
-      suggestions_selector += autocomplete[:list].split("-").last
-      autocomplete.set(org_name)
-    end
+      # Clear the default Org name if any and replace with the specified name
+      fill_in label, with: ''
+      fill_in label, with: org_name
 
-    sleep(0.1)
+      # Check that it appear in the list first
+      expect(suggestion_exists?(org_name)).to eql(true)
 
-    # Now select the item from the suggestions
-    within(selector) do
-      item_selector = "#{suggestions_selector} .ui-menu-item-wrapper"
+      # Now select the item from the suggestions
+      elements = all('.ui-menu-item-wrapper', visible: false)
+      return false unless elements.present? && elements.any?
 
-      matching_element = all(:css, item_selector).detect do |element|
-        element.text.strip == org_name.strip
-      end
-      if matching_element.present?
-        matching_element.click
-      end
+      selection = elements.detect { |el| el.text.strip == org_name }
+      return false unless selection.present?
+
+      selection.click
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # Supply a custom Org name
   def enter_custom_org(selector, org_name, namespace = nil)
     within(selector) do
-      id = "#org_autocomplete_#{[namespace, "name"].compact.join("_")}"
-      autocomplete = find(id)
-      uuid = autocomplete[:list].split("-").last
-      check "I cannot find my organisation in the list"
-      find("#org_autocomplete_user_entered_name").set(org_name)
+      check _('I cannot find my institution in the list')
+      field = find("#org_autocomplete_#{[namespace, "user_entered_name"].compact.join("_")}")
+      expect(field.present?).to eql(true)
+
+      field.set(org_name)
     end
+  end
+
+  # Checks the suggestions to see if the name exists.
+  def suggestion_exists?(name)
+    return false unless name.present?
+
+    elements = all('.ui-menu-item-wrapper', visible: false)
+    return false unless elements.present? && elements.any?
+
+    elements.detect { |el| el.text.strip == name }.present?
   end
 end

@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 module Api
-
   module V2
-
+    # API V2 specific helpers for Plans
     class PlanPresenter
-
       attr_reader :data_contact, :contributors, :costs, :client
 
       def initialize(plan:, client:)
@@ -44,6 +42,7 @@ module Api
       end
 
       # Related identifiers for the Plan
+      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def links
         ret = {
           get: @helpers.api_v2_plan_url(@plan)
@@ -58,12 +57,13 @@ module Api
         end
         ret
       end
+      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       # Subscribers of the Plan
       def subscriptions
         @plan.subscriptions.map do |subscription|
           {
-            actions: ["PUT"],
+            actions: ['PUT'],
             name: subscription.subscriber.name,
             callback: subscription.callback_uri
           }
@@ -71,14 +71,14 @@ module Api
       end
 
       def visibility
-        @plan.visibility == "publicly_visible" ? "public" : "private"
+        @plan.visibility == 'publicly_visible' ? 'public' : 'private'
       end
 
       private
 
       # Retrieve the answers that have the Budget theme
       def plan_costs(plan:)
-        theme = Theme.where(title: "Cost").first
+        theme = Theme.where(title: 'Cost').first
         return [] unless theme.present?
 
         # TODO: define a new 'Currency' question type that includes a float field
@@ -90,12 +90,9 @@ module Api
         answers.map do |answer|
           # TODO: Investigate whether question level guidance should be the description
           { title: answer.question.text, description: nil,
-            currency_code: "usd", value: answer.text }
+            currency_code: 'usd', value: answer.text }
         end
       end
-
     end
-
   end
-
 end

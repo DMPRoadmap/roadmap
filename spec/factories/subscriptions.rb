@@ -28,16 +28,15 @@ FactoryBot.define do
     association :subscriber, factory: :api_client
 
     trait :for_updates do
-      subscription_types { "updates" }
+      subscription_types { 'updates' }
     end
 
     trait :for_creations do
-      subscription_types { "creations" }
+      subscription_types { 'creations' }
     end
 
     trait :for_deletions do
-      subscription_types { "deletions" }
+      subscription_types { 'deletions' }
     end
-
   end
 end

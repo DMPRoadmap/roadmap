@@ -27,45 +27,45 @@ RSpec.describe ExternalApis::BaseService do
     end
   end
 
-  describe "#handle_http_failure(method:, http_response:)" do
+  describe '#handle_http_failure(method:, http_response:)' do
     before(:each) do
-      @resp = OpenStruct.new({ code: 500, body: "It failed", headers: { "foo": "bar" } })
+      @resp = OpenStruct.new({ code: 500, body: 'It failed', headers: { foo: 'bar' } })
     end
 
-    it "works if method is not specified" do
+    it 'works if method is not specified' do
       described_class.expects(:log_error).returns(true)
       expect(described_class.send(:handle_http_failure, method: nil, http_response: @resp))
     end
-    it "works if http_response is not present" do
+    it 'works if http_response is not present' do
       described_class.expects(:log_error).returns(true)
       expect(described_class.send(:handle_http_failure, method: :get, http_response: nil))
     end
-    it "logs the failure" do
+    it 'logs the failure' do
       described_class.expects(:log_error).returns(true)
       expect(described_class.send(:handle_http_failure, method: :get, http_response: @resp))
     end
   end
 
-  describe "#handle_uri_failure(method:, uri:)" do
+  describe '#handle_uri_failure(method:, uri:)' do
     before(:each) do
       @uri = Faker::Internet.url
     end
 
-    it "works if method is not specified" do
+    it 'works if method is not specified' do
       described_class.expects(:log_error).returns(true)
       expect(described_class.send(:handle_uri_failure, method: nil, uri: @uri))
     end
-    it "works if uri is not present" do
+    it 'works if uri is not present' do
       described_class.expects(:log_error).returns(true)
       expect(described_class.send(:handle_uri_failure, method: :get, uri: nil))
     end
-    it "logs the failure" do
+    it 'logs the failure' do
       described_class.expects(:log_error).returns(true)
       expect(described_class.send(:handle_uri_failure, method: :get, uri: @uri))
     end
   end
 
-  describe "#log_error" do
+  describe '#log_error' do
     before(:each) do
       @err = Exception.new(Faker::Lorem.sentence)
     end
@@ -81,34 +81,34 @@ RSpec.describe ExternalApis::BaseService do
     end
   end
 
-  describe "#notify_administrators(obj:, response: nil, error: nil)" do
+  describe '#notify_administrators(obj:, response: nil, error: nil)' do
     before(:each) do
-      @resp = OpenStruct.new({ code: 500, body: "It failed", headers: { "foo": "bar" } })
-      @err = StandardError.new("It failed!")
+      @resp = OpenStruct.new({ code: 500, body: 'It failed', headers: { foo: 'bar' } })
+      @err = StandardError.new('It failed!')
       @obj = build(:org)
     end
 
-    it "returns false if :obj is not present" do
+    it 'returns false if :obj is not present' do
       result = described_class.notify_administrators(obj: nil, response: @resp, error: @err)
       expect(result).to eql(false)
     end
-    it "returns false if :response is not present" do
+    it 'returns false if :response is not present' do
       result = described_class.notify_administrators(obj: @obj, response: nil, error: @err)
       expect(result).to eql(false)
     end
-    it "sends the email if :error is not present" do
+    it 'sends the email if :error is not present' do
       result = described_class.notify_administrators(obj: @obj, response: @resp, error: nil)
       expect(result).to eql(true)
     end
-    it "sends the email" do
+    it 'sends the email' do
       result = described_class.notify_administrators(obj: @obj, response: @resp, error: @err)
       expect(result).to eql(true)
     end
   end
 
-  context "private methods" do
-    context "#app_name" do
-      it "defaults to the Rails.application.class.name" do
+  context 'private methods' do
+    context '#app_name' do
+      it 'defaults to the Rails.application.class.name' do
         Rails.configuration.x.application.delete(:name)
         expected = ApplicationService.application_name
         expect(described_class.send(:app_name)).to eql(expected)
@@ -136,11 +136,11 @@ RSpec.describe ExternalApis::BaseService do
       it 'returns nil if no URI is specified' do
         expect(described_class.send(:http_get, uri: nil)).to eql(nil)
       end
-      it "returns nil if a URI error occurs" do
+      it 'returns nil if a URI error occurs' do
         described_class.expects(:handle_uri_failure).returns(true)
-        expect(described_class.send(:http_get, uri: "badurl~^(%")).to eql(nil)
+        expect(described_class.send(:http_get, uri: 'badurl~^(%')).to eql(nil)
       end
-      it "logs an error if an error occurs" do
+      it 'logs an error if an error occurs' do
         HTTParty.expects(:get).raises(HTTParty::Error.new)
         described_class.expects(:handle_http_failure).returns(true)
         expect(described_class.send(:http_get, uri: @uri)).to eql(nil)
@@ -161,55 +161,55 @@ RSpec.describe ExternalApis::BaseService do
       end
     end
 
-    context "#http_post" do
+    context '#http_post' do
       before(:each) do
-        @uri = "http://example.org"
+        @uri = 'http://example.org'
       end
-      it "returns nil if no URI is specified" do
+      it 'returns nil if no URI is specified' do
         expect(described_class.send(:http_post, uri: nil)).to eql(nil)
       end
-      it "returns nil if a URI error occurs" do
+      it 'returns nil if a URI error occurs' do
         described_class.expects(:handle_uri_failure).returns(true)
-        expect(described_class.send(:http_post, uri: "badurl~^(%")).to eql(nil)
+        expect(described_class.send(:http_post, uri: 'badurl~^(%')).to eql(nil)
       end
-      it "logs an error if an error occurs" do
+      it 'logs an error if an error occurs' do
         HTTParty.expects(:post).raises(HTTParty::Error.new)
         described_class.expects(:handle_http_failure).returns(true)
-        expect(described_class.send(:http_post, uri: "badurl~^(%")).to eql(nil)
+        expect(described_class.send(:http_post, uri: 'badurl~^(%')).to eql(nil)
       end
-      it "returns an HTTP response" do
-        described_class.expects(:options).returns({ headers: { "foo": "bar" } })
-        stub_request(:post, @uri).with(headers: { "foo": "bar" })
-                                 .to_return(status: 201, body: "", headers: {})
+      it 'returns an HTTP response' do
+        described_class.expects(:options).returns({ headers: { foo: 'bar' } })
+        stub_request(:post, @uri).with(headers: { foo: 'bar' })
+                                 .to_return(status: 201, body: '', headers: {})
         expect(described_class.send(:http_post, uri: @uri).code).to eql(201)
       end
     end
 
-    context "#http_put" do
+    context '#http_put' do
       before(:each) do
-        @uri = "http://example.org"
+        @uri = 'http://example.org'
       end
-      it "returns nil if no URI is specified" do
+      it 'returns nil if no URI is specified' do
         expect(described_class.send(:http_put, uri: nil)).to eql(nil)
       end
-      it "returns nil if a URI error occurs" do
+      it 'returns nil if a URI error occurs' do
         described_class.expects(:handle_uri_failure).returns(true)
-        expect(described_class.send(:http_put, uri: "badurl~^(%")).to eql(nil)
+        expect(described_class.send(:http_put, uri: 'badurl~^(%')).to eql(nil)
       end
-      it "logs an error if an error occurs" do
+      it 'logs an error if an error occurs' do
         HTTParty.expects(:put).raises(HTTParty::Error.new)
         described_class.expects(:handle_http_failure).returns(true)
-        expect(described_class.send(:http_put, uri: "badurl~^(%")).to eql(nil)
+        expect(described_class.send(:http_put, uri: 'badurl~^(%')).to eql(nil)
       end
-      it "returns an HTTP response" do
-        described_class.expects(:options).returns({ headers: { "foo": "bar" } })
-        stub_request(:put, @uri).with(headers: { "foo": "bar" })
-                                .to_return(status: 200, body: "", headers: {})
+      it 'returns an HTTP response' do
+        described_class.expects(:options).returns({ headers: { foo: 'bar' } })
+        stub_request(:put, @uri).with(headers: { foo: 'bar' })
+                                .to_return(status: 200, body: '', headers: {})
         expect(described_class.send(:http_put, uri: @uri).code).to eql(200)
       end
     end
 
-    context "#options(additional_headers:, debug:)" do
+    context '#options(additional_headers:, debug:)' do
       before(:each) do
         described_class.stubs(:headers).returns({ Accept: '*/*' })
       end
@@ -239,7 +239,7 @@ RSpec.describe ExternalApis::BaseService do
 
   def stub_redirect(uri:, redirect_to:, method: :get)
     stub_request(method, uri).with(headers: described_class.headers)
-                             .to_return(status: 301, body: "",
-                                        headers: { "Location": redirect_to })
+                             .to_return(status: 301, body: '',
+                                        headers: { Location: redirect_to })
   end
 end

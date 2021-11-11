@@ -113,7 +113,6 @@ class OrgsController < ApplicationController
 
   # GET /orgs/shibboleth_ds/:id
   # POST /orgs/shibboleth_ds/:id
-  # rubocop:disable Metrics/AbcSize
   def shibboleth_ds_passthru
     # This action is used ONLY if Rails.configuration.x.shibboleth.use_filtered_discovery_service
     # is true! It will attempt to redirect the user to the Rails.configuration.x.shibboleth.login_url
@@ -123,24 +122,24 @@ class OrgsController < ApplicationController
     org = process_org!(user: current_user, managed_only: true)
 
     if org.present?
-      entity_id = org.identifier_for_scheme(scheme: "shibboleth")
+      entity_id = org.identifier_for_scheme(scheme: 'shibboleth')
 
       if entity_id.present? && entity_id.value.present?
 
-p "REDIRECTING TO IDP: #{shib_login_url}?#{shib_callback_url}&entityID=#{entity_id.value}"
+        p "REDIRECTING TO IDP: #{shib_login_url}?#{shib_callback_url}&entityID=#{entity_id.value}"
 
         # initiate shibboleth login sequence
         redirect_to "#{shib_login_url}?#{shib_callback_url}&entityID=#{entity_id.value}"
       else
         # The Org has no entity_id for Shib so redirect them to the branded sign in page
         @user = User.new(org: org)
-        render "shared/authentication/org_branded_access_controls"
+        render 'shared/authentication/org_branded_access_controls'
       end
     else
 
       # If we are using our own Shibboleth Service Provider SP then we need the entity_id so fail
       redirect_to after_sign_in_error_path_for(User.new),
-                  alert: _("Please choose an institution from the list.")
+                  alert: _('Please choose an institution from the list.')
     end
   end
   # rubocop:enable Metrics/AbcSize
@@ -171,7 +170,7 @@ p "REDIRECTING TO IDP: #{shib_login_url}?#{shib_callback_url}&entityID=#{entity_
   end
 
   def shib_callback_url
-    "target=#{user_shibboleth_omniauth_callback_url.gsub("http:", "https:")}"
+    "target=#{user_shibboleth_omniauth_callback_url.gsub('http:', 'https:')}"
   end
 
   # Destroy the identifier if it exists and was blanked out, replace the

@@ -11,35 +11,33 @@ Rails.application.routes.draw do
 
   # Routes to allow a user to sign up for API access via the 'Developer Tools' tab on the Profile page
   resources :api_clients, only: %i[create update]
-  get "/api_clients/refresh_credentials", to: "api_clients#refresh_credentials",
-                                          as: "refresh_credentials_api_client"
+  get '/api_clients/refresh_credentials', to: 'api_clients#refresh_credentials',
+                                          as: 'refresh_credentials_api_client'
   # Route to allow a user to revoke an Oauth access token from the '3rd Party Apps' tab on Profile page
-  delete "/users/:user_id/oauth_access_tokens/:id", to: "users#revoke_oauth_access_token",
-                                                    as: "oauth_revoke_access_token"
+  delete '/users/:user_id/oauth_access_tokens/:id', to: 'users#revoke_oauth_access_token',
+                                                    as: 'oauth_revoke_access_token'
 
   # Devise Authentication
-=begin
-  devise_for(:users, controllers: {
-               registrations: 'registrations',
-               passwords: 'passwords',
-               sessions: 'sessions',
-               omniauth_callbacks: 'users/omniauth_callbacks',
-               invitations: 'users/invitations'
-             }) do
-    get '/users/sign_out', to: 'devise/sessions#destroy'
-  end
-=end
+  #   devise_for(:users, controllers: {
+  #                registrations: 'registrations',
+  #                passwords: 'passwords',
+  #                sessions: 'sessions',
+  #                omniauth_callbacks: 'users/omniauth_callbacks',
+  #                invitations: 'users/invitations'
+  #              }) do
+  #     get '/users/sign_out', to: 'devise/sessions#destroy'
+  #   end
   # Base Devise controller setup
   devise_for :users, controllers: {
-    omniauth_callbacks: "users/omniauth_callbacks",
-    passwords: "users/passwords",
-    registrations: "users/registrations",
+    omniauth_callbacks: 'users/omniauth_callbacks',
+    passwords: 'users/passwords',
+    registrations: 'users/registrations',
     sessions: 'users/sessions'
   }
   devise_scope :user do
-    get "/users/third_party_apps", to: "users#third_party_apps"
-    get "/users/developer_tools", to: "users#developer_tools"
-    #delete "/users/identifiers/:id", to: "identifiers#destroy", as: "destroy_user_identifier"
+    get '/users/third_party_apps', to: 'users#third_party_apps'
+    get '/users/developer_tools', to: 'users#developer_tools'
+    # delete "/users/identifiers/:id", to: "identifiers#destroy", as: "destroy_user_identifier"
   end
 
   # get "/orgs/shibboleth", to: "orgs#shibboleth_ds", as: "shibboleth_ds"
@@ -61,7 +59,7 @@ Rails.application.routes.draw do
   # Start DMPTool customizations
   # ------------------------------------------
   # Handle logouts when on the localhost dev environment
-  get "/Shibboleth.sso/Logout", to: redirect("/") unless %w[stage production].include?(Rails.env)
+  get '/Shibboleth.sso/Logout', to: redirect('/') unless %w[stage production].include?(Rails.env)
   # ------------------------------------------
   # End DMPTool Customization
   # ------------------------------------------
@@ -105,23 +103,23 @@ Rails.application.routes.draw do
   get 'template_export/:id' => 'public_pages#template_export', as: 'template_export'
 
   # AJAX call used to search for Orgs based on user input into autocompletes
-  get "orgs/search" => "registry_orgs#search", as: "orgs_search"
+  get 'orgs/search' => 'registry_orgs#search', as: 'orgs_search'
 
   # ------------------------------------------
   # Start DMPTool customizations
   # ------------------------------------------
   # DMPTool specific documentation pages
-  get "get_started" => "public_pages#get_started", as: "get_started"
-  get "promote" => "static_pages#promote"
-  get "researchers" => "static_pages#researchers"
-  get "faq" => "static_pages#faq"
-  get "editorial_board" => "static_pages#editorial_board"
-  get "general_guidance" => "static_pages#general_guidance"
-  get "quick_start_guide" => "static_pages#help"
-  get "news_media" => "static_pages#news_media"
-  get "public_orgs" => "public_pages#orgs"
+  get 'get_started' => 'public_pages#get_started', as: 'get_started'
+  get 'promote' => 'static_pages#promote'
+  get 'researchers' => 'static_pages#researchers'
+  get 'faq' => 'static_pages#faq'
+  get 'editorial_board' => 'static_pages#editorial_board'
+  get 'general_guidance' => 'static_pages#general_guidance'
+  get 'quick_start_guide' => 'static_pages#help'
+  get 'news_media' => 'static_pages#news_media'
+  get 'public_orgs' => 'public_pages#orgs'
 
-  get "org_logos/:id" => "orgs#logos", as: :org_logo
+  get 'org_logos/:id' => 'orgs#logos', as: :org_logo
   # ------------------------------------------
   # End DMPTool customizations
   # ------------------------------------------
@@ -196,28 +194,28 @@ Rails.application.routes.draw do
     resources :research_outputs, except: %i[show]
 
     member do
-      get "answer"
-      get "publish"
-      get "request_feedback"
-      get "overview"
-      get "download"
-      post "duplicate"
-      post "visibility", constraints: { format: [:json] }
-      post "set_test", constraints: { format: [:json] }
-      get "mint"
-      get "add_orcid_work"
+      get 'answer'
+      get 'publish'
+      get 'request_feedback'
+      get 'overview'
+      get 'download'
+      post 'duplicate'
+      post 'visibility', constraints: { format: [:json] }
+      post 'set_test', constraints: { format: [:json] }
+      get 'mint'
+      get 'add_orcid_work'
     end
 
     # Ajax endpoint for ResearchOutput.output_type selection
-    get "output_type_selection", controller: "research_outputs", action: "select_output_type"
+    get 'output_type_selection', controller: 'research_outputs', action: 'select_output_type'
 
     # Ajax endpoint for ResearchOutput.license_id selection
-    get "license_selection", controller: "research_outputs", action: "select_license"
+    get 'license_selection', controller: 'research_outputs', action: 'select_license'
 
     # AJAX endpoints for repository search and selection
-    get :repository_search, controller: "research_outputs"
+    get :repository_search, controller: 'research_outputs'
     # AJAX endpoints for metadata standards search and selection
-    get :metadata_standard_search, controller: "research_outputs"
+    get :metadata_standard_search, controller: 'research_outputs'
   end
 
   resources :usage, only: [:index]
@@ -298,13 +296,13 @@ Rails.application.routes.draw do
 
   namespace :paginable do
     resources :orgs, only: [] do
-      get "index/:page", action: :index, on: :collection, as: :index
+      get 'index/:page', action: :index, on: :collection, as: :index
 
       # ------------------------------------------
       # Start DMPTool customizations
       # ------------------------------------------
       # DMPTool Partner Institutions page
-      get "public/:page", action: :public, on: :collection, as: :public
+      get 'public/:page', action: :public, on: :collection, as: :public
       # ------------------------------------------
       # End DMPTool customizations
       # ------------------------------------------
@@ -332,7 +330,7 @@ Rails.application.routes.draw do
       end
       # Paginable actions for research_outputs
       resources :research_outputs, only: %i[index] do
-        get "index/:page", action: :index, on: :collection, as: :index
+        get 'index/:page', action: :index, on: :collection, as: :index
       end
     end
     # Paginable actions for users
@@ -391,7 +389,7 @@ Rails.application.routes.draw do
       resources :conditions, only: %i[new show]
     end
 
-    resources :plans, only: [:index, :create] do
+    resources :plans, only: %i[index create] do
       member do
         get 'feedback_complete'
       end
@@ -408,11 +406,11 @@ Rails.application.routes.draw do
                                           controller: 'template_customization_transfers'
 
       member do
-        get "history"
-        get "email"
-        get "template_export", action: :template_export
-        patch "publish", action: :publish, constraints: { format: [:json] }
-        patch "unpublish", action: :unpublish, constraints: { format: [:json] }
+        get 'history'
+        get 'email'
+        get 'template_export', action: :template_export
+        patch 'publish', action: :publish, constraints: { format: [:json] }
+        patch 'unpublish', action: :unpublish, constraints: { format: [:json] }
       end
 
       # Used for the organisational and customizable views of index
@@ -472,18 +470,17 @@ Rails.application.routes.draw do
                                   controller: 'research_projects',
                                   constraints: { format: 'json' }
 
-  get "research_projects/(:type)", action: "index",
-                                   controller: "research_projects",
-                                   constraints: { format: "json" }
+  get 'research_projects/(:type)', action: 'index',
+                                   controller: 'research_projects',
+                                   constraints: { format: 'json' }
 
   # Routes needed to run feature tests
   if Rails.env.test?
     # Mocked Shibboleth Identifier Provider
-    get "Shibboleth.sso/Login", controller: :mock_shibboleth_identity_providers, action: :login,
-                                as: "new_mocked_shib_idp"
-    post "Shibboleth.sso/Auth", controller: :mock_shibboleth_identity_providers, action: :auth,
-                                as: "mocked_shib_idp"
+    get 'Shibboleth.sso/Login', controller: :mock_shibboleth_identity_providers, action: :login,
+                                as: 'new_mocked_shib_idp'
+    post 'Shibboleth.sso/Auth', controller: :mock_shibboleth_identity_providers, action: :auth,
+                                as: 'mocked_shib_idp'
   end
-
 end
 # rubocop:enable Metrics/BlockLength

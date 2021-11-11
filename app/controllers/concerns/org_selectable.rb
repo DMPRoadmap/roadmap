@@ -37,21 +37,19 @@ module OrgSelectable
 
   # rubocop:disable Metrics/BlockLength
   included do
-
     # Converts the incoming org_autocomplete params into Org params
-    def autocomplete_to_controller_params
-      o_params = org_selectable_params.fetch(:org_autocomplete, {})
-      not_in_list = o_params["not_in_list"] == "1"
-      name = o_params["user_entered_name"]&.humanize if not_in_list
-      name = o_params["name"] unless name.present?
+    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    def autocomplete_to_controller_params(namespace: nil)
+      name = name_from_params(namespace: namespace)
       return {} unless name.present?
 
       # If it matches an existing Org record, just return the org_id
-      org = Org.find_by("LOWER(name) = ?", name.downcase)
+      org = Org.find_by('LOWER(name) = ?', name.downcase)
       return { org_id: org.id } if org.present?
 
       # If it matches a RegistryOrg and it has an Org association, just return the org_id
-      registry_org = RegistryOrg.find_by("LOWER(name) = ?", name.downcase)
+      registry_org = RegistryOrg.find_by('LOWER(name) = ?', name.downcase)
       return { org_id: registry_org.org_id } if registry_org.present? &&
                                                 registry_org.org_id.present?
 
@@ -62,54 +60,54 @@ module OrgSelectable
                    (current_user.present? && !current_user.can_super_admin?)
 
       # If it matches a RegistryOrg convert it to an Org OR initialize a new Org
-      org = registry_org.to_org if registry_org.present?
-      org = Org.new(name: name) unless org.present?
+      org = registry_org.present? ? registry_org.to_org : Org.new(name: name)
 
-      {
-        org_attributes: {
-          name: org.name,
-          abbreviation: org.abbreviation || org.name_to_abbreviation,
-          contact_email: org.contact_email || Rails.configuration.x.organisation.helpdesk_email,
-          contact_name: org.contact_name || _("%{app_name} helpdesk") % { app_name: ApplicationService.application_name },
-          links: org.links || { "org": [] },
-          target_url: org.target_url,
-          is_other: org.is_other?,
-          managed: org.managed?,
-          org_type: org.org_type
-        }
-      }
+      # Special handling for org type based on the namespace
+      case namespace&.gsub('_', '')
+      when 'funder'
+        org.funder = true
+        org.institution = false
+        org.organisation = false
+      end
+
+      org_to_attributes(org: org)
     end
+    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
+    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def process_org!(user: nil, managed_only: false, namespace: nil)
-      name = contextualized_name(namespace: namespace)
+      name = name_from_params(namespace: namespace)
       return nil unless name.present?
 
       # check the Orgs table first
-      org = Org.where("LOWER(name) = ?", name.downcase).first
+      org = Org.where('LOWER(name) = ?', name.downcase).first
       # If we are expecting managed_only do not return it if it is not managed!
       return org if org.present? && (!managed_only || (managed_only && org.managed?))
 
       # Skip if restrict_orgs is set to true! (unless its a Super Admin)
       if (user.present? && user.can_super_admin?) || !Rails.configuration.x.application.restrict_orgs
         # fetch from the ror table
-        registry_org = RegistryOrg.where("LOWER(name) = ?", name.downcase).first
+        registry_org = RegistryOrg.where('LOWER(name) = ?', name.downcase).first
 
         # If managed_only make sure the org is managed!
         return nil if managed_only &&
-          (registry_org.nil? || registry_org&.org&.nil? || !registry_org&.org&.managed?)
+                      (registry_org.nil? || registry_org&.org&.nil? || !registry_org&.org&.managed?)
 
         # Convert the RegistryOrg to an Org, save it and then update the RegistryOrg if its ok
-        org = create_org_from_registry_org!(registry_org: registry_org)
+        org = ::Org.from_registry_org!(registry_org: registry_org)
         return org if org.present?
       end
 
       # We only want to create it if the user provided a custom name
-      o_parms = org_selectable_params.fetch(:org_autocomplete, {})
-      return nil unless o_params[:"#{user_provided}"].present?
+      return nil if in_list?(namespace: namespace)
 
       # otherwise initialize a new org
       create_org!(name: name)
     end
+    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     private
 
@@ -121,55 +119,59 @@ module OrgSelectable
                                          user_entered_name])
     end
 
-    # Add namespace to the incoming name
-    def contextualized_name(namespace: "")
+    # Fetches the appropriate name based on the specified :namespace and whether or not
+    # the User supplied a custom Org name
+    def name_from_params(namespace: nil)
       o_params = org_selectable_params.fetch(:org_autocomplete, {})
-      user_provided = "#{[namespace, "user_entered_name"].compact.join("_")}"
-      name = o_params[:"#{user_provided}"]
-      name = o_params[:"#{[namespace, "name"].compact.join("_")}"] unless name.present?
-      name
+      namespace += '_' unless namespace.nil? || namespace.end_with?('_')
+      return o_params["#{namespace}name"] if in_list?(namespace: namespace)
+
+      # If the user entered a custom entry then humanize it and capitalize each word
+      o_params["#{namespace}user_entered_name"]&.humanize&.split&.map(&:capitalize)&.join(' ')
     end
+
+    # Determines if the User supplied a custom Org name
+    def in_list?(namespace: nil)
+      o_params = org_selectable_params.fetch(:org_autocomplete, {})
+      namespace += '_' unless namespace.nil? || namespace.end_with?('_')
+      o_params["#{namespace}not_in_list"] != '1'
+    end
+
+    # rubocop:disable Metrics/AbcSize
+    def org_to_attributes(org:)
+      return {} unless org.is_a?(Org)
+
+      {
+        org_attributes: {
+          name: org.name,
+          abbreviation: org.abbreviation || org.name_to_abbreviation,
+          contact_email: org.contact_email || ::Org.default_contact_email,
+          contact_name: org.contact_name || ::Org.default_contact_name,
+          links: org.links || { org: [] },
+          target_url: org.target_url,
+          is_other: org.is_other?,
+          managed: org.managed?,
+          org_type: org.org_type
+        }
+      }
+    end
+    # rubocop:enable Metrics/AbcSize
 
     # Create a new Org
     def create_org!(name:)
-      org = Org.find_or_create_by(name: name)
+      org = ::Org.find_or_create_by(name: name)
       return org unless org.new_record?
 
       org.update(
-        abbreviation: Org.name_to_abbreviation(name: name),
-        contact_email: Rails.configuration.x.organisation.helpdesk_email,
-        contact_name: _("%{app_name} helpdesk") % { app_name: ApplicationService.application_name },
+        abbreviation: org.name_to_abbreviation,
+        contact_email: ::Org.default_contact_email,
+        contact_name: ::Org.default_contact_name,
         is_other: false,
         managed: false,
         organisation: true
       )
       org
     end
-
-    # Create a new Org from the RegistryOrg entry
-    def create_org_from_registry_org!(registry_org:)
-      return nil unless registry_org.is_a?(RegistryOrg)
-      return registry_org.org if registry_org.org_id.present?
-
-      org = registry_org.to_org
-      org.save
-
-      # Attach the identifiers
-      %w[fundref ror].each do |scheme_name|
-        value = registry_org.send(:"#{scheme_name}_id")
-        next unless value.present?
-
-        scheme = IdentifierScheme.by_name(scheme_name).first
-        next unless scheme.present?
-
-        Identifier.find_or_create_by(identifier_scheme: scheme, identifiable: org, value: value)
-      end
-
-      # Update the original RegistryOrg with the new org's association
-      registry_org.update(org_id: org.id)
-      org.reload
-    end
-
   end
   # rubocop:enable Metrics/BlockLength
 end

@@ -9,12 +9,12 @@ ethics_description_tooltip = _("Description of the ethical issues")
 ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics commitee")
 %>
 
-<% doi = plan.doi %>
-<% if doi.present? %>
-  <div class="form-group"><!-- doi -->
+<% dmp_id = plan.dmp_id %>
+<% if dmp_id.present? %>
+  <div class="form-group"><!-- dmp_id -->
     <div class="col-md-12">
       <label>DMP ID</label>&nbsp;
-      <a href="<%= doi.value %>" target="_blank" class="has-new-window-popup-info"><%= doi.value %></a>
+      <a href="<%= dmp_id.value %>" target="_blank" class="has-new-window-popup-info"><%= dmp_id.value %></a>
     </div>
   </div>
 <% end %>

@@ -40,13 +40,12 @@ RSpec.describe Api::V1::Deserialization::Contributor do
     end
     it "skips the Identifier if it's values are blank" do
       @identifier.destroy
-      @json[:contributor_id] = { type: "", identifier: nil }
+      @json[:contributor_id] = { type: '', identifier: nil }
       result = described_class.send(:deserialize, json: @json)
-      expected = "#{@scheme.identifier_prefix}#{@json[:contributor_id][:identifier]}"
       expect(result.identifiers.length).to eql(0)
       expect(result.identifiers.last).to eql(nil)
     end
-    it "attaches the Identifier to the Contributor" do
+    it 'attaches the Identifier to the Contributor' do
       @identifier.destroy
       @json[:contributor_id] = { type: @scheme.name, identifier: SecureRandom.uuid }
       result = described_class.send(:deserialize, json: @json)

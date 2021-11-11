@@ -3,7 +3,6 @@
 # Controller that determines which templates are displayed/selected for the user when
 # they are creating a new plan
 class TemplateOptionsController < ApplicationController
-
   after_action :verify_authorized
 
   # GET /template_options  (AJAX)
@@ -13,8 +12,8 @@ class TemplateOptionsController < ApplicationController
   def index
     authorize Plan
 
-    research_org = Org.find_by(name: plan_params.fetch(:research_org_name, ""))
-    funder_org = Org.find_by(name: plan_params.fetch(:funder_name, ""))
+    research_org = Org.find_by(name: plan_params.fetch(:research_org_name, ''))
+    funder_org = Org.find_by(name: plan_params.fetch(:funder_name, ''))
 
     templates = []
 

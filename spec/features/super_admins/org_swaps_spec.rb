@@ -9,32 +9,18 @@ RSpec.describe 'SuperAdmins OrgSwaps', type: :feature, js: true do
 
   scenario 'Org admin attempts to change to new org' do
     @user = create(:user, :org_admin, org: @org1)
-<<<<<<< HEAD
     sign_in_as_user(@user)
-    click_link "Admin"
-    click_link "Templates"
-    expect(page).not_to have_text("Change affiliation")
-=======
-    sign_in(@user)
     click_link 'Admin'
     click_link 'Templates'
     expect(page).not_to have_text('Change affiliation')
->>>>>>> 9e252de5049794dcf2f990010936a13d613c6786
   end
 
   scenario 'Super admin changes to new org' do
     @user = create(:user, :super_admin, org: @org1)
-<<<<<<< HEAD
     sign_in_as_user(@user)
-    click_link "Admin"
-    click_link "Templates"
-    find("#superadmin_user_org_name").click
-=======
-    sign_in(@user)
     click_link 'Admin'
     click_link 'Templates'
     find('#superadmin_user_org_name').click
->>>>>>> 9e252de5049794dcf2f990010936a13d613c6786
     fill_in(:superadmin_user_org_name, with: @org2.name[0..4])
     choose_suggestion(@org2.name)
     click_button 'Change affiliation'

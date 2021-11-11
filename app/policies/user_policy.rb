@@ -84,6 +84,7 @@ class UserPolicy < ApplicationPolicy
     signed_in_user == @user
   end
 
+  # Basic scope for the current user
   class Scope < Scope
     def resolve
       @scope.where(org_id: @user.org_id)

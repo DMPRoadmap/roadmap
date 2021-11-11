@@ -67,5 +67,4 @@ RSpec.describe Api::V1::Deserialization::Org do
       expect(result.abbreviation).to eql(@json[:abbreviation])
     end
   end
-
 end

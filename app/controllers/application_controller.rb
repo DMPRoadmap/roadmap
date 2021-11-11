@@ -20,13 +20,15 @@ class ApplicationController < ActionController::Base
   # When we are in production reroute Record Not Found errors to the branded 404 page
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
+  rescue_from ActionController::InvalidAuthenticityToken, with: :ignore_error
+
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
 
   # Shortcut to the MessageEncryptor
   def crypto
-    crypt = ActiveSupport::MessageEncryptor.new(
+    ActiveSupport::MessageEncryptor.new(
       Rails.application.secrets.secret_key_base[0..31]
     )
   end
@@ -68,85 +70,77 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
   def after_sign_in_path_for(_resource)
     plans_path
 
-=begin
-    referer_path = URI(request.referer).path unless request.referer.nil?
-    # ---------------------------------------------------------
-    # Start DMPTool Customization
-    # Added get_started_path` to if statement below and check for oauth-referer in the session
-    # if its present then this was an OAuth sign in to authorize an ApiClient so continue on
-    # with the OAuth workflow
-    # ---------------------------------------------------------
-    if from_external_domain? || referer_path.eql?(new_user_session_path) ||
-       referer_path.eql?(new_user_registration_path) ||
-       referer_path.eql?(get_started_path) ||
-       referer_path.nil?
-      # End DMPTool Customization
-      # ---------------------------------------------------------
-      oauth_path = session["oauth-referer"]
-      session.delete("oauth-referer") if oauth_path.present?
-
-      oauth_path.present? ? oauth_path : root_path
-    # ---------------------------------------------------------
-    # Start DMPTool Customization
-    # Catch user's coming in from the Org branded sign in /create page
-    # ---------------------------------------------------------
-    elsif referer_path =~ %r{#{shibboleth_ds_path}/[0-9]+}
-      root_path
-    # ---------------------------------------------------------
-    # End DMPTool Customization
-    # ---------------------------------------------------------
-    else
-      request.referer
-    end
-=end
+    #     referer_path = URI(request.referer).path unless request.referer.nil?
+    #     # ---------------------------------------------------------
+    #     # Start DMPTool Customization
+    #     # Added get_started_path` to if statement below and check for oauth-referer in the session
+    #     # if its present then this was an OAuth sign in to authorize an ApiClient so continue on
+    #     # with the OAuth workflow
+    #     # ---------------------------------------------------------
+    #     if from_external_domain? || referer_path.eql?(new_user_session_path) ||
+    #        referer_path.eql?(new_user_registration_path) ||
+    #        referer_path.eql?(get_started_path) ||
+    #        referer_path.nil?
+    #       # End DMPTool Customization
+    #       # ---------------------------------------------------------
+    #       oauth_path = session["oauth-referer"]
+    #       session.delete("oauth-referer") if oauth_path.present?
+    #
+    #       oauth_path.present? ? oauth_path : root_path
+    #     # ---------------------------------------------------------
+    #     # Start DMPTool Customization
+    #     # Catch user's coming in from the Org branded sign in /create page
+    #     # ---------------------------------------------------------
+    #     elsif referer_path =~ %r{#{shibboleth_ds_path}/[0-9]+}
+    #       root_path
+    #     # ---------------------------------------------------------
+    #     # End DMPTool Customization
+    #     # ---------------------------------------------------------
+    #     else
+    #       request.referer
+    #     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   def after_sign_up_path_for(_resource)
     plans_path
 
-=begin
-    # ---------------------------------------------------------
-    # Start DMPTool Customization
-    # Added `new_user_registration_path` to if statement below
-    # ---------------------------------------------------------
-    if from_external_domain? ||
-       referer_path.eql?(new_user_session_path) ||
-       referer_path.eql?(new_user_registration_path) ||
-       referer_path.nil?
-
-      # End DMPTool Customization
-      # ---------------------------------------------------------
-      root_path
-
-      # ---------------------------------------------------------
-      # Start DMPTool Customization
-      # Catch user's coming in from the Org branded sign in /create page
-      # ---------------------------------------------------------
-    elsif referer_path =~ %r{#{shibboleth_ds_path}/[0-9]+}
-      root_path
-      # ---------------------------------------------------------
-      # End DMPTool Customization
-      # ---------------------------------------------------------
-    else
-      request.referer
-    end
-=end
+    #     # ---------------------------------------------------------
+    #     # Start DMPTool Customization
+    #     # Added `new_user_registration_path` to if statement below
+    #     # ---------------------------------------------------------
+    #     if from_external_domain? ||
+    #        referer_path.eql?(new_user_session_path) ||
+    #        referer_path.eql?(new_user_registration_path) ||
+    #        referer_path.nil?
+    #
+    #       # End DMPTool Customization
+    #       # ---------------------------------------------------------
+    #       root_path
+    #
+    #       # ---------------------------------------------------------
+    #       # Start DMPTool Customization
+    #       # Catch user's coming in from the Org branded sign in /create page
+    #       # ---------------------------------------------------------
+    #     elsif referer_path =~ %r{#{shibboleth_ds_path}/[0-9]+}
+    #       root_path
+    #       # ---------------------------------------------------------
+    #       # End DMPTool Customization
+    #       # ---------------------------------------------------------
+    #     else
+    #       request.referer
+    #     end
   end
 
-=begin
-  def after_sign_in_error_path_for(_resource)
-    (from_external_domain? ? root_path : request.referer || root_path)
-  end
-
-  def after_sign_up_error_path_for(_resource)
-    (from_external_domain? ? root_path : request.referer || root_path)
-  end
-=end
+  #   def after_sign_in_error_path_for(_resource)
+  #     (from_external_domain? ? root_path : request.referer || root_path)
+  #   end
+  #
+  #   def after_sign_up_error_path_for(_resource)
+  #     (from_external_domain? ? root_path : request.referer || root_path)
+  #   end
 
   def authenticate_admin!
     # currently if admin has any super-admin task, they can view the super-admin
@@ -247,6 +241,7 @@ class ApplicationController < ActionController::Base
     redirect_to root_path
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def handle_server_error(exception)
     # We don't care about general Pundit errors!
     return true if exception.is_a?(Pundit::NotAuthorizedError)
@@ -254,20 +249,21 @@ class ApplicationController < ActionController::Base
     unless Rails.env.development?
       # DMPTool customization to notify admin of 500 level error
       message = "#{ApplicationService.application_name} - #{exception.message}"
-      message += "<br>----------------------------------------<br><br>"
+      message += '<br>----------------------------------------<br><br>'
       message += "Referrer: #{request&.referer}"
-      message += "<br>----------------------------------------<br><br>"
+      message += '<br>----------------------------------------<br><br>'
       message += "Params: #{params.inspect}"
-      message += "<br>----------------------------------------<br><br>"
-      message += "Backtrace:"
+      message += '<br>----------------------------------------<br><br>'
+      message += 'Backtrace:'
       message += exception&.backtrace&.to_s if exception.present? &&
-                                              exception.respond_to?(:backtrace)
+                                               exception.respond_to?(:backtrace)
       UserMailer.notify_administrators(message).deliver_now
     end
 
     msg = exception.message.to_s if exception.present?
     render_respond_to_format_with_error_message(msg, root_url, 500, exception)
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   def render_respond_to_format_with_error_message(msg, url_or_path, http_status, exception)
     Rails.logger.error msg
@@ -279,7 +275,7 @@ class ApplicationController < ActionController::Base
       # Render the JSON error message (using API V1)
       format.json do
         @payload = { errors: [msg] }
-        render '/api/v1/error', status: http_status
+        render '/api/v2/error', status: http_status
       end
     end
   end

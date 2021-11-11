@@ -34,7 +34,7 @@ module SuperAdmin
       authorize(@api_client)
 
       if @api_client.update(api_client_params)
-        flash.now[:notice] = success_message(@api_client, _("updated"))
+        flash.now[:notice] = success_message(@api_client, _('updated'))
       else
         flash.now[:alert] = failure_message(@api_client, _('update'))
       end

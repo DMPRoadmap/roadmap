@@ -62,11 +62,10 @@ gem 'bootsnap', require: false
 # ============= #
 
 # Anyway Config is a configuration library for Ruby gems and applications.
-gem "anyway_config"
+gem 'anyway_config'
 
 # Our homegrown artisinal SSM gem
-gem "uc3-ssm", git: "https://github.com/CDLUC3/uc3-ssm", branch: "0.3.1"
-
+gem 'uc3-ssm', git: 'https://github.com/CDLUC3/uc3-ssm', branch: '0.3.1'
 
 # ============== #
 # ERROR HANDLING #
@@ -108,7 +107,7 @@ gem 'devise'
 # TODO: unlock this once devise creates an official release that includes this commit:
 #       https://github.com/heartcombo/devise/commit/1d138dd40cdc291a427b89027d16a869818a5c19#diff-59866e40fe6196ebb76fa63d186b09ba0856de17e2e938743e99add37bb83f5c
 #       or updates to accommodate the new version of omniauth
-gem "omniauth", "~> 1.9"
+gem 'omniauth', '~> 1.9'
 
 # OmniAuth Shibboleth strategies for OmniAuth 1.x
 gem 'omniauth-shibboleth'
@@ -126,11 +125,11 @@ gem 'omniauth-rails_csrf_protection'
 
 # Doorkeeper is a gem (Rails engine) that makes it easy to introduce OAuth 2 provider functionality
 # to your Ruby on Rails or Grape application. https://github.com/doorkeeper-gem/doorkeeper
-gem "doorkeeper", "~> 5.5"
+gem 'doorkeeper', '~> 5.5'
 
 # A ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard.
 # https://github.com/jwt/ruby-jwt
-gem "jwt"
+gem 'jwt'
 
 # Gems for repository integration
 # OO authorization for Rails (https://github.com/elabs/pundit)
@@ -204,7 +203,7 @@ gem 'autoprefixer-rails'
 # 0.12.5 does not work on our new linux2 instances. Pegging at 0.12.4 for now
 # ------------------------------------------------
 # gem 'wkhtmltopdf-binary'
-gem "wkhtmltopdf-binary", "0.12.4"
+gem 'wkhtmltopdf-binary', '0.12.4'
 # ------------------------------------------------
 # End DMPTool customization
 # ------------------------------------------------
@@ -278,11 +277,11 @@ group :test do
   # Guard gem for RSpec (https://github.com/guard/guard-rspec)
   gem 'guard-rspec'
 
-  gem "capistrano"
+  gem 'capistrano'
 
-  gem "capistrano-rails"
+  gem 'capistrano-rails'
 
-  gem 'capistrano-git-submodule-strategy', '~> 0.1', :github => 'ekho/capistrano-git-submodule-strategy'
+  gem 'capistrano-git-submodule-strategy', '~> 0.1', github: 'ekho/capistrano-git-submodule-strategy'
 
   # Library for stubbing HTTP requests in Ruby.
   # (http://github.com/bblimke/webmock)
@@ -384,7 +383,7 @@ group :development do
 
   # Better error page for Rails and other Rack apps
   # (https://github.com/charliesome/better_errors)
-  gem "better_errors", "2.8.1"
+  gem 'better_errors', '2.8.1'
 
   # Retrieve the binding of a method's caller. Can also retrieve bindings
   # even further up the stack. (http://github.com/banister/binding_of_caller)

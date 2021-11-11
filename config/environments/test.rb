@@ -51,4 +51,3 @@ Rails.application.configure do
 
   config.i18n.enforce_available_locales = false
 end
-

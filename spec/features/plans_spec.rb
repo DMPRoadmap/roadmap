@@ -54,9 +54,9 @@ RSpec.describe 'Plans', type: :feature do
     expect(page).to have_css("input[type=text][value='#{@plan.title}']")
 
     within "#edit_plan_#{@plan.id}" do
-      fill_in "Grant number", with: "Innodia"
-      fill_in "Project abstract", with: "Plan abstract..."
-      fill_in "ID", with: "ABCDEF"
+      fill_in 'Grant number', with: 'Innodia'
+      fill_in 'Project abstract', with: 'Plan abstract...'
+      fill_in 'ID', with: 'ABCDEF'
       # --------------------------------------------------------
       # Start DMPTool Customization
       # ORCID sent us a complaint about allowing people to manually
@@ -64,12 +64,12 @@ RSpec.describe 'Plans', type: :feature do
       # so that it complies with their standards. E.g. send out an
       # email to the PI that asks them to assert the connection
       # --------------------------------------------------------
-      #fill_in "ORCID iD", with: "My ORCID"
+      # fill_in "ORCID iD", with: "My ORCID"
       # --------------------------------------------------------
       # End DMPTool Customization
       # --------------------------------------------------------
-      fill_in "Phone", with: "07787 000 0000"
-      click_button "Save"
+      fill_in 'Phone', with: '07787 000 0000'
+      click_button 'Save'
     end
 
     # Reload the plan to get the latest from memory
@@ -91,7 +91,7 @@ RSpec.describe 'Plans', type: :feature do
     # so that it complies with their standards. E.g. send out an
     # email to the PI that asks them to assert the connection
     # --------------------------------------------------------
-    #expect(@plan.principal_investigator_identifier).to eql("My ORCID")
+    # expect(@plan.principal_investigator_identifier).to eql("My ORCID")
     # --------------------------------------------------------
     # End DMPTool Customization
     # --------------------------------------------------------

@@ -6,7 +6,8 @@ class PlanExportsController < ApplicationController
 
   include ConditionsHelper
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def show
     @plan = Plan.includes(:answers, { template: { phases: { sections: :questions } } })
                 .find(params[:plan_id])
@@ -36,7 +37,7 @@ class PlanExportsController < ApplicationController
       @public_plan              = true
 
     else
-      raise Pundit::NotAuthorizedError, _("are not authorized to view that plan")
+      raise Pundit::NotAuthorizedError, _('are not authorized to view that plan')
     end
 
     @hash           = @plan.as_pdf(current_user, @show_coversheet)
@@ -49,9 +50,7 @@ class PlanExportsController < ApplicationController
                       end
 
     # Bug fix in the event that there was no phase with visibility_allowed
-    unless @selected_phase.present?
-      @selected_phase = @plan.phases.order("phases.updated_at DESC").first
-    end
+    @selected_phase = @plan.phases.order('phases.updated_at DESC').first unless @selected_phase.present?
 
     respond_to do |format|
       format.html { show_html }
@@ -62,7 +61,8 @@ class PlanExportsController < ApplicationController
       format.json { show_json }
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   private
 
@@ -106,7 +106,7 @@ class PlanExportsController < ApplicationController
   end
 
   def show_json
-    json = render_to_string(partial: "/api/v2/plans/show",
+    json = render_to_string(partial: '/api/v2/plans/show',
                             locals: { plan: @plan, client: current_user })
     render json: "{\"dmp\":#{json}}"
   end
@@ -141,6 +141,6 @@ class PlanExportsController < ApplicationController
     params.require(:export)
           .permit(:form, :project_details, :question_headings, :unanswered_questions,
                   :custom_sections, :research_outputs, :related_identifiers,
-                  formatting: [:font_face, :font_size, margin: %i[top right bottom left]])
+                  formatting: [:font_face, :font_size, { margin: %i[top right bottom left] }])
   end
 end

@@ -9,14 +9,13 @@ class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
   class << self
-
     # Indicates whether the underlying DB is MySQL
     def mysql_db?
-      ActiveRecord::Base.connection.adapter_name == "Mysql2"
+      ActiveRecord::Base.connection.adapter_name == 'Mysql2'
     end
 
     def postgres_db?
-      ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
+      ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
     end
 
     # Generates the appropriate where clause for a JSON field based on the DB type
@@ -32,7 +31,6 @@ class ApplicationRecord < ActiveRecord::Base
 
       "#{column} REGEXP ?"
     end
-
   end
 
   def sanitize_fields(*attrs)

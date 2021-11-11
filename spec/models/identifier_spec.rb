@@ -67,7 +67,7 @@ RSpec.describe Identifier, type: :model do
     end
   end
 
-  context "associations" do
+  context 'associations' do
     it { is_expected.to belong_to(:identifiable).touch(true) }
 
     it { is_expected.to belong_to(:identifier_scheme).optional }

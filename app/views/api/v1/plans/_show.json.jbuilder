@@ -2,7 +2,7 @@
 
 # locals: plan
 
-json.schema "https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard/tree/master/examples/JSON/JSON-schema/1.1"
+json.schema 'https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard/tree/master/examples/JSON/JSON-schema/1.1'
 
 presenter = Api::V1::PlanPresenter.new(plan: plan)
 # A JSON representation of a Data Management Plan in the
@@ -54,7 +54,7 @@ unless @minimal
   outputs = plan.research_outputs.any? ? plan.research_outputs : [plan]
 
   json.dataset outputs do |output|
-    json.partial! "api/v1/datasets/show", output: output
+    json.partial! 'api/v1/datasets/show', output: output
   end
 
   json.extension [plan.template] do |template|

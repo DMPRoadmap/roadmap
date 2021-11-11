@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
+# DMPTool specific helpers
 module DmptoolHelper
-
   # Converts some of the language of User validation errors
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def auth_has_error?(attribute)
     return false unless attribute.present? && resource.present? &&
                         resource.errors.present? && resource.errors.any?
@@ -11,18 +12,19 @@ module DmptoolHelper
 
     case attribute.to_sym
     when :org, :org_id
-      errs.select { |err| err.start_with?("Institution") }.any?
+      errs.select { |err| err.start_with?('Institution') }.any?
     when :accept_terms
-      errs.select { |err| err.include?("the terms") }.any?
+      errs.select { |err| err.include?('the terms') }.any?
     else
       errs.select { |err| err.start_with?(attribute.to_s.humanize) }.any?
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # Determine which UI template we should use based on the page
   def page_body_template
-    template = "t-generic"
-    template = "t-home" if active_page?(root_path, true) ||
+    template = 't-generic'
+    template = 't-home' if active_page?(root_path, true) ||
                            active_page?(new_user_session_path, true) ||
                            active_page?(new_user_registration_path, true) ||
                            active_page?(user_registration_path, true) ||
@@ -37,7 +39,7 @@ module DmptoolHelper
 
   # Collect general statistics about the application
   def statistics
-    cached = Rails.cache.read("stats")
+    cached = Rails.cache.read('stats')
     return cached unless cached.nil?
 
     stats = {
@@ -45,38 +47,38 @@ module DmptoolHelper
       completed_plan_count: Plan.select(:id).count,
       institution_count: Org.participating.select(:id).count
     }
-    cache_content("stats", stats)
+    cache_content('stats', stats)
     stats
   end
 
   # Collect  the list of the top 5 most used templates for the past 90 days
   def top_templates
-    cached = Rails.cache.read("top_five")
+    cached = Rails.cache.read('top_five')
     return cached unless cached.nil?
 
     end_date = Date.today
     start_date = (end_date - 90)
     ids = Plan.group(:template_id)
               .where(created_at: start_date..end_date)
-              .order("count_id DESC")
+              .order('count_id DESC')
               .count(:id).keys
 
     top_five = Template.where(id: ids[0..4])
                        .pluck(:title)
-    cache_content("top_five", top_five)
+    cache_content('top_five', top_five)
     top_five
   end
 
   # Get the last 5 blog posts
   def feed
-    cached = Rails.cache.read("rss")
+    cached = Rails.cache.read('rss')
     return cached unless cached.nil?
 
     resp = HTTParty.get(Rails.configuration.x.application.blog_rss)
     return [] unless resp.code == 200
 
     rss = RSS::Parser.parse(resp.body, false).items.first(5)
-    cache_content("rss", rss)
+    cache_content('rss', rss)
     rss
   rescue StandardError => e
     # If we were unable to connect to the blog rss
@@ -92,5 +94,4 @@ module DmptoolHelper
   rescue StandardError => e
     logger.error("Unable to add #{type} to the Rails cache: #{e}.")
   end
-
 end

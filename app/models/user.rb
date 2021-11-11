@@ -146,7 +146,7 @@ class User < ApplicationRecord
 
   # Validations to support ouur sign in / sign up workflow
   validates :institution, presence: { message: PRESENCE_MESSAGE }
-  validates :accept_terms, inclusion: { in: [true, nil], message: _("and conditions" ) }
+  validates :accept_terms, inclusion: { in: [true, nil], message: _('and conditions') }
 
   # DMPTool customization
   #
@@ -156,15 +156,15 @@ class User < ApplicationRecord
   # data via the OAuth workflow. They are sent back to the ApiClient as 'code' which
   # is in turn used to retrieve an AccessToken
   has_many :access_grants, class_name: 'Doorkeeper::AccessGrant',
-                            foreign_key: :resource_owner_id,
-                            dependent: :delete_all
+                           foreign_key: :resource_owner_id,
+                           dependent: :delete_all
 
   # Access Tokens are created when an ApiClient authenticates a User via an access
   # grant code. The access token is then used instead of credentials in calls to the
   # API. These tokens can be revoked by a user on their profile page.
   has_many :access_tokens, class_name: 'Doorkeeper::AccessToken',
-                          foreign_key: :resource_owner_id,
-                          dependent: :delete_all
+                           foreign_key: :resource_owner_id,
+                           dependent: :delete_all
 
   # Table that stores OAuth access tokens for other external systems like ORCID
   has_many :external_api_access_tokens, dependent: :destroy

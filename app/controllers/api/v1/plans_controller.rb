@@ -131,12 +131,8 @@ module Api
         user
       end
 
-<<<<<<< HEAD
-      def invite_contributor(plan:, contributor:)
-=======
       # rubocop:disable Metrics/AbcSize
       def invite_contributor(contributor:)
->>>>>>> 9e252de5049794dcf2f990010936a13d613c6786
         return nil unless contributor.present?
 
         # If the user was not found, invite them and attach any know identifiers

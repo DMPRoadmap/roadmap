@@ -33,7 +33,7 @@ class ContributorsController < ApplicationController
     authorize @plan
 
     args = translate_roles(hash: contributor_params)
-    args = process_org(hash: args)
+    ensure_org_param
     if args.blank?
       @contributor = Contributor.new(args)
       @contributor.errors.add(:affiliation, 'invalid')
@@ -61,12 +61,12 @@ class ContributorsController < ApplicationController
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # PUT /plans/:plan_id/contributors/:id
+  # rubocop:disable Metrics/AbcSize
   def update
     authorize @plan
     args = translate_roles(hash: contributor_params)
     args = process_orcid_for_update(hash: args)
-    org = process_org!(user: current_user)
-    args[:org_id] = org&.id
+    ensure_org_param
 
     if @contributor.update(args)
       redirect_to edit_plan_contributor_path(@plan, @contributor),
@@ -76,7 +76,7 @@ class ContributorsController < ApplicationController
       render :edit
     end
   end
-  # rubocop:enable
+  # rubocop:enable Metrics/AbcSize
 
   # DELETE /plans/:plan_id/contributors/:id
   def destroy
@@ -99,7 +99,9 @@ class ContributorsController < ApplicationController
     params.require(:contributor).permit(
       base_params,
       role_params,
-      identifiers_attributes: %i[id identifier_scheme_id value attrs]
+      identifiers_attributes: %i[id identifier_scheme_id value attrs],
+      org_attributes: %i[abbreviation contact_email contact_name is_other
+                         managed name org_type target_url links]
     )
   end
 
@@ -110,22 +112,12 @@ class ContributorsController < ApplicationController
     hash
   end
 
-  # Convert the Org Hash into an Org object (creating it if allowed)
-  # and then remove all of the Org args
-  def process_org(hash:)
-    return hash unless hash.present? && hash[:org_id].present?
-
-    allow = !Rails.configuration.x.application.restrict_orgs
-    org = org_from_params(params_in: hash,
-                          allow_create: allow)
-
-    hash = remove_org_selection_params(params_in: hash)
-
-    return hash if org.blank? && !allow
-    return hash unless org.present?
-
-    hash[:org_id] = org.id
-    hash
+  # Convert the results of the Org Autocomplete into an Org or Org.id
+  def ensure_org_param
+    # Convert the selected/specified Org name into attributes
+    op = autocomplete_to_controller_params
+    params[:contributor][:org_id] = op[:org_id] if op[:org_id].present?
+    params[:contributor][:org_attributes] = op[:org_attributes] unless op[:org_id].present?
   end
 
   # When creating, just remove the ORCID if it was left blank

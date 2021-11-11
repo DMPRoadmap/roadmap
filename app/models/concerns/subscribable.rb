@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+# Adds subscription funcctionality to  model
 module Subscribable
-
   extend ActiveSupport::Concern
 
   included do
@@ -27,5 +27,4 @@ module Subscribable
       subscriptions.select { |subscription| subscription.plan_id == plan }
     end
   end
-
 end

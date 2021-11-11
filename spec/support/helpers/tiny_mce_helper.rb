@@ -19,10 +19,10 @@ module TinyMceHelper
     #    we should investigate why its taking longer to load
     # ------------------------------------------------
     until x == 50 || page.evaluate_script("tinyMCE.get('#{id}') !== null")
-    #until x == 100 || page.evaluate_script("tinyMCE.get('#{id}') !== null")
-    # ------------------------------------------------
-    # end DMPTool customization
-    # ------------------------------------------------
+      # until x == 100 || page.evaluate_script("tinyMCE.get('#{id}') !== null")
+      # ------------------------------------------------
+      # end DMPTool customization
+      # ------------------------------------------------
       x += 1
       sleep 0.2
     end

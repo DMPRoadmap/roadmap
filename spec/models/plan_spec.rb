@@ -1320,55 +1320,55 @@ describe Plan do
     end
   end
 
-  describe "#registration_allowed?" do
+  describe '#registration_allowed?' do
     before(:each) do
       Rails.configuration.x.madmp.enable_dmp_id_registration = true
       @plan = create(:plan, :creator, funder: create(:org))
-      create(:identifier, identifier_scheme: create(:identifier_scheme, name: "orcid"),
+      create(:identifier, identifier_scheme: create(:identifier_scheme, name: 'orcid'),
                           identifiable: @plan.owner)
       @plan.reload
     end
 
-    it "returns false if the config does not allow DMP ID registration" do
+    it 'returns false if the config does not allow DMP ID registration' do
       Rails.configuration.x.madmp.enable_dmp_id_registration = false
       expect(@plan.registration_allowed?).to eql(false)
     end
-    it "returns false if the creator/owner does not have an ORCID" do
+    it 'returns false if the creator/owner does not have an ORCID' do
       @plan.owner.identifiers.clear
       @plan.expects(:visibility_allowed?).returns(true)
       expect(@plan.registration_allowed?).to eql(false)
     end
-    it "returns false if no Funder is defined" do
+    it 'returns false if no Funder is defined' do
       @plan.funder = nil
       @plan.expects(:visibility_allowed?).returns(true)
       expect(@plan.registration_allowed?).to eql(false)
     end
-    it "returns false if changing the visibility is not allowed" do
+    it 'returns false if changing the visibility is not allowed' do
       @plan.expects(:visibility_allowed?).returns(false)
       expect(@plan.registration_allowed?).to eql(false)
     end
-    it "returns true" do
+    it 'returns true' do
       @plan.expects(:visibility_allowed?).returns(true)
       expect(@plan.registration_allowed?).to eql(true)
     end
   end
 
-  describe "#dmp_id" do
+  describe '#dmp_id' do
     before(:each) do
       @plan = create(:plan, :creator)
       IdentifierScheme.for_plans.destroy_all
-      @scheme = create(:identifier_scheme, name: "foo", active: true, for_plans: true)
+      @scheme = create(:identifier_scheme, name: 'foo', active: true, for_plans: true)
     end
 
-    it "returns nil if the config does not allow DMP ID registration" do
+    it 'returns nil if the config does not allow DMP ID registration' do
       Rails.configuration.x.madmp.enable_dmp_id_registration = false
       expect(@plan.dmp_id).to eql(nil)
     end
-    it "returns nil if the Plan has no DMP ID" do
+    it 'returns nil if the Plan has no DMP ID' do
       Rails.configuration.x.madmp.enable_dmp_id_registration = true
       expect(@plan.dmp_id).to eql(nil)
     end
-    it "returns the correct identifier" do
+    it 'returns the correct identifier' do
       Rails.configuration.x.madmp.enable_dmp_id_registration = true
       DmpIdService.expects(:identifier_scheme).returns(@scheme)
       id = create(:identifier, identifier_scheme: @scheme, identifiable: @plan)
@@ -1377,7 +1377,7 @@ describe Plan do
     end
   end
 
-  describe "#citation" do
+  describe '#citation' do
     before(:each) do
       @plan = create(:plan, :creator)
       @co_author = create(:user)
@@ -1385,14 +1385,14 @@ describe Plan do
       @plan.reload
     end
 
-    it "returns nil if the plan has no owner" do
+    it 'returns nil if the plan has no owner' do
       @plan.roles.clear
       expect(@plan.citation).to eql(nil)
     end
-    it "returns nil if the plan has no DMP ID (aka doi)" do
+    it 'returns nil if the plan has no DMP ID (aka doi)' do
       expect(@plan.citation).to eql(nil)
     end
-    it "returns the citation" do
+    it 'returns the citation' do
       dmp_id = create_dmp_id(plan: @plan, val: SecureRandom.uuid)
       @plan.expects(:dmp_id).returns(dmp_id).twice
       result = @plan.citation
@@ -1403,61 +1403,61 @@ describe Plan do
     end
   end
 
-  context "private methods" do
-    describe "#versionable_change?" do
+  context 'private methods' do
+    describe '#versionable_change?' do
       before(:each) do
         @plan = create(:plan, :is_test, complete: false).reload
       end
-      it "returns true if the :title changed" do
+      it 'returns true if the :title changed' do
         @plan.update(title: SecureRandom.uuid)
         expect(@plan.send(:versionable_change?)).to eql(true)
       end
-      it "returns true if the :description changed" do
+      it 'returns true if the :description changed' do
         @plan.update(description: SecureRandom.uuid)
         expect(@plan.send(:versionable_change?)).to eql(true)
       end
-      it "returns true if the :identifier changed" do
+      it 'returns true if the :identifier changed' do
         @plan.update(identifier: SecureRandom.uuid)
         expect(@plan.send(:versionable_change?)).to eql(true)
       end
-      it "returns true if the :visibility changed" do
+      it 'returns true if the :visibility changed' do
         @plan.update(visibility: 0)
         expect(@plan.send(:versionable_change?)).to eql(true)
       end
-      it "returns true if the :complete changed" do
+      it 'returns true if the :complete changed' do
         @plan.update(complete: true)
         expect(@plan.send(:versionable_change?)).to eql(true)
       end
-      it "returns true if the :template_id changed" do
+      it 'returns true if the :template_id changed' do
         @plan.update(template_id: create(:template).id)
         expect(@plan.send(:versionable_change?)).to eql(true)
       end
-      it "returns true if the :org_id changed" do
+      it 'returns true if the :org_id changed' do
         @plan.update(org_id: create(:org).id)
         expect(@plan.send(:versionable_change?)).to eql(true)
       end
-      it "returns true if the :funder_id changed" do
+      it 'returns true if the :funder_id changed' do
         @plan.update(funder_id: create(:org).id)
         expect(@plan.send(:versionable_change?)).to eql(true)
       end
-      it "returns true if the :grant_id changed" do
+      it 'returns true if the :grant_id changed' do
         @plan.update(grant_id: create(:identifier).id)
         expect(@plan.send(:versionable_change?)).to eql(true)
       end
-      it "returns true if the :start_date changed" do
+      it 'returns true if the :start_date changed' do
         @plan.update(start_date: Time.now + 1.hours)
         expect(@plan.send(:versionable_change?)).to eql(true)
       end
-      it "returns true if the :end_date changed" do
+      it 'returns true if the :end_date changed' do
         @plan.update(end_date: Time.now + 2.days)
         expect(@plan.send(:versionable_change?)).to eql(true)
       end
-      it "returns false" do
+      it 'returns false' do
         expect(@plan.send(:versionable_change?)).to eql(false)
       end
     end
 
-    describe ":notify_subscribers!" do
+    describe ':notify_subscribers!' do
       before(:each) do
         @plan = create(:plan)
         @subscription = create(:subscription, subscriber: create(:api_client), plan: @plan,
@@ -1465,11 +1465,11 @@ describe Plan do
         @plan.reload
       end
 
-      it "returns true if there are no subscriptions" do
+      it 'returns true if there are no subscriptions' do
         @plan.subscriptions.clear
         expect(@plan.send(:notify_subscribers!)).to eql(true)
       end
-      it "calls notify! for the subscription when no subscription_type is specified" do
+      it 'calls notify! for the subscription when no subscription_type is specified' do
         Subscription.any_instance.expects(:notify!).returns(true)
         expect(@plan.send(:notify_subscribers!)).to eql(true)
       end
@@ -1483,24 +1483,24 @@ describe Plan do
       end
     end
 
-    describe "#end_date_after_start_date" do
+    describe '#end_date_after_start_date' do
       before(:each) do
         @plan = build(:plan, start_date: Time.now, end_date: Time.now + 1.days)
       end
-      it "returns false and sets an error message when :end_date < :start_date" do
+      it 'returns false and sets an error message when :end_date < :start_date' do
         @plan.end_date = @plan.start_date - 1.days
         expect(@plan.send(:end_date_after_start_date)).to eql(false)
-        expect(@plan.errors.full_messages).to eql(["End date must be after the start date"])
+        expect(@plan.errors.full_messages).to eql(['End date must be after the start date'])
       end
-      it "returns true if :start_date is nil" do
+      it 'returns true if :start_date is nil' do
         @plan.start_date = nil
         expect(@plan.send(:end_date_after_start_date)).to eql(true)
       end
-      it "returns true if :end_date is nil" do
+      it 'returns true if :end_date is nil' do
         @plan.end_date = nil
         expect(@plan.send(:end_date_after_start_date)).to eql(true)
       end
-      it "returns true if :start_date is before :end_date" do
+      it 'returns true if :start_date is before :end_date' do
         @plan.end_date = @plan.start_date + 1.days
         expect(@plan.send(:end_date_after_start_date)).to eql(true)
       end
@@ -1535,75 +1535,75 @@ describe Plan do
     end
   end
 
-  describe "#related_identifiers_attributes=(params)" do
+  describe '#related_identifiers_attributes=(params)' do
     before(:each) do
       @plan = create(:plan, :creator)
       @related = create(:related_identifier, identifiable: @plan)
       @plan.reload
     end
 
-    it "removes existing related identifiers that are not part of :params" do
+    it 'removes existing related identifiers that are not part of :params' do
       old_id = @related.id
       val = SecureRandom.uuid
       params = {
         "#{Faker::Number.number(digits: 10)}": {
-          "work_type": RelatedIdentifier.work_types.keys.sample,
-          "value": val
+          work_type: RelatedIdentifier.work_types.keys.sample,
+          value: val
         }
       }
-      @plan.related_identifiers_attributes= JSON.parse(params.to_json)
+      @plan.related_identifiers_attributes = JSON.parse(params.to_json)
       expect(@plan.related_identifiers.length).to eql(1)
       expect(@plan.related_identifiers.first.id).not_to eql(old_id)
       expect(@plan.related_identifiers.first.value).to eql(val)
     end
-    it "skips the hidden entry used by JS as a template for new related identifiers" do
+    it 'skips the hidden entry used by JS as a template for new related identifiers' do
       params = {
         "#{@related.id}": {
-          "work_type": @related.work_type,
-          "value": @related.value
+          work_type: @related.work_type,
+          value: @related.value
         },
-        "0": {
-          "work_type": RelatedIdentifier.work_types.keys.sample,
-          "value": SecureRandom.uuid
+        '0': {
+          work_type: RelatedIdentifier.work_types.keys.sample,
+          value: SecureRandom.uuid
         }
       }
-      @plan.related_identifiers_attributes= JSON.parse(params.to_json)
+      @plan.related_identifiers_attributes = JSON.parse(params.to_json)
       expect(@plan.related_identifiers.length).to eql(1)
       expect(@plan.related_identifiers.first).to eql(@related)
     end
-    it "updates the existing related identifier" do
+    it 'updates the existing related identifier' do
       work_type = RelatedIdentifier.work_types
                                    .reject { |wt| wt == @related.work_type }
                                    .keys.sample
       val = SecureRandom.uuid
       params = {
         "#{@related.id}": {
-          "work_type": work_type,
-          "value": val
+          work_type: work_type,
+          value: val
         }
       }
-      @plan.related_identifiers_attributes= JSON.parse(params.to_json)
+      @plan.related_identifiers_attributes = JSON.parse(params.to_json)
       expect(@plan.related_identifiers.length).to eql(1)
       expect(@plan.related_identifiers.first.id).to eql(@related.id)
       expect(@plan.related_identifiers.first.work_type).to eql(work_type)
       expect(@plan.related_identifiers.first.value).to eql(val)
     end
-    it "adds a new related identifier" do
+    it 'adds a new related identifier' do
       work_type = RelatedIdentifier.work_types
                                    .reject { |wt| wt == @related.work_type }
                                    .keys.sample
       val = SecureRandom.uuid
       params = {
         "#{@related.id}": {
-          "work_type": @related.work_type,
-          "value": @related.value
+          work_type: @related.work_type,
+          value: @related.value
         },
         "#{Faker::Number.number(digits: 10)}": {
-          "work_type": work_type,
-          "value": val
+          work_type: work_type,
+          value: val
         }
       }
-      @plan.related_identifiers_attributes= JSON.parse(params.to_json)
+      @plan.related_identifiers_attributes = JSON.parse(params.to_json)
       expect(@plan.related_identifiers.length).to eql(2)
       @plan.related_identifiers.order(:created_at)
       expect(@plan.related_identifiers.first.id).to eql(@related.id)
@@ -1613,5 +1613,4 @@ describe Plan do
       expect(@plan.related_identifiers.last.value).to eql(val)
     end
   end
-
 end

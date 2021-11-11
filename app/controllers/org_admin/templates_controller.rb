@@ -19,13 +19,8 @@ module OrgAdmin
       templates = Template.latest_version.where(customization_of: nil)
       published = templates.select { |t| t.published? || t.draft? }.length
 
-<<<<<<< HEAD
       @orgs              = Org.includes(identifiers: :identifier_scheme).managed
-      @title             = _("All Templates")
-=======
-      @orgs              = Org.managed
       @title             = _('All Templates')
->>>>>>> 9e252de5049794dcf2f990010936a13d613c6786
       @templates         = templates.includes(:org).page(1)
       @query_params      = { sort_field: 'templates.title', sort_direction: 'asc' }
       @all_count         = templates.length
@@ -87,13 +82,8 @@ module OrgAdmin
       end
       published = customizations.select { |t| t.published? || t.draft? }.length
 
-<<<<<<< HEAD
       @orgs  = Org.includes(identifiers: :identifier_scheme).all if current_user.can_super_admin?
-      @title = _("Customizable Templates")
-=======
-      @orgs = current_user.can_super_admin? ? Org.all : []
       @title = _('Customizable Templates')
->>>>>>> 9e252de5049794dcf2f990010936a13d613c6786
       @templates = funder_templates
       @customizations = customizations
       @query_params = { sort_field: 'templates.title', sort_direction: 'asc' }

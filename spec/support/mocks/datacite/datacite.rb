@@ -1,15 +1,14 @@
 # frozen_string_literal: true
 
 module DataciteMocks
-
-  BASE_API_URL = "https://api.test.datacite.org/"
+  BASE_API_URL = 'https://api.test.datacite.org/'
 
   ERROR_RESPONSE = File.read(
-    Rails.root.join("spec", "support", "mocks", "datacite", "error.json")
+    Rails.root.join('spec', 'support', 'mocks', 'datacite', 'error.json')
   ).freeze
 
   SUCCESS_RESPONSE = File.read(
-    Rails.root.join("spec", "support", "mocks", "datacite", "success.json")
+    Rails.root.join('spec', 'support', 'mocks', 'datacite', 'success.json')
   ).freeze
 
   def stub_minting_success!
@@ -31,5 +30,4 @@ module DataciteMocks
     stub_request(:put, %r{#{BASE_API_URL}dois/.*})
       .to_return(status: 500, body: ERROR_RESPONSE, headers: {})
   end
-
 end

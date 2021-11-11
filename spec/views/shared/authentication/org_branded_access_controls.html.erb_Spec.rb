@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
-describe "shared/authentication/org_branded_access_controls.html.erb" do
-
+describe 'shared/authentication/org_branded_access_controls.html.erb' do
   before(:each) do
     @org = build(:org, managed: true)
   end
@@ -15,23 +14,22 @@ describe "shared/authentication/org_branded_access_controls.html.erb" do
     @org.stubs(:logo).returns(logo)
     assign :user, build(:user, org: @org)
     render
-    expect(rendered.include?("class=\"org-logo\"")).to eql(true)
+    expect(rendered.include?('class="org-logo"')).to eql(true)
   end
 
-  it "renders the Org name if the logo is not available" do
+  it 'renders the Org name if the logo is not available' do
     @org.logo = nil
     assign :user, build(:user, org: @org)
     render
-    expect(rendered.include?("<h1>#{CGI::escapeHTML(@org.name)}</h1>")).to eql(true)
+    expect(rendered.include?("<h1>#{CGI.escapeHTML(@org.name)}</h1>")).to eql(true)
   end
 
-  it "Renders the sign in and create acount forms" do
+  it 'Renders the sign in and create acount forms' do
     assign :user, build(:user, org: @org)
     render
-    expect(rendered.include?("Sign in")).to eql(true)
-    expect(response).to render_template(partial: "shared/authentication/_sign_in_form")
-    expect(rendered.include?("Create account")).to eql(true)
-    expect(response).to render_template(partial: "shared/authentication/_create_account_form")
+    expect(rendered.include?('Sign in')).to eql(true)
+    expect(response).to render_template(partial: 'shared/authentication/_sign_in_form')
+    expect(rendered.include?('Create account')).to eql(true)
+    expect(response).to render_template(partial: 'shared/authentication/_create_account_form')
   end
-
 end

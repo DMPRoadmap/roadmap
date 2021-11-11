@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe DmpIdService do
   include ConfigHelper
@@ -10,7 +10,7 @@ RSpec.describe DmpIdService do
 
     # Using Datacite for these tests
     Rails.configuration.x.datacite.active = true
-    Rails.configuration.x.datacite.name = "datacite"
+    Rails.configuration.x.datacite.name = 'datacite'
     Rails.configuration.x.datacite.description = Faker::Lorem.sentence
     Rails.configuration.x.datacite.landing_page_url = "#{Faker::Internet.url}/"
 
@@ -23,7 +23,7 @@ RSpec.describe DmpIdService do
     )
   end
 
-  describe "#mint_dmp_id(plan:)" do
+  describe '#mint_dmp_id(plan:)' do
     before(:each) do
       @plan = build(:plan)
       @dmp_id = SecureRandom.uuid
@@ -31,42 +31,42 @@ RSpec.describe DmpIdService do
       stub_x_section(section_sym: :dmphub, open_struct: OpenStruct.new(active: true))
     end
 
-    it "returns nil if :plan is not present" do
+    it 'returns nil if :plan is not present' do
       expect(described_class.mint_dmp_id(plan: nil)).to eql(nil)
     end
-    it "returns nil if :plan is not an instance of Plan" do
+    it 'returns nil if :plan is not an instance of Plan' do
       expect(described_class.mint_dmp_id(plan: build(:org))).to eql(nil)
     end
-    it "returns the existing DMP ID if :plan already has a :dmp_id" do
+    it 'returns the existing DMP ID if :plan already has a :dmp_id' do
       existing = build(:identifier, identifier_scheme: @scheme, value: @qualified_dmp_id)
       described_class.stubs(:minter).returns(ExternalApis::DataciteService)
       ExternalApis::DataciteService.stubs(:mint_dmp_id)
                                    .returns(existing.value_without_scheme_prefix)
       expect(described_class.mint_dmp_id(plan: @plan).value).to eql(existing.value)
     end
-    it "returns nil if if no DMP ID minting service is active" do
+    it 'returns nil if if no DMP ID minting service is active' do
       described_class.stubs(:minter).returns(nil)
       expect(described_class.mint_dmp_id(plan: @plan)).to eql(nil)
     end
-    it "returns nil if the DMP ID minting service did not receive a DMP ID" do
+    it 'returns nil if the DMP ID minting service did not receive a DMP ID' do
       described_class.stubs(:minter).returns(ExternalApis::DataciteService)
       described_class.stubs(:scheme).returns(@scheme)
       ExternalApis::DataciteService.stubs(:mint_dmp_id).returns(nil)
       expect(described_class.mint_dmp_id(plan: @plan)).to eql(nil)
     end
-    it "returns the DMP ID retrieved by the DMP ID minting service" do
+    it 'returns the DMP ID retrieved by the DMP ID minting service' do
       described_class.stubs(:minter).returns(ExternalApis::DataciteService)
       described_class.stubs(:scheme).returns(@scheme)
       ExternalApis::DataciteService.stubs(:mint_dmp_id).returns(@qualified_dmp_id)
       expect(described_class.mint_dmp_id(plan: @plan).value).to eql(@qualified_dmp_id)
     end
-    it "prepends the :landing_page_url if the DMP ID is not a URL" do
+    it 'prepends the :landing_page_url if the DMP ID is not a URL' do
       described_class.stubs(:minter).returns(ExternalApis::DataciteService)
       described_class.stubs(:scheme).returns(@scheme)
       ExternalApis::DataciteService.stubs(:mint_dmp_id).returns(@dmp_id)
       expect(described_class.mint_dmp_id(plan: @plan).value).to eql(@qualified_dmp_id)
     end
-    it "does not prepend the :landing_page_url if the DMP ID is already a URL" do
+    it 'does not prepend the :landing_page_url if the DMP ID is already a URL' do
       described_class.stubs(:minter).returns(ExternalApis::DataciteService)
       described_class.stubs(:scheme).returns(@scheme)
       ExternalApis::DataciteService.stubs(:mint_dmp_id).returns(@qualified_dmp_id)
@@ -75,48 +75,48 @@ RSpec.describe DmpIdService do
     end
   end
 
-  describe "#minting_service_defined?" do
-    it "returns false if no DMP ID minting service is active" do
+  describe '#minting_service_defined?' do
+    it 'returns false if no DMP ID minting service is active' do
       described_class.stubs(:minter).returns(nil)
       expect(described_class.minting_service_defined?).to eql(false)
     end
-    it "returns true if a DMP ID minting service is active" do
+    it 'returns true if a DMP ID minting service is active' do
       described_class.stubs(:minter).returns(ExternalApis::DataciteService)
       expect(described_class.minting_service_defined?).to eql(true)
     end
   end
 
-  describe "#identifier_scheme" do
-    it "returns nil if there is no active DMP ID minting service" do
+  describe '#identifier_scheme' do
+    it 'returns nil if there is no active DMP ID minting service' do
       described_class.stubs(:minter).returns(nil)
       expect(described_class.identifier_scheme).to eql(nil)
     end
-    it "returns the IdentifierScheme associated with the DMP ID minting service" do
+    it 'returns the IdentifierScheme associated with the DMP ID minting service' do
       described_class.stubs(:minter).returns(ExternalApis::DataciteService)
       stub_x_section(section_sym: :datacite,
                      open_struct: OpenStruct.new(active: true, name: @scheme.name))
       expect(described_class.identifier_scheme).to eql(@scheme)
     end
-    it "creates the IdentifierScheme if one is not defined for the DMP ID minting service" do
+    it 'creates the IdentifierScheme if one is not defined for the DMP ID minting service' do
       described_class.stubs(:minter).returns(ExternalApis::DataciteService)
       stub_x_section(section_sym: :datacite,
-                     open_struct: OpenStruct.new(active: true, name: "datacite"))
+                     open_struct: OpenStruct.new(active: true, name: 'datacite'))
       expect(described_class.identifier_scheme).to eql(@scheme)
     end
   end
 
-  describe "#scheme_callback_uri" do
-    it "returns nil if there is no DMP ID minting service" do
+  describe '#scheme_callback_uri' do
+    it 'returns nil if there is no DMP ID minting service' do
       described_class.stubs(:minter).returns(nil)
       expect(described_class.scheme_callback_uri).to eql(nil)
     end
-    it "returns nil if the callback_uri is not defined by the service" do
+    it 'returns nil if the callback_uri is not defined by the service' do
       described_class.stubs(:minter).returns(ExternalApis::DataciteService)
       stub_x_section(section_sym: :datacite,
                      open_struct: OpenStruct.new(active: true, callback_path: nil))
       expect(described_class.scheme_callback_uri).to eql(nil)
     end
-    it "returns the callback_uri" do
+    it 'returns the callback_uri' do
       uri = Faker::Internet.url
       described_class.stubs(:minter).returns(ExternalApis::DataciteService)
       stub_x_section(section_sym: :datacite,
@@ -126,18 +126,18 @@ RSpec.describe DmpIdService do
     end
   end
 
-  describe "#landing_page_url" do
-    it "returns nil if there is no DMP ID minting service" do
+  describe '#landing_page_url' do
+    it 'returns nil if there is no DMP ID minting service' do
       described_class.stubs(:minter).returns(nil)
       expect(described_class.landing_page_url).to eql(nil)
     end
-    it "returns nil if the landing_page is not defined by the service" do
+    it 'returns nil if the landing_page is not defined by the service' do
       described_class.stubs(:minter).returns(ExternalApis::DmphubService)
       stub_x_section(section_sym: :dmphub,
                      open_struct: OpenStruct.new(active: true, landing_page_url: nil))
       expect(described_class.landing_page_url).to eql(nil)
     end
-    it "returns the landing_page" do
+    it 'returns the landing_page' do
       uri = Faker::Internet.url
       described_class.stubs(:minter).returns(ExternalApis::DmphubService)
       stub_x_section(section_sym: :dmphub,
@@ -147,26 +147,26 @@ RSpec.describe DmpIdService do
     end
   end
 
-  context "private methods" do
-    describe "#minter" do
-      it "returns nil if no DMP ID services are active" do
+  context 'private methods' do
+    describe '#minter' do
+      it 'returns nil if no DMP ID services are active' do
         stub_x_section(section_sym: :datacite, open_struct: OpenStruct.new(active: false))
         stub_x_section(section_sym: :dmphub, open_struct: OpenStruct.new(active: false))
         expect(described_class.send(:minter)).to eql(nil)
       end
-      it "returns the first active service if all DMP ID services are active" do
+      it 'returns the first active service if all DMP ID services are active' do
         stub_x_section(section_sym: :datacite, open_struct: OpenStruct.new(active: true))
         stub_x_section(section_sym: :dmphub, open_struct: OpenStruct.new(active: true))
         result = described_class.send(:minter)
         expect(result.name).to eql(ExternalApis::DataciteService.name)
       end
-      it "returns the DataciteService is the only active service" do
+      it 'returns the DataciteService is the only active service' do
         stub_x_section(section_sym: :datacite, open_struct: OpenStruct.new(active: true))
         stub_x_section(section_sym: :dmphub, open_struct: OpenStruct.new(active: false))
         result = described_class.send(:minter)
         expect(result.name).to eql(ExternalApis::DataciteService.name)
       end
-      it "returns the DmphubService is the only active service" do
+      it 'returns the DmphubService is the only active service' do
         stub_x_section(section_sym: :datacite, open_struct: OpenStruct.new(active: false))
         stub_x_section(section_sym: :dmphub, open_struct: OpenStruct.new(active: true))
         result = described_class.send(:minter)
@@ -174,5 +174,4 @@ RSpec.describe DmpIdService do
       end
     end
   end
-
 end

@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 module Api
-
   module V2
-
+    # Generic helper methods for all API V2 controllers
     class BaseApiController < ApplicationController
-
       # We use the Doorkeeper gem to provide OAuth2 provider functionality for this application. An
       # ApiClient is able to access this API via:
       #   - :client_credentials - which allows them to access publicly accessible data
@@ -39,7 +37,7 @@ module Api
       # ---------------------
       # Used as a status check for external systems to determine if we are online (does not require auth)
       def heartbeat
-        render "/api/v2/heartbeat", status: :ok
+        render '/api/v2/heartbeat', status: :ok
       end
 
       protected
@@ -47,7 +45,7 @@ module Api
       # Generic handler for sending an error back to the caller
       def render_error(errors:, status: :bad_request)
         @payload = { errors: [errors] }
-        render "/api/v2/error", status: status
+        render '/api/v2/error', status: status
       end
 
       # Paginate the response
@@ -70,7 +68,7 @@ module Api
       def authorize_request
         return true if doorkeeper_token.present?
 
-        render_error(errors: "token is invalid, expired or has been revoked", status: :unauthorized)
+        render_error(errors: 'token is invalid, expired or has been revoked', status: :unauthorized)
       end
 
       # Extract the ApiClient (aka Application), User (aka Resource Owner) and Scopes from Doorkeeper AccessToken
@@ -95,12 +93,13 @@ module Api
       # Retrieve the requested pagination params or use defaults
       # only allow 100 per page as the max
       def pagination_params
-        @page = params.fetch("page", 1).to_i
-        @per_page = params.fetch("per_page", 20).to_i
+        @page = params.fetch('page', 1).to_i
+        @per_page = params.fetch('per_page', 20).to_i
         @per_page = 100 if @per_page > 100
       end
 
       # Parse the body of the incoming request
+      # rubocop:disable Metrics/AbcSize
       def parse_request
         return false unless request.present? && request.body.present?
 
@@ -109,9 +108,10 @@ module Api
       rescue JSON::ParserError => e
         Rails.logger.error "API V2 - JSON Parser: #{e.message}"
         Rails.logger.error request.body
-        render_error(errors: _("Invalid JSON format"), status: :bad_request)
+        render_error(errors: _('Invalid JSON format'), status: :bad_request)
         false
       end
+      # rubocop:enable Metrics/AbcSize
 
       # Record the timestamp
       def log_access
@@ -204,9 +204,6 @@ module Api
            storage_type availability geo_location certified_with pid_system] +
           [host_ids: identifier_permitted_params]
       end
-
     end
-
   end
-
 end

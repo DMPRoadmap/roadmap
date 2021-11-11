@@ -33,11 +33,7 @@ RSpec.describe SuperAdmin::OrgsController, type: :controller do
       @params = {
         id: @from_org.id,
         # Send over the Org typehead json in the org.id field so the service can unpackage it
-<<<<<<< HEAD
-        "org_autocomplete": { "name": @to_org.name }
-=======
-        org: { id: { id: @to_org.id, name: @to_org.name }.to_json }
->>>>>>> 9e252de5049794dcf2f990010936a13d613c6786
+        org_autocomplete: { name: @to_org.name }
       }
     end
 

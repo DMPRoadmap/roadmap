@@ -35,8 +35,7 @@
 
 # Object that represents an external system
 class ApiClient < ApplicationRecord
-
-  self.table_name = "oauth_applications"
+  self.table_name = 'oauth_applications'
 
   include Subscribable
   include ::Doorkeeper::Orm::ActiveRecord::Mixins::Application
@@ -44,7 +43,6 @@ class ApiClient < ApplicationRecord
 
   extend Dragonfly::Model::Validations
   extend UniqueRandom
-
 
   enum callback_methods: %i[put post patch]
 
@@ -54,7 +52,7 @@ class ApiClient < ApplicationRecord
 
   # Access Tokens are created when an ApiClient authenticates themselves and is then used instead
   # of credentials when calling the API.
-  has_many :access_tokens, class_name: "::Doorkeeper::AccessToken",
+  has_many :access_tokens, class_name: '::Doorkeeper::AccessToken',
                            foreign_key: :application_id,
                            dependent: :delete_all
 
@@ -70,9 +68,8 @@ class ApiClient < ApplicationRecord
                             email: { allow_nil: false }
 
   validates_property :format, of: :logo, in: LOGO_FORMATS,
-                              message: _("must be one of the following formats: %{formats}") % {
-                                formats: LOGO_FORMATS.join(", ")
-                              }
+                              message: format(_('must be one of the following formats: %<formats>s'),
+                                              formats: LOGO_FORMATS.join(', '))
 
   validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
 
@@ -125,13 +122,13 @@ class ApiClient < ApplicationRecord
   end
 
   def owner
-    User.find_by(id: self.owner_id) if self.owner_type == "User"
+    User.find_by(id: owner_id) if owner_type == 'User'
   end
 
   private
 
   # Set the scopes
   def ensure_scopes
-    self.scopes = default_scopes.sort { |a, b| a <=> b }.join(" ") unless scopes.present?
+    self.scopes = default_scopes.sort { |a, b| a <=> b }.join(' ') unless scopes.present?
   end
 end

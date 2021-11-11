@@ -1,20 +1,17 @@
 # frozen_string_literal: true
 
 module Api
-
   module V2
-
     module Deserialization
-
+      # Deserialization of RDA Common Standard for identifiers to Identifiers
       class Identifier
-
         class << self
-
           # Convert the incoming JSON into an Identifier
           #    {
           #      "type": "ror",
           #      "identifier": "https://ror.org/43y4g4"
           #    }
+          # rubocop:disable Metrics/AbcSize
           def deserialize(class_name:, json: {})
             return nil unless class_name.present? &&
                               Api::V2::JsonValidationService.identifier_valid?(json: json)
@@ -33,13 +30,9 @@ module Api
 
             ::Identifier.new(identifier_scheme: scheme, value: json[:identifier])
           end
-
+          # rubocop:enable Metrics/AbcSize
         end
-
       end
-
     end
-
   end
-
 end

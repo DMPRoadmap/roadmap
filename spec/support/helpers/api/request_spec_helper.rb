@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module Api
-
   # Module borrowed from the Doorkeeper gem repository:
   #  https://github.com/doorkeeper-gem/doorkeeper/blob/main/spec/support/helpers/request_spec_helper.rb
   module RequestSpecHelper
@@ -50,7 +49,7 @@ module Api
     end
 
     def with_access_token_header(token)
-      with_header "Authorization", "Bearer #{token}"
+      with_header 'Authorization', "Bearer #{token}"
     end
 
     def with_header(header, value)
@@ -62,8 +61,8 @@ module Api
     end
 
     def sign_in
-      visit "/"
-      click_on "Sign in"
+      visit '/'
+      click_on 'Sign in'
     end
 
     def create_access_token(authorization_code, client, code_verifier = nil)
@@ -94,6 +93,5 @@ module Api
       expect(request_response.status.to_i).to eq(status)
     end
   end
-
 end
 RSpec.configuration.send :include, Api::RequestSpecHelper

@@ -30,7 +30,7 @@ RSpec.describe 'PlansExports', type: :feature, js: true do
     create(:role, :creator, :commenter, :administrator, :editor,
            plan: new_plan,
            user: new_user)
-           sign_in_as_user(user)
+    sign_in_as_user(user)
     find(:css, "a[href*=\"/#{new_plan.id}/export.pdf\"]", visible: false).click
   end
 

@@ -35,7 +35,7 @@ module Api
       # Related identifiers for the Plan
       def links
         {
-          download: Rails.application.routes.url_helpers.plan_export_url(@plan, format: :pdf, "export[form]": true)
+          download: Rails.application.routes.url_helpers.plan_export_url(@plan, format: :pdf, 'export[form]': true)
         }
       end
 
@@ -43,7 +43,7 @@ module Api
       def subscriptions
         @plan.subscriptions.map do |subscription|
           {
-            actions: ["PUT"],
+            actions: ['PUT'],
             name: subscription.subscriber&.name,
             callback: subscription.callback_uri
           }
@@ -51,7 +51,7 @@ module Api
       end
 
       def visibility
-        @plan.visibility == "publicly_visible" ? "public" : "private"
+        @plan.visibility == 'publicly_visible' ? 'public' : 'private'
       end
 
       private

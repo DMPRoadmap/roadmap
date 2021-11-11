@@ -26,14 +26,13 @@ module SuperAdmin
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
     def create
       authorize Org
-      attrs = org_params
 
       # Let the OrgSelectable concern determine which org was selected
       org = process_org!(user: current_user)
 
       if org.new_record?
         org.language = Language.default
-        org.managed = org_params[:managed] == "1"
+        org.managed = org_params[:managed] == '1'
         org.logo = params[:logo] if params[:logo]
         org.links = if params[:org_links].present?
                       JSON.parse(params[:org_links])
@@ -52,7 +51,7 @@ module SuperAdmin
         org.organisation = params[:organisation].present?
 
         if org.save
-          msg = success_message(org, _("created"))
+          msg = success_message(org, _('created'))
           redirect_to admin_edit_org_path(org.id), notice: msg
         else
           flash.now[:alert] = failure_message(org, _('create'))

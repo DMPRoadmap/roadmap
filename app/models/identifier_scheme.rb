@@ -53,14 +53,14 @@ class IdentifierScheme < ApplicationRecord
   #   for_plans          => identifies which ids will be displayed on Plans pages
   #   for_contributors   => identifies which ids will be displayed on Contributor pages
   #   for_identification => identifies which ids are object identifiers (e.g. ROR, ARK, etc.)
-  has_flags 1 =>  :for_authentication,
-            2 =>  :for_orgs,
-            3 =>  :for_plans,
-            4 =>  :for_users,
-            5 =>  :for_contributors,
-            6 =>  :for_identification,
-            7 =>  :for_research_outputs,
-            column: "context"
+  has_flags 1 => :for_authentication,
+            2 => :for_orgs,
+            3 => :for_plans,
+            4 => :for_users,
+            5 => :for_contributors,
+            6 => :for_identification,
+            7 => :for_research_outputs,
+            column: 'context'
 
   # =========================
   # = Custom Accessor Logic =

@@ -5,20 +5,16 @@
 
 # Mock the Shibboleth Login URL
 module AuthenticationHelper
-
   def mock_shibboleth(user:)
-    user_hash = { email: user.email, firstname: user.firstname, surname: user.surname }
     url = "#{new_mocked_shib_idp_path}?email=#{user.email}"
-    url += "&identity_provider=#{user.org&.identifier_for_scheme(scheme: "shibboleth")&.value}"
+    url += "&identity_provider=#{user.org&.identifier_for_scheme(scheme: 'shibboleth')&.value}"
 
     Rails.configuration.x.shibboleth.login_url = url
   end
-
 end
 
 # Mock Shibboleth IdP
 class MockShibbolethIdentityProvidersController < ApplicationController
-
   # Mock Shibboleth IdP sign in form
   # GET /Shibboleth.sso/login
   def login
@@ -42,24 +38,26 @@ class MockShibbolethIdentityProvidersController < ApplicationController
 
   # Mock Shibboleth IdP sign in form submission
   # POST /Shibboleth.sso/Auth
+  # rubocop:disable Metrics/AbcSize
   def auth
     # Expecting the identity_provider and user to be passed in from the form
-    response.headers["omniauth.auth"] = {
-      provider: "shibboleth",
+    response.headers['omniauth.auth'] = {
+      provider: 'shibboleth',
       uid: SecureRandom.uuid,
       info: {
-        email: sign_in_params["email"],
-        givenname: Faker::Movies::StarWars.character.split(" ").first,
-        sn: Faker::Movies::StarWars.character.split(" ").first,
-        identity_provider: params["identity_provider"]
+        email: sign_in_params['email'],
+        givenname: Faker::Movies::StarWars.character.split.first,
+        sn: Faker::Movies::StarWars.character.split.first,
+        identity_provider: params['identity_provider']
       }
     }
 
-p "REDIRECT TO CALLBACK: #{user_shibboleth_omniauth_callback_path}"
+    p "REDIRECT TO CALLBACK: #{user_shibboleth_omniauth_callback_path}"
 
-    code = (params["identity_provider"].present? && sign_in_params[:email].present?) ? 200 : 401
+    code = params['identity_provider'].present? && sign_in_params[:email].present? ? 200 : 401
     redirect_to user_shibboleth_omniauth_callback_path, status: code
   end
+  # rubocop:enable Metrics/AbcSize
 
   private
 

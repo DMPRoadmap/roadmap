@@ -1,8 +1,8 @@
+# frozen_string_literal: true
+
 require 'dragonfly'
 
-unless Rails.env.test?
-  require 'dragonfly/s3_data_store'
-end
+require 'dragonfly/s3_data_store' unless Rails.env.test?
 
 # Configure
 Dragonfly.app.configure do
@@ -14,8 +14,8 @@ Dragonfly.app.configure do
 
   if Rails.env.development? || Rails.env.test?
     datastore :file,
-              root_path: Rails.root.join("public/system/dragonfly", Rails.env),
-              server_root: Rails.root.join("public")
+              root_path: Rails.root.join('public/system/dragonfly', Rails.env),
+              server_root: Rails.root.join('public')
   else
     datastore :s3,
               url_scheme: Rails.configuration.x.dmproadmap.dragonfly_url_scheme,
@@ -23,7 +23,7 @@ Dragonfly.app.configure do
               root_path: Rails.configuration.x.dmproadmap.dragonfly_root_path,
               bucket_name: Rails.configuration.x.dmproadmap.dragonfly_bucket,
               use_iam_profile: true,
-              storage_headers: { "x-amz-acl": "bucket-owner-full-control" }
+              storage_headers: { 'x-amz-acl': 'bucket-owner-full-control' }
   end
 end
 

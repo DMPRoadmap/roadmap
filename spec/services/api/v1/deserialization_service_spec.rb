@@ -96,20 +96,20 @@ RSpec.describe Api::V1::DeserializationService do
     end
   end
 
-  describe ":name_to_org(name:)" do
+  describe ':name_to_org(name:)' do
     before(:each) do
       @org = create(:org)
       @registry_org = create(:registry_org)
     end
 
-    it "returns nil if :name is not present" do
+    it 'returns nil if :name is not present' do
       expect(described_class.name_to_org(name: nil)).to eql(nil)
     end
-    it "returns nil if :name matches no recs in Org or RegistryOrg not present" do
-      name = Faker::Company.unique.name.gsub(@org.name, "foo").gsub(@registry_org.name, "bar")
+    it 'returns nil if :name matches no recs in Org or RegistryOrg not present' do
+      name = Faker::Company.unique.name.gsub(@org.name, 'foo').gsub(@registry_org.name, 'bar')
       expect(described_class.name_to_org(name: name)).to eql(nil)
     end
-    it "returns the Org if the :name matches" do
+    it 'returns the Org if the :name matches' do
       expect(described_class.name_to_org(name: @org.name)).to eql(@org)
     end
     it "returns the RegistryOrg's Org if the :name matches" do
@@ -117,11 +117,11 @@ RSpec.describe Api::V1::DeserializationService do
       @registry_org.update(org_id: org.id)
       expect(described_class.name_to_org(name: @registry_org.name)).to eql(org)
     end
-    it "returns nil if :name matches the RegistryOrg but it has no Org and we :restrict_orgs" do
+    it 'returns nil if :name matches the RegistryOrg but it has no Org and we :restrict_orgs' do
       Rails.configuration.x.application.restrict_orgs = true
       expect(described_class.name_to_org(name: @registry_org.name)).to eql(nil)
     end
-    it "returns a new Org if :name matches the RegistryOrg but it has no Org" do
+    it 'returns a new Org if :name matches the RegistryOrg but it has no Org' do
       Rails.configuration.x.application.restrict_orgs = false
       result = described_class.name_to_org(name: @registry_org.name)
       expect(result.is_a?(Org)).to eql(true)
@@ -130,7 +130,7 @@ RSpec.describe Api::V1::DeserializationService do
     end
   end
 
-  describe ":translate_role(role:)" do
+  describe ':translate_role(role:)' do
     before(:each) do
       @default = Contributor.default_role
       @role = "#{Contributor::ONTOLOGY_BASE_URL}/#{Contributor.new.all_roles.sample}"

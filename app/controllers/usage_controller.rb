@@ -6,6 +6,7 @@ class UsageController < ApplicationController
 
   after_action :verify_authorized
   # GET /usage
+  # rubocop:disable Metrics/AbcSize
   def index
     authorize :usage
     args = default_query_args
@@ -18,6 +19,7 @@ class UsageController < ApplicationController
     @funder = current_user.org.funder?
     @filtered = args[:filtered]
   end
+  # rubocop:enable Metrics/AbcSize
 
   # POST /usage_plans_by_template
   def plans_by_template

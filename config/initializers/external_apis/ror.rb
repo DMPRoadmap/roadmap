@@ -13,5 +13,5 @@ Rails.configuration.x.ror.max_results_per_page = 20
 Rails.configuration.x.ror.max_redirects = 3
 Rails.configuration.x.ror.active = Rails.configuration.x.dmproadmap.ror_active
 
-Rails.configuration.x.ror.full_catalog_file = Rails.root.join("tmp", "ror.json")
-Rails.configuration.x.ror.catalog_process_date = Rails.root.join("tmp", "last_ror")
+Rails.configuration.x.ror.full_catalog_file = Rails.root.join('tmp', 'ror.json')
+Rails.configuration.x.ror.catalog_process_date = Rails.root.join('tmp', 'last_ror')

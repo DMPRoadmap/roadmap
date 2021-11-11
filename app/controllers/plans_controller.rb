@@ -29,12 +29,10 @@ class PlansController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   # GET /plans/new
-  # rubocop:disable Metrics/AbcSize
   def new
     @plan = Plan.new
     authorize @plan
   end
-  # rubocop:enable Metrics/AbcSize
 
   # POST /plans
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -71,7 +69,7 @@ class PlansController < ApplicationController
                     end
 
       @plan.org = process_org!(user: current_user)
-      @plan.funder = process_org!(user: current_user, namespace: "funder")
+      @plan.funder = process_org!(user: current_user, namespace: 'funder')
 
       if @plan.save
         # pre-select org's guidance and the default org's guidance
@@ -137,10 +135,9 @@ class PlansController < ApplicationController
       template: { phases: { sections: { questions: :answers } } },
       plans_guidance_groups: { guidance_group: :guidances }
     ).find_by(id: params[:id])
-    raise ActiveRecord::RecordNotFound _("plan not found") unless @plan.present?
+    raise ActiveRecord::RecordNotFound _('plan not found') unless @plan.present?
 
     authorize @plan
-
     @visibility = if @plan.visibility.present?
                     @plan.visibility.to_s
                   else
@@ -222,7 +219,7 @@ class PlansController < ApplicationController
   # rubcocop:enable Metrics/AbcSize
 
   # PUT /plans/1
-  # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/MethodLength
   def update
     @plan = Plan.find(params[:id])
     authorize @plan
@@ -240,7 +237,7 @@ class PlansController < ApplicationController
       @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
       @research_domains = ResearchDomain.all.order(:label)
 
-      @plan.funder = process_org!(user: current_user, namespace: "funder")
+      @plan.funder = process_org!(user: current_user, namespace: 'funder')
       @plan.grant = plan_params[:grant]
       attrs.delete(:funder)
       attrs.delete(:grant)
@@ -277,7 +274,7 @@ class PlansController < ApplicationController
     end
     # rubocop:enable Metrics/BlockLength
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # GET /plans/:id/publish
   def publish
@@ -285,7 +282,7 @@ class PlansController < ApplicationController
     if @plan.present?
       authorize @plan
       @plan_roles = @plan.roles.where(active: true)
-      @orcid_access_token = ExternalApiAccessToken.for_user_and_service(user: current_user, service: "orcid")
+      @orcid_access_token = ExternalApiAccessToken.for_user_and_service(user: current_user, service: 'orcid')
     else
       redirect_to(plans_path)
     end
@@ -403,7 +400,7 @@ class PlansController < ApplicationController
              json: { msg: format(_('Unable to find plan id %{<plan_id>s'),
                                  plan_id: params[:id]) }
     end
-    render "publish"
+    render 'publish'
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
@@ -426,29 +423,7 @@ class PlansController < ApplicationController
   end
 
   # GET /plans/:id/mint
-  def mint
-    @plan = Plan.find(params[:id])
-    authorize @plan
-
-    DoiService.mint_doi(plan: @plan)&.save
-    @plan = @plan.reload
-
-    @orcid_access_token = ExternalApiAccessToken.for_user_and_service(user: current_user, service: "orcid")
-
-    # If a DMP ID was successfully acquired and the User has authorized us to write to their ORCID record
-    if @plan.doi.present? && @orcid_access_token.present?
-      ExternalApis::OrcidService.add_work(user: current_user, plan: @plan)
-    end
-
-    render js: render_to_string(template: "plans/mint.js.erb")
-  rescue StandardError => e
-    Rails.logger.error "Unable to add plan #{params[:id]} to the user #{current_user.id}'s ORCID record - #{e.message}"
-    Rails.logger.error e.backtrace
-
-    render js: render_to_string(template: "plans/mint.js.erb")
-  end
-
-  # GET /plans/:id/mint
+  # rubocop:disable Metrics/AbcSize
   def mint
     @plan = Plan.find(params[:id])
     authorize @plan
@@ -457,13 +432,14 @@ class PlansController < ApplicationController
     dmp_id.save
     @plan = @plan.reload
 
-    render js: render_to_string(template: "plans/mint.js.erb")
+    render js: render_to_string(template: 'plans/mint.js.erb')
   rescue StandardError => e
     Rails.logger.error "Unable mint DMP ID for plan #{params[:id]} - #{e.message}"
     Rails.logger.error e.backtrace
 
-    render js: render_to_string(template: "plans/mint.js.erb")
+    render js: render_to_string(template: 'plans/mint.js.erb')
   end
+  # rubocop:enable Metrics/AbcSize
 
   # ============================
   # = Private instance methods =
@@ -539,6 +515,5 @@ class PlansController < ApplicationController
              guidance_presenter: GuidancePresenter.new(plan)
            })
   end
-
 end
 # rubocop:enable Metrics/ClassLength

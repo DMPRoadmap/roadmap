@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require "uc3-ssm"
+require 'uc3-ssm'
 
 # set vars for DMPTool-UI submodule https://github.com/cdlib/dmptool-ui
 set :scm,              :git
 set :git_strategy,     Capistrano::Git::SubmoduleStrategy
-set :default_env,      { path: "$PATH" }
+set :default_env,      { path: '$PATH' }
 
 # set vars from ENV
 set :deploy_to,        ENV['DEPLOY_TO']       || '/dmp/apps/dmptool'
@@ -16,37 +16,38 @@ set :branch,           ENV['BRANCH']          || 'master'
 # Gets the current Git tag and revision
 set :version_number, `git describe --tags`
 # Default environments to skip
-set :bundle_without, %w[pgsql thin rollbar test].join(" ")
+set :bundle_without, %w[pgsql thin rollbar test].join(' ')
 
 # Default value for linked_dirs is []
 append :linked_dirs,
-       "log",
-       "tmp/pids",
-       "tmp/cache",
-       "tmp/sockets",
-       "public"
+       'log',
+       'tmp/pids',
+       'tmp/cache',
+       'tmp/sockets',
+       'public'
 
 # Default value for keep_releases is 5
 set :keep_releases, 5
 
 namespace :deploy do
-  before :compile_assets, "deploy:retrieve_credentials"
-  before :compile_assets, "deploy:build_ui_assets"
+  before :compile_assets, 'deploy:retrieve_credentials'
+  before :compile_assets, 'deploy:build_ui_assets'
 
-  after :deploy, "hackery:copy_tinymce_skins"
-  after :deploy, "hackery:copy_ui_assets"
-  after :deploy, "git:version"
-  after :deploy, "cleanup:remove_example_configs"
+  after :deploy, 'hackery:copy_tinymce_skins'
+  after :deploy, 'hackery:copy_ui_assets'
+  after :deploy, 'git:version'
+  after :deploy, 'cleanup:remove_example_configs'
 
   desc 'Retrieve encrypted crendtials file from SSM ParameterStore'
   task :retrieve_credentials do
     on roles(:app), wait: 1 do
       ssm = Uc3Ssm::ConfigResolver.new
       credentials_yml_enc = ssm.parameter_for_key('credentials_yml_enc')
-      IO.write("#{release_path}/config/credentials.yml.enc", credentials_yml_enc.chomp)
+      File.write("#{release_path}/config/credentials.yml.enc", credentials_yml_enc.chomp)
     end
   end
 
+  # rubocop:disable Layout/LineLength
   desc 'Build the DMPTool-UI repo submodule and copy assets to app/assets pre-compile'
   task :build_ui_assets do
     on roles(:app), wait: 1 do
@@ -56,11 +57,10 @@ namespace :deploy do
       execute "cp #{release_path}/dmptool-ui/dist/ui-assets/*.wof* #{release_path}/app/assets/fonts"
     end
   end
+  # rubocop:enable Layout/LineLength
 end
-# rubocop:enable Layout/LineLength
-
 namespace :git do
-  desc "Add the version file so that we can display the git version in the footer"
+  desc 'Add the version file so that we can display the git version in the footer'
   task :version do
     on roles(:app), wait: 1 do
       execute "touch #{release_path}/.version"
@@ -70,7 +70,7 @@ namespace :git do
 end
 
 namespace :cleanup do
-  desc "Remove all of the example config files"
+  desc 'Remove all of the example config files'
   task :remove_example_configs do
     on roles(:app), wait: 1 do
       execute "rm -f #{release_path}/config/*.yml.sample"
@@ -82,7 +82,7 @@ end
 namespace :hackery do
   # Webpacker and TinyMCE do not play nicely with one another. Webpacker/Rails stores its copiled CSS and JS
   # in minified application.[ext] files that are fingerprinted but TinyMCE expects them elsewhere
-  desc "Move TinyMCE skin files to public dir"
+  desc 'Move TinyMCE skin files to public dir'
   task :copy_tinymce_skins do
     on roles(:app), wait: 1 do
       execute "mkdir -p #{release_path}/public/tinymce/skins/"

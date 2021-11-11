@@ -105,10 +105,8 @@ class UserMailer < ActionMailer::Base
 
     I18n.with_locale I18n.default_locale do
       mail(to: @recipient.email,
-           subject: _("A new DMP is awaiting your feedback") %
-           {
-             tool_name: tool_name, user_name: @user.name(false)
-           })
+           subject: format(_('A new DMP is awaiting your feedback'), tool_name: tool_name,
+                                                                     user_name: @user.name(false)))
     end
   end
 
@@ -194,11 +192,8 @@ class UserMailer < ActionMailer::Base
     end
   end
 
-<<<<<<< HEAD
   # Sent out to the API contact when the Super Admin creates a record or refreshes the secret
-=======
   # rubocop:disable Metrics/AbcSize
->>>>>>> 9e252de5049794dcf2f990010936a13d613c6786
   def api_credentials(api_client)
     @api_client = api_client
     return unless @api_client.contact_email.present?

@@ -29,7 +29,7 @@ RSpec.describe ApiClient, type: :model do
     }
   end
 
-  context "Associations" do
+  context 'Associations' do
     it { is_expected.to belong_to(:user).optional }
     it { is_expected.to have_many(:subscriptions) }
     it { is_expected.to have_many(:access_tokens) }
@@ -40,50 +40,50 @@ RSpec.describe ApiClient, type: :model do
       @client = build(:api_client)
     end
 
-    it ":to_s should return the name" do
+    it ':to_s should return the name' do
       expect(@client.to_s).to eql(@client.name)
     end
 
-    it ":client_id should return the :uid" do
+    it ':client_id should return the :uid' do
       expect(@client.client_id).to eql(@client.uid)
     end
 
-    it ":client_secret should return the :secret" do
+    it ':client_secret should return the :secret' do
       expect(@client.client_secret).to eql(@client.secret)
     end
 
-    it ":available_scopes should return all of the scopes defined for Doorkeeper" do
+    it ':available_scopes should return all of the scopes defined for Doorkeeper' do
       Doorkeeper.config.stubs(:default_scopes).returns(%w[one two three])
       Doorkeeper.config.stubs(:optional_scopes).returns(%w[nine eight one])
       # Note that it should deduplicate the 'one' found in both arrays
       expect(@client.available_scopes).to eql(%w[one two three nine eight])
     end
 
-    describe ":plans" do
-      it "returns an empty array if there are no subscriptions" do
+    describe ':plans' do
+      it 'returns an empty array if there are no subscriptions' do
         @client.save
         expect(@client.plans.empty?).to eql(true)
       end
-      it "returns the expected plans" do
+      it 'returns the expected plans' do
         @client.save
-        planA = create(:plan)
-        planB = create(:plan)
-        create(:subscription, plan: planA, subscriber: @client)
-        create(:subscription, plan: planB, subscriber: @client)
+        plan_a = create(:plan)
+        plan_b = create(:plan)
+        create(:subscription, plan: plan_a, subscriber: @client)
+        create(:subscription, plan: plan_b, subscriber: @client)
         results = @client.reload.plans
         expect(results.length).to eql(2)
-        expect(results.include?(planA)).to eql(true)
-        expect(results.include?(planB)).to eql(true)
+        expect(results.include?(plan_a)).to eql(true)
+        expect(results.include?(plan_b)).to eql(true)
       end
     end
 
-    it ":ensure_scopes attaches the available scopes before validation occurs" do
+    it ':ensure_scopes attaches the available scopes before validation occurs' do
       Doorkeeper.config.stubs(:default_scopes).returns(%w[one two three])
       Doorkeeper.config.stubs(:optional_scopes).returns(%w[nine eight one])
       @client.scopes = nil
       @client.send(:ensure_scopes)
       # Note that it should sort them alphabetically
-      expect(@client.scopes.to_s).to eql("eight nine one three two")
+      expect(@client.scopes.to_s).to eql('eight nine one three two')
     end
   end
 end

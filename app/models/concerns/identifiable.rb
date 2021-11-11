@@ -6,7 +6,6 @@ module Identifiable
 
   # rubocop:disable Metrics/BlockLength
   included do
-
     # ================
     # = Associations =
     # ================

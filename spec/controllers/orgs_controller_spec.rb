@@ -126,22 +126,20 @@ RSpec.describe OrgsController, type: :controller do
       Rails.configuration.x.shibboleth.login_url = Faker::Internet.url
     end
 
-    it "succeeds and Org has an entity_id stored in the identifiers table" do
-      post :shibboleth_ds_passthru, params: { "shib-ds": @args }
+    it 'succeeds and Org has an entity_id stored in the identifiers table' do
+      post :shibboleth_ds_passthru, params: { 'shib-ds': @args }
       url = Rails.configuration.x.shibboleth.login_url
       expected = "#{url}?#{@controller.send(:shib_callback_url)}&entityID=#{@identifier.value}"
       expect(response).to redirect_to(expected)
     end
-    it "succeeds and Org does not have an entity_id stored in the identifiers table" do
+    it 'succeeds and Org does not have an entity_id stored in the identifiers table' do
       @org.identifiers.destroy_all
-      post :shibboleth_ds_passthru, params: { "shib-ds": @args }
-      expect(response).to render_template("shared/authentication/org_branded_access_controls")
+      post :shibboleth_ds_passthru, params: { 'shib-ds': @args }
+      expect(response).to render_template('shared/authentication/org_branded_access_controls')
     end
-    it "if no Org was found or cresated for some reason it redirects back with an error" do
+    it 'if no Org was found or cresated for some reason it redirects back with an error' do
       @controller.stubs(:process_org!).returns(nil)
-      post :shibboleth_ds_passthru, params: { "shib-ds": { org_id: @org.id } }
-      url = Rails.configuration.x.shibboleth.login_url
-      expected = "#{url}?#{@controller.send(:shib_callback_url)}&entityID=#{@identifier.value}"
+      post :shibboleth_ds_passthru, params: { 'shib-ds': { org_id: @org.id } }
       expect(response).to redirect_to(shibboleth_ds_path)
       expect(flash[:notice].present?).to eql(true)
     end

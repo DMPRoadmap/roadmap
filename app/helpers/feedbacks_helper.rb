@@ -3,13 +3,13 @@
 # Helper methods for Feedback messages
 module FeedbacksHelper
   def feedback_confirmation_default_subject
-    _("DMP feedback request")
+    _('DMP feedback request')
   end
 
   def feedback_confirmation_default_message
-    _("<p>Dear %{user_name},</p>"\
-      "<p>\"%{plan_name}\" has been sent to your %{application_name} account administrator for feedback.</p>"\
-      "<p>Please email %{organisation_email} with any questions about this process.</p>")
+    _('<p>Dear %<user_name>s,</p>'\
+      '<p>"%<plan_name>s" has been sent to your %<application_name>s account administrator for feedback.</p>'\
+      '<p>Please email %<organisation_email>s with any questions about this process.</p>')
   end
 
   def feedback_constant_to_text(text, user, plan, org)

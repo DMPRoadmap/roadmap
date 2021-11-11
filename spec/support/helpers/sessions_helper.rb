@@ -1,7 +1,8 @@
-require_relative "dmptool_helper"
+# frozen_string_literal: true
+
+require_relative 'dmptool_helper'
 
 module SessionsHelper
-
   # -------------------------------------------------------------
   # start DMPTool customization
   # Switched so that we are stubbing/mocking User logins via the
@@ -11,6 +12,7 @@ module SessionsHelper
   # -------------------------------------------------------------
   include DmptoolHelper
 
+=begin
   def sign_in(user = :user)
     case user
     when User
@@ -24,7 +26,7 @@ module SessionsHelper
 
   def sign_in_as_user(user)
     # Use the Devise helper to mock a successful user login
-    login_as(user, :scope => :user)
+    login_as(user, scope: :user)
     visit root_path
   end
 
@@ -33,10 +35,12 @@ module SessionsHelper
       create(:org, :organisation, :shibbolized, managed: true)
     end
   end
+=end
 
+  # rubocop:disable Metrics/MethodLength
   def mock_omniauth_call(scheme, user)
     case scheme
-    when "shibboleth"
+    when 'shibboleth'
       # Mock the OmniAuth payload for Shibboleth
       {
         provider: scheme,
@@ -49,11 +53,11 @@ module SessionsHelper
         }
       }
 
-    when "orcid"
+    when 'orcid'
       # Moch the Omniauth payload for Orcid
       {
         provider: scheme,
-        uid: 4.times.map { Faker::Number.number(l_digits: 4).to_s }.join("-")
+        uid: 4.times.map { Faker::Number.number(l_digits: 4).to_s }.join('-')
       }
     else
       {
@@ -62,9 +66,9 @@ module SessionsHelper
       }
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   # -------------------------------------------------------------
   # end DMPTool customization
   # -------------------------------------------------------------
-
 end

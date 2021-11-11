@@ -101,7 +101,6 @@ module ExportablePlan
   # rubocop:enable Style/OptionalBooleanParameter
 
   # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def prepare_coversheet
     hash = {}
     hash[:attribution] = attribution
@@ -126,13 +125,12 @@ module ExportablePlan
     hash[:customizer] = customizer
     hash
   end
-  # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def prepare_coversheet_for_csv(csv, _headings, hash)
-    csv << [_("Creator:"), _("%{authors}") % { authors: hash[:attribution].join(", ") }]
-    csv << ["Affiliation: ", _("%{affiliation}") % { affiliation: hash[:affiliation] }]
+    csv << [_('Creator:'), format(_('%<authors>s'), authors: hash[:attribution].join(', '))]
+    csv << ['Affiliation: ', format(_('%<affiliation>s'), affiliation: hash[:affiliation])]
     csv << if hash[:funder].present?
              [_('Template: '), format(_('%<funder>s'), funder: hash[:funder])]
            else
@@ -153,7 +151,7 @@ module ExportablePlan
     csv << []
     csv << []
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize, Metrics/BlockLength, Metrics/MethodLength
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -223,21 +221,20 @@ module ExportablePlan
 
   # Use the name of the DMP owner/creator OR the first Co-owner if there is no
   # owner for some reason
+  # rubocop:disable Metrics/AbcSize
   def attribution
     user = roles.creator.first&.user
     user = roles.administrator.not_creator.first&.user unless user.present?
-    return "" unless user.present?
+    return '' unless user.present?
 
     text = user&.name(false)
-    orcid = user.identifier_for_scheme(scheme: "orcid")
+    orcid = user.identifier_for_scheme(scheme: 'orcid')
     if orcid.present?
-      text += " - <strong>ORCID:</strong> <a href=\"%{orcid_url}\" target=\"_blank\">%{orcid}</a>" % {
-        orcid_url: orcid.value,
-        orcid: orcid.value_without_scheme_prefix
-      }
+      text += format(' - <strong>ORCID:</strong> <a href="%<orcid_url>s" target="_blank">%<orcid>s</a>',
+                     orcid_url: orcid.value, orcid: orcid.value_without_scheme_prefix)
     end
     text
   end
-
+  # rubocop:enable Metrics/AbcSize
 end
 # rubocop:enable Metrics/ModuleLength

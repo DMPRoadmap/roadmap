@@ -1,23 +1,20 @@
 # frozen_string_literal: true
 
 module Api
-
   module V2
-
+    # Base helper methods for deserializing RDA Common Standard
     class DeserializationService
-
       class << self
-
         # Retrieves the Plan based on a DMP ID value (either a DMP ID or API URL)
         def plan_from_dmp_id(dmp_id:)
           return nil unless dmp_id.present? && dmp_id[:type].present? &&
                             dmp_id[:identifier].present?
 
           if %w[ark doi].include?(dmp_id[:type].downcase)
-            ::Identifier.find_by(identifiable_type: "Plan", value: dmp_id[:identifier])
+            ::Identifier.find_by(identifiable_type: 'Plan', value: dmp_id[:identifier])
                         &.identifiable
           else
-            ::Plan.find_by(id: dmp_id[:identifier].split("/").last)
+            ::Plan.find_by(id: dmp_id[:identifier].split('/').last)
           end
         end
 
@@ -37,6 +34,7 @@ module Api
         end
 
         # Attach the identifier to the object if it does not already exist
+        # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def attach_identifier(object:, json:)
           return object unless object.present? && object.respond_to?(:identifiers) &&
                                json.present? &&
@@ -52,6 +50,7 @@ module Api
           )
           object
         end
+        # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
         # Translates the role in the json to a Contributor role
         def translate_role(role:)
@@ -62,8 +61,8 @@ module Api
 
           # Strip off the URL if present
           url = ::Contributor::ONTOLOGY_BASE_URL
-          role = role.gsub(url, "").downcase if role.include?(url)
-          role = role.gsub("-", "_")
+          role = role.gsub(url, '').downcase if role.include?(url)
+          role = role.gsub('-', '_')
 
           # Return the role if its a valid one otherwise defualt
           return role if ::Contributor.new.all_roles.include?(role.downcase.to_sym)
@@ -74,23 +73,25 @@ module Api
         # Translates the RDA Common Standard for the funding status
         def translate_funding_status(status:)
           case status
-          when "rejected"
-            "denied"
-          when "granted"
-            "funded"
+          when 'rejected'
+            'denied'
+          when 'granted'
+            'funded'
           else
-            "planned"
+            'planned'
           end
         end
 
         # Retrieve any JSON schema extensions for this application
+        # rubocop:disable Metrics/AbcSize
         def app_extensions(json: {})
           return {} unless json.present? && json[:extension].present?
 
-          app = ::ApplicationService.application_name.split("-").first.downcase
+          app = ::ApplicationService.application_name.split('-').first.downcase
           ext = json[:extension].select { |item| item[app.to_sym].present? }
           ext.first.present? ? ext.first[app.to_sym] : {}
         end
+        # rubocop:enable Metrics/AbcSize
 
         # Determines whether or not the value is a DOI/ARK
         def doi?(value:)
@@ -99,9 +100,9 @@ module Api
           # The format must match a DOI or ARK and a DOI IdentifierScheme
           # must also be present!
           identifier = ::Identifier.new(value: value)
-          scheme = ::IdentifierScheme.find_by(name: DoiService.scheme_name)
+          scheme = ::IdentifierScheme.find_by(name: DmpIdService.scheme_name)
           scheme.present? &&
-            (identifier.identifier_format.include?("ark") || identifier.identifier_format.include?("doi"))
+            (identifier.identifier_format.include?('ark') || identifier.identifier_format.include?('doi'))
         end
 
         # Converts the string into a UTC Time string
@@ -112,11 +113,7 @@ module Api
         rescue ArgumentError
           value.to_s
         end
-
       end
-
     end
-
   end
-
 end

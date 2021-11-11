@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
 module Dmptool
-
   module Users
-
+    # Overrides to the core DMPRoadmap Omniauth handler
     # rubocop:disable Metrics/ModuleLength
     module OmniauthCallbacksController
-
-      # rubocop:disable Style/FormatString, Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
       def process_omniauth_callback(scheme:)
         # There is occassionally a disconnect between the id of the Scheme
         # when the base controller's dynamic methods were defined and the
@@ -25,11 +23,11 @@ module Dmptool
           )
 
           if identifier.present?
-            msg = format(_("Your account has been successfully linked to %{scheme}."),
+            msg = format(_('Your account has been successfully linked to %<scheme>s.'),
                          scheme: @provider)
             redirect_to edit_user_registration_path, notice: msg
           else
-            msg = format(_("Unable to link your account to %{scheme}"),
+            msg = format(_('Unable to link your account to %<scheme>s'),
                          scheme: @provider)
             redirect_to edit_user_registration_path, alert: msg
           end
@@ -40,14 +38,14 @@ module Dmptool
 
           # If we found the user by their omniauth creds then sign them in
           if @user.present?
-            flash[:notice] = _("Successfully signed in")
+            flash[:notice] = _('Successfully signed in')
             sign_in_and_redirect @user, event: :authentication
 
           else
             # Otherwise attempt to locate the user via the email provided in
             # the omniauth creds
             new_user = omniauth_hash_to_new_user(scheme: scheme, omniauth: @omniauth)
-            @user = User.where_case_insensitive("email", new_user.email).first
+            @user = User.where_case_insensitive('email', new_user.email).first
 
             # If we found the user by email
             if @user.present?
@@ -58,7 +56,7 @@ module Dmptool
 
               # rubocop:disable Metrics/BlockNesting
               if identifier.present?
-                flash[:notice] = format(_("Successfully signed in with %{scheme}."),
+                flash[:notice] = format(_('Successfully signed in with %<scheme>s.'),
                                         scheme: @provider)
                 sign_in_and_redirect @user, event: :authentication
               end
@@ -71,13 +69,13 @@ module Dmptool
           end
         end
       end
-      # rubocop:enable Style/FormatString, Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
 
       private
 
       # Return the visual name of the scheme
       def provider(scheme:)
-        return _("your institutional credentials") if scheme.name == "shibboleth"
+        return _('your institutional credentials') if scheme.name == 'shibboleth'
 
         scheme.description
       end
@@ -86,8 +84,8 @@ module Dmptool
       def omniauth_from_request
         return {} unless request.env.present?
 
-        hash = request.env["omniauth.auth"]
-        hash = request.env[:"omniauth.auth"] unless hash.present?
+        hash = request.env['omniauth.auth']
+        hash = request.env[:'omniauth.auth'] unless hash.present?
         hash.present? ? hash : request.env
       end
 
@@ -95,11 +93,12 @@ module Dmptool
       def redirect_to_registration(scheme:, data:)
         session["devise.#{scheme.name.downcase}_data"] = data
         redirect_to Rails.application.routes.url_helpers.new_user_registration_path,
-                    notice: _("It looks like this is your first time logging in. Please verify and complete the information below to finish creating an account.")
+                    notice: _('It looks like this is your first time logging in. Please verify and complete the information below to finish creating an account.')
       end
       # rubocop:enable Layout/LineLength
 
       # Attach the omniauth uid to the User
+      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
       def attach_omniauth_credentials(user:, scheme:, omniauth:)
         return false unless user.present? && scheme.present? && omniauth.present?
 
@@ -115,6 +114,7 @@ module Dmptool
         Identifier.create(identifier_scheme: scheme, identifiable: user,
                           value: omniauth[:uid])
       end
+      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
       # Convert the incoming omniauth info into a User
       def omniauth_hash_to_new_user(scheme:, omniauth:)
@@ -125,8 +125,8 @@ module Dmptool
 
         user = User.new(
           email: extract_omniauth_email(hash: omniauth_info),
-          firstname: names.fetch(:firstname, ""),
-          surname: names.fetch(:surname, ""),
+          firstname: names.fetch(:firstname, ''),
+          surname: names.fetch(:surname, ''),
           org: extract_omniauth_org(scheme: scheme, hash: omniauth_info)
         )
 
@@ -138,7 +138,7 @@ module Dmptool
 
       # Extract the 1st email
       def extract_omniauth_email(hash:)
-        hash.present? ? hash.fetch(:email, "").split(";")[0] : nil
+        hash.present? ? hash.fetch(:email, '').split(';')[0] : nil
       end
 
       # Find the User names from the omniauth info
@@ -146,12 +146,12 @@ module Dmptool
         return {} unless hash.present?
 
         out = {
-          firstname: hash.fetch(:givenname, hash.fetch(:firstname, "")),
-          surname: hash.fetch(:sn, hash.fetch(:surname, hash.fetch(:lastname, "")))
+          firstname: hash.fetch(:givenname, hash.fetch(:firstname, '')),
+          surname: hash.fetch(:sn, hash.fetch(:surname, hash.fetch(:lastname, '')))
         }
         return out if out[:firstname].present? || out[:surname].present?
 
-        names = hash[:name].split(" ")
+        names = hash[:name]
         {
           firstname: names[0],
           surname: names.length > 1 ? names[names.length - 1] : nil
@@ -166,13 +166,10 @@ module Dmptool
 
         uid = hash[:identity_provider].downcase
         idp = Identifier.where(identifier_scheme: scheme)
-                        .where("LOWER(value) = ?", uid).first
+                        .where('LOWER(value) = ?', uid).first
         idp.present? ? idp.identifiable : nil
       end
-
     end
     # rubocop:enable Metrics/ModuleLength
-
   end
-
 end

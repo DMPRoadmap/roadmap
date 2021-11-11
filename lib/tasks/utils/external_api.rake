@@ -1,32 +1,34 @@
 # frozen_string_literal: true
 
 namespace :external_api do
-  desc "Fetch the latest RDA Metadata Standards"
+  desc 'Fetch the latest RDA Metadata Standards'
   task load_rdamsc_standards: :environment do
-    p "Fetching the latest RDAMSC metadata standards and updating the metadata_standards table"
+    p 'Fetching the latest RDAMSC metadata standards and updating the metadata_standards table'
     ExternalApis::RdamscService.fetch_metadata_standards
   end
 
-  desc "Load Repositories from re3data"
+  desc 'Load Repositories from re3data'
   task load_re3data_repos: :environment do
-    p "Fetching the latest re3data repository metadata and updating the repositories table"
-    p "This can take in excess of 10 minutes to complete ..."
+    p 'Fetching the latest re3data repository metadata and updating the repositories table'
+    p 'This can take in excess of 30 minutes to complete ...'
     ExternalApis::Re3dataService.fetch
   end
 
-  desc "Load Licenses from SPDX"
+  desc 'Load Licenses from SPDX'
   task load_spdx_licenses: :environment do
-    p "Fetching the latest SPDX license metadata and updating the licenses table"
+    p 'Fetching the latest SPDX license metadata and updating the licenses table'
     ExternalApis::SpdxService.fetch
   end
 
-  desc "Populate the registry_orgs table from latest tmp/ror.json (single use) To force it to reprocess you can pass an argument `rails \"external_api:ror_index[true]\"` (Note the quotes)"
+  # rubocop:disable Layout/LineLength
+  desc 'Populate the registry_orgs table from latest tmp/ror.json (single use) To force it to reprocess you can pass an argument `rails "external_api:ror_index[true]"` (Note the quotes)'
+  # rubocop:enable Layout/LineLength
   task :sync_registry_orgs, [:force] => :environment do |_, args|
-    p "Processing the latest ROR org registry from file tmp/ror.json and updating the repositories table"
+    p 'Processing the latest ROR org registry from file tmp/ror.json and updating the repositories table'
     ExternalApis::RorService.fetch(force: args[:force])
   end
 
-  desc "Seed the Research Domain table with Field of Science categories"
+  desc 'Seed the Research Domain table with Field of Science categories'
   task add_field_of_science_to_research_domains: :environment do
     # TODO: If we can identify an external API authority for this information we should switch
     #       to fetch the list from there instead of the hard-coded list below which was derived from:
@@ -122,14 +124,14 @@ namespace :external_api do
     end
   end
 
-  desc "Push specified plan to the owners ORCID record if they have authorized the interaction"
-  task :add_plan_to_orcid_works, [:id] => [:environment] do |t, args|
+  desc 'Push specified plan to the owners ORCID record if they have authorized the interaction'
+  task :add_plan_to_orcid_works, [:id] => [:environment] do |_t, args|
     plan = Plan.find_by(id: args[:id])
 
     if plan.present?
       owner = plan.owner
-      orcid = owner.identifier_for_scheme(scheme: "orcid")
-      token = ExternalApiAccessToken.for_user_and_service(user: plan.owner, service: "orcid")
+      orcid = owner.identifier_for_scheme(scheme: 'orcid')
+      token = ExternalApiAccessToken.for_user_and_service(user: plan.owner, service: 'orcid')
 
       if owner.present? && token.present? && orcid.present?
         # TODO: Although ORCID will prevent suplicate entries, it might be good to add a method
@@ -137,11 +139,11 @@ namespace :external_api do
         ExternalApis::OrcidService.add_work(user: owner, plan: plan)
         true
       else
-        p "Either the plan has no owner or the owner has not authorized us to write to their ORCID record"
+        p 'Either the plan has no owner or the owner has not authorized us to write to their ORCID record'
         false
       end
     else
-      p "Expected a plan id to be specified like `rails external_api:add_plan_to_orcid_works[123]`"
+      p 'Expected a plan id to be specified like `rails external_api:add_plan_to_orcid_works[123]`'
       false
     end
   end

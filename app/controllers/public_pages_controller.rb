@@ -2,7 +2,6 @@
 
 # Controller for the Public DMPs and Funder Requirements pages
 class PublicPagesController < ApplicationController
-
   # --------------------------------
   # Start DMPTool Customization
   # --------------------------------

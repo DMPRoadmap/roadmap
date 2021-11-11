@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module Api
-
   # Module borrowed from the Doorkeeper gem repository:
   #  https://github.com/doorkeeper-gem/doorkeeper/blob/main/spec/support/helpers/authorization_request_helper.rb
   module AuthorizationRequestHelper
@@ -11,7 +10,7 @@ module Api
     end
 
     def resource_owner_is_not_authenticated
-      Doorkeeper.config.instance_variable_set(:@authenticate_resource_owner, proc { redirect_to("/sign_in") })
+      Doorkeeper.config.instance_variable_set(:@authenticate_resource_owner, proc { redirect_to('/sign_in') })
     end
 
     def default_scopes_exist(*scopes)
@@ -43,7 +42,6 @@ module Api
       ActionController::Base.allow_forgery_protection = original_value
     end
   end
-
 end
 
 RSpec.configuration.send :include, Api::AuthorizationRequestHelper

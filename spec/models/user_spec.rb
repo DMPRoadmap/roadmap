@@ -588,32 +588,31 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "#access_token_for(external_service_name:)" do
+  describe '#access_token_for(external_service_name:)' do
     before(:each) do
       @user = build(:user)
-      @svc = Faker::Music::PearlJam.song.downcase.gsub(" ", "_")
+      @svc = Faker::Music::PearlJam.song.downcase.gsub(' ', '_')
       @token = build(:external_api_access_token, external_service_name: @svc)
       @user.external_api_access_tokens << @token
     end
 
-    it "returns nil if the service name is not specified" do
+    it 'returns nil if the service name is not specified' do
       expect(@user.access_token_for(external_service_name: nil)).to eql(nil)
     end
-    it "returns nil if there are no access tokens" do
+    it 'returns nil if there are no access tokens' do
       @user.external_api_access_tokens.clear
       expect(@user.access_token_for(external_service_name: @svc)).to eql(nil)
     end
-    it "returns nil if there are no access tokens for the specified service name" do
+    it 'returns nil if there are no access tokens for the specified service name' do
       expect(@user.access_token_for(external_service_name: Faker::Lorem.word.downcase)).to eql(nil)
     end
-    it "returns nil if the access token is not active" do
+    it 'returns nil if the access token is not active' do
       @token.expects(:active?).returns(false)
       expect(@user.access_token_for(external_service_name: @svc)).to eql(nil)
     end
-    it "returns the access token" do
+    it 'returns the access token' do
       @token.expects(:active?).returns(true)
       expect(@user.access_token_for(external_service_name: @svc)).to eql(@token)
     end
   end
-
 end

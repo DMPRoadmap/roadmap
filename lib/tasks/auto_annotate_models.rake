@@ -52,8 +52,8 @@ if Rails.env.development?
     )
   end
 
-# ------------------------------
-# DMPTool customization - mysql adds sizes to fields which we do not want in the shared codebase
-# ------------------------------
-  #Annotate.load_tasks
+  # ------------------------------
+  # DMPTool customization - mysql adds sizes to fields which we do not want in the shared codebase
+  # ------------------------------
+  # Annotate.load_tasks
 end

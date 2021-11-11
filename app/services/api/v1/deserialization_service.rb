@@ -40,16 +40,17 @@ module Api
         # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
         # Search for an in the Org and RegistryOrg tables
+        # rubocop:disable Metrics/AbcSize
         def name_to_org(name:)
           return nil unless name.is_a?(String) && name.present?
 
-          org = ::Org.where("LOWER(name) = ?", name.downcase)
+          org = ::Org.where('LOWER(name) = ?', name.downcase)
                      .first
           return org if org.present?
 
           # External ROR search
           registry_org = ::RegistryOrg.includes(:org)
-                                      .where("LOWER(name) = ?", name.downcase)
+                                      .where('LOWER(name) = ?', name.downcase)
                                       .first
           # Return nil if no Registry Org was found
           return nil unless registry_org.present?
@@ -60,6 +61,7 @@ module Api
           # return the related Org or initialize a new one
           registry_org.to_org
         end
+        # rubocop:enable Metrics/AbcSize
 
         # Translates the role in the json to a Contributor role
         def translate_role(role:)

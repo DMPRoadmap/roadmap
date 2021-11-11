@@ -49,7 +49,8 @@ class Org < ApplicationRecord
 
   dragonfly_accessor :logo
 
-  validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif', 'jpg', 'bmp', 'svg'], message: _("must be one of the following formats: jpeg, jpg, png, gif, bmp, svg")
+  validates_property :format, of: :logo, in: %w[jpeg png gif jpg bmp svg],
+                              message: _('must be one of the following formats: jpeg, jpg, png, gif, bmp, svg')
   validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
 
   # If the org was created and has a fundref/ror id then it was derived from a
@@ -148,8 +149,8 @@ class Org < ApplicationRecord
                                    message: INCLUSION_MESSAGE }
 
   validates_property :format, of: :logo, in: LOGO_FORMATS,
-                              message: _("must be one of the following formats: " \
-                                "jpeg, jpg, png, gif, bmp svg")
+                              message: _('must be one of the following formats: ' \
+                                         'jpeg, jpg, png, gif, bmp svg')
 
   validates_size_of :logo,
                     maximum: 500.kilobytes,
@@ -217,8 +218,8 @@ class Org < ApplicationRecord
 
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
-    where("lower(orgs.name) LIKE lower(?) OR " \
-          "lower(orgs.abbreviation) LIKE lower(?)",
+    where('lower(orgs.name) LIKE lower(?) OR ' \
+          'lower(orgs.abbreviation) LIKE lower(?)',
           search_pattern, search_pattern)
   }
 

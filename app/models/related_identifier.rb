@@ -24,12 +24,11 @@
 #  index_relateds_on_identifiable_and_relation_type   (identifiable_id,identifiable_type,relation_type)
 #
 class RelatedIdentifier < ApplicationRecord
-
   include Uc3Citation
 
-  URL_REGEX = %r{^http}.freeze
-  DOI_REGEX = %r{(doi:)?10\.[0-9]+\/[a-zA-Z0-9\.\-\/]+}.freeze
-  ARK_REGEX = %r{ark:[a-zA-Z0-9]+\/[a-zA-Z0-9]+}.freeze
+  URL_REGEX = /^http/.freeze
+  DOI_REGEX = %r{(doi:)?10\.[0-9]+/[a-zA-Z0-9.\-/]+}.freeze
+  ARK_REGEX = %r{ark:[a-zA-Z0-9]+/[a-zA-Z0-9]+}.freeze
 
   # ================
   # = Associations =
@@ -96,7 +95,7 @@ class RelatedIdentifier < ApplicationRecord
                         identifier_scheme.identifier_prefix.present?
 
     base = identifier_scheme.identifier_prefix
-    value.gsub(base, "").sub(%r{^/}, "")
+    value.gsub(base, '').sub(%r{^/}, '')
   end
 
   private
@@ -107,26 +106,25 @@ class RelatedIdentifier < ApplicationRecord
   end
 
   def detect_identifier_type
-    return "ark" unless (value =~ ARK_REGEX).nil?
-    return "doi" unless (value =~ DOI_REGEX).nil?
-    return "url" unless (value =~ URL_REGEX).nil?
+    return 'ark' unless (value =~ ARK_REGEX).nil?
+    return 'doi' unless (value =~ DOI_REGEX).nil?
+    return 'url' unless (value =~ URL_REGEX).nil?
 
-    "other"
+    'other'
   end
 
   def detect_relation_type
-    relation_type.present? ? relation_type : "is_referenced_by"
+    relation_type.present? ? relation_type : 'is_referenced_by'
   end
 
   def load_citation
     # Only attempt to load the citation if that functionality has been enabled in the
     # config, this is a DOI and its either a new record or the value has changed
-    if Rails.configuration.x.madmp.enable_citation_lookup && identifier_type == "doi" &&
+    if Rails.configuration.x.madmp.enable_citation_lookup && identifier_type == 'doi' &&
        citation.nil?
-      wrk_type = work_type == "supplemental_information" ? "" : work_type
+      wrk_type = work_type == 'supplemental_information' ? '' : work_type
       # Use the UC3Citation service to fetch the citation for the DOI
-      self.citation = fetch_citation(doi: value, work_type: wrk_type) #, debug: true)
+      self.citation = fetch_citation(doi: value, work_type: wrk_type) # , debug: true)
     end
   end
-
 end

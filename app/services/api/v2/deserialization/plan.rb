@@ -1,15 +1,11 @@
 # frozen_string_literal: true
 
 module Api
-
   module V2
-
     module Deserialization
-
+      # Deserialization of RDA Common Standard for dmp to Plan
       class Plan
-
         class << self
-
           # Convert the incoming JSON into a Plan
           #   {
           #     "dmp": {
@@ -48,6 +44,7 @@ module Api
           #       }]
           #     }
           #   }
+          # rubocop:disable Metrics/AbcSize
           def deserialize(json: {})
             return nil unless Api::V2::JsonValidationService.plan_valid?(json: json)
 
@@ -74,6 +71,7 @@ module Api
             plan = deserialize_contributors(plan: plan, json: json)
             deserialize_datasets(plan: plan, json: json)
           end
+          # rubocop:enable Metrics/AbcSize
 
           # ===================
           # = PRIVATE METHODS =
@@ -81,6 +79,8 @@ module Api
 
           private
 
+          # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+          # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           def find_or_initialize(id_json:, json: {})
             return nil unless json.present?
 
@@ -92,19 +92,19 @@ module Api
               if Api::V2::DeserializationService.doi?(value: id)
                 # Find by the DOI or ARK
                 plan = Api::V2::DeserializationService.object_from_identifier(
-                  class_name: "Plan", json: id_json
+                  class_name: 'Plan', json: id_json
                 )
               elsif schm.present?
                 value = id.start_with?(schm.identifier_prefix) ? id : "#{schm.identifier_prefix}#{id}"
                 identifier = ::Identifier.find_by(
-                  identifiable_type: "Plan", identifier_scheme: schm, value: value
+                  identifiable_type: 'Plan', identifier_scheme: schm, value: value
                 )
                 plan = identifier.identifiable if identifier.present?
               else
                 # For URL based identifiers
                 begin
-                  plan = ::Plan.find_by(id: id.split("/").last.to_i) if id.start_with?("http")
-                rescue StandardError => e
+                  plan = ::Plan.find_by(id: id.split('/').last.to_i) if id.start_with?('http')
+                rescue StandardError => _e
                   # Catches scenarios where the dmp_id is NOT one of our URLs
                   plan = nil
                 end
@@ -119,8 +119,11 @@ module Api
             # If the external system provided an identifier and they have an IdentifierScheme
             Api::V2::DeserializationService.attach_identifier(object: plan, json: id_json)
           end
+          # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+          # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
           # Deserialize the datasets and attach to plan
+          # rubocop:disable Metrics/CyclomaticComplexity
           def deserialize_datasets(plan:, json: {})
             return plan unless json.present? && json[:dataset].present? && json[:dataset].is_a?(Array)
 
@@ -136,8 +139,10 @@ module Api
             end
             plan
           end
+          # rubocop:enable Metrics/CyclomaticComplexity
 
           # Deserialize the project information and attach to Plan
+          # rubocop:disable Metrics/AbcSize
           def deserialize_project(plan:, json: {})
             return plan unless json.present? &&
                                json[:project].present? &&
@@ -153,7 +158,7 @@ module Api
 
             Api::V2::Deserialization::Funding.deserialize(plan: plan, json: funding)
           end
-          # rubocop:enable
+          # rubocop:enable Metrics/AbcSize
 
           # Deserialize the contact as a Contributor
           def deserialize_contact(plan:, json: {})
@@ -186,13 +191,8 @@ module Api
             template = Template.published(json.fetch(:dmproadmap_template, {})[:id].to_i).last
             template.present? ? template : default
           end
-
         end
-
       end
-
     end
-
   end
-
 end

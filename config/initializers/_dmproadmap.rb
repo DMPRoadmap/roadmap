@@ -22,6 +22,7 @@ require 'csv'
 #           can be updated to point directly at the AnywayConfig file.
 module DMPRoadmap
   # Base configuration for the DMPRoadmap system
+  # rubocop:disable Layout/LineLength
   class Application < Rails::Application
     # --------------------- #
     # ORGANISATION SETTINGS #
@@ -44,7 +45,6 @@ module DMPRoadmap
     # Your organisation's telephone number - used on the contact us page
     config.x.organisation.telephone = Rails.configuration.x.dmproadmap.organisation_phone
     # Your organisation's address - used on the contact us page
-    # rubocop:disable Naming/VariableNumber
     config.x.organisation.address = {
       line1: Rails.configuration.x.dmproadmap.organisation_address_line1,
       line2: Rails.configuration.x.dmproadmap.organisation_address_line2,
@@ -52,8 +52,6 @@ module DMPRoadmap
       line4: Rails.configuration.x.dmproadmap.organisation_address_line4,
       country: Rails.configuration.x.dmproadmap.organisation_country
     }
-    # rubocop:enable Naming/VariableNumber
-
     # The Google maps link to your organisation's location - used to display the
     # Google map on the contact us page.
     # To find your organisation's Google maps URL, open maps.google.com, search for
@@ -278,4 +276,5 @@ module DMPRoadmap
     # Allow the system to fetch citations for RelatedIdentifiers via the Uc3Citation gem
     config.x.madmp.enable_citation_lookup = Rails.configuration.x.dmproadmap.enable_citation_lookup
   end
+  # rubocop:enable Layout/LineLength
 end

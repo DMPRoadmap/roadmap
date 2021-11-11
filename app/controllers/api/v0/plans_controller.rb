@@ -1,67 +1,5 @@
 # frozen_string_literal: true
 
-<<<<<<< HEAD
-class Api::V0::PlansController < Api::V0::BaseController
-
-  include Paginable
-
-  before_action :authenticate
-
-  ##
-  # Creates a new plan based on the information passed in JSON to the API
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  def create
-    @template = Template.live(params[:template_id])
-    raise Pundit::NotAuthorizedError unless Api::V0::PlansPolicy.new(@user, @template).create?
-
-    plan_user = User.find_by(email: params[:plan][:email])
-    # ensure user exists
-    if plan_user.blank?
-      # DMPTool customization
-      plan_user = User.invite!(
-        inviter: @user,
-        plan: Plan.new(title: params[:plan][:title], template: @template),
-        params: { email: params[:plan][:email], org: @user.org }
-      )
-      # User.invite!({ email: params[:plan][:email] }, @user)
-      # plan_user = User.find_by(email: params[:plan][:email])
-      # plan_user.org = @user.org
-      # plan_user.save
-    end
-    # ensure user's organisation is the same as api user's
-    unless plan_user.org == @user.org
-      raise Pundit::NotAuthorizedError, _("user must be in your organisation")
-    end
-
-    # initialize the plan
-    @plan = Plan.new
-
-    # Attach the user as the PI and Data Contact
-    @plan.contributors << Contributor.new(
-      name: [plan_user.firstname, plan_user.surname].join(" "),
-      email: plan_user.email,
-      investigation: true,
-      data_curation: true
-    )
-
-    # set funder name to template's org, or original template's org
-    @plan.funder_id = if @template.customization_of.nil?
-                        @template.org.id
-                      else
-                        Template.where(
-                          family_id: @template.customization_of
-                        ).first.org.id
-                      end
-    @plan.template = @template
-    @plan.title = params[:plan][:title]
-    if @plan.save
-      @plan.assign_creator(plan_user)
-      respond_with @plan
-    else
-      # the plan did not save
-      headers["WWW-Authenticate"] = "Token realm=\"\""
-      render json: _("Bad Parameters"), status: 400
-=======
 module Api
   module V0
     # Primary controller for API V0 that handles CRUD operations for Plans
@@ -180,7 +118,6 @@ module Api
         end_date = Date.parse(hash.fetch(stop, today.to_date.to_s)) + 1.day
         start_date..end_date
       end
->>>>>>> 9e252de5049794dcf2f990010936a13d613c6786
     end
   end
 end

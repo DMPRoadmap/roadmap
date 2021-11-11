@@ -40,7 +40,7 @@ class RolesController < ApplicationController
           if user.nil?
             registered = false
             # DMPTool customization
-            user = User.invite!(
+            User.invite!(
               inviter: current_user,
               plan: plan,
               params: { email: role_params[:user][:email], org: current_user.org }
@@ -51,10 +51,9 @@ class RolesController < ApplicationController
             #                org: current_user.org,
             #                invitation_plan_id: @role.plan.id },
             #              current_user)
-            message = _("Invitation to %{email} issued successfully.") % {
-              email: role_params[:user][:email]
-            }
-            user = User.where_case_insensitive("email", role_params[:user][:email]).first
+            message = format(_('Invitation to %<email>s issued successfully.'),
+                             email: role_params[:user][:email])
+            user = User.where_case_insensitive('email', role_params[:user][:email]).first
           end
 
           message += format(_('Plan shared with %<email>s.'), email: user.email)
@@ -78,7 +77,7 @@ class RolesController < ApplicationController
     else
       flash[:alert] = _('Please enter an email address')
     end
-    redirect_to controller: "contributors", action: "index", plan_id: @role.plan.id
+    redirect_to controller: 'contributors', action: 'index', plan_id: @role.plan.id
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -105,7 +104,6 @@ class RolesController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   # DELETE /roles/:id
-  # rubocop:disable Metrics/AbcSize
   def destroy
     @role = Role.find(params[:id])
     authorize @role
@@ -118,7 +116,6 @@ class RolesController < ApplicationController
     end
     redirect_to plan_contributors_path(plan)
   end
-  # rubocop:enable Metrics/AbcSize
 
   # This function makes user's role on a plan inactive
   # i.e. "removes" this from their plans

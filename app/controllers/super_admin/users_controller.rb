@@ -24,7 +24,7 @@ module SuperAdmin
     end
 
     # PUT /super_admin/users/:id
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/AbcSize
     def update
       @user = User.find(params[:id])
       authorize @user
@@ -36,13 +36,13 @@ module SuperAdmin
       @user.org = process_org!(user: current_user)
 
       if @user.update_attributes(attrs)
-        flash.now[:notice] = success_message(@user, _("updated"))
+        flash.now[:notice] = success_message(@user, _('updated'))
       else
         flash.now[:alert] = failure_message(@user, _('update'))
       end
       render :edit
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:enable Metrics/AbcSize
 
     # PUT /super_admin/users/:id/merge
     # rubocop:disable Metrics/AbcSize

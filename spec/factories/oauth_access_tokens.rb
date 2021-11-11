@@ -25,7 +25,7 @@
 #  fk_rails_...  (application_id => oauth_applications.id)
 
 FactoryBot.define do
-  factory :oauth_access_token, class: "doorkeeper/access_token" do
+  factory :oauth_access_token, class: 'doorkeeper/access_token' do
     token         { SecureRandom.uuid }
     refresh_token { SecureRandom.uuid }
     expires_in    { Faker::Number.number(digits: 8) }

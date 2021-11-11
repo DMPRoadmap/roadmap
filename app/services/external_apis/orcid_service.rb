@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module ExternalApis
-
   # This service provides an interface to the ORCID member API:
   #   https://info.orcid.org/documentation/features/member-api/
   #   https://github.com/ORCID/ORCID-Source/tree/master/orcid-api-web
@@ -11,9 +10,7 @@ module ExternalApis
   # The tokens are created when the user either signs in via ORCID, when the user links their account
   # on the Edit profile page or when the user tries to submit their DMP to ORCID but no valid token exists
   class OrcidService < BaseDmpIdService
-
     class << self
-
       # Retrieve the config settings from the initializer
       def landing_page_url
         Rails.configuration.x.orcid&.landing_page_url || super
@@ -40,6 +37,7 @@ module ExternalApis
       end
 
       # Create a new DOI
+      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def add_work(user:, plan:)
         # Fail if this service is inactive or the plan does not have a DOI!
         return false unless active? && user.is_a?(User) && plan.is_a?(Plan) && plan.doi.present?
@@ -52,13 +50,13 @@ module ExternalApis
         # Fail if the user doesn't have an orcid or an acess token
         return false unless orcid.present? && token.present?
 
-        target = "#{api_base_url}#{work_path % { id: orcid.value.gsub(landing_page_url, "") }}"
+        target = "#{api_base_url}#{format(work_path, id: orcid.value.gsub(landing_page_url, ''))}"
 
         hdrs = {
-          "Content-type": "application/vnd.orcid+xml",
-          "Accept": "application/xml",
-          "Authorization": "Bearer #{token.access_token}",
-          "Server-Agent": "#{ApplicationService.application_name} (#{Rails.configuration.x.dmproadmap.orcid_client_id})"
+          'Content-type': 'application/vnd.orcid+xml',
+          Accept: 'application/xml',
+          Authorization: "Bearer #{token.access_token}",
+          'Server-Agent': "#{ApplicationService.application_name} (#{Rails.configuration.x.dmproadmap.orcid_client_id})"
         }
 
         resp = http_post(uri: target, additional_headers: hdrs, debug: true,
@@ -67,13 +65,14 @@ module ExternalApis
         # ORCID returns a 201 (created) when the DMP has been added to the User's works
         #               a 405 (method_not_allowed) when the DMP is already in the User's works
         unless resp.present? && [201, 405].include?(resp.code)
-          handle_http_failure(method: "ORCID add work", http_response: resp)
+          handle_http_failure(method: 'ORCID add work', http_response: resp)
           return false
         end
 
-        add_subscription(plan: plan, callback_uri: resp.headers["location"]) if resp.code == 201
+        add_subscription(plan: plan, callback_uri: resp.headers['location']) if resp.code == 201
         true
       end
+      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       # Register the ApiClient behind the minter service as a Subscriber to the Plan
       # if the service has a callback URL and ApiClient
@@ -100,15 +99,14 @@ module ExternalApis
       private
 
       def identifier_scheme
-        Rails.cache.fetch("orcid_scheme", expires_in: 1.day) do
-          IdentifierScheme.find_by("LOWER(name) = ?", name.downcase)
+        Rails.cache.fetch('orcid_scheme', expires_in: 1.day) do
+          IdentifierScheme.find_by('LOWER(name) = ?', name.downcase)
         end
       end
 
+      # rubocop:disable Metrics/AbcSize
       def xml_for(plan:, doi:, user:)
         return nil unless plan.is_a?(Plan) && doi.is_a?(Identifier) && user.is_a?(User)
-
-        orcid = user.identifier_for_scheme(scheme: name)
 
         # Derived from:
         #  https://github.com/ORCID/orcid-model/blob/master/src/main/resources/record_3.0/samples/write_samples/work-full-3.0.xml
@@ -147,9 +145,9 @@ module ExternalApis
             </work:citation>
             <work:type>data-management-plan</work:type>
             <common:publication-date>
-              <common:year>#{plan.created_at.strftime("%Y")}</common:year>
-              <common:month>#{plan.created_at.strftime("%m")}</common:month>
-              <common:day>#{plan.created_at.strftime("%d")}</common:day>
+              <common:year>#{plan.created_at.strftime('%Y')}</common:year>
+              <common:month>#{plan.created_at.strftime('%m')}</common:month>
+              <common:day>#{plan.created_at.strftime('%d')}</common:day>
             </common:publication-date>
             <common:external-ids>
               <common:external-id>
@@ -162,9 +160,7 @@ module ExternalApis
           </work:work>
         XML
       end
-
+      # rubocop:enable Metrics/AbcSize
     end
-
   end
-
 end

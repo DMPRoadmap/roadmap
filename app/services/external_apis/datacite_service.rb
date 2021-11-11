@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
 module ExternalApis
-
   # This service provides an interface to Datacite API.
   class DataciteService < BaseDmpIdService
-
     class << self
-
       def name
         Rails.configuration.x.datacite&.name
       end
@@ -67,17 +64,18 @@ module ExternalApis
       end
 
       # Create a new DMP ID
+      # rubocop:disable Metrics/AbcSize
       def mint_dmp_id(plan:)
         return nil unless active?
 
         data = json_from_template(dmp: plan)
 
         resp = http_post(uri: "#{api_base_url}#{mint_path}",
-                         additional_headers: { "Content-Type": "application/vnd.api+json" },
+                         additional_headers: { 'Content-Type': 'application/vnd.api+json' },
                          data: data, basic_auth: auth, debug: false)
 
         unless resp.present? && [200, 201].include?(resp.code)
-          handle_http_failure(method: "Datacite mint_dmp_id", http_response: resp)
+          handle_http_failure(method: 'Datacite mint_dmp_id', http_response: resp)
           notify_administrators(obj: plan, response: resp)
           return nil
         end
@@ -85,53 +83,57 @@ module ExternalApis
         json = process_response(response: resp)
         return nil unless json.present?
 
-        dmp_id = json.fetch("data", "attributes": { "doi": nil })
-                     .fetch("attributes", { "doi": nil })["doi"]
+        dmp_id = json.fetch('data', attributes: { doi: nil })
+                     .fetch('attributes', { doi: nil })['doi']
 
         add_subscription(plan: plan, dmp_id: dmp_id) if dmp_id.present?
         dmp_id
       end
+      # rubocop:enable Metrics/AbcSize
 
       # Update the DMP ID
+      # rubocop:disable Metrics/AbcSize
       def update_dmp_id(plan:)
         return false unless active? && plan.present? && plan.dmp_id.present?
 
         data = json_from_template(dmp: plan)
         id = plan.dmp_id.value_without_scheme_prefix
         resp = http_put(uri: "#{api_base_url}#{update_path}#{id}",
-                        additional_headers: { "Content-Type": "application/vnd.api+json" },
+                        additional_headers: { 'Content-Type': 'application/vnd.api+json' },
                         data: data, basic_auth: auth, debug: false)
 
         unless resp.present? && resp.code == 200
-          handle_http_failure(method: "Datacite update_dmp_id", http_response: resp)
+          handle_http_failure(method: 'Datacite update_dmp_id', http_response: resp)
           notify_administrators(obj: plan, response: resp)
           return false
         end
 
         update_subscription(plan: plan)
       end
+      # rubocop:enable Metrics/AbcSize
 
       # Register the ApiClient behind the minter service as a Subscriber to the Plan
       # if the service has a callback URL and ApiClient
       def add_subscription(plan:, dmp_id:)
         client = api_client
         path = callback_path
-        Rails.logger.warn "DataciteService - No ApiClient defined!" unless client.present?
+        Rails.logger.warn 'DataciteService - No ApiClient defined!' unless client.present?
         return nil unless plan.present? && dmp_id.present? && path.present? && client.present?
 
         Subscription.create(
           plan: plan,
           subscriber: client,
-          callback_uri: path % { dmp_id: dmp_id.gsub(%r{https?://doi.org/}, "") },
+          callback_uri: format(path, dmp_id: dmp_id.gsub(%r{https?://doi.org/}, '')),
           updates: true,
           deletions: true
         )
       end
 
       # Update the subscriptions for the Plan and Datacite
+      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def update_subscription(plan:)
         client = api_client
-        Rails.logger.warn "DataciteService - No ApiClient defined!" unless client.present?
+        Rails.logger.warn 'DataciteService - No ApiClient defined!' unless client.present?
         return false unless plan.present? &&
                             plan.dmp_id.present? &&
                             callback_path.present? &&
@@ -145,6 +147,7 @@ module ExternalApis
         subscriptions.each { |sub| sub.update(last_notified: Time.now) }
         true
       end
+      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       # Delete the DMP ID
       def delete_dmp_id(plan:)
@@ -165,29 +168,26 @@ module ExternalApis
 
       def json_from_template(dmp:)
         ActionController::Base.new.render_to_string(
-          template: "/datacite/_minter",
+          template: '/datacite/_minter',
           locals: { prefix: shoulder, data_management_plan: dmp }
         )
       end
 
       def process_response(response:)
         json = JSON.parse(response.body)
-        unless json["data"].present? &&
-               json["data"]["attributes"].present? &&
-               json["data"]["attributes"]["doi"].present?
-          log_error(method: "Datacite mint_dmp_id",
-                    error: StandardError.new("Unexpected JSON format from Datacite!"))
+        unless json['data'].present? &&
+               json['data']['attributes'].present? &&
+               json['data']['attributes']['doi'].present?
+          log_error(method: 'Datacite mint_dmp_id',
+                    error: StandardError.new('Unexpected JSON format from Datacite!'))
           return nil
         end
         json
       # If a JSON parse error occurs then return results of a local table search
       rescue JSON::ParserError => e
-        log_error(method: "Datacite mint_dmp_id", error: e)
+        log_error(method: 'Datacite mint_dmp_id', error: e)
         nil
       end
-
     end
-
   end
-
 end

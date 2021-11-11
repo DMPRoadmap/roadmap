@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require "uc3-ssm"
-require "logger"
-require "anyway"
-require "anyway/utils/deep_merge"
+require 'uc3-ssm'
+require 'logger'
+require 'anyway'
+require 'anyway/utils/deep_merge'
 
+# Rake tasks to load SSM params
 class SsmConfigLoader < Anyway::Loaders::Base
-
   @logger = Logger.new($stdout)
 
   # rubocop:disable Metrics/AbcSize
@@ -25,7 +25,7 @@ class SsmConfigLoader < Anyway::Loaders::Base
     # require "pp"
     # pp config
 
-    trace!(:ssm_parameter_store, ssm_root_path: ENV["SSM_ROOT_PATH"].to_s) do
+    trace!(:ssm_parameter_store, ssm_root_path: ENV['SSM_ROOT_PATH'].to_s) do
       config[name].to_h || {}
     end
 
@@ -41,9 +41,8 @@ class SsmConfigLoader < Anyway::Loaders::Base
 
   # convert elements of sub_path into hash keys recursively
   def hashify_param_path(new_hash, path, value)
-    key, _x, sub_path = path.partition("/")
+    key, _x, sub_path = path.partition('/')
     new_hash[key] = sub_path.empty? ? value : hashify_param_path({}, sub_path, value)
     new_hash
   end
-
 end

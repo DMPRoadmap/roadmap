@@ -52,8 +52,7 @@
 #  fk_rails_...  (org_id => orgs.id)
 #
 
-require_relative "../support/helpers/dmptool_helper"
-include DmptoolHelper
+require_relative '../support/helpers/dmptool_helper'
 
 FactoryBot.define do
   factory :user do
@@ -71,10 +70,10 @@ FactoryBot.define do
     # user doesn't have an org defined then attach them to
     # the is_other Org.
     # ---------------------------------------------------
-#    before(:create) do |user, evaluator|
-#      init_other_org
-#      user.org = Org.find_by(is_other: true) unless user.org.present?
-#    end
+    #    before(:create) do |user, evaluator|
+    #      init_other_org
+    #      user.org = Org.find_by(is_other: true) unless user.org.present?
+    #    end
     # ---------------------------------------------------
     # end DMPTool customization
     # ---------------------------------------------------

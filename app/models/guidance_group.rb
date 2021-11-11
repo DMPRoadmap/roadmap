@@ -26,12 +26,7 @@
 
 # Object that represents a grouping of themed guidance
 class GuidanceGroup < ApplicationRecord
-<<<<<<< HEAD
-
   attribute :optional_subset, :boolean, default: false
-=======
-  attribute :optional_subset, :boolean, default: true
->>>>>>> 9e252de5049794dcf2f990010936a13d613c6786
   attribute :published, :boolean, default: false
 
   # ================

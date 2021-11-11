@@ -1,19 +1,18 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.describe "Sign up via email and password", type: :feature do
-
+RSpec.describe 'Sign up via email and password', type: :feature do
   include DmptoolHelper
 
-# TODO: implement this after we move to baseline homepage
+  # TODO: implement this after we move to baseline homepage
 
   before(:each) do
     @existing = create(:user)
     @orgs = [create(:org), create(:org)]
 
-    @first = Faker::Movies::StarWars.character.split(" ").first
-    @last = Faker::Movies::StarWars.character.split(" ").last
+    @first = Faker::Movies::StarWars.character.split(' ').first
+    @last = Faker::Movies::StarWars.character.split(' ').last
     @email = Faker::Internet.unique.email
     @pwd = SecureRandom.uuid
 
@@ -35,11 +34,10 @@ RSpec.describe "Sign up via email and password", type: :feature do
     # Access the sign in form
     # -------------------------------------------------------------
     # Action
-    #click_link "Create account"
-#    access_create_account_modal
+    # click_link "Create account"
+    #    access_create_account_modal
     # -------------------------------------------------------------
     # end DMPTool customization
     # -------------------------------------------------------------
   end
-
 end

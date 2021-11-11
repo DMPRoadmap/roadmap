@@ -1,15 +1,11 @@
 # frozen_string_literal: true
 
 module Api
-
   module V2
-
     module Deserialization
-
+      # Deserialization of RDA Common Standard for funding to Plan funder and grant info
       class Funding
-
         class << self
-
           # Convert the funding information and attach to the Plan
           #    {
           #      "$ref": "SEE Org.deserialize! for details",
@@ -18,6 +14,7 @@ module Api
           #      },
           #      "funding_status": "granted"
           #    }
+          # rubocop:disable Metrics/AbcSize
           def deserialize(plan:, json: {})
             return nil unless plan.present?
             return plan unless Api::V2::JsonValidationService.funding_valid?(json: json)
@@ -40,13 +37,9 @@ module Api
             )
             plan
           end
-
+          # rubocop:enable Metrics/AbcSize
         end
-
       end
-
     end
-
   end
-
 end
