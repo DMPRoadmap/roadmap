@@ -42,7 +42,11 @@
     <![endif]-->
 
     <%= stylesheet_link_tag(stylesheet_manifest_file) %>
+    <link rel="stylesheet" media="screen" href="/main.css" />
+
     <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
+    <script src="/main.js" data-turbolinks-track="reload"></script>
+
     <%= csrf_meta_tags %>
 
     <meta name="msapplication-TileColor" content="#0e5682">

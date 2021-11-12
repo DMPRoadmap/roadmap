@@ -30,6 +30,10 @@ app/assets/images/homepage
 # Ignore webpack generate images in public folder
 public/*.jpg
 public/*.png
+public/*.svg
+public/*.woff
+public/*.woff2
+public/main.*
 
 # Ignore .bak files
 *.bak

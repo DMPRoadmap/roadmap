@@ -16,8 +16,5 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
-// Pull in the dmptool-ui stylesheet
-@import "../../../dmptool-ui/dist/ui-assets/main";
-
 // Overrides to both the core DMPRoadmap Bootstrap styling
 @import "dmptool/overrides/*";

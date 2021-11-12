@@ -94,6 +94,13 @@ namespace :hackery do
   desc "Copy over DMPTool-UI repo's images to the public/dmptool-ui-raw-images dir"
   task :copy_ui_assets do
     on roles(:app), wait: 1 do
+      dmptool_ui_path = Rails.root.join('dmptool-ui')
+      assets_path = Rails.root.join('dmptool-ui', 'dist', 'ui-assets', '*.*')
+      execute "cd dmptool-ui/ && git pull origin main && npm install && npm run build"
+      execute "cp dmptool-ui/dist/ui-assets #{release_path}/public"
+
+      # TODO: We can probably remove these lines later on, just need to update our Shib
+      #       metadata to use the new URL for the logo
       execute "mkdir -p #{release_path}/public/dmptool-ui-raw-images/"
       execute "cp #{release_path}/dmptool-ui/dist/ui-assets/*.ico #{release_path}/public/dmptool-ui-raw-images/"
       execute "cp #{release_path}/dmptool-ui/dist/ui-assets/*.jpg #{release_path}/public/dmptool-ui-raw-images/"
