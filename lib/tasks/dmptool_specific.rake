@@ -2,6 +2,19 @@
 
 # DMPTool specific Rake tasks
 namespace :dmptool_specific do
+  # Fetch the latest code for the dmptool-ui submodule and build the assets
+  desc 'Fetches the latest from the dmptool-ui repo (git submodule) and builds it'
+  task sync_dmptool_ui: :environment do
+    dmptool_ui_path = Rails.root.join('dmptool-ui')
+    assets_path = Rails.root.join('dmptool-ui', 'dist', 'ui-assets', '*.jpg')
+    p "Fetching latest dmptool-ui code from GitHub ..."
+    sh "cd #{dmptool_ui_path} && git pull origin main"
+    p "Building assets ..."
+    sh "cd #{dmptool_ui_path} npm install && npm run build"
+    p "Copying images to Rails' public directory ..."
+    sh "cp #{assets_path} #{Rails.root.join('public', 'assets')}"
+  end
+
   # We sent the maDMP PRs over to DMPRoadmap after they had been live in DMPTool for some time
   # This script moves the re3data URLs which we original stored in the :identifiers table
   # over to the repositories.uri column

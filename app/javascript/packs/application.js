@@ -104,7 +104,8 @@ import '../src/superAdmin/users/edit';
 // import '../src/dmptool/home/index';
 // import '../src/dmptool/home/random-hero-image.js.erb';
 
-import '../vendor/dmptoolUi';
+// Pull in the JS from the dmptool-ui submodule
+import '../../../dmptool-ui/dist/ui-assets/main';
 
 // Since we're using Webpacker to manage JS we need to startup Rails' Unobtrusive JS
 // and Turbolinks. ActiveStorage and ActionCable would also need to be in here
