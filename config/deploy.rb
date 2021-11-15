@@ -31,7 +31,7 @@ set :keep_releases, 5
 
 namespace :deploy do
   before :compile_assets, 'deploy:retrieve_credentials'
-  before :compile_assets, 'deploy:build_ui_assets'
+  before :compile_assets, 'hackery:build_ui_assets'
 
   after :deploy, 'hackery:copy_tinymce_skins'
   after :deploy, 'hackery:copy_ui_assets'
@@ -46,18 +46,6 @@ namespace :deploy do
       File.write("#{release_path}/config/credentials.yml.enc", credentials_yml_enc.chomp)
     end
   end
-
-  # rubocop:disable Layout/LineLength
-  desc 'Build the DMPTool-UI repo submodule and copy assets to app/assets pre-compile'
-  task :build_ui_assets do
-    on roles(:app), wait: 1 do
-      execute "cd #{release_path}/dmptool-ui && npm install && npm run build"
-      execute "cp #{release_path}/dmptool-ui/dist/ui-assets/application.css #{release_path}/app/assets/stylesheets/vendor/dmptool-ui.css"
-      execute "cp #{release_path}/dmptool-ui/dist/ui-assets/application.js #{release_path}/app/javascript/vendor/dmptoolUi.js"
-      execute "cp #{release_path}/dmptool-ui/dist/ui-assets/*.wof* #{release_path}/app/assets/fonts"
-    end
-  end
-  # rubocop:enable Layout/LineLength
 end
 namespace :git do
   desc 'Add the version file so that we can display the git version in the footer'
