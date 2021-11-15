@@ -3,9 +3,9 @@
 require 'uc3-ssm'
 
 # set vars for DMPTool-UI submodule https://github.com/cdlib/dmptool-ui
-set :scm,              :git
-set :git_strategy,     Capistrano::Git::SubmoduleStrategy
-set :default_env,      { path: '$PATH' }
+# set :scm,              :git
+# set :git_strategy,     Capistrano::Git::SubmoduleStrategy
+# set :default_env,      { path: '$PATH' }
 
 # set vars from ENV
 set :deploy_to,        ENV['DEPLOY_TO']       || '/dmp/apps/dmptool'
