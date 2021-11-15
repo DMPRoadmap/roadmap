@@ -281,7 +281,7 @@ group :test do
 
   gem 'capistrano-rails'
 
-  gem 'capistrano-git-submodule-strategy', '~> 0.1', github: 'ekho/capistrano-git-submodule-strategy'
+  gem 'capistrano-git-with-submodules', '~> 2.0'
 
   # Library for stubbing HTTP requests in Ruby.
   # (http://github.com/bblimke/webmock)
