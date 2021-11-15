@@ -6,6 +6,9 @@ require 'uc3-ssm'
 # set :scm,              :git
 # set :git_strategy,     Capistrano::Git::SubmoduleStrategy
 # set :default_env,      { path: '$PATH' }
+set :dmptool_ui_path, '/dmp/install/dmptool/dmptool-ui'
+set :assets_path,     '/dmp/install/dmptool/dist/ui-assets/'
+
 
 # set vars from ENV
 set :deploy_to,        ENV['DEPLOY_TO']       || '/dmp/apps/dmptool'
@@ -37,6 +40,7 @@ namespace :deploy do
   after :deploy, 'hackery:copy_ui_assets'
   after :deploy, 'git:version'
   after :deploy, 'cleanup:remove_example_configs'
+  after :deploy, 'cleanup:remove_dmptool_ui'
 
   desc 'Retrieve encrypted crendtials file from SSM ParameterStore'
   task :retrieve_credentials do
@@ -65,6 +69,13 @@ namespace :cleanup do
       execute "rm -f #{release_path}/config/initializers/*.rb.example"
     end
   end
+
+  desc 'Remove the dmptool-ui directory from the deployed directory'
+  task :remove_dmptool_ui do
+    on roles(:app), wait: 1 do
+      execute "rm -rf #{release_path}/dmptool-ui"
+    end
+  end
 end
 
 namespace :hackery do
@@ -82,26 +93,24 @@ namespace :hackery do
   desc "Build the DMPTool-UI assets and move the fonts to the app/assets dir for Rails"
   task :build_ui_assets do
     on roles(:app), wait: 1 do
-      dmptool_ui_path = Rails.root.join('dmptool-ui')
-      assets_path = Rails.root.join('dmptool-ui', 'dist', 'ui-assets', '*.*')
-      execute "cd #{install_path}/dmptool-ui/ && git pull origin main && npm install && npm run build"
-      execut "cd #{install_path}/ cp dmptool-ui/dist/ui-assets/*.woff #{release_path}/app/assets/fonts"
-      execut "cd #{install_path}/ cp dmptool-ui/dist/ui-assets/*.woff2 #{release_path}/app/assets/fonts"
+      execute "cd #{fetch :dmptool_ui_path} && git pull origin main && npm install && npm run build"
+      execut "cp #{fetch :assets_path}*.woff #{release_path}/app/assets/fonts"
+      execut "cp #{fetch :assets_path}*.woff2 #{release_path}/app/assets/fonts"
     end
   end
 
   desc "Copy over DMPTool-UI repo's images to the public/dmptool-ui-raw-images dir"
   task :copy_ui_assets do
     on roles(:app), wait: 1 do
-      execute "cp dmptool-ui/dist/ui-assets #{release_path}/public"
+      execute "cp #{fetch :assets_path}*.* #{release_path}/public"
 
       # TODO: We can probably remove these lines later on, just need to update our Shib
       #       metadata to use the new URL for the logo
       execute "mkdir -p #{release_path}/public/dmptool-ui-raw-images/"
-      execute "cp #{release_path}/dmptool-ui/dist/ui-assets/*.ico #{release_path}/public/dmptool-ui-raw-images/"
-      execute "cp #{release_path}/dmptool-ui/dist/ui-assets/*.jpg #{release_path}/public/dmptool-ui-raw-images/"
-      execute "cp #{release_path}/dmptool-ui/dist/ui-assets/*.png #{release_path}/public/dmptool-ui-raw-images/"
-      execute "cp #{release_path}/dmptool-ui/dist/ui-assets/*.svg #{release_path}/public/dmptool-ui-raw-images/"
+      execute "cp #{fetch :assets_path}*.ico #{release_path}/public/dmptool-ui-raw-images/"
+      execute "cp #{fetch :assets_path}*.jpg #{release_path}/public/dmptool-ui-raw-images/"
+      execute "cp #{fetch :assets_path}*.png #{release_path}/public/dmptool-ui-raw-images/"
+      execute "cp #{fetch :assets_path}*.svg #{release_path}/public/dmptool-ui-raw-images/"
     end
   end
 end
