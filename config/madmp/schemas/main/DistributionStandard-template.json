@@ -139,7 +139,7 @@
             "label@fr_FR": "Licence",
             "label@en_GB": "License",
             "inputType": "dropdown",
-            "registry_name": "Licenses",
+            "registry_name": "DataLicenses",
             "overridable": true,
             "form_label@fr_FR": "Licence",
             "form_label@en_GB": "License"

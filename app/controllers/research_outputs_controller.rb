@@ -77,6 +77,7 @@ class ResearchOutputsController < ApplicationController
       abbreviation: "Research Output #{max_order}",
       fullname: "New research output #{max_order}",
       is_default: false,
+      type: ResearchOutputType.find_by(label: "Dataset"),
       order: max_order
     )
 

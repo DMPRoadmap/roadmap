@@ -561,9 +561,6 @@ msgstr ""
 msgid "Click here if you have a funded project."
 msgstr ""
 
-msgid "Dataset"
-msgstr ""
-
 msgid "Element is already present in your plan."
 msgstr ""
 
@@ -639,4 +636,42 @@ msgid "Local indentifier"
 msgstr ""
 
 msgid "Personal"
+msgstr ""
+
+
+################
+### PLAN CONVERSION
+################
+
+msgid "Audiovisual"
+msgstr ""
+
+msgid "Collection"
+msgstr ""
+
+msgid "Dataset"
+msgstr ""
+
+msgid "Image"
+msgstr ""
+
+msgid "Interactive Resource"
+msgstr ""
+
+msgid "Model"
+msgstr ""
+
+msgid "Service"
+msgstr ""
+
+msgid "Software"
+msgstr ""
+
+msgid "Sound"
+msgstr ""
+
+msgid "Text"
+msgstr ""
+
+msgid "Workflow"
 msgstr ""

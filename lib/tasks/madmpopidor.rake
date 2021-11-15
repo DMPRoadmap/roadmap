@@ -5,76 +5,68 @@ require "set"
 namespace :madmpopidor do
   desc "Upgrade to v3.0.0"
   task v3_0_0: :environment do
+    p "Upgrading to DMP OPIDoR v3.0.0"
+    p "------------------------------------------------------------------------"
     Rake::Task["madmpopidor:add_structure_question_format"].execute
     Rake::Task["madmpopidor:initialize_template_locale"].execute
     Rake::Task["madmpopidor:load_registries"].execute
     Rake::Task["madmpopidor:seed"].execute
     Rake::Task["madmpopidor:initialize_plan_fragments"].execute
+    p "------------------------------------------------------------------------"
+    p "Upgrade complete"
   end
 
   desc "Initialize Dmp, Project, Meta & ResearchOutputs JSON fragments for the ancient plans"
   task initialize_plan_fragments: :environment do
-    Plan.all.each do |plan|
-      plan.create_plan_fragments if plan.json_fragment.nil?
+    p "Creating plans fragments..."
+    Plan.includes(:contributors).each do |plan|
+      FastGettext.with_locale plan.template.locale do
+        plan.create_plan_fragments if plan.json_fragment.nil?
 
-      dmp_fragment = plan.json_fragment
-      project_fragment = dmp_fragment.project
-      meta_fragment = dmp_fragment.meta
+        dmp_fragment = plan.json_fragment
+        dmp_fragment.persons.first.destroy if plan.owner.present?
 
-      I18n.with_locale plan.template.locale do
-        #################################
-        # PERSON & CONTRIBUTORS FRAGMENTS
-        #################################
-        # Principal Investigator
-        pi_person_data = {
-          "nameType" => d_("dmpopidor", "Personal"),
-          "lastName" => plan.principal_investigator,
-          "mbox" => plan.principal_investigator_email,
-          "personId" => plan.principal_investigator_identifier,
-          "idType" => plan.principal_investigator_identifier.present? ? "ORCID" : ""
-        }
-        pi_person = MadmpFragment.fragment_exists?(
-          pi_person_data, MadmpSchema.find_by(name: "PersonStandard"), dmp_fragment.id
-        )
-        if pi_person.eql?(false)
-          principal_investigator = project_fragment.principal_investigator
-          pi_person = Fragment::Person.create(
-            data: pi_person_data,
-            dmp_id: dmp_fragment.id,
-            madmp_schema: MadmpSchema.find_by(name: "PersonStandard"),
-            additional_info: { property_name: "person" }
-          )
-          principal_investigator.update(
-            data: principal_investigator.data.merge("person" => { "dbid" => pi_person.id })
-          )
-        end
-
-        # Data Contact
-        dc_person_data = if plan.data_contact.nil? && plan.data_contact_email.nil?
-                           pi_person_data
-                         else
-                           {
-                             "nameType" => d_("dmpopidor", "Personal"),
-                             "lastName" => plan.data_contact,
-                             "mbox" => plan.data_contact_email
-                           }
-                         end
+        project_fragment = dmp_fragment.project
+        meta_fragment = dmp_fragment.meta
+        principal_investigator = project_fragment.principal_investigator
         data_contact = meta_fragment.contact
-        dc_person =  MadmpFragment.fragment_exists?(
-          dc_person_data, MadmpSchema.find_by(name: "PersonStandard"), dmp_fragment.id
-        )
+        plan.contributors.each do |contributor|
+          identifier = contributor.identifiers.first
+          person_data = {
+            "nameType" => d_("dmpopidor", "Personal"),
+            "lastName" => contributor.name,
+            "mbox" => contributor.email,
+            "personId" => identifier&.value,
+            "idType" => identifier.present? ? "ORCID" : ""
+          }
 
-        if dc_person.eql?(false)
-          dc_person = Fragment::Person.create(
-            data: dc_person_data,
-            dmp_id: dmp_fragment.id,
-            madmp_schema: MadmpSchema.find_by(name: "PersonStandard"),
-            additional_info: { property_name: "person" }
+          person = MadmpFragment.fragment_exists?(
+            person_data, MadmpSchema.find_by(name: "PersonStandard"), dmp_fragment.id
+          )
+          if person.eql?(false)
+            person = Fragment::Person.create(
+              data: person_data,
+              dmp_id: dmp_fragment.id,
+              madmp_schema: MadmpSchema.find_by(name: "PersonStandard"),
+              additional_info: { property_name: "person" }
+            )
+          end
+
+          if contributor.data_curation
+            data_contact.update(
+              data: data_contact.data.merge(
+                "person" => { "dbid" => person.id }
+              )
+            )
+          end
+
+          principal_investigator.update(
+            data: principal_investigator.data.merge(
+              "person" => { "dbid" => person.id }
+            )
           )
         end
-        data_contact.update(
-          data: data_contact.data.merge("person" => { "dbid" => dc_person.id })
-        )
+
         #################################
         # PROJECT FUNDINGS
         #################################
@@ -95,19 +87,33 @@ namespace :madmpopidor do
             )
           )
         end
-      end
 
-      plan.research_outputs.each do |research_output|
-        next if research_output.nil? && research_output.json_fragment.present?
+        plan.research_outputs.each do |research_output|
+          next if research_output.nil? && research_output.json_fragment.present?
 
-        research_output.create_json_fragments
+          research_output.create_json_fragments
+          research_output_description = research_output.json_fragment.research_output_description
+          ro_type = if research_output.other_type_label.present?
+                      research_output.other_type_label
+                    else
+                      research_output.type.label
+                    end
+
+          research_output_description.update(
+            data: research_output_description.data.merge(
+              "type" => d_("dmpopidor", ro_type)
+            )
+          )
+        end
       end
     end
+    p "Done."
   end
 
   desc "Add Structured question format in table"
   task add_structure_question_format: :environment do
     if QuestionFormat.find_by(title: "Structured").nil?
+      p "Adding Structured question format..."
       QuestionFormat.create!(
         {
           title: "Structured",
@@ -117,21 +123,25 @@ namespace :madmpopidor do
           structured: true
         }
       )
+      p "Done."
     end
   end
 
   desc "Initialize the template locale to the default language of the application"
   task initialize_template_locale: :environment do
+    p "Updating template with default locale..."
     languages = Language.all
     Template.all.each do |template|
       if languages.find_by(abbreviation: template.locale).nil?
-        template.update(locale: Language.default.abbreviation)
+        template.update_columns(locale: Language.default.abbreviation)
       end
     end
+    p "Done"
   end
 
   desc "Seeds the database with the madmp data"
   task seed: :environment do
+    p "Seeding database..."
     Rake::Task["madmpopidor:load_templates"].execute
     load(Rails.root.join("db", "madmp_seeds.rb"))
   end
@@ -139,6 +149,7 @@ namespace :madmpopidor do
   # Load templates form an index file
   desc "Load JSON templates for structured questions in the database"
   task load_templates: :environment do
+    p "Loading maDMP Templates..."
     # Read and parse index.json file
     index_path = Rails.root.join("config/madmp/schemas/main/index.json")
     schemas_index = JSON.load(File.open(index_path))
@@ -160,6 +171,7 @@ namespace :madmpopidor do
           s.classname = classname
         end
         schema.update(schema: json_schema.to_json)
+        p "#{schema.name} loaded"
       rescue ActiveRecord::RecordInvalid
         p "ERROR: template #{title} is invalid (model validations)"
       end
@@ -167,16 +179,22 @@ namespace :madmpopidor do
 
     # Replace all "template_name" key/values with "schema_id" equivalent in loaded schemas
     MadmpSchema.all.each do |schema|
-      schema.update(schema: MadmpSchema.substitute_names(schema.schema))
-    rescue ActiveRecord::RecordNotFound => e
-      p "ERROR: template name substitution failed in #{schema.name}: #{e.message}"
-      next
+      begin
+        p "Substituting template_name..."
+        schema.update(schema: MadmpSchema.substitute_names(schema.schema))
+        p "Done."
+      rescue ActiveRecord::RecordNotFound => e
+        p "ERROR: template name substitution failed in #{schema.name}: #{e.message}"
+        next
+      end
     end
+    p "maDMP Templates loaded."
   end
 
   # Load registries
   desc "Load JSON registries"
   task load_registries: :environment do
+    p "Loading maDMP registries..."
     registries_path = Rails.root.join("config/madmp/registries/index.json")
     registries = JSON.load(File.open(registries_path))
 
@@ -198,7 +216,9 @@ namespace :madmpopidor do
       registry_values.each_with_index do |reg_val, idx|
         RegistryValue.create!(data: reg_val, registry: registry, order: idx)
       end
+      p "#{registry_name} loaded."
     end
+    p "Done."
   end
 end
 # rubocop:enable Metrics/BlockLength

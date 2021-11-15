@@ -44,14 +44,14 @@
                 ]
             },
             "description": "Entrepôt ou autre hébergement dans lequel les données seront mises à disposition",
-            "label@fr_FR": "Entrepôt",
-            "label@en_GB": "Data repository",
+            "label@fr_FR": "Entrepôt/Catalogue de données",
+            "label@en_GB": "Data repository/catalogs",
             "inputType": "dropdown",
             "registry_name": "Repositories",
             "overridable": true,
             "substitutable": true,
-            "form_label@fr_FR": "Choisir un entrepôt pour déposer les données et les rendre accessibles",
-            "form_label@en_GB": "Choose a data repository to deposit the data and make them accessible"
+            "form_label@fr_FR": "Choisir un entrepôt et/ou un catalogue pour déposer ou exposer les données",
+            "form_label@en_GB": "Choose a data repository / catalog  to deposit or describe the data "
         },
         "distribution": {
             "type": "array",
@@ -78,32 +78,6 @@
             "tooltip@en_GB": "A dataset can be composed of several files, available in different formats",
             "form_label@fr_FR": "Décrire chaque fichier et ses caractéristiques",
             "form_label@en_GB": "Describe each file and its characteristics"
-        },
-        "indexedIn": {
-            "type": "array",
-            "table_header": null,
-            "items": {
-                "type": "object",
-                "class": "TechnicalResource",
-                "properties": {
-                    "dbid": {
-                        "type": "number"
-                    }
-                },
-                "template_name": "TechnicalResourceStandard",
-                "required": [
-                    "dbid"
-                ]
-            },
-            "description": "Catalogue dans lequel les données sont indexées",
-            "label@fr_FR": "Catalogues de données",
-            "label@en_GB": "Data catalogs",
-            "inputType": "dropdown",
-            "registry_name": "Catalogs",
-            "overridable": true,
-            "substitutable": true,
-            "form_label@fr_FR": "Catalogues de données",
-            "form_label@en_GB": "Data catalogs"
         },
         "contributor": {
             "type": "array",
@@ -136,7 +110,7 @@
             "table_header@en_GB": "Cost type: amount",
             "items": {
                 "type": "object",
-                "class": "CostBasic",
+                "class": "Cost",
                 "properties": {
                     "dbid": {
                         "type": "number"

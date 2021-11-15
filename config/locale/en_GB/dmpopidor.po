@@ -566,9 +566,6 @@ msgstr "Please enter the acronym, title or identifier of the project"
 msgid "Click here if you have a funded project."
 msgstr "Click here if you have a funded project."
 
-msgid "Dataset"
-msgstr "Dataset"
-
 msgid "Contact"
 msgstr "Contact"
 
@@ -636,3 +633,42 @@ msgstr "Local indentifier"
 
 msgid "Personal"
 msgstr "Personal"
+
+
+
+################
+### PLAN CONVERSION
+################
+
+msgid "Audiovisual"
+msgstr "Audiovisual"
+
+msgid "Collection"
+msgstr "Collection"
+
+msgid "Dataset"
+msgstr "Dataset"
+
+msgid "Image"
+msgstr "Image"
+
+msgid "Interactive Resource"
+msgstr "Interactive Resource"
+
+msgid "Model"
+msgstr "Model"
+
+msgid "Service"
+msgstr "Service"
+
+msgid "Software"
+msgstr "Software"
+
+msgid "Sound"
+msgstr "Sound"
+
+msgid "Text"
+msgstr "Text"
+
+msgid "Workflow"
+msgstr "Workflow"

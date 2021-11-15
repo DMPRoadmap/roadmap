@@ -399,6 +399,14 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.index ["parent_id"], name: "index_research_domains_on_parent_id"
   end
 
+  create_table "research_output_types", force: :cascade do |t|
+    t.string   "label",                      null: false
+    t.string   "slug",                       null: false
+    t.boolean  "is_other",   default: false, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
   create_table "research_outputs", force: :cascade do |t|
     t.integer "plan_id"
     t.integer "output_type", default: 3, null: false
@@ -635,6 +643,12 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
   add_foreign_key "questions", "madmp_schemas"
   add_foreign_key "questions", "question_formats"
   add_foreign_key "questions", "sections"
+  add_foreign_key "questions_themes", "questions"
+  add_foreign_key "questions_themes", "themes"
+  add_foreign_key "registries", "orgs"
+  add_foreign_key "registry_values", "registries"
+  add_foreign_key "research_outputs", "plans"
+  add_foreign_key "research_outputs", "research_output_types"
   add_foreign_key "roles", "plans"
   add_foreign_key "roles", "users"
   add_foreign_key "sections", "phases"

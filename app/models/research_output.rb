@@ -21,6 +21,9 @@
 #  updated_at              :datetime         not null
 #  mime_type_id            :integer
 #  plan_id                 :integer
+#  pid                     :string
+#  other_type_label        :string
+#  research_output_type_id :integer
 #
 # Indexes
 #
@@ -48,6 +51,8 @@ class ResearchOutput < ApplicationRecord
   # ================
 
   belongs_to :plan, optional: true
+
+  belongs_to :type, class_name: ResearchOutputType, foreign_key: "research_output_type_id"
 
   has_many :answers, dependent: :destroy
 

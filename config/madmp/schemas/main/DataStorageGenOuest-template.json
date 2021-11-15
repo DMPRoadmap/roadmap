@@ -124,7 +124,7 @@
                         "type": "number"
                     }
                 },
-                "template_name": "CostBasic",
+                "template_name": "CostStandard",
                 "required": [
                     "dbid"
                 ]
