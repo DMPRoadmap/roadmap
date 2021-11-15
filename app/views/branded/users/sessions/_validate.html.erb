@@ -1,24 +1,34 @@
 <%# Devise Sign in / Sign up (validate) form that allows User to provide an email %>
 
-<%= form_with model: User.new, url: new_user_session_path, method: :post, local: true do |form| %>
-  <%# No email is present, so the homepage has just been loaded %>
+<%# No email is present, so the homepage has just been loaded %>
+<header class="c-login__header">
   <h2><%= _("Sign in / Sign up") %></h2>
 
-  <span class="form-group">
-    <%= form.label(:email, _('Email address'), class: "control-label", id: "sign-in-email-lbl") %>
-    <%= form.email_field(:email,
-                        class: "form-control #{auth_has_error?(:email) ? 'error' : ''}",
-                        aria: {
-                          required: true,
-                          labelledby: "sign-in-email-lbl sign-in-email-desc"
-                        },
-                        maxlength: 80) %>
-    <p id="sign-in-email-desc" tabindex="-1" class="control-desc">
-      <%= _("For SSO, use institutional address.") %>
-    </p>
-  </span>
+  <p class="c-login__required-field js-login__required-field"><%= _('required field') %></p>
+</header>
 
-  <span class="form-group">
-    <%= form.submit _("Continue"), class: "btn btn-default" %>
-  </span>
+<p role="alert" class="c-login__invalid-notification js-login__invalid-notification" hidden></p>
+
+<%= form_with model: User.new, url: new_user_session_path, method: :post, local: true do |form| %>
+  <div id="sign-in-sign-up-email" class="c-textfield js-textfield is-required">
+    <%= form.label :email, _('Email address') %>
+    <%= form.email_field(:email,
+                        class: "#{auth_has_error?(:email) ? 'error' : ''}",
+                        aria: { describedby: "sign-in-sign-up-email-desc" },
+                        autocomplete: 'email', required: '',
+                        minlength: 8, maxlength: 80) %>
+    <div id="sign-in-sign-up-email-desc" class="c-textfield__general-description">
+      <%= _("For SSO, use institutional address.") %>
+    </div>
+    <div id="" class="c-textfield__invalid-description js-invalid-description" hidden>
+    </div>
+  </div>
+  <button type="submit"><%= _("Continue") %></button>
 <% end %>
+
+<footer class="c-login__footer">
+  <p>
+    <%= sanitize (_('Problems signing in? %<contact_us_url>s') % {
+      contact_us_url: link_to(_('Contact us.'), contact_us_path) }) %>
+  </p>
+</footer>

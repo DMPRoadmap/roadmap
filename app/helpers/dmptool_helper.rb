@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require "httparty"
+require "rss"
+
 # DMPTool specific helpers
 module DmptoolHelper
   # Converts some of the language of User validation errors
@@ -32,11 +35,6 @@ module DmptoolHelper
     template
   end
 
-  # Bacckground images for the home page
-  def hero_images
-    %w[1-large.jpg 2-large.jpg 3-large.jpg 4-large.jpg 5-large.jpg]
-  end
-
   # Collect general statistics about the application
   def statistics
     cached = Rails.cache.read('stats')
@@ -49,24 +47,6 @@ module DmptoolHelper
     }
     cache_content('stats', stats)
     stats
-  end
-
-  # Collect  the list of the top 5 most used templates for the past 90 days
-  def top_templates
-    cached = Rails.cache.read('top_five')
-    return cached unless cached.nil?
-
-    end_date = Date.today
-    start_date = (end_date - 90)
-    ids = Plan.group(:template_id)
-              .where(created_at: start_date..end_date)
-              .order('count_id DESC')
-              .count(:id).keys
-
-    top_five = Template.where(id: ids[0..4])
-                       .pluck(:title)
-    cache_content('top_five', top_five)
-    top_five
   end
 
   # Get the last 5 blog posts

@@ -1,28 +1,32 @@
 <%# locals: form, shibbolized %>
 
-<span class="form-group">
-  <%= form.label(:email, _('Email address'), class: "control-label", id: "sign-in-email-lbl") %>
-  <%= form.email_field(:disabled_email, class: "form-control", value: resource.email,
-                      aria: {
-                        required: true,
-                        labelledby: "sign-in-email-lbl"
-                      },
-                      disabled: "disabled") %>
+<div id="sign-in-email" class="c-textfield js-textfield is-required">
+  <%= form.label(:email, _('Email address')) %>
+  <%= form.email_field(:disabled_email, value: resource.email,
+                       autocomplete: 'email', required: '', disabled: "disabled",
+                       minlength: 8, maxlength: 80) %>
   <%= form.hidden_field(:email, value: resource.email) %>
-</span>
-<span class="form-group">
-  <% if shibbolized %>
-    <%# If the Org is shibbolized and the user has an EPPN %>
-    <%= render partial: "users/shared/sso", locals: { form: form } %>
+</div>
 
-  <% else %>
+<%= form.hidden_field :org_id, value: resource.org_id %>
+
+<% if shibbolized %>
+  <%# If the Org is shibbolized and the user has an EPPN %>
+  <%= render partial: "users/shared/sso", locals: { form: form } %>
+
+<% else %>
+  <div id="sign-in-password" class="c-textfield js-textfield is-required">
     <%# Display the standard Sign in form %>
-    <%= form.hidden_field :org_id, value: resource.org_id %>
+    <%= form.label(:password, _('Password')) %>
+    <%= form.password_field(:password, autocomplete: 'password', required: '',
+                            minlength: 8, maxlength: 80) %>
+  </div>
 
-    <%= form.label(:password, _('Password'), class: "control-label") %>
-    <%= form.password_field(:password, class: "form-control", "aria-required": true) %>
+  <div class="c-login__pseudo-description">
     <%= link_to _('Forgot password?'), new_password_path('user') %>
+  </div>
+  <div id="" class="c-textfield__invalid-description js-invalid-description" hidden>
+  </div>
 
-    <%= form.submit _("Sign in"), class: "btn btn-default" %>
-  <% end %>
-</span>
+  <button type="submit"><%= _("Sign in") %></button>
+<% end %>

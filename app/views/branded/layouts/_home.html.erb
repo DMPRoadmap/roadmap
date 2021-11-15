@@ -1,14 +1,11 @@
 <% content_for :home do %>
-  <% images = hero_images.map { |img| asset_path("hero/#{img}") } %>
-  <%= hidden_field_tag "js-heroimage__images", images.to_json %>
-
-  <h1 id="js-calltoaction" class="c-calltoaction">
-    <%= _("Create Data Management Plans that meet requirements and promote your research") %>
-  </h1>
-
-  <div id="js-login" class="c-login">
-    <%= yield(:authentication) %>
+  <div class="c-calltoaction js-heroimage">
+    <h1><%= _("Create Data Management Plans that meet requirements and promote your research") %></h1>
   </div>
+
+  <section class="c-login js-login">
+    <%= yield(:authentication) %>
+  </section>
 
   <div class="c-home-stats">
     <% stats = statistics %>
@@ -26,4 +23,44 @@
       </li>
     </ul>
   </div>
+
+  <article class="c-blog" role="marquee">
+    <header>
+      <h2><%= _('Latest News from DMPTool') %></h2>
+    </header>
+
+    <!-- If the Blog feed is available -->
+    <% blog_items = feed %>
+    <% if blog_items.present? %>
+      <%
+        json = []
+        blog_items.each do |i|
+          json << { "title": "#{truncate(i.title, length: 120)}", "link": "#{i.link}" }
+        end
+      %>
+      <input type="hidden" id="j-blog__array"
+                value="<%= escape_javascript JSON.generate(json) %>" />
+    <% end %>
+
+    <div id="j-blog__content" class="c-blog__content">
+      <% unless blog_items.present? %>
+        <p><%= _('News is currently unavailable') %></p>
+      <% end %>
+    </div>
+    <footer>
+      <a href="https://blog.dmptool.org/"><%= _('View all news') %></a>
+      <ul class="c-social">
+        <li>
+          <a class="c-social__icon-twitter" href="https://twitter.com/TheDMPTool" target="_blank">
+            <span class="c-social__sr-only"><%= _('TheDMPTool on Twitter (opens new window)') %></span>
+          </a>
+        </li>
+        <li>
+          <a class="c-social__icon-rss" href="https://blog.dmptool.org/feed/" target="_blank">
+            <span class="c-social__sr-only"><%= _('DMPTool RSS feed (opens new window)') %></span>
+          </a>
+        </li>
+      </ul>
+    </footer>
+  </article>
 <% end %>

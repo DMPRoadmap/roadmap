@@ -1,23 +1,26 @@
 <%# Devise Forgotten Password form %>
 
 <% content_for :authentication do %>
-  <h2>Forgot your password?</h2>
+  <header class="c-login__header">
+    <h2><%= _("Forgot your password?") %></h2>
+
+    <p class="c-login__required-field js-login__required-field"><%= _('required field') %></p>
+  </header>
+
+  <p role="alert" class="c-login__invalid-notification js-login__invalid-notification" hidden></p>
 
   <%= form_with model: User.new, url: user_password_path, method: :post, local: true do |form| %>
-    <div class="form-group">
-      <%= form.label :email, class: "control-label" %><br />
-      <%= form.email_field :email, autofocus: true, autocomplete: "email",
-                           class: "form-control" %>
+    <div id="forgotten-password" class="c-textfield js-textfield is-required">
+      <%= form.label :email %>
+      <%= form.email_field(:email, value: resource.email, autocomplete: 'email',
+                           minlength: 8, maxlength: 80) %>
     </div>
 
-    <div class="form-group actions">
-      <%= form.submit _("Send me reset password instructions"), class: "btn btn-default" %>
-    </div>
+    <button type="submit"><%= _("Send me reset password instructions") %></button>
   <% end %>
 
-  <span class="form-group">
-    <%= render partial: "users/shared/links", locals: { show_contact_us: true } %>
-  </span>
+  <%= render partial: "users/shared/links",
+              locals: { show_back_button: true, show_contact_us: true } %>
 <% end %>
 
 <% content_for :errors do %>

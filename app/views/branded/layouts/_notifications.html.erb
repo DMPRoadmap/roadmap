@@ -1,35 +1,40 @@
 <%# locals: notice, alert %>
 
 <%# Success/notice messages %>
-<% if flash[:alert].present? || flash[:error].present? %>
-  <div id="notification-area" class="c-notification-area c-notification-area__warning" role="alert">
-    <i class="fas fa-times-circle" aria-hidden="true"></i>
-    <span class="aria-only"><%= _('Error:') %></span>
-    <span><%= sanitize((flash[:alert].present? ? flash[:alert] : flash[:error])) %></span>
-    <%= yield :model_errors %>
-  </div>
-<% elsif flash[:notice].present? %>
-  <div id="notification-area" class="c-notification-area c-notification-area__info" role="status">
-    <i class="fas fa-check-circle" aria-hidden="true"></i>
-    <span class="aria-only"><%= _('Notice:') %></span>
-    <span><%= sanitize(flash[:notice]) %></span>
-  </div>
-<% end %>
+<% globals = Notification.active_per_user(current_user) %>
 
-<%# Global messages visible to all users %>
-<div id="global-notification-area" class="c-global-notification-area">
-  <% Notification.active_per_user(current_user).each do |a| %>
-    <% unless a.acknowledged?(current_user) %>
-      <div class="alert c-global-notification-area__<%= a.level %>">
-        <span class="fas <%= fa_classes(a) %>"></span>
-        <span class="aria-only"><strong><%= "#{a.level.capitalize}:" %></strong></span>
-        <span><%= sanitize a.body %></span>
-        <% if a.dismissable? %>
-          <button class="close" data-dismiss="alert" data-url="<%= user_acknowledge_notification_path(a) %>" data-remote="true" data-method="post" data-params="notification_id=<%= a.id %>" aria-label="Close">
-            <span class="fas fa-times-circle" aria-hidden="true"></span>
-          </button>
-        <% end %>
+<div class="c-notificationgroup">
+
+  <!-- Success message -->
+  <% if flash[:notice].present? %>
+    <div id="js-notification-info" class="c-notification--info" role="alert">
+      <p><%= sanitize(flash[:notice]) %><%= yield :model_errors %></p>
+      <button id="js-notification-close" class="c-notification__close">
+        <span><%= _('Close') %></span>
+      </button>
+    </div>
+  <% end %>
+
+  <!-- Warning message -->
+  <% if globals.any? %>
+    <%= globals.each do |msg| %>
+      <div id="js-notification-warning" class="c-notification--warning" role="alert">
+        <p><%= sanitize msg.body %></p>
+        <button id="js-notification-close" class="c-notification__close">
+          <span><%= _('Close') %></span>
+        </button>
       </div>
     <% end %>
+  <% end %>
+
+  <% if flash[:alert].present? || flash[:error].present? %>
+    <!-- Error message -->
+    <div id="js-notification-danger" class="c-notification--danger" role="alert">
+      <% msg = flash[:alert].present? ? flash[:alert] : flash[:error] %>
+      <p><strong><%= _('Error:') %></strong> <%= sanitize(msg) %></p>
+      <button id="js-notification-close" class="c-notification__close">
+        <span><%= _('Close') %></span>
+      </button>
+    </div>
   <% end %>
 </div>

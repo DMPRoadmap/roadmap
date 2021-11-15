@@ -32,7 +32,7 @@
       <button id="js-language__button" class="c-headermenu__button" aria-haspopup="true">
         <%= _('Language') %>
       </button>
-      <ul id="js-language__menu" class="c-headermenu__menu" hidden>
+      <ul id="js-language__menu" class="c-headermenu__menu" foo="bar" hidden>
         <% languages.each do |lang| %>
           <li lang="<%= lang.abbreviation %>">
             <%= link_to lang.name, locale_path(lang.abbreviation), method: :patch, role: 'menuitem' %>
@@ -55,10 +55,7 @@
     </ul>
   </nav>
 
-  <% if user_signed_in? &&
-      current_user.org.present? &&
-      (current_user.org.managed? || current_user.can_super_admin?) %>
-    <% org = current_user.org %>
-    <%= render partial: "layouts/sub_header", locals: { org: org } %>
+  <% if user_signed_in? && current_user.org.present? %>
+    <%= render partial: "layouts/sub_header", locals: { org: current_user.org } %>
   <% end %>
 </header>

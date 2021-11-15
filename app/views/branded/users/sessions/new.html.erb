@@ -3,22 +3,24 @@ Devise Sign in form arrived at after the user enters their email and we determin
 that they have an existing account
 %>
 <% content_for :authentication do %>
-
   <%
   url = @shibbolized ? user_shibboleth_omniauth_authorize_path : user_session_path
   %>
-
-  <%= form_with model: resource, url: url, method: :post, local: true do |form| %>
+  <header class="c-login__header">
     <h2><%= _("Sign in") %></h2>
 
+    <p class="c-login__required-field js-login__required-field"><%= _('required field') %></p>
+  </header>
+
+  <p role="alert" class="c-login__invalid-notification js-login__invalid-notification" hidden></p>
+
+  <%= form_with model: resource, url: url, method: :post, local: true do |form| %>
     <%= render partial: "users/sessions/form",
                locals: { form: form, shibbolized: @shibbolized } %>
   <% end %>
 
-  <span class="form-group">
-    <%= render partial: "users/shared/links", locals: { show_contact_us: true } %>
-  </span>
-
+  <%= render partial: "users/shared/links",
+             locals: { show_back_button: true, show_contact_us: true } %>
 <% end %>
 
 <% content_for :home do %>

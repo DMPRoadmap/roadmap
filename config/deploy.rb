@@ -91,12 +91,20 @@ namespace :hackery do
     end
   end
 
-  desc "Copy over DMPTool-UI repo's images to the public/dmptool-ui-raw-images dir"
-  task :copy_ui_assets do
+  desc "Build the DMPTool-UI assets and move the fonts to the app/assets dir for Rails"
+  task :build_ui_assets do
     on roles(:app), wait: 1 do
       dmptool_ui_path = Rails.root.join('dmptool-ui')
       assets_path = Rails.root.join('dmptool-ui', 'dist', 'ui-assets', '*.*')
-      execute "cd dmptool-ui/ && git pull origin main && npm install && npm run build"
+      execute "cd #{install_path}/dmptool-ui/ && git pull origin main && npm install && npm run build"
+      execut "cd #{install_path}/ cp dmptool-ui/dist/ui-assets/*.woff #{release_path}/app/assets/fonts"
+      execut "cd #{install_path}/ cp dmptool-ui/dist/ui-assets/*.woff2 #{release_path}/app/assets/fonts"
+    end
+  end
+
+  desc "Copy over DMPTool-UI repo's images to the public/dmptool-ui-raw-images dir"
+  task :copy_ui_assets do
+    on roles(:app), wait: 1 do
       execute "cp dmptool-ui/dist/ui-assets #{release_path}/public"
 
       # TODO: We can probably remove these lines later on, just need to update our Shib
