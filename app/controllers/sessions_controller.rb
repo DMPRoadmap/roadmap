@@ -2,7 +2,7 @@
 
 # Controller that handles user login and logout
 class SessionsController < Devise::SessionsController
-  include Dmptool::SessionsController
+  # include Dmptool::SessionsController
 
   def new
     redirect_to(root_path)
