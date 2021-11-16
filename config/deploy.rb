@@ -101,7 +101,8 @@ namespace :hackery do
       File.write("#{fetch :dmptool_ui_path}/.npmrc", file_contents)
 
       # Now run install, build the assets and move the fonts to the Rails assets dir
-      execute "cd #{fetch :dmptool_ui_path} && npm install && npm run build"
+      execute "cd #{fetch :dmptool_ui_path} && npm install"
+      execute "cd #{fetch :dmptool_ui_path} && npm run build"
       execut "cp #{fetch :assets_path}*.woff #{release_path}/app/assets/fonts"
       execut "cp #{fetch :assets_path}*.woff2 #{release_path}/app/assets/fonts"
     end
