@@ -3326,3 +3326,6 @@ msgstr ""
 
 msgid "Successsfully refreshed the client credentials."
 msgstr ""
+
+msgid "A new entry will be created for the organisation you have named above. Please double check that your organisation does not appear in the list in a slightly different form."
+msgstr ""

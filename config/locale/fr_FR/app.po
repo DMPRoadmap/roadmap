@@ -3375,4 +3375,5 @@ msgstr "Les identifiants ont été envoyés à %{email}."
 msgid "Successsfully refreshed the client credentials."
 msgstr "Les identifiants du client ont été actualisés avec succès"
 
-
+msgid "A new entry will be created for the organisation you have named above. Please double check that your organisation does not appear in the list in a slightly different form."
+msgstr "Une nouvelle entrée sera créée pour l'organisme que vous avez renseigné ci-dessus. Veuillez vérifier que votre organisme n'apparaît pas dans la liste sous une forme légèrement différente."
