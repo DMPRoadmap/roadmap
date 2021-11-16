@@ -93,6 +93,14 @@ namespace :hackery do
   desc "Build the DMPTool-UI assets and move the fonts to the app/assets dir for Rails"
   task :build_ui_assets do
     on roles(:app), wait: 1 do
+      # Fetch the fontawesome_key so we can build the dmptool-ui repo
+      ssm = Uc3Ssm::ConfigResolver.new
+      fontawesome_key = ssm.parameter_for_key('credentials_yml_enc')
+      file_contents = '@fortawesome:registry=https://npm.fontawesome.com/'
+      file_contents += "\n//npm.fontawesome.com/:_authToken=#{fontawesome_key}"
+      File.write("#{fetch :dmptool_ui_path}/.npmrc", file_contents)
+
+      # Now run install, build the assets and move the fonts to the Rails assets dir
       execute "cd #{fetch :dmptool_ui_path} && npm install && npm run build"
       execut "cp #{fetch :assets_path}*.woff #{release_path}/app/assets/fonts"
       execut "cp #{fetch :assets_path}*.woff2 #{release_path}/app/assets/fonts"
