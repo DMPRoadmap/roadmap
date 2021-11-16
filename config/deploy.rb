@@ -27,7 +27,9 @@ set :keep_releases, 5
 namespace :deploy do
   before :compile_assets, 'deploy:retrieve_credentials'
 
+  after :deploy, 'dmptool_assets:copy_ui_assets'
   after :deploy, 'dmptool_assets:copy_tinymce_skins'
+
   after :deploy, 'git:version'
   after :deploy, 'cleanup:remove_example_configs'
 
@@ -61,6 +63,24 @@ namespace :cleanup do
 end
 
 namespace :dmptool_assets do
+  # POST ASSET COMPILATION
+  # ----------------------
+  desc "Copy over DMPTool-UI repo's images to the public/dmptool-ui-raw-images dir"
+  task :copy_ui_assets do
+    on roles(:app), wait: 1 do
+      execute "mkdir -p #{release_path}/public/dmptool-ui"
+      execute "cp #{install_path}/dmptool-ui/*.* #{release_path}/public/dmptool-ui"
+
+      # TODO: We can probably remove these lines later on, just need to update our Shib
+      #       metadata to use the new URL for the logo
+      execute "mkdir -p #{release_path}/public/dmptool-ui-raw-images/"
+      execute "cp #{fetch :dmptool_ui_assets_path}*.ico #{release_path}/public/dmptool-ui-raw-images/"
+      execute "cp #{fetch :dmptool_ui_assets_path}*.jpg #{release_path}/public/dmptool-ui-raw-images/"
+      execute "cp #{fetch :dmptool_ui_assets_path}*.png #{release_path}/public/dmptool-ui-raw-images/"
+      execute "cp #{fetch :dmptool_ui_assets_path}*.svg #{release_path}/public/dmptool-ui-raw-images/"
+    end
+  end
+
   # Webpacker and TinyMCE do not play nicely with one another. Webpacker/Rails stores its copiled CSS and JS
   # in minified application.[ext] files that are fingerprinted but TinyMCE expects them elsewhere
   desc 'Move TinyMCE skin files to public dir'
