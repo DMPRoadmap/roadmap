@@ -93,7 +93,7 @@ namespace :hackery do
   desc "Build the DMPTool-UI assets and move the fonts to the app/assets dir for Rails"
   task :build_ui_assets do
     on roles(:app), wait: 1 do
-      execute "cd #{fetch :dmptool_ui_path} && git pull origin main && npm install && npm run build"
+      execute "cd #{fetch :dmptool_ui_path} && npm install && npm run build"
       execut "cp #{fetch :assets_path}*.woff #{release_path}/app/assets/fonts"
       execut "cp #{fetch :assets_path}*.woff2 #{release_path}/app/assets/fonts"
     end
