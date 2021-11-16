@@ -74,10 +74,10 @@ namespace :dmptool_assets do
       # TODO: We can probably remove these lines later on, just need to update our Shib
       #       metadata to use the new URL for the logo
       execute "mkdir -p #{release_path}/public/dmptool-ui-raw-images/"
-      execute "cp #{fetch :dmptool_ui_assets_path}*.ico #{release_path}/public/dmptool-ui-raw-images/"
-      execute "cp #{fetch :dmptool_ui_assets_path}*.jpg #{release_path}/public/dmptool-ui-raw-images/"
-      execute "cp #{fetch :dmptool_ui_assets_path}*.png #{release_path}/public/dmptool-ui-raw-images/"
-      execute "cp #{fetch :dmptool_ui_assets_path}*.svg #{release_path}/public/dmptool-ui-raw-images/"
+      execute "cp /dmp/install/dmptool/public/dmptool-ui/*.ico #{release_path}/public/dmptool-ui-raw-images/"
+      execute "cp /dmp/install/dmptool/public/dmptool-ui/*.jpg #{release_path}/public/dmptool-ui-raw-images/"
+      execute "cp /dmp/install/dmptool/public/dmptool-ui/*.png #{release_path}/public/dmptool-ui-raw-images/"
+      execute "cp /dmp/install/dmptool/public/dmptool-ui/*.svg #{release_path}/public/dmptool-ui-raw-images/"
     end
   end
 
