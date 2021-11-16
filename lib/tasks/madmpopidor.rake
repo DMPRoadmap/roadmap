@@ -59,12 +59,13 @@ namespace :madmpopidor do
               )
             )
           end
-
-          principal_investigator.update(
-            data: principal_investigator.data.merge(
-              "person" => { "dbid" => person.id }
+          if contributor.investigation
+            principal_investigator.update(
+              data: principal_investigator.data.merge(
+                "person" => { "dbid" => person.id }
+              )
             )
-          )
+          end
         end
 
         #################################
