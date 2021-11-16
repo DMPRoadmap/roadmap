@@ -95,7 +95,7 @@ namespace :hackery do
     on roles(:app), wait: 1 do
       # Fetch the fontawesome_key so we can build the dmptool-ui repo
       ssm = Uc3Ssm::ConfigResolver.new
-      fontawesome_key = ssm.parameter_for_key('credentials_yml_enc')
+      fontawesome_key = ssm.parameter_for_key('fontawesome_key')
       file_contents = '@fortawesome:registry=https://npm.fontawesome.com/'
       file_contents += "\n//npm.fontawesome.com/:_authToken=#{fontawesome_key}"
       File.write("#{fetch :dmptool_ui_path}/.npmrc", file_contents)
