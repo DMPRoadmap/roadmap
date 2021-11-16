@@ -95,8 +95,8 @@ namespace :dmptool_assets do
       execute "cd #{fetch :dmptool_ui_path} && npm install"
       execute "cd #{fetch :dmptool_ui_path} && npm run build"
 
-      execut "cp #{fetch :dmptool_ui_assets_path}*.woff #{release_path}/app/assets/fonts"
-      execut "cp #{fetch :dmptool_ui_assets_path}*.woff2 #{release_path}/app/assets/fonts"
+      execute "cp #{fetch :dmptool_ui_assets_path}*.woff #{release_path}/app/assets/fonts"
+      execute "cp #{fetch :dmptool_ui_assets_path}*.woff2 #{release_path}/app/assets/fonts"
     end
   end
 
