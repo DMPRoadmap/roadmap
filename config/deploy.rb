@@ -69,7 +69,7 @@ namespace :dmptool_assets do
   task :copy_ui_assets do
     on roles(:app), wait: 1 do
       execute "mkdir -p #{release_path}/public/dmptool-ui"
-      execute "cp #{install_path}/dmptool-ui/*.* #{release_path}/public/dmptool-ui"
+      execute "cp /dmp/install/dmptool/public/dmptool-ui/*.* #{release_path}/public/dmptool-ui"
 
       # TODO: We can probably remove these lines later on, just need to update our Shib
       #       metadata to use the new URL for the logo
