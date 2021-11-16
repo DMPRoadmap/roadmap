@@ -1,4 +1,0 @@
-[submodule "dmptool-ui"]
-	path = dmptool-ui
-	url = https://github.com/cdlib/dmptool-ui.git
-	branch = rails-fixes
