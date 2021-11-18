@@ -151,6 +151,10 @@ msgstr "Mostrar senha"
 msgid "Select an organisation from the list."
 msgstr "Selecione uma organização da lista."
 
+#: ../../app/views/branded/users/sessions/_validate.html.erb:21
+msgid "For SSO, use institutional address."
+msgstr "Para SSO, use endereço institucional."
+
 #: ../../app/views/branded/layouts/_constants.html.erb:13
 msgid "My organisation isn't listed"
 msgstr "Minha organização não está listada"

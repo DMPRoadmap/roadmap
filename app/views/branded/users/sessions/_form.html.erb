@@ -1,9 +1,9 @@
 <%# locals: form, shibbolized %>
 
-<div id="sign-in-email" class="c-textfield js-textfield is-required">
+<div id="sign-in-email" class="c-textfield js-textfield">
   <%= form.label(:email, _('Email address')) %>
   <%= form.email_field(:disabled_email, value: resource.email,
-                       autocomplete: 'email', required: '', disabled: "disabled",
+                       autocomplete: 'email', required: true, disabled: "disabled",
                        minlength: 8, maxlength: 80) %>
   <%= form.hidden_field(:email, value: resource.email) %>
 </div>
@@ -15,10 +15,10 @@
   <%= render partial: "users/shared/sso", locals: { form: form } %>
 
 <% else %>
-  <div id="sign-in-password" class="c-textfield js-textfield is-required">
+  <div id="sign-in-password" class="c-textfield js-textfield">
     <%# Display the standard Sign in form %>
     <%= form.label(:password, _('Password')) %>
-    <%= form.password_field(:password, autocomplete: 'password', required: '',
+    <%= form.password_field(:password, autocomplete: 'password', required: true,
                             minlength: 8, maxlength: 80) %>
   </div>
 

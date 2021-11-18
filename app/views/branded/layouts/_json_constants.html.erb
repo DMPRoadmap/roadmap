@@ -30,11 +30,25 @@ constants_json = {
   AUTOCOMPLETE_ARIA_HELPER: _("%{n} results are available, use up and down arrows to navigate suggestions. Use the Enter key to select a suggestion or the Escape key to close the suggestions."),
   AUTOCOMPLETE_ARIA_HELPER_EMPTY: _("No results are available for your entry."),
 
-  CURRENT_LOCALE: LocaleService.to_gettext(locale: @current_locale.to_s),
+  CURRENT_LOCALE: LocaleService.to_gettext(locale: @current_locale.to_s)&.split('-')&.first,
 
   MORE_INFO: _("More info"),
   LESS_INFO: _("Less info"),
-  ACQUIRING_DMP_ID: _("Acquiring your DMP ID. This may take a few seconds ...")
+  ACQUIRING_DMP_ID: _("Acquiring your DMP ID. This may take a few seconds ..."),
+
+  # Translations that go with the JS files from the dmptool-ui
+  # The copy_assets_to_dmptool.sh in that repo will convert the js files to js.erb
+  SIGN_IN_UP_INVALID_FORM: _("Please correct the ${errorNumber} fields below:"),
+  SIGN_IN_UP_REQUIRED_FIELDS: _("required field"),
+  SIGN_IN_UP_VALID_FORM: _("Ready to submit:"),
+
+  SIGN_IN_UP_BLANK_CHECKBOX: _("Please check this box."),
+  SIGN_IN_UP_BLANK_EMAIL: _("Please enter an email address."),
+  SIGN_IN_UP_BLANK_FIELD: _("Please complete this ${labelText} field."),
+  SIGN_IN_UP_BLANK_PASSWORD: _("Please enter a password."),
+
+  SIGN_IN_UP_INVALID_EMAIL: _("Please enter a valid email address."),
+  SIGN_IN_UP_INVALID_PASSWORD: _("Please enter a password of at least 8 characters.")
 }.to_json
 %>
 

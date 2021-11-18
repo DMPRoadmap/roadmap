@@ -10,6 +10,8 @@ that they do NOT have an existing account
 
   <header class="c-login__header">
     <h2><%= _("Sign up") %></h2>
+
+    <p class="c-login__required-field js-login__required-field"><%= _('required field') %></p>
   </header>
 
   <p role="alert" class="c-login__invalid-notification js-login__invalid-notification" hidden></p>
@@ -24,18 +26,12 @@ that they do NOT have an existing account
       go_back_link: link_to(_("go back"), root_path),
       contact_us_link: link_to(_("contact us"), contact_us_path)
     }) %>
-
   </p>
 
-  <footer class="c-login__footer">
-    <%= render partial: "users/shared/links", locals: { show_contact_us: false } %>
-  </footer>
+  <%= render partial: "users/shared/links",
+             locals: { show_back_button: true, show_contact_us: false } %>
 <% end %>
 
 <% content_for :home do %>
   <%= render partial: "layouts/home" %>
-<% end %>
-
-<% content_for :model_errors do %>
-  <%= render partial: "users/shared/error_messages" %>
 <% end %>

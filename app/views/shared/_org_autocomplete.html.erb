@@ -46,6 +46,9 @@ classes = local_assigns.fetch(:classes, "")
 # NOTE: if you specify a namespace, be sure that the RegistryOrgsController's strong params support it!
 namespace = local_assigns.fetch(:namespace, nil)
 
+# The identifier for the div containing the autocomplete
+div_id = local_assigns.fetch(:div_id, (namespace.present? ? "#{namespace}-org" : 'org'))
+
 placeholder = _("Begin typing to see a list of suggestions.")
 autocomplete_id = SecureRandom.hex(6)
 
@@ -55,11 +58,11 @@ user_entered = default_org.present? &&
 %>
 
 <%= fields_for :org_autocomplete do |org_fields| %>
-  <% if col_size.present? %><div class="col-md-<%= col_size %>"><% end %>
+  <div id="<%= div_id %>" class="c-textfield js-textfield <%= required ? 'is-required' : '' %>">
     <%= org_fields.label :"#{[namespace, "name"].compact.join("_")}", label %>
 
     <%= org_fields.text_field :"#{[namespace, "name"].compact.join("_")}",
-                              class: "form-control auto-complete #{classes}",
+                              class: "#{classes}",
                               placeholder: placeholder,
                               value: user_entered ? nil : default_org&.name,
                               list: "autocomplete-#{autocomplete_id}",
@@ -82,32 +85,36 @@ user_entered = default_org.present? &&
     <%# crosswalk contains the same results as suggestions but as a JSON array so we can
         determine if the entry in the autocomplete matches a suggestion. %>
     <%= org_fields.hidden_field :crosswalk, value: [default_org&.name].to_json,
-                                         class: "autocomplete-crosswalk-#{autocomplete_id}" %>
+                                class: "autocomplete-crosswalk-#{autocomplete_id}" %>
 
     <%# message to display to the user if they did not select an item from the suggestions %>
     <div class="autocomplete-warning-<%= autocomplete_id %> autocomplete-warning red hide">
       <%= allow_custom_org_entry ? _("Please select an item from the list or check the box below and provide a name for your organization.") : _("Please select an item from the list.") %>
     </div>
-  <% if col_size.present? %></div><% end %>
+  </div>
 
   <%# If we are allowing the user to specify orgs we don't know about then display the checkbox and
       textbox for the user's custom Org name %>
   <% if allow_custom_org_entry %>
     <conditional>
-      <div class="col-md-<%= col_size %>">
-        <%= org_fields.label(:"#{[namespace, "not_in_list"].compact.join("_")}", class: 'control-label') do %>
-          <%= org_fields.check_box(:"#{[namespace, "not_in_list"].compact.join("_")}", class: "new-org-entry",
-                                   context: "not-in-list-#{autocomplete_id}",
-                                   checked: user_entered) %>
-          <%= _('I cannot find my %{item_label} in the list') % { item_label: label.downcase } %>
-        <% end %>
-      </div>
-      <div class="col-md-<%= col_size %>">
-        <%= org_fields.text_field :"#{[namespace, "user_entered_name"].compact.join("_")}",
-                                  value: user_entered ? default_org&.name : nil,
-                                  placeholder: _("Please enter the %{item_label} name") % { item_label: label.downcase },
-                                  class: "form-control toggleable-field user-entered-org-#{autocomplete_id}",
-                                  maxlength: 80 %>
+      <div class="c-login__pseudo-description">
+        <div id="js-unlisted-checkbox" class="c-checkbox js-checkbox">
+          <%= org_fields.check_box(:"#{[namespace, "not_in_list"].compact.join("_")}",
+                                    class: "new-org-entry",
+                                    context: "not-in-list-#{autocomplete_id}",
+                                    checked: user_entered) %>
+          <%= org_fields.label :"#{[namespace, "not_in_list"].compact.join("_")}",
+                              _('I cannot find my %{item_label} in the list') % {
+                                item_label: label.downcase
+                              } %>
+        </div>
+        <div id="js-unlisted-textfield" class="c-textfield js-textfields">
+          <%= org_fields.text_field :"#{[namespace, "user_entered_name"].compact.join("_")}",
+                                    value: user_entered ? default_org&.name : nil,
+                                    placeholder: _("Please enter the %{item_label} name") % { item_label: label.downcase },
+                                    class: "form-control toggleable-field user-entered-org-#{autocomplete_id}",
+                                    maxlength: 80 %>
+        </div>
       </div>
     </conditional>
   <% end %>

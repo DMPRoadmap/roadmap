@@ -9,14 +9,14 @@
 
 <p role="alert" class="c-login__invalid-notification js-login__invalid-notification" hidden></p>
 
-<%= form_with model: User.new, url: new_user_session_path, method: :post, local: true do |form| %>
-  <div id="sign-in-sign-up-email" class="c-textfield js-textfield is-required">
+<%= form_with model: User.new, url: new_user_session_path, method: :post, local: true,
+              class: "novalidate" do |form| %>
+  <div id="sign-in-sign-up-email" class="c-textfield js-textfield">
     <%= form.label :email, _('Email address') %>
     <%= form.email_field(:email,
-                        class: "#{auth_has_error?(:email) ? 'error' : ''}",
+                        class: "require-me",
                         aria: { describedby: "sign-in-sign-up-email-desc" },
-                        autocomplete: 'email', required: '',
-                        minlength: 8, maxlength: 80) %>
+                        autocomplete: 'email') %>
     <div id="sign-in-sign-up-email-desc" class="c-textfield__general-description">
       <%= _("For SSO, use institutional address.") %>
     </div>

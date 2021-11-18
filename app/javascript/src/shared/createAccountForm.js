@@ -1,7 +1,7 @@
 import { togglisePasswords } from '../utils/passwordHelper';
 
 $(() => {
-  togglisePasswords({ selector: '#create_account_form' });
+  // togglisePasswords({ selector: '#create_account_form' });
 
   const createAccountForm = $('#create_account_form');
 

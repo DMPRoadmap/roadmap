@@ -35,6 +35,7 @@ import '../src/utils/tooltipHelper';
 
 // Specific functions from the Utilities files that will be made available to
 // the js.erb templates in the `window.x` statements below
+import getConstant from '../src/utils/constants';
 import { renderAlert, renderNotice, hideNotifications } from '../src/utils/notificationHelper';
 import toggleSpinner from '../src/utils/spinner';
 import { Tinymce } from '../src/utils/tinymce.js.erb';
@@ -68,8 +69,11 @@ import '../src/publicTemplates/show';
 import '../src/relatedIdentifiers/edit';
 import '../src/researchOutputs/form';
 import '../src/roles/edit';
-import '../src/shared/createAccountForm';
-import '../src/shared/signInForm';
+
+// DMPTool customization - these forms are handled by dmptool-ui repo
+// import '../src/shared/createAccountForm';
+// import '../src/shared/signInForm';
+
 import '../src/usage/index';
 import '../src/users/adminGrantPermissions';
 import '../src/users/notificationPreferences';
@@ -122,6 +126,7 @@ window.jQuery = jQuery;
 
 // Allow js.erb files to access the notificationHelper functions
 window.addAsterisks = addAsterisks;
+window.getConstant = getConstant;
 window.renderAlert = renderAlert;
 window.renderNotice = renderNotice;
 window.hideNotifications = hideNotifications;
@@ -130,7 +135,7 @@ window.Tinymce = Tinymce;
 window.initAutoComplete = initAutoComplete;
 window.togglisePasswords = togglisePasswords;
 
-$(() => {
+window.addEventListener('load', () => {
   // Initialize any org autocompletes
   $('body').find('.auto-complete').each((_idx, el) => {
     initAutoComplete(`#${$(el).attr('id')}`);

@@ -1,15 +1,12 @@
 <%# locals: form, shibbolized %>
 
-<span class="form-group">
-  <%= form.label(:email, _('Email address'), class: "control-label", id: "sign-in-email-lbl") %>
-  <%= form.email_field(:disabled_email, class: "form-control", value: resource.email,
-                      aria: {
-                        required: true,
-                        labelledby: "sign-in-email-lbl"
-                      },
-                      disabled: "disabled", size: 80) %>
+<div id="sign-up-email" class="c-textfield js-textfield is-required">
+  <%= form.label(:email, _('Email address')) %>
+  <%= form.email_field(:disabled_email, value: resource.email,
+                       autocomplete: 'email', required: '', disabled: "disabled",
+                       minlength: 8, maxlength: 80) %>
   <%= form.hidden_field(:email, value: resource.email) %>
-</span>
+</div>
 
 <% if shibbolized %>
   <%# The Org is Shibbolized so display the Institutional Sign in %>
@@ -17,68 +14,55 @@
 
 <% else %>
   <%# Display the standard Sign up form %>
-  <span class="form-group">
-    <%= form.label(:firstname, _('First Name'), class: "control-label") %>
-    <%= form.text_field(:firstname, aria: { required: true }, spellcheck: false,
-                        autocomplete: "off", maxlength: 40,
-                        class: "form-control #{auth_has_error?(:firstname) ? 'error' : ''}") %>
-  </span>
-  <span class="form-group">
-    <%= form.label(:surname, _('Last Name'), class: "control-label") %>
-    <%= form.text_field(:surname, aria: { required: true }, spellcheck: false,
-                        autocomplete: "off", maxlength: 40,
-                        class: "form-control #{auth_has_error?(:surname) ? 'error' : ''}") %>
-  </span>
+  <div id="sign-up-firstname" class="c-textfield js-textfield">
+    <%= form.label :firstname, _('First Name') %>
+    <%= form.text_field(:firstname, spellcheck: false, autocomplete: "off", maxlength: 40,
+                        required: true) %>
+  </div>
+  <div id="sign-up-surname" class="c-textfield js-textfield">
+    <%= form.label :surname, _('Last Name') %>
+    <%= form.text_field(:surname, spellcheck: false, autocomplete: "off", maxlength: 40,
+                        required: true) %>
+  </div>
 
-  <span id="create-account-org-controls" class="form-group">
-    <%= render partial: "shared/org_autocomplete",
-              locals: { form: form,
-                        default_org: resource&.org,
-                        required: true,
-                        classes: "#{auth_has_error?(:org) ? 'error' : ''}",
-                        label: _("Institution") } %>
-    <script type="text/javascript">
-      initAutoComplete('#org_autocomplete_name');
-    </script>
-  </span>
-  <span id="password-controls" class="form-group">
-    <%= form.label(:password, _('Password'), class: "control-label checkbox-label") %>
-    <%= form.password_field(:password, aria: { required: true },
-                            class: "form-control #{auth_has_error?(:password) ? 'error' : ''}") %>
-    <% if @minimum_password_length %>
-      <em>
-        <%= _("(%{min_password_length} characters minimum)") % {
-          min_password_length: @minimum_password_length }
-        %>
-      </em>
-      <br>
-    <% end %>
-    <%= form.label(:password_toggle, class: "checkbox-label") do %>
-      <%= check_box_tag("passwords_toggle_sign_up", nil, false, class: "passwords_toggle" ) %>
-      <%= _('Show password') %>
-    <% end %>
-  </span>
-  <br>
-  <span class="form-group">
-    <%= form.label(:accept_terms) do %>
-      <%= form.check_box(:accept_terms, aria: { required: true },
-                        class: "#{auth_has_error?(:accept_terms) ? 'error' : ''}") %>
-      <%= _('I accept the') %>
-      <%= link_to _('terms and conditions'), terms_path %>
-    <% end %>
-  </span>
+  <%= render partial: "shared/org_autocomplete",
+            locals: { form: form,
+                      div_id: 'sign-up-org',
+                      default_org: resource&.org,
+                      required: true,
+                      classes: "",
+                      label: _("Institution") } %>
+  <script type="text/javascript">
+    initAutoComplete('#org_autocomplete_name');
+  </script>
 
-  <br>
-  <span class="form-group">
-    <% if Rails.configuration.x.recaptcha.enabled %>
-      <div class="form-group">
-        <%= label_tag(nil, _('Security check')) %>
-        <%= recaptcha_tags %>
-      </div>
-    <% end %>
-  </span>
 
-  <span class="form-group">
-    <%= form.submit _("Sign up"), class: "btn btn-default" %>
-  </span>
+  <div id="js-password-field" class="c-textfield js-textfield">
+    <%# Display the standard Sign in form %>
+    <%= form.label(:password, _('Password')) %>
+    <%= form.password_field(:password, autocomplete: 'password', required: true,
+                            minlength: 8, maxlength: 80) %>
+  </div>
+  <div class="c-login__pseudo-description">
+    <div id="js-password-toggle" class="c-checkbox js-checkbox">
+      <input type="checkbox" id="password-toggle"/>
+      <label for="password-toggle"><%= _('Show password') %></label>
+    </div>
+  </div>
+
+  <div id="sign-up-accept-terms" class="c-checkbox js-checkbox">
+    <%= form.check_box :accept_terms, { required: true }, true, false %>
+    <%= form.label :accept_terms, sanitize(_('I accept the %<terms_url>s') % {
+                                    terms_url: link_to(_('terms and conditions'), terms_path)
+                                  }) %>
+  </div>
+
+  <% if Rails.configuration.x.recaptcha.enabled %>
+    <div id="sign-up-recaptcha" class="c-textfield js-textfield">
+      <%= label_tag(nil, _('Security check')) %>
+      <%= recaptcha_tags %>
+    </div>
+  <% end %>
+
+  <button type="submit"><%= _("Sign up") %></button>
 <% end %>
