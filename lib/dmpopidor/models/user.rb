@@ -29,7 +29,7 @@ module Dmpopidor
         self.current_sign_in_ip =  nil
         self.active = false
 
-        self.user_identifiers.destroy_all
+        self.identifiers.destroy_all
 
         Rails.logger.info "User #{self.id} anonymized"
         p "User #{self.id} anonymized"
