@@ -117,4 +117,12 @@ namespace :dmpopidor_upgrade do
     Plan.where(feedback_requested: true).update_all(feedback_requested: false)
   end
 
+  desc "Add Structured question format in table"
+  task add_structure_question_format: :environment do
+    if QuestionFormat.find_by(title: "Structured").nil?
+      QuestionFormat.create!({ title: "Structured", description: "Structured question format", 
+                                option_based: false, formattype: 9, structured: true })
+    end
+  end
+
 end

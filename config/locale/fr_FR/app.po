@@ -209,12 +209,6 @@ msgstr "Plan de gestion de données créé à l'aide de %{application_name}"
 #msgid "A Data Management Plan in %{application_name} has been shared with you"
 #msgstr ""
 
-#, fuzzy
-msgid "A Data Management Plan in %{tool_name} has been shared \"\
-"
-"                   \"with you"
-msgstr ""
-
 #msgid "A Data Management Plan in %{tool_name} has been shared with you"
 #msgstr "Un plan de gestion de données a été partagé avec vous sur %{tool_name}"
 
@@ -497,7 +491,7 @@ msgid "Cannot share plan with %{email} since that email matches with the owner o
 msgstr "Vous ne pouvez pas partager ce plan avec %{email} parce que ce courriel correspond à celui du propriétaire du plan."
 
 msgid "Captcha verification failed, please retry."
-msgstr "La vérification du Captcha a échouée, veuillez réessayer."
+msgstr "La vérification du CAPTCHA a échouée, veuillez réessayer."
 
 msgid "Change affiliation"
 msgstr "Changer d'affiliation"
@@ -714,8 +708,9 @@ msgstr "DMPRoadmap ('l'outil', 'le système"
 #msgid "DOCX"
 #msgstr "DOCX"
 
-#msgid "DOCX <em class=\"sr-only\">(new window)</em>"
-#msgstr ""
+#, fuzzy
+msgid "DOCX <em class=\"sr-only\">(new window)</em>"
+msgstr "DOCX <em class=\"sr-only\">(nouvelle fenêtre)</em>"
 
 msgid "Data Contact Person"
 msgstr "Personne-contact pour les données"
@@ -757,7 +752,7 @@ msgid "Disconnect your account from ORCID. You can reconnect at any time."
 msgstr "Déconnecter votre compte d'ORCID. Vous pouvez vous reconnecter à tout moment."
 
 msgid "Dismissable"
-msgstr "Peut être retiré"
+msgstr "Peut être retirée"
 
 msgid "Display additional comment area."
 msgstr "Afficher un zone de commentaire supplémentaire."
@@ -1099,7 +1094,7 @@ msgid "If you have any questions, please contact the %{application_name} team at
 msgstr "Si vous avez des questions, contactez l'équipe %{application_name} ici : <a href='mailto:%{helpdesk_email}'>%{helpdesk_email}</a>"
 
 msgid "If you wish to add an organisational template for a Data Management Plan, use the 'create template' button. You can create more than one template if desired e.g. one for researchers and one for PhD students. Your template will be presented to users within your organisation when no funder templates apply. If you want to add questions to funder templates use the 'customise template' options below."
-msgstr "Si vous souhaitez ajouter un modèle organisme, utilisez le bouton 'créer un modèle'. Si vous le souhaitez vous pouvez créer plusieurs modèles (ex: pour les chercheurs, pour les doctorants). Votre modèle sera proposé aux utilisateurs de votre organisme lorsqu'aucun modèle finance ne s'applique. Si vous souhaitez ajouter des questions aux modèles financeurs, utilisez l'option 'personnaliser le modèler'."
+msgstr "Si vous souhaitez ajouter un modèle organisme, utilisez le bouton 'créer un modèle'. Si vous le souhaitez vous pouvez créer plusieurs modèles (ex: pour les chercheurs, pour les doctorants). Votre modèle sera proposé aux utilisateurs de votre organisme lorsqu'aucun modèle finance ne s'applique. Si vous souhaitez ajouter des questions aux modèles financeurs, utilisez l'option 'personnaliser le modèle'."
 
 msgid "If you would like to change your password please complete the following fields."
 msgstr "Si vous souhaitez changer votre mot de passe, renseignez les champs suivants."
@@ -1195,7 +1190,7 @@ msgid "Link your institutional credentials"
 msgstr "Lier vos identifiants institutionnels"
 
 msgid "Link your institutional credentials to access your account with them."
-msgstr ""
+msgstr "Lier vos identifiants institutionnels afin d'accéder à votre compte avec ceux ci."
 
 msgid "Links"
 msgstr "Liens"
@@ -1327,7 +1322,7 @@ msgid "No additional comment area will be displayed."
 msgstr "Aucune zone de commentaire supplémentaire ne sera affichée."
 
 msgid "No funder associated with this plan or my funder is not listed"
-msgstr ""
+msgstr "Aucun financeur n'est associé à ce plan ou mon financeur n'est pas dans la liste"
 
 msgid "No items available."
 msgstr "Aucun enregistrement disponible."
@@ -1511,11 +1506,12 @@ msgstr "Mail du propriétaire"
 msgid "Owner name"
 msgstr "Nom du propriétaire"
 
-#msgid "PDF"
-#msgstr "PDF"
+msgid "PDF"
+msgstr "PDF"
 
-#msgid "PDF <em class=\"sr-only\">(new window)</em>"
-#msgstr ""
+#, fuzzy
+msgid "PDF <em class=\"sr-only\">(new window)</em>"
+msgstr "PDF <em class=\"sr-only\">(nouvelle fenêtre)</em>"
 
 msgid "PDF formatting"
 msgstr "Mise en forme du PDF"
@@ -1868,8 +1864,11 @@ msgstr "Rôle"
 msgid "Run your own filter"
 msgstr "Filtrer"
 
-#msgid "SAMPLE MESSAGE: A data librarian from %{org_name} will respond to your request within 48"
-#msgstr ""
+#, fuzzy
+msgid "SAMPLE MESSAGE: A data librarian from %{org_name} will respond to your request within 48"
+"       hours. If you have questions pertaining to this action please contact us"
+"       at %{organisation_email}."
+msgstr ""
 
 msgid "Same as Principal Investigator"
 msgstr "Identique au Chercheur Principal"
@@ -1971,7 +1970,7 @@ msgid "Selected option(s)"
 msgstr "Option(s) choisie(s)"
 
 msgid "Send"
-msgstr "Sauvegarder"
+msgstr "Envoyer"
 
 msgid "Set plan visibility"
 msgstr "Définir la visibilité du plan"
@@ -2145,7 +2144,7 @@ msgid "Text field"
 msgstr "Champ textuel"
 
 msgid "Thank you for registering. Please confirm your email address"
-msgstr ""
+msgstr "Merci de vous être enregistré. Veuillez confirmer votre courriel"
 
 msgid "That email address is already registered."
 msgstr "Cette adresse électronique est déjà enregistrée."
@@ -2481,7 +2480,7 @@ msgid "Unknown formatting setting"
 msgstr "Réglage de mise en forme"
 
 msgid "Unknown margin. Can only be 'top', 'bottom', 'left' or 'right'"
-msgstr ""
+msgstr "Marge inconnue. Seuls les paramètres 'haut', 'bas', 'gauche' ou 'droite' sont possibles"
 
 msgid "Unknown organisation."
 msgstr "Organisme inconnue."
@@ -2545,6 +2544,9 @@ msgstr "Les graphiques affichent les nouveaux utilisateurs et plans de votre org
 
 msgid "Move the mouse pointer over the bars of a chart to see numbers."
 msgstr "Passez la souris sur le graphique pour voir les nombres."
+
+msgid "Move the mouse pointer over the bars of a chart to see numbers. Click on the bar to see the list of these users/plans to interrogate statistics in more detail"
+msgstr "Passez la souris sur le graphique pour voir les nombres. Cliquez sur une des barres de la liste des utilisateurs ou plans afin d'avoir plus de détails sur les statistiques"
 
 msgid "Use API"
 msgstr "Utiliser l'API"
@@ -2610,7 +2612,7 @@ msgid "We found multiple DMP templates corresponding to your funder."
 msgstr "Nous avons trouvé plusieurs modèles correspondants à votre financeur."
 
 msgid "We invite you to peruse the DMPRoadmap GitHub wiki to learn how to "
-msgstr ""
+msgstr "Nous vous invitons à lire attentivement le wiki du GitHub de DMPRoadmap pour apprendre à "
 
 #msgid "We were unable to verify your account. Please use the following form to create a new account. You will be able to link your new account afterward."
 #msgstr "Impossible de valider votre compte. Veuillez utilisez le formulaire ci-dessous pour créer un nouveau compte. Vous pourrez lier votre nouveau compte plus tard."
@@ -3080,7 +3082,7 @@ msgid "preferences"
 msgstr "préférences"
 
 msgid "private"
-msgstr "Privé"
+msgstr "privé"
 
 msgid "profile"
 msgstr "profil"
@@ -3294,3 +3296,84 @@ msgstr "Est-ce un plan de test ?"
 
 msgid "Sign in or Create account"
 msgstr "Se connecter ou Créer un compte"
+
+msgid "Identifier"
+msgstr "Identifiant"
+
+msgid "Contributors"
+msgstr "Contributeurs"
+
+msgid "Please list the project’s Principle Investigator(s) and those responsible for data management."
+msgstr "Veuillez lister le Chercher Principal du projet, ainsi que les personnes responsables de la gestion des données."
+
+msgid "No contributors have been defined."
+msgstr "Aucun contributeur n'a été créé."
+
+msgid "Add a contributor"
+msgstr "Ajouter un contributeur"
+
+msgid "New contributor"
+msgstr "Nouveau contributeur"
+
+msgid "View all contributors"
+msgstr "Voir tous les contributeurs"
+
+msgid "Editing contributor"
+msgstr "Modifier un contributeur"
+
+msgid "Affiliation"
+msgstr "Affiliation"
+
+msgid "Roles"
+msgstr "Rôles"
+
+msgid "You are about to delete '%{contributor_name}'. Are you sure?"
+msgstr "Vous êtes sur le point de supprimer '%{contributor_name}'. En êtes vous sûr ?"
+
+msgid "Api Clients"
+msgstr "Clients API"
+
+msgid "Create Api Client"
+msgstr "Créer un client API"
+
+msgid "Manage API access for external applications"
+msgstr "Gérer les accès à l'API par des applications externes"
+
+msgid "Homepage"
+msgstr "Page d'accueil"
+
+msgid "Contact Name"
+msgstr "Nom du contact"
+
+msgid "Contact Email"
+msgstr "Courriel du contact"
+
+msgid "Client ID"
+msgstr "ID client"
+
+msgid "Client Secret"
+msgstr "Secret client"
+
+msgid "Last accessed on"
+msgstr "Dernier accès"
+
+msgid "Never"
+msgstr "Jamais"
+
+msgid "Editing API client"
+msgstr "Editer un client API"
+
+msgid "New API Client"
+msgstr "Nouveau client API"
+
+msgid "View all API clients"
+msgstr "Voir tous les clients API"
+
+msgid "The credentials have been sent to %{email}."
+msgstr "Les identifiants ont été envoyés à %{email}."
+
+msgid "Successsfully refreshed the client credentials."
+msgstr "Les identifiants du client ont été actualisés avec succès"
+
+msgid "A new entry will be created for the organisation you have named above. Please double check that your organisation does not appear in the list in a slightly different form."
+msgstr "Une nouvelle entrée sera créée pour l'organisme que vous avez renseigné ci-dessus. Veuillez vérifier que votre organisme n'apparaît pas dans la liste sous une forme légèrement différente."

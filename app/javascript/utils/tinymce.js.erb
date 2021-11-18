@@ -20,8 +20,8 @@ export const defaultOptions = {
   selector: '.tinymce',
   statusbar: true,
   menubar: false,
-  toolbar: 'bold italic | bullist numlist | link | table',
-  plugins: 'table autoresize link paste advlist lists',
+  toolbar: 'bold italic underline | fontsizeselect forecolor | bullist numlist | link | table',
+  plugins: 'table autoresize link paste advlist lists textcolor',
   browser_spellcheck: true,
   advlist_bullet_styles: 'circle,disc,square', // Only disc bullets display on htmltoword
   target_list: false,
@@ -84,7 +84,7 @@ export const Tinymce = {
   */
   init(options = {}) {
     if (isObject(options)) {
-      tinymce.init(Object.assign({}, defaultOptions, options)).then(resizeEditors);
+      tinymce.init($.extend({}, defaultOptions, options)).then(resizeEditors);
     } else {
       tinymce.init(defaultOptions).then(resizeEditors);
     }

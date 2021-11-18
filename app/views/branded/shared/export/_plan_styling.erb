@@ -40,6 +40,9 @@
     padding: 0; 
     margin: 1em 0 0 0;
   }
+  h4 {
+    color: #2c7dad;
+  }
   h3 + div.question > h4 {
     margin: 0; 
   }
@@ -47,21 +50,35 @@
     page-break-inside: avoid !important; 
   }
   table { 
-    border-collapse: collapse; 
+    border-spacing: 5px;
+    width: 100%;
   }
   th, td { 
-    border: 1px solid black !important; 
-    padding: 2px;
+    padding: 0 0 5px 0;
   }
+
+  table.real-table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+  }
+  table.real-table th, 
+  table.real-table td {
+    border: 1px solid black !important; 
+    padding: 5px;
+  }
+
   p { 
     margin: 0.25em 0;
   }
   .cover-page {
     font-size: 1.1rem; 
   }
-  .question {
+  .question, .plan-details {
     margin-top: 15px;
     margin-bottom: 10px;
+  }
+  .question:not(:last-child) {
+    border-bottom: 1px solid #1c5170;
   }
   .question:first-child {
     margin-top: 0;
@@ -83,4 +100,46 @@
     margin: 5px;
     padding: 5px;
   }
+
+  .fragment-display {
+    width: 100%;
+    padding: 5px 20px;
+    border: none;
+    border-left: 2px solid #1c5170;
+  }
+  .fragment-display .property-label {
+    font-weight: bold;
+    color: #000;
+  }
+  .fragment-display thead{
+    font-weight: bold;
+    color: #1c5170;
+  }
+
+  .fragment-property.fragment-list {
+    padding: 0 0 5px 0;
+  }
+
+  .fragment-property {
+    padding: 5px 0px;
+  }
+
+  .property-label {
+    font-weight: bold;
+    color: #1c5170;
+    width: 25%;
+    vertical-align: top;
+  }
+
+  .property-value {
+    width: 75%;
+  }
+
+  .sub-fragment {
+    width: 100%;
+  }
+  .sub-fragment-list {
+    width: 100%;
+  }
+
 </style>

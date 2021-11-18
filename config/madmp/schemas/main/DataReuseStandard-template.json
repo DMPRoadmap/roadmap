@@ -1,0 +1,70 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DataReuseStandard",
+    "description": "DataReuseStandard template",
+    "type": "object",
+    "class": "DataReuseStandard",
+    "properties": {
+        "justification": {
+            "type": "string",
+            "description": "Justification de la réutilisation ou non réutilisation de données existantes",
+            "inputType": "textarea",
+            "label@fr_FR": "Justification",
+            "label@en_GB": "Justification",
+            "tooltip@fr_FR": "Indiquer comment elles seront intégrées au projet",
+            "tooltip@en_GB": "Indicate how they will be integrated into the project",
+            "form_label@fr_FR": "Justifier la réutilisation ou la non-réutilisation de données existantes",
+            "form_label@en_GB": "Justify the reuse or non-reuse of existing data"
+        },
+        "reusedData": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "ReusedData",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ReusedDataStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Jeu de données réutilisé",
+            "label@fr_FR": "Données réutilisées",
+            "label@en_GB": "Reused data",
+            "form_label@fr_FR": "Décrire le ou les produits de recherche réutilisés",
+            "form_label@en_GB": "Describe the reused research output(s)"
+        },
+        "cost": {
+            "type": "array",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
+            "items": {
+                "type": "object",
+                "class": "Cost",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "CostStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Coûts éventuels liés à l'achat de données",
+            "label@fr_FR": "Coûts",
+            "label@en_GB": "Costs",
+            "form_label@fr_FR": "Coûts liés à la réutilisation de données existantes",
+            "form_label@en_GB": "Existing reuse data associated costs"
+        }
+    },
+    "required": [
+        "justification"
+    ],
+    "to_string": []
+}

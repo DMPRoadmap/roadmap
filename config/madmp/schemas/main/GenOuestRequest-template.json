@@ -1,0 +1,59 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "GenOuestRequest",
+    "description": "GenOuestRequest template",
+    "type": "object",
+    "class": "GenOuestRequest",
+    "properties": {
+        "justification": {
+            "type": "string",
+            "description": "Justification du besoin",
+            "inputType": "textarea",
+            "label@fr_FR": "Justification",
+            "label@en_GB": "justification",
+            "form_label@fr_FR": "Justification",
+            "form_label@en_GB": "justification"
+        },
+        "dataSize": {
+            "type": "number",
+            "description": "Volume des données concernées en octets",
+            "label@fr_FR": "Taille des données",
+            "label@en_GB": "Data size",
+            "example@fr_FR": "Taille totale dans cet espace en Go",
+            "form_label@fr_FR": "Taille des données",
+            "form_label@en_GB": "Data size"
+        },
+        "volumeUnit": {
+            "type": "string",
+            "description": "Unité de volume",
+            "inputType": "dropdown",
+            "label@fr_FR": "Unité",
+            "label@en_GB": "Unit",
+            "registry_name": "VolumeUnit",
+            "overridable": true,
+            "default@fr_FR": "Go",
+            "default@en_GB": "GB",
+            "form_label@fr_FR": "Unité",
+            "form_label@en_GB": "Unit"
+        },
+        "endStorageDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Date de fin de stockage",
+            "label@fr_FR": "Fin du stockage",
+            "label@en_GB": "End of storage",
+            "example@fr_FR": "Date de fin de stockage sur l'espace de travail",
+            "example@en_GB": "End date of storage on the workspace",
+            "form_label@fr_FR": "Fin du stockage",
+            "form_label@en_GB": "End of storage"
+        }
+    },
+    "required": [
+        "justification",
+        "dataSize",
+        "volumeUnit",
+        "endStorageDate"
+    ],
+    "to_string": []
+}

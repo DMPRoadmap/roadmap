@@ -3,29 +3,38 @@
 #
 # Table name: answers
 #
-#  id                 :integer          not null, primary key
-#  text               :text
-#  plan_id            :integer
-#  user_id            :integer
-#  question_id        :integer
-#  created_at         :datetime
-#  updated_at         :datetime
-#  lock_version       :integer          default("0")
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0)
+#  text         :text
+#  created_at   :datetime
+#  updated_at   :datetime
+#  label_id     :string
+#  plan_id      :integer
+#  question_id  :integer
+#  user_id      :integer
 #  is_common          :boolean          default("false")
 #  research_output_id :integer
 #
 # Indexes
 #
-#  answers_plan_id_idx                  (plan_id)
-#  answers_question_id_idx              (question_id)
-#  answers_user_id_idx                  (user_id)
+#  fk_rails_3d5ed4418f           (question_id)
+#  fk_rails_584be190c2           (user_id)
+#  fk_rails_84a6005a3e           (plan_id)
+#  index_answers_on_plan_id      (plan_id)
+#  index_answers_on_question_id  (question_id)
 #  index_answers_on_research_output_id  (research_output_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (plan_id => plans.id)
+#  fk_rails_...  (question_id => questions.id)
+#  fk_rails_...  (user_id => users.id)
 #
 
 class Answer < ActiveRecord::Base
 
   include ValidationMessages
-
+  prepend Dmpopidor::Models::Answer
 
   # ================
   # = Associations =
@@ -45,6 +54,7 @@ class Answer < ActiveRecord::Base
 
   has_many :notes
 
+  has_one :madmp_fragment, class_name: "MadmpFragment", dependent: :destroy
 
   # ===============
   # = Validations =
@@ -93,6 +103,7 @@ class Answer < ActiveRecord::Base
   # presence of text
   #
   # Returns Boolean
+  # SEE MODULE
   def answered?
     if question.present?
       if question.question_format.option_based?
@@ -115,6 +126,7 @@ class Answer < ActiveRecord::Base
   # empty hml tags and check.
   #
   # Returns Boolean
+  # SEE MODULE
   def is_blank?
     if text.present?
       return text.gsub(/<\/?p>/, "").gsub(/<br\s?\/?>/, "").chomp.blank?

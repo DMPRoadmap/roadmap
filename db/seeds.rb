@@ -30,14 +30,14 @@ identifier_schemes = [
     description: 'ORCID',
     active: true,
     logo_url:'http://orcid.org/sites/default/files/images/orcid_16x16.png',
-    user_landing_url:'https://orcid.org'
+    identifier_prefix:'https://orcid.org'
   },
   {
     name: 'shibboleth',
     description: 'Your institutional credentials',
     active: true,
     logo_url: 'http://newsite.shibboleth.net/wp-content/uploads/2017/01/Shibboleth-logo_2000x1200-1.png',
-    user_landing_url: "https://example.com"
+    identifier_prefix: "https://example.com"
   },
 ]
 identifier_schemes.map { |is| create(:identifier_scheme, is) }
@@ -86,25 +86,13 @@ question_formats.map{ |qf| create(:question_format, qf) }
 # Languages (check config/locales for any ones not defined here)
 # -------------------------------------------------------
 languages = [
-  {abbreviation: 'en-GB',
+  {abbreviation: 'en_GB',
    description: '',
    name: 'English (GB)',
    default_language: true},
-  {abbreviation: 'en-US',
-   description: '',
-   name: 'English (US)',
-   default_language: false},
-  {abbreviation: 'fr',
+  {abbreviation: 'fr_FR',
    description: '',
    name: 'Français',
-   default_language: false},
-  {abbreviation: 'de',
-   description: '',
-   name: 'Deutsch',
-   default_language: false},
-  {abbreviation: 'es',
-   description: '',
-   name: 'Español',
    default_language: false}
 ]
 languages.map { |l| create(:language, l) }
@@ -231,13 +219,9 @@ orgs = [
    org_type: 2, links: {"org":[]},
    language: Language.find_by(abbreviation: 'en-GB')},
   {name: 'University of Exampleland',
-    abbreviation: 'UOS',
-    org_type: 1, links: {"org":[]},
-    language: Language.find_by(abbreviation: 'en-GB')},
-  {name: 'Other Organisation',
-    abbreviation: 'other',
-    org_type: 1, is_other: true, links: {"org":[]},
-    language: Language.find_by(abbreviation: 'en-GB')}
+   abbreviation: 'UOS',
+   org_type: 1, links: {"org":[]},
+   language: Language.find_by(abbreviation: 'en_GB')}
 ]
 orgs.map{ |o| create(:org, o) }
 
@@ -816,19 +800,19 @@ annotations = [
 annotations.map{ |s| Annotation.create!(s) if Annotation.find_by(text: s[:text]).nil? }
 
 research_output_types = [
-  {label: 'Audiovisual'},
-  {label: 'Collection'},
-  {label: 'Dataset'},
-  {label: 'Image'},
-  {label: 'Interactive Resource'},
-  {label: 'Model'},
-  {label: 'Physical Object'},
-  {label: 'Service'},
-  {label: 'Software'},
-  {label: 'Sound'},
-  {label: 'Text'},
-  {label: 'Workflow'},
-  {label: 'Other', is_other: true},
+  { label: "Audiovisual" },
+  { label: "Collection" },
+  { label: "Dataset" },
+  { label: "Image" },
+  { label: "Interactive Resource" },
+  { label: "Model" },
+  { label: "Physical Object" },
+  { label: "Service" },
+  { label: "Software" },
+  { label: "Sound" },
+  { label: "Text" },
+  { label: "Workflow" },
+  { label: "Other", is_other: true },
 ]
 
 research_output_types.map{ |s| ResearchOutputType.create!(s) if ResearchOutputType.find_by(label: s[:label]).nil? }

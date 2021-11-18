@@ -51,11 +51,15 @@ class ExportedPlan < ActiveRecord::Base
   end
 
   def principal_investigator
-    self.plan.principal_investigator
+    self.plan.contributors.investigation
   end
 
   def project_data_contact
-    self.plan.data_contact
+    self.plan.contributors.data_curation
+  end
+
+  def project_admins
+    self.plan.contributors.project_administration
   end
 
   def project_description
@@ -67,7 +71,8 @@ class ExportedPlan < ActiveRecord::Base
   end
 
   def funder
-    org = self.plan.template.try(:org)
+    org = self.plan.funder
+    org = self.plan.template.try(:org) unless org.present?
     org.name if org.present? && org.funder?
   end
 
@@ -76,13 +81,10 @@ class ExportedPlan < ActiveRecord::Base
   end
 
   def orcid
-    scheme = IdentifierScheme.find_by(name: 'orcid')
-    if self.owner.nil?
-      ''
-    else
-      orcid = self.owner.user_identifiers.where(identifier_scheme: scheme).first
-      (orcid.nil? ? '' : orcid.identifier)
-    end
+    return "" unless owner.present?
+
+    ids = owner.identifiers.by_scheme_name("orcid", "User")
+    ids.first.present? ? ids.first.value : ""
   end
 
   def sections

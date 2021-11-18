@@ -1,0 +1,37 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "LicenseStandard",
+    "description": "LicenseStandard template",
+    "type": "object",
+    "class": "LicenseStandard",
+    "properties": {
+        "licenseName": {
+            "type": "string",
+            "description": "Nom de la licence",
+            "label@fr_FR": "Nom",
+            "label@en_GB": "Name",
+            "example@fr_FR": "Licence ouverte version 2.0",
+            "example@en_GB": "Open license version 2.0",
+            "form_label@fr_FR": "Nom de la licence",
+            "form_label@en_GB": "License name"
+        },
+        "licenseUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "Url de référence de la licence",
+            "label@fr_FR": "URL",
+            "label@en_GB": "URL",
+            "example@fr_FR": "https://www.etalab.gouv.fr/wp-content/uploads/2017/04/ETALAB-Licence-Ouverte-v2.0.pdf",
+            "example@en_GB": "https://www.etalab.gouv.fr/wp-content/uploads/2017/04/ETALAB-Licence-Ouverte-v2.0.pdf",
+            "form_label@fr_FR": "URL de la licence",
+            "form_label@en_GB": "License URL"
+        }
+    },
+    "required": [
+        "licenseName"
+    ],
+    "to_string": [
+        "$.licenseName"
+    ]
+}

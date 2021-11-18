@@ -29,7 +29,7 @@ FastGettext.add_text_domain("app",
   report_warning: false,
 )
 FastGettext.add_text_domain("dmpopidor",
-  path: "config/locale",
+  path: Rails.root.join("config/locale"),
   type: :po,
   ignore_fuzzy: true,
   report_warning: false,

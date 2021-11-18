@@ -53,7 +53,7 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
 
         last_month_count = StatCreatedPlan.find_by(
           date: Date.today.last_month.end_of_month,
-          org_id: org.id).count
+          org_id: org.id, filtered: false).count
         expect(last_month_count).to eq(3)
       end
 
@@ -62,7 +62,7 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
 
         last_month_details = StatCreatedPlan.find_by(
           date: Date.today.last_month.end_of_month,
-          org_id: org.id).by_template
+          org_id: org.id, filtered: false).by_template
 
         expect(last_month_details).to match_array(
           [
@@ -72,12 +72,12 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
         )
       end
 
-      it "generates counts by template from today's last month" do
+      it "generates counts using template from today's last month" do
         described_class.call(org)
 
         last_month_details = StatCreatedPlan.find_by(
           date: Date.today.last_month.end_of_month,
-          org_id: org.id).using_template
+          org_id: org.id, filtered: false).using_template
 
         expect(last_month_details).to match_array(
           [
@@ -92,7 +92,7 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
 
         last_month = StatCreatedPlan.where(
           date: Date.today.last_month.end_of_month,
-          org_id: org.id)
+          org_id: org.id, filtered: false)
 
         expect(last_month).to have(1).items
         expect(last_month.first.count).to eq(3)
@@ -106,7 +106,7 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
 
         last_month = StatCreatedPlan.where(
           date: Date.today.last_month.end_of_month,
-          org_id: org.id)
+          org_id: org.id, filtered: false)
 
         expect(last_month).to have(1).items
         expect(last_month.first.count).to eq(4)
@@ -121,7 +121,7 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
 
         last_month_count = StatCreatedPlan.find_by(
           date: Date.today.last_month.end_of_month,
-          org_id: org.id).count
+          org_id: org.id, filtered: false).count
 
         expect(last_month_count).to eq(3)
       end
@@ -133,7 +133,7 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
 
         last_month_details = StatCreatedPlan.find_by(
           date: Date.today.last_month.end_of_month,
-          org_id: org.id).by_template
+          org_id: org.id, filtered: false).by_template
 
         expect(last_month_details).to match_array(
           [
@@ -150,7 +150,7 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
 
         last_month_details = StatCreatedPlan.find_by(
           date: Date.today.last_month.end_of_month,
-          org_id: org.id).using_template
+          org_id: org.id, filtered: false).using_template
 
         expect(last_month_details).to match_array(
           [
@@ -167,7 +167,7 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
 
         last_month = StatCreatedPlan.where(
           date: Date.today.last_month.end_of_month,
-          org: org)
+          org: org, filtered: false)
 
         expect(last_month).to have(1).items
         expect(last_month.first.count).to eq(3)
@@ -180,7 +180,7 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
         described_class.call
 
         last_month = StatCreatedPlan.where(date: Date.today.last_month.end_of_month,
-                                           org: org)
+                                           org: org, filtered: false)
         expect(last_month).to have(1).items
         expect(last_month.first.count).to eq(4)
       end

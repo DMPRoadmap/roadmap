@@ -1,0 +1,61 @@
+<%# locals: { f, field_label, form_prefix, property_name, select_values, locale, selected_value, field_class, required, readonly, multiple, validation, ttip, default_value, overridable } %>
+<% selected_value ||= default_value %>
+<% include_blank = !selected_value && !default_value %>
+<% field_name = defined?(form_prefix) ? "#{form_prefix}[#{property_name}]" : property_name %>
+<% intermediate_message = overridable ? d_("dmpopidor", "Select a value from the list or type a new one.") : d_("dmpopidor", "Select a value from the list.")%>
+<% 
+  formatted_values = select_values.map {|v| [v.to_s(locale), select_value(v, locale)]}
+  # Here we concat the selected values with the available values in the select
+  # This is need for multiple select where the user can enter custom values
+  # Is this case Select2 doesn't recognise custom values so wee need to add them manually to the select
+  if multiple && selected_value.present?
+    formatted_values |= selected_value.map {|v| [v, v] }
+  end 
+%>
+<% unless field_label.nil? %>
+  <div class="col-md-12">
+    <%= f.label field_id, field_label, class: 'control-label' %>
+  </div>
+<% end %>
+<div class="col-md-12 dynamic-field select-field single-select">
+  <span class="intermediate-label"><i><%= intermediate_message unless readonly %></i></span>
+  <div class="field-button-combo">
+    <%= select_tag "#{f.object_name}[#{field_name}]",
+                options_for_select(
+                    formatted_values,
+                    selected: selected_value
+                ),
+                data: {
+                  "tags" => overridable
+                },
+                disabled: readonly,
+                multiple: multiple,
+                include_blank: true,
+                "data-toggle": "tooltip",
+                title: ttip,
+                class: "#{field_class}",
+                id: field_id  %>
+    <% unless readonly %>
+      <span class="remove-button fa fa-times"></span>
+    <% end %>
+  </div>
+  <% if overridable && !multiple %>
+    <% 
+      style = ''
+      custom_value = selected_value
+      if select_values.any? { |r| select_value(r, locale) == selected_value } || selected_value.nil?
+        style = 'display: none;'
+        custom_value = nil
+      end
+    %>
+    <% other_field_name = defined?(form_prefix) ? "#{form_prefix}[#{property_name}_custom]" : "#{property_name}_custom" %>
+    <div class="col-md-12 custom-value" style="<%= style %>">
+      <%= f.label other_field_name, d_("dmpopidor", "Custom value: "), class: 'control-label' %>
+      <%= f.hidden_field other_field_name, 
+                value: custom_value,
+                class: "form-control #{field_class}",
+                id: field_id  %>
+      <span><%= custom_value %></span>
+    </div>
+  <% end %>
+</div>

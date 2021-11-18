@@ -9,6 +9,8 @@ module OrgAdmin
     include Versionable
     include TemplateMethods
 
+    prepend Dmpopidor::Controllers::OrgAdmin::Templates
+    
     after_action :verify_authorized
 
     # The root version of index which returns all templates
@@ -19,7 +21,7 @@ module OrgAdmin
       templates = Template.latest_version.where(customization_of: nil)
       published = templates.select { |t| t.published? || t.draft? }.length
 
-      @orgs              = Org.all
+      @orgs              = Org.managed
       @title             = _("All Templates")
       @templates         = templates.includes(:org).page(1)
       @query_params      = { sort_field: "templates.title", sort_direction: "asc" }
@@ -117,6 +119,7 @@ module OrgAdmin
     end
 
     # GET /org_admin/templates/:id/edit
+    # SEE MODULE
     def edit
       template = Template.includes(:org, :phases).find(params[:id])
       authorize template
@@ -143,6 +146,7 @@ module OrgAdmin
     end
 
     # GET /org_admin/templates/new
+    # SEE MODULE
     def new
       authorize Template
       @template = current_org.templates.new
@@ -347,6 +351,7 @@ module OrgAdmin
 
     private
 
+    # SEE MODULE
     def template_params
       params.require(:template).permit(:title, :description, :visibility, :links)
     end
@@ -382,6 +387,5 @@ module OrgAdmin
 
   end
   # rubocop:enable Metrics/ClassLength
-
 
 end

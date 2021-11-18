@@ -3,12 +3,13 @@
 # Table name: question_formats
 #
 #  id           :integer          not null, primary key
-#  title        :string
 #  description  :text
+#  formattype   :integer          default(0)
+#  option_based :boolean          default(FALSE)
+#  title        :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#  option_based :boolean          default("false")
-#  formattype   :integer          default("0")
+#  structured   :boolean          default("false"), not null
 #
 
 class QuestionFormat < ActiveRecord::Base
@@ -18,7 +19,7 @@ class QuestionFormat < ActiveRecord::Base
   ##
   #
   FORMAT_TYPES = %i[textarea textfield radiobuttons checkbox dropdown
-                    multiselectbox date rda_metadata number]
+                    multiselectbox date rda_metadata number structured]
 
 
   # ==============

@@ -1,0 +1,60 @@
+<div class="table-responsive">
+  <table class="table table-hover" id="api_clients">
+    <thead>
+      <tr>
+        <th scope="col" class="text-center">
+          <%=  _('Name') %>&nbsp;<%= paginable_sort_link('api_clients.name') %>
+        </th>
+        <th scope="col" class="text-center sorter-false">
+          <%= _('Description') %>
+        </th>
+        <th scope="col" class="text-center sorter-false">
+          <%= _('Homepage') %>
+        </th>
+        <th scope="col" class="text-center">
+          <%=  _('Contact') %>&nbsp;<%= paginable_sort_link('api_clients.contact_email') %>
+        </th>
+        <th scope="col" class="text-center sorter-false">
+          <%= _('Client_id') %>
+        </th>
+        <th scope="col" class="text-center sorter-false">
+          <%= _('Client Secret') %>
+        </th>
+        <th scope="col" class="text-center">
+          <%=  _('Last Accessed') %>&nbsp;<%= paginable_sort_link('api_clients.last_access') %>
+        </th>
+        <th scope="col" class="sorter-false"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% scope.each do |client| %>
+        <tr>
+          <td><%= client.name %></td>
+          <td><%= client.description %></td>
+          <td><%= client.homepage.present? ? link_to(client.homepage) : "" %></td>
+          <td><%= client.contact_email.present? ? link_to(client.contact_email, "mailto:#{client.contact_email}") : "" %></td>
+          <td><%= client.client_id %></td>
+          <td><%= client.client_secret %></td>
+          <td><%= client.last_access.present? ? l(client.last_access.to_date, formats: :short) : _("Never") %></td>
+          <td>
+            <div class="dropdown">
+              <button
+                class="btn btn-link dropdown-toggle"
+                type="button"
+                id="api_client-<%= client.id %>-actions"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="true">
+                <%= _('Actions') %><span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="api_client-<%= client.id %>-actions">
+                <li><%= link_to _('Edit'), edit_super_admin_api_client_path(client) %></li>
+                <li><%= link_to _('Remove'),  super_admin_api_client_path(client), method: :delete, data: { confirm: _("You are about to delete '%{client_name}'. They will no longer be able to access the API. Are you sure?") % { :client_name => client.name }} %></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

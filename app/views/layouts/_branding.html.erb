@@ -48,11 +48,6 @@
             <% end %>
           <% end %>
         </ul>
-        <div class="org-banner-text">
-        <%  if !current_user.org.banner_text.nil?  %>
-          <%= current_user.org.banner_text.html_safe %>
-        <% end %>
-        </div>
       <% end %>
 
       <!-- Navigation for organisation admin -->
@@ -109,6 +104,9 @@
                 </li>
               <% end %>
               <% if current_user.can_super_admin? %>
+                <li <%= 'class=active' if active_page?(super_admin_api_clients_path) %>>
+                  <%= link_to(_('Api Clients'), super_admin_api_clients_path) %>
+                </li>
                 <li <%= 'class=active' if active_page?(super_admin_notifications_path) %>>
                   <%= link_to _('Notifications'), super_admin_notifications_path %>
                 </li>

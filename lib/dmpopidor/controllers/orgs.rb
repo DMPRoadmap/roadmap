@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 module Dmpopidor
+
   module Controllers
+
     module Orgs
 
       # CHANGE: ADDED BANNER TEXT and ACTIVE
@@ -12,35 +16,49 @@ module Dmpopidor
         if params[:org_links].present?
           @org.links = JSON.parse(params[:org_links])
         end
-    
+
         @org.banner_text = attrs[:banner_text] if attrs[:banner_text]
 
         # Only allow super admins to change the org types and shib info
         if current_user.can_super_admin?
-          # Handle Shibboleth identifiers if that is enabled
+          identifiers = []
+          attrs[:managed] = attrs[:managed] == "1"
+
+          # Handle Shibboleth identifier if that is enabled
           if Rails.application.config.shibboleth_use_filtered_discovery_service
-            shib = IdentifierScheme.find_by(name: "shibboleth")
-            shib_settings = @org.org_identifiers.select do |ids|
-              ids.identifier_scheme == shib
-            end.first
-    
-            if params[:shib_id].blank? && shib_settings.present?
-              # The user cleared the shib values so delete the object
-              shib_settings.destroy
-            else
-              unless shib_settings.present?
-                shib_settings = OrgIdentifier.new(org: @org, identifier_scheme: shib)
-              end
-              shib_settings.identifier = params[:shib_id]
-              shib_settings.attrs = { domain: params[:shib_domain] }
-              shib_settings.save
+            shib = IdentifierScheme.by_name("shibboleth").first
+
+            if shib.present? && attrs.fetch(:identifiers_attributes, {}).any?
+              entity_id = attrs[:identifiers_attributes].first[1][:value]
+              identifier = Identifier.find_or_initialize_by(
+                identifiable: @org, identifier_scheme: shib, value: entity_id
+              )
+              @org = process_identifier_change(org: @org, identifier: identifier)
             end
+            attrs.delete(:identifiers_attributes)
           end
 
+          # See if the user selected a new Org via the Org Lookup and
+          # convert it into an Org
+          lookup = org_from_params(params_in: attrs)
+          ids = identifiers_from_params(params_in: attrs)
+          identifiers += ids.select { |id| id.value.present? }
+
+          # Remove the extraneous Org Selector hidden fields
+          attrs = remove_org_selection_params(params_in: attrs)
         end
-    
-        if @org.update_attributes(attrs)
-          
+
+        if @org.update(attrs)
+          # Save any identifiers that were found
+          if current_user.can_super_admin? && lookup.present?
+            # Loop through the identifiers and then replace the existing
+            # identifier and save the new one
+            identifiers.each do |id|
+              @org = process_identifier_change(org: @org, identifier: id)
+            end
+            @org.save
+          end
+
           # if active is false, unpublish all published tempaltes, guidances
           if !@org.active 
             @org.published_templates.update_all(published: false)
@@ -56,12 +74,18 @@ module Dmpopidor
         end
       end
 
-
       def org_params
-        params.require(:org).permit(:name, :abbreviation, :logo, :contact_email,
-                                    :contact_name, :remove_logo, :org_type,
-                                    :feedback_enabled, :feedback_email_msg, :banner_text, :active)
+        params.require(:org)
+              .permit(:name, :abbreviation, :logo, :contact_email, :contact_name,
+                      :remove_logo, :org_type, :managed, :feedback_enabled,
+                      :banner_text, :active, :feedback_email_msg, :org_id,
+                      :org_name, :org_crosswalk,
+                      identifiers_attributes: [:identifier_scheme_id, :value],
+                      tracker_attributes: [:code])
       end
+
     end
+
   end
+
 end

@@ -13,7 +13,7 @@ module OrgAdmin
       @user = User.find(params[:id])
       authorize @user
       @departments = @user.org.departments.order(:name)
-      @plans = Plan.org_admin_visible(@user).page(1)
+      @plans = Plan.active(@user).page(1)
       render "org_admin/users/edit",
              locals: { user: @user,
                        departments: @departments,
@@ -49,8 +49,8 @@ module OrgAdmin
       render "org_admin/users/plans"
     end
 
-
     private
+
     def user_params
       params.require(:user).permit(:department_id)
     end

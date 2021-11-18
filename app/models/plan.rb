@@ -8,42 +8,58 @@
 # Table name: plans
 #
 #  id                                :integer          not null, primary key
-#  title                             :string
-#  template_id                       :integer
-#  created_at                        :datetime
-#  updated_at                        :datetime
-#  grant_number                      :string
-#  identifier                        :string
-#  description                       :text
-#  principal_investigator            :string
-#  principal_investigator_identifier :string
+#  complete                          :boolean          default(FALSE)
 #  data_contact                      :string
-#  funder_name                       :string
-#  visibility                        :integer          default("3"), not null
 #  data_contact_email                :string
 #  data_contact_phone                :string
+#  description                       :text
+#  feedback_requested                :boolean          default(FALSE)
+#  funder_name                       :string
+#  grant_number                      :string
+#  identifier                        :string
+#  principal_investigator            :string
 #  principal_investigator_email      :string
+#  principal_investigator_identifier :string
 #  principal_investigator_phone      :string
-#  feedback_requested                :boolean          default("false")
-#  complete                          :boolean          default("false")
+#  title                             :string
+#  visibility                        :integer          default(3), not null
+#  created_at                        :datetime
+#  updated_at                        :datetime
+#  template_id                       :integer
+#  org_id                            :integer
+#  funder_id                         :integer
+#  grant_id                          :integer
+#  api_client_id                     :integer
 #
 # Indexes
 #
-#  plans_template_id_idx  (template_id)
+#  index_plans_on_template_id   (template_id)
+#  index_plans_on_funder_id     (funder_id)
+#  index_plans_on_grant_id      (grant_id)
+#  index_plans_on_api_client_id (api_client_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (template_id => templates.id)
+#  fk_rails_...  (org_id => orgs.id)
 #
 
-class Plan < ActiveRecord::Base
+# TODO: Drop the funder_name and grant_number columns once the funder_id has
+#       been back filled and we're removing the is_other org stuff
+
+class Plan < ApplicationRecord
 
   include ConditionalUserMailer
   include ExportablePlan
   include ValidationMessages
   include ValidationValues
   prepend Dmpopidor::Models::Plan
+  include DateRangeable
+  include Identifiable
 
   # =============
   # = Constants =
   # =============
-
 
   # Returns visibility message given a Symbol type visibility passed, otherwise
   # nil
@@ -51,8 +67,8 @@ class Plan < ActiveRecord::Base
     organisationally_visible: _("organisational"),
     publicly_visible: _("public"),
     is_test: _("test"),
-    administrator_visible: _('Administrator'),
-    privately_visible: _('private')
+    administrator_visible: _("Administrator"),
+    privately_visible: _("private")
   }
 
   # ==============
@@ -63,15 +79,17 @@ class Plan < ActiveRecord::Base
   enum visibility: %i[organisationally_visible publicly_visible
                       is_test administrator_visible privately_visible]
 
-
   alias_attribute :name, :title
-
 
   # ================
   # = Associations =
   # ================
 
   belongs_to :template
+
+  belongs_to :org
+
+  belongs_to :funder, class_name: "Org"
 
   has_many :phases, through: :template
 
@@ -102,7 +120,7 @@ class Plan < ActiveRecord::Base
 
   has_many :roles
 
-  belongs_to :feedback_requestor, class_name: "User", :foreign_key => 'feedback_requestor'
+  belongs_to :feedback_requestor, class_name: "User", :foreign_key => "feedback_requestor"
 
   # RESEARCH OUTPUTS
   has_many :research_outputs, dependent: :destroy, inverse_of: :plan do
@@ -110,24 +128,13 @@ class Plan < ActiveRecord::Base
     def default
       find_by(is_default: true)
     end
-
-    # Toggles the default research output between default and normal
-    # Uses the 'is_default' flag:
-    # - Removes it if there are more than one research output
-    # - Adds it back is there's only one research output left
-    def toggle_default
-      if count > 1
-        unless default.nil?
-          default.update(abbreviation: 'Default', fullname: 'Default research output' ) if default.abbreviation.nil?
-          default.update(is_default: false)
-        end
-      else
-        last&.update(is_default: true)
-      end
-    end
   end
 
+  has_many :contributors, dependent: :destroy
 
+  has_one :grant, as: :identifiable, dependent: :destroy, class_name: "Identifier"
+
+  belongs_to :api_client#, optional: true # UNCOMMENT After Rails 5
 
   # =====================
   # = Nested Attributes =
@@ -138,6 +145,8 @@ class Plan < ActiveRecord::Base
   accepts_nested_attributes_for :roles
 
   accepts_nested_attributes_for :research_outputs, reject_if: :all_blank, allow_destroy: true
+
+  accepts_nested_attributes_for :contributors
 
   # ===============
   # = Validations =
@@ -151,13 +160,17 @@ class Plan < ActiveRecord::Base
 
   validates :complete, inclusion: { in: BOOLEAN_VALUES }
 
+  validate :end_date_after_start_date
 
   # =============
   # = Callbacks =
   # =============
 
   before_validation :set_creation_defaults
-
+  # sanitise html tags e.g remove unwanted 'script'
+  before_validation lambda { |data|
+    data.sanitize_fields(:title, :identifier, :description)
+  }
 
   # ==========
   # = Scopes =
@@ -198,15 +211,33 @@ class Plan < ActiveRecord::Base
     ])
   }
 
+  # TODO: Add in a left join here so we can search contributors as well when
+  #       we move to Rails 5:
+  #           OR lower(contributors.name) LIKE lower(:search_pattern)
+  #           OR lower(identifiers.value) LIKE lower(:search_pattern)",
   scope :search, lambda { |term|
-    search_pattern = "%#{term}%"
-    joins(:template)
-    .where("lower(plans.title) LIKE lower(:search_pattern)
-            OR lower(templates.title) LIKE lower(:search_pattern)
-            OR lower(plans.principal_investigator) LIKE lower(:search_pattern)
-            OR lower(plans.principal_investigator_identifier) LIKE lower(:search_pattern)",
-            search_pattern: search_pattern)
+    if date_range?(term: term)
+      joins(:template, roles: [user: :org])
+        .where(Role.creator_condition)
+        .by_date_range(:created_at, term)
+    else
+      search_pattern = "%#{term}%"
+      joins(:template, roles: [user: :org])
+        .where(Role.creator_condition)
+        .where("lower(plans.title) LIKE lower(:search_pattern)
+                OR lower(orgs.name) LIKE lower (:search_pattern)
+                OR lower(orgs.abbreviation) LIKE lower (:search_pattern)
+                OR lower(templates.title) LIKE lower(:search_pattern)
+                OR lower(plans.principal_investigator) LIKE lower(:search_pattern)
+                OR lower(plans.principal_investigator_identifier) LIKE lower(:search_pattern)",
+               search_pattern: search_pattern)
+    end
   }
+
+  ##
+  # Defines the filter_logic used in the statistics objects.
+  # For now, we filter out any test plans
+  scope :stats_filter, -> { where.not(visibility: visibilities[:is_test])}
 
   # Retrieves plan, template, org, phases, sections and questions
   scope :overview, lambda { |id|
@@ -226,10 +257,11 @@ class Plan < ActiveRecord::Base
 
   # Pre-fetched a plan phase together with its sections and questions
   # associated. It also pre-fetches the answers and notes associated to the plan
+  # CHANGES: Added PRELOAD for madmp_schema & research_output
   def self.load_for_phase(plan_id, phase_id)
     # Preserves the default order defined in the model relationships
-    plan = Plan.joins(template: { phases: { sections: :questions } })
-               .preload(template: { phases: { sections: :questions } })
+    plan = Plan.joins(:research_outputs, template: { phases: { sections: :questions } })
+               .preload(:research_outputs, template: { phases: { sections: :questions } })
                .where(id: plan_id, phases: { id: phase_id })
                .merge(Plan.includes(answers: :notes)).first
     phase = plan.template.phases.find { |p| p.id == phase_id.to_i }
@@ -242,13 +274,13 @@ class Plan < ActiveRecord::Base
   # plan - Plan to be deep copied
   #
   # Returns Plan
-  # CHANGES
   # Added Research Output Support
+  # Added Project/Meta/ResearchOutput Fragments copy
   def self.deep_copy(plan)
     plan_copy = plan.dup
-    plan_copy.title = "Copy of " + plan.title
     plan_copy.feedback_requested = false
     plan_copy.save!
+    plan_copy.copy_plan_fragments(plan)
     plan.research_outputs.each do |research_output|
       research_output_copy = ResearchOutput.deep_copy(research_output)
       research_output_copy.plan_id = plan_copy.id
@@ -260,7 +292,6 @@ class Plan < ActiveRecord::Base
         answer_copy.research_output_id = research_output_copy.id
         answer_copy.save!
       end
-
     end
     plan.guidance_groups.each do |guidance_group|
       plan_copy.guidance_groups << guidance_group if guidance_group.present?
@@ -440,7 +471,7 @@ class Plan < ActiveRecord::Base
     reviewer = User.find(user_id)
     feedback_requested? &&
     reviewer.present? &&
-    reviewer.org_id == owner.org_id &&
+    reviewer.org_id == owner&.org_id &&
     reviewer.can_review_plans?
   end
 
@@ -455,13 +486,12 @@ class Plan < ActiveRecord::Base
   #
   # Returns User
   # Returns nil
-  # SEE MODULE
   def owner
     usr_id = Role.where(plan_id: id, active: true)
                   .administrator
                   .order(:created_at)
                   .pluck(:user_id).first
-    User.find(usr_id)
+    usr_id.present? ? User.find(usr_id) : nil
   end
 
   # Creates a role for the specified user (will update the user's
@@ -494,14 +524,6 @@ class Plan < ActiveRecord::Base
     else
       false
     end
-  end
-
-  ## Update plan identifier.
-  #
-  # Returns Boolean
-  def add_identifier!(identifier)
-    self.update(identifier: identifier)
-    save!
   end
 
   ##
@@ -608,10 +630,10 @@ class Plan < ActiveRecord::Base
     end
   end
 
-
-
-
-
+  # Returns the plan's identifier (either a DOI/ARK)
+  def landing_page
+    identifiers.select { |i| %w[doi ark].include?(i.identifier_format) }.first
+  end
 
   private
 
@@ -623,7 +645,16 @@ class Plan < ActiveRecord::Base
     # Only run this before_validation because rails fires this before
     # save/create
     return if id?
+
     self.title = "My plan (#{template.title})" if title.nil? && !template.nil?
+  end
+
+  # Validation to prevent end date from coming before the start date
+  def end_date_after_start_date
+    # allow nil values
+    return true if end_date.blank? || start_date.blank?
+
+    errors.add(:end_date, _("must be after the start date")) if end_date < start_date
   end
 
 end

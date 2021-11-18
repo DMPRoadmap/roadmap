@@ -98,10 +98,14 @@ jobs:
     - name: 'Yarn Install'
       run: |
         yarn install
-
+          
     # Setup the database
     - name: 'Setup Test DB'
       run: bundle exec rake db:setup RAILS_ENV=test
+      
+    # Migrate
+    - name: 'Migrate DB'
+      run: bundle exec rake db:migrate RAILS_ENV=test
 
     # Compile the assets
     - name: 'Compile Assets'

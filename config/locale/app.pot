@@ -41,12 +41,10 @@ msgstr ""
 msgid " in the project. You can also report bugs and request new features via "
 msgstr ""
 
-msgid "#{sp.localized_name(session[:locale])}"
-msgstr ""
-
 msgid "#{text}"
 msgstr ""
 
+#, fuzzy
 msgid "%{affiliation}"
 msgstr ""
 
@@ -182,26 +180,8 @@ msgstr ""
 msgid "<p>%{application_name} has been developed by the <strong>%{organisation_name}</strong> to help you write data management plans.</p>"
 msgstr ""
 
-#msgid "<p>A data librarian from %{org_name} will respond to your request within 48"
-#msgstr ""
-
-msgid "<p>A data librarian from %{org_name} will respond to your request within 48"
-"       hours. If you have questions pertaining to this action please contact us"
-"       at %{organisation_email}.</p>"
+msgid "<p>Hello %{user_name}.</p><p>Your plan \"%{plan_name}\" has been submitted for feedback from an administrator at your organisation. If you have questions pertaining to this action, please contact us at %{organisation_email}.</p>"
 msgstr ""
-
-msgid "<p>Hello %{user_name}.</p>\"\"
-"      \"<p>Your plan \"%{plan_name}\" has been submitted for feedback from an"
-"      administrator at your organisation. \"\"
-"      \"If you have questions pertaining to this action, please contact us"
-"      at %{organisation_email}.</p>"
-msgstr ""
-
-#msgid "<p>Hello %{user_name}.</p><p>Your plan \"%{plan_name}\" has been submitted for feedback from an administrator at your organisation. If you have questions pertaining to this action, please contact us at %{organisation_email}.</p>"
-#msgstr ""
-
-#msgid "<p>Hello %{user_name}.</p>\"\"
-#msgstr ""
 
 msgid "<strong>Info:</strong> Simple information message, displayed in blue.<br/><strong>Warning:</strong> warning message, for signaling something unusual, displayed in orange.<br/><strong>Danger:</strong> error message, for anything critical, displayed in red"
 msgstr ""
@@ -212,8 +192,8 @@ msgstr ""
 msgid "A Data Management Plan created using %{application_name}"
 msgstr ""
 
-#msgid "A Data Management Plan in %{application_name} has been shared with you"
-#msgstr ""
+msgid "A Data Management Plan in %{application_name} has been shared with you"
+msgstr ""
 
 #, fuzzy
 msgid "A Data Management Plan in %{tool_name} has been shared \"\
@@ -224,8 +204,8 @@ msgstr ""
 #msgid "A Data Management Plan in %{tool_name} has been shared with you"
 #msgstr ""
 
-#msgid "A colleague has invited you to contribute to their Data Management Plan in %{tool_name}"
-#msgstr ""
+msgid "A colleague has invited you to contribute to their Data Management Plan in %{tool_name}"
+msgstr ""
 
 msgid "A hash is expected for links"
 msgstr ""
@@ -270,12 +250,6 @@ msgid "Access removed"
 msgstr ""
 
 #msgid "Accessibility"
-#msgstr ""
-
-#msgid "Account expiration in %{tool_name}"
-#msgstr ""
-
-#msgid "Account expired in %{tool_name}"
 #msgstr ""
 
 msgid "Actions"
@@ -356,16 +330,7 @@ msgstr ""
 msgid "All Templates"
 msgstr ""
 
-#msgid "All accounts inactive for 5 years are automaticaly deactivated"
-#msgstr ""
-
-#msgid "All accounts inactive for 5 years are automaticaly deactivated. If you want your account to remain active, please just sign in before %{end_date}"
-#msgstr ""
-
 msgid "All the best"
-msgstr ""
-
-msgid "All the best,"
 msgstr ""
 
 msgid "Allows the user to amend the organisation details (name, URL etc) and add basic branding such as the logo"
@@ -479,9 +444,7 @@ msgstr ""
 msgid "Begin typing to see a filtered list"
 msgstr ""
 
-#msgid "Below is a list of users registered for your organisation. You can"
-#msgstr ""
-
+#, fuzzy
 msgid "Below is a list of users registered for your organisation. You can"
 "        sort the data by each field."
 msgstr ""
@@ -559,13 +522,6 @@ msgid "Click the 'Create plan' button below to begin."
 msgstr ""
 
 msgid "Click the link below to unlock your account"
-msgstr ""
-
-#msgid "Click the links below to view organisational guidance"
-#msgstr ""
-
-msgid "Click the links below to view organisational guidance"
-"                        related to the themes associated with this question."
 msgstr ""
 
 msgid "Co-owner"
@@ -733,8 +689,8 @@ msgstr ""
 #msgid "DOCX"
 #msgstr ""
 
-#msgid "DOCX <em class=\"sr-only\">(new window)</em>"
-#msgstr ""
+msgid "DOCX <em class=\"sr-only\">(new window)</em>"
+msgstr ""
 
 msgid "Data Contact Person"
 msgstr ""
@@ -1108,9 +1064,6 @@ msgstr ""
 msgid "If you have an account please sign in and start creating or editing your DMP."
 msgstr ""
 
-msgid "If you have any questions or need help, please contact us at %{helpdesk_email} or visit %{contact_us_url}"
-msgstr ""
-
 msgid "If you have any questions or need help, please contact us at %{helpdesk_email} or visit %{contact_us}"
 msgstr ""
 
@@ -1231,7 +1184,7 @@ msgstr ""
 msgid "Look up your organisation here"
 msgstr ""
 
-msgid "Copy"
+msgid "Make a copy"
 msgstr ""
 
 msgid "Manage collaborators"
@@ -1270,10 +1223,7 @@ msgstr ""
 msgid "Month"
 msgstr ""
 
-msgid "More information about administering the %{tool_name} are available on %{help_url}."
-msgstr ""
-
-msgid "Move the mouse pointer over the bars of a chart to see numbers."
+msgid "More information about administering the %{tool_name} for users at your organisation is available at the %{help_url}."
 msgstr ""
 
 msgid "My DMP's visibility has changed"
@@ -1372,9 +1322,6 @@ msgstr ""
 msgid "No. Users joined"
 msgstr ""
 
-msgid "No. plans by template"
-msgstr ""
-
 msgid "No. plans during last year"
 msgstr ""
 
@@ -1397,13 +1344,6 @@ msgid "Not customised (%{count})"
 msgstr ""
 
 msgid "Not customized"
-msgstr ""
-
-#msgid "Note: New plans will automatically display this guidance."
-#msgstr ""
-
-msgid "Note: New plans will automatically display this guidance."
-"            Users then have the ability to hide/display the guidance when editing their plan."
 msgstr ""
 
 msgid "Notice:"
@@ -1529,11 +1469,12 @@ msgstr ""
 msgid "Owner name"
 msgstr ""
 
-#msgid "PDF"
-#msgstr ""
+msgid "PDF"
+msgstr ""
 
-#msgid "PDF <em class=\"sr-only\">(new window)</em>"
-#msgstr ""
+#, fuzzy
+msgid "PDF <em class=\"sr-only\">(new window)</em>"
+msgstr ""
 
 msgid "PDF formatting"
 msgstr ""
@@ -1889,13 +1830,13 @@ msgstr ""
 msgid "Run your own filter"
 msgstr ""
 
-#msgid "SAMPLE MESSAGE: A data librarian from %{org_name} will respond to your request within 48"
-#msgstr ""
-
-msgid "Same as Principal Investigator"
+#, fuzzy
+msgid "SAMPLE MESSAGE: A data librarian from %{org_name} will respond to your request within 48"
+"       hours. If you have questions pertaining to this action please contact us"
+"       at %{organisation_email}."
 msgstr ""
 
-msgid "Sample Message"
+msgid "Same as Principal Investigator"
 msgstr ""
 
 msgid "Sample Plan Links"
@@ -1913,10 +1854,8 @@ msgstr ""
 #msgid "Save Unsuccessful."
 #msgstr ""
 
+#, fuzzy
 msgid "Save Unsuccessful. "
-msgstr ""
-
-msgid "Save unsuccessful. That email address is already registered. You must enter a unique email address."
 msgstr ""
 
 msgid "Saving..."
@@ -2566,6 +2505,9 @@ msgstr ""
 msgid "Move the mouse pointer over the bars of a chart to see numbers."
 msgstr ""
 
+msgid "Move the mouse pointer over the bars of a chart to see numbers. Click on the bar to see the list of these users/plans to interrogate statistics in more detail"
+msgstr ""
+
 msgid "Use API"
 msgstr ""
 
@@ -2761,12 +2703,6 @@ msgstr ""
 msgid "You have been revoked administrator privileges in %{tool_name}."
 msgstr ""
 
-#msgid "You have not signed in since %{last_sign_in_date} and our system will deactivate your account at %{end_date}"
-#msgstr ""
-
-#msgid "You have not signed in since %{last_sign_in_date} and your account has been deactivated"
-#msgstr ""
-
 msgid "You have unpublished changes! Select \"Publish changes\" in the Actions menu when you are ready to make them available to users."
 msgstr ""
 
@@ -2880,18 +2816,6 @@ msgstr ""
 
 #msgid "Your request for feedback has been submitted."
 #msgstr ""
-
-#msgid "_(template.org.org_type_to_s) %></td>"
-#msgstr ""
-
-msgid "_(template.org.org_type_to_s) %></td>"
-"          <td><%= raw template.description %></td>"
-"          <td><%= l(template.updated_at.to_date, formats: :short) %></td>"
-"          <td class=\"text-center\">"
-"            <%= link_to template_export_path(template.family_id, format: :docx), target: '_blank' do %>"
-"               <i class=\"fa fa-file-word-o\" aria-hidden=\"true\"></i>"
-"               <em class=\"sr-only\"><%= _('(new window)"
-msgstr ""
 
 msgid "account has been locked due to an excessive number of unsuccessful sign in attempts."
 msgstr ""
@@ -3040,15 +2964,8 @@ msgstr ""
 msgid "must be logged in"
 msgstr ""
 
-msgid "must be one of the following formats: \" +"
-"                                \"jpeg, jpg, png, gif, bmp"
+msgid "must be one of the following formats: jpeg, jpg, png, gif, bmp"
 msgstr ""
-
-#msgid "must be one of the following formats: \" +"
-#msgstr ""
-
-#msgid "must be one of the following formats: jpeg, jpg, png, gif, bmp"
-#msgstr ""
 
 msgid "must be unique"
 msgstr ""
@@ -3332,3 +3249,83 @@ msgstr ""
 msgid "Sign in or Create account"
 msgstr ""
 
+msgid "Identifier"
+msgstr ""
+
+msgid "Contributors"
+msgstr ""
+
+msgid "Please list the project’s Principle Investigator(s) and those responsible for data management."
+msgstr ""
+
+msgid "No contributors have been defined."
+msgstr ""
+
+msgid "Add a contributor"
+msgstr ""
+
+msgid "New contributor"
+msgstr ""
+
+msgid "View all contributors"
+msgstr ""
+
+msgid "Editing contributor"
+msgstr ""
+
+msgid "Affiliation"
+msgstr ""
+
+msgid "Roles"
+msgstr ""
+
+msgid "You are about to delete '%{contributor_name}'. Are you sure?"
+msgstr ""
+
+msgid "Api Clients"
+msgstr ""
+
+msgid "Create Api Client"
+msgstr ""
+
+msgid "Manage API access for external applications"
+msgstr ""
+
+msgid "Homepage"
+msgstr ""
+
+msgid "Contact Name"
+msgstr ""
+
+msgid "Contact Email"
+msgstr ""
+
+msgid "Client ID"
+msgstr ""
+
+msgid "Client Secret"
+msgstr ""
+
+msgid "Last accessed on"
+msgstr ""
+
+msgid "Never"
+msgstr ""
+
+msgid "Editing API client"
+msgstr ""
+
+msgid "New API Client"
+msgstr ""
+
+msgid "View all API clients"
+msgstr ""
+
+msgid "The credentials have been sent to %{email}."
+msgstr ""
+
+msgid "Successsfully refreshed the client credentials."
+msgstr ""
+
+msgid "A new entry will be created for the organisation you have named above. Please double check that your organisation does not appear in the list in a slightly different form."
+msgstr ""

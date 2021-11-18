@@ -11,6 +11,7 @@
 #
 
 class ResearchOutputType < ActiveRecord::Base
+
   has_many :research_outputs
 
   ##
@@ -18,8 +19,7 @@ class ResearchOutputType < ActiveRecord::Base
   before_save :generate_slug
 
   def generate_slug
-    if self.label
-      self.slug = self.label.parameterize
-    end
+    self.slug = label.parameterize if label.present?
   end
+
 end

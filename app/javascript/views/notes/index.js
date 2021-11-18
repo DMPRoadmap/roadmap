@@ -114,7 +114,6 @@ $(() => {
     const questionId = $(source).closest('.note_new').attr('data-question-id')
       || $(source).closest('.note_edit').attr('data-question-id');
     noteText.value = Tinymce.findEditorById(id).getContent();
-    Tinymce.findEditorById(id).setProgressState(true);
     $.ajax({
       method: getMethod(jQueryForm),
       url: getAction(jQueryForm),
@@ -172,7 +171,6 @@ $(() => {
     eventHandlers({ attachment: 'off' });
     Tinymce.destroyEditorsByClassName('note');
   };
-
   initOrReload();
   initialiseCurrentViewSelector();
 });

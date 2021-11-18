@@ -31,9 +31,9 @@
           <% phase[:sections].each do |section| %>
             <% if display_section?(@hash[:customization], section, @show_custom_sections) %>
                 <% if @show_sections_questions %>
-                  <br>
+                  <br/>
                   <h2><%= section[:title] %></h2>
-                  <br>
+                  <br/>
                 <% end %>
                 <% if @research_output_export_mode == "by_section" || @research_outputs_number == 1 %>
                   <%= render partial: 'shared/export/export_by_section',

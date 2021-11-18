@@ -6,7 +6,6 @@
               <th scope="col"><%= _('Template') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
               <th scope="col" class="date-column"><%= _('Edited') %>&nbsp;<%= paginable_sort_link('plans.updated_at') %></th>
               <th scope="col"><%= _('Role') %></th>
-              <th scope="col"><%= _('Owner') %></th>
               <th scope="col" class="text-center sorter-false"><%= _('Test') %></th>
               <th scope="col" ><%= _('Visibility') %></th>
               <th scope="col" ><%= _('Shared') %></th>
@@ -25,11 +24,10 @@
                 <td><%= plan.template.title %></td>
                 <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
                 <td><%= display_role(plan.roles.find_by(user: current_user)) %></td>
-                <td><%= display_owner(plan.owner) %></td>
                 <td class="text-center">
                   <% if plan.administerable_by?(current_user.id) then %>
                     <%= form_for plan, url: set_test_plan_path(plan), html: { method: :post, class: 'set_test_plan', remote: true } do |f| %>
-                      <%= check_box_tag(:is_test, "1", (plan.visibility === 'is_test'), title: _("Is it a test plan ?"), id: nil) %>
+                      <%= check_box_tag(:is_test, "1", (plan.visibility === 'is_test')) %>
                       <%= f.submit(_('Update'), style: 'display:none') %>
                     <% end %>
                   <% else %>

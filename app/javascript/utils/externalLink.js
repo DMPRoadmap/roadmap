@@ -7,7 +7,7 @@ $(() => {
     const protocol = new RegExp('^https?');
     const regex = new RegExp(`^https?://${getConstant('HOST')}`);
     const exceptions = {
-      ids: ['connect-orcid-button', 'view-all-templates'],
+      ids: ['connect-orcid-button', 'view-all-templates', 'create-plan-link'],
     };
     // Internal links are typically just the path, but also check for other domains
     if (
@@ -28,7 +28,7 @@ $(() => {
     const protocol = new RegExp('^https?');
     const regex = new RegExp(`^https?://${getConstant('HOST')}`);
     const exceptions = {
-      ids: ['connect-orcid-button', 'view-all-templates'],
+      ids: ['connect-orcid-button', 'view-all-templates', 'create-plan-link'],
     };
     // Internal links are typically just the path, but also check for other domains
     if (
@@ -38,7 +38,9 @@ $(() => {
       && !(exceptions.ids.indexOf(link.attr('id')) >= 0)
     ) {
       link.attr('target', '_blank');
-      link.attr('title', getConstant('OPENS_IN_A_NEW_WINDOW_TEXT'));
+      link.addClass('has-new-window-popup-info');
+      // Add span as child of link.
+      link.append($(`<span class="new-window-popup-info">${getConstant('OPENS_IN_A_NEW_WINDOW_TEXT')}</span>`));
     }
   });
 });

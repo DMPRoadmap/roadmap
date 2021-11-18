@@ -16,7 +16,6 @@ class User
           created = I18n.l user.created_at.to_date, format: :csv
           last_activity = I18n.l user.updated_at.to_date, format: :csv
           plans = user.plans.size
-          department = user.department ? user.department.name : ''
           active = user.active ? 'Yes' : 'No'
 
           if user.can_super_admin?
@@ -26,6 +25,8 @@ class User
           else
             current_privileges = ''
           end
+
+          department = user&.department&.name || ''
 
           csv << [ name, email, created, last_activity, plans, current_privileges, department, active ]
         end

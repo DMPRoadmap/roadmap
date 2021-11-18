@@ -1,0 +1,52 @@
+[
+    {
+        "label": {
+            "en_GB": "CC-IN2P3 (CNRS), Computing Centre of the National Institute of Nuclear Physics and Particle Physics",
+            "fr_FR": "CC-IN2P3 (CNRS), Centre de Calcul de l'Institut National de Physique Nucléaire et de Physique des Particules"
+        },
+        "title": "CC-IN2P3",
+        "technicalResourceId": "https://cc.in2p3.fr/",
+        "idType": "URL",
+        "serviceContact": "contact@cc.in2p3.fr"
+    },
+    {
+        "label": {
+            "en_GB": "GENCI, Big National Equipment Intensive Computing",
+            "fr_FR": "GENCI, Grand Equipement National de Calcul Intensif"
+        },
+        "title": "GENCI",
+        "technicalResourceId": "http://www.genci.fr/fr",
+        "idType": "URL",
+        "serviceContact": "contact@genci.fr"
+    },
+    {
+        "label": {
+            "en_GB": "GenOuest, GenOuest bioinformatics",
+            "fr_FR": "GenOuest, Plateforme de bioinformatique de Rennes"
+        },
+        "title": "GenOuest",
+        "technicalResourceId": "https://www.genouest.org/",
+        "idType": "URL",
+        "serviceContact": "https://www.genouest.org/contact"
+    },
+    {
+        "label": {
+            "en_GB": "Synchrotron SOLEIL",
+            "fr_FR": "Synchrotron SOLEIL"
+        },
+        "title": "Synchrotron SOLEIL",
+        "technicalResourceId": "https://www.synchrotron-soleil.fr/fr",
+        "idType": "URL",
+        "serviceContact": "webcom@synchrotron-soleil.fr"
+    },
+    {
+        "label": {
+            "en_GB": "GANIL-SPIRAL2",
+            "fr_FR": "GANIL-SPIRAL2"
+        },
+        "title": "GANIL-SPIRAL2",
+        "technicalResourceId": "https://www.ganil-spiral2.eu/",
+        "idType": "URL",
+        "serviceContact": "navin@ganil.fr"
+    }
+]

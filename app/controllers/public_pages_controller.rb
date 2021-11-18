@@ -2,8 +2,6 @@
 
 class PublicPagesController < ApplicationController
 
-  #after_action :verify_authorized, except: [:template_index, :plan_index]
-
   prepend Dmpopidor::Controllers::PublicPages
 
   # GET template_index

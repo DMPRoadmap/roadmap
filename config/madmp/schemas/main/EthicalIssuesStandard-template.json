@@ -1,0 +1,70 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "EthicalIssuesStandard",
+    "description": "EthicalIssuesStandard template",
+    "type": "object",
+    "class": "EthicalIssuesStandard",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description des mesures prises pour prendre en compte les enjeux éthiques.",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "form_label@fr_FR": "Décrire les aspects éthiques pris en compte",
+            "form_label@en_GB": "Describe the ethical issues"
+        },
+        "resourceReference": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "ResourceReference",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ResourceReferenceStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Référence(s) de document(s) en lien avec les aspects éthiques à prendre en compte",
+            "label@fr_FR": "Références associées",
+            "label@en_GB": "Related references",
+            "form_label@fr_FR": "Indiquer la ou les références de documents en lien avec les questions éthiques",
+            "form_label@en_GB": "Indicate the reference(s) of documents related to ethical issues"
+        },
+        "contributor": {
+            "type": "array",
+            "table_header@fr_FR": "Nom (rôle)",
+            "table_header@en_GB": "Name (role)",
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "EthicalIssuesManager",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Personne contact pour traiter/prendre en charge les aspects éthiques d'un projet",
+            "label@fr_FR": "Responsables des questions éthiques",
+            "label@en_GB": "Persons in charge of ethical issues",
+            "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
+            "tooltip@en_GB": "Person in charge can be a person, a team, a department",
+            "form_label@fr_FR": "Responsables des questions éthiques",
+            "form_label@en_GB": "Persons in charge of ethical issues"
+        }
+    },
+    "required": [
+        "description"
+    ],
+    "to_string": []
+}

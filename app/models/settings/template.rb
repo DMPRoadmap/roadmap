@@ -10,10 +10,6 @@
 #  updated_at  :datetime         not null
 #  target_id   :integer          not null
 #
-# Indexes
-#
-#  settings_target_type_target_id_var_key  (target_type,target_id,var) UNIQUE
-#
 
 module Settings
   class Template < RailsSettings::SettingObject
@@ -28,9 +24,9 @@ module Settings
 
     VALID_ADMIN_FIELDS = ['project_name', 'project_identifier', 'grant_title', 'principal_investigator',
                           'project_data_contact', 'project_description', 'funder', 'institution', 'orcid']
-    
-    VALID_FORMATS = ['html', 'pdf', 'docx']
-    
+
+    VALID_FORMATS = ["html", "pdf", "docx", "json"]
+
     DEFAULT_SETTINGS = {
       formatting: {
         margin: {

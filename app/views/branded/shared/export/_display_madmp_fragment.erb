@@ -1,0 +1,75 @@
+<% sub_schemas = schema.sub_schemas %>
+<% data = fragment.data unless fragment.nil? %>
+<% dmp_fragments = fragment.present? ? fragment.dmp_fragments() : [] %>
+<% schema_properties = schema.schema["properties"]%>
+<table>
+  <tbody>
+    <% schema_properties.each do |key, prop| %>
+      <% value = data[key] unless data.nil? %>
+      <% label = prop["label@#{locale}"] %>
+      <% next if value.nil? %>
+      <% case prop['type'] %>
+      <% when 'boolean' %>
+        <tr class="fragment-property">
+          <td class="property-label"><%= label %></td>
+          <td class="property-value"><%= value ? _('Yes') : _('No') %></td>
+        </tr>
+      <% when 'array' %>
+        <% if prop['items']['type'] == 'object' && prop['items']['schema_id'].present? %>
+          <% next if MadmpSchema.find(prop['items']['schema_id']).classname.eql?("contributor") %>
+          <%
+            sub_schema = sub_schemas[prop['items']['schema_id']]
+            table_header = prop["table_header@#{locale}"] ? prop["table_header@#{locale}"] : prop["table_header"]
+            values = []
+            if value.present?
+              values = dmp_fragments.where(id: data[key].map { |d| d["dbid"] })
+            end
+          %>
+          <% unless values.empty? %>
+            <tr class="fragment-property fragment-list">
+              <td class="property-label"><%= label %></td> 
+              <td class="property-value"><ul>
+                <% values.each do |val| %>
+                  <li><%= val.to_s %></li>
+                <% end %>
+              </ul></td> 
+            </tr>
+          <% end %>
+        <% else %>
+          <tr class="fragment-property">
+            <td class="property-label"><%= label %></td>
+            <td class="property-value"><%=  value.join(", ") %></td>
+          </tr>
+        <% end %>
+      <% when 'object' %>
+        <% sub_fragment = dmp_fragments.find(value["dbid"]) %>
+        <% next if sub_fragment.data.nil? || sub_fragment.data.compact.empty? %>
+        <% next if sub_fragment.classname.eql?("contributor") %>
+        <% if  prop["registry_id"].present? %>
+          <tr class="fragment-property">
+            <td class="property-label"><%= label %></td> 
+            <td class="property-value"><%= sub_fragment.to_s %></td> 
+          </tr>
+        <% else %>
+          <tr class="fragment-property">
+            <td class="property-label"><%= label %></td> 
+            <td class="property-value fragment-display">
+              <%= render(partial: 'shared/export/display_madmp_fragment', locals: {
+                          fragment: sub_fragment,
+                          schema: sub_fragment.madmp_schema,
+                          classname: sub_fragment.classname,
+                          locale: locale,
+                          table_header: label
+              })%>
+            </td> 
+          </tr>
+        <% end %>
+      <% else%>
+        <tr class="fragment-property">
+          <td class="property-label"><%= label %></td>
+          <td class="property-value"><%= value.to_s.html_safe %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

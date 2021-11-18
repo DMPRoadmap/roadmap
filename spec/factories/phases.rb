@@ -3,19 +3,23 @@
 # Table name: phases
 #
 #  id             :integer          not null, primary key
-#  title          :string
 #  description    :text
+#  modifiable     :boolean
 #  number         :integer
-#  template_id    :integer
+#  title          :string
 #  created_at     :datetime
 #  updated_at     :datetime
-#  modifiable     :boolean
+#  template_id    :integer
 #  versionable_id :string(36)
 #
 # Indexes
 #
+#  index_phases_on_template_id     (template_id)
 #  index_phases_on_versionable_id  (versionable_id)
-#  phases_template_id_idx          (template_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (template_id => templates.id)
 #
 
 FactoryBot.define do

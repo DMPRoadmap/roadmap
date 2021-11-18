@@ -1,0 +1,154 @@
+<%# locals: form, plan %>
+
+<% project_title_tooltip =  _('If applying for funding, state the name exactly as in the grant proposal.') %>
+<% project_abstract_tooltip = _("Briefly summarise your research project to help others understand the purposes for which the data are being collected or created.") %>
+<% id_tooltip = _('A pertinent ID as determined by the funder and/or organisation.') %>
+
+<div class="form-group"><!-- title -->
+  <div class="col-md-12">
+    <%= form.label(:title, _('Project title'), class: 'control-label') %>
+  </div>
+  <div class="col-md-8">
+    <em class="sr-only"><%= project_title_tooltip %></em>
+    <%= form.text_field(:title, class: "form-control", "aria-required": true,
+                                'data-toggle': 'tooltip', spellcheck: true,
+                                title: project_title_tooltip) %>
+  </div>
+  <div class="col-md-8">
+    <div class="checkbox">
+      <%= form.hidden_field :visibility %>
+      <%= form.label(:is_test, class: 'control-label') do %>
+        <%= check_box_tag(:is_test, 1, plan.is_test?, "aria-label": "is_test") %>
+        <%= _('mock project for testing, practice, or educational purposes') %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group"><!-- description -->
+  <div class="col-md-12">
+    <%= form.label(:description, _('Project abstract'), class: 'control-label') %>
+  </div>
+  <div class="col-md-8" data-toggle="tooltip" title="<%= project_abstract_tooltip %>">
+    <em class="sr-only"><%= project_abstract_tooltip %></em>
+    <%= form.text_area :description, rows: 6, class: 'form-control tinymce',
+                                     "aria-required": false %>
+  </div>
+</div>
+
+<div class="form-group"><!-- start / end dates -->
+  <div class="col-md-4">
+    <%= form.label(:start_date, _("Project Start"), class: "control-label") %>
+    <%= form.date_field :start_date, class: "form-control",
+                                     data: { toggle: "tooltip" },
+                                     title: _("The estimated date on which you will begin this project.") %>
+  </div>
+  <div class="col-md-4">
+    <%= form.label(:end_date, _("Project End"), class: "control-label") %>
+    <%= form.date_field :end_date, class: "form-control",
+                                   data: { toggle: "tooltip" },
+                                   title: _("The estimated date on which you will complete this project.") %>
+  </div>
+</div>
+
+<%# if DOI minting is enabled %>
+<% landing_page = plan.landing_page %>
+<% if Rails.configuration.x.doi&.active && landing_page.present? %>
+  <div class="form-group"><!-- identifier -->
+    <div class="col-md-12">
+      <%= form.label(:identifier, _('Landing page'), class: 'control-label') %>
+    </div>
+    <div class="col-md-8">
+      <% if landing_page.value.starts_with?("http") %>
+        <%= link_to landing_page.value, landing_page.value %>
+      <% else %>
+        <%= landing_page.value %>
+      <% end %>
+    </div>
+  </div>
+<% else %>
+  <div class="form-group">
+    <div class="col-md-12">
+      <%= form.label :id, _("ID"), class: "control-label" %>
+    </div>
+    <div class="col-md-8">
+      <em class="sr-only"><%= id_tooltip %></em>
+      <%= form.text_field :identifier, class: "form-control",
+                                       aria: { required: false },
+                                       data: { toggle: "tooltip" },
+                                       spellcheck: true, title: id_tooltip %>
+    </div>
+  </div>
+<% end %>
+
+<div id="funder-org-controls" class="form-group">
+  <% if plan.template.org == plan.funder %>
+    <%# If the plan's funder is the same as the template owner then just
+        display the identifiers %>
+    <div class="col-md-12">
+      <%= form.label(:funder_name, _('Funder'), class: 'control-label') %>
+    </div>
+    <div class="col-md-8">
+      <%= plan.funder.name %>:
+    </div>
+
+    <% id_presenter = IdentifierPresenter.new(identifiable: plan.funder) %>
+    <ul>
+      <% %w[fundref ror].each do |scheme_name| %>
+        <%
+        scheme = id_presenter.scheme_by_name(name: scheme_name).first
+        identifier = id_presenter.id_for_scheme(scheme: scheme)
+        %>
+        <div class="col-md-8">
+          <li><%= id_presenter.id_for_display(id: identifier).html_safe %></li>
+        </div>
+      <% end %>
+    </ul>
+  <% else %>
+    <%# Otherwise display the Org typeahead for funders %>
+    <div class="col-md-8">
+      <%= fields_for :funder, plan.funder do |funder_fields| %>
+        <%= render partial: "shared/org_selectors/combined",
+           locals: {
+             form: form,
+             funder_only: true,
+             label: _("Funder"),
+             default_org: plan.funder,
+             required: false
+           } %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<div class="form-group"><!-- grant_number -->
+  <%# If the OpenAire grant typeahead if enabled use it %>
+  <% if Rails.configuration.x.open_aire.active %>
+    <!-- Using the research_project.json source for typeahead -->
+    <div class="col-md-12">
+      <%= label_tag(:plan_grant_number_name, _('Grant number'),
+                                             class: 'control-label') %>
+    </div>
+
+    <div class="col-md-8">
+      <%= text_field_tag(:plan_grant_number_name, '',
+                         class: "grant-id-typeahead form-control",
+                         autocomplete: "off",
+                         aria: { required: false }) %>
+      <%= form.hidden_field(:grant_number) %>
+      <span class="text-muted" id="grant_number_info">Grant number: <%= @plan.grant_number %></span>
+    </div>
+  <% else %>
+    <%= fields_for :grant, @plan.grant do |grant_fields| %>
+      <div class="col-md-12">
+        <%= grant_fields.label(:value, _("Grant number/url"), class: "control-label") %>
+      </div>
+      <div class="col-md-8">
+        <%= grant_fields.text_field(:value, class: "form-control",
+                                            data: { toggle: "tooltip" },
+                                            title: _("Provide a URL to the award's landing page if possible, if not please provide the award/grant number.")) %>
+        <%= grant_fields.hidden_field :id %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

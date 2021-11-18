@@ -46,26 +46,27 @@
         <span class="red" title="<%= required_research_org_tooltip %>">*<em class="sr-only"><%= required_research_org_tooltip %></em> </span>
         <%= _('Select the primary research organisation') %>
       </h2>
-      <div class="row">
+      <div id="research-org-controls" class="row">
         <div class="form-group col-md-6">
            <em class="sr-only"><%= research_org_tooltip %></em>
-          <%= render partial: "shared/accessible_combobox",
-                     locals: {name: 'plan[org_name]',
-                              id: 'plan_org_name',
-                              default_selection: @default_org,
-                              models: @orgs,
-                              attribute: 'name',
-                              required: true,
-                              error: _('You must select a research organisation from the list.'),
-                              tooltip: research_org_tooltip,
-                              placement: 'bottom'} %>
+           <% dflt = @orgs.include?(current_user.org) ? current_user.org : nil %>
+           <%= fields_for :org, @plan.org do |org_fields| %>
+             <%= render partial: "shared/org_selectors/local_only",
+                        locals: {
+                          form: org_fields,
+                          id_field: :id,
+                          default_org: dflt,
+                          orgs: @orgs,
+                          required: false
+                        } %>
+          <% end %>
         </div>
         <div class="col-md-1 pad-top-10 create-plan-or"><strong>- <%= _('or') %> -</strong></div>
         <div class="form-group col-md-5 create-plan-checkbox">
           <div class="checkbox">
             <% primary_research_org_message = _('No research organisation associated with this plan or my research organisation is not listed') %>
             <%= label_tag(:plan_no_org) do %>
-              <%= check_box_tag(:plan_no_org) %>
+              <%= check_box_tag(:plan_no_org, "0", false, class: "toggle-autocomplete") %>
               <%= primary_research_org_message %>
             <% end %>
           </div>
@@ -74,26 +75,27 @@
 
       <!-- Funder selection -->
       <h2 id="funder-org"><span class="red" title="<%= required_primary_funding_tooltip %>">* <em class="sr-only"><%= required_primary_funding_tooltip %></em> </span><%= _('Select the primary funding organisation') %></h2>
-      <div class="row">
+      <div id="funder-org-controls" class="row">
         <div class="form-group col-xs-6">
           <em class="sr-only"><%= primary_funding_tooltip %></em>
-          <%= render partial: "shared/accessible_combobox",
-                     locals: {name: 'plan[funder_name]',
-                              id: 'plan_funder_name',
-                              default_selection: nil,
-                              models: @funders,
-                              attribute: 'name',
-                              required: true,
-                              error: _('You must select a funding organisation from the list.'),
-                              tooltip: primary_funding_tooltip,
-                              placement: 'bottom'} %>
+          <%= fields_for :funder, @plan.funder = Org.new do |funder_fields| %>
+            <%= render partial: "shared/org_selectors/local_only",
+                        locals: {
+                          form: funder_fields,
+                          id_field: :id,
+                          label: _("Funder"),
+                          default_org: nil,
+                          orgs: @funders,
+                          required: false
+                        } %>
+          <% end %>
         </div>
         <div class="col-md-1 create-plan-or"><strong>- <%= _('or') %> -</strong></div>
         <div class="form-group col-xs-5 create-plan-checkbox">
           <div class="checkbox">
             <% primary_funding_message = _('No funder associated with this plan or my funder is not listed') %>
             <%= label_tag(:plan_no_funder) do %>
-              <%= check_box_tag(:plan_no_funder) %>
+              <%= check_box_tag(:plan_no_funder, "0", false, class: "toggle-autocomplete") %>
               <%= primary_funding_message %>
             <% end %>
           </div>

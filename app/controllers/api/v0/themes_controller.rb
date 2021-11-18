@@ -1,12 +1,17 @@
+# frozen_string_literal: true
+
 module Api
+
   module V0
+
     class ThemesController < Api::V0::BaseController
+
       before_action :authenticate
-      
+
       def extract
         # check if the user has permissions to use the themes API
         @theme = Theme.find_by(:slug => params[:slug])
-        
+
         raise Pundit::NotAuthorizedError unless Api::V0::ThemePolicy.new(@user, @theme).extract?
         @answers = []
         if @theme
@@ -50,6 +55,9 @@ module Api
       def extract_filtering_params
         extract_params.slice(:template_id, :question_id, :start_date, :end_date, :admin_visible, :org_visible)
       end
+
     end
+
   end
+
 end

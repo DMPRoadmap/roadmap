@@ -1,0 +1,118 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DataProcessingStandard",
+    "description": "DataProcessingStandard template",
+    "type": "object",
+    "class": "DataProcessingStandard",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description des méthodes/protocoles de traitement des données",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "form_label@fr_FR": "Décrire les méthodes ou protocoles de traitement des données",
+            "form_label@en_GB": "Describe data processing methods or protocols"
+        },
+        "methodReference": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "ResourceReferenceStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "MethodReference",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Ressource de référence d'une méthode ou un protocole, d'un workflow d'analyse",
+            "label@fr_FR": "Références associées",
+            "label@en_GB": "Related references",
+            "form_label@fr_FR": "Indiquer les références associées",
+            "form_label@en_GB": "Indicate related references"
+        },
+        "facility": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "TechnicalResource",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "TechnicalResourceStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Ressource technique utilisée pour réaliser les traitements",
+            "label@fr_FR": "Equipements, plateaux techniques",
+            "label@en_GB": "Equipments, technical platforms",
+            "inputType": "dropdown",
+            "registry_name": "ProcessingServices",
+            "overridable": true,
+            "form_label@fr_FR": "Equipements, plateaux techniques utilisés pour le traitement et l'analyse des données",
+            "form_label@en_GB": "Equipments, technical platforms used for data processing and analysis"
+        },
+        "contributor": {
+            "type": "array",
+            "table_header@fr_FR": "Nom (rôle)",
+            "table_header@en_GB": "Name (role)",
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "DataProcessingManager",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Personnes impliquées dans le traitement des données",
+            "label@fr_FR": "Responsables du traitement et de l’analyse des données",
+            "label@en_GB": "Research staff processing and analysing data",
+            "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
+            "tooltip@en_GB": "Person in charge can be a person, a team, a department",
+            "form_label@fr_FR": "Responsables du traitement et de l’analyse des données",
+            "form_label@en_GB": "Research staff processing and analysing data"
+        },
+        "cost": {
+            "type": "array",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
+            "items": {
+                "type": "object",
+                "class": "Cost",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "CostStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Coûts éventuels liés aux traitements des données",
+            "label@fr_FR": "Coûts",
+            "label@en_GB": "Costs",
+            "form_label@fr_FR": "Coûts liés au traitement/analyse des données",
+            "form_label@en_GB": "Data treatment/analysis associated costs"
+        }
+    },
+    "required": [
+        "description"
+    ],
+    "to_string": []
+}

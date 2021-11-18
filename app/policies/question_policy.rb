@@ -21,6 +21,10 @@ class QuestionPolicy < ApplicationPolicy
     user.present?
   end
 
+  def open_conditions?
+    user.can_modify_templates?  &&  (question.section.phase.template.org_id == user.org_id)
+  end
+
   def edit?
     user.can_modify_templates?  &&  (question.section.phase.template.org_id == user.org_id)
   end

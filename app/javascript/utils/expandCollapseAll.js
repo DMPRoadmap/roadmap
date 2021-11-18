@@ -41,8 +41,8 @@ export default () => {
     if (direction) {
       // Selects all .panel elements where the parent is currentTarget.attr('data-parent') and
       // after gets the immediately children whose class selector is panel-collapse
-      $(`#${currentTarget.attr('data-parent')} > .panel`).children('.panel-collapse').each((i, el) => {
-        const panelCollapse = $(el);
+      $(`#${currentTarget.attr('data-parent')} > .panel`).each((i, el) => {
+        const panelCollapse = $(el).find('.panel-collapse');
         // Expands or collapses the panel according to the
         // direction passed (e.g. show --> expands, hide --> collapses)
         if (direction === 'show') {

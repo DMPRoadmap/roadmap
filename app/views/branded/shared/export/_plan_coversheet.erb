@@ -1,64 +1,106 @@
+<% 
+  plan_fragment = @plan.json_fragment
+  contributors = plan_fragment.contributors
+  costs = Fragment::Cost.where(dmp_id: plan_fragment.id)
+  locale = @plan.template.locale
+  template = @plan.template 
+  template_title = template.title
+  template_title += " - #{d_('dmpopidor', 'Customized')}" if template.customization_of.present?
+%>
 <hr />
 <h1><%= @plan.title %></h1>
-<p><em><%= _("A Data Management Plan created using ") + Rails.configuration.branding[:application][:name] %></em></p>
+<em>
+  <%= d_("dmpopidor", "A Data Management Plan created using %{application_name}, based on the \"%{template_title}\" template provided by %{org_name}.") % {
+      application_name:  Rails.configuration.branding[:application][:name],
+      template_title: template_title,
+      org_name: template.org.name
+    } %>
+</em>
 <br/>
 <div class="cover-page">
-  <%# Using <b> tags as the htmltoword gem does not recognise css styles defined %>
-  <%# Allow raw html (==) for plan_attribution as it has <b> tags %>
-  <p><%== plan_attribution(@hash[:attribution]) %></p><br>
+  <h2><%= d_("dmpopidor", "Plan Details") %></h2>
+  <div class="plan-details">
+    <%= render(partial: 'shared/export/display_madmp_fragment', locals: {
+            fragment: plan_fragment.meta,
+            schema: plan_fragment.meta.madmp_schema,
+            classname: plan_fragment.meta.classname,
+            locale: locale,
+            table_header: nil
+    } ) %>
+  </div>
 
-  <p><b><%= d_("dmpopidor", "Principal Investigator Affiliation: ") %></b><%= @hash[:affiliation] %></p><br>
-  
-  <% if @hash[:customizer].present? %>
-    <p><b><%= d_("dmpopidor", "DMP Template: ") %></b><%= @hash[:template] + @hash[:customizer] %></p><br>
-  <% else %>
-    <p><b><%= d_("dmpopidor", "DMP Template: ") %></b><%= @hash[:template] %></p><br>
-  <% end %>
-  
-  <p><b><%= d_("dmpopidor", "Last modified: ") %></b><%=  l(@plan.updated_at.to_date, formats: :short) %></p> <br>
-  
-  <% if @plan.funder_name.present? %>
-    <p><b><%= d_("dmpopidor", "Funder: ") %></b><%=  @plan.funder_name %></p> <br>
-  <% end %>
+  <h2><%= _("Project Details") %></h2>
+  <div class="plan-details">
+    <%= render(partial: 'shared/export/display_madmp_fragment', locals: {
+            fragment: plan_fragment.project,
+            schema: plan_fragment.project.madmp_schema,
+            classname: plan_fragment.meta.classname,
+            locale: locale,
+            table_header: nil
+    } ) %>
+  </div>
 
-  <% if @plan.grant_number.present? %>
-    <p><b><%= _("Grant number: ") %></b><%= @plan.grant_number %></p> <br>
-  <% end %>
-
-  <% if @plan.description.present? %>
-    <p><b><%= _("Project abstract: ") %></b></p>
-    <div style="margin-left: 15px;"><%= sanitize(@plan.description) %></div><br>
-  <% end %>
-
-  <% if @plan.principal_investigator.present? %>
-    <p><b><%= d_("dmpopidor", "Principal Investigator: ") %></b><%= @plan.principal_investigator %></p> <br>
-  <% end %>
-
-  <% if @plan.principal_investigator_identifier.present? %>
-    <p><b><%= _("ORCID iD: ") %></b><%= @plan.principal_investigator_identifier %></p> <br>
-  <% end %>
-
-  <% if @plan.data_contact.present? %>
-    <p><b><%= d_("dmpopidor", "Data Contact Person: ") %></b><%= @plan.data_contact %></p> <br>
-  <% elsif @plan.principal_investigator.present? %>
-    <p><b><%= d_("dmpopidor", "Data Contact Person: ") %></b><%= @plan.principal_investigator %></p> <br>
-  <% end %>
-
-  <% if @hash[:research_outputs].length > 1 || !@hash[:research_outputs][0].main?%>
-    <p><b><%= d_('dmpopidor', "Research outputs") %> : </b></p>
-    <ol>
-      <% @hash[:research_outputs].each do |research_output| %>
-        <li>
-        <%= research_output.abbreviation %> : <%= research_output.fullname %> ( <%= 
-          research_output.type && research_output.type.is_other  ? 
-          d_('dmpopidor', 'Other: ') + research_output.other_type_label :
-          d_('dmpopidor', research_output.type.label)
-        %> )</li>
+  <p><b><%= d_('dmpopidor', "Research outputs") %> : </b></p>
+  <ol>
+    <% plan_fragment.research_outputs.each do |research_output| %>
+      <% research_output_description = research_output.research_output_description %>
+      <li>
+        <%= research_output_description.data['title'] %>
+        <% if research_output_description.data['type'].present? %>
+          (<%= research_output_description.data['type'] %>)
+        <% end %>
+      </li>
+    <% end %>
+  </ol>
+  <br/>
+  <p><b><%= _("Contributors") %></b></p> <br/>
+  <table class="real-table">
+    <thead><tr><th><%= _("Contributors") %></th><th><%= _("Roles") %></th></tr></thead>
+    <tbody>
+    <% contributors.each do |contributor| %>
+      <tr>
+        <td><%= contributor.to_s %></td>
+        <td>
+          <ul>
+            <% contributor.roles.each do |role| %>
+              <li><%= role %></li>
+            <% end %>
+          </ul>  
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <% if @plan.template.structured? && !costs.empty?%>
+    <br/>
+    <p><b><%= _("Budget") %></b></p> <br/>
+    <table class="real-table">
+      <thead>
+        <tr>
+          <th scope="col"><%= d_("dmpopidor", "Cost type (Title)") %></th>
+          <th scope="col" class="sorter-false"><%= d_("dmpopidor", "Amount") %></th>
+          <th scope="col" class="sorter-false"><%= d_("dmpopidor", "Lifecycle stage") %></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% costs.each do |cost| %>
+        <% ro = ResearchOutput.find(cost.research_output_id)%>
+        <% cost_label = form_label(cost.parent.madmp_schema.schema["properties"]["cost"], @plan.template.locale, false) %>
+        <% cost_title = cost.data["costType"] %>
+        <% cost_title +=  " (#{cost.data["title"]})" if cost.data["title"].present?%>
+        <tr>
+          <td><%=  cost_title %></td>
+          <td><%= "#{cost.data["amount"]} #{cost.data["currency"]}"%></td>
+          <% if @plan.research_outputs.length > 1 %>
+            <td><%= "#{cost_label} - " %><b><%= ro.abbreviation %></b></td>
+          <% else %>
+            <td><%= cost_label %></td>
+          <% end %>
+        </tr>
       <% end %>
-    </ol>
-    <br>
+      </tbody>
+    </table>
   <% end %>
-
 
   <% if @public_plan %>
     <p><%= _("Copyright information:") %></p>

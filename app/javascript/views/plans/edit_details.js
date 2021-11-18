@@ -1,15 +1,26 @@
 import { Tinymce } from '../../utils/tinymce.js.erb';
+import { Select2 } from '../../utils/select2';
 import getConstant from '../../constants';
+import * as notifier from '../../utils/notificationHelper';
+import {
+  failCallback,
+} from '../answers/edit';
 import 'bootstrap-3-typeahead';
 
 $(() => {
   const grantIdField = $('.grant-id-typeahead');
   const grantIdHidden = $('input#plan_grant_number');
+  const showSavingMessage = jQuery => jQuery.parents('.question-form').find('[data-status="saving"]').show();
+  const hideSavingMessage = jQuery => jQuery.parents('.question-form').find('[data-status="saving"]').hide();
+  const showLoadingOverlay = jQuery => jQuery.find('.overlay').show();
+  const hideLoadingOverlay = jQuery => jQuery.find('.overlay').hide();
+  const toolbar = 'bold italic underline | fontsizeselect forecolor | bullist numlist | link | table';
+
 
   Tinymce.init();
+  /*
   $('#is_test').click((e) => {
-    const DefaultVisibility = $('#plan_default_visibility').val();
-    $('#plan_visibility').val($(e.target).is(':checked') ? 'is_test' : DefaultVisibility);
+    $('#plan_visibility').val($(e.target).is(':checked') ? 'is_test' : 'privately_visible');
   });
 
   const showHideDataContact = (el) => {
@@ -24,6 +35,7 @@ $(() => {
     showHideDataContact($(e.currentTarget));
   });
   showHideDataContact($('#show_data_contact'));
+  */
 
   // Toggle the disabled flags
   const toggleCheckboxes = (selections) => {
@@ -126,4 +138,91 @@ $(() => {
   /* eslint-disable */
   /*setUpTypeahead();*/
   /* eslint-enable */
+
+  $('body').on('click', '.plan-details .heading-button', (e) => {
+    $(e.currentTarget)
+      .find('i.fa-chevron-right, i.fa-chevron-down')
+      .toggleClass('fa-chevron-right fa-chevron-down');
+  });
+
+  Select2.init('.plan-details');
+
+  $('.plan-details form.madmp-fragment').on('change', (e) => {
+    e.preventDefault();
+    const target = $(e.target);
+    target.parents('form').find('.answer-bottom-zone .message-zone').show();
+  });
+
+  $('.plan-details form.madmp-fragment').on('submit', (e) => {
+    e.preventDefault();
+    const target = $(e.target);
+    const form = target.closest('form');
+
+    $.ajax({
+      method: form.attr('method'),
+      url: form.attr('action'),
+      data: form.serializeArray(),
+      beforeSend: () => {
+        showSavingMessage(target);
+        showLoadingOverlay(target);
+      },
+      complete: () => {
+        hideSavingMessage(target);
+        hideLoadingOverlay(target);
+      },
+    }).done((data) => {
+      form.html(data.question.form);
+      $('#plan-title').html(data.plan.title);
+      $(document).prop('title', data.plan.title);
+      Tinymce.init({
+        toolbar,
+      });
+      Select2.init('.plan-details');
+      if (form.parent().hasClass('project-form')) {
+        $('#plan_metadata').trigger('reload.form');
+      }
+    }).fail((error) => {
+      failCallback(error, target);
+    });
+  });
+
+  $('.panel-collapse').on('reload.form', (e) => {
+    const target = $(e.target);
+    const form = target.find('form.madmp-fragment');
+    const fragmentId = target.find('.fragment-id').val();
+
+    $.ajax({
+      method: 'get',
+      url: `/madmp_fragments/load_form/${fragmentId}`,
+      beforeSend: () => {
+        showLoadingOverlay(target);
+      },
+      complete: () => {
+        hideLoadingOverlay(target);
+      },
+    }).done((data) => {
+      form.html(data.question.form);
+      $('#plan-title').html(data.plan.title);
+      $(document).prop('title', data.plan.title);
+      Tinymce.init({
+        toolbar,
+      });
+      Select2.init('.plan-details');
+    }).fail((error) => {
+      failCallback(error, target);
+    });
+  });
+
+  $('.project-form').on('click, change', '.set_test_plan input[type="checkbox"]', (e) => {
+    const form = $(e.target).closest('form');
+    form.trigger('submit');
+  });
+
+  $('.project-form').on('ajax:success', '.set_test_plan', (e, data) => {
+    if (data.code === 1 && data.msg && data.msg !== '') {
+      notifier.renderNotice(data.msg, { autoDismiss: true });
+    } else {
+      notifier.renderAlert(data.msg);
+    }
+  });
 });

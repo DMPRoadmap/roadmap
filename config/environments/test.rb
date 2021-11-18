@@ -43,5 +43,7 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-
 end
+
+# Used by Rails' routes url_helpers (typically when including a link in an email)
+Rails.application.routes.default_url_options[:host] = "example.org"

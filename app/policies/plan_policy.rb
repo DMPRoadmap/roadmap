@@ -80,4 +80,16 @@ class PlanPolicy < ApplicationPolicy
     @plan.editable_by?(@user.id)
   end
 
+  def create_remote?
+    @plan.editable_by?(@user.id)
+  end
+
+  def sort?
+    @plan.editable_by?(@user.id)
+  end
+
+  def load_values?
+    @plan.readable_by?(@user.id)
+  end
+
 end

@@ -45,7 +45,7 @@ msgstr ""
 msgid "Individual Access"
 msgstr ""
 
-msgid "The information collected that concerns you will be processed and is destined for the Inist-CNRS (UPS76) and the correspondent for Computing and Liberties (CIL). For the following goal: management of user accounts. The recipients of this data are the administrators of the Inist-CNRS. The duration of conservation of the data is 5 years following the last login."
+msgid "The information collected that concerns you will be processed and is destined for the Inist-CNRS (UAR76) and the correspondent for Computing and Liberties (CIL). For the following goal: management of user accounts. The recipients of this data are the administrators of the Inist-CNRS. The duration of conservation of the data is 5 years following the last login."
 msgstr ""
 
 msgid "You have the right of access, of correction, of portability, or of removal of this data, or of a limitation of their processing. You can oppose the processing of the data that concerns you and you have the right to withdraw your agreement at any time, by contacting: <a href='mailto:%{contact_url}'>%{contact_url}</a>. You can also direct a complaint at a controlling body."
@@ -183,7 +183,7 @@ msgstr ""
 msgid "Multiple templates are available, which one would you like to use?"
 msgstr ""
 
-msgid "The template \"__template_title__\" is available. Would you like to create a plan from this template?"
+msgid "The template \"<span class=\"template_title\"></span>\" is available. Would you like to create a plan from this template?"
 msgstr ""
 
 msgid "No template available."
@@ -193,6 +193,9 @@ msgid "You are not linked to an organisation, we can\'t suggest you a template. 
 msgstr ""
 
 msgid "Customized by "
+msgstr ""
+
+msgid "Customized"
 msgstr ""
 
 msgid "Copy link"
@@ -318,7 +321,7 @@ msgstr ""
 msgid "Abbreviated Name"
 msgstr ""
 
-msgid "Fullname"
+msgid "Full Title"
 msgstr ""
 
 msgid "Other Type"
@@ -463,6 +466,183 @@ msgstr ""
 msgid "Request Date"
 msgstr ""
 
+# maDMP Fragments
+
+msgid "This property is required."
+msgstr ""
+
+msgid "This property has an invalid format."
+msgstr ""
+
+msgid "This property has an unknown problem : %{validation}"
+msgstr ""
+
+msgid "Create"
+msgstr ""
+
+msgid "General informations"
+msgstr ""
+
+msgid "\"%{project_title}\" project DMP"
+msgstr ""
+
+msgid "DMP manager"
+msgstr ""
+
+msgid "Project coordinator"
+msgstr ""
+
+msgid "Data contact"
+msgstr ""
+
+msgid "Click here to add a new item"
+msgstr ""
+
+msgid "Click here to add a new research output"
+msgstr ""
+
+msgid "Answer"
+msgstr ""
+
+msgid "Plan Details"
+msgstr ""
+
+msgid "Editing %{title_value}"
+msgstr ""
+
+msgid "New %{title_value}"
+msgstr ""
+
+msgid "Selected value:"
+msgstr ""
+
+msgid "Select a value from the list."
+msgstr ""
+
+msgid "Select a value from the list or type a new one."
+msgstr ""
+
+msgid "Select a value you want to add to your plan."
+msgstr ""
+
+msgid "Select a value you want to add to your plan or type a new one."
+msgstr ""
+
+msgid "Select a person from the list."
+msgstr ""
+
+msgid "Confirm"
+msgstr ""
+
+msgid "Comments & Guidance"
+msgstr ""
+
+msgid "Plan Title"
+msgstr ""
+
+msgid "Element is not in the list."
+msgstr ""
+
+msgid "Custom value: "
+msgstr ""
+
+msgid "Do you want to delete this element?"
+msgstr ""
+
+msgid "New data have been added to your plan, please click on the \"Reload\" button."
+msgstr ""
+
+msgid "Reload"
+msgstr ""
+
+msgid "Please enter the acronym, title or identifier of the project"
+msgstr ""
+
+msgid "Click here if you have a funded project."
+msgstr ""
+
+msgid "Element is already present in your plan."
+msgstr ""
+
+msgid "An error has occured: "
+msgstr ""
+
+msgid "You can pick a different question form"
+msgstr ""
+
+msgid "Contact"
+msgstr ""
+
+msgid "Add a person"
+msgstr ""
+
+msgid "Attributed roles (Associated research outputs)"
+msgstr ""
+
+msgid "List of person responsible for research data management during a project and their roles. Assigning a role to a person is done in the \"Write Plan\" tab."
+msgstr ""
+
+msgid "You have pending changes, please save"
+msgstr ""
+
+msgid "List of costs related to data management. Creating a cost is done in the \"Write Plan\" tab."
+msgstr ""
+
+msgid "Amount"
+msgstr ""
+
+msgid "Lifecycle stage"
+msgstr ""
+
+msgid "(version: %{template_version}, published: %{published_date})"
+msgstr ""
+
+msgid "Cost type (Title)"
+msgstr ""
+
+msgid "A Data Management Plan created using %{application_name}, based on the \"%{template_title}\" template provided by %{org_name}."
+msgstr "A Data Management Plan created using %{application_name}, based on the \"%{template_title}\" template provided by %{org_name}."
+
+################
+### REGISTRIES
+################
+msgid "Export Registry"
+msgstr ""
+
+msgid "Create Value"
+msgstr ""
+
+msgid "Values"
+msgstr ""
+
+msgid "View all registries"
+msgstr ""
+
+msgid "Click here to find out more about registries."
+msgstr ""
+
+
+################
+### API
+################
+msgid "Fragment with id %{id} doesn't exist."
+msgstr ""
+
+
+################
+### EXPORT
+################
+msgid "Local indentifier"
+msgstr ""
+
+msgid "Personal"
+msgstr ""
+
+
+################
+### PLAN CONVERSION
+################
+
 msgid "Audiovisual"
 msgstr ""
 
@@ -479,9 +659,6 @@ msgid "Interactive Resource"
 msgstr ""
 
 msgid "Model"
-msgstr ""
-
-msgid "Physical Object"
 msgstr ""
 
 msgid "Service"

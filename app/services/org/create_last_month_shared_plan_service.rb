@@ -5,6 +5,7 @@ import OrgDateRangeable
 import StatSharedPlan
 import StatSharedPlan::CreateOrUpdate
 import User
+import Plan
 import Role
 
 class Org
@@ -24,6 +25,12 @@ class Org
               start_date: last[:start_date],
               end_date: last[:end_date],
               org: org
+            )
+            StatSharedPlan::CreateOrUpdate.do(
+              start_date: last[:start_date],
+              end_date: last[:end_date],
+              org: org,
+              filtered: true
             )
           end
         end

@@ -1,0 +1,144 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DataCollectionStandard",
+    "description": "DataCollectionStandard template",
+    "type": "object",
+    "class": "DataCollectionStandard",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Titre de la collecte",
+            "label@fr_FR": "Titre de la méthode",
+            "label@en_GB": "Title of the method",
+            "tooltip@fr_FR": "Titre d'une méthode (ou étape) de collecte",
+            "tooltip@en_GB": "Title of a data collection method (or step)",
+            "form_label@fr_FR": "Titre de la méthode",
+            "form_label@en_GB": "Title of the method"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description de la collecte des données",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "tooltip@fr_FR": "Expliquer quelle méthodologie est utilisée pour produire, collecter les données. Préciser si besoin le contexte de production, la fréquence de collecte des données.",
+            "tooltip@en_GB": "Explain the methodology used to produce and collect the data. Specify if necessary the context of production, the frequency of data collection.",
+            "form_label@fr_FR": "Décrire la méthode de collecte ou d'acquisition des données",
+            "form_label@en_GB": "Describe the method of data collection or acquisition"
+        },
+        "dataNature": {
+            "type": "string",
+            "description": "Nature des données (observation, expérimentale, …)",
+            "inputType": "dropdown",
+            "label@fr_FR": "Nature des données",
+            "label@en_GB": "Data Nature",
+            "registry_name": "DataNature",
+            "overridable": true,
+            "tooltip@fr_FR": "Sélectionner dans la liste déroulante la nature du produit de recherche",
+            "tooltip@en_GB": "Choose in the dropdown the research output data nature",
+            "form_label@fr_FR": "Nature des données",
+            "form_label@en_GB": "Data Nature"
+        },
+        "facility": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "TechnicalResource",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "TechnicalResourceStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Usage d'une ressource technique pour acquérir les données",
+            "label@fr_FR": "Equipements, plateaux techniques utilisés",
+            "label@en_GB": "Equipments, technical platforms used",
+            "inputType": "dropdown",
+            "registry_name": "CollectionServices",
+            "overridable": true,
+            "form_label@fr_FR": "Equipements, plateaux techniques utilisés pour la production ou l'acquisition de données",
+            "form_label@en_GB": "Equipments, technical platforms used for production or acquisition of data"
+        },
+        "methodReference": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "ResourceReferenceStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "MethodReference",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Référence(s) de protocoles /méthodes utilisées",
+            "label@fr_FR": "Références associées",
+            "label@en_GB": "Related references",
+            "form_label@en_GB": "Indicate the reference(s) of the methods",
+            "form_label@fr_FR": "Indiquer la ou les références des méthodes/protocoles utilisés"
+        },
+        "contributor": {
+            "type": "array",
+            "table_header@fr_FR": "Nom (rôle)",
+            "table_header@en_GB": "Name (role)",
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "DataCollector",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Personne(s) impliquée(s) dans la collecte/acquisition des données",
+            "label@fr_FR": "Responsables de la production ou de la collecte des données",
+            "label@en_GB": "Data producers or collectors",
+            "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
+            "tooltip@en_GB": "Person in charge can be a person, a team, a department",
+            "form_label@fr_FR": "Responsables de la production ou de la collecte des données",
+            "form_label@en_GB": "Data producers or collectors"
+        },
+        "cost": {
+            "type": "array",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
+            "items": {
+                "type": "object",
+                "class": "Cost",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "CostStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Coûts éventuels liés à la collecte des données",
+            "label@fr_FR": "Coûts",
+            "label@en_GB": "Costs",
+            "form_label@fr_FR": "Coûts liés à la collecte/production des données",
+            "form_label@en_GB": "Data collection/production associated costs"
+        }
+    },
+    "required": [
+        "description",
+        "dataNature"
+    ],
+    "to_string": []
+}

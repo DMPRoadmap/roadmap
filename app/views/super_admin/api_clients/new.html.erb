@@ -1,0 +1,8 @@
+<% title _('New API client') %>
+<h2>
+   <%= _('New API Client') %>
+   <%= link_to(_('View all API clients'), super_admin_api_clients_path,
+       class: 'btn btn-default pull-right', role: 'button') %>
+ </h2>
+
+<%= render 'form' %>

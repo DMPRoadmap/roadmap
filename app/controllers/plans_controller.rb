@@ -3,9 +3,11 @@
 class PlansController < ApplicationController
 
   include ConditionalUserMailer
+  include OrgSelectable
+  prepend Dmpopidor::Controllers::Plans
+
   helper PaginableHelper
   helper SettingsTemplateHelper
-  prepend Dmpopidor::Controllers::Plans
 
   after_action :verify_authorized, except: [:overview]
 
@@ -32,16 +34,15 @@ class PlansController < ApplicationController
 
     # Get all of the available funders and non-funder orgs
     @funders = Org.funder
+                  .includes(identifiers: :identifier_scheme)
                   .joins(:templates)
                   .where(templates: { published: true }).uniq.sort_by(&:name)
-    @orgs = (Org.organisation + Org.institution + Org.managing_orgs).flatten
-                                                                    .uniq.sort_by(&:name)
+    @orgs = (Org.includes(identifiers: :identifier_scheme).organisation +
+             Org.includes(identifiers: :identifier_scheme).institution +
+             Org.includes(identifiers: :identifier_scheme).default_orgs)
+    @orgs = @orgs.flatten.uniq.sort_by(&:name)
 
-    # Get the current user's org
-    @default_org = current_user.org if @orgs.include?(current_user.org) || @funders.include?(current_user.org) 
-
-    # Get the default template
-    @default_template = Template.default
+    @plan.org_id = current_user.org&.id
 
     if params.key?(:test)
       flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>"
@@ -70,20 +71,6 @@ class PlansController < ApplicationController
         format.html { redirect_to new_plan_path }
       end
     else
-      # Otherwise create the plan
-      if current_user.surname.blank?
-        @plan.principal_investigator = nil
-      else
-        @plan.principal_investigator = current_user.name(false)
-      end
-
-      @plan.principal_investigator_email = current_user.email
-
-      orcid = current_user.identifier_for(IdentifierScheme.find_by(name: "orcid"))
-      @plan.principal_investigator_identifier = orcid.identifier unless orcid.nil?
-
-      @plan.funder_name = plan_params[:funder_name]
-
       @plan.visibility = if plan_params["visibility"].blank?
                            Rails.application.config.default_plan_visibility
                          else
@@ -102,9 +89,25 @@ class PlansController < ApplicationController
         @plan.title = plan_params[:title]
       end
 
+      # bit of hackery here. There are 2 org selectors on the page
+      # and each is within its own specific context, plan.org or
+      # plan.funder which forces the hidden id hash to be :id
+      # so we need to convert it to :org_id so it works with the
+      # OrgSelectable and OrgSelection services
+      org_hash = plan_params[:org] || params[:org]
+      if org_hash[:id].present?
+        org_hash[:org_id] = org_hash[:id]
+        @plan.org = org_from_params(params_in: org_hash, allow_create: false)
+      end
+      funder_hash = plan_params[:funder] || params[:funder]
+      if funder_hash[:id].present?
+        funder_hash[:org_id] = funder_hash[:id]
+        @plan.funder = org_from_params(params_in: funder_hash, allow_create: false)
+      end
+
       if @plan.save
         # pre-select org's guidance and the default org's guidance
-        ids = (Org.managing_orgs << org_id).flatten.uniq
+        ids = (Org.default_orgs.pluck(:id) << org_id).flatten.uniq
         ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
 
         if !ggs.blank? then @plan.guidance_groups << ggs end
@@ -121,7 +124,7 @@ class PlansController < ApplicationController
           # rubocop:disable Metrics/LineLength
           # We used a customized version of the the funder template
           # rubocop:disable Metrics/LineLength
-          msg += " #{_('This plan is based on the')} #{plan_params[:funder_name]}: '#{@plan.template.title}' #{_('template with customisations by the')} #{plan_params[:org_name]}"
+          msg += " #{_('This plan is based on the')} #{@plan.funder&.name}: '#{@plan.template.title}' #{_('template with customisations by the')} #{plan_params[:org_name]}"
           # rubocop:enable Metrics/LineLength
         else
           # rubocop:disable Metrics/LineLength
@@ -133,9 +136,9 @@ class PlansController < ApplicationController
 
         @plan.add_user!(current_user.id, :creator)
 
-       # Set new identifier to plan id by default on create.
-       # (This may be changed by user.)
-       @plan.add_identifier!(@plan.id.to_s)
+        # Set new identifier to plan id by default on create.
+        # (This may be changed by user.)
+        @plan.identifier = @plan.id.to_s
 
         respond_to do |format|
           flash[:notice] = msg
@@ -153,14 +156,13 @@ class PlansController < ApplicationController
   end
 
   # GET /plans/show
+  # SEE MODULE
   def show
     @plan = Plan.includes(
       template: { phases: { sections: { questions: :answers } } },
       plans_guidance_groups: { guidance_group: :guidances }
             ).find(params[:id])
     authorize @plan
-
-    @research_outputs = @plan.research_outputs.order(:order)
 
     @visibility = if @plan.visibility.present?
                     @plan.visibility.to_s
@@ -209,6 +211,7 @@ class PlansController < ApplicationController
   end
 
   # GET /plans/:plan_id/phases/:id/edit
+  # SEE MODULE
   def edit
     plan = Plan.find(params[:id])
     authorize plan
@@ -217,7 +220,7 @@ class PlansController < ApplicationController
     render_phases_edit(plan, phase, guidance_groups)
   end
 
-  # # PUT /plans/1
+  # PUT /plans/1
   # PUT /plans/1.json
   # SEE MODULE
   def update
@@ -234,10 +237,17 @@ class PlansController < ApplicationController
                                params[:guidance_group_ids].map(&:to_i).uniq
                              end
         @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
-        @plan.save
-        if @plan.update_attributes(attrs)
+
+        # TODO: For some reason the `fields_for` isn't adding the
+        #       appropriate namespace, so org_id represents our funder
+        funder = org_from_params(params_in: attrs, allow_create: true)
+        @plan.funder_id = funder.id if funder.present?
+        process_grant(hash: params[:grant])
+        attrs = remove_org_selection_params(params_in: attrs)
+
+        if @plan.update(attrs) #_attributes(attrs)
           format.html do
-            redirect_to overview_plan_path(@plan),
+            redirect_to plan_contributors_path(@plan),
                         notice: success_message(@plan, _("saved"))
           end
           format.json do
@@ -254,10 +264,11 @@ class PlansController < ApplicationController
           end
         end
 
-      rescue Exception
+      rescue Exception => e
         flash[:alert] = failure_message(@plan, _("save"))
         format.html do
-          render_phases_edit(@plan, @plan.phases.first, @plan.guidance_groups)
+          Rails.logger.error "Unable to save plan #{@plan&.id} - #{e.message}"
+          redirect_to "#{plan_path(@plan)}", alert: failure_message(@plan, _("save"))
         end
         format.json do
           render json: { code: 0, msg: flash[:alert] }
@@ -287,6 +298,7 @@ class PlansController < ApplicationController
     end
   end
 
+  # SEE MODULE
   def destroy
     @plan = Plan.find(params[:id])
     authorize @plan
@@ -344,7 +356,7 @@ class PlansController < ApplicationController
     end
   end
 
-  # # POST /plans/:id/visibility
+  # POST /plans/:id/visibility
   # SEE MODULE
   def visibility
     plan = Plan.find(params[:id])
@@ -380,23 +392,22 @@ class PlansController < ApplicationController
     end
   end
 
-  # SEE MODULE
   def set_test
-   plan = Plan.find(params[:id])
-   authorize plan
-   plan.visibility = (params[:is_test] === "1" ? :is_test : :privately_visible)
-   # rubocop:disable Metrics/LineLength
-   if plan.save
-     render json: {
-              code: 1,
-              msg: (plan.is_test? ? _("Your project is now a test.") : _("Your project is no longer a test."))
-            }
-   else
-     render status: :bad_request, json: {
-              code: 0, msg: _("Unable to change the plan's test status")
-            }
-   end
-   # rubocop:enable Metrics/LineLength
+    plan = Plan.find(params[:id])
+    authorize plan
+    plan.visibility = (params[:is_test] === "1" ? :is_test : :privately_visible)
+    # rubocop:disable Metrics/LineLength
+    if plan.save
+      render json: {
+               code: 1,
+               msg: (plan.is_test? ? _("Your project is now a test.") : _("Your project is no longer a test."))
+             }
+    else
+      render status: :bad_request, json: {
+               code: 0, msg: _("Unable to change the plan's test status")
+             }
+    end
+    # rubocop:enable Metrics/LineLength
   end
 
   def overview
@@ -418,13 +429,12 @@ class PlansController < ApplicationController
 
   def plan_params
     params.require(:plan)
-          .permit(:org_id, :org_name, :funder_id, :funder_name, :template_id,
-                  :title, :visibility, :grant_number, :description, :identifier,
-                  :principal_investigator_phone, :principal_investigator,
-                  :principal_investigator_email, :data_contact,
-                  :principal_investigator_identifier, :data_contact_email,
-                  :data_contact_phone, :guidance_group_ids, 
-                  research_outputs_attributes: %i[id abbreviation fullname order pid other_type_label research_output_type_id _destroy])
+          .permit(:template_id, :title, :visibility, :grant_number,
+                  :description, :identifier, :guidance_group_ids,
+                  :start_date, :end_date,
+                  :org_id, :org_name, :org_crosswalk, :identifier,
+                  org: [:org_id, :org_name, :org_sources, :org_crosswalk],
+                  funder: [:org_id, :org_name, :org_sources, :org_crosswalk])
   end
 
   # different versions of the same template have the same family_id
@@ -471,17 +481,16 @@ class PlansController < ApplicationController
     plan.delete(src_plan_key)
   end
 
-  private
-
   # ============================
   # = Private instance methods =
   # ============================
 
+  # SEE MODULE
   def render_phases_edit(plan, phase, guidance_groups)
     readonly = !plan.editable_by?(current_user.id)
     # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
     # we create a hash whose keys are question id and value is the answer associated
-    answers = plan.answers.reduce({}) { |m, a| m["#{a.question_id}_#{a.research_output_id}"] = a; m }
+    answers = plan.answers.reduce({}) { |m, a| m[a.question_id] = a; m }
     render("/phases/edit", locals: {
       base_template_org: phase.template.base_org,
       plan: plan,
@@ -492,5 +501,27 @@ class PlansController < ApplicationController
       guidance_presenter: GuidancePresenter.new(plan)
     })
   end
+
+  # Update, destroy or add the grant
+  def process_grant(hash:)
+    if hash.present?
+      if hash[:id].present?
+        grant = @plan.grant
+        # delete it if it has been blanked out
+        if hash[:value].blank?
+          grant.destroy
+          @plan.grant_id = nil
+        elsif hash[:value] != grant.value
+          # update it iif iit has changed
+          grant.update(value: hash[:value])
+        end
+      else
+        identifier = Identifier.create(identifier_scheme: nil,
+                                       identifiable: @plan, value: hash[:value])
+        @plan.grant_id = identifier.id
+      end
+    end
+  end
+
 
 end

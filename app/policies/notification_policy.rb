@@ -27,4 +27,10 @@ class NotificationPolicy < ApplicationPolicy
   def destroy?
     @user.can_super_admin?
   end
+
+  def enable?
+    @user.can_super_admin?
+  end
+
+
 end

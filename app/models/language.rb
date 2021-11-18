@@ -22,7 +22,7 @@ class Language < ActiveRecord::Base
 
   ABBREVIATION_MAXIMUM_LENGTH = 5
 
-  ABBREVIATION_FORMAT = /\A[a-z]{2}(\_[A-Z]{2})?\Z/
+  ABBREVIATION_FORMAT = /\A[a-z]{2}(\-[A-Z]{2})?\Z/
 
   NAME_MAXIMUM_LENGTH = 20
 
@@ -77,7 +77,6 @@ class Language < ActiveRecord::Base
   def self.default
     where(default_language: true).first
   end
-  
   private
 
   def format_abbreviation

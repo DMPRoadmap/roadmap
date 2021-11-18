@@ -3,19 +3,23 @@
 # Table name: phases
 #
 #  id             :integer          not null, primary key
-#  title          :string
 #  description    :text
+#  modifiable     :boolean
 #  number         :integer
-#  template_id    :integer
+#  title          :string
 #  created_at     :datetime
 #  updated_at     :datetime
-#  modifiable     :boolean
+#  template_id    :integer
 #  versionable_id :string(36)
 #
 # Indexes
 #
+#  index_phases_on_template_id     (template_id)
 #  index_phases_on_versionable_id  (versionable_id)
-#  phases_template_id_idx          (template_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (template_id => templates.id)
 #
 
 # [+Project:+] DMPRoadmap
@@ -30,6 +34,7 @@ class Phase < ActiveRecord::Base
   include VersionableModel
   prepend Dmpopidor::Models::Phase
 
+  include ConditionsHelper
 
   ##
   # Sort order: Number ASC
@@ -116,6 +121,22 @@ class Phase < ActiveRecord::Base
       n+= s.questions.size()
     end
     n
+  end
+
+  def num_questions_not_removed(plan)
+    count = 0
+    self.sections.each do |section|
+      count += num_section_questions(plan, section)
+    end
+    count
+  end
+
+  def num_answers_not_removed(plan)
+    count = 0
+    self.sections.each do |section|
+      count += num_section_answers(plan, section)
+    end
+    count
   end
 
   # SEE MODULE

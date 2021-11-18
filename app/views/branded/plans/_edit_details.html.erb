@@ -1,221 +1,205 @@
-<% project_title_tooltip =  d_('dmpopidor', 'Indicate: Project Acronym - Project Title') %>
-<% project_abstract_tooltip = _("Briefly summarise your research project to help others understand the purposes for which the data are being collected or created.") %>
-<% id_tooltip = d_('dmpopidor', 'DMP Identifier') %>
 
-<div class="row plan-details">
-    <div class="col-md-7">
-    <%= form_for plan, html: {method: :put, class: 'form-horizontal edit_plan' } do |f| %>
-      <div class="form-group"><!-- title -->
-        <div class="col-md-12">
-          <%= f.label(:title, _('Project title'), class: 'control-label') %>
+<% dmp_fragment = @plan.json_fragment() %>
+<% meta_fragment = dmp_fragment.meta%>
+<% project_fragment = dmp_fragment.project%>
+<% anr_projects = Registry.find_by(name: "ANRProjects").registry_values %>
+<% locale = @plan.template.locale %>
+<div class="row">
+  <div class="col-md-12 plan-details">
+    <div class="col-md-8">
+      <div class="heading-button" role="button" data-toggle="collapse"
+            data-parent="sections-accordion"
+            href="#plan_project"
+            aria-expanded="true"
+            aria-controls="plan_project">
+        <div class="panel-heading question-text" role="tab" id="heading-plan-project">
+          <div class="panel-title pull-left">
+            <% FastGettext.with_locale locale do %>
+            <%= _("Project Details") %>
+            <% end %>
+          </div>
+          <i class="fa fa-chevron-down pull-right" aria-hidden="true"></i>
+          <div class="clearfix"></div>
         </div>
-        <div class="col-md-8">
-          <em class="sr-only"><%= project_title_tooltip %></em>
-          <%= f.text_field(:title, class: "form-control", "aria-required": true,
-            'data-toggle': 'tooltip', spellcheck: true,
-            title: project_title_tooltip) %>
-      <div class="checkbox">
-        <%= f.hidden_field :visibility %>
-        <%= f.label(:is_test, class: 'control-label') do %>
-          <%= check_box_tag(:is_test, 1, @plan.is_test?, "aria-label": "is_test") %>
-          <%= _('mock project for testing, practice, or educational purposes') %>
+      </div>
+
+      <div id="plan_project" class="panel-collapse collapse in plan-details-content" role="tabpanel" aria-labelledby="heading-plan-project">
+        
+        <% project_schema = MadmpSchema.find_by(name: "ProjectStandard") %>
+        <% run_parameters = project_schema.extract_run_parameters %>
+        <% select_values = Registry.find_by(name: "ANRProjects").registry_values %>
+        <% tooltip = run_parameters["tooltip@#{locale}"]%>
+        <% if run_parameters.present? %>
+        <div class="panel-body">
+          <span 
+            class="col-md-8 project-selector-link"
+            data-original-title="<%= tooltip %>"
+            data-toggle="tooltip"
+          ><%= d_("dmpopidor", "Click here if you have a funded project.") %></span>
+          <div class="col-md-12 dynamic-field select-field project-selector"
+              data-fragment-id="<%= project_fragment.id%>"
+              data-script-id="<%= run_parameters["script_id"]%>">
+            <label class="control-label">
+              <%= d_("dmpopidor", "Please enter the acronym, title or identifier of the project") %>
+              <a href="<%= about_registries_path %>" target="_blank"
+                data-toggle="tooltip" data-original-title="<%= d_("dmpopidor", "Find out more.") %>">
+                <span class="registry-info fa fa-info-circle"></span>
+              </a>
+            </label>
+            <%= select_tag "anr_project",
+                        options_for_select(
+                            select_values.sort_by { |v| v.to_s(locale)}
+                                         .map {|v| [ 
+                                    v.to_s(locale), 
+                                    select_value(v, locale) 
+                                ] 
+                            }
+                        ),
+                      include_blank: true
+                      %>
+            <span class="error-zone"></span>
+            <span class="btn btn-default cancel-project-search"><%= _("Cancel") %></span>
+          </div>
+        </div>
         <% end %>
-      </div>
-        </div>
-      </div>
-      <div class="form-group"><!-- funder_name -->
-        <div class="col-md-12">
-          <%= f.label(:funder_name, _('Funder'), class: 'control-label') %>
-        </div>
-        <div class="col-md-8">
-          <%= f.text_field(
-            :funder_name,
-            class: "form-control",
-            spellcheck: true,
-            "aria-required": false) %>
-        </div>
-      </div>
-      <div class="form-group"><!-- grant_number -->
-        <div class="col-md-12">
-          <%= f.label(:grant_number, _('Grant number'), class: 'control-label') %>
-        </div>
-        <div class="col-md-8">
-          <%= f.text_field(:grant_number, class: "form-control", "aria-required": false, 'data-toggle': 'tooltip', 
-            title: _('Grant reference number if applicable [POST-AWARD DMPs ONLY]')) %>
-        </div>
-      </div>
-      <div class="form-group"><!-- description -->
-        <div class="col-md-12">
-          <%= f.label(:description, _('Project abstract'), class: 'control-label') %>
-        </div>
-        <div class="col-md-8" data-toggle="tooltip" title="<%= project_abstract_tooltip %>">
-          <em class="sr-only"><%= project_abstract_tooltip %></em>
-          <%= f.text_area(
-            :description, rows: 6,
-            class: 'form-control tinymce',
-            "aria-required": false) %>
-        </div>
-      </div>
-      <div class="form-group"><!-- identifier -->
-        <div class="col-md-12">
-          <%= f.label(:identifier, _('ID'), class: 'control-label') %>
-        </div>
-        <div class="col-md-8">
-        <em class="sr-only"><%= id_tooltip %></em>
-          <%= f.text_field(:identifier, class: "form-control", "aria-required": false,
-                           'data-toggle': "tooltip", spellcheck: true,
-                           title: id_tooltip) %>
-        </div>
-      </div>
-      <fieldset class="project-details">
-        <legend class="project-details"><%= _("Principal Investigator") %></legend>
-        <div class="form-group"><!-- principal_investigator -->
-          <div class="col-md-12">
-            <%= f.label(:principal_investigator, _('Name'), class: 'control-label') %>
-          </div>
-          <div class="col-md-12">
-            <%= f.text_field(
-              :principal_investigator,
-              class: "form-control",
-              "aria-required": false) %>
-          </div>
-        </div>
-        <div class="form-group"><!-- principal_investigator_identifier -->
-          <div class="col-md-12">
-            <%= f.label(:principal_investigator_identifier, _('ORCID iD'), class: 'control-label') %>
-          </div>
-          <div class="col-md-12">
-            <%= f.text_field(
-              :principal_investigator_identifier,
-              class: "form-control",
-              "aria-required": false) %>
-          </div>
-        </div>
-        <div class="form-group"><!-- principal_investigator_email -->
-          <div class="col-md-12">
-            <%= f.label(:principal_investigator_email, _('Email'), class: 'control-label') %>
-          </div>
-          <div class="col-md-12">
-            <%= f.email_field(
-              :principal_investigator_email,
-              class: "form-control",
-              "aria-required": false) %>
-          </div>
-        </div>
-        <div class="form-group"><!-- principal_invesigator_phone -->
-          <div class="col-md-12">
-            <%= f.label(:principal_investigator_phone, _('Phone'), class: 'control-label') %>
-          </div>
-          <div class="col-md-12">
-            <%= f.phone_field(
-              :principal_investigator_phone,
-              class: "form-control",
-              "aria-required": false) %>
-          </div>
-        </div>
-      </fieldset>
-      <fieldset class="project-details">
-        <legend class="project-details"><%= _('Data contact person') %></legend>
-        <div class="checkbox">
-          <% checked = ((@plan.data_contact.present? || @plan.data_contact_phone.present? || @plan.data_contact_email.present?) ? 1 : 0) %>
-          <%= label_tag(:show_data_contact, class: 'control-label') do %>
-            <%= check_box_tag(:show_data_contact, checked, checked == 0) %>
-            <%= _('Same as Principal Investigator') %>
+        
+        
+        <%= hidden_field_tag 'fragment-id', project_fragment.id, class: "fragment-id" %>
+        <div class="panel-body project-form madmp-fragment"><!-- accordion body -->
+          <% I18n.with_locale locale do %>
+            <div class="checkbox">
+              <%= form_for plan, url: set_test_plan_path(plan), html: { method: :post, class: 'set_test_plan', remote: true } do |f| %>
+                <%= f.label(:is_test, class: 'control-label') do %>
+                <%= check_box_tag(:is_test, "1", (plan.visibility === 'is_test'), title: _("Is it a test plan ?"), id: nil) %>
+                  <%= _('mock project for testing, practice, or educational purposes') %>
+                <% end %>
+              <% end %>
+            </div>
+            <%= form_for :madmp_fragment, url: madmp_fragment_path(id: project_fragment.id), 
+                          html: {
+                            method: :put,
+                            'data-autosave': project_fragment.id,
+                            class: "form-answer madmp-fragment", 
+                            id: nil  
+                          } do |f| %>
+            <fieldset aria-labelledby="fragment-fieldset" class="fragment-fieldset">
+              <%= f.hidden_field :schema_id, :value => project_schema.id, id: nil, class: "schema_id" %>
+              <%= f.hidden_field :dmp_id, :value => dmp_fragment.id, id: nil %>
+              <%= f.hidden_field :parent_id, :value => dmp_fragment.id, id: nil %>
+              <%= f.hidden_field :template_locale, :value => locale, id: nil %>
+              <%= f.hidden_field "source", :value => "form" %>
+              <div class="form-group fragment-<%= project_fragment.id %>" data-fragment-id="<%= project_fragment.id %>" >
+                <%= render(partial: 'shared/dynamic_form/form', locals: { 
+                      f: f,
+                      current_fragment: project_fragment, 
+                      schema: project_schema,
+                      question_id: nil,
+                      readonly: false,
+                      classname: "project",
+                      template_locale: locale,
+                      form_prefix: nil,
+                      source: "form"
+                    }) %>
+              </div>
+              <div class="overlay" style="display:none;">
+                <div class="spinner"></div>
+                <br/>
+                <%= _('Loading...') %>
+              </div>
+              <div class="answer-bottom-zone" >
+                <div class="schema-picker-zone run-zone">
+                  <span class="message-zone"><%= d_('dmpopidor', 'You have pending changes, please save')%></span>
+                </div>
+                <div class="answer-save-zone">
+                  <%= f.button(_('Save'), class: "btn btn-default answer-save-button", type: "submit") %>
+                </div>
+              </div>
+            </fieldset>
+
+            <% end %>
           <% end %>
         </div>
-        <div class="form-group data-contact"><!-- data_contact -->
-          <div class="col-md-12">
-            <%= f.label(:data_contact, _('Name'), class: 'control-label') %>
-          </div>
-          <div class="col-md-12">
-            <%= f.text_field(
-              :data_contact,
-              class: "form-control",
-              "aria-required": false) %>
-          </div>
-        </div>
-        <div class="form-group data-contact"><!-- data_contact_email -->
-          <div class="col-md-12">
-            <%= f.label(:data_contact_email, _('Email'), class: 'control-label') %>
-          </div>
-          <div class="col-md-12">
-            <%= f.email_field(
-              :data_contact_email,
-              class: "form-control",
-              "aria-required": false) %>
-          </div>
-        </div>
-        <div class="form-group data-contact"><!-- data_contact_phone -->
-          <div class="col-md-12">
-            <%= f.label(:data_contact_phone, _('Phone'), class: 'control-label') %>
-          </div>
-          <div class="col-md-12">
-            <%= f.phone_field(
-              :data_contact_phone,
-              class: "form-control",
-              "aria-required": false) %>
-          </div>
-        </div>
-      </fieldset>
+      </div>
 
-      <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
+      <hr/>
+      <div class="clearfix"></div>
+
+      <div class="heading-button" role="button" data-toggle="collapse"
+            data-parent="sections-accordion"
+            href="#plan_metadata"
+            aria-expanded="false"
+            aria-controls="plan_metadata">
+
+        <div class="panel-heading question-text" role="tab" id="heading-plan-metadata">
+          <div class="panel-title pull-left">
+            <% FastGettext.with_locale locale do %>
+              <%= d_("dmpopidor", "Plan Details") %>
+            <% end %>
+          </div>
+          <i class="fa fa-chevron-down pull-right" aria-hidden="true"></i>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+
+      <div id="plan_metadata" class="panel-collapse collapse in plan-details-content" role="tabpanel" aria-labelledby="heading-plan-metadata">
+        <% meta_schema = MadmpSchema.find_by(name: "MetaStandard") %>
+        <%= hidden_field_tag 'fragment-id', meta_fragment.id, class: "fragment-id" %>
+        <div class="panel-body madmp-fragment"><!-- accordion body -->
+          <% I18n.with_locale locale do %>
+            <%= form_for :madmp_fragment, url: madmp_fragment_path(id: meta_fragment.id), 
+                          html: {
+                            method: :put,
+                            'data-autosave': meta_fragment.id,
+                            class: "form-answer madmp-fragment", 
+                            id: nil  
+                          } do |f| %>
+              <fieldset aria-labelledby="fragment-fieldset" class="fragment-fieldset">
+                <%= f.hidden_field :schema_id, :value => meta_schema.id, id: nil, class: "schema_id" %>
+                <%= f.hidden_field :dmp_id, :value => dmp_fragment.id, id: nil %>
+                <%= f.hidden_field :parent_id, :value => dmp_fragment.id, id: nil %>
+                <%= f.hidden_field :template_locale, :value => locale, id: nil %>
+                <%= f.hidden_field "source", :value => "form" %>
+                <div class="meta-form form-group fragment-<%= meta_fragment.id %>" data-fragment-id="<%= meta_fragment.id %>" >
+                  <%= render(partial: 'shared/dynamic_form/form', locals: { 
+                        f: f,
+                        current_fragment: meta_fragment, 
+                        schema: meta_schema,
+                        question_id: nil,
+                        readonly: false,
+                        classname: "meta",
+                        template_locale: locale,
+                        form_prefix: nil,
+                        source: "form"
+                      }) %>
+                </div>
+                <div class="overlay" style="display:none;">
+                  <div class="spinner"></div>
+                  <br/>
+                  <%= _('Loading...') %>
+                </div>
+                <div class="answer-bottom-zone" >
+                  <div class="schema-picker-zone run-zone">
+                    <span class="message-zone"><%= d_('dmpopidor', 'You have pending changes, please save')%></span>
+                  </div>
+                  <div class="answer-save-zone">
+                    <%= f.button(_('Save'), class: "btn btn-default answer-save-button", type: "submit") %>
+                  </div>
+                </div>
+              </fieldset>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
     </div>
-    <div class="col-md-5 guidance-configuration">
-      <h2><%= _('Plan Guidance Configuration') %></h2>
-
-      <% if @all_guidance_groups.length > 0 %>
-        <p><%= _('To help you write your plan, %{application_name} can show you guidance from a variety of organisations.') %
-            {application_name: Rails.configuration.branding[:application][:name]} %>
-            </p>
-        <fieldset aria-labelledby="guidance selector">
-          <p><%= _('Select up to 6 organisations to see their guidance.') %></p>
-          <ul id="priority-guidance-orgs">
-            <%= render partial: "guidance_choices",
-                          locals: {choices: @important_ggs, form: f,
-                                   current_selections: @selected_guidance_groups} %>
-          </ul>
-        </fieldset>
-
-        <% if @all_guidance_groups.length > @important_ggs.length %>
-          <p><%= _('Find guidance from additional organisations below') %></p>
-          <%= link_to _('See the full list'), '#', 'data-toggle' =>  'modal', 'data-target' => '#modal-full-guidances', class: 'modal-guidances-window' %>
-        <% end %>
-        <br>
-
-        <%= f.hidden_field(:default_visibility, value: @is_test ? 'is_test' : Rails.application.config.default_plan_visibility) %>
-        <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
-
-      <% else %>
-        <p><%= _("There is no additional guidance for this template.") %></p>
-      <% end %>
-    </div>
-
-    <% if @all_guidance_groups.length > @important_ggs.length %>
-      <div id="modal-full-guidances" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="sign-in">
-              <div class="modal-body">
-                <button type="button" class="close pull-right" data-dismiss="modal" aria-label="<%= _('Cancel') %>">
-                  <span class="fa fa-times" aria-hidden="true">&nbsp;</span>
-                </button>
-                <h2><%= _('Select Guidance') %></h2>
-                <p>
-                  <%= _('To help you write your plan, %{application_name} can show you guidance from a variety of organisations. Please choose up to 6 organisations of the following organisations who offer guidance relevant to your plan.') %
-                  {application_name: Rails.configuration.branding[:application][:name]} %>
-                </p>
-                <p><strong><%= _("Don't forget to save your changes after making your selections.") %></strong></p>
-                <ul id="other-guidance-orgs">
-                  <%= render partial: "guidance_choices",
-                             locals: {choices: @all_ggs_grouped_by_org, form: f,
-                                       current_selections: @selected_guidance_groups} %>
-                </ul>
-              </div>
-            </div>
-          </div>
+    
+    <%= form_for plan, html: {method: :put, class: 'form-horizontal edit_plan' } do |f| %>
+      <div class="col-md-4 guidance-configuration">
+        <!-- "Guidance Configuration" tab -->
+        <div id="guidance_configuration" class="tab-pane">
+          <%= render(partial: 'plans/guidance_configuration', locals: { f: f } ) %>
         </div>
       </div>
     <% end %>
-
-  <% end %>
+  </div>
 </div>
+<div class="modal fade" id="modal-window" tabindex="-1" role="dialog" aria-labelledby="linkedInformationsModal" aria-hidden="true"></div>

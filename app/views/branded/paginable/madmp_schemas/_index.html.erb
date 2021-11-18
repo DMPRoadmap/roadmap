@@ -1,0 +1,39 @@
+<div class="table-responsive">
+  <table class="table table-hover" id="guidance-groups">
+    <thead>
+      <tr>
+        <th scope="col"><%= _('ID') %></th>
+        <th scope="col"><%= _('Name') %>&nbsp;<%= paginable_sort_link('madmp_schemas.name') %></th>
+        <th scope="col"><%= _('Classname') %></th>
+        <th scope="col"><%= _('Version') %></th>
+        <th scope="col" class="sorter-false"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% scope.each do |schema| %>
+        <tr>
+          <td><%= schema.id %></td>
+          <td><%= schema.name %></td>
+          <td><%= schema.classname %></td>
+          <td><%= schema.version %></td>
+          <td>
+            <div class="dropdown">
+              <button
+                class="btn btn-link dropdown-toggle"
+                type="button"
+                id="org-<%= schema.id %>-actions"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="true">
+                <%= _('Actions') %><span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="org-<%= schema.id %>-actions">
+                <li><%= link_to _('Edit'), edit_super_admin_madmp_schema_path(schema) %></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

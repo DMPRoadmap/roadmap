@@ -2,16 +2,13 @@ import 'bootstrap-sass/assets/javascripts/bootstrap/collapse';
 import { Tinymce } from '../../../utils/tinymce.js.erb';
 import { isObject, isString } from '../../../utils/isType';
 import getConstant from '../../../constants';
-import expandCollapseAll from '../../../utils/expandCollapseAll';
 import { addAsterisks } from '../../../utils/requiredField';
 
 import onChangeQuestionFormat from '../questions/sharedEventHandlers';
 import initQuestionOption from '../question_options/index';
+import updateConditions from '../conditions/updateConditions';
 
 $(() => {
-  // Attach handlers for the expand/collapse all accordions
-  expandCollapseAll();
-
   Tinymce.init({ selector: '.phase' });
   const parentSelector = '.section-group';
 
@@ -37,7 +34,7 @@ $(() => {
       initQuestionOption(context);
       addAsterisks(`#${context}`);
       // Swap in the question_formats when the user selects an option based question type
-      $(`#${context} select.question_format`).change((e) => {
+      $(`#${context} select.question_format`).on('change', (e) => {
         onChangeQuestionFormat(e);
       });
     }
@@ -134,6 +131,7 @@ $(() => {
       // Display the section's html
       panelBody.html(data);
       initQuestion(id);
+      updateConditions(id);
       if (panelBody.is('.new-question')) {
         target.hide();
       }
@@ -156,7 +154,6 @@ $(() => {
     panel.html('');
     panel.closest('.panel-body').find('.new-question-button a.ajaxified-question[data-remote="true"]').show();
   });
-
   // Handle the section that has focus on initial page load
   const currentSection = $('.section-group .in');
   if (currentSection.length > 0) {

@@ -124,6 +124,14 @@ RSpec.describe Question, type: :model do
 
     context "when no options are provided" do
 
+      before do
+        create_list(:question_option, 4, question: question)
+      end
+
+      it "checks number of question options" do 
+        expect(subject.question_options.size).to eql(question.question_options.size)
+      end
+
       it "doesn't persist the record" do
         expect(subject).to be_new_record
       end

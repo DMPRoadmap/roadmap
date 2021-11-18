@@ -43,8 +43,8 @@ msgstr "Institutional Access"
 msgid "Individual Access"
 msgstr "Individual Access"
 
-msgid "The information collected that concerns you will be processed and is destined for the Inist-CNRS (UPS76) and the correspondent for Computing and Liberties (CIL). For the following goal: management of user accounts. The recipients of this data are the administrators of the Inist-CNRS. The duration of conservation of the data is 5 years following the last login."
-msgstr "The information collected that concerns you will be processed and is destined for the Inist-CNRS (UPS76) and the correspondent for Computing and Liberties (CIL). For the following goal: management of user accounts. The recipients of this data are the administrators of the Inist-CNRS. The duration of conservation of the data is 5 years following the last login."
+msgid "The information collected that concerns you will be processed and is destined for the Inist-CNRS (UAR76) and the correspondent for Computing and Liberties (CIL). For the following goal: management of user accounts. The recipients of this data are the administrators of the Inist-CNRS. The duration of conservation of the data is 5 years following the last login."
+msgstr "The information collected that concerns you will be processed and is destined for the Inist-CNRS (UAR76) and the correspondent for Computing and Liberties (CIL). For the following goal: management of user accounts. The recipients of this data are the administrators of the Inist-CNRS. The duration of conservation of the data is 5 years following the last login."
 
 msgid "You have the right of access, of correction, of portability, or of removal of this data, or of a limitation of their processing. You can oppose the processing of the data that concerns you and you have the right to withdraw your agreement at any time, by contacting: <a href='mailto:%{contact_url}'>%{contact_url}</a>. You can also direct a complaint at a controlling body."
 msgstr "You have the right of access, of correction, of portability, or of removal of this data, or of a limitation of their processing. You can oppose the processing of the data that concerns you and you have the right to withdraw your agreement at any time, by contacting: <a href='mailto:%{contact_url}'>%{contact_url}</a>. You can also direct a complaint at a controlling body."
@@ -181,8 +181,8 @@ msgstr "Would you like to choose the template of a funder?"
 msgid "Multiple templates are available, which one would you like to use?"
 msgstr "Multiple templates are available, which one would you like to use?"
 
-msgid "The template \"__template_title__\" is available. Would you like to create a plan from this template?"
-msgstr "The template \"__template_title__\" is available. Would you like to create a plan from this template?"
+msgid "The template \"<span class=\"template_title\"></span>\" is available. Would you like to create a plan from this template?"
+msgstr "The template \"<span class=\"template_title\"></span>\" is available. Would you like to create a plan from this template?"
 
 msgid "No template available."
 msgstr "No template available."
@@ -192,6 +192,9 @@ msgstr "You are not linked to an organisation, we can\'t suggest you a template.
 
 msgid "Customized by "
 msgstr "Customized by "
+
+msgid "Customized"
+msgstr "Customized"
 
 msgid "Copy link"
 msgstr "Copy link"
@@ -314,8 +317,8 @@ msgstr "Abbreviated Name (20 chars max.)"
 msgid "Abbreviated Name"
 msgstr "Abbreviated Name"
 
-msgid "Fullname"
-msgstr "Fullname"
+msgid "Full Title"
+msgstr "Full Title"
 
 msgid "Other Type"
 msgstr "Other Type"
@@ -459,6 +462,184 @@ msgstr "You are about to archive %{user_name}. This will remove their personal i
 msgid "Request Date"
 msgstr "Request Date"
 
+# maDMP Fragments
+
+msgid "This property is required."
+msgstr "This property is required."
+
+msgid "This property has an invalid format."
+msgstr "This property has an invalid format."
+
+msgid "This property has an unknown problem : %{validation}"
+msgstr "This property has an unknown problem : %{validation}"
+
+msgid "Create"
+msgstr "Create"
+
+msgid "General informations"
+msgstr "General informations"
+
+msgid "\"%{project_title}\" project DMP"
+msgstr "\"%{project_title}\" project DMP"
+
+msgid "DMP manager"
+msgstr "DMP manager"
+
+msgid "Project coordinator"
+msgstr "Project coordinator"
+
+msgid "Data contact"
+msgstr "Data contact"
+
+msgid "Click here to add a new item"
+msgstr "Click here to add a new item"
+
+msgid "Click here to add a new research output"
+msgstr "Click here to add a new research output"
+
+msgid "Answer"
+msgstr "Answer"
+
+msgid "Plan Details"
+msgstr "Plan Details"
+
+msgid "Editing %{title_value}"
+msgstr "Editing %{title_value}"
+
+msgid "New %{title_value}"
+msgstr "New %{title_value}"
+
+msgid "Selected value:"
+msgstr "Selected value:"
+
+msgid "Select a value from the list."
+msgstr "Select a value from the list."
+
+msgid "Select a value from the list or type a new one."
+msgstr "Select a value from the list or type a new one."
+
+msgid "Select a value you want to add to your plan."
+msgstr "Select a value you want to add to your plan."
+
+msgid "Select a value you want to add to your plan or type a new one."
+msgstr "Select a value you want to add to your plan or type a new one."
+
+msgid "Select a person from the list."
+msgstr "Select a person from the list."
+
+msgid "Confirm"
+msgstr "Confirm"
+
+msgid "Comments & Guidance"
+msgstr "Comments & Guidance"
+
+msgid "Plan Title"
+msgstr "Plan Title"
+
+msgid "Element is not in the list."
+msgstr "Element is not in the list."
+
+msgid "Custom value: "
+msgstr "Custom value: "
+
+msgid "Do you want to delete this element?"
+msgstr "Do you want to delete this element?"
+
+msgid "New data have been added to your plan, please click on the \"Reload\" button."
+msgstr "New data have been added to your plan, please click on the \"Reload\" button."
+
+msgid "Reload"
+msgstr "Reload"
+
+msgid "Element is already present in your plan."
+msgstr "Element is already present in your plan."
+
+msgid "An error has occured: "
+msgstr "An error has occured: "
+
+msgid "You can pick a different question form"
+msgstr "You can pick a different question form"
+
+msgid "Please enter the acronym, title or identifier of the project"
+msgstr "Please enter the acronym, title or identifier of the project"
+
+msgid "Click here if you have a funded project."
+msgstr "Click here if you have a funded project."
+
+msgid "Contact"
+msgstr "Contact"
+
+msgid "Add a person"
+msgstr "Add a person"
+
+msgid "Attributed roles (Associated research outputs)"
+msgstr "Attributed roles (Associated research outputs)"
+
+msgid "List of person responsible for research data management during a project and their roles. Assigning a role to a person is done in the \"Write Plan\" tab."
+msgstr "List of person responsible for research data management during a project and their roles. Assigning a role to a person is done in the \"Write Plan\" tab."
+
+msgid "You have pending changes, please save"
+msgstr "You have pending changes, please save"
+
+msgid "List of costs related to data management. Creating a cost is done in the \"Write Plan\" tab."
+msgstr "List of costs related to data management. Creating a cost is done in the \"Write Plan\" tab."
+
+msgid "Amount"
+msgstr "Amount"
+
+msgid "Lifecycle stage"
+msgstr "Lifecycle stage"
+
+msgid "(version: %{template_version}, published: %{published_date})"
+msgstr "(version: %{template_version}, published: %{published_date})"
+
+msgid "Cost type (Title)"
+msgstr "Cost type (Title)"
+
+msgid "A Data Management Plan created using %{application_name}, based on the \"%{template_title}\" template provided by %{org_name}."
+msgstr "A Data Management Plan created using %{application_name}, based on the \"%{template_title}\" template provided by %{org_name}."
+
+
+################
+### REGISTRIES
+################
+msgid "Export Registry"
+msgstr "Export Registry"
+
+msgid "Create Value"
+msgstr "Create Value"
+
+msgid "Values"
+msgstr "Values"
+
+msgid "View all registries"
+msgstr "View all registries"
+
+msgid "Click here to find out more about registries."
+msgstr "Click here to find out more about registries."
+
+################
+### API
+################
+msgid "Fragment with id %{id} doesn't exist."
+msgstr "Fragment with id %{id} doesn't exist."
+
+
+################
+### EXPORT
+################
+msgid "Local indentifier"
+msgstr "Local indentifier"
+
+msgid "Personal"
+msgstr "Personal"
+
+
+
+################
+### PLAN CONVERSION
+################
+
 msgid "Audiovisual"
 msgstr "Audiovisual"
 
@@ -476,9 +657,6 @@ msgstr "Interactive Resource"
 
 msgid "Model"
 msgstr "Model"
-
-msgid "Physical Object"
-msgstr "Physical Object"
 
 msgid "Service"
 msgstr "Service"
