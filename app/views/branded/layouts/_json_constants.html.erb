@@ -38,17 +38,19 @@ constants_json = {
 
   # Translations that go with the JS files from the dmptool-ui
   # The copy_assets_to_dmptool.sh in that repo will convert the js files to js.erb
-  SIGN_IN_UP_INVALID_FORM: _("Please correct the ${errorNumber} fields below:"),
-  SIGN_IN_UP_REQUIRED_FIELDS: _("required field"),
-  SIGN_IN_UP_VALID_FORM: _("Ready to submit:"),
+  FIELD: _('field'),
+  FIELDS: _('fields'),
 
   SIGN_IN_UP_BLANK_CHECKBOX: _("Please check this box."),
   SIGN_IN_UP_BLANK_EMAIL: _("Please enter an email address."),
-  SIGN_IN_UP_BLANK_FIELD: _("Please complete this ${labelText} field."),
+  SIGN_IN_UP_BLANK_FIELD: _("Please complete this %<variable_text>s field."),
   SIGN_IN_UP_BLANK_PASSWORD: _("Please enter a password."),
 
   SIGN_IN_UP_INVALID_EMAIL: _("Please enter a valid email address."),
-  SIGN_IN_UP_INVALID_PASSWORD: _("Please enter a password of at least 8 characters.")
+  SIGN_IN_UP_INVALID_FORM: _("Please correct the %<variable_text>s fields below:"),
+  SIGN_IN_UP_INVALID_PASSWORD: _("Please enter a password of at least 8 characters."),
+
+  SIGN_IN_UP_VALID_FORM: _("Ready to submit:")
 }.to_json
 %>
 

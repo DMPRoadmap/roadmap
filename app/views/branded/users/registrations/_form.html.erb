@@ -1,10 +1,9 @@
 <%# locals: form, shibbolized %>
 
-<div id="sign-up-email" class="c-textfield js-textfield is-required">
+<div id="sign-up-email" class="c-textfield js-textfield">
   <%= form.label(:email, _('Email address')) %>
   <%= form.email_field(:disabled_email, value: resource.email,
-                       autocomplete: 'email', required: '', disabled: "disabled",
-                       minlength: 8, maxlength: 80) %>
+                       autocomplete: 'email', disabled: "disabled") %>
   <%= form.hidden_field(:email, value: resource.email) %>
 </div>
 
@@ -17,12 +16,16 @@
   <div id="sign-up-firstname" class="c-textfield js-textfield">
     <%= form.label :firstname, _('First Name') %>
     <%= form.text_field(:firstname, spellcheck: false, autocomplete: "off", maxlength: 40,
-                        required: true) %>
+                        class: "require-me") %>
+    <div id="" class="c-textfield__invalid-description js-invalid-description" hidden>
+    </div>
   </div>
   <div id="sign-up-surname" class="c-textfield js-textfield">
     <%= form.label :surname, _('Last Name') %>
     <%= form.text_field(:surname, spellcheck: false, autocomplete: "off", maxlength: 40,
-                        required: true) %>
+                        class: "require-me") %>
+    <div id="" class="c-textfield__invalid-description js-invalid-description" hidden>
+    </div>
   </div>
 
   <%= render partial: "shared/org_autocomplete",
@@ -32,16 +35,14 @@
                       required: true,
                       classes: "",
                       label: _("Institution") } %>
-  <script type="text/javascript">
-    initAutoComplete('#org_autocomplete_name');
-  </script>
-
 
   <div id="js-password-field" class="c-textfield js-textfield">
     <%# Display the standard Sign in form %>
     <%= form.label(:password, _('Password')) %>
-    <%= form.password_field(:password, autocomplete: 'password', required: true,
-                            minlength: 8, maxlength: 80) %>
+    <%= form.password_field(:password, autocomplete: 'password', minlength: 8,
+                            maxlength: 80, class: "require-me") %>
+    <div id="" class="c-textfield__invalid-description js-invalid-description" hidden>
+    </div>
   </div>
   <div class="c-login__pseudo-description">
     <div id="js-password-toggle" class="c-checkbox js-checkbox">
@@ -51,10 +52,12 @@
   </div>
 
   <div id="sign-up-accept-terms" class="c-checkbox js-checkbox">
-    <%= form.check_box :accept_terms, { required: true }, true, false %>
+    <%= form.check_box :accept_terms, { class: "require-me" }, true, false %>
     <%= form.label :accept_terms, sanitize(_('I accept the %<terms_url>s') % {
                                     terms_url: link_to(_('terms and conditions'), terms_path)
                                   }) %>
+    <div id="" class="c-textfield__invalid-description js-invalid-description" hidden>
+    </div>
   </div>
 
   <% if Rails.configuration.x.recaptcha.enabled %>

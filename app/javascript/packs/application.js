@@ -47,8 +47,9 @@ import { togglisePasswords } from '../src/utils/passwordHelper';
 import '../src/answers/conditions';
 import '../src/answers/edit';
 import '../src/answers/rdaMetadata';
-import '../src/devise/passwords/edit';
-import '../src/devise/registrations/edit';
+// DMPTool customization - these forms are handled by dmptool-ui repo
+// import '../src/devise/passwords/edit';
+// import '../src/devise/registrations/edit';
 import '../src/guidances/newEdit';
 import '../src/notes/index';
 import '../src/orgs/adminEdit';

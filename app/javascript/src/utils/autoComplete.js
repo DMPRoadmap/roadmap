@@ -108,7 +108,11 @@ const search = (autocomplete, term, crosswalk, callback) => {
 // Shows/hides the warning message
 const toggleWarning = (autocomplete, displayIt) => {
   const warning = relatedWarning(getId(autocomplete, 'list'));
+  const fieldBlock = autocomplete.closest('c-textfield');
 
+  if (fieldBlock) {
+    fieldBlock.addClass('is-invalid');
+  }
   if (warning.length > 0) {
     if (displayIt) {
       warning.removeClass('hide').show();

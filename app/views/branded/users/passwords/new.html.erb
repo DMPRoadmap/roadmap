@@ -1,19 +1,14 @@
 <%# Devise Forgotten Password form %>
 
 <% content_for :authentication do %>
-  <header class="c-login__header">
-    <h2><%= _("Forgot your password?") %></h2>
+  <%= render partial: 'users/shared/login_header', locals: { title: 'Forgot Your Password?' } %>
 
-    <p class="c-login__required-field js-login__required-field"><%= _('required field') %></p>
-  </header>
-
-  <p role="alert" class="c-login__invalid-notification js-login__invalid-notification" hidden></p>
-
-  <%= form_with model: User.new, url: user_password_path, method: :post, local: true do |form| %>
+  <%= form_with model: User.new, url: user_password_path, method: :post, local: true,
+                class: "novalidate" do |form| %>
     <div id="forgotten-password" class="c-textfield js-textfield is-required">
-      <%= form.label :email %>
+      <%= form.label :email, _('Email address') %>
       <%= form.email_field(:email, value: resource.email, autocomplete: 'email',
-                           minlength: 8, maxlength: 80) %>
+                           class: 'require-me') %>
     </div>
 
     <button type="submit"><%= _("Send me reset password instructions") %></button>

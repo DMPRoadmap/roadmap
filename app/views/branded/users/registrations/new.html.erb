@@ -8,15 +8,10 @@ that they do NOT have an existing account
     url = @shibbolized ? user_shibboleth_omniauth_authorize_path : user_registration_path
   %>
 
-  <header class="c-login__header">
-    <h2><%= _("Sign up") %></h2>
+  <%= render partial: 'users/shared/login_header', locals: { title: 'New Account Sign Up' } %>
 
-    <p class="c-login__required-field js-login__required-field"><%= _('required field') %></p>
-  </header>
-
-  <p role="alert" class="c-login__invalid-notification js-login__invalid-notification" hidden></p>
-
-  <%= form_with model: resource, url: url, method: :post, local: true do |form| %>
+  <%= form_with model: resource, url: url, method: :post, local: true,
+                class: "novalidate" do |form| %>
     <%= render partial: "users/registrations/form",
                locals: { form: form, shibbolized: @shibbolized } %>
   <% end %>

@@ -1,13 +1,7 @@
 <%# Devise Sign in / Sign up (validate) form that allows User to provide an email %>
 
 <%# No email is present, so the homepage has just been loaded %>
-<header class="c-login__header">
-  <h2><%= _("Sign in / Sign up") %></h2>
-
-  <p class="c-login__required-field js-login__required-field"><%= _('required field') %></p>
-</header>
-
-<p role="alert" class="c-login__invalid-notification js-login__invalid-notification" hidden></p>
+<%= render partial: 'users/shared/login_header', locals: { title: 'Sign in / Sign up' } %>
 
 <%= form_with model: User.new, url: new_user_session_path, method: :post, local: true,
               class: "novalidate" do |form| %>

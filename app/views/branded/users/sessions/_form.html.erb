@@ -3,8 +3,7 @@
 <div id="sign-in-email" class="c-textfield js-textfield">
   <%= form.label(:email, _('Email address')) %>
   <%= form.email_field(:disabled_email, value: resource.email,
-                       autocomplete: 'email', required: true, disabled: "disabled",
-                       minlength: 8, maxlength: 80) %>
+                       autocomplete: 'email', disabled: "disabled") %>
   <%= form.hidden_field(:email, value: resource.email) %>
 </div>
 
@@ -18,8 +17,10 @@
   <div id="sign-in-password" class="c-textfield js-textfield">
     <%# Display the standard Sign in form %>
     <%= form.label(:password, _('Password')) %>
-    <%= form.password_field(:password, autocomplete: 'password', required: true,
-                            minlength: 8, maxlength: 80) %>
+    <%= form.password_field(:password, autocomplete: 'password', minlength: 8,
+                            maxlength: 80, class: "require-me") %>
+    <div id="" class="c-textfield__invalid-description js-invalid-description" hidden>
+    </div>
   </div>
 
   <div class="c-login__pseudo-description">

@@ -58,7 +58,7 @@ user_entered = default_org.present? &&
 %>
 
 <%= fields_for :org_autocomplete do |org_fields| %>
-  <div id="<%= div_id %>" class="c-textfield js-textfield <%= required ? 'is-required' : '' %>">
+  <div id="<%= div_id %>" class="c-textfield <%= required ? 'is-required' : '' %>">
     <%= org_fields.label :"#{[namespace, "name"].compact.join("_")}", label %>
 
     <%= org_fields.text_field :"#{[namespace, "name"].compact.join("_")}",
@@ -66,7 +66,7 @@ user_entered = default_org.present? &&
                               placeholder: placeholder,
                               value: user_entered ? nil : default_org&.name,
                               list: "autocomplete-#{autocomplete_id}",
-                              autocomplete: "off",
+                              autocomplete: allow_custom_org_entry ? 'autocomplete' : 'select',
                               aria: { label: placeholder, autocomplete: "list", required: required },
                               data: {
                                 content: "autocomplete-crosswalk-#{autocomplete_id}",
@@ -88,16 +88,17 @@ user_entered = default_org.present? &&
                                 class: "autocomplete-crosswalk-#{autocomplete_id}" %>
 
     <%# message to display to the user if they did not select an item from the suggestions %>
-    <div class="autocomplete-warning-<%= autocomplete_id %> autocomplete-warning red hide">
-      <%= allow_custom_org_entry ? _("Please select an item from the list or check the box below and provide a name for your organization.") : _("Please select an item from the list.") %>
+    <div id=""
+        class="c-textfield__invalid-description js-invalid-description autocomplete-warning-<%= autocomplete_id %>"
+        hidden>
     </div>
   </div>
 
   <%# If we are allowing the user to specify orgs we don't know about then display the checkbox and
       textbox for the user's custom Org name %>
   <% if allow_custom_org_entry %>
-    <conditional>
-      <div class="c-login__pseudo-description">
+    <div class="c-login__pseudo-description">
+      <conditional>
         <div id="js-unlisted-checkbox" class="c-checkbox js-checkbox">
           <%= org_fields.check_box(:"#{[namespace, "not_in_list"].compact.join("_")}",
                                     class: "new-org-entry",
@@ -115,7 +116,11 @@ user_entered = default_org.present? &&
                                     class: "form-control toggleable-field user-entered-org-#{autocomplete_id}",
                                     maxlength: 80 %>
         </div>
-      </div>
-    </conditional>
+      </conditional>
+    </div>
   <% end %>
+
+  <script type="text/javascript">
+    initAutoComplete('#org_autocomplete_name');
+  </script>
 <% end %>
