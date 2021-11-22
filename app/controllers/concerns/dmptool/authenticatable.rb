@@ -43,18 +43,28 @@ module Dmptool
       # Attempt to determine the Org (or RegistryOrg) based on the email's domain
       # rubocop:disable Metrics/AbcSize
       def org_from_email_domain(email_domain:)
-        ignored_email_domains = %w[aol.com duck.com gmail.com hotmail.com icloud.com
-                                   outlook.com pm.me qq.com yahoo.com]
+        ignored_email_domains = %w[aol.com duck.com gmail.com example.com example.org
+                                   hotmail.com icloud.com outlook.com pm.me qq.com yahoo.com]
+
+p "EMAIL DOMAIN: #{email_domain}"
+
         return nil unless email_domain.present?
         return nil if ignored_email_domains.include?(email_domain.downcase)
 
         registry_org = ::RegistryOrg.by_domain(email_domain).first
+
+p "MATCHING REGISTRY: #{registry_org.name}" if registry_org.present? && registry_org.org.present?
+
         return registry_org.org if registry_org.present? && registry_org.org.present?
 
         hash = ::User.where('email LIKE ?', "%@#{email_domain.downcase}").group(:org_id).count
         return nil unless hash.present?
 
         selected = hash.select { |_k, v| v == hash.values.min }
+
+p "USER EMAIL MATCHES:"
+pp selected
+
         ::Org.find_by(id: selected.keys.first)
       end
       # rubocop:enable Metrics/AbcSize
