@@ -23,7 +23,7 @@ module Dmptool
     def shibboleth_ds_passthru
       skip_authorization
 
-      org = Org.find_by(id: params.fetch(:id, params[:org_id]))
+      org = Org.find_by(id: params[:id])
       if org.present?
         entity_id = org.identifier_for_scheme(scheme: 'shibboleth')
         if entity_id.present?
@@ -33,13 +33,10 @@ module Dmptool
           # initiate shibboleth login sequence
           redirect_to "#{url}?target=#{target}&entityID=#{entity_id.value}"
         else
-          @user = User.new(org: org)
-          # render new signin showing org logo
-          render 'shared/org_branding'
+          redirect_to root_path, alert: _('Unable to connect to your institution\'s server!')
         end
       else
-        redirect_to shibboleth_ds_path,
-                    notice: _('Please choose an organisation from the list.')
+        redirect_to root_path, alert: _('Unable to connect to your institution\'s server!')
       end
     end
     # rubocop:enable Metrics/AbcSize

@@ -5,7 +5,7 @@ that they do NOT have an existing account
 <% content_for :authentication do %>
   <%
     method = @shibbolized ? :post : :post
-    url = @shibbolized ? user_shibboleth_omniauth_authorize_path : user_registration_path
+    url = @shibbolized ? shibbboleth_ds_org_path(resource.org) : user_registration_path
   %>
 
   <%= render partial: 'users/shared/login_header', locals: { title: 'New Account Sign Up' } %>
