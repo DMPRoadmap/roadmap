@@ -39,9 +39,7 @@ p "USING: #{entity_id&.value}"
     end
 
     def failure
-      p 'FAILURE!'
-      p failed_strategy.name
-      pp resource&.inspect
+      p "FAILURE! #{failed_strategy.name}"
     end
 
     # Shibboleth callback (the action invoked after the user signs in)
@@ -79,9 +77,10 @@ p "USING: #{entity_id&.value}"
     def orcid; end
 
     # The path used when OmniAuth fails
-    # def after_omniauth_failure_path_for(scope)
+    def after_omniauth_failure_path_for(scope)
     #   super(scope)
-    # end
+      redirect_to root_path, alert: _('We are having trouble communicating with your institution at this time.')
+    end
 
     private
 
