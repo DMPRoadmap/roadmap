@@ -3,9 +3,7 @@ Devise Sign in form arrived at after the user enters their email and we determin
 that they have an existing account
 %>
 <% content_for :authentication do %>
-  <%
-  url = @shibbolized ? user_shibboleth_omniauth_authorize_path : user_session_path
-  %>
+  <% url = @shibbolized ? users_shibboleth_path : user_session_path %>
   <%= render partial: 'users/shared/login_header', locals: { title: 'Sign in' } %>
 
   <%= form_with model: resource, url: url, method: :post, local: true,

@@ -36,8 +36,9 @@ Devise.setup do |config|
                   scope: '/authenticate /activities/update',
                   sandbox: Rails.configuration.x.dmproadmap.orcid_sandbox
 
+=begin
   if Rails.env.development? || Rails.env.test?
-    config.omniauth :shibboleth, {
+    config.omniauth :no_ds_shibboleth, {
       request_type: :header,
       shib_session_id_field: 'Shib-Session-ID',
       shib_application_id_field: 'Shib-Application-ID',
@@ -53,6 +54,7 @@ Devise.setup do |config|
       debug: false
     }
   else
+=end
     config.omniauth :shibboleth, {
       request_type: :header,
       uid_field: 'eppn',
@@ -66,7 +68,7 @@ Devise.setup do |config|
       extra_fields: [:schacHomeOrganization],
       debug: false
     }
-  end
+#  end
 
   config.omniauth_path_prefix = '/users/auth'
 

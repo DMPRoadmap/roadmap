@@ -6,37 +6,6 @@ module Users
     # See https://github.com/omniauth/omniauth/wiki/FAQ#rails-session-is-clobbered-after-callback-on-developer-strategy
     skip_before_action :verify_authenticity_token, only: %i[orcid shibboleth]
 
-    # You should also create an action method in this controller like this:
-    # def twitter
-    # end
-
-    #
-    # GET|POST /users/auth/shibboleth
-    def passthru
-      org = Org.find_by(id: shibboleth_passthru_params[:org_id])
-
-p "JUST PASSIN THROUGH: #{org&.name}"
-
-      if org.present?
-        entity_id = org.identifier_for_scheme(scheme: 'shibboleth')
-
-p "USING: #{entity_id&.value}"
-
-        if entity_id.present?
-          shib_login = Rails.configuration.x.shibboleth.login_url
-          url = "#{request.base_url.gsub('http:', 'https:')}#{shib_login}"
-          target = user_shibboleth_omniauth_callback_url.gsub('http:', 'https:')
-          # initiate shibboleth login sequence
-          redirect_to "#{url}?target=#{target}&entityID=#{entity_id.value}"
-        else
-          redirect_to root_path, alert: _('Unable to connect to your institution\'s server!')
-        end
-      else
-        redirect_to root_path, alert: _('Unable to connect to your institution\'s server!')
-      end
-
-      # super
-    end
 
     def failure
       p "FAILURE! #{failed_strategy.name}"
@@ -51,9 +20,11 @@ p "USING: #{entity_id&.value}"
 
       # TODO: If they already had an account auto merge/link the eppn to the existing account
 
+pp request.env['omniauth.auth']
+
       @user = User.from_omniauth(request.env['omniauth.auth'])
 
-      pp @user.inspect
+pp @user.inspect
 
       if @user.persisted?
 
