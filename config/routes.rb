@@ -129,9 +129,6 @@ Rails.application.routes.draw do
 
   resources :orgs, path: 'org/admin', only: [] do
     member do
-      # DMPTool override that looks up the Org's Shibboleth entityID and calls shibd
-      post "shibbboleth_ds"
-
       get 'admin_edit'
       put 'admin_update'
     end
