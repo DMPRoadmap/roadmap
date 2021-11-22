@@ -13,9 +13,29 @@ module Users
     #
     # GET|POST /users/auth/shibboleth
     def passthru
-      p 'PASSTHRU!'
+      org = Org.find_by(id: shibboleth_passthru_params[:org_id])
 
-      super
+p "JUST PASSIN THROUGH: #{org&.name}"
+
+      if org.present?
+        entity_id = org.identifier_for_scheme(scheme: 'shibboleth')
+
+p "USING: #{entity_id&.value}"
+
+        if entity_id.present?
+          shib_login = Rails.configuration.x.shibboleth.login_url
+          url = "#{request.base_url.gsub('http:', 'https:')}#{shib_login}"
+          target = user_shibboleth_omniauth_callback_url.gsub('http:', 'https:')
+          # initiate shibboleth login sequence
+          redirect_to "#{url}?target=#{target}&entityID=#{entity_id.value}"
+        else
+          redirect_to root_path, alert: _('Unable to connect to your institution\'s server!')
+        end
+      else
+        redirect_to root_path, alert: _('Unable to connect to your institution\'s server!')
+      end
+
+      # super
     end
 
     def failure
@@ -62,5 +82,11 @@ module Users
     # def after_omniauth_failure_path_for(scope)
     #   super(scope)
     # end
+
+    private
+
+    def shibboleth_passthru_params
+      params.require(:user).permit(:org_id)
+    end
   end
 end
