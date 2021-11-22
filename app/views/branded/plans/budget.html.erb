@@ -27,7 +27,7 @@
           <% ro = ResearchOutput.find(cost.research_output_id)%>
           <% cost_label = form_label(cost.parent.madmp_schema.schema["properties"]["cost"], plan.template.locale, false) %>
           <% cost_title = cost.data["costType"] %>
-          <% cost_title +=  "(#{cost.data["title"]})" if cost.data["title"].present?%>
+          <% cost_title +=  " (#{cost.data["title"]})" if cost.data["title"].present?%>
           <tr>
             <td><%=  cost_title %></td>
             <td><%= "#{cost.data["amount"]} #{cost.data["currency"]}"%></td>

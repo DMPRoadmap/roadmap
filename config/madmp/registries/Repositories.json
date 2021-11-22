@@ -1,178 +1,552 @@
 [
     {
         "label": {
-            "en_GB": "Zenodo",
-            "fr_FR": "Zenodo"
+            "en_GB": "AGRHYS, AGro-HYdroSystèmes, ORE AGRHYS",
+            "fr_FR": "AGRHYS, AGro-HYdroSystèmes, ORE AGRHYS"
         },
-        "title": "Zenodo",
-        "description": "ZENODO builds and operates a simple and innovative service that enables researchers, scientists, EU projects and institutions to share and showcase multidisciplinary research results (data and publications) that are not part of the existing institutional or subject-based repositories of the research communities. ZENODO enables researchers, scientists, EU projects and institutions to: easily share the long tail of small research results in a wide variety of formats including text, spreadsheets, audio, video, and images across all fields of science. display their research results and get credited by making the research results citable and integrate them into existing reporting lines to funding agencies like the European Commission. easily access and reuse shared research results. ",
-        "hostId": "RRID:SCR_004129",
-        "idType": "Autre",
-        "geoLocation": "CH",
-        "certification": null,
-        "pidSystem": "DOI",
-        "hasVersioningPolicy": "Oui",
-        "availability": "20",
-        "metadataStandard": "DataCite Metadata Schema, Dublin Core"
-    },
-    {
-        "label": {
-            "en_GB": "GitHub",
-            "fr_FR": "GitHub"
-        },
-        "title": "GitHub",
-        "description": "GitHub is the best place to share code with friends, co-workers, classmates, and complete strangers. Over three million people use GitHub to build amazing things together. With the collaborative features of GitHub.com, our desktop and mobile apps, and GitHub Enterprise, it has never been easier for individuals and teams to write better code, faster. Originally founded by Tom Preston-Werner, Chris Wanstrath, and PJ Hyett to simplify sharing code, GitHub has grown into the largest code host in the world.",
-        "hostId": "https://www.re3data.org/repository/r3d100010375",
+        "title": "AGRHYS",
+        "hostId": "https://cat.opidor.fr/index.php/AGRHYS",
         "idType": "URL",
-        "geoLocation": "US",
-        "certification": null,
-        "pidSystem": "Autres",
-        "hasVersioningPolicy": "Oui",
-        "availability": null,
-        "metadataStandard": null
+        "certification": "",
+        "geoLocation": "FR"
     },
     {
         "label": {
-            "en_GB": "figshare",
-            "fr_FR": "figshare"
+            "en_GB": "AMMA-CATCH-DB, Observatoire éco-hydro-météo en Afrique de l'Ouest, Observatoire hydrologique, écologique et météorologique de long terme en Afrique de l\u2019Ouest",
+            "fr_FR": "AMMA-CATCH-DB, Observatoire éco-hydro-météo en Afrique de l'Ouest, Observatoire hydrologique, écologique et météorologique de long terme en Afrique de l\u2019Ouest"
         },
-        "title": "figshare",
-        "description": "figshare allows researchers to publish all of their research outputs in an easily citable, sharable and discoverable manner. All file formats can be published, including videos and datasets. Optional peer review process. figshare uses creative commons licensing.",
-        "hostId": "RRID:SCR_004328",
-        "idType": "Autre",
-        "geoLocation": null,
-        "certification": null,
-        "pidSystem": "DOI",
-        "hasVersioningPolicy": "Oui",
-        "availability": null,
-        "metadataStandard": "DataCite Metadata Schema, Dublin Core"
+        "title": "AMMA-CATCH-DB",
+        "hostId": "https://cat.opidor.fr/index.php/AMMA-CATCH-DB",
+        "idType": "URL",
+        "certification": "SNO",
+        "geoLocation": "FR"
     },
     {
         "label": {
-            "en_GB": "Data INRAE (Portail Data INRAE)",
-            "fr_FR": "Data INRAE (Portail Data INRAE)"
+            "en_GB": "ANISEED, Ascidian Network for InSitu Expression and Embryological Data",
+            "fr_FR": "ANISEED, Ascidian Network for InSitu Expression and Embryological Data"
+        },
+        "title": "ANISEED",
+        "hostId": "https://cat.opidor.fr/index.php/ANISEED",
+        "idType": "URL",
+        "certification": "ELIXIR Data Resources",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "ANPERSANA",
+            "fr_FR": "ANPERSANA"
+        },
+        "title": "ANPERSANA",
+        "hostId": "https://cat.opidor.fr/index.php/ANPERSANA",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "ASPIC Portail, Archives Spectrophotométriques publiques integrées au CeSAM, Archive of Spectrophotometry Publicly available In Cesam",
+            "fr_FR": "ASPIC Portail, Archives Spectrophotométriques publiques integrées au CeSAM, Archive of Spectrophotometry Publicly available In Cesam"
+        },
+        "title": "ASPIC Portail",
+        "hostId": "https://cat.opidor.fr/index.php/ASPIC Portail",
+        "idType": "URL",
+        "certification": "SNO",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "AVISO+, Archiving, Validation and Interpretation of Satellite Oceanographic data",
+            "fr_FR": "AVISO+, Archiving, Validation and Interpretation of Satellite Oceanographic data"
+        },
+        "title": "AVISO+",
+        "hostId": "https://cat.opidor.fr/index.php/AVISO+",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Archives sonores CNRS - Musée de l'Homme",
+            "fr_FR": "Archives sonores CNRS - Musée de l'Homme"
+        },
+        "title": "Archives sonores CNRS - Musée de l'Homme",
+        "hostId": "https://cat.opidor.fr/index.php/Archives sonores CNRS - Musée de l'Homme",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "ArkeoGIS, Partage et utilisation de données spatialisées sur le passé,",
+            "fr_FR": "ArkeoGIS, Partage et utilisation de données spatialisées sur le passé,"
+        },
+        "title": "ArkeoGIS",
+        "hostId": "https://cat.opidor.fr/index.php/ArkeoGIS",
+        "idType": "URL",
+        "certification": "Spatio",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Auradé, Bassin Versant Expérimental de l'Auradé, BVE Auradé",
+            "fr_FR": "Auradé, Bassin Versant Expérimental de l'Auradé, BVE Auradé"
+        },
+        "title": "Auradé",
+        "hostId": "https://cat.opidor.fr/index.php/Auradé",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "BASECOL, Ro-Vibrational Collisional Excitation Database and Utilities",
+            "fr_FR": "BASECOL, Ro-Vibrational Collisional Excitation Database and Utilities"
+        },
+        "title": "BASECOL",
+        "hostId": "https://cat.opidor.fr/index.php/BASECOL",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "BASS2000, Base de données solaire Sol. Solar Survey Archive",
+            "fr_FR": "BASS2000, Base de données solaire Sol. Solar Survey Archive"
+        },
+        "title": "BASS2000",
+        "hostId": "https://cat.opidor.fr/index.php/BASS2000",
+        "idType": "URL",
+        "certification": "ICSU-WDS",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "BDOH, Base de Données des Observatoires en Hydrologie ",
+            "fr_FR": "BDOH, Base de Données des Observatoires en Hydrologie "
+        },
+        "title": "BDOH",
+        "hostId": "https://cat.opidor.fr/index.php/BDOH",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "BGI, Bureau Gravimétrique International, International Gravimetric Bureau",
+            "fr_FR": "BGI, Bureau Gravimétrique International, International Gravimetric Bureau"
+        },
+        "title": "BGI",
+        "hostId": "https://cat.opidor.fr/index.php/BGI",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "BeQuali, Banque d\u2019enquêtes qualitatives en sciences humaines et sociales",
+            "fr_FR": "BeQuali, Banque d\u2019enquêtes qualitatives en sciences humaines et sociales"
+        },
+        "title": "BeQuali",
+        "hostId": "https://cat.opidor.fr/index.php/BeQuali",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CADE, Centre d\u2019Analyse de Données Etendues",
+            "fr_FR": "CADE, Centre d\u2019Analyse de Données Etendues"
+        },
+        "title": "CADE",
+        "hostId": "https://cat.opidor.fr/index.php/CADE",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CALLISTO, CALmip Launches an Interface for Semantic Tollbox Online,",
+            "fr_FR": "CALLISTO, CALmip Launches an Interface for Semantic Tollbox Online,"
+        },
+        "title": "CALLISTO",
+        "hostId": "https://cat.opidor.fr/index.php/CALLISTO",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CAZy, Carbohydrate-Active enZYmes Database",
+            "fr_FR": "CAZy, Carbohydrate-Active enZYmes Database"
+        },
+        "title": "CAZy",
+        "hostId": "https://cat.opidor.fr/index.php/CAZy",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CDGP, Centre de données de géothermie profonde",
+            "fr_FR": "CDGP, Centre de données de géothermie profonde"
+        },
+        "title": "CDGP",
+        "hostId": "https://cat.opidor.fr/index.php/CDGP",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CDPP, Centre de données pour la physiques des plasmas naturels du système solaire, Plasma Physics Data Center",
+            "fr_FR": "CDPP, Centre de données pour la physiques des plasmas naturels du système solaire, Plasma Physics Data Center"
+        },
+        "title": "CDPP",
+        "hostId": "https://cat.opidor.fr/index.php/CDPP",
+        "idType": "URL",
+        "certification": "SNO",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CDS, IR CDS, Centre de Données astronomiques de Strasbourg, Strasbourg astronomical Data Center",
+            "fr_FR": "CDS, IR CDS, Centre de Données astronomiques de Strasbourg, Strasbourg astronomical Data Center"
+        },
+        "title": "CDS",
+        "hostId": "https://cat.opidor.fr/index.php/CDS",
+        "idType": "URL",
+        "certification": "SNO",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CDS-IS, CDS-in situ, Centres de données et Services in situ - ODATIS",
+            "fr_FR": "CDS-IS, CDS-in situ, Centres de données et Services in situ - ODATIS"
+        },
+        "title": "CDS-IS",
+        "hostId": "https://cat.opidor.fr/index.php/CDS-IS",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CDS-SAT, Centres de Données et Services satellites - ODATIS, CDS-satellite",
+            "fr_FR": "CDS-SAT, Centres de Données et Services satellites - ODATIS, CDS-satellite"
+        },
+        "title": "CDS-SAT",
+        "hostId": "https://cat.opidor.fr/index.php/CDS-SAT",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CENHTOR, Centre de ressourcEs Numériques des Humanités et des TerritOiRes",
+            "fr_FR": "CENHTOR, Centre de ressourcEs Numériques des Humanités et des TerritOiRes"
+        },
+        "title": "CENHTOR",
+        "hostId": "https://cat.opidor.fr/index.php/CENHTOR",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CERN Open Data Portal, Portail des données ouvertes du CERN",
+            "fr_FR": "CERN Open Data Portal, Portail des données ouvertes du CERN"
+        },
+        "title": "CERN Open Data Portal",
+        "hostId": "https://cat.opidor.fr/index.php/CERN Open Data Portal",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "CH"
+    },
+    {
+        "label": {
+            "en_GB": "CERSAT, CDS-SAT-CERSAT, Centre d'Exploitation et de Recherche SATellitaire, Centre ERS d'Archivage et de Traitement",
+            "fr_FR": "CERSAT, CDS-SAT-CERSAT, Centre d'Exploitation et de Recherche SATellitaire, Centre ERS d'Archivage et de Traitement"
+        },
+        "title": "CERSAT",
+        "hostId": "https://cat.opidor.fr/index.php/CERSAT",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CRISPR-Cas++, CRISPRCas++",
+            "fr_FR": "CRISPR-Cas++, CRISPRCas++"
+        },
+        "title": "CRISPR-Cas++",
+        "hostId": "https://cat.opidor.fr/index.php/CRISPR-Cas++",
+        "idType": "URL",
+        "certification": "ELIXIR Data Resources",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CRYOBS-CLIM, La CRYosphère, un OBServatoire du CLIMat",
+            "fr_FR": "CRYOBS-CLIM, La CRYosphère, un OBServatoire du CLIMat"
+        },
+        "title": "CRYOBS-CLIM",
+        "hostId": "https://cat.opidor.fr/index.php/CRYOBS-CLIM",
+        "idType": "URL",
+        "certification": "SNO",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CTOH, Centre de Topographie des Océans et de l\u2019Hydrosphère, Centre pour les études topographiques Océan-Hydrosphère",
+            "fr_FR": "CTOH, Centre de Topographie des Océans et de l\u2019Hydrosphère, Centre pour les études topographiques Océan-Hydrosphère"
+        },
+        "title": "CTOH",
+        "hostId": "https://cat.opidor.fr/index.php/CTOH",
+        "idType": "URL",
+        "certification": "SNO",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Catalogue Nesstar des enquêtes de l'INED, Serveur Nesstar de l'INED, Networked Social Science Tools And Resources",
+            "fr_FR": "Catalogue Nesstar des enquêtes de l'INED, Serveur Nesstar de l'INED, Networked Social Science Tools And Resources"
+        },
+        "title": "Catalogue Nesstar des enquêtes de l'INED",
+        "hostId": "https://cat.opidor.fr/index.php/Catalogue Nesstar des enquêtes de l'INED",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CeDONA, Centre de Données pour l'Observation en Nouvelle Aquitaine, Centre de Données CeDONA, Centre de Données OASU, OASU - CD",
+            "fr_FR": "CeDONA, Centre de Données pour l'Observation en Nouvelle Aquitaine, Centre de Données CeDONA, Centre de Données OASU, OASU - CD"
+        },
+        "title": "CeDONA",
+        "hostId": "https://cat.opidor.fr/index.php/CeDONA",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CeSAM, Centre de données de l'Observatoire des Sciences de l'Univers PyTHEAS,  Centre de données Pytheas,Pythéas Data Centre, Centre de donnéeS Astrophysiques de Marseille",
+            "fr_FR": "CeSAM, Centre de données de l'Observatoire des Sciences de l'Univers PyTHEAS,  Centre de données Pytheas,Pythéas Data Centre, Centre de donnéeS Astrophysiques de Marseille"
+        },
+        "title": "CeSAM",
+        "hostId": "https://cat.opidor.fr/index.php/CeSAM",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "ChArMEx database, Chemistry-Aerosol Mediterranean eXperiment",
+            "fr_FR": "ChArMEx database, Chemistry-Aerosol Mediterranean eXperiment"
+        },
+        "title": "ChArMEx database",
+        "hostId": "https://cat.opidor.fr/index.php/ChArMEx database",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Chimiothèque Nationale, GIS Chimiothèque Nationale",
+            "fr_FR": "Chimiothèque Nationale, GIS Chimiothèque Nationale"
+        },
+        "title": "Chimiothèque Nationale",
+        "hostId": "https://cat.opidor.fr/index.php/Chimiothèque Nationale",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Cid.curie.fr, iManage, OpenImadis, Curie Image Database",
+            "fr_FR": "Cid.curie.fr, iManage, OpenImadis, Curie Image Database"
+        },
+        "title": "Cid.curie.fr",
+        "hostId": "https://cat.opidor.fr/index.php/Cid.curie.fr",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Cirad Dataverse, Dataverse Cirad, Données de recherche du CIRAD",
+            "fr_FR": "Cirad Dataverse, Dataverse Cirad, Données de recherche du CIRAD"
+        },
+        "title": "Cirad Dataverse",
+        "hostId": "https://cat.opidor.fr/index.php/Cirad Dataverse",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "CoCoON, Collections de Corpus Oraux Numériques - anciennement Centre de Ressources pour la Description de l'Oral (CRDO) - Groupe Gestion documentaire et réservoir de données",
+            "fr_FR": "CoCoON, Collections de Corpus Oraux Numériques - anciennement Centre de Ressources pour la Description de l'Oral (CRDO) - Groupe Gestion documentaire et réservoir de données"
+        },
+        "title": "CoCoON",
+        "hostId": "https://cat.opidor.fr/index.php/CoCoON",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Conservatoire National des Données 3D, CND3D",
+            "fr_FR": "Conservatoire National des Données 3D, CND3D"
+        },
+        "title": "Conservatoire National des Données 3D",
+        "hostId": "https://cat.opidor.fr/index.php/Conservatoire National des Données 3D",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Coriolis, CDS-IS-Coriolis, Centre de données et services in situ Coriolis, Coriolis-CD,",
+            "fr_FR": "Coriolis, CDS-IS-Coriolis, Centre de données et services in situ Coriolis, Coriolis-CD,"
+        },
+        "title": "Coriolis",
+        "hostId": "https://cat.opidor.fr/index.php/Coriolis",
+        "idType": "URL",
+        "certification": "CoreTrustSeal",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Cybergeo Dataverse, European journal of geography, Revue européenne de géographie",
+            "fr_FR": "Cybergeo Dataverse, European journal of geography, Revue européenne de géographie"
+        },
+        "title": "Cybergeo Dataverse",
+        "hostId": "https://cat.opidor.fr/index.php/Cybergeo Dataverse",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "US"
+    },
+    {
+        "label": {
+            "en_GB": "DATA BRGM",
+            "fr_FR": "DATA BRGM"
+        },
+        "title": "DATA BRGM",
+        "hostId": "https://cat.opidor.fr/index.php/DATA BRGM",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "DOREL, DOnnées de REcherche Lorraines, Entrepôt de données de la recherche de l'Université de Lorraine",
+            "fr_FR": "DOREL, DOnnées de REcherche Lorraines, Entrepôt de données de la recherche de l'Université de Lorraine"
+        },
+        "title": "DOREL",
+        "hostId": "https://cat.opidor.fr/index.php/DOREL",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "Data INRAE, Portail Data INRAE, Portail des données Inrae",
+            "fr_FR": "Data INRAE, Portail Data INRAE, Portail des données Inrae"
         },
         "title": "Data INRAE",
-        "description": "INRAE is the world\u2019s first organisation specialized on agricultural, food and environmental sciences. Data INRAE is offered by INRAE as part of its mission to open the results of its research. Data INRAE will share research data in relation with food, nutrition, agriculture and environment. It includes experimental, simulation and observation data, omic data, survey and text data. Only data produced by or in collaboration with INRAE will be hosted in the repository, but anyone can access the metadata and the open data.",
-        "hostId": "https://data.inrae.fr/",
+        "hostId": "https://cat.opidor.fr/index.php/Data INRAE",
         "idType": "URL",
-        "geoLocation": "FR",
-        "certification": null,
-        "pidSystem": "DOI",
-        "hasVersioningPolicy": "Oui",
-        "availability": null,
-        "metadataStandard": "DataCite Metadata Schema, DDI, Dublin Core, ISA-Tab"
+        "certification": "",
+        "geoLocation": "FR"
     },
     {
         "label": {
-            "en_GB": "DataSuds (IRD)",
-            "fr_FR": "DataSuds (IRD)"
+            "en_GB": "Data-InDoRES, Entrepôt de données InDoRES",
+            "fr_FR": "Data-InDoRES, Entrepôt de données InDoRES"
+        },
+        "title": "Data-InDoRES",
+        "hostId": "https://cat.opidor.fr/index.php/Data-InDoRES",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "DataSuds, Des données ouvertes pour une science durable au Sud, Dataverse IRD",
+            "fr_FR": "DataSuds, Des données ouvertes pour une science durable au Sud, Dataverse IRD"
         },
         "title": "DataSuds",
-        "description": "The DataSuds data warehouse provides IRD scientists and their partners with a service to disseminate, preserve and enhance their research data by facilitating their identification and citation. It is one of the elements of the open science system for the South promoted by the IRD.",
-        "hostId": "https://data.ird.fr/",
+        "hostId": "https://cat.opidor.fr/index.php/DataSuds",
         "idType": "URL",
-        "geoLocation": "FR",
-        "certification": null,
-        "pidSystem": "DOI",
-        "hasVersioningPolicy": "Oui",
-        "availability": null,
-        "metadataStandard": "DataCite Metadata Schema, DDI, Dublin Core"
+        "certification": "",
+        "geoLocation": ""
     },
     {
         "label": {
-            "en_GB": "4TU.ResearchData | science.engineering.design",
-            "fr_FR": "4TU.ResearchData | science.engineering.design"
+            "en_GB": "Didomena, Didόmena, Entrepôt de données de la recherche de l'EHESS",
+            "fr_FR": "Didomena, Didόmena, Entrepôt de données de la recherche de l'EHESS"
         },
-        "title": "4TU.ResearchData | science.engineering.design",
-        "description": "TU.ResearchData, previously known as 4TU.Centre for Research Data, is a research data repository dedicated to the science, engineering and design disciplines. It offers the knowledge, experience and the tools to manage, publish and find scientific research data in a standardized, secure and well-documented manner. 4TU.ResearchData provides the research community with: Customised advice and support on research data management; A long-term repository for scientific research data; Support for current research projects; Tools to enhance reuse of research data.",
-        "hostId": "RRID:SCR_006295",
-        "idType": "Autre",
-        "geoLocation": "NL",
-        "certification": "DSA",
-        "pidSystem": "DOI",
-        "hasVersioningPolicy": "Oui",
-        "availability": null,
-        "metadataStandard": "DataCite Metadata Schema, DDI, Dublin Core, RDA Data Cube Vocabulary"
-    },
-    {
-        "label": {
-            "en_GB": "CIRAD Dataverse",
-            "fr_FR": "CIRAD Dataverse"
-        },
-        "title": "CIRAD Dataverse",
-        "description": "The range of CIRAD's research has given rise to numerous datasets and databases associating various types of data: primary (collected), secondary (analysed, aggregated, used for scientific articles, etc), qualitative and quantitative. These collections of research data are used for comparisons, to study processes and analyse change. They include: genetics and genomics data, data generated by trials and measurements (using laboratory instruments), data generated by modelling (interpolations, predictive models), long-term observation data (remote sensing, observatories, etc), data from surveys, cohorts, interviews with players.",
-        "hostId": "https://dataverse.cirad.fr/",
+        "title": "Didomena",
+        "hostId": "https://cat.opidor.fr/index.php/Didomena",
         "idType": "URL",
-        "geoLocation": "FR",
-        "certification": null,
-        "pidSystem": "DOI",
-        "hasVersioningPolicy": "Oui",
-        "availability": null,
-        "metadataStandard": "DDI, Dublin Core"
+        "certification": "",
+        "geoLocation": "FR"
     },
     {
         "label": {
-            "en_GB": "DRYAD",
-            "fr_FR": "DRYAD"
+            "en_GB": "Draix Bléone, Observatoire Draix-Bléone, ORE Draix Bléone",
+            "fr_FR": "Draix Bléone, Observatoire Draix-Bléone, ORE Draix Bléone"
         },
-        "title": "DRYAD",
-        "description": "Dryad is an international repository of data underlying peer-reviewed scientific and medical literature, particularly data for which no specialized repository exists. The content is considered to be integral to the published research. All material in Dryad is associated with a scholarly publication ",
-        "hostId": "RRID:SCR_005910",
-        "idType": "Autre",
-        "geoLocation": "US",
-        "certification": null,
-        "pidSystem": "DOI",
-        "hasVersioningPolicy": "Oui",
-        "availability": null,
-        "metadataStandard": "DataCite metadata Schema, Dublin Core, RDF Data Cube Vocabulary"
-    },
-    {
-        "label": {
-            "en_GB": "PAC - Archiving Platform CINES",
-            "fr_FR": "PAC - Plateforme d'archivage au CINES"
-        },
-        "title": "PAC - Archiving Platform CINES",
-        "description": "CINES is the French national long-term preservation service provider for Higher Education and Research: more than 20 institutions (universities, librairies, labs) archive their digital heritage at CINES so that it's preserved over time in a secure, dedicated environment. This includes documents such as PhD theses or publications, digitized ancient/rare books, satellite imagery, 3D/vidéos/image galleries, datasets, etc.",
-        "hostId": "2425-8792",
-        "idType": "Autre",
-        "geoLocation": "FR",
-        "certification": "DSA",
-        "pidSystem": "ARK",
-        "hasVersioningPolicy": "Oui",
-        "availability": null,
-        "metadataStandard": "Dublin Core"
-    },
-    {
-        "label": {
-            "en_GB": "Huma-Num",
-            "fr_FR": "Huma-Num"
-        },
-        "title": "Huma-Num : Archivage à long terme",
-        "description": "La TGIR Huma-Num propose à la communauté des producteurs de données numériques en Sciences Humaines et Sociales un service d\u2019archivage à long terme. Elle s\u2019appuie, pour cette activité, sur les infrastructures et les compétences d'un centre labellisé, le Centre Informatique National de l\u2019Enseignement Supérieur, CINES, avec qui elle a signé une convention. Huma-Num accompagne les producteurs de données tout au long du processus d\u2019archivage à long terme et est le lien entre les communautés scientifiques et le CINES. Elle procure aide et conseils aux producteurs de données pour choisir les formats de données adéquats, mais aussi pour concevoir sous une forme normalisée les données descriptives (méta-données) indispensables pour les faire entrer dans le système d\u2019archivage du CINES. Les données à archiver doivent présenter une valeur scientifique reconnue par la communauté dont elles proviennent. Huma-Num soumet à son conseil scientifique les demandes d\u2019archivage à long terme.",
-        "hostId": "https://www.huma-num.fr/services-et-outils/archiver",
+        "title": "Draix Bléone",
+        "hostId": "https://cat.opidor.fr/index.php/Draix Bléone",
         "idType": "URL",
-        "geoLocation": "FR",
-        "certification": null,
-        "pidSystem": null,
-        "hasVersioningPolicy": null,
-        "availability": null,
-        "metadataStandard": null
+        "certification": "SNO",
+        "geoLocation": "FR"
     },
     {
         "label": {
-            "en_GB": "Vitam, Valeurs immatérielles transmises aux archives pour mémoire",
-            "fr_FR": "Vitam, Valeurs immatérielles transmises aux archives pour mémoire"
+            "en_GB": "DustEM, Interstellar dust physics",
+            "fr_FR": "DustEM, Interstellar dust physics"
         },
-        "title": "Vitam",
-        "description": "Le Programme Vitam, Valeurs immatérielles transmises aux archives pour mémoire, est un programme interministériel français d'archivage électronique porté par trois ministères, Europe et Affaires étrangères, Culture, Armées, responsables de la conservation des archives de l\u2019État. Le programme Vitam répond a 3 objectifs : 1/ La réalisation de la solution logicielle libre Vitam d\u2019archivage numérique permettant la prise en charge, la conservation et la consultation sécurisée de très gros volumes d\u2019archives numériques définitives, intermédiaires, voire courantes ; 2/ La mise en place de plate-formes d\u2019archivage utilisant la solution logicielle Vitam, dans chacun des trois ministères, via les projets ministériels : Saphir (MEAE), Adamant (MC/Archives nationales) et Archipel (MinArm) ; 3/ La diffusion et la réutilisation la plus large de la solution logicielle Vitam, en lien avec son Club utilisateurs. Le Programme veille également aux actions de soutien financier, de sensibilisation et d\u2019accompagnement en matière d\u2019archivage numérique au-delà des trois ministères porteurs du programme, via les dispositifs ANET (Archivage numérique en territoire) et DIAMAN au sein du MC/Service interministériel des Archives de France).",
-        "hostId": "https://www.programmevitam.fr/",
+        "title": "DustEM",
+        "hostId": "https://cat.opidor.fr/index.php/DustEM",
         "idType": "URL",
-        "geoLocation": "FR",
-        "certification": null,
-        "pidSystem": null,
-        "hasVersioningPolicy": null,
-        "availability": null,
-        "metadataStandard": null
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "EELS Data Base, EELS DB. Electron Energy Loss Spectroscopy Data Base. Inner & Outer Shell Excitation Spectrum Repository",
+            "fr_FR": "EELS Data Base, EELS DB. Electron Energy Loss Spectroscopy Data Base. Inner & Outer Shell Excitation Spectrum Repository"
+        },
+        "title": "EELS Data Base",
+        "hostId": "https://cat.opidor.fr/index.php/EELS Data Base",
+        "idType": "URL",
+        "certification": "",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "ERORUN, Observatoire de l'EROsion à la RéUNion",
+            "fr_FR": "ERORUN, Observatoire de l'EROsion à la RéUNion"
+        },
+        "title": "ERORUN",
+        "hostId": "https://cat.opidor.fr/index.php/ERORUN",
+        "idType": "URL",
+        "certification": "SNO",
+        "geoLocation": "FR"
+    },
+    {
+        "label": {
+            "en_GB": "ESPRI, Centre de données et de services ESPRI, CDS ESPRI",
+            "fr_FR": "ESPRI, Centre de données et de services ESPRI, CDS ESPRI"
+        },
+        "title": "ESPRI",
+        "hostId": "https://cat.opidor.fr/index.php/ESPRI",
+        "idType": "URL",
+        "certification": "SNO",
+        "geoLocation": "FR"
     }
 ]

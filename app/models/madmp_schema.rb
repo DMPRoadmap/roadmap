@@ -130,6 +130,15 @@ class MadmpSchema < ApplicationRecord
     schema["run"] || nil
   end
 
+  def const_data(locale)
+    const_data = {}
+    schema["properties"].each do |key, prop|
+      next if prop["const@#{locale}"].nil?
+      const_data[key] = prop["const@#{locale}"]
+    end
+    const_data
+  end
+
   # Substitute 'template_name' key/values for their 'schema_id' equivalent in the JSON
   # and 'registry_name' key/values for their 'registry_id' equivalent in the JSON
   def self.substitute_names(json_schema)

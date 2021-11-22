@@ -51,20 +51,31 @@ namespace :madmpopidor do
               additional_info: { property_name: "person" }
             )
           end
-
-          if contributor.data_curation
+          # if plan has one contributor, the person is attributed PI & DC roles
+          if plan.contributors.length == 1
             data_contact.update(
               data: data_contact.data.merge(
                 "person" => { "dbid" => person.id }
               )
             )
-          end
-
-          principal_investigator.update(
-            data: principal_investigator.data.merge(
-              "person" => { "dbid" => person.id }
+            principal_investigator.update(
+              data: principal_investigator.data.merge(
+                "person" => { "dbid" => person.id }
+              )
             )
-          )
+          elsif contributor.data_curation
+            data_contact.update(
+              data: data_contact.data.merge(
+                "person" => { "dbid" => person.id }
+              )
+            )
+          else
+            principal_investigator.update(
+              data: principal_investigator.data.merge(
+                "person" => { "dbid" => person.id }
+              )
+            )
+          end
         end
 
         #################################

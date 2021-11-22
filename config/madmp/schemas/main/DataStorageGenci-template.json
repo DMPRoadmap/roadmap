@@ -39,6 +39,29 @@
             "form_label@fr_FR": "Identification de la ressource",
             "form_label@en_GB": "Resource identification"
         },
+        "genciServiceRequest": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "SpecificData",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "GenciServiceRequest",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Informations requises pour une demande de ressources de stockage au Genci (une par type de service)",
+            "label@fr_FR": "Demande de ressources de stockage au GENCI",
+            "label@en_GB": "Request for storage resources from GENCI",
+            "form_label@fr_FR": "Demande de ressources de stockage au GENCI",
+            "form_label@en_GB": "Request for storage resources from GENCI"
+        },
         "backupPolicy": {
             "type": "array",
             "table_header": null,
@@ -73,29 +96,6 @@
             "example@en_GB": "Since the data is valuable because it is impossible or expensive to reproduce, a copy of the data on another tape is required",
             "form_label@fr_FR": "Mesures de sécurité",
             "form_label@en_GB": "Security measures"
-        },
-        "genciServiceRequest": {
-            "type": "array",
-            "table_header": null,
-            "items": {
-                "type": "object",
-                "class": "SpecificData",
-                "properties": {
-                    "dbid": {
-                        "type": "number"
-                    }
-                },
-                "template_name": "GenciServiceRequest",
-                "required": [
-                    "dbid"
-                ]
-            },
-            "minItems": 1,
-            "description": "Informations requises pour une demande de ressources de stockage au Genci (une par type de service)",
-            "label@fr_FR": "Demande de ressources de stockage au GENCI",
-            "label@en_GB": "Request for storage resources from GENCI",
-            "form_label@fr_FR": "Demande de ressources de stockage au GENCI",
-            "form_label@en_GB": "Request for storage resources from GENCI"
         },
         "estimatedVolume": {
             "type": "number",
@@ -169,10 +169,21 @@
         "genciServiceRequest"
     ],
     "to_string": [],
-    "run": {
-        "script_id": 2,
-        "name": "Genci_cost_calculator_v2",
-        "label@fr_FR": "Calculer le coût de stockage",
-        "label@en_GB": "Compute data storage cost"
-    }
+    "run": [
+        {
+            "script_id": 2,
+            "name": "Genci_cost_calculator_v2",
+            "label@fr_FR": "Calculer le coût de stockage",
+            "label@en_GB": "Compute data storage cost"
+        },
+        {
+            "script_id": 5,
+            "name": "Genci_notifyer_v1",
+            "label@fr_FR": "Notifier Genci",
+            "label@en_GB": "Notify Genci",
+            "tooltip@fr_FR": "Envoie à une adresse mail Genci une demande de ressources de stockage",
+            "tooltip@en_GB": "Sends to the Genci facility a query for storage space",
+            "oneshot": true
+        }
+    ]
 }

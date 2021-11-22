@@ -44,7 +44,7 @@
               _('Submit'),
               class: "btn btn-primary",
               type: "submit",
-              disabled: @fragment.new_record?
+              disabled: @fragment.new_record? && @fragment.data.empty?
             ) unless @readonly 
         %>
       </div>

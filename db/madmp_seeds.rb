@@ -37,26 +37,54 @@ orgs.each { |o| Org.create!(o) if Org.find_by(name: o[:name]).nil? }
 # -------------------------------------------------------
 templates = [
   {
-    title: "Science Europe :  modèle structuré standard",
-    description: "Modèle basé sur Science Europe, s'appuyant sur les schémas standards",
+    title: "Science Europe : modèle structuré",
     published: true,
     org: Org.find_by(abbreviation: "Science Europe"),
     locale: "fr_FR",
     is_default: true,
     version: 0,
     visibility: Template.visibilities[:organisationally_visible],
-    links: { "funder": [], "sample_plan": [] }
+    links: { "funder": [], "sample_plan": [] },
+    description: <<-DESCRIPTION
+      <p>Modèle structuré&nbsp; de plan de gestion de données (PGD) basé sur le "<a href="https://www.ouvrirlascience.fr/science-europe-guide-pratique-pour-une-harmonisation-internationale-de-la-gestion-des-donnees-de-recherche-v2/" target="_blank" class="has-new-window-popup-info">Guide pratique pour une harmonisation internationale de la gestion des données de recherche-V2<span class="new-window-popup-info">Ouvre une nouvelle fenêtre</span></a>" (janvier 2021) de Science Europe. Organisé en 12 questions, il couvre les six exigences fondamentales pour une bonne gestion et le partage des données dans le respect des principes FAIR*.&nbsp;</p>
+      <p>L’objectif de ce modèle est de rendre le contenu du PGD à la fois lisible par les humains et exploitable par les machines, afin de proposer de nouveaux services ou améliorer certains services existants.</p>
+      <p>Le modèle structuré&nbsp;:</p>
+      <ul>
+        <li>facilite la <strong>réutilisation automatique d’informations</strong> (projets ANR),</li>
+        <li>encourage l’<strong>utilisation d’identifiants</strong> (contributeurs, organisations, partenaires…),</li>
+        <li>propose des <strong>référentiels</strong> (standards de métadonnées, entrepôts de données, terminologies…),</li>
+        <li>permet d’identifier et de lister les types de <strong>coûts associés à la gestion des données</strong>,</li>
+        <li>simplifie et automatise les <strong>échanges d’informations</strong> avec les services impliqués dans la gestion des données (centre de stockage par exemple),</li>
+        <li>produit un <strong>format de PGD</strong> <strong>conforme aux <a href="https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard" target="_blank" class="has-new-window-popup-info">recommandations RDA<span class="new-window-popup-info">Ouvre une nouvelle fenêtre</span></a></strong>.</li>
+      </ul>
+      <p>Des recommandations sont proposées pour aider les chercheurs à renseigner ce modèle et à s'assurer que tous les aspects pertinents de la gestion des données sont effectivement couverts.</p>
+      <p><em>*</em> <em>Acronyme pour Facile à trouver, Accessible, Interopérable, Réutilisable.</em></p>
+    DESCRIPTION
   },
   {
-    title: "Science Europe: standard structured template",
-    description: "Science Europe structured template based on standard schemas",
+    title: "Science Europe: structured template",
     published: true,
     org: Org.find_by(abbreviation: "Science Europe"),
     locale: "en_GB",
     is_default: false,
     version: 0,
     visibility: Template.visibilities[:organisationally_visible],
-    links: { "funder": [], "sample_plan": [] }
+    links: { "funder": [], "sample_plan": [] },
+    description: <<-DESCRIPTION
+      <p>Structured template for a Data Management Plan (DMP) based on Science Europe's "<a href="https://www.scienceeurope.org/our-resources/practical-guide-to-the-international-alignment-of-research-data-management/" target="_blank" class="has-new-window-popup-info">Practical Guide to International Alignment of Research Data Management - Extended Version<span class="new-window-popup-info">Ouvre une nouvelle fenêtre</span></a>" (January 2021). Organised in 12 questions, it covers the six fundamental requirements for good data management and sharing in accordance with the FAIR* principles.&nbsp;</p>
+      <p>The objective of this model is to make the content of the DMP both human-readable and machine-actionable, in order to provide new services or improve some existing ones.</p>
+      <p>The structured template :</p>
+      <ul>
+        <li>facilitates <strong>automatic reuse of information</strong> (ANR projects),</li>
+        <li>encourages <strong>use of identifiers</strong> (contributors, organisations, partners, etc.),</li>
+        <li>proposes repositories (metadata standards, data repositories, vocabularies, etc.),</li>
+        <li>identifies and lists <strong>cost types related to data management</strong>,</li>
+        <li>simplifies and automates <strong>exchanges of informations</strong> with services involved in data management (e.g. data storage centre),</li>
+        <li>produces a <strong>DMP format conform to</strong> <a href="https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard" target="_blank" class="has-new-window-popup-info">RDA DMP common standard<span class="new-window-popup-info">Ouvre une nouvelle fenêtre</span></a>.</li>
+      </ul>
+      <p>Recommendations are provided to help researchers fill this model and ensure that all relevant aspects of data management are effectively covered.</p>
+      <p>* Acronym for Findable, Accessible, Interoperable, Reusable.</p>
+    DESCRIPTION
   }
 ]
 # Template creation calls defaults handler which sets is_default and
@@ -69,13 +97,13 @@ phases = [
     title: "PGD structuré",
     number: 1,
     modifiable: true,
-    template: Template.find_by(title: "Science Europe :  modèle structuré standard")
+    template: Template.find_by(title: "Science Europe : modèle structuré")
   },
   {
     title: "Structured DMP",
     number: 1,
     modifiable: true,
-    template: Template.find_by(title: "Science Europe: standard structured template")
+    template: Template.find_by(title: "Science Europe: structured template")
   }
 ]
 
@@ -83,17 +111,17 @@ phases.map { |p| Phase.create!(p) }
 
 se_standard_phase_fr = Phase.find_by(
   title: "PGD structuré",
-  template: Template.find_by(title: "Science Europe :  modèle structuré standard")
+  template: Template.find_by(title: "Science Europe : modèle structuré")
 )
 se_standard_phase_en = Phase.find_by(
   title: "Structured DMP",
-  template: Template.find_by(title: "Science Europe: standard structured template")
+  template: Template.find_by(title: "Science Europe: structured template")
 )
 
 # Create sections for SE detailed phase
 # -------------------------------------------------------
 sections = [
-  # Sections for Modèle structuré standard Science Europe Phase
+  # Sections for Modèle structuré Science Europe Phase
   ####################################################
   ##################### FRENCH #######################
   ####################################################
@@ -180,7 +208,7 @@ structured = QuestionFormat.find_by(title: "Structured")
 # Create questions for the section of SE detailed phase
 # -------------------------------------------------------
 questions = [
-  # Questions for "Sections for Modèle structuré standard Science Europe" Phase,
+  # Questions for "Sections for Modèle structuré Science Europe" Phase,
   ####################################################
   ##################### FRENCH #######################
   ####################################################

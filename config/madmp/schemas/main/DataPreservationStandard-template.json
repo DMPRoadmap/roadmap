@@ -70,7 +70,7 @@
             "label@fr_FR": "Archive",
             "label@en_GB": "Archive",
             "inputType": "dropdown",
-            "registry_name": "Repositories",
+            "registry_name": "Archives",
             "overridable": true,
             "form_label@fr_FR": "Choisir une archive pour conserver les données à long terme",
             "form_label@en_GB": "Choose an archive for long-term data preservation"

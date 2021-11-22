@@ -53,5 +53,7 @@
     "required": [
         "description"
     ],
-    "to_string": []
+    "to_string": [
+        "$.description"
+    ]
 }
