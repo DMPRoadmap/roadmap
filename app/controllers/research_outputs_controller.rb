@@ -30,7 +30,7 @@ class ResearchOutputsController < ApplicationController
         research_output_description.contact.update(
           data: {
             "person" => { "dbid" => params[:contact_id] },
-            "role" => d_("dmpopidor", "Data contact")
+            "role" => _("Data contact")
           }
         )
       end

@@ -13,7 +13,7 @@ module Dmpopidor
     def obj_name_for_display(obj)
       display_name = {
         ApiClient: _("API client"),
-        ResearchOutput: d_("dmpopidor", "research output"),
+        ResearchOutput: _("research output"),
         ExportedPlan: _("plan"),
         GuidanceGroup: _("guidance group"),
         Note: _("comment"),
@@ -34,7 +34,7 @@ module Dmpopidor
     end
 
     def success_message(obj, action = "saved")
-      d_("dmpopidor", "Successfully %{action} the %{object}.") % {
+      _("Successfully %{action} the %{object}.") % {
         object: obj_name_for_display(obj),
         action: action || "save",
       }

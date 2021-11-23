@@ -11,7 +11,7 @@ json.dataset datasets do |dataset|
   dataset_title = dataset.research_output_description.data["title"]
   json.dataset_id do
     json.identifier     dataset.research_output_description.data["datasetId"] || dataset.data["research_output_id"]
-    json.type           dataset.research_output_description.data["datasetId"].present? ? dataset.research_output_description.data["idType"] : d_("dmpopidor", "Local identifier")
+    json.type           dataset.research_output_description.data["datasetId"].present? ? dataset.research_output_description.data["idType"] : _("Local identifier")
   end
   json.description                exportable_description(dataset.research_output_description.data["description"])
   json.keyword                    extract_keywords(dataset.research_output_description)

@@ -448,6 +448,7 @@ Rails.application.routes.draw do
         post "enable", constraints: { format: [:json] }
       end
     end
+    resources :static_pages
 
     resources :api_clients do
       member do

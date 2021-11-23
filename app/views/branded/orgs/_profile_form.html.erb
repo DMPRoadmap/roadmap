@@ -74,7 +74,7 @@
     <div class="col-xs-8">
       <% tip = _('Maximum 3 lines (about 250 characters)') %>
       <div data-toggle="tooltip" data-html="true" title="<%= tip %>">
-        <%= f.label :banner_text, d_('dmpopidor', 'Banner text'), class: 'control-label' %>
+        <%= f.label :banner_text, _('Banner text'), class: 'control-label' %>
         <%= f.text_area :banner_text, class: 'form-control', 'aria-required': true %>
       </div>
     </div>
@@ -140,7 +140,7 @@
     <% else %>
       <div class="col-xs-8">
         <dl>
-          <dt><%= _('Organisation type(s)') %></dt>
+          <dt><%= _('Organisation types') %></dt>
           <dd><%= org.org_type_to_s %></dd>
         </dl>
       </div>

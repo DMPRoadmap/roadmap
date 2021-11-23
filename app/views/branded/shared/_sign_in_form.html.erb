@@ -1,6 +1,6 @@
 <%= form_for resource, as: 'user', namespace: 'signin', url: user_session_path, html: {id: "sign_in_form"} do |f| %>
   <% if Rails.configuration.x.shibboleth.enabled %>
-  <p class="fontsize-h3"><%= d_('dmpopidor', 'Institutional Access')%></p>
+  <p class="fontsize-h3"><%= _('Institutional Access')%></p>
     <% if session['devise.shibboleth_data'].nil? %>
       <div class="form-group">
         <span class="center-block btn-group-justified">
@@ -14,7 +14,7 @@
     <hr/>
   <% end %>
 
-  <p class="fontsize-h3"><%= d_('dmpopidor', 'Individual Access')%></p>
+  <p class="fontsize-h3"><%= _('Individual Access')%></p>
   <div class="form-group">
     <%= f.label(:email, _('Email'), class: 'control-label') %>
     <%= f.email_field(:email, class: 'form-control', "aria-required": true) %>

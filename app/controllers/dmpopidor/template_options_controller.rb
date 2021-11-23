@@ -55,7 +55,7 @@ module Dmpopidor
 
       @templates.each do |template|
         if template.customization_of.present?
-          template.title += " (#{d_('dmpopidor', 'Customized by ')} #{template.org.name})"
+          template.title += " (#{_('Customized by ')} #{template.org.name})"
         end
       end
 

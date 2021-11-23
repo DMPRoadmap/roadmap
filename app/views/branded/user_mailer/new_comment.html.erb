@@ -19,7 +19,7 @@
 </p>
 <p>
   <%= @research_output.is_default == false ? 
-      d_('dmpopidor', 'Research output name: %{research_output_name}') %{ research_output_name: @research_output_name } :
+      _('Research output name: %{research_output_name}') %{ research_output_name: @research_output_name } :
       nil
     %>
 </p>

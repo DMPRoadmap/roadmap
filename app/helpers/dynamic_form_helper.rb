@@ -232,11 +232,11 @@ module DynamicFormHelper
     validations.each do |validation|
       case validation
       when "required"
-        message += d_("dmpopidor", "This property is required.")
+        message += _("This property is required.")
       when "pattern"
-        message += d_("dmpopidor", "This property has an invalid format.")
+        message += _("This property has an invalid format.")
       else
-        message += d_("dmpopidor", "This property has an unknown problem : %{validation}") % {
+        message += _("This property has an unknown problem : %{validation}") % {
           validation: validation
         }
       end

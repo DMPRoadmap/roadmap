@@ -33,7 +33,7 @@ namespace :madmpopidor do
         plan.contributors.each do |contributor|
           identifier = contributor.identifiers.first
           person_data = {
-            "nameType" => d_("dmpopidor", "Personal"),
+            "nameType" => _("Personal"),
             "lastName" => contributor.name,
             "mbox" => contributor.email,
             "personId" => identifier&.value,
@@ -112,7 +112,7 @@ namespace :madmpopidor do
 
           research_output_description.update(
             data: research_output_description.data.merge(
-              "type" => d_("dmpopidor", ro_type)
+              "type" => _(ro_type)
             )
           )
         end

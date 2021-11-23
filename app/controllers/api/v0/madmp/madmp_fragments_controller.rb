@@ -78,7 +78,7 @@ class Api::V0::Madmp::MadmpFragmentsController < Api::V0::BaseController
 
   def record_not_found
     render json: {
-      "error" => d_("dmpopidor", "Fragment with id %{id} doesn't exist.") % { id: params[:id] }
+      "error" => _("Fragment with id %{id} doesn't exist.") % { id: params[:id] }
     }, status: 404
   end
 end

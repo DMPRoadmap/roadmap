@@ -3,10 +3,10 @@
   <%= hidden_field_tag 'export[form]', true %>
   <% if @research_outputs.length > 1 %>
     <div class="form-group research-outputs-selection">
-      <strong><%= d_("dmpopidor", "Select research outputs to download") %></strong>
+      <strong><%= _("Select research outputs to download") %></strong>
       <ul>
       <%= check_box_tag("select-all-research-outputs", "none", true, { id: "select-all-research-outputs" }) %>
-      <%= label_tag("select-all-research-outputs", d_('dmpopidor', 'All')) %>
+      <%= label_tag("select-all-research-outputs", _('All')) %>
       <% @research_outputs.each do |research_output| %>
         <% research_output_description = research_output.json_fragment.research_output_description %>
         <li class="checkbox">
@@ -20,24 +20,24 @@
       </ul>
     </div>
     <div id="research-output-export-mode">
-      <strong><%= d_("dmpopidor", "Research output export mode") %></strong>
+      <strong><%= _("Research output export mode") %></strong>
       <ul>
         <li class="checkbox">
           <%= label_tag 'export[research_output_mode]' do %>
             <%= radio_button_tag("export[research_output_mode]", "by_research_output", false) %>
-            <%= d_("dmpopidor", 'Export by research output') %>
+            <%= _('Export by research output') %>
           <% end %>
         </li>
         <li class="checkbox">
           <%= label_tag 'export[research_output_mode]' do %>
             <%= radio_button_tag("export[research_output_mode]", "by_section", true) %>
-            <%= d_("dmpopidor", 'Export by section') %>
+            <%= _('Export by section') %>
           <% end %>
         </li>
         <li class="checkbox">
           <%= label_tag 'export[research_output_mode]' do %>
             <%= radio_button_tag("export[research_output_mode]", "by_question", false) %>
-            <%= d_("dmpopidor", 'Export by question') %>
+            <%= _('Export by question') %>
           <% end %>
         </li>
       </ul>
@@ -50,7 +50,7 @@
       <strong><%= _("Select phase to download") %></strong>
       <ul>
       <%= check_box_tag("select-all-phases", "none", true, { id: "select-all-phases" }) %>
-      <%= label_tag("select-all-phases", d_('dmpopidor', 'All')) %>
+      <%= label_tag("select-all-phases", _('All')) %>
       <% @phase_options.each do |phase| %>
         <li class="checkbox">
           <%= label_tag "selected_phases[]" do %>
@@ -66,7 +66,7 @@
     <%= hidden_field_tag(:phase_id, @phase_options[0][1]) %>
   <% end %>
   <fieldset id="export-options">
-    <legend><%= d_('dmpopidor', "Plan components") %></legend>
+    <legend><%= _("Plan components") %></legend>
     <div class="checkbox">
       <%= label_tag 'export[project_details]' do %>
         <%= check_box_tag 'export[project_details]', true, true %>
@@ -111,18 +111,18 @@
   </div>
 
   <fieldset id="json-formatting">
-    <legend><%= d_('dmpopidor', "JSON format") %></legend>
+    <legend><%= _("JSON format") %></legend>
     <ul>
       <li class="checkbox">
         <%= label_tag 'json_format' do %>
           <%= radio_button_tag("json_format", "default", true) %>
-          <%= d_("dmpopidor", 'Default export') %>
+          <%= _('Default export') %>
         <% end %>
       </li>
       <li class="checkbox">
         <%= label_tag 'json_format' do %>
           <%= radio_button_tag("json_format", "rda", false) %>
-          <%= d_("dmpopidor", 'RDA Commons Standards') %>
+          <%= _('RDA Commons Standards') %>
         <% end %>
       </li>
       </li>

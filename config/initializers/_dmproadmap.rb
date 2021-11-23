@@ -158,7 +158,7 @@ module DMPRoadmap
     # ------- #
 
     # The default locale (use the i18n format!)
-    config.x.locales.default = "fr_FR"
+    config.x.locales.default = "fr-FR"
     # The character that separates a locale's ISO code for i18n. (e.g. `en-GB` or `en`)
     # Changing this value is not recommended!
     config.x.locales.i18n_join_character = "-"

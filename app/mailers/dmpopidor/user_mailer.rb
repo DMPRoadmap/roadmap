@@ -194,7 +194,7 @@ module Dmpopidor
       @end_date = (@user.last_sign_in_at + 5.years).to_date
       I18n.with_locale current_locale(@user) do
         mail(to: @user.email, subject:
-          d_("dmpopidor", "Account expiration in %{tool_name}") % { :tool_name => tool_name })
+          _("Account expiration in %{tool_name}") % { :tool_name => tool_name })
       end
     end
 
@@ -202,7 +202,7 @@ module Dmpopidor
       @user = user
       I18n.with_locale current_locale(@user) do
         mail(to: @user.email, subject:
-          d_("dmpopidor", "Account expired in %{tool_name}") % { :tool_name => tool_name })
+          _("Account expired in %{tool_name}") % { :tool_name => tool_name })
       end
     end
 

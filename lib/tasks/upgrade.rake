@@ -669,18 +669,18 @@ namespace :upgrade do
   desc "Update Language abbreviations to use ISO format"
   task :normalize_language_formats => :environment do
     Language.all.each do |language|
-      val = LocaleService.to_i18n(string: language.abbreviation).to_s
+      val = LocaleService.to_i18n(locale: language.abbreviation).to_s
       language.update(abbreviation: val)
     end
     Template.all.each do |template|
       next if template.locale.blank?
 
-      template.update(locale: LocaleService.to_i18n(string: template.locale).to_s)
+      template.update(locale: LocaleService.to_i18n(locale: template.locale).to_s)
     end
     Theme.all.each do |theme|
       next if theme.locale.blank?
 
-      theme.update(locale: LocaleService.to_i18n(string: theme.locale).to_s)
+      theme.update(locale: LocaleService.to_i18n(locale: theme.locale).to_s)
     end
   end
 

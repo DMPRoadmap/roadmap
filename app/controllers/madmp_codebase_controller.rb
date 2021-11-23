@@ -15,7 +15,7 @@ class MadmpCodebaseController < ApplicationController
     # response = JSON.load(File.open(file_path))
     # fragment.import_with_instructions(response, fragment.madmp_schema)
     # render json: {
-    #   "message" => d_("dmpopidor", 'New data have been added to your plan, please click on the "Reload" button.')
+    #   "message" => _('New data have been added to your plan, please click on the "Reload" button.')
     # }, status: 200
     # return
     begin
@@ -23,13 +23,13 @@ class MadmpCodebaseController < ApplicationController
       if response["return_code"]&.eql?(0)
         if response["data"].empty?
           render json: {
-            "message" => d_("dmpopidor", "Notification has been sent"),
+            "message" => _("Notification has been sent"),
             "needs_reload" => false
           }, status: 200
         else
           fragment.import_with_instructions(response["data"], fragment.madmp_schema)
           render json: {
-            "message" => d_("dmpopidor", 'New data have been added to your plan, please click on the "Reload" button.'),
+            "message" => _('New data have been added to your plan, please click on the "Reload" button.'),
             "needs_reload" => true
           }, status: 200
         end
@@ -37,7 +37,7 @@ class MadmpCodebaseController < ApplicationController
       else
         # Rails.cache.delete(["codebase_run", fragment.id])
         render json: {
-          "error" => "#{d_('dmpopidor', 'An error has occured: ')} #{response['result_message']}"
+          "error" => "#{_('An error has occured: ')} #{response['result_message']}"
         }, status: 500
       end
     rescue StandardError => e
@@ -60,7 +60,7 @@ class MadmpCodebaseController < ApplicationController
     # response = JSON.load(File.open(file_path))
     # dmp_fragment.raw_import(response, dmp_fragment.madmp_schema)
     # render json: {
-    #   "message" => d_("dmpopidor", 'New data have been added to your plan, please click on the "Reload" button.')
+    #   "message" => _('New data have been added to your plan, please click on the "Reload" button.')
     # }, status: 200
     # return
 
@@ -69,14 +69,14 @@ class MadmpCodebaseController < ApplicationController
       if response["return_code"]&.eql?(0)
         dmp_fragment.raw_import(response["data"], dmp_fragment.madmp_schema)
         render json: {
-          "message" => d_("dmpopidor", 'New data have been added to your plan, please click on the "Reload" button.'),
+          "message" => _('New data have been added to your plan, please click on the "Reload" button.'),
           "needs_reload" => true
         }, status: 200
         update_run_log(dmp_fragment, script_id)
       else
         # Rails.cache.delete(["codebase_run", fragment.id])
         render json: {
-          "error" => "#{d_('dmpopidor', 'An error has occured: ')} #{response['result_message']}"
+          "error" => "#{_('An error has occured: ')} #{response['result_message']}"
         }, status: 500
       end
     rescue StandardError => e

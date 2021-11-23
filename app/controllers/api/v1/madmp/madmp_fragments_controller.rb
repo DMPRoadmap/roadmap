@@ -100,7 +100,7 @@ module Api
 
         def record_not_found
           render_error(
-            errors: [d_("dmpopidor", "Fragment doesn't exist.")],
+            errors: [_("Fragment doesn't exist.")],
             status: :not_found
           )
         end

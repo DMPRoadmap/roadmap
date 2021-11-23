@@ -52,8 +52,6 @@ class ResearchOutput < ApplicationRecord
 
   belongs_to :plan, optional: true
 
-  belongs_to :type, class_name: ResearchOutputType, foreign_key: "research_output_type_id"
-
   has_many :answers, dependent: :destroy
 
   # ===============

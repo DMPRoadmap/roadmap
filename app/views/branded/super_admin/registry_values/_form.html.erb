@@ -13,7 +13,7 @@
       <% unless @registry_value.new_record? %>
         <%= link_to(_('Delete'), super_admin_registry_value_path(@registry_value), class: 'btn btn-default',
           rel: 'nofollow', 'data-method': 'delete',
-          'data-confirm': _("Are you sure you want to delete the registry value?")) %>
+          'data-confirm': _("Are you sure you want to delete this registry value?")) %>
       <% end %>
     </div>
   </div>

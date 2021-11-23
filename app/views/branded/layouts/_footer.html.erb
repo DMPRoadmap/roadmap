@@ -17,13 +17,13 @@
           <%= _('FAQ') %>
         </a>
       </span>
-      <span><a href="<%= news_feed_path %>"><%= d_('dmpopidor', 'News') %></a></span>
-      <span><a href="<%= tutorials_path %>"><%= d_('dmpopidor', 'Tutorials') %></a></span>
-      <span><a href="<%= contact_us %>"><%= _('Contact us') %></a></a></span>
+      <span><a href="<%= news_feed_path %>"><%= _('News') %></a></span>
+      <span><a href="<%= tutorials_path %>"><%= _('Tutorials') %></a></span>
+      <span><a href="<%= contact_us %>"><%= _('Contact Us') %></a></a></span>
     </div>
     <div class="footer-logos">
       <span>
-        <%= link_to("http://www.cnrs.fr/", title: d_("dmpopidor", "CNRS website") + " - " + _("Opens in new window"), target: '_blank')  do %>
+        <%= link_to("http://www.cnrs.fr/", title: _("CNRS website") + " - " + _("Opens in new window"), target: '_blank')  do %>
           <%= image_tag("cnrs.gif", alt: 'CNRS logo (opens in a new window)') %>
         <% end %>
       </span>
@@ -40,12 +40,12 @@
     <div class="footer-infos">
       <span>
         <%= link_to("#{Rails.configuration.x.organisation.url}", 
-                    title: d_("dmpopidor", "INIST website") + " - " + _("Opens in new window"), target: '_blank' ) do %>
+                    title: _("INIST website") + " - " + _("Opens in new window"), target: '_blank' ) do %>
           <%= sanitize("&copy; 2016 - #{Time.now.year} #{Rails.configuration.x.organisation.abbreviation}") %>
           <% end %>
       </span>
       <span class="break-point">•</span>
-      <span><%= Rails.configuration.x.application.version] %></span>
+      <span><%= Rails.configuration.x.application.version %></span>
     </div>
     <div class="footer-sn">
       <span>
@@ -59,7 +59,7 @@
         </a>
       </span>
       <span>
-        <a title="<%= d_('dmpopidor', 'Mailing list') %> - <%= _("Opens in new window") %>"  target="_blank" href="<%= Rails.configuration.x.application.user_group_subscription_url %>">
+        <a title="<%= _('Mailing list') %> - <%= _("Opens in new window") %>"  target="_blank" href="<%= Rails.configuration.x.application.user_group_subscription_url %>">
           <i class="fas fa-comments"></i>
         </a>
         </span>

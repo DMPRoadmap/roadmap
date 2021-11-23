@@ -142,7 +142,7 @@ module Dmpopidor
 
         person_data = if plan_owner.present?
                         {
-                          "nameType" => d_("dmpopidor", "Personal"),
+                          "nameType" => _("Personal"),
                           "lastName" => plan_owner.surname,
                           "firstName" => plan_owner.firstname,
                           "mbox" => plan_owner.email
@@ -159,7 +159,7 @@ module Dmpopidor
         dmp_coordinator = Fragment::Contributor.create(
           data: {
             "person" => { "dbid" => person.id },
-            "role" => d_("dmpopidor", "DMP manager")
+            "role" => _("DMP manager")
           },
           dmp_id: dmp_fragment.id,
           parent_id: nil,
@@ -170,7 +170,7 @@ module Dmpopidor
         project_coordinator = Fragment::Contributor.create(
           data: {
             "person" => { "dbid" => person.id },
-            "role" => d_("dmpopidor", "Project coordinator")
+            "role" => _("Project coordinator")
           },
           dmp_id: dmp_fragment.id,
           parent_id: nil,
@@ -197,7 +197,7 @@ module Dmpopidor
 
         meta = Fragment::Meta.create(
           data: {
-            "title" => d_("dmpopidor", "\"%{project_title}\" project DMP") % { project_title: title },
+            "title" => _("\"%{project_title}\" project DMP") % { project_title: title },
             "creationDate" => created_at.strftime("%F"),
             "lastModifiedDate" => updated_at.strftime("%F"),
             "dmpLanguage" => template_locale,

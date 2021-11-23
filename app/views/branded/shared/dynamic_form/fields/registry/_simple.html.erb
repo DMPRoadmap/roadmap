@@ -2,7 +2,7 @@
 <% selected_value ||= default_value %>
 <% include_blank = !selected_value && !default_value %>
 <% field_name = defined?(form_prefix) ? "#{form_prefix}[#{property_name}]" : property_name %>
-<% intermediate_message = overridable ? d_("dmpopidor", "Select a value from the list or type a new one.") : d_("dmpopidor", "Select a value from the list.")%>
+<% intermediate_message = overridable ? _("Select a value from the list or type a new one.") : _("Select a value from the list.")%>
 <% 
   formatted_values = select_values.map {|v| [v.to_s(locale), select_value(v, locale)]}
   # Here we concat the selected values with the available values in the select
@@ -50,7 +50,7 @@
     %>
     <% other_field_name = defined?(form_prefix) ? "#{form_prefix}[#{property_name}_custom]" : "#{property_name}_custom" %>
     <div class="col-md-12 custom-value" style="<%= style %>">
-      <%= f.label other_field_name, d_("dmpopidor", "Custom value: "), class: 'control-label' %>
+      <%= f.label other_field_name, _("Custom value: "), class: 'control-label' %>
       <%= f.hidden_field other_field_name, 
                 value: custom_value,
                 class: "form-control #{field_class}",

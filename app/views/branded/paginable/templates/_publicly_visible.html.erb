@@ -4,8 +4,8 @@
       <tr>
         <th scope="col"><%= _('Template Name') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
         <th scope="col"><%= _('Organisation Name') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
-        <th scope="col"><%= d_('dmpopidor', 'Organisation Type') %>&nbsp;<%= paginable_sort_link('orgs.org_type') %></th>
-        <th scope="col" class="sorter-false"><%= d_('dmpopidor', 'Description') %></th>
+        <th scope="col"><%= _('Organisation Type') %>&nbsp;<%= paginable_sort_link('orgs.org_type') %></th>
+        <th scope="col" class="sorter-false"><%= _('Description') %></th>
         <th scope="col" class="date-column"><%= _('Last Updated') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
         <th scope="col" class="sorter-false text-center download-column"><%= _('Download') %></th>
         <% if !current_user.nil? && current_user.org.active? %>
@@ -19,7 +19,7 @@
           <td>
             <%= template.title %>
             <% if template.customization_of.present? %>
-               - <%= d_('dmpopidor', 'Customized') %>
+               - <%= _('Customized') %>
             <% end %>
           </td>
           <td><%= template.org.name %></td>

@@ -1,12 +1,12 @@
 <div class="row">
   <div class="col-xs-12">
-    <h2><%= d_('dmpopidor', 'Static pages') %></h2>
+    <h2><%= _('Static pages') %></h2>
   </div>
 </div>
 <div class="row">
   <div class="col-xs-12">
     <div class="pull-right">
-      <%= link_to d_('dmpopidor', '+ Add New Static page'), new_super_admin_static_page_path, class: 'btn btn-default', role: 'button' %>
+      <%= link_to _('+ Add New Static page'), new_super_admin_static_page_path, class: 'btn btn-default', role: 'button' %>
     </div>
     <div class="table-responsive">
       <%= paginable_renderise(

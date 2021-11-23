@@ -117,7 +117,7 @@
   <% end %>
   <h2><%= _('Set plan visibility') %></h2>
   <p class="form-control-static">
-    <%= d_('dmpopidor', 'Public, Administrator or organisational visibility is intended for finished plans. Note: test plans are set to private visibility.') %>
+    <%= _('Public, Administrator or organisational visibility is intended for finished plans. Note: test plans are set to private visibility.') %>
   </p>
   <% allow_visibility = @plan.visibility_allowed? %>
   <%= form_for(@plan, url: visibility_plan_path, method: :post, html: { id: 'set_visibility' }) do |f| %>
@@ -126,13 +126,13 @@
         <div class="radio">
           <%= f.label :visibility_privately_visible do %>
             <%= f.radio_button :visibility, :privately_visible %>
-            <%= d_('dmpopidor', 'Private: visible to me and specified collaborators') %>
+            <%= _('Private: visible to me and specified collaborators') %>
           <% end %>
         </div>
         <div class="radio">
           <%= f.label :visibility_administrator_visible do %>
             <%= f.radio_button :visibility, :administrator_visible %>
-            <%= d_('dmpopidor', 'Administrator: visible to me, specified collaborators and administrators at my organisation') %>
+            <%= _('Administrator: visible to me, specified collaborators and administrators at my organisation') %>
           <% end %>
         </div>
         <div class="radio">
