@@ -2,7 +2,7 @@
 
 module Users
   # Handlers for Omniauth Passthru methods
-  class OmniauthPassthrusController
+  class OmniauthPassthrusController < ApplicationController
     # POST /users/auth/shibboleth
     def shibboleth_passthru
       skip_authorization
