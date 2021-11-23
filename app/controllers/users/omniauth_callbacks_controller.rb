@@ -18,8 +18,7 @@ p "FAILURE! #{failed_strategy.name}"
     def shibboleth
       # TODO: If they already had an account auto merge/link the eppn to the existing account
 
-p 'CALLBACK!'
-pp omniauth_from_request
+Rails.logger.debug "REQUEST ENV: #{omniauth_from_request.inspect}"
 
       @user = User.from_omniauth(
         scheme_name: 'shibboleth', omniauth_hash: omniauth_from_request
@@ -58,16 +57,13 @@ pp @user.inspect
 
     # Extract the omniauth info from the request
     def omniauth_from_request
-
-Rails.logger.debug "REQUEST ENV: #{request.env.inspect}"
-
       return {} unless request.env.present?
-
-p '----------------------------------'
-pp request.env['omniauth.auth']
 
       hash = request.env['omniauth.auth']
       hash = request.env[:'omniauth.auth'] unless hash.present?
+
+Rails.logger.debug "HASH: #{hash.inspect}"
+
       hash = hash.present? ? hash : request.env
       hash.hash_with_indifferent_access
     end

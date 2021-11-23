@@ -54,7 +54,8 @@ module Dmptool
       # Load the user based on the scheme and id provided by the Omniauth call
       # rubocop:disable Metrics/AbcSize
       def from_omniauth(scheme_name:, omniauth_hash:)
-        return nil unless scheme_name.present? && omniauth_hash[:uid].present?
+        return nil unless scheme_name.present? && omniauth_hash.present? &&
+                          omniauth_hash[:uid].present?
 
         # Find the User by the :uid returned by omniauth
         user = Identifier.by_scheme_name(scheme_name, 'User')
