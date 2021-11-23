@@ -63,7 +63,13 @@ pp @user.inspect
 
     # Extract the omniauth info from the request
     def omniauth_from_request
+
+pp request.env
+
       return {} unless request.env.present?
+
+p '----------------------------------'
+pp request.env['omniauth.auth']
 
       hash = request.env['omniauth.auth']
       hash = request.env[:'omniauth.auth'] unless hash.present?
