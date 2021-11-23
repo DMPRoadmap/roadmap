@@ -7,6 +7,8 @@ module Users
     def shibboleth_passthru
       skip_authorization
 
+p 'JUST PASSING THRU :P'
+
       org = ::Org.find_by(id: shibboleth_passthru_params[:org_id])
       if org.present?
         entity_id = org.identifier_for_scheme(scheme: 'shibboleth')

@@ -59,7 +59,7 @@ pp @user.inspect
     # Extract the omniauth info from the request
     def omniauth_from_request
 
-pp request.env
+Rails.logger.debug "REQUEST ENV: #{request.env.inspect}"
 
       return {} unless request.env.present?
 
