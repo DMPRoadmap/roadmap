@@ -8,7 +8,7 @@ module Users
 
 
     def failure
-      p "FAILURE! #{failed_strategy.name}"
+p "FAILURE! #{failed_strategy.name}"
     end
 
     # Shibboleth callback (the action invoked after the user signs in)
@@ -16,10 +16,9 @@ module Users
     # GET|POST /users/auth/shibboleth/callback
     # rubocop:disable Metrics/AbcSize
     def shibboleth
-      p 'CALLBACK!'
-
       # TODO: If they already had an account auto merge/link the eppn to the existing account
 
+p 'CALLBACK!'
 pp omniauth_from_request
 
       @user = User.from_omniauth(
