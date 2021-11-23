@@ -21,7 +21,8 @@ p "FAILURE! #{failed_strategy.name}"
 Rails.logger.debug "CALLER: #{request.referer}"
 Rails.logger.debug request.headers
 Rails.logger.debug "REQUEST ENV: #{omniauth_from_request.inspect}"
-Rails.logger.debug "SESSION: #{decrypt(value: Session['omniauth-org'])}"
+Rails.logger.debug "SESSION: #{decrypt(value: session['omniauth-org'])}"
+
       @user = User.from_omniauth(
         scheme_name: 'shibboleth', omniauth_hash: omniauth_from_request
       )
