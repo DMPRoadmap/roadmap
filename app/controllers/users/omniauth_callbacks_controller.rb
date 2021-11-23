@@ -17,12 +17,6 @@ p "FAILURE! #{failed_strategy.name}"
     # rubocop:disable Metrics/AbcSize
     def shibboleth
       # TODO: If they already had an account auto merge/link the eppn to the existing account
-
-Rails.logger.debug "CALLER: #{request.referer}"
-Rails.logger.debug request.headers
-Rails.logger.debug "REQUEST ENV: #{omniauth_from_request.inspect}"
-Rails.logger.debug "SESSION: #{decrypt(value: session['omniauth-org'])}"
-
       @user = User.from_omniauth(
         scheme_name: 'shibboleth', omniauth_hash: omniauth_from_request
       )

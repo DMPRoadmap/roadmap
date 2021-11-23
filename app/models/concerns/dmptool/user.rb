@@ -66,11 +66,15 @@ module Dmptool
         omniauth_info = omniauth_hash.fetch('info', {}).to_h
         names = extract_omniauth_names(hash: omniauth_info)
 
+        org = Identifier.by_scheme_name(scheme_name, 'Org')
+                        .where(value: omniauth_hash['identity_provider'])
+                        .first&.Identifiable
+
         user = User.new(
           email: extract_omniauth_email(hash: omniauth_info),
           firstname: names.fetch(:firstname, ''),
           surname: names.fetch(:surname, ''),
-          org_id: omniauth_hash['org_id']
+          org_id: org&.id
         )
 
         # Get the Oauth access token if available
