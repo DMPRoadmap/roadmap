@@ -70,7 +70,7 @@ module Dmptool
                         .where(value: omniauth_hash['identity_provider'])
                         .first&.Identifiable
 
-        user = User.new(
+        user = new(
           email: extract_omniauth_email(hash: omniauth_info),
           firstname: names.fetch(:firstname, ''),
           surname: names.fetch(:surname, ''),
