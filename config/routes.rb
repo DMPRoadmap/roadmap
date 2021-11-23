@@ -35,7 +35,7 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
   }
   devise_scope :user do
-    post '/users/shibboleth', to: 'users#shibboleth_passthru'
+    post '/users/shibboleth', to: 'users/omniauth_passthrus#shibboleth_passthru'
 
     get '/users/third_party_apps', to: 'users#third_party_apps'
     get '/users/developer_tools', to: 'users#developer_tools'

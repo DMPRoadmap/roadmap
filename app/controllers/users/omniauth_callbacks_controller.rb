@@ -56,10 +56,6 @@ pp @user.inspect
 
     private
 
-    def shibboleth_passthru_params
-      params.require(:user).permit(:org_id)
-    end
-
     # Extract the omniauth info from the request
     def omniauth_from_request
 
