@@ -20,9 +20,11 @@ module Users
 
       # TODO: If they already had an account auto merge/link the eppn to the existing account
 
-pp request.env['omniauth.auth']
+pp omniauth_from_request
 
-      @user = User.from_omniauth(request.env['omniauth.auth'])
+      @user = User.from_omniauth(
+        scheme_name: 'shibboleth', omniauth_hash: omniauth_from_request
+      )
 
 pp @user.inspect
 
@@ -57,6 +59,16 @@ pp @user.inspect
 
     def shibboleth_passthru_params
       params.require(:user).permit(:org_id)
+    end
+
+    # Extract the omniauth info from the request
+    def omniauth_from_request
+      return {} unless request.env.present?
+
+      hash = request.env['omniauth.auth']
+      hash = request.env[:'omniauth.auth'] unless hash.present?
+      hash = hash.present? ? hash : request.env
+      hash.hash_with_indifferent_access
     end
   end
 end

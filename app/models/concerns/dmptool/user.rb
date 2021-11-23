@@ -53,12 +53,11 @@ module Dmptool
 
       # Load the user based on the scheme and id provided by the Omniauth call
       # rubocop:disable Metrics/AbcSize
-      def from_omniauth(scheme)
-        omniauth_hash = omniauth_from_request
-        return nil unless omniauth_hash[:uid].present?
+      def from_omniauth(scheme_name:, omniauth_hash:)
+        return nil unless scheme_name.present? && omniauth_hash[:uid].present?
 
         # Find the User by the :uid returned by omniauth
-        user = Identifier.by_scheme_name(scheme, 'User')
+        user = Identifier.by_scheme_name(scheme_name, 'User')
                          .where(value: omniauth_hash[:uid])
                          .first&.identifiable
         return user if user.present?
@@ -70,25 +69,15 @@ module Dmptool
           email: extract_omniauth_email(hash: omniauth_info),
           firstname: names.fetch(:firstname, ''),
           surname: names.fetch(:surname, ''),
-          org: extract_omniauth_org(scheme: scheme, hash: omniauth_info)
+          org: extract_omniauth_org(scheme: scheme_name, hash: omniauth_info)
         )
 
         # Get the Oauth access token if available
-        token = ExternalApiAccessToken.from_omniauth(user: user, service: scheme.name, hash: @omniauth)
+        token = ExternalApiAccessToken.from_omniauth(user: user, service: scheme_name, hash: @omniauth)
         user.external_api_access_tokens = [token] if token.present?
         user
       end
       # rubocop:enable Metrics/AbcSize
-
-      # Extract the omniauth info from the request
-      def omniauth_from_request
-        return {} unless request.env.present?
-
-        hash = request.env['omniauth.auth']
-        hash = request.env[:'omniauth.auth'] unless hash.present?
-        hash = hash.present? ? hash : request.env
-        hash.hash_with_indifferent_access
-      end
 
       # Extract the 1st email
       def extract_omniauth_email(hash:)
