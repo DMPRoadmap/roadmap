@@ -28,9 +28,10 @@ class ApplicationController < ActionController::Base
 
   # Shortcut to the MessageEncryptor
   def crypto
-    ActiveSupport::MessageEncryptor.new(
-      Rails.application.secrets.secret_key_base[0..31]
-    )
+    key = Rails.application.secrets.secret_key_base
+    key = SecureRandom.uuid unless key.present?
+
+    ActiveSupport::MessageEncryptor.new(key[0..31])
   end
 
   def encrypt(value:)
