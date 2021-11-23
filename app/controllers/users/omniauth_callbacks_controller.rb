@@ -18,6 +18,8 @@ p "FAILURE! #{failed_strategy.name}"
     def shibboleth
       # TODO: If they already had an account auto merge/link the eppn to the existing account
 
+Rails.logger.debug "CALLER: #{request.referer}"
+Rails.logger.debug request.headers
 Rails.logger.debug "REQUEST ENV: #{omniauth_from_request.inspect}"
 
       @user = User.from_omniauth(
@@ -60,20 +62,7 @@ pp @user.inspect
       return {} unless request.env.present?
 
       omniauth_hash = request.env['omniauth.auth']
-      return {} unless omniauth_hash.present?
-
-Rails.logger.debug "BEFORE HASH: #{omniauth_hash.to_h.inspect}"
-
-      hash = {
-        provider: omniauth_hash['provider'],
-        uid: omniauth_hash['uid'].to_s,
-        info: omniauth_hash['info']
-      }
-      hash = hash.hash_with_indifferent_access
-
-Rails.logger.debug "AFTER HASH: #{hash.inspect}"
-
-      hash
+      omniauth_hash.present? ? omniauth_hash.to_h : {}
     end
   end
 end

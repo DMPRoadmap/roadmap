@@ -33,6 +33,14 @@ class ApplicationController < ActionController::Base
     )
   end
 
+  def session_value=(key:, value:)
+    Session[key.to_sym] = crypto.encrypt_and_sign(value.to_s)
+  end
+
+  def session_value(key:)
+    crypto.decrypt_and_verify(Session.feych(key.to_sym, '')
+  end
+
   def current_org
     current_user.org
   end

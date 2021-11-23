@@ -55,34 +55,34 @@ module Dmptool
       # rubocop:disable Metrics/AbcSize
       def from_omniauth(scheme_name:, omniauth_hash:)
         return nil unless scheme_name.present? && omniauth_hash.present? &&
-                          omniauth_hash[:uid].present?
+                          omniauth_hash['uid'].present?
 
         # Find the User by the :uid returned by omniauth
         user = Identifier.by_scheme_name(scheme_name, 'User')
-                         .where(value: omniauth_hash[:uid])
+                         .where(value: omniauth_hash['uid'])
                          .first&.identifiable
         return user if user.present?
 
-        omniauth_info = omniauth_hash.fetch(:info, {})
+        omniauth_info = omniauth_hash.fetch('info', {}).to_h
         names = extract_omniauth_names(hash: omniauth_info)
 
         user = User.new(
           email: extract_omniauth_email(hash: omniauth_info),
           firstname: names.fetch(:firstname, ''),
           surname: names.fetch(:surname, ''),
-          org: extract_omniauth_org(scheme: scheme_name, hash: omniauth_info)
+          org_id: omniauth_hash['org_id']
         )
 
         # Get the Oauth access token if available
-        token = ExternalApiAccessToken.from_omniauth(user: user, service: scheme_name, hash: @omniauth)
-        user.external_api_access_tokens = [token] if token.present?
+        # token = ExternalApiAccessToken.from_omniauth(user: user, service: scheme_name, hash: @omniauth)
+        # user.external_api_access_tokens = [token] if token.present?
         user
       end
       # rubocop:enable Metrics/AbcSize
 
       # Extract the 1st email
       def extract_omniauth_email(hash:)
-        hash.present? ? hash.fetch(:email, '').split(';')[0] : nil
+        hash.present? ? hash.fetch('email', '').split(';')[0] : nil
       end
 
       # Find the User names from the omniauth info
@@ -91,12 +91,12 @@ module Dmptool
         return {} unless hash.present?
 
         out = {
-          firstname: hash.fetch(:givenname, hash.fetch(:firstname, '')),
-          surname: hash.fetch(:sn, hash.fetch(:surname, hash.fetch(:lastname, '')))
+          firstname: hash.fetch('givenname', hash.fetch('firstname', '')),
+          surname: hash.fetch('sn', hash.fetch('surname', hash.fetch('lastname', '')))
         }
-        return out if out[:firstname].present? || out[:surname].present?
+        return out if out['firstname'].present? || out['surname'].present?
 
-        names = hash[:name].split
+        names = hash['name'].split
         {
           firstname: names[0],
           surname: names.length > 1 ? names[names.length - 1] : nil
