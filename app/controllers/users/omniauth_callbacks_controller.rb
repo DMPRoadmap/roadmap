@@ -59,13 +59,21 @@ pp @user.inspect
     def omniauth_from_request
       return {} unless request.env.present?
 
-      hash = request.env['omniauth.auth']
-      hash = request.env[:'omniauth.auth'] unless hash.present?
+      omniauth_hash = request.env['omniauth.auth']
+      return {} unless omniauth_hash.present?
 
-Rails.logger.debug "HASH: #{hash.inspect}"
+Rails.logger.debug "BEFORE HASH: #{omniauth_hash.to_h.inspect}"
 
-      hash = hash.present? ? hash : request.env
-      hash.hash_with_indifferent_access
+      hash = {
+        provider: omniauth_hash['provider'],
+        uid: omniauth_hash['uid'].to_s,
+        info: omniauth_hash['info']
+      }
+      hash = hash.hash_with_indifferent_access
+
+Rails.logger.debug "AFTER HASH: #{hash.inspect}"
+
+      hash
     end
   end
 end
