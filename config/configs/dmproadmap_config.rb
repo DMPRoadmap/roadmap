@@ -105,6 +105,8 @@ class DmproadmapConfig < Anyway::Config
               :recaptcha_site_key,
               :recaptcha_secret_key,
               :release_notes_url,
+              :require_contributor_email,
+              :require_contributor_name,
               :results_per_page,
               :rollbar_env,
               :rollbar_access_token,

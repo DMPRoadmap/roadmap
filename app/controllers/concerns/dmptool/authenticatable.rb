@@ -45,29 +45,35 @@ module Dmptool
       def org_from_email_domain(email_domain:)
         ignored_email_domains = %w[aol.com duck.com gmail.com example.com example.org
                                    hotmail.com icloud.com outlook.com pm.me qq.com yahoo.com]
-
-p "EMAIL DOMAIN: #{email_domain}"
-
         return nil unless email_domain.present?
         return nil if ignored_email_domains.include?(email_domain.downcase)
 
-        registry_org = ::RegistryOrg.by_domain(email_domain).first
-
-p "MATCHING REGISTRY: #{registry_org.name}" if registry_org.present? && registry_org.org.present?
-
-        return registry_org.org if registry_org.present? && registry_org.org.present?
+        org = lookup_registry_org_by_email(email_domain: email_domain)
+        return org if org.present?
 
         hash = ::User.where('email LIKE ?', "%@#{email_domain.downcase}").group(:org_id).count
         return nil unless hash.present?
 
-        selected = hash.select { |_k, v| v == hash.values.min }
-
-p "USER EMAIL MATCHES:"
-pp selected
-
+        selected = hash.select { |_k, v| v == hash.values.max }
         ::Org.find_by(id: selected.keys.first)
       end
       # rubocop:enable Metrics/AbcSize
+
+      # Get the RegistryOrg with the closest matching domain and no Org association
+      def lookup_registry_org_by_email(email_domain:)
+        return nil unless email_domain.present?
+
+        orgs = ::RegistryOrg.where('LOWER(home_page) LIKE ?', "%#{email_domain.downcase}%")
+        return nil unless orgs.any?
+
+        # Get the one with closest match (e.g. http://ucsd.edu instead of
+        # http://health.ucsd.edu if the email_domain is 'ucsd.edu')
+        orgs = orgs.sort do |a, b|
+          l = email_domain.length
+          (a.home_page.length - l) <=> (b.home_page.length - l)
+        end
+        orgs.first.to_org
+      end
 
       # =============
       # = CALLBACKS =

@@ -345,6 +345,11 @@ default: &default
   # = maDMP / Networked DMP functionality = #
   # ======================================= #
 
+  # Whether or not to require contributor names and/or emails.
+  # Note that at least one is required!
+  require_contributor_email: false
+  require_contributor_name: true
+
   # Enable/disable functionality on the Project Details tab
   enable_ethical_issues: true
   enable_research_domain: true

@@ -165,6 +165,10 @@ module DMPRoadmap
     # The default user email preferences used when a new account is created
     config.x.application.preferences = Rails.configuration.x.dmproadmap.preferences
 
+    # Whether or not to require Contributor name and/or email
+    config.x.application.require_contributor_name = false
+    config.x.application.require_contributor_email = false
+
     # Change the location of the Collaborators information (where users are invited
     # to co-own, edit or comment on a plan).
     #
