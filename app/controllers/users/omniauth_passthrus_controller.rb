@@ -9,8 +9,7 @@ module Users
 
       org = ::Org.find_by(id: shibboleth_passthru_params[:org_id])
       if org.present?
-        # Encrypt and stash the org_id in the user's session for reference later
-        # session_value = org_id
+        Session['omniauth-org'] = encrypt(value: org.id)
         entity_id = org.identifier_for_scheme(scheme: 'shibboleth')
         if entity_id.present?
           shib_login = Rails.configuration.x.shibboleth.login_url
