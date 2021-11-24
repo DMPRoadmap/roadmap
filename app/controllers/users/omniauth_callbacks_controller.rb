@@ -42,7 +42,7 @@ Rails.logger.debug "ORCID USER: #{user.inspect}"
       redirect_to(:back, alert: msg) and return  unless user.present? &&
                                                         omniauth_hash.present? &&
                                                         scheme_name.present?
-      scheme_descr = provider(scheme_name)
+      scheme_descr = provider(scheme_name: scheme_name)
 
       # If the user is already signed in and OmniAuth provided a UID
       if current_user.present? && omniauth_hash[:uid].present?
@@ -124,10 +124,11 @@ Rails.logger.warn "Previously unknown user via OmniAuth UID, '#{omniauth[:uid]}'
     # rubocop:enable Layout/LineLength
 
     # Return the visual name of the scheme
-    def provider(scheme:)
-      return _("your institutional credentials") if scheme.name == "shibboleth"
+    def provider(scheme_name:)
+      scheme = IdentifierScheme.find_by(name: scheme_name.downcase)
+      return _("your institutional credentials") if scheme&.name == "shibboleth"
 
-      scheme.description
+      scheme&.description
     end
 
     # Extract the omniauth info from the request
