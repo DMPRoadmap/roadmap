@@ -75,6 +75,17 @@ module Dmptool
         orgs.first.to_org
       end
 
+      # Get the user from any OmniAuth information that is available
+      def user_from_omniauth
+        IdentifierScheme.for_users.each do |scheme|
+          omniauth_hash = session.fetch("devise.#{scheme.name}_data", {})
+          next if omniauth_hash.empty?
+
+          return User.from_omniauth(scheme_name: scheme.name, omniauth_hash: omniauth_hash)
+        end
+        nil
+      end
+
       # =============
       # = CALLBACKS =
       # =============
@@ -84,6 +95,10 @@ module Dmptool
       def fetch_user
         self.resource = ::User.includes(:org, :identifiers)
                               .find_or_initialize_by(email: params[:user][:email])
+
+        # If the user doesn't have an Org then this is a sign up, so see if there was
+        # any OmniAuth information
+        self.resource = user_from_omniauth if resource.org_id.nil?
 
         # If the User's Org is not defined or they are a super admin (because super
         # admins have the ability to alter their affiliation), try to determine the

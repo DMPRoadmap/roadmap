@@ -35,16 +35,6 @@ module DmptoolHelper
     template
   end
 
-  def user_from_omniauth(user)
-    IdentifierScheme.for_users.each do |scheme|
-      omniauth_hash = session.fetch("devise.#{scheme.name}_data", {})
-      next if omniauth_hash.empty?
-
-      user = User.from_omniauth(scheme_name: scheme.name, omniauth_hash: omniauth_hash)
-    end
-    user
-  end
-
   # Collect general statistics about the application
   def statistics
     cached = Rails.cache.read('stats')
