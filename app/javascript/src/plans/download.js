@@ -21,5 +21,12 @@ $(() => {
     } else {
       $('#download-settings').show();
     }
+
+    // muti-phase download not allowed for csv
+    if (frmt === 'csv') {
+      $('#phase_id').find('option[value^="\["]').hide();
+    } else {
+      $('#phase_id').find('option[value^="\["]').show();
+    }
   });
 });
