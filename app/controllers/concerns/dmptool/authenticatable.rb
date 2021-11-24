@@ -17,7 +17,7 @@ module Dmptool
       before_action :ensure_org_param, only: %i[create update]
 
       # Determine who the user is based on the email provided
-      before_action :fetch_user, only: %i[new create update]
+      before_action :fetch_user, only: %i[create update]
 
       # Assign the default instance variables used by the auth pages
       before_action :assign_instance_variables
@@ -95,10 +95,6 @@ module Dmptool
       def fetch_user
         self.resource = ::User.includes(:org, :identifiers)
                               .find_or_initialize_by(email: params[:user][:email])
-
-        # If the user doesn't have an Org then this is a sign up, so see if there was
-        # any OmniAuth information
-        self.resource = user_from_omniauth if resource.org_id.nil?
 
         # If the User's Org is not defined or they are a super admin (because super
         # admins have the ability to alter their affiliation), try to determine the

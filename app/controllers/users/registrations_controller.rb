@@ -11,7 +11,14 @@ module Users
 
     before_action :configure_account_update_params, only: [:update]
 
+    # GET /users/sign_up
+    def new
+      # See if there was any OmniAuth information. If so use it to prepoluate fields
+      self.resource = user_from_omniauth
+    end
+
     # rubocop:disable Metrics/AbcSize
+    # POST /users
     def create
       if resource.active_invitation? && !resource.new_record?
         # The user record already existed
