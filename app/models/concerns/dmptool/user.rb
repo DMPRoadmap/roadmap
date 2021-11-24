@@ -65,10 +65,7 @@ module Dmptool
 
         omniauth_info = omniauth_hash.fetch('info', {}).to_h
         names = extract_omniauth_names(hash: omniauth_info)
-
-        org = Identifier.by_scheme_name(scheme_name, 'Org')
-                        .where(value: omniauth_hash['identity_provider'])
-                        .first&.Identifiable
+        org = extract_omniauth_org(scheme: scheme_name, hash: omniauth_info)
 
         user = new(
           email: extract_omniauth_email(hash: omniauth_info),
@@ -78,8 +75,10 @@ module Dmptool
         )
 
         # Get the Oauth access token if available
-        # token = ExternalApiAccessToken.from_omniauth(user: user, service: scheme_name, hash: @omniauth)
-        # user.external_api_access_tokens = [token] if token.present?
+        token = ExternalApiAccessToken.from_omniauth(
+          user: user, service: scheme_name, hash: omniauth_hash
+        )
+        user.external_api_access_tokens = [token] if token.present?
         user
       end
       # rubocop:enable Metrics/AbcSize
@@ -107,6 +106,17 @@ module Dmptool
         }
       end
       # rubocop:enable Metrics/AbcSize
+
+      # Find the Org associated with the omniauth provider
+      def extract_omniauth_org(scheme_name:, hash:)
+        return nil unless scheme_name.present? &&
+                          hash.present? &&
+                          hash[:identity_provider].present?
+
+        idp = Identifier.by_scheme_name(scheme_name, 'Org')
+                        .where("LOWER(value) = ?", hash[:identity_provider].downcase).first
+        idp.present? ? idp.identifiable : nil
+      end
     end
 
     included do
@@ -133,6 +143,28 @@ module Dmptool
         return false unless active_invitation?
 
         update(invitation_accepted_at: Time.now)
+      end
+
+      # Attach an OmniAuth UID
+      def attach_omniauth_credentials(scheme_name:, omniauth_hash:)
+        return false unless scheme_name.present? && omniauth_hash.present?
+
+        scheme = IdentifierScheme.find_by(name: scheme_name)
+        return false unless scheme.present?
+
+        # Create the Oauth access token if available
+        token = ExternalApiAccessToken.from_omniauth(
+          user: self, service: scheme_name, hash: omniauth_hash
+        )
+        token.save if token.present?
+
+        ui = identifier_for_scheme(scheme: scheme_name)
+        # If the User exists and the uid is different update it
+        ui.update(value: omniauth_hash[:uid]) if ui.present? && ui.value != omniauth_hash[:uid]
+        return ui.reload if ui.present?
+
+        Identifier.create(identifier_scheme: scheme, identifiable: self,
+                          value: omniauth_hash[:uid])
       end
 
       # ==================
