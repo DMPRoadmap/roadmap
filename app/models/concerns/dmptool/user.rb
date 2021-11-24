@@ -85,7 +85,10 @@ module Dmptool
 
       # Extract the 1st email
       def extract_omniauth_email(hash:)
-        hash.present? ? hash.fetch('email', '').split(';')[0] : nil
+        return nil unless hash.present?
+
+        emails = hash.fetch('email', '').split(';')
+        emails.any? ? emails.first.downcase : nil
       end
 
       # Find the User names from the omniauth info
@@ -93,17 +96,16 @@ module Dmptool
       def extract_omniauth_names(hash:)
         return {} unless hash.present?
 
-        out = {
-          firstname: hash.fetch('givenname', hash.fetch('firstname', '')),
-          surname: hash.fetch('sn', hash.fetch('surname', hash.fetch('lastname', '')))
-        }
-        return out if out['firstname'].present? || out['surname'].present?
+        firstname = hash.fetch('givenname', hash.fetch('firstname', ''))
+        surname = hash.fetch('sn', hash.fetch('surname', hash.fetch('lastname', '')))
 
-        names = hash['name'].split
-        {
-          firstname: names[0],
-          surname: names.length > 1 ? names[names.length - 1] : nil
-        }
+        # If a full name was provided and no separate firstname and surname fields,
+        # attempt to split the full name up
+        names = hash.fetch('name', '').split
+        firstname = names.first if names.any? && !firstname.present?
+        surname = (names.length > 1 ? names[1..names.length] : names.last) if names.any? &&
+                                                                              !surname.present?
+        { firstname: firstname&.humanize, surname: surname&.humanize }
       end
       # rubocop:enable Metrics/AbcSize
 

@@ -20,7 +20,7 @@ module Users
 
 Rails.logger.debug "SHIBBOLETH USER: #{user.inspect}"
 
-      process_omniauth_response(scheme_name: scheme_name)
+      process_omniauth_response(scheme_name: scheme_name, user: user, omniauth_hash: omniauth)
     end
 
     # GET|POST /users/auth/orcid/callback
@@ -31,7 +31,7 @@ Rails.logger.debug "SHIBBOLETH USER: #{user.inspect}"
 
 Rails.logger.debug "ORCID USER: #{user.inspect}"
 
-      process_omniauth_response(scheme_name: scheme_name)
+      process_omniauth_response(scheme_name: scheme_name, user: user, omniauth_hash: omniauth)
     end
 
     private
