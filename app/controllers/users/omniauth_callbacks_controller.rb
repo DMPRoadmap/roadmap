@@ -94,7 +94,7 @@ Rails.logger.warn "Attaching an OmniAuth UID, '#{omniauth_hash[:uid]}', to signe
       existing = User.where_case_insensitive("email", user.email).first
 
       if existing.present?
-Rails.logger.warn "Successful OmniAuth UID, '#{omniauth[:uid]}', sign in (via email match) for #{user.email}"
+Rails.logger.warn "Successful OmniAuth UID, '#{omniauth_hash[:uid]}', sign in (via email match) for #{user.email}"
 
         # If we found a matching email address then attach the UID to that record
         # and sign them in
@@ -105,7 +105,7 @@ Rails.logger.warn "Successful OmniAuth UID, '#{omniauth[:uid]}', sign in (via em
         sign_in_and_redirect existing, event: :authentication
 
       else
-Rails.logger.warn "Previously unknown user via OmniAuth UID, '#{omniauth[:uid]}', for #{user.email}"
+Rails.logger.warn "Previously unknown user via OmniAuth UID, '#{omniauth_hash[:uid]}', for #{user.email}"
 
         # If we could not find a match then take them to the account setup page to give
         # them an opportunity to sign in with a password (scenarios where the user had
