@@ -11,8 +11,7 @@ class TemplateOptionsController < ApplicationController
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def index
     org_hash = plan_params.fetch(:research_org_id, {})
-    # Org.find_by(name: Rails.application.config.default_funder_name).id
-    # funder_hash = plan_params.fetch(:funder_id, {})
+
     authorize Template.new, :template_options?
 
     org = org_from_params(params_in: { org_id: org_hash.to_json }) if org_hash.present?
@@ -20,7 +19,7 @@ class TemplateOptionsController < ApplicationController
     # funder = org_from_params(params_in: { org_id: funder_hash.to_json }) if funder_hash.present?
 
     @templates = []
-# vvvv
+
     if (org.present? && !org.new_record?) ||
        (funder.present? && !funder.new_record?)
       if funder.present? && !funder.new_record?
@@ -46,7 +45,7 @@ class TemplateOptionsController < ApplicationController
           end
         end
       end
-# ^^^^^   
+
       # We are using a default funder to provide with the default templates, but
       # We still want to provide the organization templates.
 

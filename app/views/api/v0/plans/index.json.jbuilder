@@ -42,36 +42,34 @@ json.array! @plans.each do |plan|
     json.email role.user.email
   end
   json.description plan.description
-  if plan.readable_by?(@user)
-    json.plan_content plan.template.phases.each do |phase|
-      json.title phase.title
-      json.description phase.description
-      json.sections phase.sections.each do |section|
-        json.title        section.title
-        json.description  section.description
-        json.number       section.number
-        json.questions section.questions.each do |question|
-          json.text       question.text
-          json.number     question.number
-          json.format     question.question_format.title
-          json.option_based question.question_format.option_based
-          json.themes question.themes.each do |theme|
-            json.theme theme.title
-          end
-          answer = plan.answers.select { |a| a.question_id == question.id }.first
-          if answer.present?
-            json.answered true
-            json.answer do
-              json.text answer.text
-              if answer.question_options.present?
-                json.options answer.question_options.each do |option|
-                  json.text option.text
-                end
+  json.plan_content plan.template.phases.each do |phase|
+    json.title phase.title
+    json.description phase.description
+    json.sections phase.sections.each do |section|
+      json.title        section.title
+      json.description  section.description
+      json.number       section.number
+      json.questions section.questions.each do |question|
+        json.text       question.text
+        json.number     question.number
+        json.format     question.question_format.title
+        json.option_based question.question_format.option_based
+        json.themes question.themes.each do |theme|
+          json.theme theme.title
+        end
+        answer = plan.answers.select { |a| a.question_id == question.id }.first
+        if answer.present?
+          json.answered true
+          json.answer do
+            json.text answer.text
+            if answer.question_options.present?
+              json.options answer.question_options.each do |option|
+                json.text option.text
               end
             end
-          else
-            json.answered false
           end
+        else
+          json.answered false
         end
       end
     end

@@ -33,7 +33,6 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "lock_version", default: 0
-    t.index ["plan_id"], name: "fk_rails_84a6005a3e"
     t.index ["plan_id"], name: "index_answers_on_plan_id"
     t.index ["question_id"], name: "index_answers_on_question_id"
     t.index ["user_id"], name: "fk_rails_584be190c2"
@@ -232,8 +231,8 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.string "value", null: false
     t.text "attrs"
     t.integer "identifier_scheme_id"
-    t.string "identifiable_type"
     t.integer "identifiable_id"
+    t.string "identifiable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["identifiable_type", "identifiable_id"], name: "index_identifiers_on_identifiable_type_and_identifiable_id"
@@ -282,6 +281,23 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.boolean "enabled", default: true
   end
 
+  create_table "option_warnings", id: :integer, force: :cascade do |t|
+    t.integer "organisation_id"
+    t.integer "option_id"
+    t.text "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "options", id: :integer, force: :cascade do |t|
+    t.integer "question_id"
+    t.string "text"
+    t.integer "number"
+    t.boolean "is_default"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "org_token_permissions", id: :integer, force: :cascade do |t|
     t.integer "org_id"
     t.integer "token_permission_type_id"
@@ -308,7 +324,16 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.integer "stylesheet_file_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "is_other", default: false, null: false
+    t.integer "parent_id"
+    t.boolean "is_other"
+    t.string "sort_name"
+    t.text "banner_text"
+    t.string "logo_file_name"
+    t.boolean "display_in_registration"
+    t.string "logo_uid"
+    t.string "logo_name"
+    t.string "banner_uid"
+    t.string "banner_name"
     t.integer "region_id"
     t.integer "language_id"
     t.string "contact_email"
@@ -321,7 +346,6 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_other", default: false, null: false
-    t.string "sort_name"
     t.boolean "display_in_registration"
     t.string "logo_uid"
     t.string "logo_name"
@@ -334,8 +358,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.text "links", limit: 16777215
     t.string "contact_name"
     t.boolean "feedback_enabled", default: false
-    t.text "feedback_msg"
-    t.string "contact_name"
+    t.text "feedback_msg", limit: 16777215
     t.boolean "managed", default: false, null: false
     t.index ["language_id"], name: "fk_rails_5640112cab"
     t.index ["region_id"], name: "fk_rails_5a6adf6bab"
@@ -386,7 +409,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "identifier"
-    t.text "description"
+    t.text "description", limit: 16777215
     t.integer "visibility", default: 3, null: false
     t.boolean "feedback_requested", default: false
     t.boolean "complete", default: false
@@ -395,16 +418,16 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.integer "grant_id"
     t.datetime "start_date"
     t.datetime "end_date"
+    t.bigint "research_domain_id"
     t.boolean "ethical_issues"
     t.text "ethical_issues_description"
     t.string "ethical_issues_report"
     t.integer "funding_status"
-    t.bigint "research_domain_id"
     t.index ["funder_id"], name: "index_plans_on_funder_id"
     t.index ["grant_id"], name: "index_plans_on_grant_id"
     t.index ["org_id"], name: "index_plans_on_org_id"
-    t.index ["template_id"], name: "index_plans_on_template_id"
     t.index ["research_domain_id"], name: "index_plans_on_research_domain_id"
+    t.index ["template_id"], name: "index_plans_on_template_id"
   end
 
   create_table "plans_guidance_groups", id: :integer, force: :cascade do |t|
@@ -821,6 +844,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
   add_foreign_key "questions", "sections"
   add_foreign_key "questions_themes", "questions"
   add_foreign_key "questions_themes", "themes"
+  add_foreign_key "research_domains", "research_domains", column: "parent_id"
   add_foreign_key "roles", "plans"
   add_foreign_key "roles", "users"
   add_foreign_key "sections", "phases"
