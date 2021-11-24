@@ -6,6 +6,9 @@ that they do NOT have an existing account
   <% url = @shibbolized ? users_shibboleth_path : user_registration_path%>
   <% resource = user_from_omniauth(resource) %>
 
+<% Rails.logger.warn "OMNIAUTH USER: #{resource.inspect}" %>
+<% Rails.logger.warn "OMNIAUTH ID: #{resource.identifiers.inspect}" %>
+
   <%= render partial: 'users/shared/login_header', locals: { title: 'New Account Sign Up' } %>
 
   <%= form_with model: resource, url: url, method: :post, local: true,

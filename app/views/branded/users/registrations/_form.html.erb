@@ -31,13 +31,17 @@
     </div>
   </div>
 
-  <%= render partial: "shared/org_autocomplete",
-            locals: { form: form,
-                      div_id: 'sign-up-org',
-                      default_org: resource&.org,
-                      required: true,
-                      classes: "",
-                      label: _("Institution") } %>
+  <% if shib_id.present? %>
+    <%= f.hidden_field :org_id %>
+  <% else %>
+    <%= render partial: "shared/org_autocomplete",
+              locals: { form: form,
+                        div_id: 'sign-up-org',
+                        default_org: resource&.org,
+                        required: true,
+                        classes: "",
+                        label: _("Institution") } %>
+  <% end %>
 
   <div id="js-password-field" class="c-textfield js-textfield">
     <%# Display the standard Sign in form %>
