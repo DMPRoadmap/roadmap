@@ -1,11 +1,27 @@
 # Changelog
 
+## [2.1.3+portage-1.0.19] - 2021-09-15
+
+## Fixed
+  - Usage statistics now show the statistics for the current user's organization
+## [2.1.3+portage-1.0.17] - 2021-08-11
+
+## Added
+ - Configuration for direct_link protocol
+ - Configuration for default funder name
+
+## [2.1.3+portage-1.0.16] - 2021-07-21
+
 ## [2.1.3+portage-1.0.14] - 2021-06-17
 
 ## Fixed
  - Remove duplicate listing of default template when chosen organization has a customized default template
 
 ## [2.1.3+portage-1.0.13] - 2021-06-16
+## Changed
+ - Applied changes in ordering requested by the Admin Guide Working Group
+ - Changes to Canadian spelling
+## [2.1.3+portage-1.0.10] - 2021-06-03
 
 ## Fixed
  - Removed references to organizations customized template and to default template

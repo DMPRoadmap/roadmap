@@ -1,11 +1,11 @@
-# English translations for roadmap package.
-# Copyright (C) 2021 roadmap
-# This file is distributed under the same license as the roadmap package.
+# English translations for roadmap_test package.
+# Copyright (C) 2021 roadmap_test
+# This file is distributed under the same license as the roadmap_test package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: roadmap 1.0\n"
+"Project-Id-Version: roadmap_test 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
 "POT-Creation-Date: 2021-08-24 12:30-0600\n"
 "PO-Revision-Date: 2021-08-24 20:30+0200\n"
@@ -2704,10 +2704,6 @@ msgstr ""
 msgid "Themes"
 msgstr ""
 
-#: ../../app/views/layouts/_branding.html.erb:113
-msgid "Usage"
-msgstr ""
-
 #: ../../app/views/layouts/_branding.html.erb:118
 msgid "Api Clients"
 msgstr ""
@@ -3186,10 +3182,6 @@ msgstr ""
 #: ../../app/views/org_admin/phases/preview.html.erb:38
 #: ../../app/views/phases/_overview.html.erb:6
 msgid "Write plan"
-msgstr ""
-
-#: ../../app/views/org_admin/plans/index.html.erb:4
-msgid "%{org_name} Plans"
 msgstr ""
 
 #: ../../app/views/org_admin/plans/index.html.erb:16
@@ -6023,11 +6015,6 @@ msgstr ""
 msgid "My DMP's visibility has changed"
 msgstr ""
 
-#: ../../app/views/users/admin_index.html.erb:1
-#: ../../app/views/users/admin_index.html.erb:5
-msgid "User accounts"
-msgstr ""
-
 #: ../../app/views/users/admin_index.html.erb:12
 msgid ""
 "Below is a list of users registered for your organisation. You can\n"
@@ -6050,18 +6037,18 @@ msgstr ""
 msgid "activerecord.errors.messages.record_invalid"
 msgstr ""
 
-#: i18n_placeholders.rb:4
+#: ../locale.CR949/i18n_placeholders.rb:4 i18n_placeholders.rb:4
 msgid "activerecord.errors.models.user.attributes.current_password.invalid"
 msgstr ""
 
-#: i18n_placeholders.rb:6
+#: ../locale.CR949/i18n_placeholders.rb:6 i18n_placeholders.rb:6
 msgid "activerecord.errors.models.user.attributes.email.blank"
 msgstr ""
 
-#: i18n_placeholders.rb:8
+#: ../locale.CR949/i18n_placeholders.rb:8 i18n_placeholders.rb:8
 msgid "activerecord.errors.models.user.attributes.password.blank"
 msgstr ""
 
-#: i18n_placeholders.rb:10
+#: ../locale.CR949/i18n_placeholders.rb:10 i18n_placeholders.rb:10
 msgid "activerecord.errors.models.user.attributes.password_confirmation.confirmation"
 msgstr ""

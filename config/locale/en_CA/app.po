@@ -1,11 +1,11 @@
-# English translations for roadmap package.
-# Copyright (C) 2021 roadmap
-# This file is distributed under the same license as the roadmap package.
+# English translations for roadmap_test package.
+# Copyright (C) 2021 roadmap_test
+# This file is distributed under the same license as the roadmap_test package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: roadmap 1.0\n"
+"Project-Id-Version: roadmap_test 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
 "POT-Creation-Date: 2021-08-24 12:30-0600\n"
 "PO-Revision-Date: 2021-08-24 20:30+0200\n"
@@ -866,6 +866,7 @@ msgstr ""
 #: ../../app/controllers/super_admin/notifications_controller.rb:104
 msgid "There is no notification associated with id  %{id}"
 msgstr ""
+"Please select an organization from the list\n"
 
 #: ../../app/controllers/super_admin/org_swaps_controller.rb:22
 msgid ""
@@ -1017,6 +1018,7 @@ msgstr ""
 #: ../../app/helpers/customizable_template_link_helper.rb:21
 msgid "Customise"
 msgstr ""
+"Customize\n"
 
 #: ../../app/helpers/exports_helper.rb:38
 msgid "Creators:"
@@ -1040,6 +1042,11 @@ msgid ""
 "this action, please contact us\n"
 "      at %{organisation_email}.</p>"
 msgstr ""
+"<p>Hello %{user_name}.</p><p>Your plan \"%{plan_name}\" has been submitted for f"
+"eedback from an\n"
+"      administrator at your organization. If you have questions pertaining to "
+"this action, please contact us\n"
+"      at %{organisation_email}.</p>\n"
 
 #: ../../app/helpers/identifier_helper.rb:6
 #: ../../spec/helpers/identifier_helper_spec.rb:14
@@ -1342,6 +1349,7 @@ msgstr ""
 #: ../../app/models/concerns/exportable_plan.rb:120
 msgid " Customised By: "
 msgstr ""
+" Customized By: \n"
 
 #: ../../app/models/concerns/exportable_plan.rb:131
 #: ../../app/views/shared/export/_plan_txt.erb:4
@@ -1420,6 +1428,16 @@ msgid ""
 "hip to,\n"
 "             your project or proposal"
 msgstr ""
+"The above plan creator(s) have agreed that others may use as\n"
+"             much of the text of this plan as they would like in their own pla"
+"ns,\n"
+"             and customize it as necessary. You do not need to credit the crea"
+"tor(s)\n"
+"             as the source of the language used, but using any of the plan's t"
+"ext\n"
+"             does not imply that the creator(s) endorse, or have any relations"
+"hip to,\n"
+"             your project or proposal\n"
 
 #: ../../app/models/concerns/exportable_plan.rb:175
 msgid "Not Answered"
@@ -1519,7 +1537,7 @@ msgstr ""
 
 #: ../../app/models/plan.rb:242
 msgid "Copy of %{title}"
-msgstr ""
+msgstr "Copie de %{title}"
 
 #: ../../app/models/plan.rb:581 ../../app/models/research_output.rb:119
 msgid "must be after the start date"
@@ -1576,7 +1594,7 @@ msgstr ""
 
 #: ../../app/models/template.rb:407
 msgid "Copy of %{template}"
-msgstr ""
+msgstr "Copie de %{template}"
 
 #: ../../app/models/template.rb:415
 msgid "generate_version! requires a published template"
@@ -1749,10 +1767,12 @@ msgstr ""
 #: ../../app/validators/template_links_validator.rb:21
 msgid "A hash is expected for links"
 msgstr ""
+"You must select a research organization from the list or click the checkbox.\n"
 
 #: ../../app/validators/template_links_validator.rb:12
 msgid "A key %{key} is expected for links hash"
 msgstr ""
+"Please select a valid research organization from the list.\n"
 
 #: ../../app/validators/template_links_validator.rb:15
 msgid "The key %{key} does not have a valid set of object links"
@@ -1761,6 +1781,7 @@ msgstr ""
 #: ../../app/views/answers/_locking.html.erb:5
 msgid "The following answer cannot be saved"
 msgstr ""
+"Please select a valid funding organization from the list.\n"
 
 #: ../../app/views/answers/_locking.html.erb:8
 msgid ""
@@ -1779,10 +1800,12 @@ msgstr ""
 #: ../../app/views/answers/_new_edit.html.erb:21
 msgid "Please select a subject"
 msgstr ""
+"Select the primary research organization\n"
 
 #: ../../app/views/answers/_new_edit.html.erb:24
 msgid "Please select a sub-subject"
 msgstr ""
+"You must select a research organization from the list.\n"
 
 #: ../../app/views/answers/_new_edit.html.erb:30
 msgid "Browse Standards"
@@ -1791,6 +1814,8 @@ msgstr ""
 #: ../../app/views/answers/_new_edit.html.erb:35
 msgid "Please wait, Standards are loading"
 msgstr ""
+"No research organization associated with this plan or my research organization"
+" is not listed\n"
 
 #: ../../app/views/answers/_new_edit.html.erb:68
 #: ../../app/views/contributors/_form.html.erb:92
@@ -1821,10 +1846,12 @@ msgstr ""
 #: ../../app/views/users/_notification_preferences.html.erb:51
 msgid "Save"
 msgstr ""
+"Select the primary funding organization\n"
 
 #: ../../app/views/answers/_new_edit.html.erb:76
 msgid "Example"
 msgstr ""
+"You must select a funding organization from the list.\n"
 
 #: ../../app/views/answers/_status.html.erb:5
 msgid "Saving..."
@@ -2748,10 +2775,6 @@ msgstr ""
 msgid "Themes"
 msgstr ""
 
-#: ../../app/views/layouts/_branding.html.erb:113
-msgid "Usage"
-msgstr ""
-
 #: ../../app/views/layouts/_branding.html.erb:118
 msgid "Api Clients"
 msgstr ""
@@ -3163,6 +3186,7 @@ msgstr ""
 #: ../../app/views/org_admin/phases/_phase.html.erb:9
 msgid "Customise phase"
 msgstr ""
+"Customize phase\n"
 
 #: ../../app/views/org_admin/phases/_phase.html.erb:11
 msgid "Edit phase"
@@ -3223,6 +3247,7 @@ msgstr ""
 #: ../../app/views/org_admin/phases/preview.html.erb:11
 msgid "Back to customise phase"
 msgstr ""
+"Back to customize phase\n"
 
 #: ../../app/views/org_admin/phases/preview.html.erb:18
 msgid "Back to edit phase"
@@ -3235,10 +3260,6 @@ msgstr ""
 #: ../../app/views/org_admin/phases/preview.html.erb:38
 #: ../../app/views/phases/_overview.html.erb:6
 msgid "Write plan"
-msgstr ""
-
-#: ../../app/views/org_admin/plans/index.html.erb:4
-msgid "%{org_name} Plans"
 msgstr ""
 
 #: ../../app/views/org_admin/plans/index.html.erb:16
@@ -3692,6 +3713,7 @@ msgstr ""
 #: ../../app/views/org_admin/templates/index.html.erb:89
 msgid "Not customised (%{count})"
 msgstr ""
+"Not customized (%{count})\n"
 
 #: ../../app/views/org_admin/templates/index.html.erb:118
 msgid "Create a template"
@@ -4192,6 +4214,7 @@ msgstr ""
 #: ../../app/views/paginable/templates/_customisable.html.erb:41
 msgid "Not customized"
 msgstr ""
+"Not customized\n"
 
 #: ../../app/views/paginable/templates/_customisable.html.erb:56
 #: ../../app/views/paginable/templates/_organisational.html.erb:57
@@ -4208,6 +4231,8 @@ msgid ""
 "Are you sure you want to remove your customization of \"%{template_title}\"? Any"
 " published versions will become unavailable to users."
 msgstr ""
+"Are you sure you want to remove your customization of \"%{template_title}\"? Any"
+" published versions will become unavailable to users.\n"
 
 #: ../../app/views/paginable/templates/_history.html.erb:7
 msgid "Version"
@@ -4796,14 +4821,18 @@ msgstr ""
 #: ../../app/views/shared/_links.html.erb:42
 msgid "Remove this link"
 msgstr ""
+"Please select an organization from the list, or click the \"My organization isn"
+"'t listed\" link and enter your organization's name.\n"
 
 #: ../../app/views/shared/_links.html.erb:53
 msgid "+ Add an additional URL"
 msgstr ""
+"My organization isn't listed.\n"
 
 #: ../../app/views/shared/_search.html.erb:15
 msgid "Only Show Admins"
 msgstr ""
+"Please enter the name of your organization\n"
 
 #: ../../app/views/shared/_search.html.erb:20
 msgid "Search"
@@ -4872,6 +4901,11 @@ msgid ""
 "sed, but using any of the plan's text does not imply that the creator(s) endor"
 "se, or have any relationship to, your project or proposal"
 msgstr ""
+" The above plan creator(s) have agreed that others may use as much of the text"
+" of this plan as they would like in their own plans, and customize it as neces"
+"sary. You do not need to credit the creator(s) as the source of the language u"
+"sed, but using any of the plan's text does not imply that the creator(s) endor"
+"se, or have any relationship to, your project or proposal\n"
 
 #: ../../app/views/shared/org_selectors/_combined.html.erb:15
 #: ../../app/views/shared/org_selectors/_external_only.html.erb:13
@@ -5198,6 +5232,9 @@ msgid ""
 "der to deliver and improve the %{application_name} service in a customised man"
 "ner and to ensure each user receives relevant information."
 msgstr ""
+"The %{org_name} processes the personal data of %{application_name} users in or"
+"der to deliver and improve the %{application_name} service in a customized man"
+"ner and to ensure each user receives relevant information.\n"
 
 #: ../../app/views/static_pages/privacy.html.erb:15
 msgid ""
@@ -5919,6 +5956,8 @@ msgid ""
 "If you did not request access to the %{tool_name} API or did not request for y"
 "our credentials to be renewed, please contact us at %{helpdesk_email}"
 msgstr ""
+"You have been granted permission by your organization to use our API. Your API"
+" token and instructions for using the API endpoints can be found at: %{link}\n"
 
 #: ../../app/views/user_mailer/feedback_complete.html.erb:2
 msgid "Hello %{recipient_name}"
@@ -6173,11 +6212,6 @@ msgstr ""
 msgid "My DMP's visibility has changed"
 msgstr ""
 
-#: ../../app/views/users/admin_index.html.erb:1
-#: ../../app/views/users/admin_index.html.erb:5
-msgid "User accounts"
-msgstr ""
-
 #: ../../app/views/users/admin_index.html.erb:12
 msgid ""
 "Below is a list of users registered for your organisation. You can\n"
@@ -6202,18 +6236,18 @@ msgstr ""
 msgid "activerecord.errors.messages.record_invalid"
 msgstr ""
 
-#: i18n_placeholders.rb:4
+#: ../locale.CR949/i18n_placeholders.rb:4 i18n_placeholders.rb:4
 msgid "activerecord.errors.models.user.attributes.current_password.invalid"
 msgstr ""
 
-#: i18n_placeholders.rb:6
+#: ../locale.CR949/i18n_placeholders.rb:6 i18n_placeholders.rb:6
 msgid "activerecord.errors.models.user.attributes.email.blank"
 msgstr ""
 
-#: i18n_placeholders.rb:8
+#: ../locale.CR949/i18n_placeholders.rb:8 i18n_placeholders.rb:8
 msgid "activerecord.errors.models.user.attributes.password.blank"
 msgstr ""
 
-#: i18n_placeholders.rb:10
+#: ../locale.CR949/i18n_placeholders.rb:10 i18n_placeholders.rb:10
 msgid "activerecord.errors.models.user.attributes.password_confirmation.confirmation"
 msgstr ""

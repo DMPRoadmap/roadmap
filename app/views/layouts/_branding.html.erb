@@ -119,7 +119,6 @@
                   <%= link_to(_('Usage statistics'), usage_index_path) %>
                 </li>
               <% end %>
-
               <% if current_user.can_super_admin? %>
                 <!-- API -->
                 <li <%= 'class=active' if active_page?(super_admin_api_clients_path) %>>
@@ -131,6 +130,7 @@
                   <%= link_to _('Notifications'), super_admin_notifications_path %>
                 </li>
               <% end %>
+
             </ul>
           </li>
         <% end %> <!-- if org admin -->

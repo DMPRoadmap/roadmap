@@ -1,12 +1,12 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2021 roadmap
-# This file is distributed under the same license as the roadmap package.
+# Copyright (C) 2021 roadmap_test
+# This file is distributed under the same license as the roadmap_test package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: roadmap 1.0\n"
+"Project-Id-Version: roadmap_test 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
 "POT-Creation-Date: 2021-08-24 12:30-0600\n"
 "PO-Revision-Date: 2021-08-24 12:30-0600\n"
@@ -1136,6 +1136,7 @@ msgstr ""
 
 #: ../../app/helpers/plans_helper.rb:28 ../../app/helpers/plans_helper.rb:58
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:9
+#: ../../tmp/translation/database_strings.rb:84
 msgid "Test"
 msgstr ""
 
@@ -2488,7 +2489,7 @@ msgstr ""
 #: ../../app/views/guidances/admin_index.html.erb:5
 #: ../../app/views/guidances/new_edit.html.erb:12
 #: ../../app/views/guidances/new_edit.html.erb:16
-#: ../../app/views/layouts/_branding.html.erb:81
+#: ../../app/views/layouts/_branding.html.erb:93
 #: ../../app/views/org_admin/annotations/_form.html.erb:3
 #: ../../app/views/org_admin/questions/_show.html.erb:78
 #: ../../app/views/paginable/themes/_index.html.erb:5
@@ -2684,14 +2685,31 @@ msgstr ""
 msgid "Organisations"
 msgstr ""
 
-#: ../../app/views/layouts/_branding.html.erb:92
+#: ../../app/views/layouts/_branding.html.erb:77
 #: ../../app/views/orgs/admin_edit.html.erb:1
 #: ../../app/views/orgs/admin_edit.html.erb:6
 msgid "Organisation details"
 msgstr ""
 
-#: ../../app/views/layouts/_branding.html.erb:98
+#: ../../app/views/layouts/_branding.html.erb:86
+#: ../../app/views/org_admin/templates/index.html.erb:4
+#: ../../app/views/paginable/orgs/_index.html.erb:8
+msgid "Templates"
+msgstr ""
+
+#: ../../app/views/layouts/_branding.html.erb:100
+#: ../../app/views/org_admin/plans/index.html.erb:4
+#: ../../app/views/org_admin/users/edit.html.erb:63
+#: ../../app/views/paginable/users/_index.html.erb:15
+#: ../../app/views/super_admin/users/edit.html.erb:96
 #: ../../app/views/usage/_filter.html.erb:18
+msgid "Plans"
+msgstr ""
+
+#: ../../app/views/layouts/_branding.html.erb:107
+#: ../../app/views/usage/_filter.html.erb:18
+#: ../../app/views/users/admin_index.html.erb:1
+#: ../../app/views/users/admin_index.html.erb:5
 msgid "Users"
 msgstr ""
 
@@ -2704,8 +2722,10 @@ msgstr ""
 msgid "Themes"
 msgstr ""
 
-#: ../../app/views/layouts/_branding.html.erb:113
-msgid "Usage"
+#: ../../app/views/layouts/_branding.html.erb:121
+#: ../../app/views/usage/index.html.erb:1
+#: ../../app/views/usage/index.html.erb:5
+msgid "Usage statistics"
 msgstr ""
 
 #: ../../app/views/layouts/_branding.html.erb:118
@@ -3185,11 +3205,8 @@ msgstr ""
 
 #: ../../app/views/org_admin/phases/preview.html.erb:38
 #: ../../app/views/phases/_overview.html.erb:6
+#: ../../tmp/translation/database_strings.rb:194
 msgid "Write plan"
-msgstr ""
-
-#: ../../app/views/org_admin/plans/index.html.erb:4
-msgid "%{org_name} Plans"
 msgstr ""
 
 #: ../../app/views/org_admin/plans/index.html.erb:16
@@ -6021,11 +6038,6 @@ msgstr ""
 
 #: ../../app/views/users/_notification_preferences.html.erb:47
 msgid "My DMP's visibility has changed"
-msgstr ""
-
-#: ../../app/views/users/admin_index.html.erb:1
-#: ../../app/views/users/admin_index.html.erb:5
-msgid "User accounts"
 msgstr ""
 
 #: ../../app/views/users/admin_index.html.erb:12

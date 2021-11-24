@@ -19,23 +19,12 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-  rescue_from ActiveRecord::RecordNotFound,
-              #XXX Unkown controllers not working ATM
-              ActionController::RoutingError, with: :render_404
+  # When we are in production reroute Record Not Found errors to the branded 404 page
+  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
+  rescue_from StandardError, with: :handle_server_error
 
-  rescue_from 'forbidden', with: :render_403
-
-  rescue_from ActionController::InvalidAuthenticityToken,
-              ActiveRecord::RecordInvalid,
-              ActiveRecord::RecordNotSaved, with: :render_422
-
-  # # When we are in production reroute Record Not Found errors to the branded 404 page
-  # rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
-
-  # rescue_from StandardError, with: :handle_server_error
-
-  # rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
 
@@ -191,40 +180,29 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:accept_invitation, keys: %i[firstname surname org_id])
   end
 
-  def render_404
-    render "errors/404", status: :not_found, layout: 'error'
+  def render_not_found(exception)
+    msg = _("Record Not Found") + ": #{exception.message}"
+    render_respond_to_format_with_error_message(msg, root_url, 404, exception)
   end
 
-  def render_403
-    render "errors/403", status: :forbidden, layout: 'error'
+  def handle_server_error(exception)
+    msg = exception.message.to_s if exception.present?
+    render_respond_to_format_with_error_message(msg, root_url, 500, exception)
   end
 
-  def render_422
-    render "errors/422", status: :unprocessable_entity, layout: 'error'
+  def render_respond_to_format_with_error_message(msg, url_or_path, http_status, exception)
+    Rails.logger.error msg
+    Rails.logger.error exception&.backtrace if exception.present?
 
-  # def render_not_found(exception)
-  #   msg = _("Record Not Found") + ": #{exception.message}"
-  #   render_respond_to_format_with_error_message(msg, root_url, 404, exception)
-  # end
-
-  # def handle_server_error(exception)
-  #   msg = exception.message.to_s if exception.present?
-  #   render_respond_to_format_with_error_message(msg, root_url, 500, exception)
-  # end
-
-  # def render_respond_to_format_with_error_message(msg, url_or_path, http_status, exception)
-  #   Rails.logger.error msg
-  #   Rails.logger.error exception&.backtrace if exception.present?
-
-  #   respond_to do |format|
-  #     # Redirect use to the path and display the error message
-  #     format.html { redirect_to url_or_path, alert: msg }
-  #     # Render the JSON error message (using API V1)
-  #     format.json do
-  #       @payload = { errors: [msg] }
-  #       render "/api/v1/error", status: http_status
-  #     end
-  #   end
+    respond_to do |format|
+      # Redirect use to the path and display the error message
+      format.html { redirect_to url_or_path, alert: msg }
+      # Render the JSON error message (using API V1)
+      format.json do
+        @payload = { errors: [msg] }
+        render "/api/v1/error", status: http_status
+      end
+    end
 
   end
 
