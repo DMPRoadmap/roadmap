@@ -81,7 +81,7 @@ module Dmptool
           omniauth_hash = session.fetch("devise.#{scheme.name}_data", {})
           next if omniauth_hash.empty?
 
-          return User.from_omniauth(scheme_name: scheme.name, omniauth_hash: omniauth_hash)
+          return ::User.from_omniauth(scheme_name: scheme.name, omniauth_hash: omniauth_hash)
         end
         nil
       end
