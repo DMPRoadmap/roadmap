@@ -17,7 +17,7 @@ module Dmptool
       before_action :ensure_org_param, only: %i[create update]
 
       # Determine who the user is based on the email provided
-      before_action :fetch_user, only: %i[create update]
+      before_action :fetch_user, only: %i[new create update]
 
       # Assign the default instance variables used by the auth pages
       before_action :assign_instance_variables
