@@ -65,7 +65,7 @@ module Dmptool
 
         omniauth_info = omniauth_hash.fetch('info', {}).to_h
         names = extract_omniauth_names(hash: omniauth_info)
-        org = extract_omniauth_org(scheme: scheme_name, hash: omniauth_info)
+        org = extract_omniauth_org(scheme_name: scheme_name, hash: omniauth_info)
 
         user = new(
           email: extract_omniauth_email(hash: omniauth_info),

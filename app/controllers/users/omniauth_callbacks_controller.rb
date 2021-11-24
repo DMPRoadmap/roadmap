@@ -107,7 +107,10 @@ Rails.logger.warn "Successful OmniAuth UID, '#{omniauth[:uid]}', sign in (via em
       else
 Rails.logger.warn "Previously unknown user via OmniAuth UID, '#{omniauth[:uid]}', for #{user.email}"
 
-        # If we could not find a match take them to the account setup page
+        # If we could not find a match then take them to the account setup page to give
+        # them an opportunity to sign in with a password (scenarios where the user had
+        # an account before their Org was setup for SSO) or correct any of the info we
+        # got from OmniAuth (e.g. First name, Last name)
         redirect_to_registration(scheme_name: scheme_name, omniauth_hash: omniauth_hash)
       end
     end
