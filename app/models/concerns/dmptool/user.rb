@@ -74,6 +74,11 @@ module Dmptool
           org_id: org&.id
         )
 
+        # Attach the OmniAuth UID as an identifier
+        user.attach_omniauth_credentials(
+          scheme_name: scheme_name, omniauth_hash: omniauth_hash
+        )
+
         # Get the Oauth access token if available
         token = ExternalApiAccessToken.from_omniauth(
           user: user, service: scheme_name, hash: omniauth_hash

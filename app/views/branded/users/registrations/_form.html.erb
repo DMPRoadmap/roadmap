@@ -1,5 +1,7 @@
 <%# locals: form, shibbolized %>
 
+<% shib_id = resource.identifier_for_scheme(scheme: 'shibboleth') %>
+
 <div id="sign-up-email" class="c-textfield js-textfield">
   <%= form.label(:email, _('Email address')) %>
   <%= form.email_field(:disabled_email, value: resource.email,
@@ -7,8 +9,9 @@
   <%= form.hidden_field(:email, value: resource.email) %>
 </div>
 
-<% if shibbolized %>
-  <%# The Org is Shibbolized so display the Institutional Sign in %>
+<% if shibbolized && !shib_id.present? %>
+  <%# The Org is Shibbolized and we're not in the middle of an OmniAuth sign in workflow
+      so display the Institutional Sign in %>
   <%= render partial: "users/shared/sso", locals: { form: form } %>
 
 <% else %>
@@ -65,6 +68,15 @@
       <%= label_tag(nil, _('Security check')) %>
       <%= recaptcha_tags %>
     </div>
+  <% end %>
+
+  <%# If a Shibboleth UID is present then include it because this is part of an
+      SSO new account creation %>
+  <% if shib_id.present? %>
+    <%= form.fields_for :identifiers, shib_id do |id_fields| %>
+      <%= id_fields.hidden_field :identifier_scheme_id %>
+      <%= id_fields.hidden_field :value %>
+    <% end %>
   <% end %>
 
   <button type="submit"><%= _("Sign up") %></button>

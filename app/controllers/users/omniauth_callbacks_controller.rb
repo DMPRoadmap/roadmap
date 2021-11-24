@@ -51,7 +51,7 @@ Rails.logger.debug "ORCID USER: #{user.inspect}"
         )
 
       elsif user.persisted?
-Rails.logger.warn "Successful OmniAuth UID sign in (via UID, '#{omniauth[:uid]}', match) for #{user.email}"
+Rails.logger.warn "Successful OmniAuth UID sign in (via UID, '#{omniauth['uid']}', match) for #{user.email}"
 
         # We found the user by the OmniAuth UID so sign them in
         flash[:notice] = _('Successfully signed in')
@@ -75,7 +75,7 @@ Rails.logger.warn "Successful OmniAuth UID sign in (via UID, '#{omniauth[:uid]}'
     # Attach the UID to their record and return to the third party apps page
     def handle_third_party_app_registration(user:, scheme_name:, omniauth_hash:)
 
-Rails.logger.warn "Attaching an OmniAuth UID, '#{omniauth_hash[:uid]}', to signed in user #{user.email}"
+Rails.logger.warn "Attaching an OmniAuth UID, '#{omniauth_hash['uid']}', to signed in user #{user.email}"
 
       id = user.attach_omniauth_credentials(
         scheme_name: scheme_name, omniauth_hash: omniauth_hash
@@ -94,7 +94,7 @@ Rails.logger.warn "Attaching an OmniAuth UID, '#{omniauth_hash[:uid]}', to signe
       existing = User.where_case_insensitive("email", user.email).first
 
       if existing.present?
-Rails.logger.warn "Successful OmniAuth UID, '#{omniauth_hash[:uid]}', sign in (via email match) for #{user.email}"
+Rails.logger.warn "Successful OmniAuth UID, '#{omniauth_hash['uid']}', sign in (via email match) for #{user.email}"
 
         # If we found a matching email address then attach the UID to that record
         # and sign them in
@@ -105,7 +105,7 @@ Rails.logger.warn "Successful OmniAuth UID, '#{omniauth_hash[:uid]}', sign in (v
         sign_in_and_redirect existing, event: :authentication
 
       else
-Rails.logger.warn "Previously unknown user via OmniAuth UID, '#{omniauth_hash[:uid]}', for #{user.email}"
+Rails.logger.warn "Previously unknown user via OmniAuth UID, '#{omniauth_hash['uid']}', for #{user.email}"
 
         # If we could not find a match then take them to the account setup page to give
         # them an opportunity to sign in with a password (scenarios where the user had
