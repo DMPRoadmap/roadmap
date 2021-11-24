@@ -102,9 +102,10 @@ module Dmptool
         # If a full name was provided and no separate firstname and surname fields,
         # attempt to split the full name up
         names = hash.fetch('name', '').split
+        names = [names.first, names[1..names.length].join(' ')] if names.any? &&
+                                                                   names.length > 1
         firstname = names.first if names.any? && !firstname.present?
-        surname = (names.length > 1 ? names[1..names.length] : names.last) if names.any? &&
-                                                                              !surname.present?
+        surname = names.last if names.any? && !surname.present?
         { firstname: firstname&.humanize, surname: surname&.humanize }
       end
       # rubocop:enable Metrics/AbcSize
