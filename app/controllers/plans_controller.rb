@@ -373,11 +373,9 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     authorize @plan
     @phase_options = @plan.phases.order(:number).pluck(:title, :id)
-    p "########"
     if @phase_options.length > 1
-      @phase_options.push(["All phases", @phase_options.map{|pairs| pairs[1]}])
+      @phase_options.push(["All phases", "All"])
     end
-    p '######'
     @export_settings = @plan.settings(:export)
     render "download"
   end

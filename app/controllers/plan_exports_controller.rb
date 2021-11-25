@@ -34,22 +34,17 @@ class PlanExportsController < ApplicationController
     @hash           = @plan.as_pdf(current_user, @show_coversheet)
     @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
     
-    @selected_phase = if params.key?(:phase_id)
-                        p "#####################here"
-                        p params[:phase_id]
-                        if params[:phase_id].kind_of?(Array)
-                          params[:phase_id].each { |phase_id| @plan.phases.find(phase_id) }
-                        else
-                          @plan.phases.find(params[:phase_id])
-                        end
-                      else
-                        @plan.phases.order("phases.updated_at DESC")
+    if params.key?(:phase_id)
+      if (params[:phase_id] == "All")
+        @hash[:all_phases] = true
+      else
+        @selected_phase = @plan.phases.find(params[:phase_id])
+      end
+    else
+      @plan.phases.order("phases.updated_at DESC")
                              .detect { |p| p.visibility_allowed?(@plan) }
-                      end
-    p '!!!!!!!!!!!!'
-    p @selected_phase
-    p @formatting 
-    p '!!!!!!!!'
+    end
+ 
     respond_to do |format|
       format.html { show_html }
       format.csv  { show_csv }
@@ -62,10 +57,6 @@ class PlanExportsController < ApplicationController
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   private
-
-  def download_single_phase
-    
-  end
 
   def show_html
     render layout: false
