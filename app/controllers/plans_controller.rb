@@ -373,10 +373,13 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     authorize @plan
     @phase_options = @plan.phases.order(:number).pluck(:title, :id)
+    if @phase_options.length > 1
+      @phase_options.push(["All phases", "All"])
+    end
     @export_settings = @plan.settings(:export)
     render "download"
   end
-
+  
   # POST /plans/:id/duplicate
   def duplicate
     plan = Plan.find(params[:id])
