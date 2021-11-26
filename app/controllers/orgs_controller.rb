@@ -26,9 +26,14 @@ class OrgsController < ApplicationController
                                    url: admin_update_org_path(org) }
   end
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # Changes:
+  #   - Added BANNER TEXT
+  #   - Added ACTIVE
+  # --------------------------------
   # PUT /org/admin/:id/admin_update
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # SEE MODULE
   def admin_update
     attrs = org_params
     @org = Org.find(params[:id])
@@ -94,6 +99,9 @@ class OrgsController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # This action is used by installations that have the following config enabled:
   #   Rails.configuration.x.shibboleth.use_filtered_discovery_service
@@ -251,12 +259,21 @@ class OrgsController < ApplicationController
 
   private
 
-  # SEE MODULE
   def org_params
     params.require(:org)
           .permit(:name, :abbreviation, :logo, :contact_email, :contact_name,
                   :remove_logo, :managed, :feedback_enabled, :org_links,
                   :funder, :institution, :organisation,
+                  # --------------------------------
+                  # Start DMP OPIDoR Customization
+                  # Changes:
+                  #   - Added BANNER TEXT
+                  #   - Added ACTIVE
+                  # --------------------------------
+                  :banner_text, :active,
+                  # --------------------------------
+                  # End DMP OPIDoR Customization
+                  # --------------------------------
                   :feedback_msg, :org_id, :org_name, :org_crosswalk,
                   identifiers_attributes: %i[identifier_scheme_id value],
                   tracker_attributes: %i[code id])

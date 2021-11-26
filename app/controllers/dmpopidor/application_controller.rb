@@ -33,13 +33,6 @@ module Dmpopidor
       display_name[obj.class.name.to_sym] || obj.class.name.downcase || "record"
     end
 
-    def success_message(obj, action = "saved")
-      _("Successfully %{action} the %{object}.") % {
-        object: obj_name_for_display(obj),
-        action: action || "save",
-      }
-    end
-
   end
 
 end

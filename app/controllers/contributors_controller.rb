@@ -10,11 +10,18 @@ class ContributorsController < ApplicationController
   before_action :fetch_contributor, only: %i[edit update destroy]
   after_action :verify_authorized
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # CHANGES: Contributors Tab uses maDMP Fragments
+  # --------------------------------
   # GET /plans/:plan_id/contributors
   def index
     authorize @plan
     @contributors = @plan.contributors
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # GET /plans/:plan_id/contributors/new
   def new

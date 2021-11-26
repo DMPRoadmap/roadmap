@@ -4,7 +4,14 @@ module Paginable
 
   class PlanPolicy < ApplicationPolicy
 
+    # --------------------------------
+    # Start DMP OPIDoR Customization
+    # --------------------------------
     prepend Dmpopidor::Paginable::PlanPolicy
+    # --------------------------------
+    # Start DMP OPIDoR Customization
+    # CHANGES : changed firstname & lastname, deleted user_identifiers & added some log
+    # --------------------------------
 
     def initialize(user)
       @user = user

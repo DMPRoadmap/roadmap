@@ -5,8 +5,12 @@ class Paginable::UsersController < ApplicationController
   prepend Dmpopidor::Paginable::UsersController
   include Paginable
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/controllers/dmpopidor/paginable/users_controller.rb
+  # Changes : Users without activity should not be displayed first
+  # --------------------------------
   # /paginable/users/index/:page
-  # SEE MODULE
   def index
     authorize User
     @clicked_through = params[:click_through].present?
@@ -30,5 +34,8 @@ class Paginable::UsersController < ApplicationController
       view_all: !current_user.can_super_admin?
     )
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
 end

@@ -7,9 +7,15 @@ class TemplateOptionsController < ApplicationController
 
   after_action :verify_authorized
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/controllers/dmpopidor/plans_controller.rb
+  # CHANGES:
+  #   - Default template is displayed in the list
+  #   - Customized funder templates are displayed in the list, with a 'Customized by' label
+  # --------------------------------
   # GET /template_options  (AJAX)
   # Collect all of the templates available for the org+funder combination
-  # SEE MODULE
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def index
     org_hash = plan_params.fetch(:research_org_id, {})
@@ -72,6 +78,9 @@ class TemplateOptionsController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   private
 

@@ -2,22 +2,11 @@
 
 module Dmpopidor
 
-
   module Plan
 
     include DynamicFormHelper
 
     # CHANGES : ADDED RESEARCH OUTPUT SUPPORT
-    # The most recent answer to the given question id optionally can create an answer if
-    # none exists.
-    #
-    # qid               - The id for the question to find the answer for
-    # roid               - The id for the research output to find the answer for
-    # create_if_missing - If true, will genereate a default answer
-    #                     to the question (defaults: true).
-    #
-    # Returns Answer
-    # Returns nil
     def answer(qid, create_if_missing = true, roid = nil)
       answer = answers.select { |a| a.question_id == qid && a.research_output_id == roid }
                       .max { |a, b| a.created_at <=> b.created_at }
@@ -36,11 +25,6 @@ module Dmpopidor
       answer
     end
 
-    # determines if the plan is reviewable by the specified user
-    #
-    # user_id - The Integer id for the user
-    #
-    # Returns Boolean
     # CHANGES : Reviewer can be from a different org of the plan owner
     def reviewable_by?(user_id)
       reviewer = ::User.find(user_id)
@@ -48,67 +32,6 @@ module Dmpopidor
         reviewer.present? &&
         reviewer.can_review_plans?
     end
-
-    ##
-    # Sets up the plan for feedback:
-    #  emails confirmation messages to owners
-    #  emails org admins and org contact
-    #  adds org admins to plan with the 'reviewer' Role
-    # CHANGES : Added feedback_requestor & request_date columns
-    # def request_feedback(user)
-    #   ::Plan.transaction do
-    #     begin
-    #       self.feedback_requested = true
-    #       self.feedback_requestor = user
-    #       self.feedback_request_date = DateTime.current()
-    #       if save!
-    #         # Send an email to the org-admin contact
-    #         if user.org.contact_email.present?
-    #           contact = ::User.new(email: user.org.contact_email,
-    #                             firstname: user.org.contact_name)
-    #           UserMailer.feedback_notification(contact, self, user).deliver_now
-    #         end
-    #         return true
-    #       else
-    #         return false
-    #       end
-    #     rescue StandardError => e
-    #       Rails.logger.error e
-    #       return false
-    #     end
-    #   end
-    # end
-
-    ##
-    # Finalizes the feedback for the plan: Emails confirmation messages to owners
-    # sets flag on plans.feedback_requested to false removes org admins from the
-    # 'reviewer' Role for the Plan.
-    # CHANGES : Added feedback_requestor & request_date columns
-    # def complete_feedback(org_admin)
-    #   ::Plan.transaction do
-    #     begin
-    #       self.feedback_requested = false
-    #       self.feedback_requestor = nil
-    #       self.feedback_request_date = nil
-    #       if save!
-    #         # Send an email confirmation to the owners and co-owners
-    #         deliver_if(recipients: owner_and_coowners,
-    #                   key: "users.feedback_provided") do |r|
-    #                       UserMailer.feedback_complete(
-    #                         r,
-    #                         self,
-    #                         org_admin).deliver_now
-    #                     end
-    #         true
-    #       else
-    #         false
-    #       end
-    #     rescue ArgumentError => e
-    #       Rails.logger.error e
-    #       false
-    #     end
-    #   end
-    # end
 
     # The number of research outputs for a plan.
     #
@@ -128,7 +51,7 @@ module Dmpopidor
       template_locale = template.locale.eql?("en_GB") ? "eng" : "fra"
       plan_owner = owner
       I18n.with_locale template.locale do
-        dmp_fragment = Fragment::Dmp.create(
+        dmp_fragment = Fragment::Dmp.create!(
           data: {
             "plan_id" => id
           },
@@ -149,14 +72,14 @@ module Dmpopidor
                         }
                       end
 
-        person = Fragment::Person.create(
+        person = Fragment::Person.create!(
           data: person_data || {},
           dmp_id: dmp_fragment.id,
           madmp_schema: MadmpSchema.find_by(name: "PersonStandard"),
           additional_info: { property_name: "person" }
         )
 
-        dmp_coordinator = Fragment::Contributor.create(
+        dmp_coordinator = Fragment::Contributor.create!(
           data: {
             "person" => { "dbid" => person.id },
             "role" => _("DMP manager")
@@ -167,7 +90,7 @@ module Dmpopidor
           additional_info: { property_name: "contact" }
         )
 
-        project_coordinator = Fragment::Contributor.create(
+        project_coordinator = Fragment::Contributor.create!(
           data: {
             "person" => { "dbid" => person.id },
             "role" => _("Project coordinator")
@@ -182,7 +105,7 @@ module Dmpopidor
         # META & PROJECT FRAGMENTS
         #################################
 
-        project = Fragment::Project.create(
+        project = Fragment::Project.create!(
           data: {
             "title" => title,
             "description" => description,
@@ -195,7 +118,7 @@ module Dmpopidor
         )
         project.instantiate
 
-        meta = Fragment::Meta.create(
+        meta = Fragment::Meta.create!(
           data: {
             "title" => _("\"%{project_title}\" project DMP") % { project_title: title },
             "creationDate" => created_at.strftime("%F"),

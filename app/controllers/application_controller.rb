@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   # When we are in production reroute Record Not Found errors to the branded 404 page
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
-  rescue_from StandardError, with: :handle_server_error
+  rescue_from StandardError, with: :handle_server_error unless Rails.env.development?
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
@@ -116,7 +116,6 @@ class ApplicationController < ActionController::Base
     }
   end
 
-  # SEE MODULE
   def success_message(obj, action = "saved")
     _("Successfully %{action} the %{object}.") % {
       object: obj_name_for_display(obj),
@@ -131,7 +130,10 @@ class ApplicationController < ActionController::Base
     "<ul>#{msgs.join('')}</li></ul>"
   end
 
-  # SEE MODULE
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # CHANGES: Added research output, department, schema, registry, registry value
+  # --------------------------------
   def obj_name_for_display(obj)
     display_name = {
       ApiClient: _("API client"),
@@ -149,6 +151,9 @@ class ApplicationController < ActionController::Base
     end
     display_name[obj.class.name.to_sym] || obj.class.name.downcase || "record"
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # Override rails default render action to look for a branded version of a
   # template instead of using the default one. If no override exists, the

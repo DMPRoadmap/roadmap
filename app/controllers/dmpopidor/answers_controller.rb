@@ -11,7 +11,7 @@ module Dmpopidor
 
       # First it is checked plan exists and question exist for that plan
       begin
-        p = Plan.find(p_params[:plan_id])
+        p = ::Plan.find(p_params[:plan_id])
         unless p.question_exists?(p_params[:question_id])
           # rubocop:disable Layout/LineLength
           render(status: :not_found, json: {
@@ -31,16 +31,16 @@ module Dmpopidor
                })
         return
       end
-      q = Question.find(p_params[:question_id])
+      q = ::Question.find(p_params[:question_id])
 
       # rubocop:disable Metrics/BlockLength
-      Answer.transaction do
+      ::Answer.transaction do
         args = p_params
         # Answer model does not understand :standards so remove it from the params
         standards = args[:standards]
         args.delete(:standards)
 
-        @answer = Answer.find_by!(
+        @answer = ::Answer.find_by!(
           plan_id: args[:plan_id],
           question_id: args[:question_id],
           research_output_id: args[:research_output_id]
@@ -71,7 +71,7 @@ module Dmpopidor
         @answer.save!
       rescue ActiveRecord::StaleObjectError
         @stale_answer = @answer
-        @answer = Answer.find_by(
+        @answer = ::Answer.find_by(
           plan_id: args[:plan_id],
           question_id: args[:question_id],
           research_output_id: args[:research_output_id]
@@ -84,7 +84,7 @@ module Dmpopidor
       #      check should probably happen on create/update
       # rubocop:disable Style/GuardClause
       if @answer.present?
-        @plan = Plan.includes(
+        @plan = ::Plan.includes(
           sections: {
             questions: %i[
               question_format
@@ -155,9 +155,9 @@ module Dmpopidor
           "plan" => {
             "id" => @plan.id,
             "progress" => render_to_string(partial: "plans/progress", locals: {
-              plan: @plan,
-              current_phase: @section.phase
-            }, formats: [:html])
+                                             plan: @plan,
+                                             current_phase: @section.phase
+                                           }, formats: [:html])
           },
           "research_output" => {
             "id" => @research_output.id
@@ -171,7 +171,7 @@ module Dmpopidor
     def set_answers_as_common
       answer_ids = params[:answer_ids]
       common_value = params[:is_common]
-      Answer.where(id: answer_ids).update_all(is_common: common_value)
+      ::Answer.where(id: answer_ids).update_all(is_common: common_value)
 
       render json: {
         "updated_answers": answer_ids
@@ -183,7 +183,7 @@ module Dmpopidor
     # Get the schema from the question, if any (works for strucutred questions/answers only)
     # TODO: move to global var with before_action trigger + rename accordingly (set_json_schema ?)
     def json_schema
-      question = Question.find(params["question_id"])
+      question = ::Question.find(params["question_id"])
       question.madmp_schema
     end
 

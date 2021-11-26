@@ -517,7 +517,7 @@ class MadmpFragmentsController < ApplicationController
     plan = fragment.plan
     template = plan.template
     run_parameters = fragment.madmp_schema.extract_run_parameters
-    editable = plan.editable_by?(current_user)
+    editable = plan.editable_by?(current_user.id)
 
     {
       "fragment_id" => fragment.id,

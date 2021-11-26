@@ -7,9 +7,9 @@ module Dmpopidor
     # CHANGES: Can now send multiple phases when exporting
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def show
-      @plan = Plan.includes(:answers, :research_outputs, {
-                              template: { phases: { sections: :questions } }
-                            }).find(params[:plan_id])
+      @plan = ::Plan.includes(:answers, :research_outputs, {
+                                template: { phases: { sections: :questions } }
+                              }).find(params[:plan_id])
 
       if privately_authorized? && export_params[:form].present?
         skip_authorization
@@ -33,7 +33,7 @@ module Dmpopidor
 
       @hash           = @plan.as_pdf(@show_coversheet)
       @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
-      @research_output_export_mode = export_params[:research_output_mode] ? export_params[:research_output_mode] : 'by_section'
+      @research_output_export_mode = export_params[:research_output_mode] || "by_section"
       @research_outputs_number = @plan.research_outputs.length
 
       if params.key?(:selected_phases)
@@ -58,7 +58,7 @@ module Dmpopidor
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-    # CHANGES: Changed footer
+    # CHANGES: PDF footer now displays DMP licence
     def show_pdf
       license = @plan.json_fragment.meta.license if @plan.template.structured?
       license_details = if license.present? && !license.data.compact.empty?
@@ -76,6 +76,7 @@ module Dmpopidor
              }
     end
 
+    # CHANGES: Changed JSON export to use madmp_fragments
     def show_json(selected_research_outputs, json_format)
       send_data render_to_string("shared/export/madmp_export_templates/#{json_format}/plan",
                                  locals: {

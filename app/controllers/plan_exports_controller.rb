@@ -7,7 +7,12 @@ class PlanExportsController < ApplicationController
 
   include ConditionsHelper
 
-  # SEE MODULE
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # CHANGES:
+  #   - Research outputs : added research output support with export mode
+  #   - JSON export uses DMP OPIDoR JSON export (default & RDA)
+  # --------------------------------
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def show
     @plan = Plan.includes(:answers, { template: { phases: { sections: :questions } } })
@@ -52,6 +57,9 @@ class PlanExportsController < ApplicationController
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   private
 
@@ -80,7 +88,10 @@ class PlanExportsController < ApplicationController
                                      locals: { export_format: "docx" })
   end
 
-  # SEE MODULE
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # CHANGES: PDF footer now displays DMP licence
+  # --------------------------------
   def show_pdf
     render pdf: file_name,
            margin: @formatting[:margin],
@@ -95,11 +106,21 @@ class PlanExportsController < ApplicationController
              encoding: "utf8"
            }
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # CHANGES: Changed JSON export to use madmp_fragments
+  # --------------------------------
   def show_json
     json = render_to_string(partial: "/api/v1/plans/show", locals: { plan: @plan })
     render json: "{\"dmp\":#{json}}"
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   def file_name
     # Sanitize bad characters and replace spaces with underscores

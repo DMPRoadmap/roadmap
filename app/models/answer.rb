@@ -33,8 +33,6 @@
 
 class Answer < ApplicationRecord
 
-  prepend Dmpopidor::Answer
-
   # ================
   # = Associations =
   # ================
@@ -100,11 +98,17 @@ class Answer < ApplicationRecord
   # presence of text
   #
   # Returns Boolean
-  # SEE MODULE
   def answered?
     return false unless question.present?
     # If the question is option based then see if any options were selected
     return question_options.any? if question.question_format.option_based?
+    # --------------------------------
+    # Start DMP OPIDoR Customization
+    # --------------------------------
+    return madmp_fragment&.data&.compact&.empty? if question.question_format.structured
+    # --------------------------------
+    # End DMP OPIDoR Customization
+    # --------------------------------
     # Strip out any white space and see if the text is empty
     return !text.gsub(%r{</?p>}, "").gsub(%r{<br\s?/?>}, "").chomp.blank? if text.present?
 

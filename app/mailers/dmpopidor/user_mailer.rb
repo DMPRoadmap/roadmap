@@ -55,7 +55,7 @@ module Dmpopidor
 
       I18n.with_locale current_locale(@user) do
         mail(to: @role.user.email,
-             subject: _("A Data Management Plan in %{tool_name} has been shared with you") %
+             subject: _("%{user_name} has shared a Data Management Plan with you in %{tool_name}") %
              {
                tool_name: tool_name
              })

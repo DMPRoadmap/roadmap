@@ -128,6 +128,14 @@ module OrgAdmin
     # SEE MODULE
     def edit
       template = Template.includes(:org, :phases).find(params[:id])
+      # --------------------------------
+      # Start DMP OPIDoR Customization
+      # CHANGES : Added Locales list
+      # --------------------------------
+      @locales = Language.all
+      # --------------------------------
+      # End DMP OPIDoR Customization
+      # --------------------------------
       authorize template
       # Load the info needed for the overview section if the authorization check passes!
       phases = template.phases.includes(sections: { questions: :question_options })
@@ -157,6 +165,14 @@ module OrgAdmin
     def new
       authorize Template
       @template = current_org.templates.new
+      # --------------------------------
+      # Start DMP OPIDoR Customization
+      # CHANGES : Added Locales list
+      # --------------------------------
+      @locales = Language.all
+      # --------------------------------
+      # End DMP OPIDoR Customization
+      # --------------------------------
     end
 
     # POST /org_admin/templates
@@ -384,7 +400,14 @@ module OrgAdmin
       #         }
       # While this is working as-is we should consider folding these into
       # the template: :links context.
-      params.require(:template).permit(:title, :description, :visibility, :links)
+      # --------------------------------
+      # Start DMP OPIDoR Customization
+      # CHANGES : Added Locale
+      # --------------------------------
+      params.require(:template).permit(:title, :description, :visibility, :links, :locale)
+      # --------------------------------
+      # End DMP OPIDoR Customization
+      # --------------------------------
     end
 
     def parse_visibility(args, org)

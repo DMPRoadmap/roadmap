@@ -9,8 +9,8 @@ module Dmpopidor
       # GET org_admin/plans/:id/feedback_complete
       # CHANGES : Added feedback requestor to plan
       def feedback_complete
-        plan = Plan.find(params[:id])
-        requestor = User.find(plan.feedback_requestor)
+        plan = ::Plan.find(params[:id])
+        requestor = ::User.find(plan.feedback_requestor)
         # Test auth directly and throw Pundit error sincePundit is
         # unaware of namespacing
         raise Pundit::NotAuthorizedError unless current_user.present? && current_user.can_org_admin?

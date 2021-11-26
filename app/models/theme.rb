@@ -15,11 +15,15 @@
 
 class Theme < ApplicationRecord
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # --------------------------------
   prepend Dmpopidor::Theme
-
-  ##
   # Before save & create, generate the slug, method from Dmpopidor::Models::Theme
   before_save :generate_slug
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # ================
   # = Associations =

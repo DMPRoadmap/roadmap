@@ -3,7 +3,14 @@
 # rubocop:disable Metrics/ClassLength
 class PlansController < ApplicationController
 
-  include Dmpopidor::PlansController
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/controllers/dmpopidor/plans_controller.rb
+  # --------------------------------
+  prepend Dmpopidor::PlansController
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   include ConditionalUserMailer
   include OrgSelectable
@@ -29,8 +36,14 @@ class PlansController < ApplicationController
     @template = Template.find(params[:plan][:template_id]) if params[:plan].present?
   end
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/controllers/dmpopidor/plans_controller.rb
+  # CHANGES:
+  #   - Added Active Flag on Org
+  #   - Added default template for 'Use Default Template' button
+  # --------------------------------
   # GET /plans/new
-  # SEE MODULE
   # rubocop:disable Metrics/AbcSize
   def new
     @plan = Plan.new
@@ -56,9 +69,11 @@ class PlansController < ApplicationController
     respond_to :html
   end
   # rubocop:enable Metrics/AbcSize
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # POST /plans
-  # SEE MODULE
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def create
     @plan = Plan.new
@@ -160,6 +175,23 @@ class PlansController < ApplicationController
         @plan.identifier = @plan.id.to_s
         @plan.save
 
+        # --------------------------------
+        # Start DMP OPIDoR Customization
+        # CHANGES : Added default Research Output & Plan fragment creation
+        # --------------------------------
+        @plan.create_plan_fragments
+
+        # Add default research output if possible
+        @plan.research_outputs.create!(
+          abbreviation: "Default",
+          title: "Default research output",
+          is_default: true,
+          order: 1
+        )
+        # --------------------------------
+        # End DMP OPIDoR Customization
+        # --------------------------------
+
         respond_to do |format|
           flash[:notice] = msg
           format.html { redirect_to plan_path(@plan) }
@@ -177,77 +209,98 @@ class PlansController < ApplicationController
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/controllers/dmpopidor/plans_controller.rb
+  # --------------------------------
   # GET /plans/show
-  # SEE MODULE
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # def show
-  #   @plan = Plan.includes(
-  #     template: { phases: { sections: { questions: :answers } } },
-  #     plans_guidance_groups: { guidance_group: :guidances }
-  #   ).find(params[:id])
-  #   authorize @plan
+  def show
+    @plan = Plan.includes(
+      template: { phases: { sections: { questions: :answers } } },
+      plans_guidance_groups: { guidance_group: :guidances }
+    ).find(params[:id])
+    authorize @plan
 
-  #   @visibility = if @plan.visibility.present?
-  #                   @plan.visibility.to_s
-  #                 else
-  #                   Rails.configuration.x.plans.default_visibility
-  #                 end
-  #   # Get all of the available funders
-  #   @funders = Org.funder
-  #                 .includes(identifiers: :identifier_scheme)
-  #                 .joins(:templates)
-  #                 .where(templates: { published: true }).uniq.sort_by(&:name)
-  #   # TODO: Seems strange to do this. Why are we just not using an `edit` route?
-  #   @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
+    # --------------------------------
+    # Start DMP OPIDoR Customization
+    # --------------------------------
+    @schemas = MadmpSchema.all
+    @research_outputs = @plan.research_outputs.order(:order)
+    # --------------------------------
+    # End DMP OPIDoR Customization
+    # --------------------------------
 
-  #   # Get all Guidance Groups applicable for the plan and group them by org
-  #   @all_guidance_groups = @plan.guidance_group_options
-  #   @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
-  #   @selected_guidance_groups = @plan.guidance_groups
+    @visibility = if @plan.visibility.present?
+                    @plan.visibility.to_s
+                  else
+                    Rails.configuration.x.plans.default_visibility
+                  end
+    # Get all of the available funders
+    @funders = Org.funder
+                  .includes(identifiers: :identifier_scheme)
+                  .joins(:templates)
+                  .where(templates: { published: true }).uniq.sort_by(&:name)
+    # TODO: Seems strange to do this. Why are we just not using an `edit` route?
+    @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
 
-  #   # Important ones come first on the page - we grab the user's org's GGs and
-  #   # "Organisation" org type GGs
-  #   @important_ggs = []
+    # Get all Guidance Groups applicable for the plan and group them by org
+    @all_guidance_groups = @plan.guidance_group_options
+    @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
+    @selected_guidance_groups = @plan.guidance_groups
 
-  #   if @all_ggs_grouped_by_org.include?(current_user.org)
-  #     @important_ggs << [current_user.org, @all_ggs_grouped_by_org[current_user.org]]
-  #   end
-  #   @all_ggs_grouped_by_org.each do |org, ggs|
-  #     @important_ggs << [org, ggs] if Org.default_orgs.include?(org)
+    # Important ones come first on the page - we grab the user's org's GGs and
+    # "Organisation" org type GGs
+    @important_ggs = []
 
-  #     # If this is one of the already selected guidance groups its important!
-  #     unless (ggs & @selected_guidance_groups).empty?
-  #       @important_ggs << [org, ggs] unless @important_ggs.include?([org, ggs])
-  #     end
-  #   end
+    if @all_ggs_grouped_by_org.include?(current_user.org)
+      @important_ggs << [current_user.org, @all_ggs_grouped_by_org[current_user.org]]
+    end
+    @all_ggs_grouped_by_org.each do |org, ggs|
+      @important_ggs << [org, ggs] if Org.default_orgs.include?(org)
 
-  #   # Sort the rest by org name for the accordion
-  #   @important_ggs = @important_ggs.sort_by { |org, _gg| (org.nil? ? "" : org.name) }
-  #   @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by do |org, _gg|
-  #     (org.nil? ? "" : org.name)
-  #   end
-  #   @selected_guidance_groups = @selected_guidance_groups.ids
+      # If this is one of the already selected guidance groups its important!
+      unless (ggs & @selected_guidance_groups).empty?
+        @important_ggs << [org, ggs] unless @important_ggs.include?([org, ggs])
+      end
+    end
 
-  #   @based_on = if @plan.template.customization_of.nil?
-  #                 @plan.template
-  #               else
-  #                 Template.where(family_id: @plan.template.customization_of).first
-  #               end
+    # Sort the rest by org name for the accordion
+    @important_ggs = @important_ggs.sort_by { |org, _gg| (org.nil? ? "" : org.name) }
+    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by do |org, _gg|
+      (org.nil? ? "" : org.name)
+    end
+    @selected_guidance_groups = @selected_guidance_groups.ids
 
-  #   @research_domains = ResearchDomain.all.order(:label)
+    @based_on = if @plan.template.customization_of.nil?
+                  @plan.template
+                else
+                  Template.where(family_id: @plan.template.customization_of).first
+                end
 
-  #   respond_to :html
-  # end
+    @research_domains = ResearchDomain.all.order(:label)
+
+    respond_to :html
+  end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # TODO: This feels like it belongs on a phases controller, perhaps introducing
   #       a non-namespaces phases_controller woulld make sense here. Consider
   #       doing this when we refactor the Plan editing UI
   # GET /plans/:plan_id/phases/:id/edit
-  # SEE MODULE
   def edit
     plan = Plan.includes(
+      # --------------------------------
+      # Start DMP OPIDoR Customization
+      # --------------------------------
+      :research_outputs,
+      # --------------------------------
+      # End DMP OPIDoR Customization
+      # --------------------------------
       { template: {
         phases: {
           sections: {
@@ -353,12 +406,20 @@ class PlansController < ApplicationController
     end
   end
 
-  # SEE MODULE
   # DELETE /plans/:id
   def destroy
     @plan = Plan.find(params[:id])
     authorize @plan
     if @plan.destroy
+      # --------------------------------
+      # Start DMP OPIDoR Customization
+      # Changes : Destroying the plan should destroy the associated madmp_fragments
+      # --------------------------------
+      dmp_fragment = @plan.json_fragment
+      dmp_fragment.destroy
+      # --------------------------------
+      # End DMP OPIDoR Customization
+      # --------------------------------
       respond_to do |format|
         format.html do
           redirect_to plans_url,
@@ -391,14 +452,22 @@ class PlansController < ApplicationController
     end
   end
 
-  # SEE MODULE
   # GET /plans/:id/download
   def download
-   @plan = Plan.find(params[:id])
-   authorize @plan
-   @phase_options = @plan.phases.order(:number).pluck(:title, :id)
-   @export_settings = @plan.settings(:export)
-   render "download"
+    @plan = Plan.find(params[:id])
+    authorize @plan
+
+    # --------------------------------
+    # Start DMP OPIDoR Customization
+    # --------------------------------
+    @research_outputs = @plan.research_outputs
+    # --------------------------------
+    # End DMP OPIDoR Customization
+    # --------------------------------
+
+    @phase_options = @plan.phases.order(:number).pluck(:title, :id)
+    @export_settings = @plan.settings(:export)
+    render "download"
   end
 
   # POST /plans/:id/duplicate
@@ -418,7 +487,6 @@ class PlansController < ApplicationController
 
   # TODO: This should probablly just be merged with the update route
   # POST /plans/:id/visibility
-  # SEE MODULE
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def visibility
     plan = Plan.find(params[:id])
@@ -495,6 +563,12 @@ class PlansController < ApplicationController
 
   private
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/controllers/dmpopidor/plans_controller.rb
+  # Changes : Removed everything except guidances group info. The rest of the info is
+  # handled by MadmpFragmentController
+  # --------------------------------
   def plan_params
     # TODO: The guidance_group_ids setup on the form is a bit convoluted. Refactor
     #       it once we've started updating the UI for these pages. There should
@@ -508,6 +582,9 @@ class PlansController < ApplicationController
                   org: %i[id org_id org_name org_sources org_crosswalk],
                   funder: %i[id org_id org_name org_sources org_crosswalk])
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # different versions of the same template have the same family_id
   # but different version numbers so for each set of templates with the
@@ -547,7 +624,11 @@ class PlansController < ApplicationController
     plan.delete(src_plan_key)
   end
 
-  # SEE MODULE
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/controllers/dmpopidor/plans_controller.rb
+  # CHANGES : maDMP Fragments SUPPORT
+  # --------------------------------
   def render_phases_edit(plan, phase, guidance_groups)
     readonly = !plan.editable_by?(current_user.id)
     # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
@@ -563,6 +644,9 @@ class PlansController < ApplicationController
              guidance_presenter: GuidancePresenter.new(plan)
            })
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # Update, destroy or add the grant
   def process_grant(grant_params:)

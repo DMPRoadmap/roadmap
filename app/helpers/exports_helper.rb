@@ -2,7 +2,14 @@
 
 module ExportsHelper
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/helpers/dmpopidor/exports_helper.rb
+  # --------------------------------
   prepend Dmpopidor::ExportsHelper
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   PAGE_MARGINS = {
     top: "5",
@@ -35,12 +42,19 @@ module ExportsHelper
     get_margin_value_for_side(:right)
   end
 
-  # SEE MODULE
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/helpers/dmpopidor/exports_helper.rb
+  # CHANGES: Changed prefix value to 'DMP Creator(s)'
+  # --------------------------------
   def plan_attribution(attribution)
     attribution = Array(attribution)
     prefix = attribution.many? ? _("Creators:") : _("Creator:")
     "<strong>#{prefix}</strong> #{attribution.join(', ')}"
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   private
 

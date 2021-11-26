@@ -12,7 +12,7 @@
       </ul>  
     </td>
     <td class="actions contributors">
-      <% if @plan.editable_by?(current_user) %>
+      <% if @plan.editable_by?(current_user.id) %>
         <%= link_to new_edit_linked_madmp_fragments_url(
               :fragment_id => contributor.id, 
               :parent_id => contributor.dmp_id, 

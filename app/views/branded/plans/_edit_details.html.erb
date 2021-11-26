@@ -86,7 +86,7 @@
               <%= f.hidden_field :schema_id, :value => project_schema.id, id: nil, class: "schema_id" %>
               <%= f.hidden_field :dmp_id, :value => dmp_fragment.id, id: nil %>
               <%= f.hidden_field :parent_id, :value => dmp_fragment.id, id: nil %>
-              <%= f.hidden_field :template_locale, :value => locale, id: nil %>
+              <%= f.hidden_field :template_locale, :value => LocaleService.to_gettext(locale: locale), id: nil %>
               <%= f.hidden_field "source", :value => "form" %>
               <div class="form-group fragment-<%= project_fragment.id %>" data-fragment-id="<%= project_fragment.id %>" >
                 <%= render(partial: 'shared/dynamic_form/form', locals: { 
@@ -96,7 +96,7 @@
                       question_id: nil,
                       readonly: false,
                       classname: "project",
-                      template_locale: locale,
+                      template_locale: LocaleService.to_gettext(locale: locale),
                       form_prefix: nil,
                       source: "form"
                     }) %>
@@ -157,7 +157,7 @@
                 <%= f.hidden_field :schema_id, :value => meta_schema.id, id: nil, class: "schema_id" %>
                 <%= f.hidden_field :dmp_id, :value => dmp_fragment.id, id: nil %>
                 <%= f.hidden_field :parent_id, :value => dmp_fragment.id, id: nil %>
-                <%= f.hidden_field :template_locale, :value => locale, id: nil %>
+                <%= f.hidden_field :template_locale, :value => LocaleService.to_gettext(locale: locale), id: nil %>
                 <%= f.hidden_field "source", :value => "form" %>
                 <div class="meta-form form-group fragment-<%= meta_fragment.id %>" data-fragment-id="<%= meta_fragment.id %>" >
                   <%= render(partial: 'shared/dynamic_form/form', locals: { 
@@ -167,7 +167,7 @@
                         question_id: nil,
                         readonly: false,
                         classname: "meta",
-                        template_locale: locale,
+                        template_locale: LocaleService.to_gettext(locale: locale),
                         form_prefix: nil,
                         source: "form"
                       }) %>

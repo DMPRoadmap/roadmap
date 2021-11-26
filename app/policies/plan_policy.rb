@@ -2,7 +2,13 @@
 
 class PlanPolicy < ApplicationPolicy
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # --------------------------------
   prepend Dmpopidor::PlanPolicy
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   attr_reader :user
   attr_reader :plan

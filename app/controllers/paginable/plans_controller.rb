@@ -39,9 +39,7 @@ class Paginable::PlansController < ApplicationController
     paginable_params = params.permit(:page, :search, :sort_field, :sort_direction)
     redirect_to public_plans_path(paginable_params.to_h)
   end
-
   # GET /paginable/plans/org_admin/:page
-  # SEE MODULE
   def org_admin
     raise Pundit::NotAuthorizedError unless current_user.present? && current_user.can_org_admin?
 
@@ -60,6 +58,10 @@ class Paginable::PlansController < ApplicationController
     )
   end
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/controllers/dmpopidor/paginable/plans_controller.rb
+  # --------------------------------
   # GET /paginable/plans/org_admin/:page
   def org_admin_other_user
     @user = User.find(params[:id])
@@ -70,9 +72,20 @@ class Paginable::PlansController < ApplicationController
 
     paginable_renderise(
       partial: "org_admin_other_user",
-      scope: Plan.active(@user),
+      # --------------------------------
+      # Start DMP OPIDoR Customization
+      # SEE app/controllers/dmpopidor/paginable/plans_controller.rb
+      # --------------------------------
+      scope: Plan.org_admin_visible(@user),
+      # --------------------------------
+      # End DMP OPIDoR Customization
+      # --------------------------------
       query_params: { sort_field: "plans.updated_at", sort_direction: :desc }
     )
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # SEE app/controllers/dmpopidor/paginable/plans_controller.rb
+  # --------------------------------
 
 end

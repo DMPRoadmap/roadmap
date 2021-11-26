@@ -20,8 +20,11 @@ class OrgAdmin::PlansController < ApplicationController
     @plans = @super_admin ? Plan.all.page(1) : current_user.org.org_admin_plans.page(1)
   end
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # CHANGES : Added feedback requestor to plan
+  # --------------------------------
   # GET org_admin/plans/:id/feedback_complete
-  # SEE MODULE
   def feedback_complete
     plan = Plan.find(params[:id])
     # Test auth directly and throw Pundit error sincePundit is
@@ -41,6 +44,9 @@ class OrgAdmin::PlansController < ApplicationController
                   alert: _("Unable to notify user that you have finished providing feedback.")
     end
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # GET /org_admin/download_plans
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength

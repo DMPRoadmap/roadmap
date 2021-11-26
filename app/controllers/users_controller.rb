@@ -10,10 +10,14 @@ class UsersController < ApplicationController
   after_action :verify_authorized
   respond_to :html
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/controllers/dmpopidor/users_controller.rb
+  # CHANGES: Users without last_sign_in date should be displayed last
+  # --------------------------------
   ##
   # GET - List of all users for an organisation
   # Displays number of roles[was project_group], name, email, and last sign in
-  # SEE MODULE
   def admin_index
     authorize User
 
@@ -34,6 +38,9 @@ class UsersController < ApplicationController
       end
     end
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   ##
   # GET - Displays the permissions available to the selected user

@@ -31,17 +31,18 @@ class MadmpFragment < ApplicationRecord
   # = Associations =
   # ================
 
-  belongs_to :answer
+  belongs_to :answer, optional: true
   belongs_to :madmp_schema, class_name: "MadmpSchema"
-  belongs_to :dmp, class_name: "Fragment::Dmp", foreign_key: "dmp_id"
+  belongs_to :dmp, class_name: "Fragment::Dmp", foreign_key: "dmp_id", optional: true
   has_many :children, class_name: "MadmpFragment", foreign_key: "parent_id", dependent: :destroy
-  belongs_to :parent, class_name: "MadmpFragment", foreign_key: "parent_id"
+  belongs_to :parent, class_name: "MadmpFragment", foreign_key: "parent_id", optional: true
 
   # ===============
   # = Validations =
   # ===============
 
   # validates :madmp_schema, presence: { message: PRESENCE_MESSAGE }
+  validates :dmp, presence: true, unless: -> { classname.eql?("dmp") }
 
   # ================
   # = Single Table Inheritence =
@@ -200,26 +201,32 @@ class MadmpFragment < ApplicationRecord
                        )
                      end
         editable_data = editable_data.merge(prop => child_data)
+        next
       end
-      next if value.is_a?(Array) && value.empty?
 
-      fragment_tab = []
-      value.each do |v|
-        next if v.nil?
+      if value.is_a?(Array)
+        next if value.empty?
 
-        if v.is_a?(Hash) && v["dbid"].present?
-          child_data = children.exists?(v["dbid"]) ? children.find(v["dbid"]) : MadmpFragment.find(v["dbid"])
-          fragment_tab.push(
-            child_data.get_full_fragment(
-              with_ids: with_ids,
-              with_template_name: with_template_name
+        fragment_tab = []
+        value.each do |v|
+          next if v.nil?
+
+          if v.is_a?(Hash) && v["dbid"].present?
+            child_data = children.exists?(v["dbid"]) ? children.find(v["dbid"]) : MadmpFragment.find(v["dbid"])
+            fragment_tab.push(
+              child_data.get_full_fragment(
+                with_ids: with_ids,
+                with_template_name: with_template_name
+              )
             )
-          )
-        else
-          fragment_tab.push(v)
+          else
+            fragment_tab.push(v)
+          end
+          editable_data = editable_data.merge(prop => fragment_tab)
         end
-        editable_data = editable_data.merge(prop => fragment_tab)
+        next
       end
+      editable_data[prop] = value
     end
     editable_data = { "id" => id, "schema_id" => madmp_schema_id }.merge(editable_data) if with_ids
     editable_data = { "template_name" => madmp_schema.name }.merge(editable_data) if with_template_name
@@ -288,11 +295,14 @@ class MadmpFragment < ApplicationRecord
   # This method is called when a form is opened for the first time
   # It creates the whole tree of sub_fragments
   def instantiate
-    save! unless id.present?
+    p "########"
+    p self
+    p "########"
+    save! if id.nil?
 
     new_data = data
     madmp_schema.schema["properties"].each do |key, prop|
-      next if prop["type"].eql?("object") && prop["schema_id"].nil?
+      next unless prop["type"].eql?("object") && prop["schema_id"].present?
 
       sub_schema = MadmpSchema.find(prop["schema_id"])
 
@@ -453,7 +463,7 @@ class MadmpFragment < ApplicationRecord
   def update_plan_title
     return unless classname.eql?("meta")
 
-    plan.update_columns(title: data["title"])
+    plan.update(title: data["title"])
   end
 
 end

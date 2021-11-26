@@ -7,7 +7,7 @@ module Dmpopidor
     # CHANGE: ADDED BANNER TEXT and ACTIVE
     def admin_update
       attrs = org_params
-      @org = Org.find(params[:id])
+      @org = ::Org.find(params[:id])
       authorize @org
       @org.logo = attrs[:logo] if attrs[:logo]
       tab = (attrs[:feedback_enabled].present? ? "feedback" : "profile")
@@ -22,14 +22,14 @@ module Dmpopidor
 
         # Handle Shibboleth identifier if that is enabled
         if Rails.configuration.x.shibboleth.use_filtered_discovery_service
-          shib = IdentifierScheme.by_name("shibboleth").first
+          shib = ::IdentifierScheme.by_name("shibboleth").first
 
           if shib.present? && attrs[:identifiers_attributes].present?
             key = attrs[:identifiers_attributes].keys.first
             entity_id = attrs[:identifiers_attributes][:"#{key}"][:value]
             # rubocop:disable Metrics/BlockNesting
             if entity_id.present?
-              identifier = Identifier.find_or_initialize_by(
+              identifier = ::Identifier.find_or_initialize_by(
                 identifiable: @org, identifier_scheme: shib, value: entity_id
               )
               @org = process_identifier_change(org: @org, identifier: identifier)
@@ -76,16 +76,6 @@ module Dmpopidor
         failure = failure_message(@org, _("save")) if failure.blank?
         redirect_to "#{admin_edit_org_path(@org)}\##{tab}", alert: failure
       end
-    end
-
-    def org_params
-      params.require(:org)
-            .permit(:name, :abbreviation, :logo, :contact_email, :contact_name,
-                    :remove_logo, :org_type, :managed, :feedback_enabled,
-                    :banner_text, :active, :feedback_email_msg, :org_id,
-                    :org_name, :org_crosswalk,
-                    identifiers_attributes: %i[identifier_scheme_id value],
-                    tracker_attributes: [:code])
     end
 
   end

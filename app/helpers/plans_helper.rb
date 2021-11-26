@@ -2,7 +2,14 @@
 
 module PlansHelper
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/helpers/dmpopidor/plans_helper.rb
+  # --------------------------------
   include Dmpopidor::PlansHelper
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # display the role of the user for a given plan
   def display_role(role)
@@ -17,8 +24,12 @@ module PlansHelper
     end
   end
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/helpers/dmpopidor/plans_helper.rb
+  # CHANGES : Added administrator_visible visibility
+  # --------------------------------
   # display the visibility of the plan
-  # SEE MODULE
   def display_visibility(val)
     case val
     when "organisationally_visible"
@@ -31,8 +42,15 @@ module PlansHelper
       "<span>#{_('Private')}</span>" # Test Plans
     end
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
-  # SEE MODULE
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/helpers/dmpopidor/plans_helper.rb
+  # CHANGES : Added administrator_visible visibility
+  # --------------------------------
   def visibility_tooltip(val)
     case val
     when "organisationally_visible"
@@ -43,6 +61,9 @@ module PlansHelper
       _("Private: restricted to me and people I invite.")
     end
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   def download_plan_page_title(plan, phase, hash)
     # If there is more than one phase show the plan title and phase title

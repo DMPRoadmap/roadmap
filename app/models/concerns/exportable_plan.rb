@@ -6,7 +6,6 @@
 # rubocop:disable Metrics/ModuleLength
 module ExportablePlan
 
-  prepend Dmpopidor::Concerns::ExportablePlan
   include ConditionsHelper
 
   def as_pdf(coversheet = false)
@@ -63,6 +62,14 @@ module ExportablePlan
     hash[:customization] = template.customization_of.present?
     hash[:title] = title
     hash[:answers] = answers
+    # --------------------------------
+    # Start DMP OPIDoR Customization
+    # Changes: Added Research outputs
+    # --------------------------------
+    hash[:research_outputs] = research_outputs
+    # --------------------------------
+    # End DMP OPIDoR Customization
+    # --------------------------------
 
     # add the relevant questions/answers
     phases = []
@@ -93,7 +100,6 @@ module ExportablePlan
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-  # SEE MODULE
   # rubocop:disable Metrics/AbcSize
   def prepare_coversheet
     hash = {}
@@ -106,6 +112,14 @@ module ExportablePlan
 
     # Org name of plan owner's org
     hash[:affiliation] = owner.present? ? owner.org.name : ""
+    # --------------------------------
+    # Start DMP OPIDoR Customization
+    # Changes: Users departments in coversheet
+    # --------------------------------
+    hash[:affiliation] += owner.present? && owner.department ? " - #{owner.department.name}" : ""
+    # --------------------------------
+    # End DMP OPIDoR Customization
+    # --------------------------------
 
     # set the funder name
     hash[:funder] = funder.name if funder.present?

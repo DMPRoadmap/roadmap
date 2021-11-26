@@ -44,9 +44,16 @@ class Plan < ApplicationRecord
 
   include ConditionalUserMailer
   include ExportablePlan
-  prepend Dmpopidor::Plan
   include DateRangeable
   include Identifiable
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/models/dmpopidor/plan.rb
+  # --------------------------------
+  prepend Dmpopidor::Plan
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # =============
   # = Constants =
@@ -58,7 +65,14 @@ class Plan < ApplicationRecord
     organisationally_visible: _("organisational"),
     publicly_visible: _("public"),
     is_test: _("test"),
+    # --------------------------------
+    # Start DMP OPIDoR Customization
+    # CHANGES : Administrator visibility
+    # --------------------------------
     administrator_visible: _("Administrator"),
+    # --------------------------------
+    # End DMP OPIDoR Customization
+    # --------------------------------
     privately_visible: _("private")
   }.freeze
 
@@ -115,16 +129,23 @@ class Plan < ApplicationRecord
 
   has_many :exported_plans
 
-  belongs_to :feedback_requestor, class_name: "User", :foreign_key => "feedback_requestor"
-
-  # RESEARCH OUTPUTS
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # CHANGES : Research outputs & Feedback requestor
+  # --------------------------------
   has_many :research_outputs, dependent: :destroy, inverse_of: :plan do
     # Returns the default research output
     def default
       find_by(is_default: true)
     end
   end
-  
+
+  belongs_to :feedback_requestor, class_name: "User", foreign_key: "feedback_requestor", optional: true
+
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
+
   has_many :contributors, dependent: :destroy
 
   # =====================
@@ -135,9 +156,16 @@ class Plan < ApplicationRecord
 
   accepts_nested_attributes_for :roles
 
-  accepts_nested_attributes_for :research_outputs, reject_if: :all_blank, allow_destroy: true
-
   accepts_nested_attributes_for :contributors
+
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # CHANGES : Research outputs
+  # --------------------------------
+  accepts_nested_attributes_for :research_outputs, reject_if: :all_blank, allow_destroy: true
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # ===============
   # = Validations =
@@ -180,16 +208,23 @@ class Plan < ApplicationRecord
       )
   }
 
-  scope :org_admin_visible, -> (user) {
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # CHANGES : Org admin can view all plans except private visibility
+  # --------------------------------
+  scope :org_admin_visible, lambda { |user|
     plan_ids = Role.where(active: true, user_id: user.id).pluck(:plan_id)
 
     includes(:template, roles: :user)
-    .where(id: plan_ids, visibility: [
-      visibilities[:administrator_visible],
-      visibilities[:organisationally_visible],
-      visibilities[:publicly_visible]
-    ])
+      .where(id: plan_ids, visibility: [
+               visibilities[:administrator_visible],
+               visibilities[:organisationally_visible],
+               visibilities[:publicly_visible]
+             ])
   }
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # TODO: Add in a left join here so we can search contributors as well when
   #       we move to Rails 5:
@@ -245,9 +280,12 @@ class Plan < ApplicationRecord
   # = Class methods =
   # =================
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # CHANGES: Added PRELOAD for madmp_schema & research_output
+  # --------------------------------
   # Pre-fetched a plan phase together with its sections and questions
   # associated. It also pre-fetches the answers and notes associated to the plan
-  # CHANGES: Added PRELOAD for madmp_schema & research_output
   def self.load_for_phase(plan_id, phase_id)
     # Preserves the default order defined in the model relationships
     plan = Plan.joins(:research_outputs, template: { phases: { sections: :questions } })
@@ -258,14 +296,21 @@ class Plan < ApplicationRecord
 
     [plan, phase]
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # CHANGES:
+  #   - Added Research Output Support
+  #   - Added Project/Meta/ResearchOutput Fragments copy
+  # --------------------------------
   # deep copy the given plan and all of it's associations
   # create
   # plan - Plan to be deep copied
   #
   # Returns Plan
-  # Added Research Output Support
-  # Added Project/Meta/ResearchOutput Fragments copy
   def self.deep_copy(plan)
     plan_copy = plan.dup
     plan_copy.title = "Copy of #{plan.title}"
@@ -289,6 +334,9 @@ class Plan < ApplicationRecord
     end
     plan_copy
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # ===========================
   # = Public instance methods =
@@ -309,6 +357,10 @@ class Plan < ApplicationRecord
     template&.settings(key)
   end
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # CHANGES : ADDED RESEARCH OUTPUT SUPPORT
+  # --------------------------------
   # The most recent answer to the given question id optionally can create an answer if
   # none exists.
   #
@@ -318,7 +370,6 @@ class Plan < ApplicationRecord
   #
   # Returns Answer
   # Returns nil
-  # SEE MODULE
   def answer(qid, create_if_missing = true)
     answer = answers.select { |a| a.question_id == qid }
                     .max { |a, b| a.created_at <=> b.created_at }
@@ -336,6 +387,9 @@ class Plan < ApplicationRecord
     end
     answer
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   alias get_guidance_group_options guidance_group_options
 
@@ -347,12 +401,18 @@ class Plan < ApplicationRecord
   #  emails confirmation messages to owners
   #  emails org admins and org contact
   #  adds org admins to plan with the 'reviewer' Role
-  # SEE MODULE
   def request_feedback(user)
     Plan.transaction do
       self.feedback_requested = true
+      # --------------------------------
+      # Start DMP OPIDoR Customization
+      # CHANGES : Added feedback_requestor & request_date columns
+      # --------------------------------
       self.feedback_requestor = user
       self.feedback_request_date = DateTime.current
+      # --------------------------------
+      # End DMP OPIDoR Customization
+      # --------------------------------
       return false unless save!
 
       # Send an email to the org-admin contact
@@ -367,17 +427,26 @@ class Plan < ApplicationRecord
       false
     end
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   ##
   # Finalizes the feedback for the plan: Emails confirmation messages to owners
   # sets flag on plans.feedback_requested to false removes org admins from the
   # 'reviewer' Role for the Plan.
-  # SEE MODULE
   def complete_feedback(org_admin)
     Plan.transaction do
       self.feedback_requested = false
+      # --------------------------------
+      # Start DMP OPIDoR Customization
+      # CHANGES : Added feedback_requestor & request_date columns
+      # --------------------------------
       self.feedback_requestor = nil
       self.feedback_request_date = nil
+      # --------------------------------
+      # End DMP OPIDoR Customization
+      # --------------------------------
       return false unless save!
 
       # Send an email confirmation to the owners and co-owners
@@ -449,12 +518,15 @@ class Plan < ApplicationRecord
     roles.select { |r| r.user_id == user_id && r.active && r.administrator }.any?
   end
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # CHANGES : Reviewer can be from an org different from the plan owner
+  # --------------------------------
   # determines if the plan is reviewable by the specified user
   #
   # user_id - The Integer id for the user
   #
   # Returns Boolean
-  # SEE MODULE
   def reviewable_by?(user_id)
     reviewer = User.find(user_id)
     feedback_requested? &&
@@ -462,6 +534,9 @@ class Plan < ApplicationRecord
       reviewer.org_id == owner&.org_id &&
       reviewer.can_review_plans?
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # the datetime for the latest update of this plan
   #

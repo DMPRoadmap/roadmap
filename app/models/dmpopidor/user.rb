@@ -8,6 +8,7 @@ module Dmpopidor
     # leave account in-place, with org for statistics (until we refactor those)
     #
     # Returns boolean
+    # rubocop:disable Metrics/AbcSize
     def archive
       # rubocop:disable Layout/LineLength
       suffix = Rails.configuration.x.application.fetch(:archived_accounts_email_suffix, "@example.org")
@@ -16,12 +17,10 @@ module Dmpopidor
       copy = dup
       self.firstname = "Anonymous"
       self.surname = "User"
-      self.email = ::User.unique_random(
-        field_name: "email",
-        prefix: "user_",
-        suffix: suffix,
-        length: 5
-      )
+      self.email = ::User.unique_random(field_name: "email",
+                                      prefix: "user_",
+                                      suffix: suffix,
+                                      length: 5)
       self.recovery_email = nil
       self.api_token = nil
       self.encrypted_password = nil
@@ -37,6 +36,7 @@ module Dmpopidor
 
       save
     end
+    # rubocop:enable Metrics/AbcSize
 
   end
 

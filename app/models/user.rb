@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -54,7 +55,13 @@ class User < ApplicationRecord
   include ConditionalUserMailer
   include DateRangeable
   include Identifiable
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # --------------------------------
   prepend Dmpopidor::User
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   extend UniqueRandom
 
@@ -412,11 +419,14 @@ class User < ApplicationRecord
     notifications << notification if notification.dismissable?
   end
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # CHANGES : changed firstname & lastname, deleted user_identifiers & added some log
+  # --------------------------------
   # remove personal data from the user account and save
   # leave account in-place, with org for statistics (until we refactor those)
   #
   # Returns boolean
-  # SEE MODULE
   def archive
     # rubocop:disable Layout/LineLength
     suffix = Rails.configuration.x.application.fetch(:archived_accounts_email_suffix, "@example.org")
@@ -435,6 +445,9 @@ class User < ApplicationRecord
     self.active = false
     save
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   def merge(to_be_merged)
     scheme_ids = identifiers.pluck(:identifier_scheme_id)

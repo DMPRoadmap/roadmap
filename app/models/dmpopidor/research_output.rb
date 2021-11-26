@@ -56,7 +56,7 @@ module Dmpopidor
           )
           fragment_description = Fragment::ResearchOutputDescription.new(
             data: {
-              "title" => fullname,
+              "title" => title,
               "datasetId" => pid
             },
             madmp_schema: MadmpSchema.find_by(name: "ResearchOutputDescriptionStandard"),

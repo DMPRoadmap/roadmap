@@ -8,7 +8,12 @@ class NotesController < ApplicationController
   after_action :verify_authorized
   respond_to :html
 
-  # SEE MODULE
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # Changes:
+  #   - Added RESEARCH OUTPUT SUPPORT
+  #   - Mail notification is sent to all plan collaborators
+  # --------------------------------
   # POST /notes
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def create
@@ -76,8 +81,15 @@ class NotesController < ApplicationController
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
-  # SEE MODULE
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # Changes:
+  #   - Added RESEARCH OUTPUT SUPPORT
+  # --------------------------------
   # PUT /notes/:id
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def update
@@ -117,8 +129,15 @@ class NotesController < ApplicationController
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
-  # SEE MODULE
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # Changes:
+  #   - Added RESEARCH OUTPUT SUPPORT
+  # --------------------------------
   # TODO: Consider just using the :destroy route
   # PATCH /notes/:id/archive
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -160,6 +179,9 @@ class NotesController < ApplicationController
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   private
 

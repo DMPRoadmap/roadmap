@@ -4,9 +4,15 @@ class PublicPagesController < ApplicationController
 
   prepend Dmpopidor::PublicPagesController
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/controllers/dmpopidor/public_pages_controller.rb
+  # CHANGES :
+  #   - Every published template is displayed in the Templates Public pages
+  #   - the templates are sorted by org name
+  # --------------------------------
   # GET template_index
   # -----------------------------------------------------
-  # SEE MODULE
   # rubocop:disable Metrics/AbcSize
   def template_index
     @templates_query_params = {
@@ -24,6 +30,9 @@ class PublicPagesController < ApplicationController
                          .unarchived.published
   end
   # rubocop:enable Metrics/AbcSize
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # GET template_export/:id
   # -----------------------------------------------------

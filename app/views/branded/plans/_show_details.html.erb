@@ -43,7 +43,7 @@
                       question_id: nil,
                       readonly: true,
                       classname: "project",
-                      template_locale: locale,
+                      template_locale: LocaleService.to_gettext(locale: locale),
                       form_prefix: nil,
                       source: "form"
                     }) %>
@@ -96,7 +96,7 @@
                         question_id: nil,
                         readonly: true,
                         classname: "meta",
-                        template_locale: locale,
+                        template_locale: LocaleService.to_gettext(locale: locale),
                         form_prefix: nil,
                         source: "form"
                       }) %>

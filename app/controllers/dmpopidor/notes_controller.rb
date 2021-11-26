@@ -10,21 +10,21 @@ module Dmpopidor
     # Added RESEARCH OUTPUT SUPPORT
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def create
-      @note = Note.new
+      @note = ::Note.new
       @note.user_id = note_params[:user_id]
       # ensure user has access to plan BEFORE creating/finding answer
-      unless Plan.find_by(id: note_params[:plan_id]).readable_by?(@note.user_id)
+      unless ::Plan.find_by(id: note_params[:plan_id]).readable_by?(@note.user_id)
         raise Pundit::NotAuthorizedError
       end
 
-      Answer.transaction do
-        @answer = Answer.find_by(
+      ::Answer.transaction do
+        @answer = ::Answer.find_by(
           plan_id: note_params[:plan_id],
-          question_id: note_params[:question_id], 
-          research_output_id: note_params[:research_output_id] 
+          question_id: note_params[:question_id],
+          research_output_id: note_params[:research_output_id]
         )
         if @answer.blank?
-          @answer             = Answer.new
+          @answer             = ::Answer.new
           @answer.plan_id     = note_params[:plan_id]
           @answer.question_id = note_params[:question_id]
           @answer.user_id     = @note.user_id
@@ -41,7 +41,7 @@ module Dmpopidor
       @plan = @answer.plan
       @research_output = @answer.research_output
 
-      @question = Question.find(note_params[:question_id])
+      @question = ::Question.find(note_params[:question_id])
       section_id = @question.section_id
 
       if @note.save
@@ -90,7 +90,7 @@ module Dmpopidor
     # Research Output support
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def update
-      @note = Note.find(params[:id])
+      @note = ::Note.find(params[:id])
       authorize @note
       @note.text = note_params[:text]
 
@@ -140,7 +140,7 @@ module Dmpopidor
     # Research Output support
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def archive
-      @note = Note.find(params[:id])
+      @note = ::Note.find(params[:id])
       authorize @note
       @note.archived = true
       @note.archived_by = params[:note][:archived_by]

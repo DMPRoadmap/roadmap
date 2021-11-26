@@ -5,11 +5,23 @@ module Paginable
   class ContributorsController < ApplicationController
 
     after_action :verify_authorized
+    # --------------------------------
+    # Start DMP OPIDoR Customization
+    # SEE app/controllers/dmpopidor/paginable/contributors_controller.rb
+    # --------------------------------
     prepend Dmpopidor::Paginable::ContributorsController
+    # --------------------------------
+    # End DMP OPIDoR Customization
+    # --------------------------------
     respond_to :html
 
     include Paginable
 
+    # --------------------------------
+    # Start DMP OPIDoR Customization
+    # SEE app/controllers/dmpopidor/paginable/contributors_controller.rb
+    # CHANGES : Contributors tab display DMP OPIDoR contributors (madmp_fragments)
+    # --------------------------------
     # GET /paginable/plans/:plan_id/contributors
     # GET /paginable/plans/:plan_id/contributors/index/:page
     def index
@@ -22,6 +34,9 @@ module Paginable
         format: :json
       )
     end
+    # --------------------------------
+    # End DMP OPIDoR Customization
+    # --------------------------------
 
   end
 

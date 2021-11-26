@@ -2,14 +2,20 @@
 
 class RegistrationsController < Devise::RegistrationsController
 
-  prepend Dmpopidor::RegistrationsController
   include OrgSelectable
 
   def edit
     @user = current_user
     @prefs = @user.get_preferences(:email)
     @languages = Language.sorted_by_abbreviation
-    @orgs = Org.order("name")
+    # --------------------------------
+    # Start DMP OPIDoR Customization
+    # CHANGES : Excluded funder orgs from registrations
+    # --------------------------------
+    @orgs = Org.where(active: true).where.not("org_type = 2").order("name")
+    # --------------------------------
+    # End DMP OPIDoR Customization
+    # --------------------------------
     @other_organisations = Org.where(is_other: true).pluck(:id)
     @identifier_schemes = IdentifierScheme.for_users.order(:name)
     @default_org = current_user.org

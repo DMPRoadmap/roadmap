@@ -37,7 +37,13 @@ class Template < ApplicationRecord
 
   include GlobalHelpers
   extend UniqueRandom
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # --------------------------------
   prepend Dmpopidor::Template
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   validates_with TemplateLinksValidator
 

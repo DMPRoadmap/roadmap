@@ -32,13 +32,18 @@
 #
 class ResearchOutput < ApplicationRecord
 
-  prepend Dmpopidor::ResearchOutput
-
   include Identifiable
   include ValidationMessages
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # --------------------------------
+  prepend Dmpopidor::ResearchOutput
   after_create :create_json_fragments
   after_destroy :destroy_json_fragment
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   enum output_type: %i[audiovisual collection data_paper dataset event image
                        interactive_resource model_representation physical_object
@@ -65,8 +70,6 @@ class ResearchOutput < ApplicationRecord
   validates_presence_of :output_type_description, if: -> { other? }, message: PRESENCE_MESSAGE
 
   validates :abbreviation, presence: { message: PRESENCE_MESSAGE }
-
-  validates :fullname, presence: { message: PRESENCE_MESSAGE }
 
   validates :plan, presence: { message: PRESENCE_MESSAGE }
 

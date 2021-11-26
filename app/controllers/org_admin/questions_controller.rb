@@ -4,7 +4,6 @@ module OrgAdmin
 
   class QuestionsController < ApplicationController
 
-    prepend Dmpopidor::OrgAdmin::QuestionsController
     include AllowedQuestionFormats
     include Versionable
     include ConditionsHelper
@@ -44,13 +43,21 @@ module OrgAdmin
 
     # rubocop:disable Layout/LineLength
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]/questions/[:question_id]/edit
-    # SEE MODULE
     # rubocop:enable Layout/LineLength
     def edit
       question = Question.includes(:annotations,
                                    :question_options,
                                    section: { phase: :template })
                          .find(params[:id])
+
+      # --------------------------------
+      # Start DMP OPIDoR Customization
+      # CHANGES : Added  MadmpSchema list
+      # --------------------------------
+      @madmp_schemas = MadmpSchema.all
+      # --------------------------------
+      # End DMP OPIDoR Customization
+      # --------------------------------
       authorize question
       render json: { html: render_to_string(partial: "edit", locals: {
                                               template: question.section.phase.template,
@@ -71,6 +78,14 @@ module OrgAdmin
                               question_format: question_format,
                               number: nbr.present? ? nbr + 1 : 1)
       question_formats = allowed_question_formats
+      # --------------------------------
+      # Start DMP OPIDoR Customization
+      # CHANGES : Added  MadmpSchema list
+      # --------------------------------
+      @madmp_schemas = MadmpSchema.all
+      # --------------------------------
+      # End DMP OPIDoR Customization
+      # --------------------------------
       authorize question
       render json: { html: render_to_string(partial: "form", locals: {
                                               template: section.phase.template,
@@ -251,6 +266,14 @@ module OrgAdmin
       params.require(:question)
             .permit(:number, :text, :question_format_id, :option_comment_display,
                     :default_value,
+                    # --------------------------------
+                    # Start DMP OPIDoR Customization
+                    # CHANGES : Added  MadmpSchema id
+                    # --------------------------------
+                    :madmp_schema_id,
+                    # --------------------------------
+                    # End DMP OPIDoR Customization
+                    # --------------------------------
                     question_options_attributes: %i[id number text is_default _destroy],
                     annotations_attributes: %i[id text org_id org type _destroy],
                     theme_ids: [])

@@ -7,6 +7,10 @@ class AnswersController < ApplicationController
   include ConditionsHelper
   prepend Dmpopidor::AnswersController
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # CHANGES: Added Research output support
+  # --------------------------------
   # POST /answers/create_or_update
   # TODO: Why!? This method is overly complex. Needs a serious refactor!
   #       We should break apart into separate create/update actions to simplify
@@ -167,9 +171,16 @@ class AnswersController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   private
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # CHANGES: Added research_output_id, :is_common, :parent_id
+  # --------------------------------
   def permitted_params
     permitted = params.require(:answer)
                       .permit(:id, :text, :plan_id, :user_id, :question_id,
@@ -186,6 +197,9 @@ class AnswersController < ApplicationController
     permitted[:question_option_ids] = [] if params[:answer][:question_option_ids].nil?
     permitted
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   def check_answered(section, q_array, all_answers)
     n_qs = section.questions.select { |question| q_array.include?(question.id) }.length

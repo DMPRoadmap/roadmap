@@ -34,7 +34,14 @@ class Phase < ApplicationRecord
 
   include ActsAsSortable
   include VersionableModel
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/models/dmpopidor/phase.rb
+  # --------------------------------
   prepend Dmpopidor::Phase
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   include ConditionsHelper
 
@@ -139,10 +146,17 @@ class Phase < ApplicationRecord
     count
   end
 
-  # SEE MODULE
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/models/dmpopidor/phase.rb
+  # CHANGES : Research outputs support
+  # --------------------------------
   def visibility_allowed?(plan)
     value = Rational(num_answered_questions(plan), plan.num_questions) * 100
     value >= Rails.configuration.x.plans.default_percentage_answered.to_f
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
 end
