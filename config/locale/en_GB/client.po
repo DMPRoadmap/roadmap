@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-11-23 15:30+0100\n"
-"PO-Revision-Date: 2021-11-23 15:30+0100\n"
+"POT-Creation-Date: 2021-11-29 11:31+0100\n"
+"PO-Revision-Date: 2021-11-29 11:31+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -1456,6 +1456,10 @@ msgstr ""
 
 #: ../../app/views/branded/phases/_edit_plan_answers.html.erb:79
 msgid "Changes saved."
+msgstr ""
+
+#: ../../app/views/branded/phases/_edit_plan_answers.html.erb:114
+msgid "Comments & Guidance"
 msgstr ""
 
 #: ../../app/views/branded/phases/_guidances_notes.html.erb:21
