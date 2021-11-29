@@ -13,7 +13,7 @@ RSpec.describe Api::V2::RelatedIdentifiersController, type: :request do
     @plan = create(:plan, :creator)
 
     @client = create(:api_client, trusted: false,
-                                    user: create(:user, :org_admin, org: create(:org)))
+                                  user: create(:user, :org_admin, org: create(:org)))
     token = client_is_authorized(@client, @plan.owner, { scopes: "edit_dmps" })
     resource_owner_is_authenticated(@plan.owner)
 
@@ -99,6 +99,15 @@ RSpec.describe Api::V2::RelatedIdentifiersController, type: :request do
                   .fetch(:items, [{}])
                   .first[:dmp][:dmproadmap_related_identifiers]
       expect(r_ids).to eql(@json[:dmp][:dmproadmap_related_identifiers])
+    end
+    it "logs the addition of the new related identifier in the api_logs" do
+      post api_v2_related_identifiers_path, params: @json.to_json, headers: @headers
+      entry = ApiLog.all.last
+      expect(entry.present?).to eql(true)
+      expect(entry.api_client_id).to eql(ApiClient.all.last)
+      expect(entry.logable).to eql(@plan)
+      expect(entry.change_type).to eql('added')
+      expect(entry.activity).to eql(nil)
     end
   end
 

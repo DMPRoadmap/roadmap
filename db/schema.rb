@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_13_172016) do
+ActiveRecord::Schema.define(version: 2021_11_29_155648) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -64,7 +64,21 @@ ActiveRecord::Schema.define(version: 2021_10_13_172016) do
     t.boolean "trusted", default: false
     t.integer "callback_method"
     t.string "callback_uri"
+    t.integer "user_id"
     t.index ["name"], name: "index_oauth_applications_on_name"
+  end
+
+  create_table "api_logs", force: :cascade do |t|
+    t.bigint "api_client_id", null: false
+    t.integer "change_type", null: false
+    t.text "activity"
+    t.bigint "logable_id"
+    t.string "logable_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["api_client_id"], name: "index_api_logs_on_api_client_id"
+    t.index ["change_type"], name: "index_api_logs_on_change_type"
+    t.index ["logable_id", "logable_type", "change_type"], name: "index_api_logs_on_logable_and_change_type"
   end
 
   create_table "conditions", id: :integer, force: :cascade do |t|
@@ -285,18 +299,19 @@ ActiveRecord::Schema.define(version: 2021_10_13_172016) do
     t.datetime "last_access"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "org_id"
     t.text "redirect_uri"
     t.string "scopes", default: "", null: false
     t.boolean "confidential", default: true
     t.boolean "trusted", default: false
-    t.bigint "user_id"
+    t.bigint "owner_id"
     t.string "logo_uid"
     t.string "logo_name"
     t.string "callback_uri"
     t.integer "callback_method"
+    t.string "owner_type", default: "User"
     t.index ["name"], name: "index_oauth_applications_on_name"
-    t.index ["user_id"], name: "index_oauth_applications_on_user_id"
+    t.index ["owner_id", "owner_type"], name: "index_oauth_applications_on_owner_id_and_owner_type"
+    t.index ["owner_id"], name: "index_oauth_applications_on_owner_id"
   end
 
   create_table "org_token_permissions", id: :integer, force: :cascade do |t|

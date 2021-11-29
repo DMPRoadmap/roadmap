@@ -38,6 +38,9 @@ module Api
             errs += id.errors.full_messages unless id.valid?
             next unless id.valid?
 
+            # Record this API activity
+            log_activity(subject: id, change_type: :added)
+
             id.save
           end
         end

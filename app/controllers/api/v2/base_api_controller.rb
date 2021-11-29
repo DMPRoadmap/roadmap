@@ -113,6 +113,31 @@ module Api
         false
       end
 
+      # Record the activity
+      def log_activity(subject:, change_type:)
+        return false unless @client.present? && subject.present? && change_type.present? &&
+                            @client.is_a?(ApiClient) &&
+                            ApiLog.change_types.keys.include?(change_type.to_sym)
+
+        case change_type.to_sym
+        when :added
+          activity = "Created a new #{subject.class.name}: %<link_to_subject>s<br>%<subject>s"
+        when :removed
+          activity = "Deleted a #{subject.class.name}:<br>%<subject>s"
+        else
+          activity = "Modified a #{subject.class.name}: %<link_to_subject>s<br>%<changes>s"
+        end
+
+        activity = activity % {
+          subject: subject.inspect,
+          link_to_subject: subject.is_a?(Plan) ? "<a href=\"#{plans_path(subject)}\">#{subject.id}</a>" : "ID: #{subject.id}",
+          changes: subject.changed? ? subject.previous_changes&.inspect : subject.changes&.inspect
+        }
+
+        ApiLog.create(api_client_id: @client.id, logable: subject, change_type: change_type,
+                      activity: activity)
+      end
+
       # Record the timestamp
       def log_access
         return false unless @client.present?

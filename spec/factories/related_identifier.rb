@@ -24,7 +24,7 @@
 #  index_relateds_on_identifiable_and_relation_type   (identifiable_id,identifiable_type,relation_type)
 #
 FactoryBot.define do
-  factory :related_identifier do
+  factory :related_identifiers do
     identifier_type { RelatedIdentifier.identifier_types.keys.sample }
     relation_type   { RelatedIdentifier.relation_types.keys.sample }
     work_type       { RelatedIdentifier.work_types.keys.sample }
