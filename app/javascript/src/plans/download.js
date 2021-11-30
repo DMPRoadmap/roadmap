@@ -22,13 +22,21 @@ $(() => {
       $('#download-settings').show();
     }
 
-    // muti-phase download not allowed for csv. trigger in both onload and change event
+    /*
+     Issue 70: first option 'All Phases' should be selected in default for pdf, html, docx and text.
+     Skip json for now since no phase has been set up yet for this format
+     For csv:
+     - Muti-phase download not allowed for csv
+     - the second phase will be automatically selected and 'All Phases' option will be hidden
+     */
     if (frmt === 'csv') {
       $('#phase_id').find('option[value="All"').hide();
-      $('#phase_id option:first').attr('selected', 'selected');
-      $('#phase_id').val($('#phase_id option:first').val()); // for different browsers
-    } else {
+      $('#phase_id option:eq(1)').attr('selected', 'selected');
+      $('#phase_id').val($('#phase_id option:eq(1)').val());
+    } else if (frmt === 'pdf' || frmt === 'html' || frmt === 'docx' || frmt === 'text') {
       $('#phase_id').find('option[value="All"').show();
+      $('#phase_id').val($('#phase_id option:first').val());
+      $('#phase_id option:first').attr('selected', 'selected');
     }
   }).trigger('change');
 });
