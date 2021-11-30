@@ -10,7 +10,9 @@ class Paginable::MadmpSchemasController < ApplicationController
     paginable_renderise(
       partial: "index",
       scope: MadmpSchema.all,
-      query_params: { sort_field: "madmp_schemas.name", sort_direction: :asc })
+      query_params: { sort_field: "madmp_schemas.name", sort_direction: :asc },
+      format: :json
+    )
   end
 
 end

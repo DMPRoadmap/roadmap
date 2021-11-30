@@ -212,12 +212,8 @@ $(() => {
     });
   });
 
-  $('.project-form').on('click, change', '.set_test_plan input[type="checkbox"]', (e) => {
-    const form = $(e.target).closest('form');
-    form.trigger('submit');
-  });
-
-  $('.project-form').on('ajax:success', '.set_test_plan', (e, data) => {
+  $('.project-form').on('ajax:success', 'input.set_test_plan', (e) => {
+    const data = e.detail[0];
     if (data.code === 1 && data.msg && data.msg !== '') {
       notifier.renderNotice(data.msg, { autoDismiss: true });
     } else {

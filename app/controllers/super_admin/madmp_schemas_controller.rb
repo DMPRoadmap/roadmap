@@ -5,7 +5,6 @@ module SuperAdmin
   class MadmpSchemasController < ApplicationController
 
     before_action :set_schema, only: %i[edit update destroy]
-    before_action :substitute_names, only: %i[create update]
 
     # GET /madmp_schemas
     def index
@@ -20,8 +19,10 @@ module SuperAdmin
 
     def create
       authorize(MadmpSchema)
-      @schema = MadmpSchema.new(permitted_params)
+      @schema = MadmpSchema.new(permitted_params.except(:schema))
       if @schema.save
+        load_schema(permitted_params[:schema], @schema)
+        @schema.update(schema: MadmpSchema.substitute_names(@schema.schema))
         flash.now[:notice] = success_message(@schema, _("created"))
         render :edit
       else
@@ -36,7 +37,9 @@ module SuperAdmin
 
     def update
       authorize(MadmpSchema)
-      if @schema.update_attributes(permitted_params)
+      if @schema.update_attributes(permitted_params.except(:schema))
+        load_schema(permitted_params[:schema], @schema)
+        @schema.update(schema: MadmpSchema.substitute_names(@schema.schema))
         flash.now[:notice] = success_message(@schema, _("updated"))
       else
         flash.now[:alert] = failure_message(@schema, _("update"))
@@ -63,10 +66,18 @@ module SuperAdmin
       @schema = MadmpSchema.find(params[:id])
     end
 
-    def substitute_names
-      params[:madmp_schema][:schema] = MadmpSchema.substitute_names(
-        permitted_params[:schema]
-      )
+    def load_schema(schema_file, schema)
+      return if schema_file.nil?
+
+      if schema_file.respond_to?(:read)
+        schema_data = schema_file.read
+      elsif schema_file.respond_to?(:path)
+        schema_data = File.read(schema_file.path)
+      else
+        logger.error "Bad schema_file: #{schema_file.class.name}: #{schema_file.inspect}"
+      end
+      json_schema = JSON.parse(schema_data)
+      schema.update(schema: json_schema.to_json)
     end
 
     def permitted_params

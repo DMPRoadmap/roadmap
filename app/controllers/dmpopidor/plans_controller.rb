@@ -38,7 +38,7 @@ module Dmpopidor
     # rubocop:enable Metrics/AbcSize
 
     def budget
-      @plan = Plan.find(params[:id])
+      @plan = ::Plan.find(params[:id])
       dmp_fragment = @plan.json_fragment
       @costs = Fragment::Cost.where(dmp_id: dmp_fragment.id)
       authorize @plan

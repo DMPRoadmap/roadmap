@@ -2,7 +2,7 @@
   plan_fragment = @plan.json_fragment
   contributors = plan_fragment.contributors
   costs = Fragment::Cost.where(dmp_id: plan_fragment.id)
-  locale = @plan.template.locale
+  locale = LocaleService.to_gettext(locale: @plan.template.locale)
   template = @plan.template 
   template_title = template.title
   template_title += " - #{_('Customized')}" if template.customization_of.present?

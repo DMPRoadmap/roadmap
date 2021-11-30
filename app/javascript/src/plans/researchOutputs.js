@@ -20,7 +20,8 @@ $(() => {
       });
     },
   });
-  $('#research-outputs').on('ajax:success', (e, data) => {
+  $('#research-outputs').on('ajax:success', (e) => {
+    const data = e.detail[0];
     $('#research-outputs-list').html(data.html);
     Select2.init('#research-outputs-list');
   });

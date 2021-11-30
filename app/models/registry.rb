@@ -24,7 +24,7 @@ class Registry < ApplicationRecord
 
   has_many :registry_values, dependent: :destroy
 
-  belongs_to :org
+  belongs_to :org, optional: true
 
   # ===============
   # = Validations =

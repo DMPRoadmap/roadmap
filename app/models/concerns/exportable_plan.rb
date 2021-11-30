@@ -8,8 +8,8 @@ module ExportablePlan
 
   include ConditionsHelper
 
-  def as_pdf(coversheet = false)
-    prepare(coversheet)
+  def as_pdf(user, coversheet = false)
+    prepare(user, coversheet)
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/ParameterLists
@@ -76,7 +76,8 @@ module ExportablePlan
     template.phases.each do |phase|
       phs = { title: phase.title, number: phase.number, sections: [] }
       phase.sections.each do |section|
-        sctn = { title: section.title,
+        sctn = { id: section.id,
+                 title: section.title,
                  number: section.number,
                  questions: [],
                  modifiable: section.modifiable }

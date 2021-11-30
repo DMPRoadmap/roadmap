@@ -29,7 +29,7 @@ module Settings
                             principal_investigator project_data_contact
                             project_description funder institution orcid].freeze
 
-    VALID_FORMATS = %w[csv html pdf text docx json].freeze
+    VALID_FORMATS = %w[html pdf docx json].freeze
 
     DEFAULT_SETTINGS = {
       formatting: {

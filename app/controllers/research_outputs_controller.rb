@@ -75,19 +75,18 @@ class ResearchOutputsController < ApplicationController
     max_order = @plan.research_outputs.maximum("order") + 1
     @plan.research_outputs.create(
       abbreviation: "Research Output #{max_order}",
-      fullname: "New research output #{max_order}",
+      title: "New research output #{max_order}",
       is_default: false,
-      type: ResearchOutputType.find_by(label: "Dataset"),
       order: max_order
     )
 
     authorize @plan
     render json: {
       "html" => render_to_string(partial: "research_outputs/list", locals: {
-        plan: @plan,
-        research_outputs: @plan.research_outputs,
-        readonly: false
-      })
+                                   plan: @plan,
+                                   research_outputs: @plan.research_outputs,
+                                   readonly: false
+                                 })
     }
   end
 

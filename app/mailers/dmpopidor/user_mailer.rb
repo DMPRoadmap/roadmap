@@ -57,6 +57,7 @@ module Dmpopidor
         mail(to: @role.user.email,
              subject: _("%{user_name} has shared a Data Management Plan with you in %{tool_name}") %
              {
+               user_name: @inviter.name(false),
                tool_name: tool_name
              })
       end
@@ -209,7 +210,7 @@ module Dmpopidor
     private
 
     def current_locale(user)
-      user.get_locale.nil? ? I18n.default_locale : user.get_locale
+      user.locale.nil? ? I18n.default_locale : user.locale
     end
 
   end

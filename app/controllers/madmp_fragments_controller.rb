@@ -143,49 +143,47 @@ class MadmpFragmentsController < ApplicationController
 
     # rubocop:disable Metrics/BlockLength
     MadmpFragment.transaction do
-      begin
-        @fragment = MadmpFragment.find_by(
-          id: params[:id],
-          dmp_id: p_params[:dmp_id]
-        )
-        authorize @fragment
+      @fragment = MadmpFragment.find_by(
+        id: params[:id],
+        dmp_id: p_params[:dmp_id]
+      )
+      authorize @fragment
 
-        if MadmpFragment.fragment_exists?(
-          data, schema, p_params[:dmp_id], @fragment.parent_id, params[:id]
-        )
-          render json: {
-            "error" => _("Element is already present in your plan.")
-          }, status: 409
-          return
-        end
+      if MadmpFragment.fragment_exists?(
+        data, schema, p_params[:dmp_id], @fragment.parent_id, params[:id]
+      )
+        render json: {
+          "error" => _("Element is already present in your plan.")
+        }, status: 409
+        return
+      end
 
-        additional_info = @fragment.additional_info.merge(
-          "validations" => MadmpFragment.validate_data(data, schema.schema)
-        )
-        @fragment.assign_attributes(
-          additional_info: additional_info,
-          madmp_schema_id: schema.id
-        )
-        if p_params[:source].eql?("form") && @fragment.answer.present?
-          @fragment.answer.update!(
-            lock_version: p_params[:answer][:lock_version],
-            is_common: p_params[:answer][:is_common],
-            user_id: current_user.id
-          )
-        end
-
-        @fragment.save_form_fragment(data, schema)
-      rescue ActiveRecord::StaleObjectError
-        @stale_fragment = @fragment
-        @stale_fragment.data = @fragment.data.merge(stale_data(data, schema))
-
-        @fragment = MadmpFragment.find_by(
-          id: params[:id],
-          dmp_id: p_params[:dmp_id]
+      additional_info = @fragment.additional_info.merge(
+        "validations" => MadmpFragment.validate_data(data, schema.schema)
+      )
+      @fragment.assign_attributes(
+        additional_info: additional_info,
+        madmp_schema_id: schema.id
+      )
+      if p_params[:source].eql?("form") && @fragment.answer.present?
+        @fragment.answer.update!(
+          lock_version: p_params[:answer][:lock_version],
+          is_common: p_params[:answer][:is_common],
+          user_id: current_user.id
         )
       end
-      # rubocop:enable Metrics/BlockLength
+
+      @fragment.save_form_fragment(data, schema)
+    rescue ActiveRecord::StaleObjectError
+      @stale_fragment = @fragment
+      @stale_fragment.data = @fragment.data.merge(stale_data(data, schema))
+
+      @fragment = MadmpFragment.find_by(
+        id: params[:id],
+        dmp_id: p_params[:dmp_id]
+      )
     end
+    # rubocop:enable Metrics/BlockLength
 
     return unless @fragment.present?
 

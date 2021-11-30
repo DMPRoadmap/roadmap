@@ -9,8 +9,6 @@ module OrgAdmin
     include Versionable
     include TemplateMethods
 
-    prepend Dmpopidor::OrgAdmin::TemplatesController
-
     after_action :verify_authorized
 
     # The root version of index which returns all templates

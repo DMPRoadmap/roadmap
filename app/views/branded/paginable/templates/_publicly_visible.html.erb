@@ -14,6 +14,7 @@
       </tr>
     </thead>
     <tbody>
+      <% signed_in = user_signed_in? %>
       <% scope.each do |template| %>
         <tr id="<%= dom_id(template) %>">
           <td>

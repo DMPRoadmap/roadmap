@@ -108,7 +108,7 @@ class MadmpFragment < ApplicationRecord
 
   # Returns the schema associated to the JSON fragment
   def json_schema
-    madmp_schema.schema
+    JSON.parse(madmp_schema.schema)
   end
 
   def dmp_fragments
@@ -295,9 +295,6 @@ class MadmpFragment < ApplicationRecord
   # This method is called when a form is opened for the first time
   # It creates the whole tree of sub_fragments
   def instantiate
-    p "########"
-    p self
-    p "########"
     save! if id.nil?
 
     new_data = data

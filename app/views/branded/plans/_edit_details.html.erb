@@ -70,7 +70,11 @@
             <div class="checkbox">
               <%= form_for plan, url: set_test_plan_path(plan), html: { method: :post, class: 'set_test_plan', remote: true } do |f| %>
                 <%= f.label(:is_test, class: 'control-label') do %>
-                <%= check_box_tag(:is_test, "1", (plan.visibility === 'is_test'), title: _("Is it a test plan ?"), id: nil) %>
+                  <%= check_box_tag :is_test, "1", (plan.visibility === "is_test"),
+                                      title: _("Is it a test plan ?"),
+                                      class: "set_test_plan",
+                                      data: { remote: true, method: :post,
+                                              url: set_test_plan_path(plan) } %>
                   <%= _('mock project for testing, practice, or educational purposes') %>
                 <% end %>
               <% end %>
