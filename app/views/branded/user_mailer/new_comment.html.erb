@@ -32,10 +32,7 @@
   <%= _('Section name: %{section_title}') %{ :section_title => section_title } %>
 </p>
 <p>
-  <%= research_output.is_default == false ? 
-      d_('dmpopidor', 'Research output name: %{research_output_name}') %{ :research_output_name => research_output_name } :
-      nil
-    %>
+  <%= d_('dmpopidor', 'Research output name: %{research_output_name}') % { :research_output_name => research_output_name } %>
 </p>
 <p>
   <%= _('Question: %{question_number}') %{ :question_number => question_number } %>
