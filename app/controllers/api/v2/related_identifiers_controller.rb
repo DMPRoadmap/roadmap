@@ -30,18 +30,19 @@ module Api
           json: related_identifiers
         )
 
-        RelatedIdentifier.transaction do
-          related_identifiers.each do |related_identifier|
-            id = Api::V2::Deserialization::RelatedIdentifier.deserialize(
-              plan: plan, json: related_identifier
-            )
-            errs += id.errors.full_messages unless id.valid?
-            next unless id.valid?
+        if errs.empty?
+          RelatedIdentifier.transaction do
+            related_identifiers.each do |related_identifier|
+              id = Api::V2::Deserialization::RelatedIdentifier.deserialize(
+                plan: plan, json: related_identifier
+              )
+              errs += id.errors.full_messages unless id.valid?
+              next unless id.valid? && id.new_record?
 
-            # Record this API activity
-            log_activity(subject: id, change_type: :added)
-
-            id.save
+              id.save
+              # Record this API activity
+              log_activity(subject: id, change_type: :added)
+            end
           end
         end
 

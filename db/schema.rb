@@ -46,28 +46,6 @@ ActiveRecord::Schema.define(version: 2021_11_29_155648) do
     t.index ["answer_id"], name: "index_answers_question_options_on_answer_id"
   end
 
-  create_table "api_clients", id: :integer, force: :cascade do |t|
-    t.string "name", null: false
-    t.string "description"
-    t.string "homepage"
-    t.string "contact_name"
-    t.string "contact_email"
-    t.string "client_id", null: false
-    t.string "client_secret", null: false
-    t.datetime "last_access"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "org_id"
-    t.text "redirect_uri"
-    t.string "scopes", default: "", null: false
-    t.boolean "confidential", default: true
-    t.boolean "trusted", default: false
-    t.integer "callback_method"
-    t.string "callback_uri"
-    t.integer "user_id"
-    t.index ["name"], name: "index_oauth_applications_on_name"
-  end
-
   create_table "api_logs", force: :cascade do |t|
     t.bigint "api_client_id", null: false
     t.integer "change_type", null: false
@@ -303,15 +281,13 @@ ActiveRecord::Schema.define(version: 2021_11_29_155648) do
     t.string "scopes", default: "", null: false
     t.boolean "confidential", default: true
     t.boolean "trusted", default: false
-    t.bigint "owner_id"
+    t.bigint "user_id"
     t.string "logo_uid"
     t.string "logo_name"
     t.string "callback_uri"
     t.integer "callback_method"
-    t.string "owner_type", default: "User"
     t.index ["name"], name: "index_oauth_applications_on_name"
-    t.index ["owner_id", "owner_type"], name: "index_oauth_applications_on_owner_id_and_owner_type"
-    t.index ["owner_id"], name: "index_oauth_applications_on_owner_id"
+    t.index ["user_id"], name: "index_oauth_applications_on_user_id"
   end
 
   create_table "org_token_permissions", id: :integer, force: :cascade do |t|

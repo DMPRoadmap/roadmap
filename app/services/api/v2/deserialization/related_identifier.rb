@@ -14,6 +14,7 @@ module Api
           #    {
           #      "descriptor": "is_referenced_by",
           #      "type": "url",
+          #      "work_type": "dataset",
           #      "identifier": "https://example.org/12345"
           #    }
           def deserialize(plan:, json: {})
