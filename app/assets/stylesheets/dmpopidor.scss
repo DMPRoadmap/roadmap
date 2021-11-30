@@ -588,6 +588,12 @@ header .main-nav {
         .panel-title {
             color: $dark-blue;
             font-weight: bold;
+            a {
+                display: inline;
+                padding: 0;
+                margin: 0;
+                background-color: $white;
+            }
         }
     }
     .question-body{
