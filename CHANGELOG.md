@@ -4,6 +4,7 @@
 
 ## Fixed
   - Usage statistics now show the statistics for the current user's organization
+  - Tab widget nOW working on user profile view [#73](https://github.com/portagenetwork/roadmap/issues/73)
 ## [2.1.3+portage-1.0.17] - 2021-08-11
 
 ## Added
