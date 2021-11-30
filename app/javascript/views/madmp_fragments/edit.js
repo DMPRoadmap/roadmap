@@ -16,6 +16,17 @@ $(() => {
   const showLoadingOverlay = jQuery => jQuery.find('.overlay').show();
   const hideLoadingOverlay = jQuery => jQuery.find('.overlay').hide();
   const toolbar = 'bold italic underline | fontsizeselect forecolor | bullist numlist | link | table';
+  const displayRunTabs = (formData, questionId, researchOutputId) => {
+    console.log($(`#runs-${questionId}-research-output-${researchOutputId} .run-zone`));
+    if (formData) {
+      $(`#runs-${questionId}-research-output-${researchOutputId} .run-zone`).html(formData);
+      $(`#collapse-${questionId}-research-output-${researchOutputId} .runs-tab`).show();
+    } else {
+      $(`#runs-${questionId}-research-output-${researchOutputId} .run-zone`).html('');
+      $(`#collapse-${questionId}-research-output-${researchOutputId} .runs-tab`).hide();
+      $(`a[href="#notes-${questionId}-research-output-${researchOutputId}"]`).tab('show');
+    }
+  };
 
   $('.panel-collapse').on('shown.bs.collapse reload.form', (e) => {
     const target = $(e.target);
@@ -35,7 +46,7 @@ $(() => {
         },
       }).done((data) => {
         doneCallback(data, target);
-        $(`#runs-${data.question.id}-research-output-${data.research_output.id} .run-zone`).html(data.question.form_run);
+        displayRunTabs(data.question.form_run, data.question.id, data.research_output.id);
         Tinymce.init({
           selector: `#research_output_${data.research_output.id}_section_${data.section.id} .note`,
           toolbar,
@@ -111,7 +122,7 @@ $(() => {
       },
     }).done((data) => {
       doneCallback(data, target);
-      $(`#runs-${data.question.id}-research-output-${data.research_output.id} .run-zone`).html(data.question.form_run);
+      displayRunTabs(data.question.form_run, data.question.id, data.research_output.id);
       Select2.init(`#answer-form-${data.question.id}-research-output-${data.research_output.id}`);
     }).fail((error) => {
       failCallback(error, target);
