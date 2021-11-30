@@ -1,7 +1,7 @@
 <%= "#{@plan.title}" %>
 <%= "----------------------------------------------------------\n" %>
 <% if @show_coversheet %>
-<%= @hash[:attribution].many? ? _("Creators: ") : _('Creator:') %> <%= @hash[:attribution].join(', ') %>
+<%= @hash[:attribution].length > 1 ? _("Creators: ") : _('Creator:') %> <%= @hash[:attribution].join(', ') %>
 <%= _("Affiliation: ") + @hash[:affiliation] %>
   <% if @hash[:funder].present? %>
 <%= _("Template: ") + @hash[:funder] %>
@@ -24,7 +24,7 @@
 <% @hash[:phases].each do |phase| %>
 <%# Only render selected phase %>
 <% if phase[:title] == @selected_phase.title %>
-<%= (@hash[:phases].many? ? "#{phase[:title]}" : "") %>
+<%= (@hash[:phases].length > 1 ? "#{phase[:title]}" : "") %>
   <% phase[:sections].each do |section| %>
     <% if display_section?(@hash[:customization], section, @show_custom_sections) && num_section_questions(@plan, section, phase) > 0 %>
       <% if @show_sections_questions %>

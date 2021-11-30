@@ -68,9 +68,9 @@ module OrgAdmin
           csv << [
             plan.title.to_s,
             plan.template.title.to_s,
-            (plan.owner.org.present? ? plan.owner.org.name : '').to_s,
-            plan.owner.name(false).to_s,
-            plan.owner.email.to_s,
+            (plan.owner&.org&.present? ? plan.owner.org.name : "").to_s,
+            plan.owner&.name(false)&.to_s,
+            plan.owner&.email&.to_s,
             l(plan.latest_update.to_date, format: :csv).to_s,
             Plan::VISIBILITY_MESSAGE[plan.visibility.to_sym].capitalize.to_s
           ]
