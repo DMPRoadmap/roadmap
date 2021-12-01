@@ -69,8 +69,8 @@
 
   <!-- SHIBBOLETH CREDENTIALS -->
   <% @identifier_schemes.each do |scheme| %>
+    <% next if scheme.name.downcase == 'shibboleth' && !Rails.application.config.shibboleth_enabled %>
     <div class="form-group col-xs-8">
-      <% next if scheme.name.downcase == 'shibboleth' && !Rails.application.config.shibboleth_enabled %>
       <% if scheme.name.downcase == 'shibboleth' %>
         <label class='control-label'>
           <span class="aria-only" aria-hidden="false"><%= _('Institutional credentials') %></span>
