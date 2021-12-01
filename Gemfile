@@ -361,6 +361,6 @@ group :development do
   gem "yard-tomdoc"
 end
 
-group :production, :staging do
+group :production, :staging, :sandbox do
   gem 'syslog-logger'
 end
