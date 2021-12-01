@@ -17,9 +17,10 @@ class ApplicationController < ActionController::Base
   include Pundit
   helper_method GlobalHelpers.instance_methods
 
+  # Reroute errors to the root_path or plans_path (if user is signed in) with an
+  # appropriate message
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-  # When we are in production reroute Record Not Found errors to the branded 404 page
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
   rescue_from ActionController::InvalidAuthenticityToken, with: :ignore_error

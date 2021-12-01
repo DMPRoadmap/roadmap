@@ -171,7 +171,7 @@ class PlansController < ApplicationController
       template: { phases: { sections: { questions: :answers } } },
       plans_guidance_groups: { guidance_group: :guidances }
     ).find_by(id: params[:id])
-    raise ActiveRecord::RecordNotFound _("plan not found") unless @plan.present?
+    raise ActiveRecord::RecordNotFound unless @plan.present?
 
     authorize @plan
 
