@@ -31,7 +31,7 @@
       <%= select_tag "csv-field-sep", options_for_select(separators, separators[0]), {class: "single-char-select"} %>
     </form>
   </div>
-  <% if current_user.can_super_admin? %>
+  <% if current_user.can_super_admin? || current_user.can_org_admin? %>
     <div class="col-md-3">
       <%= link_to usage_global_statistics_path(sep: ",", filtered: @filtered), class: "stat btn btn-default #{'pull-right' if @funder.present?}", role: 'button', target: '_blank' do %>
         <%= _('Download global usage') %> <i class="fas fa-download" aria-hidden="true"></i>
