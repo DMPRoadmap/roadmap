@@ -5,7 +5,9 @@ tooltip = _("List products related to this project, such as journal articles, so
 %>
 
 <hr>
-<h2><%= _("Related works") %></h2>
+<% if plan.related_identifiers.any? || current_user.can_org_admin? %>
+  <h2><%= _("Related works") %></h2>
+<% end %>
 
 <div class="form-group related-works">
   <% if plan.related_identifiers.any? %>
