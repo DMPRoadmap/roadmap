@@ -448,8 +448,8 @@ class Plan < ApplicationRecord
   # Returns User
   # Returns nil
   def owner
-    r = roles.select { |rr| rr.active && rr.administrator }
-             .min { |a, b| a.created_at <=> b.created_at }
+    r = roles.select { |rr| rr&.active && rr&.administrator }
+             .min { |a, b| a&.created_at <=> b&.created_at }
     r.nil? ? nil : r.user
   end
 
@@ -620,20 +620,6 @@ class Plan < ApplicationRecord
     return doi if doi.present?
 
     plan.identifier_for_scheme(scheme: identifier_scheme) || plan.id
-  end
-
-  # Retrieves the Plan's most recent DOI
-  def doi
-    return nil unless Rails.configuration.x.allow_doi_minting
-
-    schemes = IdentifierScheme.for_identification.where(name: DoiService.scheme_name)
-
-    if schemes.any?
-      identifiers.select { |id| schemes.include?(id.identifier_scheme) }.last
-    else
-      # If there is curently no identifier schemes defined as identification
-      identifiers.select { |id| %w[ark doi].include?(id.identifier_format) }.last
-    end
   end
 
   # Returns whether or not minting is allowed for the current plan
