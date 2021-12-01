@@ -62,7 +62,7 @@ end
     </ul>
     <p><%= _("Once the steps above are satisfied, a button to register your plan will appear here.") %></p>
   <% else %>
-    <div class="doi-minter">
+    <div class="dmp-id-minter">
       <p>
         <span title="<%= general_tooltip %>" data-toggle="tooltip"><%= general_message.html_safe %></span
       </p>
@@ -78,7 +78,7 @@ end
                                     class: "btn btn-default mint-dmp-id"
                                   } %>
       </div>
-      <p class="doi-minter-response"></p>
+      <p class="dmp-id-minter-response"></p>
     </div>
   <% end %>
 <% end %>

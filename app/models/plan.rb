@@ -613,15 +613,6 @@ class Plan < ApplicationRecord
     visibility_allowed? && orcid.present? && funder.present?
   end
 
-  # Returns the Plan's unique identifier for the Identifier_Scheme or the record id if none is found
-  def unique_identifier(identifier_scheme:)
-    # If the system has the DMP ID gem installed use the plan's doi
-    doi = plan.doi if plan.respond_to?(:doi)
-    return doi if doi.present?
-
-    plan.identifier_for_scheme(scheme: identifier_scheme) || plan.id
-  end
-
   # Returns whether or not minting is allowed for the current plan
   def minting_allowed?
     orcid_scheme = IdentifierScheme.where(name: "orcid").first
