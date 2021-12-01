@@ -7,7 +7,6 @@ general_tooltip = _("DMP IDs track connections between your DMP and research out
 
 if current_user == plan.owner
   orcid = plan.owner.identifier_for_scheme(scheme: "orcid")
-  orcid_access_token =
   orcid_logo = "https://orcid.org/sites/default/files/images/orcid_16x16.png"
   orcid_link = "<a href=\"#{orcid&.value}\" target=\"_blank\" aria-label=\"link to ORCID record\">ORCID record</a>"
 end
@@ -48,6 +47,10 @@ end
         <%= _("identified your funder") %>
       </li>
       <li>
+
+ORCID: <%= orcid.inspect %><br>
+TOKEN: <%= orcid_access_token.inspect %><br>
+
         <% if orcid.present? && orcid_access_token.present?%><span class="fa fa-check green"></span><% else %><span class="fa fa-times red"></span><% end %>
         <% if !orcid_access_token.present? %>
           <%= _("authorized DMPTool to add works to your ORCID record via your") %> <a href="<%= users_third_party_apps_path %>" target="_blank"><%= _("Third party applications page") %></a>

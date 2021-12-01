@@ -4,7 +4,7 @@ presenter = RelatedIdentifierPresenter.new(plan: plan)
 tooltip = _("List products related to this project, such as journal articles, software or datasets. For example: 'https://doi.org/10.5281/zenodo.5117892', 'https://github.com/CDLUC3/dmphub/releases/tag/v1.0.12'")
 %>
 
-<% if plan.related_identifiers.any? || current_user.can_org_admin? %>
+<% if plan.related_identifiers.any? || (current_user.can_org_admin? && plan.org == current_user.org) %>
   <hr>
   <h2><%= _("Related works") %></h2>
 <% end %>
