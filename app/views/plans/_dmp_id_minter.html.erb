@@ -47,10 +47,6 @@ end
         <%= _("identified your funder") %>
       </li>
       <li>
-
-ORCID: <%= orcid.inspect %><br>
-TOKEN: <%= orcid_access_token.inspect %><br>
-
         <% if orcid.present? && orcid_access_token.present?%><span class="fa fa-check green"></span><% else %><span class="fa fa-times red"></span><% end %>
         <% if !orcid_access_token.present? %>
           <%= _("authorized DMPTool to add works to your ORCID record via your") %> <a href="<%= users_third_party_apps_path %>" target="_blank"><%= _("Third party applications page") %></a>
