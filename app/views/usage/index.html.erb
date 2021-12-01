@@ -10,7 +10,7 @@
            locals: { user_count: @total_org_users,
                      plan_count: @total_org_plans,
                      separators: @separators } %>
-<% if !current_user.can_org_admin? && !current_user.can_super_admin? %>
+<% if !current_user.can_super_admin? %>
   <%= render partial: 'usage/template_statistics' %>
 <% else %>
   <div class="panel-group usage-accordion" role="tablist" aria-multiselectable="true">
