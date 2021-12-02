@@ -1,0 +1,34 @@
+# Liste des changements
+
+**Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
+
+## 02/12/2021
+
+- Seuls les systèmes d'identification marqués comme actif sont affichés dans le profil utilisateur (ORCID n'apparaitra plus malgré la désactivation)
+- Les tableaux de fragments affichent désormais le formatage HTML (liens, gras, italique)
+- Les référentiels simples affichent désormais le formatage HTML de la valeur sélectionnée (ex: Description d'un Standard de métadonnées)
+- Les éditeurs des fenêtres "pop up" ont désormais les mêmes options que les autres éditeurs de l'application.
+- Le mail partage d'un partage d'un plan à un utilisateur qui n'a pas de compte affiche le nom de la personne ayant partagé le plan.
+- L'onglet "Runs" dans le volet *Commentaires et Recommandations* est affiché seulement quand le formulaire choisi possède des traitements. (Issue Gitbucket 192)
+- Amélioration de l'affichage des liens dans le texte des questions
+- Amélioration de l'affichage des valeurs numériques dans les `to_string`
+- Ajout du support d'une valeur maximum et mininum pour les champs de type `number`
+ex : 
+```json
+"amount": {
+    "type": "number",
+    "minimum": 0,
+    "maximum": 20000,
+    "description": "Valeur numérique du montant",
+    "label@fr_FR": "Montant",
+    "label@en_GB": "Amount",
+    "tooltip@fr_FR": "Saisir le montant",
+    "tooltip@en_GB": "Enter the amount",
+    "form_label@fr_FR": "Montant",
+    "form_label@en_GB": "Amount"
+}
+```
+
+### Produits de recherche
+- Pour les plans avec un seul produit de recherche, le nom du produit de recherche est affiché dans les mails de notification d'un nouveau commentaire
+- Les champs Abbréviation et Nom complet sont obligatoires (Issue Gitbucket 55)
