@@ -106,7 +106,7 @@ module DynamicFormHelper
     }
   end
 
-  def create_number_field(form, value, name, label, field_id, required: false, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil)
+  def create_number_field(form, value, name, label, field_id, minimum, maximum, required: false, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil)
     render partial: "shared/dynamic_form/fields/number_field",
     locals: {
       f: form,
@@ -117,6 +117,8 @@ module DynamicFormHelper
       field_label: label,
       field_class: html_class,
       field_id: field_id,
+      minimum: minimum,
+      maximum: maximum,
       readonly: readonly,
       required: required,
       validation: validation,

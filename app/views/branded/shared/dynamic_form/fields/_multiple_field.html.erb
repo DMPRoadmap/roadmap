@@ -18,7 +18,7 @@
                 <%= create_email_field(f, value, field_name, field_label, nil, is_multiple: true, readonly: readonly, index: idx, ttip: ttip) %>
             <%end%>
         <% when "integer" %>
-            <%=  create_number_field(f, value, field_name, field_label, nil, is_multiple: true, readonly: readonly, index: idx)%>
+            <%=  create_number_field(f, value, field_name, field_label, minimum, maximum, nil, is_multiple: true, readonly: readonly, index: idx)%>
         <% when "boolean" %>
             <%=  create_checkbox_field(f, value, field_name, field_label, nil)%>
         <% end %>
@@ -36,7 +36,7 @@
             <%= create_email_field(f, nil, field_name, field_label, nil, is_multiple: true, readonly: readonly, index: 0, ttip: ttip) %>
         <%end%>
     <% when "integer" %>
-        <%=  create_number_field(f, nil, field_name, field_label, nil,  is_multiple: true, readonly: readonly, index: 0)%>
+        <%=  create_number_field(f, nil, field_name, field_label, nil, minimum, maximum, is_multiple: true, readonly: readonly, index: 0)%>
     <% when "boolean" %>
         <%=  create_checkbox_field(f, nil, field_name, field_label, nil)%>
     <% end %>
