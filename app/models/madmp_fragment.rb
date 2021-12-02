@@ -26,6 +26,7 @@ class MadmpFragment < ActiveRecord::Base
   include ValidationMessages
   include DynamicFormHelper
   include FragmentImport
+  include ActionView::Helpers::NumberHelper
 
   # ================
   # = Associations =
@@ -131,9 +132,9 @@ class MadmpFragment < ActiveRecord::Base
           displayable += if match.first.is_a?(Array)
                            match.first.join("/")
                          elsif match.first.is_a?(Integer) || match.first.is_a?(Float)
-                           match.first.to_s
+                           number_with_delimiter(match.first)
                          else
-                           displayable += match.first
+                           match.first
                          end
         else
           displayable += pattern
