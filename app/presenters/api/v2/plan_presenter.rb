@@ -42,7 +42,7 @@ module Api
 
         ids = @plan.identifiers.select do |id|
           # Do not include the id here if it is the grant id
-          id.identifier_scheme == scheme && id != @plan.grant_id
+          id.identifier_scheme == scheme && id.id != @plan.grant_id
         end
         ids.last
       end
