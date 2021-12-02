@@ -33,13 +33,20 @@ class PlanExportsController < ApplicationController
 
     @hash           = @plan.as_pdf(current_user, @show_coversheet)
     @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
-    @selected_phase = if params.key?(:phase_id)
-                        @plan.phases.find(params[:phase_id])
-                      else
-                        @plan.phases.order("phases.updated_at DESC")
+    
+    if params.key?(:phase_id)
+      # order phases by phase number asc
+      @hash[:phases] = @hash[:phases].sort_by{|phase| phase[:number]}
+      if (params[:phase_id] == "All")
+        @hash[:all_phases] = true
+      else
+        @selected_phase = @plan.phases.find(params[:phase_id])
+      end
+    else
+      @plan.phases.order("phases.updated_at DESC")
                              .detect { |p| p.visibility_allowed?(@plan) }
-                      end
-
+    end
+ 
     respond_to do |format|
       format.html { show_html }
       format.csv  { show_csv }
