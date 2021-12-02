@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_29_155648) do
+ActiveRecord::Schema.define(version: 2021_12_02_155053) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -44,6 +44,27 @@ ActiveRecord::Schema.define(version: 2021_11_29_155648) do
     t.integer "answer_id", null: false
     t.integer "question_option_id", null: false
     t.index ["answer_id"], name: "index_answers_question_options_on_answer_id"
+  end
+
+  create_table "api_clients", id: :integer, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.string "homepage"
+    t.string "contact_name"
+    t.string "contact_email"
+    t.string "client_id", null: false
+    t.string "client_secret", null: false
+    t.datetime "last_access"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "org_id"
+    t.text "redirect_uri"
+    t.string "scopes", default: "", null: false
+    t.boolean "confidential", default: true
+    t.boolean "trusted", default: false
+    t.integer "callback_method"
+    t.string "callback_uri"
+    t.index ["name"], name: "index_oauth_applications_on_name"
   end
 
   create_table "api_logs", force: :cascade do |t|
@@ -287,7 +308,8 @@ ActiveRecord::Schema.define(version: 2021_11_29_155648) do
     t.string "callback_uri"
     t.integer "callback_method"
     t.index ["name"], name: "index_oauth_applications_on_name"
-    t.index ["user_id"], name: "index_oauth_applications_on_user_id"
+    t.index ["user_id"], name: "index_oauth_applications_on_owner_id"
+    t.index ["user_id"], name: "index_oauth_applications_on_owner_id_and_owner_type"
   end
 
   create_table "org_token_permissions", id: :integer, force: :cascade do |t|
@@ -614,6 +636,7 @@ ActiveRecord::Schema.define(version: 2021_11_29_155648) do
     t.text "links"
     t.string "email_subject"
     t.text "email_body"
+    t.integer "sponsor_id"
     t.index ["family_id", "version"], name: "index_templates_on_family_id_and_version", unique: true
     t.index ["family_id"], name: "index_templates_on_family_id"
     t.index ["org_id", "family_id"], name: "template_organisation_dmptemplate_index"

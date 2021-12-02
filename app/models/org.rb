@@ -49,6 +49,8 @@ class Org < ApplicationRecord
 
   # Allows an Org to invite a user via the 'Email template' link on the Templates page
   devise :invitable
+
+  has_many :plans_sponsors, dependent: :destroy
   # ----------------------------------------
   # End DMPTool Customization
   # ----------------------------------------

@@ -39,6 +39,9 @@ module Api
               errs += id.errors.full_messages unless id.valid?
               next unless id.valid? && id.new_record?
 
+              # TODO: Remove this once RSpace has updated their call to us
+              id.relation_type = 'documents'
+
               id.save
               # Record this API activity
               log_activity(subject: id, change_type: :added)

@@ -40,7 +40,11 @@ module Api
       def external_system_identifier
         scheme = IdentifierScheme.find_by(name: @client.name.downcase)
 
-        @plan.identifiers.select { |id| id.identifier_scheme == scheme }.last
+        ids = @plan.identifiers.select do |id|
+          # Do not include the id here if it is the grant id
+          id.identifier_scheme == scheme && id != @plan.grant_id
+        end
+        ids.last
       end
 
       # Related identifiers for the Plan
