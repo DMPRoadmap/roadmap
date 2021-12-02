@@ -88,6 +88,7 @@ unless @minimal
   if plan.template&.sponsor.present?
     json.dmproadmap_sponsors [plan.template&.sponsor] do |sponsor|
       json.name sponsor.name
+      json.type 'field_station'
 
       ror = sponsor.identifier_for_scheme(scheme: 'ror')
       if ror.present?
