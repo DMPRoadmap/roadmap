@@ -162,4 +162,6 @@
  - Fix issues with tests taking too long
  - Fix support for nulldb adapter
  - Fix 500 error when downloading usage statistics
+ - Fix name of downloaded usage file
+ - Allow organizational admin to see the download button in 'Statisctics on Users' and 'Statistics on Tempalte' accordions
 
