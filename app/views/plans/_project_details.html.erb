@@ -10,11 +10,10 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
 %>
 
 <% dmp_id = plan.dmp_id %>
-<% if dmp_id.present? %>
+<% if Rails.configuration.x.madmp&.enable_dmp_id_registration && dmp_id.present? %>
   <div class="form-group"><!-- dmp_id -->
     <div class="col-md-12">
-      <label>DMP ID</label>&nbsp;
-      <a href="<%= dmp_id.value %>" target="_blank" class="has-new-window-popup-info"><%= dmp_id.value %></a>
+      <label>DMP ID</label>&nbsp;<%= id_for_display(id: dmp_id, with_scheme_name: false) %>
     </div>
   </div>
 <% end %>
@@ -81,22 +80,6 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
                                    title: _("The estimated date on which you will complete this project.") %>
   </div>
 </div>
-
-<%# if DOI minting is enabled %>
-<% if Rails.configuration.x.madmp&.enable_dmp_id_registration && plan.dmp_id.present? %>
-  <div class="form-group"><!-- identifier -->
-    <div class="col-md-12">
-      <%= form.label(:identifier, _('Landing page'), class: 'control-label') %>
-    </div>
-    <div class="col-md-8">
-      <% if plan.dmp_id.value.starts_with?("http") %>
-        <%= link_to plan.dmp_id.value, plan.dmp_id.value %>
-      <% else %>
-        <%= plan.dmp_id.value %>
-      <% end %>
-    </div>
-  </div>
-<% end %>
 
 <% if Rails.configuration.x.madmp.enable_ethical_issues %>
   <conditional>

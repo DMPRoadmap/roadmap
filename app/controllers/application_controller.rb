@@ -35,17 +35,10 @@ class ApplicationController < ActionController::Base
 
   def user_not_authorized
     if user_signed_in?
-
-p "SIGNED IN!!! 403: #{msg} -> #{plans_url}"
-
       # redirect_to plans_url, alert: _("You are not authorized to perform this action.")
       msg = _("You are not authorized to perform this action.")
       render_respond_to_format_with_error_message(msg, plans_url, 403, nil)
     else
-
-
-p "NOT SIGNED IN!!! 401: #{msg} -> #{root_url}"
-
       # redirect_to root_url, alert: _("You need to sign in or sign up before continuing.")
       msg = _("You need to sign in or sign up before continuing.")
       render_respond_to_format_with_error_message(msg, root_url, 401, nil)
@@ -242,9 +235,7 @@ p "NOT SIGNED IN!!! 401: #{msg} -> #{root_url}"
 
   def handle_server_error(exception)
     # We don't care about general Pundit errors!
-    # return true if exception.is_a?(Pundit::NotAuthorizedError)
-
-    unless Rails.env.development?
+    unless exception.is_a?(Pundit::NotAuthorizedError) || Rails.env.development?
       # DMPTool customization to notify admin of 500 level error
       message = "#{ApplicationService.application_name} - #{exception.message}"
       message += "<br>----------------------------------------<br><br>"
@@ -258,21 +249,14 @@ p "NOT SIGNED IN!!! 401: #{msg} -> #{root_url}"
       UserMailer.notify_administrators(message).deliver_now
     end
 
-    msg = exception.message.to_s if exception.present?
-    render_respond_to_format_with_error_message(msg, root_url, 500, exception)
+
   end
 
   def render_respond_to_format_with_error_message(msg, url_or_path, http_status, exception)
     Rails.logger.error msg
     Rails.logger.error exception&.backtrace if exception.present? && exception.respond_to?(:backtrace)
 
-p "RENDER RESPOND TO FORMAT WITH ERROR! #{msg}"
-pp exception
-
     respond_to do |format|
-
-pp format.inspect
-
       # Redirect use to the path and display the error message
       format.html { redirect_to url_or_path, alert: msg }
       # Render the JSON error message (using API V1)
