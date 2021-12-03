@@ -20,6 +20,7 @@ import '../utils/popoverHelper';
 import '../utils/requiredField';
 import '../utils/sectionUpdate';
 import '../utils/cookiebanner';
+import '../utils/dynamicFormHelper';
 
 // Page specific JS
 import '../views/answers/edit';

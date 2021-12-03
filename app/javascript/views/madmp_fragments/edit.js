@@ -2,8 +2,7 @@ import {
   doneCallback,
   failCallback,
 } from '../answers/edit';
-import { Tinymce } from '../../utils/tinymce.js.erb';
-import { Select2 } from '../../utils/select2';
+import { formLoadingCallback } from '../../utils/dynamicFormHelper';
 import expandCollapseAll from '../../utils/expandCollapseAll';
 // import TimeagoFactory from '../../utils/timeagoFactory';
 
@@ -15,7 +14,6 @@ $(() => {
   const hideSavingMessage = jQuery => jQuery.parents('.question-form').find('[data-status="saving"]').hide();
   const showLoadingOverlay = jQuery => jQuery.find('.overlay').show();
   const hideLoadingOverlay = jQuery => jQuery.find('.overlay').hide();
-  const toolbar = 'bold italic underline | fontsizeselect forecolor | bullist numlist | link | table';
   const displayRunTabs = (formData, questionId, researchOutputId) => {
     if (formData) {
       $(`#runs-${questionId}-research-output-${researchOutputId} .run-zone`).html(formData);
@@ -46,12 +44,7 @@ $(() => {
       }).done((data) => {
         doneCallback(data, target);
         displayRunTabs(data.question.form_run, data.question.id, data.research_output.id);
-        Tinymce.init({
-          selector: `#research_output_${data.research_output.id}_section_${data.section.id} .note`,
-          toolbar,
-        });
-        target.find('.toggle-guidance-section').removeClass('disabled');
-        Select2.init(`#answer-form-${data.question.id}-research-output-${data.research_output.id}`);
+        formLoadingCallback(data, target, 'write_plan');
       }).fail((error) => {
         failCallback(error, target);
       });
@@ -73,13 +66,8 @@ $(() => {
         },
       }).done((data) => {
         doneCallback(data, target);
-        Tinymce.init({
-          selector: `#research_output_${data.research_output.id}_section_${data.section.id} .note`,
-          toolbar,
-        });
-        Select2.init(`#answer-form-${data.question.id}-research-output-${data.research_output.id}`);
+        formLoadingCallback(data, target, 'write_plan');
         target.find('.schema_picker').data('fragment-id', data.fragment_id);
-        target.find('.toggle-guidance-section').removeClass('disabled');
       }).fail((error) => {
         failCallback(error, target);
       });
@@ -122,7 +110,7 @@ $(() => {
     }).done((data) => {
       doneCallback(data, target);
       displayRunTabs(data.question.form_run, data.question.id, data.research_output.id);
-      Select2.init(`#answer-form-${data.question.id}-research-output-${data.research_output.id}`);
+      formLoadingCallback(data, target, 'write_plan');
     }).fail((error) => {
       failCallback(error, target);
     });

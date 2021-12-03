@@ -4,7 +4,7 @@ import {
   isString,
 } from '../../utils/isType';
 import { Tinymce } from '../../utils/tinymce.js.erb';
-import { Select2 } from '../../utils/select2';
+import { formLoadingCallback } from '../../utils/dynamicFormHelper';
 import expandCollapseAll from '../../utils/expandCollapseAll';
 // import debounce from '../../utils/debounce';
 import { updateSectionProgress, getQuestionDiv } from '../../utils/sectionUpdate';
@@ -139,7 +139,7 @@ const submitHandler = (e) => {
     },
   }).done((data) => {
     doneCallback(data, target);
-    Select2.init(`#answer-form-${data.question.id}-research-output-${data.research_output.id}`);
+    formLoadingCallback(data, target, 'write_plan');
   }).fail((error) => {
     failCallback(error, target);
   });
