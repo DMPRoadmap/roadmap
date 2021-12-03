@@ -448,8 +448,7 @@ class Plan < ApplicationRecord
   # Returns User
   # Returns nil
   def owner
-    r = roles.select { |rr| rr.active && rr.administrator }
-    r.nil? ? nil : r.flatten.compact.uniq.min { |a, b| a.created_at <=> b.created_at }&.user
+    roles.administrator.where(active: true).order(:created_at).first&.user
   end
 
   # Creates a role for the specified user (will update the user's
