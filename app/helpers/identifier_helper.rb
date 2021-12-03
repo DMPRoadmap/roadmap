@@ -15,7 +15,7 @@ module IdentifierHelper
     link_to "#{prefix} #{without}", id.value, class: "has-new-window-popup-info"
   end
 
-  def sandbox_dmp_id(id:)
+  def sandbox_dmp_id(id:, with_domain: false)
     return _("None defined") if id.new_record? || id.value.blank?
 
     url = DmpIdService.landing_page_url
@@ -23,7 +23,7 @@ module IdentifierHelper
 
     return id.value unless url.present? && without != id.value && !without.starts_with?("http")
 
-    link_to without, "#{url}#{without}", class: "has-new-window-popup-info"
+    link_to(with_domain ? id.value : without, "#{url}#{without}", class: "has-new-window-popup-info")
   end
 
 end

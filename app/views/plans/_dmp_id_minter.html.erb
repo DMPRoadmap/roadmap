@@ -13,19 +13,23 @@ end
 %>
 
 <div class="dmp-id-minter">
-  <% if @plan.dmp_id.present? %>
+  <% if dmp_id.present? %>
     <h2><%= _("This plan has been registered") %></h2>
-  <% elsif current_user == plan.owner && plan.dmp_id.nil? %>
+  <% elsif current_user == plan.owner && dmp_id.nil? %>
     <h2><%= _("Register your plan and add to ORCID") %></h2>
   <% end %>
 
-  <% if @plan.dmp_id.present? %>
-    <p>
-      <p><%= _('When referencing this DMP in other systems, please use the DMP ID: ') %>
-      <p>&nbsp;&nbsp;<%= link_to @plan.dmp_id.value, sandbox_dmp_id(id: @plan.dmp_id) %></p>
-      <p><%= _("When citing this DMP use:") %></p>
-      <p>&nbsp;&nbsp;<%= plan.citation %></p>
-    </p>
+  <% if dmp_id.present? %>
+    <% if Rails.env.production? %>
+      <% val = link_to dmp_id.value, dmp_id.value, target: "_blank", class: "has-new-window-popup-info" %>
+    <% else %>
+      <% val = sandbox_dmp_id(id: @plan.dmp_id, with_domain: true) %>
+    <% end %>
+
+    <p><%= _('When referencing this DMP in other systems, please use the DMP ID: ') %></p>
+    <p>&nbsp;&nbsp;<%= val %></p>
+    <p><%= _("When citing this DMP use:") %></p>
+    <p>&nbsp;&nbsp;<%= plan.citation %></p>
 
   <% elsif current_user == plan.owner %>
     <% if !plan.registration_allowed? %>
