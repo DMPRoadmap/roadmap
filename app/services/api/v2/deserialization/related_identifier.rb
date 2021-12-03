@@ -9,9 +9,10 @@ module Api
         class << self
           # Convert the incoming JSON into an Identifier
           #    {
-          #      "descriptor": "is_referenced_by",
-          #      "type": "url",
-          #      "identifier": "https://example.org/12345"
+          #      "descriptor": "documents",
+          #      "type": "doi",
+          #      "work_type": "dataset",
+          #      "identifier": "https://doi.org/10.1234/abcd123"
           #    }
           def deserialize(plan:, json: {})
             return nil unless plan.present? &&

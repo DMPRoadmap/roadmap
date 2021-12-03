@@ -123,6 +123,9 @@ module Api
           owner = notify_owner(client: client, owner: owner, plan: plan)
           plan.add_user!(owner.id, :creator)
 
+          # Record this API activity
+          log_activity(subject: plan, change_type: :added)
+
           # Kaminari Pagination requires an ActiveRecord result set :/
           @items = paginate_response(results: Plan.where(id: plan.id))
           render '/api/v2/plans/index', status: :created

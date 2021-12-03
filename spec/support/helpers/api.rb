@@ -29,9 +29,10 @@ module ApiHelper
   end
 
   # API V2+ - Oauth authorization_code grant flow (on behalf of a user)
-  def mock_authorization_code_token(api_client: create(:api_client), user: create(:user))
-    create(:oauth_access_grant, application: api_client, resource_owner_id: user.id)
-    create(:oauth_access_token, application: api_client, resource_owner_id: user.id).token
+  def mock_authorization_code_token(api_client: create(:api_client), user: create(:user),
+                                    scopes: 'public')
+    create(:oauth_access_grant, application: api_client, resource_owner_id: user.id, scopes: scopes)
+    create(:oauth_access_token, application: api_client, resource_owner_id: user.id, scopes: scopes)
   end
 
   # Tests the standard pagination functionality

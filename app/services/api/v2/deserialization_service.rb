@@ -94,13 +94,13 @@ module Api
         # rubocop:enable Metrics/AbcSize
 
         # Determines whether or not the value is a DOI/ARK
-        def doi?(value:)
+        def dmp_id?(value:)
           return false unless value.present?
 
           # The format must match a DOI or ARK and a DOI IdentifierScheme
           # must also be present!
           identifier = ::Identifier.new(value: value)
-          scheme = ::IdentifierScheme.find_by(name: DmpIdService.scheme_name)
+          scheme = DmpIdService.identifier_scheme
           scheme.present? &&
             (identifier.identifier_format.include?('ark') || identifier.identifier_format.include?('doi'))
         end

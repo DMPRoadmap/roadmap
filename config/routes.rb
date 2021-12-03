@@ -372,6 +372,10 @@ Rails.application.routes.draw do
     resources :api_clients, only: [] do
       get 'index/:page', action: :index, on: :collection, as: :index
     end
+    # Paginable actions for api_logs
+    resources :api_logs, only: [] do
+      get "index/:page", action: :index, on: :collection, as: :index
+    end
   end
 
   resources :template_options, only: [:index], constraints: { format: /json/ }
@@ -466,6 +470,8 @@ Rails.application.routes.draw do
         get :refresh_credentials
       end
     end
+
+    resources :api_logs, only: [:index]
   end
 
   get 'research_projects/search', action: 'search',

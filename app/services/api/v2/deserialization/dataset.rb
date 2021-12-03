@@ -88,7 +88,7 @@ module Api
             # Find by identifier if its available
             id = json[:identifier]
             if id.present?
-              if Api::V2::DeserializationService.doi?(value: id)
+              if Api::V2::DeserializationService.dmp_id?(value: id)
                 # Find by the DOI or ARK
                 # TODO: Swap this out once we support versioning which will allow us to update
                 #       the actual ResearchOutput metadata. For now we will record it as a RelatedIdentifier

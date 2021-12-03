@@ -67,10 +67,10 @@ module Mocks
 
     # rubocop:disable Metrics/AbcSize
     def complete_create_json(client: nil)
-      create(:template) unless Template.all.any?
-      lang = Language.all.pluck(:abbreviation).sample || 'en-UK'
-      ror_scheme = IdentifierScheme.find_or_create_by(name: 'ror')
-      fundref_scheme = IdentifierScheme.find_or_create_by(name: 'fundref')
+      template = create(:template, :published, :publicly_visible)
+      lang = Language.all.pluck(:abbreviation).sample || "en-UK"
+      ror_scheme = IdentifierScheme.find_or_create_by(name: "ror")
+      fundref_scheme = IdentifierScheme.find_or_create_by(name: "fundref")
       ror = create(:identifier, identifiable: create(:org), identifier_scheme: ror_scheme)
       fundref = create(:identifier, identifiable: create(:org), identifier_scheme: fundref_scheme)
 
@@ -205,7 +205,7 @@ module Mocks
               ]
             }]
           }],
-          dmproadmap_template: { id: Template.last.id, title: Faker::Lorem.sentence }
+          "dmproadmap_template": { "id": template.family_id, "title": template.title }
         }
       }.to_json
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_26_204758) do
+ActiveRecord::Schema.define(version: 2021_12_02_155053) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -65,6 +65,19 @@ ActiveRecord::Schema.define(version: 2021_10_26_204758) do
     t.integer "callback_method"
     t.string "callback_uri"
     t.index ["name"], name: "index_oauth_applications_on_name"
+  end
+
+  create_table "api_logs", force: :cascade do |t|
+    t.bigint "api_client_id", null: false
+    t.integer "change_type", null: false
+    t.text "activity"
+    t.bigint "logable_id"
+    t.string "logable_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["api_client_id"], name: "index_api_logs_on_api_client_id"
+    t.index ["change_type"], name: "index_api_logs_on_change_type"
+    t.index ["logable_id", "logable_type", "change_type"], name: "index_api_logs_on_logable_and_change_type"
   end
 
   create_table "conditions", id: :integer, force: :cascade do |t|
@@ -289,15 +302,15 @@ ActiveRecord::Schema.define(version: 2021_10_26_204758) do
     t.string "scopes", default: "", null: false
     t.boolean "confidential", default: true
     t.boolean "trusted", default: false
-    t.bigint "owner_id"
+    t.bigint "user_id"
     t.string "logo_uid"
     t.string "logo_name"
     t.string "callback_uri"
     t.integer "callback_method"
     t.string "owner_type", default: "User"
     t.index ["name"], name: "index_oauth_applications_on_name"
-    t.index ["owner_id", "owner_type"], name: "index_oauth_applications_on_owner_id_and_owner_type"
-    t.index ["owner_id"], name: "index_oauth_applications_on_owner_id"
+    t.index ["user_id"], name: "index_oauth_applications_on_owner_id"
+    t.index ["user_id"], name: "index_oauth_applications_on_owner_id_and_owner_type"
   end
 
   create_table "org_token_permissions", id: :integer, force: :cascade do |t|
@@ -624,6 +637,7 @@ ActiveRecord::Schema.define(version: 2021_10_26_204758) do
     t.text "links"
     t.string "email_subject"
     t.text "email_body"
+    t.integer "sponsor_id"
     t.index ["family_id", "version"], name: "index_templates_on_family_id_and_version", unique: true
     t.index ["family_id"], name: "index_templates_on_family_id"
     t.index ["org_id", "family_id"], name: "template_organisation_dmptemplate_index"

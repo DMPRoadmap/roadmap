@@ -30,15 +30,22 @@ module Api
           json: related_identifiers
         )
 
-        RelatedIdentifier.transaction do
-          related_identifiers.each do |related_identifier|
-            id = Api::V2::Deserialization::RelatedIdentifier.deserialize(
-              plan: plan, json: related_identifier
-            )
-            errs += id.errors.full_messages unless id.valid?
-            next unless id.valid?
+        if errs.empty?
+          RelatedIdentifier.transaction do
+            related_identifiers.each do |related_identifier|
+              id = Api::V2::Deserialization::RelatedIdentifier.deserialize(
+                plan: plan, json: related_identifier
+              )
+              errs += id.errors.full_messages unless id.valid?
+              next unless id.valid? && id.new_record?
 
-            id.save
+              # TODO: Remove this once RSpace has updated their call to us
+              id.relation_type = 'documents'
+
+              id.save
+              # Record this API activity
+              log_activity(subject: id, change_type: :added)
+            end
           end
         end
 

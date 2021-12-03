@@ -41,6 +41,9 @@ FactoryBot.define do
     is_default { false }
     published { false }
     archived { false }
+    email_subject { Faker::Lorem.sentence }
+    email_body { Faker::Lorem.paragraph }
+
     sequence(:version)
 
     trait :publicly_visible do

@@ -83,7 +83,7 @@ module Api
 
             id = id_json[:identifier] if id_json.is_a?(Hash)
             if id.present?
-              if Api::V1::DeserializationService.doi?(value: id)
+              if Api::V1::DeserializationService.dmp_id?(value: id)
                 # Find by the DOI or ARK
                 plan = Api::V1::DeserializationService.object_from_identifier(
                   class_name: 'Plan', json: id_json

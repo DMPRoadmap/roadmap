@@ -18,7 +18,6 @@ json.language Api::V1::LanguagePresenter.three_char_code(
 json.created plan.created_at.to_formatted_s(:iso8601)
 json.modified plan.updated_at.to_formatted_s(:iso8601)
 
-# TODO: Update this to pull from the appropriate question once the work is complete
 json.ethical_issues_exist Api::V2::ConversionService.boolean_to_yes_no_unknown(plan.ethical_issues)
 json.ethical_issues_description plan.ethical_issues_description
 json.ethical_issues_report plan.ethical_issues_report
@@ -84,6 +83,21 @@ unless @minimal
   end
 
   json.dmproadmap_privacy presenter.visibility
+
+  # TODO: Refactor as we determine how best to fully implement sponsors
+  if plan.template&.sponsor.present?
+    json.dmproadmap_sponsors [plan.template&.sponsor] do |sponsor|
+      json.name sponsor.name
+      json.type 'field_station'
+
+      ror = sponsor.identifier_for_scheme(scheme: 'ror')
+      if ror.present?
+        json.sponsor_id do
+          json.partial! "api/v2/identifiers/show", identifier: ror
+        end
+      end
+    end
+  end
 
   # DMPHub extension to send all callback addresses for interested subscribers for changes to the DMP
   # json.dmphub_subscribers presenter.subscriptions

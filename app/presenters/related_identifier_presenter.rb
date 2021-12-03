@@ -22,14 +22,12 @@ class RelatedIdentifierPresenter
     related_identifiers.map do |related|
       next unless related.is_a?(RelatedIdentifier)
 
-      dflt = "#{related.work_type.humanize} - #{related.value}"
-      link = format('%<work_type>s - <a href="%<url>s" target="_blank">%<url>s</a>',
-                    work_type: related.work_type.humanize, url: related.value)
-      if related.citation.present?
-        related.citation
-      else
-        (related.value.start_with?('http') ? link : dflt)
-      end
+      dflt = "#{related.work_type&.humanize} - #{related.value}"
+      link = "%{work_type} - <a href=\"%{url}\" target=\"_blank\">%{url}</a>" % {
+        work_type: related.work_type&.humanize,
+        url: related.value
+      }
+      related.citation.present? ? related.citation : (related.value&.start_with?("http") ? link : dflt)
     end
   end
   # rubocop:enable Metrics/AbcSize

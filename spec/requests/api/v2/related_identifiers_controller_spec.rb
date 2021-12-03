@@ -9,17 +9,17 @@ RSpec.describe Api::V2::RelatedIdentifiersController, type: :request do
   before(:each) do
     @other_user = create(:user)
 
-    @plan = create(:plan, :creator)
+    @plan = create(:plan, :creator, :privately_visible, complete: true)
 
     @client = create(:api_client, trusted: false,
                                   user: create(:user, :org_admin, org: create(:org)))
-    token = client_is_authorized(@client, @plan.owner, { scopes: 'edit_dmps' })
+    token = client_is_authorized(@client, @plan.owner, { scopes: "edit_dmps" })
     resource_owner_is_authenticated(@plan.owner)
 
     @headers = {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      Authorization: "Bearer #{token}"
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Authorization": "Bearer #{token.token}"
     }
   end
 
@@ -35,6 +35,7 @@ RSpec.describe Api::V2::RelatedIdentifiersController, type: :request do
             {
               descriptor: RelatedIdentifier.relation_types.keys.sample,
               type: RelatedIdentifier.identifier_types.keys.sample,
+              work_type: RelatedIdentifier.work_types.keys.sample,
               identifier: Faker::Internet.unique.url
             }, {
               descriptor: RelatedIdentifier.relation_types.keys.sample,
@@ -78,26 +79,38 @@ RSpec.describe Api::V2::RelatedIdentifiersController, type: :request do
     end
     it 'skips RelatedIdentifiers that already exist' do
       id = @json[:dmp][:dmproadmap_related_identifiers].first[:identifier]
-      create(:related_identifier, identifiable: @plan, value: id)
+      r_id = create(:related_identifier, identifiable: @plan, value: id,
+                                         updated_at: Time.now - 2.days)
+      last_updated = r_id.updated_at
       @plan.reload
       post api_v2_related_identifiers_path, params: @json.to_json, headers: @headers
-      expect(response.code).to eql('201')
-      expect(response).to render_template('api/v2/plans/show')
-      r_ids = JSON.parse(response.body)
-                  .fetch(:items, [{}])
-                  .first[:dmp][:dmproadmap_related_identifiers]
-      r_ids = r_ids.map { |related| related[:identifier] }
-      expected = @json[:dmp][:dmproadmap_related_identifiers].map { |i| i[:identifier] }
-      expect(r_ids).to eql(expected)
+      expect(response.code).to eql("201")
+      expect(response).to render_template("api/v2/plans/index")
+      expect(r_id.reload.updated_at).to eql(last_updated)
     end
     it 'returns a 201 if the incoming JSON is valid' do
       post api_v2_related_identifiers_path, params: @json.to_json, headers: @headers
-      expect(response.code).to eql('201')
-      expect(response).to render_template('api/v2/plans/show')
-      r_ids = JSON.parse(response.body)
-                  .fetch(:items, [{}])
-                  .first[:dmp][:dmproadmap_related_identifiers]
-      expect(r_ids).to eql(@json[:dmp][:dmproadmap_related_identifiers])
+      expect(response.code).to eql("201")
+      expect(response).to render_template("api/v2/plans/index")
+      json = JSON.parse(response.body).with_indifferent_access
+                 .fetch(:items, [{}])
+                 .first[:dmp]
+      r_ids = json.fetch(:dmproadmap_related_identifiers, [])
+      expect(json[:dmp_id]).to eql(JSON.parse(@json[:dmp][:dmp_id].to_json))
+      r_ids = r_ids.map { |related| related[:identifier] }
+      expected = @json[:dmp][:dmproadmap_related_identifiers].map { |i| i[:identifier] }
+      r_ids.each { |rid| expect(expected.include?(rid)).to eql(true) }
+    end
+    it "logs the addition of the new related identifier in the api_logs" do
+      post api_v2_related_identifiers_path, params: @json.to_json, headers: @headers
+      entry = ApiLog.all.last
+      related = RelatedIdentifier.all.last
+      expected = "Created a new RelatedIdentifier - <a href=\"/plans/#{related.identifiable_id}\">#{related.id}</a>"
+      expect(entry.present?).to eql(true)
+      expect(entry.api_client_id).to eql(@client.id)
+      expect(entry.logable).to eql(related)
+      expect(entry.change_type).to eql('added')
+      expect(entry.activity.start_with?(expected)).to eql(true)
     end
   end
 end

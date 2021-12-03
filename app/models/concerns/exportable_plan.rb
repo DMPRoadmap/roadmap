@@ -106,7 +106,7 @@ module ExportablePlan
     hash[:attribution] = attribution
 
     # Org name of plan owner's org
-    hash[:affiliation] = owner.present? ? owner.org.name : ''
+    hash[:affiliation] = (owner.present? && owner.org.present?) ? owner.org.name : ""
 
     # set the funder name
     hash[:funder] = funder.name if funder.present?

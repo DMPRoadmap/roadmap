@@ -89,7 +89,7 @@ module Api
 
             if id.present?
               # If the identifier is a DOI/ARK or the api client's internal id for the DMP
-              if Api::V2::DeserializationService.doi?(value: id)
+              if Api::V2::DeserializationService.dmp_id?(value: id)
                 # Find by the DOI or ARK
                 plan = Api::V2::DeserializationService.object_from_identifier(
                   class_name: 'Plan', json: id_json
