@@ -22,7 +22,7 @@ end
   <% if @plan.dmp_id.present? %>
     <p>
       <p><%= _('When referencing this DMP in other systems, please use the DMP ID: ') %>
-      <p>&nbsp;&nbsp;<%= id_for_display(id: @plan.dmp_id, with_scheme_name: true) %></p>
+      <p>&nbsp;&nbsp;<%= link_to @plan.dmp_id.value, sandbox_dmp_id(id: @plan.dmp_id) %></p>
       <p><%= _("When citing this DMP use:") %></p>
       <p>&nbsp;&nbsp;<%= plan.citation %></p>
     </p>
