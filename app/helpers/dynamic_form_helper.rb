@@ -140,7 +140,12 @@ module DynamicFormHelper
   end
 
   def create_simple_registry_field(form, value, form_prefix, property_name, label, field_id, select_values, locale, required: false, validation: nil, html_class: nil, readonly: false, multiple: false, ttip: nil, default_value: nil, overridable: nil)
-    render partial: "shared/dynamic_form/fields/registry/simple",
+    partial_name = if multiple
+                     "shared/dynamic_form/fields/registry/multiple"
+                   else
+                     "shared/dynamic_form/fields/registry/simple"
+                   end
+    render partial: partial_name,
     locals: {
       f: form,
       selected_value: value,
@@ -151,7 +156,6 @@ module DynamicFormHelper
       locale: locale,
       field_class: html_class,
       field_id: field_id,
-      multiple: multiple,
       readonly: readonly,
       required: required,
       validation: validation,
@@ -280,7 +284,7 @@ module DynamicFormHelper
       when "boolean"
         formated_data[key] = data[key] == "1"
       when "array"
-        formated_data[key] = data[key].is_a?(Array) ? data[key] : [data[key]]
+        formated_data[key] = data[key].is_a?(Array) ? data[key].reject(&:empty?) : [data[key]].reject(&:empty?)
       when "object"
         next if prop["schema_id"].nil?
 

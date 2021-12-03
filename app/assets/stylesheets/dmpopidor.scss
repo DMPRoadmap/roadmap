@@ -1311,6 +1311,10 @@ header .main-nav {
             }
         }
         &.select-field, &.linked-fragments-select, &.contributor-field {
+            .add-indicator, .selected-values-label {
+                color: $blue;
+                font-weight: bold;
+            }
             select {
                 width: 100% !important;
             }
@@ -1345,6 +1349,17 @@ header .main-nav {
         }
         &.select-field, &.contributor-field {
             flex-direction: column;
+            ul.selected-values {
+                display: flex;
+                flex-wrap: wrap;
+                .selected-value  {
+                    flex: 1 1 25%;
+                }
+                .remove-button {
+                    color: $blue;
+                    padding-left: 5px;
+                }
+            }
         }
         &.linked-fragments-select {
             flex-direction: column;

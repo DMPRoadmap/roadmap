@@ -11,13 +11,13 @@
     <%= f.label field_id, field_label, class: 'control-label' %>
   </div>
 <% end %>
-<div class="col-md-12 dynamic-field select-field single-select">
+<div class="col-md-12 dynamic-field select-field multi-select">
   <span class="intermediate-label"><i><%= intermediate_message unless readonly %></i></span>
   <div class="field-button-combo">
-    <%= select_tag "#{f.object_name}[#{field_name}]",
+    <%= select_tag "registry_value_selector",
                 options_for_select(
                     formatted_values,
-                    selected: selected_value
+                    selected: nil
                 ),
                 data: {
                   "tags" => overridable
@@ -29,27 +29,32 @@
                 title: ttip,
                 class: "#{field_class}",
                 id: field_id  %>
-    <% unless readonly %>
-      <span class="remove-button fa fa-times"></span>
-    <% end %>
   </div>
-  <% if overridable %>
-    <% 
-      style = ''
-      custom_value = selected_value
-      if select_values.any? { |r| select_value(r, locale) == selected_value } || selected_value.nil?
-        style = 'display: none;'
-        custom_value = nil
-      end
-    %>
-    <% other_field_name = defined?(form_prefix) ? "#{form_prefix}[#{property_name}_custom]" : "#{property_name}_custom" %>
-    <div class="col-md-12 custom-value" style="<%= style %>">
-      <%= f.label other_field_name, d_("dmpopidor", "Custom value: "), class: 'control-label' %>
-      <%= f.hidden_field other_field_name, 
-                value: custom_value,
-                class: "form-control #{field_class}",
-                id: field_id  %>
-      <span><%= custom_value %></span>
+
+  <span class="add-indicator fa fa-arrow-down"></span>
+    <div class="col-md-12">
+      <div class="col-md-2 selected-values-label"><%= d_("dmpopidor", "Selected values") %></div>
+      <ul class="col-md-10 selected-values">
+        <% if selected_value.present? %>
+          <% selected_value.each do |val| %>
+            <% display = val.blank? ? 'display:none': '' %>
+            <li class="selected-value" style="<%= display %>">
+              <span class="value-text"><%= val %></span>
+              <%= f.hidden_field "#{field_name}", 
+                      multiple: true,
+                      value: val %>
+              <span class="remove-button fa fa-times"></span>
+            </li>
+          <% end %>
+        <% else %>
+          <li class="selected-value" style="display:none">
+            <span class="value-text"></span>
+            <%= f.hidden_field "#{field_name}", 
+                    multiple: true,
+                    value: nil %>
+            <span class="remove-button fa fa-times"></span>
+          </li>
+        <% end %>
+      </ul>
     </div>
-  <% end %>
 </div>
