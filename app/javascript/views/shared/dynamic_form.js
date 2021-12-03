@@ -1,6 +1,6 @@
 import {
   projectSelectorHandler,
-  multipleSelectorHandler,
+  createFromRegistryHandler,
   linkedFragmentSelectorHandler,
   contributorCreationHandler,
   singleSelectHandler,
@@ -63,24 +63,22 @@ $(() => {
 
     if (!value) return;
 
-    if (selectField.hasClass('single-select') && target.data('tags') === true) {
-      singleSelectHandler(selectField, target, value, selected);
+    if (selectField.hasClass('single-select')) {
+      if (selectField.hasClass('project-selector')) {
+        projectSelectorHandler(selectField, value, text);
+      } else if (target.data('tags') === true) {
+        singleSelectHandler(selectField, target, value, selected);
+      }
     }
 
     if (selectField.hasClass('linked-fragments-select')) {
-      if (selectField.hasClass('multiple-selector')) {
+      if (selectField.hasClass('create-from-registry')) {
+        createFromRegistryHandler(selectField, value, selected);
+      } else if (selectField.hasClass('create-contributor')) {
         contributorCreationHandler(selectField, value, text);
       } else {
         linkedFragmentSelectorHandler(selectField, value, text);
       }
-    }
-
-    if (selectField.hasClass('multiple-select')) {
-      multipleSelectorHandler(selectField, value, selected);
-    }
-
-    if (selectField.hasClass('project-selector')) {
-      projectSelectorHandler(selectField, value, text);
     }
   });
 

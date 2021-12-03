@@ -36,7 +36,7 @@ export const projectSelectorHandler = (selectField, value, text) => {
   }
 };
 
-export const multipleSelectorHandler = (selectField, value, selected) => {
+export const createFromRegistryHandler = (selectField, value, selected) => {
   const messageZone = selectField.find('.message-area');
   const requestData = {
     locale: selectField.data('locale'),

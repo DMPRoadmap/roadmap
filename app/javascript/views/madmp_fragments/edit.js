@@ -17,7 +17,6 @@ $(() => {
   const hideLoadingOverlay = jQuery => jQuery.find('.overlay').hide();
   const toolbar = 'bold italic underline | fontsizeselect forecolor | bullist numlist | link | table';
   const displayRunTabs = (formData, questionId, researchOutputId) => {
-    console.log($(`#runs-${questionId}-research-output-${researchOutputId} .run-zone`));
     if (formData) {
       $(`#runs-${questionId}-research-output-${researchOutputId} .run-zone`).html(formData);
       $(`#collapse-${questionId}-research-output-${researchOutputId} .runs-tab`).show();
