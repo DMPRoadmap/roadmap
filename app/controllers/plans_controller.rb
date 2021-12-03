@@ -171,9 +171,10 @@ class PlansController < ApplicationController
       template: { phases: { sections: { questions: :answers } } },
       plans_guidance_groups: { guidance_group: :guidances }
     ).find_by(id: params[:id])
+    authorize @plan
     raise ActiveRecord::RecordNotFound unless @plan.present?
 
-    authorize @plan
+p "MADE IT"
 
     @visibility = if @plan.visibility.present?
                     @plan.visibility.to_s
@@ -187,6 +188,8 @@ class PlansController < ApplicationController
                   .where(templates: { published: true }).uniq.sort_by(&:name)
     # TODO: Seems strange to do this. Why are we just not using an `edit` route?
     @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
+
+p "GOT TO A"
 
     # Get all Guidance Groups applicable for the plan and group them by org
     @all_guidance_groups = @plan.guidance_group_options
@@ -210,6 +213,8 @@ class PlansController < ApplicationController
       end
     end
 
+p "GOT TO B"
+
     # Sort the rest by org name for the accordion
     @important_ggs = @important_ggs.sort_by { |org, _gg| (org.nil? ? "" : org.name) }
     @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by do |org, _gg|
@@ -222,6 +227,8 @@ class PlansController < ApplicationController
                 else
                   Template.where(family_id: @plan.template.customization_of).first
                 end
+
+p "GOT TO C"
 
     @research_domains = ResearchDomain.all.order(:label)
 
