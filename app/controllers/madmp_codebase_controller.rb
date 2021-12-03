@@ -6,7 +6,9 @@ class MadmpCodebaseController < ApplicationController
 
   def run
     fragment = MadmpFragment.find(params[:fragment_id])
+    schema_runs = fragment.madmp_schema.extract_run_parameters
     script_id = params[:script_id]
+    params = schema_runs.find { |run| run["script_id"] == script_id.to_i }["params"] || {}
 
     authorize fragment
 
@@ -19,7 +21,7 @@ class MadmpCodebaseController < ApplicationController
     # }, status: 200
     # return
     begin
-      response = fetch_run_data(fragment, script_id)
+      response = fetch_run_data(fragment, script_id, params: params)
       if response["return_code"]&.eql?(0)
         if response["data"].empty?
           render json: {
@@ -95,7 +97,7 @@ class MadmpCodebaseController < ApplicationController
     ExternalApis::MadmpCodebaseService.run(script_id, body:
       {
         "data": custom_data || fragment.data,
-        "schema": {},
+        "schema": fragment.madmp_schema.schema,
         "dmp_language": fragment.dmp.locale,
         "dmp_id": fragment.dmp_id,
         "research_output_id": fragment.research_output_fragment&.id,
