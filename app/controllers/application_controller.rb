@@ -242,7 +242,7 @@ p "NOT SIGNED IN!!! 401: #{msg} -> #{root_url}"
 
   def handle_server_error(exception)
     # We don't care about general Pundit errors!
-    return true if exception.is_a?(Pundit::NotAuthorizedError)
+    # return true if exception.is_a?(Pundit::NotAuthorizedError)
 
     unless Rails.env.development?
       # DMPTool customization to notify admin of 500 level error
