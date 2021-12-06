@@ -19,6 +19,8 @@ RSpec.describe ExternalApis::DmphubService, type: :model do
     create_dmp_id(plan: @plan)
     @client = create(:api_client)
 
+    described_class.stubs(:api_client).returns(@client)
+
     @dmp_id = @plan.dmp_id.value_without_scheme_prefix
     @plan.reload
   end
@@ -215,8 +217,8 @@ RSpec.describe ExternalApis::DmphubService, type: :model do
       it "properly generates the JSON for submission to DMPHub" do
         ActionController::Base.any_instance.expects(:render_to_string)
                               .with(
-                                partial: "/api/v1/plans/show",
-                                locals: { plan: @plan, client: nil }
+                                partial: "/api/v2/plans/show",
+                                locals: { plan: @plan, client: @client }
                               )
                               .returns({ foo: "bar" }.to_json)
         result = described_class.send(:json_from_template, plan: @plan)

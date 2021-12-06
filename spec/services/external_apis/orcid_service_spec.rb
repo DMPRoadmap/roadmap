@@ -8,7 +8,7 @@ RSpec.describe ExternalApis::OrcidService, type: :model do
   include Webmocks
 
   before(:each) do
-    Rails.configuration.x.allow_doi_minting = true
+    Rails.configuration.x.allow_dmp_id_minting = true
     Rails.configuration.x.orcid.active = true
     Rails.configuration.x.orcid.api_base_url = Faker::Internet.url
     Rails.configuration.x.orcid.landing_page_url = Faker::Internet.url
@@ -17,7 +17,7 @@ RSpec.describe ExternalApis::OrcidService, type: :model do
 
     @scheme = orcid_scheme
     @plan = create(:plan, :creator)
-    create_doi(plan: @plan)
+    create_dmp_id(plan: @plan)
     create_orcid(user: @plan.owner)
 
     co_owner = create(:user)
@@ -108,18 +108,18 @@ RSpec.describe ExternalApis::OrcidService, type: :model do
       end
     end
 
-    describe "#xml_for(plan:, doi:, user:)" do
+    describe "#xml_for(plan:, dmp_id:, user:)" do
       it "returns nil if :plan is not a Plan" do
-        expect(described_class.send(:xml_for, plan: nil, doi: @plan.doi, user: @plan.owner)).to eql(nil)
+        expect(described_class.send(:xml_for, plan: nil, dmp_id: @plan.dmp_id, user: @plan.owner)).to eql(nil)
       end
-      it "returns nil if :doi is not an Identifier" do
-        expect(described_class.send(:xml_for, plan: @plan, doi: nil, user: @plan.owner)).to eql(nil)
+      it "returns nil if :dmp_id is not an Identifier" do
+        expect(described_class.send(:xml_for, plan: @plan, dmp_id: nil, user: @plan.owner)).to eql(nil)
       end
       it "returns nil if :user is not an User" do
-        expect(described_class.send(:xml_for, plan: @plan, doi: @plan.doi, user: nil)).to eql(nil)
+        expect(described_class.send(:xml_for, plan: @plan, dmp_id: @plan.dmp_id, user: nil)).to eql(nil)
       end
       it "returns the expected XML" do
-        xml = Nokogiri::XML(described_class.send(:xml_for, plan: @plan, doi: @plan.doi, user: @plan.owner))
+        xml = Nokogiri::XML(described_class.send(:xml_for, plan: @plan, dmp_id: @plan.dmp_id, user: @plan.owner))
         orcid = @plan.owner.identifier_for_scheme(scheme: "orcid")
         expect(xml.xpath("//common:title").text).to eql(@plan.title)
         expect(xml.xpath("//work:short-description").text).to eql(@plan.description)
@@ -127,14 +127,14 @@ RSpec.describe ExternalApis::OrcidService, type: :model do
         expect(xml.xpath("//common:year").text).to eql(@plan.created_at.strftime("%Y"))
         expect(xml.xpath("//common:month").text).to eql(@plan.created_at.strftime("%m"))
         expect(xml.xpath("//common:day").text).to eql(@plan.created_at.strftime("%d"))
-        expect(xml.xpath("//common:external-id-value").text).to eql(@plan.doi.value_without_scheme_prefix)
-        expect(xml.xpath("//common:external-id-url").text).to eql(@plan.doi.value)
+        expect(xml.xpath("//common:external-id-value").text).to eql(@plan.dmp_id.value_without_scheme_prefix)
+        expect(xml.xpath("//common:external-id-url").text).to eql(@plan.dmp_id.value)
       end
       it "handles invalid XML characters in :title, :description, and :citation properly" do
         @plan.title = "Foo</work:citation-value>"
         @plan.description = "Foo Bar \\n Baz <Foo>"
 
-        xml = Nokogiri::XML(described_class.send(:xml_for, plan: @plan, doi: @plan.doi, user: @plan.owner))
+        xml = Nokogiri::XML(described_class.send(:xml_for, plan: @plan, dmp_id: @plan.dmp_id, user: @plan.owner))
         orcid = @plan.owner.identifier_for_scheme(scheme: "orcid")
         expect(xml.xpath("//common:title").text).to eql("Foo</work:citation-value>")
         expect(xml.xpath("//work:short-description").text).to eql("Foo Bar \\n Baz <Foo>")
@@ -142,8 +142,8 @@ RSpec.describe ExternalApis::OrcidService, type: :model do
         expect(xml.xpath("//common:year").text).to eql(@plan.created_at.strftime("%Y"))
         expect(xml.xpath("//common:month").text).to eql(@plan.created_at.strftime("%m"))
         expect(xml.xpath("//common:day").text).to eql(@plan.created_at.strftime("%d"))
-        expect(xml.xpath("//common:external-id-value").text).to eql(@plan.doi.value_without_scheme_prefix)
-        expect(xml.xpath("//common:external-id-url").text).to eql(@plan.doi.value)
+        expect(xml.xpath("//common:external-id-value").text).to eql(@plan.dmp_id.value_without_scheme_prefix)
+        expect(xml.xpath("//common:external-id-url").text).to eql(@plan.dmp_id.value)
       end
     end
   end

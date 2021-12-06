@@ -148,40 +148,40 @@ RSpec.describe Api::V1::DeserializationService do
     end
   end
 
-  describe "doi?(value:)" do
+  describe "dmp_id?(value:)" do
     before(:each) do
-      @scheme = create(:identifier_scheme, name: "doi",
+      @scheme = create(:identifier_scheme, name: "dmp_id",
                                            identifier_prefix: Faker::Internet.url)
     end
 
     it "returns false if value is not present" do
-      expect(described_class.send(:doi?, value: nil)).to eql(false)
+      expect(described_class.send(:dmp_id?, value: nil)).to eql(false)
     end
     it "returns false if the value does not match ARK or DOI pattern" do
       url = Faker::Internet.url
-      expect(described_class.send(:doi?, value: url)).to eql(false)
+      expect(described_class.send(:dmp_id?, value: url)).to eql(false)
     end
     it "returns false if the value does not match a partial ARK/DOI pattern" do
       val = "23645gy3d"
-      expect(described_class.send(:doi?, value: val)).to eql(false)
+      expect(described_class.send(:dmp_id?, value: val)).to eql(false)
       val = "10.999"
-      expect(described_class.send(:doi?, value: val)).to eql(false)
+      expect(described_class.send(:dmp_id?, value: val)).to eql(false)
     end
-    it "returns false if there is no 'doi' identifier scheme" do
+    it "returns false if there is no 'dmp_id' identifier scheme" do
       val = "10.999/23645gy3d"
       @scheme.destroy
-      expect(described_class.send(:doi?, value: val)).to eql(false)
+      expect(described_class.send(:dmp_id?, value: val)).to eql(false)
     end
-    it "returns false if 'doi' identifier scheme exists but value is not doi" do
-      expect(described_class.send(:doi?, value: SecureRandom.uuid)).to eql(false)
+    it "returns false if 'dmp_id' identifier scheme exists but value is not doi" do
+      expect(described_class.send(:dmp_id?, value: SecureRandom.uuid)).to eql(false)
     end
     it "returns true (identifier only)" do
       val = "10.999/23645gy3d"
-      expect(described_class.send(:doi?, value: val)).to eql(true)
+      expect(described_class.send(:dmp_id?, value: val)).to eql(true)
     end
     it "returns true (fully qualified ARK/DOI url)" do
       url = "#{Faker::Internet.url}/10.999/23645gy3d"
-      expect(described_class.send(:doi?, value: url)).to eql(true)
+      expect(described_class.send(:dmp_id?, value: url)).to eql(true)
     end
   end
 

@@ -1721,6 +1721,7 @@ describe Plan do
 
     it "removes existing related identifiers that are not part of :params" do
       old_id = @related.id
+
       val = SecureRandom.uuid
       params = {
         "#{Faker::Number.number(digits: 10)}": {
@@ -1729,6 +1730,8 @@ describe Plan do
         }
       }
       @plan.related_identifiers_attributes= JSON.parse(params.to_json)
+      @plan.save
+      @plan.reload
       expect(@plan.related_identifiers.length).to eql(1)
       expect(@plan.related_identifiers.first.id).not_to eql(old_id)
       expect(@plan.related_identifiers.first.value).to eql(val)
@@ -1745,6 +1748,8 @@ describe Plan do
         }
       }
       @plan.related_identifiers_attributes= JSON.parse(params.to_json)
+      @plan.save
+      @plan.reload
       expect(@plan.related_identifiers.length).to eql(1)
       expect(@plan.related_identifiers.first).to eql(@related)
     end
@@ -1760,6 +1765,8 @@ describe Plan do
         }
       }
       @plan.related_identifiers_attributes= JSON.parse(params.to_json)
+      @plan.save
+      @plan.reload
       expect(@plan.related_identifiers.length).to eql(1)
       expect(@plan.related_identifiers.first.id).to eql(@related.id)
       expect(@plan.related_identifiers.first.work_type).to eql(work_type)
@@ -1781,13 +1788,16 @@ describe Plan do
         }
       }
       @plan.related_identifiers_attributes= JSON.parse(params.to_json)
-      expect(@plan.related_identifiers.length).to eql(2)
-      @plan.related_identifiers.order(:created_at)
-      expect(@plan.related_identifiers.first.id).to eql(@related.id)
-      expect(@plan.related_identifiers.first.work_type).to eql(@related.work_type)
-      expect(@plan.related_identifiers.first.value).to eql(@related.value)
-      expect(@plan.related_identifiers.last.work_type).to eql(work_type)
-      expect(@plan.related_identifiers.last.value).to eql(val)
+      @plan.save
+      @plan.reload
+      results = @plan.related_identifiers.order(:created_at)
+
+      expect(results.length).to eql(2)
+      expect(results.first.id).to eql(@related.id)
+      expect(results.first.work_type).to eql(@related.work_type)
+      expect(results.first.value).to eql(@related.value)
+      expect(results.last.work_type).to eql(work_type)
+      expect(results.last.value).to eql(val)
     end
   end
 

@@ -479,7 +479,7 @@ RSpec.describe Api::V2::PlansController, type: :request do
         expect(response.code).to eql("201")
         entry = ApiLog.all.last
         plan = Plan.all.last
-        expected = "Created a new Plan - <a href=\"/plans/#{plan.id}\">#{plan.id}</a>"
+        expected = "Created a new Plan:<br>#<Plan id: #{plan.id}, "
         expect(entry.present?).to eql(true)
         expect(entry.api_client_id).to eql(@client.id)
         expect(entry.logable).to eql(plan)

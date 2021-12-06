@@ -7,6 +7,7 @@ describe IdentifierHelper do
 
   before(:each) do
     @user_scheme = create(:identifier_scheme, for_users: true)
+    ::DmpIdService.stubs(:identifier_scheme).returns(@user_scheme)
   end
 
   describe "#id_for_display(id:, with_scheme_name)" do
@@ -19,7 +20,8 @@ describe IdentifierHelper do
                                         value: val)
     end
 
-    it "defaults to showing the scheme name" do
+    it "defaults to showing the scheme name (when in PROD)" do
+      Rails.env = 'production'
       rslt = id_for_display(id: @identifier)
       expect(rslt.include?(@user_scheme.identifier_prefix)).to eql(true)
     end
@@ -38,6 +40,7 @@ describe IdentifierHelper do
       expect(rslt).to eql(@none)
     end
     it "returns the value when the scheme has no identifier_prefix" do
+      Rails.env = 'production'
       val = Faker::Lorem.word
       @user_scheme.identifier_prefix = nil
       @user_scheme.save
@@ -46,8 +49,19 @@ describe IdentifierHelper do
       expect(rslt).to eql(@user_scheme.description + ": " + val)
     end
     it "returns the value as a link when the scheme has a identifier_prefix" do
+      Rails.env = 'production'
       rslt = id_for_display(id: @identifier)
       expect(rslt.include?(@identifier.value)).to eql(true)
+    end
+    it "returns the value with the DmpIdService's identifier prefix (when not in PROD)" do
+      Rails.env = 'development'
+      rslt = id_for_display(id: @identifier)
+      expect(rslt.include?(::DmpIdService.landing_page_url)).to eql(true)
+    end
+    it "returns the value with the DmpIdService's identifier prefix (when not in PROD) and flag set" do
+      Rails.env = 'stage'
+      rslt = id_for_display(id: @identifier, with_scheme_name: false)
+      expect(rslt.include?(::DmpIdService.landing_page_url)).to eql(true)
     end
   end
 

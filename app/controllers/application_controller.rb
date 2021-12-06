@@ -34,6 +34,9 @@ class ApplicationController < ActionController::Base
   end
 
   def user_not_authorized
+
+p "UNAUTHORIZED!!!"
+
     if user_signed_in?
       # redirect_to plans_url, alert: _("You are not authorized to perform this action.")
       msg = _("You are not authorized to perform this action.")
@@ -249,7 +252,15 @@ class ApplicationController < ActionController::Base
       UserMailer.notify_administrators(message).deliver_now
     end
 
+    # If we are dev/test print the error to the console
+    if Rails.env.development? || Rails.env.test?
+      p "#{exception.class.name} - #{exception&.message}"
+      pp exception&.backtrace
+    end
 
+    render_respond_to_format_with_error_message(
+      exception.message, (user_signed_in? ? plans_path : root_path), 500, exception
+    )
   end
 
   def render_respond_to_format_with_error_message(msg, url_or_path, http_status, exception)

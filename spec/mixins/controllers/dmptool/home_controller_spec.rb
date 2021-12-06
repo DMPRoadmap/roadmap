@@ -4,6 +4,8 @@ require "rails_helper"
 
 RSpec.describe Dmptool::HomeController, type: :request do
 
+  include DmptoolHelper
+
   before(:each) do
     @controller = ::HomeController.new
     mock_blog

@@ -185,8 +185,8 @@ module ExternalApis
         nil
       rescue HTTParty::Error => e
         handle_http_failure(method: "BaseService.http_post #{e.message}",
-                            http_response: resp)
-        resp
+                            http_response: nil)
+        nil
       end
       # rubocop:enable Metrics/MethodLength
 
@@ -206,8 +206,8 @@ module ExternalApis
         nil
       rescue HTTParty::Error => e
         handle_http_failure(method: "BaseService.http_put #{e.message}",
-                            http_response: resp)
-        resp
+                            http_response: nil)
+        nil
       end
       # rubocop:enable Metrics/MethodLength
 

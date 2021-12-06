@@ -73,7 +73,7 @@ module Api
           # The format must match a DOI or ARK and a DOI IdentifierScheme
           # must also be present!
           identifier = ::Identifier.new(value: value)
-          scheme = ::ExternalApis::DmpIdService.identifier_scheme
+          scheme = DmpIdService.identifier_scheme
           %w[ark doi].include?(identifier.identifier_format) && scheme.present?
         end
 

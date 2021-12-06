@@ -106,7 +106,7 @@ RSpec.describe Api::V2::RelatedIdentifiersController, type: :request do
       post api_v2_related_identifiers_path, params: @json.to_json, headers: @headers
       entry = ApiLog.all.last
       related = RelatedIdentifier.all.last
-      expected = "Created a new RelatedIdentifier - <a href=\"/plans/#{related.identifiable_id}\">#{related.id}</a>"
+      expected = "Created a new RelatedIdentifier:<br>#<RelatedIdentifier id: #{related.id}, "
       expect(entry.present?).to eql(true)
       expect(entry.api_client_id).to eql(@client.id)
       expect(entry.logable).to eql(related)

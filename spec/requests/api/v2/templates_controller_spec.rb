@@ -76,9 +76,9 @@ RSpec.describe Api::V2::TemplatesController, type: :request do
       # Only the Publicly visible template, Api Client's Org's template, and the Api Client Org's
       # customizations should be returned!
       ids = json[:items].map { |item| item[:dmp_template][:template_id][:identifier] }
-      expect(ids.include?(public_published.id.to_s)).to eql(true)
-      expect(ids.include?(my_org_published.id.to_s)).to eql(true)
-      expect(ids.include?(my_org_customization.id.to_s)).to eql(true)
+      expect(ids.include?(public_published.family_id.to_s)).to eql(true)
+      expect(ids.include?(my_org_published.family_id.to_s)).to eql(true)
+      expect(ids.include?(my_org_customization.family_id.to_s)).to eql(true)
     end
 
     it "returns the expected templates when ApiClient has no User.org association" do
@@ -107,7 +107,7 @@ RSpec.describe Api::V2::TemplatesController, type: :request do
       # Only the Publicly visible template, Api Client's Org's template, and the Api Client Org's
       # customizations should be returned!
       ids = json[:items].map { |item| item[:dmp_template][:template_id][:identifier] }
-      expect(ids.include?(public_published.id.to_s)).to eql(true)
+      expect(ids.include?(public_published.family_id.to_s)).to eql(true)
     end
 
     it "allows for paging" do
