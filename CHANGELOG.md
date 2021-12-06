@@ -2,6 +2,16 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 06/12/2021
+- Ajout du support des paramètres dans les propriétés `run` présentes dans les templates
+- Les tooltips devraient s'afficher correctement suite à une sauvegarde ou à l'ouverture d'une question  (Issue Gitbucket 103)
+- Amélioration des sélecteurs multiples : 
+  - Référentiels complexes (ex : Partners) ou Contributeurs : Ajout d'une icone indiquant que les éléments seront ajoutés sous la liste
+  - Référentiels simples (ex: StorageType) : refonte graphique qui devraient rendre plus clair l'ajout et la suppression d'éléments.
+- Ajout d'une API d'interrogation des référentiels 
+  - Liste : `/api/v1/madmp/registries`
+  - Accès à un référentiel et ses valeurs : `/api/v1/madmp/registries/:name` (ex: `/api/v1/madmp/registries/AgentIdSystem`)
+
 ## 02/12/2021
 
 - Seuls les systèmes d'identification marqués comme actif sont affichés dans le profil utilisateur (ORCID n'apparaitra plus malgré la désactivation)
