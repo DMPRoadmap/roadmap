@@ -33,7 +33,6 @@
     "bootstrap-select": "^1.13.18",
     "chart.js": "^2.9.4",
     "core-js": "^3.17.2",
-    "eslint": "^7.1.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.21.1",
@@ -54,7 +53,7 @@
     "written-number": "^0.9.1"
   },
   "devDependencies": {
-    "eslint": "^7.1.0",
+    "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.21.1",
