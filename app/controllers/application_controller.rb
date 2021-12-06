@@ -235,7 +235,9 @@ class ApplicationController < ActionController::Base
 
   def handle_server_error(exception)
     # We don't care about general Pundit errors!
-    unless exception.is_a?(Pundit::NotAuthorizedError) || Rails.env.development?
+    unless exception.is_a?(Pundit::NotAuthorizedError) ||
+           exception.is_a?(ActiveRecord::RecordNotFound) ||
+           Rails.env.development?
       # DMPTool customization to notify admin of 500 level error
       message = "#{ApplicationService.application_name} - #{exception.message}"
       message += "<br>----------------------------------------<br><br>"
