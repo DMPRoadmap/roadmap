@@ -64,7 +64,6 @@ ActiveRecord::Schema.define(version: 2021_12_02_155053) do
     t.boolean "trusted", default: false
     t.integer "callback_method"
     t.string "callback_uri"
-    t.index ["name"], name: "index_oauth_applications_on_name"
   end
 
   create_table "api_logs", force: :cascade do |t|
