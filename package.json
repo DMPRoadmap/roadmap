@@ -26,7 +26,7 @@
     "@rails/actioncable": "^6.0.3-1",
     "@rails/activestorage": "^6.0.3-1",
     "@rails/ujs": "^6.0.3-1",
-    "@rails/webpacker": "5.1.1",
+    "@rails/webpacker": "^5.4.3",
     "bootstrap": "^3.4.1",
     "bootstrap-3-typeahead": "^4.0.2",
     "bootstrap-sass": "^3.3.7",
@@ -41,6 +41,7 @@
     "jquery-ui": "^1.12.1",
     "jquery-ui-sass": "^0.0.1",
     "js-cookie": "^2.2.1",
+    "node-sass": "^7.0.0",
     "number-to-text": "^0.3.8",
     "popper.js": "^1.16.1",
     "rails-erb-loader": "^5.5.2",
@@ -49,8 +50,8 @@
     "tinymce": "4.9.11",
     "tinymce-i18n": "^20.4.4",
     "turbolinks": "^5.2.0",
-    "written-number": "^0.9.1",
-    "webpack": "^4.42.1"
+    "webpack": "^4.42.1",
+    "written-number": "^0.9.1"
   },
   "devDependencies": {
     "eslint": "^7.1.0",
