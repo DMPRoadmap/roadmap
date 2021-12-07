@@ -37,6 +37,7 @@ import '../src/utils/requiredField';
 import '../src/utils/tabHelper';
 import '../src/utils/tooltipHelper';
 import '../src/utils/cookiebanner';
+import '../src/utils/dynamicFormHelper';
 
 // Specific functions from the Utilities files that will be made available to
 // the js.erb templates in the `window.x` statements below

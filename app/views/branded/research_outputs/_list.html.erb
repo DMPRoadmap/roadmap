@@ -9,15 +9,19 @@
       <%= hidden_field_tag 'research-output-id', research_output.id, class: 'research-output-id' %>
       <div class='research-output-fields'>
         <div class='research-output-field form-group research-output-abbreviation'>
-          <%= f.label :abbreviation, _('Abbreviated Name (20 chars max.)'),  class: 'control-label' %>
-          <%= f.text_field :abbreviation, maxlength: 20, class: 'form-control input edit', "aria-required": true,
-                      'data-toggle': 'tooltip', title: _('Research output name (20 chars max.)') %>
+          <%= f.label :abbreviation, _('Abbreviated Name (20 chars max.)'), class: 'control-label' %>
+          <%= f.text_field :abbreviation, maxlength: 20, 
+                           class: 'form-control input edit',
+                           "aria-required": true, required: true,
+                           "data-toggle": "tooltip", title: _('Research output name (20 chars max.)') %>
           <span class="readonly"><%= research_output.abbreviation %></span>
         </div>
         <div class='research-output-field form-group research-output-fullname'>
           <%= f.label :fullname, _('Full Title'),  class: 'control-label' %>
-          <%= f.text_field :fullname, value: research_output_data['title'], class: 'form-control input edit', "aria-required": true,
-                      'data-toggle': 'tooltip', title: _('Research output fullname')   %>
+          <%= f.text_field :fullname, value: research_output_data['title'],
+                           class: 'form-control input edit',
+                           "aria-required": true, required: true,
+                           "data-toggle": "tooltip", title: _('Research output fullname')   %>
           <span class="readonly"><%= research_output_data['title'] %></span>
         </div>
         <% unless plan.template.structured? %>

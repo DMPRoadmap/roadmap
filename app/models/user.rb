@@ -387,10 +387,15 @@ class User < ApplicationRecord
 
   # Override devise_invitable email title
   def deliver_invitation(options = {})
-    super(options.merge(subject: _("A Data Management Plan in " \
-      "%{application_name} has been shared with you") %
-      { application_name: ApplicationService.application_name })
-    )
+    current_locale = invited_by.get_locale.nil? ? FastGettext.default_locale : invited_by.get_locale
+    FastGettext.with_locale current_locale do
+      subject = _("%{user_name} has shared a Data Management Plan with you in %{tool_name}") %
+        {
+          user_name: invited_by.name(false),
+          tool_name: Rails.configuration.branding[:application][:name]
+        }
+      super(options.merge(subject: subject))
+    end
   end
 
   # Case insensitive search over User model

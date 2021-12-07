@@ -1,4 +1,4 @@
-<%# locals: { f, field_label, field_name, multiple, classname, field_name, field_id, required, readonly, validation, ttip } %>
+<%# locals: { f, field_label, field_name, multiple, classname, field_name, field_id,  minimum, maximum, required, readonly, validation, ttip } %>
 <% field_class = nil if local_assigns[:field_class].nil? %>
 <% field_label = field_label || 'No label defined' %>
 
@@ -9,7 +9,8 @@
 <% end %>
 <div class="col-md-12 dynamic-field">
   <%= f.number_field field_name, 
-            value: field_value, 
+            value: field_value,
+            min: minimum, max: maximum,
             multiple: multiple, 
             disabled: readonly,
             class: "form-control #{field_class}",

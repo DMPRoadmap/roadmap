@@ -4,19 +4,19 @@ import {
   isString,
 } from '../utils/isType';
 import { Tinymce } from '../utils/tinymce.js.erb';
-import { Select2 } from '../utils/select2';
+import { formLoadingCallback } from '../utils/dynamicFormHelper';
 // import debounce from '../utils/debounce';
 import { updateSectionProgress, getQuestionDiv } from '../utils/sectionUpdate';
 import datePicker from '../utils/datePicker';
 import TimeagoFactory from '../utils/timeagoFactory.js.erb';
 
 const editorClass = 'tinymce_answer';
-const showSavingMessage = (jQuery) => jQuery.closest('.question-form').find('[data-status="saving"]').show();
-const hideSavingMessage = (jQuery) => jQuery.closest('.question-form').find('[data-status="saving"]').hide();
-const showLoadingOverlay = (jQuery) => jQuery.find('.overlay').show();
-const hideLoadingOverlay = (jQuery) => jQuery.find('.overlay').hide();
-const closestErrorSavingMessage = (jQuery) => jQuery.closest('.question-form').find('[data-status="error-saving"]');
-const questionId = (jQuery) => jQuery.closest('.form-answer').attr('data-autosave');
+const showSavingMessage = jQuery => jQuery.closest('.question-form').find('[data-status="saving"]').show();
+const hideSavingMessage = jQuery => jQuery.closest('.question-form').find('[data-status="saving"]').hide();
+const showLoadingOverlay = jQuery => jQuery.find('.overlay').show();
+const hideLoadingOverlay = jQuery => jQuery.find('.overlay').hide();
+const closestErrorSavingMessage = jQuery => jQuery.closest('.question-form').find('[data-status="error-saving"]');
+const questionId = jQuery => jQuery.closest('.form-answer').attr('data-autosave');
 // eslint-disable-next-line max-len
 // const isStale = jQuery => jQuery.closest('.question-form').find('.answer-locking').text().trim().length !== 0;
 const isReadOnly = () => $('.form-answer fieldset:disabled').length > 0;
@@ -138,7 +138,7 @@ const submitHandler = (e) => {
     },
   }).done((data) => {
     doneCallback(data, target);
-    Select2.init(`#answer-form-${data.question.id}-research-output-${data.research_output.id}`);
+    formLoadingCallback(data, target, 'write_plan');
   }).fail((error) => {
     failCallback(error, target);
   });

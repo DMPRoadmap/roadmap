@@ -257,6 +257,7 @@ Rails.application.routes.draw do
         resources :dmp_fragments, controller: "madmp_fragments", action: "dmp_fragments"
         resources :madmp_fragments, only: [:show, :update], controller: "madmp_fragments", path: "fragments"
         resources :madmp_schemas, only: [:index, :show], controller: "madmp_schemas", path: "schemas"
+        resources :registries, only: [:index, :show], controller: "registries", param: :name
         resources :plans, only: [:show] do
           member do
             get :rda_export

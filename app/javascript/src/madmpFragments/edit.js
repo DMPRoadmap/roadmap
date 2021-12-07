@@ -2,18 +2,26 @@ import {
   doneCallback,
   failCallback,
 } from '../answers/edit';
-import { Tinymce } from '../utils/tinymce.js.erb';
-import { Select2 } from '../utils/select2';
+import { formLoadingCallback } from '../utils/dynamicFormHelper';
 // import TimeagoFactory from '../../utils/timeagoFactory';
 
 $(() => {
   // Attach handlers for the expand/collapse all accordions
 
-  const showSavingMessage = (jQuery) => jQuery.parents('.question-form').find('[data-status="saving"]').show();
-  const hideSavingMessage = (jQuery) => jQuery.parents('.question-form').find('[data-status="saving"]').hide();
-  const showLoadingOverlay = (jQuery) => jQuery.find('.overlay').show();
-  const hideLoadingOverlay = (jQuery) => jQuery.find('.overlay').hide();
-  const toolbar = 'bold italic underline | fontsizeselect forecolor | bullist numlist | link | table';
+  const showSavingMessage = jQuery => jQuery.parents('.question-form').find('[data-status="saving"]').show();
+  const hideSavingMessage = jQuery => jQuery.parents('.question-form').find('[data-status="saving"]').hide();
+  const showLoadingOverlay = jQuery => jQuery.find('.overlay').show();
+  const hideLoadingOverlay = jQuery => jQuery.find('.overlay').hide();
+  const displayRunTabs = (formData, questionId, researchOutputId) => {
+    if (formData) {
+      $(`#runs-${questionId}-research-output-${researchOutputId} .run-zone`).html(formData);
+      $(`#collapse-${questionId}-research-output-${researchOutputId} .runs-tab`).show();
+    } else {
+      $(`#runs-${questionId}-research-output-${researchOutputId} .run-zone`).html('');
+      $(`#collapse-${questionId}-research-output-${researchOutputId} .runs-tab`).hide();
+      $(`a[href="#notes-${questionId}-research-output-${researchOutputId}"]`).tab('show');
+    }
+  };
 
   $('.panel-collapse').on('shown.bs.collapse reload.form', (e) => {
     const target = $(e.target);
@@ -33,13 +41,8 @@ $(() => {
         },
       }).done((data) => {
         doneCallback(data, target);
-        $(`#runs-${data.question.id}-research-output-${data.research_output.id} .run-zone`).html(data.question.form_run);
-        Tinymce.init({
-          selector: `#research_output_${data.research_output.id}_section_${data.section.id} .note`,
-          toolbar,
-        });
-        target.find('.toggle-guidance-section').removeClass('disabled');
-        Select2.init(`#answer-form-${data.question.id}-research-output-${data.research_output.id}`);
+        displayRunTabs(data.question.form_run, data.question.id, data.research_output.id);
+        formLoadingCallback(data, target, 'write_plan');
       }).fail((error) => {
         failCallback(error, target);
       });
@@ -61,13 +64,8 @@ $(() => {
         },
       }).done((data) => {
         doneCallback(data, target);
-        Tinymce.init({
-          selector: `#research_output_${data.research_output.id}_section_${data.section.id} .note`,
-          toolbar,
-        });
-        Select2.init(`#answer-form-${data.question.id}-research-output-${data.research_output.id}`);
+        formLoadingCallback(data, target, 'write_plan');
         target.find('.schema_picker').data('fragment-id', data.fragment_id);
-        target.find('.toggle-guidance-section').removeClass('disabled');
       }).fail((error) => {
         failCallback(error, target);
       });
@@ -108,8 +106,8 @@ $(() => {
       },
     }).done((data) => {
       doneCallback(data, target);
-      $(`#runs-${data.question.id}-research-output-${data.research_output.id} .run-zone`).html(data.question.form_run);
-      Select2.init(`#answer-form-${data.question.id}-research-output-${data.research_output.id}`);
+      displayRunTabs(data.question.form_run, data.question.id, data.research_output.id);
+      formLoadingCallback(data, target, 'write_plan');
     }).fail((error) => {
       failCallback(error, target);
     });

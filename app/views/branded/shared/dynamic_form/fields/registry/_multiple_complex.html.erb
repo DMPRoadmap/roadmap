@@ -13,7 +13,7 @@
       <span class="registry-info fas fa-info-circle"></span>
     </a>
   </legend>
-  <div class="col-md-12 dynamic-field select-field multiple-select"
+  <div class="col-md-12 dynamic-field select-field linked-fragments-select create-from-registry"
         data-locale="<%= locale %>"
         data-parent-id="<%= parent_id %>"
         data-query-id="<%= query_id %>"
@@ -23,7 +23,7 @@
   >
     <% unless readonly %>
       <span class="intermediate-label"><i><%= intermediate_message %></i></span>
-      <div class="col-md-12 dynamic-field linked-fragments-select">
+      <div class="col-md-12 dynamic-field">
         <%= select_tag "#{f.object_name}[#{field_name}]",
                     options_for_select(
                         select_values.map {|v| [ 
@@ -63,6 +63,7 @@
         <% end %>
       </div>
       <span class="message-area"></span>
+      <span class="add-indicator fa fa-arrow-down"></span>
     <% end %>
   </div>
   <div class="col-md-12">

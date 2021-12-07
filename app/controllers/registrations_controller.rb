@@ -10,14 +10,16 @@ class RegistrationsController < Devise::RegistrationsController
     @languages = Language.sorted_by_abbreviation
     # --------------------------------
     # Start DMP OPIDoR Customization
-    # CHANGES : Excluded funder orgs from registrations
+    # CHANGES :
+    #   - Excluded funder orgs from registrations
+    #   - Excluded unactive IdentifierSchemes from registrations
     # --------------------------------
     @orgs = Org.where(active: true).where.not("org_type = 2").order("name")
+    @other_organisations = Org.where(is_other: true).pluck(:id)
+    @identifier_schemes = IdentifierScheme.for_users.where(active: true).order(:name)
     # --------------------------------
     # End DMP OPIDoR Customization
     # --------------------------------
-    @other_organisations = Org.where(is_other: true).pluck(:id)
-    @identifier_schemes = IdentifierScheme.for_users.order(:name)
     @default_org = current_user.org
 
     msg = "No default preferences found (should be in dmproadmap.rb initializer)."

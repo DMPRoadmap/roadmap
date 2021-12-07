@@ -5,16 +5,16 @@ import * as notifier from '../utils/notificationHelper';
 import {
   failCallback,
 } from '../answers/edit';
+import { formLoadingCallback } from '../utils/dynamicFormHelper';
 import 'bootstrap-3-typeahead';
 
 $(() => {
   const grantIdField = $('.grant-id-typeahead');
   const grantIdHidden = $('input#plan_grant_number');
-  const showSavingMessage = (jQuery) => jQuery.parents('.question-form').find('[data-status="saving"]').show();
-  const hideSavingMessage = (jQuery) => jQuery.parents('.question-form').find('[data-status="saving"]').hide();
-  const showLoadingOverlay = (jQuery) => jQuery.find('.overlay').show();
-  const hideLoadingOverlay = (jQuery) => jQuery.find('.overlay').hide();
-  const toolbar = 'bold italic underline | fontsizeselect forecolor | bullist numlist | link | table';
+  const showSavingMessage = jQuery => jQuery.parents('.question-form').find('[data-status="saving"]').show();
+  const hideSavingMessage = jQuery => jQuery.parents('.question-form').find('[data-status="saving"]').hide();
+  const showLoadingOverlay = jQuery => jQuery.find('.overlay').show();
+  const hideLoadingOverlay = jQuery => jQuery.find('.overlay').hide();
 
   Tinymce.init();
   /*
@@ -69,12 +69,12 @@ $(() => {
     toggleCheckboxes(selections);
   };
 
-  const grantNumberInfo = (grantId) => `Grant number: ${grantId}`;
+  const grantNumberInfo = grantId => `Grant number: ${grantId}`;
 
   const setInitialGrantProjectName = () => {
     const grantId = grantIdHidden.val();
     const researchProjects = window.researchProjects;
-    const researchProject = researchProjects.find((datum) => datum.grant_id === grantId);
+    const researchProject = researchProjects.find(datum => datum.grant_id === grantId);
     if (researchProject) {
       grantIdField.val(researchProject.description);
     }
@@ -173,10 +173,7 @@ $(() => {
       form.html(data.question.form);
       $('#plan-title').html(data.plan.title);
       $(document).prop('title', data.plan.title);
-      Tinymce.init({
-        toolbar,
-      });
-      Select2.init('.plan-details');
+      formLoadingCallback(data, target, 'plan_details');
       if (form.parent().hasClass('project-form')) {
         $('#plan_metadata').trigger('reload.form');
       }
@@ -203,10 +200,7 @@ $(() => {
       form.html(data.question.form);
       $('#plan-title').html(data.plan.title);
       $(document).prop('title', data.plan.title);
-      Tinymce.init({
-        toolbar,
-      });
-      Select2.init('.plan-details');
+      formLoadingCallback(data, target, 'plan_details');
     }).fail((error) => {
       failCallback(error, target);
     });
