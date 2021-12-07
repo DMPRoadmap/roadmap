@@ -37,26 +37,34 @@ RSpec.describe Api::V1::BaseApiController, type: :request do
     describe '#authorize_request' do
       before(:each) do
         @client = create(:api_client)
+        # rubocop:disable Style/OpenStructUse
         struct = OpenStruct.new(headers: {})
+        # rubocop:enable Style/OpenStructUse
         @controller.expects(:request).returns(struct)
       end
 
       it 'calls log_access if the authorization succeeds' do
+        # rubocop:disable Style/OpenStructUse
         auth_svc = OpenStruct.new(call: @client)
+        # rubocop:enable Style/OpenStructUse
         Api::V1::Auth::Jwt::AuthorizationService.expects(:new).returns(auth_svc)
         @controller.expects(:log_access).at_least(1)
         @controller.send(:authorize_request)
       end
 
       it 'sets the client if the authorization succeeds' do
+        # rubocop:disable Style/OpenStructUse
         auth_svc = OpenStruct.new(call: @client)
+        # rubocop:enable Style/OpenStructUse
         Api::V1::Auth::Jwt::AuthorizationService.expects(:new).returns(auth_svc)
         @controller.send(:authorize_request)
         expect(@controller.client).to eql(@client)
       end
 
       it 'renders an UNAUTHORIZED error if the client is not authorized' do
+        # rubocop:disable Style/OpenStructUse
         auth_svc = OpenStruct.new(call: nil)
+        # rubocop:enable Style/OpenStructUse
         Api::V1::Auth::Jwt::AuthorizationService.expects(:new).returns(auth_svc)
         @controller.expects(:render_error).at_least(1)
         @controller.send(:authorize_request)
@@ -93,7 +101,9 @@ RSpec.describe Api::V1::BaseApiController, type: :request do
       it "returns the caller's IP if the client is nil" do
         ip = Faker::Internet.ip_v4_address
         @controller.expects(:client).returns(nil)
+        # rubocop:disable Style/OpenStructUse
         @controller.expects(:request).returns(OpenStruct.new(remote_ip: ip))
+        # rubocop:enable Style/OpenStructUse
         expect(@controller.send(:caller_name)).to eql(ip)
       end
       it 'returns the user name if the client is a User' do

@@ -36,39 +36,37 @@ Devise.setup do |config|
                   scope: '/authenticate /activities/update',
                   sandbox: Rails.configuration.x.dmproadmap.orcid_sandbox
 
-=begin
-  if Rails.env.development? || Rails.env.test?
-    config.omniauth :no_ds_shibboleth, {
-      request_type: :header,
-      shib_session_id_field: 'Shib-Session-ID',
-      shib_application_id_field: 'Shib-Application-ID',
-      uid_field: 'eppn',
-      info_fields: {
-        email: 'mail',
-        name: 'displayName',
-        last_name: 'sn',
-        first_name: 'givenName',
-        identity_provider: 'shib_identity_provider'
-      },
-      extra_fields: [:schacHomeOrganization],
-      debug: false
-    }
-  else
-=end
-    config.omniauth :shibboleth, {
-      request_type: :header,
-      uid_field: 'eppn',
-      info_fields: {
-        email: 'mail',
-        name: 'displayName',
-        last_name: 'sn',
-        first_name: 'givenName',
-        identity_provider: 'shib_identity_provider'
-      },
-      extra_fields: [:schacHomeOrganization],
-      debug: false
-    }
-#  end
+  #   if Rails.env.development? || Rails.env.test?
+  #     config.omniauth :no_ds_shibboleth, {
+  #       request_type: :header,
+  #       shib_session_id_field: 'Shib-Session-ID',
+  #       shib_application_id_field: 'Shib-Application-ID',
+  #       uid_field: 'eppn',
+  #       info_fields: {
+  #         email: 'mail',
+  #         name: 'displayName',
+  #         last_name: 'sn',
+  #         first_name: 'givenName',
+  #         identity_provider: 'shib_identity_provider'
+  #       },
+  #       extra_fields: [:schacHomeOrganization],
+  #       debug: false
+  #     }
+  #   else
+  config.omniauth :shibboleth, {
+    request_type: :header,
+    uid_field: 'eppn',
+    info_fields: {
+      email: 'mail',
+      name: 'displayName',
+      last_name: 'sn',
+      first_name: 'givenName',
+      identity_provider: 'shib_identity_provider'
+    },
+    extra_fields: [:schacHomeOrganization],
+    debug: false
+  }
+  #  end
 
   config.omniauth_path_prefix = '/users/auth'
 

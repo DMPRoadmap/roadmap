@@ -420,10 +420,10 @@ class PlansController < ApplicationController
         code: 0, msg: _("Unable to change the plan's test status")
       }
     end
-    # rubocop:enable Layout/LineLength
   end
 
   # GET /plans/:id/mint
+  # rubocop:disable Metrics/AbcSize
   def mint
     @plan = Plan.find(params[:id])
     authorize @plan
@@ -432,20 +432,21 @@ class PlansController < ApplicationController
     dmp_id.save
     @plan = @plan.reload
 
-    @orcid_access_token = ExternalApiAccessToken.for_user_and_service(user: current_user, service: "orcid")
+    @orcid_access_token = ExternalApiAccessToken.for_user_and_service(user: current_user, service: 'orcid')
 
     # If a DMP ID was successfully acquired and the User has authorized us to write to their ORCID record
     if @plan.dmp_id.present? && @orcid_access_token.present?
       ExternalApis::OrcidService.add_work(user: current_user, plan: @plan)
     end
 
-    render js: render_to_string(template: "plans/mint.js.erb")
+    render js: render_to_string(template: 'plans/mint.js.erb')
   rescue StandardError => e
     Rails.logger.error "Unable to add plan #{params[:id]} to the user #{current_user.id}'s ORCID record - #{e.message}"
     Rails.logger.error e.backtrace
 
-    render js: render_to_string(template: "plans/mint.js.erb")
+    render js: render_to_string(template: 'plans/mint.js.erb')
   end
+  # rubocop:enable Metrics/AbcSize
 
   # ============================
   # = Private instance methods =

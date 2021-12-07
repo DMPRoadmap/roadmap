@@ -35,14 +35,6 @@ RSpec.describe Dmptool::PublicPagesController, type: :request do
     end
   end
 
-  describe '#get_started' do
-    it 'should be accessible when not logged in' do
-      get get_started_path
-      expect(response).to have_http_status(:success)
-      expect(response.body.include?('<h2>Sign in options')).to eql(true)
-    end
-  end
-
   describe '#file_name' do
     it 'replaces spaces, periods, commas, and colons with underscores' do
       expect(@controller.send(:file_name, 'A title with spaces')).to eql('A_title_with_spaces')

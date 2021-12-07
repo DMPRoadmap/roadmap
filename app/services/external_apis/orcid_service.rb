@@ -104,6 +104,7 @@ module ExternalApis
         end
       end
 
+      # rubocop:disable Metrics/AbcSize
       def xml_for(plan:, dmp_id:, user:)
         return nil unless plan.is_a?(Plan) && dmp_id.is_a?(Identifier) && user.is_a?(User)
 

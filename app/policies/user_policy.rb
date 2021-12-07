@@ -71,17 +71,18 @@ class UserPolicy < ApplicationPolicy
     @user.can_super_admin? || @user.can_org_admin?
   end
 
+  # DMPTool custom endpoints
+
   def revoke_oauth_access_token?
-    # An OauthToken can be revoked by a SuperAdmin or the Current User (for themself)
-    signed_in_user.can_super_admin? || signed_in_user == @user
+    @user.present?
   end
 
   def third_party_apps?
-    signed_in_user == @user
+    @user.present?
   end
 
   def developer_tools?
-    signed_in_user == @user
+    @user.present?
   end
 
   # Basic scope for the current user

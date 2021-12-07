@@ -32,11 +32,11 @@ RSpec.describe 'Sign up via email and password', type: :feature do
       click_button 'Create account'
       expect(page).to have_text('Please fill out all of the required fields.')
 
-      fill_in 'First Name', with: Faker::Movies::StarWars.character.split(' ').first
+      fill_in 'First Name', with: Faker::Movies::StarWars.character.split.first
       click_button 'Create account'
       expect(page).to have_text('Please fill out all of the required fields.')
 
-      fill_in 'Last Name', with: Faker::Movies::StarWars.character.split(' ').first
+      fill_in 'Last Name', with: Faker::Movies::StarWars.character.split.last
       click_button 'Create account'
       expect(page).to have_text('Please fill out all of the required fields.')
 
@@ -64,8 +64,8 @@ RSpec.describe 'Sign up via email and password', type: :feature do
   scenario 'Does not allow user to enter a random Org into autocomplete' do
     within('#create_account_form') do
       click_button 'Create account'
-      fill_in 'First Name', with: Faker::Movies::StarWars.character.split(' ').first
-      fill_in 'Last Name', with: Faker::Movies::StarWars.character.split(' ').first
+      fill_in 'First Name', with: Faker::Movies::StarWars.character.split.first
+      fill_in 'Last Name', with: Faker::Movies::StarWars.character.split.last
       fill_in 'Email', with: Faker::Internet.unique.email
       select_an_org('#create-account-org-controls', Faker::Lorem.sentence)
       fill_in 'Password', with: SecureRandom.uuid
@@ -80,8 +80,8 @@ RSpec.describe 'Sign up via email and password', type: :feature do
   scenario 'Allows user to select an Org that exists but is not a ROR Org' do
     within('#create_account_form') do
       click_button 'Create account'
-      fill_in 'First Name', with: Faker::Movies::StarWars.character.split(' ').first
-      fill_in 'Last Name', with: Faker::Movies::StarWars.character.split(' ').first
+      fill_in 'First Name', with: Faker::Movies::StarWars.character.split.first
+      fill_in 'Last Name', with: Faker::Movies::StarWars.character.split.last
       fill_in 'Email', with: Faker::Internet.unique.email
       select_an_org('#create-account-org-controls', @non_ror_org.name)
       fill_in 'Password', with: SecureRandom.uuid
@@ -97,8 +97,8 @@ RSpec.describe 'Sign up via email and password', type: :feature do
   scenario 'Allows user to select an Org that exists and is a ROR Org' do
     within('#create_account_form') do
       click_button 'Create account'
-      fill_in 'First Name', with: Faker::Movies::StarWars.character.split(' ').first
-      fill_in 'Last Name', with: Faker::Movies::StarWars.character.split(' ').first
+      fill_in 'First Name', with: Faker::Movies::StarWars.character.split.first
+      fill_in 'Last Name', with: Faker::Movies::StarWars.character.split.last
       fill_in 'Email', with: Faker::Internet.unique.email
       select_an_org('#create-account-org-controls', @known_registry_org.name)
       fill_in 'Password', with: SecureRandom.uuid
@@ -116,8 +116,8 @@ RSpec.describe 'Sign up via email and password', type: :feature do
 
     within('#create_account_form') do
       click_button 'Create account'
-      fill_in 'First Name', with: Faker::Movies::StarWars.character.split(' ').first
-      fill_in 'Last Name', with: Faker::Movies::StarWars.character.split(' ').first
+      fill_in 'First Name', with: Faker::Movies::StarWars.character.split.first
+      fill_in 'Last Name', with: Faker::Movies::StarWars.character.split.last
       fill_in 'Email', with: Faker::Internet.unique.email
       select_an_org('#create-account-org-controls', @registry_org.name)
       fill_in 'Password', with: SecureRandom.uuid
@@ -135,8 +135,8 @@ RSpec.describe 'Sign up via email and password', type: :feature do
 
     within('#create_account_form') do
       click_button 'Create account'
-      fill_in 'First Name', with: Faker::Movies::StarWars.character.split(' ').first
-      fill_in 'Last Name', with: Faker::Movies::StarWars.character.split(' ').first
+      fill_in 'First Name', with: Faker::Movies::StarWars.character.split.first
+      fill_in 'Last Name', with: Faker::Movies::StarWars.character.split.last
       fill_in 'Email', with: Faker::Internet.unique.email
       select_an_org('#create-account-org-controls', @registry_org.name)
       fill_in 'Password', with: SecureRandom.uuid
@@ -152,8 +152,8 @@ RSpec.describe 'Sign up via email and password', type: :feature do
   scenario 'Allows user to specify a custom Org name' do
     within('#create_account_form') do
       click_button 'Create account'
-      fill_in 'First Name', with: Faker::Movies::StarWars.character.split(' ').first
-      fill_in 'Last Name', with: Faker::Movies::StarWars.character.split(' ').first
+      fill_in 'First Name', with: Faker::Movies::StarWars.character.split.first
+      fill_in 'Last Name', with: Faker::Movies::StarWars.character.split.last
       fill_in 'Email', with: Faker::Internet.unique.email
       enter_custom_org('#create-account-org-controls', Faker::Movies::StarWars.planet)
       fill_in 'Password', with: SecureRandom.uuid

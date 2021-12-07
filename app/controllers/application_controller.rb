@@ -34,9 +34,6 @@ class ApplicationController < ActionController::Base
   end
 
   def user_not_authorized
-
-p "UNAUTHORIZED!!!"
-
     if user_signed_in?
       # redirect_to plans_url, alert: _("You are not authorized to perform this action.")
       msg = _('You are not authorized to perform this action.')

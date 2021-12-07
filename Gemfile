@@ -99,7 +99,7 @@ gem 'flag_shih_tzu' # , "~> 0.3.23"
 gem 'devise'
 
 # An invitation strategy for Devise (https://github.com/scambra/devise_invitable)
-# gem "devise_invitable"
+gem "devise_invitable"
 
 # A generalized Rack framework for multiple-provider authentication.
 # (https://github.com/omniauth/omniauth)

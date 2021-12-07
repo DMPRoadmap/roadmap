@@ -15,11 +15,6 @@ RSpec.describe ContributorsController, type: :controller do
         name: Faker::TvShows::Simpsons.character,
         email: Faker::Internet.email,
         phone: Faker::Number.number,
-        org_id: {
-          id: @org.id,
-          name: @org.name,
-          ror: Faker::Lorem.word
-        }.to_json,
         identifiers_attributes: { '0': {
           identifier_scheme_id: @scheme.id,
           value: SecureRandom.uuid
@@ -131,38 +126,6 @@ RSpec.describe ContributorsController, type: :controller do
         @params_hash[:contributor][:non_role] = '1'
         roles = @controller.send(:translate_roles, hash: @params_hash[:contributor])
         expect(roles[:non_role]).to eql('1')
-      end
-    end
-
-    describe '#process_org(hash:)' do
-      it 'returns the hash as is if no :org_id is present' do
-        @params_hash[:contributor].delete(:org_id)
-        hash = @controller.send(:process_org, hash: @params_hash[:contributor])
-        expect(hash).to eql(@params_hash[:contributor])
-      end
-      it 'with no restrict_orgs defined, returns the hash if the org could not be converted' do
-        Rails.configuration.x.application.restrict_orgs = nil
-        @controller.stubs(:org_from_params).returns(nil)
-        hash = @controller.send(:process_org, hash: @params_hash[:contributor])
-        expect(hash).to eql(@params_hash[:contributor])
-      end
-      it 'with restrict_orgs=false, returns the hash if the org could not be converted' do
-        Rails.configuration.x.application.restrict_orgs = false
-        @controller.stubs(:org_from_params).returns(nil)
-        hash = @controller.send(:process_org, hash: @params_hash[:contributor])
-        expect(hash).to eql(@params_hash[:contributor])
-      end
-      it 'with restrict_orgs=true, returns hash if the org could not be converted' do
-        Rails.configuration.x.application.restrict_orgs = true
-        @controller.stubs(:org_from_params).returns(nil)
-        hash = @controller.send(:process_org, hash: @params_hash[:contributor])
-        expect(hash).to eql(@params_hash[:contributor])
-      end
-      it 'sets the org_id to the idea of the org' do
-        new_org = create(:org)
-        @controller.stubs(:org_from_params).returns(new_org)
-        hash = @controller.send(:process_org, hash: @params_hash[:contributor])
-        expect(hash[:org_id]).to eql(new_org.id)
       end
     end
 

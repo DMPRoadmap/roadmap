@@ -121,6 +121,7 @@ module OrgSelectable
 
     # Fetches the appropriate name based on the specified :namespace and whether or not
     # the User supplied a custom Org name
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def name_from_params(namespace: nil)
       o_params = org_selectable_params.fetch(:org_autocomplete, {})
       namespace += '_' unless namespace.nil? || namespace.end_with?('_')
@@ -129,6 +130,7 @@ module OrgSelectable
       # If the user entered a custom entry then humanize it and capitalize each word
       o_params["#{namespace}user_entered_name"]&.humanize&.split&.map(&:capitalize)&.join(' ')
     end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     # Determines if the User supplied a custom Org name
     def in_list?(namespace: nil)
@@ -137,7 +139,6 @@ module OrgSelectable
       o_params["#{namespace}not_in_list"] != '1'
     end
 
-    # rubocop:disable Metrics/AbcSize
     def org_to_attributes(org:)
       return {} unless org.is_a?(Org)
 
@@ -155,7 +156,6 @@ module OrgSelectable
         }
       }
     end
-    # rubocop:enable Metrics/AbcSize
 
     # Create a new Org
     def create_org!(name:)

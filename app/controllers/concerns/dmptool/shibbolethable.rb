@@ -5,6 +5,5 @@ module Dmptool
   # discovery service and instead send the user directly to their institution's IdP
   # using the Shibbeoleth entityID stored in the identifiers table for the Org
   module Shibbolethable
-
   end
 end

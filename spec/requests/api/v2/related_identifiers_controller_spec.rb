@@ -13,13 +13,13 @@ RSpec.describe Api::V2::RelatedIdentifiersController, type: :request do
 
     @client = create(:api_client, trusted: false,
                                   user: create(:user, :org_admin, org: create(:org)))
-    token = client_is_authorized(@client, @plan.owner, { scopes: "edit_dmps" })
+    token = client_is_authorized(@client, @plan.owner, { scopes: 'edit_dmps' })
     resource_owner_is_authenticated(@plan.owner)
 
     @headers = {
-      "Accept": "application/json",
-      "Content-Type": "application/json",
-      "Authorization": "Bearer #{token.token}"
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: "Bearer #{token.token}"
     }
   end
 
@@ -84,14 +84,14 @@ RSpec.describe Api::V2::RelatedIdentifiersController, type: :request do
       last_updated = r_id.updated_at
       @plan.reload
       post api_v2_related_identifiers_path, params: @json.to_json, headers: @headers
-      expect(response.code).to eql("201")
-      expect(response).to render_template("api/v2/plans/index")
+      expect(response.code).to eql('201')
+      expect(response).to render_template('api/v2/plans/index')
       expect(r_id.reload.updated_at).to eql(last_updated)
     end
     it 'returns a 201 if the incoming JSON is valid' do
       post api_v2_related_identifiers_path, params: @json.to_json, headers: @headers
-      expect(response.code).to eql("201")
-      expect(response).to render_template("api/v2/plans/index")
+      expect(response.code).to eql('201')
+      expect(response).to render_template('api/v2/plans/index')
       json = JSON.parse(response.body).with_indifferent_access
                  .fetch(:items, [{}])
                  .first[:dmp]
@@ -101,7 +101,7 @@ RSpec.describe Api::V2::RelatedIdentifiersController, type: :request do
       expected = @json[:dmp][:dmproadmap_related_identifiers].map { |i| i[:identifier] }
       r_ids.each { |rid| expect(expected.include?(rid)).to eql(true) }
     end
-    it "logs the addition of the new related identifier in the api_logs" do
+    it 'logs the addition of the new related identifier in the api_logs' do
       post api_v2_related_identifiers_path, params: @json.to_json, headers: @headers
       entry = ApiLog.all.last
       related = RelatedIdentifier.all.last

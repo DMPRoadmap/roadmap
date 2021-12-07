@@ -14,7 +14,9 @@ describe 'api/v1/token.json.jbuilder' do
     assign :expiration, @exp
     assign :token_type, @type
 
+    # rubocop:disable Style/OpenStructUse
     @resp = OpenStruct.new(status: 200)
+    # rubocop:enable Style/OpenStructUse
     @req = Net::HTTPGenericRequest.new('GET', nil, nil, @url)
 
     render template: 'api/v1/token',

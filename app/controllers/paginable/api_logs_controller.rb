@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 module Paginable
-
+  # Handler for viewing API v2 logs
   class ApiLogsController < ApplicationController
-
     after_action :verify_authorized
     respond_to :html
 
@@ -14,13 +13,11 @@ module Paginable
       authorize(ApiClient)
       @api_logs = ApiLog.all
       paginable_renderise(
-        partial: "index",
+        partial: 'index',
         scope: ApiLog.all,
-        query_params: { sort_field: "api_logs.created_at", sort_direction: :desc },
+        query_params: { sort_field: 'api_logs.created_at', sort_direction: :desc },
         format: :json
       )
     end
-
   end
-
 end

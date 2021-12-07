@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module AutocompleteHelper
-  # rubocop:disable Metrics/AbcSize
   def select_an_org(selector, org_name, label)
     within(selector) do
       # Clear the default Org name if any and replace with the specified name
@@ -21,13 +20,12 @@ module AutocompleteHelper
       selection.click
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   # Supply a custom Org name
   def enter_custom_org(selector, org_name, namespace = nil)
     within(selector) do
       check _('I cannot find my institution in the list')
-      field = find("#org_autocomplete_#{[namespace, "user_entered_name"].compact.join("_")}")
+      field = find("#org_autocomplete_#{[namespace, 'user_entered_name'].compact.join('_')}")
       expect(field.present?).to eql(true)
 
       field.set(org_name)

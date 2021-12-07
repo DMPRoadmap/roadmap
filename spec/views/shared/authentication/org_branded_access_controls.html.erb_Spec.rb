@@ -9,8 +9,10 @@ describe 'shared/authentication/org_branded_access_controls.html.erb' do
 
   it "renders the Org logo if it's available" do
     # stub the logo method
+    # rubocop:disable Style/OpenStructUse
     logo = OpenStruct.new({ present?: true })
     logo.stubs(:thumb).returns(OpenStruct.new({ url: Faker::Internet.url }))
+    # rubocop:enable Style/OpenStructUse
     @org.stubs(:logo).returns(logo)
     assign :user, build(:user, org: @org)
     render

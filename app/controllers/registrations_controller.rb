@@ -2,14 +2,14 @@
 
 # Controller that handles user account creation and changes from the edit profile page
 class RegistrationsController < Devise::RegistrationsController
-#  include OrgSelectable
+  #  include OrgSelectable
 
-#  include Dmptool::RegistrationsController
+  #  include Dmptool::RegistrationsController
 
   # DMPTool customization - this method is stored in the Dmptool module
   # before_action :org_lookup, if: :devise_controller?
 
-#  before_action :check_oauth, if: :devise_controller?
+  #  before_action :check_oauth, if: :devise_controller?
 
   # rubocop:disable Layout/LineLength
 

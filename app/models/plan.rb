@@ -707,7 +707,7 @@ class Plan < ApplicationRecord
     # Update existing or add new
     params.each do |id, related_identifier_hash|
       related_identifier_hash = related_identifier_hash.with_indifferent_access
-      next unless id.present? && id != "0" && related_identifier_hash[:value].present?
+      next unless id.present? && id != '0' && related_identifier_hash[:value].present?
 
       related = RelatedIdentifier.find_by(id: id)
       related = RelatedIdentifier.new(identifiable: self) unless related.present?

@@ -471,9 +471,9 @@ RSpec.describe Api::V2::PlansController, type: :request do
         expect(owner.plans.length).to eql(1)
       end
 
-      it "logs the addition of the new plan in the api_logs" do
+      it 'logs the addition of the new plan in the api_logs' do
         post(api_v2_plans_path, params: @json.to_json, headers: @headers)
-        expect(response.code).to eql("201")
+        expect(response.code).to eql('201')
         entry = ApiLog.all.last
         plan = Plan.all.last
         expected = "Created a new Plan:<br>#<Plan id: #{plan.id}, "

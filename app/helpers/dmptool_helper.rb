@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "httparty"
-require "rss"
+require 'httparty'
+require 'rss'
 
 # DMPTool specific helpers
 module DmptoolHelper

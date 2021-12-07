@@ -100,13 +100,13 @@ module ExportablePlan
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
   # rubocop:enable Style/OptionalBooleanParameter
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   def prepare_coversheet
     hash = {}
     hash[:attribution] = attribution
 
     # Org name of plan owner's org
-    hash[:affiliation] = (owner.present? && owner.org.present?) ? owner.org.name : ""
+    hash[:affiliation] = owner.present? && owner.org.present? ? owner.org.name : ''
 
     # set the funder name
     hash[:funder] = funder.name if funder.present?
@@ -125,8 +125,8 @@ module ExportablePlan
     hash[:customizer] = customizer
     hash
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
-  # rubocop:enable Metrics/AbcSize
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def prepare_coversheet_for_csv(csv, _headings, hash)
     csv << [_('Creator:'), format(_('%<authors>s'), authors: hash[:attribution].join(', '))]

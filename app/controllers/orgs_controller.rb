@@ -67,7 +67,7 @@ class OrgsController < ApplicationController
 
     if @org.update(attrs)
       # Save any identifiers that were found
-      if current_user.can_super_admin? && lookup.present?
+      if current_user.can_super_admin? && identifiers.present?
         # Loop through the identifiers and then replace the existing
         # identifier and save the new one
         identifiers.each do |id|

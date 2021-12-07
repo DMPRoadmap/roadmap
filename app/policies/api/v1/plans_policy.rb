@@ -15,8 +15,10 @@ module Api
         #                     anything belonging to their Org (if applicable)
         # User (non-admin) can view: any personal or organisationally_visible
         # User (admin) can view: all from users of their organisation
+        # rubocop:disable Metrics/AbcSize
         def resolve
           ids = Plan.publicly_visible.pluck(:id)
+          # rubocop:disable Style/CaseLikeIf
           if client.is_a?(ApiClient)
             ids += client.subscriptions.pluck(&:plan_id)
             ids += client.user.org.plans.pluck(&:id) if client.user.present? && client.user.org.present?
@@ -25,8 +27,10 @@ module Api
             ids += client.plans.pluck(:id)
             ids += client.org.plans.pluck(:id) if client.can_org_admin?
           end
+          # rubocop:enable Style/CaseLikeIf
           Plan.where(id: ids.uniq)
         end
+        # rubocop:enable Metrics/AbcSize
 
         private
 

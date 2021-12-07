@@ -25,8 +25,8 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
     within('#funder-org-controls') do
       expect(find('label[for="org_autocomplete_funder_name"]').present?).to eql(true)
       expect(find('#org_autocomplete_funder_name').present?).to eql(true)
-      expect{ find('#org_autocomplete_funder_not_in_list') }.to raise_error(Capybara::ElementNotFound)
-      expect{ find('#org_autocomplete_funder_user_entered_name') }.to raise_error(Capybara::ElementNotFound)
+      expect { find('#org_autocomplete_funder_not_in_list') }.to raise_error(Capybara::ElementNotFound)
+      expect { find('#org_autocomplete_funder_user_entered_name') }.to raise_error(Capybara::ElementNotFound)
       expect(find('#org_autocomplete_crosswalk', visible: false).present?).to eql(true)
       expect(find('.autocomplete-help').present?).to eql(true)
 
@@ -35,7 +35,7 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
       expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to eql(true)
 
       fill_in 'Funder', with: Faker::Company.unique.name
-      expect(page).to have_text(_("Please select an item from the list."))
+      expect(page).to have_text(_('Please select an item from the list.'))
     end
   end
 
@@ -54,9 +54,7 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
         @id = find('#org_autocomplete_name')[:list].split('-').last
       end
 
-      # rubocop:disable Style/lineLength
       @warn = _('Please select an item from the list or check the box below and provide a name for your organization.')
-      # rubocop:enable Style/lineLength
     end
 
     it 'User can type in the autocomplete and see suggestions', :js do
@@ -241,8 +239,10 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
           expect(find('label[for="org_autocomplete_name"]').present?).to eql(true)
           expect(find('#org_autocomplete_name').present?).to eql(true)
           expect(find('#org_autocomplete_name').value).to eql(@user.org.name)
-          expect{ find('#org_autocomplete_not_in_list') }.to raise_error(Capybara::ElementNotFound)
-          expect{ find('#org_autocomplete_user_entered_name', visible: false) }.to raise_error(Capybara::ElementNotFound)
+          expect { find('#org_autocomplete_not_in_list') }.to raise_error(Capybara::ElementNotFound)
+          expect do
+            find('#org_autocomplete_user_entered_name', visible: false)
+          end.to raise_error(Capybara::ElementNotFound)
           expect(find('#org_autocomplete_crosswalk', visible: false).present?).to eql(true)
           expect(find('.autocomplete-help').present?).to eql(true)
 
@@ -366,8 +366,10 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
           expect(find('label[for="org_autocomplete_name"]').present?).to eql(true)
           expect(find('#org_autocomplete_name').present?).to eql(true)
           expect(find('#org_autocomplete_name').value).to eql(super_admin.org.name)
-          expect{ find('#org_autocomplete_not_in_list') }.to raise_error(Capybara::ElementNotFound)
-          expect{ find('#org_autocomplete_user_entered_name', visible: false) }.to raise_error(Capybara::ElementNotFound)
+          expect { find('#org_autocomplete_not_in_list') }.to raise_error(Capybara::ElementNotFound)
+          expect do
+            find('#org_autocomplete_user_entered_name', visible: false)
+          end.to raise_error(Capybara::ElementNotFound)
           expect(find('#org_autocomplete_crosswalk', visible: false).present?).to eql(true)
           expect(find('.autocomplete-help').present?).to eql(true)
 
@@ -488,7 +490,7 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
     end
   end
 
-  # rubocop:disable Style/LineLength
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def init_orgs
     # Orgs that match the search term and have no associated Registry Org
     @funder_managed = create(:org, :funder, managed: true, name: "#{@word} Managed Funder")
@@ -526,9 +528,10 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
     @unmatched_unmanaged = create(:org, managed: false, name: 'Unmatched Unamanaged Org')
     @unmatched_registry = create(:registry_org, fundref_id: nil, name: 'Unmatched Registry Org')
   end
-  # rubocop:enable Style/LineLength
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # Check to ensure that none of the Orgs or RegistryOrgs that do not match the search term
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def unmatched_never_appear?
     !suggestion_exists?(@unmatched_funder.name) &&
       !suggestion_exists?(@unmatched_unmanaged_funder.name) &&
@@ -541,4 +544,5 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
       !suggestion_exists?(@associated_unmatched.name) &&
       !suggestion_exists?(@associated_unmatched_funder.name)
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end

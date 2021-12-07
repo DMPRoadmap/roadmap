@@ -139,8 +139,8 @@ RSpec.describe Api::V2::DatasetsController, type: :request do
       end
     end
 
-    context "Activity logging" do
-      it "registered the addition of the new research output in the api_logs" do
+    context 'Activity logging' do
+      it 'registered the addition of the new research output in the api_logs' do
         post api_v2_datasets_path(@plan), params: @json.to_json
         entry = ApiLog.all.last
         expect(entry.present?).to eql(true)

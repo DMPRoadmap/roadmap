@@ -132,7 +132,7 @@ module Api
         user
       end
 
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       def invite_contributor(contributor:)
         return nil unless contributor.present?
 
@@ -167,6 +167,7 @@ module Api
         end
         user
       end
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
       # Add a subscription to the Plan for the API client
       def add_subscription(client:, plan:)
@@ -178,7 +179,6 @@ module Api
         subscription.deletions = true
         subscription.save
       end
-
     end
   end
 end

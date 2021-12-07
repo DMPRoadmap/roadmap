@@ -14,7 +14,6 @@ class ApiClientsController < ApplicationController
 
     # Allow all available scopes by default
     attrs[:scopes] = @api_client.available_scopes
-    @api_client.org = current_user.org if current_user.org.present?
 
     authorize(@api_client)
     if @api_client.save
@@ -62,6 +61,6 @@ class ApiClientsController < ApplicationController
     params.require(:api_client).permit(:name, :description, :homepage, :logo, :remove_logo,
                                        :contact_name, :contact_email,
                                        :client_id, :client_secret,
-                                       :user_id, :org_id, :redirect_uri, :callback_uri)
+                                       :user_id, :redirect_uri, :callback_uri, :callback_method)
   end
 end

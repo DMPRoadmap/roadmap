@@ -243,6 +243,7 @@ RSpec.describe ExternalApis::DataciteService, type: :model do
       end
     end
 
+    # rubocop:disable Style/OpenStructUse
     describe '#process_response(response:)' do
       it "returns nil if JSON for Datacite does not have ['data']" do
         resp = OpenStruct.new(body: { foo: 'bar' }.to_json)
@@ -266,5 +267,6 @@ RSpec.describe ExternalApis::DataciteService, type: :model do
         expect(described_class.send(:process_response, response: resp)).to eql(JSON.parse(expected.to_json))
       end
     end
+    # rubocop:enable Style/OpenStructUse
   end
 end

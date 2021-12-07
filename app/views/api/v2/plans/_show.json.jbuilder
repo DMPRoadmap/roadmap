@@ -93,7 +93,7 @@ unless @minimal
       ror = sponsor.identifier_for_scheme(scheme: 'ror')
       if ror.present?
         json.sponsor_id do
-          json.partial! "api/v2/identifiers/show", identifier: ror
+          json.partial! 'api/v2/identifiers/show', identifier: ror
         end
       end
     end

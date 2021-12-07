@@ -2,7 +2,7 @@
 
 module Dmptool
   # DMPTool specific extensions to the User model
-  # rubocop:disable Metrics/BlockLength
+  # rubocop:disable Metrics/BlockLength, Metrics/ModuleLength
   module User
     extend ActiveSupport::Concern
 
@@ -52,7 +52,8 @@ module Dmptool
       # ============
 
       # Load the user based on the scheme and id provided by the Omniauth call
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:disable Metrics/CyclomaticComplexity
       def from_omniauth(scheme_name:, omniauth_hash:)
         return nil unless scheme_name.present? && omniauth_hash.present? &&
                           omniauth_hash['uid'].present?
@@ -86,7 +87,8 @@ module Dmptool
         user.external_api_access_tokens = [token] if token.present?
         user
       end
-      # rubocop:enable Metrics/AbcSize
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:enable Metrics/CyclomaticComplexity
 
       # Extract the 1st email
       def extract_omniauth_email(hash:)
@@ -97,7 +99,7 @@ module Dmptool
       end
 
       # Find the User names from the omniauth info
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def extract_omniauth_names(hash:)
         return {} unless hash.present?
 
@@ -113,7 +115,7 @@ module Dmptool
         surname = names.last if names.any? && !surname.present?
         { firstname: firstname&.humanize, surname: surname&.humanize }
       end
-      # rubocop:enable Metrics/AbcSize
+      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       # Find the Org associated with the omniauth provider
       def extract_omniauth_org(scheme_name:, hash:)
@@ -122,7 +124,7 @@ module Dmptool
                           hash[:identity_provider].present?
 
         idp = Identifier.by_scheme_name(scheme_name, 'Org')
-                        .where("LOWER(value) = ?", hash[:identity_provider].downcase).first
+                        .where('LOWER(value) = ?', hash[:identity_provider].downcase).first
         idp.present? ? idp.identifiable : nil
       end
     end
@@ -154,6 +156,7 @@ module Dmptool
       end
 
       # Attach an OmniAuth UID
+      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
       def attach_omniauth_credentials(scheme_name:, omniauth_hash:)
         return false unless scheme_name.present? && omniauth_hash.present?
 
@@ -174,6 +177,7 @@ module Dmptool
         Identifier.create(identifier_scheme: scheme, identifiable: self,
                           value: omniauth_hash[:uid])
       end
+      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
       # ==================
       # = API V2 HELPERS =
@@ -190,5 +194,5 @@ module Dmptool
       end
     end
   end
-  # rubocop:enable Metrics/BlockLength
+  # rubocop:enable Metrics/BlockLength, Metrics/ModuleLength
 end

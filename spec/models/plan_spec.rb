@@ -1552,7 +1552,7 @@ describe Plan do
           value: val
         }
       }
-      @plan.related_identifiers_attributes= JSON.parse(params.to_json)
+      @plan.related_identifiers_attributes = JSON.parse(params.to_json)
       @plan.save
       @plan.reload
       expect(@plan.related_identifiers.length).to eql(1)
@@ -1570,7 +1570,7 @@ describe Plan do
           value: SecureRandom.uuid
         }
       }
-      @plan.related_identifiers_attributes= JSON.parse(params.to_json)
+      @plan.related_identifiers_attributes = JSON.parse(params.to_json)
       @plan.save
       @plan.reload
       expect(@plan.related_identifiers.length).to eql(1)
@@ -1587,7 +1587,7 @@ describe Plan do
           value: val
         }
       }
-      @plan.related_identifiers_attributes= JSON.parse(params.to_json)
+      @plan.related_identifiers_attributes = JSON.parse(params.to_json)
       @plan.save
       @plan.reload
       expect(@plan.related_identifiers.length).to eql(1)
@@ -1610,7 +1610,7 @@ describe Plan do
           value: val
         }
       }
-      @plan.related_identifiers_attributes= JSON.parse(params.to_json)
+      @plan.related_identifiers_attributes = JSON.parse(params.to_json)
       @plan.save
       @plan.reload
       results = @plan.related_identifiers.order(:created_at)

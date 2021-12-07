@@ -114,7 +114,7 @@ class RelatedIdentifier < ApplicationRecord
   end
 
   def detect_relation_type
-    relation_type.present? ? relation_type : "cites"
+    relation_type.present? ? relation_type : 'cites'
   end
 
   def load_citation

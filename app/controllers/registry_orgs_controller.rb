@@ -3,6 +3,7 @@
 # Controller that handles RegistryOrgs
 class RegistryOrgsController < ApplicationController
   # GET orgs/search
+  # rubocop:disable Metrics/AbcSize
   def search
     term = autocomplete_term
     if term.present? && term.length > 2
@@ -18,6 +19,7 @@ class RegistryOrgsController < ApplicationController
       render json: []
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   private
 
@@ -62,6 +64,9 @@ class RegistryOrgsController < ApplicationController
       non_funder_only: options[:non_funder_only]
     )
 
+    # Filter out any RegistryOrgs that are also in the Orgs, we only want to return one!
+    registry_matches = registry_matches.reject { |r_org| org_matches.map(&:id).include?(r_org.org_id) }
+
     matches = (registry_matches + org_matches).flatten.compact.uniq
     sort_search_results(results: matches, term: term)
   end
@@ -83,7 +88,7 @@ class RegistryOrgsController < ApplicationController
   end
 
   # Search RegistryOrgs
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   def registry_orgs_search(term:, **options)
     matches = RegistryOrg.includes(:org).search(term)
     # If we are only allowing known Orgs then filter by org_id presence
@@ -100,7 +105,7 @@ class RegistryOrgsController < ApplicationController
 
     matches
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
   # Sort the results by their weight (desacending) and then name (ascending)
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity

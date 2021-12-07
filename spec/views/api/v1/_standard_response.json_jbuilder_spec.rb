@@ -12,7 +12,9 @@ describe 'api/v1/_standard_response.json.jbuilder' do
     assign :application, @application
     assign :caller, @caller
 
+    # rubocop:disable Style/OpenStructUse
     @response = OpenStruct.new(status: @code)
+    # rubocop:enable Style/OpenStructUse
     @request = Net::HTTPGenericRequest.new('GET', nil, nil, @url)
   end
 

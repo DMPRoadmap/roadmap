@@ -87,7 +87,7 @@ describe RelatedIdentifier do
     describe ':detect_relation_type' do
       it 'returns \'cites\' by default if no :relation_type is defined' do
         @id.relation_type = nil
-        expect(@id.send(:detect_relation_type)).to eql("cites")
+        expect(@id.send(:detect_relation_type)).to eql('cites')
       end
       it 'returns the :relation_type' do
         val = RelatedIdentifier.relation_types.keys

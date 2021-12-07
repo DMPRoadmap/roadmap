@@ -20,7 +20,7 @@ describe IdentifierHelper do
                                         value: val)
     end
 
-    it "defaults to showing the scheme name (when in PROD)" do
+    it 'defaults to showing the scheme name (when in PROD)' do
       Rails.env = 'production'
       rslt = id_for_display(id: @identifier)
       expect(rslt.include?(@user_scheme.identifier_prefix)).to eql(true)
@@ -39,7 +39,7 @@ describe IdentifierHelper do
       rslt = id_for_display(id: @identifier)
       expect(rslt).to eql(@none)
     end
-    it "returns the value when the scheme has no identifier_prefix" do
+    it 'returns the value when the scheme has no identifier_prefix' do
       Rails.env = 'production'
       val = Faker::Lorem.word
       @user_scheme.identifier_prefix = nil
@@ -48,7 +48,7 @@ describe IdentifierHelper do
       rslt = id_for_display(id: @identifier)
       expect(rslt).to eql("#{@user_scheme.description}: #{val}")
     end
-    it "returns the value as a link when the scheme has a identifier_prefix" do
+    it 'returns the value as a link when the scheme has a identifier_prefix' do
       Rails.env = 'production'
       rslt = id_for_display(id: @identifier)
       expect(rslt.include?(@identifier.value)).to eql(true)

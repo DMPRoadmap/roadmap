@@ -11,8 +11,8 @@ RSpec.describe 'Sign up via email and password', type: :feature do
     @existing = create(:user)
     @orgs = [create(:org), create(:org)]
 
-    @first = Faker::Movies::StarWars.character.split(' ').first
-    @last = Faker::Movies::StarWars.character.split(' ').last
+    @first = Faker::Movies::StarWars.character.split.first
+    @last = Faker::Movies::StarWars.character.split.last
     @email = Faker::Internet.unique.email
     @pwd = SecureRandom.uuid
 

@@ -4,6 +4,7 @@ module Users
   # Handlers for Omniauth Passthru methods
   class OmniauthPassthrusController < ApplicationController
     # POST /users/auth/shibboleth
+    # rubocop:disable Metrics/AbcSize
     def shibboleth_passthru
       skip_authorization
 
@@ -22,6 +23,7 @@ module Users
         redirect_to root_path, alert: _('Unable to connect to your institution\'s server!')
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     private
 

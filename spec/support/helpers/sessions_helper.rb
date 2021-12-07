@@ -12,30 +12,28 @@ module SessionsHelper
   # -------------------------------------------------------------
   include DmptoolHelper
 
-=begin
-  def sign_in(user = :user)
-    case user
-    when User
-      sign_in_as_user(user)
-    when Symbol
-      sign_in_as_user(create(:user, org: Org.find_by(is_other: true)))
-    else
-      raise ArgumentError, "Invalid argument user: #{user}"
-    end
-  end
-
-  def sign_in_as_user(user)
-    # Use the Devise helper to mock a successful user login
-    login_as(user, scope: :user)
-    visit root_path
-  end
-
-  def generate_shibbolized_orgs(count)
-    (1..count).each do
-      create(:org, :organisation, :shibbolized, managed: true)
-    end
-  end
-=end
+  #   def sign_in(user = :user)
+  #     case user
+  #     when User
+  #       sign_in_as_user(user)
+  #     when Symbol
+  #       sign_in_as_user(create(:user, org: Org.find_by(is_other: true)))
+  #     else
+  #       raise ArgumentError, "Invalid argument user: #{user}"
+  #     end
+  #   end
+  #
+  #   def sign_in_as_user(user)
+  #     # Use the Devise helper to mock a successful user login
+  #     login_as(user, scope: :user)
+  #     visit root_path
+  #   end
+  #
+  #   def generate_shibbolized_orgs(count)
+  #     (1..count).each do
+  #       create(:org, :organisation, :shibbolized, managed: true)
+  #     end
+  #   end
 
   # rubocop:disable Metrics/MethodLength
   def mock_omniauth_call(scheme, user)

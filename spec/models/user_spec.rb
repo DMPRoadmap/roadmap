@@ -469,7 +469,9 @@ RSpec.describe User, type: :model do
   describe '.from_omniauth' do
     let!(:user) { create(:user) }
     let!(:auth) do
+      # rubocop:disable Style/OpenStructUse
       OpenStruct.new(provider: Faker::Lorem.unique.word, uid: Faker::Lorem.word)
+      # rubocop:enable Style/OpenStructUse
     end
     let!(:scheme) { create(:identifier_scheme, name: auth[:provider], identifier_prefix: nil) }
 

@@ -32,8 +32,7 @@ RSpec.describe OrgsController, type: :controller do
                 managed: Faker::Number.within(range: 0..1).to_s,
                 feedback_enabled: Faker::Boolean.boolean,
                 feedback_msg: Faker::Lorem.paragraph,
-                org_id: org_selector_id_field(org: other_org), org_name: other_org.name,
-                org_crosswalk: org_selector_crosswalk_field(org: other_org) }
+                org_autocomplete: { name: other_org.name } }
       @link_args = org_links_field
       Rails.configuration.x.shibboleth.use_filtered_discovery_service = false
       sign_in(@user)
@@ -84,64 +83,6 @@ RSpec.describe OrgsController, type: :controller do
       put :admin_update, params: { id: @org.id, org: { name: nil } }
       expect(response).to redirect_to("#{admin_edit_org_path(@org)}#profile")
       expect(flash[:alert].present?).to eql(true)
-    end
-  end
-
-  describe 'GET /orgs/shibboleth_ds' do
-    before(:each) do
-      shib = create(:identifier_scheme, name: 'shibboleth')
-      @identifier = create(:identifier, identifier_scheme: shib,
-                                        identifiable: @org, value: SecureRandom.uuid)
-      @controller.stubs(:process_org!).returns(create(:org))
-    end
-
-    it 'succeeds' do
-      get :shibboleth_ds
-      expect(response).to render_template('orgs/shibboleth_ds')
-      expect(assigns(:user).new_record?).to eql(true)
-      expect(assigns(:orgs).any?).to eql(true)
-      expect(assigns(:orgs).first.identifiers.include?(@identifier)).to eql(true)
-    end
-    it 'redirects to the dashboard if user is logged in' do
-      sign_in(@user)
-      get :shibboleth_ds
-      expect(response).to redirect_to(root_path)
-    end
-    it 'redirects to the user omniauth path if no Orgs have shib entityIDs' do
-      @identifier.destroy
-      get :shibboleth_ds
-      expect(response).to redirect_to(user_shibboleth_omniauth_authorize_path)
-      expect(flash[:alert].present?).to eql(true)
-    end
-  end
-
-  describe 'POST /orgs/shibboleth_ds' do
-    before(:each) do
-      shib = create(:identifier_scheme, name: 'shibboleth')
-      @identifier = create(:identifier, identifier_scheme: shib,
-                                        identifiable: @org, value: SecureRandom.uuid)
-      @args = { org_id: @org.id, org_name: @org.name }
-      @controller.stubs(:process_org!).returns(@org)
-
-      Rails.configuration.x.shibboleth.login_url = Faker::Internet.url
-    end
-
-    it 'succeeds and Org has an entity_id stored in the identifiers table' do
-      post :shibboleth_ds_passthru, params: { 'shib-ds': @args }
-      url = Rails.configuration.x.shibboleth.login_url
-      expected = "#{url}?#{@controller.send(:shib_callback_url)}&entityID=#{@identifier.value}"
-      expect(response).to redirect_to(expected)
-    end
-    it 'succeeds and Org does not have an entity_id stored in the identifiers table' do
-      @org.identifiers.destroy_all
-      post :shibboleth_ds_passthru, params: { 'shib-ds': @args }
-      expect(response).to render_template('shared/authentication/org_branded_access_controls')
-    end
-    it 'if no Org was found or cresated for some reason it redirects back with an error' do
-      @controller.stubs(:process_org!).returns(nil)
-      post :shibboleth_ds_passthru, params: { 'shib-ds': { org_id: @org.id } }
-      expect(response).to redirect_to(shibboleth_ds_path)
-      expect(flash[:notice].present?).to eql(true)
     end
   end
 end

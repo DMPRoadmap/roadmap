@@ -53,22 +53,22 @@ RSpec.describe OrgSelectable do
           @controller.stubs(:org_selectable_params).returns(@org_selection_params)
         end
 
-        it "returns an empty hash if no name could be determined from the params" do
+        it 'returns an empty hash if no name could be determined from the params' do
           @controller.expects(:name_from_params).returns(nil)
           expect(@controller.autocomplete_to_controller_params).to eql({})
         end
-        it "returns the :org_id that matches the id of the Org" do
+        it 'returns the :org_id that matches the id of the Org' do
           org = create(:org, :institution, name: @org_term.upcase, managed: true)
           expected = { org_id: org.id }
           expect(@controller.autocomplete_to_controller_params).to eql(expected)
         end
-        it "returns the :org_id that matches the vals of the RegistryOrg with an Org" do
+        it 'returns the :org_id that matches the vals of the RegistryOrg with an Org' do
           org = create(:org, :organisation, name: "Foo #{@org_term.upcase} bar", managed: true)
-          registry_org = create(:registry_org, name: @org_term, org_id:org.id)
+          create(:registry_org, name: @org_term, org_id: org.id)
           expected = { org_id: org.id }
           expect(@controller.autocomplete_to_controller_params).to eql(expected)
         end
-        it "returns the :org_attributes that matches the vals of the RegistryOrg" do
+        it 'returns the :org_attributes that matches the vals of the RegistryOrg' do
           registry_org = create(:registry_org, name: @org_term)
           expected = {
             org_attributes: {
@@ -93,34 +93,34 @@ RSpec.describe OrgSelectable do
           @custom_name = @org_custom_params[:org_autocomplete][:user_entered_name]
         end
 
-        it "returns an empty hash if the :restrict_orgs config flag is false and user is not logged in" do
+        it 'returns an empty hash if the :restrict_orgs config flag is false and user is not logged in' do
           @controller.expects(:name_from_params).returns(nil)
           expect(@controller.autocomplete_to_controller_params).to eql({})
         end
-        it "returns an empty hash if the :restrict_orgs config flag is false and user is logged in" do
+        it 'returns an empty hash if the :restrict_orgs config flag is false and user is logged in' do
           @controller.expects(:name_from_params).returns(nil)
           expect(@controller.autocomplete_to_controller_params).to eql({})
         end
-        it "returns the :org_attributes if the :restrict_orgs config flag is false and user is a super admin" do
+        it 'returns the :org_attributes if the :restrict_orgs config flag is false and user is a super admin' do
           @controller.expects(:name_from_params).returns(nil)
           expect(@controller.autocomplete_to_controller_params).to eql({})
         end
-        it "returns an empty hash if no name could be determined from the params" do
+        it 'returns an empty hash if no name could be determined from the params' do
           @controller.expects(:name_from_params).returns(nil)
           expect(@controller.autocomplete_to_controller_params).to eql({})
         end
-        it "returns the :org_id if the user provided name matches an Org" do
+        it 'returns the :org_id if the user provided name matches an Org' do
           org = create(:org, :institution, name: @custom_name, managed: true)
           expected = { org_id: org.id }
           expect(@controller.autocomplete_to_controller_params).to eql(expected)
         end
-        it "returns the :org_id if the user provided name matches a RegistryOrg with an Org" do
+        it 'returns the :org_id if the user provided name matches a RegistryOrg with an Org' do
           org = create(:org, :organisation, name: "Foo #{@custom_name.upcase} bar", managed: true)
-          registry_org = create(:registry_org, name: @custom_name, org_id:org.id)
+          create(:registry_org, name: @custom_name, org_id: org.id)
           expected = { org_id: org.id }
           expect(@controller.autocomplete_to_controller_params).to eql(expected)
         end
-        it "returns the :org_attributes if the user provided name matches a RegistryOrg" do
+        it 'returns the :org_attributes if the user provided name matches a RegistryOrg' do
           registry_org = create(:registry_org, name: @custom_name, fundref_id: nil)
           expected = {
             org_attributes: {
@@ -137,7 +137,7 @@ RSpec.describe OrgSelectable do
           }
           expect(@controller.autocomplete_to_controller_params).to eql(expected)
         end
-        it "returns the :org_attributes of a new Org" do
+        it 'returns the :org_attributes of a new Org' do
           expected = {
             org_attributes: {
               abbreviation: @custom_name.split.map(&:first).map(&:upcase).join,
@@ -162,22 +162,22 @@ RSpec.describe OrgSelectable do
         @namespace = { namespace: 'funder_' }
       end
 
-      it "returns an empty hash if no name could be determined from the params" do
+      it 'returns an empty hash if no name could be determined from the params' do
         @controller.expects(:name_from_params).returns(nil)
         expect(@controller.autocomplete_to_controller_params(@namespace)).to eql({})
       end
-      it "returns the :org_id that matches the id of the Org" do
+      it 'returns the :org_id that matches the id of the Org' do
         funder = create(:org, :funder, name: @funder_term.upcase, managed: true)
         expected = { org_id: funder.id }
         expect(@controller.autocomplete_to_controller_params(@namespace)).to eql(expected)
       end
-      it "returns the :org_id that matches the vals of the RegistryOrg with an Org" do
+      it 'returns the :org_id that matches the vals of the RegistryOrg with an Org' do
         funder = create(:org, :funder, name: "Foo #{@funder_term.upcase} bar", managed: true)
-        registry_org = create(:registry_org, name: @funder_term, org_id:funder.id)
+        create(:registry_org, name: @funder_term, org_id: funder.id)
         expected = { org_id: funder.id }
         expect(@controller.autocomplete_to_controller_params(@namespace)).to eql(expected)
       end
-      it "returns the :org_attributes that matches the vals of the RegistryOrg" do
+      it 'returns the :org_attributes that matches the vals of the RegistryOrg' do
         registry_org = create(:registry_org, name: @funder_term)
         expected = {
           org_attributes: {
@@ -203,35 +203,35 @@ RSpec.describe OrgSelectable do
         @namespace = { namespace: 'funder_' }
       end
 
-      it "returns an empty hash if the :restrict_orgs config flag is false and user is not logged in" do
+      it 'returns an empty hash if the :restrict_orgs config flag is false and user is not logged in' do
         @controller.expects(:name_from_params).returns(nil)
         expect(@controller.autocomplete_to_controller_params(@namespace)).to eql({})
       end
-      it "returns an empty hash if the :restrict_orgs config flag is false and user is logged in" do
+      it 'returns an empty hash if the :restrict_orgs config flag is false and user is logged in' do
         @controller.expects(:name_from_params).returns(nil)
         expect(@controller.autocomplete_to_controller_params(@namespace)).to eql({})
       end
-      it "returns the :org_attributes if the :restrict_orgs config flag is false and user is a super admin" do
+      it 'returns the :org_attributes if the :restrict_orgs config flag is false and user is a super admin' do
         @controller.expects(:name_from_params).returns(nil)
         expect(@controller.autocomplete_to_controller_params(@namespace)).to eql({})
       end
-      it "returns an empty hash if no name could be determined from the params" do
+      it 'returns an empty hash if no name could be determined from the params' do
         @controller.expects(:name_from_params).returns(nil)
         expect(@controller.autocomplete_to_controller_params(@namespace)).to eql({})
       end
-      it "returns the :org_id if the user provided name matches an Org" do
+      it 'returns the :org_id if the user provided name matches an Org' do
         org = create(:org, :institution, name: @custom_name, managed: true, funder: true)
         expected = { org_id: org.id }
         expect(@controller.autocomplete_to_controller_params(@namespace)).to eql(expected)
       end
-      it "returns the :org_id if the user provided name matches a RegistryOrg with an Org" do
+      it 'returns the :org_id if the user provided name matches a RegistryOrg with an Org' do
         org = create(:org, :organisation, name: "Foo #{@custom_name.upcase} bar",
                                           managed: true, funder: true)
-        registry_org = create(:registry_org, name: @custom_name, org_id: org.id)
+        create(:registry_org, name: @custom_name, org_id: org.id)
         expected = { org_id: org.id }
         expect(@controller.autocomplete_to_controller_params(@namespace)).to eql(expected)
       end
-      it "returns the :org_attributes if the user provided name matches a RegistryOrg" do
+      it 'returns the :org_attributes if the user provided name matches a RegistryOrg' do
         registry_org = create(:registry_org, name: @custom_name)
         expected = {
           org_attributes: {
@@ -248,7 +248,7 @@ RSpec.describe OrgSelectable do
         }
         expect(@controller.autocomplete_to_controller_params(@namespace)).to eql(expected)
       end
-      it "returns the :org_attributes of a new Org" do
+      it 'returns the :org_attributes of a new Org' do
         expected = {
           org_attributes: {
             abbreviation: @custom_name.split.map(&:first).map(&:upcase).join,
@@ -280,17 +280,17 @@ RSpec.describe OrgSelectable do
       end
 
       context 'Existing Org' do
-        it "returns the existing Org" do
+        it 'returns the existing Org' do
           org = create(:org, name: @org_term)
           @controller.stubs(:org_selectable_params).returns(@org_selection_params)
           expect(@controller.process_org!(user: @user)).to eql(org)
         end
-        it "returns nil if the existing Org if it is not :managed and we restrict that" do
+        it 'returns nil if the existing Org if it is not :managed and we restrict that' do
           @controller.stubs(:org_selectable_params).returns(@org_selection_params)
-          org = create(:org, name: @org_term, managed: false)
+          create(:org, name: @org_term, managed: false)
           expect(@controller.process_org!(user: @user, managed_only: true)).to eql(nil)
         end
-        it "returns nil if the Org does not already exist and the config has restrict_orgs set" do
+        it 'returns nil if the Org does not already exist and the config has restrict_orgs set' do
           @controller.stubs(:org_selectable_params).returns(@org_selection_params)
           Rails.configuration.x.application.restrict_orgs = false
           expect(@controller.process_org!(user: @user)).to eql(nil)
@@ -300,23 +300,23 @@ RSpec.describe OrgSelectable do
       context 'Existing RegistryOrg' do
         it 'return the Org associated with the matching RegistryOrg' do
           org = create(:org)
-          registry_org = create(:registry_org, org: org, name: @org_term)
+          create(:registry_org, org: org, name: @org_term)
           @controller.stubs(:org_selectable_params).returns(@org_selection_params)
           expect(@controller.process_org!(user: @user)).to eql(org)
         end
-        it "returns nil if the config has restrict_orgs set" do
+        it 'returns nil if the config has restrict_orgs set' do
           Rails.configuration.x.application.restrict_orgs = true
-          registry_org = create(:registry_org, name: @org_term)
+          create(:registry_org, name: @org_term)
           @controller.stubs(:org_selectable_params).returns(@org_selection_params)
           expect(@controller.process_org!(user: @user)).to eql(nil)
         end
-        it "returns nil if the config has restrict_orgs not set but we only want managed" do
+        it 'returns nil if the config has restrict_orgs not set but we only want managed' do
           Rails.configuration.x.application.restrict_orgs = false
-          registry_org = create(:registry_org, name: @org_term)
+          create(:registry_org, name: @org_term)
           @controller.stubs(:org_selectable_params).returns(@org_selection_params)
           expect(@controller.process_org!(user: @user, managed_only: true)).to eql(nil)
         end
-        it "derives a new Org from the matched RegistryOrg if restrict_orgs is set but user is SuperAdmin" do
+        it 'derives a new Org from the matched RegistryOrg if restrict_orgs is set but user is SuperAdmin' do
           Rails.configuration.x.application.restrict_orgs = true
           super_admin = create(:user, :super_admin)
           registry_org = create(:registry_org, name: @org_term)
@@ -358,17 +358,17 @@ RSpec.describe OrgSelectable do
       end
 
       context 'Existing Org' do
-        it "returns the existing Org" do
+        it 'returns the existing Org' do
           org = create(:org, name: @funder_term)
           @controller.stubs(:org_selectable_params).returns(@funder_selection_params)
           expect(@controller.process_org!(user: @user, namespace: 'funder')).to eql(org)
         end
-        it "returns nil if the existing Org if it is not :managed and we restrict that" do
+        it 'returns nil if the existing Org if it is not :managed and we restrict that' do
           @controller.stubs(:org_selectable_params).returns(@funder_selection_params)
-          org = create(:org, name: @funder_term, managed: false)
+          create(:org, name: @funder_term, managed: false)
           expect(@controller.process_org!(user: @user, managed_only: true, namespace: 'funder')).to eql(nil)
         end
-        it "returns nil if the Org does not already exist and the config has restrict_orgs set" do
+        it 'returns nil if the Org does not already exist and the config has restrict_orgs set' do
           @controller.stubs(:org_selectable_params).returns(@funder_selection_params)
           Rails.configuration.x.application.restrict_orgs = false
           expect(@controller.process_org!(user: @user, namespace: 'funder')).to eql(nil)
@@ -378,22 +378,22 @@ RSpec.describe OrgSelectable do
       context 'Existing RegistryOrg' do
         it 'return the Org associated with the matching RegistryOrg' do
           org = create(:org)
-          registry_org = create(:registry_org, org: org, name: @funder_term)
+          create(:registry_org, org: org, name: @funder_term)
           @controller.stubs(:org_selectable_params).returns(@funder_selection_params)
           expect(@controller.process_org!(user: @user, namespace: 'funder')).to eql(org)
         end
-        it "returns nil if the config has restrict_orgs set" do
+        it 'returns nil if the config has restrict_orgs set' do
           Rails.configuration.x.application.restrict_orgs = true
-          registry_org = create(:registry_org, name: @funder_term)
+          create(:registry_org, name: @funder_term)
           @controller.stubs(:org_selectable_params).returns(@funder_selection_params)
           expect(@controller.process_org!(user: @user, namespace: 'funder')).to eql(nil)
         end
-        it "returns nil if the config has restrict_orgs not set but we only want managed" do
-          registry_org = create(:registry_org, name: @funder_term)
+        it 'returns nil if the config has restrict_orgs not set but we only want managed' do
+          create(:registry_org, name: @funder_term)
           @controller.stubs(:org_selectable_params).returns(@funder_selection_params)
           expect(@controller.process_org!(user: @user, managed_only: true, namespace: 'funder')).to eql(nil)
         end
-        it "derives a new Org from the matched RegistryOrg if restrict_orgs is set but user is SuperAdmin" do
+        it 'derives a new Org from the matched RegistryOrg if restrict_orgs is set but user is SuperAdmin' do
           Rails.configuration.x.application.restrict_orgs = true
           super_admin = create(:user, :super_admin)
           registry_org = create(:registry_org, name: @funder_term)
@@ -522,7 +522,7 @@ RSpec.describe OrgSelectable do
         @org.contact_name = nil
         result = @controller.send(:org_to_attributes, org: @org)[:org_attributes]
         expect(result[:contact_name]).to eql(format(_('%<app_name>s helpdesk'),
-                                                  app_name: ApplicationService.application_name))
+                                                    app_name: ApplicationService.application_name))
       end
     end
 

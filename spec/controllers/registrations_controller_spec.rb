@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe RegistrationsController, type: :controller do
+# DMPTool customization - replaced by the controllers in users/
+=begin
   before(:each) do
     @org = create(:org, is_other: false)
     @user = create(:user, org: @org)
@@ -43,4 +45,5 @@ RSpec.describe RegistrationsController, type: :controller do
       end
     end
   end
+=end
 end

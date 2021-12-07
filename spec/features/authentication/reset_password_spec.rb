@@ -60,7 +60,7 @@ RSpec.describe 'Request password reset', type: :feature do
   end
 
   scenario 'Invalid reset token ' do
-    token = submit_reset_password_form_fetch_token
+    submit_reset_password_form_fetch_token
 
     visit edit_user_password_path(reset_password_token: Faker::Lorem.word)
     expect(page).to have_text('Change your password')
@@ -75,7 +75,7 @@ RSpec.describe 'Request password reset', type: :feature do
   end
 
   scenario 'Invalid reset token ' do
-    token = submit_reset_password_form_fetch_token
+    submit_reset_password_form_fetch_token
 
     visit edit_user_password_path(reset_password_token: Faker::Lorem.word)
     expect(page).to have_text('Change your password')
@@ -90,6 +90,7 @@ RSpec.describe 'Request password reset', type: :feature do
   end
 
   # Helper method to submit the reset password form and return the reset token
+  # rubocop:disable Metrics/AbcSize
   def submit_reset_password_form_fetch_token
     within('#user_request_reset_password_form') do
       fill_in 'Email', with: @user.email
@@ -98,7 +99,8 @@ RSpec.describe 'Request password reset', type: :feature do
 
     @user = @user.reload
     expect(current_path).to eql(root_path)
-    expect(page).to have_text('You will receive an email with instructions on how to reset your password in a few minutes.')
+    txt = 'You will receive an email with instructions on how to reset your password in a few minutes.'
+    expect(page).to have_text(txt)
 
     email = ActionMailer::Base.deliveries.first
     expect(email.is_a?(Mail::Message)).to eql(true)
@@ -108,4 +110,5 @@ RSpec.describe 'Request password reset', type: :feature do
     email.body.to_s.match(/reset_password_token=[a-zA-Z0-9_]+/)
          .to_s.gsub('reset_password_token=', '')
   end
+  # rubocop:enable Metrics/AbcSize
 end

@@ -374,7 +374,7 @@ Rails.application.routes.draw do
     end
     # Paginable actions for api_logs
     resources :api_logs, only: [] do
-      get "index/:page", action: :index, on: :collection, as: :index
+      get 'index/:page', action: :index, on: :collection, as: :index
     end
   end
 

@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 
+# rubocop:disable Metrics/ModuleLength
 module Dmptool
   RSpec.describe User do
     include IdentifierHelper
@@ -55,7 +56,7 @@ module Dmptool
       end
 
       describe 'from_omniauth(scheme)' do
-
+        # TODO: Implement this
       end
 
       describe 'omniauth_from_request' do
@@ -63,11 +64,11 @@ module Dmptool
       end
 
       describe 'extract_omniauth_email(hash:)' do
-
+        # TODO: This should probably be in the controller and the params passed into this module
       end
 
       describe 'extract_omniauth_names(hash:)' do
-
+        # TODO: This should probably be in the controller and the params passed into this module
       end
     end
 
@@ -132,3 +133,4 @@ module Dmptool
     end
   end
 end
+# rubocop:enable Metrics/ModuleLength

@@ -6,6 +6,7 @@ class ContributorsController < ApplicationController
   helper PaginableHelper
 
   before_action :fetch_plan
+  before_action :ensure_org_param, only: %i[create update]
   before_action :fetch_contributor, only: %i[edit update destroy]
   after_action :verify_authorized
 
@@ -33,7 +34,6 @@ class ContributorsController < ApplicationController
     authorize @plan
 
     args = translate_roles(hash: contributor_params)
-    ensure_org_param
     if args.blank?
       @contributor = Contributor.new(args)
       @contributor.errors.add(:affiliation, 'invalid')
@@ -61,12 +61,10 @@ class ContributorsController < ApplicationController
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # PUT /plans/:plan_id/contributors/:id
-  # rubocop:disable Metrics/AbcSize
   def update
     authorize @plan
     args = translate_roles(hash: contributor_params)
     args = process_orcid_for_update(hash: args)
-    ensure_org_param
 
     if @contributor.update(args)
       redirect_to edit_plan_contributor_path(@plan, @contributor),
@@ -76,7 +74,6 @@ class ContributorsController < ApplicationController
       render :edit
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   # DELETE /plans/:plan_id/contributors/:id
   def destroy

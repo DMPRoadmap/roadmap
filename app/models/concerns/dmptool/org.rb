@@ -27,6 +27,7 @@ module Dmptool
         where(managed: true, id: org_ids)
       end
 
+      # rubocop:disable Metrics/AbcSize
       def initialize_from_org_autocomplete(name:, funder: false)
         return nil unless name.present?
 
@@ -45,6 +46,7 @@ module Dmptool
         org.abbreviation = org.name_to_abbreviation
         org
       end
+      # rubocop:enable Metrics/AbcSize
 
       # Class method shortcut to the name_to_abbreviation instance method
       def name_to_abbreviation(name:)

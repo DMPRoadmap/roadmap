@@ -14,7 +14,9 @@ describe 'api/v1/templates/index.json.jbuilder' do
     assign :application, @application
     assign :items, [@template1, @template2]
 
+    # rubocop:disable Style/OpenStructUse
     @resp = OpenStruct.new(status: @code)
+    # rubocop:enable Style/OpenStructUse
     @req = Net::HTTPGenericRequest.new('GET', nil, nil, @url)
 
     render template: 'api/v1/templates/index',

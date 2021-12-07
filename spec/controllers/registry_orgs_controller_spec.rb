@@ -28,7 +28,7 @@ RSpec.describe RegistryOrgsController, type: :controller do
 
     it 'calls the :find_by_search_term method' do
       @controller.stubs(:find_by_search_term).returns([@org.name])
-      post :search, params: { org_autocomplete: { name: @org.name[0..@org.name.length - 2] } }, format: :js
+      post :search, params: { org_autocomplete: { name: @org.name[0..@org.name.length - 1] } }, format: :js
       json = JSON.parse(response.body)
       expect(json.length).to eql(1)
       expect(json.first).to eql(@org.name)
@@ -42,7 +42,8 @@ RSpec.describe RegistryOrgsController, type: :controller do
       end
       it 'it obeys the `restrict_orgs` config setting if :known_only is not specified' do
         hash = {
-          term: @org.name, managed_only: nil, funder_only: nil, non_funder_only: nil, known_only: nil
+          term: @org.name, known_only: nil, unknown_only: nil, managed_only: nil, funder_only: nil,
+          non_funder_only: nil,
         }
         Rails.configuration.x.application.restrict_orgs = true
         hash[:known_only] = true
@@ -60,17 +61,17 @@ RSpec.describe RegistryOrgsController, type: :controller do
         @controller.expects(:sort_search_results).with(term: @org.name, results: [@registry_org, @org])
         @controller.send(:find_by_search_term, term: @org.name)
       end
+      it 'does not return orgs who have an association in the registry_orgs table' do
+        @registry_org.update(org_id: @org.id)
+        results = @controller.send(:find_by_search_term, term: @org.name)
+        expect(results.include?(@registry_org)).to eql(false)
+      end
     end
 
     describe ':orgs_search(term:, **options)' do
       it 'calls Org.search' do
         Org.expects(:search).with(@org.name).returns([])
         @controller.send(:orgs_search, term: @org.name)
-      end
-      it 'does not return orgs who have an association in the registry_orgs table' do
-        associated_org = create(:org)
-        results = @controller.send(:orgs_search, term: associated_org.name)
-        expect(results.include?(associated_org)).to eql(false)
       end
       it 'uses correct default flags' do
         # :managed_only should default to false

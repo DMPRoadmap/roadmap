@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   helper PermsHelper
   include ConditionalUserMailer
 
-   # --------------------------------
+  # --------------------------------
   # Start DMPTool Customization
   # --------------------------------
   include Dmptool::UsersController

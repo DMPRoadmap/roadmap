@@ -2,13 +2,14 @@
 
 require 'rails_helper'
 
+# rubocop:disable Metrics/ModuleLength
 module Dmptool
   RSpec.describe Org do
     include IdentifierHelper
 
     context 'class methods' do
       describe 'participating' do
-        it "returns managed Orgs" do
+        it 'returns managed Orgs' do
           managed = create(:org, managed: true)
           unmanaged = create(:org, managed: false)
           results = ::Org.participating
@@ -18,12 +19,12 @@ module Dmptool
       end
 
       describe 'shibbolized' do
-        it "returns Orgs with an identifier for Shibboleth" do
+        it 'returns Orgs with an identifier for Shibboleth' do
           shibbolized = create(:org, managed: true)
           managed = create(:org, managed: true)
           unmanaged = create(:org, managed: false)
 
-          entity_id = create_shibboleth_entity_id(org: shibbolized)
+          create_shibboleth_entity_id(org: shibbolized)
           results = ::Org.shibbolized
           expect(results.include?(shibbolized)).to eql(true)
           expect(results.include?(managed)).to eql(false)
@@ -184,3 +185,4 @@ module Dmptool
     end
   end
 end
+# rubocop:enable Metrics/ModuleLength
