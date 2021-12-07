@@ -1,7 +1,6 @@
 <% has_dmp_id = scope.select { |plan| plan.dmp_id.present? }.any? %>
 
 <% if current_user.org_id? %>
-  <% has_dois = scope.select { |plan| plan.doi.present? }.any? %>
   <div class="row">
     <div class="col-md-12">
       <div class="table-responsive">

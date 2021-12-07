@@ -21,12 +21,12 @@ class RelatedIdentifierPresenter
     related_identifiers.map do |related|
       next unless related.is_a?(RelatedIdentifier)
 
-      dflt = "#{related.work_type.humanize} - #{related.value}"
+      dflt = "#{related.work_type&.humanize} - #{related.value}"
       link = "%{work_type} - <a href=\"%{url}\" target=\"_blank\">%{url}</a>" % {
-        work_type: related.work_type.humanize,
+        work_type: related.work_type&.humanize,
         url: related.value
       }
-      related.citation.present? ? related.citation : (related.value.start_with?("http") ? link : dflt)
+      related.citation.present? ? related.citation : (related.value&.start_with?("http") ? link : dflt)
     end
   end
 

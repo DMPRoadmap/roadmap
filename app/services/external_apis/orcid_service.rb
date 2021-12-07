@@ -42,7 +42,7 @@ module ExternalApis
       # Create a new DOI
       def add_work(user:, plan:)
         # Fail if this service is inactive or the plan does not have a DOI!
-        return false unless active? && user.is_a?(User) && plan.is_a?(Plan) && plan.doi.present?
+        return false unless active? && user.is_a?(User) && plan.is_a?(Plan) && plan.dmp_id.present?
 
         orcid = user.identifier_for_scheme(scheme: name)
         token = ExternalApiAccessToken.for_user_and_service(user: user, service: name)
@@ -62,7 +62,7 @@ module ExternalApis
         }
 
         resp = http_post(uri: target, additional_headers: hdrs, debug: true,
-                         data: xml_for(plan: plan, doi: plan.doi, user: user))
+                         data: xml_for(plan: plan, dmp_id: plan.dmp_id, user: user))
 
         # ORCID returns a 201 (created) when the DMP has been added to the User's works
         #               a 405 (method_not_allowed) when the DMP is already in the User's works
@@ -105,8 +105,8 @@ module ExternalApis
         end
       end
 
-      def xml_for(plan:, doi:, user:)
-        return nil unless plan.is_a?(Plan) && doi.is_a?(Identifier) && user.is_a?(User)
+      def xml_for(plan:, dmp_id:, user:)
+        return nil unless plan.is_a?(Plan) && dmp_id.is_a?(Identifier) && user.is_a?(User)
 
         orcid = user.identifier_for_scheme(scheme: name)
 
@@ -154,8 +154,8 @@ module ExternalApis
             <common:external-ids>
               <common:external-id>
                 <common:external-id-type>doi</common:external-id-type>
-                <common:external-id-value>#{doi.value_without_scheme_prefix}</common:external-id-value>
-                <common:external-id-url>#{doi.value}</common:external-id-url>
+                <common:external-id-value>#{dmp_id.value_without_scheme_prefix}</common:external-id-value>
+                <common:external-id-url>#{dmp_id.value}</common:external-id-url>
                 <common:external-id-relationship>self</common:external-id-relationship>
               </common:external-id>
             </common:external-ids>

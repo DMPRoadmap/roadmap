@@ -1,0 +1,18 @@
+<% title _('API Logs') %>
+
+<div class="row">
+  <div class="col-md-12"><h1><%= _('API Logs') %></h1></div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <!-- List of guidance groups -->
+    <%= paginable_renderise(
+      partial: '/paginable/api_logs/index',
+      controller: 'paginable/api_logs',
+      action: 'index',
+      remote: true,
+      scope: @api_logs,
+      query_params: { sort_field: 'api_logs.created_at', sort_direction: :desc }) %>
+    <div>
+  </div>
+</div>

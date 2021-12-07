@@ -17,9 +17,10 @@ class ApplicationController < ActionController::Base
   include Pundit
   helper_method GlobalHelpers.instance_methods
 
+  # Reroute errors to the root_path or plans_path (if user is signed in) with an
+  # appropriate message
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-  # When we are in production reroute Record Not Found errors to the branded 404 page
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
   rescue_from ActionController::InvalidAuthenticityToken, with: :ignore_error
@@ -234,9 +235,7 @@ class ApplicationController < ActionController::Base
 
   def handle_server_error(exception)
     # We don't care about general Pundit errors!
-    return true if exception.is_a?(Pundit::NotAuthorizedError)
-
-    unless Rails.env.development?
+    unless exception.is_a?(Pundit::NotAuthorizedError) || Rails.env.development?
       # DMPTool customization to notify admin of 500 level error
       message = "#{ApplicationService.application_name} - #{exception.message}"
       message += "<br>----------------------------------------<br><br>"
@@ -250,13 +249,12 @@ class ApplicationController < ActionController::Base
       UserMailer.notify_administrators(message).deliver_now
     end
 
-    msg = exception.message.to_s if exception.present?
-    render_respond_to_format_with_error_message(msg, root_url, 500, exception)
+
   end
 
   def render_respond_to_format_with_error_message(msg, url_or_path, http_status, exception)
     Rails.logger.error msg
-    Rails.logger.error exception&.backtrace if exception.present?
+    Rails.logger.error exception&.backtrace if exception.present? && exception.respond_to?(:backtrace)
 
     respond_to do |format|
       # Redirect use to the path and display the error message

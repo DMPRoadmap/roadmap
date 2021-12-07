@@ -38,6 +38,9 @@ module Api
               errs << object.errors.full_messages unless object.valid?
               object.plan = @plan if object.respond_to?(:plan_id) && object.plan_id.nil?
               object.save if object.valid?
+
+              # Record this API activity
+              log_activity(subject: object, change_type: :added)
             end
           end
 
