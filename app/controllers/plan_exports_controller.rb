@@ -34,7 +34,7 @@ class PlanExportsController < ApplicationController
     @hash           = @plan.as_pdf(current_user, @show_coversheet)
     @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
     
-    if params.key?(:phase_id)
+    if params.key?(:phase_id) && params[:phase_id].length > 0
       # order phases by phase number asc
       @hash[:phases] = @hash[:phases].sort_by{|phase| phase[:number]}
       if (params[:phase_id] == "All")
