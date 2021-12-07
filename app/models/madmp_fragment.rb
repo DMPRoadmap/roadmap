@@ -109,7 +109,7 @@ class MadmpFragment < ApplicationRecord
 
   # Returns the schema associated to the JSON fragment
   def json_schema
-    JSON.parse(madmp_schema.schema)
+    madmp_schema.schema
   end
 
   def dmp_fragments
@@ -158,7 +158,7 @@ class MadmpFragment < ApplicationRecord
       |t| t.additional_info["property_name"] unless t.additional_info.nil?
     }
 
-    madmp_schema.schema["properties"].each do |key, prop|
+    madmp_schema.properties.each do |key, prop|
       if prop["type"].eql?("array") && prop["items"]["type"].eql?("object")
         updated_data[key] = []
         if classified_children[key].present?
@@ -237,10 +237,10 @@ class MadmpFragment < ApplicationRecord
 
   # This method take a fragment and convert its data with the target schema
   def schema_conversion(target_schema)
-    origin_schema_properties = madmp_schema.schema["properties"]
+    origin_schema_properties = madmp_schema.properties
     converted_data = {}
 
-    target_schema.schema["properties"].each do |key, target_prop|
+    target_schema.properties.each do |key, target_prop|
       origin_prop = origin_schema_properties[key]
       next if origin_prop.nil?
 
@@ -299,7 +299,7 @@ class MadmpFragment < ApplicationRecord
     save! if id.nil?
 
     new_data = data
-    madmp_schema.schema["properties"].each do |key, prop|
+    madmp_schema.properties.each do |key, prop|
       next unless prop["type"].eql?("object") && prop["schema_id"].present?
 
       sub_schema = MadmpSchema.find(prop["schema_id"])
@@ -326,7 +326,7 @@ class MadmpFragment < ApplicationRecord
     return if param_data.nil?
 
     param_data.each do |prop, content|
-      schema_prop = schema.schema["properties"][prop]
+      schema_prop = schema.properties[prop]
 
       next if schema_prop&.dig("type").nil?
 

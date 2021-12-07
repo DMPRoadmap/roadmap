@@ -275,7 +275,7 @@ module DynamicFormHelper
   # This is useful because Rails converts all form data to strings and JSON needs the actual types
   def data_reformater(schema, data)
     formated_data = {}
-    schema["properties"].each do |key, prop|
+    schema.properties.each do |key, prop|
       next if data[key].nil? || key.end_with?("_custom")
 
       case prop["type"]
@@ -301,7 +301,7 @@ module DynamicFormHelper
 
           formated_data[key] = if data[key].present?
                                  data_reformater(
-                                   sub_schema.schema,
+                                   sub_schema,
                                    RegistryValue.find(data[key].to_i).data.merge(
                                      "id": data[key].to_i
                                    )
@@ -309,7 +309,7 @@ module DynamicFormHelper
                                end
         else
           formated_data[key] = data_reformater(
-            sub_schema.schema,
+            sub_schema,
             data[key]
           )
         end

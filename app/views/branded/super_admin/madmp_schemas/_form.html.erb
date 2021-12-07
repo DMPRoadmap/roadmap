@@ -20,7 +20,7 @@
       </div>
       <div class="form-group">
         <%= f.label(:schema, _('Schema'), class: 'control-label') %>
-        <%= f.file_field(:schema, class: "form-control", accept: 'application/json') %>
+        <%= f.text_area(:schema, class: "form-control", rows: 10, value: @schema.schema.to_json)  %>
       </div>
       <div class="pull-right">
         <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>

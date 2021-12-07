@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_19_160319) do
+ActiveRecord::Schema.define(version: 2021_12_07_151155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -169,7 +169,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
   end
 
   create_table "madmp_fragments", id: :serial, force: :cascade do |t|
-    t.json "data"
+    t.json "data", default: {}
     t.integer "answer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -186,7 +186,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.string "label"
     t.string "name"
     t.integer "version"
-    t.json "schema"
+    t.json "schema", default: {}
     t.integer "org_id"
     t.string "classname"
     t.datetime "created_at", null: false

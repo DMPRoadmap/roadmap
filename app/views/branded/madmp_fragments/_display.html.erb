@@ -1,5 +1,5 @@
 <%# locals: { fragment, schema, template_locale } %>
-<% schema_properties = schema.schema["properties"]%>
+<% schema_properties = schema.properties %>
 <% data = fragment.data unless fragment.nil? %>
 
 <% schema_properties.each do |key, prop| %>

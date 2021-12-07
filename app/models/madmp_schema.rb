@@ -85,6 +85,10 @@ class MadmpSchema < ApplicationRecord
     schema["description"]
   end
 
+  def properties
+    schema["properties"]
+  end
+
   def sub_schemas
     path = JsonPath.new("$..schema_id")
     ids = path.on(schema)
@@ -99,7 +103,7 @@ class MadmpSchema < ApplicationRecord
 
   def generate_strong_params(flat = false)
     parameters = []
-    schema["properties"].each do |key, prop|
+    properties.each do |key, prop|
       if prop["type"] == "object" && prop["schema_id"].present?
         if prop["inputType"]&.eql?("pickOrCreate")
           parameters.append(key)
@@ -132,8 +136,9 @@ class MadmpSchema < ApplicationRecord
 
   def const_data(locale)
     const_data = {}
-    schema["properties"].each do |key, prop|
+    properties.each do |key, prop|
       next if prop["const@#{locale}"].nil?
+
       const_data[key] = prop["const@#{locale}"]
     end
     const_data
@@ -144,15 +149,13 @@ class MadmpSchema < ApplicationRecord
   def self.substitute_names(json_schema)
     json_schema = JsonPath.for(json_schema).gsub("$..template_name") do |name|
       MadmpSchema.find_by!(name: name).id
-    end
+    end.to_json.gsub("template_name", "schema_id")
 
     json_schema = JsonPath.for(json_schema).gsub("$..registry_name") do |name|
       Registry.find_by!(name: name).id
-    end
+    end.to_json.gsub("registry_name", "registry_id")
 
-    json_schema.to_json
-               .gsub("registry_name", "registry_id")
-               .gsub("template_name", "schema_id")
+    JSON.parse(json_schema)
   end
 
 end

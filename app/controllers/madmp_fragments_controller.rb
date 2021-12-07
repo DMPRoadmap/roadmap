@@ -18,7 +18,7 @@ class MadmpFragmentsController < ApplicationController
     parent_id = p_params[:parent_id] unless classname.eql?("person")
 
     data = data_reformater(
-      schema.schema,
+      schema,
       schema_params(schema)
     )
     if MadmpFragment.fragment_exists?(data, schema, p_params[:dmp_id], parent_id)
@@ -137,7 +137,7 @@ class MadmpFragmentsController < ApplicationController
     source = p_params[:source]
 
     data = data_reformater(
-      schema.schema,
+      schema,
       schema_params(schema)
     )
 
@@ -585,7 +585,7 @@ class MadmpFragmentsController < ApplicationController
   def stale_data(form_data, schema)
     stale_data = {}
     form_data.each do |prop, content|
-      schema_prop = schema.schema["properties"][prop]
+      schema_prop = schema.properties[prop]
 
       next if schema_prop&.dig("type").nil?
       next if schema_prop["type"].eql?("object") &&
