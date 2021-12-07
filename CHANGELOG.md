@@ -136,6 +136,7 @@
  - Add configuration for wicked_pdf proxy
  - Add Google analytics
  - Add rake tasks to remove span accounts
+ - Add sandbox database environment
 
 ### Removed
  - Remove references of "Do not reply" on mailers as we are now expecting replies from application emails
