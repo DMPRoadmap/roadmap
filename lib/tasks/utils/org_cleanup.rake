@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
-require "text"
+require 'text'
 
-# rubocop:disable Metrics/BlockLength
 namespace :org_cleanup do
-  desc "Detect duplicate Orgs"
+  desc 'Detect duplicate Orgs'
   task find_dups: :environment do
     org_hashes = Org.all.collect do |org|
       cleansed = OrgSelection::SearchService.name_without_alias(name: org.name).downcase
@@ -12,7 +11,7 @@ namespace :org_cleanup do
         id: org.id,
         original: org.name,
         cleansed: cleansed,
-        date: org.created_at.strftime("%Y-%m-%d"),
+        date: org.created_at.strftime('%Y-%m-%d'),
         abbreviation: name_to_abbreviation(name: cleansed),
         matches: []
       }
@@ -42,20 +41,18 @@ namespace :org_cleanup do
     end
 
     found = org_hashes.select { |o| o[:matches].any? }
-    p "DONE!"
-    p ""
-    p "No duplicates detected" unless found.any?
+    p 'DONE!'
+    p ''
+    p 'No duplicates detected' unless found.any?
 
     found.each do |hash|
-      # rubocop:disable Layout/LineLength
       p "#{hash[:id]} - '#{hash[:original]}' created on #{hash[:date]} may match Org(s): #{hash[:matches]}"
-      # rubocop:enable Layout/LineLength
     end
   end
 
-  desc "Find ROR and Crossref funder IDs for Orgs"
+  desc 'Find ROR and Crossref funder IDs for Orgs'
   task rorify: :environment do
-    ror = IdentifierScheme.by_name("ror").first
+    ror = IdentifierScheme.by_name('ror').first
 
     if ror.present?
       orgs = Org.includes(identifiers: :identifier_scheme).where(is_other: false).reject do |org|
@@ -63,15 +60,15 @@ namespace :org_cleanup do
         org.identifier_for_scheme(scheme: ror).present?
       end
 
-      p "This process will only use results from the ROR API that have a close NLP match and"\
-        "that contain the name of the org we have in the database!"\
-        ""
+      p 'This process will only use results from the ROR API that have a close NLP match and'\
+        'that contain the name of the org we have in the database!'\
+        ''
       orgs.each do |org|
         name = OrgSelection::SearchService.name_without_alias(name: org.name).downcase
         p "Searching ROR for '#{name}'"
         results = fetch_ror_matches(name: name)
 
-        p "    no matches found" unless results.any?
+        p '    no matches found' unless results.any?
         next unless results.any?
 
         results = results.sort { |a, b| a[:score] + a[:weight] <=> b[:score] + b[:weight] }
@@ -107,10 +104,10 @@ namespace :org_cleanup do
   end
 
   def name_to_abbreviation(name:)
-    return "" unless name.present?
+    return '' unless name.present?
 
     stopwords = %w[the of]
-    words = name.split(" ").reject { |w| stopwords.include?(w.downcase) }
+    words = name.split.reject { |w| stopwords.include?(w.downcase) }
     words.collect { |w| w[0] }.join.upcase
   end
 
@@ -125,4 +122,3 @@ namespace :org_cleanup do
     end
   end
 end
-# rubocop:enable Metrics/BlockLength

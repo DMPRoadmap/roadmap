@@ -24,33 +24,32 @@ import 'bootstrap-select';
 
 // Utilities
 import '../src/utils/accordion';
-import '../src/utils/autoComplete';
 import '../src/utils/externalLink';
 import '../src/utils/modalSearch';
 import '../src/utils/outOfFocus';
 import '../src/utils/paginable';
 import '../src/utils/panelHeading';
 import '../src/utils/popoverHelper';
-import '../src/utils/requiredField';
 import '../src/utils/tabHelper';
 import '../src/utils/tooltipHelper';
 
 // Specific functions from the Utilities files that will be made available to
 // the js.erb templates in the `window.x` statements below
-import { renderAlert, renderNotice } from '../src/utils/notificationHelper';
+import getConstant from '../src/utils/constants';
+import { renderAlert, renderNotice, hideNotifications } from '../src/utils/notificationHelper';
 import toggleSpinner from '../src/utils/spinner';
 import { Tinymce } from '../src/utils/tinymce.js.erb';
+import { initAutoComplete } from '../src/utils/autoComplete';
+import { addAsterisks } from '../src/utils/requiredField';
+import { togglisePasswords } from '../src/utils/passwordHelper';
 
 // View specific JS
 import '../src/answers/conditions';
 import '../src/answers/edit';
 import '../src/answers/rdaMetadata';
-import '../src/contributors/form';
-import '../src/devise/invitations/edit';
-import '../src/devise/passwords/edit';
-import '../src/devise/registrations/edit';
-import '../src/devise/registrations/new';
-import '../src/doorkeeper/authorizations/new';
+// DMPTool customization - these forms are handled by dmptool-ui repo
+// import '../src/devise/passwords/edit';
+// import '../src/devise/registrations/edit';
 import '../src/guidances/newEdit';
 import '../src/notes/index';
 import '../src/orgs/adminEdit';
@@ -71,8 +70,11 @@ import '../src/publicTemplates/show';
 import '../src/relatedIdentifiers/edit';
 import '../src/researchOutputs/form';
 import '../src/roles/edit';
-import '../src/shared/createAccountForm';
-import '../src/shared/signInForm';
+
+// DMPTool customization - these forms are handled by dmptool-ui repo
+// import '../src/shared/createAccountForm';
+// import '../src/shared/signInForm';
+
 import '../src/usage/index';
 import '../src/users/adminGrantPermissions';
 import '../src/users/notificationPreferences';
@@ -95,15 +97,17 @@ import '../src/superAdmin/notifications/edit';
 import '../src/superAdmin/themes/newEdit';
 import '../src/superAdmin/users/edit';
 
-// ----------------------------------------
-// START DMPTool customization
-// ----------------------------------------
-import '../src/dmptool/home/index';
-import '../src/dmptool/shared/orgBranding';
-import '../src/dmptool/shared/signinCreateForm';
-// ----------------------------------------
-// END DMPTool customization
-// ----------------------------------------
+// ==========================
+// = DMPTool customizations =
+// ==========================
+// import '../src/dmptool/breakpoints';
+// import '../src/dmptool/nav-menu';
+// import '../src/dmptool/navtoggle';
+// import '../src/dmptool/watch-viewport-widths';
+
+// import '../src/dmptool/home/call-to-action';
+// import '../src/dmptool/home/index';
+// import '../src/dmptool/home/random-hero-image.js.erb';
 
 // Since we're using Webpacker to manage JS we need to startup Rails' Unobtrusive JS
 // and Turbolinks. ActiveStorage and ActionCable would also need to be in here
@@ -122,7 +126,22 @@ window.$ = jQuery;
 window.jQuery = jQuery;
 
 // Allow js.erb files to access the notificationHelper functions
+window.addAsterisks = addAsterisks;
+window.getConstant = getConstant;
 window.renderAlert = renderAlert;
 window.renderNotice = renderNotice;
+window.hideNotifications = hideNotifications;
 window.toggleSpinner = toggleSpinner;
 window.Tinymce = Tinymce;
+window.initAutoComplete = initAutoComplete;
+window.togglisePasswords = togglisePasswords;
+
+window.addEventListener('load', () => {
+  // Initialize any org autocompletes
+  $('body').find('.auto-complete').each((_idx, el) => {
+    initAutoComplete(`#${$(el).attr('id')}`);
+  });
+
+  // Add red asterisk to any input/select fields that have `aria-required="true"`
+  addAsterisks('body');
+});

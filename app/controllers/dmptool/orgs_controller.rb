@@ -1,18 +1,17 @@
 # frozen_string_literal: true
 
 module Dmptool
-
+  # Helper methods for our customizations to the Org pages
   module OrgsController
-
     # GET /org_logos/:id (format: :json)
     def logos
       skip_authorization
       org = Org.find(params[:id])
       @user = User.new(org: org)
       render json: {
-        "org" => {
-          "id" => params[:id],
-          "html" => render_to_string(template: "shared/org_branding",
+        'org' => {
+          'id' => params[:id],
+          'html' => render_to_string(template: 'shared/org_branding',
                                      formats: [:html])
         }
       }.to_json
@@ -24,23 +23,20 @@ module Dmptool
     def shibboleth_ds_passthru
       skip_authorization
 
-      org = Org.find_by(id: params.fetch(:id, params[:org_id]))
+      org = Org.find_by(id: params[:id])
       if org.present?
-        entity_id = org.identifier_for_scheme(scheme: "shibboleth")
+        entity_id = org.identifier_for_scheme(scheme: 'shibboleth')
         if entity_id.present?
           shib_login = Rails.configuration.x.shibboleth.login_url
           url = "#{request.base_url.gsub('http:', 'https:')}#{shib_login}"
-          target = user_shibboleth_omniauth_callback_url.gsub("http:", "https:")
+          target = user_shibboleth_omniauth_callback_url.gsub('http:', 'https:')
           # initiate shibboleth login sequence
           redirect_to "#{url}?target=#{target}&entityID=#{entity_id.value}"
         else
-          @user = User.new(org: org)
-          # render new signin showing org logo
-          render "shared/org_branding"
+          redirect_to root_path, alert: _('Unable to connect to your institution\'s server!')
         end
       else
-        redirect_to shibboleth_ds_path,
-                    notice: _("Please choose an organisation from the list.")
+        redirect_to root_path, alert: _('Unable to connect to your institution\'s server!')
       end
     end
     # rubocop:enable Metrics/AbcSize
@@ -64,11 +60,9 @@ module Dmptool
         # For some reason when this comes through as a GET with query_params
         # it includes the closing bracket :/
         args = args.with_indifferent_access
-        args[:id] = args[:id].gsub(/\]$/, "")
+        args[:id] = args[:id].gsub(/\]$/, '')
         args
       end
     end
-
   end
-
 end

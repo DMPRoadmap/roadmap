@@ -16,8 +16,8 @@
 #  index_departments_on_org_id  (org_id)
 #
 
+# Object that a department within an Org
 class Department < ApplicationRecord
-
   belongs_to :org
 
   has_many :users, dependent: :nullify
@@ -37,5 +37,4 @@ class Department < ApplicationRecord
 
   # Retrieves every department associated to an org
   scope :by_org, ->(org) { where(org_id: org.id) }
-
 end

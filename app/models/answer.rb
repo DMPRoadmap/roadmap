@@ -28,8 +28,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 
+# Object that represents an Answer to a Plan question
 class Answer < ApplicationRecord
-
   # ================
   # = Associations =
   # ================
@@ -42,7 +42,7 @@ class Answer < ApplicationRecord
 
   has_many :notes, dependent: :destroy
 
-  has_and_belongs_to_many :question_options, join_table: "answers_question_options"
+  has_and_belongs_to_many :question_options, join_table: 'answers_question_options'
 
   has_many :notes
 
@@ -96,7 +96,7 @@ class Answer < ApplicationRecord
     # If the question is option based then see if any options were selected
     return question_options.any? if question.question_format.option_based?
     # Strip out any white space and see if the text is empty
-    return !text.gsub(%r{</?p>}, "").gsub(%r{<br\s?/?>}, "").chomp.blank? if text.present?
+    return !text.gsub(%r{</?p>}, '').gsub(%r{<br\s?/?>}, '').chomp.blank? if text.present?
 
     false
   end
@@ -113,7 +113,7 @@ class Answer < ApplicationRecord
   #
   # Returns Hash
   def answer_hash
-    default = { "standards" => {}, "text" => "" }
+    default = { 'standards' => {}, 'text' => '' }
     begin
       h = text.nil? ? default : JSON.parse(text)
     rescue JSON::ParserError
@@ -130,10 +130,10 @@ class Answer < ApplicationRecord
   # text      - A String with option comment text
   #
   # Returns String
-  def update_answer_hash(standards = {}, text = "")
+  def update_answer_hash(standards = {}, text = '')
     h = {}
-    h["standards"] = standards
-    h["text"] = text
+    h['standards'] = standards
+    h['text'] = text
     self.text = h.to_json
   end
 
@@ -152,5 +152,4 @@ class Answer < ApplicationRecord
       plan.touch
     end
   end
-
 end

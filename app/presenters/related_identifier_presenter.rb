@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+# Helpers for displaying RelatedIdentifiers
 class RelatedIdentifierPresenter
-
   attr_accessor :related_identifiers
 
   def initialize(plan:)
@@ -15,6 +15,7 @@ class RelatedIdentifierPresenter
   end
 
   # Return the related identifiers for read only display
+  # rubocop:disable Metrics/AbcSize
   def for_display
     return [] unless related_identifiers.any?
 
@@ -29,5 +30,5 @@ class RelatedIdentifierPresenter
       related.citation.present? ? related.citation : (related.value&.start_with?("http") ? link : dflt)
     end
   end
-
+  # rubocop:enable Metrics/AbcSize
 end

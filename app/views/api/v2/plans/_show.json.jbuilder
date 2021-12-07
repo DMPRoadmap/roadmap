@@ -25,13 +25,13 @@ json.ethical_issues_report plan.ethical_issues_report
 id = presenter.identifier
 if id.present?
   json.dmp_id do
-    json.partial! "api/v2/identifiers/show", identifier: id
+    json.partial! 'api/v2/identifiers/show', identifier: id
   end
 end
 
 if presenter.data_contact.present?
   json.contact do
-    json.partial! "api/v2/contributors/show", contributor: presenter.data_contact,
+    json.partial! 'api/v2/contributors/show', contributor: presenter.data_contact,
                                               is_contact: true
   end
 end
@@ -39,25 +39,25 @@ end
 unless @minimal
   if presenter.contributors.any?
     json.contributor presenter.contributors do |contributor|
-      json.partial! "api/v2/contributors/show", contributor: contributor,
+      json.partial! 'api/v2/contributors/show', contributor: contributor,
                                                 is_contact: false
     end
   end
 
   if presenter.costs.any?
     json.cost presenter.costs do |cost|
-      json.partial! "api/v2/plans/cost", cost: cost
+      json.partial! 'api/v2/plans/cost', cost: cost
     end
   end
 
   json.project [plan] do |pln|
-    json.partial! "api/v2/plans/project", plan: pln
+    json.partial! 'api/v2/plans/project', plan: pln
   end
 
   outputs = plan.research_outputs.any? ? plan.research_outputs : [plan]
 
   json.dataset outputs do |output|
-    json.partial! "api/v2/datasets/show", output: output
+    json.partial! 'api/v2/datasets/show', output: output
   end
 
   # DMPRoadmap extensions to the RDA common metadata standard

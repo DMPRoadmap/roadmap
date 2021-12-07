@@ -126,15 +126,14 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
   <div id="funder-org-controls" class="form-group">
     <div class="col-md-8">
       <%= fields_for :funder, plan.funder do |funder_fields| %>
-        <%= render partial: org_partial,
-           locals: {
-             form: form,
-             orgs: orgs,
-             funder_only: true,
-             label: _("Funder"),
-             default_org: plan.funder,
-             required: false
-           } %>
+        <%= render partial: "shared/org_autocomplete",
+                    locals: { form: funder_fields,
+                              namespace: "funder",
+                              default_org: plan.funder,
+                              required: false,
+                              known_only: Rails.configuration.x.application.restrict_orgs || false,
+                              funder_only: true,
+                              label: _("Funder") } %>
       <% end %>
     </div>
   </div>
@@ -168,7 +167,6 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
       <div class="col-md-12">
         <%= grant_fields.label(:value, _("Grant number/url"), class: "control-label") %>
       </div>
-
       <div class="col-md-8">
         <%# If the OpenAire grant typeahead if enabled use it %>
         <% if Rails.configuration.x.open_aire.active %>

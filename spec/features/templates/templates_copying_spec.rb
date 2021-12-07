@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.feature "Templates::Copying", type: :feature do
-
+RSpec.feature 'Templates::Copying', type: :feature do
   let!(:org) { create(:org, :funder, :organisation) }
 
   let!(:parent_template) do
@@ -24,14 +23,14 @@ RSpec.feature "Templates::Copying", type: :feature do
     visit org_admin_templates_path
   end
 
-  scenario "Admin copies an existing Template", :js do
+  scenario 'Admin copies an existing Template', :js do
     # Setup
     click_link org.name
 
     # Action
     within("#template_#{parent_template.id}") do
-      click_button "Actions"
-      click_link "Copy"
+      click_button 'Actions'
+      click_link 'Copy'
     end
 
     # Expectations
@@ -42,5 +41,4 @@ RSpec.feature "Templates::Copying", type: :feature do
     expect(new_template.sections).to have_exactly(4).items
     expect(new_template.questions).to have_exactly(8).items
   end
-
 end

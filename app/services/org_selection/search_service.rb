@@ -1,15 +1,12 @@
 # frozen_string_literal: true
 
-require "text"
+require 'text'
 
 module OrgSelection
-
   # This class provides a search mechanism for Orgs that looks at records in the
   # the database along with any available external APIs
   class SearchService
-
     class << self
-
       # Search for organizations both locally and externally
       def search_combined(search_term:)
         return [] unless search_term.present? && search_term.length > 2
@@ -21,8 +18,6 @@ module OrgSelection
         matches = orgs.select do |org|
           exact_match?(name1: org[:name], name2: search_term)
         end
-        # Convert the Org models to Hashes
-        orgs = orgs.map { |org| OrgSelection::OrgToHashService.to_hash(org: org) }
         return orgs if matches.any?
 
         externals = externals_search(search_term: search_term)
@@ -58,9 +53,9 @@ module OrgSelection
       # Removes the parenthesis portion of the name. For example:
       #   "Foo College (foo.edu)" --> "Foo College"
       def name_without_alias(name:)
-        return "" unless name.present?
+        return '' unless name.present?
 
-        name.split(" (")&.first&.strip
+        name.split(' (')&.first&.strip
       end
 
       private
@@ -73,7 +68,7 @@ module OrgSelection
       def local_search(search_term:)
         return [] unless search_term.present?
 
-        Rails.cache.fetch(["org_selection-local", search_term], expires_in: expiry) do
+        Rails.cache.fetch(['org_selection-local', search_term], expires_in: expiry) do
           Org.includes(identifiers: :identifier_scheme)
              .search(name_without_alias(name: search_term)).to_a
         end
@@ -82,7 +77,7 @@ module OrgSelection
       def externals_search(search_term:)
         return [] unless ExternalApis::RorService.active? && search_term.present?
 
-        Rails.cache.fetch(["org_selection-ror", search_term], expires_in: expiry) do
+        Rails.cache.fetch(['org_selection-ror', search_term], expires_in: expiry) do
           ExternalApis::RorService.search(term: search_term)
         end
       end
@@ -174,9 +169,6 @@ module OrgSelection
           hash.fetch(:score, 0) <= 25 || hash.fetch(:weight, 1) < 2
         end
       end
-
     end
-
   end
-
 end

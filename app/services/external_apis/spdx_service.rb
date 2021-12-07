@@ -1,13 +1,10 @@
 # frozen_string_literal: true
 
 module ExternalApis
-
   # This service provides an interface to the SPDX License List
   # For more information: https://spdx.org/licenses/index.html
   class SpdxService < BaseService
-
     class << self
-
       # Retrieve the config settings from the initializer
       def landing_page_url
         Rails.configuration.x.spdx&.landing_page_url || super
@@ -69,15 +66,15 @@ module ExternalApis
         resp = http_get(uri: "#{api_base_url}#{list_path}", additional_headers: {}, debug: false)
 
         unless resp.present? && resp.code == 200
-          handle_http_failure(method: "SPDX list", http_response: resp)
+          handle_http_failure(method: 'SPDX list', http_response: resp)
           return []
         end
         json = JSON.parse(resp.body)
-        return [] unless json.fetch("licenses", []).any?
+        return [] unless json.fetch('licenses', []).any?
 
-        json["licenses"]
+        json['licenses']
       rescue JSON::ParserError => e
-        log_error(method: "SPDX search", error: e)
+        log_error(method: 'SPDX search', error: e)
         []
       end
 
@@ -86,19 +83,16 @@ module ExternalApis
         return nil unless hash.present?
 
         hash = hash.with_indifferent_access
-        license = License.find_or_initialize_by(identifier: hash["licenseId"])
+        license = License.find_or_initialize_by(identifier: hash['licenseId'])
         return nil unless license.present?
 
         license.update(
-          name: hash["name"],
-          uri: hash["detailsUrl"],
-          osi_approved: hash["isOsiApproved"],
-          deprecated: hash["isDeprecatedLicenseId"]
+          name: hash['name'],
+          uri: hash['detailsUrl'],
+          osi_approved: hash['isOsiApproved'],
+          deprecated: hash['isDeprecatedLicenseId']
         )
       end
-
     end
-
   end
-
 end

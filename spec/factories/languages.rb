@@ -19,9 +19,9 @@ FactoryBot.define do
     default_language { false }
     trait :with_dialect do
       abbreviation do
-        pre = ("a".."z").to_a.shuffle.take(2).join
-        suf = ("A".."Z").to_a.shuffle.take(2).join
-        [pre, suf].join("_")
+        pre = ('a'..'z').to_a.shuffle.take(2).join
+        suf = ('A'..'Z').to_a.shuffle.take(2).join
+        [pre, suf].join('_')
       end
     end
   end

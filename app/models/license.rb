@@ -20,7 +20,6 @@
 #  index_licenses_on_uri                     (uri)
 #
 class License < ApplicationRecord
-
   # ================
   # = Associations =
   # ================
@@ -41,14 +40,13 @@ class License < ApplicationRecord
     return selectable unless preferences.is_a?(Array) && preferences.any?
 
     licenses = preferences.map do |preference|
-      # If `%{latest}` was specified then grab the most current version
-      pref = preference.gsub("%{latest}", "[0-9\\.]+$")
-      where_clause = safe_regexp_where_clause(column: "identifier")
-      rslts = preference.include?("%{latest}") ? where(where_clause, pref) : where(identifier: pref)
+      # If `%<latest>s` was specified then grab the most current version
+      pref = preference.gsub('%<latest>s', '[0-9\\.]+$')
+      where_clause = safe_regexp_where_clause(column: 'identifier')
+      rslts = preference.include?('%<latest>s') ? where(where_clause, pref) : where(identifier: pref)
       rslts.order(:identifier).last
     end
     # Remove any preferred licenses that could not be found in the table
     licenses.compact
   }
-
 end

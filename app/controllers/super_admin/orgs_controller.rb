@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 module SuperAdmin
-
+  # Controller for creating and deleting Orgs
   class OrgsController < ApplicationController
-
     include OrgSelectable
 
     after_action :verify_authorized
@@ -11,7 +10,7 @@ module SuperAdmin
     # GET /super_admin/orgs
     def index
       authorize Org
-      render "index", locals: {
+      render 'index', locals: {
         orgs: Org.includes(:contributors, :plans).with_template_and_user_counts.page(1)
       }
     end
@@ -20,34 +19,27 @@ module SuperAdmin
     def new
       @org = Org.new(managed: true)
       authorize @org
-      @org.links = { "org": [] }
+      @org.links = { org: [] }
     end
 
     # POST /super_admin/orgs
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
     def create
       authorize Org
-      attrs = org_params
 
-      # See if the user selected a new Org via the Org Lookup and
-      # convert it into an Org
-      org = org_from_params(params_in: attrs)
+      # Let the OrgSelectable concern determine which org was selected
+      org = process_org!(user: current_user)
 
-      # Remove the extraneous Org Selector hidden fields
-      attrs = remove_org_selection_params(params_in: attrs)
-
-      # In the event that the params would create an invalid user, the
-      # org selectable returns nil because Org.new(params) fails
-      org = Org.new unless org.present?
-
-      org.language = Language.default
-      org.managed = org_params[:managed] == "1"
-      org.logo = params[:logo] if params[:logo]
-      org.links = if params[:org_links].present?
-                    JSON.parse(params[:org_links])
-                  else
-                    { org: [] }
-                  end
+      if org.new_record?
+        org.language = Language.default
+        org.managed = org_params[:managed] == '1'
+        org.logo = params[:logo] if params[:logo]
+        org.links = if params[:org_links].present?
+                      JSON.parse(params[:org_links])
+                    else
+                      { org: [] }
+                    end
+      end
 
       begin
         # TODO: The org_types here are working but would be better served as
@@ -58,29 +50,30 @@ module SuperAdmin
         org.institution = params[:institution].present?
         org.organisation = params[:organisation].present?
 
-        if org.update(attrs)
-          msg = success_message(org, _("created"))
+        if org.save
+          msg = success_message(org, _('created'))
           redirect_to admin_edit_org_path(org.id), notice: msg
         else
-          flash.now[:alert] = failure_message(org, _("create"))
+          flash.now[:alert] = failure_message(org, _('create'))
           @org = org
-          @org.links = { "org": [] } unless org.links.present?
-          render "super_admin/orgs/new"
+          @org.links = { org: [] } unless org.links.present?
+          render 'super_admin/orgs/new'
         end
       rescue Dragonfly::Job::Fetch::NotFound
-        failure = _("There seems to be a problem with your logo. Please upload it again.")
+        failure = _('There seems to be a problem with your logo. Please upload it again.')
         redirect_to admin_edit_org_path(org), alert: failure
-        render "orgs/admin_edit", locals: {
+        render 'orgs/admin_edit', locals: {
           org: org,
-          languages: Language.all.order("name"),
-          method: "POST",
+          languages: Language.all.order('name'),
+          method: 'POST',
           url: super_admin_orgs_path
         }
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
 
     # DELETE /super_admin/orgs/:id
+    # rubocop:disable Metrics/AbcSize
     def destroy
       org = Org.includes(:users, :templates, :guidance_groups).find(params[:id])
       authorize org
@@ -91,13 +84,14 @@ module SuperAdmin
       org.guidance_groups.delete_all
 
       if org.destroy!
-        msg = success_message(org, _("removed"))
+        msg = success_message(org, _('removed'))
         redirect_to super_admin_orgs_path, notice: msg
       else
-        failure = failure_message(org, _("remove"))
+        failure = failure_message(org, _('remove'))
         redirect_to super_admin_orgs_path, alert: failure
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     # POST /super_admin/:id/merge_analyze
     def merge_analyze
@@ -109,18 +103,15 @@ module SuperAdmin
                 .find(params[:id])
       authorize @org
 
-      lookup = OrgSelection::HashToOrgService.to_org(
-        hash: JSON.parse(merge_params[:id]), allow_create: false
-      )
-      @target_org = Org.includes(:templates, :tracker, :annotations,
-                                 :departments, :token_permission_types, :funded_plans,
-                                 identifiers: [:identifier_scheme],
-                                 guidance_groups: [guidances: [:themes]],
-                                 users: [identifiers: [:identifier_scheme]])
-                       .find(lookup.id)
+      # Let the OrgSelectable concern determine which org was selected
+      @target_org = process_org!(user: current_user)
+
+      # If the user selected the same org then nil it out so that it cancels the merge
+      @target_org = nil if @org == @target_org
     end
 
     # POST /super_admin/:id/merge_commit
+    # rubocop:disable Metrics/AbcSize
     def merge_commit
       @org = Org.find(params[:id])
       authorize @org
@@ -132,17 +123,18 @@ module SuperAdmin
           msg = "Successfully merged '#{@org.name}' into '#{@target_org.name}'"
           redirect_to super_admin_orgs_path, notice: msg
         else
-          msg = _("An error occurred while trying to merge the Organisations.")
+          msg = _('An error occurred while trying to merge the Organisations.')
           redirect_to admin_edit_org_path(@org), alert: msg
         end
       else
-        msg = _("Unable to merge the two Organisations at this time.")
+        msg = _('Unable to merge the two Organisations at this time.')
         redirect_to admin_edit_org_path(@org), alert: msg
       end
     rescue JSON::ParserError
-      msg = _("Unable to determine what records need to be merged.")
+      msg = _('Unable to determine what records need to be merged.')
       redirect_to admin_edit_org_path(@org), alert: msg
     end
+    # rubocop:enable Metrics/AbcSize
 
     private
 
@@ -156,7 +148,5 @@ module SuperAdmin
     def merge_params
       params.require(:org).permit(:org_name, :org_sources, :org_crosswalk, :id, :target_org)
     end
-
   end
-
 end

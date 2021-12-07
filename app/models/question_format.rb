@@ -13,8 +13,8 @@
 #  updated_at   :datetime         not null
 #
 
+# Object that represents a question type
 class QuestionFormat < ApplicationRecord
-
   ##
   #
   FORMAT_TYPES = %i[textarea textfield radiobuttons checkbox dropdown
@@ -55,5 +55,4 @@ class QuestionFormat < ApplicationRecord
   def self.id_for(formattype)
     where(formattype: formattype).pluck(:id).first
   end
-
 end

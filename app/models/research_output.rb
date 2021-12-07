@@ -32,8 +32,9 @@
 #  fk_rails_...  (plan_id => plans.id)
 #  fk_rails_...  (license_id => licenses.id)
 #
-class ResearchOutput < ApplicationRecord
 
+# Object that represents a proposed output for a project
+class ResearchOutput < ApplicationRecord
   include Identifiable
   include ValidationMessages
 
@@ -84,5 +85,4 @@ class ResearchOutput < ApplicationRecord
       metadata_standards << MetadataStandard.find_by(id: metadata_standard_params[:id])
     end
   end
-
 end

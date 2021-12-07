@@ -16,7 +16,7 @@ function renderMessage(options = {}) {
 
   if (isString(options.message) && isObject(notificationArea)) {
     notificationArea
-      .removeClass('alert-info', 'alert-warning')
+      .removeClass('c-notification-area__info', 'c-notification-area__warning')
       .addClass(options.className);
 
     if (options.floating) {
@@ -41,7 +41,7 @@ export function renderNotice(msg, options = {}) {
   renderMessage({
     message: msg,
     icon: 'check-circle',
-    className: 'alert-info',
+    className: 'c-notification-area__info',
     floating: options.floating === true,
     autoDismiss: options.autoDismiss === true,
   });
@@ -51,7 +51,7 @@ export function renderAlert(msg, options = {}) {
   renderMessage({
     message: msg,
     icon: 'times-circle',
-    className: 'alert-warning',
+    className: 'c-notification-area__warning',
     floating: options.floating === true,
     autoDismiss: options.autoDismiss === true,
   });

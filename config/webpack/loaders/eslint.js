@@ -2,6 +2,6 @@
 module.exports = {
   enforce: 'pre',
   test: /\.(js|jsx)$/i,
-  exclude: /node_modules/,
+  exclude: /node_modules|app\/javascript\/vendor/,
   loader: 'eslint-loader',
 };

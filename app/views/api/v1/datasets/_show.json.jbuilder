@@ -28,7 +28,7 @@ if output.is_a?(ResearchOutput)
 
       # DMPTool extensions to the RDA common metadata standard
       json.dmproadmap_host_id do
-        json.type "url"
+        json.type 'url'
         json.identifier repository.uri
       end
     end
@@ -42,14 +42,14 @@ if output.is_a?(ResearchOutput)
   end
 
   json.metadata output.metadata_standards do |metadata_standard|
-    website = metadata_standard.locations.select { |loc| loc["type"] == "website" }.first
-    website = { url: "" } unless website.present?
+    website = metadata_standard.locations.select { |loc| loc['type'] == 'website' }.first
+    website = { url: '' } unless website.present?
 
-    descr_array = [metadata_standard.title, metadata_standard.description, website["url"]]
-    json.description descr_array.join(" - ")
+    descr_array = [metadata_standard.title, metadata_standard.description, website['url']]
+    json.description descr_array.join(' - ')
 
     json.metadata_standard_id do
-      json.type "url"
+      json.type 'url'
       json.identifier metadata_standard.uri
     end
   end
@@ -65,9 +65,9 @@ if output.is_a?(ResearchOutput)
   end
 
 else
-  json.type "dataset"
-  json.title "Generic dataset"
-  json.description "No individual datasets have been defined for this DMP."
+  json.type 'dataset'
+  json.title 'Generic dataset'
+  json.description 'No individual datasets have been defined for this DMP.'
 
   if output.research_domain_id.present?
     research_domain = ResearchDomain.find_by(id: output.research_domain_id)

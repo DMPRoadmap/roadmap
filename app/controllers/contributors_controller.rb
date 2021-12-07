@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+# Controller for the Contributors page
 class ContributorsController < ApplicationController
-
   include OrgSelectable
   helper PaginableHelper
 
@@ -27,17 +27,17 @@ class ContributorsController < ApplicationController
     authorize @plan
   end
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   # POST /plans/:plan_id/contributors
   def create
     authorize @plan
 
     args = translate_roles(hash: contributor_params)
-    args = process_org(hash: args)
+    ensure_org_param
     if args.blank?
       @contributor = Contributor.new(args)
-      @contributor.errors.add(:affiliation, "invalid")
-      flash[:alert] = failure_message(@contributor, _("add"))
+      @contributor.errors.add(:affiliation, 'invalid')
+      flash[:alert] = failure_message(@contributor, _('add'))
       render :new
     else
       args = process_orcid_for_create(hash: args)
@@ -51,40 +51,41 @@ class ContributorsController < ApplicationController
         save_orcid
 
         redirect_to plan_contributors_path(@plan),
-                    notice: success_message(@contributor, _("added"))
+                    notice: success_message(@contributor, _('added'))
       else
-        flash[:alert] = failure_message(@contributor, _("add"))
+        flash[:alert] = failure_message(@contributor, _('add'))
         render :new
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # PUT /plans/:plan_id/contributors/:id
+  # rubocop:disable Metrics/AbcSize
   def update
     authorize @plan
     args = translate_roles(hash: contributor_params)
-    args = process_org(hash: args)
     args = process_orcid_for_update(hash: args)
+    ensure_org_param
 
     if @contributor.update(args)
       redirect_to edit_plan_contributor_path(@plan, @contributor),
-                  notice: success_message(@contributor, _("saved"))
+                  notice: success_message(@contributor, _('saved'))
     else
-      flash.now[:alert] = failure_message(@contributor, _("save"))
+      flash.now[:alert] = failure_message(@contributor, _('save'))
       render :edit
     end
   end
-  # rubocop:enable
+  # rubocop:enable Metrics/AbcSize
 
   # DELETE /plans/:plan_id/contributors/:id
   def destroy
     authorize @plan
     if @contributor.destroy
-      msg = success_message(@contributor, _("removed"))
+      msg = success_message(@contributor, _('removed'))
       redirect_to plan_contributors_path(@plan), notice: msg
     else
-      flash.now[:alert] = failure_message(@contributor, _("remove"))
+      flash.now[:alert] = failure_message(@contributor, _('remove'))
       render :edit
     end
   end
@@ -98,39 +99,32 @@ class ContributorsController < ApplicationController
     params.require(:contributor).permit(
       base_params,
       role_params,
-      identifiers_attributes: %i[id identifier_scheme_id value attrs]
+      identifiers_attributes: %i[id identifier_scheme_id value attrs],
+      org_attributes: %i[abbreviation contact_email contact_name is_other
+                         managed name org_type target_url links]
     )
   end
 
   # Translate the check boxes values of "1" and "0" to true/false
   def translate_roles(hash:)
     roles = Contributor.new.all_roles
-    roles.each { |role| hash[role.to_sym] = hash[role.to_sym] == "1" }
+    roles.each { |role| hash[role.to_sym] = hash[role.to_sym] == '1' }
     hash
   end
 
-  # Convert the Org Hash into an Org object (creating it if allowed)
-  # and then remove all of the Org args
-  def process_org(hash:)
-    return hash unless hash.present? && hash[:org_id].present?
-
-    allow = !Rails.configuration.x.application.restrict_orgs
-    org = org_from_params(params_in: hash,
-                          allow_create: allow)
-    return nil if org.blank? && !allow
-
-    hash = remove_org_selection_params(params_in: hash)
-    return hash unless org.present?
-
-    hash[:org_id] = org.id
-    hash
+  # Convert the results of the Org Autocomplete into an Org or Org.id
+  def ensure_org_param
+    # Convert the selected/specified Org name into attributes
+    op = autocomplete_to_controller_params
+    params[:contributor][:org_id] = op[:org_id] if op[:org_id].present?
+    params[:contributor][:org_attributes] = op[:org_attributes] unless op[:org_id].present?
   end
 
   # When creating, just remove the ORCID if it was left blank
   def process_orcid_for_create(hash:)
     return hash unless hash[:identifiers_attributes].present?
 
-    id_hash = hash[:identifiers_attributes][:"0"]
+    id_hash = hash[:identifiers_attributes][:'0']
     return hash unless id_hash[:value].blank?
 
     hash.delete(:identifiers_attributes)
@@ -141,10 +135,10 @@ class ContributorsController < ApplicationController
   def process_orcid_for_update(hash:)
     return hash unless hash[:identifiers_attributes].present?
 
-    id_hash = hash[:identifiers_attributes][:"0"]
+    id_hash = hash[:identifiers_attributes][:'0']
     return hash unless id_hash[:value].blank?
 
-    existing = @contributor.identifier_for_scheme(scheme: "orcid")
+    existing = @contributor.identifier_for_scheme(scheme: 'orcid')
     existing.destroy if existing.present?
     hash.delete(:identifiers_attributes)
     hash
@@ -157,7 +151,7 @@ class ContributorsController < ApplicationController
     @plan = Plan.includes(:contributors).find_by(id: params[:plan_id])
     return true if @plan.present?
 
-    redirect_to root_path, alert: _("plan not found")
+    redirect_to root_path, alert: _('plan not found')
   end
 
   def fetch_contributor
@@ -165,7 +159,7 @@ class ContributorsController < ApplicationController
     return true if @contributor.present? &&
                    @plan.contributors.include?(@contributor)
 
-    redirect_to plan_contributors_path, alert: _("contributor not found")
+    redirect_to plan_contributors_path, alert: _('contributor not found')
   end
 
   # The following 2 methods address an issue with using Rails normal
@@ -195,5 +189,4 @@ class ContributorsController < ApplicationController
     @cached_orcid.save
     @contributor.reload
   end
-
 end

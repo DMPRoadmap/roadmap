@@ -1,10 +1,20 @@
 # frozen_string_literal: true
 
+# Controller that handles Admin operations for managing users
 class UsersController < ApplicationController
-
   helper PaginableHelper
   helper PermsHelper
   include ConditionalUserMailer
+
+   # --------------------------------
+  # Start DMPTool Customization
+  # --------------------------------
+  include Dmptool::UsersController
+
+  include Dmptool::Shibbolethable
+  # --------------------------------
+  # End DMPTool Customization
+  # --------------------------------
 
   after_action :verify_authorized
   respond_to :html
@@ -12,6 +22,7 @@ class UsersController < ApplicationController
   ##
   # GET - List of all users for an organisation
   # Displays number of roles[was project_group], name, email, and last sign in
+  # rubocop:disable Metrics/AbcSize
   def admin_index
     authorize User
 
@@ -33,6 +44,7 @@ class UsersController < ApplicationController
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   ##
   # GET - Displays the permissions available to the selected user
@@ -51,9 +63,9 @@ class UsersController < ApplicationController
             end
 
     render json: {
-      "user" => {
-        "id" => user.id,
-        "html" => render_to_string(partial: "users/admin_grant_permissions",
+      'user' => {
+        'id' => user.id,
+        'html' => render_to_string(partial: 'users/admin_grant_permissions',
                                    locals: { user: user, perms: perms },
                                    formats: [:html])
       }
@@ -65,6 +77,7 @@ class UsersController < ApplicationController
   # redirects to the admin_index action
   # should add validation that the perms given are current perms of the current_user
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def admin_update_permissions
     @user = User.find(params[:id])
     authorize @user
@@ -90,24 +103,25 @@ class UsersController < ApplicationController
 
     if @user.save
       if privileges_changed
-        deliver_if(recipients: @user, key: "users.admin_privileges") do |r|
+        deliver_if(recipients: @user, key: 'users.admin_privileges') do |r|
           UserMailer.admin_privileges(r).deliver_now
         end
       end
       render(json: {
                code: 1,
-               msg: success_message(perms.first_or_initialize, _("saved")),
-               current_privileges: render_to_string(partial: "users/current_privileges",
+               msg: success_message(perms.first_or_initialize, _('saved')),
+               current_privileges: render_to_string(partial: 'users/current_privileges',
                                                     locals: { user: @user }, formats: [:html])
              })
     else
-      render(json: { code: 0, msg: failure_message(@user, _("updated")) })
+      render(json: { code: 0, msg: failure_message(@user, _('updated')) })
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # PUT /users/:id/update_email_preferences
+  # rubocop:disable Metrics/AbcSize
   def update_email_preferences
     prefs = preference_params
     authorize User
@@ -118,16 +132,18 @@ class UsersController < ApplicationController
       pref.settings = {}
       pref.user = current_user
     end
-    pref.settings["email"] = booleanize_hash(prefs["prefs"])
+    pref.settings['email'] = booleanize_hash(prefs['prefs'])
     pref.save
 
     # Include active tab in redirect path
     redirect_to "#{edit_user_registration_path}\#notification-preferences",
-                notice: success_message(pref, _("saved"))
+                notice: success_message(pref, _('saved'))
   end
+  # rubocop:enable Metrics/AbcSize
 
   # PUT /users/:id/activate
   # -----------------------------------------------------
+  # rubocop:disable Metrics/AbcSize
   def activate
     authorize current_user
 
@@ -139,21 +155,20 @@ class UsersController < ApplicationController
       user.save!
       render json: {
         code: 1,
-        msg: _("Successfully %{action} %{username}'s account.") % {
-          action: user.active ? _("activated") : _("deactivated"),
-          username: user.name(false)
-        }
+        msg: format(_("Successfully %<action>s %<username>s's account."),
+                    action: user.active ? _('activated') : _('deactivated'),
+                    username: user.name(false))
       }
     rescue StandardError
       render json: {
         code: 0,
-        msg: _("Unable to %{action} %{username}") % {
-          action: user.active ? _("activate") : _("deactivate"),
-          username: user.name(false)
-        }
+        msg: format(_('Unable to %<action>s %<username>s'),
+                    action: user.active ? _('activate') : _('deactivate'),
+                    username: user.name(false))
       }
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # POST /users/acknowledge_notification
   def acknowledge_notification
@@ -169,38 +184,6 @@ class UsersController < ApplicationController
     original = current_user.api_token
     current_user.generate_token!
     @success = current_user.api_token != original
-  end
-
-  # DELETE /users/:user_id/oauth_credential_tokens/:id
-  def revoke_oauth_access_token
-    user = User.includes(:access_tokens).find_by(id: params[:user_id])
-    authorize user
-    token = Doorkeeper::AccessToken.find_by(id: params[:id])
-    if token.present?
-      token.update(revoked_at: Time.now)
-      redirect_to users_third_party_apps_path, notice: _("The application is no longer authorized to access your data.")
-    else
-      redirect_to users_third_party_apps_path, alert: _("Unable to revoke the authorized application.")
-    end
-  end
-
-  # GET /users/third_party_apps
-  def third_party_apps
-    # Displays the user's 3rd party applications profile page
-    authorize current_user
-
-    @identifier_schemes = IdentifierScheme.for_users.order(:name)
-    @tokens = current_user.access_tokens.select { |token| token.revoked_at == nil }
-  end
-
-  # GET /users/developer_tools
-  def developer_tools
-    # Displays the user's developer tools profile page
-    authorize current_user
-
-    @api_client = ApiClient.find_or_initialize_by(user_id: current_user.id)
-    @api_client.contact_name = current_user.name(false) unless @api_client.contact_name.present?
-    @api_client.contact_email = current_user.email unless @api_client.contact_email.present?
   end
 
   private
@@ -231,7 +214,7 @@ class UsersController < ApplicationController
   def booleanize_hash(node)
     # leaf: convert to boolean and return
     # hash: iterate over leaves
-    return node == "true" unless node.is_a?(ActionController::Parameters)
+    return node == 'true' unless node.is_a?(ActionController::Parameters)
 
     newnode = {}
     node.each do |key, value|
@@ -239,5 +222,4 @@ class UsersController < ApplicationController
     end
     newnode
   end
-
 end

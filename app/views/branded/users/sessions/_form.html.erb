@@ -1,0 +1,33 @@
+<%# locals: form, shibbolized %>
+
+<div id="sign-in-email" class="c-textfield js-textfield">
+  <%= form.label(:email, _('Email address')) %>
+  <%= form.email_field(:disabled_email, value: resource.email,
+                       autocomplete: 'email', disabled: "disabled") %>
+  <%= form.hidden_field(:email, value: resource.email) %>
+</div>
+
+<%= form.hidden_field :org_id, value: resource.org_id %>
+
+<% if shibbolized %>
+  <%# If the Org is shibbolized and the user has an EPPN %>
+  <%= render partial: "users/shared/sso", locals: { form: form } %>
+
+<% else %>
+  <div id="sign-in-password" class="c-textfield js-textfield">
+    <%# Display the standard Sign in form %>
+    <%= form.label(:password, _('Password')) %>
+    <%= form.password_field(:password, autocomplete: 'password', minlength: 8,
+                            maxlength: 80, class: "require-me") %>
+    <div id="" class="c-textfield__invalid-description js-invalid-description" hidden>
+    </div>
+  </div>
+
+  <div class="c-login__pseudo-description">
+    <%= link_to _('Forgot password?'), new_password_path('user') %>
+  </div>
+  <div id="" class="c-textfield__invalid-description js-invalid-description" hidden>
+  </div>
+
+  <button type="submit"><%= _("Sign in") %></button>
+<% end %>

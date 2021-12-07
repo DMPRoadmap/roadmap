@@ -15,13 +15,13 @@
                                  namespace: 'superadmin',
                                  method: "post",
                                  html: { id: 'super-admin-switch-org' } do |f| %>
-        <%= render partial: "shared/org_selectors/local_only",
-                      locals: {
-                        form: f,
-                        default_org: current_user.org,
-                        orgs: @orgs,
-                        required: false
-                      } %>
+        <%= render partial: "shared/org_autocomplete",
+                    locals: { form: f,
+                              default_org: current_user.org,
+                              required: false,
+                              known_only: true,
+                              label: _("Organisation") } %>
+
         <%= f.submit _('Change affiliation'), class: 'btn btn-default' %>
       <% end %>
     </div>

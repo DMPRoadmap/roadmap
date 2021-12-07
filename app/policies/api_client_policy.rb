@@ -1,13 +1,9 @@
 # frozen_string_literal: true
 
+# Security rules for API Clients
+# Note the method names here correspond with controller actions
 class ApiClientPolicy < ApplicationPolicy
-
-  def initialize(user, api_client)
-    raise Pundit::NotAuthorizedError, _("must be logged in") unless user
-
-    @user = user
-    @api_client = api_client
-  end
+  # NOTE: @user is the signed_in_user
 
   def index?
     @user.can_super_admin?
@@ -43,5 +39,4 @@ class ApiClientPolicy < ApplicationPolicy
   def email_credentials?
     @user.can_super_admin?
   end
-
 end

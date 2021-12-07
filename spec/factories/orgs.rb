@@ -37,8 +37,8 @@
 FactoryBot.define do
   factory :org do
     name { Faker::Company.unique.name }
-    links { { "org" => [] } }
-    abbreviation { SecureRandom.hex(6) }
+    links { { 'org' => [] } }
+    abbreviation { SecureRandom.hex(4) }
     feedback_enabled { false }
     region { Region.first || create(:region) }
     language { Language.default }
@@ -83,7 +83,7 @@ FactoryBot.define do
     # ----------------------------------------------------
     trait :shibbolized do
       after :create do |org, _evaluator|
-        scheme = IdentifierScheme.find_or_create_by(name: "shibboleth")
+        scheme = IdentifierScheme.find_or_create_by(name: 'shibboleth')
         create(:identifier, identifiable: org, identifier_scheme: scheme,
                             value: SecureRandom.hex(4))
       end

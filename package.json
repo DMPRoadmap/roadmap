@@ -4,8 +4,9 @@
   "description": "DMPRoadmap javascript dependencies",
   "main": "null",
   "scripts": {
-    "lint": "yarn run eslint --ext .js app/javascript/**/*.js",
-    "test": "karma start spec/karma/unit.js"
+    "pa11y": "pa11y --runner axe --runner htmlcs",
+    "pa11yci": "pa11y-ci --config pa11yci/pa11yci.config.json 2>&1 | tee pa11yci/pa11yci-results.txt",
+    "test-a11y": "start-server-and-test serve 1234 pa11yci"
   },
   "repository": {
     "type": "git",
@@ -67,6 +68,7 @@
     "karma-jquery": "^0.2.4",
     "karma-json-fixtures-preprocessor": "^0.0.6",
     "karma-webpack": "^4.0.2",
+    "pa11y-ci": "^2.4.2",
     "webpack-dev-server": "^3.11.0"
   },
   "resolutions": {

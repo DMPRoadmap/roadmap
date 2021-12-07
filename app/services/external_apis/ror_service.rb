@@ -1,14 +1,11 @@
 # frozen_string_literal: true
 
 module ExternalApis
-
   # This service provides an interface to the Research Organization Registry (ROR)
   # API.
   # For more information: https://github.com/ror-community/ror-api
   class RorService < BaseService
-
     class << self
-
       # Retrieve the config settings from the initializer
       def landing_page_url
         Rails.configuration.x.ror&.landing_page_url || super
@@ -18,16 +15,12 @@ module ExternalApis
         Rails.configuration.x.ror&.api_base_url || super
       end
 
-      def max_pages
-        Rails.configuration.x.ror&.max_pages || super
+      def full_catalog_file
+        Rails.configuration.x.ror&.full_catalog_file
       end
 
-      def max_results_per_page
-        Rails.configuration.x.ror&.max_results_per_page || super
-      end
-
-      def max_redirects
-        Rails.configuration.x.ror&.max_redirects || super
+      def catalog_process_date
+        Rails.configuration.x.ror&.catalog_process_date
       end
 
       def active?
@@ -42,115 +35,121 @@ module ExternalApis
         Rails.configuration.x.ror&.search_path
       end
 
-      # Ping the ROR API to determine if it is online
-      #
-      # @return true/false
-      def ping
-        return true unless active? && heartbeat_path.present?
+      # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
+      def fetch(force: false)
+        # TODO: At some point find a way to retrieve the latest zip file
+        #       They are current stored as zip files within the GitHub repo:
+        #       https://github.com/ror-community/ror-api/tree/master/rorapi/data
+        #
+        # TODO: Write the downloaded json file to the tmp/ dir
+        file = File.new(full_catalog_file, 'r')
+        mod_date = file.mtime
+        # Create the timestamp file if it is not present
+        ror_tstamp = File.open(catalog_process_date, 'w+') unless File.exist?(catalog_process_date) && !force
+        ror_tstamp = File.open(catalog_process_date, 'r+') unless ror_tstamp.present?
+        last_proc_date = ror_tstamp.read
 
-        resp = http_get(uri: "#{api_base_url}#{heartbeat_path}")
-        resp.present? && resp.code == 200
+        method = "ExternalApis::RorService.fetch(force: #{force})"
+
+        # rubocop:disable Style/GuardClause
+        if file.present?
+          if mod_date.to_s == last_proc_date
+            log_message(method: method, message: "ROR file already processed: #{mod_date}")
+          else
+            log_message(method: method, message: "ROR proccessing new file: #{mod_date}")
+            if process_ror_file(file: file, time: mod_date)
+              f = File.open(catalog_process_date, 'w')
+              f.write(mod_date.to_s)
+            else
+              log_error(method: method, error: StandardError.new('An error occurred while processing the file!'))
+            end
+          end
+        end
+        # rubocop:enable Style/GuardClause
       end
-
-      # Search the ROR API for the given string.
-      #
-      # @return an Array of Hashes:
-      # {
-      #   id: 'https://ror.org/12345',
-      #   name: 'Sample University (sample.edu)',
-      #   sort_name: 'Sample University',
-      #   score: 0
-      #   weight: 0
-      # }
-      # The ROR limit appears to be 40 results (even with paging :/)
-      def search(term:, filters: [])
-        return [] unless active? && term.present? && ping
-
-        process_pages(
-          term: term,
-          json: query_ror(term: term, filters: filters),
-          filters: filters
-        )
-
-      # If a JSON parse error occurs then return results of a local table search
-      rescue JSON::ParserError => e
-        log_error(method: "ROR search", error: e)
-        []
-      end
+      # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity
 
       private
 
-      # Queries the ROR API for the sepcified name and page
-      def query_ror(term:, page: 1, filters: [])
-        return [] unless term.present?
+      # Parse the JSON file and process each individual record
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity
+      def process_ror_file(file:, time:)
+        return false unless file.present?
 
-        # build the URL
-        target = "#{api_base_url}#{search_path}"
-        query = query_string(term: term, page: page, filters: filters)
+        method = "ExternalApis::RorService.process_ror-file(file: #{file}, time: #{time}"
+        json = JSON.parse(file.read)
+        cntr = 0
+        total = json.length
+        json.each do |hash|
+          cntr += 1
+          log_message(method: method, message: "Processed #{cntr} out of #{total} records") if (cntr % 1000).zero?
 
-        # Call the ROR API and log any errors
-        resp = http_get(uri: "#{target}?#{query}", additional_headers: {},
-                        debug: false)
+          hash = hash.with_indifferent_access if hash.is_a?(Hash)
 
-        unless resp.present? && resp.code == 200
-          handle_http_failure(method: "ROR search", http_response: resp)
-          return []
+          next if process_ror_record(record: hash, time: time)
+
+          log_message(
+            method: method,
+            message: "Unable to process record for: '#{hash&.fetch('name', 'unknown')}'",
+            info: false
+          )
         end
-        JSON.parse(resp.body)
-      end
-
-      # Build the query string using the search term, current page and any
-      # filters specified
-      def query_string(term:, page: 1, filters: [])
-        query_string = ["query=#{term}", "page=#{page}"]
-        query_string << "filter=#{filters.join(',')}" if filters.any?
-        query_string.join("&")
-      end
-
-      # Recursive method that can handle multiple ROR result pages if necessary
-      def process_pages(term:, json:, filters: [])
-        return [] if json.blank?
-
-        results = parse_results(json: json)
-        num_of_results = json.fetch("number_of_results", 1).to_i
-
-        # Determine if there are multiple pages of results
-        pages = (num_of_results / max_results_per_page.to_f).to_f.ceil
-        return results unless pages > 1
-
-        # Gather the results from the additional page (only up to the max)
-        (2..(pages > max_pages ? max_pages : pages)).each do |page|
-          json = query_ror(term: term, page: page, filters: filters)
-          results += parse_results(json: json)
-        end
-        results || []
-
-      # If we encounter a JSON parse error on subsequent page requests then just
-      # return what we have so far
+        # Remove any old ROR records (their file_timestamps would not have been updated)
+        # Note this does not remove any associated Org records!
+        RegistryOrg.where('file_timestamp < ?', time.strftime('%Y-%m-%d %H:%M:%S')).destroy_all
+        true
       rescue JSON::ParserError => e
-        log_error(method: "ROR search", error: e)
-        results || []
+        log_error(method: method, error: e)
+        false
+      end
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity
+
+      # Transfer the contents of the JSON record to the org_indices table
+      # rubocop:disable Metrics/AbcSize
+      def process_ror_record(record:, time:)
+        return nil unless record.present? && record.is_a?(Hash) && record['id'].present?
+
+        registry_org = RegistryOrg.find_or_create_by(ror_id: record['id'])
+        registry_org.name = safe_string(value: org_name(item: record))
+        registry_org.acronyms = record['acronyms']
+        registry_org.aliases = record['aliases']
+        registry_org.country = record['country']
+        registry_org.types = record['types']
+        registry_org.language = org_language(item: record)
+        registry_org.file_timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
+        registry_org.fundref_id = fundref_id(item: record)
+        registry_org.home_page = safe_string(value: record.fetch('links', []).first)
+
+        # Attempt to find a matching Org record
+        registry_org.org_id = check_for_org_association(registry_org: registry_org)
+
+        # TODO: We should create some sort of Super Admin page to highlight unmapped
+        #       RegistryOrg records so that they can be connected to their Org
+        registry_org.save
+        true
+      rescue StandardError => e
+        log_error(method: 'ExternalApis::RorService.process_ror_record', error: e)
+        log_message(method: 'ExternalApis::RorService.process_ror-record', message: record.to_s)
+        false
+      end
+      # rubocop:enable Metrics/AbcSize
+
+      def safe_string(value:)
+        return value if value.blank? || value.length < 255
+
+        value[0..254]
       end
 
-      # Convert the JSON items into a hash
-      def parse_results(json:)
-        results = []
-        return results unless json.present? && json.fetch("items", []).any?
+      # Determine if there is a matching Org record in the DB if so, attach it
+      def check_for_org_association(registry_org:)
+        return registry_org.org&.id if registry_org.org.present?
 
-        json["items"].each do |item|
-          next unless item["id"].present? && item["name"].present?
+        ror = Identifier.by_scheme_name('ror', 'Org')
+                        .where(value: registry_org.ror_id)
+                        .first
+        return nil unless ror.present?
 
-          results << {
-            ror: item["id"].gsub(/^#{landing_page_url}/, ""),
-            name: org_name(item: item),
-            sort_name: item["name"],
-            url: item.fetch("links", []).first,
-            language: org_language(item: item),
-            fundref: fundref_id(item: item),
-            abbreviation: item.fetch("acronyms", []).first
-          }
-        end
-        results
+        ror.present? ? ror.identifiable_id : nil
       end
 
       # Org names are not unique, so include the Org URL if available or
@@ -158,12 +157,12 @@ module ExternalApis
       #    "Example College (example.edu)"
       #    "Example College (Brazil)"
       def org_name(item:)
-        return "" unless item.present? && item["name"].present?
+        return '' unless item.present? && item['name'].present?
 
-        country = item.fetch("country", {}).fetch("country_name", "")
+        country = item.fetch('country', {}).fetch('country_name', '')
         website = org_website(item: item)
         # If no website or country then just return the name
-        return item["name"] unless website.present? || country.present?
+        return item['name'] unless website.present? || country.present?
 
         # Otherwise return the contextualized name
         "#{item['name']} (#{website || country})"
@@ -171,39 +170,36 @@ module ExternalApis
 
       # Extracts the org's ISO639 if available
       def org_language(item:)
-        dflt = I18n.default_locale || "en"
+        dflt = I18n.default_locale || 'en'
         return dflt unless item.present?
 
-        labels = item.fetch("labels", [{ "iso639": dflt }])
-        labels.first&.fetch("iso639", I18n.default_locale) || dflt
+        labels = item.fetch('labels', [{ iso639: dflt }])
+        labels.first&.fetch('iso639', I18n.default_locale) || dflt
       end
 
       # Extracts the website domain from the item
       def org_website(item:)
-        return nil unless item.present? && item.fetch("links", [])&.any?
-        return nil if item["links"].first.blank?
+        return nil unless item.present? && item.fetch('links', [])&.any?
+        return nil if item['links'].first.blank?
 
         # A website was found, so extract just the domain without the www
         domain_regex = %r{^(?:http://|www\.|https://)([^/]+)}
-        website = item["links"].first.scan(domain_regex).last.first
-        website.gsub("www.", "")
+        website = item['links'].first.scan(domain_regex).last.first
+        website.gsub('www.', '')
       end
 
       # Extracts the FundRef Id if available
       def fundref_id(item:)
-        return "" unless item.present? && item["external_ids"].present?
-        return "" unless item["external_ids"].fetch("FundRef", {}).any?
+        return '' unless item.present? && item['external_ids'].present?
+        return '' unless item['external_ids'].fetch('FundRef', {}).any?
 
         # If a preferred Id was specified then use it
-        ret = item["external_ids"].fetch("FundRef", {}).fetch("preferred", "")
+        ret = item['external_ids'].fetch('FundRef', {}).fetch('preferred', '')
         return ret if ret.present?
 
         # Otherwise take the first one listed
-        item["external_ids"].fetch("FundRef", {}).fetch("all", []).first
+        item['external_ids'].fetch('FundRef', {}).fetch('all', []).first
       end
-
     end
-
   end
-
 end

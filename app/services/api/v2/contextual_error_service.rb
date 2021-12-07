@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
 module Api
-
   module V2
-
+    # Contextualized errors for API V2 (e.g. "Contact identifier cannot be blank")
     class ContextualErrorService
-
       class << self
-        # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def contextualize_errors(plan:)
           errs = []
           return errs unless plan.present?
@@ -32,12 +30,12 @@ module Api
           errs.flatten.uniq
           errs
         end
-        # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
         private
 
         # Contextualize errors with the Project and its children
-        # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def find_project_errors(plan:)
           errs = []
           return errs unless plan.present? && !plan.valid?
@@ -48,14 +46,14 @@ module Api
           unless plan.grant.present? && plan.grant.valid?
             g_errs = "grant identifier '#{plan.grant.value}' : #{plan.grant.errors.full_messages}"
           end
+          errs << g_errs if g_errs.is_a?(Array) && g_errs.any?
 
           errs = errs.flatten.uniq
           errs.any? ? ["Project : #{errs}"] : []
         end
-        # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
         # Contextualize errors with the Dataset and its children
-        # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def find_dataset_errors(dataset:)
           errs = []
           return errs unless dataset.present? && !dataset.valid?
@@ -64,9 +62,9 @@ module Api
           errs = errs.flatten.uniq
           errs.any? ? ["Dataset : #{errs}"] : []
         end
-        # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
         # Contextualize errors with the Affiliation and its children
+        # rubocop:disable Metrics/AbcSize
         def find_org_errors(org:)
           errs = []
           return errs unless org.present? && !org.valid?
@@ -81,9 +79,10 @@ module Api
           errs = errs.flatten.uniq
           errs.any? ? ["Affiliation: '#{org.name}' : #{errs}"] : []
         end
+        # rubocop:enable Metrics/AbcSize
 
         # Contextualize errors with the ContributorDataManagementPlan and its children
-        # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def find_contributor_errors(contributor:)
           errs = []
           return errs unless contributor.present? && !contributor.valid?
@@ -101,12 +100,8 @@ module Api
           errs = errs.flatten.uniq
           errs.any? ? ["Contributor/Contact: '#{contributor&.name}' : #{errs}"] : []
         end
-        # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-
+        # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       end
-
     end
-
   end
-
 end

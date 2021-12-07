@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe Api::V2::RelatedIdentifiersController, type: :request do
-
   include Api::AccessTokenRequestHelper
   include Api::AuthorizationRequestHelper
 
@@ -24,12 +23,12 @@ RSpec.describe Api::V2::RelatedIdentifiersController, type: :request do
     }
   end
 
-  describe "POST /api/v2/related_identifiers - create" do
+  describe 'POST /api/v2/related_identifiers - create' do
     before(:each) do
       @json = {
         dmp: {
           dmp_id: {
-            type: "url",
+            type: 'url',
             identifier: Rails.application.routes.url_helpers.api_v2_plan_url(@plan)
           },
           dmproadmap_related_identifiers: [
@@ -48,37 +47,37 @@ RSpec.describe Api::V2::RelatedIdentifiersController, type: :request do
       }
     end
 
-    it "returns a 401 if the access token is invalid" do
-      @headers["Authorization"] = "Bearer #{SecureRandom.uuid}"
+    it 'returns a 401 if the access token is invalid' do
+      @headers['Authorization'] = "Bearer #{SecureRandom.uuid}"
       post api_v2_related_identifiers_path, params: @json.to_json, headers: @headers
-      expect(response.code).to eql("401")
-      expect(response).to render_template("api/v2/_standard_response")
-      expect(response).to render_template("api/v2/error")
+      expect(response.code).to eql('401')
+      expect(response).to render_template('api/v2/_standard_response')
+      expect(response).to render_template('api/v2/error')
     end
-    it "returns a 404 if the Plan does not exist" do
+    it 'returns a 404 if the Plan does not exist' do
       @json[:dmp][:dmp_id][:identifier] = SecureRandom.uuid
       post api_v2_related_identifiers_path, params: @json.to_json, headers: @headers
-      expect(response.code).to eql("404")
-      expect(response).to render_template("api/v2/error")
+      expect(response.code).to eql('404')
+      expect(response).to render_template('api/v2/error')
     end
-    it "returns a 404 if the resource owner does not own the Plan" do
+    it 'returns a 404 if the resource owner does not own the Plan' do
       Role.where(plan: @plan, user: @plan.owner).update(user: @other_user)
       post api_v2_related_identifiers_path, params: @json.to_json, headers: @headers
-      expect(response.code).to eql("404")
-      expect(response).to render_template("api/v2/error")
+      expect(response.code).to eql('404')
+      expect(response).to render_template('api/v2/error')
     end
-    it "returns a 400 if the incoming JSON is invalid" do
-      post api_v2_related_identifiers_path, params: { foo: "bar" }.to_json, headers: @headers
-      expect(response.code).to eql("400")
-      expect(response).to render_template("api/v2/error")
+    it 'returns a 400 if the incoming JSON is invalid' do
+      post api_v2_related_identifiers_path, params: { foo: 'bar' }.to_json, headers: @headers
+      expect(response.code).to eql('400')
+      expect(response).to render_template('api/v2/error')
     end
-    it "returns a 400 if the incoming RelatedIdentifier is invalid" do
+    it 'returns a 400 if the incoming RelatedIdentifier is invalid' do
       @json[:dmp][:dmproadmap_related_identifiers].first.delete(:type)
       post api_v2_related_identifiers_path, params: @json.to_json, headers: @headers
-      expect(response.code).to eql("400")
-      expect(response).to render_template("api/v2/error")
+      expect(response.code).to eql('400')
+      expect(response).to render_template('api/v2/error')
     end
-    it "skips RelatedIdentifiers that already exist" do
+    it 'skips RelatedIdentifiers that already exist' do
       id = @json[:dmp][:dmproadmap_related_identifiers].first[:identifier]
       r_id = create(:related_identifier, identifiable: @plan, value: id,
                                          updated_at: Time.now - 2.days)
@@ -89,7 +88,7 @@ RSpec.describe Api::V2::RelatedIdentifiersController, type: :request do
       expect(response).to render_template("api/v2/plans/index")
       expect(r_id.reload.updated_at).to eql(last_updated)
     end
-    it "returns a 201 if the incoming JSON is valid" do
+    it 'returns a 201 if the incoming JSON is valid' do
       post api_v2_related_identifiers_path, params: @json.to_json, headers: @headers
       expect(response.code).to eql("201")
       expect(response).to render_template("api/v2/plans/index")
@@ -114,5 +113,4 @@ RSpec.describe Api::V2::RelatedIdentifiersController, type: :request do
       expect(entry.activity.start_with?(expected)).to eql(true)
     end
   end
-
 end

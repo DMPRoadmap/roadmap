@@ -37,7 +37,7 @@ FactoryBot.define do
     org
     title { Faker::Lorem.sentence }
     description { Faker::Lorem.paragraph }
-    locale { "en_GB" }
+    locale { 'en_GB' }
     is_default { false }
     published { false }
     archived { false }
@@ -85,6 +85,5 @@ FactoryBot.define do
                                             sections: evaluator.sections,
                                             questions: evaluator.questions)
     end
-
   end
 end

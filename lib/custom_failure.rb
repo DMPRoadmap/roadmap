@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
+# Override how Devise handles failures
 class CustomFailure < Devise::FailureApp
-
   def redirect_url
     # Login failed! If we're in an Oauth workflow return to that workflow otherwise return to root
-    session["oauth-referer"].present? ? session["oauth-referer"] : root_path
+    session['oauth-referer'].present? ? session['oauth-referer'] : root_path
   end
 
   def respond
@@ -14,5 +14,4 @@ class CustomFailure < Devise::FailureApp
       redirect
     end
   end
-
 end

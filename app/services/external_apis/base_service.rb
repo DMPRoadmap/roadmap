@@ -1,15 +1,14 @@
 # frozen_string_literal: true
 
-require "httparty"
+require 'httparty'
 
 module ExternalApis
-
+  # Errors for External Api services
   class ExternalApiError < StandardError; end
 
+  # Abstract service that provides HTTP methods for individual external api services
   class BaseService
-
     class << self
-
       # The following should be defined in each inheriting service's initializer.
       # For example:
       #   ExternalApis::RorService.setup do |config|
@@ -46,11 +45,11 @@ module ExternalApis
       # `http_get`
       def headers
         hash = {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-          "User-Agent": "#{app_name} (#{app_email})"
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          'User-Agent': "#{app_name} (#{app_email})"
         }
-        hash.merge({ "Host": URI(api_base_url).hostname.to_s })
+        hash.merge({ Host: URI(api_base_url).hostname.to_s })
       rescue URI::InvalidURIError => e
         handle_uri_failure(method: "BaseService.headers #{e.message}",
                            uri: api_base_url)
@@ -78,28 +77,35 @@ module ExternalApis
         Rails.logger.error error.backtrace
       end
 
+      # Logs the specified message (as INFO by default, WARN otherwise)
+      def log_message(method:, message:, info: true)
+        return unless method.present? && message.present?
+
+        Rails.logger.send((info ? :info : :warn), "#{self.class.name}.#{method} #{message}")
+      end
+
       # Emails the error and response to the administrators
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def notify_administrators(obj:, response: nil, error: nil)
         return false unless obj.present? && response.present?
 
         message = "#{obj.class.name} - #{obj.respond_to?(:id) ? obj.id : ''}"
-        message += "<br>----------------------------------------<br><br>"
+        message += '<br>----------------------------------------<br><br>'
 
         message += "Sent: #{pp(json_from_template(plan: obj))}" if obj.is_a?(Plan)
-        message += "<br>----------------------------------------<br><br>" if obj.is_a?(Plan)
+        message += '<br>----------------------------------------<br><br>' if obj.is_a?(Plan)
 
         message += "#{name} received the following unexpected response:<br>"
         message += response.inspect.to_s
-        message += "<br>----------------------------------------<br><br>"
+        message += '<br>----------------------------------------<br><br>'
 
         message += error.message if error.present? && error.is_a?(StandardError)
-        message += error.backtrace || "" if error.present? && error.is_a?(StandardError)
+        message += error.backtrace || '' if error.present? && error.is_a?(StandardError)
 
         UserMailer.notify_administrators(message).deliver_now
         true
       end
-      # rubocop:enable Metrics/AbcSize
+      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       private
 
@@ -110,7 +116,7 @@ module ExternalApis
 
       # Retrieves the helpdesk email from dmproadmap.rb initializer or uses the contact page url
       def app_email
-        dflt = Rails.application.routes.url_helpers.contact_us_url || ""
+        dflt = Rails.application.routes.url_helpers.contact_us_url || ''
         Rails.configuration.x.organisation.fetch(:helpdesk_email, dflt)
       end
 
@@ -221,9 +227,6 @@ module ExternalApis
         hash[:debug_output] = $stdout if debug
         hash
       end
-
     end
-
   end
-
 end

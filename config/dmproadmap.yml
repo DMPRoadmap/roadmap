@@ -157,6 +157,10 @@ default: &default
   # Will use the ROR api to search for Org's as the user types
   ror_active: false
 
+  # Whether or not to restrict Org selection to the ones in the `orgs` table (Meaning not allowing
+  # users to search/select from the org_indices table)
+  restrict_orgs: false
+
   # Translation IO can be used to help failitate translating your custom code.Translations for the
   # core DMPRoadmap codebase are handled by the development team (DEV only)
   # See https://translation.io/rails/usage
@@ -187,6 +191,15 @@ default: &default
   # A super admin will also be able to associate orgs with their shibboleth entityIds if this is
   # set to true
   shibboleth_use_filtered_discovery_service: false
+
+  # ===================
+  # = Sign in options =
+  # ===================
+
+  # The order in which to display the sign in options (e.g. Shib first, then email + password)
+  sign_in_options:
+    - "shared/authentication/shib_sign_in_form"
+    - "shared/authentication/sign_in_form"
 
   # =============================================
   # = PDF generator configuration (wkhtmltoprf) =
@@ -331,6 +344,11 @@ default: &default
   # ======================================= #
   # = maDMP / Networked DMP functionality = #
   # ======================================= #
+
+  # Whether or not to require contributor names and/or emails.
+  # Note that at least one is required!
+  require_contributor_email: false
+  require_contributor_name: true
 
   # Enable/disable functionality on the Project Details tab
   enable_ethical_issues: true

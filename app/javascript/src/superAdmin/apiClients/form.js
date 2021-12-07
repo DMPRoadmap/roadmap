@@ -1,11 +1,5 @@
-import { initAutocomplete, scrubOrgSelectionParamsOnSubmit } from '../../utils/autoComplete';
-
 $(() => {
   if ($('#api-client-org-controls').length > 0) {
-    initAutocomplete('#api-client-org-controls .autocomplete');
-    scrubOrgSelectionParamsOnSubmit('form.api_client');
-    scrubOrgSelectionParamsOnSubmit('#new_api_client');
-
     // Toggle the visibility of the Scopes sections based on the status of the 'Trusted' checkbox
     const toggleScopesBlocks = (context) => {
       const scopesBlocks = $('.oauth-scopes');

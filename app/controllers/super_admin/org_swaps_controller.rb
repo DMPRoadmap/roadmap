@@ -1,39 +1,36 @@
 # frozen_string_literal: true
 
-class SuperAdmin::OrgSwapsController < ApplicationController
+module SuperAdmin
+  # Controller that handles a SupedAdmin changing their Org from the Templates page
+  class OrgSwapsController < ApplicationController
+    include OrgSelectable
 
-  include OrgSelectable
+    after_action :verify_authorized
 
-  after_action :verify_authorized
+    # rubocop:disable Metrics/AbcSize
+    def create
+      # Allows the user to swap their org affiliation on the fly
+      authorize current_user, :org_swap?
 
-  def create
-    # Allows the user to swap their org affiliation on the fly
-    authorize current_user, :org_swap?
+      # See if the user selected a new Org via the Org Lookup and
+      # convert it into an Org
+      lookup = process_org!(user: current_user)
 
-    # See if the user selected a new Org via the Org Lookup and
-    # convert it into an Org
-    lookup = org_from_params(params_in: org_swap_params)
-
-    # rubocop:disable Layout/LineLength
-    if lookup.present? && !lookup.new_record?
-      current_user.org = lookup
-      if current_user.save
-        redirect_back(fallback_location: root_path,
-                      notice: _("Your organisation affiliation has been changed. You may now edit templates for %{org_name}.") % { org_name: current_user.org.name })
+      # rubocop:disable Layout/LineLength
+      if lookup.present? && !lookup.new_record?
+        current_user.org = lookup
+        if current_user.save
+          redirect_back(fallback_location: root_path,
+                        notice: format(_('Your organisation affiliation has been changed. You may now edit templates for %<org_name>s.'),
+                                       org_name: current_user.org.name))
+        else
+          redirect_back(fallback_location: root_path, alert: _('Unknown organisation.'))
+        end
+        # rubocop:enable Layout/LineLength
       else
-        redirect_back(fallback_location: root_path,
-                      alert: _("Unable to change your organisation affiliation at this time."))
+        redirect_back(fallback_location: root_path, alert: _('Unknown organisation.'))
       end
-    else
-      redirect_back(fallback_location: root_path, alert: _("Unknown organisation."))
     end
-    # rubocop:enable Layout/LineLength
+    # rubocop:enable Metrics/AbcSize
   end
-
-  private
-
-  def org_swap_params
-    params.require(:user).permit(:org_id, :org_name, :org_crosswalk)
-  end
-
 end

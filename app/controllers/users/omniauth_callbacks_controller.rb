@@ -1,110 +1,142 @@
 # frozen_string_literal: true
 
-class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+module Users
+  # Overrides to Devise Omniauth controller
+  class OmniauthCallbacksController < Devise::OmniauthCallbacksController
+    # See https://github.com/omniauth/omniauth/wiki/FAQ#rails-session-is-clobbered-after-callback-on-developer-strategy
+    skip_before_action :verify_authenticity_token, only: %i[orcid shibboleth]
 
-  # --------------------------------
-  # Start DMPTool Customization
-  # --------------------------------
-  include Dmptool::Users::OmniauthCallbacksController
-  # --------------------------------
-  # End DMPTool Customization
-  # --------------------------------
 
-  ##
-  # Dynamically build a handler for each omniauth provider
-  # -------------------------------------------------------------
-  IdentifierScheme.for_authentication.each do |scheme|
-    define_method(scheme.name.downcase) do
-      handle_omniauth(scheme)
+    def failure
+      Rails.logger.error "OmniauthCallbacksController - FAILURE for #{failed_strategy.name}"
+      super
     end
-  end
 
-  # Processes callbacks from an omniauth provider and directs the user to
-  # the appropriate page:
-  #   Not logged in and uid had no match ---> Sign Up page
-  #   Not logged in and uid had a match ---> Sign In and go to Home Page
-  #   Signed in and uid had no match --> Save the uid and go to the Profile Page
-  #   Signed in and uid had a match --> Go to the Home Page
-  #
-  # scheme - The IdentifierScheme for the provider
-  #
-  def handle_omniauth(scheme)
-    # --------------------------------------------------------
-    # Start DMPTool customization
-    # --------------------------------------------------------
-    process_omniauth_callback(scheme: scheme)
+    # GET|POST /users/auth/shibboleth/callback
+    def shibboleth
+      omniauth = omniauth_from_request
+      scheme_name = 'shibboleth'
+      user = User.from_omniauth(scheme_name: scheme_name, omniauth_hash: omniauth)
 
-    # DMPTool -- commented out the entire block below
+Rails.logger.debug "SHIBBOLETH USER: #{user.inspect}"
 
-    # user = if request.env["omniauth.auth"].nil?
-    #          User.from_omniauth(request.env)
-    #        else
-    #          User.from_omniauth(request.env["omniauth.auth"])
-    #        end
-    #
-    # # If the user isn't logged in
-    # if current_user.nil?
-    #   # If the uid didn't have a match in the system send them to register
-    #   if user.nil?
-    #     session["devise.#{scheme.name.downcase}_data"] = request.env["omniauth.auth"]
-    #     redirect_to new_user_registration_url
-    #
-    #   # Otherwise sign them in
-    #   elsif scheme.name == "shibboleth"
-    #     # Until ORCID becomes supported as a login method
-    #     set_flash_message(:notice, :success, kind: scheme.description) if is_navigational_format?
-    #     sign_in_and_redirect user, event: :authentication
-    #   else
-    #     flash[:notice] = _("Successfully signed in")
-    #     redirect_to new_user_registration_url
-    #   end
-    #
-    # # The user is already logged in and just registering the uid with us
-    # else
-    #   # If the user could not be found by that uid then attach it to their record
-    #   if user.nil?
-    #     if Identifier.create(identifier_scheme: scheme,
-    #                          value: request.env["omniauth.auth"].uid,
-    #                          attrs: request.env["omniauth.auth"],
-    #                          identifiable: current_user)
-    #       flash[:notice] = _("Your account has been successfully linked to %{scheme}.") % {
-    #         scheme: scheme.description
-    #       }
-    #
-    #     else
-    #       flash[:alert] = _("Unable to link your account to %{scheme}.") % {
-    #         scheme: scheme.description
-    #       }
-    #     end
-    #
-    #   elsif user.id != current_user.id
-    #     # If a user was found but does NOT match the current user then the identifier has
-    #     # already been attached to another account (likely the user has 2 accounts)
+      process_omniauth_response(scheme_name: scheme_name, user: user, omniauth_hash: omniauth)
+    end
+
+    # GET|POST /users/auth/orcid/callback
+    def orcid
+      omniauth = omniauth_from_request
+      scheme_name = 'orcid'
+      user = User.from_omniauth(scheme_name: scheme_name, omniauth_hash: omniauth)
+
+Rails.logger.debug "ORCID USER: #{user.inspect}"
+
+      process_omniauth_response(scheme_name: scheme_name, user: user, omniauth_hash: omniauth)
+    end
+
+    private
+
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    def process_omniauth_response(scheme_name:, user:, omniauth_hash:)
+      msg = _('Unable to process your request')
+      redirect_to(:back, alert: msg) and return  unless user.present? &&
+                                                        omniauth_hash.present? &&
+                                                        scheme_name.present?
+      scheme_descr = provider(scheme_name: scheme_name)
+
+      # If the user is already signed in and OmniAuth provided a UID
+      if current_user.present? && omniauth_hash[:uid].present?
+        handle_third_party_app_registration(
+          user: current_user, scheme_name: scheme_name, omniauth_hash: omniauth_hash
+        )
+
+      elsif user.persisted?
+Rails.logger.warn "Successful OmniAuth UID sign in (via UID, '#{omniauth['uid']}', match) for #{user.email}"
+
+        # We found the user by the OmniAuth UID so sign them in
+        flash[:notice] = _('Successfully signed in')
+        sign_in_and_redirect user, event: :authentication
+
+      else
+        handle_new_user_sign_in(
+          user: user, scheme_name: scheme_name, omniauth_hash: omniauth_hash
+        )
+      end
+    end
+    # rubocop:enable Metrics/AbcSize
+
+    # The path used when OmniAuth fails
+    def after_omniauth_failure_path_for(scope)
+    #   super(scope)
+      redirect_to root_path, alert: _('We are having trouble communicating with your institution at this time.')
+    end
+
+
+    # Attach the UID to their record and return to the third party apps page
+    def handle_third_party_app_registration(user:, scheme_name:, omniauth_hash:)
+
+Rails.logger.warn "Attaching an OmniAuth UID, '#{omniauth_hash['uid']}', to signed in user #{user.email}"
+
+      id = user.attach_omniauth_credentials(
+        scheme_name: scheme_name, omniauth_hash: omniauth_hash
+      )
+
+      msg = _('Unable to link your account to %<scheme>s')
+      msg = _('Your account has been successfully linked to %<scheme>s.') if id.present?
+
+      redirect_to users_third_party_apps_path,
+                  alert: format(msg, scheme: provider(scheme_name: scheme_name))
+    end
+
+    # New user sign in via Omniauth
+    def handle_new_user_sign_in(user:, scheme_name:, omniauth_hash:)
+      # Try to find a matching user by the email address provided by OmniAuth
+      existing = User.where_case_insensitive("email", user.email).first
+
+      if existing.present?
+Rails.logger.warn "Successful OmniAuth UID, '#{omniauth_hash['uid']}', sign in (via email match) for #{user.email}"
+
+        # If we found a matching email address then attach the UID to that record
+        # and sign them in
+        identifier = existing.attach_omniauth_credentials(
+          scheme_name: scheme_name, omniauth_hash: omniauth_hash
+        )
+        flash[:notice] = _('Successfully signed in')
+        sign_in_and_redirect existing, event: :authentication
+
+      else
+Rails.logger.warn "Previously unknown user via OmniAuth UID, '#{omniauth_hash['uid']}', for #{user.email}"
+
+        # If we could not find a match then take them to the account setup page to give
+        # them an opportunity to sign in with a password (scenarios where the user had
+        # an account before their Org was setup for SSO) or correct any of the info we
+        # got from OmniAuth (e.g. First name, Last name)
+        redirect_to_registration(scheme_name: scheme_name, omniauth_hash: omniauth_hash)
+      end
+    end
+
     # rubocop:disable Layout/LineLength
-    #     flash[:alert] = _("The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}")
+    def redirect_to_registration(scheme_name:, omniauth_hash:)
+      session["devise.#{scheme_name.downcase}_data"] = omniauth_hash
+      redirect_to Rails.application.routes.url_helpers.new_user_registration_path,
+                  notice: _("It looks like this is your first time signing in. Please verify and complete the information below to finish creating an account.")
+    end
     # rubocop:enable Layout/LineLength
-    #   end
-    #
-    #   # Redirect to the User Profile page
-    #   redirect_to edit_user_registration_path
-    # end
-    # --------------------------------------------------------
-    # End DMPTool customization
-    # --------------------------------------------------------
-  end
 
-  def failure
-    msg = _("Unable to authenticate or authorize access.")
-    path = root_path
+    # Return the visual name of the scheme
+    def provider(scheme_name:)
+      scheme = IdentifierScheme.find_by(name: scheme_name.downcase)
+      return _("your institutional credentials") if scheme&.name == "shibboleth"
 
-    # Otherwise if the user denied authorization then
-    if params["error"].downcase.include?("denied") || params["error_description"].downcase.include?("denied")
-      msg = _("Authorization was not given. Did you clicked \"deny\" by mistake? You can reauthorize by clicking the link below.")
-      path = edit_user_registration_path
+      scheme&.description
     end
 
-    # Default to root with a generic message
-    redirect_to path, alert: msg
-  end
+    # Extract the omniauth info from the request
+    def omniauth_from_request
+      return {} unless request.env.present?
 
+      omniauth_hash = request.env['omniauth.auth']
+      omniauth_hash.present? ? omniauth_hash.to_h : {}
+    end
+  end
 end

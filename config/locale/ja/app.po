@@ -32,7 +32,7 @@ msgstr ""
 msgid " The above plan creator(s) have agreed that others may use as much of the text of this plan as they would like in their own plans, and customise it as necessary. You do not need to credit the creator(s) as the source of the language used, but using any of the plan's text does not imply that the creator(s) endorse, or have any relationship to, your project or proposal"
 msgstr ""
 
-msgid " by %{user_name}"
+msgid " by %<user_name>s"
 msgstr ""
 
 msgid " has been removed by "
@@ -44,70 +44,70 @@ msgstr ""
 msgid "#{text}"
 msgstr ""
 
-msgid "%{affiliation}"
+msgid "%<affiliation>s"
 msgstr ""
 
-msgid "%{application_name}"
+msgid "%<application_name>s"
 msgstr ""
 
-msgid "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website <em class=\"sr-only\">(new window)</em></a>. If you would like to contact us about %{application_name}, please fill out the form below."
+msgid "%<application_name>s is provided by the %<organisation_name>s.<br /> You can find out more about us on our <a href=\"%<organisation_url>s\" target=\"_blank\">website <em class=\"sr-only\">(new window)</em></a>. If you would like to contact us about %<application_name>s, please fill out the form below."
 msgstr ""
 
-msgid "%{application_name}: %{user_name} requested feedback on a plan"
+msgid "%<application_name>s: %<user_name>s requested feedback on a plan"
 msgstr ""
 
-msgid "%{application_name}: Expert feedback has been provided for %{plan_title}"
+msgid "%<application_name>s: Expert feedback has been provided for %<plan_title>s"
 msgstr ""
 
-msgid "%{application_name}: Your plan has been submitted for feedback"
+msgid "%<application_name>s: Your plan has been submitted for feedback"
 msgstr ""
 
-msgid "%{authors}"
+msgid "%<authors>s"
 msgstr ""
 
-msgid "%{click_here} to accept the invitation, (or copy %{link} into your browser). If you don't want to accept the invitation, please ignore this email."
+msgid "%<click_here>s to accept the invitation, (or copy %<link>s into your browser). If you don't want to accept the invitation, please ignore this email."
 msgstr ""
 
-msgid "%{commenter_name} has commented on the plan %{plan_title}. To view the comments, please visit the My Dashboard page in %{tool_name} and open your plan."
+msgid "%<commenter_name>s has commented on the plan %<plan_title>s. To view the comments, please visit the My Dashboard page in %<tool_name>s and open your plan."
 msgstr ""
 
-msgid "%{date}"
+msgid "%<date>s"
 msgstr ""
 
-msgid "%{description}"
+msgid "%<description>s"
 msgstr ""
 
-msgid "%{funder}"
+msgid "%<funder>s"
 msgstr ""
 
-msgid "%{grant_number}"
+msgid "%<grant_number>s"
 msgstr ""
 
-msgid "%{org_name} Plans"
+msgid "%<org_name>s Plans"
 msgstr ""
 
-msgid "%{org_name} Templates"
+msgid "%<org_name>s Templates"
 msgstr ""
 
-msgid "%{org_title} Plans"
+msgid "%<org_title>s Plans"
 msgstr ""
 
-msgid "%{org} Example Answer"
+msgid "%<org>s Example Answer"
 msgstr ""
 
-msgid "%{phase_title} (%{sections_size} %{sections}, %{questions_size} %{questions})"
+msgid "%<phase_title>s (%<sections_size>s %<sections>s, %<questions_size>s %<questions>s)"
 msgstr ""
 
-msgid "%{plan_owner} has been notified that you have finished providing feedback"
+msgid "%<plan_owner>s has been notified that you have finished providing feedback"
 msgstr ""
 
-msgid "%{template}"
+msgid "%<template>s"
 msgstr ""
 
-msgid "%{tool_name} will help you to develop your Data Management Plan. If you have any queries or feedback as you use the tool, please contact us at %{helpdesk_email} or visit %{contact_us}"
+msgid "%<tool_name>s will help you to develop your Data Management Plan. If you have any queries or feedback as you use the tool, please contact us at %<helpdesk_email>s or visit %<contact_us>s"
 msgstr ""
 
-msgid "%{tool_name}: A new comment was added to %{plan_title}"
+msgid "%<tool_name>s: A new comment was added to %<plan_title>s"
 msgstr ""
 
 msgid "'Download' allows you to download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application."
@@ -149,10 +149,10 @@ msgstr ""
 msgid "... (continued)"
 msgstr ""
 
-msgid "<p>%{application_name} has been developed by the <strong>%{organisation_name}</strong> to help you write data management plans.</p>"
+msgid "<p>%<application_name>s has been developed by the <strong>%<organisation_name>s</strong> to help you write data management plans.</p>"
 msgstr ""
 
-msgid "<p>Hello %{user_name}.</p><p>Your plan \"%{plan_name}\" has been submitted for feedback from an administrator at your organisation. If you have questions pertaining to this action, please contact us at %{organisation_email}.</p>"
+msgid "<p>Hello %<user_name>s.</p><p>Your plan \"%<plan_name>s\" has been submitted for feedback from an administrator at your organisation. If you have questions pertaining to this action, please contact us at %<organisation_email>s.</p>"
 msgstr ""
 
 msgid "<strong>Info:</strong> Simple information message, displayed in blue.<br/><strong>Warning:</strong> warning message, for signaling something unusual, displayed in orange.<br/><strong>Danger:</strong> error message, for anything critical, displayed in red"
@@ -161,18 +161,18 @@ msgstr ""
 msgid "A Data Management Plan created using "
 msgstr ""
 
-msgid "A Data Management Plan created using %{application_name}"
+msgid "A Data Management Plan created using %<application_name>s"
 msgstr ""
 
-msgid "A Data Management Plan in %{application_name} has been shared with you"
+msgid "A Data Management Plan in %<application_name>s has been shared with you"
 msgstr ""
 
-msgid "A Data Management Plan in %{tool_name} has been shared \"\
+msgid "A Data Management Plan in %<tool_name>s has been shared \"\
 "
 "                   \"with you"
 msgstr ""
 
-msgid "A colleague has invited you to contribute to their Data Management Plan in %{tool_name}"
+msgid "A colleague has invited you to contribute to their Data Management Plan in %<tool_name>s"
 msgstr ""
 
 msgid "A hash is expected for links"
@@ -181,7 +181,7 @@ msgstr ""
 msgid "A historical template cannot be retrieved for being modified"
 msgstr ""
 
-msgid "A key %{key} is expected for links hash"
+msgid "A key %<key>s is expected for links hash"
 msgstr ""
 
 msgid "A key \"org\" is expected for links hash"
@@ -211,7 +211,7 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-msgid "About %{application_name}"
+msgid "About %<application_name>s"
 msgstr ""
 
 msgid "Access removed"
@@ -280,13 +280,13 @@ msgstr ""
 msgid "Administrator contact"
 msgstr ""
 
-msgid "Administrator privileges granted in %{tool_name}"
+msgid "Administrator privileges granted in %<tool_name>s"
 msgstr ""
 
 msgid "Affiliation: "
 msgstr ""
 
-msgid "All (%{count})"
+msgid "All (%<count>s)"
 msgstr ""
 
 msgid "All Templates"
@@ -346,22 +346,22 @@ msgstr ""
 msgid "Are you sure you want to change your organisational affiliation? Doing so will remove your administrative privileges."
 msgstr ""
 
-msgid "Are you sure you want to delete the notification \"%{title}\""
+msgid "Are you sure you want to delete the notification \"%<title>s\""
 msgstr ""
 
-msgid "Are you sure you want to delete the theme \"%{title}\"?"
+msgid "Are you sure you want to delete the theme \"%<title>s\"?"
 msgstr ""
 
 msgid "Are you sure you want to disconnect your ORCID ID?"
 msgstr ""
 
-msgid "Are you sure you want to remove \"%{template_title}\"? Any published versions will become unavailable to users."
+msgid "Are you sure you want to remove \"%<template_title>s\"? Any published versions will become unavailable to users."
 msgstr ""
 
 msgid "Are you sure you want to remove this comment?"
 msgstr ""
 
-msgid "Are you sure you want to remove your customization of \"%{template_title}\"? Any published versions will become unavailable to users."
+msgid "Are you sure you want to remove your customization of \"%<template_title>s\"? Any published versions will become unavailable to users."
 msgstr ""
 
 msgid "Are you sure you want to unlink #{scheme.description} ID?"
@@ -422,7 +422,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-msgid "Cannot share plan with %{email} since that email matches with the owner of the plan."
+msgid "Cannot share plan with %<email>s since that email matches with the owner of the plan."
 msgstr ""
 
 msgid "Captcha verification failed, please retry."
@@ -437,7 +437,7 @@ msgstr ""
 msgid "Change your password"
 msgstr ""
 
-msgid "Changed permissions on a Data Management Plan in %{tool_name}"
+msgid "Changed permissions on a Data Management Plan in %<tool_name>s"
 msgstr ""
 
 msgid "Changing your organisation will result in the loss of your administrative privileges."
@@ -500,7 +500,7 @@ msgstr ""
 msgid "Copy"
 msgstr ""
 
-msgid "Copy of %{template}"
+msgid "Copy of %<template>s"
 msgstr ""
 
 msgid "Copyright information:"
@@ -548,7 +548,7 @@ msgstr ""
 msgid "Created date"
 msgstr ""
 
-msgid "Created using the %{application_name}. Last modified %{date}"
+msgid "Created using the %<application_name>s. Last modified %<date>s"
 msgstr ""
 
 msgid "Creator:"
@@ -593,7 +593,7 @@ msgstr ""
 msgid "DMP Templates"
 msgstr ""
 
-msgid "DMP Visibility Changed: %{plan_title}"
+msgid "DMP Visibility Changed: %<plan_title>s"
 msgstr ""
 
 msgid "DMPRoadmap"
@@ -650,7 +650,7 @@ msgstr ""
 msgid "Display additional comment area."
 msgstr ""
 
-msgid "Do you have a %{application_name} account?"
+msgid "Do you have a %<application_name>s account?"
 msgstr ""
 
 msgid "Don't forget to save your changes after making your selections."
@@ -716,10 +716,10 @@ msgstr ""
 msgid "Editing Notification"
 msgstr ""
 
-msgid "Editing privileges for %{username}"
+msgid "Editing privileges for %<username>s"
 msgstr ""
 
-msgid "Editing profile for %{username}"
+msgid "Editing profile for %<username>s"
 msgstr ""
 
 msgid "Editor"
@@ -758,7 +758,7 @@ msgstr ""
 msgid "Enter your guidance here. You can include links where needed."
 msgstr ""
 
-msgid "Error parsing links for a %{template}"
+msgid "Error parsing links for a %<template>s"
 msgstr ""
 
 msgid "Error:"
@@ -897,19 +897,19 @@ msgstr ""
 msgid "Hello "
 msgstr ""
 
-msgid "Hello %{recipient_name}"
+msgid "Hello %<recipient_name>s"
 msgstr ""
 
-msgid "Hello %{user_email}"
+msgid "Hello %<user_email>s"
 msgstr ""
 
-msgid "Hello %{user_name}"
+msgid "Hello %<user_name>s"
 msgstr ""
 
-msgid "Hello %{user_name},"
+msgid "Hello %<user_name>s,"
 msgstr ""
 
-msgid "Hello %{username}"
+msgid "Hello %<username>s"
 msgstr ""
 
 msgid "Help"
@@ -954,16 +954,16 @@ msgstr ""
 msgid "If you do have a need to provide guidance for specific funders that would not be useful to a wider audience (e.g. if you have specific instructions for applicants to BBSRC for example), you can do so by adding guidance to a specific question when you edit your template."
 msgstr ""
 
-msgid "If you do not have a %{application_name} account, click on"
+msgid "If you do not have a %<application_name>s account, click on"
 msgstr ""
 
 msgid "If you have an account please sign in and start creating or editing your DMP."
 msgstr ""
 
-msgid "If you have any questions or need help, please contact us at %{helpdesk_email} or visit %{contact_us}"
+msgid "If you have any questions or need help, please contact us at %<helpdesk_email>s or visit %<contact_us>s"
 msgstr ""
 
-msgid "If you have any questions, please contact the %{application_name} team at: <a href='mailto:%{helpdesk_email}'>%{helpdesk_email}</a>"
+msgid "If you have any questions, please contact the %<application_name>s team at: <a href='mailto:%<helpdesk_email>s'>%<helpdesk_email>s</a>"
 msgstr ""
 
 msgid "If you wish to add an organisational template for a Data Management Plan, use the 'create template' button. You can create more than one template if desired e.g. one for researchers and one for PhD students. Your template will be presented to users within your organisation when no funder templates apply. If you want to add questions to funder templates use the 'customise template' options below."
@@ -999,7 +999,7 @@ msgstr ""
 msgid "Invalid maximum pages"
 msgstr ""
 
-msgid "Invitation to %{email} issued successfully."
+msgid "Invitation to %<email>s issued successfully."
 msgstr ""
 
 msgid "Invite collaborators"
@@ -1101,7 +1101,7 @@ msgstr ""
 msgid "Month"
 msgstr ""
 
-msgid "More information about administering the %{tool_name} for users at your organisation is available at the %{help_url}."
+msgid "More information about administering the %<tool_name>s for users at your organisation is available at the %<help_url>s."
 msgstr ""
 
 msgid "My DMP's visibility has changed"
@@ -1164,7 +1164,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-msgid "No %{application_name} account?"
+msgid "No %<application_name>s account?"
 msgstr ""
 
 msgid "No additional comment area will be displayed."
@@ -1215,7 +1215,7 @@ msgstr ""
 msgid "Not answered yet"
 msgstr ""
 
-msgid "Not customised (%{count})"
+msgid "Not customised (%<count>s)"
 msgstr ""
 
 msgid "Not customized"
@@ -1359,7 +1359,7 @@ msgstr ""
 msgid "Permissions"
 msgstr ""
 
-msgid "Permissions removed on a DMP in %{tool_name}"
+msgid "Permissions removed on a DMP in %<tool_name>s"
 msgstr ""
 
 msgid "Personal Details"
@@ -1389,7 +1389,7 @@ msgstr ""
 msgid "Plan Name"
 msgstr ""
 
-msgid "Plan is already shared with %{email}."
+msgid "Plan is already shared with %<email>s."
 msgstr ""
 
 msgid "Plan overview"
@@ -1398,7 +1398,7 @@ msgstr ""
 msgid "Plan removed"
 msgstr ""
 
-msgid "Plan shared with %{email}."
+msgid "Plan shared with %<email>s."
 msgstr ""
 
 msgid "Plans"
@@ -1437,7 +1437,7 @@ msgstr ""
 msgid "Please enter your password to change email address."
 msgstr ""
 
-msgid "Please make a choice below. After linking your details to a %{application_name} account, you will be able to sign in directly with your institutional credentials."
+msgid "Please make a choice below. After linking your details to a %<application_name>s account, you will be able to sign in directly with your institutional credentials."
 msgstr ""
 
 msgid "Please note that your email address is used as your username. If you change this, remember to use your new email address on sign in."
@@ -1545,10 +1545,10 @@ msgstr ""
 msgid "Public DMPs"
 msgstr ""
 
-msgid "Public DMPs are plans created using the %{application_name} service and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
+msgid "Public DMPs are plans created using the %<application_name>s service and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
 msgstr ""
 
-msgid "Public or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default."
+msgid "Public or organisational visibility is intended for finished plans. You must answer at least %<percentage>s%% of the questions to enable these options. Note: test plans are set to private visibility by default."
 msgstr ""
 
 msgid "Public: anyone can view"
@@ -1572,19 +1572,19 @@ msgstr ""
 msgid "Published"
 msgstr ""
 
-msgid "Published (%{count})"
+msgid "Published (%<count>s)"
 msgstr ""
 
 msgid "Published?"
 msgstr ""
 
-msgid "Query or feedback related to %{tool_name}"
+msgid "Query or feedback related to %<tool_name>s"
 msgstr ""
 
 msgid "Question"
 msgstr ""
 
-msgid "Question %{number}:"
+msgid "Question %<number>s:"
 msgstr ""
 
 msgid "Question Number"
@@ -1659,9 +1659,9 @@ msgstr ""
 msgid "Run your own filter"
 msgstr ""
 
-msgid "SAMPLE MESSAGE: A data librarian from %{org_name} will respond to your request within 48"
+msgid "SAMPLE MESSAGE: A data librarian from %<org_name>s will respond to your request within 48"
 "       hours. If you have questions pertaining to this action please contact us"
-"       at %{organisation_email}."
+"       at %<organisation_email>s."
 msgstr ""
 
 msgid "Same as Principal Investigator"
@@ -1790,10 +1790,10 @@ msgstr ""
 msgid "Skip to main content"
 msgstr ""
 
-msgid "Someone has requested a link to change your %{tool_name} password. You can do this through the link below."
+msgid "Someone has requested a link to change your %<tool_name>s password. You can do this through the link below."
 msgstr ""
 
-msgid "Sort by %{sort_field}"
+msgid "Sort by %<sort_field>s"
 msgstr ""
 
 msgid "Start"
@@ -1811,10 +1811,10 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-msgid "Successfully %{action} %{username}'s account."
+msgid "Successfully %<action>s %<username>s's account."
 msgstr ""
 
-msgid "Successfully %{action} the %{object}."
+msgid "Successfully %<action>s the %<object>s."
 msgstr ""
 
 msgid "Successfully changed the permissions for #{@role.user.email}. They have been notified via email."
@@ -1823,7 +1823,7 @@ msgstr ""
 msgid "Successfully signed in"
 msgstr ""
 
-msgid "Successfully unlinked your account from %{is}."
+msgid "Successfully unlinked your account from %<is>s."
 msgstr ""
 
 msgid "Successfully unpublished your #{template_type(template)}"
@@ -1847,7 +1847,7 @@ msgstr ""
 msgid "Template Overview"
 msgstr ""
 
-msgid "Template created using the %{application_name} service. Last modified %{date}"
+msgid "Template created using the %<application_name>s service. Last modified %<date>s"
 msgstr ""
 
 msgid "Template details"
@@ -1889,10 +1889,10 @@ msgstr ""
 msgid "That template is not customizable."
 msgstr ""
 
-msgid "The %{org_name} processes the personal data of %{application_name} users in order to deliver and improve the %{application_name} service in a customised manner and to ensure each user receives relevant information."
+msgid "The %<org_name>s processes the personal data of %<application_name>s users in order to deliver and improve the %<application_name>s service in a customised manner and to ensure each user receives relevant information."
 msgstr ""
 
-msgid "The %{tool_name} team"
+msgid "The %<tool_name>s team"
 msgstr ""
 
 msgid "The DMPTool Account email associated with this username is #{@user.email}"
@@ -1921,19 +1921,19 @@ msgstr ""
 msgid "The following tab(s) present the questions to answer. There may be more than one tab if your funder or university asks different sets of questions at different stages e.g. at grant application and post-award."
 msgstr ""
 
-msgid "The information you provide will be used by the %{org_name} to offer you access to and personalisation of the %{application_name} service."
+msgid "The information you provide will be used by the %<org_name>s to offer you access to and personalisation of the %<application_name>s service."
 msgstr ""
 
-msgid "The key %{key} does not have a valid set of object links"
+msgid "The key %<key>s does not have a valid set of object links"
 msgstr ""
 
 msgid "The new platform will be separate from the services each of our teams runs on top of it. Our shared goal: provide a combined DMPRoadmap platform as a core infrastructure for DMPs. Future enhancements will focus on making DMPs machine actionable so please continue sharing your use cases."
 msgstr ""
 
-msgid "The plan %{plan_title} had its visibility changed to %{plan_visibility}."
+msgid "The plan %<plan_title>s had its visibility changed to %<plan_visibility>s."
 msgstr ""
 
-msgid "The processing of your personal data by the %{org_name} is necessary for pursuing the following legitimate interests:"
+msgid "The processing of your personal data by the %<org_name>s is necessary for pursuing the following legitimate interests:"
 msgstr ""
 
 msgid "The search space does not have elements associated"
@@ -1972,16 +1972,16 @@ msgstr ""
 msgid "There is no data available for users joined yet."
 msgstr ""
 
-msgid "There is no notification associated with id  %{id}"
+msgid "There is no notification associated with id  %<id>s"
 msgstr ""
 
-msgid "There is no plan associated with id %{id}"
+msgid "There is no plan associated with id %<id>s"
 msgstr ""
 
-msgid "There is no plan with id %{id} for which to create or update an answer"
+msgid "There is no plan with id %<id>s for which to create or update an answer"
 msgstr ""
 
-msgid "There is no question with id %{question_id} associated to plan id %{plan_id} for which to create or update an answer"
+msgid "There is no question with id %<question_id>s associated to plan id %<plan_id>s for which to create or update an answer"
 msgstr ""
 
 msgid "There may also be an option to request feedback on your plan. This is available when research support staff at your organisation have enabled this service. Click to ‘Request feedback’ and your local administrators will be alerted to your request. Their comments will be visible in the ‘Comments’ field adjacent to each question. You will be notified by email when an administrator provides feedback."
@@ -2005,13 +2005,13 @@ msgstr ""
 msgid "This plan is based on the"
 msgstr ""
 
-msgid "This plan is based on the \"%{template_title}\" template provided by %{org_name}."
+msgid "This plan is based on the \"%<template_title>s\" template provided by %<org_name>s."
 msgstr ""
 
 msgid "This plan is based on the default template."
 msgstr ""
 
-msgid "This statement was last revised on %{revdate} and may be revised at any time with prior notice."
+msgid "This statement was last revised on %<revdate>s and may be revised at any time with prior notice."
 msgstr ""
 
 msgid "This template is new and does not yet have any publication history."
@@ -2035,16 +2035,16 @@ msgstr ""
 msgid "To create a plan, click the 'Create plan' button from the 'My Dashboard' page or the top menu. Select options from the menus and tickboxes to determine what questions and guidance you should be presented with. Confirm your selection by clicking 'Create plan.'"
 msgstr ""
 
-msgid "To help you write your plan, %{application_name} can show you guidance from a variety of organisations."
+msgid "To help you write your plan, %<application_name>s can show you guidance from a variety of organisations."
 msgstr ""
 
-msgid "To help you write your plan, %{application_name} can show you guidance from a variety of organisations. Please choose up to 6 organisations of the following organisations who offer guidance relevant to your plan."
+msgid "To help you write your plan, %<application_name>s can show you guidance from a variety of organisations. Please choose up to 6 organisations of the following organisations who offer guidance relevant to your plan."
 msgstr ""
 
-msgid "To keep you up to date with news about %{application_name} such as new features or improvements, or changes to our Privacy Policy."
+msgid "To keep you up to date with news about %<application_name>s such as new features or improvements, or changes to our Privacy Policy."
 msgstr ""
 
-msgid "To provide access to the %{application_name} service and personalisation of your user experience e.g. provision of relevant templates and guidance for your organisation."
+msgid "To provide access to the %<application_name>s service and personalisation of your user experience e.g. provision of relevant templates and guidance for your organisation."
 msgstr ""
 
 msgid "Top"
@@ -2071,13 +2071,13 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
-msgid "Unable to %{action} %{username}"
+msgid "Unable to %<action>s %<username>s"
 msgstr ""
 
-msgid "Unable to %{action} the %{object}.%{errors}"
+msgid "Unable to %<action>s the %<object>s.%<errors>s"
 msgstr ""
 
-msgid "Unable to change the plan's status since it is needed at least %{percentage} percentage responded"
+msgid "Unable to change the plan's status since it is needed at least %<percentage>s percentage responded"
 msgstr ""
 
 msgid "Unable to change the plan's test status"
@@ -2110,7 +2110,7 @@ msgstr ""
 msgid "Unable to find a suitable template for the research organisation and funder you selected."
 msgstr ""
 
-msgid "Unable to find plan id %{plan_id}"
+msgid "Unable to find plan id %<plan_id>s"
 msgstr ""
 
 msgid "Unable to identify a suitable template for your plan."
@@ -2137,7 +2137,7 @@ msgstr ""
 msgid "Unable to submit your request for feedback at this time."
 msgstr ""
 
-msgid "Unable to unlink your account from %{is}."
+msgid "Unable to unlink your account from %<is>s."
 msgstr ""
 
 msgid "Unable to unpublish your #{template_type(template)}."
@@ -2173,7 +2173,7 @@ msgstr ""
 msgid "Unpublished"
 msgstr ""
 
-msgid "Unpublished (%{count})"
+msgid "Unpublished (%<count>s)"
 msgstr ""
 
 msgid "Unpublished changes"
@@ -2251,7 +2251,7 @@ msgstr ""
 msgid "Visibility definitions:"
 msgstr ""
 
-msgid "We do not recognize the username %{username}. Please try again or contact us if you have forgotten the username and email for your existing DMPTool account."
+msgid "We do not recognize the username %<username>s. Please try again or contact us if you have forgotten the username and email for your existing DMPTool account."
 msgstr ""
 
 msgid "We found multiple DMP templates corresponding to your funder."
@@ -2260,7 +2260,7 @@ msgstr ""
 msgid "We invite you to peruse the DMPRoadmap GitHub wiki to learn how to "
 msgstr ""
 
-msgid "We will hold the personal data you provided us for as long as you continue using the %{application_name} service. Your personal data can be removed from this service upon request to the %{application_name} team within a period of 30 days."
+msgid "We will hold the personal data you provided us for as long as you continue using the %<application_name>s service. Your personal data can be removed from this service upon request to the %<application_name>s team within a period of 30 days."
 msgstr ""
 
 msgid "Welcome"
@@ -2269,13 +2269,13 @@ msgstr ""
 msgid "Welcome to #{Rails.configuration.branding[:application][:name]}."
 msgstr ""
 
-msgid "Welcome to %{application_name}"
+msgid "Welcome to %<application_name>s"
 msgstr ""
 
-msgid "Welcome to %{tool_name}"
+msgid "Welcome to %<tool_name>s"
 msgstr ""
 
-msgid "Welcome to %{tool_name}, %{username}"
+msgid "Welcome to %<tool_name>s, %<username>s"
 msgstr ""
 
 msgid "Welcome! You have signed up successfully with your institutional credentials. You will now be able to access your account with them."
@@ -2311,22 +2311,22 @@ msgstr ""
 msgid "Yes, I understand that I will lose my administrative privileges"
 msgstr ""
 
-msgid "You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?"
+msgid "You are about to delete '%<guidance_group_name>s'. This will affect guidance. Are you sure?"
 msgstr ""
 
-msgid "You are about to delete '%{guidance_summary}'. Are you sure?"
+msgid "You are about to delete '%<guidance_summary>s'. Are you sure?"
 msgstr ""
 
-msgid "You are about to delete '%{org_name}'. Are you sure?"
+msgid "You are about to delete '%<org_name>s'. Are you sure?"
 msgstr ""
 
-msgid "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
+msgid "You are about to delete '%<section_title>s'. This will affect questions linked to this section. Are you sure?"
 msgstr ""
 
-msgid "You are about to delete question #%{question_number}. Are you sure?"
+msgid "You are about to delete question #%<question_number>s. Are you sure?"
 msgstr ""
 
-msgid "You are about to delete the '%{phase_title}' phase. This will remove all of the sections and questions listed below. Are you sure?"
+msgid "You are about to delete the '%<phase_title>s' phase. This will remove all of the sections and questions listed below. Are you sure?"
 msgstr ""
 
 msgid "You are already signed in as another user. Please log out to activate your invitation."
@@ -2374,13 +2374,13 @@ msgstr ""
 msgid "You don't have access to use the API. An api token is needed to generate usage statistics."
 msgstr ""
 
-msgid "You have been granted administrator privileges in %{tool_name}:"
+msgid "You have been granted administrator privileges in %<tool_name>s:"
 msgstr ""
 
-msgid "You have been granted permission by your organisation to use our API. Your API token and instructions for using the API endpoints can be found at: %{link}"
+msgid "You have been granted permission by your organisation to use our API. Your API token and instructions for using the API endpoints can be found at: %<link>s"
 msgstr ""
 
-msgid "You have been revoked administrator privileges in %{tool_name}."
+msgid "You have been revoked administrator privileges in %<tool_name>s."
 msgstr ""
 
 msgid "You have unpublished changes! Select \"Publish changes\" in the Actions menu when you are ready to make them available to users."
@@ -2446,15 +2446,15 @@ msgstr ""
 msgid "Your account has been successfully created."
 msgstr ""
 
-msgid "Your account has been successfully linked to %{scheme}."
+msgid "Your account has been successfully linked to %<scheme>s."
 msgstr ""
 
 msgid "Your account has been successfully linked to your institutional credentials. You will now be able to sign in with them."
 msgstr ""
 
-msgid "Your colleague %{inviter_name} has invited you to contribute to
+msgid "Your colleague %<inviter_name>s has invited you to contribute to
 "
-"            their Data Management Plan in %{tool_name}"
+"            their Data Management Plan in %<tool_name>s"
 msgstr ""
 
 msgid "Your email address is also your login id and therefore an important part of your account information. For your safety we require you to confirm your password to make this change."
@@ -2472,13 +2472,13 @@ msgstr ""
 msgid "Your guidance is no longer published and will not be available to users."
 msgstr ""
 
-msgid "Your organisation affiliation has been changed. You may now edit templates for %{org_name}."
+msgid "Your organisation affiliation has been changed. You may now edit templates for %<org_name>s."
 msgstr ""
 
 msgid "Your organisation does not seem to be properly configured."
 msgstr ""
 
-msgid "Your permissions relating to %{plan_title} have changed. You now have %{type} access. This means you can %{placeholder1} %{placeholder2}"
+msgid "Your permissions relating to %<plan_title>s have changed. You now have %<type>s access. This means you can %<placeholder1>s %<placeholder2>s"
 msgstr ""
 
 msgid "Your project is no longer a test."
@@ -2583,7 +2583,7 @@ msgstr ""
 msgid "expand all"
 msgstr ""
 
-msgid "for internal %{org_name} use only"
+msgid "for internal %<org_name>s use only"
 msgstr ""
 
 msgid "generate_copy! requires an organisation target"
@@ -2616,7 +2616,7 @@ msgstr ""
 msgid "mock project for testing, practice, or educational purposes"
 msgstr ""
 
-msgid "must be after %{date}"
+msgid "must be after %<date>s"
 msgstr ""
 
 msgid "must be logged in"
@@ -2679,7 +2679,7 @@ msgstr ""
 msgid "profile"
 msgstr ""
 
-msgid "profile for %{username}"
+msgid "profile for %<username>s"
 msgstr ""
 
 msgid "project details coversheet"
@@ -2736,7 +2736,7 @@ msgstr ""
 msgid "sections"
 msgstr ""
 
-msgid "since %{name} saved the answer below while you were editing. Please, combine your changes and then save the answer again."
+msgid "since %<name>s saved the answer below while you were editing. Please, combine your changes and then save the answer again."
 msgstr ""
 
 msgid "supplementary section(s) not requested by funding organisation"

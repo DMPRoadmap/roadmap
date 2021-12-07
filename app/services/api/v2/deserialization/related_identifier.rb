@@ -1,15 +1,12 @@
 # frozen_string_literal: true
 
 module Api
-
   module V2
-
     module Deserialization
-
+      # Deserialization of RDA Common Standard for dmproadmap_related_identifiers to
+      # RelatedIdentifiers
       class RelatedIdentifier
-
         class << self
-
           # Convert the incoming JSON into an Identifier
           #    {
           #      "descriptor": "documents",
@@ -30,32 +27,27 @@ module Api
             relation_type = json[:descriptor]
             # Note that the 'references' value is changed to 'does_reference' in this list
             # because 'references' conflicts with an ActiveRecord method
-            relation_type = "does_reference" if relation_type == "references"
-
-            work_type = json[:work_type].downcase if valid_work_type?(json: json)
-            # Default to dataset
-            work_type = "dataset" unless work_type.present?
+            relation_type = 'does_reference' if relation_type == 'references'
 
             r_id.relation_type = relation_type
-            r_id.work_type = json[:work_type] if work_type
+            r_id.work_type = valid_work_type(json: json)
             r_id.identifier_type = json[:type].underscore
             r_id
           end
 
           private
 
-          def valid_work_type?(json:)
-            return false unless json.present? && json[:work_type].present?
+          def valid_work_type(json:)
+            dflt = 'dataset'
+            return dflt unless json.present? && json[:work_type].present?
 
-            ::RelatedIdentifier.work_types.keys.include?(json[:work_type].downcase)
+            val = json[:work_type].downcase
+            return dflt unless ::RelatedIdentifier.work_types.keys.include?(val)
+
+            val
           end
-
         end
-
       end
-
     end
-
   end
-
 end

@@ -31,7 +31,7 @@ tooltip = _("List products related to this project, such as journal articles, so
           <% if related_identifier.citation.present? %>
             <%= sanitize(related_identifier.citation) %>
           <% else %>
-            <%= related_identifier.work_type.humanize %>:&nbsp;
+            <%= related_identifier.work_type&.humanize %>:&nbsp;
             <% if related_identifier.value.start_with?("http") %>
               <%= link_to related_identifier.value, related_identifier.value,
                           target: "_blank" %>&nbsp;

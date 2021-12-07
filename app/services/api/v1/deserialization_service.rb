@@ -1,13 +1,10 @@
 # frozen_string_literal: true
 
 module Api
-
   module V1
-
+    # Generic deserialization helper methods
     class DeserializationService
-
       class << self
-
         # Finds the object by the specified identifier
         def object_from_identifier(class_name:, json:)
           return nil unless class_name.present? && json.present? &&
@@ -24,6 +21,7 @@ module Api
         end
 
         # Attach the identifier to the object if it does not already exist
+        # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def attach_identifier(object:, json:)
           return object unless object.present? && object.respond_to?(:identifiers) &&
                                json.present? &&
@@ -39,6 +37,31 @@ module Api
           )
           object
         end
+        # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+        # Search for an in the Org and RegistryOrg tables
+        # rubocop:disable Metrics/AbcSize
+        def name_to_org(name:)
+          return nil unless name.is_a?(String) && name.present?
+
+          org = ::Org.where('LOWER(name) = ?', name.downcase)
+                     .first
+          return org if org.present?
+
+          # External ROR search
+          registry_org = ::RegistryOrg.includes(:org)
+                                      .where('LOWER(name) = ?', name.downcase)
+                                      .first
+          # Return nil if no Registry Org was found
+          return nil unless registry_org.present?
+
+          # Return nil if we do not allow creating Orgs in this manner
+          return nil if registry_org.org_id.nil? && Rails.configuration.x.application.restrict_orgs
+
+          # return the related Org or initialize a new one
+          registry_org.to_org
+        end
+        # rubocop:enable Metrics/AbcSize
 
         # Translates the role in the json to a Contributor role
         def translate_role(role:)
@@ -49,7 +72,7 @@ module Api
 
           # Strip off the URL if present
           url = ::Contributor::ONTOLOGY_BASE_URL
-          role = role.gsub("#{url}/", "").downcase if role.include?(url)
+          role = role.gsub("#{url}/", '').downcase if role.include?(url)
 
           # Return the role if its a valid one otherwise defualt
           return role if ::Contributor.new.all_roles.include?(role.downcase.to_sym)
@@ -58,13 +81,15 @@ module Api
         end
 
         # Retrieve any JSON schema extensions for this application
+        # rubocop:disable Metrics/AbcSize
         def app_extensions(json: {})
           return {} unless json.present? && json[:extension].present?
 
-          app = ::ApplicationService.application_name.split("-").first.downcase
+          app = ::ApplicationService.application_name.split('-').first.downcase
           ext = json[:extension].select { |item| item[app.to_sym].present? }
           ext.first.present? ? ext.first[app.to_sym] : {}
         end
+        # rubocop:enable Metrics/AbcSize
 
         # Determines whether or not the value is a DOI/ARK
         def dmp_id?(value:)
@@ -85,11 +110,7 @@ module Api
         rescue ArgumentError
           value.to_s
         end
-
       end
-
     end
-
   end
-
 end

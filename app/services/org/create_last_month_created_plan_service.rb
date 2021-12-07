@@ -11,12 +11,11 @@ Plan.class
 Perm.class
 Template.class
 
+# Org usage --- TODO: This should likely be a module
 class Org
-
+  # Usage for Nbr of created plans in the prior month
   class CreateLastMonthCreatedPlanService
-
     class << self
-
       def call(org = nil, threads: 0)
         orgs = org.nil? ? Org.all : [org]
 
@@ -38,9 +37,6 @@ class Org
           )
         end
       end
-
     end
-
   end
-
 end

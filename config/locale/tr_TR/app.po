@@ -20,15 +20,15 @@ msgstr ""
 
 #: ../../app/controllers/answers_controller.rb:24
 msgid ""
-"There is no question with id %{question_id} associated to plan id %{plan_id} f"
+"There is no question with id %<question_id>s associated to plan id %<plan_id>s f"
 "or which to create or update an answer"
 msgstr ""
-"Bir yanıt oluşturmak veya güncellemek için %{plan_id} plan kimliğiyle ilişkili"
-" %{question_id} kimliğine sahip bir soru yok"
+"Bir yanıt oluşturmak veya güncellemek için %<plan_id>s plan kimliğiyle ilişkili"
+" %<question_id>s kimliğine sahip bir soru yok"
 
 #: ../../app/controllers/answers_controller.rb:34
-msgid "There is no plan with id %{id} for which to create or update an answer"
-msgstr "%{id} kimliğine sahip, bir yanıt oluşturulacak veya güncellenecek bir plan yok"
+msgid "There is no plan with id %<id>s for which to create or update an answer"
+msgstr "%<id>s kimliğine sahip, bir yanıt oluşturulacak veya güncellenecek bir plan yok"
 
 #: ../../app/controllers/api/v0/base_controller.rb:124
 msgid "Bad Credentials"
@@ -135,12 +135,12 @@ msgid "You need to sign in or sign up before continuing."
 msgstr "Devam etmeden önce oturum açmanız veya kaydolmanız gerekir."
 
 #: ../../app/controllers/application_controller.rb:100
-msgid "Unable to %{action} the %{object}.%{errors}"
-msgstr " %{object}.%{errors} %{action} yapılamıyor"
+msgid "Unable to %<action>s the %<object>s.%<errors>s"
+msgstr " %<object>s.%<errors>s %<action>s yapılamıyor"
 
 #: ../../app/controllers/application_controller.rb:108
-msgid "Successfully %{action} the %{object}."
-msgstr "%{object} başarıyla %{action}."
+msgid "Successfully %<action>s the %<object>s."
+msgstr "%<object>s başarıyla %<action>s."
 
 #: ../../app/controllers/application_controller.rb:123
 msgid "API client"
@@ -203,8 +203,8 @@ msgid "Restricted access to View All the records"
 msgstr "Tüm kayıtları görüntülemek için kısıtlı erişim"
 
 #: ../../app/controllers/concerns/paginable.rb:180
-msgid "Sort by %{sort_field}"
-msgstr "%{sort_field} alanına göre sırala"
+msgid "Sort by %<sort_field>s"
+msgstr "%<sort_field>s alanına göre sırala"
 
 #: ../../app/controllers/concerns/template_methods.rb:10
 msgid "customisation"
@@ -405,12 +405,12 @@ msgid "Your guidance is no longer published and will not be available to users."
 msgstr "Rehberliğiniz artık yayınlanmıyor ve kullanılamayacak."
 
 #: ../../app/controllers/identifiers_controller.rb:18
-msgid "Successfully unlinked your account from %{is}."
-msgstr "Hesabınızın %{is} ile olan bağlantısı başarıyla kaldırıldı."
+msgid "Successfully unlinked your account from %<is>s."
+msgstr "Hesabınızın %<is>s ile olan bağlantısı başarıyla kaldırıldı."
 
 #: ../../app/controllers/identifiers_controller.rb:22
-msgid "Unable to unlink your account from %{is}."
-msgstr "Hesabınızın %{is} ile bağlantısı kaldırılamıyor."
+msgid "Unable to unlink your account from %<is>s."
+msgstr "Hesabınızın %<is>s ile bağlantısı kaldırılamıyor."
 
 #: ../../app/controllers/org_admin/phases_controller.rb:18
 #: ../../app/controllers/org_admin/templates_controller.rb:114
@@ -460,8 +460,8 @@ msgid "update"
 msgstr "güncelle"
 
 #: ../../app/controllers/org_admin/plans_controller.rb:32
-msgid "%{plan_owner} has been notified that you have finished providing feedback"
-msgstr "%{plan_owner}, geri bildirim sağlamayı bitirdiğiniz konusunda bilgilendirildi"
+msgid "%<plan_owner>s has been notified that you have finished providing feedback"
+msgstr "%<plan_owner>s, geri bildirim sağlamayı bitirdiğiniz konusunda bilgilendirildi"
 
 #: ../../app/controllers/org_admin/plans_controller.rb:38
 msgid "Unable to notify user that you have finished providing feedback."
@@ -552,8 +552,8 @@ msgstr "Tüm Şablonlar"
 
 #: ../../app/controllers/org_admin/templates_controller.rb:48
 #: ../../app/views/org_admin/templates/index.html.erb:52
-msgid "%{org_name} Templates"
-msgstr "%{org_name} Şablonlar"
+msgid "%<org_name>s Templates"
+msgstr "%<org_name>s Şablonlar"
 
 #: ../../app/controllers/org_admin/templates_controller.rb:50
 #: ../../app/views/org_admin/templates/index.html.erb:54
@@ -565,15 +565,15 @@ msgid "Customizable Templates"
 msgstr "Özelleştirilebilir Şablonlar"
 
 #: ../../app/controllers/org_admin/templates_controller.rb:214
-msgid "Error parsing links for a %{template}"
-msgstr "%{template} için bağlantılar ayrıştırılırken hata oluştu"
+msgid "Error parsing links for a %<template>s"
+msgstr "%<template>s için bağlantılar ayrıştırılırken hata oluştu"
 
 #: ../../app/controllers/org_admin/templates_controller.rb:345
 #: ../../app/controllers/public_pages_controller.rb:68
-msgid "Template created using the %{application_name} service. Last modified %{date}"
+msgid "Template created using the %<application_name>s service. Last modified %<date>s"
 msgstr ""
-"Şablon %{application_name} hizmeti kullanılarak oluşturuldu. Son değiştirilme:"
-" %{date}"
+"Şablon %<application_name>s hizmeti kullanılarak oluşturuldu. Son değiştirilme:"
+" %<date>s"
 
 #: ../../app/controllers/org_admin/templates_controller.rb:360
 #: ../../app/controllers/public_pages_controller.rb:83
@@ -593,8 +593,8 @@ msgid "Please choose an organisation"
 msgstr "Lütfen bir kuruluş seçin"
 
 #: ../../app/controllers/plan_exports_controller.rb:85
-msgid "Created using %{application_name}. Last modified %{date}"
-msgstr "%{application_name} kullanılarak oluşturuldu. Son değiştirildiği tarih %{date}"
+msgid "Created using %<application_name>s. Last modified %<date>s"
+msgstr "%<application_name>s kullanılarak oluşturuldu. Son değiştirildiği tarih %<date>s"
 
 #: ../../app/controllers/plans_controller.rb:51
 msgid "This is a"
@@ -635,15 +635,15 @@ msgstr "kopyalandı"
 
 #: ../../app/controllers/plans_controller.rb:408
 msgid ""
-"Unable to change the plan's status since it is needed at least %{percentage} p"
+"Unable to change the plan's status since it is needed at least %<percentage>s p"
 "ercentage responded"
 msgstr ""
-"En az yüzde %{percentage} yanıt verilmesi gerektiğinden planın durumu değiştir"
+"En az yüzde %<percentage>s yanıt verilmesi gerektiğinden planın durumu değiştir"
 "ilemiyor"
 
 #: ../../app/controllers/plans_controller.rb:416
-msgid "Unable to find plan id %{plan_id}"
-msgstr "%{plan_id} no.'lu plan bulunamadı"
+msgid "Unable to find plan id %<plan_id>s"
+msgstr "%<plan_id>s no.'lu plan bulunamadı"
 
 #: ../../app/controllers/plans_controller.rb:433
 msgid "Your project is now a test."
@@ -658,17 +658,17 @@ msgid "Unable to change the plan's test status"
 msgstr "Planın test durumu değiştirilemiyor"
 
 #: ../../app/controllers/plans_controller.rb:451
-msgid "There is no plan associated with id %{id}"
-msgstr "%{id} kimliğiyle ilişkili bir plan yok"
+msgid "There is no plan associated with id %<id>s"
+msgstr "%<id>s kimliğiyle ilişkili bir plan yok"
 
 #: ../../app/controllers/registrations_controller.rb:35
 msgid ""
 "Please make a choice below. After linking your\n"
-"                       details to a %{application_name} account,\n"
+"                       details to a %<application_name>s account,\n"
 "                       you will be able to sign in directly with your\n"
 "                       institutional credentials."
 msgstr ""
-"Lütfen aşağıdan bir seçim yapın. Hesap ayrıntılarınızı bir %{application_name}"
+"Lütfen aşağıdan bir seçim yapın. Hesap ayrıntılarınızı bir %<application_name>s"
 " hesabına bağladıktan sonra doğrudan kurumsal kimlik bilgileriniz ile oturum a"
 "çabileceksiniz."
 
@@ -746,15 +746,15 @@ msgstr "Şifre ve onay eşleşmelidir"
 
 #: ../../app/controllers/roles_controller.rb:26
 msgid ""
-"Cannot share plan with %{email} since that email matches with the owner of the"
+"Cannot share plan with %<email>s since that email matches with the owner of the"
 " plan."
 msgstr ""
-"Bu e-posta, planın sahibiyle eşleştiğinden dolayı plan %{email} ile paylaşılam"
+"Bu e-posta, planın sahibiyle eşleştiğinden dolayı plan %<email>s ile paylaşılam"
 "ıyor."
 
 #: ../../app/controllers/roles_controller.rb:37
-msgid "Plan is already shared with %{email}."
-msgstr "Plan zaten %{email} ile paylaşılıyor."
+msgid "Plan is already shared with %<email>s."
+msgstr "Plan zaten %<email>s ile paylaşılıyor."
 
 #: ../../app/controllers/roles_controller.rb:44
 #: ../../app/views/shared/_create_account_form.html.erb:4
@@ -766,12 +766,12 @@ msgid "Surname"
 msgstr "Soyad"
 
 #: ../../app/controllers/roles_controller.rb:48
-msgid "Invitation to %{email} issued successfully."
-msgstr "%{email} adresine bir davet e-postası başarıyla gönderildi."
+msgid "Invitation to %<email>s issued successfully."
+msgstr "%<email>s adresine bir davet e-postası başarıyla gönderildi."
 
 #: ../../app/controllers/roles_controller.rb:53
-msgid "Plan shared with %{email}."
-msgstr "Plan %{email} ile paylaşıldı."
+msgid "Plan shared with %<email>s."
+msgstr "Plan %<email>s ile paylaşıldı."
 
 #: ../../app/controllers/roles_controller.rb:68
 msgid "You must provide a valid email address and select a permission level."
@@ -783,10 +783,10 @@ msgstr "Lütfen bir e-posta adresi giriniz"
 
 #: ../../app/controllers/roles_controller.rb:93
 msgid ""
-"Successfully changed the permissions for %{email}. They have been notified via"
+"Successfully changed the permissions for %<email>s. They have been notified via"
 " email."
 msgstr ""
-"%{email} adresi için izinler başarıyla değiştirildi ve e-posta yoluyla bilgile"
+"%<email>s adresi için izinler başarıyla değiştirildi ve e-posta yoluyla bilgile"
 "ndirme yapıldı."
 
 #: ../../app/controllers/roles_controller.rb:108
@@ -818,8 +818,8 @@ msgid "An error has occurred while saving/resetting your export settings."
 msgstr "Dışa aktarma ayarlarınız kaydedilirken/sıfırlanırken bir hata oluştu."
 
 #: ../../app/controllers/super_admin/api_clients_controller.rb:45
-msgid ". The API credentials have been emailed to %{email}"
-msgstr ". API kimlik bilgileri %{email} adresine e-posta ile gönderildi"
+msgid ". The API credentials have been emailed to %<email>s"
+msgstr ". API kimlik bilgileri %<email>s adresine e-posta ile gönderildi"
 
 #: ../../app/controllers/super_admin/notifications_controller.rb:69
 msgid "Your notification is now active."
@@ -834,15 +834,15 @@ msgid "Unable to change the notification's active status"
 msgstr "Bildirimin etkin durumu değiştirilemiyor"
 
 #: ../../app/controllers/super_admin/notifications_controller.rb:104
-msgid "There is no notification associated with id  %{id}"
-msgstr "%{id} kimliğiyle ilişkili bildirim yok"
+msgid "There is no notification associated with id  %<id>s"
+msgstr "%<id>s kimliğiyle ilişkili bildirim yok"
 
 #: ../../app/controllers/super_admin/org_swaps_controller.rb:22
 msgid ""
 "Your organisation affiliation has been changed. You may now edit templates for"
-" %{org_name}."
+" %<org_name>s."
 msgstr ""
-"Kuruluş bağlantınız değiştirildi. Artık %{org_name} için şablonları düzenleyeb"
+"Kuruluş bağlantınız değiştirildi. Artık %<org_name>s için şablonları düzenleyeb"
 "ilirsiniz."
 
 #: ../../app/controllers/super_admin/org_swaps_controller.rb:25
@@ -904,16 +904,16 @@ msgid "Successfully signed in"
 msgstr "Başarıyla oturum açıldı"
 
 #: ../../app/controllers/users/omniauth_callbacks_controller.rb:56
-msgid "Your account has been successfully linked to %{scheme}."
-msgstr "Hesabınız başarıyla %{scheme} şemasına bağlandı."
+msgid "Your account has been successfully linked to %<scheme>s."
+msgstr "Hesabınız başarıyla %<scheme>s şemasına bağlandı."
 
 #: ../../app/controllers/users/omniauth_callbacks_controller.rb:61
-msgid "Unable to link your account to %{scheme}."
-msgstr "Hesabınız %{scheme} şemasına bağlanamadı."
+msgid "Unable to link your account to %<scheme>s."
+msgstr "Hesabınız %<scheme>s şemasına bağlanamadı."
 
 #: ../../app/controllers/users_controller.rb:141
-msgid "Successfully %{action} %{username}'s account."
-msgstr "%{username} adlı kullanıcının hesabı başarıyla %{action}."
+msgid "Successfully %<action>s %<username>s's account."
+msgstr "%<username>s adlı kullanıcının hesabı başarıyla %<action>s."
 
 #: ../../app/controllers/users_controller.rb:142
 msgid "activated"
@@ -924,8 +924,8 @@ msgid "deactivated"
 msgstr "devre dışı bırakıldı"
 
 #: ../../app/controllers/users_controller.rb:149
-msgid "Unable to %{action} %{username}"
-msgstr " %{username} %{action} yapılamıyor"
+msgid "Unable to %<action>s %<username>s"
+msgstr " %<username>s %<action>s yapılamıyor"
 
 #: ../../app/controllers/users_controller.rb:150
 msgid "activate"
@@ -997,20 +997,20 @@ msgid "Creator:"
 msgstr "Oluşturan:"
 
 #: ../../app/helpers/feedbacks_helper.rb:6
-msgid "%{application_name}: Your plan has been submitted for feedback"
-msgstr "%{application_name}: Planınız geri bildirim için gönderildi"
+msgid "%<application_name>s: Your plan has been submitted for feedback"
+msgstr "%<application_name>s: Planınız geri bildirim için gönderildi"
 
 #: ../../app/helpers/feedbacks_helper.rb:10
 msgid ""
-"<p>Hello %{user_name}.</p><p>Your plan \"%{plan_name}\" has been submitted for f"
+"<p>Hello %<user_name>s.</p><p>Your plan \"%<plan_name>s\" has been submitted for f"
 "eedback from an\n"
 "      administrator at your organisation. If you have questions pertaining to "
 "this action, please contact us\n"
-"      at %{organisation_email}.</p>"
+"      at %<organisation_email>s.</p>"
 msgstr ""
-"<p>Merhaba %{user_name}.</p><p> \"%{plan_name}\" adlı planınız, kurumunuzdaki bi"
+"<p>Merhaba %<user_name>s.</p><p> \"%<plan_name>s\" adlı planınız, kurumunuzdaki bi"
 "r yöneticiye geri bildirim almak için gönderildi. Bu eylemle ilgili sorularını"
-"z varsa, lütfen %{organisation_email} adresinden bizimle iletişime geçin.</p>"
+"z varsa, lütfen %<organisation_email>s adresinden bizimle iletişime geçin.</p>"
 
 #: ../../app/helpers/identifier_helper.rb:6
 #: ../../spec/helpers/identifier_helper_spec.rb:14
@@ -1043,12 +1043,12 @@ msgstr "planı okuyun ve yorum bırakın."
 
 #: ../../app/helpers/orgs_helper.rb:14
 msgid ""
-"<p>A data librarian from %{org_name} will respond to your request within 48\n"
+"<p>A data librarian from %<org_name>s will respond to your request within 48\n"
 "       hours. If you have questions pertaining to this action please contact u"
 "s\n"
-"       at %{organisation_email}.</p>"
+"       at %<organisation_email>s.</p>"
 msgstr ""
-"<p>%{org_name} organizasyonundan bir veri kütüphanecisi, isteğinize 48 saat iç"
+"<p>%<org_name>s organizasyonundan bir veri kütüphanecisi, isteğinize 48 saat iç"
 "inde yanıt verecektir. Bu işlemle ilgili sorularınız varsa lütfen %{organisati"
 "on_email} adresinden bizimle iletişime geçin.</p>"
 
@@ -1183,7 +1183,7 @@ msgid "None"
 msgstr ""
 
 #: ../../app/helpers/super_admin/orgs/merge_helper.rb:31
-msgid "Guidance for: %{themes}"
+msgid "Guidance for: %<themes>s"
 msgstr ""
 
 #: ../../app/helpers/super_admin/orgs/merge_helper.rb:53
@@ -1191,7 +1191,7 @@ msgid "Nothing to merge"
 msgstr ""
 
 #: ../../app/helpers/super_admin/orgs/merge_helper.rb:55
-msgid "<p>The following %{object_types} will be moved over to '%{org_name}':</p>"
+msgid "<p>The following %<object_types>s will be moved over to '%<org_name>s':</p>"
 msgstr ""
 
 #: ../../app/helpers/template_helper.rb:46
@@ -1227,48 +1227,48 @@ msgstr "Son 12 ay"
 #: ../../app/views/devise/mailer/invitation_instructions.html.erb:6
 #: ../../app/views/devise/mailer/reset_password_instructions.html.erb:5
 #: ../../app/views/user_mailer/_email_signature.html.erb:2
-msgid "Query or feedback related to %{tool_name}"
-msgstr "%{tool_name} ile ilgili sorgu veya geri bildirim"
+msgid "Query or feedback related to %<tool_name>s"
+msgstr "%<tool_name>s ile ilgili sorgu veya geri bildirim"
 
 #: ../../app/mailers/user_mailer.rb:23
-msgid "Welcome to %{tool_name}"
-msgstr "%{tool_name} aracına hoş geldiniz"
+msgid "Welcome to %<tool_name>s"
+msgstr "%<tool_name>s aracına hoş geldiniz"
 
 #: ../../app/mailers/user_mailer.rb:58
-msgid "A Data Management Plan in %{tool_name} has been shared with you"
-msgstr "%{tool_name} içinde bir Veri Yönetim Planı sizinle paylaşıldı"
+msgid "A Data Management Plan in %<tool_name>s has been shared with you"
+msgstr "%<tool_name>s içinde bir Veri Yönetim Planı sizinle paylaşıldı"
 
 #: ../../app/mailers/user_mailer.rb:76
-msgid "Changed permissions on a Data Management Plan in %{tool_name}"
-msgstr "%{tool_name} aracındaki bir Veri Yönetim Planına ilişkin değiştirilen izinler"
+msgid "Changed permissions on a Data Management Plan in %<tool_name>s"
+msgstr "%<tool_name>s aracındaki bir Veri Yönetim Planına ilişkin değiştirilen izinler"
 
 #: ../../app/mailers/user_mailer.rb:92
-msgid "Permissions removed on a DMP in %{tool_name}"
-msgstr "%{tool_name} içindeki bir VYP'de izinler kaldırıldı"
+msgid "Permissions removed on a DMP in %<tool_name>s"
+msgstr "%<tool_name>s içindeki bir VYP'de izinler kaldırıldı"
 
 #: ../../app/mailers/user_mailer.rb:111
-msgid "%{user_name} has requested feedback on a %{tool_name} plan"
+msgid "%<user_name>s has requested feedback on a %<tool_name>s plan"
 msgstr ""
 
 #: ../../app/mailers/user_mailer.rb:134
-msgid "%{tool_name}: Expert feedback has been provided for %{plan_title}"
-msgstr "%{tool_name}: %{plan_title} için uzman geri bildirimi sağlandı"
+msgid "%<tool_name>s: Expert feedback has been provided for %<plan_title>s"
+msgstr "%<tool_name>s: %<plan_title>s için uzman geri bildirimi sağlandı"
 
 #: ../../app/mailers/user_mailer.rb:169
-msgid "DMP Visibility Changed: %{plan_title}"
-msgstr "VYP Görünürlüğü Değiştirildi: %{plan_title}"
+msgid "DMP Visibility Changed: %<plan_title>s"
+msgstr "VYP Görünürlüğü Değiştirildi: %<plan_title>s"
 
 #: ../../app/mailers/user_mailer.rb:200
-msgid "%{tool_name}: A new comment was added to %{plan_title}"
-msgstr "%{tool_name}: %{plan_title} adlı plana yeni bir yorum eklendi"
+msgid "%<tool_name>s: A new comment was added to %<plan_title>s"
+msgstr "%<tool_name>s: %<plan_title>s adlı plana yeni bir yorum eklendi"
 
 #: ../../app/mailers/user_mailer.rb:218
-msgid "Administrator privileges granted in %{tool_name}"
-msgstr "%{tool_name} içinde verilen yönetici ayrıcalıkları"
+msgid "Administrator privileges granted in %<tool_name>s"
+msgstr "%<tool_name>s içinde verilen yönetici ayrıcalıkları"
 
 #: ../../app/mailers/user_mailer.rb:235
-msgid "%{tool_name} API changes"
-msgstr "%{tool_name} API değişiklikleri"
+msgid "%<tool_name>s API changes"
+msgstr "%<tool_name>s API değişiklikleri"
 
 #: ../../app/models/concerns/exportable_plan.rb:26
 msgid "Phase"
@@ -1300,11 +1300,11 @@ msgid "Creators: "
 msgstr "Oluşturanlar:"
 
 #: ../../app/models/concerns/exportable_plan.rb:134
-msgid "%{authors}"
-msgstr "%{authors}"
+msgid "%<authors>s"
+msgstr "%<authors>s"
 
 #: ../../app/models/concerns/exportable_plan.rb:135
-msgid "%{affiliation}"
+msgid "%<affiliation>s"
 msgstr "Bağlı olunan kurum/kuruluş:"
 
 #: ../../app/models/concerns/exportable_plan.rb:137
@@ -1316,12 +1316,12 @@ msgid "Template: "
 msgstr "Şablon:"
 
 #: ../../app/models/concerns/exportable_plan.rb:137
-msgid "%{funder}"
-msgstr "%{funder}"
+msgid "%<funder>s"
+msgstr "%<funder>s"
 
 #: ../../app/models/concerns/exportable_plan.rb:139
-msgid "%{template}"
-msgstr "%{template}"
+msgid "%<template>s"
+msgstr "%<template>s"
 
 #: ../../app/models/concerns/exportable_plan.rb:142
 #: ../../app/views/shared/export/_plan_txt.erb:12
@@ -1329,8 +1329,8 @@ msgid "Grant number: "
 msgstr "Fon/hibe numarası:"
 
 #: ../../app/models/concerns/exportable_plan.rb:142
-msgid "%{grant_number}"
-msgstr "%{grant_number}"
+msgid "%<grant_number>s"
+msgstr "%<grant_number>s"
 
 #: ../../app/models/concerns/exportable_plan.rb:145
 #: ../../app/views/shared/export/_plan_coversheet.erb:26
@@ -1339,8 +1339,8 @@ msgid "Project abstract: "
 msgstr "Proje özeti:"
 
 #: ../../app/models/concerns/exportable_plan.rb:145
-msgid "%{description}"
-msgstr "%{description}"
+msgid "%<description>s"
+msgstr "%<description>s"
 
 #: ../../app/models/concerns/exportable_plan.rb:148
 #: ../../app/views/shared/export/_plan_coversheet.erb:42
@@ -1349,8 +1349,8 @@ msgid "Last modified: "
 msgstr "Son düzenleme:"
 
 #: ../../app/models/concerns/exportable_plan.rb:148
-msgid "%{date}"
-msgstr "%{date}"
+msgid "%<date>s"
+msgstr "%<date>s"
 
 #: ../../app/models/concerns/exportable_plan.rb:149
 #: ../../app/views/shared/export/_plan_coversheet.erb:49
@@ -1527,8 +1527,8 @@ msgid "generate_copy! requires an organisation target"
 msgstr "generate_copy! bir kuruluş hedefi gerektirir"
 
 #: ../../app/models/template.rb:380
-msgid "Copy of %{template}"
-msgstr "%{template} şablonunun kopyası"
+msgid "Copy of %<template>s"
+msgstr "%<template>s şablonunun kopyası"
 
 #: ../../app/models/template.rb:388
 msgid "generate_version! requires a published template"
@@ -1567,8 +1567,8 @@ msgid "Conditions in the template refer backwards"
 msgstr "Şablondaki koşullar geriye dönük"
 
 #: ../../app/models/user.rb:379
-msgid "A Data Management Plan in %{application_name} has been shared with you"
-msgstr "%{application_name} içinde bir Veri Yönetim Planı sizinle paylaşıldı"
+msgid "A Data Management Plan in %<application_name>s has been shared with you"
+msgstr "%<application_name>s içinde bir Veri Yönetim Planı sizinle paylaşıldı"
 
 #: ../../app/policies/api/v0/departments_policy.rb:12
 #: ../../app/policies/api/v0/guidance_group_policy.rb:12
@@ -1687,8 +1687,8 @@ msgstr ""
 "lamaz"
 
 #: ../../app/validators/after_validator.rb:5
-msgid "must be after %{date}"
-msgstr "%{date} tarihinden sonra olmalıdır"
+msgid "must be after %<date>s"
+msgstr "%<date>s tarihinden sonra olmalıdır"
 
 #: ../../app/validators/org_links_validator.rb:10
 msgid "A key \"org\" is expected for links hash"
@@ -1700,12 +1700,12 @@ msgid "A hash is expected for links"
 msgstr "Bağlantılar için bir hash bekleniyor"
 
 #: ../../app/validators/template_links_validator.rb:12
-msgid "A key %{key} is expected for links hash"
-msgstr "Bağlantı hash'i için bir anahtar %{key} bekleniyor"
+msgid "A key %<key>s is expected for links hash"
+msgstr "Bağlantı hash'i için bir anahtar %<key>s bekleniyor"
 
 #: ../../app/validators/template_links_validator.rb:15
-msgid "The key %{key} does not have a valid set of object links"
-msgstr "%{key} anahtarında geçerli bir nesne bağlantısı seti yok"
+msgid "The key %<key>s does not have a valid set of object links"
+msgstr "%<key>s anahtarında geçerli bir nesne bağlantısı seti yok"
 
 #: ../../app/views/answers/_locking.html.erb:5
 msgid "The following answer cannot be saved"
@@ -1713,10 +1713,10 @@ msgstr "Aşağıdaki cevap kaydedilemez"
 
 #: ../../app/views/answers/_locking.html.erb:8
 msgid ""
-"since %{name} saved the answer below while you were editing. Please, combine y"
+"since %<name>s saved the answer below while you were editing. Please, combine y"
 "our changes and then save the answer again."
 msgstr ""
-"%{name}, siz düzenleme yaparken aşağıdaki yanıtı kaydettiği için. Lütfen değiş"
+"%<name>s, siz düzenleme yaparken aşağıdaki yanıtı kaydettiği için. Lütfen değiş"
 "ikliklerinizi birleştirin ve ardından yanıtı tekrar kaydedin."
 
 #: ../../app/views/answers/_new_edit.html.erb:15
@@ -1790,8 +1790,8 @@ msgid "Answered"
 msgstr "Cevaplandı"
 
 #: ../../app/views/answers/_status.html.erb:10
-msgid " by %{user_name}"
-msgstr " %{user_name} tarafından"
+msgid " by %<user_name>s"
+msgstr " %<user_name>s tarafından"
 
 #: ../../app/views/answers/_status.html.erb:15
 msgid "This answer removes "
@@ -1868,18 +1868,18 @@ msgstr "Bize Ulaşın"
 
 #: ../../app/views/contact_us/contacts/new.html.erb:6
 msgid ""
-"%{application_name} is provided by the %{organisation_name}.<br /> You can fin"
-"d out more about us on our <a href=\"%{organisation_url}\" class=\"has-new-window"
+"%<application_name>s is provided by the %<organisation_name>s.<br /> You can fin"
+"d out more about us on our <a href=\"%<organisation_url>s\" class=\"has-new-window"
 "-popup-info\" target=\"_blank\">website <em class=\"sr-only\">(new window)</em><spa"
-"n class=\"new-window-popup-info\">%{open_in_new_window_text}</span></a>. If you "
-"would like to contact us about %{application_name}, please fill out the form b"
+"n class=\"new-window-popup-info\">%<open_in_new_window_text>s</span></a>. If you "
+"would like to contact us about %<application_name>s, please fill out the form b"
 "elow."
 msgstr ""
-"%{application_name}, %{organisation_name} tarafından sağlanmaktadır. <a href=\""
-"%{organisation_url}\" class=\"has-new-window-popup-info\" target=\"_blank\">Web sit"
+"%<application_name>s, %<organisation_name>s tarafından sağlanmaktadır. <a href=\""
+"%<organisation_url>s\" class=\"has-new-window-popup-info\" target=\"_blank\">Web sit"
 "emizde<em class=\"sr-only\">(new window)</em><span class=\"new-window-popup-info\""
-">%{open_in_new_window_text}</span></a> <br /> hakkımızda daha fazla bilgi bula"
-"bilirsiniz. %{application_name} hakkında bizimle iletişime geçmek isterseniz, "
+">%<open_in_new_window_text>s</span></a> <br /> hakkımızda daha fazla bilgi bula"
+"bilirsiniz. %<application_name>s hakkında bizimle iletişime geçmek isterseniz, "
 "lütfen aşağıdaki formu doldurun."
 
 #: ../../app/views/contact_us/contacts/new.html.erb:10
@@ -2044,8 +2044,8 @@ msgid "Create account"
 msgstr "Hesap oluşturun"
 
 #: ../../app/views/devise/mailer/confirmation_instructions.html.erb:2
-msgid "Welcome to %{application_name}"
-msgstr "%{application_name} uygulamasına hoş geldiniz"
+msgid "Welcome to %<application_name>s"
+msgstr "%<application_name>s uygulamasına hoş geldiniz"
 
 #: ../../app/views/devise/mailer/confirmation_instructions.html.erb:4
 msgid "Thank you for registering. Please confirm your email address"
@@ -2065,24 +2065,24 @@ msgstr "tarayıcınıza"
 
 #: ../../app/views/devise/mailer/invitation_instructions.html.erb:12
 #: ../../app/views/user_mailer/new_comment.html.erb:2
-msgid "Hello %{user_name}"
-msgstr "Merhaba %{user_name}"
+msgid "Hello %<user_name>s"
+msgstr "Merhaba %<user_name>s"
 
 #: ../../app/views/devise/mailer/invitation_instructions.html.erb:15
 msgid ""
-"Your colleague %{inviter_name} has invited you to contribute to  their Data Ma"
-"nagement Plan in %{tool_name}"
+"Your colleague %<inviter_name>s has invited you to contribute to  their Data Ma"
+"nagement Plan in %<tool_name>s"
 msgstr ""
-"Meslektaşınız %{inviter_name}, sizi kendisinin %{tool_name} aracındaki Veri Yö"
+"Meslektaşınız %<inviter_name>s, sizi kendisinin %<tool_name>s aracındaki Veri Yö"
 "netim Planına katkıda bulunmaya davet etti."
 
 #: ../../app/views/devise/mailer/invitation_instructions.html.erb:22
 #: ../../app/views/user_mailer/sharing_notification.html.erb:11
 msgid ""
-"%{click_here} to accept the invitation, (or copy %{link} into your browser). I"
+"%<click_here>s to accept the invitation, (or copy %<link>s into your browser). I"
 "f you don't want to accept the invitation, please ignore this email."
 msgstr ""
-"Daveti kabul etmek için %{click_here} (veya %{link} adresini kopyalayıp tarayı"
+"Daveti kabul etmek için %<click_here>s (veya %<link>s adresini kopyalayıp tarayı"
 "cınıza yapıştırın). Daveti kabul etmek istemiyorsanız, lütfen bu e-postayı dik"
 "kate almayınız."
 
@@ -2102,8 +2102,8 @@ msgstr "İyi çalışmalar"
 #: ../../app/views/devise/mailer/reset_password_instructions.html.erb:19
 #: ../../app/views/user_mailer/_email_signature.html.erb:12
 #: ../../app/views/user_mailer/welcome_notification.html.erb:10
-msgid "The %{tool_name} team"
-msgstr "%{tool_name} ekibi"
+msgid "The %<tool_name>s team"
+msgstr "%<tool_name>s ekibi"
 
 #: ../../app/views/devise/mailer/invitation_instructions.html.erb:32
 #: ../../app/views/devise/mailer/reset_password_instructions.html.erb:22
@@ -2114,23 +2114,23 @@ msgstr "Lütfen bu e-postayı yanıtlamayın"
 
 #: ../../app/views/devise/mailer/invitation_instructions.html.erb:33
 msgid ""
-"If you have any questions or need help, please contact us at %{helpdesk_email}"
-" or visit %{contact_us_url}"
+"If you have any questions or need help, please contact us at %<helpdesk_email>s"
+" or visit %<contact_us_url>s"
 msgstr ""
-"Herhangi bir sorunuz veya yardıma ihtiyacınız varsa, lütfen %{helpdesk_email} "
-"adresinden bizimle iletişime geçin ya da %{contact_us_url} adresini ziyaret ed"
+"Herhangi bir sorunuz veya yardıma ihtiyacınız varsa, lütfen %<helpdesk_email>s "
+"adresinden bizimle iletişime geçin ya da %<contact_us_url>s adresini ziyaret ed"
 "in."
 
 #: ../../app/views/devise/mailer/reset_password_instructions.html.erb:9
-msgid "Hello %{user_email}"
-msgstr "Merhaba %{user_email}"
+msgid "Hello %<user_email>s"
+msgstr "Merhaba %<user_email>s"
 
 #: ../../app/views/devise/mailer/reset_password_instructions.html.erb:12
 msgid ""
-"Someone has requested a link to change your %{tool_name} password. You can do "
+"Someone has requested a link to change your %<tool_name>s password. You can do "
 "this through the link below."
 msgstr ""
-"%{tool_name} Şifrenizi değişikliği için bir bağlantı talep edildi. Değişikliği"
+"%<tool_name>s Şifrenizi değişikliği için bir bağlantı talep edildi. Değişikliği"
 " aşağıdaki bağlantıyı kullanarak yapabilirsiniz."
 
 #: ../../app/views/devise/mailer/reset_password_instructions.html.erb:14
@@ -2144,11 +2144,11 @@ msgstr "Böyle bir talebiniz yoksa, lütfen bu e-postayı dikkate almayın."
 #: ../../app/views/devise/mailer/reset_password_instructions.html.erb:22
 #: ../../app/views/user_mailer/_email_signature.html.erb:19
 msgid ""
-"If you have any questions or need help, please contact us at %{helpdesk_email}"
-" or visit %{contact_us}"
+"If you have any questions or need help, please contact us at %<helpdesk_email>s"
+" or visit %<contact_us>s"
 msgstr ""
-"Herhangi bir sorunuz veya yardıma ihtiyacınız varsa, lütfen %{helpdesk_email} "
-"adresinden bizimle iletişime geçin ya da %{contact_us} adresini ziyaret edin."
+"Herhangi bir sorunuz veya yardıma ihtiyacınız varsa, lütfen %<helpdesk_email>s "
+"adresinden bizimle iletişime geçin ya da %<contact_us>s adresini ziyaret edin."
 
 #: ../../app/views/devise/mailer/unlock_instructions.html.erb:2
 msgid "Hello"
@@ -2218,21 +2218,21 @@ msgstr "Belgeler"
 
 #: ../../app/views/devise/registrations/_api_token.html.erb:16
 msgid ""
-"See the <a href=\"%{api_v0_wiki}\">documentation for v0</a> for more details on "
+"See the <a href=\"%<api_v0_wiki>s\">documentation for v0</a> for more details on "
 "the original API which includes access to statistics, the full text of plans a"
 "nd the ability to connect users with departments."
 msgstr ""
 "İstatistiklere erişimi, planların tam metnini ve kullanıcıları bölümleriyle eş"
 "leştirme becerisini içeren orijinal API hakkında daha fazla ayrıntı için <a hr"
-"ef=\"%{api_v0_wiki}\">v0 belgeleri</a> adresini ziyaret edin."
+"ef=\"%<api_v0_wiki>s\">v0 belgeleri</a> adresini ziyaret edin."
 
 #: ../../app/views/devise/registrations/_api_token.html.erb:18
 msgid ""
-"See the <a href=\"%{api_v1_wiki}\">documentation for v1</a> for more details on "
-"the API that supports the <a href=\"%{rda_standard_url}\">RDA Common metadata st"
+"See the <a href=\"%<api_v1_wiki>s\">documentation for v1</a> for more details on "
+"the API that supports the <a href=\"%<rda_standard_url>s\">RDA Common metadata st"
 "andard for DMPs.</a>"
 msgstr ""
-"<a href=\"%{rda_standard_url}\">VYPler için ortak RDA üst veri standartlarını </"
+"<a href=\"%<rda_standard_url>s\">VYPler için ortak RDA üst veri standartlarını </"
 "a> destekleyen API hakkında daha detaylı bilgi edinmek için <a href=\"%{api_v1_"
 "wiki}\">  adresindeki v1 </a>dokümanları ziyaret edin."
 
@@ -2409,8 +2409,8 @@ msgid "Sign in or Create account"
 msgstr "Oturum açın veya Hesap oluşturun"
 
 #: ../../app/views/devise/registrations/new.html.erb:15
-msgid "Do you have a %{application_name} account?"
-msgstr "%{application_name} hesabınız var mı?"
+msgid "Do you have a %<application_name>s account?"
+msgstr "%<application_name>s hesabınız var mı?"
 
 #: ../../app/views/devise/registrations/new.html.erb:22
 #: ../../app/views/layouts/_navigation.html.erb:63
@@ -2425,8 +2425,8 @@ msgid "This will link your existing account to your credentials."
 msgstr "Bu işlem mevcut hesabınızı kimlik bilgilerinizle ilişkilendirir."
 
 #: ../../app/views/devise/registrations/new.html.erb:34
-msgid "No %{application_name} account?"
-msgstr "%{application_name} hesabı yok mu?"
+msgid "No %<application_name>s account?"
+msgstr "%<application_name>s hesabı yok mu?"
 
 #: ../../app/views/devise/registrations/new.html.erb:46
 msgid "This will create an account and link it to your credentials."
@@ -2605,11 +2605,11 @@ msgstr "Yayınlandı mı?"
 
 #: ../../app/views/home/_welcome.html.erb:5
 msgid ""
-"<p>%{application_name} has been developed by the <strong>%{organisation_name}<"
+"<p>%<application_name>s has been developed by the <strong>%<organisation_name>s<"
 "/strong> to help you write data management plans.</p>"
 msgstr ""
-"<p>%{application_name}, veri yönetimi planları yazmanıza yardımcı olmak amacıy"
-"la <strong>%{organisation_name}</strong> tarafından geliştirilmiştir.</p>"
+"<p>%<application_name>s, veri yönetimi planları yazmanıza yardımcı olmak amacıy"
+"la <strong>%<organisation_name>s</strong> tarafından geliştirilmiştir.</p>"
 
 #: ../../app/views/home/_welcome.html.erb:11
 msgid "Getting started:"
@@ -2794,8 +2794,8 @@ msgid "Logout"
 msgstr "Çıkış Yap"
 
 #: ../../app/views/layouts/application.html.erb:32
-msgid "%{application_name}"
-msgstr "%{application_name}"
+msgid "%<application_name>s"
+msgstr "%<application_name>s"
 
 #: ../../app/views/layouts/application.html.erb:91
 msgid "Error:"
@@ -2870,11 +2870,11 @@ msgstr "Yeni bir pencerede açılır"
 
 #: ../../app/views/layouts/application.html.erb:142
 msgid ""
-"%{n} results are available, use up and down arrows to navigate suggestions. Us"
+"%<n>s results are available, use up and down arrows to navigate suggestions. Us"
 "e the Enter key to select a suggestion or the Escape key to close the suggesti"
 "ons."
 msgstr ""
-"%{n} sonuç mevcut, önerilerde gezinmek için yukarı ve aşağı oklarını kullanın."
+"%<n>s sonuç mevcut, önerilerde gezinmek için yukarı ve aşağı oklarını kullanın."
 " Bir öneri seçmek için Enter tuşunu veya önerileri kapatmak için Çıkış tuşunu "
 "kullanın."
 
@@ -2926,8 +2926,8 @@ msgid "Example answer"
 msgstr "Örnek cevap"
 
 #: ../../app/views/org_admin/annotations/_show.html.erb:4
-msgid "%{org} Example Answer"
-msgstr "%{org} Örnek Cevap"
+msgid "%<org>s Example Answer"
+msgstr "%<org>s Örnek Cevap"
 
 #: ../../app/views/org_admin/conditions/_add.html.erb:3
 msgid "Add condition"
@@ -3082,10 +3082,10 @@ msgstr "Aşamayı sil"
 
 #: ../../app/views/org_admin/phases/_phase.html.erb:17
 msgid ""
-"You are about to delete the '%{phase_title}' phase. This will remove all of th"
+"You are about to delete the '%<phase_title>s' phase. This will remove all of th"
 "e sections and questions listed below. Are you sure?"
 msgstr ""
-"'%{phase_title}' aşamasını silmek üzeresiniz. Bu işlem aşağıda listelenen tüm "
+"'%<phase_title>s' aşamasını silmek üzeresiniz. Bu işlem aşağıda listelenen tüm "
 "bölümleri ve soruları kaldıracaktır. Emin misiniz?"
 
 #: ../../app/views/org_admin/phases/_phase.html.erb:18
@@ -3144,8 +3144,8 @@ msgid "Write plan"
 msgstr "plan yazın"
 
 #: ../../app/views/org_admin/plans/index.html.erb:4
-msgid "%{org_name} Plans"
-msgstr "%{org_name} Planlar"
+msgid "%<org_name>s Plans"
+msgstr "%<org_name>s Planlar"
 
 #: ../../app/views/org_admin/plans/index.html.erb:16
 msgid "Plan"
@@ -3196,10 +3196,10 @@ msgstr "Plan sahibine, geri bildirim sağlamayı tamamladığımı bildir"
 #: ../../app/views/org_admin/plans/index.html.erb:39
 msgid ""
 "Download plans <em class=\"sr-only\">(new window)</em><span class=\"new-window-po"
-"pup-info\">%{open_in_new_window_text}</span>"
+"pup-info\">%<open_in_new_window_text>s</span>"
 msgstr ""
 "Planları indirin <em class=\"sr-only\">(yeni pencere)</em> <span class=\"new-wind"
-"ow-popup-info\">%{open_in_new_window_text}</span>"
+"ow-popup-info\">%<open_in_new_window_text>s</span>"
 
 #: ../../app/views/org_admin/question_options/_option_fields.html.erb:3
 msgid "Order"
@@ -3229,8 +3229,8 @@ msgstr ""
 "lirsiniz."
 
 #: ../../app/views/org_admin/questions/_form.html.erb:4
-msgid "Question %{number}:"
-msgstr "Soru %{number}:"
+msgid "Question %<number>s:"
+msgstr "Soru %<number>s:"
 
 #: ../../app/views/org_admin/questions/_form.html.erb:4
 msgid "New question:"
@@ -3304,8 +3304,8 @@ msgid "Delete"
 msgstr "Sil"
 
 #: ../../app/views/org_admin/questions/_form.html.erb:102
-msgid "You are about to delete question #%{question_number}. Are you sure?"
-msgstr "#%{question_number} sorusunu silmek üzeresiniz. Emin misiniz?"
+msgid "You are about to delete question #%<question_number>s. Are you sure?"
+msgstr "#%<question_number>s sorusunu silmek üzeresiniz. Emin misiniz?"
 
 #: ../../app/views/org_admin/questions/_index.html.erb:14
 msgid "Add Question"
@@ -3402,10 +3402,10 @@ msgstr "Bölüm için bir başlık girin"
 
 #: ../../app/views/org_admin/sections/_form.html.erb:20
 msgid ""
-"You are about to delete '%{section_title}'. This will affect questions linked "
+"You are about to delete '%<section_title>s'. This will affect questions linked "
 "to this section. Are you sure?"
 msgstr ""
-"'%{section_title}' öğesini silmek üzeresiniz. Bu işlem bu bölümle bağlantılı s"
+"'%<section_title>s' öğesini silmek üzeresiniz. Bu işlem bu bölümle bağlantılı s"
 "oruları etkileyecektir. Emin misiniz?"
 
 #: ../../app/views/org_admin/sections/_index.html.erb:61
@@ -3434,8 +3434,8 @@ msgstr ""
 
 #: ../../app/views/org_admin/templates/_form.html.erb:25
 #: ../../app/views/org_admin/templates/_show.html.erb:35
-msgid "for internal %{org_name} use only"
-msgstr "yalnızca dahili %{org_name} kullanımı için"
+msgid "for internal %<org_name>s use only"
+msgstr "yalnızca dahili %<org_name>s kullanımı için"
 
 #: ../../app/views/org_admin/templates/_form.html.erb:32
 #: ../../app/views/org_admin/templates/_show.html.erb:13
@@ -3606,22 +3606,22 @@ msgstr "Özelleştirilebilir Şablonlar"
 
 #: ../../app/views/org_admin/templates/index.html.erb:80
 #: ../../app/views/org_admin/templates/index.html.erb:93
-msgid "All (%{count})"
-msgstr "Tüm (%{count})"
+msgid "All (%<count>s)"
+msgstr "Tüm (%<count>s)"
 
 #: ../../app/views/org_admin/templates/index.html.erb:83
 #: ../../app/views/org_admin/templates/index.html.erb:96
-msgid "Published (%{count})"
-msgstr "(%{count}) adet yayınlandı"
+msgid "Published (%<count>s)"
+msgstr "(%<count>s) adet yayınlandı"
 
 #: ../../app/views/org_admin/templates/index.html.erb:86
 #: ../../app/views/org_admin/templates/index.html.erb:99
-msgid "Unpublished (%{count})"
-msgstr "Yayınlanmamış sayısı: (%{count})"
+msgid "Unpublished (%<count>s)"
+msgstr "Yayınlanmamış sayısı: (%<count>s)"
 
 #: ../../app/views/org_admin/templates/index.html.erb:89
-msgid "Not customised (%{count})"
-msgstr "(%{count}) Özelleştirilmeyen sayısı "
+msgid "Not customised (%<count>s)"
+msgstr "(%<count>s) Özelleştirilmeyen sayısı "
 
 #: ../../app/views/org_admin/templates/index.html.erb:118
 msgid "Create a template"
@@ -3630,8 +3630,8 @@ msgstr "Bir şablon oluşturun"
 #: ../../app/views/org_admin/users/edit.html.erb:4
 #: ../../app/views/super_admin/users/edit.html.erb:1
 #: ../../app/views/super_admin/users/edit.html.erb:5
-msgid "Editing profile for %{username}"
-msgstr "%{username} için profil düzenleniyor"
+msgid "Editing profile for %<username>s"
+msgstr "%<username>s için profil düzenleniyor"
 
 #: ../../app/views/org_admin/users/edit.html.erb:5
 #: ../../app/views/super_admin/users/edit.html.erb:6
@@ -3639,8 +3639,8 @@ msgid "View all users"
 msgstr "Tüm kullanıcıları görüntüle"
 
 #: ../../app/views/org_admin/users/plans.html.erb:3
-msgid "Plans of %{username}"
-msgstr "%{username} kullanıcısına ait planlar"
+msgid "Plans of %<username>s"
+msgstr "%<username>s kullanıcısına ait planlar"
 
 #: ../../app/views/orgs/_departments.html.erb:1
 #: ../../app/views/orgs/admin_edit.html.erb:26
@@ -3670,7 +3670,7 @@ msgid ""
 "ntact_us_url}\">contact us</a> to have them updated."
 msgstr ""
 "Yukarıdaki tanımlayıcılardan herhangi biri hatalı veya eksikse, bunları güncel"
-"lemek için lütfen <a href=\"%{contact_us_url}\"> bizimle iletişime geçin.</a>"
+"lemek için lütfen <a href=\"%<contact_us_url>s\"> bizimle iletişime geçin.</a>"
 
 #: ../../app/views/orgs/_feedback_form.html.erb:3
 #: ../../app/views/orgs/_feedback_form.html.erb:7
@@ -3700,7 +3700,7 @@ msgstr ""
 #: ../../app/views/orgs/_merge_form.html.erb:7
 msgid ""
 "Please select the Organisation that will replace the current organisation: '<s"
-"trong>%{org_name}</strong>'."
+"trong>%<org_name>s</strong>'."
 msgstr ""
 
 #: ../../app/views/orgs/_merge_form.html.erb:8
@@ -3881,15 +3881,15 @@ msgstr "Asla"
 
 #: ../../app/views/paginable/api_clients/_index.html.erb:44
 msgid ""
-"You are about to delete '%{client_name}'. They will no longer be able to acces"
+"You are about to delete '%<client_name>s'. They will no longer be able to acces"
 "s the API. Are you sure?"
 msgstr ""
-"'%{client_name}' öğesini silmek üzeresiniz. Artık API'ye erişemeyecekler. Emin"
+"'%<client_name>s' öğesini silmek üzeresiniz. Artık API'ye erişemeyecekler. Emin"
 " misiniz?"
 
 #: ../../app/views/paginable/contributors/_index.html.erb:57
-msgid "You are about to delete '%{contributor_name}'. Are you sure?"
-msgstr "'%{contributor_name}' öğesini silmek üzeresiniz. Emin misiniz?"
+msgid "You are about to delete '%<contributor_name>s'. Are you sure?"
+msgstr "'%<contributor_name>s' öğesini silmek üzeresiniz. Emin misiniz?"
 
 #: ../../app/views/paginable/departments/_index.html.erb:5
 #: ../../app/views/paginable/users/_index.html.erb:22
@@ -3902,10 +3902,10 @@ msgstr "Kısaltılmış Ad veya Kod"
 
 #: ../../app/views/paginable/departments/_index.html.erb:28
 msgid ""
-"You are about to delete '%{department_name}'. This will affect guidance. Are y"
+"You are about to delete '%<department_name>s'. This will affect guidance. Are y"
 "ou sure?"
 msgstr ""
-"'%{department_name}' öğesini silmek üzeresiniz. Bu işem rehberliği etkileyecek"
+"'%<department_name>s' öğesini silmek üzeresiniz. Bu işem rehberliği etkileyecek"
 "tir. Emin misiniz?"
 
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:8
@@ -3946,15 +3946,15 @@ msgstr "Yayınla"
 
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:50
 msgid ""
-"You are about to delete '%{guidance_group_name}'. This will affect guidance. A"
+"You are about to delete '%<guidance_group_name>s'. This will affect guidance. A"
 "re you sure?"
 msgstr ""
-"'%{guidance_group_name}' öğesini silmek üzeresiniz. Bu işlem rehberliği etkile"
+"'%<guidance_group_name>s' öğesini silmek üzeresiniz. Bu işlem rehberliği etkile"
 "yecektir. Emin misiniz?"
 
 #: ../../app/views/paginable/guidances/_index.html.erb:62
-msgid "You are about to delete '%{guidance_summary}'. Are you sure?"
-msgstr "'%{guidance_summary}' öğesini silmek üzeresiniz. Emin misiniz?"
+msgid "You are about to delete '%<guidance_summary>s'. Are you sure?"
+msgstr "'%<guidance_summary>s' öğesini silmek üzeresiniz. Emin misiniz?"
 
 #: ../../app/views/paginable/notifications/_index.html.erb:5
 #: ../../app/views/super_admin/notifications/_form.html.erb:15
@@ -3990,8 +3990,8 @@ msgid "Managed"
 msgstr "Yönetilen"
 
 #: ../../app/views/paginable/orgs/_index.html.erb:35
-msgid "You are about to delete '%{org_name}'. Are you sure?"
-msgstr "'%{org_name}' öğesini silmek üzeresiniz. Emin misiniz?"
+msgid "You are about to delete '%<org_name>s'. Are you sure?"
+msgstr "'%<org_name>s' öğesini silmek üzeresiniz. Emin misiniz?"
 
 #: ../../app/views/paginable/plans/_org_admin.html.erb:3
 msgid ""
@@ -4157,10 +4157,10 @@ msgstr "Değişiklikleri yayınla"
 
 #: ../../app/views/paginable/templates/_customisable.html.erb:69
 msgid ""
-"Are you sure you want to remove your customization of \"%{template_title}\"? Any"
+"Are you sure you want to remove your customization of \"%<template_title>s\"? Any"
 " published versions will become unavailable to users."
 msgstr ""
-"\"%{template_title}\" özelleştirmenizi kaldırmak istediğinizden emin misiniz? Ya"
+"\"%<template_title>s\" özelleştirmenizi kaldırmak istediğinizden emin misiniz? Ya"
 "yınlanmış sürümlere kullanıcılar tarafından erişilemeyecek."
 
 #: ../../app/views/paginable/templates/_history.html.erb:7
@@ -4177,10 +4177,10 @@ msgstr "Özelleştirmeleri görüntüle"
 
 #: ../../app/views/paginable/templates/_organisational.html.erb:76
 msgid ""
-"Are you sure you want to remove \"%{template_title}\"? Any published versions wi"
+"Are you sure you want to remove \"%<template_title>s\"? Any published versions wi"
 "ll become unavailable to users."
 msgstr ""
-"\"%{template_title}\" öğesini kaldırmak istediğinizden emin misiniz? Yayınlanan "
+"\"%<template_title>s\" öğesini kaldırmak istediğinizden emin misiniz? Yayınlanan "
 "sürümlere kullanıcılar tarafından erişilemeyecek."
 
 #: ../../app/views/paginable/templates/_organisational.html.erb:90
@@ -4342,7 +4342,7 @@ msgstr "Yetki"
 #: ../../app/views/plans/_download_form.html.erb:119
 msgid ""
 "Download Plan <em class=\"sr-only\">(new window)</em><span class=\"new-window-pop"
-"up-info\">%{open_in_new_window_text}</span>"
+"up-info\">%<open_in_new_window_text>s</span>"
 msgstr ""
 "<em class=\"sr-only\">(yeni pencere)</em> <span class=\"new-window-popup-info\">%{"
 "open_in_new_window_text}</span> planını indir"
@@ -4354,10 +4354,10 @@ msgstr "Rehberlik Seç"
 
 #: ../../app/views/plans/_guidance_selection.html.erb:6
 msgid ""
-"To help you write your plan, %{application_name} can show you guidance from a "
+"To help you write your plan, %<application_name>s can show you guidance from a "
 "variety of organisations."
 msgstr ""
-"%{application_name}, planınızı yazmanıza yardımcı olmak için size çeşitli kuru"
+"%<application_name>s, planınızı yazmanıza yardımcı olmak için size çeşitli kuru"
 "mlardan rehberler gösterebilir."
 
 #: ../../app/views/plans/_guidance_selection.html.erb:9
@@ -4378,11 +4378,11 @@ msgstr "Bu şablon için ek rehber yoktur."
 
 #: ../../app/views/plans/_guidance_selection.html.erb:40
 msgid ""
-"To help you write your plan, %{application_name} can show you guidance from a "
+"To help you write your plan, %<application_name>s can show you guidance from a "
 "variety of organisations. Please choose up to 6 organisations of the following"
 " organisations who offer guidance relevant to your plan."
 msgstr ""
-"%{application_name}, planınızı yazmanıza yardımcı olmak için size çeşitli kuru"
+"%<application_name>s, planınızı yazmanıza yardımcı olmak için size çeşitli kuru"
 "mlardan rehberler gösterebilir. Lütfen aşağıdaki kurumlardan planınızla ilgili"
 " rehberlik sunan 6 taneye kadarını seçin."
 
@@ -4408,19 +4408,19 @@ msgstr "Plan Yazın"
 
 #: ../../app/views/plans/_overview_details.html.erb:9
 msgid ""
-"This plan is based on the \"%{template_title}\" template provided by %{org_name}"
+"This plan is based on the \"%<template_title>s\" template provided by %<org_name>s"
 "."
 msgstr ""
-"Bu plan, %{org_name} tarafından sağlanan \"%{template_title}\" şablonunu temel a"
+"Bu plan, %<org_name>s tarafından sağlanan \"%<template_title>s\" şablonunu temel a"
 "lır."
 
 #: ../../app/views/plans/_overview_details.html.erb:17
-msgid "Template version %{template_version}, published on %{published_date}"
-msgstr "Şablon sürümü %{template_version}, yayınlanma tarihi: %{published_date}"
+msgid "Template version %<template_version>s, published on %<published_date>s"
+msgstr "Şablon sürümü %<template_version>s, yayınlanma tarihi: %<published_date>s"
 
 #: ../../app/views/plans/_overview_details.html.erb:42
-msgid "%{phase_title} (%{sections_size} %{sections}, %{questions_size} %{questions})"
-msgstr "%{phase_title} (%{sections_size} %{sections}, %{questions_size} %{questions})"
+msgid "%<phase_title>s (%<sections_size>s %<sections>s, %<questions_size>s %<questions>s)"
+msgstr "%<phase_title>s (%<sections_size>s %<sections>s, %<questions_size>s %<questions>s)"
 
 #: ../../app/views/plans/_overview_details.html.erb:43
 msgid "section"
@@ -4532,11 +4532,11 @@ msgstr "Plan görünürlüğünü ayarla"
 #: ../../app/views/plans/_share_form.html.erb:9
 msgid ""
 "Public or organisational visibility is intended for finished plans. You must a"
-"nswer at least %{percentage}%% of the questions to enable these options. Note:"
+"nswer at least %<percentage>s%% of the questions to enable these options. Note:"
 " test plans are set to private visibility by default."
 msgstr ""
 "Herkese açık olma veya kurumsal görünürlük, tamamlanmış planlar içindir. Bu se"
-"çenekleri etkinleştirmek için soruların en az %%{percentage}% kadarını yanıtla"
+"çenekleri etkinleştirmek için soruların en az %%<percentage>s% kadarını yanıtla"
 "malısınız. Not: Test amaçlı planlar, varsayılan olarak özel görünürlüğe ayarla"
 "nmıştır."
 
@@ -4625,8 +4625,8 @@ msgid "Click the 'Create plan' button below to begin."
 msgstr "Başlamak için aşağıdaki 'Plan oluştur' butonuna tıklayın."
 
 #: ../../app/views/plans/index.html.erb:35
-msgid "%{org_title} Plans"
-msgstr "%{org_title} Planlar"
+msgid "%<org_title>s Plans"
+msgstr "%<org_title>s Planlar"
 
 #: ../../app/views/plans/index.html.erb:36
 msgid ""
@@ -4708,11 +4708,11 @@ msgstr "Fon sağlayıcınız için birden fazla VYP şablonu bulduk."
 
 #: ../../app/views/public_pages/plan_index.html.erb:8
 msgid ""
-"Public DMPs are plans created using the %{application_name} service and shared"
+"Public DMPs are plans created using the %<application_name>s service and shared"
 " publicly by their owners. They are not vetted for quality, completeness, or a"
 "dherence to funder guidelines."
 msgstr ""
-"Herkese Açık VYPler, %{application_name} hizmeti kullanılarak oluşturulan ve o"
+"Herkese Açık VYPler, %<application_name>s hizmeti kullanılarak oluşturulan ve o"
 "luşturanlar tarafından herkese açık olarak paylaşılan planlardır. Kalite, bütü"
 "nlük veya fon sağlayıcı yönergelerine uygunluk açısından denetlenmezler."
 
@@ -4763,8 +4763,8 @@ msgid "terms and conditions"
 msgstr "şartlar ve koşullar"
 
 #: ../../app/views/shared/_create_plan_modal.html.erb:8
-msgid "Would you like to create a plan based on the \"%{name}\" template?"
-msgstr "\"%{name}\" şablonuna dayalı bir plan oluşturmak ister misiniz?"
+msgid "Would you like to create a plan based on the \"%<name>s\" template?"
+msgstr "\"%<name>s\" şablonuna dayalı bir plan oluşturmak ister misiniz?"
 
 #: ../../app/views/shared/_links.html.erb:7
 msgid "Links"
@@ -4817,8 +4817,8 @@ msgstr "Planları filtrele"
 
 #: ../../app/views/shared/export/_plan_coversheet.erb:3
 #: ../../app/views/shared/export/_plan_txt.erb:65
-msgid "A Data Management Plan created using %{application_name}"
-msgstr "%{application_name} kullanılarak oluşturulan bir Veri Yönetim Planı"
+msgid "A Data Management Plan created using %<application_name>s"
+msgstr "%<application_name>s kullanılarak oluşturulan bir Veri Yönetim Planı"
 
 #: ../../app/views/shared/export/_plan_coversheet.erb:10
 #: ../../app/views/shared/export/_plan_txt.erb:5
@@ -4888,8 +4888,8 @@ msgstr "Girdiğiniz ad, listelenen önerilerden biri değil!"
 
 #: ../../app/views/static_pages/about_us.html.erb:1
 #: ../../app/views/static_pages/about_us.html.erb:4
-msgid "About %{application_name}"
-msgstr "%{application_name} hakkında"
+msgid "About %<application_name>s"
+msgstr "%<application_name>s hakkında"
 
 #: ../../app/views/static_pages/about_us.html.erb:11
 msgid ""
@@ -4971,10 +4971,10 @@ msgstr ""
 #: ../../app/views/static_pages/about_us.html.erb:22
 msgid ""
 "get involved<em class=\"sr-only\"> (new window)</em><span class=\"new-window-popu"
-"p-info\">%{open_in_new_window_text}</span>"
+"p-info\">%<open_in_new_window_text>s</span>"
 msgstr ""
 "katıl <em class=\"sr-only\">(yeni pencere)</em> <span class=\"new-window-popup-in"
-"fo\">%{open_in_new_window_text}</span>"
+"fo\">%<open_in_new_window_text>s</span>"
 
 #: ../../app/views/static_pages/about_us.html.erb:28
 msgid " in the project. You can also report bugs and request new features via "
@@ -4997,8 +4997,8 @@ msgstr ""
 "e başlayın."
 
 #: ../../app/views/static_pages/about_us.html.erb:34
-msgid "If you do not have a %{application_name} account, click on"
-msgstr "%{application_name} hesabınız yoksa, tıklayın"
+msgid "If you do not have a %<application_name>s account, click on"
+msgstr "%<application_name>s hesabınız yoksa, tıklayın"
 
 #: ../../app/views/static_pages/about_us.html.erb:34
 msgid "Sign up"
@@ -5215,46 +5215,46 @@ msgstr "Sizinle ilgili bilgileri nasıl kullanıyoruz ve kimlerle paylaşıyoruz
 
 #: ../../app/views/static_pages/privacy.html.erb:11
 msgid ""
-"The information you provide will be used by the %{org_name} to offer you acces"
-"s to and personalisation of the %{application_name} service."
+"The information you provide will be used by the %<org_name>s to offer you acces"
+"s to and personalisation of the %<application_name>s service."
 msgstr ""
-"Sağladığınız bilgiler, %{application_name} hizmetine erişmenizi ve bu hizmeti "
-"kişiselleştirmenizi sağlamak için %{org_name} tarafından kullanılacaktır."
+"Sağladığınız bilgiler, %<application_name>s hizmetine erişmenizi ve bu hizmeti "
+"kişiselleştirmenizi sağlamak için %<org_name>s tarafından kullanılacaktır."
 
 #: ../../app/views/static_pages/privacy.html.erb:13
 msgid ""
-"The %{org_name} processes the personal data of %{application_name} users in or"
-"der to deliver and improve the %{application_name} service in a customised man"
+"The %<org_name>s processes the personal data of %<application_name>s users in or"
+"der to deliver and improve the %<application_name>s service in a customised man"
 "ner and to ensure each user receives relevant information."
 msgstr ""
-"%{org_name}, %{application_name} hizmetini özelleştirilmiş bir şekilde sunmak "
+"%<org_name>s, %<application_name>s hizmetini özelleştirilmiş bir şekilde sunmak "
 "ve iyileştirmek ve her kullanıcının ilgili bilgileri almasını sağlamak için %{"
 "application_name} kullanıcılarının kişisel verilerini işler."
 
 #: ../../app/views/static_pages/privacy.html.erb:15
 msgid ""
-"The processing of your personal data by the %{org_name} is necessary for pursu"
+"The processing of your personal data by the %<org_name>s is necessary for pursu"
 "ing the following legitimate interests:"
 msgstr ""
-"Kişisel verilerinizin %{org_name} tarafından işlenmesi, aşağıdaki meşru menfaa"
+"Kişisel verilerinizin %<org_name>s tarafından işlenmesi, aşağıdaki meşru menfaa"
 "tlerin takibi için gereklidir:"
 
 #: ../../app/views/static_pages/privacy.html.erb:18
 msgid ""
-"To provide access to the %{application_name} service and personalisation of yo"
+"To provide access to the %<application_name>s service and personalisation of yo"
 "ur user experience e.g. provision of relevant templates and guidance for your "
 "organisation."
 msgstr ""
-"%{application_name} hizmetine erişim sağlamak ve kullanıcı deneyiminizi kişise"
+"%<application_name>s hizmetine erişim sağlamak ve kullanıcı deneyiminizi kişise"
 "lleştirmek (ör. kuruluşunuz için ilgili şablonların ve rehberliğin sağlanması)"
 "."
 
 #: ../../app/views/static_pages/privacy.html.erb:20
 msgid ""
-"To keep you up to date with news about %{application_name} such as new feature"
+"To keep you up to date with news about %<application_name>s such as new feature"
 "s or improvements, or changes to our Privacy Policy."
 msgstr ""
-"%{application_name} hakkındaki yeni özellikler veya iyileştirmeler veya Gizlil"
+"%<application_name>s hakkındaki yeni özellikler veya iyileştirmeler veya Gizlil"
 "ik Politikamızdaki değişiklikler gibi haberlerden sizi haberdar etmek."
 
 #: ../../app/views/static_pages/privacy.html.erb:22
@@ -5264,28 +5264,28 @@ msgstr "Ağ ve bilgi güvenliği amaçlı."
 #: ../../app/views/static_pages/privacy.html.erb:24
 msgid ""
 "We will hold the personal data you provided us for as long as you continue usi"
-"ng the %{application_name} service. Your personal data can be removed from thi"
-"s service upon request to the %{application_name} team within a period of 30 d"
+"ng the %<application_name>s service. Your personal data can be removed from thi"
+"s service upon request to the %<application_name>s team within a period of 30 d"
 "ays."
 msgstr ""
-"%{application_name} hizmetini kullanmaya devam ettiğiniz sürece bize sağladığı"
-"nız kişisel verileri saklayacağız. Kişisel verileriniz, %{application_name} ek"
+"%<application_name>s hizmetini kullanmaya devam ettiğiniz sürece bize sağladığı"
+"nız kişisel verileri saklayacağız. Kişisel verileriniz, %<application_name>s ek"
 "ibinin talebi üzerine 30 günlük bir süre içinde bu hizmetten kaldırılabilir."
 
 #: ../../app/views/static_pages/privacy.html.erb:26
 msgid ""
-"If you have any questions, please contact the %{application_name} team at: <a "
-"href='mailto:%{helpdesk_email}'>%{helpdesk_email}</a>"
+"If you have any questions, please contact the %<application_name>s team at: <a "
+"href='mailto:%<helpdesk_email>s'>%<helpdesk_email>s</a>"
 msgstr ""
-"Herhangi bir sorunuz varsa lütfen %{application_name} ekibiyle şu adresten ile"
-"tişime geçin: <a href='mailto:%{helpdesk_email}'>%{helpdesk_email}</a>"
+"Herhangi bir sorunuz varsa lütfen %<application_name>s ekibiyle şu adresten ile"
+"tişime geçin: <a href='mailto:%<helpdesk_email>s'>%<helpdesk_email>s</a>"
 
 #: ../../app/views/static_pages/privacy.html.erb:30
 msgid ""
-"This statement was last revised on %{revdate} and may be revised at any time w"
+"This statement was last revised on %<revdate>s and may be revised at any time w"
 "ith prior notice."
 msgstr ""
-"Bu beyan en son %{revdate} tarihinde revize edilmiştir ve önceden haber verile"
+"Bu beyan en son %<revdate>s tarihinde revize edilmiştir ve önceden haber verile"
 "rek herhangi bir zamanda revize edilebilir."
 
 #: ../../app/views/static_pages/termsuse.html.erb:12
@@ -5358,7 +5358,7 @@ msgid ""
 "ookies and how we use them is available on the <a target='_blank' href='http:/"
 "/www.dcc.ac.uk/about-us/about-site/website-terms-use/cookies' class=\"has-new-w"
 "indow-popup-info\">main DCC website<em class=\"sr-only\"> (new window)</em><span "
-"class=\"new-window-popup-info\">%{open_in_new_window_text}</span></a>.</p>\n"
+"class=\"new-window-popup-info\">%<open_in_new_window_text>s</span></a>.</p>\n"
 "\n"
 "      <h3>Third party APIs</h3>\n"
 "\n"
@@ -5418,7 +5418,7 @@ msgstr ""
 "rı nasıl kullandığımız hakkında daha fazla bilgi <a target='_blank' href='http"
 "://www.dcc.ac.uk/about-us/about-site/website-terms-use/cookies' class=\"has-new"
 "-window-popup-info\">ana DCC web sitesi<em class=\"sr-only\"> (new window)</em><s"
-"pan class=\"new-window-popup-info\">%{open_in_new_window_text}</span></a> adresi"
+"pan class=\"new-window-popup-info\">%<open_in_new_window_text>s</span></a> adresi"
 "nde mevcuttur. </p>\n"
 "\n"
 "      <h3>Üçüncü taraf APIleri</h3>\n"
@@ -5464,8 +5464,8 @@ msgid "Email credentials to contact"
 msgstr "İletişim için e-posta kimlik bilgileri"
 
 #: ../../app/views/super_admin/api_clients/_form.html.erb:81
-msgid "Are you sure you want to delete the API client: \"%{name}\""
-msgstr " \"%{name}\" adlı API istemcisini silmek istediğinizden emin misiniz?"
+msgid "Are you sure you want to delete the API client: \"%<name>s\""
+msgstr " \"%<name>s\" adlı API istemcisini silmek istediğinizden emin misiniz?"
 
 #: ../../app/views/super_admin/api_clients/edit.html.erb:1
 msgid "Editing API client"
@@ -5481,8 +5481,8 @@ msgid "View all API clients"
 msgstr "Tüm API istemcilerini görüntüle"
 
 #: ../../app/views/super_admin/api_clients/email_credentials.js.erb:1
-msgid "The credentials have been sent to %{email}."
-msgstr "Kimlik bilgileri %{email} adresine gönderildi."
+msgid "The credentials have been sent to %<email>s."
+msgstr "Kimlik bilgileri %<email>s adresine gönderildi."
 
 #: ../../app/views/super_admin/api_clients/index.html.erb:1
 #: ../../app/views/super_admin/api_clients/index.html.erb:6
@@ -5530,8 +5530,8 @@ msgid "Body"
 msgstr "Gövde"
 
 #: ../../app/views/super_admin/notifications/_form.html.erb:71
-msgid "Are you sure you want to delete the notification \"%{title}\""
-msgstr "\"%{title}\" bildirimini silmek istediğinizden emin misiniz?"
+msgid "Are you sure you want to delete the notification \"%<title>s\""
+msgstr "\"%<title>s\" bildirimini silmek istediğinizden emin misiniz?"
 
 #: ../../app/views/super_admin/notifications/edit.html.erb:1
 #: ../../app/views/super_admin/notifications/edit.html.erb:5
@@ -5556,7 +5556,7 @@ msgid "New Notification"
 msgstr "Yeni Bildirim"
 
 #: ../../app/views/super_admin/orgs/_analysis.html.erb:9
-msgid "Merging '%{from_org_name}' into '%{to_org_name}'"
+msgid "Merging '%<from_org_name>s' into '%<to_org_name>s'"
 msgstr ""
 
 #: ../../app/views/super_admin/orgs/_analysis.html.erb:11
@@ -5565,7 +5565,7 @@ msgstr ""
 
 #: ../../app/views/super_admin/orgs/_analysis.html.erb:12
 msgid ""
-"Counts of '%{to_org_name}' records before and after a merge with %{from_org_na"
+"Counts of '%<to_org_name>s' records before and after a merge with %{from_org_na"
 "me}."
 msgstr ""
 
@@ -5575,11 +5575,11 @@ msgid "Record Type"
 msgstr "Kayıt Türü"
 
 #: ../../app/views/super_admin/orgs/_analysis.html.erb:18
-msgid "'%{to_org_name}' Count - before merge"
+msgid "'%<to_org_name>s' Count - before merge"
 msgstr ""
 
 #: ../../app/views/super_admin/orgs/_analysis.html.erb:19
-msgid "'%{to_org_name}' Count - after merge"
+msgid "'%<to_org_name>s' Count - after merge"
 msgstr ""
 
 #: ../../app/views/super_admin/orgs/_analysis.html.erb:38
@@ -5589,17 +5589,17 @@ msgstr ""
 #: ../../app/views/super_admin/orgs/_analysis.html.erb:39
 msgid ""
 "The table below shows the specific changes that will occur during the merge pr"
-"ocess. Once the merge is complete, '%{from_org_name}' will be deleted. You can"
+"ocess. Once the merge is complete, '%<from_org_name>s' will be deleted. You can"
 " then consolidate/correct any merge issues (e.g. remove any departments that w"
 "ere duplicated)"
 msgstr ""
 
 #: ../../app/views/super_admin/orgs/_analysis.html.erb:45
-msgid "%{from_org_name} - Before"
+msgid "%<from_org_name>s - Before"
 msgstr ""
 
 #: ../../app/views/super_admin/orgs/_analysis.html.erb:46
-msgid "%{to_org_name} - Before"
+msgid "%<to_org_name>s - Before"
 msgstr ""
 
 #: ../../app/views/super_admin/orgs/_analysis.html.erb:61
@@ -5624,7 +5624,7 @@ msgstr ""
 
 #: ../../app/views/super_admin/orgs/_analysis.html.erb:95
 msgid ""
-"Warning: '%{from_org_name}' has Plans that are currently in the review process"
+"Warning: '%<from_org_name>s' has Plans that are currently in the review process"
 ". The Org admins may not be able to see these plans after the merge!"
 msgstr ""
 
@@ -5647,8 +5647,8 @@ msgid "New organisation"
 msgstr "Yeni kuruluş"
 
 #: ../../app/views/super_admin/themes/_form.html.erb:17
-msgid "Are you sure you want to delete the theme \"%{title}\"?"
-msgstr "\"%{title}\" temasını silmek istediğinizden emin misiniz?"
+msgid "Are you sure you want to delete the theme \"%<title>s\"?"
+msgstr "\"%<title>s\" temasını silmek istediğinizden emin misiniz?"
 
 #: ../../app/views/super_admin/themes/edit.html.erb:3
 #: ../../app/views/super_admin/themes/new.html.erb:3
@@ -5668,7 +5668,7 @@ msgid ""
 "<br>The selected user's content will be merged into the account for %{user_ema"
 "il}. <br> The selected account will then be removed"
 msgstr ""
-"<br>Seçilen kullanıcının içeriği %{user_email} hesabıyla birleştirilecektir.<b"
+"<br>Seçilen kullanıcının içeriği %<user_email>s hesabıyla birleştirilecektir.<b"
 "r> Seçilen hesap daha sonra kaldırılacaktır"
 
 #: ../../app/views/super_admin/users/edit.html.erb:63
@@ -5677,13 +5677,13 @@ msgstr "Arşiv"
 
 #: ../../app/views/super_admin/users/edit.html.erb:64
 msgid ""
-"You are about to archive %{user_name}.  This will remove their personal inform"
+"You are about to archive %<user_name>s.  This will remove their personal inform"
 "ation, but retain their plans, answers, and comments.  They will be unable to "
 "sign-in. Are you sure?"
 msgstr ""
-"%{user_name} kullanıcısını arşivlemek üzeresiniz. Bu işlem, %{user_name} kulla"
+"%<user_name>s kullanıcısını arşivlemek üzeresiniz. Bu işlem, %<user_name>s kulla"
 "nıcısının kişisel bilgilerini kaldıracak, ancak planlarını, yanıtlarını ve yor"
-"umlarını koruyacaktır. %{user_name} artık oturum açamayacak. Emin misiniz?"
+"umlarını koruyacaktır. %<user_name>s artık oturum açamayacak. Emin misiniz?"
 
 #: ../../app/views/super_admin/users/edit.html.erb:81
 msgid "Merge Accounts"
@@ -5786,92 +5786,92 @@ msgstr "Bildirim tercihlerinizi profil sayfanızdan değiştirebilirsiniz."
 #: ../../app/views/user_mailer/permissions_change_notification.html.erb:2
 #: ../../app/views/user_mailer/plan_visibility.html.erb:2
 #: ../../app/views/user_mailer/sharing_notification.html.erb:2
-msgid "Hello %{username}"
-msgstr "Merhaba %{username}"
+msgid "Hello %<username>s"
+msgstr "Merhaba %<username>s"
 
 #: ../../app/views/user_mailer/admin_privileges.html.erb:6
-msgid "You have been granted administrator privileges in %{tool_name}:"
-msgstr "%{tool_name} içinde size yönetici ayrıcalıkları verildi:"
+msgid "You have been granted administrator privileges in %<tool_name>s:"
+msgstr "%<tool_name>s içinde size yönetici ayrıcalıkları verildi:"
 
 #: ../../app/views/user_mailer/admin_privileges.html.erb:13
-msgid "You have been revoked administrator privileges in %{tool_name}."
-msgstr "%{tool_name} içinde yönetici ayrıcalıklarınız iptal edildi."
+msgid "You have been revoked administrator privileges in %<tool_name>s."
+msgstr "%<tool_name>s içinde yönetici ayrıcalıklarınız iptal edildi."
 
 #: ../../app/views/user_mailer/admin_privileges.html.erb:17
 msgid ""
-"More information about administering the %{tool_name} for users at your organi"
-"sation is available at the %{help_url}."
+"More information about administering the %<tool_name>s for users at your organi"
+"sation is available at the %<help_url>s."
 msgstr ""
-"Kurumunuzdaki kullanıcılar için %{tool_name} aracını yönetme hakkında daha faz"
-"la bilgiyi %{help_url} adresinde bulabilirsiniz."
+"Kurumunuzdaki kullanıcılar için %<tool_name>s aracını yönetme hakkında daha faz"
+"la bilgiyi %<help_url>s adresinde bulabilirsiniz."
 
 #: ../../app/views/user_mailer/api_credentials.html.erb:2
-msgid "Hello %{name},"
-msgstr "Merhaba %{name},"
+msgid "Hello %<name>s,"
+msgstr "Merhaba %<name>s,"
 
 #: ../../app/views/user_mailer/api_credentials.html.erb:8
-msgid "Please use the following credentials when accessing the %{tool_name} API."
-msgstr "%{tool_name} API'sine erişirken lütfen aşağıdaki kimlik bilgilerini kullanın."
+msgid "Please use the following credentials when accessing the %<tool_name>s API."
+msgstr "%<tool_name>s API'sine erişirken lütfen aşağıdaki kimlik bilgilerini kullanın."
 
 #: ../../app/views/user_mailer/api_credentials.html.erb:23
-msgid "Please refer to the API documentation at: %{api_documentation_url}"
-msgstr "Lütfen şu adresteki API belgelerine bakın: %{api_documentation_url}"
+msgid "Please refer to the API documentation at: %<api_documentation_url>s"
+msgstr "Lütfen şu adresteki API belgelerine bakın: %<api_documentation_url>s"
 
 #: ../../app/views/user_mailer/api_credentials.html.erb:29
 msgid ""
-"Do not share these credentials. They for use with the %{external_application} "
+"Do not share these credentials. They for use with the %<external_application>s "
 "application. If you do share your credentials with another application we rese"
 "rve the right to revoke your access to the API."
 msgstr ""
-"Bu kimlik bilgilerini paylaşmayın. %{external_application} uygulamasıyla kulla"
+"Bu kimlik bilgilerini paylaşmayın. %<external_application>s uygulamasıyla kulla"
 "nım içindir. Kimlik bilgilerinizi başka bir uygulamayla paylaşırsanız, API'ye "
 "erişiminizi iptal etme hakkını saklı tutarız."
 
 #: ../../app/views/user_mailer/api_credentials.html.erb:34
 msgid ""
-"If you did not request access to the %{tool_name} API or did not request for y"
-"our credentials to be renewed, please contact us at %{helpdesk_email}"
+"If you did not request access to the %<tool_name>s API or did not request for y"
+"our credentials to be renewed, please contact us at %<helpdesk_email>s"
 msgstr ""
-"%{tool_name} API'sine erişim talebinde bulunmadıysanız veya kimlik bilgilerini"
-"zin yenilenmesini talep etmediyseniz, lütfen %{helpdesk_email} adresinden bizi"
+"%<tool_name>s API'sine erişim talebinde bulunmadıysanız veya kimlik bilgilerini"
+"zin yenilenmesini talep etmediyseniz, lütfen %<helpdesk_email>s adresinden bizi"
 "mle iletişime geçin."
 
 #: ../../app/views/user_mailer/feedback_complete.html.erb:2
-msgid "Hello %{recipient_name}"
-msgstr "Merhaba %{recipient_name}"
+msgid "Hello %<recipient_name>s"
+msgstr "Merhaba %<recipient_name>s"
 
 #: ../../app/views/user_mailer/feedback_complete.html.erb:5
 msgid ""
-"%{commenter} has finished providing feedback on the plan  \"%{link_html}\". Comm"
+"%<commenter>s has finished providing feedback on the plan  \"%<link_html>s\". Comm"
 "ents can be found in the 'Write plan' tab on the right side of the page (Guida"
 "nce/Comments)."
 msgstr ""
-"%{commenter}, \"%{link_html}\" planı hakkında geri bildirim sağlamayı tamamladı."
+"%<commenter>s, \"%<link_html>s\" planı hakkında geri bildirim sağlamayı tamamladı."
 " Yorumlar, sayfanın sağ tarafındaki 'Plan yaz' sekmesinde bulunabilir (Rehberl"
 "ik/Yorumlar)."
 
 #: ../../app/views/user_mailer/feedback_notification.html.erb:2
-msgid "Hello %{user_name},"
-msgstr "Merhaba %{user_name},"
+msgid "Hello %<user_name>s,"
+msgstr "Merhaba %<user_name>s,"
 
 #: ../../app/views/user_mailer/feedback_notification.html.erb:5
 msgid ""
-"%{requestor} has requested feedback on a plan %{link_html}. To add comments, p"
-"lease visit the 'Plans' page under the Admin menu in %{tool_name} and open the"
+"%<requestor>s has requested feedback on a plan %<link_html>s. To add comments, p"
+"lease visit the 'Plans' page under the Admin menu in %<tool_name>s and open the"
 " plan."
 msgstr ""
-"%{requestor}, %{link_html} planı hakkında geri bildirim istedi. Yorum eklemek "
-"için lütfen %{tool_name} içindeki Yönetici menüsü altında yer alan 'Planlar' s"
+"%<requestor>s, %<link_html>s planı hakkında geri bildirim istedi. Yorum eklemek "
+"için lütfen %<tool_name>s içindeki Yönetici menüsü altında yer alan 'Planlar' s"
 "ayfasını ziyaret edin ve planı açın."
 
 #: ../../app/views/user_mailer/new_comment.html.erb:5
 msgid ""
-"%{commenter_name} has commented on your plan %{plan_title}. To view the commen"
+"%<commenter_name>s has commented on your plan %<plan_title>s. To view the commen"
 "ts, follow the link to the DMP below, or navigate to the plan via My Dashboard"
-" page in %{tool_name}."
+" page in %<tool_name>s."
 msgstr ""
-"%{commenter_name}, %{plan_title} adlı planınız hakkında yorum yaptı. Yorumları"
-" görüntülemek için aşağıdaki VYP bağlantısını takip edin veya %{tool_name} içi"
+"%<commenter_name>s, %<plan_title>s adlı planınız hakkında yorum yaptı. Yorumları"
+" görüntülemek için aşağıdaki VYP bağlantısını takip edin veya %<tool_name>s içi"
 "ndeki Gösterge Panelim sayfasından plana gidin."
 
 #: ../../app/views/user_mailer/new_comment.html.erb:10
@@ -5885,24 +5885,24 @@ msgid ""
 msgstr "Yorumları, her soru için rehberliğin yanında, sağdaki panelde görebilirsiniz."
 
 #: ../../app/views/user_mailer/new_comment.html.erb:15
-msgid "DMP: %{phase_link}"
-msgstr "VYP: %{phase_link}"
+msgid "DMP: %<phase_link>s"
+msgstr "VYP: %<phase_link>s"
 
 #: ../../app/views/user_mailer/new_comment.html.erb:18
-msgid "Section name: %{section_title}"
-msgstr "Bölüm adı: %{section_title}"
+msgid "Section name: %<section_title>s"
+msgstr "Bölüm adı: %<section_title>s"
 
 #: ../../app/views/user_mailer/new_comment.html.erb:21
-msgid "Question: %{question_number}"
-msgstr "Soru: %{question_number}"
+msgid "Question: %<question_number>s"
+msgstr "Soru: %<question_number>s"
 
 #: ../../app/views/user_mailer/permissions_change_notification.html.erb:5
 msgid ""
-"Your permissions relating to %{plan_title} have changed. You now have %{type} "
-"access. This means you can %{placeholder1} %{placeholder2}"
+"Your permissions relating to %<plan_title>s have changed. You now have %<type>s "
+"access. This means you can %<placeholder1>s %<placeholder2>s"
 msgstr ""
-"%{plan_title} ile ilgili izinleriniz değişti. Artık %{type} erişiminiz var. Bu"
-", %{placeholder1} %{placeholder2} yapabileceğiniz anlamına gelir."
+"%<plan_title>s ile ilgili izinleriniz değişti. Artık %<type>s erişiminiz var. Bu"
+", %<placeholder1>s %<placeholder2>s yapabileceğiniz anlamına gelir."
 
 #: ../../app/views/user_mailer/plan_access_removed.html.erb:2
 msgid "Hello "
@@ -5917,8 +5917,8 @@ msgid " has been removed by "
 msgstr "şu kişi tarafından kaldırıldı:"
 
 #: ../../app/views/user_mailer/plan_visibility.html.erb:5
-msgid "The plan %{plan_title} had its visibility changed to %{plan_visibility}."
-msgstr "%{plan_title} planının görünürlüğü %{plan_visibility} olarak değiştirildi."
+msgid "The plan %<plan_title>s had its visibility changed to %<plan_visibility>s."
+msgstr "%<plan_title>s planının görünürlüğü %<plan_visibility>s olarak değiştirildi."
 
 #: ../../app/views/user_mailer/plan_visibility.html.erb:9
 msgid "Visibility definitions:"
@@ -5935,14 +5935,14 @@ msgstr "Herkese açık: Web üzerinde herkes görüntüleyebilir"
 #: ../../app/views/user_mailer/plan_visibility.html.erb:17
 msgid ""
 "If you have questions pertaining to this action, please visit the My Dashboard"
-" page in %{tool_name}"
+" page in %<tool_name>s"
 msgstr ""
-"Bu işlemle ilgili sorularınız varsa, lütfen %{tool_name}'daki Kontrol Panelim "
+"Bu işlemle ilgili sorularınız varsa, lütfen %<tool_name>s'daki Kontrol Panelim "
 "sayfasını ziyaret edin."
 
 #: ../../app/views/user_mailer/question_answered.html.erb:2
-msgid "Hello %{recipient_name},"
-msgstr "Merhaba %{recipient_name},"
+msgid "Hello %<recipient_name>s,"
+msgstr "Merhaba %<recipient_name>s,"
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " is creating a Data Management Plan and has answered "
@@ -5962,34 +5962,35 @@ msgstr "Şu şablona dayanarak:"
 
 #: ../../app/views/user_mailer/sharing_notification.html.erb:5
 msgid ""
-"Your colleague %{inviter_name} has invited you to contribute to\n"
-"          their Data Management Plan in %{tool_name}"
-msgstr ""
-"Meslektaşınız %{inviter_name} sizi kendisinin %{tool_name} aracındaki Veri Yön"
+"Your colleague %<inviter_name>s has invited you to contribute to
+\n"%<tool_name>s
+"          their Data Management Plan in %<tool_name>s"
+msgstr ""%<inviter_name>s%<tool_name>s
+"Meslektaşınız %<inviter_name>s sizi kendisinin %<tool_name>s aracındaki Veri Yön"
 "etim Planına katkıda bulunmaya davet etti"
 
-#: ../../app/views/user_mailer/welcome_notification.html.erb:2
-msgid "Welcome to %{tool_name}, %{username}"
-msgstr "%{username}, %{tool_name} aracına hoş geldiniz"
+#: ../../app/views%<tool_name>s/w%<username>sfication.html.erb:2
+msgid "W%<username>s{t%<tool_name>s{username}"
+msgstr "%<username>s, %<tool_name>s aracına hoş geldiniz"
 
 #: ../../app/views/user_mailer/welcome_notification.html.erb:5
-msgid ""
-"%{tool_name} will help you to develop your Data Management Plan. If you have a"
-"ny queries or feedback as you use the tool, please contact us at %{helpdesk_em"
-"ail} or visit %{contact_us}"
-msgstr ""
-"%{tool_name}, Veri Yönetim Planınızı oluşturmanıza yardımcı olacaktır. Aracı k"
-"ullanırken herhangi bir sorunuz veya geri bildiriminiz olursa, lütfen %{helpde"
-"sk_email} adresinden bizimle iletişime geçin veya %{contact_us} adresini ziyar"
+m%<tool_name>s
+"%<tool_name>s will help you to develop your Data Management Plan. If you have a"
+"ny queries or %<contact_us>sou use the tool, please contact us at %{helpdesk_em"
+"ail} or visit %<contact_us>s"
+m%<tool_name>s
+"%<tool_name>s, Veri Yönetim Planınızı oluşturmanıza yardımcı olacaktır. Aracı k"
+"ullanırken herhangi bir sorunuz veya geri bildirim%<contact_us>slütfen %{helpde"
+"sk_email} adresinden bizimle iletişime geçin veya %<contact_us>s adresini ziyar"
 "et edin."
 
 #: ../../app/views/user_mailer/welcome_notification.html.erb:13
 msgid "You may change your notification preferences on your profile page."
 msgstr "Bildirim tercihlerinizi profil sayfanızdan değiştirebilirsiniz."
 
-#: ../../app/views/users/_admin_grant_permissions.html.erb:9
-msgid "Editing privileges for %{username}"
-msgstr "%{username} için ayrıcalıklar düzenleniyor"
+#: ../../app/views/users/_admi%<username>smissions.html.erb:9
+msgid "E%<username>sileges for %<username>s"
+msgstr "%<username>s için ayrıcalıklar düzenleniyor"
 
 #: ../../app/views/users/_admin_grant_permissions.html.erb:19
 msgid ""

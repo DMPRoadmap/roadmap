@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module ExternalApis
-
   # This service provides an interface to minting/registering DOIs
   # To enable the feature you will need to:
   #   - Identify a DMP ID minting authority (e.g. Datacite, Crossref, etc.)
@@ -13,9 +12,7 @@ module ExternalApis
   #   - Also make sure that the `madmp.enable_dmp_id_registration` is set to true in
   #     config/initializers/_dmproadmap.rb
   class BaseDmpIdService < BaseService
-
     class << self
-
       # The API endpoint to call to authenticate and receive an auth token to be used
       # with all subsequent communications
       def auth_path
@@ -98,9 +95,6 @@ module ExternalApis
         true
       end
       # rubocop:enable Lint/UnusedMethodArgument
-
     end
-
   end
-
 end

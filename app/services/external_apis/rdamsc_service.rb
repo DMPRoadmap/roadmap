@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module ExternalApis
-
   # This service provides an interface to the RDA Metadata Standards Catalog (RDAMSC)
   # It extracts the list of Metadata Standards using two API endpoints from the first extracts
   # the list of subjects/concepts from the thesaurus and the second collects the standards
@@ -11,9 +10,7 @@ module ExternalApis
   # API:
   # https://app.swaggerhub.com/apis-docs/alex-ball/rda-metadata-standards-catalog/2.0.0#/m/get_api2_m
   class RdamscService < BaseService
-
     class << self
-
       # Retrieve the config settings from the initializer
       def landing_page_url
         Rails.configuration.x.rdamsc&.landing_page_url || super
@@ -105,9 +102,9 @@ module ExternalApis
         return false unless json.present?
 
         process_scheme_entries(json: json)
-        return true unless json.fetch("data", {})["nextLink"].present?
+        return true unless json.fetch('data', {})['nextLink'].present?
 
-        query_schemes(path: json["data"]["nextLink"])
+        query_schemes(path: json['data']['nextLink'])
       end
 
       def query_api(path:)
@@ -126,21 +123,20 @@ module ExternalApis
         nil
       end
 
+      # rubocop:disable Metrics/AbcSize
       def process_scheme_entries(json:)
         return false unless json.is_a?(Hash)
 
         json = json.with_indifferent_access
-        return false unless json["data"].present? && json["data"].fetch("items", []).any?
+        return false unless json['data'].present? && json['data'].fetch('items', []).any?
 
-        json["data"]["items"].each do |item|
-          standard = MetadataStandard.find_or_create_by(uri: item["uri"], title: item["title"])
-          standard.update(description: item["description"], locations: item["locations"],
-                          related_entities: item["relatedEntities"], rdamsc_id: item["mscid"])
+        json['data']['items'].each do |item|
+          standard = MetadataStandard.find_or_create_by(uri: item['uri'], title: item['title'])
+          standard.update(description: item['description'], locations: item['locations'],
+                          related_entities: item['relatedEntities'], rdamsc_id: item['mscid'])
         end
       end
-
+      # rubocop:enable Metrics/AbcSize
     end
-
   end
-
 end

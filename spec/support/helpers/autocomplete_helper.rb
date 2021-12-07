@@ -1,33 +1,46 @@
 # frozen_string_literal: true
 
-module AutoCompleteHelper
+module AutocompleteHelper
+  # rubocop:disable Metrics/AbcSize
+  def select_an_org(selector, org_name, label)
+    within(selector) do
+      # Clear the default Org name if any and replace with the specified name
+      fill_in label, with: ''
+      fill_in label, with: org_name
 
-  def select_an_org(autocomplete_id, org)
-    # Set the Org Name
-    find(autocomplete_id).set org.name
-    sleep(0.3)
+      # Check that it appear in the list first
+      expect(suggestion_exists?(org_name)).to eql(true)
 
-    # The controllers are expecting the org_id though, so lets
-    # populate it
-    hidden_id = autocomplete_id.gsub("_name", "_id").gsub("#", "")
-    hash = { id: org.id, name: org.name }.to_json
+      # Now select the item from the suggestions
+      elements = all('.ui-menu-item-wrapper', visible: false)
+      return false unless elements.present? && elements.any?
 
-    js = "document.getElementById('#{hidden_id}').value = '#{hash}'"
-    page.execute_script(js) if hidden_id.present?
+      selection = elements.detect { |el| el.text.strip == org_name }
+      return false unless selection.present?
+
+      selection.click
+    end
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  # Supply a custom Org name
+  def enter_custom_org(selector, org_name, namespace = nil)
+    within(selector) do
+      check _('I cannot find my institution in the list')
+      field = find("#org_autocomplete_#{[namespace, "user_entered_name"].compact.join("_")}")
+      expect(field.present?).to eql(true)
+
+      field.set(org_name)
+    end
   end
 
-  def choose_suggestion(suggestion_text)
-    matcher = ".ui-autocomplete .ui-menu-item"
-    matching_element = all(:css, matcher).detect do |element|
-      element.text.strip == suggestion_text.strip
-    end
-    unless matching_element.present?
-      raise ArgumentError, "No such suggestion with text '#{suggestion_text}'"
-    end
+  # Checks the suggestions to see if the name exists.
+  def suggestion_exists?(name)
+    return false unless name.present?
 
-    matching_element.click
-    # Wait for the JS to run
-    sleep(0.3)
+    elements = all('.ui-menu-item-wrapper', visible: false)
+    return false unless elements.present? && elements.any?
+
+    elements.detect { |el| el.text.strip == name }.present?
   end
-
 end

@@ -9,50 +9,48 @@
 #
 # When generating the translations, the rake:tasks will need to be run with each
 # domain specified in order to generate both sets of translation keys.
-if !ENV["DOMAIN"] || ENV["DOMAIN"] == "app"
+if !ENV['DOMAIN'] || ENV['DOMAIN'] == 'app'
   TranslationIO.configure do |config|
     config.api_key              = Rails.configuration.x.dmproadmap.translation_io_key_app
-    config.source_locale        = "en"
+    config.source_locale        = 'en'
     config.target_locales       = %w[de en-GB en-US es fr-FR fi sv-FI pt-BR en-CA fr-CA tr-TR]
-    config.text_domain          = "app"
+    config.text_domain          = 'app'
     config.bound_text_domains   = %w[app client]
-    config.ignored_source_paths = Dir.glob("**/*").select { |f| File.directory? f }
+    config.ignored_source_paths = Dir.glob('**/*').select { |f| File.directory? f }
                                      .collect { |name| "#{name}/" }
-                                     .select { |path| path.include?("branded/") || path.include?("dmptool/") }
-    config.locales_path         = Rails.root.join("config", "locale")
+                                     .select { |path| path.include?('branded/') || path.include?('dmptool/') }
+    config.locales_path         = Rails.root.join('config', 'locale')
   end
-elsif ENV["DOMAIN"] == "client"
+elsif ENV['DOMAIN'] == 'client'
   # Control ignored source paths
   # Note, all prefixes of the directory you want to translate must be defined here!
   #
   # To sync translations with the Translation IO server run:
   #  > rails translations:sync_and_purge DOMAIN=client
-  # rubocop:disable Metrics/BlockLength
   TranslationIO.configure do |config|
     config.api_key              = Rails.configuration.x.dmproadmap.translation_io_key_client
-    config.source_locale        = "en"
+    config.source_locale        = 'en'
     config.target_locales       = %w[en-US pt-BR]
-    config.text_domain          = "client"
-    config.bound_text_domains = ["client"]
-    config.ignored_source_paths = Dir.glob("**/*").select { |f| File.directory? f }
+    config.text_domain          = 'client'
+    config.bound_text_domains = ['client']
+    config.ignored_source_paths = Dir.glob('**/*').select { |f| File.directory? f }
                                      .collect { |name| "#{name}/" }
-                                     .reject { |path|
-                                       path == "app/" || path == "app/views/" ||
-                                       path.include?("branded/") || path.include?("dmptool/")
-                                     }
+                                     .reject do |path|
+                                       path == 'app/' || path == 'app/views/' ||
+                                         path.include?('branded/') || path.include?('dmptool/')
+                                     end
     config.disable_yaml         = true
-    config.locales_path         = Rails.root.join("config", "locale")
+    config.locales_path         = Rails.root.join('config', 'locale')
   end
-  # rubocop:enable Metrics/BlockLength
 end
 
 # Setup languages
 # rubocop:disable Style/RescueModifier
-table = ActiveRecord::Base.connection.table_exists?("languages") rescue false
+table = ActiveRecord::Base.connection.table_exists?('languages') rescue false
 # rubocop:enable Style/RescueModifier
 if table
   def default_locale
-    Language.default.try(:abbreviation) || "en-US"
+    Language.default.try(:abbreviation) || 'en-US'
   end
 
   def available_locales
@@ -61,17 +59,17 @@ if table
 
   I18n.available_locales = Language.all.pluck(:abbreviation)
 
-  I18n.default_locale = Language.default.try(:abbreviation) || "en" #|| "en-US"
+  I18n.default_locale = Language.default.try(:abbreviation) || 'en' # || "en-US"
 else
   def default_locale
-    Rails.application.config.i18n.available_locales.first || "en-US"
+    Rails.application.config.i18n.available_locales.first || 'en-US'
   end
 
   def available_locales
     Rails.application.config.i18n.available_locales = %w[en-US pt-BR]
   end
 
-  I18n.available_locales = ["en-US"]
+  I18n.available_locales = ['en-US']
 
-  I18n.default_locale = "en-US"
+  I18n.default_locale = 'en-US'
 end

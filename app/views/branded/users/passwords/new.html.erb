@@ -1,0 +1,28 @@
+<%# Devise Forgotten Password form %>
+
+<% content_for :authentication do %>
+  <%= render partial: 'users/shared/login_header', locals: { title: 'Forgot Your Password?' } %>
+
+  <%= form_with model: User.new, url: user_password_path, method: :post, local: true,
+                class: "novalidate" do |form| %>
+    <div id="forgotten-password" class="c-textfield js-textfield is-required">
+      <%= form.label :email, _('Email address') %>
+      <%= form.email_field(:email, value: resource.email, autocomplete: 'email',
+                           class: 'require-me') %>
+    </div>
+
+    <button type="submit"><%= _("Send me reset password instructions") %></button>
+  <% end %>
+
+  <%= render partial: "users/shared/links",
+              locals: { show_back_button: true, show_contact_us: true } %>
+<% end %>
+
+<% content_for :errors do %>
+  <%= render partial: "users/shared/error_messages" %>
+<% end %>
+
+
+<% content_for :home do %>
+  <%= render partial: "layouts/home" %>
+<% end %>

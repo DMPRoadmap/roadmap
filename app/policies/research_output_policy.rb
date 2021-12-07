@@ -1,15 +1,13 @@
 # frozen_string_literal: true
 
+# Policies for ResearchOutput pages
 class ResearchOutputPolicy < ApplicationPolicy
-
   attr_reader :user, :research_output
 
   def initialize(user, research_output)
-    raise Pundit::NotAuthorizedError, _("must be logged in") unless user
+    raise Pundit::NotAuthorizedError, _('must be logged in') unless user
 
-    unless research_output.present?
-      raise Pundit::NotAuthorizedError, _("are not authorized to view that plan")
-    end
+    raise Pundit::NotAuthorizedError, _('are not authorized to view that plan') unless research_output.present?
 
     @user = user
     @research_output = research_output
@@ -55,5 +53,4 @@ class ResearchOutputPolicy < ApplicationPolicy
   def metadata_standard_search?
     @research_output.plan.administerable_by?(@user.id)
   end
-
 end

@@ -1,4 +1,3 @@
-import { initAutocomplete, scrubOrgSelectionParamsOnSubmit } from '../utils/autoComplete';
 import { Tinymce } from '../utils/tinymce.js.erb';
 import toggleConditionalFields from '../utils/conditionalFields';
 import getConstant from '../utils/constants';
@@ -19,7 +18,7 @@ $(() => {
     });
 
     const ethicalIssues = $('#plan_ethical_issues');
-    const funderId = $('#plan_org_id');
+    const funderId = $('#org_autocomplete_funder_name');
 
     if (ethicalIssues.length > 0) {
       // If the user checks the ethical_issues field then display the other ethics fields
@@ -29,6 +28,7 @@ $(() => {
 
       toggleConditionalFields(ethicalIssues, ethicalIssues.prop('checked'));
     }
+
     if (funderId.length > 0) {
       // If the plan has a funder defined then display the other funder fields
       funderId.on('change', () => {
@@ -142,11 +142,6 @@ $(() => {
     $('#priority-guidance-orgs').find('input[type="checkbox"]').click((e) => {
       syncGuidance($(e.target).closest('ul[id]'));
     });
-
-    initAutocomplete('#funder-org-controls .autocomplete');
-    // Scrub out the large arrays of data used for the Org Selector JS so that they
-    // are not a part of the form submissiomn
-    scrubOrgSelectionParamsOnSubmit('form.edit_plan');
 
     toggleCheckboxes($('#priority-guidance-orgs input[type="checkbox"]:checked').map((i, el) => $(el).val()).get());
 

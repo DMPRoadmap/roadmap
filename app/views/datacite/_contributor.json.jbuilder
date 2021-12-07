@@ -2,43 +2,44 @@
 
 # locals: contributor, orcid_scheme, ror_scheme
 
-if contributor.is_a?(Hash)
+case contributor&.class&.name
+when 'Hash'
   if contributor[:name].present?
     json.name contributor[:name]
-    json.nameType "Organizational"
-    json.contributorType "HostingInstitution"
+    json.nameType 'Organizational'
+    json.contributorType 'HostingInstitution'
 
     if contributor[:ror].present?
       json.nameIdentifier contributor[:ror]
-      json.nameIdentifierScheme "ROR"
+      json.nameIdentifierScheme 'ROR'
     end
   end
 
-elsif contributor.is_a?(Org)
+when 'Org'
   json.name contributor.name
-  json.nameType "Organizational"
+  json.nameType 'Organizational'
 
-  json.contributorType "Producer"
+  json.contributorType 'Producer'
 
   ror = contributor.identifier_for_scheme(scheme: ror_scheme)
   if ror_scheme.present? && ror.present?
     json.nameIdentifier ror.value
-    json.nameIdentifierScheme "ROR"
+    json.nameIdentifierScheme 'ROR'
   end
 
-else
+when %w[Contributor User]
   if contributor.is_a?(User)
-    json.name [contributor.surname, contributor.firstname].join(", ")
+    json.name [contributor.surname, contributor.firstname].join(', ')
   elsif contributor.is_a?(Contributor) && contributor.roles.positive?
     json.name contributor.name
 
-    datacite_role = "ProjectManager" if contributor.project_administration?
-    datacite_role = "ProjectLeader" if datacite_role.nil? && contributor.investigation?
-    datacite_role = "DataCurator" unless datacite_role.present?
+    datacite_role = 'ProjectManager' if contributor.project_administration?
+    datacite_role = 'ProjectLeader' if datacite_role.nil? && contributor.investigation?
+    datacite_role = 'DataCurator' unless datacite_role.present?
     json.contributorType datacite_role
   end
 
-  json.nameType "Personal"
+  json.nameType 'Personal'
 
   if contributor.org.present?
     json.affiliation do
@@ -47,7 +48,7 @@ else
       ror = contributor.org.identifier_for_scheme(scheme: ror_scheme)
       if ror_scheme.present? && ror.present?
         json.affiliationIdentifier ror.value
-        json.affiliationIdentifierScheme "ROR"
+        json.affiliationIdentifierScheme 'ROR'
       end
     end
   end
@@ -56,7 +57,7 @@ else
   if orcid_scheme.present? && orcid.present?
     json.nameIdentifiers [orcid] do
       json.nameIdentifier "https://orcid.org/#{orcid.value}"
-      json.nameIdentifierScheme "ORCID"
+      json.nameIdentifierScheme 'ORCID'
     end
   end
 end

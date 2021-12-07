@@ -16,9 +16,5 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
-/* START DMPTool customization */
-/* ---------------------------------------- */
-@import "dmptool/blocks/*";
-@import "dmptool/utils/*";
-/* ---------------------------------------- */
-/* END DMPTool customization */
+// DMPTool additional styling that is not part of the dmptool-ui repo
+@import "dmptool/*";

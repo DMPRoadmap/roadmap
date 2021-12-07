@@ -1,12 +1,5 @@
 <%= form_for resource, namespace: 'new', url: registration_path("user"), html: {autocomplete: "off", id: "create_account_form"} do |f| %>
 
-  <%# If this was part of an OAuth/Omniauth workflow then stash the access_token and send to the form %>
-  <% if @user.present? && @user.external_api_access_tokens.any? %>
-    <% @user.external_api_access_tokens.each do |token| %>
-      <%= hidden_field_tag "user_external_api_token_acess_token", token.access_token %>
-    <% end %>
-  <% end %>
-
   <div class="form-group">
     <%= f.label(:firstname, _('First Name'), class: "control-label") %>
     <%= f.text_field(:firstname, class: "form-control", "aria-required": true) %>
@@ -19,39 +12,26 @@
     <%= f.label(:email, _('Email'), class: "control-label") %>
     <%= f.email_field(:email, class: "form-control", "aria-required": true) %>
   </div>
-
-  <%# If the user is present and has an org then this came through as Shibboleth so use the known Org! %>
-  <% if @user.present? && @user.org.present? %>
-    <%= hidden_field_tag "user[default_org_id]", @user.org.id %>
-    <%= hidden_field_tag "default_org_name", @user.org.name %>
-  <% else %>
-    <div class="form-group" id="create-account-org-controls">
-      <%= render partial: org_partial,
-                locals: {
-                  form: f,
-                  orgs: orgs,
-                  default_org: resource&.org,
-                  required: true
-                } %>
+  <div class="form-group" id="create-account-org-controls">
+    <%= render partial: org_partial,
+               locals: {
+                 form: f,
+                 orgs: orgs,
+                 default_org: resource&.org,
+                 required: true
+               } %>
+  </div>
+  <div class="form-group">
+    <%= f.label(:password, _('Password'), class: "control-label") %>
+    <%= f.password_field(:password, class: "form-control", "aria-required": true) %>
+  </div>
+  <div class="form-group">
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" id="passwords_toggle_sign_up" class="passwords_toggle" /><%= _('Show password') %>
+      </label>
     </div>
-  <% end %>
-
-  <% if resource.org.present? %>
-    <%= f.password_field(:password, class: "form-control hidden", value: SecureRandom.uuid) %>
-  <% else %>
-    <div class="form-group">
-      <%= f.label(:password, _('Password'), class: "control-label") %>
-      <%= f.password_field(:password, class: "form-control", "aria-required": true) %>
-    </div>
-    <div class="form-group">
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" id="passwords_toggle_sign_up" class="passwords_toggle" /><%= _('Show password') %>
-        </label>
-      </div>
-    </div>
-  <% end %>
-
+  </div>
   <div class="form-group">
     <div class="checkbox">
       <%= f.label(:accept_terms) do %>

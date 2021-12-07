@@ -306,6 +306,7 @@ ActiveRecord::Schema.define(version: 2021_12_02_155053) do
     t.string "logo_name"
     t.string "callback_uri"
     t.integer "callback_method"
+    t.string "owner_type", default: "User"
     t.index ["name"], name: "index_oauth_applications_on_name"
     t.index ["user_id"], name: "index_oauth_applications_on_owner_id"
     t.index ["user_id"], name: "index_oauth_applications_on_owner_id_and_owner_type"

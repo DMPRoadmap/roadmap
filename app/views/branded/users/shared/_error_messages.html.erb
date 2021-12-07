@@ -1,0 +1,4 @@
+<% if resource.errors.any? %>
+  <br>
+  <%= sanitize(resource.errors.full_messages.sort { |a, b| a <=> b }.join("<br>")) %>
+<% end %>

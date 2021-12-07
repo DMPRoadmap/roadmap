@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Google Analytics and UserSnap -->
     <%= render partial: 'layouts/analytics' %>
 
     <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % {
@@ -13,12 +12,6 @@
     <%= favicon_link_tag 'favicon-16x16.png', rel: 'icon', sizes: "16x16", type: 'image/png' %>
     <%= favicon_link_tag 'safari-pinned-tab.svg', rel: 'mask-icon', color: "#0E5682" %>
     <%= favicon_link_tag 'site.webmanifest', rel: 'manifest' %>
-
-    <meta name="msapplication-TileColor" content="#0e5682">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#ffffff">
-
-    <%= favicon_link_tag "favicon.ico" %>
 
     <!--[ if lte IE 9]>
       <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
@@ -49,74 +42,42 @@
     <![endif]-->
 
     <%= stylesheet_link_tag(stylesheet_manifest_file) %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" media="screen" href="/dmptool-ui/main.css" />
+
+    <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
+    <script src="/dmptool-ui/main.js" data-turbolinks-track="reload"></script>
+
     <%= csrf_meta_tags %>
 
+    <meta name="msapplication-TileColor" content="#0e5682">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   </head>
-  <body>
-    <div class="skip">
-      <a href="#maincontent"><%= _('Skip to main content') %></a>
-    </div>
+  <body class="<%= page_body_template %>">
 
-    <div class="dmptool">
-      <header>
-        <%= render partial: "layouts/header" %>
-      </header>
+    <a href="#maincontent" class="c-skipnav">Skip to main content</a>
 
-      <div class="notifications">
-        <%= render partial: "layouts/notifications" %>
+    <!-- header rendering -->
+    <header>
+      <%= render partial: "layouts/header" %>
+      <%= render partial: "layouts/notifications", locals: local_assigns %>
+    </header>
+
+    <main id="maincontent" class="<%= @main_class %>">
+
+      <%= content_for?(:home) ? yield(:home) : yield %>
+
+      <%# Generic UJS/Ajax spinner. Bootstrap 5+ has built in spinner for this class %>
+      <div class="spinner-border hidden" role="status">
+        <% spinner_msg = _("Loading...") %>
+        <%= image_tag("spinner.gif", alt: spinner_msg) %>
+        <span class="sr-only"><%= spinner_msg %></span>
       </div>
 
-      <% if active_page?(root_path, true) && !user_signed_in? %>
-        <%= render partial: "layouts/homepage_image" %>
-      <% end %>
+    </main>
 
-      <main>
-        <div class="content">
-          <%= yield %>
-        </div>
+    <footer ><%= render "layouts/footer" %></footer>
 
-        <%# Generic UJS/Ajax spinner. Bootstrap 5+ has built in spinner for this class %>
-        <div class="spinner-border hidden" role="status">
-          <%spinner_msg = _("Loading...") %>
-          <%= image_tag("spinner.gif", alt: spinner_msg) %>
-          <span class="sr-only"><%= spinner_msg %></span>
-        </div>
-
-      </main>
-      <footer<%= user_signed_in? ? ' class=blue' : '' %>>
-        <div class="footer">
-          <%= render partial: "layouts/footer" %>
-        </div>
-        <div class="footer-mobile">
-          <%= render partial: "layouts/mobile/footer" %>
-        </div>
-      </footer>
-    </div>
-
-    <% unless active_page?(user_shibboleth_omniauth_callback_path) ||
-              active_page?(user_orcid_omniauth_callback_path) %>
-      <!-- Modal windows for sign in/out -->
-      <% unless user_signed_in? %>
-        <% if  Rails.configuration.x.dmproadmap.shibboleth_use_filtered_discovery_service %>
-          <div id="shib-ds-form" class="modal fade" tabindex="-1" role="dialog">
-            <%= render partial: 'shared/shib_ds_form' %>
-          </div>
-        <% end %>
-
-        <div id="sign-in-create-account" class="modal fade" tabindex="-1" role="dialog">
-          <%= render partial: 'shared/signin_create_form' %>
-        </div>
-
-        <div id="get-started-options" class="modal fade" tabindex="-1" role="dialog">
-          <%= render partial: 'shared/get_started' %>
-        </div>
-      <% end %>
-    <% end %>
-
-    <%= render partial: "layouts/constants" %>
-
+    <%= render partial: "layouts/json_constants" %>
   </body>
 </html>
