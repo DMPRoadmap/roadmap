@@ -28,28 +28,6 @@
       id: field_id,
       class: "form-control" %>
 
-<<<<<<< HEAD
-  <% unless parent_id.nil? || readonly %>
-    <span data-toggle="modal" data-target="#modal-window">
-      <%= link_to new_edit_linked_madmp_fragments_url(
-              nil, 
-              :parent_id => parent_id, 
-              :schema_id => schema.id, 
-              :template_locale => template_locale,
-              :source => "select-modal",
-              :property_name => property_name,
-              :query_id => query_id
-        ),  {
-          :remote => true, 
-          :target => "_self",
-          :class  => "add-fragment",
-          'data-toggle' =>  "tooltip",
-          'data-original-title' => _("Click here to add a new item")
-      } do %>
-        <i class="fas fa-plus-square"></i>
-      <% end %>
-    </span>
-=======
     <% unless parent_id.nil? || readonly %>
       <span data-toggle="modal" data-target="#modal-window">
         <%= link_to new_edit_linked_madmp_fragments_url(
@@ -65,7 +43,7 @@
             :target => "_self",
             :class  => "add-fragment",
             'data-toggle' =>  "tooltip",
-            'data-original-title' => d_("dmpopidor", "Click here to add a new item")
+            'data-original-title' => _("Click here to add a new item")
         } do %>
           <i class="fa fa-plus-square"></i>
         <% end %>
@@ -74,7 +52,6 @@
   </div>
   <% if multiple %>
     <span class="add-indicator fa fa-arrow-down"></span>
->>>>>>> dmpopidor-dev
   <% end %>
 </div>
 
