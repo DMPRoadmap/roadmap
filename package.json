@@ -53,7 +53,7 @@
     "written-number": "^0.9.1"
   },
   "devDependencies": {
-    "eslint": "^7.32.0",
+    "eslint": "7",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.21.1",
