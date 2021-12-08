@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-11-29 11:31+0100\n"
-"PO-Revision-Date: 2021-11-29 11:31+0100\n"
+"POT-Creation-Date: 2021-12-07 16:27+0100\n"
+"PO-Revision-Date: 2021-12-07 16:27+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -68,9 +68,9 @@ msgstr "Merci de patienter, les standards sont en cours de chargement"
 #: ../../app/views/branded/org_admin/questions/_show.html.erb:217
 #: ../../app/views/branded/org_admin/users/edit.html.erb:55
 #: ../../app/views/branded/orgs/_profile_form.html.erb:152
-#: ../../app/views/branded/plans/_edit_details.html.erb:114
-#: ../../app/views/branded/plans/_edit_details.html.erb:185
-#: ../../app/views/branded/research_outputs/_list.html.erb:73
+#: ../../app/views/branded/plans/_edit_details.html.erb:118
+#: ../../app/views/branded/plans/_edit_details.html.erb:189
+#: ../../app/views/branded/research_outputs/_list.html.erb:77
 #: ../../app/views/branded/super_admin/madmp_schemas/_form.html.erb:26
 #: ../../app/views/branded/super_admin/registries/_form.html.erb:27
 #: ../../app/views/branded/super_admin/registry_values/_form.html.erb:12
@@ -89,8 +89,8 @@ msgstr "exemple de réponse"
 #: ../../app/views/branded/layouts/application.html.erb:125
 #: ../../app/views/branded/madmp_fragments/_edit.html.erb:43
 #: ../../app/views/branded/phases/_edit_plan_answers.html.erb:142
-#: ../../app/views/branded/plans/_edit_details.html.erb:107
-#: ../../app/views/branded/plans/_edit_details.html.erb:178
+#: ../../app/views/branded/plans/_edit_details.html.erb:111
+#: ../../app/views/branded/plans/_edit_details.html.erb:182
 msgid "Loading..."
 msgstr "Chargement ..."
 
@@ -261,7 +261,7 @@ msgstr "Ajouter une personne"
 
 #: ../../app/views/branded/contributors/index.html.erb:56
 #: ../../app/views/branded/shared/dynamic_form/fields/_fragment_list_field.html.erb:45
-#: ../../app/views/branded/shared/dynamic_form/fields/_fragment_select_field.html.erb:45
+#: ../../app/views/branded/shared/dynamic_form/fields/_fragment_select_field.html.erb:46
 #: ../../app/views/branded/shared/dynamic_form/fields/registry/_multiple_complex.html.erb:58
 msgid "Click here to add a new item"
 msgstr "Cliquez ici pour ajouter un nouvel élément"
@@ -401,7 +401,7 @@ msgstr "Publié ?"
 #: ../../app/views/branded/org_admin/questions/_form.html.erb:122
 #: ../../app/views/branded/org_admin/questions/_form.html.erb:124
 #: ../../app/views/branded/plans/_edit_details.html.erb:61
-#: ../../app/views/branded/research_outputs/_list.html.erb:74
+#: ../../app/views/branded/research_outputs/_list.html.erb:78
 #: ../../app/views/branded/super_admin/madmp_schemas/_form.html.erb:32
 #: ../../app/views/branded/super_admin/registries/_form.html.erb:28
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:67
@@ -744,8 +744,8 @@ msgid "Searching ..."
 msgstr "Recherche..."
 
 #: ../../app/views/branded/madmp_fragments/_edit.html.erb:58
-#: ../../app/views/branded/plans/_edit_details.html.erb:111
-#: ../../app/views/branded/plans/_edit_details.html.erb:182
+#: ../../app/views/branded/plans/_edit_details.html.erb:115
+#: ../../app/views/branded/plans/_edit_details.html.erb:186
 msgid "You have pending changes, please save"
 msgstr "Vous avez des changements en attente, veuillez sauvegarder"
 
@@ -1063,7 +1063,7 @@ msgstr "Aucun fourni"
 #: ../../app/views/branded/paginable/registries/_index.html.erb:31
 #: ../../app/views/branded/paginable/templates/_history.html.erb:54
 #: ../../app/views/branded/paginable/users/_index.html.erb:81
-#: ../../app/views/branded/shared/dynamic_form/fields/_fragment_select_field.html.erb:69
+#: ../../app/views/branded/shared/dynamic_form/fields/_fragment_select_field.html.erb:74
 #: ../../app/views/branded/shared/dynamic_form/fields/contributor/_contributor_list.html.erb:35
 #: ../../app/views/branded/shared/dynamic_form/linked_fragment/_list.html.erb:36
 msgid "Edit"
@@ -1375,8 +1375,8 @@ msgstr "Inconnu"
 #: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:28
 #: ../../app/views/branded/paginable/templates/_history.html.erb:27
 #: ../../app/views/branded/paginable/templates/_history.html.erb:33
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:32
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:36
+#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:33
+#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:37
 msgid "(new window)"
 msgstr "(nouvelle fenêtre)"
 
@@ -1476,17 +1476,17 @@ msgstr "Nom de l'organisme"
 msgid "Organisation Type"
 msgstr "Type d'organisme"
 
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:22
+#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:23
 #: ../../app/views/branded/phases/_edit_plan_answers.html.erb:3
 #: ../../app/views/branded/shared/export/_plan_coversheet.erb:8
 msgid "Customized"
 msgstr "Personnalisé"
 
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:42
+#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:43
 msgid "Copy link to create a new plan"
 msgstr "Copier le lien pour créer un nouveau plan"
 
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:44
+#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:45
 msgid "Requires login"
 msgstr "Connexion requise"
 
@@ -1579,7 +1579,7 @@ msgstr "Commentaires & Recommandations"
 msgid "Comments"
 msgstr "Commentaires"
 
-#: ../../app/views/branded/phases/_guidances_notes_runs.html.erb:30
+#: ../../app/views/branded/phases/_guidances_notes_runs.html.erb:32
 msgid "Runs"
 msgstr "Runs"
 
@@ -1712,21 +1712,21 @@ msgstr "Veuillez saisir l’acronyme, le titre ou l’identifiant du projet"
 msgid "Find out more."
 msgstr "Pour en savoir plus."
 
-#: ../../app/views/branded/plans/_edit_details.html.erb:73
+#: ../../app/views/branded/plans/_edit_details.html.erb:74
 msgid "Is it a test plan ?"
 msgstr "Est-ce un plan test ?"
 
-#: ../../app/views/branded/plans/_edit_details.html.erb:74
+#: ../../app/views/branded/plans/_edit_details.html.erb:78
 msgid "mock project for testing, practice, or educational purposes"
 msgstr "projet de test, d'entrainement ou à des fins de formation"
 
-#: ../../app/views/branded/plans/_edit_details.html.erb:136
+#: ../../app/views/branded/plans/_edit_details.html.erb:140
 #: ../../app/views/branded/plans/_show_details.html.erb:70
 #: ../../app/views/branded/shared/export/_plan_coversheet.erb:21
 msgid "Plan Details"
 msgstr "Renseignements sur le plan"
 
-#: ../../app/views/branded/plans/_edit_details.html.erb:199
+#: ../../app/views/branded/plans/_edit_details.html.erb:203
 msgid "Plan Guidance Configuration"
 msgstr "Configuration du recommandations du plan"
 
@@ -2070,43 +2070,43 @@ msgstr "Informations supplémentaires"
 msgid "Abbreviated Name (20 chars max.)"
 msgstr "Nom abrégé (20 caractères max.)"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:14
+#: ../../app/views/branded/research_outputs/_list.html.erb:16
 msgid "Research output name (20 chars max.)"
 msgstr "Nom du produit de recherche (limité à 20 caractères.)"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:18
+#: ../../app/views/branded/research_outputs/_list.html.erb:20
 msgid "Full Title"
 msgstr "Titre complet"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:20
+#: ../../app/views/branded/research_outputs/_list.html.erb:24
 msgid "Research output fullname"
 msgstr "Nom développé du produit de recherche"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:26
+#: ../../app/views/branded/research_outputs/_list.html.erb:30
 msgid "Type"
 msgstr "Type"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:45
+#: ../../app/views/branded/research_outputs/_list.html.erb:49
 msgid "Contact"
 msgstr "Personne contact"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:66
+#: ../../app/views/branded/research_outputs/_list.html.erb:70
 msgid "Persistent Identifier"
 msgstr "Identifiant Pérenne"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:68
+#: ../../app/views/branded/research_outputs/_list.html.erb:72
 msgid "If exists, please fill in the research output persistant identifier."
 msgstr "Renseigner l’identifiant pérenne du produit de recherche s’il existe."
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:80
+#: ../../app/views/branded/research_outputs/_list.html.erb:84
 msgid "Edit research output"
 msgstr "Modifier le produit de recherche"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:83
+#: ../../app/views/branded/research_outputs/_list.html.erb:87
 msgid "Move research output"
 msgstr "Déplacer le produit de recherche"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:87
+#: ../../app/views/branded/research_outputs/_list.html.erb:91
 msgid ""
 "Deleting this research output will remove the associated answers. Do you confi"
 "rm ?"
@@ -2114,7 +2114,7 @@ msgstr ""
 "En supprimant ce produit de recherche, les réponses associées seront également"
 " supprimées. Confirmez-vous la suppression ?"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:90
+#: ../../app/views/branded/research_outputs/_list.html.erb:94
 msgid "Delete research output"
 msgstr "Supprimer le produit de recherche"
 
@@ -2211,7 +2211,7 @@ msgstr ""
 "uton \"Recharger\""
 
 #:
-#: ../../app/views/branded/shared/dynamic_form/fields/_fragment_select_field.html.erb:55
+#: ../../app/views/branded/shared/dynamic_form/fields/_fragment_select_field.html.erb:60
 msgid "Selected value:"
 msgstr "Valeur sélectionnée :"
 
@@ -2219,6 +2219,25 @@ msgstr "Valeur sélectionnée :"
 #: ../../app/views/branded/shared/dynamic_form/fields/_textarea_field.html.erb:29
 msgid "Example"
 msgstr "Exemple"
+
+#:
+#: ../../app/views/branded/shared/dynamic_form/fields/registry/_multiple.html.erb:5
+#: ../../app/views/branded/shared/dynamic_form/fields/registry/_simple.html.erb:5
+#: ../../app/views/branded/shared/dynamic_form/fields/registry/_single_complex.html.erb:6
+msgid "Select a value from the list or type a new one."
+msgstr "Sélectionnez une valeur de la liste ou saisissez une nouvelle."
+
+#:
+#: ../../app/views/branded/shared/dynamic_form/fields/registry/_multiple.html.erb:5
+#: ../../app/views/branded/shared/dynamic_form/fields/registry/_simple.html.erb:5
+#: ../../app/views/branded/shared/dynamic_form/fields/registry/_single_complex.html.erb:6
+msgid "Select a value from the list."
+msgstr "Sélectionnez une valeur de la liste."
+
+#:
+#: ../../app/views/branded/shared/dynamic_form/fields/registry/_multiple.html.erb:36
+msgid "Selected values"
+msgstr "Valeurs sélectionnées"
 
 #:
 #: ../../app/views/branded/shared/dynamic_form/fields/registry/_multiple_complex.html.erb:6
@@ -2231,19 +2250,7 @@ msgid "Select a value you want to add to your plan."
 msgstr "Sélectionnez une valeur pour l'ajouter à votre plan."
 
 #:
-#: ../../app/views/branded/shared/dynamic_form/fields/registry/_simple.html.erb:5
-#: ../../app/views/branded/shared/dynamic_form/fields/registry/_single_complex.html.erb:6
-msgid "Select a value from the list or type a new one."
-msgstr "Sélectionnez une valeur de la liste ou saisissez une nouvelle."
-
-#:
-#: ../../app/views/branded/shared/dynamic_form/fields/registry/_simple.html.erb:5
-#: ../../app/views/branded/shared/dynamic_form/fields/registry/_single_complex.html.erb:6
-msgid "Select a value from the list."
-msgstr "Sélectionnez une valeur de la liste."
-
-#:
-#: ../../app/views/branded/shared/dynamic_form/fields/registry/_simple.html.erb:53
+#: ../../app/views/branded/shared/dynamic_form/fields/registry/_simple.html.erb:47
 #: ../../app/views/branded/shared/dynamic_form/fields/registry/_single_complex.html.erb:63
 msgid "Custom value: "
 msgstr "Valeur personnalisée : "
@@ -2462,11 +2469,11 @@ msgstr "DMP: %{phase_link}"
 msgid "Section name: %{section_title}"
 msgstr "Nom de section: %{section_title}"
 
-#: ../../app/views/branded/user_mailer/new_comment.html.erb:22
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:21
 msgid "Research output name: %{research_output_name}"
 msgstr "Nom du produit de recherche : %{research_output_name}"
 
-#: ../../app/views/branded/user_mailer/new_comment.html.erb:27
+#: ../../app/views/branded/user_mailer/new_comment.html.erb:24
 msgid "Question: %{question_number}"
 msgstr "Question: %{question_number}"
 
