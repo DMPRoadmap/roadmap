@@ -136,6 +136,7 @@
  - Add configuration for wicked_pdf proxy
  - Add Google analytics
  - Add rake tasks to remove span accounts
+ - Add sandbox database environment
 
 ### Removed
  - Remove references of "Do not reply" on mailers as we are now expecting replies from application emails
@@ -164,4 +165,4 @@
  - Fix 500 error when downloading usage statistics
  - Fix name of downloaded usage file
  - Allow organizational admin to see the download button in 'Statisctics on Users' and 'Statistics on Tempalte' accordions
-
+- Upgrade node-sass to 7, node to 12 and adjust eslint test to use Github default action
