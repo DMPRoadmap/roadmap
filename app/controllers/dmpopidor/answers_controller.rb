@@ -87,8 +87,8 @@ module Dmpopidor
         @plan = ::Plan.includes(
           sections: {
             questions: %i[
+              answers
               question_format
-              answers: madmp_fragment
             ]
           }
         ).find(p_params[:plan_id])

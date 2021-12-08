@@ -21,9 +21,8 @@ module SuperAdmin
       authorize(MadmpSchema)
       @schema = MadmpSchema.new(permitted_params.except(:schema))
       if @schema.save
-        @schema.update(
-          schema: MadmpSchema.substitute_names(JSON.parse(permitted_params[:schema]))
-        )
+        json_schema = MadmpSchema.substitute_names(JSON.parse(permitted_params[:schema]))
+        @schema.update(schema: json_schema)
         flash.now[:notice] = success_message(@schema, _("created"))
         render :edit
       else
@@ -39,9 +38,8 @@ module SuperAdmin
     def update
       authorize(MadmpSchema)
       if @schema.update_attributes(permitted_params.except(:schema))
-        @schema.update(
-          schema: MadmpSchema.substitute_names(JSON.parse(permitted_params[:schema]))
-        )
+        json_schema = MadmpSchema.substitute_names(JSON.parse(permitted_params[:schema]))
+        @schema.update(schema: json_schema)
         flash.now[:notice] = success_message(@schema, _("updated"))
       else
         flash.now[:alert] = failure_message(@schema, _("update"))
