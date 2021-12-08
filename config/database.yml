@@ -26,6 +26,10 @@ staging:
   <<: *defaults
   url: <%= Rails.application.secrets.database_url %>
 
+sandbox:
+  <<: *defaults
+  url: <%= Rails.application.secrets.database_url %>
+   
 production:
   <<: *defaults
   url: <%= Rails.application.secrets.database_url %>
