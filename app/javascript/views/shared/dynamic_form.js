@@ -6,6 +6,7 @@ import {
   singleSelectHandler,
   multiSelectHandler,
 } from '../../utils/select2';
+import { formLoadingCallback } from '../../utils/dynamicFormHelper';
 
 $(() => {
   // When clicking on the "+" of a duplicable field, clone the field & remove
@@ -154,5 +155,9 @@ $(() => {
   $(document).on('click', '.cancel-project-search', () => {
     $('#plan_project').find('.project-selector').fadeOut();
     $('#plan_project .error-zone').fadeOut();
+  });
+
+  $('#modal-window').on('show.bs.modal', () => {
+    formLoadingCallback(null, null, 'modal_form');
   });
 });

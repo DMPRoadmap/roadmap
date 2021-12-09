@@ -280,7 +280,7 @@ module DynamicFormHelper
 
       case prop["type"]
       when "integer", "number"
-        formated_data[key] = data[key].to_i
+        formated_data[key] = data[key].tr(" ", "").to_i
       when "boolean"
         formated_data[key] = data[key] == "1"
       when "array"

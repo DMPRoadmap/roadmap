@@ -25,6 +25,7 @@
   "homepage": "https://github.com/DMPRoadmap/roadmap#readme",
   "dependencies": {
     "@rails/webpacker": "3.5",
+    "autonumeric": "^4.6.0",
     "bootstrap": "^4.1.3",
     "bootstrap-3-typeahead": "^4.0.2",
     "bootstrap-sass": "^3.3.7",
