@@ -65,7 +65,9 @@ module OrgSelectable
 
     # Converts the incoming params_into an Org by either locating it
     # via its id, identifier and/or name, or initializing a new one
-    def org_from_params(params_in:, allow_create: true)
+    # the default allow_create is based off restrict_orgs
+    def org_from_params(params_in:, 
+                        allow_create: !Rails.configuration.x.application.restrict_orgs)
       # params_in = params_in.with_indifferent_access
       return nil unless params_in[:org_id].present? &&
                         params_in[:org_id].is_a?(String)

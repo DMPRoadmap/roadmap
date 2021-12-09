@@ -304,7 +304,7 @@ class RegistrationsController < Devise::RegistrationsController
   def handle_org(attrs:)
     return attrs unless attrs.present? && attrs[:org_id].present?
 
-    org = org_from_params(params_in: attrs, allow_create: true)
+    org = org_from_params(params_in: attrs)
 
     # Remove the extraneous Org Selector hidden fields
     attrs = remove_org_selection_params(params_in: attrs)
