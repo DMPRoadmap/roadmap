@@ -22,7 +22,7 @@ module Dmptool
     # GET /users/third_party_apps
     def third_party_apps
       # Displays the user's 3rd party applications profile page
-      authorize current_user
+      authorize ::User
 
       @identifier_schemes = IdentifierScheme.for_users.order(:name)
       @tokens = current_user.access_tokens.select { |token| token.revoked_at.nil? }
@@ -31,7 +31,7 @@ module Dmptool
     # GET /users/developer_tools
     def developer_tools
       # Displays the user's developer tools profile page
-      authorize current_user
+      authorize ::User
 
       @api_client = ApiClient.find_or_initialize_by(user_id: current_user.id)
       @api_client.contact_name = current_user.name(false) unless @api_client.contact_name.present?

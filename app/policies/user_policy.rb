@@ -85,6 +85,15 @@ class UserPolicy < ApplicationPolicy
     @user.present?
   end
 
+  # Aliases due to lack of support for namespacing
+  def users_third_party_apps_path?
+    third_party_apps?
+  end
+
+  def users_developer_tools_path?
+    developer_tools?
+  end
+
   # Basic scope for the current user
   class Scope < Scope
     def resolve

@@ -18,7 +18,6 @@ RSpec.describe Dmptool::UsersController, type: :request do
   describe 'GET /users/third_party_apps - :third_party_apps' do
     it 'it is not accessible when not logged in' do
       get users_third_party_apps_path
-      expect(response).to have_http_status(:not_authorized)
       expect(response).to redirect_to(root_path)
     end
     it 'is accessible when logged in' do
@@ -32,7 +31,6 @@ RSpec.describe Dmptool::UsersController, type: :request do
   describe 'GET /users/developer_tools - :developer_tools' do
     it 'it is not accessible when not logged in' do
       get users_developer_tools_path
-      expect(response).to have_http_status(:not_authorized)
       expect(response).to redirect_to(root_path)
     end
     it 'is accessible when logged in' do

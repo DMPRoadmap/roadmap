@@ -41,8 +41,8 @@ module Dmptool
           if invitee.save(params)
             UserMailer.invitation(inviter, invitee, plan).deliver_now
             invitee.update(invitation_sent_at: Time.now)
-            invitee
           end
+          invitee
         end
       end
       # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity

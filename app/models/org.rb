@@ -60,9 +60,6 @@ class Org < ApplicationRecord
 
   # Prevent XSS attempts
   before_validation ->(data) { data.sanitize_fields(:name) }
-
-  # Allows an Org to invite a user via the 'Email template' link on the Templates page
-  devise :invitable
   # ----------------------------------------
   # End DMPTool Customization
   # ----------------------------------------

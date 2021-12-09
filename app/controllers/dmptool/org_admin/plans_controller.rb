@@ -8,7 +8,8 @@ module Dmptool
     module PlansController
       # POST /org_admin/plans
       def create
-        template = Template.find_by(id: plan_params[:template_attributes][:id])
+        template = ::Template.find_by(id: plan_params[:template_attributes][:id])
+
         # Just piggyback off of the Template create policy since only
         # an OrgAdmin is allowed to do this
         authorize template
@@ -20,9 +21,9 @@ module Dmptool
 
         # Find or initialize the User and then create a new Plan for the template and
         # either the user's org or the org admin's org if the user is new
-        user = User.find_or_initialize_by(email: plan_params[:user][:email])
-        plan = Plan.create(template: template, title: "#{template.title} DMP",
-                           org: user.org || current_user.org)
+        user = ::User.find_or_initialize_by(email: plan_params[:user][:email])
+        plan = ::Plan.create(template: template, title: "#{template.title} DMP",
+                             org: user.org || current_user.org)
         notify_user(user: user, plan: plan)
 
         msg = format(_("A new DMP has been created and an email sent to '%<email>s'."),
@@ -44,10 +45,10 @@ module Dmptool
 
         if user.new_record?
           # The email address was unknown so send the user an invitation.
-          user = User.invite!(
+          user = ::User.invite!(
             inviter: current_user,
             plan: plan,
-            params: { email: plan_params[:user][:email], org: current_user.org }
+            params: { email: user.email, org: current_user.org }
           )
         else
           UserMailer.new_plan_via_template(
