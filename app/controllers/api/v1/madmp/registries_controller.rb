@@ -21,8 +21,7 @@ module Api
           begin
             registry = Registry.includes(:registry_values).find_by!(name: params[:name])
             render json: {
-              "name" => registry.name,
-              "values" => registry.registry_values.map(&:data)
+              registry.name => registry.registry_values.map(&:data)
             }
           rescue ActiveRecord::RecordNotFound
             render_error(errors: [_("Registry not found")], status: :not_found)

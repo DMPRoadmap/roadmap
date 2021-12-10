@@ -1352,7 +1352,7 @@ header .main-nav {
             flex-direction: column;
             ul.selected-values {
                 display: flex;
-                flex-wrap: wrap;
+                flex-direction: column;
                 .selected-value  {
                     flex: 1 1 25%;
                 }

@@ -8,13 +8,16 @@
   </div>
 <% end %>
 <div class="col-md-12 dynamic-field">
-  <%= f.number_field field_name, 
+  <%= f.text_field field_name, 
             value: field_value,
-            min: minimum, max: maximum,
             multiple: multiple, 
             disabled: readonly,
-            class: "form-control #{field_class}",
-            data: { toggle: 'tooltip' },
+            class: "form-control number-field #{field_class}",
+            data: { 
+              toggle: 'tooltip',
+              "minimum-value": minimum.present? ? minimum.to_s : '-10000000000000',
+              "maximum-value": maximum.present? ? maximum.to_s : '10000000000000'
+            },
             title: ttip,
             id: field_id  %>
   <% if multiple %>

@@ -30,7 +30,7 @@
               <td class="property-label"><%= label %></td> 
               <td class="property-value"><ul>
                 <% values.each do |val| %>
-                  <li><%= val.to_s %></li>
+                  <li><%= raw val.to_s %></li>
                 <% end %>
               </ul></td> 
             </tr>
