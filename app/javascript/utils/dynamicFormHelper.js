@@ -33,4 +33,12 @@ export const formLoadingCallback = (data, target, source) => {
   });
 };
 
+$(() => {
+  $(document).on('focusin', (e) => {
+    if ($(e.target).closest('.mce-window').length) {
+      e.stopImmediatePropagation();
+    }
+  });
+});
+
 export default formLoadingCallback;
