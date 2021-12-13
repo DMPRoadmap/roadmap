@@ -31,7 +31,7 @@
             <%= select_tag "research_output[other_type_label]",
                         options_for_select(
                             registryValues.map {|v| [ 
-                                    v.to_s(template_locale), 
+                                    v.to_s(locale: template_locale), 
                                     select_value(v, template_locale) 
                                 ] 
                             },

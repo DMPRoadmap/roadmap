@@ -2,11 +2,13 @@
 
 module Dmpopidor
 
+  # rubocop:disable Metrics/ModuleLength
   module Plan
 
     include DynamicFormHelper
 
     # CHANGES : ADDED RESEARCH OUTPUT SUPPORT
+    # rubocop:disable Metrics/AbcSize
     def answer(qid, create_if_missing = true, roid = nil)
       answer = answers.select { |a| a.question_id == qid && a.research_output_id == roid }
                       .max { |a, b| a.created_at <=> b.created_at }
@@ -24,6 +26,7 @@ module Dmpopidor
       end
       answer
     end
+    # rubocop:enable Metrics/AbcSize
 
     # CHANGES : Reviewer can be from a different org of the plan owner
     def reviewable_by?(user_id)
@@ -47,9 +50,11 @@ module Dmpopidor
       Fragment::Dmp.where("(data->>'plan_id')::int = ?", id).first
     end
 
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def create_plan_fragments
       template_locale = template.locale.eql?("en_GB") ? "eng" : "fra"
       plan_owner = owner
+      # rubocop:disable Metrics/BlockLength
       I18n.with_locale template.locale do
         dmp_fragment = Fragment::Dmp.create!(
           data: {
@@ -137,7 +142,9 @@ module Dmpopidor
         dmp_coordinator.update(parent_id: meta.id)
         project_coordinator.update(parent_id: project.id)
       end
+      # rubocop:enable Metrics/BlockLength
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     def copy_plan_fragments(plan)
       create_plan_fragments if json_fragment.nil?
@@ -146,7 +153,7 @@ module Dmpopidor
       raw_project = incoming_dmp.project.get_full_fragment
       raw_meta = incoming_dmp.meta.get_full_fragment
       raw_meta = raw_meta.merge(
-        "title" => "Copy of " + raw_meta["title"]
+        "title" => "Copy of #{raw_meta['title']}"
       )
 
       json_fragment.project.raw_import(raw_project, json_fragment.project.madmp_schema)
@@ -154,5 +161,6 @@ module Dmpopidor
     end
 
   end
+  # rubocop:enable Metrics/ModuleLength
 
 end

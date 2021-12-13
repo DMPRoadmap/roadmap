@@ -19,13 +19,13 @@ module Dmpopidor
     def display_visibility(val)
       case val
       when "organisationally_visible"
-        "<span title=\"#{ visibility_tooltip(val) }\">#{_('Organisation')}</span>"
+        "<span title=\"#{visibility_tooltip(val)}\">#{_('Organisation')}</span>"
       when "publicly_visible"
-        "<span title=\"#{ visibility_tooltip(val) }\">#{_('Public')}</span>"
+        "<span title=\"#{visibility_tooltip(val)}\">#{_('Public')}</span>"
       when "administrator_visible"
-        "<span title=\"#{ visibility_tooltip(val) }\">#{_('Administrator')}</span>"
+        "<span title=\"#{visibility_tooltip(val)}\">#{_('Administrator')}</span>"
       when "privately_visible"
-        "<span title=\"#{ visibility_tooltip(val) }\">#{_('Private')}</span>"
+        "<span title=\"#{visibility_tooltip(val)}\">#{_('Private')}</span>"
       else
         "<span>#{_('Private')}</span>" # Test Plans
       end
@@ -39,7 +39,9 @@ module Dmpopidor
       when "publicly_visible"
         _("Public: anyone can view.")
       when "administrator_visible"
+        # rubocop:disable Layout/LineLength
         _("Administrator: visible to me, specified collaborators and administrators at my organisation.")
+        # rubocop:enable Layout/LineLength
       else
         _("Private: restricted to me and people I invite.")
       end

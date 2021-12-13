@@ -59,8 +59,8 @@ module Dmpopidor
     end
 
     # Get the parameters corresponding to the schema
-    def schema_params(schema, form_prefix, flat = false)
-      s_params = schema.generate_strong_params(flat)
+    def schema_params(schema, form_prefix, flat: false)
+      s_params = schema.generate_strong_params(flat: flat)
       params.require(:plan)[form_prefix].permit(s_params)
     end
 

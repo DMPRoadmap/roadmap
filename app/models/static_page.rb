@@ -63,4 +63,5 @@ class StaticPage < ApplicationRecord
       name
     end
   end
+
 end

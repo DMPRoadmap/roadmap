@@ -26,7 +26,7 @@ module Dmpopidor
             @templates = @templates.map do |tmplt|
               customization = ::Template.published
                                         .latest_customized_version(tmplt.family_id,
-                                                                 org.id).first
+                                                                   org.id).first
               # Only provide the customized version if its still up to date with the
               # funder template!
               # rubocop:disable Metrics/BlockNesting

@@ -50,10 +50,10 @@ module Dmpopidor
         format.text { show_text }
         format.docx { show_docx }
         format.pdf  { show_pdf }
-        format.json {
+        format.json do
           selected_research_outputs = params[:selected_research_outputs]&.map(&:to_i) || @plan.research_output_ids
           show_json(selected_research_outputs, params[:json_format])
-        }
+        end
       end
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

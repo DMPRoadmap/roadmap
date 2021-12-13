@@ -4,6 +4,7 @@ class MadmpCodebaseController < ApplicationController
 
   after_action :verify_authorized
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def run
     fragment = MadmpFragment.find(params[:fragment_id])
     schema_runs = fragment.madmp_schema.extract_run_parameters
@@ -22,7 +23,7 @@ class MadmpCodebaseController < ApplicationController
     # return
     begin
       response = fetch_run_data(fragment, script_id, params: params)
-      if response["return_code"]&.eql?(0)
+      if response["return_code"].eql?(0)
         if response["data"].empty?
           render json: {
             "message" => _("Notification has been sent"),
@@ -49,6 +50,7 @@ class MadmpCodebaseController < ApplicationController
       }, status: 500
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def anr_search
     anr_project_id = params[:project_id]
@@ -68,7 +70,7 @@ class MadmpCodebaseController < ApplicationController
 
     begin
       response = fetch_run_data(fragment, script_id, custom_data: { "grantId": anr_project_id })
-      if response["return_code"]&.eql?(0)
+      if response["return_code"].eql?(0)
         dmp_fragment.raw_import(response["data"], dmp_fragment.madmp_schema)
         render json: {
           "message" => _('New data have been added to your plan, please click on the "Reload" button.'),

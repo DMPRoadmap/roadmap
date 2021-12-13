@@ -14,9 +14,10 @@ class ResearchOutputsController < ApplicationController
     flash[:alert] = _("There is no plan associated with id %{id}") % {
       id: params[:id]
     }
-    redirect_to(:controller => "plans", :action => "index")
+    redirect_to(controller: "plans", action: "index")
   end
 
+  # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
   def update
     @plan = Plan.find(params[:plan_id])
     @research_output = ResearchOutput.find(params[:id])
@@ -35,17 +36,19 @@ class ResearchOutputsController < ApplicationController
         )
       end
       render json: {
-        "html" => render_to_string(partial: "research_outputs/list", locals: {
+        "html" => render_to_string(partial: "research_outputs/list", locals:
+          {
             plan: @plan,
             research_outputs: @plan.research_outputs,
             readonly: false
-        })
+          })
       }
     else
       flash[:alert] = failure_message(@research_output, _("update"))
       redirect_to(action: "index")
     end
   end
+  # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
 
   def destroy
     @plan = Plan.find(params[:plan_id])

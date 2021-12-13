@@ -2,6 +2,7 @@
 
 module Dmpopidor
 
+  # rubocop:disable Metrics/ModuleLength
   module AnswersController
 
     # Added Research outputs support
@@ -189,7 +190,7 @@ module Dmpopidor
 
     # Get the parameters corresponding to the schema
     def schema_params(data, schema, flat: false)
-      s_params = schema.generate_strong_params(flat)
+      s_params = schema.generate_strong_params(flat: flat)
       data.require(:answer).permit(s_params)
     end
 
@@ -211,5 +212,6 @@ module Dmpopidor
     end
 
   end
+  # rubocop:enable Metrics/ModuleLength
 
 end

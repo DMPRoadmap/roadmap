@@ -23,7 +23,9 @@ module Dmpopidor
     end
 
     def get_answers_for_section(section_id)
+      # rubocop:disable Layout/LineLength
       answers.select { |answer| answer.question_id.in?(Section.find(section_id).questions.pluck(:id)) }
+      # rubocop:enable Layout/LineLength
     end
 
     def json_fragment
@@ -34,7 +36,9 @@ module Dmpopidor
       Fragment::ResearchOutput.where("(data->>'research_output_id')::int = ?", id).destroy_all
     end
 
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def create_json_fragments
+      # rubocop:disable Metrics/BlockLength
       I18n.with_locale plan.template.locale do
         fragment = json_fragment
         dmp_fragment = plan.json_fragment
@@ -42,7 +46,9 @@ module Dmpopidor
         if fragment.nil?
           # Fetch the first question linked with a ResearchOutputDescription schema
           description_question = plan.questions.joins(:madmp_schema)
-                                     .find_by(madmp_schemas: { classname: "research_output_description" } )
+                                     .find_by(
+                                       madmp_schemas: { classname: "research_output_description" }
+                                     )
 
           # Creates the main ResearchOutput fragment
           fragment = Fragment::ResearchOutput.create(
@@ -74,7 +80,8 @@ module Dmpopidor
 
           if description_question.present? && plan.template.structured?
             # Create a new answer for the ResearchOutputDescription Question
-            # This answer will be displayed in the Write Plan tab, pre filled with the ResearchOutputDescription info
+            # This answer will be displayed in the Write Plan tab,
+            # pre filled with the ResearchOutputDescription info
             fragment_description.answer = Answer.create(
               question_id: description_question.id,
               research_output_id: id,
@@ -94,7 +101,9 @@ module Dmpopidor
           fragment.research_output_description.update(data: data)
         end
       end
+      # rubocop:enable Metrics/BlockLength
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     ##
     # deep copy the given research output

@@ -60,7 +60,7 @@ class MadmpSchema < ApplicationRecord
     "data_sharing" => "sharing",
     "data_preservation" => "preservationIssues",
     "budget" => "budget"
-  }
+  }.freeze
 
   # ==========
   # = Scopes =
@@ -78,7 +78,7 @@ class MadmpSchema < ApplicationRecord
   # =================
 
   def detailed_name
-    label + " ( " + name + "_V" + version.to_s + " )"
+    "#{label} ( #{name}_V#{version} )"
   end
 
   def description
@@ -97,22 +97,22 @@ class MadmpSchema < ApplicationRecord
 
   def sub_schemas_ids
     path = JsonPath.new("$..schema_id")
-    ids = path.on(schema)
-    ids
+    path.on(schema)
   end
 
-  def generate_strong_params(flat = false)
+  # rubocop:disable Metrics/AbcSize
+  def generate_strong_params(flat: false)
     parameters = []
     properties.each do |key, prop|
       if prop["type"] == "object" && prop["schema_id"].present?
-        if prop["inputType"]&.eql?("pickOrCreate")
+        if prop["inputType"].eql?("pickOrCreate")
           parameters.append(key)
         elsif prop["registry_id"].present?
           parameters.append(key)
           parameters.append("#{key}_custom") if prop["overridable"].present?
         else
           sub_schema = MadmpSchema.find(prop["schema_id"])
-          parameters.append(key => sub_schema.generate_strong_params(false))
+          parameters.append(key => sub_schema.generate_strong_params(flat: false))
         end
       elsif prop["type"].eql?("array") && !flat
         parameters.append(key => [])
@@ -123,6 +123,7 @@ class MadmpSchema < ApplicationRecord
     end
     parameters
   end
+  # rubocop:enable Metrics/AbcSize
 
   # Used by "Write Plan" tab for determining the property_name of a new fragment
   # from the classname of the corresponding schema

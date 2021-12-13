@@ -4,7 +4,7 @@
 <% field_name = defined?(form_prefix) ? "#{form_prefix}[#{property_name}]" : property_name %>
 <% intermediate_message = overridable ? _("Select a value from the list or type a new one.") : _("Select a value from the list.")%>
 <% 
-  formatted_values = select_values.map {|v| [v.to_s(locale), select_value(v, locale)]}
+  formatted_values = select_values.map {|v| [v.to_s(locale: locale), select_value(v, locale)]}
 %>
 <% unless field_label.nil? %>
   <div class="col-md-12">

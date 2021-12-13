@@ -48,9 +48,9 @@
             </label>
             <%= select_tag "anr_project",
                         options_for_select(
-                            select_values.sort_by { |v| v.to_s(locale)}
+                            select_values.sort_by { |v| v.to_s(locale: locale)}
                                          .map {|v| [ 
-                                    v.to_s(locale), 
+                                    v.to_s(locale: locale), 
                                     select_value(v, locale) 
                                 ] 
                             }
