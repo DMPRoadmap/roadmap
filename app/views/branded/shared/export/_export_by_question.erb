@@ -31,52 +31,46 @@
 
         <% if !section_has_common_answers %>
           <h4><%= research_output_description.data['title'] %></h4>
-
         <% end %>
-        
-        
-        <%# case where question has not been answered sufficiently to display%>
-        <% if @show_unanswered %>
-          <%# case where Question has options %>
-          <% if options.any? %>
-            <ul>
-            <% options.each do |opt| %>
-              <li><%= opt.text %></li>
-            <% end %>
-            </ul>
+        <%# case where Question has options %>
+        <% if options.any? %>
+          <ul>
+          <% options.each do |opt| %>
+            <li><%= opt.text %></li>
           <% end %>
-          <% if question[:format].rda_metadata? && !blank %>
-            <% ah = answer.answer_hash %>
-            <% if ah['standards'].present? %>
-            <ul>
-              <% ah['standards'].each do |id, title| %>
-              <li><%= title %></li>
-              <% end %>
-            </ul>
+          </ul>
+        <% end %>
+        <% if question[:format].rda_metadata? && !blank %>
+          <% ah = answer.answer_hash %>
+          <% if ah['standards'].present? %>
+          <ul>
+            <% ah['standards'].each do |id, title| %>
+            <li><%= title %></li>
             <% end %>
-            <p><%= sanitize ah['text'] %></p>
-            <br/>
-          <% elsif question[:format].structured? && fragment.present? %>
-            <%= render partial: 'shared/export/display_madmp_fragment', 
-                        locals: {
-                            fragment: fragment,
-                            schema: fragment.madmp_schema,
-                            classname: fragment.classname,
-                            locale: @plan.template.locale,
-                            table_header: nil
-                        } %>
-          <%# case for displaying comments OR text %>
-          <% elsif !blank %>
-            <%= sanitize answer.text %>
-            <br/>
-          <% else %>
-            <br/>
-            <p><%= _('Question not answered.') -%></p>
-            <br/><br/>
-            <br />
+          </ul>
           <% end %>
+          <p><%= sanitize ah['text'] %></p>
+          <br/>
+        <% elsif question[:format].structured? && fragment.present? %>
+          <%= render partial: 'shared/export/display_madmp_fragment', 
+                      locals: {
+                          fragment: fragment,
+                          schema: fragment.madmp_schema,
+                          classname: fragment.classname,
+                          locale: @plan.template.locale,
+                          table_header: nil
+                      } %>
+        <%# case for displaying comments OR text %>
+        <% elsif !blank %>
+          <%= sanitize answer.text %>
+          <br/>
+        <% else %>
+          <br/>
+          <p><%= _('Question not answered.') -%></p>
+          <br/><br/>
           <br />
         <% end %>
+        <br />
       <% end %>
       <% if section_has_common_answers %>
         <% break %> <!-- break if is research output has common answers, only display the first -->
