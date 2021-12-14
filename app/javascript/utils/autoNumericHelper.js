@@ -6,7 +6,7 @@ export const AutoNumericHelper = {
       // eslint-disable-next-line no-new
       new AutoNumeric(
         classname,
-        { digitGroupSeparator: ' ', decimalPlaces: '0' },
+        { digitGroupSeparator: ' ', decimalPlaces: '0', overrideMinMaxLimits: 'invalid' },
       );
     }
   },
