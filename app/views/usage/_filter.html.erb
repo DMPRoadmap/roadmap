@@ -39,7 +39,7 @@
             <div class="col-md-5">
               <div class="form-group">
                 <%= f.label :org_id, _('Organisation') %>
-                <%= f.select :org_id, options_from_collection_for_select(Org.all, :id, :name), {include_blank: "All"}, class: 'form-control' %>
+                <%= f.select :org_id, options_from_collection_for_select(Org.managed, :id, :name), {include_blank: "All"}, class: 'form-control' %>
               </div>
             </div>
         <% end %>
