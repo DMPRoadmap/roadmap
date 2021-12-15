@@ -163,7 +163,6 @@ class PlansController < ApplicationController
       plans_guidance_groups: { guidance_group: :guidances }
     ).find(params[:id])
     authorize @plan
-
     @visibility = if @plan.visibility.present?
                     @plan.visibility.to_s
                   else
