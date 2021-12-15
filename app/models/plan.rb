@@ -64,9 +64,9 @@ class Plan < ApplicationRecord
     is_test]
 
   FUNDING_STATUS = {
-    planned: _("planned"),
-    funded: _("funded"),
-    denied: _("denied")
+    planned: _("Planned"),
+    funded: _("Funded"),
+    denied: _("Denied")
   }.freeze
 
   # ==============
