@@ -149,7 +149,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
   <div id="funder-org-controls" class="form-group">
     <div class="col-md-8">
       <%= form.fields_for :funder, Org.new do |funder_fields| %>
-        <%= render partial: "shared/org_selectors/local_only",
+        <%= render partial: "shared/org_selectors/text_only",
                     locals: {
                       form: funder_fields,
                       id_field: :id,
