@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-12-13 14:18-0500\n"
-"PO-Revision-Date: 2021-12-13 20:18+0100\n"
+"POT-Creation-Date: 2021-12-15 13:48-0500\n"
+"PO-Revision-Date: 2021-12-15 19:49+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_CA\n"
@@ -3763,7 +3763,7 @@ msgid ""
 msgstr ""
 
 msgid "Project Name"
-msgstr ""
+msgstr "Nom du projet"
 
 msgid ""
 "Identify who will be responsible for managing this project's data during and a"
@@ -29261,8 +29261,8 @@ msgstr "ajoutée"
 #: ../../app/controllers/org_admin/sections_controller.rb:102
 #: ../../app/controllers/org_admin/templates_controller.rb:203
 #: ../../app/controllers/orgs_controller.rb:87
-#: ../../app/controllers/plans_controller.rb:280
-#: ../../app/controllers/plans_controller.rb:283
+#: ../../app/controllers/plans_controller.rb:279
+#: ../../app/controllers/plans_controller.rb:282
 #: ../../app/controllers/registrations_controller.rb:249
 #: ../../app/controllers/registrations_controller.rb:253
 #: ../../app/controllers/registrations_controller.rb:278
@@ -29280,10 +29280,10 @@ msgstr "enregistré"
 #: ../../app/controllers/org_admin/sections_controller.rb:104
 #: ../../app/controllers/org_admin/templates_controller.rb:208
 #: ../../app/controllers/orgs_controller.rb:89
-#: ../../app/controllers/plans_controller.rb:289
-#: ../../app/controllers/plans_controller.rb:292
-#: ../../app/controllers/plans_controller.rb:296
-#: ../../app/controllers/plans_controller.rb:299
+#: ../../app/controllers/plans_controller.rb:288
+#: ../../app/controllers/plans_controller.rb:291
+#: ../../app/controllers/plans_controller.rb:295
+#: ../../app/controllers/plans_controller.rb:298
 #: ../../app/controllers/registrations_controller.rb:256
 #: ../../app/controllers/registrations_controller.rb:285
 msgid "save"
@@ -29380,7 +29380,7 @@ msgstr "annuler la publication"
 #: ../../app/controllers/org_admin/question_options_controller.rb:25
 #: ../../app/controllers/org_admin/questions_controller.rb:197
 #: ../../app/controllers/org_admin/sections_controller.rb:126
-#: ../../app/controllers/plans_controller.rb:342
+#: ../../app/controllers/plans_controller.rb:341
 #: ../../app/controllers/super_admin/api_clients_controller.rb:79
 #: ../../app/controllers/super_admin/notifications_controller.rb:84
 #: ../../app/controllers/super_admin/themes_controller.rb:50
@@ -29394,7 +29394,7 @@ msgstr "supprimé"
 #: ../../app/controllers/org_admin/question_options_controller.rb:27
 #: ../../app/controllers/org_admin/questions_controller.rb:199
 #: ../../app/controllers/org_admin/sections_controller.rb:128
-#: ../../app/controllers/plans_controller.rb:347
+#: ../../app/controllers/plans_controller.rb:346
 #: ../../app/controllers/super_admin/api_clients_controller.rb:82
 #: ../../app/controllers/super_admin/notifications_controller.rb:87
 #: ../../app/controllers/super_admin/themes_controller.rb:53
@@ -29456,7 +29456,7 @@ msgstr "Il est impossible de créer une nouvelle version de ce modèle."
 #: ../../app/controllers/org_admin/phases_controller.rb:144
 #: ../../app/controllers/org_admin/questions_controller.rb:166
 #: ../../app/controllers/org_admin/users_controller.rb:30
-#: ../../app/controllers/plans_controller.rb:413
+#: ../../app/controllers/plans_controller.rb:412
 #: ../../app/controllers/super_admin/api_clients_controller.rb:67
 #: ../../app/controllers/super_admin/notifications_controller.rb:51
 #: ../../app/controllers/super_admin/themes_controller.rb:39
@@ -29468,7 +29468,7 @@ msgstr "mis à jour"
 #: ../../app/controllers/org_admin/phases_controller.rb:146
 #: ../../app/controllers/org_admin/questions_controller.rb:169
 #: ../../app/controllers/org_admin/users_controller.rb:32
-#: ../../app/controllers/plans_controller.rb:416
+#: ../../app/controllers/plans_controller.rb:415
 #: ../../app/controllers/super_admin/api_clients_controller.rb:69
 #: ../../app/controllers/super_admin/notifications_controller.rb:54
 #: ../../app/controllers/super_admin/themes_controller.rb:41
@@ -29554,7 +29554,7 @@ msgid "%{template_type} was successfully copied."
 msgstr "%{template_type} copié avec succès."
 
 #: ../../app/controllers/org_admin/template_copies_controller.rb:18
-#: ../../app/controllers/plans_controller.rb:393
+#: ../../app/controllers/plans_controller.rb:392
 msgid "copy"
 msgstr "copier"
 
@@ -29686,11 +29686,11 @@ msgstr "Ce plan est fondé sur "
 msgid "template with customisations by the"
 msgstr "modèle avec des personnalisations par le"
 
-#: ../../app/controllers/plans_controller.rb:391
+#: ../../app/controllers/plans_controller.rb:390
 msgid "copied"
 msgstr "copié"
 
-#: ../../app/controllers/plans_controller.rb:421
+#: ../../app/controllers/plans_controller.rb:420
 msgid ""
 "Unable to change the plan's status since it is needed at least %{percentage} p"
 "ercentage responded"
@@ -29698,23 +29698,23 @@ msgstr ""
 "Il est impossible de modifier l’état du plan, car il est nécessaire d’obtenir "
 "un taux de réponse d’au moins %{percentage}"
 
-#: ../../app/controllers/plans_controller.rb:429
+#: ../../app/controllers/plans_controller.rb:428
 msgid "Unable to find plan id %{plan_id}"
 msgstr "Il est impossible de trouver l’ID du plan %{plan_id}"
 
-#: ../../app/controllers/plans_controller.rb:446
+#: ../../app/controllers/plans_controller.rb:445
 msgid "Your project is now a test."
 msgstr "Votre projet est maintenant à l’état d’essai."
 
-#: ../../app/controllers/plans_controller.rb:446
+#: ../../app/controllers/plans_controller.rb:445
 msgid "Your project is no longer a test."
 msgstr "Votre projet n’est plus à l’état d’essai."
 
-#: ../../app/controllers/plans_controller.rb:450
+#: ../../app/controllers/plans_controller.rb:449
 msgid "Unable to change the plan's test status"
 msgstr "Il est impossible de modifier l’état d’essai du plan"
 
-#: ../../app/controllers/plans_controller.rb:464
+#: ../../app/controllers/plans_controller.rb:463
 msgid "There is no plan associated with id %{id}"
 msgstr "Aucun plan n’est associé à l’identifiant %{id}"
 
@@ -30572,16 +30572,16 @@ msgid "private"
 msgstr "privé"
 
 #: ../../app/models/plan.rb:67
-msgid "planned"
-msgstr ""
+msgid "Planned"
+msgstr "Prévu"
 
 #: ../../app/models/plan.rb:68
-msgid "funded"
-msgstr ""
+msgid "Funded"
+msgstr "Financé"
 
 #: ../../app/models/plan.rb:69
-msgid "denied"
-msgstr ""
+msgid "Denied"
+msgstr "Refusé"
 
 #: ../../app/models/plan.rb:248
 msgid "Copy of %{title}"
@@ -33846,7 +33846,7 @@ msgid "Research domain"
 msgstr ""
 
 #: ../../app/views/plans/_project_details.html.erb:52
-#: ../../app/views/plans/_project_details.html.erb:173
+#: ../../app/views/plans/_project_details.html.erb:174
 msgid "- Please select one -"
 msgstr "- Veuillez faire une sélection -"
 
@@ -33889,7 +33889,7 @@ msgstr ""
 
 #: ../../app/views/plans/_project_details.html.erb:167
 msgid "Funding status"
-msgstr ""
+msgstr "Statut de financement"
 
 #: ../../app/views/plans/_project_details.html.erb:181
 msgid "Grant number/url"
@@ -34765,7 +34765,7 @@ msgstr ""
 
 #: ../../app/views/super_admin/api_clients/_form.html.erb:29
 msgid "Contact Name"
-msgstr ""
+msgstr "Nom du contact"
 
 #: ../../app/views/super_admin/api_clients/_form.html.erb:33
 msgid "Contact Email"
@@ -35673,7 +35673,7 @@ msgstr "Modification des privilèges de %{username}"
 
 #: ../../app/views/users/_admin_grant_permissions.html.erb:16
 msgid "Organisational admin privileges"
-msgstr ""
+msgstr "Privilèges d'administrateur de l'organisation"
 
 #: ../../app/views/users/_admin_grant_permissions.html.erb:19
 msgid ""

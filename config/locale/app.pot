@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-12-13 14:18-0500\n"
-"PO-Revision-Date: 2021-12-13 14:18-0500\n"
+"POT-Creation-Date: 2021-12-15 13:48-0500\n"
+"PO-Revision-Date: 2021-12-15 13:48-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -261,8 +261,8 @@ msgstr ""
 #: ../../app/controllers/org_admin/sections_controller.rb:102
 #: ../../app/controllers/org_admin/templates_controller.rb:203
 #: ../../app/controllers/orgs_controller.rb:87
-#: ../../app/controllers/plans_controller.rb:280
-#: ../../app/controllers/plans_controller.rb:283
+#: ../../app/controllers/plans_controller.rb:279
+#: ../../app/controllers/plans_controller.rb:282
 #: ../../app/controllers/registrations_controller.rb:249
 #: ../../app/controllers/registrations_controller.rb:253
 #: ../../app/controllers/registrations_controller.rb:278
@@ -280,10 +280,10 @@ msgstr ""
 #: ../../app/controllers/org_admin/sections_controller.rb:104
 #: ../../app/controllers/org_admin/templates_controller.rb:208
 #: ../../app/controllers/orgs_controller.rb:89
-#: ../../app/controllers/plans_controller.rb:289
-#: ../../app/controllers/plans_controller.rb:292
-#: ../../app/controllers/plans_controller.rb:296
-#: ../../app/controllers/plans_controller.rb:299
+#: ../../app/controllers/plans_controller.rb:288
+#: ../../app/controllers/plans_controller.rb:291
+#: ../../app/controllers/plans_controller.rb:295
+#: ../../app/controllers/plans_controller.rb:298
 #: ../../app/controllers/registrations_controller.rb:256
 #: ../../app/controllers/registrations_controller.rb:285
 msgid "save"
@@ -376,7 +376,7 @@ msgstr ""
 #: ../../app/controllers/org_admin/question_options_controller.rb:25
 #: ../../app/controllers/org_admin/questions_controller.rb:197
 #: ../../app/controllers/org_admin/sections_controller.rb:126
-#: ../../app/controllers/plans_controller.rb:342
+#: ../../app/controllers/plans_controller.rb:341
 #: ../../app/controllers/super_admin/api_clients_controller.rb:79
 #: ../../app/controllers/super_admin/notifications_controller.rb:84
 #: ../../app/controllers/super_admin/themes_controller.rb:50
@@ -390,7 +390,7 @@ msgstr ""
 #: ../../app/controllers/org_admin/question_options_controller.rb:27
 #: ../../app/controllers/org_admin/questions_controller.rb:199
 #: ../../app/controllers/org_admin/sections_controller.rb:128
-#: ../../app/controllers/plans_controller.rb:347
+#: ../../app/controllers/plans_controller.rb:346
 #: ../../app/controllers/super_admin/api_clients_controller.rb:82
 #: ../../app/controllers/super_admin/notifications_controller.rb:87
 #: ../../app/controllers/super_admin/themes_controller.rb:53
@@ -446,7 +446,7 @@ msgstr ""
 #: ../../app/controllers/org_admin/phases_controller.rb:144
 #: ../../app/controllers/org_admin/questions_controller.rb:166
 #: ../../app/controllers/org_admin/users_controller.rb:30
-#: ../../app/controllers/plans_controller.rb:413
+#: ../../app/controllers/plans_controller.rb:412
 #: ../../app/controllers/super_admin/api_clients_controller.rb:67
 #: ../../app/controllers/super_admin/notifications_controller.rb:51
 #: ../../app/controllers/super_admin/themes_controller.rb:39
@@ -458,7 +458,7 @@ msgstr ""
 #: ../../app/controllers/org_admin/phases_controller.rb:146
 #: ../../app/controllers/org_admin/questions_controller.rb:169
 #: ../../app/controllers/org_admin/users_controller.rb:32
-#: ../../app/controllers/plans_controller.rb:416
+#: ../../app/controllers/plans_controller.rb:415
 #: ../../app/controllers/super_admin/api_clients_controller.rb:69
 #: ../../app/controllers/super_admin/notifications_controller.rb:54
 #: ../../app/controllers/super_admin/themes_controller.rb:41
@@ -540,7 +540,7 @@ msgid "%{template_type} was successfully copied."
 msgstr ""
 
 #: ../../app/controllers/org_admin/template_copies_controller.rb:18
-#: ../../app/controllers/plans_controller.rb:393
+#: ../../app/controllers/plans_controller.rb:392
 msgid "copy"
 msgstr ""
 
@@ -666,33 +666,33 @@ msgstr ""
 msgid "template with customisations by the"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:391
+#: ../../app/controllers/plans_controller.rb:390
 msgid "copied"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:421
+#: ../../app/controllers/plans_controller.rb:420
 msgid ""
 "Unable to change the plan's status since it is needed at least %{percentage} p"
 "ercentage responded"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:429
+#: ../../app/controllers/plans_controller.rb:428
 msgid "Unable to find plan id %{plan_id}"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:446
+#: ../../app/controllers/plans_controller.rb:445
 msgid "Your project is now a test."
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:446
+#: ../../app/controllers/plans_controller.rb:445
 msgid "Your project is no longer a test."
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:450
+#: ../../app/controllers/plans_controller.rb:449
 msgid "Unable to change the plan's test status"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:464
+#: ../../app/controllers/plans_controller.rb:463
 msgid "There is no plan associated with id %{id}"
 msgstr ""
 
@@ -1509,15 +1509,15 @@ msgid "private"
 msgstr ""
 
 #: ../../app/models/plan.rb:67
-msgid "planned"
+msgid "Planned"
 msgstr ""
 
 #: ../../app/models/plan.rb:68
-msgid "funded"
+msgid "Funded"
 msgstr ""
 
 #: ../../app/models/plan.rb:69
-msgid "denied"
+msgid "Denied"
 msgstr ""
 
 #: ../../app/models/plan.rb:248
@@ -4480,7 +4480,7 @@ msgid "Research domain"
 msgstr ""
 
 #: ../../app/views/plans/_project_details.html.erb:52
-#: ../../app/views/plans/_project_details.html.erb:173
+#: ../../app/views/plans/_project_details.html.erb:174
 msgid "- Please select one -"
 msgstr ""
 
