@@ -63,6 +63,12 @@ class Plan < ApplicationRecord
   VISIBILITY_ORDER = %i[privately_visible publicly_visible organisationally_visible 
     is_test]
 
+  FUNDING_STATUS = {
+    planned: _("Planned"),
+    funded: _("Funded"),
+    denied: _("Denied")
+  }.freeze
+
   # ==============
   # = Attributes =
   # ==============
