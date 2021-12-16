@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 16/12/2021
+- Ajout de l'indication des valeurs minimum et maximum sur les champs nombre
+- Correction d'un problème empêchant la saisie d'une valeur dans les champs nombre lorsque le minimum était supérieur à 0
+- Corrrection d'un problème d'affichage des noms des personnes dans les mails de notification (problème du mail d'assistance conseil)
+- Ajout de l'éditeur du texte de banière dans l'édition d'un organisme
+- Joyeuses fêtes !
+
 ## 10/12/2021
 - Amélioration de l'affichage des valeurs sélectionnées pour les référentiels multiples
 - Changement du formatage des informations provenant de l'API des référentiels
