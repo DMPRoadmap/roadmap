@@ -223,10 +223,7 @@ class User < ApplicationRecord
   #
   # Returns String
   def name(use_email = true)
-    if use_email || 
-       (firstname.blank? && surname.blank?) || 
-       (surname.downcase == "surname" ) || 
-       (surname.downcase == "nom de famille" ) then
+    if (firstname.blank? && surname.blank?) || use_email
       email
     else
       name = "#{firstname} #{surname}"
