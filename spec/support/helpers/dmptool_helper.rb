@@ -1,24 +1,22 @@
 # frozen_string_literal: true
 
 module DmptoolHelper
-  def access_sign_in_options_modal
-    click_link 'Sign in'
+  include IdentifierHelper
+
+  def mock_devise_env_for_controllers
+    # Controller Tests don't have access to the `request` so we need to stub it and the
+    # Devise mappings
+    expect(@controller.is_a?(ApplicationController)).to eql(true), 'Cannot mock devise env before defining @controller!'
+    devise_mappings = OpenStruct.new('devise.mapping': Devise.mappings[:user])
+    @controller.stubs(:request).returns(OpenStruct.new(env: devise_mappings))
   end
 
-  def access_sign_in_modal
-    access_sign_in_options_modal
-    click_on 'Email address'
-  end
+  def shibbolize_org(org:)
+    return nil unless org.present?
 
-  def access_create_account_modal
-    access_sign_in_options_modal
-    click_on 'Create an account'
-    # find("#show-create-account-form").first.click
-  end
-
-  def access_shib_ds_modal
-    access_sign_in_options_modal
-    click_on 'Your institution'
+    Rails.configuration.x.shibboleth.enabled = true
+    Rails.configuration.x.shibboleth.use_filtered_discovery_service = true
+    create_shibboleth_entity_id(org: @org)
   end
 
   # rubocop:disable Metrics/MethodLength

@@ -24,6 +24,8 @@ module Dmptool
 
         @template.email_subject = subject unless @template.email_subject.present?
         @template.email_body = body unless @template.email_body.present?
+
+        render '/org_admin/templates/email.js.erb'
       end
     end
     # rubocop:enable Metrics/AbcSize

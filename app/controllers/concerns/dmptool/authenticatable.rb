@@ -28,11 +28,11 @@ module Dmptool
 
       # Acceptable Strong Params for each auth type
       def authentication_params(type:)
-        case type.to_sym
+        case type&.to_sym
         when :sign_up
           [:accept_terms, :email, :firstname, :language_id, :org_id, :password, :surname,
-           { org_attributes: %i[abbreviation contact_email contact_name is_other
-                                managed name org_type target_url links] }]
+           org_attributes: %i[abbreviation contact_email contact_name is_other
+                                managed name org_type target_url links] ]
         when :sign_in
           %i[email org_id password]
         else
@@ -40,11 +40,15 @@ module Dmptool
         end
       end
 
+      # Domains for common email platforms that do not belong to a specific institution
+      def ignored_email_domains
+        %w[aol.com duck.com gmail.com example.com example.org hotmail.com icloud.com
+           outlook.com pm.me qq.com yahoo.com]
+      end
+
       # Attempt to determine the Org (or RegistryOrg) based on the email's domain
       # rubocop:disable Metrics/AbcSize
       def org_from_email_domain(email_domain:)
-        ignored_email_domains = %w[aol.com duck.com gmail.com example.com example.org
-                                   hotmail.com icloud.com outlook.com pm.me qq.com yahoo.com]
         return nil unless email_domain.present?
         return nil if ignored_email_domains.include?(email_domain.downcase)
 
@@ -54,6 +58,7 @@ module Dmptool
         hash = ::User.where('email LIKE ?', "%@#{email_domain.downcase}").group(:org_id).count
         return nil unless hash.present?
 
+        # We could potentially have multiple Org matches here, so use the one with the most users
         selected = hash.select { |_k, v| v == hash.values.max }
         ::Org.find_by(id: selected.keys.first)
       end
@@ -114,7 +119,6 @@ module Dmptool
       # Assign the default instance variables used by all the auth pages
       def assign_instance_variables
         @main_class = 'js-heroimage'
-
         @shibbolized = resource.present? ? resource.org&.shibbolized? : false
       end
 
@@ -125,11 +129,11 @@ module Dmptool
         params[:user][:firstname] = up[:firstname].humanize if up[:firstname].present?
         params[:user][:surname] = up[:surname].humanize if up[:surname].present?
 
-        op = params.fetch(:org_autocomplete, {})
+        op = up.fetch(:org_autocomplete, {})
         # disabling rubocop here as I think this is readable
         # rubocop:disable Style/GuardClause
         if op.present? && op[:user_entered_name].present?
-          params[:org_autocomplete][:user_entered_name] = op[:user_entered_name].humanize
+          params[:user][:org_autocomplete][:user_entered_name] = op[:user_entered_name].humanize
         end
         # rubocop:enable Style/GuardClause
       end
@@ -139,7 +143,7 @@ module Dmptool
       def ensure_language
         # disabling rubocop here as I think this is readable
         # rubocop:disable Style/GuardClause
-        unless I18n.locale.nil? || params[:language_id].present?
+        unless I18n.locale.nil? || params[:user][:language_id].present?
           params[:user][:language_id] = ::Language.id_for(I18n.locale)
         end
         # rubocop:enable Style/GuardClause
@@ -149,8 +153,10 @@ module Dmptool
       def ensure_org_param
         # Convert the selected/specified Org name into attributes
         op = autocomplete_to_controller_params
-        params[:user][:org_id] = op[:org_id] if op[:org_id].present?
-        params[:user][:org_attributes] = op[:org_attributes] unless op[:org_id].present?
+        if op.present?
+          params[:user][:org_id] = op[:org_id] if op[:org_id].present?
+          params[:user][:org_attributes] = op[:org_attributes] unless op[:org_id].present?
+        end
       end
     end
   end
