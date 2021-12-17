@@ -5,6 +5,14 @@
 <% unless multiple %>
   <div class="col-md-12">
     <%= f.label field_id, field_label, class: 'control-label' %>
+    <span class="min-max">
+     <% if minimum.present? %>
+      <%= " min: #{minimum}"%>
+     <% end %>
+     <% if maximum.present? %>
+      <%= " max: #{maximum}"%>
+     <% end %>
+    </span>
   </div>
 <% end %>
 <div class="col-md-12 dynamic-field">

@@ -1,11 +1,9 @@
 <%# locals: { research_outputs, sections  } %>
 <% research_outputs.each do |research_output| %>
-  <% show_research_output_content = @show_unanswered || (!@show_unanswered && !research_output.get_answers_for_section(section[:id]).empty?) %>
   <% research_output_default_and_alone = research_output.is_default && research_outputs.length == 1 %>
   <% research_output_description = research_output.json_fragment.research_output_description %>
 
-  <% if !research_output_default_and_alone && 
-        show_research_output_content %>
+  <% if !research_output_default_and_alone %>
     <div class="research-output">
       <h2><%= research_output_description.data['title'] %></h2>
   <% end %>
@@ -37,56 +35,52 @@
             </p>
             <br/>
           <% end %>
-          <%# case where question has not been answered sufficiently to display%>
-          <% if @show_unanswered %>
-            <%# case where Question has options %>
-            <% if options.any? %>
-              <ul>
-              <% options.each do |opt| %>
-                <li><%= opt.text %></li>
-              <% end %>
-              </ul>
+          <%# case where Question has options %>
+          <% if options.any? %>
+            <ul>
+            <% options.each do |opt| %>
+              <li><%= opt.text %></li>
             <% end %>
-            <% if question[:format].rda_metadata? && !blank %>
-              <% ah = answer.answer_hash %>
-              <% if ah['standards'].present? %>
-              <ul>
-                <% ah['standards'].each do |id, title| %>
-                <li><%= title %></li>
-                <% end %>
-              </ul>
+            </ul>
+          <% end %>
+          <% if question[:format].rda_metadata? && !blank %>
+            <% ah = answer.answer_hash %>
+            <% if ah['standards'].present? %>
+            <ul>
+              <% ah['standards'].each do |id, title| %>
+              <li><%= title %></li>
               <% end %>
-              <p><%= sanitize ah['text'] %></p>
-              <br/>
-            <% elsif question[:format].structured? && fragment.present? %>
-              <%= render partial: 'shared/export/display_madmp_fragment', 
-                          locals: {
-                              fragment: fragment,
-                              schema: fragment.madmp_schema,
-                              classname: fragment.classname,
-                              locale: LocaleService.to_gettext(locale: @plan.template.locale),
-                              table_header: nil
-                          } %>
-            <%# case for displaying comments OR text %>
-            <% elsif !blank %>
-              <%= sanitize answer.text %>
-              <br/>
-            <% else %>
-              <br/>
-              <p><%= _('Question not answered.') -%></p>
-              <br/><br/>
-              <br />
+            </ul>
             <% end %>
+            <p><%= sanitize ah['text'] %></p>
+            <br/>
+          <% elsif question[:format].structured? && fragment.present? %>
+            <%= render partial: 'shared/export/display_madmp_fragment', 
+                        locals: {
+                            fragment: fragment,
+                            schema: fragment.madmp_schema,
+                            classname: fragment.classname,
+                            locale: @plan.template.locale,
+                            table_header: nil
+                        } %>
+          <%# case for displaying comments OR text %>
+          <% elsif !blank %>
+            <%= sanitize answer.text %>
+            <br/>
+          <% else %>
+            <br/>
+            <p><%= _('Question not answered.') -%></p>
+            <br/><br/>
             <br />
           <% end %>
+          <br />
         </div>
       <% end %>
     <% end %> <!-- questions.each -->
 
   <% end %>
 
-  <% if !research_output_default_and_alone && 
-        show_research_output_content %>
+  <% if !research_output_default_and_alone  %>
     </div> <!-- .research_output -->
   <% end %>
 

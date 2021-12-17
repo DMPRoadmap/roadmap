@@ -23,6 +23,7 @@ $(() => {
 
   // Initialises tinymce for any target element with class tinymce_answer
   Tinymce.init({ selector: '#org_feedback_msg' });
+  Tinymce.init({ selector: '#org_banner_text' });
   toggleFeedback();
 
   if ($('#org-details-org-controls').length > 0) {
