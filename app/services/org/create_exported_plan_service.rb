@@ -32,12 +32,6 @@ class Org
               org: org_obj,
               filtered: true
             )
-            StatExportedPlan::CreateOrUpdate.do(
-              start_date: start_date,
-              end_date: end_date,
-              org: org,
-              filtered: true
-            )
           end
         end
       end
