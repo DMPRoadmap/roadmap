@@ -214,11 +214,11 @@ RSpec.describe Identifier, type: :model do
       expected = @scheme.identifier_prefix
       expect(id.value.starts_with?(expected)).to eql(true)
     end
-    it 'appends the identifier scheme prefix to the value even if its a URL' do
+    it 'does not append the identifier scheme prefix to the value if its a URL' do
       val = Faker::Internet.url
       id = build(:identifier, value: val, identifier_scheme: @scheme)
       expected = @scheme.identifier_prefix
-      expect(id.value.starts_with?(expected)).to eql(true)
+      expect(id.value.starts_with?(expected)).to eql(false)
     end
   end
 end

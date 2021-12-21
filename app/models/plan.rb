@@ -756,6 +756,7 @@ class Plan < ApplicationRecord
     return true if end_date.blank? || start_date.blank? || end_date > start_date
 
     errors.add(:end_date, _('must be after the start date')) if end_date < start_date
+    false
   end
 end
 # rubocop:enable Metrics/ClassLength

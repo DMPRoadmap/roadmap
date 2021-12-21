@@ -85,7 +85,7 @@ module Api
             return nil unless json.present?
 
             id = id_json[:identifier] if id_json.is_a?(Hash)
-            schm = IdentifierScheme.find_by(name: id_json[:type].downcase) if id.present?
+            schm = ::IdentifierScheme.find_by(name: id_json[:type].downcase) if id.present?
 
             if id.present?
               # If the identifier is a DOI/ARK or the api client's internal id for the DMP
@@ -134,8 +134,8 @@ module Api
             # TODO: remove this once we support versioning and are not storing outputs with DOIs as
             #       RelatedIdentifiers. Once versioning is in place we can update the existing ResearchOutputs
             research_outputs.each do |output|
-              plan.research_outputs << output if output.is_a?(ResearchOutput)
-              plan.related_identifiers << output if output.is_a?(RelatedIdentifier)
+              plan.research_outputs << output if output.is_a?(::ResearchOutput)
+              plan.related_identifiers << output if output.is_a?(::RelatedIdentifier)
             end
             plan
           end
@@ -185,10 +185,10 @@ module Api
 
           # Lookup the Template
           def find_template(json: {})
-            default = Template.find_by(is_default: true)
+            default = ::Template.find_by(is_default: true)
             return default unless json.present? && json.fetch(:dmproadmap_template, {})[:id].present?
 
-            template = Template.published(json.fetch(:dmproadmap_template, {})[:id].to_i).last
+            template = ::Template.published(json.fetch(:dmproadmap_template, {})[:id].to_i).last
             template.present? ? template : default
           end
         end

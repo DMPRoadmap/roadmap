@@ -9,7 +9,7 @@ RSpec.describe ExternalApis::OrcidService, type: :model do
   before(:each) do
     Rails.configuration.x.allow_dmp_id_minting = true
     Rails.configuration.x.orcid.active = true
-    Rails.configuration.x.orcid.api_base_url = Faker::Internet.url
+    Rails.configuration.x.orcid.api_base_url = 'https://api.sandbox.orcid.org/v3.0/'
     Rails.configuration.x.orcid.landing_page_url = Faker::Internet.url
     Rails.configuration.x.orcid.callback_path = "/#{Faker::Lorem.word}/%<put_code>s"
     Rails.configuration.x.orcid.work_path = "/%<id>s/#{Faker::Lorem.word}"

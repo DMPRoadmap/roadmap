@@ -23,7 +23,7 @@ RSpec.describe Api::V2::DeserializationService do
       expect(described_class.plan_from_dmp_id(dmp_id: json)).to eql(nil)
     end
     it "returns the Plan based on it's DMP ID" do
-      dmp_id = create_doi(plan: @plan, val: SecureRandom.uuid)
+      dmp_id = create_dmp_id(plan: @plan, val: SecureRandom.uuid)
       json = { type: 'doi', identifier: dmp_id.value }
       expect(described_class.plan_from_dmp_id(dmp_id: json)).to eql(@plan)
     end
@@ -81,40 +81,6 @@ RSpec.describe Api::V2::DeserializationService do
     it 'returns nil for an identifier with no IdentifierScheme (e.g. URL)' do
       result = described_class.object_from_identifier(class_name: @clazz, json: @url_json)
       expect(result).to eql(nil)
-    end
-  end
-
-  describe ':name_to_org(name:)' do
-    before(:each) do
-      @org = create(:org)
-      @registry_org = create(:registry_org)
-    end
-
-    it 'returns nil if :name is not present' do
-      expect(described_class.name_to_org(name: nil)).to eql(nil)
-    end
-    it 'returns nil if :name matches no recs in Org or RegistryOrg not present' do
-      name = Faker::Company.unique.name.gsub(@org.name, 'foo').gsub(@registry_org.name, 'bar')
-      expect(described_class.name_to_org(name: name)).to eql(nil)
-    end
-    it 'returns the Org if the :name matches' do
-      expect(described_class.name_to_org(name: @org.name)).to eql(@org)
-    end
-    it "returns the RegistryOrg's Org if the :name matches" do
-      org = create(:org, name: @registry_org.name)
-      @registry_org.update(org_id: org.id)
-      expect(described_class.name_to_org(name: @registry_org.name)).to eql(org)
-    end
-    it 'returns nil if :name matches the RegistryOrg but it has no Org and we :restrict_orgs' do
-      Rails.configuration.x.application.restrict_orgs = true
-      expect(described_class.name_to_org(name: @registry_org.name)).to eql(nil)
-    end
-    it 'returns a new Org if :name matches the RegistryOrg but it has no Org' do
-      Rails.configuration.x.application.restrict_orgs = false
-      result = described_class.name_to_org(name: @registry_org.name)
-      expect(result.is_a?(Org)).to eql(true)
-      expect(result.new_record?).to eql(true)
-      expect(result.name).to eql(@registry_org.name)
     end
   end
 
@@ -184,6 +150,21 @@ RSpec.describe Api::V2::DeserializationService do
     end
   end
 
+  describe ':translate_funding_status(status:)' do
+    it 'returns \'planned\' when :status is not present' do
+      expect(described_class.send(:translate_funding_status, status: nil)).to eql('planned')
+    end
+    it 'returns \'denied\' when :status is \'rejected\'' do
+      expect(described_class.send(:translate_funding_status, status: 'rejected')).to eql('denied')
+    end
+    it 'returns \'funded\' when :status is \'granted\'' do
+      expect(described_class.send(:translate_funding_status, status: 'granted')).to eql('funded')
+    end
+    it 'returns \'planned\' by default' do
+      expect(described_class.send(:translate_funding_status, status: 'foo')).to eql('planned')
+    end
+  end
+
   describe ':app_extensions(json:)' do
     before(:each) do
       @template = create(:template)
@@ -212,35 +193,35 @@ RSpec.describe Api::V2::DeserializationService do
     end
   end
 
-  describe 'doi?(value:)' do
+  describe 'dmp_id?(value:)' do
     before(:each) do
       @scheme = create(:identifier_scheme, name: 'doi',
                                            identifier_prefix: Faker::Internet.url)
     end
 
     it 'returns false if value is not present' do
-      expect(described_class.send(:doi?, value: nil)).to eql(false)
+      expect(described_class.send(:dmp_id?, value: nil)).to eql(false)
     end
     it 'returns false if the value does not match ARK or DOI pattern' do
       url = Faker::Internet.url
-      expect(described_class.send(:doi?, value: url)).to eql(false)
+      expect(described_class.send(:dmp_id?, value: url)).to eql(false)
     end
     it 'returns false if the value does not match a partial ARK/DOI pattern' do
       val = '23645gy3d'
-      expect(described_class.send(:doi?, value: val)).to eql(false)
+      expect(described_class.send(:dmp_id?, value: val)).to eql(false)
       val = '10.999'
-      expect(described_class.send(:doi?, value: val)).to eql(false)
+      expect(described_class.send(:dmp_id?, value: val)).to eql(false)
     end
     it "returns false if 'doi' identifier scheme exists but value is not doi" do
-      expect(described_class.send(:doi?, value: SecureRandom.uuid)).to eql(false)
+      expect(described_class.send(:dmp_id?, value: SecureRandom.uuid)).to eql(false)
     end
     it 'returns true (identifier only)' do
       val = '10.999/23645gy3d'
-      expect(described_class.send(:doi?, value: val)).to eql(true)
+      expect(described_class.send(:dmp_id?, value: val)).to eql(true)
     end
     it 'returns true (fully qualified ARK/DOI url)' do
       url = "#{Faker::Internet.url}/10.999/23645gy3d"
-      expect(described_class.send(:doi?, value: url)).to eql(true)
+      expect(described_class.send(:dmp_id?, value: url)).to eql(true)
     end
   end
 

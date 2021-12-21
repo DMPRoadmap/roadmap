@@ -79,17 +79,6 @@ RSpec.describe Api::V2::Deserialization::Dataset do
         expect(result.sensitive_data).to eql(expected)
         expect(result.release_date).to eql(Time.parse(@json[:issued]))
       end
-
-      it 'updates the expected attributes for a RelatedIdentifier' do
-        related = build(:related_identifier, identifiable: @plan, identifier_type: 'DOI',
-                                             relation_type: 'IsReferencedBy')
-        described_class.stubs(:find_by_identifier).returns(related)
-        result = described_class.deserialize(plan: @plan, json: @json)
-        expect(result.identifiable).to eql(@plan)
-        expect(result.identifier_type).to eql(related.identifier_type)
-        expect(result.relation_type).to eql(related.relation_type)
-        expect(result.value).to eql(related.value)
-      end
     end
   end
 
@@ -98,38 +87,20 @@ RSpec.describe Api::V2::Deserialization::Dataset do
       it 'returns nil if json is not present' do
         expect(described_class.send(:find_by_identifier, plan: @plan, json: nil)).to eql(nil)
       end
-      it 'finds the RelatedIdentifier by :dataset_id' do
-        Api::V2::DeserializationService.stubs(:doi?).returns(true)
-        related = create(:related_identifier, identifiable: @plan, identifier_type: 'DOI',
-                                              relation_type: 'IsReferencedBy',
-                                              value: "http://doi.org/#{@json[:dataset_id][:identifier]}")
-        result = described_class.send(:find_by_identifier, plan: @plan, json: @json[:dataset_id])
-        expect(result).to eql(related)
-      end
       it 'finds the ResearchOutput by :dataset_id' do
-        Api::V2::DeserializationService.stubs(:doi?).returns(false)
+        Api::V2::DeserializationService.stubs(:dmp_id?).returns(false)
         result = described_class.send(:find_by_identifier, plan: @plan, json: @json[:dataset_id])
         expect(result).to eql(@research_output)
       end
       it 'does not change the :output_type of an existing ResearchOutput' do
-        Api::V2::DeserializationService.stubs(:doi?).returns(false)
+        Api::V2::DeserializationService.stubs(:dmp_id?).returns(false)
         @json[:type] = ResearchOutput.output_types.keys.reject { |key| key == @research_output.output_type }.sample
         result = described_class.send(:find_by_identifier, plan: @plan, json: @json[:dataset_id])
         expect(result.new_record?).to eql(false)
         expect(result.output_type).to eql(@research_output.output_type)
       end
-      it 'initializes a new RelatedIdentifier' do
-        Api::V2::DeserializationService.stubs(:doi?).returns(true)
-        @json[:dataset_id][:identifier] = Faker::Music::PearlJam.song
-        result = described_class.send(:find_by_identifier, plan: @plan, json: @json[:dataset_id])
-        expect(result.new_record?).to eql(true)
-        expect(result.identifiable).to eql(@plan)
-        expect(result.identifier_type).to eql('DOI')
-        expect(result.relation_type).to eql('IsReferencedBy')
-        expect(result.value).to eql("http://doi.org/#{@json[:dataset_id][:identifier]}")
-      end
       it 'does not initialize a new ResearchOutput' do
-        Api::V2::DeserializationService.stubs(:doi?).returns(false)
+        Api::V2::DeserializationService.stubs(:dmp_id?).returns(false)
         @json[:dataset_id][:identifier] = Faker::Music::PearlJam.song
         expect(described_class.send(:find_by_identifier, plan: @plan, json: @json[:dataset_id])).to eql(nil)
       end
@@ -236,12 +207,12 @@ RSpec.describe Api::V2::Deserialization::Dataset do
       end
       it 'returns the ResearchOutput as-is if the ResearchOutput already has the Repository' do
         @research_output.repositories << @repository
-        json = { title: @repository.name, description: @repository.description, url: @repository.url }
+        json = { title: @repository.name, description: @repository.description, url: @repository.homepage }
         result = described_class.send(:attach_repositories, research_output: @research_output, json: json)
         expect(result.repositories.length).to eql(1)
       end
       it 'finds the Repository by :url and attaches it to the ResearchOutput' do
-        json = { title: @repository.name, description: @repository.description, url: @repository.url }
+        json = { title: @repository.name, description: @repository.description, url: @repository.homepage }
         result = described_class.send(:attach_repositories, research_output: @research_output, json: json)
         expect(result.repositories.length).to eql(1)
         expect(result.repositories.first).to eql(@repository)
@@ -249,7 +220,7 @@ RSpec.describe Api::V2::Deserialization::Dataset do
       it 'finds the Repository by :dmproadmap_host_id and attaches it to the ResearchOutput' do
         json = {
           description: @repository.description,
-          url: @repository.url,
+          url: @repository.homepage,
           dmproadmap_host_id: { type: 'url', identifier: @identifier.value }
         }
         result = described_class.send(:attach_repositories, research_output: @research_output, json: json)
@@ -276,7 +247,7 @@ RSpec.describe Api::V2::Deserialization::Dataset do
       end
       it 'attaches the first license (by release_date) if none are current' do
         json = [
-          { license_ref: @license.url, start_date: (Time.now + 6.months).to_formatted_s(:iso8601) },
+          { license_ref: @license.uri, start_date: (Time.now + 6.months).to_formatted_s(:iso8601) },
           { license_ref: Faker::Internet.url, start_date: (Time.now + 7.months).to_formatted_s(:iso8601) }
         ]
         result = described_class.send(:attach_licenses, research_output: @research_output, json: json)
@@ -285,7 +256,7 @@ RSpec.describe Api::V2::Deserialization::Dataset do
       it 'attaches the current license (by release_date)' do
         json = [
           { license_ref: Faker::Internet.url, start_date: (Time.now - 6.months).to_formatted_s(:iso8601) },
-          { license_ref: @license.url, start_date: (Time.now - 2.months).to_formatted_s(:iso8601) }
+          { license_ref: @license.uri, start_date: (Time.now - 2.months).to_formatted_s(:iso8601) }
         ]
         result = described_class.send(:attach_licenses, research_output: @research_output, json: json)
         expect(result.license).to eql(@license)

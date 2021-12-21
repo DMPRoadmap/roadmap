@@ -1,6 +1,5 @@
 <%#
 locals:
-  col_size                <-- Allows you to specify the column width to match your form
   default_org             <-- Allows you to prepopulate the autocomplete with a current selection
   required                <-- Whether or not the autocomplete should be a required field
   funder_only             <-- Allows you to restrict the suggestions to funder orgs
@@ -12,7 +11,6 @@ locals:
   namespace               <-- For forms that have multiple autocompletes (nil is ok here!)
 %>
 <%
-col_size = local_assigns.fetch(:col_size, nil)
 default_org = local_assigns.fetch(:default_org, nil)
 
 # Whether or not the org selection is required

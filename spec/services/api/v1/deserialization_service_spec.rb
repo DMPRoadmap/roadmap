@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::DeserializationService do
+  include IdentifierHelper
+
   describe 'object_from_identifier(clazz:, json:)' do
     before(:each) do
       scheme = create(:identifier_scheme, name: 'ror')
@@ -183,8 +185,7 @@ RSpec.describe Api::V1::DeserializationService do
 
   describe 'dmp_id?(value:)' do
     before(:each) do
-      @scheme = create(:identifier_scheme, name: 'dmp_id',
-                                           identifier_prefix: Faker::Internet.url)
+      @scheme = dmp_id_scheme
     end
 
     it 'returns false if value is not present' do
@@ -202,7 +203,7 @@ RSpec.describe Api::V1::DeserializationService do
     end
     it "returns false if there is no 'dmp_id' identifier scheme" do
       val = '10.999/23645gy3d'
-      @scheme.destroy
+      DmpIdService.expects(:identifier_scheme).returns(nil)
       expect(described_class.send(:dmp_id?, value: val)).to eql(false)
     end
     it "returns false if 'dmp_id' identifier scheme exists but value is not doi" do

@@ -97,10 +97,10 @@ module Api
                 #   class_name: "ResearchOutput", json: json
                 # )
                 id = id.start_with?('http') ? id : "http://doi.org/#{id.gsub('doi:', '')}"
-                research_output = RelatedIdentifier.find_or_initialize_by(
+                research_output = ::RelatedIdentifier.find_or_initialize_by(
                   identifiable: plan,
-                  identifier_type: 'DOI',
-                  relation_type: 'IsReferencedBy',
+                  identifier_type: 'doi',
+                  relation_type: 'is_referenced_by',
                   value: id
                 )
               else

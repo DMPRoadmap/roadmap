@@ -34,7 +34,7 @@ module Api
             return nil unless org.present?
 
             # Org model requires a language so just use the default for now
-            org.language = Language.default
+            org.language = ::Language.default
             org.abbreviation = json[:abbreviation] if json[:abbreviation].present?
             return nil unless org.valid?
             return org unless id_json[:identifier].present?
@@ -64,10 +64,10 @@ module Api
             # Skip if restrict_orgs is set to true!
             unless Rails.configuration.x.application.restrict_orgs
               # fetch from the ror table
-              registry_org = RegistryOrg.where('LOWER(name) = ?', name.downcase).first
+              registry_org = ::RegistryOrg.where('LOWER(name) = ?', name.downcase).first
 
               # If managed_only make sure the org is managed!
-              org = org_from_registry_org(registry_org: registry_org) if registry_org.present?
+              org = org_from_registry_org!(registry_org: registry_org) if registry_org.present?
             end
             org
           end
@@ -76,7 +76,7 @@ module Api
           # Create a new Org from the RegistryOrg entry
           # rubocop:disable Metrics/AbcSize
           def org_from_registry_org!(registry_org:)
-            return nil unless registry_org.is_a?(RegistryOrg)
+            return nil unless registry_org.is_a?(::RegistryOrg)
             return registry_org.org if registry_org.org_id.present?
 
             org = registry_org.to_org
@@ -89,10 +89,10 @@ module Api
               value = registry_org.send(:"#{scheme_name}_id")
               next unless value.present?
 
-              scheme = IdentifierScheme.by_name(scheme_name).first
+              scheme = ::IdentifierScheme.by_name(scheme_name).first
               next unless scheme.present?
 
-              Identifier.find_or_create_by(identifier_scheme: scheme, identifiable: org, value: value)
+              ::Identifier.find_or_create_by(identifier_scheme: scheme, identifiable: org, value: value)
             end
 
             # Update the original RegistryOrg with the new org's association

@@ -30,7 +30,6 @@ RSpec.describe ApiClient, type: :model do
   end
 
   context 'Associations' do
-    it { is_expected.to belong_to(:user).optional }
     it { is_expected.to have_many(:subscriptions) }
     it { is_expected.to have_many(:access_tokens) }
   end
@@ -77,13 +76,13 @@ RSpec.describe ApiClient, type: :model do
       end
     end
 
-    it ':ensure_scopes attaches the available scopes before validation occurs' do
+    it ':ensure_scopes attaches the default scopes before validation occurs' do
       Doorkeeper.config.stubs(:default_scopes).returns(%w[one two three])
       Doorkeeper.config.stubs(:optional_scopes).returns(%w[nine eight one])
       @client.scopes = nil
       @client.send(:ensure_scopes)
       # Note that it should sort them alphabetically
-      expect(@client.scopes.to_s).to eql('eight nine one three two')
+      expect(@client.scopes.to_s).to eql('one three two')
     end
   end
 end

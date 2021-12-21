@@ -217,7 +217,7 @@ RSpec.describe ExternalApis::DmphubService, type: :model do
       it 'properly generates the JSON for submission to DMPHub' do
         ActionController::Base.any_instance.expects(:render_to_string)
                               .with(
-                                partial: '/api/v1/plans/show',
+                                partial: '/api/v2/plans/show',
                                 locals: { plan: @plan, client: @client }
                               )
                               .returns({ foo: 'bar' }.to_json)

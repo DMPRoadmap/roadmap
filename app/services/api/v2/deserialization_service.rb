@@ -62,7 +62,7 @@ module Api
           # Strip off the URL if present
           url = ::Contributor::ONTOLOGY_BASE_URL
           role = role.gsub(url, '').downcase if role.include?(url)
-          role = role.gsub('-', '_')
+          role = role.gsub('-', '_').gsub('/', '')
 
           # Return the role if its a valid one otherwise defualt
           return role if ::Contributor.new.all_roles.include?(role.downcase.to_sym)

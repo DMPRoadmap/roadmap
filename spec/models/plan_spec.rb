@@ -991,18 +991,18 @@ describe Plan do
   end
 
   describe '#latest_update' do
-    let!(:plan) { create(:plan, :creator, updated_at: 5.minutes.ago) }
+    let!(:plan) { create(:plan, :creator, updated_at: Time.now - 5.minutes) }
 
     subject { plan.latest_update.to_i }
 
     context 'when plan updated_at is latest' do
       before do
         create_list(:phase, 2, template: plan.template,
-                               updated_at: 6.minutes.ago)
+                               updated_at: Time.now - 6.minutes)
       end
 
       it "returns the plan's updated_at value" do
-        is_expected.to be_within(5.seconds).of(5.minutes.ago.to_i)
+        is_expected.to eql(plan.updated_at.to_i)
       end
     end
 

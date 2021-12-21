@@ -23,6 +23,16 @@ module IdentifierHelper
     create(:identifier, identifiable: org, identifier_scheme: scheme, value: val)
   end
 
+  def create_ror(org:, val: "https://ror.org/#{Faker::Alphanumeric}")
+    scheme = ror_scheme
+    create(:identifier, identifiable: org, identifier_scheme: scheme, value: val)
+  end
+
+  def create_fundref(org:, val: "https://doi.org/10.13039/#{Faker::Alphanumeric}")
+    scheme = fundref_scheme
+    create(:identifier, identifiable: org, identifier_scheme: scheme, value: val)
+  end
+
   def orcid_scheme
     name = Rails.configuration.x.orcid.name || 'orcid'
     landing_page = Rails.configuration.x.orcid.landing_page_url || 'https://orcid.org/'
