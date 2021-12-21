@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-12-15 13:48-0500\n"
-"PO-Revision-Date: 2021-12-15 19:49+0100\n"
+"POT-Creation-Date: 2021-12-21 12:57-0500\n"
+"PO-Revision-Date: 2021-12-21 18:58+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_CA\n"
@@ -233,6 +233,9 @@ msgstr ""
 msgid "Testing the interface"
 msgstr ""
 
+msgid "Test Template"
+msgstr ""
+
 msgid "COVID-19 Data Repository DMP Template"
 msgstr ""
 
@@ -248,13 +251,7 @@ msgstr ""
 msgid "Copie de tester2"
 msgstr ""
 
-msgid "Test Template"
-msgstr ""
-
 msgid "Test Template (Single Phase)"
-msgstr ""
-
-msgid "Test Template for Deletion"
 msgstr ""
 
 msgid "This is the generic DMP template for University of Alberta."
@@ -652,9 +649,6 @@ msgid "<p>test</p>"
 msgstr ""
 
 msgid "<p>Test Template Description.</p>"
-msgstr ""
-
-msgid "<p>Just a test template</p>"
 msgstr ""
 
 msgid "University of Alberta Data Management Questions"
@@ -1249,6 +1243,9 @@ msgstr ""
 msgid "test section 1"
 msgstr ""
 
+msgid "Test Section 1"
+msgstr ""
+
 msgid "tester section"
 msgstr ""
 
@@ -1259,9 +1256,6 @@ msgid "Test Section Title."
 msgstr ""
 
 msgid "Test Section: Data Collection"
-msgstr ""
-
-msgid "test section"
 msgstr ""
 
 msgid "Plan and acquire"
@@ -4322,9 +4316,6 @@ msgid "<p>Test Question text?</p>"
 msgstr ""
 
 msgid "<p>Test Question text.</p>"
-msgstr ""
-
-msgid "<p>test question</p>"
 msgstr ""
 
 msgid ""
