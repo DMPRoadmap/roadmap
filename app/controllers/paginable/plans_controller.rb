@@ -59,8 +59,8 @@ class Paginable::PlansController < ApplicationController
     )
   end
 
-  # GET /paginable/plans/org_admin/:page
-  def org_admin_other_user
+  # GET /paginable/users/:id/plans
+  def index
     @user = User.find(params[:id])
     authorize @user
     unless current_user.present? && current_user.can_org_admin? && @user.present?
@@ -68,9 +68,10 @@ class Paginable::PlansController < ApplicationController
     end
 
     paginable_renderise(
-      partial: "org_admin_other_user",
+      partial: "index",
       scope: Plan.active(@user),
-      query_params: { sort_field: "plans.updated_at", sort_direction: :desc }
+      query_params: { sort_field: "plans.updated_at", sort_direction: :desc },
+      format: :json
     )
   end
 
