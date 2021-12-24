@@ -79,7 +79,7 @@ class UsageController < ApplicationController
       @total = @total_org_users
       @ranged = @users_per_month.sum(:count)
     when 'organisations'
-      @total = Org.count
+      @total = Org.managed.count
       @ranged = ranged_organizations(args: args).count
     else
       @total = 0
@@ -230,7 +230,7 @@ class UsageController < ApplicationController
     start_date = DateTime.parse(args[:start_date])
     end_date = DateTime.parse(args[:end_date])
 
-    Org.where(:created_at => start_date.beginning_of_day..end_date.end_of_day)    
+    Org.managed.where(:created_at => start_date.beginning_of_day..end_date.end_of_day)    
   end
 
   def first_plan_date
