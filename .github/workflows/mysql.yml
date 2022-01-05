@@ -20,7 +20,8 @@ jobs:
     - name: 'Install MySQL Packages'
       run: |
         sudo apt-get update
-        sudo apt-get install -y mysql-client-core-8.0 mysql-server
+        sudo apt-get install -y mysql-client-core-8.0 
+        sudo apt-get install -y mysql-server
         sudo apt-get install -y libmysqlclient-dev 
 
     - name: 'Determine Ruby and Bundler Versions from Gemfile.lock'
@@ -81,6 +82,7 @@ jobs:
         yarn install
 
     - name: 'Start MySQL'
+      run: 
       run: sudo systemctl start mysql
 
     - name: 'Setup Test DB'
