@@ -20,8 +20,8 @@ jobs:
     - name: 'Install MySQL Packages'
       run: |
         sudo apt-get update
-        sudo apt-get install -y mysql-client-core-8.0 
-        sudo apt-get install libmysqlclient-dev 
+        sudo apt-get install -y mysql-client-core-8.0 mysql-server
+        sudo apt-get install -y libmysqlclient-dev 
 
     - name: 'Determine Ruby and Bundler Versions from Gemfile.lock'
       run: |
