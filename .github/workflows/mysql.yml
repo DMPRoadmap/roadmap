@@ -82,8 +82,9 @@ jobs:
         yarn install
 
     - name: 'Start MySQL'
-      run: 
-      run: sudo systemctl start mysql
+      run: |
+        sudo systemctl unmask mysql
+        sudo systemctl start mysql
 
     - name: 'Setup Test DB'
       run: bin/rails db:setup RAILS_ENV=test
