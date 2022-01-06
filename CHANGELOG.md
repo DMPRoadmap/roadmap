@@ -1,5 +1,10 @@
 # Changelog
 
+## [Unreleased]
+
+## Changed
+  - Update mysql installation process for the Github action
+
 ## [2.1.3+portage-1.0.19] - 2021-09-15
 
 ## Fixed
@@ -167,5 +172,3 @@
  - Allow organizational admin to see the download button in 'Statisctics on Users' and 'Statistics on Tempalte' accordions
  - Upgrade node-sass to 7, node to 12 and adjust eslint test to use Github default action
 
-## [3.0.4+portage-3.0.0] - 2021-12-09
-  - Update mysql installation process for the Github action
