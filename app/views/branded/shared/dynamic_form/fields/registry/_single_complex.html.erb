@@ -30,7 +30,7 @@
           <%= select_tag "#{f.object_name}[#{field_name}]",
                       options_for_select(
                           select_values.map {|v| [ 
-                                  v.to_s(locale), 
+                                  v.to_s(locale: locale), 
                                   select_value(v, locale) 
                               ] 
                           }
