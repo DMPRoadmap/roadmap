@@ -111,7 +111,7 @@ RSpec.describe "PlansExports", type: :feature, js: true do
     end
   end
 
-  scenario "User downloads their plan as PDF" do
+  scenario "User downloads their plan as PDF - All Phase" do
     within("#plan_#{plan.id}") do
       click_button("Actions")
       click_link "Download"
@@ -119,6 +119,18 @@ RSpec.describe "PlansExports", type: :feature, js: true do
     select("pdf")
     if plan.phases.present?
       _all_phase_download
+    else
+      _regular_download("pdf")
+    end
+  end
+
+  scenario "User downloads their plan as PDF - Single Phase" do
+    within("#plan_#{plan.id}") do
+      click_button("Actions")
+      click_link "Download"
+    end
+    select("pdf")
+    if plan.phases.present?
       _single_phase_download
     else
       _regular_download("pdf")
