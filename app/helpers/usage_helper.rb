@@ -26,6 +26,7 @@ module UsageHelper
     # Extract all of the dates as month abbreviation - year (e.g. Dec-19)
     labels = data.map { |rec| prep_date_for_charts(date: rec["date"]) }
 
+
     # Loop through the data and organize the datasets by template instead of date
     data.each do |rec|
       date = prep_date_for_charts(date: rec["date"])
