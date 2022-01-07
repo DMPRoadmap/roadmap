@@ -33,7 +33,7 @@ class StatCreatedPlan
         end
       end
 
-      private
+            private
 
       def users(org)
         User.where(users: { org_id: org.id })
@@ -59,7 +59,6 @@ class StatCreatedPlan
             .count
       end
 
-      # rubocop:disable Metrics/AbcSize
       def plan_statistics(start_date:, end_date:, org:, filtered:, own_templates: false)
         roleable_plans = Role.joins(%i[plan user])
                              .administrator
@@ -83,9 +82,8 @@ class StatCreatedPlan
           { name: t[1], count: template_counts[t[0]] }
         end
       end
-      # rubocop:enable Metrics/AbcSize
 
-    end
+          end
 
   end
 

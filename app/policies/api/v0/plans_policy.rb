@@ -6,8 +6,7 @@ module Api
 
     class PlansPolicy < ApplicationPolicy
 
-      attr_reader :user
-      attr_reader :template
+      attr_reader :user, :template
 
       def initialize(user, template)
         raise Pundit::NotAuthorizedError, _("must be logged in") unless user

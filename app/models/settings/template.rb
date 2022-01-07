@@ -80,21 +80,22 @@ module Settings
         end
 
         errs.map do |key|
-          if key == :missing_key
+          case key
+          when :missing_key
             errors.add(:formatting, _("A required setting has not been provided"))
-          elsif key == :invalid_margin
+          when :invalid_margin
             errors.add(:formatting, _("Margin value is invalid"))
-          elsif key == :negative_margin
+          when :negative_margin
             errors.add(:formatting, _("Margin cannot be negative"))
-          elsif key == :unknown_margin
+          when :unknown_margin
             # rubocop:disable Layout/LineLength
             errors.add(:formatting, _("Unknown margin. Can only be 'top', 'bottom', 'left' or 'right'"))
             # rubocop:enable Layout/LineLength
-          elsif key == :invalid_font_size
+          when :invalid_font_size
             errors.add(:formatting, _("Invalid font size"))
-          elsif key == :invalid_font_face
+          when :invalid_font_face
             errors.add(:formatting, _("Invalid font face"))
-          elsif key == :unknown_key
+          when :unknown_key
             errors.add(:formatting, _("Unknown formatting setting"))
           end
         end

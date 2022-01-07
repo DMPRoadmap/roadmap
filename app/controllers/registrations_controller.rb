@@ -40,7 +40,7 @@ class RegistrationsController < Devise::RegistrationsController
                        }
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity, Metrics/BlockNesting, Layout/LineLength
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/BlockNesting, Layout/LineLength
   # POST /resource
   def create
     oauth = { provider: nil, uid: nil }
@@ -106,19 +106,16 @@ class RegistrationsController < Devise::RegistrationsController
           set_flash_message :notice, :signed_up if is_navigational_format?
           sign_up(resource_name, resource)
           UserMailer.welcome_notification(current_user).deliver_now
-          unless oauth.nil?
-            # The OAuth provider could not be determined or there was no unique UID!
-            unless oauth["provider"].nil? || oauth["uid"].nil?
-              prov = IdentifierScheme.find_by(name: oauth["provider"].downcase)
-              # Until we enable ORCID signups
-              if prov.present? && prov.name == "shibboleth"
-                Identifier.create(identifier_scheme: prov,
-                                  value: oauth["uid"],
-                                  attrs: oauth,
-                                  identifiable: resource)
-                flash[:notice] = _("Welcome! You have signed up successfully with your institutional credentials. You will now be able to access your account with them.")
-                # rubocop:enable Layout/LineLength
-              end
+          if !oauth.nil? && !(oauth["provider"].nil? || oauth["uid"].nil?)
+            prov = IdentifierScheme.find_by(name: oauth["provider"].downcase)
+            # Until we enable ORCID signups
+            if prov.present? && prov.name == "shibboleth"
+              Identifier.create(identifier_scheme: prov,
+                                value: oauth["uid"],
+                                attrs: oauth,
+                                identifiable: resource)
+              flash[:notice] = _("Welcome! You have signed up successfully with your institutional credentials. You will now be able to access your account with them.")
+              # rubocop:enable Layout/LineLength
             end
           end
           respond_with resource, location: after_sign_up_path_for(resource)
@@ -134,7 +131,7 @@ class RegistrationsController < Devise::RegistrationsController
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity, Metrics/BlockNesting
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/BlockNesting
 
   def update
     if user_signed_in?
@@ -163,8 +160,8 @@ class RegistrationsController < Devise::RegistrationsController
     user.email != update_params[:email] || update_params[:password].present?
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Layout/LineLength, Metrics/BlockNesting
-  def do_update(require_password = true, confirm = false)
+  # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/MethodLength, Layout/LineLength, Metrics/BlockNesting
+  def do_update(require_password: true, confirm: false)
     restrict_orgs = Rails.configuration.x.application.restrict_orgs
     mandatory_params = true
     # added to by below, overwritten otherwise
@@ -256,7 +253,7 @@ class RegistrationsController < Devise::RegistrationsController
       render "edit"
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Layout/LineLength, Metrics/BlockNesting
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity, Layout/LineLength, Metrics/BlockNesting
 
   # rubocop:disable Metrics/AbcSize
   def do_update_password(current_user, args)

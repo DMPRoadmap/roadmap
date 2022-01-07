@@ -10,7 +10,7 @@ module ConditionalUserMailer
   #              prefences.email (see dmproadmap.rb initializer)
   #
   # Returns Boolean
-  def deliver_if(recipients: [], key:, &block)
+  def deliver_if(key:, recipients: [], &block)
     return false unless block_given?
 
     Array(recipients).each do |recipient|

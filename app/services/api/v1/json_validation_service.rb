@@ -51,7 +51,6 @@ module Api
           json.present?
         end
 
-        # rubocop:disable Metrics/AbcSize
         # Scans the entire JSON document for invalid metadata and returns
         # friendly errors to help the caller resolve the issue
         def validation_errors(json:)
@@ -59,9 +58,7 @@ module Api
           return [_("invalid JSON")] unless json.present?
 
           errs << BAD_PLAN_MSG unless plan_valid?(json: json)
-          if json[:dmp_id].present?
-            errs << BAD_ID_MSG unless identifier_valid?(json: json[:dmp_id])
-          end
+          errs << BAD_ID_MSG if json[:dmp_id].present? && !identifier_valid?(json: json[:dmp_id])
 
           # Handle Contact
           errs << contributor_validation_errors(json: json[:contact])
@@ -84,7 +81,6 @@ module Api
           # end
           errs.flatten.compact.uniq
         end
-        # rubocop:enable Metrics/AbcSize
 
         def contributor_validation_errors(json:)
           errs = []
@@ -93,9 +89,7 @@ module Api
                                                               is_contact: true)
             errs << org_validation_errors(json: json[:affiliation]) if json[:affiliation].present?
             id = json.fetch(:contributor_id, json[:contact_id])
-            if id.present?
-              errs << BAD_ID_MSG unless identifier_valid?(json: id)
-            end
+            errs << BAD_ID_MSG if id.present? && !identifier_valid?(json: id)
           end
           errs
         end
@@ -106,8 +100,8 @@ module Api
 
           errs << BAD_FUNDING_MSG unless funding_valid?(json: json)
           errs << org_validation_errors(json: json)
-          if json[:grant_id].present?
-            errs << BAD_ID_MSG unless identifier_valid?(json: json[:grant_id])
+          if json[:grant_id].present? && !identifier_valid?(json: json[:grant_id])
+            errs << BAD_ID_MSG
           end
           errs
         end
@@ -118,9 +112,7 @@ module Api
 
           errs << BAD_ORG_MSG unless org_valid?(json: json)
           id = json.fetch(:affiliation_id, json[:funder_id])
-          if id.present?
-            errs << BAD_ID_MSG unless identifier_valid?(json: id)
-          end
+          errs << BAD_ID_MSG if id.present? && !identifier_valid?(json: id)
           errs
         end
 

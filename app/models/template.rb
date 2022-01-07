@@ -370,7 +370,7 @@ class Template < ApplicationRecord
     # Assume customizing_org is persisted
     raise _("generate_copy! requires an organisation target") unless org.is_a?(Org)
 
-    template = deep_copy(
+    deep_copy(
       attributes: {
         version: 0,
         published: false,
@@ -380,21 +380,19 @@ class Template < ApplicationRecord
         title: _("Copy of %{template}") % { template: title }
       }, modifiable: true, save: true
     )
-    template
   end
 
   # Generates a new copy of self with an incremented version number
   def generate_version!
     raise _("generate_version! requires a published template") unless published
 
-    template = deep_copy(
+    deep_copy(
       attributes: {
         version: version + 1,
         published: false,
         org: org
       }, save: true
     )
-    template
   end
 
   # Generates a new copy of self for the specified customizing_org
@@ -409,7 +407,7 @@ class Template < ApplicationRecord
       raise ArgumentError, _("customize! requires a template from a funder")
     end
 
-    customization = deep_copy(
+    deep_copy(
       attributes: {
         version: 0,
         published: false,
@@ -420,7 +418,6 @@ class Template < ApplicationRecord
         is_default: false
       }, modifiable: false, save: true
     )
-    customization
   end
 
   # Generates a new copy of self including latest changes from the funder this
@@ -477,11 +474,10 @@ class Template < ApplicationRecord
   # TODO: refactor to use UniqueRandom
   # Generate a new random family identifier
   def self.new_family_id
-    family_id = loop do
+    loop do
       random = rand 2_147_483_647
       break random unless Template.exists?(family_id: random)
     end
-    family_id
   end
 
   private

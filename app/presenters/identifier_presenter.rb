@@ -2,8 +2,7 @@
 
 class IdentifierPresenter
 
-  attr_reader :schemes
-  attr_reader :identifiable
+  attr_reader :schemes, :identifiable
 
   def initialize(identifiable:)
     @identifiable = identifiable

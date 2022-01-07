@@ -20,7 +20,7 @@ module ApplicationHelper
   # params) of the last URL requested. See
   # http://api.rubyonrails.org/classes/ActionDispatch/Request.html#method-i-fullpath
   # for details
-  def active_page?(path, exact_match = false)
+  def active_page?(path, exact_match: false)
     if exact_match
       request.fullpath == path
     else

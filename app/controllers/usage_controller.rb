@@ -118,7 +118,6 @@ class UsageController < ApplicationController
                                   :end_date, :topic, :filtered)
   end
 
-  # rubocop:disable Metrics/AbcSize
   def args_from_params
     org = current_user.org
     if current_user.can_super_admin? && usage_params[:org_id].present?
@@ -134,7 +133,6 @@ class UsageController < ApplicationController
       end_date: end_date.present? ? end_date : Date.today.strftime("%Y-%m-%d")
     }
   end
-  # rubocop:enable Metrics/AbcSize
 
   def default_query_args
     # Stats are generated at the beginning of each month, so our reference

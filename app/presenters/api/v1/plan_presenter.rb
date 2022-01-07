@@ -6,9 +6,7 @@ module Api
 
     class PlanPresenter
 
-      attr_reader :data_contact
-      attr_reader :contributors
-      attr_reader :costs
+      attr_reader :data_contact, :contributors, :costs
 
       def initialize(plan:)
         @contributors = []

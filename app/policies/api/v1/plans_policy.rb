@@ -26,10 +26,11 @@ module Api
         # rubocop:disable Metrics/AbcSize
         def resolve
           ids = Plan.publicly_visible.pluck(:id)
-          if client.is_a?(ApiClient)
+          case client
+          when ApiClient
             ids += client.plans.pluck(&:id)
             ids += client.org.plans.pluck(&:id) if client.org.present?
-          elsif client.is_a?(User)
+          when User
             ids += client.org.plans.organisationally_visible.pluck(:id)
             ids += client.plans.pluck(:id)
             ids += client.org.plans.pluck(:id) if client.can_org_admin?

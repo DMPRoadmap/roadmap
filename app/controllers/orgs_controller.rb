@@ -120,7 +120,6 @@ class OrgsController < ApplicationController
 
   # This action is used to redirect a user to the Shibboleth IdP
   # POST /orgs/shibboleth_ds
-  # rubocop:disable Metrics/AbcSize
   def shibboleth_ds_passthru
     if !shib_params[:org_id].blank?
       session["org_id"] = shib_params[:org_id]
@@ -142,10 +141,9 @@ class OrgsController < ApplicationController
       redirect_to shibboleth_ds_path, notice: _("Please choose an organisation")
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   # POST /orgs  (via AJAX from Org Typeaheads ... see below for specific pages)
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength
   def search
     args = search_params
     # If the search term is greater than 2 characters
@@ -206,7 +204,7 @@ class OrgsController < ApplicationController
       render json: []
     end
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
 
   private
 

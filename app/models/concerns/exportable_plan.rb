@@ -8,7 +8,7 @@ module ExportablePlan
 
   include ConditionsHelper
 
-  def as_pdf(user, coversheet = false)
+  def as_pdf(user, coversheet: false)
     prepare(user, coversheet)
   end
 

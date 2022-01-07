@@ -4,8 +4,7 @@ class Settings::ProjectPolicy < ApplicationPolicy
 
   # this is the policy for app/controllers/settings/projects_controller.rb
 
-  attr_reader :user
-  attr_reader :projects
+  attr_reader :user, :projects
 
   def initialize(user, settings)
     raise Pundit::NotAuthorizedError, "must be logged in" unless user

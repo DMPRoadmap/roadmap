@@ -2,8 +2,7 @@
 
 class Settings::PlanPolicy < ApplicationPolicy
 
-  attr_reader :user
-  attr_reader :plan
+  attr_reader :user, :plan
 
   def initialize(user, plan)
     raise Pundit::NotAuthorizedError, "must be logged in" unless user

@@ -8,9 +8,10 @@ module ConditionsHelper
   # return a list of question ids to open/hide
   def remove_list(object)
     id_list = []
-    if object.is_a?(Plan)
+    case object
+    when Plan
       plan_answers = object.answers
-    elsif object.is_a?(Hash)
+    when Hash
       plan_answers = object[:answers]
     else
       # TODO: change this to an exception as it shouldn't happen
@@ -167,6 +168,7 @@ module ConditionsHelper
   # rubocop:enable Metrics/AbcSize
   # rubocop:enable
 
+  # rubocop:disable Style/StringConcatenation
   def question_title(question)
     raw "Qn. " + question.number.to_s + ": " +
         truncate(strip_tags(question.text),
@@ -182,6 +184,7 @@ module ConditionsHelper
                  separator: " ",
                  escape: false)
   end
+  # rubocop:enable Style/StringConcatenation
 
   # used when displaying a question while editing the template
   # converts condition into text
@@ -191,28 +194,29 @@ module ConditionsHelper
     conditions.each do |cond|
       opts = cond.option_list.map { |opt| QuestionOption.find(opt).text }
       return_string += "</dd>" unless return_string.empty?
-      return_string += "<dd>" + _("Answering") + " "
+      return_string += "<dd>#{_('Answering')} "
       return_string += opts.join(" and ")
       if cond.action_type == "add_webhook"
         subject_string = text_formatted(JSON.parse(cond.webhook_data)["subject"])
         return_string += _(" will <b>send an email</b> with subject ") + subject_string
       else
         remove_data = cond.remove_data
-        rems = remove_data.map { |rem| '"' + Question.find(rem).text + '"' }
+        rems = remove_data.map { |rem| "\"#{Question.find(rem).text}\"" }
 
         return_string += _(" will <b>remove</b> question ") if rems.length == 1
         return_string += _(" will <b>remove</b> questions ") if rems.length > 1
         return_string += rems.join(" and ")
       end
     end
-    return_string + "</dd>"
+    "#{return_string}</dd>"
   end
   # rubocop:enable Metrics/AbcSize
 
   def text_formatted(object)
-    if object.is_a?(Integer) # when remove question id
+    case object
+    when Integer # when remove question id
       text = Question.find(object).text
-    elsif object.is_a?(String) # when email subject
+    when String # when email subject
       text = object
     else
       pp "type error"
@@ -227,7 +231,7 @@ module ConditionsHelper
   def conditions_to_param_form(conditions)
     param_conditions = {}
     conditions.each do |condition|
-      title = "condition" + condition[:number].to_s
+      title = "condition#{condition[:number]}"
       condition_hash = { title =>
                         { question_option_id: condition.option_list,
                           action_type: condition.action_type,

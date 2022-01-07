@@ -2,8 +2,7 @@
 
 class DepartmentPolicy < ApplicationPolicy
 
-  attr_reader :user
-  attr_reader :department
+  attr_reader :user, :department
 
   def initialize(user, department)
     raise Pundit::NotAuthorizedError, "must be logged in" unless user

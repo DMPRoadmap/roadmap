@@ -2,8 +2,6 @@
 
 require "rails_helper"
 
-require "rails_helper"
-
 RSpec.describe "Questions::Dropdown questions" do
 
   before do

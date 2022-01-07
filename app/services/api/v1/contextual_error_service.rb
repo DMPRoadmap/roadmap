@@ -16,7 +16,6 @@ module Api
       class << self
 
         # Process the plan's errors and any of its associations
-        # rubocop:disable Metrics/AbcSize
         def process_plan_errors(plan:)
           return [] if !plan.is_a?(Plan) || valid_plan?(plan: plan)
 
@@ -31,7 +30,6 @@ module Api
           errs << contextualize(errors: plan.grant.errors, context: "Grant")
           errs.flatten.compact.uniq
         end
-        # rubocop:enable Metrics/AbcSize
 
         # Add context to the standard error message
         def contextualize(errors:, context: "DMP")

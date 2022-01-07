@@ -88,16 +88,14 @@ class Guidance < ApplicationRecord
     guidance = Guidance.find_by(id: id)
     viewable = false
 
-    unless guidance.nil?
-      unless guidance.guidance_group.nil?
-        # guidances are viewable if they are owned by the user's org
-        viewable = true if guidance.guidance_group.org == user.org
-        # guidance groups are viewable if they are owned by the Default Orgs
-        viewable = true if Org.default_orgs.include?(guidance.guidance_group.org)
+    if !guidance.nil? && !guidance.guidance_group.nil?
+      # guidances are viewable if they are owned by the user's org
+      viewable = true if guidance.guidance_group.org == user.org
+      # guidance groups are viewable if they are owned by the Default Orgs
+      viewable = true if Org.default_orgs.include?(guidance.guidance_group.org)
 
-        # guidance groups are viewable if they are owned by a funder
-        viewable = true if Org.funder.include?(guidance.guidance_group.org)
-      end
+      # guidance groups are viewable if they are owned by a funder
+      viewable = true if Org.funder.include?(guidance.guidance_group.org)
     end
 
     viewable
@@ -137,9 +135,8 @@ class Guidance < ApplicationRecord
   #
   # Returns Boolean
   def in_group_belonging_to?(org_id)
-    unless guidance_group.nil?
-      return true if guidance_group.org.id == org_id
-    end
+    return true if !guidance_group.nil? && (guidance_group.org.id == org_id)
+
     false
   end
 

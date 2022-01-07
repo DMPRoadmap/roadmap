@@ -11,6 +11,11 @@ AllCops:
     - 'node_modules/**/*'
     - 'test/**/*'
     - 'lib/tasks/*'
+    - 'config/environments/*'
+    - 'scripts/*'
+    - 'config.ru'
+    - 'config/puma.rb'
+
 
 # Force no empty lines at the start or end of a block's body. Ignore specs, since this
 # improves readability within the RSpec blocks.
@@ -85,9 +90,12 @@ Lint/RaiseException:
 Lint/StructNewOverride:
   Enabled: true
 
+Lint/MissingSuper:
+  Enabled: false
+
 # Bumping the default AbcSize so we don't need to refactor everything
 Metrics/AbcSize:
-  Max: 25
+  Max: 28
 
 # Restrict the number of lines of code that may be within a block of code. This should
 # force developers to break their code into smaller discrete methods or objects.
@@ -177,3 +185,6 @@ Style/RedundantRegexpEscape:
 
 Style/SlicingWithRange:
   Enabled: true
+
+Style/OptionalBooleanParameter:
+  Enabled: false

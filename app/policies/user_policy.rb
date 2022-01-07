@@ -2,8 +2,7 @@
 
 class UserPolicy < ApplicationPolicy
 
-  attr_reader :signed_in_user
-  attr_reader :user
+  attr_reader :signed_in_user, :user
 
   def initialize(signed_in_user, user)
     raise Pundit::NotAuthorizedError, "must be logged in" unless signed_in_user

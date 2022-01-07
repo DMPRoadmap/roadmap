@@ -104,7 +104,7 @@ module OrgAdmin
           flash[:alert] = failure_message(section, _("save"))
         end
       rescue StandardError => e
-        flash[:alert] = _("Unable to create a new version of this template.") + "<br/>" + e.message
+        flash[:alert] = "#{_('Unable to create a new version of this template.')}<br/>#{e.message}"
       end
 
       redirect_to edit_org_admin_template_phase_path(
@@ -115,7 +115,6 @@ module OrgAdmin
     # rubocop:enable Metrics/AbcSize
 
     # DELETE /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]
-    # rubocop:disable Metrics/AbcSize
     def destroy
       section = Section.includes(phase: :template).find(params[:id])
       authorize section
@@ -128,7 +127,7 @@ module OrgAdmin
           flash[:alert] = failure_message(section, _("delete"))
         end
       rescue StandardError => e
-        flash[:alert] = _("Unable to create a new version of this template.") + "<br/>" + e.message
+        flash[:alert] = "#{_('Unable to create a new version of this template.')}<br/>#{e.message}"
       end
 
       redirect_to(edit_org_admin_template_phase_path(
@@ -136,7 +135,6 @@ module OrgAdmin
                     id: phase.id
                   ))
     end
-    # rubocop:enable Metrics/AbcSize
 
     private
 

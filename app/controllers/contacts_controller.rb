@@ -5,11 +5,11 @@ class ContactUs::ContactsController < ApplicationController
   def create
     @contact = ContactUs::Contact.new(params[:contact_us_contact])
 
-    if !user_signed_in? && Rails.configuration.x.recaptcha.enabled
-      unless verify_recaptcha(model: @contact) && @contact.save
-        flash[:alert] = _("Captcha verification failed, please retry.")
-        render_new_page and return
-      end
+    if !user_signed_in? &&
+       Rails.configuration.x.recaptcha.enabled &&
+       !(verify_recaptcha(model: @contact) && @contact.save)
+      flash[:alert] = _("Captcha verification failed, please retry.")
+      render_new_page and return
     end
     if @contact.save
       redirect_to(ContactUs.success_redirect || "/",

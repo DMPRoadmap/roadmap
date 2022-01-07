@@ -6,8 +6,7 @@ module Api
 
     class GuidancePolicy < ApplicationPolicy
 
-      attr_reader :user
-      attr_reader :guidance
+      attr_reader :user, :guidance
 
       def initialize(user, guidance)
         raise Pundit::NotAuthorizedError, _("must be logged in") unless user

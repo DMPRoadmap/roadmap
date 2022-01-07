@@ -4,6 +4,7 @@ require "rails_helper"
 
 RSpec.describe OrgSelectable do
 
+  # rubocop:disable Lint/ConstantDefinitionInBlock
   before(:each) do
     class StubController < ApplicationController
 
@@ -26,6 +27,7 @@ RSpec.describe OrgSelectable do
                                                  org_crosswalk: [{ id: Faker::Number.number }]
                                                })
   end
+  # rubocop:enable Lint/ConstantDefinitionInBlock
 
   after(:each) do
     Object.send :remove_const, :StubController

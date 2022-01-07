@@ -2,8 +2,7 @@
 
 class NotePolicy < ApplicationPolicy
 
-  attr_reader :user
-  attr_reader :note
+  attr_reader :user, :note
 
   def initialize(user, note)
     raise Pundit::NotAuthorizedError, "must be logged in" unless user

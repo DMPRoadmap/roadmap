@@ -2,8 +2,7 @@
 
 class GuidancePresenter
 
-  attr_accessor :plan
-  attr_accessor :guidance_groups
+  attr_accessor :plan, :guidance_groups
 
   def initialize(plan)
     @plan = plan

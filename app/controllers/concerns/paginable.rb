@@ -148,7 +148,7 @@ module Paginable
       else
         order_field = ActiveRecord::Base.sanitize_sql(@args[:sort_field])
         scope = scope.includes(table_part.singularize.to_sym)
-                     .order(order_field + " " + sort_direction.to_s)
+                     .order("#{order_field} #{sort_direction}")
       end
     end
     if @args[:page] != "ALL"

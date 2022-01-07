@@ -24,8 +24,7 @@ module Api
         #
         class AuthenticationService
 
-          attr_reader :errors
-          attr_reader :expiration
+          attr_reader :errors, :expiration
 
           def initialize(json: {})
             json = json.nil? ? {} : json.with_indifferent_access
@@ -63,10 +62,7 @@ module Api
 
           private
 
-          attr_reader :client_id
-          attr_reader :client_secret
-          attr_reader :api_client
-          attr_reader :auth_method
+          attr_reader :client_id, :client_secret, :api_client, :auth_method
 
           # Returns the matching ApiClient if authentication succeeds
           def client

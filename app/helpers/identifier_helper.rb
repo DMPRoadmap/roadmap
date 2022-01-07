@@ -6,7 +6,7 @@ module IdentifierHelper
     return _("None defined") if id.new_record? || id.value.blank?
 
     without = id.value_without_scheme_prefix
-    prefix = with_scheme_name ? id.identifier_scheme.description + ": " : ""
+    prefix = with_scheme_name ? "#{id.identifier_scheme.description}: " : ""
     return prefix + id.value unless without != id.value && !without.starts_with?("http")
 
     link_to "#{prefix} #{without}", id.value, class: "has-new-window-popup-info"

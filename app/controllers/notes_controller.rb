@@ -77,7 +77,7 @@ class NotesController < ApplicationController
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # PUT /notes/:id
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength
   def update
     @note = Note.find(params[:id])
     authorize @note
@@ -114,7 +114,7 @@ class NotesController < ApplicationController
       }.to_json, status: :bad_request
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength
 
   # TODO: Consider just using the :destroy route
   # PATCH /notes/:id/archive

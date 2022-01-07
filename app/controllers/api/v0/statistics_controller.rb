@@ -216,7 +216,6 @@ class Api::V0::StatisticsController < Api::V0::BaseController
   # Renders a list of DMPs metadata, provided the DMPs were created between the
   # optional specified dates DMPs must be owned by a user who's organisation is the
   # same as the user who generates the call.
-  # rubocop:disable Metrics/AbcSize
   def plans
     raise Pundit::NotAuthorizedError unless Api::V0::StatisticsPolicy.new(@user, :statistics).plans?
 
@@ -229,7 +228,6 @@ class Api::V0::StatisticsController < Api::V0::BaseController
     end
     respond_with @org_plans
   end
-  # rubocop:enable Metrics/AbcSize
 
   private
 

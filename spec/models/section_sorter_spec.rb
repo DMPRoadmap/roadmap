@@ -4,6 +4,7 @@ require "spec_helper"
 
 RSpec.describe SectionSorter, type: :model do
 
+  # rubocop:disable Lint/ConstantDefinitionInBlock
   StubSection = Struct.new(:number, :modifiable, :id) do
 
     alias_method :modifiable?, :modifiable
@@ -21,6 +22,7 @@ RSpec.describe SectionSorter, type: :model do
     end
 
   end
+  # rubocop:enable Lint/ConstantDefinitionInBlock
 
   describe "#sort!" do
 
