@@ -16,7 +16,7 @@ module DmptoolHelper
 
     Rails.configuration.x.shibboleth.enabled = true
     Rails.configuration.x.shibboleth.use_filtered_discovery_service = true
-    create_shibboleth_entity_id(org: @org)
+    create_shibboleth_entity_id(org: org)
   end
 
   # rubocop:disable Metrics/MethodLength

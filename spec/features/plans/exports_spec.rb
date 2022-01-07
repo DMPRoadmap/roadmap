@@ -13,7 +13,8 @@ RSpec.describe 'PlansExports', type: :feature, js: true do
     template.sections.each { |s| create_list(:question, 2, section: s) }
     plan.roles << create(:role, :commenter, user: user)
     plan.roles << create(:role, :creator, user: user)
-    sign_in_as_user(user)
+    sign_in user
+    visit root_path
   end
 
   scenario 'User downloads plan from organisational plans portion of the dashboard' do
@@ -30,14 +31,16 @@ RSpec.describe 'PlansExports', type: :feature, js: true do
     create(:role, :creator, :commenter, :administrator, :editor,
            plan: new_plan,
            user: new_user)
-    sign_in_as_user(user)
+    sign_in user
+    visit root_path
     find(:css, "a[href*=\"/#{new_plan.id}/export.pdf\"]", visible: false).click
   end
 
   scenario 'User downloads public plan belonging to other User' do
     new_plan = create(:plan, :publicly_visible, template: template)
     create(:role, :creator, plan: new_plan)
-    sign_in_as_user(user)
+    sign_in user
+    visit root_path
     within("#plan_#{plan.id}") do
       click_button('Actions')
       click_link 'Download'
@@ -52,7 +55,8 @@ RSpec.describe 'PlansExports', type: :feature, js: true do
   scenario 'User downloads org plan belonging to User in same org' do
     new_plan = create(:plan, :organisationally_visible, template: template)
     create(:role, :creator, plan: new_plan, user: create(:user, org: org))
-    sign_in_as_user(user)
+    sign_in user
+    visit root_path
     within("#plan_#{plan.id}") do
       click_button('Actions')
       click_link 'Download'
@@ -67,14 +71,16 @@ RSpec.describe 'PlansExports', type: :feature, js: true do
   scenario 'User downloads org plan belonging to User in other org' do
     new_plan = create(:plan, :organisationally_visible, template: template)
     create(:role, :creator, plan: new_plan)
-    sign_in_as_user(create(:user))
+    sign_in create(:user)
+    visit root_path
     expect(page).not_to have_text(new_plan.title)
   end
 
   scenario 'User attempts to download private plan belonging to User in same' do
     new_plan = create(:plan, :privately_visible, template: template)
     create(:role, :creator, plan: new_plan)
-    sign_in_as_user(create(:user))
+    sign_in create(:user)
+    visit root_path
     expect(page).not_to have_text(new_plan.title)
   end
 

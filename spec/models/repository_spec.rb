@@ -79,7 +79,7 @@ describe Repository do
 
     describe '#search' do
       it 'returns repositories with keywords like the search term' do
-        results = described_class.search(@keywords.first[1..3])
+        results = described_class.search(@keywords.first[1..4])
         expect(results.include?(@never_found)).to eql(false)
         expect(results.include?(@by_type)).to eql(false)
         expect(results.include?(@by_subject)).to eql(false)

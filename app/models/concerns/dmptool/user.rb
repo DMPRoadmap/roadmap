@@ -22,9 +22,13 @@ module Dmptool
 
       # Create the stub User and sent them the invitation email
       # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-      def invite!(inviter:, plan:, params:)
+      def invite!(inviter:, plan:, context: nil, params: {})
         return nil unless inviter.present? && plan.present? &&
                           params.present? && params[:email].present?
+
+        # Use the assigned org_id or determine which one based on the Inviter type
+        org_id = params[:org_id]
+        org_id = inviter.is_a?(User) ? inviter.org_id : inviter.user&.org_id unless org_id.present?
 
         params[:firstname] = 'First' unless params[:firstname].present?
         params[:surname] = 'Last' unless params[:surname].present?
@@ -33,13 +37,22 @@ module Dmptool
         params[:invitation_created_at] = Time.now
         params[:invited_by_id] = inviter.id
         params[:invited_by_type] = inviter.class.name
-        params[:org_id] = inviter.org_id
+        params[:org_id] = org_id
         params[:invitation_plan_id] = plan&.id
 
         ::User.transaction do
           invitee = ::User.new(params)
           if invitee.save(params)
-            UserMailer.invitation(inviter, invitee, plan).deliver_now
+            case context
+            when 'api'
+              UserMailer.new_plan_via_api(recipient: invitee, plan: plan, api_client: inviter)
+                        .deliver_now
+            when 'template_admin'
+              UserMailer.new_plan_via_template(recipient: invitee, sender: inviter, plan: plan)
+                        .deliver_now
+            else
+              UserMailer.invitation(inviter, invitee, plan).deliver_now
+            end
             invitee.update(invitation_sent_at: Time.now)
           end
           invitee

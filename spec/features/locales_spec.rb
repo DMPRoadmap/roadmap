@@ -55,7 +55,7 @@ RSpec.feature 'Locales', type: :feature, js: true do
         _('Create plan')
       end
 
-      click_link 'Language'
+      click_button 'Language'
       expect(current_path).to eql(plans_path)
       expect(page).not_to have_text(create_plan_text)
 
@@ -70,7 +70,7 @@ RSpec.feature 'Locales', type: :feature, js: true do
       create_plan_text = I18n.with_locale('pt-BR') do
         _('Create plan')
       end
-      click_link 'Language'
+      click_button 'Language'
       expect(current_path).to eql(plans_path)
       expect(page).not_to have_text(create_plan_text)
 

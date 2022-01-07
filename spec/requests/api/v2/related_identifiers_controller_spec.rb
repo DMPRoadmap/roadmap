@@ -5,11 +5,14 @@ require 'rails_helper'
 RSpec.describe Api::V2::RelatedIdentifiersController, type: :request do
   include Api::AccessTokenRequestHelper
   include Api::AuthorizationRequestHelper
+  include IdentifierHelper
 
   before(:each) do
     @other_user = create(:user)
 
     @plan = create(:plan, :creator, :privately_visible, complete: true)
+    create_dmp_id(plan: @plan)
+    @plan.reload
 
     @client = create(:api_client, trusted: false,
                                   user: create(:user, :org_admin, org: create(:org)))
@@ -25,11 +28,16 @@ RSpec.describe Api::V2::RelatedIdentifiersController, type: :request do
 
   describe 'POST /api/v2/related_identifiers - create' do
     before(:each) do
+      dmp_id = [
+        Rails.application.routes.url_helpers.api_v2_plan_url(@plan),
+        @plan.dmp_id
+      ].sample
+
       @json = {
         dmp: {
           dmp_id: {
-            type: 'url',
-            identifier: Rails.application.routes.url_helpers.api_v2_plan_url(@plan)
+            type: dmp_id.is_a?(Identifier) ? 'doi' : 'url',
+            identifier: dmp_id.is_a?(Identifier) ? dmp_id.value : dmp_id
           },
           dmproadmap_related_identifiers: [
             {

@@ -30,6 +30,13 @@ module Dmptool
         it 'returns nil if params[:email] is not present' do
           expect(::User.invite!(inviter: @inviter, plan: @plan, params: {})).to eql(nil)
         end
+        it 'uses the specified params' do
+          @params[:org_id] = create(:org).id
+          @params[:firstname] = Faker::Movies::StarWars.unique.character.split.first
+          @user = ::User.invite!(inviter: @inviter, plan: @plan, params: @params)
+          expect(@user.firstname).to eql(@params[:firstname])
+          expect(@user.org_id).to eql(@params[:org_id])
+        end
         it 'update the User with the default values' do
           @user = ::User.invite!(inviter: @inviter, plan: @plan, params: @params)
           expect(@user.firstname).to eql('First')

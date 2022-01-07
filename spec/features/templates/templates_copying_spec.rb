@@ -9,7 +9,7 @@ RSpec.feature 'Templates::Copying', type: :feature do
     create(:template, :published, org: org)
   end
 
-  let!(:user) { create(:user, org: org) }
+  let!(:user) { create(:user, :org_admin, org: org) }
 
   before do
     create_list(:phase, 2, template: parent_template).each do |phase|
@@ -17,15 +17,13 @@ RSpec.feature 'Templates::Copying', type: :feature do
         create_list(:question, 2, section: section)
       end
     end
-    user.perms << create(:perm, :modify_templates)
-    user.perms << create(:perm, :add_organisations)
-    sign_in_as_user user
-    visit org_admin_templates_path
+    sign_in user
+    visit organisational_org_admin_templates_path
   end
 
   scenario 'Admin copies an existing Template', :js do
     # Setup
-    click_link org.name
+    # click_link org.name
 
     # Action
     within("#template_#{parent_template.id}") do

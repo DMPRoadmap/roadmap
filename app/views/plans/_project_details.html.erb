@@ -123,7 +123,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
 <% end %>
 
 <conditional>
-  <div id="funder-org-controls" class="form-group">
+  <div class="form-group">
     <div class="col-md-8">
       <%= fields_for :funder, plan.funder do |funder_fields| %>
         <%= render partial: "shared/org_autocomplete",
@@ -131,6 +131,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
                               namespace: "funder",
                               default_org: plan.funder,
                               required: false,
+                              div_id: 'funder-org-controls',
                               known_only: Rails.configuration.x.application.restrict_orgs || false,
                               funder_only: true,
                               label: _("Funder") } %>
@@ -138,7 +139,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
     </div>
   </div>
 
-  <div class="form-group toggleable-field">
+  <div class="form-group js-funder-field">
     <div class="col-md-12">
       <%= form.label(:funding_status, _("Funding status"), class: "control-label") %>
     </div>

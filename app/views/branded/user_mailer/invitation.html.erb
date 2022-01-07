@@ -1,6 +1,7 @@
 <% I18n.with_locale I18n.default_locale do %>
   <p>
-    <% name = @invitee.active_invitation? ? @invitee.email : @invitee.name %>
+    <% name = @invitee.email if @invitee.active_invitation? %>
+    <% name = (@inviter_type == 'User' ? @invitee.name(false) : @invitee.name) unless name.present? %>
     <%= _('Hello %{invitee}') %{ invitee: name } %>
   </p>
   <p>
@@ -45,8 +46,8 @@
     <br>
     <p><%= _("Thank you,") %></p>
     <p><%= _("The %{org_name} DMPTool team") % { org_name: @org_name } %></p>
-    <p><%= _("Please do not reply to this email. If you have any questions or need help, please contact us at %{org_admin_email}") % {
-      org_admin_email: link_to(@org_email, @org_email)
-    } %></p>
+    <p><%= sanitize(_("Please do not reply to this email. If you have any questions or need help, please contact us at %{org_admin_email}") % {
+      org_admin_email: mail_to(@org_email, @org_email)
+    }) %></p>
   <% end %>
 <% end %>

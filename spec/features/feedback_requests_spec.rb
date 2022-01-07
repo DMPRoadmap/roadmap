@@ -15,7 +15,8 @@ RSpec.describe 'FeedbackRequests', type: :feature do
 
   before do
     plan.roles << create(:role, :commenter, :creator, :editor, :administrator, user: user)
-    sign_in_as_user(user)
+    sign_in user
+    visit root_path
     ActionMailer::Base.deliveries = []
     stub_openaire
   end

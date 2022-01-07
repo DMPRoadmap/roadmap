@@ -241,8 +241,6 @@ class PlansController < ApplicationController
       @plan.grant = plan_params[:grant]
       attrs.delete(:funder)
       attrs.delete(:grant)
-      attrs = process_related_identifiers(attrs: attrs)
-      attrs = remove_org_selection_params(params_in: attrs)
 
       if @plan.update(attrs)
         format.html do

@@ -9,6 +9,13 @@ module Api
       # A helper method that takes the current client and returns the plans they
       # have acess to
       class Scope
+        attr_reader :client, :scope
+
+        def initialize(client, scope)
+          @client = client
+          @scope = scope
+        end
+
         ## return the visible plans (via the API) to a given client
         # ALL can view: public
         # ApiClient can view: anything from the API client

@@ -3,11 +3,13 @@
 require 'rails_helper'
 
 RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
-  let(:funder) { create(:org, :funder, name: 'The funder org') }
+  include AutocompleteHelper
 
-  let(:org) { create(:org, :organisation, name: "The User's org") }
+  let(:funder) { create(:org, :funder, name: 'The funder org', managed: true) }
 
-  let(:user) { create(:user, org: org) }
+  let(:org) { create(:org, :organisation, name: "The User's org", managed: true) }
+
+  let(:user) { create(:user, :super_admin, org: org) }
 
   let(:question_format) { create(:question_format, :textarea) }
 
@@ -22,15 +24,12 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
         create_list(:question, 2, :textarea, section: section)
       end
     end
-    user.perms << create(:perm, :modify_templates)
-    user.perms << create(:perm, :add_organisations)
-    user.perms << create(:perm, :change_org_affiliation)
   end
 
   scenario 'Admin upgrades customizations from funder Template', :js do
     # pending "Need S3 travis working to debug this test on Travis"
-    sign_in_as_user user
-    visit org_admin_templates_path
+    sign_in user
+    visit customisable_org_admin_templates_path
 
     # Customise a Template that belongs to another funder Org
     click_link('Customisable Templates')
@@ -51,8 +50,7 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
     expect(customized_template.reload.published?).to eql(true)
 
     # Move to the other funder Org's Templates
-    fill_in(:superadmin_user_org_name, with: funder.name)
-    choose_suggestion(funder.name)
+    select_an_org('#change-affiliation-org-controls', funder.name, 'Affiliation')
     click_button('Change affiliation')
 
     # Edit the original Template
@@ -92,9 +90,7 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
     expect(new_funder_template.reload.published?).to eql(true)
 
     # Go back to the original Org...
-
-    fill_in(:superadmin_user_org_name, with: org.name)
-    choose_suggestion(org.name)
+    select_an_org('#change-affiliation-org-controls', org.name, 'Affiliation')
     click_button('Change affiliation')
 
     click_link 'Customisable Templates'

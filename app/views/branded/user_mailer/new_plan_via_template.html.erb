@@ -1,5 +1,6 @@
 <p>
-  <%= _('Hello %{user_name},') % {user_name: @user.name(false)} %>
+  <% name = @user.active_invitation? ? @user.email : @user.name(false) %>
+  <%= _('Hello %{user_name},') % {user_name: name} %>
 </p>
 <p>
   <%= sanitize(@message % {

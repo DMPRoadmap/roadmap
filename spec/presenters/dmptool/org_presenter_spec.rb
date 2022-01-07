@@ -30,22 +30,5 @@ RSpec.describe Dmptool::OrgPresenter do
         expect(@presenter.participating_orgs.include?(@unmanaged)).to eql(false)
       end
     end
-
-    describe '#sign_in_url(org:)' do
-      it 'returns nil if the :org is not present' do
-        expect(@presenter.sign_in_url(org: nil)).to eql(nil)
-      end
-      it 'returns nil if there is no shibboleth scheme' do
-        @scheme.destroy
-        @presenter = described_class.new
-        expect(@presenter.sign_in_url(org: @managed)).to eql(nil)
-      end
-      it 'returns the correct URL/path' do
-        result = @presenter.sign_in_url(org: @unmanaged)
-        path = Rails.application.routes.url_helpers.shibboleth_ds_path
-        expect(result.starts_with?(path)).to eql(true)
-        expect(result.ends_with?(@unmanaged.id.to_s)).to eql(true)
-      end
-    end
   end
 end

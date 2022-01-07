@@ -40,6 +40,20 @@ describe 'layouts/_json_constants.html.erb' do
 
     expect(rendered.include?('ACQUIRING_DMP_ID')).to eql(true)
 
+    expect(rendered.include?('FIELD')).to eql(true)
+    expect(rendered.include?('FIELDS')).to eql(true)
+
+    expect(rendered.include?('SIGN_IN_UP_BLANK_CHECKBOX')).to eql(true)
+    expect(rendered.include?('SIGN_IN_UP_BLANK_EMAIL')).to eql(true)
+    expect(rendered.include?('SIGN_IN_UP_BLANK_FIELD')).to eql(true)
+    expect(rendered.include?('SIGN_IN_UP_BLANK_PASSWORD')).to eql(true)
+
+    expect(rendered.include?('SIGN_IN_UP_INVALID_EMAIL')).to eql(true)
+    expect(rendered.include?('SIGN_IN_UP_INVALID_FORM')).to eql(true)
+    expect(rendered.include?('SIGN_IN_UP_INVALID_PASSWORD')).to eql(true)
+
+    expect(rendered.include?('SIGN_IN_UP_VALID_FORM')).to eql(true)
+
     expect(rendered.include?('js-constants')).to eql(true)
   end
 end

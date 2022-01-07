@@ -24,29 +24,27 @@ RSpec.describe 'SuperAdmins Merge Orgs', type: :feature, js: true do
     @to_org = create(:org, :institution, plans: 2, managed: false)
 
     @user = create(:user, :super_admin, org: create(:org))
-    sign_in_as_user(@user)
+    sign_in @user
+    visit root_path
   end
 
   scenario 'Super admin merges an Org into another Org' do
     org_name = @from_org.name
-    click_link 'Admin'
-    sleep(0.5)
-    click_link 'Organisations'
+    click_button 'Admin'
+    click_link _('Organisations')
 
     fill_in(:search, with: @from_org.name)
     click_button 'Search'
-    sleep(0.5)
+    sleep(0.3)
 
     first("#org-#{@from_org.id}-actions").click
     first("a[href=\"/org/admin/#{@from_org.id}/admin_edit\"]").click
 
     click_link 'Merge'
     sleep(0.3)
+
     expect(page).to have_text('Merge Organisations')
-    find('#org_org_name').click
-    fill_in(:org_org_name, with: @to_org.name[0..6])
-    sleep(0.5)
-    choose_suggestion(@to_org.name)
+    select_an_org('#merge-org-controls', @to_org.name, 'Organisation lookup')
 
     click_button 'Analyze'
     # Wait for response

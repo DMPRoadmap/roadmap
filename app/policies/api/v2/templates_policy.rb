@@ -15,9 +15,8 @@ module Api
       class Scope
         attr_reader :client
 
-        def initialize(client, scope)
+        def initialize(client)
           @client = client
-          super(client, scope)
         end
 
         ## Return the templates to a given client depending on the context

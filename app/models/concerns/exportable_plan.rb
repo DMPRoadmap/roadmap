@@ -129,7 +129,8 @@ module ExportablePlan
 
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def prepare_coversheet_for_csv(csv, _headings, hash)
-    csv << [_('Creator:'), format(_('%<authors>s'), authors: hash[:attribution].join(', '))]
+    auths = hash[:attribution].is_a?(String) ? hash[:attribution] : hash[:attribution].join(', ')
+    csv << [_('Creator:'), format(_('%<authors>s'), authors: auths)]
     csv << ['Affiliation: ', format(_('%<affiliation>s'), affiliation: hash[:affiliation])]
     csv << if hash[:funder].present?
              [_('Template: '), format(_('%<funder>s'), funder: hash[:funder])]

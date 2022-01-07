@@ -10,13 +10,7 @@ module Dmptool
     end
 
     def participating_orgs
-      Org.participating.order(:name)
-    end
-
-    def sign_in_url(org:)
-      return nil unless org.present? && @shib.present?
-
-      "#{shibboleth_ds_path}/#{org.id}"
+      ::Org.participating.order(:name)
     end
   end
 end

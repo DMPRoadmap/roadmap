@@ -9,17 +9,21 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
   # implementation of it throughout the site
   before(:each) do
     mock_blog
+    @org = create(:org, :institution, managed: true)
+    @funder = create(:org, :funder, managed: true)
     @plan = create(:plan, :creator)
     @user = @plan.owner
     @word = 'Example'
+
+    @warn_with_custom = _('Please select an item from the list or check the box below and provide a name for your institution.')
+    @warn_without_custom = _('Please select an item from the list.')
 
     # Sign in and go to the Edit Project Details page
     sign_in @user
   end
 
-  it 'Setting restrict_orgs flag in config disables custom org entry' do
+  it 'Setting restrict_orgs flag in config disables custom org entry', js: true do
     Rails.configuration.x.application.restrict_orgs = true
-    # Rails.configuration.x.application.expects(:restrict_orgs).returns(true)
     visit plan_path(@plan)
 
     within('#funder-org-controls') do
@@ -27,16 +31,19 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
       expect(find('#org_autocomplete_funder_name').present?).to eql(true)
       expect { find('#org_autocomplete_funder_not_in_list') }.to raise_error(Capybara::ElementNotFound)
       expect { find('#org_autocomplete_funder_user_entered_name') }.to raise_error(Capybara::ElementNotFound)
-      expect(find('#org_autocomplete_crosswalk', visible: false).present?).to eql(true)
       expect(find('.autocomplete-help').present?).to eql(true)
 
       id = find('#org_autocomplete_funder_name')[:list].split('-').last
-      expect(find(".autocomplete-warning-#{id}").present?).to eql(true)
+      expect(find(".autocomplete-warning-#{id}", visible: false).present?).to eql(true)
+      expect(page).not_to have_text(@warn_without_custom)
       expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to eql(true)
 
       fill_in 'Funder', with: Faker::Company.unique.name
-      expect(page).to have_text(_('Please select an item from the list.'))
     end
+
+    # fill in a different field to trigger the validation check
+    fill_in 'Project title', with: Faker::Lorem.sentence
+    expect(page).to have_text(@warn_without_custom)
   end
 
   context 'basic autocomplete functionality' do
@@ -49,12 +56,7 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
 
       expect(page).to have_text(_('Sign up'))
 
-      @selector = '#create-account-org-controls'
-      within(@selector) do
-        @id = find('#org_autocomplete_name')[:list].split('-').last
-      end
-
-      @warn = _('Please select an item from the list or check the box below and provide a name for your organization.')
+      @selector = '#sign-up-org'
     end
 
     it 'User can type in the autocomplete and see suggestions', :js do
@@ -62,33 +64,66 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
       # Fill in the autocomplete and then fill in another field to ensure JS runs
       select_an_org(@selector, org.name, 'Institution')
       fill_in 'First Name', with: Faker::Movies::StarWars.character
-      expect(page).not_to have_text(@warn)
+      expect(page).not_to have_text(@warn_with_custom)
     end
     it 'User can specify their own custom Org', :js do
       # Fill in the custom name and then fill in another field to ensure JS runs
       enter_custom_org(@selector, Faker::Company.name)
       fill_in 'First Name', with: Faker::Movies::StarWars.character
-      expect(page).not_to have_text(@warn)
+      expect(page).not_to have_text(@warn_with_custom)
     end
     it 'User cannot enter a custom Org in the autocomplete', :js do
       # Fill in the autocomplete and then fill in another field to ensure JS runs
       fill_in 'Institution', with: Faker::Company.name
       fill_in 'First Name', with: Faker::Movies::StarWars.character
-      expect(page).to have_text(@warn)
+      expect(page).to have_text(@warn_with_custom)
     end
     it 'Clear the custom Org name and unchecks the checkbox if user types in autocomplete', :js do
       # Fill in the custom name and then fill in another field to ensure JS runs
       enter_custom_org(@selector, Faker::Company.name)
       fill_in 'Institution', with: Faker::Company.unique.name
-      expect(find('#org_autocomplete_not_in_list').checked?).to eql(false)
+      expect(find('#org_autocomplete_not_in_list', visible: false).value).not_to eql('1')
       expect(find('#org_autocomplete_user_entered_name', visible: false).value).to eql('')
     end
     it 'Clear the entry in the autocomplete when user clicks checkbox', :js do
       org = create(:org)
       # Fill in the autocomplete and then fill in another field to ensure JS runs
       select_an_org(@selector, org.name, 'Institution')
-      check _('I cannot find my institution in the list')
+      find("label[for=\"org_autocomplete_not_in_list\"]").click
       expect(find('#org_autocomplete_name').value).to eql('')
+    end
+
+    context 'validate that we can save the Org' do
+      before(:each) do
+        # Fill out the rest of the form
+        fill_in 'First Name', with: Faker::Movies::StarWars.character.split.first
+        fill_in 'Last Name', with: Faker::Movies::StarWars.character.split.last
+        fill_in 'Password', with: SecureRandom.uuid
+        # Need to use JS to set the accept terms label since dmptool-ui treats the
+        # whole thing as a label and theis particular label has a URL so 'clicking' it
+        # via Capybara results in going to the URL behind that link :/
+        page.execute_script("document.getElementById('user_accept_terms').checked = true;");
+      end
+
+      it 'can save a selected name', js: true do
+        original_user_count = User.all.count
+        select_an_org(@selector, @org.name, 'Institution')
+        click_button _('Sign up')
+        expect(page).not_to have_errors
+        expect(User.all.count).to eql(original_user_count + 1)
+        expect(User.last.org.name).to eql(@org.name)
+        sign_out User.last
+      end
+      it 'can save a custom name', js: true do
+        original_user_count = User.all.count
+        name = Faker::Movies::StarWars.unique.planet
+        enter_custom_org(@selector, name)
+        click_button _('Sign up')
+        expect(page).not_to have_errors
+        expect(User.all.count).to eql(original_user_count + 1)
+        expect(User.last.org.name).to eql(name)
+        sign_out User.last
+      end
     end
   end
 
@@ -104,18 +139,17 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
         # or RegistryOrgs and allow them to create new Orgs
         sign_out @user
         visit root_path
-        fill_in 'Email address', with: Faker::Internet.unique.email
+        fill_in 'Email address', with: 'foo@bar.edu'
         click_on 'Continue'
         expect(page).to have_text(_('Sign up'))
 
-        within('#create-account-org-controls') do
+        within('#sign-up-org') do
           # Make sure the Autocomplete controls are correct
           expect(find('label[for="org_autocomplete_name"]').present?).to eql(true)
           expect(find('#org_autocomplete_name').present?).to eql(true)
           expect(find('#org_autocomplete_name').value).to eql('')
-          expect(find('#org_autocomplete_not_in_list').present?).to eql(true)
+          expect(find('#org_autocomplete_not_in_list', visible: false).present?).to eql(true)
           expect(find('#org_autocomplete_user_entered_name', visible: false).present?).to eql(true)
-          expect(find('#org_autocomplete_crosswalk', visible: false).present?).to eql(true)
           expect(find('.autocomplete-help').present?).to eql(true)
 
           id = find('#org_autocomplete_name')[:list].split('-').last
@@ -146,17 +180,16 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
       xit 'has used the appropriate controls and returns the expected suggestions', :js do
         # The Autocomplete on this page should allow the user to select any Orgs
         # or RegistryOrgs and allow them to create new Orgs
-        visit edit_registrations_path
+        visit edit_user_registration_path
         expect(page).to have_text(_('Edit User'))
 
-        within('#create-account-org-controls') do
+        within('#edit-user-org-controls') do
           # Make sure the Autocomplete controls are correct
           expect(find('label[for="org_autocomplete_name"]').present?).to eql(true)
           expect(find('#org_autocomplete_name').present?).to eql(true)
           expect(find('#org_autocomplete_name').value).to eql('')
-          expect(find('#org_autocomplete_not_in_list').present?).to eql(true)
+          expect(find('#org_autocomplete_not_in_list', visible: false).present?).to eql(true)
           expect(find('#org_autocomplete_user_entered_name', visible: false).present?).to eql(true)
-          expect(find('#org_autocomplete_crosswalk', visible: false).present?).to eql(true)
           expect(find('.autocomplete-help').present?).to eql(true)
 
           id = find('#org_autocomplete_name')[:list].split('-').last
@@ -195,9 +228,8 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
           expect(find('label[for="org_autocomplete_name"]').present?).to eql(true)
           expect(find('#org_autocomplete_name').present?).to eql(true)
           expect(find('#org_autocomplete_name').value).to eql(@plan.org.name)
-          expect(find('#org_autocomplete_not_in_list').present?).to eql(true)
+          expect(find('#org_autocomplete_not_in_list', visible: false).present?).to eql(true)
           expect(find('#org_autocomplete_user_entered_name', visible: false).present?).to eql(true)
-          expect(find('#org_autocomplete_crosswalk', visible: false).present?).to eql(true)
           expect(find('.autocomplete-help').present?).to eql(true)
 
           id = find('#org_autocomplete_name')[:list].split('-').last
@@ -243,7 +275,6 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
           expect do
             find('#org_autocomplete_user_entered_name', visible: false)
           end.to raise_error(Capybara::ElementNotFound)
-          expect(find('#org_autocomplete_crosswalk', visible: false).present?).to eql(true)
           expect(find('.autocomplete-help').present?).to eql(true)
 
           id = find('#org_autocomplete_name')[:list].split('-').last
@@ -277,9 +308,8 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
           expect(find('label[for="org_autocomplete_funder_name"]').present?).to eql(true)
           expect(find('#org_autocomplete_funder_name').present?).to eql(true)
           expect(find('#org_autocomplete_funder_name').value).to eql('')
-          expect(find('#org_autocomplete_funder_not_in_list').present?).to eql(true)
+          expect(find('#org_autocomplete_funder_not_in_list', visible: false).present?).to eql(true)
           expect(find('#org_autocomplete_funder_user_entered_name', visible: false).present?).to eql(true)
-          expect(find('#org_autocomplete_crosswalk', visible: false).present?).to eql(true)
           expect(find('.autocomplete-help').present?).to eql(true)
 
           id = find('#org_autocomplete_funder_name')[:list].split('-').last
@@ -320,9 +350,8 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
           expect(find('label[for="org_autocomplete_funder_name"]').present?).to eql(true)
           expect(find('#org_autocomplete_funder_name').present?).to eql(true)
           expect(find('#org_autocomplete_funder_name').value).to eql('')
-          expect(find('#org_autocomplete_funder_not_in_list').present?).to eql(true)
+          expect(find('#org_autocomplete_funder_not_in_list', visible: false).present?).to eql(true)
           expect(find('#org_autocomplete_funder_user_entered_name', visible: false).present?).to eql(true)
-          expect(find('#org_autocomplete_crosswalk', visible: false).present?).to eql(true)
           expect(find('.autocomplete-help').present?).to eql(true)
 
           id = find('#org_autocomplete_funder_name')[:list].split('-').last
@@ -370,7 +399,6 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
           expect do
             find('#org_autocomplete_user_entered_name', visible: false)
           end.to raise_error(Capybara::ElementNotFound)
-          expect(find('#org_autocomplete_crosswalk', visible: false).present?).to eql(true)
           expect(find('.autocomplete-help').present?).to eql(true)
 
           id = find('#org_autocomplete_name')[:list].split('-').last
@@ -378,8 +406,8 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
           expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to eql(true)
 
           # Clear the default Org name and replace with our search term
-          fill_in _('Organisation'), with: ''
-          fill_in _('Organisation'), with: @word
+          fill_in _('Affiliation'), with: ''
+          fill_in _('Affiliation'), with: @word
 
           # Make sure the correct Orgs are suggested
           expect(suggestion_exists?(@org_managed.name)).to eql(true)
@@ -414,9 +442,8 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
           expect(find('label[for="org_autocomplete_name"]').present?).to eql(true)
           expect(find('#org_autocomplete_name').present?).to eql(true)
           expect(find('#org_autocomplete_name').value).to eql(@user.org.name)
-          expect(find('#org_autocomplete_not_in_list').present?).to eql(true)
+          expect(find('#org_autocomplete_not_in_list', visible: false).present?).to eql(true)
           expect(find('#org_autocomplete_user_entered_name', visible: false).present?).to eql(true)
-          expect(find('#org_autocomplete_crosswalk', visible: false).present?).to eql(true)
           expect(find('.autocomplete-help').present?).to eql(true)
 
           id = find('#org_autocomplete_name')[:list].split('-').last
@@ -458,9 +485,8 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
           expect(find('label[for="org_autocomplete_name"]').present?).to eql(true)
           expect(find('#org_autocomplete_name').present?).to eql(true)
           expect(find('#org_autocomplete_name').value).to eql('')
-          expect(find('#org_autocomplete_not_in_list').present?).to eql(true)
+          expect(find('#org_autocomplete_not_in_list', visible: false).present?).to eql(true)
           expect(find('#org_autocomplete_user_entered_name', visible: false).present?).to eql(true)
-          expect(find('#org_autocomplete_crosswalk', visible: false).present?).to eql(true)
           expect(find('.autocomplete-help').present?).to eql(true)
 
           id = find('#org_autocomplete_name')[:list].split('-').last

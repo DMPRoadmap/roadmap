@@ -9,12 +9,10 @@ module Api
         def safe_save(plan:)
           return nil unless plan.is_a?(Plan) && plan.valid?
 
-          plan.contributors = deduplicate_contributors(contributors: plan.contributors)
-
           Plan.transaction do
+            plan.contributors = deduplicate_contributors(contributors: plan.contributors)
             plan.funder = safe_save_org(org: plan.funder)
             plan.grant_id = safe_save_identifier(identifier: plan.grant)&.id
-
             plan.save
 
             plan.identifiers.each do |id|
@@ -71,7 +69,6 @@ module Api
 
           Contributor.transaction do
             contrib = Contributor.find_or_initialize_by(email: contributor.email)
-
             if contrib.new_record?
               contrib.update(saveable_attributes(attrs: contributor.attributes))
               contrib.update(org: safe_save_org(org: contributor.org)) if contributor.org.present?

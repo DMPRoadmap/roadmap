@@ -3,7 +3,7 @@ import getConstant from './constants';
 import toggleConditionalFields from './conditionalFields';
 import toggleSpinner from './spinner';
 import {
-  isObject, isString, isArray, isFunction,
+  isObject, isString, isFunction,
 } from './isType';
 
 // This JS file wires the Org autocomplete box up with Jquery UI's autocomplete
@@ -25,11 +25,13 @@ import {
 //     controller: app/controllers/org_indices_controller.rb
 //     partial:    app/views/shared/org_autocomplete.html.erb
 //     css:        app/assets/stylesheets/blocks/_autocomplete.scss
+//
+// If applicable the Org Autocomplete widget can include a checkbox and textbox to allow a
+// user to specify a custom Org name that does not appear in the autocomplete suggestions.
+// For this reason some of the validation methods include checks of both fields to determine
+// if the field is valid upon form submission
 
-// The JSON Array of Org names returned by the RegistryOrgsController.search method
-const relatedJsonCrosswalk = (id) => $(`.autocomplete-crosswalk-${id}`);
-
-// The <ul> version of the values in the Crosswalk that get displayed for the user
+// The <ul> list of suggestions returned from the server based on the user's search criteria
 const relatedSuggestions = (id) => $(`#autocomplete-suggestions-${id}`);
 
 // The checkbox the user can click to provide a custom Org name
@@ -51,6 +53,18 @@ const getId = (context, attrName) => {
   return '';
 };
 
+// Determine which warning message to display based on the precense of the
+// :not_in_list checkbox
+const invalidSelectionMessage = (id) => {
+  let msg = getConstant('AUTOCOMPLETE_ARIA_HELPER_EMPTY_WITHOUT_CUSTOM');
+  if (id.length > 0) {
+    if (relatedNotInListCheckbox(id).length > 0) {
+      msg = getConstant('AUTOCOMPLETE_ARIA_HELPER_EMPTY_WITH_CUSTOM');
+    }
+  }
+  return msg;
+};
+
 // Updates the ARIA help text that lets the user know how many suggestions there are and how to
 // interact with the autocomplete box
 const updateAriaHelper = (autocomplete, suggestionCount) => {
@@ -61,31 +75,14 @@ const updateAriaHelper = (autocomplete, suggestionCount) => {
       const text = getConstant('AUTOCOMPLETE_ARIA_HELPER');
       helper.html(text.replace('%{n}', suggestionCount));
     } else {
-      helper.html(getConstant('AUTOCOMPLETE_ARIA_HELPER_EMPTY'));
+      helper.html(invalidSelectionMessage(getId(autocomplete, 'list')));
     }
   }
 };
 
-// Places the results into the crosswalk, then updates the Aria helper and
-// returns it for consumption by the JQuery UI autocomplete widget which adds
-// the values to the suggestions <ul>
-const processAjaxResults = (autocomplete, crosswalk, results) => {
-  if (isObject(autocomplete) && isObject(crosswalk) && isArray(results)) {
-    crosswalk.attr('value', JSON.stringify(results));
-    updateAriaHelper(autocomplete, results.length);
-  } else {
-    crosswalk.attr('value', JSON.stringify([]));
-    updateAriaHelper(autocomplete, 0);
-  }
-
-  // Toggle the spinner after the AJAX call
-  toggleSpinner(false);
-  return results;
-};
-
 // Makes an AJAX request to the specified target
-const search = (autocomplete, term, crosswalk, callback) => {
-  if (isObject(autocomplete) && isObject(crosswalk) && isString(term)) {
+const search = (autocomplete, term, callback) => {
+  if (isObject(autocomplete) && isString(term)) {
     const url = autocomplete.attr('data-url');
     const method = autocomplete.attr('data-method');
     // Format the search term so that its acceptable to the RegistryOrgsController's strong params
@@ -97,9 +94,16 @@ const search = (autocomplete, term, crosswalk, callback) => {
       $.ajax({
         url, method, data,
       }).done((results) => {
-        callback(processAjaxResults(autocomplete, crosswalk, results));
+        // Successful server call, so process the results
+        updateAriaHelper(autocomplete, results.length);
+        toggleSpinner(false);
+        callback(results);
+        return results;
       }).fail(() => {
-        callback(processAjaxResults(autocomplete, crosswalk, []));
+        // Failed server call, so clear the suggestions
+        updateAriaHelper(autocomplete, 0);
+        toggleSpinner(false);
+        callback([]);
       });
     }
   }
@@ -108,15 +112,23 @@ const search = (autocomplete, term, crosswalk, callback) => {
 // Shows/hides the warning message
 const toggleWarning = (autocomplete, displayIt) => {
   const warning = relatedWarning(getId(autocomplete, 'list'));
-  const fieldBlock = autocomplete.closest('c-textfield');
+  const fieldBlock = autocomplete.closest('.c-textfield');
 
-  if (fieldBlock) {
-    fieldBlock.addClass('is-invalid');
-  }
   if (warning.length > 0) {
     if (displayIt) {
+      // Show the error message and style the block accordingly
+      if (fieldBlock) {
+        fieldBlock.addClass('is-invalid');
+      }
+      updateAriaHelper(autocomplete, 0);
+      warning.html(invalidSelectionMessage(getId(autocomplete, 'list')));
       warning.removeClass('hide').show();
     } else {
+      // Clear the error message and remove the styling
+      if (fieldBlock) {
+        fieldBlock.removeClass('is-invalid');
+      }
+      warning.html('');
       warning.addClass('hide').hide();
     }
   }
@@ -132,16 +144,38 @@ const isValidMatch = (value, searchTerm) => {
       && value.trim().toLowerCase() === searchTerm.trim().toLowerCase();
 };
 
-// Looks up the value in the crosswalk
-const findInCrosswalk = (selection, crosswalk) => {
-  const json = JSON.parse(crosswalk.val());
-  return json.find((item) => isValidMatch(item, selection));
+// Search the <ul> list of suggestions for the value in the autocomplete textbox
+const isSuggestion = (selection, suggestions) => {
+  const entry = suggestions.find(`li.ui-menu-item:contains("${selection}")`);
+  return entry.length > 0 ? isValidMatch(entry.text(), selection) : false;
+};
+
+// Returns whether or not the autocomplete selection and user entered value are blank
+const isBlank = (autocomplete, textbox) => {
+  const val = autocomplete.val();
+  if (textbox.length > 0) {
+    return (val === undefined || val === null || val.length < 3) && textbox.val().length < 3;
+  }
+  return (val === undefined || val === null || val.length < 3);
+};
+
+// Determines whether the autocomplete has a valid selection or the user provided a user
+// entered value (if applicable)
+const isValid = (autocomplete, textbox, suggestions) => {
+  const isRequired = autocomplete.parent().hasClass('is-required');
+  const validAutocomplete = isSuggestion(autocomplete.val(), suggestions);
+
+  if (isRequired && isBlank(autocomplete, textbox)) {
+    return false;
+  }
+  // If the user entered org textbox is available
+  return textbox.length > 0 ? (validAutocomplete || textbox.val().length > 2) : validAutocomplete;
 };
 
 // Checks to see if the selection or entry in the text field matches a value in the crosswalk
-const handleSelection = (autocomplete, crosswalk, selection) => {
-  const out = findInCrosswalk(selection, crosswalk);
-  toggleWarning(autocomplete, out === undefined);
+const handleSelection = (autocomplete, suggestions, selection) => {
+  const validSelection = isSuggestion(selection, suggestions);
+  toggleWarning(autocomplete, !validSelection);
   return true;
 };
 
@@ -149,33 +183,35 @@ const handleSelection = (autocomplete, crosswalk, selection) => {
 export const initAutoComplete = (selector) => {
   const autocomplete = $(selector);
   const id = getId(autocomplete, 'list');
-  const crosswalk = relatedJsonCrosswalk(id);
   const suggestions = relatedSuggestions(id);
   const checkbox = relatedNotInListCheckbox(id);
   const textbox = relatedCustomOrgField(id);
-  const form = autocomplete.closest('form');
 
   // Initialize the JQuery autocomplete functionality
   autocomplete.autocomplete({
-    source: (req, resp) => search(autocomplete, req.term, crosswalk, resp),
-    select: (_e, ui) => handleSelection(autocomplete, crosswalk, ui.item.label),
+    source: (req, resp) => search(autocomplete, req.term, resp),
+    select: (_e, ui) => handleSelection(autocomplete, suggestions, ui.item.label),
     minLength: 1,
     delay: 300,
     appendTo: suggestions,
   });
 
-  // If the crosswalk is empty, make sure it is valid JSON
-  if (!crosswalk.val()) {
-    crosswalk.val(JSON.stringify([]));
-  }
-
   // Toggle the warning and conditional on page load
   toggleWarning(autocomplete, false);
 
-  // When the autocomplete loses focus display the warning if they did not select an item
-  autocomplete.on('blur', (e) => {
-    const selection = findInCrosswalk($(e.currentTarget).val(), crosswalk);
-    toggleWarning(autocomplete, selection === undefined);
+  // When the autocomplete changes or loses focus display the warning if they did not select or
+  // enter an item from the suggestion list
+  autocomplete.on('blur keyup', (e) => {
+    const validSelection = isSuggestion($(e.currentTarget).val(), suggestions);
+    toggleWarning(autocomplete, !validSelection);
+  });
+
+  autocomplete.closest('form').on('submit', (e) => {
+    const valid = isValid(autocomplete, textbox, suggestions);
+    toggleWarning(autocomplete, !valid);
+    if (!valid) {
+      e.preventDefault();
+    }
   });
 
   // If the checkbox and textbox are present make sure they are cleared if the user starts
@@ -184,6 +220,7 @@ export const initAutoComplete = (selector) => {
     autocomplete.on('input', () => {
       toggleConditionalFields(checkbox, false);
       checkbox.prop('checked', false);
+      checkbox.val('0');
       textbox.val('');
     });
 
@@ -194,14 +231,14 @@ export const initAutoComplete = (selector) => {
       autocomplete.val('');
     });
 
-    toggleConditionalFields(checkbox, textbox.val().length > 0);
-  }
-
-  // Set the form so that the extra autocomplete data isn't sent to the server on form submission
-  if (form.length > 0) {
-    form.on('submit', () => {
-      crosswalk.val('');
+    // Clear the warning message if the user has entered a custom Org
+    textbox.on('keyup', () => {
+      if (textbox.val().length >= 3) {
+        toggleWarning(autocomplete, false);
+      }
     });
+
+    toggleConditionalFields(checkbox, textbox.val().length > 0);
   }
 };
 
@@ -209,21 +246,21 @@ export const initAutoComplete = (selector) => {
 // valid selection
 export const listenForAutocompleteChange = (autocomplete, callback) => {
   if (autocomplete.length > 0 && isFunction(callback)) {
-    const crosswalk = relatedJsonCrosswalk(getId(autocomplete, 'list'));
+    const suggestions = relatedSuggestions(getId(autocomplete, 'list'));
 
-    if (crosswalk.length > 0) {
+    if (suggestions.length > 0) {
       // Add listener to the Select event
       autocomplete.on('autocompleteselect', (_e, ui) => {
         // Call the specified function and pass it a boolean indicating whether or not
         // the user made a valid selection
-        callback(autocomplete, findInCrosswalk(ui.item.label, crosswalk));
+        callback(autocomplete, isSuggestion(ui.item.label, suggestions));
       });
 
       // Add listener to the Change event
       autocomplete.on('change', () => {
         // Call the specified function and pass it a boolean indicating whether or not
         // the user made a valid selection
-        callback(autocomplete, findInCrosswalk(autocomplete.val(), crosswalk));
+        callback(autocomplete, isSuggestion(autocomplete.val(), suggestions));
       });
     }
   }

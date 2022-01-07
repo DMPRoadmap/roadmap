@@ -173,7 +173,8 @@ module Api
 
         org = Api::V2::Deserialization::Org.deserialize(json: json[:affiliation])
 
-        user = User.new(firstname: firstname, surname: surname, email: json[:mbox], org: org)
+        user = User.new(firstname: firstname, surname: surname, email: json[:mbox], org: org,
+                        password: SecureRandom.uuid)
         return user unless orcid.present?
 
         scheme = IdentifierScheme.find_by(name: 'orcid')
@@ -191,11 +192,12 @@ module Api
           User.invite!(
             inviter: client,
             plan: plan,
+            context: 'api',
             params: {
               email: owner.email,
               firstname: owner.firstname,
               surname: owner.surname,
-              org: owner.org
+              org_id: owner.org_id
             }
           )
         else

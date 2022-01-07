@@ -52,21 +52,10 @@ org.api_create_plan_email_body = default_message unless org.api_create_plan_emai
           </p>
           <p class="replaceable-api-email-content">
             <%= sanitize(org.api_create_plan_email_body) % {
-              external_system_name: "[placeholder for external system name]"
+              external_system_name: "%{external_system_name]}"
             } %>
           </p>
-          <p>
-            <%= sanitize(_("%{click_here} to setup your account (or copy %{link} into your browser). Once you have signed in, you can begin filling out your DMP.") % {
-              click_here: link_to(_('Click here'), '#'),
-              link: "#{accept_user_invitation_url}/abc123"
-            }) %>
-          </p>
-          <br>
-          <p><%= _("Thank you,") %></p>
-          <p><%= _("The %{org_name} DMPTool team") % { org_name: org.name } %></p>
-          <p><%= _("Please do not reply to this email. If you have any questions or need help, please contact us at %{org_admin_email}") % {
-            org_admin_email: link_to(org.contact_email, org.contact_email)
-          } %></p>
+          <%= render partial: 'user_mailer/email_signature', locals: { allow_change_prefs: false } %>
         </div>
       </div>
     </div>

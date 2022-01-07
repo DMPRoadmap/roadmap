@@ -48,6 +48,7 @@ module Dmptool
           user = ::User.invite!(
             inviter: current_user,
             plan: plan,
+            context: 'template_admin',
             params: { email: user.email, org: current_user.org }
           )
         else

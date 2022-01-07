@@ -69,7 +69,7 @@
 
     <% if org.contact_email.present? %>
       <li>
-        <%= mail_to (org.contact_name ? org.contact_name : org.contact_email), org.contact_email,
+        <%= mail_to org.contact_email, (org.contact_name ? org.contact_name : org.contact_email),
                     class: "c-links-org__uc3-helpdesk" %>
       </li>
     <% end %>

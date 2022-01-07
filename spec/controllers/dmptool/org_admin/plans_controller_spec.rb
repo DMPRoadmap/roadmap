@@ -77,10 +77,9 @@ RSpec.describe Dmptool::OrgAdmin::PlansController, type: :request do
         email = ActionMailer::Base.deliveries.first
         expect(email.is_a?(Mail::Message)).to eql(true)
         expect(email.to).to eql([user.email])
-        expect(email.subject.include?(_('has been shared with you'))).to eql(true)
+        expect(email.subject).to eql(@plan.template.email_subject)
         expect(email.body.to_s.include?(user.email)).to eql(true)
-        expect(email.body.to_s.include?(@admin.name(false))).to eql(true)
-        expect(email.body.to_s.include?(_('invited you to contribute'))).to eql(true)
+        expect(email.body.to_s.include?(@plan.template.email_body)).to eql(true)
       end
       it 'emails the existing :user' do
         @controller.send(:notify_user, user: @invitee, plan: @plan)

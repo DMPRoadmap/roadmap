@@ -23,14 +23,13 @@
 #  uid             :string(255)      default(""), not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  owner_id        :bigint(8)
-#  owner_type      :string(255)
+#  user_id         :bigint(8)
 #
 # Indexes
 #
 #  index_oauth_applications_on_name     (name)
 #  index_oauth_applications_on_uid      (uid) UNIQUE
-#  index_oauth_applications_on_owner_id (owner_id, owner_type)
+#  index_oauth_applications_on_user_id  (user_id)
 #
 
 # Object that represents an external system
@@ -55,6 +54,8 @@ class ApiClient < ApplicationRecord
   has_many :access_tokens, class_name: '::Doorkeeper::AccessToken',
                            foreign_key: :application_id,
                            dependent: :delete_all
+
+  belongs_to :user, optional: true
 
   # ===============
   # = Validations =

@@ -4,25 +4,25 @@ require 'rails_helper'
 
 RSpec.describe 'SuperAdmins OrgSwaps', type: :feature, js: true do
   before do
-    @org1, @org2 = *create_list(:org, 2)
+    @org1, @org2 = *create_list(:org, 2, managed: true)
   end
 
   scenario 'Org admin attempts to change to new org' do
     @user = create(:user, :org_admin, org: @org1)
-    sign_in_as_user(@user)
-    click_link 'Admin'
+    sign_in @user
+    visit root_path
+    click_button 'Admin'
     click_link 'Templates'
     expect(page).not_to have_text('Change affiliation')
   end
 
   scenario 'Super admin changes to new org' do
     @user = create(:user, :super_admin, org: @org1)
-    sign_in_as_user(@user)
-    click_link 'Admin'
+    sign_in @user
+    visit root_path
+    click_button 'Admin'
     click_link 'Templates'
-    find('#superadmin_user_org_name').click
-    fill_in(:superadmin_user_org_name, with: @org2.name[0..4])
-    choose_suggestion(@org2.name)
+    select_an_org('#change-affiliation-org-controls', @org2.name, 'Affiliation')
     click_button 'Change affiliation'
     expect(current_path).to eql(org_admin_templates_path)
     expect(page).to have_text(@org2.name)

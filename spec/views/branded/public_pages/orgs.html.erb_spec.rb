@@ -3,10 +3,14 @@
 require 'rails_helper'
 
 describe 'public_pages/orgs.html.erb' do
-  include SessionsHelper
+  include DmptoolHelper
 
   it 'renders our version of the page' do
-    generate_shibbolized_orgs(3)
+    3.times do
+      org = create(:org)
+      shibbolize_org(org: org)
+    end
+
     controller.prepend_view_path 'app/views/branded'
     assign :orgs, Org.participating
     render

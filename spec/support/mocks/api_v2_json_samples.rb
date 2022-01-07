@@ -101,7 +101,7 @@ module Mocks
             mbox: contact[:email],
             affiliation: {
               name: ror.identifiable.name,
-              abbreviation: Faker::Lorem.word.upcase,
+              abbreviation: ror.identifiable.abbreviation,
               region: Faker::Space.planet,
               affiliation_id: {
                 type: 'ror',
@@ -141,7 +141,7 @@ module Mocks
             mbox: contact[:email],
             affiliation: {
               name: ror.identifiable.name,
-              abbreviation: Faker::Lorem.word.upcase,
+              abbreviation: ror.identifiable.abbreviation,
               affiliation_id: {
                 type: 'ror',
                 identifier: ror.value

@@ -20,7 +20,8 @@
                               default_org: current_user.org,
                               required: false,
                               known_only: true,
-                              label: _("Organisation") } %>
+                              div_id: 'change-affiliation-org-controls',
+                              label: _('Affiliation') } %>
 
         <%= f.submit _('Change affiliation'), class: 'btn btn-default' %>
       <% end %>

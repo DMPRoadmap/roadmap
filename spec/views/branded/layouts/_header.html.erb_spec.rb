@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe 'layouts/_header.html.erb' do
+  include DmptoolHelper
+
   before(:each) do
     controller.prepend_view_path 'app/views/branded'
   end
@@ -14,7 +16,6 @@ describe 'layouts/_header.html.erb' do
 
     expect(rendered.include?('class="c-navtoggle"')).to eql(true)
     expect(rendered.include?('class="c-headernav"')).to eql(true)
-    expect(rendered.include?('Home')).to eql(true)
     expect(rendered.include?('Funder Requirements')).to eql(true)
     expect(rendered.include?('Public DMPs')).to eql(true)
     expect(rendered.include?('Help')).to eql(true)
@@ -25,12 +26,14 @@ describe 'layouts/_header.html.erb' do
     expect(rendered.include?('Edit profile')).to eql(false)
     expect(rendered.include?('3rd party applications')).to eql(false)
     expect(rendered.include?('Developer tools')).to eql(false)
-    expect(rendered.include?('Logout')).to eql(false)
+    expect(rendered.include?('Sign out')).to eql(false)
 
-    expect(rendered.include?('class="c-language"')).to eql(true)
-    expect(rendered.include?('class="c-language__button"')).to eql(true)
-    expect(rendered.include?('class="c-language__menu"')).to eql(true)
+    expect(rendered.include?('class="c-language')).to eql(true)
+    expect(rendered.include?('id="js-language__button"')).to eql(true)
+    expect(rendered.include?('id="js-language__menu"')).to eql(true)
     expect(rendered.include?('en-GB')).to eql(true)
+
+    expect(response).not_to render_template(partial: 'layouts/_sub_header')
   end
 
   it 'renders properly when user is signed in' do
@@ -41,22 +44,24 @@ describe 'layouts/_header.html.erb' do
 
     expect(rendered.include?('class="c-navtoggle"')).to eql(true)
     expect(rendered.include?('class="c-headernav"')).to eql(true)
-    expect(rendered.include?('Home')).to eql(true)
     expect(rendered.include?('Funder Requirements')).to eql(true)
     expect(rendered.include?('Public DMPs')).to eql(true)
     expect(rendered.include?('Help')).to eql(true)
 
-    expect(rendered.include?('class="c-user-profile"')).to eql(true)
-    expect(rendered.include?('class="c-user-profile__button"')).to eql(true)
-    expect(rendered.include?('class="c-user-profile__menu"')).to eql(true)
+    expect(rendered.include?('class="c-profile')).to eql(true)
+    expect(rendered.include?('id="js-user-profile__button"')).to eql(true)
+    expect(rendered.include?('id="js-user-profile__menu"')).to eql(true)
     expect(rendered.include?('Edit profile')).to eql(true)
     expect(rendered.include?('3rd party applications')).to eql(true)
     expect(rendered.include?('Developer tools')).to eql(true)
-    expect(rendered.include?('Logout')).to eql(true)
+    expect(rendered.include?('Sign in')).to eql(false)
+    expect(rendered.include?('Sign out')).to eql(true)
 
-    expect(rendered.include?('class="c-language"')).to eql(true)
-    expect(rendered.include?('class="c-language__button"')).to eql(true)
-    expect(rendered.include?('class="c-language__menu"')).to eql(true)
+    expect(rendered.include?('class="c-language')).to eql(true)
+    expect(rendered.include?('id="js-language__button"')).to eql(true)
+    expect(rendered.include?('id="js-language__menu"')).to eql(true)
     expect(rendered.include?('en-GB')).to eql(true)
+
+    expect(response).to render_template(partial: 'layouts/_sub_header')
   end
 end

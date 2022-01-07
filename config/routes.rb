@@ -323,8 +323,8 @@ Rails.application.routes.draw do
 
       get 'org_admin/:page', action: :org_admin, on: :collection, as: :org_admin
 
-      # get 'org_admin_other_user/:page', action: :org_admin_other_user,
-      #                                   on: :collection, as: :org_admin_other_user
+      get 'org_admin_other_user/:page', action: :org_admin_other_user,
+                                        on: :collection, as: :org_admin_other_user
 
       # Paginable actions for contributors
       resources :contributors, only: %i[index] do

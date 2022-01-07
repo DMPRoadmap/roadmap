@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Questions::Check box questions', type: :feature do
+  include Webmocks
+
   before do
     @default_template  = create(:template, :default, :published)
     @phase             = create(:phase, template: @default_template)
@@ -15,7 +17,7 @@ RSpec.describe 'Questions::Check box questions', type: :feature do
     create(:role, :creator, :editor, :commenter, user: @user, plan: @plan)
 
     stub_openaire
-    sign_in_as_user(@user)
+    sign_in @user
   end
 
   scenario 'User answers a check box question', :js do
@@ -23,7 +25,7 @@ RSpec.describe 'Questions::Check box questions', type: :feature do
     visit plan_path(@plan)
 
     # Action
-    click_link 'Write plan'
+    click_link 'Write Plan'
 
     # Expectations
     expect(current_path).to eql(edit_plan_path(@plan))

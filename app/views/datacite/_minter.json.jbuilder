@@ -20,7 +20,6 @@ json.data do
     orcid_scheme = IdentifierScheme.where(name: 'orcid').first
 
     creators = data_management_plan.owner_and_coowners
-
     if creators.present? && creators.any?
       json.creators creators do |creator|
         json.partial! 'datacite/contributor', contributor: creator,

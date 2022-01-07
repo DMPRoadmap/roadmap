@@ -27,7 +27,7 @@ when 'Org'
     json.nameIdentifierScheme 'ROR'
   end
 
-when %w[Contributor User]
+when 'Contributor', 'User'
   if contributor.is_a?(User)
     json.name [contributor.surname, contributor.firstname].join(', ')
   elsif contributor.is_a?(Contributor) && contributor.roles.positive?

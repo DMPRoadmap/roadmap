@@ -40,7 +40,8 @@ module Api
 
           # Try to determine the Plan's owner
           owner = determine_owner(client: client, plan: plan)
-          plan.org = owner.org if owner.present? && plan.org.blank?
+          plan.org = owner.org if owner.present? && owner.is_a?(User) && plan.org.blank?
+          plan.org = owner.user&.org if owner.present? && owner.is_a?(ApiClient) && plan.org.blank?
           render_error(errors: no_org_err, status: :bad_request) and return unless plan.org.present?
 
           # Validate the plan and it's associations and return errors with context
@@ -133,7 +134,7 @@ module Api
       end
 
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-      def invite_contributor(contributor:)
+      def invite_contributor(contributor:, plan:)
         return nil unless contributor.present?
 
         # If the user was not found, invite them and attach any know identifiers

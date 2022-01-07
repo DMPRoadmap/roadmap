@@ -41,8 +41,10 @@ class RegistryOrgsController < ApplicationController
   def find_by_search_term(term:, **options)
     return [] unless term.present?
 
+    restricting = Rails.configuration.x.application.restrict_orgs
+
     # If the known_only flag was not set use the default setting from the config
-    known_only = options.fetch(:known_only, Rails.configuration.x.application.restrict_orgs)
+    known_only = options.fetch(:known_only, restricting)
 
     # Search the RegistryOrg table first because it has the most extensive search (e.g. acronyms,
     # alternate names, URLs, etc.)
@@ -63,6 +65,9 @@ class RegistryOrgsController < ApplicationController
       funder_only: options[:funder_only],
       non_funder_only: options[:non_funder_only]
     )
+
+    # Ignore any RegistryOrg with no associated Org if we are not allowing custom user Orgs
+    registry_matches.reject { |match| match.org_id.nil? } if restricting
 
     # Filter out any RegistryOrgs that are also in the Orgs, we only want to return one!
     registry_matches = registry_matches.reject { |r_org| org_matches.map(&:id).include?(r_org.org_id) }

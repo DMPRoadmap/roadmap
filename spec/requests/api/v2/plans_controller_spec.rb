@@ -396,10 +396,17 @@ RSpec.describe Api::V2::PlansController, type: :request do
           contrib = Contributor.find_by(email: orig_contrib.first[:mbox])
           expect(contributor[:name]).to eql(orig_contrib.first[:name])
           expect(contributor[:mbox]).to eql(orig_contrib.first[:mbox])
-          expect(contributor[:affiliation][:name]).to eql(orig_contrib.first[:affiliation][:name])
+
+          if contrib.email == created[:contact][:mbox]
+            expect(contributor[:affiliation].present?).to eql(true)
+            expect(contributor[:affiliation][:name]).to eql(contrib.org.name)
+          else
+            # Unknown Orgs should not be created!
+            expect(contributor[:affiliation].present?).to eql(false)
+          end
+
           expect(contributor[:name]).to eql(contrib.name)
           expect(contributor[:mbox]).to eql(contrib.email)
-          expect(contributor[:affiliation][:name]).to eql(contrib.org.name)
 
           contributor[:role].each do |role|
             expect(orig_contrib.first[:role].include?(role)).to eql(true)
@@ -435,7 +442,7 @@ RSpec.describe Api::V2::PlansController, type: :request do
 
         expect(response.code).to eql('201')
         expect(ActionMailer::Base.deliveries).to have_exactly(1).item
-        expect(response).to render_template('devise/mailer/new_plan_via_api')
+        expect(response).to render_template('user_mailer/new_plan_via_api')
 
         owner = Plan.find_by(title: @json[:dmp][:title]).owner
         expect(owner.firstname.present?).to eql(true)

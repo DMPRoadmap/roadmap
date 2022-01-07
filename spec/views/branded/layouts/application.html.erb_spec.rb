@@ -20,16 +20,22 @@ describe 'layouts/application.html.erb' do
     expect(rendered.include?('rel="manifest"')).to eql(true)
     expect(rendered.include?('js/application-')).to eql(true)
     expect(rendered.include?('href="/assets/application-')).to eql(true)
+    expect(rendered.include?('src="/dmptool-ui/main.js"')).to eql(true)
+    expect(rendered.include?('href="/dmptool-ui/main.css"')).to eql(true)
 
     expect(rendered.include?('<body class="t-generic">')).to eql(true)
-    expect(rendered.include?('Skip to main content')).to eql(true)
+    expect(rendered.include?('class="c-skipnav"')).to eql(true)
+
     expect(rendered.include?('<header>')).to eql(true)
     expect(response).to render_template(partial: 'layouts/_header')
-    expect(rendered.include?('<main id="maincontent" class="">')).to eql(true)
     expect(response).to render_template(partial: 'layouts/_notifications')
+
+    expect(rendered.include?('<main id="maincontent" class="">')).to eql(true)
     expect(rendered.include?('spinner-border')).to eql(true)
+
     expect(rendered.include?('<footer>')).to eql(true)
     expect(response).to render_template(partial: 'layouts/_footer')
+
     expect(response).to render_template(partial: 'layouts/_json_constants')
   end
 

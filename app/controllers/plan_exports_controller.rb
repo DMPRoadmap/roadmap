@@ -125,8 +125,8 @@ class PlanExportsController < ApplicationController
   end
 
   def publicly_authorized?
-    PublicPagePolicy.new(@plan, current_user).plan_organisationally_exportable? ||
-      PublicPagePolicy.new(@plan).plan_export?
+    PublicPagePolicy.new(current_user, @plan).plan_organisationally_exportable? ||
+      PublicPagePolicy.new(current_user, @plan).plan_export?
   end
 
   def privately_authorized?
