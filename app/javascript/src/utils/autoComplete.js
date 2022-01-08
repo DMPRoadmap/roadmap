@@ -44,6 +44,9 @@ const relatedCustomOrgField = (id) => $(`.user-entered-org-${id}`);
 // crosswalk items
 const relatedWarning = (id) => $(`.autocomplete-warning-${id}`);
 
+// The default selection so we can select it on initial load
+const relatedDefaultSelection = (id) => $(`.autocomplete-default-selection-${id}`);
+
 // Fetch the unique id generated for the autocomplete elements
 const getId = (context, attrName) => {
   if (context.length > 0) {
@@ -98,7 +101,6 @@ const search = (autocomplete, term, callback) => {
         updateAriaHelper(autocomplete, results.length);
         toggleSpinner(false);
         callback(results);
-        return results;
       }).fail(() => {
         // Failed server call, so clear the suggestions
         updateAriaHelper(autocomplete, 0);
@@ -179,10 +181,30 @@ const handleSelection = (autocomplete, suggestions, selection) => {
   return true;
 };
 
+// Auto-select the default on initial load
+const processResponse = (autocomplete, suggestions) => {
+  const dflt = relatedDefaultSelection(getId(autocomplete, 'list'));
+  const suggestionCount = suggestions.find('li').length;
+
+  // If there is a default and only one suggestion then this is likely
+  // the initial page load with a default Org
+  if (dflt.length > 0 && dflt.text().length > 2 && suggestionCount === 1) {
+    const suggestion = suggestions.find(`li:contains(${dflt.text()})`);
+    // If there is a default and a matching selection then select the
+    // default and focus on the first element in the form
+    if (suggestion.length > 0) {
+      suggestion.click();
+      const fieldSelector = 'input:not([disabled]):not([type="hidden"]';
+      autocomplete.closest('form').find(fieldSelector)[0].focus();
+    }
+  }
+};
+
 // Initialize the specified AutoComplete
 export const initAutoComplete = (selector) => {
   const autocomplete = $(selector);
   const id = getId(autocomplete, 'list');
+  const defaultSelection = relatedDefaultSelection(id);
   const suggestions = relatedSuggestions(id);
   const checkbox = relatedNotInListCheckbox(id);
   const textbox = relatedCustomOrgField(id);
@@ -191,6 +213,7 @@ export const initAutoComplete = (selector) => {
   autocomplete.autocomplete({
     source: (req, resp) => search(autocomplete, req.term, resp),
     select: (_e, ui) => handleSelection(autocomplete, suggestions, ui.item.label),
+    open: () => processResponse(autocomplete, suggestions),
     minLength: 1,
     delay: 300,
     appendTo: suggestions,
@@ -201,7 +224,7 @@ export const initAutoComplete = (selector) => {
 
   // When the autocomplete changes or loses focus display the warning if they did not select or
   // enter an item from the suggestion list
-  autocomplete.on('blur keyup', (e) => {
+  autocomplete.on('blur change keyup', (e) => {
     const validSelection = isSuggestion($(e.currentTarget).val(), suggestions);
     toggleWarning(autocomplete, !validSelection);
   });
@@ -213,6 +236,11 @@ export const initAutoComplete = (selector) => {
       e.preventDefault();
     }
   });
+
+  // If a default Org was provided, trigger the search to populate the suggestions
+  if (defaultSelection.length > 0 && defaultSelection.text().length > 2) {
+    autocomplete.autocomplete('search', defaultSelection.text().trim());
+  }
 
   // If the checkbox and textbox are present make sure they are cleared if the user starts
   // typing in the autocomplete box

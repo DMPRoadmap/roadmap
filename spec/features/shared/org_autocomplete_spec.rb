@@ -127,7 +127,7 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
     end
   end
 
-  context 'Individual implementations of the autocomplete' do
+  context 'Individual implementations of the autocomplete', js: true do
     before(:each) do
       Rails.configuration.x.application.restrict_orgs = false
       init_orgs
@@ -223,6 +223,11 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
         visit new_plan_contributor_path(@plan)
         expect(page).to have_text(_('New contributor'))
 
+elements = all('.ui-menu-item-wrapper', visible: false)
+elements.detect { |el| pp "'#{el.text.strip}' == '#{@plan.org.name}'" }
+
+        expect(suggestion_exists?(@plan.org.name)).to eql(true)
+
         within('#contributor-org-controls') do
           # Make sure the Autocomplete controls are correct
           expect(find('label[for="org_autocomplete_name"]').present?).to eql(true)
@@ -239,6 +244,8 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
           # Clear the default Org name and replace with our search term
           fill_in _('Affiliation'), with: ''
           fill_in _('Affiliation'), with: @word
+
+p "Filled in with '#{@word}'"
 
           # Make sure the correct Orgs are suggested
           expect(suggestion_exists?(@org_managed.name)).to eql(true)

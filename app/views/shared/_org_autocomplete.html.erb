@@ -75,6 +75,12 @@ user_entered = default_org.present? &&
                                   unknown_only: unknown_only, context: autocomplete_id
                                 )
                               } %>
+
+    <% if !user_entered && default_org.present? %>
+      <span class="autocomplete-default-selection-<%= autocomplete_id %> hide"
+            aria-visible="false"><%= default_org.name %></span>
+    <% end %>
+
     <span class="autocomplete-help sr-only" role="status"></span>
 
     <%# suggestions is a <ul> list managed by JQuery to display the search results to the user %>

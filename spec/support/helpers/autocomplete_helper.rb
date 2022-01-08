@@ -38,6 +38,8 @@ module AutocompleteHelper
     elements = all('.ui-menu-item-wrapper', visible: false)
     return false unless elements.present? && elements.any?
 
+elements.detect { |el| pp "'#{el.text.strip}' == '#{name}'" }
+
     elements.detect { |el| el.text.strip == name }.present?
   end
 end

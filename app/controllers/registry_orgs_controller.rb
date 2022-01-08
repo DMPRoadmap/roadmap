@@ -71,7 +71,6 @@ class RegistryOrgsController < ApplicationController
 
     # Filter out any RegistryOrgs that are also in the Orgs, we only want to return one!
     registry_matches = registry_matches.reject { |r_org| org_matches.map(&:id).include?(r_org.org_id) }
-
     matches = (registry_matches + org_matches).flatten.compact.uniq
     sort_search_results(results: matches, term: term)
   end
