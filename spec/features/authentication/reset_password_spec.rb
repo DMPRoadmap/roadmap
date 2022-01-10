@@ -10,23 +10,18 @@ RSpec.describe 'Request password reset', type: :feature do
     @plan = create(:plan, :creator)
     @user = @plan.owner
     @user.update(password: @pwd, password_confirmation: @pwd)
-
-    # -------------------------------------------------------------
-    # start DMPTool customization
-    # Mock the blog feed on our homepage
-    # -------------------------------------------------------------
     mock_blog
-    # -------------------------------------------------------------
-    # end DMPTool customization
-    # -------------------------------------------------------------
 
     visit root_path
+    fill_in 'Email address', with: @user.email
+    click_on 'Continue'
+    expect(page).to have_text('Sign in')
     click_link 'Forgot password?'
   end
 
   scenario 'User enters an unknown email' do
-    within('#user_request_reset_password_form') do
-      fill_in 'Email', with: Faker::Internet.unique.email
+    within("form[action=\"#{user_password_path}\"]") do
+      fill_in 'Email', with: 'foo@bar.edu'
       click_button 'Send'
     end
 
@@ -52,47 +47,59 @@ RSpec.describe 'Request password reset', type: :feature do
 
     pwd = SecureRandom.uuid
     fill_in 'New password', with: pwd
-    fill_in 'Password confirmation', with: pwd
-    click_button 'Save'
+    fill_in 'Confirm new password', with: pwd
+    click_button 'Change my password'
 
     expect(current_path).to eql(plans_path)
     expect(page).to have_text('Your password has been changed successfully. You are now signed in.')
   end
 
-  scenario 'Invalid reset token ' do
+  scenario 'Invalid reset token' do
     submit_reset_password_form_fetch_token
-
     visit edit_user_password_path(reset_password_token: Faker::Lorem.word)
     expect(page).to have_text('Change your password')
 
     pwd = SecureRandom.uuid
     fill_in 'New password', with: pwd
-    fill_in 'Password confirmation', with: pwd
-    click_button 'Save'
+    fill_in 'Confirm new password', with: pwd
+    click_button 'Change my password'
 
     expect(current_path).to eql(user_password_path)
     expect(page).to have_text('Reset password token is invalid')
   end
 
-  scenario 'Invalid reset token ' do
-    submit_reset_password_form_fetch_token
-
-    visit edit_user_password_path(reset_password_token: Faker::Lorem.word)
+  scenario 'Password mismatch' do
+    token = submit_reset_password_form_fetch_token
+    visit edit_user_password_path(reset_password_token: token)
     expect(page).to have_text('Change your password')
 
     pwd = SecureRandom.uuid
     fill_in 'New password', with: pwd
-    fill_in 'Password confirmation', with: pwd
-    click_button 'Save'
+    fill_in 'Confirm new password', with: SecureRandom.uuid
+    click_button 'Change my password'
 
     expect(current_path).to eql(user_password_path)
-    expect(page).to have_text('Reset password token is invalid')
+    expect(page).to have_text('Password confirmation doesn\'t match Password')
+  end
+
+  scenario 'Invalid password' do
+    token = submit_reset_password_form_fetch_token
+    visit edit_user_password_path(reset_password_token: token)
+    expect(page).to have_text('Change your password')
+
+    pwd = SecureRandom.uuid
+    fill_in 'New password', with: 'foo'
+    fill_in 'Confirm new password', with: 'foo'
+    click_button 'Change my password'
+
+    expect(current_path).to eql(user_password_path)
+    expect(page).to have_text('Password is too short')
   end
 
   # Helper method to submit the reset password form and return the reset token
   # rubocop:disable Metrics/AbcSize
   def submit_reset_password_form_fetch_token
-    within('#user_request_reset_password_form') do
+    within("form[action=\"#{user_password_path}\"]") do
       fill_in 'Email', with: @user.email
       click_button 'Send'
     end

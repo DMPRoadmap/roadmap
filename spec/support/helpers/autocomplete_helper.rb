@@ -35,11 +35,9 @@ module AutocompleteHelper
   def suggestion_exists?(name)
     return false unless name.present?
 
-    elements = all('.ui-menu-item-wrapper', visible: false)
+    elements = all('.ui-menu-item-wrapper', visible: :all)
     return false unless elements.present? && elements.any?
 
-elements.detect { |el| pp "'#{el.text.strip}' == '#{name}'" }
-
-    elements.detect { |el| el.text.strip == name }.present?
+    elements.detect { |el| el.text(:all).strip == name }.present?
   end
 end

@@ -177,7 +177,7 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
     end
 
     context 'Edit Profile page implementation works' do
-      xit 'has used the appropriate controls and returns the expected suggestions', :js do
+      xit 'has used the appropriate controls and returns the expected suggestions', js: true do
         # The Autocomplete on this page should allow the user to select any Orgs
         # or RegistryOrgs and allow them to create new Orgs
         visit edit_user_registration_path
@@ -199,6 +199,7 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
           # Clear the default Org name and replace with our search term
           fill_in _('Institution'), with: ''
           fill_in _('Institution'), with: @word
+          sleep(0.2)
 
           # Make sure the correct Orgs are suggested
           expect(suggestion_exists?(@org_managed.name)).to eql(true)
@@ -217,15 +218,11 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
     end
 
     context 'Contributor page implementation (all orgs)' do
-      it 'has used the appropriate controls and returns the expected suggestions', :js do
+      it 'has used the appropriate controls and returns the expected suggestions', js: true do
         # The Autocomplete on this page should allow the user to select any Orgs
         # or RegistryOrgs and allow them to create new Orgs
         visit new_plan_contributor_path(@plan)
         expect(page).to have_text(_('New contributor'))
-
-elements = all('.ui-menu-item-wrapper', visible: false)
-elements.detect { |el| pp "'#{el.text.strip}' == '#{@plan.org.name}'" }
-
         expect(suggestion_exists?(@plan.org.name)).to eql(true)
 
         within('#contributor-org-controls') do
@@ -244,8 +241,7 @@ elements.detect { |el| pp "'#{el.text.strip}' == '#{@plan.org.name}'" }
           # Clear the default Org name and replace with our search term
           fill_in _('Affiliation'), with: ''
           fill_in _('Affiliation'), with: @word
-
-p "Filled in with '#{@word}'"
+          sleep(1)
 
           # Make sure the correct Orgs are suggested
           expect(suggestion_exists?(@org_managed.name)).to eql(true)
@@ -264,7 +260,7 @@ p "Filled in with '#{@word}'"
     end
 
     context 'Create Plan page implementation (Research Org and Funder)' do
-      it 'has the appropriate controls and returns the expected suggestions', :js do
+      it 'has the appropriate controls and returns the expected suggestions', js: true do
         # The Autocompletes on this page should:
         #   Research Org: only allow known Orgs (no unassociated RegistryOrgs) and
         #                 no ability to create Orgs
@@ -291,6 +287,7 @@ p "Filled in with '#{@word}'"
           # Clear the default Org name and replace with our search term
           fill_in _('Research organisation'), with: ''
           fill_in _('Research organisation'), with: @word
+          sleep(1)
 
           # Make sure the correct Orgs are suggested
           expect(suggestion_exists?(@org_managed.name)).to eql(true)
@@ -346,7 +343,7 @@ p "Filled in with '#{@word}'"
     end
 
     context 'Project Details page implementation (Funder only)' do
-      it 'has the appropriate controls and returns the expected suggestions', :js do
+      it 'has the appropriate controls and returns the expected suggestions', js: true do
         # The Autocomplete on this page should only allow the selection of funder
         # Org or RegistryOrg records and also allow the user to create funders
         visit plan_path(@plan)
@@ -388,7 +385,7 @@ p "Filled in with '#{@word}'"
     end
 
     context 'Templates page for letting SuperAdmin change affiliations' do
-      it 'has the appropriate controls and returns the expected suggestions', :js do
+      it 'has the appropriate controls and returns the expected suggestions', js: true do
         # The Autocomplete on this page should only allow the SuperAdmin to select
         # known Orgs (no unassociated RegistryOrgs) and no ability to create Orgs
         sign_out @user
@@ -415,6 +412,7 @@ p "Filled in with '#{@word}'"
           # Clear the default Org name and replace with our search term
           fill_in _('Affiliation'), with: ''
           fill_in _('Affiliation'), with: @word
+          sleep(1)
 
           # Make sure the correct Orgs are suggested
           expect(suggestion_exists?(@org_managed.name)).to eql(true)
@@ -435,7 +433,7 @@ p "Filled in with '#{@word}'"
     end
 
     context 'SuperAdmin Editing a User page implementation works' do
-      it 'has used the appropriate controls and returns the expected suggestions', :js do
+      it 'has used the appropriate controls and returns the expected suggestions', js: true do
         # The Autocomplete on this page should allow the SuperAdmin to select any Orgs
         # or RegistryOrgs and allow them to create new Orgs
         sign_out @user
@@ -460,6 +458,7 @@ p "Filled in with '#{@word}'"
           # Clear the default Org name and replace with our search term
           fill_in _('Institution'), with: ''
           fill_in _('Institution'), with: @word
+          sleep(1)
 
           # Make sure the correct Orgs are suggested
           expect(suggestion_exists?(@org_managed.name)).to eql(true)
@@ -478,7 +477,7 @@ p "Filled in with '#{@word}'"
     end
 
     context 'SuperAdmin Create an Organisation page implementation works' do
-      it 'has used the appropriate controls and returns the expected suggestions', :js do
+      it 'has used the appropriate controls and returns the expected suggestions', js: true do
         # The Autocomplete on this page should allow the SuperAdmin to only select
         # unassociated RegistryOrgs OR add a custom Org
         sign_out @user
