@@ -130,6 +130,14 @@
             </h3>
           </div>
           <% end %>
+          <!-- In case the user's org is not managed -->
+          <% unless current_user.org.managed? %>
+          <div id="no_org">
+            <h3>
+              <%= d_('dmpopidor', 'Your organisation has been automatically created during your account creation. If you want to access features such as guidances & feedback request, please change your organisation in your profile.') %>
+            </h3>
+          </div>
+          <% end %>
 
           <!-- Submit and other buttons -->
           <div class="pull-right">

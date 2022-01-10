@@ -675,3 +675,6 @@ msgstr ""
 
 msgid "Workflow"
 msgstr ""
+
+msgid "Your organisation has been automatically created during your account creation. If you want to access features such as guidances & feedback request, please change your organisation in your profile."
+msgstr ""
