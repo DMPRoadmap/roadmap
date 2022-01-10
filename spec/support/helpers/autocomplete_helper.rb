@@ -6,6 +6,7 @@ module AutocompleteHelper
       # Clear the default Org name if any and replace with the specified name
       fill_in label, with: ''
       fill_in label, with: org_name
+      sleep(1)
       # Check that it appear in the list first
       expect(suggestion_exists?(org_name)).to eql(true)
       # Now select the item from the suggestions
