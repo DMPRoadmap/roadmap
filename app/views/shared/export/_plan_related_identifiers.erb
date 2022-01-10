@@ -6,13 +6,13 @@
 
 <% current_work_type = presenter.related_identifiers.first.work_type %>
 
-<h2><%= presenter.related_identifiers.first.work_type.pluralize.humanize %></h2>
+<h2><%= presenter.related_identifiers.first.work_type&.pluralize&.humanize %></h2>
 <ul>
 
 <% presenter.related_identifiers.each do |related_identifier| %>
   <% if current_work_type != related_identifier.work_type %>
     </ul>
-    <h2><%= related_identifier.work_type.pluralize.humanize %></h2>
+    <h2><%= related_identifier.work_type&.pluralize&.humanize %></h2>
     <ul>
   <% end %>
   <li>

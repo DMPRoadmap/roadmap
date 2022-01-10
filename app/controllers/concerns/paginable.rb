@@ -128,7 +128,7 @@ module Paginable
   # rubocop:disable Metrics/AbcSize
   def refine_query(scope)
     @args = @args.with_indifferent_access
-    scope = scope.search(@args[:search]) if @args[:search].present?
+    scope = scope.search(@args[:search]).distinct if @args[:search].present?
 
     # Can raise NoMethodError if the scope does not define a search method
     if @args[:sort_field].present?

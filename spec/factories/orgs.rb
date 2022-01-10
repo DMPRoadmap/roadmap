@@ -46,6 +46,9 @@ FactoryBot.define do
     contact_email { Faker::Internet.safe_email }
     contact_name { Faker::Name.name }
     managed { true }
+    api_create_plan_email_subject { Faker::Lorem.sentence }
+    api_create_plan_email_body { Faker::Lorem.paragraph }
+
     trait :institution do
       institution { true }
     end

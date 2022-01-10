@@ -85,6 +85,15 @@ class Template < ApplicationRecord
 
   has_many :conditions, through: :questions
 
+  # ----------------------------------------
+  # Start DMPTool Customization
+  # ----------------------------------------
+  has_one :sponsor, class_name: 'Org', foreign_key: 'id', primary_key: 'sponsor_id',
+                    required: false
+  # ----------------------------------------
+  # End DMPTool Customization
+  # ----------------------------------------
+
   # ===============
   # = Validations =
   # ===============

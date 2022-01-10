@@ -4,6 +4,7 @@
 <ul class="nav navbar-nav">
   <li><%= link_to _('Create plan'), new_plan_path %></li>
 </ul>
+
 <% if current_user.can_org_admin? || current_user.can_super_admin? %>
   <ul class="nav navbar-nav">
     <li class="dropdown">
@@ -45,6 +46,7 @@
 
         <% if current_user.can_super_admin? %>
           <li><%= link_to(_('Api Clients'), super_admin_api_clients_path) %></li>
+          <li><%= link_to(_('Api Logs'), super_admin_api_logs_path) %></li>
           <li><%= link_to _('Notifications'), super_admin_notifications_path %></li>
         <% end %>
       </ul>

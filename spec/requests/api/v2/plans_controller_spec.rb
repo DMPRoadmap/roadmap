@@ -438,7 +438,7 @@ RSpec.describe Api::V2::PlansController, type: :request do
 
         expect(response.code).to eql("201")
         expect(ActionMailer::Base.deliveries).to have_exactly(1).item
-        expect(response).to render_template("devise/mailer/new_plan_via_api")
+        expect(response).to render_template("devise/mailer/invitation_instructions")
 
         owner = Plan.find_by(title: @json[:dmp][:title]).owner
         expect(owner.firstname.present?).to eql(true)
@@ -472,6 +472,19 @@ RSpec.describe Api::V2::PlansController, type: :request do
         expect(owner.invitation_created_at.present?).to eql(false)
         expect(owner.invitation_sent_at.present?).to eql(false)
         expect(owner.plans.length).to eql(1)
+      end
+
+      it "logs the addition of the new plan in the api_logs" do
+        post(api_v2_plans_path, params: @json.to_json, headers: @headers)
+        expect(response.code).to eql("201")
+        entry = ApiLog.all.last
+        plan = Plan.all.last
+        expected = "Created a new Plan - <a href=\"/plans/#{plan.id}\">#{plan.id}</a>"
+        expect(entry.present?).to eql(true)
+        expect(entry.api_client_id).to eql(@client.id)
+        expect(entry.logable).to eql(plan)
+        expect(entry.change_type).to eql('added')
+        expect(entry.activity.start_with?(expected)).to eql(true)
       end
     end
   end

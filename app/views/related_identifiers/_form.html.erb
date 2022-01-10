@@ -11,7 +11,7 @@
       <%= label_tag("#{id_base}_work_type", _("Work Type"), class: "control-label") %>
     </span>
     <span class="col-md-6">
-      <%= label_tag("#{id_base}_value", _("DOI or other identifier"),
+      <%= label_tag("#{id_base}_value", _("DOI or other URL based identifier"),
                     class: "control-label") %>
     </span>
   </div>
@@ -31,7 +31,7 @@
                     } %>
     </span>
     <span class="col-md-6">
-      <%= text_field_tag :value, related_identifier.value,
+      <%= url_field_tag :value, related_identifier.value,
                         class: "form-control",
                         name: "plan[related_identifiers_attributes[0][value]]",
                         id: "plan_related_identifiers_attributes_0_value",

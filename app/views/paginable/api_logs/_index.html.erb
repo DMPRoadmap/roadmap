@@ -1,0 +1,48 @@
+<div class="table-responsive">
+  <table class="table table-hover" id="api_clients">
+    <thead>
+      <tr>
+        <th scope="col" class="text-center">
+          <%=  _('Client') %>&nbsp;<%= paginable_sort_link('api_clients.name') %>
+        </th>
+        <th scope="col" class="text-center">
+          <%= _('Date') %>&nbsp;<%= paginable_sort_link('api_logs.created_at') %>
+        </th>
+        <th scope="col" class="text-center">
+          <%= _('Type') %>&nbsp;<%= paginable_sort_link('api_logs.change_type') %>
+        </th>
+        <th scope="col" class="text-center">
+          <%=  _('Subject') %>&nbsp;<%= paginable_sort_link('api_logs.logable_id') %>
+        </th>
+        <th scope="col" class="text-center sorter-false">
+          <%= _('Details') %>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% scope.each do |entry| %>
+        <tr>
+          <td><%= entry.api_client&.name %></td>
+          <td><%= l(entry.created_at.to_date, formats: :short) %></td>
+          <td><%= entry.change_type %></td>
+          <td>
+            <% case entry.logable_type %>
+            <% when 'Plan' %>
+              <%= link_to(_('Plan: %<id>s') % { id: entry.logable_id }, plan_path(entry.logable_id)) %>
+            <% when 'RelatedIdentifier' %>
+              <%= link_to(_('Related work: %<id>s') % { id: entry.logable_id }, plan_path(entry.logable.identifiable_id)) %>
+            <% else %>
+              <%= "#{entry.logable_type}: #{entry.logable_id}" %>
+            <% end %>
+          </td>
+          <td>
+            <% entry.activity.split('<br>').each do |part| %>
+              <%= part %>
+              <br>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

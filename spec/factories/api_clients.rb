@@ -34,7 +34,7 @@
 #
 
 FactoryBot.define do
-  factory :api_client do
+  factory :api_client, aliases: %i[oauth_application] do
     name { Faker::Lorem.unique.word }
     homepage { Faker::Internet.url }
     contact_name { Faker::Movies::StarWars.character }

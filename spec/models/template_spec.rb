@@ -54,6 +54,7 @@ RSpec.describe Template, type: :model do
 
     it { is_expected.to have_many :annotations }
 
+    it { is_expected.to have_one :sponsor }
   end
 
   describe ".archived" do

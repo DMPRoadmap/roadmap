@@ -33,13 +33,7 @@ module Api
 
             # Try to find the Org by name
             org = find_by_name(json: json)
-
-p "CMON!"
-pp org.inspect
-
             return org if org.present? && !org.new_record?
-
-pp id_json
 
             # Org model requires a language so just use the default for now
             org.language = Language.default
