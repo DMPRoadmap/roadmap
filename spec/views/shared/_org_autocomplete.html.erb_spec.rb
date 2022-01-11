@@ -15,7 +15,7 @@ describe 'shared/_org_autocomplete.html.erb' do
       end
 
       it ':default_org defaults to nil' do
-        expect(rendered.include?('value="[null]"')).to eql(true)
+        expect(rendered.include?('autocomplete-default-selection-')).to eql(false)
       end
       it ':required defaults to false' do
         expect(rendered.include?('aria-required="false"')).to eql(true)
@@ -44,7 +44,6 @@ describe 'shared/_org_autocomplete.html.erb' do
       it ':namespace defaults to nil' do
         expect(rendered.include?('id="org"')).to eql(true)
         expect(rendered.include?('id="org_autocomplete_name"')).to eql(true)
-        expect(rendered.include?('id="org_autocomplete_crosswalk"')).to eql(true)
         expect(rendered.include?('class="c-textfield__invalid-description')).to eql(true)
         expect(rendered.include?('name="org_autocomplete[not_in_list]"')).to eql(true)
         expect(rendered.include?('id="org_autocomplete_user_entered_name"')).to eql(true)
@@ -70,6 +69,7 @@ describe 'shared/_org_autocomplete.html.erb' do
 
       it 'specified :default_org is used' do
         expect(rendered.include?("value=\"#{@hash[:default_org].name}\"")).to eql(true)
+        expect(rendered.include?('autocomplete-default-selection-')).to eql(true)
       end
       it 'specified :required is used' do
         expect(rendered.include?('aria-required="true"')).to eql(true)
@@ -101,7 +101,6 @@ describe 'shared/_org_autocomplete.html.erb' do
       it 'unchangeable elements exist' do
         expect(rendered.include?('autocomplete-help')).to eql(true)
         expect(rendered.include?('ui-front')).to eql(true)
-        expect(rendered.include?('id="org_autocomplete_crosswalk"')).to eql(true)
       end
 
       context 'when allowing a user entered Org name' do

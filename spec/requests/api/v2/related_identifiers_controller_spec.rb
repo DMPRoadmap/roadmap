@@ -28,16 +28,13 @@ RSpec.describe Api::V2::RelatedIdentifiersController, type: :request do
 
   describe 'POST /api/v2/related_identifiers - create' do
     before(:each) do
-      dmp_id = [
-        Rails.application.routes.url_helpers.api_v2_plan_url(@plan),
-        @plan.dmp_id
-      ].sample
+      dmp_id = Rails.application.routes.url_helpers.api_v2_plan_url(@plan)
 
       @json = {
         dmp: {
           dmp_id: {
-            type: dmp_id.is_a?(Identifier) ? 'doi' : 'url',
-            identifier: dmp_id.is_a?(Identifier) ? dmp_id.value : dmp_id
+            type: 'url',
+            identifier: dmp_id
           },
           dmproadmap_related_identifiers: [
             {

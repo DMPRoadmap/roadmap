@@ -12,19 +12,6 @@ RSpec.describe 'SuperAdmins Orgs', type: :feature, js: true do
     visit root_path
   end
 
-  scenario 'Super admin submits invalid data' do
-    click_button "Admin"
-    click_link 'Organisations'
-    click_link 'Create Organisation'
-    expect(page).to have_text('New organisation')
-    click_button 'Save'
-
-pp page.body
-
-    expect(current_path).to eql(new_super_admin_org_path)
-    expect(page).to have_text('Error: Unable to create the organisation.')
-  end
-
   scenario 'Super admin adds links' do
     click_button "Admin"
     click_link _("Organisations")

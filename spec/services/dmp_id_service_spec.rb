@@ -40,9 +40,9 @@ RSpec.describe DmpIdService do
     end
     it 'returns the existing DMP ID if :plan already has a :dmp_id' do
       existing = build(:identifier, identifier_scheme: @scheme, value: @qualified_dmp_id)
-      described_class.stubs(:minter).returns(ExternalApis::DataciteService)
       ExternalApis::DataciteService.stubs(:mint_dmp_id)
                                    .returns(existing.value_without_scheme_prefix)
+      described_class.stubs(:minter).returns(ExternalApis::DataciteService)
       expect(described_class.mint_dmp_id(plan: @plan).value).to eql(existing.value)
     end
     it 'returns nil if if no DMP ID minting service is active' do
@@ -50,27 +50,27 @@ RSpec.describe DmpIdService do
       expect(described_class.mint_dmp_id(plan: @plan)).to eql(nil)
     end
     it 'returns nil if the DMP ID minting service did not receive a DMP ID' do
+      ExternalApis::DataciteService.stubs(:mint_dmp_id).returns(nil)
       described_class.stubs(:minter).returns(ExternalApis::DataciteService)
       described_class.stubs(:scheme).returns(@scheme)
-      ExternalApis::DataciteService.stubs(:mint_dmp_id).returns(nil)
       expect(described_class.mint_dmp_id(plan: @plan)).to eql(nil)
     end
     it 'returns the DMP ID retrieved by the DMP ID minting service' do
+      ExternalApis::DataciteService.stubs(:mint_dmp_id).returns(@qualified_dmp_id)
       described_class.stubs(:minter).returns(ExternalApis::DataciteService)
       described_class.stubs(:scheme).returns(@scheme)
-      ExternalApis::DataciteService.stubs(:mint_dmp_id).returns(@qualified_dmp_id)
       expect(described_class.mint_dmp_id(plan: @plan).value).to eql(@qualified_dmp_id)
     end
     it 'prepends the :landing_page_url if the DMP ID is not a URL' do
+      ExternalApis::DataciteService.stubs(:mint_dmp_id).returns(@dmp_id)
       described_class.stubs(:minter).returns(ExternalApis::DataciteService)
       described_class.stubs(:scheme).returns(@scheme)
-      ExternalApis::DataciteService.stubs(:mint_dmp_id).returns(@dmp_id)
       expect(described_class.mint_dmp_id(plan: @plan).value).to eql(@qualified_dmp_id)
     end
     it 'does not prepend the :landing_page_url if the DMP ID is already a URL' do
+      ExternalApis::DataciteService.stubs(:mint_dmp_id).returns(@qualified_dmp_id)
       described_class.stubs(:minter).returns(ExternalApis::DataciteService)
       described_class.stubs(:scheme).returns(@scheme)
-      ExternalApis::DataciteService.stubs(:mint_dmp_id).returns(@qualified_dmp_id)
       expected = "#{@scheme.identifier_prefix}#{@qualified_dmp_id}"
       expect(described_class.mint_dmp_id(plan: @plan).value).not_to eql(expected)
     end
@@ -82,6 +82,7 @@ RSpec.describe DmpIdService do
       expect(described_class.minting_service_defined?).to eql(false)
     end
     it 'returns true if a DMP ID minting service is active' do
+      ExternalApis::DataciteService.stubs(:api_base_url).returns(Faker::Internet.url)
       described_class.stubs(:minter).returns(ExternalApis::DataciteService)
       expect(described_class.minting_service_defined?).to eql(true)
     end

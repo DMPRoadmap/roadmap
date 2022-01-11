@@ -3,12 +3,12 @@
 require 'rails_helper'
 
 describe 'paginable/orgs/_public.html.erb' do
-  include SessionsHelper
+  include IdentifierHelper
 
   it 'renders our version of the page' do
     3.times do
       org = create(:org)
-      shibbolize_org(org: org)
+      create_shibboleth_entity_id(org: org)
     end
     shib = Org.last
     non_shib = create(:org, managed: true, identifiers: [], funder: false)

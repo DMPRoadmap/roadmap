@@ -55,8 +55,8 @@ module Dmptool
           expect(sent_emails).to have_exactly(1).item
           email = sent_emails.first
           expect(email.to).to eql([@params[:email]])
-          expected = _('A Data Management Plan in the DMPTool-Dev has been shared with you')
-          expect(email.subject).to eql(expected)
+          expected = _('has been shared with you')
+          expect(email.subject.include?(expected)).to eql(true)
           expect(email.body.include?(@inviter.name(false))).to eql(true)
           expect(email.body.include?(@plan.title))
         end
