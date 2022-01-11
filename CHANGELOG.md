@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 11/01/2022
+- Le changement d'email depuis le profil est de nouveau fonctionnel
+- Les tooltips s'affichent désormais sur les boutons "Runs"
+
 ## 10/01/2022
 - Les organismes "unmanaged" n'apparaissent plus dans le sélecteur d'organimes. Il est cependant toujours possible d'en créer un nouveau
 - Ajout d'un message dans le formulaire de création de plan pour les utilisateurs liés à un organisme "unmanaged"
