@@ -21,9 +21,9 @@
     <p>
       <%=
       sanitize _('DMPTool is a service of the %{cdl_url}, a division of the %{university_of_ca_url}. Version: %{version}') % {
-        university_of_ca_url: "<a href=\"https://cdlib.org/services/uc3/\" target=\"_blank\">University of California Office of the President <em class=\"sr-only\">(new window)</em></a>",
-        cdl_url: "<a href=\"http://www.cdlib.org/\" target=\"_blank\">California Digital Library <em class=\"sr-only\">(new window)</em></a>",
-        version: Rails.configuration.x.dmptool.version
+        university_of_ca_url: "<a href=\"https://cdlib.org/services/uc3/\" target=\"_blank\">University of California Office of the President</a>",
+        cdl_url: "<a href=\"http://www.cdlib.org/\" target=\"_blank\">California Digital Library</a>",
+        version: Rails.configuration.x.dmptool.version&.gsub(';', '')
       } %>
     </p>
 

@@ -13,8 +13,6 @@ describe 'users/shared/_login_header' do
 
     expect(rendered.include?('class="c-login__header"')).to eql(true)
     expect(rendered.include?("<h2>#{title}")).to eql(true)
-    expect(rendered.include?('c-login__required-field')).to eql(true)
-    expect(rendered.include?('required field')).to eql(true)
     expect(rendered.include?('c-login__invalid-notification')).to eql(true)
   end
 end

@@ -4,14 +4,15 @@
 show_back_button = local_assigns.fetch(:show_back_button, false)
 show_contact_us = local_assigns.fetch(:show_contact_us, false)
 %>
+
 <% if show_back_button %>
   <a class="c-serialnav" rel="prev" href="<%= root_path %>"><%= _('Go back') %></a>
 <% end %>
 
-<footer class="c-login__footer">
-  <% if show_contact_us %>
+<% if show_contact_us %>
+  <footer class="c-login__footer">
     <%= sanitize(_("Problems signing in? %{contact_us_link}.") % {
       contact_us_link: link_to(_("Contact us"), contact_us_path)
     }) %>
-  <% end %>
-</footer>
+  </footer>
+<% end %>

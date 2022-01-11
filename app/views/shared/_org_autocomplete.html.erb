@@ -95,11 +95,10 @@ user_entered = default_org.present? &&
     <%# If we are allowing the user to specify orgs we don't know about then display the checkbox and
         textbox for the user's custom Org name %>
     <% if allow_custom_org_entry %>
-      <div class="c-login__pseudo-description">
+      <div class="">
         <conditional>
           <div id="js-unlisted-checkbox" class="c-checkbox js-checkbox">
             <%= org_fields.check_box(:"#{[namespace, "not_in_list"].compact.join("_")}",
-                                      class: "new-org-entry",
                                       context: "not-in-list-#{autocomplete_id}",
                                       checked: user_entered) %>
             <%= org_fields.label :"#{[namespace, "not_in_list"].compact.join("_")}",

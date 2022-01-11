@@ -1,0 +1,7 @@
+label {
+  // Add a space to the front of links that appear within a label becuase the white space
+  // is getting collapsed
+  a {
+    padding-left: 3px;
+  }
+}
