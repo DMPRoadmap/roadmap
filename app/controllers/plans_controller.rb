@@ -268,7 +268,7 @@ class PlansController < ApplicationController
       #       appropriate namespace, so org_id represents our funder
       funder_attrs = plan_params[:funder]
       funder_attrs[:org_id] = plan_params[:funder][:id]
-      funder = org_from_params(params_in: funder_attrs, allow_create: true)
+      funder = org_from_params(params_in: funder_attrs)
       @plan.funder_id = funder&.id
       attrs.delete(:funder)
 
