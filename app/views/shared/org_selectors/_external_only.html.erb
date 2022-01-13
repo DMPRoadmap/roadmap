@@ -13,8 +13,8 @@ presenter = OrgSelectionPresenter.new(orgs: [default_org],
 placeholder = _("Begin typing to see a list of suggestions.")
 %>
 
-<%= form.label :org_name, label %>
-<%= form.text_field :org_name, class: "form-control autocomplete",
+<%= form.label :name, label %>
+<%= form.text_field :name, class: "form-control autocomplete",
                             placeholder: placeholder,
                             value: presenter.name,
                             spellcheck: true,
