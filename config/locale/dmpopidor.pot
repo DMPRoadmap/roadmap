@@ -677,5 +677,5 @@ msgstr ""
 msgid "Workflow"
 msgstr ""
 
-msgid "Your organisation has been automatically created during your account creation. If you want to access features such as guidances & feedback request, please change your organisation in your profile."
+msgid "The research organisation you entered during your account creation has been automatically created. If you want to access support services provided by an organisation (DMP templates, guidances & feedback request), please change your profile and select an organisation in the list."
 msgstr ""

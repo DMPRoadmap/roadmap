@@ -678,5 +678,5 @@ msgstr "Texte"
 msgid "Workflow"
 msgstr "Workflow"
 
-msgid "Your organisation has been automatically created during your account creation. If you want to access features such as guidances & feedback request, please change your organisation in your profile."
-msgstr "Votre organisme a été automatiquement ajouté lors de la création de votre compte. Si vous souhaitez accéder à des fonctionnalités telles que les recommandations et la demande d'assistance/conseil, veuillez changer votre organisme dans votre profil."
+msgid "The research organisation you entered during your account creation has been automatically created. If you want to access support services provided by an organisation (DMP templates, guidances & feedback request), please change your profile and select an organisation in the list."
+msgstr "L’organisme de recherche que vous avez renseigné lors de votre inscription a été automatiquement créé. Pour bénéficier des services d’accompagnement proposé par un organisme (modèles de DMP, recommandations et demande d'assistance), veuillez modifier votre profil et sélectionner cet organisme dans la liste déroulante"
