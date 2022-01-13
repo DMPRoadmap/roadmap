@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 13/01/2022
+- Changement du message pour les organismes "unmanaged" affiché lors de la création de plan
+- Ajout d'un message indiquant que le changement d'email n'est pas fonctionnel
+- Résolution d'un bug se produisant lors de l'accès à un profil utilisateur en tant que super admin, quand un plan n'a pas de propriétaire.
+- Les organismes "unmanaged" ne sont plus présent dans la liste des organismes du formulaire de création de plan.
+
 ## 11/01/2022
 - Le changement d'email depuis le profil est de nouveau fonctionnel
 - Les tooltips s'affichent désormais sur les boutons "Runs"
