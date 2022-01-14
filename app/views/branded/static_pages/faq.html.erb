@@ -45,7 +45,7 @@
   <h2><%= _('About the DMPTool') %></h2>
 
   <h3 id="q-what-is-a-data-management-plan-dmp"><%= _('Q: What is a data management plan (DMP)?') %></h3>
-  <p><%= _("A: A data management plan is a formal document that outlines what you will do with your data during and after a research project. Most researchers collect data with some form of plan in mind, but it's often inadequately documented and incompletely thought out. Many data management issues can be handled easily or avoided entirely by planning ahead. With the right process and framework it doesn't take too long and can pay off enormously in the long run.") %></p>
+  <p><%= _('A: A data management plan is a formal document that outlines what you will do with your data during and after a research project. Most researchers collect data with some form of plan in mind, but it\'s often inadequately documented and incompletely thought out. Many data management issues can be handled easily or avoided entirely by planning ahead. With the right process and framework, it doesn\'t take too long and can pay off enormously in the long run.') %></p>
 
   <p><%= sanitize _('Read our <a href="%{general_guidance_url}">Data Management General Guidance</a> for more information about data management plans.') % { general_guidance_url: general_guidance_path } %></p>
   <hr>
@@ -73,21 +73,24 @@
   <hr>
 
   <h3 id="q-how-can-my-institution-participate-in-the-dmptool"><%= _('Q: How can my institution participate in the DMPTool?') %></h3>
-  <p><%= sanitize _('A: First, check this <a href="%{participating_url}">participating institutions</a> to make sure your institution is not already participating. Learn more about becoming a <a href="%{about_url}">participating institution</a>.') % { participating_url: public_orgs_path, about_url: about_us_path } %></p>
+  <p><%= sanitize _('A: First, check these <a href="%{participating_url}">participating institutions</a> to make sure your institution is not already participating. Learn more about becoming a <a href="%{about_url}">participating institution</a>.') % { participating_url: public_orgs_path, about_url: about_us_path } %></p>
 
   <p><%= sanitize _('If you are a researcher or potential user, we suggest you talk to a librarian at your institution. If you are an administrator (librarian or otherwise) and interested in joining, please <a href="%{contact_url}">contact us</a>.') % { contact_url: contact_us_path } %></p>
   <hr>
 
   <h3 id="q-what-are-the-benefits-of-participating-in-the-dmptool"><%= _('Q: What are the benefits of participating in the DMPTool?') %></h3>
-  <p><%= _('A: Participating institutions can incorporate information about their resources and services to aid researchers with data management. Participating institutions can also provide customized help and suggest answers to the questions asked by funding agencies. Users from particpating institutions that have configured the tool with Shibboleth can log in with their own institutional accounts.') %></p>
+  <p><%= _('A: Participating institutions can incorporate information about their resources and services to aid researchers with data management. Participating institutions can also provide customized help and suggest answers to the questions asked by funding agencies. Users from participating institutions that have configured the tool with Shibboleth can log in with their own institutional accounts.') %></p>
 
   <p><%= sanitize _('For more information, see <a href="%{about_url}">About participating</a>.') % { about_url: about_us_path } %></p>
   <hr>
 
   <h3 id="q-have-funders-endorsed-the-dmptool"><%= _('Q: Have funders endorsed the DMPTool?') %></h3>
-  <p><%= _('A: No funders have endorsed the use of the DMPTool, although some provide links to the tool or resources within the tool in their public access plans (e.g., NEH, DOT).') %></p>
+  <p><%= sanitize(_('A: Some funders have recommended the use of the DMPTool, although some provide links to the tool or resources within the tool in their public access plans (e.g., NEH, DOT). For example, the %<nsf_dear_colleague_letter_link>s specifically recommended that researchers generate machine-readable DMPs via tools such as the DMPTool.') % {
+    nsf_dear_colleague_letter_link: link_to(_('NSF Dear Colleague Letter: Effective Practices for Data'), 'https://www.nsf.gov/pubs/2019/nsf19069/nsf19069.jsp')
+  }) %></p>
 
-  <p><%= _('Despite the lack of formal endorsements, the DMPTool templates incorporate specific data management planning requirements from a range of funders including foundations and government agencies. We are in close contact with some funders as we create templates and for all funders we monitor public notices and websites for changes.') %></p>
+  <p><%= _('The DMPTool templates incorporate specific data management planning requirements from a range of funders including foundations and government agencies. We are in close contact with some funders as we create templates and for all funders, we monitor public notices and websites for changes.') %></p>
+
   <hr>
 
   <h3 id="q-who-owns-the-data-management-plans-created-with-the-dmptool"><%= _('Q: Who owns the data management plans created with the DMPTool?') %></h3>
@@ -139,7 +142,7 @@
   <hr>
 
   <h3 id="q-i-have-a-collaborator-how-can-we-work-on-the-same-plan"><%= _('Q: I have a collaborator. How can we work on the same plan?') %></h3>
-  <p><%= _('A: First you must create an account in the DMPTool and begin creating a plan. Then you can add your collaborator(s) to your plan as co-owner(s), or grant editor or read only permissions. You can do this on the “Share” tab for your plan. Enter an email address in the field to "Invite collaborators,” select the desired level of permissions, and click "Submit" to send an email invitation.') %></p>
+  <p><%= _('A: First you must create an account in the DMPTool and begin creating a plan. Then you can add your collaborator(s) to your plan as co-owner(s), or grant editor or read only permissions. You can do this on the “Collaborators” tab for your plan. Enter an email address in the field to "Invite collaborators,” select the desired level of permissions, and click "Submit" to send an email invitation.') %></p>
 
   <p><%= sanitize _('For more information, see the <a href="%{help_url}">Quick Start Guide</a>.') % { help_url: help_path } %></p>
   <hr>
@@ -153,13 +156,13 @@
   <h2><%= _('For Administrators') %></h2>
 
   <h3 id="q-where-can-i-find-help-customizing-the-dmptool-for-my-institutionorganization"><%= _('Q: Where can I find help customizing the DMPTool for my institution/organization?') %></h3>
-  <p><%= sanitize _('A: There is an extensive list of <a href="%{admin_help_url}">help topics for administrators</a> customizing the DMPTool located on GitHub. You will find detailed instructions for:<ol><li>Setting up the DMPTool<ul><li>Enabling Shibboleth</li><li>Granting administrator privileges</li><li>Customizing your organizational profile</li><li>Providing feedback on plans</li><li>Usage information</li></ul></li><li>Quick overview of terms</li><li>Creating guidance</li><li>Customizing funder templates</li><li>Creating templates</li></ol>') % { admin_help_url: 'https://github.com/cdluc3/dmptool/wiki/Help-for-Administrators' } %></p>
+  <p><%= sanitize _('A: An extensive <a href="%{admin_help_url}">help guide for administrators</a> located on GitHub. You will find detailed instructions for:<ol><li>Setting up the DMPTool<ul><li>Enabling Shibboleth</li><li>Granting administrator privileges</li><li>Customizing your organizational profile</li><li>Providing feedback on plans</li><li>Usage information</li></ul></li><li>Creating guidance</li><li>Creating and customizing funder templates</li><li>Creating templates</li><li>Utilizing DMP IDs and Networked Data Management Plans (maDMPs)</li></ol>') % { admin_help_url: 'https://github.com/cdluc3/dmptool/wiki/Help-for-Administrators' } %></p>
   <hr>
 
   <h3 id="q-can-i-see-customized-templates-and-guidance-created-by-administrators-at-other-organizations"><%= _('Q: Can I see customized templates and guidance created by administrators at other organizations?') %></h3>
   <p><%= _('A: Yes! To view guidance created by others, create a new plan in the tool. On the "Project details" tab you will see "Plan guidance configuration" on the right. Click to "See the full list" and you can select up to 6 different organizations at a time. You will see the selected guidance when you navigate to the "Write plan" tab.') %></p>
 
-  <p><%= _('To view templates created by others (if available), create a new plan in the tool and choose any organization for the second step: "Select the primary research organization." For the third create plan step, if you tick the box  "No funder associated with this plan" you will be presented with any available organizational templates. If the field remains gray and no templates with organizational names appear, then the selected organization has not created any of their own templates and you will be presented with the default DMPTool template after clicking the button to "Create plan."') %></p>
+  <p><%= _('To view templates created by others (if available), create a new plan in the tool and choose any organization for the second step: "Select the primary research organization." For the third create plan step, if you tick the box "No funder associated with this plan" you will be presented with any available organizational templates. If the field remains gray and no templates with organizational names appear, then the selected organization has not created any of their own templates and you will be presented with the default DMPTool template after clicking the button to "Create plan."') %></p>
   <hr>
 
   <h3 id="q-i-created-a-test-template-how-can-i-delete-it"><%= _('Q: I created a test template. How can I delete it?') %></h3>
@@ -167,7 +170,7 @@
   <hr>
 
   <h3 id="q-how-do-i-create-guidance-and-what-are-themes"><%= _('Q: How do I create guidance? And what are themes?') %></h3>
-  <p><%= sanitize _('A:  The <a href="%{admin_help_url}">help menu for administrators</a> contains detailed instructions for creating themed guidance. The basic steps include:<ol><li>Creating a guidance group (you will already have a default guidance group for your organization; it is optional to create additional groups or subgroups, for example, for a specific department)</li><li>Creating guidance by entering text, assigning one or more themes, and attaching it to a guidance group</li><li>Publishing the guidance</li></ol>') % { admin_help_url: 'https://github.com/cdluc3/dmptool/wiki/Help-for-Administrators' } %></p>
+  <p><%= sanitize _('A:  The <a href="%{admin_help_url}">help guide for administrators</a> contains detailed instructions for creating themed guidance. The basic steps include:<ol><li>Creating a guidance group (you will already have a default guidance group for your organization; it is optional to create additional groups or subgroups, for example, for a specific department)</li><li>Creating guidance by entering text, assigning one or more themes, and attaching it to a guidance group</li><li>Publishing the guidance</li></ol>') % { admin_help_url: 'https://github.com/cdluc3/dmptool/wiki/Help-for-Administrators' } %></p>
 
   <p><%= _('There are 14 themes that represent the most common topics addressed in data management plans (e.g., Data format, Metadata). Themes work like tags to associate questions and guidance. Questions within a template can be tagged with one or more themes, and guidance can be written by theme to allow organizations to apply their advice over all templates at once. This also alleviates the need to update guidance each time a new template is released.') %></p>
   <hr>
