@@ -7,6 +7,9 @@ module Users
     skip_before_action :verify_authenticity_token, only: %i[orcid shibboleth]
 
     def failure
+
+p "FAIL: #{failed_strategy.name}"
+
       Rails.logger.error "OmniauthCallbacksController - FAILURE for #{failed_strategy.name}"
       super
     end
@@ -14,6 +17,11 @@ module Users
     # GET|POST /users/auth/shibboleth/callback
     def shibboleth
       omniauth = omniauth_from_request
+
+pp request.headers
+
+pp omniauth
+
       scheme_name = 'shibboleth'
       user = User.from_omniauth(scheme_name: scheme_name, omniauth_hash: omniauth)
       process_omniauth_response(scheme_name: scheme_name, user: user, omniauth_hash: omniauth)
@@ -36,7 +44,7 @@ module Users
                                                        omniauth_hash.present? &&
                                                        scheme_name.present?
 
-      # If the user is already signed in and OmniAuth provided a UID
+      # If the user is already signed in add the OmniAuth provided UID
       if current_user.present? && omniauth_hash[:uid].present?
         handle_third_party_app_registration(
           user: current_user, scheme_name: scheme_name, omniauth_hash: omniauth_hash
@@ -93,7 +101,7 @@ module Users
         # them an opportunity to sign in with a password (scenarios where the user had
         # an account before their Org was setup for SSO) or correct any of the info we
         # got from OmniAuth (e.g. First name, Last name)
-        redirect_to_registration(scheme_name: scheme_name, omniauth_hash: omniauth_hash)
+        # redirect_to_registration(scheme_name: scheme_name, omniauth_hash: omniauth_hash)
       end
     end
 
@@ -104,6 +112,17 @@ module Users
                   notice: _('It looks like this is your first time signing in. Please verify and complete the information below to finish creating an account.')
     end
     # rubocop:enable Layout/LineLength
+
+    # Sign up a user and tries to redirect first to the stored location and
+    # then to the url specified by after_sign_in_path_for. It accepts the same
+    # parameters as the sign_in method.
+    def sign_up_and_redirect(resource_or_scope, *args)
+      options  = args.extract_options!
+      scope    = Devise::Mapping.find_scope!(resource_or_scope)
+      resource = args.last || resource_or_scope
+      sign_in(scope, resource, options)
+      redirect_to after_sign_up_path_for(resource)
+    end
 
     # Return the visual name of the scheme
     def provider(scheme_name:)

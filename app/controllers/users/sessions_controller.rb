@@ -44,5 +44,12 @@ module Users
     def configure_sign_in_params
       devise_parameter_sanitizer.permit(:sign_in, keys: authentication_params(type: :sign_in))
     end
+
+    # The path used after sign in.
+    def after_sign_in_path_for(_resource)
+      # Change the locale if the user has a prefered language
+      session[:locale] = resource.language.abbreviation if resource.language_id.present?
+      plans_path
+    end
   end
 end

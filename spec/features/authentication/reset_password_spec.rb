@@ -7,9 +7,7 @@ RSpec.describe 'Request password reset', type: :feature do
 
   before(:each) do
     @pwd = SecureRandom.uuid
-    @plan = create(:plan, :creator)
-    @user = @plan.owner
-    @user.update(password: @pwd, password_confirmation: @pwd)
+    @user = create(:user)
     mock_blog
 
     visit root_path
@@ -25,8 +23,8 @@ RSpec.describe 'Request password reset', type: :feature do
       click_button 'Send'
     end
 
-    expect(current_path).to eql(user_password_path)
-    expect(page).to have_text('The email address you entered is not registered.')
+    expect(current_path).to eql(new_user_password_path)
+    expect(page).to have_text('No account associated with that email address.')
   end
 
   scenario "User enters their email and clicks 'Send'" do
@@ -45,9 +43,8 @@ RSpec.describe 'Request password reset', type: :feature do
     visit edit_user_password_path(reset_password_token: token)
     expect(page).to have_text('Change your password')
 
-    pwd = SecureRandom.uuid
-    fill_in 'New password', with: pwd
-    fill_in 'Confirm new password', with: pwd
+    fill_in 'New password', with: @pwd
+    fill_in 'Confirm new password', with: @pwd
     click_button 'Change my password'
 
     expect(current_path).to eql(plans_path)
@@ -59,9 +56,8 @@ RSpec.describe 'Request password reset', type: :feature do
     visit edit_user_password_path(reset_password_token: Faker::Lorem.word)
     expect(page).to have_text('Change your password')
 
-    pwd = SecureRandom.uuid
-    fill_in 'New password', with: pwd
-    fill_in 'Confirm new password', with: pwd
+    fill_in 'New password', with: @pwd
+    fill_in 'Confirm new password', with: @pwd
     click_button 'Change my password'
 
     expect(current_path).to eql(user_password_path)
@@ -73,8 +69,7 @@ RSpec.describe 'Request password reset', type: :feature do
     visit edit_user_password_path(reset_password_token: token)
     expect(page).to have_text('Change your password')
 
-    pwd = SecureRandom.uuid
-    fill_in 'New password', with: pwd
+    fill_in 'New password', with: @pwd
     fill_in 'Confirm new password', with: SecureRandom.uuid
     click_button 'Change my password'
 
@@ -87,7 +82,6 @@ RSpec.describe 'Request password reset', type: :feature do
     visit edit_user_password_path(reset_password_token: token)
     expect(page).to have_text('Change your password')
 
-    pwd = SecureRandom.uuid
     fill_in 'New password', with: 'foo'
     fill_in 'Confirm new password', with: 'foo'
     click_button 'Change my password'
@@ -114,7 +108,7 @@ RSpec.describe 'Request password reset', type: :feature do
     expect(email.to).to eql([@user.email])
     expect(email.subject).to eql('Reset password instructions')
 
-    email.body.to_s.match(/reset_password_token=[a-zA-Z0-9_]+/)
+    email.body.to_s.match(/reset_password_token=[a-zA-Z0-9_\-]+/)
          .to_s.gsub('reset_password_token=', '')
   end
   # rubocop:enable Metrics/AbcSize

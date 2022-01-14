@@ -85,6 +85,7 @@ module Dmptool
           email: extract_omniauth_email(hash: omniauth_info),
           firstname: names.fetch(:firstname, ''),
           surname: names.fetch(:surname, ''),
+          password: SecureRandom.uuid,
           org_id: org&.id
         )
 

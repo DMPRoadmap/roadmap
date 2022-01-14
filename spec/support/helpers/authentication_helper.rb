@@ -51,11 +51,19 @@ class MockShibbolethIdentityProvidersController < ApplicationController
         identity_provider: params['identity_provider']
       }
     }
-
-    p "REDIRECT TO CALLBACK: #{user_shibboleth_omniauth_callback_path}"
+    response.set_cookie(:omniauth, {
+      provider: 'shibboleth',
+      uid: SecureRandom.uuid,
+      info: {
+        email: sign_in_params['email'],
+        givenname: Faker::Movies::StarWars.character.split.first,
+        sn: Faker::Movies::StarWars.character.split.first,
+        identity_provider: params['identity_provider']
+      }
+    })
 
     code = params['identity_provider'].present? && sign_in_params[:email].present? ? 200 : 401
-    redirect_to user_shibboleth_omniauth_callback_path, status: code
+    redirect_to user_shibboleth_omniauth_callback_path #, status: code
   end
   # rubocop:enable Metrics/AbcSize
 

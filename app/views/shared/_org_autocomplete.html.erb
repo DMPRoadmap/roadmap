@@ -56,7 +56,7 @@ user_entered = default_org.present? &&
 %>
 
 <%= fields_for :org_autocomplete do |org_fields| %>
-  <div id="<%= div_id %>" class="c-textfield <%= required ? 'is-required' : '' %>">
+  <div id="<%= div_id %>" class="c-textfield <%= classes %> <%= required ? 'is-required' : '' %>">
     <%= org_fields.label :"#{[namespace, "name"].compact.join("_")}", label %>
 
     <%= org_fields.text_field :"#{[namespace, "name"].compact.join("_")}",
@@ -87,17 +87,16 @@ user_entered = default_org.present? &&
     <div id="autocomplete-suggestions-<%= autocomplete_id %>" class="ui-front"></div>
 
     <%# message to display to the user if they did not select an item from the suggestions %>
-    <div id=""
-        class="c-textfield__invalid-description js-invalid-description autocomplete-warning-<%= autocomplete_id %>"
-        hidden>
+    <div class="c-textfield__invalid-description js-invalid-description autocomplete-warning-<%= autocomplete_id %>"
+         hidden>
     </div>
 
     <%# If we are allowing the user to specify orgs we don't know about then display the checkbox and
         textbox for the user's custom Org name %>
     <% if allow_custom_org_entry %>
-      <div class="">
+      <div class="<%= classes.present? ? 'row' : '' %>">
         <conditional>
-          <div id="js-unlisted-checkbox" class="c-checkbox js-checkbox">
+          <div id="js-unlisted-checkbox" class="c-checkbox js-checkbox <%= classes.present? ? 'col-md-12' : '' %>">
             <%= org_fields.check_box(:"#{[namespace, "not_in_list"].compact.join("_")}",
                                       context: "not-in-list-#{autocomplete_id}",
                                       checked: user_entered) %>
@@ -106,7 +105,7 @@ user_entered = default_org.present? &&
                                   item_label: label.downcase
                                 } %>
           </div>
-          <div id="js-unlisted-textfield" class="c-textfield js-textfields">
+          <div id="js-unlisted-textfield" class="c-textfield js-textfields <%= classes.present? ? 'col-md-12' : '' %>">
             <%= org_fields.text_field :"#{[namespace, "user_entered_name"].compact.join("_")}",
                                       value: user_entered ? default_org&.name : nil,
                                       placeholder: _("Please enter the %{item_label} name") % { item_label: label.downcase },

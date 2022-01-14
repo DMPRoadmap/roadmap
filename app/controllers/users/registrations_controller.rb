@@ -4,6 +4,7 @@ module Users
   # Overrides to Devise's sign up registrations
   class RegistrationsController < Devise::RegistrationsController
     include Dmptool::Authenticatable
+    include OrgSelectable
 
     # See the Authenticatable concern for additional callbacks
 
@@ -45,6 +46,46 @@ module Users
     end
     # rubocop:enable Metrics/AbcSize
 
+    # PUT /resource
+    # We need to use a copy of the resource because we don't want to change
+    # the current user in place.
+    def update
+      self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
+      prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
+      args = process_params(resource)
+
+      # add an error message if the email changed but no password was supplied
+      if resource.email != args[:email] && !args[:password].present?
+        resource.errors[:email] = _("Enter your current password to change the email address.")
+      end
+
+      unless resource.errors.any?
+        # if password is present
+        resource_updated = update_resource(resource, args) if args[:password].present?
+        # else update without a password
+
+pp args
+
+        resource_updated = resource.update_without_password(args)
+
+        # Change the locale if the user selected a different language
+        session[:locale] = resource.language.abbreviation if resource.saved_change_to_language_id?
+      end
+
+      yield resource if block_given?
+      if resource_updated
+        set_flash_message_for_update(resource, prev_unconfirmed_email)
+        bypass_sign_in resource, scope: resource_name if sign_in_after_change_password?
+
+        respond_with resource, location: after_update_path_for(resource)
+      else
+        clean_up_passwords resource
+        set_minimum_password_length
+        msg = [_('Unable to save your changes'), resource.errors.full_messages].join('<br>')
+        redirect_to edit_user_registration_path, alert: msg
+      end
+    end
+
     protected
 
     # If you have extra params to permit, append them to the sanitizer.
@@ -64,6 +105,29 @@ module Users
     # The path used after sign up.
     def after_sign_up_path_for(_resource)
       plans_path
+    end
+
+    # The default url to be used after updating a resource. You need to overwrite
+    # this method in your own RegistrationsController.
+    def after_update_path_for(_resource)
+      edit_user_registration_path
+      # sign_in_after_change_password? ? signed_in_root_path(resource) : new_session_path(resource_name)
+    end
+
+    # Handle the Org autoccomplete and passwords
+    def process_params(resource)
+      args = account_update_params
+
+      # Convert the selected/specified Org name into attributes
+      op = autocomplete_to_controller_params
+      args[:org_id] = op[:org_id] if op[:org_id].present?
+      args[:org_attributes] = op[:org_attributes] unless op[:org_id].present?
+
+      # If a new password was provided
+      args[:password] = args[:current_password] unless resource.email == args[:email]
+      args[:password_confirmation] = args[:current_password] unless resource.email == args[:email]
+      args.delete(:current_password)
+      args
     end
   end
 end

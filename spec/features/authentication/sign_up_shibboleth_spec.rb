@@ -2,42 +2,49 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Sign up via email and password', type: :feature do
+RSpec.describe 'Shibboleth Sign up via email and password', type: :feature do
   include DmptoolHelper
-
-  # TODO: implement this after we move to baseline homepage
+  include IdentifierHelper
+  include AuthenticationHelper
 
   before(:each) do
-    @existing = create(:user)
-    @orgs = [create(:org), create(:org)]
+    @email_domain = "foo.edu"
+    @org = create(:org, contact_email: "#{Faker::Lorem.unique.word}@#{@email_domain}", managed: true)
+    @registry_org = create(:registry_org, home_page: "http://#{@email_domain}", org: @org)
+    @existing = create(:user, email: "#{Faker::Lorem.unique.word}@#{@email_domain}", org: @org)
 
-    @first = Faker::Movies::StarWars.character.split.first
-    @last = Faker::Movies::StarWars.character.split.last
-    @email = Faker::Internet.unique.email
-    @pwd = SecureRandom.uuid
+    create_shibboleth_entity_id(org: @org)
+    create_shibboleth_eppn(user: @existing)
 
-    Rails.configuration.x.recaptcha.enabled = false
+    @user = build(:user, org: @org, email: "#{Faker::Lorem.unique.word}@#{@email_domain}")
 
-    # -------------------------------------------------------------
-    # start DMPTool customization
-    # Mock the blog feed on our homepage
-    # -------------------------------------------------------------
     mock_blog
-    # -------------------------------------------------------------
-    # end DMPTool customization
-    # -------------------------------------------------------------
-
     visit root_path
+    fill_in 'Email address', with: @user.email
+    click_on 'Continue'
+    expect(page).to have_text('New Account Sign Up')
+  end
 
-    # -------------------------------------------------------------
-    # start DMPTool customization
-    # Access the sign in form
-    # -------------------------------------------------------------
-    # Action
-    # click_link "Create account"
-    #    access_create_account_modal
-    # -------------------------------------------------------------
-    # end DMPTool customization
-    # -------------------------------------------------------------
+  scenario 'user authenticates with their IdP' do
+    mock_shibboleth(user: @user)
+
+    click_button 'Sign in with Institution to Continue'
+    expect(page).to have_text('Mock Shibboleth IdP Sign in form')
+    fill_in 'Email', with: @existing.email
+    fill_in 'Password', with: SecureRandom.uuid
+    click_button 'Sign in'
+
+    expect(page).to have_text(_(''))
+
+pp page.body
+
+  end
+
+  scenario 'user authenticates with their IdP but eppn does not match one on record' do
+
+  end
+
+  scenario 'Idp responds with error' do
+
   end
 end

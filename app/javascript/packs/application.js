@@ -78,6 +78,7 @@ import '../src/roles/edit';
 import '../src/usage/index';
 import '../src/users/adminGrantPermissions';
 import '../src/users/notificationPreferences';
+import '../src/users/profile';
 
 // OrgAdmin view specific JS
 import '../src/orgAdmin/conditions/updateConditions';
