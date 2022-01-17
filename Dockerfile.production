@@ -1,4 +1,4 @@
-FROM ruby:2.6.3
+FROM ruby:2.6.6
 
 # Setup bundle to install gems to volume
 ENV BUNDLE_PATH=/bundle/ \

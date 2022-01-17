@@ -79,7 +79,7 @@ class UsageController < ApplicationController
       @total = @total_org_users
       @ranged = @users_per_month.sum(:count)
     when 'organisations'
-      @total = Org.count
+      @total = Org.managed.count
       @ranged = ranged_organizations(args: args).count
     else
       @total = 0
@@ -116,14 +116,14 @@ class UsageController < ApplicationController
     plan_data(args: default_query_args)
     sep = sep_param
     send_data(CSV.generate(col_sep: sep) do |csv|
-      csv << [_("Month"), _("No. Completed Plans")]
+      csv << [_("Month"), _("No. Created Plans")]
       total = 0
       @plans_per_month.each do |data|
         csv << [data.date.strftime("%b-%y"), data.count]
         total += data.count
       end
       csv << [_("Total"), total]
-    end, filename: "completed_plans.csv")
+    end, filename: "created_plans.csv")
   end
 
   # GET /usage_all_plans_by_template
@@ -230,7 +230,7 @@ class UsageController < ApplicationController
     start_date = DateTime.parse(args[:start_date])
     end_date = DateTime.parse(args[:end_date])
 
-    Org.where(:created_at => start_date.beginning_of_day..end_date.end_of_day)    
+    Org.managed.where(:created_at => start_date.beginning_of_day..end_date.end_of_day)    
   end
 
   def first_plan_date

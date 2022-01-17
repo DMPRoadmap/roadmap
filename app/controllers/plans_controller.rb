@@ -163,7 +163,6 @@ class PlansController < ApplicationController
       plans_guidance_groups: { guidance_group: :guidances }
     ).find(params[:id])
     authorize @plan
-
     @visibility = if @plan.visibility.present?
                     @plan.visibility.to_s
                   else
@@ -373,10 +372,13 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     authorize @plan
     @phase_options = @plan.phases.order(:number).pluck(:title, :id)
+    if @phase_options.length > 1
+      @phase_options.insert(0,["All phases", "All"])
+    end
     @export_settings = @plan.settings(:export)
     render "download"
   end
-
+  
   # POST /plans/:id/duplicate
   def duplicate
     plan = Plan.find(params[:id])
