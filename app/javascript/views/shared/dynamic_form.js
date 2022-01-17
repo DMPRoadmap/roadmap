@@ -1,10 +1,12 @@
 import {
   projectSelectorHandler,
-  multipleSelectorHandler,
+  createFromRegistryHandler,
   linkedFragmentSelectorHandler,
   contributorCreationHandler,
   singleSelectHandler,
+  multiSelectHandler,
 } from '../../utils/select2';
+import { formLoadingCallback } from '../../utils/dynamicFormHelper';
 
 $(() => {
   // When clicking on the "+" of a duplicable field, clone the field & remove
@@ -63,28 +65,30 @@ $(() => {
 
     if (!value) return;
 
-    if (selectField.hasClass('single-select') && target.data('tags') === true) {
-      singleSelectHandler(selectField, target, value, selected);
+    if (selectField.hasClass('single-select')) {
+      if (selectField.hasClass('project-selector')) {
+        projectSelectorHandler(selectField, value, text);
+      } else {
+        singleSelectHandler(selectField, target, value, selected);
+      }
+    }
+
+    if (selectField.hasClass('multi-select')) {
+      multiSelectHandler(selectField, value, text);
     }
 
     if (selectField.hasClass('linked-fragments-select')) {
-      if (selectField.hasClass('multiple-selector')) {
+      if (selectField.hasClass('create-from-registry')) {
+        createFromRegistryHandler(selectField, value, selected);
+      } else if (selectField.hasClass('create-contributor')) {
         contributorCreationHandler(selectField, value, text);
       } else {
         linkedFragmentSelectorHandler(selectField, value, text);
       }
     }
-
-    if (selectField.hasClass('multiple-select')) {
-      multipleSelectorHandler(selectField, value, selected);
-    }
-
-    if (selectField.hasClass('project-selector')) {
-      projectSelectorHandler(selectField, value, text);
-    }
   });
 
-  $(document).on('click', '.select-field .remove-button', (e) => {
+  $(document).on('click', '.select-field.single-select .remove-button', (e) => {
     const target = $(e.target);
     const selectField = target.parents('.select-field');
 
@@ -92,6 +96,18 @@ $(() => {
     selectField.find('.custom-value').hide();
     selectField.find('.custom-value input').val('__DELETED__');
     selectField.find('select').val('').trigger('change');
+  });
+
+  $(document).on('click', '.select-field.multi-select .remove-button', (e) => {
+    const target = $(e.target);
+    const selectedValue = target.parents('.selected-value');
+    if (selectedValue.is(':only-child')) {
+      selectedValue.find('input').val('');
+      selectedValue.find('.value-text').html('');
+      selectedValue.hide();
+    } else {
+      selectedValue.remove();
+    }
   });
 
   $(document).on('click', '.run-zone .run-button', (e) => {
@@ -139,5 +155,9 @@ $(() => {
   $(document).on('click', '.cancel-project-search', () => {
     $('#plan_project').find('.project-selector').fadeOut();
     $('#plan_project .error-zone').fadeOut();
+  });
+
+  $('#modal-window').on('show.bs.modal', () => {
+    formLoadingCallback(null, null, 'modal_form');
   });
 });

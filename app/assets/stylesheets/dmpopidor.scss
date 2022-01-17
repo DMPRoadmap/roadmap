@@ -588,6 +588,12 @@ header .main-nav {
         .panel-title {
             color: $dark-blue;
             font-weight: bold;
+            a {
+                display: inline;
+                padding: 0;
+                margin: 0;
+                background-color: $white;
+            }
         }
     }
     .question-body{
@@ -1132,6 +1138,10 @@ header .main-nav {
             }
         }
     }
+
+    #no_org h3 {
+        color: $rust;
+    }
 }
 
 #available-templates {
@@ -1305,6 +1315,10 @@ header .main-nav {
             }
         }
         &.select-field, &.linked-fragments-select, &.contributor-field {
+            .add-indicator, .selected-values-label {
+                color: $blue;
+                font-weight: bold;
+            }
             select {
                 width: 100% !important;
             }
@@ -1339,9 +1353,20 @@ header .main-nav {
         }
         &.select-field, &.contributor-field {
             flex-direction: column;
+            ul.selected-values {
+                display: flex;
+                flex-direction: column;
+                .selected-value  {
+                    flex: 1 1 25%;
+                }
+                .remove-button {
+                    color: $blue;
+                    padding-left: 5px;
+                }
+            }
         }
         &.linked-fragments-select {
-            flex-direction: row;
+            flex-direction: column;
             .add-fragment {
                 padding-left: 5px;
             }
@@ -1358,6 +1383,10 @@ header .main-nav {
             font-weight: bold;
             color: $black;
         }
+    }
+    .min-max {
+        font-size: 12px;
+        color: $dark-blue;
     }
     fieldset {
         .intermediate-label {

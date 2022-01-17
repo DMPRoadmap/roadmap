@@ -2,7 +2,7 @@
 <% obj_list.each do |obj| %>
   <% viewable = obj.additional_info["custom_value"].nil? %>
   <tr>
-    <td><%= obj.to_s %></td>
+    <td><%= raw obj.to_s %></td>
     <td class="actions">
       <% if viewable %>
         <% if readonly %>

@@ -36,7 +36,7 @@ export const projectSelectorHandler = (selectField, value, text) => {
   }
 };
 
-export const multipleSelectorHandler = (selectField, value, selected) => {
+export const createFromRegistryHandler = (selectField, value, selected) => {
   const messageZone = selectField.find('.message-area');
   const requestData = {
     locale: selectField.data('locale'),
@@ -117,5 +117,21 @@ export const singleSelectHandler = (selectField, target, value, selected) => {
     selectField.find('select').val('').trigger('change');
   }
 };
+
+export const multiSelectHandler = (selectField, value, text) => {
+  const lastSelectedValue = selectField.find('.selected-value:last-child');
+  if (lastSelectedValue.is(':only-child') && lastSelectedValue.find('input').val() === '') {
+    lastSelectedValue.find('input').val(value);
+    lastSelectedValue.find('.value-text').html(text);
+    lastSelectedValue.show();
+  } else {
+    const clonedLastValue = lastSelectedValue.clone();
+    clonedLastValue.find('input').val(value);
+    clonedLastValue.find('.value-text').html(text);
+    selectField.find('.selected-values').append(clonedLastValue);
+    selectField.find('select').val('').trigger('change');
+  }
+};
+
 
 export default Select2;

@@ -30,7 +30,7 @@
               <td class="property-label"><%= label %></td> 
               <td class="property-value"><ul>
                 <% values.each do |val| %>
-                  <li><%= val.to_s %></li>
+                  <li><%= raw val.to_s %></li>
                 <% end %>
               </ul></td> 
             </tr>
@@ -67,7 +67,7 @@
       <% else%>
         <tr class="fragment-property">
           <td class="property-label"><%= label %></td>
-          <td class="property-value"><%= value.to_s.html_safe %></td>
+          <td class="property-value"><%= raw value.to_s.html_safe %></td>
         </tr>
       <% end %>
     <% end %>

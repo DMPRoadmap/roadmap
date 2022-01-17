@@ -106,7 +106,7 @@ module DynamicFormHelper
     }
   end
 
-  def create_number_field(form, value, name, label, field_id, required: false, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil)
+  def create_number_field(form, value, name, label, field_id, minimum, maximum, required: false, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil)
     render partial: "shared/dynamic_form/fields/number_field",
     locals: {
       f: form,
@@ -117,6 +117,8 @@ module DynamicFormHelper
       field_label: label,
       field_class: html_class,
       field_id: field_id,
+      minimum: minimum,
+      maximum: maximum,
       readonly: readonly,
       required: required,
       validation: validation,
@@ -138,7 +140,12 @@ module DynamicFormHelper
   end
 
   def create_simple_registry_field(form, value, form_prefix, property_name, label, field_id, select_values, locale, required: false, validation: nil, html_class: nil, readonly: false, multiple: false, ttip: nil, default_value: nil, overridable: nil)
-    render partial: "shared/dynamic_form/fields/registry/simple",
+    partial_name = if multiple
+                     "shared/dynamic_form/fields/registry/multiple"
+                   else
+                     "shared/dynamic_form/fields/registry/simple"
+                   end
+    render partial: partial_name,
     locals: {
       f: form,
       selected_value: value,
@@ -149,7 +156,6 @@ module DynamicFormHelper
       locale: locale,
       field_class: html_class,
       field_id: field_id,
-      multiple: multiple,
       readonly: readonly,
       required: required,
       validation: validation,
@@ -274,11 +280,11 @@ module DynamicFormHelper
 
       case prop["type"]
       when "integer", "number"
-        formated_data[key] = data[key].to_i
+        formated_data[key] = data[key].tr(" ", "").to_i
       when "boolean"
         formated_data[key] = data[key] == "1"
       when "array"
-        formated_data[key] = data[key].is_a?(Array) ? data[key] : [data[key]]
+        formated_data[key] = data[key].is_a?(Array) ? data[key].reject(&:empty?) : [data[key]].reject(&:empty?)
       when "object"
         next if prop["schema_id"].nil?
 

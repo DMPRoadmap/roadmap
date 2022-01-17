@@ -282,7 +282,8 @@ msgstr ""
 msgid "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" title=\"%{open_in_new_window_text}\" target=\"_blank\">website</a>. If you would like to contact us about %{application_name}, please fill out the form below."
 msgstr ""
 
-
+msgid "Changing your email from your profile is currently not working. If you would like to change the email associated to your account, please contact us through the <a href=\"/contact-us\">contact form</a>."
+msgstr ""
 
 # STATIC PAGES
 
@@ -674,4 +675,7 @@ msgid "Text"
 msgstr ""
 
 msgid "Workflow"
+msgstr ""
+
+msgid "The research organisation you entered during your account creation has been automatically created. If you want to access support services provided by an organisation (DMP templates, guidances & feedback request), please change your profile and select an organisation in the list."
 msgstr ""

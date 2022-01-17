@@ -13,7 +13,7 @@ module Dmpopidor
         @languages = Language.sorted_by_abbreviation
         @orgs = Org.where(active: true).where.not('org_type = 2').order("name")
         @other_organisations = Org.where(is_other: true).pluck(:id)
-        @identifier_schemes = IdentifierScheme.for_users.order(:name)
+        @identifier_schemes = IdentifierScheme.for_users.where(active: true).order(:name)
         @default_org = current_user.org
 
         if !@prefs

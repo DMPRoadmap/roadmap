@@ -44,9 +44,9 @@ module Api
             # check if the user has permissions to use the API
             unless Api::V1::Madmp::PlansPolicy.new(client, plan).rda_export?
               render_error(errors: "Unauthorized to access plan", status: :unauthorized)
-              return 
+              return
             end
-        
+
             respond_to do |format|
               format.json
               render "shared/export/madmp_export_templates/rda/plan", locals: {

@@ -182,13 +182,13 @@ class RegistrationsController < Devise::RegistrationsController
       # user is changing email or password
       if require_password
         # if user is changing email
-        if current_user.email != params[:user][:email]
+        if current_user.email != attrs[:email]
           # password needs to be present
           if params[:user][:password].blank?
             message = _("Please enter your password to change email address.")
             successfully_updated = false
           else
-            successfully_updated = current_user.update_with_password(password_update)
+            successfully_updated = current_user.update_with_password(attrs)
             if !successfully_updated
               message = _("Save unsuccessful. \
                 That email address is already registered. \

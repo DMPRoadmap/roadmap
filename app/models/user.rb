@@ -223,10 +223,7 @@ class User < ApplicationRecord
   #
   # Returns String
   def name(use_email = true)
-    if use_email || 
-       (firstname.blank? && surname.blank?) || 
-       (surname.downcase == "surname" ) || 
-       (surname.downcase == "nom de famille" ) then
+    if (firstname.blank? && surname.blank?) || use_email
       email
     else
       name = "#{firstname} #{surname}"
@@ -378,10 +375,14 @@ class User < ApplicationRecord
 
   # Override devise_invitable email title
   def deliver_invitation(options = {})
-    super(options.merge(subject: _("A Data Management Plan in " +
-      "%{application_name} has been shared with you") %
-      { application_name: Rails.configuration.branding[:application][:name] })
-    )
+    current_locale = invited_by.get_locale.nil? ? FastGettext.default_locale : invited_by.get_locale
+    FastGettext.with_locale current_locale do
+      subject = d_("dmpopidor", "%{user_name} has shared a Data Management Plan with you in %{tool_name}") % {
+          :user_name => invited_by.name(false),
+          :tool_name => Rails.configuration.branding[:application][:name]
+        }
+      super(options.merge(subject: subject))
+    end
   end
 
   # Case insensitive search over User model
