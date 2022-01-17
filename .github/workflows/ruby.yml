@@ -28,6 +28,14 @@ jobs:
         sudo apt-get install -y mysql-server
         sudo apt-get install -y libmysqlclient-dev 
 
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.6.3
+
+    - name: Install dependencies
+      run: bundle install
+
     - name: 'Start MySQL'
       run: |
         sudo systemctl unmask mysql
@@ -38,14 +46,6 @@ jobs:
 
     - name: 'Migrate DB'
       run: bin/rails db:migrate RAILS_ENV=test
-
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 2.6.3
-
-    - name: Install dependencies
-      run: bundle install
 
     - name: Run tests
       run: bundle exec rake spec
