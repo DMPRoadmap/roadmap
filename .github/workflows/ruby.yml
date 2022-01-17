@@ -18,12 +18,34 @@ jobs:
 
     runs-on: ubuntu-latest    
     steps:
+
     - uses: actions/checkout@v2
+
+    - name: 'Install MySQL Packages'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y mysql-client-core-8.0 
+        sudo apt-get install -y mysql-server
+        sudo apt-get install -y libmysqlclient-dev 
+
+    - name: 'Start MySQL'
+      run: |
+        sudo systemctl unmask mysql
+        sudo systemctl start mysql
+
+    - name: 'Setup Test DB'
+      run: bin/rails db:setup RAILS_ENV=test
+
+    - name: 'Migrate DB'
+      run: bin/rails db:migrate RAILS_ENV=test
+
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.6.3
+
     - name: Install dependencies
       run: bundle install
+
     - name: Run tests
       run: bundle exec rake spec
