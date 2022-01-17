@@ -6,18 +6,15 @@
   </div>
 </div>
 
+
 <%= render partial: 'usage/total_usage',
            locals: { user_count: @total_org_users,
                      plan_count: @total_org_plans,
                      separators: @separators } %>
-<% if @funder.present? %>
-  <%= render partial: 'usage/template_statistics' %>
-<% else %>
-  <div class="panel-group usage-accordion" role="tablist" aria-multiselectable="true">
-    <%= render partial: 'usage/user_statistics_accordion', locals: {expanded: true} %>
-    <%= render partial: 'usage/template_statistics_accordion', locals: {expanded: false} %>
-  </div>
-<% end %>
+<div class="panel-group usage-accordion" role="tablist" aria-multiselectable="true">
+  <%= render partial: 'usage/user_statistics_accordion', locals: {expanded: true} %>
+  <%= render partial: 'usage/template_statistics_accordion', locals: {expanded: false} %>
+</div>
 
 <%= render partial: 'usage/filter' %>
 
