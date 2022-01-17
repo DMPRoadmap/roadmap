@@ -36,6 +36,19 @@ jobs:
     - name: Install dependencies
       run: bundle install
 
+    # Copy all of the example configs over
+    - name: 'Setup Default Configuration'
+      run: |
+        # Make copies of all the example config files
+        cp config/database.yml.sample config/database.yml
+        cp config/initializers/contact_us.rb.example config/initializers/contact_us.rb
+        cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
+        
+    - name: 'Setup Credentials'
+      run: |
+        # generate a default credential file and key
+        EDITOR='echo "$(cat config/credentials.yml.example)" >' bundle exec rails credentials:edit
+
     - name: 'Start MySQL'
       run: |
         sudo systemctl unmask mysql
