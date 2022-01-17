@@ -16,9 +16,9 @@ module Dmpopidor
                       .includes(identifiers: :identifier_scheme)
                       .joins(:templates)
                       .where(templates: { published: true }).uniq.sort_by(&:name)
-      @orgs = (::Org.includes(identifiers: :identifier_scheme).organisation +
-               ::Org.includes(identifiers: :identifier_scheme).institution +
-               ::Org.includes(identifiers: :identifier_scheme).default_orgs)
+      @orgs = (::Org.includes(identifiers: :identifier_scheme).managed.organisation +
+               ::Org.includes(identifiers: :identifier_scheme).managed.institution +
+               ::Org.includes(identifiers: :identifier_scheme).managed.default_orgs)
       @orgs = @orgs.flatten
                    .select { |org| org.active == true }
                    .uniq.sort_by(&:name)

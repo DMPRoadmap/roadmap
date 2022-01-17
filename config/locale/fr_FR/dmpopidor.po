@@ -246,6 +246,9 @@ msgstr "Votre organisme a été désactivé. Veuillez choisir un nouvel organism
 msgid "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" title=\"%{open_in_new_window_text}\" target=\"_blank\">website</a>. If you would like to contact us about %{application_name}, please fill out the form below."
 msgstr "%{application_name} est mis à disposition par %{organisation_name}.<br /> Vous pouvez trouver plus d'informations sur notre <a href=\"%{organisation_url}\" title=\"%{open_in_new_window_text}\" target=\"_blank\">site internet</a>. Si vous souhaitez nous contacter à propos de %{application_name}, remplissez le formulaire ci dessous."
 
+msgid "Changing your email from your profile is currently not working. If you would like to change the email associated to your account, please contact us through the <a href=\"/contact-us\">contact form</a>."
+msgstr "Le changement de courriel depuis votre profil n'est actuellement pas disponible. Si vous souhaitez modifier le courriel associé à votre compte, veuillez nous contacter au moyen du <a href=\"/contact-us\">formulaire de contact</a>."
+
 # STATIC PAGES
 
 msgid "Static pages"
@@ -674,3 +677,6 @@ msgstr "Texte"
 
 msgid "Workflow"
 msgstr "Workflow"
+
+msgid "The research organisation you entered during your account creation has been automatically created. If you want to access support services provided by an organisation (DMP templates, guidances & feedback request), please change your profile and select an organisation in the list."
+msgstr "L’organisme de recherche que vous avez renseigné lors de votre inscription a été automatiquement créé. Pour bénéficier des services d’accompagnement proposé par un organisme (modèles de DMP, recommandations et demande d'assistance), veuillez modifier votre profil et sélectionner cet organisme dans la liste déroulante"

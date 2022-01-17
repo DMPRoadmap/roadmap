@@ -2,6 +2,22 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 13/01/2022
+- Changement du message pour les organismes "unmanaged" affiché lors de la création de plan
+- Ajout d'un message indiquant que le changement d'email n'est pas fonctionnel
+- Résolution d'un bug se produisant lors de l'accès à un profil utilisateur en tant que super admin, quand un plan n'a pas de propriétaire.
+- Les organismes "unmanaged" ne sont plus présent dans la liste des organismes du formulaire de création de plan.
+
+## 11/01/2022
+- Le changement d'email depuis le profil est de nouveau fonctionnel
+- Les tooltips s'affichent désormais sur les boutons "Runs"
+
+## 10/01/2022
+- Les organismes "unmanaged" n'apparaissent plus dans le sélecteur d'organimes. Il est cependant toujours possible d'en créer un nouveau
+- Ajout d'un message dans le formulaire de création de plan pour les utilisateurs liés à un organisme "unmanaged"
+- (A tester en VI) Fix pour les problèmes d'encodage des informations provenant de la fédération d'identité. Ce problème empếche les utilisateurs de lier leur compte à la fédé et de se connecter par la fédé.
+- Mise à jour de l'URL de la codebase.
+
 ## 16/12/2021
 - Ajout de l'indication des valeurs minimum et maximum sur les champs nombre
 - Correction d'un problème empêchant la saisie d'une valeur dans les champs nombre lorsque le minimum était supérieur à 0

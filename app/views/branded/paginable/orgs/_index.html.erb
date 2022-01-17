@@ -19,7 +19,7 @@
           <td><%= org.contact_email %></td>
           <td><%= org.org_type_to_s %></td>
           <td><%= org.template_count %></td>
-          <td><%= org.managed? ? "Yes" : "No" %></td>
+          <td><%= org.managed? ? "Yes" : "Unmanaged" %></td>
           <td><%= org.users.uniq.length %></td>
           <td class="text-center org-status">
               <%= org.active? ? _('Yes') : _('No') %>

@@ -309,3 +309,34 @@ Devise.setup do |config|
   end
 end
 # rubocop:enable Metrics/BlockLength
+
+require "omniauth/strategies/shibboleth"
+module OmniAuth
+
+  module Strategies
+
+    class Shibboleth
+
+      # set encoding UTF-8 when reading from HTTP header
+      # reason: header values are always ISO-8859-1,
+      # so ruby reads them as ASCII-8BIT
+      def request_param(key)
+        multi_value_handler(
+          case options.request_type
+          when :env, "env"
+            request.env[key]
+          when :header, "header"
+            v = request.env["HTTP_#{key.upcase.gsub('-', '_')}"]
+            v = v.force_encoding("UTF-8") unless v.nil?
+            v
+          when :params, "params"
+            request.params[key]
+          end
+        )
+      end
+
+    end
+
+  end
+
+end
