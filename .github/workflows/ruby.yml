@@ -17,10 +17,15 @@ jobs:
   test:
 
     runs-on: ubuntu-latest    
+
+    env:
+      DB_ADAPTER: mysql2
+      MYSQL_PWD: root
+      RAILS_ENV: test
+
     steps:
 
     - uses: actions/checkout@v2
-
     - name: 'Install MySQL Packages'
       run: |
         sudo apt-get update
@@ -36,6 +41,10 @@ jobs:
     - name: Install dependencies
       run: bundle install
 
+    - name: 'Yarn Install'
+      run: |
+        yarn install
+
     # Copy all of the example configs over
     - name: 'Setup Default Configuration'
       run: |
@@ -43,7 +52,7 @@ jobs:
         cp config/database.yml.sample config/database.yml
         cp config/initializers/contact_us.rb.example config/initializers/contact_us.rb
         cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
-        
+
     - name: 'Setup Credentials'
       run: |
         # generate a default credential file and key
