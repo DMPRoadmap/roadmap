@@ -1,14 +1,14 @@
 # French translations for DMPOPIDoR package.
-# Copyright (C) 2021 DMPOPIDoR
+# Copyright (C) 2022 DMPOPIDoR
 # This file is distributed under the same license as the DMPOPIDoR package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-12-07 16:27+0100\n"
-"PO-Revision-Date: 2021-12-07 16:27+0100\n"
+"POT-Creation-Date: 2022-01-17 14:09+0100\n"
+"PO-Revision-Date: 2022-01-17 14:09+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -57,7 +57,7 @@ msgid "Please wait, Standards are loading"
 msgstr "Merci de patienter, les standards sont en cours de chargement"
 
 #: ../../app/views/branded/answers/_new_edit.html.erb:73
-#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:96
+#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:98
 #: ../../app/views/branded/guidances/new_edit.html.erb:49
 #: ../../app/views/branded/madmp_fragments/_edit.html.erb:57
 #: ../../app/views/branded/notes/_edit.html.erb:10
@@ -66,6 +66,7 @@ msgstr "Merci de patienter, les standards sont en cours de chargement"
 #: ../../app/views/branded/org_admin/departments/new.html.erb:23
 #: ../../app/views/branded/org_admin/questions/_form.html.erb:118
 #: ../../app/views/branded/org_admin/questions/_show.html.erb:217
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:91
 #: ../../app/views/branded/org_admin/users/edit.html.erb:55
 #: ../../app/views/branded/orgs/_profile_form.html.erb:152
 #: ../../app/views/branded/plans/_edit_details.html.erb:118
@@ -119,9 +120,9 @@ msgid "This answer triggers email(s) to "
 msgstr "Cette réponse déclenche l'envoi d'un mail à "
 
 #: ../../app/views/branded/answers/_status.html.erb:26
-#: ../../app/views/branded/shared/export/_export_by_question.erb:74
-#: ../../app/views/branded/shared/export/_export_by_research_output.erb:76
-#: ../../app/views/branded/shared/export/_export_by_section.erb:70
+#: ../../app/views/branded/shared/export/_export_by_question.erb:69
+#: ../../app/views/branded/shared/export/_export_by_research_output.erb:72
+#: ../../app/views/branded/shared/export/_export_by_section.erb:68
 msgid "Question not answered."
 msgstr "Question sans réponse."
 
@@ -279,23 +280,33 @@ msgstr ""
 msgid "You can edit any of the details below."
 msgstr "Vous pouvez modifier les renseignements ci-dessous."
 
-#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:16
+#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:14
+msgid ""
+"Changing your email from your profile is currently not working. If you would l"
+"ike to change the email associated to your account, please contact us through "
+"the <a href=\"/contact-us\">contact form</a>."
+msgstr ""
+"Le changement de courriel depuis votre profil n'est actuellement pas disponibl"
+"e. Si vous souhaitez modifier le courriel associé à votre compte, veuillez nou"
+"s contacter au moyen du <a href=\\\"/contact-us\\\">formulaire de contact</a>."
+
+#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:19
 #: ../../app/views/branded/org_admin/users/edit.html.erb:19
 #: ../../app/views/branded/shared/_create_account_form.html.erb:4
 msgid "First Name"
 msgstr "Prénom"
 
-#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:21
+#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:24
 msgid "Last name"
 msgstr "Nom de famille"
 
-#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:26
+#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:29
 msgid ""
 "Changing your organisation will result in the loss of your administrative priv"
 "ileges."
 msgstr "Changer votre organisation entraînera la perte de vos droits administrateur."
 
-#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:36
+#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:39
 #: ../../app/views/branded/layouts/_branding.html.erb:138
 #: ../../app/views/branded/plans/new.html.erb:7
 msgid ""
@@ -305,32 +316,32 @@ msgstr ""
 "Votre organisme a été désactivé. Veuillez choisir un nouvel organisme à partir"
 " de votre <a href=\"/users/edit\">profil utilisateur</a>."
 
-#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:49
+#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:51
 #: ../../app/views/branded/org_admin/users/edit.html.erb:31
 #: ../../app/views/branded/paginable/departments/_index.html.erb:5
 #: ../../app/views/branded/paginable/users/_index.html.erb:22
 msgid "Structure"
 msgstr "Structure"
 
-#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:61
+#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:63
 #: ../../app/views/branded/org_admin/users/edit.html.erb:44
 msgid "Language"
 msgstr "Langue"
 
-#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:70
+#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:72
 msgid "My privileges"
 msgstr "Mes droits"
 
-#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:71
+#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:73
 #: ../../app/views/branded/layouts/_branding.html.erb:103
 msgid "Super Admin"
 msgstr "Super administrateur"
 
-#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:71
+#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:73
 msgid "Organisational Admin"
 msgstr "Administrateur de l'organisme"
 
-#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:79
+#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:81
 msgid "Institutional credentials"
 msgstr "Identifiants institutionnels"
 
@@ -1079,6 +1090,98 @@ msgstr "questions"
 msgid "question"
 msgstr "question"
 
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:1
+msgid ""
+"Enter a description that helps you to differentiate between templates e.g. if "
+"you have ones for different audiences"
+msgstr ""
+"Saisissez une description qui vous permettra de différencier vos modèles (par "
+"exemple si vous en avez pour différents publics)."
+
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:4
+#: ../../app/views/branded/paginable/templates/_history.html.erb:5
+msgid "Title"
+msgstr "Titre"
+
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:10
+#: ../../app/views/branded/paginable/registries/_index.html.erb:6
+#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:8
+#: ../../app/views/branded/super_admin/registries/_form.html.erb:10
+#: ../../app/views/branded/super_admin/registries/show.html.erb:15
+msgid "Description"
+msgstr "Description"
+
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:17
+#: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:11
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:11
+msgid "Visibility"
+msgstr "Visibilité"
+
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:19
+msgid ""
+"Checking this box prevents the template from appearing in the public list of t"
+"emplates."
+msgstr ""
+"Cocher cette case évite de faire apparaître le modèle dans la liste des modèle"
+"s publics."
+
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:25
+msgid "for internal %{org_name} use only"
+msgstr "réservé à l'usage interne de %{org_name}"
+
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:32
+msgid "Locale"
+msgstr "Langue"
+
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:41
+msgid "Status"
+msgstr "Statut"
+
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:44
+#: ../../app/views/branded/paginable/templates/_history.html.erb:8
+msgid "Published"
+msgstr "Publié"
+
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:46
+msgid "Unpublished"
+msgstr "Non publié"
+
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:48
+#: ../../app/views/branded/paginable/templates/_history.html.erb:19
+msgid "Draft"
+msgstr "Brouillon"
+
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:55
+msgid "Created at"
+msgstr "Créé à"
+
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:61
+#: ../../app/views/branded/paginable/templates/_history.html.erb:9
+msgid "Last updated"
+msgstr "Dernière mise à jour"
+
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:73
+msgid "Funder Links"
+msgstr "Liens du financeur"
+
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:76
+msgid ""
+"Add links to funder websites that provide additional information about the req"
+"uirements for this template"
+msgstr ""
+"Ajouter des liens vers les sites des financeurs fournissant des informations s"
+"upplémentaires sur les exigences de ce modèle"
+
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:82
+msgid "Sample Plan Links"
+msgstr "Exemples de liens de plans"
+
+#: ../../app/views/branded/org_admin/templates/_form.html.erb:85
+msgid "Add links to sample plans if provided by the funder."
+msgstr ""
+"Ajouter des liens vers des exemples de plans s'ils sont fournis par le finance"
+"ur."
+
 #: ../../app/views/branded/org_admin/users/edit.html.erb:4
 msgid "Editing profile for %{username}"
 msgstr "Edition du profil de %{username}"
@@ -1303,11 +1406,6 @@ msgstr "Propriétaire"
 msgid "Test"
 msgstr "Test"
 
-#: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:11
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:11
-msgid "Visibility"
-msgstr "Visibilité"
-
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:12
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:12
 msgid "Shared"
@@ -1393,13 +1491,6 @@ msgstr "Dernière mise à jour"
 msgid "Not Applicable"
 msgstr "Non applicable"
 
-#: ../../app/views/branded/paginable/registries/_index.html.erb:6
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:8
-#: ../../app/views/branded/super_admin/registries/_form.html.erb:10
-#: ../../app/views/branded/super_admin/registries/show.html.erb:15
-msgid "Description"
-msgstr "Description"
-
 #: ../../app/views/branded/paginable/registries/_index.html.erb:7
 #: ../../app/views/branded/super_admin/registries/_form.html.erb:14
 #: ../../app/views/branded/super_admin/registries/show.html.erb:17
@@ -1439,22 +1530,6 @@ msgstr "Supprimer la valeur de référentiel"
 #: ../../app/views/branded/paginable/static_pages/_index.html.erb:8
 msgid "URL"
 msgstr "URL"
-
-#: ../../app/views/branded/paginable/templates/_history.html.erb:5
-msgid "Title"
-msgstr "Titre"
-
-#: ../../app/views/branded/paginable/templates/_history.html.erb:8
-msgid "Published"
-msgstr "Publié"
-
-#: ../../app/views/branded/paginable/templates/_history.html.erb:9
-msgid "Last updated"
-msgstr "Dernière mise à jour"
-
-#: ../../app/views/branded/paginable/templates/_history.html.erb:19
-msgid "Draft"
-msgstr "Brouillon"
 
 #: ../../app/views/branded/paginable/templates/_history.html.erb:48
 msgid "Edit customizations"
@@ -1828,15 +1903,28 @@ msgstr ""
 "Vous n'êtes pas liés à un organisme, nous ne pouvons vous proposer un modèle. "
 "Veuillez choisir un organisme dans votre profil."
 
-#: ../../app/views/branded/plans/_form.html.erb:138
+#: ../../app/views/branded/plans/_form.html.erb:137
+msgid ""
+"The research organisation you entered during your account creation has been au"
+"tomatically created. If you want to access support services provided by an org"
+"anisation (DMP templates, guidances & feedback request), please change your pr"
+"ofile and select an organisation in the list."
+msgstr ""
+"L’organisme de recherche que vous avez renseigné lors de votre inscription a é"
+"té automatiquement créé. Pour bénéficier des services d’accompagnement proposé"
+" par un organisme (modèles de DMP, recommandations et demande d'assistance), v"
+"euillez modifier votre profil et sélectionner cet organisme dans la liste déro"
+"ulante"
+
+#: ../../app/views/branded/plans/_form.html.erb:146
 msgid "Create a plan"
 msgstr "Créer un plan"
 
-#: ../../app/views/branded/plans/_form.html.erb:139
+#: ../../app/views/branded/plans/_form.html.erb:147
 msgid "Next"
 msgstr "Suivant"
 
-#: ../../app/views/branded/plans/_form.html.erb:140
+#: ../../app/views/branded/plans/_form.html.erb:148
 msgid "Use Default Template"
 msgstr "Utiliser le modèle par défaut"
 
