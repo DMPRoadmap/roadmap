@@ -194,6 +194,12 @@ Rails.logger.info "Token: #{token.inspect}"
 
 Rails.logger.info "EXISTING? #{ui.present?}"
 
+id = Identifier.new(identifier_scheme: scheme, identifiable: self,
+value: omniauth_hash[:uid])
+Rails.logger.info id.inspect
+Rails.logger.info id.valid?
+Rails.logger.info id.errors.full_messages
+
         # If the User exists and the uid is different update it
         ui.update(value: omniauth_hash[:uid]) if ui.present? && ui.value != omniauth_hash[:uid]
         return ui.reload if ui.present?
