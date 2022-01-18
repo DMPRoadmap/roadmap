@@ -35,5 +35,7 @@ jobs:
           context: .
           file: Dockerfile.production
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: |
+            type=match,pattern=.+portage-(\d\.\d\.\d),group=1
+            type=raw,value=latest,enable=${{ endsWith(github.ref, github.event.repository.default_branch) }}
           labels: ${{ steps.meta.outputs.labels }}
