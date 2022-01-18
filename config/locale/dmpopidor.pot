@@ -559,7 +559,7 @@ msgstr ""
 msgid "Please enter the acronym, title or identifier of the project"
 msgstr ""
 
-msgid "Click here if you have a funded project."
+msgid "Click here if you have a project funded by ANR."
 msgstr ""
 
 msgid "Element is already present in your plan."
