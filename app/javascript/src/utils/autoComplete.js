@@ -281,14 +281,14 @@ export const listenForAutocompleteChange = (autocomplete, callback) => {
       autocomplete.on('autocompleteselect', (_e, ui) => {
         // Call the specified function and pass it a boolean indicating whether or not
         // the user made a valid selection
-        callback(autocomplete, isSuggestion(ui.item.label, suggestions));
+        callback(autocomplete, ui.item.label);
       });
 
       // Add listener to the Change event
       autocomplete.on('change', () => {
         // Call the specified function and pass it a boolean indicating whether or not
         // the user made a valid selection
-        callback(autocomplete, isSuggestion(autocomplete.val(), suggestions));
+        callback(autocomplete, autocomplete.val());
       });
     }
   }

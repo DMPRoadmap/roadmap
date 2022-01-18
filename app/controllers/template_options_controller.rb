@@ -16,11 +16,6 @@ class TemplateOptionsController < ApplicationController
 
     research_org = process_org!(user: current_user)
     funder_org = process_org!(user: current_user, namespace: 'funder')
-
-p "RESEARCH ORG: '#{research_org&.name}', FUNDER ORG: '#{funder_org&.name}'"
-p Template.default.inspect
-pp Template.where(is_default: true, published: true).last.inspect
-
     templates = []
 
     if research_org.present? || funder_org.present?
@@ -66,8 +61,6 @@ pp Template.where(is_default: true, published: true).last.inspect
 
       templates << (customization.present? ? customization : Template.default)
     end
-
-pp templates.map(&:title)
 
     @templates = templates.sort_by(&:title)
   end
