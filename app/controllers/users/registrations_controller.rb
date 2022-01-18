@@ -56,7 +56,7 @@ module Users
 
       # add an error message if the email changed but no password was supplied
       if resource.email != args[:email] && !args[:password].present?
-        resource.errors[:email] = _("Enter your current password to change the email address.")
+        resource.errors.add(:email, _("You must enter your current password to change your email address."))
       end
 
       unless resource.errors.any?

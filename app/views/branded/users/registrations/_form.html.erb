@@ -7,7 +7,9 @@
   <%= form.hidden_field(:email, value: resource.email) %>
 </div>
 
-<% if shibbolized %>
+<% omniauth_workflow = session["devise.shibboleth_data"].present? %>
+
+<% if shibbolized && !omniauth_workflow %>
   <%# The Org is Shibbolized and we're not in the middle of an OmniAuth sign in workflow
       so display the Institutional Sign in %>
   <%= render partial: "users/shared/sso", locals: { form: form } %>
@@ -29,28 +31,34 @@
     </div>
   </div>
 
-  <%= render partial: "shared/org_autocomplete",
-            locals: { form: form,
-                      div_id: 'sign-up-org',
-                      default_org: resource&.org,
-                      required: true,
-                      classes: "",
-                      label: _("Institution") } %>
+  <%# if this is part of a Shibboleth omniauth sign up, then hide the Institution and Password %>
+  <% if omniauth_workflow %>
+    <%= form.hidden_field :org_id, value: resource.org_id %>
+    <%= form.hidden_field :password, value: resource.password || SecureRandom.uuid %>
+  <% else %>
+    <%= render partial: "shared/org_autocomplete",
+              locals: { form: form,
+                        div_id: 'sign-up-org',
+                        default_org: resource&.org,
+                        required: true,
+                        classes: "",
+                        label: _("Institution") } %>
 
-  <div id="js-password-field" class="c-textfield js-textfield">
-    <%# Display the standard Sign in form %>
-    <%= form.label(:password, _('Password')) %>
-    <%= form.password_field(:password, autocomplete: 'password', minlength: 8,
-                            maxlength: 80, class: "require-me") %>
-    <div id="" class="c-textfield__invalid-description js-invalid-description" hidden>
+    <div id="js-password-field" class="c-textfield js-textfield">
+      <%# Display the standard Sign in form %>
+      <%= form.label(:password, _('Password')) %>
+      <%= form.password_field(:password, autocomplete: 'password', minlength: 8,
+                              maxlength: 80, class: "require-me") %>
+      <div id="" class="c-textfield__invalid-description js-invalid-description" hidden>
+      </div>
     </div>
-  </div>
-  <div class="c-login__pseudo-description">
-    <div id="js-password-toggle" class="c-checkbox js-checkbox">
-      <input type="checkbox" id="password-toggle"/>
-      <label for="password-toggle"><%= _('Show password') %></label>
+    <div class="c-login__pseudo-description">
+      <div id="js-password-toggle" class="c-checkbox js-checkbox">
+        <input type="checkbox" id="password-toggle"/>
+        <label for="password-toggle"><%= _('Show password') %></label>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <div id="sign-up-accept-terms" class="c-checkbox js-checkbox">
     <%= form.check_box :accept_terms, { class: "require-me" }, true, false %>
