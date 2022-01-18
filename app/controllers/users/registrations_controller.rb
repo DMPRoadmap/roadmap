@@ -42,10 +42,9 @@ module Users
         super do |user|
           flash[:alert] = _('Unable to create your account!') unless user.valid?
 
-          omniauth = session.fetch("devise.#{scheme.name}_data", {})
-          if omniauth.present?
-            user.attach_omniauth_credentials(scheme_name: 'shibboleth', omniauth_hash: omniauth)
-          end
+          # Attach the Shib eppn if this is part of an SSO account creation
+          hash = session.fetch("devise.shibboleth_data", {})
+          user.attach_omniauth_credentials(scheme_name: 'shibboleth', omniauth_hash: hash) if hash.present?
         end
       end
     end
