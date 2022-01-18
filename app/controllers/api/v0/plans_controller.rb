@@ -106,7 +106,7 @@ class Api::V0::PlansController < Api::V0::BaseController
   private
 
   def extract_param_list(params, attribute)
-    list = params.fetch(attribute + "[]", [])
+    list = params.fetch("#{attribute}[]", [])
     val = params.fetch(attribute, [])
     list << val if val.present?
     list

@@ -8,7 +8,7 @@ module Paginable
 
   ##
   # Regex to validate sort_field param is safe
-  SORT_COLUMN_FORMAT = /[\w_]+\.[\w_]/.freeze
+  SORT_COLUMN_FORMAT = /[\w_]+\.[\w_]+$/.freeze
 
   PAGINATION_QUERY_PARAMS = %i[page sort_field sort_direction
                                search controller action].freeze
@@ -150,7 +150,7 @@ module Paginable
       else
         order_field = ActiveRecord::Base.sanitize_sql(@args[:sort_field])
         scope = scope.includes(table_part.singularize.to_sym)
-                     .order(order_field + " " + sort_direction.to_s)
+                     .order("#{order_field} #{sort_direction}")
       end
     end
     if @args[:page] != "ALL"

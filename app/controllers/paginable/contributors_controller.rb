@@ -13,7 +13,7 @@ module Paginable
     # GET /paginable/plans/:plan_id/contributors/index/:page
     def index
       @plan = Plan.find_by(id: params[:plan_id])
-      authorize @plan
+      authorize @plan, :show?
       paginable_renderise(
         partial: "index",
         scope: Contributor.where(plan_id: @plan.id),

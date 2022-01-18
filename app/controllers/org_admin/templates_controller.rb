@@ -331,7 +331,7 @@ module OrgAdmin
 
       begin
         # rubocop:disable Layout/LineLength
-        file_name = @template.title.gsub(/[^a-zA-Z\d\s]/, "").gsub(/ /, "_") + "_v" + @template.version.to_s
+        file_name = "#{@template.title.gsub(/[^a-zA-Z\d\s]/, '').gsub(/ /, '_')}_v#{@template.version}"
         # rubocop:enable Layout/LineLength
         respond_to do |format|
           format.docx do

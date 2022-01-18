@@ -191,21 +191,21 @@ module ConditionsHelper
     conditions.each do |cond|
       opts = cond.option_list.map { |opt| QuestionOption.find(opt).text }
       return_string += "</dd>" unless return_string.empty?
-      return_string += "<dd>" + _("Answering") + " "
+      return_string += "<dd>#{_("Answering")} "
       return_string += opts.join(" and ")
       if cond.action_type == "add_webhook"
         subject_string = text_formatted(JSON.parse(cond.webhook_data)["subject"])
         return_string += _(" will <b>send an email</b> with subject ") + subject_string
       else
         remove_data = cond.remove_data
-        rems = remove_data.map { |rem| '"' + Question.find(rem).text + '"' }
+        rems = remove_data.map { |rem| "\"#{Question.find(rem).text}\"" }
 
         return_string += _(" will <b>remove</b> question ") if rems.length == 1
         return_string += _(" will <b>remove</b> questions ") if rems.length > 1
         return_string += rems.join(" and ")
       end
     end
-    return_string + "</dd>"
+    "#{return_string}</dd>"
   end
   # rubocop:enable Metrics/AbcSize
 
@@ -227,7 +227,7 @@ module ConditionsHelper
   def conditions_to_param_form(conditions)
     param_conditions = {}
     conditions.each do |condition|
-      title = "condition" + condition[:number].to_s
+      title = "condition#{condition[:number]}"
       condition_hash = { title =>
                         { question_option_id: condition.option_list,
                           action_type: condition.action_type,
