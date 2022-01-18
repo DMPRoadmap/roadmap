@@ -89,11 +89,6 @@ module Dmptool
           org_id: org&.id
         )
 
-        # Attach the OmniAuth UID as an identifier
-        user.attach_omniauth_credentials(
-          scheme_name: scheme_name, omniauth_hash: omniauth_hash
-        )
-
         # Get the Oauth access token if available
         token = ExternalApiAccessToken.from_omniauth(
           user: user, service: scheme_name, hash: omniauth_hash
@@ -195,12 +190,6 @@ Rails.logger.info "Token: #{token.inspect}"
         ui = identifier_for_scheme(scheme: scheme_name)
 
 Rails.logger.info "EXISTING? #{ui.present?}"
-
-id = Identifier.new(identifier_scheme: scheme, identifiable: self,
-value: omniauth_hash[:uid])
-Rails.logger.info id.inspect
-Rails.logger.info id.valid?
-Rails.logger.info id.errors.full_messages
 
         # If the User exists and the uid is different update it
         ui.update(value: omniauth_hash[:uid]) if ui.present? && ui.value != omniauth_hash[:uid]

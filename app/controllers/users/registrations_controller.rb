@@ -63,9 +63,6 @@ module Users
         # if password is present
         resource_updated = update_resource(resource, args) if args[:password].present?
         # else update without a password
-
-pp args
-
         resource_updated = resource.update_without_password(args)
 
         # Change the locale if the user selected a different language
