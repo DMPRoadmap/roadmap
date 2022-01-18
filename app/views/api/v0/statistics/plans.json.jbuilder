@@ -21,6 +21,10 @@ json.plans @org_plans.each do |plan|
     json.name         plan.contributors.investigation.first&.name
   end
 
+  json.owners plan.owner_and_coowners.each do |owner|
+    json.email owner.email
+  end
+
   json.data_contact do
     json.info         plan.contributors.data_curation.first&.name
   end
