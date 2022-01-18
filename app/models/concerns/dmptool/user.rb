@@ -179,6 +179,8 @@ Rails.logger.info omniauth_hash.inspect
 
         return false unless scheme_name.present? && omniauth_hash.present?
 
+        omniauth_hash = omniauth_hash.with_indifferent_access
+
         scheme = IdentifierScheme.find_by(name: scheme_name)
         return false unless scheme.present?
 
