@@ -41,6 +41,11 @@ module Users
         # so do it here
         super do |user|
           flash[:alert] = _('Unable to create your account!') unless user.valid?
+
+          omniauth = session.fetch("devise.#{scheme.name}_data", {})
+          if omniauth.present?
+            user.attach_omniauth_credentials(scheme_name: 'shibboleth', omniauth_hash: omniauth)
+          end
         end
       end
     end
