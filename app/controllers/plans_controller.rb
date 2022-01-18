@@ -79,9 +79,9 @@ class PlansController < ApplicationController
 
       @plan.title = if plan_params[:title].blank?
                       if current_user.firstname.blank?
-                        _("My Plan") + "(" + @plan.template.title + ")"
+                        "#{_("My Plan")}(#{@plan.template.title})"
                       else
-                        current_user.firstname + "'s" + _(" Plan")
+                        "#{current_user.firstname}'s#{_(" Plan")}"
                       end
                     else
                       plan_params[:title]
@@ -205,8 +205,8 @@ class PlansController < ApplicationController
       @important_ggs << [org, ggs] if Org.default_orgs.include?(org)
 
       # If this is one of the already selected guidance groups its important!
-      unless (ggs & @selected_guidance_groups).empty?
-        @important_ggs << [org, ggs] unless @important_ggs.include?([org, ggs])
+      if !(ggs & @selected_guidance_groups).empty? && !@important_ggs.include?([org, ggs])
+        @important_ggs << [org, ggs]
       end
     end
 

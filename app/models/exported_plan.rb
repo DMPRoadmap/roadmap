@@ -159,14 +159,14 @@ class ExportedPlan < ApplicationRecord
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def as_txt(sections, unanswered_questions, question_headings, details)
     output = "#{plan.title}\n\n#{plan.template.title}\n"
-    output += "\n" + _("Details") + "\n\n"
+    output += "\n#{_("Details")}\n\n"
     if details
       admin_details.each do |at|
         value = send(at)
         output += if value.present?
-                    admin_field_t(at.to_s) + ": " + value + "\n"
+                    "#{admin_field_t(at.to_s)}: #{value}\n"
                   else
-                    admin_field_t(at.to_s) + ": " + _("-") + "\n"
+                    "#{admin_field_t(at.to_s)}: -\n"
                   end
       end
     end
@@ -183,7 +183,7 @@ class ExportedPlan < ApplicationRecord
           output += "\n* #{qtext}"
         end
         if answer.nil?
-          output += _("Question not answered.") + "\n"
+          output += "#{_("Question not answered.")}\n"
         else
           q_format = question.question_format
           if q_format.option_based?

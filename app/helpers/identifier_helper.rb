@@ -9,7 +9,7 @@ module IdentifierHelper
                                          id.identifier_scheme == DmpIdService.identifier_scheme
 
     without = id.value_without_scheme_prefix
-    prefix = with_scheme_name ? id.identifier_scheme.description + ": " : ""
+    prefix = with_scheme_name ? "#{id.identifier_scheme.description}: " : ""
     return prefix + id.value unless without != id.value && !without.starts_with?("http")
 
     link_to "#{prefix} #{without}", id.value, class: "has-new-window-popup-info"
