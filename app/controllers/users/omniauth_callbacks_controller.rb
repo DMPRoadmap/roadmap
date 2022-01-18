@@ -7,9 +7,6 @@ module Users
     skip_before_action :verify_authenticity_token, only: %i[orcid shibboleth]
 
     def failure
-
-p "FAIL: #{failed_strategy.name}"
-
       Rails.logger.error "OmniauthCallbacksController - FAILURE for #{failed_strategy.name}"
       super
     end
@@ -17,11 +14,6 @@ p "FAIL: #{failed_strategy.name}"
     # GET|POST /users/auth/shibboleth/callback
     def shibboleth
       omniauth = omniauth_from_request
-
-pp request.headers
-
-pp omniauth
-
       scheme_name = 'shibboleth'
       user = User.from_omniauth(scheme_name: scheme_name, omniauth_hash: omniauth)
       process_omniauth_response(scheme_name: scheme_name, user: user, omniauth_hash: omniauth)

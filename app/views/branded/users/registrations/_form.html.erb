@@ -7,14 +7,14 @@
   <%= form.hidden_field(:email, value: resource.email) %>
 </div>
 
-<% omniauth_workflow = session["devise.shibboleth_data"].present? %>
-
-<% if shibbolized && !omniauth_workflow %>
+<% if shibbolized %>
   <%# The Org is Shibbolized and we're not in the middle of an OmniAuth sign in workflow
       so display the Institutional Sign in %>
   <%= render partial: "users/shared/sso", locals: { form: form } %>
 
 <% else %>
+  <% omniauth_workflow = session["devise.shibboleth_data"].present? %>
+
   <%# Display the standard Sign up form %>
   <div id="sign-up-firstname" class="c-textfield js-textfield">
     <%= form.label :firstname, _('First Name') %>
