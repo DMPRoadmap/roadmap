@@ -39,7 +39,7 @@ Rails.application.routes.draw do
 
     get '/users/third_party_apps', to: 'users#third_party_apps'
     get '/users/developer_tools', to: 'users#developer_tools'
-    # delete "/users/identifiers/:id", to: "identifiers#destroy", as: "destroy_user_identifier"
+    delete "/users/identifiers/:id", to: "identifiers#destroy", as: "destroy_user_identifier"
   end
 
   # get "/orgs/shibboleth", to: "orgs#shibboleth_ds", as: "shibboleth_ds"

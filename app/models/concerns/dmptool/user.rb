@@ -130,10 +130,10 @@ module Dmptool
       def extract_omniauth_org(scheme_name:, hash:)
         return nil unless scheme_name.present? &&
                           hash.present? &&
-                          hash[:identity_provider].present?
+                          hash['identity_provider'].present?
 
         idp = Identifier.by_scheme_name(scheme_name, 'Org')
-                        .where('LOWER(value) = ?', hash[:identity_provider].downcase).first
+                        .where('LOWER(value) = ?', hash['identity_provider'].downcase).first
         idp.present? ? idp.identifiable : nil
       end
     end
@@ -167,11 +167,6 @@ module Dmptool
       # Attach an OmniAuth UID
       # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
       def attach_omniauth_credentials(scheme_name:, omniauth_hash:)
-
-
-Rails.logger.info "Attaching omniauth creds for #{scheme_name} !!!"
-Rails.logger.info omniauth_hash.inspect
-
         return false unless scheme_name.present? && omniauth_hash.present?
 
         omniauth_hash = omniauth_hash.with_indifferent_access
@@ -185,12 +180,7 @@ Rails.logger.info omniauth_hash.inspect
         )
         token.save if token.present?
 
-Rails.logger.info "Token: #{token.inspect}"
-
         ui = identifier_for_scheme(scheme: scheme_name)
-
-Rails.logger.info "EXISTING? #{ui.present?}"
-
         # If the User exists and the uid is different update it
         ui.update(value: omniauth_hash[:uid]) if ui.present? && ui.value != omniauth_hash[:uid]
         return ui.reload if ui.present?
