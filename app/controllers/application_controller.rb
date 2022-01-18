@@ -64,70 +64,30 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def after_sign_in_path_for(_resource)
-    plans_path
-
-    #     referer_path = URI(request.referer).path unless request.referer.nil?
-    #     # ---------------------------------------------------------
-    #     # Start DMPTool Customization
-    #     # Added get_started_path` to if statement below and check for oauth-referer in the session
-    #     # if its present then this was an OAuth sign in to authorize an ApiClient so continue on
-    #     # with the OAuth workflow
-    #     # ---------------------------------------------------------
-    #     if from_external_domain? || referer_path.eql?(new_user_session_path) ||
-    #        referer_path.eql?(new_user_registration_path) ||
-    #        referer_path.eql?(get_started_path) ||
-    #        referer_path.nil?
-    #       # End DMPTool Customization
-    #       # ---------------------------------------------------------
-    #       oauth_path = session["oauth-referer"]
-    #       session.delete("oauth-referer") if oauth_path.present?
-    #
-    #       oauth_path.present? ? oauth_path : root_path
-    #     # ---------------------------------------------------------
-    #     # Start DMPTool Customization
-    #     # Catch user's coming in from the Org branded sign in /create page
-    #     # ---------------------------------------------------------
-    #     elsif referer_path =~ %r{#{shibboleth_ds_path}/[0-9]+}
-    #       root_path
-    #     # ---------------------------------------------------------
-    #     # End DMPTool Customization
-    #     # ---------------------------------------------------------
-    #     else
-    #       request.referer
-    #     end
-  end
-
-  def after_sign_up_path_for(_resource)
-    plans_path
-
-    #     # ---------------------------------------------------------
-    #     # Start DMPTool Customization
-    #     # Added `new_user_registration_path` to if statement below
-    #     # ---------------------------------------------------------
-    #     if from_external_domain? ||
-    #        referer_path.eql?(new_user_session_path) ||
-    #        referer_path.eql?(new_user_registration_path) ||
-    #        referer_path.nil?
-    #
-    #       # End DMPTool Customization
-    #       # ---------------------------------------------------------
-    #       root_path
-    #
-    #       # ---------------------------------------------------------
-    #       # Start DMPTool Customization
-    #       # Catch user's coming in from the Org branded sign in /create page
-    #       # ---------------------------------------------------------
-    #     elsif referer_path =~ %r{#{shibboleth_ds_path}/[0-9]+}
-    #       root_path
-    #       # ---------------------------------------------------------
-    #       # End DMPTool Customization
-    #       # ---------------------------------------------------------
-    #     else
-    #       request.referer
-    #     end
-  end
-
+  # ---------------------------------------------------------
+  # Start DMPTool Customization
+  #
+  # def after_sign_in_path_for(_resource)
+  #   referer_path = URI(request.referer).path unless request.referer.nil?
+  #   if from_external_domain? || referer_path.eql?(new_user_session_path) ||
+  #      referer_path.eql?(new_user_registration_path) ||
+  #      referer_path.nil?
+  #     root_path
+  #   else
+  #     request.referer
+  #   end
+  # end
+  #
+  # def after_sign_up_path_for(_resource)
+  #   referer_path = URI(request.referer).path unless request.referer.nil?
+  #   if from_external_domain? ||
+  #      referer_path.eql?(new_user_session_path) ||
+  #      referer_path.nil?
+  #     root_path
+  #   else
+  #     request.referer
+  # end
+  #
   #   def after_sign_in_error_path_for(_resource)
   #     (from_external_domain? ? root_path : request.referer || root_path)
   #   end
@@ -135,6 +95,9 @@ class ApplicationController < ActionController::Base
   #   def after_sign_up_error_path_for(_resource)
   #     (from_external_domain? ? root_path : request.referer || root_path)
   #   end
+  #
+  # End DMPTool Customization
+  # ---------------------------------------------------------
 
   def authenticate_admin!
     # currently if admin has any super-admin task, they can view the super-admin

@@ -3,6 +3,8 @@
 # Controller that determines which templates are displayed/selected for the user when
 # they are creating a new plan
 class TemplateOptionsController < ApplicationController
+  include OrgSelectable
+
   after_action :verify_authorized
 
   # GET /template_options  (AJAX)
@@ -12,8 +14,12 @@ class TemplateOptionsController < ApplicationController
   def index
     authorize Plan
 
-    research_org = Org.find_by(name: plan_params.fetch(:research_org_name, ''))
-    funder_org = Org.find_by(name: plan_params.fetch(:funder_name, ''))
+    research_org = process_org!(user: current_user)
+    funder_org = process_org!(user: current_user, namespace: 'funder')
+
+p "RESEARCH ORG: '#{research_org&.name}', FUNDER ORG: '#{funder_org&.name}'"
+p Template.default.inspect
+pp Template.where(is_default: true, published: true).last.inspect
 
     templates = []
 
@@ -53,13 +59,15 @@ class TemplateOptionsController < ApplicationController
     end
 
     # If no templates were available use the default template
-    if @templates.empty? && Template.default.present?
+    if templates.empty? && Template.default.present?
       customization = Template.published
                               .latest_customized_version(Template.default.family_id,
-                                                         org&.id).first
+                                                         research_org&.id).first
 
-      @templates << (customization.present? ? customization : Template.default)
+      templates << (customization.present? ? customization : Template.default)
     end
+
+pp templates.map(&:title)
 
     @templates = templates.sort_by(&:title)
   end

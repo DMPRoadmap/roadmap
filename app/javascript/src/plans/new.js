@@ -78,7 +78,8 @@ $(() => {
   const templateSearch = debounce((researchOrgName, funderOrgName) => {
     hideNotifications();
 
-    const data = `{"plan": {"research_org_name":"${researchOrgName}","funder_name":"${funderOrgName}"}}`;
+    // const data = `{"plan": {"research_org_name":"${researchOrgName}","funder_name":"${funderOrgName}"}}`;
+    const data = `{"org_autocomplete":{"name":"${researchOrgName}","funder_name":"${funderOrgName}"}}`;
     toggleSpinner();
 
     $.ajax({
