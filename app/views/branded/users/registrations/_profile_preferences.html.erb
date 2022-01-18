@@ -1,4 +1,4 @@
-<% prefs = resource.pref&.settings['email'] || Pref.default_settings[:email] %>
+<% prefs = resource.get_preferences(:email) %>
 
 <% if prefs.present? %>
   <% prefs = prefs.with_indifferent_access %>
