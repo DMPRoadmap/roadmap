@@ -123,7 +123,7 @@ class ApiClient < ApplicationRecord
   end
 
   def owner
-    User.find_by(id: owner_id) if owner_type == 'User'
+    User.find_by(id: user_id)
   end
 
   private

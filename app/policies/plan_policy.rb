@@ -10,9 +10,9 @@ class PlanPolicy < ApplicationPolicy
   end
 
   def publish?
-    @plan.editable_by?(@user.id) ||
+    @record.editable_by?(@user.id) ||
       (@user.can_org_admin? &&
-       @user.org.plans.include?(@plan))
+       @user.org.plans.include?(@record))
   end
 
   def export?
@@ -72,10 +72,10 @@ class PlanPolicy < ApplicationPolicy
   end
 
   def mint?
-    @plan.owner == @user || @user.can_super_admin?
+    @record.owner == @user || @user.can_super_admin?
   end
 
   def add_orcid_work?
-    @plan.administerable_by?(@user.id)
+    @record.administerable_by?(@user.id)
   end
 end

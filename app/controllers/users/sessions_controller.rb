@@ -9,17 +9,6 @@ module Users
 
     before_action :configure_sign_in_params, only: [:create]
 
-
-    # GET /resource/sign_in
-    def new
-      # if the user is signed in already then redirect them to the dashboard page
-      if user_signed_in?
-        redirect_to plans_path
-      else
-        super
-      end
-    end
-
     # POST /resource/sign_in
     # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def create

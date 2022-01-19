@@ -42,29 +42,8 @@ Rails.application.routes.draw do
     delete "/users/identifiers/:id", to: "identifiers#destroy", as: "destroy_user_identifier"
   end
 
-  # get "/orgs/shibboleth", to: "orgs#shibboleth_ds", as: "shibboleth_ds"
-  # get "/orgs/shibboleth/:org_id", to: "orgs#shibboleth_ds_passthru"
-  # post "/orgs/shibboleth", to: "orgs#shibboleth_ds_passthru"
-
-  # ------------------------------------------
-  # Start DMPTool customizations
-  # ------------------------------------------
-  # GET is triggered by user clicking an org in the list
-  # get "/orgs/shibboleth/:id", to: "orgs#shibboleth_ds_passthru"
-  # POST is triggered by user selecting an org from autocomplete
-  # post "/orgs/shibboleth/:id", to: "orgs#shibboleth_ds_passthru"
-  # ------------------------------------------
-  # End DMPTool Customization
-  # ------------------------------------------
-
-  # ------------------------------------------
-  # Start DMPTool customizations
-  # ------------------------------------------
   # Handle logouts when on the localhost dev environment
   get '/Shibboleth.sso/Logout', to: redirect('/') unless %w[stage production].include?(Rails.env)
-  # ------------------------------------------
-  # End DMPTool Customization
-  # ------------------------------------------
 
   resources :users, path: 'users', only: [] do
     resources :org_swaps, only: [:create],
@@ -96,6 +75,7 @@ Rails.application.routes.draw do
   patch 'locale/:locale' => 'session_locales#update', as: 'locale'
 
   root to: 'home#index'
+  get '/sitemap' => 'sitemaps#index', only: [:xml, :html]
   get 'about_us' => 'static_pages#about_us'
   get 'help' => 'static_pages#help'
   get 'terms' => 'static_pages#termsuse'
