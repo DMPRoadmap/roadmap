@@ -398,7 +398,6 @@ class PlansController < ApplicationController
              json: { msg: format(_('Unable to find plan id %{<plan_id>s'),
                                  plan_id: params[:id]) }
     end
-    render 'publish'
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
