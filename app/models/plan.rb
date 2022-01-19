@@ -607,9 +607,15 @@ class Plan < ApplicationRecord
 
   # Returns whether or not minting is allowed for the current plan
   def registration_allowed?
+    return false unless Rails.configuration.x.madmp.enable_dmp_id_registration
+
+    # Just check for visibility and funder if we are not allowing ORCID publication
+    orcid_enabled = Rails.configuration.x.madmp.enable_orcid_publication
+    return (visibility_allowed? && funder.present?) unless orcid_enabled
+
+    # If we're allowing ORCID publication but no ORCID scheme is defined
     orcid_scheme = IdentifierScheme.where(name: 'orcid').first
-    return false unless Rails.configuration.x.madmp.enable_dmp_id_registration &&
-                        orcid_scheme.present?
+    return false unless orcid_scheme.present?
 
     # The owner must have an orcid, a funder and :visibility_allowed? (aka :complete)
     orcid = owner.identifier_for_scheme(scheme: orcid_scheme).present?

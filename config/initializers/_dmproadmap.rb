@@ -271,6 +271,8 @@ module DMPRoadmap
     # The location of this feature is determined by your setting for
     # :show_collaborators_on_share_tab above
     config.x.madmp.enable_dmp_id_registration = Rails.configuration.x.dmproadmap.enable_dmp_id_registration
+    # Allow DMP IDs to be published to the user's ORCID record
+    config.x.madmp.enable_orcid_publication = Rails.configuration.x.dmproadmap.enable_orcid_publication
 
     # ------------------- #
     # Related Identifiers #

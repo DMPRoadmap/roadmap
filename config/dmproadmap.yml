@@ -396,6 +396,8 @@ default: &default
   enable_citation_lookup: true
   # Allow DMP ID minting
   enable_dmp_id_registration: true
+  # Allow DMP IDs to be published to the user's ORCID record
+  enable_orcid_publication: true
 
   # ============================
   # = User preference defaults =

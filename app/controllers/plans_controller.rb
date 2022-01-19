@@ -429,7 +429,10 @@ class PlansController < ApplicationController
     dmp_id.save
     @plan = @plan.reload
 
-    @orcid_access_token = ExternalApiAccessToken.for_user_and_service(user: current_user, service: 'orcid')
+    # Only allow ORCID publication for the DMP ID if it is enabled in the config!
+    if Rails.configuration.x.madmp.enable_orcid_publication
+      @orcid_access_token = ExternalApiAccessToken.for_user_and_service(user: current_user, service: 'orcid')
+    end
 
     # If a DMP ID was successfully acquired and the User has authorized us to write to their ORCID record
     if @plan.dmp_id.present? && @orcid_access_token.present?
