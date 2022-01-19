@@ -380,23 +380,19 @@ class PlansController < ApplicationController
                      key: 'owners_and_coowners.visibility_changed') do |r|
             UserMailer.plan_visibility(r, plan).deliver_now
           end
-          render status: :ok,
-                 json: { msg: success_message(plan, _('updated')) }
+          redirect_to publish_plan_path(plan), notice: success_message(plan, _('updated'))
         else
-          render status: :internal_server_error,
-                 json: { msg: failure_message(plan, _('update')) }
+          redirect_to publish_plan_path(plan), alert: failure_message(plan, _('update'))
         end
       else
         # rubocop:disable Layout/LineLength
-        render status: :forbidden, json: {
-          msg: format(_("Unable to change the plan's status since it is needed at least %<percentage}>s percentage responded"), percentage: Rails.configuration.x.plans.default_percentage_answered)
-        }
+        redirect_to publish_plan_path(plan),
+                    alert: format(_("Unable to change the plan's status since it is needed at least %<percentage}>s percentage responded"), percentage: Rails.configuration.x.plans.default_percentage_answered)
         # rubocop:enable Layout/LineLength
       end
     else
-      render status: :not_found,
-             json: { msg: format(_('Unable to find plan id %{<plan_id>s'),
-                                 plan_id: params[:id]) }
+      redirect_to publish_plan_path(plan),
+                  alert: format(_('Unable to find plan id %{<plan_id>s'), plan_id: params[:id])
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
