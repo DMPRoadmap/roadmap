@@ -13,5 +13,11 @@ module Dmptool
         render 'home/index'
       end
     end
+
+    # Simple handler for calls to robots.txt
+    def robots
+      respond_to :text
+      expires_in 6.hours, public: true
+    end
   end
 end
