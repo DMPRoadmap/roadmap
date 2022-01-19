@@ -21,8 +21,8 @@ json.plans @org_plans.each do |plan|
     json.name         plan.contributors.investigation.first&.name
   end
 
-  json.owners plan.owner_and_coowners.each do |owner|
-    json.email owner.email
+  json.owner  do
+    json.email plan.owner.present? ?  plan.owner.email : ""
   end
 
   json.data_contact do
