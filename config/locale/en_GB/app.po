@@ -3385,3 +3385,5 @@ msgstr "Successfully refreshed the client credentials."
 msgid "A new entry will be created for the organisation you have named above. Please double check that your organisation does not appear in the list in a slightly different form."
 msgstr "A new entry will be created for the organisation you have named above. Please double check that your organisation does not appear in the list in a slightly different form."
 
+msgid "The name you entered was not one of the listed suggestions!"
+msgstr "The name you entered was not one of the listed suggestions!"
