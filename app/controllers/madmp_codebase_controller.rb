@@ -14,8 +14,6 @@ class MadmpCodebaseController < ApplicationController
                schema_runs.fetch("params")
              end
 
-    schema_runs.find { |run| run["script_id"] == script_id.to_i }["params"] || {}
-
     authorize fragment
 
     # EXAMPLE DATA
