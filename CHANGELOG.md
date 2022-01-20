@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 20/01/2022
+- Ajout de l'affiliation dans le tableau des contributeurs présent lors de l'export (issue gitbucket 311)
+- Résolution d'un bug survenant lorsque 'params' est absent de la propriété 'run' d'un template
+- L'organisme sélectionné est désormais bien pris en compte lors de la création d'un compte suite à un partage de plan (issue gitbucket 312)
+
 ## 13/01/2022
 - Changement du message pour les organismes "unmanaged" affiché lors de la création de plan
 - Ajout d'un message indiquant que le changement d'email n'est pas fonctionnel
