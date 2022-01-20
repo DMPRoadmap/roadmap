@@ -482,7 +482,7 @@ class Plan < ApplicationRecord
   def owner_and_coowners
     # We only need to search for :administrator in the bitflag
     # since :creator includes :administrator rights
-    roles.select { |r| r.active && r.administrator }.map(&:user).uniq
+    roles.select { |r| r.active && r.administrator && !r.user.nil? }.map(&:user).uniq
   end
 
   # The creator, administrator and editors
