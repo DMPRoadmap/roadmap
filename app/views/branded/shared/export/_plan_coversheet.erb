@@ -55,11 +55,18 @@
   <br/>
   <p><b><%= _("Contributors") %></b></p> <br/>
   <table class="real-table">
-    <thead><tr><th><%= _("Contributors") %></th><th><%= _("Roles") %></th></tr></thead>
+    <thead>
+      <tr>
+        <th><%= _("Contributors") %></th>
+        <th><%= _("Affiliation") %></th>
+        <th><%= _("Roles") %></th>
+      </tr>
+    </thead>
     <tbody>
     <% contributors.each do |contributor| %>
       <tr>
         <td><%= contributor.to_s %></td>
+        <td><%= contributor.data["affiliationName"] %></td>
         <td>
           <ul>
             <% contributor.roles.each do |role| %>
