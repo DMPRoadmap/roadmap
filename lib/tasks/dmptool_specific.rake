@@ -76,4 +76,34 @@ namespace :dmptool_specific do
     end
   end
   # rubocop:enable Layout/LineLength
+
+  desc 'Seed the Language for all Plans'
+  task init_plan_language: :environment do
+    p 'Initializing plans.language_id'
+    dflt = Language.default
+
+    if dflt.present?
+      Language.where.not(id: dflt.id).each do |lang|
+        orgs = Org.where(language_id: lang.id)
+        if orgs.any?
+          p "Searching for plans affiliated with and Org whose language is - #{lang.name}"
+          plans = Plan.where(language_id: nil).where('title <> CONVERT(title USING ASCII)')
+          plans = plans.where(org_id: orgs.map(&:id)).or(plans.where(funder_id: orgs.map(&:id)))
+
+          if plans.any?
+            p "Updated #{plans.length} plans to - #{lang.name}"
+            plans.update_all(language_id: lang.id)
+            pp plans.map { |plan| "id: #{plan.id} - title: '#{plan.title}'" }
+          end
+        else
+          p "No Orgs found for - #{lang.name}"
+        end
+      end
+
+      p "Updating all remaining plans to the default language - #{dflt.name}"
+      Plan.where(language_id: nil).update_all(language_id: dflt.id)
+    else
+      p 'Unable to process records because there is no default Language!'
+    end
+  end
 end

@@ -44,8 +44,6 @@ class License < ApplicationRecord
       pref = preference.gsub('%<latest>s', '[0-9\\.]+$')
       where_clause = safe_regexp_where_clause(column: 'identifier')
 
-p where_clause
-
       rslts = preference.include?('%<latest>s') ? where(where_clause, pref) : where(identifier: pref)
       rslts.order(:identifier).last
     end

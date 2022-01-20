@@ -1,0 +1,13 @@
+<%# locals: facets %>
+
+<div class="t-publicplans__section-header">
+  <h2 id="plans-heading"><%= _('Find a plan') %>&hellip;</h2>
+</div>
+<form id="plan-form" method="post" action="#">
+  {{ render '@search' }}
+  {{ render '@facet--funder' }}
+  {{ render '@facet--institution' }}
+  {{ render '@facet--language' }}
+  {{ render '@facet--subject' }}
+  {{ render '@clear-filters' }}
+</form>

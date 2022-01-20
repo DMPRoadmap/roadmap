@@ -1,0 +1,19 @@
+<% content_for :faceting do %>
+  <aside class="t-publicplans__intro" aria-label="About public plans">
+    <h1><%= _('Public Plans') %></h1>
+    <p><%= _('Public plans are plans created using the DMPTool and shared publicly by their owners.') %></p>
+    <p><%= sanitize _('<strong>Featured</strong> plans have been vetted by curators for quality, completeness, and adherence to funder guidelines.') %></p>
+    <p><%= sanitize _('Plans labeled <strong>Funded</strong> are associated with grants that have been reported as funded through our <a href="">machine-actionable DMP project</a>. Many plans associated with successfully funded grants do not have the label.') %></p>
+  </aside>
+  <aside class="t-publicplans__plans" aria-labelledby="plans-heading">
+    <%= render partial: '/public_pages/plans_facet_form', locals: { facets: @facets } %>
+  </aside>
+<% end %>
+
+<% content_for :home do %>
+  <div class="t-publicplans__section-header">
+    <h2><%= _('Plans (%<nbr_plans>s)') % { nbr_plans: @plan_count } %></h2>
+  </div>
+
+  <%= render partial: '/public_pages/plans_results', locals: { plans: @plans } %>
+<% end %>

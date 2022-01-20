@@ -63,6 +63,8 @@
       <%= render partial: "layouts/notifications", locals: local_assigns %>
     </header>
 
+    <%= yield(:faceting) if content_for?(:faceting) %>
+
     <main id="maincontent" class="<%= @main_class %>">
 
       <%= content_for?(:home) ? yield(:home) : yield %>

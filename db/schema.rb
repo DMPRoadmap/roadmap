@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_02_155053) do
+ActiveRecord::Schema.define(version: 2022_01_19_214358) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2021_12_02_155053) do
     t.boolean "trusted", default: false
     t.integer "callback_method"
     t.string "callback_uri"
+    t.index ["name"], name: "index_oauth_applications_on_name"
   end
 
   create_table "api_logs", force: :cascade do |t|
@@ -306,7 +307,6 @@ ActiveRecord::Schema.define(version: 2021_12_02_155053) do
     t.string "logo_name"
     t.string "callback_uri"
     t.integer "callback_method"
-    t.string "owner_type", default: "User"
     t.index ["name"], name: "index_oauth_applications_on_name"
     t.index ["user_id"], name: "index_oauth_applications_on_owner_id"
     t.index ["user_id"], name: "index_oauth_applications_on_owner_id_and_owner_type"
@@ -385,8 +385,10 @@ ActiveRecord::Schema.define(version: 2021_12_02_155053) do
     t.integer "funding_status"
     t.bigint "research_domain_id"
     t.boolean "featured", default: false
+    t.bigint "language_id"
     t.index ["funder_id"], name: "index_plans_on_funder_id"
     t.index ["grant_id"], name: "index_plans_on_grant_id"
+    t.index ["language_id"], name: "index_plans_on_language_id"
     t.index ["org_id"], name: "index_plans_on_org_id"
     t.index ["research_domain_id"], name: "index_plans_on_research_domain_id"
     t.index ["template_id"], name: "index_plans_on_template_id"

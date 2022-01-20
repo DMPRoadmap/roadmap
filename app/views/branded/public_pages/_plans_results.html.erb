@@ -1,0 +1,40 @@
+<%# locals: plans %>
+
+<% plans.each do |plan| %>
+  <section class="c-plan">
+    <ul class="c-taggroup">
+      <%# TODO: Uncomment once we've figured out a good way to accurately determining funding %>
+      <%# if plan.funder.present? && (plan.funding_status == 'funded' || plan.grant_id.present?) %>
+        <!-- <li><span class="c-tag--funded"><%#= _('Funded') %></span></li> -->
+      <%# end %>
+      <% if plan.featured? %>
+        <li><span class="c-tag--featured"><%= _('Featured') %></span></li>
+      <% end %>
+    </ul>
+    <div class="c-plan-template"><%= plan.template.title %></div>
+    <h3 class="c-plan-title">
+      <%= link_to plan.title, plan_export_path(plan, format: :pdf, export: { question_headings: true }) %>
+    </h3>
+    <div class="c-plan-creator">
+      <% if plan.owner.present? %>
+        <%= [plan.owner.name(false), plan.owner.org&.name].join(', ') %>
+      <% else %>
+        <%= plan.org&.name %>
+      <% end %>
+    </div>
+    <dl class="c-plan-metadata">
+      <% if plan.dmp_id.present? %>
+        <dt><%= _('DMP ID') %>:</dt>
+        <dd>
+          <a href="<%= plan.dmp_id.value %>" target="_blank" class="has-new-window-popup-info">
+            <%= id_for_display(id: plan.dmp_id, with_scheme_name: false).html_safe %>
+          </a>
+        </dd>
+      <% end %>
+      <dt><%= _('Last modified') %>:</dt><dd><%= l(plan.updated_at.to_date, formats: :short) %></dd>
+      <% if plan.language.present? %>
+        <dt><%= _('Language') %>:</dt><dd><%= plan.language.name %></dd>
+      <% end %>
+    </dl>
+  </section>
+<% end %>

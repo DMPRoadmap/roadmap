@@ -630,6 +630,7 @@ DEPENDENCIES
   rubocop-rake
   rubocop-rspec
   rubocop-thread_safety
+  rubyzip
   sass-rails
   sassc-rails
   selenium-webdriver

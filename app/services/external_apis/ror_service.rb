@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'digest'
+
 module ExternalApis
   # This service provides an interface to the Research Organization Registry (ROR)
   # API.
@@ -15,12 +17,24 @@ module ExternalApis
         Rails.configuration.x.ror&.api_base_url || super
       end
 
+      def download_url
+        Rails.configuration.x.ror&.download_url
+      end
+
       def full_catalog_file
         Rails.configuration.x.ror&.full_catalog_file
       end
 
-      def catalog_process_date
-        Rails.configuration.x.ror&.catalog_process_date
+      def file_dir
+        Rails.configuration.x.ror&.file_dir
+      end
+
+      def checksum_file
+        Rails.configuration.x.ror&.checksum_file
+      end
+
+      def zip_file
+        Rails.configuration.x.ror&.zip_file
       end
 
       def active?
@@ -37,67 +51,142 @@ module ExternalApis
 
       # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
       def fetch(force: false)
-        # TODO: At some point find a way to retrieve the latest zip file
-        #       They are current stored as zip files within the GitHub repo:
-        #       https://github.com/ror-community/ror-api/tree/master/rorapi/data
-        #
-        # TODO: Write the downloaded json file to the tmp/ dir
-        file = File.new(full_catalog_file, 'r')
-        mod_date = file.mtime
-        # Create the timestamp file if it is not present
-        ror_tstamp = File.open(catalog_process_date, 'w+') unless File.exist?(catalog_process_date) && !force
-        ror_tstamp = File.open(catalog_process_date, 'r+') unless ror_tstamp.present?
-        last_proc_date = ror_tstamp.read
-
         method = "ExternalApis::RorService.fetch(force: #{force})"
 
-        # rubocop:disable Style/GuardClause
-        if file.present?
-          if mod_date.to_s == last_proc_date
-            log_message(method: method, message: "ROR file already processed: #{mod_date}")
+        # Fetch the Zenodo metadata for ROR to see if we have the latest data dump
+        metadata = fetch_zenodo_metadata
+
+        if metadata.present?
+          Dir.mkdir(file_dir) unless File.exists?(file_dir)
+
+          checksum = File.open(checksum_file, 'w+') unless File.exist?(checksum_file) && !force
+          checksum = File.open(checksum_file, 'r+') unless checksum.present?
+          old_checksum_val = checksum.read
+
+  pp metadata
+  p "CHECKSUM: '#{old_checksum_val}' == '#{metadata[:checksum]}'"
+
+          if old_checksum_val == metadata[:checksum]
+            log_message(method: method, message: 'There is no new ROR file to process.')
           else
-            log_message(method: method, message: "ROR proccessing new file: #{mod_date}")
-            if process_ror_file(file: file, time: mod_date)
-              f = File.open(catalog_process_date, 'w')
-              f.write(mod_date.to_s)
+            download_file = metadata.fetch(:links, {})[:download]
+            log_message(method: method, message: "New ROR file detected - checksum #{metadata[:checksum]}")
+            log_message(method: method, message: "Downloading #{download_file}")
+
+            payload = download_ror_file(url: metadata.fetch(:links, {})[:download])
+            if payload.present?
+              file = File.open(zip_file, 'wb')
+              file.write(payload)
+
+              if validate_downloaded_file(file_path: zip_file, checksum: metadata[:checksum])
+                json_file = download_file.split('/').last.gsub('.zip', '.json')
+
+                # Process the ROR JSON
+                if process_ror_file(zip_file: zip_file, file: json_file)
+                  checksum = File.open(checksum_file, 'w')
+                  checksum.write(metadata[:checksum])
+                end
+              else
+                log_error(method: method, error: StandardError.new('Downloaded ROR zip does not match checksum!'))
+              end
             else
-              log_error(method: method, error: StandardError.new('An error occurred while processing the file!'))
+              log_error(method: method, error: StandardError.new('Unable to download ROR file!'))
             end
           end
+        else
+          log_error(method: method, error: StandardError.new('Unable to fetch ROR metadata from Zenodo!'))
         end
-        # rubocop:enable Style/GuardClause
       end
       # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity
 
       private
 
+      # Fetch the latest Zenodo metadata for ROR files
+      def fetch_zenodo_metadata
+        Rails.logger.error 'No :download_url defined for RorService!' unless download_url.present?
+        return nil unless download_url.present?
+
+        # Fetch the latest ROR metadata from Zenodo (the query will place the most recent
+        # version 1st)
+        resp = http_get(uri: download_url, additional_headers: { host: 'zenodo.org' }, debug: false)
+        unless resp.present? && resp.code == 200
+          handle_http_failure(method: 'Fetching ROR metadata from Zenodo', http_response: resp)
+          notify_administrators(obj: 'RorService', response: resp)
+          return nil
+        end
+        json = JSON.parse(resp.body)
+
+        # Extract the most recent file's metadata
+        file_metadata = json.first.fetch('files', []).first&.with_indifferent_access
+        unless file_metadata.present? && file_metadata.fetch(:links, {})[:download].present?
+          handle_http_failure(method: 'No file found in ROR metadata from Zenodo', http_response: resp)
+          notify_administrators(obj: 'RorService', response: resp)
+          return nil
+        end
+
+        file_metadata
+      rescue JSON::ParserError => e
+        log_error(method: 'RorService', error: e)
+        nil
+      end
+
+      # Download the latest ROR data
+      def download_ror_file(url:)
+        return nil unless url.present?
+
+        headers = {
+          host: 'zenodo.org',
+          Accept: 'application/zip'
+        }
+        resp = http_get(uri: url, additional_headers: headers, debug: false)
+        unless resp.present? && resp.code == 200
+          handle_http_failure(method: "Fetching ROR file from Zenodo - #{url}", http_response: resp)
+          notify_administrators(obj: 'RorService', response: resp)
+          return nil
+        end
+        resp.body
+      end
+
       # Parse the JSON file and process each individual record
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity
-      def process_ror_file(file:, time:)
-        return false unless file.present?
+      def process_ror_file(zip_file:, file:)
+        return false unless zip_file.present? && file.present?
 
-        method = "ExternalApis::RorService.process_ror-file(file: #{file}, time: #{time}"
-        json = JSON.parse(file.read)
-        cntr = 0
-        total = json.length
-        json.each do |hash|
-          cntr += 1
-          log_message(method: method, message: "Processed #{cntr} out of #{total} records") if (cntr % 1000).zero?
+pp "#{file_dir}/#{file}"
 
-          hash = hash.with_indifferent_access if hash.is_a?(Hash)
+        if unzip_file(zip_file: zip_file, destination: file_dir)
+          method = "ExternalApis::RorService.process_ror-file"
+          if File.exist?("#{file_dir}/#{file}")
+            json_file = File.open("#{file_dir}/#{file}", 'r')
+            json = JSON.parse(json_file.read)
+            cntr = 0
+            total = json.length
+            json.each do |hash|
+              cntr += 1
+              log_message(method: method, message: "Processed #{cntr} out of #{total} records") if (cntr % 1000).zero?
 
-          next if process_ror_record(record: hash, time: time)
+              hash = hash.with_indifferent_access if hash.is_a?(Hash)
 
-          log_message(
-            method: method,
-            message: "Unable to process record for: '#{hash&.fetch('name', 'unknown')}'",
-            info: false
-          )
+              next if process_ror_record(record: hash, time: json_file.mtime)
+
+              log_message(
+                method: method,
+                message: "Unable to process record for: '#{hash&.fetch('name', 'unknown')}'",
+                info: false
+              )
+            end
+            # Remove any old ROR records (their file_timestamps would not have been updated)
+            # Note this does not remove any associated Org records!
+            RegistryOrg.where('file_timestamp < ?', json_file.mtime.strftime('%Y-%m-%d %H:%M:%S')).destroy_all
+            true
+          else
+            log_error(method: method, error: StandardError.new('Unable to find json in zip!'))
+            false
+          end
+        else
+          log_error(method: method, error: StandardError.new('Unable to unzip contents of ROR file'))
+          false
         end
-        # Remove any old ROR records (their file_timestamps would not have been updated)
-        # Note this does not remove any associated Org records!
-        RegistryOrg.where('file_timestamp < ?', time.strftime('%Y-%m-%d %H:%M:%S')).destroy_all
-        true
       rescue JSON::ParserError => e
         log_error(method: method, error: e)
         false

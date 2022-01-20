@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'httparty'
+require 'digest'
+require 'zip'
 
 module ExternalApis
   # Errors for External Api services
@@ -180,6 +182,35 @@ module ExternalApis
         }
         hash[:debug_output] = $stdout if debug
         hash
+      end
+
+      # Unzips the specified file
+      def unzip_file(zip_file:, destination:)
+        return false unless zip_file.present? && File.exist?(zip_file)
+
+        Zip::File.open(zip_file) do |files|
+          files.each do |entry|
+            unless File.exist?(entry.name)
+              f_path = File.join(destination, entry.name)
+              FileUtils.mkdir_p(File.dirname(f_path))
+              files.extract(entry, f_path) unless File.exist?(f_path)
+            end
+          end
+        end
+        true
+      end
+
+      # Determine if the downloaded file matches the expected checksum
+      def validate_downloaded_file(file_path:, checksum:)
+        return false unless file_path.present? && checksum.present? && File.exist?(file_path)
+
+        possible_checksums = [
+          Digest::SHA1.file(file_path).to_s,
+          Digest::SHA256.file(file_path).to_s,
+          Digest::SHA512.file(file_path).to_s,
+          Digest::MD5.file(file_path).to_s
+        ]
+        possible_checksums.include?(checksum)
       end
     end
   end
