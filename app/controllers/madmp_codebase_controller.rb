@@ -9,9 +9,9 @@ class MadmpCodebaseController < ApplicationController
     schema_runs = fragment.madmp_schema.extract_run_parameters
     script_id = params[:script_id]
     params = if schema_runs.is_a?(Array)
-               schema_runs.find { |run| run["script_id"] == script_id.to_i }.fetch("params")
+               schema_runs.find { |run| run["script_id"] == script_id.to_i }.dig("params") || {}
              else
-               schema_runs.fetch("params")
+               schema_runs.dig("params") || {}
              end
 
     authorize fragment
