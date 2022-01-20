@@ -1,10 +1,12 @@
 # Changelog
 
-## [Unreleased]
+## [3.0.4+portage-3.0.0] - 2022-01-17
+
 ### Changed
   - Update mysql installation process for the Github action
 
 ## [3.0.4+portage-3.0.0] - 2021-12-09
+
 ### Updated
  - Upgrade Ruby to 2.6.6
  - Upgrade Bundler to 2.2.24. 
