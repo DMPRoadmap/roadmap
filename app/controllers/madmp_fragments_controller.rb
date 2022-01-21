@@ -21,12 +21,6 @@ class MadmpFragmentsController < ApplicationController
       schema.schema,
       schema_params(schema)
     )
-    if MadmpFragment.fragment_exists?(data, schema, p_params[:dmp_id], parent_id)
-      render json: {
-        "error" => d_("dmpopidor", "Element is already present in your plan.")
-      }, status: 409
-      return
-    end
 
     @fragment = MadmpFragment.new(
       dmp_id: p_params[:dmp_id],
@@ -37,8 +31,14 @@ class MadmpFragmentsController < ApplicationController
       }
     )
     @fragment.classname = classname
-
     authorize @fragment
+
+    if MadmpFragment.fragment_exists?(data, schema, p_params[:dmp_id], parent_id)
+      render json: {
+        "error" => d_("dmpopidor", "Element is already present in your plan.")
+      }, status: 409
+      return
+    end
 
     additional_info = @fragment.additional_info.merge(
       "validations" => MadmpFragment.validate_data(data, schema.schema)
