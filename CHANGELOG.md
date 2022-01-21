@@ -2,6 +2,9 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 21/01/2022
+- Résolution d'un bug survenant la vérification de l'existance d'un contributeur, à la création d'un nouveau contributeur.
+
 ## 20/01/2022
 - Ajout de l'affiliation dans le tableau des contributeurs présent lors de l'export (issue gitbucket 311)
 - Résolution d'un bug survenant lorsque 'params' est absent de la propriété 'run' d'un template
