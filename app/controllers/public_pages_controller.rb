@@ -92,28 +92,31 @@ class PublicPagesController < ApplicationController
 
   # GET /plans_index
   # ------------------------------------------------------------------------------------
-  def plan_index
-    @plans = Plan.includes(:org, :funder, :language, :template, :research_domain, roles: [:user])
-                 .publicly_visible
-                 .order(updated_at: :desc)
-
-    @plan_count = @plans.length
-
-    @plans = @plans.limit(50)
-
-    render 'plan_index', locals: {
-      faceting: {
-        search_term: '',
-        sort_by: '',
-        page: 1,
-        per_page: 10,
-        funder_facet: @plans.select { |p| p.funder_id.present? }.map(&:funder).uniq,
-        institution_facet: @plans.select { |p| p.org_id.present? }.map(&:org).uniq,
-        language_facet: @plans.select { |p| p.language.present? }.map(&:language).uniq,
-        subject_facet: @plans.select { |p| p.research_domain_id.present? }.map(&:research_domain).uniq
-      }
-    }
-  end
+  #
+  # DMPTool customizes this method
+  #
+  # def plan_index
+  #   @plans = Plan.includes(:org, :funder, :language, :template, :research_domain, roles: [:user])
+  #                .publicly_visible
+  #                .order(updated_at: :desc)
+  #
+  #   @plan_count = @plans.length
+  #
+  #   @plans = @plans.limit(50)
+  #
+  #   render 'plan_index', locals: {
+  #     faceting: {
+  #       search_term: '',
+  #       sort_by: '',
+  #       page: 1,
+  #       per_page: 10,
+  #       funder_facet: @plans.select { |p| p.funder_id.present? }.map(&:funder).uniq,
+  #       institution_facet: @plans.select { |p| p.org_id.present? }.map(&:org).uniq,
+  #       language_facet: @plans.select { |p| p.language.present? }.map(&:language).uniq,
+  #       subject_facet: @plans.select { |p| p.research_domain_id.present? }.map(&:research_domain).uniq
+  #     }
+  #   }
+  # end
 
   private
 
