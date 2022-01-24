@@ -403,6 +403,12 @@ class PlansController < ApplicationController
     plan = Plan.find(params[:id])
     authorize plan
     plan.visibility = (params[:is_test] == '1' ? :is_test : :privately_visible)
+
+pp params.inspect
+p plan.inspect
+p plan.valid?
+pp plan.errors.full_messages
+
     if plan.save
       render json: {
         code: 1,

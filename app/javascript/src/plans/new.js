@@ -93,10 +93,6 @@ $(() => {
 
     if (validOptions()) {
       const name = selection === undefined ? '' : selection;
-
-console.log(name);
-console.log(selection);
-
       if (autocomplete.attr('id') === researchOrg.attr('id')) {
         templateSearch(name, funderOrg.val());
       } else {

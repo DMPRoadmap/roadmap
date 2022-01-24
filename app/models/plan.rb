@@ -49,7 +49,7 @@ class Plan < ApplicationRecord
 
   # DMPTool customization to support faceting the public plans by language
   # ----------------------------------------------------------------------
-  belongs_to :language, default: Language.default
+  belongs_to :language, default: -> { Language.default }
 
   # =============
   # = Constants =

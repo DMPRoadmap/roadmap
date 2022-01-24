@@ -63,9 +63,6 @@ module ExternalApis
           checksum = File.open(checksum_file, 'r+') unless checksum.present?
           old_checksum_val = checksum.read
 
-  pp metadata
-  p "CHECKSUM: '#{old_checksum_val}' == '#{metadata[:checksum]}'"
-
           if old_checksum_val == metadata[:checksum]
             log_message(method: method, message: 'There is no new ROR file to process.')
           else
@@ -151,8 +148,6 @@ module ExternalApis
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity
       def process_ror_file(zip_file:, file:)
         return false unless zip_file.present? && file.present?
-
-pp "#{file_dir}/#{file}"
 
         if unzip_file(zip_file: zip_file, destination: file_dir)
           method = "ExternalApis::RorService.process_ror-file"

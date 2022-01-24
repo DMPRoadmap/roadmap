@@ -62,9 +62,10 @@
 
   <div id="sign-up-accept-terms" class="c-checkbox js-checkbox">
     <%= form.check_box :accept_terms, { class: "require-me" }, true, false %>
+    <%# Need to pass target and href to sanitize because target usually gets stripped out %>
     <%= form.label :accept_terms, sanitize(_('I accept the %<terms_url>s') % {
-                                    terms_url: link_to(_('terms and conditions'), terms_path)
-                                  }) %>
+                                    terms_url: link_to(_('terms and conditions'), terms_path,
+                                               target: '_blank') }, { attributes: %w[href target] }) %>
     <div id="" class="c-textfield__invalid-description js-invalid-description" hidden>
     </div>
   </div>

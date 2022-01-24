@@ -48,7 +48,7 @@
 
   <p><%= _('You can share your plan with colleagues in the Collaborators tab. Input the email address(es) of any collaborators you would like to invite to read or edit your plan. Set their permissions via the radio buttons and click to "Add collaborator." Adjust permissions or remove collaborators at any time via the drop-down options in the table.') %></p>
 
-  <p><%= _('The "Finalize/ Publish" tab is where you can set your plan visibility.<ul><li>Private: restricted to you and your collaborators.<li><li>Organizational: anyone at your organization can view your plan.</li><li>Public: anyone can view your plan in the <a href="%<public_plans_path>s">public plans</a> list.</li></ul>') % { public_plans_path: public_plans_path } %></p>
+  <p><%= sanitize(_('The "Finalize/ Publish" tab is where you can set your plan visibility.<ul><li>Private: restricted to you and your collaborators.</li><li>Organizational: anyone at your organization can view your plan.</li><li>Public: anyone can view your plan in the <a href="%<public_plans_path>s">public plans</a> list.</li></ul>') % { public_plans_path: public_plans_path }) %></p>
 
   <p><%= _('By default, all new and test plans will be set to Private visibility. Public and Organizational visibility are intended for finished plans. You must answer at least 50% of the questions to enable these options.') %></p>
   <hr>
