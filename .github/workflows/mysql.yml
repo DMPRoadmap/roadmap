@@ -19,6 +19,7 @@ jobs:
 
     - name: 'Install MySQL Packages'
       run: |
+        sudo apt-get clean
         sudo apt-get update
         sudo apt-get install -y mysql-client libmysqlclient-dev
 
