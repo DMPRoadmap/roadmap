@@ -6,11 +6,12 @@
 <div class="t-publicplans__section-header">
   <h2 id="plans-heading"><%= _('Find a plan') %>&hellip;</h2>
 </div>
-<%= form_with id: 'public-plans-facet-form', url: public_plans_path, method: :post do |f| %>
+<%= form_with id: 'public-plans-facet-form', url: public_plans_path, method: :get, local: true do |f| %>
   <section class="c-search">
     <h3 id="search-label"><%= _('Search') %></h3>
     <div class="c-search-form" role="search">
-      <%= f.search_field :search, aria: { labelledby: 'search-label', describedby: 'js-search-results' } %>
+      <%= f.search_field :search, value: facets[:search],
+                         aria: { labelledby: 'search-label', describedby: 'js-search-results' } %>
       <%= f.button '', aria: { label: 'search' } %>
     </div>
     <% search_msg = search.present? ? _('Showing results for "%<search_term>s"') % { search_term: sanitize(search) } : '' %>
@@ -46,6 +47,6 @@
     end
     %>
     <div class="c-clear__applied"><%= facet_msg %></div>
-    <button type="button"><%= _('Clear Filters') %></button>
+    <button class="js-facet-clear" type="button"><%= _('Clear Filters') %></button>
   </div>
 <% end %>

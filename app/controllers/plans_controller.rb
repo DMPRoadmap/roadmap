@@ -71,6 +71,8 @@ class PlansController < ApplicationController
       @plan.org = process_org!(user: current_user)
       @plan.funder = process_org!(user: current_user, namespace: 'funder')
 
+      @plan.title = @plan.title.strip
+
       if @plan.save
         # pre-select org's guidance and the default org's guidance
         ids = (Org.default_orgs.pluck(:id) << @plan.org_id).flatten.uniq
@@ -242,6 +244,8 @@ class PlansController < ApplicationController
       attrs.delete(:funder)
       attrs.delete(:grant)
 
+      @plan.title = @plan.title.strip
+
       if @plan.update(attrs)
         format.html do
           redirect_to plan_path(@plan),
@@ -403,11 +407,6 @@ class PlansController < ApplicationController
     plan = Plan.find(params[:id])
     authorize plan
     plan.visibility = (params[:is_test] == '1' ? :is_test : :privately_visible)
-
-pp params.inspect
-p plan.inspect
-p plan.valid?
-pp plan.errors.full_messages
 
     if plan.save
       render json: {

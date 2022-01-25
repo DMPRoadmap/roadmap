@@ -11,18 +11,6 @@
 <% end %>
 
 <% content_for :home do %>
-  <div class="t-publicplans__section-header">
-    <h2><%= _('Plans (%<nbr_plans>s)') % { nbr_plans: @plan_count } %></h2>
-
-    <div class="c-sort">
-      <label for="sort-select"><%= _('Sort by:') %></label>
-      <select id="sort-select" name="sort-by" form="public-plans-facet-form">
-        <option value="plans.featured"><%= _('Featured') %></option>
-        <option value="plans.created_at"><%= _('Most Recent') %></option>
-        <option value="plans.title"><%= _('Title') %></option>
-      </select>
-    </div>
-  </div>
-
-  <%= render partial: '/public_pages/plans_results', locals: { plans: @plans } %>
+  <%= render partial: '/public_pages/plans_results',
+             locals: { plans: @plans, sort_by: @facets[:sort_by] } %>
 <% end %>

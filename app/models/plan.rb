@@ -197,7 +197,7 @@ class Plan < ApplicationRecord
         .where(roles: { active: true })
         .by_date_range(:created_at, term)
     else
-      search_pattern = "%#{term}%"
+      search_pattern = sanitize_sql("%#{term}%")
       joins(:template, roles: [user: :org])
         .left_outer_joins(:identifiers, :contributors)
         .where(roles: { active: true })

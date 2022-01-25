@@ -27,7 +27,7 @@ module DmptoolHelper
   # Determine which UI template we should use based on the page
   def page_body_template
     template = 't-generic'
-    template = 't-publicplans' if active_page?(public_plans_path, true)
+    template = 't-publicplans' if active_page?(public_plans_path, false)
     template = 't-home' if active_page?(root_path, true) ||
                            active_page?(new_user_session_path, true) ||
                            active_page?(new_user_registration_path, true) ||

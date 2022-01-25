@@ -102,6 +102,8 @@ Rails.application.routes.draw do
   get 'public_orgs' => 'public_pages#orgs'
 
   get 'org_logos/:id' => 'orgs#logos', as: :org_logo
+
+  post 'public_plans' => 'public_pages#plan_index'
   # ------------------------------------------
   # End DMPTool customizations
   # ------------------------------------------

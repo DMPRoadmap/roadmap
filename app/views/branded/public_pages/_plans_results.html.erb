@@ -1,4 +1,17 @@
-<%# locals: plans %>
+<%# locals: plans, sort_by %>
+
+<div class="t-publicplans__section-header">
+  <h2><%= _('Plans (%<nbr_plans>s)') % { nbr_plans: plans.total_count } %></h2>
+
+  <div class="c-sort">
+    <label for="sort-select"><%= _('Sort by:') %></label>
+    <select id="sort-select" name="sort_by" form="public-plans-facet-form">
+      <option value="featured"<%= ' selected' if sort_by == 'featured' %>><%= _('Featured') %></option>
+      <option value="updated_at"<%= ' selected' if sort_by == 'updated_at' %>><%= _('Most Recent') %></option>
+      <option value="title"<%= ' selected' if sort_by == 'title' %>><%= _('Title') %></option>
+    </select>
+  </div>
+</div>
 
 <% plans.each do |plan| %>
   <section class="c-plan">
@@ -38,3 +51,6 @@
     </dl>
   </section>
 <% end %>
+
+<%# See /branded/kaminari/_paginator.html.erb for the pagination links html %>
+<%= paginate(plans) %>

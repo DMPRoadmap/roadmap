@@ -1,0 +1,4 @@
+<li>
+  <%= link_to_unless(current_page.last?, _('Last'), url, remote: remote,
+                     aria: { label: _('Last Page' ) }) %>
+</li>
