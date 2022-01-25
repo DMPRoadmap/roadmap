@@ -13,7 +13,7 @@ module OrgAdmin
       sql = 'users.org_id = ? AND plans.feedback_requested is TRUE AND roles.active is TRUE'
       feedback_ids = Role.creator.joins(:user, :plan)
                          .where(sql, current_user.org_id).pluck(:plan_id)
-      @feedback_plans = Plan.where(id: feedback_ids).reject(&:nil?)
+      @feedback_plans = Plan.where(id: feedback_ids).compact
 
       @super_admin = current_user.can_super_admin?
       @clicked_through = params[:click_through].present?
