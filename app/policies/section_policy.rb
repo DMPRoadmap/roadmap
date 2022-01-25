@@ -18,11 +18,11 @@ class SectionPolicy < ApplicationPolicy
   ##
 
   def index?
-    user.present?
+    @user.present?
   end
 
   def show?
-    user.present?
+    @user.present?
   end
 
   def edit?

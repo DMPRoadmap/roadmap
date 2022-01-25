@@ -16,6 +16,10 @@ class PlanPolicy < ApplicationPolicy
     @plan = plan
   end
 
+  def index?
+    @plan.readable_by?(@user.id)
+  end
+
   def show?
     @plan.readable_by?(@user.id)
   end
@@ -80,6 +84,14 @@ class PlanPolicy < ApplicationPolicy
 
   def update_guidances_list?
     @plan.editable_by?(@user.id)
+  end
+
+  def privately_visible?
+    @user.is_a?(User)
+  end
+
+  def organisationally_or_publicly_visible?
+    @user.is_a?(User)
   end
 
 end

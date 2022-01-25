@@ -7,7 +7,7 @@ class OrgAdmin::PhaseVersionsController < ApplicationController
   # POST /org_admin/templates/:template_id/phases/:phase_id/versions
   def create
     @phase = Phase.find(params[:phase_id])
-    authorize @phase, :create?
+    authorize @phase
     @new_phase = get_modifiable(@phase)
     flash[:notice] = if @new_phase == @phase
                        "This template is already a draft"

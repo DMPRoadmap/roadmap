@@ -13,10 +13,6 @@ class NotesController < ApplicationController
     @note = Note.new
     # take user id from current user rather than form as form can be spoofed
     @note.user_id = current_user.id
-    # ensure user has access to plan BEFORE creating/finding answer
-    unless Plan.find_by(id: note_params[:plan_id]).readable_by?(@note.user_id)
-      raise Pundit::NotAuthorizedError
-    end
 
     Answer.transaction do
       @answer = Answer.find_by(

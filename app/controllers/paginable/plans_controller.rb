@@ -6,9 +6,7 @@ class Paginable::PlansController < ApplicationController
 
   # /paginable/plans/privately_visible/:page
   def privately_visible
-    unless Paginable::PlanPolicy.new(current_user).privately_visible?
-      raise Pundit::NotAuthorizedError
-    end
+    authorize Plan
 
     paginable_renderise(
       partial: "privately_visible",
@@ -20,9 +18,7 @@ class Paginable::PlansController < ApplicationController
 
   # GET /paginable/plans/organisationally_or_publicly_visible/:page
   def organisationally_or_publicly_visible
-    unless Paginable::PlanPolicy.new(current_user).organisationally_or_publicly_visible?
-      raise Pundit::NotAuthorizedError
-    end
+    authorize Plan
 
     paginable_renderise(
       partial: "organisationally_or_publicly_visible",

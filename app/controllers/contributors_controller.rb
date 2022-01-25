@@ -30,7 +30,8 @@ class ContributorsController < ApplicationController
   # rubocop:disable Metrics/AbcSize
   # POST /plans/:plan_id/contributors
   def create
-    authorize @plan
+    # to create a contributor you need to be able to edit the plan
+    authorize @plan, :edit?
 
     args = translate_roles(hash: contributor_params)
     args = process_org(hash: args)

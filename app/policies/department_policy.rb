@@ -12,6 +12,11 @@ class DepartmentPolicy < ApplicationPolicy
     @department = department
   end
 
+  def index?
+    (@user.can_org_admin? && @user.org.id == @department.org_id) ||
+      @user.can_super_admin?
+  end
+
   def new?
     @user.can_org_admin? || @user.can_super_admin?
   end

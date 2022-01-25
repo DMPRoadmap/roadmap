@@ -25,6 +25,10 @@ class PhasePolicy < ApplicationPolicy
     user.can_modify_templates?  &&  (phase.template.org_id == user.org_id)
   end
 
+  def edit?
+    user.can_modify_templates?  &&  (phase.template.org_id == user.org_id)
+  end
+
   def update?
     user.can_modify_templates?  &&  (phase.template.org_id == user.org_id)
   end
