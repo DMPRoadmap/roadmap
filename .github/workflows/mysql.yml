@@ -20,7 +20,7 @@ jobs:
     - name: 'Install MySQL Packages'
       run: |
         sudo apt-get update
-        sudo apt-get install -y mysql-client-8.0 mysql-client libmysqlclient21 libmysqlclient-dev
+        sudo apt-get install -y mysql-client-8.0 libmysqlclient21
 
     - name: 'Determine Ruby and Bundler Versions from Gemfile.lock'
       run: |
