@@ -8,6 +8,10 @@ class SessionsController < Devise::SessionsController
     redirect_to(root_path)
   end
 
+  # ********************************************************************************************
+  # The DMPTool now handles Devise sign in in the /app/controllers/users/sessions_controller.rb
+  # ********************************************************************************************
+
   # rubocop:disable Layout/LineLength
 
   # # Capture the user's shibboleth id if they're coming in from an IDP
