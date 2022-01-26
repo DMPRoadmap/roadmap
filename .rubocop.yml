@@ -34,6 +34,7 @@ AllCops:
     - 'db/**/*'
     - 'vendor/**/*'
     - 'node_modules/**/*'
+    - 'scripts/**/*'
 
   # Automatically add any new Cops to this file and enable them
   NewCops: enable
@@ -165,6 +166,8 @@ Style/NumberedParameters: # new in 1.22
   Enabled: true
 Style/NumberedParametersLimit: # new in 1.22
   Enabled: true
+Style/OpenStructUse:
+  Enabled: false # used heavily in API so needs a lot of work to refactor
 Style/QuotedSymbols: # new in 1.16
   Enabled: true
 Style/RedundantArgument: # new in 1.4
@@ -175,6 +178,12 @@ Style/SelectByRegexp: # new in 1.22
   Enabled: true
 Style/StringChars: # new in 1.12
   Enabled: true
+Style/StringLiterals:
+  Enabled: true
+  Exclude:
+    - 'app/views/**/*'
+    - 'config/**/*'
+
 Style/SwapValues: # new in 1.1
   Enabled: true
 

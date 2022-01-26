@@ -80,6 +80,5 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
-
 # Used by Rails' routes url_helpers (typically when including a link in an email)
 Rails.application.routes.default_url_options[:host] = Rails.configuration.x.dmproadmap.server_host

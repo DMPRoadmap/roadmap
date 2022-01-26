@@ -28,7 +28,7 @@
     "@rails/actioncable": "^6.0.3-1",
     "@rails/activestorage": "^6.0.3-1",
     "@rails/ujs": "^6.0.3-1",
-    "@rails/webpacker": "^5.2.1",
+    "@rails/webpacker": "5.4.3",
     "bootstrap": "^3.4.1",
     "bootstrap-3-typeahead": "^4.0.2",
     "bootstrap-sass": "^3.3.7",
@@ -68,8 +68,7 @@
     "karma-jquery": "^0.2.4",
     "karma-json-fixtures-preprocessor": "^0.0.6",
     "karma-webpack": "^4.0.2",
-    "pa11y-ci": "^2.4.2",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^4.7.3"
   },
   "resolutions": {
     "webpack": "^4.42.1"
