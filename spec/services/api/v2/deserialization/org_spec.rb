@@ -82,8 +82,8 @@ RSpec.describe Api::V2::Deserialization::Org do
       it 'returns nil if no Org or RegistryOrg could be found' do
         Rails.configuration.x.application.restrict_orgs = false
         name = Faker::Company.name
-        org = create(:org, name: name)
-        registry_org = create(:registry_org, name: name)
+        create(:org, name: name)
+        create(:registry_org, name: name)
         expect(described_class.send(:find_by_name, json: { name: 'foo-bar' })).to eql(nil)
       end
     end

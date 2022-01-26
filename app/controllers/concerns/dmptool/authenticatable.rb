@@ -31,8 +31,8 @@ module Dmptool
         case type&.to_sym
         when :sign_up
           [:accept_terms, :email, :firstname, :language_id, :org_id, :password, :surname,
-           org_attributes: %i[abbreviation contact_email contact_name is_other
-                                managed name org_type target_url links] ]
+           { org_attributes: %i[abbreviation contact_email contact_name is_other
+                                managed name org_type target_url links] }]
         when :sign_in
           %i[email org_id password]
         else
@@ -153,10 +153,10 @@ module Dmptool
       def ensure_org_param
         # Convert the selected/specified Org name into attributes
         op = autocomplete_to_controller_params
-        if op.present?
-          params[:user][:org_id] = op[:org_id] if op[:org_id].present?
-          params[:user][:org_attributes] = op[:org_attributes] unless op[:org_id].present?
-        end
+        return true unless op.present?
+
+        params[:user][:org_id] = op[:org_id] if op[:org_id].present?
+        params[:user][:org_attributes] = op[:org_attributes] unless op[:org_id].present?
       end
     end
   end

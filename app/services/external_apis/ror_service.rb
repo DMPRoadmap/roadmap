@@ -49,7 +49,8 @@ module ExternalApis
         Rails.configuration.x.ror&.search_path
       end
 
-      # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def fetch(force: false)
         method = "ExternalApis::RorService.fetch(force: #{force})"
 
@@ -57,7 +58,7 @@ module ExternalApis
         metadata = fetch_zenodo_metadata
 
         if metadata.present?
-          Dir.mkdir(file_dir) unless File.exists?(file_dir)
+          Dir.mkdir(file_dir) unless File.exist?(file_dir)
 
           checksum = File.open(checksum_file, 'w+') unless File.exist?(checksum_file) && !force
           checksum = File.open(checksum_file, 'r+') unless checksum.present?
@@ -75,6 +76,7 @@ module ExternalApis
               file = File.open(zip_file, 'wb')
               file.write(payload)
 
+              # rubocop:disable Metrics/BlockNesting
               if validate_downloaded_file(file_path: zip_file, checksum: metadata[:checksum])
                 json_file = download_file.split('/').last.gsub('.zip', '.json')
 
@@ -86,6 +88,7 @@ module ExternalApis
               else
                 log_error(method: method, error: StandardError.new('Downloaded ROR zip does not match checksum!'))
               end
+              # rubocop:enable Metrics/BlockNesting
             else
               log_error(method: method, error: StandardError.new('Unable to download ROR file!'))
             end
@@ -94,11 +97,13 @@ module ExternalApis
           log_error(method: method, error: StandardError.new('Unable to fetch ROR metadata from Zenodo!'))
         end
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       private
 
       # Fetch the latest Zenodo metadata for ROR files
+      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def fetch_zenodo_metadata
         Rails.logger.error 'No :download_url defined for RorService!' unless download_url.present?
         return nil unless download_url.present?
@@ -126,6 +131,7 @@ module ExternalApis
         log_error(method: 'RorService', error: e)
         nil
       end
+      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       # Download the latest ROR data
       def download_ror_file(url:)
@@ -145,12 +151,13 @@ module ExternalApis
       end
 
       # Parse the JSON file and process each individual record
-      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def process_ror_file(zip_file:, file:)
         return false unless zip_file.present? && file.present?
 
         if unzip_file(zip_file: zip_file, destination: file_dir)
-          method = "ExternalApis::RorService.process_ror-file"
+          method = 'ExternalApis::RorService.process_ror-file'
           if File.exist?("#{file_dir}/#{file}")
             json_file = File.open("#{file_dir}/#{file}", 'r')
             json = JSON.parse(json_file.read)
@@ -186,7 +193,8 @@ module ExternalApis
         log_error(method: method, error: e)
         false
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       # Transfer the contents of the JSON record to the org_indices table
       # rubocop:disable Metrics/AbcSize

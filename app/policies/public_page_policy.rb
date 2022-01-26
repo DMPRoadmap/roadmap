@@ -3,10 +3,12 @@
 # Security rules for the public pages
 # Note the method names here correspond with controller actions
 class PublicPagePolicy < ApplicationPolicy
+  # rubocop:disable Lint/MissingSuper
   def initialize(object, object2 = nil)
     @object = object
     @object2 = object2
   end
+  # rubocop:enable Lint/MissingSuper
 
   def plan_index?
     true
@@ -17,7 +19,7 @@ class PublicPagePolicy < ApplicationPolicy
   end
 
   def template_export?
-    @object.present? && @object.published?
+    @object.present? && @record.published?
   end
 
   def plan_export?

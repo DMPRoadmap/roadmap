@@ -23,7 +23,8 @@ module SuperAdmin
     end
 
     # POST /super_admin/orgs
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def create
       authorize Org
 
@@ -74,7 +75,8 @@ module SuperAdmin
         redirect_to super_admin_orgs_path, alert: msg
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     # DELETE /super_admin/orgs/:id
     # rubocop:disable Metrics/AbcSize

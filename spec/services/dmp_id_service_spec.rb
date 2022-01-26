@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 
-# rubocop:disable Style/OpenStructUse
 RSpec.describe DmpIdService do
   include ConfigHelper
 
@@ -177,4 +176,3 @@ RSpec.describe DmpIdService do
     end
   end
 end
-# rubocop:enable Style/OpenStructUse

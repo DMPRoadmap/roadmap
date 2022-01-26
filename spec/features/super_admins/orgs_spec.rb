@@ -13,8 +13,8 @@ RSpec.describe 'SuperAdmins Orgs', type: :feature, js: true do
   end
 
   scenario 'Super admin adds links' do
-    click_button "Admin"
-    click_link _("Organisations")
+    click_button 'Admin'
+    click_link _('Organisations')
     first('td .dropdown button').click
     first('.dropdown-menu > li > a').click
     nbr_links = all('.link').length
@@ -23,8 +23,8 @@ RSpec.describe 'SuperAdmins Orgs', type: :feature, js: true do
   end
 
   scenario 'Super admin removes links' do
-    click_button "Admin"
-    click_link "Organisations"
+    click_button 'Admin'
+    click_link 'Organisations'
     # Edit the first org in the table
     find('table .dropdown-toggle').click
     find('.dropdown-menu > li > a').click

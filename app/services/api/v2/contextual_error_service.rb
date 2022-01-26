@@ -5,7 +5,8 @@ module Api
     # Contextualized errors for API V2 (e.g. "Contact identifier cannot be blank")
     class ContextualErrorService
       class << self
-        # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+        # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def contextualize_errors(plan:)
           errs = []
           return errs unless plan.present?
@@ -35,13 +36,13 @@ module Api
           errs = errs.flatten.uniq
 
           # remove redundant errors for children
-          errs = errs.reject do |err|
+          errs.reject do |err|
             err.include?('Research outputs ') || err.include?('Related identifiers ') ||
               err.include?('Contributors ') || err.include?('Identifiers ')
           end
-          errs
         end
-        # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+        # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
         private
 
@@ -49,7 +50,7 @@ module Api
         # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def find_project_errors(plan:)
           errs = []
-          return errs unless plan.present? #&& !plan.valid?
+          return errs unless plan.present? # && !plan.valid?
 
           a_errs = find_org_errors(org: plan.funder, label: 'Funder') if plan.funder.present?
           errs << a_errs if a_errs.any?
@@ -75,7 +76,6 @@ module Api
         end
 
         # Contextualize errors with the Affiliation and its children
-        # rubocop:disable Metrics/AbcSize
         def find_org_errors(org:, label: 'Affiliation')
           errs = []
           return errs unless org.present? && !org.valid?
@@ -84,10 +84,9 @@ module Api
           errs = errs.flatten.uniq
           errs.any? ? ["#{label}: '#{org.name}' : #{errs}"] : []
         end
-        # rubocop:enable Metrics/AbcSize
 
         # Contextualize errors with the ContributorDataManagementPlan and its children
-        # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        # rubocop:disable Metrics/AbcSize
         def find_contributor_errors(contributor:)
           errs = []
           return errs unless contributor.present? && !contributor.valid?
@@ -101,7 +100,7 @@ module Api
           errs = errs.reject { |err| err.include?('Org ') }
           errs.any? ? ["Contributor/Contact: '#{contributor&.name}' : #{errs}"] : []
         end
-        # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        # rubocop:enable Metrics/AbcSize
 
         # Contextualize errors with the RelatedIdentifiers
         def find_related_identifier_errors(related_identifier:)

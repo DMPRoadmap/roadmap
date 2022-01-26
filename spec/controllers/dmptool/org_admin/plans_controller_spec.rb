@@ -9,7 +9,7 @@ RSpec.describe Dmptool::OrgAdmin::PlansController, type: :request do
     @admin = create(:user, :org_admin, org: create(:org))
     @invitee = create(:user, org: @admin.org)
     @template = create(:template, :publicly_visible, :published, org: @admin.org, phases: 1,
-                                                                  sections: 1, questions: 2)
+                                                                 sections: 1, questions: 2)
     @args = {
       user: { email: @invitee.email },
       template_attributes: {

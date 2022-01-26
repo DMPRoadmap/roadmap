@@ -2,6 +2,7 @@
 
 # Controller that handles a language change
 class SessionLocalesController < ApplicationController
+  # rubocop:disable Metrics/AbcSize
   def update
     session[:locale] = params[:locale] if available_locales.include?(params[:locale].intern)
 
@@ -14,6 +15,7 @@ class SessionLocalesController < ApplicationController
   rescue StandardError
     redirect_back(fallback_location: root_path)
   end
+  # rubocop:enable Metrics/AbcSize
 
   private
 

@@ -10,9 +10,7 @@ describe 'api/v2/error.json.jbuilder' do
 
     assign :payload, { errors: @errors }
 
-    # rubocop:disable Style/OpenStructUse
     @resp = OpenStruct.new(status: @code)
-    # rubocop:enable Style/OpenStructUse
     @req = Net::HTTPGenericRequest.new('GET', nil, nil, @url)
 
     render template: 'api/v2/error', locals: { response: @resp, request: @req }

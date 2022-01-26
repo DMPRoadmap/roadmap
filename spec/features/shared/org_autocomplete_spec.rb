@@ -15,7 +15,9 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
     @user = @plan.owner
     @word = 'Example'
 
+    # rubocop:disable Layout/LineLength
     @warn_with_custom = _('Please select an item from the list or check the box below and provide a name for your institution.')
+    # rubocop:enable Layout/LineLength
     @warn_without_custom = _('Please select an item from the list.')
 
     # Sign in and go to the Edit Project Details page
@@ -89,7 +91,7 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
       org = create(:org)
       # Fill in the autocomplete and then fill in another field to ensure JS runs
       select_an_org(@selector, org.name, 'Institution')
-      find("label[for=\"org_autocomplete_not_in_list\"]").click
+      find('label[for="org_autocomplete_not_in_list"]').click
       expect(find('#org_autocomplete_name').value).to eql('')
     end
 
@@ -102,7 +104,7 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
         # Need to use JS to set the accept terms label since dmptool-ui treats the
         # whole thing as a label and theis particular label has a URL so 'clicking' it
         # via Capybara results in going to the URL behind that link :/
-        page.execute_script("document.getElementById('user_accept_terms').checked = true;");
+        page.execute_script("document.getElementById('user_accept_terms').checked = true;")
       end
 
       it 'can save a selected name', js: true do

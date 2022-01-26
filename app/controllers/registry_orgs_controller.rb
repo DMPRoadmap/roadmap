@@ -37,7 +37,7 @@ class RegistryOrgsController < ApplicationController
   end
 
   # Search the Orgs and RegistryOrgs tables for the term
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def find_by_search_term(term:, **options)
     return [] unless term.present?
 
@@ -74,7 +74,7 @@ class RegistryOrgsController < ApplicationController
     matches = (registry_matches + org_matches).flatten.compact.uniq
     sort_search_results(results: matches, term: term)
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # Search Orgs
   def orgs_search(term:, **options)

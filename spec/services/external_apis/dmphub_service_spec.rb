@@ -226,7 +226,6 @@ RSpec.describe ExternalApis::DmphubService, type: :model do
       end
     end
 
-    # rubocop:disable Style/OpenStructUse
     describe '#process_response(response:)' do
       it "returns nil if JSON for DMPHub does not have ['items']" do
         resp = OpenStruct.new(body: { foo: 'bar' }.to_json)
@@ -250,6 +249,5 @@ RSpec.describe ExternalApis::DmphubService, type: :model do
         expect(described_class.send(:process_response, response: resp)).to eql('123')
       end
     end
-    # rubocop:enable Style/OpenStructUse
   end
 end

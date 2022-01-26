@@ -9,7 +9,7 @@ RSpec.describe 'Sign in/up via email entry', type: :feature do
 
   before(:each) do
     mock_blog
-    @email_domain = "foo.edu"
+    @email_domain = 'foo.edu'
     @org = create(:org, contact_email: "#{Faker::Lorem.unique.word}@#{@email_domain}")
     @registry_org = create(:registry_org, home_page: "http://#{@email_domain}", org: @org)
     @user = create(:user, email: "#{Faker::Lorem.unique.word}@#{@email_domain}", org: @org)

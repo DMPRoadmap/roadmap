@@ -11,10 +11,6 @@ RSpec.describe Dmptool::UsersController, type: :request do
     expect(@controller.respond_to?(:revoke_oauth_access_token)).to eql(true)
   end
 
-  describe 'DELETE /users/:user_id/oauth_credential_tokens/:id - :revoke_oauth_access_token' do
-
-  end
-
   describe 'GET /users/third_party_apps - :third_party_apps' do
     it 'it is not accessible when not logged in' do
       get users_third_party_apps_path

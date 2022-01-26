@@ -43,7 +43,7 @@ module Users
           flash[:alert] = _('Unable to create your account!') unless user.valid?
 
           # Attach the Shib eppn if this is part of an SSO account creation
-          hash = session.fetch("devise.shibboleth_data", {})
+          hash = session.fetch('devise.shibboleth_data', {})
           user.attach_omniauth_credentials(scheme_name: 'shibboleth', omniauth_hash: hash) if hash.present?
         end
       end
@@ -53,6 +53,8 @@ module Users
     # PUT /resource
     # We need to use a copy of the resource because we don't want to change
     # the current user in place.
+    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def update
       self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
       prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
@@ -60,7 +62,7 @@ module Users
 
       # add an error message if the email changed but no password was supplied
       if resource.email != args[:email] && !args[:password].present?
-        resource.errors.add(:email, _("You must enter your current password to change your email address."))
+        resource.errors.add(:email, _('You must enter your current password to change your email address.'))
       end
 
       unless resource.errors.any?
@@ -86,6 +88,8 @@ module Users
         redirect_to edit_user_registration_path, alert: msg
       end
     end
+    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     protected
 
@@ -116,6 +120,7 @@ module Users
     end
 
     # Handle the Org autoccomplete and passwords
+    # rubocop:disable Metrics/AbcSize
     def process_params(resource)
       args = account_update_params
 
@@ -130,5 +135,6 @@ module Users
       args.delete(:current_password)
       args
     end
+    # rubocop:enable Metrics/AbcSize
   end
 end

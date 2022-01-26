@@ -75,7 +75,7 @@ Rails.application.routes.draw do
   patch 'locale/:locale' => 'session_locales#update', as: 'locale'
 
   root to: 'home#index'
-  get '/sitemap' => 'sitemaps#index', only: [:xml, :html]
+  get '/sitemap' => 'sitemaps#index', only: %i[xml html]
   get 'about_us' => 'static_pages#about_us'
   get 'help' => 'static_pages#help'
   get 'terms' => 'static_pages#termsuse'
@@ -323,7 +323,7 @@ Rails.application.routes.draw do
     # end
     resources :users, only: %i[index] do
       member do
-        resources :plans, only: %[index]
+        resources :plans, only: %(index)
       end
     end
 

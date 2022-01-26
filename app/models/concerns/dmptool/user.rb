@@ -21,7 +21,8 @@ module Dmptool
       # the stub :firstname, :surname and :org
 
       # Create the stub User and sent them the invitation email
-      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def invite!(inviter:, plan:, context: nil, params: {})
         return nil unless inviter.present? && plan.present? &&
                           params.present? && params[:email].present?
@@ -58,7 +59,8 @@ module Dmptool
           invitee
         end
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       # ============
       # = Omniauth =

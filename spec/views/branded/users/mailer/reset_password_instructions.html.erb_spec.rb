@@ -13,7 +13,7 @@ describe 'users/mailer/reset_password_instructions' do
     user = create(:user)
     token = SecureRandom.uuid
 
-    assign :resource,  user
+    assign :resource, user
     assign :token, token
 
     render

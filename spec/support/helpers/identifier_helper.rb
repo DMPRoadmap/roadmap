@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ModuleLength
 module IdentifierHelper
   def create_orcid(user:, val: random_orcid)
     scheme = orcid_scheme
@@ -127,3 +128,4 @@ module IdentifierHelper
     %w[/ : & ?].include?(url.last) ? url : "#{url}/"
   end
 end
+# rubocop:enable Metrics/ModuleLength

@@ -610,6 +610,7 @@ class Plan < ApplicationRecord
   end
 
   # Returns whether or not minting is allowed for the current plan
+  # rubocop:disable Metrics/AbcSize
   def registration_allowed?
     return false unless Rails.configuration.x.madmp.enable_dmp_id_registration
 
@@ -625,6 +626,7 @@ class Plan < ApplicationRecord
     orcid = owner.identifier_for_scheme(scheme: orcid_scheme).present?
     visibility_allowed? && orcid.present? && funder.present?
   end
+  # rubocop:enable Metrics/AbcSize
 
   # Returns whether or not minting is allowed for the current plan
   def minting_allowed?

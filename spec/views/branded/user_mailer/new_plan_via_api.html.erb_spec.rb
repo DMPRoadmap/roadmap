@@ -12,7 +12,7 @@ describe 'user_mailer/new_plan_via_api' do
     plan = create(:plan, :creator, template: create(:template, org: create(:org)))
     user = plan.owner
 
-    assign :user,  user
+    assign :user, user
     assign :plan, plan
     assign :api_client, client
 

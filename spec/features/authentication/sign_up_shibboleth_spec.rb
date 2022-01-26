@@ -8,7 +8,7 @@ RSpec.describe 'Shibboleth Sign up via email and password', type: :feature do
   include AuthenticationHelper
 
   before(:each) do
-    @email_domain = "foo.edu"
+    @email_domain = 'foo.edu'
     @org = create(:org, contact_email: "#{Faker::Lorem.unique.word}@#{@email_domain}", managed: true)
     @registry_org = create(:registry_org, home_page: "http://#{@email_domain}", org: @org)
     @existing = create(:user, email: "#{Faker::Lorem.unique.word}@#{@email_domain}", org: @org)
@@ -36,15 +36,14 @@ RSpec.describe 'Shibboleth Sign up via email and password', type: :feature do
 
     expect(page).to have_text(_(''))
 
-pp page.body
-
+    pp page.body
   end
 
   scenario 'user authenticates with their IdP but eppn does not match one on record' do
-
+    # TODO: Implement a test for this
   end
 
   scenario 'Idp responds with error' do
-
+    # TODO: Implement a test for this
   end
 end

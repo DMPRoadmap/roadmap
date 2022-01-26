@@ -24,7 +24,9 @@ RSpec.describe Api::V2::ContextualErrorService do
     it 'returns errors if an associated Contributor has errors' do
       contrib = build(:contributor)
       @plan.contributors << contrib
+      # rubocop:disable Layout/LineLength
       expected = ["Contributor/Contact: '#{contrib.name}' : [\"Roles can't be blank\", \"Roles You must specify at least one role.\"]"]
+      # rubocop:enable Layout/LineLength
       expect(described_class.contextualize_errors(plan: @plan)).to eql(expected)
     end
     it 'returns errors if an associated Contributor Affiliation has errors' do
@@ -129,7 +131,9 @@ RSpec.describe Api::V2::ContextualErrorService do
       it 'contextualizes the errors' do
         @contributor.name = nil
         @contributor.email = nil
+        # rubocop:disable Layout/LineLength
         expected = ['Contributor/Contact: \'\' : ["Name can\'t be blank if no email is provided", "Email can\'t be blank if no name is provided"]']
+        # rubocop:enable Layout/LineLength
         expect(described_class.send(:find_contributor_errors, contributor: @contributor)).to eql(expected)
       end
     end

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module OrgSelectionHelper
-
   def params_for_known_org_selection(org: create(:org))
     {
       org_autocomplete: {

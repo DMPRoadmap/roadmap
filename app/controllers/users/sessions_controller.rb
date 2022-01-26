@@ -51,8 +51,8 @@ module Users
       session[:locale] = resource.language.abbreviation if resource.language_id.present?
 
       # Determine if this was parft of an OAuth workflow for API V2
-      oauth_path = session["oauth-referer"]
-      session.delete("oauth-referer") if oauth_path.present?
+      oauth_path = session['oauth-referer']
+      session.delete('oauth-referer') if oauth_path.present?
 
       oauth_path.present? ? oauth_path : plans_path
     end

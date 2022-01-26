@@ -38,7 +38,7 @@ class MockShibbolethIdentityProvidersController < ApplicationController
 
   # Mock Shibboleth IdP sign in form submission
   # POST /Shibboleth.sso/Auth
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def auth
     # Expecting the identity_provider and user to be passed in from the form
     response.headers['omniauth.auth'] = {
@@ -52,20 +52,20 @@ class MockShibbolethIdentityProvidersController < ApplicationController
       }
     }
     response.set_cookie(:omniauth, {
-      provider: 'shibboleth',
-      uid: SecureRandom.uuid,
-      info: {
-        email: sign_in_params['email'],
-        givenname: Faker::Movies::StarWars.character.split.first,
-        sn: Faker::Movies::StarWars.character.split.first,
-        identity_provider: params['identity_provider']
-      }
-    })
+                          provider: 'shibboleth',
+                          uid: SecureRandom.uuid,
+                          info: {
+                            email: sign_in_params['email'],
+                            givenname: Faker::Movies::StarWars.character.split.first,
+                            sn: Faker::Movies::StarWars.character.split.first,
+                            identity_provider: params['identity_provider']
+                          }
+                        })
 
-    code = params['identity_provider'].present? && sign_in_params[:email].present? ? 200 : 401
-    redirect_to user_shibboleth_omniauth_callback_path #, status: code
+    # code = params['identity_provider'].present? && sign_in_params[:email].present? ? 200 : 401
+    redirect_to user_shibboleth_omniauth_callback_path # , status: code
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   private
 

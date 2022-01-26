@@ -18,7 +18,7 @@ describe 'user_mailer/invitation' do
   end
 
   it 'renders correctly when the inviter is a ApiClient (via API V2 plan creation)' do
-    @plan.template.org.api_create_plan_email_body = "Foo %{external_system_name} bar"
+    @plan.template.org.api_create_plan_email_body = 'Foo %<external_system_name>s bar'
 
     inviter = create(:api_client)
     assign :inviter_type, 'ApiClient'
@@ -33,7 +33,7 @@ describe 'user_mailer/invitation' do
     expect(rendered.include?("href=\"mailto:#{@plan.template.org.contact_email}\"")).to eql(true)
   end
   it 'renders correctly when the inviter is a Org (via Email Template modal)' do
-    @plan.template.email_body = "Foo %{dmp_title} bar %{org_name} baz %{org_admin_email}"
+    @plan.template.email_body = 'Foo %<dmp_title>s bar %<org_name>s baz %<org_admin_email>s'
 
     inviter = create(:org)
     assign :inviter_type, 'Org'

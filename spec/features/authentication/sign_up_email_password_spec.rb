@@ -58,7 +58,7 @@ RSpec.describe 'Sign up via email and password', type: :feature do
         # Need to use JS to set the accept terms label since dmptool-ui treats the
         # whole thing as a label and theis particular label has a URL so 'clicking' it
         # via Capybara results in going to the URL behind that link :/
-        page.execute_script("document.getElementById('user_accept_terms').checked = true;");
+        page.execute_script("document.getElementById('user_accept_terms').checked = true;")
 
         click_button 'Sign up'
 
@@ -81,7 +81,7 @@ RSpec.describe 'Sign up via email and password', type: :feature do
         # Need to use JS to set the accept terms label since dmptool-ui treats the
         # whole thing as a label and theis particular label has a URL so 'clicking' it
         # via Capybara results in going to the URL behind that link :/
-        page.execute_script("document.getElementById('user_accept_terms').checked = true;");
+        page.execute_script("document.getElementById('user_accept_terms').checked = true;")
         click_button 'Sign up'
       end
 
@@ -97,7 +97,7 @@ RSpec.describe 'Sign up via email and password', type: :feature do
         fill_in 'First Name', with: Faker::Movies::StarWars.character.split.first
         fill_in 'Last Name', with: Faker::Movies::StarWars.character.split.last
         fill_in 'Password', with: SecureRandom.uuid
-        page.execute_script("document.getElementById('user_accept_terms').checked = true;");
+        page.execute_script("document.getElementById('user_accept_terms').checked = true;")
       end
     end
 

@@ -3,10 +3,10 @@
 module Dmptool
   # Customization to add the public facing 'Participating Institutions' page
   module PublicPagesController
-
     # Override of the core DMPRoadmap public plans method
     #
     # GET|POST /plans_index
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def plan_index
       term = process_search
       @plans = ::Plan.includes(:org, :funder, :language, :template, :research_domain, roles: [:user])
@@ -37,6 +37,7 @@ module Dmptool
                        .page(public_plans_params.fetch(:page, 1))
                        .per(public_plans_params.fetch(:per_page, 10))
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # The publicly accessible list of participating institutions
     def orgs
@@ -64,21 +65,23 @@ module Dmptool
 
     # Searches through the plans and builds a facet for the specified associated model
     # e.g. templates = build_facet(plans: @plans, association: :template, attr: :title)
+    # rubocop:disable Metrics/AbcSize
     def build_facet(association:, attr:, selected: [])
       facet = {}
       @plans.each do |plan|
-        if plan.send(association.to_sym).present?
-          hash = facet.fetch(:"#{plan.send(association.to_sym).id}", {
-            label: plan.send(association.to_sym).send(attr.to_sym),
-            nbr_plans: 0,
-            selected: selected.include?(plan.send(association.to_sym).id.to_s)
-          })
-          hash[:nbr_plans] += 1
-          facet[:"#{plan.send(association.to_sym).id}"] = hash
-        end
+        next unless plan.send(association.to_sym).present?
+
+        hash = facet.fetch(:"#{plan.send(association.to_sym).id}", {
+                             label: plan.send(association.to_sym).send(attr.to_sym),
+                             nbr_plans: 0,
+                             selected: selected.include?(plan.send(association.to_sym).id.to_s)
+                           })
+        hash[:nbr_plans] += 1
+        facet[:"#{plan.send(association.to_sym).id}"] = hash
       end
-      facet = facet.sort_by { |k, v| v[:nbr_plans] }.reverse
+      facet = facet.sort_by { |_k, v| v[:nbr_plans] }.reverse
     end
+    # rubocop:enable Metrics/AbcSize
 
     # Process the sort criteria
     def process_sort_by
@@ -98,6 +101,7 @@ module Dmptool
     end
 
     # Filter the plans by the selected facets
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def process_facets
       facets = public_plans_params.fetch(:facet, {})
       funder_ids = facets.fetch(:funder_ids, [])
@@ -111,11 +115,6 @@ module Dmptool
       @plans = @plans.select { |p| lang_ids.include?(p.language_id.to_s) } if lang_ids.any?
       @plans = @plans.select { |p| sub_ids.include?(p.research_domain_id.to_s) } if sub_ids.any?
     end
-
-    def mark_facet_selections(facet:, ids:)
-      return nil unless facet.is_a?(Array) && facet.any? && ids.is_a?(Array) && ids.any?
-
-      facet.select { |k, _v| ids.include?(k.to_s) }.each { |_k, v| v[:selected] = true }
-    end
+    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   end
 end

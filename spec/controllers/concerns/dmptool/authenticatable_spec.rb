@@ -42,7 +42,7 @@ RSpec.describe Dmptool::Authenticatable, type: :controller do
       expect(result.include?(:password)).to eql(true)
       expect(result.include?(:surname)).to eql(true)
 
-      org_hash = result.select{ |i| !i.is_a?(Symbol) && i.keys.include?(:org_attributes) }.first
+      org_hash = result.select { |i| !i.is_a?(Symbol) && i.keys.include?(:org_attributes) }.first
       expect(org_hash[:org_attributes].include?(:abbreviation)).to eql(true)
       expect(org_hash[:org_attributes].include?(:contact_email)).to eql(true)
       expect(org_hash[:org_attributes].include?(:contact_name)).to eql(true)
@@ -97,7 +97,7 @@ RSpec.describe Dmptool::Authenticatable, type: :controller do
     end
     it 'returns the closest matching RegistryOrg' do
       rorg1 = create(:registry_org)
-      rorg2 = create(:registry_org, home_page: "#{rorg1.home_page}.foo")
+      create(:registry_org, home_page: "#{rorg1.home_page}.foo")
       result = @controller.send(:lookup_registry_org_by_email, email_domain: rorg1.home_page.upcase)
       expected = rorg1.to_org
       expect(result.name).to eql(expected.name)
@@ -207,7 +207,7 @@ RSpec.describe Dmptool::Authenticatable, type: :controller do
     describe ':ensure_language' do
       it 'uses the :language_id specified in the params' do
         language = create(:language)
-        params = { user: { language_id: language.id} }.with_indifferent_access
+        params = { user: { language_id: language.id } }.with_indifferent_access
         @controller.stubs(:params).returns(params)
         @controller.send(:ensure_language)
         expect(@controller.params[:user][:language_id]).to eql(language.id)
@@ -252,12 +252,6 @@ RSpec.describe Dmptool::Authenticatable, type: :controller do
         @controller.send(:ensure_org_param)
         expect(@controller.params[:user][:org_id]).to eql(@org.id)
         expect(@controller.params[:user][:org_attributes]).to eql(nil)
-      end
-      it 'sets the :org_attributes param if the User selected a RegistryOrg from the autocomplete' do
-
-      end
-      it 'sets the :org_attributes param if the User entered a custom Org name' do
-
       end
     end
   end

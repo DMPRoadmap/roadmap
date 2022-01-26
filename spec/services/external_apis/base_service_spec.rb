@@ -29,9 +29,7 @@ RSpec.describe ExternalApis::BaseService do
 
   describe '#handle_http_failure(method:, http_response:)' do
     before(:each) do
-      # rubocop:disable Style/OpenStructUse
       @resp = OpenStruct.new({ code: 500, body: 'It failed', headers: { foo: 'bar' } })
-      # rubocop:enable Style/OpenStructUse
     end
 
     it 'works if method is not specified' do
@@ -85,9 +83,7 @@ RSpec.describe ExternalApis::BaseService do
 
   describe '#notify_administrators(obj:, response: nil, error: nil)' do
     before(:each) do
-      # rubocop:disable Style/OpenStructUse
       @resp = OpenStruct.new({ code: 500, body: 'It failed', headers: { foo: 'bar' } })
-      # rubocop:enable Style/OpenStructUse
       @err = StandardError.new('It failed!')
       @obj = build(:org)
     end

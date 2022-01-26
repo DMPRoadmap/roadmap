@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # Controller that handles user account creation and changes from the edit profile page
+# rubocop:disable Layout/LineLength
 class RegistrationsController < Devise::RegistrationsController
   #  include Dmptool::RegistrationsController
 
@@ -25,29 +26,29 @@ class RegistrationsController < Devise::RegistrationsController
 
   # GET /resource
   def new
-  #   oauth = { provider: nil, uid: nil }
-  #   IdentifierScheme.for_users.each do |scheme|
-  #     unless session["devise.#{scheme.name.downcase}_data"].nil?
-  #       oauth = session["devise.#{scheme.name.downcase}_data"]
-  #     end
-  #   end
+    #   oauth = { provider: nil, uid: nil }
+    #   IdentifierScheme.for_users.each do |scheme|
+    #     unless session["devise.#{scheme.name.downcase}_data"].nil?
+    #       oauth = session["devise.#{scheme.name.downcase}_data"]
+    #     end
+    #   end
 
-  #   @user = User.new
+    #   @user = User.new
 
-  #   # no oath, no provider or no uid - bail out
-  #   return if oauth.nil? or oauth["provider"].nil? or oauth["uid"].nil?
+    #   # no oath, no provider or no uid - bail out
+    #   return if oauth.nil? or oauth["provider"].nil? or oauth["uid"].nil?
 
     # Connect the new user with the identifier sent back by the OAuth provider
-  #   flash[:notice] = _("Please make a choice below. After linking your
-  #                      details to a %{application_name} account,
-  #                      you will be able to sign in directly with your
-  #                      institutional credentials.") % {
-  #                        application_name: ApplicationService.application_name
-  #                      }
+    #   flash[:notice] = _("Please make a choice below. After linking your
+    #                      details to a %{application_name} account,
+    #                      you will be able to sign in directly with your
+    #                      institutional credentials.") % {
+    #                        application_name: ApplicationService.application_name
+    #                      }
     redirect_to(root_path)
   end
 
-  # # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity, Metrics/BlockNesting, Layout/LineLength
+  #
   # # POST /resource
   # def create
   #   oauth = { provider: nil, uid: nil }
@@ -124,8 +125,7 @@ class RegistrationsController < Devise::RegistrationsController
   #                                 attrs: oauth,
   #                                 identifiable: resource)
   #               flash[:notice] = _("Welcome! You have signed up successfully with your institutional credentials. You will now be able to access your account with them.")
-  #               # rubocop:enable Layout/LineLength
-  #             end
+  #                 #             end
   #           end
   #         end
   #         respond_with resource, location: after_sign_up_path_for(resource)
@@ -141,9 +141,7 @@ class RegistrationsController < Devise::RegistrationsController
   #     end
   #   end
   # end
-  # # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity, Metrics/BlockNesting
-
-  # def update
+  #   # def update
   #   if user_signed_in?
   #     @prefs = @user.get_preferences(:email)
   #     @orgs = Org.order("name")
@@ -170,7 +168,7 @@ class RegistrationsController < Devise::RegistrationsController
   #   user.email != update_params[:email] || update_params[:password].present?
   # end
 
-  # # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Layout/LineLength, Metrics/BlockNesting
+  #
   # def do_update(require_password = true, confirm = false)
   #   restrict_orgs = Rails.configuration.x.application.restrict_orgs
   #   mandatory_params = true
@@ -263,9 +261,7 @@ class RegistrationsController < Devise::RegistrationsController
   #     render "edit"
   #   end
   # end
-  # # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Layout/LineLength, Metrics/BlockNesting
-
-  # # rubocop:disable Metrics/AbcSize
+  #   #
   # def do_update_password(current_user, args)
   #   if args[:current_password].blank?
   #     message = _("Please enter your current password")
@@ -291,9 +287,7 @@ class RegistrationsController < Devise::RegistrationsController
   #     redirect_to "#{edit_user_registration_path}\#password-details"
   #   end
   # end
-  # # rubocop:enable Metrics/AbcSize
-
-  # def sign_up_params
+  #   # def sign_up_params
   #   params.require(:user).permit(:email, :password, :password_confirmation,
   #                                :firstname, :surname, :recovery_email,
   #                                :accept_terms, :org_id, :org_name,
@@ -322,3 +316,4 @@ class RegistrationsController < Devise::RegistrationsController
   #   attrs
   # end
 end
+# rubocop:enable Layout/LineLength

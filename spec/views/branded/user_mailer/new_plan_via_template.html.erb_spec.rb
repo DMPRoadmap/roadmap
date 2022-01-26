@@ -12,7 +12,7 @@ describe 'user_mailer/new_plan_via_template' do
     plan = create(:plan, :creator, template: create(:template, org: create(:org)))
     user = plan.owner
 
-    assign :user,  user
+    assign :user, user
     assign :plan, plan
     assign :sender, sender
     assign :message, 'Foo %<dmp_title>s bar %<org_name>s baz %<org_admin_email>s'

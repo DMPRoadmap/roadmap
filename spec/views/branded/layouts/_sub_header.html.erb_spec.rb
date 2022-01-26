@@ -69,7 +69,7 @@ describe 'layouts/_sub_header.html.erb' do
     expect(rendered.include?('class="c-links-org"')).to eql(false)
   end
   it 'renders the Org links' do
-    links = { org:[{ link: Faker::Internet.url, text: Faker::Lorem.word }] }
+    links = { org: [{ link: Faker::Internet.url, text: Faker::Lorem.word }] }
     @org.links = links
     sign_in create(:user, org: @org)
     render template: '/layouts/_sub_header', locals: { org: @org }
@@ -78,14 +78,14 @@ describe 'layouts/_sub_header.html.erb' do
     expect(rendered.include?("#{links[:org].first[:text]}</a>")).to eql(true)
   end
   it 'does not render the Org contact email if it is not defined' do
-    @org.links = { org:[{ link: Faker::Internet.url, text: Faker::Lorem.word }] }
+    @org.links = { org: [{ link: Faker::Internet.url, text: Faker::Lorem.word }] }
     @org.contact_email = nil
     sign_in create(:user, org: @org)
     render template: '/layouts/_sub_header', locals: { org: @org }
     expect(rendered.include?('class="c-links-org__uc3-helpdesk"')).to eql(false)
   end
   it 'renders the Org contact email' do
-    @org.links = { org:[{ link: Faker::Internet.url, text: Faker::Lorem.word }] }
+    @org.links = { org: [{ link: Faker::Internet.url, text: Faker::Lorem.word }] }
     sign_in create(:user, org: @org)
     render template: '/layouts/_sub_header', locals: { org: @org }
     expect(rendered.include?('class="c-links-org__uc3-helpdesk"')).to eql(true)

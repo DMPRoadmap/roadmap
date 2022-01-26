@@ -265,7 +265,7 @@ RSpec.describe Api::V1::PlansController, type: :request do
             end
             xit 'set the Contributor roles' do
               expected = @original[:role].map do |role|
-                role.gsub("#{Contributor::ONTOLOGY_BASE_URL}", '').gsub('-', '_')
+                role.gsub(Contributor::ONTOLOGY_BASE_URL.to_s, '').gsub('-', '_')
               end
               expect(@subject.send(:"#{expected.first.downcase}?")).to eql(true)
             end

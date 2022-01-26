@@ -3,7 +3,6 @@
 require 'text'
 
 namespace :org_cleanup do
-
   desc 'Detect duplicate Orgs (RegistryOrg prioritization)'
   task detect_dups: :environment do
     registry_orgs = RegistryOrg.all.map do |registry_org|
@@ -81,7 +80,9 @@ namespace :org_cleanup do
         registry_org[:possible_matches].each do |org|
           if org == winner
             org[:recommendation] = "Associate this Org to RegistryOrg #{registry_org[:id]}"
+            # rubocop:disable Layout/LineLength
             registry_org[:summary] << "Associate (#{org[:id]}) '#{org[:name]}' with RegistryOrg (#{registry_org[:id]}) '#{registry_org[:name]}'"
+            # rubocop:enable Layout/LineLength
           else
             org[:recommendation] = "Merge this Org into: #{registry_org[:org_id]}"
             registry_org[:summary] << "Merge (#{org[:id]}) '#{org[:name]}' into (#{winner[:id]}) '#{winner[:name]}'"
@@ -90,15 +91,17 @@ namespace :org_cleanup do
       else
         org = registry_org[:possible_matches].first
         org[:recommendation] = "Associate this Org to RegistryOrg #{registry_org[:id]}"
+        # rubocop:disable Layout/LineLength
         registry_org[:summary] << "Associate (#{org[:id]}) '#{org[:name]}' with RegistryOrg (#{registry_org[:id]}) '#{registry_org[:name]}'"
+        # rubocop:enable Layout/LineLength
       end
       registry_org
     end
 
-p 'RESULTS:'
-p '----------------------------------------------------'
-p results.length
-pp results
+    p 'RESULTS:'
+    p '----------------------------------------------------'
+    p results.length
+    pp results
 
     # Produce a summary for manual intervention
     summarization = results.map do |result|
@@ -135,6 +138,8 @@ pp results
   end
 
   # Compare the Org hash to the RegistryOrg hash and score it
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def weight_and_score(registry_org:, org:)
     return org unless registry_org.present? && org.present?
 
@@ -153,14 +158,14 @@ pp results
 
     # If they are already associated, ensure that this is the highest match!
     if org[:id] == registry_org[:org_id]
-      org[:score] += 99999
+      org[:score] += 99_999
       org[:recommendation] = "No change. This Org is already associated with #{registry_org[:ror]}"
     end
 
     # A match on the name beats a match on an alias
     org[:score] += 1 if (abbrev_match && white_score2 > 0.8) || (lev_score2 < 5 && white_score2 > 0.9)
     org[:score] += 2 if (abbrev_match && white_score > 0.8) || (lev_score < 5 && white_score > 0.9)
-    return org unless org[:score] > 0
+    return org unless org[:score].positive?
 
     # Give more weight to a managed org
     org[:score] += 10 if org.fetch(:managed, false)
@@ -171,19 +176,16 @@ pp results
 
     # Include the plan and user counts
     org[:score] += org.fetch(:plan_count, 0) +
-                    org.fetch(:user_count, 0) +
-                    org.fetch(:contributor_count, 0)
+                   org.fetch(:user_count, 0) +
+                   org.fetch(:contributor_count, 0)
 
     # If the domain extensions do not match then disregard this match
-    if org[:domain].present?
-      org[:score] = 0 if org[:domain].split('.').last != registry_org[:domain].split('.').last
-    end
+    org[:score] = 0 if org[:domain].present? && (org[:domain].split('.').last != registry_org[:domain].split('.').last)
 
     org
   end
-
-
-
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   desc 'Detect duplicate Orgs'
   task find_dups: :environment do

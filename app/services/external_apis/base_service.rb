@@ -190,11 +190,11 @@ module ExternalApis
 
         Zip::File.open(zip_file) do |files|
           files.each do |entry|
-            unless File.exist?(entry.name)
-              f_path = File.join(destination, entry.name)
-              FileUtils.mkdir_p(File.dirname(f_path))
-              files.extract(entry, f_path) unless File.exist?(f_path)
-            end
+            next if File.exist?(entry.name)
+
+            f_path = File.join(destination, entry.name)
+            FileUtils.mkdir_p(File.dirname(f_path))
+            files.extract(entry, f_path) unless File.exist?(f_path)
           end
         end
         true

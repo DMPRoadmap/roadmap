@@ -93,7 +93,7 @@ namespace :dmptool_specific do
           if plans.any?
             p "Updated #{plans.length} plans to - #{lang.name}"
             plans.update_all(language_id: lang.id)
-            pp plans.map { |plan| "id: #{plan.id} - title: '#{plan.title}'" }
+            pp(plans.map { |plan| "id: #{plan.id} - title: '#{plan.title}'" })
           end
         else
           p "No Orgs found for - #{lang.name}"
