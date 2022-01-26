@@ -25,12 +25,7 @@ jobs:
     # Install Node
     - uses: actions/setup-node@v2
       with:
-        cache: 'npm'
-
-    # Install Yarn and run the installer
-#    - uses: borales/actions-yarn@v2.3.0
-#      with:
-#        cmd: install
+        cache: 'yarn'
 
     # Copy all of the example configs over
     - name: 'Setup Default Configuration'
