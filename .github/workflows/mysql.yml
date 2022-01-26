@@ -80,7 +80,7 @@ jobs:
 
     - name: 'Yarn Install'
       run: |
-        yarn install
+        yarn install --no-lockfile
 
     - name: 'Start MySQL'
       run: sudo systemctl start mysql
