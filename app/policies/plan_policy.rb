@@ -17,7 +17,7 @@ class PlanPolicy < ApplicationPolicy
   end
 
   def index?
-    @plan.readable_by?(@user.id)
+    @user.present?
   end
 
   def show?
@@ -87,11 +87,11 @@ class PlanPolicy < ApplicationPolicy
   end
 
   def privately_visible?
-    @user.is_a?(User)
+    @user.present?
   end
 
   def organisationally_or_publicly_visible?
-    @user.is_a?(User)
+    @user.present?
   end
 
 end
