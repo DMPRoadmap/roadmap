@@ -6,6 +6,7 @@ jobs:
   mysql:
     runs-on: ubuntu-latest
 
+    # Define environment variables for MySQL and Rails
     env:
       DB_ADAPTER: mysql2
       MYSQL_PWD: root
@@ -22,32 +23,33 @@ jobs:
         bundler-cache: true
 
     # Install Node
-#    - uses: actions/setup-node@v2
-#      with:
-#        cache: 'npm'
+    - uses: actions/setup-node@v2
+      with:
+        cache: 'npm'
 
     # Install Yarn and run the installer
-    - uses: borales/actions-yarn@v2.3.0
-      with:
-        cmd: install
+#    - uses: borales/actions-yarn@v2.3.0
+#      with:
+#        cmd: install
 
     # Copy all of the example configs over
     - name: 'Setup Default Configuration'
       run: |
-        # Make copies of all the example config files
         cp config/database.yml.sample config/database.yml
         cp config/initializers/contact_us.rb.example config/initializers/contact_us.rb
         cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
 
     # Stub out the Rails credentials file so that we can start the app
     - name: 'Setup Credentials'
-      run: |
-        # generate a default credential file and key
-        EDITOR='echo "$(cat config/credentials.yml.example)" >' bundle exec rails credentials:edit
+      run: EDITOR='echo "$(cat config/credentials.yml.example)" >' bundle exec rails credentials:edit
 
     # Set the path to the wkhtmltopdf executable
     - name: 'Determine wkhtmltopdf location'
       run: echo "WICKED_PDF_PATH=`bundle exec which wkhtmltopdf`" >> $GITHUB_ENV
+
+    # Run yarn install for JS dependencies
+    - name: 'Yarn Install'
+      run: yarn install
 
     # Start the DB server and initialize the DB
     - name: 'Start MySQL'
@@ -56,18 +58,21 @@ jobs:
         bin/rails db:setup RAILS_ENV=test
         bin/rails db:migrate RAILS_ENV=test
 
+    # Prebuild the CSS, JS and image assets
     - name: 'Precompile all of the Assets'
       run: bin/rails assets:precompile
 
+    # Run the JS tests
     - name: 'Run Karma Tests'
       run: yarn test
 
+    # Run  the unit and functional tests
     - name: 'Run Rspec Unit and Functional Tests'
       run: |
         bin/bundle exec rspec spec/models/ spec/policies/ spec/services/ spec/helpers/
         bin/bundle exec rspec spec/controllers/ spec/presenters/ spec/requests/ spec/views
         bin/bundle exec rspec spec/mixins/
 
-    # Only run Integration tests if the PR or Push is to master or development branches
+    # Run the time consuming Integration tests (using Chrome headless browser)
     - name: 'Run Rspec Integration Tests'
       run: bin/bundle exec rspec spec/features/
