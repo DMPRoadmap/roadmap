@@ -34,7 +34,7 @@ jobs:
         cp config/initializers/contact_us.rb.example config/initializers/contact_us.rb
         cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
 
-    # Stub out the Rails credentials file so that we can start the app
+    # Stub out the Rails credentials file so that we can start the Rails app
     - name: 'Setup Credentials'
       run: EDITOR='echo "$(cat config/credentials.yml.example)" >' bundle exec rails credentials:edit
 
@@ -68,6 +68,6 @@ jobs:
         bin/bundle exec rspec spec/controllers/ spec/presenters/ spec/requests/ spec/views
         bin/bundle exec rspec spec/mixins/
 
-    # Run the time consuming Integration tests (using Chrome headless browser)
+    # Run the time consuming integration tests (using Chrome headless browser)
     - name: 'Run Rspec Integration Tests'
       run: bin/bundle exec rspec spec/features/
