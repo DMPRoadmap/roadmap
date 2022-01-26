@@ -15,20 +15,21 @@ jobs:
     # Checkout the repo
     - uses: actions/checkout@v2
 
+    # Install Ruby and run bundler
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.6.3
         bundler-cache: true
 
-    - uses: actions/setup-node@v2
-      with:
-        cache: 'npm'
+    # Install Node
+#    - uses: actions/setup-node@v2
+#      with:
+#        cache: 'npm'
 
+    # Install Yarn and run the installer
     - uses: borales/actions-yarn@v2.3.0
       with:
         cmd: install
-
-#    - run: bundle install --jobs 4 --retry 3 --without pgsql rollbar aws
 
     # Copy all of the example configs over
     - name: 'Setup Default Configuration'
@@ -38,26 +39,26 @@ jobs:
         cp config/initializers/contact_us.rb.example config/initializers/contact_us.rb
         cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
 
+    # Stub out the Rails credentials file so that we can start the app
     - name: 'Setup Credentials'
       run: |
         # generate a default credential file and key
         EDITOR='echo "$(cat config/credentials.yml.example)" >' bundle exec rails credentials:edit
 
+    # Set the path to the wkhtmltopdf executable
     - name: 'Determine wkhtmltopdf location'
       run: echo "WICKED_PDF_PATH=`bundle exec which wkhtmltopdf`" >> $GITHUB_ENV
 
+    # Start the DB server and initialize the DB
     - name: 'Start MySQL'
-      run: sudo systemctl start mysql
-
-    - name: 'Setup Test DB'
-      run: bin/rails db:setup RAILS_ENV=test
-
-    - name: 'Migrate DB'
-      run: bin/rails db:migrate RAILS_ENV=test
-
-    - name: 'Compile Assets'
       run: |
-        bin/rails webpacker:compile
+        sudo systemctl start mysql
+        bin/rails db:setup RAILS_ENV=test
+        bin/rails db:migrate RAILS_ENV=test
+
+    - name: 'Precompile all of the Assets'
+      run: |
+#        bin/rails webpacker:compile
         bin/rails assets:precompile
 
     - name: 'Run Karma Tests'
