@@ -17,14 +17,6 @@ jobs:
       with:
         fetch-depth: 1
 
-    # Found https://github.com/actions/virtual-environments/issues/4797
-    # which seems to suggest this is now installed by default and
-    # so the solution is to remove this step.
-    #- name: 'Install MySQL Packages'
-    #  run: |
-    #    sudo apt-get update
-    #    sudo apt-get install -y mysql-client-8.0 libmysqlclient21
-
     - name: 'Determine Ruby and Bundler Versions from Gemfile.lock'
       run: |
         echo "RUBY_VERSION=`cat ./Gemfile.lock | grep -A 1 'RUBY VERSION' | grep 'ruby' | grep -oE '[0-9]\.[0-9]'`" >> $GITHUB_ENV
@@ -78,9 +70,12 @@ jobs:
     - name: 'Determine wkhtmltopdf location'
       run: echo "WICKED_PDF_PATH=`bundle exec which wkhtmltopdf`" >> $GITHUB_ENV
 
-    - name: 'Yarn Install'
+    - name: 'Node version'
       run: |
-        yarn install --no-lockfile
+        echo "NODE_VERSION=`node -v`" >> $GITHUB_ENV
+
+    - name: 'Yarn Install'
+      run: yarn install
 
     - name: 'Start MySQL'
       run: sudo systemctl start mysql
