@@ -57,9 +57,7 @@ jobs:
         bin/rails db:migrate RAILS_ENV=test
 
     - name: 'Precompile all of the Assets'
-      run: |
-#        bin/rails webpacker:compile
-        bin/rails assets:precompile
+      run: bin/rails assets:precompile
 
     - name: 'Run Karma Tests'
       run: yarn test
