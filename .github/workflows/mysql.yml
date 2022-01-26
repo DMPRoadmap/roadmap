@@ -17,10 +17,13 @@ jobs:
       with:
         fetch-depth: 1
 
-    - name: 'Install MySQL Packages'
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y mysql-client-8.0 libmysqlclient21
+    # Found https://github.com/actions/virtual-environments/issues/4797
+    # which seems to suggest this is now installed by default and
+    # so the solution is to remove this step.
+    #- name: 'Install MySQL Packages'
+    #  run: |
+    #    sudo apt-get update
+    #    sudo apt-get install -y mysql-client-8.0 libmysqlclient21
 
     - name: 'Determine Ruby and Bundler Versions from Gemfile.lock'
       run: |
