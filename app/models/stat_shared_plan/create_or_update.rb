@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
+# Usage Stats
 class StatSharedPlan
-
+  # Usage statistics helper
   class CreateOrUpdate
-
     class << self
-
       def do(start_date:, end_date:, org:, filtered: false)
         count = shared_plans(start_date: start_date, end_date: end_date,
                              org_id: org.id, filtered: filtered)
@@ -47,9 +46,6 @@ class StatSharedPlan
             .where(created_at: start_date..end_date)
             .count
       end
-
     end
-
   end
-
 end

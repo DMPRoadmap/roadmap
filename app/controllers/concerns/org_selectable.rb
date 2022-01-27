@@ -54,7 +54,6 @@
 #
 # See the comments on OrgsController#search for more info on how the typeaheads work
 module OrgSelectable
-
   extend ActiveSupport::Concern
 
   # rubocop:disable Metrics/BlockLength
@@ -66,7 +65,7 @@ module OrgSelectable
     # Converts the incoming params_into an Org by either locating it
     # via its id, identifier and/or name, or initializing a new one
     # the default allow_create is based off restrict_orgs
-    def org_from_params(params_in:, 
+    def org_from_params(params_in:,
                         allow_create: !Rails.configuration.x.application.restrict_orgs)
       # params_in = params_in.with_indifferent_access
       return nil unless params_in[:org_id].present? &&
@@ -127,11 +126,10 @@ module OrgSelectable
     end
 
     def prep_org_partial
-      name = Rails.configuration.x.application.restrict_orgs ? "local_only" : "combined"
+      name = Rails.configuration.x.application.restrict_orgs ? 'local_only' : 'combined'
       @org_partial = "shared/org_selectors/#{name}"
       @all_orgs = Org.includes(identifiers: [:identifier_scheme]).all
     end
   end
   # rubocop:enable Metrics/BlockLength
-
 end

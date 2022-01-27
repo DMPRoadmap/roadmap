@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+# Override how Devise handles failures
 class CustomFailure < Devise::FailureApp
-
   def redirect_url
     root_path
   end
@@ -13,5 +13,4 @@ class CustomFailure < Devise::FailureApp
       redirect
     end
   end
-
 end

@@ -15,8 +15,8 @@
 #  updated_at       :datetime
 #
 
+# Object that represents a type of identifiaction (e.g. ORCID, ROR, etc.)
 class IdentifierScheme < ApplicationRecord
-
   include FlagShihTzu
 
   ##
@@ -41,7 +41,7 @@ class IdentifierScheme < ApplicationRecord
   # ===========================
 
   scope :active, -> { where(active: true) }
-  scope :by_name, ->(value) { active.where("LOWER(name) = LOWER(?)", value) }
+  scope :by_name, ->(value) { active.where('LOWER(name) = LOWER(?)', value) }
 
   ##
   # Define Bit Field values for the scheme's context
@@ -51,7 +51,7 @@ class IdentifierScheme < ApplicationRecord
             3 => :for_plans,
             4 => :for_users,
             5 => :for_contributors,
-            column: "context"
+            column: 'context'
 
   # =========================
   # = Custom Accessor Logic =
@@ -61,11 +61,10 @@ class IdentifierScheme < ApplicationRecord
   #    { "ror": "12345" }
   # so we cannot allow spaces or non alpha characters!
   def name=(value)
-    super(value&.downcase&.gsub(/[^a-z]/, ""))
+    super(value&.downcase&.gsub(/[^a-z]/, ''))
   end
 
   # ===========================
   # = Instance Methods =
   # ===========================
-
 end

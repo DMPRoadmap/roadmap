@@ -11,6 +11,6 @@
 
 FactoryBot.define do
   factory :pref do
-
+    # Not sure why this is empty
   end
 end

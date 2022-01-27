@@ -50,8 +50,9 @@
 #  fk_rails_...  (language_id => languages.id)
 #  fk_rails_...  (org_id => orgs.id)
 #
-class User < ApplicationRecord
 
+# Object that represents a User
+class User < ApplicationRecord
   include ConditionalUserMailer
   include DateRangeable
   include Identifiable
@@ -99,7 +100,7 @@ class User < ApplicationRecord
   has_many :plans, through: :roles
 
   has_and_belongs_to_many :notifications, dependent: :destroy,
-                                          join_table: "notification_acknowledgements"
+                                          join_table: 'notification_acknowledgements'
 
   # ===============
   # = Validations =
@@ -123,8 +124,8 @@ class User < ApplicationRecord
 
   # Retrieves all of the org_admins for the specified org
   scope :org_admins, lambda { |org_id|
-    joins(:perms).where("users.org_id = ? AND perms.name IN (?) AND " \
-                        "users.active = ?",
+    joins(:perms).where('users.org_id = ? AND perms.name IN (?) AND ' \
+                        'users.active = ?',
                         org_id,
                         %w[grant_permissions
                            modify_templates
@@ -141,9 +142,9 @@ class User < ApplicationRecord
       # MySQL does not support standard string concatenation and since concat_ws
       # or concat functions do not exist for sqlite, we have to come up with this
       # conditional
-      if ActiveRecord::Base.connection.adapter_name == "Mysql2"
+      if ActiveRecord::Base.connection.adapter_name == 'Mysql2'
         where("lower(concat_ws(' ', firstname, surname)) LIKE lower(?) OR " \
-              "lower(email) LIKE lower(?)",
+              'lower(email) LIKE lower(?)',
               search_pattern, search_pattern)
       else
         joins(:org)
@@ -176,7 +177,7 @@ class User < ApplicationRecord
   ##
   # Load the user based on the scheme and id provided by the Omniauth call
   def self.from_omniauth(auth)
-    Identifier.by_scheme_name(auth.provider.downcase, "User")
+    Identifier.by_scheme_name(auth.provider.downcase, 'User')
               .where(value: auth.uid)
               .first&.identifiable
   end
@@ -216,6 +217,7 @@ class User < ApplicationRecord
   # user_email - Use the email if there is no firstname or surname (defaults: true)
   #
   # Returns String
+  # rubocop:disable Style/OptionalBooleanParameter
   def name(use_email = true)
     if (firstname.blank? && surname.blank?) || use_email
       email
@@ -224,6 +226,7 @@ class User < ApplicationRecord
       name.strip
     end
   end
+  # rubocop:enable Style/OptionalBooleanParameter
 
   # The user's identifier for the specified scheme name
   #
@@ -231,7 +234,7 @@ class User < ApplicationRecord
   #
   # Returns UserIdentifier
   def identifier_for(scheme)
-    identifiers.by_scheme_name(scheme, "User")&.first
+    identifiers.by_scheme_name(scheme, 'User')&.first
   end
 
   # Checks if the user is a super admin. If the user has any privelege which requires
@@ -246,6 +249,7 @@ class User < ApplicationRecord
   # requires them to see the org-admin pages then they are an org admin.
   #
   # Returns Boolean
+  # rubocop:disable Metrics/CyclomaticComplexity
   def can_org_admin?
     return true if can_super_admin?
 
@@ -256,7 +260,7 @@ class User < ApplicationRecord
       can_modify_templates? || can_modify_org_details? ||
       can_review_plans?
   end
-  # rubocop:enable
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   # Can the User add new organisations?
   #
@@ -345,7 +349,7 @@ class User < ApplicationRecord
 
   # Generates a new token
   def generate_token!
-    new_token = User.unique_random(field_name: "api_token")
+    new_token = User.unique_random(field_name: 'api_token')
     update_column(:api_token, new_token)
   end
 
@@ -377,9 +381,8 @@ class User < ApplicationRecord
 
   # Override devise_invitable email title
   def deliver_invitation(options = {})
-    super(options.merge(subject: _("A Data Management Plan in " \
-      "%{application_name} has been shared with you") %
-      { application_name: ApplicationService.application_name })
+    super(options.merge(subject: format(_('A Data Management Plan in %<application_name>s has been shared with you'),
+                                        application_name: ApplicationService.application_name))
     )
   end
 
@@ -392,9 +395,7 @@ class User < ApplicationRecord
   # Returns ActiveRecord::Relation
   # Raises ArgumentError
   def self.where_case_insensitive(field, val)
-    unless columns.map(&:name).include?(field.to_s)
-      raise ArgumentError, "Field #{field} is not present on users table"
-    end
+    raise ArgumentError, "Field #{field} is not present on users table" unless columns.map(&:name).include?(field.to_s)
 
     User.where("LOWER(#{field}) = :value", value: val.to_s.downcase)
   end
@@ -413,14 +414,13 @@ class User < ApplicationRecord
   # leave account in-place, with org for statistics (until we refactor those)
   #
   # Returns boolean
+  # rubocop:disable Metrics/AbcSize
   def archive
-    # rubocop:disable Layout/LineLength
-    suffix = Rails.configuration.x.application.fetch(:archived_accounts_email_suffix, "@example.org")
-    # rubocop:enable Layout/LineLength
-    self.firstname = "Deleted"
-    self.surname = "User"
-    self.email = User.unique_random(field_name: "email",
-                                    prefix: "user_",
+    suffix = Rails.configuration.x.application.fetch(:archived_accounts_email_suffix, '@example.org')
+    self.firstname = 'Deleted'
+    self.surname = 'User'
+    self.email = User.unique_random(field_name: 'email',
+                                    prefix: 'user_',
                                     suffix: suffix,
                                     length: 5)
     self.recovery_email = nil
@@ -431,7 +431,9 @@ class User < ApplicationRecord
     self.active = false
     save
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def merge(to_be_merged)
     scheme_ids = identifiers.pluck(:identifier_scheme_id)
     # merge logic
@@ -449,6 +451,7 @@ class User < ApplicationRecord
     # => ignore any perms the deleted user has
     to_be_merged.destroy
   end
+  # rubocop:enable Metrics/AbcSize
 
   private
 
@@ -463,5 +466,4 @@ class User < ApplicationRecord
   def clear_department_id
     self.department_id = nil
   end
-
 end

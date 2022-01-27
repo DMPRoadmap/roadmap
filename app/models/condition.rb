@@ -24,8 +24,8 @@
 #
 #
 
+# Object that represents a condition of a conditional question
 class Condition < ApplicationRecord
-
   belongs_to :question
   enum action_type: %i[remove add_webhook]
   serialize :option_list, Array
@@ -42,5 +42,4 @@ class Condition < ApplicationRecord
     copy.save!(validate: false) if options.fetch(:save, false)
     copy
   end
-
 end

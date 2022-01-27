@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require "faker"
+require 'faker'
 
 # Keep this as :en. Faker doesn't have :en-GB
-LOCALE = "en"
+LOCALE = 'en'
 
 RSpec.configure do |config|
   config.before(:each) do
