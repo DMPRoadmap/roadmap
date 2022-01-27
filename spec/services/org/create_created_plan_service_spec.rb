@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe Org::CreateCreatedPlanService do
   let(:org) do
@@ -79,8 +79,8 @@ RSpec.describe Org::CreateCreatedPlanService do
     end
   end
 
-  describe ".call" do
-    context "when org is passed" do
+  describe '.call' do
+    context 'when org is passed' do
       it "generates monthly counts since org's creation" do
         described_class.call(org)
 
@@ -101,24 +101,24 @@ RSpec.describe Org::CreateCreatedPlanService do
                                                          2018-06-30
                                                          2018-07-31],
                                                org_id: org.id)
-        expect(april.details["by_template"]).to match_array [
-          { "name" => template.title, "count" => 1 },
-          { "name" => template2.title, "count" => 1 }
+        expect(april.details['by_template']).to match_array [
+          { 'name' => template.title, 'count' => 1 },
+          { 'name' => template2.title, 'count' => 1 }
         ]
-        expect(may.details["by_template"]).to match_array [
-          { "name" => template.title, "count" => 1 }
+        expect(may.details['by_template']).to match_array [
+          { 'name' => template.title, 'count' => 1 }
         ]
-        expect(june.details["by_template"]).to match_array [
-          { "name" => template.title, "count" => 1 },
-          { "name" => template2.title, "count" => 1 }
+        expect(june.details['by_template']).to match_array [
+          { 'name' => template.title, 'count' => 1 },
+          { 'name' => template2.title, 'count' => 1 }
         ]
-        expect(july.details["by_template"]).to match_array []
+        expect(july.details['by_template']).to match_array []
       end
 
-      it "monthly records are either created or updated" do
+      it 'monthly records are either created or updated' do
         described_class.call(org)
 
-        april = StatCreatedPlan.where(date: "2018-04-30", org: org, filtered: true)
+        april = StatCreatedPlan.where(date: '2018-04-30', org: org, filtered: true)
         expect(april).to have(1).items
         expect(april.first.count).to eq(2)
 
@@ -129,14 +129,14 @@ RSpec.describe Org::CreateCreatedPlanService do
 
         described_class.call(org)
 
-        april = StatCreatedPlan.where(date: "2018-04-30", org: org, filtered: true)
+        april = StatCreatedPlan.where(date: '2018-04-30', org: org, filtered: true)
         expect(april).to have(1).items
         expect(april.first.count).to eq(3)
       end
     end
 
-    context "when no org is passed" do
-      it "generates monthly counts for each org since their creation" do
+    context 'when no org is passed' do
+      it 'generates monthly counts for each org since their creation' do
         Org.stubs(:all).returns([org])
 
         described_class.call
@@ -151,7 +151,7 @@ RSpec.describe Org::CreateCreatedPlanService do
         expect(counts).to eq([2, 1, 2, 0])
       end
 
-      it "generates montly counts by template for each org since their creation" do
+      it 'generates montly counts by template for each org since their creation' do
         Org.stubs(:all).returns([org])
 
         described_class.call
@@ -162,26 +162,26 @@ RSpec.describe Org::CreateCreatedPlanService do
                                                          2018-07-31],
                                                org_id: org.id)
 
-        expect(april.details["by_template"]).to match_array [
-          { "name" => template.title, "count" => 1 },
-          { "name" => template2.title, "count" => 1 }
+        expect(april.details['by_template']).to match_array [
+          { 'name' => template.title, 'count' => 1 },
+          { 'name' => template2.title, 'count' => 1 }
         ]
-        expect(may.details["by_template"]).to match_array [
-          { "name" => template.title, "count" => 1 }
+        expect(may.details['by_template']).to match_array [
+          { 'name' => template.title, 'count' => 1 }
         ]
-        expect(june.details["by_template"]).to match_array [
-          { "name" => template.title, "count" => 1 },
-          { "name" => template2.title, "count" => 1 }
+        expect(june.details['by_template']).to match_array [
+          { 'name' => template.title, 'count' => 1 },
+          { 'name' => template2.title, 'count' => 1 }
         ]
-        expect(july.details["by_template"]).to match_array []
+        expect(july.details['by_template']).to match_array []
       end
 
-      it "monthly records are either created or updated" do
+      it 'monthly records are either created or updated' do
         Org.stubs(:all).returns([org])
 
         described_class.call
 
-        april = StatCreatedPlan.where(date: "2018-04-30", org: org, filtered: true)
+        april = StatCreatedPlan.where(date: '2018-04-30', org: org, filtered: true)
         expect(april).to have(1).items
         expect(april.first.count).to eq(2)
 
@@ -192,7 +192,7 @@ RSpec.describe Org::CreateCreatedPlanService do
 
         described_class.call
 
-        april = StatCreatedPlan.where(date: "2018-04-30", org: org, filtered: true)
+        april = StatCreatedPlan.where(date: '2018-04-30', org: org, filtered: true)
         expect(april).to have(1).items
         expect(april.first.count).to eq(3)
       end

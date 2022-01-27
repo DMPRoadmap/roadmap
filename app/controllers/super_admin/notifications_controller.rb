@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 module SuperAdmin
-
+  # Controller for managing system wide notifications
   class NotificationsController < ApplicationController
-
     before_action :set_notification, only: %i[show edit update destroy acknowledge]
     before_action :set_notifications, only: :index
 
@@ -29,29 +28,31 @@ module SuperAdmin
 
     # POST /notifications
     # POST /notifications.json
+    # rubocop:disable Metrics/AbcSize
     def create
       authorize(Notification)
       @notification = Notification.new(notification_params)
       # Will eventually need to be removed if we introduce new notification types
-      @notification.notification_type = "global"
+      @notification.notification_type = 'global'
       if @notification.save
-        flash.now[:notice] = success_message(@notification, _("created"))
+        flash.now[:notice] = success_message(@notification, _('created'))
         redirect_to edit_super_admin_notification_path(@notification)
       else
-        flash.now[:alert] = failure_message(@notification, _("create"))
+        flash.now[:alert] = failure_message(@notification, _('create'))
         render :new
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     # PATCH/PUT /notifications/1
     # PATCH/PUT /notifications/1.json
     def update
       authorize(Notification)
       if @notification.update(notification_params)
-        flash.now[:notice] = success_message(@notification, _("updated"))
+        flash.now[:notice] = success_message(@notification, _('updated'))
         return redirect_to edit_super_admin_notification_path(@notification)
       else
-        flash.now[:alert] = failure_message(@notification, _("update"))
+        flash.now[:alert] = failure_message(@notification, _('update'))
       end
       render :edit
     end
@@ -60,13 +61,13 @@ module SuperAdmin
     def enable
       notification = Notification.find(params[:id])
       authorize(Notification)
-      notification.enabled = (params[:enabled] == "1")
+      notification.enabled = (params[:enabled] == '1')
 
       # rubocop:disable Layout/LineLength
       if notification.save
         render json: {
           code: 1,
-          msg: (notification.enabled ? _("Your notification is now active.") : _("Your notification is no longer active."))
+          msg: (notification.enabled ? _('Your notification is now active.') : _('Your notification is no longer active.'))
         }
       else
         render status: :bad_request, json: {
@@ -81,10 +82,10 @@ module SuperAdmin
     def destroy
       authorize(Notification)
       if @notification.destroy
-        msg = success_message(@notification, _("deleted"))
+        msg = success_message(@notification, _('deleted'))
         redirect_to super_admin_notifications_path, notice: msg
       else
-        flash.now[:alert] = failure_message(@notification, _("delete"))
+        flash.now[:alert] = failure_message(@notification, _('delete'))
         render :edit
       end
     end
@@ -101,8 +102,8 @@ module SuperAdmin
     def set_notification
       @notification = Notification.find(params[:id] || params[:notification_id])
     rescue ActiveRecord::RecordNotFound
-      flash[:alert] = _("There is no notification associated with id  %{id}") %
-                      { id: params[:id] }
+      flash[:alert] = format(_('There is no notification associated with id  %<id>s'),
+                             id: params[:id])
       redirect_to action: :index
     end
 
@@ -116,7 +117,5 @@ module SuperAdmin
       params.require(:notification).permit(:title, :level, :body, :dismissable, :enabled,
                                            :starts_at, :expires_at)
     end
-
   end
-
 end

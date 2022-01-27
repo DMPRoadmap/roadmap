@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "shoulda/matchers"
+require 'shoulda/matchers'
 
 RSpec.configure do |config|
   config.include(Shoulda::Matchers::ActiveModel, type: :model)

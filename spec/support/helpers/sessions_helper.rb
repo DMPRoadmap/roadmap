@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module SessionsHelper
-
   def sign_in(user = :user)
     case user
     when User
@@ -16,11 +15,10 @@ module SessionsHelper
   def sign_in_as_user(user)
     clear_cookies!
     visit root_path
-    within "#sign-in-form" do
-      fill_in "Email", with: user.email
-      fill_in "Password", with: user.password.presence || "password"
-      click_button "Sign in"
+    within '#sign-in-form' do
+      fill_in 'Email', with: user.email
+      fill_in 'Password', with: user.password.presence || 'password'
+      click_button 'Sign in'
     end
   end
-
 end

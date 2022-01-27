@@ -1,15 +1,11 @@
 # frozen_string_literal: true
 
 module Api
-
   module V1
-
     module Deserialization
-
+      # Logic to deserialize RDA common standard to a Contributor object
       class Contributor
-
         class << self
-
           # Convert the incoming JSON into a Contributor
           #   {
           #     "role": [
@@ -67,13 +63,13 @@ module Api
             return nil unless json.present?
 
             contrib = Api::V1::DeserializationService.object_from_identifier(
-              class_name: "Contributor", json: id_json
+              class_name: 'Contributor', json: id_json
             )
             return duplicate_contributor(contributor: contrib) if contrib.present?
 
             if json[:mbox].present?
               # Try to find by email
-              contrib = ::Contributor.where("LOWER(email) = ?", json[:mbox]&.downcase).last
+              contrib = ::Contributor.where('LOWER(email) = ?', json[:mbox]&.downcase).last
               return duplicate_contributor(contributor: contrib) if contrib.present?
             end
 
@@ -106,13 +102,8 @@ module Api
             end
             contributor
           end
-
         end
-
       end
-
     end
-
   end
-
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+# Module that allows the Model to have identifiers
 module Identifiable
-
   extend ActiveSupport::Concern
 
   # rubocop:disable Metrics/BlockLength
@@ -25,6 +25,7 @@ module Identifiable
     # Expects an array of `identifier_scheme.name` and `identifier.value`
     #   [{ name: "fundref", value: "12345" }, { name: "ror", value: "abc"} ]
     # Returns an instance of the model
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def self.from_identifiers(array:)
       return nil unless array.present? && array.any?
 
@@ -44,7 +45,7 @@ module Identifiable
 
       id.present? ? id.identifiable : nil
     end
-    # rubocop:enable
+    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     # ====================
     # = Instance Methods =
@@ -75,5 +76,4 @@ module Identifiable
     end
   end
   # rubocop:enable Metrics/BlockLength
-
 end

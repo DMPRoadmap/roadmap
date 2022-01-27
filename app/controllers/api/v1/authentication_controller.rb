@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 module Api
-
   module V1
-
     # Accepts 2 types of authentication:
     #
     # Client Credentials:
@@ -24,12 +22,12 @@ module Api
     #    code: "[users.api_token]"
     #  }
     class AuthenticationController < BaseApiController
-
       respond_to :json
 
       skip_before_action :authorize_request, only: %i[authenticate]
 
       # POST /api/v1/authenticate
+      # rubocop:disable Metrics/AbcSize
       def authenticate
         body = request.body.read
         json = JSON.parse(body)
@@ -38,20 +36,17 @@ module Api
 
         if @token.present?
           @expiration = auth_svc.expiration
-          @token_type = "Bearer"
-          render "/api/v1/token", status: :ok
+          @token_type = 'Bearer'
+          render '/api/v1/token', status: :ok
         else
           render_error errors: auth_svc.errors, status: :unauthorized
         end
       rescue JSON::ParserError => e
         Rails.logger.error "API V1 - authenticate: #{e.message}"
         Rails.logger.error request.body.read
-        render_error errors: _("Missing or invalid JSON"), status: :bad_request
+        render_error errors: _('Missing or invalid JSON'), status: :bad_request
       end
-      # rubocop:enable
-
+      # rubocop:enable Metrics/AbcSize
     end
-
   end
-
 end

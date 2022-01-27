@@ -2,7 +2,6 @@
 
 # This module provides helper methods for testing TinyMCE within feature specs
 module TinyMceHelper
-
   ##
   # Fill in TinyMCE field with given text.
   #
@@ -10,7 +9,7 @@ module TinyMceHelper
   # val - String with the value to input to the text field
   #
   # Returns String
-  def tinymce_fill_in(id, with: "")
+  def tinymce_fill_in(id, with: '')
     # wait until the TinyMCE editor instance is ready.
     # This is required for cases where the editor is loaded via XHR.
     x = 0
@@ -28,5 +27,4 @@ module TinyMceHelper
       raise "No such tinyMCE element '##{id}'"
     end
   end
-
 end
