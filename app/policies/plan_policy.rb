@@ -5,6 +5,10 @@
 class PlanPolicy < ApplicationPolicy
   # NOTE: @user is the signed_in_user and @record is an instance of Plan
 
+  def index?
+    @user.present?
+  end
+
   def show?
     @record.readable_by?(@user.id)
   end
@@ -70,4 +74,13 @@ class PlanPolicy < ApplicationPolicy
   def update_guidances_list?
     @record.editable_by?(@user.id)
   end
+
+  def privately_visible?
+    @user.present?
+  end
+
+  def organisationally_or_publicly_visible?
+    @user.present?
+  end
+
 end
