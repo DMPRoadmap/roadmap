@@ -148,8 +148,9 @@ module Paginable
         scope = scope.order(order_field.to_sym => sort_direction.to_s)
       else
         order_field = ActiveRecord::Base.sanitize_sql(@args[:sort_field])
+        sd = ActiveRecord::Base.sanitize_sql(sort_direction)
         scope = scope.includes(table_part.singularize.to_sym)
-                     .order("#{order_field} #{sort_direction}")
+                     .order("#{order_field} #{sd}")
       end
     end
     if @args[:page] != 'ALL'
@@ -161,9 +162,7 @@ module Paginable
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def sort_direction
-    sd = "asc"
-    sd = "desc" if @args[:sort_direction] == "desc"
-    @sort_direction ||= SortDirection.new(sd)
+    @sort_direction ||= SortDirection.new(@args[:sort_direction])
   end
 
   # Returns the sort link name for a given sort_field. The link name includes
