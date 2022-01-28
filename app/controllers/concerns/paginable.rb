@@ -161,7 +161,9 @@ module Paginable
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def sort_direction
-    @sort_direction ||= SortDirection.new(@args[:sort_direction])
+    sd = "asc"
+    sd = "desc" if @args[:sort_direction] == "desc"
+    @sort_direction ||= SortDirection.new(sd)
   end
 
   # Returns the sort link name for a given sort_field. The link name includes
