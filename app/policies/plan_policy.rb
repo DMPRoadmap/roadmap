@@ -82,5 +82,4 @@ class PlanPolicy < ApplicationPolicy
   def organisationally_or_publicly_visible?
     @user.present?
   end
-
 end
