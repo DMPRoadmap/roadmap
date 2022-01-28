@@ -81,6 +81,6 @@ module OrgAdmin
         format.csv  { send_data plans, filename: "#{file_name}.csv" }
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   end
 end
