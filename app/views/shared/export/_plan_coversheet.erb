@@ -3,9 +3,7 @@
 <p><em><%= _("A Data Management Plan created using %{application_name}") % { application_name: ApplicationService.application_name } %></em></p>
 <br/>
 <div class="cover-page">
-  <%# Using <b> tags as the htmltoword gem does not recognise css styles defined %>
-  <%# Allow raw html (==) for plan_attribution as it has <b> tags %>
-  <p><%== plan_attribution(@hash[:attribution]) %></p><br>
+  <p><strong><%= _("Creator:") %></strong><%= @hash[:attribution] %></p><br>
 
   <p><b><%= _("Affiliation: ") %></b><%= @hash[:affiliation] %></p><br>
 

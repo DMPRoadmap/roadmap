@@ -1,15 +1,11 @@
 # frozen_string_literal: true
 
 module Api
-
   module V1
-
     module Deserialization
-
+      # Logic to deserialize RDA common standard to a ResearchOutput object
       class Dataset
-
         class << self
-
           # Convert incoming JSON into a Dataset
           #    {
           #      "title": "Cerebral cortex imaging series",
@@ -35,13 +31,8 @@ module Api
             # TODO: Implement once we have determined the Dataset model
             nil
           end
-
         end
-
       end
-
     end
-
   end
-
 end

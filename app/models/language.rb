@@ -11,8 +11,8 @@
 #  name             :string
 #
 
+# Object that represents a locale/language
 class Language < ApplicationRecord
-
   # =============
   # = Constants =
   # =============
@@ -39,7 +39,7 @@ class Language < ApplicationRecord
                    length: { maximum: NAME_MAXIMUM_LENGTH }
 
   validates :abbreviation, presence: { message: "can't be blank" },
-                           uniqueness: { message: "must be unique" },
+                           uniqueness: { message: 'must be unique' },
                            length: { maximum: ABBREVIATION_MAXIMUM_LENGTH },
                            format: { with: ABBREVIATION_FORMAT }
 
@@ -52,7 +52,7 @@ class Language < ApplicationRecord
   # ensure abbreviation is downcase and conforms to I18n locales
   # TODO: evaluate the need for the LocaleService after move to Translation.io
   def abbreviation=(value)
-    value = "" if value.nil?
+    value = '' if value.nil?
     value = value.downcase
     if value.blank? || value =~ /\A[a-z]{2}\Z/i
       super(value)
@@ -77,11 +77,10 @@ class Language < ApplicationRecord
   # ========================
 
   def self.many?
-    Rails.cache.fetch([model_name, "many?"], expires_in: 1.hour) { all.many? }
+    Rails.cache.fetch([model_name, 'many?'], expires_in: 1.hour) { all.many? }
   end
 
   def self.default
     where(default_language: true).first
   end
-
 end

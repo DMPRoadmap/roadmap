@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 module Settings
-
+  # Controller that handles the download options (e.g. font face, size) for PDF downloads
   class PlansController < SettingsController
-
     before_action :retrieve_settings
 
     after_action :verify_authorized
@@ -17,14 +16,14 @@ module Settings
       end
     end
 
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def update
       authorize @plan
       # If this is actually used we should consider switching these to strong params
       export_params = params[:export].try(:deep_symbolize_keys)
 
       settings = @plan.super_settings(:export).tap do |s|
-        if params[:commit] == "Reset"
+        if params[:commit] == 'Reset'
           s.formatting = nil
           s.fields = nil
           s.title = nil
@@ -36,9 +35,9 @@ module Settings
       end
 
       if settings.save
-        flash[:notice] = _("Export settings updated successfully.")
+        flash[:notice] = _('Export settings updated successfully.')
       else
-        flash[:alert] = _("An error has occurred while saving/resetting your export settings.")
+        flash[:alert] = _('An error has occurred while saving/resetting your export settings.')
 
       end
       respond_to do |format|
@@ -47,7 +46,7 @@ module Settings
         # format.json { render json: settings_json }
       end
     end
-    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     private
 
@@ -64,7 +63,5 @@ module Settings
     def plan
       @plan ||= Plan.find(params[:id])
     end
-
   end
-
 end

@@ -24,8 +24,8 @@
 #
 #  fk_rails_...  (org_id => orgs.id)
 
+# Object that represents an external system
 class ApiClient < ApplicationRecord
-
   include DeviseInvitable::Inviter
 
   extend UniqueRandom
@@ -39,9 +39,9 @@ class ApiClient < ApplicationRecord
   has_many :plans
 
   # If the Client_id or client_secret are nil generate them
-  attribute :client_id, :string, default: -> { unique_random(field_name: "client_id") }
+  attribute :client_id, :string, default: -> { unique_random(field_name: 'client_id') }
   attribute :client_secret, :string,
-            default: -> { unique_random(field_name: "client_secret") }
+            default: -> { unique_random(field_name: 'client_secret') }
 
   # ===============
   # = Validations =
@@ -83,8 +83,7 @@ class ApiClient < ApplicationRecord
 
   # Generate UUIDs for the client_id and client_secret
   def generate_credentials
-    self.client_id = ApiClient.unique_random(field_name: "client_id")
-    self.client_secret = ApiClient.unique_random(field_name: "client_secret")
+    self.client_id = ApiClient.unique_random(field_name: 'client_id')
+    self.client_secret = ApiClient.unique_random(field_name: 'client_secret')
   end
-
 end
