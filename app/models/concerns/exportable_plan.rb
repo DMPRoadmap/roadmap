@@ -226,7 +226,7 @@ module ExportablePlan
   def attribution
     user = roles.creator.first&.user
     user = roles.administrator.not_creator.first&.user unless user.present?
-    return '' unless user.present?
+    return [] unless user.present?
 
     text = user&.name(false)
     orcid = user.identifier_for_scheme(scheme: 'orcid')
@@ -234,7 +234,7 @@ module ExportablePlan
       text += format(' - <strong>ORCID:</strong> <a href="%<orcid_url>s" target="_blank">%<orcid>s</a>',
                      orcid_url: orcid.value, orcid: orcid.value_without_scheme_prefix)
     end
-    text
+    [text]
   end
   # rubocop:enable Metrics/AbcSize
 end

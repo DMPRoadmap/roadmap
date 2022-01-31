@@ -31,7 +31,7 @@ class ContributorsController < ApplicationController
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   # POST /plans/:plan_id/contributors
   def create
-    authorize @plan
+    authorize @plan, :edit?
 
     args = translate_roles(hash: contributor_params)
     if args.blank?

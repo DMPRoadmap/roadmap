@@ -45,8 +45,7 @@ module OrgAdmin
     # rubocop:enable Metrics/AbcSize
 
     # GET /org_admin/download_plans
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def download_plans
       # Test auth directly and throw Pundit error sincePundit
       # is unaware of namespacing
@@ -84,7 +83,6 @@ module OrgAdmin
         format.csv  { send_data plans, filename: "#{file_name}.csv" }
       end
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   end
 end
