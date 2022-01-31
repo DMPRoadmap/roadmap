@@ -7,6 +7,7 @@ describe 'layouts/_header.html.erb' do
 
   before(:each) do
     controller.prepend_view_path 'app/views/branded'
+    @lang = Language.default.abbreviation
   end
 
   it 'renders properly when user is not signed in' do
@@ -31,7 +32,7 @@ describe 'layouts/_header.html.erb' do
     expect(rendered.include?('class="c-language')).to eql(true)
     expect(rendered.include?('id="js-language__button"')).to eql(true)
     expect(rendered.include?('id="js-language__menu"')).to eql(true)
-    expect(rendered.include?('en-GB')).to eql(true)
+    expect(rendered.include?(@lang)).to eql(true)
 
     expect(response).not_to render_template(partial: 'layouts/_sub_header')
   end
@@ -60,7 +61,7 @@ describe 'layouts/_header.html.erb' do
     expect(rendered.include?('class="c-language')).to eql(true)
     expect(rendered.include?('id="js-language__button"')).to eql(true)
     expect(rendered.include?('id="js-language__menu"')).to eql(true)
-    expect(rendered.include?('en-GB')).to eql(true)
+    expect(rendered.include?(@lang)).to eql(true)
 
     expect(response).to render_template(partial: 'layouts/_sub_header')
   end

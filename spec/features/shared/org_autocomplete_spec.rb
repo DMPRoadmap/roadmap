@@ -276,10 +276,8 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
           expect(find('label[for="org_autocomplete_name"]').present?).to eql(true)
           expect(find('#org_autocomplete_name').present?).to eql(true)
           expect(find('#org_autocomplete_name').value).to eql(@user.org.name)
-          expect { find('#org_autocomplete_not_in_list') }.to raise_error(Capybara::ElementNotFound)
-          expect do
-            find('#org_autocomplete_user_entered_name', visible: false)
-          end.to raise_error(Capybara::ElementNotFound)
+          expect(find('#org_autocomplete_not_in_list', visible: false).present?).to eql(true)
+          expect(find('#org_autocomplete_user_entered_name', visible: false).present?).to eql(true)
           expect(find('.autocomplete-help').present?).to eql(true)
 
           id = find('#org_autocomplete_name')[:list].split('-').last

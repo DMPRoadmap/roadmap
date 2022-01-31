@@ -26,7 +26,7 @@ describe 'users/shared/_links' do
            locals: { show_back_button: true, show_contact_us: false }
 
     expect(rendered.include?('Go back')).to eql(true)
-    expect(rendered.include?('class="c-login__footer"')).to eql(true)
+    expect(rendered.include?('class="c-login__footer"')).to eql(false)
     expect(rendered.include?('Problems signing in?')).to eql(false)
   end
   it 'renders correctly when showing contact us message but not the back button' do
@@ -50,7 +50,7 @@ describe 'users/shared/_links' do
            locals: { show_back_button: false, show_contact_us: false }
 
     expect(rendered.include?('Go back')).to eql(false)
-    expect(rendered.include?('class="c-login__footer"')).to eql(true)
+    expect(rendered.include?('class="c-login__footer"')).to eql(false)
     expect(rendered.include?('Problems signing in?')).to eql(false)
   end
 end
