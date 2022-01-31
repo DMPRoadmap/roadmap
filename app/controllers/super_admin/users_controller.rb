@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 module SuperAdmin
-
+  # Controller for performing CRUD operations for other users
   class UsersController < ApplicationController
-
     include OrgSelectable
 
     after_action :verify_authorized
@@ -14,7 +13,7 @@ module SuperAdmin
       authorize @user
       @departments = @user.org.departments.order(:name)
       @plans = Plan.active(@user).page(1)
-      render "super_admin/users/edit",
+      render 'super_admin/users/edit',
              locals: { user: @user,
                        departments: @departments,
                        plans: @plans,
@@ -25,7 +24,7 @@ module SuperAdmin
     end
 
     # PUT /super_admin/users/:id
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def update
       @user = User.find(params[:id])
       authorize @user
@@ -52,24 +51,25 @@ module SuperAdmin
         end
         @user.update(org_id: lookup.id) if lookup.present?
 
-        flash.now[:notice] = success_message(@user, _("updated"))
+        flash.now[:notice] = success_message(@user, _('updated'))
       else
-        flash.now[:alert] = failure_message(@user, _("update"))
+        flash.now[:alert] = failure_message(@user, _('update'))
       end
       render :edit
     end
-    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # PUT /super_admin/users/:id/merge
+    # rubocop:disable Metrics/AbcSize
     def merge
       @user = User.find(params[:id])
       authorize @user
 
-      if params[:id] != params[:merge_id]
-        merge_accounts
-      else
+      if params[:id] == params[:merge_id]
         flash.now[:alert] = _("You attempted to merge 2 accounts with the same email address.
            Please merge with a different email address.")
+      else
+        merge_accounts
       end
 
       # After merge attempt get departments and plans
@@ -78,38 +78,43 @@ module SuperAdmin
 
       render :edit
     end
+    # rubocop:enable Metrics/AbcSize
 
     # GET /super_admin/users/:id/search
+    # rubocop:disable Metrics/AbcSize
     def search
       @user = User.find(params[:id])
-      @users = User.where("email LIKE ?", "%#{params[:email]}%")
+      @users = User.where('email LIKE ?', "%#{params[:email]}%")
       authorize @users
       @departments = @user.org.departments.order(:name)
       @plans = Plan.active(@user).page(1)
       # WHAT TO RETURN!?!?!
       if @users.present? # found a user, or Users, submit for merge
         render json: {
-          form: render_to_string(partial: "super_admin/users/confirm_merge.html.erb")
+          form: render_to_string(partial: 'super_admin/users/confirm_merge.html.erb')
         }
       else # NO USER, re-render w/error?
-        flash.now[:alert] = "Unable to find user"
+        flash.now[:alert] = 'Unable to find user'
         render :edit # re-do as responding w/ json
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     # PUT /super_admin/users/:id/archive
+    # rubocop:disable Metrics/AbcSize
     def archive
       @user = User.find(params[:id])
       authorize @user
       @departments = @user.org.departments.order(:name)
       @plans = Plan.active(@user).page(1)
       if @user.archive
-        flash.now[:notice] = success_message(@user, _("archived"))
+        flash.now[:notice] = success_message(@user, _('archived'))
       else
-        flash.now[:alert] = failure_message(@user, _("archive"))
+        flash.now[:alert] = failure_message(@user, _('archive'))
       end
       render :edit
     end
+    # rubocop:enable Metrics/AbcSize
 
     private
 
@@ -126,12 +131,10 @@ module SuperAdmin
     def merge_accounts
       remove = User.find(params[:merge_id])
       if @user.merge(remove)
-        flash.now[:notice] = success_message(@user, _("merged"))
+        flash.now[:notice] = success_message(@user, _('merged'))
       else
-        flash.now[:alert] = failure_message(@user, _("merge"))
+        flash.now[:alert] = failure_message(@user, _('merge'))
       end
     end
-
   end
-
 end

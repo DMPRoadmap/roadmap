@@ -24,8 +24,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 
+# Object that represents a comment on a Plan
 class Note < ApplicationRecord
-
   # ================
   # = Associations =
   # ================
@@ -46,5 +46,4 @@ class Note < ApplicationRecord
 
   validates :archived, inclusion: { in: BOOLEAN_VALUES,
                                     message: INCLUSION_MESSAGE }
-
 end

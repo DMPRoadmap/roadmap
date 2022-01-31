@@ -69,19 +69,19 @@ FactoryBot.define do
       end
     end
     trait :organisationally_visible do
-      visibility { "organisationally_visible" }
+      visibility { 'organisationally_visible' }
     end
 
     trait :publicly_visible do
-      visibility { "publicly_visible" }
+      visibility { 'publicly_visible' }
     end
 
     trait :is_test do
-      visibility { "is_test" }
+      visibility { 'is_test' }
     end
 
     trait :privately_visible do
-      visibility { "privately_visible" }
+      visibility { 'privately_visible' }
     end
 
     after(:create) do |plan, evaluator|
@@ -91,6 +91,5 @@ FactoryBot.define do
     after(:create) do |plan, evaluator|
       plan.guidance_groups << create_list(:guidance_group, evaluator.guidance_groups)
     end
-
   end
 end
