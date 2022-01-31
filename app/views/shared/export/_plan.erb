@@ -78,7 +78,7 @@
                     <br>
                   <%# case for displaying comments OR text %>
                   <% elsif !blank %>
-                    <%= sanitize answer.text %>
+                    <%= sanitize answer&.text %>
                     <br><br>
                   <% end %>
                 <% end %>

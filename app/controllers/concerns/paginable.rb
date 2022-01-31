@@ -8,7 +8,7 @@ module Paginable
 
   ##
   # Regex to validate sort_field param is safe
-  SORT_COLUMN_FORMAT = /[\w_]+\.[\w_]/.freeze
+  SORT_COLUMN_FORMAT = /[\w_]+\.[\w_]+$/.freeze
 
   PAGINATION_QUERY_PARAMS = %i[page sort_field sort_direction
                                search controller action].freeze
@@ -129,7 +129,7 @@ module Paginable
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def refine_query(scope)
     @args = @args.with_indifferent_access
-    scope = scope.search(@args[:search]) if @args[:search].present?
+    scope = scope.search(@args[:search]).distinct if @args[:search].present?
     # Can raise NoMethodError if the scope does not define a search method
     if @args[:sort_field].present?
       frmt = @args[:sort_field][SORT_COLUMN_FORMAT]
@@ -148,8 +148,9 @@ module Paginable
         scope = scope.order(order_field.to_sym => sort_direction.to_s)
       else
         order_field = ActiveRecord::Base.sanitize_sql(@args[:sort_field])
+        sd = ActiveRecord::Base.sanitize_sql(sort_direction)
         scope = scope.includes(table_part.singularize.to_sym)
-                     .order("#{order_field} #{sort_direction}")
+                     .order("#{order_field} #{sd}")
       end
     end
     if @args[:page] != 'ALL'
