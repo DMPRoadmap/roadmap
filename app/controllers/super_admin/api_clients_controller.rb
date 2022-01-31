@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 module SuperAdmin
-
+  # Controller for managing ApiClients for API V1
   class ApiClientsController < ApplicationController
-
     respond_to :html
 
     include OrgSelectable
@@ -29,6 +28,7 @@ module SuperAdmin
     end
 
     # POST /api_clients
+    # rubocop:disable Metrics/AbcSize
     def create
       authorize(ApiClient)
 
@@ -41,19 +41,20 @@ module SuperAdmin
 
       if @api_client.save
         UserMailer.api_credentials(@api_client).deliver_now
-        msg = success_message(@api_client, _("created"))
-        msg += _(". The API credentials have been emailed to %{email}") % {
-          email: @api_client.contact_email
-        }
+        msg = success_message(@api_client, _('created'))
+        msg += format(_('. The API credentials have been emailed to %<email>s'),
+                      email: @api_client.contact_email)
         flash.now[:notice] = msg
         render :edit
       else
-        flash.now[:alert] = failure_message(@api_client, _("create"))
+        flash.now[:alert] = failure_message(@api_client, _('create'))
         render :new
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     # PATCH/PUT /api_clients/:id
+    # rubocop:disable Metrics/AbcSize
     def update
       @api_client = ApiClient.find(params[:id])
       authorize(@api_client)
@@ -64,22 +65,23 @@ module SuperAdmin
       attrs = remove_org_selection_params(params_in: api_client_params)
 
       if @api_client.update(attrs)
-        flash.now[:notice] = success_message(@api_client, _("updated"))
+        flash.now[:notice] = success_message(@api_client, _('updated'))
       else
-        flash.now[:alert] = failure_message(@api_client, _("update"))
+        flash.now[:alert] = failure_message(@api_client, _('update'))
       end
       render :edit
     end
+    # rubocop:enable Metrics/AbcSize
 
     # DELETE /api_clients/:id
     def destroy
       api_client = ApiClient.find(params[:id])
       authorize(api_client)
       if api_client.destroy
-        msg = success_message(api_client, _("deleted"))
+        msg = success_message(api_client, _('deleted'))
         redirect_to super_admin_api_clients_path, notice: msg
       else
-        flash.now[:alert] = failure_message(api_client, _("delete"))
+        flash.now[:alert] = failure_message(api_client, _('delete'))
         render :edit
       end
     end
@@ -110,7 +112,5 @@ module SuperAdmin
                                          :client_id, :client_secret,
                                          :org_id, :org_name, :org_sources, :org_crosswalk)
     end
-
   end
-
 end

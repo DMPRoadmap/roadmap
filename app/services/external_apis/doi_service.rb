@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module ExternalApis
-
   # This service provides an interface to minting/registering DOIs
   # To enable the feature you will need to:
   #   - Identify a DOI minting authority (e.g. Datacite, Crossref, etc.)
@@ -9,9 +8,7 @@ module ExternalApis
   #   - Update the `config/initializers/external_apis/doi.rb`
   #   - Update this service to mint DOIs (based on their API documentation)
   class DoiService < BaseService
-
     class << self
-
       # Retrieve the config settings from the initializer
       def landing_page_url
         Rails.configuration.x.doi&.landing_page_url || super
@@ -69,9 +66,6 @@ module ExternalApis
         # exports and will become the `dmp_id` in this system's API responses
       end
       # rubocop:enable Lint/UnusedMethodArgument
-
     end
-
   end
-
 end
