@@ -4,20 +4,20 @@
 
 presenter = Api::V1::PlanPresenter.new(plan: plan)
 
-json.title "Generic Dataset"
-json.personal_data "unknown"
-json.sensitive_data "unknown"
+json.title 'Generic Dataset'
+json.personal_data 'unknown'
+json.sensitive_data 'unknown'
 
 json.dataset_id do
-  json.partial! "api/v1/identifiers/show", identifier: presenter.identifier
+  json.partial! 'api/v1/identifiers/show', identifier: presenter.identifier
 end
 
 json.distribution [plan] do |distribution|
   json.title "PDF - #{distribution.title}"
-  json.data_access "open"
+  json.data_access 'open'
   json.download_url plan_export_url(distribution, format: :pdf)
   json.format do
-    json.array! ["application/pdf"]
+    json.array! ['application/pdf']
   end
 end
 

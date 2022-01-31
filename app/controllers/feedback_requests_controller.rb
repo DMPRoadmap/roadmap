@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
+# Controller that handles requests for Admin Feedback
 class FeedbackRequestsController < ApplicationController
-
   include FeedbacksHelper
 
   after_action :verify_authorized
 
-  ALERT = _("Unable to submit your request for feedback at this time.")
-  ERROR = _("An error occurred when requesting feedback for this plan.")
+  ALERT = _('Unable to submit your request for feedback at this time.')
+  ERROR = _('An error occurred when requesting feedback for this plan.')
 
   def create
     @plan = Plan.find(params[:plan_id])
@@ -34,5 +34,4 @@ class FeedbackRequestsController < ApplicationController
     text = current_user.org.feedback_msg || feedback_confirmation_default_message
     feedback_constant_to_text(text, current_user, @plan, current_user.org)
   end
-
 end

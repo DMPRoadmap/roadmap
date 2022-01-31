@@ -8,9 +8,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # Checkout the repo
     - uses: actions/checkout@v2
 
-    # Will run ES Lint checks on javascript files
+    # Install Node
+    - uses: actions/setup-node@v2
+      with:
+        cache: 'yarn'
+
+    # Run yarn install for JS dependencies
+    - name: 'Yarn Install'
+      run: yarn install
+
+    # Run the ES Lint checks on javascript files
     #   https://github.com/marketplace/actions/run-eslint
     - name: 'ES Lint checks'
       uses: stefanoeb/eslint-action@1.0.0

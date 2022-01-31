@@ -10,7 +10,7 @@
 
 # task default: :test
 
-require_relative "config/application"
+require_relative 'config/application'
 
 DMPRoadmap::Application.load_tasks
 

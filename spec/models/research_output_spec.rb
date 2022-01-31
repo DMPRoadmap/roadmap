@@ -1,15 +1,13 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe ResearchOutput, type: :model do
-
-  context "associations" do
+  context 'associations' do
     it { is_expected.to belong_to(:plan).optional }
   end
 
-  # rubocop:disable Layout/LineLength
-  context "validations" do
+  context 'validations' do
     before(:each) do
       @subject = create(:research_output, plan: create(:plan))
     end
@@ -32,15 +30,13 @@ RSpec.describe ResearchOutput, type: :model do
       expect(@subject).not_to validate_presence_of(:output_type_description)
     end
   end
-  # rubocop:enable Layout/LineLength
-
-  it "factory builds a valid model" do
+  it 'factory builds a valid model' do
     expect(build(:research_output).valid?).to eql(true)
     expect(build(:research_output, :complete).valid?).to eql(true)
   end
 
-  describe "cascading deletes" do
-    it "does not delete associated plan" do
+  describe 'cascading deletes' do
+    it 'does not delete associated plan' do
       model = create(:research_output, :complete, plan: create(:plan))
       plan = model.plan
       model.destroy
@@ -48,19 +44,18 @@ RSpec.describe ResearchOutput, type: :model do
     end
   end
 
-  context "instance methods" do
-    xit "licenses should have tests once implemented" do
+  context 'instance methods' do
+    xit 'licenses should have tests once implemented' do
       true
     end
-    xit "repositories should have tests once implemented" do
+    xit 'repositories should have tests once implemented' do
       true
     end
-    xit "metadata_standards should have tests once implemented" do
+    xit 'metadata_standards should have tests once implemented' do
       true
     end
-    xit "resource_types should have tests once implemented" do
+    xit 'resource_types should have tests once implemented' do
       true
     end
   end
-
 end
