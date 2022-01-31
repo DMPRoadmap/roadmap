@@ -2,6 +2,7 @@
 
 json.prettify!
 
+# rubocop:disable Metrics/BlockLength
 json.plans @org_plans.each do |plan|
   json.id             plan.id
   json.grant_number   plan.grant&.value
@@ -21,12 +22,12 @@ json.plans @org_plans.each do |plan|
     json.name         plan.contributors.investigation.first&.name
   end
 
-  json.owner  do
-    json.email plan.owner.present? ?  plan.owner.email : ""
+  json.owner do
+    json.email plan.owner.present? ? plan.owner.email : ""
   end
 
   json.data_contact do
-    json.info         plan.contributors.data_curation.first&.name
+    json.info plan.contributors.data_curation.first&.name
   end
 
   json.description    plan.description
@@ -39,3 +40,4 @@ json.plans @org_plans.each do |plan|
     json.answered_questions  plan.answers.count
   end
 end
+# rubocop:enable Metrics/BlockLength
