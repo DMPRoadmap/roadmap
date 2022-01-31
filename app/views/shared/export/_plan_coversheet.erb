@@ -15,8 +15,7 @@
     </p><br>
   <% end %>
 
-  <p><strong><%= _("Creator:") %></strong> <%= sanitize(@hash[:attribution]) %></p><br>
-
+  <p><strong><%= @hash[:attribution].length > 1 ? _("Creators: ") : _('Creator:') %></strong> <%= @hash[:attribution].join(', ') %></p><br>
   <p><b><%= _("Affiliation: ") %></b><%= @hash[:affiliation] %></p><br>
 
   <% if @hash[:funder].present? %>
