@@ -11,7 +11,8 @@ RSpec.describe Org, type: :model do
       is_expected.to validate_uniqueness_of(:name)
         .with_message('must be unique')
     }
-
+    pp "ORG:"
+    pp subject
     it { is_expected.to validate_presence_of(:abbreviation) }
 
     it { is_expected.to allow_values(true, false).for(:is_other) }
