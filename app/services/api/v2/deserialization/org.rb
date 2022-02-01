@@ -56,15 +56,19 @@ module Api
             return nil unless json.present? && json[:name].present?
 
             name = json[:name]
+            # If the name includes context (e.g. '(UCOP)' or '(example.edu)') then do an exact match
+            # otherwise strip off any context from the names in the DB when comparing
+            where_clause = 'LOWER(name) = ?' if name.include?('(')
+            where_clause = 'LOWER(SUBSTRING_INDEX(name,\'(\',1)) = ?' unless where_clause.present?
 
             # Search the DB
-            org = ::Org.where('LOWER(name) = ?', name.downcase).first
+            org = ::Org.where(where_clause, name.downcase.strip).first unless org.present?
             return org if org.present?
 
             # Skip if restrict_orgs is set to true!
             unless Rails.configuration.x.application.restrict_orgs
               # fetch from the ror table
-              registry_org = ::RegistryOrg.where('LOWER(name) = ?', name.downcase).first
+              registry_org = ::RegistryOrg.where(where_clause, name.downcase.strip).first
 
               # If managed_only make sure the org is managed!
               org = org_from_registry_org!(registry_org: registry_org) if registry_org.present?

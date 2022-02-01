@@ -55,7 +55,7 @@ module Api
           a_errs = find_org_errors(org: plan.funder, label: 'Funder') if plan.funder.present?
           errs << a_errs if a_errs.any?
 
-          unless plan.grant.present? && plan.grant.valid?
+          if plan.grant.present? && !plan.grant.valid?
             g_errs = "grant identifier '#{plan.grant.value}' : #{plan.grant.errors.full_messages}"
           end
           errs << g_errs if g_errs.is_a?(Array) && g_errs.any?

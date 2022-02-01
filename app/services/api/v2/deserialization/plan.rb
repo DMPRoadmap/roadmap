@@ -62,8 +62,6 @@ module Api
             plan.ethical_issues_description = json[:ethical_issues_description]
             plan.ethical_issues_report = json[:ethical_issues_report]
 
-            # TODO: Handle ethical issues when the Question is in place
-
             # Process Project, Contributors and Data Contact and Datsets
             plan = deserialize_project(plan: plan, json: json)
             # The contact is handled from within the controller since the Plan.add_user! method
@@ -159,20 +157,6 @@ module Api
             Api::V2::Deserialization::Funding.deserialize(plan: plan, json: funding)
           end
           # rubocop:enable Metrics/AbcSize
-
-          # Deserialize the contact as a Contributor
-          def deserialize_contact(plan:, json: {})
-            return plan unless json.present? && json[:contact].present?
-
-            contact = Api::V2::Deserialization::Contributor.deserialize(
-              json: json[:contact], is_contact: true
-            )
-            return plan unless contact.present?
-
-            plan.contributors << contact
-            plan.org = contact.org
-            plan
-          end
 
           # Deserialize each Contributor and then add to Plan
           def deserialize_contributors(plan:, json: {})

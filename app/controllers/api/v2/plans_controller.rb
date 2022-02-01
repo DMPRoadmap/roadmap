@@ -93,8 +93,9 @@ module Api
         if plan.present?
           save_err = _('Unable to create your DMP')
           exists_err = _('Plan already exists. Send an update instead.')
-          no_org_err = _("Could not determine ownership of the DMP. Please add an
-                          :affiliation to the :contact")
+          # rubocop:disable Style/LineLength
+          no_org_err = _('Could not determine ownership of the DMP. The :affiliation you specified for the :contact could not be validated. You must use either a ROR id or a known name. Possible matches: %<list_of_names>s')
+          # rubocop:enable Style/LineLength
 
           # Skip if this is an existing DMP
           render_error(errors: exists_err, status: :bad_request) and return unless plan.new_record?
@@ -102,9 +103,20 @@ module Api
           # Try to find the owner based on the :contact
           owner = determine_owner(plan: plan, json: dmp.fetch(:contact, {}))
 
+p "OWNER:"
+pp owner.inspect
+p "CLIENT OWNER:"
+pp client.owner.inspect
+
           # Try to determine the Plan's org
           plan.org = owner.present? ? owner.org : client.owner&.org
-          render_error(errors: no_org_err, status: :bad_request) and return unless plan.org.present?
+          unless plan.org.present?
+            matches = find_matching_orgs(
+              plan: plan, json: dmp.fetch(:contact, {}).fetch(:affiliation, {})
+            )
+            no_org_err = no_org_err % { list_of_names: matches.map { |m| "'#{m}'" }.join(', ') }
+            render_error(errors: no_org_err, status: :bad_request) and return unless plan.org.present?
+          end
 
           # Validate the plan and it's associations and return errors with context
           # e.g. 'Contact affiliation name can't be blank' instead of 'name can't be blank'
@@ -183,6 +195,17 @@ module Api
       end
       # rubocop:enable Metrics/AbcSize
       # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+      # If the contact's org could not be determined, then fetch the matches to return to the
+      # caller
+      def find_matching_orgs(plan:, json:)
+        return [] unless plan.present? && json.is_a?(Hash) && json[:name].present?
+
+        name = json[:name].downcase.split('(').first
+        matches = Org.where(managed: true).search(name)
+        matches += RegistryOrg.search(name) if !Rails.configuration.x.application.restrict_orgs
+        matches.any? ? matches.map(&:name) : []
+      end
 
       # Send the owner an email to let them know about the new Plan
       def notify_owner(client:, owner:, plan:)
