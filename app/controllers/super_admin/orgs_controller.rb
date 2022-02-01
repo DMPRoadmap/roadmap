@@ -153,7 +153,8 @@ module SuperAdmin
       params.require(:org).permit(:name, :abbreviation, :logo, :managed,
                                   :contact_email, :contact_name,
                                   :remove_logo, :feedback_enabled, :feedback_msg,
-                                  :org_id, :org_name, :org_crosswalk)
+                                  :org_id, :org_name, :org_crosswalk,
+                                  :funder, :institution, :organisation)
     end
 
     def merge_params
