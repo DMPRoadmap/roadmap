@@ -7,5 +7,8 @@
     requestor: @requestor_name, link_html: link_to(@plan_name, plan_url(@plan))
   }) %>
 </p>
+<p>
+  <%= _('Please log into the DMPTool in order to view this plan.') %>
+</p>
 
 <%= render partial: 'email_signature', locals: { allow_change_prefs: false } %>
