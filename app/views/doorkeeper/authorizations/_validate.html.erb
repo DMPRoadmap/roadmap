@@ -1,0 +1,26 @@
+<%= form_with model: resource, url: new_user_session_path, method: :post, class: "novalidate" do |form| %>
+  <% if resource.email.present? %>
+    <%# The user does not have an account! %>
+    <p class="red"><%= _('Invalid email or password.') %></p>
+    <p><%= sanitize(_('If you do not have a DMPTool account, you will need to create one before authorizing %<application>s. To create an account, please visit the %<link_to_home_page>s. Once your account has been created, you may return to this page to finish the authotization.') % {
+      application: client.name.humanize,
+      link_to_home_page: link_to(root_url, _('DMPTool home page'), target: '_blank')
+    }, { attributes: %w[href target] }) %></p>
+  <% end %>
+
+  <%# Have the user enter their email address so we can figure out how to auth them %>
+  <div id="sign-in-sign-up-email" class="c-textfield js-textfield">
+    <%= form.label :email, _('Email address') %>
+    <%= form.email_field(:email,
+                        class: "require-me",
+                        aria: { describedby: "sign-in-sign-up-email-desc" },
+                        autocomplete: 'email') %>
+    <div id="sign-in-sign-up-email-desc" class="c-textfield__general-description">
+      <%= _("For SSO, use institutional address.") %>
+    </div>
+    <div id="" class="c-textfield__invalid-description js-invalid-description" hidden>
+    </div>
+  </div>
+  <br>
+  <button type="submit"><%= _("Continue") %></button>
+<% end %>

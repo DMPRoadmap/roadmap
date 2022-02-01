@@ -33,7 +33,15 @@ module Users
         resource.org = nil if active_invite
 
         is_new_user = resource.new_record? || active_invite
-        render is_new_user ? 'users/registrations/new' : :new
+
+        # If this is part of an API V2 Oauth workflow
+        if session['oauth-referer'].present?
+          @client = ApiClient.where(uid: session['oauth-referer']['client_id'])
+
+          render 'doorkeeper/authorizations/new', layout: 'doorkeeper/application'
+        else
+          render is_new_user ? 'users/registrations/new' : :new
+        end
       end
     end
     # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -47,12 +55,17 @@ module Users
 
     # The path used after sign in.
     def after_sign_in_path_for(_resource)
-      # Change the locale if the user has a prefered language
-      session[:locale] = resource.language.abbreviation if resource.language_id.present?
-
       # Determine if this was parft of an OAuth workflow for API V2
-      oauth_path = session['oauth-referer']
-      session.delete('oauth-referer') if oauth_path.present?
+      if session['oauth-referer'].present?
+        auth_hash = ApplicationService.decrypt(payload: session['oauth-referer']) || {}
+        oauth_path = auth_hash['path']
+
+        # Destroy the OAuth session info since we no longer need it
+        session.delete('oauth-referer')
+      else
+        # Change the locale if the user has a prefered language
+        session[:locale] = resource.language.abbreviation if resource.language_id.present?
+      end
 
       oauth_path.present? ? oauth_path : plans_path
     end

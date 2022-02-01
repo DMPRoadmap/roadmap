@@ -45,6 +45,7 @@ module Users
       elsif user.persisted?
         # We found the user by the OmniAuth UID so sign them in
         flash[:notice] = _('Successfully signed in')
+
         sign_in_and_redirect user, event: :authentication
 
       else

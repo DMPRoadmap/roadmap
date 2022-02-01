@@ -24,14 +24,11 @@ Doorkeeper.configure do
   # the resource owner is authenticated or not.
   # If not, they will be redirected to the Doorkeeper version of the oauth_authorization_path which
   # is a paired down version of the sign in form found on the home page. It renders the
-  # app/views/doorkeeper/new.html.erb using the app/views/layouts/doorkeeper/application.html.erb layout
+  # app/views/doorkeeper/authorizations/new.html.erb using the doorkeeper specific
+  # layout located at: app/views/layouts/doorkeeper/application.html.erb
   #
   resource_owner_authenticator do
-    # The user must be signed_in in to provide authorization for the ApiClient
-    # if they are not, send them to the oauth sign in page
-    current_user || render('/users/oauth_signin',
-                           layout: 'doorkeeper/application',
-                           locals: { client: ApiClient.find_by(uid: params['client_id']) })
+    current_user
   end
 
   # If you didn't skip applications controller from Doorkeeper routes in your application routes.rb

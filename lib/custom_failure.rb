@@ -3,8 +3,12 @@
 # Override how Devise handles failures
 class CustomFailure < Devise::FailureApp
   def redirect_url
-    # Login failed! If we're in an Oauth workflow return to that workflow otherwise return to root
-    session['oauth-referer'].present? ? session['oauth-referer'] : root_path
+    return root_path unless session['oauth-referer'].present?
+
+    # If we're in an Oauth workflow return to that workflow otherwise return to root
+    oauth_hash = ApplicationService.decrypt(payload: session['oauth-referer'])
+
+    oauth_hash.present? && oauth_hash['path'].present? ? oauth_hash['path'] : root_path
   end
 
   def respond
