@@ -11,11 +11,8 @@ module Dmptool
       term = process_search
       @plans = ::Plan.includes(:org, :funder, :language, :template, :research_domain, roles: [:user])
                      .publicly_visible
-                     .where('LOWER(plans.title) LIKE ? OR LOWER(plans.description) LIKE ?', term, term)
+                     .search(term)
                      .order(process_sort_by)
-
-      # Process any faceting
-      process_facets
 
       # Build the facets/search/sort/pagination settings
       selections = public_plans_params.fetch(:facet, {})
@@ -31,6 +28,9 @@ module Dmptool
         subjects: build_facet(association: :research_domain, attr: :label,
                               selected: selections.fetch(:subject_ids, []))
       }
+
+      # Process any faceting
+      process_facets
 
       # Handle pagination (Always do this last!)
       @plans = Kaminari.paginate_array(@plans)
