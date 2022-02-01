@@ -12,12 +12,6 @@ RSpec.describe Org, type: :model do
         .with_message('must be unique')
     }
 
-    it "is expected to have an abbeviation" do
-      pp "ORG:"
-      pp subject
-      is_expected.to validate_presence_of(:abbreviation)
-    end
-
     it { is_expected.to allow_values(true, false).for(:is_other) }
 
     it { is_expected.not_to allow_value(nil).for(:is_other) }
