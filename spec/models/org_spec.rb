@@ -399,6 +399,7 @@ RSpec.describe Org, type: :model do
         @perm = build(:perm)
         @perm.name = 'grant_permissions'
         user.perms << @perm
+        plan.add_user!(user.id, :reviewer)
         plan.privately_visible!
       end
 
@@ -411,6 +412,7 @@ RSpec.describe Org, type: :model do
         @perm = build(:perm)
         @perm.name = 'grant_permissions'
         user.perms << @perm
+        plan.add_user!(user.id, :reviewer)
         plan.publicly_visible!
       end
 
