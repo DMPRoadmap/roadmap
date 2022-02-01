@@ -43,6 +43,8 @@ RSpec.describe Api::V1::PersistenceService do
       plan.contributors << contributor
       plan.contributors << contributor2
       result = described_class.safe_save(plan: plan)
+      pp "CONTRIBUTORS:"
+      pp result.contributors
       expect(result.contributors.length).to eql(2)
       expect(result.contributors.first.org).to eql(result.contributors.last.org)
     end
