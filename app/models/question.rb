@@ -27,8 +27,9 @@
 #  fk_rails_...  (question_format_id => question_formats.id)
 #  fk_rails_...  (section_id => sections.id)
 #
-class Question < ApplicationRecord
 
+# Object that represents a Template question
+class Question < ApplicationRecord
   include ActsAsSortable
   include VersionableModel
 
@@ -54,7 +55,7 @@ class Question < ApplicationRecord
 
   has_many :annotations, dependent: :destroy, inverse_of: :question
 
-  has_and_belongs_to_many :themes, join_table: "questions_themes"
+  has_and_belongs_to_many :themes, join_table: 'questions_themes'
 
   belongs_to :section
 
@@ -101,11 +102,8 @@ class Question < ApplicationRecord
   accepts_nested_attributes_for :question_options, allow_destroy: true,
                                                    reject_if: ->(a) { a[:text].blank? }
 
-  # rubocop:disable Layout/LineLength
   accepts_nested_attributes_for :annotations, allow_destroy: true,
                                               reject_if: proc { |a| a[:text].blank? && a[:id].blank? }
-  # rubocop:enable Layout/LineLength
-
   # =====================
   # = Delegated methods =
   # =====================
@@ -141,6 +139,7 @@ class Question < ApplicationRecord
   # org - The Org to find guidance for
   #
   # Returns Hash
+  # rubocop:disable Metrics/AbcSize
   def guidance_for_org(org)
     # pulls together guidance from various sources for question
     guidances = {}
@@ -149,9 +148,7 @@ class Question < ApplicationRecord
                    .where(org_id: org.id).each do |group|
         group.guidances.each do |g|
           g.themes.each do |theme|
-            if theme_ids.include? theme.id
-              guidances["#{group.name} " + _("guidance on") + " #{theme.title}"] = g
-            end
+            guidances["#{group.name} " + _('guidance on') + " #{theme.title}"] = g if theme_ids.include? theme.id
           end
         end
       end
@@ -159,6 +156,7 @@ class Question < ApplicationRecord
 
     guidances
   end
+  # rubocop:enable Metrics/AbcSize
 
   # get example answer belonging to the currents user for this question
   #
@@ -199,10 +197,8 @@ class Question < ApplicationRecord
                                          type: Annotation.types[:example_answer])
     guidance = annotations.find_by(org_id: org_id,
                                    type: Annotation.types[:guidance])
-    unless example_answer.present?
-      example_answer = annotations.build(type: :example_answer, text: "", org_id: org_id)
-    end
-    guidance = annotations.build(type: :guidance, text: "", org_id: org_id) unless guidance.present?
+    example_answer = annotations.build(type: :example_answer, text: '', org_id: org_id) unless example_answer.present?
+    guidance = annotations.build(type: :guidance, text: '', org_id: org_id) unless guidance.present?
     [example_answer, guidance]
   end
 
@@ -221,10 +217,10 @@ class Question < ApplicationRecord
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def save_condition(value, opt_map, question_id_map)
     c = conditions.build
-    c.action_type = value["action_type"]
-    c.number = value["number"]
+    c.action_type = value['action_type']
+    c.number = value['number']
     # question options may have changed so rewrite them
-    c.option_list = value["question_option"]
+    c.option_list = value['question_option']
     unless opt_map.blank?
       new_question_options = []
       c.option_list.each do |qopt|
@@ -233,8 +229,8 @@ class Question < ApplicationRecord
       c.option_list = new_question_options
     end
 
-    if value["action_type"] == "remove"
-      c.remove_data = value["remove_question_id"]
+    if value['action_type'] == 'remove'
+      c.remove_data = value['remove_question_id']
       unless question_id_map.blank?
         new_question_ids = []
         c.remove_data.each do |qid|
@@ -244,10 +240,10 @@ class Question < ApplicationRecord
       end
     else
       c.webhook_data = {
-        name: value["webhook-name"],
-        email: value["webhook-email"],
-        subject: value["webhook-subject"],
-        message: value["webhook-message"]
+        name: value['webhook-name'],
+        email: value['webhook-email'],
+        subject: value['webhook-subject'],
+        message: value['webhook-message']
       }.to_json
     end
     c.save
@@ -264,6 +260,7 @@ class Question < ApplicationRecord
   # and condition's remove_data and also if that remove_data is empty
   # destroy the condition.
   # abort callback chain if we can't update the condition
+  # rubocop:disable Metrics/AbcSize
   def check_remove_conditions
     id = self.id.to_s
     template.questions.each do |q|
@@ -277,5 +274,5 @@ class Question < ApplicationRecord
       end
     end
   end
-
+  # rubocop:enable Metrics/AbcSize
 end

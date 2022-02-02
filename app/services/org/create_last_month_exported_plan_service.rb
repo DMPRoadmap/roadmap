@@ -10,12 +10,11 @@ Plan.class
 User.class
 ExportedPlan.class
 
+# Org usage --- TODO: This should likely be a module
 class Org
-
+  # Usage for Nbr of exported plans in the prior month
   class CreateLastMonthExportedPlanService
-
     class << self
-
       def call(org = nil, threads: 0)
         orgs = org.nil? ? Org.all : [org]
 
@@ -37,9 +36,6 @@ class Org
           )
         end
       end
-
     end
-
   end
-
 end

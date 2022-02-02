@@ -25,5 +25,4 @@ RSpec.describe Api::V1::FundingPresenter do
       expect(described_class.status(plan: plan)).to eql("planned")
     end
   end
-
 end

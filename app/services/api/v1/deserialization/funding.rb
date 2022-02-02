@@ -1,15 +1,11 @@
 # frozen_string_literal: true
 
 module Api
-
   module V1
-
     module Deserialization
-
+      # Logic to deserialize RDA common standard to a Plan funder and grant infor
       class Funding
-
         class << self
-
           # Convert the funding information and attach to the Plan
           #    {
           #      "$ref": "SEE Org.deserialize! for details",
@@ -33,13 +29,8 @@ module Api
             )
             plan
           end
-
         end
-
       end
-
     end
-
   end
-
 end

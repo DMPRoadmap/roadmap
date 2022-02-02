@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+# Base ActiveRecord object
 class ApplicationRecord < ActiveRecord::Base
-
   include GlobalHelpers
   include ValidationValues
   include ValidationMessages
@@ -9,7 +9,6 @@ class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
   class << self
-
     # Indicates whether the underlying DB is MySQL
     def mysql_db?
       ActiveRecord::Base.connection.adapter_name == "Mysql2"
@@ -35,4 +34,9 @@ class ApplicationRecord < ActiveRecord::Base
 
   end
 
+  def sanitize_fields(*attrs)
+    attrs.each do |attr|
+      send("#{attr}=", ActionController::Base.helpers.sanitize(send(attr)))
+    end
+  end
 end

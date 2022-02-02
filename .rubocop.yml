@@ -1,179 +1,186 @@
+# ----------------
+# - INSTRUCTIONS -
+# ----------------
+# The DMPRoadmap codebase tries to follow the latest Ruby/Rails style guidelines as defined
+# by the community via the Rubocop gem.
+#
+# Before submitting a PR, please run `bin/rubocop` from the project root.
+#     Note that you can specify individual files or folders e.g.: `bin/rubocop app/mailers`
+#     Note you can let Rubocop auto-correct many issues with the `-a` flag
+#
+# New versions of Rubocop typically include new Cops (Cops are inidivual Rubocop rules).
+# If you see a message like the following when you run `bin/rubocop`:
+#
+#    "The following cops were added to RuboCop, but are not configured. Please set Enabled
+#     to either `true` or `false` in your `.rubocop.yml` file."
+#
+# You should copy and paste the specified Cops into this file. You can review what the
+# Cop will do by Googling the name of the rule e.g.: "rubocop Layout/SpaceBeforeBrackets"
+#
+# After you review the rule, you can either Enable it or Disable it in this file. The
+# Rubocop documentation for the Cop may also give you additional options that can be
+# configured.
+#
+# Try to place any new Cops under their relevant section and in alphabetical order
+
 AllCops:
-  # Cache the results for faster processing
-  UseCache: true
   # Show the name of the cops being voilated in the feedback
   DisplayCopNames: true
   DisplayStyleGuide: true
+
+  # Rubocop will skip checking the following directories
   Exclude:
     - 'bin/**/*'
     - 'db/**/*'
     - 'vendor/**/*'
     - 'node_modules/**/*'
-    - 'test/**/*'
-    - 'lib/tasks/*'
+    - 'scripts/**/*'
 
-# Force no empty lines at the start or end of a block's body. Ignore specs, since this
-# improves readability within the RSpec blocks.
-Layout/EmptyLinesAroundBlockBody:
-  Exclude:
-    - 'spec/**/*'
+  # Automatically add any new Cops to this file and enable them
+  NewCops: enable
 
-# Force a single blank line around a class's body. Adding this whitespace makes code
-# a bit easier to read.
-Layout/EmptyLinesAroundClassBody:
-  Enabled: true
-  EnforcedStyle: empty_lines
+  # Cache the results for faster processing
+  UseCache: true
 
-# Force a single blank line around a module's body. Adding this whitespace makes code
-# a bit easier to read.
-Layout/EmptyLinesAroundModuleBody:
-  Enabled: true
-  EnforcedStyle: empty_lines
-
-# Ignore this cop. The Rubocop default is sensible, but the rubocop-rails gem modifies
-# this to position end keywords awkwardly.
-Layout/EndAlignment:
-  Enabled: true
-  EnforcedStyleAlignWith: keyword
-
-# The difference between `rails` and `normal` is that the `rails` style
-# prescribes that in classes and modules the `protected` and `private`
-# modifier keywords shall be indented the same as public methods and that
-# protected and private members shall be indented one step more than the
-# modifiers. Other than that, both styles mean that entities on the same
-# logical depth shall have the same indentation.
-Layout/IndentationConsistency:
-  Description: 'Keep indentation straight.'
-  StyleGuide: '#spaces-indentation'
-  Enabled: true
-  EnforcedStyle: normal
-
-Layout/IndentationWidth:
-  Description: 'Use 2 spaces for indentation.'
-  StyleGuide: '#spaces-indentation'
+# -----------
+# - GEMSPEC -
+# -----------
+Gemspec/DateAssignment: # new in 1.10
   Enabled: true
 
-# Restrict the length of each line of code to 90 characters. Enforcing this is important
-# as many developers are working on smaller screens, or split screens. Having to scroll
-# to read a full line of code makes code harder to read and more frustrating to work with.
-Layout/LineLength:
-  # I've found that 90 is a suitable limit. Many developers balk at the 80 character
-  # default.
-  Max: 100
-
-Layout/EmptyLinesAroundAttributeAccessor:
+# ----------
+# - LAYOUT -
+# ----------
+Layout/LineEndStringConcatenationIndentation: # new in 1.18
+  Enabled: true
+Layout/SpaceBeforeBrackets: # new in 1.7
   Enabled: true
 
-Layout/SpaceAroundMethodCallOperator:
+# --------
+# - LINT -
+# --------
+Lint/AmbiguousAssignment: # new in 1.7
   Enabled: true
-
-# Enforce this in the main code but ignore it in specs since the Rspec core methods
-# are defined as potentially ambiguous blocks
 Lint/AmbiguousBlockAssociation:
   Exclude:
     - 'spec/**/*'
-
-Lint/DeprecatedOpenSSLConstant:
+Lint/AmbiguousOperatorPrecedence: # new in 1.21
+  Enabled: true
+Lint/AmbiguousRange: # new in 1.19
+  Enabled: true
+Lint/DeprecatedConstants: # new in 1.8
+  Enabled: true
+Lint/DuplicateBranch: # new in 1.3
+  Enabled: true
+Lint/DuplicateRegexpCharacterClassElement: # new in 1.1
+  Enabled: true
+Lint/EmptyBlock: # new in 1.1
+  Enabled: true
+Lint/EmptyClass: # new in 1.3
+  Enabled: true
+Lint/EmptyInPattern: # new in 1.16
+  Enabled: true
+Lint/IncompatibleIoSelectWithFiberScheduler: # new in 1.21
+  Enabled: true
+Lint/LambdaWithoutLiteralBlock: # new in 1.8
+  Enabled: true
+Lint/NoReturnInBeginEndBlocks: # new in 1.2
+  Enabled: true
+Lint/NumberedParameterAssignment: # new in 1.9
+  Enabled: true
+Lint/OrAssignmentToConstant: # new in 1.9
+  Enabled: true
+Lint/RedundantDirGlobSort: # new in 1.8
+  Enabled: true
+Lint/RequireRelativeSelfPath: # new in 1.22
+  Enabled: true
+Lint/SymbolConversion: # new in 1.9
+  Enabled: true
+Lint/ToEnumArguments: # new in 1.1
+  Enabled: true
+Lint/TripleQuotes: # new in 1.9
+  Enabled: true
+Lint/UnexpectedBlockArity: # new in 1.5
+  Enabled: true
+Lint/UnmodifiedReduceAccumulator: # new in 1.1
   Enabled: true
 
-Lint/MixedRegexpCaptureTypes:
-  Enabled: true
-
-Lint/RaiseException:
-  Enabled: true
-
-Lint/StructNewOverride:
-  Enabled: true
-
-# Bumping the default AbcSize so we don't need to refactor everything
-Metrics/AbcSize:
-  Max: 25
-
-# Restrict the number of lines of code that may be within a block of code. This should
-# force developers to break their code into smaller discrete methods or objects.
-Metrics/BlockLength:
-  # Exclude specs, since those are defined as large blocks of code
-  Exclude:
-    - 'spec/**/*'
-
-# Bumping the default ClassLength so we don't need to refactor everything
+# -----------
+# - METRICS -
+# -----------
+# briley Oct. 4th 2021
+# Default is 100 lines. Most of our controllers, models, etc. violate this
+# Cop, so setting it to 300 since we do not have time to refactor everything
 Metrics/ClassLength:
   Max: 300
-
-# Bumping the default CyclomaticComplexity so we don't need to refactor everything
-Metrics/CyclomaticComplexity:
-  Max: 25
-
-# Bumping the default MethodLength so we don't need to refactor everything
+# briley Oct. 4th 2021
+# Default is 10 lines which feels very restrictive but would also require us to do
+# too much refactoring at this point.
 Metrics/MethodLength:
-  Max: 25
+  Max: 20
 
-# Bumping the default PerceivedComplexity so we don't need to refactor everything
-Metrics/PerceivedComplexity:
-  Max: 25
-
-# This cop enforces the use of boolean and/or "&&" and "||" over "and" "or".
-# Sometimes using "and"/"or" is preferrable, when these are used as control flow.
-#
-# For example:
-#
-#   render text: "Hello world" and return
-#
-Style/AndOr:
-  Enabled: false
-
-# This cop enforces how modules and classes are nested within another module or class.
-# In Rails code (e.g. models and controllers) nesting with a colon is preferrable (e.g.
-# User::Session).
-Style/ClassAndModuleChildren:
+# mnicholson Oct. 6th 2021
+# Default lenght for block is 25 lines, which it would be very restrictive for
+# the Rspec views methods. So I'll just exclude some files.
+Metrics/BlockLength:
   Exclude:
-    - 'app/**/*'
+     - 'lib/tasks/*.rake'
+     - 'lib/tasks/utils/*.rake'
+     - 'spec/**/*'
 
-# This cop enforces each class to have documentation at the top. That's not always
-# practical or necessary in Rails apps (e.g. the purpose of helpers is self evident).
-Style/Documentation:
-  Enabled: false
+  IgnoredMethods: ['describe', 'context', 'task', 'namespace']
 
-# Enforce empty methods to be written across two lines, like any normal method would be.
-# This allows for easy modification of the method in future.
-Style/EmptyMethod:
+# ------------
+# - SECURITY -
+# ------------
+Security/IoMethods: # new in 1.22
   Enabled: true
-  EnforcedStyle: expanded
 
-# Leave the string formatting style as `"some text %{value}" % { value: "text" }`
-# since we're uncertain what effect `format` and `sprintf` may have on the Fastgetext
-# markup `_("text")`
-Style/FormatString:
-  EnforcedStyle: percent
-
-# Prefer the use of `"some %{token} text"` instead of `some %<token> text` or
-# `some %token text` since it would invalidate many of our translation strings
-Style/FormatStringToken:
-  EnforcedStyle: template
-
-# Enforce double quotes. Don't allow single quotes. This is preferred since double
-# quotes are more useful (they support escaping characters, and interpolation).
+# ---------
+# - STYLE -
+# ---------
+Style/ArgumentsForwarding: # new in 1.1
+  Enabled: true
+Style/CollectionCompact: # new in 1.2
+  Enabled: true
+Style/DocumentDynamicEvalDefinition: # new in 1.1
+  Enabled: true
+Style/EndlessMethod: # new in 1.8
+  Enabled: true
+Style/HashConversion: # new in 1.10
+  Enabled: true
+Style/HashExcept: # new in 1.7
+  Enabled: true
+Style/IfWithBooleanLiteralBranches: # new in 1.9
+  Enabled: true
+Style/InPatternThen: # new in 1.16
+  Enabled: true
+Style/MultilineInPatternThen: # new in 1.16
+  Enabled: true
+Style/NegatedIfElseCondition: # new in 1.2
+  Enabled: true
+Style/NilLambda: # new in 1.3
+  Enabled: true
+Style/NumberedParameters: # new in 1.22
+  Enabled: true
+Style/NumberedParametersLimit: # new in 1.22
+  Enabled: true
+Style/OpenStructUse:
+  Enabled: false # used heavily in API so needs a lot of work to refactor
+Style/QuotedSymbols: # new in 1.16
+  Enabled: true
+Style/RedundantArgument: # new in 1.4
+  Enabled: true
+Style/RedundantSelfAssignmentBranch: # new in 1.19
+  Enabled: true
+Style/SelectByRegexp: # new in 1.22
+  Enabled: true
+Style/StringChars: # new in 1.12
+  Enabled: true
 Style/StringLiterals:
   Enabled: true
-  EnforcedStyle: double_quotes
-
-Style/ExponentialNotation:
-  Enabled: true
-
-Style/HashEachMethods:
-  Enabled: true
-
-Style/HashTransformKeys:
-  Enabled: true
-
-Style/HashTransformValues:
-  Enabled: true
-
-Style/RedundantRegexpCharacterClass:
-  Enabled: true
-
-Style/RedundantRegexpEscape:
-  Enabled: true
-
-Style/SlicingWithRange:
+  Exclude:
+    - 'app/views/**/*'
+    - 'config/**/*'
+Style/SwapValues: # new in 1.1
   Enabled: true

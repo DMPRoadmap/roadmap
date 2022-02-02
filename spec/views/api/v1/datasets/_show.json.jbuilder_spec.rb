@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
-describe "api/v1/datasets/_show.json.jbuilder" do
+require 'rails_helper'
 
   context "config has disabled madmp options" do
     before(:each) do
@@ -125,5 +123,4 @@ describe "api/v1/datasets/_show.json.jbuilder" do
       end
     end
   end
-
 end
