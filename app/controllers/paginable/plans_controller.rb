@@ -67,7 +67,8 @@ module Paginable
       paginable_renderise(
         partial: 'org_admin_other_user',
         scope: Plan.active(@user),
-        query_params: { sort_field: 'plans.updated_at', sort_direction: :desc }
+        query_params: { sort_field: 'plans.updated_at', sort_direction: :desc },
+        format: :json
       )
     end
   end
