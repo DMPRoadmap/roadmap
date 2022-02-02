@@ -6,7 +6,8 @@ class PlanExportsController < ApplicationController
 
   include ConditionsHelper
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   def show
     @plan = Plan.includes(:answers, { template: { phases: { sections: :questions } } })
                 .find(params[:plan_id])
@@ -51,7 +52,8 @@ class PlanExportsController < ApplicationController
       format.json { show_json }
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 
   private
 
@@ -129,6 +131,6 @@ class PlanExportsController < ApplicationController
     params.require(:export)
           .permit(:form, :project_details, :question_headings, :unanswered_questions,
                   :custom_sections, :research_outputs,
-                  formatting: [:font_face, :font_size, margin: %i[top right bottom left]])
+                  formatting: [:font_face, :font_size, { margin: %i[top right bottom left] }])
   end
 end

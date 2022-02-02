@@ -43,6 +43,7 @@
 #
 
 # Object that represents an DMP
+# rubocop:disable Metrics/ClassLength
 class Plan < ApplicationRecord
   include ConditionalUserMailer
   include ExportablePlan
@@ -119,7 +120,7 @@ class Plan < ApplicationRecord
 
   has_many :contributors, dependent: :destroy
 
-  has_one :grant, as: :identifiable, dependent: :destroy, class_name: "Identifier"
+  has_one :grant, as: :identifiable, dependent: :destroy, class_name: 'Identifier'
 
   has_many :research_outputs, dependent: :destroy
 
@@ -616,3 +617,4 @@ class Plan < ApplicationRecord
     errors.add(:end_date, _('must be after the start date')) if end_date < start_date
   end
 end
+# rubocop:enable Metrics/ClassLength

@@ -535,6 +535,5 @@ class PlansController < ApplicationController
              guidance_presenter: GuidancePresenter.new(plan)
            })
   end
-
 end
 # rubocop:enable Metrics/ClassLength

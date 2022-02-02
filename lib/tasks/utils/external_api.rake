@@ -1,26 +1,26 @@
 # frozen_string_literal: true
 
 namespace :external_api do
-  desc "Fetch the latest RDA Metadata Standards"
+  desc 'Fetch the latest RDA Metadata Standards'
   task load_rdamsc_standards: :environment do
-    p "Fetching the latest RDAMSC metadata standards and updating the metadata_standards table"
+    p 'Fetching the latest RDAMSC metadata standards and updating the metadata_standards table'
     ExternalApis::RdamscService.fetch_metadata_standards
   end
 
-  desc "Load Repositories from re3data"
+  desc 'Load Repositories from re3data'
   task load_re3data_repos: :environment do
-    p "Fetching the latest re3data repository metadata and updating the repositories table"
-    p "This can take in excess of 10 minutes to complete ..."
+    p 'Fetching the latest re3data repository metadata and updating the repositories table'
+    p 'This can take in excess of 10 minutes to complete ...'
     ExternalApis::Re3dataService.fetch
   end
 
-  desc "Load Licenses from SPDX"
+  desc 'Load Licenses from SPDX'
   task load_spdx_licenses: :environment do
-    p "Fetching the latest SPDX license metadata and updating the licenses table"
+    p 'Fetching the latest SPDX license metadata and updating the licenses table'
     ExternalApis::SpdxService.fetch
   end
 
-  desc "Seed the Research Domain table with Field of Science categories"
+  desc 'Seed the Research Domain table with Field of Science categories'
   task add_field_of_science_to_research_domains: :environment do
     # TODO: If we can identify an external API authority for this information we should switch
     #       to fetch the list from there instead of the hard-coded list below which was derived from:
