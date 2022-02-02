@@ -54,7 +54,7 @@ module Users
     end
 
     # The path used after sign in.
-    def after_sign_in_path_for(_resource)
+    def after_sign_in_path_for(resource)
       # Determine if this was parft of an OAuth workflow for API V2
       if session['oauth-referer'].present?
         auth_hash = ApplicationService.decrypt(payload: session['oauth-referer']) || {}
