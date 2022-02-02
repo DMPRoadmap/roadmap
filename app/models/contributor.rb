@@ -138,12 +138,12 @@ class Contributor < ApplicationRecord
                  _("can't be blank."))
     end
 
-    if name.blank? && email.blank? && errors.length.zero?
+    if name.blank? && email.blank? && errors.size.zero?
       errors.add(:name, _("can't be blank if no email is provided."))
       errors.add(:email, _("can't be blank if no name is provided."))
     end
 
-    errors.length.zero?
+    errors.size.zero?
   end
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 end
