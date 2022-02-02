@@ -58,19 +58,20 @@ module Paginable
     end
     # rubocop:enable Metrics/AbcSize
 
-  # GET /paginable/users/:id/plans
-  def index
-    @user = User.find(params[:id])
-    authorize @user
-    unless current_user.present? && current_user.can_org_admin? && @user.present?
-      raise Pundit::NotAuthorizedError
-    end
+    # GET /paginable/users/:id/plans
+    def index
+      @user = User.find(params[:id])
+      authorize @user
+      unless current_user.present? && current_user.can_org_admin? && @user.present?
+        raise Pundit::NotAuthorizedError
+      end
 
-    paginable_renderise(
-      partial: "index",
-      scope: Plan.active(@user),
-      query_params: { sort_field: "plans.updated_at", sort_direction: :desc },
-      format: :json
-    )
+      paginable_renderise(
+        partial: "index",
+        scope: Plan.active(@user),
+        query_params: { sort_field: "plans.updated_at", sort_direction: :desc },
+        format: :json
+      )
+    end
   end
 end
