@@ -130,35 +130,20 @@ class Contributor < ApplicationRecord
 
   private
 
-  # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/MethodLength
   def name_or_email_presence
-    return true unless (name.blank? && email.blank?) ||
-                        (!!Rails.configuration.x.application.require_contributor_name &&
-                        name.blank?) ||
-                        (!!Rails.configuration.x.application.require_contributor_email &&
-                        email.blank?)
-
-    # Error messages for case where name.blank? and email.blank? and
-    # properties Rails.configuration.x.application.require_contributor_name and
-    # Rails.configuration.x.application.require_contributor_email both not set (i.e, nil) or false.
-    if (name.blank? && email.blank?) &&
-       !Rails.configuration.x.application.require_contributor_name &&
-       !Rails.configuration.x.application.require_contributor_email
+    if name.blank? && Rails.configuration.x.application.require_contributor_name
+      errors.add(:name, _("can't be blank."))
+    end
+    
+    if email.blank? && Rails.configuration.x.application.require_contributor_email
+      errors.add(:email, _("can't be blank."))
+    end
+    
+    if name.blank? && email.blank? && errors.length == 0
       errors.add(:name, _("can't be blank if no email is provided."))
       errors.add(:email, _("can't be blank if no name is provided."))
-    else
-
-      # Error messages cases where enither ame.blank? or email.blank?
-      if name.blank? && !!Rails.configuration.x.application.require_contributor_name
-        errors.add(:name, _("can't be blank."))
-      end
-
-      if email.blank? && !!Rails.configuration.x.application.require_contributor_email
-        errors.add(:email, _("can't be blank."))
-      end
     end
-  end
-  # rubocop:enable Metrics/MethodLength
-  # rubocop:enable Metrics/AbcSize
+
+    return errors.length == 0
+end
 end
