@@ -133,14 +133,17 @@ class Contributor < ApplicationRecord
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   def name_or_email_presence
     errors.add(:name, _("can't be blank.")) if name.blank? && Rails.configuration.x.application.require_contributor_name
-    errors.add(:email, _("can't be blank.")) if email.blank? && Rails.configuration.x.application.require_contributor_email
-  
+    if email.blank? && Rails.configuration.x.application.require_contributor_email
+      errors.add(:email,
+                 _("can't be blank."))
+    end
+
     if name.blank? && email.blank? && errors.length.zero?
       errors.add(:name, _("can't be blank if no email is provided."))
       errors.add(:email, _("can't be blank if no name is provided."))
     end
 
-    return errors.length.zero?
+    errors.length.zero?
   end
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 end
