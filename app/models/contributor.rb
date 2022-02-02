@@ -145,5 +145,5 @@ class Contributor < ApplicationRecord
     end
 
     return errors.length == 0
-end
+  end
 end
