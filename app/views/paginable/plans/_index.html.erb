@@ -21,13 +21,8 @@
             <% end %>
           </td>
           <td><%= plan.template.title %></td>
-<<<<<<< HEAD:app/views/paginable/plans/_org_admin_other_user.html.erb
-          <td><%= plan.owner&.org&.name %></td>
-          <td><%= plan.owner&.name(false) %></td>
-=======
           <td><%= plan.owner.org.name if plan.owner.present? %></td>
           <td><%= plan.owner.name(false) if plan.owner.present? %></td>
->>>>>>>  Issue#3069 - (DCC Issue 675) - Org Admin and Super Admin searches and:app/views/paginable/plans/_index.html.erb
           <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
           <td class="plan-visibility">
             <%= plan.visibility === 'is_test' ? _('Test') : sanitize(display_visibility(plan.visibility)) %>
