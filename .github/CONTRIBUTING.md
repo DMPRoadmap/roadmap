@@ -1,9 +1,9 @@
 ## Introduction
-The goal of the DMPRoadmap project is to provide the community with a reliable and stable platform for managing data management plans. This means that all development efforts should adhere to some basic tenets to ensure that the system remains stable and provides functionality for the community as a whole.
+The goal of the DMP Assistant project, which is a **fork** of the current state of the main <a href="https://github.com/DMPRoadmap/roadmap">DMP Roadmap codebase</a>, is to provide the community with a reliable and stable platform for managing data management plans. This means that all development efforts should adhere to some basic tenets to ensure that the system remains stable and provides functionality for the community as a whole.
 
 These guidelines are an attempt to ensure that we are able to provide the community with a reliable system, stable APIs, a clear roadmap, and a predictable release schedule. 
 
-A contribution consists of any work that is voluntarily submitted to the project. This includes bug fixes, enhancements and documentation that is intended as an improvement to the DMP Roadmap system.
+A contribution consists of any work that is voluntarily submitted to the project. This includes bug fixes, enhancements and documentation that is intended as an improvement to the DMP Roadmap & DMP Assistant system.
 
 ### Let us know that you'll be working on the issue!
 
@@ -11,32 +11,31 @@ If you would like to contribute a feature or bug fix, let us know by commenting 
 
 ### Forking the repository
 
-If you would like to contribute to the project and have not yet forked the codebase, click on the 'Fork' button in the upper right hand corner of this page. This will create a copy of the DMPRoadmap repository for you to work with.
+If you would like to contribute to the project and have not yet forked the codebase, click on the 'Fork' button in the upper right hand corner of this page. This will create a copy of the DMP Assistant repository for you to work with.
 
 Once the fork has been created, clone the repository onto your machine. See Github's (documentation on cloning)[https://help.github.com/articles/cloning-a-repository/].
 
-On your local machine, add a remote that points to the original DMPRoadmap codebase. This will allow you to pull down the latest changes and sync up your forked repository
+On your local machine, add a remote that points to the original DMP Assistant codebase. This will allow you to pull down the latest changes and sync up your forked repository
 
-Run the following from your local clone of the repository to setup a remote that will allow you to pull down the latest changes from DMPRoadmap. Then pull down the development branch:
+Run the following from your local clone of the repository to setup a remote that will allow you to pull down the latest changes from DMP Assistant:
+
 ```bash
-git remote add upstream https://github.com/DMPRoadmap/roadmap.git
-git fetch development
+git remote add upstream https://github.com/portagenetwork/roadmap.git
+git fetch
 ```
 
-### Pulling down the latest changes from DMPRoadmap into your fork
+### Pulling down the latest changes from DMP Assistant into your fork
 
-If you've already forked the project, you should make sure you pull down the latest changes before working on yoour feature, bug fix or translations.
-
-
+If you've already forked the project, you should make sure you pull down the latest changes from **integration** branch before working on your feature, bug fix or translations.
 
 ### Create a new feature/bug fix/translations branch 
 
-You should always base your new branch off of the development branch. We keep this branch up to date with the latest release. Checkout the development branch, sync it with DMPRoadmap and then push the latest up to your own fork:
+You should always base your new branch off of the **integration** branch. We keep this branch up to date with the latest release. Checkout the **integration** branch, sync it with DMP Assistant and then push the latest up to your own fork:
 
 ```bash
-git checkout development
-git pull upstream development
-git push origin development
+git checkout integration
+git pull upstream integration
+git push origin integration
 git checkout -b [my-branch]
 ```
 
@@ -130,7 +129,7 @@ Date:   Fri Jun 14 09:20:41 2018 +0100
 
 Once your changes are complete, push your branch up to your fork, `git push origin [my-branch]`
 
-Then login to Github and go to your fork. Select your branch from the list and click 'New Pull Request'. On the page that opens, select the 'development' branch on the DMPRoadmap section. 
+Then login to Github and go to your fork. Select your branch from the list and click 'New Pull Request'. On the page that opens, select the **integration** branch on the DMP Assistant section. 
 
 Then review your code and provide us with detailed comments about what the changes are doing (e.g. adding a new feature, fixing a recorded bug, etc.). If you are working off of one of our Github issues, then please note that in the PR message with a `Fixes #1234`.
 
@@ -140,13 +139,13 @@ The project team will evaluate each PR as time permits and communicate with the 
  
 Once we receive your PR, at lest one member of the core development team will review the code and provide you with feedback through GitHub PR review feature. If any changes are requested, you should follow the process above to commit your additional changes, rebase again, and push your changes back up to Github. You do not need to close the PR and open another if you are working with the same branch. Note that if you rebase again you will need to force the push: `git push -f origin [my-branch]`
 
-### Acceptence of your PR
+### Acceptance of your PR
 
-Once your code has been approved a member of the core development team will merge it into the development branchand include it in an upcoming release. 
+Once your code has been approved a member of the core development team will merge it into the development branch and include it in an upcoming release. 
 
 At this point its a good idea to delete the branch from your fork in Github and also delete it from your local machine via:
 ```bash
-git checkout development
+git checkout integration
 git branch -D [my-branch]
 ```
 
@@ -163,10 +162,10 @@ git branch -D [my-branch]
 * Did you update/add the Functional tests?
 * Did you update/add the Routing tests (if applicable)?
 * Did you update the corresponding view(s)?
-* Did you include any updates/additions to localisation text config/locales/pot file?
+* Did you include any updates/additions to localization text config/locales/pot file?
 
 #### Checklist for changes to a view
-* Did you include any updates/additions to localisation text config/locales/pot file?
+* Did you include any updates/additions to localization text config/locales/pot file?
 * Did you update the corresponding controller?
 * Did you manually test the change in multiple browsers?
-* Did your change require modifications to the CSS, JS or image files? If so did you include them in your branded file locations or in the core system files? For example: lib/assets/javascripts is the default javascript directory. app/assets/javascripts are specific to your local installation. (See [Branding](https://github.com/DMPRoadmap/roadmap/wiki/Branding) for more information)
+* Did your change require modifications to the CSS, JS or image files? If so did you include them in your branded file locations or in the core system files? For example: lib/assets/javascripts is the default javascript directory. app/assets/javascripts are specific to your local installation. (See [Branding](https://github.com/portagenetwork/roadmap/wiki/Branding) for more information)
