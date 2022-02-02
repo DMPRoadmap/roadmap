@@ -1,4 +1,4 @@
 <li>
   <%= link_to_unless(current_page.first?, _('First'), url, remote: remote,
-                     aria: { label: _('First page') }) %>
+                     class: 'paginable-action', aria: { label: _('First page') }) %>
 </li>

@@ -1,23 +1,17 @@
 <%= paginator.render do %>
-  <nav class="c-pagination" aria-label="pagination">
-    <% unless total_pages <= 1 %>
-      <a href="" aria-label="View all pages"><%= _('View All') %></a>
+  <ul>
+    <%= first_page_tag unless current_page.first? %>
+    <%= prev_page_tag unless current_page.first? %>
+    <% each_page do |page| %>
+      <% if page.display_tag? %>
+        <%= page_tag page %>
+      <% elsif !page.was_truncated? %>
+        <%= gap_tag %>
+      <% end %>
     <% end %>
-
-    <ul>
-      <%= first_page_tag unless current_page.first? %>
-      <%= prev_page_tag unless current_page.first? %>
-      <% each_page do |page| %>
-        <% if page.display_tag? %>
-          <%= page_tag page %>
-        <% elsif !page.was_truncated? %>
-          <%= gap_tag %>
-        <% end %>
-      <% end %>
-      <% unless current_page.out_of_range? %>
-        <%= next_page_tag unless current_page.last? %>
-        <%= last_page_tag unless current_page.last? %>
-      <% end %>
-    </ul>
-  </nav>
+    <% unless current_page.out_of_range? %>
+      <%= next_page_tag unless current_page.last? %>
+      <%= last_page_tag unless current_page.last? %>
+    <% end %>
+  </ul>
 <% end %>

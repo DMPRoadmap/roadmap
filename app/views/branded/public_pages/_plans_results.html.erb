@@ -52,5 +52,23 @@
   </section>
 <% end %>
 
-<%# See /branded/kaminari/_paginator.html.erb for the pagination links html %>
-<%= paginate(plans) %>
+<nav class="c-pagination" aria-label="pagination">
+  <%
+  page_params = current_page_query_params
+  # Clear the current pagination settings so we can build the correct 'View All/Less' URLs
+  page_params.delete('all')
+  page_params.delete('page')
+  page_params.delete('per_page')
+  %>
+
+  <% if @plans.total_pages > 1 %>
+    <%= link_to _('View All'), page_params.merge({ all: true }),
+                aria: { label: _('View all results') } %>
+  <% elsif @viewing_all %>
+    <%= link_to _('View Less'), page_params.merge({ page: 1 }),
+                aria: { label: _('View fewer results') } %>
+  <% end %>
+
+  <%# See /branded/kaminari/_paginator.html.erb for the pagination links html %>
+  <%= paginate(plans) %>
+</nav>

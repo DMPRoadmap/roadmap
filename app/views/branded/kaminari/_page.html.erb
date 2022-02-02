@@ -1,4 +1,8 @@
 <li>
-  <%= link_to_unless(page.current?, page, url, remote: remote, rel: page.rel,
-                     aria: { label: _('Page %<page_nbr>s') % { page_nbr: page }, current: 'page' }) %>
+  <%= link_to(page, url, remote: remote, rel: page.rel,
+              class: 'paginable-action',
+              aria: {
+                label: _('Page %<page_nbr>s') % { page_nbr: page },
+                current: page.current? ? 'page' : ''
+              }) %>
 </li>

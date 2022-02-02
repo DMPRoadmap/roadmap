@@ -5,6 +5,14 @@ require 'rss'
 
 # DMPTool specific helpers
 module DmptoolHelper
+
+  # Pagination link to view all results (currently only used on the public plans page)
+  def current_page_query_params
+    uri = URI.parse(request.fullpath)
+    query_params = uri.query.present? ? CGI.parse(uri.query) : {}
+    query_params.transform_values { |val| val.is_a?(Array) ? val.first : val }
+  end
+
   # Converts some of the language of User validation errors
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def auth_has_error?(attribute)

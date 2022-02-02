@@ -32,10 +32,16 @@ module Dmptool
       # Process any faceting
       process_facets
 
-      # Handle pagination (Always do this last!)
+      # If the user clicked 'View All', set the per_page to match the record count
+      per_page = @plans.length if public_plans_params[:all]
+      per_page = public_plans_params.fetch(:per_page, 10) unless per_page.present?
+
+      @viewing_all = public_plans_params[:all].present?
+
+      # Handle pagination unless the user clicked 'View All' (Always do this last!)
       @plans = Kaminari.paginate_array(@plans)
                        .page(public_plans_params.fetch(:page, 1))
-                       .per(public_plans_params.fetch(:per_page, 10))
+                       .per(per_page)
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
@@ -50,7 +56,7 @@ module Dmptool
 
     # Acceptable params for the public plans page
     def public_plans_params
-      params.permit(:page, :per_page, :sort_by, :search,
+      params.permit(:page, :per_page, :all, :sort_by, :search,
                     facet: [funder_ids: [], institution_ids: [], language_ids: [], subject_ids: []])
     end
 

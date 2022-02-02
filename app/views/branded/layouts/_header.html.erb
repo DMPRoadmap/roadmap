@@ -47,7 +47,8 @@
   <nav aria-label="<%= _('main') %>" id="js-headernav" class="c-headernav">
     <ul>
       <% if user_signed_in? %>
-        <li><%= link_to _("Dashboard"), plans_path %></li>
+        <li><%= link_to _("My Dashboard"), plans_path %></li>
+        <li><%= link_to _("Create Plan"), new_plan_path %></li>
       <% end %>
       <li><%= link_to _("Funder Requirements"), public_templates_path %></li>
       <li><%= link_to _("Public DMPs"), public_plans_path %></li>
