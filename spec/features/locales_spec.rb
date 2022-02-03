@@ -73,7 +73,6 @@ RSpec.feature 'Locales', type: :feature, js: true do
       click_button 'Language'
       expect(current_path).to eql(plans_path)
       expect(page).not_to have_text(create_plan_text)
-
       click_link 'Portugese'
       expect(current_path).to eql(plans_path)
       expect(page).to have_text(create_plan_text)

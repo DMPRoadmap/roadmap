@@ -8,7 +8,7 @@ module Users
 
     def failure
       Rails.logger.error "OmniauthCallbacksController - FAILURE for #{failed_strategy.name}"
-      super
+      redirect_to root_path, alert: _('Unable to authenticate!')
     end
 
     # GET|POST /users/auth/shibboleth/callback

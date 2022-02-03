@@ -54,6 +54,7 @@ module Users
     end
 
     # The path used after sign in.
+    # rubocop:disable Metrics/AbcSize
     def after_sign_in_path_for(resource)
       # Determine if this was parft of an OAuth workflow for API V2
       if session['oauth-referer'].present?
@@ -62,12 +63,13 @@ module Users
 
         # Destroy the OAuth session info since we no longer need it
         session.delete('oauth-referer')
-      else
-        # Change the locale if the user has a prefered language
-        session[:locale] = resource.language.abbreviation if resource.language_id.present?
+      elsif resource.language_id.present?
+        session[:locale] = resource.language.abbreviation
       end
+      # Change the locale if the user has a prefered language
 
       oauth_path.present? ? oauth_path : plans_path
     end
+    # rubocop:enable Metrics/AbcSize
   end
 end

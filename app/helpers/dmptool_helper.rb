@@ -5,7 +5,6 @@ require 'rss'
 
 # DMPTool specific helpers
 module DmptoolHelper
-
   # Pagination link to view all results (currently only used on the public plans page)
   def current_page_query_params
     uri = URI.parse(request.fullpath)

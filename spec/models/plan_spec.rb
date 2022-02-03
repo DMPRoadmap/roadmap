@@ -1340,7 +1340,7 @@ describe Plan do
       expect(@plan.registration_allowed?).to eql(true)
     end
     it 'returns false if the creator/owner does not have an ORCID (and ORCID is enabled)' do
-      Rails.cconfiguration.x.madmp.enable_orcid_publication = true
+      Rails.configuration.x.madmp.enable_orcid_publication = true
       @plan.owner.identifiers.clear
       @plan.expects(:visibility_allowed?).returns(true)
       expect(@plan.registration_allowed?).to eql(false)

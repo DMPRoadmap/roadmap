@@ -14,9 +14,19 @@ RSpec.describe Dmptool::Authenticatable, type: :controller do
     @admin = create(:user, :org_admin, org: @org)
     @super_admin = create(:user, :super_admin, org: @org)
 
-    @controller = ::Users::SessionsController.new
+    # Use a fake controller to test the concern
+    class FakeController < ApplicationController
+      include OrgSelectable
+    end
+
+    @controller = FakeController.new
 
     mock_devise_env_for_controllers
+  end
+
+  after(:each) do
+    # Make sure our FakeController class is destroyed!
+    Object.send(:remove_const, :FakeController) if Object.const_defined?(:FakeController)
   end
 
   it 'Controllers includes our customizations' do

@@ -14,6 +14,10 @@ class ContributorsController < ApplicationController
   def index
     authorize @plan
     @contributors = @plan.contributors
+
+p "HERE"
+pp @contributors.inspect
+
   end
 
   # GET /plans/:plan_id/contributors/new

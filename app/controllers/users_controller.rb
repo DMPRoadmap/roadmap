@@ -10,8 +10,6 @@ class UsersController < ApplicationController
   # Start DMPTool Customization
   # --------------------------------
   include Dmptool::UsersController
-
-  include Dmptool::Shibbolethable
   # --------------------------------
   # End DMPTool Customization
   # --------------------------------

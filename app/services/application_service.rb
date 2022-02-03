@@ -23,7 +23,7 @@ class ApplicationService
       crypto.encrypt_and_sign(payload)
     rescue StandardError => e
       Rails.logger.error "ApplicationService.encrypt - #{e.message}"
-      return nil
+      nil
     end
 
     # Use the Rails secret key to decrypt information.
@@ -32,7 +32,7 @@ class ApplicationService
 
       decrypted = crypto.decrypt_and_verify(payload)
       JSON.parse(decrypted)
-    rescue JSON::ParserError => e
+    rescue JSON::ParserError
       # If JSON wasn't encrpyted then just return the decrypted value
       decrypted
     rescue StandardError => e

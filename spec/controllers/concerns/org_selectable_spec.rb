@@ -43,7 +43,17 @@ RSpec.describe OrgSelectable do
       }
     }.with_indifferent_access
 
-    @controller = ContributorsController.new
+    # Use a fake controller to test the concern
+    class FakeController < ApplicationController
+      include OrgSelectable
+    end
+
+    @controller = FakeController.new
+  end
+
+  after(:each) do
+    # Make sure our FakeController class is destroyed!
+    Object.send(:remove_const, :FakeController) if Object.const_defined?(:FakeController)
   end
 
   describe ':autocomplete_to_controller_params' do

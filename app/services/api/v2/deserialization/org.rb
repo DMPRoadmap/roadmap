@@ -51,7 +51,7 @@ module Api
           private
 
           # Search for an Org locally and then externally if not found
-          # rubocop:disable Metrics/AbcSize
+          # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           def find_by_name(json: {})
             return nil unless json.present? && json[:name].present?
 
@@ -75,7 +75,7 @@ module Api
             end
             org
           end
-          # rubocop:enable Metrics/AbcSize
+          # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
           # Create a new Org from the RegistryOrg entry
           # rubocop:disable Metrics/AbcSize

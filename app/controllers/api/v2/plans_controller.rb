@@ -103,18 +103,13 @@ module Api
           # Try to find the owner based on the :contact
           owner = determine_owner(plan: plan, json: dmp.fetch(:contact, {}))
 
-p "OWNER:"
-pp owner.inspect
-p "CLIENT OWNER:"
-pp client.owner.inspect
-
           # Try to determine the Plan's org
           plan.org = owner.present? ? owner.org : client.owner&.org
           unless plan.org.present?
             matches = find_matching_orgs(
               plan: plan, json: dmp.fetch(:contact, {}).fetch(:affiliation, {})
             )
-            no_org_err = no_org_err % { list_of_names: matches.map { |m| "'#{m}'" }.join(', ') }
+            no_org_err = format(no_org_err, list_of_names: matches.map { |m| "'#{m}'" }.join(', '))
             render_error(errors: no_org_err, status: :bad_request) and return unless plan.org.present?
           end
 
@@ -198,14 +193,16 @@ pp client.owner.inspect
 
       # If the contact's org could not be determined, then fetch the matches to return to the
       # caller
+      # rubocop:disable Metrics/AbcSize
       def find_matching_orgs(plan:, json:)
         return [] unless plan.present? && json.is_a?(Hash) && json[:name].present?
 
         name = json[:name].downcase.split('(').first
         matches = Org.where(managed: true).search(name)
-        matches += RegistryOrg.search(name) if !Rails.configuration.x.application.restrict_orgs
+        matches += RegistryOrg.search(name) unless Rails.configuration.x.application.restrict_orgs
         matches.any? ? matches.map(&:name) : []
       end
+      # rubocop:enable Metrics/AbcSize
 
       # Send the owner an email to let them know about the new Plan
       def notify_owner(client:, owner:, plan:)
