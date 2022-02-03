@@ -44,9 +44,11 @@ RSpec.describe OrgSelectable do
     }.with_indifferent_access
 
     # Use a fake controller to test the concern
+    # rubocop:disable Lint/ConstantDefinitionInBlock
     class FakeController < ApplicationController
       include OrgSelectable
     end
+    # rubocop:enable Lint/ConstantDefinitionInBlock
 
     @controller = FakeController.new
   end

@@ -15,9 +15,8 @@ class ContributorsController < ApplicationController
     authorize @plan
     @contributors = @plan.contributors
 
-p "HERE"
-pp @contributors.inspect
-
+    p 'HERE'
+    pp @contributors.inspect
   end
 
   # GET /plans/:plan_id/contributors/new

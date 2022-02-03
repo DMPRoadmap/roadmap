@@ -101,7 +101,7 @@ RSpec.describe Api::V2::RelatedIdentifiersController, type: :request do
                  .fetch(:items, [{}])
                  .first[:dmp]
       r_ids = json.fetch(:dmproadmap_related_identifiers, [])
-      expected = JSON.parse({ 'identifier': @plan.dmp_id.value, 'type': 'doi' }.to_json)
+      expected = JSON.parse({ identifier: @plan.dmp_id.value, type: 'doi' }.to_json)
       expect(json[:dmp_id]).to eql(expected)
       r_ids = r_ids.map { |related| related[:identifier] }
       expected = @json[:dmp][:dmproadmap_related_identifiers].map { |i| i[:identifier] }

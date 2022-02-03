@@ -15,9 +15,11 @@ RSpec.describe Dmptool::Authenticatable, type: :controller do
     @super_admin = create(:user, :super_admin, org: @org)
 
     # Use a fake controller to test the concern
+    # rubocop:disable Lint/ConstantDefinitionInBlock
     class FakeController < ApplicationController
       include OrgSelectable
     end
+    # rubocop:enable Lint/ConstantDefinitionInBlock
 
     @controller = FakeController.new
 
