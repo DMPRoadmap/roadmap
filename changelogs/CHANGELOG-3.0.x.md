@@ -1,4 +1,8 @@
-# Liste des changements versions 3.0.0->3.0.3 
+# Liste des changements versions 3.0.0->3.0.4 
+
+## 03/02/2022
+- Les plans sont désormais partagés en "Lecture seule" par défaut
+- Résolution d'un problème qui attribuait un Formulaire structuré à une question lors de l'édition de Modèle de DMP même si cette question n'était pas "structurée" (issue gitbucket 314)
 
 ## 21/01/2022
 - Résolution d'un bug survenant la vérification de l'existance d'un contributeur, à la création d'un nouveau contributeur.
