@@ -195,8 +195,7 @@ RSpec.describe Api::V2::DeserializationService do
 
   describe 'dmp_id?(value:)' do
     before(:each) do
-      @scheme = create(:identifier_scheme, name: 'doi',
-                                           identifier_prefix: Faker::Internet.url)
+      @scheme = dmp_id_scheme
     end
 
     it 'returns false if value is not present' do

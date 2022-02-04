@@ -3,17 +3,20 @@
 require 'rails_helper'
 
 RSpec.describe Api::V2::Deserialization::Plan do
+  include IdentifierHelper
+
   before(:each) do
     # Org requires a language, so make sure a default is available!
     create(:language, default_language: true) unless Language.default
 
     @template = create(:template, published: true)
     @plan = create(:plan, template: @template)
-    @scheme = create(:identifier_scheme, name: 'doi',
-                                         identifier_prefix: Faker::Internet.url)
+
     @doi = '10.9999/45ty5t.345/34t'
-    @identifier = create(:identifier, identifier_scheme: @scheme,
-                                      identifiable: @plan, value: @doi)
+    create_dmp_id(plan: @plan, val: @doi)
+    @plan.reload
+    @identifier = @plan.dmp_id
+    @scheme = @identifier.identifier_scheme
 
     @app_name = ApplicationService.application_name.split('-').first&.downcase
     @app_name = 'tester' unless @app_name.present?
