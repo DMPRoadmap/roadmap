@@ -6,6 +6,7 @@ describe 'api/v1/token.json.jbuilder' do
   before(:each) do
     @url = Faker::Internet.url
     @payload = { client_id: 'foo' }
+    Rails.application.credentials.secret_key_base = SecureRandom.uuid.to_s
     @token = Api::V1::Auth::Jwt::JsonWebToken.encode(payload: @payload)
     @exp = @payload[:exp]
     @type = Faker::Lorem.word.capitalize
