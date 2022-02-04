@@ -1620,7 +1620,7 @@ describe Plan do
       @plan.related_identifiers_attributes = JSON.parse(params.to_json)
       @plan.save
       @plan.reload
-      results = @plan.related_identifiers.order(:created_at)
+      results = @plan.related_identifiers.order(:id)
       expect(results.length).to eql(2)
       expect(results.first.id).to eql(@related.id)
       expect(results.first.work_type).to eql(@related.work_type)
