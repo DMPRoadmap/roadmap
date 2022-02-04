@@ -35,10 +35,6 @@ RSpec.describe Dmptool::Authenticatable, type: :controller do
   end
 
   it 'Controllers includes our customizations' do
-
-pp OrgSelectable.inspect
-pp @controller.inspect
-
     expect(@controller.respond_to?(:user_from_omniauth)).to eql(true)
     expect(::Users::RegistrationsController.new.respond_to?(:user_from_omniauth)).to eql(true)
   end
