@@ -17,7 +17,10 @@ RSpec.describe Dmptool::Authenticatable, type: :controller do
     # Use a fake controller to test the concern
     # rubocop:disable Lint/ConstantDefinitionInBlock
     class FakeController < ApplicationController
-      include OrgSelectable
+      include Dmptool::Authenticatable
+
+      # Only controllers that inherit from Devise use the Authenticatable concern so stub :resource
+      attr_accessor :resource
     end
     # rubocop:enable Lint/ConstantDefinitionInBlock
 
@@ -32,6 +35,10 @@ RSpec.describe Dmptool::Authenticatable, type: :controller do
   end
 
   it 'Controllers includes our customizations' do
+
+pp OrgSelectable.inspect
+pp @controller.inspect
+
     expect(@controller.respond_to?(:user_from_omniauth)).to eql(true)
     expect(::Users::RegistrationsController.new.respond_to?(:user_from_omniauth)).to eql(true)
   end
