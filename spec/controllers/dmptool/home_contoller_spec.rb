@@ -19,7 +19,7 @@ RSpec.describe Dmptool::HomeController, type: :request do
       get root_path
       # Request specs are expensive so just check everything in this one test
       expect(response).to have_http_status(:success), 'should have received a 200'
-      expect(response.body.include?('en-GB')).to eql(true)
+      expect(response.body.include?('Language')).to eql(true)
       expect(response.body.include?('Funder Requirements</a>')).to eql(true)
       expect(response.body.include?('<h1>Create Data Management Plans that meet')).to eql(true)
       expect(response.body.include?('<h2>Sign in / Sign up')).to eql(true)

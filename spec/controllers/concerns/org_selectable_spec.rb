@@ -360,22 +360,24 @@ RSpec.describe OrgSelectable do
 
     context 'namespaced autocomplete' do
       before(:each) do
-        Rails.configuration.x.application.restrict_orgs = false
         @user = create(:user, org: create(:org))
       end
 
       it 'returns nil if no :name_from_params does not return a name' do
+        Rails.configuration.x.application.restrict_orgs = false
         @controller.stubs(:name_from_params).returns(nil)
         expect(@controller.process_org!(user: @user, namespace: 'funder')).to eql(nil)
       end
 
       context 'Existing Org' do
         it 'returns the existing Org' do
+          Rails.configuration.x.application.restrict_orgs = false
           org = create(:org, name: @funder_term)
           @controller.stubs(:org_selectable_params).returns(@funder_selection_params)
           expect(@controller.process_org!(user: @user, namespace: 'funder')).to eql(org)
         end
         it 'returns nil if the existing Org if it is not :managed and we restrict that' do
+          Rails.configuration.x.application.restrict_orgs = false
           @controller.stubs(:org_selectable_params).returns(@funder_selection_params)
           create(:org, name: @funder_term, managed: false)
           expect(@controller.process_org!(user: @user, managed_only: true, namespace: 'funder')).to eql(nil)
@@ -389,6 +391,7 @@ RSpec.describe OrgSelectable do
 
       context 'Existing RegistryOrg' do
         it 'return the Org associated with the matching RegistryOrg' do
+          Rails.configuration.x.application.restrict_orgs = false
           org = create(:org)
           create(:registry_org, org: org, name: @funder_term)
           @controller.stubs(:org_selectable_params).returns(@funder_selection_params)
@@ -401,6 +404,7 @@ RSpec.describe OrgSelectable do
           expect(@controller.process_org!(user: @user, namespace: 'funder')).to eql(nil)
         end
         it 'returns nil if the config has restrict_orgs not set but we only want managed' do
+          Rails.configuration.x.application.restrict_orgs = false
           create(:registry_org, name: @funder_term)
           @controller.stubs(:org_selectable_params).returns(@funder_selection_params)
           expect(@controller.process_org!(user: @user, managed_only: true, namespace: 'funder')).to eql(nil)
@@ -414,6 +418,7 @@ RSpec.describe OrgSelectable do
           expect(org.name).to eql(registry_org.name)
         end
         it 'derives an Org from the RegistryOrg if restrict_orgs is not set' do
+          Rails.configuration.x.application.restrict_orgs = false
           registry_org = create(:registry_org, name: @funder_term)
           @controller.stubs(:org_selectable_params).returns(@funder_selection_params)
           org = @controller.process_org!(user: @user, namespace: 'funder')
@@ -423,11 +428,13 @@ RSpec.describe OrgSelectable do
 
       context 'Creates a new Org based on the name provided by the User' do
         it 'returns nil if the user was not providing a custom Org name' do
+          Rails.configuration.x.application.restrict_orgs = false
           @funder_custom_params[:org_autocomplete][:funder_not_in_list] = '0'
           @controller.stubs(:org_selectable_params).returns(@funder_custom_params)
           expect(@controller.process_org!(user: @use, namespace: 'funder')).to eql(nil)
         end
         it 'creates a new Org if no matches were found and this is allowed' do
+          Rails.configuration.x.application.restrict_orgs = false
           @controller.stubs(:org_selectable_params).returns(@funder_custom_params)
           org = @controller.process_org!(user: @user, namespace: 'funder')
           expect(org.name).to eql(@funder_custom_params[:org_autocomplete][:funder_user_entered_name])
