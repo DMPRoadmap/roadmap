@@ -1,5 +1,8 @@
 # Changelog
 
+## [Unreleased]
+  - Add danger worflow to automate code review tasks
+
 ## [3.0.4+portage-3.0.0] - 2022-01-17
 
 ### Changed
