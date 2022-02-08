@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dmptool 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-02-08 08:31-0800\n"
-"PO-Revision-Date: 2022-02-08 17:31+0100\n"
+"POT-Creation-Date: 2022-02-08 09:20-0800\n"
+"PO-Revision-Date: 2022-02-08 18:20+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Portuguese\n"
 "Language: pt_BR\n"
@@ -200,6 +200,7 @@ msgid "DMPTool blog (opens new window)"
 msgstr "Blog DMPTool (abre uma nova janela)"
 
 #: ../../app/views/branded/layouts/_json_constants.html.erb:9
+#: ../../app/views/branded/plans/new.html.erb:2
 msgid "This field is required."
 msgstr "Este campo é obrigatório."
 
@@ -511,6 +512,7 @@ msgid "Send email"
 msgstr "Enviar email"
 
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:2
+#: ../../app/views/branded/plans/_navigation.html.erb:43
 msgid "Download"
 msgstr "Baixar"
 
@@ -523,6 +525,7 @@ msgid "Description"
 msgstr "Descrição"
 
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:12
+#: ../../app/views/branded/plans/new.html.erb:86
 #: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:23
 msgid "Funder"
 msgstr "Órgão Financiador"
@@ -607,6 +610,136 @@ msgstr "Abre em uma nova janela"
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:100
 msgid "Copy link"
 msgstr "Link de cópia"
+
+#: ../../app/views/branded/plans/_navigation.html.erb:5
+msgid "Contributors"
+msgstr "Contribuintes"
+
+#: ../../app/views/branded/plans/_navigation.html.erb:6
+msgid "Share"
+msgstr "Compartilhar"
+
+#: ../../app/views/branded/plans/_navigation.html.erb:8
+msgid "Collaborators"
+msgstr "Colaboradores"
+
+#: ../../app/views/branded/plans/_navigation.html.erb:9
+msgid "Finalise"
+msgstr "Finalizar"
+
+#: ../../app/views/branded/plans/_navigation.html.erb:14
+msgid "Project Details"
+msgstr "Detalhes do Projeto"
+
+#: ../../app/views/branded/plans/_navigation.html.erb:21
+msgid "Plan overview"
+msgstr "Visão geral do plano"
+
+#: ../../app/views/branded/plans/_navigation.html.erb:27
+msgid "Write Plan"
+msgstr "Escrever Plano"
+
+#: ../../app/views/branded/plans/_navigation.html.erb:33
+msgid "Research outputs"
+msgstr "Resultados da pesquisa"
+
+#: ../../app/views/branded/plans/_navigation.html.erb:38
+msgid "Request feedback"
+msgstr "Solicitar feedback"
+
+#: ../../app/views/branded/plans/new.html.erb:1
+#: ../../app/views/branded/plans/new.html.erb:11
+msgid "Create a new plan"
+msgstr "Criar um novo plano"
+
+#: ../../app/views/branded/plans/new.html.erb:3
+msgid "If applying for funding, state the project title exactly as in the proposal."
+msgstr ""
+"Se vai solicitar financiamento, insira o título do projeto exatamente como apa"
+"rece na proposta."
+
+#: ../../app/views/branded/plans/new.html.erb:4
+msgid "You must select a research organisation from the list or click the checkbox."
+msgstr ""
+"Você deve selecionar uma organização de pesquisa na lista ou clicar na caixa d"
+"e seleção."
+
+#: ../../app/views/branded/plans/new.html.erb:5
+msgid "Please select a valid research organisation from the list."
+msgstr "Por favor, selecione uma instituição de pesquisa válida na lista."
+
+#: ../../app/views/branded/plans/new.html.erb:6
+msgid "You must select a funder from the list or click the checkbox."
+msgstr "Você deve selecionar um financiador na lista ou clicar na caixa de seleção."
+
+#: ../../app/views/branded/plans/new.html.erb:7
+msgid "Please select a valid funding organisation from the list."
+msgstr "Por favor, selecione um órgão financiador válido na lista."
+
+#: ../../app/views/branded/plans/new.html.erb:14
+msgid ""
+"Before you get started, we need some information about your research project t"
+"o set you up with the best DMP template for your needs."
+msgstr ""
+"Antes de você começar, precisamos de algumas informações sobre seu projeto de "
+"pesquisa para escolher o modelo de PGD mais adequado a suas necessidades."
+
+#: ../../app/views/branded/plans/new.html.erb:23
+msgid "What research project are you planning?"
+msgstr "Que projeto de pesquisa você está planejando?"
+
+#: ../../app/views/branded/plans/new.html.erb:38
+msgid "mock project for testing, practice, or educational purposes"
+msgstr "projeto simulado para testes, prática ou propósitos educacionais"
+
+#: ../../app/views/branded/plans/new.html.erb:47
+msgid "Select the primary research organisation"
+msgstr "Selecione a organização de pesquisa principal"
+
+#: ../../app/views/branded/plans/new.html.erb:58
+msgid "Research organisation"
+msgstr "Organização de pesquisa"
+
+#: ../../app/views/branded/plans/new.html.erb:61
+#: ../../app/views/branded/plans/new.html.erb:89
+msgid "or"
+msgstr "ou"
+
+#: ../../app/views/branded/plans/new.html.erb:64
+msgid ""
+"No research organisation associated with this plan or my research organisation"
+" is not listed"
+msgstr ""
+"Nenhuma organização de pesquisa associada a este plano ou a minha organização "
+"de pesquisa não está listada"
+
+#: ../../app/views/branded/plans/new.html.erb:74
+msgid "Select the primary funding organisation"
+msgstr "Selecione a organização financiadora principal"
+
+#: ../../app/views/branded/plans/new.html.erb:92
+msgid "No funder associated with this plan or my funder is not listed"
+msgstr "Nenhum financiador associado a este plano ou meu financiador não está listado"
+
+#: ../../app/views/branded/plans/new.html.erb:104
+msgid "Which DMP template would you like to use?"
+msgstr "Qual modelo de PGD você gostaria de usar?"
+
+#: ../../app/views/branded/plans/new.html.erb:107
+msgid "Please select a template"
+msgstr "Por favor, selecione um modelo"
+
+#: ../../app/views/branded/plans/new.html.erb:112
+msgid "We found multiple DMP templates corresponding to your funder."
+msgstr "Encontramos muitos modelos de PGD correspondentes a seu órgão financiador."
+
+#: ../../app/views/branded/plans/new.html.erb:119
+msgid "Create plan"
+msgstr "Criar plano"
+
+#: ../../app/views/branded/plans/new.html.erb:120
+msgid "Cancel"
+msgstr "Cancelar"
 
 #: ../../app/views/branded/public_pages/_facet_section.html.erb:23
 msgid "Show more"

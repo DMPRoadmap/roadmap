@@ -5526,6 +5526,10 @@ msgstr ""
 msgid "Planned research output details"
 msgstr ""
 
+#, fuzzy
+msgid "Research organisation"
+msgstr "Research organization"
+
 #: ../../app/views/shared/export/_plan_outputs.erb:22
 msgid "Intended repository(ies)"
 msgstr ""

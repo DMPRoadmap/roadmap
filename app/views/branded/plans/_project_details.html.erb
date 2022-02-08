@@ -3,21 +3,28 @@
 <%
 project_title_tooltip =  _('If applying for funding, state the name exactly as in the grant proposal.')
 project_abstract_tooltip = _("Briefly summarise your research project to help others understand the purposes for which the data are being collected or created.")
-id_tooltip = _('A pertinent ID as determined by the funder and/or organisation.')
+id_tooltip = _('A unique number that a federal agency assigns to a grant announcement.')
 ethics_tooltip = _("Whether there are any potential ethical issues related to data that this DMP describes")
 ethics_description_tooltip = _("Description of the ethical issues")
 ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics commitee")
 %>
 
-<div class="form-group"><!-- title -->
-  <div class="col-md-12">
-    <%= form.label(:title, _('Project title'), class: 'control-label') %>
+<% dmp_id = plan.dmp_id %>
+<% if Rails.configuration.x.madmp&.enable_dmp_id_registration && dmp_id.present? %>
+  <div class="form-group"><!-- dmp_id -->
+    <div class="col-md-12">
+      <label>DMP ID</label>&nbsp;<%= id_for_display(id: dmp_id, with_scheme_name: false) %>
+    </div>
   </div>
+<% end %>
+
+<div class="form-group"><!-- title -->
   <div class="col-md-8">
-    <em class="sr-only"><%= project_title_tooltip %></em>
-    <%= form.text_field(:title, class: "form-control", "aria-required": true,
+    <%= form.label(:title, _('Project title'), class: 'control-label') %>
+
+    <%= form.text_field(:title, class: "form-control", aria: { required: true },
                                 'data-toggle': 'tooltip', spellcheck: true,
-                                title: project_title_tooltip) %>
+                                size: 250, title: project_title_tooltip) %>
   </div>
   <div class="col-md-8">
     <div class="checkbox">
@@ -72,38 +79,6 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
   </div>
 </div>
 
-<%# if DOI minting is enabled %>
-<% landing_page = plan.landing_page %>
-<% if Rails.configuration.x.doi&.active && landing_page.present? %>
-  <div class="form-group"><!-- identifier -->
-    <div class="col-md-12">
-      <%= form.label(:identifier, _('Landing page'), class: 'control-label') %>
-    </div>
-    <div class="col-md-8">
-      <% if landing_page.value.starts_with?("http") %>
-        <%= link_to landing_page.value, landing_page.value %>
-      <% else %>
-        <%= landing_page.value %>
-      <% end %>
-    </div>
-  </div>
-<% else %>
-  <div class="form-group">
-    <div class="col-md-12">
-      <%= form.label :id, _("ID"), class: "control-label" %>
-    </div>
-    <div class="col-md-8">
-      <em class="sr-only"><%= id_tooltip %></em>
-      <%= form.text_field :identifier,
-                          class: "form-control",
-                          aria: { required: false },
-                          data: { toggle: "tooltip" },
-                          spellcheck: true,
-                          title: id_tooltip %>
-    </div>
-  </div>
-<% end %>
-
 <% if Rails.configuration.x.madmp.enable_ethical_issues %>
   <conditional>
     <div class="form-group">
@@ -146,23 +121,23 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
 <% end %>
 
 <conditional>
-  <div id="funder-org-controls" class="form-group">
+  <div class="form-group">
     <div class="col-md-8">
-      <%= form.fields_for :funder, Org.new do |funder_fields| %>
-        <%= render partial: "shared/org_selectors/local_only",
-                    locals: {
-                      form: funder_fields,
-                      id_field: :id,
-                      label: _("Funder"),
-                      default_org: plan.funder,
-                      orgs: @funders,
-                      required: false
-                    } %>
+      <%= fields_for :funder, plan.funder do |funder_fields| %>
+        <%= render partial: "shared/org_autocomplete",
+                    locals: { form: funder_fields,
+                              namespace: "funder",
+                              default_org: plan.funder,
+                              required: false,
+                              div_id: 'funder-org-controls',
+                              known_only: Rails.configuration.x.application.restrict_orgs || false,
+                              funder_only: true,
+                              label: _("Funder") } %>
       <% end %>
     </div>
   </div>
 
-  <div class="form-group toggleable-field">
+  <div class="form-group js-funder-field">
     <div class="col-md-12">
       <%= form.label(:funding_status, _("Funding status"), class: "control-label") %>
     </div>
@@ -176,11 +151,21 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
                             { class: "form-control" } %>
     </div>
 
+    <div class="col-md-12">
+      <%= form.label :id, _("Funding opportunity number"), class: "control-label" %>
+    </div>
+    <div class="col-md-8">
+      <em class="sr-only"><%= id_tooltip %></em>
+      <%= form.text_field :identifier, class: "form-control",
+                                       aria: { required: false },
+                                       data: { toggle: "tooltip" },
+                                       spellcheck: true, title: id_tooltip %>
+    </div>
+
     <%= form.fields_for :grant, plan.grant do |grant_fields| %>
       <div class="col-md-12">
         <%= grant_fields.label(:value, _("Grant number/url"), class: "control-label") %>
       </div>
-
       <div class="col-md-8">
         <%# If the OpenAire grant typeahead if enabled use it %>
         <% if Rails.configuration.x.open_aire.active %>
@@ -202,3 +187,8 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
     <% end %>
   </div>
 </conditional>
+
+<% if Rails.configuration.x.madmp.enable_related_identifiers %>
+  <%= render partial: "related_identifiers/edit",
+            locals: { plan: form.object, form: form } %>
+<% end %>

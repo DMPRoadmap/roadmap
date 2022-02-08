@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dmptool 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-02-08 08:31-0800\n"
-"PO-Revision-Date: 2022-02-08 17:31+0100\n"
+"POT-Creation-Date: 2022-02-08 09:20-0800\n"
+"PO-Revision-Date: 2022-02-08 18:20+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_US\n"
@@ -196,6 +196,7 @@ msgid "DMPTool blog (opens new window)"
 msgstr ""
 
 #: ../../app/views/branded/layouts/_json_constants.html.erb:9
+#: ../../app/views/branded/plans/new.html.erb:2
 msgid "This field is required."
 msgstr ""
 
@@ -490,6 +491,7 @@ msgid "Send email"
 msgstr ""
 
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:2
+#: ../../app/views/branded/plans/_navigation.html.erb:43
 msgid "Download"
 msgstr ""
 
@@ -502,6 +504,7 @@ msgid "Description"
 msgstr ""
 
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:12
+#: ../../app/views/branded/plans/new.html.erb:86
 #: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:23
 msgid "Funder"
 msgstr ""
@@ -581,6 +584,130 @@ msgstr ""
 
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:100
 msgid "Copy link"
+msgstr ""
+
+#: ../../app/views/branded/plans/_navigation.html.erb:5
+msgid "Contributors"
+msgstr ""
+
+#: ../../app/views/branded/plans/_navigation.html.erb:6
+msgid "Share"
+msgstr ""
+
+#: ../../app/views/branded/plans/_navigation.html.erb:8
+msgid "Collaborators"
+msgstr ""
+
+#: ../../app/views/branded/plans/_navigation.html.erb:9
+msgid "Finalise"
+msgstr "Finalize"
+
+#: ../../app/views/branded/plans/_navigation.html.erb:14
+msgid "Project Details"
+msgstr ""
+
+#: ../../app/views/branded/plans/_navigation.html.erb:21
+msgid "Plan overview"
+msgstr ""
+
+#: ../../app/views/branded/plans/_navigation.html.erb:27
+msgid "Write Plan"
+msgstr ""
+
+#: ../../app/views/branded/plans/_navigation.html.erb:33
+msgid "Research outputs"
+msgstr ""
+
+#: ../../app/views/branded/plans/_navigation.html.erb:38
+msgid "Request feedback"
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:1
+#: ../../app/views/branded/plans/new.html.erb:11
+msgid "Create a new plan"
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:3
+msgid "If applying for funding, state the project title exactly as in the proposal."
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:4
+msgid "You must select a research organisation from the list or click the checkbox."
+msgstr "You must select a research organization from the list or click the checkbox."
+
+#: ../../app/views/branded/plans/new.html.erb:5
+msgid "Please select a valid research organisation from the list."
+msgstr "Please select a valid research organization from the list."
+
+#: ../../app/views/branded/plans/new.html.erb:6
+msgid "You must select a funder from the list or click the checkbox."
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:7
+msgid "Please select a valid funding organisation from the list."
+msgstr "Please select a valid funding organization from the list."
+
+#: ../../app/views/branded/plans/new.html.erb:14
+msgid ""
+"Before you get started, we need some information about your research project t"
+"o set you up with the best DMP template for your needs."
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:23
+msgid "What research project are you planning?"
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:38
+msgid "mock project for testing, practice, or educational purposes"
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:47
+msgid "Select the primary research organisation"
+msgstr "Select the primary research organization"
+
+#: ../../app/views/branded/plans/new.html.erb:58
+msgid "Research organisation"
+msgstr "Research organization"
+
+#: ../../app/views/branded/plans/new.html.erb:61
+#: ../../app/views/branded/plans/new.html.erb:89
+msgid "or"
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:64
+msgid ""
+"No research organisation associated with this plan or my research organisation"
+" is not listed"
+msgstr ""
+"No research organization associated with this plan or my research organization"
+" is not listed"
+
+#: ../../app/views/branded/plans/new.html.erb:74
+msgid "Select the primary funding organisation"
+msgstr "Select the primary funding organization"
+
+#: ../../app/views/branded/plans/new.html.erb:92
+msgid "No funder associated with this plan or my funder is not listed"
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:104
+msgid "Which DMP template would you like to use?"
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:107
+msgid "Please select a template"
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:112
+msgid "We found multiple DMP templates corresponding to your funder."
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:119
+msgid "Create plan"
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:120
+msgid "Cancel"
 msgstr ""
 
 #: ../../app/views/branded/public_pages/_facet_section.html.erb:23

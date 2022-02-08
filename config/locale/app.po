@@ -1006,6 +1006,9 @@ msgstr ""
 msgid "Filter plans"
 msgstr "Filter Pläne"
 
+msgid "Finalise"
+msgstr ""
+
 msgid "Finalise / Publish"
 msgstr ""
 
@@ -1919,6 +1922,10 @@ msgstr ""
 
 #, fuzzy
 msgid "Project title"
+msgstr ""
+
+#, fuzzy
+msgid "Research organisation"
 msgstr ""
 
 #, fuzzy
