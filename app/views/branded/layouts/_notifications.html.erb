@@ -17,7 +17,7 @@
 
   <!-- Warning message -->
   <% if globals.any? %>
-    <%= globals.each do |msg| %>
+    <% globals.each do |msg| %>
       <div id="js-notification-warning" class="c-notification--warning" role="alert">
         <p><%= sanitize msg.body %></p>
         <button id="js-notification-close" class="c-notification__close">
