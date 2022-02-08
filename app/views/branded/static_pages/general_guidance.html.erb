@@ -283,9 +283,9 @@
   </p>
   <p><%= _('A searchable and browsable list of repositories can be found at these websites:') %>
     <ul>
-      <li><%= sanitize(_('<strong>%<re3data_link>s</strong> a REgistry of REsearch data REpositories') % { re3data_link: link_to('https://www.re3data.org/') }) %></li>
-      <li><%= sanitize(_('<strong>%<open_access_dir_link>s in the Open Access Directory:</strong> a list of repositories hosted by Simmons College') % { open_access_dir_link: link_to(_('Data Repositories'), 'http://oad.simmons.edu/oadwiki/Data_repositories') }) %></li>
-      <li><%= sanitize(_('<strong>%<fair_sharing_link>s:</strong> a directory of life sciences databases and reporting standards, now expanded to include all disciplines') % { fair_sharing_link: link_to(_('FAIRSharing'), 'https://fairsharing.org/') }) %></li>
+      <li><%= sanitize(_('<strong> %<re3data_link>s:</strong> a REgistry of REsearch data REpositories') % { re3data_link: link_to('https://www.re3data.org/') }) %></li>
+      <li><%= sanitize(_('<strong> %<open_access_dir_link>s:</strong> a list of repositories hosted by Simmons College') % { open_access_dir_link: link_to(_('Data Repositories in the Open Access Directory'), 'http://oad.simmons.edu/oadwiki/Data_repositories') }) %></li>
+      <li><%= sanitize(_('<strong> %<fair_sharing_link>s:</strong> a directory of life sciences databases and reporting standards, now expanded to include all disciplines') % { fair_sharing_link: link_to(_('FAIRSharing'), 'https://fairsharing.org/') }) %></li>
     </ul>
   </p>
   <hr>
@@ -309,7 +309,7 @@
   </ul>
 
   <p><%= _('Example citations') %></p>
-  <%= sanitize _('<ul><li>Kumar, Sujai (2012): 20 Nematode Proteomes. figshare. https://doi.org/10.6084/m9.figshare.96035.v2 (Accessed 2016-09-06).</li><li>Morran LT, Parrish II RC, Gelarden IA, Lively CM (2012) Data from: Temporal dynamics of outcrossing and host mortality rates in host-pathogen experimental coevolution. Dryad Digital Repository. https://doi.org/10.5061/dryad.c3gh6</li><li>Donna Strahan. &quot;08-B-1 from Jordan/Petra Great Temple/Upper Temenos/Trench 94/Locus 41&quot;. (2009) In Petra Great Temple Excavations. Martha Sharp Joukowsky (Ed.) Releases: 2009-10-26. Open Context. https://opencontext.org/subjects/30C3F340-5D14-497A-B9D0-7A0DA2C019F1 ARK (Archive): http://n2t.net/ark:/28722/k2125xk7p</li><li>OECD (2008), Social Expenditures aggregates, OECD Social Expenditure Statistics (database). https://doi.org/10.1787/000530172303 (Accessed on 2008-12-02).</li><li>Denhard, Michael (2009): dphase_mpeps: MicroPEPS LAF-Ensemble run by DWD for the MAP D-PHASE project. World Data Center for Climate. https://doi.org/10.1594/WDCC/dphase_mpeps</li><li>Manoug, J L (1882): Useful data on the rise of the Nile. Alexandria : Printing-Office V Penasson. http://n2t.net/ark:/13960/t44q88124</li></ul>') %>
+  <%= sanitize '<ul><li>Kumar, Sujai (2012): 20 Nematode Proteomes. figshare. https://doi.org/10.6084/m9.figshare.96035.v2 (Accessed 2016-09-06).</li><li>Morran LT, Parrish II RC, Gelarden IA, Lively CM (2012) Data from: Temporal dynamics of outcrossing and host mortality rates in host-pathogen experimental coevolution. Dryad Digital Repository. https://doi.org/10.5061/dryad.c3gh6</li><li>Donna Strahan. &quot;08-B-1 from Jordan/Petra Great Temple/Upper Temenos/Trench 94/Locus 41&quot;. (2009) In Petra Great Temple Excavations. Martha Sharp Joukowsky (Ed.) Releases: 2009-10-26. Open Context. https://opencontext.org/subjects/30C3F340-5D14-497A-B9D0-7A0DA2C019F1 ARK (Archive): http://n2t.net/ark:/28722/k2125xk7p</li><li>OECD (2008), Social Expenditures aggregates, OECD Social Expenditure Statistics (database). https://doi.org/10.1787/000530172303 (Accessed on 2008-12-02).</li><li>Denhard, Michael (2009): dphase_mpeps: MicroPEPS LAF-Ensemble run by DWD for the MAP D-PHASE project. World Data Center for Climate. https://doi.org/10.1594/WDCC/dphase_mpeps</li><li>Manoug, J L (1882): Useful data on the rise of the Nile. Alexandria : Printing-Office V Penasson. http://n2t.net/ark:/13960/t44q88124</li></ul>' %>
   <hr>
 
   <h2 id="copyright-and-privacy"><%= _('Copyright and Privacy') %></h2>

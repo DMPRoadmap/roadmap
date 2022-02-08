@@ -1,7 +1,7 @@
 <%# Devise Sign in / Sign up (validate) form that allows User to provide an email %>
 
 <%# No email is present, so the homepage has just been loaded %>
-<%= render partial: 'users/shared/login_header', locals: { title: 'Sign in / Sign up' } %>
+<%= render partial: 'users/shared/login_header', locals: { title: _('Sign in / Sign up') } %>
 
 <%= form_with model: User.new, url: new_user_session_path, method: :post, local: true,
               class: "novalidate" do |form| %>

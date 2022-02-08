@@ -4,7 +4,7 @@ that they do NOT have an existing account
 %>
 <% content_for :authentication do %>
   <% url = @shibbolized ? users_shibboleth_path : user_registration_path%>
-  <%= render partial: 'users/shared/login_header', locals: { title: 'New Account Sign Up' } %>
+  <%= render partial: 'users/shared/login_header', locals: { title: _('New Account Sign Up') } %>
 
   <%= form_with model: resource, url: url, method: :post, local: true,
                 class: "novalidate" do |form| %>

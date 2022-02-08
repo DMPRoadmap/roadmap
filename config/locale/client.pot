@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dmptool 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-02-08 09:20-0800\n"
-"PO-Revision-Date: 2022-02-08 09:20-0800\n"
+"POT-Creation-Date: 2022-02-08 11:19-0800\n"
+"PO-Revision-Date: 2022-02-08 11:19-0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -17,6 +17,153 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: ../../app/views/branded/contributors/_form.html.erb:4
+msgid "Phone numbers should only include numbers and dashes ('-')."
+msgstr ""
+
+#: ../../app/views/branded/contributors/_form.html.erb:5
+msgid "Select each role that applies to the contributor."
+msgstr ""
+
+#: ../../app/views/branded/contributors/_form.html.erb:10
+msgid "Name"
+msgstr ""
+
+#: ../../app/views/branded/contributors/_form.html.erb:19
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:74
+msgid "Email"
+msgstr ""
+
+#: ../../app/views/branded/contributors/_form.html.erb:33
+msgid "ORCID"
+msgstr ""
+
+#: ../../app/views/branded/contributors/_form.html.erb:47
+msgid "Affiliation"
+msgstr ""
+
+#: ../../app/views/branded/contributors/_form.html.erb:55
+msgid "Roles"
+msgstr ""
+
+#: ../../app/views/branded/contributors/_form.html.erb:77
+#: ../../app/views/branded/plans/_visibility_form.html.erb:32
+#: ../../app/views/branded/research_outputs/_form.html.erb:177
+#: ../../app/views/branded/users/registrations/_profile_preferences.html.erb:47
+msgid "Save"
+msgstr ""
+
+#: ../../app/views/branded/contributors/_form.html.erb:79
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:84
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:56
+#: ../../app/views/branded/research_outputs/_form.html.erb:179
+msgid "Remove"
+msgstr ""
+
+#: ../../app/views/branded/contributors/_form.html.erb:82
+#: ../../app/views/branded/plans/new.html.erb:120
+#: ../../app/views/branded/research_outputs/_form.html.erb:182
+msgid "Cancel"
+msgstr ""
+
+#: ../../app/views/branded/contributors/index.html.erb:13
+msgid "Project Contributors"
+msgstr ""
+
+#: ../../app/views/branded/contributors/index.html.erb:15
+msgid ""
+"Please list the project’s Principal Investigator(s) and those responsible for "
+"data management."
+msgstr ""
+
+#: ../../app/views/branded/contributors/index.html.erb:30
+msgid "No contributors have been defined."
+msgstr ""
+
+#: ../../app/views/branded/contributors/index.html.erb:34
+msgid "Add a contributor"
+msgstr ""
+
+#: ../../app/views/branded/doorkeeper/authorizations/_shib_sign_in.html.erb:5
+#: ../../app/views/branded/doorkeeper/authorizations/_sign_in.html.erb:5
+#: ../../app/views/branded/doorkeeper/authorizations/_validate.html.erb:13
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:15
+#: ../../app/views/branded/users/passwords/new.html.erb:9
+#: ../../app/views/branded/users/registrations/_form.html.erb:4
+#: ../../app/views/branded/users/registrations/_profile_form.html.erb:8
+#: ../../app/views/branded/users/sessions/_form.html.erb:4
+#: ../../app/views/branded/users/sessions/_validate.html.erb:9
+msgid "Email address"
+msgstr ""
+
+#: ../../app/views/branded/doorkeeper/authorizations/_shib_sign_in.html.erb:11
+#: ../../app/views/branded/users/shared/_sso.html.erb:1
+msgid "Your address is associated with:"
+msgstr ""
+
+#: ../../app/views/branded/doorkeeper/authorizations/_shib_sign_in.html.erb:15
+#: ../../app/views/branded/users/shared/_sso.html.erb:6
+msgid "Sign in with Institution to Continue"
+msgstr ""
+
+#: ../../app/views/branded/doorkeeper/authorizations/_sign_in.html.erb:15
+#: ../../app/views/branded/users/registrations/_form.html.erb:48
+#: ../../app/views/branded/users/sessions/_form.html.erb:19
+msgid "Password"
+msgstr ""
+
+#: ../../app/views/branded/doorkeeper/authorizations/_sign_in.html.erb:25
+#: ../../app/views/branded/layouts/_header.html.erb:28
+#: ../../app/views/branded/users/sessions/_form.html.erb:32
+#: ../../app/views/branded/users/sessions/new.html.erb:4
+msgid "Sign in"
+msgstr ""
+
+#: ../../app/views/branded/doorkeeper/authorizations/_validate.html.erb:4
+msgid "Invalid email or password."
+msgstr ""
+
+#: ../../app/views/branded/doorkeeper/authorizations/_validate.html.erb:5
+msgid ""
+"If you do not have a DMPTool account, you will need to create one before autho"
+"rizing %<application>s. To create an account, please visit the %<link_to_home_"
+"page>s. Once your account has been created, you may return to this page to fin"
+"ish the authotization."
+msgstr ""
+
+#: ../../app/views/branded/doorkeeper/authorizations/_validate.html.erb:7
+msgid "DMPTool home page"
+msgstr ""
+
+#: ../../app/views/branded/doorkeeper/authorizations/_validate.html.erb:19
+#: ../../app/views/branded/users/sessions/_validate.html.erb:15
+msgid "For SSO, use institutional address."
+msgstr ""
+
+#: ../../app/views/branded/doorkeeper/authorizations/_validate.html.erb:25
+#: ../../app/views/branded/users/sessions/_validate.html.erb:20
+msgid "Continue"
+msgstr ""
+
+#: ../../app/views/branded/doorkeeper/authorizations/error.html.erb:8
+msgid "Something went wrong. Unable to authorize your request at this time."
+msgstr ""
+
+#: ../../app/views/branded/doorkeeper/authorizations/new.html.erb:15
+msgid "%{application} wants to access your DMPs. Please confirm this action."
+msgstr ""
+
+#: ../../app/views/branded/doorkeeper/authorizations/new.html.erb:56
+msgid ""
+"%{application} wants to access your DMPs. Please sign in to verify your accoun"
+"t."
+msgstr ""
+
+#: ../../app/views/branded/doorkeeper/authorizations/new.html.erb:68
+#: ../../app/views/branded/users/shared/_links.html.erb:9
+msgid "Go back"
+msgstr ""
 
 #: ../../app/views/branded/kaminari/_first_page.html.erb:2
 msgid "First"
@@ -112,11 +259,6 @@ msgstr ""
 
 #: ../../app/views/branded/layouts/_header.html.erb:24
 msgid "Sign out"
-msgstr ""
-
-#: ../../app/views/branded/layouts/_header.html.erb:28
-#: ../../app/views/branded/users/sessions/_form.html.erb:32
-msgid "Sign in"
 msgstr ""
 
 #: ../../app/views/branded/layouts/_header.html.erb:33
@@ -277,6 +419,7 @@ msgid "Please select an item from the list."
 msgstr ""
 
 #: ../../app/views/branded/layouts/_json_constants.html.erb:36
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:29
 msgid "More info"
 msgstr ""
 
@@ -498,10 +641,12 @@ msgid "Template Name"
 msgstr ""
 
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:10
+#: ../../app/views/branded/research_outputs/_form.html.erb:59
 msgid "Description"
 msgstr ""
 
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:12
+#: ../../app/views/branded/plans/_project_details.html.erb:135
 #: ../../app/views/branded/plans/new.html.erb:86
 #: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:23
 msgid "Funder"
@@ -535,6 +680,7 @@ msgid "Unpublished"
 msgstr ""
 
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:54
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:18
 msgid "Actions"
 msgstr ""
 
@@ -562,10 +708,6 @@ msgstr ""
 msgid "Copy"
 msgstr ""
 
-#: ../../app/views/branded/paginable/templates/_organisational.html.erb:84
-msgid "Remove"
-msgstr ""
-
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:86
 msgid ""
 "Are you sure you want to remove \"%{template_title}\"? Any published versions wi"
@@ -577,11 +719,221 @@ msgid "(new window)"
 msgstr ""
 
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:95
+#: ../../app/views/branded/plans/_download_form.html.erb:135
 msgid "Opens in new window"
 msgstr ""
 
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:100
 msgid "Copy link"
+msgstr ""
+
+#: ../../app/views/branded/phases/_edit_plan_answers.html.erb:5
+msgid ""
+"This plan is based on the \"%{template_title}\" template provided by %{org_name}"
+" - (ver: %{version_nbr}, pub: %{version_date})."
+msgstr ""
+
+#: ../../app/views/branded/phases/_edit_plan_answers.html.erb:23
+msgid "expand all"
+msgstr ""
+
+#: ../../app/views/branded/phases/_edit_plan_answers.html.erb:25
+msgid "collapse all"
+msgstr ""
+
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:6
+msgid ""
+"Co-owner: Has admin-rights to the plan (can invite other users, view the plan,"
+" answer questions, or comment). Editor: Has edit-rights to the plan (can view "
+"the plan, answer questions, or comment). Read Only: Has read-rights to the pla"
+"n (can view the plan or comment)"
+msgstr ""
+
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:8
+msgid "DMP Collaborators"
+msgstr ""
+
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:9
+msgid ""
+"Invite specific people to read, edit, or administer your plan. Invitees will r"
+"eceive an email notification that they have access to this plan."
+msgstr ""
+
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:16
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:89
+msgid "Permissions"
+msgstr ""
+
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:56
+msgid "Are you sure?"
+msgstr ""
+
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:67
+msgid "Invite collaborators"
+msgstr ""
+
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:94
+msgid "Co-owner"
+msgstr ""
+
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:100
+msgid "Editor"
+msgstr ""
+
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:106
+msgid "Read only"
+msgstr ""
+
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:113
+msgid "Submit"
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:5
+msgid "Get a %{dmp_id_link} for your data management plan."
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:6
+msgid ""
+"DMP IDs track connections between your DMP and research outputs such as datase"
+"ts and articles."
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:17
+msgid "This plan has been registered"
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:19
+msgid "Register your plan and add to ORCID"
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:29
+msgid "When referencing this DMP in other systems, please use the DMP ID: "
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:31
+msgid "When citing this DMP use:"
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:39
+msgid "In order to register your plan you must have completed the following:"
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:43
+msgid "answered at least %{percentage}%% of questions"
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:47
+msgid "identified your funder"
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:53
+msgid "authorized DMPTool to add works to your ORCID record via your"
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:53
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:55
+msgid "Third party applications page"
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:55
+msgid "linked your DMPTool account to your ORCID via your"
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:61
+msgid "plan is not a mock project for testing, practice, or educational purposes"
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:64
+msgid ""
+"Once the steps above are satisfied, a button to register your plan will appear"
+" here."
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:70
+msgid "Register"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:3
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:256
+msgid "Format"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:12
+msgid "Download settings"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:16
+msgid "Select phase to download"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:23
+msgid "Optional plan components"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:27
+msgid "project details coversheet"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:33
+msgid "question text and section headings"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:39
+msgid "unanswered questions"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:46
+msgid "supplementary section(s) not requested by funding organisation"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:54
+msgid "research outputs"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:62
+msgid "related works"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:70
+msgid "PDF formatting"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:73
+msgid "Font"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:76
+msgid "Margin (mm)"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:81
+msgid "Face"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:89
+msgid "Size"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:97
+msgid "Top"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:106
+msgid "Bottom"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:115
+msgid "Left"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:124
+msgid "Right"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:135
+msgid ""
+"Download Plan <em class=\"sr-only\">(new window)</em><span class=\"new-window-pop"
+"up-info\">%{open_in_new_window_text}</span>"
 msgstr ""
 
 #: ../../app/views/branded/plans/_navigation.html.erb:5
@@ -620,6 +972,159 @@ msgstr ""
 msgid "Request feedback"
 msgstr ""
 
+#: ../../app/views/branded/plans/_project_details.html.erb:4
+msgid "If applying for funding, state the name exactly as in the grant proposal."
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:5
+msgid ""
+"Briefly summarise your research project to help others understand the purposes"
+" for which the data are being collected or created."
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:6
+msgid "A unique number that a federal agency assigns to a grant announcement."
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:7
+msgid ""
+"Whether there are any potential ethical issues related to data that this DMP d"
+"escribes"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:8
+msgid "Description of the ethical issues"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:9
+msgid "Link to a protocol from a meeting with an ethics commitee"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:23
+msgid "Project title"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:34
+#: ../../app/views/branded/plans/new.html.erb:38
+msgid "mock project for testing, practice, or educational purposes"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:42
+msgid "Project abstract"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:54
+msgid "Research domain"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:59
+#: ../../app/views/branded/plans/_project_details.html.erb:148
+#: ../../app/views/branded/related_identifiers/_form.html.erb:24
+#: ../../app/views/branded/research_outputs/_form.html.erb:23
+#: ../../app/views/branded/research_outputs/licenses/_form.html.erb:19
+msgid "- Please select one -"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:69
+msgid "Project Start"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:72
+msgid "The estimated date on which you will begin this project."
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:75
+msgid "Project End"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:78
+msgid "The estimated date on which you will complete this project."
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:89
+msgid "Research outputs may have ethical concerns"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:96
+msgid "Describe any ethical concerns"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:109
+msgid "Ethical protocols"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:142
+msgid "Funding status"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:155
+msgid "Funding opportunity number"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:167
+msgid "Grant number/url"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:180
+msgid "Grant number:"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:184
+msgid ""
+"Provide a URL to the award's landing page if possible, if not please provide t"
+"he award/grant number."
+msgstr ""
+
+#: ../../app/views/branded/plans/_visibility_form.html.erb:3
+msgid "Set plan visibility"
+msgstr ""
+
+#: ../../app/views/branded/plans/_visibility_form.html.erb:5
+msgid ""
+"Public or organisational visibility is intended for finished plans. You must a"
+"nswer at least %{percentage}%% of the questions to enable these options. Note:"
+" test plans are set to private visibility by default."
+msgstr ""
+
+#: ../../app/views/branded/plans/_visibility_form.html.erb:15
+msgid ""
+"Private: visible to me, specified collaborators and administrators at my organ"
+"isation"
+msgstr ""
+
+#: ../../app/views/branded/plans/_visibility_form.html.erb:21
+msgid "Organisation: anyone at my organisation can view"
+msgstr ""
+
+#: ../../app/views/branded/plans/_visibility_form.html.erb:27
+msgid "Public: anyone can view"
+msgstr ""
+
+#: ../../app/views/branded/plans/_visibility_form.html.erb:37
+msgid "This plan is currently set to: "
+msgstr ""
+
+#: ../../app/views/branded/plans/_visibility_form.html.erb:39
+msgid "<strong>Public visibilty</strong> - anyone can view"
+msgstr ""
+
+#: ../../app/views/branded/plans/_visibility_form.html.erb:41
+msgid "<strong>Organisation visibility</strong> - anyone at my organisation can view"
+msgstr ""
+
+#: ../../app/views/branded/plans/_visibility_form.html.erb:43
+msgid ""
+"<strong>Private visibility</strong> - visible to me, specified collaborators a"
+"nd administrators at my organisation"
+msgstr ""
+
+#: ../../app/views/branded/plans/mint.js.erb:9
+msgid ""
+"Something went wrong and we were unable to acquire a DMP ID for your plan. Ple"
+"ase try again. If the problem persists please contact the help desk at %{helpd"
+"esk_email}"
+msgstr ""
+
 #: ../../app/views/branded/plans/new.html.erb:1
 #: ../../app/views/branded/plans/new.html.erb:11
 msgid "Create a new plan"
@@ -653,10 +1158,6 @@ msgstr ""
 
 #: ../../app/views/branded/plans/new.html.erb:23
 msgid "What research project are you planning?"
-msgstr ""
-
-#: ../../app/views/branded/plans/new.html.erb:38
-msgid "mock project for testing, practice, or educational purposes"
 msgstr ""
 
 #: ../../app/views/branded/plans/new.html.erb:47
@@ -700,10 +1201,6 @@ msgstr ""
 
 #: ../../app/views/branded/plans/new.html.erb:119
 msgid "Create plan"
-msgstr ""
-
-#: ../../app/views/branded/plans/new.html.erb:120
-msgid "Cancel"
 msgstr ""
 
 #: ../../app/views/branded/public_pages/_facet_section.html.erb:23
@@ -752,6 +1249,7 @@ msgid "Most Recent"
 msgstr ""
 
 #: ../../app/views/branded/public_pages/_plans_results.html.erb:11
+#: ../../app/views/branded/research_outputs/_form.html.erb:41
 msgid "Title"
 msgstr ""
 
@@ -819,6 +1317,246 @@ msgstr ""
 
 #: ../../app/views/branded/public_pages/template_index.html.erb:9
 msgid "There are currently no public Templates."
+msgstr ""
+
+#: ../../app/views/branded/related_identifiers/_edit.html.erb:4
+msgid ""
+"List products related to this project, such as journal articles, software or d"
+"atasets. For example: 'https://doi.org/10.5281/zenodo.5117892', 'https://githu"
+"b.com/CDLUC3/dmphub/releases/tag/v1.0.12'"
+msgstr ""
+
+#: ../../app/views/branded/related_identifiers/_edit.html.erb:10
+#: ../../app/views/branded/related_identifiers/_show.html.erb:4
+msgid "Related works"
+msgstr ""
+
+#: ../../app/views/branded/related_identifiers/_edit.html.erb:41
+msgid " - No citation available."
+msgstr ""
+
+#: ../../app/views/branded/related_identifiers/_edit.html.erb:47
+#: ../../app/views/branded/related_identifiers/_form.html.erb:42
+msgid "Remove this related work"
+msgstr ""
+
+#: ../../app/views/branded/related_identifiers/_edit.html.erb:67
+msgid "+ Add a related work"
+msgstr ""
+
+#: ../../app/views/branded/related_identifiers/_form.html.erb:11
+msgid "Work Type"
+msgstr ""
+
+#: ../../app/views/branded/related_identifiers/_form.html.erb:14
+msgid "DOI or other URL based identifier"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:6
+msgid ""
+"Your research output abbreviation can be used as a reference when answering th"
+"is plan's questions."
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:7
+msgid ""
+"Any data that could potentially identify a specific individual. Any informatio"
+"n that can be used to distinguish one person from another and can be used for "
+"de-anonymizing anonymous data can be considered personally identifiable data. "
+"(From https://codata.org/rdm-glossary/personally-identifiable-information/)"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:8
+msgid ""
+"Repositories preserve, manage, and provide access to many types of digital mat"
+"erials in a variety of formats. Materials in online repositories are curated t"
+"o enable search, discovery, and reuse. There must be sufficient control for th"
+"e digital material to be authentic, reliable, accessible and usable on a conti"
+"nuing basis. (From https://codata.org/rdm-glossary/personally-identifiable-inf"
+"ormation/)"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:14
+msgid "Type"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:16
+msgid "Please describe the output type"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:44
+msgid "Abbreviation"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:73
+msgid "May contain sensitive data?"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:80
+msgid "May contain personally identifiable information?"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:90
+msgid "Intended repositories"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:99
+msgid "Add a repository"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:114
+#: ../../app/views/branded/research_outputs/sections/_identifiers.html.erb:5
+msgid "Metadata standards"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:122
+msgid "Add a metadata standard"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:136
+msgid "Anticipated release date"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:140
+msgid "Initial access level"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:158
+msgid "Anticipated file size"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/edit.html.erb:12
+msgid "Editing %{research_output_title}"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/edit.html.erb:13
+#: ../../app/views/branded/research_outputs/new.html.erb:13
+msgid "View all research outputs"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/identifiers/_openaire.html.erb:6
+msgid "Your Selected Standards:"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/identifiers/_openaire.html.erb:12
+msgid "Add Standard"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/identifiers/_openaire.html.erb:14
+msgid "Please select a subject"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/identifiers/_openaire.html.erb:17
+msgid "Please select a sub-subject"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/identifiers/_openaire.html.erb:23
+msgid "Browse Standards"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/identifiers/_openaire.html.erb:28
+msgid "Please wait, Standards are loading"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/index.html.erb:14
+msgid "Please list your anticipated research output(s)."
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/index.html.erb:30
+msgid "Add a research output"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/licenses/_form.html.erb:24
+msgid "Initial license"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/licenses/_form.html.erb:30
+msgid "For guidance on selecting a license:"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/new.html.erb:12
+msgid "New research output"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/repositories/_search.html.erb:5
+msgid ""
+"Refine your search to discipline specific, institutional or generalist reposit"
+"ories. When the use of domain-specific repositories is not available, generali"
+"st repositories are a good option and accept all types of data regardless of t"
+"ype, format, content, or discipline."
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/repositories/_search.html.erb:6
+msgid "Select a subject area to refine your search."
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/repositories/_search.html.erb:12
+msgid "- Select a subject area -"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/repositories/_search.html.erb:21
+msgid "- Select a repository type -"
+msgstr ""
+
+#:
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:18
+msgid "Click to view repositories related to %{subject}"
+msgstr ""
+
+#:
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:34
+msgid "Repository URL"
+msgstr ""
+
+#:
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:39
+msgid "Contact"
+msgstr ""
+
+#:
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:44
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:49
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:52
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:57
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:65
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:66
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:71
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:74
+msgid "Unknown"
+msgstr ""
+
+#:
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:48
+msgid "Data access"
+msgstr ""
+
+#:
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:51
+msgid "Persistent identifier type"
+msgstr ""
+
+#:
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:54
+msgid "Policies"
+msgstr ""
+
+#:
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:63
+msgid "Data upload"
+msgstr ""
+
+#:
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:70
+msgid "Provider type"
+msgstr ""
+
+#:
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:73
+msgid "Repository type"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/sections/_identifiers.html.erb:6
+msgid "Repository"
 msgstr ""
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:4
@@ -2496,10 +3234,6 @@ msgid ""
 "er when sharing data."
 msgstr ""
 
-#: ../../app/views/branded/static_pages/general_guidance.html.erb:256
-msgid "Format"
-msgstr ""
-
 #: ../../app/views/branded/static_pages/general_guidance.html.erb:257
 msgid ""
 "Data should be shared in a usable format. This may mean sharing raw data inste"
@@ -2597,23 +3331,23 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/branded/static_pages/general_guidance.html.erb:286
-msgid "<strong>%<re3data_link>s</strong> a REgistry of REsearch data REpositories"
+msgid "<strong> %<re3data_link>s:</strong> a REgistry of REsearch data REpositories"
 msgstr ""
 
 #: ../../app/views/branded/static_pages/general_guidance.html.erb:287
 msgid ""
-"<strong>%<open_access_dir_link>s in the Open Access Directory:</strong> a list"
-" of repositories hosted by Simmons College"
+"<strong> %<open_access_dir_link>s:</strong> a list of repositories hosted by S"
+"immons College"
 msgstr ""
 
 #: ../../app/views/branded/static_pages/general_guidance.html.erb:287
-msgid "Data Repositories"
+msgid "Data Repositories in the Open Access Directory"
 msgstr ""
 
 #: ../../app/views/branded/static_pages/general_guidance.html.erb:288
 msgid ""
-"<strong>%<fair_sharing_link>s:</strong> a directory of life sciences databases"
-" and reporting standards, now expanded to include all disciplines"
+"<strong> %<fair_sharing_link>s:</strong> a directory of life sciences database"
+"s and reporting standards, now expanded to include all disciplines"
 msgstr ""
 
 #: ../../app/views/branded/static_pages/general_guidance.html.erb:288
@@ -2684,26 +3418,6 @@ msgstr ""
 
 #: ../../app/views/branded/static_pages/general_guidance.html.erb:311
 msgid "Example citations"
-msgstr ""
-
-#: ../../app/views/branded/static_pages/general_guidance.html.erb:312
-msgid ""
-"<ul><li>Kumar, Sujai (2012): 20 Nematode Proteomes. figshare. https://doi.org/"
-"10.6084/m9.figshare.96035.v2 (Accessed 2016-09-06).</li><li>Morran LT, Parrish"
-" II RC, Gelarden IA, Lively CM (2012) Data from: Temporal dynamics of outcross"
-"ing and host mortality rates in host-pathogen experimental coevolution. Dryad "
-"Digital Repository. https://doi.org/10.5061/dryad.c3gh6</li><li>Donna Strahan."
-" &quot;08-B-1 from Jordan/Petra Great Temple/Upper Temenos/Trench 94/Locus 41&"
-"quot;. (2009) In Petra Great Temple Excavations. Martha Sharp Joukowsky (Ed.) "
-"Releases: 2009-10-26. Open Context. https://opencontext.org/subjects/30C3F340-"
-"5D14-497A-B9D0-7A0DA2C019F1 ARK (Archive): http://n2t.net/ark:/28722/k2125xk7p"
-"</li><li>OECD (2008), Social Expenditures aggregates, OECD Social Expenditure "
-"Statistics (database). https://doi.org/10.1787/000530172303 (Accessed on 2008-"
-"12-02).</li><li>Denhard, Michael (2009): dphase_mpeps: MicroPEPS LAF-Ensemble "
-"run by DWD for the MAP D-PHASE project. World Data Center for Climate. https:/"
-"/doi.org/10.1594/WDCC/dphase_mpeps</li><li>Manoug, J L (1882): Useful data on "
-"the rise of the Nile. Alexandria : Printing-Office V Penasson. http://n2t.net/"
-"ark:/13960/t44q88124</li></ul>"
 msgstr ""
 
 #: ../../app/views/branded/static_pages/general_guidance.html.erb:317
@@ -2812,6 +3526,15 @@ msgid ""
 "of your data.</strong> ICPSR provides a sample <a href=\"%{icpsr_user_url}\">Res"
 "tricted Data Use Contract</a> and <a href=\"%{icpsr_restricted_url}\">Restricted"
 "-Use Data Management Guidance</a>.</li></ul>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/help.html.erb:4
+msgid ""
+"The DMPTool is a free, open-source, online application that helps researchers "
+"create data management plans. The tool provides a click-through wizard for cre"
+"ating a DMP that complies with funder requirements. It also has direct links t"
+"o funder websites, help text for answering questions, and data management best"
+" practices resources."
 msgstr ""
 
 #: ../../app/views/branded/static_pages/help.html.erb:7
@@ -3127,16 +3850,16 @@ msgid ""
 " plan in various formats. You can adjust the formatting (font type, size, and "
 "margins) for PDF files, which may be helpful if working to page limits (e.g., "
 "NSF and NIH data management plans are limited to 2 pages).</li><li><strong>Fin"
-"alize / Publish:</strong> This tab has two important functions.<ol><li>You can"
-" set your plan visibility. By default, all new and test plans will be set to P"
-"rivate visibility. Public and Organizational visibility are intended for finis"
-"hed plans. You must answer at least 50% of the questions to enable these optio"
-"ns.</li><li>Register your plan and add it to ORCID. This is where you can gene"
-"rate a DMP ID for your data management plan. To register your plan you must ha"
-"ve completed the following:<ul><li>answered at least 50% of questions</li><li>"
-"identified your funder</li><li>linked your DMPTool account to your ORCID via y"
-"our Third-party applications page</li><li>The plan is not a mock project for t"
-"esting, practice, or educational purposes.</li></ul></li></ol></li></ul>"
+"alize:</strong> This tab has two important functions.<ol><li>You can set your "
+"plan visibility. By default, all new and test plans will be set to Private vis"
+"ibility. Public and Organizational visibility are intended for finished plans."
+" You must answer at least 50% of the questions to enable these options.</li><l"
+"i>Register your plan and add it to ORCID. This is where you can generate a DMP"
+" ID for your data management plan. To register your plan you must have complet"
+"ed the following:<ul><li>answered at least 50% of questions</li><li>identified"
+" your funder</li><li>linked your DMPTool account to your ORCID via your Third-"
+"party applications page</li><li>The plan is not a mock project for testing, pr"
+"actice, or educational purposes.</li></ul></li></ol></li></ul>"
 msgstr ""
 
 #: ../../app/views/branded/static_pages/quick_start_guide.html.erb:47
@@ -3154,11 +3877,10 @@ msgstr ""
 
 #: ../../app/views/branded/static_pages/quick_start_guide.html.erb:51
 msgid ""
-"The \"Finalize/ Publish\" tab is where you can set your plan visibility.<ul><li>"
-"Private: restricted to you and your collaborators.</li><li>Organizational: any"
-"one at your organization can view your plan.</li><li>Public: anyone can view y"
-"our plan in the <a href=\"%<public_plans_path>s\">public plans</a> list.</li></u"
-"l>"
+"The \"Finalize\" tab is where you can set your plan visibility.<ul><li>Private: "
+"restricted to you and your collaborators.</li><li>Organizational: anyone at yo"
+"ur organization can view your plan.</li><li>Public: anyone can view your plan "
+"in the <a href=\"%<public_plans_path>s\">public plans</a> list.</li></ul>"
 msgstr ""
 
 #: ../../app/views/branded/static_pages/quick_start_guide.html.erb:53
@@ -3408,14 +4130,6 @@ msgstr ""
 msgid "Confirm new password"
 msgstr ""
 
-#: ../../app/views/branded/users/passwords/new.html.erb:9
-#: ../../app/views/branded/users/registrations/_form.html.erb:4
-#: ../../app/views/branded/users/registrations/_profile_form.html.erb:8
-#: ../../app/views/branded/users/sessions/_form.html.erb:4
-#: ../../app/views/branded/users/sessions/_validate.html.erb:9
-msgid "Email address"
-msgstr ""
-
 #: ../../app/views/branded/users/passwords/new.html.erb:14
 msgid "Send me reset password instructions"
 msgstr ""
@@ -3428,11 +4142,6 @@ msgstr ""
 #: ../../app/views/branded/users/registrations/_form.html.erb:26
 #: ../../app/views/branded/users/registrations/_profile_form.html.erb:66
 msgid "Last Name"
-msgstr ""
-
-#: ../../app/views/branded/users/registrations/_form.html.erb:48
-#: ../../app/views/branded/users/sessions/_form.html.erb:19
-msgid "Password"
 msgstr ""
 
 #: ../../app/views/branded/users/registrations/_form.html.erb:65
@@ -3523,10 +4232,6 @@ msgstr ""
 msgid "My DMP's visibility has changed"
 msgstr ""
 
-#: ../../app/views/branded/users/registrations/_profile_preferences.html.erb:47
-msgid "Save"
-msgstr ""
-
 #: ../../app/views/branded/users/registrations/edit.html.erb:1
 msgid "Edit Profile"
 msgstr ""
@@ -3537,6 +4242,10 @@ msgstr ""
 
 #: ../../app/views/branded/users/registrations/edit.html.erb:11
 msgid "Email Preferences"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/new.html.erb:4
+msgid "New Account Sign Up"
 msgstr ""
 
 #: ../../app/views/branded/users/registrations/new.html.erb:13
@@ -3553,12 +4262,8 @@ msgstr ""
 msgid "Forgot password?"
 msgstr ""
 
-#: ../../app/views/branded/users/sessions/_validate.html.erb:15
-msgid "For SSO, use institutional address."
-msgstr ""
-
-#: ../../app/views/branded/users/sessions/_validate.html.erb:20
-msgid "Continue"
+#: ../../app/views/branded/users/sessions/_validate.html.erb:4
+msgid "Sign in / Sign up"
 msgstr ""
 
 #: ../../app/views/branded/users/sessions/_validate.html.erb:25
@@ -3569,22 +4274,10 @@ msgstr ""
 msgid "Contact us."
 msgstr ""
 
-#: ../../app/views/branded/users/shared/_links.html.erb:9
-msgid "Go back"
-msgstr ""
-
 #: ../../app/views/branded/users/shared/_links.html.erb:14
 msgid "Problems signing in? %{contact_us_link}."
 msgstr ""
 
 #: ../../app/views/branded/users/shared/_links.html.erb:15
 msgid "Contact us"
-msgstr ""
-
-#: ../../app/views/branded/users/shared/_sso.html.erb:1
-msgid "Your address is associated with:"
-msgstr ""
-
-#: ../../app/views/branded/users/shared/_sso.html.erb:6
-msgid "Sign in with Institution to Continue"
 msgstr ""

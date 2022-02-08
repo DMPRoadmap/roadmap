@@ -4,7 +4,7 @@ that they have an existing account
 %>
 <% content_for :authentication do %>
   <% url = @shibbolized ? users_shibboleth_path : user_session_path %>
-  <%= render partial: 'users/shared/login_header', locals: { title: 'Sign in' } %>
+  <%= render partial: 'users/shared/login_header', locals: { title: _('Sign in') } %>
 
   <%= form_with model: resource, url: url, method: :post, local: true,
                 class: "novalidate" do |form| %>
