@@ -75,9 +75,9 @@ ActiveRecord::Schema.define(version: 2022_01_19_214358) do
     t.string "logable_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["api_client_id"], name: "index_api_logs_on_api_client_id"
     t.index ["change_type"], name: "index_api_logs_on_change_type"
     t.index ["logable_id", "logable_type", "change_type"], name: "index_api_logs_on_logable_and_change_type"
+    t.index ["api_client_id"], name: "index_api_logs_on_api_client_id"
   end
 
   create_table "conditions", id: :integer, force: :cascade do |t|
@@ -369,9 +369,18 @@ ActiveRecord::Schema.define(version: 2022_01_19_214358) do
     t.integer "template_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string "grant_number"
     t.string "identifier"
     t.text "description"
+    t.string "principal_investigator"
+    t.string "principal_investigator_identifier"
+    t.string "data_contact"
+    t.string "funder_name"
     t.integer "visibility", default: 3, null: false
+    t.string "data_contact_email"
+    t.string "data_contact_phone"
+    t.string "principal_investigator_email"
+    t.string "principal_investigator_phone"
     t.boolean "feedback_requested", default: false
     t.boolean "complete", default: false
     t.integer "org_id"
@@ -512,7 +521,7 @@ ActiveRecord::Schema.define(version: 2022_01_19_214358) do
     t.json "info"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "uri", default: "", null: false
+    t.string "uri", null: false
     t.index ["homepage"], name: "index_repositories_on_homepage"
     t.index ["name"], name: "index_repositories_on_name"
   end
@@ -724,6 +733,8 @@ ActiveRecord::Schema.define(version: 2022_01_19_214358) do
     t.index ["user_id"], name: "index_users_perms_on_user_id"
   end
 
+  add_foreign_key "annotations", "orgs"
+  add_foreign_key "annotations", "questions"
   add_foreign_key "answers", "plans"
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
