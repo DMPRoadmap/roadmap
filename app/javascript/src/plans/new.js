@@ -32,6 +32,7 @@ $(() => {
     $('#available-templates').fadeOut();
     $('#plan_template_id').find(':selected').removeAttr('selected');
     $('#plan_template_id').val('');
+    $('#plan_template_id').html('');
     toggleSubmit();
   };
 

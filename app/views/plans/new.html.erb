@@ -53,7 +53,7 @@
             <%= render partial: "shared/org_autocomplete",
                        locals: { form: org_fields,
                                  default_org: current_user.org,
-                                 known_only: false,
+                                 known_only: true,
                                  non_funder_only: true,
                                  label: _("Research organisation") } %>
           <% end %>
@@ -82,6 +82,7 @@
                                  default_org: nil,
                                  funder_only: true,
                                  known_only: true,
+                                 template_owner_only: true,
                                  label: _("Funder") } %>
           <% end %>
         </div>

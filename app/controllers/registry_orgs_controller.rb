@@ -12,6 +12,7 @@ class RegistryOrgsController < ApplicationController
         funder_only: autocomplete_params[:funder_only] == 'true',
         non_funder_only: autocomplete_params[:non_funder_only] == 'true',
         known_only: autocomplete_params[:known_only] == 'true',
+        template_owner_only: autocomplete_params[:template_owner_only] == 'true',
         unknown_only: autocomplete_params[:unknown_only] == 'true',
         managed_only: autocomplete_params[:managed_only] == 'true'
       )
@@ -25,8 +26,8 @@ class RegistryOrgsController < ApplicationController
 
   def autocomplete_params
     params.permit(
-      %i[known_only unknown_only funder_only managed_only non_funder_only context],
-      org_autocomplete: %i[name funder_name org_name]
+      %i[known_only unknown_only funder_only managed_only non_funder_only template_owner_only
+         context], org_autocomplete: %i[name funder_name org_name]
     )
   end
 
@@ -54,6 +55,7 @@ class RegistryOrgsController < ApplicationController
       unknown_only: options[:unknown_only],
       managed_only: options[:managed_only],
       funder_only: options[:funder_only],
+      template_owner_only: options[:template_owner_only],
       non_funder_only: options[:non_funder_only]
     )
 
@@ -63,6 +65,7 @@ class RegistryOrgsController < ApplicationController
       unknown_only: options[:unknown_only],
       managed_only: options[:managed_only],
       funder_only: options[:funder_only],
+      template_owner_only: options[:template_owner_only],
       non_funder_only: options[:non_funder_only]
     )
 
@@ -81,6 +84,9 @@ class RegistryOrgsController < ApplicationController
     return [] if options[:unknown_only]
 
     matches = Org.search(term)
+    matches = matches.joins(:templates)
+                     .where('templates.published = true') if options[:template_owner_only]
+
     # If we're only allowing for managed Orgs then filter the others out
     matches = matches.where(managed: true) if options.fetch(:managed_only, false)
 
@@ -94,6 +100,9 @@ class RegistryOrgsController < ApplicationController
   # Search RegistryOrgs
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   def registry_orgs_search(term:, **options)
+    # If we only want Orgs with a template, skip the RegistryOrg search
+    return [] if options[:template_owner_only]
+
     matches = RegistryOrg.includes(:org).search(term)
     # If we are only allowing known Orgs then filter by org_id presence
     matches = matches.where.not(org_id: nil) if options.fetch(:known_only, false)

@@ -26,6 +26,8 @@ known_only = local_assigns.fetch(:known_only, false)
 unknown_only = known_only ? false : local_assigns.fetch(:unknown_only, false)
 # Whether or not to restrict the search records to `orgs.managed = true`
 managed_only = local_assigns.fetch(:managed_only, false)
+# Whether or not to restrict the search based on whether or not the Org owns a published template
+template_owner_only = local_assigns.fetch(:template_owner_only, false)
 
 # Whether or not to allow a user to enter in a custom/other Org
 restricting = Rails.configuration.x.application.restrict_orgs
@@ -72,7 +74,8 @@ user_entered = default_org.present? &&
                                 url: orgs_search_path(
                                   known_only: known_only, managed_only: managed_only,
                                   funder_only: funder_only, non_funder_only: non_funder_only,
-                                  unknown_only: unknown_only, context: autocomplete_id
+                                  unknown_only: unknown_only, context: autocomplete_id,
+                                  template_owner_only: template_owner_only
                                 )
                               } %>
 
