@@ -26,7 +26,7 @@ elsif ENV['DOMAIN'] == 'client'
   # Note, all prefixes of the directory you want to translate must be defined here!
   #
   # To sync translations with the Translation IO server run:
-  #  > rails translations:sync_and_purge DOMAIN=client
+  #  > rails translation:sync_and_purge DOMAIN=client
   TranslationIO.configure do |config|
     config.api_key              = Rails.configuration.x.dmproadmap.translation_io_key_client
     config.source_locale        = 'en'
