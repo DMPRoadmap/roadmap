@@ -15,21 +15,30 @@ function renderMessage(options = {}) {
   const notificationArea = $('#notification-area');
 
   if (isString(options.message) && isObject(notificationArea)) {
-    notificationArea
-      .removeClass('c-notification-area__info', 'c-notification-area__warning')
-      .addClass(options.className);
+    const block = notificationArea.find(options.className);
 
-    if (options.floating) {
-      notificationArea.addClass('notification-area--floating');
+    if (block.length > 0) {
+      block.html(options.message);
+      block.removeClass('hide');
     }
 
-    notificationArea.find('i, span').remove();
-    notificationArea.append(`
-      <i class="fas fa-${options.icon}" aria-hidden="true"></i>
-      <span>${options.message}</span>
-    `);
+    // DMPTool customization to work with new layout
 
-    notificationArea.removeClass('hide');
+    // notificationArea
+    //   .removeClass('c-notification-area__info', 'c-notification-area__warning')
+    //   .addClass(options.className);
+    //
+    // if (options.floating) {
+    //   notificationArea.addClass('notification-area--floating');
+    // }
+
+    // notificationArea.find('i, span').remove();
+    // notificationArea.append(`
+    //   <i class="fas fa-${options.icon}" aria-hidden="true"></i>
+    //   <span>${options.message}</span>
+    // `);
+
+    // notificationArea.removeClass('hide');
 
     if (options.autoDismiss) {
       setTimeout(() => { hideNotifications(); }, 5000);
@@ -41,7 +50,7 @@ export function renderNotice(msg, options = {}) {
   renderMessage({
     message: msg,
     icon: 'check-circle',
-    className: 'c-notification-area__info',
+    className: '.c-notification--info',
     floating: options.floating === true,
     autoDismiss: options.autoDismiss === true,
   });
@@ -51,7 +60,7 @@ export function renderAlert(msg, options = {}) {
   renderMessage({
     message: msg,
     icon: 'times-circle',
-    className: 'c-notification-area__warning',
+    className: '.c-notification--danger',
     floating: options.floating === true,
     autoDismiss: options.autoDismiss === true,
   });

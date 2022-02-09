@@ -1,0 +1,74 @@
+<% has_dmp_id = scope.select { |plan| plan.dmp_id.present? }.any? %>
+
+<% if @clicked_through %>
+  <p><%= _(<<-TEXT
+    The data on the usage dashboard is historical in nature. This means that the number of records below may not
+    match the count shown on the usage dashboard. For example if one of your users created a plan in October and
+    then removed that plan in November, it would have been included on the usage dashboard's total for October but
+    would not appear in the list below.
+  TEXT
+  ) %></p>
+<% end %>
+
+<p><%= _("Note: You can filter this table by 'Created' dates. Enter the month abbreviation and a 4 digit year into the search box above.<br>For example: 'Oct 2019' or 'Jun 2013'.").html_safe %></p>
+
+<p><%= _('Featured plans are displayed first on the \'Public DMPs\' page. A plan must be publicly visible to be \'featured\'.') %></p>
+
+<div class="table-responsive">
+  <table class="table table-hover" id="my-plans">
+    <thead>
+      <tr>
+        <th scope="col"><%= _('Project Title') %>&nbsp;<%= paginable_sort_link('plans.title') %></th>
+        <th scope="col"><%= _('Template') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
+        <th scope="col"><%= _('Organisation') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
+        <th scope="col"><%= _('Owner') %></th>
+        <th scope="col" class="date-column"><%= _('Created') %>&nbsp;<%= paginable_sort_link('plans.created_at') %></th>
+        <th scope="col"><%= _('Visibility') %></th>
+        <% if has_dmp_id %>
+          <th scope="col"><%= _('DMP ID') %></th>
+        <% end %>
+        <th scope="col"><%= _('Featured?') %>&nbsp;<%= paginable_sort_link('plans.featured') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% scope.each do |plan| %>
+        <% id_presenter = IdentifierPresenter.new(identifiable: plan) %>
+        <tr>
+          <td>
+            <% if plan.readable_by?(current_user.id) %>
+              <%= link_to "#{plan.title.length > 60 ? "#{plan.title[0..59]} ..." : plan.title}", plan_path(plan) %>
+            <% else %>
+              <%= plan.title.truncate(60) %>
+            <% end %>
+          </td>
+          <td><%= plan.template.title %></td>
+          <td><%= plan.owner&.org&.name %></td>
+          <td><%= plan.owner&.name(false) %></td>
+          <td><%= l(plan.created_at.to_date, formats: :short) %></td>
+          <td class="plan-visibility">
+            <%= plan.visibility === 'is_test' ? _('Test') : sanitize(display_visibility(plan.visibility)) %>
+          </td>
+          <% if has_dmp_id %>
+            <td>
+              <% if plan.dmp_id.present? %>
+                <a href="<%= plan.dmp_id.value %>" target="_blank" class="has-new-window-popup-info">
+                  <%= id_for_display(id: plan.dmp_id, with_scheme_name: false).html_safe %>
+                </a>
+              <% end %>
+            </td>
+          <% end %>
+          <td class="text-center">
+            <% if current_user.can_org_admin? && plan.visibility == 'publicly_visible' then %>
+              <%= check_box_tag :featured, "1", plan.featured?,
+                                          class: "set_featured_plan",
+                                          data: { remote: true, method: :post,
+                                                  url: set_featured_plan_path(plan) } %>
+            <% else %>
+              <%= _('N/A') %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

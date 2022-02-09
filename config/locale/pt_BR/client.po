@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dmptool 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-02-08 11:19-0800\n"
-"PO-Revision-Date: 2022-02-08 20:19+0100\n"
+"POT-Creation-Date: 2022-02-09 08:59-0800\n"
+"PO-Revision-Date: 2022-02-09 17:59+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Portuguese\n"
 "Language: pt_BR\n"
@@ -55,6 +55,7 @@ msgid "Save"
 msgstr "Salvar"
 
 #: ../../app/views/branded/contributors/_form.html.erb:79
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:53
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:84
 #: ../../app/views/branded/plans/_collaborator_form.html.erb:56
 #: ../../app/views/branded/research_outputs/_form.html.erb:179
@@ -585,6 +586,46 @@ msgstr "Instituição"
 msgid "Institutional Signin Enabled"
 msgstr "Assinatura institucional habilitada"
 
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:7
+#: ../../app/views/branded/public_pages/_plans_results.html.erb:11
+#: ../../app/views/branded/research_outputs/_form.html.erb:41
+msgid "Title"
+msgstr "Título"
+
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:10
+#: ../../app/views/branded/research_outputs/_form.html.erb:14
+msgid "Type"
+msgstr "Tipo"
+
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:13
+#: ../../app/views/branded/research_outputs/sections/_identifiers.html.erb:6
+msgid "Repository"
+msgstr "Repositório"
+
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:16
+msgid "Release date"
+msgstr "Data de lançamento"
+
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:19
+msgid "Access level"
+msgstr "Nível de acesso"
+
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:23
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:48
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:54
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:18
+msgid "Actions"
+msgstr "Ações"
+
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:51
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:57
+msgid "Edit"
+msgstr "Editar"
+
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:55
+msgid "You are about to delete '%{research_output_title}'. Are you sure?"
+msgstr "Você está prestes a excluir '%{research_output_title}'. Tem certeza?"
+
 #: ../../app/views/branded/paginable/templates/_invite_modal.html.erb:17
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:75
 msgid "Email template"
@@ -711,15 +752,6 @@ msgstr ""
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:43
 msgid "Unpublished"
 msgstr "Não publicado"
-
-#: ../../app/views/branded/paginable/templates/_organisational.html.erb:54
-#: ../../app/views/branded/plans/_collaborator_form.html.erb:18
-msgid "Actions"
-msgstr "Ações"
-
-#: ../../app/views/branded/paginable/templates/_organisational.html.erb:57
-msgid "Edit"
-msgstr "Editar"
 
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:58
 msgid "History"
@@ -1330,11 +1362,6 @@ msgstr "Destaque"
 msgid "Most Recent"
 msgstr "Mais recente"
 
-#: ../../app/views/branded/public_pages/_plans_results.html.erb:11
-#: ../../app/views/branded/research_outputs/_form.html.erb:41
-msgid "Title"
-msgstr "Título"
-
 #: ../../app/views/branded/public_pages/_plans_results.html.erb:40
 msgid "DMP ID"
 msgstr "ID DMP"
@@ -1489,10 +1516,6 @@ msgstr ""
 "er controle suficiente para que o material digital seja autêntico, confiável, "
 "acessível e utilizável continuamente. (De https://codata.org/rdm-glossary/pers"
 "onally-identifiable-information/)"
-
-#: ../../app/views/branded/research_outputs/_form.html.erb:14
-msgid "Type"
-msgstr "Tipo"
 
 #: ../../app/views/branded/research_outputs/_form.html.erb:16
 msgid "Please describe the output type"
@@ -1672,10 +1695,6 @@ msgstr "Tipo de provedor"
 #: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:73
 msgid "Repository type"
 msgstr "Tipo de repositório"
-
-#: ../../app/views/branded/research_outputs/sections/_identifiers.html.erb:6
-msgid "Repository"
-msgstr "Repositório"
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:4
 msgid "What is the DMPTool?"

@@ -167,11 +167,13 @@ const isValid = (autocomplete, textbox, suggestions) => {
   const isRequired = autocomplete.parent().hasClass('is-required');
   const validAutocomplete = isSuggestion(autocomplete.val(), suggestions);
 
-  if (isRequired && isBlank(autocomplete, textbox)) {
-    return false;
+  // If both the autocomplete and user entered value are blank, check if it's required
+  if (isBlank(autocomplete, textbox)) {
+    return !isRequired;
+  } else {
+    // Otherwise make sure the user selected a valid suggestion
+    return textbox.length > 0 ? (validAutocomplete || textbox.val().length > 2) : validAutocomplete;
   }
-  // If the user entered org textbox is available
-  return textbox.length > 0 ? (validAutocomplete || textbox.val().length > 2) : validAutocomplete;
 };
 
 // Checks to see if the selection or entry in the text field matches a value in the crosswalk
@@ -231,8 +233,8 @@ export const initAutoComplete = (selector) => {
 
   autocomplete.closest('form').on('submit', (e) => {
     const valid = isValid(autocomplete, textbox, suggestions);
-    toggleWarning(autocomplete, !valid);
     if (!valid) {
+      toggleWarning(autocomplete, !valid);
       e.preventDefault();
     }
   });

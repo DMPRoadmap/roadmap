@@ -6,6 +6,8 @@ class PlansController < ApplicationController
   include ConditionalUserMailer
   include OrgSelectable
 
+  include Dmptool::PlansController
+
   helper PaginableHelper
   helper SettingsTemplateHelper
 

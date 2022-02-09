@@ -142,6 +142,8 @@ $(() => {
     toggleSubmit();
   });
 
+  $('#plan_title').trigger('focus');
+
   // Initialize the form
   $('#new_plan #available-templates').hide();
   toggleSubmit();

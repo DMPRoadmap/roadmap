@@ -47,9 +47,6 @@ import { togglisePasswords } from '../src/utils/passwordHelper';
 import '../src/answers/conditions';
 import '../src/answers/edit';
 import '../src/answers/rdaMetadata';
-// DMPTool customization - these forms are handled by dmptool-ui repo
-// import '../src/devise/passwords/edit';
-// import '../src/devise/registrations/edit';
 import '../src/guidances/newEdit';
 import '../src/notes/index';
 import '../src/orgs/adminEdit';
@@ -70,10 +67,6 @@ import '../src/publicTemplates/show';
 import '../src/relatedIdentifiers/edit';
 import '../src/researchOutputs/form';
 import '../src/roles/edit';
-
-// DMPTool customization - these forms are handled by dmptool-ui repo
-// import '../src/shared/createAccountForm';
-// import '../src/shared/signInForm';
 
 import '../src/usage/index';
 import '../src/users/adminGrantPermissions';
@@ -102,6 +95,7 @@ import '../src/superAdmin/users/edit';
 // = DMPTool customizations =
 // ==========================
 import '../src/dmptool/public_pages/plans_index';
+import '../src/dmptool/orgAdmin/plans/index';
 
 // Since we're using Webpacker to manage JS we need to startup Rails' Unobtrusive JS
 // and Turbolinks. ActiveStorage and ActionCable would also need to be in here

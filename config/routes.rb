@@ -186,6 +186,7 @@ Rails.application.routes.draw do
       post 'duplicate'
       post 'visibility', constraints: { format: [:json] }
       post 'set_test', constraints: { format: [:json] }
+      post 'set_featured', constraints: { format: [:json] }
       get 'mint'
       get 'add_orcid_work'
     end

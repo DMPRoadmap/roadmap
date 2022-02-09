@@ -83,11 +83,16 @@ class PlanPolicy < ApplicationPolicy
     @user.present?
   end
 
+  # DMPTool customization
   def mint?
     @record.owner == @user || @user.can_super_admin?
   end
 
   def add_orcid_work?
     @record.administerable_by?(@user.id)
+  end
+
+  def set_featured?
+    @user.can_org_admin?
   end
 end

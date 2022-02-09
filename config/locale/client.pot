@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dmptool 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-02-08 11:19-0800\n"
-"PO-Revision-Date: 2022-02-08 11:19-0800\n"
+"POT-Creation-Date: 2022-02-09 08:59-0800\n"
+"PO-Revision-Date: 2022-02-09 08:59-0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -55,6 +55,7 @@ msgid "Save"
 msgstr ""
 
 #: ../../app/views/branded/contributors/_form.html.erb:79
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:53
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:84
 #: ../../app/views/branded/plans/_collaborator_form.html.erb:56
 #: ../../app/views/branded/research_outputs/_form.html.erb:179
@@ -564,6 +565,46 @@ msgstr ""
 msgid "Institutional Signin Enabled"
 msgstr ""
 
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:7
+#: ../../app/views/branded/public_pages/_plans_results.html.erb:11
+#: ../../app/views/branded/research_outputs/_form.html.erb:41
+msgid "Title"
+msgstr ""
+
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:10
+#: ../../app/views/branded/research_outputs/_form.html.erb:14
+msgid "Type"
+msgstr ""
+
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:13
+#: ../../app/views/branded/research_outputs/sections/_identifiers.html.erb:6
+msgid "Repository"
+msgstr ""
+
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:16
+msgid "Release date"
+msgstr ""
+
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:19
+msgid "Access level"
+msgstr ""
+
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:23
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:48
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:54
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:18
+msgid "Actions"
+msgstr ""
+
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:51
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:57
+msgid "Edit"
+msgstr ""
+
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:55
+msgid "You are about to delete '%{research_output_title}'. Are you sure?"
+msgstr ""
+
 #: ../../app/views/branded/paginable/templates/_invite_modal.html.erb:17
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:75
 msgid "Email template"
@@ -677,15 +718,6 @@ msgstr ""
 
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:43
 msgid "Unpublished"
-msgstr ""
-
-#: ../../app/views/branded/paginable/templates/_organisational.html.erb:54
-#: ../../app/views/branded/plans/_collaborator_form.html.erb:18
-msgid "Actions"
-msgstr ""
-
-#: ../../app/views/branded/paginable/templates/_organisational.html.erb:57
-msgid "Edit"
 msgstr ""
 
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:58
@@ -1248,11 +1280,6 @@ msgstr ""
 msgid "Most Recent"
 msgstr ""
 
-#: ../../app/views/branded/public_pages/_plans_results.html.erb:11
-#: ../../app/views/branded/research_outputs/_form.html.erb:41
-msgid "Title"
-msgstr ""
-
 #: ../../app/views/branded/public_pages/_plans_results.html.erb:40
 msgid "DMP ID"
 msgstr ""
@@ -1374,10 +1401,6 @@ msgid ""
 "e digital material to be authentic, reliable, accessible and usable on a conti"
 "nuing basis. (From https://codata.org/rdm-glossary/personally-identifiable-inf"
 "ormation/)"
-msgstr ""
-
-#: ../../app/views/branded/research_outputs/_form.html.erb:14
-msgid "Type"
 msgstr ""
 
 #: ../../app/views/branded/research_outputs/_form.html.erb:16
@@ -1553,10 +1576,6 @@ msgstr ""
 #:
 #: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:73
 msgid "Repository type"
-msgstr ""
-
-#: ../../app/views/branded/research_outputs/sections/_identifiers.html.erb:6
-msgid "Repository"
 msgstr ""
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:4

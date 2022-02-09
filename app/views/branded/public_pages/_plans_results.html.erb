@@ -7,7 +7,7 @@
     <label for="sort-select"><%= _('Sort by:') %></label>
     <select id="sort-select" name="sort_by" form="public-plans-facet-form">
       <option value="featured"<%= ' selected' if sort_by == 'featured' %>><%= _('Featured') %></option>
-      <option value="updated_at"<%= ' selected' if sort_by == 'updated_at' %>><%= _('Most Recent') %></option>
+      <option value="created_at"<%= ' selected' if sort_by == 'created_at' %>><%= _('Most Recent') %></option>
       <option value="title"<%= ' selected' if sort_by == 'title' %>><%= _('Title') %></option>
     </select>
   </div>
@@ -44,7 +44,7 @@
           </a>
         </dd>
       <% end %>
-      <dt><%= _('Last modified') %>:</dt><dd><%= l(plan.updated_at.to_date, formats: :short) %></dd>
+      <dt><%= _('Creation date') %>:</dt><dd><%= l(plan.created_at.to_date, formats: :short) %></dd>
       <% if plan.language.present? %>
         <dt><%= _('Language') %>:</dt><dd><%= plan.language.name %></dd>
       <% end %>
