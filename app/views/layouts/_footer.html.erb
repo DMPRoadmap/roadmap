@@ -10,20 +10,20 @@
     <ul class="nav navbar-nav navbar">
 
       <li>
-        <%= link_to("https://dmponline.dcc.ac.uk/about_us", title: "DMP Online", target: '_blank', class: 'has-new-window-popup-info')  do %>
-          <%= image_tag("dmp-online-logo-white.png",
-                        class: "img-responsive",
-                        alt: "DMP Online #{_('(opens in a new window)')}") %>
-          <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
-        <% end %>
-      </li>
-
-      <li>
         <%= link_to("https://alliancecan.ca/", title: _("Digital Research Alliance of Canada"), target: '_blank', class: 'has-new-window-popup-info')  do %>
           <%= image_tag("alliance-white.png", 
                         class: "img-responsive",
                         alt: "#{_('Digital Research Alliance of Canada')} #{_('(opens in a new window)')}",
                         id: "alliance-logo" ) %>
+          <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
+        <% end %>
+      </li>
+
+      <li>
+        <%= link_to("https://dmponline.dcc.ac.uk/about_us", title: "DMP Online", target: '_blank', class: 'has-new-window-popup-info')  do %>
+          <%= image_tag("dmp-online-logo-white.png",
+                        class: "img-responsive",
+                        alt: "DMP Online #{_('(opens in a new window)')}") %>
           <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
         <% end %>
       </li>
