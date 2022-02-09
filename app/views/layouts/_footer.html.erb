@@ -10,15 +10,6 @@
     <ul class="nav navbar-nav navbar">
 
       <li>
-        <%= link_to("https://portagenetwork.ca/", title: "Portage", target: '_blank', class: 'has-new-window-popup-info')  do %>
-          <%= image_tag("portage-logo-white.png",
-                        class: "img-responsive",
-                        alt: "Portage #{_('(opens in a new window)')}") %>
-          <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
-        <% end %>
-      </li>
-
-      <li>
         <%= link_to("https://dmponline.dcc.ac.uk/about_us", title: "DMP Online", target: '_blank', class: 'has-new-window-popup-info')  do %>
           <%= image_tag("dmp-online-logo-white.png",
                         class: "img-responsive",
@@ -28,10 +19,11 @@
       </li>
 
       <li>
-        <%= link_to("https://engagedri.ca/", title: _("New Digital Research Infrastructure Organization"), target: '_blank', class: 'has-new-window-popup-info')  do %>
-          <%= image_tag("ndrio-logo-white.png", 
+        <%= link_to("https://alliancecan.ca/", title: _("Digital Research Alliance of Canada"), target: '_blank', class: 'has-new-window-popup-info')  do %>
+          <%= image_tag("alliance-white.png", 
                         class: "img-responsive",
-                        alt: "#{_('New Digital Research Infrastructure Organization')} #{_('(opens in a new window)')}" ) %>
+                        alt: "#{_('Digital Research Alliance of Canada')} #{_('(opens in a new window)')}",
+                        id: "alliance-logo" ) %>
           <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
         <% end %>
       </li>
