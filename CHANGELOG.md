@@ -1,7 +1,16 @@
 # Changelog
 
-## [Unreleased]
-  - Add danger worflow to automate code review tasks
+## [3.0.4+portage-3.0.2] - 2020-02-10
+
+  ### Changed
+   - Update footer for the new Alliance branding 
+  ### Added
+  - Danger workflow to automate code review tasks
+
+## [3.0.4+portage-3.0.1] - 2020-01-17
+
+### Changed
+  - Update mysql installation process for the Github action
 
 ## [3.0.4+portage-3.0.0] - 2022-01-17
 
@@ -41,7 +50,6 @@
  - Deactivate Shibboleth authentication
 
 ### Changed
- - Update footer for the new Alliance branding 
  - Update response to reset password email to suggest a direct response
  - Update translation files
  - Change the "number to text" js package to a newer version with continued support
