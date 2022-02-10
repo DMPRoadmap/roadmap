@@ -110,8 +110,6 @@ module Dmptool
         self.resource = ::User.includes(:org, :identifiers)
                               .find_or_initialize_by(email: params[:user][:email])
 
-        pp resource.inspect
-
         # If the User's Org is not defined or they are a super admin (because super
         # admins have the ability to alter their affiliation), try to determine the
         # Org based on their email domain
