@@ -267,11 +267,11 @@ module ExternalApis
 
         country = item.fetch('country', {}).fetch('country_code', '')
         labels = case country
-        when 'US'
-          [{ iso639: 'en' }]
-        else
-          item.fetch('labels', [{ iso639: dflt }])
-        end
+                 when 'US'
+                   [{ iso639: 'en' }]
+                 else
+                   item.fetch('labels', [{ iso639: dflt }])
+                 end
         labels.first&.fetch('iso639', I18n.default_locale) || dflt
       end
 

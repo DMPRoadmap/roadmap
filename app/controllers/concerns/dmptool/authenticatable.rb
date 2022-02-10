@@ -65,6 +65,7 @@ module Dmptool
       # rubocop:enable Metrics/AbcSize
 
       # Get the RegistryOrg with the closest matching domain and no Org association
+      # rubocop:disable Metrics/AbcSize
       def lookup_registry_org_by_email(email_domain:)
         return nil unless email_domain.present?
 
@@ -75,10 +76,11 @@ module Dmptool
         # http://health.ucsd.edu if the email_domain is 'ucsd.edu')
         orgs = orgs.sort do |a, b|
           l = email_domain.length
-          (a.home_page.length - l) <=> (b.home_page.length - l)
+          (domain_for(url: a.home_page).length - l) <=> (domain_for(url: b.home_page).length - l)
         end
         orgs.first.to_org
       end
+      # rubocop:enable Metrics/AbcSize
 
       # Get the user from any OmniAuth information that is available
       def user_from_omniauth
@@ -91,6 +93,13 @@ module Dmptool
         nil
       end
 
+      # Attempts to extract the domain from the string
+      def domain_for(url:)
+        URI.parse(url).host.gsub('www', '')
+      rescue URI::InvalidURIError
+        url
+      end
+
       # =============
       # = CALLBACKS =
       # =============
@@ -100,6 +109,8 @@ module Dmptool
       def fetch_user
         self.resource = ::User.includes(:org, :identifiers)
                               .find_or_initialize_by(email: params[:user][:email])
+
+        pp resource.inspect
 
         # If the User's Org is not defined or they are a super admin (because super
         # admins have the ability to alter their affiliation), try to determine the

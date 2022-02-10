@@ -60,7 +60,7 @@ module Dmptool
     def new_plan_via_api(recipient:, plan:, api_client:)
       return false unless recipient.is_a?(User) && plan.is_a?(Plan) && api_client.is_a?(ApiClient)
 
-      dflt = _("A new data management plan (DMP) has been started for you by %{external_system_name}")
+      dflt = _('A new data management plan (DMP) has been started for you by %<external_system_name>s')
       subject = plan.template&.org&.api_create_plan_email_subject || dflt
 
       @message = plan.template&.org&.api_create_plan_email_body
@@ -71,7 +71,7 @@ module Dmptool
         mail(
           to: Rails.env.production? ? recipient.email : api_client.contact_email,
           cc: plan.template.org&.contact_email,
-          subject: subject % { external_system_name: api_client.description }
+          subject: format(subject, external_system_name: api_client.description)
         )
       end
     end

@@ -75,4 +75,19 @@ RSpec.describe 'Sign in/up via email entry', type: :feature do
     expect(page).to have_text(@org.name)
     expect(page).to have_text('Sign in with Institution to Continue')
   end
+
+  it 'handles known user with a shibbolized org and multiple similar orgs', js: true do
+    create_shibboleth_entity_id(org: @org)
+    similar_org = create(:org, contact_email: "similar@z.#{@email_domain}")
+    create_shibboleth_entity_id(org: similar_org)
+    create(:registry_org, home_page: "similar@xyz.#{@email_domain}/home/index.html")
+    fill_in 'Email address', with: @user.email
+    click_on 'Continue'
+
+    expect(page).to have_text('Sign in')
+    expect(find('#user_disabled_email').value).to eql(@user.email)
+    expect(page).to have_text('Your address is associated with:')
+    expect(page).to have_text(@org.name)
+    expect(page).to have_text('Sign in with Institution to Continue')
+  end
 end

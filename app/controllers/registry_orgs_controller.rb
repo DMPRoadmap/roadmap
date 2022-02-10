@@ -59,9 +59,6 @@ class RegistryOrgsController < ApplicationController
       non_funder_only: options[:non_funder_only]
     )
 
-p "REGISTRY ORGS:"
-pp registry_matches.map(&:name)
-
     # Search the Orgs table first
     org_matches = orgs_search(
       term: term,
@@ -71,9 +68,6 @@ pp registry_matches.map(&:name)
       template_owner_only: options[:template_owner_only],
       non_funder_only: options[:non_funder_only]
     )
-
-p "ORGS:"
-pp org_matches.map(&:name)
 
     # Ignore any RegistryOrg with no associated Org if we are not allowing custom user Orgs
     registry_matches.reject { |match| match.org_id.nil? } if restricting
@@ -87,12 +81,15 @@ pp org_matches.map(&:name)
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # Search Orgs
+  # rubocop:disable Metrics/CyclomaticComplexity
   def orgs_search(term:, **options)
     return [] if options[:unknown_only]
 
     matches = Org.includes(:users).search(term)
-    matches = matches.joins(:templates)
-                     .where('templates.published = true') if options[:template_owner_only]
+    if options[:template_owner_only]
+      matches = matches.joins(:templates)
+                       .where('templates.published = true')
+    end
 
     # If we're only allowing for managed Orgs then filter the others out
     matches = matches.where(managed: true) if options.fetch(:managed_only, false)
@@ -103,9 +100,10 @@ pp org_matches.map(&:name)
 
     matches
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   # Search RegistryOrgs
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def registry_orgs_search(term:, **options)
     # If we only want Orgs with a template, skip the RegistryOrg search
     return [] if options[:template_owner_only]
@@ -125,7 +123,7 @@ pp org_matches.map(&:name)
 
     matches
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # Sort the results by their weight (desacending) and then name (ascending)
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
@@ -166,6 +164,7 @@ pp org_matches.map(&:name)
   # Removes duplicate entries (preferring the one with the most associated Users)
   # For example. if there are 'UNESP' w/4 users, 'unesp' w/12 users and ' unesp' w/1 user in
   # the results, it will use 'unesp'
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def deduplicate(list: [])
     return list unless list.any?
 
@@ -181,7 +180,7 @@ pp org_matches.map(&:name)
 
     # If there are no duplicate names just return the current list
     names = hashes.map { |item| item[:normalized] }
-    return list unless names.detect{ |name| names.count(name) > 1 }.present?
+    return list unless names.detect { |name| names.count(name) > 1 }.present?
 
     out = {}
     hashes.each do |item|
@@ -189,4 +188,5 @@ pp org_matches.map(&:name)
     end
     out.values
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end

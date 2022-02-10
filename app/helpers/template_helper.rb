@@ -35,7 +35,7 @@ module TemplateHelper
   # @param text [String] text for the link
   # @param id [String] id for the link element
   # rubocop:disable Style/OptionalBooleanParameter
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/AbcSize
   def direct_link(template, hidden = false, text = nil, id = nil)
     params = {
       plan: { template_id: template.id },
@@ -56,6 +56,6 @@ module TemplateHelper
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize
   # rubocop:enable Style/OptionalBooleanParameter
 end
