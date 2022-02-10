@@ -4946,13 +4946,13 @@ msgid ""
 "double check that your organisation does not appear in the list in a slightly "
 "different form."
 msgstr ""
-"Une nouvelle entrée sera créée pour l'organisation que vous avez nommée ci-des"
-"sus. Veuillez vérifier que votre organisation n'apparaît pas dans la liste sou"
+"Une nouvelle entrée sera créée pour l'organisme que vous avez renseigné ci-des"
+"sus. Veuillez vérifier que votre organisme n'apparaît pas dans la liste sou"
 "s une forme légèrement différente."
 
 #: ../../app/views/shared/org_selectors/_local_only.html.erb:45
 msgid "The name you entered was not one of the listed suggestions!"
-msgstr "Le nom que vous avez entré ne faisait pas partie des suggestions répertoriées!"
+msgstr "L'organisme que vous avez saisi ne figure pas dans la liste"
 
 #: ../../app/views/static_pages/about_us.html.erb:1
 #: ../../app/views/static_pages/about_us.html.erb:4

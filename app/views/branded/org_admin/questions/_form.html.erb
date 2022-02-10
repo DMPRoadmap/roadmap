@@ -44,7 +44,7 @@
         data-attribute="question_schema" 
         style="<%= 'display:none' if !question.question_format.structured?%>"
     >
-      <%= f.label(:madmp_schema_id, _('Data Schema'), class: "control-label") %>
+      <%= f.label(:madmp_schema_id, _('Structured Form'), class: "control-label") %>
         <%= f.select :madmp_schema_id,
           options_from_collection_for_select(@madmp_schemas,
           :id,

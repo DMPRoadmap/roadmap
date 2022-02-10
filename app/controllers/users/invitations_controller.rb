@@ -65,27 +65,27 @@ class Users::InvitationsController < Devise::InvitationsController
   def handle_org
     attrs = update_resource_params
 
-    if attrs[:org_id].present?
-      # See if the user selected a new Org via the Org Lookup and
-      # convert it into an Org
-      lookup = org_from_params(params_in: attrs)
-      return nil unless lookup.present?
+    return unless attrs[:org_id].present?
 
-      # If this is a new Org we need to save it first before attaching
-      # it to the user
-      if lookup.new_record?
-        lookup.save
-        identifiers_from_params(params_in: attrs).each do |identifier|
-          next unless identifier.value.present?
+    # See if the user selected a new Org via the Org Lookup and
+    # convert it into an Org
+    lookup = org_from_params(params_in: attrs)
+    return nil unless lookup.present?
 
-          identifier.identifiable = lookup
-          identifier.save
-        end
-        lookup.reload
+    # If this is a new Org we need to save it first before attaching
+    # it to the user
+    if lookup.new_record?
+      lookup.save
+      identifiers_from_params(params_in: attrs).each do |identifier|
+        next unless identifier.value.present?
+
+        identifier.identifiable = lookup
+        identifier.save
       end
-
-      self.resource.update(org_id: lookup.id)
+      lookup.reload
     end
+
+    resource.update(org_id: lookup.id)
   end
 
 end

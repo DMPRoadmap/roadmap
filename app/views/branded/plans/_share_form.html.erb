@@ -104,7 +104,7 @@
           </div>
           <div class="radio">
             <%= f.label :commenter_access do %>
-              <%= f.radio_button :access, commenter.access, id: "role_commenter_access" %>
+              <%= f.radio_button :access, commenter.access, checked: true, id: "role_commenter_access" %>
               <%= _('Read only: can view and comment, but not make changes') %>
             <% end %>
           </div>

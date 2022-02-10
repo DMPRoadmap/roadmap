@@ -93,6 +93,7 @@ class Question < ApplicationRecord
   before_destroy :check_remove_conditions
 
   before_destroy :check_remove_conditions
+  before_save :handle_madmp_schema
   
   # =====================
   # = Nested Attributes =
@@ -297,6 +298,10 @@ class Question < ApplicationRecord
         end
       end
     end
+  end
+
+  def handle_madmp_schema
+    self.madmp_schema = nil unless question_format.structured?
   end
 
 end
