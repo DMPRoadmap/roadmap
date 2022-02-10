@@ -16,9 +16,6 @@
         role="alert">
     <% if has_notice %>
       <p><%= sanitize(flash[:notice]) %><%= yield :model_errors %></p>
-      <button id="js-notification-close" class="c-notification__close">
-        <span><%= _('Close') %></span>
-      </button>
     <% end %>
   </div>
 
@@ -27,9 +24,6 @@
         role="alert">
     <% if has_warning %>
       <p><%= sanitize(flash[:warn]) %><%= yield :model_errors %></p>
-      <button id="js-notification-close" class="c-notification__close">
-        <span><%= _('Close') %></span>
-      </button>
     <% end %>
   </div>
 
@@ -37,9 +31,6 @@
     <% globals.each do |msg| %>
       <div id="js-notification-warning" class="c-notification--warning" role="alert">
         <p><%= sanitize msg.body %></p>
-        <button id="js-notification-close" class="c-notification__close">
-          <span><%= _('Close') %></span>
-        </button>
       </div>
     <% end %>
   <% end %>
@@ -49,9 +40,6 @@
     <% if has_alert %>
       <% msg = flash[:alert].present? ? flash[:alert] : flash[:error] %>
       <p><strong><%= _('Error:') %></strong> <%= sanitize(msg) %></p>
-      <button id="js-notification-close" class="c-notification__close">
-        <span><%= _('Close') %></span>
-      </button>
     <% end %>
   </div>
 </div>

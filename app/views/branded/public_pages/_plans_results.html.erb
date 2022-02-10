@@ -26,7 +26,7 @@
     </ul>
     <div class="c-plan-template"><%= plan.template.title %></div>
     <h3 class="c-plan-title">
-      <%= link_to plan.title, plan_export_path(plan, format: :pdf, export: { question_headings: true }) %>
+      <%= link_to plan.title, plan_export_path(plan, format: :pdf, export: { question_headings: true }), target: '_blank' %>
     </h3>
     <div class="c-plan-creator">
       <% if plan.owner.present? %>

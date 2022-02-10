@@ -171,7 +171,11 @@ pp org_matches.map(&:name)
 
     # Fetch the user counts so we can sort appropriately
     hashes = list.map do |item|
-      { normalized: item.name.downcase.strip, user_count: item.users.count, original: item }
+      {
+        normalized: item.name.downcase.strip,
+        user_count: item.respond_to?(:users) ? item.users.count : 0,
+        original: item
+      }
     end
     hashes = hashes.sort { |a, b| b[:user_count] <=> a[:user_count] }
 
