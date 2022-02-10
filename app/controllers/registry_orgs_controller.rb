@@ -59,6 +59,9 @@ class RegistryOrgsController < ApplicationController
       non_funder_only: options[:non_funder_only]
     )
 
+p "REGISTRY ORGS:"
+pp registry_matches.map(&:name)
+
     # Search the Orgs table first
     org_matches = orgs_search(
       term: term,
@@ -69,12 +72,16 @@ class RegistryOrgsController < ApplicationController
       non_funder_only: options[:non_funder_only]
     )
 
+p "ORGS:"
+pp org_matches.map(&:name)
+
     # Ignore any RegistryOrg with no associated Org if we are not allowing custom user Orgs
     registry_matches.reject { |match| match.org_id.nil? } if restricting
 
     # Filter out any RegistryOrgs that are also in the Orgs, we only want to return one!
     registry_matches = registry_matches.reject { |r_org| org_matches.map(&:id).include?(r_org.org_id) }
     matches = (registry_matches + org_matches).flatten.compact.uniq
+    matches = deduplicate(list: matches)
     sort_search_results(results: matches, term: term)
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
@@ -83,7 +90,7 @@ class RegistryOrgsController < ApplicationController
   def orgs_search(term:, **options)
     return [] if options[:unknown_only]
 
-    matches = Org.search(term)
+    matches = Org.includes(:users).search(term)
     matches = matches.joins(:templates)
                      .where('templates.published = true') if options[:template_owner_only]
 
@@ -103,7 +110,7 @@ class RegistryOrgsController < ApplicationController
     # If we only want Orgs with a template, skip the RegistryOrg search
     return [] if options[:template_owner_only]
 
-    matches = RegistryOrg.includes(:org).search(term)
+    matches = RegistryOrg.includes(org: :users).search(term)
     # If we are only allowing known Orgs then filter by org_id presence
     matches = matches.where.not(org_id: nil) if options.fetch(:known_only, false)
     matches = matches.where(org_id: nil) if options.fetch(:unknown_only, false)
@@ -155,4 +162,27 @@ class RegistryOrgsController < ApplicationController
     score
   end
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+  # Removes duplicate entries (preferring the one with the most associated Users)
+  # For example. if there are 'UNESP' w/4 users, 'unesp' w/12 users and ' unesp' w/1 user in
+  # the results, it will use 'unesp'
+  def deduplicate(list: [])
+    return list unless list.any?
+
+    # Fetch the user counts so we can sort appropriately
+    hashes = list.map do |item|
+      { normalized: item.name.downcase.strip, user_count: item.users.count, original: item }
+    end
+    hashes = hashes.sort { |a, b| b[:user_count] <=> a[:user_count] }
+
+    # If there are no duplicate names just return the current list
+    names = hashes.map { |item| item[:normalized] }
+    return list unless names.detect{ |name| names.count(name) > 1 }.present?
+
+    out = {}
+    hashes.each do |item|
+      out[item[:normalized].to_s] = item[:original] unless out[item[:normalized].to_s].present?
+    end
+    out.values
+  end
 end
