@@ -62,8 +62,9 @@ module Settings
           right: 25
         },
         font_face: "Arial, Helvetica, Sans-Serif",
-        font_size: 10 # pt
+        font_size: 11 # pt
       },
+      page_size: 'Letter',
       max_pages: 3,
       fields: {
         admin: VALID_ADMIN_FIELDS,
