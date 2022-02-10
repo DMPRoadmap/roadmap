@@ -1,4 +1,4 @@
-class AddColumnsToResearchOutputs < ActiveRecord::Migration
+class AddColumnsToResearchOutputs < ActiveRecord::Migration[4.2]
   def change
     add_column :research_outputs, :pid, :string
     add_column :research_outputs, :other_type_label, :string

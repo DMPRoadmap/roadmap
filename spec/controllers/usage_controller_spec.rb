@@ -46,7 +46,8 @@ RSpec.describe UsageController, type: :controller do
         context "last #{months} months" do
           before(:each) do
             @date = Date.today.months_ago(months).end_of_month.strftime("%Y-%m-%d")
-            post :plans_by_template, usage: { template_plans_range: @date }, format: :js
+            post :plans_by_template, params: { usage: { template_plans_range: @date } },
+                                     format: :js
           end
           it "returns the expected data" do
             # Controller returns results in date ascending order so resort the
@@ -66,7 +67,7 @@ RSpec.describe UsageController, type: :controller do
     end
     it "assigns the correct csv data" do
       csvified_name = @org.name.include?(",") ? "\"#{@org.name}\"" : @org.name
-      expected = "Org name,Total users,Total plans\n" +
+      expected = "Org name,Total users,Total plans\n" \
                  "#{csvified_name},#{@user_stat.count},#{@plan_stat.count}\n"
       expect(response.content_type).to eq("text/csv")
       expect(response.body).to eql(expected)
@@ -78,8 +79,8 @@ RSpec.describe UsageController, type: :controller do
       get :yearly_users
     end
     it "assigns the correct csv data" do
-      expected = "Month,No. Users joined\n" +
-                 "#{@date.strftime("%b-%y")},#{@user_stat.count}\n" +
+      expected = "Month,No. Users joined\n" \
+                 "#{@date.strftime('%b-%y')},#{@user_stat.count}\n" \
                  "Total,#{@user_stat.count}\n"
       expect(response.content_type).to eq("text/csv")
       expect(response.body).to eql(expected)
@@ -91,8 +92,8 @@ RSpec.describe UsageController, type: :controller do
       get :yearly_plans
     end
     it "assigns the correct csv data" do
-      expected = "Month,No. Completed Plans\n" +
-                 "#{@date.strftime("%b-%y")},#{@plan_stat.count}\n" +
+      expected = "Month,No. Completed Plans\n" \
+                 "#{@date.strftime('%b-%y')},#{@plan_stat.count}\n" \
                  "Total,#{@plan_stat.count}\n"
       expect(response.content_type).to eq("text/csv")
       expect(response.body).to eql(expected)
@@ -106,8 +107,8 @@ RSpec.describe UsageController, type: :controller do
     it "assigns the correct csv data" do
       name = @details[:by_template].first[:name]
       count = @details[:by_template].first[:count]
-      expected = "Date,#{name},Count\n" +
-                 "#{@date.strftime("%b %Y")},#{count},#{@plan_stat.count}\n"
+      expected = "Date,#{name},Count\n" \
+                 "#{@date.strftime('%b %Y')},#{count},#{@plan_stat.count}\n"
       expect(response.content_type).to eq("text/csv")
       expect(response.body).to eql(expected)
     end

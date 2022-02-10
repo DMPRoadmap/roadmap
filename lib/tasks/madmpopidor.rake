@@ -33,7 +33,7 @@ namespace :madmpopidor do
         plan.contributors.each do |contributor|
           identifier = contributor.identifiers.first
           person_data = {
-            "nameType" => d_("dmpopidor", "Personal"),
+            "nameType" => _("Personal"),
             "lastName" => contributor.name,
             "mbox" => contributor.email,
             "personId" => identifier&.value,
@@ -112,7 +112,7 @@ namespace :madmpopidor do
 
           research_output_description.update(
             data: research_output_description.data.merge(
-              "type" => d_("dmpopidor", ro_type)
+              "type" => _(ro_type)
             )
           )
         end
@@ -169,7 +169,7 @@ namespace :madmpopidor do
     schemas_index.each do |schema_desc|
       # Read, parse and extract useful data from the JSON schema
       schema_path = Rails.root.join("config/madmp/schemas/main/#{schema_desc['path']}")
-      json_schema = JSON.load(File.open(schema_path))
+      json_schema = JSON.parse(File.read(schema_path))
       title = json_schema["title"]
       classname = schema_desc["classname"]
 
@@ -181,7 +181,7 @@ namespace :madmpopidor do
           s.org_id = Org.first.id
           s.classname = classname
         end
-        schema.update(schema: json_schema.to_json)
+        schema.update(schema: json_schema)
         p "#{schema.name} loaded"
       rescue ActiveRecord::RecordInvalid
         p "ERROR: template #{title} is invalid (model validations)"

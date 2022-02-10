@@ -2,7 +2,14 @@
 
 class StaticPagesController < ApplicationController
 
-  prepend Dmpopidor::Controllers::StaticPages
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/controllers/dmpopidor/static_pages_controller.rb
+  # --------------------------------
+  prepend Dmpopidor::StaticPagesController
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   def about_us
   end

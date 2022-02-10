@@ -4,22 +4,23 @@
       <tr>
         <th scope="col"><%= _('Template Name') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
         <th scope="col"><%= _('Organisation Name') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
-        <th scope="col"><%= d_('dmpopidor', 'Organisation Type') %>&nbsp;<%= paginable_sort_link('orgs.org_type') %></th>
-        <th scope="col" class="sorter-false"><%= d_('dmpopidor', 'Description') %></th>
-        <th scope="col"><%= _('Last Updated') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
-        <th scope="col" class="sorter-false text-center"><%= _('Download') %></th>
+        <th scope="col"><%= _('Organisation Type') %>&nbsp;<%= paginable_sort_link('orgs.org_type') %></th>
+        <th scope="col" class="sorter-false"><%= _('Description') %></th>
+        <th scope="col" class="date-column"><%= _('Last Updated') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
+        <th scope="col" class="sorter-false text-center download-column"><%= _('Download') %></th>
         <% if !current_user.nil? && current_user.org.active? %>
           <th scope="col" class="sorter-false"><%= _('Actions') %></th>
         <% end %>
       </tr>
     </thead>
     <tbody>
+      <% signed_in = user_signed_in? %>
       <% scope.each do |template| %>
         <tr id="<%= dom_id(template) %>">
           <td>
             <%= template.title %>
             <% if template.customization_of.present? %>
-               - <%= d_('dmpopidor', 'Customized') %>
+               - <%= _('Customized') %>
             <% end %>
           </td>
           <td><%= template.org.name %></td>
@@ -28,20 +29,22 @@
           <td><%= l(template.updated_at.to_date, formats: :short) %></td>
           <td class="text-center">
             <%= link_to template_export_path(template.family_id, format: :docx), target: '_blank' do %>
-               <i class="fa fa-file-word-o" aria-hidden="true"></i>
+               <i class="fas fa-file-word" aria-hidden="true"></i>
                <em class="sr-only"><%= _('(new window)') %></em>
             <% end %>
             <%= link_to template_export_path(template.family_id, format: :pdf), target: '_blank' do %>
-               <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+               <i class="fas fa-file-pdf" aria-hidden="true"></i>
                <em class="sr-only"><%= _('(new window)') %></em>
             <% end %>
           </td>
-          <% if !current_user.nil? && current_user.org.active? %>
-            <td class="text-center">
-              <%= direct_link(template, false, nil, "create-plan-link") %>
-              <a href="" class="copy-link" data-toggle="modal" data-target="#link-modal"><span class="fa fa-clipboard"></span></a>
-            </td>
-          <% end %>
+          <td class="text-center">
+            <% if signed_in %>
+              <%= direct_link(template) %>
+              <a href="" class="copy-link" data-toggle="modal" data-target="#link-modal" title="<%= _('Copy link to create a new plan') %>"><span class="fas fa-clipboard"></span></a>
+            <% else %>
+              <%= _('Requires login') %>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>

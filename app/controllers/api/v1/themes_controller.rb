@@ -8,6 +8,7 @@ module Api
 
       respond_to :json
 
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       def extract
         # check if the user has permissions to use the themes API
         @theme = Theme.find_by(slug: params[:slug])
@@ -52,6 +53,7 @@ module Api
           render json: _("API Client not authorized to used Themes API"), status: 403
         end
       end
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
       def extract_params
         params.permit(:slug, :template_id, :question_id, :start_date, :end_date, :admin_visible, :org_visible)

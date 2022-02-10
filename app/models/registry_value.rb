@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: registry_values
@@ -9,7 +11,7 @@
 #  registry_id :integer
 #
 
-class RegistryValue < ActiveRecord::Base
+class RegistryValue < ApplicationRecord
 
   include ValidationMessages
 
@@ -35,7 +37,7 @@ class RegistryValue < ActiveRecord::Base
   # = Scopes =
   # ==========
 
-  scope :search, ->(term) {
+  scope :search, lambda { |term|
     search_pattern = "%#{term}%"
     where("lower(registry_values.data::text) LIKE lower(?)", search_pattern)
   }
@@ -43,7 +45,7 @@ class RegistryValue < ActiveRecord::Base
   # Prints a representation of the registry_value according to the locale
   # If there's a label, then the registry value is a complex object, return the label
   # else returns the registry value is a simple string, returns the string
-  def to_s(locale=nil)
+  def to_s(locale: nil)
     return data if locale.nil?
 
     if data["label"].present?

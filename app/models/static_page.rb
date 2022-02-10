@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: static_pages
@@ -11,7 +13,8 @@
 #
 
 # Static page class
-class StaticPage < ActiveRecord::Base
+class StaticPage < ApplicationRecord
+
   has_many :static_page_contents, dependent: :destroy do
     # Create or update a content from a file
     # @param path path of the source file
@@ -32,17 +35,17 @@ class StaticPage < ActiveRecord::Base
   # After initialization, also initialize Static Page Contents
   after_initialize if: :new_record? do
     (Language.all.to_a - contents.map(&:language)).each do |l|
-      contents.new(language: l, content: '')
+      contents.new(language: l, content: "")
     end
   end
 
-  scope :navigable, -> { StaticPage.where('in_navigation = ?', true) }
+  scope :navigable, -> { StaticPage.where("in_navigation = ?", true) }
 
   # Get Static Page content for specified locale
   # @param locale requested locale for page content
   # @return [String] the localized Static Page Content
   def localized_content(locale)
-    locale = locale ? locale : Language.default.abbreviation
+    locale ||= Language.default.abbreviation
     p locale
     spc = contents.find_by(language: Language.find_by(abbreviation: locale))
 
@@ -53,11 +56,12 @@ class StaticPage < ActiveRecord::Base
   # @param locale requested locale for page title
   # @return [String] the localized Static Page title
   def localized_name(locale)
-    locale = locale ? locale : Language.default.abbreviation
+    locale ||= Language.default.abbreviation
     if (spc = contents.find_by(language: Language.find_by(abbreviation: locale)))
       spc.title.empty? ? name : spc.title
     else
       name
     end
   end
+
 end

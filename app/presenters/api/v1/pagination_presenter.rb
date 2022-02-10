@@ -16,8 +16,8 @@ module Api
       def url_without_pagination
         return nil unless @url.present? && @url.is_a?(String)
 
-        url = @url.gsub(/per_page\=[\d]+/, "")
-                  .gsub(/page\=[\d]+/, "")
+        url = @url.gsub(/per_page=\d+/, "")
+                  .gsub(/page=\d+/, "")
                   .gsub(/(&)+$/, "").gsub(/\?$/, "")
 
         (url.include?("?") ? "#{url}&" : "#{url}?")

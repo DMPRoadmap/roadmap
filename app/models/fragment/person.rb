@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: madmp_fragments
@@ -19,8 +21,9 @@
 
 class Fragment::Person < MadmpFragment
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def roles(selected_research_outputs = nil)
-    contributors_list = self.contributors
+    contributors_list = contributors
     roles_list = []
     roles_aggregate = {}
     research_outputs = plan.research_outputs
@@ -52,6 +55,7 @@ class Fragment::Person < MadmpFragment
     roles_list += roles_aggregate.map { |k, v| "#{k} (#{v.join(', ')})" }
     roles_list.compact.sort
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def contributors
     Fragment::Contributor.where("(data->'person'->>'dbid')::int = ?", id)

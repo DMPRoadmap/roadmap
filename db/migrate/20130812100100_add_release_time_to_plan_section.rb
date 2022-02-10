@@ -1,4 +1,4 @@
-class AddReleaseTimeToPlanSection < ActiveRecord::Migration
+class AddReleaseTimeToPlanSection < ActiveRecord::Migration[4.2]
   def up
   	remove_column :plan_sections, :locked
   	add_column :plan_sections, :release_time, :datetime

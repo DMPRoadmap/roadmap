@@ -43,7 +43,7 @@
             :target => "_self",
             :class  => "add-fragment",
             'data-toggle' =>  "tooltip",
-            'data-original-title' => d_("dmpopidor", "Click here to add a new item")
+            'data-original-title' => _("Click here to add a new item")
         } do %>
           <i class="fa fa-plus-square"></i>
         <% end %>
@@ -57,7 +57,7 @@
 
 <% unless multiple || readonly %>
   <div class="col-md-12 selected-value" style="<%= "display :none" if selected_value.nil? %>">
-    <strong><%= d_('dmpopidor', 'Selected value:') %></strong> <span><%= selected_value.to_s %></span>
+    <strong><%= _('Selected value:') %></strong> <span><%= selected_value.to_s %></span>
     (<%= link_to new_edit_linked_madmp_fragments_url(
         :fragment_id => selected_value.present? ? selected_value.id : 0000,
         :parent_id => parent_id, 

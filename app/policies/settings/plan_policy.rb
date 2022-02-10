@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Settings::PlanPolicy < ApplicationPolicy
 
   attr_reader :user
@@ -5,6 +7,7 @@ class Settings::PlanPolicy < ApplicationPolicy
 
   def initialize(user, plan)
     raise Pundit::NotAuthorizedError, "must be logged in" unless user
+
     @user = user
     @plan = plan
   end

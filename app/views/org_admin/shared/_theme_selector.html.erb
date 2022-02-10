@@ -7,7 +7,8 @@
   <% if all_themes.length > 0 %>
     <%
       cntr = 0
-      nbr_of_cols = (all_themes.length.to_f / MAX_NUMBER_THEMES_PER_COLUMN.to_f).ceil
+      per_col = Rails.configuration.x.max_number_themes_per_column
+      nbr_of_cols = (all_themes.length.to_f / per_col.to_f).ceil
       col_size = (12 / (nbr_of_cols > 4 ? 3 : nbr_of_cols)).round
     %>
     <fieldset<%= in_error ? ' class=field_with_errors' : '' %>>
@@ -19,7 +20,7 @@
 
       <div class="col-md-<%= col_size %>">
         <% all_themes.each do |theme| %>
-          <% if cntr >= MAX_NUMBER_THEMES_PER_COLUMN %>
+          <% if cntr >= per_col %>
             </div>
             <div class="col-md-<%= col_size %>">
             <% cntr = 0 %>

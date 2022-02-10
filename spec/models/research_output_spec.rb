@@ -1,92 +1,66 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe ResearchOutput, type: :model do
 
-    context "validations" do
+  context "associations" do
+    it { is_expected.to belong_to(:plan).optional }
+  end
 
-        subject { build(:research_output) }
-
-        it { is_expected.to validate_presence_of(:abbreviation) }
-
-        it { is_expected.to validate_presence_of(:fullname) }
-        
-        it { is_expected.to validate_presence_of(:plan) }
-
-        it { is_expected.to validate_presence_of(:type) }
-
+  # rubocop:disable Layout/LineLength
+  context "validations" do
+    before(:each) do
+      @subject = create(:research_output, plan: create(:plan))
     end
+    it { is_expected.to define_enum_for(:access).with_values(ResearchOutput.accesses.keys) }
+    it { is_expected.to define_enum_for(:output_type).with_values(ResearchOutput.output_types.keys) }
 
-    context "associations" do 
+    it { is_expected.to validate_presence_of(:output_type) }
+    it { is_expected.to validate_presence_of(:access) }
+    it { is_expected.to validate_presence_of(:title) }
 
-        it { is_expected.to belong_to :plan }
+    it { expect(@subject).to validate_uniqueness_of(:title).scoped_to(:plan_id) }
+    it { expect(@subject).to validate_uniqueness_of(:abbreviation).scoped_to(:plan_id) }
 
-        it { is_expected.to belong_to :type }
-
-        it { is_expected.to have_many :answers }
-
+    it "requires :output_type_description if :output_type is 'other'" do
+      @subject.other!
+      expect(@subject).to validate_presence_of(:output_type_description)
     end
-
-    describe ".main?" do
-
-        context "when order is equal to 1" do
-            let!(:research_output) { create(:research_output, order: 1)}
-
-            subject { research_output }
-
-            it { expect(subject.main?).to eql(true) }
-        end
-
-        context "when order is not equal to 1" do
-            let!(:research_output) { create(:research_output, order: 2)}
-
-            subject { research_output }
-
-            it { expect(subject.main?).not_to eql(true) }
-        end
-
+    it "does not require :output_type_description if :output_type is 'dataset'" do
+      @subject.dataset!
+      expect(@subject).not_to validate_presence_of(:output_type_description)
     end
+  end
+  # rubocop:enable Layout/LineLength
 
+  it "factory builds a valid model" do
+    expect(build(:research_output).valid?).to eql(true)
+    expect(build(:research_output, :complete).valid?).to eql(true)
+  end
 
-
-    describe ".deep_copy" do
-        let!(:research_output) { create(:research_output) }
-
-        subject { ResearchOutput.deep_copy(research_output) }
-
-        it "creates a new record" do
-            expect(subject).not_to eql(research_output)
-        end
-
-        it "copies the abbreviation attribute" do
-            expect(subject.abbreviation).to eql(research_output.abbreviation)
-        end
-
-        it "copies the fullname attribute" do
-            expect(subject.fullname).to eql(research_output.fullname)
-        end
-
-        it "copies the is_default attribute" do
-            expect(subject.is_default).to eql(research_output.is_default)
-        end
-
-        it "copies the pid attribute" do
-            expect(subject.pid).to eql(research_output.pid)
-        end
-
+  describe "cascading deletes" do
+    it "does not delete associated plan" do
+      model = create(:research_output, :complete, plan: create(:plan))
+      plan = model.plan
+      model.destroy
+      expect(Plan.last).to eql(plan)
     end
+  end
 
-
-    describe "destroy" do
-        let!(:research_output) { create(:research_output) }
-
-        let!(:answer) { create(:answer)}
-
-
-        it "destroys the answer when the research output is destroyed" do 
-            research_output.answers << answer
-
-            expect { research_output.destroy }.to change { Answer.count }
-        end
-
+  context "instance methods" do
+    xit "licenses should have tests once implemented" do
+      true
     end
+    xit "repositories should have tests once implemented" do
+      true
+    end
+    xit "metadata_standards should have tests once implemented" do
+      true
+    end
+    xit "resource_types should have tests once implemented" do
+      true
+    end
+  end
+
 end

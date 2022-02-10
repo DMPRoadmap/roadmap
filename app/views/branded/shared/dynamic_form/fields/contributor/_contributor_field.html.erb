@@ -1,7 +1,7 @@
 <%# locals: { f, field_label, persons, contributors, contributor_schema, current_fragment, readonly, ttip, template_locale } %>
 <% parent_id = current_fragment.id %>
-<% role_property = contributor_schema.schema["properties"]["role"] %>
-<% person_property = contributor_schema.schema["properties"]["person"] %>
+<% role_property = contributor_schema.properties["role"] %>
+<% person_property = contributor_schema.properties["person"] %>
 <% person_label = person_property["label@#{template_locale}"]%>
 <% person_tooltip= person_property["tooltip@#{template_locale}"]%>
 <% role_value = role_property["const@#{template_locale}"]%>

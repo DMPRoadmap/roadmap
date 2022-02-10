@@ -12,6 +12,7 @@ class Paginable::RegistryValuesController < ApplicationController
       scope: RegistryValue.where(registry_id: params[:id]),
       locals: { registry_id: params[:id] },
       query_params: { sort_field: "registry_values.order", sort_direction: :asc },
+      format: :json
     )
   end
 

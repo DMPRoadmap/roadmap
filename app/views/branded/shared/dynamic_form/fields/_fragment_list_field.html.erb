@@ -29,7 +29,7 @@
     </table>
     <% unless parent_id.nil? || readonly %>
       <span data-toggle="modal" data-target="#modal-window">
-        <%= link_to d_('dmpopidor', 'Create'), new_edit_linked_madmp_fragments_url(
+        <%= link_to _('Create'), new_edit_linked_madmp_fragments_url(
                 nil, 
                 :parent_id => parent_id, 
                 :schema_id => schema.id, 
@@ -42,7 +42,7 @@
           :target => "_self",
           :class => "btn btn-primary",
           'data-toggle' =>  "tooltip",
-          'data-original-title' => d_("dmpopidor", "Click here to add a new item")
+          'data-original-title' => _("Click here to add a new item")
         }  %>
       </span>
     <% end %>

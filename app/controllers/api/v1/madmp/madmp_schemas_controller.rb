@@ -18,15 +18,16 @@ module Api
 
         # GET /api/v1/madmp/schemas
         def show
-          begin
-            @schema = MadmpSchema.find(params[:id])
-            respond_with @schema.schema
-          rescue ActiveRecord::RecordNotFound
-            render_error(errors: [_("Schema not found")], status: :not_found)
-          end
+          @schema = MadmpSchema.find(params[:id])
+          respond_with @schema.schema
+        rescue ActiveRecord::RecordNotFound
+          render_error(errors: [_("Schema not found")], status: :not_found)
         end
 
       end
+
     end
+
   end
+
 end

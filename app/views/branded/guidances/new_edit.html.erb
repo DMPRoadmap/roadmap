@@ -7,21 +7,24 @@ else
   method = "POST"
 end
 %>
+<% guidance_text_tooltip =  _('Enter your guidance here. You can include links where needed.') %>
 
 <% title _('Guidance') %>
 <%# locals: { guidance, themes, guidance_groups, options } %>
-<div class="row org-admin">
+<div class="row">
   <div class="col-xs-12">
     <h1><%= _('Guidance') %></h1>
     <%= link_to _('View all guidance'), admin_index_guidance_path(current_user.org_id), class: 'btn btn-default pull-right' %>
   </div>
 </div>
-<div class="row org-admin">
+<div class="row">
   <div class="col-xs-12">
     <%= form_for(@guidance, url: url, html: { method: method , id: 'new_edit_guidance'}) do |f| %>
-      <div class="form-group" data-toggle="tooltip" title="<%= _('Enter your guidance here. You can include links where needed.') %>">
+      <div class="form-group" data-toggle="tooltip" title="<%= guidance_text_tooltip %>">
+        <em class="sr-only"><%= guidance_text_tooltip %></em>
         <%= f.label :text, class: 'control-label' %>
-        <%= text_area_tag("guidance-text", @guidance.text, class: "form-control", 'aria-required': true, rows: 10) %>
+        <%= f.text_area :text, rows: 10, class: "form-control", spellcheck: true,
+                        aria: { required: true } %>
       </div>
       <%= render partial: 'org_admin/shared/theme_selector',
                  locals: { f: f, all_themes: Theme.all.order("title"), as_radio: true, required: true,

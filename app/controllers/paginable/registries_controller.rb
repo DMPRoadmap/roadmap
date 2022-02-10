@@ -10,7 +10,9 @@ class Paginable::RegistriesController < ApplicationController
     paginable_renderise(
       partial: "index",
       scope: Registry.all,
-      query_params: { sort_field: "registries.name", sort_direction: :asc })
+      query_params: { sort_field: "registries.name", sort_direction: :asc },
+      format: :json
+    )
   end
 
 end

@@ -10,11 +10,7 @@
 #  name             :string
 #
 
-class Language < ActiveRecord::Base
-
-  # frozen_string_literal: true
-
-  include ValidationValues
+class Language < ApplicationRecord
 
   # =============
   # = Constants =
@@ -22,7 +18,7 @@ class Language < ActiveRecord::Base
 
   ABBREVIATION_MAXIMUM_LENGTH = 5
 
-  ABBREVIATION_FORMAT = /\A[a-z]{2}(\-[A-Z]{2})?\Z/
+  ABBREVIATION_FORMAT = /\A[a-z]{2}(-[A-Z]{2})?\Z/.freeze
 
   NAME_MAXIMUM_LENGTH = 20
 
@@ -33,7 +29,6 @@ class Language < ActiveRecord::Base
   has_many :users
 
   has_many :orgs
-
 
   # ===============
   # = Validations =
@@ -49,11 +44,21 @@ class Language < ActiveRecord::Base
 
   validates :default_language, inclusion: { in: BOOLEAN_VALUES }
 
-  # =============
-  # = Callbacks =
-  # =============
+  # =========================
+  # = Custom Accessor Logic =
+  # =========================
 
-  before_validation :format_abbreviation, if: :abbreviation_changed?
+  # ensure abbreviation is downcase and conforms to I18n locales
+  # TODO: evaluate the need for the LocaleService after move to Translation.io
+  def abbreviation=(value)
+    value = "" if value.nil?
+    value = value.downcase
+    if value.blank? || value =~ /\A[a-z]{2}\Z/i
+      super(value)
+    else
+      super(LocaleService.to_i18n(locale: value).to_s)
+    end
+  end
 
   # ==========
   # = Scopes =
@@ -62,7 +67,7 @@ class Language < ActiveRecord::Base
   scope :sorted_by_abbreviation, -> { all.order(:abbreviation) }
 
   # Retrieves the id for a given abbreviation of a language
-  scope :id_for, -> (abbreviation) {
+  scope :id_for, lambda { |abbreviation|
     where(abbreviation: abbreviation).pluck(:id).first
   }
 
@@ -76,13 +81,6 @@ class Language < ActiveRecord::Base
 
   def self.default
     where(default_language: true).first
-  end
-  private
-
-  def format_abbreviation
-    abbreviation.downcase!
-    return if abbreviation.blank? || abbreviation =~ /\A[a-z]{2}\Z/i
-    self.abbreviation = LocaleFormatter.new(abbreviation, format: :i18n).to_s
   end
 
 end

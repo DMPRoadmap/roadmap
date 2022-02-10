@@ -23,8 +23,8 @@
     </h3>
     <div class="row">
       <div class="form-group col-xs-8" data-html="true">
-        <%= f.label :feedback_email_msg, _('Message'), class: "control-label" %>
-        <%= f.text_area :feedback_email_msg, class: "form-control",
+        <%= f.label :feedback_msg, _('Message'), class: "control-label" %>
+        <%= f.text_area :feedback_msg, class: "form-control", spellcheck: true,
                         "aria-required" => true %>
       </div>
       <div class="form-group col-xs-4">

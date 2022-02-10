@@ -1,4 +1,4 @@
-class AddRequiredIndices < ActiveRecord::Migration
+class AddRequiredIndices < ActiveRecord::Migration[4.2]
   def change
     #answers    
     add_index :answers, :question_id

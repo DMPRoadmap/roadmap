@@ -24,9 +24,10 @@
 
   <% org_admin = (current_user.can_org_admin? && !current_user.can_super_admin?) %>
   <div class="form-group col-xs-8" id="profile-org-controls" <%= "data-toggle=\"tooltip\" title=\"#{_('Changing your organisation will result in the loss of your administrative privileges.')}\"" if org_admin %>>
-    <%= render partial: "shared/org_selectors/combined",
+    <%= render partial: org_partial,
                locals: {
                  form: f,
+                 orgs: orgs,
                  default_org: current_user.org,
                  required: true
                } %>
@@ -82,17 +83,6 @@
                    locals: { scheme: scheme,
                              id: current_user.identifier_for(scheme.name)} %>
       </div>
-    </div>
-  <% end %>
-
-  <% unless @user.api_token.blank? %>
-    <div class="form-group col-xs-8">
-      <%= f.label(:api_token, _('API token'), class: 'control-label') %>
-      <%= @user.api_token %>
-    </div>
-    <div class="form-group col-xs-8">
-      <%= label_tag(:api_information, _('API Information'), class: 'control-label') %>
-      <a href="https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation"><%= _('How to use the API') %></a>
     </div>
   <% end %>
 

@@ -21,15 +21,15 @@ RSpec.describe Api::V1::AuthenticationController, type: :request do
       end
 
       it "calls the Api::Jwt::AuthenticationService" do
-        Api::V1::Auth::Jwt::AuthenticationService.expects(:call).at_most(1)
-        post api_v1_authenticate_path, @payload.to_json
+        Api::V1::Auth::Jwt::AuthenticationService.any_instance.expects(:call).at_most(1)
+        post api_v1_authenticate_path, params: @payload.to_json
       end
       it "renders /api/v1/error template if authentication fails" do
         errs = [Faker::Lorem.sentence]
         Api::V1::Auth::Jwt::AuthenticationService.any_instance
                                                  .stubs(:call).returns(nil)
                                                  .stubs(:errors).returns(errs)
-        post api_v1_authenticate_path, @payload.to_json
+        post api_v1_authenticate_path, params: @payload.to_json
         expect(response.code).to eql("401")
         expect(response).to render_template("api/v1/error")
       end
@@ -37,7 +37,7 @@ RSpec.describe Api::V1::AuthenticationController, type: :request do
         token = Api::V1::Auth::Jwt::JsonWebToken.encode(payload: @payload)
         Api::V1::Auth::Jwt::AuthenticationService.any_instance.stubs(:call)
                                                  .returns(token)
-        post api_v1_authenticate_path, @payload.to_json
+        post api_v1_authenticate_path, params: @payload.to_json
         expect(response.code).to eql("200")
         expect(response).to render_template("api/v1/token")
       end

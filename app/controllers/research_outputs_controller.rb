@@ -14,9 +14,10 @@ class ResearchOutputsController < ApplicationController
     flash[:alert] = _("There is no plan associated with id %{id}") % {
       id: params[:id]
     }
-    redirect_to(:controller => "plans", :action => "index")
+    redirect_to(controller: "plans", action: "index")
   end
 
+  # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
   def update
     @plan = Plan.find(params[:plan_id])
     @research_output = ResearchOutput.find(params[:id])
@@ -30,22 +31,24 @@ class ResearchOutputsController < ApplicationController
         research_output_description.contact.update(
           data: {
             "person" => { "dbid" => params[:contact_id] },
-            "role" => d_("dmpopidor", "Data contact")
+            "role" => _("Data contact")
           }
         )
       end
       render json: {
-        "html" => render_to_string(partial: "research_outputs/list", locals: {
+        "html" => render_to_string(partial: "research_outputs/list", locals:
+          {
             plan: @plan,
             research_outputs: @plan.research_outputs,
             readonly: false
-        })
+          })
       }
     else
       flash[:alert] = failure_message(@research_output, _("update"))
       redirect_to(action: "index")
     end
   end
+  # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
 
   def destroy
     @plan = Plan.find(params[:plan_id])
@@ -75,19 +78,18 @@ class ResearchOutputsController < ApplicationController
     max_order = @plan.research_outputs.maximum("order") + 1
     @plan.research_outputs.create(
       abbreviation: "Research Output #{max_order}",
-      fullname: "New research output #{max_order}",
+      title: "New research output #{max_order}",
       is_default: false,
-      type: ResearchOutputType.find_by(label: "Dataset"),
       order: max_order
     )
 
     authorize @plan
     render json: {
       "html" => render_to_string(partial: "research_outputs/list", locals: {
-        plan: @plan,
-        research_outputs: @plan.research_outputs,
-        readonly: false
-      })
+                                   plan: @plan,
+                                   research_outputs: @plan.research_outputs,
+                                   readonly: false
+                                 })
     }
   end
 

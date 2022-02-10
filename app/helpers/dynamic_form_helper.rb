@@ -238,11 +238,11 @@ module DynamicFormHelper
     validations.each do |validation|
       case validation
       when "required"
-        message += d_("dmpopidor", "This property is required.")
+        message += _("This property is required.")
       when "pattern"
-        message += d_("dmpopidor", "This property has an invalid format.")
+        message += _("This property has an invalid format.")
       else
-        message += d_("dmpopidor", "This property has an unknown problem : %{validation}") % {
+        message += _("This property has an unknown problem : %{validation}") % {
           validation: validation
         }
       end
@@ -275,7 +275,7 @@ module DynamicFormHelper
   # This is useful because Rails converts all form data to strings and JSON needs the actual types
   def data_reformater(schema, data)
     formated_data = {}
-    schema["properties"].each do |key, prop|
+    schema.properties.each do |key, prop|
       next if data[key].nil? || key.end_with?("_custom")
 
       case prop["type"]
@@ -290,7 +290,7 @@ module DynamicFormHelper
 
         sub_schema = MadmpSchema.find(prop["schema_id"])
 
-        if prop["inputType"]&.eql?("pickOrCreate")
+        if prop["inputType"].eql?("pickOrCreate")
           formated_data[key] = { "dbid" => data[key].to_i }
         elsif prop["registry_id"].present?
           # if the field is overridable, check if there's a custom value
@@ -301,7 +301,7 @@ module DynamicFormHelper
 
           formated_data[key] = if data[key].present?
                                  data_reformater(
-                                   sub_schema.schema,
+                                   sub_schema,
                                    RegistryValue.find(data[key].to_i).data.merge(
                                      "id": data[key].to_i
                                    )
@@ -309,7 +309,7 @@ module DynamicFormHelper
                                end
         else
           formated_data[key] = data_reformater(
-            sub_schema.schema,
+            sub_schema,
             data[key]
           )
         end

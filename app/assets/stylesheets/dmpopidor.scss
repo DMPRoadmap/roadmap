@@ -1,6 +1,7 @@
 /* 
  DMPOPIDoR Stylesheet
 */
+@import './variables/colours';
 
 $blue: #2c7dad;
 $dark-blue: #1c5170;
@@ -809,7 +810,7 @@ header .main-nav {
     /*
         ADMIN AREA
     */
-    .org-admin {
+    &.org-admin {
         h1,
         h2 {
             color: $rust;
@@ -932,7 +933,7 @@ header .main-nav {
     /*
         SUPER ADMIN
     */
-    .super-admin {
+    &.super-admin {
         h1,
         h2 {
             color: $black;

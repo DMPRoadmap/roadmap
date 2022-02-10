@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Api::V0::Madmp::MadmpSchemasController < Api::V0::BaseController
 
   before_action :authenticate
@@ -12,4 +13,5 @@ class Api::V0::Madmp::MadmpSchemasController < Api::V0::BaseController
 
     respond_with @schema.schema
   end
+
 end

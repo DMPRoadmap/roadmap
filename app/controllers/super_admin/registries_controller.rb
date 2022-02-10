@@ -92,6 +92,7 @@ module SuperAdmin
     # Private instance methods
     private
 
+    # rubocop:disable Metrics/AbcSize
     def load_values(values_file, registry)
       return if values_file.nil?
 
@@ -116,10 +117,12 @@ module SuperAdmin
         flash.now[:alert] = "File should contain JSON"
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     def permitted_params
       params.require(:registry).permit(:name, :description, :uri, :version, :values)
     end
 
   end
+
 end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "jsonpath"
 
 class Api::V0::Madmp::MadmpFragmentsController < Api::V0::BaseController
@@ -13,7 +14,11 @@ class Api::V0::Madmp::MadmpFragmentsController < Api::V0::BaseController
       raise Pundit::NotAuthorizedError
     end
 
-    fragment_data = query_params[:mode] == "fat" ? @fragment.get_full_fragment(with_ids: true) : @fragment.data
+    fragment_data = if query_params[:mode] == "fat"
+                      @fragment.get_full_fragment(with_ids: true)
+                    else
+                      @fragment.data
+                    end
 
     fragment_data = select_property(fragment_data, query_params[:property])
 
@@ -51,11 +56,13 @@ class Api::V0::Madmp::MadmpFragmentsController < Api::V0::BaseController
         "schema" => f.madmp_schema.schema
       }
     end
-    @dmp_fragments.unshift({
-      "id" => @dmp_fragment.id,
-      "data" => @dmp_fragment.data,
-      "schema" => @dmp_fragment.madmp_schema.schema
-    })
+    @dmp_fragments.unshift(
+      {
+        "id" => @dmp_fragment.id,
+        "data" => @dmp_fragment.data,
+        "schema" => @dmp_fragment.madmp_schema.schema
+      }
+    )
     render json: {
       "dmp_id" => @dmp_fragment.id,
       "data" => @dmp_fragments,
@@ -66,9 +73,7 @@ class Api::V0::Madmp::MadmpFragmentsController < Api::V0::BaseController
   private
 
   def select_property(fragment_data, property_name)
-    if property_name.present?
-      fragment_data = JsonPath.on(fragment_data, "$..#{property_name}")
-    end
+    fragment_data = JsonPath.on(fragment_data, "$..#{property_name}") if property_name.present?
     fragment_data
   end
 
@@ -78,7 +83,8 @@ class Api::V0::Madmp::MadmpFragmentsController < Api::V0::BaseController
 
   def record_not_found
     render json: {
-      "error" => d_("dmpopidor", "Fragment with id %{id} doesn't exist.") % { id: params[:id] }
+      "error" => _("Fragment with id %{id} doesn't exist.") % { id: params[:id] }
     }, status: 404
   end
+
 end

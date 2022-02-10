@@ -10,9 +10,7 @@ class Api::V0::Madmp::PlansController < Api::V0::BaseController
     plan_fragment = plan.json_fragment
     selected_research_outputs = query_params[:research_outputs]&.map(&:to_i) || plan.research_output_ids
     # check if the user has permissions to use the API
-    unless Api::V0::Madmp::PlanPolicy.new(@user, plan).show?
-      raise Pundit::NotAuthorizedError
-    end
+    raise Pundit::NotAuthorizedError unless Api::V0::Madmp::PlanPolicy.new(@user, plan).show?
 
     respond_to do |format|
       format.json
@@ -28,9 +26,7 @@ class Api::V0::Madmp::PlansController < Api::V0::BaseController
     plan_fragment = plan.json_fragment
     selected_research_outputs = query_params[:research_outputs]&.map(&:to_i) || plan.research_output_ids
     # check if the user has permissions to use the API
-    unless Api::V0::Madmp::PlanPolicy.new(@user, plan).rda_export?
-      raise Pundit::NotAuthorizedError
-    end
+    raise Pundit::NotAuthorizedError unless Api::V0::Madmp::PlanPolicy.new(@user, plan).rda_export?
 
     respond_to do |format|
       format.json

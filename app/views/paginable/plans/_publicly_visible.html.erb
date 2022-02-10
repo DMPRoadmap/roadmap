@@ -17,9 +17,9 @@
           <td><%= (plan.owner.nil? || plan.owner.org.nil? ? _('Not Applicable') : plan.owner.org.name) %></td>
           <td><%= (plan.owner.nil? ? _('Unknown') : plan.owner.name(false)) %></td>
           <td class="text-center">
-            <%= link_to plan_export_path(plan, format: :pdf),
+            <%= link_to plan_export_path(plan, format: :pdf, export: { question_headings: true }),
                 class: "dmp_table_link has-new-window-popup-info", target: '_blank' do %>
-              <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+              <i class="fas fa-file-pdf" aria-hidden="true"></i>
               <em class="sr-only"><%= _('(new window)') %></em>
               <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
             <% end %>

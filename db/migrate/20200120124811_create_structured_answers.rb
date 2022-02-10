@@ -1,4 +1,4 @@
-class CreateStructuredAnswers < ActiveRecord::Migration
+class CreateStructuredAnswers < ActiveRecord::Migration[4.2]
   def change
     create_table :structured_answers do |t|
       t.json :data

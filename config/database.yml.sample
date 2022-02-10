@@ -1,7 +1,7 @@
 defaults: &defaults
   adapter: <%= ENV['DB_ADAPTER'] || 'postgresql' %>
   encoding: <%= ENV['DB_ADAPTER'] == "mysql2" ? "utf8mb4" : "" %>
-  username: <%= ENV["DB_ADAPTER"] == "postgresql" ? 'postgres' : '' %>
+  username: <%= ENV["DB_ADAPTER"] == "postgresql" ? 'postgres' : 'root' %>
   database: roadmap_<%= ENV['RAILS_ENV'] %>
   pool: 16
 

@@ -15,13 +15,9 @@
         <td><%= notification.level %></td>
         <td><%= notification.starts_at %></td>
         <td><%= notification.expires_at %></td>
-        <td>
-          <%= form_for notification,
-                url: enable_super_admin_notification_path(notification),
-                html: { method: :post, remote: true, class: 'enable_notification'  } do |f| %>
-            <%= check_box_tag(:enabled, "1", notification.enabled, "aria-label": "active" ) %>
-            <%= f.submit(_('Update'), style: 'display: none;') %>
-          <% end %>
+        <td class="enable_notification">
+          <%= check_box_tag(:enabled, "1", notification.enabled, "aria-label": "active",
+                            data: { remote: true, method: :post, url: enable_super_admin_notification_path(notification) } ) %>
         </td>
       </tr>
     <% end %>

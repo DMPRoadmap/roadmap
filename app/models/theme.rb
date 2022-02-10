@@ -13,14 +13,17 @@
 #  updated_at  :datetime         not null
 #
 
-class Theme < ActiveRecord::Base
+class Theme < ApplicationRecord
 
-  include ValidationMessages
-  prepend Dmpopidor::Models::Theme
-
-  ##
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # --------------------------------
+  prepend Dmpopidor::Theme
   # Before save & create, generate the slug, method from Dmpopidor::Models::Theme
   before_save :generate_slug
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # ================
   # = Associations =
@@ -40,7 +43,7 @@ class Theme < ActiveRecord::Base
   # = Scopes =
   # ==========
 
-  scope :search, -> (term) {
+  scope :search, lambda { |term|
     search_pattern = "%#{term}%"
     where("lower(title) LIKE lower(?) OR description LIKE lower(?)",
           search_pattern, search_pattern)

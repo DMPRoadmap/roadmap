@@ -31,7 +31,7 @@
                 </li><li class="org-links">
               <% end %>
               <%= link_to link['link'], :target=>'_blank', :class => 'org-a has-new-window-popup-info' do %>
-                <i class="fa fa-globe" aria-hidden="true">&nbsp;</i>
+                <i class="fas fa-globe" aria-hidden="true">&nbsp;</i>
                 <%= link['text'].blank? ? link['link'] : link['text'] %>
                 <em class="sr-only"> (new window)</em>
                 <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
@@ -43,7 +43,7 @@
           <% end %>
           <% if !current_user.org.contact_email.blank? %>
             <%= mail_to current_user.org.contact_email, :class => 'org-a' do %>
-              <i class="fa fa-envelope" aria-hidden="true">&nbsp;</i>
+              <i class="fas fa-envelope" aria-hidden="true">&nbsp;</i>
               <%= current_user.org.contact_name ? current_user.org.contact_name : current_user.org.contact_email %>
             <% end %>
           <% end %>
@@ -56,7 +56,7 @@
         <% if current_user.can_org_admin? %>
           <li class="dropdown navbar-default" id="admin-dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="admin-menu" href="#">
-              <i class="fa fa-lock" aria-hidden="true">&nbsp;</i>
+              <i class="fas fa-lock" aria-hidden="true">&nbsp;</i>
               <%= _('Admin') %>
               <span class="caret"></span>
             </a>

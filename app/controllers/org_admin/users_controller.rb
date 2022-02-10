@@ -4,16 +4,21 @@ module OrgAdmin
 
   class UsersController < ApplicationController
 
-    prepend Dmpopidor::Controllers::OrgAdmin::Users
-
     after_action :verify_authorized
 
-    # SEE MODULE
     def edit
       @user = User.find(params[:id])
       authorize @user
       @departments = @user.org.departments.order(:name)
-      @plans = Plan.active(@user).page(1)
+      # --------------------------------
+      # Start DMP OPIDoR Customization
+      # CHANGES : Org Admin only should access plan with administrator,
+      #           organisation & public plan when editing a user
+      # --------------------------------
+      @plans = Plan.org_admin_visible(@user).page(1)
+      # --------------------------------
+      # End DMP OPIDoR Customization
+      # --------------------------------
       render "org_admin/users/edit",
              locals: { user: @user,
                        departments: @departments,
@@ -24,15 +29,19 @@ module OrgAdmin
                        default_org: @user.org }
     end
 
-    # SEE MODULE
     def update
       @user = User.find(params[:id])
       authorize @user
       @departments = @user.org.departments.order(:name)
-      @plans = Plan.active(@user).page(1)
-      # Replace the 'your' word from the canned responses so that it does
-      # not read 'Successfully updated your profile for John Doe'
-      topic = _("profile for %{username}") % { username: @user.name(false) }
+      # --------------------------------
+      # Start DMP OPIDoR Customization
+      # CHANGES : Org Admin only should access plan with administrator,
+      #           organisation & public plan when editing a user
+      # --------------------------------
+      @plans = Plan.org_admin_visible(@user).page(1)
+      # --------------------------------
+      # End DMP OPIDoR Customization
+      # --------------------------------
       if @user.update_attributes(user_params)
         flash.now[:notice] = success_message(@user, _("updated"))
       else
@@ -41,11 +50,18 @@ module OrgAdmin
       render :edit
     end
 
-    # SEE MODULE
     def user_plans
       @user = User.find(params[:id])
       authorize @user
-      @plans = Plan.active(@user).page(1)
+      # --------------------------------
+      # Start DMP OPIDoR Customization
+      # CHANGES : Org Admin only should access plan with administrator,
+      #           organisation & public plan when editing a user
+      # --------------------------------
+      @plans = Plan.org_admin_visible(@user).page(1)
+      # --------------------------------
+      # End DMP OPIDoR Customization
+      # --------------------------------
       render "org_admin/users/plans"
     end
 

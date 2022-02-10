@@ -6,7 +6,7 @@ module FragmentImport
     fragmented_data = {}
 
     import_data.each do |prop, content|
-      schema_prop = schema.schema["properties"][prop]
+      schema_prop = schema.properties[prop]
 
       next if schema_prop&.dig("type").nil?
 
@@ -89,7 +89,7 @@ module FragmentImport
     fragmented_data = {}
 
     import_data.each do |prop, content|
-      schema_prop = schema.schema["properties"][prop]
+      schema_prop = schema.properties[prop]
 
       next if schema_prop&.dig("type").nil?
 
@@ -159,7 +159,7 @@ module FragmentImport
   def import_with_instructions(import_data, schema)
     fragmented_data = {}
     import_data.each do |prop, content|
-      schema_prop = schema.schema["properties"][prop]
+      schema_prop = schema.properties[prop]
 
       next if schema_prop&.dig("type").nil?
 

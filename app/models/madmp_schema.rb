@@ -19,7 +19,7 @@
 #  index_madmp_schemas_on_org_id  (org_id)
 #
 
-class MadmpSchema < ActiveRecord::Base
+class MadmpSchema < ApplicationRecord
 
   include ValidationMessages
 
@@ -37,7 +37,7 @@ class MadmpSchema < ActiveRecord::Base
            :research_outputs, to: :madmp_fragments
 
   validates :name, presence: { message: PRESENCE_MESSAGE },
-                      uniqueness: { message: UNIQUENESS_MESSAGE }
+                   uniqueness: { message: UNIQUENESS_MESSAGE }
 
   # validates :schema, presence:  { message: PRESENCE_MESSAGE },
   #                     json: true
@@ -60,13 +60,13 @@ class MadmpSchema < ActiveRecord::Base
     "data_sharing" => "sharing",
     "data_preservation" => "preservationIssues",
     "budget" => "budget"
-  }
+  }.freeze
 
   # ==========
   # = Scopes =
   # ==========
 
-  scope :search, ->(term) {
+  scope :search, lambda { |term|
     search_pattern = "%#{term}%"
     where("lower(madmp_schemas.name) LIKE lower(?) OR " \
           "lower(madmp_schemas.classname) LIKE lower(?)",
@@ -78,11 +78,15 @@ class MadmpSchema < ActiveRecord::Base
   # =================
 
   def detailed_name
-    label + " ( " + name + "_V" + version.to_s + " )"
+    "#{label} ( #{name}_V#{version} )"
   end
 
   def description
     schema["description"]
+  end
+
+  def properties
+    schema["properties"]
   end
 
   def sub_schemas
@@ -93,22 +97,22 @@ class MadmpSchema < ActiveRecord::Base
 
   def sub_schemas_ids
     path = JsonPath.new("$..schema_id")
-    ids = path.on(schema)
-    ids
+    path.on(schema)
   end
 
-  def generate_strong_params(flat = false)
+  # rubocop:disable Metrics/AbcSize
+  def generate_strong_params(flat: false)
     parameters = []
-    schema["properties"].each do |key, prop|
+    properties.each do |key, prop|
       if prop["type"] == "object" && prop["schema_id"].present?
-        if prop["inputType"]&.eql?("pickOrCreate")
+        if prop["inputType"].eql?("pickOrCreate")
           parameters.append(key)
         elsif prop["registry_id"].present?
           parameters.append(key)
           parameters.append("#{key}_custom") if prop["overridable"].present?
         else
           sub_schema = MadmpSchema.find(prop["schema_id"])
-          parameters.append(key => sub_schema.generate_strong_params(false))
+          parameters.append(key => sub_schema.generate_strong_params(flat: false))
         end
       elsif prop["type"].eql?("array") && !flat
         parameters.append(key => [])
@@ -119,6 +123,7 @@ class MadmpSchema < ActiveRecord::Base
     end
     parameters
   end
+  # rubocop:enable Metrics/AbcSize
 
   # Used by "Write Plan" tab for determining the property_name of a new fragment
   # from the classname of the corresponding schema
@@ -132,8 +137,9 @@ class MadmpSchema < ActiveRecord::Base
 
   def const_data(locale)
     const_data = {}
-    schema["properties"].each do |key, prop|
+    properties.each do |key, prop|
       next if prop["const@#{locale}"].nil?
+
       const_data[key] = prop["const@#{locale}"]
     end
     const_data
@@ -150,7 +156,7 @@ class MadmpSchema < ActiveRecord::Base
       Registry.find_by!(name: name).id
     end.to_json.gsub("registry_name", "registry_id")
 
-    json_schema
+    JSON.parse(json_schema)
   end
 
 end

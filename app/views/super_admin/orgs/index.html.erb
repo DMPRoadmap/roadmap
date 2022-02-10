@@ -4,7 +4,7 @@
   <div class="col-md-12">
     <h1>
       <%= _('Organisations') %>
-      <a href="<%= new_super_admin_org_path %>" 
+      <a href="<%= new_super_admin_org_path %>"
          class="btn btn-primary pull-right"><%= _('Create Organisation') %></a>
     </h1>
   </div>
@@ -16,6 +16,7 @@
       partial: '/paginable/orgs/index',
       controller: 'paginable/orgs',
       action: 'index',
+      remote: true,
       scope: orgs,
       query_params: { sort_field: 'orgs.name', sort_direction: :asc }) %>
     <div>

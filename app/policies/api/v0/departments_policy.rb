@@ -1,6 +1,11 @@
+# frozen_string_literal: true
+
 module Api
+
   module V0
+
     class DepartmentsPolicy < ApplicationPolicy
+
       attr_reader :user, :department
 
       def initialize(user, department)
@@ -31,16 +36,18 @@ module Api
       # an org-admin may assign users (from their org) to a department (from their org)
       def assign_users?
         @user.can_org_admin? &&
-        @department.present? &&
-        @department.org == @user.org
+          @department.present? &&
+          @department.org == @user.org
       end
 
       ##
       # an org-admin may unassign users (from their org) from a department
       def unassign_users?
-        @user.can_org_admin? 
+        @user.can_org_admin?
       end
 
     end
+
   end
+
 end
