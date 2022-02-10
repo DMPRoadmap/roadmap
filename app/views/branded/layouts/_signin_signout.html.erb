@@ -2,7 +2,7 @@
 <% if Language.many? %>
   <li class="dropdown" id="change-language">
     <% languages.each do |l| %>
-        <% if I18n.locale == l.abbreviation %>
+        <% if I18n.locale.to_s == l.abbreviation %>
           <a href="#" class="dropdown-toggle" role="button" id="language-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-language" aria-hidden="true">&nbsp;</i>
             <%= l.name %>

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-01-17 14:09+0100\n"
-"PO-Revision-Date: 2022-01-17 14:09+0100\n"
+"POT-Creation-Date: 2022-02-10 10:45+0100\n"
+"PO-Revision-Date: 2022-02-10 10:45+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -228,6 +228,7 @@ msgstr ""
 "e dans l'onglet \"Rédiger\"."
 
 #: ../../app/views/branded/contributors/index.html.erb:22
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:61
 msgid "Affiliation"
 msgstr "Affiliation"
 
@@ -914,8 +915,8 @@ msgstr ""
 
 #: ../../app/views/branded/org_admin/questions/_form.html.erb:47
 #: ../../app/views/branded/org_admin/questions/_show.html.erb:51
-msgid "Data Schema"
-msgstr "Données du schéma"
+msgid "Structured Form"
+msgstr "Formulaire structuré"
 
 #: ../../app/views/branded/org_admin/questions/_form.html.erb:67
 #: ../../app/views/branded/org_admin/questions/_form.html.erb:75
@@ -1774,7 +1775,7 @@ msgid "Project Details"
 msgstr "Renseignements sur le projet"
 
 #: ../../app/views/branded/plans/_edit_details.html.erb:38
-msgid "Click here if you have a funded project."
+msgid "Click here if you have a project funded by ANR."
 msgstr "Cliquer ici si vous avez un projet financé par l’ANR"
 
 #: ../../app/views/branded/plans/_edit_details.html.erb:43
@@ -1929,12 +1930,12 @@ msgid "Use Default Template"
 msgstr "Utiliser le modèle par défaut"
 
 #: ../../app/views/branded/plans/_navigation.html.erb:4
-msgid "General informations"
+msgid "General information"
 msgstr "Informations générales"
 
 #: ../../app/views/branded/plans/_navigation.html.erb:7
 #: ../../app/views/branded/shared/export/_plan_coversheet.erb:56
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:58
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:60
 msgid "Contributors"
 msgstr "Contributeurs"
 
@@ -1948,7 +1949,7 @@ msgid "Write Plan"
 msgstr "Rédiger"
 
 #: ../../app/views/branded/plans/_navigation.html.erb:22
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:76
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:83
 msgid "Budget"
 msgstr "Budget"
 
@@ -2074,17 +2075,17 @@ msgstr ""
 "ffectue dans l'onglet \"Rédiger\"."
 
 #: ../../app/views/branded/plans/budget.html.erb:20
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:80
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:87
 msgid "Cost type (Title)"
 msgstr "Type de coût (Titre)"
 
 #: ../../app/views/branded/plans/budget.html.erb:21
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:81
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:88
 msgid "Amount"
 msgstr "Montant"
 
 #: ../../app/views/branded/plans/budget.html.erb:22
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:82
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:89
 msgid "Lifecycle stage"
 msgstr "Etape du cycle de vie"
 
@@ -2351,15 +2352,15 @@ msgstr ""
 "Plan de gestion de données créé à l'aide de %{application_name}, basé sur le m"
 "odèle \"%{template_title}\" fourni par %{org_name}."
 
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:58
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:62
 msgid "Roles"
 msgstr "Roles"
 
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:106
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:113
 msgid "Copyright information:"
 msgstr "Droits d'auteur :"
 
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:109
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:116
 msgid ""
 " The above plan creator(s) have agreed that others may use as much of the text"
 " of this plan as they would like in their own plans, and customise it as neces"
