@@ -8,5 +8,15 @@
   z-index: 1;
   ul {
     padding-right: $grid-gutter-width / 2;
+
+    #alliance-logo{
+      @media only screen 
+        and (max-device-width: 1024px) 
+        and (-webkit-min-device-pixel-ratio: 1) {
+          height: 25px; 
+          /* The design of alliance logo makes the font looks smaller than other logo under the same size, thus laptop screen use a 40px height for this logo only.
+          Need to change to 25px height to make footer logo aligned when viewed by the mobile device. */
+      }
+    }
   }
 }

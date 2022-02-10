@@ -41,6 +41,7 @@
  - Deactivate Shibboleth authentication
 
 ### Changed
+ - Update footer for the new Alliance branding 
  - Update response to reset password email to suggest a direct response
  - Update translation files
  - Change the "number to text" js package to a newer version with continued support
