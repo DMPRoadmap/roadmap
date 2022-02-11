@@ -550,7 +550,7 @@ class MadmpFragmentsController < ApplicationController
                        render_to_string(partial: "madmp_fragments/locking", locals:
                        {
                          fragment: stale_fragment,
-                         template_locale: template.locale,
+                         template_locale: LocaleService.to_gettext(locale: template.locale),
                          user: answer&.user
                        }, formats: [:html])
                      end,
@@ -573,7 +573,7 @@ class MadmpFragmentsController < ApplicationController
                         {
                           fragment: fragment,
                           parameters: run_parameters,
-                          template_locale: template.locale
+                          template_locale: LocaleService.to_gettext(locale: template.locale)
                         }, formats: [:html])
                       end,
         "answer_status" => if answer.present?

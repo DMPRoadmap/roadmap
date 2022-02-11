@@ -3,7 +3,7 @@
 <% meta_fragment = dmp_fragment.meta%>
 <% project_fragment = dmp_fragment.project%>
 <% anr_projects = Registry.find_by(name: "ANRProjects").registry_values %>
-<% locale = @plan.template.locale %>
+<% locale = LocaleService.to_gettext(locale: locale)%>
 <div class="row">
   <div class="col-md-12 plan-details">
     <div class="col-md-8">
@@ -14,7 +14,7 @@
             aria-controls="plan_project">
         <div class="panel-heading question-text" role="tab" id="heading-plan-project">
           <div class="panel-title pull-left">
-            <% I18n.with_locale locale do %>
+            <% I18n.with_locale @plan.template.locale do %>
             <%= _("Project Details") %>
             <% end %>
           </div>
@@ -66,7 +66,7 @@
         
         <%= hidden_field_tag 'fragment-id', project_fragment.id, class: "fragment-id" %>
         <div class="panel-body project-form madmp-fragment"><!-- accordion body -->
-          <% I18n.with_locale locale do %>
+          <% I18n.with_locale @plan.template.locale  do %>
             <div class="checkbox">
               <%= form_for plan, url: set_test_plan_path(plan), html: { method: :post, class: 'set_test_plan', remote: true } do |f| %>
                 <%= f.label(:is_test, class: 'control-label') do %>
@@ -90,7 +90,7 @@
               <%= f.hidden_field :schema_id, :value => project_schema.id, id: nil, class: "schema_id" %>
               <%= f.hidden_field :dmp_id, :value => dmp_fragment.id, id: nil %>
               <%= f.hidden_field :parent_id, :value => dmp_fragment.id, id: nil %>
-              <%= f.hidden_field :template_locale, :value => LocaleService.to_gettext(locale: locale), id: nil %>
+              <%= f.hidden_field :template_locale, :value => locale, id: nil %>
               <%= f.hidden_field "source", :value => "form" %>
               <div class="form-group fragment-<%= project_fragment.id %>" data-fragment-id="<%= project_fragment.id %>" >
                 <%= render(partial: 'shared/dynamic_form/form', locals: { 
@@ -100,7 +100,7 @@
                       question_id: nil,
                       readonly: false,
                       classname: "project",
-                      template_locale: LocaleService.to_gettext(locale: locale),
+                      template_locale: locale,
                       form_prefix: nil,
                       source: "form"
                     }) %>
@@ -136,7 +136,7 @@
 
         <div class="panel-heading question-text" role="tab" id="heading-plan-metadata">
           <div class="panel-title pull-left">
-            <% I18n.with_locale locale do %>
+            <% I18n.with_locale @plan.template.locale  do %>
               <%= _("Plan Details") %>
             <% end %>
           </div>
@@ -149,7 +149,7 @@
         <% meta_schema = MadmpSchema.find_by(name: "MetaStandard") %>
         <%= hidden_field_tag 'fragment-id', meta_fragment.id, class: "fragment-id" %>
         <div class="panel-body madmp-fragment"><!-- accordion body -->
-          <% I18n.with_locale locale do %>
+          <% I18n.with_locale @plan.template.locale  do %>
             <%= form_for :madmp_fragment, url: madmp_fragment_path(id: meta_fragment.id), 
                           html: {
                             method: :put,
@@ -161,7 +161,7 @@
                 <%= f.hidden_field :schema_id, :value => meta_schema.id, id: nil, class: "schema_id" %>
                 <%= f.hidden_field :dmp_id, :value => dmp_fragment.id, id: nil %>
                 <%= f.hidden_field :parent_id, :value => dmp_fragment.id, id: nil %>
-                <%= f.hidden_field :template_locale, :value => LocaleService.to_gettext(locale: locale), id: nil %>
+                <%= f.hidden_field :template_locale, :value => locale, id: nil %>
                 <%= f.hidden_field "source", :value => "form" %>
                 <div class="meta-form form-group fragment-<%= meta_fragment.id %>" data-fragment-id="<%= meta_fragment.id %>" >
                   <%= render(partial: 'shared/dynamic_form/form', locals: { 
@@ -171,7 +171,7 @@
                         question_id: nil,
                         readonly: false,
                         classname: "meta",
-                        template_locale: LocaleService.to_gettext(locale: locale),
+                        template_locale: locale,
                         form_prefix: nil,
                         source: "form"
                       }) %>
