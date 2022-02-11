@@ -14,7 +14,6 @@ describe 'layouts/_notifications.html.erb' do
       expect(rendered.include?('class="c-notification--info"')).to eql(false)
       expect(rendered.include?('class="c-notification--warning"')).to eql(false)
       expect(rendered.include?('class="c-notification--danger"')).to eql(false)
-      expect(rendered.include?('class="c-notification__close"')).to eql(false)
     end
 
     it 'renders correctly when there is a flash[:notice]' do
@@ -24,7 +23,6 @@ describe 'layouts/_notifications.html.erb' do
       expect(rendered.include?('class="c-notification--info"')).to eql(true)
       expect(rendered.include?('class="c-notification--warning"')).to eql(false)
       expect(rendered.include?('class="c-notification--danger"')).to eql(false)
-      expect(rendered.include?('class="c-notification__close"')).to eql(true)
     end
 
     it 'renders correctly when there is an flash[:alert]' do
@@ -34,7 +32,6 @@ describe 'layouts/_notifications.html.erb' do
       expect(rendered.include?('class="c-notification--info"')).to eql(false)
       expect(rendered.include?('class="c-notification--warning"')).to eql(false)
       expect(rendered.include?('class="c-notification--danger"')).to eql(true)
-      expect(rendered.include?('class="c-notification__close"')).to eql(true)
     end
 
     it 'renders correctly when there is an active Notification' do
@@ -44,7 +41,6 @@ describe 'layouts/_notifications.html.erb' do
       expect(rendered.include?('class="c-notification--info"')).to eql(false)
       expect(rendered.include?('class="c-notification--warning"')).to eql(true)
       expect(rendered.include?('class="c-notification--danger"')).to eql(false)
-      expect(rendered.include?('class="c-notification__close"')).to eql(true)
     end
   end
 end

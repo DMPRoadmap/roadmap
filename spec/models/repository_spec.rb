@@ -30,7 +30,7 @@ describe Repository do
     before(:each) do
       @types = [Faker::Music::PearlJam.unique.song, Faker::Music::PearlJam.unique.song]
       @subjects = [Faker::Music::PearlJam.unique.musician, Faker::Music::PearlJam.unique.musician]
-      @keywords = [Faker::Music::GratefulDead.unique.song, Faker::Music::GratefulDead.unique.song]
+      @keywords = [Faker::Mountain.unique.name.split.last, Faker::Mountain.unique.name.split.last]
 
       @never_found = create(:repository, name: 'foo', info: { types: [@types.last],
                                                               subjects: [@subjects.last],

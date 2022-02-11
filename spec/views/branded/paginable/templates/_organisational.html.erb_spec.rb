@@ -4,6 +4,7 @@ require 'rails_helper'
 
 describe 'paginable/templates/_organisational.html.erb' do
   it 'renders our version of the page' do
+    sign_in create(:user, org: create(:org))
     create(:template, published: true)
     controller.prepend_view_path 'app/views/branded'
     assign :paginable_path_params, { sort_field: 'templates.title', sort_direction: :asc }

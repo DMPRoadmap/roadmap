@@ -8,45 +8,26 @@ RSpec.feature 'Locales', type: :feature, js: true do
     # Clear out the default defined in the locales support file
     Org.destroy_all
     Language.destroy_all
-  end
 
-  let!(:languages) do
-    [
-      Language.where(
-        default_language: true,
-        name: 'English',
-        abbreviation: 'en-GB'
-      ).first_or_create,
-
-      Language.where(
-        default_language: false,
-        name: 'German',
-        abbreviation: 'de'
-      ).first_or_create,
-
-      Language.where(
-        default_language: false,
-        name: 'Portugese',
-        abbreviation: 'pt-BR'
-      ).first_or_create
-
+    @languages = [
+      create(:language, default_language: true, name: 'English', abbreviation: 'en-GB'),
+      create(:language, default_language: false, name: 'German', abbreviation: 'de'),
+      create(:language, default_language: false, name: 'Portugese', abbreviation: 'pt-BR')
     ]
-  end
 
-  let!(:user) { create(:user, language: languages.first) }
+    @user = create(:user, language: @languages.first)
 
-  before do
-    locales = %w[en-GB de pt-BR]
-    I18n.available_locales = locales
-    I18n.locale = locales.first
-    sign_in(user)
+    @locales = %w[en-GB de pt-BR]
+    I18n.available_locales = @locales
+    I18n.locale = @locales.first
+    sign_in(@user)
     visit root_path
   end
 
   after do
-    locales = AVAILABLE_TEST_LOCALES
-    I18n.available_locales = locales
-    I18n.default_locale = locales.first
+    @locales = AVAILABLE_TEST_LOCALES
+    I18n.available_locales = @locales
+    I18n.default_locale = @locales.first
   end
 
   context 'when new locale has no region' do
@@ -58,6 +39,10 @@ RSpec.feature 'Locales', type: :feature, js: true do
       click_button 'Language'
       expect(current_path).to eql(plans_path)
       expect(page).not_to have_text(create_plan_text)
+
+p "Local Spec:"
+pp Language.all.inspect
+pp page.body
 
       click_link 'German'
       expect(current_path).to eql(plans_path)

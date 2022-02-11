@@ -43,7 +43,7 @@ RSpec.describe RegistryOrgsController, type: :controller do
       it 'it obeys the `restrict_orgs` config setting if :known_only is not specified' do
         hash = {
           term: @org.name, known_only: nil, unknown_only: nil, managed_only: nil, funder_only: nil,
-          non_funder_only: nil
+          template_owner_only: nil, non_funder_only: nil
         }
         Rails.configuration.x.application.restrict_orgs = true
         hash[:known_only] = true

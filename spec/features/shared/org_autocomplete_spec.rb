@@ -123,7 +123,7 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
         click_button _('Sign up')
         expect(page).not_to have_errors
         expect(User.all.count).to eql(original_user_count + 1)
-        expect(User.last.org.name).to eql(name)
+        expect(User.last.org.name.humanize).to eql(name)
         sign_out User.last
       end
     end
@@ -221,6 +221,8 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
 
     context 'Contributor page implementation (all orgs)' do
       it 'has used the appropriate controls and returns the expected suggestions', js: true do
+        @user.update(org_id: @plan.org.id)
+
         # The Autocomplete on this page should allow the user to select any Orgs
         # or RegistryOrgs and allow them to create new Orgs
         visit new_plan_contributor_path(@plan)
@@ -276,8 +278,6 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
           expect(find('label[for="org_autocomplete_name"]').present?).to eql(true)
           expect(find('#org_autocomplete_name').present?).to eql(true)
           expect(find('#org_autocomplete_name').value).to eql(@user.org.name)
-          expect(find('#org_autocomplete_not_in_list', visible: false).present?).to eql(true)
-          expect(find('#org_autocomplete_user_entered_name', visible: false).present?).to eql(true)
           expect(find('.autocomplete-help').present?).to eql(true)
 
           id = find('#org_autocomplete_name')[:list].split('-').last
@@ -294,8 +294,8 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
           expect(suggestion_exists?(@org_unmanaged.name)).to eql(true)
           expect(suggestion_exists?(@associated_matched.name)).to eql(true)
 
-          # Make sure that RegistryOrgs with no associated Org are suggested
-          expect(suggestion_exists?(@registry_org.name)).to eql(true)
+          # Make sure that RegistryOrgs with no associated Org are NOT suggested
+          expect(suggestion_exists?(@registry_org.name)).to eql(false)
 
           # Make sure the funder Orgs are NOT suggested
           expect(suggestion_exists?(@funder_managed.name)).to eql(false)
@@ -312,8 +312,6 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
           expect(find('label[for="org_autocomplete_funder_name"]').present?).to eql(true)
           expect(find('#org_autocomplete_funder_name').present?).to eql(true)
           expect(find('#org_autocomplete_funder_name').value).to eql('')
-          expect(find('#org_autocomplete_funder_not_in_list', visible: false).present?).to eql(true)
-          expect(find('#org_autocomplete_funder_user_entered_name', visible: false).present?).to eql(true)
           expect(find('.autocomplete-help').present?).to eql(true)
 
           id = find('#org_autocomplete_funder_name')[:list].split('-').last
@@ -327,7 +325,7 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
           # Make sure the correct Orgs are suggested
           expect(suggestion_exists?(@funder_managed.name)).to eql(true)
           expect(suggestion_exists?(@funder_unmanaged.name)).to eql(true)
-          expect(suggestion_exists?(@registry_funder.name)).to eql(true)
+          expect(suggestion_exists?(@registry_funder.name)).to eql(false)
           expect(suggestion_exists?(@associated_matched_funder.name)).to eql(true)
 
           # Make sure the non-funder Orgs are NOT suggested
@@ -559,6 +557,11 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
     @unmatched = create(:org, managed: true, name: 'Unmatched Managed Org')
     @unmatched_unmanaged = create(:org, managed: false, name: 'Unmatched Unamanaged Org')
     @unmatched_registry = create(:registry_org, fundref_id: nil, name: 'Unmatched Registry Org')
+
+    # Create templates for the funders
+    create(:template, :published, org_id: @funder_managed.id)
+    create(:template, :published, org_id: @funder_unmanaged.id)
+    create(:template, :published, org_id: @associated_matched_funder.id)
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
