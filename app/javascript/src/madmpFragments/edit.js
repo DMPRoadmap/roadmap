@@ -8,10 +8,10 @@ import { formLoadingCallback } from '../utils/dynamicFormHelper';
 $(() => {
   // Attach handlers for the expand/collapse all accordions
 
-  const showSavingMessage = jQuery => jQuery.parents('.question-form').find('[data-status="saving"]').show();
-  const hideSavingMessage = jQuery => jQuery.parents('.question-form').find('[data-status="saving"]').hide();
-  const showLoadingOverlay = jQuery => jQuery.find('.overlay').show();
-  const hideLoadingOverlay = jQuery => jQuery.find('.overlay').hide();
+  const showSavingMessage = (jQuery) => jQuery.parents('.question-form').find('[data-status="saving"]').show();
+  const hideSavingMessage = (jQuery) => jQuery.parents('.question-form').find('[data-status="saving"]').hide();
+  const showLoadingOverlay = (jQuery) => jQuery.find('.overlay').show();
+  const hideLoadingOverlay = (jQuery) => jQuery.find('.overlay').hide();
   const displayRunTabs = (formData, questionId, researchOutputId) => {
     if (formData) {
       $(`#runs-${questionId}-research-output-${researchOutputId} .run-zone`).html(formData);

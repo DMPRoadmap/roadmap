@@ -132,5 +132,4 @@ export const multiSelectHandler = (selectField, value, text) => {
   }
 };
 
-
 export default Select2;
