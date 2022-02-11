@@ -60,7 +60,7 @@ module Settings
           left: 25,
           right: 25
         },
-        font_face: "Arial, Helvetica, Sans-Serif",
+        font_face: 'Arial, Helvetica, Sans-Serif',
         font_size: 11 # pt
       },
       page_size: 'Letter',

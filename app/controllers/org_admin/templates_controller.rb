@@ -285,10 +285,6 @@ module OrgAdmin
       else
         flash[:alert] = errors
       end
-
-p "PUBLISH:"
-pp flash.inspect
-
       redirect_to request.referrer.present? ? request.referrer : org_admin_templates_path
     end
     # rubocop:enable Metrics/AbcSize

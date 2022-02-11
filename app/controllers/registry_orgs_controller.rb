@@ -164,7 +164,7 @@ class RegistryOrgsController < ApplicationController
   # Removes duplicate entries (preferring the one with the most associated Users)
   # For example. if there are 'UNESP' w/4 users, 'unesp' w/12 users and ' unesp' w/1 user in
   # the results, it will use 'unesp'
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def deduplicate(list: [])
     return list unless list.any?
 
@@ -188,5 +188,5 @@ class RegistryOrgsController < ApplicationController
     end
     out.values
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end

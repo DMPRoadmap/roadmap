@@ -40,9 +40,9 @@ RSpec.feature 'Locales', type: :feature, js: true do
       expect(current_path).to eql(plans_path)
       expect(page).not_to have_text(create_plan_text)
 
-p "Local Spec:"
-pp Language.all.inspect
-pp page.body
+      p 'Local Spec:'
+      pp Language.all.inspect
+      pp page.body
 
       click_link 'German'
       expect(current_path).to eql(plans_path)
