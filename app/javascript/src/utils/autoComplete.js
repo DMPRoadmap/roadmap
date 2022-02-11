@@ -149,7 +149,7 @@ const isValidMatch = (value, searchTerm) => {
 // Search the <ul> list of suggestions for the value in the autocomplete textbox
 const isSuggestion = (selection, suggestions) => {
   const entry = suggestions.find('li.ui-menu-item')
-                           .filter((_idx, el) => { return isValidMatch($(el).text(), selection); });
+    .filter((_idx, el) => { return isValidMatch($(el).text(), selection); });
   return entry.length > 0;
 };
 
@@ -171,10 +171,9 @@ const isValid = (autocomplete, textbox, suggestions) => {
   // If both the autocomplete and user entered value are blank, check if it's required
   if (isBlank(autocomplete, textbox)) {
     return !isRequired;
-  } else {
-    // Otherwise make sure the user selected a valid suggestion
-    return textbox.length > 0 ? (validAutocomplete || textbox.val().length > 2) : validAutocomplete;
   }
+  // Otherwise make sure the user selected a valid suggestion
+  return textbox.length > 0 ? (validAutocomplete || textbox.val().length > 2) : validAutocomplete;
 };
 
 // Checks to see if the selection or entry in the text field matches a value in the crosswalk

@@ -91,7 +91,7 @@ module Dmptool
 
     # Process the sort criteria
     def process_sort_by
-      case public_plans_params.fetch(:sort_by, 'created_at')
+      case public_plans_params.fetch(:sort_by, 'featured')
       when 'created_at'
         'plans.created_at desc'
       when 'title'
