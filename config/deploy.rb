@@ -46,7 +46,7 @@ namespace :deploy do
   desc 'Add the linux platform to Bundler'
   task :add_platform do
     on roles(:app), wait: 1 do
-      execute "cd #{release_path} bin/bundle lock --add-platform x86_64-linux"
+      execute 'bundle lock --add-platform x86_64-linux'
     end
   end
 end
