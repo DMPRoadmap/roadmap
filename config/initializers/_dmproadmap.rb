@@ -90,6 +90,11 @@ module DMPRoadmap
     config.x.application.blog_rss = Rails.configuration.x.dmproadmap.blog_rss
     # Administrator emails
     config.x.application.admin_emails = Rails.configuration.x.dmproadmap.admin_emails
+    # Setting to display phone number in contributor form
+    config.x.application.display_contributor_phone_number = false
+    # Setting require contributor requirement of contributor name and email
+    config.x.application.require_contributor_name = false
+    config.x.application.require_contributor_email = false
 
     # ------------------- #
     # SHIBBOLETH SETTINGS #

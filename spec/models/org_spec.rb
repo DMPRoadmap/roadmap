@@ -12,8 +12,6 @@ RSpec.describe Org, type: :model do
         .with_message('must be unique')
     }
 
-    it { is_expected.to validate_presence_of(:abbreviation) }
-
     it { is_expected.to allow_values(true, false).for(:is_other) }
 
     it { is_expected.not_to allow_value(nil).for(:is_other) }
@@ -401,6 +399,7 @@ RSpec.describe Org, type: :model do
         @perm = build(:perm)
         @perm.name = 'grant_permissions'
         user.perms << @perm
+        plan.add_user!(user.id, :reviewer)
         plan.privately_visible!
       end
 
@@ -413,6 +412,7 @@ RSpec.describe Org, type: :model do
         @perm = build(:perm)
         @perm.name = 'grant_permissions'
         user.perms << @perm
+        plan.add_user!(user.id, :reviewer)
         plan.publicly_visible!
       end
 
