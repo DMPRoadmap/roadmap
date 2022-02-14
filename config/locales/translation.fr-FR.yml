@@ -116,6 +116,17 @@ fr-FR:
         other: "%{count} erreurs ont empêché d’enregistrer ce(tte) %{resource} :"
       model_invalid: 'Validation échouée : %{errors}'
       required: doit exister
+    unavailable_session: |-
+      La session %{id} n'est plus disponible en mémoire.
+
+      Si vous utilisez un serveur multi-processus (comme Unicorn ou Puma), le processus
+      cet appel de requête ne stocke pas %{id} en mémoire. Pensez à tourner le nombre de
+      processus / travailleurs à un (1) ou en utilisant un serveur différent en développement.
+    unacceptable_request: Une version prise en charge est attendue dans l'en-tête
+      Accept.
+    connection_refused: |-
+      Oops! Impossible de se connecter au middleware Console Web.
+      Assurez-vous que le serveur de développement de rails est en cours d'exécution.
     template:
       body: 'Veuillez vérifier les champs suivants : '
       header:
@@ -217,10 +228,10 @@ fr-FR:
       already_authenticated: Vous êtes déjà connecté(e).
       inactive: Votre compte n'est plus actif. Merci de nous contacter pour réactiver
         votre compte.
-      invalid: Courriel ou mot de passe incorrect.
+      invalid: "%{authentication_keys} ou mot de passe invalide."
       locked: Votre compte est verrouillé.
       last_attempt: Vous avez une autre tentative avant que votre compte soit verrouillé.
-      not_found_in_database: Courriel ou mot de passe incorrect.
+      not_found_in_database: "%{authentication_keys} ou mot de passe invalide."
       timeout: Votre session est expirée. Veuillez vous reconnecter pour continuer.
       unauthenticated: Vous devez vous connecter ou vous inscrire pour continuer.
       unconfirmed: Vous devez confirmer votre compte pour continuer.
@@ -243,10 +254,10 @@ fr-FR:
         someone_invited_you: Quelqu'un vous a invité à %{url}, vous pouvez l'accepter
           via le lien ci-dessous.
         accept: Accepter l'invitation
-        accept_until: Cette invitation sera due dans %{due_date}.
-        ignore: Si vous ne voulez pas accepter l'invitation, veuillez ignorer cet
-          email. <br /> Votre compte ne sera créé que lorsque vous aurez accédé au
-          lien ci-dessus et défini votre mot de passe.
+        accept_until: Cette invitation sera expirée dans %{due_date}.
+        ignore: Si vous ne souhaitez pas accepter cette invitation, ignorez ce courriel.
+          <br /> Votre compte ne sera créé que lorsque vous aurez accédé au lien ci-dessus
+          et défini votre mot de passe.
     omniauth_callbacks:
       failure: Nous n'avons pas pu vous authentifier à partir de %{kind} parce que
         '%{reason}'.
@@ -279,8 +290,8 @@ fr-FR:
         sur le lien de confirmation pour finaliser la validation de votre nouvelle
         adresse électronique.
       updated: Votre compte a bien été modifié.
-      updated_but_not_signed_in: Votre compte a été mis à jour avec succès, mais depuis
-        la modification de votre mot de passe, vous devez vous reconnecter.
+      updated_but_not_signed_in: Votre compte a été mis à jour avec succès, mais comme
+        votre mot de passe a été modifié, vous devez vous reconnecter.
     sessions:
       signed_in: Connecté
       signed_out: Déconnecté

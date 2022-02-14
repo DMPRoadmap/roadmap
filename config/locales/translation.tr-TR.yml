@@ -116,7 +116,7 @@ tr-TR:
       taken: hali hazırda kullanılmakta
       already_confirmed: zaten onaylanmış, lütfen giriş yapmayı deneyin
       confirmation_period_expired: "%{period} içinde onaylanması gerekmektedir, lütfen
-        yeni bir tane isteyiniz."
+        yeni bir tane talep edin."
       expired: süresi doldu, lütfen yeni bir tane talep edin
       not_found: bulunamadı
       not_locked: kilitlenmemiş
@@ -128,13 +128,21 @@ tr-TR:
       header:
         one: 1 hata oluştuğu için %{model} kaydedilemedi
         other: "%{count} hata oluştuğu için %{model} kaydedilemedi"
+    unavailable_session: |
+      Oturum %{id} artık bellekte mevcut değil.
+
+      Unicorn veya Puma gibi bir çoklu-işlem sunucusunda çalışıyorsanız, bu isteğe karşılık gelen işlem, %{id}'i bellekte saklamaz. İşlem/çalışan sayısını bir (1) olarak ayarlamayı ya da geliştirme ortamında farklı bir sunucu kullanmayı değerlendirin.
+    unacceptable_request: Accept header'da desteklenen bir sürüm bekleniyor.
+    connection_refused: |-
+      Hata! Web Konsolu ara katman yazılımına bağlanılamadı.
+      Lütfen bir Rails geliştirme sunucusunun çalıştığından emin olun.
   activerecord:
     errors:
       messages:
         record_invalid: 'Doğrulama başarısız oldu: %{errors}'
         restrict_dependent_destroy:
-          has_one: Bağlı bir kayıt %{record} bulunduğu için kayıt silinemedi
-          has_many: Bağlı kayıtlar %{record} bulunduğu için kayıt silinemedi
+          has_one: Bağlı bir %{record} bulunduğu için kayıt silinemiyor
+          has_many: Bağlı %{record} bulunduğu için kayıt silinemiyor
   datetime:
     distance_in_words:
       half_a_minute: yarım dakika
@@ -255,7 +263,7 @@ tr-TR:
         accept_until: Bu davetiye %{due_date} tarihine kadar geçerli olacaktır.
         ignore: Daveti kabul etmek istemiyorsanız, lütfen bu e-postayı dikkate almayın.
           Hesabınızın oluşturulması için yukarıdaki bağlantıya tıklayıp şifrenizi
-          belirlemeniz gerekmektedir.
+          oluşturmanız gerekmektedir.
     omniauth_callbacks:
       failure: Hesabınızı %{kind} aracılığıyla doğrulayamadık, çünkü "%{reason}".
       success: "%{kind} aracılığıyla hesabınız onaylandı."
@@ -275,7 +283,7 @@ tr-TR:
       signed_up_but_inactive: Kaydınız başarıyla gerçekleşti. Fakat, hesabınız henüz
         aktive edilmediği için oturumunuzu açamadık.
       signed_up_but_locked: Kaydınız başarıyla gerçekleşti. Fakat, hesabınız kilitlendiği
-        için siteye giriş yapamadınız.
+        için oturumunuzu açamadık.
       signed_up_but_unconfirmed: E-posta adresinize hesap aktifleştirme bağlantısını
         içeren bir e-posta gönderildi. Hesabınızı aktifleştirmek için lütfen e-posta
         ile gönderilen bağlantıyı açın.
@@ -292,8 +300,8 @@ tr-TR:
     unlocks:
       send_instructions: Birkaç dakika içerisinde hesap kilidi açma talimatlarını
         içeren bir e-posta alacaksınız.
-      send_paranoid_instructions: Eğer hesabınız varsa, birkaç dakika içerisinde hesap
-        kilidi açma talimatlarını içeren bir e-posta alacaksınız.
+      send_paranoid_instructions: Eğer hesabınız silinmediyse, birkaç dakika içerisinde
+        hesap kilidi açma talimatlarını içeren bir e-posta alacaksınız.
       unlocked: Hesabınızın kilidi başarıyla kaldırıldı. Devam etmek için lütfen giriş
         yapın.
     invitations:

@@ -94,8 +94,6 @@ class Org < ApplicationRecord
   validates :name, presence: { message: PRESENCE_MESSAGE },
                    uniqueness: { message: UNIQUENESS_MESSAGE }
 
-  validates :abbreviation, presence: { message: PRESENCE_MESSAGE }
-
   validates :is_other, inclusion: { in: BOOLEAN_VALUES,
                                     message: PRESENCE_MESSAGE }
 
@@ -290,10 +288,12 @@ class Org < ApplicationRecord
 
     if Rails.configuration.x.plans.org_admins_read_all
       Plan.includes(:template, :phases, :roles, :users).where(id: combined_plan_ids)
+          .where(roles: { active: true })
     else
       Plan.includes(:template, :phases, :roles, :users).where(id: combined_plan_ids)
           .where.not(visibility: Plan.visibilities[:privately_visible])
           .where.not(visibility: Plan.visibilities[:is_test])
+          .where(roles: { active: true })
     end
   end
   # rubocop:enable Metrics/AbcSize

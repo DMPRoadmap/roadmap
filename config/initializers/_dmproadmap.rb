@@ -115,6 +115,12 @@ module DMPRoadmap
     }
     # Setting to only take orgs from local and not allow on-the-fly creation
     config.x.application.restrict_orgs = false
+    # Setting to display phone number in contributor form
+    config.x.application.display_contributor_phone_number = false
+
+    # Setting require contributor requirement of contributor name and email
+    config.x.application.require_contributor_name = false
+    config.x.application.require_contributor_email = false
 
     # ------------------- #
     # SHIBBOLETH SETTINGS #

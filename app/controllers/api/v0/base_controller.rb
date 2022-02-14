@@ -30,7 +30,7 @@ module Api
         plural_resource_name = "@#{resource_name.pluralize}"
         resources = resource_class.where(query_params)
                                   .page(page_params[:page])
-                                  .per(page_params[:page_size])
+                                  .per(page_params[:per_page])
 
         instance_variable_set(plural_resource_name, resources)
         respond_with instance_variable_get(plural_resource_name)
@@ -71,7 +71,7 @@ module Api
       #
       # Returns Hash
       def page_params
-        params.permit(:page, :page_size)
+        params.permit(:page, :per_page)
       end
 
       # The resource class based on the controller
