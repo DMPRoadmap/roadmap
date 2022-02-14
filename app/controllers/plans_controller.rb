@@ -43,6 +43,8 @@ class PlansController < ApplicationController
     @plan = Plan.new
     authorize @plan
 
+p @plan.inspect
+
     # If the template_id is blank then we need to look up the available templates and
     # return JSON
     if plan_params[:template_id].blank?
@@ -71,6 +73,8 @@ class PlansController < ApplicationController
                     end
 
       @plan.org = process_org!(user: current_user)
+      # If the user said there was no research org, use their org since Plan requires one
+      @plan.org = current_user.org unless @plan.org.present?
       @plan.funder = process_org!(user: current_user, namespace: 'funder')
 
       @plan.title = @plan.title.strip

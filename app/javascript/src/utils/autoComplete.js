@@ -295,3 +295,16 @@ export const listenForAutocompleteChange = (autocomplete, callback) => {
     }
   }
 };
+
+// Helper method to allow other JS files to hide/show the autocomplete error/warning message
+export const hideWarning = (autocomplete) => {
+  if (autocomplete.length > 0 && autocomplete.hasClass('ui-autocomplete-input')) {
+    toggleWarning(autocomplete, false);
+  }
+};
+
+export const showWarning = (autocomplete) => {
+  if (autocomplete.length > 0 && autocomplete.hasClass('ui-autocomplete-input')) {
+    toggleWarning(autocomplete, true);
+  }
+};
