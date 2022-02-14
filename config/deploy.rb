@@ -25,7 +25,7 @@ append :linked_dirs,
 set :keep_releases, 5
 
 namespace :deploy do
-  after :copy_files, 'deploy:add_platform'
+  after :updating, 'deploy:add_platform'
   before :compile_assets, 'deploy:retrieve_credentials'
 
   after :deploy, 'dmptool_assets:copy_ui_assets'
