@@ -25,6 +25,7 @@ append :linked_dirs,
 set :keep_releases, 5
 
 namespace :deploy do
+  before :bundle, 'deploy:add_platform'
   before :compile_assets, 'deploy:retrieve_credentials'
 
   after :deploy, 'dmptool_assets:copy_ui_assets'
@@ -39,6 +40,13 @@ namespace :deploy do
       ssm = Uc3Ssm::ConfigResolver.new
       credentials_yml_enc = ssm.parameter_for_key('credentials_yml_enc')
       File.write("#{release_path}/config/credentials.yml.enc", credentials_yml_enc.chomp)
+    end
+  end
+
+  desc 'Add the linux platform to Bundler'
+  task :add_platform do
+    on roles(:app), wait: 1 do
+      execute "cd #{release_path} bin/bundle lock --add-platform x86_64-linux"
     end
   end
 end
