@@ -63,19 +63,5 @@ jobs:
     - name: 'Run pa11y-ci tests'
       run: yarn pa11y-sitemap
 
-    # - name: Read pa11y-ci test results
-    #   id: pa11yci_results
-
-    #   uses: juliangruber/read-file-action@v1
-    #   with:
-    #     path: pa11yci/pa11yci-results.txt
-
-    # - name: Check for pa11y-ci errors
-    #   if: contains(steps.pa11yci_results.outputs.content, 'Errors in')
-    #   run: |
-    #     echo "::error::Accessibility errors were found."
-    #     echo "${{ steps.pa11yci_results.outputs.content }}"
-    #     exit 1
-
     - name: 'Shut down the application'
       run: kill `cat tmp/pids/server.pid`

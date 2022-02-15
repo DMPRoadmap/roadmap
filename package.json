@@ -6,9 +6,6 @@
   "scripts": {
     "lint": "yarn run eslint --ext .js app/javascript/**/*.js",
     "test": "karma start spec/karma/unit.js",
-    "pa11y": "pa11y --runner axe --runner htmlcs",
-    "pa11yci": "pa11y-ci --config pa11yci/pa11yci.config.json 2>&1 | tee pa11yci/pa11yci-results.txt",
-    "test-a11y": "start-server-and-test serve 1234 pa11yci",
     "pa11y-sitemap": "pa11y-ci --sitemap http://localhost:3000/sitemap.xml --sitemap-exclude \"/*.pdf\""
   },
   "repository": {
