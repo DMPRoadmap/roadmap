@@ -3,10 +3,9 @@
 require 'text'
 
 namespace :org_cleanup do
-
   desc 'Merge the first org_id into the second org_id'
   task :merge_orgs, %i[loser winner commit] => [:environment] do |_t, args|
-    commit_it = args[:loser] == 'true' ? true : false
+    commit_it = args[:commit].to_s == 'true'
     if args[:loser].present? && args[:winner].present?
       loser = Org.includes(:templates, :tracker, :annotations,
                            :departments, :token_permission_types, :funded_plans,
@@ -22,11 +21,29 @@ namespace :org_cleanup do
                             users: [identifiers: [:identifier_scheme]])
                   .find_by(id: args[:winner])
 
-      if loser.present? && winner.present
+      if loser.present? && winner.present?
+        p 'Analyizing merge ... '
+        p "    Org that will go away - id: #{loser.id}, name: #{loser.name}"
+        p "        annotations that will be moved: #{loser.annotations&.length || 0}"
+        p "        departments that will be moved: #{loser.departments&.length || 0}"
+        p "        funded plans that will be moved: #{loser.funded_plans&.length || 0}"
+        p "        identifiers that will be moved: #{loser.identifiers&.length || 0}"
+        p "        guidance_groups that will be moved: #{loser.identifiers&.length || 0}"
+        p "        templates that will be moved: #{loser.templates&.length || 0}"
+        p "        tracker codes that will be moved: #{loser.tracker.present? ? 1 : 0}"
+        p "        users that will be moved: #{loser.users&.length || 0}"
+
+        p "   Org that will remain - id: #{winner.id}, name: #{winner.name}"
+        p ''
+
         if commit_it
-
+          if winner.merge!(to_be_merged: loser)
+            p 'Merge complete'
+          else
+            p 'Something went wrong during thr merge. All changes have been rolled back. Check the logs for more details.'
+          end
         else
-
+          p "To commit these changes, please run `rails 'org_cleanup:merge_orgs[#{loser.id},#{winner.id},true]"
         end
       else
         p 'Unable to merge orgs!'

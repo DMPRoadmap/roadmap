@@ -562,7 +562,7 @@ RSpec.describe OrgSelectable do
         expect(result.new_record?).to eql(false)
         expect(result.name).to eql(new_name)
 
-pp result.inspect
+        pp result.inspect
 
         expect(result.abbreviation).to eql(Org.name_to_abbreviation(name: new_name))
         expect(result.contact_email).to eql(contact_email)
