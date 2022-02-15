@@ -37,11 +37,15 @@ namespace :org_cleanup do
         p ''
 
         if commit_it
+          # rubocop:disable Metrics/BlockNesting
           if winner.merge!(to_be_merged: loser)
             p 'Merge complete'
           else
+            # rubocop:disable Layout/LineLength
             p 'Something went wrong during thr merge. All changes have been rolled back. Check the logs for more details.'
+            # rubocop:enable Layout/LineLength
           end
+          # rubocop:enable Metrics/BlockNesting
         else
           p "To commit these changes, please run `rails 'org_cleanup:merge_orgs[#{loser.id},#{winner.id},true]"
         end
@@ -52,7 +56,9 @@ namespace :org_cleanup do
       end
     else
       p 'Unable to merge orgs!'
+      # rubocop:disable Layout/LineLength
       p 'Expected 2 org ids. The 1st representing the Org that will be merged (go away) and the 2nd being the Org that will remain.'
+      # rubocop:enable Layout/LineLength
       p 'For example: rails "org_cleanup:merge_orgs[1,2,false]"'
     end
   end
