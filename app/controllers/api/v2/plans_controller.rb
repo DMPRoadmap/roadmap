@@ -93,9 +93,9 @@ module Api
         if plan.present?
           save_err = _('Unable to create your DMP')
           exists_err = _('Plan already exists. Send an update instead.')
-          # rubocop:disable Style/LineLength
+          # rubocop:disable Layout/LineLength
           no_org_err = _('Could not determine ownership of the DMP. The :affiliation you specified for the :contact could not be validated. You must use either a ROR id or a known name. Possible matches: %<list_of_names>s')
-          # rubocop:enable Style/LineLength
+          # rubocop:enable Layout/LineLength
 
           # Skip if this is an existing DMP
           render_error(errors: exists_err, status: :bad_request) and return unless plan.new_record?
