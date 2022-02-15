@@ -3,7 +3,7 @@ name: Pa11y Accessibility Checks
 on: [push, pull_request]
 
 jobs:
-  mysql:
+  pa11y:
     runs-on: ubuntu-latest
 
     # Define environment variables for MySQL and Rails
