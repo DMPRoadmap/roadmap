@@ -75,8 +75,8 @@ class RegistryOrgsController < ApplicationController
     # Filter out any RegistryOrgs that are also in the Orgs, we only want to return one!
     registry_matches = registry_matches.reject { |r_org| org_matches.map(&:id).include?(r_org.org_id) }
     matches = (registry_matches + org_matches).flatten.compact.uniq
-    matches = deduplicate(list: matches)
-    sort_search_results(results: matches, term: term)
+    matches = deduplicate(term: term, list: matches)
+    matches.map(&:name).flatten.compact.uniq
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
@@ -97,7 +97,6 @@ class RegistryOrgsController < ApplicationController
     # If we're filtering by funder status
     matches = matches.select(&:funder?) if options.fetch(:funder_only, false)
     matches = matches.reject(&:funder?) if options.fetch(:non_funder_only, false)
-
     matches
   end
   # rubocop:enable Metrics/CyclomaticComplexity
@@ -124,18 +123,6 @@ class RegistryOrgsController < ApplicationController
     matches
   end
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-
-  # Sort the results by their weight (desacending) and then name (ascending)
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
-  def sort_search_results(results:, term:)
-    return [] unless results.present? && results.any? && term.present?
-
-    results.map { |result| { weight: weigh(term: term, org: result), name: result.name, org: result } }
-           .sort { |a, b| [b[:weight], a[:name]] <=> [a[:weight], b[:name]] }
-           .map { |result| result[:org]&.name }
-           .flatten.compact.uniq
-  end
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
   # Weighs the result. The greater the weight the closer the match, preferring Orgs already in use
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -165,7 +152,7 @@ class RegistryOrgsController < ApplicationController
   # For example. if there are 'UNESP' w/4 users, 'unesp' w/12 users and ' unesp' w/1 user in
   # the results, it will use 'unesp'
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  def deduplicate(list: [])
+  def deduplicate(term:, list: [])
     return list unless list.any?
 
     # Fetch the user counts so we can sort appropriately
@@ -173,14 +160,19 @@ class RegistryOrgsController < ApplicationController
       {
         normalized: item.name.downcase.strip,
         user_count: item.respond_to?(:users) ? item.users.count : 0,
+        weight: weigh(term: term, org: item),
         original: item
       }
     end
-    hashes = hashes.sort { |a, b| b[:user_count] <=> a[:user_count] }
+    # Sort by the number of users desc, weight desc and then name asc
+    hashes = hashes.sort do |a, b|
+      [b[:user_count], b[:weight], a[:name]] <=> [a[:user_count], a[:weight], b[:name]]
+    end
 
     # If there are no duplicate names just return the current list
     names = hashes.map { |item| item[:normalized] }
-    return list unless names.detect { |name| names.count(name) > 1 }.present?
+    has_duplicates = names.detect { |name| names.count(name) > 1 }.present?
+    return hashes.map { |item| item[:original] } unless has_duplicates
 
     out = {}
     hashes.each do |item|

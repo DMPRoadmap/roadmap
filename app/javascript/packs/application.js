@@ -96,6 +96,7 @@ import '../src/superAdmin/users/edit';
 // ==========================
 import '../src/dmptool/public_pages/plans_index';
 import '../src/dmptool/orgAdmin/plans/index';
+import '../src/dmptool/users/passwords/edit';
 
 // Since we're using Webpacker to manage JS we need to startup Rails' Unobtrusive JS
 // and Turbolinks. ActiveStorage and ActionCable would also need to be in here
