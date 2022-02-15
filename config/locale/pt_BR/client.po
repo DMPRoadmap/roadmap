@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dmptool 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-02-09 08:59-0800\n"
-"PO-Revision-Date: 2022-02-09 17:59+0100\n"
+"POT-Creation-Date: 2022-02-15 08:52-0800\n"
+"PO-Revision-Date: 2022-02-15 17:52+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Portuguese\n"
 "Language: pt_BR\n"
@@ -221,6 +221,7 @@ msgid "About"
 msgstr "Sobre"
 
 #: ../../app/views/branded/layouts/_footer.html.erb:11
+#: ../../app/views/branded/static_pages/help.html.erb:13
 msgid "Contact Us"
 msgstr "Contate-nos"
 
@@ -369,6 +370,7 @@ msgid "My organisation isn't listed"
 msgstr "Minha organização não está listada"
 
 #: ../../app/views/branded/layouts/_json_constants.html.erb:15
+#: ../../app/views/branded/paginable/plans/_org_admin.html.erb:67
 msgid "N/A"
 msgstr "N/A"
 
@@ -389,6 +391,10 @@ msgid "See the full list of partner institutions."
 msgstr "Veja a lista completa de instituições parceiras"
 
 #: ../../app/views/branded/layouts/_json_constants.html.erb:22
+msgid "Passwords must match"
+msgstr "As senhas devem corresponder"
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:24
 msgid ""
 "Unable to find a suitable template for the research organisation and funder yo"
 "u selected."
@@ -396,29 +402,29 @@ msgstr ""
 "Não conseguimos encontrar um modelo adequado para a instituição de pesquisa e "
 "o órgão financiador que você selecionou."
 
-#: ../../app/views/branded/layouts/_json_constants.html.erb:23
+#: ../../app/views/branded/layouts/_json_constants.html.erb:25
 msgid "Please select a research organisation and funder to continue."
 msgstr ""
 "Por favor, selecione uma instituição de pesquisa e um órgão financiador para c"
 "ontinuar."
 
-#: ../../app/views/branded/layouts/_json_constants.html.erb:25
+#: ../../app/views/branded/layouts/_json_constants.html.erb:27
 msgid "Loading ..."
 msgstr "Carregando ..."
 
-#: ../../app/views/branded/layouts/_json_constants.html.erb:26
+#: ../../app/views/branded/layouts/_json_constants.html.erb:28
 msgid "Unable to load the section's content at this time."
 msgstr "Não carregar o conteúdo da seção neste momento."
 
-#: ../../app/views/branded/layouts/_json_constants.html.erb:27
+#: ../../app/views/branded/layouts/_json_constants.html.erb:29
 msgid "Unable to load the question's content at this time."
 msgstr "Não foi carregar o conteúdo da pergunta no momento."
 
-#: ../../app/views/branded/layouts/_json_constants.html.erb:28
+#: ../../app/views/branded/layouts/_json_constants.html.erb:30
 msgid "Opens in a new window"
 msgstr "Abre em uma nova janela"
 
-#: ../../app/views/branded/layouts/_json_constants.html.erb:30
+#: ../../app/views/branded/layouts/_json_constants.html.erb:32
 msgid ""
 "%{n} results are available, use up and down arrows to navigate suggestions. Us"
 "e the Enter key to select a suggestion or the Escape key to close the suggesti"
@@ -428,7 +434,7 @@ msgstr ""
 " navegar pelas sugestões. Use a tecla Enter para selecionar uma sugestão ou a "
 "tecla Escape para fechar as sugestões."
 
-#: ../../app/views/branded/layouts/_json_constants.html.erb:31
+#: ../../app/views/branded/layouts/_json_constants.html.erb:33
 msgid ""
 "Please select an item from the list or check the box below and provide a name "
 "for your institution."
@@ -436,90 +442,83 @@ msgstr ""
 "Selecione um item da lista ou marque a caixa abaixo e forneça um nome para sua"
 " instituição."
 
-#: ../../app/views/branded/layouts/_json_constants.html.erb:32
+#: ../../app/views/branded/layouts/_json_constants.html.erb:34
 msgid "Please select an item from the list."
 msgstr "Por favor, selecione um item na lista."
 
-#: ../../app/views/branded/layouts/_json_constants.html.erb:36
+#: ../../app/views/branded/layouts/_json_constants.html.erb:38
 #: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:29
 msgid "More info"
 msgstr "Mais informações"
 
-#: ../../app/views/branded/layouts/_json_constants.html.erb:37
+#: ../../app/views/branded/layouts/_json_constants.html.erb:39
 msgid "Less info"
 msgstr "Menos informação"
 
-#: ../../app/views/branded/layouts/_json_constants.html.erb:38
+#: ../../app/views/branded/layouts/_json_constants.html.erb:40
 msgid "Acquiring your DMP ID. This may take a few seconds ..."
 msgstr "Adquirindo seu ID DMP. Isso pode demorar alguns segundos ..."
 
-#: ../../app/views/branded/layouts/_json_constants.html.erb:42
+#: ../../app/views/branded/layouts/_json_constants.html.erb:44
 msgid "field"
 msgstr "campo"
 
-#: ../../app/views/branded/layouts/_json_constants.html.erb:43
+#: ../../app/views/branded/layouts/_json_constants.html.erb:45
 msgid "fields"
 msgstr "Campos"
 
-#: ../../app/views/branded/layouts/_json_constants.html.erb:45
+#: ../../app/views/branded/layouts/_json_constants.html.erb:47
 #: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:42
 msgid "No filters applied"
 msgstr "Nenhum filtro aplicado"
 
-#: ../../app/views/branded/layouts/_json_constants.html.erb:46
+#: ../../app/views/branded/layouts/_json_constants.html.erb:48
 #: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:44
 msgid "1 filter applied"
 msgstr "1 filtro aplicado"
 
-#: ../../app/views/branded/layouts/_json_constants.html.erb:47
+#: ../../app/views/branded/layouts/_json_constants.html.erb:49
 #: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:46
 msgid "%<nbr>s filters applied"
 msgstr "%<nbr> s filtros aplicados"
 
-#: ../../app/views/branded/layouts/_json_constants.html.erb:49
+#: ../../app/views/branded/layouts/_json_constants.html.erb:51
 msgid "Please check this box."
 msgstr "Por favor, marque esta caixa."
 
-#: ../../app/views/branded/layouts/_json_constants.html.erb:50
+#: ../../app/views/branded/layouts/_json_constants.html.erb:52
 msgid "Please enter an email address."
 msgstr "Por favor insira um endereço de e-mail."
 
-#: ../../app/views/branded/layouts/_json_constants.html.erb:51
+#: ../../app/views/branded/layouts/_json_constants.html.erb:53
 msgid "Please complete this %<variableText>s field."
 msgstr "Por favor, complete este %<variableText> campo s."
 
-#: ../../app/views/branded/layouts/_json_constants.html.erb:52
+#: ../../app/views/branded/layouts/_json_constants.html.erb:54
 msgid "Please enter a password."
 msgstr "Por favor insira uma senha."
 
-#: ../../app/views/branded/layouts/_json_constants.html.erb:54
+#: ../../app/views/branded/layouts/_json_constants.html.erb:56
 msgid "Please enter a valid email address."
 msgstr "Por favor insira um endereço de e-mail válido."
 
-#: ../../app/views/branded/layouts/_json_constants.html.erb:55
+#: ../../app/views/branded/layouts/_json_constants.html.erb:57
 msgid "Please enter a value for this %<variableText>s field."
 msgstr "Insira um valor para este %<variableText> campo s."
 
-#: ../../app/views/branded/layouts/_json_constants.html.erb:56
+#: ../../app/views/branded/layouts/_json_constants.html.erb:58
 msgid "Please correct the fields below:"
 msgstr "Por favor, corrija os campos abaixo:"
 
-#: ../../app/views/branded/layouts/_json_constants.html.erb:57
+#: ../../app/views/branded/layouts/_json_constants.html.erb:59
 msgid "Please enter a password of at least 8 characters."
 msgstr "Por favor, insira uma senha de pelo menos 8 caracteres."
 
-#: ../../app/views/branded/layouts/_json_constants.html.erb:59
+#: ../../app/views/branded/layouts/_json_constants.html.erb:61
 msgid "Ready to submit:"
 msgstr "Pronto para enviar:"
 
-#: ../../app/views/branded/layouts/_notifications.html.erb:13
-#: ../../app/views/branded/layouts/_notifications.html.erb:24
-#: ../../app/views/branded/layouts/_notifications.html.erb:36
-#: ../../app/views/branded/paginable/templates/_invite_modal.html.erb:14
-msgid "Close"
-msgstr "Fechar"
-
-#: ../../app/views/branded/layouts/_notifications.html.erb:34
+#: ../../app/views/branded/layouts/_notifications.html.erb:42
 msgid "Error:"
 msgstr "Erro"
 
@@ -586,6 +585,80 @@ msgstr "Instituição"
 msgid "Institutional Signin Enabled"
 msgstr "Assinatura institucional habilitada"
 
+#: ../../app/views/branded/paginable/plans/_org_admin.html.erb:4
+msgid ""
+"    The data on the usage dashboard is historical in nature. This means that t"
+"he number of records below may not\n"
+"    match the count shown on the usage dashboard. For example if one of your u"
+"sers created a plan in October and\n"
+"    then removed that plan in November, it would have been included on the usa"
+"ge dashboard's total for October but\n"
+"    would not appear in the list below.\n"
+msgstr ""
+"Os dados no painel de uso são históricos por natureza. Isso significa que o nú"
+"mero de registros abaixo pode não\n"
+"    corresponda à contagem mostrada no painel de uso. Por exemplo, se um de se"
+"us usuários criou um plano em outubro e\n"
+"    removido o plano em novembro, ele seria incluído no total do painel de uso"
+" de outubro, mas\n"
+"    não apareceria na lista abaixo."
+
+#: ../../app/views/branded/paginable/plans/_org_admin.html.erb:13
+msgid ""
+"Note: You can filter this table by 'Created' dates. Enter the month abbreviati"
+"on and a 4 digit year into the search box above.<br>For example: 'Oct 2019' or"
+" 'Jun 2013'."
+msgstr ""
+"Nota: Você pode filtrar esta tabela por datas 'Criadas'. Digite a abreviação d"
+"o mês e um ano de 4 dígitos na caixa de pesquisa acima. <br> Por exemplo: 'Out"
+" 2019' ou 'Jun 2013'."
+
+#: ../../app/views/branded/paginable/plans/_org_admin.html.erb:15
+msgid ""
+"Featured plans are displayed first on the 'Public DMPs' page. A plan must be p"
+"ublicly visible to be 'featured'."
+msgstr ""
+"Os planos em destaque são exibidos primeiro na página 'Public DMPs'. Um plano "
+"deve ser visível publicamente para ser 'destacado'."
+
+#: ../../app/views/branded/paginable/plans/_org_admin.html.erb:21
+msgid "Project Title"
+msgstr "Título do Projeto"
+
+#: ../../app/views/branded/paginable/plans/_org_admin.html.erb:22
+msgid "Template"
+msgstr "Modelo"
+
+#: ../../app/views/branded/paginable/plans/_org_admin.html.erb:23
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:12
+msgid "Organisation"
+msgstr "Organização"
+
+#: ../../app/views/branded/paginable/plans/_org_admin.html.erb:24
+msgid "Owner"
+msgstr "Proprietário"
+
+#: ../../app/views/branded/paginable/plans/_org_admin.html.erb:25
+msgid "Created"
+msgstr "Criado"
+
+#: ../../app/views/branded/paginable/plans/_org_admin.html.erb:26
+msgid "Visibility"
+msgstr "Visibilidade"
+
+#: ../../app/views/branded/paginable/plans/_org_admin.html.erb:28
+#: ../../app/views/branded/public_pages/_plans_results.html.erb:40
+msgid "DMP ID"
+msgstr "ID DMP"
+
+#: ../../app/views/branded/paginable/plans/_org_admin.html.erb:30
+msgid "Featured?"
+msgstr "Destaque?"
+
+#: ../../app/views/branded/paginable/plans/_org_admin.html.erb:49
+msgid "Test"
+msgstr "Teste"
+
 #: ../../app/views/branded/paginable/research_outputs/_index.html.erb:7
 #: ../../app/views/branded/public_pages/_plans_results.html.erb:11
 #: ../../app/views/branded/research_outputs/_form.html.erb:41
@@ -625,6 +698,10 @@ msgstr "Editar"
 #: ../../app/views/branded/paginable/research_outputs/_index.html.erb:55
 msgid "You are about to delete '%{research_output_title}'. Are you sure?"
 msgstr "Você está prestes a excluir '%{research_output_title}'. Tem certeza?"
+
+#: ../../app/views/branded/paginable/templates/_invite_modal.html.erb:14
+msgid "Close"
+msgstr "Fechar"
 
 #: ../../app/views/branded/paginable/templates/_invite_modal.html.erb:17
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:75
@@ -723,10 +800,6 @@ msgstr "Descrição"
 #: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:23
 msgid "Funder"
 msgstr "Órgão Financiador"
-
-#: ../../app/views/branded/paginable/templates/_organisational.html.erb:12
-msgid "Organisation"
-msgstr "Organização"
 
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:14
 msgid "Status"
@@ -1034,8 +1107,8 @@ msgid "Collaborators"
 msgstr "Colaboradores"
 
 #: ../../app/views/branded/plans/_navigation.html.erb:9
-msgid "Finalise"
-msgstr "Finalizar"
+msgid "Finalise / Publish"
+msgstr "Finalizar / Publicar"
 
 #: ../../app/views/branded/plans/_navigation.html.erb:14
 msgid "Project Details"
@@ -1362,13 +1435,9 @@ msgstr "Destaque"
 msgid "Most Recent"
 msgstr "Mais recente"
 
-#: ../../app/views/branded/public_pages/_plans_results.html.erb:40
-msgid "DMP ID"
-msgstr "ID DMP"
-
 #: ../../app/views/branded/public_pages/_plans_results.html.erb:47
-msgid "Last modified"
-msgstr "Última modificação"
+msgid "Creation date"
+msgstr "Data de criação"
 
 #: ../../app/views/branded/public_pages/_plans_results.html.erb:65
 msgid "View All"
@@ -1407,19 +1476,13 @@ msgstr "Planos Públicos"
 
 #: ../../app/views/branded/public_pages/plan_index.html.erb:4
 msgid ""
-"Public plans are plans created using the DMPTool and shared publicly by their "
-"owners."
+"Public DMPs are plans created using the DMPTool service and shared publicly by"
+" their owners. They are not vetted for quality, completeness, or adherence to "
+"funder guidelines."
 msgstr ""
-"Planos públicos são planos criados usando o DMPTool e compartilhados publicame"
-"nte por seus proprietários."
-
-#: ../../app/views/branded/public_pages/plan_index.html.erb:5
-msgid ""
-"<strong>Featured</strong> plans have been vetted by curators for quality, comp"
-"leteness, and adherence to funder guidelines."
-msgstr ""
-"<strong>Os</strong> planos em destaque foram examinados pelos curadores quanto"
-" à qualidade, integridade e aderência às diretrizes do financiador."
+"DMPs públicos são planos criados usando o serviço DMPTool e compartilhados pub"
+"licamente por seus proprietários. Eles não são avaliados quanto à qualidade, i"
+"ntegridade ou aderência às diretrizes do financiador."
 
 #: ../../app/views/branded/public_pages/template_index.html.erb:1
 msgid "DMP Templates"
@@ -5155,7 +5218,7 @@ msgstr ""
 "ode fazer isso usando o link abaixo."
 
 #: ../../app/views/branded/users/mailer/reset_password_instructions.html.erb:14
-#: ../../app/views/branded/users/passwords/edit.html.erb:31
+#: ../../app/views/branded/users/passwords/edit.html.erb:39
 msgid "Change my password"
 msgstr "Mudar minha senha"
 
@@ -5188,17 +5251,22 @@ msgstr ""
 msgid "Change your password"
 msgstr "Mudar sua senha"
 
-#: ../../app/views/branded/users/passwords/edit.html.erb:10
+#: ../../app/views/branded/users/passwords/edit.html.erb:11
 msgid "New password"
 msgstr "Nova senha"
 
-#: ../../app/views/branded/users/passwords/edit.html.erb:14
+#: ../../app/views/branded/users/passwords/edit.html.erb:15
 msgid "(%{min_password_length} characters minimum)"
 msgstr "(Mínimo de %{min_password_length} caracteres)"
 
-#: ../../app/views/branded/users/passwords/edit.html.erb:24
+#: ../../app/views/branded/users/passwords/edit.html.erb:25
 msgid "Confirm new password"
 msgstr "Confirme a nova senha"
+
+#: ../../app/views/branded/users/passwords/edit.html.erb:33
+#: ../../app/views/branded/users/registrations/_profile_form.html.erb:53
+msgid "Show passwords"
+msgstr "Mostrar senhas"
 
 #: ../../app/views/branded/users/passwords/new.html.erb:14
 msgid "Send me reset password instructions"
@@ -5249,10 +5317,6 @@ msgstr "Nova Senha"
 #: ../../app/views/branded/users/registrations/_profile_form.html.erb:43
 msgid "Confirm Password"
 msgstr "Confirme a Senha"
-
-#: ../../app/views/branded/users/registrations/_profile_form.html.erb:53
-msgid "Show passwords"
-msgstr "Mostrar senhas"
 
 #: ../../app/views/branded/users/registrations/_profile_form.html.erb:83
 msgid "Department or school"
