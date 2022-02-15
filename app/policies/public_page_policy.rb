@@ -29,8 +29,8 @@ class PublicPagePolicy < ApplicationPolicy
   def plan_organisationally_exportable?
     if @record.is_a?(Plan) && @user.is_a?(User)
       return @record.publicly_visible? ||
-        (@record.organisationally_visible? && @record.owner.present? &&
-         @record.owner.org_id == @user.org_id)
+             (@record.organisationally_visible? && @record.owner.present? &&
+              @record.owner.org_id == @user.org_id)
     end
 
     false

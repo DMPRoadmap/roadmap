@@ -8,7 +8,8 @@
     "test": "karma start spec/karma/unit.js",
     "pa11y": "pa11y --runner axe --runner htmlcs",
     "pa11yci": "pa11y-ci --config pa11yci/pa11yci.config.json 2>&1 | tee pa11yci/pa11yci-results.txt",
-    "test-a11y": "start-server-and-test serve 1234 pa11yci"
+    "test-a11y": "start-server-and-test serve 1234 pa11yci",
+    "pa11y-sitemap": "pa11y-ci --sitemap http://localhost:3000/sitemap.xml --sitemap-exclude \"/*.pdf\""
   },
   "repository": {
     "type": "git",
@@ -46,6 +47,7 @@
     "jquery-ui-sass": "^0.0.1",
     "js-cookie": "^2.2.1",
     "number-to-text": "^0.3.8",
+    "pa11y-ci": "^3.0.1",
     "popper.js": "^1.16.1",
     "rails-erb-loader": "^5.5.2",
     "regenerator-runtime": "^0.13.5",

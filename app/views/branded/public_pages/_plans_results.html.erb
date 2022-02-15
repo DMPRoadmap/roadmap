@@ -38,11 +38,7 @@
     <dl class="c-plan-metadata">
       <% if plan.dmp_id.present? %>
         <dt><%= _('DMP ID') %>:</dt>
-        <dd>
-          <a href="<%= plan.dmp_id.value %>" target="_blank" class="has-new-window-popup-info">
-            <%= id_for_display(id: plan.dmp_id, with_scheme_name: false).html_safe %>
-          </a>
-        </dd>
+        <dd><%= id_for_display(id: plan.dmp_id, with_scheme_name: false).html_safe %></dd>
       <% end %>
       <dt><%= _('Creation date') %>:</dt><dd><%= l(plan.created_at.to_date, formats: :short) %></dd>
       <% if plan.language.present? %>
