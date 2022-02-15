@@ -1,14 +1,14 @@
-# English translations for integration package.
-# Copyright (C) 2022 integration
-# This file is distributed under the same license as the integration package.
+# English translations for roadmap package.
+# Copyright (C) 2022 roadmap
+# This file is distributed under the same license as the roadmap package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: integration 1.0\n"
+"Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-02-09 18:22-0500\n"
-"PO-Revision-Date: 2022-02-10 00:23+0100\n"
+"POT-Creation-Date: 2022-02-15 12:03-0500\n"
+"PO-Revision-Date: 2022-02-15 18:03+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_CA\n"
@@ -22382,7 +22382,7 @@ msgstr ""
 
 #: ../../app/views/contact_us/contacts/new.html.erb:10
 #: ../../app/views/layouts/_branding.html.erb:36
-#: ../../app/views/layouts/_footer.html.erb:17
+#: ../../app/views/layouts/_footer.html.erb:18
 #: ../../app/views/layouts/_footer.html.erb:27
 #: ../../app/views/layouts/_footer.html.erb:36
 #: ../../app/views/layouts/_footer.html.erb:45
@@ -23249,18 +23249,18 @@ msgstr ""
 msgid "Notifications"
 msgstr ""
 
+#: ../../app/views/layouts/_footer.html.erb:13
 #: ../../app/views/layouts/_footer.html.erb:16
-#: ../../app/views/layouts/_footer.html.erb:25
+msgid "Digital Research Alliance of Canada"
+msgstr ""
+
+#: ../../app/views/layouts/_footer.html.erb:16
+#: ../../app/views/layouts/_footer.html.erb:26
 #: ../../app/views/layouts/_footer.html.erb:35
 #: ../../app/views/layouts/_footer.html.erb:44
 #: ../../app/views/layouts/_footer.html.erb:51
 #: ../../app/views/layouts/_footer.html.erb:57
 msgid "(opens in a new window)"
-msgstr ""
-
-#: ../../app/views/layouts/_footer.html.erb:22
-#: ../../app/views/layouts/_footer.html.erb:25
-msgid "Digital Research Alliance of Canada"
 msgstr ""
 
 #: ../../app/views/layouts/_footer.html.erb:32
@@ -24380,7 +24380,7 @@ msgstr ""
 
 #: ../../app/views/orgs/admin_edit.html.erb:22
 #: ../../app/views/plans/_navigation.html.erb:27
-#: ../../app/views/plans/_request_feedback_form.html.erb:13
+#: ../../app/views/plans/_request_feedback_form.html.erb:17
 #: ../../app/views/static_pages/help.html.erb:53
 msgid "Request feedback"
 msgstr ""
@@ -25070,11 +25070,17 @@ msgstr ""
 msgid "Request expert feedback"
 msgstr ""
 
-#: ../../app/views/plans/_request_feedback_form.html.erb:11
+#: ../../app/views/plans/_request_feedback_form.html.erb:8
+msgid ""
+"<p>Click below to give data management staff at %{owner_org}, the Plan Owner's"
+" org, access to read and comment on your plan.</p>"
+msgstr ""
+
+#: ../../app/views/plans/_request_feedback_form.html.erb:15
 msgid "You can continue to edit and download the plan in the interim."
 msgstr ""
 
-#: ../../app/views/plans/_request_feedback_form.html.erb:17
+#: ../../app/views/plans/_request_feedback_form.html.erb:21
 msgid "Feedback has been requested."
 msgstr ""
 
@@ -25501,7 +25507,7 @@ msgid "If you have an account please sign in and start creating or editing your 
 msgstr ""
 
 #: ../../app/views/static_pages/about_us.html.erb:38
-msgid "If you do not have a %{application_name} account, click on"
+msgid "Sign up"
 msgstr ""
 
 #: ../../app/views/static_pages/about_us.html.erb:38
@@ -25509,15 +25515,15 @@ msgid "on the homepage."
 msgstr ""
 
 #: ../../app/views/static_pages/about_us.html.erb:38
-msgid "Sign up"
-msgstr ""
-
-#: ../../app/views/static_pages/about_us.html.erb:39
-msgid "page for guidance."
+msgid "If you do not have a %{application_name} account, click on"
 msgstr ""
 
 #: ../../app/views/static_pages/about_us.html.erb:39
 msgid "Please visit the"
+msgstr ""
+
+#: ../../app/views/static_pages/about_us.html.erb:39
+msgid "page for guidance."
 msgstr ""
 
 #: ../../app/views/static_pages/about_us.html.erb:43
@@ -26562,6 +26568,10 @@ msgid "Hello %{recipient_name},"
 msgstr ""
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
+msgid " based on the template "
+msgstr ""
+
+#: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " is creating a Data Management Plan and has answered "
 msgstr ""
 
@@ -26571,10 +26581,6 @@ msgstr ""
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " in a plan called "
-msgstr ""
-
-#: ../../app/views/user_mailer/question_answered.html.erb:5
-msgid " based on the template "
 msgstr ""
 
 #: ../../app/views/user_mailer/sharing_notification.html.erb:5
@@ -26735,11 +26741,11 @@ msgid "Download users"
 msgstr ""
 
 #: ../../app/views/users/refresh_token.js.erb:1
-msgid "Unable to regenerate your API token."
+msgid "Successfully regenerate your API token."
 msgstr ""
 
 #: ../../app/views/users/refresh_token.js.erb:1
-msgid "Successfully regenerate your API token."
+msgid "Unable to regenerate your API token."
 msgstr ""
 
 #: i18n_placeholders.rb:4
