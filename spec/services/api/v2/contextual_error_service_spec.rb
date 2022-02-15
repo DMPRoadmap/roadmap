@@ -132,7 +132,7 @@ RSpec.describe Api::V2::ContextualErrorService do
         @contributor.name = nil
         @contributor.email = nil
         # rubocop:disable Layout/LineLength
-        expected = ['Contributor/Contact: \'\' : ["Name can\'t be blank if no email is provided.", "Email can\'t be blank if no name is provided"]']
+        expected = ['Contributor/Contact: \'\' : ["Name can\'t be blank if no email is provided.", "Email can\'t be blank if no name is provided."]']
         # rubocop:enable Layout/LineLength
         expect(described_class.send(:find_contributor_errors, contributor: @contributor)).to eql(expected)
       end

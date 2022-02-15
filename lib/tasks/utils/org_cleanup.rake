@@ -3,6 +3,43 @@
 require 'text'
 
 namespace :org_cleanup do
+
+  desc 'Merge the first org_id into the second org_id'
+  task :merge_orgs, %i[loser winner commit] => [:environment] do |_t, args|
+    commit_it = args[:loser] == 'true' ? true : false
+    if args[:loser].present? && args[:winner].present?
+      loser = Org.includes(:templates, :tracker, :annotations,
+                           :departments, :token_permission_types, :funded_plans,
+                           identifiers: [:identifier_scheme],
+                           guidance_groups: [guidances: [:themes]],
+                           users: [identifiers: [:identifier_scheme]])
+                 .find_by(id: args[:loser])
+
+      winner = Org.includes(:templates, :tracker, :annotations,
+                            :departments, :token_permission_types, :funded_plans,
+                            identifiers: [:identifier_scheme],
+                            guidance_groups: [guidances: [:themes]],
+                            users: [identifiers: [:identifier_scheme]])
+                  .find_by(id: args[:winner])
+
+      if loser.present? && winner.present
+        if commit_it
+
+        else
+
+        end
+      else
+        p 'Unable to merge orgs!'
+        p 'Unable to find org to merge (the one that will go away)' unless loser.present?
+        p 'Unable to find org to merge to (the one that will remain)' unless winner.present?
+      end
+    else
+      p 'Unable to merge orgs!'
+      p 'Expected 2 org ids. The 1st representing the Org that will be merged (go away) and the 2nd being the Org that will remain.'
+      p 'For example: rails "org_cleanup:merge_orgs[1,2,false]"'
+    end
+  end
+
   desc 'Detect duplicate Orgs (RegistryOrg prioritization)'
   task detect_dups: :environment do
     registry_orgs = RegistryOrg.all.map do |registry_org|

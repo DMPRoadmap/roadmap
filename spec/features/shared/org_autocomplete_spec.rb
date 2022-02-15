@@ -415,14 +415,14 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
           # Make sure the correct Orgs are suggested
           expect(suggestion_exists?(@org_managed.name)).to eql(true)
           expect(suggestion_exists?(@funder_managed.name)).to eql(true)
-          expect(suggestion_exists?(@org_unmanaged.name)).to eql(true)
-          expect(suggestion_exists?(@funder_unmanaged.name)).to eql(true)
           expect(suggestion_exists?(@associated_matched.name)).to eql(true)
           expect(suggestion_exists?(@associated_matched_funder.name)).to eql(true)
 
           # Make sure that RegistryOrgs with no associated Org are NOT suggested
           expect(suggestion_exists?(@registry_org.name)).to eql(false)
           expect(suggestion_exists?(@registry_funder.name)).to eql(false)
+          expect(suggestion_exists?(@org_unmanaged.name)).to eql(false)
+          expect(suggestion_exists?(@funder_unmanaged.name)).to eql(false)
 
           # Make sure the other Orgs are NOT suggested
           unmatched_never_appear?

@@ -35,15 +35,9 @@ RSpec.feature 'Locales', type: :feature, js: true do
       create_plan_text = I18n.with_locale(:de) do
         _('Create plan')
       end
-
       click_button 'Language'
       expect(current_path).to eql(plans_path)
       expect(page).not_to have_text(create_plan_text)
-
-      p 'Local Spec:'
-      pp Language.all.inspect
-      pp page.body
-
       click_link 'German'
       expect(current_path).to eql(plans_path)
       expect(page).to have_text(create_plan_text)

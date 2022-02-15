@@ -49,11 +49,6 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
     click_link 'Publish'
     sleep(2)
 
-    p 'Template Upgrade Customizations Spec:'
-    pp page.body
-    p '-----------------------------------'
-    pp customized_template.inspect
-
     expect(customized_template.reload.published?).to eql(true)
 
     # Move to the other funder Org's Templates

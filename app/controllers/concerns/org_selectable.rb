@@ -158,7 +158,7 @@ module OrgSelectable
 
     # Create a new Org
     def create_org!(name:)
-      org = ::Org.find_or_create_by(name: name)
+      org = ::Org.find_or_initialize_by(name: name)
       return org unless org.new_record?
 
       org.update(

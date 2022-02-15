@@ -55,10 +55,10 @@ RSpec.describe RegistryOrgsController, type: :controller do
         @controller.expects(:registry_orgs_search).with(hash).returns([@registry_org])
         @controller.send(:find_by_search_term, term: @org.name)
       end
-      it 'it calls :registry_orgs_search, :orgs_search and :sort_search_results' do
+      it 'it calls :registry_orgs_search, :orgs_search and :deduplicate' do
         @controller.expects(:registry_orgs_search).returns([@registry_org])
         @controller.expects(:orgs_search).returns([@org])
-        @controller.expects(:sort_search_results).with(term: @org.name, results: [@registry_org, @org])
+        @controller.expects(:deduplicate).returns([@registry_org, @org])
         @controller.send(:find_by_search_term, term: @org.name)
       end
       it 'does not return orgs who have an association in the registry_orgs table' do
@@ -166,40 +166,6 @@ RSpec.describe RegistryOrgsController, type: :controller do
       end
     end
 
-    describe ':sort_search_results(results:, term:)' do
-      before(:each) do
-        @other_registry_org = create(:registry_org, name: "another one like #{@org.name}")
-      end
-      it 'returns an empty array if results is not present' do
-        expect(@controller.send(:sort_search_results, results: nil, term: @org.name))
-      end
-      it 'returns an empty array if results is empty' do
-        expect(@controller.send(:sort_search_results, results: [], term: @org.name))
-      end
-      it 'returns an empty array if term is not present' do
-        expect(@controller.send(:sort_search_results, results: [@org], term: nil))
-      end
-      it 'calls :weigh for each result' do
-        @controller.expects(:weigh).twice
-        @controller.send(:sort_search_results, results: [@org, @registry_org], term: @org.name)
-      end
-      it 'sorts the results by weight and name' do
-        @controller.expects(:weigh).with(term: @org.name, org: @registry_org).returns(3)
-        @controller.expects(:weigh).with(term: @org.name, org: @other_registry_org).returns(1)
-        results = @controller.send(:sort_search_results, results: [@other_registry_org, @registry_org],
-                                                         term: @org.name)
-        expect(results.length).to eql(2)
-        expect(results.first).to eql(@registry_org.name)
-        expect(results.last).to eql(@other_registry_org.name)
-      end
-      it 'returns the names of the orgs only' do
-        results = @controller.send(:sort_search_results, results: [@other_registry_org, @registry_org],
-                                                         term: @org.name)
-        expect(results.include?(@registry_org.name)).to eql(true)
-        expect(results.include?(@other_registry_org.name)).to eql(true)
-      end
-    end
-
     describe ':weigh(term:, org:)' do
       before(:each) do
         @term = Faker::Music::PearlJam.song.gsub(' ', '-').upcase
@@ -263,6 +229,57 @@ RSpec.describe RegistryOrgsController, type: :controller do
         @org.name = "#{@org.name} (#{@term})"
         @org.abbreviation = @term
         expect(@controller.send(:weigh, term: @term, org: @org)).to eql(2)
+      end
+    end
+
+    describe 'deduplicate(term:, list: [])' do
+      before(:each) do
+        @other_registry_org = create(:registry_org, name: "Another one like #{@org.name}")
+        @predominant_org = create(:org, name: "predominent #{@org.name.downcase}")
+        @duplicate_registry_org = create(:registry_org, name: "another one like #{@org.name}".downcase)
+        @duplicate_org = create(:org, name: @org.name.downcase)
+
+        create(:user, org: @predominant_org)
+        create(:user, org: @predominant_org)
+        create(:user, org: @predominant_org)
+      end
+      it 'returns an empty array if results is not present' do
+        expect(@controller.send(:deduplicate, list: nil, term: @org.name))
+      end
+      it 'returns an empty array if results is empty' do
+        expect(@controller.send(:deduplicate, list: [], term: @org.name))
+      end
+      it 'returns an empty array if term is not present' do
+        expect(@controller.send(:deduplicate, list: [@org], term: nil))
+      end
+      it 'calls :weigh for each result' do
+        @controller.expects(:weigh).twice
+        @controller.send(:deduplicate, list: [@org, @registry_org], term: @org.name)
+      end
+      it 'sorts the results by user_count desc, weight desc and name asc' do
+        @controller.expects(:weigh).with(term: @org.name, org: @registry_org).returns(3)
+        @controller.expects(:weigh).with(term: @org.name, org: @other_registry_org).returns(1)
+        @controller.expects(:weigh).with(term: @org.name, org: @predominant_org).returns(3)
+        results = @controller.send(:deduplicate, list: [@predominant_org, @other_registry_org,
+                                                        @registry_org],
+                                                 term: @org.name)
+        expect(results.length).to eql(3)
+        expect(results.first).to eql(@predominant_org)
+        expect(results.last).to eql(@other_registry_org)
+      end
+      it 'does not return the duplicate records' do
+        results = @controller.send(:deduplicate, list: [@registry_org, @other_registry_org,
+                                                        @duplicate_registry_org, @org,
+                                                        @predominant_org, @duplicate_org],
+                                                 term: @org.name)
+
+        expect(results.include?(@registry_org)).to eql(true)
+        expect(results.include?(@other_registry_org)).to eql(true)
+        expect(results.include?(@org)).to eql(true)
+        expect(results.include?(@predominant_org)).to eql(true)
+
+        expect(results.include?(@duplicate_registry_org)).to eql(false)
+        expect(results.include?(@duplicate_org)).to eql(false)
       end
     end
   end

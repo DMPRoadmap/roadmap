@@ -153,7 +153,7 @@ class RegistryOrgsController < ApplicationController
   # the results, it will use 'unesp'
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def deduplicate(term:, list: [])
-    return list unless list.any?
+    return list unless list.is_a?(Array) && list.any? && term.present?
 
     # Fetch the user counts so we can sort appropriately
     hashes = list.map do |item|

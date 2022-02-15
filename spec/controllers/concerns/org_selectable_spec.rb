@@ -557,10 +557,13 @@ RSpec.describe OrgSelectable do
         Rails.configuration.x.organisation.helpdesk_email = contact_email
         Rails.configuration.x.application.name = app
 
-        new_name = Faker::Movies::StarWars.unique.character
+        new_name = Faker::Movies::StarWars.unique.character.split.last
         result = @controller.send(:create_org!, name: new_name)
         expect(result.new_record?).to eql(false)
         expect(result.name).to eql(new_name)
+
+pp result.inspect
+
         expect(result.abbreviation).to eql(Org.name_to_abbreviation(name: new_name))
         expect(result.contact_email).to eql(contact_email)
         expect(result.contact_name).to eql("#{app} helpdesk")
