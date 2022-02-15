@@ -4,17 +4,24 @@
 
 <%= form_for org, url: merge_analyze_super_admin_org_path(org), method: :post, remote: true do |form| %>
   <div class="row">
-    <div id="org-merge-controls">
+    <div class="col-md-12">
       <p><%= sanitize(_("Please select the Organisation that will replace the current organisation: '<strong>%{org_name}</strong>'.") % { org_name: org.name }) %></p>
       <p><%= _(" Then click the 'analyze' button to review the proposed changes. Note that no changes will take place until you have reviewed and approve of the changes.") %></p>
-      <%= render partial: "shared/org_autocomplete",
-              locals: { form: form,
-                        col_size: 8,
-                        default_org: nil,
-                        required: true,
-                        known_only: true,
-                        div_id: 'merge-org-controls',
-                        label: _("Organisation lookup") } %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div id="org-merge-controls">
+        <%= render partial: "shared/org_autocomplete",
+                locals: { form: form,
+                          col_size: 8,
+                          default_org: nil,
+                          required: true,
+                          known_only: true,
+                          div_id: 'merge-org-controls',
+                          label: _("Organisation lookup") } %>
+      </div>
     </div>
   </div>
   <div class="row">
