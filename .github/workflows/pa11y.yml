@@ -57,7 +57,10 @@ jobs:
     - name: 'Precompile all of the Assets'
       run: bin/rails assets:precompile
 
-    - name: Run pa11y-ci tests
+    - name: 'Start up the application'
+      run: bin/rails s -d
+
+    - name: 'Run pa11y-ci tests'
       run: yarn pa11y-sitemap
 
     # - name: Read pa11y-ci test results
@@ -73,3 +76,6 @@ jobs:
     #     echo "::error::Accessibility errors were found."
     #     echo "${{ steps.pa11yci_results.outputs.content }}"
     #     exit 1
+
+    - name: 'Shut down the application'
+      run: kill `cat tmp/pids/server.pid`
