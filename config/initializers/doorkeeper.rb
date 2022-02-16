@@ -32,15 +32,24 @@ Doorkeeper.configure do
     # if they are not, send them to the oauth sign in page (retain the parms in the session)
     unless current_user.present? && session['oauth-referer'].present?
       oauth_path = oauth_authorization_path(client_id: params.fetch('client_id', ''),
-        redirect_uri: params.fetch('redirect_uri', ''),
-        state: params.fetch('state', ''),
-        response_type: params.fetch('response_type', ''),
-        scope: params.fetch('scope', 'public'),
-        code_challenge: params.fetch('code_challenge', ''),
-        code_challenge_method: params.fetch('code_challenge_method', ''))
+                                            redirect_uri: params.fetch(
+                                              'redirect_uri', ''
+                                            ),
+                                            state: params.fetch('state', ''),
+                                            response_type: params.fetch(
+                                              'response_type', ''
+                                            ),
+                                            scope: params.fetch('scope', 'public'),
+                                            code_challenge: params.fetch(
+                                              'code_challenge', ''
+                                            ),
+                                            code_challenge_method: params.fetch(
+                                              'code_challenge_method', ''
+                                            ))
 
       session['oauth-referer'] = ApplicationService.encrypt(
-        payload: { client_id: params.fetch('client_id', ''), path: oauth_path })
+        payload: { client_id: params.fetch('client_id', ''), path: oauth_path }
+      )
     end
 
     current_user || render('doorkeeper/authorizations/new', layout: 'doorkeeper/application')
