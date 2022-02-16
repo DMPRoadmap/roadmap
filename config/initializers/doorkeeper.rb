@@ -32,11 +32,6 @@ Doorkeeper.configure do
 
     # The user must be signed_in in to provide authorization for the ApiClient
     # if they are not, send them to the oauth sign in page
-
-Rails.logger.warn "CURRENT USER: #{current_user.inspect}"
-Rails.logger.warn "CURRENT RESOURCE OWNER: #{@current_resource_owner.inspect}"
-Rails.logger.warn "PRE AUTH: #{@pre_auth.inspect}"
-
     current_user || render('doorkeeper/authorizations/new', layout: 'doorkeeper/application')
 
     #               render('/users/oauth_signin',
