@@ -18,13 +18,13 @@ if (signInBlock.length > 0 && backLink.length > 0) {
     backLink.removeClass('hidden');
   <% else %>
     // User has either not provided their email yet, or provided an unknown email or invalid login
-    <% partial = '/doorkeeper/authorizations/validate', locals: { client: oauth_hash[:client] } %>
+    <% partial = '/doorkeeper/authorizations/validate' %>
 
     backLink.addClass('hidden');
   <% end %>
 
   signInBlock.html('<%=
-    escape_javascript(render(partial: partial, locals: { resource: resource }))
+    escape_javascript(render(partial: partial, locals: { resource: resource, client: @client }))
   %>');
 
   toggleSpinner(false);
