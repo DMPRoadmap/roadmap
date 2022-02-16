@@ -11,6 +11,7 @@
   <%= _('Your address is associated with:') %>
 
   <h3><%= resource.org.name %></h3>
+  <%= form.hidden_field(:org_id, value: resource.org_id) %>
 
   <button type="submit"><%= _('Sign in with Institution to Continue') %></button>
 <% end %>
