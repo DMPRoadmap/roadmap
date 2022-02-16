@@ -32,16 +32,18 @@ Doorkeeper.configure do
 
     # The user must be signed_in in to provide authorization for the ApiClient
     # if they are not, send them to the oauth sign in page (retain the parms in the session)
-    oauth_path = oauth_authorization_path(client_id: params.fetch('client_id', ''),
-      redirect_uri: params.fetch('redirect_uri', ''),
-      state: params.fetch('state', ''),
-      response_type: params.fetch('response_type', ''),
-      scope: params.fetch('scope', 'public'),
-      code_challenge: params.fetch('code_challenge', ''),
-      code_challenge_method: params.fetch('code_challenge_method', ''))
+    unless session['oauth-referer'].present?
+      oauth_path = oauth_authorization_path(client_id: params.fetch('client_id', ''),
+        redirect_uri: params.fetch('redirect_uri', ''),
+        state: params.fetch('state', ''),
+        response_type: params.fetch('response_type', ''),
+        scope: params.fetch('scope', 'public'),
+        code_challenge: params.fetch('code_challenge', ''),
+        code_challenge_method: params.fetch('code_challenge_method', ''))
 
-    session['oauth-referer'] = ApplicationService.encrypt(
-      payload: { client_id: params.fetch('client_id', ''), path: oauth_path })
+      session['oauth-referer'] = ApplicationService.encrypt(
+        payload: { client_id: params.fetch('client_id', ''), path: oauth_path })
+    end
 
     render('doorkeeper/authorizations/new', layout: 'doorkeeper/application')
   end
