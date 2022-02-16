@@ -34,16 +34,16 @@ Rails.logger.warn "PARAMS: #{params.inspect}"
 
     # The user must be signed_in in to provide authorization for the ApiClient
     # if they are not, send them to the oauth sign in page
-    oauth_path = oauth_authorization_path(client_id: params['client_id'],
-      redirect_uri: params['redirect_uri'],
-      state: params['state'],
-      response_type: params['response_type'],
-      scope: params['scope'],
-      code_challenge: params['code_challenge'],
-      code_challenge_method: params['code_challenge_method'])
+    oauth_path = oauth_authorization_path(client_id: params.fetch('client_id', ''),
+      redirect_uri: params.fetch('redirect_uri', ''),
+      state: params.fetch('state', ''),
+      response_type: params.fetch('response_type', ''),
+      scope: params.fetch('scope', 'public'),
+      code_challenge: params.fetch('code_challenge', ''),
+      code_challenge_method: params.fetch('code_challenge_method', ''))
 
-    session['oauth-referer'] = ApplicationService.encrypt(payload: { client_id: params['client_id'],
-                                                                     path: oauth_path })
+    session['oauth-referer'] = ApplicationService.encrypt(
+      payload: { client_id: params.fetch('client_id', ''), path: oauth_path })
 
     current_user || render('doorkeeper/authorizations/new', layout: 'doorkeeper/application')
 
