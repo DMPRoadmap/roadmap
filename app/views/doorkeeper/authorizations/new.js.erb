@@ -4,9 +4,6 @@ let backLink = $('.c-serialnav');
 <%
 # See app/helpers/authentication_helper.rb for info on how the OAuth client info is handled
 oauth_hash = process_oauth
-
-Rails.logger.warn "RESOURCE AFTER: #{resource.inspect}"
-
 %>
 
 if (signInBlock.length > 0 && backLink.length > 0) {

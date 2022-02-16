@@ -29,9 +29,6 @@ module Users
         # If this is a user with an invitation, then clean up the stub data
         active_invite = resource.active_invitation?
 
-Rails.logger.warn "ACTIVE INVITE: #{active_invite}"
-Rails.logger.warn "RESOURCE BEFORE: #{resource.inspect}"
-
         resource.firstname = nil if active_invite
         resource.surname = nil if active_invite
         resource.org = nil if active_invite
