@@ -69,11 +69,14 @@ class ApplicationController < ActionController::Base
   # ---------------------------------------------------------
   # Start DMPTool Customization
   #
-
+  # Used by Devise after a user signs in
   def after_sign_in_path_for(_resource)
+    # If not signed in send to the home page
     return root_path unless user_signed_in?
+    # If signed in and not part of an Oauth2 workflow send to the Dashboard
     return plans_path unless session['oauth-referer'].present?
 
+    # Continue with the Oauth2 workflow
     oauth_hash = ApplicationService.decrypt(payload: session['oauth-referer'])
     return plans_path unless oauth_hash.present? && oauth_hash['path'].present?
 
