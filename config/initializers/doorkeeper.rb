@@ -28,9 +28,7 @@ Doorkeeper.configure do
   # layout located at: app/views/layouts/doorkeeper/application.html.erb
   #
   resource_owner_authenticator do
-    # current_user
-
-Rails.logger.warn "PARAMS: #{params.inspect}"
+    return current_user if current_user.present?
 
     # The user must be signed_in in to provide authorization for the ApiClient
     # if they are not, send them to the oauth sign in page
@@ -42,18 +40,10 @@ Rails.logger.warn "PARAMS: #{params.inspect}"
       code_challenge: params.fetch('code_challenge', ''),
       code_challenge_method: params.fetch('code_challenge_method', ''))
 
-Rails.logger.warn "OAUTH PATH: #{oauth_path}"
-
     session['oauth-referer'] = ApplicationService.encrypt(
       payload: { client_id: params.fetch('client_id', ''), path: oauth_path })
 
-Rails.logger.warn "OAUTH PATH: #{session['oauth-referer']}"
-
-    current_user || render('doorkeeper/authorizations/new', layout: 'doorkeeper/application')
-
-    #               render('/users/oauth_signin',
-    #                        layout: 'doorkeeper/application',
-    #                        locals: { client: ApiClient.find_by(uid: params['client_id']) })
+    render('doorkeeper/authorizations/new', layout: 'doorkeeper/application')
   end
 
   # If you didn't skip applications controller from Doorkeeper routes in your application routes.rb

@@ -6,10 +6,7 @@
 # See app/helpers/authentication_helper.rb for info on how the OAuth client info is handled
 oauth_hash = process_oauth
 
-Rails.logger.warn "CURRENT USER: #{current_user.inspect}"
-Rails.logger.warn "CURRENT RESOURCE OWNER: #{@current_resource_owner.inspect}"
-Rails.logger.warn "PRE AUTH: #{@pre_auth.inspect}"
-Rails.logger.warn "OAUTH_HASH: #{oauth_hash.inspect}"
+Rails.logger.warn "RESOLVED: #{oauth_hash.inspect}"
 
 %>
 

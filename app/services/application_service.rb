@@ -20,7 +20,6 @@ class ApplicationService
       return nil unless payload.present?
 
 Rails.logger.warn "ApplicationService - payload: #{payload.inspect}"
-Rails.logger.warn "ApplicationService ObjID: #{Rails.application.credentials.secret_key_base}"
 
       payload = payload.to_json if payload.respond_to?(:to_json)
       crypto.encrypt_and_sign(payload)
