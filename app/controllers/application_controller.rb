@@ -69,6 +69,17 @@ class ApplicationController < ActionController::Base
   # ---------------------------------------------------------
   # Start DMPTool Customization
   #
+
+  def after_sign_in_path_for(_resource)
+    return root_path unless user_signed_in?
+    return plans_path unless session['oauth-referer'].present?
+
+    oauth_hash = ApplicationService.decrypt(payload: session['oauth-referer'])
+    return plans_path unless oauth_hash.present? && oauth_hash['path'].present?
+
+    oauth_hash['path']
+  end
+
   # def after_sign_in_path_for(_resource)
   #   referer_path = URI(request.referer).path unless request.referer.nil?
   #   if from_external_domain? || referer_path.eql?(new_user_session_path) ||
