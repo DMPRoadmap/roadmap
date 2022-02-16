@@ -31,7 +31,7 @@ Doorkeeper.configure do
     return current_user if current_user.present?
 
     # The user must be signed_in in to provide authorization for the ApiClient
-    # if they are not, send them to the oauth sign in page
+    # if they are not, send them to the oauth sign in page (retain the parms in the session)
     oauth_path = oauth_authorization_path(client_id: params.fetch('client_id', ''),
       redirect_uri: params.fetch('redirect_uri', ''),
       state: params.fetch('state', ''),

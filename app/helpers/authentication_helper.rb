@@ -34,12 +34,9 @@ module AuthenticationHelper
       begin
         # Fetch the oauth info from the session and decrypt it
         oauth_hash = ApplicationService.decrypt(payload: session['oauth-referer'])
-
-Rails.logger.warn "OAUTH HASH: #{oauth_hash.inspect}"
-
         {
           path: oauth_hash['path'],
-          client: ApiClient.find_by(id: oauth_hash['client_id'])
+          client: ApiClient.find_by(uid: oauth_hash['client_id'])
         }
       rescue StandardError => e
         Rails.logger.error _("AuthenticationHelper.process_oauth - #{e.message}")
