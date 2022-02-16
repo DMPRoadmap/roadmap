@@ -41,7 +41,7 @@ Rails.logger.warn "PARAMS: #{params.inspect}"
       scope: params['scope'],
       code_challenge: params['code_challenge'],
       code_challenge_method: params['code_challenge_method'])
-    }
+
     session['oauth-referer'] = ApplicationService.encrypt(payload: { client_id: params['client_id'],
                                                                      path: oauth_path })
 
