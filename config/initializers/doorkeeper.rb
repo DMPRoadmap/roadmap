@@ -28,7 +28,15 @@ Doorkeeper.configure do
   # layout located at: app/views/layouts/doorkeeper/application.html.erb
   #
   resource_owner_authenticator do
-    current_user
+    # current_user
+
+    # The user must be signed_in in to provide authorization for the ApiClient
+    # if they are not, send them to the oauth sign in page
+    current_user || render('doorkeeper/authorizations/new', layout: 'doorkeeper/application')
+
+    #               render('/users/oauth_signin',
+    #                        layout: 'doorkeeper/application',
+    #                        locals: { client: ApiClient.find_by(uid: params['client_id']) })
   end
 
   # If you didn't skip applications controller from Doorkeeper routes in your application routes.rb
