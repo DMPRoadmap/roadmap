@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-02-15 12:03-0500\n"
-"PO-Revision-Date: 2022-02-15 18:03+0100\n"
+"POT-Creation-Date: 2022-02-16 17:37-0500\n"
+"PO-Revision-Date: 2022-02-16 23:37+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_CA\n"
@@ -30364,14 +30364,14 @@ msgid "Phase"
 msgstr "Phase"
 
 #: ../../app/models/concerns/exportable_plan.rb:28
-#: ../../app/models/exported_plan.rb:114 ../../app/models/exported_plan.rb:117
-msgid "Section"
-msgstr "Section"
-
-#: ../../app/models/concerns/exportable_plan.rb:28
 #: ../../app/models/exported_plan.rb:114
 msgid "Question"
 msgstr "Question"
+
+#: ../../app/models/concerns/exportable_plan.rb:28
+#: ../../app/models/exported_plan.rb:114 ../../app/models/exported_plan.rb:117
+msgid "Section"
+msgstr "Section"
 
 #: ../../app/models/concerns/exportable_plan.rb:28
 #: ../../app/models/concerns/exportable_plan.rb:30
@@ -30932,6 +30932,7 @@ msgstr ""
 
 #: ../../app/views/contact_us/contacts/_new_left.html.erb:4
 #: ../../app/views/contributors/_form.html.erb:10
+#: ../../app/views/guidance_groups/_guidance_group_form.html.erb:8
 #: ../../app/views/org_admin/conditions/_webhook_form.html.erb:14
 #: ../../app/views/org_admin/departments/edit.html.erb:14
 #: ../../app/views/org_admin/departments/new.html.erb:14
@@ -31181,16 +31182,16 @@ msgid "Thank you for registering. Please confirm your email address"
 msgstr "Merci de votre inscription. Veuillez confirmer votre adresse courriel."
 
 #: ../../app/views/devise/mailer/confirmation_instructions.html.erb:5
-msgid "or copy"
-msgstr "ou copier"
+msgid "Click here to confirm your account"
+msgstr "Cliquez ici pour confirmer votre compte"
 
 #: ../../app/views/devise/mailer/confirmation_instructions.html.erb:5
 msgid "into your browser"
 msgstr "dans votre navigateur"
 
 #: ../../app/views/devise/mailer/confirmation_instructions.html.erb:5
-msgid "Click here to confirm your account"
-msgstr "Cliquez ici pour confirmer votre compte"
+msgid "or copy"
+msgstr "ou copier"
 
 #: ../../app/views/devise/mailer/invitation_instructions.html.erb:11
 #: ../../app/views/user_mailer/new_comment.html.erb:2
@@ -31528,7 +31529,7 @@ msgstr "Renseignements personnels"
 
 #: ../../app/views/devise/registrations/edit.html.erb:22
 msgid "API Access"
-msgstr ""
+msgstr "Accès API"
 
 #: ../../app/views/devise/registrations/edit.html.erb:27
 msgid "Notification Preferences"
@@ -31625,6 +31626,27 @@ msgstr ""
 "exemple, dans un collège ou un institut précis, cochez cette case. Les utilisa"
 "teurs pourront choisir d’afficher ces directives visant un sous-ensemble lorsq"
 "u’ils répondront aux questions de l’assistant « Créer un plan »."
+
+#: ../../app/views/guidance_groups/_guidance_group_form.html.erb:15
+#: ../../app/views/org_admin/templates/_form.html.erb:38
+#: ../../app/views/org_admin/templates/_row.html.erb:10
+#: ../../app/views/org_admin/templates/_row.html.erb:13
+#: ../../app/views/org_admin/templates/_show.html.erb:19
+#: ../../app/views/org_admin/templates/_show.html.erb:22
+#: ../../app/views/paginable/guidance_groups/_index.html.erb:21
+#: ../../app/views/paginable/guidances/_index.html.erb:41
+#: ../../app/views/paginable/templates/_customisable.html.erb:31
+#: ../../app/views/paginable/templates/_customisable.html.erb:34
+#: ../../app/views/paginable/templates/_history.html.erb:8
+#: ../../app/views/paginable/templates/_organisational.html.erb:36
+#: ../../app/views/paginable/templates/_organisational.html.erb:39
+msgid "Published"
+msgstr "Publié"
+
+#: ../../app/views/guidance_groups/_guidance_group_form.html.erb:19
+#: ../../app/views/paginable/guidance_groups/_index.html.erb:8
+msgid "Optional subset"
+msgstr "Sous-ensemble facultatif"
 
 #: ../../app/views/guidance_groups/_guidance_group_form.html.erb:19
 msgid " (e.g. School/ Department) "
@@ -32826,21 +32848,6 @@ msgstr ""
 msgid "Status"
 msgstr "État"
 
-#: ../../app/views/org_admin/templates/_form.html.erb:38
-#: ../../app/views/org_admin/templates/_row.html.erb:10
-#: ../../app/views/org_admin/templates/_row.html.erb:13
-#: ../../app/views/org_admin/templates/_show.html.erb:19
-#: ../../app/views/org_admin/templates/_show.html.erb:22
-#: ../../app/views/paginable/guidance_groups/_index.html.erb:21
-#: ../../app/views/paginable/guidances/_index.html.erb:41
-#: ../../app/views/paginable/templates/_customisable.html.erb:31
-#: ../../app/views/paginable/templates/_customisable.html.erb:34
-#: ../../app/views/paginable/templates/_history.html.erb:8
-#: ../../app/views/paginable/templates/_organisational.html.erb:36
-#: ../../app/views/paginable/templates/_organisational.html.erb:39
-msgid "Published"
-msgstr "Publié"
-
 #: ../../app/views/org_admin/templates/_form.html.erb:40
 #: ../../app/views/org_admin/templates/_row.html.erb:16
 #: ../../app/views/org_admin/templates/_show.html.erb:26
@@ -33304,10 +33311,6 @@ msgstr ""
 "Vous êtes sur le point de supprimer '%{department_name}'. Cela aura une incide"
 "nce sur les directives. Êtes-vous sûr de vouloir continuer?"
 
-#: ../../app/views/paginable/guidance_groups/_index.html.erb:8
-msgid "Optional subset"
-msgstr "Sous-ensemble facultatif"
-
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:26
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:34
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:44
@@ -33487,19 +33490,19 @@ msgstr "Voir"
 
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:73
 msgid ""
-"Are you sure you wish to remove this public plan? This will remove it from the"
-" Public DMPs page but any collaborators will still be able to access it."
-msgstr ""
-"Souhaitez-vous vraiment supprimer ce plan public? Les PGD publics seront suppr"
-"imés, tout en demeurant accessibles aux collaborateurs."
-
-#: ../../app/views/paginable/plans/_privately_visible.html.erb:73
-msgid ""
 "Are you sure you wish to remove this plan? Any collaborators will still be abl"
 "e to access it."
 msgstr ""
 "Souhaitez-vous vraiment supprimer ce plan? Les collaborateurs pourront toujour"
 "s y accéder."
+
+#: ../../app/views/paginable/plans/_privately_visible.html.erb:73
+msgid ""
+"Are you sure you wish to remove this public plan? This will remove it from the"
+" Public DMPs page but any collaborators will still be able to access it."
+msgstr ""
+"Souhaitez-vous vraiment supprimer ce plan public? Les PGD publics seront suppr"
+"imés, tout en demeurant accessibles aux collaborateurs."
 
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:17
 msgid "Not Applicable"
@@ -33934,6 +33937,8 @@ msgid ""
 "<p>Click below to give data management staff at %{owner_org}, the Plan Owner's"
 " org, access to read and comment on your plan.</p>"
 msgstr ""
+"<p>Cliquez ci-dessous pour permettre au personnel de gestion des données de %{"
+"owner_org}, propriétaire du plan, de lire et de commenter votre plan.</p>"
 
 #: ../../app/views/plans/_request_feedback_form.html.erb:15
 msgid "You can continue to edit and download the plan in the interim."
@@ -34413,7 +34418,7 @@ msgid "If you have an account please sign in and start creating or editing your 
 msgstr ""
 
 #: ../../app/views/static_pages/about_us.html.erb:38
-msgid "Sign up"
+msgid "If you do not have a %{application_name} account, click on"
 msgstr ""
 
 #: ../../app/views/static_pages/about_us.html.erb:38
@@ -34421,15 +34426,15 @@ msgid "on the homepage."
 msgstr ""
 
 #: ../../app/views/static_pages/about_us.html.erb:38
-msgid "If you do not have a %{application_name} account, click on"
-msgstr ""
-
-#: ../../app/views/static_pages/about_us.html.erb:39
-msgid "Please visit the"
+msgid "Sign up"
 msgstr ""
 
 #: ../../app/views/static_pages/about_us.html.erb:39
 msgid "page for guidance."
+msgstr ""
+
+#: ../../app/views/static_pages/about_us.html.erb:39
+msgid "Please visit the"
 msgstr ""
 
 #: ../../app/views/static_pages/about_us.html.erb:43
@@ -35429,6 +35434,14 @@ msgstr "Nombre de plans créés à partir de vos modèles"
 msgid "Statistics on your Templates"
 msgstr "Statistiques sur vos modèles"
 
+#: ../../app/views/usage/_total_usage.html.erb:7
+msgid "Total users"
+msgstr ""
+
+#: ../../app/views/usage/_total_usage.html.erb:11
+msgid "Total plans"
+msgstr ""
+
 #: ../../app/views/usage/_total_usage.html.erb:15
 msgid "Excluding Test Plans"
 msgstr "À l’exclusion des plans d’essai"
@@ -35491,6 +35504,14 @@ msgstr "Statistiques sur vos utilisateurs"
 #: ../../app/views/usage/_users_joined_chart.html.erb:11
 msgid "There is no data available for users joined yet."
 msgstr "Il n’existe pas encore de données pour les utilisateurs qu’on a joints."
+
+#: ../../app/views/usage/filter.js.erb:5
+msgid "New %{topic}"
+msgstr ""
+
+#: ../../app/views/usage/filter.js.erb:8
+msgid "Total %{topic}"
+msgstr ""
 
 #: ../../app/views/user_mailer/_email_signature.html.erb:16
 msgid "You may change your notification preferences on your profile page. "
@@ -35654,19 +35675,19 @@ msgid "Hello %{recipient_name},"
 msgstr "Bonjour %{recipient_name},"
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
-msgid " based on the template "
-msgstr ""
-
-#: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " is creating a Data Management Plan and has answered "
 msgstr ""
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
-msgid " to "
+msgid " based on the template "
 msgstr ""
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " in a plan called "
+msgstr ""
+
+#: ../../app/views/user_mailer/question_answered.html.erb:5
+msgid " to "
 msgstr ""
 
 #: ../../app/views/user_mailer/sharing_notification.html.erb:5
@@ -35831,11 +35852,11 @@ msgid "Download users"
 msgstr "Télécharger les utilisateurs"
 
 #: ../../app/views/users/refresh_token.js.erb:1
-msgid "Successfully regenerate your API token."
+msgid "Unable to regenerate your API token."
 msgstr ""
 
 #: ../../app/views/users/refresh_token.js.erb:1
-msgid "Unable to regenerate your API token."
+msgid "Successfully regenerate your API token."
 msgstr ""
 
 #: i18n_placeholders.rb:4
