@@ -42,8 +42,12 @@ Rails.logger.warn "PARAMS: #{params.inspect}"
       code_challenge: params.fetch('code_challenge', ''),
       code_challenge_method: params.fetch('code_challenge_method', ''))
 
+Rails.logger.warn "OAUTH PATH: #{oauth_path}"
+
     session['oauth-referer'] = ApplicationService.encrypt(
       payload: { client_id: params.fetch('client_id', ''), path: oauth_path })
+
+Rails.logger.warn "OAUTH PATH: #{session['oauth-referer']}"
 
     current_user || render('doorkeeper/authorizations/new', layout: 'doorkeeper/application')
 
