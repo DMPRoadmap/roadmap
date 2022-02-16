@@ -46,7 +46,7 @@ Rails.logger.warn "ApplicationService ObjID: #{Rails.application.credentials.sec
 
     # Generate a new encryptor using the Rails secret key base
     def crypto
-      ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base)
+      ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base[0..31])
     end
   end
 end
