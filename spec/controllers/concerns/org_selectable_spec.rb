@@ -47,6 +47,9 @@ RSpec.describe OrgSelectable do
     # rubocop:disable Lint/ConstantDefinitionInBlock
     class FakeController < ApplicationController
       include OrgSelectable
+
+      # The OrgSelectable concern tries to access Devise's current_user method, so stub it here
+      self.current_user = create(:user)
     end
     # rubocop:enable Lint/ConstantDefinitionInBlock
 

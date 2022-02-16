@@ -32,6 +32,7 @@ RSpec.describe Api::V1::AuthenticationController, type: :request do
         expect(response).to render_template('api/v1/error')
       end
       it 'returns a JSON Web Token' do
+        Rails.application.credentials.secret_key_base = SecureRandom.uuid
         token = Api::V1::Auth::Jwt::JsonWebToken.encode(payload: @payload)
         Api::V1::Auth::Jwt::AuthenticationService.any_instance.stubs(:call)
                                                  .returns(token)

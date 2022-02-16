@@ -58,8 +58,12 @@ module Api
             name = json[:name]
             # If the name includes context (e.g. '(UCOP)' or '(example.edu)') then do an exact match
             # otherwise strip off any context from the names in the DB when comparing
-            where_clause = 'LOWER(name) = ?' if name.include?('(')
-            where_clause = 'LOWER(SUBSTRING_INDEX(name,\'(\',1)) = ?' unless where_clause.present?
+            #
+            # Postgres and MySQL handle index_of differently, so check the DB type
+            where = 'name' if name.include?('(')
+            where = 'SUBSTRING(name, STRPOS(name, \'(\'), 1)' if postgres_db? && where.nil?
+            where = 'SUBSTRING_INDEX(name,\'(\',1)' unless where.present?
+            where = "LOWER(#{where}) = ?"
 
             # Search the DB
             org = ::Org.where(where_clause, name.downcase.strip).first unless org.present?
