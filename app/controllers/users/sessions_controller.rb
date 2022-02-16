@@ -34,9 +34,15 @@ module Users
 
         is_new_user = resource.new_record? || active_invite
 
+
         # If this is part of an API V2 Oauth workflow
         if session['oauth-referer'].present?
-          @client = ApiClient.where(uid: session['oauth-referer']['client_id'])
+          oauth_hash = ApplicationService.decrypt(payload: session['oauth-referer'])
+
+Rails.logger.warn "SESSION CONTROLLER: #{oauth_hash.inspect}"
+Rails.logger.warn "RESOURCE: #{resource.inspect}"
+
+          @client = ApiClient.where(uid: oauth_hash['client_id'])
 
           render 'doorkeeper/authorizations/new', layout: 'doorkeeper/application'
         else

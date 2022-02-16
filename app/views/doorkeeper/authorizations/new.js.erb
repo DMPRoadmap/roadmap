@@ -1,6 +1,11 @@
 let signInBlock = $('.signin-form');
 let backLink = $('.c-serialnav');
 
+<%
+# See app/helpers/authentication_helper.rb for info on how the OAuth client info is handled
+oauth_hash = process_oauth
+%>
+
 if (signInBlock.length > 0 && backLink.length > 0) {
   <% if resource.present? && resource.org_id.present? %>
     // User exists so show them the appropriate sign in form
@@ -13,7 +18,7 @@ if (signInBlock.length > 0 && backLink.length > 0) {
     backLink.removeClass('hidden');
   <% else %>
     // User has either not provided their email yet, or provided an unknown email or invalid login
-    <% partial = '/doorkeeper/authorizations/validate' %>
+    <% partial = '/doorkeeper/authorizations/validate', locals: { client: oauth_hash[:client] } %>
 
     backLink.addClass('hidden');
   <% end %>
