@@ -6,9 +6,13 @@
 <div id="notification-area" class="c-notificationgroup">
 
   <%
-  has_notice = flash[:notice].present?
-  has_alert = flash[:alert].present? || flash[:error].present?
-  has_warning = flash[:warn].present?
+  global_infos = globals.select { |item| item.info? }
+  global_warnings = globals.select { |item| item.warning? }
+  global_dangers = globals.select { |item| item.danger? }
+
+  has_notice = flash[:notice].present? || global_infos.any?
+  has_warning = flash[:warn].present? || global_warnings.any?
+  has_alert = flash[:alert].present? || flash[:error].present? || global_dangers.any?
   %>
 
   <!-- Success message -->
@@ -16,6 +20,9 @@
         role="alert">
     <% if has_notice %>
       <p><%= sanitize(flash[:notice]) %><%= yield :model_errors %></p>
+    <% end %>
+    <% global_infos.each do |msg| %>
+      <p><%= sanitize msg.body %></p>
     <% end %>
   </div>
 
@@ -25,7 +32,7 @@
     <% if has_warning %>
       <p><%= sanitize(flash[:warn]) %><%= yield :model_errors %></p>
     <% end %>
-    <% globals.each do |msg| %>
+    <% global_warnings.each do |msg| %>
       <p><%= sanitize msg.body %></p>
     <% end %>
   </div>
@@ -35,6 +42,9 @@
     <% if has_alert %>
       <% msg = flash[:alert].present? ? flash[:alert] : flash[:error] %>
       <p><strong><%= _('Error:') %></strong> <%= sanitize(msg) %></p>
+    <% end %>
+    <% global_dangers.each do |msg| %>
+      <p><%= sanitize msg.body %></p>
     <% end %>
   </div>
 </div>
