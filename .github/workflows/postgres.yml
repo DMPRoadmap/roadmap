@@ -84,12 +84,21 @@ jobs:
       run: yarn test
 
     # Run  the unit and functional tests
-    - name: 'Run Rspec Unit and Functional Tests'
-      run: |
-        bin/rspec spec/models/ spec/policies/ spec/services/ spec/helpers/
-        bin/rspec spec/controllers/ spec/presenters/ spec/requests/ spec/views
-        bin/rspec spec/mixins/
+    - name: 'Run Helper and Presenter Tests'
+      run: bin/bundle exec rspec spec/helpers/ spec/presenters/
+
+    - name: 'Run Mixin and Model Tests'
+      run: bin/bundle exec rspec spec/mixins/ spec/models/
+
+    - name: 'Run Controller, Policy and View Tests'
+      run: bin/bundle exec rspec spec/policies/ spec/controllers/ spec/views/
+
+    - name: 'Run Service Tests'
+      run: bin/bundle exec rspec spec/services/
+
+    - name: 'Run Request/API Tests'
+      run: bin/bundle exec rspec spec/requests/
 
     # Run the time consuming integration tests (using Chrome headless browser)
-    - name: 'Run Integration Tests'
-      run: bin/rspec spec/features/
+    - name: 'Run Rspec Integration/Feature Tests'
+      run: bin/bundle exec rspec spec/features/
