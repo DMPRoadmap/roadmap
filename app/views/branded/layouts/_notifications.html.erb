@@ -8,7 +8,7 @@
   <%
   has_notice = flash[:notice].present?
   has_alert = flash[:alert].present? || flash[:error].present?
-  has_warning = flash[:warn].present? || globals.any?
+  has_warning = flash[:warn].present?
   %>
 
   <!-- Success message -->
@@ -25,15 +25,10 @@
     <% if has_warning %>
       <p><%= sanitize(flash[:warn]) %><%= yield :model_errors %></p>
     <% end %>
-  </div>
-
-  <% if globals.any? %>
     <% globals.each do |msg| %>
-      <div id="js-notification-warning" class="c-notification--warning" role="alert">
-        <p><%= sanitize msg.body %></p>
-      </div>
+      <p><%= sanitize msg.body %></p>
     <% end %>
-  <% end %>
+  </div>
 
   <!-- Error message -->
   <div id="js-notification-danger" class="c-notification--danger<%= has_alert ? '' : ' hide' %>" role="alert">
