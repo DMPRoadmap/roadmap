@@ -38,19 +38,21 @@ roles_tooltip = _("Select each role that applies to the contributor.")
   <% end %>
 </div>
 
-<div class="form-group row"><!-- phone -->
-  <div class="col-md-12">
-    <%= form.label(:phone, _("Phone number"), class: "control-label") %>
+<% if Rails.configuration.x.application.display_contributor_phone_number %><!-- phone: only show if property set true -->
+  <div class="form-group row">
+    <div class="col-md-12">
+      <%= form.label(:phone, _("Phone number"), class: "control-label") %>
+    </div>
+    <div class="col-md-3">
+      <em class="sr-only"><%= phone_tooltip %></em>
+      <%= form.phone_field :phone, class: "form-control",
+                                   title: phone_tooltip,
+                                   data: { toggle: "tooltip" },
+                                   pattern: "[0-9\-\.\(\)\+]+",
+                                   placeholder: "123-123-1234" %>
+    </div>
   </div>
-  <div class="col-md-3">
-    <em class="sr-only"><%= phone_tooltip %></em>
-    <%= form.phone_field :phone, class: "form-control",
-                                 title: phone_tooltip,
-                                 data: { toggle: "tooltip" },
-                                 pattern: "[0-9\-\.\(\)\+]+",
-                                 placeholder: "123-123-1234" %>
-  </div>
-</div>
+<% end %>
 
 <div class="form-group row" id="contributor-org-controls"><!-- org -->
   <div class="col-md-8">

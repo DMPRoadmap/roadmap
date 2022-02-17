@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require "text"
+require 'text'
 
 module OrgSelection
-
   # This class provides conversion methods for turning OrgSelection::Search
   # results into Orgs and Identifiers
   # For example:
@@ -17,9 +16,7 @@ module OrgSelection
   #             identifier (ROR) = "http://example.org/123"
   #
   class HashToOrgService
-
     class << self
-
       def to_org(hash:, allow_create: true)
         return nil unless hash.present?
 
@@ -43,6 +40,7 @@ module OrgSelection
         allow_create ? initialize_org(hash: hash) : nil
       end
 
+      # rubocop:disable Metrics/AbcSize
       def to_identifiers(hash:)
         return [] unless hash.present?
 
@@ -61,6 +59,7 @@ module OrgSelection
         end
         out
       end
+      # rubocop:enable Metrics/AbcSize
 
       private
 
@@ -89,7 +88,7 @@ module OrgSelection
       def initialize_org(hash:)
         return nil unless hash.present? && hash[:name].present?
 
-        org = Org.new(
+        Org.new(
           name: hash[:name],
           links: links_from_hash(name: hash[:name], website: hash[:url]),
           language: language_from_hash(hash: hash),
@@ -98,14 +97,13 @@ module OrgSelection
           is_other: false,
           abbreviation: abbreviation_from_hash(hash: hash)
         )
-        org
       end
 
       # Convert the name and website into Org.links
       def links_from_hash(name:, website:)
-        return { "org": [] } unless name.present? && website.present?
+        return { org: [] } unless name.present? && website.present?
 
-        { "org": [{ "link": website, "text": name }] }
+        { org: [{ link: website, text: name }] }
       end
 
       # Converts the Org name over to a unique abbreviation
@@ -116,7 +114,7 @@ module OrgSelection
 
         # Get the first letter of each word if no abbreviiation was provided
         OrgSelection::SearchService.name_without_alias(name: hash[:name])
-                                   .split(" ").map(&:first).join.upcase
+                                   .split.map(&:first).join.upcase
       end
 
       # Get the language from the hash or use the default
@@ -142,9 +140,6 @@ module OrgSelection
 
         OrgSelection::SearchService.exact_match?(name1: rec.name, name2: name2)
       end
-
     end
-
   end
-
 end

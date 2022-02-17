@@ -1,14 +1,14 @@
 # English translations for app package.
-# Copyright (C) 2021 app
+# Copyright (C) 2022 app
 # This file is distributed under the same license as the app package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-10-01 11:19+0000\n"
-"PO-Revision-Date: 2021-10-01 13:19+0200\n"
+"POT-Creation-Date: 2022-02-10 08:50+0000\n"
+"PO-Revision-Date: 2022-02-10 09:50+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_CA\n"
@@ -18,25 +18,25 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n!=1;\n"
 "\n"
 
-#: ../../app/controllers/answers_controller.rb:24
+#: ../../app/controllers/answers_controller.rb:25
 msgid ""
-"There is no question with id %{question_id} associated to plan id %{plan_id} f"
-"or which to create or update an answer"
+"There is no question with id %<question_id>s associated to plan id %<plan_id>s"
+" for which to create or update an answer"
 msgstr ""
 
-#: ../../app/controllers/answers_controller.rb:34
-msgid "There is no plan with id %{id} for which to create or update an answer"
+#: ../../app/controllers/answers_controller.rb:33
+msgid "There is no plan with id %<id>s for which to create or update an answer"
 msgstr ""
 
-#: ../../app/controllers/api/v0/base_controller.rb:124
+#: ../../app/controllers/api/v0/base_controller.rb:126
 msgid "Bad Credentials"
 msgstr ""
 
-#: ../../app/controllers/api/v0/departments_controller.rb:20
+#: ../../app/controllers/api/v0/departments_controller.rb:22
 msgid "Departments code and name must be unique"
 msgstr ""
 
-#: ../../app/controllers/api/v0/plans_controller.rb:26
+#: ../../app/controllers/api/v0/plans_controller.rb:27
 msgid "user must be in your organisation"
 msgstr ""
 
@@ -44,28 +44,28 @@ msgstr ""
 msgid "Bad Parameters"
 msgstr ""
 
-#: ../../app/controllers/api/v0/statistics_controller.rb:40
+#: ../../app/controllers/api/v0/statistics_controller.rb:41
 #: ../../app/controllers/api/v0/statistics_controller.rb:89
-#: ../../app/controllers/api/v0/statistics_controller.rb:135
-#: ../../app/controllers/usage_controller.rb:68
+#: ../../app/controllers/api/v0/statistics_controller.rb:136
+#: ../../app/controllers/usage_controller.rb:66
 #: ../../app/controllers/usage_controller.rb:87
 msgid "Month"
 msgstr "Month"
 
-#: ../../app/controllers/api/v0/statistics_controller.rb:40
-#: ../../app/controllers/usage_controller.rb:68
+#: ../../app/controllers/api/v0/statistics_controller.rb:41
+#: ../../app/controllers/usage_controller.rb:66
 msgid "No. Users joined"
 msgstr ""
 
-#: ../../app/controllers/api/v0/statistics_controller.rb:46
+#: ../../app/controllers/api/v0/statistics_controller.rb:47
 #: ../../app/controllers/api/v0/statistics_controller.rb:95
-#: ../../app/controllers/api/v0/statistics_controller.rb:141
-#: ../../app/controllers/usage_controller.rb:74
+#: ../../app/controllers/api/v0/statistics_controller.rb:142
+#: ../../app/controllers/usage_controller.rb:72
 #: ../../app/controllers/usage_controller.rb:93
 msgid "Total"
 msgstr ""
 
-#: ../../app/controllers/api/v0/statistics_controller.rb:47
+#: ../../app/controllers/api/v0/statistics_controller.rb:48
 msgid "users_joined"
 msgstr ""
 
@@ -78,137 +78,141 @@ msgstr ""
 msgid "completed_plans"
 msgstr ""
 
-#: ../../app/controllers/api/v0/statistics_controller.rb:135
+#: ../../app/controllers/api/v0/statistics_controller.rb:136
 msgid "No. Plans"
 msgstr ""
 
-#: ../../app/controllers/api/v0/statistics_controller.rb:142
+#: ../../app/controllers/api/v0/statistics_controller.rb:143
 msgid "plans"
 msgstr ""
 
-#: ../../app/controllers/api/v1/authentication_controller.rb:49
+#: ../../app/controllers/api/v1/authentication_controller.rb:47
 msgid "Missing or invalid JSON"
 msgstr ""
 
-#: ../../app/controllers/api/v1/base_api_controller.rb:81
+#: ../../app/controllers/api/v1/base_api_controller.rb:79
 msgid "Invalid JSON format"
 msgstr ""
 
-#: ../../app/controllers/api/v1/plans_controller.rb:20
+#: ../../app/controllers/api/v1/plans_controller.rb:18
 msgid "Plan not found"
 msgstr ""
 
-#: ../../app/controllers/api/v1/plans_controller.rb:37
+#: ../../app/controllers/api/v1/plans_controller.rb:36
 msgid "Unable to create your DMP"
 msgstr ""
 
-#: ../../app/controllers/api/v1/plans_controller.rb:38
+#: ../../app/controllers/api/v1/plans_controller.rb:37
 msgid "Plan already exists. Send an update instead."
 msgstr ""
 
-#: ../../app/controllers/api/v1/plans_controller.rb:39
+#: ../../app/controllers/api/v1/plans_controller.rb:38
 msgid ""
 "Could not determine ownership of the DMP. Please add an\n"
 "                          :affiliation to the :contact"
 msgstr ""
 
-#: ../../app/controllers/api/v1/plans_controller.rb:74
+#: ../../app/controllers/api/v1/plans_controller.rb:70
 msgid "Invalid JSON!"
 msgstr ""
 
-#: ../../app/controllers/api/v1/plans_controller.rb:77
+#: ../../app/controllers/api/v1/plans_controller.rb:73
 msgid "Invalid JSON"
 msgstr ""
 
-#: ../../app/controllers/api/v1/plans_controller.rb:93
+#: ../../app/controllers/api/v1/plans_controller.rb:90
 msgid "No Plans found"
 msgstr ""
 
-#: ../../app/controllers/application_controller.rb:33
+#: ../../app/controllers/application_controller.rb:36
 msgid "You are not authorized to perform this action."
 msgstr ""
 
-#: ../../app/controllers/application_controller.rb:35
+#: ../../app/controllers/application_controller.rb:40
 msgid "You need to sign in or sign up before continuing."
 msgstr "You need to sign in or sign up before continuing."
 
-#: ../../app/controllers/application_controller.rb:100
-msgid "Unable to %{action} the %{object}.%{errors}"
-msgstr ""
-
 #: ../../app/controllers/application_controller.rb:108
-msgid "Successfully %{action} the %{object}."
+msgid "Unable to %<action>s the %<object>s.%<errors>s"
 msgstr ""
 
-#: ../../app/controllers/application_controller.rb:123
-msgid "API client"
-msgstr ""
-
-#: ../../app/controllers/application_controller.rb:124
-msgid "plan"
-msgstr ""
-
-#: ../../app/controllers/application_controller.rb:125
-msgid "guidance group"
-msgstr ""
-
-#: ../../app/controllers/application_controller.rb:126
-msgid "comment"
+#: ../../app/controllers/application_controller.rb:114
+msgid "Successfully %<action>s the %<object>s."
 msgstr ""
 
 #: ../../app/controllers/application_controller.rb:127
-msgid "organisation"
+msgid "API client"
 msgstr ""
 
 #: ../../app/controllers/application_controller.rb:128
-msgid "permission"
+msgid "plan"
 msgstr ""
 
 #: ../../app/controllers/application_controller.rb:129
-msgid "preferences"
+msgid "guidance group"
 msgstr ""
 
 #: ../../app/controllers/application_controller.rb:130
-msgid "profile"
-msgstr ""
-
-#: ../../app/controllers/application_controller.rb:130
-msgid "user"
+msgid "comment"
 msgstr ""
 
 #: ../../app/controllers/application_controller.rb:131
+msgid "organisation"
+msgstr ""
+
+#: ../../app/controllers/application_controller.rb:132
+msgid "permission"
+msgstr ""
+
+#: ../../app/controllers/application_controller.rb:133
+msgid "preferences"
+msgstr ""
+
+#: ../../app/controllers/application_controller.rb:134
+msgid "profile"
+msgstr ""
+
+#: ../../app/controllers/application_controller.rb:134
+msgid "user"
+msgstr ""
+
+#: ../../app/controllers/application_controller.rb:135
 msgid "question option"
 msgstr ""
 
-#: ../../app/controllers/concerns/paginable.rb:44
+#: ../../app/controllers/application_controller.rb:181
+msgid "Record Not Found"
+msgstr ""
+
+#: ../../app/controllers/concerns/paginable.rb:45
 msgid "scope should be an ActiveRecord::Relation object"
 msgstr ""
 
-#: ../../app/controllers/concerns/paginable.rb:46
+#: ../../app/controllers/concerns/paginable.rb:47
 msgid "path_params should be a Hash object"
 msgstr ""
 
-#: ../../app/controllers/concerns/paginable.rb:47
+#: ../../app/controllers/concerns/paginable.rb:48
 msgid "query_params should be a Hash object"
 msgstr ""
 
-#: ../../app/controllers/concerns/paginable.rb:48
+#: ../../app/controllers/concerns/paginable.rb:49
 msgid "locals should be a Hash object"
 msgstr ""
 
-#: ../../app/controllers/concerns/paginable.rb:69
+#: ../../app/controllers/concerns/paginable.rb:70
 msgid "Restricted access to View All the records"
 msgstr ""
 
-#: ../../app/controllers/concerns/paginable.rb:180
-msgid "Sort by %{sort_field}"
+#: ../../app/controllers/concerns/paginable.rb:182
+msgid "Sort by %<sort_field>s"
 msgstr ""
 
-#: ../../app/controllers/concerns/template_methods.rb:10
+#: ../../app/controllers/concerns/template_methods.rb:8
 msgid "customisation"
 msgstr ""
 
-#: ../../app/controllers/concerns/template_methods.rb:10
+#: ../../app/controllers/concerns/template_methods.rb:8
 msgid "template"
 msgstr ""
 
@@ -216,28 +220,28 @@ msgstr ""
 msgid "obj should be a Template, Phase, Section, Question, or Annotation"
 msgstr ""
 
-#: ../../app/controllers/concerns/versionable.rb:46
-#: ../../app/controllers/concerns/versionable.rb:65
+#: ../../app/controllers/concerns/versionable.rb:47
+#: ../../app/controllers/concerns/versionable.rb:66
 msgid "obj should be a Phase, Section, Question, or Annotation"
 msgstr ""
 
-#: ../../app/controllers/concerns/versionable.rb:88
+#: ../../app/controllers/concerns/versionable.rb:90
 msgid "The search_space does not respond to each"
 msgstr ""
 
-#: ../../app/controllers/concerns/versionable.rb:93
+#: ../../app/controllers/concerns/versionable.rb:94
 msgid "The search space does not have elements associated"
 msgstr ""
 
-#: ../../app/controllers/contacts_controller.rb:10
+#: ../../app/controllers/contacts_controller.rb:13
 msgid "Captcha verification failed, please retry."
 msgstr ""
 
-#: ../../app/controllers/contacts_controller.rb:16
+#: ../../app/controllers/contacts_controller.rb:18
 msgid "Contact email was successfully sent."
 msgstr ""
 
-#: ../../app/controllers/contacts_controller.rb:18
+#: ../../app/controllers/contacts_controller.rb:20
 msgid "Unable to submit your request"
 msgstr ""
 
@@ -251,60 +255,60 @@ msgid "added"
 msgstr ""
 
 #: ../../app/controllers/contributors_controller.rb:72
-#: ../../app/controllers/guidance_groups_controller.rb:48
-#: ../../app/controllers/guidances_controller.rb:71
-#: ../../app/controllers/notes_controller.rb:92
-#: ../../app/controllers/org_admin/departments_controller.rb:48
-#: ../../app/controllers/org_admin/sections_controller.rb:102
-#: ../../app/controllers/org_admin/templates_controller.rb:203
-#: ../../app/controllers/orgs_controller.rb:87
-#: ../../app/controllers/plans_controller.rb:271
-#: ../../app/controllers/plans_controller.rb:274
-#: ../../app/controllers/registrations_controller.rb:247
-#: ../../app/controllers/registrations_controller.rb:251
-#: ../../app/controllers/registrations_controller.rb:276
+#: ../../app/controllers/guidance_groups_controller.rb:51
+#: ../../app/controllers/guidances_controller.rb:74
+#: ../../app/controllers/notes_controller.rb:89
+#: ../../app/controllers/org_admin/departments_controller.rb:50
+#: ../../app/controllers/org_admin/sections_controller.rb:103
+#: ../../app/controllers/org_admin/templates_controller.rb:204
+#: ../../app/controllers/orgs_controller.rb:88
+#: ../../app/controllers/plans_controller.rb:282
+#: ../../app/controllers/plans_controller.rb:285
+#: ../../app/controllers/registrations_controller.rb:249
+#: ../../app/controllers/registrations_controller.rb:253
 #: ../../app/controllers/registrations_controller.rb:280
-#: ../../app/controllers/users_controller.rb:98
-#: ../../app/controllers/users_controller.rb:125
+#: ../../app/controllers/registrations_controller.rb:284
+#: ../../app/controllers/users_controller.rb:101
+#: ../../app/controllers/users_controller.rb:129
 msgid "saved"
 msgstr ""
 
 #: ../../app/controllers/contributors_controller.rb:74
-#: ../../app/controllers/guidance_groups_controller.rb:50
-#: ../../app/controllers/guidances_controller.rb:73
-#: ../../app/controllers/notes_controller.rb:110
-#: ../../app/controllers/org_admin/departments_controller.rb:50
-#: ../../app/controllers/org_admin/sections_controller.rb:104
-#: ../../app/controllers/org_admin/templates_controller.rb:208
-#: ../../app/controllers/orgs_controller.rb:89
-#: ../../app/controllers/plans_controller.rb:280
-#: ../../app/controllers/plans_controller.rb:283
-#: ../../app/controllers/plans_controller.rb:287
-#: ../../app/controllers/plans_controller.rb:290
-#: ../../app/controllers/registrations_controller.rb:254
-#: ../../app/controllers/registrations_controller.rb:283
+#: ../../app/controllers/guidance_groups_controller.rb:53
+#: ../../app/controllers/guidances_controller.rb:76
+#: ../../app/controllers/notes_controller.rb:107
+#: ../../app/controllers/org_admin/departments_controller.rb:52
+#: ../../app/controllers/org_admin/sections_controller.rb:105
+#: ../../app/controllers/org_admin/templates_controller.rb:209
+#: ../../app/controllers/orgs_controller.rb:90
+#: ../../app/controllers/plans_controller.rb:291
+#: ../../app/controllers/plans_controller.rb:294
+#: ../../app/controllers/plans_controller.rb:298
+#: ../../app/controllers/plans_controller.rb:301
+#: ../../app/controllers/registrations_controller.rb:256
+#: ../../app/controllers/registrations_controller.rb:287
 msgid "save"
 msgstr ""
 
 #: ../../app/controllers/contributors_controller.rb:84
-#: ../../app/controllers/notes_controller.rb:134
-#: ../../app/controllers/org_admin/templates_controller.rb:236
+#: ../../app/controllers/notes_controller.rb:131
+#: ../../app/controllers/org_admin/templates_controller.rb:237
 #: ../../app/controllers/super_admin/orgs_controller.rb:94
 msgid "removed"
 msgstr ""
 
 #: ../../app/controllers/contributors_controller.rb:87
-#: ../../app/controllers/notes_controller.rb:152
-#: ../../app/controllers/org_admin/templates_controller.rb:238
+#: ../../app/controllers/notes_controller.rb:149
+#: ../../app/controllers/org_admin/templates_controller.rb:239
 #: ../../app/controllers/super_admin/orgs_controller.rb:97
 msgid "remove"
 msgstr ""
 
-#: ../../app/controllers/contributors_controller.rb:160
+#: ../../app/controllers/contributors_controller.rb:161
 msgid "plan not found"
 msgstr ""
 
-#: ../../app/controllers/contributors_controller.rb:168
+#: ../../app/controllers/contributors_controller.rb:169
 msgid "contributor not found"
 msgstr ""
 
@@ -316,102 +320,102 @@ msgstr ""
 msgid "An error occurred when requesting feedback for this plan."
 msgstr ""
 
-#: ../../app/controllers/guidance_groups_controller.rb:28
-#: ../../app/controllers/guidances_controller.rb:51
-#: ../../app/controllers/notes_controller.rb:51
-#: ../../app/controllers/org_admin/departments_controller.rb:25
-#: ../../app/controllers/org_admin/phases_controller.rb:120
-#: ../../app/controllers/org_admin/questions_controller.rb:95
-#: ../../app/controllers/org_admin/sections_controller.rb:78
-#: ../../app/controllers/org_admin/templates_controller.rb:177
-#: ../../app/controllers/plans_controller.rb:118
+#: ../../app/controllers/guidance_groups_controller.rb:29
+#: ../../app/controllers/guidances_controller.rb:52
+#: ../../app/controllers/notes_controller.rb:48
+#: ../../app/controllers/org_admin/departments_controller.rb:26
+#: ../../app/controllers/org_admin/phases_controller.rb:121
+#: ../../app/controllers/org_admin/questions_controller.rb:94
+#: ../../app/controllers/org_admin/sections_controller.rb:79
+#: ../../app/controllers/org_admin/templates_controller.rb:180
+#: ../../app/controllers/plans_controller.rb:120
 #: ../../app/controllers/super_admin/api_clients_controller.rb:44
 #: ../../app/controllers/super_admin/notifications_controller.rb:38
-#: ../../app/controllers/super_admin/orgs_controller.rb:62
-#: ../../app/controllers/super_admin/themes_controller.rb:22
+#: ../../app/controllers/super_admin/orgs_controller.rb:61
+#: ../../app/controllers/super_admin/themes_controller.rb:21
 msgid "created"
 msgstr ""
 
-#: ../../app/controllers/guidance_groups_controller.rb:31
-#: ../../app/controllers/guidances_controller.rb:53
-#: ../../app/controllers/notes_controller.rb:70
-#: ../../app/controllers/org_admin/departments_controller.rb:29
-#: ../../app/controllers/org_admin/phases_controller.rb:122
-#: ../../app/controllers/org_admin/questions_controller.rb:97
-#: ../../app/controllers/org_admin/sections_controller.rb:85
-#: ../../app/controllers/org_admin/templates_controller.rb:179
+#: ../../app/controllers/guidance_groups_controller.rb:32
+#: ../../app/controllers/guidances_controller.rb:54
+#: ../../app/controllers/notes_controller.rb:67
+#: ../../app/controllers/org_admin/departments_controller.rb:30
+#: ../../app/controllers/org_admin/phases_controller.rb:123
+#: ../../app/controllers/org_admin/questions_controller.rb:96
+#: ../../app/controllers/org_admin/sections_controller.rb:86
+#: ../../app/controllers/org_admin/templates_controller.rb:182
 #: ../../app/controllers/plans_controller.rb:151
-#: ../../app/controllers/super_admin/api_clients_controller.rb:51
+#: ../../app/controllers/super_admin/api_clients_controller.rb:50
 #: ../../app/controllers/super_admin/notifications_controller.rb:41
-#: ../../app/controllers/super_admin/orgs_controller.rb:65
-#: ../../app/controllers/super_admin/themes_controller.rb:25
+#: ../../app/controllers/super_admin/orgs_controller.rb:64
+#: ../../app/controllers/super_admin/themes_controller.rb:24
 msgid "create"
 msgstr ""
 
-#: ../../app/controllers/guidance_groups_controller.rb:61
+#: ../../app/controllers/guidance_groups_controller.rb:65
 msgid "Your guidance group has been published and is now available to users."
 msgstr ""
 
-#: ../../app/controllers/guidance_groups_controller.rb:64
-#: ../../app/controllers/guidances_controller.rb:107
+#: ../../app/controllers/guidance_groups_controller.rb:68
+#: ../../app/controllers/guidances_controller.rb:112
 msgid "publish"
 msgstr ""
 
-#: ../../app/controllers/guidance_groups_controller.rb:76
+#: ../../app/controllers/guidance_groups_controller.rb:79
 msgid "Your guidance group is no longer published and will not be available to users."
 msgstr ""
 
-#: ../../app/controllers/guidance_groups_controller.rb:79
-#: ../../app/controllers/guidances_controller.rb:124
+#: ../../app/controllers/guidance_groups_controller.rb:81
+#: ../../app/controllers/guidances_controller.rb:129
 msgid "unpublish"
 msgstr ""
 
-#: ../../app/controllers/guidance_groups_controller.rb:89
-#: ../../app/controllers/guidances_controller.rb:88
-#: ../../app/controllers/org_admin/departments_controller.rb:63
-#: ../../app/controllers/org_admin/phases_controller.rb:174
-#: ../../app/controllers/org_admin/question_options_controller.rb:25
+#: ../../app/controllers/guidance_groups_controller.rb:91
+#: ../../app/controllers/guidances_controller.rb:93
+#: ../../app/controllers/org_admin/departments_controller.rb:66
+#: ../../app/controllers/org_admin/phases_controller.rb:179
+#: ../../app/controllers/org_admin/question_options_controller.rb:24
 #: ../../app/controllers/org_admin/questions_controller.rb:197
-#: ../../app/controllers/org_admin/sections_controller.rb:126
-#: ../../app/controllers/plans_controller.rb:332
-#: ../../app/controllers/super_admin/api_clients_controller.rb:79
-#: ../../app/controllers/super_admin/notifications_controller.rb:84
-#: ../../app/controllers/super_admin/themes_controller.rb:50
+#: ../../app/controllers/org_admin/sections_controller.rb:128
+#: ../../app/controllers/plans_controller.rb:344
+#: ../../app/controllers/super_admin/api_clients_controller.rb:81
+#: ../../app/controllers/super_admin/notifications_controller.rb:85
+#: ../../app/controllers/super_admin/themes_controller.rb:51
 msgid "deleted"
 msgstr ""
 
-#: ../../app/controllers/guidance_groups_controller.rb:91
-#: ../../app/controllers/guidances_controller.rb:90
-#: ../../app/controllers/org_admin/departments_controller.rb:65
-#: ../../app/controllers/org_admin/phases_controller.rb:176
-#: ../../app/controllers/org_admin/question_options_controller.rb:27
+#: ../../app/controllers/guidance_groups_controller.rb:93
+#: ../../app/controllers/guidances_controller.rb:95
+#: ../../app/controllers/org_admin/departments_controller.rb:68
+#: ../../app/controllers/org_admin/phases_controller.rb:181
+#: ../../app/controllers/org_admin/question_options_controller.rb:26
 #: ../../app/controllers/org_admin/questions_controller.rb:199
-#: ../../app/controllers/org_admin/sections_controller.rb:128
-#: ../../app/controllers/plans_controller.rb:337
-#: ../../app/controllers/super_admin/api_clients_controller.rb:82
-#: ../../app/controllers/super_admin/notifications_controller.rb:87
-#: ../../app/controllers/super_admin/themes_controller.rb:53
+#: ../../app/controllers/org_admin/sections_controller.rb:130
+#: ../../app/controllers/plans_controller.rb:349
+#: ../../app/controllers/super_admin/api_clients_controller.rb:84
+#: ../../app/controllers/super_admin/notifications_controller.rb:88
+#: ../../app/controllers/super_admin/themes_controller.rb:54
 msgid "delete"
 msgstr ""
 
-#: ../../app/controllers/guidances_controller.rb:104
+#: ../../app/controllers/guidances_controller.rb:109
 msgid "Your guidance has been published and is now available to users."
 msgstr ""
 
-#: ../../app/controllers/guidances_controller.rb:121
+#: ../../app/controllers/guidances_controller.rb:126
 msgid "Your guidance is no longer published and will not be available to users."
 msgstr ""
 
-#: ../../app/controllers/identifiers_controller.rb:18
-msgid "Successfully unlinked your account from %{is}."
+#: ../../app/controllers/identifiers_controller.rb:19
+msgid "Successfully unlinked your account from %<is>s."
 msgstr ""
 
 #: ../../app/controllers/identifiers_controller.rb:22
-msgid "Unable to unlink your account from %{is}."
+msgid "Unable to unlink your account from %<is>s."
 msgstr ""
 
-#: ../../app/controllers/org_admin/phases_controller.rb:18
-#: ../../app/controllers/org_admin/templates_controller.rb:114
+#: ../../app/controllers/org_admin/phases_controller.rb:17
+#: ../../app/controllers/org_admin/templates_controller.rb:115
 msgid ""
 "You are viewing a historical version of this template. You will not be able to"
 " make changes."
@@ -421,70 +425,72 @@ msgstr ""
 msgid "You cannot add a phase to a historical version of a template."
 msgstr ""
 
-#: ../../app/controllers/org_admin/phases_controller.rb:125
-#: ../../app/controllers/org_admin/phases_controller.rb:149
-#: ../../app/controllers/org_admin/phases_controller.rb:179
-#: ../../app/controllers/org_admin/question_options_controller.rb:30
-#: ../../app/controllers/org_admin/questions_controller.rb:100
-#: ../../app/controllers/org_admin/questions_controller.rb:202
-#: ../../app/controllers/org_admin/sections_controller.rb:107
-#: ../../app/controllers/org_admin/sections_controller.rb:131
-msgid "Unable to create a new version of this template."
+#: ../../app/controllers/org_admin/phases_controller.rb:126
+msgid "Unable to create a new version of this template.<br>"
 msgstr ""
 
-#: ../../app/controllers/org_admin/phases_controller.rb:144
+#: ../../app/controllers/org_admin/phases_controller.rb:147
 #: ../../app/controllers/org_admin/questions_controller.rb:166
 #: ../../app/controllers/org_admin/users_controller.rb:30
-#: ../../app/controllers/plans_controller.rb:400
-#: ../../app/controllers/super_admin/api_clients_controller.rb:67
-#: ../../app/controllers/super_admin/notifications_controller.rb:51
+#: ../../app/controllers/plans_controller.rb:417
+#: ../../app/controllers/super_admin/api_clients_controller.rb:68
+#: ../../app/controllers/super_admin/notifications_controller.rb:52
 #: ../../app/controllers/super_admin/themes_controller.rb:39
-#: ../../app/controllers/super_admin/users_controller.rb:55
-#: ../../app/controllers/users_controller.rb:103
+#: ../../app/controllers/super_admin/users_controller.rb:54
+#: ../../app/controllers/users_controller.rb:106
 msgid "updated"
 msgstr ""
 
-#: ../../app/controllers/org_admin/phases_controller.rb:146
+#: ../../app/controllers/org_admin/phases_controller.rb:149
 #: ../../app/controllers/org_admin/questions_controller.rb:169
 #: ../../app/controllers/org_admin/users_controller.rb:32
-#: ../../app/controllers/plans_controller.rb:403
-#: ../../app/controllers/super_admin/api_clients_controller.rb:69
-#: ../../app/controllers/super_admin/notifications_controller.rb:54
+#: ../../app/controllers/plans_controller.rb:420
+#: ../../app/controllers/super_admin/api_clients_controller.rb:70
+#: ../../app/controllers/super_admin/notifications_controller.rb:55
 #: ../../app/controllers/super_admin/themes_controller.rb:41
-#: ../../app/controllers/super_admin/users_controller.rb:57
+#: ../../app/controllers/super_admin/users_controller.rb:56
 msgid "update"
 msgstr ""
 
-#: ../../app/controllers/org_admin/plans_controller.rb:32
-msgid "%{plan_owner} has been notified that you have finished providing feedback"
+#: ../../app/controllers/org_admin/phases_controller.rb:152
+#: ../../app/controllers/org_admin/phases_controller.rb:184
+#: ../../app/controllers/org_admin/question_options_controller.rb:29
+#: ../../app/controllers/org_admin/questions_controller.rb:99
+#: ../../app/controllers/org_admin/questions_controller.rb:202
+#: ../../app/controllers/org_admin/sections_controller.rb:108
+msgid "Unable to create a new version of this template."
 msgstr ""
 
-#: ../../app/controllers/org_admin/plans_controller.rb:38
+#: ../../app/controllers/org_admin/plans_controller.rb:36
+msgid "%<plan_owner>s has been notified that you have finished providing feedback"
+msgstr ""
+
+#: ../../app/controllers/org_admin/plans_controller.rb:40
 msgid "Unable to notify user that you have finished providing feedback."
 msgstr ""
 
-#: ../../app/controllers/org_admin/plans_controller.rb:53
-#: ../../app/views/plans/_project_details.html.erb:9
+#: ../../app/controllers/org_admin/plans_controller.rb:56
+#: ../../app/views/plans/_project_details.html.erb:14
 msgid "Project title"
 msgstr ""
 
-#: ../../app/controllers/org_admin/plans_controller.rb:54
+#: ../../app/controllers/org_admin/plans_controller.rb:57
+#: ../../app/views/paginable/plans/_index.html.erb:6
 #: ../../app/views/paginable/plans/_org_admin.html.erb:19
-#: ../../app/views/paginable/plans/_org_admin_other_user.html.erb:6
 #: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:13
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:6
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:6
 msgid "Template"
 msgstr ""
 
-#: ../../app/controllers/org_admin/plans_controller.rb:55
+#: ../../app/controllers/org_admin/plans_controller.rb:58
 #: ../../app/helpers/plans_helper.rb:22
-#: ../../app/helpers/settings_template_helper.rb:15
+#: ../../app/helpers/settings_template_helper.rb:16
 #: ../../app/views/devise/registrations/_password_confirmation.html.erb:22
 #: ../../app/views/orgs/_profile_form.html.erb:141
 #: ../../app/views/paginable/orgs/_index.html.erb:5
+#: ../../app/views/paginable/plans/_index.html.erb:7
 #: ../../app/views/paginable/plans/_org_admin.html.erb:20
-#: ../../app/views/paginable/plans/_org_admin_other_user.html.erb:7
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:7
 #: ../../app/views/paginable/templates/_index.html.erb:6
 #: ../../app/views/paginable/templates/_organisational.html.erb:12
@@ -495,63 +501,66 @@ msgstr ""
 msgid "Organisation"
 msgstr ""
 
-#: ../../app/controllers/org_admin/plans_controller.rb:56
+#: ../../app/controllers/org_admin/plans_controller.rb:59
 msgid "Owner name"
 msgstr ""
 
-#: ../../app/controllers/org_admin/plans_controller.rb:57
+#: ../../app/controllers/org_admin/plans_controller.rb:60
 msgid "Owner email"
 msgstr ""
 
-#: ../../app/controllers/org_admin/plans_controller.rb:58
+#: ../../app/controllers/org_admin/plans_controller.rb:61
+#: ../../app/views/paginable/plans/_index.html.erb:9
 #: ../../app/views/paginable/plans/_org_admin.html.erb:23
-#: ../../app/views/paginable/plans/_org_admin_other_user.html.erb:9
 #: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:18
 msgid "Updated"
 msgstr ""
 
-#: ../../app/controllers/org_admin/plans_controller.rb:59
+#: ../../app/controllers/org_admin/plans_controller.rb:62
 #: ../../app/views/org_admin/templates/_form.html.erb:17
 #: ../../app/views/org_admin/templates/_show.html.erb:32
+#: ../../app/views/paginable/plans/_index.html.erb:10
 #: ../../app/views/paginable/plans/_org_admin.html.erb:24
-#: ../../app/views/paginable/plans/_org_admin_other_user.html.erb:10
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:10
 msgid "Visibility"
 msgstr ""
 
-#: ../../app/controllers/org_admin/sections_controller.rb:70
+#: ../../app/controllers/org_admin/sections_controller.rb:71
 msgid "Unable to create a new section. The phase you specified does not exist."
 msgstr ""
 
-#: ../../app/controllers/org_admin/template_copies_controller.rb:18
-#: ../../app/controllers/plans_controller.rb:380
+#: ../../app/controllers/org_admin/sections_controller.rb:133
+msgid "Unable to delete this version of the template."
+msgstr ""
+
+#: ../../app/controllers/org_admin/template_copies_controller.rb:20
+#: ../../app/controllers/plans_controller.rb:396
 msgid "copy"
 msgstr ""
 
 #:
-#: ../../app/controllers/org_admin/template_customization_transfers_controller.rb:27
+#: ../../app/controllers/org_admin/template_customization_transfers_controller.rb:28
 msgid "That template is no longer customizable."
 msgstr ""
 
-#: ../../app/controllers/org_admin/template_customizations_controller.rb:19
+#: ../../app/controllers/org_admin/template_customizations_controller.rb:21
 msgid "Unable to customize that template."
 msgstr ""
 
-#: ../../app/controllers/org_admin/template_customizations_controller.rb:22
+#: ../../app/controllers/org_admin/template_customizations_controller.rb:24
 msgid "That template is not customizable."
 msgstr ""
 
-#: ../../app/controllers/org_admin/templates_controller.rb:23
+#: ../../app/controllers/org_admin/templates_controller.rb:21
 #: ../../app/views/org_admin/templates/index.html.erb:43
 msgid "All Templates"
 msgstr ""
 
-#: ../../app/controllers/org_admin/templates_controller.rb:48
-#: ../../app/views/org_admin/templates/index.html.erb:52
-msgid "%{org_name} Templates"
+#: ../../app/controllers/org_admin/templates_controller.rb:47
+msgid "%<org_name>s Templates"
 msgstr ""
 
-#: ../../app/controllers/org_admin/templates_controller.rb:50
+#: ../../app/controllers/org_admin/templates_controller.rb:49
 #: ../../app/views/org_admin/templates/index.html.erb:54
 msgid "Own Templates"
 msgstr ""
@@ -560,216 +569,222 @@ msgstr ""
 msgid "Customizable Templates"
 msgstr ""
 
-#: ../../app/controllers/org_admin/templates_controller.rb:214
-msgid "Error parsing links for a %{template}"
+#: ../../app/controllers/org_admin/templates_controller.rb:215
+msgid "Error parsing links for a %<template>s"
 msgstr ""
 
-#: ../../app/controllers/org_admin/templates_controller.rb:345
-#: ../../app/controllers/public_pages_controller.rb:68
-msgid "Template created using the %{application_name} service. Last modified %{date}"
+#: ../../app/controllers/org_admin/templates_controller.rb:343
+#: ../../app/controllers/public_pages_controller.rb:67
+msgid ""
+"Template created using the %<application_name>s service. Last modified %<date>"
+"s"
 msgstr ""
 
-#: ../../app/controllers/org_admin/templates_controller.rb:360
-#: ../../app/controllers/public_pages_controller.rb:83
+#: ../../app/controllers/org_admin/templates_controller.rb:355
+#: ../../app/controllers/public_pages_controller.rb:80
 msgid "Unable to download the DMP Template at this time."
 msgstr ""
 
-#: ../../app/controllers/orgs_controller.rb:114
+#: ../../app/controllers/orgs_controller.rb:116
 msgid "No organisations are currently registered."
 msgstr ""
 
-#: ../../app/controllers/orgs_controller.rb:137
-msgid "Your organisation does not seem to be properly configured."
-msgstr ""
-
-#: ../../app/controllers/orgs_controller.rb:142
+#: ../../app/controllers/orgs_controller.rb:127
 msgid "Please choose an organisation"
 msgstr ""
 
-#: ../../app/controllers/plan_exports_controller.rb:85
-msgid "Created using %{application_name}. Last modified %{date}"
+#: ../../app/controllers/orgs_controller.rb:136
+msgid "Your organisation does not seem to be properly configured."
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:51
+#: ../../app/controllers/plan_exports_controller.rb:85
+msgid "Created using %<application_name>s. Last modified %<date>s"
+msgstr ""
+
+#: ../../app/controllers/plans_controller.rb:52
 msgid "This is a"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:51
+#: ../../app/controllers/plans_controller.rb:52
 msgid "test plan"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:68
+#: ../../app/controllers/plans_controller.rb:70
 msgid "Unable to identify a suitable template for your plan."
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:82
-msgid "My Plan"
-msgstr ""
-
 #: ../../app/controllers/plans_controller.rb:84
-msgid " Plan"
+msgid "My Plan (%<title>s)"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:122
+#: ../../app/controllers/plans_controller.rb:86
+msgid "%<user_name>s Plan"
+msgstr ""
+
+#: ../../app/controllers/plans_controller.rb:124
 msgid "This plan is based on the default template."
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:127
-#: ../../app/controllers/plans_controller.rb:132
+#: ../../app/controllers/plans_controller.rb:129
+#: ../../app/controllers/plans_controller.rb:133
 msgid "This plan is based on the"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:127
+#: ../../app/controllers/plans_controller.rb:129
 msgid "template with customisations by the"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:378
+#: ../../app/controllers/plans_controller.rb:394
 msgid "copied"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:408
+#: ../../app/controllers/plans_controller.rb:425
 msgid ""
-"Unable to change the plan's status since it is needed at least %{percentage} p"
-"ercentage responded"
+"Unable to change the plan's status since it is needed at least %<percentage}>s"
+" percentage responded"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:416
-msgid "Unable to find plan id %{plan_id}"
+#: ../../app/controllers/plans_controller.rb:431
+msgid "Unable to find plan id %{<plan_id>s"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:433
+#: ../../app/controllers/plans_controller.rb:446
 msgid "Your project is now a test."
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:433
+#: ../../app/controllers/plans_controller.rb:446
 msgid "Your project is no longer a test."
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:437
+#: ../../app/controllers/plans_controller.rb:450
 msgid "Unable to change the plan's test status"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:451
-msgid "There is no plan associated with id %{id}"
+#: ../../app/controllers/plans_controller.rb:463
+msgid "There is no plan associated with id %{<id}>s"
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:35
+#: ../../app/controllers/registrations_controller.rb:34
 msgid ""
 "Please make a choice below. After linking your\n"
-"                       details to a %{application_name} account,\n"
+"                       details to a %<application_name>s account,\n"
 "                       you will be able to sign in directly with your\n"
 "                       institutional credentials."
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:61
+#: ../../app/controllers/registrations_controller.rb:58
 msgid "You must accept the terms and conditions to register."
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:64
+#: ../../app/controllers/registrations_controller.rb:61
 msgid "Please select an organisation from the list, or choose Other."
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:77
+#: ../../app/controllers/registrations_controller.rb:74
 msgid "That email address is already registered."
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:119
+#: ../../app/controllers/registrations_controller.rb:115
 msgid ""
-"Welcome! You have signed up successfully with your institutional credentials. "
-"You will now be able to access your account with them."
+"Welcome! You have signed up successfully with your\n"
+"                                  institutional credentials. You will now be a"
+"ble to access\n"
+"                                  your account with them."
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:171
+#: ../../app/controllers/registrations_controller.rb:173
 msgid "Save Unsuccessful. "
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:175
+#: ../../app/controllers/registrations_controller.rb:177
 msgid "Please enter an email address. "
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:179
+#: ../../app/controllers/registrations_controller.rb:181
 msgid "Please enter a First name. "
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:183
+#: ../../app/controllers/registrations_controller.rb:185
 msgid "Please enter a Last name. "
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:187
+#: ../../app/controllers/registrations_controller.rb:189
 msgid ""
 "Please select an organisation from the list, or enter your organisation's name"
 "."
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:203
+#: ../../app/controllers/registrations_controller.rb:212
 msgid "Please enter your password to change email address."
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:208
+#: ../../app/controllers/registrations_controller.rb:218
 msgid ""
 "Save unsuccessful. \\\n"
 "                That email address is already registered. \\\n"
 "                You must enter a unique email address."
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:213
+#: ../../app/controllers/registrations_controller.rb:224
 msgid "Invalid password"
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:264
+#: ../../app/controllers/registrations_controller.rb:268
 msgid "Please enter your current password"
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:266
+#: ../../app/controllers/registrations_controller.rb:270
 msgid "Please enter a password confirmation"
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:268
+#: ../../app/controllers/registrations_controller.rb:272
 msgid "Password and comfirmation must match"
 msgstr ""
 
 #: ../../app/controllers/roles_controller.rb:26
 msgid ""
-"Cannot share plan with %{email} since that email matches with the owner of the"
-" plan."
+"Cannot share plan with %<email>s since that email matches\n"
+"                                   with the owner of the plan."
 msgstr ""
 
-#: ../../app/controllers/roles_controller.rb:37
-msgid "Plan is already shared with %{email}."
+#: ../../app/controllers/roles_controller.rb:36
+msgid "Plan is already shared with %<email>s."
 msgstr ""
 
-#: ../../app/controllers/roles_controller.rb:44
+#: ../../app/controllers/roles_controller.rb:43
 #: ../../app/views/shared/_create_account_form.html.erb:4
 msgid "First Name"
 msgstr ""
 
-#: ../../app/controllers/roles_controller.rb:45
+#: ../../app/controllers/roles_controller.rb:44
 msgid "Surname"
 msgstr ""
 
-#: ../../app/controllers/roles_controller.rb:48
-msgid "Invitation to %{email} issued successfully."
+#: ../../app/controllers/roles_controller.rb:47
+msgid "Invitation to %<email>s issued successfully."
 msgstr ""
 
-#: ../../app/controllers/roles_controller.rb:53
-msgid "Plan shared with %{email}."
+#: ../../app/controllers/roles_controller.rb:52
+msgid "Plan shared with %<email>s."
 msgstr ""
 
-#: ../../app/controllers/roles_controller.rb:68
-msgid "You must provide a valid email address and select a permission level."
+#: ../../app/controllers/roles_controller.rb:64
+msgid ""
+"You must provide a valid email address and select a permission\n"
+"                               level."
 msgstr ""
 
-#: ../../app/controllers/roles_controller.rb:74
+#: ../../app/controllers/roles_controller.rb:71
 msgid "Please enter an email address"
 msgstr ""
 
-#: ../../app/controllers/roles_controller.rb:93
+#: ../../app/controllers/roles_controller.rb:90
 msgid ""
-"Successfully changed the permissions for %{email}. They have been notified via"
-" email."
+"Successfully changed the permissions for %<email>. They have been\n"
+"                       notified via email."
 msgstr ""
 
-#: ../../app/controllers/roles_controller.rb:108
+#: ../../app/controllers/roles_controller.rb:107
 msgid "Access removed"
 msgstr ""
 
@@ -787,83 +802,83 @@ msgid ""
 "ou will now be able to sign in with them."
 msgstr ""
 
-#: ../../app/controllers/settings/plans_controller.rb:39
+#: ../../app/controllers/settings/plans_controller.rb:38
 msgid "Export settings updated successfully."
 msgstr ""
 
-#: ../../app/controllers/settings/plans_controller.rb:41
+#: ../../app/controllers/settings/plans_controller.rb:40
 msgid "An error has occurred while saving/resetting your export settings."
 msgstr ""
 
 #: ../../app/controllers/super_admin/api_clients_controller.rb:45
-msgid ". The API credentials have been emailed to %{email}"
+msgid ". The API credentials have been emailed to %<email>s"
 msgstr ""
 
-#: ../../app/controllers/super_admin/notifications_controller.rb:69
+#: ../../app/controllers/super_admin/notifications_controller.rb:70
 msgid "Your notification is now active."
 msgstr ""
 
-#: ../../app/controllers/super_admin/notifications_controller.rb:69
+#: ../../app/controllers/super_admin/notifications_controller.rb:70
 msgid "Your notification is no longer active."
 msgstr ""
 
-#: ../../app/controllers/super_admin/notifications_controller.rb:73
+#: ../../app/controllers/super_admin/notifications_controller.rb:74
 msgid "Unable to change the notification's active status"
 msgstr ""
 
-#: ../../app/controllers/super_admin/notifications_controller.rb:104
-msgid "There is no notification associated with id  %{id}"
+#: ../../app/controllers/super_admin/notifications_controller.rb:105
+msgid "There is no notification associated with id  %<id>s"
 msgstr ""
 
-#: ../../app/controllers/super_admin/org_swaps_controller.rb:22
+#: ../../app/controllers/super_admin/org_swaps_controller.rb:24
 msgid ""
 "Your organisation affiliation has been changed. You may now edit templates for"
-" %{org_name}."
-msgstr ""
-
-#: ../../app/controllers/super_admin/org_swaps_controller.rb:25
-msgid "Unable to change your organisation affiliation at this time."
+" %<org_name>s."
 msgstr ""
 
 #: ../../app/controllers/super_admin/org_swaps_controller.rb:28
+msgid "Unable to change your organisation affiliation at this time."
+msgstr ""
+
+#: ../../app/controllers/super_admin/org_swaps_controller.rb:31
 msgid "Unknown organisation."
 msgstr ""
 
-#: ../../app/controllers/super_admin/orgs_controller.rb:71
+#: ../../app/controllers/super_admin/orgs_controller.rb:70
 msgid "There seems to be a problem with your logo. Please upload it again."
 msgstr ""
 
-#: ../../app/controllers/super_admin/orgs_controller.rb:135
+#: ../../app/controllers/super_admin/orgs_controller.rb:137
 msgid "An error occurred while trying to merge the Organisations."
 msgstr ""
 
-#: ../../app/controllers/super_admin/orgs_controller.rb:139
+#: ../../app/controllers/super_admin/orgs_controller.rb:141
 msgid "Unable to merge the two Organisations at this time."
 msgstr ""
 
-#: ../../app/controllers/super_admin/orgs_controller.rb:143
+#: ../../app/controllers/super_admin/orgs_controller.rb:145
 msgid "Unable to determine what records need to be merged."
 msgstr ""
 
-#: ../../app/controllers/super_admin/users_controller.rb:71
+#: ../../app/controllers/super_admin/users_controller.rb:69
 msgid ""
 "You attempted to merge 2 accounts with the same email address.\n"
 "           Please merge with a different email address."
 msgstr ""
 
-#: ../../app/controllers/super_admin/users_controller.rb:107
+#: ../../app/controllers/super_admin/users_controller.rb:111
 msgid "archived"
 msgstr ""
 
-#: ../../app/controllers/super_admin/users_controller.rb:109
+#: ../../app/controllers/super_admin/users_controller.rb:113
 msgid "archive"
 msgstr ""
 
-#: ../../app/controllers/super_admin/users_controller.rb:129
+#: ../../app/controllers/super_admin/users_controller.rb:134
 msgid "merged"
 msgstr ""
 
-#: ../../app/controllers/super_admin/users_controller.rb:131
+#: ../../app/controllers/super_admin/users_controller.rb:136
 msgid "merge"
 msgstr ""
 
@@ -873,39 +888,39 @@ msgid ""
 "itation."
 msgstr ""
 
-#: ../../app/controllers/users/omniauth_callbacks_controller.rb:44
+#: ../../app/controllers/users/omniauth_callbacks_controller.rb:46
 msgid "Successfully signed in"
 msgstr ""
 
-#: ../../app/controllers/users/omniauth_callbacks_controller.rb:56
-msgid "Your account has been successfully linked to %{scheme}."
+#: ../../app/controllers/users/omniauth_callbacks_controller.rb:59
+msgid "Your account has been successfully linked to %<scheme>s."
 msgstr ""
 
-#: ../../app/controllers/users/omniauth_callbacks_controller.rb:61
-msgid "Unable to link your account to %{scheme}."
+#: ../../app/controllers/users/omniauth_callbacks_controller.rb:63
+msgid "Unable to link your account to %<scheme>s."
 msgstr ""
 
-#: ../../app/controllers/users_controller.rb:141
-msgid "Successfully %{action} %{username}'s account."
+#: ../../app/controllers/users_controller.rb:147
+msgid "Successfully %<action>s %<username>s's account."
 msgstr ""
 
-#: ../../app/controllers/users_controller.rb:142
+#: ../../app/controllers/users_controller.rb:148
 msgid "activated"
 msgstr ""
 
-#: ../../app/controllers/users_controller.rb:142
+#: ../../app/controllers/users_controller.rb:148
 msgid "deactivated"
 msgstr ""
 
-#: ../../app/controllers/users_controller.rb:149
-msgid "Unable to %{action} %{username}"
+#: ../../app/controllers/users_controller.rb:154
+msgid "Unable to %<action>s %<username>s"
 msgstr ""
 
-#: ../../app/controllers/users_controller.rb:150
+#: ../../app/controllers/users_controller.rb:155
 msgid "activate"
 msgstr ""
 
-#: ../../app/controllers/users_controller.rb:150
+#: ../../app/controllers/users_controller.rb:155
 msgid "deactivate"
 msgstr ""
 
@@ -922,12 +937,12 @@ msgid ""
 "ot to duplicate too much text."
 msgstr ""
 
-#: ../../app/helpers/conditions_helper.rb:194
+#: ../../app/helpers/conditions_helper.rb:193
 msgid "Answering"
 msgstr ""
 
-#: ../../app/helpers/conditions_helper.rb:198
-msgid " will <b>send an email</b> with subject "
+#: ../../app/helpers/conditions_helper.rb:197
+msgid " will <b>send an email</b> with subject %<subject_name>s"
 msgstr ""
 
 #: ../../app/helpers/conditions_helper.rb:203
@@ -938,19 +953,15 @@ msgstr ""
 msgid " will <b>remove</b> questions "
 msgstr ""
 
-#: ../../app/helpers/conditions_helper.rb:223
-msgid "\""
-msgstr ""
-
-#: ../../app/helpers/customizable_template_link_helper.rb:12
+#: ../../app/helpers/customizable_template_link_helper.rb:13
 msgid "Transfer customisation"
 msgstr ""
 
-#: ../../app/helpers/customizable_template_link_helper.rb:17
+#: ../../app/helpers/customizable_template_link_helper.rb:18
 msgid "Edit customisation"
 msgstr ""
 
-#: ../../app/helpers/customizable_template_link_helper.rb:21
+#: ../../app/helpers/customizable_template_link_helper.rb:22
 msgid "Customise"
 msgstr ""
 
@@ -959,22 +970,23 @@ msgid "Creators:"
 msgstr ""
 
 #: ../../app/helpers/exports_helper.rb:38
-#: ../../app/models/concerns/exportable_plan.rb:133
+#: ../../app/models/concerns/exportable_plan.rb:141
+#: ../../app/views/shared/export/_plan_coversheet.erb:6
 #: ../../app/views/shared/export/_plan_txt.erb:4
 msgid "Creator:"
 msgstr ""
 
 #: ../../app/helpers/feedbacks_helper.rb:6
-msgid "%{application_name}: Your plan has been submitted for feedback"
+msgid "%<application_name>s: Your plan has been submitted for feedback"
 msgstr ""
 
 #: ../../app/helpers/feedbacks_helper.rb:10
 msgid ""
-"<p>Hello %{user_name}.</p><p>Your plan \"%{plan_name}\" has been submitted for f"
-"eedback from an\n"
+"<p>Hello %<user_name>s.</p><p>Your plan \"%<plan_name>s\" has been submitted for"
+" feedback from an\n"
 "      administrator at your organisation. If you have questions pertaining to "
 "this action, please contact us\n"
-"      at %{organisation_email}.</p>"
+"      at %<organisation_email>s.</p>"
 msgstr ""
 
 #: ../../app/helpers/identifier_helper.rb:6
@@ -1008,10 +1020,10 @@ msgstr ""
 
 #: ../../app/helpers/orgs_helper.rb:14
 msgid ""
-"<p>A data librarian from %{org_name} will respond to your request within 48\n"
+"<p>A data librarian from %<org_name>s will respond to your request within 48\n"
 "       hours. If you have questions pertaining to this action please contact u"
 "s\n"
-"       at %{organisation_email}.</p>"
+"       at %<organisation_email>s.</p>"
 msgstr ""
 
 #: ../../app/helpers/perms_helper.rb:9
@@ -1052,8 +1064,8 @@ msgid "Grant API to organisations"
 msgstr ""
 
 #: ../../app/helpers/plans_helper.rb:8
+#: ../../app/views/paginable/plans/_index.html.erb:8
 #: ../../app/views/paginable/plans/_org_admin.html.erb:21
-#: ../../app/views/paginable/plans/_org_admin_other_user.html.erb:8
 #: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:16
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:8
 msgid "Owner"
@@ -1096,231 +1108,227 @@ msgstr ""
 msgid "Private: restricted to me and people I invite."
 msgstr ""
 
-#: ../../app/helpers/settings_template_helper.rb:7
-#: ../../app/helpers/settings_template_helper.rb:18
+#: ../../app/helpers/settings_template_helper.rb:8
+#: ../../app/helpers/settings_template_helper.rb:19
 msgid "Unknown column name."
 msgstr ""
 
-#: ../../app/helpers/settings_template_helper.rb:8
+#: ../../app/helpers/settings_template_helper.rb:9
 msgid "Plan Name"
 msgstr ""
 
-#: ../../app/helpers/settings_template_helper.rb:9
+#: ../../app/helpers/settings_template_helper.rb:10
 msgid "Plan ID"
 msgstr ""
 
-#: ../../app/helpers/settings_template_helper.rb:10
+#: ../../app/helpers/settings_template_helper.rb:11
 msgid "Grant number"
 msgstr ""
 
-#: ../../app/helpers/settings_template_helper.rb:11
+#: ../../app/helpers/settings_template_helper.rb:12
 msgid "Principal Investigator / Researcher"
 msgstr ""
 
-#: ../../app/helpers/settings_template_helper.rb:12
+#: ../../app/helpers/settings_template_helper.rb:13
 msgid "Plan Data Contact"
 msgstr ""
 
-#: ../../app/helpers/settings_template_helper.rb:13
+#: ../../app/helpers/settings_template_helper.rb:14
 msgid "Plan Description"
 msgstr ""
 
-#: ../../app/helpers/settings_template_helper.rb:14
+#: ../../app/helpers/settings_template_helper.rb:15
 #: ../../app/views/orgs/_profile_form.html.erb:129
 #: ../../app/views/paginable/templates/_customisable.html.erb:7
 #: ../../app/views/paginable/templates/_organisational.html.erb:12
-#: ../../app/views/plans/_project_details.html.erb:88
-#: ../../app/views/plans/_project_details.html.erb:102
+#: ../../app/views/plans/_project_details.html.erb:156
 #: ../../app/views/plans/_show_details.html.erb:12
 #: ../../app/views/plans/new.html.erb:86
 msgid "Funder"
 msgstr ""
 
-#: ../../app/helpers/settings_template_helper.rb:16
+#: ../../app/helpers/settings_template_helper.rb:17
 msgid "Your ORCID"
 msgstr ""
 
-#: ../../app/helpers/super_admin/orgs/merge_helper.rb:21
+#: ../../app/helpers/super_admin/orgs/merge_helper.rb:20
 msgid "None"
 msgstr ""
 
-#: ../../app/helpers/super_admin/orgs/merge_helper.rb:31
-msgid "Guidance for: %{themes}"
+#: ../../app/helpers/super_admin/orgs/merge_helper.rb:30
+msgid "Guidance for: %<themes>s"
 msgstr ""
 
-#: ../../app/helpers/super_admin/orgs/merge_helper.rb:53
+#: ../../app/helpers/super_admin/orgs/merge_helper.rb:51
 msgid "Nothing to merge"
 msgstr ""
 
-#: ../../app/helpers/super_admin/orgs/merge_helper.rb:55
-msgid "<p>The following %{object_types} will be moved over to '%{org_name}':</p>"
+#: ../../app/helpers/super_admin/orgs/merge_helper.rb:53
+msgid "<p>The following %<object_types>s will be moved over to '%<org_name>s':</p>"
 msgstr ""
 
-#: ../../app/helpers/template_helper.rb:46
+#: ../../app/helpers/template_helper.rb:48
 #: ../../app/views/plans/index.html.erb:29
 #: ../../app/views/plans/new.html.erb:123
 #: ../../app/views/shared/_create_plan_modal.html.erb:5
-#: ../../spec/features/locales_spec.rb:54
-#: ../../spec/features/locales_spec.rb:71
+#: ../../spec/features/locales_spec.rb:53
+#: ../../spec/features/locales_spec.rb:69
 msgid "Create plan"
 msgstr ""
 
-#: ../../app/helpers/usage_helper.rb:62
+#: ../../app/helpers/usage_helper.rb:65
 msgid "Last month"
 msgstr ""
 
-#: ../../app/helpers/usage_helper.rb:63
+#: ../../app/helpers/usage_helper.rb:66
 msgid "Last 3 months"
 msgstr ""
 
-#: ../../app/helpers/usage_helper.rb:64
+#: ../../app/helpers/usage_helper.rb:67
 msgid "Last 6 months"
 msgstr ""
 
-#: ../../app/helpers/usage_helper.rb:65
+#: ../../app/helpers/usage_helper.rb:68
 msgid "Last 9 months"
 msgstr ""
 
-#: ../../app/helpers/usage_helper.rb:66
+#: ../../app/helpers/usage_helper.rb:69
 msgid "Last 12 months"
 msgstr ""
 
-#: ../../app/mailers/user_mailer.rb:16
-#: ../../app/views/devise/mailer/invitation_instructions.html.erb:6
-#: ../../app/views/devise/mailer/reset_password_instructions.html.erb:5
-#: ../../app/views/user_mailer/_email_signature.html.erb:2
-msgid "Query or feedback related to %{tool_name}"
+#: ../../app/mailers/user_mailer.rb:17
+msgid "Query or feedback related to %<tool_name>s"
 msgstr ""
 
-#: ../../app/mailers/user_mailer.rb:23
-msgid "Welcome to %{tool_name}"
+#: ../../app/mailers/user_mailer.rb:24
+msgid "Welcome to %<tool_name>s"
 msgstr ""
 
-#: ../../app/mailers/user_mailer.rb:58
-msgid "A Data Management Plan in %{tool_name} has been shared with you"
+#: ../../app/mailers/user_mailer.rb:59
+msgid "A Data Management Plan in %<tool_name>s has been shared with you"
 msgstr ""
 
-#: ../../app/mailers/user_mailer.rb:76
-msgid "Changed permissions on a Data Management Plan in %{tool_name}"
+#: ../../app/mailers/user_mailer.rb:75
+msgid "Changed permissions on a Data Management Plan in %<tool_name>s"
 msgstr ""
 
-#: ../../app/mailers/user_mailer.rb:92
-msgid "Permissions removed on a DMP in %{tool_name}"
+#: ../../app/mailers/user_mailer.rb:89
+msgid "Permissions removed on a DMP in %<tool_name>s"
 msgstr ""
 
-#: ../../app/mailers/user_mailer.rb:111
-msgid "%{user_name} has requested feedback on a %{tool_name} plan"
+#: ../../app/mailers/user_mailer.rb:106
+msgid "%<user_name>s has requested feedback on a %<tool_name>s plan"
 msgstr ""
 
-#: ../../app/mailers/user_mailer.rb:134
-msgid "%{tool_name}: Expert feedback has been provided for %{plan_title}"
+#: ../../app/mailers/user_mailer.rb:128
+msgid "%<tool_name>s: Expert feedback has been provided for %<plan_title>s"
 msgstr ""
 
-#: ../../app/mailers/user_mailer.rb:169
-msgid "DMP Visibility Changed: %{plan_title}"
+#: ../../app/mailers/user_mailer.rb:145
+msgid "DMP Visibility Changed: %<plan_title>s"
 msgstr ""
 
-#: ../../app/mailers/user_mailer.rb:200
-msgid "%{tool_name}: A new comment was added to %{plan_title}"
+#: ../../app/mailers/user_mailer.rb:173
+msgid "%<tool_name>s: A new comment was added to %<plan_title>s"
 msgstr ""
 
-#: ../../app/mailers/user_mailer.rb:218
-msgid "Administrator privileges granted in %{tool_name}"
+#: ../../app/mailers/user_mailer.rb:188
+msgid "Administrator privileges granted in %<tool_name>s"
 msgstr ""
 
-#: ../../app/mailers/user_mailer.rb:235
-msgid "%{tool_name} API changes"
+#: ../../app/mailers/user_mailer.rb:204
+msgid "%<tool_name>s API changes"
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:26
+#: ../../app/models/concerns/exportable_plan.rb:30
 msgid "Phase"
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:28
-#: ../../app/models/exported_plan.rb:114 ../../app/models/exported_plan.rb:117
+#: ../../app/models/concerns/exportable_plan.rb:32
+#: ../../app/models/exported_plan.rb:116 ../../app/models/exported_plan.rb:119
 msgid "Section"
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:28
-#: ../../app/models/exported_plan.rb:114
+#: ../../app/models/concerns/exportable_plan.rb:32
+#: ../../app/models/exported_plan.rb:116
 msgid "Question"
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:28
-#: ../../app/models/concerns/exportable_plan.rb:30
-#: ../../app/models/exported_plan.rb:114 ../../app/models/exported_plan.rb:117
+#: ../../app/models/concerns/exportable_plan.rb:32
+#: ../../app/models/concerns/exportable_plan.rb:34
+#: ../../app/models/exported_plan.rb:116 ../../app/models/exported_plan.rb:119
 msgid "Answer"
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:120
+#: ../../app/models/concerns/exportable_plan.rb:128
 msgid " Customised By: "
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:131
+#: ../../app/models/concerns/exportable_plan.rb:139
 #: ../../app/views/shared/export/_plan_txt.erb:4
 msgid "Creators: "
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:134
-msgid "%{authors}"
+#: ../../app/models/concerns/exportable_plan.rb:142
+msgid "%<authors>s"
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:135
-msgid "%{affiliation}"
+#: ../../app/models/concerns/exportable_plan.rb:143
+msgid "%<affiliation>s"
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:137
-#: ../../app/models/concerns/exportable_plan.rb:139
-#: ../../app/views/shared/export/_plan_coversheet.erb:16
+#: ../../app/models/concerns/exportable_plan.rb:145
+#: ../../app/models/concerns/exportable_plan.rb:147
+#: ../../app/views/shared/export/_plan_coversheet.erb:14
 #: ../../app/views/shared/export/_plan_txt.erb:7
 #: ../../app/views/shared/export/_plan_txt.erb:9
 msgid "Template: "
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:137
-msgid "%{funder}"
+#: ../../app/models/concerns/exportable_plan.rb:145
+msgid "%<funder>s"
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:139
-msgid "%{template}"
+#: ../../app/models/concerns/exportable_plan.rb:147
+msgid "%<template>s"
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:142
+#: ../../app/models/concerns/exportable_plan.rb:149
 #: ../../app/views/shared/export/_plan_txt.erb:12
 msgid "Grant number: "
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:142
-msgid "%{grant_number}"
+#: ../../app/models/concerns/exportable_plan.rb:149
+msgid "%<grant_number>s"
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:145
-#: ../../app/views/shared/export/_plan_coversheet.erb:26
+#: ../../app/models/concerns/exportable_plan.rb:151
+#: ../../app/views/shared/export/_plan_coversheet.erb:24
 #: ../../app/views/shared/export/_plan_txt.erb:15
 msgid "Project abstract: "
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:145
-msgid "%{description}"
+#: ../../app/models/concerns/exportable_plan.rb:151
+msgid "%<description>s"
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:148
-#: ../../app/views/shared/export/_plan_coversheet.erb:42
+#: ../../app/models/concerns/exportable_plan.rb:153
+#: ../../app/views/shared/export/_plan_coversheet.erb:40
 #: ../../app/views/shared/export/_plan_txt.erb:18
 msgid "Last modified: "
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:148
-msgid "%{date}"
+#: ../../app/models/concerns/exportable_plan.rb:153
+msgid "%<date>s"
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:149
-#: ../../app/views/shared/export/_plan_coversheet.erb:49
+#: ../../app/models/concerns/exportable_plan.rb:154
+#: ../../app/views/shared/export/_plan_coversheet.erb:47
 #: ../../app/views/shared/export/_plan_txt.erb:19
 msgid "Copyright information:"
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:150
+#: ../../app/models/concerns/exportable_plan.rb:155
 msgid ""
 "The above plan creator(s) have agreed that others may use as\n"
 "             much of the text of this plan as they would like in their own pla"
@@ -1334,7 +1342,7 @@ msgid ""
 "             your project or proposal"
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:175
+#: ../../app/models/concerns/exportable_plan.rb:179
 msgid "Not Answered"
 msgstr ""
 
@@ -1344,7 +1352,7 @@ msgid "can't be blank"
 msgstr "can't be blank"
 
 #: ../../app/models/concerns/validation_messages.rb:13
-#: ../../app/models/identifier.rb:131
+#: ../../app/models/identifier.rb:134
 msgid "must be unique"
 msgstr ""
 
@@ -1364,41 +1372,40 @@ msgstr ""
 msgid "You must specify at least one role."
 msgstr ""
 
-#: ../../app/models/contributor.rb:136
-msgid "can't be blank if no email is provided"
+#: ../../app/models/contributor.rb:135 ../../app/models/contributor.rb:138
+msgid "can't be blank."
 msgstr ""
 
-#: ../../app/models/contributor.rb:137
-msgid "can't be blank if no name is provided"
+#: ../../app/models/contributor.rb:142
+msgid "can't be blank if no email is provided."
 msgstr ""
 
-#: ../../app/models/exported_plan.rb:114 ../../app/models/exported_plan.rb:117
+#: ../../app/models/contributor.rb:143
+msgid "can't be blank if no name is provided."
+msgstr ""
+
+#: ../../app/models/exported_plan.rb:116 ../../app/models/exported_plan.rb:119
 msgid "Selected option(s)"
 msgstr ""
 
-#: ../../app/models/exported_plan.rb:115 ../../app/models/exported_plan.rb:117
+#: ../../app/models/exported_plan.rb:117 ../../app/models/exported_plan.rb:119
 msgid "Answered by"
 msgstr ""
 
-#: ../../app/models/exported_plan.rb:115 ../../app/models/exported_plan.rb:118
+#: ../../app/models/exported_plan.rb:117 ../../app/models/exported_plan.rb:120
 msgid "Answered at"
 msgstr ""
 
-#: ../../app/models/exported_plan.rb:162
+#: ../../app/models/exported_plan.rb:165
 msgid "Details"
 msgstr ""
 
-#: ../../app/models/exported_plan.rb:169
-msgid "-"
+#: ../../app/models/exported_plan.rb:189
+msgid ""
+"Question not answered.\n"
 msgstr ""
 
-#: ../../app/models/exported_plan.rb:186
-#: ../../app/views/shared/export/_plan.erb:53
-#: ../../app/views/shared/export/_plan_txt.erb:50
-msgid "Question not answered."
-msgstr ""
-
-#: ../../app/models/identifier.rb:138
+#: ../../app/models/identifier.rb:141
 msgid "already assigned a value"
 msgstr ""
 
@@ -1406,35 +1413,35 @@ msgstr ""
 msgid "Feedback email message"
 msgstr ""
 
-#: ../../app/models/org.rb:130
+#: ../../app/models/org.rb:121
 msgid "must be one of the following formats: jpeg, jpg, png, gif, bmp"
 msgstr ""
 
-#: ../../app/models/org.rb:135
+#: ../../app/models/org.rb:126
 msgid "can't be larger than 500KB"
 msgstr ""
 
-#: ../../app/models/plan.rb:63
+#: ../../app/models/plan.rb:57
 msgid "organisational"
 msgstr ""
 
-#: ../../app/models/plan.rb:64
+#: ../../app/models/plan.rb:58
 msgid "public"
 msgstr ""
 
-#: ../../app/models/plan.rb:65
+#: ../../app/models/plan.rb:59
 msgid "test"
 msgstr ""
 
-#: ../../app/models/plan.rb:66
+#: ../../app/models/plan.rb:60
 msgid "private"
 msgstr ""
 
-#: ../../app/models/plan.rb:578 ../../app/models/research_output.rb:119
+#: ../../app/models/plan.rb:608
 msgid "must be after the start date"
 msgstr ""
 
-#: ../../app/models/question.rb:153
+#: ../../app/models/question.rb:151
 msgid "guidance on"
 msgstr ""
 
@@ -1442,35 +1449,35 @@ msgstr ""
 msgid "can't be less than zero"
 msgstr ""
 
-#: ../../app/models/settings/template.rb:84
+#: ../../app/models/settings/template.rb:80
 msgid "A required setting has not been provided"
 msgstr ""
 
-#: ../../app/models/settings/template.rb:86
+#: ../../app/models/settings/template.rb:82
 msgid "Margin value is invalid"
 msgstr ""
 
-#: ../../app/models/settings/template.rb:88
+#: ../../app/models/settings/template.rb:84
 msgid "Margin cannot be negative"
 msgstr ""
 
-#: ../../app/models/settings/template.rb:91
+#: ../../app/models/settings/template.rb:86
 msgid "Unknown margin. Can only be 'top', 'bottom', 'left' or 'right'"
 msgstr ""
 
-#: ../../app/models/settings/template.rb:94
+#: ../../app/models/settings/template.rb:88
 msgid "Invalid font size"
 msgstr ""
 
-#: ../../app/models/settings/template.rb:96
+#: ../../app/models/settings/template.rb:90
 msgid "Invalid font face"
 msgstr ""
 
-#: ../../app/models/settings/template.rb:98
+#: ../../app/models/settings/template.rb:92
 msgid "Unknown formatting setting"
 msgstr ""
 
-#: ../../app/models/settings/template.rb:105
+#: ../../app/models/settings/template.rb:99
 msgid "Invalid maximum pages"
 msgstr ""
 
@@ -1478,162 +1485,164 @@ msgstr ""
 msgid "A historical template cannot be retrieved for being modified"
 msgstr ""
 
-#: ../../app/models/template.rb:371
+#: ../../app/models/template.rb:373
 msgid "generate_copy! requires an organisation target"
 msgstr ""
 
-#: ../../app/models/template.rb:380
-msgid "Copy of %{template}"
+#: ../../app/models/template.rb:382
+msgid "Copy of %<template>s"
 msgstr ""
 
-#: ../../app/models/template.rb:388
+#: ../../app/models/template.rb:389
 msgid "generate_version! requires a published template"
 msgstr ""
 
-#: ../../app/models/template.rb:404
+#: ../../app/models/template.rb:403
 msgid "customize! requires an organisation target"
 msgstr ""
 
-#: ../../app/models/template.rb:409
+#: ../../app/models/template.rb:406
 msgid "customize! requires a template from a funder"
 msgstr ""
 
-#: ../../app/models/template.rb:446
+#: ../../app/models/template.rb:442
 msgid "You can not publish a published template.  "
 msgstr ""
 
-#: ../../app/models/template.rb:450
+#: ../../app/models/template.rb:446
 msgid "You can not publish a historical version of this template.  "
 msgstr ""
 
-#: ../../app/models/template.rb:455
+#: ../../app/models/template.rb:451
 msgid "You can not publish a template without phases.  "
 msgstr ""
 
-#: ../../app/models/template.rb:460
+#: ../../app/models/template.rb:456
 msgid "You can not publish a template without sections in a phase.  "
 msgstr ""
 
-#: ../../app/models/template.rb:465
+#: ../../app/models/template.rb:461
 msgid "You can not publish a template without questions in a section.  "
 msgstr ""
 
-#: ../../app/models/template.rb:469
+#: ../../app/models/template.rb:465
 msgid "Conditions in the template refer backwards"
 msgstr ""
 
-#: ../../app/models/user.rb:379
-msgid "A Data Management Plan in %{application_name} has been shared with you"
+#: ../../app/models/user.rb:384
+msgid "A Data Management Plan in %<application_name>s has been shared with you"
 msgstr ""
 
-#: ../../app/policies/api/v0/departments_policy.rb:12
-#: ../../app/policies/api/v0/guidance_group_policy.rb:12
-#: ../../app/policies/api/v0/guidance_policy.rb:13
-#: ../../app/policies/api/v0/plans_policy.rb:13
-#: ../../app/policies/api/v0/statistics_policy.rb:12
-#: ../../app/policies/api/v0/template_policy.rb:12
-#: ../../app/policies/api_client_policy.rb:6
-#: ../../app/policies/notification_policy.rb:6
-#: ../../app/policies/plan_policy.rb:9 ../../app/policies/template_policy.rb:8
-#: ../../app/policies/theme_policy.rb:6
-msgid "must be logged in"
-msgstr ""
-
-#: ../../app/policies/api/v0/guidance_group_policy.rb:14
-#: ../../app/policies/api/v0/guidance_policy.rb:15
-#: ../../app/policies/api/v0/statistics_policy.rb:14
-#: ../../app/policies/api/v0/template_policy.rb:14
+#: ../../app/policies/api/v0/guidance_group_policy.rb:11
+#: ../../app/policies/api/v0/guidance_policy.rb:11
+#: ../../app/policies/api/v0/statistics_policy.rb:11
 msgid "must have access to guidances api"
 msgstr ""
 
-#: ../../app/policies/api/v0/plans_policy.rb:15
+#: ../../app/policies/api/v0/plans_policy.rb:11
 msgid "must have access to plans api"
 msgstr ""
 
-#: ../../app/policies/plan_policy.rb:13
-msgid "are not authorized to view that plan"
+#: ../../app/policies/api/v0/template_policy.rb:9
+msgid "must have access to templates api"
 msgstr ""
 
-#: ../../app/presenters/contributor_presenter.rb:57
+#: ../../app/presenters/contributor_presenter.rb:42
+msgid "Data Manager"
+msgstr ""
+
+#: ../../app/presenters/contributor_presenter.rb:44
+msgid "Project Administrator"
+msgstr ""
+
+#: ../../app/presenters/contributor_presenter.rb:46
+msgid "Principal Investigator"
+msgstr ""
+
+#: ../../app/presenters/contributor_presenter.rb:48
+msgid "Other"
+msgstr ""
+
+#: ../../app/presenters/contributor_presenter.rb:56
 msgid ""
 "Management activities to annotate (produce metadata), scrub data and maintain "
 "research data (including software code, where it is necessary for interpreting"
 " the data itself) for initial use and later re-use."
 msgstr ""
 
-#: ../../app/presenters/contributor_presenter.rb:59
+#: ../../app/presenters/contributor_presenter.rb:58
 msgid ""
 "Conducting a research and investigation process, specifically performing the e"
 "xperiments, or data/evidence collection."
 msgstr ""
 
-#: ../../app/presenters/contributor_presenter.rb:61
+#: ../../app/presenters/contributor_presenter.rb:60
 msgid ""
 "Management and coordination responsibility for the research activity planning "
 "and execution."
 msgstr ""
 
-#: ../../app/services/api/v1/auth/jwt/authentication_service.rb:40
+#: ../../app/services/api/v1/auth/jwt/authentication_service.rb:34
 msgid "Invalid grant type"
 msgstr ""
 
-#: ../../app/services/api/v1/auth/jwt/authentication_service.rb:79
+#: ../../app/services/api/v1/auth/jwt/authentication_service.rb:70
 msgid "Invalid credentials"
 msgstr ""
 
-#: ../../app/services/api/v1/auth/jwt/authorization_service.rb:32
+#: ../../app/services/api/v1/auth/jwt/authorization_service.rb:29
 msgid "Invalid token"
 msgstr ""
 
-#: ../../app/services/api/v1/auth/jwt/authorization_service.rb:49
+#: ../../app/services/api/v1/auth/jwt/authorization_service.rb:46
 msgid "Token expired"
 msgstr ""
 
-#: ../../app/services/api/v1/auth/jwt/authorization_service.rb:56
+#: ../../app/services/api/v1/auth/jwt/authorization_service.rb:53
 msgid "Missing token"
 msgstr ""
 
-#: ../../app/services/api/v1/json_validation_service.rb:11
+#: ../../app/services/api/v1/json_validation_service.rb:7
 msgid ":title and the contact's :mbox are both required fields"
 msgstr ""
 
-#: ../../app/services/api/v1/json_validation_service.rb:12
+#: ../../app/services/api/v1/json_validation_service.rb:8
 msgid ":type and :identifier are required for all ids"
 msgstr ""
 
-#: ../../app/services/api/v1/json_validation_service.rb:13
+#: ../../app/services/api/v1/json_validation_service.rb:9
 msgid ":name is required for every :affiliation and :funding"
 msgstr ""
 
-#: ../../app/services/api/v1/json_validation_service.rb:14
+#: ../../app/services/api/v1/json_validation_service.rb:10
 msgid ":role and either the :name or :email are required for each :contributor"
 msgstr ""
 
-#: ../../app/services/api/v1/json_validation_service.rb:15
+#: ../../app/services/api/v1/json_validation_service.rb:11
 msgid ":name, :funder_id or :grant_id are required for each funding"
 msgstr ""
 
-#: ../../app/services/api/v1/json_validation_service.rb:16
+#: ../../app/services/api/v1/json_validation_service.rb:12
 msgid ":title is required for each :dataset"
 msgstr ""
 
-#: ../../app/services/api/v1/json_validation_service.rb:59
-#: ../../spec/services/api/v1/json_validation_service_spec.rb:129
+#: ../../app/services/api/v1/json_validation_service.rb:53
+#: ../../spec/services/api/v1/json_validation_service_spec.rb:128
 msgid "invalid JSON"
 msgstr ""
 
-#: ../../app/services/template/upgrade_customization_service.rb:68
+#: ../../app/services/template/upgrade_customization_service.rb:67
 msgid "upgrade_customization! requires a customised template"
 msgstr ""
 
-#: ../../app/services/template/upgrade_customization_service.rb:73
+#: ../../app/services/template/upgrade_customization_service.rb:71
 msgid ""
 "upgrade cannot be carried out since there is no published template of its curr"
 "ent funder"
 msgstr ""
 
 #: ../../app/validators/after_validator.rb:5
-msgid "must be after %{date}"
+msgid "must be after %<date>s"
 msgstr ""
 
 #: ../../app/validators/org_links_validator.rb:10
@@ -1641,16 +1650,16 @@ msgid "A key \"org\" is expected for links hash"
 msgstr ""
 
 #: ../../app/validators/org_links_validator.rb:13
-#: ../../app/validators/template_links_validator.rb:21
+#: ../../app/validators/template_links_validator.rb:23
 msgid "A hash is expected for links"
 msgstr ""
 
-#: ../../app/validators/template_links_validator.rb:12
-msgid "A key %{key} is expected for links hash"
+#: ../../app/validators/template_links_validator.rb:15
+msgid "The key %<key>s does not have a valid set of object links"
 msgstr ""
 
-#: ../../app/validators/template_links_validator.rb:15
-msgid "The key %{key} does not have a valid set of object links"
+#: ../../app/validators/template_links_validator.rb:19
+msgid "A key %<key>s is expected for links hash"
 msgstr ""
 
 #: ../../app/views/answers/_locking.html.erb:5
@@ -1688,14 +1697,14 @@ msgid "Please wait, Standards are loading"
 msgstr ""
 
 #: ../../app/views/answers/_new_edit.html.erb:68
-#: ../../app/views/contributors/_form.html.erb:92
-#: ../../app/views/devise/passwords/edit.html.erb:28
+#: ../../app/views/contributors/_form.html.erb:94
+#: ../../app/views/devise/passwords/edit.html.erb:35
 #: ../../app/views/devise/registrations/_password_details.html.erb:31
 #: ../../app/views/devise/registrations/_personal_details.html.erb:90
 #: ../../app/views/guidance_groups/_guidance_group_form.html.erb:23
-#: ../../app/views/guidances/new_edit.html.erb:48
-#: ../../app/views/notes/_edit.html.erb:9
-#: ../../app/views/notes/_new.html.erb:12
+#: ../../app/views/guidances/new_edit.html.erb:49
+#: ../../app/views/notes/_edit.html.erb:10
+#: ../../app/views/notes/_new.html.erb:13
 #: ../../app/views/org_admin/departments/edit.html.erb:23
 #: ../../app/views/org_admin/departments/new.html.erb:23
 #: ../../app/views/org_admin/phases/_form.html.erb:25
@@ -1706,11 +1715,11 @@ msgstr ""
 #: ../../app/views/org_admin/users/edit.html.erb:54
 #: ../../app/views/orgs/_feedback_form.html.erb:38
 #: ../../app/views/orgs/_profile_form.html.erb:168
-#: ../../app/views/plans/_edit_details.html.erb:10
+#: ../../app/views/plans/_edit_details.html.erb:11
 #: ../../app/views/plans/_guidance_selection.html.erb:23
 #: ../../app/views/questions/_preview_question.html.erb:111
-#: ../../app/views/super_admin/api_clients/_form.html.erb:65
-#: ../../app/views/super_admin/notifications/_form.html.erb:65
+#: ../../app/views/super_admin/api_clients/_form.html.erb:67
+#: ../../app/views/super_admin/notifications/_form.html.erb:66
 #: ../../app/views/super_admin/themes/_form.html.erb:13
 #: ../../app/views/super_admin/users/edit.html.erb:61
 #: ../../app/views/users/_admin_grant_permissions.html.erb:68
@@ -1791,12 +1800,13 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
-#: ../../app/views/contact_us/contacts/_new_left.html.erb:38
+#: ../../app/views/contact_us/contacts/_new_left.html.erb:39
+#: ../../app/views/devise/passwords/edit.html.erb:30
 #: ../../app/views/shared/_create_account_form.html.erb:46
 msgid "Security check"
 msgstr ""
 
-#: ../../app/views/contact_us/contacts/_new_left.html.erb:42
+#: ../../app/views/contact_us/contacts/_new_left.html.erb:43
 #: ../../app/views/plans/_share_form.html.erb:146
 msgid "Submit"
 msgstr ""
@@ -1852,21 +1862,21 @@ msgstr ""
 msgid "ORCID"
 msgstr ""
 
-#: ../../app/views/contributors/_form.html.erb:43
+#: ../../app/views/contributors/_form.html.erb:44
 msgid "Phone number"
 msgstr ""
 
-#: ../../app/views/contributors/_form.html.erb:62
+#: ../../app/views/contributors/_form.html.erb:64
 #: ../../app/views/paginable/contributors/_index.html.erb:14
 msgid "Affiliation"
 msgstr ""
 
-#: ../../app/views/contributors/_form.html.erb:70
+#: ../../app/views/contributors/_form.html.erb:72
 #: ../../app/views/paginable/contributors/_index.html.erb:16
 msgid "Roles"
 msgstr ""
 
-#: ../../app/views/contributors/_form.html.erb:94
+#: ../../app/views/contributors/_form.html.erb:96
 #: ../../app/views/notes/_archive.html.erb:10
 #: ../../app/views/notes/_list.html.erb:16
 #: ../../app/views/notes/_list.html.erb:19
@@ -1886,19 +1896,19 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: ../../app/views/contributors/_form.html.erb:97
+#: ../../app/views/contributors/_form.html.erb:99
 #: ../../app/views/guidance_groups/_guidance_group_form.html.erb:24
-#: ../../app/views/guidances/new_edit.html.erb:49
+#: ../../app/views/guidances/new_edit.html.erb:50
 #: ../../app/views/notes/_archive.html.erb:11
-#: ../../app/views/notes/_edit.html.erb:10
+#: ../../app/views/notes/_edit.html.erb:11
 #: ../../app/views/org_admin/departments/edit.html.erb:24
 #: ../../app/views/org_admin/departments/new.html.erb:24
 #: ../../app/views/org_admin/questions/_form.html.erb:103
 #: ../../app/views/org_admin/questions/_form.html.erb:105
 #: ../../app/views/plans/_guidance_selection.html.erb:35
 #: ../../app/views/plans/new.html.erb:124
-#: ../../app/views/super_admin/api_clients/_form.html.erb:84
-#: ../../app/views/super_admin/notifications/_form.html.erb:72
+#: ../../app/views/super_admin/api_clients/_form.html.erb:86
+#: ../../app/views/super_admin/notifications/_form.html.erb:73
 #: ../../app/views/super_admin/themes/_form.html.erb:19
 #: ../../app/views/super_admin/users/_confirm_merge.html.erb:15
 #: ../../app/views/users/_admin_grant_permissions.html.erb:69
@@ -1962,14 +1972,14 @@ msgstr ""
 msgid "First name"
 msgstr ""
 
-#: ../../app/views/devise/invitations/edit.html.erb:27
+#: ../../app/views/devise/invitations/edit.html.erb:28
 #: ../../app/views/devise/registrations/_personal_details.html.erb:21
 #: ../../app/views/org_admin/users/edit.html.erb:24
 #: ../../app/views/super_admin/users/edit.html.erb:25
 msgid "Last name"
 msgstr ""
 
-#: ../../app/views/devise/invitations/edit.html.erb:39
+#: ../../app/views/devise/invitations/edit.html.erb:40
 #: ../../app/views/devise/registrations/new.html.erb:43
 #: ../../app/views/devise/registrations/new.html.erb:58
 #: ../../app/views/shared/_access_controls.html.erb:11
@@ -1995,6 +2005,12 @@ msgstr ""
 
 #: ../../app/views/devise/mailer/confirmation_instructions.html.erb:6
 msgid "into your browser"
+msgstr ""
+
+#: ../../app/views/devise/mailer/invitation_instructions.html.erb:6
+#: ../../app/views/devise/mailer/reset_password_instructions.html.erb:5
+#: ../../app/views/user_mailer/_email_signature.html.erb:2
+msgid "Query or feedback related to %{tool_name}"
 msgstr ""
 
 #: ../../app/views/devise/mailer/invitation_instructions.html.erb:12
@@ -2380,7 +2396,7 @@ msgstr ""
 #: ../../app/views/guidance_groups/admin_edit.html.erb:4
 #: ../../app/views/guidance_groups/admin_new.html.erb:1
 #: ../../app/views/guidance_groups/admin_new.html.erb:4
-#: ../../app/views/guidances/new_edit.html.erb:33
+#: ../../app/views/guidances/new_edit.html.erb:34
 #: ../../app/views/paginable/guidances/_index.html.erb:8
 msgid "Guidance group"
 msgstr ""
@@ -2451,7 +2467,7 @@ msgstr ""
 msgid "Enter your guidance here. You can include links where needed."
 msgstr ""
 
-#: ../../app/views/guidances/new_edit.html.erb:31
+#: ../../app/views/guidances/new_edit.html.erb:32
 msgid ""
 "Select one or more themes that are relevant to this guidance. This will displa"
 "y your generic organisation-level guidance, or any Schools/Departments for whi"
@@ -2459,15 +2475,15 @@ msgid ""
 "he corresponding theme tags."
 msgstr ""
 
-#: ../../app/views/guidances/new_edit.html.erb:36
+#: ../../app/views/guidances/new_edit.html.erb:37
 msgid "Select which group this guidance relates to."
 msgstr ""
 
-#: ../../app/views/guidances/new_edit.html.erb:43
+#: ../../app/views/guidances/new_edit.html.erb:44
 msgid "Check this box when you are ready for this guidance to appear on user's plans."
 msgstr ""
 
-#: ../../app/views/guidances/new_edit.html.erb:44
+#: ../../app/views/guidances/new_edit.html.erb:45
 msgid "Published?"
 msgstr ""
 
@@ -2660,6 +2676,7 @@ msgid "Logout"
 msgstr ""
 
 #: ../../app/views/layouts/application.html.erb:32
+#: ../../app/views/static_pages/termsuse.html.erb:14
 msgid "%{application_name}"
 msgstr ""
 
@@ -3132,8 +3149,8 @@ msgstr ""
 
 #: ../../app/views/org_admin/questions/_form.html.erb:102
 #: ../../app/views/org_admin/sections/_form.html.erb:19
-#: ../../app/views/super_admin/api_clients/_form.html.erb:77
-#: ../../app/views/super_admin/notifications/_form.html.erb:67
+#: ../../app/views/super_admin/api_clients/_form.html.erb:79
+#: ../../app/views/super_admin/notifications/_form.html.erb:68
 #: ../../app/views/super_admin/themes/_form.html.erb:15
 msgid "Delete"
 msgstr ""
@@ -3407,6 +3424,10 @@ msgid ""
 "s below."
 msgstr ""
 
+#: ../../app/views/org_admin/templates/index.html.erb:52
+msgid "%{org_name} Templates"
+msgstr ""
+
 #: ../../app/views/org_admin/templates/index.html.erb:63
 msgid "Customisable Templates"
 msgstr ""
@@ -3674,7 +3695,7 @@ msgid "Last Accessed"
 msgstr ""
 
 #: ../../app/views/paginable/api_clients/_index.html.erb:30
-#: ../../app/views/super_admin/api_clients/_form.html.erb:57
+#: ../../app/views/super_admin/api_clients/_form.html.erb:59
 msgid "Never"
 msgstr ""
 
@@ -3786,6 +3807,21 @@ msgstr ""
 msgid "You are about to delete '%{org_name}'. Are you sure?"
 msgstr ""
 
+#: ../../app/views/paginable/plans/_index.html.erb:5
+#: ../../app/views/paginable/plans/_org_admin.html.erb:18
+#: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:9
+#: ../../app/views/paginable/plans/_privately_visible.html.erb:5
+#: ../../app/views/paginable/plans/_publicly_visible.html.erb:5
+#: ../../app/views/plans/_show_details.html.erb:4
+msgid "Project Title"
+msgstr ""
+
+#: ../../app/views/paginable/plans/_index.html.erb:28
+#: ../../app/views/paginable/plans/_org_admin.html.erb:43
+#: ../../app/views/paginable/plans/_privately_visible.html.erb:9
+msgid "Test"
+msgstr ""
+
 #: ../../app/views/paginable/plans/_org_admin.html.erb:3
 msgid ""
 "    The data on the usage dashboard is historical in nature. This means that t"
@@ -3804,23 +3840,8 @@ msgid ""
 " 'Jun 2013'."
 msgstr ""
 
-#: ../../app/views/paginable/plans/_org_admin.html.erb:18
-#: ../../app/views/paginable/plans/_org_admin_other_user.html.erb:5
-#: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:9
-#: ../../app/views/paginable/plans/_privately_visible.html.erb:5
-#: ../../app/views/paginable/plans/_publicly_visible.html.erb:5
-#: ../../app/views/plans/_show_details.html.erb:4
-msgid "Project Title"
-msgstr ""
-
 #: ../../app/views/paginable/plans/_org_admin.html.erb:22
 msgid "Created"
-msgstr ""
-
-#: ../../app/views/paginable/plans/_org_admin.html.erb:43
-#: ../../app/views/paginable/plans/_org_admin_other_user.html.erb:28
-#: ../../app/views/paginable/plans/_privately_visible.html.erb:9
-msgid "Test"
 msgstr ""
 
 #:
@@ -4106,7 +4127,7 @@ msgid ""
 "up-info\">%{open_in_new_window_text}</span>"
 msgstr ""
 
-#: ../../app/views/plans/_edit_details.html.erb:13
+#: ../../app/views/plans/_edit_details.html.erb:14
 #: ../../app/views/plans/_guidance_selection.html.erb:38
 msgid "Select Guidance"
 msgstr ""
@@ -4190,59 +4211,102 @@ msgstr[1] ""
 msgid "answered"
 msgstr ""
 
-#: ../../app/views/plans/_project_details.html.erb:3
+#: ../../app/views/plans/_project_details.html.erb:4
 msgid "If applying for funding, state the name exactly as in the grant proposal."
 msgstr ""
 
-#: ../../app/views/plans/_project_details.html.erb:4
+#: ../../app/views/plans/_project_details.html.erb:5
 msgid ""
 "Briefly summarise your research project to help others understand the purposes"
 " for which the data are being collected or created."
 msgstr ""
 
-#: ../../app/views/plans/_project_details.html.erb:5
+#: ../../app/views/plans/_project_details.html.erb:6
 msgid "A pertinent ID as determined by the funder and/or organisation."
 msgstr ""
 
-#: ../../app/views/plans/_project_details.html.erb:22
+#: ../../app/views/plans/_project_details.html.erb:7
+msgid ""
+"Whether there are any potential ethical issues related to data that this DMP d"
+"escribes"
+msgstr ""
+
+#: ../../app/views/plans/_project_details.html.erb:8
+msgid "Description of the ethical issues"
+msgstr ""
+
+#: ../../app/views/plans/_project_details.html.erb:9
+msgid "Link to a protocol from a meeting with an ethics commitee"
+msgstr ""
+
+#: ../../app/views/plans/_project_details.html.erb:27
 #: ../../app/views/plans/new.html.erb:38
 msgid "mock project for testing, practice, or educational purposes"
 msgstr ""
 
-#: ../../app/views/plans/_project_details.html.erb:30
+#: ../../app/views/plans/_project_details.html.erb:35
 msgid "Project abstract"
 msgstr ""
 
-#: ../../app/views/plans/_project_details.html.erb:41
+#: ../../app/views/plans/_project_details.html.erb:47
+msgid "Research domain"
+msgstr ""
+
+#: ../../app/views/plans/_project_details.html.erb:52
+#: ../../app/views/plans/_project_details.html.erb:173
+msgid "- Please select one -"
+msgstr ""
+
+#: ../../app/views/plans/_project_details.html.erb:62
 msgid "Project Start"
 msgstr ""
 
-#: ../../app/views/plans/_project_details.html.erb:44
+#: ../../app/views/plans/_project_details.html.erb:65
 msgid "The estimated date on which you will begin this project."
 msgstr ""
 
-#: ../../app/views/plans/_project_details.html.erb:47
+#: ../../app/views/plans/_project_details.html.erb:68
 msgid "Project End"
 msgstr ""
 
-#: ../../app/views/plans/_project_details.html.erb:50
+#: ../../app/views/plans/_project_details.html.erb:71
 msgid "The estimated date on which you will complete this project."
 msgstr ""
 
-#: ../../app/views/plans/_project_details.html.erb:59
+#: ../../app/views/plans/_project_details.html.erb:80
 msgid "Landing page"
 msgstr ""
 
-#: ../../app/views/plans/_project_details.html.erb:72
+#: ../../app/views/plans/_project_details.html.erb:93
 #: ../../app/views/plans/_show_details.html.erb:22
 msgid "ID"
 msgstr ""
 
 #: ../../app/views/plans/_project_details.html.erb:114
+msgid "Research outputs may have ethical concerns"
+msgstr ""
+
+#: ../../app/views/plans/_project_details.html.erb:121
+msgid "Describe any ethical concerns"
+msgstr ""
+
+#: ../../app/views/plans/_project_details.html.erb:134
+msgid "Ethical protocols"
+msgstr ""
+
+#: ../../app/views/plans/_project_details.html.erb:167
+msgid "Funding status"
+msgstr ""
+
+#: ../../app/views/plans/_project_details.html.erb:181
 msgid "Grant number/url"
 msgstr ""
 
-#: ../../app/views/plans/_project_details.html.erb:128
+#: ../../app/views/plans/_project_details.html.erb:195
+msgid "Grant number:"
+msgstr ""
+
+#: ../../app/views/plans/_project_details.html.erb:199
 msgid ""
 "Provide a URL to the award's landing page if possible, if not please provide t"
 "he award/grant number."
@@ -4531,41 +4595,46 @@ msgstr ""
 msgid "Filter plans"
 msgstr ""
 
+#: ../../app/views/shared/export/_plan.erb:55
+#: ../../app/views/shared/export/_plan_txt.erb:52
+msgid "Question not answered."
+msgstr ""
+
 #: ../../app/views/shared/export/_plan_coversheet.erb:3
-#: ../../app/views/shared/export/_plan_txt.erb:65
+#: ../../app/views/shared/export/_plan_txt.erb:67
 msgid "A Data Management Plan created using %{application_name}"
 msgstr ""
 
-#: ../../app/views/shared/export/_plan_coversheet.erb:10
+#: ../../app/views/shared/export/_plan_coversheet.erb:8
 #: ../../app/views/shared/export/_plan_txt.erb:5
 msgid "Affiliation: "
 msgstr ""
 
-#: ../../app/views/shared/export/_plan_coversheet.erb:13
+#: ../../app/views/shared/export/_plan_coversheet.erb:11
 msgid "Funder: "
 msgstr ""
 
-#: ../../app/views/shared/export/_plan_coversheet.erb:22
+#: ../../app/views/shared/export/_plan_coversheet.erb:20
 msgid "ORCID iD: "
 msgstr ""
 
-#: ../../app/views/shared/export/_plan_coversheet.erb:31
+#: ../../app/views/shared/export/_plan_coversheet.erb:29
 msgid "ID: "
 msgstr ""
 
-#: ../../app/views/shared/export/_plan_coversheet.erb:35
+#: ../../app/views/shared/export/_plan_coversheet.erb:33
 msgid "Start date: "
 msgstr ""
 
-#: ../../app/views/shared/export/_plan_coversheet.erb:39
+#: ../../app/views/shared/export/_plan_coversheet.erb:37
 msgid "End date: "
 msgstr ""
 
-#: ../../app/views/shared/export/_plan_coversheet.erb:45
+#: ../../app/views/shared/export/_plan_coversheet.erb:43
 msgid "Grant number / URL: "
 msgstr ""
 
-#: ../../app/views/shared/export/_plan_coversheet.erb:52
+#: ../../app/views/shared/export/_plan_coversheet.erb:50
 #: ../../app/views/shared/export/_plan_txt.erb:20
 msgid ""
 " The above plan creator(s) have agreed that others may use as much of the text"
@@ -4581,15 +4650,15 @@ msgstr ""
 msgid "Begin typing to see a list of suggestions."
 msgstr ""
 
-#: ../../app/views/shared/org_selectors/_combined.html.erb:47
-#: ../../app/views/shared/org_selectors/_external_only.html.erb:42
+#: ../../app/views/shared/org_selectors/_combined.html.erb:48
+#: ../../app/views/shared/org_selectors/_external_only.html.erb:43
 msgid ""
 "A new entry will be created for the organisation you have named above. Please "
 "double check that your organisation does not appear in the list in a slightly "
 "different form."
 msgstr ""
 
-#: ../../app/views/shared/org_selectors/_local_only.html.erb:45
+#: ../../app/views/shared/org_selectors/_local_only.html.erb:46
 msgid "The name you entered was not one of the listed suggestions!"
 msgstr ""
 
@@ -4705,9 +4774,9 @@ msgstr ""
 
 #: ../../app/views/static_pages/help.html.erb:11
 msgid ""
-"When you log in to DMPRoadmap you will be directed to the 'My Dashboard' page."
-" From here you can edit, share, download, copy or remove any of your plans. Yo"
-"u will also see plans that have been shared with you by others."
+"When you log in to %{application_name} you will be directed to the 'My Dashboa"
+"rd' page. From here you can edit, share, download, copy or remove any of your "
+"plans. You will also see plans that have been shared with you by others."
 msgstr ""
 
 #: ../../app/views/static_pages/help.html.erb:13
@@ -4827,7 +4896,7 @@ msgid ""
 " you need to submit your plan as part of a grant application. Choose what form"
 "at you would like to view/download your plan in and click to download. You can"
 " also adjust the formatting (font type, size and margins) for PDF files, which"
-" may be helpful if working to page limits.</p>"
+" may be helpful if working to page limits."
 msgstr ""
 
 #: ../../app/views/static_pages/privacy.html.erb:10
@@ -4898,28 +4967,25 @@ msgid ""
 "or. "
 msgstr ""
 
-#: ../../app/views/static_pages/termsuse.html.erb:14
-msgid "DMPRoadmap"
-msgstr ""
-
 #: ../../app/views/static_pages/termsuse.html.erb:16
 msgid ""
-"DMPRoadmap ('the tool', 'the system') is a tool developed by the DCC and CDL a"
-"s a shared resource for the research community. It is hosted at CDL by the Uni"
-"versity of California Curation Center."
+"%{application_name} ('the tool', 'the system') is a tool developed by the DCC "
+"and CDL as a shared resource for the research community. It is hosted at CDL b"
+"y the University of California Curation Center."
 msgstr ""
 
 #: ../../app/views/static_pages/termsuse.html.erb:18
 msgid ""
 "<h3>Your personal details and consent notice</h3>\n"
 "\n"
-"      <p>In order to help identify and administer your account with DMPRoadmap"
-", we need to store your name and email address. We may also use it to contact "
-"you to obtain feedback on your use of the tool, or to inform you of the latest"
-" developments or releases. The information may be transferred between the DCC "
-"and CDL but only for the following legitimate DCC and CDL purposes: marketing,"
-" improving our services and informing you of relevant content and events. We w"
-"ill not sell, rent, or trade any personal information you provide to us.\n"
+"      <p>In order to help identify and administer your account with %{applicat"
+"ion_name}, we need to store your name and email address. We may also use it to"
+" contact you to obtain feedback on your use of the tool, or to inform you of t"
+"he latest developments or releases. The information may be transferred between"
+" the DCC and CDL but only for the following legitimate DCC and CDL purposes: m"
+"arketing, improving our services and informing you of relevant content and eve"
+"nts. We will not sell, rent, or trade any personal information you provide to "
+"us.\n"
 "\n"
 "\n"
 "        By using this system, you consent to the collection, retention, and us"
@@ -4950,11 +5016,12 @@ msgid ""
 "\n"
 "      <h3>Cookies</h3>\n"
 "\n"
-"      <p>Please note that DMPRoadmap uses Cookies. Further information about C"
-"ookies and how we use them is available on the <a target='_blank' href='http:/"
-"/www.dcc.ac.uk/about-us/about-site/website-terms-use/cookies' class=\"has-new-w"
-"indow-popup-info\">main DCC website<em class=\"sr-only\"> (new window)</em><span "
-"class=\"new-window-popup-info\">%{open_in_new_window_text}</span></a>.</p>\n"
+"      <p>Please note that %{application_name} uses Cookies. Further informatio"
+"n about Cookies and how we use them is available on the <a target='_blank' hre"
+"f='http://www.dcc.ac.uk/about-us/about-site/website-terms-use/cookies' class=\""
+"has-new-window-popup-info\">main DCC website<em class=\"sr-only\"> (new window)</"
+"em><span class=\"new-window-popup-info\">%{open_in_new_window_text}</span></a>.<"
+"/p>\n"
 "\n"
 "      <h3>Third party APIs</h3>\n"
 "\n"
@@ -4970,35 +5037,35 @@ msgid ""
 " terms and conditions.</p>"
 msgstr ""
 
-#: ../../app/views/super_admin/api_clients/_form.html.erb:27
+#: ../../app/views/super_admin/api_clients/_form.html.erb:29
 msgid "Contact Name"
 msgstr ""
 
-#: ../../app/views/super_admin/api_clients/_form.html.erb:31
+#: ../../app/views/super_admin/api_clients/_form.html.erb:33
 msgid "Contact Email"
 msgstr ""
 
-#: ../../app/views/super_admin/api_clients/_form.html.erb:45
+#: ../../app/views/super_admin/api_clients/_form.html.erb:47
 msgid "Client ID"
 msgstr ""
 
-#: ../../app/views/super_admin/api_clients/_form.html.erb:49
+#: ../../app/views/super_admin/api_clients/_form.html.erb:51
 msgid "Client Secret"
 msgstr ""
 
-#: ../../app/views/super_admin/api_clients/_form.html.erb:56
+#: ../../app/views/super_admin/api_clients/_form.html.erb:58
 msgid "Last accessed on"
 msgstr ""
 
-#: ../../app/views/super_admin/api_clients/_form.html.erb:68
+#: ../../app/views/super_admin/api_clients/_form.html.erb:70
 msgid "Refresh client ID and secret"
 msgstr ""
 
-#: ../../app/views/super_admin/api_clients/_form.html.erb:72
+#: ../../app/views/super_admin/api_clients/_form.html.erb:74
 msgid "Email credentials to contact"
 msgstr ""
 
-#: ../../app/views/super_admin/api_clients/_form.html.erb:81
+#: ../../app/views/super_admin/api_clients/_form.html.erb:83
 msgid "Are you sure you want to delete the API client: \"%{name}\""
 msgstr ""
 
@@ -5060,7 +5127,7 @@ msgstr ""
 msgid "Body"
 msgstr ""
 
-#: ../../app/views/super_admin/notifications/_form.html.erb:71
+#: ../../app/views/super_admin/notifications/_form.html.erb:72
 msgid "Are you sure you want to delete the notification \"%{title}\""
 msgstr ""
 
@@ -5303,7 +5370,6 @@ msgid "You may change your notification preferences on your profile page. "
 msgstr ""
 
 #: ../../app/views/user_mailer/admin_privileges.html.erb:2
-#: ../../app/views/user_mailer/permissions_change_notification.html.erb:2
 #: ../../app/views/user_mailer/plan_visibility.html.erb:2
 #: ../../app/views/user_mailer/sharing_notification.html.erb:2
 msgid "Hello %{username}"
@@ -5397,6 +5463,10 @@ msgstr ""
 
 #: ../../app/views/user_mailer/new_comment.html.erb:21
 msgid "Question: %{question_number}"
+msgstr ""
+
+#: ../../app/views/user_mailer/permissions_change_notification.html.erb:2
+msgid "Hello %{recepientname}"
 msgstr ""
 
 #: ../../app/views/user_mailer/permissions_change_notification.html.erb:5

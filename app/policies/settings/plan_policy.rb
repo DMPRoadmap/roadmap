@@ -1,23 +1,16 @@
 # frozen_string_literal: true
 
-class Settings::PlanPolicy < ApplicationPolicy
+module Settings
+  # Security rules plan export settings
+  class PlanPolicy < ApplicationPolicy
+    # NOTE: @user is the signed_in_user and @record is an instance of Plan
 
-  attr_reader :user
-  attr_reader :plan
+    def show?
+      @record.readable_by(@user.id)
+    end
 
-  def initialize(user, plan)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
-
-    @user = user
-    @plan = plan
+    def update?
+      @record.editable_by(@user.id)
+    end
   end
-
-  def show?
-    @plan.readable_by(@user.id)
-  end
-
-  def update?
-    @plan.editable_by(@user.id)
-  end
-
 end

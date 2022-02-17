@@ -1,17 +1,12 @@
 # frozen_string_literal: true
 
 module Api
-
   module V1
-
     module Auth
-
       module Jwt
-
+        # Class to handle encryption/descryption of the JWT
         class JsonWebToken
-
           class << self
-
             def encode(payload:, exp: 24.hours.from_now)
               payload[:exp] = exp.to_i
               JWT.encode(payload, Rails.application.credentials.secret_key_base)
@@ -29,15 +24,9 @@ module Api
               Rails.logger.error "Api::V1::Auth::Jwt::JsonWebToken.decode - #{e.message}"
               nil
             end
-
           end
-
         end
-
       end
-
     end
-
   end
-
 end

@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe NotesController, type: :controller do
-
   include RolesHelper
 
   before(:each) do
@@ -22,13 +21,13 @@ RSpec.describe NotesController, type: :controller do
     ActionMailer::Base.deliveries = []
   end
 
-  describe "POST /notes", js: true do
+  describe 'POST /notes', js: true do
     before(:each) do
       @args = { text: Faker::Lorem.paragraph, user_id: @user.id,
                 answer_id: @answer.id, plan_id: @plan.id, question_id: @question.id }
     end
 
-    it "succeeds" do
+    it 'succeeds' do
       @controller.expects(:render_to_string).at_least(2)
       post :create, params: { note: @args }
       json = JSON.parse(response.body).with_indifferent_access
@@ -42,18 +41,18 @@ RSpec.describe NotesController, type: :controller do
       expect(note.answer_id).to eql(@answer.id)
       expect(note.archived).to eql(false)
     end
-    it "fails" do
+    it 'fails' do
       Note.any_instance.stubs(:save).returns(false)
       post :create, params: { note: @args }
       json = JSON.parse(response.body).with_indifferent_access
       expect(json[:msg].present?).to eql(true)
     end
-    it "raises a Pundit::NotAuthorizedError if not authorized" do
+    it 'raises a Pundit::NotAuthorizedError if not authorized' do
       Plan.any_instance.stubs(:readable_by?).returns(false)
       @controller.expects(:raise).at_least(1)
       post :create, params: { note: @args }
     end
-    it "sends out emails" do
+    it 'sends out emails' do
       commenter = create(:user)
       create(:role, :commenter, plan_id: @plan.id, user: commenter)
       sign_out(@user)
@@ -63,13 +62,13 @@ RSpec.describe NotesController, type: :controller do
     end
   end
 
-  describe "PUT /notes/:id", js: true do
+  describe 'PUT /notes/:id', js: true do
     before(:each) do
       @note = create(:note, user: @user, answer: @answer)
       @args = { text: Faker::Lorem.paragraph, user_id: @user.id, answer_id: @answer.id }
     end
 
-    it "succeeds" do
+    it 'succeeds' do
       @controller.expects(:render_to_string).at_least(2)
       put :update, params: { id: @note.id, note: @args }
       json = JSON.parse(response.body).with_indifferent_access
@@ -79,7 +78,7 @@ RSpec.describe NotesController, type: :controller do
       expect(json[:title][:id]).to eql(@question.id.to_s)
       expect(@note.reload.text).to eql(@args[:text])
     end
-    it "fails" do
+    it 'fails' do
       Note.any_instance.stubs(:update).returns(false)
       put :update, params: { id: @note.id, note: @args }
       json = JSON.parse(response.body).with_indifferent_access
@@ -87,13 +86,13 @@ RSpec.describe NotesController, type: :controller do
     end
   end
 
-  describe "PATCH /notes/:id/archive", js: true do
+  describe 'PATCH /notes/:id/archive', js: true do
     before(:each) do
       @note = create(:note, user: @user, answer: @answer)
       @args = { archived_by: @user }
     end
 
-    it "succeeds" do
+    it 'succeeds' do
       @controller.expects(:render_to_string).at_least(2)
       put :archive, params: { id: @note.id, note: @args }
       json = JSON.parse(response.body).with_indifferent_access
@@ -104,12 +103,11 @@ RSpec.describe NotesController, type: :controller do
       expect(@note.reload.archived).to eql(true)
       expect(@note.reload.archived_by).to eql(@user.id)
     end
-    it "fails" do
+    it 'fails' do
       Note.any_instance.stubs(:update).returns(false)
       put :archive, params: { id: @note.id, note: @args }
       json = JSON.parse(response.body).with_indifferent_access
       expect(json[:msg].present?).to eql(true)
     end
   end
-
 end

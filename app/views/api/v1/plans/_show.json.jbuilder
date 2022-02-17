@@ -2,7 +2,7 @@
 
 # locals: plan
 
-json.schema "https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard/tree/master/examples/JSON/JSON-schema/1.0"
+json.schema 'https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard/tree/master/examples/JSON/JSON-schema/1.0'
 
 presenter = Api::V1::PlanPresenter.new(plan: plan)
 # A JSON representation of a Data Management Plan in the
@@ -22,13 +22,13 @@ json.ethical_issues_report plan.ethical_issues_report
 id = presenter.identifier
 if id.present?
   json.dmp_id do
-    json.partial! "api/v1/identifiers/show", identifier: id
+    json.partial! 'api/v1/identifiers/show', identifier: id
   end
 end
 
 if presenter.data_contact.present?
   json.contact do
-    json.partial! "api/v1/contributors/show", contributor: presenter.data_contact,
+    json.partial! 'api/v1/contributors/show', contributor: presenter.data_contact,
                                               is_contact: true
   end
 end
@@ -36,27 +36,27 @@ end
 unless @minimal
   if presenter.contributors.any?
     json.contributor presenter.contributors do |contributor|
-      json.partial! "api/v1/contributors/show", contributor: contributor,
+      json.partial! 'api/v1/contributors/show', contributor: contributor,
                                                 is_contact: false
     end
   end
 
   if presenter.costs.any?
     json.cost presenter.costs do |cost|
-      json.partial! "api/v1/plans/cost", cost: cost
+      json.partial! 'api/v1/plans/cost', cost: cost
     end
   end
 
   json.project [plan] do |pln|
-    json.partial! "api/v1/plans/project", plan: pln
+    json.partial! 'api/v1/plans/project', plan: pln
   end
 
   json.dataset [plan] do |dataset|
-    json.partial! "api/v1/datasets/show", plan: plan, dataset: dataset
+    json.partial! 'api/v1/datasets/show', plan: plan, dataset: dataset
   end
 
   json.extension [plan.template] do |template|
-    json.set! ApplicationService.application_name.split("-").first.to_sym do
+    json.set! ApplicationService.application_name.split('-').first.to_sym do
       json.template do
         json.id template.id
         json.title template.title

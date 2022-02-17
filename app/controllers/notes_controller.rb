@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
+# Controller for the Comments section of the Write Plan page
 class NotesController < ApplicationController
-
   include ConditionalUserMailer
-  require "pp"
+  require 'pp'
   after_action :verify_authorized
   respond_to :html
 
@@ -11,11 +11,10 @@ class NotesController < ApplicationController
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def create
     @note = Note.new
-    @note.user_id = note_params[:user_id]
+    # take user id from current user rather than form as form can be spoofed
+    @note.user_id = current_user.id
     # ensure user has access to plan BEFORE creating/finding answer
-    unless Plan.find_by(id: note_params[:plan_id]).readable_by?(@note.user_id)
-      raise Pundit::NotAuthorizedError
-    end
+    raise Pundit::NotAuthorizedError unless Plan.find_by(id: note_params[:plan_id]).readable_by?(@note.user_id)
 
     Answer.transaction do
       @answer = Answer.find_by(
@@ -33,11 +32,9 @@ class NotesController < ApplicationController
 
     @note.answer = @answer
     @note.text = note_params[:text]
-
     authorize @note
 
     @plan = @answer.plan
-
     @question = Question.find(note_params[:question_id])
 
     if @note.save
@@ -45,31 +42,31 @@ class NotesController < ApplicationController
       answer = @note.answer
       plan = answer.plan
       owner = plan.owner
-      deliver_if(recipients: owner, key: "users.new_comment") do |_r|
+      deliver_if(recipients: owner, key: 'users.new_comment') do |_r|
         UserMailer.new_comment(current_user, plan, answer).deliver_now
       end
-      @notice = success_message(@note, _("created"))
+      @notice = success_message(@note, _('created'))
       render(json: {
-        "notes" => {
-          "id" => note_params[:question_id],
-          "html" => render_to_string(partial: "layout", locals: {
+        'notes' => {
+          'id' => note_params[:question_id],
+          'html' => render_to_string(partial: 'layout', locals: {
                                        plan: @plan,
                                        question: @question,
                                        answer: @answer
                                      }, formats: [:html])
         },
-        "title" => {
-          "id" => note_params[:question_id],
-          "html" => render_to_string(partial: "title", locals: {
+        'title' => {
+          'id' => note_params[:question_id],
+          'html' => render_to_string(partial: 'title', locals: {
                                        answer: @answer
                                      }, formats: [:html])
         }
       }.to_json, status: :created)
     else
       @status = false
-      @notice = failure_message(@note, _("create"))
+      @notice = failure_message(@note, _('create'))
       render json: {
-        "msg" => @notice
+        'msg' => @notice
       }.to_json, status: :bad_request
     end
   end
@@ -89,27 +86,27 @@ class NotesController < ApplicationController
     question_id = @note.answer.question_id.to_s
 
     if @note.update(note_params)
-      @notice = success_message(@note, _("saved"))
+      @notice = success_message(@note, _('saved'))
       render(json: {
-        "notes" => {
-          "id" => question_id,
-          "html" => render_to_string(partial: "layout", locals: {
+        'notes' => {
+          'id' => question_id,
+          'html' => render_to_string(partial: 'layout', locals: {
                                        plan: @plan,
                                        question: @question,
                                        answer: @answer
                                      }, formats: [:html])
         },
-        "title" => {
-          "id" => question_id,
-          "html" => render_to_string(partial: "title", locals: {
+        'title' => {
+          'id' => question_id,
+          'html' => render_to_string(partial: 'title', locals: {
                                        answer: @answer
                                      }, formats: [:html])
         }
       }.to_json, status: :ok)
     else
-      @notice = failure_message(@note, _("save"))
+      @notice = failure_message(@note, _('save'))
       render json: {
-        "msg" => @notice
+        'msg' => @notice
       }.to_json, status: :bad_request
     end
   end
@@ -131,27 +128,27 @@ class NotesController < ApplicationController
     question_id = @note.answer.question_id.to_s
 
     if @note.update(note_params)
-      @notice = success_message(@note, _("removed"))
+      @notice = success_message(@note, _('removed'))
       render(json: {
-        "notes" => {
-          "id" => question_id,
-          "html" => render_to_string(partial: "layout", locals: {
+        'notes' => {
+          'id' => question_id,
+          'html' => render_to_string(partial: 'layout', locals: {
                                        plan: @plan,
                                        question: @question,
                                        answer: @answer
                                      }, formats: [:html])
         },
-        "title" => {
-          "id" => question_id,
-          "html" => render_to_string(partial: "title", locals: {
+        'title' => {
+          'id' => question_id,
+          'html' => render_to_string(partial: 'title', locals: {
                                        answer: @answer
                                      }, formats: [:html])
         }
       }.to_json, status: :ok)
     else
-      @notice = failure_message(@note, _("remove"))
+      @notice = failure_message(@note, _('remove'))
       render json: {
-        "msg" => @notice
+        'msg' => @notice
       }.to_json, status: :bad_request
     end
   end
@@ -164,5 +161,4 @@ class NotesController < ApplicationController
           .permit(:text, :archived_by, :user_id, :answer_id, :plan_id,
                   :question_id)
   end
-
 end
