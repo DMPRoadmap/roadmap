@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
+# Org usage --- TODO: This should likely be a module
 class Org
-
+  # Usage - total nbr of created users
   class TotalCountJoinedUserService
-
     class << self
-
       def call(org = nil, filtered: false)
         return for_orgs(filtered) unless org.present?
+
         for_org(org, filtered)
       end
 
@@ -17,8 +17,8 @@ class Org
         result = ::StatJoinedUser
                  .where(filtered: filtered)
                  .includes(:org)
-                 .select(:"orgs.name", :count)
-                 .group(:"orgs.name")
+                 .select(:'orgs.name', :count)
+                 .group(:'orgs.name')
                  .sum(:count)
         result.each_pair.map do |pair|
           build_model(org_name: pair[0], count: pair[1].to_i)
@@ -33,9 +33,6 @@ class Org
       def build_model(org_name:, count:)
         { org_name: org_name, count: count }
       end
-
     end
-
   end
-
 end

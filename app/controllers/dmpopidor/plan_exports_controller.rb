@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 module Dmpopidor
-
   module PlanExportsController
-
     # CHANGES: Can now send multiple phases when exporting
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def show
@@ -33,15 +31,17 @@ module Dmpopidor
 
       @hash           = @plan.as_pdf(current_user, @show_coversheet)
       @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
-      @research_output_export_mode = export_params[:research_output_mode] || "by_section"
+      @research_output_export_mode = export_params[:research_output_mode] || 'by_section'
       @research_outputs_number = @plan.research_outputs.length
 
       if params.key?(:selected_phases)
-        @hash[:phases] = @hash[:phases].select { |p| params[:selected_phases].include?(p[:id].to_s)}
+        @hash[:phases] = @hash[:phases].select { |p| params[:selected_phases].include?(p[:id].to_s) }
       end
 
       if params.key?(:selected_research_outputs)
-        @hash[:research_outputs] = @hash[:research_outputs].select { |d| params[:selected_research_outputs].include?(d[:id].to_s)}
+        @hash[:research_outputs] = @hash[:research_outputs].select do |d|
+          params[:selected_research_outputs].include?(d[:id].to_s)
+        end
       end
 
       respond_to do |format|
@@ -71,8 +71,8 @@ module Dmpopidor
                center: license_details,
                font_size: 8,
                spacing: (Integer(@formatting[:margin][:bottom]) / 2) - 4,
-               right: "[page] of [topage]",
-               encoding: "utf8"
+               right: '[page] of [topage]',
+               encoding: 'utf8'
              }
     end
 
@@ -84,7 +84,5 @@ module Dmpopidor
                                    selected_research_outputs: selected_research_outputs
                                  }), filename: "#{file_name}_#{json_format}.json"
     end
-
   end
-
 end

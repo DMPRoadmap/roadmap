@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: madmp_schemas
@@ -19,10 +21,10 @@
 
 FactoryBot.define do
   factory :madmp_schema do
-    label { "MyString" }
-    name { "MyString" }
+    label { 'MyString' }
+    name { 'MyString' }
     version { 1 }
-    schema { "" }
+    schema { '' }
     org
     classname { Faker::Company.bs }
   end

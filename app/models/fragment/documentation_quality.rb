@@ -20,7 +20,6 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 class Fragment::DocumentationQuality < MadmpFragment
-
   def data_organization
     Fragment::ResourceReference.where(parent_id: id)
   end
@@ -42,11 +41,10 @@ class Fragment::DocumentationQuality < MadmpFragment
   end
 
   def properties
-    "data_organization, metadata_standard, quality_assurance_method, contributors, cost"
+    'data_organization, metadata_standard, quality_assurance_method, contributors, cost'
   end
 
   def self.sti_name
-    "documentation_quality"
+    'documentation_quality'
   end
-
 end

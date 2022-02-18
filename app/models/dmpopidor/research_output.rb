@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 module Dmpopidor
-
+  # Customized code for ResearchOutput model
   module ResearchOutput
-
     def main?
       order.eql?(1)
     end
@@ -15,17 +14,13 @@ module Dmpopidor
 
     def common_answers?(section_id)
       answers.each do |answer|
-        if answer.question_id.in?(Section.find(section_id).questions.pluck(:id)) && answer.is_common
-          return true
-        end
+        return true if answer.question_id.in?(Section.find(section_id).questions.pluck(:id)) && answer.is_common
       end
       false
     end
 
     def get_answers_for_section(section_id)
-      # rubocop:disable Layout/LineLength
       answers.select { |answer| answer.question_id.in?(Section.find(section_id).questions.pluck(:id)) }
-      # rubocop:enable Layout/LineLength
     end
 
     def json_fragment
@@ -47,34 +42,34 @@ module Dmpopidor
           # Fetch the first question linked with a ResearchOutputDescription schema
           description_question = plan.questions.joins(:madmp_schema)
                                      .find_by(
-                                       madmp_schemas: { classname: "research_output_description" }
+                                       madmp_schemas: { classname: 'research_output_description' }
                                      )
 
           # Creates the main ResearchOutput fragment
           fragment = Fragment::ResearchOutput.create(
             data: {
-              "research_output_id" => id
+              'research_output_id' => id
             },
-            madmp_schema: MadmpSchema.find_by(classname: "research_output"),
+            madmp_schema: MadmpSchema.find_by(classname: 'research_output'),
             dmp_id: dmp_fragment.id,
             parent_id: dmp_fragment.id,
-            additional_info: { property_name: "researchOutput" }
+            additional_info: { property_name: 'researchOutput' }
           )
           fragment_description = Fragment::ResearchOutputDescription.new(
             data: {
-              "title" => title,
-              "datasetId" => pid
+              'title' => title,
+              'datasetId' => pid
             },
-            madmp_schema: MadmpSchema.find_by(name: "ResearchOutputDescriptionStandard"),
+            madmp_schema: MadmpSchema.find_by(name: 'ResearchOutputDescriptionStandard'),
             dmp_id: dmp_fragment.id,
             parent_id: fragment.id,
-            additional_info: { property_name: "researchOutputDescription" }
+            additional_info: { property_name: 'researchOutputDescription' }
           )
           fragment_description.instantiate
           fragment_description.contact.update(
             data: {
-              "person" => { "dbid" => contact_person.id },
-              "role" => _("Data contact")
+              'person' => { 'dbid' => contact_person.id },
+              'role' => _('Data contact')
             }
           )
 
@@ -93,9 +88,9 @@ module Dmpopidor
         else
           data = fragment.research_output_description.data.merge(
             {
-              "title" => fullname,
-              "datasetId" => pid,
-              "type" => other_type_label
+              'title' => fullname,
+              'datasetId' => pid,
+              'type' => other_type_label
             }
           )
           fragment.research_output_description.update(data: data)
@@ -112,7 +107,5 @@ module Dmpopidor
     def self.deep_copy(research_output)
       research_output.dup
     end
-
   end
-
 end

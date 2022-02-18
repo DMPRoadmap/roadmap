@@ -11,7 +11,6 @@
 #
 
 class ResearchOutputType < ActiveRecord::Base
-
   has_many :research_outputs
 
   ##
@@ -21,5 +20,4 @@ class ResearchOutputType < ActiveRecord::Base
   def generate_slug
     self.slug = label.parameterize if label.present?
   end
-
 end

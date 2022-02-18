@@ -30,8 +30,9 @@
 #
 # [+Created:+] 03/09/2014
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
-class Phase < ApplicationRecord
 
+# Object that represents a Template phase
+class Phase < ApplicationRecord
   include ActsAsSortable
   include VersionableModel
   # --------------------------------
@@ -57,9 +58,9 @@ class Phase < ApplicationRecord
   belongs_to :plan, optional: true
 
   has_one :prefix_section, lambda { |phase|
-    modifiable.where("number < ?",
+    modifiable.where('number < ?',
                      phase.sections.not_modifiable.minimum(:number))
-  }, class_name: "Section"
+  }, class_name: 'Section'
 
   has_many :sections, dependent: :destroy
 
@@ -71,7 +72,7 @@ class Phase < ApplicationRecord
 
   has_many :template_sections, lambda {
     not_modifiable
-  }, class_name: "Section"
+  }, class_name: 'Section'
 
   has_many :suffix_sections, lambda { |phase|
     modifiable.where(<<~SQL, phase_id: phase.id, modifiable: false)
@@ -79,7 +80,7 @@ class Phase < ApplicationRecord
                            WHERE sections.modifiable = :modifiable
                            AND sections.phase_id = :phase_id)
     SQL
-  }, class_name: "Section"
+  }, class_name: 'Section'
 
   # ===============
   # = Validations =
@@ -158,5 +159,4 @@ class Phase < ApplicationRecord
   # --------------------------------
   # End DMP OPIDoR Customization
   # --------------------------------
-
 end

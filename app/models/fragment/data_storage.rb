@@ -20,7 +20,6 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 class Fragment::DataStorage < MadmpFragment
-
   def facility
     Fragment::TechnicalResource.where(parent_id: id)
   end
@@ -38,11 +37,10 @@ class Fragment::DataStorage < MadmpFragment
   end
 
   def properties
-    "facility, backup_policy, contributors, cost"
+    'facility, backup_policy, contributors, cost'
   end
 
   def self.sti_name
-    "data_storage"
+    'data_storage'
   end
-
 end

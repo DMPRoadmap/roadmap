@@ -20,19 +20,17 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 class Fragment::Contributor < MadmpFragment
-
   def person
-    return nil if data["person"].nil?
+    return nil if data['person'].nil?
 
-    Fragment::Person.find(data["person"]["dbid"])
+    Fragment::Person.find(data['person']['dbid'])
   end
 
   def properties
-    "person"
+    'person'
   end
 
   def self.sti_name
-    "contributor"
+    'contributor'
   end
-
 end

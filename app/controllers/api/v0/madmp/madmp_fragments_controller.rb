@@ -1,20 +1,17 @@
 # frozen_string_literal: true
 
-require "jsonpath"
+require 'jsonpath'
 
 class Api::V0::Madmp::MadmpFragmentsController < Api::V0::BaseController
-
   before_action :authenticate
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   def show
     @fragment = MadmpFragment.find(params[:id])
     # check if the user has permissions to use the API
-    unless Api::V0::Madmp::MadmpFragmentPolicy.new(@user, @fragment).show?
-      raise Pundit::NotAuthorizedError
-    end
+    raise Pundit::NotAuthorizedError unless Api::V0::Madmp::MadmpFragmentPolicy.new(@user, @fragment).show?
 
-    fragment_data = if query_params[:mode] == "fat"
+    fragment_data = if query_params[:mode] == 'fat'
                       @fragment.get_full_fragment(with_ids: true)
                     else
                       @fragment.data
@@ -23,9 +20,9 @@ class Api::V0::Madmp::MadmpFragmentsController < Api::V0::BaseController
     fragment_data = select_property(fragment_data, query_params[:property])
 
     render json: {
-      "data" => fragment_data,
-      "dmp_id" => @fragment.dmp_id,
-      "schema" => @fragment.madmp_schema.schema
+      'data' => fragment_data,
+      'dmp_id' => @fragment.dmp_id,
+      'schema' => @fragment.madmp_schema.schema
     }
   end
 
@@ -33,16 +30,14 @@ class Api::V0::Madmp::MadmpFragmentsController < Api::V0::BaseController
     @fragment = MadmpFragment.find(params[:id])
 
     # check if the user has permissions to use the API
-    unless Api::V0::Madmp::MadmpFragmentPolicy.new(@user, @fragment).update?
-      raise Pundit::NotAuthorizedError
-    end
+    raise Pundit::NotAuthorizedError unless Api::V0::Madmp::MadmpFragmentPolicy.new(@user, @fragment).update?
 
     @fragment.import_with_ids(params[:data], @fragment.madmp_schema)
 
     render json: {
-      "data" => @fragment.data,
-      "dmp_id" => @fragment.dmp_id,
-      "schema" => @fragment.madmp_schema.schema
+      'data' => @fragment.data,
+      'dmp_id' => @fragment.dmp_id,
+      'schema' => @fragment.madmp_schema.schema
     }
   end
 
@@ -51,22 +46,22 @@ class Api::V0::Madmp::MadmpFragmentsController < Api::V0::BaseController
     @dmp_fragment = Fragment::Dmp.find(params[:id])
     @dmp_fragments = MadmpFragment.where(dmp_id: @dmp_fragment.id).order(:id).map do |f|
       {
-        "id" => f.id,
-        "data" => f.data,
-        "schema" => f.madmp_schema.schema
+        'id' => f.id,
+        'data' => f.data,
+        'schema' => f.madmp_schema.schema
       }
     end
     @dmp_fragments.unshift(
       {
-        "id" => @dmp_fragment.id,
-        "data" => @dmp_fragment.data,
-        "schema" => @dmp_fragment.madmp_schema.schema
+        'id' => @dmp_fragment.id,
+        'data' => @dmp_fragment.data,
+        'schema' => @dmp_fragment.madmp_schema.schema
       }
     )
     render json: {
-      "dmp_id" => @dmp_fragment.id,
-      "data" => @dmp_fragments,
-      "schema" => @dmp_fragment.madmp_schema.schema
+      'dmp_id' => @dmp_fragment.id,
+      'data' => @dmp_fragments,
+      'schema' => @dmp_fragment.madmp_schema.schema
     }
   end
 
@@ -83,8 +78,7 @@ class Api::V0::Madmp::MadmpFragmentsController < Api::V0::BaseController
 
   def record_not_found
     render json: {
-      "error" => _("Fragment with id %{id} doesn't exist.") % { id: params[:id] }
+      'error' => format(_("Fragment with id %{id} doesn't exist."), id: params[:id])
     }, status: 404
   end
-
 end

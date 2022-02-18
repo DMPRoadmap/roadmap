@@ -20,17 +20,15 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 class Fragment::QualityAssuranceMethod < MadmpFragment
-
   def method_reference
     Fragment::ResourceReference.where(parent_id: id).first
   end
 
   def properties
-    "method_reference"
+    'method_reference'
   end
 
   def self.sti_name
-    "quality_assurance_method"
+    'quality_assurance_method'
   end
-
 end

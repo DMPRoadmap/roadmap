@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 module Dmpopidor
-
   module OrgsController
-
     # CHANGE: ADDED BANNER TEXT and ACTIVE
     # rubocop:disable Metrics/AbcSize
     def admin_update
@@ -11,7 +9,7 @@ module Dmpopidor
       @org = ::Org.find(params[:id])
       authorize @org
       @org.logo = attrs[:logo] if attrs[:logo]
-      tab = (attrs[:feedback_enabled].present? ? "feedback" : "profile")
+      tab = (attrs[:feedback_enabled].present? ? 'feedback' : 'profile')
       @org.links = ActiveSupport::JSON.decode(params[:org_links]) if params[:org_links].present?
 
       @org.banner_text = attrs[:banner_text] if attrs[:banner_text]
@@ -19,11 +17,11 @@ module Dmpopidor
       # Only allow super admins to change the org types and shib info
       if current_user.can_super_admin?
         identifiers = []
-        attrs[:managed] = attrs[:managed] == "1"
+        attrs[:managed] = attrs[:managed] == '1'
 
         # Handle Shibboleth identifier if that is enabled
         if Rails.configuration.x.shibboleth.use_filtered_discovery_service
-          shib = ::IdentifierScheme.by_name("shibboleth").first
+          shib = ::IdentifierScheme.by_name('shibboleth').first
 
           if shib.present? && attrs[:identifiers_attributes].present?
             key = attrs[:identifiers_attributes].keys.first
@@ -72,14 +70,12 @@ module Dmpopidor
         end
 
         redirect_to "#{admin_edit_org_path(@org)}\##{tab}",
-                    notice: success_message(@org, _("saved"))
+                    notice: success_message(@org, _('saved'))
       else
-        failure = failure_message(@org, _("save")) if failure.blank?
+        failure = failure_message(@org, _('save')) if failure.blank?
         redirect_to "#{admin_edit_org_path(@org)}\##{tab}", alert: failure
       end
     end
     # rubocop:enable Metrics/AbcSize
-
   end
-
 end

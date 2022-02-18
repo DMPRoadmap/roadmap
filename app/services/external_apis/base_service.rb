@@ -1,15 +1,14 @@
 # frozen_string_literal: true
 
-require "httparty"
+require 'httparty'
 
 module ExternalApis
-
+  # Errors for External Api services
   class ExternalApiError < StandardError; end
 
+  # Abstract service that provides HTTP methods for individual external api services
   class BaseService
-
     class << self
-
       # The following should be defined in each inheriting service's initializer.
       # For example:
       #   ExternalApis::RorService.setup do |config|
@@ -46,11 +45,11 @@ module ExternalApis
       # `http_get`
       def headers
         hash = {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-          "User-Agent": "#{app_name} (#{app_email})"
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          'User-Agent': "#{app_name} (#{app_email})"
         }
-        hash.merge({ "Host": URI(api_base_url).hostname.to_s })
+        hash.merge({ Host: URI(api_base_url).hostname.to_s })
       rescue URI::InvalidURIError => e
         handle_uri_failure(method: "BaseService.headers #{e.message}",
                            uri: api_base_url)
@@ -87,7 +86,7 @@ module ExternalApis
 
       # Retrieves the helpdesk email from dmproadmap.rb initializer or uses the contact page url
       def app_email
-        dflt = Rails.application.routes.url_helpers.contact_us_path || ""
+        dflt = Rails.application.routes.url_helpers.contact_us_path || ''
         Rails.configuration.x.organisation.fetch(:helpdesk_email, dflt)
       end
 
@@ -110,7 +109,6 @@ module ExternalApis
 
       # Makes a POST request to the specified uri with the additional headers.
       # Additional headers are combined with the base headers defined above.
-      # rubocop:disable Metrics/MethodLength
       def http_post(uri:, additional_headers: {}, data: {}, basic_auth: nil, debug: false)
         return nil unless uri.present?
 
@@ -130,7 +128,6 @@ module ExternalApis
                             http_response: resp)
         resp
       end
-      # rubocop:enable Metrics/MethodLength
 
       # Options for the HTTParty call
       def options(additional_headers: {}, debug: false)
@@ -141,9 +138,6 @@ module ExternalApis
         hash[:debug_output] = $stdout if debug
         hash
       end
-
     end
-
   end
-
 end

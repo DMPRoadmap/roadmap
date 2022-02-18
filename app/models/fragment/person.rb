@@ -20,7 +20,6 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 class Fragment::Person < MadmpFragment
-
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def roles(selected_research_outputs = nil)
     contributors_list = contributors
@@ -38,18 +37,18 @@ class Fragment::Person < MadmpFragment
     # Ex: Data contact (RO1, RO2)
     contributors_list.each do |c|
       if %w[meta project].include?(c.parent&.classname)
-        roles_list.push(c.data["role"])
+        roles_list.push(c.data['role'])
         next
       end
       if research_outputs.size.eql?(1)
-        roles_list.push(c.data["role"])
+        roles_list.push(c.data['role'])
         next
       end
       ro = research_outputs.find(c.research_output_id)
-      if roles_aggregate[c.data["role"]].nil?
-        roles_aggregate[c.data["role"]] = [ro.abbreviation]
+      if roles_aggregate[c.data['role']].nil?
+        roles_aggregate[c.data['role']] = [ro.abbreviation]
       else
-        roles_aggregate[c.data["role"]].push(ro.abbreviation)
+        roles_aggregate[c.data['role']].push(ro.abbreviation)
       end
     end
     roles_list += roles_aggregate.map { |k, v| "#{k} (#{v.join(', ')})" }
@@ -62,7 +61,6 @@ class Fragment::Person < MadmpFragment
   end
 
   def self.sti_name
-    "person"
+    'person'
   end
-
 end

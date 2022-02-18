@@ -2,7 +2,6 @@
 
 # rubocop:disable Metrics/ClassLength
 class MadmpFragmentsController < ApplicationController
-
   after_action :verify_authorized
   include DynamicFormHelper
 
@@ -15,7 +14,7 @@ class MadmpFragmentsController < ApplicationController
     schema = @schemas.find(p_params[:schema_id])
     source = p_params[:source]
     classname = schema.classname
-    parent_id = p_params[:parent_id] unless classname.eql?("person")
+    parent_id = p_params[:parent_id] unless classname.eql?('person')
 
     data = data_reformater(
       schema,
@@ -27,7 +26,7 @@ class MadmpFragmentsController < ApplicationController
       parent_id: parent_id,
       madmp_schema: schema,
       additional_info: {
-        "property_name" => p_params[:property_name]
+        'property_name' => p_params[:property_name]
       }
     )
     @fragment.classname = classname
@@ -35,13 +34,13 @@ class MadmpFragmentsController < ApplicationController
 
     if MadmpFragment.fragment_exists?(data, schema, p_params[:dmp_id], parent_id)
       render json: {
-        "error" => d_("dmpopidor", "Element is already present in your plan.")
+        'error' => d_('dmpopidor', 'Element is already present in your plan.')
       }, status: 409
       return
     end
 
     additional_info = @fragment.additional_info.merge(
-      "validations" => MadmpFragment.validate_data(data, schema.schema)
+      'validations' => MadmpFragment.validate_data(data, schema.schema)
     )
     @fragment.assign_attributes(
       additional_info: additional_info
@@ -49,12 +48,12 @@ class MadmpFragmentsController < ApplicationController
     @fragment.instantiate
     @fragment.save_form_fragment(data, schema)
 
-    if source.eql?("list-modal")
-      property_name = @fragment.additional_info["property_name"]
+    if source.eql?('list-modal')
+      property_name = @fragment.additional_info['property_name']
       render json: {
-        "fragment_id" => @fragment.parent_id,
-        "source" => source,
-        "html" => render_fragment_list(
+        'fragment_id' => @fragment.parent_id,
+        'source' => source,
+        'html' => render_fragment_list(
           @fragment.dmp_id,
           parent_id,
           schema.id,
@@ -65,9 +64,9 @@ class MadmpFragmentsController < ApplicationController
       }.to_json
     else # source.eql?("select-modal")
       render json: {
-        "fragment_id" => @fragment.id,
-        "source" => source,
-        "html" => render_fragment_select(@fragment)
+        'fragment_id' => @fragment.id,
+        'source' => source,
+        'html' => render_fragment_select(@fragment)
       }.to_json
     end
   end
@@ -99,13 +98,13 @@ class MadmpFragmentsController < ApplicationController
       else
         schema = @schemas.find(p_params[:schema_id])
         classname = schema.classname
-        parent_id = p_params[:parent_id] unless classname.eql?("person")
+        parent_id = p_params[:parent_id] unless classname.eql?('person')
         @fragment = MadmpFragment.new(
           dmp_id: p_params[:dmp_id],
           parent_id: parent_id,
           madmp_schema: schema,
           additional_info: {
-            "property_name" => p_params[:property_name]
+            'property_name' => p_params[:property_name]
           }
         )
         @fragment.classname = classname
@@ -153,19 +152,19 @@ class MadmpFragmentsController < ApplicationController
         data, schema, p_params[:dmp_id], @fragment.parent_id, params[:id]
       )
         render json: {
-          "error" => _("Element is already present in your plan.")
+          'error' => _('Element is already present in your plan.')
         }, status: 409
         return
       end
 
       additional_info = @fragment.additional_info.merge(
-        "validations" => MadmpFragment.validate_data(data, schema.schema)
+        'validations' => MadmpFragment.validate_data(data, schema.schema)
       )
       @fragment.assign_attributes(
         additional_info: additional_info,
         madmp_schema_id: schema.id
       )
-      if p_params[:source].eql?("form") && @fragment.answer.present?
+      if p_params[:source].eql?('form') && @fragment.answer.present?
         @fragment.answer.update!(
           lock_version: p_params[:answer][:lock_version],
           is_common: p_params[:answer][:is_common],
@@ -188,15 +187,15 @@ class MadmpFragmentsController < ApplicationController
     return unless @fragment.present?
 
     # Callbacks (not using rails callbacks so no infinite callback loop is created)
-    @fragment.update_meta_title if @fragment.classname.eql?("project")
+    @fragment.update_meta_title if @fragment.classname.eql?('project')
 
     case source
-    when "list-modal"
-      property_name = @fragment.additional_info["property_name"]
+    when 'list-modal'
+      property_name = @fragment.additional_info['property_name']
       render json: {
-        "fragment_id" => @fragment.parent_id,
-        "source" => source,
-        "html" => render_fragment_list(
+        'fragment_id' => @fragment.parent_id,
+        'source' => source,
+        'html' => render_fragment_list(
           @fragment.dmp_id,
           p_params[:parent_id].to_i,
           schema.id,
@@ -205,11 +204,11 @@ class MadmpFragmentsController < ApplicationController
           query_id: p_params[:query_id]
         )
       }.to_json
-    when "select-modal"
+    when 'select-modal'
       render json: {
-        "fragment_id" => @fragment.id,
-        "source" => source,
-        "html" => render_fragment_select(@fragment)
+        'fragment_id' => @fragment.id,
+        'source' => source,
+        'html' => render_fragment_select(@fragment)
       }.to_json
     else
       render json: render_fragment_form(@fragment, @stale_fragment)
@@ -243,24 +242,24 @@ class MadmpFragmentsController < ApplicationController
     @property_name = params[:property_name]
     @query_id = params[:query_id]
 
-    dmp_id = @parent_fragment.classname == "dmp" ? @parent_fragment.id : @parent_fragment.dmp_id
+    dmp_id = @parent_fragment.classname == 'dmp' ? @parent_fragment.id : @parent_fragment.dmp_id
     if params[:fragment_id].present?
       @fragment = MadmpFragment.find(params[:fragment_id])
     else
-      parent_id = @parent_fragment.id unless @classname.eql?("person")
+      parent_id = @parent_fragment.id unless @classname.eql?('person')
       @fragment = MadmpFragment.new(
         dmp_id: dmp_id,
         data: @schema.const_data(@template_locale),
         parent_id: parent_id,
         additional_info: {
-          "property_name" => params[:property_name]
+          'property_name' => params[:property_name]
         }
       )
     end
     authorize @fragment
     respond_to do |format|
       format.html
-      format.js { render partial: "shared/dynamic_form/linked_fragment" }
+      format.js { render partial: 'shared/dynamic_form/linked_fragment' }
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
@@ -276,7 +275,7 @@ class MadmpFragmentsController < ApplicationController
     authorize @fragment
     respond_to do |format|
       format.html
-      format.js { render partial: "shared/dynamic_form/linked_fragment" }
+      format.js { render partial: 'shared/dynamic_form/linked_fragment' }
     end
   end
 
@@ -287,7 +286,7 @@ class MadmpFragmentsController < ApplicationController
     schema = MadmpSchema.find(params[:schema_id])
     template_locale = params[:locale]
     query_id = params[:query_id]
-    readonly = params[:readonly] == "true"
+    readonly = params[:readonly] == 'true'
     is_custom = params[:custom_value].present? ? true : false
 
     @fragment = MadmpFragment.new(
@@ -296,7 +295,7 @@ class MadmpFragmentsController < ApplicationController
       madmp_schema: schema,
       data: {},
       additional_info: {
-        "property_name" => params[:property_name]
+        'property_name' => params[:property_name]
       }
     )
     @fragment.classname = schema.classname
@@ -304,7 +303,7 @@ class MadmpFragmentsController < ApplicationController
 
     if is_custom
       @fragment.additional_info = @fragment.additional_info.merge(
-        "custom_value" => params[:custom_value]
+        'custom_value' => params[:custom_value]
       )
       @fragment.save!
     else
@@ -314,7 +313,7 @@ class MadmpFragmentsController < ApplicationController
         @registry_value.data, schema, parent_fragment.dmp_id, parent_fragment.id
       )
         render json: {
-          "error" => _("Element is already present in your plan.")
+          'error' => _('Element is already present in your plan.')
         }, status: 409
         return
       end
@@ -323,9 +322,9 @@ class MadmpFragmentsController < ApplicationController
     end
 
     render json: {
-      "fragment_id" => parent_fragment.id,
-      "query_id" => query_id,
-      "html" => render_fragment_list(
+      'fragment_id' => parent_fragment.id,
+      'query_id' => query_id,
+      'html' => render_fragment_list(
         @fragment.dmp_id,
         parent_fragment.id,
         @fragment.madmp_schema_id,
@@ -353,12 +352,12 @@ class MadmpFragmentsController < ApplicationController
       parent_id: parent_fragment.id,
       madmp_schema: schema,
       data: {
-        "person" => { "dbid" => person_id.to_i },
-        "role" => params[:role]
+        'person' => { 'dbid' => person_id.to_i },
+        'role' => params[:role]
       },
       additional_info: {
-        "property_name" => params[:property_name],
-        "is_multiple_contributor" => true
+        'property_name' => params[:property_name],
+        'is_multiple_contributor' => true
       }
     )
     @contributor.classname = schema.classname
@@ -367,9 +366,9 @@ class MadmpFragmentsController < ApplicationController
 
     @contributor = @contributor.becomes(Fragment::Contributor)
     render json: {
-      "fragment_id" => parent_fragment.id,
-      "query_id" => query_id,
-      "html" => render_fragment_list(
+      'fragment_id' => parent_fragment.id,
+      'query_id' => query_id,
+      'html' => render_fragment_list(
         @contributor.dmp_id,
         parent_fragment.id,
         @contributor.person.madmp_schema_id,
@@ -387,7 +386,7 @@ class MadmpFragmentsController < ApplicationController
     contributors_list = @person.contributors
     query_id = params[:query_id]
     dmp_id = @person.dmp_id
-    property_name = @person.additional_info["property_name"]
+    property_name = @person.additional_info['property_name']
 
     authorize @person.becomes(MadmpFragment)
     return unless @person.destroy
@@ -396,17 +395,17 @@ class MadmpFragmentsController < ApplicationController
     # checks if the contributor is a single (ex PrincipalInvestigator)
     # or multiple contributor (ex: DataCollector)
     contributors_list.each do |c|
-      if c.additional_info["is_multiple_contributor"].present?
+      if c.additional_info['is_multiple_contributor'].present?
         c.destroy
       else
-        c.update(data: c.data.merge({ "person" => nil }))
+        c.update(data: c.data.merge({ 'person' => nil }))
       end
     end
 
     render json: {
-      "fragment_id" => nil,
-      "query_id" => query_id,
-      "html" => render_fragment_list(
+      'fragment_id' => nil,
+      'query_id' => query_id,
+      'html' => render_fragment_list(
         dmp_id, nil, @person.madmp_schema_id,
         property_name, params[:template_locale], query_id: query_id
       )
@@ -417,19 +416,19 @@ class MadmpFragmentsController < ApplicationController
   def destroy
     @fragment = MadmpFragment.find(params[:id])
     query_id = params[:query_id]
-    readonly = params[:readonly] == "true"
+    readonly = params[:readonly] == 'true'
     parent_id = @fragment.parent_id
     dmp_id = @fragment.dmp_id
-    property_name = @fragment.additional_info["property_name"]
+    property_name = @fragment.additional_info['property_name']
 
     authorize @fragment
     return unless @fragment.destroy
 
     MadmpFragment.find(parent_id).update_children_references if parent_id.present?
     render json: {
-      "fragment_id" => parent_id,
-      "query_id" => query_id,
-      "html" => render_fragment_list(
+      'fragment_id' => parent_id,
+      'query_id' => query_id,
+      'html' => render_fragment_list(
         dmp_id, parent_id, @fragment.madmp_schema_id,
         property_name, params[:template_locale], query_id: query_id, readonly: readonly
       )
@@ -438,16 +437,16 @@ class MadmpFragmentsController < ApplicationController
 
   def load_fragments
     @dmp_fragment = MadmpFragment.find(params[:dmp_id])
-    search_term = params[:term] || ""
+    search_term = params[:term] || ''
     fragment_list = MadmpFragment.where(
       dmp_id: @dmp_fragment.id,
       madmp_schema_id: params[:schema_id]
     )
     formatted_list = fragment_list.select { |f| f.to_s.downcase.include?(search_term) }
-                                  .map    { |f| { "id" => f.id, "text" => f.to_s } }
+                                  .map    { |f| { 'id' => f.id, 'text' => f.to_s } }
     authorize @dmp_fragment
     render json: {
-      "results" => formatted_list
+      'results' => formatted_list
     }
   end
 
@@ -462,16 +461,16 @@ class MadmpFragmentsController < ApplicationController
                            query_id: nil,
                            readonly: false)
     schema = MadmpSchema.find(schema_id)
-    if query_id.eql?("contributor")
+    if query_id.eql?('contributor')
       dmp = Fragment::Dmp.where(id: dmp_id).first
       @plan = dmp.plan
       render_to_string(
-        partial: "paginable/contributors/index",
+        partial: 'paginable/contributors/index',
         locals: {
           scope: dmp.persons
         }
       )
-    elsif schema.classname.eql?("person")
+    elsif schema.classname.eql?('person')
       contributors = Fragment::Contributor.where(
         dmp_id: dmp_id,
         parent_id: parent_id
@@ -479,7 +478,7 @@ class MadmpFragmentsController < ApplicationController
       # if the fragment is a Person, we consider that it's been edited from a Contributor list
       # we need to indicate that we want the contributor list to be displayed
       render_to_string(
-        partial: "shared/dynamic_form/fields/contributor/contributor_list",
+        partial: 'shared/dynamic_form/fields/contributor/contributor_list',
         locals: {
           contributors: contributors,
           parent_id: parent_id,
@@ -496,7 +495,7 @@ class MadmpFragmentsController < ApplicationController
         parent_id: parent_id
       ).where("additional_info->>'property_name' = ?", property_name)
       render_to_string(
-        partial: "shared/dynamic_form/linked_fragment/list",
+        partial: 'shared/dynamic_form/linked_fragment/list',
         locals: {
           parent_id: parent_id,
           obj_list: obj_list,
@@ -517,7 +516,7 @@ class MadmpFragmentsController < ApplicationController
       madmp_schema_id: fragment.madmp_schema_id
     )
     render_to_string(
-      partial: "shared/dynamic_form/linked_fragment/select_options",
+      partial: 'shared/dynamic_form/linked_fragment/select_options',
       locals: {
         selected_value: fragment.id,
         select_values: select_values
@@ -537,24 +536,24 @@ class MadmpFragmentsController < ApplicationController
     editable = plan.editable_by?(current_user.id)
 
     {
-      "fragment_id" => fragment.id,
-      "answer" => {
-        "id" => answer&.id
+      'fragment_id' => fragment.id,
+      'answer' => {
+        'id' => answer&.id
       },
-      "qn_data": { to_hide: [], to_show: [] },
-      "section_data": [],
-      "question" => {
-        "id" => question&.id,
-        "answer_lock_version" => answer&.lock_version,
-        "locking" => if stale_fragment
-                       render_to_string(partial: "madmp_fragments/locking", locals:
+      qn_data: { to_hide: [], to_show: [] },
+      section_data: [],
+      'question' => {
+        'id' => question&.id,
+        'answer_lock_version' => answer&.lock_version,
+        'locking' => if stale_fragment
+                       render_to_string(partial: 'madmp_fragments/locking', locals:
                        {
                          fragment: stale_fragment,
                          template_locale: LocaleService.to_gettext(locale: template.locale),
                          user: answer&.user
                        }, formats: [:html])
                      end,
-        "form" => render_to_string(partial: "madmp_fragments/edit", locals:
+        'form' => render_to_string(partial: 'madmp_fragments/edit', locals:
         {
           template: template,
           question: question,
@@ -568,37 +567,37 @@ class MadmpFragmentsController < ApplicationController
           readonly: !editable,
           base_template_org: template.base_org
         }, formats: [:html]),
-        "form_run" => if run_parameters.present?
-                        render_to_string(partial: "shared/dynamic_form/codebase/show", locals:
+        'form_run' => if run_parameters.present?
+                        render_to_string(partial: 'shared/dynamic_form/codebase/show', locals:
                         {
                           fragment: fragment,
                           parameters: run_parameters,
                           template_locale: LocaleService.to_gettext(locale: template.locale)
                         }, formats: [:html])
                       end,
-        "answer_status" => if answer.present?
-                             render_to_string(partial: "answers/status", locals:
+        'answer_status' => if answer.present?
+                             render_to_string(partial: 'answers/status', locals:
                              {
                                answer: answer
                              }, formats: [:html])
                            end
       },
-      "section" => {
-        "id" => section&.id
+      'section' => {
+        'id' => section&.id
       },
-      "plan" => {
-        "id" => plan.id,
-        "title" => plan.title,
-        "progress" => if section.present?
-                        render_to_string(partial: "plans/progress", locals:
+      'plan' => {
+        'id' => plan.id,
+        'title' => plan.title,
+        'progress' => if section.present?
+                        render_to_string(partial: 'plans/progress', locals:
                         {
                           plan: plan,
                           current_phase: section.phase
                         }, formats: [:html])
                       end
       },
-      "research_output" => {
-        "id" => research_output&.id
+      'research_output' => {
+        'id' => research_output&.id
       }
     }.to_json
   end
@@ -613,11 +612,11 @@ class MadmpFragmentsController < ApplicationController
     form_data.each do |prop, content|
       schema_prop = schema.properties[prop]
 
-      next if schema_prop&.dig("type").nil?
-      next if schema_prop["type"].eql?("object") &&
-              schema_prop["schema_id"].present?
-      next if schema_prop["type"].eql?("array") &&
-              schema_prop["items"]["schema_id"].present?
+      next if schema_prop&.dig('type').nil?
+      next if schema_prop['type'].eql?('object') &&
+              schema_prop['schema_id'].present?
+      next if schema_prop['type'].eql?('array') &&
+              schema_prop['items']['schema_id'].present?
 
       stale_data[prop] = content
     end
@@ -635,10 +634,8 @@ class MadmpFragmentsController < ApplicationController
                   :property_name, :query_id,
                   {
                     answer: %i[id plan_id research_output_id question_id lock_version is_common]
-                  }
-                ]
+                  }]
     params.require(:madmp_fragment).permit(permit_arr)
   end
-
 end
 # rubocop:enable Metrics/ClassLength

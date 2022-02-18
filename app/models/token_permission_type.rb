@@ -11,37 +11,37 @@
 #  updated_at       :datetime
 #
 
+# Object that represents an API permission for V0
 class TokenPermissionType < ApplicationRecord
-
   # =============
   # = Constants =
   # =============
 
   ##
   #
-  GUIDANCES   = TokenPermissionType.where(token_type: "guidances").first.freeze
+  GUIDANCES   = TokenPermissionType.where(token_type: 'guidances').first.freeze
 
   ##
   #
-  PLANS       = TokenPermissionType.where(token_type: "plans").first.freeze
+  PLANS       = TokenPermissionType.where(token_type: 'plans').first.freeze
 
   ##
   #
-  TEMPLATES   = TokenPermissionType.where(token_type: "templates").first.freeze
+  TEMPLATES   = TokenPermissionType.where(token_type: 'templates').first.freeze
 
   ##
   #
-  STATISTICS  = TokenPermissionType.where(token_type: "statistics").first.freeze
+  STATISTICS  = TokenPermissionType.where(token_type: 'statistics').first.freeze
 
   ##
   #
-  THEMES = TokenPermissionType.where(token_type: "themes").first.freeze
+  THEMES = TokenPermissionType.where(token_type: 'themes').first.freeze
 
   # ================
   # = Associations =
   # ================
 
-  has_and_belongs_to_many :orgs, join_table: "org_token_permissions", unique: true
+  has_and_belongs_to_many :orgs, join_table: 'org_token_permissions', unique: true
 
   # ==============
   # = Validators =
@@ -56,5 +56,4 @@ class TokenPermissionType < ApplicationRecord
   def to_s
     token_type
   end
-
 end

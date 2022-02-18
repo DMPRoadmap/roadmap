@@ -20,9 +20,7 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 class Fragment::ControlledKeyword < MadmpFragment
-
   def self.sti_name
-    "controlled_keyword"
+    'controlled_keyword'
   end
-
 end

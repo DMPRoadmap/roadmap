@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: sections
@@ -23,8 +24,8 @@
 #  fk_rails_...  (phase_id => phases.id)
 #
 
+# Object that represents a Template section
 class Section < ApplicationRecord
-
   include ActsAsSortable
   include VersionableModel
 
@@ -131,5 +132,4 @@ class Section < ApplicationRecord
   def unmodifiable?
     !modifiable?
   end
-
 end

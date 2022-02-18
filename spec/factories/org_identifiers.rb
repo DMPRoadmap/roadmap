@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: org_identifiers
@@ -19,7 +21,7 @@
 FactoryBot.define do
   factory :org_identifier do
     identifier { Faker::Lorem.word }
-    attrs { Hash.new }
+    attrs { {} }
     org
     identifier_scheme
   end

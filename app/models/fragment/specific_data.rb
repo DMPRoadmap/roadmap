@@ -20,9 +20,7 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 class Fragment::SpecificData < MadmpFragment
-
   def self.sti_name
-    "specific_data"
+    'specific_data'
   end
-
 end

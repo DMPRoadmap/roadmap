@@ -20,9 +20,7 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 class Fragment::ResourceReference < MadmpFragment
-
   def self.sti_name
-    "resource_reference"
+    'resource_reference'
   end
-
 end

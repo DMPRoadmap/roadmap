@@ -20,7 +20,6 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 class Fragment::DataSharing < MadmpFragment
-
   def distribution
     Fragment::Distribution.where(parent_id: id)
   end
@@ -42,11 +41,10 @@ class Fragment::DataSharing < MadmpFragment
   end
 
   def properties
-    "distribution, indexed_in, host, contributors, cost"
+    'distribution, indexed_in, host, contributors, cost'
   end
 
   def self.sti_name
-    "data_sharing"
+    'data_sharing'
   end
-
 end

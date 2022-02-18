@@ -22,9 +22,8 @@
 # WARNING !! : si changement de cardinalité de project, maintenance à prévoir dans les scripts appelants
 
 class Fragment::Dmp < MadmpFragment
-
   def plan
-    Plan.find(data["plan_id"])
+    Plan.find(data['plan_id'])
   end
 
   def meta
@@ -40,7 +39,7 @@ class Fragment::Dmp < MadmpFragment
   end
 
   def properties
-    "plan, meta, project, research_output"
+    'plan, meta, project, research_output'
   end
 
   def contributors
@@ -56,7 +55,7 @@ class Fragment::Dmp < MadmpFragment
   end
 
   def locale
-    meta.data["dmpLanguage"]
+    meta.data['dmpLanguage']
   end
 
   def dmp
@@ -64,7 +63,6 @@ class Fragment::Dmp < MadmpFragment
   end
 
   def self.sti_name
-    "dmp"
+    'dmp'
   end
-
 end

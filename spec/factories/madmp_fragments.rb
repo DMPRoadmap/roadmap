@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: madmp_fragments
@@ -20,17 +22,17 @@
 
 FactoryBot.define do
   factory :madmp_fragment do
-    data { { } }
-    classname { "dmp" }
+    data { {} }
+    classname { 'dmp' }
     answer
     madmp_schema
 
-    trait :data do 
-      data { { } }
+    trait :data do
+      data { {} }
     end
 
-    trait :classname do 
-      classname { "dmp" }
+    trait :classname do
+      classname { 'dmp' }
     end
   end
 end

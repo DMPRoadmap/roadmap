@@ -1,0 +1,79 @@
+
+fr-FR:
+  dmpopidor:
+    cookie-banner:
+      message: "En poursuivant votre navigation, sans modifier vos paramètres, vous acceptez l'utilisation et le dépôt de cookies destinés à mesurer la fréquentation du site grâce au logiciel Matomo. Pour plus d'information, pour gérer ou modifier les paramètres, vous pouvez vous rendre sur notre page de politique de confidentialité."
+      accept: "J'accepte"
+      learn-more: "En savoir plus"
+    create-account:
+      cil-1: "Les informations recueillies vous concernant vont faire l’objet d’un traitement destiné à l'Inist-CNRS (UAR76) et au correspondant Informatique et Libertés. Pour la finalité suivante : gestion des comptes des utilisateurs. Les destinataires de ces données sont les administrateurs DMP OPIDoR de l’Inist-CNRS. La durée de conservation des données est de 5 ans suite à la dernière connexion."
+      cil-2: "Vous bénéficiez d’un droit d’accès, de rectification, de portabilité, d’effacement de celles-ci ou une limitation du traitement. Vous pouvez vous opposer au traitement des données vous concernant et disposez du droit de retirer votre consentement à tout moment en vous adressant à <a href='mailto:%{contact_url}'>%{contact_url}</a>. Vous avez la possibilité d’introduire une réclamation auprès d’une autorité de contrôle."
+    contact-us:
+      more-info: "Si vous souhaitez plus d'informations sur l'utilisation de DMP OPIDoR, vous pouvez consulter notre <a href=\"https://opidor.fr/category/dmp-faq/\" target=\"_blank\">Foire aux Questions</a>."
+      provided-by: "%{application_name} est mis à disposition par %{organisation_name}.<br /> Vous pouvez trouver plus d'informations sur notre <a href=\"%{organisation_url}\" title=\"%{open_in_new_window_text}\" target=\"_blank\">site internet</a>. Si vous souhaitez nous contacter à propos de %{application_name}, remplissez le formulaire ci dessous."
+    dynamic-form:
+      add-new-item: "Cliquez ici pour ajouter un nouvel élément"
+      registries:
+        custom-value: "Valeur personnalisée : "
+        find-out-more: "Pour en savoir plus."
+        select: "Sélectionnez une valeur pour l'ajouter à votre plan."
+        select-or-create: "Sélectionnez une valeur pour l'ajouter à votre plan ou saisissez une nouvelle."
+    home:
+      welcome: "Bienvenue !"
+      front-page-1: "%{tool_name} vous accompagne à travers l’élaboration et la mise  en pratique de plans de gestion de données et de logiciels."
+      front-page-2: "Accessible à la communauté scientifique de l’ESR et à ses partenaires français ou étrangers"
+      front-page-3: "Personnalisable par tout organisme de recherche pour la mise en place de sa politique de données"
+      front-page-4: "Enrichi par des exemples et des recommandations adaptés à l’environnement de recherche"
+      front-page-5: "Collaboratif : il facilite les échanges entre les partenaires d’un même projet et les services d’accompagnement"
+      feedback-thanks: "%{tool_name} évolue grâce à vos retours. Les développements s’inscrivent dans le cadre d’une collaboration internationale autour du logiciel open source DMPRoadmap"
+      join: "Rejoignez la communauté des utilisateurs de %{tool_name}"
+      create-account: "Créez un compte, connectez-vous et laissez-vous guider !"
+      discover: "Découvrez %{tool_name}"
+    layout: 
+      branding:
+        registries: "Référentiels"
+        madmp-features: "Fonctionnalités maDMP"
+        madmp-schemas: "Schemas"
+        static-pages: "Pages Statiques"
+      footer:
+        news: "Nouvelles"
+        tutorials: "Tutoriels"
+        cnrs-website: "Site CNRS"
+        inist-website: "Site INIST"
+        mailing-list: "Liste de diffusion"
+      navigation:
+        more: "Plus"
+    paginable:
+      plans:
+        title: "Titre du plan"
+      templates:
+        customized: "Personnalisé"
+        description: "Description"
+        org-type: "Type d'organisme"
+    plans:
+      form:
+        available-templates: "Retrouvez la liste des modèles disponibles"
+        choose-template: "Choisissez un modèle"
+        default-template: "Vous pouvez choisir soit un modèle fourni par votre organisme soit par un autre organisme, ou un modèle financeur. Le modèle par défaut est "
+        funder-template: "Souhaitez-vous utiliser le modèle d'un financeur ?"
+        multiple-templates: "Plusieurs modèles sont disponibles, lequel souhaitez-vous utiliser ?"
+        no-org: "Vous n'êtes pas liés à un organisme, nous ne pouvons vous proposer un modèle. Veuillez choisir un organisme dans votre profil."
+        no-template: "Aucun modèle de disponible."
+        other-org: "Autre organisme"
+        other-org-template: "Souhaitez-vous choisir le modèle d'un autre organisme ?"
+        select-template-from-list: "Veuillez sélectionner un modèle dans la liste."
+        single-template: "Le modèle \"<span class=\"template_title\"></span>\" est disponible. Souhaitez-vous créer un plan à partir de ce modèle ?"
+        use-default: "Utiliser le modèle par défaut"
+        your-org: "Votre organisme"
+      navigation:
+        general-info: "Informations générales"
+        research-outputs: "Produits de recherche"
+      plan-details: "Renseignements sur le plan"
+    public-pages:
+      template-index: 
+        available-templates: "Modèles de DMP proposés par les financeurs ou par les organismes de recherche, disponibles dans DMP OPIDoR. Vous pouvez télécharger ces modèles et les recommandations associées, créer un plan à partir de ces modèles."
+    sign-in:
+      institutional-access: "Accès institutionnel"
+      individual-access: "Accès individuel"
+    template-options:
+      customized-by: "Personnalisé par "

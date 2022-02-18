@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+# Controller for the Plan Download page
 class PlanExportsController < ApplicationController
-
   prepend Dmpopidor::PlanExportsController
   after_action :verify_authorized
 
@@ -13,7 +13,7 @@ class PlanExportsController < ApplicationController
   #   - Research outputs : added research output support with export mode
   #   - JSON export uses DMP OPIDoR JSON export (default & RDA)
   # --------------------------------
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
   def show
     @plan = Plan.includes(:answers, { template: { phases: { sections: :questions } } })
                 .find(params[:plan_id])
@@ -43,7 +43,7 @@ class PlanExportsController < ApplicationController
     @selected_phase = if params.key?(:phase_id)
                         @plan.phases.find(params[:phase_id])
                       else
-                        @plan.phases.order("phases.updated_at DESC")
+                        @plan.phases.order('phases.updated_at DESC')
                              .detect { |p| p.visibility_allowed?(@plan) }
                       end
 
@@ -56,7 +56,7 @@ class PlanExportsController < ApplicationController
       format.json { show_json }
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
   # --------------------------------
   # End DMP OPIDoR Customization
   # --------------------------------
@@ -77,15 +77,15 @@ class PlanExportsController < ApplicationController
   end
 
   def show_text
-    send_data render_to_string(partial: "shared/export/plan_txt"),
+    send_data render_to_string(partial: 'shared/export/plan_txt'),
               filename: "#{file_name}.txt"
   end
 
   def show_docx
     # Using and optional locals_assign export_format
     render docx: "#{file_name}.docx",
-           content: render_to_string(partial: "shared/export/plan",
-                                     locals: { export_format: "docx" })
+           content: render_to_string(partial: 'shared/export/plan',
+                                     locals: { export_format: 'docx' })
   end
 
   # --------------------------------
@@ -96,14 +96,13 @@ class PlanExportsController < ApplicationController
     render pdf: file_name,
            margin: @formatting[:margin],
            footer: {
-             center: _("Created using %{application_name}. Last modified %{date}") % {
-               application_name: ApplicationService.application_name,
-               date: l(@plan.updated_at.to_date, format: :readable)
-             },
+             center: format(_('Created using %<application_name>s. Last modified %<date>s'),
+                            application_name: ApplicationService.application_name,
+                            date: l(@plan.updated_at.to_date, format: :readable)),
              font_size: 8,
              spacing: (Integer(@formatting[:margin][:bottom]) / 2) - 4,
-             right: "[page] of [topage]",
-             encoding: "utf8"
+             right: '[page] of [topage]',
+             encoding: 'utf8'
            }
   end
   # --------------------------------
@@ -115,7 +114,7 @@ class PlanExportsController < ApplicationController
   # CHANGES: Changed JSON export to use madmp_fragments
   # --------------------------------
   def show_json
-    json = render_to_string(partial: "/api/v1/plans/show", locals: { plan: @plan })
+    json = render_to_string(partial: '/api/v1/plans/show', locals: { plan: @plan })
     render json: "{\"dmp\":#{json}}"
   end
   # --------------------------------
@@ -126,8 +125,8 @@ class PlanExportsController < ApplicationController
     # Sanitize bad characters and replace spaces with underscores
     ret = @plan.title
     Zaru.sanitize! ret
-    ret = ret.strip.gsub(/\s+/, "_")
-    ret = ret.gsub(/"/, "")
+    ret = ret.strip.gsub(/\s+/, '_')
+    ret = ret.gsub(/"/, '')
     # limit the filename length to 100 chars. Windows systems have a MAX_PATH allowance
     # of 255 characters, so this should provide enough of the title to allow the user
     # to understand which DMP it is and still allow for the file to be saved to a deeply
@@ -136,8 +135,8 @@ class PlanExportsController < ApplicationController
   end
 
   def publicly_authorized?
-    PublicPagePolicy.new(@plan, current_user).plan_organisationally_exportable? ||
-      PublicPagePolicy.new(@plan).plan_export?
+    PublicPagePolicy.new(current_user, @plan).plan_organisationally_exportable? ||
+      PublicPagePolicy.new(current_user, @plan).plan_export?
   end
 
   def privately_authorized?
@@ -153,5 +152,4 @@ class PlanExportsController < ApplicationController
                                    :unanswered_questions, :custom_sections,
                                    :formatting)
   end
-
 end

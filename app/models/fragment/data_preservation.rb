@@ -20,7 +20,6 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 class Fragment::DataPreservation < MadmpFragment
-
   def host
     Fragment::TechnicalResource.where(parent_id: id).first
   end
@@ -34,11 +33,10 @@ class Fragment::DataPreservation < MadmpFragment
   end
 
   def properties
-    "host, contributors, cost"
+    'host, contributors, cost'
   end
 
   def self.sti_name
-    "data_preservation"
+    'data_preservation'
   end
-
 end

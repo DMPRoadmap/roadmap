@@ -1,9 +1,7 @@
-class RegistryPolicy < ApplicationPolicy
-  def initialize(user, *args)
-    raise Pundit::NotAuthorizedError, _("must be logged in") unless user
-    @user = user
-  end
+# frozen_string_literal: true
 
+# Security rules for registry
+class RegistryPolicy < ApplicationPolicy
   def index?
     @user.can_super_admin?
   end
@@ -43,5 +41,4 @@ class RegistryPolicy < ApplicationPolicy
   def upload?
     @user.can_super_admin?
   end
-
 end

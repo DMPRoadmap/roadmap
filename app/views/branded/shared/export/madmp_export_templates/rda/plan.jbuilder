@@ -6,6 +6,7 @@ research_outputs = dmp.research_outputs
 
 json.prettify!
 
+# rubocop:disable Metrics/BlockLength
 json.dmp do
   json.created          meta.data["creationDate"]
   json.description      exportable_description(meta.data["description"])
@@ -66,3 +67,4 @@ json.dmp do
   json.partial! "shared/export/madmp_export_templates/rda/datasets",
                 datasets: research_outputs, selected_datasets: selected_research_outputs
 end
+# rubocop:enable Metrics/BlockLength

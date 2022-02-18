@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-# rubocop:disable
+# Controller that handles Answers to DMP questions
 class AnswersController < ApplicationController
-
   respond_to :html
   include ConditionsHelper
   prepend Dmpopidor::AnswersController
@@ -18,6 +17,7 @@ class AnswersController < ApplicationController
   #       `remote: true` in the <form> tag and just send back the ERB.
   #       Consider using ActionCable for the progress bar(s)
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def create_or_update
     p_params = permitted_params
 
@@ -27,21 +27,17 @@ class AnswersController < ApplicationController
       unless p.question_exists?(p_params[:question_id])
         # rubocop:disable Layout/LineLength
         render(status: :not_found, json: {
-                 msg: _("There is no question with id %{question_id} associated to plan id %{plan_id} for which to create or update an answer") % {
-                   question_id: p_params[:question_id],
-                   plan_id: p_params[:plan_id]
-                 }
+                 msg: format(_('There is no question with id %<question_id>s associated to plan id %<plan_id>s for which to create or update an answer'), question_id: p_params[:question_id], plan_id: p_params[:plan_id])
                })
         # rubocop:enable Layout/LineLength
         return
       end
     rescue ActiveRecord::RecordNotFound
+      # rubocop:disable Layout/LineLength
       render(status: :not_found, json: {
-               msg: _("There is no plan with id %{id} for which to create or update an answer") % {
-                 id: p_params[:plan_id]
-               }
+               msg: format(_('There is no plan with id %<id>s for which to create or update an answer'), id: p_params[:plan_id])
              })
-
+      # rubocop:enable Layout/LineLength
       return
     end
     q = Question.find(p_params[:question_id])
@@ -133,19 +129,19 @@ class AnswersController < ApplicationController
 
       send_webhooks(current_user, @answer)
       render json: {
-        "qn_data": qn_data,
-        "section_data": section_data,
-        "question" => {
-          "id" => @question.id,
-          "answer_lock_version" => @answer.lock_version,
-          "locking" => if @stale_answer
-                         render_to_string(partial: "answers/locking", locals: {
+        qn_data: qn_data,
+        section_data: section_data,
+        'question' => {
+          'id' => @question.id,
+          'answer_lock_version' => @answer.lock_version,
+          'locking' => if @stale_answer
+                         render_to_string(partial: 'answers/locking', locals: {
                                             question: @question,
                                             answer: @stale_answer,
                                             user: @answer.user
                                           }, formats: [:html])
                        end,
-          "form" => render_to_string(partial: "answers/new_edit", locals: {
+          'form' => render_to_string(partial: 'answers/new_edit', locals: {
                                        template: template,
                                        question: @question,
                                        answer: @answer,
@@ -153,13 +149,13 @@ class AnswersController < ApplicationController
                                        locking: false,
                                        base_template_org: template.base_org
                                      }, formats: [:html]),
-          "answer_status" => render_to_string(partial: "answers/status", locals: {
+          'answer_status' => render_to_string(partial: 'answers/status', locals: {
                                                 answer: @answer
                                               }, formats: [:html])
         },
-        "plan" => {
-          "id" => @plan.id,
-          "progress" => render_to_string(partial: "plans/progress", locals: {
+        'plan' => {
+          'id' => @plan.id,
+          'progress' => render_to_string(partial: 'plans/progress', locals: {
                                            plan: @plan,
                                            current_phase: @section.phase
                                          }, formats: [:html])
@@ -169,11 +165,11 @@ class AnswersController < ApplicationController
     end
     # rubocop:enable Style/GuardClause
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable
   # --------------------------------
   # End DMP OPIDoR Customization
   # --------------------------------
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   private
 
@@ -181,6 +177,7 @@ class AnswersController < ApplicationController
   # Start DMP OPIDoR Customization
   # CHANGES: Added research_output_id, :is_common, :parent_id
   # --------------------------------
+  # rubocop:disable Metrics/AbcSize
   def permitted_params
     permitted = params.require(:answer)
                       .permit(:id, :text, :plan_id, :user_id, :question_id,
@@ -197,6 +194,7 @@ class AnswersController < ApplicationController
     permitted[:question_option_ids] = [] if params[:answer][:question_option_ids].nil?
     permitted
   end
+  # rubocop:enable Metrics/AbcSize
   # --------------------------------
   # End DMP OPIDoR Customization
   # --------------------------------
@@ -206,5 +204,4 @@ class AnswersController < ApplicationController
     n_ans = all_answers.select { |ans| q_array.include?(ans.question.id) and ans.answered? }.length
     [n_qs, n_ans]
   end
-
 end

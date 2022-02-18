@@ -1,13 +1,7 @@
 # frozen_string_literal: true
 
+# Security rules for madmpfragments
 class MadmpFragmentPolicy < ApplicationPolicy
-
-  def initialize(user, fragment)
-    raise Pundit::NotAuthorizedError, _("must be logged in") unless user
-    @user = user
-    @fragment = fragment
-  end
-
   def create?
     @fragment.plan.readable_by?(@user.id) || @user == @answer.plan.owner
   end
@@ -59,5 +53,4 @@ class MadmpFragmentPolicy < ApplicationPolicy
   def anr_search?
     @fragment.plan.editable_by?(@user.id) || @user == @answer.plan.owner
   end
-
 end

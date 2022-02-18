@@ -20,17 +20,15 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 class Fragment::ReusedData < MadmpFragment
-
   def license
     Fragment::License.where(parent_id: id).first
   end
 
   def properties
-    "license"
+    'license'
   end
 
   def self.sti_name
-    "reused_data"
+    'reused_data'
   end
-
 end

@@ -1,8 +1,15 @@
 # frozen_string_literal: true
 
+# Controller that determines which templates are displayed/selected for the user when
+# they are creating a new plan
 class TemplateOptionsController < ApplicationController
-
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # --------------------------------
   prepend Dmpopidor::TemplateOptionsController
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
   include OrgSelectable
 
   after_action :verify_authorized
@@ -17,6 +24,7 @@ class TemplateOptionsController < ApplicationController
   # GET /template_options  (AJAX)
   # Collect all of the templates available for the org+funder combination
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def index
     org_hash = plan_params.fetch(:research_org_id, {})
     funder_hash = plan_params.fetch(:funder_id, {})
@@ -64,20 +72,18 @@ class TemplateOptionsController < ApplicationController
     end
 
     # If no templates were available use the default template
-    if @templates.empty?
-      if Template.default.present?
-        customization = Template.published
-                                .latest_customized_version(Template.default.family_id,
-                                                           org&.id).first
+    if @templates.empty? && Template.default.present?
+      customization = Template.published
+                              .latest_customized_version(Template.default.family_id,
+                                                         org&.id).first
 
-        @templates << (customization.present? ? customization : Template.default)
-      end
+      @templates << (customization.present? ? customization : Template.default)
     end
 
     @templates = @templates.sort_by(&:title)
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # --------------------------------
   # End DMP OPIDoR Customization
   # --------------------------------
@@ -92,5 +98,4 @@ class TemplateOptionsController < ApplicationController
   def org_params
     %i[id name url language abbreviation ror fundref weight score]
   end
-
 end

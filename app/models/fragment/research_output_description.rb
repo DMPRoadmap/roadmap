@@ -20,7 +20,6 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 class Fragment::ResearchOutputDescription < MadmpFragment
-
   def controlled_keyword
     Fragment::ControlledKeyword.where(parent_id: id)
   end
@@ -30,11 +29,10 @@ class Fragment::ResearchOutputDescription < MadmpFragment
   end
 
   def properties
-    "controlled_keyword, contact"
+    'controlled_keyword, contact'
   end
 
   def self.sti_name
-    "research_output_description"
+    'research_output_description'
   end
-
 end

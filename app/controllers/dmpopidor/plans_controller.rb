@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 module Dmpopidor
-
   module PlansController
-
     # CHANGES:
     # Added Active Flag on Org
     # rubocop:disable Metrics/AbcSize
@@ -73,7 +71,7 @@ module Dmpopidor
       answers = plan.answers
                     .includes(:madmp_fragment)
                     .each_with_object({}) { |a, m| m["#{a.question_id}_#{a.research_output_id}"] = a }
-      render("/phases/edit", locals: {
+      render('/phases/edit', locals: {
                base_template_org: phase.template.base_org,
                plan: plan,
                phase: phase,
@@ -83,7 +81,5 @@ module Dmpopidor
                guidance_presenter: GuidancePresenter.new(plan)
              })
     end
-
   end
-
 end

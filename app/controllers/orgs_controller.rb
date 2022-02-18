@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+# Controller for Org pages for Admins
 class OrgsController < ApplicationController
-
   prepend Dmpopidor::OrgsController
   include OrgSelectable
 
@@ -20,9 +20,9 @@ class OrgsController < ApplicationController
   def admin_edit
     org = Org.find(params[:id])
     authorize org
-    languages = Language.all.order("name")
-    org.links = { "org": [] } unless org.links.present?
-    render "admin_edit", locals: { org: org, languages: languages, method: "PUT",
+    languages = Language.all.order('name')
+    org.links = { org: [] } unless org.links.present?
+    render 'admin_edit', locals: { org: org, languages: languages, method: 'PUT',
                                    url: admin_update_org_path(org) }
   end
 
@@ -34,22 +34,24 @@ class OrgsController < ApplicationController
   # --------------------------------
   # PUT /org/admin/:id/admin_update
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def admin_update
     attrs = org_params
     @org = Org.find(params[:id])
     authorize @org
+
     @org.logo = attrs[:logo] if attrs[:logo]
-    tab = (attrs[:feedback_enabled].present? ? "feedback" : "profile")
+    tab = (attrs[:feedback_enabled].present? ? 'feedback' : 'profile')
     @org.links = ActiveSupport::JSON.decode(params[:org_links]) if params[:org_links].present?
 
     # Only allow super admins to change the org types and shib info
     if current_user.can_super_admin?
       identifiers = []
-      attrs[:managed] = attrs[:managed] == "1"
+      attrs[:managed] = attrs[:managed] == '1'
 
       # Handle Shibboleth identifier if that is enabled
       if Rails.configuration.x.shibboleth.use_filtered_discovery_service
-        shib = IdentifierScheme.by_name("shibboleth").first
+        shib = IdentifierScheme.by_name('shibboleth').first
 
         if shib.present? && attrs[:identifiers_attributes].present?
           key = attrs[:identifiers_attributes].keys.first
@@ -89,22 +91,22 @@ class OrgsController < ApplicationController
         end
         @org.save
       end
-
       redirect_to "#{admin_edit_org_path(@org)}\##{tab}",
-                  notice: success_message(@org, _("saved"))
+                  notice: success_message(@org, _('saved'))
     else
-      failure = failure_message(@org, _("save")) if failure.blank?
+      failure = failure_message(@org, _('save')) if failure.blank?
       redirect_to "#{admin_edit_org_path(@org)}\##{tab}", alert: failure
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # --------------------------------
   # End DMP OPIDoR Customization
   # --------------------------------
 
   # This action is used by installations that have the following config enabled:
   #   Rails.configuration.x.shibboleth.use_filtered_discovery_service
+  # rubocop:disable Metrics/AbcSize
   def shibboleth_ds
     unless current_user.nil?
       redirect_to root_path
@@ -113,7 +115,7 @@ class OrgsController < ApplicationController
 
     @user = User.new
     # Display the custom Shibboleth discovery service page.
-    @orgs = Identifier.by_scheme_name("shibboleth", "Org")
+    @orgs = Identifier.by_scheme_name('shibboleth', 'Org')
                       .sort { |a, b| a.identifiable.name <=> b.identifiable.name }
                       .map(&:identifiable)
 
@@ -121,7 +123,7 @@ class OrgsController < ApplicationController
     # if the ``@orgs` array has items ... it renders the shibboleth_ds view
     # rubocop:disable Style/GuardClause, Style/RedundantReturn
     if @orgs.empty?
-      flash.now[:alert] = _("No organisations are currently registered.")
+      flash.now[:alert] = _('No organisations are currently registered.')
       redirect_to user_shibboleth_omniauth_authorize_path
       return
     end
@@ -130,41 +132,41 @@ class OrgsController < ApplicationController
 
   # This action is used to redirect a user to the Shibboleth IdP
   # POST /orgs/shibboleth_ds
-  # rubocop:disable Metrics/AbcSize
   def shibboleth_ds_passthru
-    if !shib_params[:org_id].blank?
-      session["org_id"] = shib_params[:org_id]
+    if shib_params[:org_id].blank?
+      redirect_to shibboleth_ds_path, notice: _('Please choose an organisation')
+    else
+      session['org_id'] = shib_params[:org_id]
 
       org = Org.where(id: shib_params[:org_id])
-      shib_entity = Identifier.by_scheme_name("shibboleth", "Org")
+      shib_entity = Identifier.by_scheme_name('shibboleth', 'Org')
                               .where(identifiable: org)
 
-      if !shib_entity.empty?
+      if shib_entity.empty?
+        failure = _('Your organisation does not seem to be properly configured.')
+        redirect_to shibboleth_ds_path, alert: failure
+      else
         # initiate shibboleth login sequence
         entity_param = "entityID=#{shib_entity.first.value}"
         redirect_to "#{shib_login_url}?#{shib_callback_url}&#{entity_param}"
-      else
-        failure = _("Your organisation does not seem to be properly configured.")
-        redirect_to shibboleth_ds_path, alert: failure
       end
 
-    else
-      redirect_to shibboleth_ds_path, notice: _("Please choose an organisation")
     end
   end
   # rubocop:enable Metrics/AbcSize
 
   # POST /orgs  (via AJAX from Org Typeaheads ... see below for specific pages)
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def search
     args = search_params
     # If the search term is greater than 2 characters
-    if args.present? && args.fetch(:name, "").length > 2
-      type = params.fetch(:type, "local")
+    if args.present? && args.fetch(:name, '').length > 2
+      type = params.fetch(:type, 'local')
 
       # If we are including external API results
       orgs = case type
-             when "combined"
+             when 'combined'
                # This type will search both ROR and the local DB giving the local
                # DB results preference. It is triggered from the following pages:
                #   Create Account
@@ -177,7 +179,7 @@ class OrgsController < ApplicationController
                OrgSelection::SearchService.search_combined(
                  search_term: args[:name]
                )
-             when "external"
+             when 'external'
                # This type will ONLY check ROR for the specified search term. It
                # is triggered from the following page:
                #  SuperAdmin - New Org
@@ -204,7 +206,7 @@ class OrgsController < ApplicationController
 
       # If we need to restrict the results to funding orgs then
       # only return the ones with a valid fundref
-      if orgs.present? && params.fetch(:funder_only, "false") == "true"
+      if orgs.present? && params.fetch(:funder_only, 'false') == 'true'
         orgs = orgs.select do |org|
           org[:fundref].present? && !org[:fundref].blank?
         end
@@ -216,35 +218,36 @@ class OrgsController < ApplicationController
       render json: []
     end
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # POST /orgs/search  (via AJAX)
   # ----------------------------------------------------------------
   def search
     args = search_params
     # If the search term is greater than 2 characters
-    if args.present? && args.fetch(:name, "").length > 2
-      type = params.fetch(:type, "local")
+    if args.present? && args.fetch(:name, '').length > 2
+      type = params.fetch(:type, 'local')
 
       # If we are including external API results
-      case type
-      when "combined"
-        orgs = OrgSelection::SearchService.search_combined(
-          search_term: args[:name]
-        )
-      when "external"
-        orgs = OrgSelection::SearchService.search_externally(
-          search_term: args[:name]
-        )
-      else
-        orgs = OrgSelection::SearchService.search_locally(
-          search_term: args[:name]
-        )
-      end
+      orgs = case type
+             when 'combined'
+               OrgSelection::SearchService.search_combined(
+                 search_term: args[:name]
+               )
+             when 'external'
+               OrgSelection::SearchService.search_externally(
+                 search_term: args[:name]
+               )
+             else
+               OrgSelection::SearchService.search_locally(
+                 search_term: args[:name]
+               )
+             end
 
       # If we need to restrict the results to funding orgs then
       # only return the ones with a valid fundref
-      if orgs.present? && params.fetch(:funder_only, "false") == true
+      if orgs.present? && params.fetch(:funder_only, 'false') == true
         orgs = orgs.select do |org|
           org[:fundref].present? && !org[:fundref].blank?
         end
@@ -280,7 +283,7 @@ class OrgsController < ApplicationController
   end
 
   def shib_params
-    params.permit("org_id")
+    params.permit('org_id')
   end
 
   def search_params
@@ -299,6 +302,7 @@ class OrgsController < ApplicationController
   # Destroy the identifier if it exists and was blanked out, replace the
   # identifier if it was updated, create the identifier if its new, or
   # ignore it
+  # rubocop:disable Metrics/AbcSize
   def process_identifier_change(org:, identifier:)
     return org unless identifier.is_a?(Identifier)
 
@@ -316,5 +320,5 @@ class OrgsController < ApplicationController
 
     org
   end
-
+  # rubocop:enable Metrics/AbcSize
 end

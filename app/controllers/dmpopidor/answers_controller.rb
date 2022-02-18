@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
 module Dmpopidor
-
   # rubocop:disable Metrics/ModuleLength
   module AnswersController
-
     # Added Research outputs support
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def create_or_update
@@ -16,19 +14,14 @@ module Dmpopidor
         unless p.question_exists?(p_params[:question_id])
           # rubocop:disable Layout/LineLength
           render(status: :not_found, json: {
-                   msg: _("There is no question with id %{question_id} associated to plan id %{plan_id} for which to create or update an answer") % {
-                     question_id: p_params[:question_id],
-                     plan_id: p_params[:plan_id]
-                   }
+                   msg: format(_('There is no question with id %{question_id} associated to plan id %{plan_id} for which to create or update an answer'), question_id: p_params[:question_id], plan_id: p_params[:plan_id])
                  })
           # rubocop:enable Layout/LineLength
           return
         end
       rescue ActiveRecord::RecordNotFound
         render(status: :not_found, json: {
-                 msg: _("There is no plan with id %{id} for which to create or update an answer") % {
-                   id: p_params[:plan_id]
-                 }
+                 msg: format(_('There is no plan with id %{id} for which to create or update an answer'), id: p_params[:plan_id])
                })
         return
       end
@@ -124,23 +117,23 @@ module Dmpopidor
 
         send_webhooks(current_user, @answer)
         render json: {
-          "qn_data": qn_data,
-          "section_data": section_data,
-          "answer" => {
-            "id" => @answer.id
+          qn_data: qn_data,
+          section_data: section_data,
+          'answer' => {
+            'id' => @answer.id
           },
-          "question" => {
-            "id" => @question.id,
-            "answer_lock_version" => @answer.lock_version,
-            "locking" => if @stale_answer
-                           render_to_string(partial: "answers/locking", locals: {
+          'question' => {
+            'id' => @question.id,
+            'answer_lock_version' => @answer.lock_version,
+            'locking' => if @stale_answer
+                           render_to_string(partial: 'answers/locking', locals: {
                                               question: @question,
                                               answer: @stale_answer,
                                               research_output: @research_output,
                                               user: @answer.user
                                             }, formats: [:html])
                          end,
-            "form" => render_to_string(partial: "answers/new_edit", locals: {
+            'form' => render_to_string(partial: 'answers/new_edit', locals: {
                                          template: template,
                                          question: @question,
                                          answer: @answer,
@@ -149,19 +142,19 @@ module Dmpopidor
                                          locking: false,
                                          base_template_org: template.base_org
                                        }, formats: [:html]),
-            "answer_status" => render_to_string(partial: "answers/status", locals: {
+            'answer_status' => render_to_string(partial: 'answers/status', locals: {
                                                   answer: @answer
                                                 }, formats: [:html])
           },
-          "plan" => {
-            "id" => @plan.id,
-            "progress" => render_to_string(partial: "plans/progress", locals: {
+          'plan' => {
+            'id' => @plan.id,
+            'progress' => render_to_string(partial: 'plans/progress', locals: {
                                              plan: @plan,
                                              current_phase: @section.phase
                                            }, formats: [:html])
           },
-          "research_output" => {
-            "id" => @research_output.id
+          'research_output' => {
+            'id' => @research_output.id
           }
         }.to_json
       end
@@ -175,7 +168,7 @@ module Dmpopidor
       ::Answer.where(id: answer_ids).update_all(is_common: common_value)
 
       render json: {
-        "updated_answers": answer_ids
+        updated_answers: answer_ids
       }.to_json
     end
 
@@ -184,7 +177,7 @@ module Dmpopidor
     # Get the schema from the question, if any (works for strucutred questions/answers only)
     # TODO: move to global var with before_action trigger + rename accordingly (set_json_schema ?)
     def json_schema
-      question = ::Question.find(params["question_id"])
+      question = ::Question.find(params['question_id'])
       question.madmp_schema
     end
 
@@ -210,8 +203,6 @@ module Dmpopidor
       permitted[:question_option_ids] = [] if params[:answer][:question_option_ids].nil?
       permitted
     end
-
   end
   # rubocop:enable Metrics/ModuleLength
-
 end

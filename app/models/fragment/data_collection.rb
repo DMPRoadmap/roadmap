@@ -20,7 +20,6 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 class Fragment::DataCollection < MadmpFragment
-
   def facility
     Fragment::TechnicalResource.where(parent_id: id).first
   end
@@ -38,11 +37,10 @@ class Fragment::DataCollection < MadmpFragment
   end
 
   def properties
-    "facility, method_reference, contributors, cost"
+    'facility, method_reference, contributors, cost'
   end
 
   def self.sti_name
-    "data_collection"
+    'data_collection'
   end
-
 end

@@ -20,7 +20,6 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 class Fragment::EthicalIssues < MadmpFragment
-
   def resource_reference
     Fragment::ResourceReference.where(parent_id: id)
   end
@@ -30,11 +29,10 @@ class Fragment::EthicalIssues < MadmpFragment
   end
 
   def properties
-    "resource_reference, contact"
+    'resource_reference, contact'
   end
 
   def self.sti_name
-    "ethical_issues"
+    'ethical_issues'
   end
-
 end

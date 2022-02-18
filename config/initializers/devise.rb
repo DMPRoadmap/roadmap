@@ -10,7 +10,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with
   # default "from" parameter.
-  config.mailer_sender = "info-opidor@inist.fr"
+  config.mailer_sender = 'info-opidor@inist.fr'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
@@ -19,7 +19,7 @@ Devise.setup do |config|
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
-  require "devise/orm/active_record"
+  require 'devise/orm/active_record'
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
@@ -247,7 +247,7 @@ Devise.setup do |config|
   # should add them to the navigational formats lists.
   #
   # The "*/*" below is required to match Internet Explorer requests.
-  config.navigational_formats = ["*/*", :html, :js]
+  config.navigational_formats = ['*/*', :html, :js]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
@@ -259,11 +259,11 @@ Devise.setup do |config|
 
   # Any entries here MUST match a corresponding entry in the identifier_schemes table as
   # well as an identifier_schemes.schemes section in each locale file!
-  OmniAuth.config.full_host = "https://my_service.hostname"
+  OmniAuth.config.full_host = 'https://my_service.hostname'
   OmniAuth.config.allowed_request_methods = [:post]
 
   config.omniauth :orcid,
-                  "client_id", "client_secret",
+                  'client_id', 'client_secret',
                   {
                     # member: false,
                   }
@@ -302,7 +302,7 @@ Devise.setup do |config|
   #
   # When using omniauth, Devise cannot automatically set Omniauth path,
   # so you need to do it manually. For the users scope, it would be:
-  config.omniauth_path_prefix = "/users/auth"
+  config.omniauth_path_prefix = '/users/auth'
 
   config.warden do |manager|
     manager.failure_app = CustomFailure
@@ -310,33 +310,27 @@ Devise.setup do |config|
 end
 # rubocop:enable Metrics/BlockLength
 
-require "omniauth/strategies/shibboleth"
+require 'omniauth/strategies/shibboleth'
 module OmniAuth
-
   module Strategies
-
     class Shibboleth
-
       # set encoding UTF-8 when reading from HTTP header
       # reason: header values are always ISO-8859-1,
       # so ruby reads them as ASCII-8BIT
       def request_param(key)
         multi_value_handler(
           case options.request_type
-          when :env, "env"
+          when :env, 'env'
             request.env[key]
-          when :header, "header"
+          when :header, 'header'
             v = request.env["HTTP_#{key.upcase.gsub('-', '_')}"]
-            v = v.force_encoding("UTF-8") unless v.nil?
+            v = v.force_encoding('UTF-8') unless v.nil?
             v
-          when :params, "params"
+          when :params, 'params'
             request.params[key]
           end
         )
       end
-
     end
-
   end
-
 end

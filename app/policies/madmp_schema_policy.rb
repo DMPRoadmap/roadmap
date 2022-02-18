@@ -1,13 +1,7 @@
 # frozen_string_literal: true
 
+# Security rules for madmpschemas
 class MadmpSchemaPolicy < ApplicationPolicy
-
-  def initialize(user, *args)
-    raise Pundit::NotAuthorizedError, _("must be logged in") unless user
-
-    @user = user
-  end
-
   def index?
     @user.can_super_admin?
   end
@@ -31,5 +25,4 @@ class MadmpSchemaPolicy < ApplicationPolicy
   def destroy?
     @user.can_super_admin?
   end
-
 end

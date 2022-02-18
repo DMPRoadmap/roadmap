@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 module Dmpopidor
-
   # rubocop:disable Metrics/ModuleLength
+  # Customized code for Plan model
   module Plan
-
     include DynamicFormHelper
 
     # CHANGES : ADDED RESEARCH OUTPUT SUPPORT
@@ -52,15 +51,15 @@ module Dmpopidor
 
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def create_plan_fragments
-      template_locale = template.locale.eql?("en_GB") ? "eng" : "fra"
+      template_locale = template.locale.eql?('en_GB') ? 'eng' : 'fra'
       plan_owner = owner
       # rubocop:disable Metrics/BlockLength
       I18n.with_locale template.locale do
         dmp_fragment = Fragment::Dmp.create!(
           data: {
-            "plan_id" => id
+            'plan_id' => id
           },
-          madmp_schema: MadmpSchema.find_by(name: "DMPStandard"),
+          madmp_schema: MadmpSchema.find_by(name: 'DMPStandard'),
           additional_info: {}
         )
 
@@ -70,40 +69,40 @@ module Dmpopidor
 
         person_data = if plan_owner.present?
                         {
-                          "nameType" => _("Personal"),
-                          "lastName" => plan_owner.surname,
-                          "firstName" => plan_owner.firstname,
-                          "mbox" => plan_owner.email
+                          'nameType' => _('Personal'),
+                          'lastName' => plan_owner.surname,
+                          'firstName' => plan_owner.firstname,
+                          'mbox' => plan_owner.email
                         }
                       end
 
         person = Fragment::Person.create!(
           data: person_data || {},
           dmp_id: dmp_fragment.id,
-          madmp_schema: MadmpSchema.find_by(name: "PersonStandard"),
-          additional_info: { property_name: "person" }
+          madmp_schema: MadmpSchema.find_by(name: 'PersonStandard'),
+          additional_info: { property_name: 'person' }
         )
 
         dmp_coordinator = Fragment::Contributor.create!(
           data: {
-            "person" => { "dbid" => person.id },
-            "role" => _("DMP manager")
+            'person' => { 'dbid' => person.id },
+            'role' => _('DMP manager')
           },
           dmp_id: dmp_fragment.id,
           parent_id: nil,
-          madmp_schema: MadmpSchema.find_by(name: "DMPCoordinator"),
-          additional_info: { property_name: "contact" }
+          madmp_schema: MadmpSchema.find_by(name: 'DMPCoordinator'),
+          additional_info: { property_name: 'contact' }
         )
 
         project_coordinator = Fragment::Contributor.create!(
           data: {
-            "person" => { "dbid" => person.id },
-            "role" => _("Project coordinator")
+            'person' => { 'dbid' => person.id },
+            'role' => _('Project coordinator')
           },
           dmp_id: dmp_fragment.id,
           parent_id: nil,
-          madmp_schema: MadmpSchema.find_by(name: "PrincipalInvestigator"),
-          additional_info: { property_name: "principalInvestigator" }
+          madmp_schema: MadmpSchema.find_by(name: 'PrincipalInvestigator'),
+          additional_info: { property_name: 'principalInvestigator' }
         )
 
         #################################
@@ -112,30 +111,30 @@ module Dmpopidor
 
         project = Fragment::Project.create!(
           data: {
-            "title" => title,
-            "description" => description,
-            "principalInvestigator" => { "dbid" => project_coordinator.id }
+            'title' => title,
+            'description' => description,
+            'principalInvestigator' => { 'dbid' => project_coordinator.id }
           },
           dmp_id: dmp_fragment.id,
           parent_id: dmp_fragment.id,
-          madmp_schema: MadmpSchema.find_by(name: "ProjectStandard"),
-          additional_info: { property_name: "project" }
+          madmp_schema: MadmpSchema.find_by(name: 'ProjectStandard'),
+          additional_info: { property_name: 'project' }
         )
         project.instantiate
 
         meta = Fragment::Meta.create!(
           data: {
-            "title" => _("\"%{project_title}\" project DMP") % { project_title: title },
-            "creationDate" => created_at.strftime("%F"),
-            "lastModifiedDate" => updated_at.strftime("%F"),
-            "dmpLanguage" => template_locale,
-            "dmpId" => identifier,
-            "contact" => { "dbid" => dmp_coordinator.id }
+            'title' => format(_('"%{project_title}" project DMP'), project_title: title),
+            'creationDate' => created_at.strftime('%F'),
+            'lastModifiedDate' => updated_at.strftime('%F'),
+            'dmpLanguage' => template_locale,
+            'dmpId' => identifier,
+            'contact' => { 'dbid' => dmp_coordinator.id }
           },
           dmp_id: dmp_fragment.id,
           parent_id: dmp_fragment.id,
-          madmp_schema: MadmpSchema.find_by(name: "MetaStandard"),
-          additional_info: { property_name: "meta" }
+          madmp_schema: MadmpSchema.find_by(name: 'MetaStandard'),
+          additional_info: { property_name: 'meta' }
         )
         meta.instantiate
 
@@ -153,14 +152,12 @@ module Dmpopidor
       raw_project = incoming_dmp.project.get_full_fragment
       raw_meta = incoming_dmp.meta.get_full_fragment
       raw_meta = raw_meta.merge(
-        "title" => "Copy of #{raw_meta['title']}"
+        'title' => "Copy of #{raw_meta['title']}"
       )
 
       json_fragment.project.raw_import(raw_project, json_fragment.project.madmp_schema)
       json_fragment.meta.raw_import(raw_meta, json_fragment.meta.madmp_schema)
     end
-
   end
   # rubocop:enable Metrics/ModuleLength
-
 end

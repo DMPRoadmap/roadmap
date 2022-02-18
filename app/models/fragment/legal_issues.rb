@@ -20,7 +20,6 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 class Fragment::LegalIssues < MadmpFragment
-
   def legal_reference
     Fragment::ResourceReference.where(parent_id: id)
   end
@@ -30,11 +29,10 @@ class Fragment::LegalIssues < MadmpFragment
   end
 
   def properties
-    "legal_reference, contributors"
+    'legal_reference, contributors'
   end
 
   def self.sti_name
-    "legal_issues"
+    'legal_issues'
   end
-
 end

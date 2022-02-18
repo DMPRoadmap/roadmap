@@ -1,15 +1,11 @@
 # frozen_string_literal: true
 
 module Api
-
   module V1
-
     module Auth
-
       module Jwt
-
+        # Class to handle User authorization
         class AuthorizationService
-
           def initialize(headers: {})
             @headers = headers.nil? ? {} : headers
             @errors = ActiveSupport::HashWithIndifferentAccess.new
@@ -24,12 +20,13 @@ module Api
           private
 
           # Lookup the Client bassed on the client_id embedded in the JWT
+          # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
           def client
             return @api_client if @api_client.present?
 
             token = decoded_auth_token
             # If the token is missing or invalid then set the client to nil
-            errors[:token] = _("Invalid token") unless token.present?
+            errors[:token] = _('Invalid token') unless token.present?
             @api_client = nil unless token.present? && token[:client_id].present?
             return @api_client unless token.present? && token[:client_id].present?
 
@@ -38,7 +35,7 @@ module Api
 
             @api_client = User.where(email: token[:client_id]).first
           end
-          # rubocop:enable
+          # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
           def decoded_auth_token
             return @token if @token.present?
@@ -46,25 +43,20 @@ module Api
             @token = JsonWebToken.decode(token: http_auth_header)
             @token
           rescue JWT::ExpiredSignature
-            errors[:token] = _("Token expired")
+            errors[:token] = _('Token expired')
             nil
           end
 
           # Extract the token from the Authorization header
           def http_auth_header
             hdr = @headers[:Authorization]
-            errors[:token] = _("Missing token") unless hdr.present?
+            errors[:token] = _('Missing token') unless hdr.present?
             return nil unless hdr.present?
 
             hdr.split.last
           end
-
         end
-
       end
-
     end
-
   end
-
 end

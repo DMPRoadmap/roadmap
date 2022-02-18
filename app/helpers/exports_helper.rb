@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+# Helper methods for Plan exports
 module ExportsHelper
-
   # --------------------------------
   # Start DMP OPIDoR Customization
   # SEE app/helpers/dmpopidor/exports_helper.rb
@@ -12,18 +12,18 @@ module ExportsHelper
   # --------------------------------
 
   PAGE_MARGINS = {
-    top: "5",
-    bottom: "10",
-    left: "12",
-    right: "12"
+    top: '5',
+    bottom: '10',
+    left: '12',
+    right: '12'
   }.freeze
 
   def font_face
-    @formatting[:font_face].presence || "Arial, Helvetica, Sans-Serif"
+    @formatting[:font_face].presence || 'Arial, Helvetica, Sans-Serif'
   end
 
   def font_size
-    @formatting[:font_size].presence || "12"
+    @formatting[:font_size].presence || '12'
   end
 
   def margin_top
@@ -49,7 +49,7 @@ module ExportsHelper
   # --------------------------------
   def plan_attribution(attribution)
     attribution = Array(attribution)
-    prefix = attribution.many? ? _("Creators:") : _("Creator:")
+    prefix = attribution.many? ? _('Creators:') : _('Creator:')
     "<strong>#{prefix}</strong> #{attribution.join(', ')}"
   end
   # --------------------------------
@@ -66,5 +66,4 @@ module ExportsHelper
       @formatting.dig(:margin, side).presence || PAGE_MARGINS[side]
     end
   end
-
 end

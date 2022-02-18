@@ -20,9 +20,7 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 class Fragment::MetadataStandard < MadmpFragment
-
   def self.sti_name
-    "metadata_standard"
+    'metadata_standard'
   end
-
 end

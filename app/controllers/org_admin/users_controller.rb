@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 module OrgAdmin
-
+  # Controller that handles admin operations on users
   class UsersController < ApplicationController
-
     after_action :verify_authorized
 
     def edit
@@ -19,7 +18,7 @@ module OrgAdmin
       # --------------------------------
       # End DMP OPIDoR Customization
       # --------------------------------
-      render "org_admin/users/edit",
+      render 'org_admin/users/edit',
              locals: { user: @user,
                        departments: @departments,
                        plans: @plans,
@@ -29,6 +28,7 @@ module OrgAdmin
                        default_org: @user.org }
     end
 
+    # rubocop:disable Metrics/AbcSize
     def update
       @user = User.find(params[:id])
       authorize @user
@@ -43,12 +43,13 @@ module OrgAdmin
       # End DMP OPIDoR Customization
       # --------------------------------
       if @user.update_attributes(user_params)
-        flash.now[:notice] = success_message(@user, _("updated"))
+        flash.now[:notice] = success_message(@user, _('updated'))
       else
-        flash.now[:alert] = failure_message(@user, _("update"))
+        flash.now[:alert] = failure_message(@user, _('update'))
       end
       render :edit
     end
+    # rubocop:enable Metrics/AbcSize
 
     def user_plans
       @user = User.find(params[:id])
@@ -62,7 +63,7 @@ module OrgAdmin
       # --------------------------------
       # End DMP OPIDoR Customization
       # --------------------------------
-      render "org_admin/users/plans"
+      render 'org_admin/users/plans'
     end
 
     private
@@ -70,7 +71,5 @@ module OrgAdmin
     def user_params
       params.require(:user).permit(:department_id)
     end
-
   end
-
 end

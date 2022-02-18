@@ -6,7 +6,7 @@ json.answers @answers do |a|
   if a.question.question_format.option_based
     json.answer a.question_options.pluck(:text)
     json.comment a.text
-  else 
+  else
     json.answer a.text
   end
   json.created_at a.created_at

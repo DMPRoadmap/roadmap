@@ -20,9 +20,7 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 class Fragment::TechnicalResource < MadmpFragment
-
   def self.sti_name
-    "technical_resource"
+    'technical_resource'
   end
-
 end

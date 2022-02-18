@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 module Dmpopidor
-
   module TemplateOptionsController
-
     # CHANGES : Default template should appear in template lists
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def index
@@ -54,15 +52,11 @@ module Dmpopidor
       @templates = @templates.flatten.uniq
 
       @templates.each do |template|
-        if template.customization_of.present?
-          template.title += " (#{_('Customized by ')} #{template.org.name})"
-        end
+        template.title += " (#{_('Customized by ')} #{template.org.name})" if template.customization_of.present?
       end
 
       @templates = @templates.sort_by(&:title)
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-
   end
-
 end

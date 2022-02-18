@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
 module Dmpopidor
-
   # rubocop:disable Metrics/ModuleLength
   module NotesController
-
     # CHANGES
     # Delivered mail contains the name of the collaborator leaving the note
     # Added RESEARCH OUTPUT SUPPORT
@@ -13,9 +11,7 @@ module Dmpopidor
       @note = ::Note.new
       @note.user_id = note_params[:user_id]
       # ensure user has access to plan BEFORE creating/finding answer
-      unless ::Plan.find_by(id: note_params[:plan_id]).readable_by?(@note.user_id)
-        raise Pundit::NotAuthorizedError
-      end
+      raise Pundit::NotAuthorizedError unless ::Plan.find_by(id: note_params[:plan_id]).readable_by?(@note.user_id)
 
       ::Answer.transaction do
         @answer = ::Answer.find_by(
@@ -49,38 +45,38 @@ module Dmpopidor
         answer = @note.answer
         plan = answer.plan
         collaborators = plan.users.reject { |u| u == current_user || !u.active }
-        deliver_if(recipients: collaborators, key: "users.new_comment") do |r|
+        deliver_if(recipients: collaborators, key: 'users.new_comment') do |r|
           UserMailer.new_comment(current_user, plan, answer, r).deliver_now
         end
-        @notice = success_message(@note, _("created"))
+        @notice = success_message(@note, _('created'))
         render(json: {
-          "notes" => {
-            "id" => note_params[:question_id],
-            "html" => render_to_string(partial: "layout", locals: {
+          'notes' => {
+            'id' => note_params[:question_id],
+            'html' => render_to_string(partial: 'layout', locals: {
                                          plan: @plan,
                                          question: @question,
                                          answer: @answer,
                                          research_output: @research_output
                                        }, formats: [:html])
           },
-          "title" => {
-            "id" => note_params[:question_id],
-            "html" => render_to_string(partial: "title", locals: {
+          'title' => {
+            'id' => note_params[:question_id],
+            'html' => render_to_string(partial: 'title', locals: {
                                          answer: @answer
                                        }, formats: [:html])
           },
-          "research_output" => {
-            "id" => note_params[:research_output_id]
+          'research_output' => {
+            'id' => note_params[:research_output_id]
           },
-          "section" => {
-            "id" => section_id
+          'section' => {
+            'id' => section_id
           }
         }.to_json, status: :created)
       else
         @status = false
-        @notice = failure_message(@note, _("create"))
+        @notice = failure_message(@note, _('create'))
         render json: {
-          "msg" => @notice
+          'msg' => @notice
         }.to_json, status: :bad_request
       end
     end
@@ -103,34 +99,34 @@ module Dmpopidor
       section_id = @question.section_id
 
       if @note.update(note_params)
-        @notice = success_message(@note, _("saved"))
+        @notice = success_message(@note, _('saved'))
         render(json: {
-          "notes" => {
-            "id" => question_id,
-            "html" => render_to_string(partial: "layout", locals: {
+          'notes' => {
+            'id' => question_id,
+            'html' => render_to_string(partial: 'layout', locals: {
                                          plan: @plan,
                                          question: @question,
                                          answer: @answer,
                                          research_output: @research_output
                                        }, formats: [:html])
           },
-          "title" => {
-            "id" => question_id,
-            "html" => render_to_string(partial: "title", locals: {
+          'title' => {
+            'id' => question_id,
+            'html' => render_to_string(partial: 'title', locals: {
                                          answer: @answer
                                        }, formats: [:html])
           },
-          "research_output" => {
-            "id" => @research_output.id
+          'research_output' => {
+            'id' => @research_output.id
           },
-          "section" => {
-            "id" => section_id
+          'section' => {
+            'id' => section_id
           }
         }.to_json, status: :ok)
       else
-        @notice = failure_message(@note, _("save"))
+        @notice = failure_message(@note, _('save'))
         render json: {
-          "msg" => @notice
+          'msg' => @notice
         }.to_json, status: :bad_request
       end
     end
@@ -154,40 +150,38 @@ module Dmpopidor
       section_id = @question.section_id
 
       if @note.update(note_params)
-        @notice = success_message(@note, _("removed"))
+        @notice = success_message(@note, _('removed'))
         render(json: {
-          "notes" => {
-            "id" => question_id,
-            "html" => render_to_string(partial: "layout", locals: {
+          'notes' => {
+            'id' => question_id,
+            'html' => render_to_string(partial: 'layout', locals: {
                                          plan: @plan,
                                          question: @question,
                                          answer: @answer,
                                          research_output: @research_output
                                        }, formats: [:html])
           },
-          "title" => {
-            "id" => question_id,
-            "html" => render_to_string(partial: "title", locals: {
+          'title' => {
+            'id' => question_id,
+            'html' => render_to_string(partial: 'title', locals: {
                                          answer: @answer
                                        }, formats: [:html])
           },
-          "research_output" => {
-            "id" => @research_output.id
+          'research_output' => {
+            'id' => @research_output.id
           },
-          "section" => {
-            "id" => section_id
+          'section' => {
+            'id' => section_id
           }
         }.to_json, status: :ok)
       else
-        @notice = failure_message(@note, _("remove"))
+        @notice = failure_message(@note, _('remove'))
         render json: {
-          "msg" => @notice
+          'msg' => @notice
         }.to_json, status: :bad_request
       end
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-
   end
   # rubocop:enable Metrics/ModuleLength
-
 end

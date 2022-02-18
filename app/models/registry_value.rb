@@ -12,7 +12,6 @@
 #
 
 class RegistryValue < ApplicationRecord
-
   include ValidationMessages
 
   # ================
@@ -39,7 +38,7 @@ class RegistryValue < ApplicationRecord
 
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
-    where("lower(registry_values.data::text) LIKE lower(?)", search_pattern)
+    where('lower(registry_values.data::text) LIKE lower(?)', search_pattern)
   }
 
   # Prints a representation of the registry_value according to the locale
@@ -48,8 +47,8 @@ class RegistryValue < ApplicationRecord
   def to_s(locale: nil)
     return data if locale.nil?
 
-    if data["label"].present?
-      data["label"][locale]
+    if data['label'].present?
+      data['label'][locale]
     else
       data[locale] || data
     end
@@ -61,5 +60,4 @@ class RegistryValue < ApplicationRecord
   def set_order
     self.order = registry.registry_values.where.not(id: id).maximum(:order).to_i + 1
   end
-
 end

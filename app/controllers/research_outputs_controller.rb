@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ResearchOutputsController < ApplicationController
-
   after_action :verify_authorized
 
   # GET /plans/:plan_id/research_outputs
@@ -9,12 +8,10 @@ class ResearchOutputsController < ApplicationController
     @plan = Plan.find(params[:plan_id])
     @research_outputs = @plan.research_outputs
     authorize @plan
-    render("plans/research_outputs", locals: { plan: @plan, research_outputs: @research_outputs })
+    render('plans/research_outputs', locals: { plan: @plan, research_outputs: @research_outputs })
   rescue ActiveRecord::RecordNotFound
-    flash[:alert] = _("There is no plan associated with id %{id}") % {
-      id: params[:id]
-    }
-    redirect_to(controller: "plans", action: "index")
+    flash[:alert] = format(_('There is no plan associated with id %{id}'), id: params[:id])
+    redirect_to(controller: 'plans', action: 'index')
   end
 
   # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
@@ -30,13 +27,13 @@ class ResearchOutputsController < ApplicationController
         research_output_description = @research_output.json_fragment.research_output_description
         research_output_description.contact.update(
           data: {
-            "person" => { "dbid" => params[:contact_id] },
-            "role" => _("Data contact")
+            'person' => { 'dbid' => params[:contact_id] },
+            'role' => _('Data contact')
           }
         )
       end
       render json: {
-        "html" => render_to_string(partial: "research_outputs/list", locals:
+        'html' => render_to_string(partial: 'research_outputs/list', locals:
           {
             plan: @plan,
             research_outputs: @plan.research_outputs,
@@ -44,8 +41,8 @@ class ResearchOutputsController < ApplicationController
           })
       }
     else
-      flash[:alert] = failure_message(@research_output, _("update"))
-      redirect_to(action: "index")
+      flash[:alert] = failure_message(@research_output, _('update'))
+      redirect_to(action: 'index')
     end
   end
   # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
@@ -57,11 +54,11 @@ class ResearchOutputsController < ApplicationController
     authorize @plan
     if @research_output.destroy
       research_output_fragment.destroy!
-      flash[:notice] = success_message(@research_output, _("deleted"))
+      flash[:notice] = success_message(@research_output, _('deleted'))
     else
-      flash[:alert] = failure_message(@research_output, _("delete"))
+      flash[:alert] = failure_message(@research_output, _('delete'))
     end
-    redirect_to(action: "index")
+    redirect_to(action: 'index')
   end
 
   def sort
@@ -75,7 +72,7 @@ class ResearchOutputsController < ApplicationController
 
   def create_remote
     @plan = Plan.find(params[:plan_id])
-    max_order = @plan.research_outputs.maximum("order") + 1
+    max_order = @plan.research_outputs.maximum('order') + 1
     @plan.research_outputs.create(
       abbreviation: "Research Output #{max_order}",
       title: "New research output #{max_order}",
@@ -85,7 +82,7 @@ class ResearchOutputsController < ApplicationController
 
     authorize @plan
     render json: {
-      "html" => render_to_string(partial: "research_outputs/list", locals: {
+      'html' => render_to_string(partial: 'research_outputs/list', locals: {
                                    plan: @plan,
                                    research_outputs: @plan.research_outputs,
                                    readonly: false
@@ -99,5 +96,4 @@ class ResearchOutputsController < ApplicationController
     params.require(:research_output)
           .permit(:id, :plan_id, :abbreviation, :fullname, :pid, :other_type_label)
   end
-
 end

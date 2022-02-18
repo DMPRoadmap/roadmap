@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 
 module Api
-
   module V1
-
     class ThemesController < BaseApiController
-
       respond_to :json
 
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -37,20 +34,20 @@ module Api
             end
 
             if params[:start_date].present? && params[:start_date]
-              @answers =  @answers.where("answers.created_at >= ?", params[:start_date])
+              @answers =  @answers.where('answers.created_at >= ?', params[:start_date])
             end
 
             if params[:end_date].present? && params[:end_date]
-              @answers =  @answers.where("answers.created_at <=?", params[:end_date])
+              @answers =  @answers.where('answers.created_at <=?', params[:end_date])
             end
 
             @answers + org_answers + admin_answers
 
           else
-            render json: _("Theme not found"), status: 404
+            render json: _('Theme not found'), status: 404
           end
         else
-          render json: _("API Client not authorized to used Themes API"), status: 403
+          render json: _('API Client not authorized to used Themes API'), status: 403
         end
       end
       # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
@@ -62,9 +59,6 @@ module Api
       def extract_filtering_params
         extract_params.slice(:template_id, :question_id, :start_date, :end_date, :admin_visible, :org_visible)
       end
-
     end
-
   end
-
 end

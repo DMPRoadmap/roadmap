@@ -20,7 +20,6 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 class Fragment::DataProcessing < MadmpFragment
-
   def method_reference
     Fragment::ResourceReference.where(parent_id: id)
   end
@@ -38,11 +37,10 @@ class Fragment::DataProcessing < MadmpFragment
   end
 
   def properties
-    "method_reference, facility, contributors, cost"
+    'method_reference, facility, contributors, cost'
   end
 
   def self.sti_name
-    "data_processing"
+    'data_processing'
   end
-
 end

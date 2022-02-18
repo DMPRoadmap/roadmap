@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 module SuperAdmin
-
   class StaticPagesController < ApplicationController
-
     before_action :set_static_page, only: %i[edit update destroy]
     before_action :set_static_pages, only: :index
     before_action :set_languages, only: %i[new edit]
@@ -33,9 +31,9 @@ module SuperAdmin
 
       begin
         @static_page = StaticPage.create!(static_page_params)
-        flash[:notice] = _("Static Page created successfully")
+        flash[:notice] = _('Static Page created successfully')
       rescue ActionController::ParameterMissing
-        flash[:alert] = _("Unable to save since static_page parameter is missing")
+        flash[:alert] = _('Unable to save since static_page parameter is missing')
       rescue ActiveRecord::RecordInvalid => e
         flash[:alert] = e.message
       end
@@ -50,9 +48,9 @@ module SuperAdmin
 
       begin
         @static_page.update!(static_page_params)
-        flash[:notice] = _("Static Page updated successfully")
+        flash[:notice] = _('Static Page updated successfully')
       rescue ActionController::ParameterMissing
-        flash[:alert] = _("Unable to save since static_page parameter is missing")
+        flash[:alert] = _('Unable to save since static_page parameter is missing')
       rescue ActiveRecord::RecordInvalid => e
         flash[:alert] = e.message
       end
@@ -67,9 +65,9 @@ module SuperAdmin
 
       begin
         @static_page.destroy
-        flash[:notice] = _("Successfully destroyed your Static Page")
+        flash[:notice] = _('Successfully destroyed your Static Page')
       rescue ActiveRecord::RecordNotDestroyed
-        flash[:alert] = _("The Static Page with id %{id} could not be destroyed") % { id: params[:id] }
+        flash[:alert] = format(_('The Static Page with id %{id} could not be destroyed'), id: params[:id])
       end
 
       redirect_to action: :index
@@ -101,7 +99,5 @@ module SuperAdmin
         static_page_contents_attributes: [%i[id language_id title content]]
       )
     end
-
   end
-
 end

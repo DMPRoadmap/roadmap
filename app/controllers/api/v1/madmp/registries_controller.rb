@@ -1,13 +1,10 @@
 # frozen_string_literal: true
 
 module Api
-
   module V1
-
     module Madmp
-
+      # Handles CRUD operations for Registries in API V1
       class RegistriesController < BaseApiController
-
         respond_to :json
 
         # GET /api/v1/madmp/registries
@@ -23,13 +20,9 @@ module Api
             registry.name => registry.registry_values.map(&:data)
           }
         rescue ActiveRecord::RecordNotFound
-          render_error(errors: [_("Registry not found")], status: :not_found)
+          render_error(errors: [_('Registry not found')], status: :not_found)
         end
-
       end
-
     end
-
   end
-
 end

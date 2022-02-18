@@ -20,7 +20,6 @@
 #
 
 class MadmpSchema < ApplicationRecord
-
   include ValidationMessages
 
   belongs_to :org
@@ -47,19 +46,19 @@ class MadmpSchema < ApplicationRecord
   # ==========
 
   CLASSNAME_TO_PROPERTY = {
-    "research_output_description" => "researchOutputDescription",
-    "data_reuse" => "reuse",
-    "personal_data_issues" => "personalDataIssues",
-    "legal_issues" => "legalIssues",
-    "ethical_issues" => "ethicalIssues",
-    "data_collection" => "dataCollection",
-    "data_processing" => "dataProcessing",
-    "data_storage" => "dataStorage",
-    "documentation_quality" => "documentationQuality",
-    "quality_assurance_method" => "qualityAssuranceMethod",
-    "data_sharing" => "sharing",
-    "data_preservation" => "preservationIssues",
-    "budget" => "budget"
+    'research_output_description' => 'researchOutputDescription',
+    'data_reuse' => 'reuse',
+    'personal_data_issues' => 'personalDataIssues',
+    'legal_issues' => 'legalIssues',
+    'ethical_issues' => 'ethicalIssues',
+    'data_collection' => 'dataCollection',
+    'data_processing' => 'dataProcessing',
+    'data_storage' => 'dataStorage',
+    'documentation_quality' => 'documentationQuality',
+    'quality_assurance_method' => 'qualityAssuranceMethod',
+    'data_sharing' => 'sharing',
+    'data_preservation' => 'preservationIssues',
+    'budget' => 'budget'
   }.freeze
 
   # ==========
@@ -68,8 +67,8 @@ class MadmpSchema < ApplicationRecord
 
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
-    where("lower(madmp_schemas.name) LIKE lower(?) OR " \
-          "lower(madmp_schemas.classname) LIKE lower(?)",
+    where('lower(madmp_schemas.name) LIKE lower(?) OR ' \
+          'lower(madmp_schemas.classname) LIKE lower(?)',
           search_pattern, search_pattern)
   }
 
@@ -82,21 +81,21 @@ class MadmpSchema < ApplicationRecord
   end
 
   def description
-    schema["description"]
+    schema['description']
   end
 
   def properties
-    schema["properties"]
+    schema['properties']
   end
 
   def sub_schemas
-    path = JsonPath.new("$..schema_id")
+    path = JsonPath.new('$..schema_id')
     ids = path.on(schema)
     MadmpSchema.where(id: ids).map { |s| [s.id, s] }.to_h
   end
 
   def sub_schemas_ids
-    path = JsonPath.new("$..schema_id")
+    path = JsonPath.new('$..schema_id')
     path.on(schema)
   end
 
@@ -104,21 +103,21 @@ class MadmpSchema < ApplicationRecord
   def generate_strong_params(flat: false)
     parameters = []
     properties.each do |key, prop|
-      if prop["type"] == "object" && prop["schema_id"].present?
-        if prop["inputType"].eql?("pickOrCreate")
+      if prop['type'] == 'object' && prop['schema_id'].present?
+        if prop['inputType'].eql?('pickOrCreate')
           parameters.append(key)
-        elsif prop["registry_id"].present?
+        elsif prop['registry_id'].present?
           parameters.append(key)
-          parameters.append("#{key}_custom") if prop["overridable"].present?
+          parameters.append("#{key}_custom") if prop['overridable'].present?
         else
-          sub_schema = MadmpSchema.find(prop["schema_id"])
+          sub_schema = MadmpSchema.find(prop['schema_id'])
           parameters.append(key => sub_schema.generate_strong_params(flat: false))
         end
-      elsif prop["type"].eql?("array") && !flat
+      elsif prop['type'].eql?('array') && !flat
         parameters.append(key => [])
       else
         parameters.append(key)
-        parameters.append("#{key}_custom") if prop["overridable"].present?
+        parameters.append("#{key}_custom") if prop['overridable'].present?
       end
     end
     parameters
@@ -132,7 +131,7 @@ class MadmpSchema < ApplicationRecord
   end
 
   def extract_run_parameters
-    schema["run"] || nil
+    schema['run'] || nil
   end
 
   def const_data(locale)
@@ -148,15 +147,14 @@ class MadmpSchema < ApplicationRecord
   # Substitute 'template_name' key/values for their 'schema_id' equivalent in the JSON
   # and 'registry_name' key/values for their 'registry_id' equivalent in the JSON
   def self.substitute_names(json_schema)
-    json_schema = JsonPath.for(json_schema).gsub("$..template_name") do |name|
+    json_schema = JsonPath.for(json_schema).gsub('$..template_name') do |name|
       MadmpSchema.find_by!(name: name).id
-    end.to_json.gsub("template_name", "schema_id")
+    end.to_json.gsub('template_name', 'schema_id')
 
-    json_schema = JsonPath.for(json_schema).gsub("$..registry_name") do |name|
+    json_schema = JsonPath.for(json_schema).gsub('$..registry_name') do |name|
       Registry.find_by!(name: name).id
-    end.to_json.gsub("registry_name", "registry_id")
+    end.to_json.gsub('registry_name', 'registry_id')
 
     JSON.parse(json_schema)
   end
-
 end

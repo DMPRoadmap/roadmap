@@ -15,7 +15,6 @@
 #
 
 class Registry < ApplicationRecord
-
   include ValidationMessages
 
   # ================
@@ -38,9 +37,8 @@ class Registry < ApplicationRecord
 
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
-    where("lower(registries.name) LIKE lower(?) OR " \
-          "lower(registries.description) LIKE lower(?)",
+    where('lower(registries.name) LIKE lower(?) OR ' \
+          'lower(registries.description) LIKE lower(?)',
           search_pattern, search_pattern)
   }
-
 end

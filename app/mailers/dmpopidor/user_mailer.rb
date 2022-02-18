@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 module Dmpopidor
-
   module UserMailer
-
     # commenter - User who wrote the comment
     # plan      - Plan for which the comment is associated to
     # answer - Answer commented on
@@ -29,15 +27,12 @@ module Dmpopidor
       @phase_id        = @question.section.phase.id
       @research_output = @answer.research_output
       @research_output_name = @research_output.fullname
-      @phase_link = url_for(action: "edit", controller: "plans", id: @plan.id, phase_id: @phase_id)
+      @phase_link = url_for(action: 'edit', controller: 'plans', id: @plan.id, phase_id: @phase_id)
 
       I18n.with_locale current_locale(collaborator) do
         mail(to: @plan.owner.email,
-             subject: _("%{tool_name}: A new comment was added to %{plan_title}") %
-             {
-               tool_name: tool_name,
-               plan_title: @plan.title
-             })
+             subject: format(_('%{tool_name}: A new comment was added to %{plan_title}'), tool_name: tool_name,
+                                                                                          plan_title: @plan.title))
       end
     end
     # rubocop:enable Metrics/AbcSize
@@ -51,15 +46,12 @@ module Dmpopidor
       @user_email = @user.email
       @username   = @user.name
       @inviter    = inviter
-      @link       = url_for(action: "show", controller: "plans", id: @role.plan.id)
+      @link       = url_for(action: 'show', controller: 'plans', id: @role.plan.id)
 
       I18n.with_locale current_locale(@user) do
         mail(to: @role.user.email,
-             subject: _("%{user_name} has shared a Data Management Plan with you in %{tool_name}") %
-             {
-               user_name: @inviter.name(false),
-               tool_name: tool_name
-             })
+             subject: format(_('%{user_name} has shared a Data Management Plan with you in %{tool_name}'),
+                             user_name: @inviter.name(false), tool_name: tool_name))
       end
     end
 
@@ -76,10 +68,7 @@ module Dmpopidor
 
       I18n.with_locale current_locale(role.user) do
         mail(to: @role.user.email,
-             subject: _("Changed permissions on a Data Management Plan in %{tool_name}") %
-             {
-               tool_name: tool_name
-             })
+             subject: format(_('Changed permissions on a Data Management Plan in %{tool_name}'), tool_name: tool_name))
       end
     end
 
@@ -94,10 +83,7 @@ module Dmpopidor
 
       I18n.with_locale current_locale(@user) do
         mail(to: @user.email,
-             subject: _("Permissions removed on a DMP in %{tool_name}") %
-             {
-               tool_name: tool_name
-             })
+             subject: format(_('Permissions removed on a DMP in %{tool_name}'), tool_name: tool_name))
       end
     end
 
@@ -115,10 +101,8 @@ module Dmpopidor
 
       I18n.with_locale current_locale(recipient) do
         mail(to: @recipient.email,
-             subject: _("%{user_name} has requested feedback on a %{tool_name} plan") %
-             {
-               tool_name: tool_name, user_name: @user.name(false)
-             })
+             subject: format(_('%{user_name} has requested feedback on a %{tool_name} plan'), tool_name: tool_name,
+                                                                                              user_name: @user.name(false)))
       end
     end
 
@@ -142,10 +126,8 @@ module Dmpopidor
 
         mail(to: recipient.email,
              from: sender,
-             subject: _("%{tool_name}: Expert feedback has been provided for %{plan_title}") %
-             {
-               tool_name: tool_name, plan_title: @plan.title
-             })
+             subject: format(_('%{tool_name}: Expert feedback has been provided for %{plan_title}'),
+                             tool_name: tool_name, plan_title: @plan.title))
       end
     end
 
@@ -162,10 +144,7 @@ module Dmpopidor
 
       I18n.with_locale current_locale(user) do
         mail(to: @user.email,
-             subject: _("DMP Visibility Changed: %{plan_title}") %
-             {
-               plan_title: @plan.title
-             })
+             subject: format(_('DMP Visibility Changed: %{plan_title}'), plan_title: @plan.title))
       end
     end
 
@@ -180,10 +159,7 @@ module Dmpopidor
 
       I18n.with_locale current_locale(@user) do
         mail(to: user.email,
-             subject: _("Administrator privileges granted in %{tool_name}") %
-             {
-               tool_name: tool_name
-             })
+             subject: format(_('Administrator privileges granted in %{tool_name}'), tool_name: tool_name))
       end
     end
 
@@ -195,7 +171,7 @@ module Dmpopidor
       @end_date = (@user.last_sign_in_at + 5.years).to_date
       I18n.with_locale current_locale(@user) do
         mail(to: @user.email, subject:
-          _("Account expiration in %{tool_name}") % { tool_name: tool_name })
+          format(_('Account expiration in %{tool_name}'), tool_name: tool_name))
       end
     end
 
@@ -203,7 +179,7 @@ module Dmpopidor
       @user = user
       I18n.with_locale current_locale(@user) do
         mail(to: @user.email, subject:
-          _("Account expired in %{tool_name}") % { tool_name: tool_name })
+          format(_('Account expired in %{tool_name}'), tool_name: tool_name))
       end
     end
 
@@ -212,7 +188,5 @@ module Dmpopidor
     def current_locale(user)
       user.locale.nil? ? I18n.default_locale : user.locale
     end
-
   end
-
 end

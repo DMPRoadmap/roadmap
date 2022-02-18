@@ -17,8 +17,9 @@
 #
 #  index_identifiers_on_identifiable_type_and_identifiable_id  (identifiable_type,identifiable_id)
 #
-class Identifier < ApplicationRecord
 
+# Object that represents an identifier for an object
+class Identifier < ApplicationRecord
   # ================
   # = Associations =
   # ================
@@ -60,13 +61,14 @@ class Identifier < ApplicationRecord
   # Ensure that the value of attrs is a hash
   # TODO: evaluate this vs the Serialize approach in condition.rb
   def attrs=(hash)
-    super(hash.is_a?(Hash) ? hash.to_json.to_s : "{}")
+    super(hash.is_a?(Hash) ? hash.to_json.to_s : '{}')
   end
 
   # Appends the identifier scheme's prefix to the identifier if necessary
   # For example:
   #   value   '0000-0000-0000-0001'
   #   becomes 'https://orcid.org/0000-0000-0000-0001'
+  # rubocop:disable Metrics/AbcSize
   def value=(val)
     if identifier_scheme.present? &&
        identifier_scheme.identifier_prefix.present? &&
@@ -74,12 +76,13 @@ class Identifier < ApplicationRecord
        !val.to_s.starts_with?(identifier_scheme.identifier_prefix)
 
       base = identifier_scheme.identifier_prefix
-      base += "/" unless base.ends_with?("/")
+      base += '/' unless base.ends_with?('/')
       super("#{base}#{val}")
     else
       super(val)
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # ===========================
   # = Public instance methods =
@@ -90,14 +93,14 @@ class Identifier < ApplicationRecord
     scheme = identifier_scheme&.name
     return scheme if %w[orcid ror fundref].include?(scheme)
 
-    return "ark" if value.include?("ark:")
+    return 'ark' if value.include?('ark:')
 
     doi_regex = %r{(doi:)?[0-9]{2}\.[0-9]+/.}
-    return "doi" if value =~ doi_regex
+    return 'doi' if value =~ doi_regex
 
-    return "url" if value.starts_with?("http")
+    return 'url' if value.starts_with?('http')
 
-    "other"
+    'other'
   end
 
   # Returns the value sans the identifier scheme's prefix.
@@ -109,7 +112,7 @@ class Identifier < ApplicationRecord
                         identifier_scheme.identifier_prefix.present?
 
     base = identifier_scheme.identifier_prefix
-    value.gsub(base, "").sub(%r{^/}, "")
+    value.gsub(base, '').sub(%r{^/}, '')
   end
 
   private
@@ -128,15 +131,14 @@ class Identifier < ApplicationRecord
     # if scheme is nil, then just unique for identifiable
     return unless Identifier.where(identifiable: identifiable, value: value).any?
 
-    errors.add(:value, _("must be unique"))
+    errors.add(:value, _('must be unique'))
   end
 
   # Ensure that the identifiable only has one identifier for the scheme
   def value_uniqueness_with_scheme
     if new_record? && Identifier.where(identifier_scheme: identifier_scheme,
                                        identifiable: identifiable).any?
-      errors.add(:identifier_scheme, _("already assigned a value"))
+      errors.add(:identifier_scheme, _('already assigned a value'))
     end
   end
-
 end

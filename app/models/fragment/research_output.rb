@@ -20,7 +20,6 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 class Fragment::ResearchOutput < MadmpFragment
-
   def research_output_description
     Fragment::ResearchOutputDescription.where(parent_id: id).first
   end
@@ -70,17 +69,16 @@ class Fragment::ResearchOutput < MadmpFragment
   end
 
   def technical_resources
-    Fragment::TechnicalResource.where(dmp_id: dmp_id).select { 
-      |t| t.research_output_fragment.id == id 
-    }
+    Fragment::TechnicalResource.where(dmp_id: dmp_id).select do |t|
+      t.research_output_fragment.id == id
+    end
   end
 
   def properties
-    "research_output_description, reuse, personal_data_issues, legal_issues, ethical_issues, data_collection, data_processing, data_storage, documentation_quality, sharing, preservation_issues, budget"
+    'research_output_description, reuse, personal_data_issues, legal_issues, ethical_issues, data_collection, data_processing, data_storage, documentation_quality, sharing, preservation_issues, budget'
   end
 
   def self.sti_name
-    "research_output"
+    'research_output'
   end
-
 end

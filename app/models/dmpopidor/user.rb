@@ -1,24 +1,20 @@
 # frozen_string_literal: true
 
 module Dmpopidor
-
+  # Customized code for User model
   module User
-
     # remove personal data from the user account and save
     # leave account in-place, with org for statistics (until we refactor those)
     #
     # Returns boolean
     # rubocop:disable Metrics/AbcSize
     def archive
-      # rubocop:disable Layout/LineLength
-      suffix = Rails.configuration.x.application.fetch(:archived_accounts_email_suffix, "@example.org")
-      # rubocop:enable Layout/LineLength
-
+      suffix = Rails.configuration.x.application.fetch(:archived_accounts_email_suffix, '@example.org')
       copy = dup
-      self.firstname = "Anonymous"
-      self.surname = "User"
-      self.email = ::User.unique_random(field_name: "email",
-                                        prefix: "user_",
+      self.firstname = 'Anonymous'
+      self.surname = 'User'
+      self.email = ::User.unique_random(field_name: 'email',
+                                        prefix: 'user_',
                                         suffix: suffix,
                                         length: 5)
       self.recovery_email = nil
@@ -37,7 +33,5 @@ module Dmpopidor
       save
     end
     # rubocop:enable Metrics/AbcSize
-
   end
-
 end

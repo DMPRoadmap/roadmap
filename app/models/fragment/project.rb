@@ -19,9 +19,7 @@
 #  index_madmp_fragments_on_answer_id                  (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
-
 class Fragment::Project < MadmpFragment
-
   def fundings
     Fragment::Funding.where(parent_id: id)
   end
@@ -39,11 +37,10 @@ class Fragment::Project < MadmpFragment
   end
 
   def properties
-    "funding, partner, experimental_plan, principal_investigator"
+    'funding, partner, experimental_plan, principal_investigator'
   end
 
   def self.sti_name
-    "project"
+    'project'
   end
-
 end

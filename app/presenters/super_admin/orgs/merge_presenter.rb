@@ -1,23 +1,22 @@
 # frozen_string_literal: true
 
 module SuperAdmin
-
   module Orgs
-
+    # Helper class for the analysis that the Super Admin sees before actually merging orgs
     class MergePresenter
-
       attr_accessor :from_org, :to_org, :from_org_name, :to_org_name,
                     :from_org_entries, :to_org_entries, :mergeable_entries,
                     :categories, :from_org_attributes, :to_org_attributes,
                     :mergeable_attributes
 
+      # rubocop:disable Metrics/AbcSize
       def initialize(from_org:, to_org:)
         @from_org = from_org
         @to_org = to_org
 
         # Abbreviated Org names for display in tables
-        @from_org_name = @from_org.name.split(" ")[0..2].join(" ")
-        @to_org_name = @to_org.name.split(" ")[0..2].join(" ")
+        @from_org_name = @from_org.name.split[0..2].join(' ')
+        @to_org_name = @to_org.name.split[0..2].join(' ')
 
         # Association records
         @from_org_entries = prepare_org(org: @from_org)
@@ -30,10 +29,12 @@ module SuperAdmin
         @to_org_attributes = org_attributes(org: @to_org)
         @mergeable_attributes = mergeable_columns
       end
+      # rubocop:enable Metrics/AbcSize
 
       private
 
       # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def prepare_org(org:)
         return {} unless org.present? && org.is_a?(Org)
 
@@ -54,6 +55,7 @@ module SuperAdmin
         }
       end
       # rubocop:enable Metrics/AbcSize
+      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       def prepare_mergeables
         return {} unless @from_org_entries.any? && @to_org_entries.any?
@@ -73,6 +75,7 @@ module SuperAdmin
       end
 
       # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def diff_from_and_to(category:)
         return [] unless category.present? && @from_org_entries.fetch(category, []).any?
 
@@ -101,6 +104,7 @@ module SuperAdmin
         end
       end
       # rubocop:enable Metrics/AbcSize
+      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       def org_attributes(org:)
         return {} unless org.is_a?(Org)
@@ -118,6 +122,7 @@ module SuperAdmin
         }
       end
 
+      # rubocop:disable Metrics/AbcSize
       def mergeable_columns
         out = {}
         out[:target_url] = @from_org.target_url if mergeable_column?(column: :target_url)
@@ -138,12 +143,15 @@ module SuperAdmin
         end
         out
       end
+      # rubocop:enable Metrics/AbcSize
 
+      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def mergeable_column?(column:)
         case column
         when :links
-          (@to_org.links.nil? || @to_org.links.fetch("org", []).empty?) &&
-            (@from_org.links.present? || @from_org.links.fetch("org", [].any?))
+          (@to_org.links.nil? || @to_org.links.fetch('org', []).empty?) &&
+            (@from_org.links.present? || @from_org.links.fetch('org', [].any?))
         when :managed
           !@to_org.managed? && @from_org.managed?
         when :feedback_enabled
@@ -154,9 +162,8 @@ module SuperAdmin
             @to_org != @from_org
         end
       end
-
+      # rubocop:enable Metrics/AbcSize
+      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     end
-
   end
-
 end

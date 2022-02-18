@@ -55,7 +55,9 @@ json.dataset datasets do |dataset|
           json.url                    host.data["hostId"]
         end
       else
+        # rubocop:disable Lint/EmptyBlock
         json.host {}
+        # rubocop:enable Lint/EmptyBlock
       end
       json.license do
         json.license_ref            distribution.license.data["licenseUrl"]
@@ -71,7 +73,7 @@ json.dataset datasets do |dataset|
     json.metadata dataset.documentation_quality.metadata_standard do |metadata_standard|
       json.description        exportable_description("#{metadata_standard.data['name']} - #{metadata_standard.data['description']}")
       json.language           metadata_standard.data["metadataLanguage"]
-      json.metadata_standard_id do 
+      json.metadata_standard_id do
         json.identifier metadata_standard.data["metadataStandardId"]
         json.type       metadata_standard.data["idType"]
       end
@@ -86,7 +88,9 @@ json.dataset datasets do |dataset|
       json.title              "Security measures"
     end
   else
+    # rubocop:disable Lint/EmptyBlock
     json.security_and_privacy {}
+    # rubocop:enable Lint/EmptyBlock
   end
   json.technical_resource dataset.technical_resources do |technical_resource|
     json.description        exportable_description(technical_resource.data["description"])

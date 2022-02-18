@@ -1,29 +1,28 @@
 # frozen_string_literal: true
 
+# Helper class for the Contributor pages
 class ContributorPresenter
-
   class << self
-
     # Returns the name with each word capitalized
     def display_name(name:)
-      return "" unless name.present?
+      return '' unless name.present?
 
-      name.split.map(&:capitalize).join(" ")
+      name.split.map(&:capitalize).join(' ')
     end
 
     # Returns the string name for each role
     def display_roles(roles:)
-      return "None" unless roles.present? && roles.any?
+      return 'None' unless roles.present? && roles.any?
 
-      roles.map { |role| role_symbol_to_string(symbol: role) }.join("<br/>").html_safe
+      roles.map { |role| role_symbol_to_string(symbol: role) }.join('<br/>').html_safe
     end
 
     # Fetches the contributor's ORCID or initializes one
     def orcid(contributor:)
-      orcid = contributor.identifier_for_scheme(scheme: "orcid")
+      orcid = contributor.identifier_for_scheme(scheme: 'orcid')
       return orcid if orcid.present?
 
-      scheme = IdentifierScheme.by_name("orcid").first
+      scheme = IdentifierScheme.by_name('orcid').first
       return nil unless scheme.present?
 
       Identifier.new(identifiable: contributor, identifier_scheme: scheme)
@@ -40,13 +39,13 @@ class ContributorPresenter
     def role_symbol_to_string(symbol:)
       case symbol
       when :data_curation
-        "Data Manager"
+        _('Data Manager')
       when :project_administration
-        "Project Administrator"
+        _('Project Administrator')
       when :investigation
-        "Principal Investigator"
+        _('Principal Investigator')
       else
-        "Other"
+        _('Other')
       end
     end
 
@@ -54,17 +53,15 @@ class ContributorPresenter
     def role_tooltip(symbol:)
       case symbol
       when :data_curation
-        _("Management activities to annotate (produce metadata), scrub data and maintain research data (including software code, where it is necessary for interpreting the data itself) for initial use and later re-use.")
+        _('Management activities to annotate (produce metadata), scrub data and maintain research data (including software code, where it is necessary for interpreting the data itself) for initial use and later re-use.')
       when :investigation
-        _("Conducting a research and investigation process, specifically performing the experiments, or data/evidence collection.")
+        _('Conducting a research and investigation process, specifically performing the experiments, or data/evidence collection.')
       when :project_administration
-        _("Management and coordination responsibility for the research activity planning and execution.")
+        _('Management and coordination responsibility for the research activity planning and execution.')
       else
-        ""
+        ''
       end
     end
     # rubocop:enable Layout/LineLength
-
   end
-
 end

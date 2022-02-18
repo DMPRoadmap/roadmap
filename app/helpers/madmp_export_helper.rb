@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require "jsonpath"
+require 'jsonpath'
 
 module MadmpExportHelper
-
   def load_export_template(name)
     export_format = Rails.root.join("config/madmp/exports/#{name}.json")
 
@@ -14,21 +13,21 @@ module MadmpExportHelper
     contributors = []
     dmp_fragment.persons.each do |person|
       contributor = person.get_full_fragment
-      contributor["role"] = person.roles(selected_research_outputs).uniq
-      contributors.append(contributor) unless contributor["role"].empty?
+      contributor['role'] = person.roles(selected_research_outputs).uniq
+      contributors.append(contributor) unless contributor['role'].empty?
     end
     contributors
   end
 
   def exportable_description(description)
-    exportable = Loofah.fragment(description).text(encode_special_chars: false).tr("\n\r", " ")
-    return nil if exportable.eql?("")
+    exportable = Loofah.fragment(description).text(encode_special_chars: false).tr("\n\r", ' ')
+    return nil if exportable.eql?('')
 
     exportable
   end
 
   def extract_keywords(madmp_fragment)
-    keywords = madmp_fragment.data["uncontrolledKeywords"] || []
+    keywords = madmp_fragment.data['uncontrolledKeywords'] || []
     keywords.concat(madmp_fragment.controlled_keyword.pluck("data->>'keyword'"))
     keywords
   end
@@ -125,5 +124,4 @@ module MadmpExportHelper
   #   end
   #   export_document
   # end
-
 end

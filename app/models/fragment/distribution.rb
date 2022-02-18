@@ -20,7 +20,6 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 class Fragment::Distribution < MadmpFragment
-
   def license
     Fragment::License.where(parent_id: id).first
   end
@@ -30,11 +29,10 @@ class Fragment::Distribution < MadmpFragment
   end
 
   def properties
-    "license"
+    'license'
   end
 
   def self.sti_name
-    "distribution"
+    'distribution'
   end
-
 end

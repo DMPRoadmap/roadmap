@@ -20,7 +20,6 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 class Fragment::Meta < MadmpFragment
-
   def contact
     Fragment::Contributor.where(parent_id: id).first
   end
@@ -38,11 +37,10 @@ class Fragment::Meta < MadmpFragment
   end
 
   def properties
-    "contact, license, related_doc, associated_dmp"
+    'contact, license, related_doc, associated_dmp'
   end
 
   def self.sti_name
-    "meta"
+    'meta'
   end
-
 end

@@ -20,9 +20,7 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 class Fragment::License < MadmpFragment
-
   def self.sti_name
-    "license"
+    'license'
   end
-
 end

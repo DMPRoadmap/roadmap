@@ -20,7 +20,6 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 class Fragment::DataReuse < MadmpFragment
-
   def reused_data
     Fragment::ReusedData.where(parent_id: id)
   end
@@ -30,11 +29,10 @@ class Fragment::DataReuse < MadmpFragment
   end
 
   def properties
-    "reused_data, cost"
+    'reused_data, cost'
   end
 
   def self.sti_name
-    "data_reuse"
+    'data_reuse'
   end
-
 end

@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 module SuperAdmin
-
   class RegistryValuesController < ApplicationController
-
     def new
       @registry = Registry.find(params[:registry_id])
       authorize(@registry)
@@ -16,9 +14,9 @@ module SuperAdmin
 
       @registry_value = RegistryValue.new(permitted_params)
       if @registry_value.save
-        flash.now[:notice] = success_message(@registry_value, _("created"))
+        flash.now[:notice] = success_message(@registry_value, _('created'))
       else
-        flash.now[:alert] = failure_message(@registry_value, _("create"))
+        flash.now[:alert] = failure_message(@registry_value, _('create'))
       end
       redirect_to super_admin_registry_path(@registry)
     end
@@ -34,9 +32,9 @@ module SuperAdmin
       @registry = @registry_value.registry
       authorize(@registry)
       if @registry_value.update_attributes(permitted_params)
-        flash.now[:notice] = success_message(@registry_value, _("updated"))
+        flash.now[:notice] = success_message(@registry_value, _('updated'))
       else
-        flash.now[:alert] = failure_message(@registry_value, _("update"))
+        flash.now[:alert] = failure_message(@registry_value, _('update'))
       end
       redirect_to super_admin_registry_path(@registry)
     end
@@ -46,10 +44,10 @@ module SuperAdmin
       @registry = @registry_value.registry
       authorize(@registry)
       if @registry_value.destroy
-        msg = success_message(@registry_value, _("deleted"))
+        msg = success_message(@registry_value, _('deleted'))
         redirect_to super_admin_registry_path(@registry), notice: msg
       else
-        flash.now[:alert] = failure_message(@registry_value, _("delete"))
+        flash.now[:alert] = failure_message(@registry_value, _('delete'))
         render :edit
       end
     end
@@ -60,7 +58,5 @@ module SuperAdmin
     def permitted_params
       params.require(:registry_value).permit(:id, :data, :registry_id)
     end
-
   end
-
 end

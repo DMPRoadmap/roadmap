@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
 class Api::V0::Madmp::PlanPolicy < ApplicationPolicy
-
-  attr_reader :user
-  attr_reader :plan
+  attr_reader :user, :plan
 
   def initialize(user, plan)
-    raise Pundit::NotAuthorizedError, _("must be logged in") unless user
+    raise Pundit::NotAuthorizedError, _('must be logged in') unless user
 
     @user = user
     @plan = plan
@@ -19,5 +17,4 @@ class Api::V0::Madmp::PlanPolicy < ApplicationPolicy
   def rda_export?
     @plan.readable_by?(@user.id)
   end
-
 end

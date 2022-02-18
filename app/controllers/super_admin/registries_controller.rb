@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-require "json"
+require 'json'
 
 module SuperAdmin
-
   class RegistriesController < ApplicationController
-
     # GET /madmp_schemas
     def index
       authorize(Registry)
@@ -27,11 +25,11 @@ module SuperAdmin
       attrs = permitted_params
       @registry = Registry.new(attrs.except(:values))
       if @registry.save
-        flash.now[:notice] = success_message(@registry, _("created"))
+        flash.now[:notice] = success_message(@registry, _('created'))
         load_values(attrs[:values], @registry)
         render :edit
       else
-        flash.now[:alert] = failure_message(@registry, _("create"))
+        flash.now[:alert] = failure_message(@registry, _('create'))
         render :new
       end
     end
@@ -46,9 +44,9 @@ module SuperAdmin
       attrs = permitted_params
       @registry = Registry.find(params[:id])
       if @registry.update_attributes(attrs.except(:values))
-        flash.now[:notice] = success_message(@registry, _("updated"))
+        flash.now[:notice] = success_message(@registry, _('updated'))
       else
-        flash.now[:alert] = failure_message(@registry, _("update"))
+        flash.now[:alert] = failure_message(@registry, _('update'))
       end
       load_values(attrs[:values], @registry)
 
@@ -59,10 +57,10 @@ module SuperAdmin
       authorize(Registry)
       @registry = Registry.find(params[:id])
       if @registry.destroy
-        msg = success_message(@registry, _("deleted"))
+        msg = success_message(@registry, _('deleted'))
         redirect_to super_admin_registries_path, notice: msg
       else
-        flash.now[:alert] = failure_message(@registry, _("delete"))
+        flash.now[:alert] = failure_message(@registry, _('delete'))
         redner :edit
       end
     end
@@ -111,10 +109,10 @@ module SuperAdmin
             RegistryValue.create!(data: reg_val, registry: registry, order: idx)
           end
         else
-          flash.now[:alert] = "Wrong values file format"
+          flash.now[:alert] = 'Wrong values file format'
         end
       rescue JSON::ParserError
-        flash.now[:alert] = "File should contain JSON"
+        flash.now[:alert] = 'File should contain JSON'
       end
     end
     # rubocop:enable Metrics/AbcSize
@@ -122,7 +120,5 @@ module SuperAdmin
     def permitted_params
       params.require(:registry).permit(:name, :description, :uri, :version, :values)
     end
-
   end
-
 end
