@@ -172,7 +172,14 @@ class PlansController < ApplicationController
 
         # Set new identifier to plan id by default on create.
         # (This may be changed by user.)
-        @plan.identifier = @plan.id.to_s
+        # --------------------------------
+        # Start DMP OPIDoR Customization
+        # CHANGES : Commented line
+        # --------------------------------
+        # @plan.identifier = @plan.id.to_s
+        # --------------------------------
+        # End DMP OPIDoR Customization
+        # --------------------------------
         @plan.save
 
         # --------------------------------
