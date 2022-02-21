@@ -107,7 +107,7 @@ class Answer < ApplicationRecord
     # --------------------------------
     # Start DMP OPIDoR Customization
     # --------------------------------
-    return madmp_fragment&.data&.compact&.empty? if question.question_format.structured
+    return madmp_fragment&.data&.compact&.any? if question.question_format.structured
     # --------------------------------
     # End DMP OPIDoR Customization
     # --------------------------------
