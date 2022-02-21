@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Dmpopidor
+  # Customized code for PlansController
   module PlansController
     # CHANGES:
     # Added Active Flag on Org

@@ -2,10 +2,12 @@
 
 module Api
   module V1
+    # Handles CRUD operations for Themes in API V0
     class ThemesController < BaseApiController
       respond_to :json
 
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def extract
         # check if the user has permissions to use the themes API
         @theme = Theme.find_by(slug: params[:slug])
@@ -50,6 +52,7 @@ module Api
           render json: _('API Client not authorized to used Themes API'), status: 403
         end
       end
+      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
       def extract_params

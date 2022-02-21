@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 module Dmpopidor
+  # Customized code for PlanExportsController
   module PlanExportsController
     # CHANGES: Can now send multiple phases when exporting
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def show
       @plan = ::Plan.includes(:answers, :research_outputs, {
                                 template: { phases: { sections: :questions } }
@@ -56,9 +58,11 @@ module Dmpopidor
         end
       end
     end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # CHANGES: PDF footer now displays DMP licence
+    # rubocop:disable Metrics/AbcSize
     def show_pdf
       license = @plan.json_fragment.meta.license if @plan.template.structured?
       license_details = if license.present? && !license.data.compact.empty?
@@ -75,6 +79,7 @@ module Dmpopidor
                encoding: 'utf8'
              }
     end
+    # rubocop:enable Metrics/AbcSize
 
     # CHANGES: Changed JSON export to use madmp_fragments
     def show_json(selected_research_outputs, json_format)

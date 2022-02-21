@@ -221,45 +221,6 @@ class OrgsController < ApplicationController
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-  # POST /orgs/search  (via AJAX)
-  # ----------------------------------------------------------------
-  def search
-    args = search_params
-    # If the search term is greater than 2 characters
-    if args.present? && args.fetch(:name, '').length > 2
-      type = params.fetch(:type, 'local')
-
-      # If we are including external API results
-      orgs = case type
-             when 'combined'
-               OrgSelection::SearchService.search_combined(
-                 search_term: args[:name]
-               )
-             when 'external'
-               OrgSelection::SearchService.search_externally(
-                 search_term: args[:name]
-               )
-             else
-               OrgSelection::SearchService.search_locally(
-                 search_term: args[:name]
-               )
-             end
-
-      # If we need to restrict the results to funding orgs then
-      # only return the ones with a valid fundref
-      if orgs.present? && params.fetch(:funder_only, 'false') == true
-        orgs = orgs.select do |org|
-          org[:fundref].present? && !org[:fundref].blank?
-        end
-      end
-
-      render json: orgs
-
-    else
-      render json: []
-    end
-  end
-
   private
 
   def org_params

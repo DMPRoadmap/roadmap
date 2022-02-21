@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Dmpopidor
+  # Customized code for UsersController
   module UsersController
     ##
     # GET - List of all users for an organisation

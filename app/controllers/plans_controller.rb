@@ -521,7 +521,7 @@ class PlansController < ApplicationController
       end
     else
       render status: :not_found,
-             json: { msg: format(_('Unable to find plan id %{<plan_id>s'),
+             json: { msg: format(_('Unable to find plan id %<plan_id>s'),
                                  plan_id: params[:id]) }
     end
   end
@@ -553,7 +553,7 @@ class PlansController < ApplicationController
     authorize plan
     render(:overview, locals: { plan: plan })
   rescue ActiveRecord::RecordNotFound
-    flash[:alert] = format(_('There is no plan associated with id %{<id}>s'), id: params[:id])
+    flash[:alert] = format(_('There is no plan associated with id %<id>s'), id: params[:id])
     redirect_to(action: :index)
   end
 

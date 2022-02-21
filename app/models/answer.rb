@@ -99,6 +99,7 @@ class Answer < ApplicationRecord
   # presence of text
   #
   # Returns Boolean
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   def answered?
     return false unless question.present?
     # If the question is option based then see if any options were selected
@@ -115,6 +116,7 @@ class Answer < ApplicationRecord
 
     false
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
   # Answer notes whose archived is blank sorted by updated_at in descending order
   #

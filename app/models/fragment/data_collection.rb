@@ -18,29 +18,31 @@
 
 #  index_madmp_fragments_on_answer_id                  (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
+module Fragment
+  # DataCollection STI model
+  class DataCollection < MadmpFragment
+    def facility
+      Fragment::TechnicalResource.where(parent_id: id).first
+    end
 
-class Fragment::DataCollection < MadmpFragment
-  def facility
-    Fragment::TechnicalResource.where(parent_id: id).first
-  end
+    def method_reference
+      Fragment::ResourceReference.where(parent_id: id)
+    end
 
-  def method_reference
-    Fragment::ResourceReference.where(parent_id: id)
-  end
+    def contributors
+      Fragment::Contributor.where(parent_id: id)
+    end
 
-  def contributors
-    Fragment::Contributor.where(parent_id: id)
-  end
+    def cost
+      Fragment::Cost.where(parent_id: id)
+    end
 
-  def cost
-    Fragment::Cost.where(parent_id: id)
-  end
+    def properties
+      'facility, method_reference, contributors, cost'
+    end
 
-  def properties
-    'facility, method_reference, contributors, cost'
-  end
-
-  def self.sti_name
-    'data_collection'
+    def self.sti_name
+      'data_collection'
+    end
   end
 end

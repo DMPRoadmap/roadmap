@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # rubocop:disable Metrics/ClassLength
+# Controller for the MadmpFragments, handle structures forms
 class MadmpFragmentsController < ApplicationController
   after_action :verify_authorized
   include DynamicFormHelper
@@ -122,13 +123,13 @@ class MadmpFragmentsController < ApplicationController
       end
     end
 
-    render json: render_fragment_form(@fragment, nil)
+    render json: render_fragment_form(@fragment, stale_fragment: nil)
   end
   # rubocop:enable Metrics/AbcSize
   # rubocop:enable Metrics/MethodLength
 
-  # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity
   def update
     p_params = permitted_params
     @schemas = MadmpSchema.all
@@ -211,11 +212,11 @@ class MadmpFragmentsController < ApplicationController
         'html' => render_fragment_select(@fragment)
       }.to_json
     else
-      render json: render_fragment_form(@fragment, @stale_fragment)
+      render json: render_fragment_form(@fragment, stale_fragment: @stale_fragment)
     end
   end
-  # rubocop:enable Metrics/MethodLength
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   def change_schema
     @fragment = MadmpFragment.find(params[:id])
@@ -226,7 +227,7 @@ class MadmpFragmentsController < ApplicationController
 
     return unless @fragment.present? && @fragment.schema_conversion(target_schema)
 
-    render json: render_fragment_form(@fragment, @stale_fragment)
+    render json: render_fragment_form(@fragment, stale_fragment: @stale_fragment)
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -287,7 +288,7 @@ class MadmpFragmentsController < ApplicationController
     template_locale = params[:locale]
     query_id = params[:query_id]
     readonly = params[:readonly] == 'true'
-    is_custom = params[:custom_value].present? ? true : false
+    is_custom = params[:custom_value].present?
 
     @fragment = MadmpFragment.new(
       dmp_id: parent_fragment.dmp_id,
@@ -380,7 +381,7 @@ class MadmpFragmentsController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def destroy_contributor
     @person = Fragment::Person.find(params[:contributor_id])
     contributors_list = @person.contributors
@@ -411,8 +412,9 @@ class MadmpFragmentsController < ApplicationController
       )
     }
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+  # rubocop:disable Metrics/AbcSize
   def destroy
     @fragment = MadmpFragment.find(params[:id])
     query_id = params[:query_id]
@@ -434,7 +436,9 @@ class MadmpFragmentsController < ApplicationController
       )
     }
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def load_fragments
     @dmp_fragment = MadmpFragment.find(params[:dmp_id])
     search_term = params[:term] || ''
@@ -449,6 +453,7 @@ class MadmpFragmentsController < ApplicationController
       'results' => formatted_list
     }
   end
+  # rubocop:enable Metrics/AbcSize
 
   private
 
@@ -525,7 +530,8 @@ class MadmpFragmentsController < ApplicationController
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  def render_fragment_form(fragment, stale_fragment = nil)
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def render_fragment_form(fragment, stale_fragment: nil)
     answer = fragment.answer
     question = answer&.question
     research_output = answer&.research_output
@@ -601,12 +607,14 @@ class MadmpFragmentsController < ApplicationController
       }
     }.to_json
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
 
   # Since the StaleObjectError is triggered on the Answer we need to recover the
   # MadmpFragment data from the form, because the stale MadmpFragment has not yet been modified
   # This method takes the form data and remove every "sub fragment" data so it can be merged
   # to the real fragment data (with dbids)
+  # rubocop:disable Metrics/AbcSize,  Metrics/CyclomaticComplexity
   def stale_data(form_data, schema)
     stale_data = {}
     form_data.each do |prop, content|
@@ -622,6 +630,7 @@ class MadmpFragmentsController < ApplicationController
     end
     stale_data
   end
+  # rubocop:enable Metrics/AbcSize,  Metrics/CyclomaticComplexity
 
   # Get the parameters conresponding to the schema
   def schema_params(schema, flat: false)

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module SuperAdmin
+  # Controller for managing MadmpSchemas
   class MadmpSchemasController < ApplicationController
     before_action :set_schema, only: %i[edit update destroy]
 
@@ -15,6 +16,7 @@ module SuperAdmin
       @schema = MadmpSchema.new
     end
 
+    # rubocop:disable Metrics/AbcSize
     def create
       authorize(MadmpSchema)
       @schema = MadmpSchema.new(permitted_params.except(:schema))
@@ -28,11 +30,13 @@ module SuperAdmin
         render :new
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     def edit
       authorize(MadmpSchema)
     end
 
+    # rubocop:disable Metrics/AbcSize
     def update
       authorize(MadmpSchema)
       if @schema.update_attributes(permitted_params.except(:schema))
@@ -44,6 +48,7 @@ module SuperAdmin
       end
       render :edit
     end
+    # rubocop:enable Metrics/AbcSize
 
     def destroy
       authorize(MadmpSchema)

@@ -18,29 +18,31 @@
 
 #  index_madmp_fragments_on_answer_id                  (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
+module Fragment
+  # DataStorage STI model
+  class DataStorage < MadmpFragment
+    def facility
+      Fragment::TechnicalResource.where(parent_id: id)
+    end
 
-class Fragment::DataStorage < MadmpFragment
-  def facility
-    Fragment::TechnicalResource.where(parent_id: id)
-  end
+    def backup_policy
+      Fragment::BackupPolicy.where(parent_id: id).first
+    end
 
-  def backup_policy
-    Fragment::BackupPolicy.where(parent_id: id).first
-  end
+    def contributors
+      Fragment::Contributor.where(parent_id: id)
+    end
 
-  def contributors
-    Fragment::Contributor.where(parent_id: id)
-  end
+    def cost
+      Fragment::Cost.where(parent_id: id)
+    end
 
-  def cost
-    Fragment::Cost.where(parent_id: id)
-  end
+    def properties
+      'facility, backup_policy, contributors, cost'
+    end
 
-  def properties
-    'facility, backup_policy, contributors, cost'
-  end
-
-  def self.sti_name
-    'data_storage'
+    def self.sti_name
+      'data_storage'
+    end
   end
 end

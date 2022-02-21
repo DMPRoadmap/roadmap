@@ -67,7 +67,7 @@ module OrgAdmin
 
     # SEE MODULE
     # GET /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions/new
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def new
       section = Section.includes(:questions, phase: :template).find(params[:section_id])
       nbr = section.questions.maximum(:number)
@@ -98,7 +98,7 @@ module OrgAdmin
                                               question_formats: question_formats
                                             }) }
     end
-    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # POST /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions
     # rubocop:disable Metrics/AbcSize

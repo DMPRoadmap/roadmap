@@ -9,7 +9,7 @@ class JsonValidator < ActiveModel::EachValidator
   private
 
   def valid_json?(value)
-    !!JSON.load(value)
+    !!JSON.parse(value)
   rescue StandardError
     false
   end

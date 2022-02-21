@@ -18,17 +18,19 @@
 
 #  index_madmp_fragments_on_answer_id                  (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
+module Fragment
+  # Partner STI model
+  class Partner < MadmpFragment
+    def data_policy
+      Fragment::ResourceReference.where(parent_id: id).first
+    end
 
-class Fragment::Partner < MadmpFragment
-  def data_policy
-    Fragment::ResourceReference.where(parent_id: id).first
-  end
+    def properties
+      'data_policy'
+    end
 
-  def properties
-    'data_policy'
-  end
-
-  def self.sti_name
-    'partner'
+    def self.sti_name
+      'partner'
+    end
   end
 end

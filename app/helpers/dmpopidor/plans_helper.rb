@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Dmpopidor
+  # Customized code for PlansHelper
   module PlansHelper
     # display the name of the owner of a plan
     # CHANGE : Added translation

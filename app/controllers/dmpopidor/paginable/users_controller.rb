@@ -2,9 +2,11 @@
 
 module Dmpopidor
   module Paginable
+    # Customized code for Paginable UsersController
     module UsersController
       # /paginable/users/index/:page
       # Users without activity should not be displayed first
+      # rubocop:disable Metrics/AbcSize
       def index
         authorize User
         @clicked_through = params[:click_through].present?
@@ -28,6 +30,7 @@ module Dmpopidor
           view_all: !current_user.can_super_admin?
         )
       end
+      # rubocop:enable Metrics/AbcSize
     end
   end
 end

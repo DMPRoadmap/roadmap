@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Dmpopidor
+  # Customized code for ApplicationController
   module ApplicationController
     # Set Static Pages collection to use in navigation
     def set_nav_static_pages

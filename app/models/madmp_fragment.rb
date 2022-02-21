@@ -436,7 +436,7 @@ class MadmpFragment < ApplicationRecord
     return unless classname.eql?('project')
 
     meta = dmp.meta
-    dmp_title = format(_('"%{project_title}" project DMP'), project_title: data['title'])
+    dmp_title = format(_('"%<project_title>s" project DMP'), project_title: data['title'])
     meta.update(
       data: meta.data.merge(title: dmp_title)
     )

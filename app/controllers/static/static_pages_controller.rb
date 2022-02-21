@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module Static
+  # Controller that handles requests for static pages
   class StaticPagesController < ApplicationController
     before_action :set_static_page, only: :show
 

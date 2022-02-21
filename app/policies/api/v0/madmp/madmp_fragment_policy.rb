@@ -1,22 +1,22 @@
 # frozen_string_literal: true
 
-class Api::V0::Madmp::MadmpFragmentPolicy < ApplicationPolicy
-  attr_reader :user, :madmp_fragment
+module Api
+  module V1
+    module Madmp
+      # Security rules for API V0 MadmpFragment endpoints
+      class MadmpFragmentPolicy < ApplicationPolicy
+        attr_reader :user, :madmp_fragment
 
-  def initialize(user, madmp_fragment)
-    raise Pundit::NotAuthorizedError, _('must be logged in') unless user
+        def show?
+          plan = @fragment.plan
+          plan.readable_by?(@user.id)
+        end
 
-    @user     = user
-    @fragment = madmp_fragment
-  end
-
-  def show?
-    plan = @fragment.plan
-    plan.readable_by?(@user.id)
-  end
-
-  def update?
-    plan = @fragment.plan
-    plan.editable_by?(@user.id)
+        def update?
+          plan = @fragment.plan
+          plan.editable_by?(@user.id)
+        end
+      end
+    end
   end
 end

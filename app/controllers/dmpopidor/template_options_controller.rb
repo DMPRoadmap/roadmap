@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 module Dmpopidor
+  # Customized code for TemplateOptionsController
   module TemplateOptionsController
     # CHANGES : Default template should appear in template lists
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def index
       org_hash = plan_params.fetch(:research_org_id, {})
       funder_hash = plan_params.fetch(:funder_id, {})
@@ -57,6 +59,7 @@ module Dmpopidor
 
       @templates = @templates.sort_by(&:title)
     end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   end
 end

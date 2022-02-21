@@ -75,6 +75,7 @@ class UsageController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   # GET /usage_yearly_plans
+  # rubocop:disable Metrics/AbcSize
   def yearly_plans
     # This action is triggered when a user clicks on the 'download csv' button
     # for the annual plans chart
@@ -92,6 +93,7 @@ class UsageController < ApplicationController
       csv << [_('Total'), total]
     end, filename: 'completed_plans.csv')
   end
+  # rubocop:enable Metrics/AbcSize
 
   # GET /usage_all_plans_by_template
   def all_plans_by_template

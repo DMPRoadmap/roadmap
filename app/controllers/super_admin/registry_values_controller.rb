@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module SuperAdmin
+  # Controller for creating and deleting RegistryValues
   class RegistryValuesController < ApplicationController
     def new
       @registry = Registry.find(params[:registry_id])
@@ -8,6 +9,7 @@ module SuperAdmin
       @registry_value = RegistryValue.new
     end
 
+    # rubocop:disable Metrics/AbcSize
     def create
       @registry = Registry.find(permitted_params[:registry_id])
       authorize(@registry)
@@ -20,6 +22,7 @@ module SuperAdmin
       end
       redirect_to super_admin_registry_path(@registry)
     end
+    # rubocop:enable Metrics/AbcSize
 
     def edit
       @registry_value = RegistryValue.find(params[:id])
@@ -27,6 +30,7 @@ module SuperAdmin
       authorize(@registry)
     end
 
+    # rubocop:disable Metrics/AbcSize
     def update
       @registry_value = RegistryValue.find(params[:id])
       @registry = @registry_value.registry
@@ -38,6 +42,7 @@ module SuperAdmin
       end
       redirect_to super_admin_registry_path(@registry)
     end
+    # rubocop:enable Metrics/AbcSize
 
     def destroy
       @registry_value = RegistryValue.find(params[:id])

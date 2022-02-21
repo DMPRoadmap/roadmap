@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module SuperAdmin
+  # Controller for managing StaticPages
   class StaticPagesController < ApplicationController
     before_action :set_static_page, only: %i[edit update destroy]
     before_action :set_static_pages, only: :index
@@ -67,7 +68,7 @@ module SuperAdmin
         @static_page.destroy
         flash[:notice] = _('Successfully destroyed your Static Page')
       rescue ActiveRecord::RecordNotDestroyed
-        flash[:alert] = format(_('The Static Page with id %{id} could not be destroyed'), id: params[:id])
+        flash[:alert] = format(_('The Static Page with id %<id>s could not be destroyed'), id: params[:id])
       end
 
       redirect_to action: :index

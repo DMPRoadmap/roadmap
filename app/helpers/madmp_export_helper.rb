@@ -2,11 +2,12 @@
 
 require 'jsonpath'
 
+# Helper for JSON exports
 module MadmpExportHelper
   def load_export_template(name)
     export_format = Rails.root.join("config/madmp/exports/#{name}.json")
 
-    JSON.load(File.open(export_format))
+    JSON.parse(File.open(export_format))
   end
 
   def format_contributors(dmp_fragment, selected_research_outputs)

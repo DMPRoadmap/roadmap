@@ -1,9 +1,14 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ModuleLength
+# Module containing different ways of importing a fragment
 module FragmentImport
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def raw_import(import_data, schema)
     fragmented_data = {}
 
+    # rubocop:disable Metrics/BlockLength
     import_data.each do |prop, content|
       schema_prop = schema.properties[prop]
 
@@ -16,7 +21,7 @@ module FragmentImport
 
         # For persons, we need to check if the person exists and set manually
         # the dbid in the parent fragment
-        if schema_prop['inputType']&.eql?('pickOrCreate')
+        if schema_prop['inputType'].eql?('pickOrCreate')
           sub_fragment = MadmpFragment.fragment_exists?(sub_data, sub_schema, dmp.id, id)
           if sub_fragment.eql?(false)
             sub_fragment = MadmpFragment.new(
@@ -76,6 +81,7 @@ module FragmentImport
         fragmented_data[prop] = content
       end
     end
+    # rubocop:enable Metrics/BlockLength
     update!(
       data: data.merge(fragmented_data),
       additional_info: additional_info.except!('custom_value')
@@ -83,10 +89,15 @@ module FragmentImport
     update_children_references
     self # return self
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def import_with_ids(import_data, schema)
     fragmented_data = {}
 
+    # rubocop:disable Metrics/BlockLength
     import_data.each do |prop, content|
       schema_prop = schema.properties[prop]
 
@@ -147,6 +158,8 @@ module FragmentImport
         fragmented_data[prop] = content
       end
     end
+    # rubocop:enable Metrics/BlockLength
+
     update!(
       data: data.merge(fragmented_data),
       additional_info: additional_info.except!('custom_value')
@@ -154,9 +167,15 @@ module FragmentImport
     update_children_references
     self # return self
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def import_with_instructions(import_data, schema)
     fragmented_data = {}
+
+    # rubocop:disable Metrics/BlockLength
     import_data.each do |prop, content|
       schema_prop = schema.properties[prop]
 
@@ -223,6 +242,8 @@ module FragmentImport
         fragmented_data[prop] = content
       end
     end
+    # rubocop:enable Metrics/BlockLength
+
     update!(
       data: data.merge(fragmented_data),
       additional_info: additional_info.except!('custom_value')
@@ -230,4 +251,7 @@ module FragmentImport
     update_children_references
     self # return self
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 end
+# rubocop:enable Metrics/ModuleLength

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Controller that handles research outputs
 class ResearchOutputsController < ApplicationController
   after_action :verify_authorized
 
@@ -10,7 +11,7 @@ class ResearchOutputsController < ApplicationController
     authorize @plan
     render('plans/research_outputs', locals: { plan: @plan, research_outputs: @research_outputs })
   rescue ActiveRecord::RecordNotFound
-    flash[:alert] = format(_('There is no plan associated with id %{id}'), id: params[:id])
+    flash[:alert] = format(_('There is no plan associated with id %<id>'), id: params[:id])
     redirect_to(controller: 'plans', action: 'index')
   end
 
@@ -47,6 +48,7 @@ class ResearchOutputsController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
 
+  # rubocop:disable Metrics/AbcSize
   def destroy
     @plan = Plan.find(params[:plan_id])
     @research_output = ResearchOutput.find(params[:id])
@@ -60,6 +62,7 @@ class ResearchOutputsController < ApplicationController
     end
     redirect_to(action: 'index')
   end
+  # rubocop:enable Metrics/AbcSize
 
   def sort
     @plan = Plan.find(params[:plan_id])

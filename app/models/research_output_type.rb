@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: research_output_types
@@ -10,6 +12,7 @@
 #  updated_at :datetime         not null
 #
 
+# Object that represents a research output type
 class ResearchOutputType < ActiveRecord::Base
   has_many :research_outputs
 

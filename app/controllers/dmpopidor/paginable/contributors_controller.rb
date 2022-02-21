@@ -2,6 +2,7 @@
 
 module Dmpopidor
   module Paginable
+    # Customized code for Paginable ContributorsController
     module ContributorsController
       # GET /paginable/plans/:plan_id/contributors
       # GET /paginable/plans/:plan_id/contributors/index/:page

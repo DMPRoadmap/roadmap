@@ -2,9 +2,12 @@
 
 module Api
   module V0
+    # Handles CRUD operations for Themes in API V0
     class ThemesController < Api::V0::BaseController
       before_action :authenticate
 
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def extract
         # check if the user has permissions to use the themes API
         @theme = Theme.find_by(slug: params[:slug])
@@ -41,10 +44,14 @@ module Api
             @answers =  @answers.where('answers.created_at <=?', params[:end_date])
           end
 
+          @answers + org_answers + admin_answers
+
         else
           render json: _('Theme not found'), status: 404
         end
       end
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       def extract_params
         params.permit(:slug, :template_id, :question_id, :start_date, :end_date, :admin_visible, :org_visible)

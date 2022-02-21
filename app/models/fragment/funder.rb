@@ -18,17 +18,19 @@
 
 #  index_madmp_fragments_on_answer_id                  (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
+module Fragment
+  # Funder STI model
+  class Funder < MadmpFragment
+    def data_policy
+      Fragment::ResourceReference.where(parent_id: id).first
+    end
 
-class Fragment::Funder < MadmpFragment
-  def data_policy
-    Fragment::ResourceReference.where(parent_id: id).first
-  end
+    def properties
+      'data_policy'
+    end
 
-  def properties
-    'data_policy'
-  end
-
-  def self.sti_name
-    'funder'
+    def self.sti_name
+      'funder'
+    end
   end
 end

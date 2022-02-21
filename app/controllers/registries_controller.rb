@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
+# Controller that handles registries interrogation on the user's side
 class RegistriesController < ApplicationController
   after_action :verify_authorized
   include DynamicFormHelper
 
+  # rubocop:disable Metrics/AbcSize
   def load_values
     registry = Registry.find(params[:id])
     plan = Plan.find(params[:plan_id])
@@ -17,4 +19,5 @@ class RegistriesController < ApplicationController
       'results' => formatted_list
     }
   end
+  # rubocop:enable Metrics/AbcSize
 end

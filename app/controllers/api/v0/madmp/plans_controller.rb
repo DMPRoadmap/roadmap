@@ -1,51 +1,58 @@
 # frozen_string_literal: true
 
-class Api::V0::Madmp::PlansController < Api::V0::BaseController
-  before_action :authenticate
-  include MadmpExportHelper
+module Api
+  module V0
+    module Madmp
+      # Handles CRUD operations for Plans in API V0
+      class PlansController < Api::V0::BaseController
+        before_action :authenticate
+        include MadmpExportHelper
 
-  def show
-    plan = Plan.find(params[:id])
-    plan_fragment = plan.json_fragment
-    selected_research_outputs = query_params[:research_outputs]&.map(&:to_i) || plan.research_output_ids
-    # check if the user has permissions to use the API
-    raise Pundit::NotAuthorizedError unless Api::V0::Madmp::PlanPolicy.new(@user, plan).show?
+        def show
+          plan = Plan.find(params[:id])
+          plan_fragment = plan.json_fragment
+          selected_research_outputs = query_params[:research_outputs]&.map(&:to_i) || plan.research_output_ids
+          # check if the user has permissions to use the API
+          raise Pundit::NotAuthorizedError unless Api::V0::Madmp::PlanPolicy.new(@user, plan).show?
 
-    respond_to do |format|
-      format.json
-      render 'shared/export/madmp_export_templates/default/plan', locals: {
-        dmp: plan_fragment, selected_research_outputs: selected_research_outputs
-      }
-      return
+          respond_to do |format|
+            format.json
+            render 'shared/export/madmp_export_templates/default/plan', locals: {
+              dmp: plan_fragment, selected_research_outputs: selected_research_outputs
+            }
+            return
+          end
+        end
+
+        def rda_export
+          plan = Plan.find(params[:id])
+          plan_fragment = plan.json_fragment
+          selected_research_outputs = query_params[:research_outputs]&.map(&:to_i) || plan.research_output_ids
+          # check if the user has permissions to use the API
+          raise Pundit::NotAuthorizedError unless Api::V0::Madmp::PlanPolicy.new(@user, plan).rda_export?
+
+          respond_to do |format|
+            format.json
+            render 'shared/export/madmp_export_templates/rda/plan', locals: {
+              dmp: plan_fragment, selected_research_outputs: selected_research_outputs
+            }
+            return
+          end
+        end
+
+        private
+
+        def select_research_output(plan_fragment, _selected_research_outputs)
+          plan_fragment.data['researchOutput'] = plan_fragment.data['researchOutput'].select do |r|
+            r == { 'dbid' => research_output_id }
+          end
+          plan_fragment
+        end
+
+        def query_params
+          params.permit(:mode, research_outputs: [])
+        end
+      end
     end
-  end
-
-  def rda_export
-    plan = Plan.find(params[:id])
-    plan_fragment = plan.json_fragment
-    selected_research_outputs = query_params[:research_outputs]&.map(&:to_i) || plan.research_output_ids
-    # check if the user has permissions to use the API
-    raise Pundit::NotAuthorizedError unless Api::V0::Madmp::PlanPolicy.new(@user, plan).rda_export?
-
-    respond_to do |format|
-      format.json
-      render 'shared/export/madmp_export_templates/rda/plan', locals: {
-        dmp: plan_fragment, selected_research_outputs: selected_research_outputs
-      }
-      return
-    end
-  end
-
-  private
-
-  def select_research_output(plan_fragment, _selected_research_outputs)
-    plan_fragment.data['researchOutput'] = plan_fragment.data['researchOutput'].select do |r|
-      r == { 'dbid' => research_output_id }
-    end
-    plan_fragment
-  end
-
-  def query_params
-    params.permit(:mode, research_outputs: [])
   end
 end

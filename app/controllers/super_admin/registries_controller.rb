@@ -3,6 +3,7 @@
 require 'json'
 
 module SuperAdmin
+  # Controller for creating and deleting Registries
   class RegistriesController < ApplicationController
     # GET /madmp_schemas
     def index
@@ -20,6 +21,7 @@ module SuperAdmin
       @registry = Registry.new
     end
 
+    # rubocop:disable Metrics/AbcSize
     def create
       authorize(Registry)
       attrs = permitted_params
@@ -33,12 +35,14 @@ module SuperAdmin
         render :new
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     def edit
       authorize(Registry)
       @registry = Registry.find(params[:id])
     end
 
+    # rubocop:disable Metrics/AbcSize
     def update
       authorize(Registry)
       attrs = permitted_params
@@ -52,6 +56,7 @@ module SuperAdmin
 
       render :edit
     end
+    # rubocop:enable Metrics/AbcSize
 
     def destroy
       authorize(Registry)
@@ -90,7 +95,8 @@ module SuperAdmin
     # Private instance methods
     private
 
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/PerceivedComplexity
     def load_values(values_file, registry)
       return if values_file.nil?
 
@@ -115,7 +121,8 @@ module SuperAdmin
         flash.now[:alert] = 'File should contain JSON'
       end
     end
-    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     def permitted_params
       params.require(:registry).permit(:name, :description, :uri, :version, :values)

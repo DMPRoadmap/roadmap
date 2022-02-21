@@ -18,17 +18,19 @@
 
 #  index_madmp_fragments_on_answer_id                  (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
+module Fragment
+  # Funding STI model
+  class Funding < MadmpFragment
+    def funder
+      Fragment::Funder.where(parent_id: id).first
+    end
 
-class Fragment::Funding < MadmpFragment
-  def funder
-    Fragment::Funder.where(parent_id: id).first
-  end
+    def properties
+      'funder'
+    end
 
-  def properties
-    'funder'
-  end
-
-  def self.sti_name
-    'funding'
+    def self.sti_name
+      'funding'
+    end
   end
 end

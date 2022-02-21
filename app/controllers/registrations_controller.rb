@@ -4,6 +4,7 @@
 class RegistrationsController < Devise::RegistrationsController
   include OrgSelectable
 
+  # rubocop:disable Metrics/AbcSize
   def edit
     @user = current_user
     @prefs = @user.get_preferences(:email)
@@ -25,6 +26,7 @@ class RegistrationsController < Devise::RegistrationsController
     msg = 'No default preferences found (should be in dmproadmap.rb initializer).'
     flash[:alert] = msg unless @prefs
   end
+  # rubocop:enable Metrics/AbcSize
 
   # GET /resource
   # rubocop:disable Metrics/AbcSize

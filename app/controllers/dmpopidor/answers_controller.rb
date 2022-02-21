@@ -2,9 +2,11 @@
 
 module Dmpopidor
   # rubocop:disable Metrics/ModuleLength
+  # Customized code for AnswersController
   module AnswersController
     # Added Research outputs support
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def create_or_update
       p_params = permitted_params
 
@@ -14,14 +16,15 @@ module Dmpopidor
         unless p.question_exists?(p_params[:question_id])
           # rubocop:disable Layout/LineLength
           render(status: :not_found, json: {
-                   msg: format(_('There is no question with id %{question_id} associated to plan id %{plan_id} for which to create or update an answer'), question_id: p_params[:question_id], plan_id: p_params[:plan_id])
+                   msg: format(_('There is no question with id %<question_id>s associated to plan id %<plan_id>s for which to create or update an answer'), question_id: p_params[:question_id], plan_id: p_params[:plan_id])
                  })
           # rubocop:enable Layout/LineLength
           return
         end
       rescue ActiveRecord::RecordNotFound
         render(status: :not_found, json: {
-                 msg: format(_('There is no plan with id %{id} for which to create or update an answer'), id: p_params[:plan_id])
+                 msg: format(_('There is no plan with id %<id>s for which to create or update an answer'),
+                             id: p_params[:plan_id])
                })
         return
       end
@@ -160,6 +163,7 @@ module Dmpopidor
       end
       # rubocop:enable Style/GuardClause
     end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     def set_answers_as_common
@@ -187,6 +191,7 @@ module Dmpopidor
       data.require(:answer).permit(s_params)
     end
 
+    # rubocop:disable Metrics/AbcSize
     def permitted_params
       permitted = params.require(:answer)
                         .permit(:id, :text, :plan_id, :user_id, :question_id,
@@ -203,6 +208,7 @@ module Dmpopidor
       permitted[:question_option_ids] = [] if params[:answer][:question_option_ids].nil?
       permitted
     end
+    # rubocop:enable Metrics/AbcSize
   end
   # rubocop:enable Metrics/ModuleLength
 end

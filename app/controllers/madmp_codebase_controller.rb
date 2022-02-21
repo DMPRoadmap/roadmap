@@ -1,17 +1,19 @@
 # frozen_string_literal: true
 
+# Controller for the MadmpCodebase Service, that handles clicks on Runs buttons
 class MadmpCodebaseController < ApplicationController
   after_action :verify_authorized
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def run
     fragment = MadmpFragment.find(params[:fragment_id])
     schema_runs = fragment.madmp_schema.extract_run_parameters
     script_id = params[:script_id]
     params = if schema_runs.is_a?(Array)
-               schema_runs.find { |run| run['script_id'] == script_id.to_i }.dig('params') || {}
+               schema_runs.find { |run| run['script_id'] == script_id.to_i }['params'] || {}
              else
-               schema_runs.dig('params') || {}
+               schema_runs['params'] || {}
              end
 
     authorize fragment
@@ -53,8 +55,10 @@ class MadmpCodebaseController < ApplicationController
       }, status: 500
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def anr_search
     anr_project_id = params[:project_id]
     fragment = MadmpFragment.find(params[:fragment_id])
@@ -93,6 +97,7 @@ class MadmpCodebaseController < ApplicationController
       }, status: 500
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   private
 

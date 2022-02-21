@@ -18,29 +18,31 @@
 
 #  index_madmp_fragments_on_answer_id                  (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
+module Fragment
+  # Meta STI model
+  class Meta < MadmpFragment
+    def contact
+      Fragment::Contributor.where(parent_id: id).first
+    end
 
-class Fragment::Meta < MadmpFragment
-  def contact
-    Fragment::Contributor.where(parent_id: id).first
-  end
+    def license
+      Fragment::License.where(parent_id: id).first
+    end
 
-  def license
-    Fragment::License.where(parent_id: id).first
-  end
+    def related_doc
+      Fragment::ResourceReference.where(parent_id: id)
+    end
 
-  def related_doc
-    Fragment::ResourceReference.where(parent_id: id)
-  end
+    def associated_dmp
+      Fragment::ResourceReference.where(parent_id: id)
+    end
 
-  def associated_dmp
-    Fragment::ResourceReference.where(parent_id: id)
-  end
+    def properties
+      'contact, license, related_doc, associated_dmp'
+    end
 
-  def properties
-    'contact, license, related_doc, associated_dmp'
-  end
-
-  def self.sti_name
-    'meta'
+    def self.sti_name
+      'meta'
+    end
   end
 end

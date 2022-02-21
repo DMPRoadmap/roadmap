@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Dmpopidor
+  # Customized code for ExportsHelper
   module ExportsHelper
     # Changed label
     def plan_attribution(attribution)

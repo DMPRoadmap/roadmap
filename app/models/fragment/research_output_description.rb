@@ -18,21 +18,23 @@
 
 #  index_madmp_fragments_on_answer_id                  (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
+module Fragment
+  # ResearchOutputDescription STI model
+  class ResearchOutputDescription < MadmpFragment
+    def controlled_keyword
+      Fragment::ControlledKeyword.where(parent_id: id)
+    end
 
-class Fragment::ResearchOutputDescription < MadmpFragment
-  def controlled_keyword
-    Fragment::ControlledKeyword.where(parent_id: id)
-  end
+    def contact
+      Fragment::Contributor.where(parent_id: id).first
+    end
 
-  def contact
-    Fragment::Contributor.where(parent_id: id).first
-  end
+    def properties
+      'controlled_keyword, contact'
+    end
 
-  def properties
-    'controlled_keyword, contact'
-  end
-
-  def self.sti_name
-    'research_output_description'
+    def self.sti_name
+      'research_output_description'
+    end
   end
 end

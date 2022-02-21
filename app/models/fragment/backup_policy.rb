@@ -18,9 +18,11 @@
 
 #  index_madmp_fragments_on_answer_id                  (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
-
-class Fragment::BackupPolicy < MadmpFragment
-  def self.sti_name
-    'backup_policy'
+module Fragment
+  # BackupPolicy STI model
+  class BackupPolicy < MadmpFragment
+    def self.sti_name
+      'backup_policy'
+    end
   end
 end

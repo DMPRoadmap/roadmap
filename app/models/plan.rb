@@ -41,6 +41,7 @@
 #
 
 # Object that represents an DMP
+# rubocop:disable Metrics/ClassLength
 class Plan < ApplicationRecord
   include ConditionalUserMailer
   include ExportablePlan
@@ -405,6 +406,7 @@ class Plan < ApplicationRecord
   #  emails confirmation messages to owners
   #  emails org admins and org contact
   #  adds org admins to plan with the 'reviewer' Role
+  # rubocop:disable Metrics/AbcSize
   def request_feedback(user)
     Plan.transaction do
       self.feedback_requested = true
@@ -431,6 +433,7 @@ class Plan < ApplicationRecord
       false
     end
   end
+  # rubocop:enable Metrics/ClassLength
   # --------------------------------
   # End DMP OPIDoR Customization
   # --------------------------------
@@ -485,7 +488,7 @@ class Plan < ApplicationRecord
   # user_id - The Integer id for a user
   #
   # Returns Boolean
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def readable_by?(user_id)
     return true if commentable_by?(user_id)
 

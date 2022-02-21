@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Dmpopidor
+  # Customized code for PublicPagesController
   module PublicPagesController
     # GET template_index
     # -----------------------------------------------------

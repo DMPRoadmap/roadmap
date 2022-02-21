@@ -11,6 +11,7 @@
 #  registry_id :integer
 #
 
+# Object that represents a registry value
 class RegistryValue < ApplicationRecord
   include ValidationMessages
 

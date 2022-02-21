@@ -18,9 +18,11 @@
 
 #  index_madmp_fragments_on_answer_id                  (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
-
-class Fragment::MetadataStandard < MadmpFragment
-  def self.sti_name
-    'metadata_standard'
+module Fragment
+  # MetadataStandard STI model
+  class MetadataStandard < MadmpFragment
+    def self.sti_name
+      'metadata_standard'
+    end
   end
 end

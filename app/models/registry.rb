@@ -14,6 +14,7 @@
 #  org_id :integer
 #
 
+# Object that represents a registry
 class Registry < ApplicationRecord
   include ValidationMessages
 

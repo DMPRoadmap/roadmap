@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 module Dmpopidor
+  # Customized code for OrgsController
   module OrgsController
     # CHANGE: ADDED BANNER TEXT and ACTIVE
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def admin_update
       attrs = org_params
       @org = ::Org.find(params[:id])
@@ -76,6 +78,7 @@ module Dmpopidor
         redirect_to "#{admin_edit_org_path(@org)}\##{tab}", alert: failure
       end
     end
-    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   end
 end

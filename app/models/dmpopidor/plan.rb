@@ -7,7 +7,8 @@ module Dmpopidor
     include DynamicFormHelper
 
     # CHANGES : ADDED RESEARCH OUTPUT SUPPORT
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/AbcSize, Style/OptionalBooleanParameter
+    # rubocop:disable Metrics/CyclomaticComplexity
     def answer(qid, create_if_missing = true, roid = nil)
       answer = answers.select { |a| a.question_id == qid && a.research_output_id == roid }
                       .max { |a, b| a.created_at <=> b.created_at }
@@ -25,7 +26,8 @@ module Dmpopidor
       end
       answer
     end
-    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/AbcSize, Style/OptionalBooleanParameter
 
     # CHANGES : Reviewer can be from a different org of the plan owner
     def reviewable_by?(user_id)
@@ -124,7 +126,7 @@ module Dmpopidor
 
         meta = Fragment::Meta.create!(
           data: {
-            'title' => format(_('"%{project_title}" project DMP'), project_title: title),
+            'title' => format(_('"%<project_title>s" project DMP'), project_title: title),
             'creationDate' => created_at.strftime('%F'),
             'lastModifiedDate' => updated_at.strftime('%F'),
             'dmpLanguage' => template_locale,
@@ -145,6 +147,7 @@ module Dmpopidor
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+    # rubocop:disable Metrics/AbcSize
     def copy_plan_fragments(plan)
       create_plan_fragments if json_fragment.nil?
 
@@ -158,6 +161,7 @@ module Dmpopidor
       json_fragment.project.raw_import(raw_project, json_fragment.project.madmp_schema)
       json_fragment.meta.raw_import(raw_meta, json_fragment.meta.madmp_schema)
     end
+    # rubocop:enable Metrics/AbcSize
   end
   # rubocop:enable Metrics/ModuleLength
 end

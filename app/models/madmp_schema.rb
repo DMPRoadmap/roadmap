@@ -19,6 +19,7 @@
 #  index_madmp_schemas_on_org_id  (org_id)
 #
 
+# Object that represents a madmp_schema
 class MadmpSchema < ApplicationRecord
   include ValidationMessages
 
@@ -91,7 +92,7 @@ class MadmpSchema < ApplicationRecord
   def sub_schemas
     path = JsonPath.new('$..schema_id')
     ids = path.on(schema)
-    MadmpSchema.where(id: ids).map { |s| [s.id, s] }.to_h
+    MadmpSchema.where(id: ids).to_h { |s| [s.id, s] }
   end
 
   def sub_schemas_ids
@@ -100,6 +101,7 @@ class MadmpSchema < ApplicationRecord
   end
 
   # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def generate_strong_params(flat: false)
     parameters = []
     properties.each do |key, prop|
@@ -122,6 +124,7 @@ class MadmpSchema < ApplicationRecord
     end
     parameters
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize
 
   # Used by "Write Plan" tab for determining the property_name of a new fragment

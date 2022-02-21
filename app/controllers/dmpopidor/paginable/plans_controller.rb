@@ -2,6 +2,7 @@
 
 module Dmpopidor
   module Paginable
+    # Customized code for Paginable PlansController
     module PlansController
       # CHANGES: New Visibility
       # /paginable/plans/administrator_visible/:page

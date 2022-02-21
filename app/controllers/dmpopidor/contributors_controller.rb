@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Dmpopidor
+  # Customized code for ContributorsController
   module ContributorsController
     # GET /plans/:plan_id/contributors
     # CHANGES: Contributors Tab uses maDMP Fragments
