@@ -148,6 +148,11 @@ $(() => {
 
   $('#plan_title').trigger('focus');
 
+  // Display the spinner on form submission since it can take a while to process
+  $('#new_plan').on('submit', () => {
+    toggleSpinner(true);
+  });
+
   // Initialize the form
   $('#new_plan #available-templates').hide();
   toggleSubmit();

@@ -13,14 +13,18 @@
           "aria-required": true %>
     </div>
 
-    <div class="form-group col-xs-2">
-      <%= f.label :level, _('Level'), class: 'control-label' %>
-      <%= f.select :level,
+    <%# DEFAULT THE LEVEL TO 'warning' AND DISABLE THE DISMISSABLE OPTION %>
+    <%= f.hidden_field :level, value: 'warning' %>
+    <%= f.hidden_field :dismissable, value: '0' %>
+
+    <!-- <div class="form-group col-xs-2"> -->
+      <%#= f.label :level, _('Level'), class: 'control-label' %>
+      <%#= f.select :level,
           Notification.levels.keys.map { |l| [l.humanize, l] },
           { value: @notification.level },
           { class: 'form-control',
             data: { toggle: 'tooltip', html: true }, title: _('<strong>Info:</strong> Simple information message, displayed in blue.<br/><strong>Warning:</strong> warning message, for signaling something unusual, displayed in orange.<br/><strong>Danger:</strong> error message, for anything critical, displayed in red') } %>
-    </div>
+    <!-- </div> -->
 
     <div class="form-group col-xs-2">
       <%= f.check_box :enabled, style: 'width: auto' %>
