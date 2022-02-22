@@ -214,14 +214,13 @@ $(() => {
   // Clicking on the 'Next' button activates the next tabs
   $('#next-btn').on('click', (e) => {
     e.preventDefault();
-    const nextTabId = $('.form-tabs li.active').next().children().attr('href');
-    if (nextTabId) $(`.nav-tabs span[data-target="${nextTabId}"]`).tab('show');
+    $('.form-tabs li.active').next().children().tab('show');
   });
 
   // Watch for tab change for dynamic buttons ('Next' and 'Default Template')
   $('span[data-toggle="tab"]').on('shown.bs.tab', () => {
-    const activeTab = $('.form-tabs li.active a').attr('href');
-    const lastTab = $('.form-tabs li a').last().attr('href');
+    const activeTab = $('.form-tabs li.active span').data('target');
+    const lastTab = $('.form-tabs li span').last().data('target');
     if (activeTab === lastTab) {
       $('#next-btn').hide();
     } else {
