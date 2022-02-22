@@ -5,7 +5,7 @@ module Dmpopidor
     # Security rules for plan tables
     module PlanPolicy
       def administrator_visible?
-        @user.is_a?(User)
+        @record.is_a?(User)
       end
     end
   end

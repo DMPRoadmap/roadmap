@@ -4,11 +4,23 @@ module Dmpopidor
   # Security rules for plan tables
   module PlanPolicy
     def research_outputs?
-      @plan.readable_by?(@user.id)
+      @record.readable_by?(@user.id)
     end
 
     def budget?
-      @plan.readable_by?(@user.id)
+      @record.readable_by?(@user.id)
+    end
+
+    def create_remote?
+      @record.editable_by?(@user.id)
+    end
+
+    def sort?
+      @record.editable_by?(@user.id)
+    end
+
+    def load_values?
+      @record.readable_by?(@user.id)
     end
   end
 end

@@ -25,7 +25,11 @@
         <tbody>
         <% costs.each do |cost| %>
           <% ro = ResearchOutput.find(cost.research_output_id)%>
-          <% cost_label = form_label(cost.parent.madmp_schema.properties["cost"], plan.template.locale, false) %>
+          <% cost_label = form_label(
+                            cost.parent.madmp_schema.properties["cost"],
+                            LocaleService.to_gettext(locale: plan.template.locale),
+                            false
+                          ) %>
           <% cost_title = cost.data["costType"] || "" %>
           <% cost_title +=  " (#{cost.data["title"]})" if cost.data["title"].present?%>
           <tr>
