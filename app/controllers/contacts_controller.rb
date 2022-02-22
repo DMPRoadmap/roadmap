@@ -9,8 +9,8 @@ module ContactUs
       @contact = ContactUs::Contact.new(params[:contact_us_contact])
 
       if !user_signed_in? && Rails.configuration.x.recaptcha.enabled &&
-         !(verify_recaptcha(model: @contact) && @contact.save)
-        flash[:alert] = _('Captcha verification failed, please retry.')
+         !(verify_recaptcha(action: 'contact') && @contact.save)
+        flash[:alert] = _('Invalid security check, please try again.')
         render_new_page and return
       end
       if @contact.save

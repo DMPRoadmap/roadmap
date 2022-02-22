@@ -36,7 +36,7 @@ module Users
           set_minimum_password_length
           respond_with resource
         end
-      else
+      elsif !Rails.configuration.x.recaptcha.enabled || verify_recaptcha(action: 'register')
         # Devise doesn't set a flash message for some reason if its going to fail
         # so do it here
         super do |user|
@@ -46,7 +46,9 @@ module Users
           hash = session.fetch('devise.shibboleth_data', {})
           user.attach_omniauth_credentials(scheme_name: 'shibboleth', omniauth_hash: hash) if hash.present?
         end
-      end
+      else
+        flash[:alert] = _('Invalid security check, please try again.')
+       end
     end
     # rubocop:enable Metrics/AbcSize
 
