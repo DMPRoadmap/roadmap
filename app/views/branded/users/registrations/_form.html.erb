@@ -73,7 +73,7 @@
   <% if Rails.configuration.x.recaptcha.enabled %>
     <div id="sign-up-recaptcha" class="c-textfield js-textfield">
       <%= label_tag(nil, _('Security check')) %>
-      <%= recaptcha_tags %>
+      <%= recaptcha_v3 %>
     </div>
   <% end %>
 
