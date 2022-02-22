@@ -192,7 +192,7 @@ module DMPRoadmap
     # will be marked as complete. Plan completion has implications on whether or
     # not plan visibility settings are editable by the user and whether or not the
     # plan can be submitted for feedback
-    config.x.plans.default_percentage_answered = 50
+    config.x.plans.default_percentage_answered = 0
 
     # Whether or not Super adminis can read all of the user's plans regardless of
     # the plans visibility and whether or not the plan has been shared

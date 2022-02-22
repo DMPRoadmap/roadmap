@@ -4,10 +4,10 @@ module Dmpopidor
   # Customized code for Phase model
   module Phase
     # CHANGES : ADDED RESEARCH OUTPUT SUPPORT
+    # rubocop:disable Lint/UnusedMethodArgument
     def visibility_allowed?(plan)
-      num_answered = num_answered_questions(plan) / plan.num_research_outputs
-      value = Rational(num_answered, plan.num_questions) * 100
-      value >= Rails.configuration.x.plans.default_percentage_answered.to_f
+      true
     end
+    # rubocop:enable Lint/UnusedMethodArgument
   end
 end
