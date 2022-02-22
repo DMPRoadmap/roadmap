@@ -83,14 +83,15 @@
             <i class="fas fa-edit edit" aria-hidden="true" data-toggle="tooltip" 
                     data-original-title="<%= _('Edit research output') %>"></i>
           <% if plan.research_outputs.length > 1 && index != 0 %>
-            <i class="fas fa-arrows handle" aria-hidden="true" data-toggle="tooltip" 
+            <i class="fas fa-arrows-alt handle" aria-hidden="true" data-toggle="tooltip" 
                     data-original-title="<%= _('Move research output') %>"></i>
                     
             <%= link_to plan_research_output_url(plan, research_output), 
                         target: "_self",
+                        class: "fas fa-times delete",
                         data: {:confirm => _('Deleting this research output will remove the associated answers. Do you confirm ?')}, 
                         :method => :delete  do %>
-              <i class="fas fa-close delete" aria-hidden="true" data-toggle="tooltip" 
+              <i aria-hidden="true" data-toggle="tooltip" 
                     data-original-title="<%= _('Delete research output') %>" %></i>
             <% end %>
           <% end %>
