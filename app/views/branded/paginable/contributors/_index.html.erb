@@ -1,5 +1,5 @@
 <%# locals: @plan, scope %>
-<% template_locale = @plan.template.locale %>
+<% template_locale = LocaleService.to_gettext(locale: @plan.template.locale) %>
 <% scope.each do |contributor| %>
   <tr>
     <td><%= contributor.to_s %></td>

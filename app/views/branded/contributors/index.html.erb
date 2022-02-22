@@ -44,7 +44,7 @@
                   nil, 
                   :parent_id => @plan.json_fragment.id, 
                   :schema_id => MadmpSchema.find_by(name: "PersonStandard").id, 
-                  :template_locale => @plan.template.locale,
+                  :template_locale => LocaleService.to_gettext(locale: @plan.template.locale),
                   :source => "list-modal",
                   :property_name => nil,
                   :query_id => "contributor"
