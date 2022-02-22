@@ -23,7 +23,7 @@
 class MadmpSchema < ApplicationRecord
   include ValidationMessages
 
-  belongs_to :org
+  belongs_to :org, required: false
   has_many :madmp_fragments
   has_many :questions
 
