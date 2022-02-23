@@ -49,7 +49,8 @@ RSpec.describe OrgSelectable do
       include OrgSelectable
 
       # The OrgSelectable concern tries to access Devise's current_user method, so stub it here
-      self.current_user = create(:user)
+      self.current_user = ::User.create(email: 'foo@bar.edu', firstname: 'Foo', surname: 'Bar',
+                                        password: SecureRandom.uuid, org_id: Org.all.last.id)
     end
     # rubocop:enable Lint/ConstantDefinitionInBlock
 

@@ -42,11 +42,13 @@ class RegistryOrg < ApplicationRecord
   # ==========
 
   scope :by_acronym, lambda { |term|
-    where('LOWER(registry_orgs.acronyms) LIKE LOWER(?)', "%\"#{term}\"%")
+    where(safe_json_lower_where_clause(table: 'registry_orgs', attribute: 'acronyms'),
+          "%\"#{term}\"%")
   }
 
   scope :by_alias, lambda { |term|
-    where('LOWER(registry_orgs.aliases) LIKE LOWER(?)', "%#{term}%")
+    where(safe_json_lower_where_clause(table: 'registry_orgs', attribute: 'aliases'),
+          "%\"#{term}\"%")
   }
 
   scope :by_name, lambda { |term|
@@ -54,7 +56,8 @@ class RegistryOrg < ApplicationRecord
   }
 
   scope :by_type, lambda { |term|
-    where('LOWER(registry_orgs.types) LIKE LOWER(?)', "%#{term}%")
+    where(safe_json_lower_where_clause(table: 'registry_orgs', attribute: 'types'),
+          "%\"#{term}\"%")
   }
 
   scope :by_domain, lambda { |term|
