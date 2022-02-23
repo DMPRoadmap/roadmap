@@ -25,7 +25,7 @@ RSpec.describe ExternalApiAccessToken, type: :model do
     describe '#for_user_and_service(user:, service:)' do
       before(:each) do
         @user = create(:user)
-        @svc = Faker::Lorem.unique.word.upcase
+        @svc = 'FOOBAR'
         @expired_token = create(:external_api_access_token, user: @user, external_service_name: @svc.downcase,
                                                             expires_at: Time.now - 1.days)
         @revoked_token = create(:external_api_access_token, user: @user, external_service_name: @svc.downcase,

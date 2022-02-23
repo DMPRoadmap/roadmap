@@ -35,7 +35,7 @@ describe 'layouts/_notifications.html.erb' do
     end
 
     it 'renders correctly when there is an active Notification' do
-      create(:notification, dismissable: false, enabled: true)
+      create(:notification, :dismissable, :active)
       render
       expect(rendered.include?('class="c-notificationgroup"')).to eql(true)
       expect(rendered.include?('class="c-notification--info"')).to eql(false)
