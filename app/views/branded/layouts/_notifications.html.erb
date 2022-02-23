@@ -4,7 +4,6 @@
 <% globals = Notification.active_per_user(current_user) %>
 
 <div id="notification-area" class="c-notificationgroup">
-
   <%
   global_infos = globals.select { |item| item.info? }
   global_warnings = globals.select { |item| item.warning? }
@@ -26,7 +25,6 @@
     <% end %>
   </div>
 
-  <!-- Warning message -->
   <div id="js-notification-warning" class="c-notification--warning<%= has_warning ? '' : ' hide' %>"
         role="alert">
     <% if has_warning %>
