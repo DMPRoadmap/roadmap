@@ -28,13 +28,13 @@ describe Repository do
 
   context 'scopes' do
     before(:each) do
-      @types = [Faker::Music::PearlJam.unique.song, Faker::Music::PearlJam.unique.song]
-      @subjects = [Faker::Music::PearlJam.unique.musician, Faker::Music::PearlJam.unique.musician]
-      @keywords = [Faker::Mountain.unique.name.split.last, Faker::Mountain.unique.name.split.last]
+      @types = ['institutional', 'general']
+      @subjects = ['chemistry', 'literature']
+      @keywords = ['aomeba', 'virus']
 
-      @never_found = create(:repository, name: 'foo', info: { types: [@types.last],
-                                                              subjects: [@subjects.last],
-                                                              keywords: [@keywords.last] })
+      @never_found = create(:repository, name: 'foobar', info: { types: [@types.last],
+                                                                 subjects: [@subjects.last],
+                                                                 keywords: [@keywords.last] })
 
       @by_type = create(:repository, info: { types: [@types.first],
                                              subjects: [@subjects.last],
