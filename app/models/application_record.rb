@@ -27,7 +27,7 @@ class ApplicationRecord < ActiveRecord::Base
 
     def safe_json_lower_where_clause(table:, attribute:)
       return '' unless table.present? && attribute.present?
-      return "LOWER(#{table}::#{attribute})::json LIKE LOWER(?)" unless mysql_db?
+      return "LOWER(#{attribute}::text)::json LIKE LOWER(?)" unless mysql_db?
 
       "LOWER(#{table}.#{attribute}) LIKE LOWER(?)"
     end
