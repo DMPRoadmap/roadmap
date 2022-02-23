@@ -30,7 +30,8 @@ RSpec.describe ExternalApiAccessToken, type: :model do
                                                             expires_at: Time.now - 1.days)
         @revoked_token = create(:external_api_access_token, user: @user, external_service_name: @svc.downcase,
                                                             revoked_at: Time.now - 1.days)
-        @active_token = create(:external_api_access_token, user: @user, external_service_name: @svc.downcase)
+        @active_token = create(:external_api_access_token, user: @user, external_service_name: @svc.downcase,
+                                                           revoked_at: nil, expires_at: nil)
       end
       it 'returns nil if the user has no active token' do
         expect(described_class.for_user_and_service(user: create(:user), service: @svc)).to eql(nil)
