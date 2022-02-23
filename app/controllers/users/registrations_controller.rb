@@ -18,7 +18,7 @@ module Users
       self.resource = user_from_omniauth
     end
 
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     # POST /users
     def create
       if resource.active_invitation? && !resource.new_record?
@@ -48,9 +48,9 @@ module Users
         end
       else
         flash[:alert] = _('Invalid security check, please try again.')
-       end
+      end
     end
-    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     # PUT /resource
     # We need to use a copy of the resource because we don't want to change
