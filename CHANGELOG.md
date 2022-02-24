@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.0.4+portage-3.0.3] - 2020-02-24
+
+  ### Changed
+   - Updated Alliance information
+   - Updated branding
+   - Updated translation files
+  
+  ### Fixed
+   - Docker workflow to build image on release
+
 ## [3.0.4+portage-3.0.2] - 2020-02-10
 
   ### Changed
