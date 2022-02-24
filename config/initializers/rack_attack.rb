@@ -39,7 +39,7 @@ Rack::Attack.safelist_ip('::1')
 # Throttle all requests by IP (60rpm)
 #
 # Key: "rack::attack:#{Time.now.to_i/:period}:req/ip:#{req.ip}"
-throttle('req/ip', limit: 100, period: 1.minute) do |req|
+Rack::Attack.throttle('req/ip', limit: 100, period: 1.minute) do |req|
   req.ip unless req.path.start_with?('/assets')
 end
 
@@ -55,7 +55,7 @@ end
 # Throttle POST requests to /login by IP address
 #
 # Key: "rack::attack:#{Time.now.to_i/:period}:logins/ip:#{req.ip}"
-throttle('logins/ip', limit: 5, period: 20.seconds) do |req|
+Rack::Attack.throttle('logins/ip', limit: 5, period: 20.seconds) do |req|
   secure_paths = %w[/oauth/authorize /oauth/token /users/sign_in /users/auth/shibboleth
                     /users/auth/orcid /users/password /users]
   if secure_paths.include?(req.path) && req.post?
