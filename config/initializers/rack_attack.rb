@@ -96,6 +96,6 @@ end
 # Log the blocked requests
 ActiveSupport::Notifications.subscribe(/rack_attack/) do |name, _start, _finish, _request_id, payload|
   req = payload[:request]
-  Rails.logger.warn "[Rack::Attack][Blocked] name: #{name}, rule: #{req.env['rack.attack.matched']} remote_ip: #{req.ip}, " \
+  Rails.logger.info "[Rack::Attack][Blocked] name: #{name}, rule: #{req.env['rack.attack.matched']} remote_ip: #{req.ip}, " \
                     "path: #{req.path}, agent: #{req.user_agent}"
 end
