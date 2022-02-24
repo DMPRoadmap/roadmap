@@ -3,9 +3,9 @@ defaults: &defaults
 
   # Warning: The abbreviation here should match the org.abbreviation value registered in your database!
   organisation: &organization_defaults
-    name: 'Portage Network'
+    name: 'Digital Research Alliance of Canada'
     abbreviation: 'Portage'  # This value is used to identify the default guidance that get auto-selected when a new plan is created
-    url: 'https://github.com/DMPRoadmap/roadmap/wiki'
+    url: 'https://alliancecan.ca'
     copywrite_name: 'Portage Network'
     email: 'support@portagenetwork.ca'
     helpdesk_email: 'support@portagenetwork.ca'
