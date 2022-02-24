@@ -5,15 +5,15 @@ Rack::Attack.safelist_ip('127.0.0.1')
 Rack::Attack.safelist_ip('::1')
 
 # Set a long block period for any client that is explicitly looking for security holes
-# Rack::Attack.blocklist('malicious_clients') do |req|
-#   Rack::Attack::Fail2Ban.filter("fail2ban_malicious_#{req.ip}", maxretry: 1, findtime: 1.day, bantime: 1.day) do
-#     CGI.unescape(req.query_string) =~ %r{/etc/passwd} ||
-#       req.path.include?('/etc/passwd') ||
-#       req.path.include?('wp-admin') ||
-#       req.path.include?('wp-login') ||
-#       /\S+\.php/.match?(req.path)
-#   end
-# end
+Rack::Attack.blocklist('malicious_clients') do |req|
+  Rack::Attack::Fail2Ban.filter("fail2ban_malicious_#{req.ip}", maxretry: 1, findtime: 1.day, bantime: 1.day) do
+    CGI.unescape(req.query_string) =~ %r{/etc/passwd} ||
+      req.path.include?('/etc/passwd') ||
+      req.path.include?('wp-admin') ||
+      req.path.include?('wp-login') ||
+      /\S+\.php/.match?(req.path)
+  end
+end
 
 ### Configure Cache ###
 
