@@ -23,11 +23,14 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       
-      - name: Extract metadata (tags, labels) for Docker
+      - name: Extract metadata (tags) for Docker
         id: meta
-        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        uses: docker/metadata-action@v3
         with:
           images: ualbertalib/dmp_roadmap
+          tags: |
+            type=match,pattern=.+portage-(\d\.\d\.\d),group=1
+            type=raw,value=latest,enable=${{ endsWith(github.ref, github.event.repository.default_branch) }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
@@ -35,7 +38,4 @@ jobs:
           context: .
           file: Dockerfile.production
           push: true
-          tags: |
-            type=match,pattern=.+portage-(\d\.\d\.\d),group=1
-            type=raw,value=latest,enable=${{ endsWith(github.ref, github.event.repository.default_branch) }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ steps.meta.outputs.tags }}
