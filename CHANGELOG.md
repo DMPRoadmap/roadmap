@@ -2,11 +2,18 @@
 
 ## [3.0.4+portage-3.0.4] - 2022-02-25
   - Update translation for some wording
+  
+## [3.0.4+portage-3.0.3] - 2020-02-24
 
-## [3.0.4+portage-3.0.3] - 2022-02-24
-  - Minor workflow improvements
+  ### Changed
+   - Updated Alliance information
+   - Updated branding
+   - Updated translation files
+  
+  ### Fixed
+   - Docker workflow to build image on release
 
-## [3.0.4+portage-3.0.2] - 2022-02-10
+## [3.0.4+portage-3.0.2] - 2020-02-10
 
   ### Changed
    - Update footer for the new Alliance branding 
