@@ -29,9 +29,11 @@ module Users
         # If this is a user with an invitation, then clean up the stub data
         active_invite = resource.active_invitation?
 
-        resource.firstname = nil if active_invite
-        resource.surname = nil if active_invite
-        resource.org = nil if active_invite
+        if active_invite
+          resource.firstname = nil
+          resource.surname = nil
+          resource.org = org_from_email_domain(email_domain: resource.email&.split('@')&.last)
+        end
 
         is_new_user = resource.new_record? || active_invite
 
