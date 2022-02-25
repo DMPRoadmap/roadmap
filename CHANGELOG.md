@@ -1,14 +1,19 @@
 # Changelog
 
-## [3.0.4+portage-3.0.2] - 2020-02-10
+## [3.0.4+portage-3.0.4] - 2022-02-25
+  - Update translation for some wording
+
+## [3.0.4+portage-3.0.3] - 2022-02-24
+  - Minor workflow improvements
+
+## [3.0.4+portage-3.0.2] - 2022-02-10
 
   ### Changed
-   - Update footer for the new Alliance branding
-   - Update translations for some wording 
+   - Update footer for the new Alliance branding 
   ### Added
   - Danger workflow to automate code review tasks
 
-## [3.0.4+portage-3.0.1] - 2020-01-17
+## [3.0.4+portage-3.0.1] - 2022-01-17
 
 ### Changed
   - Update mysql installation process for the Github action
