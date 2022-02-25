@@ -333,6 +333,8 @@ GEM
       rspec-rails (>= 3.0.0)
     racc (1.6.0)
     rack (2.2.3)
+    rack-attack (6.6.0)
+      rack (>= 1.0, < 3)
     rack-mini-profiler (2.3.3)
       rack (>= 1.2.0)
     rack-protection (2.1.0)
@@ -576,6 +578,7 @@ DEPENDENCIES
   puma
   pundit
   pundit-matchers
+  rack-attack
   rack-mini-profiler
   rails (~> 5.2)
   rails-controller-testing
@@ -614,4 +617,4 @@ RUBY VERSION
    ruby 2.6.3p62
 
 BUNDLED WITH
-   2.2.33
+   2.3.7
