@@ -3,7 +3,8 @@
 ## [3.0.4+portage-3.0.2] - 2020-02-10
 
   ### Changed
-   - Update footer for the new Alliance branding 
+   - Update footer for the new Alliance branding
+   - Update translations for some wording 
   ### Added
   - Danger workflow to automate code review tasks
 
