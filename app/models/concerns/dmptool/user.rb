@@ -68,7 +68,7 @@ module Dmptool
 
       # Load the user based on the scheme and id provided by the Omniauth call
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-      # rubocop:disable Metrics/CyclomaticComplexity
+      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def from_omniauth(scheme_name:, omniauth_hash:)
         return nil unless scheme_name.present? && omniauth_hash.present? &&
                           omniauth_hash['uid'].present?
@@ -105,7 +105,7 @@ module Dmptool
         user
       end
       # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-      # rubocop:enable Metrics/CyclomaticComplexity
+      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       # Extract the 1st email
       def extract_omniauth_email(hash:)

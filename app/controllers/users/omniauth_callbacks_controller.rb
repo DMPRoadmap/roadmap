@@ -42,13 +42,8 @@ module Users
                                                        omniauth_hash.present? &&
                                                        scheme_name.present?
 
-Rails.logger.warn 'OMNIAUTH *****************'
-Rails.logger.warn omniauth_hash.inspect
-Rails.logger.warn "UID: #{omniauth_hash[:uid]} :: #{omniauth_hash['uid']}"
-Rails.logger.warn user.inspect
-
       # If the user is inside an Oauth2 API authorization workflow, then redirect back to caller
-      if current_user.present? && omniauth_hash[:uid].present?
+      if current_user.present? && omniauth_hash['uid'].present?
         # If the user is already signed in add the OmniAuth provided UID
         handle_third_party_app_registration(
           user: current_user, scheme_name: scheme_name, omniauth_hash: omniauth_hash
@@ -150,8 +145,6 @@ Rails.logger.warn user.inspect
     # Extract the omniauth info from the request
     def omniauth_from_request
       return {} unless request.env.present?
-
-Rails.logger.warn request.env.inspect
 
       omniauth_hash = request.env['omniauth.auth']
       omniauth_hash.present? ? omniauth_hash.to_h : {}
