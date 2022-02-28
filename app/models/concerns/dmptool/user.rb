@@ -80,12 +80,6 @@ module Dmptool
         return user if user.present?
 
         omniauth_info = omniauth_hash.fetch('info', {}).to_h
-
-Rails.logger.warn 'OMNIAUTH CHECK *******************'
-Rails.logger.warn omniauth_hash.inspect
-Rails.logger.warn 'INFO:'
-Rails.logger.warn omniauth_info.inspect
-
         names = extract_omniauth_names(hash: omniauth_info)
         org = extract_omniauth_org(scheme_name: scheme_name, hash: omniauth_info)
 
@@ -111,7 +105,9 @@ Rails.logger.warn omniauth_info.inspect
       def extract_omniauth_email(hash:)
         return nil unless hash.present?
 
-        emails = hash.fetch('email', '').split(';')
+        emails = hash.fetch('email', '')
+        emails = '' if emails.nil?
+        emails = emails.split(';')
         emails.any? ? emails.first.downcase : nil
       end
 
