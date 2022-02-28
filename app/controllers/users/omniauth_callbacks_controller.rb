@@ -15,7 +15,8 @@ module Users
     def shibboleth
       omniauth = omniauth_from_request
       scheme_name = 'shibboleth'
-      user = User.from_omniauth(scheme_name: scheme_name, omniauth_hash: omniauth)
+      user = current_user if user_signed_in?
+      user = User.from_omniauth(scheme_name: scheme_name, omniauth_hash: omniauth) unless user.present?
       process_omniauth_response(scheme_name: scheme_name, user: user, omniauth_hash: omniauth)
     end
 
@@ -23,7 +24,8 @@ module Users
     def orcid
       omniauth = omniauth_from_request
       scheme_name = 'orcid'
-      user = User.from_omniauth(scheme_name: scheme_name, omniauth_hash: omniauth)
+      user = current_user if user_signed_in?
+      user = User.from_omniauth(scheme_name: scheme_name, omniauth_hash: omniauth) unless user.present?
       process_omniauth_response(scheme_name: scheme_name, user: user, omniauth_hash: omniauth)
     end
 
