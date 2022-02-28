@@ -37,7 +37,7 @@ module Users
                                                        scheme_name.present?
 
       # If the user is inside an Oauth2 API authorization workflow, then redirect back to caller
-      if current_user.present? && omniauth_hash[:uid].present?
+      if current_user.present? && (omniauth_hash[:uid].present? || scheme_name == 'orcid')
         # If the user is already signed in add the OmniAuth provided UID
         handle_third_party_app_registration(
           user: current_user, scheme_name: scheme_name, omniauth_hash: omniauth_hash
