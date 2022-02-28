@@ -10,6 +10,7 @@
       &nbsp;
       <%= _("Create or connect your ORCID iD") %>
     <% end %>
+    <br>
   <% elsif scheme.name.downcase == 'shibboleth' %>
     <p><%= _("Connect your account so that you can log into %{app_name} via your institution ") % { app_name: ApplicationService.application_name } %></p>
 

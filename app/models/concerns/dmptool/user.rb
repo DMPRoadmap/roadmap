@@ -82,9 +82,15 @@ module Dmptool
         omniauth_info = omniauth_hash.fetch('info', {}).to_h
         names = extract_omniauth_names(hash: omniauth_info)
         org = extract_omniauth_org(scheme_name: scheme_name, hash: omniauth_info)
+        email = extract_omniauth_email(hash: omniauth_info)
 
+        # Try to find an existing User with the email specified
+        user = User.where('LOWER(email) = ?', email.downcase).first if email.present?
+        return user if user.present?
+
+        # We have not seen this user before, so initialize a new one
         user = new(
-          email: extract_omniauth_email(hash: omniauth_info),
+          email: email,
           firstname: names.fetch(:firstname, ''),
           surname: names.fetch(:surname, ''),
           password: SecureRandom.uuid,

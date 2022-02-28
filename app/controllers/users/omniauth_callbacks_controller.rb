@@ -75,6 +75,12 @@ Rails.logger.warn user.inspect
         scheme_name: scheme_name, omniauth_hash: omniauth_hash
       )
 
+      # Get the Oauth access token if available
+      token = ExternalApiAccessToken.from_omniauth(
+        user: user, service: scheme_name, hash: omniauth_hash
+      )
+      user.external_api_access_tokens = [token] if token.present?
+
       if id.present?
         msg = _('Your account has been successfully linked to %<scheme>s.')
         redirect_to users_third_party_apps_path,
