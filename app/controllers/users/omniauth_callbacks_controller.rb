@@ -36,6 +36,10 @@ module Users
                                                        omniauth_hash.present? &&
                                                        scheme_name.present?
 
+Rails.logger.warn 'OMNIAUTH *****************'
+Rails.logger.warn omniauth_hash.inspect
+Rails.logger.warn user.inspect
+
       # If the user is inside an Oauth2 API authorization workflow, then redirect back to caller
       if current_user.present? && (omniauth_hash[:uid].present? || scheme_name == 'orcid')
         # If the user is already signed in add the OmniAuth provided UID
@@ -69,11 +73,15 @@ module Users
         scheme_name: scheme_name, omniauth_hash: omniauth_hash
       )
 
-      msg = _('Unable to link your account to %<scheme>s')
-      msg = _('Your account has been successfully linked to %<scheme>s.') if id.present?
-
-      redirect_to users_third_party_apps_path,
-                  alert: format(msg, scheme: provider(scheme_name: scheme_name))
+      if id.present?
+        msg = _('Your account has been successfully linked to %<scheme>s.')
+        redirect_to users_third_party_apps_path,
+                    notice: format(msg, scheme: provider(scheme_name: scheme_name))
+      else
+        msg = _('Unable to link your account to %<scheme>s')
+        redirect_to users_third_party_apps_path,
+                    alert: format(msg, scheme: provider(scheme_name: scheme_name))
+      end
     end
 
     # New user sign in via Omniauth
