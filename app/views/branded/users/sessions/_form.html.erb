@@ -9,7 +9,7 @@
 
 <%= form.hidden_field :org_id, value: resource.org_id %>
 
-<% if shibbolized %>
+<% if shibbolized && !Rails.env.development? %>
   <%# If the Org is shibbolized and the user has an EPPN %>
   <%= render partial: "users/shared/sso", locals: { form: form } %>
 

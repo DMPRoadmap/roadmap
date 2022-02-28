@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 2022_01_19_214358) do
     t.boolean "trusted", default: false
     t.integer "callback_method"
     t.string "callback_uri"
-    t.index ["name"], name: "index_api_clients_on_name"
+    t.index ["name"], name: "index_oauth_applications_on_name"
   end
 
   create_table "api_logs", force: :cascade do |t|
@@ -75,9 +75,9 @@ ActiveRecord::Schema.define(version: 2022_01_19_214358) do
     t.string "logable_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["api_client_id"], name: "index_api_logs_on_api_client_id"
     t.index ["change_type"], name: "index_api_logs_on_change_type"
     t.index ["logable_id", "logable_type", "change_type"], name: "index_api_logs_on_logable_and_change_type"
-    t.index ["api_client_id"], name: "index_api_logs_on_api_client_id"
   end
 
   create_table "conditions", id: :integer, force: :cascade do |t|
@@ -307,6 +307,7 @@ ActiveRecord::Schema.define(version: 2022_01_19_214358) do
     t.string "logo_name"
     t.string "callback_uri"
     t.integer "callback_method"
+    t.integer "org_id"
     t.index ["name"], name: "index_oauth_applications_on_name"
     t.index ["user_id"], name: "index_oauth_applications_on_owner_id"
     t.index ["user_id"], name: "index_oauth_applications_on_owner_id_and_owner_type"
