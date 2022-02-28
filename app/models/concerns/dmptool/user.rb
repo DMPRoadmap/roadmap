@@ -79,10 +79,13 @@ module Dmptool
                          .first&.identifiable
         return user if user.present?
 
+        omniauth_info = omniauth_hash.fetch('info', {}).to_h
+
 Rails.logger.warn 'OMNIAUTH CHECK *******************'
+Rails.logger.warn omniauth_hash.inspect
+Rails.logger.warn 'INFO:'
 Rails.logger.warn omniauth_info.inspect
 
-        omniauth_info = omniauth_hash.fetch('info', {}).to_h
         names = extract_omniauth_names(hash: omniauth_info)
         org = extract_omniauth_org(scheme_name: scheme_name, hash: omniauth_info)
 
