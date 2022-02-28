@@ -85,7 +85,7 @@ module Dmptool
         email = extract_omniauth_email(hash: omniauth_info)
 
         # Try to find an existing User with the email specified
-        user = User.where('LOWER(email) = ?', email.downcase).first if email.present?
+        user = where('LOWER(email) = ?', email.downcase).first if email.present?
         return user if user.present?
 
         # We have not seen this user before, so initialize a new one
