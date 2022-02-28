@@ -17,7 +17,7 @@
     <i class="fas fa-user" title="<%= _('Institutional credentials') %>" aria-hidden="true"></i>
     &nbsp;
     <%= link_to _('Link your institutional credentials'),
-                Rails.application.routes.url_helpers.send("user_shibboleth_omniauth_authorize_path"),
+                users_shibboleth_path(user: { org_id: current_user.org_id }),
                 title: _("Link your institutional credentials to access your account with them."),
                 'data-toggle': "tooltip", method: :post %>
   <% end %>
@@ -44,6 +44,7 @@
       &nbsp;
       <%= id.value %>
     <% end %>
+    <br>
 
   <% elsif scheme.name.downcase == 'shibboleth' %>
     <% unlinkconf = _("Are you sure you want to unlink your institutional credentials?") %>

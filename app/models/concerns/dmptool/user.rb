@@ -84,8 +84,6 @@ module Dmptool
         org = extract_omniauth_org(scheme_name: scheme_name, hash: omniauth_info)
         email = extract_omniauth_email(hash: omniauth_info)
 
-Rails.logger.warn "EMAIL: #{email.downcase}"
-
         # Try to find an existing User with the email specified
         user = where('LOWER(email) = ?', email.downcase).first if email.present?
         return user if user.present?

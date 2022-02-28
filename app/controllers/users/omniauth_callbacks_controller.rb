@@ -31,6 +31,10 @@ module Users
 
     private
 
+    def shibboleth_passthru_params
+      params.require(:user).permit(:org_id)
+    end
+
     # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def process_omniauth_response(scheme_name:, user:, omniauth_hash:)
       msg = _('Unable to process your request')
@@ -145,6 +149,8 @@ Rails.logger.warn user.inspect
     # Extract the omniauth info from the request
     def omniauth_from_request
       return {} unless request.env.present?
+
+Rails.logger.warn request.env.inspect
 
       omniauth_hash = request.env['omniauth.auth']
       omniauth_hash.present? ? omniauth_hash.to_h : {}
