@@ -40,7 +40,10 @@
 <div class="form-group col-xs-8">
   <%= f.label(:type, _('Type'), class: "control-label") %>
   <%= select_tag(:type,
-      options_for_select([["Classic", "classic"], ["Structured", "structured"]]),
+      options_for_select(
+        [["Classic", "classic"], ["Structured", "structured"]],
+        f.object.type
+      ),
       class: "form-control",
       name: 'template[type]') %>
 </div>
