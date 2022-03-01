@@ -10,7 +10,8 @@ module Users
     before_action :configure_sign_in_params, only: [:create]
 
     # POST /resource/sign_in
-    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def create
       if !sign_in_params[:email].present?
         # If the email was left blank display an error
@@ -48,7 +49,8 @@ module Users
         end
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     protected
 
