@@ -51,7 +51,7 @@ class RelatedIdentifier < ApplicationRecord
   # =========
 
   # Broad categories to identify the type of work the related identifier represents
-  enum work_type: %i[article dataset preprint software supplemental_information paper book]
+  enum work_type: %i[article dataset preprint software supplemental_information paper book protocol]
 
   # The type of identifier based on the DataCite metadata schema
   enum identifier_type: %i[ark arxiv bibcode doi ean13 eissn handle igsn isbn issn istc

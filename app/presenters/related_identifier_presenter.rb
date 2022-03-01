@@ -11,7 +11,7 @@ class RelatedIdentifierPresenter
 
   # Returns all of the work types for the select box
   def selectable_related_identifiers
-    RelatedIdentifier.work_types.keys.map { |key| [key.humanize, key] }
+    RelatedIdentifier.work_types.keys.map { |key| [key.humanize, key] }.sort { |a, b| a <=> b }
   end
 
   # Return the related identifiers for read only display
