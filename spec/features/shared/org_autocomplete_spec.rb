@@ -179,13 +179,13 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
     end
 
     context 'Edit Profile page implementation works' do
-      xit 'has used the appropriate controls and returns the expected suggestions', js: true do
+      it 'has used the appropriate controls and returns the expected suggestions', js: true do
         # The Autocomplete on this page should allow the user to select any Orgs
         # or RegistryOrgs and allow them to create new Orgs
         visit edit_user_registration_path
-        expect(page).to have_text(_('Edit User'))
+        expect(page).to have_text(_('Edit Profile'))
 
-        within('#edit-user-org-controls') do
+        within('#profile-controls') do
           # Make sure the Autocomplete controls are correct
           expect(find('label[for="org_autocomplete_name"]').present?).to eql(true)
           expect(find('#org_autocomplete_name').present?).to eql(true)
@@ -294,14 +294,14 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
           expect(suggestion_exists?(@org_unmanaged.name)).to eql(true)
           expect(suggestion_exists?(@associated_matched.name)).to eql(true)
 
+          # Make sure the funder Orgs are also suggested
+          expect(suggestion_exists?(@funder_managed.name)).to eql(true)
+          expect(suggestion_exists?(@funder_unmanaged.name)).to eql(true)
+          expect(suggestion_exists?(@associated_matched_funder.name)).to eql(true)
+
           # Make sure that RegistryOrgs with no associated Org are NOT suggested
           expect(suggestion_exists?(@registry_org.name)).to eql(false)
-
-          # Make sure the funder Orgs are NOT suggested
-          expect(suggestion_exists?(@funder_managed.name)).to eql(false)
-          expect(suggestion_exists?(@funder_unmanaged.name)).to eql(false)
           expect(suggestion_exists?(@registry_funder.name)).to eql(false)
-          expect(suggestion_exists?(@associated_matched_funder.name)).to eql(false)
 
           # Make sure the other Orgs are NOT suggested
           unmatched_never_appear?

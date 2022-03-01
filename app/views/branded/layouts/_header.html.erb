@@ -56,7 +56,7 @@
     </ul>
   </nav>
 
-  <% if user_signed_in? && current_user.org.present? && (current_user.org.managed? || current_user.is_super_admin?) %>
+  <% if user_signed_in? && current_user.org.present? && (current_user.org.managed? || current_user.can_super_admin?) %>
     <%= render partial: "layouts/sub_header", locals: { org: current_user.org } %>
   <% end %>
 </header>
