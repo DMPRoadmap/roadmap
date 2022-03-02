@@ -12,7 +12,7 @@ describe 'users/shared/_login_header' do
     render partial: '/users/shared/login_header', locals: { title: title }
 
     expect(rendered.include?('class="c-login__header"')).to eql(true)
-    expect(rendered.include?("<h2>#{title}")).to eql(true)
+    expect(rendered.include?("<h2>#{CGI.escapeHTML(title)}")).to eql(true)
     expect(rendered.include?('c-login__invalid-notification')).to eql(true)
   end
 end

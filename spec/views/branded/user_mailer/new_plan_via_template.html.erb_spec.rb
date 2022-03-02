@@ -19,11 +19,12 @@ describe 'user_mailer/new_plan_via_template' do
 
     render
     expect(rendered.include?('Please sign in to the')).to eql(true)
-    expected = "Foo #{plan.title} bar #{sender.org.name} baz #{sender.org.contact_email}"
+    expected = "Foo #{CGI.escapeHTML(plan.title)} bar #{CGI.escapeHTML(sender.org.name)}"
+    expected += " baz #{sender.org.contact_email}"
     expect(rendered.include?(expected)).to eql(true)
     expect(rendered.include?(user.name(false))).to eql(true)
     expect(rendered.include?(plan.title)).to eql(true)
-    expect(rendered.include?("The #{sender.org.name} DMPTool team")).to eql(true)
+    expect(rendered.include?("The #{CGI.escapeHTML(sender.org.name)} DMPTool team")).to eql(true)
     expect(rendered.include?('Please do not reply to this email.')).to eql(true)
   end
 end

@@ -29,7 +29,8 @@ describe 'user_mailer/invitation' do
     expect(rendered.include?("Hello #{CGI.escapeHTML(@invitee.name)}")).to eql(true)
     expect(rendered.include?("Foo #{inviter.description} bar")).to eql(true)
     expect(rendered.include?('Please sign in or sign up at <a')).to eql(true)
-    expect(rendered.include?("The #{CGI.escapeHTML(@plan.template.org.name)} DMPTool team")).to eql(true)
+    expected = "The #{CGI.escapeHTML(@plan.template.org.name)} DMPTool team"
+    expect(rendered.include?(expected)).to eql(true)
     expect(rendered.include?("href=\"mailto:#{@plan.template.org.contact_email}\"")).to eql(true)
   end
   it 'renders correctly when the inviter is a Org (via Email Template modal)' do
@@ -41,10 +42,12 @@ describe 'user_mailer/invitation' do
 
     render
     expect(rendered.include?("Hello #{CGI.escapeHTML(@invitee.name)}")).to eql(true)
-    expect(rendered.include?("Foo #{@plan.title} bar #{CGI.escapeHTML(@plan.template.org.name)} baz")).to eql(true)
+    expected = "Foo #{CGI.escapeHTML(@plan.title)} bar #{CGI.escapeHTML(@plan.template.org.name)} baz"
+    expect(rendered.include?(expected)).to eql(true)
     expect(rendered.include?(CGI.escapeHTML(@plan.template.org.name))).to eql(true)
     expect(rendered.include?('Please sign in or sign up at <a')).to eql(true)
-    expect(rendered.include?("The #{CGI.escapeHTML(@plan.template.org.name)} DMPTool team")).to eql(true)
+    expected = "The #{CGI.escapeHTML(@plan.template.org.name)} DMPTool team"
+    expect(rendered.include?(expected)).to eql(true)
     expect(rendered.include?("href=\"mailto:#{@plan.template.org.contact_email}\"")).to eql(true)
   end
   it 'renders correctly when the inviter is a User (via Contributors tab)' do
@@ -54,7 +57,8 @@ describe 'user_mailer/invitation' do
 
     render
     expect(rendered.include?("Hello #{CGI.escapeHTML(@invitee.name(false))}")).to eql(true)
-    expect(rendered.include?("Your colleague #{CGI.escapeHTML(inviter.name(false))} has invited you")).to eql(true)
+    expected = "Your colleague #{CGI.escapeHTML(inviter.name(false))} has invited you"
+    expect(rendered.include?(expected)).to eql(true)
     expect(rendered.include?(inviter.name(false)))
     expect(rendered.include?('Please sign in or sign up at <a')).to eql(true)
     expect(response).to render_template(partial: 'user_mailer/_email_signature')

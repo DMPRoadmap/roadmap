@@ -68,7 +68,8 @@ describe 'shared/_org_autocomplete.html.erb' do
       end
 
       it 'specified :default_org is used' do
-        expect(rendered.include?("value=\"#{@hash[:default_org].name}\"")).to eql(true)
+        expected = "value=\"#{CGI.escapeHTML(@hash[:default_org].name)}\""
+        expect(rendered.include?(expected)).to eql(true)
         expect(rendered.include?('autocomplete-default-selection-')).to eql(true)
       end
       it 'specified :required is used' do

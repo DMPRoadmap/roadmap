@@ -41,8 +41,8 @@ RSpec.describe 'Shibboleth Sign in / Sign up', type: :feature do
     expect(page).to have_text(_('It looks like this is your first time signing in.'))
     expect(find("input[value=\"#{@user.org.id}\"]", visible: false).present?).to eql(true)
     expect(find("input[value=\"#{@user.email}\"]").present?).to eql(true)
-    expect(find("input[value=\"#{@user.firstname}\"]").present?).to eql(true)
-    expect(find("input[value=\"#{@user.surname}\"]").present?).to eql(true)
+    expect(find("input[value=\"#{CGI.escapeHTML(@user.firstname)}\"]").present?).to eql(true)
+    expect(find("input[value=\"#{CGI.escapeHTML(@user.surname)}\"]").present?).to eql(true)
     unmock_shibboleth
   end
 

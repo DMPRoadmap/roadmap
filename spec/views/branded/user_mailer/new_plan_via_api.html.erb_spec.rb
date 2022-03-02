@@ -17,10 +17,11 @@ describe 'user_mailer/new_plan_via_api' do
     assign :api_client, client
 
     render
-    expect(rendered.include?("created for you by the #{client.description}")).to eql(true)
+    expected = "created for you by the #{CGI.escapeHTML(client.description)}"
+    expect(rendered.include?(expected)).to eql(true)
     expect(rendered.include?(plan.template.org&.contact_email)).to eql(true)
-    expect(rendered.include?(user.name(false))).to eql(true)
-    expect(rendered.include?(plan.title)).to eql(true)
+    expect(rendered.include?(CGI.escapeHTML(user.name(false)))).to eql(true)
+    expect(rendered.include?(CGI.escapeHTML(plan.title))).to eql(true)
     expect(response).to render_template(partial: 'user_mailer/_email_signature')
   end
 end

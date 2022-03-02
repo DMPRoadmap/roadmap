@@ -26,7 +26,7 @@
 
 FactoryBot.define do
   factory :section do
-    title { Faker::Lorem.sentence }
+    title { Faker::Lorem.unique.sentence }
     description { Faker::Lorem.paragraph }
     sequence(:number)
     phase

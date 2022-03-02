@@ -14,7 +14,7 @@ describe 'users/shared/_sso' do
     form_struct.stubs(:hidden_field).returns('Foo')
     render partial: '/users/shared/sso', locals: { resource: user, form: form_struct }
     expect(rendered.include?('Your address is associated with:')).to eql(true)
-    expect(rendered.include?("<h3>#{user.org.name}")).to eql(true)
+    expect(rendered.include?("<h3>#{CGI.escapeHTML(user.org.name)}")).to eql(true)
     expect(rendered.include?('Foo')).to eql(true)
     expect(rendered.include?('Sign in with Institution to Continue')).to eql(true)
   end

@@ -86,6 +86,7 @@ module Dmptool
           expect(::Org.from_registry_org!(registry_org: registry_org)).to eql(org)
         end
         it 'returns a new Org and associates it with the :registry_org' do
+          Rails.configuration.x.organisation.helpdesk_email = Faker::Internet.unique.email
           ror_scheme
           fundref_scheme
           registry_org = create(:registry_org)
@@ -104,7 +105,6 @@ module Dmptool
           expect(result.funder?).to eql(registry_org.fundref_id.present?)
           expect(result.institution?).to eql(registry_org.types.include?('Education'))
           expect(result.organisation?).to eql(!result.funder? && !result.institution?)
-
           expect(registry_org.org_id).to eql(result.id)
           ror = result.identifier_for_scheme(scheme: 'ror')
           fundref = result.identifier_for_scheme(scheme: 'fundref')
