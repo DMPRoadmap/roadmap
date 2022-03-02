@@ -9,17 +9,20 @@ module IdentifierHelper
   end
 
   def create_dmp_id(plan:, val: random_doi)
+    Rails.configuration.x.madmp.enable_dmp_id_registration = true
     scheme = dmp_id_scheme
     val = append_prefix(scheme: scheme, val: val)
     create(:identifier, identifiable: plan, identifier_scheme: scheme, value: val)
   end
 
   def create_shibboleth_eppn(user:, val: Faker::Internet.unique.email)
+    Rails.configuration.x.shibboleth.enabled = true
     scheme = shibboleth_scheme
     create(:identifier, identifiable: user, identifier_scheme: scheme, value: val)
   end
 
   def create_shibboleth_entity_id(org:, val: Faker::Internet.unique.url)
+    Rails.configuration.x.shibboleth.enabled = true
     scheme = shibboleth_scheme
     create(:identifier, identifiable: org, identifier_scheme: scheme, value: val)
   end

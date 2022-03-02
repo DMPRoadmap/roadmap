@@ -15,7 +15,7 @@ RSpec.describe Api::V2::Deserialization::Plan do
     @doi = '10.9999/45ty5t.345/34t'
     create_dmp_id(plan: @plan, val: @doi)
     @plan.reload
-    @identifier = @plan.dmp_id
+    @identifier = @plan.dmp_id 
     @scheme = @identifier.identifier_scheme
 
     @app_name = ApplicationService.application_name.split('-').first&.downcase

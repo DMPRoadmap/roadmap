@@ -47,27 +47,10 @@ describe 'layouts/_analytics.html.erb' do
         @default_org = default_org.reload
       end
 
-      it 'does not display if no Tracker Root is NOT defined' do
-        Rails.configuration.x.dmproadmap.google_analytics_tracker_root = nil
+      it 'does not display the Google Analytics script' do
+        Rails.configuration.x.dmproadmap.google_analytics_tracker_root = @default_org.abbreviation
         render
         expect(rendered.include?('GoogleAnalyticsObject')).to eql(false)
-        expect(rendered.include?('clientTracker')).to eql(false)
-      end
-      it 'displays if the Tracker Root key is defined' do
-        Rails.configuration.x.dmproadmap.google_analytics_tracker_root = @default_org.abbreviation
-        render
-        expect(rendered.include?('GoogleAnalyticsObject')).to eql(true)
-        expect(rendered.include?('clientTracker')).to eql(false)
-      end
-      it 'displays the Client Org key if it is defined' do
-        org = create(:org)
-        create(:tracker, org: org)
-        user = create(:user, org: org.reload)
-        Rails.configuration.x.dmproadmap.google_analytics_tracker_root = @default_org.abbreviation
-        sign_in(user)
-        render
-        expect(rendered.include?('GoogleAnalyticsObject')).to eql(true)
-        expect(rendered.include?('clientTracker')).to eql(true)
       end
     end
 

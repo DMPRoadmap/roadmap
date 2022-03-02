@@ -189,7 +189,7 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
           # Make sure the Autocomplete controls are correct
           expect(find('label[for="org_autocomplete_name"]').present?).to eql(true)
           expect(find('#org_autocomplete_name').present?).to eql(true)
-          expect(find('#org_autocomplete_name').value).to eql('')
+          expect(find('#org_autocomplete_name').value).to eql(@user.org.name)
           expect(find('#org_autocomplete_not_in_list', visible: false).present?).to eql(true)
           expect(find('#org_autocomplete_user_entered_name', visible: false).present?).to eql(true)
           expect(find('.autocomplete-help').present?).to eql(true)
@@ -201,7 +201,7 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
           # Clear the default Org name and replace with our search term
           fill_in _('Institution'), with: ''
           fill_in _('Institution'), with: @word
-          sleep(0.2)
+          sleep(1)
 
           # Make sure the correct Orgs are suggested
           expect(suggestion_exists?(@org_managed.name)).to eql(true)

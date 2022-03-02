@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   after_action :store_location
 
   include GlobalHelpers
-  include Pundit
+  include Pundit::Authorization
   helper_method GlobalHelpers.instance_methods
 
   # Reroute errors to the root_path or plans_path (if user is signed in) with an

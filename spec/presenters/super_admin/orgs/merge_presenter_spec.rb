@@ -19,7 +19,7 @@ RSpec.describe SuperAdmin::Orgs::MergePresenter do
                                       contact_email: Faker::Internet.email,
                                       links: { org: { foo: 'bar' } },
                                       region: create(:region, name: Faker::Music::PearlJam.song),
-                                      language: create(:language),
+                                      language: Language.first || create(:language),
                                       token_permission_types: [@tpt])
     create(:annotation, org: @from_org)
     create(:department, org: @from_org)

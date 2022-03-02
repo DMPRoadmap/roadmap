@@ -10,7 +10,7 @@
   </script>
 <% end %>
 
-<% if (Rails.env.stage? || Rails.env.production?) && Rails.configuration.x.dmproadmap.google_analytics_tracker_root.present? %>
+<% if Rails.env.production? && Rails.configuration.x.dmproadmap.google_analytics_tracker_root.present? %>
   <% root_abbr = Rails.configuration.x.dmproadmap.google_analytics_tracker_root %>
   <% root_org = Org.where(abbreviation: root_abbr).first %>
   <% if root_org.present? && root_org.tracker.present? %>
