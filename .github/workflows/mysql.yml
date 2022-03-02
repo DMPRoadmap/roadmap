@@ -65,20 +65,20 @@ jobs:
 
     # Run  the unit and functional tests
     - name: 'Run Helper and Presenter Tests'
-      run: bin/bundle exec rspec spec/helpers/ spec/presenters/
+      run: bin/bundle exec rspec spec/helpers/ spec/presenters/ -s 40701
 
     - name: 'Run Mixin and Model Tests'
-      run: bin/bundle exec rspec spec/mixins/ spec/models/
+      run: bin/bundle exec rspec spec/mixins/ spec/models/ -s 40701
 
     - name: 'Run Controller, Policy and View Tests'
-      run: bin/bundle exec rspec spec/policies/ spec/controllers/ spec/views/
+      run: bin/bundle exec rspec spec/policies/ spec/controllers/ spec/views/ -s 40701
 
     - name: 'Run Service Tests'
-      run: bin/bundle exec rspec spec/services/
+      run: bin/bundle exec rspec spec/services/ -s 40701
 
     - name: 'Run Request/API Tests'
-      run: bin/bundle exec rspec spec/requests/
+      run: bin/bundle exec rspec spec/requests/ -s 40701
 
     # Run the time consuming integration tests (using Chrome headless browser)
     - name: 'Run Rspec Integration/Feature Tests'
-      run: bin/bundle exec rspec spec/features/
+      run: bin/bundle exec rspec spec/features/ -s 40701
