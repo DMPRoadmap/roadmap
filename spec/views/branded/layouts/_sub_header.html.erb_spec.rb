@@ -90,6 +90,6 @@ describe 'layouts/_sub_header.html.erb' do
     render template: '/layouts/_sub_header', locals: { org: @org }
     expect(rendered.include?('class="c-links-org__uc3-helpdesk"')).to eql(true)
     expect(rendered.include?("href=\"mailto:#{@org.contact_email}\"")).to eql(true)
-    expect(rendered.include?("#{CGI::escapeHTML(@org.contact_name)}</a>")).to eql(true)
+    expect(rendered.include?("#{CGI.escapeHTML(@org.contact_name)}</a>")).to eql(true)
   end
 end
