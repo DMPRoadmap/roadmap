@@ -95,6 +95,11 @@ RSpec.describe 'Request password reset', type: :feature do
   def submit_reset_password_form_fetch_token
     within("form[action=\"#{user_password_path}\"]") do
       fill_in 'Email', with: @user.email
+
+pp "PASSWORD RESET:"
+pp @user.inspect
+p "VALID? #{@user.valid?} -- #{@user.errors.full_messages.join(', ')}"
+
       click_button 'Send'
     end
 
