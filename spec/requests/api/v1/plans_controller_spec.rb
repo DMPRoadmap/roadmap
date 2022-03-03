@@ -224,7 +224,7 @@ RSpec.describe Api::V1::PlansController, type: :request do
                 expect(@contact.org.present?).to eql(true)
               end
               it 'sets the name' do
-                expect(@contact.org.name).to eql(@original[:name])
+                expect(CGI.escapeHTML(@contact.org.name)).to eql(@original[:name])
               end
               it 'sets the abbreviation' do
                 expect(@contact.org.abbreviation).to eql(@original[:abbreviation])
