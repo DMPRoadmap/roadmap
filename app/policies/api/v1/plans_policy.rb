@@ -36,6 +36,12 @@ module Api
           ids += @user.org.plans.pluck(:id) if @user.can_org_admin?
           ids
         end
+
+        def initialize(client, plan)
+          super()
+          @client = client
+          @plan = plan
+        end
       end
     end
   end
