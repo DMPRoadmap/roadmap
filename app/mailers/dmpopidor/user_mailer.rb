@@ -144,7 +144,7 @@ module Dmpopidor
       @username        = @user.name
       @plan            = plan
       @plan_title      = @plan.title
-      @plan_visibility = Plan::VISIBILITY_MESSAGE[@plan.visibility.to_sym]
+      @plan_visibility = ::Plan::VISIBILITY_MESSAGE[@plan.visibility.to_sym]
 
       I18n.with_locale current_locale(user) do
         mail(to: @user.email,

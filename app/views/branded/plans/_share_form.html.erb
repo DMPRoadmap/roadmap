@@ -120,7 +120,7 @@
     <%= _('Public, Administrator or organisational visibility is intended for finished plans. Note: test plans are set to private visibility.') %>
   </p>
   <% allow_visibility = @plan.visibility_allowed? %>
-  <%= form_for(@plan, url: visibility_plan_path, method: :post, html: { id: 'set_visibility' }) do |f| %>
+  <%= form_for(@plan, url: visibility_plan_path, method: :post, remote: true, html: { id: 'set_visibility' }) do |f| %>
     <fieldset <%= (allow_visibility ? '' : ' disabled') %>>
       <div class="form-group col-xs-8">
         <div class="radio">
