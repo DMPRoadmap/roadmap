@@ -82,8 +82,8 @@ jobs:
       run: bin/rails assets:precompile
 
     # Run the JS tests
-    - name: 'Run Karma Tests'
-      run: yarn test
+    #- name: 'Run Karma Tests'
+    #  run: yarn test
 
     # Run  the unit and functional tests
     - name: 'Run Rspec Unit and Functional Tests'
