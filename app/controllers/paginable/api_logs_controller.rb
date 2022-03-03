@@ -14,7 +14,7 @@ module Paginable
       @api_logs = ApiLog.all
       paginable_renderise(
         partial: 'index',
-        scope: ApiLog.all,
+        scope: @api_logs,
         query_params: { sort_field: 'api_logs.created_at', sort_direction: :desc },
         format: :json
       )

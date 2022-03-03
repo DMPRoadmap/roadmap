@@ -20,16 +20,16 @@
   </section>
 
   <%= render partial: '/public_pages/facet_section',
-             locals: { label: _('Funder'), facets: facets[:funders] } %>
+             locals: { label: _('Funder'), namespace: 'funder', facets: facets[:funders] } %>
 
   <%= render partial: '/public_pages/facet_section',
-             locals: { label: _('Institution'), facets: facets[:institutions] } %>
+             locals: { label: _('Institution'), namespace: 'institution', facets: facets[:institutions] } %>
 
   <%= render partial: '/public_pages/facet_section',
-             locals: { label: _('Language'), facets: facets[:languages] } %>
+             locals: { label: _('Language'), namespace: 'language', facets: facets[:languages] } %>
 
   <%= render partial: '/public_pages/facet_section',
-             locals: { label: _('Subject'), facets: facets[:subjects] } %>
+             locals: { label: _('Subject'), namespace: 'subject', facets: facets[:subjects] } %>
 
   <div class="c-clear">
     <%

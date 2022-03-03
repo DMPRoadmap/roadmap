@@ -1,4 +1,4 @@
-<%# locals label, facets
+<%# locals label, namespace, facets
 
 Expecting :facets to be an array of hashes like:
   [
@@ -16,10 +16,10 @@ Where "123" is the :id of the 'Example University' Org
     <% facets[0..4].each do |id, hash| %>
       <li>
         <input type="checkbox"<%= hash[:selected] ? ' checked' : '' %>
-               id="facet_<%= label.underscore %>_ids_<%= id %>"
-               name="facet[<%= label.underscore %>_ids][]" value="<%= id %>">
+               id="facet_<%= namespace.underscore %>_ids_<%= id %>"
+               name="facet[<%= namespace.underscore %>_ids][]" value="<%= id %>">
 
-        <label for="facet_<%= label.underscore %>_ids_<%= id %>">
+        <label for="facet_<%= namespace.underscore %>_ids_<%= id %>">
           <%= hash[:label] %> <span class="c-facet__item-total js-facet__item-total">(<%= hash[:nbr_plans] %>)</span>
         </label>
       </li>
@@ -32,10 +32,10 @@ Where "123" is the :id of the 'Example University' Org
           <% facets[5..facets.length].each do |id, hash| %>
             <li>
               <input type="checkbox"<%= hash[:selected] ? ' checked' : '' %>
-                     id="facet_<%= label.underscore %>_ids_<%= id %>"
-                     name="facet[<%= label.underscore %>_ids][]" value="<%= id %>">
+                     id="facet_<%= namespace.underscore %>_ids_<%= id %>"
+                     name="facet[<%= namespace.underscore %>_ids][]" value="<%= id %>">
 
-              <label for="facet_<%= label.underscore %>_ids_<%= id %>">
+              <label for="facet_<%= namespace.underscore %>_ids_<%= id %>">
                 <%= hash[:label] %> <span class="c-facet__item-total js-facet__item-total">(<%= hash[:nbr_plans] %>)</span>
               </label>
             </li>

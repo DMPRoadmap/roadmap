@@ -14,7 +14,7 @@
         <%= render partial: "shared/org_autocomplete",
                 locals: { form: f,
                           col_size: 8,
-                          default_org: org,
+                          default_org: nil,
                           required: true,
                           unknown_only: true,
                           label: _("Organisation lookup") } %>
@@ -38,8 +38,7 @@
   <% if current_user.can_super_admin? %>
     <div class="row">
       <div class="col-xs-8 c-checkbox js-checkbox">
-        <%= f.check_box :managed, id: "org_managed", "aria-required": true,
-                        title: _("A managed Org is one that can have its own Guidance and/or Templates. An unmanaged Org is one that was automatically created by the system when a user entered/selected it.") %>
+        <%= f.check_box :managed %>
         <%= f.label :managed, _('Managed? (allows Org Admins to access the Admin menu)') %>
       </div>
     </div>

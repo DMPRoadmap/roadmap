@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dmptool 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-02-15 08:58-0800\n"
-"PO-Revision-Date: 2022-02-15 17:58+0100\n"
+"POT-Creation-Date: 2022-03-03 08:54-0800\n"
+"PO-Revision-Date: 2022-03-03 17:54+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Portuguese\n"
 "Language: pt_BR\n"
@@ -18,6 +18,31 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 "\n"
 
+#: ../../app/views/branded/contact_us/contacts/_new_left.html.erb:4
+#: ../../app/views/branded/contributors/_form.html.erb:10
+msgid "Name"
+msgstr "Nome"
+
+#: ../../app/views/branded/contact_us/contacts/_new_left.html.erb:13
+#: ../../app/views/branded/contributors/_form.html.erb:19
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:74
+msgid "Email"
+msgstr "Email"
+
+#: ../../app/views/branded/contact_us/contacts/_new_left.html.erb:22
+#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:32
+msgid "Subject"
+msgstr "Assunto"
+
+#: ../../app/views/branded/contact_us/contacts/_new_left.html.erb:30
+msgid "Message"
+msgstr "Mensagem"
+
+#: ../../app/views/branded/contact_us/contacts/_new_left.html.erb:42
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:113
+msgid "Submit"
+msgstr "Submeter"
+
 #: ../../app/views/branded/contributors/_form.html.erb:4
 msgid "Phone numbers should only include numbers and dashes ('-')."
 msgstr "Os números de telefone devem incluir apenas números e traços ('-')."
@@ -25,15 +50,6 @@ msgstr "Os números de telefone devem incluir apenas números e traços ('-')."
 #: ../../app/views/branded/contributors/_form.html.erb:5
 msgid "Select each role that applies to the contributor."
 msgstr "Selecione cada função que se aplica ao colaborador."
-
-#: ../../app/views/branded/contributors/_form.html.erb:10
-msgid "Name"
-msgstr "Nome"
-
-#: ../../app/views/branded/contributors/_form.html.erb:19
-#: ../../app/views/branded/plans/_collaborator_form.html.erb:74
-msgid "Email"
-msgstr "Email"
 
 #: ../../app/views/branded/contributors/_form.html.erb:33
 msgid "ORCID"
@@ -50,6 +66,7 @@ msgstr "Papéis"
 #: ../../app/views/branded/contributors/_form.html.erb:77
 #: ../../app/views/branded/plans/_visibility_form.html.erb:32
 #: ../../app/views/branded/research_outputs/_form.html.erb:177
+#: ../../app/views/branded/super_admin/notifications/_form.html.erb:73
 #: ../../app/views/branded/users/registrations/_profile_preferences.html.erb:47
 msgid "Save"
 msgstr "Salvar"
@@ -63,8 +80,9 @@ msgid "Remove"
 msgstr "Remover"
 
 #: ../../app/views/branded/contributors/_form.html.erb:82
-#: ../../app/views/branded/plans/new.html.erb:120
+#: ../../app/views/branded/plans/new.html.erb:119
 #: ../../app/views/branded/research_outputs/_form.html.erb:182
+#: ../../app/views/branded/super_admin/notifications/_form.html.erb:80
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -87,92 +105,6 @@ msgstr "Nenhum colaborador foi definido."
 #: ../../app/views/branded/contributors/index.html.erb:34
 msgid "Add a contributor"
 msgstr "Adicionar um colaborador"
-
-#: ../../app/views/branded/doorkeeper/authorizations/_shib_sign_in.html.erb:5
-#: ../../app/views/branded/doorkeeper/authorizations/_sign_in.html.erb:5
-#: ../../app/views/branded/doorkeeper/authorizations/_validate.html.erb:13
-#: ../../app/views/branded/plans/_collaborator_form.html.erb:15
-#: ../../app/views/branded/users/passwords/new.html.erb:9
-#: ../../app/views/branded/users/registrations/_form.html.erb:4
-#: ../../app/views/branded/users/registrations/_profile_form.html.erb:8
-#: ../../app/views/branded/users/sessions/_form.html.erb:4
-#: ../../app/views/branded/users/sessions/_validate.html.erb:9
-msgid "Email address"
-msgstr "Endereço de email"
-
-#: ../../app/views/branded/doorkeeper/authorizations/_shib_sign_in.html.erb:11
-#: ../../app/views/branded/users/shared/_sso.html.erb:1
-msgid "Your address is associated with:"
-msgstr "Seu endereço está associado a:"
-
-#: ../../app/views/branded/doorkeeper/authorizations/_shib_sign_in.html.erb:15
-#: ../../app/views/branded/users/shared/_sso.html.erb:6
-msgid "Sign in with Institution to Continue"
-msgstr "Faça login com a instituição para continuar"
-
-#: ../../app/views/branded/doorkeeper/authorizations/_sign_in.html.erb:15
-#: ../../app/views/branded/users/registrations/_form.html.erb:48
-#: ../../app/views/branded/users/sessions/_form.html.erb:19
-msgid "Password"
-msgstr "Senha"
-
-#: ../../app/views/branded/doorkeeper/authorizations/_sign_in.html.erb:25
-#: ../../app/views/branded/layouts/_header.html.erb:28
-#: ../../app/views/branded/users/sessions/_form.html.erb:32
-#: ../../app/views/branded/users/sessions/new.html.erb:4
-msgid "Sign in"
-msgstr "Entrar"
-
-#: ../../app/views/branded/doorkeeper/authorizations/_validate.html.erb:4
-msgid "Invalid email or password."
-msgstr "E-mail ou senha inválidos."
-
-#: ../../app/views/branded/doorkeeper/authorizations/_validate.html.erb:5
-msgid ""
-"If you do not have a DMPTool account, you will need to create one before autho"
-"rizing %<application>s. To create an account, please visit the %<link_to_home_"
-"page>s. Once your account has been created, you may return to this page to fin"
-"ish the authotization."
-msgstr ""
-"Se você não tiver uma conta DMPTool, você precisará criar uma antes de autoriz"
-"ar %<application> s. Para criar uma conta, visite o %<link_to_home_page> s. Um"
-"a vez que sua conta tenha sido criada, você pode retornar a esta página para f"
-"inalizar a autorização."
-
-#: ../../app/views/branded/doorkeeper/authorizations/_validate.html.erb:7
-msgid "DMPTool home page"
-msgstr "Página inicial do DMPTool"
-
-#: ../../app/views/branded/doorkeeper/authorizations/_validate.html.erb:19
-#: ../../app/views/branded/users/sessions/_validate.html.erb:15
-msgid "For SSO, use institutional address."
-msgstr "Para SSO, use o endereço institucional."
-
-#: ../../app/views/branded/doorkeeper/authorizations/_validate.html.erb:25
-#: ../../app/views/branded/users/sessions/_validate.html.erb:20
-msgid "Continue"
-msgstr "Continuar"
-
-#: ../../app/views/branded/doorkeeper/authorizations/error.html.erb:8
-msgid "Something went wrong. Unable to authorize your request at this time."
-msgstr "Algo deu errado. Não é possível autorizar sua solicitação neste momento."
-
-#: ../../app/views/branded/doorkeeper/authorizations/new.html.erb:15
-msgid "%{application} wants to access your DMPs. Please confirm this action."
-msgstr "%{application} deseja acessar seus DMPs. Por favor, confirme esta ação."
-
-#: ../../app/views/branded/doorkeeper/authorizations/new.html.erb:56
-msgid ""
-"%{application} wants to access your DMPs. Please sign in to verify your accoun"
-"t."
-msgstr ""
-"%{application} deseja acessar seus DMPs. Por favor, entre para verificar sua c"
-"onta."
-
-#: ../../app/views/branded/doorkeeper/authorizations/new.html.erb:68
-#: ../../app/views/branded/users/shared/_links.html.erb:9
-msgid "Go back"
-msgstr "Volte"
 
 #: ../../app/views/branded/kaminari/_first_page.html.erb:2
 msgid "First"
@@ -273,9 +205,15 @@ msgstr "Ferramentas de desenvolvimento"
 msgid "Sign out"
 msgstr "Sair"
 
+#: ../../app/views/branded/layouts/_header.html.erb:28
+#: ../../app/views/branded/users/sessions/_form.html.erb:32
+#: ../../app/views/branded/users/sessions/new.html.erb:4
+msgid "Sign in"
+msgstr "Entrar"
+
 #: ../../app/views/branded/layouts/_header.html.erb:33
 #: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:29
-#: ../../app/views/branded/public_pages/_plans_results.html.erb:49
+#: ../../app/views/branded/public_pages/_plans_results.html.erb:45
 #: ../../app/views/branded/users/registrations/_profile_form.html.erb:94
 msgid "Language"
 msgstr "Idioma"
@@ -457,7 +395,7 @@ msgstr "Menos informação"
 
 #: ../../app/views/branded/layouts/_json_constants.html.erb:40
 msgid "Acquiring your DMP ID. This may take a few seconds ..."
-msgstr "Adquirindo seu ID DMP. Isso pode demorar alguns segundos ..."
+msgstr "Adquirindo seu ID PGD. Isso pode demorar alguns segundos ..."
 
 #: ../../app/views/branded/layouts/_json_constants.html.erb:44
 msgid "field"
@@ -618,8 +556,8 @@ msgid ""
 "Featured plans are displayed first on the 'Public DMPs' page. A plan must be p"
 "ublicly visible to be 'featured'."
 msgstr ""
-"Os planos em destaque são exibidos primeiro na página 'Public DMPs'. Um plano "
-"deve ser visível publicamente para ser 'destacado'."
+"Os planos em destaque são exibidos primeiro na página 'PGDs Públicos'. Um plan"
+"o deve ser visível publicamente para ser 'destacado'."
 
 #: ../../app/views/branded/paginable/plans/_org_admin.html.erb:21
 msgid "Project Title"
@@ -649,7 +587,7 @@ msgstr "Visibilidade"
 #: ../../app/views/branded/paginable/plans/_org_admin.html.erb:28
 #: ../../app/views/branded/public_pages/_plans_results.html.erb:40
 msgid "DMP ID"
-msgstr "ID DMP"
+msgstr "ID PGD"
 
 #: ../../app/views/branded/paginable/plans/_org_admin.html.erb:30
 msgid "Featured?"
@@ -662,6 +600,7 @@ msgstr "Teste"
 #: ../../app/views/branded/paginable/research_outputs/_index.html.erb:7
 #: ../../app/views/branded/public_pages/_plans_results.html.erb:11
 #: ../../app/views/branded/research_outputs/_form.html.erb:41
+#: ../../app/views/branded/super_admin/notifications/_form.html.erb:8
 msgid "Title"
 msgstr "Título"
 
@@ -751,7 +690,7 @@ msgid ""
 "l see the DMP titled '%{dmp_title}' on your dashboard."
 msgstr ""
 "Faça login ou cadastre-se em %{homepage_link}. Depois de fazer login, você ver"
-"á o DMP intitulado '%{dmp_title}' em seu painel."
+"á o PGD intitulado '%{dmp_title}' em seu painel."
 
 #:
 #: ../../app/views/branded/paginable/templates/_invite_modal_content.html.erb:53
@@ -796,7 +735,7 @@ msgstr "Descrição"
 
 #: ../../app/views/branded/paginable/templates/_organisational.html.erb:12
 #: ../../app/views/branded/plans/_project_details.html.erb:135
-#: ../../app/views/branded/plans/new.html.erb:86
+#: ../../app/views/branded/plans/new.html.erb:85
 #: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:23
 msgid "Funder"
 msgstr "Órgão Financiador"
@@ -898,7 +837,7 @@ msgstr ""
 
 #: ../../app/views/branded/plans/_collaborator_form.html.erb:8
 msgid "DMP Collaborators"
-msgstr "Colaboradores DMP"
+msgstr "Colaboradores PGD"
 
 #: ../../app/views/branded/plans/_collaborator_form.html.erb:9
 msgid ""
@@ -908,6 +847,15 @@ msgstr ""
 "Convidar pessoas específicas para ler, editar ou administrar seu plano. Os con"
 "vidados receberão por email uma notificação de que eles têm acesso a este plan"
 "o."
+
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:15
+#: ../../app/views/branded/users/passwords/new.html.erb:9
+#: ../../app/views/branded/users/registrations/_form.html.erb:4
+#: ../../app/views/branded/users/registrations/_profile_form.html.erb:8
+#: ../../app/views/branded/users/sessions/_form.html.erb:4
+#: ../../app/views/branded/users/sessions/_validate.html.erb:9
+msgid "Email address"
+msgstr "Endereço de email"
 
 #: ../../app/views/branded/plans/_collaborator_form.html.erb:16
 #: ../../app/views/branded/plans/_collaborator_form.html.erb:89
@@ -934,10 +882,6 @@ msgstr "Editor"
 msgid "Read only"
 msgstr "Somente leitura"
 
-#: ../../app/views/branded/plans/_collaborator_form.html.erb:113
-msgid "Submit"
-msgstr "Submeter"
-
 #: ../../app/views/branded/plans/_dmp_id_minter.html.erb:5
 msgid "Get a %{dmp_id_link} for your data management plan."
 msgstr "Obtenha um %{dmp_id_link} para o seu plano de gerenciamento de dados."
@@ -947,7 +891,7 @@ msgid ""
 "DMP IDs track connections between your DMP and research outputs such as datase"
 "ts and articles."
 msgstr ""
-"Os IDs de DMP rastreiam conexões entre seu DMP e resultados de pesquisa, como "
+"Os IDs de PGD rastreiam conexões entre seu PGD e resultados de pesquisa, como "
 "conjuntos de dados e artigos."
 
 #: ../../app/views/branded/plans/_dmp_id_minter.html.erb:17
@@ -960,11 +904,11 @@ msgstr "Cadastre seu plano e adicione ao ORCID"
 
 #: ../../app/views/branded/plans/_dmp_id_minter.html.erb:29
 msgid "When referencing this DMP in other systems, please use the DMP ID: "
-msgstr "Ao fazer referência a este DMP em outros sistemas, use o ID do DMP:"
+msgstr "Ao fazer referência a este PGD em outros sistemas, use o ID do PGD:"
 
 #: ../../app/views/branded/plans/_dmp_id_minter.html.erb:31
 msgid "When citing this DMP use:"
-msgstr "Ao citar esta DMP use:"
+msgstr "Ao citar esta PGD use:"
 
 #: ../../app/views/branded/plans/_dmp_id_minter.html.erb:39
 msgid "In order to register your plan you must have completed the following:"
@@ -1153,7 +1097,7 @@ msgid ""
 "Whether there are any potential ethical issues related to data that this DMP d"
 "escribes"
 msgstr ""
-"Se há algum problema ético potencial relacionado aos dados que este DMP descre"
+"Se há algum problema ético potencial relacionado aos dados que este PGD descre"
 "ve"
 
 #: ../../app/views/branded/plans/_project_details.html.erb:8
@@ -1300,7 +1244,7 @@ msgid ""
 "ase try again. If the problem persists please contact the help desk at %{helpd"
 "esk_email}"
 msgstr ""
-"Algo deu errado e não foi possível adquirir um ID DMP para seu plano. Por favo"
+"Algo deu errado e não foi possível adquirir um ID PGD para seu plano. Por favo"
 "r, tente novamente. Se o problema persistir, entre em contato com o help desk "
 "em %{helpdesk_email}"
 
@@ -1349,16 +1293,16 @@ msgstr "Que projeto de pesquisa você está planejando?"
 msgid "Select the primary research organisation"
 msgstr "Selecione a organização de pesquisa principal"
 
-#: ../../app/views/branded/plans/new.html.erb:58
+#: ../../app/views/branded/plans/new.html.erb:57
 msgid "Research organisation"
 msgstr "Organização de pesquisa"
 
-#: ../../app/views/branded/plans/new.html.erb:61
-#: ../../app/views/branded/plans/new.html.erb:89
+#: ../../app/views/branded/plans/new.html.erb:60
+#: ../../app/views/branded/plans/new.html.erb:88
 msgid "or"
 msgstr "ou"
 
-#: ../../app/views/branded/plans/new.html.erb:64
+#: ../../app/views/branded/plans/new.html.erb:63
 msgid ""
 "No research organisation associated with this plan or my research organisation"
 " is not listed"
@@ -1366,27 +1310,27 @@ msgstr ""
 "Nenhuma organização de pesquisa associada a este plano ou a minha organização "
 "de pesquisa não está listada"
 
-#: ../../app/views/branded/plans/new.html.erb:74
+#: ../../app/views/branded/plans/new.html.erb:73
 msgid "Select the primary funding organisation"
 msgstr "Selecione a organização financiadora principal"
 
-#: ../../app/views/branded/plans/new.html.erb:92
+#: ../../app/views/branded/plans/new.html.erb:91
 msgid "No funder associated with this plan or my funder is not listed"
 msgstr "Nenhum financiador associado a este plano ou meu financiador não está listado"
 
-#: ../../app/views/branded/plans/new.html.erb:104
+#: ../../app/views/branded/plans/new.html.erb:103
 msgid "Which DMP template would you like to use?"
 msgstr "Qual modelo de PGD você gostaria de usar?"
 
-#: ../../app/views/branded/plans/new.html.erb:107
+#: ../../app/views/branded/plans/new.html.erb:106
 msgid "Please select a template"
 msgstr "Por favor, selecione um modelo"
 
-#: ../../app/views/branded/plans/new.html.erb:112
+#: ../../app/views/branded/plans/new.html.erb:111
 msgid "We found multiple DMP templates corresponding to your funder."
 msgstr "Encontramos muitos modelos de PGD correspondentes a seu órgão financiador."
 
-#: ../../app/views/branded/plans/new.html.erb:119
+#: ../../app/views/branded/plans/new.html.erb:118
 msgid "Create plan"
 msgstr "Criar plano"
 
@@ -1410,10 +1354,6 @@ msgstr "Mostrando resultados para \"%<search_term> s\""
 msgid "Clear Search"
 msgstr "Limpar pesquisa"
 
-#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:32
-msgid "Subject"
-msgstr "Assunto"
-
 #: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:50
 msgid "Clear Filters"
 msgstr "Filtros claros"
@@ -1435,23 +1375,23 @@ msgstr "Destaque"
 msgid "Most Recent"
 msgstr "Mais recente"
 
-#: ../../app/views/branded/public_pages/_plans_results.html.erb:47
+#: ../../app/views/branded/public_pages/_plans_results.html.erb:43
 msgid "Creation date"
 msgstr "Data de criação"
 
-#: ../../app/views/branded/public_pages/_plans_results.html.erb:65
+#: ../../app/views/branded/public_pages/_plans_results.html.erb:61
 msgid "View All"
 msgstr "Ver tudo"
 
-#: ../../app/views/branded/public_pages/_plans_results.html.erb:66
+#: ../../app/views/branded/public_pages/_plans_results.html.erb:62
 msgid "View all results"
 msgstr "Ver todos os resultados"
 
-#: ../../app/views/branded/public_pages/_plans_results.html.erb:68
+#: ../../app/views/branded/public_pages/_plans_results.html.erb:64
 msgid "View Less"
 msgstr "Ver menos"
 
-#: ../../app/views/branded/public_pages/_plans_results.html.erb:69
+#: ../../app/views/branded/public_pages/_plans_results.html.erb:65
 msgid "View fewer results"
 msgstr "Ver menos resultados"
 
@@ -1480,9 +1420,9 @@ msgid ""
 " their owners. They are not vetted for quality, completeness, or adherence to "
 "funder guidelines."
 msgstr ""
-"DMPs públicos são planos criados usando o serviço DMPTool e compartilhados pub"
-"licamente por seus proprietários. Eles não são avaliados quanto à qualidade, i"
-"ntegridade ou aderência às diretrizes do financiador."
+"PGD públicos são planos criados usando o serviço DMPTool e compartilhados publ"
+"icamente por seus proprietários. Eles não são avaliados quanto à qualidade, in"
+"tegridade ou aderência às diretrizes do financiador."
 
 #: ../../app/views/branded/public_pages/template_index.html.erb:1
 msgid "DMP Templates"
@@ -1773,12 +1713,12 @@ msgid ""
 " questions, and data management best practices resources."
 msgstr ""
 "O DMPTool é um aplicativo on-line gratuito e de código aberto que ajuda os pes"
-"quisadores a criar planos de gerenciamento de dados (DMPs). Esses planos agora"
-" são exigidos por muitas agências de financiamento como parte do processo de s"
-"ubmissão de propostas de doação. O DMPTool fornece um assistente de clique par"
-"a criar um DMP que atenda aos requisitos do financiador. Ele também tem links "
-"diretos para sites de financiadores, texto de ajuda para responder a perguntas"
-" e recursos de práticas recomendadas de gerenciamento de dados."
+"quisadores a criar planos de gerenciamento de dados (PGD). Esses planos agora "
+"são exigidos por muitas agências de financiamento como parte do processo de su"
+"bmissão de propostas de doação. O DMPTool fornece um assistente de clique para"
+" criar um PGD que atenda aos requisitos do financiador. Ele também tem links d"
+"iretos para sites de financiadores, texto de ajuda para responder a perguntas "
+"e recursos de práticas recomendadas de gerenciamento de dados."
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:10
 msgid "DMPTool Background"
@@ -1911,11 +1851,11 @@ msgid ""
 "ed updates to a plan and facilitating seamless integration with systems and gr"
 "oups that support research."
 msgstr ""
-"Desenvolvimentos recentes de recursos se concentraram em transformar o DMP de "
+"Desenvolvimentos recentes de recursos se concentraram em transformar o PGD de "
 "um arquivo de texto estático em um hub de informações interoperável e em rede,"
 " no qual detalhes sobre um projeto de pesquisa podem ser atualizados e consult"
 "ados durante a vida útil do projeto. Esta nova %<networked_dmp_wiki> s permite"
-" que as informações dentro de um DMP sejam alimentadas entre as partes interes"
+" que as informações dentro de um PGD sejam alimentadas entre as partes interes"
 "sadas, vinculando metadados, repositórios e instituições e permitindo notifica"
 "ções e verificações, relatórios em tempo real. Um dos principais objetivos des"
 "te novo sistema é reduzir a carga sobre os pesquisadores, gerando atualizações"
@@ -1924,7 +1864,7 @@ msgstr ""
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:41
 msgid "Networked DMP"
-msgstr "DMP em rede"
+msgstr "PGD em rede"
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:45
 msgid ""
@@ -1935,7 +1875,7 @@ msgid ""
 msgstr ""
 "Congratulamo-nos com integrações que utilizam este novo sistema. O %<dmptool_a"
 "pi_wiki> s está em conformidade com a %<rda_common_standard_link> s, que é rec"
-"omendado para transferir metadados DMP entre sistemas. Se você tem um projeto "
+"omendado para transferir metadados PGD entre sistemas. Se você tem um projeto "
 "de integração, por favor %<contact_us_link> s."
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:46
@@ -2016,7 +1956,7 @@ msgstr ""
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:73
 msgid "DMPTool Principles"
-msgstr "Princípios da ferramenta DMP"
+msgstr "Princípios da ferramenta DMPTool"
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:75
 msgid ""
@@ -2083,7 +2023,7 @@ msgstr "Sobre o DMPTool"
 
 #: ../../app/views/branded/static_pages/faq.html.erb:7
 msgid "What is a data management plan (DMP)?"
-msgstr "O que é um plano de gerenciamento de dados (DMP)?"
+msgstr "O que é um plano de gerenciamento de dados (PGD)?"
 
 #: ../../app/views/branded/static_pages/faq.html.erb:8
 msgid "What can I do with the DMPTool?"
@@ -2213,7 +2153,7 @@ msgstr ""
 
 #: ../../app/views/branded/static_pages/faq.html.erb:47
 msgid "Q: What is a data management plan (DMP)?"
-msgstr "P: O que é um plano de gerenciamento de dados (DMP)?"
+msgstr "P: O que é um plano de gerenciamento de dados (PGD)?"
 
 #: ../../app/views/branded/static_pages/faq.html.erb:48
 msgid ""
@@ -2254,13 +2194,13 @@ msgid ""
 "ating_url}\">participating institutions</a> to help fulfill data management req"
 "uirements."
 msgstr ""
-"O DMPTool ajuda os pesquisadores a criar planos de gerenciamento de dados (DMP"
-"s). Ele fornece orientação de financiadores específicos que exigem DMPs, mas a"
-" ferramenta pode ser usada por qualquer pessoa interessada em desenvolver DMPs"
-" genéricos para ajudar a facilitar suas pesquisas. A ferramenta também oferece"
-" recursos e serviços disponíveis nas <a href=\"%{participating_url}\">instituiçõ"
-"es participantes</a> para ajudar a cumprir os requisitos de gerenciamento de d"
-"ados."
+"O DMPTool ajuda os pesquisadores a criar planos de gerenciamento de dados (PGD"
+"). Ele fornece orientação de financiadores específicos que exigem PGD, mas a f"
+"erramenta pode ser usada por qualquer pessoa interessada em desenvolver PGD ge"
+"néricos para ajudar a facilitar suas pesquisas. A ferramenta também oferece re"
+"cursos e serviços disponíveis nas <a href=\"%{participating_url}\">instituições "
+"participantes</a> para ajudar a cumprir os requisitos de gerenciamento de dado"
+"s."
 
 #: ../../app/views/branded/static_pages/faq.html.erb:55
 #: ../../app/views/branded/static_pages/faq.html.erb:62
@@ -4472,7 +4412,7 @@ msgid ""
 msgstr ""
 "O DMPTool é um aplicativo on-line gratuito e de código aberto que ajuda os pes"
 "quisadores a criar planos de gerenciamento de dados. A ferramenta fornece um a"
-"ssistente de clique para criar um DMP que atenda aos requisitos do financiador"
+"ssistente de clique para criar um PGD que atenda aos requisitos do financiador"
 ". Ele também tem links diretos para sites de financiadores, texto de ajuda par"
 "a responder a perguntas e recursos de práticas recomendadas de gerenciamento d"
 "e dados."
@@ -4696,30 +4636,26 @@ msgid "Contents"
 msgstr "Conteúdo"
 
 #: ../../app/views/branded/static_pages/quick_start_guide.html.erb:7
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:15
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:14
 msgid "Who can use the tool?"
 msgstr "Quem pode usar a ferramenta?"
 
 #: ../../app/views/branded/static_pages/quick_start_guide.html.erb:8
-msgid "How do I log in or create an account?"
-msgstr "Como faço o login ou crio uma conta?"
-
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:9
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:20
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:19
 msgid "Overview of My dashboard"
 msgstr "Visão geral do meu painel"
 
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:10
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:27
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:9
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:26
 msgid "How do I create a data management plan?"
 msgstr "Como faço para criar um plano de gerenciamento de dados?"
 
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:11
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:56
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:10
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:55
 msgid "How do I get help from someone at my institution?"
 msgstr "Como obtenho ajuda de alguém em minha instituição?"
 
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:17
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:16
 msgid ""
 "DMPTool is free for anyone to create data management plans. As a user, you can"
 ":<ul><li>Create your own plans.</li><li>Co-author a plan with collaborators.</"
@@ -4736,7 +4672,7 @@ msgstr ""
 "ações específicas da instituição e terá a opção de obter feedback de especiali"
 "stas locais em dados.</li></ul>"
 
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:22
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:21
 msgid ""
 "When you log in, you will be directed to “My dashboard.” From here, you can cr"
 "eate, edit, share, download, copy, or remove any of your plans. You will also "
@@ -4747,7 +4683,7 @@ msgstr ""
 "s planos. Você também verá planos que foram compartilhados com você por outras"
 " pessoas."
 
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:23
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:22
 msgid ""
 "If others at your institution/organization have chosen to share their plans in"
 "ternally, you will see a second table of organizational plans. This allows you"
@@ -4761,11 +4697,11 @@ msgstr ""
 "scubra novos dados de pesquisa. Amostras adicionais estão disponíveis na lista"
 " de <a href=\"%{public_plans_url}\">planos públicos</a> ."
 
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:29
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:28
 msgid "Start a plan"
 msgstr "Iniciar um plano"
 
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:31
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:30
 msgid ""
 "Click the “Create plan” button on My dashboard or the top menu to create a pla"
 "n. This will take you to a wizard that helps you select the appropriate templa"
@@ -4775,7 +4711,7 @@ msgstr ""
 "plano. Isso o levará a um assistente que o ajudará a selecionar o modelo aprop"
 "riado:"
 
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:35
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:34
 msgid ""
 "<ol type=\"1\"><li>Enter a title for your research project. If applying for fund"
 "ing, use the project title as it appears in the proposal.</li><li>Select the p"
@@ -4810,7 +4746,7 @@ msgstr ""
 " solicitando um subsídio, marque a caixa \"Nenhum financiador associado a este "
 "plano\"; essa seleção fornecerá um modelo genérico.</li></ol>"
 
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:37
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:36
 msgid ""
 "If you are just testing the tool or taking a course on data management, check "
 "the box “Mock project for test, practice, or educational purposes.” Marking yo"
@@ -4824,11 +4760,11 @@ msgstr ""
 "e uso e impedirá o compartilhamento público ou organizacional; isso permite qu"
 "e outros usuários encontrem planos de amostra reais com mais facilidade."
 
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:39
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:38
 msgid "Once you have made your selections, click “Create plan.”"
 msgstr "Depois de fazer suas seleções, clique em “Criar plano”."
 
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:41
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:40
 msgid ""
 "You can also copy an existing plan (from the Actions menu next to the plan on "
 "My Dashboard) and update it for a new research project and grant proposal."
@@ -4837,11 +4773,11 @@ msgstr ""
 "Meu painel) e atualizá-lo para um novo projeto de pesquisa e proposta de finan"
 "ciamento."
 
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:43
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:42
 msgid "What are the different features of the DMPTool?"
 msgstr "Quais são os diferentes recursos do DMPTool?"
 
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:45
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:44
 msgid ""
 "The tabbed interface allows you to navigate through different functions when e"
 "diting your plan.<ul><li><strong>Project details:</strong> Includes basic admi"
@@ -4883,7 +4819,7 @@ msgstr ""
 " outras pessoas no futuro (por exemplo, para reutilização de dados e atribuiçã"
 "o adequada).</li><li> <strong>Colaboradores:</strong> Aqui você lista o(s) Inv"
 "estigador(es) Principal(es) do projeto e os responsáveis pelo gerenciamento de"
-" dados. A seção Colaboradores do DMP é onde você pode convidar pessoas específ"
+" dados. A seção Colaboradores do PGD é onde você pode convidar pessoas específ"
 "icas para ler, editar ou administrar seu plano. Os convidados receberão uma no"
 "tificação por e-mail informando que têm acesso a este plano.</li><li> <strong>"
 "Plano de Redação:</strong> Pode haver mais de uma guia se o seu financiador ou"
@@ -4892,7 +4828,7 @@ msgstr ""
 "exibidos no painel direito ao lado de cada pergunta. Se você precisar de mais "
 "orientação ou achar que é demais, poderá fazer ajustes na guia \"Detalhes do pr"
 "ojeto\".</li><li> <strong>Resultados de pesquisa:</strong> Gere uma lista de se"
-"us resultados de pesquisa previstos que estão descritos em seu DMP. Você pode "
+"us resultados de pesquisa previstos que estão descritos em seu PGD. Você pode "
 "criar quantas entradas forem necessárias.</li><li> <strong>Download:</strong> "
 "permite que você baixe seu plano em vários formatos. Você pode ajustar a forma"
 "tação (tipo de fonte, tamanho e margens) para arquivos PDF, o que pode ser úti"
@@ -4903,18 +4839,18 @@ msgstr ""
 "o definidos como Visibilidade privada. A visibilidade pública e organizacional"
 " destina-se a planos concluídos. Você deve responder pelo menos 50% das pergun"
 "tas para ativar essas opções.</li><li> Registre seu plano e adicione-o ao ORCI"
-"D. É aqui que você pode gerar um ID DMP para seu plano de gerenciamento de dad"
+"D. É aqui que você pode gerar um ID PGD para seu plano de gerenciamento de dad"
 "os. Para registrar seu plano, você deve ter concluído o seguinte:<ul><li> resp"
 "ondeu pelo menos 50% das perguntas</li><li> identificou seu financiador</li><l"
 "i> vinculou sua conta DMPTool ao seu ORCID por meio da página de aplicativos d"
 "e terceiros</li><li> O plano não é um projeto simulado para testes, prática ou"
 " fins educacionais.</li></ul></li></ol></li></ul>"
 
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:47
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:46
 msgid "Share plans"
 msgstr "Compartilhe planos"
 
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:49
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:48
 msgid ""
 "You can share your plan with colleagues in the Collaborators tab. Input the em"
 "ail address(es) of any collaborators you would like to invite to read or edit "
@@ -4928,7 +4864,7 @@ msgstr ""
 "ção e clique em \"Adicionar colaborador\". Ajuste as permissões ou remova colabo"
 "radores a qualquer momento por meio das opções suspensas na tabela."
 
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:51
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:50
 msgid ""
 "The \"Finalize\" tab is where you can set your plan visibility.<ul><li>Private: "
 "restricted to you and your collaborators.</li><li>Organizational: anyone at yo"
@@ -4941,7 +4877,7 @@ msgstr ""
 "ualquer pessoa pode visualizar seu plano na lista <a href=\"%<public_plans_path"
 ">s\">de planos públicos</a> .</li></ul>"
 
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:53
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:52
 msgid ""
 "By default, all new and test plans will be set to Private visibility. Public a"
 "nd Organizational visibility are intended for finished plans. You must answer "
@@ -4951,7 +4887,7 @@ msgstr ""
 " privada. A visibilidade pública e organizacional destina-se a planos concluíd"
 "os. Você deve responder pelo menos 50% das perguntas para ativar essas opções."
 
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:58
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:57
 msgid ""
 "After logging in, you will find an email address and URL for help at the top o"
 "f the page."
@@ -4959,7 +4895,7 @@ msgstr ""
 "Depois de fazer login, você encontrará um endereço de e-mail e URL para ajuda "
 "na parte superior da página."
 
-#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:60
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:59
 msgid ""
 "There may also be an option to request feedback on your plan. This is availabl"
 "e when research support staff at your institution have enabled the service. Cl"
@@ -5138,6 +5074,40 @@ msgstr ""
 "r revisada a qualquer momento. O uso da ferramenta indica que você entende e c"
 "oncorda com estes termos e condições."
 
+#: ../../app/views/branded/super_admin/notifications/_form.html.erb:3
+msgid ""
+"<strong>Note that: Info level</strong> - appears in a green/white bar, <strong"
+">Warning level</strong> - appears in a beige/brown bar, <strong>Danger level</"
+"strong> - in a pink/red bar"
+msgstr ""
+"<strong>Observe que: Nível de informação</strong> - aparece em uma barra verde"
+"/branca, <strong>Nível de aviso</strong> - aparece em uma barra bege/marrom, <"
+"strong>Nível de perigo</strong> - em uma barra rosa/vermelha"
+
+#: ../../app/views/branded/super_admin/notifications/_form.html.erb:27
+msgid "Active"
+msgstr "Ativo"
+
+#: ../../app/views/branded/super_admin/notifications/_form.html.erb:47
+msgid "Start"
+msgstr "Compartilhar"
+
+#: ../../app/views/branded/super_admin/notifications/_form.html.erb:55
+msgid "Expiration"
+msgstr "Expiração"
+
+#: ../../app/views/branded/super_admin/notifications/_form.html.erb:64
+msgid "Body"
+msgstr "Corpo"
+
+#: ../../app/views/branded/super_admin/notifications/_form.html.erb:75
+msgid "Delete"
+msgstr "Apagar"
+
+#: ../../app/views/branded/super_admin/notifications/_form.html.erb:79
+msgid "Are you sure you want to delete the notification \"%{title}\""
+msgstr "Tem certeza de que deseja excluir a notificação \"%{title}\""
+
 #: ../../app/views/branded/user_mailer/invitation.html.erb:5
 msgid "Hello %{invitee}"
 msgstr "Olá %{invitee}"
@@ -5179,7 +5149,7 @@ msgid ""
 "l_url} to complete your DMP. If you have any questions or need help, please co"
 "ntact us at %{org_contact_email}."
 msgstr ""
-"Um novo plano de gerenciamento de dados (DMP) com o título de '%{dmp_title}' f"
+"Um novo plano de gerenciamento de dados (PGD) com o título de '%{dmp_title}' f"
 "oi criado para você pelo %{external_system_name}.<br> Faça login no %{dmptool_"
 "url} para concluir seu DMP. Se você tiver alguma dúvida ou precisar de ajuda, "
 "entre em contato conosco em %{org_contact_email}."
@@ -5194,8 +5164,8 @@ msgid ""
 "Please sign in to the %{dmptool_url} to complete your DMP. Once you have logge"
 "d in you will find the new DMP on your Dashboard."
 msgstr ""
-"Faça login no %{dmptool_url} para concluir seu DMP. Depois de fazer o login, v"
-"ocê encontrará o novo DMP em seu painel."
+"Faça login no %{dmptool_url} para concluir seu PGD. Depois de fazer o login, v"
+"ocê encontrará o novo PGD em seu painel."
 
 #: ../../app/views/branded/user_mailer/notify_administrators.html.erb:2
 msgid "An error has been reported from %{tool_name}"
@@ -5282,6 +5252,11 @@ msgstr "Primeiro nome"
 msgid "Last Name"
 msgstr "Sobrenome"
 
+#: ../../app/views/branded/users/registrations/_form.html.erb:48
+#: ../../app/views/branded/users/sessions/_form.html.erb:19
+msgid "Password"
+msgstr "Senha"
+
 #: ../../app/views/branded/users/registrations/_form.html.erb:65
 msgid "I accept the %<terms_url>s"
 msgstr "Eu aceito o %<terms_url>s"
@@ -5290,11 +5265,7 @@ msgstr "Eu aceito o %<terms_url>s"
 msgid "terms and conditions"
 msgstr "termos e condições"
 
-#: ../../app/views/branded/users/registrations/_form.html.erb:74
-msgid "Security check"
-msgstr "Verificação de segurança"
-
-#: ../../app/views/branded/users/registrations/_form.html.erb:79
+#: ../../app/views/branded/users/registrations/_form.html.erb:78
 msgid "Sign up"
 msgstr "Inscrever-se"
 
@@ -5402,6 +5373,14 @@ msgstr "Esqueceu a senha?"
 msgid "Sign in / Sign up"
 msgstr "Entrar / Inscrever-se"
 
+#: ../../app/views/branded/users/sessions/_validate.html.erb:15
+msgid "For SSO, use institutional address."
+msgstr "Para SSO, use o endereço institucional."
+
+#: ../../app/views/branded/users/sessions/_validate.html.erb:20
+msgid "Continue"
+msgstr "Continuar"
+
 #: ../../app/views/branded/users/sessions/_validate.html.erb:25
 msgid "Problems signing in? %<contact_us_url>s"
 msgstr "Problemas para fazer login? %<contact_us_url>s"
@@ -5410,6 +5389,10 @@ msgstr "Problemas para fazer login? %<contact_us_url>s"
 msgid "Contact us."
 msgstr "Contate-Nos."
 
+#: ../../app/views/branded/users/shared/_links.html.erb:9
+msgid "Go back"
+msgstr "Volte"
+
 #: ../../app/views/branded/users/shared/_links.html.erb:14
 msgid "Problems signing in? %{contact_us_link}."
 msgstr "Problemas para fazer login? %{contact_us_link}."
@@ -5417,3 +5400,11 @@ msgstr "Problemas para fazer login? %{contact_us_link}."
 #: ../../app/views/branded/users/shared/_links.html.erb:15
 msgid "Contact us"
 msgstr "Contate-nos"
+
+#: ../../app/views/branded/users/shared/_sso.html.erb:1
+msgid "Your address is associated with:"
+msgstr "Seu endereço está associado a:"
+
+#: ../../app/views/branded/users/shared/_sso.html.erb:6
+msgid "Sign in with Institution to Continue"
+msgstr "Faça login com a instituição para continuar"
