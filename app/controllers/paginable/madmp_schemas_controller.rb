@@ -10,7 +10,7 @@ module Paginable
       authorize(MadmpSchema)
       paginable_renderise(
         partial: 'index',
-        scope: MadmpSchema.all,
+        scope: MadmpSchema.paginable,
         query_params: { sort_field: 'madmp_schemas.name', sort_direction: :asc },
         format: :json
       )

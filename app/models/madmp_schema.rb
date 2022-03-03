@@ -73,6 +73,10 @@ class MadmpSchema < ApplicationRecord
           search_pattern, search_pattern)
   }
 
+  scope :paginable, lambda {
+    select(:id, :label, :name, :classname, :version)
+  }
+
   # =================
   # = Class Methods =
   # =================
