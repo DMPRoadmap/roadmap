@@ -81,4 +81,4 @@ jobs:
 
     # Run the time consuming integration tests (using Chrome headless browser)
     - name: 'Run Rspec Integration/Feature Tests'
-      run: bin/bundle exec rspec spec/features/
+      run: bin/bundle exec rspec spec/features/ -s 40701
