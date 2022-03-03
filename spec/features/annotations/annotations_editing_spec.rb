@@ -55,6 +55,7 @@ RSpec.feature 'Annotations::Editing', type: :feature do
       # Expect it to destroy the newly cleared Annotation
       expect { click_button 'Save' }.not_to change { Annotation.count }
     end
+    sleep(1)
     expect(annotation.text).to eql('Foo bar')
     expect(Annotation.order('created_at').last.text).to eql('Noo bar')
     expect(page).not_to have_errors

@@ -23,7 +23,7 @@ describe 'layouts/_sub_header.html.erb' do
     sign_in create(:user, org: @org)
     render template: '/layouts/_sub_header', locals: { org: @org }
     expect(rendered.include?('class="c-logo-org"')).to eql(true)
-    expect(rendered.include?(@org.name)).to eql(true)
+    expect(rendered.include?(CGI.escapeHTML(@org.name))).to eql(true)
   end
   it 'does not render the Admin menu if user is not an Org Admin or Super Admin' do
     sign_in create(:user, org: @org)

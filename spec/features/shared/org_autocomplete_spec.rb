@@ -123,7 +123,7 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
         click_button _('Sign up')
         expect(page).not_to have_errors
         expect(User.all.count).to eql(original_user_count + 1)
-        expect(User.last.org.name.downcase.capitalize).to eql(name)
+        expect(User.last.org.name).to eql(name.downcase.capitalize)
         sign_out User.last
       end
     end
