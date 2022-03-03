@@ -165,12 +165,13 @@ class MadmpFragmentsController < ApplicationController
         additional_info: additional_info,
         madmp_schema_id: schema.id
       )
-      if p_params[:source].eql?('form') && @fragment.answer.present?
+      if @fragment.answer.present?
         @fragment.answer.update!(
           lock_version: p_params[:answer][:lock_version],
           is_common: p_params[:answer][:is_common],
           user_id: current_user.id
         )
+        @fragment.answer.touch
       end
 
       @fragment.save_form_fragment(data, schema)
