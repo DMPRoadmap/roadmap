@@ -40,6 +40,11 @@ RSpec.describe ExternalApiAccessToken, type: :model do
         expect(described_class.for_user_and_service(user: @user, service: 'foo')).to eql(nil)
       end
       it 'returns the active token' do
+
+p "USER: #{@user.inspect}"
+p "SERVICE: #{@svc.inspect}"
+p "ACTIVE TOKEN: #{@active_token.inspect}"
+
         expect(described_class.for_user_and_service(user: @user, service: @svc)).to eql(@active_token)
       end
     end
