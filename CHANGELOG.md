@@ -1,5 +1,8 @@
 # Changelog
 
+## [3.0.4+portage-3.0.5]
+- Fixed pdf download issue
+
 ## [3.0.4+portage-3.0.4] - 2022-02-25
   - Update translation for some wording
   
