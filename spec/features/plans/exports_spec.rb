@@ -19,8 +19,8 @@ RSpec.describe "PlansExports", type: :feature, js: true do
 
    ## Pending to update for portagenetwork/roadmap#153
    scenario "Same tests for No Phase Plans", skip: true do
+    skip 'Plans with no phase successfully pass following tests'
     new_plan  = create(:plan, :publicly_visible, template: template)
-    pending('Plans with no phase successfully pass following tests')
    end
 
   ###################
