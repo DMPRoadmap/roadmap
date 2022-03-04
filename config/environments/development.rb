@@ -71,4 +71,4 @@ Rails.application.configure do
 end
 
 # Used by Rails' routes url_helpers (typically when including a link in an email)
-Rails.application.routes.default_url_options[:host] = "localhost:3000"
+# Rails.application.routes.default_url_options[:host] = "localhost:3000"
