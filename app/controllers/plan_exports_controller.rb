@@ -43,7 +43,7 @@ class PlanExportsController < ApplicationController
         @selected_phase = @plan.phases.find(params[:phase_id])
       end
     else
-      @plan.phases.order("phases.updated_at DESC")
+      @selected_phase = @plan.phases.order("phases.updated_at DESC")
                              .detect { |p| p.visibility_allowed?(@plan) }
     end
  

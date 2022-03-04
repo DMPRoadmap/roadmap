@@ -17,6 +17,23 @@ RSpec.describe "PlansExports", type: :feature, js: true do
     sign_in(user)
   end
 
+   ## Pending to update for portagenetwork/roadmap#153
+   scenario "Same tests for No Phase Plans", skip: true do
+    skip 'Plans with no phase successfully pass following tests'
+    new_plan  = create(:plan, :publicly_visible, template: template)
+   end
+
+  ###################
+  ## Found in portagenetwork/roadmap#153: 
+  ##  An awkward occasion detected that can invalidate following test cases:
+  ##    if click_button 'Download Plan' did not perform the download operation as expected,
+  ##    The 'page' in expect(page.source) are actually the downloading page instead of the downloaded file
+  ##    However, since only the title is checked, no error is reported because the downloading page naturally includes plan title and phase title (in header bar)
+  ##    Found this possible flaw by replacing 'plan.title' to 'plan.answers.first.text'
+  ##  Will continue to navigate this occasion. 
+  ##  Need to notify our partner if this is proved since they are using the same way
+  ####################
+
   scenario "User downloads plan from organisational plans portion of the dashboard" do
     new_plan  = create(:plan, :publicly_visible, template: template)
     new_phase = create(:phase, template: template, sections: 2)
@@ -29,10 +46,11 @@ RSpec.describe "PlansExports", type: :feature, js: true do
     new_plan.update(complete: true)
     new_user = create(:user, org: org)
     create(:role, :creator, :commenter, :administrator, :editor,
-           plan: new_plan,
-           user: new_user)
+          plan: new_plan,
+          user: new_user)
     sign_in(user)
     find(:css, "a[href*=\"/#{new_plan.id}/export.pdf\"]", visible: false).click
+    # need to add expect here
   end
 
   scenario "User downloads public plan belonging to other User" do
@@ -173,44 +191,43 @@ RSpec.describe "PlansExports", type: :feature, js: true do
       _regular_download("docx")
     end
   end
+end
 
-  # ===========================
-  # = Helper methods =
-  # ===========================
+# ===========================
+# = Helper methods =
+# ===========================
 
-  def _regular_download(format)
-    if format == "html"
-      new_window = window_opened_by do
-        click_button "Download Plan"
-      end
-      within_window new_window do
-        expect(page.source).to have_text(plan.title)
-      end
-    else
+def _regular_download(format)
+  if format == "html"
+    new_window = window_opened_by do
       click_button "Download Plan"
+    end
+    within_window new_window do
       expect(page.source).to have_text(plan.title)
     end
-  end
-
-  def _all_phase_download
-    _select_option("phase_id", "All")
+  else
     click_button "Download Plan"
     expect(page.source).to have_text(plan.title)
-    plan.phases.each do |phase| # All phase titles should be included in output
-      expect(page.source).to have_text(phase.title)
-    end
   end
+end
 
-  def _single_phase_download
-    _select_option("phase_id", plan.phases[1].id)
-    click_button "Download Plan"
-    expect(page.source).to have_text(plan.title)
-    expect(page.source).to have_text(plan.phases[1].title)
-    expect(page.source).not_to have_text(plan.phases[2].title) if plan.phases.length > 2
+def _all_phase_download
+  _select_option("phase_id", "All")
+  click_button "Download Plan"
+  expect(page.source).to have_text(plan.title)
+  plan.phases.each do |phase| # All phase titles should be included in output
+    expect(page.source).to have_text(phase.title)
   end
+end
 
-  def _select_option(select_id, option_value)
-    find(:id, select_id).find("option[value='#{option_value}']").select_option
-  end
+def _single_phase_download
+  _select_option("phase_id", plan.phases[1].id)
+  click_button "Download Plan"
+  expect(page.source).to have_text(plan.title)
+  expect(page.source).to have_text(plan.phases[1].title)
+  expect(page.source).not_to have_text(plan.phases[2].title) if plan.phases.length > 2
+end
 
+def _select_option(select_id, option_value)
+  find(:id, select_id).find("option[value='#{option_value}']").select_option
 end
