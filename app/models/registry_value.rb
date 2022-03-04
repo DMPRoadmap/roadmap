@@ -46,7 +46,7 @@ class RegistryValue < ApplicationRecord
   # If there's a label, then the registry value is a complex object, return the label
   # else returns the registry value is a simple string, returns the string
   def to_s(locale: nil)
-    return data if locale.nil?
+    return data if data.nil? || locale.nil?
 
     if data['label'].present?
       data['label'][locale]
