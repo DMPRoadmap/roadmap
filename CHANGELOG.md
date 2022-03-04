@@ -2,6 +2,28 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 04/03/2022
+- Correction du problème d'affichage des libellés dans l'export PDF (issue gitbucket 333)
+- Correction du problème de cloture de l'assistance conseil  (issue gitbucket 339)
+- Correction du problème d'nvoi de notification aux personnes invitées  (issue gitbucket 331)
+- Retrait du message du bug de changement de mail dans le profil utilisateur
+- Les champs de saisie multiple ne font plus apparaitre un champ de saisie vide, après une sauvegarde du formulaire structuré
+- Correction du problème de sauvegarde des valeurs de référentiels
+- L'indicateur de dernière sauvegarde est mis à jour même si la sauvegarde a été faite par le même utilisateur (issue gitbucket 320)
+- Correction du problème de changement de visibilité des plans (issue gitbucket 326)
+- Correction d'un problème de recherche dans la liste des formulaires structurés
+- Correction d'un problème qui empêchait d'accéder au champ de recherche/saisie dans les référentiels situés dans une popup (issue gitbucket 334)
+- Correction d'un bug survenant lorsqu'un référentiel contient une valeur vide
+
+### Ajout du type de Modèle
+- L'administrateur peut définir le type de modèle : Classique ou Structuré
+- Les modèles classiques ne peuvent pas avoir de question reliées à un formulaire structuré
+- Les modèles structurés n'ont accès qu'aux formulaires structurés, l'administrateur ne peut pas créer de question structurelles.
+
+#### Modification à venir
+- Retrait du type 'Structuré' des formats de réponse pour les modèles classiques
+- Ajout d'un champ permettant de sélectionner le type de formulaire (classname) afin d'affiner la liste des formulaires proposés
+
 ## 28/02/2022
 - Intégration de DMPRoadmap V3.0.5 (https://github.com/DMPRoadmap/roadmap/releases/tag/v3.0.5)
 - L'identifiant du plan n'est plus rempli automatiquement (issue gitbucket 318)
