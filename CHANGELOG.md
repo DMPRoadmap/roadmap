@@ -14,6 +14,7 @@
 - Correction d'un problème de recherche dans la liste des formulaires structurés
 - Correction d'un problème qui empêchait d'accéder au champ de recherche/saisie dans les référentiels situés dans une popup (issue gitbucket 334)
 - Correction d'un bug survenant lorsqu'un référentiel contient une valeur vide
+- Correction du bug d'affichage des types de produits pour les plans non structurés  (issue gitbucket 338)
 
 ### Ajout du type de Modèle
 - L'administrateur peut définir le type de modèle : Classique ou Structuré
