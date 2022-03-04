@@ -1,10 +1,10 @@
 <p>
-  <%= _('Hello %{user_name}') %{ user_name: @user_name } %>
+  <%= _('Hello %{user_name}') % { user_name: @user_name } %>
 </p>
 <p>
   <%= _('%{commenter_name} has commented on your plan %{plan_title}. To view the comments, '\
   'follow the link to the DMP below, or navigate to the plan via My Dashboard page in %{tool_name}.') \
-  %{ commenter_name: @commenter_name, plan_title: @plan_title, tool_name: tool_name } %>
+  % { commenter_name: @commenter_name, plan_title: @plan_title, tool_name: tool_name } %>
 </p>
 <p>
   <%=  _('Below the question, research output and section where the comment is located.') %>
@@ -12,16 +12,16 @@
     'adjacent to the guidance for each question.') %>
 </p>
 <p>
-  <%= _('DMP: %{phase_link}') %{ phase_link: @phase_link }  %>
+  <%= _('DMP: %{phase_link}') % { phase_link: @phase_link }  %>
 </p>
 <p>
-  <%= _('Section name: %{section_title}') %{ section_title: @section_title } %>
+  <%= _('Section name: %{section_title}') % { section_title: @section_title } %>
 </p>
 <p>
-  <%= _('Research output name: %{research_output_name}') % { :research_output_name => research_output_name } %>
+  <%= _('Research output name: %{research_output_name}') % { :research_output_name => @research_output_name } %>
 </p>
 <p>
-  <%= _('Question: %{question_number}') %{ question_number: @question_number } %>
+  <%= _('Question: %{question_number}') % { question_number: @question_number } %>
 </p>
 
 <%= render partial: 'email_signature' %>
