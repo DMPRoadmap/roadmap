@@ -3,7 +3,7 @@
 <% meta_fragment = dmp_fragment.meta%>
 <% project_fragment = dmp_fragment.project%>
 <% anr_projects = Registry.find_by(name: "ANRProjects").registry_values %>
-<% locale = LocaleService.to_gettext(locale: locale)%>
+<% locale = LocaleService.to_gettext(locale: @plan.template.locale)%>
 <div class="row">
   <div class="col-md-12 plan-details">
     <div class="col-md-8">
