@@ -23,7 +23,7 @@ if !ENV['DOMAIN'] || ENV['DOMAIN'] == 'app'
   end
 elsif ENV['DOMAIN'] == 'client'
   TranslationIO.configure do |config|
-    config.api_key              = '026b1897373e47a68c06323f5b6888bd'
+    config.api_key              = Rails.application.credentials.translation_io_api_key
     config.source_locale        = 'en'
     config.target_locales       = %w[en-GB fr-FR]
     config.text_domain          = 'client'
@@ -32,6 +32,7 @@ elsif ENV['DOMAIN'] == 'client'
                                      .collect { |name| "#{name}/" }
                                      .reject do |path|
                                        path == 'app/' || path == 'app/views/' ||
+                                         path == 'app/controllers/' || path == 'app/models/' ||
                                          path.include?('branded/') || path.include?('dmpopidor/') ||
                                          path.include?('madmp_') || path.include?('research_output') ||
                                          path.include?('dynamic_form_helper')
