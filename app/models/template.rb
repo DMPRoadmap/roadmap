@@ -58,7 +58,7 @@ class Template < ApplicationRecord
   # --------------------------------
   # A standard template will have access to question types such as text, textarea
   # date, number ...
-  # For structured templates, question types will be restricted to structured, with 
+  # For structured templates, question types will be restricted to structured, with
   # access to structured forms when adding a new question.
   self.inheritance_column = nil
   enum type: %i[classic structured]

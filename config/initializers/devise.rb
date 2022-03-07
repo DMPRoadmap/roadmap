@@ -313,6 +313,7 @@ end
 require 'omniauth/strategies/shibboleth'
 module OmniAuth
   module Strategies
+    # Fix for encogind bug on some chars coming from shibboleth
     class Shibboleth
       # set encoding UTF-8 when reading from HTTP header
       # reason: header values are always ISO-8859-1,
