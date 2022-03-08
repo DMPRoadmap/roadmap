@@ -122,6 +122,10 @@ module DMPRoadmap
     config.x.application.require_contributor_name = false
     config.x.application.require_contributor_email = false
 
+    # Defines if Guidances/Comments in toggleable & if it's opened by default
+    config.x.application.guidance_comments_toggleable = true
+    config.x.application.guidance_comments_opened = true
+
     # ------------------- #
     # SHIBBOLETH SETTINGS #
     # ------------------- #
