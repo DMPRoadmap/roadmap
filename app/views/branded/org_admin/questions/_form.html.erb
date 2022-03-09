@@ -42,11 +42,10 @@
     <% end %>
 
     <% if template.structured? %>
+      <%= f.hidden_field :question_format_id, value: QuestionFormat.id_for("structured")%>
       <!-- Structured Data Schemas -->
       <div class="form-group col-md-10 question_schema"
-          data-attribute="question_schema" 
-          style="<%= 'display:none' if !question.question_format.structured?%>"
-      >
+          data-attribute="question_schema">
         <%= f.label(:madmp_schema_id, _('Structured Form'), class: "control-label") %>
           <%= f.select :madmp_schema_id,
             options_from_collection_for_select(@madmp_schemas,
