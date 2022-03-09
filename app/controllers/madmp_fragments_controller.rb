@@ -4,7 +4,7 @@
 # Controller for the MadmpFragments, handle structures forms
 class MadmpFragmentsController < ApplicationController
   after_action :verify_authorized
-  include DynamicFormHelper
+  include MadmpOpidor::DynamicFormHelper
 
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/MethodLength
@@ -261,7 +261,7 @@ class MadmpFragmentsController < ApplicationController
     authorize @fragment
     respond_to do |format|
       format.html
-      format.js { render partial: 'shared/dynamic_form/linked_fragment' }
+      format.js { render partial: 'madmp_opidor/dynamic_form/linked_fragment' }
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
@@ -277,7 +277,7 @@ class MadmpFragmentsController < ApplicationController
     authorize @fragment
     respond_to do |format|
       format.html
-      format.js { render partial: 'shared/dynamic_form/linked_fragment' }
+      format.js { render partial: 'madmp_opidor/dynamic_form/linked_fragment' }
     end
   end
 
@@ -484,7 +484,7 @@ class MadmpFragmentsController < ApplicationController
       # if the fragment is a Person, we consider that it's been edited from a Contributor list
       # we need to indicate that we want the contributor list to be displayed
       render_to_string(
-        partial: 'shared/dynamic_form/fields/contributor/contributor_list',
+        partial: 'madmp_opidor/dynamic_form/fields/contributor/contributor_list',
         locals: {
           contributors: contributors,
           parent_id: parent_id,
@@ -501,7 +501,7 @@ class MadmpFragmentsController < ApplicationController
         parent_id: parent_id
       ).where("additional_info->>'property_name' = ?", property_name)
       render_to_string(
-        partial: 'shared/dynamic_form/linked_fragment/list',
+        partial: 'madmp_opidor/dynamic_form/linked_fragment/list',
         locals: {
           parent_id: parent_id,
           obj_list: obj_list,
@@ -522,7 +522,7 @@ class MadmpFragmentsController < ApplicationController
       madmp_schema_id: fragment.madmp_schema_id
     )
     render_to_string(
-      partial: 'shared/dynamic_form/linked_fragment/select_options',
+      partial: 'madmp_opidor/dynamic_form/linked_fragment/select_options',
       locals: {
         selected_value: fragment.id,
         select_values: select_values
@@ -575,7 +575,7 @@ class MadmpFragmentsController < ApplicationController
           base_template_org: template.base_org
         }, formats: [:html]),
         'form_run' => if run_parameters.present?
-                        render_to_string(partial: 'shared/dynamic_form/codebase/show', locals:
+                        render_to_string(partial: 'madmp_opidor/dynamic_form/codebase/show', locals:
                         {
                           fragment: fragment,
                           parameters: run_parameters,

@@ -25,7 +25,7 @@ require 'jsonpath'
 # Object that represents a madmp_fragment
 class MadmpFragment < ApplicationRecord
   include ValidationMessages
-  include DynamicFormHelper
+  include MadmpOpidor::DynamicFormHelper
   include FragmentImport
   include ActionView::Helpers::NumberHelper
 

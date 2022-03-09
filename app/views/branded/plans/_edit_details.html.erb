@@ -93,7 +93,7 @@
               <%= f.hidden_field :template_locale, :value => locale, id: nil %>
               <%= f.hidden_field "source", :value => "form" %>
               <div class="form-group fragment-<%= project_fragment.id %>" data-fragment-id="<%= project_fragment.id %>" >
-                <%= render(partial: 'shared/dynamic_form/form', locals: { 
+                <%= render(partial: 'madmp_opidor/dynamic_form/form', locals: { 
                       f: f,
                       current_fragment: project_fragment, 
                       schema: project_schema,
@@ -164,7 +164,7 @@
                 <%= f.hidden_field :template_locale, :value => locale, id: nil %>
                 <%= f.hidden_field "source", :value => "form" %>
                 <div class="meta-form form-group fragment-<%= meta_fragment.id %>" data-fragment-id="<%= meta_fragment.id %>" >
-                  <%= render(partial: 'shared/dynamic_form/form', locals: { 
+                  <%= render(partial: 'madmp_opidor/dynamic_form/form', locals: { 
                         f: f,
                         current_fragment: meta_fragment, 
                         schema: meta_schema,

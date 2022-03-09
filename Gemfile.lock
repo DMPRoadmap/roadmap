@@ -258,6 +258,8 @@ GEM
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     lumberjack (1.2.8)
+    madmp_opidor (0.1.0)
+      rails (~> 5.2.6, >= 5.2.6.2)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
     marcel (1.0.2)
@@ -565,6 +567,7 @@ DEPENDENCIES
   kaminari
   ledermann-rails-settings
   listen
+  madmp_opidor
   mimemagic (~> 0.3.7)
   mocha
   mysql2

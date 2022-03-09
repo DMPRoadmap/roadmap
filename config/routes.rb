@@ -429,11 +429,6 @@ Rails.application.routes.draw do
 
     resources :themes, only: %i[index new create edit update destroy]
     resources :madmp_schemas, only: %i[index new create edit update destroy]
-    resources :registries do
-      post "sort_values", on: :collection
-      get "download"
-    end
-    resources :registry_values, only: %i[new create edit update destroy]
     resources :users, only: %i[edit update] do
       member do
         put :merge
@@ -464,5 +459,7 @@ Rails.application.routes.draw do
   get 'research_projects/(:type)', action: 'index',
                                    controller: 'research_projects',
                                    constraints: { format: 'json' }
+
+  mount MadmpOpidor::Engine => "/"
 end
 # rubocop:enable Metrics/BlockLength

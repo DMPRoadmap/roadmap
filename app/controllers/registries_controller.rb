@@ -3,7 +3,7 @@
 # Controller that handles registries interrogation on the user's side
 class RegistriesController < ApplicationController
   after_action :verify_authorized
-  include DynamicFormHelper
+  include MadmpOpidor::DynamicFormHelper
 
   # rubocop:disable Metrics/AbcSize
   def load_values
