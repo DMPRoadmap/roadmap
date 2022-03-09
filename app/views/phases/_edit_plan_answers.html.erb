@@ -69,11 +69,11 @@
                   <div class="question-section">
                     <!-- Answer Section -->
                     <% 
-                      guidance_comments_opened = Rails.configuration.x.application.guidance_comments_opened
+                      guidance_comments_opened_by_default = Rails.configuration.x.application.guidance_comments_opened_by_default
                     %>
                     <% if Rails.configuration.x.application.guidance_comments_toggleable %>
                       <div class="toggle-guidance-section">
-                        <span class="fa fa-chevron-<%= guidance_comments_opened ? 'right': 'left' %>"></span> 
+                        <span class="fa fa-chevron-<%= guidance_comments_opened_by_default ? 'right': 'left' %>"></span> 
                         <span><%= _('Comments & Guidance') %></span>
                       </div>
                     <% end %>
@@ -96,7 +96,7 @@
                       </div>
                     </div>
                   </div>
-                  <% style = guidance_comments_opened ? '' : 'display: none' %>
+                  <% style = guidance_comments_opened_by_default ? '' : 'display: none' %>
                   <div class="guidance-section" style="<%= style %>">
                     <!-- Guidances and notes partial view -->
                     <%= render partial: '/phases/guidances_notes', locals: {

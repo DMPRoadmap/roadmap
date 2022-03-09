@@ -124,7 +124,7 @@ module DMPRoadmap
 
     # Defines if Guidances/Comments in toggleable & if it's opened by default
     config.x.application.guidance_comments_toggleable = true
-    config.x.application.guidance_comments_opened = true
+    config.x.application.guidance_comments_opened_by_default = true
 
     # ------------------- #
     # SHIBBOLETH SETTINGS #
