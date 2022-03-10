@@ -2,7 +2,6 @@
 
 # DMPTool specific Rake tasks
 namespace :dmptool_specific do
-
   desc 'DMPTool monthly maintenance tasks'
   task monthly_maintenance: :environment do
     p '--------------------------------'
@@ -154,10 +153,10 @@ namespace :dmptool_specific do
   task truncate_transient_data: :environment do
     date = (Time.now - 1.year).strftime('%Y-%m-%d 00:00:00')
     p 'Deleting api_logs records that are older than 1 year'
-    ApiLog.where(created_at: <= (Time.now - 1.year)).destroy_all
+    ApiLog.where('created_at <= ?', date).destroy_all
 
     date = (Time.now - 1.month).strftime('%Y-%m-%d 00:00:00')
     p 'Deleting sessions that are older than 1 month'
-    Session.where(updated_at: <= (Time.now - 1.month)).destroy_all
+    Session.where('updated_at <= ?', date).destroy_all
   end
 end
