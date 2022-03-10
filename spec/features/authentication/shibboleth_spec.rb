@@ -42,7 +42,7 @@ RSpec.describe 'Shibboleth Sign in / Sign up', type: :feature do
     expect(find("input[value=\"#{@user.org.id}\"]", visible: false).present?).to eql(true)
     expect(find("input[value=\"#{@user.email}\"]").present?).to eql(true)
 
-    pp page.body if @user.firstname == 'Ki Adi Mundi' || @user.surname == 'Ki Adi Mundi'
+  pp page.body if @user.firstname == 'Ki Adi Mundi' || @user.surname == 'Ki Adi Mundi'
 
     expect(find("input[value=\"#{CGI.escapeHTML(@user.firstname)}\"]").present?).to eql(true)
     expect(find("input[value=\"#{CGI.escapeHTML(@user.surname)}\"]").present?).to eql(true)
