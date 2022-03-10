@@ -2,6 +2,34 @@
 
 # DMPTool specific Rake tasks
 namespace :dmptool_specific do
+
+  desc 'DMPTool monthly maintenance tasks'
+  task monthly_maintenance: :environment do
+    p '--------------------------------'
+    p 'Running DMPTool monthly maintenance tasks'
+    p ''
+    p 'Step 1 of 7 - Compile usage statistics for prior month'
+    Rake::Task['stat:build_last_month_parallel'].execute
+    p ''
+    p 'Step 2 of 7 - Purge revoked/expired OAuth tokens and grants'
+    Rake::Task['dmptool_specific:clean_oauth'].execute
+    p ''
+    p 'Step 3 of 7 - Purge old records from tables that store transient data (e.g. sessions)'
+    Rake::Task['dmptool_specific:truncate_transient_data'].execute
+    p ''
+    p 'Step 4 of 7 - Update RDA metadata standards'
+    Rake::Task['external_api:load_rdamsc_standards'].execute
+    p ''
+    p 'Step 5 of 7 - Update SPX license data'
+    Rake::Task['external_api:load_spdx_licenses'].execute
+    p ''
+    p 'Step 6 of 7 - Update re3data repository data'
+    Rake::Task['external_api:load_rdamsc_standards'].execute
+    p ''
+    p 'Step 7 of 7 - Update ROR data'
+    Rake::Task['external_api:sync_registry_orgs'].execute
+  end
+
   # We sent the maDMP PRs over to DMPRoadmap after they had been live in DMPTool for some time
   # This script moves the re3data URLs which we original stored in the :identifiers table
   # over to the repositories.uri column
@@ -105,5 +133,28 @@ namespace :dmptool_specific do
     else
       p 'Unable to process records because there is no default Language!'
     end
+  end
+
+  desc 'Purge revoked and expired grants and tokens from the OAuth tables'
+  task clean_oauth: :environment do
+    p 'Deleting revoked or expired OAuth access tokens for the API'
+    Doorkeeper::AccessToken.each { |token| token.destroy if token.expired? || token.revoked? }
+
+    p 'Deleting revoked or expired OAuth access grants for the API'
+    Doorkeeper::AccessGrant.each { |grant| grant.destroy if grant.expired? || grant.revoked? }
+
+    p 'Deleting revoked or expired OAuth access tokens for external systems'
+    ExternalApiAccessToken.where(expires_at: <= Time.now - 1.year).destroy_all
+    ExternalApiAccessToken.where(revoked_at: <= Time.now - 1.year).destroy_all
+  end
+
+  desc 'Truncate specific tables containing temporary data'
+  task truncate_transient_data: :environment do
+
+    p 'Deleting api_logs records that are older than 1 year'
+    ApiLog.where(created_at: <= (Time.now - 1.year)).destroy_all
+
+    p 'Deleting sessions that are older than 1 month'
+    Session.where(updated_at: <= (Time.now - 1.month)).destroy_all
   end
 end
