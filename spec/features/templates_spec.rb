@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.describe "Templates", type: :feature do
-
+RSpec.describe 'Templates', type: :feature do
   before do
     @org      = create(:org)
     @template = create(:template, org: @org, phases: 2)
@@ -11,27 +10,28 @@ RSpec.describe "Templates", type: :feature do
     @template.phases.each { |phase| create_list(:section, 2, phase: phase) }
     @user = create(:user, org: @org)
     @user.perms << create(:perm, :modify_templates)
-    sign_in_as_user(@user)
+    sign_in @user
+    visit root_path
   end
 
-  scenario "Org admin edits a template", :js do
+  scenario 'Org admin edits a template', :js do
     # Action
-    click_link "Admin"
-    click_link "Templates"
+    click_button 'Admin'
+    click_link 'Templates'
 
     # Expectations
     expect(current_path).to eql(organisational_org_admin_templates_path)
 
     # Action
-    click_button "Actions"
-    click_link "Edit"
+    click_button 'Actions'
+    click_link 'Edit'
 
     # Expectations
     expect(current_path).to eql(edit_org_admin_template_path(@template))
 
     # Action
     within "#phase_#{@phase.id}" do
-      click_link "Edit phase"
+      click_link 'Edit phase'
     end
 
     # Expectations
@@ -42,19 +42,18 @@ RSpec.describe "Templates", type: :feature do
     # Open the panel for a new Section
     find("a[href='#new_section']").click
 
-    within "#collapseSectionNew" do
-      fill_in :new_section_section_title, with: "My new section"
+    within '#collapseSectionNew' do
+      fill_in :new_section_section_title, with: 'My new section'
       tinymce_fill_in :new_section_section_description,
-                      with: "This is the description of my new section"
-      click_button "Save"
+                      with: 'This is the description of my new section'
+      click_button 'Save'
     end
 
     # Expectations
     last_section = @template.phases.first.sections.order(:created_at).last
     expect(@template.sections.count).to eql(5)
-    expect(last_section.title).to eql("My new section")
-    expect(last_section.description).to match("This is the description of my new section")
-    expect(last_section.description).to match("<p>")
+    expect(last_section.title).to eql('My new section')
+    expect(last_section.description).to match('This is the description of my new section')
+    expect(last_section.description).to match('<p>')
   end
-
 end

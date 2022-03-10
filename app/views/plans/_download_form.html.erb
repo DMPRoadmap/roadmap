@@ -42,24 +42,8 @@
       <% if @plan.template.customization_of.present? %>
         <div class="checkbox">
           <%= label_tag 'export[custom_sections]' do %>
-            <%= check_box_tag 'export[custom_sections]', true, true %>
+            <%= check_box_tag 'export[custom_sections]', true, false %>
             <%= _('supplementary section(s) not requested by funding organisation') %>
-          <% end %>
-        </div>
-      <% end %>
-      <% if @plan.research_outputs.any? %>
-        <div class="checkbox">
-          <%= label_tag 'export[research_outputs]' do %>
-            <%= check_box_tag 'export[research_outputs]', true, true %>
-            <%= _('research outputs') %>
-          <% end %>
-        </div>
-      <% end %>
-      <% if @plan.related_identifiers.any? %>
-        <div class="checkbox">
-          <%= label_tag 'export[related_identifiers]' do %>
-            <%= check_box_tag 'export[related_identifiers]', true, false %>
-            <%= _('related works') %>
           <% end %>
         </div>
       <% end %>

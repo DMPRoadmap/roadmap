@@ -1,0 +1,126 @@
+<%#
+locals:
+  default_org             <-- Allows you to prepopulate the autocomplete with a current selection
+  required                <-- Whether or not the autocomplete should be a required field
+  funder_only             <-- Allows you to restrict the suggestions to funder orgs
+  non_funder_only         <-- Allows you to restrict the suggestions to non-funder orgs
+  known_only              <-- Allows you to restrict the suggestions to orgs in the `orgs` table
+                              or registry_orgs that have an org_id
+  managed_only            <-- Allows you to restrict the suggestions to managed orgs
+  label                   <-- The label text that appears above the autocomplete
+  namespace               <-- For forms that have multiple autocompletes (nil is ok here!)
+%>
+<%
+default_org = local_assigns.fetch(:default_org, nil)
+
+# Whether or not the org selection is required
+required = local_assigns.fetch(:required, false)
+
+# Whether or not to restrict the search to funders
+funder_only = local_assigns.fetch(:funder_only, false)
+# Whether or not to exclude funders from the search
+non_funder_only = local_assigns.fetch(:non_funder_only, false)
+# Whether or not to restrict the search to records that exist in the orgs table only
+known_only = local_assigns.fetch(:known_only, false)
+# Whether or not to restrict the search to RegistryOrgs that have no Org association
+unknown_only = known_only ? false : local_assigns.fetch(:unknown_only, false)
+# Whether or not to restrict the search records to `orgs.managed = true`
+managed_only = local_assigns.fetch(:managed_only, false)
+# Whether or not to restrict the search based on whether or not the Org owns a published template
+template_owner_only = local_assigns.fetch(:template_owner_only, false)
+
+# Whether or not to allow a user to enter in a custom/other Org
+restricting = Rails.configuration.x.application.restrict_orgs
+allow_custom_org_entry = restricting ? false : !local_assigns.fetch(:known_only, false)
+
+# The label to use
+label = local_assigns.fetch(:label, _("Organisation"))
+
+# Any additional classes to add to the control
+classes = local_assigns.fetch(:classes, "")
+
+# Namespace used to differentiate between multiple Org Autocompletes on the same page. This namespace
+# will be used when submitting back to the controller. (e.g. A namespace of 'funder' would result in:
+# `org_autocomplete[funder_name]` instead or the default `org_autocomplete[name]`)
+#
+# NOTE: if you specify a namespace, be sure that the RegistryOrgsController's strong params support it!
+namespace = local_assigns.fetch(:namespace, nil)
+
+# The identifier for the div containing the autocomplete
+div_id = local_assigns.fetch(:div_id, (namespace.present? ? "#{namespace}-org" : 'org'))
+
+placeholder = _("Begin typing to see a list of suggestions.")
+autocomplete_id = SecureRandom.hex(6)
+
+user_entered = default_org.present? &&
+               default_org.new_record? &&
+               !default_org.is_a?(RegistryOrg)
+%>
+
+<%= fields_for :org_autocomplete do |org_fields| %>
+  <div id="<%= div_id %>" class="c-textfield <%= classes %> <%= required ? 'is-required' : '' %>">
+    <%= org_fields.label :"#{[namespace, "name"].compact.join("_")}", label %>
+
+    <%= org_fields.text_field :"#{[namespace, "name"].compact.join("_")}",
+                              class: "#{classes}",
+                              placeholder: placeholder,
+                              value: user_entered ? nil : default_org&.name,
+                              list: "autocomplete-#{autocomplete_id}",
+                              autocomplete: allow_custom_org_entry ? 'autocomplete' : 'select',
+                              aria: { label: placeholder, autocomplete: "list", required: required },
+                              data: {
+                                content: "autocomplete-crosswalk-#{autocomplete_id}",
+                                remote: true,
+                                url: orgs_search_path(
+                                  known_only: known_only, managed_only: managed_only,
+                                  funder_only: funder_only, non_funder_only: non_funder_only,
+                                  unknown_only: unknown_only, context: autocomplete_id,
+                                  template_owner_only: template_owner_only
+                                )
+                              } %>
+
+    <% if !user_entered && default_org.present? %>
+      <span class="autocomplete-default-selection-<%= autocomplete_id %> hide"
+            aria-visible="false"><%= default_org.name %></span>
+    <% end %>
+
+    <span class="autocomplete-help sr-only" role="status"></span>
+
+    <%# suggestions is a <ul> list managed by JQuery to display the search results to the user %>
+    <div id="autocomplete-suggestions-<%= autocomplete_id %>" class="ui-front"></div>
+
+    <%# message to display to the user if they did not select an item from the suggestions %>
+    <div class="c-textfield__invalid-description js-invalid-description autocomplete-warning-<%= autocomplete_id %>"
+         hidden>
+    </div>
+
+    <%# If we are allowing the user to specify orgs we don't know about then display the checkbox and
+        textbox for the user's custom Org name %>
+    <% if allow_custom_org_entry %>
+      <div class="<%= classes.present? ? 'row' : '' %>">
+        <conditional>
+          <div id="js-unlisted-checkbox" class="c-checkbox js-checkbox <%= classes.present? ? 'col-md-12' : '' %>">
+            <%= org_fields.check_box(:"#{[namespace, "not_in_list"].compact.join("_")}",
+                                      context: "not-in-list-#{autocomplete_id}",
+                                      checked: user_entered) %>
+            <%= org_fields.label :"#{[namespace, "not_in_list"].compact.join("_")}",
+                                _('I cannot find my %{item_label} in the list') % {
+                                  item_label: label.downcase
+                                } %>
+          </div>
+          <div id="js-unlisted-textfield" class="c-textfield js-textfields <%= classes.present? ? 'col-md-12' : '' %>">
+            <%= org_fields.text_field :"#{[namespace, "user_entered_name"].compact.join("_")}",
+                                      value: user_entered ? default_org&.name : nil,
+                                      placeholder: _("Please enter the %{item_label} name") % { item_label: label.downcase },
+                                      class: "form-control toggleable-field user-entered-org-#{autocomplete_id}",
+                                      maxlength: 80 %>
+          </div>
+        </conditional>
+      </div>
+    <% end %>
+
+    <script type="text/javascript">
+      initAutoComplete('#<%= ["org", "autocomplete", namespace, "name"].compact.join("_") %>');
+    </script>
+  </div>
+<% end %>

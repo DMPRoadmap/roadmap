@@ -15,7 +15,6 @@
 #  rdamsc_id           :string
 #
 class MetadataStandard < ApplicationRecord
-
   # ================
   # = Associations =
   # ================
@@ -28,7 +27,6 @@ class MetadataStandard < ApplicationRecord
 
   scope :search, lambda { |term|
     term = term.downcase
-    where("LOWER(title) LIKE ?", "%#{term}%").or(where("LOWER(description) LIKE ?", "%#{term}%"))
+    where('LOWER(title) LIKE ?', "%#{term}%").or(where('LOWER(description) LIKE ?', "%#{term}%"))
   }
-
 end

@@ -1,4 +1,3 @@
-import { initAutocomplete, scrubOrgSelectionParamsOnSubmit } from '../utils/autoComplete';
 import { Tinymce } from '../utils/tinymce.js.erb';
 import toggleConditionalFields from '../utils/conditionalFields';
 import getConstant from '../utils/constants';
@@ -19,7 +18,6 @@ $(() => {
     });
 
     const ethicalIssues = $('#plan_ethical_issues');
-    const funderId = $('#plan_org_id');
 
     if (ethicalIssues.length > 0) {
       // If the user checks the ethical_issues field then display the other ethics fields
@@ -29,13 +27,35 @@ $(() => {
 
       toggleConditionalFields(ethicalIssues, ethicalIssues.prop('checked'));
     }
-    if (funderId.length > 0) {
-      // If the plan has a funder defined then display the other funder fields
-      funderId.on('change', () => {
-        toggleConditionalFields(funderId, (funderId.val() !== '{"name":""}' && funderId.val() !== ''));
-      }).change();
 
-      toggleConditionalFields(funderId, (funderId.val() !== '{"name":""}' && funderId.val() !== ''));
+    const toggleFunderFields = (showThem) => {
+      const funderFields = $('.js-funder-field');
+      if (funderFields.length > 0) {
+        if (showThem) {
+          funderFields.show();
+        } else {
+          $('#plan_funding_status').val('');
+          $('#plan_identifier').val('');
+          $('#plan_grant_value').val('');
+          funderFields.hide();
+        }
+      }
+    };
+
+    const funderName = $('#org_autocomplete_funder_name');
+
+    if (funderName.length > 0) {
+      const customFunderName = $('#org_autocomplete_funder_user_entered_name');
+
+      // If the plan has a funder defined then display the other funder fields
+      funderName.on('keyup change', () => {
+        toggleFunderFields(funderName.val().length >= 3);
+      });
+      customFunderName.on('keyup change', () => {
+        toggleFunderFields(customFunderName.val().length >= 3);
+      });
+
+      toggleFunderFields(funderName.val().length >= 3 || customFunderName.val().length >= 3);
     }
 
     // Toggle the disabled flags
@@ -84,12 +104,6 @@ $(() => {
 
     const setUpTypeahead = () => {
       if ($('.edit_plan').length) {
-        // TODO: Convert this over so that it just loads in the controller?
-        //       Follow this pattern:
-        // if ($('#org-details-org-controls').length > 0) {
-        //   initAutocomplete('#org-details-org-controls .autocomplete');
-        // }
-
         $.get('/research_projects.json', (data) => {
           window.researchProjects = data;
           const descriptionData = $.map((dataIn, datum) => datum.description);
@@ -142,11 +156,6 @@ $(() => {
     $('#priority-guidance-orgs').find('input[type="checkbox"]').click((e) => {
       syncGuidance($(e.target).closest('ul[id]'));
     });
-
-    initAutocomplete('#funder-org-controls .autocomplete');
-    // Scrub out the large arrays of data used for the Org Selector JS so that they
-    // are not a part of the form submissiomn
-    scrubOrgSelectionParamsOnSubmit('form.edit_plan');
 
     toggleCheckboxes($('#priority-guidance-orgs input[type="checkbox"]:checked').map((i, el) => $(el).val()).get());
 

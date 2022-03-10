@@ -1,0 +1,21 @@
+name: Rubocop
+
+on: [push, pull_request]
+
+jobs:
+  rubocop:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the repo
+    - uses: actions/checkout@v2
+
+    # Install Ruby and run bundler
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.6.3
+        bundler-cache: true
+
+    # Run the Rubocop linter checks
+    - name: 'Run Rubocop'
+      run: bin/rubocop

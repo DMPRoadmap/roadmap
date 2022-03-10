@@ -1,20 +1,21 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.feature "Templates::UpgradeCustomisations", type: :feature do
+RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
+  include AutocompleteHelper
 
-  let(:funder) { create(:org, :funder, name: "The funder org") }
+  let(:funder) { create(:org, :funder, name: 'The funder org', managed: true) }
 
-  let(:org) { create(:org, :organisation, name: "The User's org") }
+  let(:org) { create(:org, :organisation, name: "The User's org", managed: true) }
 
-  let(:user) { create(:user, org: org) }
+  let(:user) { create(:user, :super_admin, org: org) }
 
   let(:question_format) { create(:question_format, :textarea) }
 
   let(:funder_template) do
     create(:template, :default, :publicly_visible, :published,
-           org: funder, title: "Funder Template")
+           org: funder, title: 'Funder Template')
   end
 
   before do
@@ -23,64 +24,62 @@ RSpec.feature "Templates::UpgradeCustomisations", type: :feature do
         create_list(:question, 2, :textarea, section: section)
       end
     end
-    user.perms << create(:perm, :modify_templates)
-    user.perms << create(:perm, :add_organisations)
-    user.perms << create(:perm, :change_org_affiliation)
   end
 
-  scenario "Admin upgrades customizations from funder Template", :js do
+  scenario 'Admin upgrades customizations from funder Template', :js do
     # pending "Need S3 travis working to debug this test on Travis"
-    sign_in_as_user user
-    visit org_admin_templates_path
+    sign_in user
+    visit customisable_org_admin_templates_path
 
     # Customise a Template that belongs to another funder Org
-    click_link("Customisable Templates")
+    click_link('Customisable Templates')
 
-    click_button "Actions"
-    expect { click_link "Customise" }.to change { Template.count }.by(1)
+    click_button 'Actions'
+    expect { click_link 'Customise' }.to change { Template.count }.by(1)
 
     customized_template = Template.last
 
     # click_link "View all templates"
     visit customisable_org_admin_templates_path
 
-    expect(page).to have_text("Unpublished")
+    expect(page).to have_text('Unpublished')
 
     # Publish our customisation
-    click_button "Actions"
-    click_link "Publish"
+    click_button 'Actions'
+    click_link 'Publish'
+    sleep(2)
+
     expect(customized_template.reload.published?).to eql(true)
 
     # Move to the other funder Org's Templates
-    fill_in(:superadmin_user_org_name, with: funder.name)
-    choose_suggestion(funder.name)
-    click_button("Change affiliation")
+    select_an_org('#change-affiliation-org-controls', funder.name, 'Affiliation')
+    click_button('Change affiliation')
 
     # Edit the original Template
     click_link "#{funder.name} Templates"
 
-    expect(page).to have_text("Published")
-    click_button "Actions"
-    click_link "Edit"
+    expect(page).to have_text('Published')
+    click_button 'Actions'
+    click_link 'Edit'
 
     click_link(funder_template.phases.first.title)
 
-    click_link "Add a new section"
-    within("#new_section_new_section") do
-      fill_in :new_section_section_title, with: "Cool New section title"
-      tinymce_fill_in :new_section_section_description, with: "New section Description"
-      expect { click_button("Save") }.to change { Section.count }.by(3)
+    click_link 'Add a new section'
+    within('#new_section_new_section') do
+      fill_in :new_section_section_title, with: 'Cool New section title'
+      tinymce_fill_in :new_section_section_description, with: 'New section Description'
+      expect { click_button('Save') }.to change { Section.count }.by(3)
     end
 
     within("#section-#{Section.last.id}") do
-      within(".new-question-button") do
-        click_link("Add Question")
+      within('.new-question-button') do
+        click_link('Add Question')
       end
-      expect(page).to have_css("#new_question_new_question")
-      within("#new_question_new_question") do
-        expect(find("#new_question_question_text")).to be_present
-        fill_in :new_question_question_text, with: "Text for this specific question"
-        expect { click_button("Save") }.to change { Question.count }.by(1)
+      expect(page).to have_css('#new_question_new_question')
+      within('#new_question_new_question') do
+        expect(find('#new_question_question_text')).to be_present
+        fill_in :new_question_question_text, with: 'Text for this specific question'
+        expect { click_button('Save') }.to change { Question.count }.by(1)
       end
     end
 
@@ -88,31 +87,28 @@ RSpec.feature "Templates::UpgradeCustomisations", type: :feature do
 
     visit organisational_org_admin_templates_path
 
-    click_button "Actions"
-    click_link "Publish changes"
+    click_button 'Actions'
+    click_link 'Publish changes'
     expect(new_funder_template.reload.published?).to eql(true)
 
     # Go back to the original Org...
+    select_an_org('#change-affiliation-org-controls', org.name, 'Affiliation')
+    click_button('Change affiliation')
 
-    fill_in(:superadmin_user_org_name, with: org.name)
-    choose_suggestion(org.name)
-    click_button("Change affiliation")
+    click_link 'Customisable Templates'
 
-    click_link "Customisable Templates"
+    expect(page).to have_text('Original funder template has changed')
 
-    expect(page).to have_text("Original funder template has changed")
-
-    click_button "Actions"
-    click_link "Transfer customisation"
+    click_button 'Actions'
+    click_link 'Transfer customisation'
 
     new_customized_template = Template.last
 
-    expect(page).to have_text("Customisations are published")
+    expect(page).to have_text('Customisations are published')
 
     expect(funder_template.sections).to have(2).items
     expect(customized_template.sections).to have(2).items
     expect(new_customized_template.sections).to have(3).items
     expect(new_funder_template.sections).to have(3).items
   end
-
 end

@@ -1,62 +1,25 @@
 # frozen_string_literal: true
 
 module DmptoolHelper
+  include IdentifierHelper
 
-  def access_sign_in_options_modal
-    click_link "Sign in"
+  def mock_devise_env_for_controllers
+    # Controller Tests don't have access to the `request` so we need to stub it and the
+    # Devise mappings
+    expect(@controller.is_a?(ApplicationController)).to eql(true), 'Cannot mock devise env before defining @controller!'
+    devise_mappings = OpenStruct.new('devise.mapping': Devise.mappings[:user])
+    @controller.stubs(:request).returns(OpenStruct.new(env: devise_mappings))
   end
 
-  def access_sign_in_modal
-    access_sign_in_options_modal
-    click_on "Email address"
+  def shibbolize_org(org:)
+    return nil unless org.present?
+
+    Rails.configuration.x.shibboleth.enabled = true
+    Rails.configuration.x.shibboleth.use_filtered_discovery_service = true
+    create_shibboleth_entity_id(org: org)
   end
 
-  def access_create_account_modal
-    access_sign_in_options_modal
-    click_on "Create an account"
-    # find("#show-create-account-form").first.click
-  end
-
-  def access_shib_ds_modal
-    access_sign_in_options_modal
-    click_on "Your institution"
-  end
-
-  def generate_shibbolized_orgs(count)
-    (1..count).each do
-      create(:org, :organisation, :shibbolized, managed: true)
-    end
-  end
-
-  def mock_omniauth_call(scheme, user)
-    case scheme
-    when "shibboleth"
-      # Mock the OmniAuth payload for Shibboleth
-      {
-        provider: scheme,
-        uid: SecureRandom.uuid,
-        info: {
-          email: user.email,
-          givenname: user.firstname,
-          sn: user.surname,
-          identity_provider: user.org.identifiers.first.value
-        }
-      }
-
-    when "orcid"
-      # Moch the Omniauth payload for Orcid
-      {
-        provider: scheme,
-        uid: 4.times.map { Faker::Number.number(l_digits: 4).to_s }.join("-")
-      }
-    else
-      {
-        provider: scheme,
-        uid: Faker::Lorem.word
-      }
-    end
-  end
-
+  # rubocop:disable Metrics/MethodLength
   def mock_blog
     xml = <<-XML
     <?xml version="1.0" encoding="UTF-8"?>
@@ -72,12 +35,15 @@ module DmptoolHelper
       </channel>
     </rss>
     XML
-    stub_request(:get, "https://blog.dmptool.org/feed").to_return(
+    stub_request(:get, 'https://blog.dmptool.org/feed/').to_return(
       status: 200, body: xml.to_s, headers: {}
     )
-    stub_request(:get, "https://blog.example.org/feed").to_return(
+    stub_request(:get, 'https://example.org/feed').to_return(
+      status: 200, body: xml.to_s, headers: {}
+    )
+    stub_request(:get, 'https://blog.example.org/feed/').to_return(
       status: 200, body: xml.to_s, headers: {}
     )
   end
-
+  # rubocop:enable Metrics/MethodLength
 end

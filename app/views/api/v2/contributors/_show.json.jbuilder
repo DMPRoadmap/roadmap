@@ -14,24 +14,24 @@ if !is_contact && contributor.selected_roles.any?
   json.role roles if roles.any?
 end
 
-if contributor.org.present?
+if contributor.org.present? && !['No funder', 'Non Partner Institution'].include?(contributor.org.name)
   json.affiliation do
-    json.partial! "api/v2/orgs/show", org: contributor.org
+    json.partial! 'api/v2/orgs/show', org: contributor.org
   end
 end
 
-orcid = contributor.identifier_for_scheme(scheme: "orcid")
+orcid = contributor.identifier_for_scheme(scheme: 'orcid')
 if orcid.present?
   id = Api::V1::ContributorPresenter.contributor_id(
     identifiers: contributor.identifiers
   )
   if is_contact
     json.contact_id do
-      json.partial! "api/v2/identifiers/show", identifier: id
+      json.partial! 'api/v2/identifiers/show', identifier: id
     end
   else
     json.contributor_id do
-      json.partial! "api/v2/identifiers/show", identifier: id
+      json.partial! 'api/v2/identifiers/show', identifier: id
     end
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe Org::CreateLastMonthJoinedUserService do
   let(:org) do
@@ -12,8 +12,8 @@ RSpec.describe Org::CreateLastMonthJoinedUserService do
     end
     @last_day_of_month = Date.today.last_month.end_of_month
   end
-  describe ".call" do
-    context "when an org is passed" do
+  describe '.call' do
+    context 'when an org is passed' do
       it "generates counts from today's last month" do
         described_class.call(org)
 
@@ -21,7 +21,7 @@ RSpec.describe Org::CreateLastMonthJoinedUserService do
         expect(last_month).to eq(5)
       end
 
-      it "monthly records are either created or updated" do
+      it 'monthly records are either created or updated' do
         described_class.call(org)
 
         FactoryBot.create(:user, org: org, created_at: Date.today.last_month)
@@ -34,7 +34,7 @@ RSpec.describe Org::CreateLastMonthJoinedUserService do
       end
     end
 
-    context "when no org is passed" do
+    context 'when no org is passed' do
       it "generates counts from today's last month" do
         Org.stubs(:all).returns([org])
 

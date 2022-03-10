@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 module Api
-
   module V2
-
+    # Endpoints for Plan interactions
     class PlansController < BaseApiController
-
       include ::ConditionsHelper
 
       respond_to :json, :pdf
@@ -19,9 +17,10 @@ module Api
 
       # GET /api/v2/plans
       # -----------------
+      # rubocop:disable Metrics/AbcSize
       def index
         # Scope here is not the Doorkeeper scope, its just to refine the results
-        @scope = "mine"
+        @scope = 'mine'
         @scope = params[:scope].to_s.downcase if %w[mine public both].include?(params[:scope].to_s.downcase)
 
         # See the Policy for details on what Plans are returned to the Caller based on the AccessToken
@@ -31,17 +30,19 @@ module Api
           plans = plans.sort { |a, b| b.updated_at <=> a.updated_at }
           @items = paginate_response(results: plans)
           @minimal = true
-          render "api/v2/plans/index", status: :ok
+          render 'api/v2/plans/index', status: :ok
         else
-          render_error(errors: _("No Plans found"), status: :not_found)
+          render_error(errors: _('No Plans found'), status: :not_found)
         end
       end
+      # rubocop:enable Metrics/AbcSize
 
       # GET /api/v2/plans/:id
       # ---------------------
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       def show
         # See the Policy for details on what Plans are returned to the Caller based on the AccessToken
-        @plan = Api::V2::PlansPolicy::Scope.new(@client, @resource_owner, "both").resolve
+        @plan = Api::V2::PlansPolicy::Scope.new(@client, @resource_owner, 'both').resolve
                                            .select { |plan| plan.id.to_s == params[:id] }.first
 
         if @plan.present?
@@ -52,30 +53,32 @@ module Api
               render pdf: @file_name,
                      margin: @formatting[:margin],
                      footer: {
-                       center: _("Created using %{application_name}. Last modified %{date}") % {
-                         application_name: ApplicationService.application_name,
-                         date: l(@plan.updated_at.to_date, format: :readable)
-                       },
+                       center: format(_('Created using %<application_name>s. Last modified %<date>s'),
+                                      application_name: ApplicationService.application_name,
+                                      date: l(@plan.updated_at.to_date,
+                                              format: :readable)),
                        font_size: 8,
                        spacing: (Integer(@formatting[:margin][:bottom]) / 2) - 4,
-                       right: "[page] of [topage]",
-                       encoding: "utf8"
+                       right: '[page] of [topage]',
+                       encoding: 'utf8'
                      }
             end
 
             format.json do
               @items = paginate_response(results: [@plan])
-              render "/api/v2/plans/index", status: :ok
+              render '/api/v2/plans/index', status: :ok
             end
           end
         else
-          render_error(errors: _("Plan not found"), status: :not_found)
+          render_error(errors: _('Plan not found'), status: :not_found)
         end
       end
+      # rubocop:enable Metrics/AbcSize
 
       # POST /api/v2/plans
       # ------------------
-      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def create
         dmp = @json.with_indifferent_access.fetch(:dmp, {})
 
@@ -88,10 +91,11 @@ module Api
         plan = Api::V2::Deserialization::Plan.deserialize(json: dmp)
 
         if plan.present?
-          save_err = _("Unable to create your DMP")
-          exists_err = _("Plan already exists. Send an update instead.")
-          no_org_err = _("Could not determine ownership of the DMP. Please add an
-                          :affiliation to the :contact")
+          save_err = _('Unable to create your DMP')
+          exists_err = _('Plan already exists. Send an update instead.')
+          # rubocop:disable Layout/LineLength
+          no_org_err = _('Could not determine ownership of the DMP. The :affiliation you specified for the :contact could not be validated. You must use either a ROR id or a known name. Possible matches: %<list_of_names>s')
+          # rubocop:enable Layout/LineLength
 
           # Skip if this is an existing DMP
           render_error(errors: exists_err, status: :bad_request) and return unless plan.new_record?
@@ -100,8 +104,14 @@ module Api
           owner = determine_owner(plan: plan, json: dmp.fetch(:contact, {}))
 
           # Try to determine the Plan's org
-          plan.org = owner.present? ? owner.org : client.user&.org
-          render_error(errors: no_org_err, status: :bad_request) and return unless plan.org.present?
+          plan.org = owner.present? ? owner.org : client.owner&.org
+          unless plan.org.present?
+            matches = find_matching_orgs(
+              plan: plan, json: dmp.fetch(:contact, {}).fetch(:affiliation, {})
+            )
+            no_org_err = format(no_org_err, list_of_names: matches.map { |m| "'#{m}'" }.join(', '))
+            render_error(errors: no_org_err, status: :bad_request) and return unless plan.org.present?
+          end
 
           # Validate the plan and it's associations and return errors with context
           # e.g. 'Contact affiliation name can't be blank' instead of 'name can't be blank'
@@ -111,9 +121,7 @@ module Api
 
           # If we cannot save for some reason then return an error
           plan = Api::V2::PersistenceService.safe_save(plan: plan)
-          # rubocop:disable Layout/LineLength
           render_error(errors: save_err, status: :internal_server_error) and return if plan.new_record?
-          # rubocop:enable Layout/LineLength
 
           # If the plan was generated by an ApiClient then add a subscription for them
           dmp_id_to_subscription(plan: plan, id_json: dmp[:dmp_id]) if client.is_a?(ApiClient)
@@ -127,13 +135,14 @@ module Api
 
           # Kaminari Pagination requires an ActiveRecord result set :/
           @items = paginate_response(results: Plan.where(id: plan.id))
-          render "/api/v2/plans/index", status: :created
+          render '/api/v2/plans/index', status: :created
         else
-          render_error(errors: _("Invalid JSON format!"), status: :bad_request)
+          render_error(errors: _('Invalid JSON format!'), status: :bad_request)
         end
       rescue JSON::ParserError
-        render_error(errors: _("Invalid JSON"), status: :bad_request)
+        render_error(errors: _('Invalid JSON'), status: :bad_request)
       end
+      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
       private
@@ -152,6 +161,8 @@ module Api
       end
 
       # Get the Plan's owner
+      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def determine_owner(plan:, json:)
         return nil unless plan.present? && json.is_a?(Hash) && json[:mbox].present?
 
@@ -159,34 +170,56 @@ module Api
         return user if user.present?
 
         id_json = json.fetch(:contact_id, {})
-        orcid = id_json[:identifier] if id_json[:type]&.downcase == "orcid"
-        identifier = Identifier.by_scheme_name("orcid", "User").where(value: orcid) if orcid.present?
+        orcid = id_json[:identifier] if id_json[:type]&.downcase == 'orcid'
+        identifier = Identifier.by_scheme_name('orcid', 'User').where(value: orcid) if orcid.present?
         return identifier.identifiable if identifier.present?
 
-        names = json[:name]&.split || [""]
+        names = json[:name]&.split || ['']
         firstname = names.length > 1 ? names.first : nil
         surname = names.length > 1 ? names.last : names.first
 
         org = Api::V2::Deserialization::Org.deserialize(json: json[:affiliation])
 
-        user = User.new(firstname: firstname, surname: surname, email: json[:mbox], org: org)
+        user = User.new(firstname: firstname, surname: surname, email: json[:mbox], org: org,
+                        password: SecureRandom.uuid)
         return user unless orcid.present?
 
-        scheme = IdentifierScheme.find_by(name: "orcid")
+        scheme = IdentifierScheme.find_by(name: 'orcid')
         user.identifiers << Identifier.new(identifier_scheme: scheme, value: orcid)
         user
       end
+      # rubocop:enable Metrics/AbcSize
+      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+      # If the contact's org could not be determined, then fetch the matches to return to the
+      # caller
+      # rubocop:disable Metrics/AbcSize
+      def find_matching_orgs(plan:, json:)
+        return [] unless plan.present? && json.is_a?(Hash) && json[:name].present?
+
+        name = json[:name].downcase.split('(').first
+        matches = Org.where(managed: true).search(name)
+        matches += RegistryOrg.search(name) unless Rails.configuration.x.application.restrict_orgs
+        matches.any? ? matches.map(&:name) : []
+      end
+      # rubocop:enable Metrics/AbcSize
 
       # Send the owner an email to let them know about the new Plan
       def notify_owner(client:, owner:, plan:)
         if owner.new_record?
-          # This essentially drops the initializer User (aka owner) and creates a new one via
-          # the Devise invitation
-          User.invite!({ email: owner.email,
-                        firstname: owner.firstname,
-                        surname: owner.surname,
-                        invitation_plan_id: plan.id,
-                        org: owner.org }, client)
+          # This essentially drops the initializer User (aka owner) and creates a new one
+          # via the Devise invitation methods
+          User.invite!(
+            inviter: client,
+            plan: plan,
+            context: 'api',
+            params: {
+              email: owner.email,
+              firstname: owner.firstname,
+              surname: owner.surname,
+              org_id: owner.org_id
+            }
+          )
         else
           UserMailer.new_plan_via_api(
             recipient: owner, plan: plan, api_client: client
@@ -197,9 +230,9 @@ module Api
 
       # Convert the dmp_id into an identifier for the ApiClient if applicable
       def dmp_id_to_subscription(plan:, id_json:)
-        return nil unless id_json.is_a?(Hash) && id_json[:type] == "other" && @client.is_a?(ApiClient)
+        return nil unless id_json.is_a?(Hash) && id_json[:type] == 'other' && @client.is_a?(ApiClient)
 
-        val = id_json[:identifier] if id_json[:identifier].start_with?(@client.callback_uri || "")
+        val = id_json[:identifier] if id_json[:identifier].start_with?(@client.callback_uri || '')
         val = "#{@client.callback_uri}#{id_json[:identifier]}" unless val.present?
 
         subscription = Subscription.find_or_initialize_by(
@@ -212,13 +245,14 @@ module Api
         subscription.save
       end
 
+      # rubocop:disable Metrics/AbcSize
       def prep_for_pdf
         return false unless @plan.present?
 
         # We need to eager loadd the plan to make this more efficient
         @plan = Plan.includes(:org, :research_outputs, roles: [:user],
-                              contributors: [:org, identifiers: [:identifier_scheme]],
-                              identifiers: [:identifier_scheme])
+                                                       contributors: [:org, { identifiers: [:identifier_scheme] }],
+                                                       identifiers: [:identifier_scheme])
                     .find_by(id: @plan.id)
 
         # Include everything by default
@@ -230,18 +264,17 @@ module Api
         @public_plan             = @plan.publicly_visible?
         @formatting =
 
-        @hash           = @plan.as_pdf(nil, @show_coversheet)
+          @hash           = @plan.as_pdf(nil, @show_coversheet)
         @formatting     = @plan.settings(:export).formatting || @plan.template.settings(:export).formatting
-        @selected_phase = @plan.phases.order("phases.updated_at DESC").first
+        @selected_phase = @plan.phases.order('phases.updated_at DESC').first
 
         # limit the filename length to 100 chars. Windows systems have a MAX_PATH allowance
         # of 255 characters, so this should provide enough of the title to allow the user
         # to understand which DMP it is and still allow for the file to be saved to a deeply
         # nested directory
-        @file_name = Zaru.sanitize!(@plan.title).strip.gsub(/\s+/, "_")[0, 100]
+        @file_name = Zaru.sanitize!(@plan.title).strip.gsub(/\s+/, '_')[0, 100]
       end
+      # rubocop:enable Metrics/AbcSize
     end
-
   end
-
 end

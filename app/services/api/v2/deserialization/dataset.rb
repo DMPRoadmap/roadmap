@@ -1,15 +1,12 @@
 # frozen_string_literal: true
 
 module Api
-
   module V2
-
     module Deserialization
-
+      # Deserialization of RDA Common Standard for datasets to ResearchOutputs
       class Dataset
-
         class << self
-
+          # rubocop:disable Layout/LineLength
           # Convert incoming JSON into a Dataset
           #    {
           #      "type": "dataset",
@@ -57,6 +54,9 @@ module Api
           #      ],
           #      "technical_resource": []
           #    }
+          # rubocop:enable Layout/LineLength
+
+          # rubocop:disable Metrics/AbcSize
           def deserialize(plan:, json: {})
             return nil unless Api::V2::JsonValidationService.dataset_valid?(json: json)
 
@@ -72,11 +72,13 @@ module Api
             research_output.description = json[:description] if json[:description].present?
             research_output.personal_data = Api::V2::ConversionService.yes_no_unknown_to_boolean(json[:personal_data])
             research_output.sensitive_data = Api::V2::ConversionService.yes_no_unknown_to_boolean(json[:sensitive_data])
-            research_output.release_date = Api::V2::DeserializationService.safe_date(value: json.fetch(:issued, Time.now))
+            research_output.release_date = Api::V2::DeserializationService.safe_date(value: json.fetch(:issued,
+                                                                                                       Time.now))
 
             research_output = attach_metadata(research_output: research_output, json: json[:metadata])
             deserialize_distribution(research_output: research_output, json: json[:distribution])
           end
+          # rubocop:enable Metrics/AbcSize
 
           private
 
@@ -94,11 +96,11 @@ module Api
                 # research_output = Api::V2::DeserializationService.object_from_identifier(
                 #   class_name: "ResearchOutput", json: json
                 # )
-                id = id.start_with?("http") ? id : "http://doi.org/#{id.gsub("doi:", "")}"
-                research_output = RelatedIdentifier.find_or_initialize_by(
+                id = id.start_with?('http') ? id : "http://doi.org/#{id.gsub('doi:', '')}"
+                research_output = ::RelatedIdentifier.find_or_initialize_by(
                   identifiable: plan,
-                  identifier_type: "DOI",
-                  relation_type: "IsReferencedBy",
+                  identifier_type: 'doi',
+                  relation_type: 'is_referenced_by',
                   value: id
                 )
               else
@@ -113,7 +115,7 @@ module Api
             return nil unless json.present?
 
             research_output = ::ResearchOutput.find_or_initialize_by(title: json[:title], plan: plan)
-            research_output.output_type = json[:type] || "dataset" if research_output.new_record?
+            research_output.output_type = json[:type] || 'dataset' if research_output.new_record?
 
             Api::V2::DeserializationService.attach_identifier(object: research_output, json: json[:dataset_id])
           end
@@ -148,6 +150,7 @@ module Api
             research_output
           end
 
+          # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           def attach_repositories(research_output:, json:)
             return research_output unless research_output.present? && json.is_a?(Hash)
 
@@ -162,7 +165,9 @@ module Api
             end
             research_output
           end
+          # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
+          # rubocop:disable Metrics/AbcSize
           def attach_licenses(research_output:, json:)
             return research_output unless research_output.present? && json.is_a?(Array)
 
@@ -180,13 +185,9 @@ module Api
             research_output.license = license if license.present?
             research_output
           end
-
+          # rubocop:enable Metrics/AbcSize
         end
-
       end
-
     end
-
   end
-
 end

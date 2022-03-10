@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require_relative "boot"
+require_relative 'boot'
 
-require "rails/all"
+require 'rails/all'
 
-require "csv"
-require "uc3-ssm"
+require 'csv'
+require 'uc3-ssm'
 
 # Question: is there a nicer way to do this require_relative?
-require_relative "../lib/ssm_config_loader"
+require_relative '../lib/ssm_config_loader'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -19,20 +19,19 @@ Bundler.require(*Rails.groups)
 ::Anyway.loaders.insert_before(:env, :ssm_parameter_store, SsmConfigLoader)
 
 # Load master_key into ENV
-if ENV.has_key?('SSM_ROOT_PATH')
+if ENV.key?('SSM_ROOT_PATH')
   begin
     ssm = Uc3Ssm::ConfigResolver.new
     master_key = ssm.parameter_for_key('master_key')
-    ENV['RAILS_MASTER_KEY'] = master_key.chomp unless master_key.nil? or master_key.empty?
-  rescue => e
+    ENV['RAILS_MASTER_KEY'] = master_key.chomp unless master_key.nil? || master_key.empty?
+  rescue StandardError => e
     ActiveSupport::Logger.new($stdout).warn("Could not retrieve master_key from SSM Parameter Store: #{e.full_message}")
   end
 end
 
 module DMPRoadmap
-
+  # DMPRoadmap application
   class Application < Rails::Application
-
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
@@ -65,12 +64,9 @@ module DMPRoadmap
     config.action_controller.include_all_helpers = true
 
     # Load AnywayConfig class, but not if running `rails credentials:edit`
-    unless defined?(::Rails::Command::CredentialsCommand)
-      config.x.dmproadmap = DmproadmapConfig.new
-    end
+    config.x.dmproadmap = DmproadmapConfig.new unless defined?(::Rails::Command::CredentialsCommand)
 
     # Set the default host for mailer URLs
     config.action_mailer.default_url_options = { host: config.x.dmproadmap.server_host }
   end
-
 end

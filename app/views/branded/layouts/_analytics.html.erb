@@ -1,4 +1,3 @@
-<!-- UserSnap -->
 <% if Rails.env.stage? && Rails.configuration.x.dmproadmap.usersnap_key.present? %>
   <script type="text/javascript">
     window.onUsersnapCXLoad = function(api) {
@@ -11,13 +10,11 @@
   </script>
 <% end %>
 
-<!-- Google Analytics -->
-<% if (Rails.env.stage? || Rails.env.production?) && Rails.configuration.x.dmproadmap.google_analytics_tracker_root.present? %>
+<% if Rails.env.production? && Rails.configuration.x.dmproadmap.google_analytics_tracker_root.present? %>
   <% root_abbr = Rails.configuration.x.dmproadmap.google_analytics_tracker_root %>
   <% root_org = Org.where(abbreviation: root_abbr).first %>
-  <% if root_org.tracker.present? %>
+  <% if root_org.present? && root_org.tracker.present? %>
     <% root_code = root_org.tracker.code %>
-    <!-- Google Analytics -->
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -39,4 +36,3 @@
     </script>
   <% end %>
 <% end %>
-<!-- End Google Analytics -->

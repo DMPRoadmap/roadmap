@@ -9,39 +9,33 @@
   <%= stylesheet_link_tag(stylesheet_manifest_file) %>
   <%= stylesheet_link_tag "doorkeeper/application" %>
 
-  <style>
-    /* Overrides to make the Doorkeeper login/authorize window look good. */
-    #container .logo {
-      text-align: center;
-    }
-    #container img {
-      width: 50%;
-    }
-    main {
-      margin-bottom: 15px;
-    }
-    .btn,
-    input[type="text"],
-    input[type="email"] {
-      font-size: 1.3rem;
-    }
-  </style>
-
   <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
   <%= csrf_meta_tags %>
+
+  <%# DMPTool Customization to pull in our CSS and JS %>
+  <link rel="stylesheet" media="screen" href="/dmptool-ui/main.css" />
+  <script src="/dmptool-ui/main.js" data-turbolinks-track="reload"></script>
+
 </head>
-<body>
-  <div id="container">
+<body class="t-oauth">
+  <main id="maincontent">
     <div class="logo">
+      <%# DMPTool Customization: Comment out generic DMPRoadmap logo and use DMPTool SVG version %>
+      <%#= image_tag("logo.png", alt: "#{ApplicationService.application_name} #{_('logo')}",
+                    class: "app-logo", title: ApplicationService.application_name) %>
       <%= image_tag("DMPTool_logo_blue_shades_v1b3b.svg", alt: "#{ApplicationService.application_name} #{_('logo')}",
                     class: "app-logo", title: ApplicationService.application_name) %>
     </div>
 
-    <%# Comment out generic DMPRoadmap logo in favor of the DMPTool SVG version %>
-    <%#= image_tag("logo.png", alt: "#{ApplicationService.application_name} #{_('logo')}",
-                  class: "app-logo", title: ApplicationService.application_name) %>
-
     <%= yield %>
-  </div>
+
+    <%# Generic UJS/Ajax spinner. Bootstrap 5+ has built in spinner for this class %>
+    <div class="spinner-border hidden" role="status">
+      <% spinner_msg = _("Loading...") %>
+      <%= image_tag("spinner.gif", alt: spinner_msg) %>
+      <span class="sr-only"><%= spinner_msg %></span>
+    </div>
+
+  </main>
 </body>
 </html>

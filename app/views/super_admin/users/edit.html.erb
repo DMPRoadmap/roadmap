@@ -27,12 +27,11 @@
       </div>
 
       <div class="form-group col-xs-12" id="super-admin-user-org-controls">
-        <%= render partial: "shared/org_selectors/combined",
-               locals: {
-                 form: f,
-                 default_org: @user.org,
-                 required: true
-               } %>
+        <%= render partial: "shared/org_autocomplete",
+                    locals: { form: f,
+                              default_org: @user.org,
+                              required: true,
+                              label: _("Institution") } %>
       </div>
 
       <% if @departments.any? %>
@@ -109,9 +108,9 @@
 <div class="row">
   <div class="col-md-12">
     <%= paginable_renderise(
-      partial: '/paginable/plans/org_admin_other_user',
+      partial: '/paginable/plans/index',
       controller: 'paginable/plans',
-      action: 'org_admin_other_user',
+      action: 'index',
       scope: @plans,
       query_params: { sort_field: 'plans.updated_at', sort_direction: 'desc' }) %>
   </div>

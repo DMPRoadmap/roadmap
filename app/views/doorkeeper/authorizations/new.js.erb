@@ -1,0 +1,31 @@
+let signInBlock = $('.signin-form');
+let backLink = $('.c-serialnav');
+
+<%
+# See app/helpers/authentication_helper.rb for info on how the OAuth client info is handled
+oauth_hash = process_oauth
+%>
+
+if (signInBlock.length > 0 && backLink.length > 0) {
+  <% if resource.present? && resource.org_id.present? %>
+    // User exists so show them the appropriate sign in form
+    <% if Rails.configuration.x.shibboleth_enabled && resource.org.shibbolized? %>
+      <% partial = "/doorkeeper/authorizations/shib_sign_in" %>
+    <% else %>
+      <% partial = "/doorkeeper/authorizations/sign_in" %>
+    <% end %>
+
+    backLink.removeClass('hidden');
+  <% else %>
+    // User has either not provided their email yet, or provided an unknown email or invalid login
+    <% partial = '/doorkeeper/authorizations/validate' %>
+
+    backLink.addClass('hidden');
+  <% end %>
+
+  signInBlock.html('<%=
+    escape_javascript(render(partial: partial, locals: { resource: resource, client: @client }))
+  %>');
+
+  toggleSpinner(false);
+}

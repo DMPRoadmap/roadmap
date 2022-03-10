@@ -39,13 +39,17 @@
 #  fk_rails_...  (research_domain_id => research_domains.id)
 #
 
+# Object that represents an DMP
 # rubocop:disable Metrics/ClassLength
 class Plan < ApplicationRecord
-
   include ConditionalUserMailer
   include ExportablePlan
   include DateRangeable
   include Identifiable
+
+  # DMPTool customization to support faceting the public plans by language
+  # ----------------------------------------------------------------------
+  belongs_to :language, default: -> { Language.default }
 
   # =============
   # = Constants =
@@ -54,10 +58,10 @@ class Plan < ApplicationRecord
   # Returns visibility message given a Symbol type visibility passed, otherwise
   # nil
   VISIBILITY_MESSAGE = {
-    organisationally_visible: _("organisational"),
-    publicly_visible: _("public"),
-    is_test: _("test"),
-    privately_visible: _("private")
+    organisationally_visible: _('organisational'),
+    publicly_visible: _('public'),
+    is_test: _('test'),
+    privately_visible: _('private')
   }.freeze
 
   # ==============
@@ -82,7 +86,7 @@ class Plan < ApplicationRecord
 
   belongs_to :org
 
-  belongs_to :funder, class_name: "Org", optional: true
+  belongs_to :funder, class_name: 'Org', optional: true
 
   belongs_to :api_client, optional: true
 
@@ -98,10 +102,10 @@ class Plan < ApplicationRecord
 
   has_many :guidances, through: :themes
 
-  has_many :guidance_group_options, -> { distinct.published.reorder("id") },
+  has_many :guidance_group_options, -> { distinct.published.reorder('id') },
            through: :guidances,
            source: :guidance_group,
-           class_name: "GuidanceGroup"
+           class_name: 'GuidanceGroup'
 
   has_many :answers, dependent: :destroy
 
@@ -117,7 +121,7 @@ class Plan < ApplicationRecord
 
   has_many :contributors, dependent: :destroy
 
-  has_one :grant, as: :identifiable, dependent: :destroy, class_name: "Identifier"
+  has_one :grant, as: :identifiable, dependent: :destroy, class_name: 'Identifier'
 
   has_many :research_outputs, dependent: :destroy
 
@@ -182,7 +186,7 @@ class Plan < ApplicationRecord
                visibilities[:publicly_visible]
              ])
       .where(
-        "NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)",
+        'NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)',
         user.id
       )
   }
@@ -193,7 +197,7 @@ class Plan < ApplicationRecord
         .where(roles: { active: true })
         .by_date_range(:created_at, term)
     else
-      search_pattern = "%#{term}%"
+      search_pattern = sanitize_sql("%#{term}%")
       joins(:template, roles: [user: :org])
         .left_outer_joins(:identifiers, :contributors)
         .where(roles: { active: true })
@@ -219,7 +223,7 @@ class Plan < ApplicationRecord
 
   ##
   # Settings for the template
-  has_settings :export, class_name: "Settings::Template" do |s|
+  has_settings :export, class_name: 'Settings::Template' do |s|
     s.key :export, defaults: Settings::Template::DEFAULT_SETTINGS
   end
   alias super_settings settings
@@ -255,6 +259,7 @@ class Plan < ApplicationRecord
   # plan - Plan to be deep copied
   #
   # Returns Plan
+  # rubocop:disable Metrics/AbcSize
   def self.deep_copy(plan)
     plan_copy = plan.dup
     plan_copy.title = "Copy of #{plan.title}"
@@ -270,6 +275,7 @@ class Plan < ApplicationRecord
     end
     plan_copy
   end
+  # rubocop:enable Metrics/AbcSize
 
   # ===========================
   # = Public instance methods =
@@ -299,6 +305,7 @@ class Plan < ApplicationRecord
   #
   # Returns Answer
   # Returns nil
+  # rubocop:disable Metrics/AbcSize, Style/OptionalBooleanParameter
   def answer(qid, create_if_missing = true)
     answer = answers.select { |a| a.question_id == qid }
                     .max { |a, b| a.created_at <=> b.created_at }
@@ -316,6 +323,7 @@ class Plan < ApplicationRecord
     end
     answer
   end
+  # rubocop:enable Metrics/AbcSize, Style/OptionalBooleanParameter
 
   alias get_guidance_group_options guidance_group_options
 
@@ -356,7 +364,7 @@ class Plan < ApplicationRecord
 
       # Send an email confirmation to the owners and co-owners
       deliver_if(recipients: owner_and_coowners,
-                 key: "users.feedback_provided") do |r|
+                 key: 'users.feedback_provided') do |r|
         UserMailer.feedback_complete(
           r,
           self,
@@ -386,6 +394,7 @@ class Plan < ApplicationRecord
   # user_id - The Integer id for a user
   #
   # Returns Boolean
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def readable_by?(user_id)
     return true if commentable_by?(user_id)
 
@@ -402,7 +411,7 @@ class Plan < ApplicationRecord
       false
     end
   end
-  # rubocop:enable
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # determines if the plan is readable by the specified user.
   #
@@ -501,7 +510,7 @@ class Plan < ApplicationRecord
   def owner_and_coowners
     # We only need to search for :administrator in the bitflag
     # since :creator includes :administrator rights
-    roles.select { |r| r.active && r.administrator }.map(&:user).uniq
+    roles.select { |r| r.active && r.administrator && !r.user.nil? }.map(&:user).uniq
   end
 
   # The creator, administrator and editors
@@ -545,7 +554,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def question_exists?(question_id)
-    Plan.joins(:questions).exists?(id: id, "questions.id": question_id)
+    Plan.joins(:questions).exists?(id: id, 'questions.id': question_id)
   end
 
   # Determines what percentage of the Plan's questions have been num_answered_questions
@@ -601,24 +610,32 @@ class Plan < ApplicationRecord
   end
 
   # Returns whether or not minting is allowed for the current plan
+  # rubocop:disable Metrics/AbcSize
   def registration_allowed?
-    orcid_scheme = IdentifierScheme.where(name: "orcid").first
-    return false unless Rails.configuration.x.madmp.enable_dmp_id_registration &&
-                        orcid_scheme.present?
+    return false unless Rails.configuration.x.madmp.enable_dmp_id_registration
+
+    # Just check for visibility and funder if we are not allowing ORCID publication
+    orcid_enabled = Rails.configuration.x.madmp.enable_orcid_publication
+    return (visibility_allowed? && funder.present?) unless orcid_enabled
+
+    # If we're allowing ORCID publication but no ORCID scheme is defined
+    orcid_scheme = IdentifierScheme.where(name: 'orcid').first
+    return false unless orcid_scheme.present?
 
     # The owner must have an orcid, a funder and :visibility_allowed? (aka :complete)
     orcid = owner.identifier_for_scheme(scheme: orcid_scheme).present?
     visibility_allowed? && orcid.present? && funder.present?
   end
+  # rubocop:enable Metrics/AbcSize
 
   # Returns whether or not minting is allowed for the current plan
   def minting_allowed?
-    orcid_scheme = IdentifierScheme.where(name: "orcid").first
+    orcid_scheme = IdentifierScheme.where(name: 'orcid').first
     return false unless orcid_scheme.present?
 
     # The owner must have an orcid and have authorized us to add to their record
     orcid = owner.identifier_for_scheme(scheme: orcid_scheme).present?
-    token = ExternalApiAccessToken.for_user_and_service(user: owner, service: "orcid")
+    token = ExternalApiAccessToken.for_user_and_service(user: owner, service: 'orcid')
 
     visibility_allowed? && orcid.present? && token.present? && funder.present?
   end
@@ -630,6 +647,7 @@ class Plan < ApplicationRecord
 
   # Helper method to convert the grant id value entered by the user into an Identifier
   # works with both controller params or an instance of Identifier
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   def grant=(params)
     val = params.present? ? params[:value] : nil
     current = grant
@@ -645,6 +663,7 @@ class Plan < ApplicationRecord
     current = Identifier.create(identifiable: self, value: val)
     self.grant_id = current.id
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
   # Return the citation for the DMP. For example:
   #
@@ -659,7 +678,7 @@ class Plan < ApplicationRecord
     #                             .join(", ")
     # TODO: display all authors once we determine the appropriate way to handle on the ORCID side
     authors = owner.name(false)
-    pub_year = updated_at.strftime("%Y")
+    pub_year = updated_at.strftime('%Y')
     app_name = ApplicationService.application_name
     link = dmp_id.value
     "#{authors}. (#{pub_year}). \"#{title}\" [Data Management Plan]. #{app_name}. #{link}"
@@ -691,14 +710,16 @@ class Plan < ApplicationRecord
   #      "work_type": "dataset", "value": "http://foo.bar"
   #    }
   #  }
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   def related_identifiers_attributes=(params)
     # Remove any that the user may have deleted
     related_identifiers.reject { |r_id| params.keys.include?(r_id.id.to_s) }
-                       .each { |r_id| r_id.destroy }
+                       .each(&:destroy)
 
     # Update existing or add new
     params.each do |id, related_identifier_hash|
-      next unless id.present? && id != "0" && related_identifier_hash[:value].present?
+      related_identifier_hash = related_identifier_hash.with_indifferent_access
+      next unless id.present? && id != '0' && related_identifier_hash[:value].present?
 
       related = RelatedIdentifier.find_by(id: id)
       related = RelatedIdentifier.new(identifiable: self) unless related.present?
@@ -707,6 +728,7 @@ class Plan < ApplicationRecord
       related_identifiers << related
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
   private
 
@@ -719,6 +741,7 @@ class Plan < ApplicationRecord
   #
   # TODO: We will likely need to change this or break it up into different methods based
   #       on the use cases we uncover when deciding how to version plans
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def versionable_change?
     saved_change_to_title? || saved_change_to_description? || saved_change_to_identifier? ||
       saved_change_to_visibility? || saved_change_to_complete? || saved_change_to_template_id? ||
@@ -727,6 +750,7 @@ class Plan < ApplicationRecord
       saved_change_to_research_domain_id? || saved_change_to_ethical_issues? ||
       saved_change_to_ethical_issues_description? || saved_change_to_ethical_issues_report?
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # Sends notifications to the Subscribers of the specified subscription types
   def notify_subscribers!(subscription_types: [:updates])
@@ -743,9 +767,8 @@ class Plan < ApplicationRecord
     # allow nil values
     return true if end_date.blank? || start_date.blank? || end_date > start_date
 
-    errors.add(:end_date, _("must be after the start date")) if end_date < start_date
-    start_date < end_date
+    errors.add(:end_date, _('must be after the start date')) if end_date < start_date
+    false
   end
-
 end
 # rubocop:enable Metrics/ClassLength

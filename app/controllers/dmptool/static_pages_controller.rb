@@ -1,21 +1,16 @@
 # frozen_string_literal: true
 
 module Dmptool
-
+  # Our custom static pages
   module StaticPagesController
+    def editorial_board; end
 
-    def promote
-    end
+    def faq; end
 
-    def faq
-    end
+    def general_guidance; end
 
-    def general_guidance
-    end
+    def promote; end
 
-    def editorial_board
-    end
-
+    def quick_start_guide; end
   end
-
 end

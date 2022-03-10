@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 module Api
-
   module V1
-
+    # Helpers for ResearchOutputs for V1 and V2
     class ResearchOutputPresenter
-
       attr_reader :dataset_id, :preservation_statement, :security_and_privacy, :license_start_date,
                   :data_quality_assurance, :distributions, :metadata, :technical_resources
 
@@ -35,9 +33,9 @@ module Api
       end
 
       def load_narrative_content
-        @preservation_statement = ""
+        @preservation_statement = ''
         @security_and_privacy = []
-        @data_quality_assurance = ""
+        @data_quality_assurance = ''
 
         # Disabling rubocop here since a guard clause would make the line too long
         # rubocop:disable Style/GuardClause
@@ -45,18 +43,19 @@ module Api
           @preservation_statement = fetch_q_and_a_as_single_statement(themes: %w[Preservation])
         end
         if Rails.configuration.x.madmp.extract_security_privacy_statements_from_themed_questions
-          @security_and_privacy = fetch_q_and_a(themes: ["Ethics & privacy", "Storage & security"])
+          @security_and_privacy = fetch_q_and_a(themes: ['Ethics & privacy', 'Storage & security'])
         end
         if Rails.configuration.x.madmp.extract_data_quality_statements_from_themed_questions
-          @data_quality_assurance = fetch_q_and_a_as_single_statement(themes: ["Data Collection"])
+          @data_quality_assurance = fetch_q_and_a_as_single_statement(themes: ['Data Collection'])
         end
         # rubocop:enable Style/GuardClause
       end
 
       def fetch_q_and_a_as_single_statement(themes:)
-        fetch_q_and_a(themes: themes).collect { |item| item[:description] }.join("<br>")
+        fetch_q_and_a(themes: themes).collect { |item| item[:description] }.join('<br>')
       end
 
+      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def fetch_q_and_a(themes:)
         return [] unless themes.is_a?(Array) && themes.any?
 
@@ -72,9 +71,7 @@ module Api
         end
         ret.select { |item| item[:description].present? }
       end
-
+      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     end
-
   end
-
 end

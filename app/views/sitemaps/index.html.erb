@@ -1,0 +1,5 @@
+<h1><%= _('Sitemap') %></h1>
+
+<div class="static-page">
+  <%= render partial: user_signed_in? ? '/sitemaps/signed_in' : '/sitemaps/signed_out' %>
+</div>

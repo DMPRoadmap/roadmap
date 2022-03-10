@@ -1,33 +1,13 @@
 {
   "ignored_warnings": [
     {
-      "warning_type": "Redirect",
-      "warning_code": 18,
-      "fingerprint": "0879302d0a399286af5734edbe7183e1c54081a3a7b3a3eec15ca21c565c0d35",
-      "check_name": "Redirect",
-      "message": "Possible unprotected redirect",
-      "file": "app/controllers/dmptool/orgs_controller.rb",
-      "line": 35,
-      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
-      "code": "redirect_to(\"#{\"#{request.base_url.gsub(\"http:\", \"https:\")}#{Rails.configuration.x.shibboleth.login_url}\"}?target=#{user_shibboleth_omniauth_callback_url.gsub(\"http:\", \"https:\")}&entityID=#{Org.find_by(:id => params.fetch(:id, params[:org_id])).identifier_for_scheme(:scheme => \"shibboleth\").value}\")",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Dmptool::OrgsController",
-        "method": "shibboleth_ds_passthru"
-      },
-      "user_input": "Org.find_by(:id => params.fetch(:id, params[:org_id])).identifier_for_scheme(:scheme => \"shibboleth\").value",
-      "confidence": "High",
-      "note": ""
-    },
-    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "7bd7ecdde88008eac29303c8c264366d1d670eb468e316c17a6121d4684b8bca",
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/models/user.rb",
-      "line": 398,
+      "line": 467,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "User.where(\"LOWER(#{field}) = :value\", :value => val.to_s.downcase)",
       "render_path": null,
@@ -41,13 +21,29 @@
       "note": ""
     },
     {
+      "warning_type": "Unmaintained Dependency",
+      "warning_code": 123,
+      "fingerprint": "870fa4a5cfd770898e1b7a159368b4210fe366634512563f9fb1c1cbbfef1d78",
+      "check_name": "EOLRuby",
+      "message": "Support for Ruby 2.6.3 ends on 2022-03-31",
+      "file": "Gemfile.lock",
+      "line": 365,
+      "link": "https://brakemanscanner.org/docs/warning_types/unmaintained_dependency/",
+      "code": null,
+      "render_path": null,
+      "location": null,
+      "user_input": null,
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
       "warning_type": "Redirect",
       "warning_code": 18,
       "fingerprint": "c94d0d02516558699b49eb76787d02665041a45b490686266e4f42d5c19088d6",
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/plans_controller.rb",
-      "line": 360,
+      "line": 371,
       "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
       "code": "redirect_to(Plan.deep_copy(Plan.find(params[:id])), :notice => success_message(Plan.deep_copy(Plan.find(params[:id])), _(\"copied\")))",
       "render_path": null,
@@ -61,6 +57,6 @@
       "note": ""
     }
   ],
-  "updated": "2021-04-24 06:52:52 -0700",
-  "brakeman_version": "5.0.0"
+  "updated": "2022-03-02 09:24:19 -0800",
+  "brakeman_version": "5.2.1"
 }

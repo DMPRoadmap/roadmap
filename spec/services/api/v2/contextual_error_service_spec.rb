@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe Api::V2::ContextualErrorService do
-
   before(:each) do
     @plan = build(:plan)
     @plan.identifiers << build(:identifier)
@@ -13,115 +12,148 @@ RSpec.describe Api::V2::ContextualErrorService do
     @plan.grant = { value: build(:identifier).value }
   end
 
-  describe "process_plan_errors(plan:)" do
-    before(:each) do
-      # invalidate everything
-      @plan.title = nil
+  describe ':contextualize_errors(plan:)' do
+    it 'returns an empty array if :plan is not present' do
+      expect(described_class.contextualize_errors(plan: nil)).to eql([])
+    end
+    it 'returns errors if an associated Dataset has errors' do
+      @plan.research_outputs << build(:research_output, title: nil)
+      expected = ['Dataset : ["Title can\'t be blank"]']
+      expect(described_class.contextualize_errors(plan: @plan)).to eql(expected)
+    end
+    it 'returns errors if an associated Contributor has errors' do
+      contrib = build(:contributor)
+      @plan.contributors << contrib
+      # rubocop:disable Layout/LineLength
+      expected = ["Contributor/Contact: '#{contrib.name}' : [\"Roles can't be blank\", \"Roles You must specify at least one role.\"]"]
+      # rubocop:enable Layout/LineLength
+      expect(described_class.contextualize_errors(plan: @plan)).to eql(expected)
+    end
+    it 'returns errors if an associated Contributor Affiliation has errors' do
+      contrib = build(:contributor, investigation: true, org: build(:org, name: nil))
+      @plan.contributors << contrib
+      expected = ["Contributor/Contact: '#{contrib.name}' : [\"Affiliation: '' : [\\\"Name can't be blank\\\"]\"]"]
+      expect(described_class.contextualize_errors(plan: @plan)).to eql(expected)
+    end
+    it 'returns errors if an associated RelatedIdentifier has errors' do
+      @plan.related_identifiers << build(:related_identifier, value: nil)
+      expected = ['Related Identifier : ["Value can\'t be blank"]']
+      expect(described_class.contextualize_errors(plan: @plan)).to eql(expected)
+    end
+    it 'returns errors if an associated Funder has errors' do
+      @plan.funder = build(:org, name: nil)
+      expected = ['Project : ["Funder: \'\' : [\\"Name can\'t be blank\\"]"]']
+      expect(described_class.contextualize_errors(plan: @plan)).to eql(expected)
+    end
+    it 'returns errors if an associated Identifier has errors' do
       @plan.identifiers.first.value = nil
-      @plan.funder.name = nil
-      @plan.grant.value = nil
-      @plan.contributors.first.name = nil
-      @plan.contributors.first.email = nil
-      @plan.contributors.first.identifiers.first.value = nil
-      @plan.contributors.first.org.name = nil
-      @results = described_class.process_plan_errors(plan: @plan)
+      expected = ['identifier: \'\' - ["Value can\'t be blank"]']
+      expect(described_class.contextualize_errors(plan: @plan)).to eql(expected)
     end
-    it "returns an empty array if :plan is not a Plan" do
-      expect(described_class.process_plan_errors(plan: build(:org))).to eql([])
-    end
-    it "returns an empty array if :plan is valid" do
-      expect(described_class.process_plan_errors(plan: build(:plan))).to eql([])
-    end
-    it "contextualizes the :plan errors" do
-      expect(@results.include?("Dmp title can't be blank")).to eql(true)
-    end
-    it "contextualizes the :plan funder errors" do
-      expect(@results.include?("Funding name can't be blank")).to eql(true)
-    end
-  end
-
-  describe "contextualize(errors:)" do
-    it "returns an empty array if :errors is an empty Array" do
-      expect(described_class.contextualize(errors: [])).to eql([])
-    end
-    it "returns an empty array if :errors is an empty ActiveModel::Errors" do
-      @plan.valid?
-      expect(described_class.contextualize(errors: @plan.errors)).to eql([])
-    end
-    it "returns an empty array if :errors is not an Array or ActiveModel::Errors" do
-      expect(described_class.contextualize(errors: build(:org))).to eql([])
-    end
-    it "defaults the :context to 'Dmp'" do
-      result = described_class.contextualize(errors: ["Title can't be blank"])
-      expect(result.first).to eql("Dmp title can't be blank")
-    end
-    it "swaps in the specified :context" do
-      result = described_class.contextualize(errors: ["Title can't be blank"], context: "Foo")
-      expect(result.first).to eql("Foo title can't be blank")
-    end
-    it "returns errors if the Plan is invalid" do
+    it 'returns errors for the Plan' do
       @plan.title = nil
-      @plan.valid?
-      result = described_class.contextualize(errors: @plan.errors)
-      expect(result.length).to eql(1)
-      expect(result.first.start_with?("Dmp title ")).to eql(true)
-    end
-    it "returns errors if the Plan Identifier is invalid" do
-      @plan.identifiers.first.value = nil
-      @plan.valid?
-      result = described_class.contextualize(errors: @plan.errors)
-      expect(result.length).to eql(1)
-      expect(result.first.start_with?("Dmp identifier ")).to eql(true)
-    end
-    it "returns errors if a Contributor is invalid" do
-      @plan.contributors.first.name = nil
-      @plan.contributors.first.email = nil
-      @plan.valid?
-      result = described_class.contextualize(errors: @plan.errors)
-      expect(result.length).to eql(2)
-      expect(result.first.start_with?("Contact/Contributor ")).to eql(true)
-      expect(result.first.include?(" can't be blank if no ")).to eql(true)
-    end
-    it "returns errors if a Contributor Org is invalid" do
-      @plan.contributors.first.org.name = nil
-      @plan.valid?
-      result = described_class.contextualize(errors: @plan.errors)
-      expect(result.length).to eql(1)
-      expect(result.first.start_with?("Contact/Contributor affiliation ")).to eql(true)
-    end
-    it "returns errors if a Contributor Identifier is invalid" do
-      @plan.contributors.first.identifiers.first.value = nil
-      @plan.valid?
-      result = described_class.contextualize(errors: @plan.errors)
-      expect(result.length).to eql(1)
-      expect(result.first.start_with?("Contact/Contributor identifier ")).to eql(true)
-    end
-    it "returns errors if a Funder is invalid" do
-      @plan.funder.name = nil
-      @plan.funder.valid?
-      result = described_class.contextualize(errors: @plan.funder.errors, context: "Funding")
-      expect(result.length).to eql(1)
-      expect(result.first.start_with?("Funding name ")).to eql(true)
+      expected = ['Plan: ["Title can\'t be blank"]']
+      expect(described_class.contextualize_errors(plan: @plan)).to eql(expected)
     end
   end
 
-  describe "valid_plan?(plan:)" do
-    it "returns false if :plan is not valid" do
-      @plan.title = nil
-      expect(described_class.valid_plan?(plan: @plan)).to eql(false)
+  context 'private methods' do
+    describe ':find_project_errors(plan:)' do
+      it 'returns an empty array if :plan is not present' do
+        expect(described_class.send(:find_project_errors, plan: nil)).to eql([])
+      end
+      it 'returns an empty array if :plan is valid according to ActiveRecord' do
+        expect(described_class.send(:find_project_errors, plan: @plan)).to eql([])
+      end
+      it 'appends any errors associated with the funding :org' do
+        described_class.expects(:find_org_errors).once.returns(['foo'])
+        expect(described_class.send(:find_project_errors, plan: @plan)).to eql(['Project : ["foo"]'])
+      end
     end
-    it "returns false if :plan funder is not valid" do
-      @plan.funder.name = nil
-      expect(described_class.valid_plan?(plan: @plan)).to eql(false)
+
+    describe 'find_dataset_errors(dataset:)' do
+      before(:each) do
+        @dataset = build(:research_output, plan: @plan)
+      end
+
+      it 'returns an empty array if :dataset is not present' do
+        expect(described_class.send(:find_dataset_errors, dataset: nil)).to eql([])
+      end
+      it 'returns an empty array if :dataset is valid according to ActiveRecord' do
+        expect(described_class.send(:find_dataset_errors, dataset: @dataset)).to eql([])
+      end
+      it 'contextualizes the errors' do
+        @dataset.title = nil
+        expected = ['Dataset : ["Title can\'t be blank"]']
+        expect(described_class.send(:find_dataset_errors, dataset: @dataset)).to eql(expected)
+      end
     end
-    it "does not require :plan funder and grant to be present" do
-      @plan.funder = nil
-      @plan.grant = {}
-      expect(described_class.valid_plan?(plan: @plan)).to eql(true)
+
+    describe 'find_org_errors(org:)' do
+      before(:each) do
+        @org = build(:org)
+      end
+
+      it 'returns an empty array if :org is not present' do
+        expect(described_class.send(:find_org_errors, org: nil)).to eql([])
+      end
+      it 'returns an empty array if :org is valid according to ActiveRecord' do
+        expect(described_class.send(:find_org_errors, org: @org)).to eql([])
+      end
+      it 'includes the errors of any associated identifiers' do
+        @org.identifiers << build(:identifier, value: nil)
+        expected = ["Affiliation: '#{@org.name}' : [\"Identifiers value can't be blank\"]"]
+        expect(described_class.send(:find_org_errors, org: @org)).to eql(expected)
+      end
+      it 'contextualizes the errors' do
+        @org.name = nil
+        expected = ['Affiliation: \'\' : ["Name can\'t be blank"]']
+        expect(described_class.send(:find_org_errors, org: @org)).to eql(expected)
+      end
     end
-    it "returns true when everything is valid" do
-      expect(described_class.valid_plan?(plan: @plan)).to eql(true)
+
+    describe 'find_contributor_errors(contributor:)' do
+      before(:each) do
+        @contributor = build(:contributor, investigation: true)
+      end
+
+      it 'returns an empty array if :contributor is not present' do
+        expect(described_class.send(:find_contributor_errors, contributor: nil)).to eql([])
+      end
+      it 'returns an empty array if :contributor is valid according to ActiveRecord' do
+        expect(described_class.send(:find_contributor_errors, contributor: @contributor)).to eql([])
+      end
+      it 'includes the errors of any associated identifiers' do
+        @contributor.identifiers << build(:identifier, value: nil)
+        expected = ["Contributor/Contact: '#{@contributor.name}' : [\"Identifiers value can't be blank\"]"]
+        expect(described_class.send(:find_contributor_errors, contributor: @contributor)).to eql(expected)
+      end
+      it 'contextualizes the errors' do
+        @contributor.name = nil
+        @contributor.email = nil
+        # rubocop:disable Layout/LineLength
+        expected = ['Contributor/Contact: \'\' : ["Name can\'t be blank if no email is provided.", "Email can\'t be blank if no name is provided."]']
+        # rubocop:enable Layout/LineLength
+        expect(described_class.send(:find_contributor_errors, contributor: @contributor)).to eql(expected)
+      end
+    end
+
+    describe 'find_related_identifier_errors(related_identifier:)' do
+      before(:each) do
+        @id = build(:related_identifier)
+      end
+
+      it 'returns an empty array if :related_identifier is not present' do
+        expect(described_class.send(:find_related_identifier_errors, related_identifier: nil)).to eql([])
+      end
+      it 'returns an empty array if :related_identifier is valid according to ActiveRecord' do
+        expect(described_class.send(:find_related_identifier_errors, related_identifier: @id)).to eql([])
+      end
+      it 'contextualizes the errors' do
+        @id.value = nil
+        expected = ['Related Identifier : ["Value can\'t be blank"]']
+        expect(described_class.send(:find_related_identifier_errors, related_identifier: @id)).to eql(expected)
+      end
     end
   end
-
 end

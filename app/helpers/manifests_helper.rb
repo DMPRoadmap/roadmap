@@ -39,10 +39,10 @@
 #
 #  config.action_view.stylesheet_manifest_resolver = MyCustomResolver.new
 #
+# Helper methods for JS
 module ManifestsHelper
-
   # The name of the default asset manifest files.
-  DEFAULT = "application"
+  DEFAULT = 'application'
 
   # The name of the javascript manifest file to load. Defaults to application.js
   #
@@ -65,5 +65,4 @@ module ManifestsHelper
       DEFAULT
     end
   end
-
 end

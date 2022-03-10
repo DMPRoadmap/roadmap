@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "csv"
+require 'csv'
 
 # DMPRoadmap constants
 #
@@ -21,9 +21,9 @@ require "csv"
 #           AnywayConfig then this file can be deleted and all of it's referenced variables
 #           can be updated to point directly at the AnywayConfig file.
 module DMPRoadmap
-
+  # Base configuration for the DMPRoadmap system
+  # rubocop:disable Layout/LineLength
   class Application < Rails::Application
-
     # --------------------- #
     # ORGANISATION SETTINGS #
     # --------------------- #
@@ -45,16 +45,13 @@ module DMPRoadmap
     # Your organisation's telephone number - used on the contact us page
     config.x.organisation.telephone = Rails.configuration.x.dmproadmap.organisation_phone
     # Your organisation's address - used on the contact us page
-    # rubocop:disable Naming/VariableNumber
     config.x.organisation.address = {
-      line_1: Rails.configuration.x.dmproadmap.organisation_address_line1,
-      line_2: Rails.configuration.x.dmproadmap.organisation_address_line2,
-      line_3: Rails.configuration.x.dmproadmap.organisation_address_line3,
-      line_4: Rails.configuration.x.dmproadmap.organisation_address_line4,
+      line1: Rails.configuration.x.dmproadmap.organisation_address_line1,
+      line2: Rails.configuration.x.dmproadmap.organisation_address_line2,
+      line3: Rails.configuration.x.dmproadmap.organisation_address_line3,
+      line4: Rails.configuration.x.dmproadmap.organisation_address_line4,
       country: Rails.configuration.x.dmproadmap.organisation_country
     }
-    # rubocop:enable Naming/VariableNumber
-
     # The Google maps link to your organisation's location - used to display the
     # Google map on the contact us page.
     # To find your organisation's Google maps URL, open maps.google.com, search for
@@ -93,6 +90,11 @@ module DMPRoadmap
     config.x.application.blog_rss = Rails.configuration.x.dmproadmap.blog_rss
     # Administrator emails
     config.x.application.admin_emails = Rails.configuration.x.dmproadmap.admin_emails
+    # Setting to display phone number in contributor form
+    config.x.application.display_contributor_phone_number = false
+    # Setting require contributor requirement of contributor name and email
+    config.x.application.require_contributor_name = false
+    config.x.application.require_contributor_email = false
 
     # ------------------- #
     # SHIBBOLETH SETTINGS #
@@ -104,8 +106,8 @@ module DMPRoadmap
     config.x.shibboleth.enabled = Rails.configuration.x.dmproadmap.shibboleth_enabled
 
     # Relative path to Shibboleth SSO Logouts
-    config.x.shibboleth.login_url = Rails.configuration.x.dmproadmap.shibboleth_login_url
-    config.x.shibboleth.logout_url = Rails.configuration.x.dmproadmap.shibboleth_logout_url
+    config.x.shibboleth.login_url = "#{Rails.configuration.x.dmproadmap.server_host}#{Rails.configuration.x.dmproadmap.shibboleth_login_url}"
+    config.x.shibboleth.logout_url = "#{Rails.configuration.x.dmproadmap.server_host}#{Rails.configuration.x.dmproadmap.shibboleth_logout_url}"
 
     # If this value is set to true your users will be presented with a list of orgs that have a
     # shibboleth identifier in the orgs_identifiers table. If it is set to false (default), the user
@@ -167,6 +169,10 @@ module DMPRoadmap
 
     # The default user email preferences used when a new account is created
     config.x.application.preferences = Rails.configuration.x.dmproadmap.preferences
+
+    # Whether or not to require Contributor name and/or email
+    config.x.application.require_contributor_name = false
+    config.x.application.require_contributor_email = false
 
     # Change the location of the Collaborators information (where users are invited
     # to co-own, edit or comment on a plan).
@@ -270,6 +276,8 @@ module DMPRoadmap
     # The location of this feature is determined by your setting for
     # :show_collaborators_on_share_tab above
     config.x.madmp.enable_dmp_id_registration = Rails.configuration.x.dmproadmap.enable_dmp_id_registration
+    # Allow DMP IDs to be published to the user's ORCID record
+    config.x.madmp.enable_orcid_publication = Rails.configuration.x.dmproadmap.enable_orcid_publication
 
     # ------------------- #
     # Related Identifiers #
@@ -279,5 +287,5 @@ module DMPRoadmap
     # Allow the system to fetch citations for RelatedIdentifiers via the Uc3Citation gem
     config.x.madmp.enable_citation_lookup = Rails.configuration.x.dmproadmap.enable_citation_lookup
   end
-
+  # rubocop:enable Layout/LineLength
 end

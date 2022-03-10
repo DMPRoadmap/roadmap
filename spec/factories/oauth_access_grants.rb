@@ -23,7 +23,7 @@
 #  fk_rails_...  (application_id => oauth_applications.id)
 
 FactoryBot.define do
-  factory :oauth_access_grant, class: "doorkeeper/access_grant" do
+  factory :oauth_access_grant, class: 'doorkeeper/access_grant' do
     token         { SecureRandom.uuid }
     expires_in    { Faker::Number.number(digits: 8) }
     scopes        { Doorkeeper.config.default_scopes + Doorkeeper.config.optional_scopes }

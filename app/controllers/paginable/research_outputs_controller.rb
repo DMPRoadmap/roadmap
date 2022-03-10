@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 module Paginable
-
+  # Paginable handler for the ResearchOutputs table
   class ResearchOutputsController < ApplicationController
-
     after_action :verify_authorized
     respond_to :html
 
@@ -14,13 +13,11 @@ module Paginable
       @plan = Plan.find_by(id: params[:plan_id])
       authorize @plan
       paginable_renderise(
-        partial: "index",
+        partial: 'index',
         scope: ResearchOutput.where(plan_id: @plan.id),
-        query_params: { sort_field: "research_outputs.title", sort_direction: :asc },
+        query_params: { sort_field: 'research_outputs.title', sort_direction: :asc },
         format: :json
       )
     end
-
   end
-
 end

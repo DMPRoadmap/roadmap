@@ -1,0 +1,8 @@
+<li>
+  <%= link_to(page, url, remote: remote, rel: page.rel,
+              class: 'paginable-action',
+              aria: {
+                label: _('Page %<page_nbr>s') % { page_nbr: page },
+                current: page.current? ? 'page' : ''
+              }) %>
+</li>

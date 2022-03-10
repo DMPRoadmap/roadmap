@@ -23,8 +23,8 @@
 #  fk_rails_...  (question_id => questions.id)
 #
 
+# Object that represents an option for a multi-select question
 class QuestionOption < ApplicationRecord
-
   include VersionableModel
 
   # ================
@@ -97,5 +97,4 @@ class QuestionOption < ApplicationRecord
       cond.destroy if cond.option_list.include?(id)
     end
   end
-
 end

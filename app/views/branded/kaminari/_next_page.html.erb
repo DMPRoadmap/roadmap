@@ -1,0 +1,4 @@
+<li>
+    <%= link_to_unless(current_page.last?, _('Next'), url, rel: 'next', remote: remote,
+                       class: 'paginable-action', aria: { label: _('Next Page') }) %>
+</li>

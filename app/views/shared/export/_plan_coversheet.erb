@@ -4,6 +4,8 @@
 <br/>
 <div class="cover-page">
   <p><b><%= _("Title: ") %></b><%= @hash[:title] %></p><br>
+  <p><strong><%= @hash[:attribution].length > 1 ? _("Creators: ") : _('Creator:') %></strong> <%= sanitize(@hash[:attribution].join(', ')) %></p><br>
+  <p><b><%= _("Affiliation: ") %></b><%= @hash[:affiliation] %></p><br>
 
   <% if @plan.dmp_id.present? %>
     <p><b><%= _("DMP ID: ") %></b>
@@ -14,10 +16,6 @@
       <% end %>
     </p><br>
   <% end %>
-
-  <p><strong><%= _("Creator:") %></strong> <%= sanitize(@hash[:attribution]) %></p><br>
-
-  <p><b><%= _("Affiliation: ") %></b><%= @hash[:affiliation] %></p><br>
 
   <% if @hash[:funder].present? %>
     <p><b><%= _("Funder: ") %></b><%= @hash[:funder] %></p><br>

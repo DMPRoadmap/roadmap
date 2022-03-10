@@ -1,0 +1,70 @@
+<%# locals: plans, sort_by %>
+
+<div class="t-publicplans__section-header">
+  <h2><%= _('Plans (%<nbr_plans>s)') % { nbr_plans: plans.total_count } %></h2>
+
+  <div class="c-sort">
+    <label for="sort-select"><%= _('Sort by:') %></label>
+    <select id="sort-select" name="sort_by" form="public-plans-facet-form">
+      <option value="featured"<%= ' selected' if sort_by == 'featured' %>><%= _('Featured') %></option>
+      <option value="created_at"<%= ' selected' if sort_by == 'created_at' %>><%= _('Most Recent') %></option>
+      <option value="title"<%= ' selected' if sort_by == 'title' %>><%= _('Title') %></option>
+    </select>
+  </div>
+</div>
+
+<% plans.each do |plan| %>
+  <section class="c-plan">
+    <ul class="c-taggroup">
+      <%# TODO: Uncomment once we've figured out a good way to accurately determining funding %>
+      <%# if plan.funder.present? && (plan.funding_status == 'funded' || plan.grant_id.present?) %>
+        <!-- <li><span class="c-tag--funded"><%#= _('Funded') %></span></li> -->
+      <%# end %>
+      <% if plan.featured? %>
+        <li><span class="c-tag--featured"><%= _('Featured') %></span></li>
+      <% end %>
+    </ul>
+    <div class="c-plan-template"><%= plan.template.title %></div>
+    <h3 class="c-plan-title">
+      <%= link_to plan.title, plan_export_path(plan, format: :pdf, export: { question_headings: true }), target: '_blank' %>
+    </h3>
+    <div class="c-plan-creator">
+      <% if plan.owner.present? %>
+        <%= [plan.owner.name(false), plan.owner.org&.name].join(', ') %>
+      <% else %>
+        <%= plan.org&.name %>
+      <% end %>
+    </div>
+    <dl class="c-plan-metadata">
+      <% if plan.dmp_id.present? %>
+        <dt><%= _('DMP ID') %>:</dt>
+        <dd><%= id_for_display(id: plan.dmp_id, with_scheme_name: false).html_safe %></dd>
+      <% end %>
+      <dt><%= _('Creation date') %>:</dt><dd><%= l(plan.created_at.to_date, formats: :short) %></dd>
+      <% if plan.language.present? %>
+        <dt><%= _('Language') %>:</dt><dd><%= plan.language.name %></dd>
+      <% end %>
+    </dl>
+  </section>
+<% end %>
+
+<nav class="c-pagination" aria-label="pagination">
+  <%
+  page_params = current_page_query_params
+  # Clear the current pagination settings so we can build the correct 'View All/Less' URLs
+  page_params.delete('all')
+  page_params.delete('page')
+  page_params.delete('per_page')
+  %>
+
+  <% if @plans.total_pages > 1 %>
+    <%= link_to _('View All'), page_params.merge({ all: true }),
+                aria: { label: _('View all results') } %>
+  <% elsif @viewing_all %>
+    <%= link_to _('View Less'), page_params.merge({ page: 1 }),
+                aria: { label: _('View fewer results') } %>
+  <% end %>
+
+  <%# See /branded/kaminari/_paginator.html.erb for the pagination links html %>
+  <%= paginate(plans) %>
+</nav>

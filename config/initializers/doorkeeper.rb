@@ -12,6 +12,7 @@
 # For an overview of this OAuth2 implementation, please see the wiki article:
 #   https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation-V2
 
+# rubocop:disable Metrics/BlockLength
 Doorkeeper.configure do
   # Change the ORM that doorkeeper will use (requires ORM extensions installed).
   # Check the list of supported ORMs here: https://github.com/doorkeeper-gem/doorkeeper#orms
@@ -23,22 +24,45 @@ Doorkeeper.configure do
   # the resource owner is authenticated or not.
   # If not, they will be redirected to the Doorkeeper version of the oauth_authorization_path which
   # is a paired down version of the sign in form found on the home page. It renders the
-  # app/views/doorkeeper/new.html.erb using the app/views/layouts/doorkeeper/application.html.erb layout
+  # app/views/doorkeeper/authorizations/new.html.erb using the doorkeeper specific
+  # layout located at: app/views/layouts/doorkeeper/application.html.erb
   #
   resource_owner_authenticator do
     # The user must be signed_in in to provide authorization for the ApiClient
-    current_user
+    # if they are not, send them to the oauth sign in page (retain the parms in the session)
+    unless current_user.present? && session['oauth-referer'].present?
+      oauth_path = oauth_authorization_path(client_id: params.fetch('client_id', ''),
+                                            redirect_uri: params.fetch(
+                                              'redirect_uri', ''
+                                            ),
+                                            state: params.fetch('state', ''),
+                                            response_type: params.fetch(
+                                              'response_type', ''
+                                            ),
+                                            scope: params.fetch('scope', 'public'),
+                                            code_challenge: params.fetch(
+                                              'code_challenge', ''
+                                            ),
+                                            code_challenge_method: params.fetch(
+                                              'code_challenge_method', ''
+                                            ))
+
+      session['oauth-referer'] = ApplicationService.encrypt(
+        payload: { client_id: params.fetch('client_id', ''), path: oauth_path }
+      )
+    end
+
+    current_user || render('doorkeeper/authorizations/new', layout: 'doorkeeper/application')
   end
 
   # If you didn't skip applications controller from Doorkeeper routes in your application routes.rb
   # file then you need to declare this block in order to restrict access to the web interface for
   # adding oauth authorized applications. In other case it will return 403 Forbidden response
   # every time somebody will try to access the admin web interface.
-  #
   admin_authenticator do
-  #   # Put your admin authentication logic here.
-  #   # Example implementation:
-  #
+    #   # Put your admin authentication logic here.
+    #   # Example implementation:
+    #
     if current_user
       head :forbidden unless current_user.can_org_admin?
     else
@@ -79,7 +103,7 @@ Doorkeeper.configure do
   # -----------------------------------------------------------------------
   # Using our existing ApiClient model instead of the Doorkeeper::Application here
   #
-  application_class "::ApiClient"
+  application_class '::ApiClient'
 
   # Enables polymorphic Resource Owner association for Access Tokens and Access Grants.
   # By default this option is disabled.
@@ -254,7 +278,7 @@ Doorkeeper.configure do
   # NOTE: you must also run the rails g doorkeeper:application_owner generator
   # to provide the necessary support
   #
-  # enable_application_owner confirmation: false
+  # enable_application_owner confirmation: true
 
   # Define access token scopes for your provider
   # For more information go to
@@ -492,7 +516,7 @@ Doorkeeper.configure do
   # -----------------------------------------------------------------------
   # If the ApiClient is a trusted application, then we can bypass the normal resource_owner authorization
   #
-  skip_authorization do |resource_owner, client|
+  skip_authorization do |_resource_owner, client|
     ApiClient.find_by(id: client.id, trusted: true).present?
   end
 
@@ -554,3 +578,4 @@ Doorkeeper.configure do
   #
   # realm "Doorkeeper"
 end
+# rubocop:enable Metrics/BlockLength

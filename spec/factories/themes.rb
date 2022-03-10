@@ -16,6 +16,6 @@ FactoryBot.define do
   factory :theme do
     title { Faker::Lorem.sentence }
     description { Faker::Lorem.paragraph }
-    locale { "en_GB" }
+    locale { 'en_GB' }
   end
 end

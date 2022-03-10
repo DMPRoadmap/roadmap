@@ -44,9 +44,9 @@
         <%= sanitize(plan.template.email_body) %>
       </p>
       <p>
-        <%= sanitize(_("%{click_here} to setup your account (or copy %{link} into your browser). Once you have signed in, you can begin filling out your DMP.") % {
-          click_here: link_to(_('Click here'), '#'),
-          link: "#{accept_user_invitation_url}/abc123"
+        <%= sanitize(_("Please sign in or sign up at %{homepage_link}. Once you have signed in you will see the DMP titled '%{dmp_title}' on your dashboard.") % {
+          homepage_link: 'foo', #link_to(ApplicationService.application_name, root_url),
+          dmp_title: plan.title
         }) %>
       </p>
       <br>

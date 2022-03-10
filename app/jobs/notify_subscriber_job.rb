@@ -3,7 +3,6 @@
 # This Job sends a notification (the JSON version of the Plan) out to the specified
 # subscriber.
 class NotifySubscriberJob < ApplicationJob
-
   queue_as :default
 
   def perform(subscription)
@@ -12,7 +11,7 @@ class NotifySubscriberJob < ApplicationJob
     #       e.g. allowing an api_client associated with an Org's internal
     #       data curation or research project management systems
     case subscription.subscriber_type
-    when "ApiClient"
+    when 'ApiClient'
       notify_api_client(subscription: subscription)
     else
       # Maybe just use HTTParty for this if we ever want to subscribe a different model
@@ -32,6 +31,7 @@ class NotifySubscriberJob < ApplicationJob
 
   private
 
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def notify_api_client(subscription:)
     return false unless subscription.present? && subscription.subscriber.present?
 
@@ -51,5 +51,5 @@ class NotifySubscriberJob < ApplicationJob
       true
     end
   end
-
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end

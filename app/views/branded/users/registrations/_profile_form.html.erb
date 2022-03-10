@@ -1,0 +1,110 @@
+<% org_admin = current_user.can_org_admin? && !current_user.can_super_admin? %>
+
+<input type="hidden" id="original_email" value="<%= resource.email %>"/>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name),
+                       class: "novalidate", html: { method: :put }) do |f| %>
+  <div class="form-group col-md-12">
+    <%= f.label(:email, _('Email address'), class: 'control-label') %>
+    <%= f.email_field(:email, value: resource.email, autocomplete: 'email',
+                      class: "form-control", "aria-required": true,
+                      data: { toggle: 'tooltip' },
+                      title: _('You will need to enter your current password to change your email address')) %>
+  </div>
+  <div class="email-change-warning hide col-md-8 red">
+    <%= _('Please enter your current password below to change your email address.') %>
+  </div>
+
+  <conditional>
+    <div class="form-group col-md-12">
+      <a href="#" class="js-toggle-profile-password">
+        <%= _('Change your password') %><i class="fas fa-sort-down">&nbsp;</i>
+      </a>
+    </div>
+
+    <div class="toggleable-field">
+      <div class="form-group col-md-12">
+        <%= f.label(:current_password, _('Current Password'), class: 'control-label') %>
+        <%= f.password_field(:current_password, autocomplete: 'password', minlength: 8,
+                             maxlength: 80, class: "form-control", "aria-required": true) %>
+      </div>
+    </div>
+    <div class="toggleable-field">
+      <div class="form-group col-md-12">
+        <%# Display the standard Sign in form %>
+        <%= f.label(:password, _('New Password'), class: 'control-label') %>
+        <%= f.password_field(:password, autocomplete: 'password', minlength: 8,
+                             maxlength: 80, class: "form-control", "aria-required": true) %>
+      </div>
+    </div>
+    <div class="toggleable-field">
+      <div class="form-group col-md-12">
+        <%# Display the standard Sign in form %>
+        <%= f.label(:password_confirmation, _('Confirm Password'), class: 'control-label') %>
+        <%= f.password_field(:password_confirmation, autocomplete: 'password', minlength: 8,
+                             maxlength: 80, class: "form-control", "aria-required": true) %>
+      </div>
+    </div>
+    <div class="toggleable-field">
+      <div class="form-group col-md-12">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" id="passwords_toggle" class="passwords_toggle" />
+            <%= _('Show passwords') %>
+          </label>
+        </div>
+      </div>
+    </div>
+  </conditional>
+
+  <div class="form-group col-md-12">
+    <%= f.label :firstname, _('First Name'), class: 'control-label' %>
+    <%= f.text_field(:firstname, spellcheck: false, autocomplete: "off", maxlength: 40,
+                      class: "form-control", "aria-required": true) %>
+  </div>
+  <div class="form-group col-md-12">
+    <%= f.label :surname, _('Last Name'), class: 'control-label' %>
+    <%= f.text_field(:surname, spellcheck: false, autocomplete: "off", maxlength: 40,
+                      class: "form-control", "aria-required": true) %>
+  </div>
+
+  <div class="form-group col-md-12" id="profile-controls">
+    <%= render partial: "shared/org_autocomplete",
+                locals: { form: f,
+                          default_org: resource.org,
+                          required: true,
+                          label: _("Institution") } %>
+  </div>
+
+  <% departments = current_user.org.departments.order(:name) %>
+  <% if departments.count > 0 %>
+    <div class="form-group col-md-12">
+      <% dept_id = current_user.department.nil? ? -1 : current_user.department.id  %>
+      <%= f.label(:department_id, _('Department or school'), class: 'control-label') %>
+      <%= select_tag("user[department_id]",
+          options_from_collection_for_select(departments, "id", "name", dept_id),
+          include_blank: true,
+          disabled: departments.count === 0,
+          class: "form-control") %>
+    </div>
+  <% end %>
+  <% if Language.many? %>
+    <div class="form-group col-md-12">
+      <% lang_id = current_user.language.nil? ? Language.default.id : current_user.language.id %>
+      <%= f.label(:language_id, _('Language'), class: 'control-label') %>
+      <%= select_tag("user[language_id]",
+          options_from_collection_for_select(Language.all, "id", "name", lang_id),
+          class: "form-control") %>
+    </div>
+  <% end %>
+  <% if current_user.can_org_admin? %>
+    <div class="form-group col-md-12">
+      <label><%= _('My privileges') %></label>
+      <p><%= (current_user.can_super_admin? ? _('Super Admin') : _('Organisational Admin')) %></p>
+    </div>
+  <% end %>
+
+  <div class="actions col-md-4">
+    <%= f.submit "Update", class: 'btn btn-default' %>
+  </div>
+<% end %>

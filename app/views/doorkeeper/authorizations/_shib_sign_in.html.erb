@@ -1,0 +1,17 @@
+<%# locals: resource %>
+
+<%= form_with model: resource, url: users_shibboleth_path, method: :post, local: true, class: "novalidate" do |form| %>
+  <div id="sign-in-email" class="c-textfield js-textfield">
+    <%= form.label(:email, _('Email address')) %>
+    <%= form.email_field(:disabled_email, value: resource.email,
+                        autocomplete: 'email', disabled: "disabled") %>
+    <%= form.hidden_field(:email, value: resource.email) %>
+  </div>
+
+  <%= _('Your address is associated with:') %>
+
+  <h3><%= resource.org.name %></h3>
+  <%= form.hidden_field(:org_id, value: resource.org_id) %>
+
+  <button type="submit"><%= _('Sign in with Institution to Continue') %></button>
+<% end %>

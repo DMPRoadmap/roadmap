@@ -36,10 +36,13 @@
 FactoryBot.define do
   factory :api_client, aliases: %i[oauth_application] do
     name { Faker::Lorem.unique.word }
+    description { Faker::Company.unique.name }
     homepage { Faker::Internet.url }
     contact_name { Faker::Movies::StarWars.character }
     contact_email { Faker::Internet.email }
     client_id { SecureRandom.uuid }
     client_secret { SecureRandom.uuid }
+    redirect_uri { Faker::Internet.url }
+    scopes { ApiClient.default_scopes }
   end
 end

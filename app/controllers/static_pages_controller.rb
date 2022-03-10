@@ -1,28 +1,14 @@
 # frozen_string_literal: true
 
+# Controller that handles requests for static pages
 class StaticPagesController < ApplicationController
-
-  # --------------------------------
-  # Start DMPTool Customization
-  # --------------------------------
   include Dmptool::StaticPagesController
-  # --------------------------------
-  # End DMPTool Customization
-  # --------------------------------
 
-  def about_us
-  end
+  def about_us; end
 
-  def contact_us
-  end
+  def privacy; end
 
-  def privacy
-  end
+  def termsuse; end
 
-  def termsuse
-  end
-
-  def help
-  end
-
+  def help; end
 end

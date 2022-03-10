@@ -1,0 +1,48 @@
+<%# locals label, namespace, facets
+
+Expecting :facets to be an array of hashes like:
+  [
+    { "123": { "label": "Example University", "nbr_plans": 34, "selected": false } }
+  ]
+Where "123" is the :id of the 'Example University' Org
+%>
+<section class="c-facet js-facet">
+  <header>
+    <h3><%= '%<label>s (%<nbr_funders>s)' % { label: label, nbr_funders: facets.length } %></h3>
+    <button type="button" class="c-facet__toggle-list js-facet__toggle-list" aria-label="filters"
+            aria-expanded="false"></button>
+  </header>
+  <ul class="c-facet__list js-facet__list" hidden>
+    <% facets[0..4].each do |id, hash| %>
+      <li>
+        <input type="checkbox"<%= hash[:selected] ? ' checked' : '' %>
+               id="facet_<%= namespace.underscore %>_ids_<%= id %>"
+               name="facet[<%= namespace.underscore %>_ids][]" value="<%= id %>">
+
+        <label for="facet_<%= namespace.underscore %>_ids_<%= id %>">
+          <%= hash[:label] %> <span class="c-facet__item-total js-facet__item-total">(<%= hash[:nbr_plans] %>)</span>
+        </label>
+      </li>
+    <% end %>
+    <% if facets.length > 5 %>
+      <li>
+        <details class="c-more">
+          <summary><%= _('Show more') %></summary>
+          <ul>
+          <% facets[5..facets.length].each do |id, hash| %>
+            <li>
+              <input type="checkbox"<%= hash[:selected] ? ' checked' : '' %>
+                     id="facet_<%= namespace.underscore %>_ids_<%= id %>"
+                     name="facet[<%= namespace.underscore %>_ids][]" value="<%= id %>">
+
+              <label for="facet_<%= namespace.underscore %>_ids_<%= id %>">
+                <%= hash[:label] %> <span class="c-facet__item-total js-facet__item-total">(<%= hash[:nbr_plans] %>)</span>
+              </label>
+            </li>
+          <% end %>
+          </ul>
+        </details>
+      </li>
+    <% end %>
+  </ul>
+</section>

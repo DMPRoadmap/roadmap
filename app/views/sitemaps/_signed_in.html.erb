@@ -1,0 +1,25 @@
+<ul>
+  <li><%= link_to _('My dashboard'), plans_path %></li>
+  <li><%= link_to _('Create a plan'), new_plan_path %></li>
+  <li><%= link_to _('Edit profile'), edit_user_registration_path %></li>
+  <li><%= link_to _('Third party applications'), users_third_party_apps_path %></li>
+  <li><%= link_to _('Developer tools'), users_developer_tools_path %></li>
+  <li><%= link_to _('Sign out'), destroy_user_session_path %></li>
+</ul>
+
+<%= render partial: '/sitemaps/admin' %>
+
+<h2><%= _('General') %></h2>
+<ul>
+  <li><%= link_to _('Funder requirements'), public_templates_path %></li>
+  <li><%= link_to _('Public DMPs'), public_plans_path %></li>
+  <li><%= link_to _('Participating institutions'), public_orgs_path %></li>
+  <li><%= link_to _('About'), about_us_path %></li>
+  <li><%= link_to _('Contact us'), contact_us_path %></li>
+  <li><%= link_to _('Terms of use'), terms_path %></li>
+  <li><%= link_to _('Privacy statement'), privacy_path %></li>
+  <li><%= link_to _('Accessibility'), 'https://www.cdlib.org/about/accessibility.html' %></li>
+  <li><%= link_to _('Github'), 'https://github.com/cdluc3/dmptool' %></li>
+</ul>
+
+<%= render partial: '/sitemaps/help' %>

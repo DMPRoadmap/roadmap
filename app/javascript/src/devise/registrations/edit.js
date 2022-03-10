@@ -1,4 +1,3 @@
-import { initAutocomplete, scrubOrgSelectionParamsOnSubmit } from '../../utils/autoComplete';
 import { isString } from '../../utils/isType';
 import { isValidPassword } from '../../utils/isValidInputType';
 import { addMatchingPasswordValidator, togglisePasswords } from '../../utils/passwordHelper';
@@ -6,10 +5,6 @@ import { addMatchingPasswordValidator, togglisePasswords } from '../../utils/pas
 $(() => {
   addMatchingPasswordValidator({ selector: '#password_details_registration_form' });
   togglisePasswords({ selector: '#password_details_registration_form' });
-  initAutocomplete('#profile-org-controls .autocomplete');
-  // Scrub out the large arrays of data used for the Org Selector JS so that they
-  // are not a part of the form submissiomn
-  scrubOrgSelectionParamsOnSubmit('#personal_details_registration_form');
 
   const sensitiveInfoCheck = (event) => {
     const originalEmail = $('#original_email').val();

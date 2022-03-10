@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
+# Controller for the Write plan and create plan pages
 # rubocop:disable Metrics/ClassLength
 class PlansController < ApplicationController
-
   include ConditionalUserMailer
   include OrgSelectable
+
+  include Dmptool::PlansController
 
   helper PaginableHelper
   helper SettingsTemplateHelper
@@ -12,64 +14,47 @@ class PlansController < ApplicationController
   after_action :verify_authorized
 
   # GET /plans
+  # rubocop:disable Metrics/AbcSize
   def index
     authorize Plan
     @plans = Plan.includes(:roles, :org).active(current_user).page(1)
-    if current_user.org.is_other?
-      @organisationally_or_publicly_visible = []
-    else
-      @organisationally_or_publicly_visible =
-        Plan.organisationally_or_publicly_visible(current_user).page(1)
-    end
+    @organisationally_or_publicly_visible = if current_user.org.is_other?
+                                              []
+                                            else
+                                              Plan.organisationally_or_publicly_visible(current_user).page(1)
+                                            end
     # TODO: Is this still used? We cannot switch this to use the :plan_params
     #       strong params because any calls that do not include `plan` in the
     #       query string will fail
     @template = Template.find(params[:plan][:template_id]) if params[:plan].present?
   end
+  # rubocop:enable Metrics/AbcSize
 
   # GET /plans/new
-  # rubocop:disable Metrics/AbcSize
   def new
     @plan = Plan.new
     authorize @plan
-
-    # Get all of the available funders and non-funder orgs
-    @funders = Org.funder
-                  .includes(identifiers: :identifier_scheme)
-                  .joins(:templates)
-                  .where(templates: { published: true }).uniq.sort_by(&:name)
-    @orgs = (Org.includes(identifiers: :identifier_scheme).organisation +
-             Org.includes(identifiers: :identifier_scheme).institution +
-             Org.includes(identifiers: :identifier_scheme).default_orgs)
-    @orgs = @orgs.flatten.uniq.sort_by(&:name)
-
-    @plan.org_id = current_user.org&.id
-
-    # TODO: is this still used? We cannot switch this to use the :plan_params
-    #       strong params because any calls that do not include `plan` in the
-    #       query string will fail
-    flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>" if params.key?(:test)
-    @is_test = params[:test] ||= false
-    respond_to :html
   end
-  # rubocop:enable Metrics/AbcSize
 
   # POST /plans
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def create
     @plan = Plan.new
     authorize @plan
+
+    p @plan.inspect
 
     # If the template_id is blank then we need to look up the available templates and
     # return JSON
     if plan_params[:template_id].blank?
       # Something went wrong there should always be a template id
       respond_to do |format|
-        flash[:alert] = _("Unable to identify a suitable template for your plan.")
+        flash[:alert] = _('Unable to identify a suitable template for your plan.')
         format.html { redirect_to new_plan_path }
       end
     else
-      @plan.visibility = if plan_params["visibility"].blank?
+      @plan.visibility = if plan_params['visibility'].blank?
                            Rails.configuration.x.plans.default_visibility
                          else
                            plan_params[:visibility]
@@ -79,32 +64,20 @@ class PlansController < ApplicationController
 
       @plan.title = if plan_params[:title].blank?
                       if current_user.firstname.blank?
-                        "#{_("My Plan")}(#{@plan.template.title})"
+                        format(_('My Plan (%<title>s)'), title: @plan.template.title)
                       else
-                        "#{current_user.firstname}'s#{_(" Plan")}"
+                        format(_('%<user_name>s Plan'), user_name: "#{current_user.firstname}'s")
                       end
                     else
                       plan_params[:title]
                     end
 
-      # bit of hackery here. There are 2 org selectors on the page
-      # and each is within its own specific context, plan.org or
-      # plan.funder which forces the hidden id hash to be :id
-      # so we need to convert it to :org_id so it works with the
-      # OrgSelectable and OrgSelection services
-      if plan_params[:org].present? && plan_params[:org][:id].present?
-        attrs = plan_params[:org]
-        attrs[:org_id] = attrs[:id]
-        @plan.org = org_from_params(params_in: attrs, allow_create: false)
-      else
-        # The user did not specify a research Org, so default to their Org
-        @plan.org = current_user.org
-      end
-      if plan_params[:funder].present? && plan_params[:funder][:id].present?
-        attrs = plan_params[:funder]
-        attrs[:org_id] = attrs[:id]
-        @plan.funder = org_from_params(params_in: attrs, allow_create: false)
-      end
+      @plan.org = process_org!(user: current_user)
+      # If the user said there was no research org, use their org since Plan requires one
+      @plan.org = current_user.org unless @plan.org.present?
+      @plan.funder = process_org!(user: current_user, namespace: 'funder')
+
+      @plan.title = @plan.title.strip
 
       if @plan.save
         # pre-select org's guidance and the default org's guidance
@@ -128,9 +101,7 @@ class PlansController < ApplicationController
           # rubocop:enable Layout/LineLength
         else
           # We used the specified org's or funder's template
-          # rubocop:disable Layout/LineLength
           msg += " #{_('This plan is based on the')} #{@plan.template.org.name}: '#{@plan.template.title}' template."
-          # rubocop:enable Layout/LineLength
         end
 
         @plan.add_user!(current_user.id, :creator)
@@ -155,17 +126,18 @@ class PlansController < ApplicationController
       else
         # Something went wrong so report the issue to the user
         respond_to do |format|
-          flash[:alert] = failure_message(@plan, _("create"))
+          flash[:alert] = failure_message(@plan, _('create'))
           format.html { redirect_to new_plan_path }
         end
       end
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # GET /plans/show
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def show
     @plan = Plan.includes(
       template: { phases: { sections: { questions: :answers } } },
@@ -174,7 +146,6 @@ class PlansController < ApplicationController
     raise ActiveRecord::RecordNotFound unless @plan.present?
 
     authorize @plan
-
     @visibility = if @plan.visibility.present?
                     @plan.visibility.to_s
                   else
@@ -205,15 +176,13 @@ class PlansController < ApplicationController
       @important_ggs << [org, ggs] if Org.default_orgs.include?(org)
 
       # If this is one of the already selected guidance groups its important!
-      if !(ggs & @selected_guidance_groups).empty? && !@important_ggs.include?([org, ggs])
-        @important_ggs << [org, ggs]
-      end
+      @important_ggs << [org, ggs] if !(ggs & @selected_guidance_groups).empty? && !@important_ggs.include?([org, ggs])
     end
 
     # Sort the rest by org name for the accordion
-    @important_ggs = @important_ggs.sort_by { |org, _gg| (org.nil? ? "" : org.name) }
+    @important_ggs = @important_ggs.sort_by { |org, _gg| (org.nil? ? '' : org.name) }
     @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by do |org, _gg|
-      (org.nil? ? "" : org.name)
+      (org.nil? ? '' : org.name)
     end
     @selected_guidance_groups = @selected_guidance_groups.ids
 
@@ -228,12 +197,13 @@ class PlansController < ApplicationController
     respond_to :html
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # TODO: This feels like it belongs on a phases controller, perhaps introducing
   #       a non-namespaces phases_controller woulld make sense here. Consider
   #       doing this when we refactor the Plan editing UI
   # GET /plans/:plan_id/phases/:id/edit
+  # rubocop:disable Metrics/AbcSize
   def edit
     plan = Plan.includes(
       { template: {
@@ -254,9 +224,10 @@ class PlansController < ApplicationController
     guidance_groups = GuidanceGroup.where(published: true, id: plan.guidance_group_ids)
     render_phases_edit(plan, phase, guidance_groups)
   end
+  # rubcocop:enable Metrics/AbcSize
 
   # PUT /plans/1
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength
   def update
     @plan = Plan.find(params[:id])
     authorize @plan
@@ -274,38 +245,36 @@ class PlansController < ApplicationController
       @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
       @research_domains = ResearchDomain.all.order(:label)
 
-      # TODO: For some reason the `fields_for` isn't adding the
-      #       appropriate namespace, so org_id represents our funder
-      funder = org_from_params(params_in: attrs, allow_create: true)
-      @plan.funder_id = funder&.id
+      @plan.funder = process_org!(user: current_user, namespace: 'funder')
       @plan.grant = plan_params[:grant]
       attrs.delete(:funder)
       attrs.delete(:grant)
-      attrs = remove_org_selection_params(params_in: attrs)
+
+      @plan.title = @plan.title.strip
 
       if @plan.update(attrs)
         format.html do
           redirect_to plan_path(@plan),
-                      notice: success_message(@plan, _("saved"))
+                      notice: success_message(@plan, _('saved'))
         end
         format.json do
-          render json: { code: 1, msg: success_message(@plan, _("saved")) }
+          render json: { code: 1, msg: success_message(@plan, _('saved')) }
         end
       else
         format.html do
           # TODO: Should do a `render :show` here instead but show defines too many
           #       instance variables in the controller
-          redirect_to plan_path(@plan).to_s, alert: failure_message(@plan, _("save"))
+          redirect_to plan_path(@plan).to_s, alert: failure_message(@plan, _('save'))
         end
         format.json do
-          render json: { code: 0, msg: failure_message(@plan, _("save")) }
+          render json: { code: 0, msg: failure_message(@plan, _('save')) }
         end
       end
     rescue StandardError => e
-      flash[:alert] = failure_message(@plan, _("save"))
+      flash[:alert] = failure_message(@plan, _('save'))
       format.html do
         Rails.logger.error "Unable to save plan #{@plan&.id} - #{e.message}"
-        redirect_to plan_path(@plan).to_s, alert: failure_message(@plan, _("save"))
+        redirect_to plan_path(@plan).to_s, alert: failure_message(@plan, _('save'))
       end
       format.json do
         render json: { code: 0, msg: flash[:alert] }
@@ -321,7 +290,7 @@ class PlansController < ApplicationController
     if @plan.present?
       authorize @plan
       @plan_roles = @plan.roles.where(active: true)
-      @orcid_access_token = ExternalApiAccessToken.for_user_and_service(user: current_user, service: "orcid")
+      @orcid_access_token = ExternalApiAccessToken.for_user_and_service(user: current_user, service: 'orcid')
     else
       redirect_to(plans_path)
     end
@@ -341,6 +310,7 @@ class PlansController < ApplicationController
   end
 
   # DELETE /plans/:id
+  # rubocop:disable Metrics/AbcSize
   def destroy
     @plan = Plan.find(params[:id])
     authorize @plan
@@ -348,34 +318,37 @@ class PlansController < ApplicationController
       respond_to do |format|
         format.html do
           redirect_to plans_url,
-                      notice: success_message(@plan, _("deleted"))
+                      notice: success_message(@plan, _('deleted'))
         end
       end
     else
       respond_to do |format|
-        flash[:alert] = failure_message(@plan, _("delete"))
-        format.html { render action: "edit" }
+        flash[:alert] = failure_message(@plan, _('delete'))
+        format.html { render action: 'edit' }
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # TODO: Is this used? It seems like it belongs on the answers controller
   # GET /plans/:id/answer
+  # rubocop:disable Metrics/AbcSize
   def answer
     @plan = Plan.find(params[:id])
     authorize @plan
-    if !params[:q_id].nil?
+    if params[:q_id].nil?
+      respond_to do |format|
+        format.json { render json: {} }
+      end
+    else
       respond_to do |format|
         format.json do
           render json: @plan.answer(params[:q_id], false).to_json(include: :options)
         end
       end
-    else
-      respond_to do |format|
-        format.json { render json: {} }
-      end
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # GET /plans/:id/download
   def download
@@ -383,10 +356,11 @@ class PlansController < ApplicationController
     authorize @plan
     @phase_options = @plan.phases.order(:number).pluck(:title, :id)
     @export_settings = @plan.settings(:export)
-    render "download"
+    render 'download'
   end
 
   # POST /plans/:id/duplicate
+  # rubocop:disable Metrics/AbcSize
   def duplicate
     plan = Plan.find(params[:id])
     authorize plan
@@ -394,42 +368,42 @@ class PlansController < ApplicationController
     respond_to do |format|
       if @plan.save
         @plan.add_user!(current_user.id, :creator)
-        format.html { redirect_to @plan, notice: success_message(@plan, _("copied")) }
+        format.html { redirect_to @plan, notice: success_message(@plan, _('copied')) }
       else
-        format.html { redirect_to plans_path, alert: failure_message(@plan, _("copy")) }
+        format.html { redirect_to plans_path, alert: failure_message(@plan, _('copy')) }
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # TODO: This should probablly just be merged with the update route
   # POST /plans/:id/visibility
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def visibility
-    @plan = Plan.find(params[:id])
-    if @plan.present?
-      authorize @plan
-      if @plan.visibility_allowed?
-        @plan.visibility = plan_params[:visibility]
-        if @plan.save
-          deliver_if(recipients: @plan.owner_and_coowners,
-                     key: "owners_and_coowners.visibility_changed") do |r|
-            UserMailer.plan_visibility(r, @plan).deliver_now
+    plan = Plan.find(params[:id])
+    if plan.present?
+      authorize plan
+      if plan.visibility_allowed?
+        plan.visibility = plan_params[:visibility]
+        if plan.save
+          deliver_if(recipients: plan.owner_and_coowners,
+                     key: 'owners_and_coowners.visibility_changed') do |r|
+            UserMailer.plan_visibility(r, plan).deliver_now
           end
-          flash[:notice] = success_message(@plan, _("saved"))
+          redirect_to publish_plan_path(plan), notice: success_message(plan, _('updated'))
         else
-          flash[:alert] = failure_message(@plan, _("copy"))
+          redirect_to publish_plan_path(plan), alert: failure_message(plan, _('update'))
         end
       else
         # rubocop:disable Layout/LineLength
-        flash[:alert] = _("Unable to change the plan's status since it is needed at least %{percentage} percentage responded") % {
-            percentage: Rails.configuration.x.plans.default_percentage_answered
-        }
+        redirect_to publish_plan_path(plan),
+                    alert: format(_("Unable to change the plan's status since it is needed at least %<percentage}>s percentage responded"), percentage: Rails.configuration.x.plans.default_percentage_answered)
         # rubocop:enable Layout/LineLength
       end
     else
-      flash[:alert] = _("Unable to find plan id %{plan_id}") % { plan_id: params[:id] }
+      redirect_to publish_plan_path(plan),
+                  alert: format(_('Unable to find plan id %{<plan_id>s'), plan_id: params[:id])
     end
-    render "publish"
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
@@ -438,22 +412,22 @@ class PlansController < ApplicationController
   def set_test
     plan = Plan.find(params[:id])
     authorize plan
-    plan.visibility = (params[:is_test] == "1" ? :is_test : :privately_visible)
-    # rubocop:disable Layout/LineLength
+    plan.visibility = (params[:is_test] == '1' ? :is_test : :privately_visible)
+
     if plan.save
       render json: {
         code: 1,
-        msg: (plan.is_test? ? _("Your project is now a test.") : _("Your project is no longer a test."))
+        msg: (plan.is_test? ? _('Your project is now a test.') : _('Your project is no longer a test.'))
       }
     else
       render status: :bad_request, json: {
         code: 0, msg: _("Unable to change the plan's test status")
       }
     end
-    # rubocop:enable Layout/LineLength
   end
 
   # GET /plans/:id/mint
+  # rubocop:disable Metrics/AbcSize
   def mint
     @plan = Plan.find(params[:id])
     authorize @plan
@@ -462,20 +436,24 @@ class PlansController < ApplicationController
     dmp_id.save
     @plan = @plan.reload
 
-    @orcid_access_token = ExternalApiAccessToken.for_user_and_service(user: current_user, service: "orcid")
+    # Only allow ORCID publication for the DMP ID if it is enabled in the config!
+    if Rails.configuration.x.madmp.enable_orcid_publication
+      @orcid_access_token = ExternalApiAccessToken.for_user_and_service(user: current_user, service: 'orcid')
+    end
 
     # If a DMP ID was successfully acquired and the User has authorized us to write to their ORCID record
     if @plan.dmp_id.present? && @orcid_access_token.present?
       ExternalApis::OrcidService.add_work(user: current_user, plan: @plan)
     end
 
-    render js: render_to_string(template: "plans/mint.js.erb")
+    render js: render_to_string(template: 'plans/mint.js.erb')
   rescue StandardError => e
     Rails.logger.error "Unable to add plan #{params[:id]} to the user #{current_user.id}'s ORCID record - #{e.message}"
     Rails.logger.error e.backtrace
 
-    render js: render_to_string(template: "plans/mint.js.erb")
+    render js: render_to_string(template: 'plans/mint.js.erb')
   end
+  # rubocop:enable Metrics/AbcSize
 
   # ============================
   # = Private instance methods =
@@ -505,11 +483,11 @@ class PlansController < ApplicationController
     groups = {}
     templates.each do |t|
       k = t.family_id
-      if !groups.key?(k)
-        groups[k] = t
-      else
+      if groups.key?(k)
         other = groups[k]
         groups[k] = t if other.version < t.version
+      else
+        groups[k] = t
       end
     end
     groups.values
@@ -530,7 +508,7 @@ class PlansController < ApplicationController
     end
 
     plan[obj_plan_key].each do |o|
-      id = o["id"]
+      id = o['id']
       o[src_plan_key] = id_to_obj[id] if id_to_obj.key?(id)
     end
     plan.delete(src_plan_key)
@@ -541,7 +519,7 @@ class PlansController < ApplicationController
     # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
     # we create a hash whose keys are question id and value is the answer associated
     answers = plan.answers.each_with_object({}) { |a, m| m[a.question_id] = a; }
-    render("/phases/edit", locals: {
+    render('/phases/edit', locals: {
              base_template_org: phase.template.base_org,
              plan: plan,
              phase: phase,
@@ -551,6 +529,5 @@ class PlansController < ApplicationController
              guidance_presenter: GuidancePresenter.new(plan)
            })
   end
-
 end
 # rubocop:enable Metrics/ClassLength

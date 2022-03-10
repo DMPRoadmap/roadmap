@@ -1,0 +1,21 @@
+{
+  "defaults": {
+    "runners": [
+      "axe",
+      "htmlcs"
+    ]
+  },
+  "urls": [
+    "http://localhost:3000",
+    "http://localhost:3000/contact-us",
+    {
+      "url": "http://localhost:3000",
+      "viewport": {
+        "width": 400,
+        "height": 800,
+        "isMobile": true
+      },
+      "screenCapture": "pa11yci/with-errors2-mobile.png"
+    }
+  ]
+}

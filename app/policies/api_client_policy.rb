@@ -1,13 +1,9 @@
 # frozen_string_literal: true
 
+# Security rules for API Clients
+# Note the method names here correspond with controller actions
 class ApiClientPolicy < ApplicationPolicy
-
-  def initialize(user, api_client)
-    raise Pundit::NotAuthorizedError, _("must be logged in") unless user
-
-    @user = user
-    @api_client = api_client
-  end
+  # NOTE: @user is the signed_in_user
 
   def index?
     @user.can_super_admin?
@@ -19,7 +15,7 @@ class ApiClientPolicy < ApplicationPolicy
 
   def create?
     # Super admin or the user can do this for themselves
-    @user.can_super_admin? || @user.id == @api_client.user_id
+    @user.can_super_admin? || @user.id == @record.user_id
   end
 
   def edit?
@@ -28,7 +24,7 @@ class ApiClientPolicy < ApplicationPolicy
 
   def update?
     # Super admin or the user can do this for themselves
-    @user.can_super_admin? || @user.id == @api_client.user_id
+    @user.can_super_admin? || @user.id == @record.user_id
   end
 
   def destroy?
@@ -37,11 +33,10 @@ class ApiClientPolicy < ApplicationPolicy
 
   def refresh_credentials?
     # Super admin or the user can do this for themselves
-    @user.can_super_admin? || @user.id == @api_client.user_id
+    @user.can_super_admin? || @user.id == @record.user_id
   end
 
   def email_credentials?
     @user.can_super_admin?
   end
-
 end

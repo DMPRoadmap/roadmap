@@ -2,10 +2,9 @@
 
 # Simple proxy service that determines which DMP ID minter to use
 class DmpIdService
-
   class << self
-
     # Registers a DMP ID for the specified plan.
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def mint_dmp_id(plan:)
       # plan must exist and not already have a DMP ID!
       return nil unless minting_service_defined? && plan.present? && plan.is_a?(Plan)
@@ -17,20 +16,20 @@ class DmpIdService
       dmp_id = svc.mint_dmp_id(plan: plan)
       return nil unless dmp_id.present?
 
-      dmp_id = "#{svc.landing_page_url}#{dmp_id}" unless dmp_id.downcase.start_with?("http")
+      dmp_id = "#{svc.landing_page_url}#{dmp_id}" unless dmp_id.downcase.start_with?('http')
       Identifier.new(identifier_scheme: identifier_scheme, identifiable: plan, value: dmp_id)
     rescue StandardError => e
       p e.message
       Rails.logger.error "DmpIdService.mint_dmp_id for Plan #{plan&.id} resulted in: #{e.message}"
       nil
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     # Updates the DMP ID metadata
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def update_dmp_id(plan:)
       # plan must exist and have a DMP ID
-      unless minting_service_defined? && plan.present? && plan.is_a?(Plan) && plan.dmp_id.present?
-        return nil
-      end
+      return nil unless minting_service_defined? && plan.present? && plan.is_a?(Plan) && plan.dmp_id.present?
 
       svc = minter
       return nil unless svc.present?
@@ -42,6 +41,7 @@ class DmpIdService
       Rails.logger.error e.backtrace
       nil
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     # Returns whether or not there is an active DMP ID minting service
     def minting_service_defined?
@@ -56,9 +56,7 @@ class DmpIdService
 
       # Add the DMP ID service as an IdentifierScheme if it doesn't already exist
       scheme = IdentifierScheme.find_or_create_by(name: svc.name.downcase)
-      if scheme.new_record?
-        scheme.update(description: svc.description, active: true, for_plans: true)
-      end
+      scheme.update(description: svc.description, active: true, for_plans: true) if scheme.new_record?
       scheme
     end
 
@@ -91,7 +89,5 @@ class DmpIdService
 
       nil
     end
-
   end
-
 end

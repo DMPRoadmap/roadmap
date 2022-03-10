@@ -22,7 +22,6 @@
 #
 
 class Repository < ApplicationRecord
-
   # ================
   # = Associations =
   # ================
@@ -34,23 +33,22 @@ class Repository < ApplicationRecord
   # ==========
 
   scope :by_type, lambda { |type|
-    where(safe_json_where_clause(column: "info", hash_key: "types"), "%#{type}%")
+    where(safe_json_where_clause(column: 'info', hash_key: 'types'), "%#{type}%")
   }
 
   scope :by_subject, lambda { |subject|
-    where(safe_json_where_clause(column: "info", hash_key: "subjects"), "%#{subject}%")
+    where(safe_json_where_clause(column: 'info', hash_key: 'subjects'), "%#{subject}%")
   }
 
   scope :search, lambda { |term|
     term = term.downcase
-    where("LOWER(name) LIKE ?", "%#{term}%")
-      .or(where(safe_json_where_clause(column: "info", hash_key: "keywords"), "%#{term}%"))
-      .or(where(safe_json_where_clause(column: "info", hash_key: "subjects"), "%#{term}%"))
+    where('LOWER(name) LIKE ?', "%#{term}%")
+      .or(where(safe_json_where_clause(column: 'info', hash_key: 'keywords'), "%#{term}%"))
+      .or(where(safe_json_where_clause(column: 'info', hash_key: 'subjects'), "%#{term}%"))
   }
 
   # A very specific keyword search (e.g. 'gene', 'DNA', etc.)
   scope :by_facet, lambda { |facet|
-    where(safe_json_where_clause(column: "info", hash_key: "keywords"), "%#{facet}%")
+    where(safe_json_where_clause(column: 'info', hash_key: 'keywords'), "%#{facet}%")
   }
-
 end

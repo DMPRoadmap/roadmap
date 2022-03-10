@@ -23,7 +23,6 @@
 #  uid             :string(255)      default(""), not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  org_id          :integer
 #  user_id         :bigint(8)
 #
 # Indexes
@@ -33,11 +32,10 @@
 #  index_oauth_applications_on_user_id  (user_id)
 #
 
+# Object that represents an external system
 class ApiClient < ApplicationRecord
+  self.table_name = 'oauth_applications'
 
-  self.table_name = "oauth_applications"
-
-  include DeviseInvitable::Inviter
   include Subscribable
   include ::Doorkeeper::Orm::ActiveRecord::Mixins::Application
   include ::Doorkeeper::Models::Scopes
@@ -45,29 +43,19 @@ class ApiClient < ApplicationRecord
   extend Dragonfly::Model::Validations
   extend UniqueRandom
 
-  # Allows an ApiClient to invite a new user via the 'create_dmps' scope
-  devise :invitable
-
   enum callback_methods: %i[put post patch]
 
   LOGO_FORMATS = %w[jpeg png gif jpg bmp svg].freeze
 
   dragonfly_accessor :logo
 
-  # ================
-  # = Associations =
-  # ================
-
-  belongs_to :org, optional: true
-
-  # TODO: Make this required once we've transitioned away from the old :contact_name + :contact_email
-  belongs_to :user, optional: true
-
   # Access Tokens are created when an ApiClient authenticates themselves and is then used instead
   # of credentials when calling the API.
-  has_many :access_tokens, class_name: "::Doorkeeper::AccessToken",
+  has_many :access_tokens, class_name: '::Doorkeeper::AccessToken',
                            foreign_key: :application_id,
                            dependent: :delete_all
+
+  belongs_to :user, optional: true
 
   # ===============
   # = Validations =
@@ -81,9 +69,8 @@ class ApiClient < ApplicationRecord
                             email: { allow_nil: false }
 
   validates_property :format, of: :logo, in: LOGO_FORMATS,
-                              message: _("must be one of the following formats: %{formats}") % {
-                                formats: LOGO_FORMATS.join(", ")
-                              }
+                              message: format(_('must be one of the following formats: %<formats>s'),
+                                              formats: LOGO_FORMATS.join(', '))
 
   validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
 
@@ -135,11 +122,14 @@ class ApiClient < ApplicationRecord
     Doorkeeper.config.default_scopes.to_a
   end
 
+  def owner
+    User.find_by(id: user_id)
+  end
+
   private
 
   # Set the scopes
   def ensure_scopes
-    self.scopes = default_scopes.sort { |a, b| a <=> b }.join(" ") unless scopes.present?
+    self.scopes = default_scopes.sort { |a, b| a <=> b }.join(' ') unless scopes.present?
   end
-
 end

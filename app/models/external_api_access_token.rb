@@ -22,6 +22,7 @@
 #  index_external_tokens_on_user_and_service                  (user_id,external_service_name)
 #
 
+# Model representing an OAuth access token to an external system like ORCID
 class ExternalApiAccessToken < ApplicationRecord
   # This class works in conjunction with Devise OmniAuth providers. If a provider returns an
   # acess token along with the :uid, then the access token gets stored in this table. It expects
@@ -63,16 +64,16 @@ class ExternalApiAccessToken < ApplicationRecord
   # =================
 
   class << self
-
     # Fetched the active access token for the specified User and External API service
     def for_user_and_service(user:, service:)
       where(user: user, external_service_name: service)
-        .where("revoked_at IS NULL OR revoked_at > ?", Time.now)
-        .where("expires_at IS NULL OR expires_at > ?", Time.now)
+        .where('revoked_at IS NULL OR revoked_at > ?', Time.now)
+        .where('expires_at IS NULL OR expires_at > ?', Time.now)
         .first
     end
 
     # Generates an instance based on the contents of an OmniAuth hash
+    # rubocop:disable Metrics/AbcSize
     def from_omniauth(user:, service:, hash:)
       return nil unless user.is_a?(User) &&
                         service.present? &&
@@ -94,7 +95,7 @@ class ExternalApiAccessToken < ApplicationRecord
         expires_at: expiry_time
       )
     end
-
+    # rubocop:enable Metrics/AbcSize
   end
 
   # ====================
@@ -115,7 +116,6 @@ class ExternalApiAccessToken < ApplicationRecord
   def one_active_token
     return true if self.class.for_user_and_service(user: user, service: external_service_name).nil?
 
-    errors.add(:access_token, _("only one active access token allowed per user / service"))
+    errors.add(:access_token, _('only one active access token allowed per user / service'))
   end
-
 end

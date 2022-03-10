@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
+# Helpers methods for handling I18n and GetText
 class LocaleService
-
   class << self
-
     # Returns the default locale/language
     def default_locale
       abbrev = Language.default.try(:abbreviation) if Language.table_exists?
@@ -14,9 +13,7 @@ class LocaleService
 
     # Returns the available locales/languages
     def available_locales
-      # rubocop:disable Layout/LineLength
       locales = Language.sorted_by_abbreviation.pluck(:abbreviation).presence if Language.table_exists?
-      # rubocop:enable Layout/LineLength
       locales.present? ? locales : [default_locale]
     end
 
@@ -44,7 +41,5 @@ class LocaleService
       region.upcase!     if region.present?
       region.present? ? "#{language}#{join_char}#{region}" : language
     end
-
   end
-
 end

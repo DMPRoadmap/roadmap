@@ -51,22 +51,40 @@
 #  fk_rails_...  (language_id => languages.id)
 #  fk_rails_...  (org_id => orgs.id)
 #
-class User < ApplicationRecord
 
+# Object that represents a User
+class User < ApplicationRecord
   include ConditionalUserMailer
   include DateRangeable
   include Identifiable
 
+  include Dmptool::User
+
   extend UniqueRandom
 
+  # DMPTool customization
+  #
+  # commenting out Devise which we re-implement below
+  #
   ##
   # Devise
   #   Include default devise modules. Others available are:
   #   :token_authenticatable, :confirmable,
   #   :lockable, :timeoutable and :omniauthable
-  devise :invitable, :database_authenticatable, :registerable, :recoverable,
-         :rememberable, :trackable, :validatable, :omniauthable,
-         omniauth_providers: %i[shibboleth orcid]
+  # devise :invitable, :database_authenticatable, :registerable, :recoverable,
+  #        :rememberable, :trackable, :validatable, :omniauthable,
+  #        omniauth_providers: %i[shibboleth orcid]
+
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable,
+         :trackable, :validatable,
+         :omniauthable, omniauth_providers: %i[shibboleth orcid]
+
+  # DMPTool customization
+  #
+  # Alias 'institution' for 'org'
+  attr_accessor :institution
 
   ##
   # User Notification Preferences
@@ -83,7 +101,15 @@ class User < ApplicationRecord
 
   belongs_to :language
 
-  belongs_to :org
+  # DMPTool customization
+  #
+  # commenting out because we make it optional in Dmptool::User concern
+  #
+  # belongs_to :org
+  belongs_to :org, optional: true
+
+  # Added to allow creation of Orgs at sign up / edit profile
+  accepts_nested_attributes_for :org
 
   belongs_to :department, required: false
 
@@ -100,30 +126,7 @@ class User < ApplicationRecord
   has_many :plans, through: :roles
 
   has_and_belongs_to_many :notifications, dependent: :destroy,
-                                          join_table: "notification_acknowledgements"
-
-  # ================================
-  # = Dookeeper OAuth Associations =
-  # ================================
-
-  # Access Grants are created when a user authorizes an ApiClient to access their data via the
-  # OAuth workflow. They are sent back to the ApiClient as 'code' which is in turn used to
-  # retrieve an AccessToken
-  has_many :access_grants, class_name: 'Doorkeeper::AccessGrant',
-                           foreign_key: :resource_owner_id,
-                           dependent: :delete_all
-
-  # Access Tokens are created when an ApiClient authenticates a User via an access grant code.
-  # The access token is then used instead of credentials in calls to the API. These tokens can be revoked
-  # by a user on their profile page.
-  has_many :access_tokens, class_name: 'Doorkeeper::AccessToken',
-                           foreign_key: :resource_owner_id,
-                           dependent: :delete_all
-
-  # Table that stores OAuth access tokens for other external systems like ORCID
-  has_many :external_api_access_tokens, dependent: :destroy
-  accepts_nested_attributes_for :external_api_access_tokens
-  accepts_nested_attributes_for :plans
+                                          join_table: 'notification_acknowledgements'
 
   # ===============
   # = Validations =
@@ -135,7 +138,38 @@ class User < ApplicationRecord
 
   validates :surname, presence: { message: PRESENCE_MESSAGE }
 
-  validates :org, presence: { message: PRESENCE_MESSAGE }
+  # DMPTool customization
+  #
+  # commenting out Devise which we re-implement in the Dmptool::User concern
+  #
+  # validates :org, presence: { message: PRESENCE_MESSAGE }
+
+  # Validations to support ouur sign in / sign up workflow
+  validates :institution, presence: { message: PRESENCE_MESSAGE }
+  validates :accept_terms, inclusion: { in: [true, nil], message: _('and conditions') }
+
+  # DMPTool customization
+  #
+  # Associations to support Doorkeeper security for API v2
+  #
+  # Access Grants are created when a user authorizes an ApiClient to access their
+  # data via the OAuth workflow. They are sent back to the ApiClient as 'code' which
+  # is in turn used to retrieve an AccessToken
+  has_many :access_grants, class_name: 'Doorkeeper::AccessGrant',
+                           foreign_key: :resource_owner_id,
+                           dependent: :delete_all
+
+  # Access Tokens are created when an ApiClient authenticates a User via an access
+  # grant code. The access token is then used instead of credentials in calls to the
+  # API. These tokens can be revoked by a user on their profile page.
+  has_many :access_tokens, class_name: 'Doorkeeper::AccessToken',
+                           foreign_key: :resource_owner_id,
+                           dependent: :delete_all
+
+  # Table that stores OAuth access tokens for other external systems like ORCID
+  has_many :external_api_access_tokens, dependent: :destroy
+  accepts_nested_attributes_for :external_api_access_tokens
+  accepts_nested_attributes_for :plans
 
   # ==========
   # = Scopes =
@@ -147,8 +181,8 @@ class User < ApplicationRecord
 
   # Retrieves all of the org_admins for the specified org
   scope :org_admins, lambda { |org_id|
-    joins(:perms).where("users.org_id = ? AND perms.name IN (?) AND " \
-                        "users.active = ?",
+    joins(:perms).where('users.org_id = ? AND perms.name IN (?) AND ' \
+                        'users.active = ?',
                         org_id,
                         %w[grant_permissions
                            modify_templates
@@ -165,9 +199,9 @@ class User < ApplicationRecord
       # MySQL does not support standard string concatenation and since concat_ws
       # or concat functions do not exist for sqlite, we have to come up with this
       # conditional
-      if mysql_db?
+      if ActiveRecord::Base.connection.adapter_name == 'Mysql2'
         where("lower(concat_ws(' ', firstname, surname)) LIKE lower(?) OR " \
-              "lower(email) LIKE lower(?)",
+              'lower(email) LIKE lower(?)',
               search_pattern, search_pattern)
       else
         joins(:org)
@@ -185,7 +219,7 @@ class User < ApplicationRecord
   # =============
 
   # sanitise html tags from fields
-  before_validation ->(data) { data.sanitize_fields(:firstname, :surname) }
+  before_validation ->(data) { data.sanitize_fields(:email, :firstname, :surname) }
 
   after_update :clear_department_id, if: :saved_change_to_org_id?
 
@@ -193,17 +227,24 @@ class User < ApplicationRecord
 
   after_update :remove_token!, if: :saved_change_to_org_id?, unless: :can_change_org?
 
+  # DMPTool customization
+  #
+  # Callbacks to support our sign in / sign up workflow
+  before_validation ->(user) { user.institution = user.org }
+
   # =================
   # = Class methods =
   # =================
 
-  ##
+  # DMPTool customization
+  #
+  # commenting out Devise which we re-implement in the Dmptool::User concern
+  #
   # Load the user based on the scheme and id provided by the Omniauth call
-  def self.from_omniauth(auth)
-    Identifier.by_scheme_name(auth.provider.downcase, "User")
-              .where(value: auth.uid)
-              .first&.identifiable
-  end
+  # def self.from_omniauth(auth)
+  #   Identifier.by_scheme_name(auth.provider.downcase, "User")
+  #             .where(value: auth.uid)
+  # end
 
   def self.to_csv(users)
     User::AtCsv.new(users).to_csv
@@ -241,6 +282,7 @@ class User < ApplicationRecord
   # user_email - Use the email if there is no firstname or surname (defaults: true)
   #
   # Returns String
+  # rubocop:disable Style/OptionalBooleanParameter
   def name(use_email = true)
     if (firstname.blank? && surname.blank?) || use_email
       email
@@ -249,6 +291,7 @@ class User < ApplicationRecord
       name.strip
     end
   end
+  # rubocop:enable Style/OptionalBooleanParameter
 
   # The user's identifier for the specified scheme name
   #
@@ -256,7 +299,7 @@ class User < ApplicationRecord
   #
   # Returns UserIdentifier
   def identifier_for(scheme)
-    identifiers.by_scheme_name(scheme, "User")&.first
+    identifiers.by_scheme_name(scheme, 'User')&.first
   end
 
   # Checks if the user is a super admin. If the user has any privelege which requires
@@ -271,6 +314,7 @@ class User < ApplicationRecord
   # requires them to see the org-admin pages then they are an org admin.
   #
   # Returns Boolean
+  # rubocop:disable Metrics/CyclomaticComplexity
   def can_org_admin?
     return true if can_super_admin?
 
@@ -281,7 +325,7 @@ class User < ApplicationRecord
       can_modify_templates? || can_modify_org_details? ||
       can_review_plans?
   end
-  # rubocop:enable
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   # Can the User add new organisations?
   #
@@ -370,7 +414,7 @@ class User < ApplicationRecord
 
   # Generates a new token
   def generate_token!
-    new_token = User.unique_random(field_name: "api_token")
+    new_token = User.unique_random(field_name: 'api_token')
     update_column(:api_token, new_token)
   end
 
@@ -401,13 +445,13 @@ class User < ApplicationRecord
   # rubocop:enable Metrics/AbcSize
 
   # Override to Devise invitation emails
-  def deliver_invitation(options = {})
-    # Always override the devise_invitable email title
-    super(options.merge(subject: _("A Data Management Plan in " \
-      "%{application_name} has been shared with you") %
-      { application_name: ApplicationService.application_name })
-    )
-  end
+  # def deliver_invitation(options = {})
+  #   # Always override the devise_invitable email title
+  #   super(options.merge(subject: _("A Data Management Plan in " \
+  #     "%{application_name} has been shared with you") %
+  #     { application_name: ApplicationService.application_name })
+  #   )
+  # end
 
   # Case insensitive search over User model
   #
@@ -418,9 +462,7 @@ class User < ApplicationRecord
   # Returns ActiveRecord::Relation
   # Raises ArgumentError
   def self.where_case_insensitive(field, val)
-    unless columns.map(&:name).include?(field.to_s)
-      raise ArgumentError, "Field #{field} is not present on users table"
-    end
+    raise ArgumentError, "Field #{field} is not present on users table" unless columns.map(&:name).include?(field.to_s)
 
     User.where("LOWER(#{field}) = :value", value: val.to_s.downcase)
   end
@@ -439,14 +481,13 @@ class User < ApplicationRecord
   # leave account in-place, with org for statistics (until we refactor those)
   #
   # Returns boolean
+  # rubocop:disable Metrics/AbcSize
   def archive
-    # rubocop:disable Layout/LineLength
-    suffix = Rails.configuration.x.application.fetch(:archived_accounts_email_suffix, "@example.org")
-    # rubocop:enable Layout/LineLength
-    self.firstname = "Deleted"
-    self.surname = "User"
-    self.email = User.unique_random(field_name: "email",
-                                    prefix: "user_",
+    suffix = Rails.configuration.x.application.fetch(:archived_accounts_email_suffix, '@example.org')
+    self.firstname = 'Deleted'
+    self.surname = 'User'
+    self.email = User.unique_random(field_name: 'email',
+                                    prefix: 'user_',
                                     suffix: suffix,
                                     length: 5)
     self.recovery_email = nil
@@ -457,7 +498,9 @@ class User < ApplicationRecord
     self.active = false
     save
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def merge(to_be_merged)
     scheme_ids = identifiers.pluck(:identifier_scheme_id)
     # merge logic
@@ -475,16 +518,7 @@ class User < ApplicationRecord
     # => ignore any perms the deleted user has
     to_be_merged.destroy
   end
-
-  # Fetch the access token for the specified service
-  def access_token_for(external_service_name:)
-    return nil unless external_service_name.present? && external_api_access_tokens.any?
-
-    tokens = external_api_access_tokens.select do |token|
-      token.external_service_name == external_service_name && token.active?
-    end
-    tokens.first
-  end
+  # rubocop:enable Metrics/AbcSize
 
   private
 
@@ -499,5 +533,4 @@ class User < ApplicationRecord
   def clear_department_id
     self.department_id = nil
   end
-
 end

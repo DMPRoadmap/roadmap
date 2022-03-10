@@ -1,0 +1,52 @@
+<% title "#{@plan.title} - contributors" %>
+
+<div class="row">
+  <div class="col-md-12">
+    <!-- render the project title -->
+    <h1><%= @plan.title %></h1>
+  </div>
+</div>
+
+<% content_for :plan_tab_body do %>
+  <div class="row">
+    <div class="col-md-12">
+      <h2><%= _('Project Contributors')%></h2>
+      <p>
+        <%= _("Please list the project’s Principal Investigator(s) and those responsible for data management.") %>
+      </p>
+      <br/>
+
+      <% if @contributors.any? %>
+        <%= paginable_renderise partial: "/paginable/contributors/index",
+                                controller: "paginable/contributors",
+                                action: "index",
+                                remote: true,
+                                scope: @contributors,
+                                locals: { plan: @plan },
+                                query_params: {
+                                  sort_field: 'contributors.name',
+                                  sort_direction: :asc } %>
+      <% else %>
+        <p><%= _("No contributors have been defined.") %></p>
+      <% end %>
+
+      <% if @plan.administerable_by?(current_user.id) %>
+        <%= link_to _("Add a contributor"), new_plan_contributor_path(@plan),
+                                            class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+
+  <% unless Rails.configuration.x.show_collaborators_on_share_tab %>
+    <hr>
+
+    <div class="row">
+      <div class="col-md-12">
+        <%= render partial: "plans/collaborator_form",
+                  locals: { plan: @plan, plan_roles: @plan.roles } %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<%= render partial: "plans/navigation", locals: { plan: @plan } %>

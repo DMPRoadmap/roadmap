@@ -1,0 +1,80 @@
+<%# locals: form, shibbolized %>
+
+<div id="sign-up-email" class="c-textfield js-textfield">
+  <%= form.label(:email, _('Email address')) %>
+  <%= form.email_field(:disabled_email, value: resource.email,
+                       autocomplete: 'email', disabled: "disabled") %>
+  <%= form.hidden_field(:email, value: resource.email) %>
+</div>
+
+<% if shibbolized %>
+  <%# The Org is Shibbolized and we're not in the middle of an OmniAuth sign in workflow
+      so display the Institutional Sign in %>
+  <%= render partial: "users/shared/sso", locals: { form: form } %>
+
+<% else %>
+  <% omniauth_workflow = session["devise.shibboleth_data"].present? %>
+
+  <%# Display the standard Sign up form %>
+  <div id="sign-up-firstname" class="c-textfield js-textfield">
+    <%= form.label :firstname, _('First Name') %>
+    <%= form.text_field(:firstname, spellcheck: false, autocomplete: "off", maxlength: 40,
+                        class: "require-me") %>
+    <div id="" class="c-textfield__invalid-description js-invalid-description" hidden>
+    </div>
+  </div>
+  <div id="sign-up-surname" class="c-textfield js-textfield">
+    <%= form.label :surname, _('Last Name') %>
+    <%= form.text_field(:surname, spellcheck: false, autocomplete: "off", maxlength: 40,
+                        class: "require-me") %>
+    <div id="" class="c-textfield__invalid-description js-invalid-description" hidden>
+    </div>
+  </div>
+
+  <%# if this is part of a Shibboleth omniauth sign up, then hide the Institution and Password %>
+  <% if omniauth_workflow %>
+    <%= form.hidden_field :org_id, value: resource.org_id %>
+    <%= form.hidden_field :password, value: resource.password || SecureRandom.uuid %>
+  <% else %>
+    <%= render partial: "shared/org_autocomplete",
+              locals: { form: form,
+                        div_id: 'sign-up-org',
+                        default_org: resource&.org,
+                        required: true,
+                        classes: "",
+                        label: _("Institution") } %>
+
+    <div id="js-password-field" class="c-textfield js-textfield">
+      <%# Display the standard Sign in form %>
+      <%= form.label(:password, _('Password')) %>
+      <%= form.password_field(:password, autocomplete: 'password', minlength: 8,
+                              maxlength: 80, class: "require-me") %>
+      <div id="" class="c-textfield__invalid-description js-invalid-description" hidden>
+      </div>
+    </div>
+    <div class="c-login__pseudo-description">
+      <div id="js-password-toggle" class="c-checkbox js-checkbox">
+        <input type="checkbox" id="password-toggle"/>
+        <label for="password-toggle"><%= _('Show password') %></label>
+      </div>
+    </div>
+  <% end %>
+
+  <div id="sign-up-accept-terms" class="c-checkbox js-checkbox">
+    <%= form.check_box :accept_terms, { class: "require-me" }, true, false %>
+    <%# Need to pass target and href to sanitize because target usually gets stripped out %>
+    <%= form.label :accept_terms, sanitize(_('I accept the %<terms_url>s') % {
+                                    terms_url: link_to(_('terms and conditions'), terms_path,
+                                               target: '_blank') }, { attributes: %w[href target] }) %>
+    <div id="" class="c-textfield__invalid-description js-invalid-description" hidden>
+    </div>
+  </div>
+
+  <% if Rails.configuration.x.recaptcha.enabled %>
+    <div id="sign-up-recaptcha" class="c-textfield js-textfield">
+      <%= recaptcha_v3(action: 'register', turbolinks: true) %>
+    </div>
+  <% end %>
+
+  <button type="submit"><%= _("Sign up") %></button>
+<% end %>

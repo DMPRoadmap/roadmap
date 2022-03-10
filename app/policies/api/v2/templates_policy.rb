@@ -1,20 +1,18 @@
 # frozen_string_literal: true
 
 module Api
-
   module V2
-
+    # Endpoints for accessing Templates
     class TemplatesPolicy < ApplicationPolicy
-
-      attr_reader :client, :plan
+      attr_reader :client
 
       def initialize(client, plan)
         @client = client
-        @plan = plan
+        super(client, plan)
       end
 
+      # Scope to limit which templates the ApiClient has access to based on their perms
       class Scope
-
         attr_reader :client
 
         def initialize(client)
@@ -48,22 +46,19 @@ module Api
         end
 
         # Fetch all of the Org's templates along with their customizations
+        # rubocop:disable Metrics/AbcSize
         def org_templates(templates: [])
-
           org_templates = Template.latest_version_per_org(@client.user.org).published
           custs = Template.latest_customized_version_per_org(@client.user.org).published
-          return (templates + org_templates).sort{ |a, b| a.title <=> b.title } unless custs.any?
+          return (templates + org_templates).sort { |a, b| a.title <=> b.title } unless custs.any?
 
           # Remove any templates that were customized by the org, we will use their customization
-          templates.reject { |t| custs.map { |c| c.customization_of }.include?(t.family_id) }
+          templates.reject { |t| custs.map(&:customization_of).include?(t.family_id) }
 
-          (org_templates + custs + templates).sort{ |a, b| a.title <=> b.title }
+          (org_templates + custs + templates).sort { |a, b| a.title <=> b.title }
         end
-
+        # rubocop:enable Metrics/AbcSize
       end
-
     end
-
   end
-
 end

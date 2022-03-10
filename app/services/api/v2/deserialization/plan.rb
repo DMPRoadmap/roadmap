@@ -1,15 +1,11 @@
 # frozen_string_literal: true
 
 module Api
-
   module V2
-
     module Deserialization
-
+      # Deserialization of RDA Common Standard for dmp to Plan
       class Plan
-
         class << self
-
           # Convert the incoming JSON into a Plan
           #   {
           #     "dmp": {
@@ -48,6 +44,7 @@ module Api
           #       }]
           #     }
           #   }
+          # rubocop:disable Metrics/AbcSize
           def deserialize(json: {})
             return nil unless Api::V2::JsonValidationService.plan_valid?(json: json)
 
@@ -65,8 +62,6 @@ module Api
             plan.ethical_issues_description = json[:ethical_issues_description]
             plan.ethical_issues_report = json[:ethical_issues_report]
 
-            # TODO: Handle ethical issues when the Question is in place
-
             # Process Project, Contributors and Data Contact and Datsets
             plan = deserialize_project(plan: plan, json: json)
             # The contact is handled from within the controller since the Plan.add_user! method
@@ -74,6 +69,7 @@ module Api
             plan = deserialize_contributors(plan: plan, json: json)
             deserialize_datasets(plan: plan, json: json)
           end
+          # rubocop:enable Metrics/AbcSize
 
           # ===================
           # = PRIVATE METHODS =
@@ -81,30 +77,32 @@ module Api
 
           private
 
+          # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+          # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           def find_or_initialize(id_json:, json: {})
             return nil unless json.present?
 
             id = id_json[:identifier] if id_json.is_a?(Hash)
-            schm = IdentifierScheme.find_by(name: id_json[:type].downcase) if id.present?
+            schm = ::IdentifierScheme.find_by(name: id_json[:type].downcase) if id.present?
 
             if id.present?
               # If the identifier is a DOI/ARK or the api client's internal id for the DMP
               if Api::V2::DeserializationService.dmp_id?(value: id)
                 # Find by the DOI or ARK
                 plan = Api::V2::DeserializationService.object_from_identifier(
-                  class_name: "Plan", json: id_json
+                  class_name: 'Plan', json: id_json
                 )
               elsif schm.present?
                 value = id.start_with?(schm.identifier_prefix) ? id : "#{schm.identifier_prefix}#{id}"
                 identifier = ::Identifier.find_by(
-                  identifiable_type: "Plan", identifier_scheme: schm, value: value
+                  identifiable_type: 'Plan', identifier_scheme: schm, value: value
                 )
                 plan = identifier.identifiable if identifier.present?
               else
                 # For URL based identifiers
                 begin
-                  plan = ::Plan.find_by(id: id.split("/").last.to_i) if id.start_with?("http")
-                rescue StandardError => e
+                  plan = ::Plan.find_by(id: id.split('/').last.to_i) if id.start_with?('http')
+                rescue StandardError => _e
                   # Catches scenarios where the dmp_id is NOT one of our URLs
                   plan = nil
                 end
@@ -119,8 +117,11 @@ module Api
             # If the external system provided an identifier and they have an IdentifierScheme
             Api::V2::DeserializationService.attach_identifier(object: plan, json: id_json)
           end
+          # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+          # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
           # Deserialize the datasets and attach to plan
+          # rubocop:disable Metrics/CyclomaticComplexity
           def deserialize_datasets(plan:, json: {})
             return plan unless json.present? && json[:dataset].present? && json[:dataset].is_a?(Array)
 
@@ -131,13 +132,15 @@ module Api
             # TODO: remove this once we support versioning and are not storing outputs with DOIs as
             #       RelatedIdentifiers. Once versioning is in place we can update the existing ResearchOutputs
             research_outputs.each do |output|
-              plan.research_outputs << output if output.is_a?(ResearchOutput)
-              plan.related_identifiers << output if output.is_a?(RelatedIdentifier)
+              plan.research_outputs << output if output.is_a?(::ResearchOutput)
+              plan.related_identifiers << output if output.is_a?(::RelatedIdentifier)
             end
             plan
           end
+          # rubocop:enable Metrics/CyclomaticComplexity
 
           # Deserialize the project information and attach to Plan
+          # rubocop:disable Metrics/AbcSize
           def deserialize_project(plan:, json: {})
             return plan unless json.present? &&
                                json[:project].present? &&
@@ -153,21 +156,7 @@ module Api
 
             Api::V2::Deserialization::Funding.deserialize(plan: plan, json: funding)
           end
-          # rubocop:enable
-
-          # Deserialize the contact as a Contributor
-          def deserialize_contact(plan:, json: {})
-            return plan unless json.present? && json[:contact].present?
-
-            contact = Api::V2::Deserialization::Contributor.deserialize(
-              json: json[:contact], is_contact: true
-            )
-            return plan unless contact.present?
-
-            plan.contributors << contact
-            plan.org = contact.org
-            plan
-          end
+          # rubocop:enable Metrics/AbcSize
 
           # Deserialize each Contributor and then add to Plan
           def deserialize_contributors(plan:, json: {})
@@ -180,19 +169,14 @@ module Api
 
           # Lookup the Template
           def find_template(json: {})
-            default = Template.find_by(is_default: true)
+            default = ::Template.find_by(is_default: true)
             return default unless json.present? && json.fetch(:dmproadmap_template, {})[:id].present?
 
-            template = Template.published(json.fetch(:dmproadmap_template, {})[:id].to_i).last
+            template = ::Template.published(json.fetch(:dmproadmap_template, {})[:id].to_i).last
             template.present? ? template : default
           end
-
         end
-
       end
-
     end
-
   end
-
 end
