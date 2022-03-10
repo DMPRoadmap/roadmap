@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
+# Helper class for the Org selection typeahead
 class OrgSelectionPresenter
-
   attr_accessor :suggestions
 
   def initialize(orgs:, selection:)
     @crosswalk = []
 
-    @name = selection.present? ? selection.name : ""
+    @name = selection.present? ? selection.name : ''
 
     orgs = [selection] if !orgs.present? || orgs.empty?
 
@@ -38,5 +38,4 @@ class OrgSelectionPresenter
   rescue StandardError
     {}.to_json
   end
-
 end

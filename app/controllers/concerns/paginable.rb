@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
+# Provides support for pagination/searching/sorting of table data
 # rubocop:disable Metrics/ModuleLength
 module Paginable
-
   extend ActiveSupport::Concern
-  require "sort_direction"
+  require 'sort_direction'
 
   ##
   # Regex to validate sort_field param is safe
-  SORT_COLUMN_FORMAT = /[\w_]+\.[\w_]/.freeze
+  SORT_COLUMN_FORMAT = /[\w_]+\.[\w_]+$/.freeze
 
   PAGINATION_QUERY_PARAMS = %i[page sort_field sort_direction
                                search controller action].freeze
@@ -37,15 +37,16 @@ module Paginable
   # one approach to just include everything in the double splat `**options` param
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/ParameterLists
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def paginable_renderise(partial: nil, template: nil, controller: nil, action: nil,
                           path_params: {}, query_params: {}, scope: nil,
                           locals: {}, **options)
     unless scope.is_a?(ActiveRecord::Relation)
-      raise ArgumentError, _("scope should be an ActiveRecord::Relation object")
+      raise ArgumentError, _('scope should be an ActiveRecord::Relation object')
     end
-    raise ArgumentError, _("path_params should be a Hash object") unless path_params.is_a?(Hash)
-    raise ArgumentError, _("query_params should be a Hash object") unless query_params.is_a?(Hash)
-    raise ArgumentError, _("locals should be a Hash object") unless locals.is_a?(Hash)
+    raise ArgumentError, _('path_params should be a Hash object') unless path_params.is_a?(Hash)
+    raise ArgumentError, _('query_params should be a Hash object') unless query_params.is_a?(Hash)
+    raise ArgumentError, _('locals should be a Hash object') unless locals.is_a?(Hash)
 
     # Default options
     @paginable_options = {}.merge(options)
@@ -61,12 +62,12 @@ module Paginable
     # Additional path_params passed to this function got special treatment
     # (e.g. it is taking into account when building base_url)
     @paginable_path_params = path_params.symbolize_keys
-    if @args[:page] == "ALL" &&
+    if @args[:page] == 'ALL' &&
        @args[:search].blank? &&
        @paginable_options[:view_all] == false
       render(
         status: :forbidden,
-        html: _("Restricted access to View All the records")
+        html: _('Restricted access to View All the records')
       )
     else
       @refined_scope = refine_query(scope)
@@ -78,17 +79,17 @@ module Paginable
       )
       # If this was an ajax call then render as JSON
       if options[:format] == :json
-        render json: { html: render_to_string(layout: "/layouts/paginable",
+        render json: { html: render_to_string(layout: '/layouts/paginable',
                                               partial: partial, locals: locals) }
       elsif partial.present?
-        render(layout: "/layouts/paginable", partial: partial, locals: locals)
+        render(layout: '/layouts/paginable', partial: partial, locals: locals)
       else
         render(template: template, locals: locals)
       end
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/ParameterLists
-  # rubocop:enable
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # Returns the base url of the paginable route for a given page passed
   def paginable_base_url(page = 1)
@@ -107,7 +108,7 @@ module Paginable
     link_to(
       sort_link_name(sort_field),
       sort_link_url(sort_field),
-      class: "paginable-action",
+      class: 'paginable-action',
       data: { remote: @paginable_options[:remote] },
       aria: { label: sort_field }
     )
@@ -125,21 +126,21 @@ module Paginable
 
   # Refine a scope passed to this concern if any of the params (search,
   # sort_field or page) are present
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def refine_query(scope)
     @args = @args.with_indifferent_access
-    scope = scope.search(@args[:search]) if @args[:search].present?
+    scope = scope.search(@args[:search]).distinct if @args[:search].present?
     # Can raise NoMethodError if the scope does not define a search method
     if @args[:sort_field].present?
       frmt = @args[:sort_field][SORT_COLUMN_FORMAT]
-      raise ArgumentError, "sort_field param looks unsafe" unless frmt
+      raise ArgumentError, 'sort_field param looks unsafe' unless frmt
 
       # Can raise ActiveRecord::StatementInvalid (e.g. column does not
       # exist, ambiguity on column, etc)
       # how we contruct scope depends on whether sort field is in the
       # main table or in a related table
       scope_table = scope.klass.name.underscore
-      parts = @args[:sort_field].partition(".")
+      parts = @args[:sort_field].partition('.')
       table_part = parts.first
       column_part = parts.last
       if scope_table == table_part.singularize
@@ -147,17 +148,19 @@ module Paginable
         scope = scope.order(order_field.to_sym => sort_direction.to_s)
       else
         order_field = ActiveRecord::Base.sanitize_sql(@args[:sort_field])
+        sd = ActiveRecord::Base.sanitize_sql(sort_direction)
         scope = scope.includes(table_part.singularize.to_sym)
-                     .order(order_field + " " + sort_direction.to_s)
+                     .order("#{order_field} #{sd}")
       end
     end
-    if @args[:page] != "ALL"
+    if @args[:page] != 'ALL'
       # Can raise error if page is not a number
       scope = scope.page(@args[:page])
+                   .per(@args.fetch(:per_page, Rails.configuration.x.application.api_max_page_size))
     end
     scope
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def sort_direction
     @sort_direction ||= SortDirection.new(@args[:sort_direction])
@@ -167,9 +170,9 @@ module Paginable
   # html prevented of being escaped
   def sort_link_name(sort_field)
     @args = @args.with_indifferent_access
-    class_name = "fas fa-sort"
-    dir = "up"
-    dir = "down" if sort_direction.to_s == "DESC"
+    class_name = 'fas fa-sort'
+    dir = 'up'
+    dir = 'down' if sort_direction.to_s == 'DESC'
     class_name = "fas fa-sort-#{dir}" if @args[:sort_field] == sort_field
     <<~HTML.html_safe
       <i class="fas #{class_name}"
@@ -177,17 +180,18 @@ module Paginable
          style="float: right; font-size: 1.2em;">
 
         <span class="screen-reader-text">
-          #{_('Sort by %{sort_field}') % { sort_field: sort_field.split('.').first }}
+          #{format(_('Sort by %<sort_field>'), sort_field: sort_field.split('.').first)}
         </span>
       </i>
     HTML
   end
 
   # Returns the sort url for a given sort_field.
+  # rubocop:disable Metrics/AbcSize
   def sort_link_url(sort_field)
     @args = @args.with_indifferent_access
     query_params = {}
-    query_params[:page] = @args[:page] == "ALL" ? "ALL" : 1
+    query_params[:page] = @args[:page] == 'ALL' ? 'ALL' : 1
     query_params[:sort_field] = sort_field
     query_params[:sort_direction] = if @args[:sort_field] == sort_field
                                       sort_direction.opposite
@@ -200,6 +204,7 @@ module Paginable
     sort_url.to_s
     "#{sort_url}&#{stringify_nonpagination_query_params}"
   end
+  # rubocop:enable Metrics/AbcSize
 
   # Retrieve any query params that are not a part of the paginable concern
   def stringify_nonpagination_query_params
@@ -211,10 +216,10 @@ module Paginable
                              sort_direction: nil)
 
     query_string = { page: page }
-    query_string["search"] = search if search.present?
+    query_string['search'] = search if search.present?
     if sort_field.present?
-      query_string["sort_field"] = sort_field
-      query_string["sort_direction"] = SortDirection.new(sort_direction)
+      query_string['sort_field'] = sort_field
+      query_string['sort_direction'] = SortDirection.new(sort_direction)
     end
     query_string.to_param
   end
@@ -222,6 +227,5 @@ module Paginable
   def paginable_params
     params.permit(PAGINATION_QUERY_PARAMS)
   end
-
 end
 # rubocop:enable Metrics/ModuleLength

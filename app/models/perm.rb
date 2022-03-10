@@ -10,10 +10,9 @@
 #  updated_at :datetime         not null
 #
 
+# Object that represents a User permission
 class Perm < ApplicationRecord
-
   class << self
-
     private
 
     def lazy_load(name)
@@ -23,7 +22,6 @@ class Perm < ApplicationRecord
            end
            .freeze
     end
-
   end
 
   # ================
@@ -44,39 +42,38 @@ class Perm < ApplicationRecord
   # =================
 
   def self.add_orgs
-    lazy_load("add_organisations")
+    lazy_load('add_organisations')
   end
 
   def self.change_affiliation
-    lazy_load("change_org_affiliation")
+    lazy_load('change_org_affiliation')
   end
 
   def self.grant_permissions
-    lazy_load("grant_permissions")
+    lazy_load('grant_permissions')
   end
 
   def self.modify_templates
-    lazy_load("modify_templates")
+    lazy_load('modify_templates')
   end
 
   def self.modify_guidance
-    lazy_load("modify_guidance")
+    lazy_load('modify_guidance')
   end
 
   def self.use_api
-    lazy_load("use_api")
+    lazy_load('use_api')
   end
 
   def self.change_org_details
-    lazy_load("change_org_details")
+    lazy_load('change_org_details')
   end
 
   def self.grant_api
-    lazy_load("grant_api_to_orgs")
+    lazy_load('grant_api_to_orgs')
   end
 
   def self.review_plans
-    lazy_load("review_org_plans")
+    lazy_load('review_org_plans')
   end
-
 end

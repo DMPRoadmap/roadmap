@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 module Api
-
   module V1
-
+    # Provides a list of templates for API V1
     class TemplatesController < BaseApiController
-
       respond_to :json
 
       # GET /api/v1/templates
+      # rubocop:disable Metrics/AbcSize
       def index
         # If this is a User and not an ApiClient include the Org's
         # templates and customizations as well as the public ones
@@ -35,12 +34,10 @@ module Api
 
         templates = templates.order(:title)
         @items = paginate_response(results: templates)
-        render "/api/v1/templates/index", status: :ok
+        render '/api/v1/templates/index', status: :ok
       end
       # rubocop:enable
-
     end
-
+    # rubocop:enable Metrics/AbcSize
   end
-
 end

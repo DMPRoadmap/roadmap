@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.describe "Questions::Text Field questions" do
-
+RSpec.describe 'Questions::Text Field questions', type: :feature do
   before do
     @default_template  = create(:template, :default, :published)
     @phase             = create(:phase, template: @default_template)
@@ -17,31 +16,30 @@ RSpec.describe "Questions::Text Field questions" do
     sign_in(@user)
   end
 
-  scenario "User answers a Text field question", :js do
+  scenario 'User answers a Text field question', :js do
     # Setup
     visit overview_plan_path(@plan)
 
     # Action
-    click_link "Write plan"
+    click_link 'Write plan'
 
     # Expectations
     expect(current_path).to eql(edit_plan_path(@plan))
     # 4 sections x 3 questions
-    expect(page).to have_text("0/1 answered")
+    expect(page).to have_text('0/1 answered')
 
     # Action
     find("#section-panel-#{@section.id}").click
     # Fill in the answer form...
     within("#answer-form-#{@question.id}") do
-      fill_in :answer_text, with: "My test answer"
-      click_button "Save"
+      fill_in :answer_text, with: 'My test answer'
+      click_button 'Save'
       sleep(0.2)
     end
 
     # Expectations
-    expect(page).to have_text "Answered just now"
-    expect(page).to have_text "1/1 answered"
+    expect(page).to have_text 'Answered just now'
+    expect(page).to have_text '1/1 answered'
     expect(Answer.where(question_id: @question.id)).to be_any
   end
-
 end

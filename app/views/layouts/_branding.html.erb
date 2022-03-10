@@ -23,10 +23,14 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="org-navbar-menu">
       <!-- Organisational links -->
-      <% if user_signed_in? and !current_user.org.links.nil? and !current_user.org.links['org'].blank? %>
+      <%
+      links = current_user.org.links.present? ? current_user.org.links.fetch('org', []) : []
+      i = 1
+      %>
+      <% if user_signed_in? && (links.any? || current_user.org.contact_email.present?) %>
         <ul class="nav navbar-nav">
-          <% i=1; current_user.org.links['org'].each do |link| %>
-            <% if !link.blank? && i <= max_number_links %>
+          <% links.each do |link| %>
+            <% if link.present? && i <= max_number_links %>
               <% if i.odd? %>
                 </li><li class="org-links">
               <% end %>
@@ -35,7 +39,8 @@
                 <%= link['text'].blank? ? link['link'] : link['text'] %>
                 <em class="sr-only"> (new window)</em>
                 <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
-              <% end; i+=1 %>
+              <% end %>
+              <% i += 1 %>
             <% end %>
           <% end %>
           <% if i.odd? %>

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+# Helpers that allow us to version Template-Phase-Section-Question
 module Versionable
-
   private
 
   # Takes in a Template, phase, Section, Question, or Annotaion
@@ -18,7 +18,7 @@ module Versionable
       template = obj
     else
       raise ArgumentError,
-            _("obj should be a Template, Phase, Section, Question, or Annotation")
+            _('obj should be a Template, Phase, Section, Question, or Annotation')
     end
 
     # raises RuntimeError if template is not latest
@@ -39,11 +39,12 @@ module Versionable
   # generated and returns a modifiable version of that object
   # NOTE: the obj passed is still not saved however it should belongs to a
   # parent already
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity
   def get_new(obj)
     unless obj.respond_to?(:template)
       raise ArgumentError,
-            _("obj should be a Phase, Section, Question, or Annotation")
+            _('obj should be a Phase, Section, Question, or Annotation')
     end
 
     template = obj.template
@@ -62,7 +63,7 @@ module Versionable
         belongs = :question
       else
         raise ArgumentError,
-              _("obj should be a Phase, Section, Question, or Annotation")
+              _('obj should be a Phase, Section, Question, or Annotation')
       end
 
       if belongs == :template
@@ -76,21 +77,21 @@ module Versionable
     end
     obj
   end
-  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   # Locates an object (e.g. phase, section, question, annotation) in a
   # search_space
   # (e.g. phases/sections/questions/annotations) by comparing either the number
   # method or the org_id and text for annotations
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def find_in_space(obj, search_space)
-    unless search_space.respond_to?(:each)
-      raise ArgumentError, _("The search_space does not respond to each")
-    end
+    raise ArgumentError, _('The search_space does not respond to each') unless search_space.respond_to?(:each)
 
     if search_space.empty?
       raise ArgumentError,
-            _("The search space does not have elements associated")
+            _('The search space does not have elements associated')
     end
 
     if obj.is_a?(search_space.first.class)
@@ -131,6 +132,5 @@ module Versionable
     nil
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable
-
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end

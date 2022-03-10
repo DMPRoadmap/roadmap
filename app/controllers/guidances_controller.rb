@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+# Controller for the Guidances page that handles Guidance operations
 class GuidancesController < ApplicationController
-
   after_action :verify_authorized
   respond_to :html
 
@@ -36,6 +36,7 @@ class GuidancesController < ApplicationController
   end
 
   # POST /org/admin/guidance/:id/admin_create
+  # rubocop:disable Metrics/AbcSize
   def admin_create
     @guidance = Guidance.new(guidance_params)
     authorize @guidance
@@ -48,14 +49,16 @@ class GuidancesController < ApplicationController
           guidance_group.save
         end
       end
-      flash.now[:notice] = success_message(@guidance, _("created"))
+      flash.now[:notice] = success_message(@guidance, _('created'))
     else
-      flash.now[:alert] = failure_message(@guidance, _("create"))
+      flash.now[:alert] = failure_message(@guidance, _('create'))
     end
     render :new_edit
   end
+  # rubocop:enable Metrics/AbcSize
 
   # PUT /org/admin/guidance/:id/admin_update
+  # rubocop:disable Metrics/AbcSize
   def admin_update
     @guidance = Guidance.find(params[:id])
     authorize @guidance
@@ -68,14 +71,16 @@ class GuidancesController < ApplicationController
           guidance_group.save
         end
       end
-      flash.now[:notice] = success_message(@guidance, _("saved"))
+      flash.now[:notice] = success_message(@guidance, _('saved'))
     else
-      flash.now[:alert] = failure_message(@guidance, _("save"))
+      flash.now[:alert] = failure_message(@guidance, _('save'))
     end
     render :new_edit
   end
+  # rubocop:enable Metrics/AbcSize
 
   # DELETE /org/admin/guidance/:id/admin_destroy
+  # rubocop:disable Metrics/AbcSize
   def admin_destroy
     @guidance = Guidance.find(params[:id])
     authorize @guidance
@@ -85,46 +90,47 @@ class GuidancesController < ApplicationController
         guidance_group.published = false
         guidance_group.save
       end
-      flash[:notice] = success_message(@guidance, _("deleted"))
+      flash[:notice] = success_message(@guidance, _('deleted'))
     else
-      flash[:alert] = failure_message(@guidance, _("delete"))
+      flash[:alert] = failure_message(@guidance, _('delete'))
     end
     redirect_to(action: :admin_index)
   end
+  # rubocop:enable Metrics/AbcSize
 
   # PUT /org/admin/guidance/:id/admin_publish
+  # rubocop:disable Metrics/AbcSize
   def admin_publish
     @guidance = Guidance.find(params[:id])
     authorize @guidance
     if @guidance.update_attributes(published: true)
       guidance_group = GuidanceGroup.find(@guidance.guidance_group_id)
-      if !guidance_group.published? || guidance_group.published.nil?
-        guidance_group.update(published: true)
-      end
-      flash[:notice] = _("Your guidance has been published and is now available to users.")
+      guidance_group.update(published: true) if !guidance_group.published? || guidance_group.published.nil?
+      flash[:notice] = _('Your guidance has been published and is now available to users.')
 
     else
-      flash[:alert] = failure_message(@guidance, _("publish"))
+      flash[:alert] = failure_message(@guidance, _('publish'))
     end
     redirect_to(action: :admin_index)
   end
+  # rubocop:enable Metrics/AbcSize
 
   # PUT /org/admin/guidance/:id/admin_unpublish
+  # rubocop:disable Metrics/AbcSize
   def admin_unpublish
     @guidance = Guidance.find(params[:id])
     authorize @guidance
     if @guidance.update_attributes(published: false)
       guidance_group = GuidanceGroup.find(@guidance.guidance_group_id)
-      unless guidance_group.guidances.where(published: true).exists?
-        guidance_group.update(published: false)
-      end
-      flash[:notice] = _("Your guidance is no longer published and will not be available to users.")
+      guidance_group.update(published: false) unless guidance_group.guidances.where(published: true).exists?
+      flash[:notice] = _('Your guidance is no longer published and will not be available to users.')
 
     else
-      flash[:alert] = failure_message(@guidance, _("unpublish"))
+      flash[:alert] = failure_message(@guidance, _('unpublish'))
     end
     redirect_to(action: :admin_index)
   end
+  # rubocop:enable Metrics/AbcSize
 
   private
 
@@ -138,5 +144,4 @@ class GuidancesController < ApplicationController
 
     GuidanceGroup.create_org_default(org)
   end
-
 end

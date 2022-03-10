@@ -7,7 +7,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/models/user.rb",
-      "line": 396,
+      "line": 400,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "User.where(\"LOWER(#{field}) = :value\", :value => val.to_s.downcase)",
       "render_path": null,
@@ -21,13 +21,33 @@
       "note": ""
     },
     {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "a5ed3314d376e328714a71d1bc2d560e63c241e5722e5fdf7ad6f29717db9259",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/concerns/paginable.rb",
+      "line": 152,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "scope.search(@args.with_indifferent_access[:search]).order(ActiveRecord::Base.sanitize_sql(@args.with_indifferent_access[:sort_field].partition(\".\").last).to_sym => sort_direction.to_s).includes(@args.with_indifferent_access[:sort_field].partition(\".\").first.singularize.to_sym).order(\"#{ActiveRecord::Base.sanitize_sql(@args.with_indifferent_access[:sort_field])} #{sort_direction}\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Paginable",
+        "method": "refine_query"
+      },
+      "user_input": "sort_direction",
+      "confidence": "Weak",
+      "note": ""
+    },
+    {
       "warning_type": "Redirect",
       "warning_code": 18,
       "fingerprint": "c94d0d02516558699b49eb76787d02665041a45b490686266e4f42d5c19088d6",
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/plans_controller.rb",
-      "line": 364,
+      "line": 394,
       "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
       "code": "redirect_to(Plan.deep_copy(Plan.find(params[:id])), :notice => success_message(Plan.deep_copy(Plan.find(params[:id])), _(\"copied\")))",
       "render_path": null,
@@ -47,7 +67,7 @@
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/orgs_controller.rb",
-      "line": 131,
+      "line": 141,
       "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
       "code": "redirect_to(\"#{shib_login_url}?#{shib_callback_url}&#{\"entityID=#{Identifier.by_scheme_name(\"shibboleth\", \"Org\").where(:identifiable => Org.where(:id => shib_params[:org_id])).first.value}\"}\")",
       "render_path": null,
@@ -61,6 +81,6 @@
       "note": ""
     }
   ],
-  "updated": "2020-12-17 10:14:39 -0800",
-  "brakeman_version": "4.10.0"
+  "updated": "2021-11-03 09:56:48 -0700",
+  "brakeman_version": "5.1.1"
 }
