@@ -39,7 +39,7 @@ class MadmpFragmentPolicy < ApplicationPolicy
   end
 
   def destroy_contributor?
-    @fragment.plan.editable_by?(@user.id) || @user == @answer.plan.owner
+    @record.plan.editable_by?(@user.id) || @user == @answer.plan.owner
   end
 
   def load_fragments?
