@@ -1405,6 +1405,11 @@ header .main-nav {
                 color: $rust;
                 text-transform: none;
             }
+            &.registry {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
         }
         &.fragment-fieldset {
             display: flex;

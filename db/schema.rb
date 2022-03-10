@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_07_151155) do
+ActiveRecord::Schema.define(version: 2022_02_28_125904) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -525,6 +525,7 @@ ActiveRecord::Schema.define(version: 2021_12_07_151155) do
     t.integer "family_id"
     t.boolean "archived"
     t.text "links"
+    t.integer "type", default: 0, null: false
     t.index ["customization_of", "version", "org_id"], name: "templates_customization_of_version_org_id_key", unique: true
     t.index ["family_id", "version"], name: "templates_family_id_version_key", unique: true
     t.index ["org_id"], name: "templates_org_id_idx"

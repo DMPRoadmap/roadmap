@@ -15,7 +15,7 @@ export const formLoadingCallback = (data, target, source) => {
     Tinymce.init({
       toolbar,
     });
-    Select2.init('#modal-window');
+    Select2.init('#modal-window', true);
     AutoNumericHelper.init('#modal-window .number-field');
   } else {
     Tinymce.init({

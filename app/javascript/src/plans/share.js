@@ -1,9 +1,8 @@
 import * as notifier from '../utils/notificationHelper';
 // import { isObject, isString } from '../utils/isType';
-import { isObject } from '../utils/isType';
+import { isObject, isString } from '../utils/isType';
 
 $(() => {
-  /*
   $('#set_visibility').on('ajax:success', (e) => {
     const data = e.detail[0];
     if (isObject(data) && isString(data.msg)) {
@@ -18,7 +17,7 @@ $(() => {
       notifier.renderAlert(`${xhr.statusCode} - ${xhr.statusText}`);
     }
   });
-*/
+
   $('.toggle-existing-user-access')
     .on('ajax:success', (e) => {
       const data = e.detail[0];

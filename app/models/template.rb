@@ -53,6 +53,19 @@ class Template < ApplicationRecord
   # template should also always be publicly_visible.
   enum visibility: %i[organisationally_visible publicly_visible]
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # --------------------------------
+  # A standard template will have access to question types such as text, textarea
+  # date, number ...
+  # For structured templates, question types will be restricted to structured, with
+  # access to structured forms when adding a new question.
+  self.inheritance_column = nil
+  enum type: %i[classic structured]
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
+
   # Stores links as an JSON object:
   # {funder: [{"link":"www.example.com","text":"foo"}, ...],
   #  sample_plan: [{"link":"www.example.com","text":"foo"}, ...]}
@@ -71,6 +84,13 @@ class Template < ApplicationRecord
   # TODO: re-add visibility setting? (this is handled in org_admin/create and
   # relies on the org_id in the current callback-form)
   attribute :visibility, :integer, default: 0
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # --------------------------------
+  attribute :type, :integer, default: 0
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # ================
   # = Associations =

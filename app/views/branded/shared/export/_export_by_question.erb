@@ -57,7 +57,7 @@
                           fragment: fragment,
                           schema: fragment.madmp_schema,
                           classname: fragment.classname,
-                          locale: @plan.template.locale,
+                          locale: LocaleService.to_gettext(locale: @plan.template.locale),
                           table_header: nil
                       } %>
         <%# case for displaying comments OR text %>

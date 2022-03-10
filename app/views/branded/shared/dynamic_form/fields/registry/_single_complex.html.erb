@@ -21,10 +21,10 @@
                     schema: value.madmp_schema,
                     template_locale: locale
         })%>
-        <span class="intermediate-label"><i><%= intermediate_message unless readonly %></i></span>
       </div>
     <% end %>
     <% unless readonly %>
+      <span class="intermediate-label"><i><%= intermediate_message %></i></span>
       <div class="col-md-12 dynamic-field select-field single-select">
         <div class="field-button-combo">
           <%= select_tag "#{f.object_name}[#{field_name}]",

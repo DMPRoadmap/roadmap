@@ -58,9 +58,7 @@ end
 Rack::Attack.throttle('logins/ip', limit: 5, period: 20.seconds) do |req|
   secure_paths = %w[/oauth/authorize /oauth/token /users/sign_in /users/auth/shibboleth
                     /users/auth/orcid /users/password /users]
-  if secure_paths.include?(req.path) && req.post?
-    req.ip
-  end
+  req.ip if secure_paths.include?(req.path) && req.post?
 end
 
 # Throttle POST requests to /login by email param
@@ -96,6 +94,8 @@ end
 # Log the blocked requests
 ActiveSupport::Notifications.subscribe(/rack_attack/) do |name, _start, _finish, _request_id, payload|
   req = payload[:request]
+  # rubocop:disable Layout/LineLength
   Rails.logger.info "[Rack::Attack][Blocked] name: #{name}, rule: #{req.env['rack.attack.matched']} remote_ip: #{req.ip}, " \
                     "path: #{req.path}, agent: #{req.user_agent}"
+  # rubocop:enable Layout/LineLength
 end

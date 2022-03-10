@@ -33,5 +33,18 @@ module Dmpopidor
       save
     end
     # rubocop:enable Metrics/AbcSize
+
+    # Determines the locale set for the user or the organisation he/she belongs
+    #
+    # Returns String
+    # Returns nil
+    def locale
+      if !language.nil?
+        language.abbreviation
+      elsif !org.nil?
+        org.get_locale
+      end
+      nil
+    end
   end
 end

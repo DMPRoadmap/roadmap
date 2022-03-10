@@ -27,19 +27,21 @@
   <% end %>
 <% end %>
 
-<% case field_properties["type"] %>
-<% when "string" %>
-  <% if field_properties['format'].nil?%>
-    <%= create_text_field(f, nil, field_name, field_label, nil, is_multiple: true, readonly: readonly, index: length, ttip: nil) %>
-  <% elsif field_properties['format'] == 'date' %>
-    <%= create_date_field(f, nil, field_name, field_label, nil, is_multiple: true, readonly: readonly, index: length, ttip: nil) %>
-  <% elsif field_properties['format'] == 'uri' %>
-    <%= create_url_field(f, nil, field_name, field_label, nil, is_multiple: true, readonly: readonly, index: length, ttip: nil) %>
-  <% elsif field_properties['format'] == 'email' %>
-    <%= create_email_field(f, nil, field_name, field_label, nil, is_multiple: true, readonly: readonly, index: length, ttip: nil) %>
-  <%end%>
-<% when "integer" %>
-  <%=  create_number_field(f, nil, field_name, field_label, nil, minimum, maximum, is_multiple: true, readonly: readonly, index: length)%>
-<% when "boolean" %>
-  <%=  create_checkbox_field(f, nil, field_name, field_label, nil)%>
+<% if field_values.length == 0 %>
+  <% case field_properties["type"] %>
+  <% when "string" %>
+    <% if field_properties['format'].nil?%>
+      <%= create_text_field(f, nil, field_name, field_label, nil, is_multiple: true, readonly: readonly, index: length, ttip: nil) %>
+    <% elsif field_properties['format'] == 'date' %>
+      <%= create_date_field(f, nil, field_name, field_label, nil, is_multiple: true, readonly: readonly, index: length, ttip: nil) %>
+    <% elsif field_properties['format'] == 'uri' %>
+      <%= create_url_field(f, nil, field_name, field_label, nil, is_multiple: true, readonly: readonly, index: length, ttip: nil) %>
+    <% elsif field_properties['format'] == 'email' %>
+      <%= create_email_field(f, nil, field_name, field_label, nil, is_multiple: true, readonly: readonly, index: length, ttip: nil) %>
+    <%end%>
+  <% when "integer" %>
+    <%=  create_number_field(f, nil, field_name, field_label, nil, minimum, maximum, is_multiple: true, readonly: readonly, index: length)%>
+  <% when "boolean" %>
+    <%=  create_checkbox_field(f, nil, field_name, field_label, nil)%>
+  <% end %>
 <% end %>

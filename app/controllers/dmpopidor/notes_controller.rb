@@ -47,7 +47,7 @@ module Dmpopidor
         plan = answer.plan
         collaborators = plan.users.reject { |u| u == current_user || !u.active }
         deliver_if(recipients: collaborators, key: 'users.new_comment') do |r|
-          UserMailer.new_comment(current_user, plan, answer, r).deliver_now
+          ::UserMailer.new_comment(current_user, plan, answer, r).deliver_now
         end
         @notice = success_message(@note, _('created'))
         render(json: {

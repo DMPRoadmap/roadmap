@@ -38,6 +38,17 @@
 </div>
 
 <div class="form-group col-xs-8">
+  <%= f.label(:type, _('Type'), class: "control-label") %>
+  <%= select_tag(:type,
+      options_for_select(
+        [["Classic", "classic"], ["Structured", "structured"]],
+        f.object.type
+      ),
+      class: "form-control",
+      name: 'template[type]') %>
+</div>
+
+<div class="form-group col-xs-8">
   <%= label_tag(:status, _('Status'), class: "control-label") %>
     <p class="form-control-static">
       <% if f.object.published? %>

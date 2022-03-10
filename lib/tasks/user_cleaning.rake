@@ -12,6 +12,7 @@ namespace :usercleaning do
     end
   end
 
+  # rubocop:disable Lint/DuplicateBranch
   desc 'Anonymize users who haven\'t been connected for five years.'
   task anonymize_users_after_5_years: :environment do
     Rails.logger.info 'Anonymizing users who have not connected for the last 5 years'
@@ -29,4 +30,5 @@ namespace :usercleaning do
       end
     end
   end
+  # rubocop:enable Lint/DuplicateBranch
 end

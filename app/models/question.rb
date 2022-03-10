@@ -66,7 +66,7 @@ class Question < ApplicationRecord
 
   has_one :template, through: :section
 
-  belongs_to :madmp_schema, class_name: 'MadmpSchema'
+  belongs_to :madmp_schema, class_name: 'MadmpSchema', required: false
 
   has_many :conditions, dependent: :destroy, inverse_of: :question
 
@@ -95,7 +95,6 @@ class Question < ApplicationRecord
   before_destroy :check_remove_conditions
 
   before_destroy :check_remove_conditions
-  before_save :handle_madmp_schema
 
   # =====================
   # = Nested Attributes =
@@ -281,8 +280,4 @@ class Question < ApplicationRecord
     end
   end
   # rubocop:enable Metrics/AbcSize
-
-  def handle_madmp_schema
-    self.madmp_schema = nil unless question_format.structured?
-  end
 end

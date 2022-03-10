@@ -157,36 +157,45 @@ class UserMailer < ActionMailer::Base
     end
   end
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # Changes:
+  #   - Added RESEARCH OUTPUT SUPPORT
+  #   - Mail notification is sent in user's locale
+  # Commenting because Dmpopidor::NotesController can't find branded code
+  # --------------------------------
   # commenter - User who wrote the comment.
   # plan - Plan for which the comment is associated to
   # answer - Answer commented on
   # rubocop:disable Metrics/AbcSize
-  # SEE MODULE
-  def new_comment(commenter, plan, answer)
-    return unless commenter.is_a?(User) && plan.is_a?(Plan)
+  # def new_comment(commenter, plan, answer)
+  #   return unless commenter.is_a?(User) && plan.is_a?(Plan)
 
-    owner = plan.owner
-    return unless owner.present? && owner.active?
+  #   owner = plan.owner
+  #   return unless owner.present? && owner.active?
 
-    @commenter       = commenter
-    @commenter_name  = @commenter.name
-    @plan            = plan
-    @plan_title      = @plan.title
-    @user_name       = @plan.owner.name
-    @answer          = answer
-    @question        = @answer.question
-    @question_number = @question.number
-    @section_title   = @question.section.title
-    @phase_id        = @question.section.phase.id
-    @phase_link = url_for(action: 'edit', controller: 'plans', id: @plan.id, phase_id: @phase_id)
+  #   @commenter       = commenter
+  #   @commenter_name  = @commenter.name
+  #   @plan            = plan
+  #   @plan_title      = @plan.title
+  #   @user_name       = @plan.owner.name
+  #   @answer          = answer
+  #   @question        = @answer.question
+  #   @question_number = @question.number
+  #   @section_title   = @question.section.title
+  #   @phase_id        = @question.section.phase.id
+  #   @phase_link = url_for(action: 'edit', controller: 'plans', id: @plan.id, phase_id: @phase_id)
 
-    I18n.with_locale I18n.default_locale do
-      mail(to: @plan.owner.email,
-           subject: format(_('%<tool_name>s: A new comment was added to %<plan_title>s'),
-                           tool_name: tool_name, plan_title: @plan.title))
-    end
-  end
+  #   I18n.with_locale I18n.default_locale do
+  #     mail(to: @plan.owner.email,
+  #          subject: format(_('%<tool_name>s: A new comment was added to %<plan_title>s'),
+  #                          tool_name: tool_name, plan_title: @plan.title))
+  #   end
+  # end
   # rubocop:enable Metrics/AbcSize
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   def admin_privileges(user)
     return unless user.active?

@@ -8,14 +8,14 @@ module Dmpopidor
       # Users without activity should not be displayed first
       # rubocop:disable Metrics/AbcSize
       def index
-        authorize User
+        authorize ::User
         @clicked_through = params[:click_through].present?
 
         # variable containing the check box value
         @filter_admin = params[:filter_admin] == '1'
 
         scope = if current_user.can_super_admin?
-                  User.includes(:roles)
+                  ::User.includes(:roles)
                 else
                   current_user.org.users.includes(:roles)
                 end

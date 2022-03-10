@@ -27,8 +27,9 @@ module Dmpopidor
       @question_number = @question.number
       @section_title   = @question.section.title
       @phase_id        = @question.section.phase.id
-      @research_output = @answer.research_output
-      @research_output_name = @research_output.fullname
+      research_output  = @answer.research_output
+      research_output_description = research_output&.json_fragment&.research_output_description
+      @research_output_name = research_output_description.data['title']
       @phase_link = url_for(action: 'edit', controller: 'plans', id: @plan.id, phase_id: @phase_id)
 
       I18n.with_locale current_locale(collaborator) do
@@ -144,7 +145,7 @@ module Dmpopidor
       @username        = @user.name
       @plan            = plan
       @plan_title      = @plan.title
-      @plan_visibility = Plan::VISIBILITY_MESSAGE[@plan.visibility.to_sym]
+      @plan_visibility = ::Plan::VISIBILITY_MESSAGE[@plan.visibility.to_sym]
 
       I18n.with_locale current_locale(user) do
         mail(to: @user.email,
