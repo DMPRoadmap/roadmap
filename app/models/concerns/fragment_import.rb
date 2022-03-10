@@ -5,6 +5,102 @@
 module FragmentImport
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def raw_import(import_data, schema, parent_id = id)
+    fragmented_data = {}
+    import_data if schema.classname == "Contributor"
+    begin
+      import_data = import_data.stringify_keys
+    rescue StandardError => e
+    end
+    return if import_data.nil?
+
+    import_data.each do |prop, content|
+      next if content.nil?
+
+      schema_prop = schema.schema["properties"][prop]
+      fragmented_data = import_data if prop.eql?("custom_value")
+      next if schema_prop&.dig("type").nil?
+
+      if schema_prop["type"].eql?("object") &&
+         schema_prop["schema_id"].present?
+        sub_data = content # TMP: for readability
+        sub_schema = MadmpSchema.find(schema_prop["schema_id"])
+        # For persons, we need to check if the person exists and set manually
+        # the dbid in the parent fragment
+        if schema_prop["inputType"]&.eql?("pickOrCreate")
+          sub_fragment = MadmpFragment.fragment_exists?(sub_data, sub_schema, dmp.id, parent_id)
+          if sub_fragment.eql?(false)
+            sub_fragment = MadmpFragment.new(
+              dmp_id: dmp.id,
+              parent_id: parent_id,
+              madmp_schema_id: sub_schema.id,
+              additional_info: { property_name: prop }
+            )
+            sub_fragment.classname = sub_schema.classname
+            sub_fragment.instantiate
+          end
+          sub_fragment.raw_import(sub_data, sub_schema, sub_fragment.id)
+          # If sub_data is a Person, we need to set the dbid manually, since Person has no parent
+          # and update_references function is not triggered
+          fragmented_data[prop] = { "dbid" => sub_fragment.id }
+          next
+        end
+        begin
+          if data[prop].nil?
+            sub_fragment = MadmpFragment.new(
+              dmp_id: dmp.id,
+              parent_id: parent_id,
+              madmp_schema_id: sub_schema.id,
+              additional_info: { property_name: prop }
+            )
+            sub_fragment.classname = sub_schema.classname
+            sub_fragment.instantiate
+          else
+            sub_fragment = MadmpFragment.find(data[prop]["dbid"])
+          end
+        rescue StandardError => e
+          p "research"
+        end
+
+        sub_fragment.raw_import(sub_data, sub_schema, sub_fragment.id)
+
+      elsif schema_prop["type"].eql?("array") &&
+            schema_prop["items"]["schema_id"].present?
+        ####################################
+        # ARRAY FIELDS
+        ####################################
+        # Seems like sending empty arrays through the API set them as nil so we need to initialize them
+        fragment_list = content || []
+        fragment_list = [fragment_list] unless fragment_list.is_a?(Array)
+
+        fragment_list.each do |sub_fragment_data|
+          sub_schema = MadmpSchema.find(schema_prop["items"]["schema_id"])
+          sub_fragment = MadmpFragment.fragment_exists?(sub_fragment_data, sub_schema, dmp.id, parent_id)
+          if sub_fragment.eql?(false)
+            sub_fragment = MadmpFragment.new(
+              dmp_id: dmp.id,
+              parent_id: parent_id,
+              madmp_schema_id: sub_schema.id,
+              additional_info: { property_name: prop }
+            )
+            sub_fragment.classname = sub_schema.classname
+            sub_fragment.instantiate
+
+          end
+          sub_fragment.raw_import(sub_fragment_data, sub_schema, sub_fragment.id)
+        end
+      else
+        fragmented_data[prop] = content
+      end
+    end
+    update!(
+      data: data.merge(fragmented_data),
+      additional_info: additional_info.except!("custom_value")
+    )
+
+    update_children_references
+    self # return self
+  end
   def raw_import(import_data, schema)
     fragmented_data = {}
 
