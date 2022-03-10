@@ -137,6 +137,8 @@ namespace :dmptool_specific do
 
   desc 'Purge revoked and expired grants and tokens from the OAuth tables'
   task clean_oauth: :environment do
+    date = (Time.now - 1.year).strftime('%Y-%m-%d 00:00:00')
+
     p 'Deleting revoked or expired OAuth access tokens for the API'
     Doorkeeper::AccessToken.each { |token| token.destroy if token.expired? || token.revoked? }
 
@@ -144,16 +146,17 @@ namespace :dmptool_specific do
     Doorkeeper::AccessGrant.each { |grant| grant.destroy if grant.expired? || grant.revoked? }
 
     p 'Deleting revoked or expired OAuth access tokens for external systems'
-    ExternalApiAccessToken.where(expires_at: <= Time.now - 1.year).destroy_all
-    ExternalApiAccessToken.where(revoked_at: <= Time.now - 1.year).destroy_all
+    ExternalApiAccessToken.where('expires_at <= ?', date).destroy_all
+    ExternalApiAccessToken.where('revoked_at <= ?', date).destroy_all
   end
 
   desc 'Truncate specific tables containing temporary data'
   task truncate_transient_data: :environment do
-
+    date = (Time.now - 1.year).strftime('%Y-%m-%d 00:00:00')
     p 'Deleting api_logs records that are older than 1 year'
     ApiLog.where(created_at: <= (Time.now - 1.year)).destroy_all
 
+    date = (Time.now - 1.month).strftime('%Y-%m-%d 00:00:00')
     p 'Deleting sessions that are older than 1 month'
     Session.where(updated_at: <= (Time.now - 1.month)).destroy_all
   end
