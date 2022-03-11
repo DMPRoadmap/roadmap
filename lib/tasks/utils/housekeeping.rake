@@ -5,12 +5,12 @@ require 'text'
 namespace :housekeeping do
   desc 'Sync DMP metadata with the DMP ID minting authority'
   task sync_dmp_ids: :environment do
-    scheme = IdentifierScheme.find_by(name: DoiService.scheme_name)
+    scheme = IdentifierScheme.find_by(name: DmpIdService.identifier_scheme&.name)
     if scheme.present?
       Identifier.includes(:identifiable)
                 .where(identifier_scheme_id: scheme.id, identifiable_type: 'Plan')
                 .each do |identifier|
-        DoiService.update_doi(plan: identifier.identifiable)
+        DmpIdService.update_dmp_id(plan: identifier.identifiable)
       end
     else
       p 'No DMP ID minting authority defined so nothing to sync.'
