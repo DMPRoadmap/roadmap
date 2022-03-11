@@ -65,9 +65,18 @@
                     answer = Answer.new({ plan: plan, question: question })
                   end
                 %>
-                <div class="row">
-                  <div class="col-md-8">
+                <div class="question-body">
+                  <div class="question-section">
                     <!-- Answer Section -->
+                    <% 
+                      guidance_comments_opened_by_default = Rails.configuration.x.application.guidance_comments_opened_by_default
+                    %>
+                    <% if Rails.configuration.x.application.guidance_comments_toggleable %>
+                      <div class="toggle-guidance-section">
+                        <span class="fas fa-chevron-<%= guidance_comments_opened_by_default ? 'right': 'left' %>"></span> 
+                        <span><%= _('Comments & Guidance') %></span>
+                      </div>
+                    <% end %>
                     <div class="question-form">
                       <div id="<%= "answer-locking-#{question.id}" %>"
                         class="answer-locking">
@@ -87,7 +96,8 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-4">
+                  <% style = guidance_comments_opened_by_default ? '' : 'display: none' %>
+                  <div class="guidance-section" style="<%= style %>">
                     <!-- Guidances and notes partial view -->
                     <%= render partial: '/phases/guidances_notes', locals: {
                       plan: plan,
