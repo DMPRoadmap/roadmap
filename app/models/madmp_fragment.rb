@@ -87,7 +87,7 @@ class MadmpFragment < ApplicationRecord
   # =============
 
   before_save   :set_defaults
-  after_save    :update_plan_title
+  after_commit  :update_plan_title
   after_create  :update_parent_references
   after_destroy :update_parent_references
 
@@ -432,13 +432,15 @@ class MadmpFragment < ApplicationRecord
     research_output_fragment.data['research_output_id']
   end
 
-  def update_meta_title
+  def update_meta_fragment
     return unless classname.eql?('project')
 
     meta = dmp.meta
     dmp_title = format(_('"%<project_title>s" project DMP'), project_title: data['title'])
     meta.update(
-      data: meta.data.merge(title: dmp_title)
+      data: meta.data.merge(
+        'title' => dmp_title, 'lastModifiedDate' => plan.updated_at.strftime('%F')
+      )
     )
   end
 
