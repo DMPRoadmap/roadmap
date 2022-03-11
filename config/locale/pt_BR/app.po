@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-02-10 08:50+0000\n"
-"PO-Revision-Date: 2022-02-10 09:50+0100\n"
+"POT-Creation-Date: 2022-03-10 13:47+0000\n"
+"PO-Revision-Date: 2022-03-10 14:48+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Portuguese\n"
 "Language: pt_BR\n"
@@ -38,11 +38,11 @@ msgstr "Credenciais Inválidas"
 msgid "Departments code and name must be unique"
 msgstr "O código e o nome dos departamentos devem ser exclusivos"
 
-#: ../../app/controllers/api/v0/plans_controller.rb:27
+#: ../../app/controllers/api/v0/plans_controller.rb:28
 msgid "user must be in your organisation"
 msgstr "usário deve estar em sua organização"
 
-#: ../../app/controllers/api/v0/plans_controller.rb:56
+#: ../../app/controllers/api/v0/plans_controller.rb:57
 msgid "Bad Parameters"
 msgstr "Parâmetros Inválidos"
 
@@ -102,7 +102,7 @@ msgstr "Plano não encontrado"
 
 #: ../../app/controllers/api/v1/plans_controller.rb:36
 msgid "Unable to create your DMP"
-msgstr "Não foi possível criar seu DMP"
+msgstr "Não foi possível criar seu PGD"
 
 #: ../../app/controllers/api/v1/plans_controller.rb:37
 msgid "Plan already exists. Send an update instead."
@@ -113,7 +113,7 @@ msgid ""
 "Could not determine ownership of the DMP. Please add an\n"
 "                          :affiliation to the :contact"
 msgstr ""
-"Não foi possível determinar a propriedade do DMP. Adicione um\n"
+"Não foi possível determinar a propriedade do PGD. Adicione um\n"
 "                          : afiliação ao: contato"
 
 #: ../../app/controllers/api/v1/plans_controller.rb:70
@@ -208,9 +208,9 @@ msgstr "locals deve ser um objeto Hash"
 msgid "Restricted access to View All the records"
 msgstr "Acesso restrito para visualizar todos os registros"
 
-#: ../../app/controllers/concerns/paginable.rb:182
-msgid "Sort by %<sort_field>s"
-msgstr "Ordenar por %<sort_field> s"
+#: ../../app/controllers/concerns/paginable.rb:183
+msgid "Sort by %<sort_field>"
+msgstr "Ordenar por %<sort_field>"
 
 #: ../../app/controllers/concerns/template_methods.rb:8
 msgid "customisation"
@@ -1268,7 +1268,7 @@ msgstr "Permissões alteradas em um plano de gerenciamento de dados em %<tool_na
 
 #: ../../app/mailers/user_mailer.rb:89
 msgid "Permissions removed on a DMP in %<tool_name>s"
-msgstr "Permissões removidas em um DMP em %<tool_name> s"
+msgstr "Permissões removidas em um PGD em %<tool_name> s"
 
 #: ../../app/mailers/user_mailer.rb:106
 msgid "%<user_name>s has requested feedback on a %<tool_name>s plan"
@@ -1280,7 +1280,7 @@ msgstr "%<tool_name> s: O feedback de especialistas foi fornecido para %<plan_ti
 
 #: ../../app/mailers/user_mailer.rb:145
 msgid "DMP Visibility Changed: %<plan_title>s"
-msgstr "Visibilidade DMP alterada: %<plan_title> s"
+msgstr "Visibilidade PGD alterada: %<plan_title> s"
 
 #: ../../app/mailers/user_mailer.rb:173
 msgid "%<tool_name>s: A new comment was added to %<plan_title>s"
@@ -1916,9 +1916,9 @@ msgstr ""
 " formulário abaixo."
 
 #: ../../app/views/contact_us/contacts/new.html.erb:10
-#: ../../app/views/layouts/_branding.html.erb:37
-#: ../../app/views/layouts/_footer.html.erb:24
-#: ../../app/views/layouts/_footer.html.erb:30
+#: ../../app/views/layouts/_branding.html.erb:41
+#: ../../app/views/layouts/_footer.html.erb:23
+#: ../../app/views/layouts/_footer.html.erb:29
 #: ../../app/views/org_admin/plans/index.html.erb:40
 #: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:39
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:24
@@ -2273,7 +2273,7 @@ msgid ""
 msgstr ""
 "Consulte a <a href=\"%{api_v1_wiki}\">documentação da v1</a> para obter mais det"
 "alhes sobre a API que suporta o <a href=\"%{rda_standard_url}\">padrão de metada"
-"dos RDA Common para DMPs.</a>"
+"dos RDA Common para PGDs.</a>"
 
 #: ../../app/views/devise/registrations/_api_token.html.erb:21
 msgid "Regenerate token"
@@ -2450,7 +2450,6 @@ msgid "Do you have a %{application_name} account?"
 msgstr "Você tem uma conta %{application_name}?"
 
 #: ../../app/views/devise/registrations/new.html.erb:22
-#: ../../app/views/layouts/_navigation.html.erb:63
 #: ../../app/views/layouts/_signin_signout.html.erb:41
 #: ../../app/views/shared/_access_controls.html.erb:5
 #: ../../app/views/shared/_sign_in_form.html.erb:19
@@ -2546,7 +2545,7 @@ msgstr "Ver toda a instrução"
 #: ../../app/views/guidances/admin_index.html.erb:5
 #: ../../app/views/guidances/new_edit.html.erb:12
 #: ../../app/views/guidances/new_edit.html.erb:16
-#: ../../app/views/layouts/_branding.html.erb:77
+#: ../../app/views/layouts/_branding.html.erb:82
 #: ../../app/views/org_admin/annotations/_form.html.erb:3
 #: ../../app/views/org_admin/questions/_show.html.erb:78
 #: ../../app/views/paginable/themes/_index.html.erb:5
@@ -2671,40 +2670,40 @@ msgstr "Próximo"
 msgid "Previous"
 msgstr "Anterior"
 
-#: ../../app/views/layouts/_branding.html.erb:60
+#: ../../app/views/layouts/_branding.html.erb:65
 msgid "Admin"
 msgstr "Administrador"
 
-#: ../../app/views/layouts/_branding.html.erb:66
+#: ../../app/views/layouts/_branding.html.erb:71
 #: ../../app/views/org_admin/users/edit.html.erb:71
 #: ../../app/views/paginable/users/_index.html.erb:26
 #: ../../app/views/super_admin/users/edit.html.erb:105
 msgid "Plans"
 msgstr "Planos"
 
-#: ../../app/views/layouts/_branding.html.erb:72
+#: ../../app/views/layouts/_branding.html.erb:77
 #: ../../app/views/org_admin/templates/index.html.erb:4
 #: ../../app/views/paginable/orgs/_index.html.erb:8
 msgid "Templates"
 msgstr "Modelos"
 
-#: ../../app/views/layouts/_branding.html.erb:82
+#: ../../app/views/layouts/_branding.html.erb:87
 #: ../../app/views/super_admin/orgs/index.html.erb:2
 #: ../../app/views/super_admin/orgs/index.html.erb:6
 msgid "Organisations"
 msgstr "Organizações"
 
-#: ../../app/views/layouts/_branding.html.erb:87
+#: ../../app/views/layouts/_branding.html.erb:92
 #: ../../app/views/orgs/admin_edit.html.erb:1
 #: ../../app/views/orgs/admin_edit.html.erb:6
 msgid "Organisation details"
 msgstr "Detalhes da organização"
 
-#: ../../app/views/layouts/_branding.html.erb:93
+#: ../../app/views/layouts/_branding.html.erb:98
 msgid "Users"
 msgstr "Usuários"
 
-#: ../../app/views/layouts/_branding.html.erb:98
+#: ../../app/views/layouts/_branding.html.erb:103
 #: ../../app/views/org_admin/questions/_show.html.erb:88
 #: ../../app/views/org_admin/shared/_theme_selector.html.erb:16
 #: ../../app/views/paginable/guidances/_index.html.erb:7
@@ -2713,15 +2712,15 @@ msgstr "Usuários"
 msgid "Themes"
 msgstr "Temas"
 
-#: ../../app/views/layouts/_branding.html.erb:103
+#: ../../app/views/layouts/_branding.html.erb:108
 msgid "Usage"
 msgstr "Uso"
 
-#: ../../app/views/layouts/_branding.html.erb:108
+#: ../../app/views/layouts/_branding.html.erb:113
 msgid "Api Clients"
 msgstr "Clientes da API"
 
-#: ../../app/views/layouts/_branding.html.erb:111
+#: ../../app/views/layouts/_branding.html.erb:116
 #: ../../app/views/org_admin/plans/index.html.erb:11
 #: ../../app/views/super_admin/notifications/index.html.erb:1
 #: ../../app/views/super_admin/notifications/index.html.erb:4
@@ -2749,12 +2748,8 @@ msgid "Privacy statement"
 msgstr "Política de privacidade"
 
 #: ../../app/views/layouts/_footer.html.erb:17
-msgid "Accessibility statement"
-msgstr "Declaração de acessibilidade"
-
-#: ../../app/views/layouts/_footer.html.erb:18
-msgid "Github"
-msgstr "Github"
+msgid "GitHub"
+msgstr "GitHub"
 
 #: ../../app/views/layouts/_navigation.html.erb:12
 #: ../../app/views/orgs/_profile_form.html.erb:55
@@ -3039,9 +3034,9 @@ msgid ""
 "ill see in the tabs when completing a plan. If you only have one phase, call i"
 "t something generic e.g. Glasgow DMP"
 msgstr ""
-"Digite um título para a fase, por exemplo DMP inicial, DMP completo ... É o qu"
+"Digite um título para a fase, por exemplo PGD inicial, PGD completo ... É o qu"
 "e os usuários verão nas guias ao concluir um plano. Se você tiver apenas uma f"
-"ase, chame-a de algo genérico, por exemplo Glasgow DMP"
+"ase, chame-a de algo genérico, por exemplo PGD Unicamp."
 
 #: ../../app/views/org_admin/phases/_form.html.erb:5
 #: ../../app/views/org_admin/phases/_show.html.erb:2
@@ -4516,7 +4511,7 @@ msgid ""
 "Whether there are any potential ethical issues related to data that this DMP d"
 "escribes"
 msgstr ""
-"Se há algum problema ético potencial relacionado aos dados que este DMP descre"
+"Se há algum problema ético potencial relacionado aos dados que este PGD descre"
 "ve"
 
 #: ../../app/views/plans/_project_details.html.erb:8
@@ -4815,9 +4810,9 @@ msgid ""
 " publicly by their owners. They are not vetted for quality, completeness, or a"
 "dherence to funder guidelines."
 msgstr ""
-"PGDs públicos são planos criados com o serviço DMPTool e compartilhados public"
-"amente por seus proprietários. Eles não são examinados com relação a qualidade"
-", completeza ou adequação a exigências de instituições de fomento."
+"PGDs públicos são planos criados com o serviço %{application_name} e compartil"
+"hados publicamente por seus proprietários. Eles não são examinados com relação"
+" a qualidade, completeza ou adequação a exigências de instituições de fomento."
 
 #: ../../app/views/public_pages/plan_index.html.erb:12
 msgid "There are currently no public DMPs."
@@ -5047,10 +5042,10 @@ msgid ""
 "cipate in a truly global open science ecosystem."
 msgstr ""
 "(CDL-US) estão agora estabelecidos em nossos contextos nacionais como o recurs"
-"o para pesquisadores que buscam orientação na criação de DMPs. Trabalhamos jun"
+"o para pesquisadores que buscam orientação na criação de PGDs. Trabalhamos jun"
 "tos desde o início para compartilhar experiências, mas com a explosão de inter"
 "esse em ambas as nossas ferramentas em todo o mundo, formalizamos nossa parcer"
-"ia para co-desenvolver e manter uma única plataforma de código aberto para DMP"
+"ia para co-desenvolver e manter uma única plataforma de código aberto para PGD"
 "s. Trabalhando juntos, podemos ampliar nosso alcance, manter os custos baixos "
 "e levar adiante as melhores práticas, permitindo que participemos de um ecossi"
 "stema verdadeiramente global de ciência aberta."
@@ -5064,8 +5059,8 @@ msgid ""
 msgstr ""
 "A nova plataforma será separada dos serviços que cada uma de nossas equipes ex"
 "ecuta em cima dela. Nosso objetivo em comum: fornecer uma plataforma DMPRoadma"
-"p combinada como uma infraestrutura básica para DMPs. Futuros aprimoramentos s"
-"e concentrarão em tornar a máquina DMPs acionável, portanto, continue comparti"
+"p combinada como uma infraestrutura básica para PGDs. Futuros aprimoramentos s"
+"e concentrarão em tornar a máquina PGDs acionável, portanto, continue comparti"
 "lhando seus casos de uso."
 
 #: ../../app/views/static_pages/about_us.html.erb:21
@@ -5963,7 +5958,7 @@ msgid ""
 " page in %{tool_name}."
 msgstr ""
 "%{commenter_name} comentou seu plano %{plan_title}. Para visualizar os comentá"
-"rios, siga o link para o DMP abaixo ou navegue até o plano por meio da página "
+"rios, siga o link para o PGD abaixo ou navegue até o plano por meio da página "
 "Meu Painel em %{tool_name}."
 
 #: ../../app/views/user_mailer/new_comment.html.erb:10
@@ -5980,7 +5975,7 @@ msgstr ""
 
 #: ../../app/views/user_mailer/new_comment.html.erb:15
 msgid "DMP: %{phase_link}"
-msgstr "DMP: %{phase_link}"
+msgstr "PGD: %{phase_link}"
 
 #: ../../app/views/user_mailer/new_comment.html.erb:18
 msgid "Section name: %{section_title}"
