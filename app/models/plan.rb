@@ -197,7 +197,14 @@ class Plan < ApplicationRecord
 
   # Retrieves any plan organisationally or publicly visible for a given org id
   scope :organisationally_or_publicly_visible, lambda { |user|
-    plan_ids = user.org.org_admin_plans.where(complete: true).pluck(:id).uniq
+    # --------------------------------
+    # Start DMP OPIDoR Customization
+    # CHANGES : Removed 'complete' criteria for organisationally_or_publicly_visible plans
+    # --------------------------------
+    plan_ids = user.org.org_admin_plans.pluck(:id).uniq
+    # --------------------------------
+    # End DMP OPIDoR Customization
+    # --------------------------------
     includes(:template, roles: :user)
       .where(id: plan_ids, visibility: [
                visibilities[:organisationally_visible],
