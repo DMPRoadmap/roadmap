@@ -20,5 +20,13 @@ module Dmptool
         }
       end
     end
+
+    def temporary_patch_delete_me_later
+      # This is a temporary patch to fix an issue with one of the pt-BR translations
+      # in the DMPRoadmap translation.io
+      #
+      # It overrides the application_controller.rb :success_message function
+      format(_('Successfully %<action>s the %<object>s.'), object: obj_name_for_display(obj), action: action || 'save')
+    end
   end
 end
