@@ -142,7 +142,7 @@ msgstr "Incapaz de %<action> é a %<object> s.%<errors> s"
 
 #: ../../app/controllers/application_controller.rb:114
 msgid "Successfully %<action>s the %<object>s."
-msgstr "% com sucesso<action> é a %<object> s."
+msgstr "com sucesso %<action>s é a %<object>s."
 
 #: ../../app/controllers/application_controller.rb:127
 msgid "API client"
@@ -942,7 +942,7 @@ msgstr "Não foi possível vincular sua conta a %<scheme> s."
 
 #: ../../app/controllers/users_controller.rb:147
 msgid "Successfully %<action>s %<username>s's account."
-msgstr "% com sucesso<action> s %<username> conta de s."
+msgstr "com sucesso %<action>s %<username>s conta de."
 
 #: ../../app/controllers/users_controller.rb:148
 msgid "activated"
@@ -954,7 +954,7 @@ msgstr "desativado"
 
 #: ../../app/controllers/users_controller.rb:154
 msgid "Unable to %<action>s %<username>s"
-msgstr "Incapaz de %<action> s %<username> s"
+msgstr "Incapaz de %<action>s %<username>s"
 
 #: ../../app/controllers/users_controller.rb:155
 msgid "activate"
