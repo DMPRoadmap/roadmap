@@ -1,14 +1,14 @@
-# Portuguese translations for dmptool package.
-# Copyright (C) 2022 dmptool
-# This file is distributed under the same license as the dmptool package.
+# Portuguese translations for 20220311004401 package.
+# Copyright (C) 2022 20220311004401
+# This file is distributed under the same license as the 20220311004401 package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dmptool 1.0\n"
+"Project-Id-Version: 20220311004401 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-03-03 08:54-0800\n"
-"PO-Revision-Date: 2022-03-03 17:54+0100\n"
+"POT-Creation-Date: 2022-03-14 11:29-0700\n"
+"PO-Revision-Date: 2022-03-14 19:29+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Portuguese\n"
 "Language: pt_BR\n"
@@ -132,7 +132,7 @@ msgstr "Próxima página"
 
 #: ../../app/views/branded/kaminari/_page.html.erb:5
 msgid "Page %<page_nbr>s"
-msgstr "Página %<page_nbr> s"
+msgstr "Página %<page_nbr>s"
 
 #: ../../app/views/branded/kaminari/_prev_page.html.erb:2
 msgid "Previous"
@@ -418,7 +418,7 @@ msgstr "1 filtro aplicado"
 #: ../../app/views/branded/layouts/_json_constants.html.erb:49
 #: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:46
 msgid "%<nbr>s filters applied"
-msgstr "%<nbr> s filtros aplicados"
+msgstr "%<nbr>s filtros aplicados"
 
 #: ../../app/views/branded/layouts/_json_constants.html.erb:51
 msgid "Please check this box."
@@ -430,7 +430,7 @@ msgstr "Por favor insira um endereço de e-mail."
 
 #: ../../app/views/branded/layouts/_json_constants.html.erb:53
 msgid "Please complete this %<variableText>s field."
-msgstr "Por favor, complete este %<variableText> campo s."
+msgstr "Por favor, complete este %<variableText>s campo."
 
 #: ../../app/views/branded/layouts/_json_constants.html.erb:54
 msgid "Please enter a password."
@@ -442,7 +442,7 @@ msgstr "Por favor insira um endereço de e-mail válido."
 
 #: ../../app/views/branded/layouts/_json_constants.html.erb:57
 msgid "Please enter a value for this %<variableText>s field."
-msgstr "Insira um valor para este %<variableText> campo s."
+msgstr "Insira um valor para este %<variableText>s campo."
 
 #: ../../app/views/branded/layouts/_json_constants.html.erb:58
 msgid "Please correct the fields below:"
@@ -1348,7 +1348,7 @@ msgstr "Busca"
 
 #: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:17
 msgid "Showing results for \"%<search_term>s\""
-msgstr "Mostrando resultados para \"%<search_term> s\""
+msgstr "Mostrando resultados para \"%<search_term>s\""
 
 #: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:19
 msgid "Clear Search"
@@ -1360,7 +1360,7 @@ msgstr "Filtros claros"
 
 #: ../../app/views/branded/public_pages/_plans_results.html.erb:4
 msgid "Plans (%<nbr_plans>s)"
-msgstr "Planos (%<nbr_plans> s)"
+msgstr "Planos (%<nbr_plans>s)"
 
 #: ../../app/views/branded/public_pages/_plans_results.html.erb:7
 msgid "Sort by:"
@@ -1752,11 +1752,11 @@ msgid ""
 "a second version of the tool, released in 2014."
 msgstr ""
 "As instituições contribuintes originais foram: %<uc3_link> s em %<cdl_link> s,"
-" %<data_one_link> s, %<dcc_link> s, %<smithsonian_link> s, %<ucla_library_link"
-"> s, %<ucsd_library_link> s, %<univ_illinois_library_link> s, e o %<univ_virgi"
-"na_library_link> s. Dado o sucesso da primeira versão do DMPTool, os sócios fu"
-"ndadores obtiveram financiamento da %<sloan_foundation_link> s para criar uma "
-"segunda versão da ferramenta, lançada em 2014."
+" %<data_one_link>s, %<dcc_link>s, %<smithsonian_link>s, %<ucla_library_link>s,"
+" %<ucsd_library_link>s, %<univ_illinois_library_link>s, e o %<univ_virgina_lib"
+"rary_link>s. Dado o sucesso da primeira versão do DMPTool, os sócios fundadore"
+"s obtiveram financiamento da %<sloan_foundation_link>s para criar uma segunda "
+"versão da ferramenta, lançada em 2014."
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:16
 msgid "University of California Curation Center (UC3)"
@@ -1824,11 +1824,11 @@ msgid ""
 "institutions committed to supporting effective research data management."
 msgstr ""
 "O DMPTool continua sendo uma ferramenta de suporte da comunidade. As ferrament"
-"as %<editorial_board_link> s fornece liderança e experiência para garantir que"
-" os requisitos de concessão e as melhores práticas correspondentes permaneçam "
-"atualizados. Nosso Conselho inclui representação em disciplinas com diversas á"
-"reas de especialização de uma ampla gama de instituições comprometidas em apoi"
-"ar o gerenciamento eficaz de dados de pesquisa."
+"as %<editorial_board_link>s fornece liderança e experiência para garantir que "
+"os requisitos de concessão e as melhores práticas correspondentes permaneçam a"
+"tualizados. Nosso Conselho inclui representação em disciplinas com diversas ár"
+"eas de especialização de uma ampla gama de instituições comprometidas em apoia"
+"r o gerenciamento eficaz de dados de pesquisa."
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:33
 #: ../../app/views/branded/static_pages/editorial_board.html.erb:1
@@ -1854,13 +1854,13 @@ msgstr ""
 "Desenvolvimentos recentes de recursos se concentraram em transformar o PGD de "
 "um arquivo de texto estático em um hub de informações interoperável e em rede,"
 " no qual detalhes sobre um projeto de pesquisa podem ser atualizados e consult"
-"ados durante a vida útil do projeto. Esta nova %<networked_dmp_wiki> s permite"
-" que as informações dentro de um PGD sejam alimentadas entre as partes interes"
-"sadas, vinculando metadados, repositórios e instituições e permitindo notifica"
-"ções e verificações, relatórios em tempo real. Um dos principais objetivos des"
-"te novo sistema é reduzir a carga sobre os pesquisadores, gerando atualizações"
-" automatizadas para um plano e facilitando a integração perfeita com sistemas "
-"e grupos que apoiam a pesquisa."
+"ados durante a vida útil do projeto. Esta nova %<networked_dmp_wiki>s permite "
+"que as informações dentro de um PGD sejam alimentadas entre as partes interess"
+"adas, vinculando metadados, repositórios e instituições e permitindo notificaç"
+"ões e verificações, relatórios em tempo real. Um dos principais objetivos dest"
+"e novo sistema é reduzir a carga sobre os pesquisadores, gerando atualizações "
+"automatizadas para um plano e facilitando a integração perfeita com sistemas e"
+" grupos que apoiam a pesquisa."
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:41
 msgid "Networked DMP"
@@ -1874,9 +1874,9 @@ msgid ""
 "<contact_us_link>s."
 msgstr ""
 "Congratulamo-nos com integrações que utilizam este novo sistema. O %<dmptool_a"
-"pi_wiki> s está em conformidade com a %<rda_common_standard_link> s, que é rec"
-"omendado para transferir metadados PGD entre sistemas. Se você tem um projeto "
-"de integração, por favor %<contact_us_link> s."
+"pi_wiki>s está em conformidade com a %<rda_common_standard_link>s, que é recom"
+"endado para transferir metadados PGD entre sistemas. Se você tem um projeto de"
+" integração, por favor %<contact_us_link>s."
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:46
 msgid "DMPTool API"
@@ -1902,11 +1902,11 @@ msgid ""
 "cient way to create data management plans. Our community of participating orga"
 "nizations helps to sustain and support the DMPTool in the following ways:"
 msgstr ""
-"%<participants_link> s são instituições, organizações sem fins lucrativos e se"
-"m fins lucrativos, indivíduos ou outros grupos que utilizam o DMPTool como uma"
-" maneira eficaz e eficiente de criar planos de gerenciamento de dados. Nossa c"
-"omunidade de organizações participantes ajuda a sustentar e apoiar o DMPTool d"
-"as seguintes maneiras:"
+"%<participants_link>s são instituições, organizações sem fins lucrativos e sem"
+" fins lucrativos, indivíduos ou outros grupos que utilizam o DMPTool como uma "
+"maneira eficaz e eficiente de criar planos de gerenciamento de dados. Nossa co"
+"munidade de organizações participantes ajuda a sustentar e apoiar o DMPTool da"
+"s seguintes maneiras:"
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:56
 msgid "DMPTool participants"
@@ -1985,7 +1985,7 @@ msgid ""
 "ee %<panton_principles_link>s)"
 msgstr ""
 "Compromisso com um processo aberto para desenvolvimento, aprimoramento e melho"
-"ria (consulte %<panton_principles_link> s)"
+"ria (consulte %<panton_principles_link>s)"
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:81
 msgid "Panton Principles"
@@ -1993,7 +1993,7 @@ msgstr "Princípios de Panton"
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:83
 msgid "Quality of code and materials created (%<contributor_wiki>s)"
-msgstr "Qualidade do código e materiais criados (%<contributor_wiki> s)"
+msgstr "Qualidade do código e materiais criados (%<contributor_wiki>s)"
 
 #: ../../app/views/branded/static_pages/about_us.html.erb:84
 msgid "Contributor guidelines"
@@ -3971,7 +3971,7 @@ msgstr ""
 
 #: ../../app/views/branded/static_pages/general_guidance.html.erb:251
 msgid "What does it mean to share data? (%<support_your_data_link>s)"
-msgstr "O que significa compartilhar dados? (%<support_your_data_link> s)"
+msgstr "O que significa compartilhar dados? (%<support_your_data_link>s)"
 
 #: ../../app/views/branded/static_pages/general_guidance.html.erb:252
 msgid "adapted from the Support Your Data project"
@@ -4106,7 +4106,7 @@ msgid ""
 "itution that maintains it (e.g., %<dryad_link>s)"
 msgstr ""
 "<strong>Generalista:</strong> aceita dados de qualquer tipo produzidos dentro "
-"da instituição que os mantém (por exemplo, %<dryad_link> s)"
+"da instituição que os mantém (por exemplo, %<dryad_link>s)"
 
 #: ../../app/views/branded/static_pages/general_guidance.html.erb:284
 msgid ""
@@ -5107,6 +5107,14 @@ msgstr "Apagar"
 #: ../../app/views/branded/super_admin/notifications/_form.html.erb:79
 msgid "Are you sure you want to delete the notification \"%{title}\""
 msgstr "Tem certeza de que deseja excluir a notificação \"%{title}\""
+
+#: ../../app/views/branded/temp_translation_hack.html.erb:6
+msgid "Successfully %<action>s the %<object>s."
+msgstr "com sucesso %<action>s é a %<object>s."
+
+#: ../../app/views/branded/temp_translation_hack.html.erb:7
+msgid "WHY IS THIS NOT SYNCING!?"
+msgstr "POR QUE ISSO NÃO ESTÁ SINCRONIZANDO!?"
 
 #: ../../app/views/branded/user_mailer/invitation.html.erb:5
 msgid "Hello %{invitee}"
