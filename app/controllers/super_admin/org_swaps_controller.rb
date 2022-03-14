@@ -21,7 +21,7 @@ module SuperAdmin
         current_user.org = lookup
         if current_user.save
           redirect_back(fallback_location: root_path,
-                        notice: format(_('Your organisation affiliation has been changed. You may now edit templates for %<org_name>s.'),
+                        notice: format(_('Your organisation affiliation has been changed. You may now edit templates for %{org_name}.'),
                                        org_name: current_user.org.name))
         else
           redirect_back(fallback_location: root_path,
