@@ -237,6 +237,10 @@ Rails.application.routes.draw do
           member do
             get :rda_export
           end
+          collection do
+            post :standard_import
+            post :rda_import
+          end
         end
       end
     end
@@ -261,6 +265,10 @@ Rails.application.routes.draw do
         resources :plans, only: [:show] do
           member do
             get :rda_export
+          end
+          collection do
+            post :standard_import
+            post :rda_import
           end
         end
       end
