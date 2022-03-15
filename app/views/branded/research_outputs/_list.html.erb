@@ -48,7 +48,7 @@
             <% personsList = research_output_description.dmp.persons %>
             <%= f.label "contact_id", _('Contact'),  class: 'control-label' %>
             <span class="input edit">
-              <%= render(partial: 'madmp_opidor/dynamic_form/fields/fragment_select_field', locals: {
+              <%= render(partial: 'dynamic_form/fields/fragment_select_field', locals: {
                 f: f,
                 selected_value: contact.person,
                 readonly: false,

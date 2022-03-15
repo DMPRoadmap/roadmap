@@ -391,4 +391,5 @@ end
 # ======================#
 # MADMP OPIDOR FEATURES #
 # ===================== #
-gem 'madmp_opidor'
+gem 'madmp_opidor'# , git: 'https://github.com/OPIDoR/madmp_opidor.git' 
+

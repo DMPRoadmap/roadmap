@@ -1,6 +1,0 @@
-<%# locals: { registry_value, template_locale } %>
-
-<% registry_value.each do |key, value| %>
-    <% next if key.eql?('label') || key.eql?('id') %>
-    <span><strong><%= key %></strong> <%= value %></span>
-<% end %>
