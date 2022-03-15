@@ -15,7 +15,7 @@ namespace :export do
     end
     desc "Export templates and corresponding components from 3.0.2 database" 
     task :export_portage_3 => :environment do
-        Template.all.each do |template|
+        Template.where('title LIKE ?', '%Portage%').where(:published => true).all.each do |template| # only use portage network template
             # since too many version of template could cause rake to crash on seeding process, just get the published version
             excluded_keys = ['created_at','updated_at']
             serialized = template.serializable_hash.delete_if{|key,value| excluded_keys.include?(key)} 
@@ -45,17 +45,15 @@ namespace :export do
                         serialized = question_option.serializable_hash.delete_if{|key,value| excluded_keys.include?(key)} 
                         puts "QuestionOption.create(#{serialized})"
                         end
+                        annotations = Annotation.where(:question_id => question.id)
+                        annotations.all.each do |annotation|
+                            excluded_keys = ['created_at','updated_at'] 
+                            serialized = annotation.serializable_hash.delete_if{|key,value| excluded_keys.include?(key)} 
+                            puts "Annotation.create(#{serialized})"
+                        end
                     end
                 end
             end
         end 
-    end
-    desc "Export annotations from 3.0.2 database" 
-    task :export_portage_3 => :environment do
-        Annotation.all.each do |annotation|
-            excluded_keys = ['created_at','updated_at'] 
-            serialized = annotation.serializable_hash.delete_if{|key,value| excluded_keys.include?(key)} 
-            puts "Annotation.create(#{serialized})"
-        end
     end
 end

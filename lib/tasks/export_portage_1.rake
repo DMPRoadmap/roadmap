@@ -7,21 +7,21 @@ namespace :export do
   task :export_portage_1 => :environment do
     excluded_keys = ['created_at','updated_at'] 
     Org.all.each do |org|
-      if org.id == 8 # super admin's org: Portage network in production database
+      if org.id == 8 # super admin's org: Portage network/Alliance in production database
         org.name = Rails.configuration.x.organisation.name
         org.abbreviation = Rails.configuration.x.organisation.abbreviation
         org.created_at = 6.year.ago
         org.region = Region.all.first
         serialized = org.serializable_hash.delete_if{|key,value| excluded_keys.include?(key)} 
         puts "Org.create(#{serialized})"
-      elsif org.id == 7 # tester 1' org
+      elsif org.id == 7 # tester 1' org - UBC in production database
         org.name = "Institution Example Org 1"
         org.abbreviation = "OEO"
         org.created_at = 6.year.ago
         org.region = Region.all.first
         serialized = org.serializable_hash.delete_if{|key,value| excluded_keys.include?(key)} 
         puts "Org.create(#{serialized})"
-      elsif org.id == 1 # tester 2'org
+      elsif org.id == 1 # tester 2'org - University of Alberta on production database
         org.name = "Institution Example Org 2"
         org.abbreviation = "IEO"
         org.created_at = 6.year.ago
@@ -29,6 +29,7 @@ namespace :export do
         serialized = org.serializable_hash.delete_if{|key,value| excluded_keys.include?(key)} 
         puts "Org.create(#{serialized})"
       else
+        org.name = Faker::University.name
         org.region = Region.all.first
         serialized = org.serializable_hash.delete_if{|key,value| excluded_keys.include?(key)} 
         puts "Org.create(#{serialized})"

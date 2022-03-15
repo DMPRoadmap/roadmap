@@ -3,15 +3,14 @@ require 'faker'
   # ---------------------------------------------------------
   # Plans are created within 1 year for statistics
 
-  # Plan crated by super admin, using organisational admin's org template
+  # Plan crated by super admin, using organizational admin's org template
   (1..20).each do |index|
-    template_org = Org.find_by(abbreviation: "OEO")
     title = "Test Plan " + index.to_s
     plan = {
       title: title,
       created_at: index.month.ago,
       updated_at: index.month.ago,
-      template: Template.where(org_id: template_org.id).sample,
+      template: Template.where(org_id: 8).sample,
       identifier: index,
       description: Faker::Lorem.paragraph,
       visibility: [0,1,2,3].sample,
@@ -30,7 +29,7 @@ require 'faker'
     }
     Role.create!(role)
   end
-  # Plan created by insitutional admin, using super admin's org template
+  # Plan created by institutional admin, using super admin's org template
   (1..20).each do |index|
     template_org = Org.find_by(abbreviation: Rails.configuration.x.organisation.abbreviation)
     title = "Test Plan " + index.to_s
@@ -38,7 +37,7 @@ require 'faker'
       title: title,
       created_at: index.month.ago,
       updated_at: index.month.ago,
-      template: Template.where(org_id: template_org.id).sample,
+      template: Template.where(org_id: 8).sample,
       identifier: index,
       description: Faker::Lorem.paragraph,
       visibility: [0,1,2,3].sample,
@@ -57,15 +56,14 @@ require 'faker'
     }
     Role.create!(role)
   end
-  # Plan created by org admin, using instutional admin's org template
+  # Plan created by org admin, using institutional admin's org template
   (1..20).each do |index|
-    template_org = Org.find_by(abbreviation: "IEO")
     title = "Test Plan " + index.to_s
     plan = {
       title: title,
       created_at: index.month.ago,
       updated_at: index.month.ago,
-      template: Template.where(org_id: template_org.id).sample,
+      template: Template.where(org_id:8).sample,
       identifier: index,
       description: Faker::Lorem.paragraph,
       visibility: [0,1,2,3].sample,

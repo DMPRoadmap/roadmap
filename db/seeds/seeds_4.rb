@@ -49,10 +49,10 @@
   ]
   users.each{ |u| User.create(u) }
   # Some existing users for statistics. Creation times are within 12 months
+  pwd = "pDAXkw}(=dd23}Eb" # pwd for regular user
   (1..20).each do |index|
-    pwd = Faker::Lorem.unique
     user = {
-        email: Faker::Internet.email,
+        email: "tester" + index.to_s + "@test.ca",
         firstname: Faker::Name.first_name,
         surname: Faker::Name.last_name,
         password: pwd,
@@ -69,9 +69,8 @@
     User.create(user)
   end
   (1..20).each do |index|
-    pwd = Faker::Lorem.unique
     user = {
-        email: Faker::Internet.email,
+        email: "tester" + (index+20).to_s + "@test.ca",
         firstname: Faker::Name.first_name,
         surname: Faker::Name.last_name,
         password: pwd,
@@ -88,9 +87,8 @@
     User.create(user)
   end
   (1..20).each do |index|
-    pwd = Faker::Lorem.unique
     user = {
-      email: Faker::Internet.email,
+      email: "tester" + (index+40).to_s + "@test.ca",
       firstname: Faker::Name.first_name,
       surname: Faker::Name.last_name,
       password: pwd,
