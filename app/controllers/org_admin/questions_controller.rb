@@ -151,7 +151,7 @@ module OrgAdmin
       # version of the question
       # and also rewrite the remove_data question ids
       attrs = question_params
-      attrs = update_option_ids(attrs, old_to_new_opts) if new_version
+      attrs = update_option_ids(attrs, old_to_new_opts) if new_version && !attrs["question_options_attributes"].nil?
 
       # Need to reattach the incoming annotation's and question_options to the
       # modifiable (versioned) question
