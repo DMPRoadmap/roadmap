@@ -16,10 +16,10 @@ class IdentifiersController < ApplicationController
     if user.identifiers.include?(identifier)
       identifier.destroy!
       flash[:notice] =
-        format(_('Successfully unlinked your account from %<is>s.'), is: identifier.identifier_scheme&.description)
+        format(_('Successfully unlinked your account from %{is}.'), is: identifier.identifier_scheme&.description)
     else
       flash[:alert] =
-        format(_('Unable to unlink your account from %<is>s.'), is: identifier.identifier_scheme&.description)
+        format(_('Unable to unlink your account from %{is}.'), is: identifier.identifier_scheme&.description)
     end
 
     redirect_to edit_user_registration_path

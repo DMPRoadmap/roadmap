@@ -139,18 +139,18 @@ module ExportablePlan
               _('Creators: ')
             else
               _('Creator:')
-            end, format(_('%<authors>s'), authors: hash[:attribution].join(', '))]
-    csv << ['Affiliation: ', format(_('%<affiliation>s'), affiliation: hash[:affiliation])]
+            end, format(_('%{authors}'), authors: hash[:attribution].join(', '))]
+    csv << ['Affiliation: ', format(_('%{affiliation}'), affiliation: hash[:affiliation])]
     csv << if hash[:funder].present?
-             [_('Template: '), format(_('%<funder>s'), funder: hash[:funder])]
+             [_('Template: '), format(_('%{funder}'), funder: hash[:funder])]
            else
-             [_('Template: '), format(_('%<template>s'), template: hash[:template] + hash[:customizer])]
+             [_('Template: '), format(_('%{template}'), template: hash[:template] + hash[:customizer])]
            end
-    csv << [_('Grant number: '), format(_('%<grant_number>s'), grant_number: grant&.value)] if grant&.value.present?
+    csv << [_('Grant number: '), format(_('%{grant_number}'), grant_number: grant&.value)] if grant&.value.present?
     if description.present?
-      csv << [_('Project abstract: '), format(_('%<description>s'), description: Nokogiri::HTML(description).text)]
+      csv << [_('Project abstract: '), format(_('%{description}'), description: Nokogiri::HTML(description).text)]
     end
-    csv << [_('Last modified: '), format(_('%<date>s'), date: updated_at.to_date.strftime('%d-%m-%Y'))]
+    csv << [_('Last modified: '), format(_('%{date}'), date: updated_at.to_date.strftime('%d-%m-%Y'))]
     csv << [_('Copyright information:'),
             _("The above plan creator(s) have agreed that others may use as
              much of the text of this plan as they would like in their own plans,

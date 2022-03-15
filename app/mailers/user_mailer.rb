@@ -14,14 +14,14 @@ class UserMailer < ActionMailer::Base
   def welcome_notification(user)
     @user           = user
     @username       = @user.name
-    @email_subject  = format(_('Query or feedback related to %<tool_name>s'), tool_name: tool_name)
+    @email_subject  = format(_('Query or feedback related to %{tool_name}'), tool_name: tool_name)
     # Override the default Rails route helper for the contact_us page IF an alternate contact_us
     # url was defined in the dmproadmap.rb initializer file
     @contact_us     = Rails.application.config.x.organisation.contact_us_url || contact_us_url
 
     I18n.with_locale I18n.default_locale do
       mail(to: @user.email,
-           subject: format(_('Welcome to %<tool_name>s'), tool_name: tool_name))
+           subject: format(_('Welcome to %{tool_name}'), tool_name: tool_name))
     end
   end
   # rubocop:enable Metrics/AbcSize
@@ -56,7 +56,7 @@ class UserMailer < ActionMailer::Base
 
     I18n.with_locale I18n.default_locale do
       mail(to: @role.user.email,
-           subject: format(_('A Data Management Plan in %<tool_name>s has been shared with you'),
+           subject: format(_('A Data Management Plan in %{tool_name} has been shared with you'),
                            tool_name: tool_name))
     end
   end
@@ -72,7 +72,7 @@ class UserMailer < ActionMailer::Base
 
     I18n.with_locale I18n.default_locale do
       mail(to: @recepient.email,
-           subject: format(_('Changed permissions on a Data Management Plan in %<tool_name>s'),
+           subject: format(_('Changed permissions on a Data Management Plan in %{tool_name}'),
                            tool_name: tool_name))
     end
   end
@@ -86,7 +86,7 @@ class UserMailer < ActionMailer::Base
 
     I18n.with_locale I18n.default_locale do
       mail(to: @user.email,
-           subject: format(_('Permissions removed on a DMP in %<tool_name>s'),
+           subject: format(_('Permissions removed on a DMP in %{tool_name}'),
                            tool_name: tool_name))
     end
   end
@@ -103,7 +103,7 @@ class UserMailer < ActionMailer::Base
 
     I18n.with_locale I18n.default_locale do
       mail(to: @recipient.email,
-           subject: format(_('%<user_name>s has requested feedback on a %<tool_name>s plan'),
+           subject: format(_('%{user_name} has requested feedback on a %{tool_name} plan'),
                            tool_name: tool_name, user_name: @user.name(false)))
     end
   end
@@ -125,7 +125,7 @@ class UserMailer < ActionMailer::Base
 
       mail(to: recipient.email,
            from: sender,
-           subject: format(_('%<tool_name>s: Expert feedback has been provided for %<plan_title>s'),
+           subject: format(_('%{tool_name}: Expert feedback has been provided for %{plan_title}'),
                            tool_name: tool_name, plan_title: @plan.title))
     end
   end
@@ -142,7 +142,7 @@ class UserMailer < ActionMailer::Base
 
     I18n.with_locale I18n.default_locale do
       mail(to: @user.email,
-           subject: format(_('DMP Visibility Changed: %<plan_title>s'), plan_title: @plan.title))
+           subject: format(_('DMP Visibility Changed: %{plan_title}'), plan_title: @plan.title))
     end
   end
 
@@ -170,7 +170,7 @@ class UserMailer < ActionMailer::Base
 
     I18n.with_locale I18n.default_locale do
       mail(to: @plan.owner.email,
-           subject: format(_('%<tool_name>s: A new comment was added to %<plan_title>s'),
+           subject: format(_('%{tool_name}: A new comment was added to %{plan_title}'),
                            tool_name: tool_name, plan_title: @plan.title))
     end
   end
@@ -185,7 +185,7 @@ class UserMailer < ActionMailer::Base
 
     I18n.with_locale I18n.default_locale do
       mail(to: user.email,
-           subject: format(_('Administrator privileges granted in %<tool_name>s'),
+           subject: format(_('Administrator privileges granted in %{tool_name}'),
                            tool_name: tool_name))
     end
   end
@@ -201,7 +201,7 @@ class UserMailer < ActionMailer::Base
 
     I18n.with_locale I18n.default_locale do
       mail(to: @api_client.contact_email,
-           subject: format(_('%<tool_name>s API changes'), tool_name: tool_name))
+           subject: format(_('%{tool_name} API changes'), tool_name: tool_name))
     end
   end
   # rubocop:enable Metrics/AbcSize
