@@ -1,4 +1,6 @@
 # Changelog
+### Added
+- Seed file for sandbox testing
 ## [3.0.4+portage-3.0.5] - 2022-03-07
   ### Fixed
 - Fixed pdf/html/docx/txt download issue [#153](https://github.com/portagenetwork/roadmap/issues/153)
