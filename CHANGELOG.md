@@ -2,6 +2,21 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 14/03/2022
+- Correction du problème de mise à jour de lastModifiedDate dans les fragments Meta (issue gitbucket 336)
+- Correction du problème d'affichage de la liste des plans en visibilité Organisme (issue gitbucket 326)
+- Mise à jour des traductions (issue gitbucket 317)
+- Ajout de la possibilité d'afficher des Costs non rattachés à un produit de recherche (import RDA)
+
+## 10/03/2022
+- Correction du problème de suppression des contributeurs (issue gitbucket 343)
+- Correction du problème d'affichage des formulaires structurés pour les nouvelles questions  (issue gitbucket 341)
+- Correction du problème d'attribution du type de personne à la création du plan (issue gitbucket 340)
+- Correction du problème d'affichage du message "select a value or enter a new one" pour la liste des financeurs (issue gitbucket 313)
+- Correction d'un problème de traduction des formulaires dans Informations Générales
+- Correction d'un problème d'envoi de la notification de nouveau commentaire (issue gitbucket 322)
+
+
 ## 04/03/2022
 - Correction du problème d'affichage des libellés dans l'export PDF (issue gitbucket 333)
 - Correction du problème de cloture de l'assistance conseil  (issue gitbucket 339)

@@ -95,7 +95,6 @@ class Question < ApplicationRecord
   before_destroy :check_remove_conditions
 
   before_destroy :check_remove_conditions
-  before_save :handle_question_type
 
   # =====================
   # = Nested Attributes =
@@ -281,8 +280,4 @@ class Question < ApplicationRecord
     end
   end
   # rubocop:enable Metrics/AbcSize
-
-  def handle_question_type
-    self.question_format_id = QuestionFormat.id_for('structured') if template.structured?
-  end
 end

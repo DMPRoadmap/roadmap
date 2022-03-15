@@ -172,6 +172,8 @@ class MadmpFragmentsController < ApplicationController
           user_id: current_user.id
         )
         @fragment.answer.touch
+      else
+        @fragment.plan.touch
       end
 
       @fragment.save_form_fragment(data, schema)
@@ -189,7 +191,7 @@ class MadmpFragmentsController < ApplicationController
     return unless @fragment.present?
 
     # Callbacks (not using rails callbacks so no infinite callback loop is created)
-    @fragment.update_meta_title if @fragment.classname.eql?('project')
+    @fragment.update_meta_fragment if @fragment.classname.eql?('project')
 
     case source
     when 'list-modal'
