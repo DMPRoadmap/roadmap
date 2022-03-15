@@ -15,17 +15,21 @@ namespace :export do
         serialized = org.serializable_hash.delete_if{|key,value| excluded_keys.include?(key)} 
         puts "Org.create(#{serialized})"
       elsif org.id == 7 # tester 1' org - UBC in production database
-        org.name = "Institution Example Org 1"
-        org.abbreviation = "OEO"
+        org.name = "Test Organization"
+        org.abbreviation = "IEO"
+        org.language_id = 1
         org.created_at = 6.year.ago
         org.region = Region.all.first
         serialized = org.serializable_hash.delete_if{|key,value| excluded_keys.include?(key)} 
+        logo_name = "Test_Organization.png"
         puts "Org.create(#{serialized})"
       elsif org.id == 1 # tester 2'org - University of Alberta on production database
-        org.name = "Institution Example Org 2"
-        org.abbreviation = "IEO"
+        org.name = "Organisation de test"
+        org.abbreviation = "OEO"
         org.created_at = 6.year.ago
+        org.language_id = 2
         org.region = Region.all.first
+        logo_name = "Organisation_de_test.png"
         serialized = org.serializable_hash.delete_if{|key,value| excluded_keys.include?(key)} 
         puts "Org.create(#{serialized})"
       else

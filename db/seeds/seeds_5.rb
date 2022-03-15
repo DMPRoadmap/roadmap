@@ -47,7 +47,7 @@ require 'faker'
     }
     Plan.create!(plan)
     role = {
-      user: User.find_by(email: "dmp.insitution.admin@engagedri.ca"),
+      user: User.find_by(email: "dmp.test.user.admin@engagedri.ca"),
       plan: Plan.find_by(title:title),
       created_at: index.month.ago,
       updated_at: index.month.ago,
@@ -73,7 +73,7 @@ require 'faker'
     }
     Plan.create!(plan)
     role = {
-      user: User.find_by(email: "dmp.organisation.admin@engagedri.ca"),
+      user: User.find_by(email: "dmp.utilisateur.test.admin@engagedri.ca"),
       plan: Plan.find_by(title:title),
       created_at: index.month.ago,
       updated_at: index.month.ago,
