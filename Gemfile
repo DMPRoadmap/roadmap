@@ -366,4 +366,6 @@ end
 
 group :production, :staging, :sandbox do
   gem 'syslog-logger'
+  # For sandbox testing
+  gem "faker"
 end
