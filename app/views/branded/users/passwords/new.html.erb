@@ -11,6 +11,12 @@
                            class: 'require-me') %>
     </div>
 
+    <% if Rails.configuration.x.recaptcha.enabled %>
+      <div id="forgot-password-recaptcha" class="c-textfield js-textfield">
+        <%= recaptcha_v3(action: 'password-reset', turbolinks: true) %>
+      </div>
+    <% end %>
+
     <button type="submit"><%= _("Send me reset password instructions") %></button>
   <% end %>
 
