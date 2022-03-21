@@ -21,6 +21,7 @@ module ExportablePlan
              show_coversheet = false)
     hash = prepare(user, show_coversheet)
     CSV.generate do |csv|
+      csv.to_io.write "\uFEFF"
       prepare_coversheet_for_csv(csv, headings, hash) if show_coversheet
 
       hdrs = (hash[:phases].many? ? [_("Phase")] : [])

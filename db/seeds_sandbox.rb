@@ -10,8 +10,9 @@
 # 3) run rake db:seed or created alongside the db with db:setup to seed data
 ##########
 
-# Forcing load seed file in sequence.rb
+# Forcing load seed file in sequence by last number
 # seeds_1 to seeds_3 are rake-generated. Other seeds file are manually edited
+puts 'run seeds.rb file now...'
 Dir[File.join(Rails.root, 'db', 'seeds', '*.rb')].sort.each_with_index do |seed, index|
   if seed.include? index.to_s
     puts "seed " + index.to_s + " is running now"

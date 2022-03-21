@@ -1,6 +1,3 @@
-
-require 'faker'
-
 ## Pre-setting: the default_funder in the env must be set to "Digital Research Alliance of Canada"
 
   #####################################
@@ -49,23 +46,6 @@ languages = [
     },
   ]
   identifier_schemes.each { |is| IdentifierScheme.create!(is) }
-  
-  # # Scan through the locale files and add an entry if a file is present but
-  # # not defined in this seed file
-  # Dir.entries("#{Rails.root.join("config", "locales").to_s}").each do |f|
-  #   if f[-4..-1] == '.yml'
-  #     lang = f.gsub('.yml', '')
-  #
-  #     if Language.where(abbreviation: lang).empty?
-  #       Language.create!({
-  #         abbreviation: lang,
-  #         description: lang,
-  #         name: lang,
-  #         default_language: false
-  #       })
-  #     end
-  #   end
-  # end
   
   # Regions (create the super regions first and then create the rest)
   # -------------------------------------------------------

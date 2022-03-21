@@ -35,7 +35,6 @@ ENV INSTALL_PATH $INSTALL_PATH
 WORKDIR $INSTALL_PATH
 RUN gem install bundler
 
-COPY /db/ /usr/src/app/db/
 COPY Gemfile* $INSTALL_PATH
 
 RUN bundle config --local build.sassc --disable-march-tune-native

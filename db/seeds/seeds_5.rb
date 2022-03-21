@@ -1,22 +1,23 @@
-require 'faker'
-# Create some existing plans for admins
+  Faker::Config.random = Random.new(500)
+
+  # Create some existing plans for admins
   # ---------------------------------------------------------
   # Plans are created within 1 year for statistics
 
-  # Plan crated by super admin, using organizational admin's org template
+  # All plans are using a template from the default funder's org (Portage Network/Alliance)
   (1..20).each do |index|
     title = "Test Plan " + index.to_s
     plan = {
       title: title,
       created_at: index.month.ago,
       updated_at: index.month.ago,
-      template: Template.where(org_id: 8).sample,
+      template: Template.all.sample,
       identifier: index,
       description: Faker::Lorem.paragraph,
       visibility: [0,1,2,3].sample,
       feedback_requested: false,
       complete: false,
-      org: Org.find_by(abbreviation: Rails.configuration.x.organisation.abbreviation)
+      org: Org.find_by(abbreviation: "Portage") # use Portage as the default super admin org for sandbox testing
     }
     Plan.create!(plan)
     role = {
@@ -31,13 +32,13 @@ require 'faker'
   end
   # Plan created by institutional admin, using super admin's org template
   (1..20).each do |index|
-    template_org = Org.find_by(abbreviation: Rails.configuration.x.organisation.abbreviation)
+    template_org = Org.find_by(abbreviation: "Portage")
     title = "Test Plan " + index.to_s
     plan = {
       title: title,
       created_at: index.month.ago,
       updated_at: index.month.ago,
-      template: Template.where(org_id: 8).sample,
+      template: Template.all.sample,
       identifier: index,
       description: Faker::Lorem.paragraph,
       visibility: [0,1,2,3].sample,
@@ -63,7 +64,7 @@ require 'faker'
       title: title,
       created_at: index.month.ago,
       updated_at: index.month.ago,
-      template: Template.where(org_id:8).sample,
+      template: Template.all.sample,
       identifier: index,
       description: Faker::Lorem.paragraph,
       visibility: [0,1,2,3].sample,

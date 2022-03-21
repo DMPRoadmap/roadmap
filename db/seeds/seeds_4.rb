@@ -1,9 +1,8 @@
-
-  require 'faker'
-  # One super admin for the default org
+# One super admin for the default org
   # One funder Admin for the funder organization and an Org admin and User for the institutional organization
   # -------------------------------------------------------
   # Admins are created 5 years ago
+  Faker::Config.random = Random.new(60)
   users = [
     {email: "dmp.super.admin@engagedri.ca",
      firstname: "Super",
@@ -11,7 +10,7 @@
      language_id: 1,
      password: "@YX(rg_<)9<eeLL+",
      password_confirmation: "@YX(rg_<)9<eeLL+",
-     org: Org.find_by(abbreviation: Rails.configuration.x.organisation.abbreviation),
+     org: Org.find_by(abbreviation: "Portage"),
      language: Language.all.first,
      perms: Perm.all,
      accept_terms: true,

@@ -26,7 +26,7 @@ module DMPRoadmap
     # Your organisation name, used in various places throught the application
     config.x.organisation.name = "Digital Research Alliance of Canada"
     # Your organisation's abbreviation
-    config.x.organisation.abbreviation = "Alliance"
+    config.x.organisation.abbreviation = "Portage"
     # Your organisation's homepage, used in some of the public facing pages
     config.x.organisation.url = "https://alliancecan.ca/"
     # Your organisation's legal (official) name - used in the copyright portion of the footer
