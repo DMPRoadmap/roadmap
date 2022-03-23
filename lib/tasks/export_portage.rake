@@ -33,29 +33,32 @@ namespace :export_production_data do
         Faker::Config.random = Random.new(Org.count)
         File.open(file_name, 'a') do |f|
             excluded_keys = ['created_at','updated_at'] 
-            created = 6.years.ago
+            created = 6.years.ago # hard-code org creation date because it must be created before all templates/plans created
             Org.all.each do |org|
-                if org.id == ENV['ENGLISH_ORG_ID'].to_i
-                    org.name = "Test Organization"
-                    org.abbreviation = "IEO"
-                    org.language_id = 1 # English Default
-                elsif org.id == ENV['FRENCH_ORG_ID'].to_i
-                    org.name = "Organisation de test"
-                    org.abbreviation = "OEO"
-                    org.language_id = 2 # French Default
-                elsif org.id.to_i != ENV['FUNDER_ORG_ID'].to_i # Only Portage keep its original name and all other information
-                    org.name = Faker::University.name
-                    org.abbreviation = org.name + "_abbreviation"
+                # Only FUNDER_ORG(Portage) keep its original information 
+                if org.id.to_i != ENV['FUNDER_ORG_ID'].to_i # Only Portage keep its original name and all other information
+                    org.created_at = created 
+                    org.target_url = Org.column_defaults["target_url"]
+                    org.logo_uid = Org.column_defaults["logo_uid"]
+                    org.logo_name = Org.column_defaults["logo_name"]
+                    org.banner_name = Org.column_defaults["banner_name"]
+                    org.contact_email = Faker::Internet.email
+                    org.links = Org.column_defaults["links"]
+                    org.feedback_msg = Org.column_defaults["feedback_msg"]
+                    org.contact_name = Faker::Name.name
+                    if org.id == ENV['ENGLISH_ORG_ID'].to_i
+                        org.name = "Test Organization"
+                        org.abbreviation = "IEO"
+                        org.language_id = 1 # English Default
+                    elsif org.id == ENV['FRENCH_ORG_ID'].to_i
+                        org.name = "Organisation de test"
+                        org.abbreviation = "OEO"
+                        org.language_id = 2 # French Default
+                    else
+                        org.name = Faker::University.name
+                        org.abbreviation = org.name + "_abbreviation"
+                    end
                 end
-                org.created_at = created # hard-code org creation date because it must be created before all templates/plans created
-                org.target_url = Org.column_defaults["target_url"]
-                org.logo_uid = Org.column_defaults["logo_uid"]
-                org.logo_name = Org.column_defaults["logo_name"]
-                org.banner_name = Org.column_defaults["banner_name"]
-                org.contact_email = Faker::Internet.email
-                org.links = Org.column_defaults["links"]
-                org.feedback_msg = Org.column_defaults["feedback_msg"]
-                org.contact_name = Faker::Name.name
                 serialized = org.serializable_hash.delete_if{|key,value| excluded_keys.include?(key)} 
                 f.puts "Org.create!(#{serialized})"
             end

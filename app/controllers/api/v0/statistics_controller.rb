@@ -37,6 +37,7 @@ class Api::V0::StatisticsController < Api::V0::BaseController
         format.json { render(json: r.to_json) }
         format.csv do
           send_data(CSV.generate do |csv|
+            csv.to_io.write "\uFEFF" # change to UTF-8 for Excel to display French correctly
             csv << [_("Month"), _("No. Users joined")]
             total = 0
             r.each_pair do |k, v|
@@ -86,6 +87,7 @@ class Api::V0::StatisticsController < Api::V0::BaseController
         format.json { render(json: r.to_json) }
         format.csv do
           send_data(CSV.generate do |csv|
+            csv.to_io.write "\uFEFF" # change to UTF-8 for Excel to display French correctly
             csv << [_("Month"), _("No. Completed Plans")]
             total = 0
             r.each_pair do |k, v|
@@ -132,6 +134,7 @@ class Api::V0::StatisticsController < Api::V0::BaseController
         format.json { render(json: r.to_json) }
         format.csv do
           send_data(CSV.generate do |csv|
+            csv.to_io.write "\uFEFF" # change to UTF-8 for Excel to display French correctly
             csv << [_("Month"), _("No. Plans")]
             total = 0
             r.each_pair do |k, v|

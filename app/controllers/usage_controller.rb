@@ -116,6 +116,7 @@ class UsageController < ApplicationController
     plan_data(args: default_query_args)
     sep = sep_param
     send_data(CSV.generate(col_sep: sep) do |csv|
+      csv.to_io.write "\uFEFF" # change to UTF-8 for Excel to display French correctly
       csv << [_("Month"), _("No. Created Plans")]
       total = 0
       @plans_per_month.each do |data|

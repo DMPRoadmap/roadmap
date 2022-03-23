@@ -4,8 +4,8 @@ class User
 
   class AtCsv
 
-    HEADERS = ["Name", "E-Mail", "Created Date", "Last Activity", "Plans",
-               "Current Privileges", "Active", "Department"].freeze
+    HEADERS = [_("Name"), _("E-Mail"), _("Created Date"), _("Last Activity"), _("Plans"),
+               _("Current Privileges"), _("Active"), _("Department")].freeze
 
     def initialize(users)
       @users = users
@@ -13,6 +13,7 @@ class User
 
     def to_csv
       CSV.generate(headers: true) do |csv|
+        csv.to_io.write "\uFEFF" # change to UTF-8 for Excel to display French correctly
         csv << HEADERS
         @users.each do |user|
           name = "#{user.firstname} #{user.surname}"
