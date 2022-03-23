@@ -5,14 +5,15 @@ require 'text'
 namespace :housekeeping do
   desc 'Monthly maintenance script'
   task monthly_maintenance: :environment do
-    p 'Step 1 of 7 - Purging old sessions'
-    Rake::Task['housekeeping:cleanup_sessions'].execute
     p '----------------------------------'
-    p 'Step 2 of 7 - Purging old OAuth tokens and grants'
+    p 'Step 1 of 7 - Purging old OAuth tokens and grants'
     Rake::Task['housekeeping:cleanup_oauth'].execute
     p '----------------------------------'
-    p 'Step 3 of 7 - Purging old External API tokens'
+    p 'Step 2 of 7 - Purging old External API tokens'
     Rake::Task['housekeeping:cleanup_external_api_access_tokens'].execute
+    p '----------------------------------'
+    p 'Step 3 of 7 - Generating monthly usage statistics'
+    Rake::Task['stat:build_last_month_parallel'].execute
     p '----------------------------------'
     p 'Step 4 of 7 - Fetching latest data from RDA Metadata standard catalog'
     Rake::Task['external_api:load_rdamsc_standards'].execute
