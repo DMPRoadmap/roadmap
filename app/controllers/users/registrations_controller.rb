@@ -63,17 +63,11 @@ module Users
       prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
       args = process_params(resource)
 
-      # add an error message if the email changed but no password was supplied
-      if resource.email != args[:email] && !args[:password].present?
-        resource.errors.add(:email, _('You must enter your current password to change your email address.'))
-      end
-
       unless resource.errors.any?
-        # if password is present
-        resource_updated = update_resource(resource, args) if args[:password].present?
-        # else update without a password
-        resource_updated = resource.update_without_password(args)
-
+        # if password is present then the user is trying to change the password
+        resource_updated = resource.update_with_password(args) if args[:password].present?
+        # else they are just updating their personal details
+        resource_updated = resource.update_without_password(args) unless args[:password].present?
         # Change the locale if the user selected a different language
         session[:locale] = resource.language.abbreviation if resource.saved_change_to_language_id?
       end
@@ -117,7 +111,8 @@ module Users
 
     # The default url to be used after updating a resource. You need to overwrite
     # this method in your own RegistrationsController.
-    def after_update_path_for(_resource)
+    def after_update_path_for(resource)
+      flash[:notice] = _('Your password has been updated') if resource.saved_change_to_encrypted_password?
       edit_user_registration_path
       # sign_in_after_change_password? ? signed_in_root_path(resource) : new_session_path(resource_name)
     end
@@ -131,11 +126,7 @@ module Users
       op = autocomplete_to_controller_params
       args[:org_id] = op[:org_id] if op[:org_id].present?
       args[:org_attributes] = op[:org_attributes] unless op[:org_id].present?
-
-      # If a new password was provided
-      args[:password] = args[:current_password] unless resource.email == args[:email]
-      args[:password_confirmation] = args[:current_password] unless resource.email == args[:email]
-      args.delete(:current_password)
+      args.delete(:org_attributes) unless args[:org_attributes].present?
       args
     end
     # rubocop:enable Metrics/AbcSize

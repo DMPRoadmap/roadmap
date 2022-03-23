@@ -69,7 +69,8 @@ module Dmptool
       def lookup_registry_org_by_email(email_domain:)
         return nil unless email_domain.present?
 
-        orgs = ::RegistryOrg.where('LOWER(home_page) LIKE ?', "%#{email_domain.downcase}%")
+        orgs = ::RegistryOrg.where('LOWER(home_page) LIKE ? OR LOWER(home_page) LIKE ?',
+                                   "%/#{email_domain.downcase}%", "%.#{email_domain.downcase}%")
         return nil unless orgs.any?
 
         # Get the one with closest match (e.g. http://ucsd.edu instead of

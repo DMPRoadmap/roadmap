@@ -38,6 +38,9 @@ module Users
 
         is_new_user = resource.new_record? || active_invite
 
+        # If this is the first time someone has tried to create an account for an Org, save it
+        resource.org.save if is_new_user && resource.org.present? && resource.org.new_record?
+
         # If this is part of an API V2 Oauth workflow
         if session['oauth-referer'].present?
           oauth_hash = ApplicationService.decrypt(payload: session['oauth-referer'])

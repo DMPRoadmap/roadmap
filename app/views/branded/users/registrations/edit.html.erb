@@ -1,3 +1,7 @@
+<%
+# We allow password changes if this is dev or the Org is not shibbolized
+password_change_allowed = Rails.env.development? || !resource&.org&.shibbolized?
+%>
 <h1><%= _('Edit Profile') %></h1>
 
 <div class="row">
@@ -8,8 +12,20 @@
   </div>
 
   <div class="col-md-6">
-    <h2><%= _('Email Preferences') %></h2>
-    <%= render partial: 'users/registrations/profile_preferences',
-               locals: { resource: resource } %>
+    <div class="col-md-12">
+      <%# If the User's Org is NOT shibbolized and the User is editing their own profile %>
+      <% if password_change_allowed && current_user&.id == resource&.id %>
+        <h2><%= _('Change Your Password') %></h2>
+
+        <%= render partial: 'users/registrations/profile_password',
+                    locals: { resource: resource } %>
+        <br>
+      <% end %>
+    </div>
+    <div class="col-md-12">
+      <h2><%= _('Email Preferences') %></h2>
+      <%= render partial: 'users/registrations/profile_preferences',
+                locals: { resource: resource } %>
+    </div>
   </div>
 </div>

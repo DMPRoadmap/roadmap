@@ -424,9 +424,11 @@ class User < ApplicationRecord
   # rubocop:disable Metrics/AbcSize
   def get_preferences(key)
     defaults = Pref.default_settings[key.to_sym] || Pref.default_settings[key.to_s]
+    defaults = defaults.with_indifferent_access if defaults.present?
 
     if pref.present?
       existing = pref.settings[key.to_s].deep_symbolize_keys
+      existing = existing.with_indifferent_access if existing.present?
 
       # Check for new preferences
       defaults.each_key do |grp|
