@@ -12,7 +12,7 @@ class User
     end
 
     def to_csv
-      CSV.generate(headers: true, enc) do |csv|
+      CSV.generate(headers: true) do |csv|
         csv << HEADERS
         @users.each do |user|
           name = "#{user.firstname} #{user.surname}"
