@@ -12,9 +12,7 @@ class User
     end
 
     def to_csv
-      CSV.generate(headers: true, encoding:"UTF-16LE:UTF-8") do |csv|
-        p "######################"
-        csv.to_io.write "\xEF\xBB\xBF" # change to UTF-8 for Excel to display French correctly
+      CSV.generate(headers: true, enc) do |csv|
         csv << HEADERS
         @users.each do |user|
           name = "#{user.firstname} #{user.surname}"

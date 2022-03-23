@@ -108,7 +108,7 @@ class ExportedPlan < ApplicationRecord
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockLength
   def as_csv(sections, unanswered_questions, question_headings)
-    CSV.generate do |csv| 
+    CSV.generate do |csv|
       # rubocop:disable Style/ConditionalAssignment
       if question_headings
         csv << [_("Section"), _("Question"), _("Answer"), _("Selected option(s)"),

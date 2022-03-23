@@ -62,8 +62,6 @@ class OrgAdmin::PlansController < ApplicationController
     plans = CSV.generate do |csv|
       csv << header_cols
       org.org_admin_plans.includes(template: :org).order(updated_at: :desc).each do |plan|
-        p "##############"
-        p plan.owner
         csv << [
           plan.title.to_s,
           plan.template.title.to_s,
