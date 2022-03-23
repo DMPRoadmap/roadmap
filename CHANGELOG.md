@@ -1,11 +1,13 @@
 # Changelog
 
-## [Unreleased]
+## [3.0.4+portage-3.0.6] - 2022-03-23
 
   ### Fixed
    - Usage statistics page now shows correct data [#164](https://github.com/portagenetwork/roadmap/issues/164)
+
 ## [3.0.4+portage-3.0.5] - 2022-03-07
-  ### Fixed
+  
+### Fixed
    - Fixed pdf/html/docx/txt download issue [#153](https://github.com/portagenetwork/roadmap/issues/153)
 
 ## [3.0.4+portage-3.0.4] - 2022-02-25
