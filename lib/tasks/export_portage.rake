@@ -13,8 +13,10 @@ namespace :export_production_data do
         puts 'generating seed_3.rb...'
         Rake::Task['export_production_data:seed_3_export'].execute
         puts 'seed_4 is manually generated. Skip.'
+        puts 'generating seed_5.rb...'
+        Rake::Task['export_production_data:seed_5_export'].execute
         puts 'seed_5 is manually generated. Skip.'
-        puts 'seed_6 is manually generated. Now switch to sandbox db environment and seed'
+        puts 'Now switch to sandbox db environment and seed'
         puts 'Now copy seeds.rb and all files in seeds folder to sandbox server, then run bundle exec rake db:reset (or db:setup for the first time)' # we could make this run separately & manually also. this line is to reset/setup the database under sandbox environment
     end
 
@@ -37,12 +39,10 @@ namespace :export_production_data do
                     org.name = "Test Organization"
                     org.abbreviation = "IEO"
                     org.language_id = 1 # English Default
-                    org.logo_name = "Test_Organization.png"
                 elsif org.id == ENV['FRENCH_ORG_ID'].to_i
                     org.name = "Organisation de test"
                     org.abbreviation = "OEO"
                     org.language_id = 2 # French Default
-                    org.logo_name = "Organisation_de_test.png"
                 elsif org.id.to_i != ENV['FUNDER_ORG_ID'].to_i # Only Portage keep its original name and all other information
                     org.name = Faker::University.name
                     org.abbreviation = org.name + "_abbreviation"
@@ -76,11 +76,11 @@ namespace :export_production_data do
         open(file_name, 'a') do |f|
             GuidanceGroup.all.each do |guidance_group| 
                 serialized = guidance_group.serializable_hash.delete_if{|key,value| excluded_keys.include?(key)} 
-                f.puts "GuidanceGroup!.create(#{serialized})"
+                f.puts "GuidanceGroup.create!(#{serialized})"
             end 
             Theme.all.each do |theme| 
                 serialized = theme.serializable_hash.delete_if{|key,value| excluded_keys.include?(key)} 
-                f.puts "Theme!.create(#{serialized})"
+                f.puts "Theme.create!(#{serialized})"
             end
         end
     end
@@ -103,7 +103,7 @@ namespace :export_production_data do
             Template.where('title LIKE ?', '%Portage%').where(:published => true).all.each do |template| # only use portage network template
                 # since too many version of template could cause rake to crash on seeding process, just get the published version
                 serialized = template.serializable_hash.delete_if{|key,value| excluded_keys.include?(key)} 
-                f.puts "Template!.create(#{serialized})"
+                f.puts "Template.create!(#{serialized})"
                 # create phases
                 phases = Phase.where(:template_id => template.id) # retrieve template old id
                 phases.all.each do |phase|
@@ -135,7 +135,41 @@ namespace :export_production_data do
                         end
                     end
                 end
-            end 
+            end
+        end
+    end
+    # seed6: export all plan which org belongs to testers, this task generate the seed file that runs lastly
+    desc "Export plan content from 3.0.2 database to seeds_6.rb" 
+    task :seed_5_export => :environment do
+        file_name = 'db/seeds/seeds_5.rb'
+        File.delete(file_name) if File.exist?(file_name)
+        excluded_keys =['created_at','updated_at','start_date','end_date']
+        org_list = [ENV["FUNDER_ORG_ID"].to_i, ENV["ENGLISH_ORG_ID"].to_i,ENV["FRENCH_ORG_ID"].to_i]
+        open(file_name, 'a') do |f|
+            Plan.where(org_id: org_list).all.each_with_index do |plan, index|
+                plan.title = "Test Plan " + index.to_s
+                plan.description = Faker::Lorem.sentence
+                # force a few plan to use modified template from the two test organizations for statistics
+                if [20..50].include?(index)
+                    plan.template = Template.find(title: "Portage Template-Test1")
+                elsif [60..90].include?(index)
+                    plan.template = Template.find(title: "Portage Template-Test2")
+                end
+                serialized = plan.serializable_hash.delete_if{|key,value| excluded_keys.include?(key)} 
+                f.puts "Plan.create(#{serialized})"
+                # import related roles
+                Role.where(plan_id: plan.id).all.each do |role|
+                    if plan.org_id == ENV["FUNDER_ORG_ID"].to_i # change all user id to 1
+                        role.user_id = 1
+                    elsif plan.org_id == ENV["ENGLISH_ORG_ID"].to_i # change all user id to 2
+                        role.user_id = 2
+                    else # change all user id to 3
+                        role.user_id = 3
+                    end
+                    serialized = role.serializable_hash.delete_if{|key,value| excluded_keys.include?(key)} 
+                    f.puts "Role.create(#{serialized})"
+                end
+            end
         end
     end
 end
