@@ -1,6 +1,8 @@
 <%
 # We allow password changes if this is dev or the Org is not shibbolized
-password_change_allowed = Rails.env.development? || !resource&.org&.shibbolized?
+password_change_allowed = Rails.env.development? ||
+                          !resource&.org&.shibbolized? ||
+                          (resource&.org&.shibbolized? && !resource.identifier_for_scheme(scheme: 'shibboleth').present?)
 %>
 <h1><%= _('Edit Profile') %></h1>
 
