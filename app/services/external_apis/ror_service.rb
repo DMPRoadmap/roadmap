@@ -78,7 +78,8 @@ module ExternalApis
 
               # rubocop:disable Metrics/BlockNesting
               if validate_downloaded_file(file_path: zip_file, checksum: metadata[:checksum])
-                json_file = download_file.split('/').last.gsub('.zip', '.json')
+                json_file = download_file.split('/').last.gsub('.zip', '')
+                json_file = "#{json_file}.json" unless json_file.end_with?('.json')
 
                 # Process the ROR JSON
                 if process_ror_file(zip_file: zip_file, file: json_file)
