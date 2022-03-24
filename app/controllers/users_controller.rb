@@ -17,9 +17,6 @@ class UsersController < ApplicationController
   after_action :verify_authorized
   respond_to :html
 
-
-
-
   ##
   # GET - List of all users for an organisation
   # Displays number of roles[was project_group], name, email, and last sign in
