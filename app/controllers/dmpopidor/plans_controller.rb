@@ -44,6 +44,25 @@ module Dmpopidor
       render(:budget, locals: { plan: @plan, costs: @costs })
     end
 
+    def import
+      @plan = ::Plan.new
+      authorize @plan
+
+      @templates = ::Template.includes(:org)
+                             .where(type: 'structured')
+                             .unarchived.published
+    end
+
+    def import_plan
+      @plan = ::Plan.new
+      authorize @plan
+
+      respond_to do |format|
+        flash[:notice] = success_message(@plan, _('created'))
+        format.html { redirect_to plans_path }
+      end
+    end
+
     private
 
     # CHANGES : Removed everything except guidances group info. The rest of the info is
