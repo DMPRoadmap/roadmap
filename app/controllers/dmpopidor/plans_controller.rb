@@ -36,12 +36,80 @@ module Dmpopidor
     end
     # rubocop:enable Metrics/AbcSize
 
+    # PUT /plans/1
+    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+    def update
+      @plan = ::Plan.find(params[:id])
+      authorize @plan
+      # rubocop:disable Metrics/BlockLength
+      respond_to do |format|
+        # TODO: See notes below on the pan_params definition. We should refactor
+        #       this once the UI pages have been reworked
+        # Save the guidance group selections
+        guidance_group_ids = if params[:guidance_group_ids].blank?
+                               []
+                             else
+                               params[:guidance_group_ids].map(&:to_i).uniq
+                             end
+        @plan.guidance_groups = ::GuidanceGroup.where(id: guidance_group_ids)
+
+        if @plan.save # _attributes(attrs)
+          format.html do
+            redirect_to plan_path(@plan),
+                        notice: success_message(@plan, _('saved'))
+          end
+          format.json do
+            render json: { code: 1, msg: success_message(@plan, _('saved')) }
+          end
+        else
+          format.html do
+            # TODO: Should do a `render :show` here instead but show defines too many
+            #       instance variables in the controller
+            redirect_to plan_path(@plan).to_s, alert: failure_message(@plan, _('save'))
+          end
+          format.json do
+            render json: { code: 0, msg: failure_message(@plan, _('save')) }
+          end
+        end
+      rescue StandardError => e
+        flash[:alert] = failure_message(@plan, _('save'))
+        format.html do
+          Rails.logger.error "Unable to save plan #{@plan&.id} - #{e.message}"
+          redirect_to plan_path(@plan).to_s, alert: failure_message(@plan, _('save'))
+        end
+        format.json do
+          render json: { code: 0, msg: flash[:alert] }
+        end
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+
     def budget
       @plan = ::Plan.find(params[:id])
       dmp_fragment = @plan.json_fragment
       @costs = Fragment::Cost.where(dmp_id: dmp_fragment.id)
       authorize @plan
       render(:budget, locals: { plan: @plan, costs: @costs })
+    end
+
+    def import
+      @plan = ::Plan.new
+      authorize @plan
+
+      @templates = ::Template.includes(:org)
+                             .where(type: 'structured')
+                             .unarchived.published
+    end
+
+    def import_plan
+      @plan = ::Plan.new
+      authorize @plan
+
+      respond_to do |format|
+        flash[:notice] = success_message(@plan, _('created'))
+        format.html { redirect_to plans_path }
+      end
     end
 
     private

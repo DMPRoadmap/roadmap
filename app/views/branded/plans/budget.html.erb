@@ -24,21 +24,21 @@
         </thead>
         <tbody>
         <% costs.each do |cost| %>
-          <% ro = ResearchOutput.find(cost.research_output_id)%>
-          <% cost_label = form_label(
-                            cost.parent.madmp_schema.properties["cost"],
-                            LocaleService.to_gettext(locale: plan.template.locale),
-                            false
-                          ) %>
+          <% ro = ResearchOutput.where(id: cost.research_output_id).first %>
           <% cost_title = cost.data["costType"] || "" %>
           <% cost_title +=  " (#{cost.data["title"]})" if cost.data["title"].present?%>
           <tr>
             <td><%=  cost_title %></td>
             <td><%= "#{cost.data["amount"]} #{cost.data["currency"]}"%></td>
-            <% if plan.research_outputs.length > 1 %>
+            <% if ro.present? %>
+              <% cost_label = form_label(
+                                cost.parent.madmp_schema.properties["cost"],
+                                LocaleService.to_gettext(locale: plan.template.locale),
+                                false
+                              ) %>
               <td><%= "#{cost_label} - " %><b><%= ro.abbreviation %></b></td>
             <% else %>
-              <td><%= cost_label %></td>
+              <td><%= _("General Budget") %></td>
             <% end %>
           </tr>
         <% end %>

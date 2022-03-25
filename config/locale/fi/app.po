@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-02-10 08:50+0000\n"
-"PO-Revision-Date: 2022-02-10 09:50+0100\n"
+"POT-Creation-Date: 2022-03-10 13:47+0000\n"
+"PO-Revision-Date: 2022-03-10 14:48+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Finnish\n"
 "Language: fi\n"
@@ -38,11 +38,11 @@ msgstr "Tunnistetiedot eivät kelpaa"
 msgid "Departments code and name must be unique"
 msgstr "Osaston koodin ja nimen on oltava yksilöivä"
 
-#: ../../app/controllers/api/v0/plans_controller.rb:27
+#: ../../app/controllers/api/v0/plans_controller.rb:28
 msgid "user must be in your organisation"
 msgstr "Käyttäjän on oltava organisaatiostasi"
 
-#: ../../app/controllers/api/v0/plans_controller.rb:56
+#: ../../app/controllers/api/v0/plans_controller.rb:57
 msgid "Bad Parameters"
 msgstr "Virheelliset parametrit"
 
@@ -208,9 +208,9 @@ msgstr "paikalliset pitäisi olla Hash objekti"
 msgid "Restricted access to View All the records"
 msgstr "Kaikkien tietojen tarkastelu on rajoitettu"
 
-#: ../../app/controllers/concerns/paginable.rb:182
-msgid "Sort by %<sort_field>s"
-msgstr "Lajitella jonkun mukaan %<sort_field> s"
+#: ../../app/controllers/concerns/paginable.rb:183
+msgid "Sort by %<sort_field>"
+msgstr "Lajitella jonkun mukaan %<sort_field>"
 
 #: ../../app/controllers/concerns/template_methods.rb:8
 msgid "customisation"
@@ -1598,20 +1598,22 @@ msgstr "täytyy päästä mallien sovellusliittymään"
 
 #: ../../app/presenters/contributor_presenter.rb:42
 msgid "Data Manager"
-msgstr "Data Manager"
+msgstr "Datamanageri"
 
 #: ../../app/presenters/contributor_presenter.rb:44
 msgid "Project Administrator"
-msgstr "Projektin ylläpitäjä"
+msgstr "Projektivastaava"
 
 #: ../../app/presenters/contributor_presenter.rb:46
 msgid "Principal Investigator"
 msgstr ""
 "Vastaava tutkija\n"
+"\n"
+"\n"
 
 #: ../../app/presenters/contributor_presenter.rb:48
 msgid "Other"
-msgstr "Muut"
+msgstr "Muu"
 
 #: ../../app/presenters/contributor_presenter.rb:56
 msgid ""
@@ -1898,9 +1900,9 @@ msgstr ""
 "tä meihin %{application_name} liittyen, täytä alla oleva lomake."
 
 #: ../../app/views/contact_us/contacts/new.html.erb:10
-#: ../../app/views/layouts/_branding.html.erb:37
-#: ../../app/views/layouts/_footer.html.erb:24
-#: ../../app/views/layouts/_footer.html.erb:30
+#: ../../app/views/layouts/_branding.html.erb:41
+#: ../../app/views/layouts/_footer.html.erb:23
+#: ../../app/views/layouts/_footer.html.erb:29
 #: ../../app/views/org_admin/plans/index.html.erb:40
 #: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:39
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:24
@@ -2433,7 +2435,6 @@ msgid "Do you have a %{application_name} account?"
 msgstr "Onko sinulla jo %{application_name} -tili?"
 
 #: ../../app/views/devise/registrations/new.html.erb:22
-#: ../../app/views/layouts/_navigation.html.erb:63
 #: ../../app/views/layouts/_signin_signout.html.erb:41
 #: ../../app/views/shared/_access_controls.html.erb:5
 #: ../../app/views/shared/_sign_in_form.html.erb:19
@@ -2528,7 +2529,7 @@ msgstr "Näytä kaikki ohjeistukset"
 #: ../../app/views/guidances/admin_index.html.erb:5
 #: ../../app/views/guidances/new_edit.html.erb:12
 #: ../../app/views/guidances/new_edit.html.erb:16
-#: ../../app/views/layouts/_branding.html.erb:77
+#: ../../app/views/layouts/_branding.html.erb:82
 #: ../../app/views/org_admin/annotations/_form.html.erb:3
 #: ../../app/views/org_admin/questions/_show.html.erb:78
 #: ../../app/views/paginable/themes/_index.html.erb:5
@@ -2650,40 +2651,40 @@ msgstr "Seuraava"
 msgid "Previous"
 msgstr "Edellinen"
 
-#: ../../app/views/layouts/_branding.html.erb:60
+#: ../../app/views/layouts/_branding.html.erb:65
 msgid "Admin"
 msgstr "Ylläpitäjä"
 
-#: ../../app/views/layouts/_branding.html.erb:66
+#: ../../app/views/layouts/_branding.html.erb:71
 #: ../../app/views/org_admin/users/edit.html.erb:71
 #: ../../app/views/paginable/users/_index.html.erb:26
 #: ../../app/views/super_admin/users/edit.html.erb:105
 msgid "Plans"
 msgstr "Suunnitelmaa"
 
-#: ../../app/views/layouts/_branding.html.erb:72
+#: ../../app/views/layouts/_branding.html.erb:77
 #: ../../app/views/org_admin/templates/index.html.erb:4
 #: ../../app/views/paginable/orgs/_index.html.erb:8
 msgid "Templates"
 msgstr "Suunnitelmapohjat"
 
-#: ../../app/views/layouts/_branding.html.erb:82
+#: ../../app/views/layouts/_branding.html.erb:87
 #: ../../app/views/super_admin/orgs/index.html.erb:2
 #: ../../app/views/super_admin/orgs/index.html.erb:6
 msgid "Organisations"
 msgstr "Organisaatiota"
 
-#: ../../app/views/layouts/_branding.html.erb:87
+#: ../../app/views/layouts/_branding.html.erb:92
 #: ../../app/views/orgs/admin_edit.html.erb:1
 #: ../../app/views/orgs/admin_edit.html.erb:6
 msgid "Organisation details"
 msgstr "Organisaation tiedot"
 
-#: ../../app/views/layouts/_branding.html.erb:93
+#: ../../app/views/layouts/_branding.html.erb:98
 msgid "Users"
 msgstr "Käyttäjää"
 
-#: ../../app/views/layouts/_branding.html.erb:98
+#: ../../app/views/layouts/_branding.html.erb:103
 #: ../../app/views/org_admin/questions/_show.html.erb:88
 #: ../../app/views/org_admin/shared/_theme_selector.html.erb:16
 #: ../../app/views/paginable/guidances/_index.html.erb:7
@@ -2692,15 +2693,15 @@ msgstr "Käyttäjää"
 msgid "Themes"
 msgstr "Teemat"
 
-#: ../../app/views/layouts/_branding.html.erb:103
+#: ../../app/views/layouts/_branding.html.erb:108
 msgid "Usage"
 msgstr "Käyttö"
 
-#: ../../app/views/layouts/_branding.html.erb:108
+#: ../../app/views/layouts/_branding.html.erb:113
 msgid "Api Clients"
 msgstr "Api-asiakkaat"
 
-#: ../../app/views/layouts/_branding.html.erb:111
+#: ../../app/views/layouts/_branding.html.erb:116
 #: ../../app/views/org_admin/plans/index.html.erb:11
 #: ../../app/views/super_admin/notifications/index.html.erb:1
 #: ../../app/views/super_admin/notifications/index.html.erb:4
@@ -2728,11 +2729,7 @@ msgid "Privacy statement"
 msgstr "Tietosuojaseloste"
 
 #: ../../app/views/layouts/_footer.html.erb:17
-msgid "Accessibility statement"
-msgstr "Saavutettavuusseloste (englanniksi)"
-
-#: ../../app/views/layouts/_footer.html.erb:18
-msgid "Github"
+msgid "GitHub"
 msgstr "GitHub"
 
 #: ../../app/views/layouts/_navigation.html.erb:12

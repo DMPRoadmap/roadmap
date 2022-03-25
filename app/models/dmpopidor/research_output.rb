@@ -99,13 +99,5 @@ module Dmpopidor
       # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-
-    ##
-    # deep copy the given research output
-    #
-    # Returns Research output
-    def self.deep_copy(research_output)
-      research_output.dup
-    end
   end
 end

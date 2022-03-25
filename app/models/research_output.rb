@@ -116,4 +116,19 @@ class ResearchOutput < ApplicationRecord
     # identifiers.select { |id| id.identifier_scheme = scheme }
     []
   end
+
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # CHANGES: Added deep_copy
+  # --------------------------------
+  ##
+  # deep copy the given research output
+  #
+  # Returns Research output
+  def self.deep_copy(research_output)
+    research_output.dup
+  end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 end

@@ -1,0 +1,50 @@
+<% title _('Import DMP') %>
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= _('Import DMP') %></h1>
+  </div>
+</div>
+<h2><%=  _("Format") %></h2>
+
+<%= form_tag(import_plans_path, method: :post) do |f| %>
+  <div class="row">
+  <div class="col-md-12">
+    <div id="import-format">
+    <ul>
+      <li class="checkbox">
+      <%= label_tag 'import[format]' do %>
+        <%= radio_button_tag("import[format]", "standard", true) %>
+        <%= _('Standard') %>
+      <% end %>
+      </li>
+      <li class="checkbox">
+      <%= label_tag 'import[format]' do %>
+        <%= radio_button_tag("import[format]", "rda", false) %>
+        <%= _('RDA Commons Standards') %>
+      <% end %>
+      </li>
+    </ul>
+    </div>
+  </div>
+  </div>
+
+  <h2><%= _('Structured template') %></h2>
+  <div class="row">
+    <div class="form-group col-md-6">
+      <%= select_tag("import[template_id]",
+          options_from_collection_for_select(@templates, "id", "title"),
+          class: "form-control") %>
+    </div>
+  </div>
+
+  <h2><%= _('File') %></h2>
+  <div class="row">
+    <div class="form-group col-md-6">
+        <%= file_field(:import, :file, accept: 'application/json', class: 'form-control-file') %>
+    </div>
+  </div>
+
+  <div class="form-group col-xs-8">
+    <%= button_tag(_('Import'), class: 'btn btn-default', type: "submit", id: "plan_import_submit") %>
+  </div>
+<% end %>
