@@ -15,7 +15,7 @@ module MadmpExportHelper
     dmp_fragment.persons.each do |person|
       contributor = person.get_full_fragment
       contributor['role'] = person.roles(selected_research_outputs).uniq
-      contributors.append(contributor) unless contributor['role'].empty?
+      contributors.append(contributor)
     end
     contributors
   end
