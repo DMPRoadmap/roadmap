@@ -56,15 +56,6 @@ module Api
         end
         # rubocop:enable Metrics/AbcSize
 
-        private
-
-        def select_research_output(plan_fragment, _selected_research_outputs)
-          plan_fragment.data['researchOutput'] = plan_fragment.data['researchOutput'].select do |r|
-            r == { 'dbid' => research_output_id }
-          end
-          plan_fragment
-        end
-
         def rda_import
           rda_dmp = params["dmp"]
           @dmp = rda_to_madmp(rda_dmp)
@@ -143,30 +134,33 @@ module Api
           @plan_user = User.find_by(email: @dmp["meta"]["contact"]["person"]["mbox"])
           # ensure user exists
           if @plan_user.blank?
+            #no plan in params
             User.invite!({ email: params[:plan][:email] }, @user)
             @plan_user = User.find_by(email: params[:plan][:email])
             @plan_user.org = @user.org
             @plan_user.save
           end
           @plan = Plan.new
-          @plan.principal_investigator = if @plan_user.surname.blank?
-                                           nil
-                                         else
-                                           @plan_user.name(false)
-                                         end
+          # add org (du créateur)
+          @plan.org_id = @plan_user.org.id
+          # p params
+          # @plan.principal_investigator = if @plan_user.surname.blank?
+          #                                  nil
+          #                                else
+          #                                  @plan_user.name(false)
+          #                                end
 
-          @plan.data_contact = @plan_user.email
-          # set funder name to template's org, or original template's org
-          @plan.funder_name = if @template.customization_of.nil?
-                                @template.org.name
-                              else
-                                Template.where(
-                                  family_id: @template.customization_of
-                                ).first.org.name
-                              end
-          @plan.template = @template
-          @plan.title = params[:plan][:title]
-
+          # @plan.data_contact = @plan_user.email
+          # # set funder name to template's org, or original template's org
+          # @plan.funder_name = if @template.customization_of.nil?
+          #                       @template.org.name
+          #                     else
+          #                       Template.where(
+          #                         family_id: @template.customization_of
+          #                       ).first.org.name
+          #                     end
+          @plan.template_id = @template.id
+          @plan.title = params[:meta][:title]
           if @plan.save
 
             @plan.add_user!(@plan_user.id, :creator)
@@ -181,11 +175,12 @@ module Api
               rescue StandardError => e
                 max_order = 1
               end
-              @created_research_output = @plan.research_outputs.create(
+              p ResearchOutputType.find_by(label: "Dataset").id
+              p @created_research_output = @plan.research_outputs.create(
                 abbreviation: "Research Output #{max_order}",
-                fullname: element["researchOutputDescription"]["title"],
+                title: element["researchOutputDescription"]["title"],
                 is_default: false,
-                type: ResearchOutputType.find_by(label: "Dataset"),
+                research_output_type_id: ResearchOutputType.find_by(label: "Dataset").id,
                 order: max_order
               )
               @research_output = @created_research_output.json_fragment
@@ -201,15 +196,27 @@ module Api
 
         private
 
+        def select_research_output(plan_fragment, _selected_research_outputs)
+          plan_fragment.data['researchOutput'] = plan_fragment.data['researchOutput'].select do |r|
+            r == { 'dbid' => research_output_id }
+          end
+          plan_fragment
+        end
+
+       
+
+        private
+
         def fill_research_output(research_output_data, schema, dmp_id, parent_id)
           research_output_data.each do |prop, content|
             next if prop.eql?("research_output_id")
-
             schema_prop = schema.schema["properties"][prop]
+            p 'schema'
+            p schema
             if @research_output.data[prop].eql?(nil)
               # Fetch the associated question
-              associated_question = @plan.questions.joins(:madmp_schema)
-                                         .find_by(madmp_schemas: { classname: schema_prop["class"] })
+              p associated_question = @plan.questions.joins(:madmp_schema).find_by(madmp_schema_id: schema_prop["schema_id"])
+              p '-Fragment'
               fragment = MadmpFragment.new(
                 dmp_id: dmp_id,
                 parent_id: parent_id,
@@ -219,6 +226,9 @@ module Api
                 }
               )
               fragment.classname = schema_prop["class"]
+              p 'check here'
+              p associated_question.present?
+              p @plan.template
               next unless associated_question.present? && @plan.template.structured?
 
               # Create a new answer for the question associated to the fragment
@@ -228,12 +238,16 @@ module Api
                 plan_id: @plan.id,
                 user_id: @plan_user.id
               )
+              p 'ici'
+              p fragment
               fragment.save!
             else
               fragment = MadmpFragment.find(@research_output.data[prop]["dbid"])
             end
 
             fragment.raw_import(content, fragment.madmp_schema, fragment.id)
+            p 'import'
+            p fragment
           end
         end
 
@@ -267,7 +281,16 @@ module Api
               startDate: rda_json.dig("project", "start"),
               title: rda_json.dig("project", "title")
             },
-            researchOutput: rda_to_madmp_research_output(rda_json["dataset"])
+            budget: {
+              cost: {
+                currency:rda_json.dig('cost', 'currency_code'),
+                costType:rda_json.dig('cost', 'description'),
+                title:rda_json.dig('cost', 'title'),
+                amount:rda_json.dig('cost', 'value'),
+              },
+
+            },
+            researchOutput: rda_to_madmp_research_output(rda_json["dataset"], rda_json)
           }
           return dmp
         end
@@ -336,7 +359,7 @@ module Api
           end
         end
 
-        def rda_to_madmp_research_output(research_output)
+        def rda_to_madmp_research_output(research_output, full_DMP)
           researchOutputs = []
           research_output.each do |dataset|
             researchOutputs.append({
@@ -348,48 +371,55 @@ module Api
                                        datasetId: dataset.dig("dataset_id", "identifier"),
                                        idType: dataset.dig("dataset_id", "type"),
                                        description: dataset["description"],
-                                       keyword: dataset["keyword"],
+                                       uncontrolled_keywords: [dataset["keyword"]],
                                        language: dataset["language"],
                                        containsPersonalData: dataset["personal_data"],
                                        title: dataset["title"],
                                        type: dataset["type"],
-                                       containsSensitiveData: dataset["sensitive_data"]
+                                       containsSensitiveData: dataset["sensitive_data"],
+                                       hasEthicalIssues: full_DMP["ethical_issues_exist"],
         
                                      },
                                      sharing: {
                                        distribution: [{
-                                        #  releaseDate: dataset["issued"],
-                                        #  accessUrl: dataset.dig("distribution", "access_url"),
-                                        #  availableUntil: dataset.dig("distribution", "available_until"),
-                                        #  fileVolume: dataset.dig("distribution", "byte_size"),
-                                        #  dataAccess: dataset.dig("distribution", "data_access"),
-                                        #  description: dataset.dig("distribution", "description"),
-                                        #  downloadUrl: dataset.dig("distribution", "download_url"),
-                                        #  fileFormat: dataset.dig("distribution", "format"),
-                                        #  fileName: dataset.dig("distribution", "title"),
-                                        #  licence: {
-                                        #    licenceUrl: dataset.dig("distribution", "licence", "licence_ref"),
-                                        #    licenceStartDate: dataset.dig("distribution", "licence", "start_date")
-                                        #  }
+                                         releaseDate: dataset["issued"],
+                                         accessUrl: dataset.dig("distribution", "access_url"),
+                                         availableUntil: dataset.dig("distribution", "available_until"),
+                                         fileVolume: dataset.dig("distribution", "byte_size"),
+                                         dataAccess: dataset.dig("distribution", "data_access"),
+                                         description: dataset.dig("distribution", "description"),
+                                         downloadUrl: dataset.dig("distribution", "download_url"),
+                                         fileFormat: dataset.dig("distribution", "format"),
+                                         fileName: dataset.dig("distribution", "title"),
+                                         licence: {
+                                           licenceUrl: dataset.dig("distribution", "licence", "licence_ref"),
+                                           licenceStartDate: dataset.dig("distribution", "licence", "start_date")
+                                         }
                                        }],
-                                       host: {
-                                        #  availability: dataset.dig("distribution", "host", "availability"),
-                                        #  certification: dataset.dig("distribution", "host", "certified_with"),
-                                        #  description: dataset.dig("distribution", "host", "description"),
-                                        #  geoLocation: dataset.dig("distribution", "host", "geo_location"),
-                                        #  pidSystem: dataset.dig("distribution", "host", "pid_system"),
-                                        #  hasVersioningPolicy: dataset.dig("distribution", "host", "support_versioning"),
-                                        #  title: dataset.dig("distribution", "host", "title"),
-                                        #  technicalRessourceId: dataset.dig("distribution", "host", "url")
-                                       }
+                                       host: [{
+                                         availability: dataset.dig("distribution", "host", "availability"),
+                                         certification: dataset.dig("distribution", "host", "certified_with"),
+                                         description: dataset.dig("distribution", "host", "description"),
+                                         geoLocation: dataset.dig("distribution", "host", "geo_location"),
+                                         pidSystem: dataset.dig("distribution", "host", "pid_system"),
+                                         hasVersioningPolicy: dataset.dig("distribution", "host", "support_versioning"),
+                                         title: dataset.dig("distribution", "host", "title"),
+                                         technicalRessourceId: dataset.dig("distribution", "host", "url")
+                                       }]
                                      },
                                      preservationIssues: {
                                        description: dataset["preservation_statement"]
         
                                      },
                                      dataStorage: {
-                                       securityMeasures: dataset.dig("security_and_privacy", "description")
+                                       securityMeasures: dataset.dig("security_and_privacy", "description").concat(' : ', dataset.dig("security_and_privacy", "description")),
         
+                                     },
+                                     ethicalIssues: {
+                                       description: full_DMP['ethical_issues_description'],
+                                       ressourceReference: {
+                                         docIdentifier: full_DMP['ethical_issues_report']
+                                       }
                                      },
                                      dataCollection: fill_technical_ressource(dataset["technical_ressource"])
         

@@ -4,7 +4,7 @@ module Dmpopidor
   # Customized code for Template model
   module Template
     def structured?
-      type.eql?('structured')
+      questions.where(madmp_schema_id: nil).empty?
     end
   end
 end
