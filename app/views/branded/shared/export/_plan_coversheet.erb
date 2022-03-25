@@ -92,7 +92,6 @@
       <tbody>
       <% costs.each do |cost| %>
         <% ro = ResearchOutput.where(id: cost.research_output_id).first %>
-        <% cost_label = form_label(cost.parent.madmp_schema.properties["cost"], @plan.template.locale, false) %>
         <% cost_title = cost.data["costType"] || "" %>
         <% cost_title +=  " (#{cost.data["title"]})" if cost.data["title"].present?%>
         <tr>

@@ -33,6 +33,7 @@ elsif ENV['DOMAIN'] == 'client'
                                      .reject do |path|
                                        path == 'app/' || path == 'app/views/' ||
                                          path == 'app/controllers/' || path == 'app/models/' ||
+                                         path == 'app/helpers/' || path == 'app/mailers/' ||
                                          path.include?('branded/') || path.include?('dmpopidor/') ||
                                          path.include?('madmp_') || path.include?('research_output') ||
                                          path.include?('dynamic_form_helper')
