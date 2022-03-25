@@ -7,8 +7,6 @@ module FragmentImport
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def raw_import(import_data, schema, parent_id = id)
     fragmented_data = {}
-    p 'importing'
-    p import_data
     import_data if schema.classname == "Contributor"
     begin
       import_data = import_data.stringify_keys
@@ -18,10 +16,6 @@ module FragmentImport
 
     import_data.each do |prop, content|
       next if content.nil?
-    
-    p 'ici:'
-      p prop
-      p content
       schema_prop = schema.schema["properties"][prop]
       fragmented_data = import_data if prop.eql?("custom_value")
       next if schema_prop&.dig("type").nil?
@@ -33,9 +27,6 @@ module FragmentImport
         # For persons, we need to check if the person exists and set manually
         # the dbid in the parent fragment
         if schema_prop["inputType"]&.eql?("pickOrCreate")
-          p "pickOrCreate"
-          p prop
-          p sub_data
           sub_fragment = MadmpFragment.fragment_exists?(sub_data, sub_schema, dmp.id, parent_id)
           if sub_fragment.eql?(false)
             sub_fragment = MadmpFragment.new(
@@ -50,6 +41,7 @@ module FragmentImport
           sub_fragment.raw_import(sub_data, sub_schema, sub_fragment.id)
           # If sub_data is a Person, we need to set the dbid manually, since Person has no parent
           # and update_references function is not triggered
+
           fragmented_data[prop] = { "dbid" => sub_fragment.id }
           next
         end
@@ -67,7 +59,6 @@ module FragmentImport
             sub_fragment = MadmpFragment.find(data[prop]["dbid"])
           end
         rescue StandardError => e
-          p "research"
         end
 
         sub_fragment.raw_import(sub_data, sub_schema, sub_fragment.id)
