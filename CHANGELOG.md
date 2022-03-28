@@ -3,6 +3,7 @@
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
 ## 28/03/2022
+- Correction du problème de copie des plans créés à partir d'un modèle classique (issue gitbucket 354)
 - Correction du problème de sélection des recommandations (issue gitbucket 354)
 - L'ouverture d'une liste de sélection place désormais le curseur de saisie dans le champ de recherche (issue gitbucket 356)
 - Ajout des contributeurs sans rôle dans l'export JSON (issue gitbucket 358)
