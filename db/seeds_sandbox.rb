@@ -15,7 +15,6 @@
 puts 'run seeds.rb file now...'
 Dir[File.join(Rails.root, 'db', 'seeds', '*.rb')].sort.each_with_index do |seed, index|
   if seed.include? index.to_s
-    puts "seed " + index.to_s + " is running now"
     load seed
   end
 end

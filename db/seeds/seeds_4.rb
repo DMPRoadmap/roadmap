@@ -3,14 +3,14 @@
   # -------------------------------------------------------
   # Admins are created 5 years ago
   Faker::Config.random = Random.new(60)
-  pwd = ENV['USER_PASSWORD'].to_s # pwd for regular user
+  pwd = ENV["USER_PASSWORD"].to_s # pwd for regular user
   users = [
     {email: "dmp.super.admin@engagedri.ca",
      firstname: "Super",
      surname: "Admin",
      language_id: 1,
-     password: ENV['SUPER_ADMIN_PASSWORD'].to_s,
-     password_confirmation: ENV['SUPER_ADMIN_PASSWORD'].to_s,
+     password: ENV["SUPER_ADMIN_PASSWORD"].to_s,
+     password_confirmation: ENV["SUPER_ADMIN_PASSWORD"].to_s,
      org: Org.find_by(abbreviation: "Portage"),
      language: Language.all.first,
      perms: Perm.all,
@@ -22,8 +22,8 @@
     {email: "dmp.test.user.admin@engagedri.ca",
      firstname: "Test",
      surname: "User",
-     password: ENV['ENGLISH_ADMIN_PASSWORD'].to_s,
-     password_confirmation: ENV['ENGLISH_ADMIN_PASSWORD'].to_s,
+     password: ENV["ENGLISH_ADMIN_PASSWORD"].to_s,
+     password_confirmation: ENV["ENGLISH_ADMIN_PASSWORD"].to_s,
      org: Org.find_by(abbreviation: 'IEO'),
      language_id: 1, # English
      perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation', 'grant_api_to_orgs']),
@@ -36,8 +36,8 @@
     {email: "dmp.utilisateur.test.admin@engagedri.ca",
       firstname: "Utilisateur",
       surname: "test",
-      password: ENV['FRENCH_ADMIN_PASSWORD'].to_s,
-      password_confirmation:ENV['FRENCH_ADMIN_PASSWORD'].to_s,
+      password: ENV["FRENCH_ADMIN_PASSWORD"].to_s,
+      password_confirmation: ENV["FRENCH_ADMIN_PASSWORD"].to_s,
       language_id: 2, # French
       org: Org.find_by(abbreviation: 'OEO'),
       perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation', 'grant_api_to_orgs']),

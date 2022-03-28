@@ -1,5 +1,5 @@
 namespace :export_production_data do
-    desc "Build all stats"
+    desc "Generate seed files"
     # The procedure can be adjusted depending on whether the task will be run in a different server first
     task build_sandbox_data: :environment do
         ActiveRecord::Base.establish_connection("#{Rails.env}".to_sym) 
@@ -35,6 +35,12 @@ namespace :export_production_data do
             excluded_keys = ['created_at','updated_at'] 
             created = 6.years.ago # hard-code org creation date because it must be created before all templates/plans created
             Org.all.each do |org|
+                # feedback message must fit the default language
+                if org.language_id == 2 || org.id == ENV['FRENCH_ORG_ID'].to_i
+                    org.feedback_msg = '<p>Bonjour %{user_name}. </p><br><p> Votre plan "%{plan_name}" a été soumis pour commentaires d’un administrateur de votre organisation. <br>Si vous avez des questions concernant cette action, veuillez communiquer avec nous à %{organisation_email}.</p>'
+                else
+                    org.feedback_msg = '<p>Hello %{user_name}.</p><br><p>Your plan "%{plan_name}" has been submitted for feedback from an administrator at your organisation.<br>If you have questions pertaining to this action, please contact us at %{organisation_email}.</p>'
+                end
                 # Only FUNDER_ORG(Portage) keep its original information 
                 if org.id.to_i != ENV['FUNDER_ORG_ID'].to_i # Only Portage keep its original name and all other information
                     org.created_at = created 
@@ -44,7 +50,6 @@ namespace :export_production_data do
                     org.banner_name = Org.column_defaults["banner_name"]
                     org.contact_email = Faker::Internet.email
                     org.links = Org.column_defaults["links"]
-                    org.feedback_msg = Org.column_defaults["feedback_msg"]
                     org.contact_name = Faker::Name.name
                     if org.id == ENV['ENGLISH_ORG_ID'].to_i
                         org.name = "Test Organization"
