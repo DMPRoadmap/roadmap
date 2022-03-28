@@ -8,6 +8,7 @@
 - Ajout des contributeurs sans rôle dans l'export JSON (issue gitbucket 358)
 - Amélioration de l'affichage des valeurs sélectionnées pour les sélecteurs multiples
 - Correction du problème d'export des DMP avec plusieurs phases (issue gitbucket 353)
+- Correction du problème d'affichage de l'étape du cycle de vie pour les Coûts dans l'export PDF/DOCX (issue gitbucket 351)
 - Correction du problème d'ouverture des exports DOCX causé par l'affichage des contributeurs sans rôle
 - Mises à jour de la traduction (issue gitbucket 317)
 
