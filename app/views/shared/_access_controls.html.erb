@@ -5,12 +5,14 @@
         <%= _('Sign in') %>
       </a>
     </li>
-    <% unless !Features.enabled?:on_sandbox && active_page?(new_user_registration_path, true)%>
-      <li role="presentation">
-        <a href="#create-account-form" role="tab" aria-controls="create-account-form" data-toggle="tab">
-          <%= _('Create account') %>
-        </a>
-      </li>
+    <% if !Features.enabled?:on_sandbox %>
+      <% unless active_page?(new_user_registration_path, true)%>
+        <li role="presentation">
+          <a href="#create-account-form" role="tab" aria-controls="create-account-form" data-toggle="tab">
+            <%= _('Create account') %>
+          </a>
+        </li>
+      <% end %>
     <% end %>
   </ul>
 

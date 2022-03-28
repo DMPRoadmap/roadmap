@@ -5,6 +5,7 @@ development:
   <<: *defaults
 test:
   <<: *defaults
+  on_sandbox: FALSE
 stage:
   <<: *defaults
 staging:
