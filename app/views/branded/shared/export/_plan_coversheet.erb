@@ -68,11 +68,13 @@
         <td><%= contributor.to_s %></td>
         <td><%= contributor.data["affiliationName"] %></td>
         <td>
-          <ul>
-            <% contributor.roles.each do |role| %>
-              <li><%= role %></li>
-            <% end %>
-          </ul>  
+          <% if contributor.roles.present? %>
+            <ul>
+              <% contributor.roles.each do |role| %>
+                <li><%= role %></li>
+              <% end %>
+            </ul>
+          <% end %>
         </td>
       </tr>
     <% end %>
