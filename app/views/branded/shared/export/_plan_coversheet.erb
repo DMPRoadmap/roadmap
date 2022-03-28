@@ -18,7 +18,9 @@
 </em>
 <br/>
 <div class="cover-page">
-  <h2><%= _("Plan Details") %></h2>
+  <% I18n.with_locale @plan.template.locale  do %>
+    <h2><%= _("Plan Details") %></h2>
+  <% end %>
   <div class="plan-details">
     <%= render(partial: 'shared/export/display_madmp_fragment', locals: {
             fragment: plan_fragment.meta,
@@ -29,7 +31,9 @@
     } ) %>
   </div>
 
-  <h2><%= _("Project Details") %></h2>
+  <% I18n.with_locale @plan.template.locale  do %>
+    <h2><%= _("Project Details") %></h2>
+  <% end %>
   <div class="plan-details">
     <%= render(partial: 'shared/export/display_madmp_fragment', locals: {
             fragment: plan_fragment.project,
