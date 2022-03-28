@@ -23,8 +23,7 @@ $(() => {
   }).on('ajax:error', (e)=> {
     const target = $(e.target);
     const data = e.detail[0];
-    const errorMessage = data.responseJSON.error;
-    target.find('.message-area').html(errorMessage).addClass('alert-danger');
+    target.find('.message-area').html(data.error).addClass('alert-danger');
   });
 
   $('#modal-window form :input').on('change', () => {

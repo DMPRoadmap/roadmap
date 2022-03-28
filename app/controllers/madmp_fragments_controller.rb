@@ -35,7 +35,7 @@ class MadmpFragmentsController < ApplicationController
 
     if MadmpFragment.fragment_exists?(data, schema, p_params[:dmp_id], parent_id)
       render json: {
-        'error' => d_('dmpopidor', 'Element is already present in your plan.')
+        'error' => _('Element is already present in your plan.')
       }, status: 409
       return
     end
