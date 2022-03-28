@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::Base
 
+
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
@@ -207,14 +208,6 @@ class ApplicationController < ActionController::Base
   end
 
 
-  ## Feature Flag
-
-  # Dynamically get a list of all implemented feature flags
-  features = Features.public_instance_methods
-  # Delegate all feature flag methods to current_user
-  delegate *features, :to => current_user, :allow_nil => true
-  # Make feature flag methods available in views
-  helper_method features
  
 
 end

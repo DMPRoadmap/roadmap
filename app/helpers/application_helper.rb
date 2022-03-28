@@ -45,7 +45,11 @@ module ApplicationHelper
   # Where xx_XX is the current locale in ww-WW format. Examples of this are
   # en_CA, fr_CA
   def current_locale_logo
-    file_name = "dmp_logo_#{I18n.locale}.png"
+    if Features.enabled? :on_sandbox
+      file_name = "sandbox_logo_#{I18n.locale}.png"
+    else
+      file_name = "dmp_logo_#{I18n.locale}.png"
+    end
   end
 
   # We are overriding this method in order to provide different contact us urls

@@ -1,0 +1,17 @@
+defaults: &defaults
+  on_sandbox: <%= ENV.fetch('ON_SANDBOX_FEATURE', false) %>
+
+development:
+  <<: *defaults
+test:
+  <<: *defaults
+stage:
+  <<: *defaults
+staging:
+  <<: *defaults
+sandbox:
+ <<: *defaults
+uat:
+  <<: *defaults
+production:
+  <<: *defaults

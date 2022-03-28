@@ -55,7 +55,6 @@ class User < ApplicationRecord
   include ConditionalUserMailer
   include DateRangeable
   include Identifiable
-  include concern/Features
 
   extend UniqueRandom
 
