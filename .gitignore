@@ -110,7 +110,3 @@ yarn-debug.log*
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
-
-# Ignore translations (all servers are set to rake translation task automatically)
-/config/locale
-/config/locales
