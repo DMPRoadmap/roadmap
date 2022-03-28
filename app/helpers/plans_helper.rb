@@ -2,15 +2,6 @@
 
 # Helper methods for Plans
 module PlansHelper
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # SEE app/helpers/dmpopidor/plans_helper.rb
-  # --------------------------------
-  include Dmpopidor::PlansHelper
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
-
   # display the role of the user for a given plan
   def display_role(role)
     if role.creator?
@@ -24,11 +15,6 @@ module PlansHelper
     end
   end
 
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # SEE app/helpers/dmpopidor/plans_helper.rb
-  # CHANGES : Added administrator_visible visibility
-  # --------------------------------
   # display the visibility of the plan
   def display_visibility(val)
     case val
@@ -36,34 +22,41 @@ module PlansHelper
       "<span title=\"#{visibility_tooltip(val)}\">#{_('Organisation')}</span>"
     when 'publicly_visible'
       "<span title=\"#{visibility_tooltip(val)}\">#{_('Public')}</span>"
+    # --------------------------------
+    # Start DMP OPIDoR Customization
+    # CHANGES : Added administrator_visible visibility
+    # --------------------------------
+    when 'administrator_visible'
+      "<span title=\"#{visibility_tooltip(val)}\">#{_('Administrator')}</span>"
+    # --------------------------------
+    # End DMP OPIDoR Customization
+    # --------------------------------
     when 'privately_visible'
       "<span title=\"#{visibility_tooltip(val)}\">#{_('Private')}</span>"
     else
       "<span>#{_('Private')}</span>" # Test Plans
     end
   end
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
 
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # SEE app/helpers/dmpopidor/plans_helper.rb
-  # CHANGES : Added administrator_visible visibility
-  # --------------------------------
   def visibility_tooltip(val)
     case val
     when 'organisationally_visible'
       _('Organisation: anyone at my organisation can view.')
     when 'publicly_visible'
       _('Public: anyone can view.')
+    # --------------------------------
+    # Start DMP OPIDoR Customization
+    # CHANGES : Added administrator_visible visibility
+    # --------------------------------
+    when 'administrator_visible'
+      _('Administrator: visible to me, specified collaborators and administrators at my organisation.')
+    # --------------------------------
+    # End DMP OPIDoR Customization
+    # --------------------------------
     else
       _('Private: restricted to me and people I invite.')
     end
   end
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
 
   def download_plan_page_title(plan, phase, hash)
     # If there is more than one phase show the plan title and phase title
@@ -76,4 +69,19 @@ module PlansHelper
     display ||= customization && section[:modifiable] && show_custom_sections
     display
   end
+
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # display the name of the owner of a plan
+  # --------------------------------
+  def display_owner(owner)
+    if owner == current_user
+      _('You')
+    else
+      owner&.name(false)
+    end
+  end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 end
