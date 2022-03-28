@@ -44,16 +44,27 @@
     <% if template.structured? %>
       <%= f.hidden_field :question_format_id, value: QuestionFormat.id_for("structured")%>
       <!-- Structured Data Schemas -->
-      <div class="form-group col-md-10 question_schema"
-          data-attribute="question_schema">
+      <div class="form-group col-md-10">
+        <%= label_tag "data_type", _('Data Type'), class: "control-label" %>
+        <%= select_tag "data_type",
+          options_for_select(
+            MadmpSchema.distinct.pluck(:classname).map{ |type| [type.camelize, type] }.sort,
+            question.madmp_schema&.classname
+          ),
+          class: "form-control question_schema_class"
+        %>
+      </div>
+      <div class="form-group col-md-10">
         <%= f.label(:madmp_schema_id, _('Structured Form'), class: "control-label") %>
           <%= f.select :madmp_schema_id,
-            options_from_collection_for_select(@madmp_schemas,
-            :id,
-            :detailed_name,
-            question.madmp_schema_id),
+            options_for_select(
+              @madmp_schemas.map{ 
+                |schema| [schema.detailed_name, schema.id, { 'data-classname' => schema.classname }]
+              },
+              question.madmp_schema_id
+            ),
             {},
-            class: "form-control"
+            class: "form-control question_schema"
         %>
       </div>
     <% end %>

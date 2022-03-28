@@ -47,4 +47,12 @@ const onChangeQuestionFormat = (e) => {
   }
 };
 
+export const onChangeQuestionClassname = (e) => {
+  const source = e.target;
+  const selected = source.value;
+  $(source).closest('form').find('select.question_schema option').show();
+  $(source).closest('form').find(`select.question_schema option[data-classname="${selected}"]:first`).prop('selected', true);
+  $(source).closest('form').find(`select.question_schema option[data-classname!="${selected}"]`).hide();
+};
+
 export { onChangeQuestionFormat as default };
