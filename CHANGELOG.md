@@ -4,6 +4,7 @@
 
   ### Fixed
    - Usage statistics page now shows correct data [#164](https://github.com/portagenetwork/roadmap/issues/164)
+   - Change plan identifier field and add it to export [#158](https://github.com/portagenetwork/roadmap/issues/158)
 
 ## [3.0.4+portage-3.0.5] - 2022-03-07
   

@@ -31,6 +31,10 @@
     <p><b><%= _("ID: ") %></b><%= @plan.id %></p> <br>
   <% end %>
 
+  <% if @plan.identifier.present? %>
+    <p><b><%= _("Identifier: ") %></b><%= @plan.identifier %></p> <br>
+  <% end %>
+
   <% if @plan.start_date.present? %>
     <p><b><%= _("Start date: ") %></b><%=  l(@plan.start_date.to_date, formats: :short) %></p> <br>
   <% end %>

@@ -46,7 +46,6 @@ class PlanExportsController < ApplicationController
       @selected_phase = @plan.phases.order("phases.updated_at DESC")
                              .detect { |p| p.visibility_allowed?(@plan) }
     end
- 
     respond_to do |format|
       format.html { show_html }
       format.csv  { show_csv }
