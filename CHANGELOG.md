@@ -2,6 +2,15 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 28/03/2022
+- Correction du problème de sélection des recommandations (issue gitbucket 354)
+- L'ouverture d'une liste de sélection place désormais le curseur de saisie dans le champ de recherche (issue gitbucket 356)
+- Ajout des contributeurs sans rôle dans l'export JSON (issue gitbucket 358)
+- Amélioration de l'affichage des valeurs sélectionnées pour les sélecteurs multiples
+- Correction du problème d'export des DMP avec plusieurs phases (issue gitbucket 353)
+- Correction du problème d'ouverture des exports DOCX causé par l'affichage des contributeurs sans rôle
+- Mises à jour de la traduction (issue gitbucket 317)
+
 ## 14/03/2022
 - Correction du problème de mise à jour de lastModifiedDate dans les fragments Meta (issue gitbucket 336)
 - Correction du problème d'affichage de la liste des plans en visibilité Organisme (issue gitbucket 326)
