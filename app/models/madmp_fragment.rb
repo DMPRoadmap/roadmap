@@ -488,7 +488,7 @@ class MadmpFragment < ApplicationRecord
 
     dmp_fragments.each do |fragment|
       filtered_db_data = fragment.data.slice(*unicity_properties).compact
-      filtered_incoming_data = data.slice(*unicity_properties).compact
+      filtered_incoming_data = data.to_h.slice(*unicity_properties).compact
       next if filtered_db_data.empty?
 
       return fragment if filtered_db_data.eql?(filtered_incoming_data)
