@@ -2,6 +2,7 @@
 
 module Dmpopidor
   # Customized code for PlansController
+  # rubocop:disable Metrics/ModuleLength
   module PlansController
     # CHANGES:
     # Added Active Flag on Org
@@ -151,4 +152,5 @@ module Dmpopidor
              })
     end
   end
+  # rubocop:enable Metrics/ModuleLength
 end
