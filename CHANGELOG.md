@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 29/03/2022
+- Ajout d'une liste de sélection permettant de filtrer les formulaires structurés par type de données, lors de la modification/création d'une question dans un modèle structuré.
+- Correction du problème d'affichage des libellés "Plan Details" et "Project Details" dans l'export PDF (issue gitbucket 347)
+- Correction du problème d'affichage des plans en visibilité Administrateur dans la liste des plan accessible en tant qu'Admin (issue gitbucket 346)
+- Correction du problème d'affichage du message d'alerte "L'élément est déjà présent dans le plan" à la création d'une personne déjà existante (issue gitbucket 316)
+- La langue choisie dans le profil utilisateur devrait être correctement appliquée (issue gitbucket 359)
+
 ## 28/03/2022
 - Correction du problème de copie des plans créés à partir d'un modèle classique (issue gitbucket 354)
 - Correction du problème de sélection des recommandations (issue gitbucket 354)
