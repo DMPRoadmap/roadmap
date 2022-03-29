@@ -49,4 +49,20 @@ class License < ApplicationRecord
     # Remove any preferred licenses that could not be found in the table
     licenses.compact
   }
+
+  # varchar(255) NOT NULL
+  validates :name,
+    presence: { message: PRESENCE_MESSAGE },
+    length: { in: 0..255, allow_nil: false }
+
+  # varchar(255) NOT NULL
+  validates :identifier,
+    presence: { message: PRESENCE_MESSAGE },
+    length: { in: 0..255, allow_nil: false }
+
+  # varchar(255) NOT NULL
+  validates :uri,
+    presence: { message: PRESENCE_MESSAGE },
+    length: { in: 0..255, allow_nil: false }
+
 end
