@@ -53,10 +53,14 @@ namespace :export_production_data do
                     org.contact_name = Faker::Name.name
                     if org.id == ENV['ENGLISH_ORG_ID'].to_i
                         org.name = "Test Organization"
+                        org.contact_email = "dmp.test.user.admin@engagedri.ca"
+                        org.contact_name = "Test User"
                         org.abbreviation = "IEO"
                         org.language_id = 1 # English Default
                     elsif org.id == ENV['FRENCH_ORG_ID'].to_i
                         org.name = "Organisation de test"
+                        org.contact_email = "dmp.utilisateur.test.admin@engagedri.ca"
+                        org.contact_name = "Utilisateur test"
                         org.abbreviation = "OEO"
                         org.language_id = 2 # French Default
                     else
@@ -69,6 +73,9 @@ namespace :export_production_data do
             end
             QuestionFormat.all.each do |question_formats| 
                 excluded_keys = ['created_at','updated_at'] 
+                if question_formats.id == 7
+                    question_formats.option_based = FALSE
+                end
                 serialized = question_formats.serializable_hash.delete_if{|key,value| excluded_keys.include?(key)} 
                 f.puts "QuestionFormat.create(#{serialized})"
             end
