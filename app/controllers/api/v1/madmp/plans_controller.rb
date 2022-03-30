@@ -59,7 +59,7 @@ module Api
         # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
         def rda_import
           rda_dmp = params['dmp'].permit!
-          @dmp = rda_to_madmp(rda_dmp)
+          @dmp = rda_to_default(rda_dmp)
           @dmp = @dmp.deep_stringify_keys
           @template = Template.default
           # Need to have an account already, admin mail meanwhile
@@ -97,14 +97,7 @@ module Api
                 research_output_type_id: ResearchOutputType.find_by(label: 'Dataset').id,
                 order: max_order
               )
-
-              @research_output = @created_research_output.json_fragment
-              fill_research_output(
-                element,
-                MadmpSchema.find_by(name: 'ResearchOutputStandard'),
-                @dmp_fragment.id,
-                @research_output.id
-              )
+              import_research_output(@created_research_output.json_fragment, element, @plan)
             end
             respond_with @plan
           else
@@ -147,21 +140,13 @@ module Api
               rescue StandardError
                 max_order = 1
               end
-              ResearchOutputType.find_by(label: 'Dataset').id
               @created_research_output = @plan.research_outputs.create(
                 abbreviation: "Research Output #{max_order}",
                 title: element['researchOutputDescription']['title'],
                 is_default: false,
-                research_output_type_id: ResearchOutputType.find_by(label: 'Dataset').id,
                 order: max_order
               )
-              @research_output = @created_research_output.json_fragment
-              fill_research_output(
-                element,
-                MadmpSchema.find_by(name: 'ResearchOutputStandard'),
-                @dmp_fragment.id,
-                @research_output.id
-              )
+              import_research_output(@created_research_output.json_fragment, element, @plan)
             end
             respond_with @plan
           else

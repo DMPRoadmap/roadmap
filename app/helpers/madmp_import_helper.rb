@@ -3,18 +3,60 @@
 # Help import data in the DMP
 # rubocop:disable Metrics/ModuleLength
 module MadmpImportHelper
+  # rubocop:disable Metrics/AbcSize
+  def import_dmp(plan, json_file, format)
+    dmp_fragment = plan.json_fragment
+    if json_file.respond_to?(:read)
+      json_data = json_file.read
+    elsif json_file.respond_to?(:path)
+      json_data = File.read(json_file.path)
+    else
+      logger.error "Bad values_file: #{json_file.class.name}: #{json_file.inspect}"
+    end
+
+    begin
+      dmp = JSON.parse(json_data)
+
+      dmp = rda_to_default(dmp['dmp']).deep_stringify_keys if format.eql?('rda')
+
+      dmp_fragment.raw_import(
+        dmp.slice('meta', 'project', 'budget'), MadmpSchema.find_by(name: 'DMPStandard')
+      )
+      handle_research_outputs(plan, dmp['researchOutput'])
+    rescue JSON::ParserError
+      flash.now[:alert] = 'File should contain JSON'
+    end
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  def handle_research_outputs(plan, research_outputs)
+    research_outputs.each_with_index do |ro_data, idx|
+      research_output = plan.research_outputs.create(
+        abbreviation: "Research Output #{idx + 1}",
+        title: ro_data['researchOutputDescription']['title'],
+        is_default: idx.eql?(0),
+        order: idx + 1
+      )
+      ro_frag = research_output.json_fragment
+      import_research_output(ro_frag, ro_data, plan)
+    end
+  end
+
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  def fill_research_output(research_output_data, schema, dmp_id, parent_id)
+  def import_research_output(research_output_fragment, research_output_data, plan)
+    dmp_id = research_output_fragment.dmp_id
     research_output_data.each do |prop, content|
       next if prop.eql?('research_output_id')
 
-      schema_prop = schema.schema['properties'][prop]
-      if @research_output.data[prop].eql?(nil)
+      schema_prop = research_output_fragment.madmp_schema.schema['properties'][prop]
+      if research_output_fragment.data[prop].eql?(nil)
         # Fetch the associated question
-        associated_question = @plan.questions.joins(:madmp_schema).find_by(madmp_schema_id: schema_prop['schema_id'])
+        associated_question = plan.questions.joins(:madmp_schema).find_by(madmp_schema_id: schema_prop['schema_id'])
+        next if associated_question.nil?
+
         fragment = MadmpFragment.new(
           dmp_id: dmp_id,
-          parent_id: parent_id,
+          parent_id: research_output_fragment.id,
           madmp_schema: associated_question.madmp_schema,
           additional_info: {
             'property_name' => prop
@@ -26,14 +68,12 @@ module MadmpImportHelper
         # Create a new answer for the question associated to the fragment
         fragment.answer = Answer.create(
           question_id: associated_question.id,
-          research_output_id: @created_research_output.id,
-          plan_id: @plan.id,
-          user_id: @plan_user.id
+          research_output_id: research_output_fragment.research_output_id,
+          plan_id: plan.id, user_id: plan.owner.id
         )
-
         fragment.save!
       else
-        fragment = MadmpFragment.find(@research_output.data[prop]['dbid'])
+        fragment = MadmpFragment.find(research_output_fragment.data[prop]['dbid'])
       end
 
       fragment.raw_import(content, fragment.madmp_schema, fragment.id)
@@ -42,7 +82,8 @@ module MadmpImportHelper
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  def rda_to_madmp(rda_json)
+  def rda_to_default(rda_json)
+    project = rda_json['project'][0]
     {
       meta: {
         creationDate: rda_json['created'],
@@ -66,24 +107,24 @@ module MadmpImportHelper
         }
       },
       project: {
-        description: rda_json.dig('project', 'description'),
-        endDate: rda_json.dig('project', 'end'),
-        funding: fill_funding(rda_json.dig('project', 'funding')),
-        startDate: rda_json.dig('project', 'start'),
-        title: rda_json.dig('project', 'title')
+        description: project['description'],
+        endDate: project['end'],
+        funding: convert_funding(project['funding']),
+        startDate: project['start'],
+        title: project['title']
       },
-      budget: fill_cost(rda_json['cost']),
-      researchOutput: rda_to_madmp_research_output(rda_json['dataset'], rda_json)
+      budget: { cost: convert_cost(rda_json['cost']) },
+      researchOutput: convert_research_output(rda_json['dataset'], rda_json)
     }
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-  def fill_funding(fundings)
-    return [] if funders.nil?
+  def convert_funding(fundings)
+    return [] if fundings.nil?
 
     fundings_list = []
     fundings.each do |elem|
-      funders_list.append(
+      fundings_list.append(
         {
           funder: {
             funderId: elem.dig('funder_id', 'identifier'),
@@ -97,7 +138,7 @@ module MadmpImportHelper
     fundings_list
   end
 
-  def fill_metadata(metadata)
+  def convert_metadata(metadata)
     return [] if metadata.nil?
 
     metadata_list = []
@@ -114,7 +155,7 @@ module MadmpImportHelper
     metadata_list
   end
 
-  def fill_technical_ressource(facilities)
+  def convert_technical_ressource(facilities)
     return [] if facilities.nil?
 
     facilities_list = []
@@ -129,24 +170,24 @@ module MadmpImportHelper
     facilities_list
   end
 
-  def fill_cost(costs)
+  def convert_cost(costs)
     return [] if costs.nil?
 
     costs_list = []
     costs.each do |elem|
       costs_list.append(
-        cost: {
-          currency: elem.dig('cost', 'currency_code'),
-          costType: elem.dig('cost', 'description'),
-          title: elem.dig('cost', 'title'),
-          amount: elem.dig('cost', 'value')
+        {
+          currency: elem['currency_code'],
+          costType: elem['description'],
+          title: elem['title'],
+          amount: elem['value']
         }
       )
     end
     costs_list
   end
 
-  def fill_host(distributions)
+  def convert_host(distributions)
     return [] if distributions.nil?
 
     hosts_list = []
@@ -168,7 +209,7 @@ module MadmpImportHelper
   end
 
   # rubocop:disable Metrics/MethodLength
-  def fill_distribution(distribution)
+  def convert_distribution(distribution)
     return [] if distribution.nil?
 
     distributions_list = []
@@ -195,8 +236,8 @@ module MadmpImportHelper
   end
   # rubocop:enable Metrics/MethodLength
 
-  def fill_security_measures(security_info)
-    return '' if security_info.nil?
+  def convert_security_measures(security_info)
+    return '' if security_info.blank?
 
     title = security_info['title']
     description = security_info['description']
@@ -205,7 +246,7 @@ module MadmpImportHelper
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  def rda_to_madmp_research_output(research_output, full_dmp)
+  def convert_research_output(research_output, full_dmp)
     ro_list = []
     # rubocop:disable Metrics/BlockLength
     research_output.each do |dataset|
@@ -213,7 +254,7 @@ module MadmpImportHelper
         {
           documentationQuality: {
             description: dataset['data_quality_assurance'],
-            metadataStandard: fill_metadata(dataset['metadata'])
+            metadataStandard: convert_metadata(dataset['metadata'])
           },
           researchOutputDescription: {
             datasetId: dataset.dig('dataset_id', 'identifier'),
@@ -229,15 +270,15 @@ module MadmpImportHelper
 
           },
           sharing: {
-            distribution: fill_distribution(dataset['distribution']),
-            host: fill_host(dataset['distribution'])
+            distribution: convert_distribution(dataset['distribution']),
+            host: convert_host(dataset['distribution'])
           },
           preservationIssues: {
             description: dataset['preservation_statement']
 
           },
           dataStorage: {
-            securityMeasures: fill_security_measures(dataset['security_and_privacy'])
+            securityMeasures: convert_security_measures(dataset['security_and_privacy'])
 
           },
           ethicalIssues: {
@@ -246,7 +287,7 @@ module MadmpImportHelper
               docIdentifier: full_dmp['ethical_issues_report']
             }
           },
-          dataCollection: fill_technical_ressource(dataset['technical_ressource'])
+          dataCollection: convert_technical_ressource(dataset['technical_ressource'])
 
         }
       )

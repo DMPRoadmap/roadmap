@@ -4,6 +4,7 @@ module Dmpopidor
   # Customized code for PlansController
   # rubocop:disable Metrics/ModuleLength
   module PlansController
+    include MadmpImportHelper
     # CHANGES:
     # Added Active Flag on Org
     # rubocop:disable Metrics/AbcSize
@@ -103,27 +104,53 @@ module Dmpopidor
                              .unarchived.published
     end
 
+    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def import_plan
       @plan = ::Plan.new
       authorize @plan
 
-      respond_to do |format|
-        flash[:notice] = success_message(@plan, _('created'))
-        format.html { redirect_to plans_path }
+      if import_params[:template_id].blank?
+        # Something went wrong there should always be a template id
+        respond_to do |format|
+          flash[:alert] = _('Unable to identify a suitable template for your plan.')
+          format.html { redirect_to new_plan_path }
+        end
+      else
+        json_file = import_params[:json_file]
+
+        @plan.visibility = Rails.configuration.x.plans.default_visibility
+
+        @plan.template = ::Template.find(import_params[:template_id])
+
+        @plan.title = format(_('%<user_name>s Plan'), user_name: "#{current_user.firstname}'s")
+        @plan.org = current_user.org
+        if @plan.save
+          @plan.add_user!(current_user.id, :creator)
+          @plan.save
+          @plan.create_plan_fragments
+
+          import_dmp(@plan, json_file, import_params[:format])
+
+          respond_to do |format|
+            flash[:notice] = success_message(@plan, _('imported'))
+            format.html { redirect_to plan_path(@plan) }
+          end
+        else
+          # Something went wrong so report the issue to the user
+          respond_to do |format|
+            flash[:alert] = failure_message(@plan, _('create'))
+            format.html { redirect_to new_plan_path }
+          end
+        end
       end
     end
+    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
     private
 
-    # CHANGES : Removed everything except guidances group info. The rest of the info is
-    # handled by MadmpFragmentController
-    def plan_params
-      params.require(:plan)
-            .permit(:org_id, :template_id, :funder_name, :visibility,
-                    :title, :org_name, :guidance_group_ids,
-                    research_outputs_attributes: %i[_destroy],
-                    org: %i[id org_id org_name org_sources org_crosswalk],
-                    funder: %i[id org_id org_name org_sources org_crosswalk])
+    def import_params
+      params.require(:import)
+            .permit(:format, :template_id, :json_file)
     end
 
     # Get the parameters corresponding to the schema

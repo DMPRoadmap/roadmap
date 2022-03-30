@@ -39,6 +39,10 @@ module Fragment
       Fragment::ResearchOutput.where(parent_id: id)
     end
 
+    def budget
+      Fragment::Budget.where(parent_id: id).first
+    end
+
     def properties
       'plan, meta, project, research_output'
     end
