@@ -1,13 +1,12 @@
 defaults: &defaults
-  on_sandbox: <%= ENV.fetch('ON_SANDBOX_FEATURE', false) %>
+  on_sandbox:  <%= Rails.application.secrets.feature_flag.on_sandbox %>
+  
 
 development:
   <<: *defaults
 test:
   <<: *defaults
   on_sandbox: FALSE
-stage:
-  <<: *defaults
 staging:
   <<: *defaults
 sandbox:

@@ -5,6 +5,7 @@
         <%= _('Sign in') %>
       </a>
     </li>
+    <%=Features.enabled?:on_sandbox %>
     <% if !Features.enabled?:on_sandbox %>
       <% unless active_page?(new_user_registration_path, true)%>
         <li role="presentation">

@@ -11,7 +11,6 @@
       <%= devise_error_messages! %>
       <%= f.hidden_field :reset_password_token %>
 
-      <% if change_password? %>
         <div class="form-group">
           <%= f.label(:password, _('New password'), class: 'control-label') %>
           <%= f.password_field(:password, class: 'form-control', "aria-required": true) %>
