@@ -16,7 +16,7 @@ class PlanPolicy < ApplicationPolicy
   def share?
     @record.editable_by?(@user.id) ||
       (@user.can_org_admin? &&
-       @user.org.plans.include?(@plan))
+       @user.org.plans.include?(@record))
   end
 
   def export?

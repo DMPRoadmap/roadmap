@@ -5,6 +5,10 @@
 json.schema 'https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard/tree/master/examples/JSON/JSON-schema/1.0'
 
 presenter = Api::V1::PlanPresenter.new(plan: plan)
+
+# Note the symbol of the dmproadmap json object
+# nested in extensions which is the container for the json template object, etc.
+
 # A JSON representation of a Data Management Plan in the
 # RDA Common Standard format
 json.title plan.title
@@ -56,7 +60,7 @@ unless @minimal
   end
 
   json.extension [plan.template] do |template|
-    json.set! ApplicationService.application_name.split('-').first.to_sym do
+    json.set! :dmproadmap do
       json.template do
         json.id template.id
         json.title template.title
