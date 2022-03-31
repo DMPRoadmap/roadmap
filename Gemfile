@@ -213,6 +213,8 @@ gem 'httparty'
 # Autoload dotenv in Rails. (https://github.com/bkeepers/dotenv)
 gem 'dotenv-rails'
 
+gem 'activerecord_json_validator'
+
 # ================================= #
 # ENVIRONMENT SPECIFIC DEPENDENCIES #
 # ================================= #
