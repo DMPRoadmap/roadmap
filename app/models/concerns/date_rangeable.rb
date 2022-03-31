@@ -15,7 +15,7 @@ module DateRangeable
     def by_date_range(field, term)
       date = Date.parse(term) if term[0..1].match(/[0-9]{2}/).present?
       date = Date.parse("1st #{term}") unless date.present?
-      query = format('%<table>s.%<field>s BETWEEN ? AND ?', table: table_name, field: field)
+      query = format('%{table}.%{field} BETWEEN ? AND ?', table: table_name, field: field)
       where(query, date, date.end_of_month)
     end
   end

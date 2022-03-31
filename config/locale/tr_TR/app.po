@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-03-10 13:47+0000\n"
-"PO-Revision-Date: 2022-03-10 14:48+0100\n"
+"POT-Creation-Date: 2022-03-15 13:32+0000\n"
+"PO-Revision-Date: 2022-03-15 14:32+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
@@ -20,13 +20,15 @@ msgstr ""
 
 #: ../../app/controllers/answers_controller.rb:25
 msgid ""
-"There is no question with id %<question_id>s associated to plan id %<plan_id>s"
-" for which to create or update an answer"
+"There is no question with id %{question_id} associated to plan id %{plan_id} f"
+"or which to create or update an answer"
 msgstr ""
+"Bir yanıt oluşturmak veya güncellemek için %{plan_id} plan kimliğiyle ilişkili"
+" %{question_id} kimliğine sahip bir soru yok"
 
 #: ../../app/controllers/answers_controller.rb:33
-msgid "There is no plan with id %<id>s for which to create or update an answer"
-msgstr ""
+msgid "There is no plan with id %{id} for which to create or update an answer"
+msgstr "%{id} kimliğine sahip, bir yanıt oluşturulacak veya güncellenecek bir plan yok"
 
 #: ../../app/controllers/api/v0/base_controller.rb:126
 msgid "Bad Credentials"
@@ -133,12 +135,12 @@ msgid "You need to sign in or sign up before continuing."
 msgstr "Devam etmeden önce oturum açmanız veya kaydolmanız gerekir."
 
 #: ../../app/controllers/application_controller.rb:108
-msgid "Unable to %<action>s the %<object>s.%<errors>s"
+msgid "Unable to %{action} the %{object}. {errors}"
 msgstr ""
 
 #: ../../app/controllers/application_controller.rb:114
-msgid "Successfully %<action>s the %<object>s."
-msgstr ""
+msgid "Successfully %{action} the %{object}."
+msgstr "%{object} başarıyla %{action}."
 
 #: ../../app/controllers/application_controller.rb:127
 msgid "API client"
@@ -205,8 +207,8 @@ msgid "Restricted access to View All the records"
 msgstr "Tüm kayıtları görüntülemek için kısıtlı erişim"
 
 #: ../../app/controllers/concerns/paginable.rb:183
-msgid "Sort by %<sort_field>"
-msgstr ""
+msgid "Sort by %{sort_field}"
+msgstr "%{sort_field} alanına göre sırala"
 
 #: ../../app/controllers/concerns/template_methods.rb:8
 msgid "customisation"
@@ -407,12 +409,12 @@ msgid "Your guidance is no longer published and will not be available to users."
 msgstr "Rehberliğiniz artık yayınlanmıyor ve kullanılamayacak."
 
 #: ../../app/controllers/identifiers_controller.rb:19
-msgid "Successfully unlinked your account from %<is>s."
-msgstr ""
+msgid "Successfully unlinked your account from %{is}."
+msgstr "Hesabınızın %{is} ile olan bağlantısı başarıyla kaldırıldı."
 
 #: ../../app/controllers/identifiers_controller.rb:22
-msgid "Unable to unlink your account from %<is>s."
-msgstr ""
+msgid "Unable to unlink your account from %{is}."
+msgstr "Hesabınızın %{is} ile bağlantısı kaldırılamıyor."
 
 #: ../../app/controllers/org_admin/phases_controller.rb:17
 #: ../../app/controllers/org_admin/templates_controller.rb:115
@@ -464,8 +466,8 @@ msgid "Unable to create a new version of this template."
 msgstr "Bu şablonun yeni bir sürümü oluşturulamıyor."
 
 #: ../../app/controllers/org_admin/plans_controller.rb:36
-msgid "%<plan_owner>s has been notified that you have finished providing feedback"
-msgstr ""
+msgid "%{plan_owner} has been notified that you have finished providing feedback"
+msgstr "%{plan_owner}, geri bildirim sağlamayı bitirdiğiniz konusunda bilgilendirildi"
 
 #: ../../app/controllers/org_admin/plans_controller.rb:40
 msgid "Unable to notify user that you have finished providing feedback."
@@ -559,8 +561,9 @@ msgid "All Templates"
 msgstr "Tüm Şablonlar"
 
 #: ../../app/controllers/org_admin/templates_controller.rb:47
-msgid "%<org_name>s Templates"
-msgstr ""
+#: ../../app/views/org_admin/templates/index.html.erb:52
+msgid "%{org_name} Templates"
+msgstr "%{org_name} Şablonlar"
 
 #: ../../app/controllers/org_admin/templates_controller.rb:49
 #: ../../app/views/org_admin/templates/index.html.erb:54
@@ -572,15 +575,15 @@ msgid "Customizable Templates"
 msgstr "Özelleştirilebilir Şablonlar"
 
 #: ../../app/controllers/org_admin/templates_controller.rb:215
-msgid "Error parsing links for a %<template>s"
-msgstr ""
+msgid "Error parsing links for a %{template}"
+msgstr "%{template} için bağlantılar ayrıştırılırken hata oluştu"
 
 #: ../../app/controllers/org_admin/templates_controller.rb:343
 #: ../../app/controllers/public_pages_controller.rb:67
-msgid ""
-"Template created using the %<application_name>s service. Last modified %<date>"
-"s"
+msgid "Template created using the %{application_name} service. Last modified %{date}"
 msgstr ""
+"Şablon %{application_name} hizmeti kullanılarak oluşturuldu. Son değiştirilme:"
+" %{date}"
 
 #: ../../app/controllers/org_admin/templates_controller.rb:355
 #: ../../app/controllers/public_pages_controller.rb:80
@@ -600,8 +603,8 @@ msgid "Your organisation does not seem to be properly configured."
 msgstr "Kuruluşunuz düzgün yapılandırılmamış gibi görünüyor."
 
 #: ../../app/controllers/plan_exports_controller.rb:85
-msgid "Created using %<application_name>s. Last modified %<date>s"
-msgstr ""
+msgid "Created using %{application_name}. Last modified %{date}"
+msgstr "%{application_name} kullanılarak oluşturuldu. Son değiştirildiği tarih %{date}"
 
 #: ../../app/controllers/plans_controller.rb:52
 msgid "This is a"
@@ -616,11 +619,11 @@ msgid "Unable to identify a suitable template for your plan."
 msgstr "Planınız için uygun bir şablon tanımlanamadı."
 
 #: ../../app/controllers/plans_controller.rb:84
-msgid "My Plan (%<title>s)"
+msgid "My Plan (%{title})"
 msgstr ""
 
 #: ../../app/controllers/plans_controller.rb:86
-msgid "%<user_name>s Plan"
+msgid "%{user_name} Plan"
 msgstr ""
 
 #: ../../app/controllers/plans_controller.rb:124
@@ -642,13 +645,15 @@ msgstr "kopyalandı"
 
 #: ../../app/controllers/plans_controller.rb:425
 msgid ""
-"Unable to change the plan's status since it is needed at least %<percentage}>s"
-" percentage responded"
+"Unable to change the plan's status since it is needed at least %{percentage} p"
+"ercentage responded"
 msgstr ""
+"En az yüzde %{percentage} yanıt verilmesi gerektiğinden planın durumu değiştir"
+"ilemiyor"
 
 #: ../../app/controllers/plans_controller.rb:431
-msgid "Unable to find plan id %{<plan_id>s"
-msgstr ""
+msgid "Unable to find plan id %{plan_id}"
+msgstr "%{plan_id} no.'lu plan bulunamadı"
 
 #: ../../app/controllers/plans_controller.rb:446
 msgid "Your project is now a test."
@@ -669,10 +674,13 @@ msgstr ""
 #: ../../app/controllers/registrations_controller.rb:34
 msgid ""
 "Please make a choice below. After linking your\n"
-"                       details to a %<application_name>s account,\n"
+"                       details to a %{application_name} account,\n"
 "                       you will be able to sign in directly with your\n"
 "                       institutional credentials."
 msgstr ""
+"Lütfen aşağıdan bir seçim yapın. Hesap ayrıntılarınızı bir %{application_name}"
+" hesabına bağladıktan sonra doğrudan kurumsal kimlik bilgileriniz ile oturum a"
+"çabileceksiniz."
 
 #: ../../app/controllers/registrations_controller.rb:58
 msgid "You must accept the terms and conditions to register."
@@ -748,13 +756,13 @@ msgstr "Şifre ve onay eşleşmelidir"
 
 #: ../../app/controllers/roles_controller.rb:26
 msgid ""
-"Cannot share plan with %<email>s since that email matches\n"
+"Cannot share plan with %{email} since that email matches\n"
 "                                   with the owner of the plan."
 msgstr ""
 
 #: ../../app/controllers/roles_controller.rb:36
-msgid "Plan is already shared with %<email>s."
-msgstr ""
+msgid "Plan is already shared with %{email}."
+msgstr "Plan zaten %{email} ile paylaşılıyor."
 
 #: ../../app/controllers/roles_controller.rb:43
 #: ../../app/views/shared/_create_account_form.html.erb:4
@@ -766,12 +774,12 @@ msgid "Surname"
 msgstr "Soyad"
 
 #: ../../app/controllers/roles_controller.rb:47
-msgid "Invitation to %<email>s issued successfully."
-msgstr ""
+msgid "Invitation to %{email} issued successfully."
+msgstr "%{email} adresine bir davet e-postası başarıyla gönderildi."
 
 #: ../../app/controllers/roles_controller.rb:52
-msgid "Plan shared with %<email>s."
-msgstr ""
+msgid "Plan shared with %{email}."
+msgstr "Plan %{email} ile paylaşıldı."
 
 #: ../../app/controllers/roles_controller.rb:64
 msgid ""
@@ -785,7 +793,7 @@ msgstr "Lütfen bir e-posta adresi giriniz"
 
 #: ../../app/controllers/roles_controller.rb:90
 msgid ""
-"Successfully changed the permissions for %<email>. They have been\n"
+"Successfully changed the permissions for %{email}. They have been\n"
 "                       notified via email."
 msgstr ""
 
@@ -818,8 +826,8 @@ msgid "An error has occurred while saving/resetting your export settings."
 msgstr "Dışa aktarma ayarlarınız kaydedilirken/sıfırlanırken bir hata oluştu."
 
 #: ../../app/controllers/super_admin/api_clients_controller.rb:45
-msgid ". The API credentials have been emailed to %<email>s"
-msgstr ""
+msgid ". The API credentials have been emailed to %{email}"
+msgstr ". API kimlik bilgileri %{email} adresine e-posta ile gönderildi"
 
 #: ../../app/controllers/super_admin/notifications_controller.rb:70
 msgid "Your notification is now active."
@@ -834,14 +842,16 @@ msgid "Unable to change the notification's active status"
 msgstr "Bildirimin etkin durumu değiştirilemiyor"
 
 #: ../../app/controllers/super_admin/notifications_controller.rb:105
-msgid "There is no notification associated with id  %<id>s"
-msgstr ""
+msgid "There is no notification associated with id  %{id}"
+msgstr "%{id} kimliğiyle ilişkili bildirim yok"
 
 #: ../../app/controllers/super_admin/org_swaps_controller.rb:24
 msgid ""
 "Your organisation affiliation has been changed. You may now edit templates for"
-" %<org_name>s."
+" %{org_name}."
 msgstr ""
+"Kuruluş bağlantınız değiştirildi. Artık %{org_name} için şablonları düzenleyeb"
+"ilirsiniz."
 
 #: ../../app/controllers/super_admin/org_swaps_controller.rb:28
 msgid "Unable to change your organisation affiliation at this time."
@@ -904,16 +914,16 @@ msgid "Successfully signed in"
 msgstr "Başarıyla oturum açıldı"
 
 #: ../../app/controllers/users/omniauth_callbacks_controller.rb:59
-msgid "Your account has been successfully linked to %<scheme>s."
-msgstr ""
+msgid "Your account has been successfully linked to %{scheme}."
+msgstr "Hesabınız başarıyla %{scheme} şemasına bağlandı."
 
 #: ../../app/controllers/users/omniauth_callbacks_controller.rb:63
-msgid "Unable to link your account to %<scheme>s."
-msgstr ""
+msgid "Unable to link your account to %{scheme}."
+msgstr "Hesabınız %{scheme} şemasına bağlanamadı."
 
 #: ../../app/controllers/users_controller.rb:147
-msgid "Successfully %<action>s %<username>s's account."
-msgstr ""
+msgid "Successfully %{action} %{username}'s account."
+msgstr "%{username} adlı kullanıcının hesabı başarıyla %{action}."
 
 #: ../../app/controllers/users_controller.rb:148
 msgid "activated"
@@ -924,8 +934,8 @@ msgid "deactivated"
 msgstr "devre dışı bırakıldı"
 
 #: ../../app/controllers/users_controller.rb:154
-msgid "Unable to %<action>s %<username>s"
-msgstr ""
+msgid "Unable to %{action} %{username}"
+msgstr " %{username} %{action} yapılamıyor"
 
 #: ../../app/controllers/users_controller.rb:155
 msgid "activate"
@@ -959,7 +969,7 @@ msgid "Answering"
 msgstr "Cevaplıyor"
 
 #: ../../app/helpers/conditions_helper.rb:197
-msgid " will <b>send an email</b> with subject %<subject_name>s"
+msgid " will <b>send an email</b> with subject %{subject_name}"
 msgstr ""
 
 #: ../../app/helpers/conditions_helper.rb:203
@@ -994,17 +1004,20 @@ msgid "Creator:"
 msgstr "Oluşturan:"
 
 #: ../../app/helpers/feedbacks_helper.rb:6
-msgid "%<application_name>s: Your plan has been submitted for feedback"
-msgstr ""
+msgid "%{application_name}: Your plan has been submitted for feedback"
+msgstr "%{application_name}: Planınız geri bildirim için gönderildi"
 
 #: ../../app/helpers/feedbacks_helper.rb:10
 msgid ""
-"<p>Hello %<user_name>s.</p><p>Your plan \"%<plan_name>s\" has been submitted for"
-" feedback from an\n"
+"<p>Hello %{user_name}.</p><p>Your plan \"%{plan_name}\" has been submitted for f"
+"eedback from an\n"
 "      administrator at your organisation. If you have questions pertaining to "
 "this action, please contact us\n"
-"      at %<organisation_email>s.</p>"
+"      at %{organisation_email}.</p>"
 msgstr ""
+"<p>Merhaba %{user_name}.</p><p> \"%{plan_name}\" adlı planınız, kurumunuzdaki bi"
+"r yöneticiye geri bildirim almak için gönderildi. Bu eylemle ilgili sorularını"
+"z varsa, lütfen %{organisation_email} adresinden bizimle iletişime geçin.</p>"
 
 #: ../../app/helpers/identifier_helper.rb:6
 #: ../../spec/helpers/identifier_helper_spec.rb:14
@@ -1037,11 +1050,14 @@ msgstr "planı okuyun ve yorum bırakın."
 
 #: ../../app/helpers/orgs_helper.rb:14
 msgid ""
-"<p>A data librarian from %<org_name>s will respond to your request within 48\n"
+"<p>A data librarian from %{org_name} will respond to your request within 48\n"
 "       hours. If you have questions pertaining to this action please contact u"
 "s\n"
-"       at %<organisation_email>s.</p>"
+"       at %{organisation_email}.</p>"
 msgstr ""
+"<p>%{org_name} organizasyonundan bir veri kütüphanecisi, isteğinize 48 saat iç"
+"inde yanıt verecektir. Bu işlemle ilgili sorularınız varsa lütfen %{organisati"
+"on_email} adresinden bizimle iletişime geçin.</p>"
 
 #: ../../app/helpers/perms_helper.rb:9
 msgid "Add organisations"
@@ -1173,16 +1189,16 @@ msgid "None"
 msgstr "Hiçbiri"
 
 #: ../../app/helpers/super_admin/orgs/merge_helper.rb:30
-msgid "Guidance for: %<themes>s"
-msgstr ""
+msgid "Guidance for: %{themes}"
+msgstr "%{themes} için rehberlik"
 
 #: ../../app/helpers/super_admin/orgs/merge_helper.rb:51
 msgid "Nothing to merge"
 msgstr "Birleştirilecek bir şey yok"
 
 #: ../../app/helpers/super_admin/orgs/merge_helper.rb:53
-msgid "<p>The following %<object_types>s will be moved over to '%<org_name>s':</p>"
-msgstr ""
+msgid "<p>The following %{object_types} will be moved over to '%{org_name}':</p>"
+msgstr "<p>Aşağıdaki %{object_types}, '%{org_name}' konumuna taşınacak:</p>"
 
 #: ../../app/helpers/template_helper.rb:48
 #: ../../app/views/plans/index.html.erb:29
@@ -1214,48 +1230,51 @@ msgid "Last 12 months"
 msgstr "Son 12 ay"
 
 #: ../../app/mailers/user_mailer.rb:17
-msgid "Query or feedback related to %<tool_name>s"
-msgstr ""
+#: ../../app/views/devise/mailer/invitation_instructions.html.erb:6
+#: ../../app/views/devise/mailer/reset_password_instructions.html.erb:5
+#: ../../app/views/user_mailer/_email_signature.html.erb:2
+msgid "Query or feedback related to %{tool_name}"
+msgstr "%{tool_name} ile ilgili sorgu veya geri bildirim"
 
 #: ../../app/mailers/user_mailer.rb:24
-msgid "Welcome to %<tool_name>s"
-msgstr ""
+msgid "Welcome to %{tool_name}"
+msgstr "%{tool_name} aracına hoş geldiniz"
 
 #: ../../app/mailers/user_mailer.rb:59
-msgid "A Data Management Plan in %<tool_name>s has been shared with you"
-msgstr ""
+msgid "A Data Management Plan in %{tool_name} has been shared with you"
+msgstr "%{tool_name} içinde bir Veri Yönetim Planı sizinle paylaşıldı"
 
 #: ../../app/mailers/user_mailer.rb:75
-msgid "Changed permissions on a Data Management Plan in %<tool_name>s"
-msgstr ""
+msgid "Changed permissions on a Data Management Plan in %{tool_name}"
+msgstr "%{tool_name} aracındaki bir Veri Yönetim Planına ilişkin değiştirilen izinler"
 
 #: ../../app/mailers/user_mailer.rb:89
-msgid "Permissions removed on a DMP in %<tool_name>s"
-msgstr ""
+msgid "Permissions removed on a DMP in %{tool_name}"
+msgstr "%{tool_name} içindeki bir VYP'de izinler kaldırıldı"
 
 #: ../../app/mailers/user_mailer.rb:106
-msgid "%<user_name>s has requested feedback on a %<tool_name>s plan"
-msgstr ""
+msgid "%{user_name} has requested feedback on a %{tool_name} plan"
+msgstr "%{user_name}, bir %{tool_name} planı hakkında geri bildirim istedi"
 
 #: ../../app/mailers/user_mailer.rb:128
-msgid "%<tool_name>s: Expert feedback has been provided for %<plan_title>s"
-msgstr ""
+msgid "%{tool_name}: Expert feedback has been provided for %{plan_title}"
+msgstr "%{tool_name}: %{plan_title} için uzman geri bildirimi sağlandı"
 
 #: ../../app/mailers/user_mailer.rb:145
-msgid "DMP Visibility Changed: %<plan_title>s"
-msgstr ""
+msgid "DMP Visibility Changed: %{plan_title}"
+msgstr "VYP Görünürlüğü Değiştirildi: %{plan_title}"
 
 #: ../../app/mailers/user_mailer.rb:173
-msgid "%<tool_name>s: A new comment was added to %<plan_title>s"
-msgstr ""
+msgid "%{tool_name}: A new comment was added to %{plan_title}"
+msgstr "%{tool_name}: %{plan_title} adlı plana yeni bir yorum eklendi"
 
 #: ../../app/mailers/user_mailer.rb:188
-msgid "Administrator privileges granted in %<tool_name>s"
-msgstr ""
+msgid "Administrator privileges granted in %{tool_name}"
+msgstr "%{tool_name} içinde verilen yönetici ayrıcalıkları"
 
 #: ../../app/mailers/user_mailer.rb:204
-msgid "%<tool_name>s API changes"
-msgstr ""
+msgid "%{tool_name} API changes"
+msgstr "%{tool_name} API değişiklikleri"
 
 #: ../../app/models/concerns/exportable_plan.rb:30
 msgid "Phase"
@@ -1287,12 +1306,12 @@ msgid "Creators: "
 msgstr "Oluşturanlar:"
 
 #: ../../app/models/concerns/exportable_plan.rb:142
-msgid "%<authors>s"
-msgstr ""
+msgid "%{authors}"
+msgstr "%{authors}"
 
 #: ../../app/models/concerns/exportable_plan.rb:143
-msgid "%<affiliation>s"
-msgstr ""
+msgid "%{affiliation}"
+msgstr "Bağlı olunan kurum/kuruluş:"
 
 #: ../../app/models/concerns/exportable_plan.rb:145
 #: ../../app/models/concerns/exportable_plan.rb:147
@@ -1303,12 +1322,12 @@ msgid "Template: "
 msgstr "Şablon:"
 
 #: ../../app/models/concerns/exportable_plan.rb:145
-msgid "%<funder>s"
-msgstr ""
+msgid "%{funder}"
+msgstr "%{funder}"
 
 #: ../../app/models/concerns/exportable_plan.rb:147
-msgid "%<template>s"
-msgstr ""
+msgid "%{template}"
+msgstr "%{template}"
 
 #: ../../app/models/concerns/exportable_plan.rb:149
 #: ../../app/views/shared/export/_plan_txt.erb:12
@@ -1316,8 +1335,8 @@ msgid "Grant number: "
 msgstr "Fon/hibe numarası:"
 
 #: ../../app/models/concerns/exportable_plan.rb:149
-msgid "%<grant_number>s"
-msgstr ""
+msgid "%{grant_number}"
+msgstr "%{grant_number}"
 
 #: ../../app/models/concerns/exportable_plan.rb:151
 #: ../../app/views/shared/export/_plan_coversheet.erb:24
@@ -1326,8 +1345,8 @@ msgid "Project abstract: "
 msgstr "Proje özeti:"
 
 #: ../../app/models/concerns/exportable_plan.rb:151
-msgid "%<description>s"
-msgstr ""
+msgid "%{description}"
+msgstr "%{description}"
 
 #: ../../app/models/concerns/exportable_plan.rb:153
 #: ../../app/views/shared/export/_plan_coversheet.erb:40
@@ -1336,8 +1355,8 @@ msgid "Last modified: "
 msgstr "Son düzenleme:"
 
 #: ../../app/models/concerns/exportable_plan.rb:153
-msgid "%<date>s"
-msgstr ""
+msgid "%{date}"
+msgstr "%{date}"
 
 #: ../../app/models/concerns/exportable_plan.rb:154
 #: ../../app/views/shared/export/_plan_coversheet.erb:47
@@ -1513,8 +1532,8 @@ msgid "generate_copy! requires an organisation target"
 msgstr "generate_copy! bir kuruluş hedefi gerektirir"
 
 #: ../../app/models/template.rb:382
-msgid "Copy of %<template>s"
-msgstr ""
+msgid "Copy of %{template}"
+msgstr "%{template} şablonunun kopyası"
 
 #: ../../app/models/template.rb:389
 msgid "generate_version! requires a published template"
@@ -1553,8 +1572,8 @@ msgid "Conditions in the template refer backwards"
 msgstr "Şablondaki koşullar geriye dönük"
 
 #: ../../app/models/user.rb:384
-msgid "A Data Management Plan in %<application_name>s has been shared with you"
-msgstr ""
+msgid "A Data Management Plan in %{application_name} has been shared with you"
+msgstr "%{application_name} içinde bir Veri Yönetim Planı sizinle paylaşıldı"
 
 #: ../../app/policies/api/v0/guidance_group_policy.rb:11
 #: ../../app/policies/api/v0/guidance_policy.rb:11
@@ -1675,8 +1694,8 @@ msgstr ""
 "lamaz"
 
 #: ../../app/validators/after_validator.rb:5
-msgid "must be after %<date>s"
-msgstr ""
+msgid "must be after %{date}"
+msgstr "%{date} tarihinden sonra olmalıdır"
 
 #: ../../app/validators/org_links_validator.rb:10
 msgid "A key \"org\" is expected for links hash"
@@ -1688,12 +1707,12 @@ msgid "A hash is expected for links"
 msgstr "Bağlantılar için bir hash bekleniyor"
 
 #: ../../app/validators/template_links_validator.rb:15
-msgid "The key %<key>s does not have a valid set of object links"
-msgstr ""
+msgid "The key %{key} does not have a valid set of object links"
+msgstr "%{key} anahtarında geçerli bir nesne bağlantısı seti yok"
 
 #: ../../app/validators/template_links_validator.rb:19
-msgid "A key %<key>s is expected for links hash"
-msgstr ""
+msgid "A key %{key} is expected for links hash"
+msgstr "Bağlantı hash'i için bir anahtar %{key} bekleniyor"
 
 #: ../../app/views/answers/_locking.html.erb:5
 msgid "The following answer cannot be saved"
@@ -2051,12 +2070,6 @@ msgstr "veya kopyala"
 #: ../../app/views/devise/mailer/confirmation_instructions.html.erb:6
 msgid "into your browser"
 msgstr "tarayıcınıza"
-
-#: ../../app/views/devise/mailer/invitation_instructions.html.erb:6
-#: ../../app/views/devise/mailer/reset_password_instructions.html.erb:5
-#: ../../app/views/user_mailer/_email_signature.html.erb:2
-msgid "Query or feedback related to %{tool_name}"
-msgstr "%{tool_name} ile ilgili sorgu veya geri bildirim"
 
 #: ../../app/views/devise/mailer/invitation_instructions.html.erb:12
 #: ../../app/views/user_mailer/new_comment.html.erb:2
@@ -3591,10 +3604,6 @@ msgstr ""
 "ulur. Fon sağlayıcı şablonlarına soru eklemek istiyorsanız aşağıdaki 'şablonu "
 "özelleştir' seçeneklerini kullanın."
 
-#: ../../app/views/org_admin/templates/index.html.erb:52
-msgid "%{org_name} Templates"
-msgstr "%{org_name} Şablonlar"
-
 #: ../../app/views/org_admin/templates/index.html.erb:63
 msgid "Customisable Templates"
 msgstr "Özelleştirilebilir Şablonlar"
@@ -4266,6 +4275,10 @@ msgstr "Mevcut Ayrıcalıklar"
 #: ../../app/views/paginable/users/_index.html.erb:46
 msgid "Edit Profile"
 msgstr "Profili Düzenle"
+
+#: ../../app/views/phases/_edit_plan_answers.html.erb:77
+msgid "Comments & Guidance"
+msgstr ""
 
 #: ../../app/views/phases/_overview.html.erb:5
 msgid "Instructions"

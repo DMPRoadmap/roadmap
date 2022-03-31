@@ -12,11 +12,11 @@ class TemplateLinksValidator < ActiveModel::Validator
       expected_keys.each do |k|
         if links.key?(k)
           unless valid_links?(links[k])
-            msg = _('The key %<key>s does not have a valid set of object links')
+            msg = _('The key %{key} does not have a valid set of object links')
             record.errors[:links] << (format(msg, key: k))
           end
         else
-          record.errors[:links] << (format(_('A key %<key>s is expected for links hash'), key: k))
+          record.errors[:links] << (format(_('A key %{key} is expected for links hash'), key: k))
         end
       end
     else
