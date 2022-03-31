@@ -7,7 +7,7 @@
     <%= f.label(:password, _('Password'), class: 'control-label') %>
     <%= f.password_field(:password, class: 'form-control', "aria-required": true) %>
   </div>
-  <%if !Features.enabled?:on_sandbox || current_user.can_super_admin?%>
+  <% unless FeatureFlagHelper.enabled?(:on_sandbox) %>
     <div>
       <%= link_to _('Forgot password?'), new_password_path('user') %>
     </div>

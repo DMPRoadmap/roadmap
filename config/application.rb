@@ -101,7 +101,7 @@ module DMPRoadmap
     config.default_funder_name = Rails.application.secrets.default_funder_name
 
     # Feature Flag
-    config.features = config_for(:features)
+    # config.features = config_for(:features)
   end
 
 end

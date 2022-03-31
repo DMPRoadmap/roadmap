@@ -45,10 +45,10 @@ module ApplicationHelper
   # Where xx_XX is the current locale in ww-WW format. Examples of this are
   # en_CA, fr_CA
   def current_locale_logo
-    if Features.enabled?:on_sandbox
-      file_name = "sandbox_logo_#{I18n.locale}.png"
+    file_name = if FeatureFlagHelper.enabled?(:on_sandbox)
+      "sandbox_logo_#{I18n.locale}.png"
     else
-      file_name = "dmp_logo_#{I18n.locale}.png"
+      "dmp_logo_#{I18n.locale}.png"
     end
   end
 
