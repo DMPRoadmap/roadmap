@@ -27,8 +27,8 @@
     <div style="margin-left: 15px;"><%= sanitize(@plan.description) %></div><br>
   <% end %>
 
-  <% if @plan.id.present? %>
-    <p><b><%= _("ID: ") %></b><%= @plan.id %></p> <br>
+  <% if @plan.identifier.present? %>
+    <p><b><%= _("Identifier: ") %></b><%= @plan.identifier %></p> <br>
   <% end %>
 
   <% if @plan.start_date.present? %>
