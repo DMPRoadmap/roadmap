@@ -16,7 +16,7 @@ if !ENV['DOMAIN'] || ENV['DOMAIN'] == 'app'
     config.target_locales       = %w[de en-GB en-US es fr-FR fi sv-FI pt-BR en-CA fr-CA tr-TR]
     config.text_domain          = 'app'
     config.bound_text_domains   = %w[app client]
-    config.ignored_source_paths = ['app/views/branded/']
+    config.ignored_source_paths = ['app/views/branded/', 'node_modules/']
     config.locales_path         = Rails.root.join('config', 'locale')
   end
 elsif ENV['DOMAIN'] == 'client'
@@ -38,6 +38,7 @@ def ignore_paths
   Dir.glob('**/*').select { |f| File.directory? f }
      .collect { |name| "#{name}/" }
   - ['app/',
+     'node_modules/',
      'app/views/',
      'app/views/branded/',
      'app/views/branded/public_pages/',

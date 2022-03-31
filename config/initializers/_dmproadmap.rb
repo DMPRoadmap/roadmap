@@ -241,13 +241,13 @@ module DMPRoadmap
     # Note that the values you enter must match the :identifier field of the licenses table.
     # You can use the `%{latest}` markup in place of version numbers if desired.
     config.x.madmp.preferred_licenses = [
-      'CC-BY-%<latest>s',
-      'CC-BY-SA-%<latest>s',
-      'CC-BY-NC-%<latest>s',
-      'CC-BY-NC-SA-%<latest>s',
-      'CC-BY-ND-%<latest>s',
-      'CC-BY-NC-ND-%<latest>s',
-      'CC0-%<latest>s'
+      'CC-BY-%{latest}s',
+      'CC-BY-SA-%{latest}s',
+      'CC-BY-NC-%{latest}s',
+      'CC-BY-NC-SA-%{latest}s',
+      'CC-BY-ND-%{latest}s',
+      'CC-BY-NC-ND-%{latest}s',
+      'CC0-%{latest}s'
     ]
     # Link to external guidance about selecting one of the preferred licenses. A default
     # URL will be displayed if none is provided here. See app/views/research_outputs/licenses/_form
