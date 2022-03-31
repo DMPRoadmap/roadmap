@@ -1,14 +1,14 @@
 # Swedish translations for app package.
-# Copyright (C) 2021 app
+# Copyright (C) 2022 app
 # This file is distributed under the same license as the app package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-10-01 11:19+0000\n"
-"PO-Revision-Date: 2021-10-01 13:19+0200\n"
+"POT-Creation-Date: 2022-03-15 13:32+0000\n"
+"PO-Revision-Date: 2022-03-15 14:32+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Swedish\n"
 "Language: sv_FI\n"
@@ -18,56 +18,56 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n!=1;\n"
 "\n"
 
-#: ../../app/controllers/answers_controller.rb:24
+#: ../../app/controllers/answers_controller.rb:25
 msgid ""
-"There is no question with id %<question_id>s associated to plan id %<plan_id>s f"
+"There is no question with id %{question_id} associated to plan id %{plan_id} f"
 "or which to create or update an answer"
 msgstr ""
-"Det finns ingen fråga med id %<question_id>s som är associerad med plan id %{pl"
+"Det finns ingen fråga med id %{question_id} som är associerad med plan id %{pl"
 "an_id} för vilken du skapar eller uppdaterar ett svar"
 
-#: ../../app/controllers/answers_controller.rb:34
-msgid "There is no plan with id %<id>s for which to create or update an answer"
-msgstr "Det finns ingen plan med id %<id>s för att skapa eller uppdatera ett svar"
+#: ../../app/controllers/answers_controller.rb:33
+msgid "There is no plan with id %{id} for which to create or update an answer"
+msgstr "Det finns ingen plan med id %{id} för att skapa eller uppdatera ett svar"
 
-#: ../../app/controllers/api/v0/base_controller.rb:124
+#: ../../app/controllers/api/v0/base_controller.rb:126
 msgid "Bad Credentials"
 msgstr "Dåliga referenser"
 
-#: ../../app/controllers/api/v0/departments_controller.rb:20
+#: ../../app/controllers/api/v0/departments_controller.rb:22
 msgid "Departments code and name must be unique"
 msgstr "Avdelningskod och namn måste vara unikt"
 
-#: ../../app/controllers/api/v0/plans_controller.rb:26
+#: ../../app/controllers/api/v0/plans_controller.rb:28
 msgid "user must be in your organisation"
 msgstr "Användaren måste vara i din organisation"
 
-#: ../../app/controllers/api/v0/plans_controller.rb:56
+#: ../../app/controllers/api/v0/plans_controller.rb:57
 msgid "Bad Parameters"
 msgstr "Felaktiga parametern"
 
-#: ../../app/controllers/api/v0/statistics_controller.rb:40
+#: ../../app/controllers/api/v0/statistics_controller.rb:41
 #: ../../app/controllers/api/v0/statistics_controller.rb:89
-#: ../../app/controllers/api/v0/statistics_controller.rb:135
-#: ../../app/controllers/usage_controller.rb:68
+#: ../../app/controllers/api/v0/statistics_controller.rb:136
+#: ../../app/controllers/usage_controller.rb:66
 #: ../../app/controllers/usage_controller.rb:87
 msgid "Month"
 msgstr "Månad"
 
-#: ../../app/controllers/api/v0/statistics_controller.rb:40
-#: ../../app/controllers/usage_controller.rb:68
+#: ../../app/controllers/api/v0/statistics_controller.rb:41
+#: ../../app/controllers/usage_controller.rb:66
 msgid "No. Users joined"
 msgstr "Nej. Användare gick med"
 
-#: ../../app/controllers/api/v0/statistics_controller.rb:46
+#: ../../app/controllers/api/v0/statistics_controller.rb:47
 #: ../../app/controllers/api/v0/statistics_controller.rb:95
-#: ../../app/controllers/api/v0/statistics_controller.rb:141
-#: ../../app/controllers/usage_controller.rb:74
+#: ../../app/controllers/api/v0/statistics_controller.rb:142
+#: ../../app/controllers/usage_controller.rb:72
 #: ../../app/controllers/usage_controller.rb:93
 msgid "Total"
 msgstr "Total"
 
-#: ../../app/controllers/api/v0/statistics_controller.rb:47
+#: ../../app/controllers/api/v0/statistics_controller.rb:48
 msgid "users_joined"
 msgstr "users_joined"
 
@@ -80,35 +80,35 @@ msgstr "Nej. Slutförda planer"
 msgid "completed_plans"
 msgstr "completed_plans"
 
-#: ../../app/controllers/api/v0/statistics_controller.rb:135
+#: ../../app/controllers/api/v0/statistics_controller.rb:136
 msgid "No. Plans"
 msgstr "Inga planer"
 
-#: ../../app/controllers/api/v0/statistics_controller.rb:142
+#: ../../app/controllers/api/v0/statistics_controller.rb:143
 msgid "plans"
 msgstr "Plans"
 
-#: ../../app/controllers/api/v1/authentication_controller.rb:49
+#: ../../app/controllers/api/v1/authentication_controller.rb:47
 msgid "Missing or invalid JSON"
 msgstr "JSON saknas eller ogiltig"
 
-#: ../../app/controllers/api/v1/base_api_controller.rb:81
+#: ../../app/controllers/api/v1/base_api_controller.rb:79
 msgid "Invalid JSON format"
 msgstr "Ogiltigt JSON-format"
 
-#: ../../app/controllers/api/v1/plans_controller.rb:20
+#: ../../app/controllers/api/v1/plans_controller.rb:18
 msgid "Plan not found"
 msgstr "Planen hittades inte"
 
-#: ../../app/controllers/api/v1/plans_controller.rb:37
+#: ../../app/controllers/api/v1/plans_controller.rb:36
 msgid "Unable to create your DMP"
 msgstr "Det gick inte att skapa din DMP"
 
-#: ../../app/controllers/api/v1/plans_controller.rb:38
+#: ../../app/controllers/api/v1/plans_controller.rb:37
 msgid "Plan already exists. Send an update instead."
 msgstr "Planen finns redan. Skicka en uppdatering istället."
 
-#: ../../app/controllers/api/v1/plans_controller.rb:39
+#: ../../app/controllers/api/v1/plans_controller.rb:38
 msgid ""
 "Could not determine ownership of the DMP. Please add an\n"
 "                          :affiliation to the :contact"
@@ -116,103 +116,107 @@ msgstr ""
 "Det gick inte att fastställa äganderätten till DMP. Lägg till en\n"
 "                          : anslutning till: kontakten"
 
-#: ../../app/controllers/api/v1/plans_controller.rb:74
+#: ../../app/controllers/api/v1/plans_controller.rb:70
 msgid "Invalid JSON!"
 msgstr "Ogiltig JSON!"
 
-#: ../../app/controllers/api/v1/plans_controller.rb:77
+#: ../../app/controllers/api/v1/plans_controller.rb:73
 msgid "Invalid JSON"
 msgstr "Ogiltig JSON"
 
-#: ../../app/controllers/api/v1/plans_controller.rb:93
+#: ../../app/controllers/api/v1/plans_controller.rb:90
 msgid "No Plans found"
 msgstr "Inga planer hittades"
 
-#: ../../app/controllers/application_controller.rb:33
+#: ../../app/controllers/application_controller.rb:36
 msgid "You are not authorized to perform this action."
 msgstr "Du har inte behörighet att utföra denna åtgärd."
 
-#: ../../app/controllers/application_controller.rb:35
+#: ../../app/controllers/application_controller.rb:40
 msgid "You need to sign in or sign up before continuing."
 msgstr "Du behöver logga in eller registrera dig innan du kan fortsätta."
 
-#: ../../app/controllers/application_controller.rb:100
-msgid "Unable to %<action>s the %<object>s.%<errors>s"
-msgstr "Kan inte %<action>s %<object>s. %<errors>s"
-
 #: ../../app/controllers/application_controller.rb:108
-msgid "Successfully %<action>s the %<object>s."
-msgstr "Framgångsrikt %<action>s %<object>s."
+msgid "Unable to %{action} the %{object}. {errors}"
+msgstr "Det går inte att %{action} %{object}. {fel}"
 
-#: ../../app/controllers/application_controller.rb:123
+#: ../../app/controllers/application_controller.rb:114
+msgid "Successfully %{action} the %{object}."
+msgstr "Framgångsrikt %{action} %{object}."
+
+#: ../../app/controllers/application_controller.rb:127
 msgid "API client"
 msgstr "API-klient"
 
-#: ../../app/controllers/application_controller.rb:124
+#: ../../app/controllers/application_controller.rb:128
 msgid "plan"
 msgstr "planen"
 
-#: ../../app/controllers/application_controller.rb:125
+#: ../../app/controllers/application_controller.rb:129
 msgid "guidance group"
 msgstr "Guidningsgrupp"
 
-#: ../../app/controllers/application_controller.rb:126
+#: ../../app/controllers/application_controller.rb:130
 msgid "comment"
 msgstr "Kommentar"
 
-#: ../../app/controllers/application_controller.rb:127
+#: ../../app/controllers/application_controller.rb:131
 msgid "organisation"
 msgstr "organisation"
 
-#: ../../app/controllers/application_controller.rb:128
+#: ../../app/controllers/application_controller.rb:132
 msgid "permission"
 msgstr "lov"
 
-#: ../../app/controllers/application_controller.rb:129
+#: ../../app/controllers/application_controller.rb:133
 msgid "preferences"
 msgstr "preferenser"
 
-#: ../../app/controllers/application_controller.rb:130
+#: ../../app/controllers/application_controller.rb:134
 msgid "profile"
 msgstr "profil"
 
-#: ../../app/controllers/application_controller.rb:130
+#: ../../app/controllers/application_controller.rb:134
 msgid "user"
 msgstr "användare"
 
-#: ../../app/controllers/application_controller.rb:131
+#: ../../app/controllers/application_controller.rb:135
 msgid "question option"
 msgstr "fråga alternativ"
 
-#: ../../app/controllers/concerns/paginable.rb:44
+#: ../../app/controllers/application_controller.rb:181
+msgid "Record Not Found"
+msgstr "Posten hittades inte"
+
+#: ../../app/controllers/concerns/paginable.rb:45
 msgid "scope should be an ActiveRecord::Relation object"
 msgstr "Räckvidd bör vara ett ActiveRecord :: Relation-objekt"
 
-#: ../../app/controllers/concerns/paginable.rb:46
+#: ../../app/controllers/concerns/paginable.rb:47
 msgid "path_params should be a Hash object"
 msgstr "path_params ska vara ett Hash-objekt"
 
-#: ../../app/controllers/concerns/paginable.rb:47
+#: ../../app/controllers/concerns/paginable.rb:48
 msgid "query_params should be a Hash object"
 msgstr "query_params ska vara ett Hash-objekt"
 
-#: ../../app/controllers/concerns/paginable.rb:48
+#: ../../app/controllers/concerns/paginable.rb:49
 msgid "locals should be a Hash object"
 msgstr "lokalbefolkningen borde vara ett Hash-objekt"
 
-#: ../../app/controllers/concerns/paginable.rb:69
+#: ../../app/controllers/concerns/paginable.rb:70
 msgid "Restricted access to View All the records"
 msgstr "Begränsad åtkomst till Visa alla poster"
 
-#: ../../app/controllers/concerns/paginable.rb:180
-msgid "Sort by %<sort_field>s"
-msgstr "Sortera efter %<sort_field>s"
+#: ../../app/controllers/concerns/paginable.rb:183
+msgid "Sort by %{sort_field}"
+msgstr "Sortera efter %{sort_field}"
 
-#: ../../app/controllers/concerns/template_methods.rb:10
+#: ../../app/controllers/concerns/template_methods.rb:8
 msgid "customisation"
 msgstr "anpassning"
 
-#: ../../app/controllers/concerns/template_methods.rb:10
+#: ../../app/controllers/concerns/template_methods.rb:8
 msgid "template"
 msgstr "Mall"
 
@@ -220,28 +224,28 @@ msgstr "Mall"
 msgid "obj should be a Template, Phase, Section, Question, or Annotation"
 msgstr "Obj ska vara en mall, fas, avsnitt, fråga eller anteckning"
 
-#: ../../app/controllers/concerns/versionable.rb:46
-#: ../../app/controllers/concerns/versionable.rb:65
+#: ../../app/controllers/concerns/versionable.rb:47
+#: ../../app/controllers/concerns/versionable.rb:66
 msgid "obj should be a Phase, Section, Question, or Annotation"
 msgstr "Obj ska vara en fas, avsnitt, fråga eller anteckning"
 
-#: ../../app/controllers/concerns/versionable.rb:88
+#: ../../app/controllers/concerns/versionable.rb:90
 msgid "The search_space does not respond to each"
 msgstr "Search_space svarar inte på varje"
 
-#: ../../app/controllers/concerns/versionable.rb:93
+#: ../../app/controllers/concerns/versionable.rb:94
 msgid "The search space does not have elements associated"
 msgstr "Sökutrymmet har inga element associerade"
 
-#: ../../app/controllers/contacts_controller.rb:10
+#: ../../app/controllers/contacts_controller.rb:13
 msgid "Captcha verification failed, please retry."
 msgstr "Captcha-verifiering misslyckades, försök igen."
 
-#: ../../app/controllers/contacts_controller.rb:16
+#: ../../app/controllers/contacts_controller.rb:18
 msgid "Contact email was successfully sent."
 msgstr "Kontaktadressen skickades med framgång."
 
-#: ../../app/controllers/contacts_controller.rb:18
+#: ../../app/controllers/contacts_controller.rb:20
 msgid "Unable to submit your request"
 msgstr "Det gick inte att skicka din förfrågan"
 
@@ -255,60 +259,60 @@ msgid "added"
 msgstr "Lagt till"
 
 #: ../../app/controllers/contributors_controller.rb:72
-#: ../../app/controllers/guidance_groups_controller.rb:48
-#: ../../app/controllers/guidances_controller.rb:71
-#: ../../app/controllers/notes_controller.rb:92
-#: ../../app/controllers/org_admin/departments_controller.rb:48
-#: ../../app/controllers/org_admin/sections_controller.rb:102
-#: ../../app/controllers/org_admin/templates_controller.rb:203
-#: ../../app/controllers/orgs_controller.rb:87
-#: ../../app/controllers/plans_controller.rb:271
-#: ../../app/controllers/plans_controller.rb:274
-#: ../../app/controllers/registrations_controller.rb:247
-#: ../../app/controllers/registrations_controller.rb:251
-#: ../../app/controllers/registrations_controller.rb:276
+#: ../../app/controllers/guidance_groups_controller.rb:51
+#: ../../app/controllers/guidances_controller.rb:74
+#: ../../app/controllers/notes_controller.rb:89
+#: ../../app/controllers/org_admin/departments_controller.rb:50
+#: ../../app/controllers/org_admin/sections_controller.rb:103
+#: ../../app/controllers/org_admin/templates_controller.rb:204
+#: ../../app/controllers/orgs_controller.rb:88
+#: ../../app/controllers/plans_controller.rb:282
+#: ../../app/controllers/plans_controller.rb:285
+#: ../../app/controllers/registrations_controller.rb:249
+#: ../../app/controllers/registrations_controller.rb:253
 #: ../../app/controllers/registrations_controller.rb:280
-#: ../../app/controllers/users_controller.rb:98
-#: ../../app/controllers/users_controller.rb:125
+#: ../../app/controllers/registrations_controller.rb:284
+#: ../../app/controllers/users_controller.rb:101
+#: ../../app/controllers/users_controller.rb:129
 msgid "saved"
 msgstr "sparade"
 
 #: ../../app/controllers/contributors_controller.rb:74
-#: ../../app/controllers/guidance_groups_controller.rb:50
-#: ../../app/controllers/guidances_controller.rb:73
-#: ../../app/controllers/notes_controller.rb:110
-#: ../../app/controllers/org_admin/departments_controller.rb:50
-#: ../../app/controllers/org_admin/sections_controller.rb:104
-#: ../../app/controllers/org_admin/templates_controller.rb:208
-#: ../../app/controllers/orgs_controller.rb:89
-#: ../../app/controllers/plans_controller.rb:280
-#: ../../app/controllers/plans_controller.rb:283
-#: ../../app/controllers/plans_controller.rb:287
-#: ../../app/controllers/plans_controller.rb:290
-#: ../../app/controllers/registrations_controller.rb:254
-#: ../../app/controllers/registrations_controller.rb:283
+#: ../../app/controllers/guidance_groups_controller.rb:53
+#: ../../app/controllers/guidances_controller.rb:76
+#: ../../app/controllers/notes_controller.rb:107
+#: ../../app/controllers/org_admin/departments_controller.rb:52
+#: ../../app/controllers/org_admin/sections_controller.rb:105
+#: ../../app/controllers/org_admin/templates_controller.rb:209
+#: ../../app/controllers/orgs_controller.rb:90
+#: ../../app/controllers/plans_controller.rb:291
+#: ../../app/controllers/plans_controller.rb:294
+#: ../../app/controllers/plans_controller.rb:298
+#: ../../app/controllers/plans_controller.rb:301
+#: ../../app/controllers/registrations_controller.rb:256
+#: ../../app/controllers/registrations_controller.rb:287
 msgid "save"
 msgstr "spara"
 
 #: ../../app/controllers/contributors_controller.rb:84
-#: ../../app/controllers/notes_controller.rb:134
-#: ../../app/controllers/org_admin/templates_controller.rb:236
+#: ../../app/controllers/notes_controller.rb:131
+#: ../../app/controllers/org_admin/templates_controller.rb:237
 #: ../../app/controllers/super_admin/orgs_controller.rb:94
 msgid "removed"
 msgstr "tog bort"
 
 #: ../../app/controllers/contributors_controller.rb:87
-#: ../../app/controllers/notes_controller.rb:152
-#: ../../app/controllers/org_admin/templates_controller.rb:238
+#: ../../app/controllers/notes_controller.rb:149
+#: ../../app/controllers/org_admin/templates_controller.rb:239
 #: ../../app/controllers/super_admin/orgs_controller.rb:97
 msgid "remove"
 msgstr "ta bort"
 
-#: ../../app/controllers/contributors_controller.rb:160
+#: ../../app/controllers/contributors_controller.rb:161
 msgid "plan not found"
 msgstr "Planen hittades inte"
 
-#: ../../app/controllers/contributors_controller.rb:168
+#: ../../app/controllers/contributors_controller.rb:169
 msgid "contributor not found"
 msgstr "bidragsgivare hittades inte"
 
@@ -320,106 +324,106 @@ msgstr "Det gick inte att skicka din begäran om återkoppling just nu."
 msgid "An error occurred when requesting feedback for this plan."
 msgstr "Ett fel uppstod när du begärde feedback för den här planen."
 
-#: ../../app/controllers/guidance_groups_controller.rb:28
-#: ../../app/controllers/guidances_controller.rb:51
-#: ../../app/controllers/notes_controller.rb:51
-#: ../../app/controllers/org_admin/departments_controller.rb:25
-#: ../../app/controllers/org_admin/phases_controller.rb:120
-#: ../../app/controllers/org_admin/questions_controller.rb:95
-#: ../../app/controllers/org_admin/sections_controller.rb:78
-#: ../../app/controllers/org_admin/templates_controller.rb:177
-#: ../../app/controllers/plans_controller.rb:118
+#: ../../app/controllers/guidance_groups_controller.rb:29
+#: ../../app/controllers/guidances_controller.rb:52
+#: ../../app/controllers/notes_controller.rb:48
+#: ../../app/controllers/org_admin/departments_controller.rb:26
+#: ../../app/controllers/org_admin/phases_controller.rb:121
+#: ../../app/controllers/org_admin/questions_controller.rb:94
+#: ../../app/controllers/org_admin/sections_controller.rb:79
+#: ../../app/controllers/org_admin/templates_controller.rb:180
+#: ../../app/controllers/plans_controller.rb:120
 #: ../../app/controllers/super_admin/api_clients_controller.rb:44
 #: ../../app/controllers/super_admin/notifications_controller.rb:38
-#: ../../app/controllers/super_admin/orgs_controller.rb:62
-#: ../../app/controllers/super_admin/themes_controller.rb:22
+#: ../../app/controllers/super_admin/orgs_controller.rb:61
+#: ../../app/controllers/super_admin/themes_controller.rb:21
 msgid "created"
 msgstr "skapad"
 
-#: ../../app/controllers/guidance_groups_controller.rb:31
-#: ../../app/controllers/guidances_controller.rb:53
-#: ../../app/controllers/notes_controller.rb:70
-#: ../../app/controllers/org_admin/departments_controller.rb:29
-#: ../../app/controllers/org_admin/phases_controller.rb:122
-#: ../../app/controllers/org_admin/questions_controller.rb:97
-#: ../../app/controllers/org_admin/sections_controller.rb:85
-#: ../../app/controllers/org_admin/templates_controller.rb:179
+#: ../../app/controllers/guidance_groups_controller.rb:32
+#: ../../app/controllers/guidances_controller.rb:54
+#: ../../app/controllers/notes_controller.rb:67
+#: ../../app/controllers/org_admin/departments_controller.rb:30
+#: ../../app/controllers/org_admin/phases_controller.rb:123
+#: ../../app/controllers/org_admin/questions_controller.rb:96
+#: ../../app/controllers/org_admin/sections_controller.rb:86
+#: ../../app/controllers/org_admin/templates_controller.rb:182
 #: ../../app/controllers/plans_controller.rb:151
-#: ../../app/controllers/super_admin/api_clients_controller.rb:51
+#: ../../app/controllers/super_admin/api_clients_controller.rb:50
 #: ../../app/controllers/super_admin/notifications_controller.rb:41
-#: ../../app/controllers/super_admin/orgs_controller.rb:65
-#: ../../app/controllers/super_admin/themes_controller.rb:25
+#: ../../app/controllers/super_admin/orgs_controller.rb:64
+#: ../../app/controllers/super_admin/themes_controller.rb:24
 msgid "create"
 msgstr "skapa"
 
-#: ../../app/controllers/guidance_groups_controller.rb:61
+#: ../../app/controllers/guidance_groups_controller.rb:65
 msgid "Your guidance group has been published and is now available to users."
 msgstr "Din vägledning har publicerats och är nu tillgänglig för användarna."
 
-#: ../../app/controllers/guidance_groups_controller.rb:64
-#: ../../app/controllers/guidances_controller.rb:107
+#: ../../app/controllers/guidance_groups_controller.rb:68
+#: ../../app/controllers/guidances_controller.rb:112
 msgid "publish"
 msgstr "publicera"
 
-#: ../../app/controllers/guidance_groups_controller.rb:76
+#: ../../app/controllers/guidance_groups_controller.rb:79
 msgid "Your guidance group is no longer published and will not be available to users."
 msgstr ""
 "Din vägledningsgrupp är inte längre publicerad och kommer inte att vara tillgä"
 "nglig för användarna."
 
-#: ../../app/controllers/guidance_groups_controller.rb:79
-#: ../../app/controllers/guidances_controller.rb:124
+#: ../../app/controllers/guidance_groups_controller.rb:81
+#: ../../app/controllers/guidances_controller.rb:129
 msgid "unpublish"
 msgstr "Avpublicera"
 
-#: ../../app/controllers/guidance_groups_controller.rb:89
-#: ../../app/controllers/guidances_controller.rb:88
-#: ../../app/controllers/org_admin/departments_controller.rb:63
-#: ../../app/controllers/org_admin/phases_controller.rb:174
-#: ../../app/controllers/org_admin/question_options_controller.rb:25
+#: ../../app/controllers/guidance_groups_controller.rb:91
+#: ../../app/controllers/guidances_controller.rb:93
+#: ../../app/controllers/org_admin/departments_controller.rb:66
+#: ../../app/controllers/org_admin/phases_controller.rb:179
+#: ../../app/controllers/org_admin/question_options_controller.rb:24
 #: ../../app/controllers/org_admin/questions_controller.rb:197
-#: ../../app/controllers/org_admin/sections_controller.rb:126
-#: ../../app/controllers/plans_controller.rb:332
-#: ../../app/controllers/super_admin/api_clients_controller.rb:79
-#: ../../app/controllers/super_admin/notifications_controller.rb:84
-#: ../../app/controllers/super_admin/themes_controller.rb:50
+#: ../../app/controllers/org_admin/sections_controller.rb:128
+#: ../../app/controllers/plans_controller.rb:344
+#: ../../app/controllers/super_admin/api_clients_controller.rb:81
+#: ../../app/controllers/super_admin/notifications_controller.rb:85
+#: ../../app/controllers/super_admin/themes_controller.rb:51
 msgid "deleted"
 msgstr "raderade"
 
-#: ../../app/controllers/guidance_groups_controller.rb:91
-#: ../../app/controllers/guidances_controller.rb:90
-#: ../../app/controllers/org_admin/departments_controller.rb:65
-#: ../../app/controllers/org_admin/phases_controller.rb:176
-#: ../../app/controllers/org_admin/question_options_controller.rb:27
+#: ../../app/controllers/guidance_groups_controller.rb:93
+#: ../../app/controllers/guidances_controller.rb:95
+#: ../../app/controllers/org_admin/departments_controller.rb:68
+#: ../../app/controllers/org_admin/phases_controller.rb:181
+#: ../../app/controllers/org_admin/question_options_controller.rb:26
 #: ../../app/controllers/org_admin/questions_controller.rb:199
-#: ../../app/controllers/org_admin/sections_controller.rb:128
-#: ../../app/controllers/plans_controller.rb:337
-#: ../../app/controllers/super_admin/api_clients_controller.rb:82
-#: ../../app/controllers/super_admin/notifications_controller.rb:87
-#: ../../app/controllers/super_admin/themes_controller.rb:53
+#: ../../app/controllers/org_admin/sections_controller.rb:130
+#: ../../app/controllers/plans_controller.rb:349
+#: ../../app/controllers/super_admin/api_clients_controller.rb:84
+#: ../../app/controllers/super_admin/notifications_controller.rb:88
+#: ../../app/controllers/super_admin/themes_controller.rb:54
 msgid "delete"
 msgstr "radera"
 
-#: ../../app/controllers/guidances_controller.rb:104
+#: ../../app/controllers/guidances_controller.rb:109
 msgid "Your guidance has been published and is now available to users."
 msgstr "Din vägledning har publicerats och är nu tillgänglig för användarna."
 
-#: ../../app/controllers/guidances_controller.rb:121
+#: ../../app/controllers/guidances_controller.rb:126
 msgid "Your guidance is no longer published and will not be available to users."
 msgstr ""
 "Din vägledning är inte längre publicerad och kommer inte att vara tillgänglig "
 "för användarna."
 
-#: ../../app/controllers/identifiers_controller.rb:18
-msgid "Successfully unlinked your account from %<is>s."
-msgstr "Har länkat ditt konto framgångsrikt från %<is>s."
+#: ../../app/controllers/identifiers_controller.rb:19
+msgid "Successfully unlinked your account from %{is}."
+msgstr "Har länkat ditt konto framgångsrikt från %{is}."
 
 #: ../../app/controllers/identifiers_controller.rb:22
-msgid "Unable to unlink your account from %<is>s."
-msgstr "Det gick inte att koppla bort ditt konto från %<is>s."
+msgid "Unable to unlink your account from %{is}."
+msgstr "Det gick inte att koppla bort ditt konto från %{is}."
 
-#: ../../app/controllers/org_admin/phases_controller.rb:18
-#: ../../app/controllers/org_admin/templates_controller.rb:114
+#: ../../app/controllers/org_admin/phases_controller.rb:17
+#: ../../app/controllers/org_admin/templates_controller.rb:115
 msgid ""
 "You are viewing a historical version of this template. You will not be able to"
 " make changes."
@@ -431,70 +435,72 @@ msgstr ""
 msgid "You cannot add a phase to a historical version of a template."
 msgstr "Du kan inte lägga till en fas till en historisk version av en mall."
 
-#: ../../app/controllers/org_admin/phases_controller.rb:125
-#: ../../app/controllers/org_admin/phases_controller.rb:149
-#: ../../app/controllers/org_admin/phases_controller.rb:179
-#: ../../app/controllers/org_admin/question_options_controller.rb:30
-#: ../../app/controllers/org_admin/questions_controller.rb:100
-#: ../../app/controllers/org_admin/questions_controller.rb:202
-#: ../../app/controllers/org_admin/sections_controller.rb:107
-#: ../../app/controllers/org_admin/sections_controller.rb:131
-msgid "Unable to create a new version of this template."
-msgstr "Det gick inte att skapa en ny version av den här mallen."
+#: ../../app/controllers/org_admin/phases_controller.rb:126
+msgid "Unable to create a new version of this template.<br>"
+msgstr "Det gick inte att skapa en ny version av den här mallen.<br>"
 
-#: ../../app/controllers/org_admin/phases_controller.rb:144
+#: ../../app/controllers/org_admin/phases_controller.rb:147
 #: ../../app/controllers/org_admin/questions_controller.rb:166
 #: ../../app/controllers/org_admin/users_controller.rb:30
-#: ../../app/controllers/plans_controller.rb:400
-#: ../../app/controllers/super_admin/api_clients_controller.rb:67
-#: ../../app/controllers/super_admin/notifications_controller.rb:51
+#: ../../app/controllers/plans_controller.rb:417
+#: ../../app/controllers/super_admin/api_clients_controller.rb:68
+#: ../../app/controllers/super_admin/notifications_controller.rb:52
 #: ../../app/controllers/super_admin/themes_controller.rb:39
-#: ../../app/controllers/super_admin/users_controller.rb:55
-#: ../../app/controllers/users_controller.rb:103
+#: ../../app/controllers/super_admin/users_controller.rb:54
+#: ../../app/controllers/users_controller.rb:106
 msgid "updated"
 msgstr "Uppdaterad"
 
-#: ../../app/controllers/org_admin/phases_controller.rb:146
+#: ../../app/controllers/org_admin/phases_controller.rb:149
 #: ../../app/controllers/org_admin/questions_controller.rb:169
 #: ../../app/controllers/org_admin/users_controller.rb:32
-#: ../../app/controllers/plans_controller.rb:403
-#: ../../app/controllers/super_admin/api_clients_controller.rb:69
-#: ../../app/controllers/super_admin/notifications_controller.rb:54
+#: ../../app/controllers/plans_controller.rb:420
+#: ../../app/controllers/super_admin/api_clients_controller.rb:70
+#: ../../app/controllers/super_admin/notifications_controller.rb:55
 #: ../../app/controllers/super_admin/themes_controller.rb:41
-#: ../../app/controllers/super_admin/users_controller.rb:57
+#: ../../app/controllers/super_admin/users_controller.rb:56
 msgid "update"
 msgstr "uppdatering"
 
-#: ../../app/controllers/org_admin/plans_controller.rb:32
-msgid "%<plan_owner>s has been notified that you have finished providing feedback"
-msgstr "%<plan_owner>s har fått meddelande om att du har lämnat feedback"
+#: ../../app/controllers/org_admin/phases_controller.rb:152
+#: ../../app/controllers/org_admin/phases_controller.rb:184
+#: ../../app/controllers/org_admin/question_options_controller.rb:29
+#: ../../app/controllers/org_admin/questions_controller.rb:99
+#: ../../app/controllers/org_admin/questions_controller.rb:202
+#: ../../app/controllers/org_admin/sections_controller.rb:108
+msgid "Unable to create a new version of this template."
+msgstr "Det gick inte att skapa en ny version av den här mallen."
 
-#: ../../app/controllers/org_admin/plans_controller.rb:38
+#: ../../app/controllers/org_admin/plans_controller.rb:36
+msgid "%{plan_owner} has been notified that you have finished providing feedback"
+msgstr "%{plan_owner} har fått meddelande om att du har lämnat feedback"
+
+#: ../../app/controllers/org_admin/plans_controller.rb:40
 msgid "Unable to notify user that you have finished providing feedback."
 msgstr "Det går inte att meddela användaren att du är klar med att ge feedback."
 
-#: ../../app/controllers/org_admin/plans_controller.rb:53
-#: ../../app/views/plans/_project_details.html.erb:9
+#: ../../app/controllers/org_admin/plans_controller.rb:56
+#: ../../app/views/plans/_project_details.html.erb:14
 msgid "Project title"
 msgstr "Projektnamn"
 
-#: ../../app/controllers/org_admin/plans_controller.rb:54
+#: ../../app/controllers/org_admin/plans_controller.rb:57
+#: ../../app/views/paginable/plans/_index.html.erb:6
 #: ../../app/views/paginable/plans/_org_admin.html.erb:19
-#: ../../app/views/paginable/plans/_org_admin_other_user.html.erb:6
 #: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:13
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:6
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:6
 msgid "Template"
 msgstr "Mall"
 
-#: ../../app/controllers/org_admin/plans_controller.rb:55
+#: ../../app/controllers/org_admin/plans_controller.rb:58
 #: ../../app/helpers/plans_helper.rb:22
-#: ../../app/helpers/settings_template_helper.rb:15
+#: ../../app/helpers/settings_template_helper.rb:16
 #: ../../app/views/devise/registrations/_password_confirmation.html.erb:22
 #: ../../app/views/orgs/_profile_form.html.erb:141
 #: ../../app/views/paginable/orgs/_index.html.erb:5
+#: ../../app/views/paginable/plans/_index.html.erb:7
 #: ../../app/views/paginable/plans/_org_admin.html.erb:20
-#: ../../app/views/paginable/plans/_org_admin_other_user.html.erb:7
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:7
 #: ../../app/views/paginable/templates/_index.html.erb:6
 #: ../../app/views/paginable/templates/_organisational.html.erb:12
@@ -505,63 +511,67 @@ msgstr "Mall"
 msgid "Organisation"
 msgstr "Organisation"
 
-#: ../../app/controllers/org_admin/plans_controller.rb:56
+#: ../../app/controllers/org_admin/plans_controller.rb:59
 msgid "Owner name"
 msgstr "Ägarnamn"
 
-#: ../../app/controllers/org_admin/plans_controller.rb:57
+#: ../../app/controllers/org_admin/plans_controller.rb:60
 msgid "Owner email"
 msgstr "Ägarens e-post"
 
-#: ../../app/controllers/org_admin/plans_controller.rb:58
+#: ../../app/controllers/org_admin/plans_controller.rb:61
+#: ../../app/views/paginable/plans/_index.html.erb:9
 #: ../../app/views/paginable/plans/_org_admin.html.erb:23
-#: ../../app/views/paginable/plans/_org_admin_other_user.html.erb:9
 #: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:18
 msgid "Updated"
 msgstr "Uppdaterad"
 
-#: ../../app/controllers/org_admin/plans_controller.rb:59
+#: ../../app/controllers/org_admin/plans_controller.rb:62
 #: ../../app/views/org_admin/templates/_form.html.erb:17
 #: ../../app/views/org_admin/templates/_show.html.erb:32
+#: ../../app/views/paginable/plans/_index.html.erb:10
 #: ../../app/views/paginable/plans/_org_admin.html.erb:24
-#: ../../app/views/paginable/plans/_org_admin_other_user.html.erb:10
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:10
 msgid "Visibility"
 msgstr "Synlighet"
 
-#: ../../app/controllers/org_admin/sections_controller.rb:70
+#: ../../app/controllers/org_admin/sections_controller.rb:71
 msgid "Unable to create a new section. The phase you specified does not exist."
 msgstr "Det gick inte att skapa en ny sektion. Fasen du specificerade existerar inte."
 
-#: ../../app/controllers/org_admin/template_copies_controller.rb:18
-#: ../../app/controllers/plans_controller.rb:380
+#: ../../app/controllers/org_admin/sections_controller.rb:133
+msgid "Unable to delete this version of the template."
+msgstr "Det gick inte att ta bort den här versionen av mallen."
+
+#: ../../app/controllers/org_admin/template_copies_controller.rb:20
+#: ../../app/controllers/plans_controller.rb:396
 msgid "copy"
 msgstr "kopia"
 
 #:
-#: ../../app/controllers/org_admin/template_customization_transfers_controller.rb:27
+#: ../../app/controllers/org_admin/template_customization_transfers_controller.rb:28
 msgid "That template is no longer customizable."
 msgstr "Den mallen är inte längre anpassningsbar."
 
-#: ../../app/controllers/org_admin/template_customizations_controller.rb:19
+#: ../../app/controllers/org_admin/template_customizations_controller.rb:21
 msgid "Unable to customize that template."
 msgstr "Det gick inte att anpassa den mallen."
 
-#: ../../app/controllers/org_admin/template_customizations_controller.rb:22
+#: ../../app/controllers/org_admin/template_customizations_controller.rb:24
 msgid "That template is not customizable."
 msgstr "Den mallen är inte anpassningsbar."
 
-#: ../../app/controllers/org_admin/templates_controller.rb:23
+#: ../../app/controllers/org_admin/templates_controller.rb:21
 #: ../../app/views/org_admin/templates/index.html.erb:43
 msgid "All Templates"
 msgstr "Alla mallar"
 
-#: ../../app/controllers/org_admin/templates_controller.rb:48
+#: ../../app/controllers/org_admin/templates_controller.rb:47
 #: ../../app/views/org_admin/templates/index.html.erb:52
-msgid "%<org_name>s Templates"
-msgstr "%<org_name>s Mallar"
+msgid "%{org_name} Templates"
+msgstr "%{org_name} Mallar"
 
-#: ../../app/controllers/org_admin/templates_controller.rb:50
+#: ../../app/controllers/org_admin/templates_controller.rb:49
 #: ../../app/views/org_admin/templates/index.html.erb:54
 msgid "Own Templates"
 msgstr "Egna mallar"
@@ -570,160 +580,162 @@ msgstr "Egna mallar"
 msgid "Customizable Templates"
 msgstr "Anpassningsbara mallar"
 
-#: ../../app/controllers/org_admin/templates_controller.rb:214
-msgid "Error parsing links for a %<template>s"
-msgstr "Felsökning av länkar för en %<template>s"
+#: ../../app/controllers/org_admin/templates_controller.rb:215
+msgid "Error parsing links for a %{template}"
+msgstr "Felsökning av länkar för en %{template}"
 
-#: ../../app/controllers/org_admin/templates_controller.rb:345
-#: ../../app/controllers/public_pages_controller.rb:68
-msgid "Template created using the %<application_name>s service. Last modified %<date>s"
-msgstr "Mall skapad med tjänsten %<application_name>s. Senast ändrad %<date>s"
+#: ../../app/controllers/org_admin/templates_controller.rb:343
+#: ../../app/controllers/public_pages_controller.rb:67
+msgid "Template created using the %{application_name} service. Last modified %{date}"
+msgstr "Mall skapad med tjänsten %{application_name}. Senast ändrad %{date}"
 
-#: ../../app/controllers/org_admin/templates_controller.rb:360
-#: ../../app/controllers/public_pages_controller.rb:83
+#: ../../app/controllers/org_admin/templates_controller.rb:355
+#: ../../app/controllers/public_pages_controller.rb:80
 msgid "Unable to download the DMP Template at this time."
 msgstr "Det gick inte att hämta DMP-mallen för tillfället."
 
-#: ../../app/controllers/orgs_controller.rb:114
+#: ../../app/controllers/orgs_controller.rb:116
 msgid "No organisations are currently registered."
 msgstr "Inga organisationer är för närvarande registrerade."
 
-#: ../../app/controllers/orgs_controller.rb:137
-msgid "Your organisation does not seem to be properly configured."
-msgstr "Din organisation verkar inte vara korrekt konfigurerad."
-
-#: ../../app/controllers/orgs_controller.rb:142
+#: ../../app/controllers/orgs_controller.rb:127
 msgid "Please choose an organisation"
 msgstr "Välj en organisation"
 
-#: ../../app/controllers/plan_exports_controller.rb:85
-msgid "Created using %<application_name>s. Last modified %<date>s"
-msgstr "Skapat med hjälp av %<application_name>s. Senast ändrad %<date>s"
+#: ../../app/controllers/orgs_controller.rb:136
+msgid "Your organisation does not seem to be properly configured."
+msgstr "Din organisation verkar inte vara korrekt konfigurerad."
 
-#: ../../app/controllers/plans_controller.rb:51
+#: ../../app/controllers/plan_exports_controller.rb:85
+msgid "Created using %{application_name}. Last modified %{date}"
+msgstr "Skapat med hjälp av %{application_name}. Senast ändrad %{date}"
+
+#: ../../app/controllers/plans_controller.rb:52
 msgid "This is a"
 msgstr "Det här är en"
 
-#: ../../app/controllers/plans_controller.rb:51
+#: ../../app/controllers/plans_controller.rb:52
 msgid "test plan"
 msgstr "testplan"
 
-#: ../../app/controllers/plans_controller.rb:68
+#: ../../app/controllers/plans_controller.rb:70
 msgid "Unable to identify a suitable template for your plan."
 msgstr "Det gick inte att identifiera en lämplig mall för din plan."
 
-#: ../../app/controllers/plans_controller.rb:82
-msgid "My Plan"
-msgstr "Min plan"
-
 #: ../../app/controllers/plans_controller.rb:84
-msgid " Plan"
-msgstr " Planen"
+msgid "My Plan (%{title})"
+msgstr "Min plan (%{title})"
 
-#: ../../app/controllers/plans_controller.rb:122
+#: ../../app/controllers/plans_controller.rb:86
+msgid "%{user_name} Plan"
+msgstr "%{user_name} Plan"
+
+#: ../../app/controllers/plans_controller.rb:124
 msgid "This plan is based on the default template."
 msgstr "Denna plan är baserad på standardmallen."
 
-#: ../../app/controllers/plans_controller.rb:127
-#: ../../app/controllers/plans_controller.rb:132
+#: ../../app/controllers/plans_controller.rb:129
+#: ../../app/controllers/plans_controller.rb:133
 msgid "This plan is based on the"
 msgstr "Denna plan är baserad på"
 
-#: ../../app/controllers/plans_controller.rb:127
+#: ../../app/controllers/plans_controller.rb:129
 msgid "template with customisations by the"
 msgstr "mall med anpassningar av"
 
-#: ../../app/controllers/plans_controller.rb:378
+#: ../../app/controllers/plans_controller.rb:394
 msgid "copied"
 msgstr "kopieras"
 
-#: ../../app/controllers/plans_controller.rb:408
+#: ../../app/controllers/plans_controller.rb:425
 msgid ""
-"Unable to change the plan's status since it is needed at least %<percentage>s p"
+"Unable to change the plan's status since it is needed at least %{percentage} p"
 "ercentage responded"
 msgstr ""
-"Det går inte att ändra planens status eftersom det behövs minst %<percentage>s "
+"Det går inte att ändra planens status eftersom det behövs minst %{percentage} "
 "procent svarat"
 
-#: ../../app/controllers/plans_controller.rb:416
-msgid "Unable to find plan id %<plan_id>s"
-msgstr "Det gick inte att hitta plan id %<plan_id>s"
+#: ../../app/controllers/plans_controller.rb:431
+msgid "Unable to find plan id %{plan_id}"
+msgstr "Det gick inte att hitta plan id %{plan_id}"
 
-#: ../../app/controllers/plans_controller.rb:433
+#: ../../app/controllers/plans_controller.rb:446
 msgid "Your project is now a test."
 msgstr "Ditt projekt är nu ett test."
 
-#: ../../app/controllers/plans_controller.rb:433
+#: ../../app/controllers/plans_controller.rb:446
 msgid "Your project is no longer a test."
 msgstr "Ditt projekt är inte längre ett test."
 
-#: ../../app/controllers/plans_controller.rb:437
+#: ../../app/controllers/plans_controller.rb:450
 msgid "Unable to change the plan's test status"
 msgstr "Kan inte ändra planens teststatus"
 
-#: ../../app/controllers/plans_controller.rb:451
-msgid "There is no plan associated with id %<id>s"
-msgstr "Det finns ingen plan i samband med id %<id>s"
+#: ../../app/controllers/plans_controller.rb:463
+msgid "There is no plan associated with id %{<id}>s"
+msgstr "Det finns ingen plan kopplad till id %{<id}> s"
 
-#: ../../app/controllers/registrations_controller.rb:35
+#: ../../app/controllers/registrations_controller.rb:34
 msgid ""
 "Please make a choice below. After linking your\n"
-"                       details to a %<application_name>s account,\n"
+"                       details to a %{application_name} account,\n"
 "                       you will be able to sign in directly with your\n"
 "                       institutional credentials."
 msgstr ""
 "Vänligen gör ett val nedan. Efter att ha länkat din\n"
-"                       information till ett %<application_name>s -konto,\n"
+"                       information till ett %{application_name} -konto,\n"
 "                       du kommer att kunna logga in direkt med din\n"
 "                       institutionella referenser."
 
-#: ../../app/controllers/registrations_controller.rb:61
+#: ../../app/controllers/registrations_controller.rb:58
 msgid "You must accept the terms and conditions to register."
 msgstr "Du måste godkänna villkoren för att registrera dig."
 
-#: ../../app/controllers/registrations_controller.rb:64
+#: ../../app/controllers/registrations_controller.rb:61
 msgid "Please select an organisation from the list, or choose Other."
 msgstr "Välj en organisation från listan eller välj Annat."
 
-#: ../../app/controllers/registrations_controller.rb:77
+#: ../../app/controllers/registrations_controller.rb:74
 msgid "That email address is already registered."
 msgstr "E-posten är redan registrerat."
 
-#: ../../app/controllers/registrations_controller.rb:119
+#: ../../app/controllers/registrations_controller.rb:115
 msgid ""
-"Welcome! You have signed up successfully with your institutional credentials. "
-"You will now be able to access your account with them."
+"Welcome! You have signed up successfully with your\n"
+"                                  institutional credentials. You will now be a"
+"ble to access\n"
+"                                  your account with them."
 msgstr ""
-"Välkommen! Du har anmält dig framgångsrikt med dina institutionella uppgifter."
-" Du kommer nu att kunna komma åt ditt konto med dem."
+"Välkommen! Du har registrerat dig framgångsrikt med dina institutionella refer"
+"enser. Du kommer nu att kunna komma åt ditt konto hos dem."
 
-#: ../../app/controllers/registrations_controller.rb:171
+#: ../../app/controllers/registrations_controller.rb:173
 msgid "Save Unsuccessful. "
 msgstr "Spara misslyckad."
 
-#: ../../app/controllers/registrations_controller.rb:175
+#: ../../app/controllers/registrations_controller.rb:177
 msgid "Please enter an email address. "
 msgstr "Vänligen ange en mailadress."
 
-#: ../../app/controllers/registrations_controller.rb:179
+#: ../../app/controllers/registrations_controller.rb:181
 msgid "Please enter a First name. "
 msgstr "Vänligen ange ett förnamn."
 
-#: ../../app/controllers/registrations_controller.rb:183
+#: ../../app/controllers/registrations_controller.rb:185
 msgid "Please enter a Last name. "
 msgstr "Vänligen ange ett efternamn."
 
-#: ../../app/controllers/registrations_controller.rb:187
+#: ../../app/controllers/registrations_controller.rb:189
 msgid ""
 "Please select an organisation from the list, or enter your organisation's name"
 "."
 msgstr "Välj en organisation från listan, eller ange organisationens namn."
 
-#: ../../app/controllers/registrations_controller.rb:203
+#: ../../app/controllers/registrations_controller.rb:212
 msgid "Please enter your password to change email address."
 msgstr "Vänligen ange ditt lösenord för att ändra e-postadress."
 
-#: ../../app/controllers/registrations_controller.rb:208
+#: ../../app/controllers/registrations_controller.rb:218
 msgid ""
 "Save unsuccessful. \\\n"
 "                That email address is already registered. \\\n"
@@ -733,66 +745,68 @@ msgstr ""
 "                Den e-postadressen är redan registrerad. \\\n"
 "                Du måste ange en unik e-postadress."
 
-#: ../../app/controllers/registrations_controller.rb:213
+#: ../../app/controllers/registrations_controller.rb:224
 msgid "Invalid password"
 msgstr "Felaktigt lösenord"
 
-#: ../../app/controllers/registrations_controller.rb:264
+#: ../../app/controllers/registrations_controller.rb:268
 msgid "Please enter your current password"
 msgstr "Vänligen ange ditt nuvarande lösenord"
 
-#: ../../app/controllers/registrations_controller.rb:266
+#: ../../app/controllers/registrations_controller.rb:270
 msgid "Please enter a password confirmation"
 msgstr "Vänligen skriv in en lösenordsbekräftelse"
 
-#: ../../app/controllers/registrations_controller.rb:268
+#: ../../app/controllers/registrations_controller.rb:272
 msgid "Password and comfirmation must match"
 msgstr "Lösenord och bekräftelse måste matcha"
 
 #: ../../app/controllers/roles_controller.rb:26
 msgid ""
-"Cannot share plan with %<email>s since that email matches with the owner of the"
-" plan."
+"Cannot share plan with %{email} since that email matches\n"
+"                                   with the owner of the plan."
 msgstr ""
-"Kan inte dela plan med %<email>s eftersom det matchade e-postmeddelandet med pl"
-"anens ägare."
+"Det går inte att dela plan med %{email} eftersom det e-postmeddelandet matchar"
+" planens ägare."
 
-#: ../../app/controllers/roles_controller.rb:37
-msgid "Plan is already shared with %<email>s."
-msgstr "Planen delas redan med %<email>s."
+#: ../../app/controllers/roles_controller.rb:36
+msgid "Plan is already shared with %{email}."
+msgstr "Planen delas redan med %{email}."
 
-#: ../../app/controllers/roles_controller.rb:44
+#: ../../app/controllers/roles_controller.rb:43
 #: ../../app/views/shared/_create_account_form.html.erb:4
 msgid "First Name"
 msgstr "Förnamn"
 
-#: ../../app/controllers/roles_controller.rb:45
+#: ../../app/controllers/roles_controller.rb:44
 msgid "Surname"
 msgstr "Efternamn"
 
-#: ../../app/controllers/roles_controller.rb:48
-msgid "Invitation to %<email>s issued successfully."
-msgstr "Inbjudan till %<email>s utfärdad framgångsrikt."
+#: ../../app/controllers/roles_controller.rb:47
+msgid "Invitation to %{email} issued successfully."
+msgstr "Inbjudan till %{email} utfärdad framgångsrikt."
 
-#: ../../app/controllers/roles_controller.rb:53
-msgid "Plan shared with %<email>s."
-msgstr "Planen delas med %<email>s."
+#: ../../app/controllers/roles_controller.rb:52
+msgid "Plan shared with %{email}."
+msgstr "Planen delas med %{email}."
 
-#: ../../app/controllers/roles_controller.rb:68
-msgid "You must provide a valid email address and select a permission level."
-msgstr "Du måste ange en giltig e-postadress och välj en behörighetsnivå."
+#: ../../app/controllers/roles_controller.rb:64
+msgid ""
+"You must provide a valid email address and select a permission\n"
+"                               level."
+msgstr "Du måste ange en giltig e-postadress och välja en behörighetsnivå."
 
-#: ../../app/controllers/roles_controller.rb:74
+#: ../../app/controllers/roles_controller.rb:71
 msgid "Please enter an email address"
 msgstr "Vänligen ange en mailadress"
 
-#: ../../app/controllers/roles_controller.rb:93
+#: ../../app/controllers/roles_controller.rb:90
 msgid ""
-"Successfully changed the permissions for %<email>s. They have been notified via"
-" email."
-msgstr "Ändrade behörigheterna för %<email>s. De har meddelats via e-post."
+"Successfully changed the permissions for %{email}. They have been\n"
+"                       notified via email."
+msgstr "Har ändrat behörigheterna för %{email}. De har meddelats via e-post."
 
-#: ../../app/controllers/roles_controller.rb:108
+#: ../../app/controllers/roles_controller.rb:107
 msgid "Access removed"
 msgstr "Åtkomst borttagen"
 
@@ -812,67 +826,67 @@ msgstr ""
 "Ditt konto har blivit framgångsrikt kopplat till dina institutionella referens"
 "er. Du kommer nu att kunna logga in med dem."
 
-#: ../../app/controllers/settings/plans_controller.rb:39
+#: ../../app/controllers/settings/plans_controller.rb:38
 msgid "Export settings updated successfully."
 msgstr "Exportinställningarna uppdateras framgångsrikt."
 
-#: ../../app/controllers/settings/plans_controller.rb:41
+#: ../../app/controllers/settings/plans_controller.rb:40
 msgid "An error has occurred while saving/resetting your export settings."
 msgstr "Ett fel uppstod när du sparade / återställde dina exportinställningar."
 
 #: ../../app/controllers/super_admin/api_clients_controller.rb:45
-msgid ". The API credentials have been emailed to %<email>s"
-msgstr ". API-referenser har skickats till %<email>s"
+msgid ". The API credentials have been emailed to %{email}"
+msgstr ". API-referenser har skickats till %{email}"
 
-#: ../../app/controllers/super_admin/notifications_controller.rb:69
+#: ../../app/controllers/super_admin/notifications_controller.rb:70
 msgid "Your notification is now active."
 msgstr "Din anmälan är nu aktiv."
 
-#: ../../app/controllers/super_admin/notifications_controller.rb:69
+#: ../../app/controllers/super_admin/notifications_controller.rb:70
 msgid "Your notification is no longer active."
 msgstr "Din anmälan är inte längre aktiv."
 
-#: ../../app/controllers/super_admin/notifications_controller.rb:73
+#: ../../app/controllers/super_admin/notifications_controller.rb:74
 msgid "Unable to change the notification's active status"
 msgstr "Det går inte att ändra meddelandets aktiva status"
 
-#: ../../app/controllers/super_admin/notifications_controller.rb:104
-msgid "There is no notification associated with id  %<id>s"
-msgstr "Det finns ingen anmälan i samband med id %<id>s"
+#: ../../app/controllers/super_admin/notifications_controller.rb:105
+msgid "There is no notification associated with id  %{id}"
+msgstr "Det finns ingen anmälan i samband med id %{id}"
 
-#: ../../app/controllers/super_admin/org_swaps_controller.rb:22
+#: ../../app/controllers/super_admin/org_swaps_controller.rb:24
 msgid ""
 "Your organisation affiliation has been changed. You may now edit templates for"
-" %<org_name>s."
+" %{org_name}."
 msgstr ""
 "Din organisationsanslutning har ändrats. Du kan nu redigera mallar för %{org_n"
 "ame}."
 
-#: ../../app/controllers/super_admin/org_swaps_controller.rb:25
+#: ../../app/controllers/super_admin/org_swaps_controller.rb:28
 msgid "Unable to change your organisation affiliation at this time."
 msgstr "Det går inte att ändra organisationens anslutning just nu."
 
-#: ../../app/controllers/super_admin/org_swaps_controller.rb:28
+#: ../../app/controllers/super_admin/org_swaps_controller.rb:31
 msgid "Unknown organisation."
 msgstr "Okänd organisation."
 
-#: ../../app/controllers/super_admin/orgs_controller.rb:71
+#: ../../app/controllers/super_admin/orgs_controller.rb:70
 msgid "There seems to be a problem with your logo. Please upload it again."
 msgstr "Det verkar vara ett problem med din logotyp. Vänligen ladda upp det igen."
 
-#: ../../app/controllers/super_admin/orgs_controller.rb:135
+#: ../../app/controllers/super_admin/orgs_controller.rb:137
 msgid "An error occurred while trying to merge the Organisations."
 msgstr "Ett fel uppstod när man försökte slå samman organisationerna."
 
-#: ../../app/controllers/super_admin/orgs_controller.rb:139
+#: ../../app/controllers/super_admin/orgs_controller.rb:141
 msgid "Unable to merge the two Organisations at this time."
 msgstr "Det går inte att slå samman de två organisationerna just nu."
 
-#: ../../app/controllers/super_admin/orgs_controller.rb:143
+#: ../../app/controllers/super_admin/orgs_controller.rb:145
 msgid "Unable to determine what records need to be merged."
 msgstr "Det går inte att avgöra vilka poster som behöver slås samman."
 
-#: ../../app/controllers/super_admin/users_controller.rb:71
+#: ../../app/controllers/super_admin/users_controller.rb:69
 msgid ""
 "You attempted to merge 2 accounts with the same email address.\n"
 "           Please merge with a different email address."
@@ -880,19 +894,19 @@ msgstr ""
 "Du försökte slå samman två konton med samma e-postadress.\n"
 "           Slå ihop med en annan e-postadress."
 
-#: ../../app/controllers/super_admin/users_controller.rb:107
+#: ../../app/controllers/super_admin/users_controller.rb:111
 msgid "archived"
 msgstr "arkiverad"
 
-#: ../../app/controllers/super_admin/users_controller.rb:109
+#: ../../app/controllers/super_admin/users_controller.rb:113
 msgid "archive"
 msgstr "arkiv"
 
-#: ../../app/controllers/super_admin/users_controller.rb:129
+#: ../../app/controllers/super_admin/users_controller.rb:134
 msgid "merged"
 msgstr "fusione"
 
-#: ../../app/controllers/super_admin/users_controller.rb:131
+#: ../../app/controllers/super_admin/users_controller.rb:136
 msgid "merge"
 msgstr "sammanfoga"
 
@@ -904,39 +918,39 @@ msgstr ""
 "Du är redan inloggad som en annan användare. Logga ut för att aktivera din inb"
 "judan."
 
-#: ../../app/controllers/users/omniauth_callbacks_controller.rb:44
+#: ../../app/controllers/users/omniauth_callbacks_controller.rb:46
 msgid "Successfully signed in"
 msgstr "Inloggad framgångsrikt"
 
-#: ../../app/controllers/users/omniauth_callbacks_controller.rb:56
-msgid "Your account has been successfully linked to %<scheme>s."
-msgstr "Ditt konto har länkats till %<scheme>s."
+#: ../../app/controllers/users/omniauth_callbacks_controller.rb:59
+msgid "Your account has been successfully linked to %{scheme}."
+msgstr "Ditt konto har länkats till %{scheme}."
 
-#: ../../app/controllers/users/omniauth_callbacks_controller.rb:61
-msgid "Unable to link your account to %<scheme>s."
-msgstr "Det gick inte att länka ditt konto till %<scheme>s."
+#: ../../app/controllers/users/omniauth_callbacks_controller.rb:63
+msgid "Unable to link your account to %{scheme}."
+msgstr "Det gick inte att länka ditt konto till %{scheme}."
 
-#: ../../app/controllers/users_controller.rb:141
-msgid "Successfully %<action>s %<username>s's account."
-msgstr "Framgångsrikt %<action>s %<username>s s konto."
+#: ../../app/controllers/users_controller.rb:147
+msgid "Successfully %{action} %{username}'s account."
+msgstr "Framgångsrikt %{action} %{username} s konto."
 
-#: ../../app/controllers/users_controller.rb:142
+#: ../../app/controllers/users_controller.rb:148
 msgid "activated"
 msgstr "aktiverad"
 
-#: ../../app/controllers/users_controller.rb:142
+#: ../../app/controllers/users_controller.rb:148
 msgid "deactivated"
 msgstr "deaktiveras"
 
-#: ../../app/controllers/users_controller.rb:149
-msgid "Unable to %<action>s %<username>s"
-msgstr "Kan inte %<action>s %<username>s"
+#: ../../app/controllers/users_controller.rb:154
+msgid "Unable to %{action} %{username}"
+msgstr "Kan inte %{action} %{username}"
 
-#: ../../app/controllers/users_controller.rb:150
+#: ../../app/controllers/users_controller.rb:155
 msgid "activate"
 msgstr "Aktivera"
 
-#: ../../app/controllers/users_controller.rb:150
+#: ../../app/controllers/users_controller.rb:155
 msgid "deactivate"
 msgstr "avaktivera"
 
@@ -958,13 +972,13 @@ msgstr ""
 " av teman kommer det att dras in baserat på dina val nedan, så det är bäst att"
 " du inte duplicerar för mycket text."
 
-#: ../../app/helpers/conditions_helper.rb:194
+#: ../../app/helpers/conditions_helper.rb:193
 msgid "Answering"
 msgstr "svara"
 
-#: ../../app/helpers/conditions_helper.rb:198
-msgid " will <b>send an email</b> with subject "
-msgstr "<b>skickar ett e-postmeddelande</b> med ämne"
+#: ../../app/helpers/conditions_helper.rb:197
+msgid " will <b>send an email</b> with subject %{subject_name}"
+msgstr "kommer att <b>skicka ett e-postmeddelande</b> med ämne %{subject_name}"
 
 #: ../../app/helpers/conditions_helper.rb:203
 msgid " will <b>remove</b> question "
@@ -974,19 +988,15 @@ msgstr "kommer att <b>ta bort</b> frågan"
 msgid " will <b>remove</b> questions "
 msgstr "tar <b>bort</b> frågor"
 
-#: ../../app/helpers/conditions_helper.rb:223
-msgid "\""
-msgstr "\""
-
-#: ../../app/helpers/customizable_template_link_helper.rb:12
+#: ../../app/helpers/customizable_template_link_helper.rb:13
 msgid "Transfer customisation"
 msgstr "Överföring anpassning"
 
-#: ../../app/helpers/customizable_template_link_helper.rb:17
+#: ../../app/helpers/customizable_template_link_helper.rb:18
 msgid "Edit customisation"
 msgstr "Redigera anpassning"
 
-#: ../../app/helpers/customizable_template_link_helper.rb:21
+#: ../../app/helpers/customizable_template_link_helper.rb:22
 msgid "Customise"
 msgstr "Anpassa"
 
@@ -995,26 +1005,27 @@ msgid "Creators:"
 msgstr "skapare:"
 
 #: ../../app/helpers/exports_helper.rb:38
-#: ../../app/models/concerns/exportable_plan.rb:133
+#: ../../app/models/concerns/exportable_plan.rb:141
+#: ../../app/views/shared/export/_plan_coversheet.erb:6
 #: ../../app/views/shared/export/_plan_txt.erb:4
 msgid "Creator:"
 msgstr "Skapare:"
 
 #: ../../app/helpers/feedbacks_helper.rb:6
-msgid "%<application_name>s: Your plan has been submitted for feedback"
-msgstr "%<application_name>s: Din plan har skickats in för feedback"
+msgid "%{application_name}: Your plan has been submitted for feedback"
+msgstr "%{application_name}: Din plan har skickats in för feedback"
 
 #: ../../app/helpers/feedbacks_helper.rb:10
 msgid ""
-"<p>Hello %<user_name>s.</p><p>Your plan \"%<plan_name>s\" has been submitted for f"
+"<p>Hello %{user_name}.</p><p>Your plan \"%{plan_name}\" has been submitted for f"
 "eedback from an\n"
 "      administrator at your organisation. If you have questions pertaining to "
 "this action, please contact us\n"
-"      at %<organisation_email>s.</p>"
+"      at %{organisation_email}.</p>"
 msgstr ""
-"<p> Hej %<user_name>s. </p><p> Din plan \"%<plan_name>s\" har skickats in för feed"
+"<p> Hej %{user_name}. </p><p> Din plan \"%{plan_name}\" har skickats in för feed"
 "back från en administratör i din organisation. Om du har frågor angående denna"
-" åtgärd, kontakta oss på %<organisation_email>s. </p>"
+" åtgärd, kontakta oss på %{organisation_email}. </p>"
 
 #: ../../app/helpers/identifier_helper.rb:6
 #: ../../spec/helpers/identifier_helper_spec.rb:14
@@ -1047,12 +1058,12 @@ msgstr "läs planen och lämna kommentarer."
 
 #: ../../app/helpers/orgs_helper.rb:14
 msgid ""
-"<p>A data librarian from %<org_name>s will respond to your request within 48\n"
+"<p>A data librarian from %{org_name} will respond to your request within 48\n"
 "       hours. If you have questions pertaining to this action please contact u"
 "s\n"
-"       at %<organisation_email>s.</p>"
+"       at %{organisation_email}.</p>"
 msgstr ""
-"<p> En databibliotekare från %<org_name>s svarar på din förfrågan inom 48 timma"
+"<p> En databibliotekare från %{org_name} svarar på din förfrågan inom 48 timma"
 "r. Om du har frågor angående denna åtgärd, kontakta oss på %{organisation_emai"
 "l}. </p>"
 
@@ -1094,8 +1105,8 @@ msgid "Grant API to organisations"
 msgstr "Bevilja API till organisationer"
 
 #: ../../app/helpers/plans_helper.rb:8
+#: ../../app/views/paginable/plans/_index.html.erb:8
 #: ../../app/views/paginable/plans/_org_admin.html.erb:21
-#: ../../app/views/paginable/plans/_org_admin_other_user.html.erb:8
 #: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:16
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:8
 msgid "Owner"
@@ -1138,231 +1149,230 @@ msgstr "Offentlig: alla kan visa."
 msgid "Private: restricted to me and people I invite."
 msgstr "Privat: begränsad till mig och personer jag bjuder in."
 
-#: ../../app/helpers/settings_template_helper.rb:7
-#: ../../app/helpers/settings_template_helper.rb:18
+#: ../../app/helpers/settings_template_helper.rb:8
+#: ../../app/helpers/settings_template_helper.rb:19
 msgid "Unknown column name."
 msgstr "Okänt kolumnnamn."
 
-#: ../../app/helpers/settings_template_helper.rb:8
+#: ../../app/helpers/settings_template_helper.rb:9
 msgid "Plan Name"
 msgstr "Plannamn"
 
-#: ../../app/helpers/settings_template_helper.rb:9
+#: ../../app/helpers/settings_template_helper.rb:10
 msgid "Plan ID"
 msgstr "Plan ID"
 
-#: ../../app/helpers/settings_template_helper.rb:10
+#: ../../app/helpers/settings_template_helper.rb:11
 msgid "Grant number"
 msgstr "Bidragsnummer"
 
-#: ../../app/helpers/settings_template_helper.rb:11
+#: ../../app/helpers/settings_template_helper.rb:12
 msgid "Principal Investigator / Researcher"
 msgstr "Huvudforskare / Forskare"
 
-#: ../../app/helpers/settings_template_helper.rb:12
+#: ../../app/helpers/settings_template_helper.rb:13
 msgid "Plan Data Contact"
 msgstr "Planera datakontakt"
 
-#: ../../app/helpers/settings_template_helper.rb:13
+#: ../../app/helpers/settings_template_helper.rb:14
 msgid "Plan Description"
 msgstr "Planbeskrivning"
 
-#: ../../app/helpers/settings_template_helper.rb:14
+#: ../../app/helpers/settings_template_helper.rb:15
 #: ../../app/views/orgs/_profile_form.html.erb:129
 #: ../../app/views/paginable/templates/_customisable.html.erb:7
 #: ../../app/views/paginable/templates/_organisational.html.erb:12
-#: ../../app/views/plans/_project_details.html.erb:88
-#: ../../app/views/plans/_project_details.html.erb:102
+#: ../../app/views/plans/_project_details.html.erb:156
 #: ../../app/views/plans/_show_details.html.erb:12
 #: ../../app/views/plans/new.html.erb:86
 msgid "Funder"
 msgstr "Finansiär"
 
-#: ../../app/helpers/settings_template_helper.rb:16
+#: ../../app/helpers/settings_template_helper.rb:17
 msgid "Your ORCID"
 msgstr "Din ORCID"
 
-#: ../../app/helpers/super_admin/orgs/merge_helper.rb:21
+#: ../../app/helpers/super_admin/orgs/merge_helper.rb:20
 msgid "None"
 msgstr "Ingen"
 
-#: ../../app/helpers/super_admin/orgs/merge_helper.rb:31
-msgid "Guidance for: %<themes>s"
-msgstr "Vägledning för: %<themes>s"
+#: ../../app/helpers/super_admin/orgs/merge_helper.rb:30
+msgid "Guidance for: %{themes}"
+msgstr "Vägledning för: %{themes}"
 
-#: ../../app/helpers/super_admin/orgs/merge_helper.rb:53
+#: ../../app/helpers/super_admin/orgs/merge_helper.rb:51
 msgid "Nothing to merge"
 msgstr "Inget att slå samman"
 
-#: ../../app/helpers/super_admin/orgs/merge_helper.rb:55
-msgid "<p>The following %<object_types>s will be moved over to '%<org_name>s':</p>"
-msgstr "<p>Följande %<object_types>s kommer att flyttas till '%<org_name>s':</p>"
+#: ../../app/helpers/super_admin/orgs/merge_helper.rb:53
+msgid "<p>The following %{object_types} will be moved over to '%{org_name}':</p>"
+msgstr "<p>Följande %{object_types} kommer att flyttas till '%{org_name}':</p>"
 
-#: ../../app/helpers/template_helper.rb:46
+#: ../../app/helpers/template_helper.rb:48
 #: ../../app/views/plans/index.html.erb:29
 #: ../../app/views/plans/new.html.erb:123
 #: ../../app/views/shared/_create_plan_modal.html.erb:5
-#: ../../spec/features/locales_spec.rb:54
-#: ../../spec/features/locales_spec.rb:71
+#: ../../spec/features/locales_spec.rb:53
+#: ../../spec/features/locales_spec.rb:69
 msgid "Create plan"
 msgstr "Skapa plan"
 
-#: ../../app/helpers/usage_helper.rb:62
+#: ../../app/helpers/usage_helper.rb:65
 msgid "Last month"
 msgstr "Förra månaden"
 
-#: ../../app/helpers/usage_helper.rb:63
+#: ../../app/helpers/usage_helper.rb:66
 msgid "Last 3 months"
 msgstr "Senaste 3 månaderna"
 
-#: ../../app/helpers/usage_helper.rb:64
+#: ../../app/helpers/usage_helper.rb:67
 msgid "Last 6 months"
 msgstr "Senaste 6 månaderna"
 
-#: ../../app/helpers/usage_helper.rb:65
+#: ../../app/helpers/usage_helper.rb:68
 msgid "Last 9 months"
 msgstr "Senaste 9 månaderna"
 
-#: ../../app/helpers/usage_helper.rb:66
+#: ../../app/helpers/usage_helper.rb:69
 msgid "Last 12 months"
 msgstr "Senaste 12 månaderna"
 
-#: ../../app/mailers/user_mailer.rb:16
+#: ../../app/mailers/user_mailer.rb:17
 #: ../../app/views/devise/mailer/invitation_instructions.html.erb:6
 #: ../../app/views/devise/mailer/reset_password_instructions.html.erb:5
 #: ../../app/views/user_mailer/_email_signature.html.erb:2
-msgid "Query or feedback related to %<tool_name>s"
-msgstr "Fråga eller feedback relaterad till %<tool_name>s"
+msgid "Query or feedback related to %{tool_name}"
+msgstr "Fråga eller feedback relaterad till %{tool_name}"
 
-#: ../../app/mailers/user_mailer.rb:23
-msgid "Welcome to %<tool_name>s"
-msgstr "Välkommen till %<tool_name>s"
+#: ../../app/mailers/user_mailer.rb:24
+msgid "Welcome to %{tool_name}"
+msgstr "Välkommen till %{tool_name}"
 
-#: ../../app/mailers/user_mailer.rb:58
-msgid "A Data Management Plan in %<tool_name>s has been shared with you"
-msgstr "En datahanteringsplan i %<tool_name>s har delats med dig"
+#: ../../app/mailers/user_mailer.rb:59
+msgid "A Data Management Plan in %{tool_name} has been shared with you"
+msgstr "En datahanteringsplan i %{tool_name} har delats med dig"
 
-#: ../../app/mailers/user_mailer.rb:76
-msgid "Changed permissions on a Data Management Plan in %<tool_name>s"
-msgstr "Ändrade behörigheter på en datahanteringsplan i %<tool_name>s"
+#: ../../app/mailers/user_mailer.rb:75
+msgid "Changed permissions on a Data Management Plan in %{tool_name}"
+msgstr "Ändrade behörigheter på en datahanteringsplan i %{tool_name}"
 
-#: ../../app/mailers/user_mailer.rb:92
-msgid "Permissions removed on a DMP in %<tool_name>s"
-msgstr "Behörigheter tas bort på en DMP i %<tool_name>s"
+#: ../../app/mailers/user_mailer.rb:89
+msgid "Permissions removed on a DMP in %{tool_name}"
+msgstr "Behörigheter tas bort på en DMP i %{tool_name}"
 
-#: ../../app/mailers/user_mailer.rb:111
-msgid "%<user_name>s has requested feedback on a %<tool_name>s plan"
-msgstr "%<user_name>s har begärt feedback på en %<tool_name>s plan"
+#: ../../app/mailers/user_mailer.rb:106
+msgid "%{user_name} has requested feedback on a %{tool_name} plan"
+msgstr "%{user_name} har begärt feedback på en %{tool_name} plan"
 
-#: ../../app/mailers/user_mailer.rb:134
-msgid "%<tool_name>s: Expert feedback has been provided for %<plan_title>s"
-msgstr "%<tool_name>s: Feedback från experter har lämnats för %<plan_title>s"
+#: ../../app/mailers/user_mailer.rb:128
+msgid "%{tool_name}: Expert feedback has been provided for %{plan_title}"
+msgstr "%{tool_name}: Feedback från experter har lämnats för %{plan_title}"
 
-#: ../../app/mailers/user_mailer.rb:169
-msgid "DMP Visibility Changed: %<plan_title>s"
-msgstr "DMP-synlighet ändrad: %<plan_title>s"
+#: ../../app/mailers/user_mailer.rb:145
+msgid "DMP Visibility Changed: %{plan_title}"
+msgstr "DMP-synlighet ändrad: %{plan_title}"
 
-#: ../../app/mailers/user_mailer.rb:200
-msgid "%<tool_name>s: A new comment was added to %<plan_title>s"
-msgstr "%<tool_name>s: En ny kommentar läggs till i %<plan_title>s"
+#: ../../app/mailers/user_mailer.rb:173
+msgid "%{tool_name}: A new comment was added to %{plan_title}"
+msgstr "%{tool_name}: En ny kommentar läggs till i %{plan_title}"
 
-#: ../../app/mailers/user_mailer.rb:218
-msgid "Administrator privileges granted in %<tool_name>s"
-msgstr "Administratörsbehörighet beviljas i %<tool_name>s"
+#: ../../app/mailers/user_mailer.rb:188
+msgid "Administrator privileges granted in %{tool_name}"
+msgstr "Administratörsbehörighet beviljas i %{tool_name}"
 
-#: ../../app/mailers/user_mailer.rb:235
-msgid "%<tool_name>s API changes"
-msgstr "%<tool_name>s API-ändringar"
+#: ../../app/mailers/user_mailer.rb:204
+msgid "%{tool_name} API changes"
+msgstr "%{tool_name} API-ändringar"
 
-#: ../../app/models/concerns/exportable_plan.rb:26
+#: ../../app/models/concerns/exportable_plan.rb:30
 msgid "Phase"
 msgstr "Fas"
 
-#: ../../app/models/concerns/exportable_plan.rb:28
-#: ../../app/models/exported_plan.rb:114 ../../app/models/exported_plan.rb:117
+#: ../../app/models/concerns/exportable_plan.rb:32
+#: ../../app/models/exported_plan.rb:116 ../../app/models/exported_plan.rb:119
 msgid "Section"
 msgstr "Sektion"
 
-#: ../../app/models/concerns/exportable_plan.rb:28
-#: ../../app/models/exported_plan.rb:114
+#: ../../app/models/concerns/exportable_plan.rb:32
+#: ../../app/models/exported_plan.rb:116
 msgid "Question"
 msgstr "Fråga"
 
-#: ../../app/models/concerns/exportable_plan.rb:28
-#: ../../app/models/concerns/exportable_plan.rb:30
-#: ../../app/models/exported_plan.rb:114 ../../app/models/exported_plan.rb:117
+#: ../../app/models/concerns/exportable_plan.rb:32
+#: ../../app/models/concerns/exportable_plan.rb:34
+#: ../../app/models/exported_plan.rb:116 ../../app/models/exported_plan.rb:119
 msgid "Answer"
 msgstr "Svar"
 
-#: ../../app/models/concerns/exportable_plan.rb:120
+#: ../../app/models/concerns/exportable_plan.rb:128
 msgid " Customised By: "
 msgstr " Anpassad av:"
 
-#: ../../app/models/concerns/exportable_plan.rb:131
+#: ../../app/models/concerns/exportable_plan.rb:139
 #: ../../app/views/shared/export/_plan_txt.erb:4
 msgid "Creators: "
 msgstr "skapare:"
 
-#: ../../app/models/concerns/exportable_plan.rb:134
-msgid "%<authors>s"
-msgstr "%<authors>s"
+#: ../../app/models/concerns/exportable_plan.rb:142
+msgid "%{authors}"
+msgstr "%{authors}"
 
-#: ../../app/models/concerns/exportable_plan.rb:135
-msgid "%<affiliation>s"
-msgstr "%<affiliation>s"
+#: ../../app/models/concerns/exportable_plan.rb:143
+msgid "%{affiliation}"
+msgstr "%{affiliation}"
 
-#: ../../app/models/concerns/exportable_plan.rb:137
-#: ../../app/models/concerns/exportable_plan.rb:139
-#: ../../app/views/shared/export/_plan_coversheet.erb:16
+#: ../../app/models/concerns/exportable_plan.rb:145
+#: ../../app/models/concerns/exportable_plan.rb:147
+#: ../../app/views/shared/export/_plan_coversheet.erb:14
 #: ../../app/views/shared/export/_plan_txt.erb:7
 #: ../../app/views/shared/export/_plan_txt.erb:9
 msgid "Template: "
 msgstr "Mall:"
 
-#: ../../app/models/concerns/exportable_plan.rb:137
-msgid "%<funder>s"
-msgstr "%<funder>s"
+#: ../../app/models/concerns/exportable_plan.rb:145
+msgid "%{funder}"
+msgstr "%{funder}"
 
-#: ../../app/models/concerns/exportable_plan.rb:139
-msgid "%<template>s"
-msgstr "%<template>s"
+#: ../../app/models/concerns/exportable_plan.rb:147
+msgid "%{template}"
+msgstr "%{template}"
 
-#: ../../app/models/concerns/exportable_plan.rb:142
+#: ../../app/models/concerns/exportable_plan.rb:149
 #: ../../app/views/shared/export/_plan_txt.erb:12
 msgid "Grant number: "
 msgstr "Bidragsnummer:"
 
-#: ../../app/models/concerns/exportable_plan.rb:142
-msgid "%<grant_number>s"
-msgstr "%<grant_number>s"
+#: ../../app/models/concerns/exportable_plan.rb:149
+msgid "%{grant_number}"
+msgstr "%{grant_number}"
 
-#: ../../app/models/concerns/exportable_plan.rb:145
-#: ../../app/views/shared/export/_plan_coversheet.erb:26
+#: ../../app/models/concerns/exportable_plan.rb:151
+#: ../../app/views/shared/export/_plan_coversheet.erb:24
 #: ../../app/views/shared/export/_plan_txt.erb:15
 msgid "Project abstract: "
 msgstr "Projektens ﻿abstrakt:"
 
-#: ../../app/models/concerns/exportable_plan.rb:145
-msgid "%<description>s"
-msgstr "%<description>s"
+#: ../../app/models/concerns/exportable_plan.rb:151
+msgid "%{description}"
+msgstr "%{description}"
 
-#: ../../app/models/concerns/exportable_plan.rb:148
-#: ../../app/views/shared/export/_plan_coversheet.erb:42
+#: ../../app/models/concerns/exportable_plan.rb:153
+#: ../../app/views/shared/export/_plan_coversheet.erb:40
 #: ../../app/views/shared/export/_plan_txt.erb:18
 msgid "Last modified: "
 msgstr "Senast ändrad:"
 
-#: ../../app/models/concerns/exportable_plan.rb:148
-msgid "%<date>s"
-msgstr "%<date>s"
+#: ../../app/models/concerns/exportable_plan.rb:153
+msgid "%{date}"
+msgstr "%{date}"
 
-#: ../../app/models/concerns/exportable_plan.rb:149
-#: ../../app/views/shared/export/_plan_coversheet.erb:49
+#: ../../app/models/concerns/exportable_plan.rb:154
+#: ../../app/views/shared/export/_plan_coversheet.erb:47
 #: ../../app/views/shared/export/_plan_txt.erb:19
 msgid "Copyright information:"
 msgstr "Upphovsrättsinformation:"
 
-#: ../../app/models/concerns/exportable_plan.rb:150
+#: ../../app/models/concerns/exportable_plan.rb:155
 msgid ""
 "The above plan creator(s) have agreed that others may use as\n"
 "             much of the text of this plan as they would like in their own pla"
@@ -1386,7 +1396,7 @@ msgstr ""
 "amband med,\n"
 "             ditt projekt eller förslag"
 
-#: ../../app/models/concerns/exportable_plan.rb:175
+#: ../../app/models/concerns/exportable_plan.rb:179
 msgid "Not Answered"
 msgstr "Inte besvarad"
 
@@ -1396,7 +1406,7 @@ msgid "can't be blank"
 msgstr "måste anges"
 
 #: ../../app/models/concerns/validation_messages.rb:13
-#: ../../app/models/identifier.rb:131
+#: ../../app/models/identifier.rb:134
 msgid "must be unique"
 msgstr "måste vara unik"
 
@@ -1416,41 +1426,40 @@ msgstr "för \"Frågetekst\" kan inte vara tomt."
 msgid "You must specify at least one role."
 msgstr "Du måste ange minst en roll."
 
-#: ../../app/models/contributor.rb:136
-msgid "can't be blank if no email is provided"
-msgstr "kan inte vara tomt om inget e-postmeddelande tillhandahålls"
+#: ../../app/models/contributor.rb:135 ../../app/models/contributor.rb:138
+msgid "can't be blank."
+msgstr "kan inte vara tom."
 
-#: ../../app/models/contributor.rb:137
-msgid "can't be blank if no name is provided"
-msgstr "kan inte vara tomt om inget namn anges"
+#: ../../app/models/contributor.rb:142
+msgid "can't be blank if no email is provided."
+msgstr "kan inte vara tom om ingen e-post anges."
 
-#: ../../app/models/exported_plan.rb:114 ../../app/models/exported_plan.rb:117
+#: ../../app/models/contributor.rb:143
+msgid "can't be blank if no name is provided."
+msgstr "kan inte vara tom om inget namn anges."
+
+#: ../../app/models/exported_plan.rb:116 ../../app/models/exported_plan.rb:119
 msgid "Selected option(s)"
 msgstr "Valt alternativ (er)"
 
-#: ../../app/models/exported_plan.rb:115 ../../app/models/exported_plan.rb:117
+#: ../../app/models/exported_plan.rb:117 ../../app/models/exported_plan.rb:119
 msgid "Answered by"
 msgstr "Besvaras av"
 
-#: ../../app/models/exported_plan.rb:115 ../../app/models/exported_plan.rb:118
+#: ../../app/models/exported_plan.rb:117 ../../app/models/exported_plan.rb:120
 msgid "Answered at"
 msgstr "Besvaras vid"
 
-#: ../../app/models/exported_plan.rb:162
+#: ../../app/models/exported_plan.rb:165
 msgid "Details"
 msgstr "detaljer"
 
-#: ../../app/models/exported_plan.rb:169
-msgid "-"
-msgstr "-"
+#: ../../app/models/exported_plan.rb:189
+msgid ""
+"Question not answered.\n"
+msgstr "Fråga ej besvarad."
 
-#: ../../app/models/exported_plan.rb:186
-#: ../../app/views/shared/export/_plan.erb:53
-#: ../../app/views/shared/export/_plan_txt.erb:50
-msgid "Question not answered."
-msgstr "Fråga inte besvarad."
-
-#: ../../app/models/identifier.rb:138
+#: ../../app/models/identifier.rb:141
 msgid "already assigned a value"
 msgstr "redan tilldelat ett värde"
 
@@ -1458,35 +1467,35 @@ msgstr "redan tilldelat ett värde"
 msgid "Feedback email message"
 msgstr "Feedback e-postmeddelande"
 
-#: ../../app/models/org.rb:130
+#: ../../app/models/org.rb:121
 msgid "must be one of the following formats: jpeg, jpg, png, gif, bmp"
 msgstr "måste vara ett av följande format: jpeg, jpg, png, gif, bmp"
 
-#: ../../app/models/org.rb:135
+#: ../../app/models/org.rb:126
 msgid "can't be larger than 500KB"
 msgstr "kan inte vara större än 500 kB"
 
-#: ../../app/models/plan.rb:63
+#: ../../app/models/plan.rb:57
 msgid "organisational"
 msgstr "organisatoriska"
 
-#: ../../app/models/plan.rb:64
+#: ../../app/models/plan.rb:58
 msgid "public"
 msgstr "offentlig"
 
-#: ../../app/models/plan.rb:65
+#: ../../app/models/plan.rb:59
 msgid "test"
 msgstr "Testa"
 
-#: ../../app/models/plan.rb:66
+#: ../../app/models/plan.rb:60
 msgid "private"
 msgstr "Privat"
 
-#: ../../app/models/plan.rb:578 ../../app/models/research_output.rb:119
+#: ../../app/models/plan.rb:608
 msgid "must be after the start date"
 msgstr "måste vara efter startdatumet"
 
-#: ../../app/models/question.rb:153
+#: ../../app/models/question.rb:151
 msgid "guidance on"
 msgstr "vägledning om"
 
@@ -1494,35 +1503,35 @@ msgstr "vägledning om"
 msgid "can't be less than zero"
 msgstr "kan inte vara mindre än noll"
 
-#: ../../app/models/settings/template.rb:84
+#: ../../app/models/settings/template.rb:80
 msgid "A required setting has not been provided"
 msgstr "En obligatorisk inställning har inte lämnats"
 
-#: ../../app/models/settings/template.rb:86
+#: ../../app/models/settings/template.rb:82
 msgid "Margin value is invalid"
 msgstr "Marginalvärdet är ogiltigt"
 
-#: ../../app/models/settings/template.rb:88
+#: ../../app/models/settings/template.rb:84
 msgid "Margin cannot be negative"
 msgstr "Margin kan inte vara negativ"
 
-#: ../../app/models/settings/template.rb:91
+#: ../../app/models/settings/template.rb:86
 msgid "Unknown margin. Can only be 'top', 'bottom', 'left' or 'right'"
 msgstr "Okänd marginal. Kan bara vara \"top\", \"bottom\", \"left\" eller \"right\""
 
-#: ../../app/models/settings/template.rb:94
+#: ../../app/models/settings/template.rb:88
 msgid "Invalid font size"
 msgstr "Ogiltig typsnitt"
 
-#: ../../app/models/settings/template.rb:96
+#: ../../app/models/settings/template.rb:90
 msgid "Invalid font face"
 msgstr "Ogiltigt teckensnitt"
 
-#: ../../app/models/settings/template.rb:98
+#: ../../app/models/settings/template.rb:92
 msgid "Unknown formatting setting"
 msgstr "Okänd formatering inställning"
 
-#: ../../app/models/settings/template.rb:105
+#: ../../app/models/settings/template.rb:99
 msgid "Invalid maximum pages"
 msgstr "Ogiltiga högsta sidor"
 
@@ -1530,83 +1539,85 @@ msgstr "Ogiltiga högsta sidor"
 msgid "A historical template cannot be retrieved for being modified"
 msgstr "En historisk mall kan inte hämtas för att ändras"
 
-#: ../../app/models/template.rb:371
+#: ../../app/models/template.rb:373
 msgid "generate_copy! requires an organisation target"
 msgstr "generate_copy! kräver ett organisationsmål"
 
-#: ../../app/models/template.rb:380
-msgid "Copy of %<template>s"
-msgstr "Kopia av %<template>s"
+#: ../../app/models/template.rb:382
+msgid "Copy of %{template}"
+msgstr "Kopia av %{template}"
 
-#: ../../app/models/template.rb:388
+#: ../../app/models/template.rb:389
 msgid "generate_version! requires a published template"
 msgstr "generate_version! kräver en publicerad mall"
 
-#: ../../app/models/template.rb:404
+#: ../../app/models/template.rb:403
 msgid "customize! requires an organisation target"
 msgstr "skräddarsy! kräver ett organisationsmål"
 
-#: ../../app/models/template.rb:409
+#: ../../app/models/template.rb:406
 msgid "customize! requires a template from a funder"
 msgstr "skräddarsy! kräver en mall från en funderare"
 
-#: ../../app/models/template.rb:446
+#: ../../app/models/template.rb:442
 msgid "You can not publish a published template.  "
 msgstr "Du kan inte publicera en publicerad mall."
 
-#: ../../app/models/template.rb:450
+#: ../../app/models/template.rb:446
 msgid "You can not publish a historical version of this template.  "
 msgstr "Du kan inte publicera en historisk version av denna mall."
 
-#: ../../app/models/template.rb:455
+#: ../../app/models/template.rb:451
 msgid "You can not publish a template without phases.  "
 msgstr "Du kan inte publicera en mall utan faser."
 
-#: ../../app/models/template.rb:460
+#: ../../app/models/template.rb:456
 msgid "You can not publish a template without sections in a phase.  "
 msgstr "Du kan inte publicera en mall utan sektioner i en fas."
 
-#: ../../app/models/template.rb:465
+#: ../../app/models/template.rb:461
 msgid "You can not publish a template without questions in a section.  "
 msgstr "Du kan inte publicera en mall utan frågor i en sektion."
 
-#: ../../app/models/template.rb:469
+#: ../../app/models/template.rb:465
 msgid "Conditions in the template refer backwards"
 msgstr "Förhållandena i mallen hänvisar bakåt"
 
-#: ../../app/models/user.rb:379
-msgid "A Data Management Plan in %<application_name>s has been shared with you"
-msgstr "En datahanteringsplan i %<application_name>s har delats med dig"
+#: ../../app/models/user.rb:384
+msgid "A Data Management Plan in %{application_name} has been shared with you"
+msgstr "En datahanteringsplan i %{application_name} har delats med dig"
 
-#: ../../app/policies/api/v0/departments_policy.rb:12
-#: ../../app/policies/api/v0/guidance_group_policy.rb:12
-#: ../../app/policies/api/v0/guidance_policy.rb:13
-#: ../../app/policies/api/v0/plans_policy.rb:13
-#: ../../app/policies/api/v0/statistics_policy.rb:12
-#: ../../app/policies/api/v0/template_policy.rb:12
-#: ../../app/policies/api_client_policy.rb:6
-#: ../../app/policies/notification_policy.rb:6
-#: ../../app/policies/plan_policy.rb:9 ../../app/policies/template_policy.rb:8
-#: ../../app/policies/theme_policy.rb:6
-msgid "must be logged in"
-msgstr "måste vara inloggad"
-
-#: ../../app/policies/api/v0/guidance_group_policy.rb:14
-#: ../../app/policies/api/v0/guidance_policy.rb:15
-#: ../../app/policies/api/v0/statistics_policy.rb:14
-#: ../../app/policies/api/v0/template_policy.rb:14
+#: ../../app/policies/api/v0/guidance_group_policy.rb:11
+#: ../../app/policies/api/v0/guidance_policy.rb:11
+#: ../../app/policies/api/v0/statistics_policy.rb:11
 msgid "must have access to guidances api"
 msgstr "måste ha tillgång till guidningar api"
 
-#: ../../app/policies/api/v0/plans_policy.rb:15
+#: ../../app/policies/api/v0/plans_policy.rb:11
 msgid "must have access to plans api"
 msgstr "måste ha tillgång till planer api"
 
-#: ../../app/policies/plan_policy.rb:13
-msgid "are not authorized to view that plan"
-msgstr "har inte behörighet att se den planen"
+#: ../../app/policies/api/v0/template_policy.rb:9
+msgid "must have access to templates api"
+msgstr "måste ha tillgång till mallar api"
 
-#: ../../app/presenters/contributor_presenter.rb:57
+#: ../../app/presenters/contributor_presenter.rb:42
+msgid "Data Manager"
+msgstr "Datahanterare"
+
+#: ../../app/presenters/contributor_presenter.rb:44
+msgid "Project Administrator"
+msgstr "Projektadministratör"
+
+#: ../../app/presenters/contributor_presenter.rb:46
+msgid "Principal Investigator"
+msgstr "Huvudforskare"
+
+#: ../../app/presenters/contributor_presenter.rb:48
+msgid "Other"
+msgstr "Övrig"
+
+#: ../../app/presenters/contributor_presenter.rb:56
 msgid ""
 "Management activities to annotate (produce metadata), scrub data and maintain "
 "research data (including software code, where it is necessary for interpreting"
@@ -1617,7 +1628,7 @@ msgstr ""
 "att tolka själva uppgifterna) för initial användning och senare återanvändning"
 "."
 
-#: ../../app/presenters/contributor_presenter.rb:59
+#: ../../app/presenters/contributor_presenter.rb:58
 msgid ""
 "Conducting a research and investigation process, specifically performing the e"
 "xperiments, or data/evidence collection."
@@ -1625,7 +1636,7 @@ msgstr ""
 "Genomföra en forsknings- och utredningsprocess, specifikt utföra experimenten "
 "eller insamling av data / bevis."
 
-#: ../../app/presenters/contributor_presenter.rb:61
+#: ../../app/presenters/contributor_presenter.rb:60
 msgid ""
 "Management and coordination responsibility for the research activity planning "
 "and execution."
@@ -1633,60 +1644,60 @@ msgstr ""
 "Lednings- och samordningsansvar för planering och genomförande av forskningsak"
 "tiviteter."
 
-#: ../../app/services/api/v1/auth/jwt/authentication_service.rb:40
+#: ../../app/services/api/v1/auth/jwt/authentication_service.rb:34
 msgid "Invalid grant type"
 msgstr "Ogiltig bidragstyp"
 
-#: ../../app/services/api/v1/auth/jwt/authentication_service.rb:79
+#: ../../app/services/api/v1/auth/jwt/authentication_service.rb:70
 msgid "Invalid credentials"
 msgstr "Ogiltiga uppgifter"
 
-#: ../../app/services/api/v1/auth/jwt/authorization_service.rb:32
+#: ../../app/services/api/v1/auth/jwt/authorization_service.rb:29
 msgid "Invalid token"
 msgstr "Ogiltig token"
 
-#: ../../app/services/api/v1/auth/jwt/authorization_service.rb:49
+#: ../../app/services/api/v1/auth/jwt/authorization_service.rb:46
 msgid "Token expired"
 msgstr "Token gick ut"
 
-#: ../../app/services/api/v1/auth/jwt/authorization_service.rb:56
+#: ../../app/services/api/v1/auth/jwt/authorization_service.rb:53
 msgid "Missing token"
 msgstr "Saknar token"
 
-#: ../../app/services/api/v1/json_validation_service.rb:11
+#: ../../app/services/api/v1/json_validation_service.rb:7
 msgid ":title and the contact's :mbox are both required fields"
 msgstr ": title och kontaktens: mbox är båda obligatoriska fält"
 
-#: ../../app/services/api/v1/json_validation_service.rb:12
+#: ../../app/services/api/v1/json_validation_service.rb:8
 msgid ":type and :identifier are required for all ids"
 msgstr ": typ och: identifierare krävs för alla id: n"
 
-#: ../../app/services/api/v1/json_validation_service.rb:13
+#: ../../app/services/api/v1/json_validation_service.rb:9
 msgid ":name is required for every :affiliation and :funding"
 msgstr ": namn krävs för varje: anslutning och: finansiering"
 
-#: ../../app/services/api/v1/json_validation_service.rb:14
+#: ../../app/services/api/v1/json_validation_service.rb:10
 msgid ":role and either the :name or :email are required for each :contributor"
 msgstr ": roll och antingen: namn eller: e-post krävs för varje: bidragsgivare"
 
-#: ../../app/services/api/v1/json_validation_service.rb:15
+#: ../../app/services/api/v1/json_validation_service.rb:11
 msgid ":name, :funder_id or :grant_id are required for each funding"
 msgstr ": namn,: funder_id eller: grant_id krävs för varje finansiering"
 
-#: ../../app/services/api/v1/json_validation_service.rb:16
+#: ../../app/services/api/v1/json_validation_service.rb:12
 msgid ":title is required for each :dataset"
 msgstr ": title krävs för varje: dataset"
 
-#: ../../app/services/api/v1/json_validation_service.rb:59
-#: ../../spec/services/api/v1/json_validation_service_spec.rb:129
+#: ../../app/services/api/v1/json_validation_service.rb:53
+#: ../../spec/services/api/v1/json_validation_service_spec.rb:128
 msgid "invalid JSON"
 msgstr "Ogiltig JSON"
 
-#: ../../app/services/template/upgrade_customization_service.rb:68
+#: ../../app/services/template/upgrade_customization_service.rb:67
 msgid "upgrade_customization! requires a customised template"
 msgstr "upgrade_customization! kräver en anpassad mall"
 
-#: ../../app/services/template/upgrade_customization_service.rb:73
+#: ../../app/services/template/upgrade_customization_service.rb:71
 msgid ""
 "upgrade cannot be carried out since there is no published template of its curr"
 "ent funder"
@@ -1695,25 +1706,25 @@ msgstr ""
 "r sin nuvarande funderare"
 
 #: ../../app/validators/after_validator.rb:5
-msgid "must be after %<date>s"
-msgstr "måste vara efter %<date>s"
+msgid "must be after %{date}"
+msgstr "måste vara efter %{date}"
 
 #: ../../app/validators/org_links_validator.rb:10
 msgid "A key \"org\" is expected for links hash"
 msgstr "En nyckel \"org\" förväntas för länkar hash"
 
 #: ../../app/validators/org_links_validator.rb:13
-#: ../../app/validators/template_links_validator.rb:21
+#: ../../app/validators/template_links_validator.rb:23
 msgid "A hash is expected for links"
 msgstr "En hash väntas för länkar"
 
-#: ../../app/validators/template_links_validator.rb:12
-msgid "A key %<key>s is expected for links hash"
-msgstr "En nyckel %<key>s förväntas för länkar hash"
-
 #: ../../app/validators/template_links_validator.rb:15
-msgid "The key %<key>s does not have a valid set of object links"
-msgstr "Nyckeln %<key>s har inte en giltig uppsättning objektlänkar"
+msgid "The key %{key} does not have a valid set of object links"
+msgstr "Nyckeln %{key} har inte en giltig uppsättning objektlänkar"
+
+#: ../../app/validators/template_links_validator.rb:19
+msgid "A key %{key} is expected for links hash"
+msgstr "En nyckel %{key} förväntas för länkar hash"
 
 #: ../../app/views/answers/_locking.html.erb:5
 msgid "The following answer cannot be saved"
@@ -1721,10 +1732,10 @@ msgstr "Följande svar kan inte sparas"
 
 #: ../../app/views/answers/_locking.html.erb:8
 msgid ""
-"since %<name>s saved the answer below while you were editing. Please, combine y"
+"since %{name} saved the answer below while you were editing. Please, combine y"
 "our changes and then save the answer again."
 msgstr ""
-"eftersom %<name>s sparade svaret nedan medan du redigerade. Vänligen, kombinera"
+"eftersom %{name} sparade svaret nedan medan du redigerade. Vänligen, kombinera"
 " dina ändringar och spara sedan svaret igen."
 
 #: ../../app/views/answers/_new_edit.html.erb:15
@@ -1752,14 +1763,14 @@ msgid "Please wait, Standards are loading"
 msgstr "Vänligen vänta, Standarder laddas"
 
 #: ../../app/views/answers/_new_edit.html.erb:68
-#: ../../app/views/contributors/_form.html.erb:92
-#: ../../app/views/devise/passwords/edit.html.erb:28
+#: ../../app/views/contributors/_form.html.erb:94
+#: ../../app/views/devise/passwords/edit.html.erb:35
 #: ../../app/views/devise/registrations/_password_details.html.erb:31
 #: ../../app/views/devise/registrations/_personal_details.html.erb:90
 #: ../../app/views/guidance_groups/_guidance_group_form.html.erb:23
-#: ../../app/views/guidances/new_edit.html.erb:48
-#: ../../app/views/notes/_edit.html.erb:9
-#: ../../app/views/notes/_new.html.erb:12
+#: ../../app/views/guidances/new_edit.html.erb:49
+#: ../../app/views/notes/_edit.html.erb:10
+#: ../../app/views/notes/_new.html.erb:13
 #: ../../app/views/org_admin/departments/edit.html.erb:23
 #: ../../app/views/org_admin/departments/new.html.erb:23
 #: ../../app/views/org_admin/phases/_form.html.erb:25
@@ -1770,11 +1781,11 @@ msgstr "Vänligen vänta, Standarder laddas"
 #: ../../app/views/org_admin/users/edit.html.erb:54
 #: ../../app/views/orgs/_feedback_form.html.erb:38
 #: ../../app/views/orgs/_profile_form.html.erb:168
-#: ../../app/views/plans/_edit_details.html.erb:10
+#: ../../app/views/plans/_edit_details.html.erb:11
 #: ../../app/views/plans/_guidance_selection.html.erb:23
 #: ../../app/views/questions/_preview_question.html.erb:111
-#: ../../app/views/super_admin/api_clients/_form.html.erb:65
-#: ../../app/views/super_admin/notifications/_form.html.erb:65
+#: ../../app/views/super_admin/api_clients/_form.html.erb:67
+#: ../../app/views/super_admin/notifications/_form.html.erb:66
 #: ../../app/views/super_admin/themes/_form.html.erb:13
 #: ../../app/views/super_admin/users/edit.html.erb:61
 #: ../../app/views/users/_admin_grant_permissions.html.erb:68
@@ -1798,8 +1809,8 @@ msgid "Answered"
 msgstr "svarade"
 
 #: ../../app/views/answers/_status.html.erb:10
-msgid " by %<user_name>s"
-msgstr "av %<user_name>s"
+msgid " by %{user_name}"
+msgstr "av %{user_name}"
 
 #: ../../app/views/answers/_status.html.erb:15
 msgid "This answer removes "
@@ -1855,12 +1866,13 @@ msgstr "Ämne"
 msgid "Message"
 msgstr "Meddelande"
 
-#: ../../app/views/contact_us/contacts/_new_left.html.erb:38
+#: ../../app/views/contact_us/contacts/_new_left.html.erb:39
+#: ../../app/views/devise/passwords/edit.html.erb:30
 #: ../../app/views/shared/_create_account_form.html.erb:46
 msgid "Security check"
 msgstr "Säkerhetskontroll"
 
-#: ../../app/views/contact_us/contacts/_new_left.html.erb:42
+#: ../../app/views/contact_us/contacts/_new_left.html.erb:43
 #: ../../app/views/plans/_share_form.html.erb:146
 msgid "Submit"
 msgstr "Skicka"
@@ -1876,23 +1888,23 @@ msgstr "Kontakta oss"
 
 #: ../../app/views/contact_us/contacts/new.html.erb:6
 msgid ""
-"%<application_name>s is provided by the %<organisation_name>s.<br /> You can fin"
-"d out more about us on our <a href=\"%<organisation_url>s\" class=\"has-new-window"
+"%{application_name} is provided by the %{organisation_name}.<br /> You can fin"
+"d out more about us on our <a href=\"%{organisation_url}\" class=\"has-new-window"
 "-popup-info\" target=\"_blank\">website <em class=\"sr-only\">(new window)</em><spa"
-"n class=\"new-window-popup-info\">%<open_in_new_window_text>s</span></a>. If you "
-"would like to contact us about %<application_name>s, please fill out the form b"
+"n class=\"new-window-popup-info\">%{open_in_new_window_text}</span></a>. If you "
+"would like to contact us about %{application_name}, please fill out the form b"
 "elow."
 msgstr ""
-"%<application_name>s tillhandahålls av %<organisation_name>s. <br /> Du kan läsa"
-" mer om oss på vår <a href=\"%<organisation_url>s\" class=\"has-new-window-popup-i"
+"%{application_name} tillhandahålls av %{organisation_name}. <br /> Du kan läsa"
+" mer om oss på vår <a href=\"%{organisation_url}\" class=\"has-new-window-popup-i"
 "nfo\" target=\"_blank\">webbplats <em class=\"sr-only\">(nytt fönster)</em> <span c"
-"lass=\"new-window-popup-info\">%<open_in_new_window_text>s</span></a> . Om du vil"
-"l kontakta oss om %<application_name>s, fyll i formuläret nedan."
+"lass=\"new-window-popup-info\">%{open_in_new_window_text}</span></a> . Om du vil"
+"l kontakta oss om %{application_name}, fyll i formuläret nedan."
 
 #: ../../app/views/contact_us/contacts/new.html.erb:10
-#: ../../app/views/layouts/_branding.html.erb:37
-#: ../../app/views/layouts/_footer.html.erb:24
-#: ../../app/views/layouts/_footer.html.erb:30
+#: ../../app/views/layouts/_branding.html.erb:41
+#: ../../app/views/layouts/_footer.html.erb:23
+#: ../../app/views/layouts/_footer.html.erb:29
 #: ../../app/views/org_admin/plans/index.html.erb:40
 #: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:39
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:24
@@ -1921,21 +1933,21 @@ msgstr "Välj varje roll som gäller bidragsgivaren."
 msgid "ORCID"
 msgstr "ORCID"
 
-#: ../../app/views/contributors/_form.html.erb:43
+#: ../../app/views/contributors/_form.html.erb:44
 msgid "Phone number"
 msgstr "Telefonnummer"
 
-#: ../../app/views/contributors/_form.html.erb:62
+#: ../../app/views/contributors/_form.html.erb:64
 #: ../../app/views/paginable/contributors/_index.html.erb:14
 msgid "Affiliation"
 msgstr "Anslutning"
 
-#: ../../app/views/contributors/_form.html.erb:70
+#: ../../app/views/contributors/_form.html.erb:72
 #: ../../app/views/paginable/contributors/_index.html.erb:16
 msgid "Roles"
 msgstr "roller"
 
-#: ../../app/views/contributors/_form.html.erb:94
+#: ../../app/views/contributors/_form.html.erb:96
 #: ../../app/views/notes/_archive.html.erb:10
 #: ../../app/views/notes/_list.html.erb:16
 #: ../../app/views/notes/_list.html.erb:19
@@ -1955,19 +1967,19 @@ msgstr "roller"
 msgid "Remove"
 msgstr "ta bort"
 
-#: ../../app/views/contributors/_form.html.erb:97
+#: ../../app/views/contributors/_form.html.erb:99
 #: ../../app/views/guidance_groups/_guidance_group_form.html.erb:24
-#: ../../app/views/guidances/new_edit.html.erb:49
+#: ../../app/views/guidances/new_edit.html.erb:50
 #: ../../app/views/notes/_archive.html.erb:11
-#: ../../app/views/notes/_edit.html.erb:10
+#: ../../app/views/notes/_edit.html.erb:11
 #: ../../app/views/org_admin/departments/edit.html.erb:24
 #: ../../app/views/org_admin/departments/new.html.erb:24
 #: ../../app/views/org_admin/questions/_form.html.erb:103
 #: ../../app/views/org_admin/questions/_form.html.erb:105
 #: ../../app/views/plans/_guidance_selection.html.erb:35
 #: ../../app/views/plans/new.html.erb:124
-#: ../../app/views/super_admin/api_clients/_form.html.erb:84
-#: ../../app/views/super_admin/notifications/_form.html.erb:72
+#: ../../app/views/super_admin/api_clients/_form.html.erb:86
+#: ../../app/views/super_admin/notifications/_form.html.erb:73
 #: ../../app/views/super_admin/themes/_form.html.erb:19
 #: ../../app/views/super_admin/users/_confirm_merge.html.erb:15
 #: ../../app/views/users/_admin_grant_permissions.html.erb:69
@@ -2033,14 +2045,14 @@ msgstr "Bekräfta lösenord"
 msgid "First name"
 msgstr "Förnamn"
 
-#: ../../app/views/devise/invitations/edit.html.erb:27
+#: ../../app/views/devise/invitations/edit.html.erb:28
 #: ../../app/views/devise/registrations/_personal_details.html.erb:21
 #: ../../app/views/org_admin/users/edit.html.erb:24
 #: ../../app/views/super_admin/users/edit.html.erb:25
 msgid "Last name"
 msgstr "Efternamn"
 
-#: ../../app/views/devise/invitations/edit.html.erb:39
+#: ../../app/views/devise/invitations/edit.html.erb:40
 #: ../../app/views/devise/registrations/new.html.erb:43
 #: ../../app/views/devise/registrations/new.html.erb:58
 #: ../../app/views/shared/_access_controls.html.erb:11
@@ -2049,8 +2061,8 @@ msgid "Create account"
 msgstr "Skapa ett konto"
 
 #: ../../app/views/devise/mailer/confirmation_instructions.html.erb:2
-msgid "Welcome to %<application_name>s"
-msgstr "Välkommen till %<application_name>s"
+msgid "Welcome to %{application_name}"
+msgstr "Välkommen till %{application_name}"
 
 #: ../../app/views/devise/mailer/confirmation_instructions.html.erb:4
 msgid "Thank you for registering. Please confirm your email address"
@@ -2070,24 +2082,24 @@ msgstr "i din webbläsare"
 
 #: ../../app/views/devise/mailer/invitation_instructions.html.erb:12
 #: ../../app/views/user_mailer/new_comment.html.erb:2
-msgid "Hello %<user_name>s"
-msgstr "Hej %<user_name>s"
+msgid "Hello %{user_name}"
+msgstr "Hej %{user_name}"
 
 #: ../../app/views/devise/mailer/invitation_instructions.html.erb:15
 msgid ""
-"Your colleague %<inviter_name>s has invited you to contribute to  their Data Ma"
-"nagement Plan in %<tool_name>s"
+"Your colleague %{inviter_name} has invited you to contribute to  their Data Ma"
+"nagement Plan in %{tool_name}"
 msgstr ""
-"Din kollega %<inviter_name>s har bjudit in dig att bidra till deras datahanteri"
-"ngsplan i %<tool_name>s"
+"Din kollega %{inviter_name} har bjudit in dig att bidra till deras datahanteri"
+"ngsplan i %{tool_name}"
 
 #: ../../app/views/devise/mailer/invitation_instructions.html.erb:22
 #: ../../app/views/user_mailer/sharing_notification.html.erb:11
 msgid ""
-"%<click_here>s to accept the invitation, (or copy %<link>s into your browser). I"
+"%{click_here} to accept the invitation, (or copy %{link} into your browser). I"
 "f you don't want to accept the invitation, please ignore this email."
 msgstr ""
-"%<click_here>s för att acceptera inbjudan, (eller kopiera %<link>s till din webb"
+"%{click_here} för att acceptera inbjudan, (eller kopiera %{link} till din webb"
 "läsare). Om du inte vill acceptera inbjudan, ignorerar du det här e-postmeddel"
 "andet."
 
@@ -2107,8 +2119,8 @@ msgstr "med vänliga hälsningar"
 #: ../../app/views/devise/mailer/reset_password_instructions.html.erb:19
 #: ../../app/views/user_mailer/_email_signature.html.erb:12
 #: ../../app/views/user_mailer/welcome_notification.html.erb:10
-msgid "The %<tool_name>s team"
-msgstr "Teamet %<tool_name>s"
+msgid "The %{tool_name} team"
+msgstr "Teamet %{tool_name}"
 
 #: ../../app/views/devise/mailer/invitation_instructions.html.erb:32
 #: ../../app/views/devise/mailer/reset_password_instructions.html.erb:22
@@ -2119,22 +2131,22 @@ msgstr "Var god och svara ej på detta mail."
 
 #: ../../app/views/devise/mailer/invitation_instructions.html.erb:33
 msgid ""
-"If you have any questions or need help, please contact us at %<helpdesk_email>s"
-" or visit %<contact_us_url>s"
+"If you have any questions or need help, please contact us at %{helpdesk_email}"
+" or visit %{contact_us_url}"
 msgstr ""
-"Om du har några frågor eller behöver hjälp, kontakta oss på %<helpdesk_email>s "
-"eller besök %<contact_us_url>s"
+"Om du har några frågor eller behöver hjälp, kontakta oss på %{helpdesk_email} "
+"eller besök %{contact_us_url}"
 
 #: ../../app/views/devise/mailer/reset_password_instructions.html.erb:9
-msgid "Hello %<user_email>s"
-msgstr "Hej %<user_email>s"
+msgid "Hello %{user_email}"
+msgstr "Hej %{user_email}"
 
 #: ../../app/views/devise/mailer/reset_password_instructions.html.erb:12
 msgid ""
-"Someone has requested a link to change your %<tool_name>s password. You can do "
+"Someone has requested a link to change your %{tool_name} password. You can do "
 "this through the link below."
 msgstr ""
-"Någon har begärt en länk för att ändra ditt lösenord för %<tool_name>s. Du kan "
+"Någon har begärt en länk för att ändra ditt lösenord för %{tool_name}. Du kan "
 "göra det genom länken nedan."
 
 #: ../../app/views/devise/mailer/reset_password_instructions.html.erb:14
@@ -2148,11 +2160,11 @@ msgstr "Om du inte begärt detta, ignorerar du det här e-postmeddelandet."
 #: ../../app/views/devise/mailer/reset_password_instructions.html.erb:22
 #: ../../app/views/user_mailer/_email_signature.html.erb:19
 msgid ""
-"If you have any questions or need help, please contact us at %<helpdesk_email>s"
-" or visit %<contact_us>s"
+"If you have any questions or need help, please contact us at %{helpdesk_email}"
+" or visit %{contact_us}"
 msgstr ""
-"Om du har några frågor eller behöver hjälp, kontakta oss på %<helpdesk_email>s "
-"eller besök %<contact_us>s"
+"Om du har några frågor eller behöver hjälp, kontakta oss på %{helpdesk_email} "
+"eller besök %{contact_us}"
 
 #: ../../app/views/devise/mailer/unlock_instructions.html.erb:2
 msgid "Hello"
@@ -2224,22 +2236,22 @@ msgstr "Dokumentation"
 
 #: ../../app/views/devise/registrations/_api_token.html.erb:16
 msgid ""
-"See the <a href=\"%<api_v0_wiki>s\">documentation for v0</a> for more details on "
+"See the <a href=\"%{api_v0_wiki}\">documentation for v0</a> for more details on "
 "the original API which includes access to statistics, the full text of plans a"
 "nd the ability to connect users with departments."
 msgstr ""
-"Se <a href=\"%<api_v0_wiki>s\">dokumentationen för v0</a> för mer information om "
+"Se <a href=\"%{api_v0_wiki}\">dokumentationen för v0</a> för mer information om "
 "det ursprungliga API: et som inkluderar åtkomst till statistik, planens fullst"
 "ändiga text och möjligheten att ansluta användare till avdelningar."
 
 #: ../../app/views/devise/registrations/_api_token.html.erb:18
 msgid ""
-"See the <a href=\"%<api_v1_wiki>s\">documentation for v1</a> for more details on "
-"the API that supports the <a href=\"%<rda_standard_url>s\">RDA Common metadata st"
+"See the <a href=\"%{api_v1_wiki}\">documentation for v1</a> for more details on "
+"the API that supports the <a href=\"%{rda_standard_url}\">RDA Common metadata st"
 "andard for DMPs.</a>"
 msgstr ""
-"Se <a href=\"%<api_v1_wiki>s\">dokumentationen för v1</a> för mer information om "
-"API som stöder <a href=\"%<rda_standard_url>s\">RDA Common metadata standard för "
+"Se <a href=\"%{api_v1_wiki}\">dokumentationen för v1</a> för mer information om "
+"API som stöder <a href=\"%{rda_standard_url}\">RDA Common metadata standard för "
 "DMP.</a>"
 
 #: ../../app/views/devise/registrations/_api_token.html.erb:21
@@ -2410,11 +2422,10 @@ msgid "Sign in or Create account"
 msgstr "Logga in eller Skapa konto"
 
 #: ../../app/views/devise/registrations/new.html.erb:15
-msgid "Do you have a %<application_name>s account?"
-msgstr "Har du ett %<application_name>s konto?"
+msgid "Do you have a %{application_name} account?"
+msgstr "Har du ett %{application_name} konto?"
 
 #: ../../app/views/devise/registrations/new.html.erb:22
-#: ../../app/views/layouts/_navigation.html.erb:63
 #: ../../app/views/layouts/_signin_signout.html.erb:41
 #: ../../app/views/shared/_access_controls.html.erb:5
 #: ../../app/views/shared/_sign_in_form.html.erb:19
@@ -2426,8 +2437,8 @@ msgid "This will link your existing account to your credentials."
 msgstr "Detta kopplar ditt befintliga konto till dina uppgifter."
 
 #: ../../app/views/devise/registrations/new.html.erb:34
-msgid "No %<application_name>s account?"
-msgstr "Nej %<application_name>s konto?"
+msgid "No %{application_name} account?"
+msgstr "Nej %{application_name} konto?"
 
 #: ../../app/views/devise/registrations/new.html.erb:46
 msgid "This will create an account and link it to your credentials."
@@ -2494,7 +2505,7 @@ msgstr "kollapsa alla"
 #: ../../app/views/guidance_groups/admin_edit.html.erb:4
 #: ../../app/views/guidance_groups/admin_new.html.erb:1
 #: ../../app/views/guidance_groups/admin_new.html.erb:4
-#: ../../app/views/guidances/new_edit.html.erb:33
+#: ../../app/views/guidances/new_edit.html.erb:34
 #: ../../app/views/paginable/guidances/_index.html.erb:8
 msgid "Guidance group"
 msgstr "Guidningsgrupp"
@@ -2510,7 +2521,7 @@ msgstr "Visa all vägledning"
 #: ../../app/views/guidances/admin_index.html.erb:5
 #: ../../app/views/guidances/new_edit.html.erb:12
 #: ../../app/views/guidances/new_edit.html.erb:16
-#: ../../app/views/layouts/_branding.html.erb:77
+#: ../../app/views/layouts/_branding.html.erb:82
 #: ../../app/views/org_admin/annotations/_form.html.erb:3
 #: ../../app/views/org_admin/questions/_show.html.erb:78
 #: ../../app/views/paginable/themes/_index.html.erb:5
@@ -2577,7 +2588,7 @@ msgstr "Skapa vägledning"
 msgid "Enter your guidance here. You can include links where needed."
 msgstr "Ange din vägledning här. Du kan inkludera länkar där det behövs."
 
-#: ../../app/views/guidances/new_edit.html.erb:31
+#: ../../app/views/guidances/new_edit.html.erb:32
 msgid ""
 "Select one or more themes that are relevant to this guidance. This will displa"
 "y your generic organisation-level guidance, or any Schools/Departments for whi"
@@ -2589,26 +2600,26 @@ msgstr ""
 "ningar som du skapar vägledning för, över alla mallar som har frågor med motsv"
 "arande temakoder."
 
-#: ../../app/views/guidances/new_edit.html.erb:36
+#: ../../app/views/guidances/new_edit.html.erb:37
 msgid "Select which group this guidance relates to."
 msgstr "Välj vilken grupp denna vägledning avser."
 
-#: ../../app/views/guidances/new_edit.html.erb:43
+#: ../../app/views/guidances/new_edit.html.erb:44
 msgid "Check this box when you are ready for this guidance to appear on user's plans."
 msgstr ""
 "Markera den här rutan när du är redo för att denna vägledning ska visas på anv"
 "ändarens planer."
 
-#: ../../app/views/guidances/new_edit.html.erb:44
+#: ../../app/views/guidances/new_edit.html.erb:45
 msgid "Published?"
 msgstr "Publicerad?"
 
 #: ../../app/views/home/_welcome.html.erb:5
 msgid ""
-"<p>%<application_name>s has been developed by the <strong>%<organisation_name>s<"
+"<p>%{application_name} has been developed by the <strong>%{organisation_name}<"
 "/strong> to help you write data management plans.</p>"
 msgstr ""
-"<p> %<application_name>s har utvecklats av <strong>%<organisation_name>s för</st"
+"<p> %{application_name} har utvecklats av <strong>%{organisation_name} för</st"
 "rong> att hjälpa dig att skriva datahanteringsplaner. </p>"
 
 #: ../../app/views/home/_welcome.html.erb:11
@@ -2635,40 +2646,40 @@ msgstr "Nästa"
 msgid "Previous"
 msgstr "Tidigare"
 
-#: ../../app/views/layouts/_branding.html.erb:60
+#: ../../app/views/layouts/_branding.html.erb:65
 msgid "Admin"
 msgstr "Administratör"
 
-#: ../../app/views/layouts/_branding.html.erb:66
+#: ../../app/views/layouts/_branding.html.erb:71
 #: ../../app/views/org_admin/users/edit.html.erb:71
 #: ../../app/views/paginable/users/_index.html.erb:26
 #: ../../app/views/super_admin/users/edit.html.erb:105
 msgid "Plans"
 msgstr "Plans"
 
-#: ../../app/views/layouts/_branding.html.erb:72
+#: ../../app/views/layouts/_branding.html.erb:77
 #: ../../app/views/org_admin/templates/index.html.erb:4
 #: ../../app/views/paginable/orgs/_index.html.erb:8
 msgid "Templates"
 msgstr "mallar"
 
-#: ../../app/views/layouts/_branding.html.erb:82
+#: ../../app/views/layouts/_branding.html.erb:87
 #: ../../app/views/super_admin/orgs/index.html.erb:2
 #: ../../app/views/super_admin/orgs/index.html.erb:6
 msgid "Organisations"
 msgstr "organisationer"
 
-#: ../../app/views/layouts/_branding.html.erb:87
+#: ../../app/views/layouts/_branding.html.erb:92
 #: ../../app/views/orgs/admin_edit.html.erb:1
 #: ../../app/views/orgs/admin_edit.html.erb:6
 msgid "Organisation details"
 msgstr "Organisationsdetaljer"
 
-#: ../../app/views/layouts/_branding.html.erb:93
+#: ../../app/views/layouts/_branding.html.erb:98
 msgid "Users"
 msgstr "användare"
 
-#: ../../app/views/layouts/_branding.html.erb:98
+#: ../../app/views/layouts/_branding.html.erb:103
 #: ../../app/views/org_admin/questions/_show.html.erb:88
 #: ../../app/views/org_admin/shared/_theme_selector.html.erb:16
 #: ../../app/views/paginable/guidances/_index.html.erb:7
@@ -2677,15 +2688,15 @@ msgstr "användare"
 msgid "Themes"
 msgstr "Teman"
 
-#: ../../app/views/layouts/_branding.html.erb:103
+#: ../../app/views/layouts/_branding.html.erb:108
 msgid "Usage"
 msgstr "Användande"
 
-#: ../../app/views/layouts/_branding.html.erb:108
+#: ../../app/views/layouts/_branding.html.erb:113
 msgid "Api Clients"
 msgstr "Api-klienter"
 
-#: ../../app/views/layouts/_branding.html.erb:111
+#: ../../app/views/layouts/_branding.html.erb:116
 #: ../../app/views/org_admin/plans/index.html.erb:11
 #: ../../app/views/super_admin/notifications/index.html.erb:1
 #: ../../app/views/super_admin/notifications/index.html.erb:4
@@ -2713,11 +2724,7 @@ msgid "Privacy statement"
 msgstr "Sekretesspolicy"
 
 #: ../../app/views/layouts/_footer.html.erb:17
-msgid "Accessibility statement"
-msgstr "Tillgänglighetsförklaring"
-
-#: ../../app/views/layouts/_footer.html.erb:18
-msgid "Github"
+msgid "GitHub"
 msgstr "github"
 
 #: ../../app/views/layouts/_navigation.html.erb:12
@@ -2794,8 +2801,9 @@ msgid "Logout"
 msgstr "Logga ut"
 
 #: ../../app/views/layouts/application.html.erb:32
-msgid "%<application_name>s"
-msgstr "%<application_name>s"
+#: ../../app/views/static_pages/termsuse.html.erb:14
+msgid "%{application_name}"
+msgstr "%{application_name}"
 
 #: ../../app/views/layouts/application.html.erb:91
 msgid "Error:"
@@ -2870,11 +2878,11 @@ msgstr "Öppnar i nytt fönster"
 
 #: ../../app/views/layouts/application.html.erb:142
 msgid ""
-"%<n>s results are available, use up and down arrows to navigate suggestions. Us"
+"%{n} results are available, use up and down arrows to navigate suggestions. Us"
 "e the Enter key to select a suggestion or the Escape key to close the suggesti"
 "ons."
 msgstr ""
-"%<n>s resultat är tillgängliga, använd upp- och nedpilarna för att navigera i f"
+"%{n} resultat är tillgängliga, använd upp- och nedpilarna för att navigera i f"
 "örslag. Använd Enter-knappen för att välja ett förslag eller Escape-knappen fö"
 "r att stänga förslagen."
 
@@ -2926,8 +2934,8 @@ msgid "Example answer"
 msgstr "Exempel Svar"
 
 #: ../../app/views/org_admin/annotations/_show.html.erb:4
-msgid "%<org>s Example Answer"
-msgstr "%<org>s Exempel Svar"
+msgid "%{org} Example Answer"
+msgstr "%{org} Exempel Svar"
 
 #: ../../app/views/org_admin/conditions/_add.html.erb:3
 msgid "Add condition"
@@ -3081,10 +3089,10 @@ msgstr "Ta bort fas"
 
 #: ../../app/views/org_admin/phases/_phase.html.erb:17
 msgid ""
-"You are about to delete the '%<phase_title>s' phase. This will remove all of th"
+"You are about to delete the '%{phase_title}' phase. This will remove all of th"
 "e sections and questions listed below. Are you sure?"
 msgstr ""
-"Du håller på att ta bort fasen \"%<phase_title>s\". Detta tar bort alla avsnitt o"
+"Du håller på att ta bort fasen \"%{phase_title}\". Detta tar bort alla avsnitt o"
 "ch frågor som anges nedan. Är du säker?"
 
 #: ../../app/views/org_admin/phases/_phase.html.erb:18
@@ -3143,8 +3151,8 @@ msgid "Write plan"
 msgstr "Skriv Plan"
 
 #: ../../app/views/org_admin/plans/index.html.erb:4
-msgid "%<org_name>s Plans"
-msgstr "%<org_name>s Planer"
+msgid "%{org_name} Plans"
+msgstr "%{org_name} Planer"
 
 #: ../../app/views/org_admin/plans/index.html.erb:16
 msgid "Plan"
@@ -3195,10 +3203,10 @@ msgstr "Meddela planägaren att jag är klar med att ge feedback"
 #: ../../app/views/org_admin/plans/index.html.erb:39
 msgid ""
 "Download plans <em class=\"sr-only\">(new window)</em><span class=\"new-window-po"
-"pup-info\">%<open_in_new_window_text>s</span>"
+"pup-info\">%{open_in_new_window_text}</span>"
 msgstr ""
 "Ladda ner planer <em class=\"sr-only\">(nytt fönster)</em> <span class=\"new-wind"
-"ow-popup-info\">%<open_in_new_window_text>s</span>"
+"ow-popup-info\">%{open_in_new_window_text}</span>"
 
 #: ../../app/views/org_admin/question_options/_option_fields.html.erb:3
 msgid "Order"
@@ -3227,8 +3235,8 @@ msgstr ""
 "at (t ex tabeller) kan du ange den här stilen här."
 
 #: ../../app/views/org_admin/questions/_form.html.erb:4
-msgid "Question %<number>s:"
-msgstr "Fråga %<number>s:"
+msgid "Question %{number}:"
+msgstr "Fråga %{number}:"
 
 #: ../../app/views/org_admin/questions/_form.html.erb:4
 msgid "New question:"
@@ -3295,15 +3303,15 @@ msgstr ""
 
 #: ../../app/views/org_admin/questions/_form.html.erb:102
 #: ../../app/views/org_admin/sections/_form.html.erb:19
-#: ../../app/views/super_admin/api_clients/_form.html.erb:77
-#: ../../app/views/super_admin/notifications/_form.html.erb:67
+#: ../../app/views/super_admin/api_clients/_form.html.erb:79
+#: ../../app/views/super_admin/notifications/_form.html.erb:68
 #: ../../app/views/super_admin/themes/_form.html.erb:15
 msgid "Delete"
 msgstr "radera"
 
 #: ../../app/views/org_admin/questions/_form.html.erb:102
-msgid "You are about to delete question #%<question_number>s. Are you sure?"
-msgstr "Du håller på att ta bort fråga # %<question_number>s. Är du säker?"
+msgid "You are about to delete question #%{question_number}. Are you sure?"
+msgstr "Du håller på att ta bort fråga # %{question_number}. Är du säker?"
 
 #: ../../app/views/org_admin/questions/_index.html.erb:14
 msgid "Add Question"
@@ -3402,10 +3410,10 @@ msgstr "Ange en rubrik för avsnittet"
 
 #: ../../app/views/org_admin/sections/_form.html.erb:20
 msgid ""
-"You are about to delete '%<section_title>s'. This will affect questions linked "
+"You are about to delete '%{section_title}'. This will affect questions linked "
 "to this section. Are you sure?"
 msgstr ""
-"Du håller på att ta bort '%<section_title>s'. Detta påverkar frågor som är kopp"
+"Du håller på att ta bort '%{section_title}'. Detta påverkar frågor som är kopp"
 "lade till det här avsnittet. Är du säker?"
 
 #: ../../app/views/org_admin/sections/_index.html.erb:61
@@ -3434,8 +3442,8 @@ msgstr ""
 
 #: ../../app/views/org_admin/templates/_form.html.erb:25
 #: ../../app/views/org_admin/templates/_show.html.erb:35
-msgid "for internal %<org_name>s use only"
-msgstr "för intern %<org_name>s användning endast"
+msgid "for internal %{org_name} use only"
+msgstr "för intern %{org_name} användning endast"
 
 #: ../../app/views/org_admin/templates/_form.html.erb:32
 #: ../../app/views/org_admin/templates/_show.html.erb:13
@@ -3605,22 +3613,22 @@ msgstr "Anpassningsbara mallar"
 
 #: ../../app/views/org_admin/templates/index.html.erb:80
 #: ../../app/views/org_admin/templates/index.html.erb:93
-msgid "All (%<count>s)"
-msgstr "Alla (%<count>s)"
+msgid "All (%{count})"
+msgstr "Alla (%{count})"
 
 #: ../../app/views/org_admin/templates/index.html.erb:83
 #: ../../app/views/org_admin/templates/index.html.erb:96
-msgid "Published (%<count>s)"
-msgstr "Publicerad (%<count>s)"
+msgid "Published (%{count})"
+msgstr "Publicerad (%{count})"
 
 #: ../../app/views/org_admin/templates/index.html.erb:86
 #: ../../app/views/org_admin/templates/index.html.erb:99
-msgid "Unpublished (%<count>s)"
-msgstr "Ej offentliggjord (%<count>s)"
+msgid "Unpublished (%{count})"
+msgstr "Ej offentliggjord (%{count})"
 
 #: ../../app/views/org_admin/templates/index.html.erb:89
-msgid "Not customised (%<count>s)"
-msgstr "Ej anpassad (%<count>s)"
+msgid "Not customised (%{count})"
+msgstr "Ej anpassad (%{count})"
 
 #: ../../app/views/org_admin/templates/index.html.erb:118
 msgid "Create a template"
@@ -3629,8 +3637,8 @@ msgstr "Skapa en mall"
 #: ../../app/views/org_admin/users/edit.html.erb:4
 #: ../../app/views/super_admin/users/edit.html.erb:1
 #: ../../app/views/super_admin/users/edit.html.erb:5
-msgid "Editing profile for %<username>s"
-msgstr "Redigera profil för %<username>s"
+msgid "Editing profile for %{username}"
+msgstr "Redigera profil för %{username}"
 
 #: ../../app/views/org_admin/users/edit.html.erb:5
 #: ../../app/views/super_admin/users/edit.html.erb:6
@@ -3638,8 +3646,8 @@ msgid "View all users"
 msgstr "Visa alla användare"
 
 #: ../../app/views/org_admin/users/plans.html.erb:3
-msgid "Plans of %<username>s"
-msgstr "Planer för %<username>s"
+msgid "Plans of %{username}"
+msgstr "Planer för %{username}"
 
 #: ../../app/views/orgs/_departments.html.erb:1
 #: ../../app/views/orgs/admin_edit.html.erb:26
@@ -3669,7 +3677,7 @@ msgid ""
 "ntact_us_url}\">contact us</a> to have them updated."
 msgstr ""
 "Om någon av ovanstående identifierare är felaktiga eller saknas, vänligen <a h"
-"ref=\"%<contact_us_url>s\">kontakta oss för</a> att få dem uppdaterade."
+"ref=\"%{contact_us_url}\">kontakta oss för</a> att få dem uppdaterade."
 
 #: ../../app/views/orgs/_feedback_form.html.erb:3
 #: ../../app/views/orgs/_feedback_form.html.erb:7
@@ -3699,10 +3707,10 @@ msgstr "Slå samman organisationer"
 #: ../../app/views/orgs/_merge_form.html.erb:7
 msgid ""
 "Please select the Organisation that will replace the current organisation: '<s"
-"trong>%<org_name>s</strong>'."
+"trong>%{org_name}</strong>'."
 msgstr ""
 "Välj den organisation som kommer att ersätta den nuvarande organisationen: ' <"
-"strong>%<org_name>s</strong> '."
+"strong>%{org_name}</strong> '."
 
 #: ../../app/views/orgs/_merge_form.html.erb:8
 msgid ""
@@ -3878,21 +3886,21 @@ msgid "Last Accessed"
 msgstr "Senaste åtkomst"
 
 #: ../../app/views/paginable/api_clients/_index.html.erb:30
-#: ../../app/views/super_admin/api_clients/_form.html.erb:57
+#: ../../app/views/super_admin/api_clients/_form.html.erb:59
 msgid "Never"
 msgstr "Aldrig"
 
 #: ../../app/views/paginable/api_clients/_index.html.erb:44
 msgid ""
-"You are about to delete '%<client_name>s'. They will no longer be able to acces"
+"You are about to delete '%{client_name}'. They will no longer be able to acces"
 "s the API. Are you sure?"
 msgstr ""
-"Du håller på att radera '%<client_name>s'. De kommer inte längre att kunna komm"
+"Du håller på att radera '%{client_name}'. De kommer inte längre att kunna komm"
 "a åt API: et. Är du säker?"
 
 #: ../../app/views/paginable/contributors/_index.html.erb:57
-msgid "You are about to delete '%<contributor_name>s'. Are you sure?"
-msgstr "Du håller på att radera '%<contributor_name>s'. Är du säker?"
+msgid "You are about to delete '%{contributor_name}'. Are you sure?"
+msgstr "Du håller på att radera '%{contributor_name}'. Är du säker?"
 
 #: ../../app/views/paginable/departments/_index.html.erb:5
 #: ../../app/views/paginable/users/_index.html.erb:22
@@ -3905,10 +3913,10 @@ msgstr "Förkortat namn eller kod"
 
 #: ../../app/views/paginable/departments/_index.html.erb:28
 msgid ""
-"You are about to delete '%<department_name>s'. This will affect guidance. Are y"
+"You are about to delete '%{department_name}'. This will affect guidance. Are y"
 "ou sure?"
 msgstr ""
-"Du håller på att ta bort '%<department_name>s'. Detta kommer att påverka vägled"
+"Du håller på att ta bort '%{department_name}'. Detta kommer att påverka vägled"
 "ning. Är du säker?"
 
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:8
@@ -3949,15 +3957,15 @@ msgstr "publicera"
 
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:50
 msgid ""
-"You are about to delete '%<guidance_group_name>s'. This will affect guidance. A"
+"You are about to delete '%{guidance_group_name}'. This will affect guidance. A"
 "re you sure?"
 msgstr ""
-"Du håller på att ta bort '%<guidance_group_name>s'. Detta kommer att påverka vä"
+"Du håller på att ta bort '%{guidance_group_name}'. Detta kommer att påverka vä"
 "gledning. Är du säker?"
 
 #: ../../app/views/paginable/guidances/_index.html.erb:62
-msgid "You are about to delete '%<guidance_summary>s'. Are you sure?"
-msgstr "Du håller på att ta bort '%<guidance_summary>s'. Är du säker?"
+msgid "You are about to delete '%{guidance_summary}'. Are you sure?"
+msgstr "Du håller på att ta bort '%{guidance_summary}'. Är du säker?"
 
 #: ../../app/views/paginable/notifications/_index.html.erb:5
 #: ../../app/views/super_admin/notifications/_form.html.erb:15
@@ -3993,8 +4001,23 @@ msgid "Managed"
 msgstr "Managed"
 
 #: ../../app/views/paginable/orgs/_index.html.erb:35
-msgid "You are about to delete '%<org_name>s'. Are you sure?"
-msgstr "Du håller på att ta bort '%<org_name>s'. Är du säker?"
+msgid "You are about to delete '%{org_name}'. Are you sure?"
+msgstr "Du håller på att ta bort '%{org_name}'. Är du säker?"
+
+#: ../../app/views/paginable/plans/_index.html.erb:5
+#: ../../app/views/paginable/plans/_org_admin.html.erb:18
+#: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:9
+#: ../../app/views/paginable/plans/_privately_visible.html.erb:5
+#: ../../app/views/paginable/plans/_publicly_visible.html.erb:5
+#: ../../app/views/plans/_show_details.html.erb:4
+msgid "Project Title"
+msgstr "Projektnamn"
+
+#: ../../app/views/paginable/plans/_index.html.erb:28
+#: ../../app/views/paginable/plans/_org_admin.html.erb:43
+#: ../../app/views/paginable/plans/_privately_visible.html.erb:9
+msgid "Test"
+msgstr "Testa"
 
 #: ../../app/views/paginable/plans/_org_admin.html.erb:3
 msgid ""
@@ -4024,24 +4047,9 @@ msgstr ""
 "gen och ett fyrsiffrigt år i sökrutan ovan. <br> Till exempel: 'okt 2019' elle"
 "r 'juni 2013'."
 
-#: ../../app/views/paginable/plans/_org_admin.html.erb:18
-#: ../../app/views/paginable/plans/_org_admin_other_user.html.erb:5
-#: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:9
-#: ../../app/views/paginable/plans/_privately_visible.html.erb:5
-#: ../../app/views/paginable/plans/_publicly_visible.html.erb:5
-#: ../../app/views/plans/_show_details.html.erb:4
-msgid "Project Title"
-msgstr "Projektnamn"
-
 #: ../../app/views/paginable/plans/_org_admin.html.erb:22
 msgid "Created"
 msgstr "skapad"
-
-#: ../../app/views/paginable/plans/_org_admin.html.erb:43
-#: ../../app/views/paginable/plans/_org_admin_other_user.html.erb:28
-#: ../../app/views/paginable/plans/_privately_visible.html.erb:9
-msgid "Test"
-msgstr "Testa"
 
 #:
 #: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:21
@@ -4161,10 +4169,10 @@ msgstr "Publicera ändringar"
 
 #: ../../app/views/paginable/templates/_customisable.html.erb:69
 msgid ""
-"Are you sure you want to remove your customization of \"%<template_title>s\"? Any"
+"Are you sure you want to remove your customization of \"%{template_title}\"? Any"
 " published versions will become unavailable to users."
 msgstr ""
-"Är du säker på att du vill ta bort din anpassning av \"%<template_title>s\"? Alla"
+"Är du säker på att du vill ta bort din anpassning av \"%{template_title}\"? Alla"
 " publicerade versioner blir inte tillgängliga för användare."
 
 #: ../../app/views/paginable/templates/_history.html.erb:7
@@ -4181,10 +4189,10 @@ msgstr "Visa anpassningar"
 
 #: ../../app/views/paginable/templates/_organisational.html.erb:76
 msgid ""
-"Are you sure you want to remove \"%<template_title>s\"? Any published versions wi"
+"Are you sure you want to remove \"%{template_title}\"? Any published versions wi"
 "ll become unavailable to users."
 msgstr ""
-"Är du säker på att du vill ta bort \"%<template_title>s\"? Alla publicerade versi"
+"Är du säker på att du vill ta bort \"%{template_title}\"? Alla publicerade versi"
 "oner blir inte tillgängliga för användare."
 
 #: ../../app/views/paginable/templates/_organisational.html.erb:90
@@ -4272,6 +4280,10 @@ msgstr "Aktuella privilegier"
 msgid "Edit Profile"
 msgstr "Redigera profil"
 
+#: ../../app/views/phases/_edit_plan_answers.html.erb:77
+msgid "Comments & Guidance"
+msgstr "Kommentarer & vägledning"
+
 #: ../../app/views/phases/_overview.html.erb:5
 msgid "Instructions"
 msgstr "Instruktioner"
@@ -4347,22 +4359,22 @@ msgstr "Höger"
 #: ../../app/views/plans/_download_form.html.erb:119
 msgid ""
 "Download Plan <em class=\"sr-only\">(new window)</em><span class=\"new-window-pop"
-"up-info\">%<open_in_new_window_text>s</span>"
+"up-info\">%{open_in_new_window_text}</span>"
 msgstr ""
 "Ladda ner plan <em class=\"sr-only\">(nytt fönster)</em> <span class=\"new-window"
-"-popup-info\">%<open_in_new_window_text>s</span>"
+"-popup-info\">%{open_in_new_window_text}</span>"
 
-#: ../../app/views/plans/_edit_details.html.erb:13
+#: ../../app/views/plans/_edit_details.html.erb:14
 #: ../../app/views/plans/_guidance_selection.html.erb:38
 msgid "Select Guidance"
 msgstr "Välj vägledning"
 
 #: ../../app/views/plans/_guidance_selection.html.erb:6
 msgid ""
-"To help you write your plan, %<application_name>s can show you guidance from a "
+"To help you write your plan, %{application_name} can show you guidance from a "
 "variety of organisations."
 msgstr ""
-"För att hjälpa dig att skriva din plan kan %<application_name>s visa vägledning"
+"För att hjälpa dig att skriva din plan kan %{application_name} visa vägledning"
 " från olika organisationer."
 
 #: ../../app/views/plans/_guidance_selection.html.erb:9
@@ -4383,11 +4395,11 @@ msgstr "Det finns ingen ytterligare vägledning för denna mall."
 
 #: ../../app/views/plans/_guidance_selection.html.erb:40
 msgid ""
-"To help you write your plan, %<application_name>s can show you guidance from a "
+"To help you write your plan, %{application_name} can show you guidance from a "
 "variety of organisations. Please choose up to 6 organisations of the following"
 " organisations who offer guidance relevant to your plan."
 msgstr ""
-"För att hjälpa dig att skriva din plan kan %<application_name>s visa vägledning"
+"För att hjälpa dig att skriva din plan kan %{application_name} visa vägledning"
 " från olika organisationer. Välj upp till 6 organisationer av följande organis"
 "ationer som erbjuder vägledning som är relevant för din plan."
 
@@ -4413,19 +4425,19 @@ msgstr "Skriv Plan"
 
 #: ../../app/views/plans/_overview_details.html.erb:9
 msgid ""
-"This plan is based on the \"%<template_title>s\" template provided by %<org_name>s"
+"This plan is based on the \"%{template_title}\" template provided by %{org_name}"
 "."
 msgstr ""
-"Den här planen är baserad på \"%<template_title>s\" mallen som tillhandahålls av "
-"%<org_name>s."
+"Den här planen är baserad på \"%{template_title}\" mallen som tillhandahålls av "
+"%{org_name}."
 
 #: ../../app/views/plans/_overview_details.html.erb:17
-msgid "Template version %<template_version>s, published on %<published_date>s"
-msgstr "Mallversion %<template_version>s, publicerad på %<published_date>s"
+msgid "Template version %{template_version}, published on %{published_date}"
+msgstr "Mallversion %{template_version}, publicerad på %{published_date}"
 
 #: ../../app/views/plans/_overview_details.html.erb:42
-msgid "%<phase_title>s (%<sections_size>s %<sections>s, %<questions_size>s %<questions>s)"
-msgstr "%<phase_title>s (%<sections_size>s %<sections>s, %<questions_size>s %<questions>s)"
+msgid "%{phase_title} (%{sections_size} %{sections}, %{questions_size} %{questions})"
+msgstr "%{phase_title} (%{sections_size} %{sections}, %{questions_size} %{questions})"
 
 #: ../../app/views/plans/_overview_details.html.erb:43
 msgid "section"
@@ -4443,11 +4455,11 @@ msgstr[1] "frågor"
 msgid "answered"
 msgstr "svarade"
 
-#: ../../app/views/plans/_project_details.html.erb:3
+#: ../../app/views/plans/_project_details.html.erb:4
 msgid "If applying for funding, state the name exactly as in the grant proposal."
 msgstr "Om du ansöker om finansiering, ange namnet exakt som i bidragsförslaget."
 
-#: ../../app/views/plans/_project_details.html.erb:4
+#: ../../app/views/plans/_project_details.html.erb:5
 msgid ""
 "Briefly summarise your research project to help others understand the purposes"
 " for which the data are being collected or created."
@@ -4455,49 +4467,94 @@ msgstr ""
 "Sammanfattningsvis sammanfatta ditt forskningsprojekt för att hjälpa andra att"
 " förstå de syften för vilka uppgifterna samlas in eller skapas."
 
-#: ../../app/views/plans/_project_details.html.erb:5
+#: ../../app/views/plans/_project_details.html.erb:6
 msgid "A pertinent ID as determined by the funder and/or organisation."
 msgstr "Ett relevant ID som bestäms av funderaren och / eller organisationen."
 
-#: ../../app/views/plans/_project_details.html.erb:22
+#: ../../app/views/plans/_project_details.html.erb:7
+msgid ""
+"Whether there are any potential ethical issues related to data that this DMP d"
+"escribes"
+msgstr ""
+"Om det finns några potentiella etiska frågor relaterade till data som denna DM"
+"P beskriver"
+
+#: ../../app/views/plans/_project_details.html.erb:8
+msgid "Description of the ethical issues"
+msgstr "Beskrivning av de etiska frågorna"
+
+#: ../../app/views/plans/_project_details.html.erb:9
+msgid "Link to a protocol from a meeting with an ethics commitee"
+msgstr "Länk till ett protokoll från ett möte med en etikkommitté"
+
+#: ../../app/views/plans/_project_details.html.erb:27
 #: ../../app/views/plans/new.html.erb:38
 msgid "mock project for testing, practice, or educational purposes"
 msgstr "mock projekt för testning, övning eller utbildningsändamål"
 
-#: ../../app/views/plans/_project_details.html.erb:30
+#: ../../app/views/plans/_project_details.html.erb:35
 msgid "Project abstract"
 msgstr "Projektens ﻿abstrakt"
 
-#: ../../app/views/plans/_project_details.html.erb:41
+#: ../../app/views/plans/_project_details.html.erb:47
+msgid "Research domain"
+msgstr "Forskningsdomän"
+
+#: ../../app/views/plans/_project_details.html.erb:52
+#: ../../app/views/plans/_project_details.html.erb:173
+msgid "- Please select one -"
+msgstr "- Välj en -"
+
+#: ../../app/views/plans/_project_details.html.erb:62
 msgid "Project Start"
 msgstr "Projektstart"
 
-#: ../../app/views/plans/_project_details.html.erb:44
+#: ../../app/views/plans/_project_details.html.erb:65
 msgid "The estimated date on which you will begin this project."
 msgstr "Det beräknade datumet för vilket du börjar projektet."
 
-#: ../../app/views/plans/_project_details.html.erb:47
+#: ../../app/views/plans/_project_details.html.erb:68
 msgid "Project End"
 msgstr "Projektets slut"
 
-#: ../../app/views/plans/_project_details.html.erb:50
+#: ../../app/views/plans/_project_details.html.erb:71
 msgid "The estimated date on which you will complete this project."
 msgstr "Det uppskattade datum då du kommer att slutföra projektet."
 
-#: ../../app/views/plans/_project_details.html.erb:59
+#: ../../app/views/plans/_project_details.html.erb:80
 msgid "Landing page"
 msgstr "Landningssida"
 
-#: ../../app/views/plans/_project_details.html.erb:72
+#: ../../app/views/plans/_project_details.html.erb:93
 #: ../../app/views/plans/_show_details.html.erb:22
 msgid "ID"
 msgstr "ID"
 
 #: ../../app/views/plans/_project_details.html.erb:114
+msgid "Research outputs may have ethical concerns"
+msgstr "Forskningsresultat kan ha etiska problem"
+
+#: ../../app/views/plans/_project_details.html.erb:121
+msgid "Describe any ethical concerns"
+msgstr "Beskriv eventuella etiska problem"
+
+#: ../../app/views/plans/_project_details.html.erb:134
+msgid "Ethical protocols"
+msgstr "Etiska protokoll"
+
+#: ../../app/views/plans/_project_details.html.erb:167
+msgid "Funding status"
+msgstr "Finansieringsstatus"
+
+#: ../../app/views/plans/_project_details.html.erb:181
 msgid "Grant number/url"
 msgstr "Bevilja nummer / url"
 
-#: ../../app/views/plans/_project_details.html.erb:128
+#: ../../app/views/plans/_project_details.html.erb:195
+msgid "Grant number:"
+msgstr "Bidragsnummer:"
+
+#: ../../app/views/plans/_project_details.html.erb:199
 msgid ""
 "Provide a URL to the award's landing page if possible, if not please provide t"
 "he award/grant number."
@@ -4536,11 +4593,11 @@ msgstr "Ange planens synlighet"
 #: ../../app/views/plans/_share_form.html.erb:9
 msgid ""
 "Public or organisational visibility is intended for finished plans. You must a"
-"nswer at least %<percentage>s%% of the questions to enable these options. Note:"
+"nswer at least %{percentage}%% of the questions to enable these options. Note:"
 " test plans are set to private visibility by default."
 msgstr ""
 "Offentlig eller organisatorisk synlighet är avsedd för färdiga planer. Du måst"
-"e svara minst %<percentage>s %% av frågorna för att aktivera dessa alternativ. "
+"e svara minst %{percentage} %% av frågorna för att aktivera dessa alternativ. "
 "Obs! Testplanerna är som standard inställda på privat sikt."
 
 #: ../../app/views/plans/_share_form.html.erb:19
@@ -4629,8 +4686,8 @@ msgid "Click the 'Create plan' button below to begin."
 msgstr "Klicka på knappen \"Skapa plan\" nedan för att börja."
 
 #: ../../app/views/plans/index.html.erb:35
-msgid "%<org_title>s Plans"
-msgstr "%<org_title>s Planer"
+msgid "%{org_title} Plans"
+msgstr "%{org_title} Planer"
 
 #: ../../app/views/plans/index.html.erb:36
 msgid ""
@@ -4710,11 +4767,11 @@ msgstr "Vi hittade flera DMP-mallar som motsvarar din funderare."
 
 #: ../../app/views/public_pages/plan_index.html.erb:8
 msgid ""
-"Public DMPs are plans created using the %<application_name>s service and shared"
+"Public DMPs are plans created using the %{application_name} service and shared"
 " publicly by their owners. They are not vetted for quality, completeness, or a"
 "dherence to funder guidelines."
 msgstr ""
-"Offentliga DMP är planer som skapats med hjälp av %<application_name>s -tjänste"
+"Offentliga DMP är planer som skapats med hjälp av %{application_name} -tjänste"
 "n och delas offentligt av sina ägare. De är inte kända för kvalitet, fullständ"
 "ighet eller efterlevnad av funderingsriktlinjer."
 
@@ -4763,8 +4820,8 @@ msgid "terms and conditions"
 msgstr "Villkor"
 
 #: ../../app/views/shared/_create_plan_modal.html.erb:8
-msgid "Would you like to create a plan based on the \"%<name>s\" template?"
-msgstr "Vill du skapa en plan baserad på mallen \"%<name>s\"?"
+msgid "Would you like to create a plan based on the \"%{name}\" template?"
+msgstr "Vill du skapa en plan baserad på mallen \"%{name}\"?"
 
 #: ../../app/views/shared/_links.html.erb:7
 msgid "Links"
@@ -4815,41 +4872,46 @@ msgstr "Ta bort filtret"
 msgid "Filter plans"
 msgstr "Filter planer"
 
-#: ../../app/views/shared/export/_plan_coversheet.erb:3
-#: ../../app/views/shared/export/_plan_txt.erb:65
-msgid "A Data Management Plan created using %<application_name>s"
-msgstr "En datahanteringsplan skapad med hjälp av %<application_name>s"
+#: ../../app/views/shared/export/_plan.erb:55
+#: ../../app/views/shared/export/_plan_txt.erb:52
+msgid "Question not answered."
+msgstr "Fråga inte besvarad."
 
-#: ../../app/views/shared/export/_plan_coversheet.erb:10
+#: ../../app/views/shared/export/_plan_coversheet.erb:3
+#: ../../app/views/shared/export/_plan_txt.erb:67
+msgid "A Data Management Plan created using %{application_name}"
+msgstr "En datahanteringsplan skapad med hjälp av %{application_name}"
+
+#: ../../app/views/shared/export/_plan_coversheet.erb:8
 #: ../../app/views/shared/export/_plan_txt.erb:5
 msgid "Affiliation: "
 msgstr "Anslutning:"
 
-#: ../../app/views/shared/export/_plan_coversheet.erb:13
+#: ../../app/views/shared/export/_plan_coversheet.erb:11
 msgid "Funder: "
 msgstr "Grundare:"
 
-#: ../../app/views/shared/export/_plan_coversheet.erb:22
+#: ../../app/views/shared/export/_plan_coversheet.erb:20
 msgid "ORCID iD: "
 msgstr "ORCID iD:"
 
-#: ../../app/views/shared/export/_plan_coversheet.erb:31
+#: ../../app/views/shared/export/_plan_coversheet.erb:29
 msgid "ID: "
 msgstr "ID:"
 
-#: ../../app/views/shared/export/_plan_coversheet.erb:35
+#: ../../app/views/shared/export/_plan_coversheet.erb:33
 msgid "Start date: "
 msgstr "Start datum:"
 
-#: ../../app/views/shared/export/_plan_coversheet.erb:39
+#: ../../app/views/shared/export/_plan_coversheet.erb:37
 msgid "End date: "
 msgstr "Slutdatum:"
 
-#: ../../app/views/shared/export/_plan_coversheet.erb:45
+#: ../../app/views/shared/export/_plan_coversheet.erb:43
 msgid "Grant number / URL: "
 msgstr "Bidragsnummer / URL:"
 
-#: ../../app/views/shared/export/_plan_coversheet.erb:52
+#: ../../app/views/shared/export/_plan_coversheet.erb:50
 #: ../../app/views/shared/export/_plan_txt.erb:20
 msgid ""
 " The above plan creator(s) have agreed that others may use as much of the text"
@@ -4871,8 +4933,8 @@ msgstr ""
 msgid "Begin typing to see a list of suggestions."
 msgstr "Börja skriva för att se en lista med förslag."
 
-#: ../../app/views/shared/org_selectors/_combined.html.erb:47
-#: ../../app/views/shared/org_selectors/_external_only.html.erb:42
+#: ../../app/views/shared/org_selectors/_combined.html.erb:48
+#: ../../app/views/shared/org_selectors/_external_only.html.erb:43
 msgid ""
 "A new entry will be created for the organisation you have named above. Please "
 "double check that your organisation does not appear in the list in a slightly "
@@ -4881,14 +4943,14 @@ msgstr ""
 "En ny post skapas för den organisation du har namngivit ovan. Kontrollera att "
 "din organisation inte visas i listan i något annorlunda formulär."
 
-#: ../../app/views/shared/org_selectors/_local_only.html.erb:45
+#: ../../app/views/shared/org_selectors/_local_only.html.erb:46
 msgid "The name you entered was not one of the listed suggestions!"
 msgstr "Namnet du angav var inte ett av de listade förslagen!"
 
 #: ../../app/views/static_pages/about_us.html.erb:1
 #: ../../app/views/static_pages/about_us.html.erb:4
-msgid "About %<application_name>s"
-msgstr "Om %<application_name>s"
+msgid "About %{application_name}"
+msgstr "Om %{application_name}"
 
 #: ../../app/views/static_pages/about_us.html.erb:11
 msgid ""
@@ -4966,10 +5028,10 @@ msgstr "Vi uppmanar dig att läsa igenom DMPRoadmap GitHub wiki för att lära d
 #: ../../app/views/static_pages/about_us.html.erb:22
 msgid ""
 "get involved<em class=\"sr-only\"> (new window)</em><span class=\"new-window-popu"
-"p-info\">%<open_in_new_window_text>s</span>"
+"p-info\">%{open_in_new_window_text}</span>"
 msgstr ""
 "engagera sig <em class=\"sr-only\">(nytt fönster)</em> <span class=\"new-window-p"
-"opup-info\">%<open_in_new_window_text>s</span>"
+"opup-info\">%{open_in_new_window_text}</span>"
 
 #: ../../app/views/static_pages/about_us.html.erb:28
 msgid " in the project. You can also report bugs and request new features via "
@@ -4988,8 +5050,8 @@ msgid "If you have an account please sign in and start creating or editing your 
 msgstr "Om du har ett konto, logga in och börja skapa eller redigera din DMP."
 
 #: ../../app/views/static_pages/about_us.html.erb:34
-msgid "If you do not have a %<application_name>s account, click on"
-msgstr "Om du inte har ett %<application_name>s konto klickar du på"
+msgid "If you do not have a %{application_name} account, click on"
+msgstr "Om du inte har ett %{application_name} konto klickar du på"
 
 #: ../../app/views/static_pages/about_us.html.erb:34
 msgid "Sign up"
@@ -5027,13 +5089,14 @@ msgstr ""
 
 #: ../../app/views/static_pages/help.html.erb:11
 msgid ""
-"When you log in to DMPRoadmap you will be directed to the 'My Dashboard' page."
-" From here you can edit, share, download, copy or remove any of your plans. Yo"
-"u will also see plans that have been shared with you by others."
+"When you log in to %{application_name} you will be directed to the 'My Dashboa"
+"rd' page. From here you can edit, share, download, copy or remove any of your "
+"plans. You will also see plans that have been shared with you by others."
 msgstr ""
-"När du loggar in på DMPRoadmap kommer du att skickas till sidan \"Min Dashboard"
-"\". Härifrån kan du redigera, dela, hämta, kopiera eller ta bort några av dina "
-"planer. Du kommer också att se planer som har delats med dig av andra."
+"När du loggar in på %{application_name} kommer du att dirigeras till sidan 'My"
+" Dashboard'. Härifrån kan du redigera, dela, ladda ner, kopiera eller ta bort "
+"alla dina planer. Du kommer också att se planer som har delats med dig av andr"
+"a."
 
 #: ../../app/views/static_pages/help.html.erb:13
 msgid "Create a plan"
@@ -5183,13 +5246,13 @@ msgid ""
 " you need to submit your plan as part of a grant application. Choose what form"
 "at you would like to view/download your plan in and click to download. You can"
 " also adjust the formatting (font type, size and margins) for PDF files, which"
-" may be helpful if working to page limits.</p>"
+" may be helpful if working to page limits."
 msgstr ""
 "Härifrån kan du ladda ner din plan i olika format. Det kan vara användbart om "
 "du behöver lämna in din plan som en del av en bidragsansökan. Välj vilket form"
 "at du vill visa / ladda ner din plan och klicka för att ladda ner. Du kan ocks"
 "å justera formateringen (typsnitt, storlek och marginaler) för PDF-filer, vilk"
-"et kan vara till hjälp om du arbetar till sidgränser. </p>"
+"et kan vara till hjälp om du arbetar till sidgränser."
 
 #: ../../app/views/static_pages/privacy.html.erb:10
 msgid "Information about you: how we use it and with whom we share it"
@@ -5197,46 +5260,46 @@ msgstr "Information om dig: hur vi använder den och med vilken vi delar den"
 
 #: ../../app/views/static_pages/privacy.html.erb:11
 msgid ""
-"The information you provide will be used by the %<org_name>s to offer you acces"
-"s to and personalisation of the %<application_name>s service."
+"The information you provide will be used by the %{org_name} to offer you acces"
+"s to and personalisation of the %{application_name} service."
 msgstr ""
-"Informationen du tillhandahåller kommer att användas av %<org_name>s för att er"
-"bjuda dig tillgång till och personalisering av tjänsten %<application_name>s."
+"Informationen du tillhandahåller kommer att användas av %{org_name} för att er"
+"bjuda dig tillgång till och personalisering av tjänsten %{application_name}."
 
 #: ../../app/views/static_pages/privacy.html.erb:13
 msgid ""
-"The %<org_name>s processes the personal data of %<application_name>s users in or"
-"der to deliver and improve the %<application_name>s service in a customised man"
+"The %{org_name} processes the personal data of %{application_name} users in or"
+"der to deliver and improve the %{application_name} service in a customised man"
 "ner and to ensure each user receives relevant information."
 msgstr ""
-"%<org_name>s behandlar personuppgifterna för %<application_name>s -användare för"
-" att leverera och förbättra tjänsten [%<org_name>sA2] på ett anpassat sätt och "
+"%{org_name} behandlar personuppgifterna för %{application_name} -användare för"
+" att leverera och förbättra tjänsten [%{org_name}A2] på ett anpassat sätt och "
 "för att säkerställa att varje användare får relevant information."
 
 #: ../../app/views/static_pages/privacy.html.erb:15
 msgid ""
-"The processing of your personal data by the %<org_name>s is necessary for pursu"
+"The processing of your personal data by the %{org_name} is necessary for pursu"
 "ing the following legitimate interests:"
 msgstr ""
-"Behandlingen av dina personuppgifter av %<org_name>s är nödvändig för att följa"
+"Behandlingen av dina personuppgifter av %{org_name} är nödvändig för att följa"
 " följande legitima intressen:"
 
 #: ../../app/views/static_pages/privacy.html.erb:18
 msgid ""
-"To provide access to the %<application_name>s service and personalisation of yo"
+"To provide access to the %{application_name} service and personalisation of yo"
 "ur user experience e.g. provision of relevant templates and guidance for your "
 "organisation."
 msgstr ""
-"För att ge tillgång till tjänsten %<application_name>s och personalisering av d"
+"För att ge tillgång till tjänsten %{application_name} och personalisering av d"
 "in användarupplevelse, t.ex. tillhandahållande av relevanta mallar och vägledn"
 "ing för din organisation."
 
 #: ../../app/views/static_pages/privacy.html.erb:20
 msgid ""
-"To keep you up to date with news about %<application_name>s such as new feature"
+"To keep you up to date with news about %{application_name} such as new feature"
 "s or improvements, or changes to our Privacy Policy."
 msgstr ""
-"För att hålla dig uppdaterad med nyheter om %<application_name>s, som nya funkt"
+"För att hålla dig uppdaterad med nyheter om %{application_name}, som nya funkt"
 "ioner eller förbättringar, eller ändringar i vår sekretesspolicy."
 
 #: ../../app/views/static_pages/privacy.html.erb:22
@@ -5246,29 +5309,29 @@ msgstr "För nätverks- och informationssäkerhetsändamål."
 #: ../../app/views/static_pages/privacy.html.erb:24
 msgid ""
 "We will hold the personal data you provided us for as long as you continue usi"
-"ng the %<application_name>s service. Your personal data can be removed from thi"
-"s service upon request to the %<application_name>s team within a period of 30 d"
+"ng the %{application_name} service. Your personal data can be removed from thi"
+"s service upon request to the %{application_name} team within a period of 30 d"
 "ays."
 msgstr ""
 "Vi håller de personuppgifter du gav oss så länge du fortsätter att använda tjä"
-"nsten %<application_name>s. Dina personuppgifter kan tas bort från denna tjänst"
-" på begäran till %<application_name>s -laget inom 30 dagar."
+"nsten %{application_name}. Dina personuppgifter kan tas bort från denna tjänst"
+" på begäran till %{application_name} -laget inom 30 dagar."
 
 #: ../../app/views/static_pages/privacy.html.erb:26
 msgid ""
-"If you have any questions, please contact the %<application_name>s team at: <a "
-"href='mailto:%<helpdesk_email>s'>%<helpdesk_email>s</a>"
+"If you have any questions, please contact the %{application_name} team at: <a "
+"href='mailto:%{helpdesk_email}'>%{helpdesk_email}</a>"
 msgstr ""
 "Om du har några frågor, vänligen kontakta teamet på <a href='mailto:%{helpdesk"
-"_email}'>%<application_name>s</a> på: <a href='mailto:%<helpdesk_email>s'>%{help"
+"_email}'>%{application_name}</a> på: <a href='mailto:%{helpdesk_email}'>%{help"
 "desk_email}</a>"
 
 #: ../../app/views/static_pages/privacy.html.erb:30
 msgid ""
-"This statement was last revised on %<revdate>s and may be revised at any time w"
+"This statement was last revised on %{revdate} and may be revised at any time w"
 "ith prior notice."
 msgstr ""
-"Detta uttalande ändrades senast den %<revdate>s och kan ändras när som helst me"
+"Detta uttalande ändrades senast den %{revdate} och kan ändras när som helst me"
 "d föregående meddelande."
 
 #: ../../app/views/static_pages/termsuse.html.erb:12
@@ -5282,31 +5345,28 @@ msgstr ""
 " of California. Vår primära valkrets är forskargruppen. Vi tillhandahåller tjä"
 "nster till Storbritannien, USA och internationell högre utbildningssektor."
 
-#: ../../app/views/static_pages/termsuse.html.erb:14
-msgid "DMPRoadmap"
-msgstr "DMPRoadmap"
-
 #: ../../app/views/static_pages/termsuse.html.erb:16
 msgid ""
-"DMPRoadmap ('the tool', 'the system') is a tool developed by the DCC and CDL a"
-"s a shared resource for the research community. It is hosted at CDL by the Uni"
-"versity of California Curation Center."
+"%{application_name} ('the tool', 'the system') is a tool developed by the DCC "
+"and CDL as a shared resource for the research community. It is hosted at CDL b"
+"y the University of California Curation Center."
 msgstr ""
-"DMPRoadmap ('verktyget', 'systemet') är ett verktyg som utvecklats av DCC och "
-"CDL som en gemensam resurs för forskargruppen. Det är värd på CDL vid Universi"
-"ty of California Curation Center."
+"%{application_name} ('verktyget', 'systemet') är ett verktyg utvecklat av DCC "
+"och CDL som en delad resurs för forskarsamhället. Det är värd på CDL av Univer"
+"sity of California Curation Center."
 
 #: ../../app/views/static_pages/termsuse.html.erb:18
 msgid ""
 "<h3>Your personal details and consent notice</h3>\n"
 "\n"
-"      <p>In order to help identify and administer your account with DMPRoadmap"
-", we need to store your name and email address. We may also use it to contact "
-"you to obtain feedback on your use of the tool, or to inform you of the latest"
-" developments or releases. The information may be transferred between the DCC "
-"and CDL but only for the following legitimate DCC and CDL purposes: marketing,"
-" improving our services and informing you of relevant content and events. We w"
-"ill not sell, rent, or trade any personal information you provide to us.\n"
+"      <p>In order to help identify and administer your account with %{applicat"
+"ion_name}, we need to store your name and email address. We may also use it to"
+" contact you to obtain feedback on your use of the tool, or to inform you of t"
+"he latest developments or releases. The information may be transferred between"
+" the DCC and CDL but only for the following legitimate DCC and CDL purposes: m"
+"arketing, improving our services and informing you of relevant content and eve"
+"nts. We will not sell, rent, or trade any personal information you provide to "
+"us.\n"
 "\n"
 "\n"
 "        By using this system, you consent to the collection, retention, and us"
@@ -5337,11 +5397,12 @@ msgid ""
 "\n"
 "      <h3>Cookies</h3>\n"
 "\n"
-"      <p>Please note that DMPRoadmap uses Cookies. Further information about C"
-"ookies and how we use them is available on the <a target='_blank' href='http:/"
-"/www.dcc.ac.uk/about-us/about-site/website-terms-use/cookies' class=\"has-new-w"
-"indow-popup-info\">main DCC website<em class=\"sr-only\"> (new window)</em><span "
-"class=\"new-window-popup-info\">%<open_in_new_window_text>s</span></a>.</p>\n"
+"      <p>Please note that %{application_name} uses Cookies. Further informatio"
+"n about Cookies and how we use them is available on the <a target='_blank' hre"
+"f='http://www.dcc.ac.uk/about-us/about-site/website-terms-use/cookies' class=\""
+"has-new-window-popup-info\">main DCC website<em class=\"sr-only\"> (new window)</"
+"em><span class=\"new-window-popup-info\">%{open_in_new_window_text}</span></a>.<"
+"/p>\n"
 "\n"
 "      <h3>Third party APIs</h3>\n"
 "\n"
@@ -5356,74 +5417,75 @@ msgid ""
 " at any time. Use of the tool indicates that you understand and agree to these"
 " terms and conditions.</p>"
 msgstr ""
-"<h3> Dina personliga uppgifter och medgivande </h3><p> För att hjälpa dig att "
-"identifiera och administrera ditt konto med DMPRoadmap måste vi lagra ditt nam"
-"n och din e-postadress. Vi kan också använda den för att kontakta dig för att "
-"få feedback om din användning av verktyget eller för att informera dig om den "
-"senaste utvecklingen eller utsläpp. Informationen kan överföras mellan DCC och"
-" CDL men endast för följande legitima DCC- och CDL-syften: marknadsföring, för"
-"bättring av våra tjänster och informera dig om relevant innehåll och händelser"
-". Vi kommer inte att sälja, hyra eller handla någon personlig information som "
-"du tillhandahåller oss. Genom att använda detta system samtycker du till insam"
-"ling, lagring och användning av din personliga information i enlighet med ovan"
-"stående. Du har rätt att be oss om att inte behandla dina personuppgifter i ma"
-"rknadsföringssyfte. </p><h3> Integritetspolicy </h3><p> Informationen du anger"
-" i detta system kan ses av dig, personer du har valt att dela åtkomst med, och"
-" - enbart för att upprätthålla tjänsten - systemadministratörer på DCC och CDL"
-". Vi sammanställer anonymiserad, automatiserad och aggregerad information från"
-" planer, men vi kommer inte direkt att få tillgång till, använda eller dela di"
-"tt innehåll med någon annan utan ditt tillstånd. Auktoriserade tjänstemän i di"
-"n hemorganisation kan komma åt dina planer för specifika ändamål - till exempe"
-"l för att spåra efterlevnaden av finansierings- / organisationskrav, för att b"
-"eräkna lagringskrav eller för att bedöma efterfrågan på datahanteringstjänster"
-" inom olika discipliner. </p><h3> Informationsfrihet </h3><p> DCC och CDL håll"
-"er dina planer för dina räkning, men de är din egendom och ansvar. Alla FOIA-s"
-"ökande kommer att hänvisas tillbaka till din hemorganisation. </p><h3> lösenor"
-"d </h3><p> Ditt lösenord lagras i krypterad form och kan inte hämtas. Om det ä"
-"r glömt måste det återställas. </p><h3> Småkakor </h3><p> Observera att DMPRoa"
-"dmap använder cookies. Mer information om kakor och hur vi använder dem finns "
-"på <a target='_blank' href='http://www.dcc.ac.uk/about-us/about-site/website-t"
-"erms-use/cookies' class=\"has-new-window-popup-info\">DCC: s huvudsida <em class"
-"=\"sr-only\">(nytt fönster)</em> <span class=\"new-window-popup-info\">%{open_in_n"
-"ew_window_text}</span></a> . </p><h3> Tredjeparts API: er </h3><p> Vissa funkt"
-"ioner på denna webbplats använder tredjeparts tjänster och API: er som InCommo"
-"n / Shibboleth eller tredjepartshotell för vanliga JavaScript-bibliotek eller "
-"webbstilsort. Information som används av en extern tjänst regleras av den tjän"
-"stens integritetspolicy. </p><h3> revideringar </h3><p> Detta uttalande revide"
-"rades senast 5 oktober 2017 och kan ändras när som helst. Användning av verkty"
-"get indikerar att du förstår och samtycker till dessa villkor. </p>"
+"<h3>Din personliga information och meddelande om samtycke</h3><p> För att hjäl"
+"pa till att identifiera och administrera ditt konto med %{application_name}, m"
+"åste vi lagra ditt namn och din e-postadress. Vi kan också använda den för att"
+" kontakta dig för att få feedback om din användning av verktyget, eller för at"
+"t informera dig om den senaste utvecklingen eller utgåvorna. Informationen får"
+" överföras mellan DCC och CDL men endast för följande legitima DCC- och CDL-än"
+"damål: marknadsföring, förbättring av våra tjänster och informera dig om relev"
+"ant innehåll och evenemang. Vi kommer inte att sälja, hyra ut eller handla med"
+" någon personlig information som du lämnar till oss. Genom att använda detta s"
+"ystem samtycker du till insamling, lagring och användning av din personliga in"
+"formation i enlighet med ovanstående. Du har rätt att be oss att inte behandla"
+" dina personuppgifter i marknadsföringssyfte.</p><h3> Integritetspolicy</h3><p"
+"> Informationen du anger i detta system kan ses av dig, personer du har valt a"
+"tt dela åtkomst med, och - enbart i syfte att underhålla tjänsten - systemadmi"
+"nistratörer på DCC och CDL. Vi sammanställer anonymiserad, automatiserad och a"
+"ggregerad information från planer, men vi kommer inte att direkt komma åt, anv"
+"ända eller dela ditt innehåll med någon annan utan din tillåtelse. Auktorisera"
+"de tjänstemän för din hemorganisation kan komma åt dina planer för specifika ä"
+"ndamål - till exempel för att spåra efterlevnad av finansiärer/organisationskr"
+"av, för att beräkna lagringskrav eller för att bedöma efterfrågan på datahante"
+"ringstjänster över discipliner.</p><h3> Informationsfrihet</h3><p> DCC och CDL"
+" håller dina planer för din räkning, men de är din egendom och ditt ansvar. Ev"
+"entuella FOIA-sökande kommer att hänvisas tillbaka till din hemorganisation.</"
+"p><h3> Lösenord</h3><p> Ditt lösenord lagras i krypterad form och kan inte häm"
+"tas. Om den glöms måste den återställas.</p><h3> Småkakor</h3><p> Observera at"
+"t %{application_name} använder cookies. Mer information om cookies och hur vi "
+"använder dem finns på <a target='_blank' href='http://www.dcc.ac.uk/about-us/a"
+"bout-site/website-terms-use/cookies' class=\"has-new-window-popup-info\">DCC:s h"
+"uvudwebbplats <em class=\"sr-only\">(nytt fönster)</em> <span class=\"new-window-"
+"popup-info\">%{open_in_new_window_text}</span></a> .</p><h3> Tredje parts API:e"
+"r</h3><p> Vissa funktioner på denna webbplats använder tredjepartstjänster och"
+" API:er som InCommon/Shibboleth eller tredje parts värd för vanliga JavaScript"
+"-bibliotek eller webbteckensnitt. Information som används av en extern tjänst "
+"styrs av integritetspolicyn för den tjänsten.</p><h3> Revisioner</h3><p> Detta"
+" uttalande reviderades senast den 5 oktober 2017 och kan när som helst revider"
+"as. Användning av verktyget indikerar att du förstår och godkänner dessa villk"
+"or.</p>"
 
-#: ../../app/views/super_admin/api_clients/_form.html.erb:27
+#: ../../app/views/super_admin/api_clients/_form.html.erb:29
 msgid "Contact Name"
 msgstr "Kontaktnamn"
 
-#: ../../app/views/super_admin/api_clients/_form.html.erb:31
+#: ../../app/views/super_admin/api_clients/_form.html.erb:33
 msgid "Contact Email"
 msgstr "Kontakta email"
 
-#: ../../app/views/super_admin/api_clients/_form.html.erb:45
+#: ../../app/views/super_admin/api_clients/_form.html.erb:47
 msgid "Client ID"
 msgstr "Klient ID"
 
-#: ../../app/views/super_admin/api_clients/_form.html.erb:49
+#: ../../app/views/super_admin/api_clients/_form.html.erb:51
 msgid "Client Secret"
 msgstr "Klienthemlighet"
 
-#: ../../app/views/super_admin/api_clients/_form.html.erb:56
+#: ../../app/views/super_admin/api_clients/_form.html.erb:58
 msgid "Last accessed on"
 msgstr "Senast öppnat den"
 
-#: ../../app/views/super_admin/api_clients/_form.html.erb:68
+#: ../../app/views/super_admin/api_clients/_form.html.erb:70
 msgid "Refresh client ID and secret"
 msgstr "Uppdatera klient-ID och hemlighet"
 
-#: ../../app/views/super_admin/api_clients/_form.html.erb:72
+#: ../../app/views/super_admin/api_clients/_form.html.erb:74
 msgid "Email credentials to contact"
 msgstr "E-postinformation för kontakt"
 
-#: ../../app/views/super_admin/api_clients/_form.html.erb:81
-msgid "Are you sure you want to delete the API client: \"%<name>s\""
-msgstr "Är du säker på att du vill ta bort API-klienten: \"%<name>s\""
+#: ../../app/views/super_admin/api_clients/_form.html.erb:83
+msgid "Are you sure you want to delete the API client: \"%{name}\""
+msgstr "Är du säker på att du vill ta bort API-klienten: \"%{name}\""
 
 #: ../../app/views/super_admin/api_clients/edit.html.erb:1
 msgid "Editing API client"
@@ -5439,8 +5501,8 @@ msgid "View all API clients"
 msgstr "Visa alla API-klienter"
 
 #: ../../app/views/super_admin/api_clients/email_credentials.js.erb:1
-msgid "The credentials have been sent to %<email>s."
-msgstr "Uppgifterna har skickats till %<email>s."
+msgid "The credentials have been sent to %{email}."
+msgstr "Uppgifterna har skickats till %{email}."
 
 #: ../../app/views/super_admin/api_clients/index.html.erb:1
 #: ../../app/views/super_admin/api_clients/index.html.erb:6
@@ -5487,9 +5549,9 @@ msgstr "Dismissable"
 msgid "Body"
 msgstr "Kropp"
 
-#: ../../app/views/super_admin/notifications/_form.html.erb:71
-msgid "Are you sure you want to delete the notification \"%<title>s\""
-msgstr "Är du säker på att du vill radera meddelandet \"%<title>s\""
+#: ../../app/views/super_admin/notifications/_form.html.erb:72
+msgid "Are you sure you want to delete the notification \"%{title}\""
+msgstr "Är du säker på att du vill radera meddelandet \"%{title}\""
 
 #: ../../app/views/super_admin/notifications/edit.html.erb:1
 #: ../../app/views/super_admin/notifications/edit.html.erb:5
@@ -5514,8 +5576,8 @@ msgid "New Notification"
 msgstr "Ny anmälan"
 
 #: ../../app/views/super_admin/orgs/_analysis.html.erb:9
-msgid "Merging '%<from_org_name>s' into '%<to_org_name>s'"
-msgstr "Sammanfogar '%<from_org_name>s' till '%<to_org_name>s'"
+msgid "Merging '%{from_org_name}' into '%{to_org_name}'"
+msgstr "Sammanfogar '%{from_org_name}' till '%{to_org_name}'"
 
 #: ../../app/views/super_admin/orgs/_analysis.html.erb:11
 msgid "Summary:"
@@ -5523,11 +5585,11 @@ msgstr "Sammanfattning:"
 
 #: ../../app/views/super_admin/orgs/_analysis.html.erb:12
 msgid ""
-"Counts of '%<to_org_name>s' records before and after a merge with %{from_org_na"
+"Counts of '%{to_org_name}' records before and after a merge with %{from_org_na"
 "me}."
 msgstr ""
-"Räkningar av '%<to_org_name>s' registreras före och efter en sammanslagning med"
-" %<from_org_name>s."
+"Räkningar av '%{to_org_name}' registreras före och efter en sammanslagning med"
+" %{from_org_name}."
 
 #: ../../app/views/super_admin/orgs/_analysis.html.erb:17
 #: ../../app/views/super_admin/orgs/_analysis.html.erb:44
@@ -5535,12 +5597,12 @@ msgid "Record Type"
 msgstr "Inspelningstyp"
 
 #: ../../app/views/super_admin/orgs/_analysis.html.erb:18
-msgid "'%<to_org_name>s' Count - before merge"
-msgstr "'%<to_org_name>s' Räkna - innan sammanslagning"
+msgid "'%{to_org_name}' Count - before merge"
+msgstr "'%{to_org_name}' Räkna - innan sammanslagning"
 
 #: ../../app/views/super_admin/orgs/_analysis.html.erb:19
-msgid "'%<to_org_name>s' Count - after merge"
-msgstr "'%<to_org_name>s' Räkna - efter sammanslagning"
+msgid "'%{to_org_name}' Count - after merge"
+msgstr "'%{to_org_name}' Räkna - efter sammanslagning"
 
 #: ../../app/views/super_admin/orgs/_analysis.html.erb:38
 msgid "Details:"
@@ -5549,22 +5611,22 @@ msgstr "Detaljer:"
 #: ../../app/views/super_admin/orgs/_analysis.html.erb:39
 msgid ""
 "The table below shows the specific changes that will occur during the merge pr"
-"ocess. Once the merge is complete, '%<from_org_name>s' will be deleted. You can"
+"ocess. Once the merge is complete, '%{from_org_name}' will be deleted. You can"
 " then consolidate/correct any merge issues (e.g. remove any departments that w"
 "ere duplicated)"
 msgstr ""
 "Tabellen nedan visar de specifika förändringar som kommer att inträffa under s"
-"ammanslagningsprocessen. När sammanslagningen är klar kommer '%<from_org_name>s"
+"ammanslagningsprocessen. När sammanslagningen är klar kommer '%{from_org_name}"
 "' att raderas. Du kan sedan konsolidera / korrigera eventuella sammanslagnings"
 "problem (t.ex. ta bort alla avdelningar som duplicerats)"
 
 #: ../../app/views/super_admin/orgs/_analysis.html.erb:45
-msgid "%<from_org_name>s - Before"
-msgstr "%<from_org_name>s - Innan"
+msgid "%{from_org_name} - Before"
+msgstr "%{from_org_name} - Innan"
 
 #: ../../app/views/super_admin/orgs/_analysis.html.erb:46
-msgid "%<to_org_name>s - Before"
-msgstr "%<to_org_name>s - Innan"
+msgid "%{to_org_name} - Before"
+msgstr "%{to_org_name} - Innan"
 
 #: ../../app/views/super_admin/orgs/_analysis.html.erb:61
 msgid "The following attributes will be updated"
@@ -5592,10 +5654,10 @@ msgstr ""
 
 #: ../../app/views/super_admin/orgs/_analysis.html.erb:95
 msgid ""
-"Warning: '%<from_org_name>s' has Plans that are currently in the review process"
+"Warning: '%{from_org_name}' has Plans that are currently in the review process"
 ". The Org admins may not be able to see these plans after the merge!"
 msgstr ""
-"Varning: '%<from_org_name>s' har planer som för närvarande håller på att gransk"
+"Varning: '%{from_org_name}' har planer som för närvarande håller på att gransk"
 "as. Org-administratörerna kanske inte kan se dessa planer efter sammanslagning"
 "en!"
 
@@ -5620,8 +5682,8 @@ msgid "New organisation"
 msgstr "Ny organisation"
 
 #: ../../app/views/super_admin/themes/_form.html.erb:17
-msgid "Are you sure you want to delete the theme \"%<title>s\"?"
-msgstr "Är du säker på att du vill radera temat \"%<title>s\"?"
+msgid "Are you sure you want to delete the theme \"%{title}\"?"
+msgstr "Är du säker på att du vill radera temat \"%{title}\"?"
 
 #: ../../app/views/super_admin/themes/edit.html.erb:3
 #: ../../app/views/super_admin/themes/new.html.erb:3
@@ -5650,11 +5712,11 @@ msgstr "arkiv"
 
 #: ../../app/views/super_admin/users/edit.html.erb:64
 msgid ""
-"You are about to archive %<user_name>s.  This will remove their personal inform"
+"You are about to archive %{user_name}.  This will remove their personal inform"
 "ation, but retain their plans, answers, and comments.  They will be unable to "
 "sign-in. Are you sure?"
 msgstr ""
-"Du håller på att arkivera %<user_name>s. Detta tar bort deras personliga inform"
+"Du håller på att arkivera %{user_name}. Detta tar bort deras personliga inform"
 "ation, men behåller sina planer, svar och kommentarer. De kommer inte att kunn"
 "a logga in. Är du säker?"
 
@@ -5755,94 +5817,93 @@ msgid "You may change your notification preferences on your profile page. "
 msgstr "Du kan ändra dina inställningsinställningar på din profilsida."
 
 #: ../../app/views/user_mailer/admin_privileges.html.erb:2
-#: ../../app/views/user_mailer/permissions_change_notification.html.erb:2
 #: ../../app/views/user_mailer/plan_visibility.html.erb:2
 #: ../../app/views/user_mailer/sharing_notification.html.erb:2
-msgid "Hello %<username>s"
-msgstr "Hej %<username>s"
+msgid "Hello %{username}"
+msgstr "Hej %{username}"
 
 #: ../../app/views/user_mailer/admin_privileges.html.erb:6
-msgid "You have been granted administrator privileges in %<tool_name>s:"
-msgstr "Du har fått administratörsbehörigheter i %<tool_name>s:"
+msgid "You have been granted administrator privileges in %{tool_name}:"
+msgstr "Du har fått administratörsbehörigheter i %{tool_name}:"
 
 #: ../../app/views/user_mailer/admin_privileges.html.erb:13
-msgid "You have been revoked administrator privileges in %<tool_name>s."
-msgstr "Du har återkallats administratörsbehörigheter i %<tool_name>s."
+msgid "You have been revoked administrator privileges in %{tool_name}."
+msgstr "Du har återkallats administratörsbehörigheter i %{tool_name}."
 
 #: ../../app/views/user_mailer/admin_privileges.html.erb:17
 msgid ""
-"More information about administering the %<tool_name>s for users at your organi"
-"sation is available at the %<help_url>s."
+"More information about administering the %{tool_name} for users at your organi"
+"sation is available at the %{help_url}."
 msgstr ""
-"Mer information om hur du administrerar %<tool_name>s för användare i din organ"
-"isation finns på %<help_url>s."
+"Mer information om hur du administrerar %{tool_name} för användare i din organ"
+"isation finns på %{help_url}."
 
 #: ../../app/views/user_mailer/api_credentials.html.erb:2
-msgid "Hello %<name>s,"
-msgstr "Hej %<name>s,"
+msgid "Hello %{name},"
+msgstr "Hej %{name},"
 
 #: ../../app/views/user_mailer/api_credentials.html.erb:8
-msgid "Please use the following credentials when accessing the %<tool_name>s API."
-msgstr "Använd följande referenser när du öppnar API: n %<tool_name>s."
+msgid "Please use the following credentials when accessing the %{tool_name} API."
+msgstr "Använd följande referenser när du öppnar API: n %{tool_name}."
 
 #: ../../app/views/user_mailer/api_credentials.html.erb:23
-msgid "Please refer to the API documentation at: %<api_documentation_url>s"
-msgstr "Se API-dokumentationen på: %<api_documentation_url>s"
+msgid "Please refer to the API documentation at: %{api_documentation_url}"
+msgstr "Se API-dokumentationen på: %{api_documentation_url}"
 
 #: ../../app/views/user_mailer/api_credentials.html.erb:29
 msgid ""
-"Do not share these credentials. They for use with the %<external_application>s "
+"Do not share these credentials. They for use with the %{external_application} "
 "application. If you do share your credentials with another application we rese"
 "rve the right to revoke your access to the API."
 msgstr ""
-"Dela inte dessa referenser. De kan användas med %<external_application>s -progr"
+"Dela inte dessa referenser. De kan användas med %{external_application} -progr"
 "ammet. Om du delar dina referenser med en annan applikation förbehåller vi oss"
 " rätten att återkalla din åtkomst till API: t."
 
 #: ../../app/views/user_mailer/api_credentials.html.erb:34
 msgid ""
-"If you did not request access to the %<tool_name>s API or did not request for y"
-"our credentials to be renewed, please contact us at %<helpdesk_email>s"
+"If you did not request access to the %{tool_name} API or did not request for y"
+"our credentials to be renewed, please contact us at %{helpdesk_email}"
 msgstr ""
-"Om du inte begärde åtkomst till %<tool_name>s API eller inte begärde att dina r"
-"eferenser skulle förnyas, vänligen kontakta oss på %<helpdesk_email>s"
+"Om du inte begärde åtkomst till %{tool_name} API eller inte begärde att dina r"
+"eferenser skulle förnyas, vänligen kontakta oss på %{helpdesk_email}"
 
 #: ../../app/views/user_mailer/feedback_complete.html.erb:2
-msgid "Hello %<recipient_name>s"
-msgstr "Hej %<recipient_name>s"
+msgid "Hello %{recipient_name}"
+msgstr "Hej %{recipient_name}"
 
 #: ../../app/views/user_mailer/feedback_complete.html.erb:5
 msgid ""
-"%<commenter>s has finished providing feedback on the plan  \"%<link_html>s\". Comm"
+"%{commenter} has finished providing feedback on the plan  \"%{link_html}\". Comm"
 "ents can be found in the 'Write plan' tab on the right side of the page (Guida"
 "nce/Comments)."
 msgstr ""
-"%<commenter>s har slutat ge feedback på planen \"%<link_html>s\". Kommentarer finn"
+"%{commenter} har slutat ge feedback på planen \"%{link_html}\". Kommentarer finn"
 "s i fliken \"Skriv plan\" på höger sida av sidan (Vägledning / Kommentarer)."
 
 #: ../../app/views/user_mailer/feedback_notification.html.erb:2
-msgid "Hello %<user_name>s,"
-msgstr "Hej %<user_name>s,"
+msgid "Hello %{user_name},"
+msgstr "Hej %{user_name},"
 
 #: ../../app/views/user_mailer/feedback_notification.html.erb:5
 msgid ""
-"%<requestor>s has requested feedback on a plan %<link_html>s. To add comments, p"
-"lease visit the 'Plans' page under the Admin menu in %<tool_name>s and open the"
+"%{requestor} has requested feedback on a plan %{link_html}. To add comments, p"
+"lease visit the 'Plans' page under the Admin menu in %{tool_name} and open the"
 " plan."
 msgstr ""
-"%<requestor>s har begärt feedback på en plan %<link_html>s. För att lägga till k"
-"ommentarer, besök sidan \"Planer\" under Admin-menyn i %<tool_name>s och öppna pl"
+"%{requestor} har begärt feedback på en plan %{link_html}. För att lägga till k"
+"ommentarer, besök sidan \"Planer\" under Admin-menyn i %{tool_name} och öppna pl"
 "anen."
 
 #: ../../app/views/user_mailer/new_comment.html.erb:5
 msgid ""
-"%<commenter_name>s has commented on your plan %<plan_title>s. To view the commen"
+"%{commenter_name} has commented on your plan %{plan_title}. To view the commen"
 "ts, follow the link to the DMP below, or navigate to the plan via My Dashboard"
-" page in %<tool_name>s."
+" page in %{tool_name}."
 msgstr ""
-"%<commenter_name>s har kommenterat din plan %<plan_title>s. Om du vill se kommen"
+"%{commenter_name} har kommenterat din plan %{plan_title}. Om du vill se kommen"
 "tarerna följer du länken till DMP nedan eller navigerar till planen via sidan "
-"Mina instrumentbrädor i %<tool_name>s."
+"Mina instrumentbrädor i %{tool_name}."
 
 #: ../../app/views/user_mailer/new_comment.html.erb:10
 msgid "Below is a summary of the sections and questions which have comments."
@@ -5857,24 +5918,28 @@ msgstr ""
 "åga."
 
 #: ../../app/views/user_mailer/new_comment.html.erb:15
-msgid "DMP: %<phase_link>s"
-msgstr "DMP: %<phase_link>s"
+msgid "DMP: %{phase_link}"
+msgstr "DMP: %{phase_link}"
 
 #: ../../app/views/user_mailer/new_comment.html.erb:18
-msgid "Section name: %<section_title>s"
-msgstr "Sektionsnamn: %<section_title>s"
+msgid "Section name: %{section_title}"
+msgstr "Sektionsnamn: %{section_title}"
 
 #: ../../app/views/user_mailer/new_comment.html.erb:21
-msgid "Question: %<question_number>s"
-msgstr "Fråga: %<question_number>s"
+msgid "Question: %{question_number}"
+msgstr "Fråga: %{question_number}"
+
+#: ../../app/views/user_mailer/permissions_change_notification.html.erb:2
+msgid "Hello %{recepientname}"
+msgstr "Hej %{recepientname}"
 
 #: ../../app/views/user_mailer/permissions_change_notification.html.erb:5
 msgid ""
-"Your permissions relating to %<plan_title>s have changed. You now have %<type>s "
-"access. This means you can %<placeholder1>s %<placeholder2>s"
+"Your permissions relating to %{plan_title} have changed. You now have %{type} "
+"access. This means you can %{placeholder1} %{placeholder2}"
 msgstr ""
-"Dina rättigheter gällande %<plan_title>s har ändrats. Du har nu tillgång till %"
-"{type}. Det betyder att du kan %<placeholder1>s %<placeholder2>s"
+"Dina rättigheter gällande %{plan_title} har ändrats. Du har nu tillgång till %"
+"{type}. Det betyder att du kan %{placeholder1} %{placeholder2}"
 
 #: ../../app/views/user_mailer/plan_access_removed.html.erb:2
 msgid "Hello "
@@ -5889,8 +5954,8 @@ msgid " has been removed by "
 msgstr " har tagits bort av"
 
 #: ../../app/views/user_mailer/plan_visibility.html.erb:5
-msgid "The plan %<plan_title>s had its visibility changed to %<plan_visibility>s."
-msgstr "Planen %<plan_title>s hade sin synlighet ändrad till %<plan_visibility>s."
+msgid "The plan %{plan_title} had its visibility changed to %{plan_visibility}."
+msgstr "Planen %{plan_title} hade sin synlighet ändrad till %{plan_visibility}."
 
 #: ../../app/views/user_mailer/plan_visibility.html.erb:9
 msgid "Visibility definitions:"
@@ -5907,14 +5972,14 @@ msgstr "Offentlig: Alla kan se på webben"
 #: ../../app/views/user_mailer/plan_visibility.html.erb:17
 msgid ""
 "If you have questions pertaining to this action, please visit the My Dashboard"
-" page in %<tool_name>s"
+" page in %{tool_name}"
 msgstr ""
 "Om du har frågor angående denna åtgärd, besöker du sidan Mina instrumentbrädor"
-" i %<tool_name>s"
+" i %{tool_name}"
 
 #: ../../app/views/user_mailer/question_answered.html.erb:2
-msgid "Hello %<recipient_name>s,"
-msgstr "Hej %<recipient_name>s,"
+msgid "Hello %{recipient_name},"
+msgstr "Hej %{recipient_name},"
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " is creating a Data Management Plan and has answered "
@@ -5934,33 +5999,31 @@ msgstr " baserat på mallen"
 
 #: ../../app/views/user_mailer/sharing_notification.html.erb:5
 msgid ""
-"Your colleague %<inviter_name>s has invited you to contribute to
-\n"%<tool_name>s
+"Your colleague %{inviter_name} has invited you to contribute to\n"
 "          their Data Management Plan in %{tool_name}"
-msgstr ""%<inviter_name>s
-"Din kollega %{inviter_name} har bju%<tool_name>stt bidra till
-\n"
+msgstr ""
+"Din kollega %{inviter_name} har bjudit in dig att bidra till\n"
 "          sin datahanteringsplan i %{tool_name}"
-%<tool_name>s%<username>s
-#: ../../app/views/user%<tool_name>som%<username>sion.html.erb:2
+
+#: ../../app/views/user_mailer/welcome_notification.html.erb:2
 msgid "Welcome to %{tool_name}, %{username}"
 msgstr "Välkommen till %{tool_name}, %{username}"
 
-#%<tool_name>sviews/user_mailer/welcome_notification.html.erb:5
+#: ../../app/views/user_mailer/welcome_notification.html.erb:5
 msgid ""
-"%{tool_name} w%<contact_us>sto develop your Data Management Plan. If you have a"
+"%{tool_name} will help you to develop your Data Management Plan. If you have a"
 "ny queries or feedback as you use the tool, please contact us at %{helpdesk_em"
-"%<tool_name>st %{contact_us}"
+"ail} or visit %{contact_us}"
 msgstr ""
-"%{tool_name} hjäl%<contact_us>stveckla din datahanteringsplan. Om du har några "
+"%{tool_name} hjälper dig att utveckla din datahanteringsplan. Om du har några "
 "frågor eller feedback när du använder verktyget, kontakta oss på %{helpdesk_em"
 "ail} eller besök %{contact_us}"
 
 #: ../../app/views/user_mailer/welcome_notification.html.erb:13
 msgid "You may change your notification preferences on your profile page."
 msgstr "Du kan ändra dina inställningsinställningar på din profilsida."
-%<username>s
-#: ../../app/views/users/_admin_grant_p%<username>shtml.erb:9
+
+#: ../../app/views/users/_admin_grant_permissions.html.erb:9
 msgid "Editing privileges for %{username}"
 msgstr "Redigering av behörigheter för %{username}"
 

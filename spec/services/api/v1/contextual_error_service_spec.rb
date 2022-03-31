@@ -79,7 +79,7 @@ RSpec.describe Api::V1::ContextualErrorService do
       result = described_class.contextualize(errors: @plan.errors)
       expect(result.length).to eql(2)
       expect(result.first.start_with?('Contact/Contributor ')).to eql(true)
-      expect(result.first.include?(" can't be blank if no ")).to eql(true)
+      expect(result.first.include?("can't be blank")).to eql(true)
     end
     it 'returns errors if a Contributor Org is invalid' do
       @plan.contributors.first.org.name = nil

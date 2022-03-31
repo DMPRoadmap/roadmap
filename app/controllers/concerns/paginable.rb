@@ -156,6 +156,7 @@ module Paginable
     if @args[:page] != 'ALL'
       # Can raise error if page is not a number
       scope = scope.page(@args[:page])
+                   .per(@args.fetch(:per_page, Rails.configuration.x.application.api_max_page_size))
     end
     scope
   end
@@ -179,7 +180,7 @@ module Paginable
          style="float: right; font-size: 1.2em;">
 
         <span class="screen-reader-text">
-          #{format(_('Sort by %<sort_field>s'), sort_field: sort_field.split('.').first)}
+          #{format(_('Sort by %{sort_field}'), sort_field: sort_field.split('.').first)}
         </span>
       </i>
     HTML

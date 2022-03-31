@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/DMPRoadmap/roadmap#readme",
   "dependencies": {
+    "@babel/core": "^7.11.6",
     "@rails/actioncable": "^6.0.3-1",
     "@rails/activestorage": "^6.0.3-1",
     "@rails/ujs": "^6.0.3-1",
@@ -57,7 +58,7 @@
     "eslint-plugin-import": "^2.21.1",
     "jasmine": "^3.5.0",
     "jasmine-core": "^3.5.0",
-    "karma": "^5.0.9",
+    "karma": "^6.3.14",
     "karma-babel-preprocessor": "^8.0.1",
     "karma-chrome-launcher": "^3.1.0",
     "karma-fixture": "^0.2.6",
