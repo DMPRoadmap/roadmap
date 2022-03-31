@@ -20,74 +20,72 @@
 #  index_repositories_on_homepage (homepage)
 #  index_repositories_on_uri      (uri)
 #
-
+# Object that represents a research output repository (e.g. GitHub or Zenodo)
 class Repository < ApplicationRecord
-
   # =============
   # = Constants =
   # =============
 
   # keep "=>" syntax as json_schemer requires string keys
   SCHEMA_INFO = {
-    "$schema" => "http://json-schema.org/draft-04/schema#",
-    "type" => "object",
-    "properties" => {
-      "types" => {
-        "type" => "array",
-        "items" => {
-          "type" => "string"
+    '$schema' => 'http://json-schema.org/draft-04/schema#',
+    'type' => 'object',
+    'properties' => {
+      'types' => {
+        'type' => 'array',
+        'items' => {
+          'type' => 'string'
         }
       },
-      "keywords" => {
-        "type" => "array",
-        "items" => {
-          "type" => "string"
+      'keywords' => {
+        'type' => 'array',
+        'items' => {
+          'type' => 'string'
         }
       },
-      "subjects" => {
-        "type" => "array",
-        "items" => {
-          "type" => "string"
+      'subjects' => {
+        'type' => 'array',
+        'items' => {
+          'type' => 'string'
         }
       },
-      "access" => {
-        "type" => "string",
-        "enum" => ["open", "restricted", "closed"]
+      'access' => {
+        'type' => 'string',
+        'enum' => %w[open restricted closed]
       },
-      "provider_types" => {
-        "type" => "array",
-        "items" => {
-          "type" => "string"
+      'provider_types' => {
+        'type' => 'array',
+        'items' => {
+          'type' => 'string'
         }
       },
-      "upload_types" => {
-        "type" => "array",
-        "items" => {
-          "type" => "object",
-          "properties" => {
-            "type" => { "type" => "string" },
-            "restriction" => { "type" => "string" }
+      'upload_types' => {
+        'type' => 'array',
+        'items' => {
+          'type' => 'object',
+          'properties' => {
+            'type' => { 'type' => 'string' },
+            'restriction' => { 'type' => 'string' }
           },
-          "required" => ["type","restriction"]
+          'required' => %w[type restriction]
         }
       },
-      "policies" => {
-        "type" => "array",
-        "items" => {
-          "type" => "object",
-          "properties" => {
-            "name" => { "type" => "string" },
-            "url" => { "type" => "string" }
+      'policies' => {
+        'type' => 'array',
+        'items' => {
+          'type' => 'object',
+          'properties' => {
+            'name' => { 'type' => 'string' },
+            'url' => { 'type' => 'string' }
           },
-          "required" => ["name","url"]
+          'required' => %w[name url]
         }
       },
-      "pid_system" => {
-        "type" => "string"
+      'pid_system' => {
+        'type' => 'string'
       }
     }
-  }
-
+  }.freeze
 
   # ================
   # = Associations =
@@ -125,32 +123,31 @@ class Repository < ApplicationRecord
 
   # varchar(255) NOT NULL
   validates :name,
-    presence: { message: PRESENCE_MESSAGE },
-    length: { in: 0..255, allow_nil: false }
+            presence: { message: PRESENCE_MESSAGE },
+            length: { in: 0..255, allow_nil: false }
 
   # text NOT NULL
   validates :description,
-    presence: { message: PRESENCE_MESSAGE }
+            presence: { message: PRESENCE_MESSAGE }
 
   # varchar(255) NOT NULL
   validates :uri,
-    presence: { message: PRESENCE_MESSAGE },
-    length: { in: 0..255, allow_nil: false }
+            presence: { message: PRESENCE_MESSAGE },
+            length: { in: 0..255, allow_nil: false }
 
   # varchar(255) DEFAULT NULL
   validates :homepage,
-    length: { maximum: 255 }
+            length: { maximum: 255 }
 
   # varchar(255) DEFAULT NULL
   validates :contact,
-    length: { maximum: 255 }
+            length: { maximum: 255 }
 
   # json DEFAULT NULL
   validates :info,
-    json: {
-      schema: SCHEMA_INFO,
-      message: ->(errors) { errors }
-    },
-    allow_nil: true
-
+            json: {
+              schema: SCHEMA_INFO,
+              message: ->(errors) { errors }
+            },
+            allow_nil: true
 end

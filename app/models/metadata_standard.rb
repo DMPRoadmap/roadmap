@@ -15,35 +15,34 @@
 #  rdamsc_id           :string
 #
 class MetadataStandard < ApplicationRecord
-
   # =============
   # = Constants =
   # =============
 
   # keep "=>" syntax as json_schemer requires string keys
   SCHEMA_RELATED_ENTITIES = {
-    "$schema" => "http://json-schema.org/draft-04/schema#",
-    "type" => "array",
-    "items" => {
-      "type" => "object",
-      "properties" => {
-        "id" => { "type" => "string" },
-        "role" => { "type" => "string" }
+    '$schema' => 'http://json-schema.org/draft-04/schema#',
+    'type' => 'array',
+    'items' => {
+      'type' => 'object',
+      'properties' => {
+        'id' => { 'type' => 'string' },
+        'role' => { 'type' => 'string' }
       }
     }
-  }
+  }.freeze
 
   SCHEMA_LOCATIONS = {
-    "$schema" => "http://json-schema.org/draft-04/schema#",
-    "type" => "array",
-    "items" => {
-      "type" => "object",
-      "properties" => {
-        "url" => { "type" => "string" },
-        "type" => { "type" => "string" }
+    '$schema' => 'http://json-schema.org/draft-04/schema#',
+    'type' => 'array',
+    'items' => {
+      'type' => 'object',
+      'properties' => {
+        'url' => { 'type' => 'string' },
+        'type' => { 'type' => 'string' }
       }
     }
-  }
+  }.freeze
 
   # ================
   # = Associations =
@@ -62,30 +61,29 @@ class MetadataStandard < ApplicationRecord
 
   # varchar(255) DEFAULT NULL
   validates :title,
-    length: { maximum: 255 }
+            length: { maximum: 255 }
 
   # varchar(255) DEFAULT NULL
   validates :rdamsc_id,
-    length: { maximum: 255 }
+            length: { maximum: 255 }
 
   # varchar(255) DEFAULT NULL
   validates :uri,
-    length: { maximum: 255 }
+            length: { maximum: 255 }
 
   # json DEFAULT NULL
   validates :related_entities,
-    json: {
-      schema: SCHEMA_RELATED_ENTITIES,
-      message: ->(errors) { errors }
-    },
-    allow_nil: true
+            json: {
+              schema: SCHEMA_RELATED_ENTITIES,
+              message: ->(errors) { errors }
+            },
+            allow_nil: true
 
   # json DEFAULT NULL
   validates :locations,
-    json: {
-      schema: SCHEMA_LOCATIONS,
-      message: ->(errors) { errors }
-    },
-    allow_nil: true
-
+            json: {
+              schema: SCHEMA_LOCATIONS,
+              message: ->(errors) { errors }
+            },
+            allow_nil: true
 end
