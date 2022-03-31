@@ -64,9 +64,9 @@ class PlansController < ApplicationController
 
       @plan.title = if plan_params[:title].blank?
                       if current_user.firstname.blank?
-                        format(_('My Plan (%<title>s)'), title: @plan.template.title)
+                        format(_('My Plan (%{title})'), title: @plan.template.title)
                       else
-                        format(_('%<user_name>s Plan'), user_name: "#{current_user.firstname}'s")
+                        format(_('%{user_name} Plan'), user_name: "#{current_user.firstname}'s")
                       end
                     else
                       plan_params[:title]
@@ -396,13 +396,15 @@ class PlansController < ApplicationController
         end
       else
         # rubocop:disable Layout/LineLength
-        redirect_to publish_plan_path(plan),
-                    alert: format(_("Unable to change the plan's status since it is needed at least %<percentage}>s percentage responded"), percentage: Rails.configuration.x.plans.default_percentage_answered)
+        render status: :forbidden, json: {
+          msg: format(_("Unable to change the plan's status since it is needed at least %{percentage} percentage responded"), percentage: Rails.configuration.x.plans.default_percentage_answered)
+        }
         # rubocop:enable Layout/LineLength
       end
     else
-      redirect_to publish_plan_path(plan),
-                  alert: format(_('Unable to find plan id %{<plan_id>s'), plan_id: params[:id])
+      render status: :not_found,
+             json: { msg: format(_('Unable to find plan id %{plan_id}'),
+                                 plan_id: params[:id]) }
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

@@ -2,7 +2,7 @@
 
 # Validation to ensure that an end date must come after a begin/start date
 class AfterValidator < ActiveModel::EachValidator
-  DEFAULT_MESSAGE = _('must be after %<date>s')
+  DEFAULT_MESSAGE = _('must be after %{date}')
 
   # rubocop:disable Metrics/AbcSize
   def validate_each(record, attribute, value)

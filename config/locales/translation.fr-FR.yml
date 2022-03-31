@@ -116,17 +116,6 @@ fr-FR:
         other: "%{count} erreurs ont empêché d’enregistrer ce(tte) %{resource} :"
       model_invalid: 'Validation échouée : %{errors}'
       required: doit exister
-    unavailable_session: |-
-      La session %{id} n'est plus disponible en mémoire.
-
-      Si vous utilisez un serveur multi-processus (comme Unicorn ou Puma), le processus
-      cet appel de requête ne stocke pas %{id} en mémoire. Pensez à tourner le nombre de
-      processus / travailleurs à un (1) ou en utilisant un serveur différent en développement.
-    unacceptable_request: Une version prise en charge est attendue dans l'en-tête
-      Accept.
-    connection_refused: |-
-      Oops! Impossible de se connecter au middleware Console Web.
-      Assurez-vous que le serveur de développement de rails est en cours d'exécution.
     template:
       body: 'Veuillez vérifier les champs suivants : '
       header:
@@ -221,9 +210,9 @@ fr-FR:
       confirmed: Votre compte a bien été validé. Veuillez vous connecter.
       send_instructions: Vous recevrez dans quelques minutes un courriel contenant
         les directives pour activer votre compte.
-      send_paranoid_instructions: Si votre adresse électronique existe dans notre
-        base de données, vous recevrez dans quelques minutes un courriel contenant
-        les directives pour valider votre compte.
+      send_paranoid_instructions: Si votre courriel existe dans notre base de données,
+        vous recevrez dans quelques minutes un courriel contenant les directives pour
+        valider votre compte.
     failure:
       already_authenticated: Vous êtes déjà connecté(e).
       inactive: Votre compte n'est plus actif. Merci de nous contacter pour réactiver
@@ -269,9 +258,9 @@ fr-FR:
         l'adresse URL complète fournie.
       send_instructions: Vous recevrez dans quelques minutes un courriel contenant
         les directives pour réinitialiser le mot de passe.
-      send_paranoid_instructions: Si votre adresse électronique existe dans notre
-        base de données, vous recevrez dans quelques minutes un lien de récupération
-        du mot de passe par courriel.
+      send_paranoid_instructions: Si votre courriel existe dans notre base de données,
+        vous recevrez dans quelques minutes un lien de récupération du mot de passe
+        par courriel.
       updated: Votre mot de passe a bien été modifié. Vous êtes maintenant connecté.
       updated_not_active: Votre mot de passe a bien été modifié.
     registrations:
@@ -282,13 +271,11 @@ fr-FR:
       signed_up_but_locked: Vous êtes bien inscrit(e). Cependant, vous ne pouvez pas
         vous connecter, car votre compte est verrouillé.
       signed_up_but_unconfirmed: Un message contenant un lien de confirmation a été
-        envoyé à votre adresse électronique. Ouvrez ce lien pour activer votre compte.
-        Si vous n’avez pas reçu le courriel de confirmation, vérifiez votre filtre
-        antipourriel.
+        envoyé à votre courriel. Ouvrez ce lien pour activer votre compte. Si vous
+        n’avez pas reçu le courriel de confirmation, vérifiez votre filtre antispam.
       update_needs_confirmation: Votre compte a bien été mis à jour, mais nous devons
-        vérifier votre nouvelle adresse électronique. Vérifiez vos courriels et cliquez
-        sur le lien de confirmation pour finaliser la validation de votre nouvelle
-        adresse électronique.
+        vérifier votre nouveau courriel. Vérifiez vos courriels et cliquez sur le
+        lien de confirmation pour finaliser la validation de votre nouveau courriel.
       updated: Votre compte a bien été modifié.
       updated_but_not_signed_in: Votre compte a été mis à jour avec succès, mais comme
         votre mot de passe a été modifié, vous devez vous reconnecter.

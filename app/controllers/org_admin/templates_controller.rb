@@ -46,7 +46,7 @@ module OrgAdmin
 
       @orgs  = Org.includes(identifiers: :identifier_scheme).all if current_user.can_super_admin?
       @title = if current_user.can_super_admin?
-                 format(_('%<org_name>s Templates'), org_name: current_user.org.name)
+                 format(_('%{org_name} Templates'), org_name: current_user.org.name)
                else
                  _('Own Templates')
                end
@@ -214,7 +214,7 @@ module OrgAdmin
       rescue ActiveSupport::JSON.parse_error
         render(json: {
                  status: :bad_request,
-                 msg: format(_('Error parsing links for a %<template>s'),
+                 msg: format(_('Error parsing links for a %{template}'),
                              template: template_type(template))
                })
         nil
@@ -342,7 +342,7 @@ module OrgAdmin
                    template: 'template_exports/template_export',
                    margin: @formatting[:margin],
                    footer: {
-                     center: format(_('Template created using the %<application_name>s service. Last modified %<date>s'), application_name: ApplicationService.application_name, date: l(@template.updated_at.to_date, formats: :short)),
+                     center: format(_('Template created using the %{application_name} service. Last modified %{date}'), application_name: ApplicationService.application_name, date: l(@template.updated_at.to_date, formats: :short)),
                      font_size: 8,
                      spacing: (@formatting[:margin][:bottom] / 2) - 4,
                      right: '[page] of [topage]',

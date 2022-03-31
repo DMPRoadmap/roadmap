@@ -102,7 +102,7 @@ module SuperAdmin
     def set_notification
       @notification = Notification.find(params[:id] || params[:notification_id])
     rescue ActiveRecord::RecordNotFound
-      flash[:alert] = format(_('There is no notification associated with id  %<id>s'),
+      flash[:alert] = format(_('There is no notification associated with id  %{id}'),
                              id: params[:id])
       redirect_to action: :index
     end
