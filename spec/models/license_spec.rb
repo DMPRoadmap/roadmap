@@ -35,7 +35,7 @@ describe License do
 
         Rails.configuration.x.madmp.preferred_licenses = [
           @preferred_license.identifier,
-          "#{@preferred_oldest.identifier}-%{latest}s"
+          "#{@preferred_oldest.identifier}-%{latest}"
         ]
       end
 
