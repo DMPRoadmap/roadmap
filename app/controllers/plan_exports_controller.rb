@@ -86,7 +86,7 @@ class PlanExportsController < ApplicationController
     render pdf: file_name,
            margin: @formatting[:margin],
            footer: {
-             center: format(_('Created using %<application_name>s. Last modified %<date>s'),
+             center: format(_('Created using %{application_name}. Last modified %{date}'),
                             application_name: ApplicationService.application_name,
                             date: l(@plan.updated_at.to_date, format: :readable)),
              font_size: 8,

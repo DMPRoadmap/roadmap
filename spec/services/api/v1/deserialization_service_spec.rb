@@ -122,8 +122,6 @@ RSpec.describe Api::V1::DeserializationService do
   describe ':app_extensions(json:)' do
     before(:each) do
       @template = create(:template)
-      @app_name = ApplicationService.application_name.split('-').first&.downcase
-      @app_name = 'tester' unless @app_name.present?
     end
 
     it 'returns an empty hash is json is not present' do
@@ -135,13 +133,13 @@ RSpec.describe Api::V1::DeserializationService do
     end
     it 'returns an empty hash if there is no extension for the current application' do
       expected = { template: { id: @template.id } }
-      ApplicationService.expects(:application_name).returns('tester')
+      # ApplicationService.expects('dmproadmap').returns('tester')
       json = { extension: [{ foo: expected }] }
       expect(described_class.send(:app_extensions, json: json)).to eql({})
     end
     it 'returns the hash for the current application' do
       expected = { template: { id: @template.id } }
-      json = { extension: [{ "#{@app_name}": expected }] }
+      json = { extension: [{ dmproadmap: expected }] }
       result = described_class.send(:app_extensions, json: json)
       expect(result).to eql(expected)
     end

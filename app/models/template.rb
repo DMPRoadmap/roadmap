@@ -379,7 +379,7 @@ class Template < ApplicationRecord
         family_id: new_family_id,
         org: org,
         is_default: false,
-        title: format(_('Copy of %<template>s'), template: title)
+        title: format(_('Copy of %{template}'), template: title)
       }, modifiable: true, save: true
     )
   end
