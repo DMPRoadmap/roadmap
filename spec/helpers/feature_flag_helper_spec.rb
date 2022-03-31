@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require "rails_helper"
 
-RSpec.describe Features do
+describe FeatureFlagHelper do
+    include FeatureFlagHelper
     skip 'Pending Test: Feature Flag'
 end

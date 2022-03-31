@@ -1,4 +1,8 @@
 # Changelog
+
+### Added
+
+- Added feature flag for sandbox testing [#159](https://github.com/portagenetwork/roadmap/issues/159)
 ## [3.0.4+portage-3.0.5] - 2022-03-07
   ### Fixed
 - Fixed pdf/html/docx/txt download issue [#153](https://github.com/portagenetwork/roadmap/issues/153)
