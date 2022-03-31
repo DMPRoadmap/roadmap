@@ -27,7 +27,7 @@ module SuperAdmin
                  when 'Department'
                    [entry.id, entry.name].join(' - ')
                  when 'Guidance'
-                   format(_('Guidance for: %<themes>s'), themes: entry.themes.collect(&:title).join(', '))
+                   format(_('Guidance for: %{themes}'), themes: entry.themes.collect(&:title).join(', '))
                  when 'Identifier'
                    [entry.identifier_scheme&.name, entry.value].join(' - ')
                  when 'TokenPermissionType'
@@ -50,7 +50,7 @@ module SuperAdmin
       def merge_column_content(entries:, orcid:, to_org_name:)
         return _('Nothing to merge') unless entries.present? && entries.any?
 
-        html = format(_("<p>The following %<object_types>s will be moved over to '%<org_name>s':</p>"),
+        html = format(_("<p>The following %{object_types} will be moved over to '%{org_name}':</p>"),
                       object_types: entries.first.class.name.pluralize, org_name: to_org_name)
         html + column_content(entries: entries, orcid: orcid)
       end
