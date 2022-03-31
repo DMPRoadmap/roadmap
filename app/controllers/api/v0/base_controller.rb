@@ -74,6 +74,10 @@ module Api
         params.permit(:page, :per_page)
       end
 
+      def plan_params
+        params.permit(:template_id, :plan[:title], :plan[:email])
+      end
+
       # The resource class based on the controller
       #
       # Returns Object

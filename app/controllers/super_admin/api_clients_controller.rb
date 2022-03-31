@@ -42,7 +42,7 @@ module SuperAdmin
       if @api_client.save
         UserMailer.api_credentials(@api_client).deliver_now
         msg = success_message(@api_client, _('created'))
-        msg += format(_('. The API credentials have been emailed to %<email>s'),
+        msg += format(_('. The API credentials have been emailed to %{email}'),
                       email: @api_client.contact_email)
         flash.now[:notice] = msg
         render :edit
