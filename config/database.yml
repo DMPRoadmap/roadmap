@@ -28,7 +28,7 @@ staging:
 
 sandbox:
   <<: *defaults
-  database: <%= ENV["MYSQL_SANDBOX_DATABASE"] %> # overwrite default database for seeding process
+  database: <%= Rails.application.secrets.database_url %>
    
 production:
   <<: *defaults
