@@ -4,7 +4,6 @@ module Dmpopidor
   # Customized code for PlansController
   # rubocop:disable Metrics/ModuleLength
   module PlansController
-    include MadmpImportHelper
     # CHANGES:
     # Added Active Flag on Org
     # rubocop:disable Metrics/AbcSize
@@ -129,7 +128,14 @@ module Dmpopidor
           @plan.save
           @plan.create_plan_fragments
 
-          import_dmp(@plan, json_file, import_params[:format])
+          if json_file.respond_to?(:read)
+            json_data = json_file.read
+          elsif json_file.respond_to?(:path)
+            json_data = File.read(json_file.path)
+          else
+            logger.error "Bad values_file: #{json_file.class.name}: #{json_file.inspect}"
+          end
+          Import::PlanImportService.import(@plan, json_data, import_params[:format])
 
           respond_to do |format|
             flash[:notice] = success_message(@plan, _('imported'))
