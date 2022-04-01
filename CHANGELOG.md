@@ -3,9 +3,17 @@
 ### Added
 
 - Added feature flag for sandbox testing [#159](https://github.com/portagenetwork/roadmap/issues/159)
-## [3.0.4+portage-3.0.5] - 2022-03-07
+
+## [3.0.4+portage-3.0.6] - 2022-03-23
+
   ### Fixed
-- Fixed pdf/html/docx/txt download issue [#153](https://github.com/portagenetwork/roadmap/issues/153)
+   - Usage statistics page now shows correct data [#164](https://github.com/portagenetwork/roadmap/issues/164)
+   - Change plan identifier field and add it to export [#158](https://github.com/portagenetwork/roadmap/issues/158)
+
+## [3.0.4+portage-3.0.5] - 2022-03-07
+  
+### Fixed
+   - Fixed pdf/html/docx/txt download issue [#153](https://github.com/portagenetwork/roadmap/issues/153)
 
 ## [3.0.4+portage-3.0.4] - 2022-02-25
   - Update translation for some wording
