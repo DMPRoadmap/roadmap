@@ -3,7 +3,11 @@ module FeatureFlagHelper
         case feature.to_sym
 
         when :on_sandbox
-            Rails.env.sandbox?
+            if Rails.application.secrets.on_sandbox.to_s == 'true'
+                true
+            else
+                false
+            end
         else
             false
         end
