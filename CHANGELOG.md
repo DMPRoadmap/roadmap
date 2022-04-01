@@ -1,5 +1,9 @@
 # Changelog
 
+### Added
+
+- Added feature flag for sandbox testing [#159](https://github.com/portagenetwork/roadmap/issues/159)
+
 ## [3.0.4+portage-3.0.6] - 2022-03-23
 
   ### Fixed
