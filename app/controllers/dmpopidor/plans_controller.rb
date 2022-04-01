@@ -108,14 +108,16 @@ module Dmpopidor
       @plan = ::Plan.new
       authorize @plan
 
-      if import_params[:template_id].blank?
-        # Something went wrong there should always be a template id
-        respond_to do |format|
-          flash[:alert] = _('Unable to identify a suitable template for your plan.')
-          format.html { redirect_to new_plan_path }
-        end
-      else
+      # rubocop:disable Metrics/BlockLength
+      respond_to do |format|
         json_file = import_params[:json_file]
+        if json_file.respond_to?(:read)
+          json_data = JSON.parse(json_file.read)
+        elsif json_file.respond_to?(:path)
+          json_data = JSON.parse(File.read(json_file.path))
+        else
+          raise IOError
+        end
 
         @plan.visibility = Rails.configuration.x.plans.default_visibility
 
@@ -128,27 +130,22 @@ module Dmpopidor
           @plan.save
           @plan.create_plan_fragments
 
-          if json_file.respond_to?(:read)
-            json_data = json_file.read
-          elsif json_file.respond_to?(:path)
-            json_data = File.read(json_file.path)
-          else
-            logger.error "Bad values_file: #{json_file.class.name}: #{json_file.inspect}"
-          end
           Import::PlanImportService.import(@plan, json_data, import_params[:format])
 
-          respond_to do |format|
-            flash[:notice] = success_message(@plan, _('imported'))
-            format.html { redirect_to plan_path(@plan) }
-          end
+          flash[:notice] = success_message(@plan, _('imported'))
+          format.html { redirect_to plan_path(@plan) }
         else
-          # Something went wrong so report the issue to the user
-          respond_to do |format|
-            flash[:alert] = failure_message(@plan, _('create'))
-            format.html { redirect_to new_plan_path }
-          end
+          flash[:alert] = failure_message(@plan, _('create'))
+          format.html { redirect_to new_plan_path }
         end
+      rescue IOError
+        flash[:alert] = "#{_('Unvalid file: ')} #{json_file.class.name}: #{json_file.inspect}"
+        format.html { redirect_to new_plan_path }
+      rescue JSON::ParserError
+        flash.now[:alert] = _('File should contain JSON')
+        format.html { redirect_to new_plan_path }
       end
+      # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 

@@ -6,18 +6,16 @@ module Import
     class << self
       def import(plan, json_data, format)
         dmp_fragment = plan.json_fragment
-        begin
-          dmp = JSON.parse(json_data)
+        dmp = if format.eql?('rda')
+                Import::Converters::RdaToStandard.convert(json_data['dmp'])
+              else
+                json_data
+              end
 
-          dmp = Import::Converters::RdaToStandard.convert(dmp['dmp']).deep_stringify_keys if format.eql?('rda')
-
-          dmp_fragment.raw_import(
-            dmp.slice('meta', 'project', 'budget'), MadmpSchema.find_by(name: 'DMPStandard')
-          )
-          Import::PlanImportService.handle_research_outputs(plan, dmp['researchOutput'])
-        rescue JSON::ParserError
-          flash.now[:alert] = 'File should contain JSON'
-        end
+        dmp_fragment.raw_import(
+          dmp.slice('meta', 'project', 'budget'), MadmpSchema.find_by(name: 'DMPStandard')
+        )
+        Import::PlanImportService.handle_research_outputs(plan, dmp['researchOutput'])
       end
 
       def handle_research_outputs(plan, research_outputs)
