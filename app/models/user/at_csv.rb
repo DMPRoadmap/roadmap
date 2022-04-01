@@ -4,8 +4,8 @@ class User
 
   class AtCsv
 
-    HEADERS = ["Name", "E-Mail", "Created Date", "Last Activity", "Plans",
-               "Current Privileges", "Active", "Department"].freeze
+    HEADERS = [_("Name"), _("E-Mail"), _("Created Date"), _("Last Activity"), _("Plans"),
+               _("Current Privileges"), _("Active"), _("Department")].freeze
 
     def initialize(users)
       @users = users

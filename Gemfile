@@ -236,7 +236,7 @@ group :development, :test do
   gem "factory_bot_rails"
 
   # Easily generate fake data (https://github.com/stympy/faker)
-  gem "faker"
+  # gem "faker"
 
   # the instafailing RSpec progress bar formatter
   # (https://github.com/thekompanee/fuubar)
@@ -366,4 +366,10 @@ end
 
 group :production, :staging, :sandbox do
   gem 'syslog-logger'
+end
+
+group :production, :staging, :sandbox, :development, :test do
+  # Temporarily move faker gem to all environments because it needs to be available in dev, production (for uat), staging and sandbox
+  # Changing to development, test, staging and sandbox only after finishing test on uat
+  gem "faker"
 end
