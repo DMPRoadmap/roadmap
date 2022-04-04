@@ -76,7 +76,6 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
   get '/sitemap' => 'sitemaps#index', only: %i[xml html]
-  get '/get_started' => 'home#index'
   get 'about_us' => 'static_pages#about_us'
   get 'help' => 'static_pages#help'
   get 'terms' => 'static_pages#termsuse'
@@ -92,7 +91,7 @@ Rails.application.routes.draw do
   # Start DMPTool customizations
   # ------------------------------------------
   # DMPTool specific documentation pages
-  get 'get_started' => 'public_pages#get_started', as: 'get_started'
+  get 'get_started' => 'home#index'
   get 'promote' => 'static_pages#promote'
   get 'researchers' => 'static_pages#researchers'
   get 'faq' => 'static_pages#faq'
