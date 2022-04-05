@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-03-25 16:05+0100\n"
-"PO-Revision-Date: 2022-03-25 16:05+0100\n"
+"POT-Creation-Date: 2022-04-05 15:09+0200\n"
+"PO-Revision-Date: 2022-04-05 15:09+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -124,8 +124,8 @@ msgstr ""
 #: ../../app/controllers/contributors_controller.rb:80
 #: ../../app/controllers/dmpopidor/notes_controller.rb:103
 #: ../../app/controllers/dmpopidor/orgs_controller.rb:75
-#: ../../app/controllers/dmpopidor/plans_controller.rb:59
-#: ../../app/controllers/dmpopidor/plans_controller.rb:62
+#: ../../app/controllers/dmpopidor/plans_controller.rb:60
+#: ../../app/controllers/dmpopidor/plans_controller.rb:63
 #: ../../app/controllers/guidance_groups_controller.rb:51
 #: ../../app/controllers/guidances_controller.rb:74
 #: ../../app/controllers/notes_controller.rb:104
@@ -144,10 +144,10 @@ msgstr ""
 #: ../../app/controllers/contributors_controller.rb:82
 #: ../../app/controllers/dmpopidor/notes_controller.rb:128
 #: ../../app/controllers/dmpopidor/orgs_controller.rb:77
-#: ../../app/controllers/dmpopidor/plans_controller.rb:68
-#: ../../app/controllers/dmpopidor/plans_controller.rb:71
-#: ../../app/controllers/dmpopidor/plans_controller.rb:75
-#: ../../app/controllers/dmpopidor/plans_controller.rb:78
+#: ../../app/controllers/dmpopidor/plans_controller.rb:69
+#: ../../app/controllers/dmpopidor/plans_controller.rb:72
+#: ../../app/controllers/dmpopidor/plans_controller.rb:76
+#: ../../app/controllers/dmpopidor/plans_controller.rb:79
 #: ../../app/controllers/guidance_groups_controller.rb:53
 #: ../../app/controllers/guidances_controller.rb:76
 #: ../../app/controllers/notes_controller.rb:122
@@ -202,7 +202,6 @@ msgid "registry value"
 msgstr ""
 
 #: ../../app/controllers/dmpopidor/notes_controller.rb:52
-#: ../../app/controllers/dmpopidor/plans_controller.rb:110
 #: ../../app/controllers/guidance_groups_controller.rb:29
 #: ../../app/controllers/guidances_controller.rb:52
 #: ../../app/controllers/notes_controller.rb:55
@@ -211,6 +210,7 @@ msgid "created"
 msgstr ""
 
 #: ../../app/controllers/dmpopidor/notes_controller.rb:78
+#: ../../app/controllers/dmpopidor/plans_controller.rb:141
 #: ../../app/controllers/guidance_groups_controller.rb:32
 #: ../../app/controllers/guidances_controller.rb:54
 #: ../../app/controllers/notes_controller.rb:74
@@ -226,14 +226,41 @@ msgstr ""
 msgid "Unable to notify user that you have finished providing feedback."
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:33
+#: ../../app/controllers/dmpopidor/plans_controller.rb:34
 #: ../../app/controllers/plans_controller.rb:68
 msgid "This is a"
 msgstr ""
 
-#: ../../app/controllers/dmpopidor/plans_controller.rb:33
+#: ../../app/controllers/dmpopidor/plans_controller.rb:34
 #: ../../app/controllers/plans_controller.rb:68
 msgid "test plan"
+msgstr ""
+
+#: ../../app/controllers/dmpopidor/plans_controller.rb:129
+#: ../../app/controllers/plans_controller.rb:105
+msgid "%<user_name>s Plan"
+msgstr ""
+
+#: ../../app/controllers/dmpopidor/plans_controller.rb:139
+msgid "imported"
+msgstr ""
+
+#: ../../app/controllers/dmpopidor/plans_controller.rb:145
+msgid "Unvalid file: "
+msgstr ""
+
+#: ../../app/controllers/dmpopidor/plans_controller.rb:148
+msgid "File should contain JSON"
+msgstr ""
+
+#: ../../app/controllers/dmpopidor/plans_controller.rb:151
+#: ../../app/controllers/madmp_codebase_controller.rb:48
+#: ../../app/controllers/madmp_codebase_controller.rb:90
+msgid "An error has occured: "
+msgstr ""
+
+#: ../../app/controllers/dmpopidor/plans_controller.rb:167
+msgid "Invalid JSON: "
 msgstr ""
 
 #: ../../app/controllers/dmpopidor/template_options_controller.rb:57
@@ -311,13 +338,9 @@ msgstr ""
 msgid "New data have been added to your plan, please click on the \"Reload\" button."
 msgstr ""
 
-#: ../../app/controllers/madmp_codebase_controller.rb:48
-#: ../../app/controllers/madmp_codebase_controller.rb:90
-msgid "An error has occured: "
-msgstr ""
-
+#: ../../app/controllers/madmp_fragments_controller.rb:38
 #: ../../app/controllers/madmp_fragments_controller.rb:156
-#: ../../app/controllers/madmp_fragments_controller.rb:318
+#: ../../app/controllers/madmp_fragments_controller.rb:320
 msgid "Element is already present in your plan."
 msgstr ""
 
@@ -343,10 +366,6 @@ msgstr ""
 
 #: ../../app/controllers/plans_controller.rb:103
 msgid "My Plan (%<title>s)"
-msgstr ""
-
-#: ../../app/controllers/plans_controller.rb:105
-msgid "%<user_name>s Plan"
 msgstr ""
 
 #: ../../app/controllers/plans_controller.rb:159
@@ -656,58 +675,6 @@ msgstr ""
 msgid "DMP Creator:"
 msgstr ""
 
-#: ../../app/helpers/dmpopidor/plans_helper.rb:10
-msgid "You"
-msgstr ""
-
-#: ../../app/helpers/dmpopidor/plans_helper.rb:21
-#: ../../app/helpers/plans_helper.rb:36
-#: ../../app/helpers/settings_template_helper.rb:16
-#: ../../app/views/branded/orgs/_profile_form.html.erb:136
-#: ../../app/views/branded/paginable/orgs/_index.html.erb:5
-#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:7
-#: ../../app/views/branded/paginable/users/_index.html.erb:23
-msgid "Organisation"
-msgstr ""
-
-#: ../../app/helpers/dmpopidor/plans_helper.rb:23
-#: ../../app/helpers/plans_helper.rb:38
-msgid "Public"
-msgstr ""
-
-#: ../../app/helpers/dmpopidor/plans_helper.rb:25 ../../app/models/plan.rb:73
-msgid "Administrator"
-msgstr ""
-
-#: ../../app/helpers/dmpopidor/plans_helper.rb:27
-#: ../../app/helpers/dmpopidor/plans_helper.rb:29
-#: ../../app/helpers/plans_helper.rb:40 ../../app/helpers/plans_helper.rb:42
-#: ../../app/views/branded/layouts/application.html.erb:155
-msgid "Private"
-msgstr ""
-
-#: ../../app/helpers/dmpopidor/plans_helper.rb:37
-#: ../../app/helpers/plans_helper.rb:57
-msgid "Organisation: anyone at my organisation can view."
-msgstr ""
-
-#: ../../app/helpers/dmpopidor/plans_helper.rb:39
-#: ../../app/helpers/plans_helper.rb:59
-msgid "Public: anyone can view."
-msgstr ""
-
-#: ../../app/helpers/dmpopidor/plans_helper.rb:41
-msgid ""
-"Administrator: visible to me, specified collaborators and administrators at my"
-" organisation."
-msgstr ""
-
-#: ../../app/helpers/dmpopidor/plans_helper.rb:43
-#: ../../app/helpers/plans_helper.rb:61
-#: ../../app/views/branded/layouts/application.html.erb:156
-msgid "Private: restricted to me and people I invite."
-msgstr ""
-
 #: ../../app/helpers/dynamic_form_helper.rb:386
 msgid "This property is required."
 msgstr ""
@@ -813,7 +780,7 @@ msgstr ""
 msgid "Review plans"
 msgstr ""
 
-#: ../../app/helpers/plans_helper.rb:17
+#: ../../app/helpers/plans_helper.rb:8
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:9
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:16
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:9
@@ -821,16 +788,61 @@ msgstr ""
 msgid "Owner"
 msgstr ""
 
-#: ../../app/helpers/plans_helper.rb:19
+#: ../../app/helpers/plans_helper.rb:10
 msgid "Co-owner"
 msgstr ""
 
-#: ../../app/helpers/plans_helper.rb:21
+#: ../../app/helpers/plans_helper.rb:12
 msgid "Editor"
 msgstr ""
 
-#: ../../app/helpers/plans_helper.rb:23
+#: ../../app/helpers/plans_helper.rb:14
 msgid "Read only"
+msgstr ""
+
+#: ../../app/helpers/plans_helper.rb:22
+#: ../../app/helpers/settings_template_helper.rb:16
+#: ../../app/views/branded/orgs/_profile_form.html.erb:136
+#: ../../app/views/branded/paginable/orgs/_index.html.erb:5
+#: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:7
+#: ../../app/views/branded/paginable/users/_index.html.erb:23
+msgid "Organisation"
+msgstr ""
+
+#: ../../app/helpers/plans_helper.rb:24
+msgid "Public"
+msgstr ""
+
+#: ../../app/helpers/plans_helper.rb:30 ../../app/models/plan.rb:73
+msgid "Administrator"
+msgstr ""
+
+#: ../../app/helpers/plans_helper.rb:35 ../../app/helpers/plans_helper.rb:37
+#: ../../app/views/branded/layouts/application.html.erb:155
+msgid "Private"
+msgstr ""
+
+#: ../../app/helpers/plans_helper.rb:44
+msgid "Organisation: anyone at my organisation can view."
+msgstr ""
+
+#: ../../app/helpers/plans_helper.rb:46
+msgid "Public: anyone can view."
+msgstr ""
+
+#: ../../app/helpers/plans_helper.rb:52
+msgid ""
+"Administrator: visible to me, specified collaborators and administrators at my"
+" organisation."
+msgstr ""
+
+#: ../../app/helpers/plans_helper.rb:57
+#: ../../app/views/branded/layouts/application.html.erb:156
+msgid "Private: restricted to me and people I invite."
+msgstr ""
+
+#: ../../app/helpers/plans_helper.rb:79
+msgid "You"
 msgstr ""
 
 #: ../../app/helpers/settings_template_helper.rb:8
@@ -1171,8 +1183,8 @@ msgstr ""
 #: ../../app/views/branded/notes/_new.html.erb:14
 #: ../../app/views/branded/org_admin/departments/edit.html.erb:23
 #: ../../app/views/branded/org_admin/departments/new.html.erb:23
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:121
-#: ../../app/views/branded/org_admin/questions/_show.html.erb:217
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:132
+#: ../../app/views/branded/org_admin/questions/_show.html.erb:216
 #: ../../app/views/branded/org_admin/templates/_form.html.erb:102
 #: ../../app/views/branded/org_admin/users/edit.html.erb:55
 #: ../../app/views/branded/orgs/_profile_form.html.erb:152
@@ -1190,7 +1202,7 @@ msgstr ""
 
 #: ../../app/views/branded/answers/_new_edit.html.erb:83
 #: ../../app/views/branded/madmp_fragments/_edit.html.erb:70
-#: ../../app/views/branded/org_admin/questions/_show.html.erb:77
+#: ../../app/views/branded/org_admin/questions/_show.html.erb:76
 msgid "example answer"
 msgstr ""
 
@@ -1242,7 +1254,7 @@ msgstr ""
 #: ../../app/views/branded/paginable/registries/_index.html.erb:5
 #: ../../app/views/branded/paginable/static_pages/_index.html.erb:5
 #: ../../app/views/branded/paginable/users/_index.html.erb:20
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:60
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:64
 #: ../../app/views/branded/super_admin/madmp_schemas/_form.html.erb:10
 #: ../../app/views/branded/super_admin/registries/_form.html.erb:6
 #: ../../app/views/branded/super_admin/registries/show.html.erb:13
@@ -1326,7 +1338,7 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/branded/contributors/index.html.erb:22
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:61
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:65
 msgid "Affiliation"
 msgstr ""
 
@@ -1440,7 +1452,7 @@ msgstr ""
 #: ../../app/views/branded/guidances/new_edit.html.erb:12
 #: ../../app/views/branded/guidances/new_edit.html.erb:16
 #: ../../app/views/branded/layouts/_branding.html.erb:77
-#: ../../app/views/branded/org_admin/questions/_show.html.erb:92
+#: ../../app/views/branded/org_admin/questions/_show.html.erb:91
 #: ../../app/views/branded/phases/_guidances_notes.html.erb:11
 #: ../../app/views/branded/phases/_guidances_notes_runs.html.erb:13
 msgid "Guidance"
@@ -1478,8 +1490,8 @@ msgstr ""
 #: ../../app/views/branded/notes/_edit.html.erb:11
 #: ../../app/views/branded/org_admin/departments/edit.html.erb:24
 #: ../../app/views/branded/org_admin/departments/new.html.erb:24
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:125
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:127
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:136
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:138
 #: ../../app/views/branded/plans/_edit_details.html.erb:61
 #: ../../app/views/branded/research_outputs/_list.html.erb:78
 #: ../../app/views/branded/super_admin/madmp_schemas/_form.html.erb:32
@@ -1570,7 +1582,7 @@ msgid "Usage"
 msgstr ""
 
 #: ../../app/views/branded/layouts/_branding.html.erb:105
-#: ../../app/views/branded/org_admin/questions/_show.html.erb:102
+#: ../../app/views/branded/org_admin/questions/_show.html.erb:101
 msgid "Themes"
 msgstr ""
 
@@ -1920,7 +1932,7 @@ msgid "Question text"
 msgstr ""
 
 #: ../../app/views/branded/org_admin/questions/_form.html.erb:29
-#: ../../app/views/branded/org_admin/questions/_show.html.erb:56
+#: ../../app/views/branded/org_admin/questions/_show.html.erb:55
 msgid "Answer format"
 msgstr ""
 
@@ -1935,36 +1947,41 @@ msgid ""
 "ng the CTRL key;</li></ul>"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:49
-#: ../../app/views/branded/org_admin/questions/_show.html.erb:51
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:48
+#: ../../app/views/branded/org_admin/questions/_show.html.erb:46
+msgid "Data Type"
+msgstr ""
+
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:58
+#: ../../app/views/branded/org_admin/questions/_show.html.erb:50
 msgid "Structured Form"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:70
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:78
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:81
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:89
 msgid "Add Conditions"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:77
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:88
 msgid "Save this question before adding conditions."
 msgstr ""
 
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:88
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:99
 msgid "Display additional comment area."
 msgstr ""
 
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:94
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:105
 msgid "Default answer"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:117
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:128
 msgid ""
 "Select one or more themes that are relevant to this question. This will allow "
 "similarly themed organisation-level guidance to appear alongside your question"
 "."
 msgstr ""
 
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:124
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:135
 #: ../../app/views/branded/paginable/contributors/_index.html.erb:37
 #: ../../app/views/branded/paginable/registries/_index.html.erb:33
 #: ../../app/views/branded/shared/dynamic_form/fields/contributor/_contributor_list.html.erb:43
@@ -1975,7 +1992,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/questions/_form.html.erb:124
+#: ../../app/views/branded/org_admin/questions/_form.html.erb:135
 msgid "You are about to delete question #%{question_number}. Are you sure?"
 msgstr ""
 
@@ -1991,87 +2008,57 @@ msgstr ""
 msgid "Default value"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/questions/_show.html.erb:45
-msgid "Structured"
-msgstr ""
-
-#: ../../app/views/branded/org_admin/questions/_show.html.erb:47
-#: ../../app/views/branded/paginable/orgs/_index.html.erb:25
-#: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:36
-#: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:44
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:36
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:44
-#: ../../app/views/branded/paginable/templates/_history.html.erb:40
-#: ../../app/views/branded/paginable/users/_index.html.erb:92
-#: ../../app/views/branded/shared/_create_plan_modal.html.erb:11
-#: ../../app/views/branded/shared/export/_display_madmp_fragment.erb:15
-msgid "Yes"
-msgstr ""
-
-#: ../../app/views/branded/org_admin/questions/_show.html.erb:47
-#: ../../app/views/branded/paginable/orgs/_index.html.erb:25
-#: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:36
-#: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:46
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:36
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:46
-#: ../../app/views/branded/paginable/templates/_history.html.erb:40
-#: ../../app/views/branded/paginable/users/_index.html.erb:92
-#: ../../app/views/branded/shared/_create_plan_modal.html.erb:12
-#: ../../app/views/branded/shared/export/_display_madmp_fragment.erb:15
-msgid "No"
-msgstr ""
-
-#: ../../app/views/branded/org_admin/questions/_show.html.erb:60
+#: ../../app/views/branded/org_admin/questions/_show.html.erb:59
 msgid "Additional comment area will be displayed."
 msgstr ""
 
-#: ../../app/views/branded/org_admin/questions/_show.html.erb:62
+#: ../../app/views/branded/org_admin/questions/_show.html.erb:61
 msgid "No additional comment area will be displayed."
 msgstr ""
 
-#: ../../app/views/branded/org_admin/questions/_show.html.erb:69
+#: ../../app/views/branded/org_admin/questions/_show.html.erb:68
 msgid "Question conditions"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/questions/_show.html.erb:103
+#: ../../app/views/branded/org_admin/questions/_show.html.erb:102
 msgid "No themes selected"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/questions/_show.html.erb:113
+#: ../../app/views/branded/org_admin/questions/_show.html.erb:112
 msgid "Themed Guidance"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/questions/_show.html.erb:123
+#: ../../app/views/branded/org_admin/questions/_show.html.erb:122
 msgid ""
 "Click the links below to view organisational guidance\n"
 "                        related to the themes associated with this question."
 msgstr ""
 
-#: ../../app/views/branded/org_admin/questions/_show.html.erb:178
+#: ../../app/views/branded/org_admin/questions/_show.html.erb:177
 msgid ""
 "Note: New plans will automatically display this guidance.\n"
 "            Users then have the ability to hide/display the guidance when edit"
 "ing their plan."
 msgstr ""
 
-#: ../../app/views/branded/org_admin/questions/_show.html.erb:181
+#: ../../app/views/branded/org_admin/questions/_show.html.erb:180
 msgid ""
 "There is no organisational guidance related to the themes associated with this"
 " question."
 msgstr ""
 
-#: ../../app/views/branded/org_admin/questions/_show.html.erb:190
-#: ../../app/views/branded/org_admin/questions/_show.html.erb:202
-#: ../../app/views/branded/org_admin/questions/_show.html.erb:232
+#: ../../app/views/branded/org_admin/questions/_show.html.erb:189
+#: ../../app/views/branded/org_admin/questions/_show.html.erb:201
+#: ../../app/views/branded/org_admin/questions/_show.html.erb:231
 msgid "Annotations"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/questions/_show.html.erb:196
-#: ../../app/views/branded/org_admin/questions/_show.html.erb:238
+#: ../../app/views/branded/org_admin/questions/_show.html.erb:195
+#: ../../app/views/branded/org_admin/questions/_show.html.erb:237
 msgid "None provided"
 msgstr ""
 
-#: ../../app/views/branded/org_admin/questions/_show.html.erb:226
+#: ../../app/views/branded/org_admin/questions/_show.html.erb:225
 #: ../../app/views/branded/paginable/contributors/_index.html.erb:30
 #: ../../app/views/branded/paginable/departments/_index.html.erb:27
 #: ../../app/views/branded/paginable/madmp_schemas/_index.html.erb:31
@@ -2354,6 +2341,30 @@ msgstr ""
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:11
 #: ../../app/views/branded/paginable/users/_index.html.erb:28
 msgid "Active"
+msgstr ""
+
+#: ../../app/views/branded/paginable/orgs/_index.html.erb:25
+#: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:36
+#: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:44
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:36
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:44
+#: ../../app/views/branded/paginable/templates/_history.html.erb:40
+#: ../../app/views/branded/paginable/users/_index.html.erb:92
+#: ../../app/views/branded/shared/_create_plan_modal.html.erb:11
+#: ../../app/views/branded/shared/export/_display_madmp_fragment.erb:15
+msgid "Yes"
+msgstr ""
+
+#: ../../app/views/branded/paginable/orgs/_index.html.erb:25
+#: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:36
+#: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:46
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:36
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:46
+#: ../../app/views/branded/paginable/templates/_history.html.erb:40
+#: ../../app/views/branded/paginable/users/_index.html.erb:92
+#: ../../app/views/branded/shared/_create_plan_modal.html.erb:12
+#: ../../app/views/branded/shared/export/_display_madmp_fragment.erb:15
+msgid "No"
 msgstr ""
 
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:41
@@ -2723,7 +2734,7 @@ msgstr ""
 
 #: ../../app/views/branded/plans/_edit_details.html.erb:18
 #: ../../app/views/branded/plans/_show_details.html.erb:18
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:32
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:35
 msgid "Project Details"
 msgstr ""
 
@@ -2751,7 +2762,7 @@ msgstr ""
 
 #: ../../app/views/branded/plans/_edit_details.html.erb:140
 #: ../../app/views/branded/plans/_show_details.html.erb:70
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:21
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:22
 msgid "Plan Details"
 msgstr ""
 
@@ -2877,12 +2888,12 @@ msgid "General information"
 msgstr ""
 
 #: ../../app/views/branded/plans/_navigation.html.erb:7
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:56
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:60
 msgid "Contributors"
 msgstr ""
 
 #: ../../app/views/branded/plans/_navigation.html.erb:11
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:43
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:47
 msgid "Research outputs"
 msgstr ""
 
@@ -2891,7 +2902,7 @@ msgid "Write Plan"
 msgstr ""
 
 #: ../../app/views/branded/plans/_navigation.html.erb:22
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:83
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:89
 msgid "Budget"
 msgstr ""
 
@@ -2992,22 +3003,22 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/branded/plans/budget.html.erb:20
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:87
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:93
 msgid "Cost type (Title)"
 msgstr ""
 
 #: ../../app/views/branded/plans/budget.html.erb:21
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:88
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:94
 msgid "Amount"
 msgstr ""
 
 #: ../../app/views/branded/plans/budget.html.erb:22
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:89
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:95
 msgid "Lifecycle stage"
 msgstr ""
 
 #: ../../app/views/branded/plans/budget.html.erb:41
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:108
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:114
 msgid "General Budget"
 msgstr ""
 
@@ -3019,11 +3030,11 @@ msgstr ""
 msgid "Structured template"
 msgstr ""
 
-#: ../../app/views/branded/plans/import.html.erb:40
+#: ../../app/views/branded/plans/import.html.erb:41
 msgid "File"
 msgstr ""
 
-#: ../../app/views/branded/plans/import.html.erb:48
+#: ../../app/views/branded/plans/import.html.erb:49
 msgid "Import"
 msgstr ""
 
@@ -3254,15 +3265,15 @@ msgid ""
 "late_title}\" template provided by %{org_name}."
 msgstr ""
 
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:62
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:66
 msgid "Roles"
 msgstr ""
 
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:117
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:123
 msgid "Copyright information:"
 msgstr ""
 
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:120
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:126
 msgid ""
 " The above plan creator(s) have agreed that others may use as much of the text"
 " of this plan as they would like in their own plans, and customise it as neces"
