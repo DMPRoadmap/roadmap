@@ -2,6 +2,9 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 05/04/2022
+- Ajout de l'interface d'import des plans (Standard & RDA)
+
 ## 29/03/2022
 - Ajout d'une liste de sélection permettant de filtrer les formulaires structurés par type de données, lors de la modification/création d'une question dans un modèle structuré.
 - Correction du problème d'affichage des libellés "Plan Details" et "Project Details" dans l'export PDF (issue gitbucket 347)
