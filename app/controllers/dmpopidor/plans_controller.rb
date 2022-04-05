@@ -118,32 +118,39 @@ module Dmpopidor
         else
           raise IOError
         end
-
-        @plan.visibility = Rails.configuration.x.plans.default_visibility
-
-        @plan.template = ::Template.find(import_params[:template_id])
-
-        @plan.title = format(_('%<user_name>s Plan'), user_name: "#{current_user.firstname}'s")
-        @plan.org = current_user.org
-        if @plan.save
-          @plan.add_user!(current_user.id, :creator)
-          @plan.save
-          @plan.create_plan_fragments
-
-          Import::PlanImportService.import(@plan, json_data, import_params[:format])
-
-          flash[:notice] = success_message(@plan, _('imported'))
-          format.html { redirect_to plan_path(@plan) }
+        errs = Import::PlanImportService.validate(json_data, import_params[:format])
+        if errs.any?
+          format.html { redirect_to import_plans_path, alert: import_errors(errs) }
         else
-          flash[:alert] = failure_message(@plan, _('create'))
-          format.html { redirect_to new_plan_path }
+          @plan.visibility = Rails.configuration.x.plans.default_visibility
+
+          @plan.template = ::Template.find(import_params[:template_id])
+
+          @plan.title = format(_('%<user_name>s Plan'), user_name: "#{current_user.firstname}'s")
+          @plan.org = current_user.org
+
+          if @plan.save
+            @plan.add_user!(current_user.id, :creator)
+            @plan.save
+            @plan.create_plan_fragments
+
+            Import::PlanImportService.import(@plan, json_data, import_params[:format])
+
+            format.html { redirect_to plan_path(@plan), notice: success_message(@plan, _('imported')) }
+          else
+            format.html { redirect_to import_plans_path, alert: failure_message(@plan, _('create')) }
+          end
         end
       rescue IOError
-        flash[:alert] = "#{_('Unvalid file: ')} #{json_file.class.name}: #{json_file.inspect}"
-        format.html { redirect_to new_plan_path }
+        msg = "#{_('Unvalid file: ')} #{json_file.class.name}: #{json_file.inspect}"
+        format.html { redirect_to import_plans_path, alert: msg }
       rescue JSON::ParserError
-        flash.now[:alert] = _('File should contain JSON')
-        format.html { redirect_to new_plan_path }
+        msg = _('File should contain JSON')
+        format.html { redirect_to import_plans_path, alert: msg }
+      rescue StandardError => e
+        msg = "#{_('An error has occured: ')} #{e.message}"
+        Rails.logger.error e.backtrace
+        format.html { redirect_to import_plans_path, alert: msg }
       end
       # rubocop:enable Metrics/BlockLength
     end
@@ -154,6 +161,15 @@ module Dmpopidor
     def import_params
       params.require(:import)
             .permit(:format, :template_id, :json_file)
+    end
+
+    def import_errors(errs)
+      msg = "#{_('Invalid JSON: ')} <ul>"
+      errs.each do |err|
+        msg += "<li>#{err}</li>"
+      end
+      msg += '</ul>'
+      msg
     end
 
     # Get the parameters corresponding to the schema

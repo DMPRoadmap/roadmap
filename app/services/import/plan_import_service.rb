@@ -4,9 +4,9 @@ module Import
   # Service used to import a plan from a JSON document
   class PlanImportService
     class << self
-      def import(plan, json_data, format)
+      def import(plan, json_data, import_format)
         dmp_fragment = plan.json_fragment
-        dmp = if format.eql?('rda')
+        dmp = if import_format.eql?('rda')
                 Import::Converters::RdaToStandard.convert(json_data['dmp'])
               else
                 json_data
@@ -70,6 +70,21 @@ module Import
       end
       # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+      def validate(json_data, import_format)
+        return [_('Invalid JSON data')] if json_data.nil?
+        return [_('Invalid format')] unless %w[rda standard].include?(import_format)
+
+        errs = []
+        if import_format.eql?('rda')
+          return [_('File should begin with :dmp property')] unless json_data['dmp'].present?
+
+          errs = Import::Validators::Rda.validation_errors(json: json_data['dmp'].deep_symbolize_keys)
+        else
+          errs = Import::Validators::Standard.validation_errors(json: json_data)
+        end
+        errs
+      end
     end
   end
 end
