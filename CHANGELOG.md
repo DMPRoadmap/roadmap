@@ -13,7 +13,8 @@
 - Change contact email to support@portagenetwork.ca [#172](https://github.com/portagenetwork/roadmap/issues/172)
 
 ## [3.0.4+portage-3.0.6] - 2022-03-23
-  ### Fixed
+
+### Fixed
    - Usage statistics page now shows correct data [#164](https://github.com/portagenetwork/roadmap/issues/164)
 
 ## [3.0.4+portage-3.0.5] - 2022-03-07

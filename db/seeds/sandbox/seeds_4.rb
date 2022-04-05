@@ -48,7 +48,7 @@
       active:1
      }
   ]
-  users.each{ |u| User.create(u) }
+  users.each{ |u| User.create!(u) }
   # Some existing users for statistics. Creation times are within 12 months
   (1..20).each do |index|
     user = {

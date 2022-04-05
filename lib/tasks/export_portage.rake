@@ -28,7 +28,7 @@ namespace :export_production_data do
     # seed_1: org & question format must be created before templates and template-related components
     desc "Export org and question format from 3.0.2 database to seeds_1.rb" 
     task :seed_1_export => :environment do
-        file_name = 'db/seeds/seeds_1.rb'
+        file_name = 'db/seeds/sandbox/seeds_1.rb'
         File.delete(file_name) if File.exist?(file_name)
         Faker::Config.random = Random.new(Org.count)
         File.open(file_name, 'a') do |f|
@@ -64,7 +64,7 @@ namespace :export_production_data do
                         org.abbreviation = "OEO"
                         org.language_id = 2 # French Default
                     else
-                        org.name = Faker::University.name
+                        org.name = Faker::University.unique.name
                         org.abbreviation = org.name + "_abbreviation"
                     end
                 end
@@ -85,7 +85,7 @@ namespace :export_production_data do
     # seed2: guidance group and theme must be created before guidance and questions (using theme)
     desc "Export guidance group and theme format from 3.0.2 database to seeds_2.rb" 
     task :seed_2_export => :environment do
-        file_name = 'db/seeds/seeds_2.rb'
+        file_name = 'db/seeds/sandbox/seeds_2.rb'
         File.delete(file_name) if File.exist?(file_name)
         excluded_keys =['created_at','updated_at'] 
         open(file_name, 'a') do |f|
@@ -103,7 +103,7 @@ namespace :export_production_data do
     # seed3: guidance and template related components runs lastly
     desc "Export guidance and template_related content from 3.0.2 database to seeds_3.rb" 
     task :seed_3_export => :environment do
-        file_name = 'db/seeds/seeds_3.rb'
+        file_name = 'db/seeds/sandbox/seeds_3.rb'
         File.delete(file_name) if File.exist?(file_name)
         excluded_keys =['created_at','updated_at'] 
         open(file_name, 'a') do |f|
@@ -156,7 +156,7 @@ namespace :export_production_data do
     # seed6: export all plan which org belongs to testers, this task generate the seed file that runs lastly
     desc "Export plan content from 3.0.2 database to seeds_6.rb" 
     task :seed_5_export => :environment do
-        file_name = 'db/seeds/seeds_5.rb'
+        file_name = 'db/seeds/sandbox/seeds_5.rb'
         File.delete(file_name) if File.exist?(file_name)
         excluded_keys =['created_at','updated_at','start_date','end_date']
         org_list = [ENV["FUNDER_ORG_ID"].to_i, ENV["ENGLISH_ORG_ID"].to_i,ENV["FRENCH_ORG_ID"].to_i]
