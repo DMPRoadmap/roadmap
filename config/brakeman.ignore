@@ -1,6 +1,22 @@
 {
   "ignored_warnings": [
     {
+      "warning_type": "Unmaintained Dependency",
+      "warning_code": 122,
+      "fingerprint": "21ab0fe00fdd5899ffc405cff75aadb91b805ee996a614f7e27b08a287e9062d",
+      "check_name": "EOLRails",
+      "message": "Support for Rails 5.2.6.2 ends on 2022-06-01",
+      "file": "Gemfile.lock",
+      "line": 334,
+      "link": "https://brakemanscanner.org/docs/warning_types/unmaintained_dependency/",
+      "code": null,
+      "render_path": null,
+      "location": null,
+      "user_input": null,
+      "confidence": "Weak",
+      "note": ""
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "7bd7ecdde88008eac29303c8c264366d1d670eb468e316c17a6121d4684b8bca",
@@ -21,23 +37,19 @@
       "note": ""
     },
     {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
-      "fingerprint": "a5ed3314d376e328714a71d1bc2d560e63c241e5722e5fdf7ad6f29717db9259",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/controllers/concerns/paginable.rb",
-      "line": 152,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "scope.search(@args.with_indifferent_access[:search]).order(ActiveRecord::Base.sanitize_sql(@args.with_indifferent_access[:sort_field].partition(\".\").last).to_sym => sort_direction.to_s).includes(@args.with_indifferent_access[:sort_field].partition(\".\").first.singularize.to_sym).order(\"#{ActiveRecord::Base.sanitize_sql(@args.with_indifferent_access[:sort_field])} #{sort_direction}\")",
+      "warning_type": "Unmaintained Dependency",
+      "warning_code": 121,
+      "fingerprint": "9a3951031616a07c8e02c86652f537e92c08685da97f5ec2b12d5d3602b55bb8",
+      "check_name": "EOLRuby",
+      "message": "Support for Ruby 2.6.3 ended on 2022-03-31",
+      "file": "Gemfile.lock",
+      "line": 334,
+      "link": "https://brakemanscanner.org/docs/warning_types/unmaintained_dependency/",
+      "code": null,
       "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Paginable",
-        "method": "refine_query"
-      },
-      "user_input": "sort_direction",
-      "confidence": "Weak",
+      "location": null,
+      "user_input": null,
+      "confidence": "High",
       "note": ""
     },
     {
@@ -81,6 +93,6 @@
       "note": ""
     }
   ],
-  "updated": "2021-11-03 09:56:48 -0700",
-  "brakeman_version": "5.1.1"
+  "updated": "2022-04-05 08:31:53 -0700",
+  "brakeman_version": "5.2.1"
 }
