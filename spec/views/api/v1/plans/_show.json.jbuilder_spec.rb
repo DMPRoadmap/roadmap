@@ -81,15 +81,11 @@ describe 'api/v1/plans/_show.json.jbuilder' do
       expect(@json[:extension].length).to eql(1)
     end
     it 'includes the :template in :extension' do
-      app = ApplicationService.application_name.split('-').first
-      @section = @json[:extension].select { |hash| hash.keys.first == app }.first
-      expect(@section[app.to_sym].present?).to eql(true)
-      expect(@section[app.to_sym][:related_identifiers].length).to eql(1)
-      related = @section[app.to_sym][:related_identifiers].first
-      expect(related['work_type']).to eql(@plan.related_identifiers.first.work_type)
-      expect(related['type']).to eql(@plan.related_identifiers.first.identifier_type)
-      expect(related['descriptor']).to eql(@plan.related_identifiers.first.relation_type)
-      expect(related['identifier']).to eql(@plan.related_identifiers.first.value)
+      @section = @json[:extension].select { |hash| hash.keys.first == 'dmproadmap' }.first
+      expect(@section[:dmproadmap].present?).to eql(true)
+      tmplt = @plan.template
+      expect(@section[:dmproadmap][:template][:id]).to eql(tmplt.id)
+      expect(@section[:dmproadmap][:template][:title]).to eql(tmplt.title)
     end
   end
 

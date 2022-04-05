@@ -79,9 +79,9 @@ jobs:
     - name: 'Compile Assets'
       run: bin/rails assets:precompile
 
+    # briley - comment out Karma tests due to issues with dependencies. We should
+    #          replace these with RSpec feature tests
     # Run the JS tests
-    # DMPTool - commenting out because Rails Webpacker is no longer supported
-    #           and there is a dependency mismatch with the latest karma libraries
     # - name: 'Run Karma Tests'
     #   run: yarn test
 

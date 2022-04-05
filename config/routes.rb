@@ -91,7 +91,7 @@ Rails.application.routes.draw do
   # Start DMPTool customizations
   # ------------------------------------------
   # DMPTool specific documentation pages
-  get 'get_started' => 'public_pages#get_started', as: 'get_started'
+  get 'get_started', to: redirect('/')
   get 'promote' => 'static_pages#promote'
   get 'researchers' => 'static_pages#researchers'
   get 'faq' => 'static_pages#faq'
