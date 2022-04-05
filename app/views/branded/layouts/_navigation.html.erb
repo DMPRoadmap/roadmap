@@ -22,8 +22,19 @@
           <li <%= 'class=active' if active_page?(plans_path, true)%>>
             <%= link_to _('My Dashboard'), plans_path %>
           </li>
-          <li <%= 'class=active' if active_page?(new_plan_path, true) %>>
-            <%= link_to _('Create plans'), new_plan_path %>
+          <li>
+            <a href="#" class="dropdown-toggle" role="button" id="static-pages-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= _('Create plans') %>
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu dmpopidor-dropdown">
+              <li <%= 'class=active' if active_page?(new_plan_path, true) %>>
+                <%= link_to _('Create plans'), new_plan_path %>
+              </li>
+              <li <%= 'class=active' if active_page?(import_plans_path, true)%>>
+                <%= link_to _('Import DMP'), import_plans_path %>
+              </li>
+            </ul>
           </li>
           <li <%= 'class=active' if active_page?(public_plans_path) %>>
             <%= link_to _('Public DMPs'), public_plans_path %>
