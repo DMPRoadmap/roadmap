@@ -18,7 +18,7 @@ class UserMailer < ActionMailer::Base
     # Override the default Rails route helper for the contact_us page IF an alternate contact_us
     # url was defined in the dmproadmap.rb initializer file
     @contact_us     = Rails.application.config.x.organisation.contact_us_url || contact_us_url
-    @helpdesk_email = helpdesk_email(@user.org)
+    @helpdesk_email = helpdesk_email(org: @user.org)
 
     I18n.with_locale I18n.default_locale do
       mail(to: @user.email,
@@ -39,7 +39,7 @@ class UserMailer < ActionMailer::Base
     @recipient_name = @data['name'].to_s
     @message        = @data['message'].to_s
     @answer_text    = @options_string.to_s
-    @helpdesk_email = helpdesk_email(@user.org)
+    @helpdesk_email = helpdesk_email(org: @user.org)
 
     I18n.with_locale I18n.default_locale do
       mail(to: data['email'],
@@ -55,7 +55,7 @@ class UserMailer < ActionMailer::Base
     @username   = @user.name
     @inviter    = inviter
     @link       = url_for(action: 'show', controller: 'plans', id: @role.plan.id)
-    @helpdesk_email = helpdesk_email(@inviter.org)
+    @helpdesk_email = helpdesk_email(org: @inviter.org)
 
     I18n.with_locale I18n.default_locale do
       mail(to: @role.user.email,
@@ -72,7 +72,7 @@ class UserMailer < ActionMailer::Base
     @user       = user
     @recepient = @role.user
     @messaging = role_text(@role)
-    @helpdesk_email = helpdesk_email(@user.org)
+    @helpdesk_email = helpdesk_email(org: @user.org)
 
     I18n.with_locale I18n.default_locale do
       mail(to: @recepient.email,
@@ -87,7 +87,7 @@ class UserMailer < ActionMailer::Base
     @user         = user
     @plan         = plan
     @current_user = current_user
-    @helpdesk_email = helpdesk_email(@plan.org)
+    @helpdesk_email = helpdesk_email(org: @plan.org)
 
     I18n.with_locale I18n.default_locale do
       mail(to: @user.email,
@@ -105,7 +105,7 @@ class UserMailer < ActionMailer::Base
     @recipient_name = @recipient.name(false)
     @requestor_name = @user.name(false)
     @plan_name      = @plan.title
-    @helpdesk_email = helpdesk_email(@plan.org)
+    @helpdesk_email = helpdesk_email(org: @plan.org)
 
     I18n.with_locale I18n.default_locale do
       mail(to: @recipient.email,
@@ -124,7 +124,7 @@ class UserMailer < ActionMailer::Base
     @plan           = plan
     @phase          = @plan.phases.first
     @plan_name      = @plan.title
-    @helpdesk_email = helpdesk_email(@plan.org)
+    @helpdesk_email = helpdesk_email(org: @plan.org)
 
     I18n.with_locale I18n.default_locale do
       sender = Rails.configuration.x.organisation.do_not_reply_email ||
@@ -146,7 +146,7 @@ class UserMailer < ActionMailer::Base
     @plan            = plan
     @plan_title      = @plan.title
     @plan_visibility = Plan::VISIBILITY_MESSAGE[@plan.visibility.to_sym]
-    @helpdesk_email = helpdesk_email(@plan.org)
+    @helpdesk_email = helpdesk_email(org: @plan.org)
 
     I18n.with_locale I18n.default_locale do
       mail(to: @user.email,
@@ -175,7 +175,7 @@ class UserMailer < ActionMailer::Base
     @section_title   = @question.section.title
     @phase_id        = @question.section.phase.id
     @phase_link = url_for(action: 'edit', controller: 'plans', id: @plan.id, phase_id: @phase_id)
-    @helpdesk_email = helpdesk_email(@plan.org)
+    @helpdesk_email = helpdesk_email(org: @plan.org)
 
     I18n.with_locale I18n.default_locale do
       mail(to: @plan.owner.email,
@@ -191,7 +191,7 @@ class UserMailer < ActionMailer::Base
     @user      = user
     @username  = @user.name
     @ul_list   = privileges_list(@user)
-    @helpdesk_email = helpdesk_email(@user.org)
+    @helpdesk_email = helpdesk_email(org: @user.org)
 
     I18n.with_locale I18n.default_locale do
       mail(to: user.email,
@@ -209,7 +209,7 @@ class UserMailer < ActionMailer::Base
 
     @name = @api_client.contact_name.present? ? @api_client.contact_name : @api_client.contact_email
 
-    @helpdesk_email = helpdesk_email(@api_client.org)
+    @helpdesk_email = helpdesk_email(org: @api_client.org)
 
     I18n.with_locale I18n.default_locale do
       mail(to: @api_client.contact_email,
