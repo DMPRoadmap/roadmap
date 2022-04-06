@@ -48,7 +48,7 @@
         <%= label_tag "data_type", _('Data Type'), class: "control-label" %>
         <%= select_tag "data_type",
           options_for_select(
-            MadmpSchema.distinct.pluck(:classname).map{ |type| [type.camelize, type] }.sort,
+            @available_classnames.map{ |type| [type.camelize, type] }.sort,
             question.madmp_schema&.classname
           ),
           class: "form-control question_schema_class"
