@@ -219,6 +219,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.boolean "managed", default: false, null: false
     t.index ["language_id"], name: "fk_rails_5640112cab"
     t.index ["region_id"], name: "fk_rails_5a6adf6bab"
+    t.string "helpdesk_email"
   end
 
   create_table "perms", id: :integer, force: :cascade do |t|

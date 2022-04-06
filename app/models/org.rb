@@ -24,6 +24,7 @@
 #  language_id            :integer
 #  region_id              :integer
 #  managed                :boolean          default(false), not null
+#  helpdesk_email         :string
 #
 # Foreign Keys
 #
