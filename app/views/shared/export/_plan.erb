@@ -86,7 +86,12 @@
             <% end %>
           <% end %>
         <% end %> <!-- sections.each -->
+        </div>
       <% end %>
+    <% end %>
+
+    <% if @show_research_outputs %>
+      <%= render partial: 'shared/export/plan_outputs', locals: { outputs: @plan.research_outputs } %>
     <% end %>
   </body>
 </html>
