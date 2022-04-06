@@ -31,21 +31,23 @@
  *    </div>
  */
 $(() => {
-  $('body').on('click', '.accordion-controls', (e) => {
+  $('body').on('click', '.accordion-controls a', (e) => {
     e.preventDefault();
     const currentTarget = $(e.currentTarget);
     const target = $(e.target);
     const direction = target.attr('data-toggle-direction');
+    const parentTargetName = currentTarget.parent().attr('data-parent');
     if (direction) {
       // Selects all .panel elements where the parent is currentTarget.attr('data-parent') and
       // after gets the immediately children whose class selector is panel-collapse
-      $(`#${currentTarget.attr('data-parent')} > .panel`).children('.panel-collapse').each((i, el) => {
+      const parentTarget = $(`#${parentTargetName}`).length ? $(`#${parentTargetName}`) : $(`.${parentTargetName}`);
+      $(parentTarget).find('.panel').find('.panel-collapse').each((i, el) => {
         const panelCollapse = $(el);
         // Expands or collapses the panel according to the
         // direction passed (e.g. show --> expands, hide --> collapses)
         if (direction === 'show') {
-          if (!panelCollapse.hasClass('in')) {
-            panelCollapse.prev().trigger('click');
+          if (!panelCollapse.find('.panel-body').attr('data-loaded') || !panelCollapse.hasClass('in')) {
+            panelCollapse.prev()[0].click();
           }
         } else {
           panelCollapse.collapse(direction);
