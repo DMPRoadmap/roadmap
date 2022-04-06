@@ -270,9 +270,7 @@ class PlansController < ApplicationController
       funder_attrs[:org_id] = plan_params[:funder][:id]
       funder = org_from_params(params_in: funder_attrs)
       @plan.funder_id = funder&.id
-      attrs.delete(:funder)
-
-      process_grant(grant_params: plan_params[:grant])
+      @plan.grant = plan_params[:grant]
       attrs.delete(:grant)
       attrs = remove_org_selection_params(params_in: attrs)
 
@@ -537,29 +535,5 @@ class PlansController < ApplicationController
              guidance_presenter: GuidancePresenter.new(plan)
            })
   end
-
-  # Update, destroy or add the grant
-  # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  def process_grant(grant_params:)
-    return false unless grant_params.present?
-
-    grant = @plan.grant
-
-    # delete it if it has been blanked out
-    if grant_params[:value].blank? && grant.present?
-      grant.destroy
-      @plan.grant = nil
-    elsif grant_params[:value] != grant&.value
-      if grant.present?
-        grant.update(value: grant_params[:value])
-      elsif grant_params[:value].present?
-        @plan.grant = Identifier.new(identifier_scheme: nil, identifiable: @plan,
-                                     value: grant_params[:value])
-      end
-    end
-  end
-  # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end
 # rubocop:enable Metrics/ClassLength

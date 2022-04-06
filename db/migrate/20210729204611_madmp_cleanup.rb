@@ -11,10 +11,6 @@ class MadmpCleanup < ActiveRecord::Migration[5.2]
     remove_column :research_outputs, :coverage_start
     remove_column :research_outputs, :coverage_end
 
-    # We're going to move towards a different solution allowing multiple api_clients
-    # to have an interest in a plan
-    remove_column :plans, :api_client_id
-
     # Remove the old principal_investigator and data_contact fields since they now
     # live in the contributors table
     remove_column :plans, :data_contact
