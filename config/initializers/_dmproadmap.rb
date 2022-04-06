@@ -218,15 +218,15 @@ module DMPRoadmap
     # Machine Actionable / Networked DMP Features (maDMP) #
     # --------------------------------------------------- #
     # Enable/disable functionality on the Project Details tab
-    config.x.madmp.enable_ethical_issues = true
-    config.x.madmp.enable_research_domain = true
+    config.x.madmp.enable_ethical_issues = false
+    config.x.madmp.enable_research_domain = false
 
     # This flag will enable/disable the entire Research Outputs tab. The others below will
     # just enable/disable specific functionality on the Research Outputs tab
-    config.x.madmp.enable_research_outputs = true
-    config.x.madmp.enable_license_selection = true
-    config.x.madmp.enable_metadata_standard_selection = true
-    config.x.madmp.enable_repository_selection = true
+    config.x.madmp.enable_research_outputs = false
+    config.x.madmp.enable_license_selection = false
+    config.x.madmp.enable_metadata_standard_selection = false
+    config.x.madmp.enable_repository_selection = false
 
     # The following flags will allow the system to include the question and answer in the JSON output
     #   - questions with a theme equal to 'Preservation'
@@ -245,13 +245,13 @@ module DMPRoadmap
     # Note that the values you enter must match the :identifier field of the licenses table.
     # You can use the `%{latest}` markup in place of version numbers if desired.
     config.x.madmp.preferred_licenses = [
-      'CC-BY-%{latest}s',
-      'CC-BY-SA-%{latest}s',
-      'CC-BY-NC-%{latest}s',
-      'CC-BY-NC-SA-%{latest}s',
-      'CC-BY-ND-%{latest}s',
-      'CC-BY-NC-ND-%{latest}s',
-      'CC0-%{latest}s'
+      'CC-BY-%{latest}',
+      'CC-BY-SA-%{latest}',
+      'CC-BY-NC-%{latest}',
+      'CC-BY-NC-SA-%{latest}',
+      'CC-BY-ND-%{latest}',
+      'CC-BY-NC-ND-%{latest}',
+      'CC0-%{latest}'
     ]
     # Link to external guidance about selecting one of the preferred licenses. A default
     # URL will be displayed if none is provided here. See app/views/research_outputs/licenses/_form
