@@ -5,6 +5,8 @@
   # Override the default Rails route helper for the contact_us page IF an alternate contact_us url was defined
   # in the dmproadmap.rb initializer
   contact_us = Rails.configuration.x.organisation.contact_us_url || contact_us_url
+
+  helpdesk = @helpdesk_email || helpdesk_email()
 %>
 <p>
   <%= _('All the best') %>
