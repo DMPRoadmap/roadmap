@@ -271,6 +271,7 @@ class PlansController < ApplicationController
       funder = org_from_params(params_in: funder_attrs)
       @plan.funder_id = funder&.id
       @plan.grant = plan_params[:grant]
+      attrs.delete(:funder)
       attrs.delete(:grant)
       attrs = remove_org_selection_params(params_in: attrs)
 
