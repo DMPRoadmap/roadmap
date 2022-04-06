@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 meta = dmp.meta
-project = dmp.project
+project_fragment = dmp.project
 research_outputs = dmp.research_outputs
 
 json.prettify!
@@ -45,7 +45,7 @@ json.dmp do
     json.title              cost.data["title"]
     json.value              cost.data["amount"]
   end
-  json.project do
+  json.project [project_fragment] do |project|
     start_date = project.data["startDate"] || nil
     end_date = project.data["endDate"] || nil
     json.description      exportable_description(project.data["description"])
