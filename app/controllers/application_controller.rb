@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   after_action :store_location
 
   include GlobalHelpers
-  include Pundit
+  include Pundit::Authorization
   helper_method GlobalHelpers.instance_methods
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
