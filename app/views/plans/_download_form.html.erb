@@ -39,6 +39,14 @@
           <%= _('unanswered questions') %>
         <% end %>
       </div>
+      <% if @plan.research_outputs.any? %>
+        <div class="checkbox">
+          <%= label_tag 'export[research_outputs]' do %>
+            <%= check_box_tag 'export[research_outputs]', true, true %>
+            <%= _('research outputs') %>
+          <% end %>
+        </div>
+      <% end %>
       <% if @plan.template.customization_of.present? %>
         <div class="checkbox">
           <%= label_tag 'export[custom_sections]' do %>

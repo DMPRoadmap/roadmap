@@ -1,0 +1,34 @@
+<% presenter = ResearchOutputPresenter.new(research_output: @research_output) %>
+
+var outputTypeForm = $('.research-output-form');
+
+if (outputTypeForm.length > 0) {
+  <%# Hide or Display the Description text field based on the Output Type selected %>
+  var outputTypeSpans = outputTypeForm.find('.output-type-description');
+  var outputTypeDescription = outputTypeForm.find('#research_output_output_type_description');
+
+  <% if @research_output.other? %>
+    outputTypeSpans.removeClass('hidden');
+    outputTypeDescription.attr('aria-required', 'true');
+  <% else %>
+    outputTypeDescription.attr('aria-required', 'false');
+    outputTypeSpans.addClass('hidden');
+    var selected = outputTypeSpans.parent().find('option:selected');
+    selected.removeAttr("selected");
+  <% end %>
+
+  <%# Hide or Display the Mime Type select box and Byte Size based on the Output Type selected %>
+  var fileDetailsSection = outputTypeForm.find('.file-details-section');
+
+  <% if presenter.byte_sizable? %>
+    fileDetailsSection.removeClass('hidden');
+  <% else %>
+    fileDetailsSection.addClass('hidden');
+    var selected = fileDetailsSection.find('option:selected');
+    selected.removeAttr("selected");
+    var sizeField = fileDetailsSection.find('#research_output_file_size');
+    sizeField.val("");
+  <% end %>
+}
+
+toggleSpinner(false);
