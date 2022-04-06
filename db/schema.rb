@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_19_160319) do
+ActiveRecord::Schema.define(version: 2022_03_15_104737) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -275,6 +275,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_160319) do
     t.text "api_create_plan_email_body"
     t.index ["language_id"], name: "fk_rails_5640112cab"
     t.index ["region_id"], name: "fk_rails_5a6adf6bab"
+    t.string "helpdesk_email"
   end
 
   create_table "perms", id: :integer, force: :cascade do |t|
