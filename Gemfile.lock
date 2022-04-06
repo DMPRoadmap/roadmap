@@ -90,14 +90,8 @@ GEM
     capybara-screenshot (1.0.26)
       capybara (>= 1.0, < 4)
       launchy
-    capybara-webmock (0.6.0)
-      capybara (>= 2.4, < 4)
-      rack (>= 1.4)
-      rack-proxy (>= 0.6.0)
-      rexml (>= 3.2)
-      selenium-webdriver (~> 3.0)
-      webrick (>= 1.7)
-    childprocess (3.0.0)
+    capybara-webmock (0.1.0)
+    childprocess (4.1.0)
     coderay (1.1.3)
     concurrent-ruby (1.1.10)
     contact_us (1.2.0)
@@ -252,6 +246,7 @@ GEM
       nokogiri (~> 1)
       rake
     mini_mime (1.1.2)
+    mini_portile2 (2.8.0)
     minitest (5.15.0)
     mocha (1.13.0)
     msgpack (1.5.0)
@@ -260,7 +255,8 @@ GEM
     mysql2 (0.5.3)
     nenv (0.3.0)
     nio4r (2.5.8)
-    nokogiri (1.13.3-x86_64-darwin)
+    nokogiri (1.13.3)
+      mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     notiffany (0.1.3)
       nenv (~> 0.1)
@@ -422,8 +418,9 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selenium-webdriver (3.142.7)
-      childprocess (>= 0.5, < 4.0)
+    selenium-webdriver (4.1.0)
+      childprocess (>= 0.5, < 5.0)
+      rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2)
     semantic_range (3.0.0)
     shellany (0.0.1)
@@ -469,10 +466,10 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
-    webdrivers (4.7.0)
+    webdrivers (5.0.0)
       nokogiri (~> 1.6)
       rubyzip (>= 1.3.0)
-      selenium-webdriver (> 3.141, < 5.0)
+      selenium-webdriver (~> 4.0)
     webmock (3.14.0)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
@@ -499,7 +496,7 @@ GEM
     zaru (0.3.0)
 
 PLATFORMS
-  x86_64-darwin-19
+  ruby
 
 DEPENDENCIES
   activerecord_json_validator
