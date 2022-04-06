@@ -1,0 +1,19 @@
+var resultsDiv = $('#modal-search-metadata_standards-results');
+
+resultsDiv.html('<%=
+  escape_javascript(
+    render(
+      partial: "layouts/modal_search/results",
+      locals: {
+        namespace: "metadata_standards",
+        results: @search_results,
+        selected: false,
+        item_name_attr: :title,
+        result_partial: "research_outputs/metadata_standards/search_result",
+        search_path: plan_metadata_standard_search_path(@plan),
+        search_method: :get
+      }
+    )
+  ) %>');
+
+toggleSpinner(false);

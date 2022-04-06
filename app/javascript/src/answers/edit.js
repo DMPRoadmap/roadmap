@@ -185,4 +185,13 @@ $(() => {
   }
 
   datePicker();
+
+  // Clicking the 'Comments & Guidance' div should toggle the guidance & comments section
+  $(document).on('click', '.toggle-guidance-section', (e) => {
+    const target = $(e.currentTarget);
+    target.parents('.question-body').find('.guidance-section').toggle();
+    target.find('span.fa-chevron-right, span.fa-chevron-left')
+      .toggleClass('fa-chevron-right')
+      .toggleClass('fa-chevron-left');
+  });
 });

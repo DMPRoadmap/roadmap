@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_30_212541) do
+ActiveRecord::Schema.define(version: 2022_03_15_104737) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -333,6 +333,7 @@ ActiveRecord::Schema.define(version: 2021_09_30_212541) do
     t.text "api_create_plan_email_body"
     t.index ["language_id"], name: "fk_rails_5640112cab"
     t.index ["region_id"], name: "fk_rails_5a6adf6bab"
+    t.string "helpdesk_email"
   end
 
   create_table "perms", id: :integer, force: :cascade do |t|
@@ -367,6 +368,7 @@ ActiveRecord::Schema.define(version: 2021_09_30_212541) do
     t.integer "org_id"
     t.integer "funder_id"
     t.integer "grant_id"
+    t.integer "api_client_id"
     t.datetime "start_date"
     t.datetime "end_date"
     t.boolean "ethical_issues"
@@ -379,6 +381,7 @@ ActiveRecord::Schema.define(version: 2021_09_30_212541) do
     t.index ["org_id"], name: "index_plans_on_org_id"
     t.index ["research_domain_id"], name: "index_plans_on_fos_id"
     t.index ["template_id"], name: "index_plans_on_template_id"
+    t.index ["api_client_id"], name: "index_plans_on_api_client_id"
   end
 
   create_table "plans_guidance_groups", id: :integer, force: :cascade do |t|

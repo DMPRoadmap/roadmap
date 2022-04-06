@@ -25,7 +25,7 @@
     <div class="row">
       <div class="form-group col-xs-8">
         <%= f.label :abbreviation, _('Organisation abbreviated name'), class: "control-label" %>
-        <%= f.text_field :abbreviation, id: "org_abbreviation", class: "form-control", "aria-required": true %>
+        <%= f.text_field :abbreviation, id: "org_abbreviation", class: "form-control" %>
       </div>
     </div>
   <% end %>
@@ -81,6 +81,20 @@
                    max_number_links: Rails.configuration.x.max_number_links_funder,
                    tooltip: shared_links_tooltip }) %>
       <%= hidden_field_tag('org_links', value: org.links) %>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="form-group col-xs-8">
+      <h3><%= _("Help Desk email") %></h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-xs-4">
+      <%= f.label :helpdesk_email, _('Help Desk email'), class: "control-label" %>
+      <%= f.email_field :helpdesk_email, class: "form-control" %>
     </div>
   </div>
 

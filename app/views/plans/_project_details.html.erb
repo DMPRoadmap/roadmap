@@ -192,7 +192,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
                                       autocomplete: "off",
                                       aria: { required: false } %>
           <%= grant_fields.hidden_field :value %>
-          <span class="text-muted" id="grant_number_info">Grant number: <%= plan.grant&.value %></span>
+          <span class="text-muted" id="grant_number_info"><%= _("Grant number:") -%> <%= plan.grant&.value %></span>
         <% else %>
           <%= grant_fields.text_field(:value, class: "form-control",
                                             data: { toggle: "tooltip" },

@@ -20,6 +20,7 @@
 #  org_id                            :integer
 #  funder_id                         :integer
 #  grant_id                          :integer
+#  api_client_id                     :integer
 #  research_domain_id                :bigint
 #  funding_status                    :integer
 #  ethical_issues                    :boolean
@@ -37,11 +38,13 @@
 #
 #  fk_rails_...  (template_id => templates.id)
 #  fk_rails_...  (org_id => orgs.id)
+#  fk_rails_...  (api_client_id => api_clients.id)
 #  fk_rails_...  (research_domain_id => research_domains.id)
 #
 
+# Object that represents an DMP
+# rubocop:disable Metrics/ClassLength
 class Plan < ApplicationRecord
-
   include ConditionalUserMailer
   include ExportablePlan
   include DateRangeable
@@ -54,10 +57,10 @@ class Plan < ApplicationRecord
   # Returns visibility message given a Symbol type visibility passed, otherwise
   # nil
   VISIBILITY_MESSAGE = {
-    organisationally_visible: _("organisational"),
-    publicly_visible: _("public"),
-    is_test: _("test"),
-    privately_visible: _("private")
+    organisationally_visible: _('organisational'),
+    publicly_visible: _('public'),
+    is_test: _('test'),
+    privately_visible: _('private')
   }.freeze
 
   # ==============
@@ -82,7 +85,9 @@ class Plan < ApplicationRecord
 
   belongs_to :org
 
-  belongs_to :funder, class_name: "Org", optional: true
+  belongs_to :funder, class_name: 'Org', optional: true
+
+  belongs_to :api_client, optional: true
 
   belongs_to :research_domain, optional: true
 
@@ -96,10 +101,10 @@ class Plan < ApplicationRecord
 
   has_many :guidances, through: :themes
 
-  has_many :guidance_group_options, -> { distinct.published.reorder("id") },
+  has_many :guidance_group_options, -> { distinct.published.reorder('id') },
            through: :guidances,
            source: :guidance_group,
-           class_name: "GuidanceGroup"
+           class_name: 'GuidanceGroup'
 
   has_many :answers, dependent: :destroy
 
@@ -111,11 +116,15 @@ class Plan < ApplicationRecord
 
   has_and_belongs_to_many :guidance_groups, join_table: :plans_guidance_groups
 
-  has_many :exported_plans
+  has_many :exported_plans, dependent: :destroy
 
   has_many :contributors, dependent: :destroy
 
   has_many :related_identifiers, as: :identifiable, dependent: :destroy
+
+  has_one :grant, as: :identifiable, dependent: :destroy, class_name: 'Identifier'
+
+  has_many :research_outputs, dependent: :destroy
 
   # =====================
   # = Nested Attributes =
@@ -165,7 +174,7 @@ class Plan < ApplicationRecord
                visibilities[:publicly_visible]
              ])
       .where(
-        "NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)",
+        'NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)',
         user.id
       )
   }
@@ -202,7 +211,7 @@ class Plan < ApplicationRecord
 
   ##
   # Settings for the template
-  has_settings :export, class_name: "Settings::Template" do |s|
+  has_settings :export, class_name: 'Settings::Template' do |s|
     s.key :export, defaults: Settings::Template::DEFAULT_SETTINGS
   end
   alias super_settings settings
@@ -238,6 +247,7 @@ class Plan < ApplicationRecord
   # plan - Plan to be deep copied
   #
   # Returns Plan
+  # rubocop:disable Metrics/AbcSize
   def self.deep_copy(plan)
     plan_copy = plan.dup
     plan_copy.title = "Copy of #{plan.title}"
@@ -253,6 +263,7 @@ class Plan < ApplicationRecord
     end
     plan_copy
   end
+  # rubocop:enable Metrics/AbcSize
 
   # ===========================
   # = Public instance methods =
@@ -282,6 +293,7 @@ class Plan < ApplicationRecord
   #
   # Returns Answer
   # Returns nil
+  # rubocop:disable Metrics/AbcSize, Style/OptionalBooleanParameter
   def answer(qid, create_if_missing = true)
     answer = answers.select { |a| a.question_id == qid }
                     .max { |a, b| a.created_at <=> b.created_at }
@@ -299,6 +311,7 @@ class Plan < ApplicationRecord
     end
     answer
   end
+  # rubocop:enable Metrics/AbcSize, Style/OptionalBooleanParameter
 
   alias get_guidance_group_options guidance_group_options
 
@@ -339,7 +352,7 @@ class Plan < ApplicationRecord
 
       # Send an email confirmation to the owners and co-owners
       deliver_if(recipients: owner_and_coowners,
-                 key: "users.feedback_provided") do |r|
+                 key: 'users.feedback_provided') do |r|
         UserMailer.feedback_complete(
           r,
           self,
@@ -369,6 +382,7 @@ class Plan < ApplicationRecord
   # user_id - The Integer id for a user
   #
   # Returns Boolean
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def readable_by?(user_id)
     return true if commentable_by?(user_id)
 
@@ -385,7 +399,7 @@ class Plan < ApplicationRecord
       false
     end
   end
-  # rubocop:enable
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # determines if the plan is readable by the specified user.
   #
@@ -473,7 +487,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def shared?
-    roles.reject(&:creator).any?
+    roles.select(&:active).reject(&:creator).any?
   end
 
   alias shared shared?
@@ -486,7 +500,7 @@ class Plan < ApplicationRecord
   def owner_and_coowners
     # We only need to search for :administrator in the bitflag
     # since :creator includes :administrator rights
-    roles.select { |r| r.active && r.administrator }.map(&:user).uniq
+    roles.select { |r| r.active && r.administrator && !r.user.nil? }.map(&:user).uniq
   end
 
   # The creator, administrator and editors
@@ -530,7 +544,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def question_exists?(question_id)
-    Plan.joins(:questions).exists?(id: id, "questions.id": question_id)
+    Plan.joins(:questions).exists?(id: id, 'questions.id': question_id)
   end
 
   # Determines what percentage of the Plan's questions have been num_answered_questions
@@ -579,6 +593,7 @@ class Plan < ApplicationRecord
 
   # Helper method to convert the grant id value entered by the user into an Identifier
   # works with both controller params or an instance of Identifier
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   def grant=(params)
     val = params.present? ? params[:value] : nil
     current = grant
@@ -594,6 +609,7 @@ class Plan < ApplicationRecord
     current = Identifier.create(identifiable: self, value: val)
     self.grant_id = current.id
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
   # Helper method to convert related_identifier entries from standard form params into
   # RelatedIdentifier objects.
@@ -639,7 +655,7 @@ class Plan < ApplicationRecord
     # allow nil values
     return true if end_date.blank? || start_date.blank?
 
-    errors.add(:end_date, _("must be after the start date")) if end_date < start_date
+    errors.add(:end_date, _('must be after the start date')) if end_date < start_date
   end
-
 end
+# rubocop:enable Metrics/ClassLength

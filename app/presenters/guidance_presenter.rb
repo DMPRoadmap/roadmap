@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
+# Helper class for the guidance pages
 class GuidancePresenter
-
-  attr_accessor :plan
-  attr_accessor :guidance_groups
+  attr_accessor :plan, :guidance_groups
 
   def initialize(plan)
     @plan = plan
     @guidance_groups = plan.guidance_groups.where(published: true)
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def any?(org: nil, question: nil)
     if org.nil?
       return hashified_annotations? || hashified_guidance_groups? unless question.present?
@@ -30,7 +30,7 @@ class GuidancePresenter
     guidance_annotations?(org: org, question: question) ||
       guidance_groups_by_theme?(org: org, question: question)
   end
-  # rubocop:enable
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # filters through the orgs with annotations and guidance groups to create a
   # set of tabs with display names and any guidance/annotations to show
@@ -38,6 +38,7 @@ class GuidancePresenter
   # question  - The question to which guidance pretains
   #
   # Returns an array of tab hashes.  These
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize
   def tablist(question)
     # start with orgs
     # filter into hash with annotation_presence, main_group presence, and
@@ -60,6 +61,7 @@ class GuidancePresenter
     end
     display_tabs
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize
 
   private
 
@@ -105,13 +107,14 @@ class GuidancePresenter
     return false unless hashified_annotations.key?(org)
 
     hashified_annotations[org].find do |annotation|
-      (annotation.question_id == question.id) && (annotation.type == "guidance")
+      (annotation.question_id == question.id) && (annotation.type == 'guidance')
     end.present?
   end
 
   # Returns a hash of guidance groups for an org and question passed with the following
   # structure:
   # { guidance_group: { theme: [guidance, ...], ... }, ... }
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize
   def guidance_groups_by_theme(org: nil, question: nil)
     raise ArgumentError unless question.is_a?(Question)
     raise ArgumentError unless org.is_a?(Org)
@@ -127,6 +130,7 @@ class GuidancePresenter
       acc[gg] = filtered_gg if filtered_gg.present?
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize
 
   # Returns a collection of annotations (type guidance) for an org and question passed
   def guidance_annotations(org: nil, question: nil)
@@ -134,7 +138,7 @@ class GuidancePresenter
     return [] unless hashified_annotations.key?(org)
 
     hashified_annotations[org].select do |annotation|
-      (annotation.question_id == question.id) && (annotation.type == "guidance")
+      (annotation.question_id == question.id) && (annotation.type == 'guidance')
     end
   end
 
@@ -143,7 +147,7 @@ class GuidancePresenter
 
     @orgs_from_guidance_groups = Org.joins(:guidance_groups)
                                     .where(guidance_groups: { id: guidance_groups.ids })
-                                    .distinct("orgs.id")
+                                    .distinct('orgs.id')
     @orgs_from_guidance_groups
   end
 
@@ -224,5 +228,4 @@ class GuidancePresenter
       acc[org] = annotations.select { |annotation| annotation.org_id = org.id }
     end
   end
-
 end

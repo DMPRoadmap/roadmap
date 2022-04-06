@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe SuperAdmin::OrgsController, type: :controller do
-
   before(:each) do
     @scheme = create(:identifier_scheme)
     tpt = create(:token_permission_type)
@@ -29,57 +28,56 @@ RSpec.describe SuperAdmin::OrgsController, type: :controller do
     sign_in(@user)
   end
 
-  describe "POST /super_admin/:id/merge_analyze", js: true do
+  describe 'POST /super_admin/:id/merge_analyze', js: true do
     before(:each) do
       @params = {
-        "id": @from_org.id,
+        id: @from_org.id,
         # Send over the Org typehead json in the org.id field so the service can unpackage it
-        "org": { "id": { "id": @to_org.id, "name": @to_org.name }.to_json }
+        org: { id: { id: @to_org.id, name: @to_org.name }.to_json }
       }
     end
 
-    it "fails if user is not a super admin" do
+    it 'fails if user is not a super admin' do
       sign_in(create(:user))
       post :merge_analyze, params: @params
-      expect(response.code).to eql("302")
+      expect(response.code).to eql('302')
       expect(response).to redirect_to(plans_path)
       expect(flash[:alert].present?).to eql(true)
     end
-    it "succeeds in analyzing the Orgs" do
+    it 'succeeds in analyzing the Orgs' do
       post :merge_analyze, params: @params, format: :js
-      expect(response.code).to eql("200")
+      expect(response.code).to eql('200')
       expect(assigns(:org)).to eql(@from_org)
       expect(assigns(:target_org)).to eql(@to_org)
       expect(response).to render_template(:merge_analyze)
     end
   end
 
-  describe "POST /super_admin/:id/merge_commit", js: true do
-    context "standard question type (no question_options and not RDA metadata)" do
+  describe 'POST /super_admin/:id/merge_commit', js: true do
+    context 'standard question type (no question_options and not RDA metadata)' do
       before(:each) do
-        @params = { "id": @from_org.id, "org": { "target_org": @to_org.id } }
+        @params = { id: @from_org.id, org: { target_org: @to_org.id } }
       end
 
-      it "fails if user is not a super admin" do
+      it 'fails if user is not a super admin' do
         sign_in(create(:user))
         post :merge_commit, params: @params
-        expect(response.code).to eql("302")
+        expect(response.code).to eql('302')
         expect(response).to redirect_to(plans_path)
         expect(flash[:alert].present?).to eql(true)
       end
-      it "fails if :target_org is not found" do
+      it 'fails if :target_org is not found' do
         @params[:org][:target_org] = 9999
         post :merge_commit, params: @params, format: :js
-        expect(response.code).to eql("302")
+        expect(response.code).to eql('302')
         expect(response).to redirect_to(admin_edit_org_path(@from_org))
         expect(flash[:alert].present?).to eql(true)
       end
-      it "succeeds and redirects properly" do
+      it 'succeeds and redirects properly' do
         post :merge_commit, params: @params, format: :js
-        expect(response.code).to eql("302")
+        expect(response.code).to eql('302')
         expect(response).to redirect_to(super_admin_orgs_path)
       end
     end
   end
-
 end

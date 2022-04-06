@@ -21,6 +21,7 @@
 #  org_id                            :integer
 #  funder_id                         :integer
 #  grant_id                          :integer
+#  api_client_id                     :integer
 #  research_domain_id                :bigint
 #
 # Indexes
@@ -34,6 +35,7 @@
 #
 #  fk_rails_...  (template_id => templates.id)
 #  fk_rails_...  (org_id => orgs.id)
+#  fk_rails_...  (api_client_id => api_clients.id)
 #  fk_rails_...  (research_domain_id => research_domains.id)
 #
 
@@ -69,19 +71,19 @@ FactoryBot.define do
       end
     end
     trait :organisationally_visible do
-      visibility { "organisationally_visible" }
+      visibility { 'organisationally_visible' }
     end
 
     trait :publicly_visible do
-      visibility { "publicly_visible" }
+      visibility { 'publicly_visible' }
     end
 
     trait :is_test do
-      visibility { "is_test" }
+      visibility { 'is_test' }
     end
 
     trait :privately_visible do
-      visibility { "privately_visible" }
+      visibility { 'privately_visible' }
     end
 
     after(:create) do |plan, evaluator|
@@ -91,6 +93,5 @@ FactoryBot.define do
     after(:create) do |plan, evaluator|
       plan.guidance_groups << create_list(:guidance_group, evaluator.guidance_groups)
     end
-
   end
 end
