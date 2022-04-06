@@ -8,7 +8,7 @@ module MailerHelper
     @tool_name ||= ApplicationService.application_name
   end
 
-  def helpdesk_email(org: = nil)
+  def helpdesk_email(org: nil)
     org&.helpdesk_email || Rails.configuration.x.organisation.helpdesk_email
   end
 
