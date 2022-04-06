@@ -78,7 +78,7 @@ class ResearchOutput < ApplicationRecord
   # = Scopes =
   # ==========
 
-  default_scope { order(order: :asc) }
+  default_scope { order(display_order: :asc) }
 
   # ====================
   # = Instance methods =

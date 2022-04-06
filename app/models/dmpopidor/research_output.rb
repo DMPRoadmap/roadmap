@@ -4,7 +4,7 @@ module Dmpopidor
   # Customized code for ResearchOutput model
   module ResearchOutput
     def main?
-      order.eql?(1)
+      display_order.eql?(1)
     end
 
     # Return main research output
@@ -88,9 +88,9 @@ module Dmpopidor
         else
           data = fragment.research_output_description.data.merge(
             {
-              'title' => fullname,
+              'title' => title,
               'datasetId' => pid,
-              'type' => other_type_label
+              'type' => output_type_description
             }
           )
           fragment.research_output_description.update(data: data)

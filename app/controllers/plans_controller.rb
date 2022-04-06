@@ -193,7 +193,7 @@ class PlansController < ApplicationController
           abbreviation: 'Default',
           title: 'Default research output',
           is_default: true,
-          order: 1
+          display_order: 1
         )
         # --------------------------------
         # End DMP OPIDoR Customization
@@ -234,7 +234,7 @@ class PlansController < ApplicationController
     # Start DMP OPIDoR Customization
     # --------------------------------
     @schemas = MadmpSchema.all
-    @research_outputs = @plan.research_outputs.order(:order)
+    @research_outputs = @plan.research_outputs.order(:display_order)
     # --------------------------------
     # End DMP OPIDoR Customization
     # --------------------------------

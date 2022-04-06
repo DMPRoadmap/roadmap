@@ -24,7 +24,7 @@ module Import
             abbreviation: "Research Output #{idx + 1}",
             title: ro_data['researchOutputDescription']['title'],
             is_default: idx.eql?(0),
-            order: idx + 1
+            display_order: idx + 1
           )
           ro_frag = research_output.json_fragment
           import_research_output(ro_frag, ro_data, plan)
