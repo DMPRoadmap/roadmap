@@ -2,7 +2,7 @@
 
 module Api
   module V1
-    # Helpers for ResearchOutputs for V1 and V2
+    # Helper methods for research outputs
     class ResearchOutputPresenter
       attr_reader :dataset_id, :preservation_statement, :security_and_privacy, :license_start_date,
                   :data_quality_assurance, :distributions, :metadata, :technical_resources

@@ -17,7 +17,7 @@
   <% end %>
   <%= _('Please do not reply to this email.') %>
   <%= sanitize(_('If you have any questions or need help, please contact us at %{helpdesk_email} or visit %{contact_us}') % {
-    helpdesk_email: mail_to(helpdesk_email, helpdesk_email,
+    helpdesk_email: mail_to(@helpdesk_email, @helpdesk_email,
                       subject: email_subject),
     contact_us: link_to(contact_us, contact_us)
   }) %>

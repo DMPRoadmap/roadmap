@@ -23,11 +23,8 @@
 #  updated_at             :datetime         not null
 #  language_id            :integer
 #  region_id              :integer
-#
-# Indexes
-#
-#  fk_rails_5640112cab  (language_id)
-#  fk_rails_5a6adf6bab  (region_id)
+#  managed                :boolean          default(false), not null
+#  helpdesk_email         :string
 #
 # Foreign Keys
 #

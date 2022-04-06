@@ -2,7 +2,7 @@
 
 module Api
   module V1
-    # Shared helper methods for API V1/V2
+    # Generic helper methods for API V1
     class ApiPresenter
       class << self
         def boolean_to_yes_no_unknown(value:)

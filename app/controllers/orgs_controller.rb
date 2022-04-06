@@ -153,6 +153,7 @@ class OrgsController < ApplicationController
                   :funder, :institution, :organisation,
                   :feedback_msg, :org_id, :org_name, :org_crosswalk,
                   :api_create_plan_email_subject, :api_create_plan_email_body,
+                  :helpdesk_email,
                   identifiers_attributes: %i[identifier_scheme_id value],
                   tracker_attributes: %i[code id])
   end

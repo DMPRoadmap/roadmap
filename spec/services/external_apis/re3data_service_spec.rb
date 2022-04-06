@@ -56,7 +56,7 @@ RSpec.describe ExternalApis::Re3dataService do
             <r3d:policyName>#{Faker::Lorem.sentence}</r3d:policyName>
             <r3d:policyURL>#{Faker::Internet.url}</r3d:policyURL>
           </r3d:policy>
-          <r3d:databaseAccess><r3d:databaseAccessType>#{Faker::Lorem.word}</r3d:databaseAccessType></r3d:databaseAccess>
+          <r3d:databaseAccess><r3d:databaseAccessType>#{%w[open restricted closed].sample}</r3d:databaseAccessType></r3d:databaseAccess>
           <r3d:databaseLicense>
             <r3d:databaseLicenseName>#{Faker::Lorem.word}</r3d:databaseLicenseName>
             <r3d:databaseLicenseURL>#{Faker::Internet.url}</r3d:databaseLicenseURL>

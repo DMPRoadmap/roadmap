@@ -47,16 +47,24 @@ module Api
         raise Pundit::NotAuthorizedError unless Api::V0::DepartmentsPolicy.new(@user, @department).assign_users?
 
         assign_users_to(@department.id)
-        redirect_to users_api_v0_departments_path
+
+        # Added "status: :see_other" to redirect_to (as we require rediect to be a GET).
+        # See https://makandracards.com/makandra/38347-redirecting-responses-for-patch-or-delete-will-not-redirect-with-get
+        redirect_to users_api_v0_departments_path, status: :see_other
       end
 
       ##
       # Remove departments from the list of users
       def unassign_users
-        raise Pudndit::NotAuthorizedError unless Api::V0::DepartmentsPolicy.new(@user, @department).assign_users?
+        @department = Department.find(params[:id])
+
+        raise Pundit::NotAuthorizedError unless Api::V0::DepartmentsPolicy.new(@user, @department).assign_users?
 
         assign_users_to(nil)
-        redirect_to users_api_v0_departments_path
+
+        # Added "status: :see_other" to redirect_to (as we require rediect to be a GET).
+        # See https://makandracards.com/makandra/38347-redirecting-responses-for-patch-or-delete-will-not-redirect-with-get
+        redirect_to users_api_v0_departments_path, status: :see_other
       end
 
       private

@@ -32,7 +32,7 @@ describe 'layouts/modal_search/_selections.html.erb' do
                search_path: nil,
                search_method: nil
              }
-      expect(rendered.include?('c-pagination')).to eql(true)
+      expect(rendered.include?('modal-search-results-pagination')).to eql(true)
       expect(rendered.include?(@msg)).to eql(false)
     end
     it 'does not display pagination when :results is empty and displays the message' do
