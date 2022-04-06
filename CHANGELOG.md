@@ -1,5 +1,9 @@
 # Changelog
 
+### Fixed
+
+- Adjusted accordion javascript for a different user case [#166](https://github.com/portagenetwork/roadmap/issues/166)
+
 ## [3.0.4+portage-3.0.7] - 2022-04-05
 
 ### Added
