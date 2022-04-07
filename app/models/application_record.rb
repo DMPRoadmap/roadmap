@@ -18,6 +18,21 @@ class ApplicationRecord < ActiveRecord::Base
       ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
     end
 
+    # Domains for common email platforms that do not belong to a specific institution
+    # Used by the `from_email_domain` method on Org and RegistryOrg
+    def ignored_email_domains
+      %w[aol.com duck.com gmail.com example.com example.org hotmail.com icloud.com
+         outlook.com pm.me qq.com yahoo.com]
+    end
+
+    # Attempts to extract the domain from the string
+    # Used by the `from_email_domain` method on Org and RegistryOrg
+    def domain_for(url:)
+      URI.parse(url).host.gsub('www', '')
+    rescue URI::InvalidURIError
+      url
+    end
+
     # Generates the appropriate where clause for a JSON field based on the DB type
     def safe_json_where_clause(column:, hash_key:)
       return "(#{column}->>'#{hash_key}' LIKE ?)" unless mysql_db?

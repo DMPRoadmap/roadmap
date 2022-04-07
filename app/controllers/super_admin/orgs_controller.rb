@@ -29,14 +29,15 @@ module SuperAdmin
       authorize Org
 
       # Let the OrgSelectable concern determine which org was selected
-      org = process_org!(user: current_user)
+      org = process_org_params
+
       if org.present?
         if org.new_record?
           org.language = Language.default
           org.managed = org_params[:managed] == '1'
           org.logo = params[:logo] if params[:logo]
-          org.links = if params[:org_links].present?
-                        JSON.parse(params[:org_links])
+          org.links = if org_params[:org_links].present?
+                        ActiveSupport::JSON.decode(org_params[:org_links])
                       else
                         { org: [] }
                       end
@@ -47,9 +48,9 @@ module SuperAdmin
           #       strong params. Consider converting over to follow the pattern
           #       for handling Roles in the ContributorsController. This will allow
           #       the use of all org_types instead of just these 3 hard-coded ones
-          org.funder = params[:funder].present?
-          org.institution = params[:institution].present?
-          org.organisation = params[:organisation].present?
+          org.funder = org_params[:funder] == 'true'
+          org.institution = org_params[:institution] == 'true'
+          org.organisation = org_params[:organisation] == 'true'
 
           if org.save
             msg = success_message(org, _('created'))
@@ -71,8 +72,8 @@ module SuperAdmin
           }
         end
       else
-        msg = _('Unable to create the organisation. Name can\'t be blank')
-        redirect_to super_admin_orgs_path, alert: msg
+        flash[:alert] = _('Unable to create the organisation. Name can\'t be blank')
+        render 'super_admin/orgs/new'
       end
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
@@ -149,11 +150,20 @@ module SuperAdmin
                                   :contact_email, :contact_name,
                                   :remove_logo, :feedback_enabled, :feedback_msg,
                                   :org_id, :org_name, :org_crosswalk,
-                                  :funder, :institution, :organisation)
+                                  :funder, :institution, :organisation,
+                                  tracker_attributes: %i[code id])
     end
 
     def merge_params
       params.require(:org).permit(:org_name, :org_sources, :org_crosswalk, :id, :target_org)
+    end
+
+    def process_org_params
+      # Convert the selected/specified Org name into attributes
+      op = autocomplete_to_controller_params
+      return Org.find_by(id: op[:org_id]) if op[:org_id].present?
+
+      Org.new(org_params.merge(op[:org_attributes]))
     end
   end
 end

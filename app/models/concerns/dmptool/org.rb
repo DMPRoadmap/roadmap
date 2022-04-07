@@ -48,6 +48,24 @@ module Dmptool
       end
       # rubocop:enable Metrics/AbcSize
 
+      # Attempt to determine the Org (or RegistryOrg) based on the email's domain
+      # rubocop:disable Metrics/AbcSize
+      def from_email_domain(email_domain:)
+        return nil unless email_domain.present?
+        return nil if ignored_email_domains.include?(email_domain.downcase)
+
+        org = ::RegistryOrg.from_email_domain(email_domain: email_domain)
+        return org if org.present?
+
+        hash = ::User.where('email LIKE ?', "%@#{email_domain.downcase}").group(:org_id).count
+        return nil unless hash.present?
+
+        # We could potentially have multiple Org matches here, so use the one with the most users
+        selected = hash.select { |_k, v| v == hash.values.max }
+        find_by(id: selected.keys.first)
+      end
+      # rubocop:enable Metrics/AbcSize
+
       # Class method shortcut to the name_to_abbreviation instance method
       def name_to_abbreviation(name:)
         return '' unless name.present?

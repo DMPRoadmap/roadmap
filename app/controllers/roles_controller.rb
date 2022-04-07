@@ -3,6 +3,7 @@
 # Controller that handles adding/updating/removing collaborators from a plan
 class RolesController < ApplicationController
   include ConditionalUserMailer
+
   respond_to :html
 
   after_action :verify_authorized
@@ -39,11 +40,17 @@ class RolesController < ApplicationController
           # rubocop:disable Metrics/BlockNesting
           if user.nil?
             registered = false
+            # Attempt to determine the new Collaborator's org based on their email
+            # if none is found user the is_other org or the current user's if that is not defined
+            email_domain = role_params[:user][:email].split('@').last
+            collaborator_org = Org.from_email_domain(email_domain: email_domain)
+            collaborator_org = Org.where(is_other: true).first unless collaborator_org.present?
+
             # DMPTool customization
             User.invite!(
               inviter: current_user,
               plan: plan,
-              params: { email: role_params[:user][:email], org: current_user.org }
+              params: { email: role_params[:user][:email], org_id: collaborator_org&.id }
             )
             # User.invite!({ email: role_params[:user][:email],
             #                firstname: _("First Name"),
@@ -134,6 +141,6 @@ class RolesController < ApplicationController
   private
 
   def role_params
-    params.require(:role).permit(:plan_id, :access, user: %i[email])
+    params.require(:role).permit(:plan_id, :access, user: %i[email language_id])
   end
 end
