@@ -40,46 +40,10 @@ module Dmptool
         end
       end
 
-      # Domains for common email platforms that do not belong to a specific institution
-      def ignored_email_domains
-        %w[aol.com duck.com gmail.com example.com example.org hotmail.com icloud.com
-           outlook.com pm.me qq.com yahoo.com]
-      end
-
       # Attempt to determine the Org (or RegistryOrg) based on the email's domain
       # rubocop:disable Metrics/AbcSize
       def org_from_email_domain(email_domain:)
-        return nil unless email_domain.present?
-        return nil if ignored_email_domains.include?(email_domain.downcase)
-
-        org = lookup_registry_org_by_email(email_domain: email_domain)
-        return org if org.present?
-
-        hash = ::User.where('email LIKE ?', "%@#{email_domain.downcase}").group(:org_id).count
-        return nil unless hash.present?
-
-        # We could potentially have multiple Org matches here, so use the one with the most users
-        selected = hash.select { |_k, v| v == hash.values.max }
-        ::Org.find_by(id: selected.keys.first)
-      end
-      # rubocop:enable Metrics/AbcSize
-
-      # Get the RegistryOrg with the closest matching domain and no Org association
-      # rubocop:disable Metrics/AbcSize
-      def lookup_registry_org_by_email(email_domain:)
-        return nil unless email_domain.present?
-
-        orgs = ::RegistryOrg.where('LOWER(home_page) LIKE ? OR LOWER(home_page) LIKE ?',
-                                   "%/#{email_domain.downcase}%", "%.#{email_domain.downcase}%")
-        return nil unless orgs.any?
-
-        # Get the one with closest match (e.g. http://ucsd.edu instead of
-        # http://health.ucsd.edu if the email_domain is 'ucsd.edu')
-        orgs = orgs.sort do |a, b|
-          l = email_domain.length
-          (domain_for(url: a.home_page).length - l) <=> (domain_for(url: b.home_page).length - l)
-        end
-        orgs.first.to_org
+        ::Org.from_email_domain(email_domain: email_domain)
       end
       # rubocop:enable Metrics/AbcSize
 
@@ -92,13 +56,6 @@ module Dmptool
           return ::User.from_omniauth(scheme_name: scheme.name, omniauth_hash: omniauth_hash)
         end
         nil
-      end
-
-      # Attempts to extract the domain from the string
-      def domain_for(url:)
-        URI.parse(url).host.gsub('www', '')
-      rescue URI::InvalidURIError
-        url
       end
 
       # =============

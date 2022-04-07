@@ -78,6 +78,30 @@ class RegistryOrg < ApplicationRecord
     by_name(term).or(by_acronym(term)).or(by_alias(term))
   }
 
+  # =================
+  # = Class methods =
+  # =================
+  class << self
+    # Get the RegistryOrg with the closest matching domain and no Org association
+    # rubocop:disable Metrics/AbcSize
+    def from_email_domain(email_domain:)
+      return nil unless email_domain.present?
+
+      orgs = where('LOWER(home_page) LIKE ? OR LOWER(home_page) LIKE ?',
+                  "%/#{email_domain.downcase}%", "%.#{email_domain.downcase}%")
+      return nil unless orgs.any?
+
+      # Get the one with closest match (e.g. http://ucsd.edu instead of
+      # http://health.ucsd.edu if the email_domain is 'ucsd.edu')
+      orgs = orgs.sort do |a, b|
+        l = email_domain.length
+        (domain_for(url: a.home_page).length - l) <=> (domain_for(url: b.home_page).length - l)
+      end
+      orgs.first.to_org
+    end
+    # rubocop:enable Metrics/AbcSize
+  end
+
   # ====================
   # = Instance methods =
   # ====================
