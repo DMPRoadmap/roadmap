@@ -11,30 +11,30 @@ module Import
           return {} unless json.present?
 
           {
-            meta: {
-              creationDate: json['created'],
-              description: json['description'],
-              dmpId: json.dig('dmp_id', 'identifier'),
-              idType: json.dig('dmp_id', 'type'),
-              dmpLanguage: json['language'],
-              lastModifiedDate: json['modified'],
-              title: json['title'],
-              licence: '',
-              licenceStartDate: '',
-              relatedDoc: [],
-              associatedDmp: [],
-              contact: {
-                person: {
-                  personId: json.dig('contact', 'contact_id', 'identifier'),
-                  idType: json.dig('contact', 'contact_id', 'type'),
-                  mbox: json.dig('contact', 'mbox'),
-                  lastName: json.dig('contact', 'name')
+            'meta' => {
+              'creationDate' => json['created'],
+              'description' => json['description'],
+              'dmpId' => json.dig('dmp_id', 'identifier'),
+              'idType' => json.dig('dmp_id', 'type'),
+              'dmpLanguage' => json['language'],
+              'lastModifiedDate' => json['modified'],
+              'title' => json['title'],
+              'licence' => '',
+              'licenceStartDate' => '',
+              'relatedDoc' => [],
+              'associatedDmp' => [],
+              'contact' => {
+                'person' => {
+                  'personId' => json.dig('contact', 'contact_id', 'identifier'),
+                  'idType' => json.dig('contact', 'contact_id', 'type'),
+                  'mbox' => json.dig('contact', 'mbox'),
+                  'lastName' => json.dig('contact', 'name')
                 }
               }
             },
-            project: convert_project(json['project']),
-            budget: { cost: convert_cost(json['cost']) },
-            researchOutput: convert_research_output(json['dataset'], json)
+            'project' => convert_project(json['project']),
+            'budget' => { 'cost' => convert_cost(json['cost']) },
+            'researchOutput' => convert_research_output(json['dataset'], json)
           }
         end
         # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
@@ -44,11 +44,11 @@ module Import
 
           project = projects[0]
           {
-            description: project['description'],
-            endDate: project['end'],
-            funding: convert_funding(project['funding']),
-            startDate: project['start'],
-            title: project['title']
+            'description' => project['description'],
+            'endDate' => project['end'],
+            'funding' => convert_funding(project['funding']),
+            'startDate' => project['start'],
+            'title' => project['title']
           }
         end
 
@@ -59,12 +59,12 @@ module Import
           fundings.each do |elem|
             fundings_list.append(
               {
-                funder: {
-                  funderId: elem.dig('funder_id', 'identifier'),
-                  idType: elem.dig('funder_id', 'type')
+                'funder' => {
+                  'funderId' => elem.dig('funder_id', 'identifier'),
+                  'idType' => elem.dig('funder_id', 'type')
                 },
-                fundingStatus: elem['funding_status'],
-                grantId: elem.dig('grant_id', 'identifier')
+                'fundingStatus' => elem['funding_status'],
+                'grantId' => elem.dig('grant_id', 'identifier')
               }
             )
           end
@@ -78,10 +78,10 @@ module Import
           metadata.each do |elem|
             metadata_list.append(
               {
-                description: elem['description'],
-                metadataLanguage: elem['language'],
-                metadataStandardId: elem.dig('metadata_standard_id', 'identifier'),
-                idType: elem.dig('metadata_standard_id', 'type')
+                'description' => elem['description'],
+                'metadataLanguage' => elem['language'],
+                'metadataStandardId' => elem.dig('metadata_standard_id', 'identifier'),
+                'idType' => elem.dig('metadata_standard_id', 'type')
               }
             )
           end
@@ -94,9 +94,9 @@ module Import
           facilities_list = []
           facilities.each do |elem|
             facilities_list.append(
-              facility: {
-                description: elem['description'],
-                title: elem['name']
+              'facility' => {
+                'description' => elem['description'],
+                'title' => elem['name']
               }
             )
           end
@@ -110,10 +110,10 @@ module Import
           costs.each do |elem|
             costs_list.append(
               {
-                currency: elem['currency_code'],
-                costType: elem['description'],
-                title: elem['title'],
-                amount: elem['value']
+                'currency' => elem['currency_code'],
+                'costType' => elem['description'],
+                'title' => elem['title'],
+                'amount' => elem['value']
               }
             )
           end
@@ -127,14 +127,14 @@ module Import
           distributions.each do |elem|
             hosts_list.append(
               {
-                availability: elem.dig('host', 'availability'),
-                certification: elem.dig('host', 'certified_with'),
-                description: elem.dig('host', 'description'),
-                geoLocation: elem.dig('host', 'geo_location'),
-                pidSystem: elem.dig('host', 'pid_system'),
-                hasVersioningPolicy: elem.dig('host', 'support_versioning'),
-                title: elem.dig('host', 'title'),
-                technicalRessourceId: elem.dig('host', 'url')
+                'availability' => elem.dig('host', 'availability'),
+                'certification' => elem.dig('host', 'certified_with'),
+                'description' => elem.dig('host', 'description'),
+                'geoLocation' => elem.dig('host', 'geo_location'),
+                'pidSystem' => elem.dig('host', 'pid_system'),
+                'hasVersioningPolicy' => elem.dig('host', 'support_versioning'),
+                'title' => elem.dig('host', 'title'),
+                'technicalRessourceId' => elem.dig('host', 'url')
               }
             )
           end
@@ -149,18 +149,18 @@ module Import
           distribution.each do |elem|
             distributions_list.append(
               {
-                releaseDate: '',
-                accessUrl: elem.dig('distribution', 'access_url'),
-                availableUntil: elem.dig('distribution', 'available_until'),
-                fileVolume: elem.dig('distribution', 'byte_size'),
-                dataAccess: elem.dig('distribution', 'data_access'),
-                description: elem.dig('distribution', 'description'),
-                downloadUrl: elem.dig('distribution', 'download_url'),
-                fileFormat: elem.dig('distribution', 'format'),
-                fileName: elem.dig('distribution', 'title'),
-                licence: {
-                  licenceUrl: elem.dig('distribution', 'licence', 'licence_ref'),
-                  licenceStartDate: elem.dig('distribution', 'licence', 'start_date')
+                'releaseDate' => '',
+                'accessUrl' => elem.dig('distribution', 'access_url'),
+                'availableUntil' => elem.dig('distribution', 'available_until'),
+                'fileVolume' => elem.dig('distribution', 'byte_size'),
+                'dataAccess' => elem.dig('distribution', 'data_access'),
+                'description' => elem.dig('distribution', 'description'),
+                'downloadUrl' => elem.dig('distribution', 'download_url'),
+                'fileFormat' => elem.dig('distribution', 'format'),
+                'fileName' => elem.dig('distribution', 'title'),
+                'licence' => {
+                  'licenceUrl' => elem.dig('distribution', 'licence', 'licence_ref'),
+                  'licenceStartDate' => elem.dig('distribution', 'licence', 'start_date')
                 }
               }
             )
@@ -185,39 +185,39 @@ module Import
           research_output.each do |dataset|
             ro_list.append(
               {
-                documentationQuality: {
-                  description: dataset['data_quality_assurance'],
-                  metadataStandard: convert_metadata(dataset['metadata'])
+                'documentationQuality' => {
+                  'description' => dataset['data_quality_assurance'],
+                  'metadataStandard' => convert_metadata(dataset['metadata'])
                 },
-                researchOutputDescription: {
-                  datasetId: dataset.dig('dataset_id', 'identifier'),
-                  idType: dataset.dig('dataset_id', 'type'),
-                  description: dataset['description'],
-                  uncontrolled_keywords: [dataset['keyword']],
-                  language: dataset['language'],
-                  containsPersonalData: dataset['personal_data'],
-                  title: dataset['title'],
-                  type: dataset['type'],
-                  containsSensitiveData: dataset['sensitive_data'],
-                  hasEthicalIssues: full_dmp['ethical_issues_exist']
+                'researchOutputDescription' => {
+                  'datasetId' => dataset.dig('dataset_id', 'identifier'),
+                  'idType' => dataset.dig('dataset_id', 'type'),
+                  'description' => dataset['description'],
+                  'uncontrolledKeywords' => [dataset['keyword']],
+                  'language' => dataset['language'],
+                  'containsPersonalData' => dataset['personal_data'],
+                  'title' => dataset['title'],
+                  'type' => dataset['type'],
+                  'containsSensitiveData' => dataset['sensitive_data'],
+                  'hasEthicalIssues' => full_dmp['ethical_issues_exist']
                 },
-                sharing: {
-                  distribution: convert_distribution(dataset['distribution']),
-                  host: convert_host(dataset['distribution'])
+                'sharing' => {
+                  'distribution' => convert_distribution(dataset['distribution']),
+                  'host' => convert_host(dataset['distribution'])
                 },
-                preservationIssues: {
-                  description: dataset['preservation_statement']
+                'preservationIssues' => {
+                  'description' => dataset['preservation_statement']
                 },
-                dataStorage: {
-                  securityMeasures: convert_security_measures(dataset['security_and_privacy'])
+                'dataStorage' => {
+                  'securityMeasures' => convert_security_measures(dataset['security_and_privacy'])
                 },
-                ethicalIssues: {
-                  description: full_dmp['ethical_issues_description'],
-                  ressourceReference: {
-                    docIdentifier: full_dmp['ethical_issues_report']
+                'ethicalIssues' => {
+                  'description' => full_dmp['ethical_issues_description'],
+                  'ressourceReference' => {
+                    'docIdentifier' => full_dmp['ethical_issues_report']
                   }
                 },
-                dataCollection: convert_technical_ressource(dataset['technical_ressource'])
+                'dataCollection' => convert_technical_ressource(dataset['technical_ressource'])
               }
             )
           end
