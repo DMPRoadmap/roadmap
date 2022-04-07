@@ -17,8 +17,8 @@ module Import
           if json.present?
             errs << BAD_CONTRIB_MSG unless contributor_valid?(json: json,
                                                               is_contact: true)
-            id = json.fetch(:contributor_id, json[:contact_id])
-            errs << BAD_ID_MSG if id.present? && !identifier_valid?(json: id)
+            # id = json.fetch(:contributor_id, json[:contact_id])
+            # errs << BAD_ID_MSG if id.present? && !identifier_valid?(json: id)
           end
           errs
         end
@@ -28,7 +28,7 @@ module Import
           return errs unless json.present?
 
           errs << BAD_FUNDING_MSG unless funding_valid?(json: json)
-          errs << BAD_ID_MSG if json[:grant_id].present? && !identifier_valid?(json: json[:grant_id])
+          # errs << BAD_ID_MSG if json[:grant_id].present? && !identifier_valid?(json: json[:grant_id])
           errs
         end
       end
