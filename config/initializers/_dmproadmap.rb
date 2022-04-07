@@ -223,6 +223,8 @@ module DMPRoadmap
 
     # Allow researchers to specify related works for the DMP
     config.x.madmp.enable_related_identifiers = false
+    # Will only allow Org/Super Admins to add related identifiers to a plan
+    config.x.madmp.only_allow_admins_to_add_related_identifiers = true
     # Allow the system to fetch citations for RelatedIdentifiers via the Uc3Citation gem
     config.x.madmp.enable_citation_lookup = false
 

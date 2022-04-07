@@ -130,15 +130,9 @@ class PlanExportsController < ApplicationController
   end
 
   def export_params
-<<<<<<< HEAD
-    params.require(:export).permit(:form, :project_details, :question_headings,
-                                   :unanswered_questions, :custom_sections,
-                                   :related_identifiers, :formatting)
-=======
     params.require(:export)
           .permit(:form, :project_details, :question_headings, :unanswered_questions,
-                  :custom_sections, :research_outputs,
+                  :custom_sections, :research_outputs, :related_identifiers,
                   formatting: [:font_face, :font_size, { margin: %i[top right bottom left] }])
->>>>>>> development
   end
 end
