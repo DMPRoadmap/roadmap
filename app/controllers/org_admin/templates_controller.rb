@@ -294,9 +294,7 @@ module OrgAdmin
       authorize template
       Template.transaction do
         # expected: template is latest
-        if template.published? && template.plans.any?
-          template.generate_version!
-        end
+        template.generate_version! if template.published? && template.plans.any?
         Template.where(family_id: template.family_id)
                 .update_all(published: false)
       end
