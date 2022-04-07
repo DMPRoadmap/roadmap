@@ -3,7 +3,12 @@
 # Security rules for the public pages
 # Note the method names here correspond with controller actions
 class PublicPagePolicy < ApplicationPolicy
-  # NOTE: @user is the signed_in_user and @record is an instance of Plan
+  # rubocop:disable Lint/MissingSuper
+  def initialize(user, record = nil)
+    @user = user
+    @record = record
+  end
+  # rubocop:enable Lint/MissingSuper
 
   def plan_index?
     true
@@ -14,7 +19,7 @@ class PublicPagePolicy < ApplicationPolicy
   end
 
   def template_export?
-    @record.present? && @record.published?
+    @user.present? && @record.published?
   end
 
   def plan_export?
