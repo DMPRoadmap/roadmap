@@ -184,7 +184,7 @@ RSpec.describe Api::V1::PersistenceService do
         expect(results.length).to eql(0)
       end
       it 'leaves different :contributors as-is' do
-        @plan.contributors << build(:contributor, name: Faker::Movies::StarWars.character,
+        @plan.contributors << build(:contributor, name: Faker::Movies::StarWars.unique.character,
                                                   email: Faker::Internet.unique.email)
         results = described_class.send(:deduplicate_contributors, contributors: @plan.contributors)
         expect(results.length).to eql(2)
