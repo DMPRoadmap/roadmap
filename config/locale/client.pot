@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-04-05 15:09+0200\n"
-"PO-Revision-Date: 2022-04-05 15:09+0200\n"
+"POT-Creation-Date: 2022-04-07 10:56+0200\n"
+"PO-Revision-Date: 2022-04-07 10:56+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -1662,27 +1662,39 @@ msgstr ""
 msgid "My Dashboard"
 msgstr ""
 
-#: ../../app/views/branded/layouts/_navigation.html.erb:26
-msgid "Create plans"
-msgstr ""
-
-#: ../../app/views/branded/layouts/_navigation.html.erb:29
-#: ../../app/views/branded/layouts/_navigation.html.erb:36
-msgid "Public DMPs"
+#: ../../app/views/branded/layouts/_navigation.html.erb:27
+msgid "Create/Import"
 msgstr ""
 
 #: ../../app/views/branded/layouts/_navigation.html.erb:32
-#: ../../app/views/branded/layouts/_navigation.html.erb:39
+msgid "Create plans"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_navigation.html.erb:35
+#: ../../app/views/branded/plans/_form.html.erb:156
+#: ../../app/views/branded/plans/_form.html.erb:157
+#: ../../app/views/branded/plans/import.html.erb:1
+#: ../../app/views/branded/plans/import.html.erb:4
+msgid "Import DMP"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_navigation.html.erb:40
+#: ../../app/views/branded/layouts/_navigation.html.erb:47
+msgid "Public DMPs"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_navigation.html.erb:43
+#: ../../app/views/branded/layouts/_navigation.html.erb:50
 #: ../../app/views/branded/public_pages/template_index.html.erb:1
 #: ../../app/views/branded/public_pages/template_index.html.erb:4
 msgid "DMP Templates"
 msgstr ""
 
-#: ../../app/views/branded/layouts/_navigation.html.erb:44
+#: ../../app/views/branded/layouts/_navigation.html.erb:55
 msgid "Help"
 msgstr ""
 
-#: ../../app/views/branded/layouts/_navigation.html.erb:49
+#: ../../app/views/branded/layouts/_navigation.html.erb:60
 msgid "More"
 msgstr ""
 
@@ -2875,13 +2887,6 @@ msgstr ""
 msgid "Use Default Template"
 msgstr ""
 
-#: ../../app/views/branded/plans/_form.html.erb:156
-#: ../../app/views/branded/plans/_form.html.erb:157
-#: ../../app/views/branded/plans/import.html.erb:1
-#: ../../app/views/branded/plans/import.html.erb:4
-msgid "Import DMP"
-msgstr ""
-
 #: ../../app/views/branded/plans/_navigation.html.erb:4
 msgid "General information"
 msgstr ""
@@ -3101,7 +3106,7 @@ msgid "Full Title"
 msgstr ""
 
 #: ../../app/views/branded/research_outputs/_list.html.erb:24
-msgid "Research output fullname"
+msgid "Research output title"
 msgstr ""
 
 #: ../../app/views/branded/research_outputs/_list.html.erb:49

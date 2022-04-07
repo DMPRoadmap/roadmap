@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-04-05 15:09+0200\n"
-"PO-Revision-Date: 2022-04-05 15:09+0200\n"
+"POT-Creation-Date: 2022-04-07 10:56+0200\n"
+"PO-Revision-Date: 2022-04-07 10:56+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -1756,27 +1756,39 @@ msgstr "logo"
 msgid "My Dashboard"
 msgstr "Tableau de bord"
 
-#: ../../app/views/branded/layouts/_navigation.html.erb:26
+#: ../../app/views/branded/layouts/_navigation.html.erb:27
+msgid "Create/Import"
+msgstr "Créer/Importer"
+
+#: ../../app/views/branded/layouts/_navigation.html.erb:32
 msgid "Create plans"
 msgstr "Créer des plans"
 
-#: ../../app/views/branded/layouts/_navigation.html.erb:29
-#: ../../app/views/branded/layouts/_navigation.html.erb:36
+#: ../../app/views/branded/layouts/_navigation.html.erb:35
+#: ../../app/views/branded/plans/_form.html.erb:156
+#: ../../app/views/branded/plans/_form.html.erb:157
+#: ../../app/views/branded/plans/import.html.erb:1
+#: ../../app/views/branded/plans/import.html.erb:4
+msgid "Import DMP"
+msgstr "Importer un plan"
+
+#: ../../app/views/branded/layouts/_navigation.html.erb:40
+#: ../../app/views/branded/layouts/_navigation.html.erb:47
 msgid "Public DMPs"
 msgstr "DMP publics"
 
-#: ../../app/views/branded/layouts/_navigation.html.erb:32
-#: ../../app/views/branded/layouts/_navigation.html.erb:39
+#: ../../app/views/branded/layouts/_navigation.html.erb:43
+#: ../../app/views/branded/layouts/_navigation.html.erb:50
 #: ../../app/views/branded/public_pages/template_index.html.erb:1
 #: ../../app/views/branded/public_pages/template_index.html.erb:4
 msgid "DMP Templates"
 msgstr "Modèles de DMP"
 
-#: ../../app/views/branded/layouts/_navigation.html.erb:44
+#: ../../app/views/branded/layouts/_navigation.html.erb:55
 msgid "Help"
 msgstr "Aide"
 
-#: ../../app/views/branded/layouts/_navigation.html.erb:49
+#: ../../app/views/branded/layouts/_navigation.html.erb:60
 msgid "More"
 msgstr "Plus"
 
@@ -3067,13 +3079,6 @@ msgstr "Suivant"
 msgid "Use Default Template"
 msgstr "Utiliser le modèle par défaut"
 
-#: ../../app/views/branded/plans/_form.html.erb:156
-#: ../../app/views/branded/plans/_form.html.erb:157
-#: ../../app/views/branded/plans/import.html.erb:1
-#: ../../app/views/branded/plans/import.html.erb:4
-msgid "Import DMP"
-msgstr "Importer un plan"
-
 #: ../../app/views/branded/plans/_navigation.html.erb:4
 msgid "General information"
 msgstr "Informations générales"
@@ -3319,8 +3324,8 @@ msgid "Full Title"
 msgstr "Titre complet"
 
 #: ../../app/views/branded/research_outputs/_list.html.erb:24
-msgid "Research output fullname"
-msgstr "Nom développé du produit de recherche"
+msgid "Research output title"
+msgstr "Titre du produit de recherche"
 
 #: ../../app/views/branded/research_outputs/_list.html.erb:49
 msgid "Contact"
