@@ -294,11 +294,11 @@ module OrgAdmin
     def unpublish
       template = Template.find(params[:id])
       authorize template
-      versions = Template.where(family_id: template.family_id)
-      versions.each do |version|
-        unless version.update_attributes!(published: false)
-          flash[:alert] = _("Unable to unpublish your #{template_type(template)}.")
-        end
+      Template.transaction do
+        # expected: template is latest
+        template.generate_version! if template.published? && template.plans.any?
+        Template.where(family_id: template.family_id)
+                .update_all(published: false)
       end
       flash[:notice] = _("Successfully unpublished your #{template_type(template)}") unless flash[:alert].present?
       redirect_to request.referrer.present? ? request.referrer : org_admin_templates_path
