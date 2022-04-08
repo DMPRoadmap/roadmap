@@ -2,6 +2,16 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 08/04/2022
+- Correction de problèmes dans  les exports Standard & RDA (issue gitbucket 364)
+- La liste des formulaires disponibles est désormais limitées aux propriétés liées au template ResearchOutput, lors de la création/mise à jour d'une question lors de l'édition d'un modèle de DMP
+- Suppression de tables et colonnes non utilisées (issue gitbucket 365)
+- Suppression de la validation des identifiants financeurs & contributeurs dans l'import RDA
+- Ajout du nombre total d'utilisateurs dans la liste Admin/SuperAdmin (issue gitbucket 368)
+- Correction du problème de création de nouvelle question dans les Modèles Classiques (issue gitbucket 366)
+- Ajout de la validation de présence du contact et de l'email du contact dans l'import Standard
+- L'import par API est disponible à l'adresse `api/v1/madmp/plans/import?import_format=rda`. Formats disponibles `standard` et `rda`
+
 ## 05/04/2022
 - Ajout de l'interface d'import des plans (Standard & RDA)
 
