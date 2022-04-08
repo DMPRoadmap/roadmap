@@ -104,6 +104,7 @@ module Dmpopidor
     end
 
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+    # rubocop:disable Metrics/PerceivedComplexity
     def import_plan
       @plan = ::Plan.new
       authorize @plan
@@ -142,8 +143,7 @@ module Dmpopidor
             end
           end
         rescue IOError
-          msg = "#{_('Unvalid file: ')} #{json_file.class.name}: #{json_file.inspect}"
-          format.html { redirect_to import_plans_path, alert: msg }
+          format.html { redirect_to import_plans_path, alert: _('Unvalid file') }
         rescue JSON::ParserError
           msg = _('File should contain JSON')
           format.html { redirect_to import_plans_path, alert: msg }
@@ -155,6 +155,7 @@ module Dmpopidor
       end
       # rubocop:enable Metrics/BlockLength
     end
+    # rubocop:enable Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
     private
