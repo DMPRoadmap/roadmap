@@ -391,10 +391,10 @@ class User < ApplicationRecord
 
   # Override devise_invitable email title
   def deliver_invitation(options = {})
-    current_locale = invited_by.locale.nil? ? FastGettext.default_locale : invited_by.locale
-    FastGettext.with_locale current_locale do
+    current_locale = invited_by.locale.nil? ? I18n.default_locale : invited_by.locale
+    I18n.with_locale current_locale do
       subject = format(_('%<user_name>s has shared a Data Management Plan with you in %<tool_name>s'),
-                       user_name: invited_by.name(false), tool_name: Rails.configuration.branding[:application][:name])
+                       user_name: invited_by.name(false), tool_name: ApplicationService.application_name)
       super(options.merge(subject: subject))
     end
   end
