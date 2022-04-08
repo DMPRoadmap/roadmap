@@ -239,10 +239,6 @@ Rails.application.routes.draw do
           member do
             get :rda_export
           end
-          collection do
-            post :standard_import
-            post :rda_import
-          end
         end
       end
     end
@@ -269,8 +265,7 @@ Rails.application.routes.draw do
             get :rda_export
           end
           collection do
-            post :standard_import
-            post :rda_import
+            post :import
           end
         end
       end

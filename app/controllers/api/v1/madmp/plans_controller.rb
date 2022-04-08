@@ -55,73 +55,66 @@ module Api
         end
         # rubocop:enable Metrics/AbcSize
 
-        # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-        def rda_import
-          @dmp = request.body.read
-          @template = Template.default
-          # Need to have an account already, admin mail meanwhile
-          @plan_user = User.find_by(email: 'info-opidor@inist.fr')
-          # ensure user exists
-          if @plan_user.blank?
-            User.invite!({ email: params[:plan][:email] }, @user)
-            @plan_user = User.find_by(email: params[:plan][:email])
-            @plan_user.org = @user.org
-            @plan_user.save
-          end
-          @plan = Plan.new
-          @plan.org_id = @plan_user.org.id
-          @plan.template = @template
-          @plan.title = @dmp['meta']['title']
+        def import
+          json_data = JSON.parse(request.raw_post)
+          import_format = params[:import_format]
+          template = Template.default
+          Plan.transaction do
+            plan = Plan.new
+            errs = Import::PlanImportService.validate(json_data, import_format)
+            render_error(errors: errs, status: :bad_request) and return if errs.any?
 
-          if @plan.save
-            @plan.add_user!(@plan_user.id, :creator)
-            @plan.create_plan_fragments
+            json_data = Import::Converters::RdaToStandard.convert(json_data['dmp']) if import_format.eql?('rda')
 
-            Import::PlanImportService.import(@plan, @dmp, 'rda')
+            # Try to determine the Plan's owner
+            owner = determine_owner(client: client, dmp: json_data)
+            if owner.nil?
+              render_error(
+                errors: [_('Unable to determine owner of the DMP, please specify an existing user as the contact')],
+                status: :bad_request
+              )
+              return
+            end
+            plan.org = owner.org if owner.present? && plan.org.blank?
 
-            respond_with @plan
-          else
-            # the plan did not save
-            headers['WWW-Authenticate'] = 'Token realm=""'
-            render json: _('Bad Parameters'), status: 400
-          end
-        end
-        # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+            plan.visibility = Rails.configuration.x.plans.default_visibility
+            plan.template = template
 
-        # POST /api/v1/madmp/plans/standard_import
-        # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-        def standard_import
-          @dmp = request.body.read
-          @template = Template.default
-          @plan_user = User.find_by(email: @dmp['meta']['contact']['person']['mbox'])
-          # ensure user exists
-          if @plan_user.blank?
-            # no plan in params
-            User.invite!({ email: params[:plan][:email] }, @user)
-            @plan_user = User.find_by(email: params[:plan][:email])
-            @plan_user.org = @user.org
-            @plan_user.save
-          end
-          @plan = Plan.new
-          @plan.org_id = @plan_user.org.id
-          @plan.template_id = @template.id
-          @plan.title = params[:meta][:title]
-          if @plan.save
-            @plan.add_user!(@plan_user.id, :creator)
-            @plan.create_plan_fragments
+            plan.title = format(_('%<user_name>s Plan'), user_name: "#{owner.firstname}'s")
 
-            Import::PlanImportService.import(@plan, @dmp, 'standard')
+            if plan.save
+              plan.add_user!(owner.id, :creator)
+              plan.create_plan_fragments
 
-            respond_with @plan
-          else
-            # the plan did not save
-            headers['WWW-Authenticate'] = 'Token realm=""'
-            render json: _('Bad Parameters'), status: 400
+              Import::PlanImportService.import(plan, json_data, 'standard')
+
+              respond_with plan
+            else
+              render_error(errors: [_('Invalid JSON')], status: :bad_request)
+            end
+          rescue JSON::ParserError
+            render_error(errors: [_('Invalid JSON')], status: :bad_request)
           end
         end
-        # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
         private
+
+        # Get the Plan's owner
+        def determine_owner(client:, dmp:)
+          if client.is_a?(User)
+            client
+          else
+            contact = dmp.dig('meta', 'contact', 'person')
+            user = User.find_by(email: contact['mbox'])
+            return user if user.present?
+
+            org = client.org || Org.find_by(name: 'PLEASE CHOOSE AN ORGANISATION IN YOUR PROFILE')
+            User.invite!({ email: contact['mbox'],
+                           firstname: contact['firstName'],
+                           surname: contact['lastName'],
+                           org: org }, User.first) # invite! needs a User, put the SuperAdmin as the inviter
+          end
+        end
 
         def select_research_output(plan_fragment, _selected_research_outputs)
           plan_fragment.data['researchOutput'] = plan_fragment.data['researchOutput'].select do |r|
