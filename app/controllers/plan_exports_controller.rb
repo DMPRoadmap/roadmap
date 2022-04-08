@@ -6,7 +6,8 @@ class PlanExportsController < ApplicationController
 
   include ConditionsHelper
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   def show
     @plan = Plan.includes(:answers, { template: { phases: { sections: :questions } } })
                 .find(params[:plan_id])
@@ -17,6 +18,7 @@ class PlanExportsController < ApplicationController
       @show_sections_questions = export_params[:question_headings].present?
       @show_unanswered         = export_params[:unanswered_questions].present?
       @show_custom_sections    = export_params[:custom_sections].present?
+      @show_research_outputs   = export_params[:research_outputs].present?
       @public_plan             = false
 
     elsif publicly_authorized?
@@ -25,6 +27,7 @@ class PlanExportsController < ApplicationController
       @show_sections_questions = true
       @show_unanswered         = true
       @show_custom_sections    = true
+      @show_research_outputs   = @plan.research_outputs&.any? || false
       @public_plan             = true
 
     else
@@ -49,7 +52,8 @@ class PlanExportsController < ApplicationController
       format.json { show_json }
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 
   private
 
@@ -82,7 +86,7 @@ class PlanExportsController < ApplicationController
     render pdf: file_name,
            margin: @formatting[:margin],
            footer: {
-             center: format(_('Created using %<application_name>s. Last modified %<date>s'),
+             center: format(_('Created using %{application_name}. Last modified %{date}'),
                             application_name: ApplicationService.application_name,
                             date: l(@plan.updated_at.to_date, format: :readable)),
              font_size: 8,
@@ -124,8 +128,9 @@ class PlanExportsController < ApplicationController
   end
 
   def export_params
-    params.require(:export).permit(:form, :project_details, :question_headings,
-                                   :unanswered_questions, :custom_sections,
-                                   :formatting)
+    params.require(:export)
+          .permit(:form, :project_details, :question_headings, :unanswered_questions,
+                  :custom_sections, :research_outputs,
+                  formatting: [:font_face, :font_size, { margin: %i[top right bottom left] }])
   end
 end

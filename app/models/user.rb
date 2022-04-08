@@ -142,7 +142,7 @@ class User < ApplicationRecord
       # MySQL does not support standard string concatenation and since concat_ws
       # or concat functions do not exist for sqlite, we have to come up with this
       # conditional
-      if ActiveRecord::Base.connection.adapter_name == 'Mysql2'
+      if mysql_db?
         where("lower(concat_ws(' ', firstname, surname)) LIKE lower(?) OR " \
               'lower(email) LIKE lower(?)',
               search_pattern, search_pattern)
@@ -381,7 +381,7 @@ class User < ApplicationRecord
 
   # Override devise_invitable email title
   def deliver_invitation(options = {})
-    super(options.merge(subject: format(_('A Data Management Plan in %<application_name>s has been shared with you'),
+    super(options.merge(subject: format(_('A Data Management Plan in %{application_name} has been shared with you'),
                                         application_name: ApplicationService.application_name))
     )
   end

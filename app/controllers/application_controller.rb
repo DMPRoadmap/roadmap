@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   after_action :store_location
 
   include GlobalHelpers
-  include Pundit
+  include Pundit::Authorization
   helper_method GlobalHelpers.instance_methods
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
@@ -105,13 +105,13 @@ class ApplicationController < ActionController::Base
   end
 
   def failure_message(obj, action = 'save')
-    format(_('Unable to %<action>s the %<object>s.%<errors>s'),
+    format(_('Unable to %{action} the %{object}. {errors}'),
            object: obj_name_for_display(obj),
            action: action || 'save', errors: errors_for_display(obj))
   end
 
   def success_message(obj, action = 'saved')
-    format(_('Successfully %<action>s the %<object>s.'), object: obj_name_for_display(obj), action: action || 'save')
+    format(_('Successfully %{action} the %{object}.'), object: obj_name_for_display(obj), action: action || 'save')
   end
 
   def errors_for_display(obj)

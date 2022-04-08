@@ -213,6 +213,8 @@ gem 'httparty'
 # Autoload dotenv in Rails. (https://github.com/bkeepers/dotenv)
 gem 'dotenv-rails'
 
+gem 'activerecord_json_validator'
+
 # ================================= #
 # ENVIRONMENT SPECIFIC DEPENDENCIES #
 # ================================= #
@@ -275,7 +277,7 @@ group :test do
 
   # Browser integration tests are expensive. We can mock external requests
   # in our tests, but once a browser is involved, we lose control.
-  gem 'capybara-webmock'
+  gem 'capybara-webmock', '~> 0.6'
 
   # RSpec::CollectionMatchers lets you express expected outcomes on
   # collections of an object in an example.

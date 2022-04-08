@@ -169,14 +169,14 @@ module ConditionsHelper
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   def question_title(question)
-    raw format('Qn. %<question_nbr>s: %<title>s',
+    raw format('Qn. %{question_nbr}: %{title}',
                question_nbr: question.number.to_s,
                title: truncate(strip_tags(question.text), length: DISPLAY_LENGTH,
                                                           separator: ' ', escape: false))
   end
 
   def section_title(section)
-    raw format('Sec. %<section_nbr>s: %<title>s',
+    raw format('Sec. %{section_nbr}: %{title}',
                section_nbr: section.number.to_s,
                title: truncate(strip_tags(section.title), length: DISPLAY_LENGTH,
                                                           separator: ' ', escape: false))
@@ -194,7 +194,7 @@ module ConditionsHelper
       return_string += opts.join(' and ')
       if cond.action_type == 'add_webhook'
         subject_string = text_formatted(JSON.parse(cond.webhook_data)['subject'])
-        return_string += format(_(' will <b>send an email</b> with subject %<subject_name>s'),
+        return_string += format(_(' will <b>send an email</b> with subject %{subject_name}'),
                                 subject_name: subject_string)
       else
         remove_data = cond.remove_data
