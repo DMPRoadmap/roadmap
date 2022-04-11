@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.0.4+portage-3.0.9] - 2022-04-11
+
+### Fixed
+
+- Fixed sandbox setting based on the server configuration
+
 ## [3.0.4+portage-3.0.8] - 2022-04-08
 
 ### Fixed

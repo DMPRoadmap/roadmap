@@ -2,7 +2,7 @@ defaults: &defaults
   adapter: mysql2
   encoding: utf8mb4
   pool: 16
-  database: <%= ENV["MYSQL_DATABASE"] %>
+  # database: <%= ENV["MYSQL_DATABASE"] %>
   username: <%= ENV["MYSQL_USER"] %>
   password: <%= ENV["MYSQL_PASSWORD"] %>
   host: <%= ENV["DATABASE_URL"] || '127.0.0.1' %>
@@ -27,9 +27,11 @@ staging:
   url: <%= Rails.application.secrets.database_url %>
 
 sandbox:
-  <<: *defaults
-  database: <%= Rails.application.secrets.database_url %>
-   
+  encoding: utf8mb4
+  url: <%= Rails.application.secrets.database_url %>
+  pool: 5
+  timeout: 5000
+
 production:
   <<: *defaults
   url: <%= Rails.application.secrets.database_url %>
