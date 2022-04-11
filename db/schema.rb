@@ -342,9 +342,9 @@ ActiveRecord::Schema.define(version: 2022_03_15_104737) do
     t.boolean "managed", default: false, null: false
     t.string "api_create_plan_email_subject"
     t.text "api_create_plan_email_body"
+    t.string "helpdesk_email"
     t.index ["language_id"], name: "fk_rails_5640112cab"
     t.index ["region_id"], name: "fk_rails_5a6adf6bab"
-    t.string "helpdesk_email"
   end
 
   create_table "perms", id: :integer, force: :cascade do |t|
