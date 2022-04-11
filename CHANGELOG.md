@@ -1,19 +1,32 @@
 # Changelog
 
+## [3.0.4+portage-3.0.9] - 2022-04-11
+
+### Fixed
+
+- Fixed sandbox setting based on the server configuration
+
+## [3.0.4+portage-3.0.8] - 2022-04-08
+
+### Fixed
+
+- Fixed invalid org selection when new user accept invitation [#177](https://github.com/portagenetwork/roadmap/issues/177)
+## [3.0.4+portage-3.0.7] - 2022-04-05
+
 ### Added
 
 - Added feature flag for sandbox testing [#159](https://github.com/portagenetwork/roadmap/issues/159)
-
-### Changed
-
 - Adjust seed files for different environment and prepare seed files for sandbox testing
+
+### Fixed
+
+- Change plan identifier field and add it to export [#158](https://github.com/portagenetwork/roadmap/issues/158)
+- Change contact email to support@portagenetwork.ca [#172](https://github.com/portagenetwork/roadmap/issues/172)
 
 ## [3.0.4+portage-3.0.6] - 2022-03-23
 
-  ### Fixed
+### Fixed
    - Usage statistics page now shows correct data [#164](https://github.com/portagenetwork/roadmap/issues/164)
-   - Change plan identifier field and add it to export [#158](https://github.com/portagenetwork/roadmap/issues/158)
-   - Change contact email to support@portagenetwork.ca [#172](https://github.com/portagenetwork/roadmap/issues/172)
 
 ## [3.0.4+portage-3.0.5] - 2022-03-07
   
@@ -268,4 +281,3 @@
  - Fix name of downloaded usage file
  - Allow organizational admin to see the download button in 'Statisctics on Users' and 'Statistics on Tempalte' accordions
  - Upgrade node-sass to 7, node to 12 and adjust eslint test to use Github default action
-

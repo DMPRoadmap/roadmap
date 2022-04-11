@@ -36,13 +36,13 @@ namespace :export_production_data do
             created = 6.years.ago # hard-code org creation date because it must be created before all templates/plans created
             Org.all.each do |org|
                 # feedback message must fit the default language
-                if org.language_id == 2 || org.id == ENV['FRENCH_ORG_ID'].to_i
+                if org.language_id == 2 || org.id == Rails.application.secrets.french_org_id.to_i
                     org.feedback_msg = '<p>Bonjour %{user_name}. </p><br><p> Votre plan "%{plan_name}" a été soumis pour commentaires d’un administrateur de votre organisation. <br>Si vous avez des questions concernant cette action, veuillez communiquer avec nous à %{organisation_email}.</p>'
                 else
                     org.feedback_msg = '<p>Hello %{user_name}.</p><br><p>Your plan "%{plan_name}" has been submitted for feedback from an administrator at your organisation.<br>If you have questions pertaining to this action, please contact us at %{organisation_email}.</p>'
                 end
                 # Only FUNDER_ORG(Portage) keep its original information 
-                if org.id.to_i != ENV['FUNDER_ORG_ID'].to_i # Only Portage keep its original name and all other information
+                if org.id.to_i != Rails.application.secrets.funder_org_id.to_i.to_i # Only Portage keep its original name and all other information
                     org.created_at = created 
                     org.target_url = Org.column_defaults["target_url"]
                     org.logo_uid = Org.column_defaults["logo_uid"]
@@ -51,20 +51,20 @@ namespace :export_production_data do
                     org.contact_email = Faker::Internet.email
                     org.links = Org.column_defaults["links"]
                     org.contact_name = Faker::Name.name
-                    if org.id == ENV['ENGLISH_ORG_ID'].to_i
+                    if org.id == Rails.application.secrets.english_org_id.to_i
                         org.name = "Test Organization"
                         org.contact_email = "dmp.test.user.admin@engagedri.ca"
                         org.contact_name = "Test User"
                         org.abbreviation = "IEO"
                         org.language_id = 1 # English Default
-                    elsif org.id == ENV['FRENCH_ORG_ID'].to_i
+                    elsif org.id == Rails.application.secrets.french_org_id.to_i
                         org.name = "Organisation de test"
                         org.contact_email = "dmp.utilisateur.test.admin@engagedri.ca"
                         org.contact_name = "Utilisateur test"
                         org.abbreviation = "OEO"
                         org.language_id = 2 # French Default
                     else
-                        org.name = Faker::University.unique.name
+                        org.name = Faker::University.name
                         org.abbreviation = org.name + "_abbreviation"
                     end
                 end
@@ -159,7 +159,7 @@ namespace :export_production_data do
         file_name = 'db/seeds/sandbox/seeds_5.rb'
         File.delete(file_name) if File.exist?(file_name)
         excluded_keys =['created_at','updated_at','start_date','end_date']
-        org_list = [ENV["FUNDER_ORG_ID"].to_i, ENV["ENGLISH_ORG_ID"].to_i,ENV["FRENCH_ORG_ID"].to_i]
+        org_list = [Rails.application.secrets.funder_org_id.to_i.to_i, Rails.application.secrets.english_org_id.to_i.to_i,Rails.application.secrets._org_id.to_i]
         open(file_name, 'a') do |f|
             Plan.where(org_id: org_list).all.each_with_index do |plan, index|
                 plan.title = "Test Plan " + index.to_s
@@ -174,9 +174,9 @@ namespace :export_production_data do
                 f.puts "Plan.create(#{serialized})"
                 # import related roles
                 Role.where(plan_id: plan.id).all.each do |role|
-                    if plan.org_id == ENV["FUNDER_ORG_ID"].to_i # change all user id to 1
+                    if plan.org_id == Rails.application.secrets.funder_org_id.to_i.to_i # change all user id to 1
                         role.user_id = 1
-                    elsif plan.org_id == ENV["ENGLISH_ORG_ID"].to_i # change all user id to 2
+                    elsif plan.org_id == Rails.application.secrets.english_org_id.to_i # change all user id to 2
                         role.user_id = 2
                     else # change all user id to 3
                         role.user_id = 3
