@@ -33,7 +33,7 @@ module Api
           @items = [@plan.reload]
           render '/api/v2/plans/index', status: :created
         else
-          errs += _('Unable to add the datasets to this DMP! %<specific_errors>s')
+          errs += _('Unable to add the datasets to this DMP! %{specific_errors}')
           render_error(errors: errs.flatten.uniq, status: :bad_request)
         end
       end

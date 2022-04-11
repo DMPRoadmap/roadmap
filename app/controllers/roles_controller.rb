@@ -58,7 +58,7 @@ class RolesController < ApplicationController
             #                org: current_user.org,
             #                invitation_plan_id: @role.plan.id },
             #              current_user)
-            message = format(_('Invitation to %<email>s issued successfully.'),
+            message = format(_('Invitation to %{email} issued successfully.'),
                              email: role_params[:user][:email])
             user = User.where_case_insensitive('email', role_params[:user][:email]).first
           end

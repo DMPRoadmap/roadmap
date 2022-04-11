@@ -44,10 +44,7 @@ class RegistrationsController < Devise::RegistrationsController
     #                    you will be able to sign in directly with your
     #                    institutional credentials."), application_name: ApplicationService.application_name)
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   # POST /resource
   def create
     # oauth = { provider: nil, uid: nil }
@@ -107,7 +104,7 @@ class RegistrationsController < Devise::RegistrationsController
     #   # Determine if reCAPTCHA is enabled and if so verify it
     #   use_recaptcha = Rails.configuration.x.recaptcha.enabled || false
     #   if (!use_recaptcha || verify_recaptcha(model: resource)) && resource.save
-    #     # rubocop:disable Metrics/BlockNesting
+    #
     #     if resource.active_for_authentication?
     #       set_flash_message :notice, :signed_up if is_navigational_format?
     #       sign_up(resource_name, resource)
@@ -130,8 +127,7 @@ class RegistrationsController < Devise::RegistrationsController
     #       set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}"
     #       respond_with resource, location: after_inactive_sign_up_path_for(resource)
     #     end
-    #     # rubocop:enable Metrics/BlockNesting
-    #   else
+    #         #   else
     #     clean_up_passwords resource
     #     redirect_to after_sign_up_error_path_for(resource),
     #                 alert: _("Unable to create your account.#{errors_for_display(resource)}")
@@ -139,10 +135,7 @@ class RegistrationsController < Devise::RegistrationsController
     #   end
     # end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 
-  # rubocop:disable Metrics/AbcSize
   def update
     # if user_signed_in?
     #   @prefs = @user.get_preferences(:email)
@@ -160,7 +153,6 @@ class RegistrationsController < Devise::RegistrationsController
     #   render(file: File.join(Rails.root, 'public/403.html'), status: 403, layout: false)
     # end
   end
-  # rubocop:enable Metrics/AbcSize
 
   private
 

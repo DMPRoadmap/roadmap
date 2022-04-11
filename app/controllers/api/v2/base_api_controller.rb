@@ -122,11 +122,11 @@ module Api
 
         activity = case change_type.to_sym
                    when :added
-                     "Created a new #{subject.class.name}:<br>%<subject>s"
+                     "Created a new #{subject.class.name}:<br>%{subject}"
                    when :removed
-                     "Deleted a #{subject.class.name}:<br>%<subject>s"
+                     "Deleted a #{subject.class.name}:<br>%{subject}"
                    else
-                     "Modified a #{subject.class.name}:<br>%<changes>s"
+                     "Modified a #{subject.class.name}:<br>%{changes}"
                    end
 
         changes = subject.changed? ? subject.previous_changes&.inspect : subject.changes&.inspect

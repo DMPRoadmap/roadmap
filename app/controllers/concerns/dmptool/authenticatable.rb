@@ -41,11 +41,9 @@ module Dmptool
       end
 
       # Attempt to determine the Org (or RegistryOrg) based on the email's domain
-      # rubocop:disable Metrics/AbcSize
       def org_from_email_domain(email_domain:)
         ::Org.from_email_domain(email_domain: email_domain)
       end
-      # rubocop:enable Metrics/AbcSize
 
       # Get the user from any OmniAuth information that is available
       def user_from_omniauth

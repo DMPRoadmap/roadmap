@@ -421,7 +421,7 @@ class User < ApplicationRecord
   # The User's preferences for a given base key
   #
   # Returns Hash
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def get_preferences(key)
     defaults = Pref.default_settings[key.to_sym] || Pref.default_settings[key.to_s]
     defaults = defaults.with_indifferent_access if defaults.present?
@@ -444,7 +444,7 @@ class User < ApplicationRecord
       defaults
     end
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # Override to Devise invitation emails
   # def deliver_invitation(options = {})

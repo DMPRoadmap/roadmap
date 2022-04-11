@@ -88,7 +88,7 @@ class RegistryOrg < ApplicationRecord
       return nil unless email_domain.present?
 
       orgs = where('LOWER(home_page) LIKE ? OR LOWER(home_page) LIKE ?',
-                  "%/#{email_domain.downcase}%", "%.#{email_domain.downcase}%")
+                   "%/#{email_domain.downcase}%", "%.#{email_domain.downcase}%")
       return nil unless orgs.any?
 
       # Get the one with closest match (e.g. http://ucsd.edu instead of

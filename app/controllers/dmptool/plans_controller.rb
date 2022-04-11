@@ -11,8 +11,8 @@ module Dmptool
 
       # Don't change the updated_at timestamp here
       if plan.save(touch: false)
-        msg = _('Project \'%<title>s\' is no longer featured.')
-        msg = _('Project \'%<title>s\' is now featured.') if plan.featured?
+        msg = _('Project \'%{title}\' is no longer featured.')
+        msg = _('Project \'%{title}\' is now featured.') if plan.featured?
         render json: { code: 1, msg: format(msg, title: plan.title) }
       else
         render status: :bad_request, json: {
@@ -26,7 +26,7 @@ module Dmptool
       # in the DMPRoadmap translation.io
       #
       # It overrides the application_controller.rb :success_message function
-      format(_('Successfully %<action>s the %<object>s.'), object: obj_name_for_display(obj), action: action || 'save')
+      format(_('Successfully %{action} the %{object}.'), object: obj_name_for_display(obj), action: action || 'save')
     end
   end
 end

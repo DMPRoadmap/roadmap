@@ -117,7 +117,7 @@ RSpec.describe ExternalApis::DmphubService, type: :model do
     end
     it 'creates a new Subscription' do
       described_class.expects(:api_client).returns(@client)
-      described_class.expects(:callback_path).returns('https://doi.org/123.123/%<dmp_id>s')
+      described_class.expects(:callback_path).returns('https://doi.org/123.123/%{dmp_id}')
       result = described_class.add_subscription(plan: @plan, dmp_id: @dmp_id)
       expect(result.plan).to eql(@plan)
       expect(result.subscriber).to eql(@client)

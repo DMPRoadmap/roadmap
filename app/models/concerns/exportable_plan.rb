@@ -138,8 +138,8 @@ module ExportablePlan
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def prepare_coversheet_for_csv(csv, _headings, hash)
     auths = hash[:attribution].is_a?(String) ? hash[:attribution] : hash[:attribution].join(', ')
-    csv << [_('Creator:'), format(_('%<authors>s'), authors: auths)]
-    csv << ['Affiliation: ', format(_('%<affiliation>s'), affiliation: hash[:affiliation])]
+    csv << [_('Creator:'), format(_('%{authors}'), authors: auths)]
+    csv << ['Affiliation: ', format(_('%{affiliation}'), affiliation: hash[:affiliation])]
     csv << if hash[:funder].present?
              [_('Template: '), format(_('%{funder}'), funder: hash[:funder])]
            else
@@ -239,7 +239,7 @@ module ExportablePlan
     text = user&.name(false)
     orcid = user.identifier_for_scheme(scheme: 'orcid')
     if orcid.present?
-      text += format(' - <strong>ORCID:</strong> <a href="%<orcid_url>s" target="_blank">%<orcid>s</a>',
+      text += format(' - <strong>ORCID:</strong> <a href="%{orcid_url}" target="_blank">%{orcid}</a>',
                      orcid_url: orcid.value, orcid: orcid.value_without_scheme_prefix)
     end
     [text]

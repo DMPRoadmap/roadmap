@@ -53,7 +53,7 @@ module Api
               render pdf: @file_name,
                      margin: @formatting[:margin],
                      footer: {
-                       center: format(_('Created using %<application_name>s. Last modified %<date>s'),
+                       center: format(_('Created using %{application_name}. Last modified %{date}'),
                                       application_name: ApplicationService.application_name,
                                       date: l(@plan.updated_at.to_date,
                                               format: :readable)),
@@ -94,7 +94,7 @@ module Api
           save_err = _('Unable to create your DMP')
           exists_err = _('Plan already exists. Send an update instead.')
           # rubocop:disable Layout/LineLength
-          no_org_err = _('Could not determine ownership of the DMP. The :affiliation you specified for the :contact could not be validated. You must use either a ROR id or a known name. Possible matches: %<list_of_names>s')
+          no_org_err = _('Could not determine ownership of the DMP. The :affiliation you specified for the :contact could not be validated. You must use either a ROR id or a known name. Possible matches: %{list_of_names}')
           # rubocop:enable Layout/LineLength
 
           # Skip if this is an existing DMP

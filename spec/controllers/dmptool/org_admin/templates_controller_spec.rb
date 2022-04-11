@@ -35,11 +35,11 @@ RSpec.describe Dmptool::OrgAdmin::TemplatesController, type: :request do
       expect(response.code).to eql('200')
       template = assigns(:template)
       expect(template.present?).to eql(true)
-      subject = format(_('A new data management plan (DMP) for the %<org_name>s was started for you.'),
+      subject = format(_('A new data management plan (DMP) for the %{org_name} was started for you.'),
                        org_name: @template.org.name)
       # rubocop:disable Layout/LineLength
       body = format(
-        _('An administrator from the %<org_name>s has started a new data management plan (DMP) for you. If you have any questions or need help, please contact them at %<org_admin_email>s.'), org_name: @template.org.name, org_admin_email: "<a href=\"#{@template.org.contact_email}\">#{@template.org.contact_email}</a>"
+        _('An administrator from the %{org_name} has started a new data management plan (DMP) for you. If you have any questions or need help, please contact them at %{org_admin_email}.'), org_name: @template.org.name, org_admin_email: "<a href=\"#{@template.org.contact_email}\">#{@template.org.contact_email}</a>"
       )
       # rubocop:enable Layout/LineLength
       expect(template.email_subject).to eql(subject)

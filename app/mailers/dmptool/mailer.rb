@@ -17,7 +17,7 @@ module Dmptool
       @org_name = plan.template&.org&.name
       @client_name = inviter.description if inviter.is_a?(ApiClient)
 
-      subject = format(_('A Data Management Plan in the %<application_name>s has been shared with you'),
+      subject = format(_('A Data Management Plan in the %{application_name} has been shared with you'),
                        application_name: ApplicationService.application_name)
       I18n.with_locale I18n.default_locale do
         mail(to: @invitee.email, subject: subject)
@@ -36,7 +36,7 @@ module Dmptool
 
       I18n.with_locale I18n.default_locale do
         mail(to: Rails.configuration.x.application.admin_emails,
-             subject: format(_('%<tool_name>s new API registration'), tool_name: tool_name))
+             subject: format(_('%{tool_name} new API registration'), tool_name: tool_name))
       end
     end
     # rubocop:enable Metrics/AbcSize
@@ -50,7 +50,7 @@ module Dmptool
 
       I18n.with_locale I18n.default_locale do
         mail(to: administrators,
-             subject: format(_('%<tool_name>s error occurred'), tool_name: tool_name))
+             subject: format(_('%{tool_name} error occurred'), tool_name: tool_name))
       end
     end
 
@@ -60,7 +60,7 @@ module Dmptool
     def new_plan_via_api(recipient:, plan:, api_client:)
       return false unless recipient.is_a?(User) && plan.is_a?(Plan) && api_client.is_a?(ApiClient)
 
-      dflt = _('A new data management plan (DMP) has been started for you by %<external_system_name>s')
+      dflt = _('A new data management plan (DMP) has been started for you by %{external_system_name}')
       subject = plan.template&.org&.api_create_plan_email_subject || dflt
 
       @message = plan.template&.org&.api_create_plan_email_body

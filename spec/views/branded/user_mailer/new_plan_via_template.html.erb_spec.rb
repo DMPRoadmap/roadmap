@@ -15,7 +15,7 @@ describe 'user_mailer/new_plan_via_template' do
     assign :user, user
     assign :plan, plan
     assign :sender, sender
-    assign :message, 'Foo %<dmp_title>s bar %<org_name>s baz %<org_admin_email>s'
+    assign :message, 'Foo %{dmp_title} bar %{org_name} baz %{org_admin_email}'
 
     render
     expect(rendered.include?('Please sign in to the')).to eql(true)

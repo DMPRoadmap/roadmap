@@ -9,25 +9,16 @@ module Api
       # A helper method that takes the current client and returns the plans they
       # have acess to
       class Scope
-        attr_reader :client, :scope
-
-        def initialize(client, scope)
-          @client = client
-          @scope = scope
-        end
-
         ## return the visible plans (via the API) to a given client
         # ALL can view: public
         # ApiClient can view: anything from the API client
         #                     anything belonging to their Org (if applicable)
         # User (non-admin) can view: any personal or organisationally_visible
         # User (admin) can view: all from users of their organisation
-        # rubocop:disable Metrics/AbcSize
         def resolve
           ids = @user.is_a?(ApiClient) ? plans_for_client : plans_for_user
           Plan.where(id: ids.uniq)
         end
-        # rubocop:enable Metrics/AbcSize
 
         private
 
