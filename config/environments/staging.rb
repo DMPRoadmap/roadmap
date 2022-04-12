@@ -95,6 +95,6 @@ Rails.application.configure do
       enable_starttls_auto: true 
     }
   
-    Rails.application.routes.default_url_options[:host] = "dmptest.library.ualberta.ca/"
+    Rails.application.routes.default_url_options[:host] = "dmptest.library.ualberta.ca"
   end
   
