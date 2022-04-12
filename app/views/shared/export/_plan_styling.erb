@@ -4,7 +4,9 @@
   body {
     font-family: <%= font_face %>%;
     font-size: <%= font_size %>;
-    margin: <%= margin %>;
+    /* Finding margins to be an issue with wkhtmltopdf on AWS linux so setting them
+       on the plan_exports_controller when calling wicked_pdf instead */
+    /* margin: <%= margin %>; */
   }
     h1 {
       font-size: 1.5rem;
