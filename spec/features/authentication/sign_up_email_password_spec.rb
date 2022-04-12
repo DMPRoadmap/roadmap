@@ -155,6 +155,8 @@ RSpec.describe 'Sign up via email and password', type: :feature do
     end
 
     scenario 'Allows user to specify a custom Org name' do
+      Rails.configuration.x.application.restrict_orgs = false
+
       within("form[action=\"#{user_registration_path}\"]") do
         enter_custom_org('#sign-up-org', Faker::Movies::StarWars.planet)
         click_button 'Sign up'

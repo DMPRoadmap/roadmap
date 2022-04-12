@@ -1,7 +1,6 @@
 <%# locals: form, shibbolized %>
 
 <% omniauth_workflow = session["devise.shibboleth_data"].present? %>
-
 <% if omniauth_workflow %>
   <%= form.label :email, _('Email address') %>
   <%= form.email_field(:email,

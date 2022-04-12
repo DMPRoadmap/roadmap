@@ -122,8 +122,16 @@ class ApiClient < ApplicationRecord
     Doorkeeper.config.default_scopes.to_a
   end
 
+  # Shortcut helper for backward compatibility since the ApiClient is now associated with User
+  # instead of Org
   def owner
     User.find_by(id: user_id)
+  end
+
+  # Shortcut helper for backward compatibility since the ApiClient is now associated with User
+  # instead of Org
+  def org
+    user_id.present? ? User.includes(:org).find_by(id: user_id).org : nil
   end
 
   private

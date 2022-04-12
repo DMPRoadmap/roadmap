@@ -70,57 +70,6 @@ RSpec.describe Dmptool::Authenticatable, type: :controller do
     end
   end
 
-  it 'returns a list of ignorable email domains' do
-    expect(@controller.send(:ignored_email_domains).any?).to eql(true)
-  end
-
-  describe ':org_from_email_domain(email_domain:)' do
-    it 'returns nil if no :email_domain is present' do
-      expect(@controller.send(:org_from_email_domain, email_domain: nil)).to eql(nil)
-    end
-    it 'returns nil if :email_domain is one we want to ignore' do
-      domain = @controller.send(:ignored_email_domains).sample
-      expect(@controller.send(:org_from_email_domain, email_domain: domain)).to eql(nil)
-    end
-    it 'calls :lookup_registry_org_by_email' do
-      @controller.expects(:lookup_registry_org_by_email).once.returns(@org)
-      expect(@controller.send(:org_from_email_domain, email_domain: 'foo.edu')).to eql(@org)
-    end
-    it 'returns nil if no RegitryOrg matched and no other Users with that email domain exist' do
-      @controller.expects(:lookup_registry_org_by_email).once.returns(nil)
-      expect(@controller.send(:org_from_email_domain, email_domain: 'foo.edu')).to eql(nil)
-    end
-    it 'returns the Org with the most User records if there were multiple matches' do
-      expected = create(:org)
-      domain = 'valid-test-org.edu'
-      @user.update(email: "user@#{domain}")
-      5.times { create(:user, org: expected, email: "#{Faker::Lorem.unique.word}@#{domain}") }
-      @controller.expects(:lookup_registry_org_by_email).once.returns(nil)
-      # There should be 4 Users with the same email domain
-      expect(::User.where('email LIKE ?', "%@#{domain.downcase}").count > 3).to eql(true)
-      # It should return the Org that has 3 Users associated with it
-      expect(@controller.send(:org_from_email_domain, email_domain: domain)).to eql(expected)
-    end
-  end
-
-  describe ':lookup_registry_org_by_email(email_domain:)' do
-    it 'returns nil if no :email_domain is present' do
-      expect(@controller.send(:lookup_registry_org_by_email, email_domain: nil)).to eql(nil)
-    end
-    it 'returns nil if no RegistryOrg matched the :email_domain' do
-      expect(@controller.send(:lookup_registry_org_by_email, email_domain: 'foo.bar')).to eql(nil)
-    end
-    it 'returns the closest matching RegistryOrg' do
-      rorg1 = create(:registry_org)
-      create(:registry_org, home_page: "#{rorg1.home_page}.foo")
-      result = @controller.send(:lookup_registry_org_by_email, email_domain: rorg1.home_page.upcase)
-      expected = rorg1.to_org
-      expect(result.name).to eql(expected.name)
-      expect(result.abbreviation).to eql(expected.abbreviation)
-      expect(result.target_url).to eql(expected.target_url)
-    end
-  end
-
   describe ':user_from_omniauth' do
     before(:each) do
       @scheme1 = create(:identifier_scheme, :for_users)
@@ -150,7 +99,7 @@ RSpec.describe Dmptool::Authenticatable, type: :controller do
       it 'returns the user with the specified email' do
         params = { user: { email: @admin.email } }.with_indifferent_access
         @controller.stubs(:params).returns(params)
-        @controller.expects(:org_from_email_domain).never
+        Org.expects(:from_email_domain).never
         @controller.send(:fetch_user)
         resource = @controller.send(:resource)
         expect(resource).to eql(@admin)
@@ -159,13 +108,13 @@ RSpec.describe Dmptool::Authenticatable, type: :controller do
       it 'calls :org_from_email_domain if the initialized User does not have one' do
         params = { user: { email: 'foo@bar.edu' } }.with_indifferent_access
         @controller.stubs(:params).returns(params)
-        @controller.expects(:org_from_email_domain).once
+        Org.expects(:from_email_domain).once
         @controller.send(:fetch_user)
       end
       it 'calls :org_from_email_domain if User is a super_admin since they can switch orgs' do
         params = { user: { email: @super_admin.email } }.with_indifferent_access
         @controller.stubs(:params).returns(params)
-        @controller.expects(:org_from_email_domain).once
+        Org.expects(:from_email_domain).once
         @controller.send(:fetch_user)
       end
     end

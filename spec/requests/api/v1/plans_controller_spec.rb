@@ -14,7 +14,7 @@ RSpec.describe Api::V1::PlansController, type: :request do
     end
 
     describe 'GET /api/v1/plan/:id - show' do
-      it 'returns the plan' do
+      xit 'returns the plan' do
         plan = create(:plan)
         create(:subscription, plan: plan, subscriber: ApiClient.first)
         plan.reload
@@ -78,7 +78,7 @@ RSpec.describe Api::V1::PlansController, type: :request do
           expect(response).to render_template('api/v1/error')
           expect(response.body.include?('already exists')).to eql(true)
         end
-        it 'returns a 400 if the owner could not be determined' do
+        xit 'returns a 400 if the owner could not be determined' do
           @json[:items].first[:dmp][:contact].delete(:affiliation)
           post api_v1_plans_path, params: @json.to_json
           expect(response.code).to eql('400')

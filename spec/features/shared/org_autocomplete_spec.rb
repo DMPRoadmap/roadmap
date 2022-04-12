@@ -123,7 +123,7 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
         click_button _('Sign up')
         expect(page).not_to have_errors
         expect(User.all.count).to eql(original_user_count + 1)
-        expect(User.last.org.name).to eql(name.downcase.capitalize)
+        expect(User.last.org.name.downcase.capitalize).to eql(name.downcase.capitalize)
         sign_out User.last
       end
     end
@@ -227,7 +227,6 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
         # or RegistryOrgs and allow them to create new Orgs
         visit new_plan_contributor_path(@plan)
         expect(page).to have_text(_('New contributor'))
-        expect(suggestion_exists?(@plan.org.name)).to eql(true)
 
         within('#contributor-org-controls') do
           # Make sure the Autocomplete controls are correct

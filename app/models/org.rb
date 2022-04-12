@@ -49,9 +49,9 @@ class Org < ApplicationRecord
 
   dragonfly_accessor :logo
 
-  validates_property :format, of: :logo, in: %w[jpeg png gif jpg bmp svg],
-                              message: _('must be one of the following formats: jpeg, jpg, png, gif, bmp, svg')
-  validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
+  # validates_property :format, of: :logo, in: %w[jpeg png gif jpg bmp svg],
+  #                             message: _('must be one of the following formats: jpeg, jpg, png, gif, bmp, svg')
+  # validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
 
   # If the org was created and has a fundref/ror id then it was derived from a
   # User's selection of a RegistryOrg in the UI. We need to update the registry_orgs.org_id
@@ -164,7 +164,7 @@ class Org < ApplicationRecord
   # This checks the filestore for the dragonfly image each time before we validate
   # and removes the dragonfly info if the logo is not found so validations pass
   # TODO: re-evaluate this after moving dragonfly to active_storage
-  before_validation :check_for_missing_logo_file
+  # before_validation :check_for_missing_logo_file
 
   # This gives all managed orgs api access whenever saved or updated.
   before_save :ensure_api_access, if: ->(org) { org.managed? }
@@ -173,22 +173,22 @@ class Org < ApplicationRecord
   # model from saving. This typically happens when you copy the database to another
   # environment. The orgs.logo_uid stores the path to the physical logo file that is
   # stored in the Dragonfly data store (default is: public/system/dragonfly/[env]/)
-  def check_for_missing_logo_file
-    return unless logo_uid.present?
+  # def check_for_missing_logo_file
+  #   return unless logo_uid.present?
 
-    data_store_path = Dragonfly.app.datastore.root_path
+  #   data_store_path = Dragonfly.app.datastore.root_path
 
-    return if File.exist?("#{data_store_path}#{logo_uid}")
+  #   return if File.exist?("#{data_store_path}#{logo_uid}")
 
-    # Attempt to locate the file by name. If it exists update the uid
-    logo = Dir.glob("#{data_store_path}/**/*#{logo_name}")
-    if logo.empty?
-      # Otherwise the logo is missing so clear it to prevent save failures
-      self.logo = nil
-    else
-      self.logo_uid = logo.first.gsub(data_store_path, '')
-    end
-  end
+  #   # Attempt to locate the file by name. If it exists update the uid
+  #   logo = Dir.glob("#{data_store_path}/**/*#{logo_name}")
+  #   if logo.empty?
+  #     # Otherwise the logo is missing so clear it to prevent save failures
+  #     self.logo = nil
+  #   else
+  #     self.logo_uid = logo.first.gsub(data_store_path, '')
+  #   end
+  # end
 
   ##
   # Define Bit Field values
