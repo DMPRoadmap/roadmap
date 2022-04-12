@@ -92,8 +92,12 @@ class PlanExportsController < ApplicationController
   end
 
   def show_pdf
+
+p "SHOW PDF:"
+pp @formatting[:margin].to_h
+
     render pdf: file_name,
-           # margin: @formatting[:margin],
+           margin: @formatting[:margin].to_h,
            page_size: 'Letter',
            footer: {
              center: format(_('Created using %{application_name}. Last modified %{date}'),

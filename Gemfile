@@ -207,7 +207,7 @@ gem 'autoprefixer-rails'
 # 0.12.5 does not work on our new linux2 instances. Pegging at 0.12.4 for now
 # ------------------------------------------------
 # gem 'wkhtmltopdf-binary'
-gem 'wkhtmltopdf-binary', '0.12.4'
+gem 'wkhtmltopdf-binary' #, '0.12.4'
 # ------------------------------------------------
 # End DMPTool customization
 # ------------------------------------------------
