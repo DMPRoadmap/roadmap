@@ -48,7 +48,7 @@ module Users
           user.attach_omniauth_credentials(scheme_name: 'shibboleth', omniauth_hash: hash) if hash.present?
         end
       else
-        flash[:alert] = _('Invalid security check, please try again.')
+        flash[:alert] = _('Invalid security check! Please make sure your browser is up to date and then try again')
       end
     end
     # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
