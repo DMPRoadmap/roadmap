@@ -33,7 +33,11 @@ class OrgsController < ApplicationController
     @org = Org.find(params[:id])
     authorize @org
 
-    @org.logo = attrs[:logo] if attrs[:logo]
+    # If a new logo was supplied then use it, otherwise retain the existing one
+    attrs[:logo] = attrs[:logo].present? ? attrs[:logo] : @org.logo
+    # Remove the logo if the user checked the box
+    attrs[:logo] = nil if attrs[:remove_logo] == '1'
+
     tab = (attrs[:feedback_enabled].present? ? 'feedback' : 'profile')
     @org.links = ActiveSupport::JSON.decode(params[:org_links]) if params[:org_links].present?
 
