@@ -141,7 +141,6 @@ module Dmptool
           expect(described_class.send(:org_from_email_domain, email_domain: domain)).to eql(expected)
         end
       end
-
     end
 
     context 'instance methods' do

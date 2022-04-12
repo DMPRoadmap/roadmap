@@ -264,7 +264,7 @@ default: &default
   organisation_address_line1: "My institution"
   organisation_address_line2: "Department"
   organisation_address_line3: "Address"
-  organisation_address_line4: "City and postal code"
+  organisation_address_line4: "City, State and postal code"
   organisation_country: "ZZZ"
 
   # The Google maps link to your organisation's location - used to display the
