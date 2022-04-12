@@ -15,7 +15,7 @@ namespace :export_production_data do
         puts 'seed_4 is manually generated. Skip.'
         puts 'generating seed_5.rb...'
         Rake::Task['export_production_data:seed_5_export'].execute
-        puts 'seed_5 is manually generated. Skip.'
+        puts 'seed_6 is manually generated. Skip.'
         puts 'Now switch to sandbox db environment and seed'
         puts 'Now copy seeds.rb and all files in seeds folder to sandbox server, then run bundle exec rake db:reset (or db:setup for the first time)' # we could make this run separately & manually also. this line is to reset/setup the database under sandbox environment
     end
@@ -42,7 +42,7 @@ namespace :export_production_data do
                     org.feedback_msg = '<p>Hello %{user_name}.</p><br><p>Your plan "%{plan_name}" has been submitted for feedback from an administrator at your organisation.<br>If you have questions pertaining to this action, please contact us at %{organisation_email}.</p>'
                 end
                 # Only FUNDER_ORG(Portage) keep its original information 
-                if org.id.to_i != Rails.application.secrets.funder_org_id.to_i.to_i # Only Portage keep its original name and all other information
+                if org.id.to_i != Rails.application.secrets.funder_org_id.to_i # Only Portage keep its original name and all other information
                     org.created_at = created 
                     org.target_url = Org.column_defaults["target_url"]
                     org.logo_uid = Org.column_defaults["logo_uid"]
@@ -159,7 +159,7 @@ namespace :export_production_data do
         file_name = 'db/seeds/sandbox/seeds_5.rb'
         File.delete(file_name) if File.exist?(file_name)
         excluded_keys =['created_at','updated_at','start_date','end_date']
-        org_list = [Rails.application.secrets.funder_org_id.to_i.to_i, Rails.application.secrets.english_org_id.to_i.to_i,Rails.application.secrets._org_id.to_i]
+        org_list = [Rails.application.secrets.funder_org_id.to_i, Rails.application.secrets.english_org_id.to_i,Rails.application.secrets.french_org_id.to_i]
         open(file_name, 'a') do |f|
             Plan.where(org_id: org_list).all.each_with_index do |plan, index|
                 plan.title = "Test Plan " + index.to_s
@@ -174,7 +174,7 @@ namespace :export_production_data do
                 f.puts "Plan.create(#{serialized})"
                 # import related roles
                 Role.where(plan_id: plan.id).all.each do |role|
-                    if plan.org_id == Rails.application.secrets.funder_org_id.to_i.to_i # change all user id to 1
+                    if plan.org_id == Rails.application.secrets.funder_org_id.to_i # change all user id to 1
                         role.user_id = 1
                     elsif plan.org_id == Rails.application.secrets.english_org_id.to_i # change all user id to 2
                         role.user_id = 2

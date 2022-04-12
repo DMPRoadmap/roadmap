@@ -79,6 +79,9 @@ test:
 stage:
   <<: *defaults
 
+sandbox:
+  <<: *defaults
+
 staging:
   <<: *defaults
 
