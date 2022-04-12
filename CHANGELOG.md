@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.0.4+portage-3.0.10] - 2022-04-12
+
+### Fixed
+
+- Fixed branding.yml for sandbox testing
+
+### Changed
+
+- Test JSON format plan download 
+
 ## [3.0.4+portage-3.0.9] - 2022-04-11
 
 ### Fixed
