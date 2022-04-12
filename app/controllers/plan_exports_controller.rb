@@ -93,7 +93,7 @@ class PlanExportsController < ApplicationController
 
   def show_pdf
     render pdf: file_name,
-           margin: @formatting[:margin],
+           # margin: @formatting[:margin],
            page_size: 'Letter',
            footer: {
              center: format(_('Created using %{application_name}. Last modified %{date}'),
@@ -142,6 +142,6 @@ class PlanExportsController < ApplicationController
     params.require(:export)
           .permit(:form, :project_details, :question_headings, :unanswered_questions,
                   :custom_sections, :research_outputs, :related_identifiers,
-                  formatting: [:font_face, :font_size, { margin: %i[top right bottom left] }])
+                  formatting: [:font_face, :font_size, margin: %i[top right bottom left]])
   end
 end

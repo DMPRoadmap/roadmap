@@ -4,11 +4,17 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title><%= @plan.title %></title>
 
+    <%# Convert margin values which were provided in mm into pixels %>
+    <% margin = ["#{@formatting[:margin].fetch(:top, '25').to_i * 4}px",
+                 "#{@formatting[:margin].fetch(:right, '25').to_i * 4}px",
+                 "#{@formatting[:margin].fetch(:bottom, '25').to_i * 4}px",
+                 "#{@formatting[:margin].fetch(:left, '25').to_i * 4}px"
+                 ].join(' ') %>
     <%= render partial: 'shared/export/plan_styling',
                locals: {
-                 font_face: font_face,
-                 font_size: "#{font_size}pt",
-                 margin: "#{margin_top}px #{margin_right}px #{margin_bottom}px #{margin_left}px"
+                 font_face: @formatting[:font_face],
+                 font_size: "#{@formatting[:font_size]}pt",
+                 margin: margin
                } %>
   </head>
   <body>

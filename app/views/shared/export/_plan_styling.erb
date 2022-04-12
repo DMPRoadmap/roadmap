@@ -2,7 +2,7 @@
   @import 'https://fonts.googleapis.com/css?family=<%= font_face.downcase.include?('times') ? 'Times' : 'Helvetica' %>';
 
   body {
-    font-family: @font-face;
+    font-family: <%= font_face %>%;
     font-size: <%= font_size %>;
     margin: <%= margin %>;
   }
