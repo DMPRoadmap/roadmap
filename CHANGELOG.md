@@ -1,5 +1,7 @@
 # Changelog
 
+## [3.0.4+portage-3.0.11] - 2022-04-14
+
 ### Fixed
 
 - Fixed password reset link
