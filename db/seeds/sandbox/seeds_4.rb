@@ -3,14 +3,14 @@
   # -------------------------------------------------------
   # Admins are created 5 years ago
   Faker::Config.random = Random.new(60)
-  pwd = ENV["USER_PASSWORD"].to_s # pwd for regular user
+  pwd = Rails.application.secrets.user_password.to_s # pwd for regular user
   users = [
     {email: "dmp.super.admin@engagedri.ca",
      firstname: "Super",
      surname: "Admin",
      language_id: 1,
-     password: ENV["SUPER_ADMIN_PASSWORD"].to_s,
-     password_confirmation: ENV["SUPER_ADMIN_PASSWORD"].to_s,
+     password: Rails.application.secrets.super_admin_password.to_s,
+     password_confirmation: Rails.application.secrets.super_admin_password.to_s,
      org: Org.find_by(abbreviation: "Portage"),
      language: Language.all.first,
      perms: Perm.all,
@@ -22,8 +22,8 @@
     {email: "dmp.test.user.admin@engagedri.ca",
      firstname: "Test",
      surname: "User",
-     password: ENV["ENGLISH_ADMIN_PASSWORD"].to_s,
-     password_confirmation: ENV["ENGLISH_ADMIN_PASSWORD"].to_s,
+     password: Rails.application.secrets.english_admin_password.to_s,
+     password_confirmation: Rails.application.secrets.english_admin_password.to_s,
      org: Org.find_by(abbreviation: 'IEO'),
      language_id: 1, # English
      perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation', 'grant_api_to_orgs']),
@@ -36,8 +36,8 @@
     {email: "dmp.utilisateur.test.admin@engagedri.ca",
       firstname: "Utilisateur",
       surname: "test",
-      password: ENV["FRENCH_ADMIN_PASSWORD"].to_s,
-      password_confirmation: ENV["FRENCH_ADMIN_PASSWORD"].to_s,
+      password: Rails.application.secrets.french_admin_password.to_s,
+      password_confirmation: Rails.application.secrets.french_admin_password.to_s,
       language_id: 2, # French
       org: Org.find_by(abbreviation: 'OEO'),
       perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation', 'grant_api_to_orgs']),
@@ -48,7 +48,7 @@
       active:1
      }
   ]
-  users.each{ |u| User.create!(u) }
+  users.each{ |u| User.create(u) }
   # Some existing users for statistics. Creation times are within 12 months
   (1..20).each do |index|
     user = {
@@ -57,7 +57,7 @@
         surname: Faker::Name.last_name,
         password: pwd,
         password_confirmation: pwd,
-        org: Org.find_by(id:  ENV["FUNDER_ORG_ID"].to_i),
+        org: Org.find_by(id: Rails.application.secrets.funder_org_id.to_i),
         language: Language.all.first,
         perms: [],
         accept_terms: true,
@@ -75,7 +75,7 @@
         surname: Faker::Name.last_name,
         password: pwd,
         password_confirmation: pwd,
-        org: Org.find_by(id: ENV["ENGLISH_ORG_ID"].to_i),
+        org: Org.find_by(id: Rails.application.secrets.english_org_id.to_i),
         language: Language.all.first,
         perms: [],
         accept_terms: true,
@@ -93,7 +93,7 @@
       surname: Faker::Name.last_name,
       password: pwd,
       password_confirmation: pwd,
-      org: Org.find_by(id:ENV["FRENCH_ORG_ID"].to_i),
+      org: Org.find_by(id: Rails.application.secrets.french_org_id.to_i),
       language: Language.all.last, # French
       perms: [],
       accept_terms: true,
@@ -107,12 +107,12 @@
   
   # Before enter plan data, change two template's org to the two test organization to add data to user statistics
   t1 = Template.where(:title => "Portage Template").where.not(:org_id => 8).first           
-  t1.org_id =  ENV["ENGLISH_ORG_ID"].to_i
+  t1.org_id =  Rails.application.secrets.english_org_id.to_i.to_i
   t1.title += "-Test1"
   t1.save!
 
   t2 = Template.where(:title => "Portage Template").where.not(:org_id => 8).first     
-  t2.org_id =  ENV["FRENCH_ORG_ID"].to_i
+  t2.org_id =  Rails.application.secrets.french_org_id.to_i.to_i
   t2.title += "-Test2"
   t2.save!
 

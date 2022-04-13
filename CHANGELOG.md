@@ -1,8 +1,38 @@
 # Changelog
 
+## [3.0.4+portage-3.0.11] - 2022-04-14
+
 ### Fixed
 
+- Fixed password reset link
 - Adjusted accordion javascript for a different user case [#166](https://github.com/portagenetwork/roadmap/issues/166)
+
+### Changed
+
+- Nokogiri upgrade to 1.13.4
+- Moment upgrade to 2.29.2
+
+## [3.0.4+portage-3.0.10] - 2022-04-12
+
+### Fixed
+
+- Fixed branding.yml for sandbox testing
+
+### Changed
+
+- Test JSON format plan download 
+
+## [3.0.4+portage-3.0.9] - 2022-04-11
+
+### Fixed
+
+- Fixed sandbox setting based on the server configuration
+
+## [3.0.4+portage-3.0.8] - 2022-04-08
+
+### Fixed
+
+- Fixed invalid org selection when new user accept invitation [#177](https://github.com/portagenetwork/roadmap/issues/177)
 
 ## [3.0.4+portage-3.0.7] - 2022-04-05
 

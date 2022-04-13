@@ -96,4 +96,6 @@ Rails.application.configure do
     enable_starttls_auto: true 
   }
 
+  # Fix JSON Download Error
+  Rails.application.routes.default_url_options[:host] = "assistant.portagenetwork.ca"
 end
