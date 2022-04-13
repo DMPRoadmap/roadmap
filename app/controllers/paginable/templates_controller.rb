@@ -105,8 +105,9 @@ module Paginable
       paginable_renderise(
         partial: 'history',
         scope: @templates,
-        query_params: { sort_field: 'templates.title', sort_direction: :asc },
-        locals: { current: @templates.maximum(:version) }
+        query_params: { sort_field: 'templates.version', sort_direction: :desc },
+        locals: { current: @templates.maximum(:version) },
+        format: :json
       )
     end
   end
