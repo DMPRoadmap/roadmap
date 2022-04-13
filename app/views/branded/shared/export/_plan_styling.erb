@@ -4,7 +4,9 @@
   body {
     font-family: <%= font_face %>%;
     font-size: <%= font_size %>;
-    margin: <%= margin %>;
+    /* Finding margins to be an issue with wkhtmltopdf on AWS linux so setting them
+       on the plan_exports_controller when calling wicked_pdf instead */
+    /* margin: <%= margin %>; */
   }
     h1 {
       font-size: 1.5rem;
@@ -15,13 +17,13 @@
       font-size: 1.3rem;
       font-weight: bold;
       padding: 0;
-      margin: 1em 0 0 0;
+      margin: 0.8em 0 0 0;
     }
     h3 {
       font-size: 1.1rem;
       font-weight: bold;
       padding: 0;
-      margin: 1em 0 0 0;
+      margin: 0.8em 0 0 0;
     }
     h2 + div.question > h3 {
       margin: 0;
@@ -48,7 +50,7 @@
       font-size: 1.1rem;
     }
     .question {
-      margin-top: 15px;
+      margin-top: 10px;
       margin-bottom: 10px;
     }
     .question:first-child {

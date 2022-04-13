@@ -15,7 +15,16 @@ class PlanExportsController < ApplicationController
     if privately_authorized? && export_params[:form].present?
       skip_authorization
       @show_coversheet          = export_params[:project_details].present?
-      @show_sections_questions  = export_params[:question_headings].present?
+
+      # DMPTool customization
+      # ----------------------
+      # Remove single :question_headings and replace with separate :section_headings and
+      # :question_text
+      #
+      #@show_sections_questions  = export_params[:question_headings].present?
+      @show_sections            = export_params[:section_headings].present?
+      @show_questions           = export_params[:question_text].present?
+
       @show_unanswered          = export_params[:unanswered_questions].present?
       @show_custom_sections     = export_params[:custom_sections].present?
       @show_research_outputs    = export_params[:research_outputs].present?
@@ -27,7 +36,15 @@ class PlanExportsController < ApplicationController
     elsif publicly_authorized?
       skip_authorization
       @show_coversheet          = true
-      @show_sections_questions  = true
+
+      # DMPTool customization
+      # ----------------------
+      # Remove single :question_headings and replace with separate :section_headings and :question_text
+      #
+      # @show_sections_questions  = true
+      @show_sections            = true
+      @show_questions           = true
+
       @show_unanswered          = true
       @show_custom_sections     = true
       @show_research_outputs    = @plan.research_outputs&.any? || false
@@ -143,8 +160,12 @@ class PlanExportsController < ApplicationController
   end
 
   def export_params
+    # DMPTool customization
+    # ----------------------
+    # Remove single :question_headings and replace with separate :section_headings and :question_text
+    #
     params.require(:export)
-          .permit(:form, :project_details, :question_headings, :unanswered_questions,
+          .permit(:form, :project_details, :section_headings, :question_text, :unanswered_questions,
                   :custom_sections, :research_outputs, :related_identifiers,
                   formatting: [:font_face, :font_size, { margin: %i[top right bottom left] }])
   end
