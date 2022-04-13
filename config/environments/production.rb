@@ -97,5 +97,5 @@ Rails.application.configure do
   }
 
   # Fix JSON Download Error
-  Rails.application.routes.default_url_options[:host] = "assistant.library.ualberta.ca"
+  Rails.application.routes.default_url_options[:host] = "assistant.portagenetwork.ca"
 end
