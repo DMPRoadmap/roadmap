@@ -6,12 +6,13 @@ module Import
     class << self
       def import(plan, json_data, import_format)
         dmp_fragment = plan.json_fragment
-        dmp = if import_format.eql?('rda')
-                Import::Converters::RdaToStandard.convert(json_data['dmp'])
-              else
-                json_data
-              end
-
+        if import_format.eql?('rda')
+          dmp = Import::Converters::RdaToStandard.convert(json_data['dmp'])
+          contributors = Import::Converters::RdaToStandard.convert_contributors(json_data.dig('dmp', 'contributor'))
+          handle_contributors(dmp_fragment, contributors)
+        else
+          dmp = json_data
+        end
         dmp_fragment.raw_import(
           dmp.slice('meta', 'project', 'budget'), MadmpSchema.find_by(name: 'DMPStandard')
         )
@@ -28,6 +29,20 @@ module Import
           )
           ro_frag = research_output.json_fragment
           import_research_output(ro_frag, ro_data, plan)
+        end
+      end
+
+      def handle_contributors(dmp_fragment, contributors)
+        schema = MadmpSchema.find_by(name: 'PersonStandard')
+        contributors.each do |contributor|
+          next if MadmpFragment.fragment_exists?(contributor, schema, dmp_fragment.id, nil)
+
+          Fragment::Person.create!(
+            data: contributor,
+            dmp_id: dmp_fragment.id,
+            madmp_schema: schema,
+            additional_info: { property_name: 'person' }
+          )
         end
       end
 

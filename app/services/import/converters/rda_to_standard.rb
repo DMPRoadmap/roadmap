@@ -71,6 +71,45 @@ module Import
           fundings_list
         end
 
+        # FROM
+        # {
+        #   "name": "DMP Administrator",
+        #   "mbox": "info-opidor@inist.fr",
+        #   "role": [
+        #     "Coordinateur de projet",
+        #     "Personne contact pour les données (Research Output 1, Research Output 2, Research Output 3)"
+        #   ],
+        #   "contributor_id": {
+        #     "identifier": 1234,
+        #     "type": "DOI"
+        #   }
+        # }
+        # TO
+        #
+        # {
+        #   "lastName": "DMP Administrator",
+        #   "mbox": "info-opidor@inist.fr",
+        #   "personId": 1234,
+        #   "idType": "DOI"
+        # }
+        def convert_contributors(contributors)
+          return [] if contributors.nil?
+
+          contributors_list = []
+          contributors.each do |contributor|
+            contributors_list.append(
+              {
+                'lastName' => contributor['name'],
+                'mbox' => contributor['mbox'],
+                'personId' => contributor.dig('contributor_id', 'identifier'),
+                'idType' => contributor.dig('contributor_id', 'type')
+
+              }
+            )
+          end
+          contributors_list
+        end
+
         def convert_metadata(metadata)
           return [] if metadata.nil?
 
