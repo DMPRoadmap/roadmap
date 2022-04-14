@@ -105,7 +105,7 @@ class ApplicationController < ActionController::Base
   end
 
   def failure_message(obj, action = 'save')
-    format(_('Unable to %{action} the %{object}. {errors}'),
+    format(_('Unable to %{action} the %{object}. %{errors}'),
            object: obj_name_for_display(obj),
            action: action || 'save', errors: errors_for_display(obj))
   end
