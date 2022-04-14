@@ -20,16 +20,16 @@ namespace :dmptool_specific do
   desc 'Update Feedback confirmation email defaults'
   task update_feedback_confirmation: :environment do
     new_subject = 'DMP feedback request'
-    old_subject = '%<application_name>s: Your plan has been submitted for feedback'
+    old_subject = '%{application_name}: Your plan has been submitted for feedback'
 
-    new_body = '<p>Dear %<user_name>s,</p>' \
-               '<p>"%<plan_name>s" has been sent to your %<application_name>s account administrator for feedback.</p>'\
-               '<p>Please email %<organisation_email>s with any questions about this process.</p>'
-    old_body = '<p>Hello %<user_name>s.</p>'\
-      "<p>Your plan \"%<plan_name>s\" has been submitted for feedback from an
+    new_body = '<p>Dear %{user_name},</p>' \
+               '<p>"%{plan_name}" has been sent to your %{application_name} account administrator for feedback.</p>'\
+               '<p>Please email %{organisation_email} with any questions about this process.</p>'
+    old_body = '<p>Hello %{user_name}.</p>'\
+      "<p>Your plan \"%{plan_name}\" has been submitted for feedback from an
       administrator at your organisation. "\
       "If you have questions pertaining to this action, please contact us
-      at %<organisation_email>s.</p>"
+      at %{organisation_email}.</p>"
 
     Org.all.each do |org|
       org.feedback_email_subject = new_subject if org.feedback_email_subject == old_subject
@@ -55,10 +55,10 @@ namespace :dmptool_specific do
     p 'Initializing empty Template emails'
     Template.published.where(email_body: nil).each do |template|
       template.update(
-        email_subject: format(_('A new data management plan (DMP) for the %<org_name>s was started for you.'),
+        email_subject: format(_('A new data management plan (DMP) for the %{org_name} was started for you.'),
                               org_name: template.org.name),
         email_body: format(
-          _('An administrator from the %<org_name>s has started a new data management plan (DMP) for you. If you have any questions or need help, please contact them at %<org_admin_email>s.'), org_name: template.org.name, org_admin_email: "<a href=\"mailto:#{template.org.contact_email}\">#{template.org.contact_email}</a>"
+          _('An administrator from the %{org_name} has started a new data management plan (DMP) for you. If you have any questions or need help, please contact them at %{org_admin_email}.'), org_name: template.org.name, org_admin_email: "<a href=\"mailto:#{template.org.contact_email}\">#{template.org.contact_email}</a>"
         )
       )
     end
@@ -67,10 +67,10 @@ namespace :dmptool_specific do
     Org.where(managed: true, api_create_plan_email_body: nil).each do |org|
       org.update(
         api_create_plan_email_subject: format(
-          _('A new data management plan (DMP) for the %<org_name>s was started for you.'), org_name: org.name
+          _('A new data management plan (DMP) for the %{org_name} was started for you.'), org_name: org.name
         ),
         api_create_plan_email_body: format(
-          _('A new data management plan (DMP) has been started for you by the %<external_system_name>s. If you have any questions or need help, please contact the administrator for the %<org_name>s at %<org_admin_email>s.'), org_name: org.name, org_admin_email: "<a href=\"mailto:#{org.contact_email}\">#{org.contact_email}</a>", external_system_name: '%<external_system_name>s'
+          _('A new data management plan (DMP) has been started for you by the %{external_system_name}. If you have any questions or need help, please contact the administrator for the %{org_name} at %{org_admin_email}.'), org_name: org.name, org_admin_email: "<a href=\"mailto:#{org.contact_email}\">#{org.contact_email}</a>", external_system_name: '%{external_system_name}'
         )
       )
     end

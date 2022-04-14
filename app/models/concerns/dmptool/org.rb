@@ -8,7 +8,7 @@ module Dmptool
 
     class_methods do
       def default_contact_name
-        format(_('%<app_name>s helpdesk'), app_name: ApplicationService.application_name)
+        format(_('%{app_name} helpdesk'), app_name: ApplicationService.application_name)
       end
 
       def default_contact_email

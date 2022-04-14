@@ -112,6 +112,35 @@ module Dmptool
           expect(fundref.value).to eql(registry_org.fundref_id)
         end
       end
+
+      describe ':from_email_domain(email_domain:)' do
+        it 'returns nil if no :email_domain is present' do
+          expect(described_class.send(:from_email_domain, email_domain: nil)).to eql(nil)
+        end
+        it 'returns nil if :email_domain is one we want to ignore' do
+          domain = described_class.send(:ignored_email_domains).sample
+          expect(described_class.send(:from_email_domain, email_domain: domain)).to eql(nil)
+        end
+        it 'calls :lookup_registry_org_by_email' do
+          RegistryOrg.expects(:from_email_domain).once.returns(@org)
+          expect(described_class.send(:from_email_domain, email_domain: 'foo.edu')).to eql(@org)
+        end
+        it 'returns nil if no RegitryOrg matched and no other Users with that email domain exist' do
+          RegistryOrg.expects(:from_email_domain).once.returns(nil)
+          expect(described_class.send(:from_email_domain, email_domain: 'foo.edu')).to eql(nil)
+        end
+        it 'returns the Org with the most User records if there were multiple matches' do
+          expected = create(:org)
+          domain = 'valid-test-org.edu'
+          @user.update(email: "user@#{domain}")
+          5.times { create(:user, org: expected, email: "#{Faker::Lorem.unique.word}@#{domain}") }
+          RegistryOrg.expects(:from_email_domain).once.returns(nil)
+          # There should be 4 Users with the same email domain
+          expect(::User.where('email LIKE ?', "%@#{domain.downcase}").count > 3).to eql(true)
+          # It should return the Org that has 3 Users associated with it
+          expect(described_class.send(:org_from_email_domain, email_domain: domain)).to eql(expected)
+        end
+      end
     end
 
     context 'instance methods' do

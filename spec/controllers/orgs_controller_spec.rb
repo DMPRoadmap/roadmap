@@ -9,8 +9,6 @@ RSpec.describe OrgsController, type: :controller do
     @name = Faker::Company.name
     @org = create(:org)
     @user = create(:user, :super_admin, org: @org)
-    @logo = Rack::Test::UploadedFile.new 'spec/support/mocks/logo_file.png', 'image/png'
-
     @controller = OrgsController.new
   end
 
@@ -25,9 +23,9 @@ RSpec.describe OrgsController, type: :controller do
       other_org = build(:org, name: Faker::Movies::StarWars.unique.planet)
       @args = { name: Faker::Movies::StarWars.unique.planet,
                 abbreviation: Faker::Lorem.unique.word.upcase,
-                logo: @logo, contact_email: Faker::Internet.email,
+                contact_email: Faker::Internet.email,
                 contact_name: Faker::Movies::StarWars.character,
-                remove_logo: false, organisation: [true, false].sample,
+                organisation: [true, false].sample,
                 funder: [true, false].sample, institution: [true, false].sample,
                 managed: Faker::Number.within(range: 0..1).to_s,
                 feedback_enabled: Faker::Boolean.boolean,
@@ -53,8 +51,6 @@ RSpec.describe OrgsController, type: :controller do
       expect(@org.organisation?).to eql(@args[:organisation])
       expect(@org.managed).to eql(@args[:managed] == '1')
       expect(@org.links.to_json).to eql(@link_args)
-      expect(@org.logo_name).to eql('logo_file.png')
-      expect(@org.logo_uid.present?).to eql(true)
     end
     it 'succeeds for feedback changes' do
       put :admin_update, params: { id: @org.id, org: @args }

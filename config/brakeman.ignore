@@ -5,9 +5,9 @@
       "warning_code": 122,
       "fingerprint": "21ab0fe00fdd5899ffc405cff75aadb91b805ee996a614f7e27b08a287e9062d",
       "check_name": "EOLRails",
-      "message": "Support for Rails 5.2.6.2 ends on 2022-06-01",
+      "message": "Support for Rails 5.2.7 ends on 2022-06-01",
       "file": "Gemfile.lock",
-      "line": 334,
+      "line": 365,
       "link": "https://brakemanscanner.org/docs/warning_types/unmaintained_dependency/",
       "code": null,
       "render_path": null,
@@ -23,7 +23,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/models/user.rb",
-      "line": 467,
+      "line": 469,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "User.where(\"LOWER(#{field}) = :value\", :value => val.to_s.downcase)",
       "render_path": null,
@@ -73,6 +73,6 @@
       "note": ""
     }
   ],
-  "updated": "2022-04-05 08:31:53 -0700",
-  "brakeman_version": "5.2.1"
+  "updated": "2022-04-14 14:33:18 -0700",
+  "brakeman_version": "5.2.2"
 }

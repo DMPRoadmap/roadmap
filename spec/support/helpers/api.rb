@@ -7,6 +7,7 @@ module ApiHelper
   def mock_authorization_for_api_client
     api_client = ApiClient.first
     api_client = create(:api_client) unless api_client.present?
+    api_client.user = create(:user) unless api_client.user.present?
 
     Api::V1::BaseApiController.any_instance.stubs(:authorize_request).returns(true)
     Api::V1::BaseApiController.any_instance.stubs(:client).returns(api_client)

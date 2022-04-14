@@ -36,7 +36,7 @@ RSpec.describe Org::CreateLastMonthJoinedUserService do
 
     context 'when no org is passed' do
       it "generates counts from today's last month" do
-        Org.stubs(:all).returns([org])
+        Org.stubs(:where).returns([org])
 
         described_class.call
 
@@ -45,7 +45,7 @@ RSpec.describe Org::CreateLastMonthJoinedUserService do
       end
 
       it "generates counts by template from today's last month" do
-        Org.stubs(:all).returns([org])
+        Org.stubs(:where).returns([org])
 
         described_class.call(org)
 

@@ -48,7 +48,7 @@ module Users
           user.attach_omniauth_credentials(scheme_name: 'shibboleth', omniauth_hash: hash) if hash.present?
         end
       else
-        flash[:alert] = _('Invalid security check, please try again.')
+        flash[:alert] = _('Invalid security check! Please make sure your browser is up to date and then try again')
       end
     end
     # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -56,7 +56,7 @@ module Users
     # PUT /resource
     # We need to use a copy of the resource because we don't want to change
     # the current user in place.
-    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+    # rubocop:disable Metrics/AbcSize
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def update
       self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
@@ -85,7 +85,7 @@ module Users
         redirect_to edit_user_registration_path, alert: msg
       end
     end
-    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+    # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     protected
@@ -118,8 +118,7 @@ module Users
     end
 
     # Handle the Org autoccomplete and passwords
-    # rubocop:disable Metrics/AbcSize
-    def process_params(resource)
+    def process_params(_resource)
       args = account_update_params
 
       # Convert the selected/specified Org name into attributes
@@ -129,6 +128,5 @@ module Users
       args.delete(:org_attributes) unless args[:org_attributes].present?
       args
     end
-    # rubocop:enable Metrics/AbcSize
   end
 end

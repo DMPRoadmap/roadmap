@@ -17,6 +17,7 @@ class Org
   class CreateLastMonthCreatedPlanService
     class << self
       def call(org = nil, threads: 0)
+        # orgs = org.nil? ? Org.select(&:managed?) : [org]
         orgs = org.nil? ? Org.where(managed: true) : [org]
 
         Parallel.each(orgs, in_threads: threads) do |org_obj|

@@ -9,7 +9,7 @@
 #  ror_id                 :string(255)
 #  funder_id              :string(255)
 #  name                   :string(255)
-#  homepage               :string(255)
+#  home_page              :string(255)
 #  language               :string(255)
 #  types                  :json
 #  acronyms               :json
@@ -87,8 +87,7 @@ class RegistryOrg < ApplicationRecord
     def from_email_domain(email_domain:)
       return nil unless email_domain.present?
 
-      orgs = where('LOWER(home_page) LIKE ? OR LOWER(home_page) LIKE ?',
-                  "%/#{email_domain.downcase}%", "%.#{email_domain.downcase}%")
+      orgs = where('LOWER(home_page) LIKE ?', "%#{email_domain.downcase}%")
       return nil unless orgs.any?
 
       # Get the one with closest match (e.g. http://ucsd.edu instead of

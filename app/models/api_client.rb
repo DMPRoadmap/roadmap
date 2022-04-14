@@ -69,7 +69,7 @@ class ApiClient < ApplicationRecord
                             email: { allow_nil: false }
 
   validates_property :format, of: :logo, in: LOGO_FORMATS,
-                              message: format(_('must be one of the following formats: %<formats>s'),
+                              message: format(_('must be one of the following formats: %{formats}'),
                                               formats: LOGO_FORMATS.join(', '))
 
   validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
@@ -122,8 +122,16 @@ class ApiClient < ApplicationRecord
     Doorkeeper.config.default_scopes.to_a
   end
 
+  # Shortcut helper for backward compatibility since the ApiClient is now associated with User
+  # instead of Org
   def owner
     User.find_by(id: user_id)
+  end
+
+  # Shortcut helper for backward compatibility since the ApiClient is now associated with User
+  # instead of Org
+  def org
+    user_id.present? ? User.includes(:org).find_by(id: user_id).org : nil
   end
 
   private

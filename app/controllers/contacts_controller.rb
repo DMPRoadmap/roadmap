@@ -10,7 +10,7 @@ module ContactUs
 
       if !user_signed_in? && Rails.configuration.x.recaptcha.enabled &&
          !(verify_recaptcha(action: 'contact') && @contact.save)
-        flash[:alert] = _('Invalid security check, please try again.')
+        flash[:alert] = _('Invalid security check! Please make sure your browser is up to date and then try again')
         render_new_page and return
       end
       if @contact.save

@@ -10,9 +10,9 @@ RSpec.describe 'Sign in/up via email entry', type: :feature do
   before(:each) do
     mock_blog
     @email_domain = 'foo.edu'
-    @org = create(:org, contact_email: "#{Faker::Lorem.unique.word}@#{@email_domain}")
+    @org = create(:org, contact_email: "help-desk@#{@email_domain}")
     @registry_org = create(:registry_org, home_page: "http://#{@email_domain}", org: @org)
-    @user = create(:user, email: "#{Faker::Lorem.unique.word}@#{@email_domain}", org: @org)
+    @user = create(:user, email: "jane@#{@email_domain}", org: @org)
     visit root_path
   end
 
@@ -53,19 +53,18 @@ RSpec.describe 'Sign in/up via email entry', type: :feature do
   end
 
   it 'handles unknown user with a known email domain for an unshibbolized org', js: true do
-    email = "#{Faker::Lorem.unique.word.downcase}@#{@email_domain}"
+    email = "anna@#{@email_domain}"
     fill_in 'Email address', with: email
     click_on 'Continue'
 
     expect(page).to have_text('New Account Sign Up')
     expect(find('#user_disabled_email').value).to eql(email)
-    expect(suggestion_exists?(@org.name)).to eql(true)
     expect(find('#org_autocomplete_name').value).to eql(@org.name)
   end
 
   it 'handles unknown user with a known email domain for an shibbolized org', js: true do
     create_shibboleth_entity_id(org: @org)
-    email = "#{Faker::Lorem.unique.word.downcase}@#{@email_domain}"
+    email = "anna@#{@email_domain}"
     fill_in 'Email address', with: email
     click_on 'Continue'
 

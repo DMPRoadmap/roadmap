@@ -32,7 +32,7 @@ module Settings
 
     # =================================
     # Start DMPTool Customization
-    # Update margins to 25mm default
+    # Update margins to 25mm default and font to 'Times New Roman'
     # =================================
     # DEFAULT_SETTINGS = {
     #   formatting: {
@@ -60,7 +60,7 @@ module Settings
           left: 25,
           right: 25
         },
-        font_face: 'Arial, Helvetica, Sans-Serif',
+        font_face: '"Times New Roman", Times, Serif',
         font_size: 11 # pt
       },
       page_size: 'Letter',

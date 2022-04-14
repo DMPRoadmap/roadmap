@@ -36,7 +36,7 @@ module Webmocks
 
   def stub_orcid(success: true)
     url = Rails.configuration.x.orcid_api_base_url
-    url = url.gsub('%<id>s', '[0-9\\-]*')
+    url = url.gsub('%{id}', '[0-9\\-]*')
     if success
       stub_request(:post, %r{#{url}/.*}).to_return(status: 201, body: mocked_orcid_response, headers: {})
     else

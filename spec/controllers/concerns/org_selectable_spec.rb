@@ -96,7 +96,7 @@ RSpec.describe OrgSelectable do
             org_attributes: {
               abbreviation: registry_org.acronyms.first.upcase,
               contact_email: Rails.configuration.x.organisation.helpdesk_email,
-              contact_name: format(_('%<app_name>s helpdesk'), app_name: ApplicationService.application_name),
+              contact_name: format(_('%{app_name} helpdesk'), app_name: ApplicationService.application_name),
               is_other: false,
               links: JSON.parse({ org: [{ link: registry_org.home_page, text: 'Home Page' }] }.to_json),
               managed: false,
@@ -148,7 +148,7 @@ RSpec.describe OrgSelectable do
             org_attributes: {
               abbreviation: registry_org.acronyms.first.upcase,
               contact_email: Rails.configuration.x.organisation.helpdesk_email,
-              contact_name: format(_('%<app_name>s helpdesk'), app_name: ApplicationService.application_name),
+              contact_name: format(_('%{app_name} helpdesk'), app_name: ApplicationService.application_name),
               is_other: false,
               links: JSON.parse({ org: [{ link: registry_org.home_page, text: 'Home Page' }] }.to_json),
               managed: false,
@@ -164,7 +164,7 @@ RSpec.describe OrgSelectable do
             org_attributes: {
               abbreviation: @custom_name.split.map(&:first).map(&:upcase).join,
               contact_email: Rails.configuration.x.organisation.helpdesk_email,
-              contact_name: format(_('%<app_name>s helpdesk'), app_name: ApplicationService.application_name),
+              contact_name: format(_('%{app_name} helpdesk'), app_name: ApplicationService.application_name),
               is_other: false,
               links: JSON.parse({ org: [] }.to_json),
               managed: false,
@@ -205,7 +205,7 @@ RSpec.describe OrgSelectable do
           org_attributes: {
             abbreviation: registry_org.acronyms.first.upcase,
             contact_email: Rails.configuration.x.organisation.helpdesk_email,
-            contact_name: format(_('%<app_name>s helpdesk'), app_name: ApplicationService.application_name),
+            contact_name: format(_('%{app_name} helpdesk'), app_name: ApplicationService.application_name),
             is_other: false,
             links: JSON.parse({ org: [{ link: registry_org.home_page, text: 'Home Page' }] }.to_json),
             managed: false,
@@ -259,7 +259,7 @@ RSpec.describe OrgSelectable do
           org_attributes: {
             abbreviation: registry_org.acronyms.first.upcase,
             contact_email: Rails.configuration.x.organisation.helpdesk_email,
-            contact_name: format(_('%<app_name>s helpdesk'), app_name: ApplicationService.application_name),
+            contact_name: format(_('%{app_name} helpdesk'), app_name: ApplicationService.application_name),
             is_other: false,
             links: JSON.parse({ org: [{ link: registry_org.home_page, text: 'Home Page' }] }.to_json),
             managed: false,
@@ -275,7 +275,7 @@ RSpec.describe OrgSelectable do
           org_attributes: {
             abbreviation: @custom_name.split.map(&:first).map(&:upcase).join,
             contact_email: Rails.configuration.x.organisation.helpdesk_email,
-            contact_name: format(_('%<app_name>s helpdesk'), app_name: ApplicationService.application_name),
+            contact_name: format(_('%{app_name} helpdesk'), app_name: ApplicationService.application_name),
             is_other: false,
             links: JSON.parse({ org: [] }.to_json),
             managed: false,
@@ -550,7 +550,7 @@ RSpec.describe OrgSelectable do
       it 'uses the Application name if org.contact_name is nil' do
         @org.contact_name = nil
         result = @controller.send(:org_to_attributes, org: @org)[:org_attributes]
-        expect(result[:contact_name]).to eql(format(_('%<app_name>s helpdesk'),
+        expect(result[:contact_name]).to eql(format(_('%{app_name} helpdesk'),
                                                     app_name: ApplicationService.application_name))
       end
     end

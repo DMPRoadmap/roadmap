@@ -28,9 +28,15 @@
         <% end %>
       </div>
       <div class="checkbox">
-        <%= label_tag 'export[question_headings]' do %>
-          <%= check_box_tag 'export[question_headings]', true, true %>
-          <%= _('question text and section headings') %>
+        <%= label_tag 'export[section_headings]' do %>
+          <%= check_box_tag 'export[section_headings]', true, true %>
+          <%= _('section headings') %>
+        <% end %>
+      </div>
+      <div class="checkbox">
+        <%= label_tag 'export[question_text]' do %>
+          <%= check_box_tag 'export[question_text]', true, true %>
+          <%= _('question text (will only display your answers)') %>
         <% end %>
       </div>
       <div class="checkbox">

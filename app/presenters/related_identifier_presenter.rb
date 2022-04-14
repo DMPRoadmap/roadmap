@@ -23,7 +23,7 @@ class RelatedIdentifierPresenter
       next unless related.is_a?(RelatedIdentifier)
 
       dflt = "#{related.work_type&.humanize} - #{related.value}"
-      link = format('%<work_type>s - <a href="%<url>s" target="_blank">%<url>s</a>',
+      link = format('%{work_type} - <a href="%{url}" target="_blank">%{url}</a>',
                     work_type: related.work_type&.humanize, url: related.value)
       if related.citation.present?
         related.citation

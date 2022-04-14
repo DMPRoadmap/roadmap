@@ -63,6 +63,24 @@ describe RegistryOrg do
       described_class.expects(:by_alias).returns(stubbed)
       described_class.send(:search, term: @term)
     end
+
+    describe ':from_email_domain(email_domain:)' do
+      it 'returns nil if no :email_domain is present' do
+        expect(described_class.send(:from_email_domain, email_domain: nil)).to eql(nil)
+      end
+      it 'returns nil if no RegistryOrg matched the :email_domain' do
+        expect(described_class.send(:from_email_domain, email_domain: 'foo.bar')).to eql(nil)
+      end
+      it 'returns the closest matching RegistryOrg' do
+        rorg1 = create(:registry_org)
+        create(:registry_org, home_page: "#{rorg1.home_page}.foo")
+        result = described_class.send(:from_email_domain, email_domain: rorg1.home_page.upcase)
+        expected = rorg1.to_org
+        expect(result.name).to eql(expected.name)
+        expect(result.abbreviation).to eql(expected.abbreviation)
+        expect(result.target_url).to eql(expected.target_url)
+      end
+    end
   end
 
   context 'instance methods' do

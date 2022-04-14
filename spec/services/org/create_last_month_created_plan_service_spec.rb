@@ -120,7 +120,7 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
 
     context 'when no org is passed' do
       it "generates counts from today's last month" do
-        Org.expects(:all).returns([org])
+        Org.expects(:where).returns([org])
 
         described_class.call
 
@@ -133,7 +133,7 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
       end
 
       it "generates counts by template from today's last month" do
-        Org.expects(:all).returns([org])
+        Org.expects(:where).returns([org])
 
         described_class.call
 
@@ -151,7 +151,7 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
       end
 
       it "generates counts using template from today's last month" do
-        Org.expects(:all).returns([org])
+        Org.expects(:where).returns([org])
 
         described_class.call
 
@@ -169,7 +169,7 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
       end
 
       it 'monthly records are either created or updated' do
-        Org.stubs(:all).returns([org])
+        Org.stubs(:where).returns([org])
 
         described_class.call
 

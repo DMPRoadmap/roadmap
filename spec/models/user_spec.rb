@@ -505,7 +505,7 @@ RSpec.describe User, type: :model do
       it 'returns the default value' do
         Pref.expects(:default_settings)
             .returns(email: { foo: { 'bar' => 'baz' } })
-        expect(subject).to eql({ foo: { 'bar' => 'baz' } })
+        expect(subject).to eql(JSON.parse({ foo: { 'bar' => 'baz' } }.to_json))
       end
     end
 
@@ -518,7 +518,7 @@ RSpec.describe User, type: :model do
       it "returns the User's value" do
         Pref.expects(:default_settings)
             .returns(email: { foo: { bar: 'baz' } })
-        expect(subject).to eql({ foo: { bar: 'bam' } })
+        expect(subject).to eql(JSON.parse({ foo: { bar: 'bam' } }.to_json))
       end
     end
 
@@ -531,7 +531,7 @@ RSpec.describe User, type: :model do
       it 'includes the default' do
         Pref.expects(:default_settings)
             .returns(email: { default: { val: true }, foo: { bar: 'baz' } })
-        expect(subject).to eql({ default: { val: true }, foo: { bar: 'bam' } })
+        expect(subject).to eql(JSON.parse({ default: { val: true }, foo: { bar: 'bam' } }.to_json))
       end
     end
   end

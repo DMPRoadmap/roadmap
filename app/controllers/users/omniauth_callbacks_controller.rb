@@ -82,11 +82,11 @@ module Users
       user.external_api_access_tokens = [token] if token.present?
 
       if id.present?
-        msg = _('Your account has been successfully linked to %<scheme>s.')
+        msg = _('Your account has been successfully linked to %{scheme}.')
         redirect_to users_third_party_apps_path,
                     notice: format(msg, scheme: provider(scheme_name: scheme_name))
       else
-        msg = _('Unable to link your account to %<scheme>s')
+        msg = _('Unable to link your account to %{scheme}')
         redirect_to users_third_party_apps_path,
                     alert: format(msg, scheme: provider(scheme_name: scheme_name))
       end

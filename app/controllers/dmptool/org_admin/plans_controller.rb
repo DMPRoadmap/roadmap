@@ -26,7 +26,7 @@ module Dmptool
                              org: user.org || current_user.org)
         notify_user(user: user, plan: plan)
 
-        msg = format(_("A new DMP has been created and an email sent to '%<email>s'."),
+        msg = format(_("A new DMP has been created and an email sent to '%{email}'."),
                      email: plan_params[:user][:email])
         redirect_to organisational_org_admin_templates_path, notice: msg
       end
