@@ -2,7 +2,7 @@
 
 meta = dmp.meta
 project_fragment = dmp.project
-research_outputs = dmp.research_outputs
+research_outputs = dmp.plan.research_outputs.order(:display_order)
 
 json.prettify!
 
@@ -65,6 +65,6 @@ json.dmp do
     end
   end
   json.partial! "shared/export/madmp_export_templates/rda/datasets",
-                datasets: research_outputs, selected_datasets: selected_research_outputs
+                research_outputs: research_outputs, selected_datasets: selected_research_outputs
 end
 # rubocop:enable Metrics/BlockLength

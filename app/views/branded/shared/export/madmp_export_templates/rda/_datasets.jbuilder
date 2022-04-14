@@ -5,7 +5,8 @@ ethical_issues_description = []
 ethical_issues_report = []
 
 # rubocop:disable Metrics/BlockLength
-json.dataset datasets do |dataset|
+json.dataset research_outputs do |research_output|
+  dataset = research_output.json_fragment
   next unless selected_datasets.include?(dataset.data["research_output_id"])
 
   dataset_title = dataset.research_output_description.data["title"]
