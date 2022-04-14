@@ -12,16 +12,12 @@
     <div id="import-format">
       <ul>
         <li class="checkbox">
-        <%= f.label 'import[format]' do %>
           <%= f.radio_button "import[format]", "standard", checked: true %>
-          <%= _('Standard') %>
-        <% end %>
+          <%= f.label 'import[format]', _('Standard'), value: "standard" %>
         </li>
         <li class="checkbox">
-        <%= f.label 'import[format]' do %>
-          <%= f.radio_button "import[format]", "rda" %>
-          <%= _('RDA Commons Standards') %>
-        <% end %>
+          <%= f.radio_button "import[format]", "rda"%>
+          <%= f.label 'import[format]', _('RDA Commons Standards'), value: "rda" %>
         </li>
       </ul>
     </div>
