@@ -21,7 +21,7 @@ class PlanExportsController < ApplicationController
       # Remove single :question_headings and replace with separate :section_headings and
       # :question_text
       #
-      #@show_sections_questions  = export_params[:question_headings].present?
+      # @show_sections_questions  = export_params[:question_headings].present?
       @show_sections            = export_params[:section_headings].present?
       @show_questions           = export_params[:question_text].present?
 
