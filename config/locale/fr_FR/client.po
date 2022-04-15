@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-04-08 14:45+0200\n"
-"PO-Revision-Date: 2022-04-08 14:45+0200\n"
+"POT-Creation-Date: 2022-04-15 08:55+0200\n"
+"PO-Revision-Date: 2022-04-15 08:55+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -629,6 +629,7 @@ msgstr "Nbre d'utilisateurs inscrits"
 
 #: ../../app/controllers/usage_controller.rb:72
 #: ../../app/controllers/usage_controller.rb:93
+#: ../../app/views/branded/users/admin_index.html.erb:6
 msgid "Total"
 msgstr "Total"
 
@@ -2874,7 +2875,7 @@ msgid "Default export"
 msgstr "Export par défaut"
 
 #: ../../app/views/branded/plans/_download_form.html.erb:125
-#: ../../app/views/branded/plans/import.html.erb:23
+#: ../../app/views/branded/plans/import.html.erb:20
 msgid "RDA Commons Standards"
 msgstr "RDA Commons Standards"
 
@@ -3234,19 +3235,19 @@ msgstr "Etape du cycle de vie"
 msgid "General Budget"
 msgstr "Budget général"
 
-#: ../../app/views/branded/plans/import.html.erb:17
+#: ../../app/views/branded/plans/import.html.erb:16
 msgid "Standard"
 msgstr "Standard"
 
-#: ../../app/views/branded/plans/import.html.erb:31
+#: ../../app/views/branded/plans/import.html.erb:27
 msgid "Structured template"
 msgstr "Modèle structuré"
 
-#: ../../app/views/branded/plans/import.html.erb:41
+#: ../../app/views/branded/plans/import.html.erb:37
 msgid "File"
 msgstr "Fichier"
 
-#: ../../app/views/branded/plans/import.html.erb:49
+#: ../../app/views/branded/plans/import.html.erb:45
 msgid "Import"
 msgstr "Importer"
 
@@ -3817,18 +3818,13 @@ msgstr "La visibilité de mon DMP a changé"
 msgid "User accounts"
 msgstr "Comptes utilisateurs"
 
-#: ../../app/views/branded/users/admin_index.html.erb:6
-msgid "Total "
-msgstr "Total"
-
 #: ../../app/views/branded/users/admin_index.html.erb:13
 msgid ""
 "Below is a list of users registered for your organisation. You can\n"
 "        sort the data by each field."
 msgstr ""
 "Vous trouverez ci-dessous une liste des utilisateurs enregistrés pour votre or"
-"ganisation. Vous pouvez\n"
-"        trier les données par chaque champ."
+"ganisme. Vous pouvez trier les données par champ."
 
 #: ../../app/views/branded/users/admin_index.html.erb:23
 msgid "Download users"

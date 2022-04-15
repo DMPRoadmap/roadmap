@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-04-08 14:45+0200\n"
-"PO-Revision-Date: 2022-04-08 14:45+0200\n"
+"POT-Creation-Date: 2022-04-15 08:55+0200\n"
+"PO-Revision-Date: 2022-04-15 08:55+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -595,6 +595,7 @@ msgstr ""
 
 #: ../../app/controllers/usage_controller.rb:72
 #: ../../app/controllers/usage_controller.rb:93
+#: ../../app/views/branded/users/admin_index.html.erb:6
 msgid "Total"
 msgstr ""
 
@@ -2699,7 +2700,7 @@ msgid "Default export"
 msgstr ""
 
 #: ../../app/views/branded/plans/_download_form.html.erb:125
-#: ../../app/views/branded/plans/import.html.erb:23
+#: ../../app/views/branded/plans/import.html.erb:20
 msgid "RDA Commons Standards"
 msgstr ""
 
@@ -3026,19 +3027,19 @@ msgstr ""
 msgid "General Budget"
 msgstr ""
 
-#: ../../app/views/branded/plans/import.html.erb:17
+#: ../../app/views/branded/plans/import.html.erb:16
 msgid "Standard"
 msgstr ""
 
-#: ../../app/views/branded/plans/import.html.erb:31
+#: ../../app/views/branded/plans/import.html.erb:27
 msgid "Structured template"
 msgstr ""
 
-#: ../../app/views/branded/plans/import.html.erb:41
+#: ../../app/views/branded/plans/import.html.erb:37
 msgid "File"
 msgstr ""
 
-#: ../../app/views/branded/plans/import.html.erb:49
+#: ../../app/views/branded/plans/import.html.erb:45
 msgid "Import"
 msgstr ""
 
@@ -3559,10 +3560,6 @@ msgstr ""
 #: ../../app/views/branded/users/admin_index.html.erb:1
 #: ../../app/views/branded/users/admin_index.html.erb:5
 msgid "User accounts"
-msgstr ""
-
-#: ../../app/views/branded/users/admin_index.html.erb:6
-msgid "Total "
 msgstr ""
 
 #: ../../app/views/branded/users/admin_index.html.erb:13
