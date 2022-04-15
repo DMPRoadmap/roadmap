@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-04-15 08:55+0200\n"
-"PO-Revision-Date: 2022-04-15 08:55+0200\n"
+"POT-Creation-Date: 2022-04-15 09:35+0200\n"
+"PO-Revision-Date: 2022-04-15 09:35+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -44,7 +44,7 @@ msgstr "Vous devez vous connecter ou vous inscrire pour continuer."
 
 #: ../../app/controllers/application_controller.rb:112
 msgid "Unable to %<action>s the %<object>s.%<errors>s"
-msgstr "Impossible de %<action> le %<object>s. %<errors>s"
+msgstr "Impossible de %<action>s le %<object>s. %<errors>s"
 
 #: ../../app/controllers/application_controller.rb:118
 msgid "Successfully %<action>s the %<object>s."
@@ -850,7 +850,7 @@ msgstr "Lecture seule"
 
 #: ../../app/helpers/plans_helper.rb:22
 #: ../../app/helpers/settings_template_helper.rb:16
-#: ../../app/views/branded/orgs/_profile_form.html.erb:136
+#: ../../app/views/branded/orgs/_profile_form.html.erb:128
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:5
 #: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:7
 #: ../../app/views/branded/paginable/users/_index.html.erb:23
@@ -925,7 +925,7 @@ msgid "Plan Description"
 msgstr "Description"
 
 #: ../../app/helpers/settings_template_helper.rb:15
-#: ../../app/views/branded/orgs/_profile_form.html.erb:124
+#: ../../app/views/branded/orgs/_profile_form.html.erb:116
 #: ../../app/views/branded/plans/_form.html.erb:41
 #: ../../app/views/branded/plans/_form.html.erb:86
 msgid "Funder"
@@ -1243,7 +1243,7 @@ msgstr "Merci de patienter, les standards sont en cours de chargement"
 #: ../../app/views/branded/org_admin/questions/_show.html.erb:216
 #: ../../app/views/branded/org_admin/templates/_form.html.erb:102
 #: ../../app/views/branded/org_admin/users/edit.html.erb:55
-#: ../../app/views/branded/orgs/_profile_form.html.erb:152
+#: ../../app/views/branded/orgs/_profile_form.html.erb:144
 #: ../../app/views/branded/plans/_edit_details.html.erb:118
 #: ../../app/views/branded/plans/_edit_details.html.erb:189
 #: ../../app/views/branded/plans/_share_form.html.erb:112
@@ -1747,7 +1747,7 @@ msgid "Mailing list"
 msgstr "Liste de diffusion"
 
 #: ../../app/views/branded/layouts/_navigation.html.erb:12
-#: ../../app/views/branded/orgs/_profile_form.html.erb:55
+#: ../../app/views/branded/orgs/_profile_form.html.erb:47
 msgid "logo"
 msgstr "logo"
 
@@ -2362,15 +2362,15 @@ msgstr ""
 "illez contacter le service d'assistance pour toutes questions ou demandes de m"
 "odifications."
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:21
+#: ../../app/views/branded/orgs/_profile_form.html.erb:14
 msgid "Organisation full name"
 msgstr "Nom complet de l'organisme"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:27
+#: ../../app/views/branded/orgs/_profile_form.html.erb:20
 msgid "Organisation abbreviated name"
 msgstr "Nom abrégé de l'organisme"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:38
+#: ../../app/views/branded/orgs/_profile_form.html.erb:30
 msgid ""
 "A managed Org is one that can have its own Guidance and/or Templates. An unman"
 "aged Org is one that was automatically created by the system when a user enter"
@@ -2381,59 +2381,59 @@ msgstr ""
 "utomatiquement créée par le système lorsqu'un utilisateur l'a entrée / sélecti"
 "onnée."
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:39
+#: ../../app/views/branded/orgs/_profile_form.html.erb:31
 msgid "Managed? (allows Org Admins to access the Admin menu)"
 msgstr "Géré? (permet aux administrateurs de l'organisation d'accéder au menu Admin)"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:51
+#: ../../app/views/branded/orgs/_profile_form.html.erb:43
 msgid "Organization logo"
 msgstr "Logo de l'organisme"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:59
+#: ../../app/views/branded/orgs/_profile_form.html.erb:51
 msgid "This will remove your organisation's logo"
 msgstr "Cela supprimera le logo de votre organisation"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:60
+#: ../../app/views/branded/orgs/_profile_form.html.erb:52
 msgid "Remove logo"
 msgstr "Supprimer le logo"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:62
+#: ../../app/views/branded/orgs/_profile_form.html.erb:54
 msgid "or"
 msgstr "ou"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:75
+#: ../../app/views/branded/orgs/_profile_form.html.erb:67
 msgid "Maximum 3 lines (about 250 characters)"
 msgstr "Maximum 3 lignes (environ 250 caractères)"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:77
+#: ../../app/views/branded/orgs/_profile_form.html.erb:69
 msgid "Banner text"
 msgstr "Texte de la bannière"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:89
+#: ../../app/views/branded/orgs/_profile_form.html.erb:81
 msgid "Organisation URLs"
 msgstr "URL d'organisme"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:101
+#: ../../app/views/branded/orgs/_profile_form.html.erb:93
 msgid "Administrator contact"
 msgstr "Contact administrateur"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:106
+#: ../../app/views/branded/orgs/_profile_form.html.erb:98
 msgid "Contact email"
 msgstr "Courriel de contact"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:110
+#: ../../app/views/branded/orgs/_profile_form.html.erb:102
 msgid "Link text"
 msgstr "Texte du lien"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:120
+#: ../../app/views/branded/orgs/_profile_form.html.erb:112
 msgid "Organisation Types"
 msgstr "Types d'organisme"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:130
+#: ../../app/views/branded/orgs/_profile_form.html.erb:122
 msgid "Institution"
 msgstr "Institution"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:143
+#: ../../app/views/branded/orgs/_profile_form.html.erb:135
 msgid "Organisation types"
 msgstr "Types d'organisme"
 
