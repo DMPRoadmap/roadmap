@@ -3,6 +3,16 @@
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
 ## 08/04/2022
+- Les exports JSON exportent les produits de recherche dans l'ordre d'affichage de l'onglet Produits de Recherche (issue gitbucket 371 & 373)
+- L'import RDA récupère désormais les contributeurs (issue gitbucket 373)
+- Les boutons radio des formulaires d'import et de téléchargement d'un plan sont désormais cochés quand on clique sur le libellé 
+- Il est de nouveau possible de créer des organismes depuis la création de compte et le profil utilisateur, si l'organisme n'est pas dans la liste (issue gitbucket 370)
+- Amélioration de l'affichage du nom d'utilisateurs (issue gitbucket 368)
+- Suppression du champ de recherche d'organisme dans le formulaire de création d'un nouvel organisme (issue gitbucket 370) => ce champ permet de rechercher l'organisme sur ROR, or cette fonctionnalité n'est pas activée chez nous
+- Correction du problème de sauvegarde d'un nouvel organisme (message en rouge) (issue gitbucket 370)
+
+
+## 08/04/2022
 - Correction de problèmes dans  les exports Standard & RDA (issue gitbucket 364)
 - La liste des formulaires disponibles est désormais limitées aux propriétés liées au template ResearchOutput, lors de la création/mise à jour d'une question lors de l'édition d'un modèle de DMP
 - Suppression de tables et colonnes non utilisées (issue gitbucket 365)
