@@ -43,8 +43,6 @@ class PlansController < ApplicationController
     @plan = Plan.new
     authorize @plan
 
-    p @plan.inspect
-
     # If the template_id is blank then we need to look up the available templates and
     # return JSON
     if plan_params[:template_id].blank?

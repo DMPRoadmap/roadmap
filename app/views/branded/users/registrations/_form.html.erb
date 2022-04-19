@@ -11,7 +11,7 @@
   <div id="sign-up-email" class="c-textfield js-textfield">
     <%= form.label(:email, _('Email address')) %>
     <%= form.email_field(:disabled_email, value: resource.email,
-                        autocomplete: 'email', disabled: "disabled") %>
+                         autocomplete: 'email', disabled: "disabled") %>
     <%= form.hidden_field(:email, value: resource.email) %>
   </div>
 <% end %>
