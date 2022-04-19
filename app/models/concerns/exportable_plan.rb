@@ -80,7 +80,7 @@ module ExportablePlan
 
     # add the relevant questions/answers
     phases = []
-    template.phases.each do |phase|
+    template.phases.order(:number).each do |phase|
       # --------------------------------
       # Start DMP OPIDoR Customization
       # Changes: Added Phase id
