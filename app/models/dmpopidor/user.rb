@@ -24,11 +24,11 @@ module Dmpopidor
       self.current_sign_in_ip = nil
       self.active = false
 
-      user_identifiers.destroy_all
+      identifiers.destroy_all
 
       Rails.logger.info "User #{id} anonymized"
       p "User #{id} anonymized"
-      UserMailer.anonymization_notice(copy).deliver_now
+      ::UserMailer.anonymization_notice(copy).deliver_now
 
       save
     end
