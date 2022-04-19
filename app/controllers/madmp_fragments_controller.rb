@@ -171,10 +171,9 @@ class MadmpFragmentsController < ApplicationController
           is_common: p_params[:answer][:is_common],
           user_id: current_user.id
         )
-        @fragment.answer.touch
-      else
-        @fragment.plan.touch
       end
+
+      @fragment.plan.touch
 
       @fragment.save_form_fragment(data, schema)
     rescue ActiveRecord::StaleObjectError
@@ -190,8 +189,7 @@ class MadmpFragmentsController < ApplicationController
 
     return unless @fragment.present?
 
-    # Callbacks (not using rails callbacks so no infinite callback loop is created)
-    @fragment.update_meta_fragment if @fragment.classname.eql?('project')
+    @fragment.update_meta_fragment
 
     case source
     when 'list-modal'

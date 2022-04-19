@@ -33,7 +33,7 @@ class MadmpFragment < ApplicationRecord
   # = Associations =
   # ================
 
-  belongs_to :answer, optional: true
+  belongs_to :answer, optional: true, touch: true
   belongs_to :madmp_schema, class_name: 'MadmpSchema'
   belongs_to :dmp, class_name: 'Fragment::Dmp', foreign_key: 'dmp_id', optional: true
   has_many :children, class_name: 'MadmpFragment', foreign_key: 'parent_id', dependent: :destroy
@@ -87,7 +87,6 @@ class MadmpFragment < ApplicationRecord
   # =============
 
   before_save   :set_defaults
-  after_commit  :update_plan_title
   after_create  :update_parent_references
   after_destroy :update_parent_references
 
@@ -433,15 +432,21 @@ class MadmpFragment < ApplicationRecord
   end
 
   def update_meta_fragment
-    return unless classname.eql?('project')
-
-    meta = dmp.meta
-    dmp_title = format(_('"%<project_title>s" project DMP'), project_title: data['title'])
-    meta.update(
-      data: meta.data.merge(
+    if classname.eql?('meta')
+      plan.update(title: data['title'])
+      meta_data = data.merge(
+        'lastModifiedDate' => plan.updated_at.strftime('%F')
+      )
+    else
+      meta = dmp.meta
+      project = dmp.project
+      dmp_title = format(_('"%<project_title>s" project DMP'), project_title: project.data['title'])
+      meta_data = meta.data.merge(
         'title' => dmp_title, 'lastModifiedDate' => plan.updated_at.strftime('%F')
       )
-    )
+      plan.update(title: dmp_title)
+    end
+    meta.update(data: meta_data)
   end
 
   # =================
@@ -508,12 +513,6 @@ class MadmpFragment < ApplicationRecord
     self.data ||= {}
     self.additional_info ||= {}
     self.parent_id = nil if classname.eql?('person')
-  end
-
-  def update_plan_title
-    return unless classname.eql?('meta')
-
-    plan.update(title: data['title'])
   end
 end
 # rubocop:enable Metrics/ClassLength
