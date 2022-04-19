@@ -73,10 +73,10 @@ module Api
 
         # Get all the Org Admin plans
         org_admin_plans = @user.org.org_admin_plans
-        @plans = org_admin_plans.includes([{ roles: :user }, { answers: :question_options },
-                                           template: [{ phases: {
-                                             sections: { questions: %i[question_format themes] }
-                                           } }, :org]])
+        @plans = org_admin_plans.preload([{ roles: :user }, { answers: :question_options },
+                                          template: [{ phases: {
+                                            sections: { questions: %i[question_format themes] }
+                                          } }, :org]])
 
         # Filter on list of users
         user_ids = extract_param_list(params, 'user')
