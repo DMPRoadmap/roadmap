@@ -1,10 +1,17 @@
 # frozen_string_literal: true
 
 # config/initializers/jbuilder_prettify.rb
+<<<<<<< HEAD
 require "jbuilder"
 
 class Jbuilder
 
+=======
+require 'jbuilder'
+
+# Helper for JBuilder that allows JSON to be output in human readable format
+class Jbuilder
+>>>>>>> upstream/master
   ##
   # Allows you to set @prettify manually in your .jbuilder files.
   # Example:
@@ -27,5 +34,8 @@ class Jbuilder
   def target!
     @prettify ? ::JSON.pretty_generate(@attributes) : _original_target
   end
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/master
 end

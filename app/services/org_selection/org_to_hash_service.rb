@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+<<<<<<< HEAD
 require "text"
 
 module OrgSelection
@@ -10,6 +11,15 @@ module OrgSelection
 
     class << self
 
+=======
+require 'text'
+
+module OrgSelection
+  # This class provides a search mechanism for Orgs that looks at records in the
+  # the database along with any available external APIs
+  class OrgToHashService
+    class << self
+>>>>>>> upstream/master
       # Convert an Identifiable Model over to hash results like:
       # An Org with id = 123, name = "Foo (foo.org)",
       #             identifier (ROR) = "http://example.org/123"
@@ -36,9 +46,14 @@ module OrgSelection
         end
         out
       end
+<<<<<<< HEAD
 
     end
 
   end
 
+=======
+    end
+  end
+>>>>>>> upstream/master
 end

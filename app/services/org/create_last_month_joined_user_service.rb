@@ -7,12 +7,20 @@ StatJoinedUser.class
 StatJoinedUser::CreateOrUpdate.class
 User.class
 
+<<<<<<< HEAD
 class Org
 
   class CreateLastMonthJoinedUserService
 
     class << self
 
+=======
+# Org usage --- TODO: This should likely be a module
+class Org
+  # Usage for Nbr of created users in the prior month
+  class CreateLastMonthJoinedUserService
+    class << self
+>>>>>>> upstream/master
       def call(org = nil, threads: 0)
         orgs = org.nil? ? ::Org.all : [org]
 
@@ -28,9 +36,14 @@ class Org
           )
         end
       end
+<<<<<<< HEAD
 
     end
 
   end
 
+=======
+    end
+  end
+>>>>>>> upstream/master
 end

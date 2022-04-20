@@ -1,9 +1,15 @@
 # frozen_string_literal: true
 
+<<<<<<< HEAD
 require "text"
 
 module OrgSelection
 
+=======
+require 'text'
+
+module OrgSelection
+>>>>>>> upstream/master
   # This class provides conversion methods for turning OrgSelection::Search
   # results into Orgs and Identifiers
   # For example:
@@ -17,9 +23,13 @@ module OrgSelection
   #             identifier (ROR) = "http://example.org/123"
   #
   class HashToOrgService
+<<<<<<< HEAD
 
     class << self
 
+=======
+    class << self
+>>>>>>> upstream/master
       def to_org(hash:, allow_create: true)
         return nil unless hash.present?
 
@@ -43,6 +53,10 @@ module OrgSelection
         allow_create ? initialize_org(hash: hash) : nil
       end
 
+<<<<<<< HEAD
+=======
+      # rubocop:disable Metrics/AbcSize
+>>>>>>> upstream/master
       def to_identifiers(hash:)
         return [] unless hash.present?
 
@@ -61,6 +75,10 @@ module OrgSelection
         end
         out
       end
+<<<<<<< HEAD
+=======
+      # rubocop:enable Metrics/AbcSize
+>>>>>>> upstream/master
 
       private
 
@@ -81,10 +99,14 @@ module OrgSelection
       # Lookup the Org by its :name
       def lookup_org_by_name(hash:)
         clean_name = OrgSelection::SearchService.name_without_alias(name: hash[:name])
+<<<<<<< HEAD
         ## org = Org.search(clean_name).first 
         ## Part of ISSUE149: switch to exact match to solve the bug that 'test' cannot be saved if 'any_org_with_test_as_substring' exist already
         ## if duplicate org name, return the first (i.e. this org exists)
         org = Org.where(name: clean_name).first
+=======
+        org = Org.search(clean_name).first
+>>>>>>> upstream/master
         exact_match?(rec: org, name2: hash[:name]) ? org : nil
       end
 
@@ -92,7 +114,11 @@ module OrgSelection
       def initialize_org(hash:)
         return nil unless hash.present? && hash[:name].present?
 
+<<<<<<< HEAD
         org = Org.new(
+=======
+        Org.new(
+>>>>>>> upstream/master
           name: hash[:name],
           links: links_from_hash(name: hash[:name], website: hash[:url]),
           language: language_from_hash(hash: hash),
@@ -101,14 +127,23 @@ module OrgSelection
           is_other: false,
           abbreviation: abbreviation_from_hash(hash: hash)
         )
+<<<<<<< HEAD
         org
+=======
+>>>>>>> upstream/master
       end
 
       # Convert the name and website into Org.links
       def links_from_hash(name:, website:)
+<<<<<<< HEAD
         return { "org": [] } unless name.present? && website.present?
 
         { "org": [{ "link": website, "text": name }] }
+=======
+        return { org: [] } unless name.present? && website.present?
+
+        { org: [{ link: website, text: name }] }
+>>>>>>> upstream/master
       end
 
       # Converts the Org name over to a unique abbreviation
@@ -119,7 +154,11 @@ module OrgSelection
 
         # Get the first letter of each word if no abbreviiation was provided
         OrgSelection::SearchService.name_without_alias(name: hash[:name])
+<<<<<<< HEAD
                                    .split(" ").map(&:first).join.upcase
+=======
+                                   .split.map(&:first).join.upcase
+>>>>>>> upstream/master
       end
 
       # Get the language from the hash or use the default
@@ -145,9 +184,14 @@ module OrgSelection
 
         OrgSelection::SearchService.exact_match?(name1: rec.name, name2: name2)
       end
+<<<<<<< HEAD
 
     end
 
   end
 
+=======
+    end
+  end
+>>>>>>> upstream/master
 end

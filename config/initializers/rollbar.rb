@@ -2,7 +2,11 @@
 
 begin
   # If Rollbar has been included in the Bundle, load it here.
+<<<<<<< HEAD
   require "rollbar"
+=======
+  require 'rollbar'
+>>>>>>> upstream/master
 rescue LoadError
   # noop
 end
@@ -12,7 +16,11 @@ if defined?(Rollbar)
     # Without configuration, Rollbar is enabled in all environments.
     # To disable in specific environments, set config.enabled=false.
 
+<<<<<<< HEAD
     config.access_token = Rails.application.secrets.rollbar_access_token
+=======
+    config.access_token = ENV['ROLLBAR_ACCESS_TOKEN']
+>>>>>>> upstream/master
 
     # Here we'll disable in 'test':
     config.enabled = false if Rails.env.test?
@@ -20,11 +28,16 @@ if defined?(Rollbar)
     # By default, Rollbar will try to call the `current_user` controller method
     # to fetch the logged-in user object, and then call that object's `id`
     # method to fetch this property. To customize:
+<<<<<<< HEAD
     config.person_method = "current_user"
     config.person_id_method = 'id_as_hash'
     config.person_username_method = 'id_as_hash'
     config.person_email_method = 'id_as_hash'
 
+=======
+    config.person_method = 'current_user'
+    config.person_id_method = 'id'
+>>>>>>> upstream/master
 
     # Read GDPR guidelines here: https://docs.rollbar.com/docs/ruby#section-gdpr-hipaa
     config.collect_user_ip = true
@@ -35,7 +48,11 @@ if defined?(Rollbar)
     # config.person_email_method = "email"
 
     # Additionally, you may specify the following:
+<<<<<<< HEAD
     # config.person_username_method = "name"
+=======
+    config.person_username_method = 'name'
+>>>>>>> upstream/master
     # config.person_email_method = "email"
 
     # If you want to attach custom data to all exception and message reports,
@@ -74,6 +91,7 @@ if defined?(Rollbar)
     # The :host key is mandatory and must include the URL scheme (e.g. 'http://'), all other fields
     # are optional.
     #
+<<<<<<< HEAD
     if Rails.application.secrets.http_proxy.present?
       config.proxy = {
         host: Rails.application.secrets.http_proxy,
@@ -82,12 +100,24 @@ if defined?(Rollbar)
         # password: 'password_if_auth_required'
       }
     end
+=======
+    # config.proxy = {
+    #   host: 'http://some.proxy.server',
+    #   port: 80,
+    #   user: 'username_if_auth_required',
+    #   password: 'password_if_auth_required'
+    # }
+>>>>>>> upstream/master
 
     # If you run your staging application instance in production environment then
     # you'll want to override the environment reported by `Rails.env` with an
     # environment variable like this: `ROLLBAR_ENV=staging`. This is a recommended
     # setup for Heroku. See:
     # https://devcenter.heroku.com/articles/deploying-to-a-custom-rails-environment
+<<<<<<< HEAD
     config.environment = ENV["ROLLBAR_ENV"].presence || Rails.env
+=======
+    config.environment = ENV['ROLLBAR_ENV'].presence || Rails.env
+>>>>>>> upstream/master
   end
 end

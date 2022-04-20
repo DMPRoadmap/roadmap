@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Api
+<<<<<<< HEAD
 
   module V1
 
@@ -18,6 +19,18 @@ module Api
 
       class << self
 
+=======
+  module V1
+    # Service used to validate incoming JSON
+    class JsonValidationService
+      BAD_PLAN_MSG = _(":title and the contact's :mbox are both required fields").freeze
+      BAD_ID_MSG = _(':type and :identifier are required for all ids').freeze
+      BAD_ORG_MSG = _(':name is required for every :affiliation and :funding').freeze
+      BAD_CONTRIB_MSG = _(':role and either the :name or :email are required for each :contributor').freeze
+      BAD_FUNDING_MSG = _(':name, :funder_id or :grant_id are required for each funding').freeze
+      BAD_DATASET_MSSG = _(':title is required for each :dataset').freeze
+      class << self
+>>>>>>> upstream/master
         def plan_valid?(json:)
           json.present? && json[:title].present? && json[:contact].present? &&
             json[:contact][:mbox].present?
@@ -54,6 +67,7 @@ module Api
         # rubocop:disable Metrics/AbcSize
         # Scans the entire JSON document for invalid metadata and returns
         # friendly errors to help the caller resolve the issue
+<<<<<<< HEAD
         def validation_errors(json:)
           errs = []
           return [_("invalid JSON")] unless json.present?
@@ -62,6 +76,15 @@ module Api
           if json[:dmp_id].present?
             errs << BAD_ID_MSG unless identifier_valid?(json: json[:dmp_id])
           end
+=======
+        # rubocop:disable Metrics/CyclomaticComplexity
+        def validation_errors(json:)
+          errs = []
+          return [_('invalid JSON')] unless json.present?
+
+          errs << BAD_PLAN_MSG unless plan_valid?(json: json)
+          errs << BAD_ID_MSG if json[:dmp_id].present? && !identifier_valid?(json: json[:dmp_id])
+>>>>>>> upstream/master
 
           # Handle Contact
           errs << contributor_validation_errors(json: json[:contact])
@@ -70,6 +93,10 @@ module Api
           errs << json.fetch(:contributor, []).map do |contributor|
             contributor_validation_errors(json: contributor)
           end
+<<<<<<< HEAD
+=======
+          # rubocop:enable Metrics/CyclomaticComplexity
+>>>>>>> upstream/master
 
           # Handle the Project and Fundings
           json.fetch(:project, []).each do |project|
@@ -93,9 +120,13 @@ module Api
                                                               is_contact: true)
             errs << org_validation_errors(json: json[:affiliation]) if json[:affiliation].present?
             id = json.fetch(:contributor_id, json[:contact_id])
+<<<<<<< HEAD
             if id.present?
               errs << BAD_ID_MSG unless identifier_valid?(json: id)
             end
+=======
+            errs << BAD_ID_MSG if id.present? && !identifier_valid?(json: id)
+>>>>>>> upstream/master
           end
           errs
         end
@@ -106,9 +137,13 @@ module Api
 
           errs << BAD_FUNDING_MSG unless funding_valid?(json: json)
           errs << org_validation_errors(json: json)
+<<<<<<< HEAD
           if json[:grant_id].present?
             errs << BAD_ID_MSG unless identifier_valid?(json: json[:grant_id])
           end
+=======
+          errs << BAD_ID_MSG if json[:grant_id].present? && !identifier_valid?(json: json[:grant_id])
+>>>>>>> upstream/master
           errs
         end
 
@@ -118,6 +153,7 @@ module Api
 
           errs << BAD_ORG_MSG unless org_valid?(json: json)
           id = json.fetch(:affiliation_id, json[:funder_id])
+<<<<<<< HEAD
           if id.present?
             errs << BAD_ID_MSG unless identifier_valid?(json: id)
           end
@@ -130,4 +166,12 @@ module Api
 
   end
 
+=======
+          errs << BAD_ID_MSG if id.present? && !identifier_valid?(json: id)
+          errs
+        end
+end
+    end
+  end
+>>>>>>> upstream/master
 end

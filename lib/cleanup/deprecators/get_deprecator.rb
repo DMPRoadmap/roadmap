@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
 module Cleanup
+<<<<<<< HEAD
 
   module Deprecators
 
+=======
+  module Deprecators
+>>>>>>> upstream/master
     # Used to deprecate methods with non-idiomatic getter names.
     #
     # There are methods in the code with non-idiomatic method names. Typically,
@@ -11,6 +15,7 @@ module Cleanup
     # Prefer User#status over User#get_status.
     #
     class GetDeprecator
+<<<<<<< HEAD
 
       ##
       # Default message to display to developer when deprecated method called.
@@ -30,4 +35,20 @@ module Cleanup
 
   end
 
+=======
+      ##
+      # Default message to display to developer when deprecated method called.
+      MESSAGE = '%{deprecated_method} is deprecated. '\
+                'Instead, you should use: %{new_method}. '\
+                "Read #{__FILE__} for more information."
+
+      # Message printed to STDOUT when a deprecated method is called.
+      def deprecation_warning(deprecated_method, _message, _backtrace = nil)
+        new_method = deprecated_method.to_s.gsub(/^get_/, '')
+        message = format(MESSAGE, deprecated_method: deprecated_method, new_method: new_method)
+        Kernel.warn(message)
+      end
+    end
+  end
+>>>>>>> upstream/master
 end

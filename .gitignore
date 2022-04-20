@@ -50,6 +50,7 @@ coverage
 # config/branding.yml
 
 # Ignore some of the initializers
+config/initializers/wicked_pdf.rb
 config/initializers/fingerprint.rb
 
 # Ignore enviroments settings
@@ -86,7 +87,6 @@ yarn-error.log
 yarn-debug.log*
 
 .env
-.env-working
 package-lock.json
 node_modules
 /public/packs

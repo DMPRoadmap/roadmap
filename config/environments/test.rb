@@ -17,7 +17,11 @@ Rails.application.configure do
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = true
   config.public_file_server.headers = {
+<<<<<<< HEAD
     "Cache-Control" => "public, max-age=#{1.hour.to_i}"
+=======
+    'Cache-Control' => "public, max-age=#{1.hour.to_i}"
+>>>>>>> upstream/master
   }
 
   # Disable fragment caching used in ExternalApis and OrgSelection services
@@ -53,4 +57,8 @@ Rails.application.configure do
 end
 
 # Used by Rails' routes url_helpers (typically when including a link in an email)
+<<<<<<< HEAD
 Rails.application.routes.default_url_options[:host] = "example.org"
+=======
+Rails.application.routes.default_url_options[:host] = 'example.org'
+>>>>>>> upstream/master

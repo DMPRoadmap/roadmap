@@ -1,16 +1,26 @@
 # frozen_string_literal: true
 
 module ActiveRecord
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/master
   # The Rails 5.x SchemaDumper includes an `options:` arrgument on table definitions
   # that is not DB agnostic. This Monkey Patch comments out the `options:` section.
   #
   # TODO: Determine if this is still necessary in Rails 6.x+
   class SchemaDumper
+<<<<<<< HEAD
 
     # Method definition taken from the 5.2-stable branch of ActiveRecord:
     #  https://github.com/rails/rails/blob/5-2-stable/activerecord/lib/active_record/schema_dumper.rb
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+=======
+    # Method definition taken from the 5.2-stable branch of ActiveRecord:
+    #  https://github.com/rails/rails/blob/5-2-stable/activerecord/lib/active_record/schema_dumper.rb
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+>>>>>>> upstream/master
     def table(table, stream)
       columns = @connection.columns(table)
       begin
@@ -23,14 +33,22 @@ module ActiveRecord
 
         case pk
         when String
+<<<<<<< HEAD
           tbl.print ", primary_key: #{pk.inspect}" unless pk == "id"
+=======
+          tbl.print ", primary_key: #{pk.inspect}" unless pk == 'id'
+>>>>>>> upstream/master
           pkcol = columns.detect { |c| c.name == pk }
           pkcolspec = column_spec_for_primary_key(pkcol)
           tbl.print ", #{format_colspec(pkcolspec)}" if pkcolspec.present?
         when Array
           tbl.print ", primary_key: #{pk.inspect}"
         else
+<<<<<<< HEAD
           tbl.print ", id: false"
+=======
+          tbl.print ', id: false'
+>>>>>>> upstream/master
         end
 
         # Commenting out Table Options because they are not DB agnostic
@@ -39,7 +57,11 @@ module ActiveRecord
         #   tbl.print ", #{format_options(table_options)}"
         # end
 
+<<<<<<< HEAD
         tbl.puts ", force: :cascade do |t|"
+=======
+        tbl.puts ', force: :cascade do |t|'
+>>>>>>> upstream/master
 
         # then dump all non-primary key columns
         columns.each do |column|
@@ -56,7 +78,11 @@ module ActiveRecord
 
         indexes_in_create(table, tbl)
 
+<<<<<<< HEAD
         tbl.puts "  end"
+=======
+        tbl.puts '  end'
+>>>>>>> upstream/master
         tbl.puts
 
         tbl.rewind
@@ -68,7 +94,12 @@ module ActiveRecord
       end
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+<<<<<<< HEAD
 
   end
 
+=======
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  end
+>>>>>>> upstream/master
 end

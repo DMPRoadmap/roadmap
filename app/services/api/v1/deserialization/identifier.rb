@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Api
+<<<<<<< HEAD
 
   module V1
 
@@ -10,6 +11,13 @@ module Api
 
         class << self
 
+=======
+  module V1
+    module Deserialization
+      # Logic to deserialize RDA common standard to an Identifier object
+      class Identifier
+        class << self
+>>>>>>> upstream/master
           # Convert the incoming JSON into an Identifier
           #    {
           #      "type": "ror",
@@ -29,6 +37,7 @@ module Api
 
             ::Identifier.new(identifier_scheme: scheme, value: json[:identifier])
           end
+<<<<<<< HEAD
 
         end
 
@@ -38,4 +47,10 @@ module Api
 
   end
 
+=======
+        end
+      end
+    end
+  end
+>>>>>>> upstream/master
 end

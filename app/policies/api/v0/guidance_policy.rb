@@ -3,26 +3,35 @@
 module Api
 
   module V0
+<<<<<<< HEAD
 
     class GuidancePolicy < ApplicationPolicy
 
       attr_reader :user
       attr_reader :guidance
+=======
+    # Security rules for API V0 Guidance endpoints
+    class GuidancePolicy < ApplicationPolicy
+      # NOTE: @user is the signed_in_user and @record is the guidance
+>>>>>>> upstream/master
 
       def initialize(user, guidance)
-        raise Pundit::NotAuthorizedError, _("must be logged in") unless user
         unless user.org.token_permission_types.include? TokenPermissionType::GUIDANCES
-          raise Pundit::NotAuthorizedError, _("must have access to guidances api")
+          raise Pundit::NotAuthorizedError, _('must have access to guidances api')
         end
 
+<<<<<<< HEAD
         @user = user
         @guidance = guidance
+=======
+        super(user, guidance)
+>>>>>>> upstream/master
       end
 
       ##
       # is the plan editable by the user
       def show?
-        Guidance.can_view(@user, @guidance.id)
+        Guidance.can_view(@user, @record.id)
       end
 
       ##
@@ -34,5 +43,8 @@ module Api
     end
 
   end
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/master
 end

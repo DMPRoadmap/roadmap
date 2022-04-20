@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Api
+<<<<<<< HEAD
 
   module V0
 
@@ -14,6 +15,12 @@ module Api
         @user = user
         @department = department
       end
+=======
+  module V0
+    # Security rules for API V0 Departments endpoints
+    class DepartmentsPolicy < ApplicationPolicy
+      # NOTE: @user is the signed_in_user and @record is an instance of Department
+>>>>>>> upstream/master
 
       ##
       # an org-admin can create a department for their organisation
@@ -37,8 +44,13 @@ module Api
       # an org-admin may assign users (from their org) to a department (from their org)
       def assign_users?
         @user.can_org_admin? &&
+<<<<<<< HEAD
           @department.present? &&
           @department.org == @user.org
+=======
+          @record.present? &&
+          @record.org == @user.org
+>>>>>>> upstream/master
       end
 
       ##
@@ -46,9 +58,14 @@ module Api
       def unassign_users?
         @user.can_org_admin?
       end
+<<<<<<< HEAD
 
     end
 
   end
 
+=======
+    end
+  end
+>>>>>>> upstream/master
 end

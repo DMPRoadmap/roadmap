@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Api
+<<<<<<< HEAD
 
   module V1
 
@@ -16,14 +17,29 @@ module Api
               payload[:exp] = exp.to_i
               # JWT.encode(payload, Rails.application.credentials.secret_key_base)
               JWT.encode(payload, Rails.application.secrets.secret_key_base)
+=======
+  module V1
+    module Auth
+      module Jwt
+        # Class to handle encryption/descryption of the JWT
+        class JsonWebToken
+          class << self
+            def encode(payload:, exp: 24.hours.from_now)
+              payload[:exp] = exp.to_i
+              JWT.encode(payload, Rails.application.credentials.secret_key_base)
+>>>>>>> upstream/master
             rescue JWT::EncodeError => e
               Rails.logger.error "Api::V1::Auth::Jwt::JsonWebToken.encode - #{e.message}"
               nil
             end
 
             def decode(token:)
+<<<<<<< HEAD
               # body = JWT.decode(token, Rails.application.credentials.secret_key_base)[0]
               body = JWT.decode(token, Rails.application.secrets.secret_key_base)[0]
+=======
+              body = JWT.decode(token, Rails.application.credentials.secret_key_base)[0]
+>>>>>>> upstream/master
               ActiveSupport::HashWithIndifferentAccess.new body
             rescue JWT::ExpiredSignature => e
               raise e
@@ -31,6 +47,7 @@ module Api
               Rails.logger.error "Api::V1::Auth::Jwt::JsonWebToken.decode - #{e.message}"
               nil
             end
+<<<<<<< HEAD
 
           end
 
@@ -42,4 +59,11 @@ module Api
 
   end
 
+=======
+          end
+        end
+      end
+    end
+  end
+>>>>>>> upstream/master
 end

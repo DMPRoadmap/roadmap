@@ -85,13 +85,9 @@ $(() => {
     const orgContext = $('#research-org-controls');
     const funderContext = $('#funder-org-controls');
     const validOrg = validOptions(orgContext);
-    // DMP Assistant does not require a funder for creating a plan. Instead the
-    // Plan controller will search for the default funder when creating the
-    // plan. In our current case this will be "Portage Network"
-    // const validFunder = validOptions(funderContext);
+    const validFunder = validOptions(funderContext);
 
-    // if (!validOrg || !validFunder) {
-    if (!validOrg) {
+    if (!validOrg || !validFunder) {
       $('#available-templates').fadeOut();
       $('#plan_template_id').find(':selected').removeAttr('selected');
       $('#plan_template_id').val('');

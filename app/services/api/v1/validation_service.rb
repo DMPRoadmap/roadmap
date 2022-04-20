@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Api
+<<<<<<< HEAD
 
   module V1
 
@@ -9,6 +10,12 @@ module Api
 
       class << self
 
+=======
+  module V1
+    # Service used to validate incoming JSON
+    class ValidationService
+      class << self
+>>>>>>> upstream/master
         def plan_valid?(json:)
           json.present? && json[:title].present? && json[:contact].present? &&
             json[:contact][:mbox].present?
@@ -45,6 +52,7 @@ module Api
           # TODO: implement this once we support them in the DB
           json.present?
         end
+<<<<<<< HEAD
 
       end
 
@@ -52,4 +60,9 @@ module Api
 
   end
 
+=======
+      end
+    end
+  end
+>>>>>>> upstream/master
 end

@@ -2,13 +2,11 @@
 #org-navbar {
   border-radius: 0px;
   margin-top: -20px;
-  height: 65px;
 }
-
 @media (min-width: 768px) {
   #org-navbar .navbar-nav li a {
-    line-height: 65px;
-    height: 65px;
+    line-height: 102px;
+    height: 102px;
     padding-top: 0;
   }
 }
@@ -24,22 +22,19 @@
   margin-top: -20px;
 
   #banner-org-name {
-    margin-top: 20px;
+    margin-top: 40px;
   }
 }
 @media (min-width: 768px) {
   #org-navbar .navbar-nav li a {
-    line-height: 65px;
-    height: 65px;
+    line-height: 102px;
+    height: 102px;
     padding-top: 0;
     color: $navbar-org-link-color;
     &:hover,
     &:focus {
-      color: darken($navbar-org-link-hover-color,10%);
+      color: darken($navbar-org-link-hover-color,10%)
     }
-  }
-  #org-navbar .navbar-nav ul .active a {
-    color: $navbar-org-link-active-color;
   }
   #org-navbar .org-links {
     padding-top: $grid-gutter-width / 2;
@@ -58,7 +53,6 @@
   @extend .navbar-inverse;
   background-color: $navbar-branding-bg;
   border-color: $navbar-branding-border;
-  border-width: 0px 0px 1px 0px;
 
   .navbar-text {
     color: $navbar-branding-color;
@@ -90,7 +84,6 @@
         background-color: $navbar-branding-link-disabled-bg;
       }
     }
-    margin-left: 5px;
   }
 
   // Darken the responsive nav toggle

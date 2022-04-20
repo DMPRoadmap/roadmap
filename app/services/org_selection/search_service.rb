@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+<<<<<<< HEAD
 require "text"
 
 module OrgSelection
@@ -10,6 +11,15 @@ module OrgSelection
 
     class << self
 
+=======
+require 'text'
+
+module OrgSelection
+  # This class provides a search mechanism for Orgs that looks at records in the
+  # the database along with any available external APIs
+  class SearchService
+    class << self
+>>>>>>> upstream/master
       # Search for organizations both locally and externally
       def search_combined(search_term:)
         return [] unless search_term.present? && search_term.length > 2
@@ -56,9 +66,15 @@ module OrgSelection
       # Removes the parenthesis portion of the name. For example:
       #   "Foo College (foo.edu)" --> "Foo College"
       def name_without_alias(name:)
+<<<<<<< HEAD
         return "" unless name.present?
 
         name.split(" (")&.first&.strip
+=======
+        return '' unless name.present?
+
+        name.split(' (')&.first&.strip
+>>>>>>> upstream/master
       end
 
       private
@@ -71,7 +87,11 @@ module OrgSelection
       def local_search(search_term:)
         return [] unless search_term.present?
 
+<<<<<<< HEAD
         Rails.cache.fetch(["org_selection-local", search_term], expires_in: expiry) do
+=======
+        Rails.cache.fetch(['org_selection-local', search_term], expires_in: expiry) do
+>>>>>>> upstream/master
           Org.includes(identifiers: :identifier_scheme)
              .search(name_without_alias(name: search_term)).to_a
         end
@@ -80,7 +100,11 @@ module OrgSelection
       def externals_search(search_term:)
         return [] unless ExternalApis::RorService.active? && search_term.present?
 
+<<<<<<< HEAD
         Rails.cache.fetch(["org_selection-ror", search_term], expires_in: expiry) do
+=======
+        Rails.cache.fetch(['org_selection-ror', search_term], expires_in: expiry) do
+>>>>>>> upstream/master
           ExternalApis::RorService.search(term: search_term)
         end
       end
@@ -172,9 +196,14 @@ module OrgSelection
           hash.fetch(:score, 0) <= 25 || hash.fetch(:weight, 1) < 2
         end
       end
+<<<<<<< HEAD
 
     end
 
   end
 
+=======
+    end
+  end
+>>>>>>> upstream/master
 end

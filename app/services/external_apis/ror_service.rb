@@ -1,14 +1,21 @@
 # frozen_string_literal: true
 
 module ExternalApis
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/master
   # This service provides an interface to the Research Organization Registry (ROR)
   # API.
   # For more information: https://github.com/ror-community/ror-api
   class RorService < BaseService
+<<<<<<< HEAD
 
     class << self
 
+=======
+    class << self
+>>>>>>> upstream/master
       # Retrieve the config settings from the initializer
       def landing_page_url
         Rails.configuration.x.ror&.landing_page_url || super
@@ -74,7 +81,11 @@ module ExternalApis
 
       # If a JSON parse error occurs then return results of a local table search
       rescue JSON::ParserError => e
+<<<<<<< HEAD
         log_error(method: "ROR search", error: e)
+=======
+        log_error(method: 'ROR search', error: e)
+>>>>>>> upstream/master
         []
       end
 
@@ -93,7 +104,11 @@ module ExternalApis
                         debug: false)
 
         unless resp.present? && resp.code == 200
+<<<<<<< HEAD
           handle_http_failure(method: "ROR search", http_response: resp)
+=======
+          handle_http_failure(method: 'ROR search', http_response: resp)
+>>>>>>> upstream/master
           return []
         end
         JSON.parse(resp.body)
@@ -104,15 +119,27 @@ module ExternalApis
       def query_string(term:, page: 1, filters: [])
         query_string = ["query=#{term}", "page=#{page}"]
         query_string << "filter=#{filters.join(',')}" if filters.any?
+<<<<<<< HEAD
         query_string.join("&")
       end
 
       # Recursive method that can handle multiple ROR result pages if necessary
+=======
+        query_string.join('&')
+      end
+
+      # Recursive method that can handle multiple ROR result pages if necessary
+      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+>>>>>>> upstream/master
       def process_pages(term:, json:, filters: [])
         return [] if json.blank?
 
         results = parse_results(json: json)
+<<<<<<< HEAD
         num_of_results = json.fetch("number_of_results", 1).to_i
+=======
+        num_of_results = json.fetch('number_of_results', 1).to_i
+>>>>>>> upstream/master
 
         # Determine if there are multiple pages of results
         pages = (num_of_results / max_results_per_page.to_f).to_f.ceil
@@ -128,6 +155,7 @@ module ExternalApis
       # If we encounter a JSON parse error on subsequent page requests then just
       # return what we have so far
       rescue JSON::ParserError => e
+<<<<<<< HEAD
         log_error(method: "ROR search", error: e)
         results || []
       end
@@ -148,22 +176,59 @@ module ExternalApis
             language: org_language(item: item),
             fundref: fundref_id(item: item),
             abbreviation: item.fetch("acronyms", []).first
+=======
+        log_error(method: 'ROR search', error: e)
+        results || []
+      end
+      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
+
+      # Convert the JSON items into a hash
+      # rubocop:disable Metrics/AbcSize
+      def parse_results(json:)
+        results = []
+        return results unless json.present? && json.fetch('items', []).any?
+
+        json['items'].each do |item|
+          next unless item['id'].present? && item['name'].present?
+
+          results << {
+            ror: item['id'].gsub(/^#{landing_page_url}/, ''),
+            name: org_name(item: item),
+            sort_name: item['name'],
+            url: item.fetch('links', []).first,
+            language: org_language(item: item),
+            fundref: fundref_id(item: item),
+            abbreviation: item.fetch('acronyms', []).first
+>>>>>>> upstream/master
           }
         end
         results
       end
+<<<<<<< HEAD
+=======
+      # rubocop:enable Metrics/AbcSize
+>>>>>>> upstream/master
 
       # Org names are not unique, so include the Org URL if available or
       # the country. For example:
       #    "Example College (example.edu)"
       #    "Example College (Brazil)"
       def org_name(item:)
+<<<<<<< HEAD
         return "" unless item.present? && item["name"].present?
 
         country = item.fetch("country", {}).fetch("country_name", "")
         website = org_website(item: item)
         # If no website or country then just return the name
         return item["name"] unless website.present? || country.present?
+=======
+        return '' unless item.present? && item['name'].present?
+
+        country = item.fetch('country', {}).fetch('country_name', '')
+        website = org_website(item: item)
+        # If no website or country then just return the name
+        return item['name'] unless website.present? || country.present?
+>>>>>>> upstream/master
 
         # Otherwise return the contextualized name
         "#{item['name']} (#{website || country})"
@@ -171,15 +236,24 @@ module ExternalApis
 
       # Extracts the org's ISO639 if available
       def org_language(item:)
+<<<<<<< HEAD
         dflt = I18n.default_locale || "en"
         return dflt unless item.present?
 
         labels = item.fetch("labels", [{ "iso639": dflt }])
         labels.first&.fetch("iso639", I18n.default_locale) || dflt
+=======
+        dflt = I18n.default_locale || 'en'
+        return dflt unless item.present?
+
+        labels = item.fetch('labels', [{ iso639: dflt }])
+        labels.first&.fetch('iso639', I18n.default_locale) || dflt
+>>>>>>> upstream/master
       end
 
       # Extracts the website domain from the item
       def org_website(item:)
+<<<<<<< HEAD
         return nil unless item.present? && item.fetch("links", [])&.any?
         return nil if item["links"].first.blank?
 
@@ -187,10 +261,20 @@ module ExternalApis
         domain_regex = %r{^(?:http://|www\.|https://)([^/]+)}
         website = item["links"].first.scan(domain_regex).last.first
         website.gsub("www.", "")
+=======
+        return nil unless item.present? && item.fetch('links', [])&.any?
+        return nil if item['links'].first.blank?
+
+        # A website was found, so extract just the domain without the www
+        domain_regex = %r{^(?:http://|www\.|https://)([^/]+)}
+        website = item['links'].first.scan(domain_regex).last.first
+        website.gsub('www.', '')
+>>>>>>> upstream/master
       end
 
       # Extracts the FundRef Id if available
       def fundref_id(item:)
+<<<<<<< HEAD
         return "" unless item.present? && item["external_ids"].present?
         return "" unless item["external_ids"].fetch("FundRef", {}).any?
 
@@ -206,4 +290,18 @@ module ExternalApis
 
   end
 
+=======
+        return '' unless item.present? && item['external_ids'].present?
+        return '' unless item['external_ids'].fetch('FundRef', {}).any?
+
+        # If a preferred Id was specified then use it
+        ret = item['external_ids'].fetch('FundRef', {}).fetch('preferred', '')
+        return ret if ret.present?
+
+        # Otherwise take the first one listed
+        item['external_ids'].fetch('FundRef', {}).fetch('all', []).first
+      end
+    end
+  end
+>>>>>>> upstream/master
 end

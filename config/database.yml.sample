@@ -9,4 +9,8 @@ development:
   <<: *defaults
 
 test:
+<<<<<<< HEAD
   <<: *defaults
+=======
+  <<: *defaults
+>>>>>>> upstream/master

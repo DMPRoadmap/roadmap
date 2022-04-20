@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Api
+<<<<<<< HEAD
 
   module V1
 
@@ -10,6 +11,13 @@ module Api
 
         class << self
 
+=======
+  module V1
+    module Deserialization
+      # Logic to deserialize RDA common standard to a Plan object
+      class Plan
+        class << self
+>>>>>>> upstream/master
           # Convert the incoming JSON into a Plan
           #   {
           #     "dmp": {
@@ -48,6 +56,10 @@ module Api
           #       }]
           #     }
           #   }
+<<<<<<< HEAD
+=======
+          # rubocop:disable Metrics/AbcSize
+>>>>>>> upstream/master
           def deserialize(json: {})
             return nil unless Api::V1::JsonValidationService.plan_valid?(json: json)
 
@@ -73,6 +85,10 @@ module Api
             plan = deserialize_contributors(plan: plan, json: json)
             deserialize_datasets(plan: plan, json: json)
           end
+<<<<<<< HEAD
+=======
+          # rubocop:enable Metrics/AbcSize
+>>>>>>> upstream/master
 
           # ===================
           # = PRIVATE METHODS =
@@ -88,12 +104,20 @@ module Api
               if Api::V1::DeserializationService.doi?(value: id)
                 # Find by the DOI or ARK
                 plan = Api::V1::DeserializationService.object_from_identifier(
+<<<<<<< HEAD
                   class_name: "Plan", json: id_json
+=======
+                  class_name: 'Plan', json: id_json
+>>>>>>> upstream/master
                 )
               else
                 # For URL based identifiers
                 begin
+<<<<<<< HEAD
                   plan = ::Plan.find_by(id: id.split("/").last.to_i)
+=======
+                  plan = ::Plan.find_by(id: id.split('/').last.to_i)
+>>>>>>> upstream/master
                 rescue StandardError
                   # Catches scenarios where the dmp_id is NOT one of our URLs
                   plan = nil
@@ -115,6 +139,10 @@ module Api
           end
 
           # Deserialize the project information and attach to Plan
+<<<<<<< HEAD
+=======
+          # rubocop:disable Metrics/AbcSize
+>>>>>>> upstream/master
           def deserialize_project(plan:, json: {})
             return plan unless json.present? &&
                                json[:project].present? &&
@@ -130,7 +158,11 @@ module Api
 
             Api::V1::Deserialization::Funding.deserialize(plan: plan, json: funding)
           end
+<<<<<<< HEAD
           # rubocop:enable
+=======
+          # rubocop:enable Metrics/AbcSize
+>>>>>>> upstream/master
 
           # Deserialize the contact as a Contributor
           def deserialize_contact(plan:, json: {})
@@ -172,6 +204,7 @@ module Api
 
             extensions.fetch(:template, {})[:id]
           end
+<<<<<<< HEAD
 
         end
 
@@ -181,4 +214,10 @@ module Api
 
   end
 
+=======
+        end
+      end
+    end
+  end
+>>>>>>> upstream/master
 end

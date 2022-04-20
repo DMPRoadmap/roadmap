@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+<<<<<<< HEAD
 require_relative "reporting"
 
 module DataCleanup
@@ -7,6 +8,14 @@ module DataCleanup
   # Check whether a given database record is valid or not
   class InstanceCheck
 
+=======
+require_relative 'reporting'
+
+module DataCleanup
+  # Check whether a given database record is valid or not
+  class InstanceCheck
+    # rubocop:disable Metrics/AbcSize
+>>>>>>> upstream/master
     def call(instance)
       DataCleanup.logger.info("Checking #{instance.class}##{instance.id}...")
       Reporting.total_record_count += 1
@@ -18,6 +27,7 @@ module DataCleanup
           TEXT
           Reporting.invalid_record_count += 1
           Reporting.invalid_records << instance
+<<<<<<< HEAD
           DataCleanup.display("F", inline: true)
         else
           DataCleanup.logger.info("Instance #{instance.class}##{instance.id} valid!")
@@ -31,4 +41,17 @@ module DataCleanup
 
   end
 
+=======
+          DataCleanup.display('F', inline: true)
+        else
+          DataCleanup.logger.info("Instance #{instance.class}##{instance.id} valid!")
+          DataCleanup.display('.', inline: true)
+        end
+      rescue Dragonfly::Job::Fetch::NotFound
+        DataCleanup.display('.', inline: true)
+      end
+    end
+    # rubocop:enable Metrics/AbcSize
+  end
+>>>>>>> upstream/master
 end

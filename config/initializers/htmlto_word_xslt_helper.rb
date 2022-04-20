@@ -6,17 +6,29 @@
 # We applied this gem gem htmltoword-1.1.0.
 
 module Htmltoword
+<<<<<<< HEAD
 
   module XSLTHelper
 
     def xslt_path(template_name)
       if template_name == "numbering"
         File.join(Rails.root.join("app", "assets", "xslt", "htmltoword"), "#{template_name}.xslt")
+=======
+  # Helper for the HtmlToWord library
+  module XSLTHelper
+    def xslt_path(template_name)
+      if template_name == 'numbering'
+        File.join(Rails.root.join('app', 'assets', 'xslt', 'htmltoword'), "#{template_name}.xslt")
+>>>>>>> upstream/master
       else
         File.join(Htmltoword.config.default_xslt_path, "#{template_name}.xslt")
       end
     end
+<<<<<<< HEAD
 
   end
 
+=======
+  end
+>>>>>>> upstream/master
 end
