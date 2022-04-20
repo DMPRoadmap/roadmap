@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
+# Controller for generating CSV download of usage stats
 class UsageDownloadsController < ApplicationController
-
   def index
     check_authorized!
     data = Org::TotalCountStatService.call
     data_csvified = Csvable.from_array_of_hashes(data)
 
-    send_data(data_csvified, filename: "totals.csv")
+    send_data(data_csvified, filename: 'totals.csv')
   end
 
   private
@@ -18,5 +18,4 @@ class UsageDownloadsController < ApplicationController
       raise Pundit::NotAuthorizedError
     end
   end
-
 end

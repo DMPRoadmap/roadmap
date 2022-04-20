@@ -14,10 +14,10 @@ fr-CA:
   date:
     formats:
       default: "%Y-%m-%d"
-      short: "%e %b"
-      long: "%e %B %Y"
-      csv: "%Y-%m-%d"
-      readable: "%d %b %Y"
+      long: "%d %B %Y"
+      short: "%y-%m-%d"
+      csv: "%d/%m/%Y"
+      readable: "%d %B %Y"
     order:
     - :year
     - :month
@@ -65,9 +65,9 @@ fr-CA:
       words_connector: ", "
   time:
     formats:
-      default: "%d %B %Y %Hh %Mmin %Ss"
-      long: "%A %d %B %Y %Hh%M"
-      short: "%d %b %Hh%M"
+      default: "%H h %M min %S s"
+      long: "%A %d %B %Y %H h %M"
+      short: "%H h %M"
   i18n:
     transliterate:
       rule:

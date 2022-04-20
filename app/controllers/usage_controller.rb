@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
+# Controller for site usage statistics
 class UsageController < ApplicationController
-
-  require "csvable"
+  require 'csvable'
 
   after_action :verify_authorized
   # GET /usage
   def index
     authorize :usage
-
     args = default_query_args
     user_data(args: args, as_json: true)
     plan_data(args: args, as_json: true)
@@ -26,9 +25,7 @@ class UsageController < ApplicationController
     authorize :usage
 
     args = default_query_args
-    if usage_params["template_plans_range"].present?
-      args[:start_date] = usage_params["template_plans_range"]
-    end
+    args[:start_date] = usage_params['template_plans_range'] if usage_params['template_plans_range'].present?
     plan_data(args: args, as_json: true)
   end
 
@@ -42,7 +39,7 @@ class UsageController < ApplicationController
     sep = sep_param
     data_csvified = Csvable.from_array_of_hashes(data, true, sep)
 
-    send_data(data_csvified, filename: "totals.csv")
+    send_data(data_csvified, filename: 'totals.csv')
   end
 
   # GET
@@ -53,42 +50,11 @@ class UsageController < ApplicationController
     sep = sep_param
     data_csvified = Csvable.from_array_of_hashes(data, true, sep)
 
-    send_data(data_csvified, filename: "totals.csv")
+    send_data(data_csvified, filename: 'totals.csv')
   end
-
-    # POST /usage_filter
-  # rubocop:disable Metrics/MethodLength
-  def filter
-    # This action is triggered when a user specifies a date range.
-    # A super admin can pass along a nil organization to fetch compounded
-    # statistics
-    authorize :usage
-
-    args = args_from_params
-    @topic = usage_params[:topic]
-
-    case @topic
-    when "plans"
-      plan_data(args: args)
-      total_plans(args: min_max_dates(args: args))
-      @total = @total_org_plans
-      @ranged = @plans_per_month.sum(:count)
-    when 'users'
-      user_data(args: args)
-      total_users(args: min_max_dates(args: args))
-      @total = @total_org_users
-      @ranged = @users_per_month.sum(:count)
-    when 'organisations'
-      @total = Org.managed.count
-      @ranged = ranged_organizations(args: args).count
-    else
-      @total = 0
-      @ranged = 0
-    end
-  end
-  # rubocop:enable Metrics/MethodLength
 
   # GET /usage_yearly_users
+  # rubocop:disable Metrics/AbcSize
   def yearly_users
     # This action is triggered when a user clicks on the 'download csv' button
     # for the annual users chart
@@ -97,17 +63,19 @@ class UsageController < ApplicationController
     user_data(args: default_query_args)
     sep = sep_param
     send_data(CSV.generate(col_sep: sep) do |csv|
-      csv << [_("Month"), _("No. Users joined")]
+      csv << [_('Month'), _('No. Users joined')]
       total = 0
       @users_per_month.each do |data|
-        csv << [data.date.strftime("%b-%y"), data.count]
+        csv << [data.date.strftime('%b-%y'), data.count]
         total += data.count
       end
-      csv << [_("Total"), total]
-    end, filename: "users_joined.csv")
+      csv << [_('Total'), total]
+    end, filename: 'users_joined.csv')
   end
+  # rubocop:enable Metrics/AbcSize
 
   # GET /usage_yearly_plans
+  # rubocop:disable Metrics/AbcSize
   def yearly_plans
     # This action is triggered when a user clicks on the 'download csv' button
     # for the annual plans chart
@@ -116,15 +84,16 @@ class UsageController < ApplicationController
     plan_data(args: default_query_args)
     sep = sep_param
     send_data(CSV.generate(col_sep: sep) do |csv|
-      csv << [_("Month"), _("No. Created Plans")]
+      csv << [_('Month'), _('No. Completed Plans')]
       total = 0
       @plans_per_month.each do |data|
-        csv << [data.date.strftime("%b-%y"), data.count]
+        csv << [data.date.strftime('%b-%y'), data.count]
         total += data.count
       end
-      csv << [_("Total"), total]
-    end, filename: "created_plans.csv")
+      csv << [_('Total'), total]
+    end, filename: 'completed_plans.csv')
   end
+  # rubocop:enable Metrics/AbcSize
 
   # GET /usage_all_plans_by_template
   def all_plans_by_template
@@ -137,10 +106,8 @@ class UsageController < ApplicationController
     sep = sep_param
 
     plan_data(args: args, sort: :desc)
-    # rubocop:disable Layout/LineLength
     data_csvified = StatCreatedPlan.to_csv(@plans_per_month, details: { by_template: true, sep: sep })
-    # rubocop:enable Layout/LineLength
-    send_data(data_csvified, filename: "created_plan_by_template.csv")
+    send_data(data_csvified, filename: 'created_plan_by_template.csv')
   end
 
   private
@@ -153,19 +120,15 @@ class UsageController < ApplicationController
   # rubocop:disable Metrics/AbcSize
   def args_from_params
     org = current_user.org
-    if current_user.can_super_admin?
-      # We are OK with nil value for org as we are using it to fetch usage
-      # statistics from all organizations
-      org = Org.find_by(id: usage_params[:org_id])
-    end
+    org = Org.find_by(id: usage_params[:org_id]) if current_user.can_super_admin? && usage_params[:org_id].present?
 
     start_date = usage_params[:start_date] if usage_params[:start_date].present?
     end_date = usage_params[:end_date] if usage_params[:end_date].present?
 
     {
       org: org,
-      start_date: start_date.present? ? start_date : first_user_date.strftime("%Y-%m-%d"),
-      end_date: end_date.present? ? end_date : Date.today.strftime("%Y-%m-%d")
+      start_date: start_date.present? ? start_date : first_plan_date.strftime('%Y-%m-%d'),
+      end_date: end_date.present? ? end_date : Date.today.strftime('%Y-%m-%d')
     }
   end
   # rubocop:enable Metrics/AbcSize
@@ -177,24 +140,24 @@ class UsageController < ApplicationController
     # That means we want our date range to be 11/30/2018 to 11/30/2019
     {
       org: current_user.org,
-      start_date: Date.today.months_ago(12).end_of_month.strftime("%Y-%m-%d"),
-      end_date: Date.today.last_month.end_of_month.strftime("%Y-%m-%d"),
+      start_date: Date.today.months_ago(12).end_of_month.strftime('%Y-%m-%d'),
+      end_date: Date.today.last_month.end_of_month.strftime('%Y-%m-%d'),
       filtered: parse_filtered
     }
   end
 
   def parse_filtered
-    params[:filtered].present? && params[:filtered] == "true"
+    params[:filtered].present? && params[:filtered] == 'true'
   end
 
   # set the csv separator or default to comma
   def sep_param
-    params["sep"] || ","
+    params['sep'] || ','
   end
 
   def min_max_dates(args:)
-    args[:start_date] = first_plan_date.strftime("%Y-%m-%d")
-    args[:end_date] = Date.today.strftime("%Y-%m-%d")
+    args[:start_date] = first_plan_date.strftime('%Y-%m-%d')
+    args[:end_date] = Date.today.strftime('%Y-%m-%d')
     args
   end
 
@@ -206,7 +169,7 @@ class UsageController < ApplicationController
 
   def plan_data(args:, as_json: false, sort: :asc)
     @plans_per_month = StatCreatedPlan.monthly_range(args)
-                                      .where.not(details: "{\"by_template\":[]}")
+                                      .where.not(details: '{"by_template":[]}')
                                       .order(date: sort)
     @plans_per_month = @plans_per_month.map(&:to_json) if as_json
   end
@@ -219,27 +182,8 @@ class UsageController < ApplicationController
     @total_org_users = StatJoinedUser.monthly_range(args.except(:filtered)).sum(:count)
   end
 
-  def total_organizations(args:)
-    @total_organizations = Org.count
-  end
-
-  def ranged_organizations(args:)
-    # Using created_at for statistics is not great as it is a system level value
-    # instead of a defined usage value but this is what we have and will
-    # continue to use
-    start_date = DateTime.parse(args[:start_date])
-    end_date = DateTime.parse(args[:end_date])
-
-    Org.managed.where(:created_at => start_date.beginning_of_day..end_date.end_of_day)    
-  end
-
   def first_plan_date
     StatCreatedPlan.all.order(:date).limit(1).pluck(:date).first \
     || Date.today.last_month.end_of_month
   end
-
-  def first_user_date
-    User.order(created_at: :asc).first.created_at.beginning_of_day
-  end
-
 end

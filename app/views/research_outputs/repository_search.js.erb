@@ -1,0 +1,19 @@
+var resultsDiv = $('#modal-search-repositories-results');
+
+resultsDiv.html('<%=
+  escape_javascript(
+    render(
+      partial: "layouts/modal_search/results",
+      locals: {
+        namespace: "repositories",
+        results: @search_results,
+        selected: false,
+        item_name_attr: :name,
+        result_partial: "research_outputs/repositories/search_result",
+        search_path: plan_repository_search_path(@plan),
+        search_method: :get
+      }
+    )
+  ) %>');
+
+toggleSpinner(false);

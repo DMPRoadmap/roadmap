@@ -23,7 +23,7 @@
       <legend><%= _("Optional plan components") %></legend>
       <div class="checkbox">
         <%= label_tag 'export[project_details]' do %>
-          <%= check_box_tag 'export[project_details]', true, true %>
+          <%= check_box_tag 'export[project_details]', true, false %>
           <%= _('project details coversheet') %>
         <% end %>
       </div>
@@ -39,6 +39,14 @@
           <%= _('unanswered questions') %>
         <% end %>
       </div>
+      <% if @plan.research_outputs.any? %>
+        <div class="checkbox">
+          <%= label_tag 'export[research_outputs]' do %>
+            <%= check_box_tag 'export[research_outputs]', true, true %>
+            <%= _('research outputs') %>
+          <% end %>
+        </div>
+      <% end %>
       <% if @plan.template.customization_of.present? %>
         <div class="checkbox">
           <%= label_tag 'export[custom_sections]' do %>
@@ -111,7 +119,7 @@
             options_for_select(Settings::Template::VALID_MARGIN_RANGE.to_a,
                                @export_settings.formatting[:margin][:right]),
             class: 'form-control',
-            "data-default": @plan.template.settings(:export).formatting[:margin][:right] %>
+            "data-default": @plan.template.settings(:export).formatting[:margin][:rigth] %>
       </div>
     </div>
   </div>

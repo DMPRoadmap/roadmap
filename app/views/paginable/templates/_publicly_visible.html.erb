@@ -43,7 +43,7 @@
           </td>
           <td class="text-center">
           <% if signed_in %>
-            <%= direct_link(template, false, nil, nil, Rails.application.config.direct_link_protocol) %>
+            <%= direct_link(template) %>
             <a href="" class="copy-link" data-toggle="modal" data-target="#link-modal" title="<%= _('Copy link to create a new plan') %>"><span class="fas fa-clipboard"></span></a>
           <% else %>
             <%= _('Requires login') %>

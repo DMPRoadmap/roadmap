@@ -24,8 +24,8 @@
 #  fk_rails_...  (phase_id => phases.id)
 #
 
+# Object that represents a Template section
 class Section < ApplicationRecord
-
   include ActsAsSortable
   include VersionableModel
 
@@ -97,17 +97,6 @@ class Section < ApplicationRecord
   # = Public instance methods =
   # ===========================
 
-  # title and description are translated through the translation gem
-  def title
-    title = read_attribute(:title)
-    _(title) unless title.blank?
-  end
-
-  def description
-    description = read_attribute(:description)
-    _(description) unless description.blank?
-  end
-
   # The title of the Section
   #
   # Returns String
@@ -143,5 +132,4 @@ class Section < ApplicationRecord
   def unmodifiable?
     !modifiable?
   end
-
 end

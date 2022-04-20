@@ -23,8 +23,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 
+# Object that represents a User's relationship to a Plan
 class Role < ApplicationRecord
-
   include FlagShihTzu
 
   attribute :active, :boolean, default: true
@@ -45,7 +45,7 @@ class Role < ApplicationRecord
             3 => :editor,             # 4
             4 => :commenter,          # 8
             5 => :reviewer,           # 16
-            column: "access"
+            column: 'access'
 
   # ===============
   # = Validations =
@@ -69,10 +69,10 @@ class Role < ApplicationRecord
   #
   # Return ActiveRecord::Relation
   scope :with_access_flags, lambda { |*flags|
-    bad_flag = flags.detect { |flag| !flag.in?(flag_mapping["access"].keys) }
+    bad_flag = flags.detect { |flag| !flag.in?(flag_mapping['access'].keys) }
     raise ArgumentError, "Unkown access flag '#{bad_flag}'" if bad_flag
 
-    access_values = flags.map { |flag| sql_in_for_flag(flag.to_sym, "access") }
+    access_values = flags.map { |flag| sql_in_for_flag(flag.to_sym, 'access') }
                          .flatten
                          .uniq
     where(access: access_values)
@@ -91,7 +91,7 @@ class Role < ApplicationRecord
   #
   # Returns [Integer]
   def self.bit_values(access)
-    Role.send(:chained_flags_values, "access", access)
+    Role.send(:chained_flags_values, 'access', access)
   end
 
   # ===========================
@@ -113,7 +113,6 @@ class Role < ApplicationRecord
       false
     end
   end
-
 end
 
 # -----------------------------------------------------

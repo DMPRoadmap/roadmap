@@ -8,15 +8,7 @@
 <div class="row">
   <div class="col-md-12">
     <div>
-        <p><%= _("When you log in to DMP Assistant you will be directed to the 'My Dashboard' page. From here you can edit, share, download, copy or remove any of your plans. You will also see plans that have been shared with you by others.") %></p>
-
-          <p>
-            <% email_link = Rails.configuration.branding[:organisation][:helpdesk_email] %>
-            <% email_subject = _('DMP Assistant feedback').gsub(' ', '%20') %>
-            <% contact_your_institution_url = contacts_at_your_instutution_path %>
-            <% how_to_manage_your_data_url = how_to_manage_your_data_path %>
-            <%= sanitize(_('If you need assistance in developing your data management plan, the following resource may help get you started: <a href="%{how_to_manage_your_data_url}"> How to manage your data</a>. If you require more guidance, contact us at <a href="mailto:%{email_link}?Subject=%{email_subject}">support@portagenetwork.ca</a>, or see <a href="%{contact_your_institution_url}">Contacts at your institution</a>.')  % {contact_your_institution_url: contact_your_institution_url, email_link: email_link, email_subject: email_subject, how_to_manage_your_data_url: how_to_manage_your_data_url}) %>
-          </p>
+        <p><%= _("When you log in to %{application_name} you will be directed to the 'My Dashboard' page. From here you can edit, share, download, copy or remove any of your plans. You will also see plans that have been shared with you by others.") % { application_name: ApplicationService.application_name } %></p>
 
           <h2 class="fontsize-h3"><%= _("Create a plan") %></h2>
 
@@ -48,7 +40,7 @@
             <li><%= _("Public: anyone can view your plan in the Public DMPs list.") %></li>
           </ul>
 
-          <p><%= _("By default all new and test plans will be set to ‘Private’ visibility. ‘Public’ and ‘Organisational’ visibility are intended for finished plans.") %></p>
+          <p><%= _("By default all new and test plans will be set to ‘Private’ visibility. ‘Public’ and ‘Organisational’ visibility are intended for finished plans. You must answer at least 50% of the questions to enable these options.") %></p>
 
           <h2 class="fontsize-h3"><%= _("Request feedback") %></h2>
           <p><%= _("There may also be an option to request feedback on your plan. This is available when research support staff at your organisation have enabled this service. Click to ‘Request feedback’ and your local administrators will be alerted to your request. Their comments will be visible in the ‘Comments’ field adjacent to each question. You will be notified by email when an administrator provides feedback.") %></p>

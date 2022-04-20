@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe Org::TotalCountCreatedPlanService do
-  describe ".call" do
+  describe '.call' do
     let(:org) { create(:org, created_at: DateTime.new(2018, 6, 1, 0, 0, 0)) }
     let(:org2) { create(:org, created_at: DateTime.new(2018, 6, 1, 0, 0, 0)) }
-    context "when org is passed" do
-      it "returns the number of created plans" do
+    context 'when org is passed' do
+      it 'returns the number of created plans' do
         create_stats(org)
 
         count = described_class.call(org)
@@ -16,8 +16,8 @@ RSpec.describe Org::TotalCountCreatedPlanService do
       end
     end
 
-    context "when org is NOT passed" do
-      it "returns the number of created plans" do
+    context 'when org is NOT passed' do
+      it 'returns the number of created plans' do
         create_stats(org)
         create_stats(org2)
 

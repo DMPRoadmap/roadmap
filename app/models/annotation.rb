@@ -25,8 +25,8 @@
 #  fk_rails_...  (question_id => questions.id)
 #
 
+# Object that represents Question level guidance or example answers
 class Annotation < ApplicationRecord
-
   include VersionableModel
 
   ##
@@ -67,12 +67,6 @@ class Annotation < ApplicationRecord
   # = Public instance methods =
   # ===========================
 
-  # text is translated through the translation gem
-  def text
-    text = read_attribute(:text)
-    _(text) unless text.blank?
-  end
-
   # The text from the annotation
   #
   # Returns String
@@ -85,5 +79,4 @@ class Annotation < ApplicationRecord
     copy.question_id = options.fetch(:question_id, nil)
     copy
   end
-
 end

@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="content-type" />
-    <meta content="text/html" />
-    <meta charset="utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title><%= @plan.title %></title>
 
     <%= render partial: 'shared/export/plan_styling',
@@ -19,7 +17,8 @@
     <% end %>
 
     <% @hash[:phases].each do |phase| %>
-      <% if @hash[:all_phases] || (@selected_phase.present? && phase[:title] == @selected_phase.title) %>
+      <%# Only render selected phase %>
+      <% if phase[:title] == @selected_phase.title %>
         <%# Page break before each phase %>
         <div style="page-break-before:always;"></div>
         <h1><%= download_plan_page_title(@plan, phase, @hash) %></h1>
@@ -58,7 +57,7 @@
                 <% else %>
 
                   <%# case where Question has options %>
-                  <% if options.any? %>
+                  <% if options.present? && options.any? %>
                     <ul>
                       <% options.each do |opt| %>
                         <li><%= opt.text %></li>
@@ -79,7 +78,7 @@
                     <br>
                   <%# case for displaying comments OR text %>
                   <% elsif !blank %>
-                    <%= sanitize answer.text %>
+                    <%= sanitize answer&.text %>
                     <br><br>
                   <% end %>
                 <% end %>
@@ -87,7 +86,12 @@
             <% end %>
           <% end %>
         <% end %> <!-- sections.each -->
+        </div>
       <% end %>
+    <% end %>
+
+    <% if @show_research_outputs %>
+      <%= render partial: 'shared/export/plan_outputs', locals: { outputs: @plan.research_outputs } %>
     <% end %>
   </body>
 </html>

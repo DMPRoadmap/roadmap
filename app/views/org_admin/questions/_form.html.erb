@@ -29,7 +29,7 @@
         <%= f.select :question_format_id,
           options_from_collection_for_select(question_formats,
           :id,
-          lambda { |field| _(field.title)} ,
+          :title,
           question.question_format_id),
           {},
           class: "form-control question_format",
@@ -88,14 +88,12 @@
         <%= render partial: 'org_admin/annotations/form', locals: { f: annotation_fields } %>
       <% end %>
     <% end %>
-    <!-- THEMES -->
-    
+    <!-- Themes -->
     <div class="form-group col-md-10">
       <%= render partial: 'org_admin/shared/theme_selector',
-                 locals: { f: f, all_themes: Theme.sorted_by_translated_title, as_radio: false,
+                 locals: { f: f, all_themes: Theme.all.order("title"), as_radio: false,
                            popover_message: _('Select one or more themes that are relevant to this question. This will allow similarly themed organisation-level guidance to appear alongside your question.') } %>
     </div>
-    
     <div class="form-group col-md-10">
       <div class="pull-right">
         <%= f.submit _('Save'), class: "btn btn-default", role:'button' %>
