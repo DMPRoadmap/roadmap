@@ -1,9 +1,4 @@
 # frozen_string_literal: true
-<<<<<<< HEAD
-
-class PublicPagePolicy < ApplicationPolicy
-=======
->>>>>>> upstream/master
 
 # Security rules for the public pages
 # Note the method names here correspond with controller actions
@@ -24,11 +19,7 @@ class PublicPagePolicy < ApplicationPolicy
   end
 
   def template_export?
-<<<<<<< HEAD
-    @object.present? && @object.published?
-=======
     @user.present? && @record.published?
->>>>>>> upstream/master
   end
 
   def plan_export?
@@ -36,21 +27,12 @@ class PublicPagePolicy < ApplicationPolicy
   end
 
   def plan_organisationally_exportable?
-<<<<<<< HEAD
-    plan = @object
-    user = @object2
-    if plan.is_a?(Plan) && user.is_a?(User)
-      return plan.publicly_visible? || (plan.organisationally_visible? && plan.owner.present? &&
-        plan.owner.org_id == user.org_id)
-=======
     if @record.is_a?(Plan) && @user.is_a?(User)
       return @record.publicly_visible? ||
              (@record.organisationally_visible? && @record.owner.present? &&
               @record.owner.org_id == @user.org_id)
->>>>>>> upstream/master
     end
 
     false
   end
-
 end
