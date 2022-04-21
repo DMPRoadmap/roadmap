@@ -109,6 +109,14 @@ class User < ApplicationRecord
   has_and_belongs_to_many :notifications, dependent: :destroy,
                                           join_table: 'notification_acknowledgements'
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # CHANGES : inverse relation for feecback_plans
+  # --------------------------------
+  has_many :feedback_plans, class_name: 'Plan', foreign_key: 'feedback_requestor_id'
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
   # ===============
   # = Validations =
   # ===============
@@ -469,6 +477,8 @@ class User < ApplicationRecord
                 .where.not(identifier_scheme_id: scheme_ids)
                 .update_all(identifiable_id: id)
 
+    # => feedback plans -> map id
+    to_be_merged.feedback_plans.update_all(feedback_requestor_id: id)
     # --------------------------------
     # Start DMP OPIDoR Customization
     # CHANGES : transfert the feedback plans to the user
