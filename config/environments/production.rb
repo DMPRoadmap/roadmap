@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 require 'syslog/logger'
-=======
-# frozen_string_literal: true
->>>>>>> upstream/master
 
 Rails.application.configure do
   # Verifies that versions and hashed value of the package contents in the project's
@@ -52,29 +48,13 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
-<<<<<<< HEAD
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure
   # cookies.
-=======
-  # Store uploaded files on the local file system (see config/storage.yml for options)
-  config.active_storage.service = :local
-
-  # Mount Action Cable outside main process or domain
-  # config.action_cable.mount_path = nil
-  # config.action_cable.url = 'wss://example.com/cable'
-  # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
-
-  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
->>>>>>> upstream/master
   # config.force_ssl = true
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-<<<<<<< HEAD
   config.log_level = :warn
-=======
-  config.log_level = ENV['RAILS_LOG_LEVEL']&.to_sym || :info
->>>>>>> upstream/master
 
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
@@ -118,7 +98,6 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-<<<<<<< HEAD
 
   # Use syslog for logging
   config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new('dmp_assistant'))
@@ -137,8 +116,3 @@ Rails.application.configure do
   # Fix JSON Download Error
   Rails.application.routes.default_url_options[:host] = "assistant.portagenetwork.ca"
 end
-=======
-end
-# Used by Rails' routes url_helpers (typically when including a link in an email)
-Rails.application.routes.default_url_options[:host] = 'example.org'
->>>>>>> upstream/master

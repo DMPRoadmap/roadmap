@@ -1,19 +1,10 @@
 # frozen_string_literal: true
 
-<<<<<<< HEAD
-class Org
-
-  class TotalCountStatService
-
-    class << self
-
-=======
 # Org usage --- TODO: This should likely be a module
 class Org
   # Usage - totals
   class TotalCountStatService
     class << self
->>>>>>> upstream/master
       def call(filtered: false)
         total = build_from_joined_user
         build_from_created_plan(filtered, total)
@@ -59,14 +50,6 @@ class Org
           reducer_body(acc, count, :total_plans)
         end
       end
-<<<<<<< HEAD
-
-    end
-
-  end
-
-=======
     end
   end
->>>>>>> upstream/master
 end

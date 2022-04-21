@@ -11,11 +11,7 @@ ContactUs.setup do |config|
   config.mailer_from = Rails.application.secrets.mailer_from
 
   # Configure the e-mail address which should receive the contact form email notifications.
-<<<<<<< HEAD
   config.mailer_to = Rails.application.secrets.mailer_to
-=======
-  config.mailer_to = 'roadmap-l@listserv.ucop.edu'
->>>>>>> upstream/master
 
   # ==> Form Configuration
 

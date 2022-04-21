@@ -1,18 +1,9 @@
 # frozen_string_literal: true
 
 module DataCleanup
-<<<<<<< HEAD
-
-  module Rules
-
-    # Base class for rules to clean invalid database records
-    class Base
-
-=======
   module Rules
     # Base class for rules to clean invalid database records
     class Base
->>>>>>> upstream/master
       def log(message)
         DataCleanup.logger.info(message)
       end
@@ -26,14 +17,6 @@ module DataCleanup
       def call
         raise NotImplementedError, "Please define call() in #{self}"
       end
-<<<<<<< HEAD
-
-    end
-
-  end
-
-=======
     end
   end
->>>>>>> upstream/master
 end

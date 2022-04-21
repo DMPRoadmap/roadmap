@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 class Template
-<<<<<<< HEAD
-
-=======
->>>>>>> upstream/master
   # Service object to upgrade a customization Template with new changes from the original
   # funder Template. Remember: {updated_template} is a customization of funder Template.
   #
@@ -25,10 +21,6 @@ class Template
   #   {#updated_template}
   #
   class UpgradeCustomizationService
-<<<<<<< HEAD
-
-=======
->>>>>>> upstream/master
     # Exception raised when the Template is not a customization.
     class NotACustomizationError < StandardError
     end
@@ -67,29 +59,16 @@ class Template
     # Run the script
     #
     # Returns {Template}
-<<<<<<< HEAD
-=======
     # rubocop:disable Metrics/MethodLength
->>>>>>> upstream/master
     def call
       Template.transaction do
         if @source_template.customization_of.blank?
           raise NotACustomizationError,
-<<<<<<< HEAD
-                _("upgrade_customization! requires a customised template")
-        end
-        if @original_funder_template.nil?
-          # rubocop:disable Layout/LineLength
-          raise NoFunderTemplateError,
-                _("upgrade cannot be carried out since there is no published template of its current funder")
-          # rubocop:enable Layout/LineLength
-=======
                 _('upgrade_customization! requires a customised template')
         end
         if @original_funder_template.nil?
           raise NoFunderTemplateError,
                 _('upgrade cannot be carried out since there is no published template of its current funder')
->>>>>>> upstream/master
         end
 
         # Merges modifiable sections or questions from source into updated_template object
@@ -113,10 +92,7 @@ class Template
       end
       @updated_template
     end
-<<<<<<< HEAD
-=======
     # rubocop:enable Metrics/MethodLength
->>>>>>> upstream/master
 
     private
 
@@ -182,11 +158,5 @@ class Template
     def template_org
       @source_template.org
     end
-<<<<<<< HEAD
-
   end
-
-=======
-  end
->>>>>>> upstream/master
 end

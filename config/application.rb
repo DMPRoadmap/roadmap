@@ -1,15 +1,7 @@
 # frozen_string_literal: true
-<<<<<<< HEAD
 
 require 'rails/all'
 require 'recaptcha/rails'
-=======
-
-require_relative 'boot'
-
-require 'rails/all'
-
->>>>>>> upstream/master
 require 'csv'
 require 'nulldb/rails'
 require_relative "boot"
@@ -20,7 +12,6 @@ require_relative "boot"
 Bundler.require(*Rails.groups)
 
 module DMPRoadmap
-<<<<<<< HEAD
 
   class Application < Rails::Application
 
@@ -28,13 +19,6 @@ module DMPRoadmap
     config.load_defaults 5.2
 
 
-=======
-  # DMPRoadmap application
-  class Application < Rails::Application
-    # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
-
->>>>>>> upstream/master
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
@@ -64,7 +48,6 @@ module DMPRoadmap
     config.action_controller.include_all_helpers = true
 
     # Set the default host for mailer URLs
-<<<<<<< HEAD
     config.action_mailer.default_url_options = { :host => Rails.application.secrets.mailer_default_host }
 
     # Enable shibboleth as an alternative authentication method
@@ -117,9 +100,6 @@ module DMPRoadmap
     # documentation the funder that 
     config.default_funder_name = Rails.application.secrets.default_funder_name
 
-=======
-    config.action_mailer.default_url_options = { host: Socket.gethostname.to_s }
->>>>>>> upstream/master
   end
 
 end

@@ -1,11 +1,6 @@
 const { environment } = require('@rails/webpacker');
-<<<<<<< HEAD
 const webpack = require('webpack');
 const erb = require('./loaders/erb');
-=======
-const erb = require('./loaders/erb');
-const webpack = require('webpack');
->>>>>>> upstream/master
 const eslint = require('./loaders/eslint');
 
 environment.loaders.prepend('erb', erb);
@@ -22,9 +17,5 @@ environment.config.set('resolve.alias', {
   'bootstrap-sass': 'bootstrap-sass/assets/javascripts/bootstrap/',
 });
 
-<<<<<<< HEAD
 environment.loaders.prepend('erb', erb);
-=======
-environment.loaders.prepend('erb', erb)
->>>>>>> upstream/master
 module.exports = environment;

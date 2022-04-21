@@ -1,17 +1,5 @@
 # frozen_string_literal: true
 
-<<<<<<< HEAD
-require "httparty"
-
-module ExternalApis
-
-  class ExternalApiError < StandardError; end
-
-  class BaseService
-
-    class << self
-
-=======
 require 'httparty'
 
 module ExternalApis
@@ -21,7 +9,6 @@ module ExternalApis
   # Abstract service that provides HTTP methods for individual external api services
   class BaseService
     class << self
->>>>>>> upstream/master
       # The following should be defined in each inheriting service's initializer.
       # For example:
       #   ExternalApis::RorService.setup do |config|
@@ -58,19 +45,11 @@ module ExternalApis
       # `http_get`
       def headers
         hash = {
-<<<<<<< HEAD
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-          "User-Agent": "#{app_name} (#{app_email})"
-        }
-        hash.merge({ "Host": URI(api_base_url).hostname.to_s })
-=======
           'Content-Type': 'application/json',
           Accept: 'application/json',
           'User-Agent': "#{app_name} (#{app_email})"
         }
         hash.merge({ Host: URI(api_base_url).hostname.to_s })
->>>>>>> upstream/master
       rescue URI::InvalidURIError => e
         handle_uri_failure(method: "BaseService.headers #{e.message}",
                            uri: api_base_url)
@@ -107,11 +86,7 @@ module ExternalApis
 
       # Retrieves the helpdesk email from dmproadmap.rb initializer or uses the contact page url
       def app_email
-<<<<<<< HEAD
-        dflt = Rails.application.routes.url_helpers.contact_us_url || ""
-=======
         dflt = Rails.application.routes.url_helpers.contact_us_url || ''
->>>>>>> upstream/master
         Rails.configuration.x.organisation.fetch(:helpdesk_email, dflt)
       end
 
@@ -141,14 +116,6 @@ module ExternalApis
         hash[:debug_output] = $stdout if debug
         hash
       end
-<<<<<<< HEAD
-
-    end
-
-  end
-
-=======
     end
   end
->>>>>>> upstream/master
 end

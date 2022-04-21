@@ -10,20 +10,11 @@ Plan.class
 User.class
 ExportedPlan.class
 
-<<<<<<< HEAD
-class Org
-
-  class CreateExportedPlanService
-
-    class << self
-
-=======
 # Org usage --- TODO: This should likely be a module
 class Org
   # Usage for Nbr of exported plans
   class CreateExportedPlanService
     class << self
->>>>>>> upstream/master
       def call(org = nil, threads: 0)
         orgs = org.nil? ? Org.all : [org]
 
@@ -43,14 +34,6 @@ class Org
           end
         end
       end
-<<<<<<< HEAD
-
-    end
-
-  end
-
-=======
     end
   end
->>>>>>> upstream/master
 end

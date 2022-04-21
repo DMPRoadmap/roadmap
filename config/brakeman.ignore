@@ -7,11 +7,7 @@
       "check_name": "EOLRails",
       "message": "Support for Rails 5.2.6.2 ends on 2022-06-01",
       "file": "Gemfile.lock",
-<<<<<<< HEAD
       "line": 368,
-=======
-      "line": 334,
->>>>>>> upstream/master
       "link": "https://brakemanscanner.org/docs/warning_types/unmaintained_dependency/",
       "code": null,
       "render_path": null,
@@ -27,11 +23,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/models/user.rb",
-<<<<<<< HEAD
       "line": 399,
-=======
-      "line": 400,
->>>>>>> upstream/master
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "User.where(\"LOWER(#{field}) = :value\", :value => val.to_s.downcase)",
       "render_path": null,
@@ -51,11 +43,7 @@
       "check_name": "EOLRuby",
       "message": "Support for Ruby 2.6.3 ended on 2022-03-31",
       "file": "Gemfile.lock",
-<<<<<<< HEAD
       "line": 368,
-=======
-      "line": 334,
->>>>>>> upstream/master
       "link": "https://brakemanscanner.org/docs/warning_types/unmaintained_dependency/",
       "code": null,
       "render_path": null,
@@ -71,11 +59,7 @@
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/plans_controller.rb",
-<<<<<<< HEAD
       "line": 391,
-=======
-      "line": 394,
->>>>>>> upstream/master
       "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
       "code": "redirect_to(Plan.deep_copy(Plan.find(params[:id])), :notice => success_message(Plan.deep_copy(Plan.find(params[:id])), _(\"copied\")))",
       "render_path": null,
@@ -95,11 +79,7 @@
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/orgs_controller.rb",
-<<<<<<< HEAD
       "line": 135,
-=======
-      "line": 141,
->>>>>>> upstream/master
       "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
       "code": "redirect_to(\"#{shib_login_url}?#{shib_callback_url}&#{\"entityID=#{Identifier.by_scheme_name(\"shibboleth\", \"Org\").where(:identifiable => Org.where(:id => shib_params[:org_id])).first.value}\"}\")",
       "render_path": null,

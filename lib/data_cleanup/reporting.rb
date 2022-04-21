@@ -1,15 +1,8 @@
 # frozen_string_literal: true
 
 module DataCleanup
-<<<<<<< HEAD
-
   # Report the status of the data validations after checks have been run.
   module Reporting
-
-=======
-  # Report the status of the data validations after checks have been run.
-  module Reporting
->>>>>>> upstream/master
     mattr_accessor :total_record_count
     mattr_accessor :invalid_record_count
     mattr_accessor :invalid_records
@@ -42,11 +35,5 @@ module DataCleanup
         Invalid records: #{invalid_record_count} / #{total_record_count}
       TEXT
     end
-<<<<<<< HEAD
-
   end
-
-=======
-  end
->>>>>>> upstream/master
 end

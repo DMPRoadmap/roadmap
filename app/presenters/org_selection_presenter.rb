@@ -1,28 +1,15 @@
 # frozen_string_literal: true
 
-<<<<<<< HEAD
-class OrgSelectionPresenter
-
-=======
 # Helper class for the Org selection typeahead
 class OrgSelectionPresenter
->>>>>>> upstream/master
   attr_accessor :suggestions
 
   def initialize(orgs:, selection:)
     @crosswalk = []
 
-<<<<<<< HEAD
-    @name = selection.present? ? selection.name : ""
-
-    if selection.present?
-      orgs = [selection] if !orgs.present? || orgs.empty?
-    end
-=======
     @name = selection.present? ? selection.name : ''
 
     orgs = [selection] if !orgs.present? || orgs.empty?
->>>>>>> upstream/master
 
     @crosswalk = orgs.map do |org|
       next if org.nil?
@@ -51,8 +38,4 @@ class OrgSelectionPresenter
   rescue StandardError
     {}.to_json
   end
-<<<<<<< HEAD
-
-=======
->>>>>>> upstream/master
 end

@@ -1,17 +1,9 @@
 # frozen_string_literal: true
 
 module Api
-<<<<<<< HEAD
-
-  module V1
-
-    class PaginationPresenter
-
-=======
   module V1
     # Helper class for genewric API V1 pagination
     class PaginationPresenter
->>>>>>> upstream/master
       def initialize(current_url:, per_page:, total_items:, current_page: 1)
         @url = current_url
         @per_page = per_page
@@ -22,19 +14,11 @@ module Api
       def url_without_pagination
         return nil unless @url.present? && @url.is_a?(String)
 
-<<<<<<< HEAD
-        url = @url.gsub(/per_page=\d+/, "")
-                  .gsub(/page=\d+/, "")
-                  .gsub(/(&)+$/, "").gsub(/\?$/, "")
-
-        (url.include?("?") ? "#{url}&" : "#{url}?")
-=======
         url = @url.gsub(/per_page=\d+/, '')
                   .gsub(/page=\d+/, '')
                   .gsub(/(&)+$/, '').gsub(/\?$/, '')
 
         (url.include?('?') ? "#{url}&" : "#{url}?")
->>>>>>> upstream/master
       end
 
       def prev_page?
@@ -61,14 +45,6 @@ module Api
 
         (@total_items.to_f / @per_page).ceil
       end
-<<<<<<< HEAD
-
-    end
-
-  end
-
-=======
     end
   end
->>>>>>> upstream/master
 end

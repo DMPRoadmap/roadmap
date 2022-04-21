@@ -9,20 +9,11 @@ User.class
 Plan.class
 Role.class
 
-<<<<<<< HEAD
-class Org
-
-  class CreateSharedPlanService
-
-    class << self
-
-=======
 # Org usage --- TODO: This should likely be a module
 class Org
   # Usage for Nbr of shared plans
   class CreateSharedPlanService
     class << self
->>>>>>> upstream/master
       def call(org = nil, threads: 0)
         orgs = org.nil? ? Org.all : [org]
 
@@ -42,14 +33,6 @@ class Org
           end
         end
       end
-<<<<<<< HEAD
-
-    end
-
-  end
-
-=======
     end
   end
->>>>>>> upstream/master
 end

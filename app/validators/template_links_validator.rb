@@ -1,37 +1,15 @@
 # frozen_string_literal: true
 
-<<<<<<< HEAD
-class TemplateLinksValidator < ActiveModel::Validator
-
-  include JSONLinkValidator
-=======
 # Validation for the format of the JSON for Template links
 class TemplateLinksValidator < ActiveModel::Validator
   include JSONLinkValidator
 
   # rubocop:disable Metrics/AbcSize
->>>>>>> upstream/master
   def validate(record)
     links = record.links
     expected_keys = %w[funder sample_plan]
     if links.is_a?(Hash)
       expected_keys.each do |k|
-<<<<<<< HEAD
-        if !links.key?(k)
-          record.errors[:links] << _("A key %{key} is expected for links hash") % { key: k }
-        else
-          unless valid_links?(links[k])
-            msg = _("The key %{key} does not have a valid set of object links")
-            record.errors[:links] << msg % { key: k }
-          end
-        end
-      end
-    else
-      record.errors[:links] << _("A hash is expected for links")
-    end
-  end
-
-=======
         if links.key?(k)
           unless valid_links?(links[k])
             msg = _('The key %{key} does not have a valid set of object links')
@@ -46,5 +24,4 @@ class TemplateLinksValidator < ActiveModel::Validator
     end
   end
   # rubocop:enable Metrics/AbcSize
->>>>>>> upstream/master
 end

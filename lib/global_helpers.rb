@@ -1,13 +1,7 @@
 # frozen_string_literal: true
-<<<<<<< HEAD
-
-module GlobalHelpers
-
-=======
 
 # Helpers for GetText strings
 module GlobalHelpers
->>>>>>> upstream/master
   # overloading the method
   # came across a wierd issue where the function would refused to be called from
   # class functions of other classes... but it will work if this is a class function
@@ -30,8 +24,4 @@ module GlobalHelpers
   def constant(str)
     I18n.t("magic_strings.#{str}", locale: I18n.default_locale)
   end
-<<<<<<< HEAD
-
-=======
->>>>>>> upstream/master
 end

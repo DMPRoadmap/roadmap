@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-<<<<<<< HEAD
 class ThemePolicy < ApplicationPolicy
 
   def initialize(user, *_args)
@@ -8,12 +7,6 @@ class ThemePolicy < ApplicationPolicy
 
     @user = user
   end
-=======
-# Security rules for editing themes
-# Note the method names here correspond with controller actions
-class ThemePolicy < ApplicationPolicy
-  # NOTE: @user is the signed_in_user
->>>>>>> upstream/master
 
   def index?
     @user.can_super_admin?
@@ -38,8 +31,4 @@ class ThemePolicy < ApplicationPolicy
   def destroy?
     @user.can_super_admin?
   end
-<<<<<<< HEAD
-
-=======
->>>>>>> upstream/master
 end

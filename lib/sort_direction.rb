@@ -12,16 +12,9 @@
 #   SortDirection.new(:wrong).to_s # => 'ASC'
 #
 class SortDirection
-<<<<<<< HEAD
-
-  ##
-  # When given an unknown or nil direction, default to this value
-  DEFAULT_DIRECTION = "ASC"
-=======
   ##
   # When given an unknown or nil direction, default to this value
   DEFAULT_DIRECTION = 'ASC'
->>>>>>> upstream/master
 
   ##
   # Possible sort direction values
@@ -58,8 +51,4 @@ class SortDirection
   def opposite
     @opposite ||= DIRECTIONS[DIRECTIONS.index(direction) - 1]
   end
-<<<<<<< HEAD
-
-=======
->>>>>>> upstream/master
 end

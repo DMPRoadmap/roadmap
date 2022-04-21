@@ -1,12 +1,7 @@
 # frozen_string_literal: true
 
-<<<<<<< HEAD
-class PlanPresenter
-
-=======
 # Helper class for plans
 class PlanPresenter
->>>>>>> upstream/master
   attr_accessor :plan
 
   def initialize(plan)
@@ -22,12 +17,6 @@ class PlanPresenter
     return "Starts on #{sd}" if sd.present?
     return "Ends on #{ed}" if ed.present?
 
-<<<<<<< HEAD
-    ""
-  end
-
-=======
     ''
   end
->>>>>>> upstream/master
 end

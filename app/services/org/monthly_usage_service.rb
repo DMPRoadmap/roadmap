@@ -1,19 +1,10 @@
 # frozen_string_literal: true
 
-<<<<<<< HEAD
-class Org
-
-  class MonthlyUsageService
-
-    class << self
-
-=======
 # Org usage --- TODO: This should likely be a module
 class Org
   # Usage by month
   class MonthlyUsageService
     class << self
->>>>>>> upstream/master
       def call(current_user, filtered: false)
         total = build_from_joined_user(current_user, filtered)
         build_from_created_plan(current_user, filtered, total)
@@ -35,11 +26,7 @@ class Org
       end
 
       def reducer_body(acc, rec, key_target)
-<<<<<<< HEAD
-        month = rec.date.strftime("%b-%y")
-=======
         month = rec.date.strftime('%b-%y')
->>>>>>> upstream/master
         count = rec.count
 
         if acc[month].present?
@@ -84,14 +71,6 @@ class Org
           reducer_body(acc, rec, :downloads)
         end
       end
-<<<<<<< HEAD
-
-    end
-
-  end
-
-=======
     end
   end
->>>>>>> upstream/master
 end
