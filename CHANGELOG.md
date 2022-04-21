@@ -2,7 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
-## 08/04/2022
+## 21/04/2022
+- Correction d'un problème d'archivage des utilisateurs (issue gitbucket 376)
+- Correction du problème d'ordre des phases dans l'export d'un plan avec plusieurs phases (issue gitbucket 353)
+- La date de dernière modification se met désormais bien à jour quand on modifie depuis l'onglet Rédiger (issue gitbucket 348)
+- La fusion d'utilisateur transfère désormais les plans en assistance conseil de l'utilisateur fusionné
+
+## 15/04/2022
 - Les exports JSON exportent les produits de recherche dans l'ordre d'affichage de l'onglet Produits de Recherche (issue gitbucket 371 & 373)
 - L'import RDA récupère désormais les contributeurs (issue gitbucket 373)
 - Les boutons radio des formulaires d'import et de téléchargement d'un plan sont désormais cochés quand on clique sur le libellé 
