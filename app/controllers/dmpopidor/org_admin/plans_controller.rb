@@ -9,7 +9,7 @@ module Dmpopidor
       # rubocop:disable Metrics/AbcSize
       def feedback_complete
         plan = ::Plan.find(params[:id])
-        requestor = ::User.find(plan.feedback_requestor.id)
+        requestor = ::User.find(plan.feedback_requestor_id)
         # Test auth directly and throw Pundit error sincePundit is
         # unaware of namespacing
         raise Pundit::NotAuthorizedError unless current_user.present? && current_user.can_org_admin?

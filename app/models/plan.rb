@@ -141,7 +141,7 @@ class Plan < ApplicationRecord
     end
   end
 
-  belongs_to :feedback_requestor, class_name: 'User', foreign_key: 'feedback_requestor', optional: true
+  belongs_to :feedback_requestor, class_name: 'User', foreign_key: 'feedback_requestor_id', optional: true
 
   # --------------------------------
   # End DMP OPIDoR Customization
@@ -421,7 +421,7 @@ class Plan < ApplicationRecord
       # Start DMP OPIDoR Customization
       # CHANGES : Added feedback_requestor & request_date columns
       # --------------------------------
-      self.feedback_requestor = user
+      self.feedback_requestor_id = user.id
       self.feedback_request_date = DateTime.current
       # --------------------------------
       # End DMP OPIDoR Customization
@@ -456,7 +456,7 @@ class Plan < ApplicationRecord
       # Start DMP OPIDoR Customization
       # CHANGES : Added feedback_requestor & request_date columns
       # --------------------------------
-      self.feedback_requestor = nil
+      self.feedback_requestor_id = nil
       self.feedback_request_date = nil
       # --------------------------------
       # End DMP OPIDoR Customization

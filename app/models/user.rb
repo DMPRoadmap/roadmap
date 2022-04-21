@@ -468,6 +468,15 @@ class User < ApplicationRecord
     to_be_merged.identifiers
                 .where.not(identifier_scheme_id: scheme_ids)
                 .update_all(identifiable_id: id)
+
+    # --------------------------------
+    # Start DMP OPIDoR Customization
+    # CHANGES : transfert the feedback plans to the user
+    # --------------------------------
+
+    # --------------------------------
+    # End DMP OPIDoR Customization
+    # --------------------------------
     # => ignore any perms the deleted user has
     to_be_merged.destroy
   end
