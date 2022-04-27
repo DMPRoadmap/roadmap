@@ -7,14 +7,8 @@ module FragmentImport
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def raw_import(import_data, schema, parent_id = id)
     return if import_data.nil?
-    return import_data if schema.classname == 'Contributor'
 
     fragmented_data = {}
-    begin
-      import_data = import_data.stringify_keys
-    rescue StandardError
-      return
-    end
 
     # rubocop:disable Metrics/BlockLength
     import_data.each do |prop, content|
@@ -34,15 +28,17 @@ module FragmentImport
           sub_fragment = MadmpFragment.fragment_exists?(sub_data, sub_schema, dmp.id, parent_id)
           if sub_fragment.eql?(false)
             sub_fragment = MadmpFragment.new(
+              data: sub_data,
               dmp_id: dmp.id,
               parent_id: parent_id,
               madmp_schema_id: sub_schema.id,
               additional_info: { property_name: prop }
             )
             sub_fragment.classname = sub_schema.classname
-            sub_fragment.instantiate
+            sub_fragment.save!
+          else
+            sub_fragment.raw_import(sub_data, sub_schema, sub_fragment.id)
           end
-          sub_fragment.raw_import(sub_data, sub_schema, sub_fragment.id)
           # If sub_data is a Person, we need to set the dbid manually, since Person has no parent
           # and update_references function is not triggered
 

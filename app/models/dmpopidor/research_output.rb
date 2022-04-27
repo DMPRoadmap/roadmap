@@ -68,7 +68,7 @@ module Dmpopidor
           fragment_description.instantiate
           fragment_description.contact.update(
             data: {
-              'person' => { 'dbid' => contact_person.id },
+              'person' => contact_person.present? ? { 'dbid' => contact_person.id } : nil,
               'role' => _('Data contact')
             }
           )

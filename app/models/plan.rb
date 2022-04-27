@@ -331,6 +331,12 @@ class Plan < ApplicationRecord
       research_output_copy.plan_id = plan_copy.id
       research_output_copy.save!
 
+      research_output_description = research_output.json_fragment.research_output_description
+      research_output_copy.json_fragment.research_output_description.raw_import(
+        research_output_description.get_full_fragment,
+        research_output_description.madmp_schema
+      )
+
       research_output.answers.each do |answer|
         answer_copy = Answer.deep_copy(answer)
         answer_copy.plan_id = plan_copy.id

@@ -350,6 +350,7 @@ class MadmpFragment < ApplicationRecord
       )
       sub_fragment.assign_attributes(classname: sub_schema.classname)
       sub_fragment.instantiate
+
       new_data[key] = { 'dbid' => sub_fragment.id }
     end
     update!(data: new_data)
