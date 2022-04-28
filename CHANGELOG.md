@@ -2,6 +2,11 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 28/04/2022
+- Retrait de la possibilité de création de nouvel organisme depuis le formulaire de création de compte par invitation (issue gitbucket 377)
+- La personne contact est désormais bien copiée lors de la copie d'un plan créé à partir d'un modèle classique (issue gitbucket 361)
+- Correction d'un problème de sauvegarde du formulaire Meta
+
 ## 21/04/2022
 - Correction d'un problème d'archivage des utilisateurs (issue gitbucket 376)
 - Correction du problème d'ordre des phases dans l'export d'un plan avec plusieurs phases (issue gitbucket 353)
