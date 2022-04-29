@@ -1248,6 +1248,9 @@
     "ANRProjects": {
         "path": "ANRProjects.json"
     },
+    "Archives": {
+        "path": "Archives.json"
+    },
     "BackupPolicyGenci": {
         "path": "BackupPolicyGenci.json"
     },
