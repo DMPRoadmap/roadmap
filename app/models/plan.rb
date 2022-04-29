@@ -328,6 +328,7 @@ class Plan < ApplicationRecord
     plan_copy.copy_plan_fragments(plan)
     plan.research_outputs.each do |research_output|
       research_output_copy = ResearchOutput.deep_copy(research_output)
+      research_output_copy.title = research_output.title || "Copy of #{research_output.abbreviation}"
       research_output_copy.plan_id = plan_copy.id
       research_output_copy.save!
 
