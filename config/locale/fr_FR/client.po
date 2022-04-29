@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-04-15 09:35+0200\n"
-"PO-Revision-Date: 2022-04-15 09:35+0200\n"
+"POT-Creation-Date: 2022-04-29 08:50+0200\n"
+"PO-Revision-Date: 2022-04-29 08:50+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -354,7 +354,7 @@ msgstr ""
 
 #: ../../app/controllers/madmp_fragments_controller.rb:38
 #: ../../app/controllers/madmp_fragments_controller.rb:156
-#: ../../app/controllers/madmp_fragments_controller.rb:320
+#: ../../app/controllers/madmp_fragments_controller.rb:318
 msgid "Element is already present in your plan."
 msgstr "L'élément est déjà présent dans votre plan."
 
@@ -965,7 +965,7 @@ msgstr "12 derniers mois"
 msgid "%<tool_name>s: A new comment was added to %<plan_title>s"
 msgstr "%<tool_name>s : un nouveau commentaire a été ajouté à %<plan_title>s"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:56 ../../app/models/user.rb:396
+#: ../../app/mailers/dmpopidor/user_mailer.rb:56 ../../app/models/user.rb:404
 msgid "%<user_name>s has shared a Data Management Plan with you in %<tool_name>s"
 msgstr ""
 "%<user_name>s a partagé un plan de gestion de données avec vous sur %<tool_nam"
@@ -1041,20 +1041,20 @@ msgstr "ne peut pas être vide si aucun courriel n'est fourni."
 msgid "can't be blank if no name is provided."
 msgstr "ne peut pas être vide si aucun nom n'est fourni."
 
-#: ../../app/models/dmpopidor/plan.rb:74
+#: ../../app/models/dmpopidor/plan.rb:73
 msgid "Personal"
 msgstr "Personne"
 
-#: ../../app/models/dmpopidor/plan.rb:91
+#: ../../app/models/dmpopidor/plan.rb:87
 msgid "DMP manager"
 msgstr "Responsable du plan"
 
-#: ../../app/models/dmpopidor/plan.rb:102
+#: ../../app/models/dmpopidor/plan.rb:98
 msgid "Project coordinator"
 msgstr "Coordinateur de projet"
 
-#: ../../app/models/dmpopidor/plan.rb:129
-#: ../../app/models/madmp_fragment.rb:439
+#: ../../app/models/dmpopidor/plan.rb:125
+#: ../../app/models/madmp_fragment.rb:445
 msgid "\"%<project_title>s\" project DMP"
 msgstr "DMP du projet \"%<project_title>s\""
 
@@ -1127,7 +1127,7 @@ msgstr "test"
 msgid "private"
 msgstr "privé"
 
-#: ../../app/models/plan.rb:742
+#: ../../app/models/plan.rb:749
 msgid "must be after the start date"
 msgstr "doit être postérieur à la date de début"
 
@@ -1445,6 +1445,50 @@ msgstr "Ajouter une personne"
 msgid "Click here to add a new item"
 msgstr "Cliquez ici pour ajouter un nouvel élément"
 
+#: ../../app/views/branded/devise/invitations/edit.html.erb:1
+#: ../../app/views/branded/devise/invitations/edit.html.erb:4
+msgid "Create an account to view the plan"
+msgstr "Créez un compte pour voir le plan"
+
+#: ../../app/views/branded/devise/invitations/edit.html.erb:5
+msgid ""
+"You will need to create an account in order to accept your invitation to view "
+"the data management plan (DMP)."
+msgstr ""
+"Vous devrez créer un compte afin d'accepter l'invitation à consulter le plan ("
+"DMP)."
+
+#: ../../app/views/branded/devise/invitations/edit.html.erb:15
+msgid "New password"
+msgstr "Nouveau mot de passe"
+
+#: ../../app/views/branded/devise/invitations/edit.html.erb:19
+msgid "Password confirmation"
+msgstr "Confirmation du mot de passe"
+
+#: ../../app/views/branded/devise/invitations/edit.html.erb:23
+msgid "First name"
+msgstr "Prénom"
+
+#: ../../app/views/branded/devise/invitations/edit.html.erb:28
+#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:21
+msgid "Last name"
+msgstr "Nom de famille"
+
+#: ../../app/views/branded/devise/invitations/edit.html.erb:40
+msgid ""
+"If your organisation is not in the list, please select 'Autre/Other'. Once you"
+"r account is created, you will be able your organisation from your profile."
+msgstr ""
+"Si votre organisme n'est pas dans la liste, veuillez sélectionner 'Autre/Other"
+"'. Une fois votre compte créé, vous pourrez saisir votre organisme depuis votr"
+"e profil."
+
+#: ../../app/views/branded/devise/invitations/edit.html.erb:43
+#: ../../app/views/branded/shared/_create_account_form.html.erb:56
+msgid "Create account"
+msgstr "Créer un compte"
+
 #: ../../app/views/branded/devise/registrations/_personal_details.html.erb:3
 msgid ""
 "Please note that your email address is used as your username. If you change th"
@@ -1457,10 +1501,6 @@ msgstr ""
 #: ../../app/views/branded/devise/registrations/_personal_details.html.erb:6
 msgid "You can edit any of the details below."
 msgstr "Vous pouvez modifier les renseignements ci-dessous."
-
-#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:21
-msgid "Last name"
-msgstr "Nom de famille"
 
 #: ../../app/views/branded/devise/registrations/_personal_details.html.erb:26
 msgid ""
@@ -3413,10 +3453,6 @@ msgstr ""
 "consentement à tout moment en vous adressant à <a href='mailto:%{contact_url}'"
 ">%{contact_url}</a>. Vous avez la possibilité d’introduire une réclamation aup"
 "rès d’une autorité de contrôle."
-
-#: ../../app/views/branded/shared/_create_account_form.html.erb:56
-msgid "Create account"
-msgstr "Créer un compte"
 
 #: ../../app/views/branded/shared/_create_plan_modal.html.erb:8
 msgid "Would you like to create a plan based on the \"%{name}\" template?"

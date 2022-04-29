@@ -36,6 +36,9 @@
                      default_org: nil,
                      required: true
                    } %>
+        <span class="red">
+          <%= _("If your organisation is not in the list, please select 'Autre/Other'. Once your account is created, you will be able your organisation from your profile.") %>
+        </span>
       </div>
       <%= f.button(_('Create account'), class: "btn btn-default", type: "submit") %>
     <% end %>

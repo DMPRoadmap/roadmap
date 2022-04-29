@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-04-15 09:35+0200\n"
-"PO-Revision-Date: 2022-04-15 09:35+0200\n"
+"POT-Creation-Date: 2022-04-29 08:50+0200\n"
+"PO-Revision-Date: 2022-04-29 08:50+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -340,7 +340,7 @@ msgstr ""
 
 #: ../../app/controllers/madmp_fragments_controller.rb:38
 #: ../../app/controllers/madmp_fragments_controller.rb:156
-#: ../../app/controllers/madmp_fragments_controller.rb:320
+#: ../../app/controllers/madmp_fragments_controller.rb:318
 msgid "Element is already present in your plan."
 msgstr ""
 
@@ -916,7 +916,7 @@ msgstr ""
 msgid "%<tool_name>s: A new comment was added to %<plan_title>s"
 msgstr ""
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:56 ../../app/models/user.rb:396
+#: ../../app/mailers/dmpopidor/user_mailer.rb:56 ../../app/models/user.rb:404
 msgid "%<user_name>s has shared a Data Management Plan with you in %<tool_name>s"
 msgstr ""
 
@@ -990,20 +990,20 @@ msgstr ""
 msgid "can't be blank if no name is provided."
 msgstr ""
 
-#: ../../app/models/dmpopidor/plan.rb:74
+#: ../../app/models/dmpopidor/plan.rb:73
 msgid "Personal"
 msgstr ""
 
-#: ../../app/models/dmpopidor/plan.rb:91
+#: ../../app/models/dmpopidor/plan.rb:87
 msgid "DMP manager"
 msgstr ""
 
-#: ../../app/models/dmpopidor/plan.rb:102
+#: ../../app/models/dmpopidor/plan.rb:98
 msgid "Project coordinator"
 msgstr ""
 
-#: ../../app/models/dmpopidor/plan.rb:129
-#: ../../app/models/madmp_fragment.rb:439
+#: ../../app/models/dmpopidor/plan.rb:125
+#: ../../app/models/madmp_fragment.rb:445
 msgid "\"%<project_title>s\" project DMP"
 msgstr ""
 
@@ -1076,7 +1076,7 @@ msgstr ""
 msgid "private"
 msgstr ""
 
-#: ../../app/models/plan.rb:742
+#: ../../app/models/plan.rb:749
 msgid "must be after the start date"
 msgstr ""
 
@@ -1379,6 +1379,45 @@ msgstr ""
 msgid "Click here to add a new item"
 msgstr ""
 
+#: ../../app/views/branded/devise/invitations/edit.html.erb:1
+#: ../../app/views/branded/devise/invitations/edit.html.erb:4
+msgid "Create an account to view the plan"
+msgstr ""
+
+#: ../../app/views/branded/devise/invitations/edit.html.erb:5
+msgid ""
+"You will need to create an account in order to accept your invitation to view "
+"the data management plan (DMP)."
+msgstr ""
+
+#: ../../app/views/branded/devise/invitations/edit.html.erb:15
+msgid "New password"
+msgstr ""
+
+#: ../../app/views/branded/devise/invitations/edit.html.erb:19
+msgid "Password confirmation"
+msgstr ""
+
+#: ../../app/views/branded/devise/invitations/edit.html.erb:23
+msgid "First name"
+msgstr ""
+
+#: ../../app/views/branded/devise/invitations/edit.html.erb:28
+#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:21
+msgid "Last name"
+msgstr ""
+
+#: ../../app/views/branded/devise/invitations/edit.html.erb:40
+msgid ""
+"If your organisation is not in the list, please select 'Autre/Other'. Once you"
+"r account is created, you will be able your organisation from your profile."
+msgstr ""
+
+#: ../../app/views/branded/devise/invitations/edit.html.erb:43
+#: ../../app/views/branded/shared/_create_account_form.html.erb:56
+msgid "Create account"
+msgstr ""
+
 #: ../../app/views/branded/devise/registrations/_personal_details.html.erb:3
 msgid ""
 "Please note that your email address is used as your username. If you change th"
@@ -1387,10 +1426,6 @@ msgstr ""
 
 #: ../../app/views/branded/devise/registrations/_personal_details.html.erb:6
 msgid "You can edit any of the details below."
-msgstr ""
-
-#: ../../app/views/branded/devise/registrations/_personal_details.html.erb:21
-msgid "Last name"
 msgstr ""
 
 #: ../../app/views/branded/devise/registrations/_personal_details.html.erb:26
@@ -3182,10 +3217,6 @@ msgid ""
 "ng of the data that concerns you and you have the right to withdraw your agree"
 "ment at any time, by contacting: <a href='mailto:%{contact_url}'>%{contact_url"
 "}</a>. You can also direct a complaint at a controlling body."
-msgstr ""
-
-#: ../../app/views/branded/shared/_create_account_form.html.erb:56
-msgid "Create account"
 msgstr ""
 
 #: ../../app/views/branded/shared/_create_plan_modal.html.erb:8
