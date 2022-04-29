@@ -1,4 +1,4 @@
-class CreateUserOrgRoles < ActiveRecord::Migration
+class CreateUserOrgRoles < ActiveRecord::Migration[4.2]
   def change
     create_table :user_org_roles do |t|
       t.integer :user_id

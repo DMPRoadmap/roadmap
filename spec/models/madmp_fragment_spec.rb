@@ -1,20 +1,17 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe MadmpFragment, type: :model do
-
-  context "validations" do
-    
+  context 'validations' do
     it { is_expected.to validate_presence_of(:madmp_schema) }
-    
   end
 
-  context "associations" do
-
+  context 'associations' do
     it { is_expected.to belong_to :madmp_schema }
 
     it { is_expected.to belong_to :answer }
-
-  end 
+  end
 
   # describe ".update_parent_references" do
 

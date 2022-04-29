@@ -1,33 +1,51 @@
 # frozen_string_literal: true
 
+# Controller for the Write plan and create plan pages
+# rubocop:disable Metrics/ClassLength
 class PlansController < ApplicationController
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/controllers/dmpopidor/plans_controller.rb
+  # --------------------------------
+  prepend Dmpopidor::PlansController
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   include ConditionalUserMailer
   include OrgSelectable
-  prepend Dmpopidor::Controllers::Plans
 
   helper PaginableHelper
   helper SettingsTemplateHelper
 
   after_action :verify_authorized, except: [:overview]
 
+  # GET /plans
+  # rubocop:disable Metrics/AbcSize
   def index
     authorize Plan
-    @plans = Plan.active(current_user).page(1)
-    if current_user.org.is_other?
-      @organisationally_or_publicly_visible = []
-    else
-      @organisationally_or_publicly_visible =
-        Plan.organisationally_or_publicly_visible(current_user).page(1)
-    end
-
-    if params[:plan].present?
-      @template = Template.find(params[:plan][:template_id])
-    end
+    @plans = Plan.includes(:roles, :org).active(current_user).page(1)
+    @organisationally_or_publicly_visible = if current_user.org.is_other?
+                                              []
+                                            else
+                                              Plan.organisationally_or_publicly_visible(current_user).page(1)
+                                            end
+    # TODO: Is this still used? We cannot switch this to use the :plan_params
+    #       strong params because any calls that do not include `plan` in the
+    #       query string will fail
+    @template = Template.find(params[:plan][:template_id]) if params[:plan].present?
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/controllers/dmpopidor/plans_controller.rb
+  # CHANGES:
+  #   - Added Active Flag on Org
+  #   - Added default template for 'Use Default Template' button
+  # --------------------------------
   # GET /plans/new
-  # SEE MODULE
+  # rubocop:disable Metrics/AbcSize
   def new
     @plan = Plan.new
     authorize @plan
@@ -44,49 +62,69 @@ class PlansController < ApplicationController
 
     @plan.org_id = current_user.org&.id
 
-    if params.key?(:test)
-      flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>"
-    end
+    # TODO: is this still used? We cannot switch this to use the :plan_params
+    #       strong params because any calls that do not include `plan` in the
+    #       query string will fail
+    flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>" if params.key?(:test)
     @is_test = params[:test] ||= false
     respond_to :html
   end
+  # rubocop:enable Metrics/AbcSize
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # POST /plans
-  # SEE MODULE
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def create
     @plan = Plan.new
     authorize @plan
-
-    # We set these ids to -1 on the page to trick ariatiseForm into allowing the
-    # autocomplete to be blank if the no org/funder checkboxes are checked off
-    org_id = (plan_params[:org_id] == "-1" ? "" : plan_params[:org_id])
-    funder_id = (plan_params[:funder_id] == "-1" ? "" : plan_params[:funder_id])
 
     # If the template_id is blank then we need to look up the available templates and
     # return JSON
     if plan_params[:template_id].blank?
       # Something went wrong there should always be a template id
       respond_to do |format|
-        flash[:alert] = _("Unable to identify a suitable template for your plan.")
+        flash[:alert] = _('Unable to identify a suitable template for your plan.')
         format.html { redirect_to new_plan_path }
       end
     else
-      @plan.visibility = if plan_params["visibility"].blank?
-                           Rails.application.config.default_plan_visibility
+      @plan.visibility = if plan_params['visibility'].blank?
+                           Rails.configuration.x.plans.default_visibility
                          else
                            plan_params[:visibility]
                          end
 
       @plan.template = Template.find(plan_params[:template_id])
 
-      if plan_params[:title].blank?
-        @plan.title = if current_user.firstname.blank?
-                        _("My Plan") + "(" + @plan.template.title + ")"
+      @plan.title = if plan_params[:title].blank?
+                      if current_user.firstname.blank?
+                        format(_('My Plan (%<title>s)'), title: @plan.template.title)
                       else
-                        current_user.firstname + "'s" + _(" Plan")
+                        format(_('%<user_name>s Plan'), user_name: "#{current_user.firstname}'s")
                       end
+                    else
+                      plan_params[:title]
+                    end
+
+      # bit of hackery here. There are 2 org selectors on the page
+      # and each is within its own specific context, plan.org or
+      # plan.funder which forces the hidden id hash to be :id
+      # so we need to convert it to :org_id so it works with the
+      # OrgSelectable and OrgSelection services
+      if plan_params[:org].present? && plan_params[:org][:id].present?
+        attrs = plan_params[:org]
+        attrs[:org_id] = attrs[:id]
+        @plan.org = org_from_params(params_in: attrs, allow_create: false)
       else
-        @plan.title = plan_params[:title]
+        # The user did not specify a research Org, so default to their Org
+        @plan.org = current_user.org
+      end
+      if plan_params[:funder].present? && plan_params[:funder][:id].present?
+        attrs = plan_params[:funder]
+        attrs[:org_id] = attrs[:id]
+        @plan.funder = org_from_params(params_in: attrs, allow_create: false)
       end
 
       # bit of hackery here. There are 2 org selectors on the page
@@ -107,10 +145,10 @@ class PlansController < ApplicationController
 
       if @plan.save
         # pre-select org's guidance and the default org's guidance
-        ids = (Org.default_orgs.pluck(:id) << org_id).flatten.uniq
+        ids = (Org.default_orgs.pluck(:id) << @plan.org_id).flatten.uniq
         ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
 
-        if !ggs.blank? then @plan.guidance_groups << ggs end
+        @plan.guidance_groups << ggs unless ggs.empty?
 
         default = Template.default
 
@@ -121,24 +159,45 @@ class PlansController < ApplicationController
           msg += " #{_('This plan is based on the default template.')}"
 
         elsif !@plan.template.customization_of.nil?
-          # rubocop:disable Metrics/LineLength
           # We used a customized version of the the funder template
-          # rubocop:disable Metrics/LineLength
-          msg += " #{_('This plan is based on the')} #{@plan.funder&.name}: '#{@plan.template.title}' #{_('template with customisations by the')} #{plan_params[:org_name]}"
-          # rubocop:enable Metrics/LineLength
+          # rubocop:disable Layout/LineLength
+          msg += " #{_('This plan is based on the')} #{@plan.funder&.name}: '#{@plan.template.title}' #{_('template with customisations by the')} #{@plan.template.org.name}"
+          # rubocop:enable Layout/LineLength
         else
-          # rubocop:disable Metrics/LineLength
           # We used the specified org's or funder's template
-          # rubocop:disable Metrics/LineLength
           msg += " #{_('This plan is based on the')} #{@plan.template.org.name}: '#{@plan.template.title}' template."
-          # rubocop:enable Metrics/LineLength
         end
 
         @plan.add_user!(current_user.id, :creator)
 
         # Set new identifier to plan id by default on create.
         # (This may be changed by user.)
-        @plan.identifier = @plan.id.to_s
+        # --------------------------------
+        # Start DMP OPIDoR Customization
+        # CHANGES : Commented line
+        # --------------------------------
+        # @plan.identifier = @plan.id.to_s
+        # --------------------------------
+        # End DMP OPIDoR Customization
+        # --------------------------------
+        @plan.save
+
+        # --------------------------------
+        # Start DMP OPIDoR Customization
+        # CHANGES : Added default Research Output & Plan fragment creation
+        # --------------------------------
+        @plan.create_plan_fragments
+
+        # Add default research output if possible
+        @plan.research_outputs.create!(
+          abbreviation: 'Default',
+          title: 'Default research output',
+          is_default: true,
+          display_order: 1
+        )
+        # --------------------------------
+        # End DMP OPIDoR Customization
+        # --------------------------------
 
         respond_to do |format|
           flash[:notice] = msg
@@ -148,28 +207,49 @@ class PlansController < ApplicationController
       else
         # Something went wrong so report the issue to the user
         respond_to do |format|
-          flash[:alert] = failure_message(@plan, _("create"))
+          flash[:alert] = failure_message(@plan, _('create'))
           format.html { redirect_to new_plan_path }
         end
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/controllers/dmpopidor/plans_controller.rb
+  # --------------------------------
   # GET /plans/show
-  # SEE MODULE
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def show
     @plan = Plan.includes(
       template: { phases: { sections: { questions: :answers } } },
       plans_guidance_groups: { guidance_group: :guidances }
-            ).find(params[:id])
+    ).find(params[:id])
     authorize @plan
+
+    # --------------------------------
+    # Start DMP OPIDoR Customization
+    # --------------------------------
+    @schemas = MadmpSchema.all
+    @research_outputs = @plan.research_outputs.order(:display_order)
+    # --------------------------------
+    # End DMP OPIDoR Customization
+    # --------------------------------
 
     @visibility = if @plan.visibility.present?
                     @plan.visibility.to_s
                   else
-                    Rails.application.config.default_plan_visibility
+                    Rails.configuration.x.plans.default_visibility
                   end
-
+    # Get all of the available funders
+    @funders = Org.funder
+                  .includes(identifiers: :identifier_scheme)
+                  .joins(:templates)
+                  .where(templates: { published: true }).uniq.sort_by(&:name)
+    # TODO: Seems strange to do this. Why are we just not using an `edit` route?
     @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
 
     # Get all Guidance Groups applicable for the plan and group them by org
@@ -185,20 +265,16 @@ class PlansController < ApplicationController
       @important_ggs << [current_user.org, @all_ggs_grouped_by_org[current_user.org]]
     end
     @all_ggs_grouped_by_org.each do |org, ggs|
-      if org.organisation?
-        @important_ggs << [org, ggs]
-      end
+      @important_ggs << [org, ggs] if Org.default_orgs.include?(org)
 
       # If this is one of the already selected guidance groups its important!
-      if !(ggs & @selected_guidance_groups).empty?
-        @important_ggs << [org, ggs] unless @important_ggs.include?([org, ggs])
-      end
+      @important_ggs << [org, ggs] if !(ggs & @selected_guidance_groups).empty? && !@important_ggs.include?([org, ggs])
     end
 
     # Sort the rest by org name for the accordion
-    @important_ggs = @important_ggs.sort_by { |org, gg| (org.nil? ? "" : org.name) }
-    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by do |org, gg|
-      (org.nil? ? "" : org.name)
+    @important_ggs = @important_ggs.sort_by { |org, _gg| (org.nil? ? '' : org.name) }
+    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by do |org, _gg|
+      (org.nil? ? '' : org.name)
     end
     @selected_guidance_groups = @selected_guidance_groups.ids
 
@@ -207,141 +283,207 @@ class PlansController < ApplicationController
                 else
                   Template.where(family_id: @plan.template.customization_of).first
                 end
+
+    @research_domains = ResearchDomain.all.order(:label)
+
     respond_to :html
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
+  # TODO: This feels like it belongs on a phases controller, perhaps introducing
+  #       a non-namespaces phases_controller woulld make sense here. Consider
+  #       doing this when we refactor the Plan editing UI
   # GET /plans/:plan_id/phases/:id/edit
-  # SEE MODULE
+  # rubocop:disable Metrics/AbcSize
   def edit
-    plan = Plan.find(params[:id])
+    plan = Plan.includes(
+      # --------------------------------
+      # Start DMP OPIDoR Customization
+      # --------------------------------
+      :research_outputs,
+      # --------------------------------
+      # End DMP OPIDoR Customization
+      # --------------------------------
+      { template: {
+        phases: {
+          sections: {
+            questions: %i[question_format question_options annotations themes]
+          }
+        }
+      } },
+      { answers: :notes }
+    )
+               .find(params[:id])
     authorize plan
-    plan, phase = Plan.load_for_phase(params[:id], params[:phase_id])
+    phase_id = params[:phase_id].to_i
+    phase = plan.template.phases.select { |p| p.id == phase_id }.first
+    raise ActiveRecord::RecordNotFound if phase.nil?
+
     guidance_groups = GuidanceGroup.where(published: true, id: plan.guidance_group_ids)
     render_phases_edit(plan, phase, guidance_groups)
   end
+  # rubcocop:enable Metrics/AbcSize
 
   # PUT /plans/1
-  # PUT /plans/1.json
-  # SEE MODULE
+  # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
   def update
     @plan = Plan.find(params[:id])
     authorize @plan
     attrs = plan_params
     # rubocop:disable Metrics/BlockLength
     respond_to do |format|
-      begin
-        # Save the guidance group selections
-        guidance_group_ids = if params[:guidance_group_ids].blank?
-                               []
-                             else
-                               params[:guidance_group_ids].map(&:to_i).uniq
-                             end
-        @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
+      # TODO: See notes below on the pan_params definition. We should refactor
+      #       this once the UI pages have been reworked
+      # Save the guidance group selections
+      guidance_group_ids = if params[:guidance_group_ids].blank?
+                             []
+                           else
+                             params[:guidance_group_ids].map(&:to_i).uniq
+                           end
+      @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
 
-        # TODO: For some reason the `fields_for` isn't adding the
-        #       appropriate namespace, so org_id represents our funder
-        funder = org_from_params(params_in: attrs, allow_create: true)
-        @plan.funder_id = funder.id if funder.present?
-        process_grant(hash: params[:grant])
-        attrs = remove_org_selection_params(params_in: attrs)
+      # TODO: For some reason the `fields_for` isn't adding the
+      #       appropriate namespace, so org_id represents our funder
+      funder_attrs = plan_params[:funder]
+      funder_attrs[:org_id] = plan_params[:funder][:id]
+      funder = org_from_params(params_in: funder_attrs)
+      @plan.funder_id = funder&.id
+      attrs.delete(:funder)
 
-        if @plan.update(attrs) #_attributes(attrs)
-          format.html do
-            redirect_to plan_contributors_path(@plan),
-                        notice: success_message(@plan, _("saved"))
-          end
-          format.json do
-            render json: { code: 1, msg: success_message(@plan, _("saved")) }
-          end
-        else
-          format.html do
-            # TODO: Should do a `render :show` here instead but show defines too many
-            #       instance variables in the controller
-            redirect_to "#{plan_path(@plan)}", alert: failure_message(@plan, _("save"))
-          end
-          format.json do
-            render json: { code: 0, msg: failure_message(@plan, _("save")) }
-          end
-        end
+      process_grant(grant_params: plan_params[:grant])
+      attrs.delete(:grant)
+      attrs = remove_org_selection_params(params_in: attrs)
 
-      rescue Exception => e
-        flash[:alert] = failure_message(@plan, _("save"))
+      if @plan.update(attrs) # _attributes(attrs)
         format.html do
-          Rails.logger.error "Unable to save plan #{@plan&.id} - #{e.message}"
-          redirect_to "#{plan_path(@plan)}", alert: failure_message(@plan, _("save"))
+          redirect_to plan_path(@plan),
+                      notice: success_message(@plan, _('saved'))
         end
         format.json do
-          render json: { code: 0, msg: flash[:alert] }
+          render json: { code: 1, msg: success_message(@plan, _('saved')) }
         end
+      else
+        format.html do
+          # TODO: Should do a `render :show` here instead but show defines too many
+          #       instance variables in the controller
+          redirect_to plan_path(@plan).to_s, alert: failure_message(@plan, _('save'))
+        end
+        format.json do
+          render json: { code: 0, msg: failure_message(@plan, _('save')) }
+        end
+      end
+    rescue StandardError => e
+      flash[:alert] = failure_message(@plan, _('save'))
+      format.html do
+        Rails.logger.error "Unable to save plan #{@plan&.id} - #{e.message}"
+        redirect_to plan_path(@plan).to_s, alert: failure_message(@plan, _('save'))
+      end
+      format.json do
+        render json: { code: 0, msg: flash[:alert] }
       end
     end
     # rubocop:enable Metrics/BlockLength
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
 
+  # GET /plans/:id/share
   def share
     @plan = Plan.find(params[:id])
     if @plan.present?
       authorize @plan
-      @plan_roles = @plan.roles
+      @plan_roles = @plan.roles.where(active: true)
     else
       redirect_to(plans_path)
     end
   end
 
+  # TODO: Does this belong on the Roles or FeedbackRequest controllers
+  #       as a PUT verb?
+  # GET /plans/:id/request_feedback
   def request_feedback
     @plan = Plan.find(params[:id])
     if @plan.present?
       authorize @plan
-      @plan_roles = @plan.roles
+      @plan_roles = @plan.roles.where(active: true)
     else
       redirect_to(plans_path)
     end
   end
 
-  # SEE MODULE
+  # DELETE /plans/:id
+  # rubocop:disable Metrics/AbcSize
   def destroy
     @plan = Plan.find(params[:id])
     authorize @plan
     if @plan.destroy
+      # --------------------------------
+      # Start DMP OPIDoR Customization
+      # Changes : Destroying the plan should destroy the associated madmp_fragments
+      # --------------------------------
+      dmp_fragment = @plan.json_fragment
+      dmp_fragment.destroy
+      # --------------------------------
+      # End DMP OPIDoR Customization
+      # --------------------------------
       respond_to do |format|
         format.html do
           redirect_to plans_url,
-                      notice: success_message(@plan, _("deleted"))
+                      notice: success_message(@plan, _('deleted'))
         end
       end
     else
       respond_to do |format|
-        flash[:alert] = failure_message(@plan, _("delete"))
-        format.html { render action: "edit" }
+        flash[:alert] = failure_message(@plan, _('delete'))
+        format.html { render action: 'edit' }
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # TODO: Is this used? It seems like it belongs on the answers controller
+  # GET /plans/:id/answer
+  # rubocop:disable Metrics/AbcSize
   def answer
     @plan = Plan.find(params[:id])
     authorize @plan
-    if !params[:q_id].nil?
+    if params[:q_id].nil?
+      respond_to do |format|
+        format.json { render json: {} }
+      end
+    else
       respond_to do |format|
         format.json do
           render json: @plan.answer(params[:q_id], false).to_json(include: :options)
         end
       end
-    else
-      respond_to do |format|
-        format.json { render json: {} }
-      end
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
-  # SEE MODULE
+  # GET /plans/:id/download
   def download
-   @plan = Plan.find(params[:id])
-   authorize @plan
-   @phase_options = @plan.phases.order(:number).pluck(:title, :id)
-   @export_settings = @plan.settings(:export)
-   render "download"
+    @plan = Plan.find(params[:id])
+    authorize @plan
+
+    # --------------------------------
+    # Start DMP OPIDoR Customization
+    # --------------------------------
+    @research_outputs = @plan.research_outputs
+    # --------------------------------
+    # End DMP OPIDoR Customization
+    # --------------------------------
+
+    @phase_options = @plan.phases.order(:number).pluck(:title, :id)
+    @export_settings = @plan.settings(:export)
+    render 'download'
   end
 
+  # POST /plans/:id/duplicate
+  # rubocop:disable Metrics/AbcSize
   def duplicate
     plan = Plan.find(params[:id])
     authorize plan
@@ -349,15 +491,17 @@ class PlansController < ApplicationController
     respond_to do |format|
       if @plan.save
         @plan.add_user!(current_user.id, :creator)
-        format.html { redirect_to @plan, notice: success_message(@plan, _("copied")) }
+        format.html { redirect_to @plan, notice: success_message(@plan, _('copied')) }
       else
-        format.html { redirect_to plans_path, alert: failure_message(@plan, _("copy")) }
+        format.html { redirect_to plans_path, alert: failure_message(@plan, _('copy')) }
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # TODO: This should probablly just be merged with the update route
   # POST /plans/:id/visibility
-  # SEE MODULE
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def visibility
     plan = Plan.find(params[:id])
     if plan.present?
@@ -366,91 +510,101 @@ class PlansController < ApplicationController
         plan.visibility = plan_params[:visibility]
         if plan.save
           deliver_if(recipients: plan.owner_and_coowners,
-                     key: "owners_and_coowners.visibility_changed") do |r|
-            UserMailer.plan_visibility(r, plan).deliver_now()
+                     key: 'owners_and_coowners.visibility_changed') do |r|
+            UserMailer.plan_visibility(r, plan).deliver_now
           end
           render status: :ok,
-                 json: { msg: success_message(plan, _("updated")) }
+                 json: { msg: success_message(plan, _('updated')) }
         else
           render status: :internal_server_error,
-                 json: { msg: failure_message(plan, _("update")) }
+                 json: { msg: failure_message(plan, _('update')) }
         end
       else
-        # rubocop:disable Metrics/LineLength
+        # rubocop:disable Layout/LineLength
         render status: :forbidden, json: {
-          msg: _("Unable to change the plan's status since it is needed at least %{percentage} percentage responded") % {
-              percentage: Rails.application.config.default_plan_percentage_answered
-          }
+          msg: format(_("Unable to change the plan's status since it is needed at least %<percentage}>s percentage responded"), percentage: Rails.configuration.x.plans.default_percentage_answered)
         }
-        # rubocop:enable Metrics/LineLength
+        # rubocop:enable Layout/LineLength
       end
     else
       render status: :not_found,
-             json: { msg: _("Unable to find plan id %{plan_id}") % {
-               plan_id: params[:id] }
-             }
+             json: { msg: format(_('Unable to find plan id %<plan_id>s'),
+                                 plan_id: params[:id]) }
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+  # TODO: This should probablly just be merged with the update route
+  # POST /plans/:id/set_test
   def set_test
     plan = Plan.find(params[:id])
     authorize plan
-    plan.visibility = (params[:is_test] === "1" ? :is_test : :privately_visible)
-    # rubocop:disable Metrics/LineLength
+    plan.visibility = (params[:is_test] == '1' ? :is_test : :privately_visible)
     if plan.save
       render json: {
-               code: 1,
-               msg: (plan.is_test? ? _("Your project is now a test.") : _("Your project is no longer a test."))
-             }
+        code: 1,
+        msg: (plan.is_test? ? _('Your project is now a test.') : _('Your project is no longer a test.'))
+      }
     else
       render status: :bad_request, json: {
-               code: 0, msg: _("Unable to change the plan's test status")
-             }
-    end
-    # rubocop:enable Metrics/LineLength
-  end
-
-  def overview
-    begin
-      plan = Plan.includes(:phases, :sections, :questions, template: [ :org ])
-                 .find(params[:id])
-
-      authorize plan
-      render(:overview, locals: { plan: plan })
-    rescue ActiveRecord::RecordNotFound
-      flash[:alert] = _("There is no plan associated with id %{id}") % {
-        id: params[:id]
+        code: 0, msg: _("Unable to change the plan's test status")
       }
-      redirect_to(action: :index)
     end
   end
+
+  # GET /plans/:id/overview
+  def overview
+    plan = Plan.includes(template: [:org, { phases: { sections: :questions } }])
+               .find(params[:id])
+
+    authorize plan
+    render(:overview, locals: { plan: plan })
+  rescue ActiveRecord::RecordNotFound
+    flash[:alert] = format(_('There is no plan associated with id %<id>s'), id: params[:id])
+    redirect_to(action: :index)
+  end
+
+  # ============================
+  # = Private instance methods =
+  # ============================
 
   private
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/controllers/dmpopidor/plans_controller.rb
+  # Changes : Removed everything except guidances group info. The rest of the info is
+  # handled by MadmpFragmentController
+  # --------------------------------
   def plan_params
+    # TODO: The guidance_group_ids setup on the form is a bit convoluted. Refactor
+    #       it once we've started updating the UI for these pages. There should
+    #       probably be a separate controller and set the checkboxes to use `remote: true`
     params.require(:plan)
-          .permit(:template_id, :title, :visibility, :grant_number,
-                  :description, :identifier, :guidance_group_ids,
-                  :start_date, :end_date,
-                  :org_id, :org_name, :org_crosswalk, :identifier,
-                  org: [:org_id, :org_name, :org_sources, :org_crosswalk],
-                  funder: [:org_id, :org_name, :org_sources, :org_crosswalk])
+          .permit(:template_id, :title, :visibility, :description, :identifier,
+                  :start_date, :end_date, :org_id, :org_name, :org_crosswalk,
+                  :ethical_issues, :ethical_issues_description, :ethical_issues_report,
+                  :research_domain_id, :funding_status,
+                  grant: %i[name value],
+                  org: %i[id org_id org_name org_sources org_crosswalk],
+                  funder: %i[id org_id org_name org_sources org_crosswalk])
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # different versions of the same template have the same family_id
   # but different version numbers so for each set of templates with the
   # same family_id choose the highest version number.
   def get_most_recent(templates)
-    groups = Hash.new
+    groups = {}
     templates.each do |t|
       k = t.family_id
-      if !groups.has_key?(k)
-        groups[k] = t
-      else
+      if groups.key?(k)
         other = groups[k]
-        if other.version < t.version
-          groups[k] = t
-        end
+        groups[k] = t if other.version < t.version
+      else
+        groups[k] = t
       end
     end
     groups.values
@@ -463,65 +617,66 @@ class PlansController < ApplicationController
   # rollup(plan, "answers", "quesiton_id", "questions")
   # will put the answers into the right questions.
   def rollup(plan, src_plan_key, super_id, obj_plan_key)
-    id_to_obj = Hash.new()
+    id_to_obj = {}
     plan[src_plan_key].each do |o|
       id = o[super_id]
-      if !id_to_obj.has_key?(id)
-        id_to_obj[id] = Array.new
-      end
+      id_to_obj[id] = [] unless id_to_obj.key?(id)
       id_to_obj[id] << o
     end
 
     plan[obj_plan_key].each do |o|
-      id = o["id"]
-      if id_to_obj.has_key?(id)
-        o[src_plan_key] = id_to_obj[ id ]
-      end
+      id = o['id']
+      o[src_plan_key] = id_to_obj[id] if id_to_obj.key?(id)
     end
     plan.delete(src_plan_key)
   end
 
-  # ============================
-  # = Private instance methods =
-  # ============================
-
-  # SEE MODULE
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/controllers/dmpopidor/plans_controller.rb
+  # CHANGES : maDMP Fragments SUPPORT
+  # --------------------------------
   def render_phases_edit(plan, phase, guidance_groups)
     readonly = !plan.editable_by?(current_user.id)
     # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
     # we create a hash whose keys are question id and value is the answer associated
-    answers = plan.answers.reduce({}) { |m, a| m[a.question_id] = a; m }
-    render("/phases/edit", locals: {
-      base_template_org: phase.template.base_org,
-      plan: plan,
-      phase: phase,
-      readonly: readonly,
-      guidance_groups: guidance_groups,
-      answers: answers,
-      guidance_presenter: GuidancePresenter.new(plan)
-    })
+    answers = plan.answers.each_with_object({}) { |a, m| m[a.question_id] = a; }
+    render('/phases/edit', locals: {
+             base_template_org: phase.template.base_org,
+             plan: plan,
+             phase: phase,
+             readonly: readonly,
+             guidance_groups: guidance_groups,
+             answers: answers,
+             guidance_presenter: GuidancePresenter.new(plan)
+           })
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # Update, destroy or add the grant
-  def process_grant(hash:)
-    if hash.present?
-      if hash[:id].present?
-        grant = @plan.grant
-        # delete it if it has been blanked out
-        if hash[:value].blank?
-          grant.destroy
-          @plan.grant_id = nil
-        elsif hash[:value] != grant.value
-          # update it iif iit has changed
-          grant.update(value: hash[:value])
-        end
-      else
-        identifier = Identifier.create(identifier_scheme: nil,
-                                       identifiable: @plan, value: hash[:value])
-        @plan.grant_id = identifier.id
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def process_grant(grant_params:)
+    return false unless grant_params.present?
+
+    grant = @plan.grant
+
+    # delete it if it has been blanked out
+    if grant_params[:value].blank? && grant.present?
+      grant.destroy
+      @plan.grant = nil
+    elsif grant_params[:value] != grant&.value
+      if grant.present?
+        grant.update(value: grant_params[:value])
+      elsif grant_params[:value].present?
+        @plan.grant = Identifier.new(identifier_scheme: nil, identifiable: @plan,
+                                     value: grant_params[:value])
       end
     end
   end
-
-
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end
+# rubocop:enable Metrics/ClassLength

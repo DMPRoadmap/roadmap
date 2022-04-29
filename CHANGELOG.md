@@ -2,85 +2,108 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
-## 03/02/2022
-- Les plans sont désormais partagés en "Lecture seule" par défaut
-- Résolution d'un problème qui attribuait un Formulaire structuré à une question lors de l'édition de Modèle de DMP même si cette question n'était pas "structurée" (issue gitbucket 314)
+## 28/04/2022
+- Retrait de la possibilité de création de nouvel organisme depuis le formulaire de création de compte par invitation (issue gitbucket 377)
+- La personne contact est désormais bien copiée lors de la copie d'un plan créé à partir d'un modèle classique (issue gitbucket 361)
+- Correction d'un problème de sauvegarde du formulaire Meta
 
-## 21/01/2022
-- Résolution d'un bug survenant la vérification de l'existance d'un contributeur, à la création d'un nouveau contributeur.
+## 21/04/2022
+- Correction d'un problème d'archivage des utilisateurs (issue gitbucket 376)
+- Correction du problème d'ordre des phases dans l'export d'un plan avec plusieurs phases (issue gitbucket 353)
+- La date de dernière modification se met désormais bien à jour quand on modifie depuis l'onglet Rédiger (issue gitbucket 348)
+- La fusion d'utilisateur transfère désormais les plans en assistance conseil de l'utilisateur fusionné
 
-## 20/01/2022
-- Ajout de l'affiliation dans le tableau des contributeurs présent lors de l'export (issue gitbucket 311)
-- Résolution d'un bug survenant lorsque 'params' est absent de la propriété 'run' d'un template
-- L'organisme sélectionné est désormais bien pris en compte lors de la création d'un compte suite à un partage de plan (issue gitbucket 312)
+## 15/04/2022
+- Les exports JSON exportent les produits de recherche dans l'ordre d'affichage de l'onglet Produits de Recherche (issue gitbucket 371 & 373)
+- L'import RDA récupère désormais les contributeurs (issue gitbucket 373)
+- Les boutons radio des formulaires d'import et de téléchargement d'un plan sont désormais cochés quand on clique sur le libellé 
+- Il est de nouveau possible de créer des organismes depuis la création de compte et le profil utilisateur, si l'organisme n'est pas dans la liste (issue gitbucket 370)
+- Amélioration de l'affichage du nom d'utilisateurs (issue gitbucket 368)
+- Suppression du champ de recherche d'organisme dans le formulaire de création d'un nouvel organisme (issue gitbucket 370) => ce champ permet de rechercher l'organisme sur ROR, or cette fonctionnalité n'est pas activée chez nous
+- Correction du problème de sauvegarde d'un nouvel organisme (message en rouge) (issue gitbucket 370)
 
-## 13/01/2022
-- Changement du message pour les organismes "unmanaged" affiché lors de la création de plan
-- Ajout d'un message indiquant que le changement d'email n'est pas fonctionnel
-- Résolution d'un bug se produisant lors de l'accès à un profil utilisateur en tant que super admin, quand un plan n'a pas de propriétaire.
-- Les organismes "unmanaged" ne sont plus présent dans la liste des organismes du formulaire de création de plan.
 
-## 11/01/2022
-- Le changement d'email depuis le profil est de nouveau fonctionnel
-- Les tooltips s'affichent désormais sur les boutons "Runs"
+## 08/04/2022
+- Correction de problèmes dans  les exports Standard & RDA (issue gitbucket 364)
+- La liste des formulaires disponibles est désormais limitées aux propriétés liées au template ResearchOutput, lors de la création/mise à jour d'une question lors de l'édition d'un modèle de DMP
+- Suppression de tables et colonnes non utilisées (issue gitbucket 365)
+- Suppression de la validation des identifiants financeurs & contributeurs dans l'import RDA
+- Ajout du nombre total d'utilisateurs dans la liste Admin/SuperAdmin (issue gitbucket 368)
+- Correction du problème de création de nouvelle question dans les Modèles Classiques (issue gitbucket 366)
+- Ajout de la validation de présence du contact et de l'email du contact dans l'import Standard
+- L'import par API est disponible à l'adresse `api/v1/madmp/plans/import?import_format=rda`. Formats disponibles `standard` et `rda`
 
-## 10/01/2022
-- Les organismes "unmanaged" n'apparaissent plus dans le sélecteur d'organimes. Il est cependant toujours possible d'en créer un nouveau
-- Ajout d'un message dans le formulaire de création de plan pour les utilisateurs liés à un organisme "unmanaged"
-- (A tester en VI) Fix pour les problèmes d'encodage des informations provenant de la fédération d'identité. Ce problème empếche les utilisateurs de lier leur compte à la fédé et de se connecter par la fédé.
-- Mise à jour de l'URL de la codebase.
+## 05/04/2022
+- Ajout de l'interface d'import des plans (Standard & RDA)
 
-## 16/12/2021
-- Ajout de l'indication des valeurs minimum et maximum sur les champs nombre
-- Correction d'un problème empêchant la saisie d'une valeur dans les champs nombre lorsque le minimum était supérieur à 0
-- Corrrection d'un problème d'affichage des noms des personnes dans les mails de notification (problème du mail d'assistance conseil)
-- Ajout de l'éditeur du texte de banière dans l'édition d'un organisme
-- Joyeuses fêtes !
+## 29/03/2022
+- Ajout d'une liste de sélection permettant de filtrer les formulaires structurés par type de données, lors de la modification/création d'une question dans un modèle structuré.
+- Correction du problème d'affichage des libellés "Plan Details" et "Project Details" dans l'export PDF (issue gitbucket 347)
+- Correction du problème d'affichage des plans en visibilité Administrateur dans la liste des plan accessible en tant qu'Admin (issue gitbucket 346)
+- Correction du problème d'affichage du message d'alerte "L'élément est déjà présent dans le plan" à la création d'une personne déjà existante (issue gitbucket 316)
+- La langue choisie dans le profil utilisateur devrait être correctement appliquée (issue gitbucket 359)
 
-## 10/12/2021
-- Amélioration de l'affichage des valeurs sélectionnées pour les référentiels multiples
-- Changement du formatage des informations provenant de l'API des référentiels
-- Le bouton d'ajout de lien des éditeurs présent dans une fenêtre "pop up" est de nouveau fonctionnel
-- Le formatage HTML est affiché correctement lors de l'export, pour les listes de sous fragments (ex: Politique de Données)
-- Amélioration de l'affichage des champs `number` avec l'ajout d'un espace de séparation des milliers
+## 28/03/2022
+- Correction du problème de copie des plans créés à partir d'un modèle classique (issue gitbucket 354)
+- Correction du problème de sélection des recommandations (issue gitbucket 354)
+- L'ouverture d'une liste de sélection place désormais le curseur de saisie dans le champ de recherche (issue gitbucket 356)
+- Ajout des contributeurs sans rôle dans l'export JSON (issue gitbucket 358)
+- Amélioration de l'affichage des valeurs sélectionnées pour les sélecteurs multiples
+- Correction du problème d'export des DMP avec plusieurs phases (issue gitbucket 353)
+- Correction du problème d'affichage de l'étape du cycle de vie pour les Coûts dans l'export PDF/DOCX (issue gitbucket 351)
+- Correction du problème d'ouverture des exports DOCX causé par l'affichage des contributeurs sans rôle
+- Mises à jour de la traduction (issue gitbucket 317)
 
-## 06/12/2021
-- Ajout du support des paramètres dans les propriétés `run` présentes dans les templates
-- Les tooltips devraient s'afficher correctement suite à une sauvegarde ou à l'ouverture d'une question  (Issue Gitbucket 103)
-- Amélioration des sélecteurs multiples : 
-  - Référentiels complexes (ex : Partners) ou Contributeurs : Ajout d'une icone indiquant que les éléments seront ajoutés sous la liste
-  - Référentiels simples (ex: StorageType) : refonte graphique qui devraient rendre plus clair l'ajout et la suppression d'éléments.
-- Ajout d'une API d'interrogation des référentiels 
-  - Liste : `/api/v1/madmp/registries`
-  - Accès à un référentiel et ses valeurs : `/api/v1/madmp/registries/:name` (ex: `/api/v1/madmp/registries/AgentIdSystem`)
+## 14/03/2022
+- Correction du problème de mise à jour de lastModifiedDate dans les fragments Meta (issue gitbucket 336)
+- Correction du problème d'affichage de la liste des plans en visibilité Organisme (issue gitbucket 326)
+- Mise à jour des traductions (issue gitbucket 317)
+- Ajout de la possibilité d'afficher des Costs non rattachés à un produit de recherche (import RDA)
 
-## 02/12/2021
+## 10/03/2022
+- Correction du problème de suppression des contributeurs (issue gitbucket 343)
+- Correction du problème d'affichage des formulaires structurés pour les nouvelles questions  (issue gitbucket 341)
+- Correction du problème d'attribution du type de personne à la création du plan (issue gitbucket 340)
+- Correction du problème d'affichage du message "select a value or enter a new one" pour la liste des financeurs (issue gitbucket 313)
+- Correction d'un problème de traduction des formulaires dans Informations Générales
+- Correction d'un problème d'envoi de la notification de nouveau commentaire (issue gitbucket 322)
 
-- Seuls les systèmes d'identification marqués comme actif sont affichés dans le profil utilisateur (ORCID n'apparaitra plus malgré la désactivation)
-- Les tableaux de fragments affichent désormais le formatage HTML (liens, gras, italique)
-- Les référentiels simples affichent désormais le formatage HTML de la valeur sélectionnée (ex: Description d'un Standard de métadonnées)
-- Les éditeurs des fenêtres "pop up" ont désormais les mêmes options que les autres éditeurs de l'application.
-- Le mail partage d'un partage d'un plan à un utilisateur qui n'a pas de compte affiche le nom de la personne ayant partagé le plan.
-- L'onglet "Runs" dans le volet *Commentaires et Recommandations* est affiché seulement quand le formulaire choisi possède des traitements. (Issue Gitbucket 192)
-- Amélioration de l'affichage des liens dans le texte des questions
-- Amélioration de l'affichage des valeurs numériques dans les `to_string`
-- Ajout du support d'une valeur maximum et mininum pour les champs de type `number`
-ex : 
-```json
-"amount": {
-    "type": "number",
-    "minimum": 0,
-    "maximum": 20000,
-    "description": "Valeur numérique du montant",
-    "label@fr_FR": "Montant",
-    "label@en_GB": "Amount",
-    "tooltip@fr_FR": "Saisir le montant",
-    "tooltip@en_GB": "Enter the amount",
-    "form_label@fr_FR": "Montant",
-    "form_label@en_GB": "Amount"
-}
-```
 
-### Produits de recherche
-- Pour les plans avec un seul produit de recherche, le nom du produit de recherche est affiché dans les mails de notification d'un nouveau commentaire
-- Les champs Abbréviation et Nom complet sont obligatoires (Issue Gitbucket 55)
+## 04/03/2022
+- Correction du problème d'affichage des libellés dans l'export PDF (issue gitbucket 333)
+- Correction du problème de cloture de l'assistance conseil  (issue gitbucket 339)
+- Correction du problème d'nvoi de notification aux personnes invitées  (issue gitbucket 331)
+- Retrait du message du bug de changement de mail dans le profil utilisateur
+- Les champs de saisie multiple ne font plus apparaitre un champ de saisie vide, après une sauvegarde du formulaire structuré
+- Correction du problème de sauvegarde des valeurs de référentiels
+- L'indicateur de dernière sauvegarde est mis à jour même si la sauvegarde a été faite par le même utilisateur (issue gitbucket 320)
+- Correction du problème de changement de visibilité des plans (issue gitbucket 326)
+- Correction d'un problème de recherche dans la liste des formulaires structurés
+- Correction d'un problème qui empêchait d'accéder au champ de recherche/saisie dans les référentiels situés dans une popup (issue gitbucket 334)
+- Correction d'un bug survenant lorsqu'un référentiel contient une valeur vide
+- Correction du bug d'affichage des types de produits pour les plans non structurés  (issue gitbucket 338)
+
+### Ajout du type de Modèle
+- L'administrateur peut définir le type de modèle : Classique ou Structuré
+- Les modèles classiques ne peuvent pas avoir de question reliées à un formulaire structuré
+- Les modèles structurés n'ont accès qu'aux formulaires structurés, l'administrateur ne peut pas créer de question structurelles.
+
+#### Modification à venir
+- Retrait du type 'Structuré' des formats de réponse pour les modèles classiques
+- Ajout d'un champ permettant de sélectionner le type de formulaire (classname) afin d'affiner la liste des formulaires proposés
+
+## 28/02/2022
+- Intégration de DMPRoadmap V3.0.5 (https://github.com/DMPRoadmap/roadmap/releases/tag/v3.0.5)
+- L'identifiant du plan n'est plus rempli automatiquement (issue gitbucket 318)
+- Amélioration des champs texte multiples (ex: mots clés non controllés) (issue gitbucket 319)
+- La date d'enregistrement d'une question structurée s'affiche désormais correctement (issue gitbucket 320)
+- Correction de l'affichage de l'étape du cycle de vie dans la synthèse des coûts (issue gitbucket 321)
+- Correction du bug provoqué par l'ajout d'un commentaire qui bloquait l'onglet Rédiger (issue gitbucket 322)
+- Le bouton Suivant est de nouveau fonctionnel dans le formulaire de création de plan (issue gitbucket 323)
+- Correction d'affichage des libellés dans les fenêtres d'ajout/modification des contributeurs (issue gitbucket 324)
+- Correction de l'affichage des boutons Déplacer et Supprimer dans l'onglet Produits de Recherche (issue gitbucket 325)
+- La visibilité est de nouveau modifiable quelque soit le taux de remplissage d'un plan (issue gitbucket 326)
+- Le message personnalisé d'un organisme est de nouveau modifiable (issue gitbucket 327)
+- Les demandes d'assistance sont désormais triées par date de demande décroissante (issue gitbucket 328)
+- La mise à jour des templates est de nouveau possible (issue gitbucket 330)
+- Ajout de la Gem rack-attack (issue gitbucket 337)

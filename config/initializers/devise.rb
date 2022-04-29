@@ -1,13 +1,16 @@
+# frozen_string_literal: true
+
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
+# rubocop:disable Metrics/BlockLength
 Devise.setup do |config|
-
-  config.secret_key = '392039f978b64c66a429be2dba9a5e07aeb14ea52fdd791d48e3d49c43df98516a1cf533bdf8e824f0dcf152710bad283d7a62caf8a3469963740caf57e5766f'
+  config.secret_key = Rails.application.credentials.secret_key
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
-  # note that it will be overwritten if you use your own mailer class with default "from" parameter.
-  config.mailer_sender = "info-opidor@inist.fr"
+  # note that it will be overwritten if you use your own mailer class with
+  # default "from" parameter.
+  config.mailer_sender = 'info-opidor@inist.fr'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
@@ -38,12 +41,12 @@ Devise.setup do |config|
   # Configure which authentication keys should be case-insensitive.
   # These keys will be downcased upon creating or modifying a user and when used
   # to authenticate or find a user. Default is :email.
-  config.case_insensitive_keys = [ :email ]
+  config.case_insensitive_keys = [:email]
 
   # Configure which authentication keys should have whitespace stripped.
   # These keys will have whitespace before and after removed upon creating or
   # modifying a user and when used to authenticate or find a user. Default is :email.
-  config.strip_whitespace_keys = [ :email ]
+  config.strip_whitespace_keys = [:email]
 
   # Tell if authentication through request.params is enabled. True by default.
   # It can be set to an array that will enable params authentication only for the
@@ -58,7 +61,7 @@ Devise.setup do |config|
   # :database      = Support basic authentication with authentication key + password
   # :token         = Support basic authentication with token authentication key
   # :token_options = Support token authentication with options as defined in
-  #                  http://api.rubyonrails.org/classes/ActionController/HttpAuthentication/Token.html
+  #       http://api.rubyonrails.org/classes/ActionController/HttpAuthentication/Token.html
   # config.http_authenticatable = false
 
   # If http headers should be returned for AJAX requests. True by default.
@@ -86,10 +89,15 @@ Devise.setup do |config|
   # Limiting the stretches to just one in testing will increase the performance of
   # your test suite dramatically. However, it is STRONGLY RECOMMENDED to not use
   # a value less than 10 in other environments.
-  	config.stretches = Rails.env.test? ? 1 : 10
+  config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
-  config.pepper = "de451fa8d44af2c286d922f753d1b10fd23b99c10747143d9ba118988b9fa9601fea66bfe31266ffc6a331dc7331c71ebe845af8abcdb84c24b42b8063386530"
+  # the pepper is now set in credentials.yml.enc which can be edited by setting up
+  # the key in your environment with
+  # export RAILS_MASTER_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  # and then editing the credentials file with
+  # EDITOR=your_fave_editor rails credentials:edit
+  config.pepper = Rails.application.credentials.devise_pepper
 
   # ==> Configuration for :invitable
   # The period the generated invitation token is valid, after
@@ -239,7 +247,7 @@ Devise.setup do |config|
   # should add them to the navigational formats lists.
   #
   # The "*/*" below is required to match Internet Explorer requests.
-  config.navigational_formats = ["*/*", :html, :js]
+  config.navigational_formats = ['*/*', :html, :js]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
@@ -252,25 +260,26 @@ Devise.setup do |config|
   # Any entries here MUST match a corresponding entry in the identifier_schemes table as
   # well as an identifier_schemes.schemes section in each locale file!
   OmniAuth.config.full_host = 'https://my_service.hostname'
+  OmniAuth.config.allowed_request_methods = [:post]
 
   config.omniauth :orcid,
-  'client_id', 'client_secret',
-  {
-    #member: false,
-  }
+                  'client_id', 'client_secret',
+                  {
+                    # member: false,
+                  }
 
   config.omniauth :shibboleth,
-  {
-    #debug: true,
-    #uid_field:                 "HTTP_REMOTE_USER",
-    #shib_application_id_field: "HTTP_SHIB_APPLICATION_ID",
-    #shib_session_id_field:     "HTTP_SHIB_SESSION_ID",
-    fields: [],
-    info_fields: {
-      #affiliation: "HTTP_AFFILIATION",
-    },
-    extra_fields: [],
-  }
+                  {
+                    # debug: true,
+                    # uid_field:                 "HTTP_REMOTE_USER",
+                    # shib_application_id_field: "HTTP_SHIB_APPLICATION_ID",
+                    # shib_session_id_field:     "HTTP_SHIB_SESSION_ID",
+                    fields: [],
+                    info_fields: {
+                      # affiliation: "HTTP_AFFILIATION",
+                    },
+                    extra_fields: []
+                  }
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
@@ -293,19 +302,19 @@ Devise.setup do |config|
   #
   # When using omniauth, Devise cannot automatically set Omniauth path,
   # so you need to do it manually. For the users scope, it would be:
-  config.omniauth_path_prefix = "/users/auth"
+  config.omniauth_path_prefix = '/users/auth'
 
   config.warden do |manager|
     manager.failure_app = CustomFailure
   end
-
 end
+# rubocop:enable Metrics/BlockLength
 
-require "omniauth/strategies/shibboleth"
+require 'omniauth/strategies/shibboleth'
 module OmniAuth
   module Strategies
+    # Fix for encogind bug on some chars coming from shibboleth
     class Shibboleth
-
       # set encoding UTF-8 when reading from HTTP header
       # reason: header values are always ISO-8859-1,
       # so ruby reads them as ASCII-8BIT
@@ -316,14 +325,13 @@ module OmniAuth
             request.env[key]
           when :header, 'header'
             v = request.env["HTTP_#{key.upcase.gsub('-', '_')}"]
-            v = v.force_encoding("UTF-8") unless v.nil?
+            v = v.force_encoding('UTF-8') unless v.nil?
             v
           when :params, 'params'
             request.params[key]
           end
         )
       end
-
     end
   end
 end

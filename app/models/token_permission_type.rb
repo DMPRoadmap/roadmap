@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: token_permission_types
@@ -9,9 +11,8 @@
 #  updated_at       :datetime
 #
 
-class TokenPermissionType < ActiveRecord::Base
-  include ValidationMessages
-
+# Object that represents an API permission for V0
+class TokenPermissionType < ApplicationRecord
   # =============
   # = Constants =
   # =============
@@ -34,14 +35,13 @@ class TokenPermissionType < ActiveRecord::Base
 
   ##
   #
-  THEMES = TokenPermissionType.where(token_type: "themes").first.freeze
+  THEMES = TokenPermissionType.where(token_type: 'themes').first.freeze
 
   # ================
   # = Associations =
   # ================
 
   has_and_belongs_to_many :orgs, join_table: 'org_token_permissions', unique: true
-
 
   # ==============
   # = Validators =
@@ -50,12 +50,10 @@ class TokenPermissionType < ActiveRecord::Base
   validates :token_type, presence: { message: PRESENCE_MESSAGE },
                          uniqueness: { message: UNIQUENESS_MESSAGE }
 
-
   # The token_type of the token_permission_type
   #
   # Returns String
   def to_s
-    self.token_type
+    token_type
   end
-
 end

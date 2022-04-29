@@ -8,4 +8,4 @@ module.exports = {
       runner: (/^win/.test(process.platform) ? 'ruby ' : '') + 'bin/rails runner'
     }
   }]
-}
+};

@@ -18,21 +18,21 @@
 
 #  index_madmp_fragments_on_answer_id                  (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
+module Fragment
+  # Contributor STI model
+  class Contributor < MadmpFragment
+    def person
+      return nil if data['person'].nil?
 
-class Fragment::Contributor < MadmpFragment
+      Fragment::Person.find(data['person']['dbid'])
+    end
 
-  def person
-    return nil if data["person"].nil?
+    def properties
+      'person'
+    end
 
-    Fragment::Person.find(data["person"]["dbid"])
+    def self.sti_name
+      'contributor'
+    end
   end
-
-  def properties
-    "person"
-  end
-
-  def self.sti_name
-    "contributor"
-  end
-
 end

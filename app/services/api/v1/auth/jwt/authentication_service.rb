@@ -1,13 +1,9 @@
 # frozen_string_literal: true
 
 module Api
-
   module V1
-
     module Auth
-
       module Jwt
-
         # This class provides Authentication for:
         #
         #   ApiClients (aka machines) with the following JSON body: {
@@ -23,29 +19,23 @@ module Api
         #   }
         #
         class AuthenticationService
+          attr_reader :errors, :expiration
 
-          attr_reader :errors
-          attr_reader :expiration
-
-          # rubocop:disable Metrics/CyclomaticComplexity
           def initialize(json: {})
             json = json.nil? ? {} : json.with_indifferent_access
-            type = json.fetch(:grant_type, "client_credentials")
-
-            parse_client(json: json) if type == "client_credentials"
-            parse_code(json: json) if type == "authorization_code"
+            type = json.fetch(:grant_type, 'client_credentials')
+            parse_client(json: json) if type == 'client_credentials'
+            parse_code(json: json) if type == 'authorization_code'
 
             @errors = {}
 
             if @client_id.nil? || @client_secret.nil? ||
                !%w[client_credentials authorization_code].include?(type)
-              @errors[:client_authentication] = _("Invalid grant type")
+              @errors[:client_authentication] = _('Invalid grant type')
             end
           end
-          # rubocop:enable Metrics/CyclomaticComplexity
 
           # Returns the JWT if the authentication succeeds
-          # rubocop:disable Metrics/CyclomaticComplexity
           def call
             return nil unless @client_id.present? && @client_secret.present?
 
@@ -64,14 +54,10 @@ module Api
             @expiration = payload[:exp]
             token
           end
-          # rubocop:enable Metrics/CyclomaticComplexity
 
           private
 
-          attr_reader :client_id
-          attr_reader :client_secret
-          attr_reader :api_client
-          attr_reader :auth_method
+          attr_reader :client_id, :client_secret, :api_client, :auth_method
 
           # Returns the matching ApiClient if authentication succeeds
           def client
@@ -81,7 +67,7 @@ module Api
             return @api_client if @api_client.present?
 
             # Record an error if no ApiClient or User was authenticated
-            @errors[:client_authentication] = _("Invalid credentials")
+            @errors[:client_authentication] = _('Invalid credentials')
             nil
           end
 
@@ -98,7 +84,7 @@ module Api
           # Tries to find a User whose email matches the :client_id. If found
           # it will attempt to authenticate the :api_token against the :client_secret
           def authenticate_user
-            users = User.where("lower(email) LIKE lower(?)", @client_id)
+            users = User.where('lower(email) LIKE lower(?)', @client_id)
             return nil unless users.present? && users.any?
 
             usr = users.first
@@ -111,22 +97,17 @@ module Api
           def parse_client(json: {})
             @client_id = json.fetch(:client_id, nil)
             @client_secret = json.fetch(:client_secret, nil)
-            @auth_method = "authenticate_client"
+            @auth_method = 'authenticate_client'
           end
 
           # Handles User credentials
           def parse_code(json: {})
             @client_id = json.fetch(:email, nil)
             @client_secret = json.fetch(:code, nil)
-            @auth_method = "authenticate_user"
+            @auth_method = 'authenticate_user'
           end
-
         end
-
       end
-
     end
-
   end
-
 end

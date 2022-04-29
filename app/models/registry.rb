@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: registry_values
@@ -12,7 +14,8 @@
 #  org_id :integer
 #
 
-class Registry < ActiveRecord::Base
+# Object that represents a registry
+class Registry < ApplicationRecord
   include ValidationMessages
 
   # ================
@@ -21,7 +24,7 @@ class Registry < ActiveRecord::Base
 
   has_many :registry_values, dependent: :destroy
 
-  belongs_to :org
+  belongs_to :org, optional: true
 
   # ===============
   # = Validations =
@@ -33,11 +36,10 @@ class Registry < ActiveRecord::Base
   # = Scopes =
   # ==========
 
-  scope :search, ->(term) {
+  scope :search, lambda { |term|
     search_pattern = "%#{term}%"
-    where("lower(registries.name) LIKE lower(?) OR " \
-          "lower(registries.description) LIKE lower(?)",
+    where('lower(registries.name) LIKE lower(?) OR ' \
+          'lower(registries.description) LIKE lower(?)',
           search_pattern, search_pattern)
   }
-
 end

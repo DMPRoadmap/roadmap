@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+# Controller for generating CSV download of usage stats
 class UsageDownloadsController < ApplicationController
-
   def index
     check_authorized!
     data = Org::TotalCountStatService.call
@@ -14,7 +14,7 @@ class UsageDownloadsController < ApplicationController
 
   def check_authorized!
     unless current_user.present? &&
-        (current_user.can_org_admin? || current_user.can_super_admin?)
+           (current_user.can_org_admin? || current_user.can_super_admin?)
       raise Pundit::NotAuthorizedError
     end
   end

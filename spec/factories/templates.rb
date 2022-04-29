@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: templates
@@ -35,12 +37,11 @@ FactoryBot.define do
     org
     title { Faker::Lorem.sentence }
     description { Faker::Lorem.paragraph }
-    locale { "en_GB" }
+    locale { 'en_GB' }
     is_default { false }
     published { false }
     archived { false }
     sequence(:version)
-    family_id { rand(10_000) }
 
     trait :publicly_visible do
       after(:create) do |template|
@@ -77,8 +78,9 @@ FactoryBot.define do
     end
 
     after(:create) do |template, evaluator|
-      create_list(:phase, evaluator.phases, template: template, sections: evaluator.sections, questions: evaluator.questions)
+      create_list(:phase, evaluator.phases, template: template,
+                                            sections: evaluator.sections,
+                                            questions: evaluator.questions)
     end
-
   end
 end

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
+# Controller for password resets that is built on the Devise gem
 class PasswordsController < Devise::PasswordsController
-
   protected
 
-  def after_resetting_password_path_for(resource)
+  def after_resetting_password_path_for(_resource)
     root_path
   end
 
@@ -15,8 +15,7 @@ class PasswordsController < Devise::PasswordsController
   # resource_name - The user's email address
   #
   # Returns String
-  def after_sending_reset_password_instructions_path_for(resource_name)
+  def after_sending_reset_password_instructions_path_for(_resource_name)
     root_path
   end
-
 end

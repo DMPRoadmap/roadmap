@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module SuperAdmin
+  # Controller for managing StaticPages
   class StaticPagesController < ApplicationController
     before_action :set_static_page, only: %i[edit update destroy]
     before_action :set_static_pages, only: :index
@@ -21,7 +24,7 @@ module SuperAdmin
     def edit
       authorize(StaticPage)
     end
-  
+
     # POST /static_pages
     # POST /static_pages.json
     def create
@@ -35,15 +38,15 @@ module SuperAdmin
       rescue ActiveRecord::RecordInvalid => e
         flash[:alert] = e.message
       end
-  
+
       redirect_to action: :index
     end
-  
+
     # PATCH/PUT /static_pages/1
     # PATCH/PUT /static_pages/1.json
     def update
       authorize(StaticPage)
-  
+
       begin
         @static_page.update!(static_page_params)
         flash[:notice] = _('Static Page updated successfully')
@@ -65,7 +68,7 @@ module SuperAdmin
         @static_page.destroy
         flash[:notice] = _('Successfully destroyed your Static Page')
       rescue ActiveRecord::RecordNotDestroyed
-        flash[:alert] = _('The Static Page with id %{id} could not be destroyed') % { id: params[:id] }
+        flash[:alert] = format(_('The Static Page with id %<id>s could not be destroyed'), id: params[:id])
       end
 
       redirect_to action: :index
@@ -77,7 +80,7 @@ module SuperAdmin
     def set_static_page
       @static_page = StaticPage.find(params[:id])
     end
-  
+
     # Use callbacks to share common setup or constraints between actions.
     def set_static_pages
       @static_pages = StaticPage.all

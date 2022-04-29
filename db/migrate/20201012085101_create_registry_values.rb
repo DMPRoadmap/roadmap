@@ -1,4 +1,4 @@
-class CreateRegistryValues < ActiveRecord::Migration
+class CreateRegistryValues < ActiveRecord::Migration[4.2]
   def change
     create_table :registry_values do |t|
       t.json :data

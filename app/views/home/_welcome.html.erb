@@ -1,17 +1,17 @@
-<% title _("Welcome to #{Rails.configuration.branding[:application][:name]}.") %>
+<% title _("Welcome to #{ApplicationService.application_name}.") %>
 <div>
-  <h1><%= _("Welcome to #{Rails.configuration.branding[:application][:name]}.")%></h1>
+  <h1><%= _("Welcome to #{ApplicationService.application_name}.")%></h1>
   <p>
     <%= sanitize _('<p>%{application_name} has been developed by the <strong>%{organisation_name}</strong> to help you write data management plans.</p>') % {
-      application_name: Rails.configuration.branding[:application][:name],
-      organisation_name: Rails.configuration.branding[:organisation][:name]}
+      application_name: ApplicationService.application_name,
+      organisation_name: Rails.configuration.x.organisation.name}
       %>
 
     <label for="linklist">
       <%=_('Getting started:')%>
     </label>
     <ul id="linklist">
-      <% Rails.application.config.branding[:organisation][:welcome_links].each do |wlink| %>
+      <% Rails.configuration.x.application.welcome_links.each do |wlink| %>
       <li><a href="<%= wlink[:url] %>"><%= wlink[:title] %></a></li>
       <% end %>
     </ul>

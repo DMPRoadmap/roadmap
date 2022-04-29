@@ -29,7 +29,7 @@ FactoryBot.define do
   factory :contributor do
     org
     name { Faker::Movies::StarWars.character }
-    email { Faker::Internet.email }
+    email { Faker::Internet.unique.email }
     phone { Faker::PhoneNumber.phone_number_with_country_code }
 
     transient do

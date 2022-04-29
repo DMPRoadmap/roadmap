@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require "text"
+require 'text'
 
 module OrgSelection
-
   # This class provides conversion methods for turning OrgSelection::Search
   # results into Orgs and Identifiers
   # For example:
@@ -14,16 +13,10 @@ module OrgSelection
   # }
   # becomes:
   # An Org with name = "Foo (foo.org)",
-  #             org_identifier (ROR) = "http://example.org/123"
+  #             identifier (ROR) = "http://example.org/123"
   #
   class HashToOrgService
-
     class << self
-
-      # Disabling some Rubocop here as I feel that this would be more
-      # confusing if broken apart further
-      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-      # rubocop:disable Metrics/CyclomaticComplexity
       def to_org(hash:, allow_create: true)
         return nil unless hash.present?
 
@@ -31,28 +24,23 @@ module OrgSelection
         hash = hash.with_indifferent_access
 
         # 1st: if id is present - find the Org and then verify names match
-        org = Org.where(id: hash[:id]).first if hash[:id].present?
-        return org if exact_match?(rec: org, name2: hash[:name])
+        org = lookup_org_by_id(hash: hash)
+        return org if org.present?
 
         # 2nd: Search by the external identifiers (e.g. "ror", "fundref", etc.)
         # and then verify a name match
-        identifiers = hash.select { |k, _v| identifier_keys.include?(k) }
-        ids = identifiers.map { |k, v| { name: k, value: v } }
-        org = Org.from_identifiers(array: ids) if ids.any?
-        return org if exact_match?(rec: org, name2: hash[:name])
+        org = lookup_org_by_identifiers(hash: hash)
+        return org if org.present?
 
         # 3rd: Search by name and then verify exact_match
-        clean_name = OrgSelection::SearchService.name_without_alias(
-          name: hash[:name]
-        )
-        org = Org.search(clean_name).first
-        return org if exact_match?(rec: org, name2: hash[:name])
+        org = lookup_org_by_name(hash: hash)
+        return org if org.present?
 
         # Otherwise: Create an Org if allowed
         allow_create ? initialize_org(hash: hash) : nil
       end
-      # rubocop:enable Metrics/CyclomaticComplexity
 
+      # rubocop:disable Metrics/AbcSize
       def to_identifiers(hash:)
         return [] unless hash.present?
 
@@ -71,16 +59,36 @@ module OrgSelection
         end
         out
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:enable Metrics/AbcSize
 
       private
 
+      # Lookup the Org by it's :id and return if the name matches the search
+      def lookup_org_by_id(hash:)
+        org = Org.where(id: hash[:id]).first if hash[:id].present?
+        exact_match?(rec: org, name2: hash[:name]) ? org : nil
+      end
+
+      # Lookup the Org by its :identifiers and return if the name matches the search
+      def lookup_org_by_identifiers(hash:)
+        identifiers = hash.select { |k, _v| identifier_keys.include?(k) }
+        ids = identifiers.map { |k, v| { name: k, value: v } }
+        org = Org.from_identifiers(array: ids) if ids.any?
+        exact_match?(rec: org, name2: hash[:name]) ? org : nil
+      end
+
+      # Lookup the Org by its :name
+      def lookup_org_by_name(hash:)
+        clean_name = OrgSelection::SearchService.name_without_alias(name: hash[:name])
+        org = Org.search(clean_name).first
+        exact_match?(rec: org, name2: hash[:name]) ? org : nil
+      end
+
       # Initialize a new Org from the hash
-      # rubocop:disable Metrics/MethodLength
       def initialize_org(hash:)
         return nil unless hash.present? && hash[:name].present?
 
-        org = Org.new(
+        Org.new(
           name: hash[:name],
           links: links_from_hash(name: hash[:name], website: hash[:url]),
           language: language_from_hash(hash: hash),
@@ -89,15 +97,13 @@ module OrgSelection
           is_other: false,
           abbreviation: abbreviation_from_hash(hash: hash)
         )
-        org
       end
-      # rubocop:enable Metrics/MethodLength
 
       # Convert the name and website into Org.links
       def links_from_hash(name:, website:)
-        return { "org": [] } unless name.present? && website.present?
+        return { org: [] } unless name.present? && website.present?
 
-        { "org": [{ "link": website, "text": name }] }
+        { org: [{ link: website, text: name }] }
       end
 
       # Converts the Org name over to a unique abbreviation
@@ -108,7 +114,7 @@ module OrgSelection
 
         # Get the first letter of each word if no abbreviiation was provided
         OrgSelection::SearchService.name_without_alias(name: hash[:name])
-                                   .split(" ").map(&:first).join.upcase
+                                   .split.map(&:first).join.upcase
       end
 
       # Get the language from the hash or use the default
@@ -134,9 +140,6 @@ module OrgSelection
 
         OrgSelection::SearchService.exact_match?(name1: rec.name, name2: name2)
       end
-
     end
-
   end
-
 end

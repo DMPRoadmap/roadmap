@@ -1,38 +1,36 @@
 # frozen_string_literal: true
 
+# Helper class for the guidance pages
 class GuidancePresenter
-
-  attr_accessor :plan
-  attr_accessor :guidance_groups
+  attr_accessor :plan, :guidance_groups
 
   def initialize(plan)
     @plan = plan
     @guidance_groups = plan.guidance_groups.where(published: true)
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def any?(org: nil, question: nil)
     if org.nil?
-      if question.present?
-        # check each annotation/guidance group for a response to this question
-        # Would be nice not to have to crawl the entire list each time we want to know
-        # this
-        anno = orgs.reduce(false) do |found, o|
-          found || guidance_annotations?(org: o, question: question)
-        end
-        if !anno
-          return orgs.reduce(anno) do |found, o|
-            found || guidance_groups_by_theme?(org: o, question: question)
-          end
-        else
-          return anno
-        end
-      else # question.nil?
-        return hashified_annotations? || hashified_guidance_groups?
+      return hashified_annotations? || hashified_guidance_groups? unless question.present?
+
+      # check each annotation/guidance group for a response to this question
+      # Would be nice not to have to crawl the entire list each time we want to know
+      # this
+      anno = orgs.reduce(false) do |found, o|
+        found || guidance_annotations?(org: o, question: question)
+      end
+      return anno if anno
+
+      return orgs.reduce(anno) do |found, o|
+        found || guidance_groups_by_theme?(org: o, question: question)
       end
     end
+
     guidance_annotations?(org: org, question: question) ||
       guidance_groups_by_theme?(org: org, question: question)
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # filters through the orgs with annotations and guidance groups to create a
   # set of tabs with display names and any guidance/annotations to show
@@ -40,6 +38,7 @@ class GuidancePresenter
   # question  - The question to which guidance pretains
   #
   # Returns an array of tab hashes.  These
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize
   def tablist(question)
     # start with orgs
     # filter into hash with annotation_presence, main_group presence, and
@@ -52,16 +51,17 @@ class GuidancePresenter
       if annotations.present? || main_groups.present? # annotations and main group
         # Tab with org.abbreviation
         display_tabs << { name: org.abbreviation, groups: main_groups,
-                        annotations: annotations }
+                          annotations: annotations }
       end
-      if subsets.present?
-        subsets.each_pair do |group, theme|
-          display_tabs << { name: group.name.truncate(15), groups: { group => theme } }
-        end
+      next unless subsets.present?
+
+      subsets.each_pair do |group, theme|
+        display_tabs << { name: group.name.truncate(15), groups: { group => theme } }
       end
     end
     display_tabs
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize
 
   private
 
@@ -72,6 +72,7 @@ class GuidancePresenter
   # The orgs from every guidance group selected for this plan
   def orgs
     return @orgs if defined?(@orgs)
+
     @orgs = []
     orgs_from_annotations.each { |org| @orgs << org unless org_found(@orgs, org) }
     orgs_from_guidance_groups.each { |org| @orgs << org unless org_found(@orgs, org) }
@@ -87,11 +88,12 @@ class GuidancePresenter
   # Returns true if exists any guidance_group applicable to the org and question passed
   def guidance_groups_by_theme?(org: nil, question: nil)
     return false unless question.respond_to?(:themes)
-    return false unless hashified_guidance_groups.has_key?(org)
+    return false unless hashified_guidance_groups.key?(org)
+
     result = guidance_groups_by_theme(org: org, question: question)
-               .detect do |gg, theme_hash|
+             .detect do |_gg, theme_hash|
       if theme_hash.present?
-        theme_hash.detect { |theme, guidances| guidances.present? }
+        theme_hash.detect { |_theme, guidances| guidances.present? }
       else
         false
       end
@@ -102,50 +104,56 @@ class GuidancePresenter
   # Returns true if exists any annotation applicable to the org and question passed
   def guidance_annotations?(org: nil, question: nil)
     return false unless question.respond_to?(:id)
-    return false unless hashified_annotations.has_key?(org)
+    return false unless hashified_annotations.key?(org)
+
     hashified_annotations[org].find do |annotation|
-      (annotation.question_id == question.id) && (annotation.type == "guidance")
+      (annotation.question_id == question.id) && (annotation.type == 'guidance')
     end.present?
   end
 
   # Returns a hash of guidance groups for an org and question passed with the following
   # structure:
   # { guidance_group: { theme: [guidance, ...], ... }, ... }
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize
   def guidance_groups_by_theme(org: nil, question: nil)
-    raise ArgumentError unless question.respond_to?(:themes)
-    question = Question.includes(:themes).find(question.id)
-    return {} unless hashified_guidance_groups.has_key?(org)
-    hashified_guidance_groups[org].each_key.reduce({}) do |acc, gg|
-      filtered_gg = hashified_guidance_groups[org][gg].each_key.reduce({}) do |acc, theme|
-        if question.themes.include?(theme)
-          acc[theme] = hashified_guidance_groups[org][gg][theme]
-        end
-        acc
+    raise ArgumentError unless question.is_a?(Question)
+    raise ArgumentError unless org.is_a?(Org)
+
+    return {} unless hashified_guidance_groups.key?(org)
+
+    hashified_guidance_groups[org].each_key.each_with_object({}) do |gg, acc|
+      filtered_gg = hashified_guidance_groups[org][gg].each_key.each_with_object({}) do |theme, ac|
+        next unless question.themes.include?(theme)
+
+        ac[theme] = hashified_guidance_groups[org][gg][theme]
       end
       acc[gg] = filtered_gg if filtered_gg.present?
-      acc
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize
 
   # Returns a collection of annotations (type guidance) for an org and question passed
   def guidance_annotations(org: nil, question: nil)
     raise ArgumentError unless question.respond_to?(:id)
-    return [] unless hashified_annotations.has_key?(org)
+    return [] unless hashified_annotations.key?(org)
+
     hashified_annotations[org].select do |annotation|
-      (annotation.question_id == question.id) && (annotation.type == "guidance")
+      (annotation.question_id == question.id) && (annotation.type == 'guidance')
     end
   end
 
   def orgs_from_guidance_groups
     return @orgs_from_guidance_groups if defined?(@orgs_from_guidance_groups)
+
     @orgs_from_guidance_groups = Org.joins(:guidance_groups)
                                     .where(guidance_groups: { id: guidance_groups.ids })
-                                    .distinct("orgs.id")
+                                    .distinct('orgs.id')
     @orgs_from_guidance_groups
   end
 
   def orgs_from_annotations
     return @orgs_from_annotations if defined?(@orgs_from_annotations)
+
     @orgs_from_annotations = []
     if plan.template.customization_of.present?
       family_id = plan.template.customization_of
@@ -160,11 +168,11 @@ class GuidancePresenter
   end
 
   def hashified_guidance_groups?
-    result = hashified_guidance_groups.detect do |org, gg_hash|
+    result = hashified_guidance_groups.detect do |_org, gg_hash|
       if gg_hash.present?
-        gg_hash.detect do |gg, theme_hash|
+        gg_hash.detect do |_gg, theme_hash|
           if theme_hash.present?
-            theme_hash.detect { |theme, guidances| guidances.present? }
+            theme_hash.detect { |_theme, guidances| guidances.present? }
           else
             false
           end
@@ -181,7 +189,7 @@ class GuidancePresenter
   end
 
   def hashified_annotations?
-    hashified_annotations.detect { |org, annotations| annotations.present? }.present?
+    hashified_annotations.detect { |_org, annotations| annotations.present? }.present?
   end
 
   # Hashifies guidance groups for a plan according to the distinct orgs into the
@@ -189,15 +197,13 @@ class GuidancePresenter
   # { org: { guidance_group: { theme: [guidance, ...], ... }, ... }, ... }
   def hashify_guidance_groups
     hashified_guidances = hashify_guidances
-    orgs_from_guidance_groups.reduce({}) do |acc, org|
+    orgs_from_guidance_groups.each_with_object({}) do |org, acc|
       org_guidance_groups = hashified_guidances.each_key.select do |gg|
         gg.org_id == org.id
       end
-      acc[org] = org_guidance_groups.reduce({}) do |acc, gg|
-        acc[gg] = hashified_guidances[gg]
-        acc
+      acc[org] = org_guidance_groups.each_with_object({}) do |gg, acc_inner|
+        acc_inner[gg] = hashified_guidances[gg]
       end
-      acc
     end
   end
 
@@ -205,25 +211,21 @@ class GuidancePresenter
   # structure:
   # { guidance_group: { theme: [guidance, ...], ... }, ... }
   def hashify_guidances
-    guidance_groups.reduce({}) do |acc, gg|
+    guidance_groups.each_with_object({}) do |gg, acc|
       themes = Theme.includes(:guidances)
                     .joins(:guidances)
                     .merge(Guidance.where(guidance_group_id: gg.id, published: true))
-      acc[gg] = themes.reduce({}) do |acc, theme|
-        acc[theme] = theme.guidances
-        acc
+      acc[gg] = themes.each_with_object({}) do |theme, acc_inner|
+        acc_inner[theme] = theme.guidances
       end
-      acc
     end
   end
 
   def hashify_annotations
-    orgs_from_annotations.reduce({}) do |acc, org|
+    orgs_from_annotations.each_with_object({}) do |org, acc|
       annotations = Annotation.where(org_id: org.id,
                                      question_id: plan.template.question_ids)
       acc[org] = annotations.select { |annotation| annotation.org_id = org.id }
-      acc
     end
   end
-
 end

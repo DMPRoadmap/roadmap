@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: sections
@@ -23,22 +24,22 @@
 #  fk_rails_...  (phase_id => phases.id)
 #
 
-class Section < ActiveRecord::Base
-
-  include ValidationMessages
-  include ValidationValues
+# Object that represents a Template section
+class Section < ApplicationRecord
   include ActsAsSortable
   include VersionableModel
 
   # Sort order: Number ASC
   default_scope { order(number: :asc) }
 
+  attribute :modifiable, :boolean, default: true
+
   # ================
   # = Associations =
   # ================
 
   belongs_to :phase
-  belongs_to :organisation
+  belongs_to :organisation, optional: true
   has_many :questions, dependent: :destroy
   has_one :template, through: :phase
 
@@ -59,22 +60,24 @@ class Section < ActiveRecord::Base
   validates :modifiable, inclusion: { in: BOOLEAN_VALUES,
                                       message: INCLUSION_MESSAGE }
 
-  # =============
-  # = Callbacks =
-  # =============
+  # =========================
+  # = Custom Accessor Logic =
+  # =========================
 
-  # TODO: Move this down to DB constraints
-  before_validation :set_modifiable
-
-  before_validation :set_number, if: :phase_id_changed?
+  # ensure the number gets set to a valid-value
+  def phase_id=(value)
+    phase = Phase.where(id: value).first
+    self.number = (phase.sections.where.not(id: id).maximum(:number).to_i + 1) if phase.present?
+    super(value)
+  end
 
   # =====================
   # = Nested Attributes =
   # =====================
 
   accepts_nested_attributes_for :questions,
-    reject_if: -> (a) { a[:text].blank? },
-    allow_destroy: true
+                                reject_if: ->(a) { a[:text].blank? },
+                                allow_destroy: true
 
   # ==========
   # = Scopes =
@@ -98,29 +101,30 @@ class Section < ActiveRecord::Base
   #
   # Returns String
   def to_s
-    "#{title}"
+    title.to_s
   end
 
   # Returns the number of answered questions for a given plan
   def num_answered_questions(plan)
-    self.answered_questions(plan).count(&:answered?)
+    answered_questions(plan).count(&:answered?)
   end
 
   # Returns an array of answered questions for a given plan
   def answered_questions(plan)
     return [] if plan.nil?
-    plan.answers.includes({ question: :question_format }, :question_options)
-                .where(question_id: question_ids)
-                .to_a
+
+    plan.answers
+        .select { |answer| question_ids.include?(answer.question_id) }
+        .to_a
   end
 
   def deep_copy(**options)
-    copy = self.dup
-    copy.modifiable = options.fetch(:modifiable, self.modifiable)
+    copy = dup
+    copy.modifiable = options.fetch(:modifiable, modifiable)
     copy.phase_id = options.fetch(:phase_id, nil)
-    copy.save!(validate: false)  if options.fetch(:save, false)
+    copy.save!(validate: false) if options.fetch(:save, false)
     options[:section_id] = copy.id
-    self.questions.map { |question| copy.questions << question.deep_copy(options) }
+    questions.map { |question| copy.questions << question.deep_copy(options) }
     copy
   end
 
@@ -128,20 +132,4 @@ class Section < ActiveRecord::Base
   def unmodifiable?
     !modifiable?
   end
-
-  private
-
-  # ============================
-  # = Private instance methods =
-  # ============================
-
-  def set_modifiable
-    self.modifiable = true if modifiable.nil?
-  end
-
-  def set_number
-    return if phase.nil?
-    self.number = phase.sections.where.not(id: id).maximum(:number).to_i + 1
-  end
-
 end

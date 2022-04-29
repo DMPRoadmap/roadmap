@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe '/usage_downloads', type: :request do
@@ -10,7 +12,7 @@ RSpec.describe '/usage_downloads', type: :request do
 
     context 'when authorized user' do
       let(:org_admin) { create(:user, :org_admin) }
-      let(:super_admin){ create(:user, :super_admin) }
+      let(:super_admin) { create(:user, :super_admin) }
 
       it 'org_admin gets csv file' do
         sign_in(org_admin)

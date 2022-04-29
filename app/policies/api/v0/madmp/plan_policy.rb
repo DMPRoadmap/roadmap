@@ -1,23 +1,20 @@
 # frozen_string_literal: true
 
-class Api::V0::Madmp::PlanPolicy < ApplicationPolicy
+module Api
+  module V1
+    module Madmp
+      # Security rules for API V0 Plans endpoints
+      class PlanPolicy < ApplicationPolicy
+        attr_reader :user, :plan
 
-  attr_reader :user
-  attr_reader :plan
+        def show?
+          @plan.readable_by?(@user.id)
+        end
 
-  def initialize(user, plan)
-    raise Pundit::NotAuthorizedError, _("must be logged in") unless user
-
-    @user = user
-    @plan = plan
+        def rda_export?
+          @plan.readable_by?(@user.id)
+        end
+      end
+    end
   end
-
-  def show?
-    @plan.readable_by?(@user.id)
-  end
-
-  def rda_export?
-    @plan.readable_by?(@user.id)
-  end
-
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: question_formats
@@ -12,15 +14,12 @@
 #  structured   :boolean          default("false"), not null
 #
 
-class QuestionFormat < ActiveRecord::Base
-  include ValidationMessages
-  include ValidationValues
-
+# Object that represents a question type
+class QuestionFormat < ApplicationRecord
   ##
   #
   FORMAT_TYPES = %i[textarea textfield radiobuttons checkbox dropdown
-                    multiselectbox date rda_metadata number structured]
-
+                    multiselectbox date rda_metadata number structured].freeze
 
   # ==============
   # = Attributes =
@@ -38,7 +37,6 @@ class QuestionFormat < ActiveRecord::Base
 
   has_many :questions
 
-
   # ===============
   # = Validations =
   # ===============
@@ -49,7 +47,6 @@ class QuestionFormat < ActiveRecord::Base
   validates :description, presence: { message: PRESENCE_MESSAGE }
 
   validates :option_based, inclusion: { in: BOOLEAN_VALUES }
-
 
   # =================
   # = Class methods =

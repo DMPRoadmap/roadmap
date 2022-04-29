@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: madmp_fragments
@@ -16,24 +18,23 @@
 
 #  index_madmp_fragments_on_answer_id                  (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
+module Fragment
+  # Distribution STI model
+  class Distribution < MadmpFragment
+    def license
+      Fragment::License.where(parent_id: id).first
+    end
 
+    def sharing
+      parent.becomes(Fragment::DataSharing)
+    end
 
-class Fragment::Distribution < MadmpFragment
+    def properties
+      'license'
+    end
 
-  def license
-    Fragment::License.where(parent_id: id).first
+    def self.sti_name
+      'distribution'
+    end
   end
-
-  def sharing
-    parent.becomes(Fragment::DataSharing)
-  end
-
-  def properties
-    "license"
-  end
-
-  def self.sti_name
-    "distribution"
-  end
-
 end

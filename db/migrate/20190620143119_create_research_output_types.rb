@@ -1,4 +1,4 @@
-class CreateResearchOutputTypes < ActiveRecord::Migration
+class CreateResearchOutputTypes < ActiveRecord::Migration[4.2]
   def change
     create_table :research_output_types do |t|
       t.string :label, null: false

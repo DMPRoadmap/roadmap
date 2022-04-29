@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DataCleanup
   # Report the status of the data validations after checks have been run.
   module Reporting

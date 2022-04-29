@@ -10,31 +10,35 @@
   <div class="row">
     <div class="col-md-12">
       <p>
-        <%= d_("dmpopidor", "List of costs related to data management. Creating a cost is done in the \"Write Plan\" tab.") %>
+        <%= _("List of costs related to data management. Creating a cost is done in the \"Write Plan\" tab.") %>
       </p>
     </div>
     <div class="col-md-12 madmp-fragment">
       <table class="table table-hover list-contributor linked-fragments-list">
         <thead>
           <tr>
-            <th scope="col"><%= d_("dmpopidor", "Cost type (Title)") %></th>
-            <th scope="col" class="sorter-false"><%= d_("dmpopidor", "Amount") %></th>
-            <th scope="col" class="sorter-false"><%= d_("dmpopidor", "Lifecycle stage") %></th>
+            <th scope="col"><%= _("Cost type (Title)") %></th>
+            <th scope="col" class="sorter-false"><%= _("Amount") %></th>
+            <th scope="col" class="sorter-false"><%= _("Lifecycle stage") %></th>
           </tr>
         </thead>
         <tbody>
         <% costs.each do |cost| %>
-          <% ro = ResearchOutput.find(cost.research_output_id)%>
-          <% cost_label = form_label(cost.parent.madmp_schema.schema["properties"]["cost"], plan.template.locale, false) %>
+          <% ro = ResearchOutput.where(id: cost.research_output_id).first %>
           <% cost_title = cost.data["costType"] || "" %>
           <% cost_title +=  " (#{cost.data["title"]})" if cost.data["title"].present?%>
           <tr>
             <td><%=  cost_title %></td>
             <td><%= "#{cost.data["amount"]} #{cost.data["currency"]}"%></td>
-            <% if plan.research_outputs.length > 1 %>
+            <% if ro.present? %>
+              <% cost_label = form_label(
+                                cost.parent.madmp_schema.properties["cost"],
+                                LocaleService.to_gettext(locale: plan.template.locale),
+                                false
+                              ) %>
               <td><%= "#{cost_label} - " %><b><%= ro.abbreviation %></b></td>
             <% else %>
-              <td><%= cost_label %></td>
+              <td><%= _("General Budget") %></td>
             <% end %>
           </tr>
         <% end %>

@@ -1,19 +1,16 @@
 # frozen_string_literal: true
 
-class Api::V0::Madmp::MadmpSchemaPolicy < ApplicationPolicy
+module Api
+  module V1
+    module Madmp
+      # Security rules for API V0 MadmpSchema endpoints
+      class MadmpSchemaPolicy < ApplicationPolicy
+        attr_reader :user, :madmp_schema
 
-  attr_reader :user
-  attr_reader :madmp_schema
-
-  def initialize(user, madmp_fragment)
-    raise Pundit::NotAuthorizedError, _("must be logged in") unless user
-
-    @user     = user
-    @schema = madmp_schema
+        def show?
+          true
+        end
+      end
+    end
   end
-
-  def show?
-    true
-  end
-
 end

@@ -3,7 +3,7 @@
 <% meta_fragment = dmp_fragment.meta%>
 <% project_fragment = dmp_fragment.project%>
 <% anr_projects = Registry.find_by(name: "ANRProjects").registry_values %>
-<% locale = @plan.template.locale %>
+<% locale = LocaleService.to_gettext(locale: @plan.template.locale)%>
 <div class="row">
   <div class="col-md-12 plan-details">
     <div class="col-md-8">
@@ -14,11 +14,11 @@
             aria-controls="plan_project">
         <div class="panel-heading question-text" role="tab" id="heading-plan-project">
           <div class="panel-title pull-left">
-            <% FastGettext.with_locale locale do %>
+            <% I18n.with_locale @plan.template.locale do %>
             <%= _("Project Details") %>
             <% end %>
           </div>
-          <i class="fa fa-chevron-down pull-right" aria-hidden="true"></i>
+          <i class="fas fa-chevron-down pull-right" aria-hidden="true"></i>
           <div class="clearfix"></div>
         </div>
       </div>
@@ -35,22 +35,22 @@
             class="col-md-8 project-selector-link"
             data-original-title="<%= tooltip %>"
             data-toggle="tooltip"
-          ><%= d_("dmpopidor", "Click here if you have a project funded by ANR.") %></span>
+          ><%= _("Click here if you have a project funded by ANR.") %></span>
           <div class="col-md-12 dynamic-field select-field single-select project-selector"
               data-fragment-id="<%= project_fragment.id%>"
               data-script-id="<%= run_parameters["script_id"]%>">
             <label class="control-label">
-              <%= d_("dmpopidor", "Please enter the acronym, title or identifier of the project") %>
+              <%= _("Please enter the acronym, title or identifier of the project") %>
               <a href="<%= about_registries_path %>" target="_blank"
-                data-toggle="tooltip" data-original-title="<%= d_("dmpopidor", "Find out more.") %>">
-                <span class="registry-info fa fa-info-circle"></span>
+                data-toggle="tooltip" data-original-title="<%= _("Find out more.") %>">
+                <span class="registry-info fas fa-info-circle"></span>
               </a>
             </label>
             <%= select_tag "anr_project",
                         options_for_select(
-                            select_values.sort_by { |v| v.to_s(locale)}
+                            select_values.sort_by { |v| v.to_s(locale: locale)}
                                          .map {|v| [ 
-                                    v.to_s(locale), 
+                                    v.to_s(locale: locale), 
                                     select_value(v, locale) 
                                 ] 
                             }
@@ -66,11 +66,15 @@
         
         <%= hidden_field_tag 'fragment-id', project_fragment.id, class: "fragment-id" %>
         <div class="panel-body project-form madmp-fragment"><!-- accordion body -->
-          <% I18n.with_locale locale do %>
+          <% I18n.with_locale @plan.template.locale  do %>
             <div class="checkbox">
               <%= form_for plan, url: set_test_plan_path(plan), html: { method: :post, class: 'set_test_plan', remote: true } do |f| %>
                 <%= f.label(:is_test, class: 'control-label') do %>
-                <%= check_box_tag(:is_test, "1", (plan.visibility === 'is_test'), title: _("Is it a test plan ?"), id: nil) %>
+                  <%= check_box_tag :is_test, "1", (plan.visibility === "is_test"),
+                                      title: _("Is it a test plan ?"),
+                                      class: "set_test_plan",
+                                      data: { remote: true, method: :post,
+                                              url: set_test_plan_path(plan) } %>
                   <%= _('mock project for testing, practice, or educational purposes') %>
                 <% end %>
               <% end %>
@@ -108,7 +112,7 @@
               </div>
               <div class="answer-bottom-zone" >
                 <div class="schema-picker-zone run-zone">
-                  <span class="message-zone"><%= d_('dmpopidor', 'You have pending changes, please save')%></span>
+                  <span class="message-zone"><%= _('You have pending changes, please save')%></span>
                 </div>
                 <div class="answer-save-zone">
                   <%= f.button(_('Save'), class: "btn btn-default answer-save-button", type: "submit") %>
@@ -132,8 +136,8 @@
 
         <div class="panel-heading question-text" role="tab" id="heading-plan-metadata">
           <div class="panel-title pull-left">
-            <% FastGettext.with_locale locale do %>
-              <%= d_("dmpopidor", "Plan Details") %>
+            <% I18n.with_locale @plan.template.locale  do %>
+              <%= _("Plan Details") %>
             <% end %>
           </div>
           <i class="fa fa-chevron-down pull-right" aria-hidden="true"></i>
@@ -145,7 +149,7 @@
         <% meta_schema = MadmpSchema.find_by(name: "MetaStandard") %>
         <%= hidden_field_tag 'fragment-id', meta_fragment.id, class: "fragment-id" %>
         <div class="panel-body madmp-fragment"><!-- accordion body -->
-          <% I18n.with_locale locale do %>
+          <% I18n.with_locale @plan.template.locale  do %>
             <%= form_for :madmp_fragment, url: madmp_fragment_path(id: meta_fragment.id), 
                           html: {
                             method: :put,
@@ -179,7 +183,7 @@
                 </div>
                 <div class="answer-bottom-zone" >
                   <div class="schema-picker-zone run-zone">
-                    <span class="message-zone"><%= d_('dmpopidor', 'You have pending changes, please save')%></span>
+                    <span class="message-zone"><%= _('You have pending changes, please save')%></span>
                   </div>
                   <div class="answer-save-zone">
                     <%= f.button(_('Save'), class: "btn btn-default answer-save-button", type: "submit") %>
@@ -196,7 +200,14 @@
       <div class="col-md-4 guidance-configuration">
         <!-- "Guidance Configuration" tab -->
         <div id="guidance_configuration" class="tab-pane">
-          <%= render(partial: 'plans/guidance_configuration', locals: { f: f } ) %>
+          <h2><%= _('Plan Guidance Configuration') %></h2>
+          <%= render partial: "plans/guidance_selection",
+                    locals: {
+                      form: f,
+                      all_guidance_groups: @all_guidance_groups,
+                      important_ggs: @important_ggs,
+                      selected_guidance_groups: @selected_guidance_groups
+                    } %>
         </div>
       </div>
     <% end %>

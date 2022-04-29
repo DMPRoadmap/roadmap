@@ -1,29 +1,21 @@
 # frozen_string_literal: true
 
 module Api
-
   module V1
-
     module Madmp
-
+      # Security rules for API V1 MadmpFragment endpoints
       class MadmpFragmentsPolicy < ApplicationPolicy
-
         attr_reader :client, :plan
 
+        # A helper method that takes the current client and returns the plans they
+        # have acess to
         class Scope
-
           attr_reader :client, :scope
 
           def initialize(client, scope)
             @client = client
             @scope = scope
           end
-
-        end
-
-        def initialize(client, madmp_fragment)
-          @client = client
-          @fragment = madmp_fragment
         end
 
         def show?
@@ -52,11 +44,7 @@ module Api
             true
           end
         end
-
       end
-
     end
-
   end
-
 end

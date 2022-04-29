@@ -1,23 +1,26 @@
 # frozen_string_literal: true
 
-require "database_cleaner"
+require 'database_cleaner'
 
 RSpec.configure do |config|
-
   config.before(:suite) do
     if config.use_transactional_fixtures?
       raise(<<~TEXT)
-    Delete line `config.use_transactional_fixtures = true` from rails_helper.rb
-    (or set it to false) to prevent uncommitted transactions being used in
-    JavaScript-dependent specs.
+        Delete line `config.use_transactional_fixtures = true` from rails_helper.rb
+        (or set it to false) to prevent uncommitted transactions being used in
+        JavaScript-dependent specs.
 
-    During testing, the app-under-test that the browser driver connects to
-    uses a different database connection to the database connection used by
-    the spec. The app's database connection would not be able to access
-    uncommitted transaction data setup over the spec's database connection.
+        During testing, the app-under-test that the browser driver connects to
+        uses a different database connection to the database connection used by
+        the spec. The app's database connection would not be able to access
+        uncommitted transaction data setup over the spec's database connection.
       TEXT
     end
-    DatabaseCleaner.clean_with(:truncation)
+
+    DatabaseCleaner.clean_with(
+      :truncation,
+      except: %w[ar_internal_metadata]
+    )
   end
 
   config.before(:each) do
@@ -44,5 +47,4 @@ RSpec.configure do |config|
   config.append_after(:each) do
     DatabaseCleaner.clean
   end
-
 end

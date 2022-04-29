@@ -1,4 +1,4 @@
-class CreateOrganisationTypes < ActiveRecord::Migration
+class CreateOrganisationTypes < ActiveRecord::Migration[4.2]
   def change
     create_table :organisation_types do |t|
       t.string :org_type_name

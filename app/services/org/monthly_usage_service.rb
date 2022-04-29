@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
+# Org usage --- TODO: This should likely be a module
 class Org
-
+  # Usage by month
   class MonthlyUsageService
-
     class << self
-
       def call(current_user, filtered: false)
         total = build_from_joined_user(current_user, filtered)
         build_from_created_plan(current_user, filtered, total)
@@ -27,7 +26,7 @@ class Org
       end
 
       def reducer_body(acc, rec, key_target)
-        month = rec.date.strftime("%b-%y")
+        month = rec.date.strftime('%b-%y')
         count = rec.count
 
         if acc[month].present?
@@ -42,43 +41,36 @@ class Org
       end
 
       def build_from_joined_user(current_user, filtered, total = {})
-        # rubocop:disable Metrics/LineLength
-        joined_users = Stat::StatJoinedUser.monthly_range(org: current_user.org, filtered: filtered).order(:date)
-        # rubocop:enable Metrics/LineLength
+        joined_users = StatJoinedUser.monthly_range(org: current_user.org,
+                                                    filtered: filtered).order(:date)
         joined_users.reduce(total) do |acc, rec|
           reducer_body(acc, rec, :new_users)
         end
       end
 
       def build_from_created_plan(current_user, filtered, total = {})
-        # rubocop:disable Metrics/LineLength
-        created_plans = Stat::StatCreatedPlan.monthly_range(org: current_user.org, filtered: filtered).order(:date)
-        # rubocop:enable Metrics/LineLength
+        created_plans = StatCreatedPlan.monthly_range(org: current_user.org,
+                                                      filtered: filtered).order(:date)
         created_plans.reduce(total) do |acc, rec|
           reducer_body(acc, rec, :new_plans)
         end
       end
 
       def build_from_shared_plan(current_user, filtered, total = {})
-        # rubocop:disable Metrics/LineLength
-        shared_plans = Stat::StatSharedPlan.monthly_range(org: current_user.org, filtered: filtered).order(:date)
-        # rubocop:enable Metrics/LineLength
+        shared_plans = StatSharedPlan.monthly_range(org: current_user.org,
+                                                    filtered: filtered).order(:date)
         shared_plans.reduce(total) do |acc, rec|
           reducer_body(acc, rec, :plans_shared)
         end
       end
 
       def build_from_exported_plan(current_user, filtered, total = {})
-        # rubocop:disable Metrics/LineLength
-        exported_plans = Stat::StatExportedPlan.monthly_range(org: current_user.org, filtered: filtered).order(:date)
-        # rubocop:enable Metrics/LineLength
+        exported_plans = StatExportedPlan.monthly_range(org: current_user.org,
+                                                        filtered: filtered).order(:date)
         exported_plans.reduce(total) do |acc, rec|
           reducer_body(acc, rec, :downloads)
         end
       end
-
     end
-
   end
-
 end

@@ -1,4 +1,4 @@
-class FixQuestionThemeRelation < ActiveRecord::Migration
+class FixQuestionThemeRelation < ActiveRecord::Migration[4.2]
   def self.up
       create_table :questions_themes, :id => false do |t|
 	  t.references :question, :null => false

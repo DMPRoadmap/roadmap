@@ -19,10 +19,11 @@
 #  index_madmp_fragments_on_answer_id                  (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 #
-require "jsonpath"
+require 'jsonpath'
 
-class MadmpFragment < ActiveRecord::Base
-
+# rubocop:disable Metrics/ClassLength
+# Object that represents a madmp_fragment
+class MadmpFragment < ApplicationRecord
   include ValidationMessages
   include DynamicFormHelper
   include FragmentImport
@@ -32,60 +33,60 @@ class MadmpFragment < ActiveRecord::Base
   # = Associations =
   # ================
 
-  belongs_to :answer
-  belongs_to :madmp_schema, class_name: "MadmpSchema"
-  belongs_to :dmp, class_name: "Fragment::Dmp", foreign_key: "dmp_id"
-  has_many :children, class_name: "MadmpFragment", foreign_key: "parent_id", dependent: :destroy
-  belongs_to :parent, class_name: "MadmpFragment", foreign_key: "parent_id"
+  belongs_to :answer, optional: true, touch: true
+  belongs_to :madmp_schema, class_name: 'MadmpSchema'
+  belongs_to :dmp, class_name: 'Fragment::Dmp', foreign_key: 'dmp_id', optional: true
+  has_many :children, class_name: 'MadmpFragment', foreign_key: 'parent_id', dependent: :destroy
+  belongs_to :parent, class_name: 'MadmpFragment', foreign_key: 'parent_id', optional: true
 
   # ===============
   # = Validations =
   # ===============
 
   # validates :madmp_schema, presence: { message: PRESENCE_MESSAGE }
+  validates :dmp, presence: true, unless: -> { classname.eql?('dmp') }
 
   # ================
   # = Single Table Inheritence =
   # ================
   self.inheritance_column = :classname
-  scope :backup_policies, -> { where(classname: "backup_policy") }
-  scope :budgets, -> { where(classname: "budgets") }
-  scope :contributors, -> { where(classname: "contributor") }
-  scope :costs, -> { where(classname: "cost") }
-  scope :data_collections, -> { where(classname: "data_collection") }
-  scope :data_preservations, -> { where(classname: "data_preservation") }
-  scope :data_processings, -> { where(classname: "data_processing") }
-  scope :data_reuses, -> { where(classname: "data_reuse") }
-  scope :data_sharings, -> { where(classname: "data_sharing") }
-  scope :data_storages, -> { where(classname: "data_storage") }
-  scope :distributions, -> { where(classname: "distribution") }
-  scope :dmps, -> { where(classname: "dmp") }
-  scope :documentation_qualities, -> { where(classname: "documentation_quality") }
-  scope :ethical_issues, -> { where(classname: "ethical_issue") }
-  scope :funders, -> { where(classname: "funder") }
-  scope :fundings, -> { where(classname: "funding") }
-  scope :hosts, -> { where(classname: "host") }
-  scope :legal_issues, -> { where(classname: "legal_issue") }
-  scope :licences, -> { where(classname: "licence") }
-  scope :metas, -> { where(classname: "meta") }
-  scope :metadata_standards, -> { where(classname: "metadata_standard") }
-  scope :partners, -> { where(classname: "partner") }
-  scope :persons, -> { where(classname: "person") }
-  scope :personal_data_issues, -> { where(classname: "personal_data_issue") }
-  scope :projects, -> { where(classname: "project") }
-  scope :research_outputs, -> { where(classname: "research_output") }
-  scope :research_output_descriptions, -> { where(classname: "research_output_description") }
-  scope :resource_references, -> { where(classname: "resource_reference") }
-  scope :reused_datas, -> { where(classname: "reused_data") }
-  scope :specific_datas, -> { where(classname: "specific_data") }
-  scope :technical_resources, -> { where(classname: "technical_resource") }
+  scope :backup_policies, -> { where(classname: 'backup_policy') }
+  scope :budgets, -> { where(classname: 'budgets') }
+  scope :contributors, -> { where(classname: 'contributor') }
+  scope :costs, -> { where(classname: 'cost') }
+  scope :data_collections, -> { where(classname: 'data_collection') }
+  scope :data_preservations, -> { where(classname: 'data_preservation') }
+  scope :data_processings, -> { where(classname: 'data_processing') }
+  scope :data_reuses, -> { where(classname: 'data_reuse') }
+  scope :data_sharings, -> { where(classname: 'data_sharing') }
+  scope :data_storages, -> { where(classname: 'data_storage') }
+  scope :distributions, -> { where(classname: 'distribution') }
+  scope :dmps, -> { where(classname: 'dmp') }
+  scope :documentation_qualities, -> { where(classname: 'documentation_quality') }
+  scope :ethical_issues, -> { where(classname: 'ethical_issue') }
+  scope :funders, -> { where(classname: 'funder') }
+  scope :fundings, -> { where(classname: 'funding') }
+  scope :hosts, -> { where(classname: 'host') }
+  scope :legal_issues, -> { where(classname: 'legal_issue') }
+  scope :licences, -> { where(classname: 'licence') }
+  scope :metas, -> { where(classname: 'meta') }
+  scope :metadata_standards, -> { where(classname: 'metadata_standard') }
+  scope :partners, -> { where(classname: 'partner') }
+  scope :persons, -> { where(classname: 'person') }
+  scope :personal_data_issues, -> { where(classname: 'personal_data_issue') }
+  scope :projects, -> { where(classname: 'project') }
+  scope :research_outputs, -> { where(classname: 'research_output') }
+  scope :research_output_descriptions, -> { where(classname: 'research_output_description') }
+  scope :resource_references, -> { where(classname: 'resource_reference') }
+  scope :reused_datas, -> { where(classname: 'reused_data') }
+  scope :specific_datas, -> { where(classname: 'specific_data') }
+  scope :technical_resources, -> { where(classname: 'technical_resource') }
 
   # =============
   # = Callbacks =
   # =============
 
   before_save   :set_defaults
-  after_save    :update_plan_title
   after_create  :update_parent_references
   after_destroy :update_parent_references
 
@@ -100,7 +101,7 @@ class MadmpFragment < ActiveRecord::Base
 
   def plan
     if dmp.nil?
-      Plan.find(data["plan_id"])
+      Plan.find(data['plan_id'])
     else
       dmp.plan
     end
@@ -116,22 +117,25 @@ class MadmpFragment < ActiveRecord::Base
   end
 
   # Returns a human readable version of the structured answer
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
   def to_s
-    return additional_info["custom_value"] if additional_info["custom_value"].present?
+    return additional_info['custom_value'] if additional_info['custom_value'].present?
 
     full_data = get_full_fragment
-    displayable = ""
-    if json_schema["to_string"]
-      json_schema["to_string"].each do |pattern|
+    displayable = ''
+    if json_schema['to_string']
+      json_schema['to_string'].each do |pattern|
         # if it's a JsonPath pattern
-        if pattern.first == "$"
+        if pattern.first == '$'
           match = JsonPath.on(full_data, pattern)
 
           next if match.empty? || match.first.nil?
 
-          displayable += if match.first.is_a?(Array)
-                           match.first.join("/")
-                         elsif match.first.is_a?(Integer) || match.first.is_a?(Float)
+          displayable += case match.first
+                         when Array
+                           match.first.join('/')
+                         when Integer, Float
                            number_with_delimiter(match.first)
                          else
                            match.first
@@ -145,35 +149,42 @@ class MadmpFragment < ActiveRecord::Base
     end
     displayable
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
   # This method generates references to the child fragments in the parent fragment
   # it updates the json "data" field in the database
   # it groups the children fragment by classname and extracts the list of ids
   # to create the json structure needed to update the "data" field
   # this method should be called when creating or deleting a child fragment
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def update_children_references
     updated_data = data
-    classified_children = children.group_by {
-      |t| t.additional_info["property_name"] unless t.additional_info.nil?
-    }
+    classified_children = children.group_by do |t|
+      t.additional_info['property_name'] unless t.additional_info.nil?
+    end
 
-    madmp_schema.schema["properties"].each do |key, prop|
-      if prop["type"].eql?("array") && prop["items"]["type"].eql?("object")
+    madmp_schema.properties.each do |key, prop|
+      if prop['type'].eql?('array') && prop['items']['type'].eql?('object')
         updated_data[key] = []
         if classified_children[key].present?
-          updated_data[key] = classified_children[key].map { |c| { "dbid" => c.id } }
+          updated_data[key] = classified_children[key].map { |c| { 'dbid' => c.id } }
           next
         end
-      elsif prop["type"].eql?("object") && prop["schema_id"].present?
+      elsif prop['type'].eql?('object') && prop['schema_id'].present?
         # dbid doesn't need to be regenerated for "person" properties
         # Person fragment don't have a parent_id set because they are used in multiple contributors
         # without this instruction, the app would set the dbid for the person prop as nil
-        next if key.eql?("person")
-        updated_data[key] = classified_children[key].nil? ? nil : { "dbid" => classified_children[key][0].id }
+        next if key.eql?('person')
+
+        updated_data[key] = classified_children[key].nil? ? nil : { 'dbid' => classified_children[key][0].id }
       end
     end
     update!(data: updated_data)
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize
 
   def update_parent_references
     return if classname.nil? || parent.nil?
@@ -183,33 +194,50 @@ class MadmpFragment < ActiveRecord::Base
 
   # This method return the fragment full record
   # It integrates its children into the JSON
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def get_full_fragment(with_ids: false, with_template_name: false)
-    return { "custom_value" => additional_info["custom_value"] } if additional_info["custom_value"].present?
+    if additional_info['custom_value'].present?
+      {
+        'custom_value' => additional_info['custom_value']
+      }
+    end
 
     children = self.children
     editable_data = data
+    # rubocop:disable Metrics/BlockLength
     editable_data.each do |prop, value|
-      if value.is_a?(Hash) && value["dbid"].present?
-        child = children.exists?(value["dbid"]) ? children.find(value["dbid"]) : MadmpFragment.find(value["dbid"])
-        child_data = nil
-        if child.additional_info["custom_value"].present?
-          child_data = { "custom_value" => child.additional_info["custom_value"] }
-        else
-          child_data = child.get_full_fragment(
-            with_ids: with_ids,
-            with_template_name: with_template_name
-          )
-        end
+      if value.is_a?(Hash) && value['dbid'].present?
+        child = if children.exists?(value['dbid'])
+                  children.find(value['dbid'])
+                else
+                  MadmpFragment.find(value['dbid'])
+                end
+        child_data = if child.additional_info['custom_value'].present?
+                       { 'custom_value' => child.additional_info['custom_value'] }
+                     else
+                       child.get_full_fragment(
+                         with_ids: with_ids,
+                         with_template_name: with_template_name
+                       )
+                     end
         editable_data = editable_data.merge(prop => child_data)
+        next
       end
 
-      if value.is_a?(Array) && !value.empty?
+      if value.is_a?(Array)
+        next if value.empty?
+
         fragment_tab = []
         value.each do |v|
           next if v.nil?
 
-          if v.is_a?(Hash) && v["dbid"].present?
-            child_data = children.exists?(v["dbid"]) ? children.find(v["dbid"]) : MadmpFragment.find(v["dbid"])
+          if v.is_a?(Hash) && v['dbid'].present?
+            child_data = if children.exists?(v['dbid'])
+                           children.find(v['dbid'])
+                         else
+                           MadmpFragment.find(v['dbid'])
+                         end
             fragment_tab.push(
               child_data.get_full_fragment(
                 with_ids: with_ids,
@@ -219,46 +247,51 @@ class MadmpFragment < ActiveRecord::Base
           else
             fragment_tab.push(v)
           end
+          editable_data = editable_data.merge(prop => fragment_tab)
         end
-        editable_data = editable_data.merge(prop => fragment_tab)
+        next
       end
+      editable_data[prop] = value
     end
-    if with_ids
-      editable_data = { "id" => id, "schema_id" => madmp_schema_id }.merge(editable_data)
-    end
-    if with_template_name
-      editable_data = { "template_name" => madmp_schema.name }.merge(editable_data)
-    end
+    # rubocop:enable Metrics/BlockLength
+    editable_data = { 'id' => id, 'schema_id' => madmp_schema_id }.merge(editable_data) if with_ids
+    editable_data = { 'template_name' => madmp_schema.name }.merge(editable_data) if with_template_name
+
     editable_data
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # This method take a fragment and convert its data with the target schema
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def schema_conversion(target_schema)
-    origin_schema_properties = madmp_schema.schema["properties"]
+    origin_schema_properties = madmp_schema.properties
     converted_data = {}
 
-    target_schema.schema["properties"].each do |key, target_prop|
+    # rubocop:disable Metrics/BlockLength
+    target_schema.properties.each do |key, target_prop|
       origin_prop = origin_schema_properties[key]
       next if origin_prop.nil?
 
-      if target_prop["type"].eql?("array")
+      if target_prop['type'].eql?('array')
         converted_data[key] = data[key].is_a?(Array) ? data[key] : [data[key]]
-        if target_prop["items"]["type"].eql?("object")
+        if target_prop['items']['type'].eql?('object')
           next if converted_data[key].empty? || converted_data[key].first.nil?
 
-          target_sub_schema = MadmpSchema.find(target_prop["items"]["schema_id"])
-          converted_data[key].map { |v| MadmpFragment.find(v["dbid"]).schema_conversion(target_sub_schema) }
+          target_sub_schema = MadmpSchema.find(target_prop['items']['schema_id'])
+          converted_data[key].map { |v| MadmpFragment.find(v['dbid']).schema_conversion(target_sub_schema) }
         end
-      elsif origin_prop["type"].eql?("object")
+      elsif origin_prop['type'].eql?('object')
         converted_data[key] = data[key]
-        next if origin_prop["inputType"].present? && origin_prop["inputType"].eql?("pickOrCreate")
+        next if origin_prop['inputType'].present? && origin_prop['inputType'].eql?('pickOrCreate')
 
-        sub_fragment = MadmpFragment.find(data[key]["dbid"])
-        target_sub_schema = MadmpSchema.find(target_prop["schema_id"])
+        sub_fragment = MadmpFragment.find(data[key]['dbid'])
+        target_sub_schema = MadmpSchema.find(target_prop['schema_id'])
         sub_fragment.schema_conversion(target_sub_schema)
-      elsif origin_prop["type"].eql?("array")
-        if target_prop["type"].eql?("object")
-          target_sub_schema = MadmpSchema.find(target_prop["schema_id"])
+      elsif origin_prop['type'].eql?('array')
+        if target_prop['type'].eql?('object')
+          target_sub_schema = MadmpSchema.find(target_prop['schema_id'])
           data[key] = [] if data[key].nil?
           if data[key].empty?
             sub_fragment = MadmpFragment.new(
@@ -272,9 +305,9 @@ class MadmpFragment < ActiveRecord::Base
             sub_fragment.assign_attributes(classname: sub_fragment.classname)
             sub_fragment.instantiate
           else
-            first_id = data[key].first["dbid"]
+            first_id = data[key].first['dbid']
             MadmpFragment.find(first_id).schema_conversion(target_sub_schema)
-            converted_data[key] = { "dbid" => first_id }
+            converted_data[key] = { 'dbid' => first_id }
           end
         else
           converted_data[key] = data[key].first
@@ -283,86 +316,102 @@ class MadmpFragment < ActiveRecord::Base
         converted_data[key] = data[key]
       end
     end
+    # rubocop:enable Metrics/BlockLength
     update!(
       data: converted_data,
       madmp_schema_id: target_schema.id
     )
     update_children_references
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # This method is called when a form is opened for the first time
   # It creates the whole tree of sub_fragments
+  # rubocop:disable Metrics/AbcSize
   def instantiate
-    save! unless id.present?
+    save! if id.nil?
 
     new_data = data
-    madmp_schema.schema["properties"].each do |key, prop|
-      if prop["type"].eql?("object") && prop["schema_id"].present?
-        sub_schema = MadmpSchema.find(prop["schema_id"])
+    madmp_schema.properties.each do |key, prop|
+      next unless prop['type'].eql?('object') && prop['schema_id'].present?
 
-        next if sub_schema.classname.eql?("person") || new_data[key].present?
+      sub_schema = MadmpSchema.find(prop['schema_id'])
 
-        sub_fragment = MadmpFragment.new(
-          data: {},
-          answer_id: nil,
-          dmp_id: dmp.id,
-          parent_id: id,
-          madmp_schema: sub_schema,
-          additional_info: { property_name: key }
-        )
-        sub_fragment.assign_attributes(classname: sub_schema.classname)
-        sub_fragment.instantiate
-        new_data[key] = { "dbid" => sub_fragment.id }
-      end
+      next if sub_schema.classname.eql?('person') || new_data[key].present?
+
+      sub_fragment = MadmpFragment.new(
+        data: {},
+        answer_id: nil,
+        dmp_id: dmp.id,
+        parent_id: id,
+        madmp_schema: sub_schema,
+        additional_info: { property_name: key }
+      )
+      sub_fragment.assign_attributes(classname: sub_schema.classname)
+      sub_fragment.instantiate
+
+      new_data[key] = { 'dbid' => sub_fragment.id }
     end
     update!(data: new_data)
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def save_form_fragment(param_data, schema)
     fragmented_data = {}
     return if param_data.nil?
 
+    # rubocop:disable Metrics/BlockLength
     param_data.each do |prop, content|
-      schema_prop = schema.schema["properties"][prop]
+      schema_prop = schema.properties[prop]
 
-      next if schema_prop&.dig("type").nil?
+      next if schema_prop&.dig('type').nil?
 
-      if schema_prop["type"].eql?("object") &&
-         schema_prop["schema_id"].present?
+      if schema_prop['type'].eql?('object') &&
+         schema_prop['schema_id'].present?
         sub_data = content # TMP: for readability
-        sub_schema = MadmpSchema.find(schema_prop["schema_id"])
+        sub_schema = MadmpSchema.find(schema_prop['schema_id'])
         instantiate unless data[prop].present?
 
-        if schema_prop&.dig("inputType").eql?("pickOrCreate")
+        if schema_prop&.dig('inputType').eql?('pickOrCreate')
           fragmented_data[prop] = content
-        elsif schema_prop["overridable"].present? &&
-              param_data.dig(prop, "custom_value").present?
+        elsif schema_prop['overridable'].present? &&
+              param_data.dig(prop, 'custom_value').present?
           # if the property is overridable & value is custom, take the value as is
-          sub_fragment = MadmpFragment.find(data[prop]["dbid"])
-          additional_info = param_data.dig(prop, "custom_value").eql?("__DELETED__") ? {} : sub_fragment.additional_info.merge(sub_data)
+          sub_fragment = MadmpFragment.find(data[prop]['dbid'])
+          additional_info = if param_data.dig(prop, 'custom_value').eql?('__DELETED__')
+                              {}
+                            else
+                              sub_fragment.additional_info.merge(sub_data)
+                            end
           sub_fragment.update(
             data: {},
             additional_info: additional_info
           )
-        elsif data.dig(prop, "dbid")
-          sub_fragment = MadmpFragment.find(data[prop]["dbid"])
+        elsif data.dig(prop, 'dbid')
+          sub_fragment = MadmpFragment.find(data[prop]['dbid'])
           sub_fragment.save_form_fragment(sub_data, sub_schema)
         end
       else
         fragmented_data[prop] = content
       end
     end
+    # rubocop:enable Metrics/BlockLength
     update!(
       data: data.merge(fragmented_data),
-      additional_info: additional_info.except!("custom_value")
+      additional_info: additional_info.except!('custom_value')
     )
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def get_property(property_name)
     return if data.empty? || data[property_name].nil?
 
-    if data[property_name]["dbid"].present?
-      MadmpFragment.find(data[property_name]["dbid"])
+    if data[property_name]['dbid'].present?
+      MadmpFragment.find(data[property_name]['dbid'])
     else
       data[property_name]
     end
@@ -370,9 +419,9 @@ class MadmpFragment < ActiveRecord::Base
 
   # Get the research output fragment from the fragment hierarchy
   def research_output_fragment
-    return nil if %w[meta dmp project].include?(classname)
+    return nil if %w[meta dmp project budget].include?(classname)
 
-    return self if classname.eql?("research_output")
+    return self if classname.eql?('research_output')
 
     parent.research_output_fragment
   end
@@ -380,17 +429,26 @@ class MadmpFragment < ActiveRecord::Base
   def research_output_id
     return nil if research_output_fragment.nil?
 
-    research_output_fragment.data["research_output_id"]
+    research_output_fragment.data['research_output_id']
   end
 
-  def update_meta_title
-    return unless classname.eql?("project")
-
-    meta = dmp.meta
-    dmp_title = d_("dmpopidor", "\"%{project_title}\" project DMP") % { project_title: data["title"] }
-    meta.update(
-      data: meta.data.merge(title: dmp_title)
-    )
+  def update_meta_fragment
+    if classname.eql?('meta')
+      meta_fragment = self
+      plan.update(title: data['title'])
+      meta_data = data.merge(
+        'lastModifiedDate' => plan.updated_at.strftime('%F')
+      )
+    else
+      meta_fragment = dmp.meta
+      project_fragment = dmp.project
+      dmp_title = format(_('"%<project_title>s" project DMP'), project_title: project_fragment.data['title'])
+      meta_data = meta_fragment.data.merge(
+        'title' => dmp_title, 'lastModifiedDate' => plan.updated_at.strftime('%F')
+      )
+      plan.update(title: dmp_title)
+    end
+    meta_fragment.update(data: meta_data)
   end
 
   # =================
@@ -399,33 +457,36 @@ class MadmpFragment < ActiveRecord::Base
 
   # Validate the fragment data with the linked schema
   # and saves the result with the fragment data
+  # rubocop:disable Metrics/AbcSize
   def self.validate_data(data, schema)
     schemer = JSONSchemer.schema(schema)
     unformated = schemer.validate(data).to_a
     validations = {}
     unformated.each do |valid|
-      next if valid["type"].eql?("object")
+      next if valid['type'].eql?('object')
 
-      key = valid["data_pointer"][1..-1]
-      if valid["type"].eql?("required")
-        required = JsonPath.on(valid, "$..missing_keys").flatten
+      key = valid['data_pointer'][1..]
+      if valid['type'].eql?('required')
+        required = JsonPath.on(valid, '$..missing_keys').flatten
         required.each do |req|
-          validations[req] ? validations[req].push("required") : validations[req] = ["required"]
+          validations[req] ? validations[req].push('required') : validations[req] = ['required']
         end
       else
-        validations[key] ? validations[key].push(valid["type"]) : validations[key] = [valid["type"]]
+        validations[key] ? validations[key].push(valid['type']) : validations[key] = [valid['type']]
       end
     end
     validations
   end
+  # rubocop:enable Metrics/AbcSize
 
   # Checks for a given dmp_id (and parent_id) if a fragment exists in the database
+  # rubocop:disable Metrics/AbcSize
   def self.fragment_exists?(data, schema, dmp_id, parent_id = nil, current_fragment_id = nil)
-    return false if schema.schema["unicity"].nil? || schema.schema["unicity"].empty?
+    return false if schema.schema['unicity'].nil? || schema.schema['unicity'].empty?
 
     classname = schema.classname
-    parent_id = nil if classname.eql?("person")
-    unicity_properties = schema.schema["unicity"]
+    parent_id = nil if classname.eql?('person')
+    unicity_properties = schema.schema['unicity']
     dmp_fragments = MadmpFragment.where(
       dmp_id: dmp_id,
       parent_id: parent_id,
@@ -434,15 +495,16 @@ class MadmpFragment < ActiveRecord::Base
 
     dmp_fragments.each do |fragment|
       filtered_db_data = fragment.data.slice(*unicity_properties).compact
-      filtered_incoming_data = data.slice(*unicity_properties).compact
+      filtered_incoming_data = data.to_h.slice(*unicity_properties).compact
       next if filtered_db_data.empty?
 
       return fragment if filtered_db_data.eql?(filtered_incoming_data)
     end
     false
   end
+  # rubocop:enable Metrics/AbcSize
 
-  def self.find_sti_class(type_name)
+  def self.find_sti_class(_type_name)
     self
   end
 
@@ -452,13 +514,7 @@ class MadmpFragment < ActiveRecord::Base
   def set_defaults
     self.data ||= {}
     self.additional_info ||= {}
-    self.parent_id = nil if classname.eql?("person")
+    self.parent_id = nil if classname.eql?('person')
   end
-
-  def update_plan_title
-    return unless classname.eql?("meta")
-
-    plan.update_columns(title: data["title"])
-  end
-
 end
+# rubocop:enable Metrics/ClassLength

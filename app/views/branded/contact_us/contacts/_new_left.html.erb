@@ -22,7 +22,7 @@
         <%= f.label(:subject, _('Subject')) %>
         <%= f.text_field(:subject,
             class: "form-control",
-            spellcheck: "true",
+            spellcheck: true,
             "aria-required": true) %>
     </div>
 <% end %>
@@ -31,10 +31,11 @@
         <%= f.text_area(:message,
             class: "form-control",
             rows: 10,
+            spellcheck: true,
             "aria-required": true) %>
     </div>
-<% if !user_signed_in? then %>
-    <div class="form-group"><!-- FIX first https://github.com/DMPRoadmap/roadmap/issues/501 !-->
+<% if !user_signed_in? && Rails.configuration.x.recaptcha.enabled then %>
+    <div class="form-group">
         <%= label_tag(nil, _('Security check')) %>
         <%= recaptcha_tags %>
     </div>

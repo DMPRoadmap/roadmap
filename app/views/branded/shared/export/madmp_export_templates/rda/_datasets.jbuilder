@@ -5,13 +5,18 @@ ethical_issues_description = []
 ethical_issues_report = []
 
 # rubocop:disable Metrics/BlockLength
-json.dataset datasets do |dataset|
+json.dataset research_outputs do |research_output|
+  dataset = research_output.json_fragment
   next unless selected_datasets.include?(dataset.data["research_output_id"])
 
   dataset_title = dataset.research_output_description.data["title"]
   json.dataset_id do
-    json.identifier     dataset.research_output_description.data["datasetId"] || dataset.data["research_output_id"]
-    json.type           dataset.research_output_description.data["datasetId"].present? ? dataset.research_output_description.data["idType"] : d_("dmpopidor", "Local identifier")
+    json.identifier dataset.research_output_description.data["datasetId"] || dataset.data["research_output_id"]
+    if dataset.research_output_description.data["datasetId"].present?
+      json.type         dataset.research_output_description.data["idType"]
+    else
+      json.type         _("Local identifier")
+    end
   end
   json.description                exportable_description(dataset.research_output_description.data["description"])
   json.keyword                    extract_keywords(dataset.research_output_description)
@@ -55,7 +60,9 @@ json.dataset datasets do |dataset|
           json.url                    host.data["hostId"]
         end
       else
+        # rubocop:disable Lint/EmptyBlock
         json.host {}
+        # rubocop:enable Lint/EmptyBlock
       end
       json.license do
         json.license_ref            distribution.license.data["licenseUrl"]
@@ -69,9 +76,11 @@ json.dataset datasets do |dataset|
   if dataset.documentation_quality.present?
     json.data_quality_assurance exportable_description(dataset.documentation_quality.data["description"])
     json.metadata dataset.documentation_quality.metadata_standard do |metadata_standard|
+      # rubocop:disable Layout/LineLength
       json.description        exportable_description("#{metadata_standard.data['name']} - #{metadata_standard.data['description']}")
+      # rubocop:enable Layout/LineLength
       json.language           metadata_standard.data["metadataLanguage"]
-      json.metadata_standard_id do 
+      json.metadata_standard_id do
         json.identifier metadata_standard.data["metadataStandardId"]
         json.type       metadata_standard.data["idType"]
       end
@@ -86,7 +95,9 @@ json.dataset datasets do |dataset|
       json.title              "Security measures"
     end
   else
+    # rubocop:disable Lint/EmptyBlock
     json.security_and_privacy {}
+    # rubocop:enable Lint/EmptyBlock
   end
   json.technical_resource dataset.technical_resources do |technical_resource|
     json.description        exportable_description(technical_resource.data["description"])
@@ -95,7 +106,9 @@ json.dataset datasets do |dataset|
 
   ethical_issues_exist.push("#{dataset_title} : #{dataset.research_output_description.data['hasEthicalIssues']}")
   if dataset.ethical_issues.present?
+    # rubocop:disable Layout/LineLength
     ethical_issues_description.push(exportable_description("#{dataset_title} : #{dataset.ethical_issues.data['description']}"))
+    # rubocop:enable Layout/LineLength
     ethical_issues_report.push(
       "#{dataset_title} : #{dataset.ethical_issues.resource_reference.pluck("data->'docIdentifier'").join(', ')}"
     )

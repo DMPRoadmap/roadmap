@@ -1,15 +1,11 @@
-class TokenPermissionTypePolicy < ApplicationPolicy
-  attr_reader :user, :token_permission_type
+# frozen_string_literal: true
 
-  def initialize(user, token_permission_type)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
-    @user = user
-    @token_permission_type = token_permission_type
-  end
+# Security rules for viewing API V0 token permission types
+# Note the method names here correspond with controller actions
+class TokenPermissionTypePolicy < ApplicationPolicy
+  # NOTE: @user is the signed_in_user
 
   def index?
-    user.can_use_api? && (user.org.token_permission_types.count > 0)
+    @user.can_use_api? && @user.org.token_permission_types.count.positive?
   end
-
-
 end

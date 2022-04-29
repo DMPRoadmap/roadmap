@@ -1,22 +1,13 @@
 # frozen_string_literal: true
 
+# Generic methods used throughout the site
 class ApplicationService
-
   class << self
-
-    # Gets the default language
-    def default_language
-      lang = Language.where(default_language: true).first
-      lang.present? ? lang.abbreviation : "en"
-    end
-
-    # Returns either the name specified in config/branding.yml or
+    # Returns either the name specified in dmproadmap.rb initializer or
     # the Rails application name
     def application_name
-      Rails.application.config.branding[:application]
-        .fetch(:name, Rails.application.class.name.split('::').first).downcase
+      default = Rails.application.class.name.split('::').first
+      Rails.configuration.x.application.fetch(:name, default)
     end
-
   end
-
 end

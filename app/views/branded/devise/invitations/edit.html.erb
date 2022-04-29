@@ -21,19 +21,24 @@
       </div>
       <div class="form-group">
         <%= f.label(:firstname, _('First name'), class: 'control-label') %>
-        <%= f.text_field(:firstname, class: "form-control", "aria-required": true, value: @user.firstname) %>
+        <%= f.text_field(:firstname, class: "form-control", "aria-required": true,
+                         spellcheck: true, value: @user.firstname) %>
       </div>
       <div class="form-group">
         <%= f.label(:surname, _('Last name'), class: 'control-label') %>
         <%= f.text_field(:surname, class: "form-control", "aria-required": true, value: @user.surname) %>
       </div>
       <div class="form-group" id="invite-org-controls">
-        <%= render partial: "shared/org_selectors/combined",
+        <%= render partial: "shared/org_selectors/local_only",
                    locals: {
                      form: f,
+                     orgs: @all_orgs,
                      default_org: nil,
                      required: true
                    } %>
+        <span class="red">
+          <%= _("If your organisation is not in the list, please select 'Autre/Other'. Once your account is created, you will be able your organisation from your profile.") %>
+        </span>
       </div>
       <%= f.button(_('Create account'), class: "btn btn-default", type: "submit") %>
     <% end %>

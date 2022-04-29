@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 json.theme @theme.title
 json.answers @answers do |a|
   json.id a.id
   if a.question.question_format.option_based
     json.answer a.question_options.pluck(:text)
     json.comment a.text
-  else 
+  else
     json.answer a.text
   end
   json.created_at a.created_at

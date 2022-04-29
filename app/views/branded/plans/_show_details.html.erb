@@ -14,11 +14,11 @@
             aria-controls="plan_project">
         <div class="panel-heading question-text" role="tab" id="heading-plan-project">
           <div class="panel-title pull-left">
-            <% FastGettext.with_locale locale do %>
+            <% I18n.with_locale locale do %>
             <%= _("Project Details") %>
             <% end %>
           </div>
-          <i class="fa fa-chevron-down pull-right" aria-hidden="true"></i>
+          <i class="fas fa-chevron-down pull-right" aria-hidden="true"></i>
           <div class="clearfix"></div>
         </div>
       </div>
@@ -43,7 +43,7 @@
                       question_id: nil,
                       readonly: true,
                       classname: "project",
-                      template_locale: locale,
+                      template_locale: LocaleService.to_gettext(locale: locale),
                       form_prefix: nil,
                       source: "form"
                     }) %>
@@ -66,11 +66,11 @@
 
         <div class="panel-heading question-text" role="tab" id="heading-plan-metadata">
           <div class="panel-title pull-left">
-            <% FastGettext.with_locale locale do %>
-              <%= d_("dmpopidor", "Plan Details") %>
+            <% I18n.with_locale locale do %>
+              <%= _("Plan Details") %>
             <% end %>
           </div>
-          <i class="fa fa-chevron-right pull-right" aria-hidden="true"></i>
+          <i class="fas fa-chevron-right pull-right" aria-hidden="true"></i>
           <div class="clearfix"></div>
         </div>
       </div>
@@ -96,7 +96,7 @@
                         question_id: nil,
                         readonly: true,
                         classname: "meta",
-                        template_locale: locale,
+                        template_locale: LocaleService.to_gettext(locale: locale),
                         form_prefix: nil,
                         source: "form"
                       }) %>

@@ -1,20 +1,24 @@
 # frozen_string_literal: true
 
 module OrgAdmin
-
+  # Controller that handles admin operations on users
   class UsersController < ApplicationController
-
-    prepend Dmpopidor::Controllers::OrgAdmin::Users
-
     after_action :verify_authorized
 
-    # SEE MODULE
     def edit
       @user = User.find(params[:id])
       authorize @user
       @departments = @user.org.departments.order(:name)
-      @plans = Plan.active(@user).page(1)
-      render "org_admin/users/edit",
+      # --------------------------------
+      # Start DMP OPIDoR Customization
+      # CHANGES : Org Admin only should access plan with administrator,
+      #           organisation & public plan when editing a user
+      # --------------------------------
+      @plans = Plan.org_admin_visible(@user).page(1)
+      # --------------------------------
+      # End DMP OPIDoR Customization
+      # --------------------------------
+      render 'org_admin/users/edit',
              locals: { user: @user,
                        departments: @departments,
                        plans: @plans,
@@ -24,29 +28,42 @@ module OrgAdmin
                        default_org: @user.org }
     end
 
-    # SEE MODULE
+    # rubocop:disable Metrics/AbcSize
     def update
       @user = User.find(params[:id])
       authorize @user
       @departments = @user.org.departments.order(:name)
-      @plans = Plan.active(@user).page(1)
-      # Replace the 'your' word from the canned responses so that it does
-      # not read 'Successfully updated your profile for John Doe'
-      topic = _("profile for %{username}") % { username: @user.name(false) }
+      # --------------------------------
+      # Start DMP OPIDoR Customization
+      # CHANGES : Org Admin only should access plan with administrator,
+      #           organisation & public plan when editing a user
+      # --------------------------------
+      @plans = Plan.org_admin_visible(@user).page(1)
+      # --------------------------------
+      # End DMP OPIDoR Customization
+      # --------------------------------
       if @user.update_attributes(user_params)
-        flash.now[:notice] = success_message(@user, _("updated"))
+        flash.now[:notice] = success_message(@user, _('updated'))
       else
-        flash.now[:alert] = failure_message(@user, _("update"))
+        flash.now[:alert] = failure_message(@user, _('update'))
       end
       render :edit
     end
+    # rubocop:enable Metrics/AbcSize
 
-    # SEE MODULE
     def user_plans
       @user = User.find(params[:id])
       authorize @user
-      @plans = Plan.active(@user).page(1)
-      render "org_admin/users/plans"
+      # --------------------------------
+      # Start DMP OPIDoR Customization
+      # CHANGES : Org Admin only should access plan with administrator,
+      #           organisation & public plan when editing a user
+      # --------------------------------
+      @plans = Plan.org_admin_visible(@user).page(1)
+      # --------------------------------
+      # End DMP OPIDoR Customization
+      # --------------------------------
+      render 'org_admin/users/plans'
     end
 
     private
@@ -54,7 +71,5 @@ module OrgAdmin
     def user_params
       params.require(:user).permit(:department_id)
     end
-
   end
-
 end

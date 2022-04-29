@@ -1,4 +1,4 @@
-class RenameDatasetsToResearchOutputs < ActiveRecord::Migration
+class RenameDatasetsToResearchOutputs < ActiveRecord::Migration[4.2]
   def change
     remove_foreign_key :answers, :datasets
     remove_reference :answers, :dataset

@@ -1,11 +1,19 @@
+# frozen_string_literal: true
+
 module Paginable
+  # Security rules for plan tables
   class PlanPolicy < ApplicationPolicy
+    # --------------------------------
+    # Start DMP OPIDoR Customization
+    # --------------------------------
+    prepend Dmpopidor::Paginable::PlanPolicy
+    # --------------------------------
+    # Start DMP OPIDoR Customization
+    # CHANGES : changed firstname & lastname, deleted user_identifiers & added some log
+    # --------------------------------
 
-    prepend Dmpopidor::Policies::Paginable::Plan
+    # NOTE: @user is the signed_in_user
 
-    def initialize(user)
-      @user = user
-    end
     def privately_visible?
       @user.is_a?(User)
     end

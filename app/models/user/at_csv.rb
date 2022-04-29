@@ -1,12 +1,18 @@
-class User
-  class AtCsv
+# frozen_string_literal: true
 
-    HEADERS = ['Name', 'E-Mail', 'Created Date', 'Last Activity', 'Plans', 'Current Privileges', 'Department', 'Active']
+# Helper for Admins
+class User
+  # Helper to export a list of Users as CSV
+  class AtCsv
+    HEADERS = ['Name', 'E-Mail', 'Created Date', 'Last Activity', 'Plans',
+               'Current Privileges', 'Department', 'Active'].freeze
 
     def initialize(users)
       @users = users
     end
 
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def to_csv
       CSV.generate(headers: true) do |csv|
         csv << HEADERS
@@ -18,20 +24,22 @@ class User
           plans = user.plans.size
           active = user.active ? 'Yes' : 'No'
 
-          if user.can_super_admin?
-            current_privileges = 'Super Admin'
-          elsif  user.can_org_admin?
-            current_privileges = 'Organisational Admin'
-          else
-            current_privileges = ''
-          end
+          current_privileges = if user.can_super_admin?
+                                 'Super Admin'
+                               elsif user.can_org_admin?
+                                 'Organisational Admin'
+                               else
+                                 ''
+                               end
 
           department = user&.department&.name || ''
 
-          csv << [ name, email, created, last_activity, plans, current_privileges, department, active ]
+          csv << [name, email, created, last_activity, plans, current_privileges,
+                  department, active]
         end
       end
     end
-
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   end
 end

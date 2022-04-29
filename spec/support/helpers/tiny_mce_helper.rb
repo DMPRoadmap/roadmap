@@ -2,7 +2,6 @@
 
 # This module provides helper methods for testing TinyMCE within feature specs
 module TinyMceHelper
-
   ##
   # Fill in TinyMCE field with given text.
   #
@@ -28,5 +27,4 @@ module TinyMceHelper
       raise "No such tinyMCE element '##{id}'"
     end
   end
-
 end

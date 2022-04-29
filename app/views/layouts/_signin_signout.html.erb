@@ -2,13 +2,13 @@
 <% if Language.many? %>
   <li class="dropdown" id="change-language">
     <a href="#" class="dropdown-toggle" role="button" id="language-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <i class="fa fa-language" aria-hidden="true">&nbsp;</i>
+      <i class="fas fa-language" aria-hidden="true">&nbsp;</i>
       <%= _('Language') %>
       <span class="caret"></span>
     </a>
     <ul class="dropdown-menu inverse-dropdown" aria-labelledby="language-menu">
       <% languages.each do |l| %>
-        <li <%= 'class=active' if FastGettext.locale == l.abbreviation %>>
+        <li <%= 'class=active' if I18n.locale == l.abbreviation %>>
           <%= link_to l.name, locale_path(l.abbreviation), method: :patch %>
         </li>
       <% end %>
@@ -20,24 +20,24 @@
 <% if user_signed_in? %>
   <li class="dropdown" id="signin-signout">
     <a href="#" class="dropdown-toggle" role="button" id="user-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <i class="fa fa-user" aria-hidden="true">&nbsp;</i>
+      <i class="fas fa-user" aria-hidden="true">&nbsp;</i>
       <%= current_user.name(false) %>
       <span class="caret"></span>
     </a>
     <ul class="dropdown-menu inverse-dropdown" aria-labelledby="user-menu">
       <li>
-        <%= link_to '<i class="fa fa-pencil-square-o" aria-hidden="true">&nbsp;</i>&nbsp;'.html_safe + _('Edit profile'), edit_user_registration_path %>
+        <%= link_to '<i class="fas fa-pencil-square" aria-hidden="true">&nbsp;</i>&nbsp;'.html_safe + _('Edit profile'), edit_user_registration_path %>
       </li>
       <li>
-        <%= link_to '<i class="fa fa-sign-in" aria-hidden="true">&nbsp;</i>&nbsp;'.html_safe + _('Logout'), destroy_user_session_path, method: :delete %>
+        <%= link_to '<i class="fas fa-sign-in" aria-hidden="true">&nbsp;</i>&nbsp;'.html_safe + _('Logout'), destroy_user_session_path, method: :delete %>
       </li>
     </ul>
   </li>
 <% else %>
   <% if !active_page?(root_path, true) %>
     <li>
-      <a href="#header-signin" data-toggle="modal" data-target="#header-signin">
-        <i class="fa fa-sign-in" aria-hidden="true">&nbsp;</i>
+      <a href="<%= root_path %>">
+        <i class="fas fa-sign-in" aria-hidden="true">&nbsp;</i>
         <%= _('Sign in') %>
       </a>
     </li>

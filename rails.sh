@@ -10,10 +10,10 @@ ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
 dpkg-reconfigure --frontend noninteractive tzdata
 
 # Additionnal DB actions
-# bundle exec rake db:seed
-bundle exec rake db:migrate
-RAILS_ENV=$RAILS_ENV bundle exec rake assets:precompile
-#bundle exec rake load_templates
+# bundle exec rails db:seed
+bundle exec rails db:migrate
+RAILS_ENV=$RAILS_ENV bundle exec rails assets:precompile
+#bundle exec rails load_templates
 
 # Start the app
 # bundle exec rails s -e $RAILS_ENV -p 3000 -b 0.0.0.0

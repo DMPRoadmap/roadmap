@@ -1,9 +1,11 @@
-module Identifiable
+# frozen_string_literal: true
 
+# Module that allows the Model to have identifiers
+module Identifiable
   extend ActiveSupport::Concern
 
+  # rubocop:disable Metrics/BlockLength
   included do
-
     # ================
     # = Associations =
     # ================
@@ -23,6 +25,7 @@ module Identifiable
     # Expects an array of `identifier_scheme.name` and `identifier.value`
     #   [{ name: "fundref", value: "12345" }, { name: "ror", value: "abc"} ]
     # Returns an instance of the model
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def self.from_identifiers(array:)
       return nil unless array.present? && array.any?
 
@@ -42,6 +45,7 @@ module Identifiable
 
       id.present? ? id.identifiable : nil
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     # ====================
     # = Instance Methods =
@@ -50,12 +54,12 @@ module Identifiable
     # gets the identifier for the scheme
     def identifier_for_scheme(scheme:)
       scheme = IdentifierScheme.by_name(scheme.downcase).first if scheme.is_a?(String)
-      identifiers.select { |id| id.identifier_scheme == scheme }.first
+      identifiers.select { |id| id.identifier_scheme == scheme }.last
     end
 
     # Combines the existing identifiers with the new ones
     def consolidate_identifiers!(array:)
-      return false unless array.present? && array.is_a?(Array)
+      return false unless array.present? && array.any?
 
       array.each do |id|
         next unless id.is_a?(Identifier) && id.value.present?
@@ -70,7 +74,6 @@ module Identifiable
       end
       true
     end
-
   end
-
+  # rubocop:enable Metrics/BlockLength
 end

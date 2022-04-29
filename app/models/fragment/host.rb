@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: madmp_fragments
@@ -16,12 +18,11 @@
 
 #  index_madmp_fragments_on_answer_id                  (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
-
-
-class Fragment::Host < MadmpFragment
-
-  def self.sti_name
-    "host"
+module Fragment
+  # Host STI model
+  class Host < MadmpFragment
+    def self.sti_name
+      'host'
+    end
   end
-
 end

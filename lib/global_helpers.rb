@@ -1,4 +1,15 @@
+# frozen_string_literal: true
+
+# Helpers for GetText strings
 module GlobalHelpers
+  # overloading the method
+  # came across a wierd issue where the function would refused to be called from
+  # class functions of other classes... but it will work if this is a class function
+  # easiest way to give this functionality is to overload the function
+  # if you have a better solution, please impliment it as this is ugly
+  def self.constant(str)
+    I18n.t("magic_strings.#{str}", locale: I18n.default_locale)
+  end
 
   private
 
@@ -11,15 +22,6 @@ module GlobalHelpers
   #
   # Returns String
   def constant(str)
-    I18n.t("magic_strings.#{str}", locale: I18n.default_locale)
-  end
-
-  # overloading the method
-  # came across a wierd issue where the function would refused to be called from
-  # class functions of other classes... but it will work if this is a class function
-  # easiest way to give this functionality is to overload the function
-  # if you have a better solution, please impliment it as this is ugly
-  def self.constant(str)
     I18n.t("magic_strings.#{str}", locale: I18n.default_locale)
   end
 end

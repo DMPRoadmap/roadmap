@@ -1,6 +1,9 @@
-# config/initializers/jbuilder_prettify.rb
-require "jbuilder"
+# frozen_string_literal: true
 
+# config/initializers/jbuilder_prettify.rb
+require 'jbuilder'
+
+# Helper for JBuilder that allows JSON to be output in human readable format
 class Jbuilder
   ##
   # Allows you to set @prettify manually in your .jbuilder files.
@@ -10,7 +13,7 @@ class Jbuilder
   #
   attr_accessor :prettify
 
-  alias_method :_original_target, :target!
+  alias _original_target target!
 
   ##
   # A shortcut to enabling prettify.

@@ -7,7 +7,7 @@ end
 %>
 
 <%= form_for @static_page, url: url, html: { class: 'static_page' } do |f| %>
-  <div class="row super-admin">
+  <div class="row">
     <!-- Name field -->
     <div class="form-group">
       <%= f.label :name, _('Name'), class: 'control-label' %>
@@ -16,17 +16,17 @@ end
 
     <!-- URL field -->
     <div class="form-group">
-      <%= f.label :url, d_('dmpopidor', 'URL suffix'), class: 'control-label' %>
+      <%= f.label :url, _('URL suffix'), class: 'control-label' %>
       <%= f.text_field :url, class: 'form-control', value: @static_page.url, "aria-required": true, data: { toggle: 'tooltip' }, title: _('Suffix only (e.g. for /about page, type "about")') %>
     </div>
 
     <!-- Navigation dropdown checkbox -->
     <div class="form-group">
-      <%= f.label :in_navigation, d_('dmpopidor', 'Show in menu'), class: 'control-label' %>
+      <%= f.label :in_navigation, _('Show in menu'), class: 'control-label' %>
       <%= f.check_box :in_navigation, value: @static_page.in_navigation %>
     </div>
 
-    <%= f.label d_('dmpopidor', 'Content') %>
+    <%= f.label _('Content') %>
 
     <!-- Tabs for content language -->
     <ul class="nav nav-tabs">
@@ -40,14 +40,14 @@ end
     <!-- Tabs content for content language -->
     <div class="tab-content">
       <%= f.fields_for :static_page_contents do |ff| %>
-      <div id="<%= ff.object.language.abbreviation %>" class="tab-pane fade <%= active_tab?(ff.object.language.abbreviation, true) %>">
+      <div id="<%= ff.object.language.abbreviation %>" class="tab-pane fade <%= active_tab?(ff.object.language.abbreviation, content: true) %>">
         <%= ff.hidden_field :language_id, value: ff.object.language.id %>
         <div class="form-group">
-          <%= ff.label :title, d_('dmpopidor', 'Title displayed on the static page'), class: 'control-label' %>
+          <%= ff.label :title, _('Title displayed on the static page'), class: 'control-label' %>
           <%= ff.text_field :title, value: ff.object.title, class: 'form-control' %>
         </div>
         <div class="form-group">
-          <%= ff.label :content, d_('dmpopidor', 'Content'), class: 'control-label' %>
+          <%= ff.label :content, _('Content'), class: 'control-label' %>
           <%= ff.text_area :content, value: ff.object.content, class: 'content-editor form-control' %>
         </div>
       </div>

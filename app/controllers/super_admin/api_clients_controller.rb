@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 module SuperAdmin
-
+  # Controller for managing ApiClients for API V1
   class ApiClientsController < ApplicationController
-
     respond_to :html
+
+    include OrgSelectable
 
     helper PaginableHelper
 
@@ -27,43 +28,60 @@ module SuperAdmin
     end
 
     # POST /api_clients
+    # rubocop:disable Metrics/AbcSize
     def create
       authorize(ApiClient)
-      @api_client = ApiClient.new(api_client_params)
+
+      # Translate the Org selection
+      org = org_from_params(params_in: api_client_params, allow_create: false)
+      attrs = remove_org_selection_params(params_in: api_client_params)
+
+      @api_client = ApiClient.new(attrs)
+      @api_client.org = org if org.present?
 
       if @api_client.save
-        UserMailer.api_credentials(@api_client).deliver_now()
-        msg = success_message(@api_client, _("created"))
-        msg += _(". The API credentials have been emailed to %{email}") % { email: @api_client.contact_email }
+        UserMailer.api_credentials(@api_client).deliver_now
+        msg = success_message(@api_client, _('created'))
+        msg += format(_('. The API credentials have been emailed to %<email>s'),
+                      email: @api_client.contact_email)
         flash.now[:notice] = msg
         render :edit
       else
-        flash.now[:alert] = failure_message(@api_client, _("create"))
+        flash.now[:alert] = failure_message(@api_client, _('create'))
         render :new
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     # PATCH/PUT /api_clients/:id
+    # rubocop:disable Metrics/AbcSize
     def update
       @api_client = ApiClient.find(params[:id])
       authorize(@api_client)
-      if @api_client.update(api_client_params)
-        flash.now[:notice] = success_message(@api_client, _("updated"))
+
+      # Translate the Org selection
+      org = org_from_params(params_in: api_client_params, allow_create: false)
+      @api_client.org = org
+      attrs = remove_org_selection_params(params_in: api_client_params)
+
+      if @api_client.update(attrs)
+        flash.now[:notice] = success_message(@api_client, _('updated'))
       else
-        flash.now[:alert] = failure_message(@api_client, _("update"))
+        flash.now[:alert] = failure_message(@api_client, _('update'))
       end
       render :edit
     end
+    # rubocop:enable Metrics/AbcSize
 
     # DELETE /api_clients/:id
     def destroy
       api_client = ApiClient.find(params[:id])
       authorize(api_client)
       if api_client.destroy
-        msg = success_message(api_client, _("deleted"))
+        msg = success_message(api_client, _('deleted'))
         redirect_to super_admin_api_clients_path, notice: msg
       else
-        flash.now[:alert] = failure_message(api_client, _("delete"))
+        flash.now[:alert] = failure_message(api_client, _('delete'))
         render :edit
       end
     end
@@ -71,16 +89,18 @@ module SuperAdmin
     # GET /api_clients/:id/refresh_credentials/
     def refresh_credentials
       @api_client = ApiClient.find(params[:id])
-      if @api_client.present?
-        @api_client.generate_credentials
-        @api_client.save
-      end
+      return unless @api_client.present?
+
+      original = @api_client.client_secret
+      @api_client.generate_credentials
+      @api_client.save
+      @success = original != @api_client.client_secret
     end
 
     # GET /api_clients/:id/email_credentials/
     def email_credentials
       @api_client = ApiClient.find(params[:id])
-      UserMailer.api_credentials(@api_client).deliver_now() if @api_client.present?
+      UserMailer.api_credentials(@api_client).deliver_now if @api_client.present?
     end
 
     private
@@ -89,9 +109,8 @@ module SuperAdmin
     def api_client_params
       params.require(:api_client).permit(:name, :description, :homepage,
                                          :contact_name, :contact_email,
-                                         :client_id, :client_secret)
+                                         :client_id, :client_secret,
+                                         :org_id, :org_name, :org_sources, :org_crosswalk)
     end
-
   end
-
 end

@@ -1,26 +1,23 @@
-class RolePolicy < ApplicationPolicy
-  attr_reader :user
-  attr_reader :role
+# frozen_string_literal: true
 
-  def initialize(user, role)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
-    @user = user
-    @role = role
-  end
+# Security rules for changing a Users role on a plan from the collaborators section
+# Note the method names here correspond with controller actions
+class RolePolicy < ApplicationPolicy
+  # NOTE: @user is the signed_in_user and @record is an instance of Role
 
   def create?
-    @role.plan.administerable_by?(@user.id)
+    @record.plan.administerable_by?(@user.id)
   end
 
   def update?
-    @role.plan.administerable_by?(@user.id)
+    @record.plan.administerable_by?(@user.id)
   end
 
   def destroy?
-    @role.plan.administerable_by?(@user.id)
+    @record.plan.administerable_by?(@user.id)
   end
 
   def deactivate?
-    @role.user_id == @user.id
+    @record.user_id == @user.id
   end
 end

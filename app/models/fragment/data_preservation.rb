@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: madmp_fragments
@@ -16,28 +18,27 @@
 
 #  index_madmp_fragments_on_answer_id                  (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
+module Fragment
+  # DataPreservation STI model
+  class DataPreservation < MadmpFragment
+    def host
+      Fragment::TechnicalResource.where(parent_id: id).first
+    end
 
+    def contributors
+      Fragment::Contributor.where(parent_id: id)
+    end
 
-class Fragment::DataPreservation < MadmpFragment
+    def cost
+      Fragment::Cost.where(parent_id: id)
+    end
 
-  def host
-    Fragment::TechnicalResource.where(parent_id: id).first
+    def properties
+      'host, contributors, cost'
+    end
+
+    def self.sti_name
+      'data_preservation'
+    end
   end
-
-  def contributors
-    Fragment::Contributor.where(parent_id: id)
-  end
-
-  def cost
-    Fragment::Cost.where(parent_id: id)
-  end
-
-  def properties
-    "host, contributors, cost"
-  end
-
-  def self.sti_name
-    "data_preservation"
-  end
-
 end

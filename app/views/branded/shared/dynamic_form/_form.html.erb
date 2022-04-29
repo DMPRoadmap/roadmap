@@ -5,9 +5,9 @@
 <% validations = additional_info.present? && additional_info['validations'].present? ? additional_info["validations"] : nil %>
 
 <% dmp_fragments = current_fragment.present? ? current_fragment.dmp_fragments() : [] %>
-<% schema_properties = schema.schema["properties"]%>
+
 <% required_fields = schema.schema["required"] %>
-<% schema_properties.each do |key, prop| %>
+<% schema.properties.each do |key, prop| %>
   <% value = data[key] unless data.nil? %>
   <% field_name = defined?(form_prefix) ? "#{form_prefix}[#{key}]" : key %>
   <% field_id = current_fragment.present? ? "fragment_#{key}_#{SecureRandom.uuid}" : "new_fragment_#{key}_#{SecureRandom.uuid}"%>

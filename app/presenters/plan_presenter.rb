@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+# Helper class for plans
 class PlanPresenter
-
   attr_accessor :plan
 
   def initialize(plan)
@@ -9,7 +9,6 @@ class PlanPresenter
   end
 
   # Converts the Project Start and End Dates into human readable text
-  # rubocop:disable Metrics/AbcSize
   def project_dates_to_readonly_display
     sd = I18n.l(@plan.start_date.to_date, formats: :short) if @plan.start_date.present?
     ed = I18n.l(@plan.end_date.to_date, formats: :short) if @plan.end_date.present?
@@ -18,8 +17,6 @@ class PlanPresenter
     return "Starts on #{sd}" if sd.present?
     return "Ends on #{ed}" if ed.present?
 
-    ""
+    ''
   end
-  # rubocop:enable Metrics/AbcSize
-
 end

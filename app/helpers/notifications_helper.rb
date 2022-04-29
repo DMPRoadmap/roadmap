@@ -1,5 +1,7 @@
-module NotificationsHelper
+# frozen_string_literal: true
 
+# Helper methods for Global notifications and Flash messages
+module NotificationsHelper
   # FA html class depending on Notification level
   #
   # Returns String

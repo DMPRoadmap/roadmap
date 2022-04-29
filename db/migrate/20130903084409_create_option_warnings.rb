@@ -1,4 +1,4 @@
-class CreateOptionWarnings < ActiveRecord::Migration
+class CreateOptionWarnings < ActiveRecord::Migration[4.2]
   def change
     create_table :option_warnings do |t|
       t.references :organisation

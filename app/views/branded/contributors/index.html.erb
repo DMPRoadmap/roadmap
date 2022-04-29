@@ -11,7 +11,7 @@
   <div class="row">
     <div class="col-md-12">
       <p>
-        <%= d_("dmpopidor", "List of person responsible for research data management during a project and their roles. Assigning a role to a person is done in the \"Write Plan\" tab.") %>
+        <%= _("List of person responsible for research data management during a project and their roles. Assigning a role to a person is done in the \"Write Plan\" tab.") %>
       </p>
     </div>
     <div class="col-md-12 madmp-fragment">
@@ -20,7 +20,7 @@
           <tr>
             <th scope="col"><%= _("Name") %></th>
             <th scope="col" class="sorter-false"><%= _("Affiliation") %></th>
-            <th scope="col" class="sorter-false"><%= d_("dmpopidor", "Attributed roles (Associated research outputs)") %></th>
+            <th scope="col" class="sorter-false"><%= _("Attributed roles (Associated research outputs)") %></th>
             <th scope="col" class="sorter-false">
               <span aria-hidden="false" class="sr-only"><%= _("Actions") %></span>
             </th>
@@ -38,13 +38,13 @@
 
     </div>
     <div class="col-md-12">
-      <% if @plan.editable_by?(current_user) && @plan.template.structured? %>
+      <% if @plan.editable_by?(current_user.id) && @plan.template.structured? %>
         <span data-toggle="modal" data-target="#modal-window">
-          <%= link_to d_("dmpopidor", "Add a person"), new_edit_linked_madmp_fragments_url(
+          <%= link_to _("Add a person"), new_edit_linked_madmp_fragments_url(
                   nil, 
                   :parent_id => @plan.json_fragment.id, 
                   :schema_id => MadmpSchema.find_by(name: "PersonStandard").id, 
-                  :template_locale => @plan.template.locale,
+                  :template_locale => LocaleService.to_gettext(locale: @plan.template.locale),
                   :source => "list-modal",
                   :property_name => nil,
                   :query_id => "contributor"
@@ -53,7 +53,7 @@
             :target => "_self",
             :class => "btn btn-primary",
             'data-toggle' =>  "tooltip",
-            'data-original-title' => d_("dmpopidor", "Click here to add a new item")
+            'data-original-title' => _("Click here to add a new item")
           }  %>
         </span>
       <% end %>

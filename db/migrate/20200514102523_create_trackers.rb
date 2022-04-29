@@ -1,4 +1,4 @@
-class CreateTrackers < ActiveRecord::Migration
+class CreateTrackers < ActiveRecord::Migration[4.2]
   def change
     create_table :trackers do |t|
       t.references :org, index: true, foreign_key: true

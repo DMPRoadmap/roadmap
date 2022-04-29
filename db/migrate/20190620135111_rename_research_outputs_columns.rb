@@ -1,4 +1,4 @@
-class RenameResearchOutputsColumns < ActiveRecord::Migration
+class RenameResearchOutputsColumns < ActiveRecord::Migration[4.2]
   def change
     change_column :research_outputs, :description, :string
 

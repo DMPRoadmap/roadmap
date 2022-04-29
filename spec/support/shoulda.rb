@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'shoulda/matchers'
 
 RSpec.configure do |config|

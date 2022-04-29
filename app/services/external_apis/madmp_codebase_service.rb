@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
 module ExternalApis
-
   # This service provides an interface to the OpenAire API.
   class MadmpCodebaseService < BaseService
-
     class << self
-
       # Retrieve the config settings from the initializer
       def api_base_url
         Rails.configuration.x.madmp_codebase&.api_base_url || super
@@ -53,18 +50,13 @@ module ExternalApis
         )
 
         unless resp.present? && [200, 201].include?(resp.code)
-          handle_http_failure(method: "MadmpCodebase run", http_response: resp)
+          handle_http_failure(method: 'MadmpCodebase run', http_response: resp)
           return nil
         end
         JSON.parse(resp.body)
       end
 
-      def anr_search(project_id)
-
-      end
-
+      def anr_search(project_id); end
     end
-
   end
-
 end

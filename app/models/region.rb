@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: regions
@@ -10,16 +12,15 @@
 #  updated_at   :datetime         not null
 #
 
-class Region < ActiveRecord::Base
-  include ValidationMessages
-
+# Object that represents a regional area
+class Region < ApplicationRecord
   # ================
   # = Associations =
   # ================
 
   has_many :sub_regions, class_name: 'Region', foreign_key: 'super_region_id'
 
-  belongs_to :super_region, class_name: 'Region'
+  belongs_to :super_region, class_name: 'Region', optional: true
 
   # ===============
   # = Validations =
@@ -32,5 +33,4 @@ class Region < ActiveRecord::Base
 
   validates :abbreviation, presence: { message: PRESENCE_MESSAGE },
                            uniqueness: { message: UNIQUENESS_MESSAGE }
-
 end

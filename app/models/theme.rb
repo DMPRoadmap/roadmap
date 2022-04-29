@@ -13,21 +13,24 @@
 #  updated_at  :datetime         not null
 #
 
-class Theme < ActiveRecord::Base
-
-  include ValidationMessages
-  prepend Dmpopidor::Models::Theme
-
-  ##
+# Object that represents a question/guidance theme
+class Theme < ApplicationRecord
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # --------------------------------
+  prepend Dmpopidor::Theme
   # Before save & create, generate the slug, method from Dmpopidor::Models::Theme
   before_save :generate_slug
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   # ================
   # = Associations =
   # ================
 
-  has_and_belongs_to_many :questions, join_table: "questions_themes"
-  has_and_belongs_to_many :guidances, join_table: "themes_in_guidance"
+  has_and_belongs_to_many :questions, join_table: 'questions_themes'
+  has_and_belongs_to_many :guidances, join_table: 'themes_in_guidance'
   has_many :answers, through: :questions
 
   # ===============
@@ -40,9 +43,9 @@ class Theme < ActiveRecord::Base
   # = Scopes =
   # ==========
 
-  scope :search, -> (term) {
+  scope :search, lambda { |term|
     search_pattern = "%#{term}%"
-    where("lower(title) LIKE lower(?) OR description LIKE lower(?)",
+    where('lower(title) LIKE lower(?) OR description LIKE lower(?)',
           search_pattern, search_pattern)
   }
 
@@ -56,5 +59,4 @@ class Theme < ActiveRecord::Base
   def to_s
     title
   end
-
 end

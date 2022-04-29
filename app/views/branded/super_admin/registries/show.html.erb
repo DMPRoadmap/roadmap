@@ -1,13 +1,13 @@
-<div class="row super-admin">
+<div class="row">
   <div class="col-xs-12">
     <h2>
         <%= @registry.name %>
-        <%= link_to(d_('dmpopidor', 'View all registries'), super_admin_registries_path,
+        <%= link_to(_('View all registries'), super_admin_registries_path,
             class: 'btn btn-default pull-right', role: 'button') %>
     </h2>
   </div>
 </div>
-<div class="row super-admin">
+<div class="row">
   <div class="col-xs-12">
     <dl class="dl-horizontal">
       <dt><%= _('Name') %></dt>
@@ -18,7 +18,7 @@
       <dd><%= @registry.uri %></dd>
       <dt><%= _('Version') %></dt>
       <dd><%= @registry.version %></dd>
-      <h3><%= d_('dmpopidor', 'Values') %></h3>
+      <h3><%= _('Values') %></h3>
       <div class="row">
         <div class="col-md-12">
           <%= paginable_renderise(
@@ -33,9 +33,9 @@
       </div>
       <div class="pull-right">
         <a href="<%= super_admin_registry_download_path(@registry.id) %>" 
-            class="btn btn-default"><%= d_('dmpopidor', 'Export Registry') %></a>
+            class="btn btn-default"><%= _('Export Registry') %></a>
         <a href="<%= new_super_admin_registry_value_path(registry_id: @registry.id) %>" 
-            class="btn btn-default"><%= d_('dmpopidor', 'Create Value') %></a>
+            class="btn btn-default"><%= _('Create Value') %></a>
       </div>
     </dl>   
   </div>

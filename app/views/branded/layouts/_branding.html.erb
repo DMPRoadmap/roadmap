@@ -30,10 +30,11 @@
               <% if i.odd? %>
                 </li><li class="org-links">
               <% end %>
-              <%= link_to link['link'], :target=>'_blank', :class => 'org-a has-new-window-popup-info', :title => _("Opens in new window") do %>
-                <i class="fa fa-globe" aria-hidden="true">&nbsp;</i>
+              <%= link_to link['link'], :target=>'_blank', :class => 'org-a has-new-window-popup-info' do %>
+                <i class="fas fa-globe" aria-hidden="true">&nbsp;</i>
                 <%= link['text'].blank? ? link['link'] : link['text'] %>
-                <em class="sr-only"> <%= _('(new window)') %></em>
+                <em class="sr-only"> (new window)</em>
+                <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
               <% end; i+=1 %>
             <% end %>
           <% end %>
@@ -42,7 +43,7 @@
           <% end %>
           <% if !current_user.org.contact_email.blank? %>
             <%= mail_to current_user.org.contact_email, :class => 'org-a' do %>
-              <i class="fa fa-envelope" aria-hidden="true">&nbsp;</i>
+              <i class="fas fa-envelope" aria-hidden="true">&nbsp;</i>
               <%= current_user.org.contact_name ? current_user.org.contact_name : current_user.org.contact_email %>
             <% end %>
           <% end %>
@@ -55,7 +56,7 @@
         <% if current_user.can_org_admin? %>
           <li class="dropdown navbar-default" id="admin-dropdown">
             <a class="dropdown-toggle accessible" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="admin-menu" href="#">
-              <i class="fa fa-lock" aria-hidden="true">&nbsp;</i>
+              <i class="fas fa-lock" aria-hidden="true">&nbsp;</i>
               <%= _('Admin') %>
               <span class="caret"></span>
             </a>
@@ -77,7 +78,7 @@
                   </li>
               <% end %>
               <% if current_user.can_super_admin? %>
-                  <li <%= 'class=active' if active_page?(super_admin_orgs_path) %>>
+                  <li <%= 'class=active' if active_page?(admin_edit_org_path(current_user.org_id)) %>>
                     <%= link_to _('Organisations'), super_admin_orgs_path %>
                   </li>
               <% else %>
@@ -104,7 +105,7 @@
                   <%= link_to(_('Themes'), super_admin_themes_path) %>
                 </li>
                 <li <%= 'class=active' if active_page?(super_admin_static_pages_path) %>>
-                  <%= link_to d_('dmpopidor', 'Static pages'), super_admin_static_pages_path %>
+                  <%= link_to _('Static pages'), super_admin_static_pages_path %>
                 </li>
                 <li <%= 'class=active' if active_page?(super_admin_api_clients_path) %>>
                   <%= link_to(_('Api Clients'), super_admin_api_clients_path) %>
@@ -114,10 +115,10 @@
                 </li>
                 <h5 class="dropdown-header"><%= _('maDMP Features') %></h5>
                 <li <%= 'class=active' if active_page?(super_admin_madmp_schemas_path) %>>
-                  <%= link_to d_('dmpopidor', 'Schemas'), super_admin_madmp_schemas_path %>
+                  <%= link_to _('Schemas'), super_admin_madmp_schemas_path %>
                 </li>
                 <li <%= 'class=active' if active_page?(super_admin_registries_path) %>>
-                  <%= link_to d_('dmpopidor', 'Registries'), super_admin_registries_path %>
+                  <%= link_to _('Registries'), super_admin_registries_path %>
                 </li>
               <% end %>
             </ul>
@@ -134,7 +135,7 @@
       <% end %>
     <% else %>
       <div class="org-deactivated">
-          <%= d_('dmpopidor', 'Your organisation has been deactivated. Please choose a new organisation from your <a href="/users/edit">user profile</a>.').html_safe %>
+          <%= _('Your organisation has been deactivated. Please choose a new organisation from your <a href="/users/edit">user profile</a>.').html_safe %>
       </div>
     <% end %>
 </nav>

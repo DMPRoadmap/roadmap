@@ -1,36 +1,54 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: research_outputs
 #
-#  id                      :integer          not null, primary key
+#  id                      :bigint           not null, primary key
 #  abbreviation            :string
-#  order                   :integer
-#  fullname                :string
+#  access                  :integer          default(0), not null
+#  byte_size               :bigint
+#  description             :text
+#  display_order           :integer
 #  is_default              :boolean          default("false")
-#  plan_id                 :integer
+#  output_type             :integer          default(3), not null
+#  output_type_description :string
+#  personal_data           :boolean
+#  release_date            :datetime
+#  sensitive_data          :boolean
+#  title                   :string           not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
-#  pid                     :string
-#  other_type_label        :string
-#  research_output_type_id :integer
+#  mime_type_id            :integer
+#  plan_id                 :integer
 #
 # Indexes
 #
-#  index_research_outputs_on_plan_id                  (plan_id)
-#  index_research_outputs_on_research_output_type_id  (research_output_type_id)
+#  index_research_outputs_on_output_type  (output_type)
+#  index_research_outputs_on_plan_id      (plan_id)
 #
-
 FactoryBot.define do
   factory :research_output do
-    abbreviation { Faker::Company.bs }
-    fullname { Faker::Company.bs }
-    sequence(:order)
-    is_default { false }
-    plan
-    association :type, factory: :research_output_type
+    abbreviation            { Faker::Lorem.unique.word }
+    access                  { ResearchOutput.accesses.keys.sample }
+    byte_size               { Faker::Number.number }
+    description             { Faker::Lorem.paragraph }
+    is_default              { [nil, true, false].sample }
+    display_order           { Faker::Number.between(from: 1, to: 20) }
+    output_type             { ResearchOutput.output_types.keys.sample }
+    output_type_description { Faker::Lorem.sentence }
+    personal_data           { [nil, true, false].sample }
+    release_date            { Time.now + 1.month }
+    sensitive_data          { [nil, true, false].sample }
+    title                   { Faker::Music::PearlJam.song }
 
-    trait :order do
-      order { 1 }
+    trait :complete do
+      after(:create) do |research_output|
+        # add a license identifier
+        # add a repository identifier
+        # add a metadata_standard identifier
+        # add a resource_type identifier
+      end
     end
   end
 end

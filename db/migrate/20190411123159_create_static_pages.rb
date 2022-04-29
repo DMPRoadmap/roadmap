@@ -1,4 +1,4 @@
-class CreateStaticPages < ActiveRecord::Migration
+class CreateStaticPages < ActiveRecord::Migration[4.2]
   def change
     create_table :static_pages do |t|
       t.string :name, null: false

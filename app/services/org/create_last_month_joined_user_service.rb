@@ -1,35 +1,32 @@
 # frozen_string_literal: true
 
-#import statements fix Circular dependancy errors due to threading
-import OrgDateRangeable
-import StatJoinedUser
-import StatJoinedUser::CreateOrUpdate
-import User
+# statements fix Circular dependancy errors due to threading
+# see: https://github.com/grosser/parallel#nameerror-uninitialized-constant
+OrgDateRangeable.class
+StatJoinedUser.class
+StatJoinedUser::CreateOrUpdate.class
+User.class
 
+# Org usage --- TODO: This should likely be a module
 class Org
-
+  # Usage for Nbr of created users in the prior month
   class CreateLastMonthJoinedUserService
-
     class << self
-
       def call(org = nil, threads: 0)
         orgs = org.nil? ? ::Org.all : [org]
 
-        Parallel.each(orgs, in_threads: threads) do |org|
-          months = OrgDateRangeable.split_months_from_creation(org)
+        Parallel.each(orgs, in_threads: threads) do |org_obj|
+          months = OrgDateRangeable.split_months_from_creation(org_obj)
           last = months.last
-          if last.present?
-            StatJoinedUser::CreateOrUpdate.do(
-              start_date: last[:start_date],
-              end_date: last[:end_date],
-              org: org
-            )
-          end
+          next unless last.present?
+
+          StatJoinedUser::CreateOrUpdate.do(
+            start_date: last[:start_date],
+            end_date: last[:end_date],
+            org: org_obj
+          )
         end
       end
-
     end
-
   end
-
 end

@@ -39,17 +39,17 @@
 #
 #  config.action_view.stylesheet_manifest_resolver = MyCustomResolver.new
 #
+# Helper methods for JS
 module ManifestsHelper
-
   # The name of the default asset manifest files.
-  DEFAULT = "application"
+  DEFAULT = 'application'
 
   # The name of the javascript manifest file to load. Defaults to application.js
   #
   # Returns String
   def javascript_manifest_file
-    if Rails.application.config.action_view.javascript_manifest_resolver
-      Rails.application.config.action_view.javascript_manifest_resolver.call(request)
+    if Rails.application.config.x.action_view.javascript_manifest_resolver
+      Rails.application.config.x.action_view.javascript_manifest_resolver.call(request)
     else
       DEFAULT
     end
@@ -59,11 +59,10 @@ module ManifestsHelper
   #
   # Returns String
   def stylesheet_manifest_file
-    if Rails.application.config.action_view.stylesheet_manifest_resolver
-      Rails.application.config.action_view.stylesheet_manifest_resolver.call(request)
+    if Rails.application.config.x.action_view.stylesheet_manifest_resolver
+      Rails.application.config.x.action_view.stylesheet_manifest_resolver.call(request)
     else
       DEFAULT
     end
   end
-
 end

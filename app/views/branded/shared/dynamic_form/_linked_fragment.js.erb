@@ -5,24 +5,25 @@ $(() => {
 
   $('#modal-window').modal({backdrop: 'static'});
 
-  $('#modal_fragment_form').on('ajax:success', (event, response) => {
-    if (response.classname === 'research_output') {
-      $('#research-outputs-list').html(response.html);
-    } else if (response.source === 'list-modal') {
-      const queryId = $(event.target).find('.query_id').val();
-      $(`table.list-${queryId} tbody`).html(response.html);
+  $('#modal_fragment_form').on('ajax:success', (e) => {
+    const data = e.detail[0];
+    if (data.classname === 'research_output') {
+      $('#research-outputs-list').html(data.html);
+    } else if (data.source === 'list-modal') {
+      const queryId = $(e.target).find('.query_id').val();
+      $(`table.list-${queryId} tbody`).html(data.html);
     } else {
-      const queryId = $(event.target).find('.query_id').val();
+      const queryId = $(e.target).find('.query_id').val();
       const $select = $(`.select-${queryId} select`);
-      $select.html(response.html);
-      $select.val(response.fragment_id).trigger('select2:select');
-      $select.val(response.fragment_id).trigger('change');
+      $select.html(data.html);
+      $select.val(data.fragment_id).trigger('select2:select');
+      $select.val(data.fragment_id).trigger('change');
     }
     $('#modal-window').modal('hide');
-  }).on('ajax:error', (event, response)=> {
-    const target = $(event.target);
-    const errorMessage = response.responseJSON.error;
-    target.find('.message-area').html(errorMessage).addClass('alert-danger');
+  }).on('ajax:error', (e)=> {
+    const target = $(e.target);
+    const data = e.detail[0];
+    target.find('.message-area').html(data.error).addClass('alert-danger');
   });
 
   $('#modal-window form :input').on('change', () => {

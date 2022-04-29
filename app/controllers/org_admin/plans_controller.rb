@@ -1,96 +1,102 @@
 # frozen_string_literal: true
 
-class OrgAdmin::PlansController < ApplicationController
+module OrgAdmin
+  # Controller that handles admin operations for plans
+  class PlansController < ApplicationController
+    prepend Dmpopidor::OrgAdmin::PlansController
 
-  prepend Dmpopidor::Controllers::OrgAdmin::Plans
+    # GET org_admin/plans
+    # rubocop:disable Metrics/AbcSize
+    def index
+      # Test auth directly and throw Pundit error sincePundit
+      # is unaware of namespacing
+      raise Pundit::NotAuthorizedError unless current_user.present? && current_user.can_org_admin?
 
-  # GET org_admin/plans
-  # SEE MODULE
-  def index
-    # Test auth directly and throw Pundit error sincePundit
-    # is unaware of namespacing
-    unless current_user.present? && current_user.can_org_admin?
-      raise Pundit::NotAuthorizedError
+      sql = 'users.org_id = ? AND plans.feedback_requested is TRUE AND roles.active is TRUE'
+      feedback_ids = Role.creator.joins(:user, :plan)
+                         .where(sql, current_user.org_id).pluck(:plan_id)
+      # --------------------------------
+      # Start DMP OPIDoR Customization
+      # CHANGES : ordered feedback plans by descending request date
+      # --------------------------------
+      @feedback_plans = Plan.where(id: feedback_ids).order(feedback_request_date: :desc).compact
+      # --------------------------------
+      # End DMP OPIDoR Customization
+      # --------------------------------
+
+      @super_admin = current_user.can_super_admin?
+      @clicked_through = params[:click_through].present?
+      @plans = @super_admin ? Plan.all.page(1) : current_user.org.org_admin_plans.page(1)
     end
+    # rubocop:enable Metrics/AbcSize
 
-    feedback_ids = Role.creator.joins(:user,:plan)
-      .where('users.org_id = ? AND plans.feedback_requested is TRUE AND roles.active is TRUE',
-              current_user.org_id).pluck(:plan_id)
-    @feedback_plans = Plan.where(id: feedback_ids).reject{|p| p.nil?}
+    # --------------------------------
+    # Start DMP OPIDoR Customization
+    # CHANGES : Added feedback requestor to plan
+    # --------------------------------
+    # GET org_admin/plans/:id/feedback_complete
+    # rubocop:disable Metrics/AbcSize
+    def feedback_complete
+      plan = Plan.find(params[:id])
+      # Test auth directly and throw Pundit error sincePundit is
+      # unaware of namespacing
+      raise Pundit::NotAuthorizedError unless current_user.present? && current_user.can_org_admin?
+      raise Pundit::NotAuthorizedError unless plan.reviewable_by?(current_user.id)
 
-    @super_admin = current_user.can_super_admin?
-    @clicked_through = params[:click_through].present?
-    @plans = @super_admin ? Plan.all.page(1) : current_user.org.plans.page(1)
-  end
-
-  # GET org_admin/plans/:id/feedback_complete
-  # SEE MODULE
-  def feedback_complete
-    plan = Plan.find(params[:id])
-    # Test auth directly and throw Pundit error sincePundit is
-    # unaware of namespacing
-    unless current_user.present? && current_user.can_org_admin?
-      raise Pundit::NotAuthorizedError
-    end
-    unless plan.reviewable_by?(current_user.id)
-      raise Pundit::NotAuthorizedError
-    end
-
-    if plan.complete_feedback(current_user)
-      # rubocop:disable Metrics/LineLength
-      redirect_to(org_admin_plans_path,
-        notice: _("%{plan_owner} has been notified that you have finished providing feedback") % {
-          plan_owner: plan.owner.name(false)
-        }
-      )
-      # rubocop:enable Metrics/LineLength
-    else
-      redirect_to org_admin_plans_path,
-        alert: _("Unable to notify user that you have finished providing feedback.")
-    end
-  end
-
-  # GET /org_admin/download_plans
-  # SEE MODULE
-  def download_plans
-    # Test auth directly and throw Pundit error sincePundit
-    # is unaware of namespacing
-    unless current_user.present? && current_user.can_org_admin?
-      raise Pundit::NotAuthorizedError
-    end
-
-    org = current_user.org
-    file_name = org.name.gsub(/ /, "_")
-                        .gsub(/[\.;,]/, "")
-    header_cols = [
-      "#{_('Project title')}",
-      "#{_('Template')}",
-      "#{_('Organisation')}",
-      "#{_('Owner name')}",
-      "#{_('Owner email')}",
-      "#{_('Updated')}",
-      "#{_('Visibility')}"
-    ]
-
-    plans = CSV.generate do |csv|
-      csv << header_cols
-      org.plans.includes(template: :org).order(updated_at: :desc).each do |plan|
-        owner = plan.owner
-        csv << [
-          "#{plan.title}",
-          "#{plan.template.title}",
-          "#{plan.owner.org.present? ? plan.owner.org.name : ''}",
-          "#{plan.owner.name(false)}",
-          "#{plan.owner.email}",
-          "#{l(plan.latest_update.to_date, format: :csv)}",
-          "#{Plan::VISIBILITY_MESSAGE[plan.visibility.to_sym].capitalize}"
-        ]
+      if plan.complete_feedback(current_user)
+        # rubocop:disable Layout/LineLength
+        redirect_to(org_admin_plans_path,
+                    notice: format(_('%<plan_owner>s has been notified that you have finished providing feedback'), plan_owner: plan.owner.name(false)))
+        # rubocop:enable Layout/LineLength
+      else
+        redirect_to org_admin_plans_path,
+                    alert: _('Unable to notify user that you have finished providing feedback.')
       end
     end
+    # rubocop:enable Metrics/AbcSize
+    # --------------------------------
+    # End DMP OPIDoR Customization
+    # --------------------------------
 
-    respond_to do |format|
-      format.csv  { send_data plans,  filename: "#{file_name}.csv" }
+    # GET /org_admin/download_plans
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    def download_plans
+      # Test auth directly and throw Pundit error sincePundit
+      # is unaware of namespacing
+      raise Pundit::NotAuthorizedError unless current_user.present? && current_user.can_org_admin?
+
+      org = current_user.org
+      file_name = org.name.gsub(/ /, '_')
+                     .gsub(/[.;,]/, '')
+      header_cols = [
+        _('Project title').to_s,
+        _('Template').to_s,
+        _('Organisation').to_s,
+        _('Owner name').to_s,
+        _('Owner email').to_s,
+        _('Updated').to_s,
+        _('Visibility').to_s
+      ]
+
+      plans = CSV.generate do |csv|
+        csv << header_cols
+        org.org_admin_plans.includes(template: :org).order(updated_at: :desc).each do |plan|
+          csv << [
+            plan.title.to_s,
+            plan.template.title.to_s,
+            (plan.owner&.org&.present? ? plan.owner.org.name : '').to_s,
+            plan.owner&.name(false)&.to_s,
+            plan.owner&.email&.to_s,
+            l(plan.latest_update.to_date, format: :csv).to_s,
+            Plan::VISIBILITY_MESSAGE[plan.visibility.to_sym].capitalize.to_s
+          ]
+        end
+      end
+
+      respond_to do |format|
+        format.csv  { send_data plans, filename: "#{file_name}.csv" }
+      end
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   end
-
 end

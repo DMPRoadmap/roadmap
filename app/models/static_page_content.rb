@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: static_page_contents
@@ -16,7 +18,7 @@
 #  index_static_page_contents_on_static_page_id  (static_page_id)
 #
 
-class StaticPageContent < ActiveRecord::Base
+class StaticPageContent < ApplicationRecord
   belongs_to :static_page
   belongs_to :language
 

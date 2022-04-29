@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: answers
@@ -31,11 +32,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 
-class Answer < ActiveRecord::Base
-
-  include ValidationMessages
-  prepend Dmpopidor::Models::Answer
-
+# Object that represents an Answer to a Plan question
+class Answer < ApplicationRecord
   # ================
   # = Associations =
   # ================
@@ -50,11 +48,11 @@ class Answer < ActiveRecord::Base
 
   has_many :notes, dependent: :destroy
 
-  has_and_belongs_to_many :question_options, join_table: "answers_question_options"
+  has_and_belongs_to_many :question_options, join_table: 'answers_question_options'
 
   has_many :notes
 
-  has_one :madmp_fragment, class_name: "MadmpFragment", dependent: :destroy
+  has_one :madmp_fragment, class_name: 'MadmpFragment', dependent: :destroy
 
   # ===============
   # = Validations =
@@ -67,14 +65,12 @@ class Answer < ActiveRecord::Base
   validates :question, presence: { message: PRESENCE_MESSAGE }
 
   validates :research_output, presence: { message: PRESENCE_MESSAGE }
-  
 
   # =============
   # = Callbacks =
   # =============
 
   after_save :set_plan_complete
-
 
   ##
   # deep copy the given answer
@@ -94,7 +90,7 @@ class Answer < ActiveRecord::Base
   # form views should be checked or not
   #
   # Returns Boolean
-  def has_question_option(option_id)
+  def options_selected?(option_id)
     question_option_ids.include?(option_id)
   end
 
@@ -103,17 +99,24 @@ class Answer < ActiveRecord::Base
   # presence of text
   #
   # Returns Boolean
-  # SEE MODULE
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   def answered?
-    if question.present?
-      if question.question_format.option_based?
-        return question_options.any?
-      else  # (e.g. textarea or textfield question formats)
-        return not(is_blank?)
-      end
-    end
+    return false unless question.present?
+    # If the question is option based then see if any options were selected
+    return question_options.any? if question.question_format.option_based?
+    # --------------------------------
+    # Start DMP OPIDoR Customization
+    # --------------------------------
+    return madmp_fragment&.data&.compact&.any? if question.question_format.structured
+    # --------------------------------
+    # End DMP OPIDoR Customization
+    # --------------------------------
+    # Strip out any white space and see if the text is empty
+    return !text.gsub(%r{</?p>}, '').gsub(%r{<br\s?/?>}, '').chomp.blank? if text.present?
+
     false
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
   # Answer notes whose archived is blank sorted by updated_at in descending order
   #
@@ -122,28 +125,15 @@ class Answer < ActiveRecord::Base
     notes.select { |n| n.archived.blank? }.sort! { |x, y| x.created_at <=> y.created_at }
   end
 
-  # Returns True if answer text is blank, false otherwise specificly we want to remove
-  # empty hml tags and check.
-  #
-  # Returns Boolean
-  # SEE MODULE
-  def is_blank?
-    if text.present?
-      return text.gsub(/<\/?p>/, "").gsub(/<br\s?\/?>/, "").chomp.blank?
-    end
-    # no text so blank
-    true
-  end
-
   # The parsed JSON hash for the current answer object. Generates a new hash if none
   # exists for rda_questions.
   #
   # Returns Hash
   def answer_hash
-    default = { "standards" => {}, "text" => "" }
+    default = { 'standards' => {}, 'text' => '' }
     begin
       h = text.nil? ? default : JSON.parse(text)
-    rescue JSON::ParserError => e
+    rescue JSON::ParserError
       h = default
     end
     h
@@ -157,23 +147,26 @@ class Answer < ActiveRecord::Base
   # text      - A String with option comment text
   #
   # Returns String
-  def update_answer_hash(standards = {}, text = "")
+  def update_answer_hash(standards = {}, text = '')
     h = {}
-    h["standards"] = standards
-    h["text"] = text
+    h['standards'] = standards
+    h['text'] = text
     self.text = h.to_json
   end
 
   def set_plan_complete
+    # Remove guard? this is an after-save so unreachable if there is no plan
     return unless plan_id?
-    complete = plan.no_questions_matches_no_answers?
-    if plan.complete != complete
-      plan.update!(complete: complete)
+
+    # Retrieve the percentage of answered questions that determines if a plan can
+    # be considered complete. If this answer completes the plan then update the Plan
+    target_percentage = Rails.configuration.x.plans.default_percentage_answered || 50.0
+    if plan.percent_answered > target_percentage && !plan.complete
+      plan.update!(complete: true)
     else
       # Force updated_at changes if nothing changed since save only saves if changes
       # were made to the record
       plan.touch
     end
   end
-
 end

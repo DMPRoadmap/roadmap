@@ -1,0 +1,79 @@
+
+en-GB:
+  dmpopidor:
+    cookie-banner:
+      message: "By continuing to browse, without changing your settings, you accept the use of cookies to measure the traffic of the website with the software Matomo. For more information, to change or manage your settings, please visit our Privacy Statement page."
+      accept: "Accept"
+      learn-more: "Learn more"
+    create-account:
+      cil-1: "The information collected that concerns you will be processed and is destined for the Inist-CNRS (UAR76) and the correspondent for Computing and Liberties (CIL). For the following goal: management of user accounts. The recipients of this data are the administrators of the Inist-CNRS. The duration of conservation of the data is 5 years following the last login."
+      cil-2: "You have the right of access, of correction, of portability, or of removal of this data, or of a limitation of their processing. You can oppose the processing of the data that concerns you and you have the right to withdraw your agreement at any time, by contacting: <a href='mailto:%{contact_url}'>%{contact_url}</a>. You can also direct a complaint at a controlling body."
+    contact-us:
+      more-info: "If you need more informations about how to use DMP OPIDoR, you can consult our <a href=\"https://opidor.fr/category/dmp-faq/\" target=\"_blank\">FAQ</a>."
+      provided-by: "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" title=\"%{open_in_new_window_text}\" target=\"_blank\">website</a>. If you would like to contact us about %{application_name}, please fill out the form below."
+    dynamic-form:
+      add-new-item: "Click here to add a new item"
+      registries:
+        custom-value: "Custom value: "
+        find-out-more: "Find out more."
+        select: "Select a value you want to add to your plan."
+        select-or-create: "Select a value you want to add to your plan or type a new one."
+    home:
+      welcome: "Welcome!"
+      front-page-1: "%{tool_name} guides you through the drafting and implementation into practice of data or software management plans."
+      front-page-2: "Accessible by any member of the High Education and Research community as well as its French or foreign partners"
+      front-page-3: "Customizable by any research organization willing to implement a data policy"
+      front-page-4: "Enriched by examples and recommendations relevant to research environments"
+      front-page-5: "Collaborative:  it facilitates exchanges between partners of a same project and support staff"
+      feedback-thanks: "Thanks to your feedback %{tool_name} will continue to evolve. The development work is a combined international effort around DMP Roadmap open source software."
+      join: "Join the %{tool_name} user’s community"
+      create-account: "Create an account, sign in and let you guide!"
+      discover: "Discover %{tool_name}"
+    layout: 
+      branding:
+        registries: "Registries"
+        madmp-features: "maDMP Features"
+        madmp-schemas: "Schemas"
+        static-pages: "Static pages"
+      footer:
+        news: "News"
+        tutorials: "Tutorials"
+        cnrs-website: "CNRS website"
+        inist-website: "INIST website"
+        mailing-list: "Mailing list"
+      navigation:
+        more: "More"
+    paginable:
+      plans:
+        title: "Plan Title"
+      templates:
+        customized: "Customized"
+        description: "Description"
+        org-type: "Organisation Type"
+    plans:
+      form:
+        available-templates: "Find the list of the available templates"
+        choose-template: "Choose a template"
+        default-template: "You can either choose a template provided by your organisation, another organisation or a funder template. The default template is "
+        funder-template: "Would you like to choose the template of a funder?"
+        multiple-templates: "Multiple templates are available, which one would you like to use?"
+        no-org: "You are not linked to an organisation, we can't suggest you a template. Please choose an organisation in your profile"
+        no-template: "No template available."
+        other-org: "Other organisation"
+        other-org-template: "Would you like to choose the template of another organisation?"
+        select-template-from-list: "Please select a template from the list."
+        single-template: "The template \"<span class=\"template_title\"></span>\" is available. Would you like to create a plan from this template?"
+        use-default: "Use Default Template"
+        your-org: "Your organisation"
+      navigation:
+        general-info: "General informations"
+        research-outputs: "Research outputs"
+      plan-details: "Plan Details"
+    public-pages:
+      template-index: 
+        available-templates: "DMP templates provided by a funder or research organisations, available on DMP OPIDoR. You can download these templates and related guidances, create a plan from these templates."
+    sign-in:
+      institutional-access: "Institutional Access"
+      individual-access: "Individual Access"
+    template-options:
+      customized-by: "Customized by "

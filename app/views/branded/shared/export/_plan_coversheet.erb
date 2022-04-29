@@ -2,23 +2,25 @@
   plan_fragment = @plan.json_fragment
   contributors = plan_fragment.contributors
   costs = Fragment::Cost.where(dmp_id: plan_fragment.id)
-  locale = @plan.template.locale
+  locale = LocaleService.to_gettext(locale: @plan.template.locale)
   template = @plan.template 
   template_title = template.title
-  template_title += " - #{d_('dmpopidor', 'Customized')}" if template.customization_of.present?
+  template_title += " - #{_('Customized')}" if template.customization_of.present?
 %>
 <hr />
 <h1><%= @plan.title %></h1>
 <em>
-  <%= d_("dmpopidor", "A Data Management Plan created using %{application_name}, based on the \"%{template_title}\" template provided by %{org_name}.") % {
-      application_name:  Rails.configuration.branding[:application][:name],
+  <%= _("A Data Management Plan created using %{application_name}, based on the \"%{template_title}\" template provided by %{org_name}.") % {
+      application_name:  ApplicationService.application_name,
       template_title: template_title,
       org_name: template.org.name
     } %>
 </em>
 <br/>
 <div class="cover-page">
-  <h2><%= d_("dmpopidor", "Plan Details") %></h2>
+  <% I18n.with_locale @plan.template.locale  do %>
+    <h2><%= _("Plan Details") %></h2>
+  <% end %>
   <div class="plan-details">
     <%= render(partial: 'shared/export/display_madmp_fragment', locals: {
             fragment: plan_fragment.meta,
@@ -29,7 +31,9 @@
     } ) %>
   </div>
 
-  <h2><%= _("Project Details") %></h2>
+  <% I18n.with_locale @plan.template.locale  do %>
+    <h2><%= _("Project Details") %></h2>
+  <% end %>
   <div class="plan-details">
     <%= render(partial: 'shared/export/display_madmp_fragment', locals: {
             fragment: plan_fragment.project,
@@ -40,7 +44,7 @@
     } ) %>
   </div>
 
-  <p><b><%= d_('dmpopidor', "Research outputs") %> : </b></p>
+  <p><b><%= _("Research outputs") %> : </b></p>
   <ol>
     <% plan_fragment.research_outputs.each do |research_output| %>
       <% research_output_description = research_output.research_output_description %>
@@ -57,7 +61,7 @@
   <table class="real-table">
     <thead>
       <tr>
-        <th><%= _("Contributors") %></th>
+        <th><%= _("Name") %></th>
         <th><%= _("Affiliation") %></th>
         <th><%= _("Roles") %></th>
       </tr>
@@ -68,11 +72,13 @@
         <td><%= contributor.to_s %></td>
         <td><%= contributor.data["affiliationName"] %></td>
         <td>
-          <ul>
-            <% contributor.roles.each do |role| %>
-              <li><%= role %></li>
-            <% end %>
-          </ul>  
+          <% if contributor.roles.present? %>
+            <ul>
+              <% contributor.roles.each do |role| %>
+                <li><%= role %></li>
+              <% end %>
+            </ul>
+          <% end %>
         </td>
       </tr>
     <% end %>
@@ -84,24 +90,28 @@
     <table class="real-table">
       <thead>
         <tr>
-          <th scope="col"><%= d_("dmpopidor", "Cost type (Title)") %></th>
-          <th scope="col" class="sorter-false"><%= d_("dmpopidor", "Amount") %></th>
-          <th scope="col" class="sorter-false"><%= d_("dmpopidor", "Lifecycle stage") %></th>
+          <th scope="col"><%= _("Cost type (Title)") %></th>
+          <th scope="col" class="sorter-false"><%= _("Amount") %></th>
+          <th scope="col" class="sorter-false"><%= _("Lifecycle stage") %></th>
         </tr>
       </thead>
       <tbody>
       <% costs.each do |cost| %>
-        <% ro = ResearchOutput.find(cost.research_output_id)%>
-        <% cost_label = form_label(cost.parent.madmp_schema.schema["properties"]["cost"], @plan.template.locale, false) %>
+        <% ro = ResearchOutput.where(id: cost.research_output_id).first %>
         <% cost_title = cost.data["costType"] || "" %>
         <% cost_title +=  " (#{cost.data["title"]})" if cost.data["title"].present?%>
         <tr>
           <td><%=  cost_title %></td>
           <td><%= "#{cost.data["amount"]} #{cost.data["currency"]}"%></td>
-          <% if @plan.research_outputs.length > 1 %>
+          <% if ro.present? %>
+            <% cost_label = form_label(
+                              cost.parent.madmp_schema.properties["cost"],
+                              LocaleService.to_gettext(locale: @plan.template.locale),
+                              false
+                            ) %>
             <td><%= "#{cost_label} - " %><b><%= ro.abbreviation %></b></td>
           <% else %>
-            <td><%= cost_label %></td>
+            <td><%= _("General Budget") %></td>
           <% end %>
         </tr>
       <% end %>

@@ -1,10 +1,8 @@
 <% administrator = Role.new(administrator: true, editor: true, commenter: true) %>
 <% editor = Role.new(editor: true, commenter: true) %>
 <% commenter = Role.new(commenter: true) %>
-<% administerable = @plan.administerable_by?(current_user) %>
-<% email_tooltip = _("Enter the email address of your collaborator: If they are already using %{tool_name}, they will see this plan on their dashboard, and recieve an email. If they are not currently using %{tool_name}, they will recieve an email inviting them to the tool so they can collaborate on your plan.") % {
-  tool_name: Rails.configuration.branding[:application][:name]
-} %>
+<% administerable = @plan.administerable_by?(current_user.id) %>
+<% email_tooltip = _("Enter the email address of your collaborator: If they are already using #{ApplicationService.application_name}, they will see this plan on their dashboard, and recieve an email. If they are not currently using #{ApplicationService.application_name}, they will recieve an email inviting them to the tool so they can collaborate on your plan.") %>
 <% permissions_tooltip = _('Co-owner: Has admin-rights to the plan (can invite other users, view the plan, answer questions, or comment). Editor: Has edit-rights to the plan (can view the plan, answer questions, or comment). Read Only: Has read-rights to the plan (can view the plan or comment)') %>
 
 
@@ -12,7 +10,7 @@
 <div class="share-form">
   <h2><%= _('Manage collaborators')%></h2>
   <p><%= _('Invite specific people to read, edit, or administer your plan. Invitees will receive an email notification that they have access to this plan.') %></p>
-  <% if @plan.roles.any? then %>
+  <% if @plan_roles.any? then %>
     <table class="table table-hover table-bordered" id="collaborator-table">
       <thead>
         <tr>
@@ -32,26 +30,35 @@
                   <span><%= display_role(role) %></span>
               <% else %>
                   <% if administerable && role.user != current_user %>
-                        <%= form_for role, url: { controller: :roles, action: :update, id: role.id }, remote: true, html: { method: :put } do |f| %>
-                        <div class="form-group col-xs-8">
-                          <%= f.hidden_field :id %>
-                          <%= f.select :access, {
-                                "#{display_role(administrator)}": administrator.access,
-                                "#{display_role(editor)}": editor.access,
-                                "#{display_role(commenter)}": commenter.access
-                              }, {}, { id: "#{role.id}-can-edit", class: "toggle-existing-user-access" } %>
-                        </div>
+                    <div class="form-group col-xs-8">
+                      <%= fields_for role do |f| %>
+                      <% options = [
+                        ["#{display_role(administrator)}", administrator.access],
+                        ["#{display_role(editor)}", editor.access],
+                        ["#{display_role(commenter)}", commenter.access]
+                      ] %>
+                      <%= f.select :access, options_for_select(options, role.access), {}, {
+                                            authenticity_token: true,
+                                            class: "toggle-existing-user-access",
+                                            data: {
+                                              remote: true,
+                                              method: :patch,
+                                              url: role_path(role)
+                                            } } %>
                       <% end %>
+                    </div>
                   <% else %>
                       <span><%= display_role(role) %></span>
                   <% end %>
               <% end %>
+          </td>
               <% if administerable %>
+                <td>
                   <% unless role.creator? || role.user == current_user then %>
                     <%= link_to _('Remove'), role, method: :delete, data: { confirm: _('Are you sure?') }, :class => "a-orange" %>
                   <% end %>
-              <% end %>
-            </td>
+              </td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>
@@ -65,34 +72,33 @@
     <%= form_for new_role, url: {controller: :roles, action: :create }, html: {method: :post} do |f| %>
       <div class="form-group col-xs-8">
         <%= f.hidden_field :plan_id %>
-        <%= f.fields_for :user do |user| %>
-          <%= user.label :email, _('Email'), class: 'control-label' %>
+      <%= f.fields_for :user, new_role.user do |user| %>
+          <%= user.label :email, _('Email'), class: 'control-label'%>
           <em class="sr-only"><%= email_tooltip %></em>
-          <%= user.email_field :email, for: :user, name: "user", class: "form-control",
-                            "aria-required": true,
-                            'data-toggle': 'tooltip',
-                            'data-html': true,
-                            title: email_tooltip %>
-      
+          <%= user.email_field :email, class: "form-control", title: email_tooltip,
+                                     aria: { required: true },
+                                     required: true,
+                                     date: { toggle: "tooltip", html: true } %>
         <% end %>
       </div>
+      <div class="clearfix"></div>
       <em class="sr-only"><%= permissions_tooltip %></em>
       <%= field_set_tag  nil, class: 'col-xs-12',
                       'data-toggle': 'tooltip',
                       'data-html': true,
                       title: permissions_tooltip,
                       'data-placement':'right' do %>
-        <legend><%= _('Permissions') %></legend>
+        <%= content_tag :legend , _('Permissions') %>
         <div class="form-group">
           <div class="radio">
             <%= f.label :administrator_access do %>
-              <%= f.radio_button :access, administrator.access, id: "role_administrator_access", "aria-required": true %>
+              <%= f.radio_button :access, administrator.access, id: "role_administrator_access", "aria-required": true, required: true %>
               <%= _('Co-owner: can edit project details, change visibility, and add collaborators') %>
             <% end %>
           </div>
           <div class="radio">
             <%= f.label :editor_access do %>
-              <%= f.radio_button :access, editor.access, id: "role_editor_access" %>
+              <%= f.radio_button :access, editor.access , id: "role_editor_access" %>
               <%= _('Editor: can comment and make changes') %>
             <% end %>
           </div>
@@ -103,7 +109,7 @@
             <% end %>
           </div>
 
-          <%= f.button(_('Submit'), class: "btn btn-primary", type: "submit") %>
+          <%= f.button(_('Save'), class: "btn btn-primary", type: "submit") %>
         </div>
       <% end %>
       <div class="clearfix"></div>
@@ -111,22 +117,22 @@
   <% end %>
   <h2><%= _('Set plan visibility') %></h2>
   <p class="form-control-static">
-    <%= d_('dmpopidor', 'Public, Administrator or organisational visibility is intended for finished plans. Note: test plans are set to private visibility.') %>
+    <%= _('Public, Administrator or organisational visibility is intended for finished plans. Note: test plans are set to private visibility.') %>
   </p>
   <% allow_visibility = @plan.visibility_allowed? %>
-  <%= form_for(@plan, url: visibility_plan_path, method: :post, html: { id: 'set_visibility' }) do |f| %>
+  <%= form_for(@plan, url: visibility_plan_path, method: :post, remote: true, html: { id: 'set_visibility' }) do |f| %>
     <fieldset <%= (allow_visibility ? '' : ' disabled') %>>
       <div class="form-group col-xs-8">
         <div class="radio">
           <%= f.label :visibility_privately_visible do %>
             <%= f.radio_button :visibility, :privately_visible %>
-            <%= d_('dmpopidor', 'Private: visible to me and specified collaborators') %>
+            <%= _('Private: visible to me and specified collaborators') %>
           <% end %>
         </div>
         <div class="radio">
           <%= f.label :visibility_administrator_visible do %>
             <%= f.radio_button :visibility, :administrator_visible %>
-            <%= d_('dmpopidor', 'Administrator: visible to me, specified collaborators and administrators at my organisation') %>
+            <%= _('Administrator: visible to me, specified collaborators and administrators at my organisation') %>
           <% end %>
         </div>
         <div class="radio">

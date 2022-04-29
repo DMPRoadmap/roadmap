@@ -1,16 +1,11 @@
 # frozen_string_literal: true
 
 module Api
-
   module V1
-
     module Deserialization
-
-      # rubocop:disable Metrics/ClassLength
+      # Logic to deserialize RDA common standard to a Plan object
       class Plan
-
         class << self
-
           # Convert the incoming JSON into a Plan
           #   {
           #     "dmp": {
@@ -49,17 +44,23 @@ module Api
           #       }]
           #     }
           #   }
-          # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-          def deserialize!(json: {})
-            return nil unless json.present? && valid?(json: json)
+          # rubocop:disable Metrics/AbcSize
+          def deserialize(json: {})
+            return nil unless Api::V1::JsonValidationService.plan_valid?(json: json)
 
             json = json.with_indifferent_access
-            plan = marshal_plan(json: json)
-            return nil unless plan.present?
+            # Try to find the Contributor or initialize a new one
+            id_json = json.fetch(:dmp_id, {})
+            plan = find_or_initialize(id_json: id_json, json: json)
+            return nil unless plan.present? && plan.template.present?
 
-            plan.title = json[:title]
             plan.description = json[:description] if json[:description].present?
-            plan.save
+            issues = Api::V1::ConversionService.yes_no_unknown_to_boolean(
+              json[:ethical_issues_exist]
+            )
+            plan.ethical_issues = issues
+            plan.ethical_issues_description = json[:ethical_issues_description]
+            plan.ethical_issues_report = json[:ethical_issues_report]
 
             # TODO: Handle ethical issues when the Question is in place
 
@@ -67,11 +68,9 @@ module Api
             plan = deserialize_project(plan: plan, json: json)
             plan = deserialize_contact(plan: plan, json: json)
             plan = deserialize_contributors(plan: plan, json: json)
-            plan = deserialize_datasets(plan: plan, json: json)
-
-            plan
+            deserialize_datasets(plan: plan, json: json)
           end
-          # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+          # rubocop:enable Metrics/AbcSize
 
           # ===================
           # = PRIVATE METHODS =
@@ -79,30 +78,30 @@ module Api
 
           private
 
-          # Quickly determine whether or not the JSON contains enough information
-          # to marshal the Plan and its dependencies
-          def valid?(json: {})
-            return false unless json.present? &&
-                                json[:title].present? &&
-                                json[:contact].present? &&
-                                json[:contact][:mbox].present?
+          def find_or_initialize(id_json:, json: {})
+            return nil unless json.present?
 
-            # We either need a Template.id (creating) or a Plan.id (updating)
-            dmp_id = json[:dmp_id]&.fetch(:identifier, nil)
-            template_id(json: json).present? || dmp_id.present?
-          end
-
-          # Find or initialize the Plan
-          def marshal_plan(json: {})
-            plan = find_by_identifier(json: json)
+            id = id_json[:identifier] if id_json.is_a?(Hash)
+            if id.present?
+              if Api::V1::DeserializationService.doi?(value: id)
+                # Find by the DOI or ARK
+                plan = Api::V1::DeserializationService.object_from_identifier(
+                  class_name: 'Plan', json: id_json
+                )
+              else
+                # For URL based identifiers
+                begin
+                  plan = ::Plan.find_by(id: id.split('/').last.to_i)
+                rescue StandardError
+                  # Catches scenarios where the dmp_id is NOT one of our URLs
+                  plan = nil
+                end
+              end
+            end
             return plan if plan.present?
 
-            # If this is not an existing Plan, then initialize a new one
-            # for the specified template (or the default template if none specified)
             template = find_template(json: json)
-            return nil unless template.present?
-
-            ::Plan.new(template_id: template.id)
+            ::Plan.new(title: json[:title], template: template)
           end
 
           # Deserialize the datasets and attach to plan
@@ -115,35 +114,32 @@ module Api
 
           # Deserialize the project information and attach to Plan
           # rubocop:disable Metrics/AbcSize
-          # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           def deserialize_project(plan:, json: {})
             return plan unless json.present? &&
                                json[:project].present? &&
                                json[:project].is_a?(Array)
 
             project = json.fetch(:project, [{}]).first
-            plan.start_date = Time.new(project[:start]).utc if project[:start].present?
-            plan.end_date = Time.new(project[:end]).utc if project[:end].present?
+            plan.start_date = Api::V1::DeserializationService.safe_date(value: project[:start])
+            plan.end_date = Api::V1::DeserializationService.safe_date(value: project[:end])
             return plan unless project[:funding].present?
 
             funding = project.fetch(:funding, []).first
             return plan unless funding.present?
 
-            Api::V1::Deserialization::Funding.deserialize!(plan: plan, json: funding)
+            Api::V1::Deserialization::Funding.deserialize(plan: plan, json: funding)
           end
-          # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           # rubocop:enable Metrics/AbcSize
 
           # Deserialize the contact as a Contributor
           def deserialize_contact(plan:, json: {})
             return plan unless json.present? && json[:contact].present?
 
-            contact = Api::V1::Deserialization::Contributor.deserialize!(
-              plan_id: plan.id, json: json[:contact], is_contact: true
+            contact = Api::V1::Deserialization::Contributor.deserialize(
+              json: json[:contact], is_contact: true
             )
             return plan unless contact.present?
 
-            contact.save
             plan.contributors << contact
             plan.org = contact.org
             plan
@@ -152,42 +148,10 @@ module Api
           # Deserialize each Contributor and then add to Plan
           def deserialize_contributors(plan:, json: {})
             contributors = json.fetch(:contributor, []).map do |hash|
-              Api::V1::Deserialization::Contributor.deserialize!(
-                plan_id: plan.id, json: hash
-              )
+              Api::V1::Deserialization::Contributor.deserialize(json: hash)
             end
             plan.contributors << contributors.compact.uniq if contributors.any?
             plan
-          end
-
-          # Locate the Org by its identifier
-          # rubocop:disable Metrics/AbcSize
-          def find_by_identifier(json: {})
-            return nil unless json.present? && json[:dmp_id].present? &&
-                              json[:dmp_id][:identifier].present?
-
-            id = json[:dmp_id][:identifier]
-            if doi?(value: id)
-              # Find by the DOI or ARK
-              ::Plan.from_identifiers(
-                array: [{ name: json[:dmp_id][:type], value: json[:dmp_id][:identifier] }]
-              )
-            else
-              # For URL based identifiers
-              ::Plan.find_by(id: id.split("/").last)
-            end
-          end
-          # rubocop:enable Metrics/AbcSize
-
-          # Determine whether or not the value is a DOI or ARK
-          def doi?(value:)
-            return false unless value.present?
-
-            # The format must match a DOI or ARK and a DOI IdentifierScheme
-            # must also be present!
-            identifier = ::Identifier.new(value: value)
-            scheme = ::IdentifierScheme.find_by(name: "doi")
-            %w[ark doi].include?(identifier.identifier_format) && scheme.present?
           end
 
           # Lookup the Template
@@ -202,30 +166,13 @@ module Api
           def template_id(json: {})
             return nil unless json.present?
 
-            extensions = app_extensions(json: json)
+            extensions = Api::V1::DeserializationService.app_extensions(json: json)
             return nil unless extensions.present?
 
             extensions.fetch(:template, {})[:id]
           end
-
-          # Retrieve the extensions to the JSON for this application
-          # rubocop:disable Metrics/AbcSize
-          def app_extensions(json: {})
-            return {} unless json.present? && json[:extension].present?
-
-            app = ::ApplicationService.application_name.split("-").first
-            ext = json[:extension].select { |item| item[app.to_sym].present? }
-            ext.first.present? ? ext.first[app.to_sym] : {}
-          end
-          # rubocop:enable Metrics/AbcSize
-
         end
-
       end
-      # rubocop:enable Metrics/ClassLength
-
     end
-
   end
-
 end

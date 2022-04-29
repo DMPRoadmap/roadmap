@@ -8,7 +8,7 @@
       <h2><%= research_output_description.data['title'] %></h2>
   <% end %>
   <% sections.each do |section| %>
-    <% section_has_common_answers = research_output.get_main().has_common_answers?(section[:id]) %>
+    <% section_has_common_answers = research_output.main().common_answers?(section[:id]) %>
     <% if @show_sections_questions %>
       <br/>
       <h3><%= section[:title] %></h3>
@@ -16,9 +16,9 @@
     <% end %>
     <% section[:questions].each do |question| %>
       <% answer = section_has_common_answers ? 
-            @plan.answer(question[:id], false, research_output.get_main().id) : 
+            @plan.answer(question[:id], false, research_output.main().id) : 
             @plan.answer(question[:id], false, research_output[:id]) %>
-      <% blank = answer.present? ? answer.is_blank? : true %>
+      <% blank = answer.present? ? answer.blank? : true %>
       <% options = answer.present? ? answer.question_options : [] %>
       <% fragment = answer.present? ? answer.madmp_fragment : nil %>
       <%  unless @show_unanswered == false && blank  %>
@@ -36,7 +36,7 @@
             <br/>
           <% end %>
           <%# case where Question has options %>
-          <% if options.any? %>
+          <% if options.present? && options.any? %>
             <ul>
             <% options.each do |opt| %>
               <li><%= opt.text %></li>
@@ -60,12 +60,12 @@
                             fragment: fragment,
                             schema: fragment.madmp_schema,
                             classname: fragment.classname,
-                            locale: @plan.template.locale,
+                            locale: LocaleService.to_gettext(locale: @plan.template.locale),
                             table_header: nil
                         } %>
           <%# case for displaying comments OR text %>
           <% elsif !blank %>
-            <%= sanitize answer.text %>
+            <%= sanitize answer&.text %>
             <br/>
           <% else %>
             <br/>

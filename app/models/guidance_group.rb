@@ -24,11 +24,10 @@
 #  fk_rails_...  (org_id => orgs.id)
 #
 
-class GuidanceGroup < ActiveRecord::Base
-
-  include GlobalHelpers
-  include ValidationValues
-  include ValidationMessages
+# Object that represents a grouping of themed guidance
+class GuidanceGroup < ApplicationRecord
+  attribute :optional_subset, :boolean, default: true
+  attribute :published, :boolean, default: false
 
   # ================
   # = Associations =
@@ -44,7 +43,7 @@ class GuidanceGroup < ActiveRecord::Base
   # = Validations =
   # ===============
 
-  validates :name, presence: { message:  PRESENCE_MESSAGE },
+  validates :name, presence: { message: PRESENCE_MESSAGE },
                    uniqueness: { message: UNIQUENESS_MESSAGE, scope: :org_id }
 
   validates :org, presence: { message: PRESENCE_MESSAGE }
@@ -55,7 +54,6 @@ class GuidanceGroup < ActiveRecord::Base
   validates :published, inclusion: { in: BOOLEAN_VALUES,
                                      message: INCLUSION_MESSAGE }
 
-
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
   # What do they do? do they do it efficiently, and do we need them?
@@ -65,7 +63,7 @@ class GuidanceGroup < ActiveRecord::Base
 
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
-    where("lower(name) LIKE lower(?)", search_pattern)
+    where('lower(name) LIKE lower(?)', search_pattern)
   }
 
   scope :published, -> { where(published: true) }
@@ -98,7 +96,6 @@ class GuidanceGroup < ActiveRecord::Base
     viewable
   end
 
-
   # A list of all guidance groups which a specified user can view
   # we define guidance groups viewable to a user by those owned by:
   #   the Default Orgs
@@ -111,7 +108,7 @@ class GuidanceGroup < ActiveRecord::Base
   def self.all_viewable(user)
     # first find all groups owned by the Default Orgs
     default_org_groups = Org.includes(guidance_groups: [guidances: :themes])
-                             .default_orgs.collect(&:guidance_groups)
+                            .default_orgs.collect(&:guidance_groups)
 
     # find all groups owned by  a Funder organisation
     funder_groups = Org.includes(:guidance_groups)
@@ -125,8 +122,44 @@ class GuidanceGroup < ActiveRecord::Base
     all_viewable_groups = default_org_groups +
                           funder_groups +
                           organisation_groups
-    all_viewable_groups = all_viewable_groups.flatten.uniq
-    all_viewable_groups
+    all_viewable_groups.flatten.uniq
   end
 
+  def self.create_org_default(org)
+    GuidanceGroup.create!(
+      name: org.abbreviation? ? org.abbreviation : org.name,
+      org: org,
+      optional_subset: false
+    )
+  end
+
+  # ====================
+  # = Instance methods =
+  # ====================
+
+  # rubocop:disable Metrics/AbcSize
+  def merge!(to_be_merged:)
+    return self unless to_be_merged.is_a?(GuidanceGroup)
+
+    GuidanceGroup.transaction do
+      # Reassociate any Plan-GuidanceGroup connections
+      to_be_merged.plans.each do |plan|
+        plan.guidance_groups << self
+        plan.save
+      end
+      # Reassociate the Guidances
+      to_be_merged.guidances.update_all(guidance_group_id: id)
+      to_be_merged.plans.delete_all
+
+      # Terminate the transaction if the resulting Org is not valid
+      raise ActiveRecord::Rollback unless save
+
+      # Reload and then drop the specified Org. The reload prevents ActiveRecord
+      # from also destroying associations that we've already reassociated above
+      raise ActiveRecord::Rollback unless to_be_merged.reload.destroy.present?
+
+      reload
+    end
+  end
+  # rubocop:enable Metrics/AbcSize
 end

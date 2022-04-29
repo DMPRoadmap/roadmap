@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: settings
@@ -12,28 +14,29 @@
 #
 
 module Settings
+  # Records export settings for a Plan and defaults for the template
   class Template < RailsSettings::SettingObject
-
     VALID_FONT_FACES = [
       '"Times New Roman", Times, Serif',
       'Arial, Helvetica, Sans-Serif'
-    ]
+    ].freeze
 
-    VALID_FONT_SIZE_RANGE = (8..14)
-    VALID_MARGIN_RANGE = (5..25)
+    VALID_FONT_SIZE_RANGE = (8..14).freeze
+    VALID_MARGIN_RANGE = (5..25).freeze
 
-    VALID_ADMIN_FIELDS = ['project_name', 'project_identifier', 'grant_title', 'principal_investigator',
-                          'project_data_contact', 'project_description', 'funder', 'institution', 'orcid']
+    VALID_ADMIN_FIELDS = %w[project_name project_identifier grant_title
+                            principal_investigator project_data_contact
+                            project_description funder institution orcid].freeze
 
-    VALID_FORMATS = ["html", "pdf", "docx", "json"]
+    VALID_FORMATS = %w[html pdf docx json].freeze
 
     DEFAULT_SETTINGS = {
       formatting: {
         margin: {
-          top:    25,
+          top: 25,
           bottom: 20,
-          left:   12,
-          right:  12
+          left: 12,
+          right: 12
         },
         font_face: 'Arial, Helvetica, Sans-Serif',
         font_size: 10 # pt
@@ -43,48 +46,49 @@ module Settings
         admin: VALID_ADMIN_FIELDS,
         questions: :all
       },
-      title: ""
-    }
+      title: ''
+    }.freeze
 
+    # rubocop:disable Metrics/BlockLength, Metrics/BlockNesting
     validate do
       formatting = value['formatting']
       max_pages  = value['max_pages']
-      fields     = value['fields']
 
       if formatting.present?
         errs = []
         default_formatting = DEFAULT_SETTINGS[:formatting]
 
-        unless (default_formatting.keys - formatting.keys).empty?
-          errs << :missing_key
-        else
-          unless formatting[:margin].is_a?(Hash)
-            errs << :invalid_margin
-          else
-            errs << :negative_margin if formatting[:margin].any? {|k,v| v.to_i < 0 }
+        if (default_formatting.keys - formatting.keys).empty?
+          if formatting[:margin].is_a?(Hash)
+            errs << :negative_margin if formatting[:margin].any? { |_k, v| v.to_i.negative? }
             errs << :unknown_margin unless (formatting[:margin].keys - default_formatting[:margin].keys).empty?
-            errs << :invalid_margin unless formatting[:margin].all? {|k,v| VALID_MARGIN_RANGE.member?(v) }
+            errs << :invalid_margin unless formatting[:margin].all? { |_k, v| VALID_MARGIN_RANGE.member?(v) }
+          else
+            errs << :invalid_margin
           end
 
           errs << :invalid_font_size unless VALID_FONT_SIZE_RANGE.member?(formatting[:font_size])
           errs << :invalid_font_face unless VALID_FONT_FACES.member?(formatting[:font_face])
           errs << :unknown_key unless (formatting.keys - default_formatting.keys).empty?
+        else
+          errs << :missing_key
         end
 
         errs.map do |key|
-          if key == :missing_key
+          case key
+          when :missing_key
             errors.add(:formatting, _('A required setting has not been provided'))
-          elsif key == :invalid_margin
+          when :invalid_margin
             errors.add(:formatting, _('Margin value is invalid'))
-          elsif key == :negative_margin
+          when :negative_margin
             errors.add(:formatting, _('Margin cannot be negative'))
-          elsif key == :unknown_margin
+          when :unknown_margin
             errors.add(:formatting, _("Unknown margin. Can only be 'top', 'bottom', 'left' or 'right'"))
-          elsif key == :invalid_font_size
+          when :invalid_font_size
             errors.add(:formatting, _('Invalid font size'))
-          elsif key == :invalid_font_face
+          when :invalid_font_face
             errors.add(:formatting, _('Invalid font face'))
-          elsif key == :unknown_key
+          when :unknown_key
             errors.add(:formatting, _('Unknown formatting setting'))
           end
         end
@@ -95,26 +99,27 @@ module Settings
         errors.add(:max_pages, _('Invalid maximum pages'))
       end
     end
+    # rubocop:enable Metrics/BlockLength, Metrics/BlockNesting
 
     before_validation do
-      self.formatting[:font_size] = self.formatting[:font_size].to_i if self.formatting[:font_size].present?
-      unless self.formatting[:margin].nil? or (not self.formatting[:margin].is_a?(Hash))
-        self.formatting[:margin].each do |key, val|
-          self.formatting[:margin][key] = val.to_i
+      formatting[:font_size] = formatting[:font_size].to_i if formatting[:font_size].present?
+      unless formatting[:margin].nil? || !formatting[:margin].is_a?(Hash)
+        formatting[:margin].each do |key, val|
+          formatting[:margin][key] = val.to_i
         end
       end
 
-      self.fields.each do |key, val|
+      fields.each do |key, val|
         if val.is_a?(Hash)
-          val = key == :questions ? val.keys.map {|k| k.to_s.to_i } : val.keys
+          val = key == :questions ? val.keys.map { |k| k.to_s.to_i } : val.keys
         end
 
-        self.fields[key] = val
+        fields[key] = val
       end
 
       # Save empty arrays if we don't have any fields for them
-      self.fields[:admin] ||= []
-      self.fields[:questions] ||= []
+      fields[:admin] ||= []
+      fields[:questions] ||= []
     end
   end
 end

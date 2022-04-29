@@ -1,4 +1,4 @@
-class DropTableFriendlyIdSlugs < ActiveRecord::Migration
+class DropTableFriendlyIdSlugs < ActiveRecord::Migration[4.2]
   def up
     drop_table :friendly_id_slugs if table_exists?(:friendly_id_slugs)
   end

@@ -1,24 +1,17 @@
-class Settings::ProjectPolicy < ApplicationPolicy
-  # this is the policy for app/controllers/settings/projects_controller.rb
+# frozen_string_literal: true
 
-  attr_reader :user
-  attr_reader :projects
+module Settings
+  # Security rules project export settings
+  class ProjectPolicy < ApplicationPolicy
+    # this is the policy for app/controllers/settings/projects_controller.rb
+    # for this controller, we allow all actions as the "settings" object
+    # is curated by rails based on user, not on a passed param
+    def show?
+      true
+    end
 
-  def initialize(user, settings)
-    raise Pundit::NotAuthorizedError, "must be logged in" unless user
-    @user = user
-    @settings = settings
+    def update?
+      true
+    end
   end
-
-  # for this controller, we allow all actions as the "settings" object
-  # is curated by rails based on user, not on a passed param
-
-  def show?
-    true
-  end
-
-  def update?
-    true
-  end
-
 end

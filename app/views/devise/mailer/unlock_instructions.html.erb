@@ -1,7 +1,7 @@
-<% FastGettext.with_locale FastGettext.default_locale do %>
+<% I18n.with_locale I18n.default_locale do %>
 	<p><%= _("Hello") %> <%= @resource.email %>!</p>
 
-	<p><%= _("Your") %> <%= link_to Rails.configuration.branding[:application][:name], root_url %> <%= _("account has been locked due to an excessive number of unsuccessful sign in attempts.") %></p>
+	<p><%= _("Your") %> <%= link_to ApplicationService.application_name, root_url %> <%= _("account has been locked due to an excessive number of unsuccessful sign in attempts.") %></p>
 
 	<p><%= _("Click the link below to unlock your account") %>:</p>
 

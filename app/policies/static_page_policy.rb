@@ -1,9 +1,7 @@
-class StaticPagePolicy < ApplicationPolicy
-  def initializer(user, *_args)
-    raise Pundit::NotAuthorizedError, _('must be logged in') unless user
-    @user = user
-  end
+# frozen_string_literal: true
 
+# Security rules for static pages
+class StaticPagePolicy < ApplicationPolicy
   def index?
     @user.can_super_admin?
   end
@@ -19,15 +17,15 @@ class StaticPagePolicy < ApplicationPolicy
   def show?
     @user.can_super_admin?
   end
-  
+
   def edit?
     @user.can_super_admin?
   end
-  
+
   def update?
     @user.can_super_admin?
   end
-  
+
   def destroy?
     @user.can_super_admin?
   end

@@ -1,10 +1,11 @@
-module LinksHelper
+# frozen_string_literal: true
 
-  def addLink
-    click_link "+ Add an additional URL"
+module LinksHelper
+  def add_link
+    click_link '+ Add an additional URL'
   end
 
-  def removeLink
+  def remove_link
     all('.link a > .fa-times-circle').last.click
   end
 end

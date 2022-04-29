@@ -1,37 +1,39 @@
+# frozen_string_literal: true
+
+# rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  devise_for( :users, controllers: {
-    registrations: "registrations",
-    passwords: 'passwords',
-    sessions: 'sessions',
-    omniauth_callbacks: 'users/omniauth_callbacks',
-    invitations: 'users/invitations'
-    }) do
-
-    get "/users/sign_out", :to => "devise/sessions#destroy"
+  devise_for(:users, controllers: {
+               registrations: 'registrations',
+               passwords: 'passwords',
+               sessions: 'sessions',
+               omniauth_callbacks: 'users/omniauth_callbacks',
+               invitations: 'users/invitations'
+             }) do
+    get '/users/sign_out', to: 'devise/sessions#destroy'
   end
 
   delete '/users/identifiers/:id', to: 'identifiers#destroy', as: 'destroy_user_identifier'
 
   get '/orgs/shibboleth', to: 'orgs#shibboleth_ds', as: 'shibboleth_ds'
-  get '/orgs/shibboleth/:org_name', to: 'orgs#shibboleth_ds_passthru'
+  get '/orgs/shibboleth/:org_id', to: 'orgs#shibboleth_ds_passthru'
   post '/orgs/shibboleth', to: 'orgs#shibboleth_ds_passthru'
 
   resources :users, path: 'users', only: [] do
-
     resources :org_swaps, only: [:create],
-                          controller: "super_admin/org_swaps"
+                          controller: 'super_admin/org_swaps'
 
     member do
       put 'update_email_preferences'
+      get 'refresh_token'
     end
 
     post '/acknowledge_notification', to: 'users#acknowledge_notification'
-
   end
 
-  #organisation admin area
-  resources :users, :path => 'org/admin/users', only: [] do
+  # organisation admin area
+  resources :users, path: 'org/admin/users', only: [] do
     collection do
       get 'admin_index'
     end
@@ -47,26 +49,31 @@ Rails.application.routes.draw do
 
   patch 'locale/:locale' => 'session_locales#update', as: 'locale'
 
-  root :to => 'home#index'
-  get 'about_us', to: 'static/static_pages#show', name: 'about_us'
-  get 'help', to: 'static/static_pages#show', name: 'help'
-  get 'roadmap', to: 'static/static_pages#show', name: 'roadmap'
-  get 'terms', to: 'static/static_pages#show', name: 'termsuse'
-  get 'privacy', to: 'static/static_pages#show', name: 'privacy'
-  get 'research_output_types', to: 'static/static_pages#show', name: 'research_output_types'
+  root to: "home#index"
+  get "about_us", to: "static/static_pages#show", name: "about_us"
+  get "help", to: "static/static_pages#show", name: "help"
+  get "roadmap", to: "static/static_pages#show", name: "roadmap"
+  get "terms", to: "static/static_pages#show", name: "termsuse"
+  get "privacy", to: "static/static_pages#show", name: "privacy"
+  get "research_output_types", to: "static/static_pages#show", name: "research_output_types"
   get "about_registries", to: "static/static_pages#show", name: "about_registries"
 
-  get "tutorials", to: 'static_pages#tutorials'
-  get "news_feed", to: 'static_pages#news_feed'
-  get "optout", to: 'static_pages#optout'
-  get "public_plans" => 'public_pages#plan_index'
-  get "public_templates" => 'public_pages#template_index'
-  get "template_export/:id" => 'public_pages#template_export', as: 'template_export'
+  get "tutorials", to: "static_pages#tutorials"
+  get "news_feed", to: "static_pages#news_feed"
+  get "optout", to: "static_pages#optout"
+  get "public_plans" => "public_pages#plan_index"
+  get "public_templates" => "public_pages#template_index"
+  get "template_export/:id" => "public_pages#template_export", as: "template_export"
+
+  # Static pages
+  namespace :static do
+    get ":name", to: "static_pages#show"
+  end
 
   # AJAX call used to search for Orgs based on user input into autocompletes
-  post "orgs" => "orgs#search", as: "orgs_search"
+  post 'orgs' => 'orgs#search', as: 'orgs_search'
 
-  resources :orgs, :path => 'org/admin', only: [] do
+  resources :orgs, path: 'org/admin', only: [] do
     member do
       get 'admin_edit'
       put 'admin_update'
@@ -74,7 +81,12 @@ Rails.application.routes.draw do
     resources :departments, controller: 'org_admin/departments'
   end
 
-  resources :guidances, :path => 'org/admin/guidance', only: [] do
+  # This should be made more restful and placed within the `org_admin` or a new
+  # `admin` namespace. For example:
+  #     namespace :admin
+  #       resources :guidances, except: %i[show]
+  #     end
+  resources :guidances, path: 'org/admin/guidance', only: [] do
     member do
       get 'admin_index'
       get 'admin_edit'
@@ -87,7 +99,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :guidance_groups, :path => 'org/admin/guidancegroup', only: [] do
+  # This should be made more restful and placed within the `org_admin` or a new
+  # `admin` namespace. For example:
+  #     namespace :admin
+  #       resources :guidance_groups, except: %i[show]
+  #     end
+  resources :guidance_groups, path: 'org/admin/guidancegroup', only: [] do
     member do
       get 'admin_show'
       get 'admin_new'
@@ -108,7 +125,7 @@ Rails.application.routes.draw do
   # Question Formats controller, currently just the one action
   get 'question_formats/rda_api_address' => 'question_formats#rda_api_address'
 
-  resources :notes, only: [:create, :update, :archive] do
+  resources :notes, only: %i[create update archive] do
     member do
       patch 'archive'
     end
@@ -117,8 +134,9 @@ Rails.application.routes.draw do
   resources :feedback_requests, only: [:create]
 
   resources :plans do
-
-    resource :export, only: [:show], controller: "plan_exports"
+    get 'import', action: :import, on: :collection
+    post 'import', action: :import_plan, on: :collection
+    resource :export, only: [:show], controller: 'plan_exports'
 
     resources :contributors, except: %i[show]
 
@@ -129,10 +147,11 @@ Rails.application.routes.draw do
       get 'download'
       get 'budget'
       post 'duplicate'
-      post 'visibility', constraints: {format: [:json]}
-      post 'set_test', constraints: {format: [:json]}
+      post 'visibility', constraints: { format: [:json] }
+      post 'set_test', constraints: { format: [:json] }
+      get 'overview'
     end
-    resources :research_outputs, only: [:index, :update, :destroy], controller: 'research_outputs'
+    resources :research_outputs, only: %i[index update destroy], controller: "research_outputs"
   end
 
   resources :research_outputs, only: [] do
@@ -140,7 +159,7 @@ Rails.application.routes.draw do
     post "sort", on: :collection
   end
 
-  resources :madmp_fragments, only: [:create, :update, :destroy] do
+  resources :madmp_fragments, only: %i[create update destroy] do
     get "load_new_form", action: :load_form, on: :collection
     get "load_form/:id", action: :load_form, on: :collection
     get "change_schema/:id", action: :change_schema, on: :collection
@@ -173,7 +192,7 @@ Rails.application.routes.draw do
 
   resources :usage_downloads, only: [:index]
 
-  resources :roles, only: [:create, :update, :destroy] do
+  resources :roles, only: %i[create update destroy] do
     member do
       put :deactivate
     end
@@ -183,9 +202,9 @@ Rails.application.routes.draw do
     resources :plans, only: [:update]
   end
 
-  namespace :api, defaults: {format: :json} do
+  namespace :api, defaults: { format: :json } do
     namespace :v0 do
-      resources :departments, only: [:create, :index] do
+      resources :departments, only: %i[create index] do
         collection do
           get :users
           patch :unassign_users
@@ -195,9 +214,9 @@ Rails.application.routes.draw do
         end
       end
       resources :guidances, only: [:index], controller: 'guidance_groups', path: 'guidances'
-      resources :plans, only: [:create, :index]
+      resources :plans, only: %i[create index]
       resources :templates, only: :index
-      resource  :statistics, only: [], controller: "statistics", path: "statistics" do
+      resource  :statistics, only: [], controller: 'statistics', path: 'statistics' do
         member do
           get :users_joined
           get :completed_plans
@@ -209,12 +228,12 @@ Rails.application.routes.draw do
       end
       resources :themes, param: :slug, only: [] do
         member do
-          get 'extract', to: 'themes#extract'
+          get "extract", to: "themes#extract"
         end
       end
       namespace :madmp do
         resources :dmp_fragments, controller: "madmp_fragments", action: "dmp_fragments"
-        resources :madmp_fragments, only: [:show, :update], controller: "madmp_fragments", path: "fragments"
+        resources :madmp_fragments, only: %i[show update], controller: "madmp_fragments", path: "fragments"
         resources :madmp_schemas, only: [:show], controller: "madmp_schemas", path: "schemas"
         resources :plans, only: [:show] do
           member do
@@ -228,7 +247,7 @@ Rails.application.routes.draw do
       get :heartbeat, controller: "base_api"
       post :authenticate, controller: "authentication"
 
-      resources :plans, only: [:create, :show, :index]
+      resources :plans, only: %i[create show index]
       resources :templates, only: [:index]
 
       resources :themes, param: :slug, only: [] do
@@ -238,15 +257,26 @@ Rails.application.routes.draw do
       end
       namespace :madmp do
         resources :dmp_fragments, controller: "madmp_fragments", action: "dmp_fragments"
-        resources :madmp_fragments, only: [:show, :update], controller: "madmp_fragments", path: "fragments"
-        resources :madmp_schemas, only: [:index, :show], controller: "madmp_schemas", path: "schemas"
-        resources :registries, only: [:index, :show], controller: "registries", param: :name
+        resources :madmp_fragments, only: %i[show update], controller: "madmp_fragments", path: "fragments"
+        resources :madmp_schemas, only: %i[index show], controller: "madmp_schemas", path: "schemas"
+        resources :registries, only: %i[index show], controller: "registries", param: :name
         resources :plans, only: [:show] do
           member do
             get :rda_export
           end
+          collection do
+            post :import
+          end
         end
       end
+    end
+
+    namespace :v1 do
+      get :heartbeat, controller: 'base_api'
+      post :authenticate, controller: 'authentication'
+
+      resources :plans, only: %i[create show index]
+      resources :templates, only: [:index]
     end
   end
 
@@ -256,21 +286,29 @@ Rails.application.routes.draw do
     end
     # Paginable actions for plans
     resources :plans, only: [] do
-      get 'administrator_visible/:page', action: :administrator_visible, on: :collection, as: :administrator_visible
-      get 'privately_visible/:page', action: :privately_visible, on: :collection, as: :privately_visible
-      get 'organisationally_or_publicly_visible/:page', action: :organisationally_or_publicly_visible, on: :collection, as: :organisationally_or_publicly_visible
-      get 'publicly_visible/:page', action: :publicly_visible, on: :collection, as: :publicly_visible
+      get 'privately_visible/:page',
+          action: :privately_visible, on: :collection, as: :privately_visible
+
+      get 'organisationally_or_publicly_visible/:page',
+          action: :organisationally_or_publicly_visible,
+          on: :collection, as: :organisationally_or_publicly_visible
+
+      get 'publicly_visible/:page', action: :publicly_visible,
+                                    on: :collection, as: :publicly_visible
+
       get 'org_admin/:page', action: :org_admin, on: :collection, as: :org_admin
-      get 'org_admin_other_user/:page', action: :org_admin_other_user, on: :collection, as: :org_admin_other_user
 
       # Paginable actions for contributors
       resources :contributors, only: %i[index] do
-        get "index/:page", action: :index, on: :collection, as: :index
+        get 'index/:page', action: :index, on: :collection, as: :index
       end
     end
+
     # Paginable actions for users
-    resources :users, only: [] do
-      get 'index/:page', action: :index, on: :collection, as: :index
+    resources :users, only: %i[index] do
+      member do
+        resources :plans, only: %(index)
+      end
     end
     # Paginable actions for themes
     resources :themes, only: [] do
@@ -285,7 +323,8 @@ Rails.application.routes.draw do
       get 'index/:page', action: :index, on: :collection, as: :index
       get 'customisable/:page', action: :customisable, on: :collection, as: :customisable
       get 'organisational/:page', action: :organisational, on: :collection, as: :organisational
-      get 'publicly_visible/:page', action: :publicly_visible, on: :collection, as: :publicly_visible
+      get 'publicly_visible/:page', action: :publicly_visible,
+                                    on: :collection, as: :publicly_visible
       get ':id/history/:page', action: :history, on: :collection, as: :history
     end
     # Paginable actions for guidances
@@ -298,10 +337,14 @@ Rails.application.routes.draw do
     end
     # Paginable actions for static pages
     resources :static_pages, only: [] do
-      get 'index/:page', action: :index, on: :collection, as: :index
+      get "index/:page", action: :index, on: :collection, as: :index
     end
     # Paginable actions for departments
     resources :departments, only: [] do
+      get 'index/:page', action: :index, on: :collection, as: :index
+    end
+    # Paginable actions for api_clients
+    resources :api_clients, only: [] do
       get 'index/:page', action: :index, on: :collection, as: :index
     end
     # Paginable actions for madmp schemas
@@ -316,28 +359,23 @@ Rails.application.routes.draw do
     resources :registry_values, only: [] do
       get ":id/index/:page", action: :index, on: :collection, as: :index
     end
-    # Paginable actions for api_clients
-     resources :api_clients, only: [] do
-       get 'index/:page', action: :index, on: :collection, as: :index
-     end
   end
 
   resources :template_options, only: [:index], constraints: { format: /json/ }
 
   # ORG ADMIN specific pages
   namespace :org_admin do
-    resources :users, only: [:edit, :update], controller: "users" do
+    resources :users, only: %i[edit update], controller: 'users' do
       member do
         get 'user_plans'
       end
     end
 
-    resources :question_options, only: [:destroy], controller: "question_options"
+    resources :question_options, only: [:destroy], controller: 'question_options'
 
     resources :questions, only: [] do
       get 'open_conditions'
-      resources :conditions, only: [:new, :show] do
-      end
+      resources :conditions, only: %i[new show]
     end
 
     resources :plans, only: [:index] do
@@ -346,23 +384,21 @@ Rails.application.routes.draw do
       end
     end
 
-
     resources :templates do
-
-      resources :customizations, only: [:create], controller: "template_customizations"
+      resources :customizations, only: [:create], controller: 'template_customizations'
 
       resources :copies, only: [:create],
-      controller: "template_copies",
-      constraints: { format: [:json] }
+                         controller: 'template_copies',
+                         constraints: { format: [:json] }
 
       resources :customization_transfers, only: [:create],
-      controller: "template_customization_transfers"
+                                          controller: 'template_customization_transfers'
 
       member do
         get 'history'
-        get 'template_export',  action: :template_export
-        patch 'publish', action: :publish, constraints: {format: [:json]}
-        patch 'unpublish', action: :unpublish, constraints: {format: [:json]}
+        get 'template_export', action: :template_export
+        patch 'publish', action: :publish, constraints: { format: [:json] }
+        patch 'unpublish', action: :unpublish, constraints: { format: [:json] }
       end
 
       # Used for the organisational and customizable views of index
@@ -372,17 +408,15 @@ Rails.application.routes.draw do
       end
 
       resources :phases, except: [:index] do
-
-        resources :versions, only: [:create], controller: "phase_versions"
+        resources :versions, only: [:create], controller: 'phase_versions'
 
         member do
           get 'preview'
           post 'sort'
         end
 
-        resources :sections, only: [:index, :show, :edit, :update, :create, :destroy] do
-          resources :questions, only: [:show, :edit, :new, :update, :create, :destroy] do
-          end
+        resources :sections, only: %i[index show edit update create destroy] do
+          resources :questions, only: %i[show edit new update create destroy]
         end
       end
     end
@@ -391,15 +425,21 @@ Rails.application.routes.draw do
   end
 
   namespace :super_admin do
-    resources :orgs, only: [:index, :new, :create, :destroy]
-    resources :themes, only: [:index, :new, :create, :edit, :update, :destroy]
-    resources :madmp_schemas, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :orgs, only: %i[index new create destroy] do
+      member do
+        post 'merge_analyze'
+        post 'merge_commit'
+      end
+    end
+
+    resources :themes, only: %i[index new create edit update destroy]
+    resources :madmp_schemas, only: %i[index new create edit update destroy]
     resources :registries do
       post "sort_values", on: :collection
       get "download"
     end
-    resources :registry_values, only: [:new, :create, :edit, :update, :destroy]
-    resources :users, only: [:edit, :update] do
+    resources :registry_values, only: %i[new create edit update destroy]
+    resources :users, only: %i[edit update] do
       member do
         put :merge
         put :archive
@@ -409,33 +449,25 @@ Rails.application.routes.draw do
 
     resources :notifications, except: [:show] do
       member do
-        post 'enable', constraints: {format: [:json]}
+        post 'enable', constraints: { format: [:json] }
       end
     end
     resources :static_pages
 
     resources :api_clients do
-       member do
-         get :email_credentials
-         get :refresh_credentials
-       end
-     end
+      member do
+        get :email_credentials
+        get :refresh_credentials
+      end
+    end
   end
 
+  get 'research_projects/search', action: 'search',
+                                  controller: 'research_projects',
+                                  constraints: { format: 'json' }
 
-  # Static pages
-  namespace :static do
-    get ':name', to: 'static_pages#show'
-  end
-
-  get "research_projects/search", action: "search",
-                                  controller: "research_projects",
-                                  constraints: { format: "json" }
-
-  get "research_projects/(:type)", action: "index",
-                                   controller: "research_projects",
-                                   constraints: { format: "json" }
-
-
-
+  get 'research_projects/(:type)', action: 'index',
+                                   controller: 'research_projects',
+                                   constraints: { format: 'json' }
 end
+# rubocop:enable Metrics/BlockLength

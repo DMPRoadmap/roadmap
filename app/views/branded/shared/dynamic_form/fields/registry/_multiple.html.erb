@@ -2,9 +2,9 @@
 <% selected_value ||= default_value %>
 <% include_blank = !selected_value && !default_value %>
 <% field_name = defined?(form_prefix) ? "#{form_prefix}[#{property_name}]" : property_name %>
-<% intermediate_message = overridable ? d_("dmpopidor", "Select a value from the list or type a new one.") : d_("dmpopidor", "Select a value from the list.")%>
+<% intermediate_message = overridable ? _("Select a value from the list or type a new one.") : _("Select a value from the list.")%>
 <% 
-  formatted_values = select_values.map {|v| [v.to_s(locale), select_value(v, locale)]}
+  formatted_values = select_values.map {|v| [v.to_s(locale: locale), select_value(v, locale)]}
 %>
 <% unless field_label.nil? %>
   <div class="col-md-12">
@@ -33,8 +33,8 @@
 
   <span class="add-indicator fa fa-arrow-down"></span>
     <div class="col-md-12">
-      <div class="col-md-2 selected-values-label"><%= d_("dmpopidor", "Selected values") %></div>
-      <ul class="col-md-10 selected-values">
+      <div class="col-md-3 selected-values-label"><%= _("Selected values") %></div>
+      <ul class="col-md-9 selected-values">
         <% if selected_value.present? %>
           <% selected_value.each do |val| %>
             <% display = val.blank? ? 'display:none': '' %>
