@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-04-29 08:50+0200\n"
-"PO-Revision-Date: 2022-04-29 08:50+0200\n"
+"POT-Creation-Date: 2022-05-03 14:20+0200\n"
+"PO-Revision-Date: 2022-05-03 14:20+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -3279,15 +3279,23 @@ msgstr "Budget général"
 msgid "Standard"
 msgstr "Standard"
 
-#: ../../app/views/branded/plans/import.html.erb:27
+#: ../../app/views/branded/plans/import.html.erb:24
+msgid ""
+"After using the import, you will have to manually set the role for each Person"
+" created"
+msgstr ""
+"Après avoir utilisé l'import, vous devrez attribuer manuellement le rôle de ch"
+"aque personne créée"
+
+#: ../../app/views/branded/plans/import.html.erb:28
 msgid "Structured template"
 msgstr "Modèle structuré"
 
-#: ../../app/views/branded/plans/import.html.erb:37
+#: ../../app/views/branded/plans/import.html.erb:38
 msgid "File"
 msgstr "Fichier"
 
-#: ../../app/views/branded/plans/import.html.erb:45
+#: ../../app/views/branded/plans/import.html.erb:46
 msgid "Import"
 msgstr "Importer"
 
