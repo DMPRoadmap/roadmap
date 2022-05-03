@@ -70,7 +70,7 @@
           <% if q_format.option_based? %>
             <ul>
             <% question.question_options.each do |option| %>
-              <li><%= option.text.chomp.strip %></li>
+              <li><%= option.text.chomp.strip %><%= option.is_default? ? ' - ' + _('default') : '' %></li>
             <% end %>
             </ul>
           <% end %>
