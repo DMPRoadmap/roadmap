@@ -252,9 +252,9 @@ module Import
                 },
                 'ethicalIssues' => {
                   'description' => full_dmp['ethical_issues_description'],
-                  'ressourceReference' => {
+                  'resourceReference' => [{
                     'docIdentifier' => full_dmp['ethical_issues_report']
-                  }
+                  }]
                 },
                 'dataCollection' => convert_technical_ressource(dataset['technical_ressource'])
               }
