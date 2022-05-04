@@ -36,6 +36,14 @@ class Org < ApplicationRecord
   extend FeedbacksHelper
   include FlagShihTzu
   include Identifiable
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # SEE app/models/dmpopidor/org.rb
+  # --------------------------------
+  prepend Dmpopidor::Org
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   extend Dragonfly::Model::Validations
   validates_with OrgLinksValidator
