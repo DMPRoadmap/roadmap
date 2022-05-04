@@ -57,12 +57,12 @@ Devise.setup do |config|
   #   else
   config.omniauth :shibboleth, {
     request_type: :header,
-    uid_field: lambda { |param| param.call('eppn') || param.call('mail') },
+    uid_field: ->(param) { param.call('eppn') || param.call('mail') },
     info_fields: {
       email: 'mail',
       name: 'displayName',
       last_name: 'sn',
-      first_name: lambda { |param| param.call('cn') || param.call('givenName') },
+      first_name: ->(param) { param.call('cn') || param.call('givenName') },
       identity_provider: 'shib_identity_provider'
     },
     extra_fields: [:schacHomeOrganization],

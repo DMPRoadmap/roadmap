@@ -135,7 +135,7 @@ module ExportablePlan
   end
   # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
   def prepare_coversheet_for_csv(csv, _headings, hash)
     csv << if Array(hash[:attribution]).many?
              [_('Creators: '), format(_('%{authors}'), authors: Array(hash[:attribution]).join(', '))]
@@ -163,10 +163,10 @@ module ExportablePlan
     csv << []
     csv << []
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
 
   # rubocop:disable Metrics/AbcSize, Metrics/BlockLength, Metrics/MethodLength
-  # rubocop:disable Metrics/ParameterLists
+  # rubocop:disable Metrics/ParameterLists, Metrics/PerceivedComplexity
   def show_section_for_csv(csv, phase, section, headings, unanswered, hash)
     section[:questions].each do |question|
       next if remove_list(hash).include?(question[:id])

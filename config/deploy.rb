@@ -3,10 +3,10 @@
 require 'uc3-ssm'
 
 # set vars from ENV
-set :deploy_to,        ENV['DEPLOY_TO']       || '/dmp/apps/dmptool'
-set :rails_env,        ENV['RAILS_ENV']       || 'production'
-set :repo_url,         ENV['REPO_URL']        || 'https://github.com/cdluc3/dmptool.git'
-set :branch,           ENV['BRANCH']          || 'master'
+set :deploy_to,        ENV.fetch('DEPLOY_TO', nil)       || '/dmp/apps/dmptool'
+set :rails_env,        ENV.fetch('RAILS_ENV', nil)       || 'production'
+set :repo_url,         ENV.fetch('REPO_URL', nil)        || 'https://github.com/cdluc3/dmptool.git'
+set :branch,           ENV.fetch('BRANCH', nil)          || 'master'
 
 # Gets the current Git tag and revision
 set :version_number, `git describe --tags`

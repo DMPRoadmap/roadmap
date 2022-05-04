@@ -25,7 +25,6 @@ module Webmocks
     stub_request(:get, %r{https://rdamsc.bath.ac.uk/.*})
       .to_return(status: successful ? 200 : 500, body: response_body, headers: {})
   end
-  # rubocop:enable Style/OptionalBooleanParameter
 
   def stub_openaire
     url = ExternalApis::OpenAireService.api_base_url
