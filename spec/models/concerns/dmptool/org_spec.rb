@@ -131,7 +131,7 @@ module Dmptool
         it 'returns nil if no RegitryOrg matched and no other Users with that email domain exist' do
           RegistryOrg.expects(:from_email_domain).once.returns(nil)
           # expect(Org.send(:from_email_domain, email_domain: 'foo.edu')).to eql(nil)
-          expect(::Org.from_email_domain(email_domain:  'foo.edu')).to eql(nil)
+          expect(::Org.from_email_domain(email_domain: 'foo.edu')).to eql(nil)
         end
         it 'returns the Org with the most User records if there were multiple matches' do
           expected = create(:org)
