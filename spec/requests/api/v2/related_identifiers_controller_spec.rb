@@ -86,12 +86,12 @@ RSpec.describe Api::V2::RelatedIdentifiersController, type: :request do
       id = @json[:dmp][:dmproadmap_related_identifiers].first[:identifier]
       r_id = create(:related_identifier, identifiable: @plan, value: id,
                                          updated_at: Time.now - 2.days)
-      last_updated = r_id.updated_at
+      last_updated = r_id.updated_at.strftime('%Y-%m-%d %h:%M:%s')
       @plan.reload
       post api_v2_related_identifiers_path, params: @json.to_json, headers: @headers
       expect(response.code).to eql('201')
       expect(response).to render_template('api/v2/plans/index')
-      expect(r_id.reload.updated_at).to eql(last_updated)
+      expect(r_id.reload.updated_at.strftime('%Y-%m-%d %h:%M:%s')).to eql(last_updated)
     end
     it 'returns a 201 if the incoming JSON is valid' do
       post api_v2_related_identifiers_path, params: @json.to_json, headers: @headers
