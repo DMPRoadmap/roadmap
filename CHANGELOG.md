@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 04/05/2022
+- Ajout d'un message concernant les contributeurs lorsque l'on utilise l'import RDA
+- Correction du problème de création de ResourceReference présent dans EthicalIssues lors de l'import RDA (issue gitbucket 372)
+- Export RDA : `ethical_issues_exist` prend la valeur Oui/Yes lorsqu'au moins un produit de recherche est concerné
+- Liste des plans Administrateur : Retrait des plans privé, tous les plans affichés devraient être accessibles (issue gitbucket 362)
+
 ## 28/04/2022
 - Retrait de la possibilité de création de nouvel organisme depuis le formulaire de création de compte par invitation (issue gitbucket 377)
 - La personne contact est désormais bien copiée lors de la copie d'un plan créé à partir d'un modèle classique (issue gitbucket 361)
