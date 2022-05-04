@@ -228,9 +228,9 @@ Rails.application.routes.draw do
       resources :departments, only: %i[create index] do
         collection do
           get :users
-          patch :unassign_users
         end
         member do
+          patch :unassign_users
           patch :assign_users
         end
       end

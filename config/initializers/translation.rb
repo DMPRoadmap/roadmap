@@ -18,7 +18,11 @@ if !ENV['DOMAIN'] || ENV['DOMAIN'] == 'app'
     config.bound_text_domains   = %w[app client]
     config.ignored_source_paths = Dir.glob('**/*').select { |f| File.directory? f }
                                      .collect { |name| "#{name}/" }
-                                     .select { |path| path.include?('branded/') || path.include?('dmptool/') }
+                                     .select do |path|
+                                        path.include?('branded/') ||
+                                        path.include?('dmptool/') ||
+                                        path.include?('node_modules/')
+                                     end
     config.locales_path         = Rails.root.join('config', 'locale')
   end
 elsif ENV['DOMAIN'] == 'client'

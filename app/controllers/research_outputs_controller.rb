@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Controller that handles ResearchOutputs
+# Controller to handle CRUD operations for the Research Outputs tab
 class ResearchOutputsController < ApplicationController
   helper PaginableHelper
 

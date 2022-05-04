@@ -28,13 +28,13 @@ describe Repository do
 
   context 'scopes' do
     before(:each) do
-      @types = %w[institutional general]
-      @subjects = %w[chemistry literature]
-      @keywords = %w[aomeba virus]
+      @types = %w[Armadillo Barracuda]
+      @subjects = %w[Capybara Dingo]
+      @keywords = %w[Elephant Falcon]
 
-      @never_found = create(:repository, name: 'foobar', info: { types: [@types.last],
-                                                                 subjects: [@subjects.last],
-                                                                 keywords: [@keywords.last] })
+      @never_found = create(:repository, name: 'foo', info: { types: [@types.last],
+                                                              subjects: [@subjects.last],
+                                                              keywords: [@keywords.last] })
 
       @by_type = create(:repository, info: { types: [@types.first],
                                              subjects: [@subjects.last],
@@ -79,7 +79,7 @@ describe Repository do
 
     describe '#search' do
       it 'returns repositories with keywords like the search term' do
-        results = described_class.search(@keywords.first[1..4])
+        results = described_class.search(@keywords.first[1..3])
         expect(results.include?(@never_found)).to eql(false)
         expect(results.include?(@by_type)).to eql(false)
         expect(results.include?(@by_subject)).to eql(false)

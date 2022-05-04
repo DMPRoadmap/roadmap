@@ -21,7 +21,7 @@ RSpec.describe ExternalApis::SpdxService do
       isOsiApproved: [true, false].sample
     }
 
-    stub_spdx_service(true, { licenses: @licenses_results }.to_json)
+    stub_spdx_service(successful: true, response_body: { licenses: @licenses_results }.to_json)
   end
 
   describe ':fetch' do
@@ -39,7 +39,7 @@ RSpec.describe ExternalApis::SpdxService do
   context 'private methods' do
     describe ':query_spdx' do
       it 'calls the error handler if an HTTP 200 is not received from the SPDX API' do
-        stub_spdx_service(false)
+        stub_spdx_service(successful: false)
         described_class.expects(:handle_http_failure)
         expect(described_class.send(:query_spdx)).to eql([])
       end

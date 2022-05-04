@@ -29,6 +29,7 @@ module Api
 
         # initialize the plan
         @plan = Plan.new
+        @plan.org = @user.org
 
         # Attach the user as the PI and Data Contact
         @plan.contributors << Contributor.new(
@@ -48,8 +49,9 @@ module Api
                           end
         @plan.template = @template
         @plan.title = params[:plan][:title]
+
         if @plan.save
-          @plan.assign_creator(plan_user)
+          @plan.add_user!(plan_user.id, :creator)
           respond_with @plan
         else
           # the plan did not save
@@ -71,10 +73,10 @@ module Api
 
         # Get all the Org Admin plans
         org_admin_plans = @user.org.org_admin_plans
-        @plans = org_admin_plans.includes([{ roles: :user }, { answers: :question_options },
-                                           template: [{ phases: {
-                                             sections: { questions: %i[question_format themes] }
-                                           } }, :org]])
+        @plans = org_admin_plans.preload([{ roles: :user }, { answers: :question_options },
+                                          template: [{ phases: {
+                                            sections: { questions: %i[question_format themes] }
+                                          } }, :org]])
 
         # Filter on list of users
         user_ids = extract_param_list(params, 'user')

@@ -14,7 +14,6 @@
 #  links                  :text
 #  logo_name              :string
 #  logo_uid               :string
-#  managed                :boolean          default(FALSE), not null
 #  name                   :string(255)
 #  org_type               :integer          default(0), not null
 #  sort_name              :string(255)
@@ -23,11 +22,8 @@
 #  updated_at             :datetime         not null
 #  language_id            :integer
 #  region_id              :integer
-#
-# Indexes
-#
-#  fk_rails_5640112cab  (language_id)
-#  fk_rails_5a6adf6bab  (region_id)
+#  managed                :boolean          default(false), not null
+#  helpdesk_email         :string
 #
 # Foreign Keys
 #

@@ -991,7 +991,7 @@ describe Plan do
   end
 
   describe '#latest_update' do
-    let!(:plan) { create(:plan, :creator, updated_at: Time.now - 5.minutes) }
+    let!(:plan) { create(:plan, :creator, updated_at: 5.minutes.ago) }
 
     subject { plan.latest_update.to_i }
 
