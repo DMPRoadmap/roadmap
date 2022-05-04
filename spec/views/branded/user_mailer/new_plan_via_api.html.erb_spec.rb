@@ -8,7 +8,7 @@ describe 'user_mailer/new_plan_via_api' do
   end
 
   it 'renders correctly' do
-    client = create(:api_client)
+    client = create(:api_client, name: 'foo', description: 'Foo bar')
     plan = create(:plan, :creator, template: create(:template, org: create(:org)))
     user = plan.owner
 

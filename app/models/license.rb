@@ -43,11 +43,25 @@ class License < ApplicationRecord
       # If `%{latest}` was specified then grab the most current version
       pref = preference.gsub('%{latest}', '[0-9\\.]+$')
       where_clause = safe_regexp_where_clause(column: 'identifier')
-
       rslts = preference.include?('%{latest}') ? where(where_clause, pref) : where(identifier: pref)
       rslts.order(:identifier).last
     end
     # Remove any preferred licenses that could not be found in the table
     licenses.compact
   }
+
+  # varchar(255) NOT NULL
+  validates :name,
+            presence: { message: PRESENCE_MESSAGE },
+            length: { in: 0..255, allow_nil: false }
+
+  # varchar(255) NOT NULL
+  validates :identifier,
+            presence: { message: PRESENCE_MESSAGE },
+            length: { in: 0..255, allow_nil: false }
+
+  # varchar(255) NOT NULL
+  validates :uri,
+            presence: { message: PRESENCE_MESSAGE },
+            length: { in: 0..255, allow_nil: false }
 end

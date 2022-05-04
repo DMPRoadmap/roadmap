@@ -81,7 +81,8 @@ gem 'rollbar', group: :rollbar, require: false
 
 # A simple, fast Mysql library for Ruby, binding to libmysql
 # (http://github.com/brianmario/mysql2)
-gem 'mysql2', group: :mysql, require: false
+# pegging at 0.5.3 because having trouble compiling 0.5.4
+gem 'mysql2', '0.5.3', group: :mysql, require: false
 
 # Pg is the Ruby interface to the {PostgreSQL
 # RDBMS}[http://www.postgresql.org/](https://bitbucket.org/ged/ruby-pg)
@@ -251,6 +252,9 @@ gem 'dotenv-rails'
 # https://github.com/CDLUC3/uc3-citation
 gem 'uc3-citation'
 
+# Makes it easy to validate JSON attributes against a JSON schema.
+gem 'activerecord_json_validator'
+
 # ================================= #
 # ENVIRONMENT SPECIFIC DEPENDENCIES #
 # ================================= #
@@ -317,7 +321,7 @@ group :test do
 
   # Browser integration tests are expensive. We can mock external requests
   # in our tests, but once a browser is involved, we lose control.
-  gem 'capybara-webmock'
+  gem 'capybara-webmock', '~> 0.6'
 
   # RSpec::CollectionMatchers lets you express expected outcomes on
   # collections of an object in an example.

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Policies for ResearchOutput pages
+# Security policies for research outputs
 class ResearchOutputPolicy < ApplicationPolicy
   attr_reader :user, :research_output
 

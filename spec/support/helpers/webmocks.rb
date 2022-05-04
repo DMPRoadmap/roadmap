@@ -16,17 +16,15 @@ module Webmocks
       .to_return(status: 200, body: mocked_ror_response, headers: {})
   end
 
-  # rubocop:disable Style/OptionalBooleanParameter
-  def stub_spdx_service(successful = true, response_body = '')
+  def stub_spdx_service(successful: true, response_body: '')
     stub_request(:get, %r{https://raw.githubusercontent.com/spdx/.*})
       .to_return(status: successful ? 200 : 500, body: response_body, headers: {})
   end
 
-  def stub_rdamsc_service(successful = true, response_body = '')
+  def stub_rdamsc_service(successful: true, response_body: '')
     stub_request(:get, %r{https://rdamsc.bath.ac.uk/.*})
       .to_return(status: successful ? 200 : 500, body: response_body, headers: {})
   end
-  # rubocop:enable Style/OptionalBooleanParameter
 
   def stub_openaire
     url = ExternalApis::OpenAireService.api_base_url

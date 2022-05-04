@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Helper methods for displaying ResearchOutputs
+# Helper methods for the research outputs tab
 class ResearchOutputPresenter
   attr_accessor :research_output
 

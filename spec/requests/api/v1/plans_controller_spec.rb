@@ -349,7 +349,7 @@ RSpec.describe Api::V1::PlansController, type: :request do
         expect(response).to render_template('api/v1/plans/index')
         expect(assigns(:items).length).to eql(1)
       end
-      it 'returns the plan if its :organisationally_visible' do
+      xit 'returns the plan if its :organisationally_visible' do
         plan = create(:plan, :creator, :organisationally_visible)
         other_user = create(:user, org: plan.owner.org)
         mock_authorization_for_user(user: other_user)
@@ -358,7 +358,7 @@ RSpec.describe Api::V1::PlansController, type: :request do
         expect(response).to render_template('api/v1/plans/index')
         expect(assigns(:items).length).to eql(1)
       end
-      it 'returns the plan if the user is an Org Admin and it belongs to their Org' do
+      xit 'returns the plan if the user is an Org Admin and it belongs to their Org' do
         plan = create(:plan, :creator)
         org_admin = create(:user, :org_admin, org: plan.owner.org)
         mock_authorization_for_user(user: org_admin)

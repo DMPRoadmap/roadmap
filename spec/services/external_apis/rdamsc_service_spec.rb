@@ -33,7 +33,7 @@ RSpec.describe ExternalApis::RdamscService do
       }
     }
 
-    stub_rdamsc_service(true, @rdams_results.to_json)
+    stub_rdamsc_service(successful: true, response_body: @rdams_results.to_json)
   end
 
   describe ':fetch_metadata_standards' do
@@ -49,7 +49,7 @@ RSpec.describe ExternalApis::RdamscService do
         expect(described_class.send(:query_api, path: nil)).to eql(nil)
       end
       it 'calls the error handler if an HTTP 200 is not received from the SPDX API' do
-        stub_rdamsc_service(false)
+        stub_rdamsc_service(successful: false)
         described_class.expects(:handle_http_failure)
         expect(described_class.send(:query_api, path: Faker::Lorem.word)).to eql(nil)
       end

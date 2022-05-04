@@ -9,7 +9,7 @@
 #
 # When generating the translations, the rake:tasks will need to be run with each
 # domain specified in order to generate both sets of translation keys.
-if !ENV['DOMAIN'] || ENV['DOMAIN'] == 'app'
+if !ENV['DOMAIN'] || ENV.fetch('DOMAIN', nil) == 'app'
   TranslationIO.configure do |config|
     config.api_key              = Rails.configuration.x.dmproadmap.translation_io_key_app
     config.source_locale        = 'en'
@@ -18,10 +18,14 @@ if !ENV['DOMAIN'] || ENV['DOMAIN'] == 'app'
     config.bound_text_domains   = %w[app client]
     config.ignored_source_paths = Dir.glob('**/*').select { |f| File.directory? f }
                                      .collect { |name| "#{name}/" }
-                                     .select { |path| path.include?('branded/') || path.include?('dmptool/') }
+                                     .select do |path|
+                                       path.include?('branded/') ||
+                                         path.include?('dmptool/') ||
+                                         path.include?('node_modules/')
+                                     end
     config.locales_path         = Rails.root.join('config', 'locale')
   end
-elsif ENV['DOMAIN'] == 'client'
+elsif ENV.fetch('DOMAIN', nil) == 'client'
   # Control ignored source paths
   # Note, all prefixes of the directory you want to translate must be defined here!
   #

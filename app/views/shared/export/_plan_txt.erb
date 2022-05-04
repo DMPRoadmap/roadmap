@@ -1,7 +1,7 @@
 <%= "#{@plan.title}" %>
 <%= "----------------------------------------------------------\n" %>
 <% if @show_coversheet %>
-<%= @hash[:attribution].length > 1 ? _("Creators: ") : _('Creator:') %> <%= @hash[:attribution].join(', ') %>
+<%= Array(@hash[:attribution]).many? ? _("Creators: ") + Array(@hash[:attribution]).join(", ")  : _('Creator:') + @hash[:attribution] %>
 <%= _("Affiliation: ") + @hash[:affiliation] %>
   <% if @hash[:funder].present? %>
 <%= _("Template: ") + @hash[:funder] %>
