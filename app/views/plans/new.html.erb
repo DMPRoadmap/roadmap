@@ -56,7 +56,7 @@
                           form: org_fields,
                           id_field: :id,
                           default_org: nil,
-                          orgs: @orgs,
+                          orgs: @orgs.filter { |org| org.managed == true },
                           required: false
                         } %>
           <% end %>
