@@ -15,7 +15,6 @@ jobs:
     - name: Brakeman
       uses: artplan1/brakeman-action@v1.2.1
       with:
-        flags: "--color"
-        --ignore-config: ".github/brakeman.ignore"
+        flags: "--color --no-exit-on-warn"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
