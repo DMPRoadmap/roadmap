@@ -5,7 +5,7 @@
 - Added french translation of the Request Feedback email [#188](https://github.com/portagenetwork/roadmap/issues/188)
 ### Fixed
 
-- Remove unmanaged organizations from the selection list when a user create a new plan [#191](https://github.com/portagenetwork/roadmap/issues/191)
+- Remove unmanaged organizations from the selection list when a user creates a new plan[#191](https://github.com/portagenetwork/roadmap/issues/191)
 
 ## [3.0.4+portage-3.0.11] - 2022-04-14
 
