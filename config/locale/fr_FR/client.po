@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-05-03 14:20+0200\n"
-"PO-Revision-Date: 2022-05-03 14:20+0200\n"
+"POT-Creation-Date: 2022-05-05 11:08+0200\n"
+"PO-Revision-Date: 2022-05-05 11:08+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -1099,15 +1099,15 @@ msgstr "doit être unique"
 msgid "already assigned a value"
 msgstr "a déjà une valeur attribuée"
 
-#: ../../app/models/org.rb:46
+#: ../../app/models/org.rb:54
 msgid "Feedback email message"
 msgstr "Message du mail de l'assistance conseil"
 
-#: ../../app/models/org.rb:131
+#: ../../app/models/org.rb:139
 msgid "must be one of the following formats: jpeg, jpg, png, gif, bmp"
 msgstr "doit être dans l'un des formats suivants : jpeg, jpg, png, gif, bmp"
 
-#: ../../app/models/org.rb:136
+#: ../../app/models/org.rb:144
 msgid "can't be larger than 500KB"
 msgstr "ne peut peser plus de 500ko"
 
@@ -3281,11 +3281,11 @@ msgstr "Standard"
 
 #: ../../app/views/branded/plans/import.html.erb:24
 msgid ""
-"After using the import, you will have to manually set the role for each Person"
-" created"
+"After using the import, you will have to set the role for each contributor cre"
+"ated."
 msgstr ""
-"Après avoir utilisé l'import, vous devrez attribuer manuellement le rôle de ch"
-"aque personne créée"
+"Après avoir utilisé l'import, vous devrez définir le rôle de chaque contribute"
+"ur créé."
 
 #: ../../app/views/branded/plans/import.html.erb:28
 msgid "Structured template"
