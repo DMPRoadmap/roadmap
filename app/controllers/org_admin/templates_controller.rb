@@ -136,6 +136,7 @@ module OrgAdmin
                               'question_options.number')
                        .select('phases.title',
                                'phases.description',
+                               'phases.modifiable',
                                'sections.title',
                                'questions.text',
                                'question_options.text')

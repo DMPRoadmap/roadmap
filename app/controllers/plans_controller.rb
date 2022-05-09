@@ -163,7 +163,7 @@ class PlansController < ApplicationController
   def show
     @plan = Plan.includes(
       template: { phases: { sections: { questions: :answers } } },
-      plans_guidance_groups: { guidance_group: :guidances }
+      guidance_groups: :guidances
     ).find(params[:id])
     authorize @plan
 
