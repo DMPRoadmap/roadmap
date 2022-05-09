@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-04-29 08:50+0200\n"
-"PO-Revision-Date: 2022-04-29 08:50+0200\n"
+"POT-Creation-Date: 2022-05-05 11:08+0200\n"
+"PO-Revision-Date: 2022-05-05 11:08+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -1047,15 +1047,15 @@ msgstr ""
 msgid "already assigned a value"
 msgstr ""
 
-#: ../../app/models/org.rb:46
+#: ../../app/models/org.rb:54
 msgid "Feedback email message"
 msgstr ""
 
-#: ../../app/models/org.rb:131
+#: ../../app/models/org.rb:139
 msgid "must be one of the following formats: jpeg, jpg, png, gif, bmp"
 msgstr ""
 
-#: ../../app/models/org.rb:136
+#: ../../app/models/org.rb:144
 msgid "can't be larger than 500KB"
 msgstr ""
 
@@ -3066,15 +3066,21 @@ msgstr ""
 msgid "Standard"
 msgstr ""
 
-#: ../../app/views/branded/plans/import.html.erb:27
+#: ../../app/views/branded/plans/import.html.erb:24
+msgid ""
+"After using the import, you will have to set the role for each contributor cre"
+"ated."
+msgstr ""
+
+#: ../../app/views/branded/plans/import.html.erb:28
 msgid "Structured template"
 msgstr ""
 
-#: ../../app/views/branded/plans/import.html.erb:37
+#: ../../app/views/branded/plans/import.html.erb:38
 msgid "File"
 msgstr ""
 
-#: ../../app/views/branded/plans/import.html.erb:45
+#: ../../app/views/branded/plans/import.html.erb:46
 msgid "Import"
 msgstr ""
 
