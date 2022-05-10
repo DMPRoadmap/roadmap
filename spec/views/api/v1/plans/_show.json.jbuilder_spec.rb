@@ -91,7 +91,10 @@ describe 'api/v1/plans/_show.json.jbuilder' do
 
   describe 'when the system mints DOIs' do
     before(:each) do
-      @doi = create(:identifier, value: '10.9999/123abc.zy/x23', identifiable: @plan)
+      scheme = create(:identifier_scheme)
+      DmpIdService.expects(:identifier_scheme).at_least(1).returns(scheme)
+      @doi = create(:identifier, value: '10.9999/123abc.zy/x23', identifiable: @plan,
+                                 identifier_scheme: scheme)
       @plan.reload
       render partial: 'api/v1/plans/show', locals: { plan: @plan }
       @json = JSON.parse(rendered).with_indifferent_access
