@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_28_125904) do
+ActiveRecord::Schema.define(version: 2022_04_21_093836) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -290,7 +290,7 @@ ActiveRecord::Schema.define(version: 2022_02_28_125904) do
     t.integer "visibility", default: 3, null: false
     t.boolean "feedback_requested", default: false
     t.boolean "complete", default: false
-    t.integer "feedback_requestor"
+    t.integer "feedback_requestor_id"
     t.datetime "feedback_request_date"
     t.integer "org_id"
     t.integer "funder_id"
@@ -404,29 +404,17 @@ ActiveRecord::Schema.define(version: 2022_02_28_125904) do
     t.index ["parent_id"], name: "index_research_domains_on_parent_id"
   end
 
-  create_table "research_output_types", id: :serial, force: :cascade do |t|
-    t.string "label", null: false
-    t.string "slug", null: false
-    t.boolean "is_other", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "research_outputs", id: :serial, force: :cascade do |t|
     t.string "abbreviation"
-    t.integer "order"
-    t.string "fullname"
+    t.integer "display_order"
     t.boolean "is_default", default: false
     t.integer "plan_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "pid"
-    t.string "other_type_label"
-    t.integer "research_output_type_id"
     t.integer "output_type", default: 3, null: false
     t.string "output_type_description"
     t.string "title"
-    t.integer "display_order"
     t.text "description"
     t.integer "access", default: 0, null: false
     t.datetime "release_date"
@@ -434,7 +422,6 @@ ActiveRecord::Schema.define(version: 2022_02_28_125904) do
     t.boolean "sensitive_data"
     t.bigint "byte_size"
     t.index ["plan_id"], name: "index_research_outputs_on_plan_id"
-    t.index ["research_output_type_id"], name: "index_research_outputs_on_research_output_type_id"
   end
 
   create_table "roles", id: :serial, force: :cascade do |t|
@@ -645,7 +632,6 @@ ActiveRecord::Schema.define(version: 2022_02_28_125904) do
   add_foreign_key "registry_values", "registries"
   add_foreign_key "research_domains", "research_domains", column: "parent_id"
   add_foreign_key "research_outputs", "plans"
-  add_foreign_key "research_outputs", "research_output_types"
   add_foreign_key "roles", "plans"
   add_foreign_key "roles", "users"
   add_foreign_key "sections", "phases"

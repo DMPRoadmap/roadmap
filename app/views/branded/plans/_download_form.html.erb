@@ -23,19 +23,19 @@
       <strong><%= _("Research output export mode") %></strong>
       <ul>
         <li class="checkbox">
-          <%= label_tag 'export[research_output_mode]' do %>
+          <%= label_tag  do %>
             <%= radio_button_tag("export[research_output_mode]", "by_research_output", false) %>
             <%= _('Export by research output') %>
           <% end %>
         </li>
         <li class="checkbox">
-          <%= label_tag 'export[research_output_mode]' do %>
+          <%= label_tag do %>
             <%= radio_button_tag("export[research_output_mode]", "by_section", true) %>
             <%= _('Export by section') %>
           <% end %>
         </li>
         <li class="checkbox">
-          <%= label_tag 'export[research_output_mode]' do %>
+          <%= label_tag do %>
             <%= radio_button_tag("export[research_output_mode]", "by_question", false) %>
             <%= _('Export by question') %>
           <% end %>
@@ -70,7 +70,7 @@
     <div class="checkbox">
       <%= label_tag 'export[project_details]' do %>
         <%= check_box_tag 'export[project_details]', true, true %>
-        <%= _('project details coversheet') %>
+        <%= _('general information page') %>
       <% end %>
     </div>
     <div class="checkbox">
@@ -114,13 +114,13 @@
     <legend><%= _("JSON format") %></legend>
     <ul>
       <li class="checkbox">
-        <%= label_tag 'json_format' do %>
+        <%= label_tag do %>
           <%= radio_button_tag("json_format", "default", true) %>
           <%= _('Default export') %>
         <% end %>
       </li>
       <li class="checkbox">
-        <%= label_tag 'json_format' do %>
+        <%= label_tag do %>
           <%= radio_button_tag("json_format", "rda", false) %>
           <%= _('RDA Commons Standards') %>
         <% end %>

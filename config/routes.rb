@@ -134,6 +134,8 @@ Rails.application.routes.draw do
   resources :feedback_requests, only: [:create]
 
   resources :plans do
+    get 'import', action: :import, on: :collection
+    post 'import', action: :import_plan, on: :collection
     resource :export, only: [:show], controller: 'plan_exports'
 
     resources :contributors, except: %i[show]
@@ -242,6 +244,9 @@ Rails.application.routes.draw do
         resources :plans, only: [:show] do
           member do
             get :rda_export
+          end
+          collection do
+            post :import
           end
         end
       end

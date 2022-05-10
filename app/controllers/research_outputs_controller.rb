@@ -68,19 +68,19 @@ class ResearchOutputsController < ApplicationController
     @plan = Plan.find(params[:plan_id])
     authorize @plan
     params[:updated_order].each_with_index do |id, index|
-      ResearchOutput.find(id).update(order: index + 1)
+      ResearchOutput.find(id).update(display_order: index + 1)
     end
     head :ok
   end
 
   def create_remote
     @plan = Plan.find(params[:plan_id])
-    max_order = @plan.research_outputs.maximum('order') + 1
+    max_order = @plan.research_outputs.maximum('display_order') + 1
     @plan.research_outputs.create(
       abbreviation: "Research Output #{max_order}",
       title: "New research output #{max_order}",
       is_default: false,
-      order: max_order
+      display_order: max_order
     )
 
     authorize @plan
@@ -97,6 +97,6 @@ class ResearchOutputsController < ApplicationController
 
   def research_output_params
     params.require(:research_output)
-          .permit(:id, :plan_id, :abbreviation, :fullname, :pid, :other_type_label)
+          .permit(:id, :plan_id, :abbreviation, :title, :pid, :output_type_description)
   end
 end

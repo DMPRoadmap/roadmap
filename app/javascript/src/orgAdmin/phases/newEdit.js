@@ -4,7 +4,7 @@ import { isObject, isString } from '../../utils/isType';
 import getConstant from '../../utils/constants';
 import { addAsterisks } from '../../utils/requiredField';
 
-import onChangeQuestionFormat from '../questions/sharedEventHandlers';
+import onChangeQuestionFormat, { onChangeQuestionClassname } from '../questions/sharedEventHandlers';
 import initQuestionOption from '../questionOptions/index';
 import updateConditions from '../conditions/updateConditions';
 
@@ -36,6 +36,9 @@ $(() => {
       // Swap in the question_formats when the user selects an option based question type
       $(`#${context} select.question_format`).on('change', (e) => {
         onChangeQuestionFormat(e);
+      });
+      $(`#${context} select.question_schema_class`).on('change', (e) => {
+        onChangeQuestionClassname(e);
       });
     }
   };

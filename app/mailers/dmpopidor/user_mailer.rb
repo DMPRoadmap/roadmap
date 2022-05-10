@@ -34,8 +34,8 @@ module Dmpopidor
 
       I18n.with_locale current_locale(collaborator) do
         mail(to: @plan.owner.email,
-             subject: format(_('%<tool_name>s: A new comment was added to %<plan_title>'), tool_name: tool_name,
-                                                                                           plan_title: @plan.title))
+             subject: format(_('%<tool_name>s: A new comment was added to %<plan_title>s'), tool_name: tool_name,
+                                                                                            plan_title: @plan.title))
       end
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

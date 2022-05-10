@@ -80,8 +80,15 @@ module ExportablePlan
 
     # add the relevant questions/answers
     phases = []
-    template.phases.each do |phase|
-      phs = { title: phase.title, number: phase.number, sections: [] }
+    template.phases.order(:number).each do |phase|
+      # --------------------------------
+      # Start DMP OPIDoR Customization
+      # Changes: Added Phase id
+      # --------------------------------
+      phs = { id: phase.id, title: phase.title, number: phase.number, sections: [] }
+      # --------------------------------
+      # End DMP OPIDoR Customization
+      # --------------------------------
       phase.sections.each do |section|
         sctn = { id: section.id,
                  title: section.title,

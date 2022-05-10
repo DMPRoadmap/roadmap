@@ -4,7 +4,7 @@ module Dmpopidor
   # Customized code for ResearchOutput model
   module ResearchOutput
     def main?
-      order.eql?(1)
+      display_order.eql?(1)
     end
 
     # Return main research output
@@ -68,7 +68,7 @@ module Dmpopidor
           fragment_description.instantiate
           fragment_description.contact.update(
             data: {
-              'person' => { 'dbid' => contact_person.id },
+              'person' => contact_person.present? ? { 'dbid' => contact_person.id } : nil,
               'role' => _('Data contact')
             }
           )
@@ -88,9 +88,9 @@ module Dmpopidor
         else
           data = fragment.research_output_description.data.merge(
             {
-              'title' => fullname,
+              'title' => title,
               'datasetId' => pid,
-              'type' => other_type_label
+              'type' => output_type_description
             }
           )
           fragment.research_output_description.update(data: data)
@@ -99,13 +99,5 @@ module Dmpopidor
       # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-
-    ##
-    # deep copy the given research output
-    #
-    # Returns Research output
-    def self.deep_copy(research_output)
-      research_output.dup
-    end
   end
 end

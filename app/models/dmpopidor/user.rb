@@ -24,27 +24,14 @@ module Dmpopidor
       self.current_sign_in_ip = nil
       self.active = false
 
-      user_identifiers.destroy_all
+      identifiers.destroy_all
 
       Rails.logger.info "User #{id} anonymized"
       p "User #{id} anonymized"
-      UserMailer.anonymization_notice(copy).deliver_now
+      ::UserMailer.anonymization_notice(copy).deliver_now
 
       save
     end
     # rubocop:enable Metrics/AbcSize
-
-    # Determines the locale set for the user or the organisation he/she belongs
-    #
-    # Returns String
-    # Returns nil
-    def locale
-      if !language.nil?
-        language.abbreviation
-      elsif !org.nil?
-        org.get_locale
-      end
-      nil
-    end
   end
 end

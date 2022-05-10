@@ -109,6 +109,14 @@ class User < ApplicationRecord
   has_and_belongs_to_many :notifications, dependent: :destroy,
                                           join_table: 'notification_acknowledgements'
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # CHANGES : inverse relation for feecback_plans
+  # --------------------------------
+  has_many :feedback_plans, class_name: 'Plan', foreign_key: 'feedback_requestor_id'
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
   # ===============
   # = Validations =
   # ===============
@@ -391,10 +399,10 @@ class User < ApplicationRecord
 
   # Override devise_invitable email title
   def deliver_invitation(options = {})
-    current_locale = invited_by.locale.nil? ? FastGettext.default_locale : invited_by.locale
-    FastGettext.with_locale current_locale do
+    current_locale = invited_by.locale.nil? ? I18n.default_locale : invited_by.locale
+    I18n.with_locale current_locale do
       subject = format(_('%<user_name>s has shared a Data Management Plan with you in %<tool_name>s'),
-                       user_name: invited_by.name(false), tool_name: Rails.configuration.branding[:application][:name])
+                       user_name: invited_by.name(false), tool_name: ApplicationService.application_name)
       super(options.merge(subject: subject))
     end
   end
@@ -468,6 +476,17 @@ class User < ApplicationRecord
     to_be_merged.identifiers
                 .where.not(identifier_scheme_id: scheme_ids)
                 .update_all(identifiable_id: id)
+
+    # => feedback plans -> map id
+    to_be_merged.feedback_plans.update_all(feedback_requestor_id: id)
+    # --------------------------------
+    # Start DMP OPIDoR Customization
+    # CHANGES : transfert the feedback plans to the user
+    # --------------------------------
+
+    # --------------------------------
+    # End DMP OPIDoR Customization
+    # --------------------------------
     # => ignore any perms the deleted user has
     to_be_merged.destroy
   end

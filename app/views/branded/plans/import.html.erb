@@ -1,0 +1,48 @@
+<% title _('Import DMP') %>
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= _('Import DMP') %></h1>
+  </div>
+</div>
+<h2><%=  _("Format") %></h2>
+
+<%= form_with url: import_plans_path, method: :post, local: true do |f| %>
+  <div class="row">
+    <div class="col-md-12">
+      <div id="import-format">
+        <ul>
+          <li class="checkbox">
+            <%= f.radio_button "import[format]", "standard", checked: true %>
+            <%= f.label 'import[format]', _('Standard'), value: "standard" %>
+          </li>
+          <li class="checkbox">
+            <%= f.radio_button "import[format]", "rda"%>
+            <%= f.label 'import[format]', _('RDA Commons Standards'), value: "rda" %>
+          </li>
+        </ul>
+      </div>
+      <span class="red rda-message"><%= _("After using the import, you will have to set the role for each contributor created.")%></span>
+    </div>
+  </div>
+
+  <h2><%= _('Structured template') %></h2>
+  <div class="row">
+    <div class="form-group col-md-6">
+      <%= f.select "import[template_id]",
+          options_from_collection_for_select(@templates, "id", "title"),
+          {},
+          class: "form-control" %>
+    </div>
+  </div>
+
+  <h2><%= _('File') %></h2>
+  <div class="row">
+    <div class="form-group col-md-6">
+        <%= f.file_field "import[json_file]", accept: 'application/json' %>
+    </div>
+  </div>
+
+  <div class="form-group col-xs-8">
+    <%= f.submit _('Import'), class: 'btn btn-default plan-import', role: "button" %>
+  </div>
+<% end %>

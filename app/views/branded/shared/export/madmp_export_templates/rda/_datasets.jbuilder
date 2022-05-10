@@ -5,7 +5,8 @@ ethical_issues_description = []
 ethical_issues_report = []
 
 # rubocop:disable Metrics/BlockLength
-json.dataset datasets do |dataset|
+json.dataset research_outputs do |research_output|
+  dataset = research_output.json_fragment
   next unless selected_datasets.include?(dataset.data["research_output_id"])
 
   dataset_title = dataset.research_output_description.data["title"]
@@ -103,7 +104,7 @@ json.dataset datasets do |dataset|
     json.title              technical_resource.data["title"]
   end
 
-  ethical_issues_exist.push("#{dataset_title} : #{dataset.research_output_description.data['hasEthicalIssues']}")
+  ethical_issues_exist.push(dataset.research_output_description.data['hasEthicalIssues'])
   if dataset.ethical_issues.present?
     # rubocop:disable Layout/LineLength
     ethical_issues_description.push(exportable_description("#{dataset_title} : #{dataset.ethical_issues.data['description']}"))
@@ -114,6 +115,9 @@ json.dataset datasets do |dataset|
   end
 end
 # rubocop:enable Metrics/BlockLength
-json.ethical_issues_exist         ethical_issues_exist.join(" / ")
-json.ethical_issues_description   ethical_issues_description.join(" / ")
-json.ethical_issues_report        ethical_issues_report.join(" / ")
+intersect = %w[Yes Oui] & ethical_issues_exist
+I18n.with_locale @plan.template.locale do
+  json.ethical_issues_exist         intersect.empty? ? _('No') : _('Yes')
+  json.ethical_issues_description   ethical_issues_description.join(" / ")
+  json.ethical_issues_report        ethical_issues_report.join(" / ")
+end

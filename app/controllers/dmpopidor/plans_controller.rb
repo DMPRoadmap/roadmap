@@ -2,6 +2,7 @@
 
 module Dmpopidor
   # Customized code for PlansController
+  # rubocop:disable Metrics/ModuleLength
   module PlansController
     # CHANGES:
     # Added Active Flag on Org
@@ -36,6 +37,55 @@ module Dmpopidor
     end
     # rubocop:enable Metrics/AbcSize
 
+    # PUT /plans/1
+    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+    def update
+      @plan = ::Plan.find(params[:id])
+      authorize @plan
+      # rubocop:disable Metrics/BlockLength
+      respond_to do |format|
+        # TODO: See notes below on the pan_params definition. We should refactor
+        #       this once the UI pages have been reworked
+        # Save the guidance group selections
+        guidance_group_ids = if params[:guidance_group_ids].blank?
+                               []
+                             else
+                               params[:guidance_group_ids].map(&:to_i).uniq
+                             end
+        @plan.guidance_groups = ::GuidanceGroup.where(id: guidance_group_ids)
+
+        if @plan.save # _attributes(attrs)
+          format.html do
+            redirect_to plan_path(@plan),
+                        notice: success_message(@plan, _('saved'))
+          end
+          format.json do
+            render json: { code: 1, msg: success_message(@plan, _('saved')) }
+          end
+        else
+          format.html do
+            # TODO: Should do a `render :show` here instead but show defines too many
+            #       instance variables in the controller
+            redirect_to plan_path(@plan).to_s, alert: failure_message(@plan, _('save'))
+          end
+          format.json do
+            render json: { code: 0, msg: failure_message(@plan, _('save')) }
+          end
+        end
+      rescue StandardError => e
+        flash[:alert] = failure_message(@plan, _('save'))
+        format.html do
+          Rails.logger.error "Unable to save plan #{@plan&.id} - #{e.message}"
+          redirect_to plan_path(@plan).to_s, alert: failure_message(@plan, _('save'))
+        end
+        format.json do
+          render json: { code: 0, msg: flash[:alert] }
+        end
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+
     def budget
       @plan = ::Plan.find(params[:id])
       dmp_fragment = @plan.json_fragment
@@ -44,17 +94,84 @@ module Dmpopidor
       render(:budget, locals: { plan: @plan, costs: @costs })
     end
 
+    def import
+      @plan = ::Plan.new
+      authorize @plan
+
+      @templates = ::Template.includes(:org)
+                             .where(type: 'structured')
+                             .unarchived.published
+    end
+
+    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+    # rubocop:disable Metrics/PerceivedComplexity
+    def import_plan
+      @plan = ::Plan.new
+      authorize @plan
+      # rubocop:disable Metrics/BlockLength
+      ::Plan.transaction do
+        respond_to do |format|
+          json_file = import_params[:json_file]
+          if json_file.respond_to?(:read)
+            json_data = JSON.parse(json_file.read)
+          elsif json_file.respond_to?(:path)
+            json_data = JSON.parse(File.read(json_file.path))
+          else
+            raise IOError
+          end
+          errs = Import::PlanImportService.validate(json_data, import_params[:format])
+          if errs.any?
+            format.html { redirect_to import_plans_path, alert: import_errors(errs) }
+          else
+            @plan.visibility = Rails.configuration.x.plans.default_visibility
+
+            @plan.template = ::Template.find(import_params[:template_id])
+
+            @plan.title = format(_('%<user_name>s Plan'), user_name: "#{current_user.firstname}'s")
+            @plan.org = current_user.org
+
+            if @plan.save
+              @plan.add_user!(current_user.id, :creator)
+              @plan.save
+              @plan.create_plan_fragments
+
+              Import::PlanImportService.import(@plan, json_data, import_params[:format])
+
+              format.html { redirect_to plan_path(@plan), notice: success_message(@plan, _('imported')) }
+            else
+              format.html { redirect_to import_plans_path, alert: failure_message(@plan, _('create')) }
+            end
+          end
+        rescue IOError
+          format.html { redirect_to import_plans_path, alert: _('Unvalid file') }
+        rescue JSON::ParserError
+          msg = _('File should contain JSON')
+          format.html { redirect_to import_plans_path, alert: msg }
+        rescue StandardError => e
+          msg = "#{_('An error has occured: ')} #{e.message}"
+          Rails.logger.error e.backtrace
+          format.html { redirect_to import_plans_path, alert: msg }
+        end
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+
     private
 
-    # CHANGES : Removed everything except guidances group info. The rest of the info is
-    # handled by MadmpFragmentController
-    def plan_params
-      params.require(:plan)
-            .permit(:org_id, :template_id, :funder_name, :visibility,
-                    :title, :org_name, :guidance_group_ids,
-                    research_outputs_attributes: %i[_destroy],
-                    org: %i[id org_id org_name org_sources org_crosswalk],
-                    funder: %i[id org_id org_name org_sources org_crosswalk])
+    def import_params
+      params.require(:import)
+            .permit(:format, :template_id, :json_file)
+    end
+
+    def import_errors(errs)
+      msg = "#{_('Invalid JSON: ')} <ul>"
+      errs.each do |err|
+        msg += "<li>#{err}</li>"
+      end
+      msg += '</ul>'
+      msg
     end
 
     # Get the parameters corresponding to the schema
@@ -83,4 +200,5 @@ module Dmpopidor
              })
     end
   end
+  # rubocop:enable Metrics/ModuleLength
 end

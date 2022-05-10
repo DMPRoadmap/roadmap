@@ -141,7 +141,7 @@ class Plan < ApplicationRecord
     end
   end
 
-  belongs_to :feedback_requestor, class_name: 'User', foreign_key: 'feedback_requestor', optional: true
+  belongs_to :feedback_requestor, class_name: 'User', foreign_key: 'feedback_requestor_id', optional: true
 
   # --------------------------------
   # End DMP OPIDoR Customization
@@ -328,8 +328,15 @@ class Plan < ApplicationRecord
     plan_copy.copy_plan_fragments(plan)
     plan.research_outputs.each do |research_output|
       research_output_copy = ResearchOutput.deep_copy(research_output)
+      research_output_copy.title = research_output.title || "Copy of #{research_output.abbreviation}"
       research_output_copy.plan_id = plan_copy.id
       research_output_copy.save!
+
+      research_output_description = research_output.json_fragment.research_output_description
+      research_output_copy.json_fragment.research_output_description.raw_import(
+        research_output_description.get_full_fragment,
+        research_output_description.madmp_schema
+      )
 
       research_output.answers.each do |answer|
         answer_copy = Answer.deep_copy(answer)
@@ -421,7 +428,7 @@ class Plan < ApplicationRecord
       # Start DMP OPIDoR Customization
       # CHANGES : Added feedback_requestor & request_date columns
       # --------------------------------
-      self.feedback_requestor = user
+      self.feedback_requestor_id = user.id
       self.feedback_request_date = DateTime.current
       # --------------------------------
       # End DMP OPIDoR Customization
@@ -456,7 +463,7 @@ class Plan < ApplicationRecord
       # Start DMP OPIDoR Customization
       # CHANGES : Added feedback_requestor & request_date columns
       # --------------------------------
-      self.feedback_requestor = nil
+      self.feedback_requestor_id = nil
       self.feedback_request_date = nil
       # --------------------------------
       # End DMP OPIDoR Customization

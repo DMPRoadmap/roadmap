@@ -54,7 +54,6 @@ module Dmpopidor
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def create_plan_fragments
       template_locale = template.locale.eql?('en_GB') ? 'eng' : 'fra'
-      plan_owner = owner
       # rubocop:disable Metrics/BlockLength
       I18n.with_locale template.locale do
         dmp_fragment = Fragment::Dmp.create!(
@@ -68,26 +67,23 @@ module Dmpopidor
         #################################
         # PERSON & CONTRIBUTORS FRAGMENTS
         #################################
-
-        person_data = if plan_owner.present?
-                        {
-                          'nameType' => _('Personal'),
-                          'lastName' => plan_owner.surname,
-                          'firstName' => plan_owner.firstname,
-                          'mbox' => plan_owner.email
-                        }
-                      end
-
-        person = Fragment::Person.create!(
-          data: person_data || {},
-          dmp_id: dmp_fragment.id,
-          madmp_schema: MadmpSchema.find_by(name: 'PersonStandard'),
-          additional_info: { property_name: 'person' }
-        )
+        if owner.present?
+          person = Fragment::Person.create!(
+            data: {
+              'nameType' => _('Personal'),
+              'lastName' => owner.surname,
+              'firstName' => owner.firstname,
+              'mbox' => owner.email
+            },
+            dmp_id: dmp_fragment.id,
+            madmp_schema: MadmpSchema.find_by(name: 'PersonStandard'),
+            additional_info: { property_name: 'person' }
+          )
+        end
 
         dmp_coordinator = Fragment::Contributor.create!(
           data: {
-            'person' => { 'dbid' => person.id },
+            'person' => person.present? ? { 'dbid' => person.id } : nil,
             'role' => _('DMP manager')
           },
           dmp_id: dmp_fragment.id,
@@ -98,7 +94,7 @@ module Dmpopidor
 
         project_coordinator = Fragment::Contributor.create!(
           data: {
-            'person' => { 'dbid' => person.id },
+            'person' => person.present? ? { 'dbid' => person.id } : nil,
             'role' => _('Project coordinator')
           },
           dmp_id: dmp_fragment.id,

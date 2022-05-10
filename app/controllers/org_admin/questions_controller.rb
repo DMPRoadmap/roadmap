@@ -51,7 +51,21 @@ module OrgAdmin
       # Start DMP OPIDoR Customization
       # CHANGES : Added  MadmpSchema list
       # --------------------------------
-      @madmp_schemas = MadmpSchema.all
+      @available_classnames = %w[
+        research_output_description
+        data_reuse
+        personal_data_issues
+        legal_issues
+        ethical_issues
+        data_collection
+        data_processing
+        data_storage
+        documentation_quality
+        quality_assurance_method
+        data_sharing
+        data_preservation
+      ]
+      @madmp_schemas = MadmpSchema.where(classname: @available_classnames)
       # --------------------------------
       # End DMP OPIDoR Customization
       # --------------------------------
@@ -80,7 +94,21 @@ module OrgAdmin
       # Start DMP OPIDoR Customization
       # CHANGES : Added  MadmpSchema list
       # --------------------------------
-      @madmp_schemas = MadmpSchema.all
+      @available_classnames = %w[
+        research_output_description
+        data_reuse
+        personal_data_issues
+        legal_issues
+        ethical_issues
+        data_collection
+        data_processing
+        data_storage
+        documentation_quality
+        quality_assurance_method
+        data_sharing
+        data_preservation
+      ]
+      @madmp_schemas = MadmpSchema.where(classname: @available_classnames)
       # --------------------------------
       # End DMP OPIDoR Customization
       # --------------------------------

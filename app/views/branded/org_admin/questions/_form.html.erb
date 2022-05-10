@@ -23,7 +23,33 @@
       <%= f.text_area(:text, class: "question", spellcheck: true, "aria-required": true) %>
     </div>
 
-    <% unless template.structured? %>
+    <% if template.structured? %>
+      <%= f.hidden_field :question_format_id, value: QuestionFormat.id_for("structured")%>
+      <!-- Structured Data Schemas -->
+      <div class="form-group col-md-10">
+        <%= label_tag "data_type", _('Data Type'), class: "control-label" %>
+        <%= select_tag "data_type",
+          options_for_select(
+            @available_classnames.map{ |type| [type.camelize, type] }.sort,
+            question.madmp_schema&.classname
+          ),
+          class: "form-control question_schema_class"
+        %>
+      </div>
+      <div class="form-group col-md-10">
+        <%= f.label(:madmp_schema_id, _('Structured Form'), class: "control-label") %>
+          <%= f.select :madmp_schema_id,
+            options_for_select(
+              @madmp_schemas.map{ 
+                |schema| [schema.detailed_name, schema.id, { 'data-classname' => schema.classname }]
+              },
+              question.madmp_schema_id
+            ),
+            {},
+            class: "form-control question_schema"
+        %>
+      </div>
+    <% else %>
       <!-- Question format -->
       <div class="form-group col-md-4">
         <%= f.label(:question_format_id, _('Answer format'), class: "control-label") %>
@@ -38,23 +64,6 @@
             'data-html': true,
             title: _("You can choose from:<ul><li>- text area (large box for paragraphs);</li> <li>- text field (for a short answer);</li> <li>- checkboxes where options are presented in a list and multiple values can be selected;</li> <li>- radio buttons where options are presented in a list but only one can be selected;</li> <li>- dropdown like this box - only one option can be selected;</li> <li>- multiple select box allows users to select several options from a scrollable list, using the CTRL key;</li></ul>")
           %>
-      </div>
-    <% end %>
-
-    <% if template.structured? %>
-      <%= f.hidden_field :question_format_id, value: QuestionFormat.id_for("structured")%>
-      <!-- Structured Data Schemas -->
-      <div class="form-group col-md-10 question_schema"
-          data-attribute="question_schema">
-        <%= f.label(:madmp_schema_id, _('Structured Form'), class: "control-label") %>
-          <%= f.select :madmp_schema_id,
-            options_from_collection_for_select(@madmp_schemas,
-            :id,
-            :detailed_name,
-            question.madmp_schema_id),
-            {},
-            class: "form-control"
-        %>
       </div>
     <% end %>
 

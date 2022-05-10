@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 meta = dmp.meta
-project = dmp.project
-research_outputs = dmp.research_outputs
+project_fragment = dmp.project
+research_outputs = dmp.plan.research_outputs.order(:display_order)
 
 json.prettify!
 
@@ -45,7 +45,7 @@ json.dmp do
     json.title              cost.data["title"]
     json.value              cost.data["amount"]
   end
-  json.project do
+  json.project [project_fragment] do |project|
     start_date = project.data["startDate"] || nil
     end_date = project.data["endDate"] || nil
     json.description      exportable_description(project.data["description"])
@@ -65,6 +65,6 @@ json.dmp do
     end
   end
   json.partial! "shared/export/madmp_export_templates/rda/datasets",
-                datasets: research_outputs, selected_datasets: selected_research_outputs
+                research_outputs: research_outputs, selected_datasets: selected_research_outputs
 end
 # rubocop:enable Metrics/BlockLength

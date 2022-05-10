@@ -12,6 +12,7 @@
 question_formats = [
   {
     title: "Structured",
+    description: "Structured",
     option_based: false,
     formattype: 7,
     structured: true
@@ -27,7 +28,7 @@ orgs = [
     name: "Science Europe",
     abbreviation: "Science Europe",
     org_type: 1, links: { "org": [] },
-    language: Language.find_by(abbreviation: "fr_FR")
+    language: Language.find_by(abbreviation: "fr-FR")
   }
 ]
 
@@ -194,8 +195,7 @@ sections = [
     modifiable: true,
     phase: se_standard_phase_en
   },
-  {
-    title: "Data sharing and long-term preservation",
+  {    title: "Data sharing and long-term preservation",
     number: 6,
     modifiable: true,
     phase: se_standard_phase_en
@@ -222,7 +222,7 @@ questions = [
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "ResearchOutputDescriptionStandard"),
     modifiable: true,
-    themes: [Theme.find_by(title: "Data description")]
+    themes: [Theme.find_by(title: "Data Description")]
   },
   {
     text: "Est-ce que des données existantes seront réutilisées ?",
@@ -233,7 +233,8 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataReuseStandard"),
-    modifiable: true
+    modifiable: true,
+    themes: [Theme.find_by(title: "Data Description")]
   },
   {
     text: "Comment seront produites/collectées les nouvelles données ?",
@@ -245,7 +246,7 @@ questions = [
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataCollectionStandard"),
     modifiable: true,
-    themes: [Theme.find_by(title: "Data collection")]
+    themes: [Theme.find_by(title: "Data Collection")]
   },
   {
     text: "Quelles métadonnées et quelle documentation (par exemple mode d'organisation des données) accompagneront les données ?" ,
@@ -257,7 +258,7 @@ questions = [
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DocumentationQualityStandard"),
     modifiable: true,
-    themes: [Theme.find_by(title: "Metadata & documentation")]
+    themes: [Theme.find_by(title: "Metadata & Documentation")]
   },
   {
     text: "Quelles seront les méthodes utilisées pour assurer la qualité scientifique des données ?",
@@ -269,7 +270,7 @@ questions = [
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "QualityAssuranceMethodStandard"),
     modifiable: true,
-    themes: [Theme.find_by(title: "Metadata & documentation")]
+    themes: [Theme.find_by(title: "Metadata & Documentation")]
   },
   {
     text: "Quelles seront les mesures appliquées pour assurer la protection des données à caractère personnel ?",
@@ -281,7 +282,7 @@ questions = [
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "PersonalDataIssuesStandard"),
     modifiable: true,
-    themes: [Theme.find_by(title: "Ethics & privacy")]
+    themes: [Theme.find_by(title: "Ethics & Privacy")]
   },
   {
     text: "Quelles sont les contraintes juridiques (sensibilité des données autres qu'à caractère personnel, confidentialité, ...) à prendre en compte pour le partage et le stockage des données ?",
@@ -304,7 +305,8 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "EthicalIssuesStandard"),
-    modifiable: true
+    modifiable: true,
+    themes: [Theme.find_by(title: "Data Description")]
   },
   {
     text: "Comment et avec quels moyens seront traitées les données ?",
@@ -315,7 +317,8 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataProcessingStandard"),
-    modifiable: true
+    modifiable: true,
+    themes: [Theme.find_by(title: "Data Description")]
   },
   {
     text: "Comment les données seront-elles stockées et sauvegardées tout au long du projet ?",
@@ -327,7 +330,7 @@ questions = [
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataStorageStandard"),
     modifiable: true,
-    themes: [Theme.find_by(title: "Storage & security")]
+    themes: [Theme.find_by(title: "Storage & Security")]
   },
   {
     text: "Comment les données seront-elles partagées ?",
@@ -339,7 +342,7 @@ questions = [
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataSharingStandard"),
     modifiable: true,
-    themes: [Theme.find_by(title: "Data sharing"), Theme.find_by(title: "Data repository") ]
+    themes: [Theme.find_by(title: "Data Sharing"), Theme.find_by(title: "Data Repository") ]
   },
   {
     text: "Comment les données seront-elles conservées à long terme ?",
@@ -350,7 +353,8 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataPreservationStandard"),
-    modifiable: true
+    modifiable: true,
+    themes: [Theme.find_by(title: "Data Description")]
   },
   ####################################################
   ##################### ENGLISH ######################
@@ -365,7 +369,7 @@ questions = [
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "ResearchOutputDescriptionStandard"),
     modifiable: true,
-    themes: [Theme.find_by(title: "Data description")]
+    themes: [Theme.find_by(title: "Data Description")]
   },
   {
     text: "Will existing data be reused?",
@@ -376,7 +380,8 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataReuseStandard"),
-    modifiable: true
+    modifiable: true,
+    themes: [Theme.find_by(title: "Data Description")]
   },
   {
     text: "How new data will be collected or produced?",
@@ -388,7 +393,7 @@ questions = [
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataCollectionStandard"),
     modifiable: true,
-    themes: [Theme.find_by(title: "Data collection")]
+    themes: [Theme.find_by(title: "Data Collection")]
   },
   {
     text: "What metadata and documentation (for example way of organising data) will accompagny the data?",
@@ -400,7 +405,7 @@ questions = [
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DocumentationQualityStandard"),
     modifiable: true,
-    themes: [Theme.find_by(title: "Metadata & documentation")]
+    themes: [Theme.find_by(title: "Metadata & Documentation")]
   },
   {
     text: "What methods will be used to ensure their scientific quality?",
@@ -412,7 +417,7 @@ questions = [
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "QualityAssuranceMethodStandard"),
     modifiable: true,
-    themes: [Theme.find_by(title: "Metadata & documentation")]
+    themes: [Theme.find_by(title: "Metadata & Documentation")]
   },
   {
     text: "If personal data are processed, how will compliance with legislation on personal data and on security be ensured?",
@@ -424,7 +429,7 @@ questions = [
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "PersonalDataIssuesStandard"),
     modifiable: true,
-    themes: [Theme.find_by(title: "Ethics & privacy")]
+    themes: [Theme.find_by(title: "Ethics & Privacy")]
   },
   {
     text: "How will other legal issues, such as intellectual property rights and ownership, be managed? What legislation is applicable?",
@@ -447,7 +452,8 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "EthicalIssuesStandard"),
-    modifiable: true
+    modifiable: true,
+    themes: [Theme.find_by(title: "Data Description")]
   },
   {
     text: "How and with what resources will the data be processed / analyzed?",
@@ -458,7 +464,8 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataProcessingStandard"),
-    modifiable: true
+    modifiable: true,
+    themes: [Theme.find_by(title: "Data Description")]
   },
   {
     text: "How will data be stored and backed up during the research?",
@@ -470,7 +477,7 @@ questions = [
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataStorageStandard"),
     modifiable: true,
-    themes: [Theme.find_by(title: "Storage & security")]
+    themes: [Theme.find_by(title: "Storage & Security")]
   },
   {
     text: "How will data be shared?",
@@ -482,7 +489,7 @@ questions = [
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataSharingStandard"),
     modifiable: true,
-    themes: [Theme.find_by(title: "Data sharing"), Theme.find_by(title: "Data repository")]
+    themes: [Theme.find_by(title: "Data Sharing"), Theme.find_by(title: "Data Repository")]
   },
   {
     text: "How will data be long-term preserved? Which data?",
@@ -493,7 +500,8 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataPreservationStandard"),
-    modifiable: true
+    modifiable: true,
+    themes: [Theme.find_by(title: "Data Description")]
   }
 ]
 questions.map { |q| Question.create!(q) }
