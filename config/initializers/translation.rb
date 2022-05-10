@@ -18,7 +18,10 @@ if !ENV['DOMAIN'] || ENV['DOMAIN'] == 'app'
     config.bound_text_domains   = %w[app client]
     config.ignored_source_paths = Dir.glob('**/*').select { |f| File.directory? f }
                                      .collect { |name| "#{name}/" }
-                                     .select { |path| path.include?('branded/') || path.include?('dmpopidor/') }
+                                     .select do |path|
+                                       path.include?('branded/') || path.include?('dmpopidor/') ||
+                                         path.include?('engines/')
+                                     end
     config.locales_path         = Rails.root.join('config', 'locale')
   end
 elsif ENV['DOMAIN'] == 'client'
@@ -34,9 +37,9 @@ elsif ENV['DOMAIN'] == 'client'
                                        path == 'app/' || path == 'app/views/' ||
                                          path == 'app/controllers/' || path == 'app/models/' ||
                                          path == 'app/helpers/' || path == 'app/mailers/' ||
+                                         path.include?('engines/') ||
                                          path.include?('branded/') || path.include?('dmpopidor/') ||
-                                         path.include?('madmp_') || path.include?('research_output') ||
-                                         path.include?('dynamic_form_helper')
+                                         path.include?('research_output')
                                      end
     config.disable_yaml         = true
     config.locales_path         = Rails.root.join('config', 'locale')
