@@ -51,19 +51,6 @@ RSpec.describe 'Request password reset', type: :feature do
     expect(page).to have_text('Your password has been changed successfully. You are now signed in.')
   end
 
-  scenario 'Invalid reset token' do
-    submit_reset_password_form_fetch_token
-    visit edit_user_password_path(reset_password_token: Faker::Lorem.word)
-    expect(page).to have_text('Change your password')
-
-    fill_in 'New password', with: @pwd
-    fill_in 'Confirm new password', with: @pwd
-    click_button 'Change my password'
-
-    expect(current_path).to eql(user_password_path)
-    expect(page).to have_text('Reset password token is invalid')
-  end
-
   scenario 'Password mismatch' do
     token = submit_reset_password_form_fetch_token
     visit edit_user_password_path(reset_password_token: token)
