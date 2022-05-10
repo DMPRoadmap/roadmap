@@ -1,0 +1,23 @@
+<%# Available locals: orgs %>
+<% title _('Schemas') %>
+<div class="row">
+  <div class="col-md-12">
+    <h1>
+      <%= _('Schemas') %>
+      <a href="<%= new_super_admin_madmp_schema_path %>" 
+         class="btn btn-primary pull-right"><%= _('Create Schema') %></a>
+    </h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <!-- List of guidance groups -->
+    <%= paginable_renderise(
+      partial: '/paginable/madmp_schemas/index',
+      controller: 'paginable/madmp_schemas',
+      action: 'index',
+      scope: madmp_schemas,
+      query_params: { sort_field: 'madmp_schemas.name', sort_direction: :asc }) %>
+    <div>
+  </div>
+</div>

@@ -1,0 +1,186 @@
+# ----------------
+# - INSTRUCTIONS -
+# ----------------
+# The DMPRoadmap codebase tries to follow the latest Ruby/Rails style guidelines as defined
+# by the community via the Rubocop gem.
+#
+# Before submitting a PR, please run `bin/rubocop` from the project root.
+#     Note that you can specify individual files or folders e.g.: `bin/rubocop app/mailers`
+#     Note you can let Rubocop auto-correct many issues with the `-a` flag
+#
+# New versions of Rubocop typically include new Cops (Cops are inidivual Rubocop rules).
+# If you see a message like the following when you run `bin/rubocop`:
+#
+#    "The following cops were added to RuboCop, but are not configured. Please set Enabled
+#     to either `true` or `false` in your `.rubocop.yml` file."
+#
+# You should copy and paste the specified Cops into this file. You can review what the
+# Cop will do by Googling the name of the rule e.g.: "rubocop Layout/SpaceBeforeBrackets"
+#
+# After you review the rule, you can either Enable it or Disable it in this file. The
+# Rubocop documentation for the Cop may also give you additional options that can be
+# configured.
+#
+# Try to place any new Cops under their relevant section and in alphabetical order
+
+AllCops:
+  # Show the name of the cops being voilated in the feedback
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+
+  # Rubocop will skip checking the following directories
+  Exclude:
+    - 'bin/**/*'
+    - 'db/**/*'
+    - 'vendor/**/*'
+    - 'node_modules/**/*'
+    - 'scripts/**/*'
+
+  # Automatically add any new Cops to this file and enable them
+  NewCops: enable
+
+  # Cache the results for faster processing
+  UseCache: true
+
+# -----------
+# - GEMSPEC -
+# -----------
+Gemspec/DateAssignment: # new in 1.10
+  Enabled: true
+
+# ----------
+# - LAYOUT -
+# ----------
+Layout/LineEndStringConcatenationIndentation: # new in 1.18
+  Enabled: true
+Layout/SpaceBeforeBrackets: # new in 1.7
+  Enabled: true
+
+# --------
+# - LINT -
+# --------
+Lint/AmbiguousAssignment: # new in 1.7
+  Enabled: true
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - 'spec/**/*'
+Lint/AmbiguousOperatorPrecedence: # new in 1.21
+  Enabled: true
+Lint/AmbiguousRange: # new in 1.19
+  Enabled: true
+Lint/DeprecatedConstants: # new in 1.8
+  Enabled: true
+Lint/DuplicateBranch: # new in 1.3
+  Enabled: true
+Lint/DuplicateRegexpCharacterClassElement: # new in 1.1
+  Enabled: true
+Lint/EmptyBlock: # new in 1.1
+  Enabled: true
+Lint/EmptyClass: # new in 1.3
+  Enabled: true
+Lint/EmptyInPattern: # new in 1.16
+  Enabled: true
+Lint/IncompatibleIoSelectWithFiberScheduler: # new in 1.21
+  Enabled: true
+Lint/LambdaWithoutLiteralBlock: # new in 1.8
+  Enabled: true
+Lint/NoReturnInBeginEndBlocks: # new in 1.2
+  Enabled: true
+Lint/NumberedParameterAssignment: # new in 1.9
+  Enabled: true
+Lint/OrAssignmentToConstant: # new in 1.9
+  Enabled: true
+Lint/RedundantDirGlobSort: # new in 1.8
+  Enabled: true
+Lint/RequireRelativeSelfPath: # new in 1.22
+  Enabled: true
+Lint/SymbolConversion: # new in 1.9
+  Enabled: true
+Lint/ToEnumArguments: # new in 1.1
+  Enabled: true
+Lint/TripleQuotes: # new in 1.9
+  Enabled: true
+Lint/UnexpectedBlockArity: # new in 1.5
+  Enabled: true
+Lint/UnmodifiedReduceAccumulator: # new in 1.1
+  Enabled: true
+
+# -----------
+# - METRICS -
+# -----------
+# briley Oct. 4th 2021
+# Default is 100 lines. Most of our controllers, models, etc. violate this
+# Cop, so setting it to 300 since we do not have time to refactor everything
+Metrics/ClassLength:
+  Max: 300
+# briley Oct. 4th 2021
+# Default is 10 lines which feels very restrictive but would also require us to do
+# too much refactoring at this point.
+Metrics/MethodLength:
+  Max: 20
+
+# mnicholson Oct. 6th 2021
+# Default lenght for block is 25 lines, which it would be very restrictive for
+# the Rspec views methods. So I'll just exclude some files.
+Metrics/BlockLength:
+  Exclude:
+     - 'lib/tasks/*.rake'
+     - 'lib/tasks/utils/*.rake'
+     - 'spec/**/*'
+
+  IgnoredMethods: ['describe', 'context', 'task', 'namespace']
+
+# ------------
+# - SECURITY -
+# ------------
+Security/IoMethods: # new in 1.22
+  Enabled: true
+
+# ---------
+# - STYLE -
+# ---------
+Style/ArgumentsForwarding: # new in 1.1
+  Enabled: true
+Style/CollectionCompact: # new in 1.2
+  Enabled: true
+Style/DocumentDynamicEvalDefinition: # new in 1.1
+  Enabled: true
+Style/EndlessMethod: # new in 1.8
+  Enabled: true
+Style/HashConversion: # new in 1.10
+  Enabled: true
+Style/HashExcept: # new in 1.7
+  Enabled: true
+Style/IfWithBooleanLiteralBranches: # new in 1.9
+  Enabled: true
+Style/InPatternThen: # new in 1.16
+  Enabled: true
+Style/MultilineInPatternThen: # new in 1.16
+  Enabled: true
+Style/NegatedIfElseCondition: # new in 1.2
+  Enabled: true
+Style/NilLambda: # new in 1.3
+  Enabled: true
+Style/NumberedParameters: # new in 1.22
+  Enabled: true
+Style/NumberedParametersLimit: # new in 1.22
+  Enabled: true
+Style/OpenStructUse:
+  Enabled: false # used heavily in API so needs a lot of work to refactor
+Style/QuotedSymbols: # new in 1.16
+  Enabled: true
+Style/RedundantArgument: # new in 1.4
+  Enabled: true
+Style/RedundantSelfAssignmentBranch: # new in 1.19
+  Enabled: true
+Style/SelectByRegexp: # new in 1.22
+  Enabled: true
+Style/StringChars: # new in 1.12
+  Enabled: true
+Style/StringLiterals:
+  Enabled: true
+  Exclude:
+    - 'app/views/**/*'
+    - 'config/**/*'
+Style/SwapValues: # new in 1.1
+  Enabled: true

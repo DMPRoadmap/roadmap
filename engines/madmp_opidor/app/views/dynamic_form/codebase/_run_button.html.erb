@@ -1,0 +1,15 @@
+<%# locals: { fragment_id, label, ttip, script_id, disabled } %>
+<button
+    type="button"
+    class="btn btn-primary run-button"
+    data-toggle="tooltip"
+    data-original-title="<%= ttip %>"
+    <%= disabled ? 'disabled' : '' %>
+    data-url="<%= codebase_run_url(
+        nil,
+        :fragment_id => fragment_id,
+        :script_id => script_id
+    )%>"
+>
+    <%= label %>
+</button>

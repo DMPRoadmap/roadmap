@@ -1,0 +1,23 @@
+<%# Available locals: orgs %>
+<% title _('Registries') %>
+<div class="row">
+  <div class="col-md-12">
+    <h1>
+      <%= _('Registries') %>
+      <a href="<%= new_super_admin_registry_path %>" 
+         class="btn btn-primary pull-right"><%= _('Create Registry') %></a>
+    </h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <!-- List of registries -->
+    <%= paginable_renderise(
+      partial: '/paginable/registries/index',
+      controller: 'paginable/registries',
+      action: 'index',
+      scope: registries,
+      query_params: { sort_field: 'registries.name', sort_direction: :asc }) %>
+    <div>
+  </div>
+</div>

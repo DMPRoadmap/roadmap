@@ -1,0 +1,43 @@
+<div class="table-responsive">
+  <table class="table table-hover" id="guidance-groups">
+    <thead>
+      <tr>
+        <th scope="col"><%= _('Name') %>&nbsp;<%= paginable_sort_link('registries.name') %></th>
+        <th scope="col"><%= _('Description') %></th>
+        <th scope="col"><%= _('URI') %></th>
+        <th scope="col"><%= _('Version') %></th>
+        <th scope="col" class="sorter-false"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% scope.each do |registry| %>
+        <tr>
+          <td><%= link_to registry.name, super_admin_registry_path(registry) %></td>
+          <td><%= registry.description %></td>
+          <td><%= registry.uri %></td>
+          <td><%= registry.version %></td>
+          <td>
+            <div class="dropdown">
+              <button
+                class="btn btn-link dropdown-toggle"
+                type="button"
+                id="org-<%= registry.id %>-actions"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="true">
+                <%= _('Actions') %><span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="org-<%= registry.id %>-actions">
+                <li><%= link_to _('Edit'), edit_super_admin_registry_path(registry) %></li>
+                <li>
+                  <%= link_to(_('Delete'), super_admin_registry_path(registry), rel: 'nofollow', 'data-method': 'delete',
+                    'data-confirm': _("Are you sure you want to delete the registry \"%{title}\"?") % { title: registry.name }) %>
+                </li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

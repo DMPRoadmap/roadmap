@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h2>
+        <%= @registry.name %>
+        <%= link_to(_('View all registries'), super_admin_registries_path,
+            class: 'btn btn-default pull-right', role: 'button') %>
+    </h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <dl class="dl-horizontal">
+      <dt><%= _('Name') %></dt>
+      <dd><%= @registry.name %></dd>
+      <dt><%= _('Description') %></dt>
+      <dd><%= sanitize @registry.description %></dd>
+      <dt><%= _('URI') %></dt>
+      <dd><%= @registry.uri %></dd>
+      <dt><%= _('Version') %></dt>
+      <dd><%= @registry.version %></dd>
+      <h3><%= _('Values') %></h3>
+      <div class="row">
+        <div class="col-md-12">
+          <%= paginable_renderise(
+            partial: '/paginable/registry_values/index',
+            controller: 'paginable/registry_values',
+            action: 'index',
+            scope: @registry.registry_values,
+            locals: { registry_id: @registry.id },
+            query_params: { sort_field: 'registry_values.order', sort_direction: :asc }
+          ) %>
+        </div>
+      </div>
+      <div class="pull-right">
+        <a href="<%= super_admin_registry_download_path(@registry.id) %>" 
+            class="btn btn-default"><%= _('Export Registry') %></a>
+        <a href="<%= new_super_admin_registry_value_path(registry_id: @registry.id) %>" 
+            class="btn btn-default"><%= _('Create Value') %></a>
+      </div>
+    </dl>   
+  </div>
+</div>
