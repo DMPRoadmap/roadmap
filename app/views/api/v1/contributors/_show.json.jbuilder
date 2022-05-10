@@ -4,7 +4,7 @@
 
 is_contact ||= false
 
-json.name contributor.name
+json.name contributor.is_a?(User) ? contributor.name(false) : contributor.name
 json.mbox contributor.email
 
 if !is_contact && contributor.selected_roles.any?

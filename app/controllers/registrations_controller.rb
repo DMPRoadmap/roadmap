@@ -32,7 +32,7 @@ class RegistrationsController < Devise::RegistrationsController
 
     # Connect the new user with the identifier sent back by the OAuth provider
     flash[:notice] = format(_("Please make a choice below. After linking your
-                       details to a %<application_name>s account,
+                       details to a %{application_name} account,
                        you will be able to sign in directly with your
                        institutional credentials."), application_name: ApplicationService.application_name)
   end

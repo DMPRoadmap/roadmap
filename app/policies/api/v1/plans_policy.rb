@@ -16,25 +16,33 @@ module Api
         # User (non-admin) can view: any personal or organisationally_visible
         # User (admin) can view: all from users of their organisation
         def resolve
-          ids = Plan.publicly_visible.pluck(:id)
-          ids += plans_for_client if @user.is_a?(ApiClient)
-          ids += plans_for_user if @user.is_a?(User)
+          ids = @user.is_a?(ApiClient) ? plans_for_client : plans_for_user
           Plan.where(id: ids.uniq)
         end
 
         private
 
         def plans_for_client
+          return [] unless @user.present?
+
           ids = @user.plans.pluck(&:id)
           ids += @user.org.plans.pluck(&:id) if @user.org.present?
           ids
         end
 
         def plans_for_user
+          return [] unless @user.present?
+
           ids = @user.org.plans.organisationally_visible.pluck(:id)
           ids += @user.plans.pluck(:id)
           ids += @user.org.plans.pluck(:id) if @user.can_org_admin?
           ids
+        end
+
+        def initialize(client, plan)
+          super()
+          @user = client
+          @plan = plan
         end
       end
     end

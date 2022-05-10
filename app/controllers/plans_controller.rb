@@ -81,9 +81,9 @@ class PlansController < ApplicationController
 
       @plan.title = if plan_params[:title].blank?
                       if current_user.firstname.blank?
-                        format(_('My Plan (%<title>s)'), title: @plan.template.title)
+                        format(_('My Plan (%{title})'), title: @plan.template.title)
                       else
-                        format(_('%<user_name>s Plan'), user_name: "#{current_user.firstname}'s")
+                        format(_('%{user_name} Plan'), user_name: "#{current_user.firstname}'s")
                       end
                     else
                       plan_params[:title]
@@ -270,9 +270,8 @@ class PlansController < ApplicationController
       funder_attrs[:org_id] = plan_params[:funder][:id]
       funder = org_from_params(params_in: funder_attrs)
       @plan.funder_id = funder&.id
+      @plan.grant = plan_params[:grant]
       attrs.delete(:funder)
-
-      process_grant(grant_params: plan_params[:grant])
       attrs.delete(:grant)
       attrs = remove_org_selection_params(params_in: attrs)
 
@@ -422,13 +421,13 @@ class PlansController < ApplicationController
       else
         # rubocop:disable Layout/LineLength
         render status: :forbidden, json: {
-          msg: format(_("Unable to change the plan's status since it is needed at least %<percentage}>s percentage responded"), percentage: Rails.configuration.x.plans.default_percentage_answered)
+          msg: format(_("Unable to change the plan's status since it is needed at least %{percentage} percentage responded"), percentage: Rails.configuration.x.plans.default_percentage_answered)
         }
         # rubocop:enable Layout/LineLength
       end
     else
       render status: :not_found,
-             json: { msg: format(_('Unable to find plan id %{<plan_id>s'),
+             json: { msg: format(_('Unable to find plan id %{plan_id}'),
                                  plan_id: params[:id]) }
     end
   end
@@ -537,29 +536,5 @@ class PlansController < ApplicationController
              guidance_presenter: GuidancePresenter.new(plan)
            })
   end
-
-  # Update, destroy or add the grant
-  # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  def process_grant(grant_params:)
-    return false unless grant_params.present?
-
-    grant = @plan.grant
-
-    # delete it if it has been blanked out
-    if grant_params[:value].blank? && grant.present?
-      grant.destroy
-      @plan.grant = nil
-    elsif grant_params[:value] != grant&.value
-      if grant.present?
-        grant.update(value: grant_params[:value])
-      elsif grant_params[:value].present?
-        @plan.grant = Identifier.new(identifier_scheme: nil, identifiable: @plan,
-                                     value: grant_params[:value])
-      end
-    end
-  end
-  # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end
 # rubocop:enable Metrics/ClassLength

@@ -6,12 +6,12 @@
 #
 #  id                      :bigint           not null, primary key
 #  abbreviation            :string
-#  access                  :integer          default(0), not null
+#  access                  :integer          default("open"), not null
 #  byte_size               :bigint
 #  description             :text
 #  display_order           :integer
-#  is_default              :boolean         default("false")
-#  output_type             :integer          default(3), not null
+#  is_default              :boolean
+#  output_type             :integer          default("dataset"), not null
 #  output_type_description :string
 #  personal_data           :boolean
 #  release_date            :datetime
@@ -19,13 +19,17 @@
 #  title                   :string           not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
-#  mime_type_id            :integer
+#  license_id              :bigint
 #  plan_id                 :integer
 #
 # Indexes
 #
 #  index_research_outputs_on_output_type  (output_type)
-#  index_research_outputs_on_plan_id      (plan_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (plan_id => plans.id)
+#  fk_rails_...  (license_id => licenses.id)
 #
 
 # Object that represents a proposed output for a project
@@ -43,14 +47,22 @@ class ResearchOutput < ApplicationRecord
   # = Associations =
   # ================
 
-  belongs_to :plan, optional: true
+  belongs_to :plan, optional: true, touch: true
+  belongs_to :license, optional: true
+
+  has_and_belongs_to_many :metadata_standards
+  has_and_belongs_to_many :repositories
 
   # ===============
   # = Validations =
   # ===============
 
   validates_presence_of :output_type, :access, :title, message: PRESENCE_MESSAGE
-  validates_uniqueness_of :title, :abbreviation, scope: :plan_id
+  validates_uniqueness_of :title, { case_sensitive: false, scope: :plan_id,
+                                    message: UNIQUENESS_MESSAGE }
+  validates_uniqueness_of :abbreviation, { case_sensitive: false, scope: :plan_id,
+                                           allow_nil: true, allow_blank: true,
+                                           message: UNIQUENESS_MESSAGE }
 
   # Ensure presence of the :output_type_description if the user selected 'other'
   validates_presence_of :output_type_description, if: -> { other? }, message: PRESENCE_MESSAGE
@@ -59,36 +71,17 @@ class ResearchOutput < ApplicationRecord
   # = Instance methods =
   # ====================
 
-  # TODO: placeholders for once the License, Repository, Metadata Standard and
-  #       Resource Type Lookups feature is built.
-  #
-  #       Be sure to add the scheme in the appropriate upgrade task (and to the
-  #       seed.rb as well)
-  def licenses
-    # scheme = IdentifierScheme.find_by(name: '[name of license scheme]')
-    # return [] unless scheme.present?
-    # identifiers.select { |id| id.identifier_scheme = scheme }
-    []
+  # Helper method to convert selected repository form params into Repository objects
+  def repositories_attributes=(params)
+    params.each do |_i, repository_params|
+      repositories << Repository.find_by(id: repository_params[:id])
+    end
   end
 
-  def repositories
-    # scheme = IdentifierScheme.find_by(name: '[name of repository scheme]')
-    # return [] unless scheme.present?
-    # identifiers.select { |id| id.identifier_scheme = scheme }
-    []
-  end
-
-  def metadata_standards
-    # scheme = IdentifierScheme.find_by(name: '[name of openaire scheme]')
-    # return [] unless scheme.present?
-    # identifiers.select { |id| id.identifier_scheme = scheme }
-    []
-  end
-
-  def resource_types
-    # scheme = IdentifierScheme.find_by(name: '[name of resource_type scheme]')
-    # return [] unless scheme.present?
-    # identifiers.select { |id| id.identifier_scheme = scheme }
-    []
+  # Helper method to convert selected metadata standard form params into MetadataStandard objects
+  def metadata_standards_attributes=(params)
+    params.each do |_i, metadata_standard_params|
+      metadata_standards << MetadataStandard.find_by(id: metadata_standard_params[:id])
+    end
   end
 end
