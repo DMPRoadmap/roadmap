@@ -5,7 +5,7 @@
 <%= form_for(resource, as: resource_name, url: password_path(resource_name),
              html: { id: 'user_reset_password_form', method: :put }) do |f| %>
   <%= f.hidden_field :reset_password_token %>
-  <%= f.hidden_field :accept_terms, value: '1' %>
+  <%= f.hidden_field :accept_terms, value: true %>
 
   <div class="row">
     <div class="form-group col-md-6">

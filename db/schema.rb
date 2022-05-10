@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2022_03_15_104737) do
     t.boolean "trusted", default: false
     t.integer "callback_method"
     t.string "callback_uri"
+    t.index ["name"], name: "index_api_clients_on_name"
   end
 
   create_table "api_logs", force: :cascade do |t|
@@ -292,21 +293,21 @@ ActiveRecord::Schema.define(version: 2022_03_15_104737) do
     t.string "homepage"
     t.string "contact_name"
     t.string "contact_email"
-    t.string "uid", null: false
-    t.string "secret", null: false
+    t.string "uid", default: "", null: false
+    t.string "secret", default: "", null: false
     t.datetime "last_access"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "redirect_uri"
+    t.string "callback_uri"
+    t.integer "callback_method", default: 0
     t.string "scopes", default: "", null: false
     t.boolean "confidential", default: true
     t.boolean "trusted", default: false
     t.bigint "user_id"
+    t.integer "org_id"
     t.string "logo_uid"
     t.string "logo_name"
-    t.string "callback_uri"
-    t.integer "callback_method"
-    t.integer "org_id"
     t.index ["name"], name: "index_oauth_applications_on_name"
     t.index ["user_id"], name: "index_oauth_applications_on_owner_id"
     t.index ["user_id"], name: "index_oauth_applications_on_owner_id_and_owner_type"
@@ -341,9 +342,9 @@ ActiveRecord::Schema.define(version: 2022_03_15_104737) do
     t.boolean "managed", default: false, null: false
     t.string "api_create_plan_email_subject"
     t.text "api_create_plan_email_body"
+    t.string "helpdesk_email"
     t.index ["language_id"], name: "fk_rails_5640112cab"
     t.index ["region_id"], name: "fk_rails_5a6adf6bab"
-    t.string "helpdesk_email"
   end
 
   create_table "perms", id: :integer, force: :cascade do |t|

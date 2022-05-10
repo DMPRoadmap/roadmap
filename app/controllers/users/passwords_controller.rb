@@ -30,9 +30,33 @@ module Users
     # end
 
     # PUT /resource/password
-    # def update
-    #   super
-    # end
+    def update
+      self.resource = resource_class.reset_password_by_token(resource_params)
+
+      yield resource if block_given?
+
+      # The following 3 lines are a DMPTool cusomization of the core Devise code
+      # Set the accept_terms flag if the user was asked to accept it
+      accepted = params.fetch(:user, {})[:accept_terms]
+      resource.accept_terms = true if accepted.present? && accepted == 'true'
+      resource.valid?
+
+      if resource.errors.empty?
+        resource.unlock_access! if unlockable?(resource)
+        if Devise.sign_in_after_reset_password
+          flash_message = resource.active_for_authentication? ? :updated : :updated_not_active
+          set_flash_message!(:notice, flash_message)
+          resource.after_database_authentication
+          sign_in(resource_name, resource)
+        else
+          set_flash_message!(:notice, :updated_not_active)
+        end
+        respond_with resource, location: after_resetting_password_path_for(resource)
+      else
+        set_minimum_password_length
+        respond_with resource
+      end
+    end
 
     protected
 

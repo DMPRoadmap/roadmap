@@ -5,7 +5,7 @@
 <div class="cover-page">
   <p><b><%= _("Title: ") %></b><%= @hash[:title] %></p><br>
 
-  <p><strong><%= _("Creator:") %></strong><%= @hash[:attribution] %></p><br>
+  <p><strong><%= _("Creator:") %></strong> <%= sanitize(@hash[:attribution].is_a?(Array) ? @hash[:attribution].first : @hash[:attribution])%></p><br>
 
   <p><b><%= _("Affiliation: ") %></b><%= @hash[:affiliation] %></p><br>
 
