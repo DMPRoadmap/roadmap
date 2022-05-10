@@ -108,7 +108,7 @@ module ExportablePlan
     # DMPTool customization to always use the owner of the Plan
     # ---------------------------------------------------------
     # # Use the name of the DMP owner/creator OR the first Co-owner if there is no
-    # # owner for some reason
+    # # owner for some reason (see definition of attribution method below)
     # attribution = roles.creator.first&.user&.name(false)
     # roles.administrator.not_creator.first&.user&.name(false) unless attribution.present?
     hash[:attribution] = attribution
@@ -244,7 +244,7 @@ module ExportablePlan
       text += format(' - <strong>ORCID:</strong> <a href="%{orcid_url}" target="_blank">%{orcid}</a>',
                      orcid_url: orcid.value, orcid: orcid.value_without_scheme_prefix)
     end
-    [text]
+    text
   end
   # rubocop:enable Metrics/AbcSize
 end
