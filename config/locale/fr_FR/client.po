@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-05-05 11:08+0200\n"
-"PO-Revision-Date: 2022-05-05 11:08+0200\n"
+"POT-Creation-Date: 2022-05-10 15:54+0200\n"
+"PO-Revision-Date: 2022-05-10 15:54+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -34,73 +34,73 @@ msgstr ""
 "Il n'y a pas de plan avec l'identifiant %<id>s pour lesquels créer ou mettre à"
 " jour une réponse"
 
-#: ../../app/controllers/application_controller.rb:40
+#: ../../app/controllers/application_controller.rb:41
 msgid "You are not authorized to perform this action."
 msgstr "Vous n'êtes pas autorisé à effectuer cette opération."
 
-#: ../../app/controllers/application_controller.rb:44
+#: ../../app/controllers/application_controller.rb:45
 msgid "You need to sign in or sign up before continuing."
 msgstr "Vous devez vous connecter ou vous inscrire pour continuer."
 
-#: ../../app/controllers/application_controller.rb:112
+#: ../../app/controllers/application_controller.rb:113
 msgid "Unable to %<action>s the %<object>s.%<errors>s"
 msgstr "Impossible de %<action>s le %<object>s. %<errors>s"
 
-#: ../../app/controllers/application_controller.rb:118
+#: ../../app/controllers/application_controller.rb:119
 msgid "Successfully %<action>s the %<object>s."
 msgstr "%<object>s %<action>s avec succès."
 
-#: ../../app/controllers/application_controller.rb:135
+#: ../../app/controllers/application_controller.rb:136
 #: ../../app/controllers/dmpopidor/application_controller.rb:15
 msgid "API client"
 msgstr "Client API"
 
-#: ../../app/controllers/application_controller.rb:136
+#: ../../app/controllers/application_controller.rb:137
 #: ../../app/controllers/dmpopidor/application_controller.rb:17
 msgid "plan"
 msgstr "plan"
 
-#: ../../app/controllers/application_controller.rb:137
+#: ../../app/controllers/application_controller.rb:138
 #: ../../app/controllers/dmpopidor/application_controller.rb:18
 msgid "guidance group"
 msgstr "Groupe de recommandations"
 
-#: ../../app/controllers/application_controller.rb:138
+#: ../../app/controllers/application_controller.rb:139
 #: ../../app/controllers/dmpopidor/application_controller.rb:19
 msgid "comment"
 msgstr "Commentaire"
 
-#: ../../app/controllers/application_controller.rb:139
+#: ../../app/controllers/application_controller.rb:140
 #: ../../app/controllers/dmpopidor/application_controller.rb:20
 msgid "organisation"
 msgstr "organisme"
 
-#: ../../app/controllers/application_controller.rb:140
+#: ../../app/controllers/application_controller.rb:141
 #: ../../app/controllers/dmpopidor/application_controller.rb:21
 msgid "permission"
 msgstr "autorisation"
 
-#: ../../app/controllers/application_controller.rb:141
+#: ../../app/controllers/application_controller.rb:142
 #: ../../app/controllers/dmpopidor/application_controller.rb:22
 msgid "preferences"
 msgstr "préférences"
 
-#: ../../app/controllers/application_controller.rb:142
+#: ../../app/controllers/application_controller.rb:143
 #: ../../app/controllers/dmpopidor/application_controller.rb:24
 msgid "profile"
 msgstr "profil"
 
-#: ../../app/controllers/application_controller.rb:142
+#: ../../app/controllers/application_controller.rb:143
 #: ../../app/controllers/dmpopidor/application_controller.rb:24
 msgid "user"
 msgstr "utilisateur"
 
-#: ../../app/controllers/application_controller.rb:143
+#: ../../app/controllers/application_controller.rb:144
 #: ../../app/controllers/dmpopidor/application_controller.rb:25
 msgid "question option"
 msgstr "option de question"
 
-#: ../../app/controllers/application_controller.rb:192
+#: ../../app/controllers/application_controller.rb:193
 msgid "Record Not Found"
 msgstr "Enregistrement non trouvé"
 
@@ -210,6 +210,9 @@ msgstr "valeur de référentiel"
 #: ../../app/controllers/guidances_controller.rb:52
 #: ../../app/controllers/notes_controller.rb:55
 #: ../../app/controllers/plans_controller.rb:155
+#: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:26
+#: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:29
+#: ../../engines/madmp_opidor/app/controllers/super_admin/registry_values_controller.rb:19
 msgid "created"
 msgstr "créé"
 
@@ -219,6 +222,9 @@ msgstr "créé"
 #: ../../app/controllers/guidances_controller.rb:54
 #: ../../app/controllers/notes_controller.rb:74
 #: ../../app/controllers/plans_controller.rb:210
+#: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:29
+#: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:33
+#: ../../engines/madmp_opidor/app/controllers/super_admin/registry_values_controller.rb:21
 msgid "create"
 msgstr "créer"
 
@@ -244,6 +250,7 @@ msgstr "plan de test"
 
 #: ../../app/controllers/dmpopidor/plans_controller.rb:130
 #: ../../app/controllers/plans_controller.rb:105
+#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:83
 msgid "%<user_name>s Plan"
 msgstr "Plan de %<user_name>s"
 
@@ -260,8 +267,8 @@ msgid "File should contain JSON"
 msgstr "Le fichier doit contenir du JSON"
 
 #: ../../app/controllers/dmpopidor/plans_controller.rb:151
-#: ../../app/controllers/madmp_codebase_controller.rb:48
-#: ../../app/controllers/madmp_codebase_controller.rb:90
+#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:48
+#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:90
 msgid "An error has occured: "
 msgstr "Un erreur s'est produite :"
 
@@ -312,6 +319,9 @@ msgstr "dépublier"
 #: ../../app/controllers/guidances_controller.rb:93
 #: ../../app/controllers/plans_controller.rb:435
 #: ../../app/controllers/research_outputs_controller.rb:59
+#: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:56
+#: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:64
+#: ../../engines/madmp_opidor/app/controllers/super_admin/registry_values_controller.rb:53
 msgid "deleted"
 msgstr "supprimé"
 
@@ -319,6 +329,9 @@ msgstr "supprimé"
 #: ../../app/controllers/guidances_controller.rb:95
 #: ../../app/controllers/plans_controller.rb:440
 #: ../../app/controllers/research_outputs_controller.rb:61
+#: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:59
+#: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:67
+#: ../../engines/madmp_opidor/app/controllers/super_admin/registry_values_controller.rb:56
 msgid "delete"
 msgstr "effacer"
 
@@ -339,24 +352,6 @@ msgstr "Compte délié de %<is>s avec succès."
 #: ../../app/controllers/identifiers_controller.rb:22
 msgid "Unable to unlink your account from %<is>s."
 msgstr "Impossible de délier votre compte de %<is>s."
-
-#: ../../app/controllers/madmp_codebase_controller.rb:34
-msgid "Notification has been sent"
-msgstr "La notification a été envoyée"
-
-#: ../../app/controllers/madmp_codebase_controller.rb:40
-#: ../../app/controllers/madmp_codebase_controller.rb:83
-#: ../../app/views/branded/shared/dynamic_form/codebase/_show.html.erb:25
-msgid "New data have been added to your plan, please click on the \"Reload\" button."
-msgstr ""
-"De nouvelles données ont été ajoutées à votre plan, veuillez cliquer sur le bo"
-"uton \"Recharger\""
-
-#: ../../app/controllers/madmp_fragments_controller.rb:38
-#: ../../app/controllers/madmp_fragments_controller.rb:156
-#: ../../app/controllers/madmp_fragments_controller.rb:318
-msgid "Element is already present in your plan."
-msgstr "L'élément est déjà présent dans votre plan."
 
 #: ../../app/controllers/orgs_controller.rb:126
 msgid "No organisations are currently registered."
@@ -405,11 +400,17 @@ msgstr "copier"
 
 #: ../../app/controllers/plans_controller.rb:517
 #: ../../app/controllers/users_controller.rb:121
+#: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:45
+#: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:50
+#: ../../engines/madmp_opidor/app/controllers/super_admin/registry_values_controller.rb:40
 msgid "updated"
 msgstr "mis à jour"
 
 #: ../../app/controllers/plans_controller.rb:520
 #: ../../app/controllers/research_outputs_controller.rb:45
+#: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:47
+#: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:52
+#: ../../engines/madmp_opidor/app/controllers/super_admin/registry_values_controller.rb:42
 msgid "update"
 msgstr "mettre à jour"
 
@@ -715,18 +716,6 @@ msgstr "Créateurs du PGD :"
 #: ../../app/helpers/dmpopidor/exports_helper.rb:9
 msgid "DMP Creator:"
 msgstr "Créateur du PGD :"
-
-#: ../../app/helpers/dynamic_form_helper.rb:386
-msgid "This property is required."
-msgstr "Cette propriété est obligatoire."
-
-#: ../../app/helpers/dynamic_form_helper.rb:388
-msgid "This property has an invalid format."
-msgstr "Cette propriété a un format non valide."
-
-#: ../../app/helpers/dynamic_form_helper.rb:390
-msgid "This property has an unknown problem : %<validation>s"
-msgstr "Cette propriété a un problème inconnu : %<validation>s"
 
 #: ../../app/helpers/exports_helper.rb:52
 msgid "Creators:"
@@ -1054,7 +1043,7 @@ msgid "Project coordinator"
 msgstr "Coordinateur de projet"
 
 #: ../../app/models/dmpopidor/plan.rb:125
-#: ../../app/models/madmp_fragment.rb:445
+#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:445
 msgid "\"%<project_title>s\" project DMP"
 msgstr "DMP du projet \"%<project_title>s\""
 
@@ -1194,12 +1183,12 @@ msgstr ""
 "i"
 
 #: ../../app/views/branded/answers/_locking.html.erb:5
-#: ../../app/views/branded/madmp_fragments/_locking.html.erb:5
+#: ../../engines/madmp_opidor/app/views/madmp_fragments/_locking.html.erb:5
 msgid "The following answer cannot be saved"
 msgstr "La réponse suivante ne peut pas être enregistrée"
 
 #: ../../app/views/branded/answers/_locking.html.erb:8
-#: ../../app/views/branded/madmp_fragments/_locking.html.erb:11
+#: ../../engines/madmp_opidor/app/views/madmp_fragments/_locking.html.erb:11
 msgid ""
 "since %{name} saved the answer below while you were editing. Please, combine y"
 "our changes and then save the answer again."
@@ -1234,7 +1223,6 @@ msgstr "Merci de patienter, les standards sont en cours de chargement"
 #: ../../app/views/branded/answers/_new_edit.html.erb:73
 #: ../../app/views/branded/devise/registrations/_personal_details.html.erb:95
 #: ../../app/views/branded/guidances/new_edit.html.erb:49
-#: ../../app/views/branded/madmp_fragments/_edit.html.erb:57
 #: ../../app/views/branded/notes/_edit.html.erb:10
 #: ../../app/views/branded/notes/_new.html.erb:14
 #: ../../app/views/branded/org_admin/departments/edit.html.erb:23
@@ -1248,26 +1236,27 @@ msgstr "Merci de patienter, les standards sont en cours de chargement"
 #: ../../app/views/branded/plans/_edit_details.html.erb:189
 #: ../../app/views/branded/plans/_share_form.html.erb:112
 #: ../../app/views/branded/research_outputs/_list.html.erb:77
-#: ../../app/views/branded/super_admin/madmp_schemas/_form.html.erb:26
-#: ../../app/views/branded/super_admin/registries/_form.html.erb:27
-#: ../../app/views/branded/super_admin/registry_values/_form.html.erb:12
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:59
 #: ../../app/views/branded/users/_notification_preferences.html.erb:47
+#: ../../engines/madmp_opidor/app/views/madmp_fragments/_edit.html.erb:57
+#: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:26
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/_form.html.erb:27
+#: ../../engines/madmp_opidor/app/views/super_admin/registry_values/_form.html.erb:12
 msgid "Save"
 msgstr "Enregistrer"
 
 #: ../../app/views/branded/answers/_new_edit.html.erb:83
-#: ../../app/views/branded/madmp_fragments/_edit.html.erb:70
 #: ../../app/views/branded/org_admin/questions/_show.html.erb:76
+#: ../../engines/madmp_opidor/app/views/madmp_fragments/_edit.html.erb:70
 msgid "example answer"
 msgstr "exemple de réponse"
 
 #: ../../app/views/branded/answers/_new_edit.html.erb:96
 #: ../../app/views/branded/layouts/application.html.erb:126
-#: ../../app/views/branded/madmp_fragments/_edit.html.erb:43
 #: ../../app/views/branded/phases/_edit_plan_answers.html.erb:142
 #: ../../app/views/branded/plans/_edit_details.html.erb:111
 #: ../../app/views/branded/plans/_edit_details.html.erb:182
+#: ../../engines/madmp_opidor/app/views/madmp_fragments/_edit.html.erb:43
 msgid "Loading..."
 msgstr "Chargement ..."
 
@@ -1306,15 +1295,15 @@ msgstr "Question sans réponse."
 #: ../../app/views/branded/contributors/index.html.erb:21
 #: ../../app/views/branded/org_admin/departments/edit.html.erb:14
 #: ../../app/views/branded/org_admin/departments/new.html.erb:14
-#: ../../app/views/branded/paginable/madmp_schemas/_index.html.erb:6
-#: ../../app/views/branded/paginable/registries/_index.html.erb:5
 #: ../../app/views/branded/paginable/static_pages/_index.html.erb:5
 #: ../../app/views/branded/paginable/users/_index.html.erb:20
 #: ../../app/views/branded/shared/export/_plan_coversheet.erb:64
-#: ../../app/views/branded/super_admin/madmp_schemas/_form.html.erb:10
-#: ../../app/views/branded/super_admin/registries/_form.html.erb:6
-#: ../../app/views/branded/super_admin/registries/show.html.erb:13
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:13
+#: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:6
+#: ../../engines/madmp_opidor/app/views/paginable/registries/_index.html.erb:5
+#: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:10
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/_form.html.erb:6
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/show.html.erb:13
 msgid "Name"
 msgstr "Nom"
 
@@ -1417,20 +1406,20 @@ msgstr "Rôles attribués (Produits de recherche associés)"
 #: ../../app/views/branded/org_admin/plans/index.html.erb:20
 #: ../../app/views/branded/paginable/departments/_index.html.erb:7
 #: ../../app/views/branded/paginable/departments/_index.html.erb:24
-#: ../../app/views/branded/paginable/madmp_schemas/_index.html.erb:9
-#: ../../app/views/branded/paginable/madmp_schemas/_index.html.erb:28
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:12
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:36
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:14
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:54
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:14
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:54
-#: ../../app/views/branded/paginable/registries/_index.html.erb:9
-#: ../../app/views/branded/paginable/registries/_index.html.erb:28
-#: ../../app/views/branded/paginable/registry_values/_index.html.erb:6
 #: ../../app/views/branded/paginable/templates/_history.html.erb:10
 #: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:12
 #: ../../app/views/branded/plans/_share_form.html.erb:20
+#: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:9
+#: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:28
+#: ../../engines/madmp_opidor/app/views/paginable/registries/_index.html.erb:9
+#: ../../engines/madmp_opidor/app/views/paginable/registries/_index.html.erb:28
+#: ../../engines/madmp_opidor/app/views/paginable/registry_values/_index.html.erb:6
 msgid "Actions"
 msgstr "Actions"
 
@@ -1439,9 +1428,9 @@ msgid "Add a person"
 msgstr "Ajouter une personne"
 
 #: ../../app/views/branded/contributors/index.html.erb:56
-#: ../../app/views/branded/shared/dynamic_form/fields/_fragment_list_field.html.erb:45
-#: ../../app/views/branded/shared/dynamic_form/fields/_fragment_select_field.html.erb:46
-#: ../../app/views/branded/shared/dynamic_form/fields/registry/_multiple_complex.html.erb:58
+#: ../../engines/madmp_opidor/app/views/dynamic_form/fields/_fragment_list_field.html.erb:45
+#: ../../engines/madmp_opidor/app/views/dynamic_form/fields/_fragment_select_field.html.erb:46
+#: ../../engines/madmp_opidor/app/views/dynamic_form/fields/registry/_multiple_complex.html.erb:58
 msgid "Click here to add a new item"
 msgstr "Cliquez ici pour ajouter un nouvel élément"
 
@@ -1615,9 +1604,9 @@ msgstr "Publié ?"
 #: ../../app/views/branded/org_admin/questions/_form.html.erb:136
 #: ../../app/views/branded/plans/_edit_details.html.erb:61
 #: ../../app/views/branded/research_outputs/_list.html.erb:78
-#: ../../app/views/branded/super_admin/madmp_schemas/_form.html.erb:32
-#: ../../app/views/branded/super_admin/registries/_form.html.erb:28
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:67
+#: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:32
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/_form.html.erb:28
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -1739,14 +1728,14 @@ msgid "maDMP Features"
 msgstr "Fonctionnalités maDMP"
 
 #: ../../app/views/branded/layouts/_branding.html.erb:118
-#: ../../app/views/branded/super_admin/madmp_schemas/index.html.erb:2
-#: ../../app/views/branded/super_admin/madmp_schemas/index.html.erb:6
+#: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/index.html.erb:2
+#: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/index.html.erb:6
 msgid "Schemas"
 msgstr "Schémas"
 
 #: ../../app/views/branded/layouts/_branding.html.erb:121
-#: ../../app/views/branded/super_admin/registries/index.html.erb:2
-#: ../../app/views/branded/super_admin/registries/index.html.erb:6
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/index.html.erb:2
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/index.html.erb:6
 msgid "Registries"
 msgstr "Référentiels"
 
@@ -1926,7 +1915,7 @@ msgstr ""
 "."
 
 #: ../../app/views/branded/layouts/application.html.erb:165
-#: ../../app/views/branded/madmp_fragments/_new.html.erb:28
+#: ../../engines/madmp_opidor/app/views/madmp_fragments/_new.html.erb:28
 msgid "Loading ..."
 msgstr "Chargement ..."
 
@@ -1959,12 +1948,6 @@ msgstr "Aucun résultat n'est disponible pour votre entrée."
 #: ../../app/views/branded/layouts/application.html.erb:172
 msgid "Searching ..."
 msgstr "Recherche..."
-
-#: ../../app/views/branded/madmp_fragments/_edit.html.erb:58
-#: ../../app/views/branded/plans/_edit_details.html.erb:115
-#: ../../app/views/branded/plans/_edit_details.html.erb:186
-msgid "You have pending changes, please save"
-msgstr "Vous avez des changements en attente, veuillez sauvegarder"
 
 #: ../../app/views/branded/notes/_edit.html.erb:5
 msgid "Edit comment to share with collaborators"
@@ -2157,12 +2140,12 @@ msgstr ""
 
 #: ../../app/views/branded/org_admin/questions/_form.html.erb:133
 #: ../../app/views/branded/paginable/contributors/_index.html.erb:37
-#: ../../app/views/branded/paginable/registries/_index.html.erb:33
-#: ../../app/views/branded/shared/dynamic_form/fields/contributor/_contributor_list.html.erb:43
-#: ../../app/views/branded/shared/dynamic_form/linked_fragment/_list.html.erb:45
-#: ../../app/views/branded/super_admin/madmp_schemas/_form.html.erb:28
-#: ../../app/views/branded/super_admin/registry_values/_form.html.erb:14
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:61
+#: ../../engines/madmp_opidor/app/views/dynamic_form/fields/contributor/_contributor_list.html.erb:43
+#: ../../engines/madmp_opidor/app/views/dynamic_form/linked_fragment/_list.html.erb:45
+#: ../../engines/madmp_opidor/app/views/paginable/registries/_index.html.erb:33
+#: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:28
+#: ../../engines/madmp_opidor/app/views/super_admin/registry_values/_form.html.erb:14
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -2248,16 +2231,16 @@ msgstr "Aucun fourni"
 #: ../../app/views/branded/org_admin/questions/_show.html.erb:225
 #: ../../app/views/branded/paginable/contributors/_index.html.erb:30
 #: ../../app/views/branded/paginable/departments/_index.html.erb:27
-#: ../../app/views/branded/paginable/madmp_schemas/_index.html.erb:31
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:39
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:59
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:59
-#: ../../app/views/branded/paginable/registries/_index.html.erb:31
 #: ../../app/views/branded/paginable/templates/_history.html.erb:54
 #: ../../app/views/branded/paginable/users/_index.html.erb:81
-#: ../../app/views/branded/shared/dynamic_form/fields/_fragment_select_field.html.erb:74
-#: ../../app/views/branded/shared/dynamic_form/fields/contributor/_contributor_list.html.erb:35
-#: ../../app/views/branded/shared/dynamic_form/linked_fragment/_list.html.erb:36
+#: ../../engines/madmp_opidor/app/views/dynamic_form/fields/_fragment_select_field.html.erb:74
+#: ../../engines/madmp_opidor/app/views/dynamic_form/fields/contributor/_contributor_list.html.erb:35
+#: ../../engines/madmp_opidor/app/views/dynamic_form/linked_fragment/_list.html.erb:36
+#: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:31
+#: ../../engines/madmp_opidor/app/views/paginable/registries/_index.html.erb:31
 msgid "Edit"
 msgstr "Modifier"
 
@@ -2285,10 +2268,10 @@ msgid "Title"
 msgstr "Titre"
 
 #: ../../app/views/branded/org_admin/templates/_form.html.erb:10
-#: ../../app/views/branded/paginable/registries/_index.html.erb:6
 #: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:8
-#: ../../app/views/branded/super_admin/registries/_form.html.erb:10
-#: ../../app/views/branded/super_admin/registries/show.html.erb:15
+#: ../../engines/madmp_opidor/app/views/paginable/registries/_index.html.erb:6
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/_form.html.erb:10
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/show.html.erb:15
 msgid "Description"
 msgstr "Description"
 
@@ -2478,8 +2461,8 @@ msgid "Organisation types"
 msgstr "Types d'organisme"
 
 #: ../../app/views/branded/paginable/contributors/_index.html.erb:38
-#: ../../app/views/branded/shared/dynamic_form/fields/contributor/_contributor_list.html.erb:44
-#: ../../app/views/branded/shared/dynamic_form/linked_fragment/_list.html.erb:46
+#: ../../engines/madmp_opidor/app/views/dynamic_form/fields/contributor/_contributor_list.html.erb:44
+#: ../../engines/madmp_opidor/app/views/dynamic_form/linked_fragment/_list.html.erb:46
 msgid "Do you want to delete this element?"
 msgstr "Voulez-vous vraiment supprimer cet élément ?"
 
@@ -2487,8 +2470,8 @@ msgstr "Voulez-vous vraiment supprimer cet élément ?"
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:68
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:70
 #: ../../app/views/branded/paginable/templates/_history.html.erb:56
-#: ../../app/views/branded/shared/dynamic_form/fields/contributor/_contributor_list.html.erb:17
-#: ../../app/views/branded/shared/dynamic_form/linked_fragment/_list.html.erb:18
+#: ../../engines/madmp_opidor/app/views/dynamic_form/fields/contributor/_contributor_list.html.erb:17
+#: ../../engines/madmp_opidor/app/views/dynamic_form/linked_fragment/_list.html.erb:18
 msgid "View"
 msgstr "Voir"
 
@@ -2511,24 +2494,6 @@ msgid ""
 msgstr ""
 "Vous êtes sur le point de supprimer '%{department_name}'. Cela affectera les r"
 "ecommandations. Êtes-vous sûr "
-
-#: ../../app/views/branded/paginable/madmp_schemas/_index.html.erb:5
-msgid "ID"
-msgstr "Identifiant"
-
-#: ../../app/views/branded/paginable/madmp_schemas/_index.html.erb:7
-#: ../../app/views/branded/super_admin/madmp_schemas/_form.html.erb:14
-msgid "Classname"
-msgstr "Nom de classe"
-
-#: ../../app/views/branded/paginable/madmp_schemas/_index.html.erb:8
-#: ../../app/views/branded/paginable/registries/_index.html.erb:8
-#: ../../app/views/branded/paginable/templates/_history.html.erb:7
-#: ../../app/views/branded/super_admin/madmp_schemas/_form.html.erb:18
-#: ../../app/views/branded/super_admin/registries/_form.html.erb:18
-#: ../../app/views/branded/super_admin/registries/show.html.erb:19
-msgid "Version"
-msgstr "Version"
 
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:6
 msgid "Administrator Email"
@@ -2681,45 +2646,18 @@ msgstr "Dernière mise à jour"
 msgid "Not Applicable"
 msgstr "Non applicable"
 
-#: ../../app/views/branded/paginable/registries/_index.html.erb:7
-#: ../../app/views/branded/super_admin/registries/_form.html.erb:14
-#: ../../app/views/branded/super_admin/registries/show.html.erb:17
-msgid "URI"
-msgstr "URI"
-
-#: ../../app/views/branded/paginable/registries/_index.html.erb:34
-msgid "Are you sure you want to delete the registry \"%{title}\"?"
-msgstr "Voulez-vous vraiment supprimer le référentiel \"%{title}\""
-
-#: ../../app/views/branded/paginable/registry_values/_index.html.erb:5
-msgid "Value"
-msgstr "Valeur"
-
-#: ../../app/views/branded/paginable/registry_values/_index.html.erb:17
-#: ../../app/views/branded/super_admin/registries/_values_list.html.erb:10
-#: ../../app/views/branded/super_admin/registry_values/edit.html.erb:4
-msgid "Edit registry value"
-msgstr "Modifier la valeur du référentiel"
-
-#: ../../app/views/branded/paginable/registry_values/_index.html.erb:20
-#: ../../app/views/branded/super_admin/registries/_values_list.html.erb:13
-msgid "Move registry value"
-msgstr "Déplacer la valeur de référentiel"
-
-#: ../../app/views/branded/paginable/registry_values/_index.html.erb:23
-#: ../../app/views/branded/super_admin/registries/_values_list.html.erb:16
-#: ../../app/views/branded/super_admin/registry_values/_form.html.erb:16
-msgid "Are you sure you want to delete this registry value?"
-msgstr "Voulez-vous vraiment supprimer cette valeur de référentiel ?"
-
-#: ../../app/views/branded/paginable/registry_values/_index.html.erb:26
-#: ../../app/views/branded/super_admin/registries/_values_list.html.erb:19
-msgid "Delete registry value"
-msgstr "Supprimer la valeur de référentiel"
-
 #: ../../app/views/branded/paginable/static_pages/_index.html.erb:8
 msgid "URL"
 msgstr "URL"
+
+#: ../../app/views/branded/paginable/templates/_history.html.erb:7
+#: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:8
+#: ../../engines/madmp_opidor/app/views/paginable/registries/_index.html.erb:8
+#: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:18
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/_form.html.erb:18
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/show.html.erb:19
+msgid "Version"
+msgstr "Version"
 
 #: ../../app/views/branded/paginable/templates/_history.html.erb:48
 msgid "Edit customizations"
@@ -2974,8 +2912,8 @@ msgid "Please enter the acronym, title or identifier of the project"
 msgstr "Veuillez saisir l’acronyme, le titre ou l’identifiant du projet"
 
 #: ../../app/views/branded/plans/_edit_details.html.erb:45
-#: ../../app/views/branded/shared/dynamic_form/fields/registry/_multiple_complex.html.erb:12
-#: ../../app/views/branded/shared/dynamic_form/fields/registry/_single_complex.html.erb:13
+#: ../../engines/madmp_opidor/app/views/dynamic_form/fields/registry/_multiple_complex.html.erb:12
+#: ../../engines/madmp_opidor/app/views/dynamic_form/fields/registry/_single_complex.html.erb:13
 msgid "Find out more."
 msgstr "Pour en savoir plus."
 
@@ -2986,6 +2924,12 @@ msgstr "Est-ce un plan test ?"
 #: ../../app/views/branded/plans/_edit_details.html.erb:78
 msgid "mock project for testing, practice, or educational purposes"
 msgstr "projet de test, d'entrainement ou à des fins de formation"
+
+#: ../../app/views/branded/plans/_edit_details.html.erb:115
+#: ../../app/views/branded/plans/_edit_details.html.erb:186
+#: ../../engines/madmp_opidor/app/views/madmp_fragments/_edit.html.erb:58
+msgid "You have pending changes, please save"
+msgstr "Vous avez des changements en attente, veuillez sauvegarder"
 
 #: ../../app/views/branded/plans/_edit_details.html.erb:140
 #: ../../app/views/branded/plans/_show_details.html.erb:70
@@ -3013,7 +2957,7 @@ msgstr ""
 " spécifique à leur nature ou discipline."
 
 #: ../../app/views/branded/plans/_edit_research_outputs.html.erb:15
-#: ../../app/views/branded/shared/dynamic_form/fields/_fragment_list_field.html.erb:32
+#: ../../engines/madmp_opidor/app/views/dynamic_form/fields/_fragment_list_field.html.erb:32
 msgid "Create"
 msgstr "Créer"
 
@@ -3482,63 +3426,6 @@ msgstr "Mot de passe oublié ?"
 msgid "Remember email"
 msgstr "Se souvenir de l'adresse"
 
-#: ../../app/views/branded/shared/dynamic_form/_modal.html.erb:42
-msgid "Close"
-msgstr "Fermer"
-
-#: ../../app/views/branded/shared/dynamic_form/_modal.html.erb:44
-msgid "Submit"
-msgstr "Enregistrer"
-
-#: ../../app/views/branded/shared/dynamic_form/_schema_picker.html.erb:2
-msgid "You can pick a different question form"
-msgstr "Vous pouvez choisir un formulaire différent"
-
-#:
-#: ../../app/views/branded/shared/dynamic_form/fields/_fragment_select_field.html.erb:60
-msgid "Selected value:"
-msgstr "Valeur sélectionnée :"
-
-#:
-#: ../../app/views/branded/shared/dynamic_form/fields/_textarea_field.html.erb:29
-msgid "Example"
-msgstr "Exemple"
-
-#:
-#: ../../app/views/branded/shared/dynamic_form/fields/registry/_multiple.html.erb:5
-#: ../../app/views/branded/shared/dynamic_form/fields/registry/_simple.html.erb:5
-#: ../../app/views/branded/shared/dynamic_form/fields/registry/_single_complex.html.erb:6
-msgid "Select a value from the list or type a new one."
-msgstr "Sélectionnez une valeur de la liste ou saisissez une nouvelle."
-
-#:
-#: ../../app/views/branded/shared/dynamic_form/fields/registry/_multiple.html.erb:5
-#: ../../app/views/branded/shared/dynamic_form/fields/registry/_simple.html.erb:5
-#: ../../app/views/branded/shared/dynamic_form/fields/registry/_single_complex.html.erb:6
-msgid "Select a value from the list."
-msgstr "Sélectionnez une valeur de la liste."
-
-#:
-#: ../../app/views/branded/shared/dynamic_form/fields/registry/_multiple.html.erb:36
-msgid "Selected values"
-msgstr "Valeurs sélectionnées"
-
-#:
-#: ../../app/views/branded/shared/dynamic_form/fields/registry/_multiple_complex.html.erb:6
-msgid "Select a value you want to add to your plan or type a new one."
-msgstr "Sélectionnez une valeur pour l'ajouter à votre plan ou saisissez une nouvelle."
-
-#:
-#: ../../app/views/branded/shared/dynamic_form/fields/registry/_multiple_complex.html.erb:6
-msgid "Select a value you want to add to your plan."
-msgstr "Sélectionnez une valeur pour l'ajouter à votre plan."
-
-#:
-#: ../../app/views/branded/shared/dynamic_form/fields/registry/_simple.html.erb:47
-#: ../../app/views/branded/shared/dynamic_form/fields/registry/_single_complex.html.erb:63
-msgid "Custom value: "
-msgstr "Valeur personnalisée : "
-
 #: ../../app/views/branded/shared/export/_plan_coversheet.erb:13
 msgid ""
 "A Data Management Plan created using %{application_name}, based on the \"%{temp"
@@ -3573,68 +3460,6 @@ msgstr ""
 #: ../../app/views/branded/static_pages/news_feed.html.erb:3
 msgid "Latest news"
 msgstr "Dernières Nouvelles"
-
-#: ../../app/views/branded/super_admin/madmp_schemas/_form.html.erb:6
-msgid "Label"
-msgstr "Libellé"
-
-#: ../../app/views/branded/super_admin/madmp_schemas/_form.html.erb:22
-msgid "Schema"
-msgstr "Schéma"
-
-#: ../../app/views/branded/super_admin/madmp_schemas/_form.html.erb:30
-msgid "Are you sure you want to delete the schema \"%{title}\"?"
-msgstr "Voulez-vous vraiment supprimer le schéma \"%{title}\""
-
-#: ../../app/views/branded/super_admin/madmp_schemas/edit.html.erb:5
-#: ../../app/views/branded/super_admin/madmp_schemas/new.html.erb:5
-msgid "View all schemas"
-msgstr "Voir tous les schémas"
-
-#: ../../app/views/branded/super_admin/madmp_schemas/index.html.erb:8
-msgid "Create Schema"
-msgstr "Créer un schéma"
-
-#: ../../app/views/branded/super_admin/madmp_schemas/new.html.erb:4
-msgid "New schema"
-msgstr "Nouveau schéma"
-
-#: ../../app/views/branded/super_admin/registries/_form.html.erb:22
-#: ../../app/views/branded/super_admin/registries/show.html.erb:21
-msgid "Values"
-msgstr "Valeurs"
-
-#: ../../app/views/branded/super_admin/registries/edit.html.erb:5
-#: ../../app/views/branded/super_admin/registries/new.html.erb:5
-#: ../../app/views/branded/super_admin/registries/show.html.erb:5
-msgid "View all registries"
-msgstr "Voir tous les référentiels"
-
-#: ../../app/views/branded/super_admin/registries/index.html.erb:8
-msgid "Create Registry"
-msgstr "Créer un référentiel"
-
-#: ../../app/views/branded/super_admin/registries/new.html.erb:4
-#: ../../app/views/branded/super_admin/registry_values/new.html.erb:4
-msgid "New registry value"
-msgstr "Nouvelle valeur de référentiel"
-
-#: ../../app/views/branded/super_admin/registries/show.html.erb:36
-msgid "Export Registry"
-msgstr "Exporter référentiel"
-
-#: ../../app/views/branded/super_admin/registries/show.html.erb:38
-msgid "Create Value"
-msgstr "Créer valeur"
-
-#: ../../app/views/branded/super_admin/registry_values/_form.html.erb:7
-msgid "Data"
-msgstr "Data"
-
-#: ../../app/views/branded/super_admin/registry_values/edit.html.erb:5
-#: ../../app/views/branded/super_admin/registry_values/new.html.erb:5
-msgid "View registry"
-msgstr "Voir le référentiel"
 
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:19
 msgid "URL suffix"
@@ -3873,3 +3698,303 @@ msgstr ""
 #: ../../app/views/branded/users/admin_index.html.erb:23
 msgid "Download users"
 msgstr "Télécharger les utilisateurs"
+
+#:
+#: ../../engines/madmp_opidor/app/controllers/api/v0/madmp/madmp_fragments_controller.rb:89
+msgid "Fragment with id %<id>s doesn't exist."
+msgstr "Le fragment avec l'identifiant %<id>s n'existe pas."
+
+#:
+#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/madmp_fragments_controller.rb:102
+msgid "Fragment doesn't exist."
+msgstr "Le fragment n'existe pas."
+
+#:
+#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/madmp_schemas_controller.rb:19
+#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/madmp_schemas_controller.rb:27
+msgid "Schema not found"
+msgstr "Schéma introuvable"
+
+#:
+#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:30
+#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:54
+msgid "Plan not found"
+msgstr "Plan non trouvé"
+
+#:
+#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:73
+msgid ""
+"Unable to determine owner of the DMP, please specify an existing user as the c"
+"ontact"
+msgstr ""
+"Impossible de déterminer le propriétaire du DMP, veuillez spécifier un utilisa"
+"teur existant comme contact"
+
+#:
+#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:93
+#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:96
+msgid "Invalid JSON"
+msgstr "JSON non valide"
+
+#:
+#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/registries_controller.rb:23
+msgid "Registry not found"
+msgstr "Référentiel introuvable"
+
+#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:34
+msgid "Notification has been sent"
+msgstr "La notification a été envoyée"
+
+#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:40
+#: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:83
+#: ../../engines/madmp_opidor/app/views/dynamic_form/codebase/_show.html.erb:25
+msgid "New data have been added to your plan, please click on the \"Reload\" button."
+msgstr ""
+"De nouvelles données ont été ajoutées à votre plan, veuillez cliquer sur le bo"
+"uton \"Recharger\""
+
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:38
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:155
+#: ../../engines/madmp_opidor/app/controllers/madmp_fragments_controller.rb:316
+msgid "Element is already present in your plan."
+msgstr "L'élément est déjà présent dans votre plan."
+
+#: ../../engines/madmp_opidor/app/helpers/dynamic_form_helper.rb:386
+msgid "This property is required."
+msgstr "Cette propriété est obligatoire."
+
+#: ../../engines/madmp_opidor/app/helpers/dynamic_form_helper.rb:388
+msgid "This property has an invalid format."
+msgstr "Cette propriété a un format non valide."
+
+#: ../../engines/madmp_opidor/app/helpers/dynamic_form_helper.rb:390
+msgid "This property has an unknown problem : %<validation>s"
+msgstr "Cette propriété a un problème inconnu : %<validation>s"
+
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:90
+msgid "Invalid JSON data"
+msgstr "Données JSON invalides"
+
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:91
+msgid "Invalid format"
+msgstr "Format invalide"
+
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:95
+msgid "File should begin with :dmp property"
+msgstr "Le fichier doit commencer par la propriété :dmp"
+
+#: ../../engines/madmp_opidor/app/services/import/validators/rda.rb:9
+msgid ":title and the contact's :mbox are both required fields"
+msgstr ":title et le contact :mbox sont tous deux obligatoires"
+
+#: ../../engines/madmp_opidor/app/services/import/validators/rda.rb:10
+msgid ":type and :identifier are required for all ids"
+msgstr ":type et :identifier sont obligatoires pour tous les identifiants"
+
+#: ../../engines/madmp_opidor/app/services/import/validators/rda.rb:11
+msgid ":name is required for every :affiliation and :funding"
+msgstr ":name est obligatoire pour chaque :affiliation et :funding"
+
+#: ../../engines/madmp_opidor/app/services/import/validators/rda.rb:12
+msgid ":role and either the :name or :email are required for each :contributor"
+msgstr ":role et le :name ou :email sont requis pour chaque :contributor"
+
+#: ../../engines/madmp_opidor/app/services/import/validators/rda.rb:13
+msgid ":name, :funder_id or :grant_id are required for each funding"
+msgstr ":name, :funder_id ou :grant_id sont requis pour chaque financement"
+
+#: ../../engines/madmp_opidor/app/services/import/validators/rda.rb:14
+msgid ":title is required for each :dataset"
+msgstr ":title est requis pour chaque :dataset"
+
+#: ../../engines/madmp_opidor/app/services/import/validators/standard.rb:9
+msgid ":meta, :project and :researchOutput are required properties"
+msgstr ":meta, :project et :researchOutput sont des propriétés obligatoires"
+
+#: ../../engines/madmp_opidor/app/services/import/validators/standard.rb:10
+msgid "at least one researchOutput must be present"
+msgstr "au moins un researchOutput doit être présent"
+
+#: ../../engines/madmp_opidor/app/services/import/validators/standard.rb:11
+msgid ":contact is required with a valid :mbox"
+msgstr ":contact est obligatoire avec une :mbox valide"
+
+#: ../../engines/madmp_opidor/app/views/dynamic_form/_modal.html.erb:42
+msgid "Close"
+msgstr "Fermer"
+
+#: ../../engines/madmp_opidor/app/views/dynamic_form/_modal.html.erb:44
+msgid "Submit"
+msgstr "Enregistrer"
+
+#: ../../engines/madmp_opidor/app/views/dynamic_form/_schema_picker.html.erb:2
+msgid "You can pick a different question form"
+msgstr "Vous pouvez choisir un formulaire différent"
+
+#:
+#: ../../engines/madmp_opidor/app/views/dynamic_form/fields/_fragment_select_field.html.erb:60
+msgid "Selected value:"
+msgstr "Valeur sélectionnée :"
+
+#:
+#: ../../engines/madmp_opidor/app/views/dynamic_form/fields/_textarea_field.html.erb:29
+msgid "Example"
+msgstr "Exemple"
+
+#:
+#: ../../engines/madmp_opidor/app/views/dynamic_form/fields/registry/_multiple.html.erb:5
+#: ../../engines/madmp_opidor/app/views/dynamic_form/fields/registry/_simple.html.erb:5
+#: ../../engines/madmp_opidor/app/views/dynamic_form/fields/registry/_single_complex.html.erb:6
+msgid "Select a value from the list or type a new one."
+msgstr "Sélectionnez une valeur de la liste ou saisissez une nouvelle."
+
+#:
+#: ../../engines/madmp_opidor/app/views/dynamic_form/fields/registry/_multiple.html.erb:5
+#: ../../engines/madmp_opidor/app/views/dynamic_form/fields/registry/_simple.html.erb:5
+#: ../../engines/madmp_opidor/app/views/dynamic_form/fields/registry/_single_complex.html.erb:6
+msgid "Select a value from the list."
+msgstr "Sélectionnez une valeur de la liste."
+
+#:
+#: ../../engines/madmp_opidor/app/views/dynamic_form/fields/registry/_multiple.html.erb:36
+msgid "Selected values"
+msgstr "Valeurs sélectionnées"
+
+#:
+#: ../../engines/madmp_opidor/app/views/dynamic_form/fields/registry/_multiple_complex.html.erb:6
+msgid "Select a value you want to add to your plan or type a new one."
+msgstr "Sélectionnez une valeur pour l'ajouter à votre plan ou saisissez une nouvelle."
+
+#:
+#: ../../engines/madmp_opidor/app/views/dynamic_form/fields/registry/_multiple_complex.html.erb:6
+msgid "Select a value you want to add to your plan."
+msgstr "Sélectionnez une valeur pour l'ajouter à votre plan."
+
+#:
+#: ../../engines/madmp_opidor/app/views/dynamic_form/fields/registry/_simple.html.erb:47
+#: ../../engines/madmp_opidor/app/views/dynamic_form/fields/registry/_single_complex.html.erb:63
+msgid "Custom value: "
+msgstr "Valeur personnalisée : "
+
+#:
+#: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:5
+msgid "ID"
+msgstr "Identifiant"
+
+#:
+#: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:7
+#: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:14
+msgid "Classname"
+msgstr "Nom de classe"
+
+#: ../../engines/madmp_opidor/app/views/paginable/registries/_index.html.erb:7
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/_form.html.erb:14
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/show.html.erb:17
+msgid "URI"
+msgstr "URI"
+
+#: ../../engines/madmp_opidor/app/views/paginable/registries/_index.html.erb:34
+msgid "Are you sure you want to delete the registry \"%{title}\"?"
+msgstr "Voulez-vous vraiment supprimer le référentiel \"%{title}\""
+
+#:
+#: ../../engines/madmp_opidor/app/views/paginable/registry_values/_index.html.erb:5
+msgid "Value"
+msgstr "Valeur"
+
+#:
+#: ../../engines/madmp_opidor/app/views/paginable/registry_values/_index.html.erb:17
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/_values_list.html.erb:10
+#: ../../engines/madmp_opidor/app/views/super_admin/registry_values/edit.html.erb:4
+msgid "Edit registry value"
+msgstr "Modifier la valeur du référentiel"
+
+#:
+#: ../../engines/madmp_opidor/app/views/paginable/registry_values/_index.html.erb:20
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/_values_list.html.erb:13
+msgid "Move registry value"
+msgstr "Déplacer la valeur de référentiel"
+
+#:
+#: ../../engines/madmp_opidor/app/views/paginable/registry_values/_index.html.erb:23
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/_values_list.html.erb:16
+#: ../../engines/madmp_opidor/app/views/super_admin/registry_values/_form.html.erb:16
+msgid "Are you sure you want to delete this registry value?"
+msgstr "Voulez-vous vraiment supprimer cette valeur de référentiel ?"
+
+#:
+#: ../../engines/madmp_opidor/app/views/paginable/registry_values/_index.html.erb:26
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/_values_list.html.erb:19
+msgid "Delete registry value"
+msgstr "Supprimer la valeur de référentiel"
+
+#:
+#: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:6
+msgid "Label"
+msgstr "Libellé"
+
+#:
+#: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:22
+msgid "Schema"
+msgstr "Schéma"
+
+#:
+#: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:30
+msgid "Are you sure you want to delete the schema \"%{title}\"?"
+msgstr "Voulez-vous vraiment supprimer le schéma \"%{title}\""
+
+#:
+#: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/edit.html.erb:5
+#: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/new.html.erb:5
+msgid "View all schemas"
+msgstr "Voir tous les schémas"
+
+#:
+#: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/index.html.erb:8
+msgid "Create Schema"
+msgstr "Créer un schéma"
+
+#:
+#: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/new.html.erb:4
+msgid "New schema"
+msgstr "Nouveau schéma"
+
+#:
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/_form.html.erb:22
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/show.html.erb:21
+msgid "Values"
+msgstr "Valeurs"
+
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/edit.html.erb:5
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/new.html.erb:5
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/show.html.erb:5
+msgid "View all registries"
+msgstr "Voir tous les référentiels"
+
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/index.html.erb:8
+msgid "Create Registry"
+msgstr "Créer un référentiel"
+
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/new.html.erb:4
+#: ../../engines/madmp_opidor/app/views/super_admin/registry_values/new.html.erb:4
+msgid "New registry value"
+msgstr "Nouvelle valeur de référentiel"
+
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/show.html.erb:36
+msgid "Export Registry"
+msgstr "Exporter référentiel"
+
+#: ../../engines/madmp_opidor/app/views/super_admin/registries/show.html.erb:38
+msgid "Create Value"
+msgstr "Créer valeur"
+
+#:
+#: ../../engines/madmp_opidor/app/views/super_admin/registry_values/_form.html.erb:7
+msgid "Data"
+msgstr "Data"
+
+#:
+#: ../../engines/madmp_opidor/app/views/super_admin/registry_values/edit.html.erb:5
+#: ../../engines/madmp_opidor/app/views/super_admin/registry_values/new.html.erb:5
+msgid "View registry"
+msgstr "Voir le référentiel"
