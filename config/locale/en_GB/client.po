@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-05-10 15:54+0200\n"
-"PO-Revision-Date: 2022-05-10 15:54+0200\n"
+"POT-Creation-Date: 2022-05-12 16:18+0200\n"
+"PO-Revision-Date: 2022-05-12 16:18+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -283,7 +283,7 @@ msgid "An error occurred when requesting feedback for this plan."
 msgstr ""
 
 #: ../../app/controllers/feedback_requests_controller.rb:21
-#: ../../app/views/branded/plans/_request_feedback_form.html.erb:17
+#: ../../app/views/branded/plans/_request_feedback_form.html.erb:21
 msgid "Feedback has been requested."
 msgstr ""
 
@@ -981,19 +981,19 @@ msgstr ""
 msgid "can't be blank if no name is provided."
 msgstr ""
 
-#: ../../app/models/dmpopidor/plan.rb:73
+#: ../../app/models/dmpopidor/plan.rb:76
 msgid "Personal"
 msgstr ""
 
-#: ../../app/models/dmpopidor/plan.rb:87
+#: ../../app/models/dmpopidor/plan.rb:90
 msgid "DMP manager"
 msgstr ""
 
-#: ../../app/models/dmpopidor/plan.rb:98
+#: ../../app/models/dmpopidor/plan.rb:101
 msgid "Project coordinator"
 msgstr ""
 
-#: ../../app/models/dmpopidor/plan.rb:125
+#: ../../app/models/dmpopidor/plan.rb:128
 #: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:445
 msgid "\"%<project_title>s\" project DMP"
 msgstr ""
@@ -1185,7 +1185,7 @@ msgstr ""
 #: ../../app/views/branded/research_outputs/_list.html.erb:77
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:59
 #: ../../app/views/branded/users/_notification_preferences.html.erb:47
-#: ../../engines/madmp_opidor/app/views/madmp_fragments/_edit.html.erb:57
+#: ../../engines/madmp_opidor/app/views/madmp_fragments/_edit.html.erb:58
 #: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:26
 #: ../../engines/madmp_opidor/app/views/super_admin/registries/_form.html.erb:27
 #: ../../engines/madmp_opidor/app/views/super_admin/registry_values/_form.html.erb:12
@@ -1239,7 +1239,7 @@ msgid "Question not answered."
 msgstr ""
 
 #: ../../app/views/branded/contact_us/contacts/_new_left.html.erb:4
-#: ../../app/views/branded/contributors/index.html.erb:21
+#: ../../app/views/branded/contributors/index.html.erb:24
 #: ../../app/views/branded/org_admin/departments/edit.html.erb:14
 #: ../../app/views/branded/org_admin/departments/new.html.erb:14
 #: ../../app/views/branded/paginable/static_pages/_index.html.erb:5
@@ -1326,19 +1326,26 @@ msgstr ""
 #: ../../app/views/branded/contributors/index.html.erb:14
 msgid ""
 "List of person responsible for research data management during a project and t"
-"heir roles. Assigning a role to a person is done in the \"Write Plan\" tab."
+"heir roles."
 msgstr ""
 
-#: ../../app/views/branded/contributors/index.html.erb:22
+#: ../../app/views/branded/contributors/index.html.erb:17
+msgid ""
+"Assigning a role to a person is done in the \"General information\" tab, in the "
+"\"Write Plan\" tab for the structured templates or in the \"Research Outputs\" tab"
+" for other templates."
+msgstr ""
+
+#: ../../app/views/branded/contributors/index.html.erb:25
 #: ../../app/views/branded/shared/export/_plan_coversheet.erb:65
 msgid "Affiliation"
 msgstr ""
 
-#: ../../app/views/branded/contributors/index.html.erb:23
+#: ../../app/views/branded/contributors/index.html.erb:26
 msgid "Attributed roles (Associated research outputs)"
 msgstr ""
 
-#: ../../app/views/branded/contributors/index.html.erb:25
+#: ../../app/views/branded/contributors/index.html.erb:28
 #: ../../app/views/branded/org_admin/plans/index.html.erb:20
 #: ../../app/views/branded/paginable/departments/_index.html.erb:7
 #: ../../app/views/branded/paginable/departments/_index.html.erb:24
@@ -1359,11 +1366,11 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: ../../app/views/branded/contributors/index.html.erb:43
+#: ../../app/views/branded/contributors/index.html.erb:46
 msgid "Add a person"
 msgstr ""
 
-#: ../../app/views/branded/contributors/index.html.erb:56
+#: ../../app/views/branded/contributors/index.html.erb:59
 #: ../../engines/madmp_opidor/app/views/dynamic_form/fields/_fragment_list_field.html.erb:45
 #: ../../engines/madmp_opidor/app/views/dynamic_form/fields/_fragment_select_field.html.erb:46
 #: ../../engines/madmp_opidor/app/views/dynamic_form/fields/registry/_multiple_complex.html.erb:58
@@ -2663,7 +2670,7 @@ msgid "supplementary section(s) not requested by funding organisation"
 msgstr ""
 
 #: ../../app/views/branded/plans/_download_form.html.erb:98
-#: ../../app/views/branded/plans/import.html.erb:7
+#: ../../app/views/branded/plans/import.html.erb:10
 msgid "Format"
 msgstr ""
 
@@ -2676,7 +2683,7 @@ msgid "Default export"
 msgstr ""
 
 #: ../../app/views/branded/plans/_download_form.html.erb:125
-#: ../../app/views/branded/plans/import.html.erb:20
+#: ../../app/views/branded/plans/import.html.erb:23
 msgid "RDA Commons Standards"
 msgstr ""
 
@@ -2750,7 +2757,7 @@ msgstr ""
 
 #: ../../app/views/branded/plans/_edit_details.html.erb:115
 #: ../../app/views/branded/plans/_edit_details.html.erb:186
-#: ../../engines/madmp_opidor/app/views/madmp_fragments/_edit.html.erb:58
+#: ../../engines/madmp_opidor/app/views/madmp_fragments/_edit.html.erb:57
 msgid "You have pending changes, please save"
 msgstr ""
 
@@ -2894,7 +2901,7 @@ msgid "Budget"
 msgstr ""
 
 #: ../../app/views/branded/plans/_navigation.html.erb:33
-#: ../../app/views/branded/plans/_request_feedback_form.html.erb:13
+#: ../../app/views/branded/plans/_request_feedback_form.html.erb:17
 msgid "Request feedback"
 msgstr ""
 
@@ -2902,7 +2909,13 @@ msgstr ""
 msgid "Request expert feedback"
 msgstr ""
 
-#: ../../app/views/branded/plans/_request_feedback_form.html.erb:11
+#: ../../app/views/branded/plans/_request_feedback_form.html.erb:8
+msgid ""
+"Click below to give data management staff at %{org_name}, the Plan Owner's org"
+", access to read and comment on your plan."
+msgstr ""
+
+#: ../../app/views/branded/plans/_request_feedback_form.html.erb:15
 msgid "You can continue to edit and download the plan in the interim."
 msgstr ""
 
@@ -3009,25 +3022,29 @@ msgstr ""
 msgid "General Budget"
 msgstr ""
 
-#: ../../app/views/branded/plans/import.html.erb:16
+#: ../../app/views/branded/plans/import.html.erb:6
+msgid "This feature is only available for structured templates."
+msgstr ""
+
+#: ../../app/views/branded/plans/import.html.erb:19
 msgid "Standard"
 msgstr ""
 
-#: ../../app/views/branded/plans/import.html.erb:24
+#: ../../app/views/branded/plans/import.html.erb:27
 msgid ""
 "After using the import, you will have to set the role for each contributor cre"
 "ated."
 msgstr ""
 
-#: ../../app/views/branded/plans/import.html.erb:28
+#: ../../app/views/branded/plans/import.html.erb:31
 msgid "Structured template"
 msgstr ""
 
-#: ../../app/views/branded/plans/import.html.erb:38
+#: ../../app/views/branded/plans/import.html.erb:41
 msgid "File"
 msgstr ""
 
-#: ../../app/views/branded/plans/import.html.erb:46
+#: ../../app/views/branded/plans/import.html.erb:49
 msgid "Import"
 msgstr ""
 
