@@ -4,7 +4,7 @@
 
 ### Added
 
-- Update Term of User page and Privacy Policy information
+- Updated the Term of Usage page and Privacy Policy information
 
 ## [3.0.4+portage-3.0.11] - 2022-04-14
 
