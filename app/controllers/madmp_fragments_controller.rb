@@ -129,7 +129,6 @@ class MadmpFragmentsController < ApplicationController
   # rubocop:enable Metrics/MethodLength
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity
   def update
     p_params = permitted_params
     @schemas = MadmpSchema.all
@@ -216,7 +215,6 @@ class MadmpFragmentsController < ApplicationController
       render json: render_fragment_form(@fragment, stale_fragment: @stale_fragment)
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   def change_schema

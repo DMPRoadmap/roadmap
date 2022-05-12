@@ -53,7 +53,10 @@ module Dmpopidor
 
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def create_plan_fragments
-      template_locale = template.locale.eql?('en_GB') ? 'eng' : 'fra'
+      p "##########"
+      p template.locale
+      p "##########"
+      template_locale = template.locale.eql?('en-GB') ? 'eng' : 'fra'
       # rubocop:disable Metrics/BlockLength
       I18n.with_locale template.locale do
         dmp_fragment = Fragment::Dmp.create!(
