@@ -140,7 +140,7 @@ module DMPRoadmap
     # Enable shibboleth as an alternative authentication method
     # Requires server configuration and omniauth shibboleth provider configuration
     # See config/initializers/devise.rb
-    config.x.shibboleth.enabled = false
+    config.x.shibboleth.enabled = true
 
     # Relative path to Shibboleth SSO Logouts
     config.x.shibboleth.login_url = '/Shibboleth.sso/Login'
