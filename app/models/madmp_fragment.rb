@@ -33,7 +33,7 @@ class MadmpFragment < ApplicationRecord
   # = Associations =
   # ================
 
-  belongs_to :answer, optional: true, touch: true
+  belongs_to :answer, optional: true
   belongs_to :madmp_schema, class_name: 'MadmpSchema'
   belongs_to :dmp, class_name: 'Fragment::Dmp', foreign_key: 'dmp_id', optional: true
   has_many :children, class_name: 'MadmpFragment', foreign_key: 'parent_id', dependent: :destroy
