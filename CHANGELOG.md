@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.0.4+portage-3.0.12] - 2022-05-12
+
+### Added
+
+- Update Term of User page and Privacy Policy information
+
 ## [3.0.4+portage-3.0.11] - 2022-04-14
 
 ### Fixed
