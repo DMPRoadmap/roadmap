@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-05-05 11:08+0200\n"
-"PO-Revision-Date: 2022-05-05 11:08+0200\n"
+"POT-Creation-Date: 2022-05-12 09:37+0200\n"
+"PO-Revision-Date: 2022-05-12 09:37+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -282,7 +282,7 @@ msgid "An error occurred when requesting feedback for this plan."
 msgstr "Une erreur s'est produite lors de la demande de commentaires sur ce plan."
 
 #: ../../app/controllers/feedback_requests_controller.rb:21
-#: ../../app/views/branded/plans/_request_feedback_form.html.erb:17
+#: ../../app/views/branded/plans/_request_feedback_form.html.erb:21
 msgid "Feedback has been requested."
 msgstr "Une assistance conseil a été demandée."
 
@@ -353,8 +353,8 @@ msgstr ""
 "uton \"Recharger\""
 
 #: ../../app/controllers/madmp_fragments_controller.rb:38
-#: ../../app/controllers/madmp_fragments_controller.rb:156
-#: ../../app/controllers/madmp_fragments_controller.rb:318
+#: ../../app/controllers/madmp_fragments_controller.rb:155
+#: ../../app/controllers/madmp_fragments_controller.rb:316
 msgid "Element is already present in your plan."
 msgstr "L'élément est déjà présent dans votre plan."
 
@@ -1041,19 +1041,19 @@ msgstr "ne peut pas être vide si aucun courriel n'est fourni."
 msgid "can't be blank if no name is provided."
 msgstr "ne peut pas être vide si aucun nom n'est fourni."
 
-#: ../../app/models/dmpopidor/plan.rb:73
+#: ../../app/models/dmpopidor/plan.rb:76
 msgid "Personal"
 msgstr "Personne"
 
-#: ../../app/models/dmpopidor/plan.rb:87
+#: ../../app/models/dmpopidor/plan.rb:90
 msgid "DMP manager"
 msgstr "Responsable du plan"
 
-#: ../../app/models/dmpopidor/plan.rb:98
+#: ../../app/models/dmpopidor/plan.rb:101
 msgid "Project coordinator"
 msgstr "Coordinateur de projet"
 
-#: ../../app/models/dmpopidor/plan.rb:125
+#: ../../app/models/dmpopidor/plan.rb:128
 #: ../../app/models/madmp_fragment.rb:445
 msgid "\"%<project_title>s\" project DMP"
 msgstr "DMP du projet \"%<project_title>s\""
@@ -1234,7 +1234,7 @@ msgstr "Merci de patienter, les standards sont en cours de chargement"
 #: ../../app/views/branded/answers/_new_edit.html.erb:73
 #: ../../app/views/branded/devise/registrations/_personal_details.html.erb:95
 #: ../../app/views/branded/guidances/new_edit.html.erb:49
-#: ../../app/views/branded/madmp_fragments/_edit.html.erb:57
+#: ../../app/views/branded/madmp_fragments/_edit.html.erb:58
 #: ../../app/views/branded/notes/_edit.html.erb:10
 #: ../../app/views/branded/notes/_new.html.erb:14
 #: ../../app/views/branded/org_admin/departments/edit.html.erb:23
@@ -1303,7 +1303,7 @@ msgid "Question not answered."
 msgstr "Question sans réponse."
 
 #: ../../app/views/branded/contact_us/contacts/_new_left.html.erb:4
-#: ../../app/views/branded/contributors/index.html.erb:21
+#: ../../app/views/branded/contributors/index.html.erb:24
 #: ../../app/views/branded/org_admin/departments/edit.html.erb:14
 #: ../../app/views/branded/org_admin/departments/new.html.erb:14
 #: ../../app/views/branded/paginable/madmp_schemas/_index.html.erb:6
@@ -1398,22 +1398,31 @@ msgstr ""
 #: ../../app/views/branded/contributors/index.html.erb:14
 msgid ""
 "List of person responsible for research data management during a project and t"
-"heir roles. Assigning a role to a person is done in the \"Write Plan\" tab."
+"heir roles."
 msgstr ""
 "Liste des personnes contribuant à la gestion des produits de recherche au cour"
-"s d'un projet et leurs rôles. L'attribution d'un rôle à une personne s'effectu"
-"e dans l'onglet \"Rédiger\"."
+"s d'un projet et leurs rôles."
 
-#: ../../app/views/branded/contributors/index.html.erb:22
+#: ../../app/views/branded/contributors/index.html.erb:17
+msgid ""
+"Assigning a role to a person is done in the \"General information\" tab, in the "
+"\"Write Plan\" tab for the structured templates or in the \"Research Outputs\" tab"
+" for other templates."
+msgstr ""
+"L'attribution d'un rôle à une personne se fait dans l'onglet \"Informations gén"
+"érales\", dans l'onglet \"Rédiger\" pour les modèles structurés ou dans l'onglet "
+"\"Produits de recherche\" pour les autres modèles."
+
+#: ../../app/views/branded/contributors/index.html.erb:25
 #: ../../app/views/branded/shared/export/_plan_coversheet.erb:65
 msgid "Affiliation"
 msgstr "Affiliation"
 
-#: ../../app/views/branded/contributors/index.html.erb:23
+#: ../../app/views/branded/contributors/index.html.erb:26
 msgid "Attributed roles (Associated research outputs)"
 msgstr "Rôles attribués (Produits de recherche associés)"
 
-#: ../../app/views/branded/contributors/index.html.erb:25
+#: ../../app/views/branded/contributors/index.html.erb:28
 #: ../../app/views/branded/org_admin/plans/index.html.erb:20
 #: ../../app/views/branded/paginable/departments/_index.html.erb:7
 #: ../../app/views/branded/paginable/departments/_index.html.erb:24
@@ -1434,11 +1443,11 @@ msgstr "Rôles attribués (Produits de recherche associés)"
 msgid "Actions"
 msgstr "Actions"
 
-#: ../../app/views/branded/contributors/index.html.erb:43
+#: ../../app/views/branded/contributors/index.html.erb:46
 msgid "Add a person"
 msgstr "Ajouter une personne"
 
-#: ../../app/views/branded/contributors/index.html.erb:56
+#: ../../app/views/branded/contributors/index.html.erb:59
 #: ../../app/views/branded/shared/dynamic_form/fields/_fragment_list_field.html.erb:45
 #: ../../app/views/branded/shared/dynamic_form/fields/_fragment_select_field.html.erb:46
 #: ../../app/views/branded/shared/dynamic_form/fields/registry/_multiple_complex.html.erb:58
@@ -1960,7 +1969,7 @@ msgstr "Aucun résultat n'est disponible pour votre entrée."
 msgid "Searching ..."
 msgstr "Recherche..."
 
-#: ../../app/views/branded/madmp_fragments/_edit.html.erb:58
+#: ../../app/views/branded/madmp_fragments/_edit.html.erb:57
 #: ../../app/views/branded/plans/_edit_details.html.erb:115
 #: ../../app/views/branded/plans/_edit_details.html.erb:186
 msgid "You have pending changes, please save"
@@ -2902,7 +2911,7 @@ msgid "supplementary section(s) not requested by funding organisation"
 msgstr "section(s) supplémentaire(s) non requise(s) par l'organisme financeur"
 
 #: ../../app/views/branded/plans/_download_form.html.erb:98
-#: ../../app/views/branded/plans/import.html.erb:7
+#: ../../app/views/branded/plans/import.html.erb:10
 msgid "Format"
 msgstr "Format"
 
@@ -2915,7 +2924,7 @@ msgid "Default export"
 msgstr "Export par défaut"
 
 #: ../../app/views/branded/plans/_download_form.html.erb:125
-#: ../../app/views/branded/plans/import.html.erb:20
+#: ../../app/views/branded/plans/import.html.erb:23
 msgid "RDA Commons Standards"
 msgstr "RDA Commons Standards"
 
@@ -3144,7 +3153,7 @@ msgid "Budget"
 msgstr "Budget"
 
 #: ../../app/views/branded/plans/_navigation.html.erb:33
-#: ../../app/views/branded/plans/_request_feedback_form.html.erb:13
+#: ../../app/views/branded/plans/_request_feedback_form.html.erb:17
 msgid "Request feedback"
 msgstr "Demande d'assistance conseil"
 
@@ -3152,7 +3161,15 @@ msgstr "Demande d'assistance conseil"
 msgid "Request expert feedback"
 msgstr "Demande d'assistance conseil"
 
-#: ../../app/views/branded/plans/_request_feedback_form.html.erb:11
+#: ../../app/views/branded/plans/_request_feedback_form.html.erb:8
+msgid ""
+"Click below to give data management staff at %{org_name}, the Plan Owner's org"
+", access to read and comment on your plan."
+msgstr ""
+"Cliquez ci-dessous pour permettre aux personnes chargées de l’accompagnement à"
+" la gestion des données pour %{org_name} de lire et de commenter votre plan."
+
+#: ../../app/views/branded/plans/_request_feedback_form.html.erb:15
 msgid "You can continue to edit and download the plan in the interim."
 msgstr "Vous pouvez continuer à modifier et à télécharger le plan en attendant."
 
@@ -3275,11 +3292,15 @@ msgstr "Etape du cycle de vie"
 msgid "General Budget"
 msgstr "Budget général"
 
-#: ../../app/views/branded/plans/import.html.erb:16
+#: ../../app/views/branded/plans/import.html.erb:6
+msgid "This feature is only available for structured templates."
+msgstr "Cette fonctionnalité n'est disponible que pour les modèles structurés."
+
+#: ../../app/views/branded/plans/import.html.erb:19
 msgid "Standard"
 msgstr "Standard"
 
-#: ../../app/views/branded/plans/import.html.erb:24
+#: ../../app/views/branded/plans/import.html.erb:27
 msgid ""
 "After using the import, you will have to set the role for each contributor cre"
 "ated."
@@ -3287,15 +3308,15 @@ msgstr ""
 "Après avoir utilisé l'import, vous devrez définir le rôle de chaque contribute"
 "ur créé."
 
-#: ../../app/views/branded/plans/import.html.erb:28
+#: ../../app/views/branded/plans/import.html.erb:31
 msgid "Structured template"
 msgstr "Modèle structuré"
 
-#: ../../app/views/branded/plans/import.html.erb:38
+#: ../../app/views/branded/plans/import.html.erb:41
 msgid "File"
 msgstr "Fichier"
 
-#: ../../app/views/branded/plans/import.html.erb:46
+#: ../../app/views/branded/plans/import.html.erb:49
 msgid "Import"
 msgstr "Importer"
 
