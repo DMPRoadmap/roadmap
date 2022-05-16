@@ -131,15 +131,14 @@ module ExportablePlan
     hash
   end
   # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def prepare_coversheet_for_csv(csv, _headings, hash)
-    csv << [if hash[:attribution].many?
-              _('Creators: ')
-            else
-              _('Creator:')
-            end, format(_('%{authors}'), authors: hash[:attribution].join(', '))]
+    csv << if Array(hash[:attribution]).many?
+             [_('Creators: '), format(_('%{authors}'), authors: Array(hash[:attribution]).join(', '))]
+           else
+             [_('Creator:'), format(_('%{authors}'), authors: hash[:attribution])]
+           end
     csv << ['Affiliation: ', format(_('%{affiliation}'), affiliation: hash[:affiliation])]
     csv << if hash[:funder].present?
              [_('Template: '), format(_('%{funder}'), funder: hash[:funder])]
@@ -161,10 +160,9 @@ module ExportablePlan
     csv << []
     csv << []
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize, Metrics/BlockLength, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:disable Metrics/ParameterLists
   def show_section_for_csv(csv, phase, section, headings, unanswered, hash)
     section[:questions].each do |question|
