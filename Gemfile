@@ -225,6 +225,8 @@ gem 'json_schemer'
 # and manipulate or access it.
 gem 'jsonpath'
 
+gem 'activerecord_json_validator'
+
 # ================================= #
 # ENVIRONMENT SPECIFIC DEPENDENCIES #
 # ================================= #
@@ -287,7 +289,7 @@ group :test do
 
   # Browser integration tests are expensive. We can mock external requests
   # in our tests, but once a browser is involved, we lose control.
-  gem 'capybara-webmock'
+  gem 'capybara-webmock', '~> 0.6'
 
   # RSpec::CollectionMatchers lets you express expected outcomes on
   # collections of an object in an example.

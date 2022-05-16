@@ -382,13 +382,13 @@ module DynamicFormHelper
     message = ''
     validations.each do |validation|
       message += case validation
-                when 'required'
-                  _('This property is required.')
-                when 'pattern'
-                  _('This property has an invalid format.')
-                else
-                  format(_('This property has an unknown problem : %<validation>s'), validation: validation)
-                end
+                 when 'required'
+                   _('This property is required.')
+                 when 'pattern'
+                   _('This property has an invalid format.')
+                 else
+                   format(_('This property has an unknown problem : %{validation}'), validation: validation)
+                 end
     end
     message
   end

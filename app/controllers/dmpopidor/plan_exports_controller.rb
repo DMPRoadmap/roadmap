@@ -17,6 +17,7 @@ module Dmpopidor
         @show_sections_questions = export_params[:question_headings].present?
         @show_unanswered         = export_params[:unanswered_questions].present?
         @show_custom_sections    = export_params[:custom_sections].present?
+        @show_research_outputs   = true
         @public_plan             = false
 
       elsif publicly_authorized?
@@ -25,6 +26,7 @@ module Dmpopidor
         @show_sections_questions = true
         @show_unanswered         = true
         @show_custom_sections    = true
+        @show_research_outputs   = true
         @public_plan             = true
 
       else

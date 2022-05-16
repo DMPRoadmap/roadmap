@@ -25,6 +25,7 @@
 #  region_id              :integer
 #  managed                :boolean          default(false), not null
 #  active                 :boolean          default("true")
+#  helpdesk_email         :string
 #
 # Foreign Keys
 #

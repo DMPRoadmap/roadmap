@@ -442,7 +442,7 @@ class MadmpFragment < ApplicationRecord
     else
       meta_fragment = dmp.meta
       project_fragment = dmp.project
-      dmp_title = format(_('"%<project_title>s" project DMP'), project_title: project_fragment.data['title'])
+      dmp_title = format(_('"%{project_title}" project DMP'), project_title: project_fragment.data['title'])
       meta_data = meta_fragment.data.merge(
         'title' => dmp_title, 'lastModifiedDate' => plan.updated_at.strftime('%F')
       )

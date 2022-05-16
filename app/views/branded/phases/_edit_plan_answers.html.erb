@@ -109,12 +109,16 @@
                           aria-labelledby="heading-<%= consolidated_id %>">
                       <div class="panel-body question-body"><!-- accordion body -->
                         <div class="answer-section">
-                          <% unless question.question_format.structured? && answer.nil? %>
-                            <div class="toggle-guidance-section disabled">
-                              <span class="fas fa-chevron-left"></span> <span><%= _('Comments & Guidance') %></span>
+                          <!-- Answer Section -->
+                          <% 
+                            guidance_comments_opened_by_default = Rails.configuration.x.application.guidance_comments_opened_by_default
+                          %>
+                          <% if Rails.configuration.x.application.guidance_comments_toggleable %>
+                            <div class="toggle-guidance-section">
+                              <span class="fas fa-chevron-<%= guidance_comments_opened_by_default ? 'right': 'left' %>"></span> 
+                              <span><%= _('Comments & Guidance') %></span>
                             </div>
                           <% end %>
-                          <!-- Answer Section -->
                           <div class="question-form">
                             <div id="<%= "answer-locking-#{consolidated_id}" %>" 
                                 class="answer-locking"></div>
@@ -159,7 +163,8 @@
                             </div>
                           </div>
                         </div>
-                        <div class="guidance-section">
+                        <% style = guidance_comments_opened_by_default ? '' : 'display: none' %>
+                        <div class="guidance-section" style="<%= style %>">
                           <!-- Guidances and notes partial view -->
                           <% if question.question_format.structured? %>
                             <% madmp_schema = fragment ? fragment.madmp_schema : question.madmp_schema %>

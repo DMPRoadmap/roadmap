@@ -140,6 +140,8 @@ Rails.application.routes.draw do
 
     resources :contributors, except: %i[show]
 
+    resources :research_outputs, except: %i[show]
+
     member do
       get 'answer'
       get 'share'
@@ -161,6 +163,17 @@ Rails.application.routes.draw do
 
   resources :research_outputs, only: [] do
     post "sort", on: :collection
+
+    # Ajax endpoint for ResearchOutput.output_type selection
+    get "output_type_selection", controller: "research_outputs", action: "select_output_type"
+
+    # Ajax endpoint for ResearchOutput.license_id selection
+    get "license_selection", controller: "research_outputs", action: "select_license"
+
+    # AJAX endpoints for repository search and selection
+    get :repository_search, controller: "research_outputs"
+    # AJAX endpoints for metadata standards search and selection
+    get :metadata_standard_search, controller: "research_outputs"
   end
 
   resources :usage, only: [:index]
@@ -188,9 +201,9 @@ Rails.application.routes.draw do
       resources :departments, only: %i[create index] do
         collection do
           get :users
-          patch :unassign_users
         end
         member do
+          patch :unassign_users
           patch :assign_users
         end
       end
@@ -282,6 +295,10 @@ Rails.application.routes.draw do
       # Paginable actions for contributors
       resources :contributors, only: %i[index] do
         get 'index/:page', action: :index, on: :collection, as: :index
+      end
+      # Paginable actions for research_outputs
+      resources :research_outputs, only: %i[index] do
+        get "index/:page", action: :index, on: :collection, as: :index
       end
     end
 

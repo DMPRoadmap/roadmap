@@ -16,14 +16,14 @@ module Dmpopidor
         unless p.question_exists?(p_params[:question_id])
           # rubocop:disable Layout/LineLength
           render(status: :not_found, json: {
-                   msg: format(_('There is no question with id %<question_id>s associated to plan id %<plan_id>s for which to create or update an answer'), question_id: p_params[:question_id], plan_id: p_params[:plan_id])
+                   msg: format(_('There is no question with id %{question_id} associated to plan id %{plan_id} for which to create or update an answer'), question_id: p_params[:question_id], plan_id: p_params[:plan_id])
                  })
           # rubocop:enable Layout/LineLength
           return
         end
       rescue ActiveRecord::RecordNotFound
         render(status: :not_found, json: {
-                 msg: format(_('There is no plan with id %<id>s for which to create or update an answer'),
+                 msg: format(_('There is no plan with id %{id} for which to create or update an answer'),
                              id: p_params[:plan_id])
                })
         return

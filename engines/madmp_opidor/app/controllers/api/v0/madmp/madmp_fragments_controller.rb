@@ -86,7 +86,7 @@ module Api
 
         def record_not_found
           render json: {
-            'error' => format(_("Fragment with id %<id>s doesn't exist."), id: params[:id])
+            'error' => format(_("Fragment with id %{id} doesn't exist."), id: params[:id])
           }, status: 404
         end
       end

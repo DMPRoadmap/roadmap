@@ -168,6 +168,19 @@ ActiveRecord::Schema.define(version: 2022_04_21_093836) do
     t.boolean "default_language"
   end
 
+  create_table "licenses", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "identifier", null: false
+    t.string "uri", null: false
+    t.boolean "osi_approved", default: false
+    t.boolean "deprecated", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["identifier", "osi_approved", "deprecated"], name: "index_license_on_identifier_and_criteria"
+    t.index ["identifier"], name: "index_licenses_on_identifier"
+    t.index ["uri"], name: "index_licenses_on_uri"
+  end
+
   create_table "madmp_fragments", id: :serial, force: :cascade do |t|
     t.json "data", default: {}
     t.integer "answer_id"
@@ -192,6 +205,24 @@ ActiveRecord::Schema.define(version: 2022_04_21_093836) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["org_id"], name: "index_madmp_schemas_on_org_id"
+  end
+
+  create_table "metadata_standards", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "rdamsc_id"
+    t.string "uri"
+    t.json "locations"
+    t.json "related_entities"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "metadata_standards_research_outputs", force: :cascade do |t|
+    t.bigint "metadata_standard_id"
+    t.bigint "research_output_id"
+    t.index ["metadata_standard_id"], name: "metadata_research_outputs_on_metadata"
+    t.index ["research_output_id"], name: "metadata_research_outputs_on_ro"
   end
 
   create_table "notes", id: :serial, force: :cascade do |t|
@@ -257,6 +288,7 @@ ActiveRecord::Schema.define(version: 2022_04_21_093836) do
     t.text "feedback_msg"
     t.boolean "active", default: true
     t.boolean "managed", default: false, null: false
+    t.string "helpdesk_email"
     t.index ["language_id"], name: "orgs_language_id_idx"
     t.index ["region_id"], name: "orgs_region_id_idx"
   end
@@ -395,6 +427,27 @@ ActiveRecord::Schema.define(version: 2022_04_21_093836) do
     t.index ["registry_id"], name: "index_registry_values_on_registry_id"
   end
 
+  create_table "repositories", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description", null: false
+    t.string "homepage"
+    t.string "contact"
+    t.string "uri", null: false
+    t.json "info"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["homepage"], name: "index_repositories_on_homepage"
+    t.index ["name"], name: "index_repositories_on_name"
+    t.index ["uri"], name: "index_repositories_on_uri"
+  end
+
+  create_table "repositories_research_outputs", force: :cascade do |t|
+    t.bigint "research_output_id"
+    t.bigint "repository_id"
+    t.index ["repository_id"], name: "index_repositories_research_outputs_on_repository_id"
+    t.index ["research_output_id"], name: "index_repositories_research_outputs_on_research_output_id"
+  end
+
   create_table "research_domains", force: :cascade do |t|
     t.string "identifier", null: false
     t.string "label", null: false
@@ -421,6 +474,8 @@ ActiveRecord::Schema.define(version: 2022_04_21_093836) do
     t.boolean "personal_data"
     t.boolean "sensitive_data"
     t.bigint "byte_size"
+    t.bigint "license_id"
+    t.index ["license_id"], name: "index_research_outputs_on_license_id"
     t.index ["plan_id"], name: "index_research_outputs_on_plan_id"
   end
 
@@ -631,6 +686,7 @@ ActiveRecord::Schema.define(version: 2022_04_21_093836) do
   add_foreign_key "registries", "orgs"
   add_foreign_key "registry_values", "registries"
   add_foreign_key "research_domains", "research_domains", column: "parent_id"
+  add_foreign_key "research_outputs", "licenses"
   add_foreign_key "research_outputs", "plans"
   add_foreign_key "roles", "plans"
   add_foreign_key "roles", "users"

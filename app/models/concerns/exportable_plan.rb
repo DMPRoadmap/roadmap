@@ -155,26 +155,25 @@ module ExportablePlan
     hash
   end
   # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def prepare_coversheet_for_csv(csv, _headings, hash)
-    csv << [if hash[:attribution].many?
-              _('Creators: ')
-            else
-              _('Creator:')
-            end, format(_('%<authors>s'), authors: hash[:attribution].join(', '))]
-    csv << ['Affiliation: ', format(_('%<affiliation>s'), affiliation: hash[:affiliation])]
-    csv << if hash[:funder].present?
-             [_('Template: '), format(_('%<funder>s'), funder: hash[:funder])]
+    csv << if Array(hash[:attribution]).many?
+             [_('Creators: '), format(_('%{authors}'), authors: Array(hash[:attribution]).join(', '))]
            else
-             [_('Template: '), format(_('%<template>s'), template: hash[:template] + hash[:customizer])]
+             [_('Creator:'), format(_('%{authors}'), authors: hash[:attribution])]
            end
-    csv << [_('Grant number: '), format(_('%<grant_number>s'), grant_number: grant&.value)] if grant&.value.present?
+    csv << ['Affiliation: ', format(_('%{affiliation}'), affiliation: hash[:affiliation])]
+    csv << if hash[:funder].present?
+             [_('Template: '), format(_('%{funder}'), funder: hash[:funder])]
+           else
+             [_('Template: '), format(_('%{template}'), template: hash[:template] + hash[:customizer])]
+           end
+    csv << [_('Grant number: '), format(_('%{grant_number}'), grant_number: grant&.value)] if grant&.value.present?
     if description.present?
-      csv << [_('Project abstract: '), format(_('%<description>s'), description: Nokogiri::HTML(description).text)]
+      csv << [_('Project abstract: '), format(_('%{description}'), description: Nokogiri::HTML(description).text)]
     end
-    csv << [_('Last modified: '), format(_('%<date>s'), date: updated_at.to_date.strftime('%d-%m-%Y'))]
+    csv << [_('Last modified: '), format(_('%{date}'), date: updated_at.to_date.strftime('%d-%m-%Y'))]
     csv << [_('Copyright information:'),
             _("The above plan creator(s) have agreed that others may use as
              much of the text of this plan as they would like in their own plans,
@@ -185,10 +184,9 @@ module ExportablePlan
     csv << []
     csv << []
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize, Metrics/BlockLength, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:disable Metrics/ParameterLists
   def show_section_for_csv(csv, phase, section, headings, unanswered, hash)
     section[:questions].each do |question|

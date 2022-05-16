@@ -18,7 +18,7 @@ module Dmpopidor
         if plan.complete_feedback(current_user)
           # rubocop:disable Metrics/LineLength
           redirect_to(org_admin_plans_path,
-                      notice: format(_('%<plan_owner>s has been notified that you have finished providing feedback'), plan_owner: requestor.name(false)))
+                      notice: format(_('%{plan_owner} has been notified that you have finished providing feedback'), plan_owner: requestor.name(false)))
           # rubocop:enable Metrics/LineLength
         else
           redirect_to org_admin_plans_path,

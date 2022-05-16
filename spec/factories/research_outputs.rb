@@ -4,31 +4,33 @@
 #
 # Table name: research_outputs
 #
-#  id                      :bigint           not null, primary key
-#  abbreviation            :string
-#  access                  :integer          default(0), not null
-#  byte_size               :bigint
-#  description             :text
+#  id                      :bigint(8)        not null, primary key
+#  abbreviation            :string(255)
+#  access                  :integer          default("open"), not null
+#  byte_size               :bigint(8)
+#  description             :text(65535)
 #  display_order           :integer
-#  is_default              :boolean          default("false")
-#  output_type             :integer          default(3), not null
-#  output_type_description :string
+#  is_default              :boolean
+#  output_type             :integer          default("dataset"), not null
+#  output_type_description :string(255)
 #  personal_data           :boolean
 #  release_date            :datetime
 #  sensitive_data          :boolean
-#  title                   :string           not null
+#  title                   :string(255)      not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
-#  mime_type_id            :integer
+#  license_id              :bigint(8)
 #  plan_id                 :integer
 #
 # Indexes
 #
+#  index_research_outputs_on_license_id   (license_id)
 #  index_research_outputs_on_output_type  (output_type)
 #  index_research_outputs_on_plan_id      (plan_id)
 #
 FactoryBot.define do
   factory :research_output do
+    license
     abbreviation            { Faker::Lorem.unique.word }
     access                  { ResearchOutput.accesses.keys.sample }
     byte_size               { Faker::Number.number }
@@ -42,13 +44,15 @@ FactoryBot.define do
     sensitive_data          { [nil, true, false].sample }
     title                   { Faker::Music::PearlJam.song }
 
-    trait :complete do
-      after(:create) do |research_output|
-        # add a license identifier
-        # add a repository identifier
-        # add a metadata_standard identifier
-        # add a resource_type identifier
-      end
+    transient do
+      repositories_count { 1 }
+      metadata_standards_count { 1 }
+    end
+
+    after(:create) do |research_output, evaluator|
+      research_output.repositories = create_list(:repository, evaluator.repositories_count)
+      research_output.metadata_standards = create_list(:metadata_standard,
+                                                       evaluator.metadata_standards_count)
     end
   end
 end

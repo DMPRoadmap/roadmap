@@ -1,0 +1,14 @@
+<%# locals: result %>
+
+<% if result.present? %>
+  <%= hidden_field_tag "research_output[metadata_standards_attributes[#{result.id}][id]]", result.id %>
+
+  <p><%= sanitize(result.description) %></p>
+
+  <% website = result&.locations&.select { |loc| loc["type"] == "website" }&.first %>
+  <% if website.present? %>
+    <div>
+      <%= link_to website["url"], website["url"], target: "_blank", class: "has-new-window-popup-info" %>
+    </div>
+  <% end %>
+<% end %>

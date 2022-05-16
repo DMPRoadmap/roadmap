@@ -68,7 +68,7 @@ module SuperAdmin
         @static_page.destroy
         flash[:notice] = _('Successfully destroyed your Static Page')
       rescue ActiveRecord::RecordNotDestroyed
-        flash[:alert] = format(_('The Static Page with id %<id>s could not be destroyed'), id: params[:id])
+        flash[:alert] = format(_('The Static Page with id %{id} could not be destroyed'), id: params[:id])
       end
 
       redirect_to action: :index

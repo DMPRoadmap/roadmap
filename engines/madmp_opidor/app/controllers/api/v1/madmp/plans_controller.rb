@@ -80,7 +80,7 @@ module Api
             plan.visibility = Rails.configuration.x.plans.default_visibility
             plan.template = template
 
-            plan.title = format(_('%<user_name>s Plan'), user_name: "#{owner.firstname}'s")
+            plan.title = format(_('%{user_name} Plan'), user_name: "#{owner.firstname}'s")
 
             if plan.save
               plan.add_user!(owner.id, :creator)

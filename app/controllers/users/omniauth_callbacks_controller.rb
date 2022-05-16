@@ -56,11 +56,11 @@ module Users
                                attrs: request.env['omniauth.auth'],
                                identifiable: current_user)
             flash[:notice] =
-              format(_('Your account has been successfully linked to %<scheme>s.'),
+              format(_('Your account has been successfully linked to %{scheme}.'),
                      scheme: scheme.description)
 
           else
-            flash[:alert] = format(_('Unable to link your account to %<scheme>s.'),
+            flash[:alert] = format(_('Unable to link your account to %{scheme}.'),
                                    scheme: scheme.description)
           end
 

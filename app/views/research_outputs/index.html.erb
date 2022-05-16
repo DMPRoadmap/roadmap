@@ -1,0 +1,37 @@
+<% title "#{@plan.title} - research outputs" %>
+
+<div class="row">
+  <div class="col-md-12">
+    <!-- render the project title -->
+    <h1><%= @plan.title %></h1>
+  </div>
+</div>
+
+<% content_for :plan_tab_body do %>
+  <div class="row">
+    <div class="col-md-12">
+      <p>
+        <%= _("Please list your anticipated research output(s).") %>
+      </p>
+      <br/>
+
+      <% if @research_outputs.any? %>
+        <%= paginable_renderise partial: "/paginable/research_outputs/index",
+                                controller: "paginable/research_outputs",
+                                action: "index",
+                                scope: @research_outputs,
+                                locals: { plan: @plan },
+                                query_params: {
+                                  sort_field: 'research_outputs.title',
+                                  sort_direction: :asc } %>
+      <% end %>
+
+      <% if @plan.administerable_by?(current_user.id) %>
+        <%= link_to _("Add a research output"), new_plan_research_output_path(@plan),
+                                            class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<%= render partial: "plans/navigation", locals: { plan: @plan } %>

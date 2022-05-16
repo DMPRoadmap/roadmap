@@ -10,7 +10,7 @@ roles_tooltip = _("Select each role that applies to the contributor.")
     <%= form.label(:name, _("Name"), class: "control-label") %>
   </div>
   <div class="col-md-6">
-    <%= form.text_field :name, class: "form-control", spellcheck: true, aria: { required: true } %>
+    <%= form.text_field :name, class: "form-control", spellcheck: true %>
   </div>
 </div>
 
@@ -19,7 +19,7 @@ roles_tooltip = _("Select each role that applies to the contributor.")
     <%= form.label(:email, _("Email"), class: "control-label") %>
   </div>
   <div class="col-md-4">
-    <%= form.email_field :email, class: "form-control", aria: { required: true } %>
+    <%= form.email_field :email, class: "form-control" %>
   </div>
 </div>
 

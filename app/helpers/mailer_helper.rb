@@ -8,8 +8,8 @@ module MailerHelper
     @tool_name ||= ApplicationService.application_name
   end
 
-  def helpdesk_email
-    @helpdesk_email ||= Rails.configuration.x.organisation.helpdesk_email
+  def helpdesk_email(org: nil)
+    org&.helpdesk_email || Rails.configuration.x.organisation.helpdesk_email
   end
 
   # Returns an unordered HTML list with the permissions associated to the user passed

@@ -125,7 +125,7 @@ module Dmpopidor
 
         meta = Fragment::Meta.create!(
           data: {
-            'title' => format(_('"%<project_title>s" project DMP'), project_title: title),
+            'title' => format(_('"%{project_title}" project DMP'), project_title: title),
             'creationDate' => created_at.strftime('%F'),
             'lastModifiedDate' => updated_at.strftime('%F'),
             'dmpLanguage' => template_locale,
