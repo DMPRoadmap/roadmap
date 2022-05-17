@@ -189,17 +189,17 @@ module Import
             distributions_list.append(
               {
                 'releaseDate' => '',
-                'accessUrl' => elem.dig('distribution', 'access_url'),
-                'availableUntil' => elem.dig('distribution', 'available_until'),
-                'fileVolume' => elem.dig('distribution', 'byte_size'),
-                'dataAccess' => elem.dig('distribution', 'data_access'),
-                'description' => elem.dig('distribution', 'description'),
-                'downloadUrl' => elem.dig('distribution', 'download_url'),
-                'fileFormat' => elem.dig('distribution', 'format'),
-                'fileName' => elem.dig('distribution', 'title'),
+                'accessUrl' => elem['access_url'],
+                'availableUntil' => elem['available_until'],
+                'fileVolume' => elem['byte_size'],
+                'dataAccess' => elem['data_access'],
+                'description' => elem['description'],
+                'downloadUrl' => elem['download_url'],
+                'fileFormat' => elem['format'],
+                'fileName' => elem['title'],
                 'licence' => {
-                  'licenceUrl' => elem.dig('distribution', 'licence', 'licence_ref'),
-                  'licenceStartDate' => elem.dig('distribution', 'licence', 'start_date')
+                  'licenceUrl' => elem.dig('licence', 'licence_ref'),
+                  'licenceStartDate' => elem.dig('licence', 'start_date')
                 }
               }
             )
