@@ -18,9 +18,16 @@ class PublicPagePolicy < ApplicationPolicy
     true
   end
 
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # CHANGES: User are authorize to export template without being logged in
+  # --------------------------------
   def template_export?
-    @user.present? && @record.published?
+    @record.published?
   end
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   def plan_export?
     @record.publicly_visible?
