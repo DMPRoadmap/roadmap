@@ -443,7 +443,7 @@ class MadmpFragment < ApplicationRecord
       plan.update(title: dmp_title)
     else
       meta_fragment = dmp.meta
-      plan.update(title: data['title'])
+      plan.update(title: meta_fragment.data['title'])
       meta_data = meta_fragment.data.merge(
         'lastModifiedDate' => plan.updated_at.strftime('%F')
       )
