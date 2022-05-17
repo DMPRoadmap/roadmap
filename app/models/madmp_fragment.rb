@@ -433,20 +433,20 @@ class MadmpFragment < ApplicationRecord
   end
 
   def update_meta_fragment
-    if classname.eql?('meta')
-      meta_fragment = self
-      plan.update(title: data['title'])
-      meta_data = data.merge(
-        'lastModifiedDate' => plan.updated_at.strftime('%F')
-      )
-    else
+    if classname.eql?('project')
       meta_fragment = dmp.meta
-      project_fragment = dmp.project
+      project_fragment = self
       dmp_title = format(_('"%<project_title>s" project DMP'), project_title: project_fragment.data['title'])
       meta_data = meta_fragment.data.merge(
         'title' => dmp_title, 'lastModifiedDate' => plan.updated_at.strftime('%F')
       )
       plan.update(title: dmp_title)
+    else
+      meta_fragment = dmp.meta
+      plan.update(title: data['title'])
+      meta_data = meta_fragment.data.merge(
+        'lastModifiedDate' => plan.updated_at.strftime('%F')
+      )
     end
     meta_fragment.update(data: meta_data)
   end
