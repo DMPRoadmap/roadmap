@@ -10,17 +10,19 @@ class PlansController < ApplicationController
   helper SettingsTemplateHelper
 
   after_action :verify_authorized, except: [:overview]
+  before_action :setup_local_orgs, only: [:new, :show]
 
   # GET /plans
   # rubocop:disable Metrics/AbcSize
   def index
     authorize Plan
     @plans = Plan.includes(:roles, :org).active(current_user).page(1)
-    @organisationally_or_publicly_visible = if current_user.org.is_other?
-                                              []
-                                            else
-                                              Plan.organisationally_or_publicly_visible(current_user).page(1)
-                                            end
+    if current_user.org.is_other?
+      @organisationally_or_publicly_visible = []
+    else
+      @organisationally_or_publicly_visible =
+        Plan.organisationally_or_publicly_visible(current_user).page(1)
+    end
     # TODO: Is this still used? We cannot switch this to use the :plan_params
     #       strong params because any calls that do not include `plan` in the
     #       query string will fail
@@ -81,9 +83,9 @@ class PlansController < ApplicationController
 
       @plan.title = if plan_params[:title].blank?
                       if current_user.firstname.blank?
-                        format(_('My Plan (%{title})'), title: @plan.template.title)
+                        _("My Plan") + "(" + @plan.template.title + ")"
                       else
-                        format(_('%{user_name} Plan'), user_name: "#{current_user.firstname}'s")
+                        current_user.firstname + "'s" + _(" Plan")
                       end
                     else
                       plan_params[:title]
@@ -193,7 +195,9 @@ class PlansController < ApplicationController
       @important_ggs << [current_user.org, @all_ggs_grouped_by_org[current_user.org]]
     end
     @all_ggs_grouped_by_org.each do |org, ggs|
-      @important_ggs << [org, ggs] if Org.default_orgs.include?(org)
+      unless (ggs & @selected_guidance_groups).empty?
+        @important_ggs << [org, ggs] unless @important_ggs.include?([org, ggs])
+      end
 
       # If this is one of the already selected guidance groups its important!
       @important_ggs << [org, ggs] if !(ggs & @selected_guidance_groups).empty? && !@important_ggs.include?([org, ggs])
@@ -268,7 +272,7 @@ class PlansController < ApplicationController
       #       appropriate namespace, so org_id represents our funder
       funder_attrs = plan_params[:funder]
       funder_attrs[:org_id] = plan_params[:funder][:id]
-      funder = org_from_params(params_in: funder_attrs)
+      funder = org_from_params(params_in: funder_attrs, allow_create: true)
       @plan.funder_id = funder&.id
       @plan.grant = plan_params[:grant]
       attrs.delete(:funder)
@@ -358,15 +362,15 @@ class PlansController < ApplicationController
   def answer
     @plan = Plan.find(params[:id])
     authorize @plan
-    if params[:q_id].nil?
-      respond_to do |format|
-        format.json { render json: {} }
+    if !params[:q_id].nil?
+    respond_to do |format|
+      format.json do
+        render json: @plan.answer(params[:q_id], false).to_json(include: :options)
+      end
       end
     else
       respond_to do |format|
-        format.json do
-          render json: @plan.answer(params[:q_id], false).to_json(include: :options)
-        end
+        format.json { render json: {} }
       end
     end
   end
@@ -377,8 +381,11 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     authorize @plan
     @phase_options = @plan.phases.order(:number).pluck(:title, :id)
+    if @phase_options.length > 1
+      @phase_options.insert(0,["All phases", "All"])
+    end
     @export_settings = @plan.settings(:export)
-    render 'download'
+    render "download"
   end
 
   # POST /plans/:id/duplicate
@@ -421,14 +428,17 @@ class PlansController < ApplicationController
       else
         # rubocop:disable Layout/LineLength
         render status: :forbidden, json: {
-          msg: format(_("Unable to change the plan's status since it is needed at least %{percentage} percentage responded"), percentage: Rails.configuration.x.plans.default_percentage_answered)
+          msg: _("Unable to change the plan's status since it is needed at least %{percentage} percentage responded") % {
+            percentage: Rails.configuration.x.plans.default_percentage_answered
+          }
         }
         # rubocop:enable Layout/LineLength
       end
     else
       render status: :not_found,
-             json: { msg: format(_('Unable to find plan id %{plan_id}'),
-                                 plan_id: params[:id]) }
+      json: { msg: _("Unable to find plan id %{plan_id}") % {
+        plan_id: params[:id]
+      } }
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
@@ -490,11 +500,11 @@ class PlansController < ApplicationController
     groups = {}
     templates.each do |t|
       k = t.family_id
-      if groups.key?(k)
+      if !groups.key?(k)
+        groups[k] = t
+      else
         other = groups[k]
         groups[k] = t if other.version < t.version
-      else
-        groups[k] = t
       end
     end
     groups.values
@@ -535,6 +545,34 @@ class PlansController < ApplicationController
              answers: answers,
              guidance_presenter: GuidancePresenter.new(plan)
            })
+  end
+  
+  # Update, destroy or add the grant
+  def process_grant(grant_params:)
+    return false unless grant_params.present?
+
+    grant = @plan.grant
+
+    # delete it if it has been blanked out
+    if grant_params[:value].blank? && grant.present?
+      grant.destroy
+      @plan.grant = nil
+    elsif grant_params[:value] != grant&.value
+      if grant.present?
+        grant.update(value: grant_params[:value])
+      elsif grant_params[:value].present?
+        @plan.grant = Identifier.new(identifier_scheme: nil, identifiable: @plan,
+                                     value: grant_params[:value])
+      end
+    end
+  end
+  # rubocop:enable
+
+  def setup_local_orgs
+    @orgs = (Org.includes(identifiers: :identifier_scheme).organisation +
+             Org.includes(identifiers: :identifier_scheme).institution +
+             Org.includes(identifiers: :identifier_scheme).default_orgs)
+    @orgs = @orgs.flatten.uniq.sort_by(&:name)
   end
 end
 # rubocop:enable Metrics/ClassLength

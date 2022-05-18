@@ -9,8 +9,7 @@ Dragonfly.app.configure do
   # set in credentials file
   secret Rails.application.secrets.dragonfly_secret
 
-  # Otherwise, revert to the default:
-  else
+  url_format "/media/:job/:name"
 
   # If the DRAGONFLY_AWS environment variable is set to 'true', configure the app to
   # use Amazon S3 for storage:

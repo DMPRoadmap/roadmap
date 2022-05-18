@@ -36,12 +36,18 @@ class PlanExportsController < ApplicationController
 
     @hash           = @plan.as_pdf(current_user, @show_coversheet)
     @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
-    @selected_phase = if params.key?(:phase_id)
-                        @plan.phases.find(params[:phase_id])
-                      else
-                        @plan.phases.order('phases.updated_at DESC')
+    if params.key?(:phase_id) && params[:phase_id].length > 0
+      # order phases by phase number asc
+      @hash[:phases] = @hash[:phases].sort_by{|phase| phase[:number]}
+      if (params[:phase_id] == "All")
+        @hash[:all_phases] = true
+      else
+        @selected_phase = @plan.phases.find(params[:phase_id])
+      end
+    else
+      @selected_phase = @plan.phases.order("phases.updated_at DESC")
                              .detect { |p| p.visibility_allowed?(@plan) }
-                      end
+    end
 
     respond_to do |format|
       format.html { show_html }
@@ -71,7 +77,7 @@ class PlanExportsController < ApplicationController
   end
 
   def show_text
-    send_data render_to_string(partial: 'shared/export/plan_txt'),
+    send_data render_to_string(partial: "shared/export/plan_txt"),
               filename: "#{file_name}.txt"
   end
 
@@ -86,14 +92,15 @@ class PlanExportsController < ApplicationController
     render pdf: file_name,
            margin: @formatting[:margin],
            footer: {
-             center: format(_('Created using %{application_name}. Last modified %{date}'),
-                            application_name: ApplicationService.application_name,
-                            date: l(@plan.updated_at.to_date, format: :readable)),
-             font_size: 8,
-             spacing: (Integer(@formatting[:margin][:bottom]) / 2) - 4,
-             right: '[page] of [topage]',
-             encoding: 'utf8'
-           }
+            center: _("Created using %{application_name}. Last modified %{date}") % {
+              application_name: ApplicationService.application_name,
+              date: l(@plan.updated_at.to_date, format: :readable)
+            },
+            font_size: 8,
+            spacing:   (Integer(@formatting[:margin][:bottom]) / 2) - 4,
+            right:     _("[page] of [topage]"),
+            encoding: "UTF-8"
+          }
   end
 
   def show_json
@@ -115,8 +122,8 @@ class PlanExportsController < ApplicationController
   end
 
   def publicly_authorized?
-    PublicPagePolicy.new(current_user, @plan).plan_organisationally_exportable? ||
-      PublicPagePolicy.new(current_user, @plan).plan_export?
+    PublicPagePolicy.new(@plan, current_user).plan_organisationally_exportable? ||
+      PublicPagePolicy.new(@plan).plan_export?
   end
 
   def privately_authorized?
@@ -130,7 +137,8 @@ class PlanExportsController < ApplicationController
   def export_params
     params.require(:export)
           .permit(:form, :project_details, :question_headings, :unanswered_questions,
-                  :custom_sections, :research_outputs,
-                  formatting: [:font_face, :font_size, { margin: %i[top right bottom left] }])
+            :custom_sections, :research_outputs,
+            formatting: [:font_face, :font_size, { margin: %i[top right bottom left] }])
   end
+  
 end

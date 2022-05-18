@@ -1,4 +1,4 @@
-<%= form_for resource, namespace: 'new', url: registration_path("user"), html: {autocomplete: "off", id: "create_account_form"} do |f| %>
+<%= form_for resource, namespace: 'new', url: registration_path("user"), html: {autocomplete: "on", id: "create_account_form"} do |f| %>
 
   <div class="form-group">
     <%= f.label(:firstname, _('First Name'), class: "control-label") %>
@@ -17,6 +17,8 @@
                locals: {
                  form: f,
                  orgs: orgs,
+                 # If not default org is required we can set default_org to nil
+                 # default_org: nil,
                  default_org: resource&.org,
                  required: true
                } %>
@@ -32,12 +34,13 @@
       </label>
     </div>
   </div>
+
   <div class="form-group">
     <div class="checkbox">
       <%= f.label(:accept_terms) do %>
         <%= f.check_box(:accept_terms, "aria-required": true) %>
         <%= _('I accept the') %>
-        <%= link_to _('terms and conditions'), terms_path %>
+        <%= link_to _('terms and conditions'), terms_of_use_path %>
       <% end %>
     </div>
   </div>

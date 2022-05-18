@@ -196,7 +196,7 @@ fi:
   flash:
     actions:
       create:
-        notice: Hei, suunnitelman luominen onnistui.
+        notice: "%{resource_name} luominen onnistui."
       update:
         notice: "%{resource_name} päivitys onnistui."
       destroy:

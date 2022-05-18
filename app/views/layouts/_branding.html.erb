@@ -23,34 +23,31 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="org-navbar-menu">
       <!-- Organisational links -->
-      <%
-      links = current_user.org.links.present? ? current_user.org.links.fetch('org', []) : []
-      i = 1
-      %>
-      <% if user_signed_in? && (links.any? || current_user.org.contact_email.present?) %>
+      <% if user_signed_in? and !current_user.org.links.nil? and !current_user.org.links['org'].blank? %>
         <ul class="nav navbar-nav">
-          <% links.each do |link| %>
-            <% if link.present? && i <= max_number_links %>
-              <% if i.odd? %>
-                </li><li class="org-links">
-              <% end %>
-              <%= link_to link['link'], :target=>'_blank', :class => 'org-a has-new-window-popup-info' do %>
-                <i class="fas fa-globe" aria-hidden="true">&nbsp;</i>
+          <% i=1; current_user.org.links['org'].each do |link| %>
+            <% if !link.blank? && i <= max_number_links %>
+              <li class="">
+
+              <%= link_to link['link'], :target=>'_blank', :class => ' has-new-window-popup-info' do %>
+                <i class="fa fa-globe" aria-hidden="true">&nbsp;</i>
                 <%= link['text'].blank? ? link['link'] : link['text'] %>
                 <em class="sr-only"> (new window)</em>
                 <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
-              <% end %>
-              <% i += 1 %>
+
+                </li>
+              <% end; i+=1 %>
             <% end %>
           <% end %>
-          <% if i.odd? %>
-            </li><li class="org-links">
-          <% end %>
+
           <% if !current_user.org.contact_email.blank? %>
-            <%= mail_to current_user.org.contact_email, :class => 'org-a' do %>
-              <i class="fas fa-envelope" aria-hidden="true">&nbsp;</i>
-              <%= current_user.org.contact_name ? current_user.org.contact_name : current_user.org.contact_email %>
+          <li>
+            <%= mail_to current_user.org.contact_email, :class => '' do %>
+            
+              <i class="fa fa-envelope" aria-hidden="true">&nbsp;</i>
+              <%= current_user.org.contact_name ? current_user.org.contact_name : current_user.org.contact_email %>             
             <% end %>
+           </li>
           <% end %>
         </ul>
       <% end %>
@@ -66,22 +63,8 @@
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" aria-labelledby="admin-menu">
-              <% if current_user.can_org_admin? %>
-                <li <%= 'class=active' if active_page?(org_admin_plans_path) %>>
-                  <%= link_to _('Plans'), org_admin_plans_path %>
-                </li>
-              <% end %>
-              <% if current_user.can_modify_templates? %>
-                <% template_path = current_user.can_super_admin? ? org_admin_templates_path : organisational_org_admin_templates_path %>
-                  <li <%= 'class=active' if active_page?(template_path) %>>
-                    <%= link_to _('Templates'), template_path %>
-                  </li>
-              <% end %>
-              <% if current_user.can_modify_guidance? %>
-                  <li <%= 'class=active' if active_page?(admin_index_guidance_path(current_user.org_id)) %>>
-                    <%= link_to _('Guidance'), admin_index_guidance_path(current_user.org_id) %>
-                  </li>
-              <% end %>
+              
+              <!-- ORGANISATION -->
               <% if current_user.can_super_admin? %>
                   <li <%= 'class=active' if active_page?(admin_edit_org_path(current_user.org_id)) %>>
                     <%= link_to _('Organisations'), super_admin_orgs_path %>
@@ -93,29 +76,61 @@
                     </li>
                 <% end %>
               <% end %>
+
+              <!-- TEMPLATES -->
+              <% if current_user.can_modify_templates? %>
+                <% template_path = current_user.can_super_admin? ? org_admin_templates_path : organisational_org_admin_templates_path %>
+                  <li <%= 'class=active' if active_page?(template_path) %>>
+                    <%= link_to _('Templates'), template_path %>
+                  </li>
+              <% end %>
+
+              <!-- GUIDANCE -->
+              <% if current_user.can_modify_guidance? %>
+                  <li <%= 'class=active' if active_page?(admin_index_guidance_path(current_user.org_id)) %>>
+                    <%= link_to _('Guidance'), admin_index_guidance_path(current_user.org_id) %>
+                  </li>
+              <% end %>
+              
+              <!-- PLANS -->
+              <% if current_user.can_org_admin? %>
+                <li <%= 'class=active' if active_page?(org_admin_plans_path) %>>
+                  <%= link_to _('Plans'), org_admin_plans_path %>
+                </li>
+              <% end %>
+
+              <!-- USERS -->
               <% if current_user.can_grant_permissions? %>
                   <li <%= 'class=active' if active_page?(admin_index_users_path) %>>
                     <%= link_to _('Users'), admin_index_users_path, class: 'main_nav_last_li' %>
                   </li>
               <% end %>
+
+              <!-- THEMES -->
               <% if current_user.can_super_admin? %>
                 <li <%= 'class=active' if active_page?(super_admin_themes_path) %>>
                   <%= link_to(_('Themes'), super_admin_themes_path) %>
                 </li>
               <% end %>
+              
+              <!-- USAGE STATISTICS-->
               <% if current_user.can_org_admin? || current_user.can_super_admin? %>
                 <li <%= 'class=active' if active_page?(usage_index_path) %>>
-                  <%= link_to(_('Usage'), usage_index_path) %>
+                  <%= link_to(_('Usage statistics'), usage_index_path) %>
                 </li>
               <% end %>
               <% if current_user.can_super_admin? %>
+                <!-- API -->
                 <li <%= 'class=active' if active_page?(super_admin_api_clients_path) %>>
                   <%= link_to(_('Api Clients'), super_admin_api_clients_path) %>
                 </li>
+
+                <!-- NOTIFICATIONS -->
                 <li <%= 'class=active' if active_page?(super_admin_notifications_path) %>>
                   <%= link_to _('Notifications'), super_admin_notifications_path %>
                 </li>
               <% end %>
+
             </ul>
           </li>
         <% end %> <!-- if org admin -->

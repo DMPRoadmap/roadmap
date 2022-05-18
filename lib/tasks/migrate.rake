@@ -1,30 +1,17 @@
-<<<<<<< HEAD
-# These Tasks are for the early migrations of the codebase
-
-namespace :migrate do
-
-  desc "migrate to 1.0"
-=======
 # frozen_string_literal: true
 
 # These Tasks are for the early migrations of the codebase
 namespace :migrate do
   # rubocop:disable Naming/VariableNumber
   desc 'migrate to 1.0'
->>>>>>> upstream/master
   task prep_for_1_0: :environment do
     # Convert existing orgs.target_url to the orgs.links JSON arrays
     Rake::Task['migrate:org_target_url_to_links'].execute
   end
-<<<<<<< HEAD
-
-  desc "migrate to 0.4"
-=======
   # rubocop:enable Naming/VariableNumber
 
   # rubocop:disable Naming/VariableNumber
   desc 'migrate to 0.4'
->>>>>>> upstream/master
   task to_04: :environment do
     # Default all plans.visibility to the value specified in application.rb
     Rake::Task['migrate:init_plan_visibility'].execute
@@ -271,11 +258,7 @@ namespace :migrate do
   desc 'Initialize plans.visibility to the default specified in application.rb'
   task init_plan_visibility: :environment do
     default = Rails.configuration.x.plans.default_visibility.to_sym
-<<<<<<< HEAD
-    Plan.all.each{ |p| p.update_attributes(visibility: default) unless p.visibility == default }
-=======
     Plan.all.each { |p| p.update_attributes(visibility: default) unless p.visibility == default }
->>>>>>> upstream/master
   end
 
   desc 'Move old plans.data_contact to data_contact_email and data_contact_phone'
@@ -319,15 +302,6 @@ namespace :migrate do
 
       unless scheme.nil?
         users.each do |u|
-<<<<<<< HEAD
-          if u.orcid_id.gsub('orcid.org/', '').match(/^[\d-]+/)
-            schemes = u.user_identifiers.collect{|i| i.identifier_scheme_id}
-
-            unless schemes.include?(scheme.id)
-              UserIdentifier.create(user: u, identifier_scheme: scheme,
-                                    identifier: u.orcid_id.gsub('orcid.org/', ''))
-            end
-=======
           next unless u.orcid_id.gsub('orcid.org/', '').match(/^[\d-]+/)
 
           schemes = u.user_identifiers.collect(&:identifier_scheme_id)
@@ -335,18 +309,13 @@ namespace :migrate do
           unless schemes.include?(scheme.id)
             UserIdentifier.create(user: u, identifier_scheme: scheme,
                                   identifier: u.orcid_id.gsub('orcid.org/', ''))
->>>>>>> upstream/master
           end
         end
       end
     end
   end
 
-<<<<<<< HEAD
-  desc "Move old Shibboleth Ids from users table to user_identifiers"
-=======
   desc 'Move old Shibboleth Ids from users table to user_identifiers'
->>>>>>> upstream/master
   task move_shibs: :environment do
     if Rails.configuration.x.shibboleth.enabled
       users = User.includes(:user_identifiers).where('users.shibboleth_id IS NOT NULL')
@@ -356,27 +325,12 @@ namespace :migrate do
         # If orcid isn't defined in the identifier_schemes table add it
         if IdentifierScheme.find_by(name: 'shibboleth').nil?
           IdentifierScheme.create!(name: 'shibboleth',
-<<<<<<< HEAD
-                                   description: "Your institution credentials",
-=======
                                    description: 'Your institution credentials',
->>>>>>> upstream/master
                                    active: true)
         end
 
         scheme = IdentifierScheme.find_by(name: 'shibboleth')
 
-<<<<<<< HEAD
-        unless scheme.nil?
-          users.each do |u|
-            schemes = u.user_identifiers.collect{|i| i.identifier_scheme_id}
-
-            unless schemes.include?(scheme.id)
-# TODO: Add logic to move shib identifiers over
-#              UserIdentifier.create(user: u, identifier_scheme: scheme,
-#                                    identifier: u.orcid_id.gsub('orcid.org/', ''))
-            end
-=======
         # rubocop:disable Metrics/BlockNesting
         unless scheme.nil?
           users.each do |u|
@@ -386,7 +340,6 @@ namespace :migrate do
             # TODO: Add logic to move shib identifiers over
             #              UserIdentifier.create(user: u, identifier_scheme: scheme,
             #                                    identifier: u.orcid_id.gsub('orcid.org/', ''))
->>>>>>> upstream/master
           end
         end
         # rubocop:enable Metrics/BlockNesting
@@ -415,19 +368,12 @@ namespace :migrate do
     Org.all.each do |org|
       next unless org.target_url.present?
 
-<<<<<<< HEAD
-        # Running with validations off because Dragonfly will fail if it cannot find the
-        # org logos which live on the deployed instance
-        org.save!(validate: false)
-      end
-=======
       org.links = [{ link: org.target_url, text: '' }]
       org.target_url = nil
 
       # Running with validations off because Dragonfly will fail if it cannot find the
       # org logos which live on the deployed instance
       org.save!(validate: false)
->>>>>>> upstream/master
     end
   end
 

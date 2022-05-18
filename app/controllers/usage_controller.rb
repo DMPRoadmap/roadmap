@@ -25,7 +25,9 @@ class UsageController < ApplicationController
     authorize :usage
 
     args = default_query_args
-    args[:start_date] = usage_params['template_plans_range'] if usage_params['template_plans_range'].present?
+    if usage_params["template_plans_range"].present?
+      args[:start_date] = usage_params["template_plans_range"]
+    end
     plan_data(args: args, as_json: true)
   end
 
@@ -52,6 +54,36 @@ class UsageController < ApplicationController
 
     send_data(data_csvified, filename: 'totals.csv')
   end
+
+  # POST /usage_filter
+  # rubocop:disable Metrics/MethodLength
+  def filter
+    # This action is triggered when a user specifies a date range.
+    # A super admin can pass along a nil organization to fetch compounded
+    # statistics
+    authorize :usage
+    args = args_from_params
+    @topic = usage_params[:topic]
+    case @topic
+    when "plans"
+      plan_data(args: args)
+      total_plans(args: min_max_dates(args: args))
+      @total = @total_org_plans
+      @ranged = @plans_per_month.sum(:count)
+    when 'users'
+      user_data(args: args)
+      total_users(args: min_max_dates(args: args))
+      @total = @total_org_users
+      @ranged = @users_per_month.sum(:count)
+    when 'organisations'
+      @total = Org.managed.count
+      @ranged = ranged_organizations(args: args).count
+    else
+      @total = 0
+      @ranged = 0
+    end
+  end
+  # rubocop:enable Metrics/MethodLength
 
   # GET /usage_yearly_users
   # rubocop:disable Metrics/AbcSize
@@ -120,7 +152,11 @@ class UsageController < ApplicationController
   # rubocop:disable Metrics/AbcSize
   def args_from_params
     org = current_user.org
-    org = Org.find_by(id: usage_params[:org_id]) if current_user.can_super_admin? && usage_params[:org_id].present?
+    if current_user.can_super_admin?
+      # We are OK with nil value for org as we are using it to fetch usage
+      # statistics from all organizations
+      org = Org.find_by(id: usage_params[:org_id])
+    end
 
     start_date = usage_params[:start_date] if usage_params[:start_date].present?
     end_date = usage_params[:end_date] if usage_params[:end_date].present?
@@ -169,7 +205,7 @@ class UsageController < ApplicationController
 
   def plan_data(args:, as_json: false, sort: :asc)
     @plans_per_month = StatCreatedPlan.monthly_range(args)
-                                      .where.not(details: '{"by_template":[]}')
+                                      .where.not(details: '{"\by_template\":[]}')
                                       .order(date: sort)
     @plans_per_month = @plans_per_month.map(&:to_json) if as_json
   end
@@ -182,8 +218,24 @@ class UsageController < ApplicationController
     @total_org_users = StatJoinedUser.monthly_range(args.except(:filtered)).sum(:count)
   end
 
+  def total_organizations(args:)
+    @total_organizations = Org.count
+  end
+  def ranged_organizations(args:)
+    # Using created_at for statistics is not great as it is a system level value
+    # instead of a defined usage value but this is what we have and will
+    # continue to use
+    start_date = DateTime.parse(args[:start_date])
+    end_date = DateTime.parse(args[:end_date])
+    Org.managed.where(:created_at => start_date.beginning_of_day..end_date.end_of_day)    
+  end
+
   def first_plan_date
     StatCreatedPlan.all.order(:date).limit(1).pluck(:date).first \
     || Date.today.last_month.end_of_month
+  end
+
+  def first_user_date
+    User.order(created_at: :asc).first.created_at.beginning_of_day
   end
 end

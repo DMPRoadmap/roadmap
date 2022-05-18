@@ -117,8 +117,19 @@ module DMPRoadmap
         }
       }
     }
-    # Setting to only take orgs from local and not allow on-the-fly creation
-    config.x.application.restrict_orgs = true
+     # Setting to only take orgs from local and not allow on-the-fly creation
+     config.x.application.restrict_orgs = false
+     # Setting to display phone number in contributor form
+     config.x.application.display_contributor_phone_number = false
+ 
+     # Setting require contributor requirement of contributor name and email
+     config.x.application.require_contributor_name = false
+     config.x.application.require_contributor_email = false
+ 
+     # Defines if Guidances/Comments in toggleable & if it's opened by default
+     config.x.application.guidance_comments_toggleable = true
+     config.x.application.guidance_comments_opened_by_default = true
+ 
 
     # ------------------- #
     # SHIBBOLETH SETTINGS #
@@ -208,12 +219,48 @@ module DMPRoadmap
     # ------------------------------------------------------------------------ #
     config.x.recaptcha.enabled = true
 
-    # --------------------------------------------------- #
+   # --------------------------------------------------- #
     # Machine Actionable / Networked DMP Features (maDMP) #
     # --------------------------------------------------- #
+    # Enable/disable functionality on the Project Details tab
     config.x.madmp.enable_ethical_issues = false
     config.x.madmp.enable_research_domain = false
 
+    # This flag will enable/disable the entire Research Outputs tab. The others below will
+    # just enable/disable specific functionality on the Research Outputs tab
+    config.x.madmp.enable_research_outputs = true
+    config.x.madmp.enable_license_selection = true
+    config.x.madmp.enable_metadata_standard_selection = true
+    config.x.madmp.enable_repository_selection = true
+
+    # The following flags will allow the system to include the question and answer in the JSON output
+    #   - questions with a theme equal to 'Preservation'
+    config.x.madmp.extract_preservation_statements_from_themed_questions = false
+    #   - questions with a theme equal to 'Data Collection'
+    config.x.madmp.extract_data_quality_statements_from_themed_questions = false
+    #   - questions with a theme equal to 'Ethics & privacy' or 'Storage & security'
+    config.x.madmp.extract_security_privacy_statements_from_themed_questions = false
+
+    # Specify a list of the preferred licenses types. These licenses will appear in a select
+    # box on the 'Research Outputs' tab when editing a plan along with the option to select
+    # 'other'. When 'other' is selected, the user is presented with the full list of licenses.
+    #
+    # The licenses will appear in the order you specify here.
+    #
+    # Note that the values you enter must match the :identifier field of the licenses table.
+    # You can use the `%{latest}` markup in place of version numbers if desired.
+    config.x.madmp.preferred_licenses = [
+      'CC-BY-%{latest}',
+      'CC-BY-SA-%{latest}',
+      'CC-BY-NC-%{latest}',
+      'CC-BY-NC-SA-%{latest}',
+      'CC-BY-ND-%{latest}',
+      'CC-BY-NC-ND-%{latest}',
+      'CC0-%{latest}'
+    ]
+    # Link to external guidance about selecting one of the preferred licenses. A default
+    # URL will be displayed if none is provided here. See app/views/research_outputs/licenses/_form
+    config.x.madmp.preferred_licenses_guidance_url = 'https://creativecommons.org/about/cclicenses/'
   end
 
 end

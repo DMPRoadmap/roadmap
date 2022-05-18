@@ -1,24 +1,3 @@
-<<<<<<< HEAD
-# Upgrade tasks for 3.x versions. See https://github.com/DMPRoadmap/roadmap/releases for information
-# on how and when to run each task.
-
-namespace :v3 do
-
-  desc "Upgrade from v2.2.0 to v3.0.0"
-  task upgrade_3_0_0: :environment do
-    Rake::Task["v3:ensure_default_languages"].execute
-    Rake::Task["v3:ensure_feedback_defaults"].execute
-    Rake::Task["v3:fix_funder_ids"].execute
-  end
-
-  desc "Upgrade from v3.0.0 to v3.1.0"
-  task upgrade_3_1_0: :environment do
-    Rake::Task["mime_types:load"].execute
-  end
-
-  # Set any records with a nil `language_id` to the default language
-  desc "Change nil language_id entries into the default language"
-=======
 # frozen_string_literal: true
 
 # Upgrade tasks for 3.x versions. See https://github.com/DMPRoadmap/roadmap/releases for information
@@ -40,7 +19,6 @@ namespace :v3 do
 
   # Set any records with a nil `language_id` to the default language
   desc 'Change nil language_id entries into the default language'
->>>>>>> upstream/master
   task ensure_default_languages: :environment do
     dflt = Language.default
 
@@ -60,11 +38,7 @@ namespace :v3 do
   end
 
   # Set any records with a nil `feedback_email_[subject|message]` to the default
-<<<<<<< HEAD
-  desc "Change nil feedback_email_subject and feedback_email_message to the defaults"
-=======
   desc 'Change nil feedback_email_subject and feedback_email_message to the defaults'
->>>>>>> upstream/master
   task ensure_feedback_defaults: :environment do
     include FeedbacksHelper
 
@@ -77,21 +51,12 @@ namespace :v3 do
   end
 
   # E.G. change 'https://api.crossref.org/funders/100000060' to 'https://doi.org/10.13039/100000060'
-<<<<<<< HEAD
-  desc "Corrects the Crossref funder ids which were originally set to the URL instead of the DOI"
-  task fix_funder_ids: :environment do
-    scheme = IdentifierScheme.where(name: "fundref").first
-
-    incorrect_prefix = "https://api.crossref.org/funders/"
-    correct_prefix = "https://doi.org/10.13039/"
-=======
   desc 'Corrects the Crossref funder ids which were originally set to the URL instead of the DOI'
   task fix_funder_ids: :environment do
     scheme = IdentifierScheme.where(name: 'fundref').first
 
     incorrect_prefix = 'https://api.crossref.org/funders/'
     correct_prefix = 'https://doi.org/10.13039/'
->>>>>>> upstream/master
 
     if scheme.present?
       scheme.update(identifier_prefix: correct_prefix) unless scheme.identifier_prefix == correct_prefix
@@ -104,10 +69,5 @@ namespace :v3 do
       end
     end
   end
-<<<<<<< HEAD
-
-end
-=======
 end
 # rubocop:enable Naming/VariableNumber
->>>>>>> upstream/master

@@ -20,7 +20,6 @@
 #  org_id                            :integer
 #  funder_id                         :integer
 #  grant_id                          :integer
-#  api_client_id                     :integer
 #  research_domain_id                :bigint
 #  funding_status                    :integer
 #  ethical_issues                    :boolean
@@ -38,7 +37,6 @@
 #
 #  fk_rails_...  (template_id => templates.id)
 #  fk_rails_...  (org_id => orgs.id)
-#  fk_rails_...  (api_client_id => api_clients.id)
 #  fk_rails_...  (research_domain_id => research_domains.id)
 #
 
@@ -57,10 +55,19 @@ class Plan < ApplicationRecord
   # Returns visibility message given a Symbol type visibility passed, otherwise
   # nil
   VISIBILITY_MESSAGE = {
-    organisationally_visible: _('organisational'),
-    publicly_visible: _('public'),
-    is_test: _('test'),
-    privately_visible: _('private')
+    organisationally_visible: _("organisational"),
+    publicly_visible: _("public"),
+    is_test: _("test"),
+    privately_visible: _("private")
+  }.freeze
+
+  VISIBILITY_ORDER = %i[privately_visible publicly_visible organisationally_visible 
+    is_test]
+
+  FUNDING_STATUS = {
+    planned: _("Planned"),
+    funded: _("Funded"),
+    denied: _("Denied")
   }.freeze
 
   # ==============
@@ -86,8 +93,6 @@ class Plan < ApplicationRecord
   belongs_to :org
 
   belongs_to :funder, class_name: 'Org', optional: true
-
-  belongs_to :api_client, optional: true
 
   belongs_to :research_domain, optional: true
 
@@ -483,7 +488,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def shared?
-    roles.select(&:active).reject(&:creator).any?
+    roles.reject(&:creator).any?
   end
 
   alias shared shared?
@@ -496,7 +501,7 @@ class Plan < ApplicationRecord
   def owner_and_coowners
     # We only need to search for :administrator in the bitflag
     # since :creator includes :administrator rights
-    roles.select { |r| r.active && r.administrator && !r.user.nil? }.map(&:user).uniq
+    roles.select { |r| r.active && r.administrator }.map(&:user).uniq
   end
 
   # The creator, administrator and editors

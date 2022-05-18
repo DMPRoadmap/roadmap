@@ -125,6 +125,8 @@ Rails.application.routes.draw do
 
     resources :contributors, except: %i[show]
 
+    resources :research_outputs, except: %i[show]
+
     member do
       get "answer"
       get "share"
@@ -135,6 +137,16 @@ Rails.application.routes.draw do
       post "set_test", constraints: { format: [:json] }
       get "overview"
     end
+    # Ajax endpoint for ResearchOutput.output_type selection
+    get "output_type_selection", controller: "research_outputs", action: "select_output_type"
+
+    # Ajax endpoint for ResearchOutput.license_id selection
+    get "license_selection", controller: "research_outputs", action: "select_license"
+
+    # AJAX endpoints for repository search and selection
+    get :repository_search, controller: "research_outputs"
+    # AJAX endpoints for metadata standards search and selection
+    get :metadata_standard_search, controller: "research_outputs"
   end
 
   resources :usage, only: [:index]
@@ -183,7 +195,6 @@ Rails.application.routes.draw do
         end
       end
     end
-  end
 
     namespace :v1 do
       get :heartbeat, controller: "base_api"
@@ -217,12 +228,18 @@ Rails.application.routes.draw do
 
       # Paginable actions for contributors
       resources :contributors, only: %i[index] do
+        get 'index/:page', action: :index, on: :collection, as: :index
+      end
+      # Paginable actions for research_outputs
+      resources :research_outputs, only: %i[index] do
         get "index/:page", action: :index, on: :collection, as: :index
       end
     end
     # Paginable actions for users
-    resources :users, only: [] do
-      get "index/:page", action: :index, on: :collection, as: :index
+    resources :users, only: %i[index] do
+      member do
+        resources :plans, only: %(index)
+      end
     end
     # Paginable actions for themes
     resources :themes, only: [] do
@@ -268,42 +285,6 @@ Rails.application.routes.draw do
         get "user_plans"
       end
     end
-    # Paginable actions for themes
-    resources :themes, only: [] do
-      get 'index/:page', action: :index, on: :collection, as: :index
-    end
-    # Paginable actions for notifications
-    resources :notifications, only: [] do
-      get 'index/:page', action: :index, on: :collection, as: :index
-    end
-    # Paginable actions for templates
-    resources :templates, only: [] do
-      get 'index/:page', action: :index, on: :collection, as: :index
-      get 'customisable/:page', action: :customisable, on: :collection, as: :customisable
-      get 'organisational/:page', action: :organisational, on: :collection, as: :organisational
-      get 'publicly_visible/:page', action: :publicly_visible,
-                                    on: :collection, as: :publicly_visible
-      get ':id/history/:page', action: :history, on: :collection, as: :history
-    end
-    # Paginable actions for guidances
-    resources :guidances, only: [] do
-      get 'index/:page', action: :index, on: :collection, as: :index
-    end
-    # Paginable actions for guidance_groups
-    resources :guidance_groups, only: [] do
-      get 'index/:page', action: :index, on: :collection, as: :index
-    end
-    # Paginable actions for departments
-    resources :departments, only: [] do
-      get 'index/:page', action: :index, on: :collection, as: :index
-    end
-    # Paginable actions for api_clients
-    resources :api_clients, only: [] do
-      get 'index/:page', action: :index, on: :collection, as: :index
-    end
-  end
-
-  resources :template_options, only: [:index], constraints: { format: /json/ }
 
     resources :question_options, only: [:destroy], controller: "question_options"
 

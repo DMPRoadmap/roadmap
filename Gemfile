@@ -74,6 +74,10 @@ gem 'mysql2', group: :mysql, require: false
 # RDBMS}[http://www.postgresql.org/](https://bitbucket.org/ged/ruby-pg)
 gem 'pg', group: :pgsql, require: false
 
+# A null db adapter so we can perform tast rake assets:precompile with
+# production environment without a live database.
+gem "activerecord-nulldb-adapter", group: :nulldb, require: false
+
 # Bit fields for ActiveRecord (https://github.com/pboling/flag_shih_tzu)
 gem 'flag_shih_tzu' # , "~> 0.3.23"
 
@@ -196,7 +200,8 @@ gem 'zaru'
 # INTERNATIONALIZATION #
 # ==================== #
 
-gem 'translation'
+# gem "translation"
+gem 'translation', git: "https://github.com/lagoan/translation_io_rails", branch: 'fix/broken_db_fake_method_calls'
 
 # ========= #
 # UTILITIES #
@@ -224,7 +229,7 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
 end
 
-group :test do
+group :development, :test do
   # RSpec for Rails (https://github.com/rspec/rspec-rails)
   gem 'rspec-rails'
 
@@ -252,7 +257,7 @@ group :test do
   # Code coverage for Ruby 1.9+ with a powerful configuration library and
   # automatic merging of coverage across test suites
   # (http://github.com/colszowka/simplecov)
-  # gem 'simplecov', require: false
+  gem 'simplecov', require: false
 
   # Strategies for cleaning databases.  Can be used to ensure a clean state
   # for testing. (http://github.com/DatabaseCleaner/database_cleaner)
@@ -289,12 +294,21 @@ group :test do
   # This gem brings back assigns to your controller tests as well as assert_template
   # to both controller and integration tests.
   gem 'rails-controller-testing'
+
+  # Pull Request etiquette enforcement
+  gem "danger", '~> 8.4', require: false
 end
 
 group :ci, :development do
   # Security vulnerability scanner for Ruby on Rails.
   # (http://brakemanscanner.org)
   gem 'brakeman'
+
+  # Automatic Ruby code style checking tool.
+  # (https://github.com/rubocop-hq/rubocop)
+  # Rubocop style checks for DMP Roadmap projects.
+  # (https://github.com/DMPRoadmap/rubocop-DMP_Roadmap)
+  gem "rubocop-dmp_roadmap"
 
   # Helper gem to require bundler-audit
   # (http://github.com/stewartmckee/bundle-audit)

@@ -7,9 +7,11 @@
     <%= f.label(:password, _('Password'), class: 'control-label') %>
     <%= f.password_field(:password, class: 'form-control', "aria-required": true) %>
   </div>
-  <div>
-    <%= link_to _('Forgot password?'), new_password_path('user') %>
-  </div>
+  <% unless FeatureFlagHelper.enabled?(:on_sandbox) %>
+    <div>
+      <%= link_to _('Forgot password?'), new_password_path('user') %>
+    </div>
+  <% end %>
   <div class="checkbox">
     <%= label_tag 'remember_email' do %>
       <%= check_box_tag 'remember_email' %>
