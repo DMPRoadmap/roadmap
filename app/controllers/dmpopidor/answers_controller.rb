@@ -57,7 +57,7 @@ module Dmpopidor
           @answer.save!
         end
       rescue ActiveRecord::RecordNotFound
-        @answer = Answer.new(args.merge(user_id: current_user.id))
+        @answer = ::Answer.new(args.merge(user_id: current_user.id))
         @answer.lock_version = 1
         authorize @answer
         if q.question_format.rda_metadata?
