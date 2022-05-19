@@ -38,12 +38,28 @@
     },
     {
       "warning_type": "Unmaintained Dependency",
+      "warning_code": 122,
+      "fingerprint": "98b26f60d776fd41ee6f088c833725145be9aac2d7c5b33780241c273622db42",
+      "check_name": "EOLRails",
+      "message": "Support for Rails 5.2.7 ends on 2022-06-01",
+      "file": "Gemfile.lock",
+      "line": 323,
+      "link": "https://brakemanscanner.org/docs/warning_types/unmaintained_dependency/",
+      "code": null,
+      "render_path": null,
+      "location": null,
+      "user_input": null,
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "Unmaintained Dependency",
       "warning_code": 121,
       "fingerprint": "9a3951031616a07c8e02c86652f537e92c08685da97f5ec2b12d5d3602b55bb8",
       "check_name": "EOLRuby",
       "message": "Support for Ruby 2.6.3 ended on 2022-03-31",
       "file": "Gemfile.lock",
-      "line": 334,
+      "line": 323,
       "link": "https://brakemanscanner.org/docs/warning_types/unmaintained_dependency/",
       "code": null,
       "render_path": null,
@@ -59,7 +75,7 @@
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/plans_controller.rb",
-      "line": 394,
+      "line": 393,
       "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
       "code": "redirect_to(Plan.deep_copy(Plan.find(params[:id])), :notice => success_message(Plan.deep_copy(Plan.find(params[:id])), _(\"copied\")))",
       "render_path": null,
@@ -79,7 +95,7 @@
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/orgs_controller.rb",
-      "line": 141,
+      "line": 145,
       "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
       "code": "redirect_to(\"#{shib_login_url}?#{shib_callback_url}&#{\"entityID=#{Identifier.by_scheme_name(\"shibboleth\", \"Org\").where(:identifiable => Org.where(:id => shib_params[:org_id])).first.value}\"}\")",
       "render_path": null,
@@ -93,6 +109,6 @@
       "note": ""
     }
   ],
-  "updated": "2022-04-05 08:31:53 -0700",
-  "brakeman_version": "5.2.1"
+  "updated": "2022-05-19 14:21:25 -0700",
+  "brakeman_version": "5.2.3"
 }
