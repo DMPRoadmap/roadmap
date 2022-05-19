@@ -46,6 +46,13 @@ class PlanExportsController < ApplicationController
       @selected_phase = @plan.phases.order("phases.updated_at DESC")
                              .detect { |p| p.visibility_allowed?(@plan) }
     end
+
+    #ISSUE205: add contributor to coverpage (note role number is required)
+    @hash[:data_curation] = Contributor.where(:plan_id => @plan.id, :roles=>1)
+    @hash[:investigation] = Contributor.where(:plan_id => @plan.id, :roles=>2)
+    @hash[:pa] = Contributor.where(:plan_id => @plan.id, :roles=>3)
+    @hash[:other] = Contributor.where(:plan_id => @plan.id, :roles=>4)
+
     respond_to do |format|
       format.html { show_html }
       format.csv  { show_csv }
