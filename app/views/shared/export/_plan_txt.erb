@@ -1,7 +1,22 @@
 <%= "#{@plan.title}" %>
 <%= "----------------------------------------------------------\n" %>
 <% if @show_coversheet %>
+
 <%= @hash[:attribution].many? ? _("Creators: ") : _('Creator:') %> <%= @hash[:attribution].join(', ') %>
+<%# ISSUE205: print out contributors if exit %>
+<%# Roles are ranked by PI -> DM -> PA -> Other (if any) %>
+  <% if @hash[:investigation].present? %>
+<%= _("Principal Investigator: ") + @hash[:investigation].map(&:name).join(', ') %>
+  <% end %>
+  <% if @hash[:data_curation].present? %>
+<%= _("Data Manager: ") +  @hash[:data_curation].map(&:name).join(', ') %>
+  <% end %>
+  <% if @hash[:pa].present? %>
+<%= _("Project Administrator: ") + @hash[:pa].map(&:name).join(', ') %>
+  <% end %>
+  <% if @hash[:other].present? %>
+<%= _("Contributor: ") + @hash[:other].map(&:name).join(', ') %>
+  <% end %>
 <%= _("Affiliation: ") + @hash[:affiliation] %>
   <% if @hash[:funder].present? %>
 <%= _("Template: ") + @hash[:funder] %>

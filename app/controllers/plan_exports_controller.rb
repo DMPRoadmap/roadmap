@@ -47,11 +47,11 @@ class PlanExportsController < ApplicationController
                              .detect { |p| p.visibility_allowed?(@plan) }
     end
 
-    #ISSUE205: add contributor to coverpage (note role number is required)
-    @hash[:data_curation] = Contributor.where(:plan_id => @plan.id, :roles=>1)
-    @hash[:investigation] = Contributor.where(:plan_id => @plan.id, :roles=>2)
-    @hash[:pa] = Contributor.where(:plan_id => @plan.id, :roles=>3)
-    @hash[:other] = Contributor.where(:plan_id => @plan.id, :roles=>4)
+    #ISSUE205: add contributor to cover page
+    @hash[:data_curation] = Contributor.where(:plan_id => @plan.id).data_curation
+    @hash[:investigation] = Contributor.where(:plan_id => @plan.id).investigation
+    @hash[:pa] = Contributor.where(:plan_id => @plan.id).project_administration
+    @hash[:other] = Contributor.where(:plan_id => @plan.id).other
 
     respond_to do |format|
       format.html { show_html }
