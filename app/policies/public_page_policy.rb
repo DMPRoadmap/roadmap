@@ -19,7 +19,8 @@ class PublicPagePolicy < ApplicationPolicy
   end
 
   def template_export?
-    @user.present? && @record.published?
+    # @user.present? && @record.published?
+    @record.published?
   end
 
   def plan_export?
