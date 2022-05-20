@@ -100,9 +100,7 @@ module ExportablePlan
 
   # rubocop:enable Style/OptionalBooleanParameter
 
-  # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def prepare_coversheet
     hash = {}
     # Use the name of the DMP owner/creator OR the first Co-owner if there is no
@@ -111,7 +109,7 @@ module ExportablePlan
     roles.administrator.not_creator.first&.user&.name(false) unless attribution.present?
     hash[:attribution] = attribution
 
-    # Added contributors to coverage of plans. 
+    # Added contributors to coverage of plans.
     # Users will see both roles and contributor names if the role is filled
     hash[:data_curation] = Contributor.where(plan_id: id).data_curation
     hash[:investigation] = Contributor.where(plan_id: id).investigation
@@ -140,7 +138,7 @@ module ExportablePlan
   end
   # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize
   def prepare_coversheet_for_csv(csv, _headings, hash)
     csv << [_('Title: '), format(_('%{title}'), title: title)]
     csv << if Array(hash[:attribution]).many?

@@ -43,7 +43,7 @@ class PlanExportsController < ApplicationController
                              .detect { |p| p.visibility_allowed?(@plan) }
                       end
 
-    # Added contributors to coverage of plans. 
+    # Added contributors to coverage of plans.
     # Users will see both roles and contributor names if the role is filled
     @hash[:data_curation] = Contributor.where(plan_id: @plan.id).data_curation
     @hash[:investigation] = Contributor.where(plan_id: @plan.id).investigation
