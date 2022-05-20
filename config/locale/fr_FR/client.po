@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-05-16 14:31+0200\n"
-"PO-Revision-Date: 2022-05-16 14:31+0200\n"
+"POT-Creation-Date: 2022-05-20 08:09+0200\n"
+"PO-Revision-Date: 2022-05-20 08:09+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -863,7 +863,7 @@ msgid "Administrator"
 msgstr "Administrateur"
 
 #: ../../app/helpers/plans_helper.rb:35 ../../app/helpers/plans_helper.rb:37
-#: ../../app/views/branded/layouts/application.html.erb:156
+#: ../../app/views/branded/layouts/application.html.erb:154
 msgid "Private"
 msgstr "Privé"
 
@@ -884,7 +884,7 @@ msgstr ""
 "ganisme et moi"
 
 #: ../../app/helpers/plans_helper.rb:57
-#: ../../app/views/branded/layouts/application.html.erb:157
+#: ../../app/views/branded/layouts/application.html.erb:155
 msgid "Private: restricted to me and people I invite."
 msgstr "Privé : accès restreint aux personnes que j'invite."
 
@@ -933,6 +933,7 @@ msgid "Your ORCID"
 msgstr "Votre ORCID"
 
 #: ../../app/helpers/template_helper.rb:48
+#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:11
 #: ../../app/views/branded/plans/index.html.erb:29
 #: ../../app/views/branded/shared/_create_plan_modal.html.erb:5
 msgid "Create plan"
@@ -1051,7 +1052,7 @@ msgid "Project coordinator"
 msgstr "Coordinateur de projet"
 
 #: ../../app/models/dmpopidor/plan.rb:128
-#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:445
+#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:439
 msgid "\"%{project_title}\" project DMP"
 msgstr "DMP du projet \"%{project_title}\""
 
@@ -1261,7 +1262,7 @@ msgid "example answer"
 msgstr "exemple de réponse"
 
 #: ../../app/views/branded/answers/_new_edit.html.erb:96
-#: ../../app/views/branded/layouts/application.html.erb:126
+#: ../../app/views/branded/layouts/application.html.erb:124
 #: ../../app/views/branded/phases/_edit_plan_answers.html.erb:146
 #: ../../app/views/branded/plans/_edit_details.html.erb:111
 #: ../../app/views/branded/plans/_edit_details.html.erb:182
@@ -1431,7 +1432,6 @@ msgstr "Rôles attribués (Produits de recherche associés)"
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:14
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:55
 #: ../../app/views/branded/paginable/templates/_history.html.erb:10
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:12
 #: ../../app/views/branded/plans/_share_form.html.erb:20
 #: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:9
 #: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:28
@@ -1577,7 +1577,7 @@ msgstr ""
 #: ../../app/views/branded/phases/_guidances_notes.html.erb:11
 #: ../../app/views/branded/phases/_guidances_notes_runs.html.erb:13
 msgid "Guidance"
-msgstr "Recommandation"
+msgstr "Recommandations"
 
 #: ../../app/views/branded/guidances/new_edit.html.erb:17
 msgid "View all guidance"
@@ -1721,7 +1721,7 @@ msgstr "Utilisateurs"
 
 #: ../../app/views/branded/layouts/_branding.html.erb:103
 msgid "Usage"
-msgstr "Usage"
+msgstr "Statistiques"
 
 #: ../../app/views/branded/layouts/_branding.html.erb:110
 #: ../../app/views/branded/org_admin/questions/_show.html.erb:101
@@ -1859,7 +1859,7 @@ msgstr "Se connecter"
 msgid "%{application_name}"
 msgstr "%{application_name}"
 
-#: ../../app/views/branded/layouts/application.html.erb:68
+#: ../../app/views/branded/layouts/application.html.erb:66
 msgid ""
 "By continuing to browse, without changing your settings, you accept the use of"
 " cookies to measure the traffic of the website with the software Matomo. For m"
@@ -1872,54 +1872,54 @@ msgstr ""
 "s paramètres, vous pouvez vous rendre sur notre page de politique de confident"
 "ialité."
 
-#: ../../app/views/branded/layouts/application.html.erb:70
+#: ../../app/views/branded/layouts/application.html.erb:68
 msgid "Accept"
 msgstr "J'accepte"
 
-#: ../../app/views/branded/layouts/application.html.erb:73
+#: ../../app/views/branded/layouts/application.html.erb:71
 msgid "Learn more"
 msgstr "En savoir plus"
 
-#: ../../app/views/branded/layouts/application.html.erb:116
+#: ../../app/views/branded/layouts/application.html.erb:114
 msgid "Error:"
 msgstr "Erreur:"
 
-#: ../../app/views/branded/layouts/application.html.erb:116
+#: ../../app/views/branded/layouts/application.html.erb:114
 msgid "Notice:"
 msgstr "Avis:"
 
-#: ../../app/views/branded/layouts/application.html.erb:149
+#: ../../app/views/branded/layouts/application.html.erb:147
 msgid "This field is required."
 msgstr "Ce champ est requis."
 
-#: ../../app/views/branded/layouts/application.html.erb:151
+#: ../../app/views/branded/layouts/application.html.erb:149
 #: ../../app/views/branded/shared/_create_account_form.html.erb:31
 msgid "Show password"
 msgstr "Afficher le mot de passe"
 
-#: ../../app/views/branded/layouts/application.html.erb:152
+#: ../../app/views/branded/layouts/application.html.erb:150
 msgid "Select an organisation from the list."
 msgstr "Sélectionnez une organisme dans la liste."
 
-#: ../../app/views/branded/layouts/application.html.erb:153
+#: ../../app/views/branded/layouts/application.html.erb:151
 msgid "My organisation isn't listed"
 msgstr "Mon organisme n'est pas dans la liste"
 
-#: ../../app/views/branded/layouts/application.html.erb:155
+#: ../../app/views/branded/layouts/application.html.erb:153
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:40
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:41
 msgid "N/A"
 msgstr "N/A"
 
-#: ../../app/views/branded/layouts/application.html.erb:159
+#: ../../app/views/branded/layouts/application.html.erb:157
 msgid "Hide list."
 msgstr "Masquer la liste."
 
-#: ../../app/views/branded/layouts/application.html.erb:160
+#: ../../app/views/branded/layouts/application.html.erb:158
 msgid "See the full list of partner institutions."
 msgstr "Voir la liste des institutions partenaires."
 
-#: ../../app/views/branded/layouts/application.html.erb:162
+#: ../../app/views/branded/layouts/application.html.erb:160
 msgid ""
 "Unable to find a suitable template for the research organisation and funder yo"
 "u selected."
@@ -1927,30 +1927,30 @@ msgstr ""
 "Impossible de trouver un modèle approprié à l'organisme de recherche et au fin"
 "anceur que vous avez sélectionnés."
 
-#: ../../app/views/branded/layouts/application.html.erb:163
+#: ../../app/views/branded/layouts/application.html.erb:161
 msgid "Please select a research organisation and funder to continue."
 msgstr ""
 "Veuillez sélectionner un organisme de recherche et un financeur pour continuer"
 "."
 
-#: ../../app/views/branded/layouts/application.html.erb:165
+#: ../../app/views/branded/layouts/application.html.erb:163
 #: ../../engines/madmp_opidor/app/views/madmp_fragments/_new.html.erb:28
 msgid "Loading ..."
 msgstr "Chargement ..."
 
-#: ../../app/views/branded/layouts/application.html.erb:166
+#: ../../app/views/branded/layouts/application.html.erb:164
 msgid "Unable to load the section's content at this time."
 msgstr "Impossible de charger le contenu de la section pour le moment."
 
-#: ../../app/views/branded/layouts/application.html.erb:167
+#: ../../app/views/branded/layouts/application.html.erb:165
 msgid "Unable to load the question's content at this time."
 msgstr "Impossible de charger le contenu de la question pour le moment."
 
-#: ../../app/views/branded/layouts/application.html.erb:168
+#: ../../app/views/branded/layouts/application.html.erb:166
 msgid "Opens in a new window"
 msgstr "Ouvre dans une nouvelle fenêtre"
 
-#: ../../app/views/branded/layouts/application.html.erb:170
+#: ../../app/views/branded/layouts/application.html.erb:168
 msgid ""
 "%{n} results are available, use up and down arrows to navigate suggestions. Us"
 "e the Enter key to select a suggestion or the Escape key to close the suggesti"
@@ -1960,11 +1960,11 @@ msgstr ""
 "e the Enter key to select a suggestion or the Escape key to close the suggesti"
 "ons."
 
-#: ../../app/views/branded/layouts/application.html.erb:171
+#: ../../app/views/branded/layouts/application.html.erb:169
 msgid "No results are available for your entry."
 msgstr "Aucun résultat n'est disponible pour votre entrée."
 
-#: ../../app/views/branded/layouts/application.html.erb:172
+#: ../../app/views/branded/layouts/application.html.erb:170
 msgid "Searching ..."
 msgstr "Recherche..."
 
@@ -2664,8 +2664,8 @@ msgstr "Inconnu"
 #: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:28
 #: ../../app/views/branded/paginable/templates/_history.html.erb:27
 #: ../../app/views/branded/paginable/templates/_history.html.erb:33
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:33
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:37
+#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:31
+#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:35
 msgid "(new window)"
 msgstr "(nouvelle fenêtre)"
 
@@ -2715,17 +2715,17 @@ msgstr "Nom de l'organisme"
 msgid "Organisation Type"
 msgstr "Type d'organisme"
 
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:23
+#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:21
 #: ../../app/views/branded/phases/_edit_plan_answers.html.erb:3
 #: ../../app/views/branded/shared/export/_plan_coversheet.erb:8
 msgid "Customized"
 msgstr "Personnalisé"
 
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:43
+#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:41
 msgid "Copy link to create a new plan"
 msgstr "Copier le lien pour créer un nouveau plan"
 
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:45
+#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:43
 msgid "Requires login"
 msgstr "Connexion requise"
 
@@ -3676,8 +3676,8 @@ msgid ""
 "Your colleague %{inviter_name} has invited you to contribute to their Data Man"
 "agement Plan in %{tool_name}"
 msgstr ""
-"Votre collègue %{inviter_name} vous a invité à contribuer à leur plan de gesti"
-"on de données dans %{tool_name}"
+"Votre collègue %{inviter_name} vous a invité à contribuer à son plan de gestio"
+"n de données dans %{tool_name}"
 
 #: ../../app/views/branded/user_mailer/sharing_notification.html.erb:12
 msgid ""

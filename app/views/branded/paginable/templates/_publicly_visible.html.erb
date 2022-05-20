@@ -8,9 +8,7 @@
         <th scope="col" class="sorter-false"><%= _('Description') %></th>
         <th scope="col" class="date-column"><%= _('Last Updated') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
         <th scope="col" class="sorter-false text-center download-column"><%= _('Download') %></th>
-        <% if !current_user.nil? && current_user.org.active? %>
-          <th scope="col" class="sorter-false"><%= _('Actions') %></th>
-        <% end %>
+        <th><%= _('Create plan') %></th>
       </tr>
     </thead>
     <tbody>

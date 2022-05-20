@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-05-16 14:31+0200\n"
-"PO-Revision-Date: 2022-05-16 14:31+0200\n"
+"POT-Creation-Date: 2022-05-20 08:09+0200\n"
+"PO-Revision-Date: 2022-05-20 08:09+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -816,7 +816,7 @@ msgid "Administrator"
 msgstr ""
 
 #: ../../app/helpers/plans_helper.rb:35 ../../app/helpers/plans_helper.rb:37
-#: ../../app/views/branded/layouts/application.html.erb:156
+#: ../../app/views/branded/layouts/application.html.erb:154
 msgid "Private"
 msgstr ""
 
@@ -835,7 +835,7 @@ msgid ""
 msgstr ""
 
 #: ../../app/helpers/plans_helper.rb:57
-#: ../../app/views/branded/layouts/application.html.erb:157
+#: ../../app/views/branded/layouts/application.html.erb:155
 msgid "Private: restricted to me and people I invite."
 msgstr ""
 
@@ -884,6 +884,7 @@ msgid "Your ORCID"
 msgstr ""
 
 #: ../../app/helpers/template_helper.rb:48
+#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:11
 #: ../../app/views/branded/plans/index.html.erb:29
 #: ../../app/views/branded/shared/_create_plan_modal.html.erb:5
 msgid "Create plan"
@@ -1000,7 +1001,7 @@ msgid "Project coordinator"
 msgstr ""
 
 #: ../../app/models/dmpopidor/plan.rb:128
-#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:445
+#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:439
 msgid "\"%{project_title}\" project DMP"
 msgstr ""
 
@@ -1206,7 +1207,7 @@ msgid "example answer"
 msgstr ""
 
 #: ../../app/views/branded/answers/_new_edit.html.erb:96
-#: ../../app/views/branded/layouts/application.html.erb:126
+#: ../../app/views/branded/layouts/application.html.erb:124
 #: ../../app/views/branded/phases/_edit_plan_answers.html.erb:146
 #: ../../app/views/branded/plans/_edit_details.html.erb:111
 #: ../../app/views/branded/plans/_edit_details.html.erb:182
@@ -1363,7 +1364,6 @@ msgstr ""
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:14
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:55
 #: ../../app/views/branded/paginable/templates/_history.html.erb:10
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:12
 #: ../../app/views/branded/plans/_share_form.html.erb:20
 #: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:9
 #: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:28
@@ -1759,7 +1759,7 @@ msgstr ""
 msgid "%{application_name}"
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:68
+#: ../../app/views/branded/layouts/application.html.erb:66
 msgid ""
 "By continuing to browse, without changing your settings, you accept the use of"
 " cookies to measure the traffic of the website with the software Matomo. For m"
@@ -1767,92 +1767,92 @@ msgid ""
 "tatement page."
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:70
+#: ../../app/views/branded/layouts/application.html.erb:68
 msgid "Accept"
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:73
+#: ../../app/views/branded/layouts/application.html.erb:71
 msgid "Learn more"
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:116
+#: ../../app/views/branded/layouts/application.html.erb:114
 msgid "Error:"
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:116
+#: ../../app/views/branded/layouts/application.html.erb:114
 msgid "Notice:"
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:149
+#: ../../app/views/branded/layouts/application.html.erb:147
 msgid "This field is required."
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:151
+#: ../../app/views/branded/layouts/application.html.erb:149
 #: ../../app/views/branded/shared/_create_account_form.html.erb:31
 msgid "Show password"
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:152
+#: ../../app/views/branded/layouts/application.html.erb:150
 msgid "Select an organisation from the list."
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:153
+#: ../../app/views/branded/layouts/application.html.erb:151
 msgid "My organisation isn't listed"
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:155
+#: ../../app/views/branded/layouts/application.html.erb:153
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:40
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:41
 msgid "N/A"
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:159
+#: ../../app/views/branded/layouts/application.html.erb:157
 msgid "Hide list."
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:160
+#: ../../app/views/branded/layouts/application.html.erb:158
 msgid "See the full list of partner institutions."
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:162
+#: ../../app/views/branded/layouts/application.html.erb:160
 msgid ""
 "Unable to find a suitable template for the research organisation and funder yo"
 "u selected."
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:163
+#: ../../app/views/branded/layouts/application.html.erb:161
 msgid "Please select a research organisation and funder to continue."
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:165
+#: ../../app/views/branded/layouts/application.html.erb:163
 #: ../../engines/madmp_opidor/app/views/madmp_fragments/_new.html.erb:28
 msgid "Loading ..."
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:166
+#: ../../app/views/branded/layouts/application.html.erb:164
 msgid "Unable to load the section's content at this time."
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:167
+#: ../../app/views/branded/layouts/application.html.erb:165
 msgid "Unable to load the question's content at this time."
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:168
+#: ../../app/views/branded/layouts/application.html.erb:166
 msgid "Opens in a new window"
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:170
+#: ../../app/views/branded/layouts/application.html.erb:168
 msgid ""
 "%{n} results are available, use up and down arrows to navigate suggestions. Us"
 "e the Enter key to select a suggestion or the Escape key to close the suggesti"
 "ons."
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:171
+#: ../../app/views/branded/layouts/application.html.erb:169
 msgid "No results are available for your entry."
 msgstr ""
 
-#: ../../app/views/branded/layouts/application.html.erb:172
+#: ../../app/views/branded/layouts/application.html.erb:170
 msgid "Searching ..."
 msgstr ""
 
@@ -2502,8 +2502,8 @@ msgstr ""
 #: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:28
 #: ../../app/views/branded/paginable/templates/_history.html.erb:27
 #: ../../app/views/branded/paginable/templates/_history.html.erb:33
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:33
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:37
+#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:31
+#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:35
 msgid "(new window)"
 msgstr ""
 
@@ -2553,17 +2553,17 @@ msgstr ""
 msgid "Organisation Type"
 msgstr ""
 
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:23
+#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:21
 #: ../../app/views/branded/phases/_edit_plan_answers.html.erb:3
 #: ../../app/views/branded/shared/export/_plan_coversheet.erb:8
 msgid "Customized"
 msgstr ""
 
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:43
+#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:41
 msgid "Copy link to create a new plan"
 msgstr ""
 
-#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:45
+#: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:43
 msgid "Requires login"
 msgstr ""
 

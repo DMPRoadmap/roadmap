@@ -14,17 +14,7 @@
 
 # Static page class
 class StaticPage < ApplicationRecord
-  has_many :static_page_contents, dependent: :destroy do
-    # Create or update a content from a file
-    # @param path path of the source file
-    # @param language language for the content (default is default language)
-    # @return [StaticPageContent] the created Static Page Content
-    def from_file(path, language = Language.default)
-      where(language: language)
-        .first_or_create(language: language)
-        .update(content: File.read(path))
-    end
-  end
+  has_many :static_page_contents, dependent: :destroy
   accepts_nested_attributes_for :static_page_contents, allow_destroy: true
 
   alias contents static_page_contents

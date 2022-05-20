@@ -19,7 +19,7 @@
 #
 
 class StaticPageContent < ApplicationRecord
-  belongs_to :static_page
+  belongs_to :static_page, optional: true
   belongs_to :language
 
   validates :language, uniqueness: { scope: :static_page_id }

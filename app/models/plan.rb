@@ -99,7 +99,7 @@ class Plan < ApplicationRecord
 
   belongs_to :template
 
-  belongs_to :org
+  belongs_to :org, optional: true
 
   belongs_to :funder, class_name: 'Org', optional: true
 

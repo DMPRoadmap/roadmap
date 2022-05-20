@@ -115,9 +115,17 @@ json.dataset research_outputs do |research_output|
   end
 end
 # rubocop:enable Metrics/BlockLength
-intersect = %w[Yes Oui] & ethical_issues_exist
 I18n.with_locale @plan.template.locale do
-  json.ethical_issues_exist         intersect.empty? ? _('No') : _('Yes')
+  intersect_yes = %w[Yes Oui] & ethical_issues_exist
+  intersect_unknown = ["Unknown", "Ne sais pas"] & ethical_issues_exist
+  exists = if intersect_yes.any? 
+             _('Yes')
+           elsif intersect_unknown.any?
+            intersect_unknown.first
+           else
+             _('No')
+           end
+  json.ethical_issues_exist         exists
   json.ethical_issues_description   ethical_issues_description.join(" / ")
   json.ethical_issues_report        ethical_issues_report.join(" / ")
 end
