@@ -110,6 +110,12 @@ module ExportablePlan
     roles.administrator.not_creator.first&.user&.name(false) unless attribution.present?
     hash[:attribution] = attribution
 
+    #portagenetwork/roadmap#202: add contributor to cover page
+    hash[:data_curation] = Contributor.where(:plan_id => id).data_curation
+    hash[:investigation] = Contributor.where(:plan_id => id).investigation
+    hash[:pa] = Contributor.where(:plan_id => id).project_administration
+    hash[:other] = Contributor.where(:plan_id => id).other
+
     # Org name of plan owner's org
     hash[:affiliation] = owner.present? ? owner.org.name : ''
 
@@ -134,11 +140,25 @@ module ExportablePlan
 
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def prepare_coversheet_for_csv(csv, _headings, hash)
+    csv << [_("Title: "), _("%{title}") % { title: title }]
     csv << if Array(hash[:attribution]).many?
              [_('Creators: '), format(_('%{authors}'), authors: Array(hash[:attribution]).join(', '))]
            else
              [_('Creator:'), format(_('%{authors}'), authors: hash[:attribution])]
            end
+           if hash[:investigation].present? 
+            csv <<  [_("Principal Investigator: "), _("%{investigation}") % { investigation: hash[:investigation].map(&:name).join(', ') }] 
+          end
+          if hash[:data_curation].present? 
+            csv << [_("Date Manager: "), _("%{data_curation}") % { data_curation: hash[:data_curation].map(&:name).join(', ') }] 
+          end
+          if hash[:pa].present? 
+            csv << [_("Project Administrator: "), _("%{pa}") % { pa: hash[:pa].map(&:name).join(', ') }] 
+          end
+          if hash[:other].present? 
+            csv << [_("Contributor: "), _("%{other}") % { other: hash[:other].map(&:name).join(', ') }] 
+          end
+          csv << [_("Affiliation: "), _("%{affiliation}") % { affiliation: hash[:affiliation] }]
     csv << ['Affiliation: ', format(_('%{affiliation}'), affiliation: hash[:affiliation])]
     csv << if hash[:funder].present?
              [_('Template: '), format(_('%{funder}'), funder: hash[:funder])]
