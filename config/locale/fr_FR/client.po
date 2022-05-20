@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-05-18 11:14+0200\n"
-"PO-Revision-Date: 2022-05-18 11:14+0200\n"
+"POT-Creation-Date: 2022-05-20 08:51+0200\n"
+"PO-Revision-Date: 2022-05-20 08:51+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -423,7 +423,7 @@ msgstr ""
 
 #: ../../app/controllers/plans_controller.rb:531
 msgid "Unable to find plan id %<plan_id>s"
-msgstr ""
+msgstr "Impossible de trouver le plan avec l'identifiant %<plan_id>s"
 
 #: ../../app/controllers/plans_controller.rb:546
 msgid "Your project is now a test."
@@ -439,7 +439,7 @@ msgstr "Impossible de changer le statut du plan"
 
 #: ../../app/controllers/plans_controller.rb:563
 msgid "There is no plan associated with id %<id>s"
-msgstr ""
+msgstr "Il n'existe aucun plan associé à l'identifiant %<id>s"
 
 #: ../../app/controllers/public_pages_controller.rb:79
 msgid ""
@@ -542,7 +542,7 @@ msgstr "Le mot de passe et sa confirmation doivent correspondre"
 
 #: ../../app/controllers/research_outputs_controller.rb:14
 msgid "There is no plan associated with id %<id>"
-msgstr ""
+msgstr "Il n'existe aucun plan associé à l'identifiant %<id>"
 
 #: ../../app/controllers/research_outputs_controller.rb:32
 #: ../../app/models/dmpopidor/research_output.rb:72
@@ -726,7 +726,7 @@ msgstr "Cette propriété a un format non valide."
 
 #: ../../app/helpers/dynamic_form_helper.rb:390
 msgid "This property has an unknown problem : %<validation>s"
-msgstr ""
+msgstr "Cette propriété a un problème inconnu : %<validation>s"
 
 #: ../../app/helpers/exports_helper.rb:52
 msgid "Creators:"
@@ -969,6 +969,8 @@ msgstr "%<tool_name>s : un nouveau commentaire a été ajouté à %<plan_title>
 #: ../../app/mailers/dmpopidor/user_mailer.rb:56 ../../app/models/user.rb:404
 msgid "%<user_name>s has shared a Data Management Plan with you in %<tool_name>s"
 msgstr ""
+"%<user_name>s a partagé un plan de gestion de données avec vous sur %<tool_nam"
+"e>s"
 
 #: ../../app/mailers/dmpopidor/user_mailer.rb:74
 #: ../../app/mailers/user_mailer.rb:78
@@ -1002,11 +1004,11 @@ msgstr "Droits administrateur attribués dans %<tool_name>s"
 
 #: ../../app/mailers/dmpopidor/user_mailer.rb:179
 msgid "Account expiration in %<tool_name>s"
-msgstr ""
+msgstr "Expiration de votre compte %<tool_name>s"
 
 #: ../../app/mailers/dmpopidor/user_mailer.rb:187
 msgid "Account expired in %<tool_name>s"
-msgstr ""
+msgstr "Compte %<tool_name>s expiré"
 
 #: ../../app/mailers/user_mailer.rb:18
 msgid "Query or feedback related to %<tool_name>s"
@@ -1055,7 +1057,7 @@ msgstr "Coordinateur de projet"
 #: ../../app/models/dmpopidor/plan.rb:128
 #: ../../app/models/madmp_fragment.rb:439
 msgid "\"%<project_title>s\" project DMP"
-msgstr ""
+msgstr "DMP du projet \"%<project_title>s\""
 
 #: ../../app/models/exported_plan.rb:116 ../../app/models/exported_plan.rb:119
 msgid "Section"
