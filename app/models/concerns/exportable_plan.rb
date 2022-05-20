@@ -97,11 +97,12 @@ module ExportablePlan
 
     hash
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+
   # rubocop:enable Style/OptionalBooleanParameter
 
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def prepare_coversheet
     hash = {}
     # Use the name of the DMP owner/creator OR the first Co-owner if there is no
