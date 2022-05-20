@@ -3,7 +3,8 @@
 <% if @show_coversheet %>
 
 <%= @hash[:attribution].many? ? _("Creators: ") : _('Creator:') %> <%= @hash[:attribution].join(', ') %>
-<%# ISSUE205: print out contributors if exit %>
+<%# Added contributors to coverage of plans. 
+    # Users will see both roles and contributor names if the role is filled %>
 <%# Roles are ranked by PI -> DM -> PA -> Other (if any) %>
   <% if @hash[:investigation].present? %>
 <%= _("Principal Investigator: ") + @hash[:investigation].map(&:name).join(', ') %>

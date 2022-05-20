@@ -101,11 +101,15 @@ module ExportablePlan
       attribution << role.user.name(false)
     end
     hash[:attribution] = attribution
-    #ISSUE205: add contributor to cover page
-    hash[:data_curation] = Contributor.where(:plan_id => id).data_curation
-    hash[:investigation] = Contributor.where(:plan_id => id).investigation
-    hash[:pa] = Contributor.where(:plan_id => id).project_administration
-    hash[:other] = Contributor.where(:plan_id => id).other
+    
+    # Added contributors to coverage of plans. 
+    # Users will see both roles and contributor names if the role is filled
+    @hash.merge(
+      {:data_curation: Contributor.where(:plan_id => @plan.id).data_curation},
+      {:investigation: = Contributor.where(:plan_id => @plan.id).investigation},
+      {:pa: Contributor.where(:plan_id => @plan.id).project_administration},
+      {:other: Contributor.where(:plan_id => @plan.id).other}
+    )
 
     # Org name of plan owner's org
     hash[:affiliation] = owner.present? ? owner.org.name : ""

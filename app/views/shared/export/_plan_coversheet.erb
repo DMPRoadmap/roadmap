@@ -7,7 +7,8 @@
   <%# Allow raw html (==) for plan_attribution as it has <b> tags %>
   <p><%== plan_attribution(@hash[:attribution]) %></p><br>
 
-  <%# ISSUE205: print out contributors if exit %>
+  <%# Added contributors to coverage of plans. 
+    # Users will see both roles and contributor names if the role is filled %>
   <%# Roles are ranked by PI -> DM -> PA -> Other (if any) %>
   <% if @hash[:investigation].present? %>
   <p><b><%= _("Principal Investigator: ") %></b><%= @hash[:investigation].map(&:name).join(', ') %></p><br>
