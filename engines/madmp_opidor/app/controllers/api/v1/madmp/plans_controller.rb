@@ -55,10 +55,13 @@ module Api
         end
         # rubocop:enable Metrics/AbcSize
 
+        # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+        # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def import
           json_data = JSON.parse(request.raw_post)
           import_format = params[:import_format]
           template = Template.default
+          # rubocop:disable Metrics/BlockLength
           Plan.transaction do
             plan = Plan.new
             errs = Import::PlanImportService.validate(json_data, import_format)
@@ -95,7 +98,10 @@ module Api
           rescue JSON::ParserError
             render_error(errors: [_('Invalid JSON')], status: :bad_request)
           end
+          # rubocop:enable Metrics/BlockLength
         end
+        # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
         private
 

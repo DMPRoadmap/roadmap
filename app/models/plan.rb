@@ -327,7 +327,7 @@ class Plan < ApplicationRecord
   # plan - Plan to be deep copied
   #
   # Returns Plan
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def self.deep_copy(plan)
     plan_copy = plan.dup
     plan_copy.title = "Copy of #{plan.title}"
@@ -361,7 +361,7 @@ class Plan < ApplicationRecord
   # --------------------------------
   # End DMP OPIDoR Customization
   # --------------------------------
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # ===========================
   # = Public instance methods =
@@ -757,4 +757,3 @@ class Plan < ApplicationRecord
     errors.add(:end_date, _('must be after the start date')) if end_date < start_date
   end
 end
-# rubocop:enable Metrics/ClassLength

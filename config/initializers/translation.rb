@@ -11,7 +11,7 @@
 # domain specified in order to generate both sets of translation keys.
 if !ENV['DOMAIN'] || ENV['DOMAIN'] == 'app'
   TranslationIO.configure do |config|
-    config.api_key              = ENV['TRANSLATION_API_ROADMAP']
+    config.api_key              = ENV.fetch('TRANSLATION_API_ROADMAP', nil)
     config.source_locale        = 'en'
     config.target_locales       = %w[en-GB fr-FR]
     config.text_domain          = 'app'

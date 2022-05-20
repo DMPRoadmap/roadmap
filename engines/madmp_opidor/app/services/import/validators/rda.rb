@@ -14,9 +14,9 @@ module Import
         BAD_DATASET_MSSG = _(':title is required for each :dataset').freeze
         def contributor_validation_errors(json:)
           errs = []
-          if json.present?
-            errs << BAD_CONTRIB_MSG unless contributor_valid?(json: json,
-                                                              is_contact: true)
+          if json.present? && !contributor_valid?(json: json,
+                                                  is_contact: true)
+            errs << BAD_CONTRIB_MSG
             # id = json.fetch(:contributor_id, json[:contact_id])
             # errs << BAD_ID_MSG if id.present? && !identifier_valid?(json: id)
           end

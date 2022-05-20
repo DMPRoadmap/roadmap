@@ -53,9 +53,9 @@ module Dmpopidor
 
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def create_plan_fragments
-      p "##########"
+      p '##########'
       p template.locale
-      p "##########"
+      p '##########'
       template_locale = template.locale.eql?('en-GB') ? 'eng' : 'fra'
       # rubocop:disable Metrics/BlockLength
       I18n.with_locale template.locale do

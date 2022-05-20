@@ -118,10 +118,10 @@ end
 I18n.with_locale @plan.template.locale do
   intersect_yes = %w[Yes Oui] & ethical_issues_exist
   intersect_unknown = ["Unknown", "Ne sais pas"] & ethical_issues_exist
-  exists = if intersect_yes.any? 
+  exists = if intersect_yes.any?
              _('Yes')
            elsif intersect_unknown.any?
-            intersect_unknown.first
+             intersect_unknown.first
            else
              _('No')
            end

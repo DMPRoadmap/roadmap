@@ -41,6 +41,7 @@ module OrgAdmin
     end
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]/questions/[:question_id]/edit
+    # rubocop:disable Metrics/MethodLength
     def edit
       question = Question.includes(:annotations,
                                    :question_options,
@@ -78,6 +79,7 @@ module OrgAdmin
                                               conditions: question.conditions
                                             }) }
     end
+    # rubocop:enable Metrics/MethodLength
 
     # SEE MODULE
     # GET /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions/new

@@ -175,7 +175,6 @@ class UserMailer < ActionMailer::Base
   # commenter - User who wrote the comment.
   # plan - Plan for which the comment is associated to
   # answer - Answer commented on
-  # rubocop:disable Metrics/AbcSize
   # def new_comment(commenter, plan, answer)
   #   return unless commenter.is_a?(User) && plan.is_a?(Plan)
 
@@ -201,7 +200,6 @@ class UserMailer < ActionMailer::Base
   #                          tool_name: tool_name, plan_title: @plan.title))
   #   end
   # end
-  # rubocop:enable Metrics/AbcSize
   # --------------------------------
   # End DMP OPIDoR Customization
   # --------------------------------

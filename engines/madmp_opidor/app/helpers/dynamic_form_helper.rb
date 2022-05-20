@@ -19,23 +19,23 @@ module DynamicFormHelper
                         example: nil,
                         default_value: nil)
     render partial: 'dynamic_form/fields/text_field',
-          locals: {
-            f: form,
-            multiple: is_multiple,
-            index: index,
-            field_value: value,
-            field_name: name,
-            field_label: label,
-            field_class: html_class,
-            field_id: field_id,
-            input_type: nil,
-            readonly: readonly,
-            required: required,
-            validation: validation,
-            ttip: ttip,
-            example: example,
-            default_value: default_value
-          }
+           locals: {
+             f: form,
+             multiple: is_multiple,
+             index: index,
+             field_value: value,
+             field_name: name,
+             field_label: label,
+             field_class: html_class,
+             field_id: field_id,
+             input_type: nil,
+             readonly: readonly,
+             required: required,
+             validation: validation,
+             ttip: ttip,
+             example: example,
+             default_value: default_value
+           }
   end
   # rubocop:enable  Metrics/ParameterLists
 
@@ -54,94 +54,94 @@ module DynamicFormHelper
                             example: nil,
                             default_value: nil)
     render partial: 'dynamic_form/fields/textarea_field',
-          locals: {
-            f: form,
-            index: index,
-            field_value: value,
-            field_name: name,
-            field_label: label,
-            field_class: html_class,
-            field_id: field_id,
-            input_type: nil,
-            readonly: readonly,
-            required: required,
-            validation: validation,
-            ttip: ttip,
-            example: example,
-            default_value: default_value
-          }
+           locals: {
+             f: form,
+             index: index,
+             field_value: value,
+             field_name: name,
+             field_label: label,
+             field_class: html_class,
+             field_id: field_id,
+             input_type: nil,
+             readonly: readonly,
+             required: required,
+             validation: validation,
+             ttip: ttip,
+             example: example,
+             default_value: default_value
+           }
   end
   # rubocop:enable  Metrics/ParameterLists
 
   # rubocop:disable  Metrics/ParameterLists
   def create_url_field(form,
-                      value,
-                      name,
-                      label,
-                      field_id,
-                      required: false,
-                      validation: nil,
-                      html_class: nil,
-                      is_multiple: false,
-                      readonly: false,
-                      index: 0,
-                      ttip: nil,
-                      example: nil,
-                      default_value: nil)
+                       value,
+                       name,
+                       label,
+                       field_id,
+                       required: false,
+                       validation: nil,
+                       html_class: nil,
+                       is_multiple: false,
+                       readonly: false,
+                       index: 0,
+                       ttip: nil,
+                       example: nil,
+                       default_value: nil)
     render partial: 'dynamic_form/fields/text_field',
-          locals: {
-            f: form,
-            multiple: is_multiple,
-            index: index,
-            field_value: value,
-            field_name: name,
-            field_label: label,
-            field_class: html_class,
-            field_id: field_id,
-            input_type: 'url',
-            readonly: readonly,
-            required: required,
-            validation: validation,
-            ttip: ttip,
-            example: example,
-            default_value: default_value
-          }
+           locals: {
+             f: form,
+             multiple: is_multiple,
+             index: index,
+             field_value: value,
+             field_name: name,
+             field_label: label,
+             field_class: html_class,
+             field_id: field_id,
+             input_type: 'url',
+             readonly: readonly,
+             required: required,
+             validation: validation,
+             ttip: ttip,
+             example: example,
+             default_value: default_value
+           }
   end
   # rubocop:enable  Metrics/ParameterLists
 
   # rubocop:disable  Metrics/ParameterLists
   def create_email_field(form,
-                        value,
-                        name,
-                        label,
-                        field_id,
-                        required: false,
-                        validation: nil,
-                        html_class: nil,
-                        is_multiple: false,
-                        readonly: false,
-                        index: 0,
-                        ttip: nil,
-                        example: nil,
-                        default_value: nil)
+                         value,
+                         name,
+                         label,
+                         field_id,
+                         required: false,
+                         validation: nil,
+                         html_class: nil,
+                         is_multiple: false,
+                         readonly: false,
+                         index: 0,
+                         ttip: nil,
+                         example: nil,
+                         default_value: nil)
     render partial: 'dynamic_form/fields/text_field',
-          locals: {
-            f: form,
-            multiple: is_multiple,
-            index: index,
-            field_value: value,
-            field_name: name,
-            field_label: label,
-            field_class: html_class,
-            field_id: field_id,
-            input_type: 'email',
-            readonly: readonly,
-            required: required,
-            validation: validation,
-            ttip: ttip,
-            example: example,
-            default_value: default_value
-          }
+           locals: {
+             f: form,
+             multiple: is_multiple,
+             index: index,
+             field_value: value,
+             field_name: name,
+             field_label: label,
+             field_class: html_class,
+             field_id: field_id,
+             input_type: 'email',
+             readonly: readonly,
+             required: required,
+             validation: validation,
+             ttip: ttip,
+             example: example,
+             default_value: default_value
+           }
   end
   # rubocop:enable  Metrics/ParameterLists
 
@@ -161,23 +161,23 @@ module DynamicFormHelper
                         example: nil,
                         default_value: nil)
     render partial: 'dynamic_form/fields/text_field',
-          locals: {
-            f: form,
-            multiple: is_multiple,
-            index: index,
-            field_value: value,
-            field_name: name,
-            field_label: label,
-            field_class: html_class,
-            field_id: field_id,
-            input_type: 'date',
-            readonly: readonly,
-            required: required,
-            validation: validation,
-            ttip: ttip,
-            example: example,
-            default_value: default_value
-          }
+           locals: {
+             f: form,
+             multiple: is_multiple,
+             index: index,
+             field_value: value,
+             field_name: name,
+             field_label: label,
+             field_class: html_class,
+             field_id: field_id,
+             input_type: 'date',
+             readonly: readonly,
+             required: required,
+             validation: validation,
+             ttip: ttip,
+             example: example,
+             default_value: default_value
+           }
   end
   # rubocop:enable  Metrics/ParameterLists
 
@@ -197,185 +197,185 @@ module DynamicFormHelper
                           index: 0,
                           ttip: nil)
     render partial: 'dynamic_form/fields/number_field',
-          locals: {
-            f: form,
-            multiple: is_multiple,
-            index: index,
-            field_value: value,
-            field_name: name,
-            field_label: label,
-            field_class: html_class,
-            field_id: field_id,
-            minimum: minimum,
-            maximum: maximum,
-            readonly: readonly,
-            required: required,
-            validation: validation,
-            ttip: ttip
-          }
+           locals: {
+             f: form,
+             multiple: is_multiple,
+             index: index,
+             field_value: value,
+             field_name: name,
+             field_label: label,
+             field_class: html_class,
+             field_id: field_id,
+             minimum: minimum,
+             maximum: maximum,
+             readonly: readonly,
+             required: required,
+             validation: validation,
+             ttip: ttip
+           }
   end
   # rubocop:enable  Metrics/ParameterLists
 
   # rubocop:disable  Metrics/ParameterLists
   def create_checkbox_field(form, value, name, label, field_id, validation: nil, readonly: false)
     render partial: 'dynamic_form/fields/checkbox_field',
-          locals: {
-            f: form,
-            field_value: value,
-            field_name: name,
-            field_label: label,
-            field_id: field_id,
-            readonly: readonly,
-            validation: validation
-          }
+           locals: {
+             f: form,
+             field_value: value,
+             field_name: name,
+             field_label: label,
+             field_id: field_id,
+             readonly: readonly,
+             validation: validation
+           }
   end
   # rubocop:enable  Metrics/ParameterLists
 
   # rubocop:disable  Metrics/ParameterLists, Metrics/MethodLength
   def create_simple_registry_field(form,
-                                  value,
-                                  form_prefix,
-                                  property_name,
-                                  label,
-                                  field_id,
-                                  select_values,
-                                  locale,
-                                  required: false,
-                                  validation: nil,
-                                  html_class: nil,
-                                  readonly: false,
-                                  multiple: false,
-                                  ttip: nil,
-                                  default_value: nil,
-                                  overridable: nil)
+                                   value,
+                                   form_prefix,
+                                   property_name,
+                                   label,
+                                   field_id,
+                                   select_values,
+                                   locale,
+                                   required: false,
+                                   validation: nil,
+                                   html_class: nil,
+                                   readonly: false,
+                                   multiple: false,
+                                   ttip: nil,
+                                   default_value: nil,
+                                   overridable: nil)
     partial_name = if multiple
-                    'dynamic_form/fields/registry/multiple'
-                  else
-                    'dynamic_form/fields/registry/simple'
-                  end
+                     'dynamic_form/fields/registry/multiple'
+                   else
+                     'dynamic_form/fields/registry/simple'
+                   end
     render partial: partial_name,
-          locals: {
-            f: form,
-            selected_value: value,
-            form_prefix: form_prefix,
-            property_name: property_name,
-            field_label: label,
-            select_values: select_values,
-            locale: locale,
-            field_class: html_class,
-            field_id: field_id,
-            readonly: readonly,
-            required: required,
-            validation: validation,
-            ttip: ttip,
-            default_value: default_value,
-            overridable: overridable
-          }
+           locals: {
+             f: form,
+             selected_value: value,
+             form_prefix: form_prefix,
+             property_name: property_name,
+             field_label: label,
+             select_values: select_values,
+             locale: locale,
+             field_class: html_class,
+             field_id: field_id,
+             readonly: readonly,
+             required: required,
+             validation: validation,
+             ttip: ttip,
+             default_value: default_value,
+             overridable: overridable
+           }
   end
   # rubocop:enable  Metrics/ParameterLists, Metrics/MethodLength
 
   # rubocop:disable  Metrics/ParameterLists
   def create_single_complex_registry_field(form,
-                                          value,
-                                          form_prefix,
-                                          property_name,
-                                          label,
-                                          field_id,
-                                          select_values,
-                                          locale,
-                                          parent_id,
-                                          schema_id,
-                                          required: false,
-                                          validation: nil,
-                                          html_class: nil,
-                                          readonly: false,
-                                          ttip: nil,
-                                          default_value: nil,
-                                          overridable: nil)
+                                           value,
+                                           form_prefix,
+                                           property_name,
+                                           label,
+                                           field_id,
+                                           select_values,
+                                           locale,
+                                           parent_id,
+                                           schema_id,
+                                           required: false,
+                                           validation: nil,
+                                           html_class: nil,
+                                           readonly: false,
+                                           ttip: nil,
+                                           default_value: nil,
+                                           overridable: nil)
     render partial: 'dynamic_form/fields/registry/single_complex',
-          locals: {
-            f: form,
-            value: value,
-            form_prefix: form_prefix,
-            property_name: property_name,
-            field_label: label,
-            select_values: select_values,
-            locale: locale,
-            parent_id: parent_id,
-            schema_id: schema_id,
-            field_class: html_class,
-            field_id: field_id,
-            readonly: readonly,
-            required: required,
-            validation: validation,
-            ttip: ttip,
-            default_value: default_value,
-            overridable: overridable
-          }
+           locals: {
+             f: form,
+             value: value,
+             form_prefix: form_prefix,
+             property_name: property_name,
+             field_label: label,
+             select_values: select_values,
+             locale: locale,
+             parent_id: parent_id,
+             schema_id: schema_id,
+             field_class: html_class,
+             field_id: field_id,
+             readonly: readonly,
+             required: required,
+             validation: validation,
+             ttip: ttip,
+             default_value: default_value,
+             overridable: overridable
+           }
   end
   # rubocop:enable  Metrics/ParameterLists
 
   # rubocop:disable  Metrics/ParameterLists
   def create_multiple_complex_registry_field(form,
-                                            value,
-                                            form_prefix,
-                                            property_name,
-                                            label,
-                                            field_id,
-                                            select_values,
-                                            locale,
-                                            parent_id,
-                                            schema_id,
-                                            required: false,
-                                            validation: nil,
-                                            html_class: nil,
-                                            readonly: false,
-                                            ttip: nil,
-                                            default_value: nil,
-                                            overridable: nil)
+                                             value,
+                                             form_prefix,
+                                             property_name,
+                                             label,
+                                             field_id,
+                                             select_values,
+                                             locale,
+                                             parent_id,
+                                             schema_id,
+                                             required: false,
+                                             validation: nil,
+                                             html_class: nil,
+                                             readonly: false,
+                                             ttip: nil,
+                                             default_value: nil,
+                                             overridable: nil)
     render partial: 'dynamic_form/fields/registry/multiple_complex',
-          locals: {
-            f: form,
-            value: value,
-            form_prefix: form_prefix,
-            property_name: property_name,
-            field_label: label,
-            select_values: select_values,
-            locale: locale,
-            parent_id: parent_id,
-            schema_id: schema_id,
-            field_class: html_class,
-            field_id: field_id,
-            readonly: readonly,
-            required: required,
-            validation: validation,
-            ttip: ttip,
-            default_value: default_value,
-            overridable: overridable
-          }
+           locals: {
+             f: form,
+             value: value,
+             form_prefix: form_prefix,
+             property_name: property_name,
+             field_label: label,
+             select_values: select_values,
+             locale: locale,
+             parent_id: parent_id,
+             schema_id: schema_id,
+             field_class: html_class,
+             field_id: field_id,
+             readonly: readonly,
+             required: required,
+             validation: validation,
+             ttip: ttip,
+             default_value: default_value,
+             overridable: overridable
+           }
   end
   # rubocop:enable  Metrics/ParameterLists
 
   def create_hidden_field(form, value, name)
     render partial: 'dynamic_form/fields/const_field',
-          locals: {
-            f: form,
-            field_value: value,
-            field_name: name,
-            field_label: nil,
-            is_const_field: false
-          }
+           locals: {
+             f: form,
+             field_value: value,
+             field_name: name,
+             field_label: nil,
+             is_const_field: false
+           }
   end
 
   def create_const_field(form, value, name, label)
     render partial: 'dynamic_form/fields/const_field',
-          locals: {
-            f: form,
-            field_value: value,
-            field_name: name,
-            field_label: label,
-            is_const_field: true
-          }
+           locals: {
+             f: form,
+             field_value: value,
+             field_name: name,
+             field_label: label,
+             is_const_field: true
+           }
   end
 
   def display_validation_message(validations)
@@ -446,13 +446,13 @@ module DynamicFormHelper
           end
 
           formated_data[key] = if data[key].present?
-                                data_reformater(
-                                  sub_schema,
-                                  RegistryValue.find(data[key].to_i).data.merge(
-                                    id: data[key].to_i
-                                  )
-                                )
-                              end
+                                 data_reformater(
+                                   sub_schema,
+                                   RegistryValue.find(data[key].to_i).data.merge(
+                                     id: data[key].to_i
+                                   )
+                                 )
+                               end
         else
           formated_data[key] = data_reformater(
             sub_schema,
@@ -462,20 +462,20 @@ module DynamicFormHelper
       else # type = string
         # if the field is overridable, check if there's a custom value
         formated_data[key] = if prop['overridable'].present? && data["#{key}_custom"].present?
-                              if data["#{key}_custom"].eql?('__DELETED__')
-                                ''
-                              else
-                                ActionController::Base.helpers.sanitize(
-                                  data["#{key}_custom"],
-                                  { scrubber: DynamicFormScrubber.new }
-                                )
-                              end
-                            else
-                              ActionController::Base.helpers.sanitize(
-                                data[key],
-                                { scrubber: DynamicFormScrubber.new }
-                              )
-                            end
+                               if data["#{key}_custom"].eql?('__DELETED__')
+                                 ''
+                               else
+                                 ActionController::Base.helpers.sanitize(
+                                   data["#{key}_custom"],
+                                   { scrubber: DynamicFormScrubber.new }
+                                 )
+                               end
+                             else
+                               ActionController::Base.helpers.sanitize(
+                                 data[key],
+                                 { scrubber: DynamicFormScrubber.new }
+                               )
+                             end
       end
 
       formated_data[key] = nil if formated_data[key].eql?('')

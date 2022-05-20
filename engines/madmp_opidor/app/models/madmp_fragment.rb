@@ -432,9 +432,10 @@ class MadmpFragment < ApplicationRecord
     research_output_fragment.data['research_output_id']
   end
 
+  # rubocop:disable Metrics/AbcSize
   def update_meta_fragment
+    meta_fragment = dmp.meta
     if classname.eql?('project')
-      meta_fragment = dmp.meta
       project_fragment = self
       dmp_title = format(_('"%{project_title}" project DMP'), project_title: project_fragment.data['title'])
       meta_data = meta_fragment.data.merge(
@@ -442,7 +443,6 @@ class MadmpFragment < ApplicationRecord
       )
       plan.update(title: dmp_title)
     else
-      meta_fragment = dmp.meta
       plan.update(title: meta_fragment.data['title'])
       meta_data = meta_fragment.data.merge(
         'lastModifiedDate' => plan.updated_at.strftime('%F')
@@ -450,6 +450,7 @@ class MadmpFragment < ApplicationRecord
     end
     meta_fragment.update(data: meta_data)
   end
+  # rubocop:enable Metrics/AbcSize
 
   # =================
   # = Class methods =
