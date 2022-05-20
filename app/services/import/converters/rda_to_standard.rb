@@ -19,8 +19,8 @@ module Import
               'dmpLanguage' => json['language'],
               'lastModifiedDate' => json['modified'],
               'title' => json['title'],
-              'licence' => '',
-              'licenceStartDate' => '',
+              'license' => {},
+              'licenseStartDate' => '',
               'relatedDoc' => [],
               'associatedDmp' => [],
               'contact' => {
@@ -197,10 +197,10 @@ module Import
                 'downloadUrl' => elem['download_url'],
                 'fileFormat' => elem['format'],
                 'fileName' => elem['title'],
-                'licence' => {
-                  'licenceUrl' => elem.dig('licence', 'licence_ref'),
-                  'licenceStartDate' => elem.dig('licence', 'start_date')
-                }
+                'license' => {
+                  'licenseUrl' => elem.dig('license', 'license_ref')
+                },
+                'licenseStartDate' => elem.dig('license', 'start_date')
               }
             )
           end
