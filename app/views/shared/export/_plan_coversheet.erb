@@ -7,7 +7,8 @@
 
   <p><strong><%= _("Creator:") %></strong><%= @hash[:attribution] %></p><br>
 
-  <%# portagenetwork/roadmap#202: add contributor to cover page %>
+  <%# Added contributors to coverage of plans. 
+    # Users will see both roles and contributor names if the role is filled %>
   <%# Roles are ranked by PI -> DM -> PA -> Other (if any) %>
   <% if @hash[:investigation].present? %>
   <p><b><%= _("Principal Investigator: ") %></b><%= @hash[:investigation].map(&:name).join(', ') %></p><br>

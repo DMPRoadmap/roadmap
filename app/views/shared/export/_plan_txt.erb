@@ -2,7 +2,8 @@
 <%= "----------------------------------------------------------\n" %>
 <% if @show_coversheet %>
 <%= Array(@hash[:attribution]).many? ? _("Creators: ") + Array(@hash[:attribution]).join(", ")  : _('Creator:') + @hash[:attribution] %>
-<%# portagenetwork/roadmap#202: add contributor to cover page %>
+<%# Added contributors to coverage of plans. 
+  # Users will see both roles and contributor names if the role is filled %>
 <%# Roles are ranked by PI -> DM -> PA -> Other (if any) %>
   <% if @hash[:investigation].present? %>
 <%= _("Principal Investigator: ") + @hash[:investigation].map(&:name).join(', ') %>

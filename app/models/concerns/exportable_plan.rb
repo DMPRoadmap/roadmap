@@ -111,7 +111,8 @@ module ExportablePlan
     roles.administrator.not_creator.first&.user&.name(false) unless attribution.present?
     hash[:attribution] = attribution
 
-    # portagenetwork/roadmap#202: add contributor to cover page
+    # Added contributors to coverage of plans. 
+    # Users will see both roles and contributor names if the role is filled
     hash[:data_curation] = Contributor.where(plan_id: id).data_curation
     hash[:investigation] = Contributor.where(plan_id: id).investigation
     hash[:pa] = Contributor.where(plan_id: id).project_administration
