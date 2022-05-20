@@ -43,11 +43,11 @@ class PlanExportsController < ApplicationController
                              .detect { |p| p.visibility_allowed?(@plan) }
                       end
 
-     #portagenetwork/roadmap#202: add contributor to cover page
-     @hash[:data_curation] = Contributor.where(:plan_id => @plan.id).data_curation
-     @hash[:investigation] = Contributor.where(:plan_id => @plan.id).investigation
-     @hash[:pa] = Contributor.where(:plan_id => @plan.id).project_administration
-     @hash[:other] = Contributor.where(:plan_id => @plan.id).other
+    # portagenetwork/roadmap#202: add contributor to cover page
+    @hash[:data_curation] = Contributor.where(plan_id: @plan.id).data_curation
+    @hash[:investigation] = Contributor.where(plan_id: @plan.id).investigation
+    @hash[:pa] = Contributor.where(plan_id: @plan.id).project_administration
+    @hash[:other] = Contributor.where(plan_id: @plan.id).other
 
     respond_to do |format|
       format.html { show_html }
