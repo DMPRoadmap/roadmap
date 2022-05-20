@@ -101,15 +101,13 @@ module ExportablePlan
       attribution << role.user.name(false)
     end
     hash[:attribution] = attribution
-    
-    # Added contributors to coverage of plans. 
+
+    # Added contributors to coverage of plans.
     # Users will see both roles and contributor names if the role is filled
-    @hash.merge(
-      {:data_curation: Contributor.where(:plan_id => @plan.id).data_curation},
-      {:investigation: = Contributor.where(:plan_id => @plan.id).investigation},
-      {:pa: Contributor.where(:plan_id => @plan.id).project_administration},
-      {:other: Contributor.where(:plan_id => @plan.id).other}
-    )
+    hash[:data_curation] = Contributor.where(plan_id: id).data_curation
+    hash[:investigation] = Contributor.where(plan_id: id).investigation
+    hash[:pa] =  Contributor.where(plan_id: id).project_administration
+    hash[:other] = Contributor.where(plan_id: id).other
 
     # Org name of plan owner's org
     hash[:affiliation] = owner.present? ? owner.org.name : ""
@@ -142,17 +140,19 @@ module ExportablePlan
             else
               _("Creator:")
             end, _("%{authors}") % { authors: hash[:attribution].join(", ") }]
-    if hash[:investigation].present? 
-      csv <<  [_("Principal Investigator: "), _("%{investigation}") % { investigation: hash[:investigation].map(&:name).join(', ') }] 
+    if hash[:investigation].present?
+      csv << [_("Principal Investigator: "),
+              _("%{investigation}") % { investigation: hash[:investigation].map(&:name).join(", ") }]
     end
-    if hash[:data_curation].present? 
-      csv << [_("Date Manager: "), _("%{data_curation}") % { data_curation: hash[:data_curation].map(&:name).join(', ') }] 
+    if hash[:data_curation].present?
+      csv << [_("Date Manager: "),
+              _("%{data_curation}") % { data_curation: hash[:data_curation].map(&:name).join(", ") }]
     end
-    if hash[:pa].present? 
-      csv << [_("Project Administrator: "), _("%{pa}") % { pa: hash[:pa].map(&:name).join(', ') }] 
+    if hash[:pa].present?
+      csv << [_("Project Administrator: "), _("%{pa}") % { pa: hash[:pa].map(&:name).join(", ") }]
     end
-    if hash[:other].present? 
-      csv << [_("Contributor: "), _("%{other}") % { other: hash[:other].map(&:name).join(', ') }] 
+    if hash[:other].present?
+      csv << [_("Contributor: "), _("%{other}") % { other: hash[:other].map(&:name).join(", ") }]
     end
     csv << [_("Affiliation: "), _("%{affiliation}") % { affiliation: hash[:affiliation] }]
     csv << if hash[:funder].present?
