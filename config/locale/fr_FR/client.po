@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-05-20 11:45+0200\n"
-"PO-Revision-Date: 2022-05-20 11:45+0200\n"
+"POT-Creation-Date: 2022-05-23 15:39+0200\n"
+"PO-Revision-Date: 2022-05-23 15:40+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -258,7 +258,7 @@ msgstr "plan de test"
 
 #: ../../app/controllers/dmpopidor/plans_controller.rb:130
 #: ../../app/controllers/plans_controller.rb:105
-#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:83
+#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:86
 msgid "%{user_name} Plan"
 msgstr "Plan de %{user_name}"
 
@@ -995,7 +995,7 @@ msgid "DMP Visibility Changed: %{plan_title}"
 msgstr "Changement de visibilité d'un plan : %{plan_title}"
 
 #: ../../app/mailers/dmpopidor/user_mailer.rb:167
-#: ../../app/mailers/user_mailer.rb:219
+#: ../../app/mailers/user_mailer.rb:217
 msgid "Administrator privileges granted in %{tool_name}"
 msgstr "Droits administrateur attribués dans %{tool_name}"
 
@@ -1019,7 +1019,7 @@ msgstr "Bienvenue sur %{tool_name}"
 msgid "A Data Management Plan in %{tool_name} has been shared with you"
 msgstr "Un plan de gestion de données a été partagé avec vous sur %{tool_name}"
 
-#: ../../app/mailers/user_mailer.rb:237
+#: ../../app/mailers/user_mailer.rb:235
 msgid "%{tool_name} API changes"
 msgstr "Modifications de l'API %{tool_name}"
 
@@ -1052,7 +1052,7 @@ msgid "Project coordinator"
 msgstr "Coordinateur de projet"
 
 #: ../../app/models/dmpopidor/plan.rb:128
-#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:439
+#: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:440
 msgid "\"%{project_title}\" project DMP"
 msgstr "DMP du projet \"%{project_title}\""
 
@@ -3947,7 +3947,7 @@ msgid "Plan not found"
 msgstr "Plan non trouvé"
 
 #:
-#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:73
+#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:76
 msgid ""
 "Unable to determine owner of the DMP, please specify an existing user as the c"
 "ontact"
@@ -3956,8 +3956,8 @@ msgstr ""
 "teur existant comme contact"
 
 #:
-#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:93
 #: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:96
+#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:99
 msgid "Invalid JSON"
 msgstr "JSON non valide"
 

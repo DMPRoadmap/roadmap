@@ -214,6 +214,9 @@ gem 'parallel'
 # Makes http fun again! Wrapper to simplify the native Net::HTTP libraries
 gem 'httparty'
 
+# A feed fetching and parsing library (http://feedjira.com)
+gem 'feedjira'
+
 # Autoload dotenv in Rails. (https://github.com/bkeepers/dotenv)
 gem 'dotenv-rails'
 
