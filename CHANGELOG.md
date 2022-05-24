@@ -1,5 +1,10 @@
 # Changelog
 
+### Added
+
+- Added contributors to plan's cover page (if there is any) [#202](https://github.com/portagenetwork/roadmap/issues/202)
+- Added plan title to csv exported file
+
 ## [3.0.4+portage-3.0.12] - 2022-05-12
 
 ### Added
