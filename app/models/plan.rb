@@ -363,6 +363,45 @@ class Plan < ApplicationRecord
   # --------------------------------
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  def self.structured_deep_copy(plan)
+    plan_copy = plan.dup
+    plan_copy.title = "Copy of #{plan.title}"
+    plan_copy.feedback_requested = false
+    plan_copy.save!
+    plan_copy.copy_plan_fragments(plan)
+    plan.research_outputs.each do |research_output|
+      research_output_copy = ResearchOutput.deep_copy(research_output)
+      research_output_copy.title = research_output.title || "Copy of #{research_output.abbreviation}"
+      research_output_copy.plan_id = plan_copy.id
+      research_output_copy.skip_fragments_creation = true
+      research_output_copy.save!
+      # Creates the main ResearchOutput fragment
+      ro_fragment = Fragment::ResearchOutput.create(
+        data: {
+          'research_output_id' => research_output_copy.id
+        },
+        madmp_schema: MadmpSchema.find_by(classname: 'research_output'),
+        dmp_id: plan_copy.json_fragment.id,
+        parent_id: plan_copy.json_fragment.id,
+        additional_info: { property_name: 'researchOutput' }
+      )
+
+      research_output.answers.each do |answer|
+        answer_copy = Answer.deep_copy(answer)
+        answer_copy.plan_id = plan_copy.id
+        answer_copy.research_output_id = research_output_copy.id
+        answer_copy.save!
+        MadmpFragment.deep_copy(answer.madmp_fragment, answer_copy.id, ro_fragment) if plan.template.structured?
+      end
+    end
+    plan.guidance_groups.each do |guidance_group|
+      plan_copy.guidance_groups << guidance_group if guidance_group.present?
+    end
+    plan_copy
+  end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
   # ===========================
   # = Public instance methods =
   # ===========================

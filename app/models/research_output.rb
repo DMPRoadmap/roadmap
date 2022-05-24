@@ -43,8 +43,10 @@ class ResearchOutput < ApplicationRecord
   # --------------------------------
   # Start DMP OPIDoR Customization
   # --------------------------------
+  attr_accessor :skip_fragments_creation
+
   prepend Dmpopidor::ResearchOutput
-  after_create :create_json_fragments
+  after_create :create_json_fragments, unless: :skip_fragments_creation
   after_destroy :destroy_json_fragment
   # --------------------------------
   # End DMP OPIDoR Customization

@@ -1,5 +1,6 @@
 import * as notifier from '../utils/notificationHelper';
 import getConstant from '../utils/constants';
+import toggleSpinner from '../utils/spinner';
 import { paginableSelector } from '../utils/paginable';
 
 $(() => {
@@ -23,6 +24,9 @@ $(() => {
   $(paginableSelector).on('ajax:error', 'input.set_test_plan', (e) => {
     const xhr = e.detail(2);
     notifier.renderAlert(xhr.responseText);
+  });
+  $(document).on('click', '.copy-plan', () => {
+    toggleSpinner(true);
   });
 
   $('#create-modal').modal('show');

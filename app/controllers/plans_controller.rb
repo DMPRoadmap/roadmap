@@ -486,7 +486,7 @@ class PlansController < ApplicationController
   def duplicate
     plan = Plan.find(params[:id])
     authorize plan
-    @plan = Plan.deep_copy(plan)
+    @plan = plan.template.structured? ? Plan.structured_deep_copy(plan) : Plan.deep_copy(plan)
     respond_to do |format|
       if @plan.save
         @plan.add_user!(current_user.id, :creator)

@@ -505,6 +505,23 @@ class MadmpFragment < ApplicationRecord
   end
   # rubocop:enable Metrics/AbcSize
 
+  def self.deep_copy(fragment, answer_id, ro_fragment)
+    fragment_copy = MadmpFragment.new(
+      dmp_id: ro_fragment.dmp_id,
+      parent_id: ro_fragment.id,
+      answer_id: answer_id,
+      madmp_schema_id: fragment.madmp_schema_id,
+      additional_info: { property_name: fragment.additional_info['property_name'] }
+    )
+    fragment_copy.classname = fragment.classname
+    fragment_copy.instantiate
+    fragment_copy.raw_import(
+      fragment.get_full_fragment,
+      fragment.madmp_schema
+    )
+    fragment_copy
+  end
+
   def self.find_sti_class(_type_name)
     self
   end
