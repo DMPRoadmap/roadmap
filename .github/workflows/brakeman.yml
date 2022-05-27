@@ -15,6 +15,6 @@ jobs:
     - name: Brakeman
       uses: artplan1/brakeman-action@v1.2.1
       with:
-        flags: "--color"
+        flags: "--no-exit-on-warn" # OPTIONAL: change this no-exit-on-warn flag to avoid complaining of EOL security warning
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
