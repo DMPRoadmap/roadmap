@@ -5,6 +5,10 @@
 - Added contributors to plan's cover page (if there is any) [#202](https://github.com/portagenetwork/roadmap/issues/202)
 - Added plan title to csv exported file
 
+### Fixed
+
+- Added bootstrap-select stylesheet back after version 3 upgrade to fix the option-picker UI bug [#195](https://github.com/portagenetwork/roadmap/issues/195)
+
 ## [3.0.4+portage-3.0.12] - 2022-05-12
 
 ### Added
