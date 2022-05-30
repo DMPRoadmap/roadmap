@@ -2,6 +2,10 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 30/05/2022
+- Ajout de la copie pour les plans créés à partir d'un modèle structuré
+- Correction du problème d'affichage des listes déroulantes dans les popups (la solution était assez simple, si elle fonctionne je la récupèrerai pour la mettre en production dans la prochaine mise à jour corrective)
+
 ## 16/05/2022
 - Roadmap V3.1.0 https://github.com/DMPRoadmap/roadmap/releases/tag/v3.1.0
     - Concernant les produits de recherche, on n'utilise pas les nouvelles fonctionnalités Roadmap. Les fonctionnalités sont identiques à ce qui est présent en production
