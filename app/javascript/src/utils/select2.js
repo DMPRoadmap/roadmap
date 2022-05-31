@@ -1,6 +1,6 @@
 export const Select2 = {
   init(questionId = null, inModal = false) {
-    $(`${questionId} .select-field select, .linked-fragments-select select, .schema-picker-zone select`).select2({
+    $(`${questionId} .select-field select, ${questionId} .schema-picker-zone select`).select2({
       theme: 'bootstrap4',
       dropdownParent: inModal ? $('#modal_fragment_form') : $('body'),
     });
