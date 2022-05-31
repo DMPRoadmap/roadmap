@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-05-23 15:39+0200\n"
-"PO-Revision-Date: 2022-05-23 15:40+0200\n"
+"POT-Creation-Date: 2022-05-31 11:48+0200\n"
+"PO-Revision-Date: 2022-05-31 11:48+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -49,7 +49,7 @@ msgstr "Impossible de %{action} le %{object}. %{errors}"
 
 #: ../../app/controllers/application_controller.rb:119
 msgid "Successfully %{action} the %{object}."
-msgstr "Avec succès %{action} le %{object}."
+msgstr "%{object} %{action} avec succès."
 
 #: ../../app/controllers/application_controller.rb:136
 #: ../../app/controllers/dmpopidor/application_controller.rb:15
@@ -1125,7 +1125,7 @@ msgstr "test"
 msgid "private"
 msgstr "privé"
 
-#: ../../app/models/plan.rb:757
+#: ../../app/models/plan.rb:796
 msgid "must be after the start date"
 msgstr "doit être postérieur à la date de début"
 
@@ -2495,7 +2495,7 @@ msgstr "Voulez-vous vraiment supprimer cet élément ?"
 
 #: ../../app/views/branded/paginable/contributors/_index.html.erb:56
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:68
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:71
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:69
 #: ../../app/views/branded/paginable/templates/_history.html.erb:56
 #: ../../engines/madmp_opidor/app/views/dynamic_form/fields/contributor/_contributor_list.html.erb:17
 #: ../../engines/madmp_opidor/app/views/dynamic_form/linked_fragment/_list.html.erb:18
@@ -2509,7 +2509,7 @@ msgstr "Nom abrégé ou code"
 #: ../../app/views/branded/paginable/departments/_index.html.erb:28
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:41
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:76
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:79
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:77
 #: ../../app/views/branded/plans/_share_form.html.erb:58
 #: ../../app/views/research_outputs/_form.html.erb:179
 msgid "Remove"
@@ -2609,7 +2609,7 @@ msgstr "Partager"
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:71
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:21
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:66
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:74
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:72
 #: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:13
 #: ../../app/views/branded/paginable/templates/_history.html.erb:6
 #: ../../app/views/branded/paginable/templates/_publicly_visible.html.erb:10
@@ -2618,12 +2618,12 @@ msgid "Download"
 msgstr "Télécharger"
 
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:66
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:68
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:67
 msgid "Copy"
 msgstr "Copier"
 
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:75
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:78
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:76
 msgid ""
 "Are you sure you wish to remove this public plan? This will remove it from the"
 " Public DMPs page but any collaborators will still be able to access it."
@@ -2632,7 +2632,7 @@ msgstr ""
 "DMPs publics mais vos collaborateurs continueront à pouvoir y accéder."
 
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:75
-#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:78
+#: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:76
 msgid ""
 "Are you sure you wish to remove this plan? Any collaborators will still be abl"
 "e to access it."
