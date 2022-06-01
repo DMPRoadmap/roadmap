@@ -83,7 +83,15 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+
+  # Rails 6+ adds middleware to prevent DNS rebinding attacks:
+  #    https://guides.rubyonrails.org/configuring.html#actiondispatch-hostauthorization
+  #
+  # This allows us to define the hostname and add it to the whitelist. If you attempt
+  # to access the site and receive a 'Blocked host' error then you will need to
+  # set this environment variable
+  config.hosts << ENV['DMPROADMAP_HOST'] if ENV['DMPROADMAP_HOST'].present?
 end
 
 # Used by Rails' routes url_helpers (typically when including a link in an email)
-Rails.application.routes.default_url_options[:host] = 'localhost:3000'
+Rails.application.routes.default_url_options[:host] = ENV['DMPROADMAP_HOST'] || 'localhost:3000'
