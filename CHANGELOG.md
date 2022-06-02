@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 02/06/2022
+- Correction du problème d'affichage des listes de sélection dans les pop up et dans le formulaire principal après fermeture d'une popup
+- Les contributeurs sont désormais triés par prénom/nom dans l'export PDF/DOCX et dans l'onglet Contributeurs (issue #217)
+- Correction du problème d'export des DMP Publics (issue #218)
+
+A noter que tous ces problèmes devraient être intégrés à la prochaine mise à jour corrective
+
 ## 30/05/2022
 - Ajout de la copie pour les plans créés à partir d'un modèle structuré
 - Correction du problème d'affichage des listes déroulantes dans les popups (la solution était assez simple, si elle fonctionne je la récupèrerai pour la mettre en production dans la prochaine mise à jour corrective)
