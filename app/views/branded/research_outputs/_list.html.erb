@@ -17,7 +17,7 @@
           <span class="readonly"><%= research_output.abbreviation %></span>
         </div>
         <div class='research-output-field form-group research-output-title'>
-          <%= f.label :title, _('Full Title'),  class: 'control-label' %>
+          <%= f.label :title, _('Full Name'),  class: 'control-label' %>
           <%= f.text_field :title, value: research_output_data['title'],
                            class: 'form-control input edit',
                            "aria-required": true, required: true,
