@@ -8,7 +8,7 @@ module Dmpopidor
     def index
       authorize @plan
       @dmp_fragment = @plan.json_fragment
-      @contributors = @dmp_fragment.persons
+      @contributors = @dmp_fragment.persons.order("data->>'firstName', data->>'lastName'")
     end
   end
 end

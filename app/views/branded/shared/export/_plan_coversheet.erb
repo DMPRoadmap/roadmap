@@ -1,6 +1,6 @@
 <% 
   plan_fragment = @plan.json_fragment
-  contributors = plan_fragment.contributors
+  contributors = plan_fragment.contributors.order("data->>'firstName', data->>'lastName'")
   costs = Fragment::Cost.where(dmp_id: plan_fragment.id)
   locale = LocaleService.to_gettext(locale: @plan.template.locale)
   template = @plan.template 
