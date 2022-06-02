@@ -148,7 +148,7 @@ class PlanExportsController < ApplicationController
   end
 
   def export_params
-    params.require(:export).permit(:form, :project_details, :question_headings,
+    params.fetch(:export, {}).permit(:form, :project_details, :question_headings,
                                    :unanswered_questions, :custom_sections,
                                    :formatting)
   end
