@@ -52,7 +52,8 @@ class Template < ApplicationRecord
   #
   # The links is validated against custom validator allocated at
   # validators/template_links_validator.rb
-  serialize :links, JSON, default: { funder: [], sample_plan: [] }
+  attribute :links, :text, default: { funder: [], sample_plan: [] }
+  serialize :links, JSON
 
   attribute :published, :boolean, default: false
   attribute :archived, :boolean, default: false
@@ -60,6 +61,7 @@ class Template < ApplicationRecord
   attribute :version, :integer, default: 0
   attribute :customization_of, :integer, default: nil
   attribute :family_id, :integer, default: -> { Template.new_family_id }
+
   # TODO: re-add visibility setting? (this is handled in org_admin/create and
   # relies on the org_id in the current callback-form)
   attribute :visibility, :integer, default: 0

@@ -53,7 +53,8 @@ class Org < ApplicationRecord
   #  { org: [{"link":"www.example.com","text":"foo"}, ...] }
   # The links are validated against custom validator allocated at
   # validators/template_links_validator.rb
-  serialize :links, JSON, default: { org: [] }
+  attribute :links, :text, default: { org: [] }
+  serialize :links, JSON
 
   # ================
   # = Associations =
