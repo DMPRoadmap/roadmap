@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Module that helps validate Template and Org links
-module JSONLinkValidator
+module JsonLinkValidator
   # Validates whether or not the value passed is conforming to
   # [{ link: String, text: String}, ...]
   def valid_links?(value)

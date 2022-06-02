@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe LocaleService do
   before(:each) do
     Language.destroy_all
-    @default = Language.default || create(:language, default_language: true)
+    @default = Language.default || create(:language, abbreviation: 'loc-svc', default_language: true)
     Rails.configuration.x.locales.default = @default.abbreviation
     Rails.configuration.x.locales.gettext_join_character = '_'
     Rails.configuration.x.locales.i18n_join_character = '-'
@@ -25,7 +25,7 @@ RSpec.describe LocaleService do
 
   describe '#available_locales' do
     it 'returns the abbreviations of all Languages in the database' do
-      create(:language)
+      create(:language, abbreviation: 'avail-loc')
       expected = Language.all.order(:abbreviation).pluck(:abbreviation)
       expect(described_class.available_locales).to eql(expected)
     end

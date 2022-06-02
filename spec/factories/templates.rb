@@ -42,6 +42,7 @@ FactoryBot.define do
     published { false }
     archived { false }
     sequence(:version)
+    # links { { funder: [], sample_plan: [] } }
 
     trait :publicly_visible do
       after(:create) do |template|

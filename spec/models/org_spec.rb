@@ -565,7 +565,7 @@ RSpec.describe Org, type: :model do
                                               feedback_enabled: true,
                                               is_other: true,
                                               region: create(:region),
-                                              language: create(:language))
+                                              language: create(:language, abbreviation: 'org-mdl'))
       end
 
       it 'returns false unless Org is an Org' do
