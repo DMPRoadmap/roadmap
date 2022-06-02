@@ -214,7 +214,7 @@ module Import
           title = security_info['title']
           description = security_info['description']
 
-          return title.concat(':', description) unless title.nil? || description.nil?
+          return title.concat(': ', description) unless title.nil? || description.nil?
         end
 
         # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
