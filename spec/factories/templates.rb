@@ -75,7 +75,7 @@ FactoryBot.define do
     end
 
     transient do
-      phases { 0 }
+      phases { 1 }
       sections { 0 }
       questions { 0 }
     end

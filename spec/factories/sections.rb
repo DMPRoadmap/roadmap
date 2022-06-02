@@ -33,7 +33,7 @@ FactoryBot.define do
     modifiable { false }
 
     transient do
-      questions { 0 }
+      questions { 1 }
     end
 
     after(:create) do |section, evaluator|

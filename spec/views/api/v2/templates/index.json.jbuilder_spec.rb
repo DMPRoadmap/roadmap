@@ -16,19 +16,19 @@ describe 'api/v2/templates/index.json.jbuilder' do
 
     @resp = OpenStruct.new(status: @code)
     @req = Net::HTTPGenericRequest.new('GET', nil, nil, @url)
-
-    render template: 'api/v2/templates/index',
-           locals: { response: @resp, request: @req }
-    @json = JSON.parse(rendered).with_indifferent_access
-  end
-
-  it 'includes both templates' do
-    expect(@json[:items].length).to eql(2)
   end
 
   describe 'includes all of the Template attributes' do
     before(:each) do
+      render template: 'api/v2/templates/index',
+             locals: { response: @resp, request: @req}
+      @json = JSON.parse(rendered).with_indifferent_access
+
       @template = @json[:items].first[:dmp_template]
+    end
+
+    it 'includes both templates' do
+      expect(@json[:items].length).to eql(2)
     end
 
     it 'includes the :title' do
@@ -52,6 +52,25 @@ describe 'api/v2/templates/index.json.jbuilder' do
     it 'includes the :template_ids' do
       expect(@template[:template_id][:identifier]).to eql(@template1.family_id.to_s)
       expect(@template[:template_id][:type]).to eql('other')
+    end
+
+    # The show_url parameter is either false or not included
+    it 'includes the :phases' do
+      expect(@json[:items].first[:dmp_template][:phases]).to eql(nil)
+    end
+  end
+
+  # The show_url parameter is true
+  describe 'when the show_phases url parameter is true' do
+    before(:each) do
+      @show_phases = true
+      render template: 'api/v2/templates/index',
+             locals: { response: @resp, request: @req, show_phases: @show_phases }
+      @json = JSON.parse(rendered).with_indifferent_access
+    end
+
+    it 'returns the :phases' do
+      expect(@json[:items].first[:dmp_template][:phases].length).to eql(1)
     end
   end
 end
