@@ -48,13 +48,12 @@ class Org < ApplicationRecord
 
   attribute :feedback_msg, :text, default: feedback_confirmation_default_message
   attribute :language_id, :integer, default: -> { Language.default&.id }
-  attribute :links, :text, default: { org: [] }
 
   # Stores links as an JSON object:
   #  { org: [{"link":"www.example.com","text":"foo"}, ...] }
   # The links are validated against custom validator allocated at
   # validators/template_links_validator.rb
-  serialize :links, JSON
+  serialize :links, JSON, default: { org: [] }
 
   # ================
   # = Associations =
