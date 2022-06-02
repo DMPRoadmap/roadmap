@@ -67,7 +67,7 @@ module Import
               madmp_schema: associated_question.madmp_schema,
               additional_info: { 'property_name' => prop }
             )
-            fragment.classname = schema_prop['class']
+            fragment.classname = associated_question.madmp_schema.classname
             next unless associated_question.present? && plan.template.structured?
 
             # Create a new answer for the question associated to the fragment
