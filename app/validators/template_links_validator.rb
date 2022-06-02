@@ -9,9 +9,9 @@ class TemplateLinksValidator < ActiveModel::Validator
     links = record.links
     expected_keys = %w[funder sample_plan]
 
-  p record.class.name
-  p record.inspect
-  p "VALIDATOR: #{links.class.name}, #{links.is_a?(Hash)}"
+p record.class.name
+p record.inspect
+p "VALIDATOR: #{links.class.name}, #{links.is_a?(Hash)}"
 
     if links.is_a?(Hash)
       expected_keys.each do |k|
