@@ -78,6 +78,11 @@ class OrgsController < ApplicationController
     # Remove the extraneous Org Selector hidden fields
     attrs = remove_org_selection_params(params_in: attrs)
 
+pp attrs
+junk_org = Org.new(attrs)
+p junk_org.valid?
+p junk_org.errors.full_messages
+
     if @org.update(attrs)
       # Save any identifiers that were found
       if current_user.can_super_admin? && lookup.present?
