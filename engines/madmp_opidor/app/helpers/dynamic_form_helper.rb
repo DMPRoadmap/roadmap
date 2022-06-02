@@ -497,5 +497,13 @@ module DynamicFormHelper
     end
   end
   # rubocop:enable Style/OptionalBooleanParameter
+
+  # Source : https://stackoverflow.com/a/5331096
+  def uri?(string)
+    uri = URI.parse(string)
+    %w[http https].include?(uri.scheme)
+  rescue URI::BadURIError, URI::InvalidURIError
+    false
+  end
 end
 # rubocop:enable Metrics/ModuleLength

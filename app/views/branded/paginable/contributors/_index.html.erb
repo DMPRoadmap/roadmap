@@ -1,8 +1,14 @@
 <%# locals: @plan, scope %>
 <% template_locale = LocaleService.to_gettext(locale: @plan.template.locale) %>
 <% scope.each do |contributor| %>
+  <% person_id = contributor.data["personId"]%>
   <tr>
-    <td><%= contributor.to_s %></td>
+    <td>
+      <%= contributor.to_s %>
+      <% if person_id.present? %>
+        - <%= uri?(person_id) ? link_to(person_id, person_id, target: "_blank") : person_id %>
+      <% end %>
+    </td>
     <td><%= contributor.data["affiliationName"] %></td>
     <td class="roles">
       <ul>
