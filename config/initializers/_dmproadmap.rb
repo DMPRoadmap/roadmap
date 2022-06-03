@@ -194,6 +194,9 @@ module DMPRoadmap
     # regardless of the plans visibility and whether or not the plan has been shared
     config.x.plans.super_admins_read_all = true
 
+    # Check download of a plan coversheet tickbox
+    config.x.plans.download_coversheet_tickbox_checked = false
+
     # ---------------------------------------------------- #
     # CACHING - all values are in seconds (86400 == 1 Day) #
     # ---------------------------------------------------- #

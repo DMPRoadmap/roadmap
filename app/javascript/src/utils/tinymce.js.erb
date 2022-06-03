@@ -1,7 +1,8 @@
 // Import TinyMCE
 import tinymce from 'tinymce/tinymce';
 // Import TinyMCE theme
-import 'tinymce/themes/modern/theme';
+import 'tinymce/themes/silver/theme';
+import 'tinymce/icons/default';
 // Plugins
 import 'tinymce/plugins/table';
 import 'tinymce/plugins/lists';
@@ -29,7 +30,7 @@ export const defaultOptions = {
   target_list: false,
   elementpath: false,
   resize: true,
-  autoresize_min_height: 230,
+  min_height: 230,
   autoresize_bottom_margin: 10,
   branding: false,
   extended_valid_elements: 'iframe[tooltip] , a[href|target=_blank]',
