@@ -38,8 +38,8 @@ class PlanExportsController < ApplicationController
     @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
     if params.key?(:phase_id) && params[:phase_id].length > 0
       # order phases by phase number asc
-      @hash[:phases] = @hash[:phases].sort_by{|phase| phase[:number]}
-      if (params[:phase_id] == "All")
+      @hash[:phases] = @hash[:phases].sort_by { |phase| phase[:number] }
+      if params[:phase_id] == "All"
         @hash[:all_phases] = true
       else
         @selected_phase = @plan.phases.find(params[:phase_id])
@@ -49,6 +49,14 @@ class PlanExportsController < ApplicationController
                              .detect { |p| p.visibility_allowed?(@plan) }
     end
 
+
+    # Added contributors to coverage of plans.
+    # Users will see both roles and contributor names if the role is filled
+    @hash[:data_curation] = Contributor.where(plan_id: @plan.id).data_curation
+    @hash[:investigation] = Contributor.where(plan_id: @plan.id).investigation
+    @hash[:pa] =  Contributor.where(plan_id: @plan.id).project_administration
+    @hash[:other] = Contributor.where(plan_id: @plan.id).other
+    
     respond_to do |format|
       format.html { show_html }
       format.csv  { show_csv }
@@ -92,15 +100,15 @@ class PlanExportsController < ApplicationController
     render pdf: file_name,
            margin: @formatting[:margin],
            footer: {
-            center: _("Created using %{application_name}. Last modified %{date}") % {
-              application_name: ApplicationService.application_name,
-              date: l(@plan.updated_at.to_date, format: :readable)
-            },
-            font_size: 8,
-            spacing:   (Integer(@formatting[:margin][:bottom]) / 2) - 4,
-            right:     _("[page] of [topage]"),
-            encoding: "UTF-8"
-          }
+             center: _("Created using %{application_name}. Last modified %{date}") % {
+               application_name: ApplicationService.application_name,
+               date: l(@plan.updated_at.to_date, format: :readable)
+             },
+             font_size: 8,
+             spacing: (Integer(@formatting[:margin][:bottom]) / 2) - 4,
+             right: _("[page] of [topage]"),
+             encoding: "UTF-8"
+           }
   end
 
   def show_json
