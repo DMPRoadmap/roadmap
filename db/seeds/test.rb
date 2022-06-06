@@ -43,7 +43,6 @@ languages.each { |l| Language.create!(l) }
 default_locale = LocaleService.to_i18n(locale: LocaleService.default_locale).to_s
 default_language = Language.find_by(abbreviation: default_locale)
 
-
 # When this is executed by `db:setup`, the translation initializer did not run
 # so we need to establish the I18n locales manually
 I18n.available_locales = LocaleService.available_locales.map do |locale|
@@ -120,40 +119,7 @@ question_formats = [
 ]
 question_formats.each{ |qf| QuestionFormat.create!(qf) }
 
-# Languages (check config/locales for any ones not defined here)
-# -------------------------------------------------------
-languages = [
-  {abbreviation: 'en-GB',
-   description: '',
-   name: 'English (GB)',
-   default_language: true},
-  {abbreviation: 'en-US',
-   description: '',
-   name: 'English (US)',
-   default_language: false},
-  {abbreviation: 'fr',
-   description: '',
-   name: 'Français',
-   default_language: false},
-  {abbreviation: 'de',
-   description: '',
-   name: 'Deutsch',
-   default_language: false},
-  {abbreviation: 'es',
-   description: '',
-   name: 'Español',
-   default_language: false},
-  {abbreviation: 'pt-BR',
-   description: '',
-   name: 'Português (Brasil)',
-   default_language: false},
-  {abbreviation: 'tr-TR',
-   description: '',
-   name: 'Türk',
-   default_language: false}
-]
-languages.each { |l| Language.create!(l) }
-default_language = Language.find_by(abbreviation: default_locale)
+
 
 # # Scan through the locale files and add an entry if a file is present but
 # # not defined in this seed file
