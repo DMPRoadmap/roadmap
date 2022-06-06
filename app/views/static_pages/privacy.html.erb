@@ -1,34 +1,96 @@
 <% title _('Privacy statement') %>
 <div class="row">
   <div class="col-md-12">
-    <h1><%= _('Privacy statement') %></h1>
+    <h1><%= _('DMP Assistant Privacy Statement') %></h1>
   </div>
 </div>
 <div class="row">
   <div class="col-md-12">
     <div>
-      <h2 class="fontsize-h3"><%= _("Information about you: how we use it and with whom we share it") %></h2>
-      <p><%= _("The information you provide will be used by the %{org_name} to offer you access to and personalisation of the %{application_name} service.") %
-             { application_name: ApplicationService.application_name, :org_name => Rails.configuration.x.organisation.names } %></p>
-      <p><%= _("The %{org_name} processes the personal data of %{application_name} users in order to deliver and improve the %{application_name} service in a customised manner and to ensure each user receives relevant information.") %
-             { application_name: ApplicationService.application_name, :org_name => Rails.configuration.x.organisation.name  } %></p>
-      <p><%= _("The processing of your personal data by the %{org_name} is necessary for pursuing the following legitimate interests:") %
-             { :application_name => ApplicationService.application_name, :org_name => Rails.configuration.x.organisation.name  } %></p>
+      <p>The following Privacy Policy applies to the DMP Assistant website (the Site), <a href="https://assistant.portagenetwork.ca/">assistant.portagenetwork.ca</a> / <a href="https://assistant.portagenetwork.ca/?locale=fr_CA">assistant.portagenetwork.ca/?locale=fr_CA</a>, and the services available on or at the Site (taken together, the Service). The Service is supported by the Digital Research Alliance of Canada (the Alliance) and the University of Alberta Library (taken together, the Service Providers).</p>
+      <h1 id="privacy-statement">Privacy Statement</h1>
+      <p>The Alliance and the University of Alberta respect the privacy of individuals and will only collect, use, and disclose Personal Information in keeping with information access and privacy law.</p>
+      <h1 id="definitions">Definitions</h1>
+      <p><strong>Administrator (Admin)</strong>: A User of the Service with administrative permissions to edit basic organizational information, implement local customization and guidance, view usage statistics, and manage templates, plans, and users at their institution.</p>
+      <p><strong>Content</strong> : Data submitted to the Service by Users and Admin, including information entered as part of Plans, Templates, and Profiles (User and Organization).</p>
+      <p><strong>Data Management Plan (DMP; Plan):</strong> A formal document that details the strategies and tools to be implemented to effectively manage data both <em>during</em> a research project and <em>after</em> its completion. Users create Plans using the Service by choosing a DMP Template and answering questions, supported by Guidance and examples.</p>
+      <p><strong>DMP Assistant:</strong> DMP Assistant is a bilingual, web-based tool for preparing data management plans (DMPs). The tool follows international best practices in data stewardship and guides researchers step-by-step through key data management questions. DMP Assistant (the Service) is powered by an open source application called <a href="https://dmponline.dcc.ac.uk/">DMPonline</a>, which is developed by the Digital Curation Centre (DCC) and shared under an <a href="http://www.gnu.org/licenses/agpl-3.0.html">AGPL license</a>.</p>
+      <p><strong>DMP Template (Template)</strong>: A series of key data management questions organized into sections and phases to be answered by the User in order to create a Plan.</p>
+      <p><strong>Personal Information (PI)</strong>: Personal information is any recorded information that identifies an individual.</p>
+      <p><strong>Sensitive Data:</strong> Information that must be safeguarded against unwarranted access or disclosure, including but not limited to: Personal Information (PI); Personal Health Information (PHI); Educational records; Customer records; Criminal information; Geographic information (e.g., detailed locations of endangered species); Confidential personnel information; Information that is deemed confidential, information entrusted to a person, organization, or entity with the intent that it be kept private and access be controlled or restricted; Information that is protected by institutional policy from unauthorized access. Includes any information related to an identified or identifiable natural person, organization or entity.</p>
+      <p><strong>Service:</strong> The DMP Assistant website (the Site), <a href="https://assistant.portagenetwork.ca/">assistant.portagenetwork.ca</a> / <a href="https://assistant.portagenetwork.ca/?locale=fr_CA">assistant.portagenetwork.ca/?locale=fr_CA</a>, and the services available on or at the Site (taken together, the Service), offered under partnership between the Digital Research Alliance of Canada (the Alliance) and host institution the University of Alberta Library (taken together, the Service Providers).</p>
+      <p><strong>Service Providers</strong> : The legal entities responsible for offering the Service, being the Digital Research Alliance of Canada (the Alliance) and the University of Alberta Library (taken together, the Service Providers).</p>
+      <p><strong>Service Support</strong> : Staff member(s) employed by the Service Providers to provide support for Service Users, answer User queries and work to resolve User issues.</p>
+      <p><strong>Site</strong> : DMP Assistant website (the Site), <a href="https://assistant.portagenetwork.ca/">assistant.portagenetwork.ca</a> / <a href="https://assistant.portagenetwork.ca/?locale=fr_CA">assistant.portagenetwork.ca/?locale=fr_CA</a>.</p>
+      <p><strong>User</strong> : An individual who makes use of the Service by creating, sharing and downloading Plans, and otherwise adds Content. Users include Admin Users (see above definition for Administrator).</p>
+      <h2 id="1-0-collection-of-personal-information">1.0 Collection of Personal Information</h2>
+      <p>In keeping with information access and privacy law, the Service Providers will only collect Personal Information for the purpose of providing the Service to Users.</p>
+      <p>1.1 Users are required to create an account with DMP Assistant to make use of the Service. In order to create an account, the DMP Assistant collects Personal Information including name, an affiliated institution, and an email address.</p>
+      <p>1.2 For security and version control purposes, DMP Assistant records the User&#39;s last login time, as well as information on when responses were saved and by whom. No other session information is stored nor is clickstream data tracked or retained in the DMP Assistant. The web hosting service (provided by University of Alberta) does collect clickstream data, but this information is captured anonymously and cannot be linked to a specific user (See the <a href="https://library.ualberta.ca/about-us/policies/privacy-policy">University of Alberta Privacy Policy</a>). IP addresses and location data of Users of the system may be collected in order to provide the Service to Users. Opinions of Users are collected (via web-based feedback option) on a voluntary basis.</p>
+      <p>1.3 For all visitors to the Site, administrative information is collected—such as pages viewed on the site, page access times, browser type, version and language, location, and operating system.</p>
+      <h2 id="2-0-use-of-personal-information">2.0 Use of Personal Information</h2>
+      <p>In keeping with information access and privacy law, the Service Providers will only use Personal Information for the purpose of providing the Service to Users. The Service Providers process Personal Information in order to deliver and improve the Service in a customized manner and to ensure each User receives relevant information.</p>
+      <p>2.1 Personal Information collected will be used for the following purposes:</p>
       <ul>
-        <li><%= _("To provide access to the %{application_name} service and personalisation of your user experience e.g. provision of relevant templates and guidance for your organisation.") %
-                { application_name: ApplicationService.application_name } %></li>
-        <li><%= _("To keep you up to date with news about %{application_name} such as new features or improvements, or changes to our Privacy Policy.") %
-                { application_name: ApplicationService.application_name } %></li>
-        <li><%= _("For network and information security purposes.") %></li>
+      <li>provision of access to DMP Assistant</li>
+      <li>communication with Users to obtain feedback on use of the tool or to inform them of the latest developments or releases, or changes to this Policy or the Terms of Use</li>
+      <li>administration of voluntary feedback received from Users</li>
+      <li>personalisation of user experience (e.g. provision of relevant templates and guidance for associated organizations)</li>
+      <li>network and information security</li>
       </ul>
-      <p><%= _("We will hold the personal data you provided us for as long as you continue using the %{application_name} service. Your personal data can be removed from this service upon request to the %{application_name} team within a period of 30 days.") %
-             { application_name: ApplicationService.application_name } %></p>
-      <p><%= sanitize _("If you have any questions, please contact the %{application_name} team at: <a href='mailto:%{helpdesk_email}'>%{helpdesk_email}</a>") %
-                 { application_name: ApplicationService.application_name, :helpdesk_email => Rails.configuration.x.organisation.helpdesk_email } %></p>
-      <h2 class="fontsize-h3">Revisions</h2>
+      
+      <p>2.2 For all visitors to the Site, administrative information collected will be used:</p>
+      <ul>
+      <li>for internal administrative use</li>
+      <li>for aggregation into de-identified statistics for reporting purposes</li>
+      <li>as required by law.</li>
+      </ul>
+      <p>2.3 Internally, only staff with a direct use for the data will have access to Personal Information collected.</p>
+      <h2 id="3-0-disclosure-of-personal-information">3.0 Disclosure of Personal Information</h2>
+      <p>In keeping with information access and privacy law, the Service Providers will only disclose Personal Information as required by law, or with the express written consent of the individual whom the information is about.</p>
+      <p>3.1 Personal Information collected via DMP Assistant account creation will be disclosed to the Service Providers for the purposes of this Service.</p>
+      <p>3.2 Comments of Users, regarding Content, provided to Service Support will be shared with the Service Providers.</p>
+      <p>3.3 The Service Providers will not sell, rent or trade Personal Information or mailing lists.</p>
+      <p>3.4 The information may be transferred between the Service Providers&#39; partner institutions but only for legitimate internal purposes.</p>
+      <p>3.5 Administrative information and usage data will only be disclosed externally in a de-identifiable aggregate format.</p>
+      <p>3.6 Disclosure of Personal Information contained in Content:</p>
+      <p>3.6.1 In general, DMPs should not contain research data and/or sensitive information (such as personally identifiable information, detailed geographic data, or data otherwise subject to disclosure restrictions). In some cases, it may be reasonable or necessary to include information which could be considered sensitive (e.g. the name of a data source, such as a research hospital) in a DMP. Users are responsible for consulting with the appropriate regulators, guidance, policies and laws to ensure that their use of sensitive and/or identifiable information is appropriate and in accordance with relevant laws and regulations. Users should only include potentially sensitive information in DMPs if necessary. Users may consider creating public and private versions of their DMP in cases where a version of the DMP must be made public and sensitive information must be included in the DMP.</p>
+      <p>3.6.2 It is the responsibility of Users to ensure that proper authority or consent has been obtained should submitted Consent include Personal Information or information which is otherwise sensitive. The Service Providers retain the right to request documentation concerning privacy, including research ethics approvals, Privacy Impact Assessments (PIA), or other documentation relating to regulation or approval of the disclosure of information in any instance where a privacy breach or violation of the Terms of Use is known or suspected. Users are responsible for complying with any obligations they may have through institutional affiliations or by law.</p>
+      <p>3.6.3 The Service Providers will endeavour to honour the disclosure/non-disclosure requests of Users, subject to applicable laws including information and privacy law.</p>
+      <h2 id="4-0-storage-of-personal-information">4.0 Storage of Personal Information</h2>
+      <p>The Service Providers will store Personal Information securely in keeping with accepted records management processes.</p>
+      <p>4.1 Server storage of Personal information</p>
+      <p>4.1.1 Personal Information collected by the Service Providers will be stored on secure servers located in Alberta, Canada.</p>
+      <p>4.2 Personal Information collected or used will be held securely and confidentially by the Service Providers.</p>
+      <p>4.3 Personal information collected or used will be held for as long as the User continues to use the Service.</p>
+      <p>4.4 Personal Information collected will be administered under the records management protocol of the DMP Assistant.</p>
+      <p>4.5 If it is discovered that Personal Information was received in error by the Service Providers, it will be securely destroyed after the User has been advised of the error.</p>
+      <h2 id="5-0-security-of-personal-information">5.0 Security of Personal Information</h2>
+      <p>The Service Providers will ensure that appropriate security is applied to Personal Information collected, used, stored, or disclosed as part of this Service.</p>
+      <p>The security of Personal Information will be administered in keeping with the DMP Assistant Information Security Policy.</p>
+      <h2 id="6-0-privacy-breach-protocol">6.0 Privacy Breach Protocol</h2>
+      <p>6.1 The Service Providers will maintain a Privacy Breach Protocol to address the management and mitigation of the breach.</p>
+      <p>6.2 The Privacy Breach Protocol will be reviewed every two years, or as required.</p>
+      <p>6.3 In the event of a privacy breach (unauthorized access to, or collection, use, or disclosure of Personal Information) authorized persons at Alliance and the University of Alberta will follow the Privacy Breach Protocol to assess and contain the breach about the relevant details and mitigation of the breach.</p>
+      <p>6.4 Security breaches are addressed in the DMP Assistant Information Security Policy.</p>
+      <p>6.5 As regards references to privacy breaches in the DMP Assistant Information Security Policy, these references will be in compliance with this Privacy Policy and with the Privacy Breach Protocol.</p>
+      <p>6.6 Where reasonable, and in a timely manner, any persons impacted by a privacy breach will be advised by the Service Providers. Where large numbers of users may be impacted by a privacy breach, notification will be provided on the Site.</p>
+      <h2 id="7-0-access-correction-or-removal-of-personal-information">7.0 Access, Correction, or Removal of Personal Information</h2>
+      <p>7.1 By written request, individuals have the right to request access to Personal Information about themselves that is in the custody of, or under the control of, the Service Providers.</p>
+      <p>7.2 Individuals may request, in writing, the correction of, or changes to, Personal Information about themselves that is in the custody of, or under the control of, the Service Providers.</p>
+      <p>7.2.1 Should a requested correction or change not be made to the Personal Information, a copy of the request plus the reason for not granting the request will become part of the administrative record.</p>
+      <p>7.3 Submitters may request, in writing, to have their Personal Information removed from the system administered by the Service Providers within a period of 30 days.</p>
+      <p>7.3.1 Should the requested deletion of the Personal Information not be done, a copy of the request plus the reason for not granting the request will become part of the administrative record.</p>
+      <p>7.4 Persons wishing to have Content containing Personal Information edited, amended, or removed from the Service should contact <a href="mailto:support@portagenetwork.ca">support@portagenetwork.ca</a>.</p>
+      <h2 id="8-0-dissemination-of-privacy-policy">8.0 Dissemination of Privacy Policy</h2>
+      <p>8.1 This Privacy Policy shall be posted on the DMP Assistant Site.</p>
+      <p>8.2 This Privacy Policy shall be appended to the DMP Assistant Terms of Use Agreement.</p>
+      <p>8.3 This Privacy Policy will be reviewed every two years, or as required.</p>
+      <p>8.4 Notification of any changes to the collection, use, or disclosure of Personal Information, or changes to the Privacy Policy, will be posted on the DMP Assistant Site.</p>
+      <h2 id="contact-us">Contact Us</h2>
+      <p>Should you have any questions or concerns about the collection, use, or disclosure of Personal Information as regards the DMP Assistant, or about this Privacy Policy please contact us at <a href="mailto:support@portagenetwork.ca">support@portagenetwork.ca</a>.</p>
+      <p>The Service Providers reserve the right to suspend use by any party (User) if that party engages in, or is suspected of engaging in, activities that violate applicable information access and privacy laws.</p>
 
-      <p><%= _("This statement was last revised on %{revdate} and may be revised at any time with prior notice.") %
-             { :revdate => "May 21st, 2018" }%></p>
     </div>
   </div>
 </div>
