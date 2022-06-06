@@ -30,7 +30,9 @@ RSpec.describe Api::V1::Auth::Jwt::JsonWebToken do
     end
 
     it 'decodes the token and returns the payload' do
+      p @token 
       hash = described_class.decode(token: @token)
+      p  hash
       expect(hash[:foo]).to eql(@payload[:foo])
       expect(hash[:bar]).to eql(@payload[:bar])
     end
