@@ -102,8 +102,8 @@ jobs:
         bin/rails assets:clobber RAILS_ENV=test
         bin/rails webpacker:compile RAILS_ENV=test
         bin/rails assets:precompile RAILS_ENV=test
-        ls -l /home/runner/work/roadmap/roadmap/public/packs-test
-        cat /home/runner/work/roadmap/roadmap/public/packs-test/manifest.json
+        ls -l /home/runner/work/roadmap/roadmap/public
+        ls -l /home/runner/work/roadmap/roadmap
 
     # V3.1.0: MPTool commented out Karma tests and will move this part to rspec
     # - name: 'Run Karma Tests'
