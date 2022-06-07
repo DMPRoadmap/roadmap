@@ -106,8 +106,8 @@ jobs:
     # test
     - name: 'List files for test'
       run: |
-        ls -l public/packs-test
-        cat public/packs-test/manifest.json
+        ls -l /home/runner/work/roadmap/roadmap/public/packs-test
+        cat /home/runner/work/roadmap/roadmap/public/packs-test/manifest.json
 
     # V3.1.0: MPTool commented out Karma tests and will move this part to rspec
     # - name: 'Run Karma Tests'
