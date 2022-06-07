@@ -48,7 +48,7 @@ RSpec.describe LocaleService do
 
   describe '#to_gettext(locale:)' do
     it 'uses the default_locale if no locale is specified' do
-      expect(described_class.to_gettext(locale: nil)).to eql(@default.abbreviation)
+      expect(described_class.to_gettext(locale: nil)).to eql(LocaleService.to_gettext(locale: @default.abbreviation))
     end
     it 'converts the locale to Gettext format' do
       expect(described_class.to_gettext(locale: 'en_GB')).to eql('en_GB')
