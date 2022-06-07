@@ -97,6 +97,7 @@
                     </div>
                   </div>
                   <% style = guidance_comments_opened_by_default ? '' : 'display: none' %>
+                  <% style = Rails.configuration.x.application.guidance_comments_toggleable ? style : style + ';border-left:none' %>
                   <div class="guidance-section" style="<%= style %>">
                     <!-- Guidances and notes partial view -->
                     <%= render partial: '/phases/guidances_notes', locals: {
