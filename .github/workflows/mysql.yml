@@ -63,16 +63,16 @@ jobs:
         EDITOR='echo "$(cat config/credentials.yml.example)" >' bundle exec rails credentials:edit
 
     # # Try to retrieve the yarn JS dependencies from the cache
-    # - name: 'Cache Yarn Packages'
-    #   uses: actions/cache@v2.1.5
-    #   with:
-    #     path: node_modules/
-    #     key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-    #     restore-keys: |
-    #       ${{ runner.os }}-build-${{ env.cache-name }}-
-    #       ${{ runner.os }}-build-
-    #       ${{ runner.os }}-yarn-
-    #       ${{ runner.os }}-
+    - name: 'Cache Yarn Packages'
+      uses: actions/cache@v2.1.5
+      with:
+        path: node_modules/
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-yarn-
+          ${{ runner.os }}-
 
     - name: 'Determine wkhtmltopdf location'
       run: echo "WICKED_PDF_PATH=`bundle exec which wkhtmltopdf`" >> $GITHUB_ENV
@@ -80,6 +80,10 @@ jobs:
     - name: 'Yarn Install'
       run: |
         yarn install
+    
+    - name: 'NPM Install'
+      run: |
+        npm install
 
     - name: 'Start MySQL'
       run: |
