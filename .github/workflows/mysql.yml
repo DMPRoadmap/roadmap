@@ -102,10 +102,6 @@ jobs:
         bin/rails assets:clobber RAILS_ENV=test
         bin/rails webpacker:compile RAILS_ENV=test
         bin/rails assets:precompile RAILS_ENV=test
-
-    # test
-    - name: 'List files for test'
-      run: |
         ls -l /home/runner/work/roadmap/roadmap/public/packs-test
         cat /home/runner/work/roadmap/roadmap/public/packs-test/manifest.json
 
