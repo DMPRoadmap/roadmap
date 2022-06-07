@@ -87,12 +87,8 @@ class Contributor < ApplicationRecord
   # ========================
   # = Static Class Methods =
   # ========================
-
-  class << self
-    # returns the default role
-    def default_role
-      'other'
-    end
+  def self.role_default
+    'other'
   end
 
   # Check for equality by matching on Plan, ORCID, email or name
