@@ -81,7 +81,7 @@ jobs:
       run: |
         yarn install
     
-    - name: 'NPM Install'
+    - name: 'NPM Install to add extra pacakges such as babel-loader'
       run: |
         npm install
 
