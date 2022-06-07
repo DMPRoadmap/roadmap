@@ -101,8 +101,9 @@ jobs:
         bin/rails webpacker:compile
         bin/rails assets:precompile
 
-    - name: 'Run Karma Tests'
-      run: yarn test
+    # V3.1.0: MPTool commented out Karma tests and will move this part to rspec
+    # - name: 'Run Karma Tests'
+    #   run: yarn test
 
     - name: 'Run Rspec Unit and Functional Tests'
       run: |
