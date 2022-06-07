@@ -108,8 +108,8 @@ module OrgAdmin
                        .includes(sections: { questions: :question_options })
                        .order('phases.number', 'sections.number', 'questions.number',
                               'question_options.number')
-                       .select('phases.title', 'phases.description', 'sections.title',
-                               'questions.text', 'question_options.text')
+                       .select('phases.title', 'phases.description', 'phases.modifiable',
+                               'sections.title', 'questions.text', 'question_options.text')
       unless template.latest?
         # rubocop:disable Layout/LineLength
         flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
