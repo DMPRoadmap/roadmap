@@ -156,6 +156,14 @@ module Dmpopidor
       raw_meta = raw_meta.merge(
         'title' => "Copy of #{raw_meta['title']}"
       )
+      incoming_dmp.persons.each do |person|
+        Fragment::Person.create(
+          data: person.data,
+          dmp_id: json_fragment.id,
+          madmp_schema: MadmpSchema.find_by(name: 'PersonStandard'),
+          additional_info: { property_name: 'person' }
+        )
+      end
 
       json_fragment.project.raw_import(raw_project, json_fragment.project.madmp_schema)
       json_fragment.meta.raw_import(raw_meta, json_fragment.meta.madmp_schema)
