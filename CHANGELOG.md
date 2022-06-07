@@ -2,6 +2,14 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 07/06/2022
+- Mise à jour des traductions et ajout de textes sur la page d'accueil
+- Retrait des modèles structurés de la liste des modèles personnalisables
+- Retrait du menu "clic droit" de l'éditeur de texte
+- Amélioration de l'import RDA
+- Correction d'un problème d'attribution du classname des fragments lors de l'import JSON (issue gitbucket 394)
+- Les contributeurs sans rôle sont désormais bien transférés lors de la copie de plan (issue gitbucket 390)
+
 ## 02/06/2022
 - Correction du problème d'affichage des listes de sélection dans les pop up et dans le formulaire principal après fermeture d'une popup
 - Les contributeurs sont désormais triés par prénom/nom dans l'export PDF/DOCX et dans l'onglet Contributeurs (issue #217)
