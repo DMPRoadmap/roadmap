@@ -98,7 +98,7 @@ jobs:
 
     - name: 'Compile Assets'
       run: |
-        bin/rails rails assets:clobber
+        bin/rails assets:clobber
         bin/rails webpacker:compile
         bin/rails assets:precompile
 
