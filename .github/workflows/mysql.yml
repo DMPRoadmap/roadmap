@@ -99,7 +99,7 @@ jobs:
     # re-generate public/packs (clobber/webpacker compile)
     - name: 'Compile Assets'
       run: |
-        bin/rails assets:clobber RAILS_ENV=test
+        rm -rf bin/webpack*
         bin/rails assets:precompile RAILS_ENV=test
         bin/rails webpacker:compile RAILS_ENV=test
         ls -l /home/runner/work/roadmap/roadmap/public
