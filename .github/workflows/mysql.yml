@@ -102,8 +102,8 @@ jobs:
     # The compile task will compile the packs and place them in public/packs.
     - name: 'Compile Assets'
       run: |
-        bin/rails assets:precompile RAIL_ENV=development
         bin/rails webpacker:compile 
+        bin/rails assets:precompile
         ls -l /home/runner/work/roadmap/roadmap/public
 
     # V3.1.0: MPTool commented out Karma tests and will move this part to rspec
