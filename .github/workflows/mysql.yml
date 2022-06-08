@@ -97,11 +97,14 @@ jobs:
       run: bin/rails db:migrate RAILS_ENV=test
 
     # re-generate public/packs (clobber/webpacker compile)
+    # TBD: Webpacker adds a webpacker:compile task to the assets:precompile rake task, 
+    # so any existing deploy pipeline that was using assets:precompile should work. 
+    # The compile task will compile the packs and place them in public/packs.
     - name: 'Compile Assets'
       run: |
-        bin/rails assets:precompile
+        bin/rails assets:precompile RAIL_ENV=development
+        bin/rails webpacker:compile 
         ls -l /home/runner/work/roadmap/roadmap/public
-        ls -l /home/runner/work/roadmap/roadmap
 
     # V3.1.0: MPTool commented out Karma tests and will move this part to rspec
     # - name: 'Run Karma Tests'
