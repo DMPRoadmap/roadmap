@@ -36,15 +36,14 @@ module Dmpopidor
       @hash           = @plan.as_pdf(current_user, @show_coversheet)
       @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
       @research_output_export_mode = export_params[:research_output_mode] || 'by_section'
-      @research_outputs_number = @plan.research_outputs.length
 
       if params.key?(:selected_phases)
         @hash[:phases] = @hash[:phases].select { |p| params[:selected_phases].include?(p[:id].to_s) }
       end
 
-      if params.key?(:selected_research_outputs)
+      if params.key?(:research_outputs)
         @hash[:research_outputs] = @hash[:research_outputs].select do |d|
-          params[:selected_research_outputs].include?(d[:id].to_s)
+          params[:research_outputs].include?(d[:id].to_s)
         end
       end
 
@@ -55,7 +54,7 @@ module Dmpopidor
         format.docx { show_docx }
         format.pdf  { show_pdf }
         format.json do
-          selected_research_outputs = params[:selected_research_outputs]&.map(&:to_i) || @plan.research_output_ids
+          selected_research_outputs = params[:research_outputs]&.map(&:to_i) || @plan.research_output_ids
           show_json(selected_research_outputs, params[:json_format])
         end
       end
@@ -90,6 +89,13 @@ module Dmpopidor
                                    dmp: @plan.json_fragment,
                                    selected_research_outputs: selected_research_outputs
                                  }), filename: "#{file_name}_#{json_format}.json"
+    end
+
+    def export_params
+      params.fetch(:export, {})
+            .permit(:form, :project_details, :question_headings, :unanswered_questions,
+                    :custom_sections, :research_outputs, :research_output_mode, :selected_phases,
+                    formatting: [:font_face, :font_size, { margin: %i[top right bottom left] }])
     end
   end
 end
