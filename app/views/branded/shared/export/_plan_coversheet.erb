@@ -1,6 +1,6 @@
 <% 
   plan_fragment = @plan.json_fragment
-  contributors = plan_fragment.contributors.order("data->>'firstName', data->>'lastName'")
+  contributors = plan_fragment.contributors.order("data->>'lastName', data->>'firstName'")
   costs = Fragment::Cost.where(dmp_id: plan_fragment.id)
   locale = LocaleService.to_gettext(locale: @plan.template.locale)
   template = @plan.template 
@@ -68,8 +68,14 @@
     </thead>
     <tbody>
     <% contributors.each do |contributor| %>
+      <% person_id = contributor.data["personId"]%>
       <tr>
-        <td><%= contributor.to_s %></td>
+        <td>
+          <%= contributor.to_s %>
+          <% if person_id.present? %>
+            - <%= uri?(person_id) ? link_to(person_id, person_id, target: "_blank") : person_id %>
+          <% end %>
+        </td>
         <td><%= contributor.data["affiliationName"] %></td>
         <td>
           <% if contributor.roles.present? %>
