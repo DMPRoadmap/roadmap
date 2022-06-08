@@ -2,6 +2,14 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 08/06/2022
+- Changements sur la page d'accueil & mise à jour des traductions
+- Ajout de l'identifiant cliquable du contributeur dans la liste des contributeurs de l'export PDF
+- Les contributeurs sont désormais triés par nom/prénom
+- Amélioration de l'export PDF/DOCX
+    - Correction de la non prise en compte du mode d'export des produits et des produits sélectionnés
+    - Les coûts et contributeurs affichés dépendent désormais des produits sélectionnés
+
 ## 07/06/2022
 - Mise à jour des traductions et ajout de textes sur la page d'accueil
 - Retrait des modèles structurés de la liste des modèles personnalisables
