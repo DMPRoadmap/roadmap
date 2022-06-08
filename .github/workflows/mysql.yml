@@ -80,10 +80,6 @@ jobs:
     - name: 'Yarn Install'
       run: |
         yarn install
-    
-    - name: 'NPM Install to add extra pacakges such as babel-loader'
-      run: |
-        npm install
 
     - name: 'Start MySQL'
       run: |
@@ -96,19 +92,15 @@ jobs:
     - name: 'Migrate DB'
       run: bin/rails db:migrate RAILS_ENV=test
 
-    # re-generate public/packs (clobber/webpacker compile)
-    # TBD: Webpacker adds a webpacker:compile task to the assets:precompile rake task, 
-    # so any existing deploy pipeline that was using assets:precompile should work. 
-    # The compile task will compile the packs and place them in public/packs.
     - name: 'Compile Assets'
       run: |
         bin/rails webpacker:compile 
         bin/rails assets:precompile
-        ls -l /home/runner/work/roadmap/roadmap/public
+        cat /home/runner/work/roadmap/roadmap/public/packs-test/manifest.json
 
-    # V3.1.0: MPTool commented out Karma tests and will move this part to rspec
-    # - name: 'Run Karma Tests'
-    #   run: yarn test
+    # Note V3.1.0 DMPTool commented out Karma tests and will move this part to rspec
+    - name: 'Run Karma Tests'
+      run: yarn test
 
     - name: 'Run Rspec Unit and Functional Tests'
       run: |
