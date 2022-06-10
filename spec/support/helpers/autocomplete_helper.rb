@@ -17,7 +17,7 @@ module AutoCompleteHelper
 
   def choose_suggestion(suggestion_text)
     matcher = '.ui-autocomplete .ui-menu-item'
-    matching_element = all(:css, matcher).detect do |element|
+    matching_element = find(:css, matcher).detect do |element|
       element.text.strip == suggestion_text.strip
     end
     raise ArgumentError, "No such suggestion with text '#{suggestion_text}'" unless matching_element.present?

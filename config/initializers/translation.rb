@@ -9,8 +9,7 @@
 SUPPORTED_LOCALES = %w[de en-CA en-GB en-US es fi fr-CA fr-FR pt-BR sv-FI tr-TR].freeze
 # You can define a subset of the locales for your instance's version of Translation.io if applicable
 CLIENT_LOCALES = %w[de en-CA en-GB en-US es fi fr-CA fr-FR pt-BR sv-FI tr-TR].freeze
-DEFAULT_LOCALE = 'en-GB'.freeze
-
+DEFAULT_LOCALE = 'en-GB'
 # Here we define the translation domains for the Roadmap application, `app` will
 # contain translations from the open-source repository and ignore the contents
 # of the `app/views/branded` directory.  The `client` domain will
@@ -22,7 +21,7 @@ DEFAULT_LOCALE = 'en-GB'.freeze
 # domain specified in order to generate both sets of translation keys.
 if !ENV['DOMAIN'] || ENV['DOMAIN'] == 'app'
   TranslationIO.configure do |config|
-    config.api_key              = ENV['TRANSLATION_API_ROADMAP']
+    config.api_key              = ENV.fetch('TRANSLATION_API_ROADMAP', nil)
     config.source_locale        = 'en'
     config.target_locales       = SUPPORTED_LOCALES
     config.text_domain          = 'app'
@@ -32,7 +31,7 @@ if !ENV['DOMAIN'] || ENV['DOMAIN'] == 'app'
   end
 elsif ENV['DOMAIN'] == 'client'
   TranslationIO.configure do |config|
-    config.api_key              = ENV['TRANSLATION_API_CLIENT']
+    config.api_key              = ENV.fetch('TRANSLATION_API_CLIENT', nil)
     config.source_locale        = 'en'
     config.target_locales       = CLIENT_LOCALES
     config.text_domain          = 'client'

@@ -1,7 +1,8 @@
 # frozen_string_literal: true
+
 require 'active_support/core_ext/integer/time'
 
-
+# rubocop:disable Metrics/BlockLength
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -92,6 +93,7 @@ Rails.application.configure do
   # set this environment variable
   config.hosts << ENV['DMPROADMAP_HOST'] if ENV['DMPROADMAP_HOST'].present?
 end
+# rubocop:enable Metrics/BlockLength
 
 # Used by Rails' routes url_helpers (typically when including a link in an email)
-Rails.application.routes.default_url_options[:host] = ENV['DMPROADMAP_HOST'] || 'localhost:3000'
+Rails.application.routes.default_url_options[:host] = ENV.fetch('DMPROADMAP_HOST', 'localhost:3000')
