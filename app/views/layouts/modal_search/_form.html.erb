@@ -47,7 +47,7 @@ no_results_msg = _("No results matched your filter criteria.")
 
       <div class="modal-body">
         <%# Search filters %>
-        <%= form_with model: model_instance, url: search_path, method: search_method,
+        <%= form_with model: model_instance, url: search_path, method: search_method, local: false,
                       id: "modal-search-#{namespace}-filters" do |f| %>
           <div class="form-group row">
             <div class="col-md-10">
