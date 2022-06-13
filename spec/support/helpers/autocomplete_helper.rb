@@ -22,11 +22,9 @@ module AutoCompleteHelper
     counter = 0
     suggestions = nil
     until counter >= 5 do
-      suggestions = matching_element = find(:css, matcher)
-      counter = 5 if suggestions.present?
-      sleep(0.3) unless suggestions.preesent?
-
-      counter += 1
+      suggestions = find(:css, matcher)
+      counter = suggestions.present? ? 5 : counter + 1
+      sleep(0.3) unless suggestions.present?
     end
     raise ArgumentError, "No such suggestions available" unless suggestions.present?
 
