@@ -21,7 +21,7 @@ module AutoCompleteHelper
     #   element.text.strip == suggestion_text.strip
     # end
     matching_element = find(:css, ".ui-autocomplete .ui-menu-item:contains(\"#{suggestion_text.strip}\")")
-    raise ArgumentError, "No such suggestion with text '#{suggestion_text}'"
+    raise ArgumentError, "No such suggestion with text '#{suggestion_text}'" unless matching_element.present?
 
     matching_element.click
     # Wait for the JS to run
