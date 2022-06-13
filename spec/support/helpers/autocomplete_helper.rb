@@ -20,7 +20,7 @@ module AutoCompleteHelper
     # matching_element = find(:css, matcher) do |element|
     #   element.text.strip == suggestion_text.strip
     # end
-    matching_element = find(:css, ".ui-autocomplete .ui-menu-item:contains(\"#{suggestion_text.strip}\")")
+    matching_element = find(:xpath, "//div[@class='ui-menu-item-wrapper' and normalize-space()='#{suggestion_text}']")
     raise ArgumentError, "No such suggestion with text '#{suggestion_text}'" unless matching_element.present?
 
     matching_element.click
