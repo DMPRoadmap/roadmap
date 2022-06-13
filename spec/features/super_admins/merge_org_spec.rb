@@ -45,7 +45,7 @@ RSpec.describe 'SuperAdmins Merge Orgs', type: :feature, js: true do
     expect(page).to have_text('Merge Organisations')
     find('#org_org_name').click
     fill_in(:org_org_name, with: @to_org.name[0..6])
-    sleep(0.5)
+    sleep(0.8)
     choose_suggestion(@to_org.name)
 
     click_button 'Analyze'
