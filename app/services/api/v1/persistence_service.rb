@@ -46,6 +46,7 @@ module Api
                            identifiable: identifier.identifiable).first
         end
 
+        # rubocop:disable Metrics/AbcSize
         def safe_save_org(org:)
           return nil unless org.is_a?(Org)
 
@@ -61,6 +62,7 @@ module Api
             organization.reload if organization.valid?
           end
         end
+        # rubocop:enable Metrics/AbcSize
 
         # rubocop:disable Metrics/AbcSize
         def safe_save_contributor(contributor:)
