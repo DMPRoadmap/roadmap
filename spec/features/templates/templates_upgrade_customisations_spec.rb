@@ -52,7 +52,6 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
 
     # Move to the other funder Org's Templates
     fill_in(:superadmin_user_org_name, with: funder.name)
-    sleep(0.8)
     choose_suggestion(funder.name)
     click_button('Change affiliation')
 
