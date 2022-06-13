@@ -16,22 +16,12 @@ module AutoCompleteHelper
   end
 
   def choose_suggestion(suggestion_text)
-    matcher = '.ui-autocomplete .ui-menu-item'
-
-    # Wait until the suggestions JS has finished
-    counter = 0
-    suggestions = nil
-    until counter >= 5 do
-      suggestions = find(:css, matcher)
-      counter = suggestions.present? ? 5 : counter + 1
-      sleep(0.3) unless suggestions.present?
-    end
-    raise ArgumentError, "No such suggestions available" unless suggestions.present?
-
-    matching_element = suggestions.detect do |element|
-      element.text.strip == suggestion_text.strip
-    end
-    raise ArgumentError, "No such suggestion with text '#{suggestion_text}'" unless matching_element.present?
+    # matcher = '.ui-autocomplete .ui-menu-item'
+    # matching_element = find(:css, matcher) do |element|
+    #   element.text.strip == suggestion_text.strip
+    # end
+    matching_element = find(:css, ".ui-autocomplete .ui-menu-item:contains(\"#{suggestion_text.strip}\")")
+    raise ArgumentError, "No such suggestion with text '#{suggestion_text}'"
 
     matching_element.click
     # Wait for the JS to run
