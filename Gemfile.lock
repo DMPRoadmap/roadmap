@@ -587,6 +587,7 @@ DEPENDENCIES
   rubocop-thread_safety
   sass-rails
   sassc-rails
+  selenium-webdriver
   shoulda
   spring
   spring-commands-rspec
