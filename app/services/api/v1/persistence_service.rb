@@ -38,8 +38,8 @@ module Api
 
           Identifier.transaction do
             identifier.save if identifier.valid?
-            return identifier unless identifier.new_record?
           end
+          return identifier if identifier.valid? && !identifier.new_record?
 
           Identifier.where(identifier_scheme: identifier.identifier_scheme,
                            value: identifier.value,
@@ -51,17 +51,14 @@ module Api
 
           Org.transaction do
             organization = Org.find_or_initialize_by(name: org.name)
-            if organization.new_record?
-              # Now that we know its a new record make sure its valid first
-              return nil unless org.valid?
-
+            if organization.new_record? && org.valid?
               organization.update(saveable_attributes(attrs: org.attributes))
               org.identifiers.each do |id|
                 id.identifiable = organization.reload
                 safe_save_identifier(identifier: id)
               end
             end
-            organization.reload
+            organization.reload if organization.valid?
           end
         end
 
