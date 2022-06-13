@@ -8,8 +8,7 @@ RSpec.describe Org, type: :model do
 
     it {
       subject.name = 'DMP Company'
-      is_expected.to validate_uniqueness_of(:name).case_insensitive
-                                                  .with_message('must be unique')
+      is_expected.to validate_uniqueness_of(:name).with_message('must be unique')
     }
 
     it { is_expected.to allow_values(true, false).for(:is_other) }
