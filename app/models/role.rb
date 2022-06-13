@@ -45,7 +45,8 @@ class Role < ApplicationRecord
             3 => :editor,             # 4
             4 => :commenter,          # 8
             5 => :reviewer,           # 16
-            column: 'access'
+            column: 'access',
+            check_for_column: !Rails.env.test?
 
   # ===============
   # = Validations =

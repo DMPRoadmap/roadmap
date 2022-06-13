@@ -172,7 +172,8 @@ class Org < ApplicationRecord
             4 => :research_institute,
             5 => :project,
             6 => :school,
-            column: 'org_type'
+            column: 'org_type',
+            check_for_column: !Rails.env.test?
 
   # The default Org is the one whose guidance is auto-attached to
   # plans when a plan is created

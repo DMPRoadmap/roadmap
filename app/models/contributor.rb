@@ -68,7 +68,8 @@ class Contributor < ApplicationRecord
             2 => :investigation,
             3 => :project_administration,
             4 => :other,
-            column: 'roles'
+            column: 'roles',
+            check_for_column: !Rails.env.test?
 
   # ==========
   # = Scopes =
