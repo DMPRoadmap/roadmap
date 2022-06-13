@@ -127,10 +127,9 @@ class Org < ApplicationRecord
                     message: _("can't be larger than 500KB")
 
   # allow validations for logo upload
-  dragonfly_accessor :logo
-  # dragonfly_accessor :logo do
-  #   after_assign :resize_image
-  # end
+  dragonfly_accessor :logo do
+    after_assign :resize_image
+  end
 
   # =============
   # = Callbacks =
