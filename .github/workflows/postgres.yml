@@ -60,11 +60,11 @@ jobs:
     - name: 'Setup Credentials'
       run: |
         # generate a default credential file and key
-        EDITOR='echo "$(cat config/credentials.yml.example)" >' bundle exec rails credentials:edit
+        EDITOR='echo "$(cat config/credentials.yml.example)" >' bin/rails credentials:edit
 
     # Set the path to the wkhtmltopdf executable
     - name: 'Determine wkhtmltopdf location'
-      run: echo "WICKED_PDF_PATH=`bundle exec which wkhtmltopdf`" >> $GITHUB_ENV
+      run: echo "WICKED_PDF_PATH=`which wkhtmltopdf`" >> $GITHUB_ENV
 
     # Run yarn install for JS dependencies
     - name: 'Yarn Install'
@@ -80,12 +80,6 @@ jobs:
     # Prebuild the CSS, JS and image assets
     - name: 'Compile Assets'
       run: bin/rails assets:precompile
-
-    # briley - comment out Karma tests due to issues with dependencies. We should
-    #          replace these with RSpec feature tests
-    # Run the JS tests
-    # - name: 'Run Karma Tests'
-    #   run: yarn test
 
     # Run  the unit and functional tests
     - name: 'Run Rspec Unit and Functional Tests'

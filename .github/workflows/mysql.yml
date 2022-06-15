@@ -36,11 +36,11 @@ jobs:
 
     # Stub out the Rails credentials file so that we can start the Rails app
     - name: 'Setup Credentials'
-      run: EDITOR='echo "$(cat config/credentials.yml.example)" >' bundle exec rails credentials:edit
+      run: EDITOR='echo "$(cat config/credentials.yml.example)" >' bin/rails credentials:edit
 
     # Set the path to the wkhtmltopdf executable
     - name: 'Determine wkhtmltopdf location'
-      run: echo "WICKED_PDF_PATH=`bundle exec which wkhtmltopdf`" >> $GITHUB_ENV
+      run: echo "WICKED_PDF_PATH=`which wkhtmltopdf`" >> $GITHUB_ENV
 
     # Run yarn install for JS dependencies
     - name: 'Yarn Install'
@@ -62,19 +62,13 @@ jobs:
     - name: 'Precompile all of the Assets'
       run: bin/rails assets:precompile
 
-    # briley - comment out Karma tests due to issues with dependencies. We should
-    #          replace these with RSpec feature tests
-    # Run the JS tests
-    # - name: 'Run Karma Tests'
-    #   run: yarn test
-
     # Run  the unit and functional tests
     - name: 'Run Rspec Unit and Functional Tests'
       run: |
-        bin/bundle exec rspec spec/models/ spec/policies/ spec/services/ spec/helpers/
-        bin/bundle exec rspec spec/controllers/ spec/presenters/ spec/requests/ spec/views
-        bin/bundle exec rspec spec/mixins/
+        bin/rspec spec/models/ spec/policies/ spec/services/ spec/helpers/
+        bin/rspec spec/controllers/ spec/presenters/ spec/requests/ spec/views
+        bin/rspec spec/mixins/
 
     # Run the time consuming integration tests (using Chrome headless browser)
     - name: 'Run Rspec Integration Tests'
-      run: bin/bundle exec rspec spec/features/
+      run: bin/rspec spec/features/
