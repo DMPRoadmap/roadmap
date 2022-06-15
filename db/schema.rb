@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_14_181654) do
+ActiveRecord::Schema.define(version: 2022_03_15_104737) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -102,7 +102,6 @@ ActiveRecord::Schema.define(version: 2022_06_14_181654) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["org_id"], name: "index_departments_on_org_id"
-    t.index ["name", "org_id"], name: "unique_departments"
   end
 
   create_table "exported_plans", id: :integer, force: :cascade do |t|
@@ -276,7 +275,6 @@ ActiveRecord::Schema.define(version: 2022_06_14_181654) do
     t.text "api_create_plan_email_body"
     t.index ["language_id"], name: "fk_rails_5640112cab"
     t.index ["region_id"], name: "fk_rails_5a6adf6bab"
-    t.index ["name"], name: "unique_orgs"
     t.string "helpdesk_email"
   end
 
@@ -284,7 +282,6 @@ ActiveRecord::Schema.define(version: 2022_06_14_181654) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "unique_perms"
   end
 
   create_table "phases", id: :integer, force: :cascade do |t|
@@ -358,7 +355,6 @@ ActiveRecord::Schema.define(version: 2022_06_14_181654) do
     t.datetime "updated_at", null: false
     t.boolean "option_based", default: false
     t.integer "formattype", default: 0
-    t.index ["title"], name: "unique_question_formats"
   end
 
   create_table "question_options", id: :integer, force: :cascade do |t|
@@ -400,7 +396,6 @@ ActiveRecord::Schema.define(version: 2022_06_14_181654) do
     t.string "description"
     t.string "name"
     t.integer "super_region_id"
-    t.index ["abbreviation"], name: "unique_regions"
   end
 
   create_table "related_identifiers", force: :cascade do |t|
