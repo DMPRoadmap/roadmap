@@ -36,11 +36,11 @@ jobs:
 
     # Stub out the Rails credentials file so that we can start the Rails app
     - name: 'Setup Credentials'
-      run: EDITOR='echo "$(cat config/credentials.yml.example)" >' bin/rails credentials:edit
+      run: EDITOR='echo "$(cat config/credentials.yml.example)" >' bundle exec rails credentials:edit
 
     # Set the path to the wkhtmltopdf executable
     - name: 'Determine wkhtmltopdf location'
-      run: echo "WICKED_PDF_PATH=`which wkhtmltopdf`" >> $GITHUB_ENV
+      run: echo "WICKED_PDF_PATH=`bundle exec which wkhtmltopdf`" >> $GITHUB_ENV
 
     # Run yarn install for JS dependencies
     - name: 'Yarn Install'
@@ -52,23 +52,23 @@ jobs:
 
     - name: 'Build out the test database'
       run: |
-        bin/rails db:create RAILS_ENV=test
-        bin/rails db:schema:load RAILS_ENV=test
+        bundle exec rails db:create RAILS_ENV=test
+        bundle exec rails db:schema:load RAILS_ENV=test
 
     - name: 'Run any pending database migrations'
       run: bin/rails db:migrate RAILS_ENV=test
 
     # Prebuild the CSS, JS and image assets
     - name: 'Precompile all of the Assets'
-      run: bin/rails assets:precompile
+      run: bundle exec rails assets:precompile
 
     # Run  the unit and functional tests
     - name: 'Run Rspec Unit and Functional Tests'
       run: |
-        bin/rspec spec/models/ spec/policies/ spec/services/ spec/helpers/
-        bin/rspec spec/controllers/ spec/presenters/ spec/requests/ spec/views
-        bin/rspec spec/mixins/
+        bundle exec rspec spec/models/ spec/policies/ spec/services/ spec/helpers/
+        bundle exec rspec spec/controllers/ spec/presenters/ spec/requests/ spec/views
+        bundle exec rspec spec/mixins/
 
     # Run the time consuming integration tests (using Chrome headless browser)
     - name: 'Run Rspec Integration Tests'
-      run: bin/rspec spec/features/
+      run: bundle exec rspec spec/features/
