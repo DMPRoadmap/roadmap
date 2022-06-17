@@ -81,8 +81,7 @@ gem 'rollbar', group: :rollbar, require: false
 
 # A simple, fast Mysql library for Ruby, binding to libmysql
 # (http://github.com/brianmario/mysql2)
-# pegging at 0.5.3 because having trouble compiling 0.5.4
-gem 'mysql2', '0.5.3', group: :mysql, require: false
+gem 'mysql2', '0.5.4', group: :mysql, require: false
 
 # Pg is the Ruby interface to the {PostgreSQL
 # RDBMS}[http://www.postgresql.org/](https://bitbucket.org/ged/ruby-pg)
