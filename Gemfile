@@ -15,7 +15,7 @@ gem 'rails', '~> 6.1'
 #       an MIT license but was using some incompatible GPL license code.
 #       Versions of mimemagic that were yanked: https://rubygems.org/gems/mimemagic/versions
 #       Analysis of the issue: https://www.theregister.com/2021/03/25/ruby_rails_code/
-gem 'mimemagic', '~> 0.3.7'
+gem 'mimemagic'
 
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3', '~> 1.4'
@@ -158,7 +158,7 @@ gem 'api-pagination'
 gem 'sassc-rails'
 
 # Font-Awesome SASS (https://github.com/FortAwesome/font-awesome-sass)
-gem 'font-awesome-sass', '~> 5.13.0'
+gem 'font-awesome-sass', '~> 5'
 
 # Use webpack to manage app-like JavaScript modules in Rails
 # (https://github.com/rails/webpacker)
@@ -277,7 +277,7 @@ group :test do
 
   # Browser integration tests are expensive. We can mock external requests
   # in our tests, but once a browser is involved, we lose control.
-  gem 'capybara-webmock', '~> 0.6'
+  gem 'capybara-webmock'
 
   # RSpec::CollectionMatchers lets you express expected outcomes on
   # collections of an object in an example.
