@@ -14,10 +14,11 @@ class GuidancesController < ApplicationController
   # GET /org/admin/guidance/:id/admin_index
   def admin_index
     authorize Guidance
-    @guidances = Guidance.by_org(current_user.org)
-                         .includes(:guidance_group, :themes).page(1)
+    @guidances = Guidance.includes(:guidance_group, :themes)
+                         .by_org(current_user.org).page(1)
     ensure_default_group(current_user.org)
-    @guidance_groups = GuidanceGroup.by_org(current_user.org).page(1)
+    @guidance_groups = GuidanceGroup.includes(:org)
+                                    .by_org(current_user.org).page(1)
   end
 
   # GET /org/admin/guidance/:id/admin_new
