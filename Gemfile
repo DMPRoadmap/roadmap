@@ -29,8 +29,10 @@ gem 'sass-rails'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker'
 
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks'
+# Turbo gives you the speed of a single-page web application without having to write any JavaScript..
+# Read more: https://github.com/hotwired/turbo-rails
+#            https://github.com/hotwired/turbo-rails/blob/main/UPGRADING.md
+gem 'turbo-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'

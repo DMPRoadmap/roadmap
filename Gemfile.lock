@@ -477,9 +477,10 @@ GEM
     tomparse (0.4.2)
     translation (1.32)
       gettext (~> 3.2, >= 3.2.5, <= 3.4.3)
-    turbolinks (5.2.1)
-      turbolinks-source (~> 5.2)
-    turbolinks-source (5.2.0)
+    turbo-rails (1.1.1)
+      actionpack (>= 6.0.0)
+      activejob (>= 6.0.0)
+      railties (>= 6.0.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.1.0)
@@ -599,7 +600,7 @@ DEPENDENCIES
   spring-watcher-listen
   text
   translation
-  turbolinks
+  turbo-rails
   web-console
   webdrivers
   webmock
