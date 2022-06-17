@@ -520,7 +520,6 @@ GEM
     yard-tomdoc (0.7.1)
       tomparse (>= 0.4.0)
       yard
-    zaru (0.3.0)
     zeitwerk (2.6.0)
 
 PLATFORMS
@@ -609,7 +608,6 @@ DEPENDENCIES
   wkhtmltopdf-binary
   yard
   yard-tomdoc
-  zaru
 
 RUBY VERSION
    ruby 2.7.6p219

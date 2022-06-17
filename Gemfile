@@ -24,6 +24,8 @@ gem 'mimemagic'
 gem 'puma', group: :puma, require: false
 
 # Use SCSS for stylesheets
+# TODO : might need to move to cssbundling-rails
+# SEE: https://dev.to/kolide/how-to-migrate-a-rails-6-app-from-sass-rails-to-cssbundling-rails-4l41
 gem 'sass-rails'
 
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
@@ -62,6 +64,7 @@ gem 'bootsnap', require: false
 
 # Rollbar-gem is the SDK for Ruby apps and includes support for apps using
 # Rails, Sinatra, Rack, plain Ruby, and other frameworks.
+# https://github.com/rollbar/rollbar-gem
 gem 'rollbar', group: :rollbar, require: false
 
 # ======== #
@@ -95,6 +98,7 @@ gem 'devise_invitable'
 gem 'omniauth'
 
 # OmniAuth Shibboleth strategies for OmniAuth 1.x
+# https://github.com/toyokazu/omniauth-shibboleth
 gem 'omniauth-shibboleth'
 
 # ORCID OAuth 2.0 Strategy for OmniAuth 1.0
@@ -150,6 +154,7 @@ gem 'kaminari'
 
 # Paginate in your headers, not in your response body. This follows the
 # proposed RFC-8288 standard for Web linking.
+# https://github.com/davidcelis/api-pagination
 gem 'api-pagination'
 
 # =========== #
@@ -189,10 +194,6 @@ gem 'wicked_pdf'
 # that can be downloaded by your users as simple MS Word docx files.
 # (http://github.com/karnov/htmltoword)
 gem 'htmltoword'
-
-# Filename sanitization for Ruby. This is useful when you generate filenames for
-# downloads from user input
-gem 'zaru'
 
 # ==================== #
 # INTERNATIONALIZATION #
