@@ -8,7 +8,7 @@ RSpec.describe Api::V1::Deserialization::Plan do
     create(:language, abbreviation: 'v1-plan', default_language: true) unless Language.default
 
     @template = create(:template)
-    @plan = create(:plan, template: @template)
+    @plan = create(:plan, template: @template, org: create(:org))
     @scheme = create(:identifier_scheme, name: 'doi',
                                          identifier_prefix: Faker::Internet.url)
     @doi = '10.9999/45ty5t.345/34t'
