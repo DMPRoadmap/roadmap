@@ -242,11 +242,11 @@ group :test do
   # (https://github.com/thekompanee/fuubar)
   gem 'fuubar'
 
-  # Guard keeps an eye on your file modifications (http://guardgem.org)
+  # Guard keeps an eye on your file modifications (https://github.com/guard/guard)
   gem 'guard'
 
   # Guard gem for RSpec (https://github.com/guard/guard-rspec)
-  gem 'guard-rspec'
+  # gem 'guard-rspec'
 
   # Library for stubbing HTTP requests in Ruby.
   # (http://github.com/bblimke/webmock)
@@ -276,7 +276,7 @@ group :test do
 
   # Automatically create snapshots when Cucumber steps fail with Capybara
   # and Rails (http://github.com/mattheworiordan/capybara-screenshot)
-  gem 'capybara-screenshot'
+  # gem 'capybara-screenshot'
 
   # Browser integration tests are expensive. We can mock external requests
   # in our tests, but once a browser is involved, we lose control.
@@ -312,22 +312,22 @@ group :ci, :development do
   gem 'rubocop-i18n'
 
   # A collection of RuboCop cops to check for performance optimizations in Ruby code.
-  gem 'rubocop-performance'
+  # gem 'rubocop-performance'
 
   # Automatic Rails code style checking tool. A RuboCop extension focused on enforcing
   # Rails best practices and coding conventions.
-  gem 'rubocop-rails'
+  # gem 'rubocop-rails'
 
   # A RuboCop plugin for Rake tasks
-  gem 'rubocop-rake'
+  # gem 'rubocop-rake'
 
   # Code style checking for RSpec files. A plugin for the RuboCop code style enforcing
   # & linting tool.
-  gem 'rubocop-rspec'
+  # gem 'rubocop-rspec'
 
   # Thread-safety checks via static analysis. A plugin for the RuboCop code style
   # enforcing & linting tool.
-  gem 'rubocop-thread_safety'
+  # gem 'rubocop-thread_safety'
 end
 
 group :development do
