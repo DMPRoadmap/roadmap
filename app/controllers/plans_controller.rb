@@ -138,8 +138,7 @@ class PlansController < ApplicationController
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def show
     @plan = Plan.includes(
-      template: { phases: { sections: { questions: :answers } } },
-      plans_guidance_groups: { guidance_group: :guidances }
+      template: [:phases], plans_guidance_groups: [:guidance_group]
     ).find_by(id: params[:id])
     raise ActiveRecord::RecordNotFound unless @plan.present?
 
@@ -151,7 +150,6 @@ class PlansController < ApplicationController
                   end
     # Get all of the available funders
     @funders = Org.funder
-                  .includes(identifiers: :identifier_scheme)
                   .joins(:templates)
                   .where(templates: { published: true }).uniq.sort_by(&:name)
     # TODO: Seems strange to do this. Why are we just not using an `edit` route?
@@ -170,8 +168,9 @@ class PlansController < ApplicationController
       @important_ggs << [current_user.org, @all_ggs_grouped_by_org[current_user.org]]
     end
 
+    @default_orgs = Org.default_orgs
     @all_ggs_grouped_by_org.each do |org, ggs|
-      @important_ggs << [org, ggs] if Org.default_orgs.include?(org)
+      @important_ggs << [org, ggs] if @default_orgs.include?(org)
 
       # If this is one of the already selected guidance groups its important!
       @important_ggs << [org, ggs] if !(ggs & @selected_guidance_groups).empty? && !@important_ggs.include?([org, ggs])

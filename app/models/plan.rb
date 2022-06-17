@@ -102,7 +102,7 @@ class Plan < ApplicationRecord
 
   has_many :guidances, through: :themes
 
-  has_many :guidance_group_options, -> { distinct.published.reorder('id') },
+  has_many :guidance_group_options, -> { distinct.includes(:org).published.reorder('id') },
            through: :guidances,
            source: :guidance_group,
            class_name: 'GuidanceGroup'
@@ -600,7 +600,8 @@ class Plan < ApplicationRecord
   def dmp_id
     return nil unless Rails.configuration.x.madmp.enable_dmp_id_registration
 
-    id = identifiers.select { |i| i.identifier_scheme == DmpIdService.identifier_scheme }
+    id = identifiers.includes(:identifier_scheme)
+                    .select { |i| i.identifier_scheme == DmpIdService.identifier_scheme }
                     .last
     return id if id.present?
   end
