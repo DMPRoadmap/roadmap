@@ -42,7 +42,7 @@
     "jquery": "^3.5.1",
     "jquery-ui": "^1.12.1",
     "jquery-ui-sass": "^0.0.1",
-    "js-cookie": "^2.2.1",
+    "js-cookie": "^3.0.1",
     "number-to-text": "^0.3.8",
     "popper.js": "^1.16.1",
     "rails-erb-loader": "^5.5.2",
