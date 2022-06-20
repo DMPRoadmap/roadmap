@@ -21,6 +21,4 @@ jobs:
       run: yarn install
 
     - name: 'Run ESLint'
-      run: yarn run eslint
-      with: 
-        args: 'app/javascript/**/*.js --ext .js'
+      run: yarn run eslint app/javascript/**/*.js --ext .js
