@@ -48,9 +48,8 @@ module Api
 
         assign_users_to(@department.id)
 
-        # Added "status: :see_other" to redirect_to (as we require rediect to be a GET).
-        # See https://makandracards.com/makandra/38347-redirecting-responses-for-patch-or-delete-will-not-redirect-with-get
-        redirect_to users_api_v0_departments_path, status: :see_other
+        @users = @user.org.users.includes(:department)
+        render users_api_v0_departments_path
       end
 
       ##
@@ -62,9 +61,8 @@ module Api
 
         assign_users_to(nil)
 
-        # Added "status: :see_other" to redirect_to (as we require rediect to be a GET).
-        # See https://makandracards.com/makandra/38347-redirecting-responses-for-patch-or-delete-will-not-redirect-with-get
-        redirect_to users_api_v0_departments_path, status: :see_other
+        @users = @user.org.users.includes(:department)
+        render users_api_v0_departments_path
       end
 
       private
