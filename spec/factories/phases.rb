@@ -33,7 +33,7 @@ FactoryBot.define do
     modifiable { false }
 
     transient do
-      sections { 1 }
+      sections { 0 }
       questions { 0 }
     end
 

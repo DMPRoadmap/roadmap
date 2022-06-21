@@ -8,7 +8,7 @@ describe 'api/v2/templates/index.json.jbuilder' do
     @url = Faker::Internet.url
     @code = [200, 400, 404, 500].sample
 
-    @template1 = create(:template, :published, org: create(:org))
+    @template1 = create(:template, :published, org: create(:org), phases: 1)
     @template2 = create(:template, :published)
 
     assign :application, @application
@@ -21,7 +21,7 @@ describe 'api/v2/templates/index.json.jbuilder' do
   describe 'includes all of the Template attributes' do
     before(:each) do
       render template: 'api/v2/templates/index',
-             locals: { response: @resp, request: @req}
+             locals: { response: @resp, request: @req }
       @json = JSON.parse(rendered).with_indifferent_access
 
       @template = @json[:items].first[:dmp_template]

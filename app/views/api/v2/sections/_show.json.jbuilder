@@ -11,5 +11,5 @@ json.created section.created_at.to_formatted_s(:iso8601)
 json.modified section.updated_at.to_formatted_s(:iso8601)
 
 json.questions section.questions do |question|
-    json.partial! 'api/v2/questions/show', question: question
+  json.partial! 'api/v2/questions/show', question: question
 end

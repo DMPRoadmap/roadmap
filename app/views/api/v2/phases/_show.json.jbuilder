@@ -11,5 +11,5 @@ json.created phase.created_at.to_formatted_s(:iso8601)
 json.modified phase.updated_at.to_formatted_s(:iso8601)
 
 json.sections phase.sections do |section|
-    json.partial! 'api/v2/sections/show', section: section
+  json.partial! 'api/v2/sections/show', section: section
 end
