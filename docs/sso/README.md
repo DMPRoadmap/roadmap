@@ -8,6 +8,7 @@ The DMPTool requires that the following SAML attributes are released:
 - `eduPersonPrincipalName` **required** (aka eppn, the user's unique identifier. The value should be universally unique, the most common value is the email)
 - `mail` **required** (the users email address)
 - `displayName` (the user's first and last name)
+- or send `givenname` and `sn`as seperate fields
 
 Once your institution's Identity Provider is configured correctly, a DMPTool administrator can enable your institution to use SSO within the DMPTool. Once enabled, your users will select your institution from the DMPTool login screen then be redirected to your institution's login page to authenticate.
 
