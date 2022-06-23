@@ -65,4 +65,4 @@ jobs:
 
     # Run  the unit and functional tests
     - name: 'Run Rspec Tests'
-      run: bin/bundle exec rspec spec -s 40701
+      run: bin/bundle exec rspec spec #-s 40701

@@ -340,7 +340,7 @@ RSpec.describe Api::V2::PlansController, type: :request do
       it 'creates the Plan' do
         post(api_v2_plans_path, params: @json.to_json, headers: @headers)
 
-        expect(response.code).to eql('201')
+        expect(response.code).to eql('201'), "Unable to create Plan: #{response.body.inspect}"
         expect(response).to render_template('api/v2/_standard_response')
         expect(response).to render_template('api/v2/identifiers/_show')
         expect(response).to render_template('api/v2/orgs/_show')
@@ -440,7 +440,7 @@ RSpec.describe Api::V2::PlansController, type: :request do
         ActionMailer::Base.deliveries = []
         post(api_v2_plans_path, params: @json.to_json, headers: @headers)
 
-        expect(response.code).to eql('201')
+        expect(response.code).to eql('201'), "Unable to create Plan: #{response.body.inspect}"
         expect(ActionMailer::Base.deliveries).to have_exactly(1).item
         expect(response).to render_template('user_mailer/new_plan_via_api')
 
@@ -463,7 +463,7 @@ RSpec.describe Api::V2::PlansController, type: :request do
         ActionMailer::Base.deliveries = []
         post(api_v2_plans_path, params: @json.to_json, headers: @headers)
 
-        expect(response.code).to eql('201')
+        expect(response.code).to eql('201'), "Unable to create Plan: #{response.body.inspect}"
         expect(ActionMailer::Base.deliveries).to have_exactly(1).item
         expect(response).to render_template('user_mailer/new_plan_via_api')
 
@@ -480,7 +480,7 @@ RSpec.describe Api::V2::PlansController, type: :request do
 
       it 'logs the addition of the new plan in the api_logs' do
         post(api_v2_plans_path, params: @json.to_json, headers: @headers)
-        expect(response.code).to eql('201')
+        expect(response.code).to eql('201'), "Unable to create Plan: #{response.body.inspect}"
         entry = ApiLog.all.last
         plan = Plan.all.last
         expected = "Created a new Plan:<br>#<Plan id: #{plan.id}, "
