@@ -133,9 +133,9 @@ module Import
           facilities_list = []
           facilities.each do |elem|
             facilities_list.append(
-              'facility' => {
+              {
                 'description' => elem['description'],
-                'title' => elem['name']
+                'title' => elem['title']
               }
             )
           end
@@ -256,7 +256,9 @@ module Import
                     'docIdentifier' => full_dmp['ethical_issues_report']
                   }]
                 },
-                'dataCollection' => convert_technical_ressource(dataset['technical_ressource'])
+                'dataCollection' => {
+                  'facility' => convert_technical_ressource(dataset['technical_resource'])
+                }
               }
             )
           end
