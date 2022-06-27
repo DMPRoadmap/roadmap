@@ -230,6 +230,8 @@ gem 'jsonpath'
 
 gem 'activerecord_json_validator'
 
+gem 'rswag'
+
 # ================================= #
 # ENVIRONMENT SPECIFIC DEPENDENCIES #
 # ================================= #
