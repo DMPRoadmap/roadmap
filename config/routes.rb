@@ -228,6 +228,7 @@ Rails.application.routes.draw do
         end
       end
       namespace :madmp do
+        get 'dmp_fragments/:id', controller: "madmp_fragments", action: 'dmp_fragments'
         resources :dmp_fragments, controller: "madmp_fragments", action: "dmp_fragments"
         resources :madmp_fragments, only: %i[show update], controller: "madmp_fragments", path: "fragments"
         resources :madmp_schemas, only: [:show], controller: "madmp_schemas", path: "schemas"
@@ -252,7 +253,7 @@ Rails.application.routes.draw do
         end
       end
       namespace :madmp do
-        resources :dmp_fragments, controller: "madmp_fragments", action: "dmp_fragments"
+        get 'dmp_fragments/:id', controller: "madmp_fragments", action: 'dmp_fragments'
         resources :madmp_fragments, only: %i[show update], controller: "madmp_fragments", path: "fragments"
         resources :madmp_schemas, only: %i[index show], controller: "madmp_schemas", path: "schemas"
         resources :registries, only: %i[index show], controller: "registries", param: :name
