@@ -42,6 +42,12 @@
           <li <%= 'class=active' if active_page?(public_templates_path) %>>
             <%= link_to _('DMP Templates'), public_templates_path %>
           </li> 
+          <!-- api docs -->
+          <% if current_user.can_use_api? %>
+            <li>
+              <%= link_to _('API Docs'), rswag_ui_path, target: '_blank' %>
+            </li>
+          <% end %>
         <% else %>
           <li <%= 'class=active' if active_page?(public_plans_path, true) %>>
             <%= link_to _('Public DMPs'), public_plans_path %>
