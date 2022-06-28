@@ -1,0 +1,363 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "maDMP OPIDoR API",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/v1/authenticate": {
+      "post": {
+        "summary": "Creates a JSON Web Token used to query the API",
+        "tags": [
+          "Authentication"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authentication",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "grant_type": {
+                  "type": "string"
+                },
+                "client_id": {
+                  "type": "string"
+                },
+                "client_secret": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          }
+        }
+      }
+    },
+    "/api/v1/madmp/dmp_fragments/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "type": "string",
+          "description": "Root JSON fragment identifier",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get a list of all the JSON fragment of a DMP",
+        "tags": [
+          "MadmpFragments"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          }
+        }
+      }
+    },
+    "/api/v1/madmp/fragments/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "type": "string",
+          "description": "JSON fragment identifier",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get a JSON fragment",
+        "tags": [
+          "MadmpFragments"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "mode",
+            "in": "query",
+            "type": "string",
+            "description": "JSON fragment export mode (fat/slim)",
+            "default": "slim"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a JSON fragment",
+        "tags": [
+          "MadmpFragments"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a JSON fragment",
+        "tags": [
+          "MadmpFragments"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          }
+        }
+      }
+    },
+    "/api/v1/madmp/schemas": {
+      "get": {
+        "summary": "List available Structured Forms Schemas",
+        "tags": [
+          "MadmpSchemas"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          }
+        }
+      }
+    },
+    "/api/v1/madmp/schemas/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "type": "integer",
+          "description": "Schema identifier",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get a specific Structured Forms Schemas from its id",
+        "tags": [
+          "MadmpSchemas"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          }
+        }
+      }
+    },
+    "/api/v1/madmp/plans/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "type": "string",
+          "description": "Plan identifier",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Export Plan in the Standard format",
+        "tags": [
+          "Plans"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          }
+        }
+      }
+    },
+    "/api/v1/madmp/plans/{id}/rda_export": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "type": "string",
+          "description": "Plan indentifier",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Export Plan in the RDA Common Standard format",
+        "tags": [
+          "Plans"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          }
+        }
+      }
+    },
+    "/api/v1/madmp/plans/import": {
+      "parameters": [
+        {
+          "name": "import_format",
+          "in": "query",
+          "type": "string",
+          "description": "Import format (standard/rda)",
+          "default": "standard"
+        }
+      ],
+      "post": {
+        "summary": "Import and create a new plan based on a Standard or RDA input format",
+        "tags": [
+          "Plans"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          }
+        }
+      }
+    },
+    "/api/v1/madmp/registries": {
+      "get": {
+        "summary": "List available registries",
+        "tags": [
+          "Registries"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "401": {
+            "description": "unauthorized"
+          }
+        }
+      }
+    },
+    "/api/v1/madmp/registries/{name}": {
+      "parameters": [
+        {
+          "name": "name",
+          "in": "path",
+          "type": "string",
+          "description": "Name of the registry",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get a specific registry from its name",
+        "tags": [
+          "Registries"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "Bearer": {
+      "description": "JWT",
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  }
+}
