@@ -2,6 +2,17 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+
+## 28/06/2022
+- Ajout de la documentation d'API sous forme de Swagger
+  - Accessible par l'URL `/api-docs`
+  - Accessible par le lien "API Docs" présent dans le bandeau de navigation pour les utilisateurs connectés ayant le droit d'utiliser l'API
+
+
+## 22/06/2022
+- Annulation de la modification "Retrait des modèles structurés de la liste des modèles personnalisables"
+- Correction de l'import de facility avec l'import RDA (issue #398)
+
 ## 08/06/2022
 - Changements sur la page d'accueil & mise à jour des traductions
 - Ajout de l'identifiant cliquable du contributeur dans la liste des contributeurs de l'export PDF
