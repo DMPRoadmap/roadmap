@@ -32,7 +32,7 @@ RSpec.describe 'api/v1/madmp/plans', type: :request do
     get('Export Plan in the RDA Common Standard format') do
       tags 'Plans'
       produces 'application/json'
-      security [Bearer: {}]
+      security [Bearer: []]
       response(200, 'successful') do
         let(:id) { '123' }
 
@@ -56,7 +56,7 @@ RSpec.describe 'api/v1/madmp/plans', type: :request do
     post('Import and create a new plan based on a Standard or RDA input format') do
       tags 'Plans'
       produces 'application/json'
-      security [Bearer: {}]
+      security [Bearer: []]
       response(200, 'successful') do
         let(:import_format) { 'standard' }
         after do |example|

@@ -7,7 +7,7 @@ RSpec.describe 'api/v1/madmp/madmp_schemas', type: :request do
     get('List available Structured Forms Schemas') do
       tags 'MadmpSchemas'
       produces 'application/json'
-      security [Bearer: {}]
+      security [Bearer: []]
       response(200, 'successful') do
         after do |example|
           example.metadata[:response][:content] = {
@@ -28,7 +28,7 @@ RSpec.describe 'api/v1/madmp/madmp_schemas', type: :request do
     get('Get a specific Structured Forms Schemas from its id') do
       tags 'MadmpSchemas'
       produces 'application/json'
-      security [Bearer: {}]
+      security [Bearer: []]
       response(200, 'successful') do
         let(:id) { '123' }
 

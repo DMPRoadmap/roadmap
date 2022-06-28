@@ -10,7 +10,7 @@ RSpec.describe 'api/v1/madmp/madmp_fragments', type: :request do
     get('Get a list of all the JSON fragment of a DMP') do
       tags 'MadmpFragments'
       produces 'application/json'
-      security [Bearer: {}]
+      security [Bearer: []]
       response(200, 'successful') do
         let(:id) { '123' }
 
@@ -38,7 +38,7 @@ RSpec.describe 'api/v1/madmp/madmp_fragments', type: :request do
                 type: :string, 
                 description: 'JSON fragment export mode (fat/slim)',
                 default: 'slim'
-      security [Bearer: {}]
+      security [Bearer: []]
       response(200, 'successful') do
         let(:id) { '123' }
 
@@ -56,7 +56,7 @@ RSpec.describe 'api/v1/madmp/madmp_fragments', type: :request do
     patch('Update a JSON fragment') do
       tags 'MadmpFragments'
       produces 'application/json'
-      security [Bearer: {}]
+      security [Bearer: []]
       response(200, 'successful') do
         let(:id) { '123' }
 
@@ -74,7 +74,7 @@ RSpec.describe 'api/v1/madmp/madmp_fragments', type: :request do
     put('Update a JSON fragment') do
       tags 'MadmpFragments'
       produces 'application/json'
-      security [Bearer: {}]
+      security [Bearer: []]
       response(200, 'successful') do
         let(:id) { '123' }
 

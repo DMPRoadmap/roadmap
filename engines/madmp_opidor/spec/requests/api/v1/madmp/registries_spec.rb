@@ -7,7 +7,7 @@ RSpec.describe 'api/v1/madmp/registries', type: :request do
     get('List available registries') do
       tags 'Registries'
       produces 'application/json'
-      security [Bearer: {}]
+      security [Bearer: []]
       response(200, 'successful') do
         after do |example|
           example.metadata[:response][:content] = {
@@ -31,7 +31,7 @@ RSpec.describe 'api/v1/madmp/registries', type: :request do
     get('Get a specific registry from its name') do
       tags 'Registries'
       produces 'application/json'
-      security [Bearer: {}]
+      security [Bearer: []]
       response(200, 'successful') do
         let(:name) { '123' }
 
