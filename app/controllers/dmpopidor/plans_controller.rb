@@ -99,7 +99,7 @@ module Dmpopidor
       authorize @plan
 
       @templates = ::Template.includes(:org)
-                             .where(type: 'structured')
+                             .where(type: 'structured', customization_of: nil)
                              .unarchived.published
     end
 
