@@ -19,6 +19,7 @@ module Dmpopidor
       @plan = ::Plan.find(params[:plan_id])
       @research_output = ::ResearchOutput.find(params[:id])
       attrs = research_output_params
+      contact_id = params[:contact_id]
 
       authorize @plan
       if @research_output.update(attrs)
@@ -27,7 +28,7 @@ module Dmpopidor
           research_output_description = @research_output.json_fragment.research_output_description
           research_output_description.contact.update(
             data: {
-              'person' => { 'dbid' => params[:contact_id] },
+              'person' => contact_id.present? ? { 'dbid' => contact_id } : nil,
               'role' => _('Data contact')
             }
           )
@@ -94,7 +95,7 @@ module Dmpopidor
 
     def research_output_params
       params.require(:research_output)
-            .permit(:id, :plan_id, :abbreviation, :title, :pid, :output_type_description)
+            .permit(:id, :plan_id, :abbreviation, :title, :pid, :output_type_description, :contact_id)
     end
   end
 end
