@@ -3,6 +3,11 @@
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
 
+## 30/06/2022
+Ces deux corrections seront également déployés avec la version prochainement déployée en production
+- Retrait des plans personnalisés de la liste des modèles disponibles dans la page d'import de plans
+- Correction du problème d'attribution du contact du produit de recherche, dans les plans classiques, pouvant provoquer un blocage du plan quand aucun contact n'a été sélectionné
+
 ## 28/06/2022
 - Ajout de la documentation d'API sous forme de Swagger
   - Accessible par l'URL `/api-docs`

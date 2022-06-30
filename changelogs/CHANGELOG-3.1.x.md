@@ -1,4 +1,4 @@
-# Liste des changements versions 3.1.0->
+# Liste des changements versions 3.1.0->3.1.2
 
 ## 04/05/2022
 - Ajout d'un message concernant les contributeurs lorsque l'on utilise l'import RDA
