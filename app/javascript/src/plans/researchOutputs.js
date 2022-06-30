@@ -1,6 +1,7 @@
 import { Select2 } from '../utils/select2';
 
 $(() => {
+  Select2.init('#research-outputs-list');
   $('#research-outputs').sortable({
     items: '.research-output-element:not(.inactive)',
     handle: '.research-output-actions .handle',
