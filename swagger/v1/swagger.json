@@ -94,19 +94,23 @@
         "produces": [
           "application/json"
         ],
+        "security": [
+          {
+            "Bearer": [
+
+            ]
+          }
+        ],
         "parameters": [
           {
             "name": "mode",
             "in": "query",
             "type": "string",
             "description": "JSON fragment export mode (fat/slim)",
-            "default": "slim"
-          }
-        ],
-        "security": [
-          {
-            "Bearer": [
-
+            "default": "slim",
+            "enum": [
+              "slim",
+              "fat"
             ]
           }
         ],
@@ -124,11 +128,22 @@
         "produces": [
           "application/json"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "security": [
           {
             "Bearer": [
 
             ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "type": "object",
+            "required": true
           }
         ],
         "responses": {
@@ -145,11 +160,22 @@
         "produces": [
           "application/json"
         ],
+        "consumes": [
+          "application/json"
+        ],
         "security": [
           {
             "Bearer": [
 
             ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "type": "object",
+            "required": true
           }
         ],
         "responses": {
@@ -232,6 +258,13 @@
         "produces": [
           "application/json"
         ],
+        "security": [
+          {
+            "Bearer": [
+
+            ]
+          }
+        ],
         "responses": {
           "200": {
             "description": "successful"
@@ -278,7 +311,18 @@
           "in": "query",
           "type": "string",
           "description": "Import format (standard/rda)",
-          "default": "standard"
+          "required": true,
+          "default": "standard",
+          "enum": [
+            "standard",
+            "rda"
+          ]
+        },
+        {
+          "name": "data",
+          "in": "body",
+          "type": "object",
+          "required": true
         }
       ],
       "post": {
@@ -287,6 +331,9 @@
           "Plans"
         ],
         "produces": [
+          "application/json"
+        ],
+        "consumes": [
           "application/json"
         ],
         "security": [
