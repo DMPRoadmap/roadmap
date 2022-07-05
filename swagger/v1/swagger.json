@@ -142,8 +142,9 @@
           {
             "name": "data",
             "in": "body",
-            "type": "object",
-            "required": true
+            "schema": {
+              "type": "object"
+            }
           }
         ],
         "responses": {
@@ -174,8 +175,9 @@
           {
             "name": "data",
             "in": "body",
-            "type": "object",
-            "required": true
+            "schema": {
+              "type": "object"
+            }
           }
         ],
         "responses": {
@@ -321,8 +323,9 @@
         {
           "name": "data",
           "in": "body",
-          "type": "object",
-          "required": true
+          "schema": {
+            "type": "object"
+          }
         }
       ],
       "post": {

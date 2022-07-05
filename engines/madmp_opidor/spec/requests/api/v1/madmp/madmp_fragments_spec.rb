@@ -34,12 +34,12 @@ RSpec.describe 'api/v1/madmp/madmp_fragments', type: :request do
       tags 'MadmpFragments'
       produces 'application/json'
       security [Bearer: []]
-      parameter name: 'mode', 
-                in: :query, 
-                type: :string, 
+      parameter name: 'mode',
+                in: :query,
+                type: :string,
                 description: 'JSON fragment export mode (fat/slim)',
                 default: 'slim',
-                enum: ['slim', 'fat']
+                enum: %w[slim fat]
 
       response(200, 'successful') do
         let(:id) { '123' }
@@ -60,7 +60,9 @@ RSpec.describe 'api/v1/madmp/madmp_fragments', type: :request do
       produces 'application/json'
       consumes 'application/json'
       security [Bearer: []]
-      parameter name: :data, in: :body, type: :object, required: true
+      parameter name: :data, in: :body, schema: {
+        type: :object
+      }
 
       response(200, 'successful') do
         let(:id) { '123' }
@@ -81,7 +83,9 @@ RSpec.describe 'api/v1/madmp/madmp_fragments', type: :request do
       produces 'application/json'
       consumes 'application/json'
       security [Bearer: []]
-      parameter name: :data, in: :body, type: :object, required: true
+      parameter name: :data, in: :body, schema: {
+        type: :object
+      }
 
       response(200, 'successful') do
         let(:id) { '123' }

@@ -3,7 +3,6 @@
 require 'swagger_helper'
 
 RSpec.describe 'api/v1/madmp/plans', type: :request do
-
   path '/api/v1/madmp/plans/{id}' do
     # You'll want to customize the parameter types...
     parameter name: 'id', in: :path, type: :string, description: 'Plan identifier'
@@ -55,9 +54,11 @@ RSpec.describe 'api/v1/madmp/plans', type: :request do
               description: 'Import format (standard/rda)',
               required: true,
               default: 'standard',
-              enum: ['standard', 'rda']
+              enum: %w[standard rda]
 
-    parameter name: :data, in: :body, type: :object, required: true
+    parameter name: :data, in: :body, schema: {
+      type: :object
+    }
 
     post('Import and create a new plan based on a Standard or RDA input format') do
       tags 'Plans'
