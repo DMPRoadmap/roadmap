@@ -42,7 +42,7 @@ module Dmpopidor
       end
 
       if params.key?(:research_outputs)
-        @hash[:research_outputs] = @hash[:research_outputs].select do |d|
+        @hash[:research_outputs] = @hash[:research_outputs].order(display_order: :asc).select do |d|
           params[:research_outputs].include?(d[:id].to_s)
         end
       end
