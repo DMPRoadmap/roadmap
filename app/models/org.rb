@@ -55,7 +55,10 @@ class Org < ApplicationRecord
   after_create :connect_to_registry_org
 
   # Prevent XSS attempts
-  before_validation ->(data) { data.sanitize_fields(:name) }
+  before_validation ->(data) do
+    data.sanitize_fields(:name)
+    data.name = data.name.gsub('&amp;', '&')
+  end
   # ----------------------------------------
   # End DMPTool Customization
   # ----------------------------------------
