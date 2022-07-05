@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 meta = dmp.meta
-project_fragment = dmp.project
+project = dmp.project
 research_outputs = dmp.plan.research_outputs.order(:display_order)
 
 json.prettify!
@@ -45,22 +45,24 @@ json.dmp do
     json.title              cost.data["title"]
     json.value              cost.data["amount"]
   end
-  json.project [project_fragment] do |project|
-    start_date = project.data["startDate"] || nil
-    end_date = project.data["endDate"] || nil
-    json.description      exportable_description(project.data["description"])
-    json.title            project.data["title"]
-    json.start            start_date
-    json.end              end_date
-    json.funding project.fundings do |funding|
-      json.funder_id do
-        json.identifier     funding.funder.data["funderId"]
-        json.type           funding.funder.data["idType"]
-      end
-      json.funding_status funding.data["fundingStatus"]
-      json.grant_id do
-        json.identifier     funding.data["grantId"]
-        json.type           "Code"
+  json.project do
+    json.child! do
+      start_date = project.data["startDate"] || nil
+      end_date = project.data["endDate"] || nil
+      json.description      exportable_description(project.data["description"])
+      json.title            project.data["title"]
+      json.start            start_date
+      json.end              end_date
+      json.funding project.fundings do |funding|
+        json.funder_id do
+          json.identifier     funding.funder.data["funderId"]
+          json.type           funding.funder.data["idType"]
+        end
+        json.funding_status funding.data["fundingStatus"]
+        json.grant_id do
+          json.identifier     funding.data["grantId"]
+          json.type           "Code"
+        end
       end
     end
   end

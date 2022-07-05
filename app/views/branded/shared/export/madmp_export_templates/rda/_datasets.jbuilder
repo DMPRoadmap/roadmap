@@ -42,7 +42,7 @@ json.dataset research_outputs do |research_output|
       json.data_access        distribution.data["dataAccess"]
       json.description        exportable_description(distribution.data["description"])
       json.download_url       distribution.data["downloadUrl"]
-      json.format             distribution.data["fileFormat"]
+      json.format             [distribution.data["fileFormat"]]
       json.title              distribution.data["fileName"]
       if distribution.sharing.host.present?
         host = distribution.sharing.host
@@ -65,8 +65,10 @@ json.dataset research_outputs do |research_output|
         # rubocop:enable Lint/EmptyBlock
       end
       json.license do
-        json.license_ref            distribution.license.data["licenseUrl"]
-        json.start_date             start_date
+        json.child! do
+          json.license_ref            distribution.license.data["licenseUrl"]
+          json.start_date             start_date
+        end
       end
     end
   else
@@ -74,7 +76,7 @@ json.dataset research_outputs do |research_output|
   end
 
   if dataset.documentation_quality.present?
-    json.data_quality_assurance exportable_description(dataset.documentation_quality.data["description"])
+    json.data_quality_assurance [exportable_description(dataset.documentation_quality.data["description"])]
     json.metadata dataset.documentation_quality.metadata_standard do |metadata_standard|
       # rubocop:disable Layout/LineLength
       json.description        exportable_description("#{metadata_standard.data['name']} - #{metadata_standard.data['description']}")
@@ -91,8 +93,10 @@ json.dataset research_outputs do |research_output|
 
   if dataset.data_storage.present?
     json.security_and_privacy do
-      json.description        exportable_description(dataset.data_storage.data["securityMeasures"])
-      json.title              "Security measures"
+      json.child! do
+        json.description        exportable_description(dataset.data_storage.data["securityMeasures"])
+        json.title              "Security measures"
+      end
     end
   else
     # rubocop:disable Lint/EmptyBlock
