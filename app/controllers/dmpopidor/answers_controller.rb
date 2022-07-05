@@ -130,31 +130,31 @@ module Dmpopidor
             'answer_lock_version' => @answer.lock_version,
             'locking' => if @stale_answer
                            render_to_string(partial: 'answers/locking', locals: {
-                                              question: @question,
-                                              answer: @stale_answer,
-                                              research_output: @research_output,
-                                              user: @answer.user
-                                            }, formats: [:html])
+                                                                          question: @question,
+                                                                          answer: @stale_answer,
+                                                                          research_output: @research_output,
+                                                                          user: @answer.user
+                                                                        }, formats: [:html])
                          end,
             'form' => render_to_string(partial: 'answers/new_edit', locals: {
-                                         template: template,
-                                         question: @question,
-                                         answer: @answer,
-                                         research_output: @research_output,
-                                         readonly: false,
-                                         locking: false,
-                                         base_template_org: template.base_org
-                                       }, formats: [:html]),
+                                                                      template: template,
+                                                                      question: @question,
+                                                                      answer: @answer,
+                                                                      research_output: @research_output,
+                                                                      readonly: false,
+                                                                      locking: false,
+                                                                      base_template_org: template.base_org
+                                                                    }, formats: [:html]),
             'answer_status' => render_to_string(partial: 'answers/status', locals: {
-                                                  answer: @answer
-                                                }, formats: [:html])
+                                                                             answer: @answer
+                                                                           }, formats: [:html])
           },
           'plan' => {
             'id' => @plan.id,
             'progress' => render_to_string(partial: 'plans/progress', locals: {
-                                             plan: @plan,
-                                             current_phase: @section.phase
-                                           }, formats: [:html])
+                                                                        plan: @plan,
+                                                                        current_phase: @section.phase
+                                                                      }, formats: [:html])
           },
           'research_output' => {
             'id' => @research_output.id
