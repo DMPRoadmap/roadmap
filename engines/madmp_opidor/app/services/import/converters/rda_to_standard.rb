@@ -40,7 +40,7 @@ module Import
         # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
         def convert_project(projects)
-          return {} if projects.nil?
+          return {} if projects.nil? || projects.empty?
 
           project = projects[0]
           {
