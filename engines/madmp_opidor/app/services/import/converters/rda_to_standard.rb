@@ -180,12 +180,13 @@ module Import
           hosts_list
         end
 
-        # rubocop:disable Metrics/MethodLength
+        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
         def convert_distribution(distribution)
           return [] if distribution.nil?
 
           distributions_list = []
           distribution.each do |elem|
+            license = elem['license'].present? ? elem['license'][0] : {}
             distributions_list.append(
               {
                 'releaseDate' => '',
@@ -198,15 +199,16 @@ module Import
                 'fileFormat' => elem['format'],
                 'fileName' => elem['title'],
                 'license' => {
-                  'licenseUrl' => elem.dig('license', 'license_ref')
+                  'licenseName' => license['license_name'],
+                  'licenseUrl' => license['license_ref']
                 },
-                'licenseStartDate' => elem.dig('license', 'start_date')
+                'licenseStartDate' => license['start_date']
               }
             )
           end
           distributions_list
         end
-        # rubocop:enable Metrics/MethodLength
+        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
         def convert_security_measures(security_info)
           return '' if security_info.blank?
