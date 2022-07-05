@@ -82,6 +82,14 @@ module Api
       def create
         dmp = @json.with_indifferent_access.fetch(:dmp, {})
 
+        # Some temporary debug to help diagnose issue with RAMS integration
+        Rails.logger.warn 'API V2 create plan called:'
+        Rails.logger.warn dmp.inspect
+        tmp_msg = 'API V2 create plan called'
+        tmp_msg += '<br>----------------------------------------<br><br>'
+        tmp_msg += dmp.inspect
+        UserMailer.notify_administrators(tmp_msg).deliver_now
+
         # Do a pass through the raw JSON and check to make sure all required fields
         # were present. If not, return the specific errors
         errs = Api::V2::JsonValidationService.validation_errors(json: dmp)
