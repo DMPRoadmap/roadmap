@@ -31,28 +31,28 @@ class MadmpCodebaseController < ApplicationController
       if response['return_code'].eql?(0)
         if response['data'].empty?
           render json: {
-                   'message' => _('Notification has been sent'),
-                   'needs_reload' => false
-                 }, status: 200
+            'message' => _('Notification has been sent'),
+            'needs_reload' => false
+          }, status: 200
         else
           fragment.import_with_instructions(response['data'], fragment.madmp_schema)
           render json: {
-                   'message' => _('New data have been added to your plan, please click on the "Reload" button.'),
-                   'needs_reload' => true
-                 }, status: 200
+            'message' => _('New data have been added to your plan, please click on the "Reload" button.'),
+            'needs_reload' => true
+          }, status: 200
         end
         update_run_log(fragment, script_id)
       else
         # Rails.cache.delete(["codebase_run", fragment.id])
         render json: {
-                 'error' => "#{_('An error has occured: ')} #{response['result_message']}"
-               }, status: 500
+          'error' => "#{_('An error has occured: ')} #{response['result_message']}"
+        }, status: 500
       end
     rescue StandardError => e
       # Rails.cache.delete(["codebase_run", fragment.id])
       render json: {
-               'error' => "Internal Server error: #{e.message}"
-             }, status: 500
+        'error' => "Internal Server error: #{e.message}"
+      }, status: 500
     end
   end
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -80,21 +80,21 @@ class MadmpCodebaseController < ApplicationController
       if response['return_code'].eql?(0)
         dmp_fragment.raw_import(response['data'], dmp_fragment.madmp_schema)
         render json: {
-                 'message' => _('New data have been added to your plan, please click on the "Reload" button.'),
-                 'needs_reload' => true
-               }, status: 200
+          'message' => _('New data have been added to your plan, please click on the "Reload" button.'),
+          'needs_reload' => true
+        }, status: 200
         update_run_log(dmp_fragment, script_id)
       else
         # Rails.cache.delete(["codebase_run", fragment.id])
         render json: {
-                 'error' => "#{_('An error has occured: ')} #{response['result_message']}"
-               }, status: 500
+          'error' => "#{_('An error has occured: ')} #{response['result_message']}"
+        }, status: 500
       end
     rescue StandardError => e
       # Rails.cache.delete(["codebase_run", fragment.id])
       render json: {
-               'error' => "Internal Server error: #{e.message}"
-             }, status: 500
+        'error' => "Internal Server error: #{e.message}"
+      }, status: 500
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

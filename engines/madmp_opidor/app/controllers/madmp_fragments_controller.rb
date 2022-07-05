@@ -35,8 +35,8 @@ class MadmpFragmentsController < ApplicationController
 
     if MadmpFragment.fragment_exists?(data, schema, p_params[:dmp_id], parent_id)
       render json: {
-               'error' => _('Element is already present in your plan.')
-             }, status: 409
+        'error' => _('Element is already present in your plan.')
+      }, status: 409
       return
     end
 
@@ -152,8 +152,8 @@ class MadmpFragmentsController < ApplicationController
         data, schema, p_params[:dmp_id], @fragment.parent_id, params[:id]
       )
         render json: {
-                 'error' => _('Element is already present in your plan.')
-               }, status: 409
+          'error' => _('Element is already present in your plan.')
+        }, status: 409
         return
       end
 
@@ -313,8 +313,8 @@ class MadmpFragmentsController < ApplicationController
         @registry_value.data, schema, parent_fragment.dmp_id, parent_fragment.id
       )
         render json: {
-                 'error' => _('Element is already present in your plan.')
-               }, status: 409
+          'error' => _('Element is already present in your plan.')
+        }, status: 409
         return
       end
 

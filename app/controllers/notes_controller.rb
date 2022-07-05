@@ -57,16 +57,16 @@ class NotesController < ApplicationController
         'notes' => {
           'id' => note_params[:question_id],
           'html' => render_to_string(partial: 'layout', locals: {
-                                                          plan: @plan,
-                                                          question: @question,
-                                                          answer: @answer
-                                                        }, formats: [:html])
+                                       plan: @plan,
+                                       question: @question,
+                                       answer: @answer
+                                     }, formats: [:html])
         },
         'title' => {
           'id' => note_params[:question_id],
           'html' => render_to_string(partial: 'title', locals: {
-                                                         answer: @answer
-                                                       }, formats: [:html])
+                                       answer: @answer
+                                     }, formats: [:html])
         }
       }.to_json, status: :created)
     else
@@ -106,16 +106,16 @@ class NotesController < ApplicationController
         'notes' => {
           'id' => question_id,
           'html' => render_to_string(partial: 'layout', locals: {
-                                                          plan: @plan,
-                                                          question: @question,
-                                                          answer: @answer
-                                                        }, formats: [:html])
+                                       plan: @plan,
+                                       question: @question,
+                                       answer: @answer
+                                     }, formats: [:html])
         },
         'title' => {
           'id' => question_id,
           'html' => render_to_string(partial: 'title', locals: {
-                                                         answer: @answer
-                                                       }, formats: [:html])
+                                       answer: @answer
+                                     }, formats: [:html])
         }
       }.to_json, status: :ok)
     else
@@ -156,16 +156,16 @@ class NotesController < ApplicationController
         'notes' => {
           'id' => question_id,
           'html' => render_to_string(partial: 'layout', locals: {
-                                                          plan: @plan,
-                                                          question: @question,
-                                                          answer: @answer
-                                                        }, formats: [:html])
+                                       plan: @plan,
+                                       question: @question,
+                                       answer: @answer
+                                     }, formats: [:html])
         },
         'title' => {
           'id' => question_id,
           'html' => render_to_string(partial: 'title', locals: {
-                                                         answer: @answer
-                                                       }, formats: [:html])
+                                       answer: @answer
+                                     }, formats: [:html])
         }
       }.to_json, status: :ok)
     else

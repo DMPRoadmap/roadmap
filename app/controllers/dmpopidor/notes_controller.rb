@@ -54,17 +54,17 @@ module Dmpopidor
           'notes' => {
             'id' => note_params[:question_id],
             'html' => render_to_string(partial: 'layout', locals: {
-                                                            plan: @plan,
-                                                            question: @question,
-                                                            answer: @answer,
-                                                            research_output: @research_output
-                                                          }, formats: [:html])
+                                         plan: @plan,
+                                         question: @question,
+                                         answer: @answer,
+                                         research_output: @research_output
+                                       }, formats: [:html])
           },
           'title' => {
             'id' => note_params[:question_id],
             'html' => render_to_string(partial: 'title', locals: {
-                                                           answer: @answer
-                                                         }, formats: [:html])
+                                         answer: @answer
+                                       }, formats: [:html])
           },
           'research_output' => {
             'id' => note_params[:research_output_id]
@@ -105,17 +105,17 @@ module Dmpopidor
           'notes' => {
             'id' => question_id,
             'html' => render_to_string(partial: 'layout', locals: {
-                                                            plan: @plan,
-                                                            question: @question,
-                                                            answer: @answer,
-                                                            research_output: @research_output
-                                                          }, formats: [:html])
+                                         plan: @plan,
+                                         question: @question,
+                                         answer: @answer,
+                                         research_output: @research_output
+                                       }, formats: [:html])
           },
           'title' => {
             'id' => question_id,
             'html' => render_to_string(partial: 'title', locals: {
-                                                           answer: @answer
-                                                         }, formats: [:html])
+                                         answer: @answer
+                                       }, formats: [:html])
           },
           'research_output' => {
             'id' => @research_output.id
@@ -156,17 +156,17 @@ module Dmpopidor
           'notes' => {
             'id' => question_id,
             'html' => render_to_string(partial: 'layout', locals: {
-                                                            plan: @plan,
-                                                            question: @question,
-                                                            answer: @answer,
-                                                            research_output: @research_output
-                                                          }, formats: [:html])
+                                         plan: @plan,
+                                         question: @question,
+                                         answer: @answer,
+                                         research_output: @research_output
+                                       }, formats: [:html])
           },
           'title' => {
             'id' => question_id,
             'html' => render_to_string(partial: 'title', locals: {
-                                                           answer: @answer
-                                                         }, formats: [:html])
+                                         answer: @answer
+                                       }, formats: [:html])
           },
           'research_output' => {
             'id' => @research_output.id
