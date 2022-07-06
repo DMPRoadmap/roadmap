@@ -17,7 +17,7 @@ module Users
         # If the email was left blank display an error
         redirect_to root_path, alert: _('Invalid email address!')
 
-      elsif sign_in_params[:org_id].present?
+      elsif sign_in_params[:org_id].present? && !params[:bypass_sso] == 'true'
         # If there is an Org in the params then this is step 2 of the email+password workflow
         # so just let Devise sign them in normally
         super
