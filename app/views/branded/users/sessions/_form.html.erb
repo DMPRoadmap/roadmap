@@ -14,7 +14,10 @@
   <%= render partial: "users/shared/sso", locals: { form: form } %>
 
   <div id="sign-in-bypass-sso" class="c-login__pseudo-description">
-    <%= link_to _('I do not want to sign in via SSO'), user_session_path(sso_bypass: true) %>
+    <%= link_to _('I do not want to sign in via SSO'),
+                user_session_path(sso_bypass: true, user: {
+                                  email: resource.email, org_id: resource.org_id }),
+                method: :post %>
   </div>
 <% else %>
   <div id="sign-in-password" class="c-textfield js-textfield">
