@@ -13,11 +13,13 @@ module Users
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def create
+      @bypass_sso = params[:sso_bypass] == 'true'
+
       if !sign_in_params[:email].present?
         # If the email was left blank display an error
         redirect_to root_path, alert: _('Invalid email address!')
 
-      elsif sign_in_params[:org_id].present? && !params[:sso_bypass] == 'true'
+      elsif sign_in_params[:org_id].present? && !@bypass_sso
         # If there is an Org in the params then this is step 2 of the email+password workflow
         # so just let Devise sign them in normally
         super

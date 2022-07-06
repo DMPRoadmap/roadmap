@@ -1,4 +1,4 @@
-<%# locals: form, shibbolized %>
+<%# locals: form, shibbolized, bypass_sso %>
 
 <div id="sign-in-email" class="c-textfield js-textfield">
   <%= form.label(:email, _('Email address')) %>
@@ -9,7 +9,7 @@
 
 <%= form.hidden_field :org_id, value: resource.org_id %>
 
-<% if shibbolized && !Rails.env.development? %>
+<% if shibbolized && !Rails.env.development? && !bypass_sso %>
   <%# If the Org is shibbolized and the user has an EPPN %>
   <%= render partial: "users/shared/sso", locals: { form: form } %>
 
