@@ -11,3 +11,8 @@
 - Import RDA : 
   - Correction du bug se produisant quand `"project": []` (issue gitbucket 416)
   - Correction du mauvais formatage des licences, distribution/format, data_quality_assurance, security_and_privacy (issue gitbucket 407)
+
+## 28/06/2022
+- Ajout de la documentation d'API sous forme de Swagger
+  - Accessible par l'URL `/api-docs`
+  - Accessible par le lien "API Docs" présent dans le bandeau de navigation pour les utilisateurs connectés ayant le droit d'utiliser l'API

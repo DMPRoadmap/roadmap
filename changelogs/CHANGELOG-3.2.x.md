@@ -4,11 +4,6 @@
 - Retrait des plans personnalisés de la liste des modèles disponibles dans la page d'import de plans
 - Correction du problème d'attribution du contact du produit de recherche, dans les plans classiques, pouvant provoquer un blocage du plan quand aucun contact n'a été sélectionné
 
-## 28/06/2022
-- Ajout de la documentation d'API sous forme de Swagger
-  - Accessible par l'URL `/api-docs`
-  - Accessible par le lien "API Docs" présent dans le bandeau de navigation pour les utilisateurs connectés ayant le droit d'utiliser l'API
-
 
 ## 22/06/2022
 - Annulation de la modification "Retrait des modèles structurés de la liste des modèles personnalisables"
