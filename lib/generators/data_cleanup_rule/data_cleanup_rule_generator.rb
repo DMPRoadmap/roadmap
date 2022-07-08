@@ -2,7 +2,7 @@
 
 # Generator class for creating a new Rule to clean DB records.
 class DataCleanupRuleGenerator < Rails::Generators::NamedBase
-  source_root File.expand_path('templates', __dir__)
+  source_root File.expand_path('templates/data_cleanup/rules', __dir__)
 
   # Copy the Rule template and create a new Rule file
   def add_rule_file

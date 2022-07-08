@@ -15,7 +15,7 @@ class PlansController < ApplicationController
   # rubocop:disable Metrics/AbcSize
   def index
     authorize Plan
-    @plans = Plan.includes(:roles, :org).active(current_user).page(1)
+    @plans = Plan.includes(:roles).active(current_user).page(1)
     @organisationally_or_publicly_visible = if current_user.org.is_other?
                                               []
                                             else
@@ -162,8 +162,7 @@ class PlansController < ApplicationController
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def show
     @plan = Plan.includes(
-      template: { phases: { sections: { questions: :answers } } },
-      plans_guidance_groups: { guidance_group: :guidances }
+      :guidance_groups, template: [:phases]
     ).find(params[:id])
     authorize @plan
 
@@ -174,7 +173,6 @@ class PlansController < ApplicationController
                   end
     # Get all of the available funders
     @funders = Org.funder
-                  .includes(identifiers: :identifier_scheme)
                   .joins(:templates)
                   .where(templates: { published: true }).uniq.sort_by(&:name)
     # TODO: Seems strange to do this. Why are we just not using an `edit` route?
@@ -192,8 +190,9 @@ class PlansController < ApplicationController
     if @all_ggs_grouped_by_org.include?(current_user.org)
       @important_ggs << [current_user.org, @all_ggs_grouped_by_org[current_user.org]]
     end
+    @default_orgs = Org.default_orgs
     @all_ggs_grouped_by_org.each do |org, ggs|
-      @important_ggs << [org, ggs] if Org.default_orgs.include?(org)
+      @important_ggs << [org, ggs] if @default_orgs.include?(org)
 
       # If this is one of the already selected guidance groups its important!
       @important_ggs << [org, ggs] if !(ggs & @selected_guidance_groups).empty? && !@important_ggs.include?([org, ggs])
@@ -229,7 +228,7 @@ class PlansController < ApplicationController
       { template: {
         phases: {
           sections: {
-            questions: %i[question_format question_options annotations themes]
+            questions: %i[question_format annotations]
           }
         }
       } },

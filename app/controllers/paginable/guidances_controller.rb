@@ -10,8 +10,7 @@ module Paginable
       authorize(Guidance)
       paginable_renderise(
         partial: 'index',
-        scope: Guidance.by_org(current_user.org)
-                      .includes(:guidance_group, :themes),
+        scope: Guidance.includes(:guidance_group, :themes).by_org(current_user.org),
         query_params: { sort_field: 'guidances.text', sort_direction: :asc },
         format: :json
       )

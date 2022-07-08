@@ -1080,7 +1080,7 @@ RSpec.describe Template, type: :model do
     end
 
     it 'sets visibility to Organisationally visible' do
-      expect(subject.visibility).to eql('organisationally_visible')
+      expect(subject.visibility).to eql(Template.visibilities['organisationally_visible'])
     end
 
     it 'sets is_default to false' do
@@ -1149,7 +1149,7 @@ RSpec.describe Template, type: :model do
     end
 
     it 'sets the visibility to Organisationally visible' do
-      expect(subject.visibility).to eql('organisationally_visible')
+      expect(subject.visibility).to eql(Template.visibilities['organisationally_visible'])
     end
 
     it 'sets is_default to false' do

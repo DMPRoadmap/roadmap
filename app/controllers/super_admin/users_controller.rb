@@ -39,7 +39,7 @@ module SuperAdmin
       # Remove the extraneous Org Selector hidden fields
       attrs = remove_org_selection_params(params_in: attrs)
 
-      if @user.update_attributes(attrs)
+      if @user.update(attrs)
         # If its a new Org create it
         if lookup.present? && lookup.new_record?
           lookup.save

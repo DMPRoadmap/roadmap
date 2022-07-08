@@ -27,7 +27,7 @@ chdir APP_ROOT do
   end
 
   puts "\n== Preparing database =="
-  system! 'bin/rails db:setup'
+  system! 'bin/rails db:prepare'
 
   puts "\n== Fetching mime types and adding to database =="
   system! 'bin/rails mime_types:load'

@@ -7,9 +7,9 @@ module FeedbacksHelper
   end
 
   def feedback_confirmation_default_message
-    _('<p>Hello %{user_name}.</p>'\
+    _('<p>Hello %{user_name}.</p>' \
       "<p>Your plan \"%{plan_name}\" has been submitted for feedback from an
-      administrator at your organisation. "\
+      administrator at your organisation. " \
       "If you have questions pertaining to this action, please contact us
       at %{organisation_email}.</p>")
   end

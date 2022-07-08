@@ -2,20 +2,20 @@
 
 source 'https://rubygems.org'
 
-ruby '>= 2.6.3'
+ruby '>= 2.7'
 
 # ===========#
 # CORE RAILS #
 # ===========#
 
 # Full-stack web application framework. (http://rubyonrails.org)
-gem 'rails', '~> 5.2'
+gem 'rails', '~> 6.1'
 
 # TODO: Remove this once Rails addresses the issue with its dependency on mimemagic. Mimemagic had
 #       an MIT license but was using some incompatible GPL license code.
 #       Versions of mimemagic that were yanked: https://rubygems.org/gems/mimemagic/versions
 #       Analysis of the issue: https://www.theregister.com/2021/03/25/ruby_rails_code/
-gem 'mimemagic', '~> 0.3.7'
+gem 'mimemagic'
 
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3', '~> 1.4'
@@ -24,13 +24,17 @@ gem 'mimemagic', '~> 0.3.7'
 gem 'puma', group: :puma, require: false
 
 # Use SCSS for stylesheets
+# TODO : might need to move to cssbundling-rails
+# SEE: https://dev.to/kolide/how-to-migrate-a-rails-6-app-from-sass-rails-to-cssbundling-rails-4l41
 gem 'sass-rails'
 
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker'
 
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks'
+# Turbo gives you the speed of a single-page web application without having to write any JavaScript..
+# Read more: https://github.com/hotwired/turbo-rails
+#            https://github.com/hotwired/turbo-rails/blob/main/UPGRADING.md
+gem 'turbo-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
@@ -60,6 +64,7 @@ gem 'bootsnap', require: false
 
 # Rollbar-gem is the SDK for Ruby apps and includes support for apps using
 # Rails, Sinatra, Rack, plain Ruby, and other frameworks.
+# https://github.com/rollbar/rollbar-gem
 gem 'rollbar', group: :rollbar, require: false
 
 # ======== #
@@ -93,6 +98,7 @@ gem 'devise_invitable'
 gem 'omniauth'
 
 # OmniAuth Shibboleth strategies for OmniAuth 1.x
+# https://github.com/toyokazu/omniauth-shibboleth
 gem 'omniauth-shibboleth'
 
 # ORCID OAuth 2.0 Strategy for OmniAuth 1.0
@@ -148,6 +154,7 @@ gem 'kaminari'
 
 # Paginate in your headers, not in your response body. This follows the
 # proposed RFC-8288 standard for Web linking.
+# https://github.com/davidcelis/api-pagination
 gem 'api-pagination'
 
 # =========== #
@@ -158,7 +165,7 @@ gem 'api-pagination'
 gem 'sassc-rails'
 
 # Font-Awesome SASS (https://github.com/FortAwesome/font-awesome-sass)
-gem 'font-awesome-sass', '~> 5.13.0'
+gem 'font-awesome-sass', '~> 5'
 
 # Use webpack to manage app-like JavaScript modules in Rails
 # (https://github.com/rails/webpacker)
@@ -187,10 +194,6 @@ gem 'wicked_pdf'
 # that can be downloaded by your users as simple MS Word docx files.
 # (http://github.com/karnov/htmltoword)
 gem 'htmltoword'
-
-# Filename sanitization for Ruby. This is useful when you generate filenames for
-# downloads from user input
-gem 'zaru'
 
 # ==================== #
 # INTERNATIONALIZATION #
@@ -239,11 +242,11 @@ group :test do
   # (https://github.com/thekompanee/fuubar)
   gem 'fuubar'
 
-  # Guard keeps an eye on your file modifications (http://guardgem.org)
+  # Guard keeps an eye on your file modifications (https://github.com/guard/guard)
   gem 'guard'
 
   # Guard gem for RSpec (https://github.com/guard/guard-rspec)
-  gem 'guard-rspec'
+  # gem 'guard-rspec'
 
   # Library for stubbing HTTP requests in Ruby.
   # (http://github.com/bblimke/webmock)
@@ -273,11 +276,11 @@ group :test do
 
   # Automatically create snapshots when Cucumber steps fail with Capybara
   # and Rails (http://github.com/mattheworiordan/capybara-screenshot)
-  gem 'capybara-screenshot'
+  # gem 'capybara-screenshot'
 
   # Browser integration tests are expensive. We can mock external requests
   # in our tests, but once a browser is involved, we lose control.
-  gem 'capybara-webmock', '~> 0.6'
+  gem 'capybara-webmock'
 
   # RSpec::CollectionMatchers lets you express expected outcomes on
   # collections of an object in an example.
@@ -309,22 +312,22 @@ group :ci, :development do
   gem 'rubocop-i18n'
 
   # A collection of RuboCop cops to check for performance optimizations in Ruby code.
-  gem 'rubocop-performance'
+  # gem 'rubocop-performance'
 
   # Automatic Rails code style checking tool. A RuboCop extension focused on enforcing
   # Rails best practices and coding conventions.
-  gem 'rubocop-rails'
+  # gem 'rubocop-rails'
 
   # A RuboCop plugin for Rake tasks
-  gem 'rubocop-rake'
+  # gem 'rubocop-rake'
 
   # Code style checking for RSpec files. A plugin for the RuboCop code style enforcing
   # & linting tool.
-  gem 'rubocop-rspec'
+  # gem 'rubocop-rspec'
 
   # Thread-safety checks via static analysis. A plugin for the RuboCop code style
   # enforcing & linting tool.
-  gem 'rubocop-thread_safety'
+  # gem 'rubocop-thread_safety'
 end
 
 group :development do
