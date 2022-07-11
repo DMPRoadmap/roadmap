@@ -19,10 +19,11 @@
 <% if shibbolized && !bypass_sso %>
   <%# The Org is Shibbolized and we're not in the middle of an OmniAuth sign in workflow
       so display the Institutional Sign in %>
-  <%= render partial: "users/shared/sso", locals: { form: form } %>
+  <%= render partial: "users/shared/sso",
+             locals: { form: form, label: _("Sign up with Institution (SSO)") } %>
 
   <div id="sign-up-bypass-sso" class="c-login__pseudo-description">
-    <%= link_to _('Sign up non SSO'),
+    <%= link_to _('Sign up with non SSO'),
                 new_user_session_path(sso_bypass: true, user: {
                                       email: resource.email, org_id: resource.org_id }),
                 method: :post %>
