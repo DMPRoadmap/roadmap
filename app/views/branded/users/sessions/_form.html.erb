@@ -12,7 +12,7 @@
 <% if shibbolized && !Rails.env.development? && !bypass_sso %>
   <%# If the Org is shibbolized and the user has an EPPN %>
   <%= render partial: "users/shared/sso",
-             locals: { form: form, labe: _("Sign in with Institution (SSO)") } %>
+             locals: { form: form, label: _("Sign in with Institution (SSO)") } %>
 
   <div id="sign-in-bypass-sso" class="c-login__pseudo-description">
     <%= link_to _('Sign in with non SSO'),
