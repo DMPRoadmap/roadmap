@@ -1,9 +1,29 @@
 # Changelog
 
+## [3.0.4+portage-3.0.13] - 2022-07-13
+### Changed
+
+- Upgraded Rails to 5.2.8.1 to fix the Possible RCE escalation bug with Serialized Columns in Active Record in Rails 5.2.6 (https://groups.google.com/g/rubyonrails-security/c/MmFO3LYQE8U/m/q9axtXheAQAJ)
+
+- Along with the Rails upgrade, upgraded activejob, activeview, activemodal, activestorage, activepack, activerecord, activesupport, actioncable, actionmailer, actionjob, actionview and railsties to 5.2.8.1
+
+- Along with the Rails upgrade, upgraded i18n to 1.8.11
+
+- Along with the Rails upgrade, upgraded rack to 2.2.4
+
+- Along with the Rails upgrade, upgraded sprockets to 4.0.3
+
+- Along with the Rails upgrade, upgraded  marcel to 1.0.2
+
+- Along with the Rails upgrade, upgraded mini_mine to 1.1.2
+
+- Along with the Rails upgrade, upgraded concurrent-ruby to 1.1.10
+
 ### Added
 
-- Added contributors to plan's cover page (if there is any) [#202](https://github.com/portagenetwork/roadmap/issues/202)
-- Added plan title to csv exported file
+- Added contributors to the plan's cover page (if there is any) [#202](https://github.com/portagenetwork/roadmap/issues/202)
+
+- Added plan title to CSV exported file
 
 ### Fixed
 
