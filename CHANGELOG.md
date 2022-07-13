@@ -1,6 +1,7 @@
 # Changelog
 
 ## [3.0.4+portage-3.0.13] - 2022-07-13
+
 ### Changed
 
 - Upgraded Rails to 5.2.8.1 to fix the Possible RCE escalation bug with Serialized Columns in Active Record in Rails 5.2.6 (https://groups.google.com/g/rubyonrails-security/c/MmFO3LYQE8U/m/q9axtXheAQAJ)
