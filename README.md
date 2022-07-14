@@ -8,7 +8,7 @@
 
 DMP Roadmap is a Data Management Planning tool. Management and development of DMP Roadmap is jointly provided by the Digital Curation Centre (DCC), http://www.dcc.ac.uk/, and the University of California Curation Center (UC3), http://www.cdlib.org/services/uc3/.
 
-The tool has four main functions:
+The tool has four main Functions:
 
 1. To help create and maintain different versions of Data Management Plans;
 2. To provide useful guidance on data management issues and how to meet research funders' requirements;
