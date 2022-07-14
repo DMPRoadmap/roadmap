@@ -146,7 +146,7 @@ Rails.application.routes.draw do
     # AJAX endpoints for repository search and selection
     get :repository_search, controller: "research_outputs"
     # AJAX endpoints for metadata standards search and selection
-    get :metadata_standard_search, controller: "research_outputs"
+    get :metadata_standard_search, controller: "research_outputs", defaults: { format: 'js' }
   end
 
   resources :usage, only: [:index]

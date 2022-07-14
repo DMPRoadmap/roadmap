@@ -132,8 +132,28 @@ module ExternalApis
 
         json['data']['items'].each do |item|
           standard = MetadataStandard.find_or_create_by(uri: item['uri'], title: item['title'])
-          standard.update(description: item['description'], locations: item['locations'],
-                          related_entities: item['relatedEntities'], rdamsc_id: item['mscid'])
+          l = []
+          r = []
+          # Rebuild relatedEntities
+          if item['relatedEntities'].present?
+            item['relatedEntities'].each do |re|
+              re1 = re.to_json
+              r.push(re1)
+            end
+          end
+          # Rebuild locations
+          if item['locations'].present?
+            item['locations'].each do |lo|
+              lo1 = lo.to_json
+              l.push(lo1)
+            end
+          end
+          standard.update!(
+            :description=> item['description'], 
+            :locations=> l,
+            :related_entities=> r, 
+            :rdamsc_id=> item['mscid']
+          )
         end
       end
       # rubocop:enable Metrics/AbcSize

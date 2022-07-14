@@ -23,7 +23,7 @@ no_results_msg = _("No results matched your filter criteria.")
 <% unless selected %>
   <% if results.any? %>
     <div class="col-md-12 modal-search-results-pagination">
-      <%= page_entries_info results %>
+      <%= page_entries_info results%>
       <span class="float-right">
         <%= paginate results, remote: true, method: :post %>
       </span>

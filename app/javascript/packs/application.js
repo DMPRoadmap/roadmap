@@ -7,6 +7,8 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
+import Rails from '@rails/ujs';
+
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
@@ -88,7 +90,8 @@ import '../src/superAdmin/users/edit';
 // Since we're using Webpacker to manage JS we need to startup Rails' Unobtrusive JS
 // and Turbolinks. ActiveStorage and ActionCable would also need to be in here
 // if we decide to implement either before Rails 6
-require('@rails/ujs').start();
+Rails.start();
+// require('@rails/ujs').start();
 
 // TODO: Disabled turbolinks for the time being because our custom JS is not
 //       properly setup to work with it. We should review the docs:

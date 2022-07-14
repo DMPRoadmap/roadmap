@@ -140,6 +140,54 @@ class ResearchOutputsController < ApplicationController
     @search_results = MetadataStandard.search(metadata_standard_search_params[:search_term])
                                       .order(:title)
                                       .page(params[:page])
+    
+      ### Valid Format
+      # m = MetadataStandard.create!(
+      #   :title=> "MIBBI (Minimum Information for Biological and Biom...", 
+      #   :description=> "<p>A common portal to a group of nearly 40 checkli...", 
+      #   :rdamsc_id=> "msc:m23", 
+      #   :uri=> "https://rdamsc.bath.ac.uk/api2/m23", 
+      #   :locations=> [{"url"=>"http://mibbi.sourceforge.net/foundry.shtml", "type"=>"document"}.to_json, {"url"=>"http://mibbi.sourceforge.net/portal.shtml", "type"=>"website"}.to_json], 
+      #   :related_entities => [{"id"=>"msc:m72", "role"=>"child scheme"}.to_json, {"id"=>"msc:t50", "role"=>"tool"}.to_json], 
+      #   :created_at=> "2022-06-30 20:05:58", "updated_at"=> "2022-06-30 22:00:38"
+      # )
+      
+     ### Debug: test hard-coded item    
+
+    p "%%%%%%%%%%%%%here"
+    # @search_results = MetadataStandard.where(title: [m].map(&:title)).order(:title).page(params[:page])
+    p @search_results.first.locations.class # local: array, docker:string [need transfer to array of json]
+
+    # get each active record and update its location attribute
+    @search_results.each do |sr|
+      
+      # transfer location
+      # if sr.locations.is_a? String
+        p "%%%%%%%%%%into transfer"
+        l_arr = sr.locations.to_s.tr('[', '').tr(']', '').split('},')
+        puts l_arr
+        l_arr_new = []
+        l_arr.each do|json_str|
+          #json_str = json_str # add the missing } back
+          json_str = "{:url=>\"http://mibbi.sourceforge.net/foundry.shtml\", :type=>\"document\"}", "{:url=>\"http://mibbi.sourceforge.net/portal.shtml\", :type=>\"website\"}"
+          json_str = json_str.to_s
+          puts json_str.gsub(/[{}:]/,'')
+          puts json_str.gsub(/[{}:]/,'').split(', ')
+          puts json_str.gsub(/[{}:]/,'').split(', ').map{|h| h1,h2 = h.split('=>'); {h1 => h2}}.reduce(:merge)
+          json_str = json_str.gsub(/[{}:]/,'').split(', ').map{|h| h1,h2 = h.split('=>'); {h1 => h2}}.reduce(:merge)
+          l_arr_new.push(json_str)
+        
+        #end
+        sr.locations = l_arr_new
+        puts "now result is:" 
+        p sr.locations
+      end
+      ### Pending for related entities
+    end
+    p @search_results.first.locations
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
@@ -158,6 +206,8 @@ class ResearchOutputsController < ApplicationController
   end
 
   def metadata_standard_search_params
+    p "%%%metadata_standard_search_params"
+    p params
     params.require(:research_output).permit(%i[search_term])
   end
 
