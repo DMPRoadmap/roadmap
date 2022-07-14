@@ -234,7 +234,7 @@ class RegistrationsController < Devise::RegistrationsController
     end
 
     # unlink shibboleth from user's details
-    current_user.update_attributes(shibboleth_id: '') if params[:unlink_flag] == 'true'
+    current_user.update(shibboleth_id: '') if params[:unlink_flag] == 'true'
 
     # render the correct page
     if successfully_updated

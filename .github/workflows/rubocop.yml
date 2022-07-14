@@ -13,7 +13,7 @@ jobs:
     # Install Ruby and run bundler
     - uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.6.3
+        ruby-version: 2.7.6
         bundler-cache: true
 
     # Run the Rubocop linter checks

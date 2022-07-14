@@ -98,7 +98,7 @@ RSpec.describe Api::V1::DeserializationService do
 
   describe ':translate_role(role:)' do
     before(:each) do
-      @default = Contributor.default_role
+      @default = Contributor.role_default
       @role = "#{Contributor::ONTOLOGY_BASE_URL}/#{Contributor.new.all_roles.sample}"
     end
 

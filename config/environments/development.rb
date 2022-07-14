@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'active_support/core_ext/integer/time'
+
+# rubocop:disable Metrics/BlockLength
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -18,6 +21,7 @@ Rails.application.configure do
   # Run rails dev:cache to toggle caching.
   if Rails.root.join('tmp', 'caching-dev.txt').exist?
     config.action_controller.perform_caching = true
+    config.action_controller.enable_fragment_cache_logging = true
 
     config.cache_store = :memory_store
     config.public_file_server.headers = {
@@ -48,6 +52,12 @@ Rails.application.configure do
   # when problems arise.
   config.log_level = ENV['RAILS_LOG_LEVEL']&.to_sym || :debug
 
+  # Raise exceptions for disallowed deprecations.
+  config.active_support.disallowed_deprecation = :raise
+
+  # Tell Active Support which deprecation messages to disallow.
+  config.active_support.disallowed_deprecation_warnings = []
+
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
 
@@ -62,13 +72,28 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
-  # Raises error for missing translations
-  # config.action_view.raise_on_missing_translations = true
+  # Raises error for missing translations.
+  # config.i18n.raise_on_missing_translations = true
+
+  # Annotate rendered view with file names.
+  # config.action_view.annotate_rendered_view_with_filenames = true
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # Uncomment if you wish to allow Action Cable access from any origin.
+  # config.action_cable.disable_request_forgery_protection = true
+
+  # Rails 6+ adds middleware to prevent DNS rebinding attacks:
+  #    https://guides.rubyonrails.org/configuring.html#actiondispatch-hostauthorization
+  #
+  # This allows us to define the hostname and add it to the whitelist. If you attempt
+  # to access the site and receive a 'Blocked host' error then you will need to
+  # set this environment variable
+  config.hosts << ENV['DMPROADMAP_HOST'] if ENV['DMPROADMAP_HOST'].present?
 end
+# rubocop:enable Metrics/BlockLength
 
 # Used by Rails' routes url_helpers (typically when including a link in an email)
-Rails.application.routes.default_url_options[:host] = 'localhost:3000'
+Rails.application.routes.default_url_options[:host] = ENV.fetch('DMPROADMAP_HOST', 'localhost:3000')
