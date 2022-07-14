@@ -181,14 +181,11 @@ class ResearchOutputsController < ApplicationController
         sr.locations = l_arr_new
         puts "now result is:" 
         p sr.locations
-        sr.save!
       end
       ### Pending for related entities
     end
     p "%%%%%now reload search result"
-    @search_results = MetadataStandard.search(metadata_standard_search_params[:search_term])
-                                      .order(:title)
-                                      .page(params[:page])
+    
     p @search_results.first.locations
     p @search_results.last.locations
     respond_to do |format|
