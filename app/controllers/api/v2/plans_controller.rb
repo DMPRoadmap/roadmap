@@ -181,7 +181,7 @@ module Api
         # Try to deserialize the Org. If no Org exists, try to find it by the user's email domain
         org = Api::V2::Deserialization::Org.deserialize(json: json[:affiliation])
         org = Org.from_email_domain(email_domain: json[:mbox].split('@')&.last) unless org.present?
-        org.save if org.new_record?
+        org.save if org&.new_record?
 
         user = User.new(firstname: firstname, surname: surname, email: json[:mbox], org: org,
                         password: SecureRandom.uuid)
