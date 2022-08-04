@@ -223,7 +223,7 @@ module DMPRoadmap
     # ------------------------------------------------------------------------ #
     # reCAPTCHA - recaptcha appears on the create account and contact us forms #
     # ------------------------------------------------------------------------ #
-    config.x.recaptcha.enabled = false
+    config.x.recaptcha.enabled = true
 
     # --------------------------------------------------- #
     # Machine Actionable / Networked DMP Features (maDMP) #
