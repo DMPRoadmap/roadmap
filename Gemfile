@@ -229,7 +229,7 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
 end
 
-group :development, :test do
+group :development, :test, :sandbox do
   # RSpec for Rails (https://github.com/rspec/rspec-rails)
   gem 'rspec-rails'
 

@@ -1,0 +1,21 @@
+<%# locals: result %>
+
+<% if result.present? %>
+  <%= hidden_field_tag "research_output[metadata_standards_attributes[#{result.id}][id]]", result.id %>
+
+  <p><%= sanitize(result.description) %></p>
+  <%# Note: temporary fix for uat/production env JSON parsing issue. Remove the if condition if this is fixed %>
+  <% if result.locations.is_a? String
+        l_array = []
+        result.locations.to_s.tr('[', '').tr(']', '').split('},').each do|json_str|
+          l_array.push(json_str.gsub(/[{}:]/,'').split(', ').map{|h| h1,h2 = h.split('=>'); {h1 => h2}}.reduce(:merge))
+        end
+    end
+  %>
+  <% website = l_array&.select { |loc| loc["type"] == "website" }&.first %>
+  <% if website.present? %>
+    <div>
+      <%= link_to website["url"], website["url"], target: "_blank", class: "has-new-window-popup-info" %>
+    </div>
+  <% end %>
+<% end %>
