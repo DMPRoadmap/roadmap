@@ -10,7 +10,7 @@ $(() => {
     const editor = Tinymce.findEditorById('org_feedback_msg');
     if (isObject(editor)) {
       if ($('#org_feedback_enabled_true').is(':checked')) {
-        editor.setMode('code');
+        editor.setMode('design');
       } else {
         editor.setMode('readonly');
       }
