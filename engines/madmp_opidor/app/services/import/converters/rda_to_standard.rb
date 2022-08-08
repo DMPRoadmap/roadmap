@@ -164,10 +164,12 @@ module Import
 
           hosts_list = []
           distributions.each do |elem|
+            next if elem['host'].nil?
+
             hosts_list.append(
               {
                 'availability' => elem.dig('host', 'availability'),
-                'certification' => elem.dig('host', 'certified_with'),
+                'certification' => [elem.dig('host', 'certified_with')],
                 'description' => elem.dig('host', 'description'),
                 'geoLocation' => elem.dig('host', 'geo_location'),
                 'pidSystem' => elem.dig('host', 'pid_system'),
