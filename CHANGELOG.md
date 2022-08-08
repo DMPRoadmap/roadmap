@@ -3,6 +3,12 @@
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
 
+## 08/08/2022
+Ces modifiations pourront faire l'objet d'une mise à jour corrective à mon retour.
+- Import RDA : un entrepôt vide n'est plus créé lorsque la donnée n'est pas présente dans le fichier d'import (issue gitbucket 424)
+- Reactivation du CATCHA, à valider en VI (issue gitbucket 427)
+- Correction du problème d'enregistrement des données organismes causée par un mauvais paramétrage de l'éditeur suite à sa mise à jour. (issue gitbucket 425)
+
 ## 07/07/2022
 - Correction de l'ordre d'affichage des plans visibilité Organisme dans le tableau de bord (issue gitbucket 417)
 - Correction de la langue d'affichage des formulaires de création/edition dans l'onglet Produits de Recherche
