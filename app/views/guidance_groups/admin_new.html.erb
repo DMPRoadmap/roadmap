@@ -11,7 +11,12 @@
   <div class="col-md-12">
     <%= form_for :guidance_group, url: { action: "admin_create" },
                                   html: { id: 'admin_create_guidance_group_form' } do |f| %>
-      <%= render partial: "guidance_groups/guidance_group_form", locals: { form: f } %>
+      <%= render partial: "guidance_groups/guidance_group_form",
+                 locals: {
+                   form: f,
+                   # Don't display the optional subset if there is only one GuidanceGroup
+                   allow_subset_flag: @guidance_groups.length > 1
+                 } %>
     <% end %>
   </div>
 </div>
