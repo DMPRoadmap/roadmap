@@ -44,6 +44,14 @@
       <%= id.value %>
     <% end %>
 
+    <%= link_to '<i class="fas fa-fw fa-times-circle" aria-hidden="true"></i>'.html_safe,
+              destroy_user_identifier_path(id),
+              method: :delete,
+              title: unlinktext,
+              data: {confirm: unlinkconf},
+              'aria-label': unlinktext,
+              'data-toggle': "tooltip" %>
+
   <% elsif scheme.name.downcase == 'shibboleth' %>
     <%# commenting this out to prevent the user from removing their ability to login! %>
     <%# unlinkconf = _("Are you sure you want to unlink your institutional credentials?") %>
@@ -93,13 +101,14 @@
     <% end %>
     <% unlinktext = _("Unlink your account from #{scheme.description}. You can link again at any time.") %>
     <% unlinkconf = _("Are you sure you want to unlink #{scheme.description} ID?") %>
-  <% end %>
-  <%= link_to '<i class="fas fa-fw fa-times-circle" aria-hidden="true"></i>'.html_safe,
+
+    <%= link_to '<i class="fas fa-fw fa-times-circle" aria-hidden="true"></i>'.html_safe,
               destroy_user_identifier_path(id),
               method: :delete,
               title: unlinktext,
               data: {confirm: unlinkconf},
               'aria-label': unlinktext,
               'data-toggle': "tooltip" %>
+  <% end %>
   <br>
 <% end %>
