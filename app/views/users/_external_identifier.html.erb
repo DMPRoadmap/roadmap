@@ -45,25 +45,26 @@
     <% end %>
 
   <% elsif scheme.name.downcase == 'shibboleth' %>
-    <% unlinkconf = _("Are you sure you want to unlink your institutional credentials?") %>
-    <p><%= _("Your account has been linked to your organisation. You can now login with that method.") %></p>
+    <%# commenting this out to prevent the user from removing their ability to login! %>
+    <%# unlinkconf = _("Are you sure you want to unlink your institutional credentials?") %>
+    <!-- <p><%#= _("Your account has been linked to your organisation. You can now login with that method.") %></p> -->
 
-    <% if scheme.identifier_prefix.nil? %>
-        <i class="fas fa-user" title="<%= _('Institutional credentials') %>" aria-hidden="true"></i>
-        &nbsp;
-        <%= _("Disconnect your account. You can reconnect at any time.") %>
-    <% else %>
-        <%= link_to id.value,
+    <%# if scheme.identifier_prefix.nil? %>
+        <!-- <i class="fas fa-user" title="<%#= _('Institutional credentials') %>" aria-hidden="true"></i> -->
+        <!-- &nbsp; -->
+        <%#= _("Disconnect your account. You can reconnect at any time.") %>
+    <%# else %>
+        <%#= link_to id.value,
                     target: '_blank',
                     style: 'text-decoration: none',
                     title: titletext,
                     'aria-label': titletext,
                     'data-toggle': "tooltip" do %>
-            <i class="fas fa-user" title="<%= scheme.description %>" aria-hidden="true"></i>
-            &nbsp;
-            <%= titletext %>
-        <% end %>
-    <% end %>
+            <!-- <i class="fas fa-user" title="<%#= scheme.description %>" aria-hidden="true"></i> -->
+            <!-- &nbsp; -->
+            <%#= titletext %>
+        <%# end %>
+    <%# end %>
   <% else %>
     <% titletext = _("Your account has been linked to #{scheme.description}.") %>
     <% if scheme.identifier_prefix.nil? %>
