@@ -12,6 +12,11 @@
     </thead>
     <tbody>
       <% scope.each do |guidance_gr| %>
+        <%# Don't allow the only non-optional_subset guidance group to be deleted! %>
+        <%
+        allow_delete = guidance_gr.optional_subset?
+        allow_delete = scope.reject { |gg| gg.optional_subset? }.length > 1 unless allow_delete
+        %>
         <tr>
           <td><%= guidance_gr.name %></td>
           <td class="text-center">
@@ -47,7 +52,9 @@
                 <% else %>
                     <li><%= link_to _('Publish'),  admin_update_publish_guidance_group_path(guidance_gr), method: :put %></li>
                 <% end %>
-                <li><%= link_to _('Remove'), admin_destroy_guidance_group_path(guidance_gr), data: {confirm: _("You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?") % { :guidance_group_name => guidance_gr.name }}, method: :delete %></li>
+                <% if allow_delete %>
+                  <li><%= link_to _('Remove'), admin_destroy_guidance_group_path(guidance_gr), data: {confirm: _("You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?") % { :guidance_group_name => guidance_gr.name }}, method: :delete %></li>
+                <% end %>
               </ul>
             </div>
           </td>
