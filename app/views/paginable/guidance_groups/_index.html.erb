@@ -13,7 +13,10 @@
     <tbody>
       <% scope.each do |guidance_gr| %>
         <%# Don't allow the only non-optional_subset guidance group to be deleted! %>
-        <% allow_delete = scope.reject { |gg| gg.optional_subset? }.length > 1 %>
+        <%
+        allow_delete = guidance_gr.optional_subset?
+        allow_delete = scope.reject { |gg| gg.optional_subset? }.length > 1 unless allow_delete
+        %>
         <tr>
           <td><%= guidance_gr.name %></td>
           <td class="text-center">
