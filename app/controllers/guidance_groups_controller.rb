@@ -23,6 +23,7 @@ class GuidanceGroupsController < ApplicationController
   def admin_create
     # Ensure that the user can only create GuidanceGroups for their Org
     args = guidance_group_params.to_h.merge({ org_id: current_user.org.id })
+    @guidance_groups = GuidanceGroup.where(org_id: current_user.org.id)
     @guidance_group = GuidanceGroup.new(args)
     authorize @guidance_group
 
@@ -46,6 +47,7 @@ class GuidanceGroupsController < ApplicationController
   # PUT /org/admin/guidancegroup/:id/admin_update
   # rubocop:disable Metrics/AbcSize
   def admin_update
+    @guidance_groups = GuidanceGroup.where(org_id: current_user.org.id)
     @guidance_group = GuidanceGroup.find(params[:id])
     authorize @guidance_group
 
