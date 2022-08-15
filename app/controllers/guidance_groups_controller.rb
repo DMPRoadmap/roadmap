@@ -39,7 +39,7 @@ class GuidanceGroupsController < ApplicationController
   # GET /org/admin/guidancegroup/:id/admin_edit
   def admin_edit
     @guidance_groups = GuidanceGroup.where(org_id: current_user.org.id)
-    @guidance_group = @guidance_groups.select { |gg| gg.id == params[:id] }
+    @guidance_group = GuidanceGroup.find(params[:id])
     authorize @guidance_group
   end
 
