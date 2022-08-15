@@ -16,7 +16,7 @@
                    form: f,
                    # Don't display the optional subset if there are no GuidanceGroups that are
                    # not an optional subset
-                   allow_subset_flag: @guidance_groups.reject { |gg| gg.optional_subset? }.any?
+                   allow_subset_flag: @guidance_groups.reject { |gg| gg.optional_subset? } > 1
                  } %>
     <% end %>
   </div>
