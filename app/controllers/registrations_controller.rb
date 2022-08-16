@@ -154,8 +154,6 @@ class RegistrationsController < Devise::RegistrationsController
     # end
   end
 
-  private
-
   # check if we need password to update user data
   # ie if password or email was changed
   # extend this as needed
@@ -163,9 +161,6 @@ class RegistrationsController < Devise::RegistrationsController
   #   user.email != update_params[:email] || update_params[:password].present?
   # end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  # rubocop:disable Style/OptionalBooleanParameter
   # def do_update(require_password = true, confirm = false)
   #   restrict_orgs = Rails.configuration.x.application.restrict_orgs
   #   mandatory_params = true
@@ -213,14 +208,13 @@ class RegistrationsController < Devise::RegistrationsController
   #         successfully_updated = false
   #       elsif current_user.valid_password?(attrs[:current_password])
   #         successfully_updated = current_user.update_with_password(attrs)
-  #         # rubocop:disable Metrics/BlockNesting
+  #
   #         unless successfully_updated
   #           message = _("Save unsuccessful. \
   #               That email address is already registered. \
   #               You must enter a unique email address.")
   #         end
-  #         # rubocop:enable Metrics/BlockNesting
-  #       else
+  #           #       else
   #         message = _('Invalid password')
   #       end
   #     else
@@ -258,11 +252,6 @@ class RegistrationsController < Devise::RegistrationsController
   #     render 'edit'
   #   end
   # end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  # rubocop:enable Style/OptionalBooleanParameter
-
-  # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
   # def do_update_password(current_user, args)
   #   if args[:current_password].blank?
   #     message = _('Please enter your current password')
@@ -288,8 +277,6 @@ class RegistrationsController < Devise::RegistrationsController
   #     redirect_to "#{edit_user_registration_path}\#password-details"
   #   end
   # end
-  # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity
-
   # def sign_up_params
   #   params.require(:user).permit(:email, :password, :password_confirmation,
   #                                :firstname, :surname, :recovery_email,
