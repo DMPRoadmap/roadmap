@@ -35,6 +35,12 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
     click_link('Customisable Templates')
 
     click_button 'Actions'
+
+p '================================================='
+p 'TEMPLATE CUSTOMIZATIONS'
+p '================================================='
+pp page.body
+
     expect { click_link 'Customise' }.to change { Template.count }.by(1)
 
     customized_template = Template.last

@@ -31,6 +31,14 @@ RSpec.describe Api::V2::Deserialization::Funding do
     end
     it 'assigns the funder' do
       result = described_class.deserialize(plan: @plan, json: @json)
+
+p '================================================='
+p 'API V2 Deserialize Funding - org'
+p '================================================='
+p @funder.inspect
+p result.inspect
+pp @json
+
       expect(result.funder).to eql(@funder)
     end
     it 'assigns the grant' do
