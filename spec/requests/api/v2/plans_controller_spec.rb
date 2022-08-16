@@ -386,6 +386,7 @@ p '================================================='
 p 'API V2 Create Plan - contact org'
 p '================================================='
 p Org.find_by(name: created[:contact][:affiliation][:name]).inspect
+pp @json[:contact]
 
         expect(created[:contact][:affiliation][:name]).to eql(original[:contact][:affiliation][:name])
         expect(created[:contact][:mbox]).to eql(dmp.owner.email)
