@@ -57,7 +57,7 @@ class Org < ApplicationRecord
   # Prevent XSS attempts
   before_validation ->(data) do
     data.sanitize_fields(:name)
-    data.name = data.name.gsub('&amp;', '&')
+    data.name = data.name&.gsub('&amp;', '&')
   end
   # ----------------------------------------
   # End DMPTool Customization
