@@ -108,14 +108,15 @@
                     ) %>
                   <% if theme_guidances.length > 0 %>
                     <% has_org_themed_guidance = true %>
-                    <p><%= _("Click the links below to view organisational guidance
-                        related to the themes associated with this question.") %></p>
-                      <% break %>
+                    <% break %>
                   <% end %>
                 <% end %>
+                <% break if has_org_themed_guidance %>
               <% end %>
 
               <% if has_org_themed_guidance %>
+                <p><%= _("Click the links below to view organisational guidance
+                        related to the themes associated with this question.") %></p>
                 <% ggs.each do |guidance_group| %>
                   <% themes_q.each do |theme| %>
                     <% theme_guidances = theme.guidances.where(

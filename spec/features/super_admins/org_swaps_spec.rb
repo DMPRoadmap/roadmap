@@ -23,6 +23,9 @@ RSpec.describe 'SuperAdmins OrgSwaps', type: :feature, js: true do
     click_button 'Admin'
     click_link 'Templates'
     select_an_org('#change-affiliation-org-controls', @org2.name, 'Affiliation')
+    # Commenting out DMPRoadmap logic since we have customized Org selection
+    # find('#superadmin_user_org_name').click
+    # choose_suggestion('superadmin_user_org_name', @org2)
     click_button 'Change affiliation'
     expect(current_path).to eql(org_admin_templates_path)
     expect(page).to have_text(@org2.name)

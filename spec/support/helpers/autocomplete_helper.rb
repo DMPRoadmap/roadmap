@@ -43,4 +43,20 @@ module AutocompleteHelper
 
     elements.detect { |el| el.text(:all).strip == name }.present?
   end
+
+  # Commenting out DMPRoadmap code that will not work with out UI customizations
+  # def choose_suggestion(typeahead_id, org)
+  #   # fill_in(:org_org_name, with: org.name)
+  #   fill_in(typeahead_id.to_sym, with: org.name)
+  #
+  #   id = typeahead_id.gsub('_name', '_id')
+  #   # Some unfortunate hacks to deal with naming inconsistencies on the create plan page
+  #   # and the Super Admin merge orgs tab
+  #   id = id.gsub('org_org_', 'org_').gsub('funder_org_', 'funder_')
+  #   # Excape any single quotes so it doesn't blow up our JS
+  #   hash = { id: org.id, name: org.name.gsub("'", '') }
+  #   # Capybara/Selenium can't interact with a hidden field because the user can't,
+  #   # so use some JS to set the value
+  #   page.execute_script "document.getElementById('#{id}').value = '#{hash.to_json}';"
+  # end
 end

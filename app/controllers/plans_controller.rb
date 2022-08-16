@@ -17,7 +17,7 @@ class PlansController < ApplicationController
   # rubocop:disable Metrics/AbcSize
   def index
     authorize Plan
-    @plans = Plan.includes(:roles, :org).active(current_user).page(1)
+    @plans = Plan.includes(:roles).active(current_user).page(1)
     @organisationally_or_publicly_visible = if current_user.org.is_other?
                                               []
                                             else
@@ -206,7 +206,7 @@ class PlansController < ApplicationController
       { template: {
         phases: {
           sections: {
-            questions: %i[question_format question_options annotations themes]
+            questions: %i[question_format annotations]
           }
         }
       } },

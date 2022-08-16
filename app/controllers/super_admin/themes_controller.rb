@@ -35,7 +35,7 @@ module SuperAdmin
     def update
       authorize(Theme)
       @theme = Theme.find(params[:id])
-      if @theme.update_attributes(permitted_params)
+      if @theme.update(permitted_params)
         flash.now[:notice] = success_message(@theme, _('updated'))
       else
         flash.now[:alert] = failure_message(@theme, _('update'))

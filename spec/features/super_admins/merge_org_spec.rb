@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'SuperAdmins Merge Orgs', type: :feature, js: true do
+RSpec.describe 'SuperAdmins Merge Orgs', type: :feature do
   before do
     Org.destroy_all
     @scheme = create(:identifier_scheme)
@@ -28,7 +28,7 @@ RSpec.describe 'SuperAdmins Merge Orgs', type: :feature, js: true do
     visit root_path
   end
 
-  scenario 'Super admin merges an Org into another Org' do
+  scenario 'Super admin merges an Org into another Org', :js do
     org_name = @from_org.name
     click_button 'Admin'
     click_link _('Organisations')
@@ -45,6 +45,8 @@ RSpec.describe 'SuperAdmins Merge Orgs', type: :feature, js: true do
 
     expect(page).to have_text('Merge Organisations')
     select_an_org('#merge-org-controls', @to_org.name, 'Organisation lookup')
+    # Commenting out DMPRoadmap logic since we have customized Org selection
+    # choose_suggestion('org_org_name', @to_org)
 
     click_button 'Analyze'
     # Wait for response

@@ -53,6 +53,8 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
 
     # Move to the other funder Org's Templates
     select_an_org('#change-affiliation-org-controls', funder.name, 'Affiliation')
+    # Commenting outr DMPRoadmap version since we have customized the Org selection
+    # choose_suggestion('superadmin_user_org_name', funder)
     click_button('Change affiliation')
 
     # Edit the original Template
@@ -93,6 +95,8 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
 
     # Go back to the original Org...
     select_an_org('#change-affiliation-org-controls', org.name, 'Affiliation')
+    # Commenting outr DMPRoadmap version since we have customized the Org selection
+    # choose_suggestion('superadmin_user_org_name', org)
     click_button('Change affiliation')
 
     click_link 'Customisable Templates'

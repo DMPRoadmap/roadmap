@@ -26,10 +26,12 @@ class Region < ApplicationRecord
   # ===============
 
   validates :name, presence: { message: PRESENCE_MESSAGE },
-                   uniqueness: { message: UNIQUENESS_MESSAGE }
+                   uniqueness: { message: UNIQUENESS_MESSAGE,
+                                 case_sensitive: false }
 
   validates :description, presence: true
 
   validates :abbreviation, presence: { message: PRESENCE_MESSAGE },
-                           uniqueness: { message: UNIQUENESS_MESSAGE }
+                           uniqueness: { message: UNIQUENESS_MESSAGE,
+                                         case_sensitive: false }
 end

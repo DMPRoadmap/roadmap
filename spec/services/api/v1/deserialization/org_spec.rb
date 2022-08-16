@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::Deserialization::Org do
   before(:each) do
     # Org requires a language, so make sure a default is available!
-    create(:language, default_language: true) unless Language.default
+    create(:language, abbreviation: 'v1-org', default_language: true) unless Language.default
 
     @name = Faker::Company.unique.name
     @abbrev = Faker::Lorem.word.upcase
@@ -37,7 +37,7 @@ RSpec.describe Api::V1::Deserialization::Org do
       expect(result).to eql(@org)
     end
     it 'sets the language to the default' do
-      default = Language.default || create(:language)
+      default = Language.default || create(:language, abbreviation: 'v1-org-dflt')
       result = described_class.deserialize(json: @json)
       expect(result.language).to eql(default)
     end

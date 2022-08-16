@@ -6,7 +6,7 @@ RSpec.describe LocaleService do
   before(:each) do
     Org.destroy_all
     Language.destroy_all
-    @default = Language.default || create(:language, default_language: true)
+    @default = Language.default || create(:language, abbreviation: 'loc-svc', default_language: true)
     Rails.configuration.x.locales.default = @default.abbreviation
     Rails.configuration.x.locales.gettext_join_character = '_'
     Rails.configuration.x.locales.i18n_join_character = '-'
@@ -26,7 +26,7 @@ RSpec.describe LocaleService do
 
   describe '#available_locales' do
     it 'returns the abbreviations of all Languages in the database' do
-      create(:language)
+      create(:language, abbreviation: 'avail-loc')
       expected = Language.all.order(:abbreviation).pluck(:abbreviation)
       expect(described_class.available_locales).to eql(expected)
     end
@@ -49,7 +49,7 @@ RSpec.describe LocaleService do
 
   describe '#to_gettext(locale:)' do
     it 'uses the default_locale if no locale is specified' do
-      expect(described_class.to_gettext(locale: nil)).to eql(@default.abbreviation)
+      expect(described_class.to_gettext(locale: nil)).to eql(LocaleService.to_gettext(locale: @default.abbreviation))
     end
     it 'converts the locale to Gettext format' do
       expect(described_class.to_gettext(locale: 'en_GB')).to eql('en_GB')

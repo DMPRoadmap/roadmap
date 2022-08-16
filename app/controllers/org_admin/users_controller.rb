@@ -26,7 +26,7 @@ module OrgAdmin
       authorize @user
       @departments = @user.org.departments.order(:name)
       @plans = Plan.active(@user).page(1)
-      if @user.update_attributes(user_params)
+      if @user.update(user_params)
         flash.now[:notice] = success_message(@user, _('updated'))
       else
         flash.now[:alert] = failure_message(@user, _('update'))

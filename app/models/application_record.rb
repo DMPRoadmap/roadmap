@@ -11,11 +11,11 @@ class ApplicationRecord < ActiveRecord::Base
   class << self
     # Indicates whether the underlying DB is MySQL
     def mysql_db?
-      ActiveRecord::Base.connection.adapter_name == 'Mysql2'
+      connection.adapter_name == 'Mysql2'
     end
 
     def postgres_db?
-      ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
+      connection.adapter_name == 'PostgreSQL'
     end
 
     # Domains for common email platforms that do not belong to a specific institution

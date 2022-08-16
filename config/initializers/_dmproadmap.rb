@@ -197,6 +197,9 @@ module DMPRoadmap
     # Determines whether or not the user will see the Plan Overview tab
     config.x.show_overview_tab = Rails.configuration.x.dmproadmap.show_overview_tab
 
+    # Check download of a plan coversheet tickbox
+    config.x.plans.download_coversheet_tickbox_checked = false
+
     # ---------------------------------------------------- #
     # CACHING - all values are in seconds (86400 == 1 Day) #
     # ---------------------------------------------------- #

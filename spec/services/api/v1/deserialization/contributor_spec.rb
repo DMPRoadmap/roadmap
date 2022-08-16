@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::Deserialization::Contributor do
   before(:each) do
     # Org requires a language, so make sure a default is available!
-    create(:language, default_language: true) unless Language.default
+    create(:language, abbreviation: 'v1-contrib', default_language: true) unless Language.default
     @org = create(:org)
     @plan = build(:plan, template: create(:template), org: @org)
 
