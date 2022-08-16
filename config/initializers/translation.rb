@@ -7,10 +7,10 @@
 # Note that the entries here must have a corresponding directory in config/locale, a
 # YAML file in config/locales and should also have an entry in the DB's languages table
 # SUPPORTED_LOCALES = %w[de en-CA en-GB en-US es fi fr-CA fr-FR pt-BR sv-FI tr-TR].freeze
-SUPPORTED_LOCALES = %w[en-US pt-BR].freeze
+SUPPORTED_LOCALES = %w[en-US es pt-BR].freeze
 # You can define a subset of the locales for your instance's version of Translation.io if applicable
 # CLIENT_LOCALES = %w[de en-CA en-GB en-US es fi fr-CA fr-FR pt-BR sv-FI tr-TR].freeze
-CLIENT_LOCALES = %w[en-US pt-BR].freeze
+CLIENT_LOCALES = %w[en-US es pt-BR].freeze
 # DEFAULT_LOCALE = 'en-GB'
 DEFAULT_LOCALE = 'en-US'
 # Here we define the translation domains for the Roadmap application, `app` will
