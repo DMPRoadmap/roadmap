@@ -7,8 +7,8 @@ module FeedbacksHelper
   end
 
   def feedback_confirmation_default_message
-    _('<p>Dear %{user_name},</p>'\
-      '<p>"%{plan_name}" has been sent to your %{application_name} account administrator for feedback.</p>'\
+    _('<p>Dear %{user_name},</p>' \
+      '<p>"%{plan_name}" has been sent to your %{application_name} account administrator for feedback.</p>' \
       '<p>Please email %{organisation_email} with any questions about this process.</p>')
   end
 
