@@ -153,8 +153,8 @@ namespace :export_production_data do
             end
         end
     end
-    # seed6: export all plan which org belongs to testers, this task generate the seed file that runs lastly
-    desc "Export plan content from 3.0.2 database to seeds_6.rb" 
+    # seed5: export all plan which org belongs to testers, this task generate the seed file that runs lastly
+    desc "Export plan content from 3.0.2 database to seeds_5.rb" 
     task :seed_5_export => :environment do
         file_name = 'db/seeds/sandbox/seeds_5.rb'
         File.delete(file_name) if File.exist?(file_name)

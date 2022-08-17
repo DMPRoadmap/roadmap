@@ -44,7 +44,7 @@ gem 'jbuilder'
 # gem "image_processing", "~> 1.2"
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', require: false
+# gem 'bootsnap', require: false
 
 # GEMS ADDED TO HELP HANDLE RAILS MIGRATION FROM 3.x to 4.2
 # THESE GEMS HELP SUPPORT DEPRACATED FUNCTIONALITY AND WILL LOSE SUPPORT IN

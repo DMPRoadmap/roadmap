@@ -1,14 +1,15 @@
 defaults: &defaults
-  adapter: postgresql
-  pool: 16
+  adapter: <%= ENV["DATABASE_ADAPTER"] %>
+  # pool: 16
   # database: <%= ENV["MYSQL_DATABASE"] %>
-  username: <%= ENV["POSTGRES_USER"] %>
-  password: <%= ENV["POSTGRES_PASSWORD"] %>
+  username: <%= ENV["MYSQL_USER"] %>
+  password: <%= ENV["MYSQL_PASSWORD"] %>
   host: <%= ENV["DATABASE_URL"] || '127.0.0.1' %>
 
 development:
   <<: *defaults
-  url: <%= Rails.application.secrets.database_url %>
+  # url: <%= Rails.application.secrets.database_url %>
+  gssencmode: disable
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -16,6 +17,7 @@ development:
 test:
   <<: *defaults
   url: <%= Rails.application.secrets.database_test_url %>
+  gssencmode: disable
 
 uat:
   <<: *defaults
