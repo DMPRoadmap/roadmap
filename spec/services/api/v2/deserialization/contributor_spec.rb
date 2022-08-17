@@ -36,6 +36,14 @@ RSpec.describe Api::V2::Deserialization::Contributor do
     end
     it 'attaches the Org to the Contributor' do
       result = described_class.send(:deserialize, json: @json)
+
+p '================================================='
+p 'API V2 Deserialize Contributor - org'
+p '================================================='
+p @org.inspect
+p result.inspect
+pp @json
+
       expect(result.org).to eql(@org)
     end
     it "skips the Identifier if it's values are blank" do

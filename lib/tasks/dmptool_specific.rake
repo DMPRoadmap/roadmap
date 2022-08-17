@@ -23,11 +23,11 @@ namespace :dmptool_specific do
     old_subject = '%{application_name}: Your plan has been submitted for feedback'
 
     new_body = '<p>Dear %{user_name},</p>' \
-               '<p>"%{plan_name}" has been sent to your %{application_name} account administrator for feedback.</p>'\
+               '<p>"%{plan_name}" has been sent to your %{application_name} account administrator for feedback.</p>' \
                '<p>Please email %{organisation_email} with any questions about this process.</p>'
-    old_body = '<p>Hello %{user_name}.</p>'\
+    old_body = '<p>Hello %{user_name}.</p>' \
       "<p>Your plan \"%{plan_name}\" has been submitted for feedback from an
-      administrator at your organisation. "\
+      administrator at your organisation. " \
       "If you have questions pertaining to this action, please contact us
       at %{organisation_email}.</p>"
 

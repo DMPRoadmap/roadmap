@@ -18,6 +18,9 @@
       },
       "user_input": "field",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -34,6 +37,9 @@
       "location": null,
       "user_input": null,
       "confidence": "High",
+      "cwe_id": [
+        1104
+      ],
       "note": ""
     },
     {
@@ -54,6 +60,28 @@
       },
       "user_input": "Plan.deep_copy(Plan.find(params[:id]))",
       "confidence": "High",
+      "cwe_id": [
+        601
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Unmaintained Dependency",
+      "warning_code": 120,
+      "fingerprint": "d84924377155b41e094acae7404ec2e521629d86f97b0ff628e3d1b263f8101c",
+      "check_name": "EOLRails",
+      "message": "Support for Rails 5.2.8.1 ended on 2022-06-01",
+      "file": "Gemfile.lock",
+      "line": 325,
+      "link": "https://brakemanscanner.org/docs/warning_types/unmaintained_dependency/",
+      "code": null,
+      "render_path": null,
+      "location": null,
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        1104
+      ],
       "note": ""
     },
     {
@@ -70,6 +98,9 @@
       "location": null,
       "user_input": null,
       "confidence": "High",
+      "cwe_id": [
+        601
+      ],
       "note": ""
     }
   ],

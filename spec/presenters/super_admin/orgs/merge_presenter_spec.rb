@@ -142,6 +142,14 @@ RSpec.describe SuperAdmin::Orgs::MergePresenter do
         @presenter = SuperAdmin::Orgs::MergePresenter.new(from_org: @from_org, to_org: @to_org)
         results = @presenter.send(:diff_from_and_to, category: :departments)
         expect(results.include?(dup_department)).to eql(false)
+
+p '================================'
+p 'MERGE ORG PRESENTER:'
+p '================================'
+pp results.inspect
+p dup_department.inspect
+p @from_org.departments.inspect
+
         expect(results).to eql(@from_org.departments.reject { |dpt| dpt == dup_department })
       end
       it 'returns the from_org entries for :funded_plans' do

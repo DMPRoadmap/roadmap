@@ -12,9 +12,9 @@
   <% @identifier_schemes.each do |scheme| %>
     <div class="form-group col-xs-8">
       <% if scheme.name.downcase == 'shibboleth' %>
-        <label class='control-label'>
-          <span class="aria-only" aria-hidden="false"><%= _('Institutional credentials (single sign on)') %></span>
-        </label>
+        <!-- <label class='control-label'> -->
+          <!-- <span class="aria-only" aria-hidden="false"><%#= _('Institutional credentials (single sign on)') %></span> -->
+        <!-- </label> -->
       <% elsif scheme.name.downcase == 'orcid' %>
         <%= label_tag(:scheme_name, 'ORCID', class: 'control-label') %>
       <% else %>

@@ -304,8 +304,8 @@ namespace :org_cleanup do
         org.identifier_for_scheme(scheme: ror).present?
       end
 
-      p 'This process will only use results from the ROR API that have a close NLP match and'\
-        'that contain the name of the org we have in the database!'\
+      p 'This process will only use results from the ROR API that have a close NLP match and' \
+        'that contain the name of the org we have in the database!' \
         ''
       orgs.each do |org|
         name = OrgSelection::SearchService.name_without_alias(name: org.name).downcase

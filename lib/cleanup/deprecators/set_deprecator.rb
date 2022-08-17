@@ -11,8 +11,8 @@ module Cleanup
     class SetDeprecator
       ##
       # Default message to display to developer when deprecated method called.
-      MESSAGE = '%{deprecated_method} is deprecated. '\
-                'Instead, you should use: %{new_method}. '\
+      MESSAGE = '%{deprecated_method} is deprecated. ' \
+                'Instead, you should use: %{new_method}. ' \
                 "Read #{__FILE__} for more information."
 
       # Message printed to STDOUT when a deprecated method is called.
