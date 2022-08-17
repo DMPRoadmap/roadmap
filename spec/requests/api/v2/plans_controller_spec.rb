@@ -381,12 +381,6 @@ RSpec.describe Api::V2::PlansController, type: :request do
         # Contact verification
         expect(created[:contact][:mbox]).to eql(original[:contact][:mbox])
         expect(created[:contact][:name]).to eql(original[:contact][:name])
-
-p '================================================='
-p 'API V2 Create Plan - contact org'
-p '================================================='
-p Org.find_by(name: created[:contact][:affiliation][:name]).inspect
-
         expect(created[:contact][:affiliation][:name]).to eql(original[:contact][:affiliation][:name])
         expect(created[:contact][:mbox]).to eql(dmp.owner.email)
         expect(created[:contact][:name]).to eql(dmp.owner.name(false))

@@ -33,8 +33,6 @@ template_owner_only = local_assigns.fetch(:template_owner_only, false)
 restricting = Rails.configuration.x.application.restrict_orgs
 allow_custom_org_entry = restricting ? false : !local_assigns.fetch(:known_only, false)
 
-p "ALLOW CUSTOM ORG? #{allow_custom_org_entry}"
-
 # The label to use
 label = local_assigns.fetch(:label, _("Organisation"))
 
