@@ -115,7 +115,8 @@ module ExternalApis
         repo.update(
           description: node.xpath('//r3d:description')&.text,
           homepage: node.xpath('//r3d:repositoryURL')&.text,
-          contact: node.xpath('//r3d:repositoryContact')&.text,
+          contact: node.xpath('//r3d:repositoryContact')&.select { |e| e.text.include?('@') }
+                                                        &.first&.text,
           info: {
             types: node.xpath('//r3d:type').map(&:text),
             subjects: node.xpath('//r3d:subject').map(&:text),
