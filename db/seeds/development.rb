@@ -1,11 +1,10 @@
 ### Temporary use staging/seeds.rb to test
-
+Rake::Task['before_seeds:copy_data'].invoke
 Dir[File.join(Rails.root, 'db', 'seeds', 'staging', '*.rb')].sort.each_with_index do |seed, index|
-    if seed.include? index.to_s
-        puts 'run staging/seeds_' + index.to_s + '.rb now..'
-        load seed
-    end
+    puts 'run staging/seeds_' + index.to_s + '.rb now..'
+    load seed
 end
+Rake::Task['rewrite_postgres:retrieve_data'].invoke
 
 # #!/usr/bin/env ruby
 # # encoding: utf-8
