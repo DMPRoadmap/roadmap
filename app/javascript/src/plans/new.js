@@ -102,7 +102,7 @@ $(() => {
       $('#plan_template_id option').remove();
 
       let orgId = orgContext.find('input[id$="org_id"]').val();
-      let funderId = funderContext.find('input[id$="funder_id"]').val(); // funder id is default to 
+      let funderId = funderContext.find('input[id$="funder_id"]').val(); // funder id is default to 8 (Portage Network)
 
       // For some reason Rails freaks out it everything is empty so send
       // the word "none" instead and handle on the controller side
