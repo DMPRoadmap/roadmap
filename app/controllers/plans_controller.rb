@@ -565,7 +565,7 @@ class PlansController < ApplicationController
     @orgs = (Org.includes(identifiers: :identifier_scheme).organisation +
              Org.includes(identifiers: :identifier_scheme).institution +
              Org.includes(identifiers: :identifier_scheme).default_orgs)
-    @orgs = @orgs.filter { |org| org.managed == true }.flatten.uniq.sort_by(&:name) #191: DMP Assistant allows free-text input of funders, which are saved as unmanaged orgs, Thus only show filtered primay orgs here (since local_only is shared among the app, change parameter to view here instead of controller)
+    @orgs = @orgs.flatten.uniq.sort_by(&:name) 
       
   end
 
