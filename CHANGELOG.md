@@ -1,6 +1,7 @@
 # Changelog
 
-## [3.0.4+portage-3.0.12] - 2022-08-26
+## [3.0.4+portage-3.0.14] - 2022-08-26
+
 ### Added
 
 - Added french translation of the Request Feedback email [#188](https://github.com/portagenetwork/roadmap/issues/188)
