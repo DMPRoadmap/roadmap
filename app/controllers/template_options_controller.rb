@@ -20,19 +20,17 @@ class TemplateOptionsController < ApplicationController
 
     @templates = []
 
-    if (org.present? && !org.new_record?) ||
-       (funder.present? && !funder.new_record?)
+    if (org.present? && !org.new_record?) || (funder.present? && !funder.new_record?)
       if funder.present? && !funder.new_record?
-        # Load the funder's template(s) minus the default template (that gets swapped
-        # in below if NO other templates are available)
-        @templates = Template.latest_customizable
-                             .where(org_id: funder.id, is_default: false).to_a
         if org.present? && !org.new_record?
+          # Load the funder's template(s) minus the default template (that gets swapped
+          # in below if NO other templates are available)
+          @templates = Template.latest_customizable.where(org_id: funder.id, is_default: false).to_a
           # Swap out any organisational cusotmizations of a funder template
           @templates = @templates.map do |tmplt|
             customization = Template.published
                                     .latest_customized_version(tmplt.family_id,
-                                                               org.id).first
+                                                                org.id).first
             # Only provide the customized version if its still up to date with the
             # funder template!
             # rubocop:disable Metrics/BlockNesting
@@ -41,49 +39,31 @@ class TemplateOptionsController < ApplicationController
             else
               tmplt
             end
-            # rubocop:enable Metrics/BlockNesting
           end
+          # We are using a default funder to provide with the default templates, but
+          # We still want to provide the organization templates.
+          # If the no funder was specified OR the funder matches the org
+          # if funder.blank? || funder.id == org&.id
+          # Retrieve the Org's templates
+          @templates << Template.published.organisationally_visible.where(org_id: org.id, customization_of: nil).to_a
+          @templates = @templates.flatten.uniq
+        else  # if'No Primary Research Institution' checkbox is checked, only show publicly available template without customization
+          @templates = Template.published.publicly_visible.where(org_id: funder.id, customization_of: nil)
         end
+        # DMP Assistant: We do not want to include not customized templates from default funder
+        # Include customizable funder templates
+        # @templates << funder_templates = Template.latest_customizable
+        # Always use the default template
+        if Template.default.present? && org.present?
+          customization = Template.published.latest_customized_version(Template.default.family_id, org.id).first
+          customization = Template.default unless customization
+          @templates.select! { |t| t.id != Template.default.id && t.id != customization.id}
+          # We want the default template to appear at the beggining of the list
+          @templates.unshift(customization)
+        end
+        @templates = @templates.uniq.sort_by(&:title)
       end
-
-      # We are using a default funder to provide with the default templates, but
-      # We still want to provide the organization templates.
-
-      # If the no funder was specified OR the funder matches the org
-      # if funder.blank? || funder.id == org&.id
-        # Retrieve the Org's templates
-        @templates << Template.published
-                              .organisationally_visible
-                              .where(org_id: org.id, customization_of: nil).to_a
-      # end
-   
-      # DMP Assistant: We do not want to include not customized templates from
-      # default funder
-
-      # Include customizable funder templates
-      # @templates << funder_templates = Template.latest_customizable
-
-      @templates = @templates.flatten.uniq
     end
-
-    @templates = @templates.uniq.sort_by(&:title)
-
-    # Always use the default template
-    
-    if Template.default.present?
-      customization = Template.published
-                        .latest_customized_version(Template.default.family_id,
-                                                    org.id).first
-      
-      customization = Template.default unless customization
-
-      @templates.select! { |t| t.id != Template.default.id && t.id != customization.id}
-      
-      # We want the default template to appear at the beggining of the list
-      @templates.unshift(customization)
-    end
-
-
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable

@@ -41,7 +41,7 @@
         </div>
       </div>
 
-      <!-- Organisation selection -->
+      <!-- Organisation selection. -->
       <h2 id="research-org">
         <span class="red" title="<%= required_research_org_tooltip %>">*<em class="sr-only"><%= required_research_org_tooltip %></em> </span>
         <%= _('Indicate the primary research organisation') %>
@@ -51,12 +51,14 @@
            <em class="sr-only"><%= research_org_tooltip %></em>
            <% dflt = @orgs.include?(current_user.org) ? current_user.org : nil %>
            <%= f.fields_for :org, @plan.org do |org_fields| %>
+             <!-- Since local_only view is shared in many views, add managed org filter here instead of controller so that unmanged orgs are only elimated from 'Primary Research Institue' --> 
+             <!-- #191: DMP Assistant allows free-text input of funders, which are saved as unmanaged orgs, Thus only show filtered primay orgs here (since local_only is shared among the app, change parameter to view here instead of controller) -->
              <%= render partial: "shared/org_selectors/local_only",
                         locals: {
                           form: org_fields,
                           id_field: :id,
                           default_org: nil,
-                          orgs: @orgs,
+                          orgs: @orgs.filter { |org| org.managed == true },
                           required: false
                         } %>
           <% end %>
