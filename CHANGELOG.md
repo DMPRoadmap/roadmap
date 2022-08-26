@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.0.4+portage-3.0.12] - 2022-08-26
+### Added
+
+- Added french translation of the Request Feedback email [#188](https://github.com/portagenetwork/roadmap/issues/188)
+
+### Fixed
+
+- Allowed user to proceed after checking 'No primary research institution' checkbox when creating a new plan [#221](https://github.com/portagenetwork/roadmap/issues/221)
+
+- Removed unmanaged organizations from the selection list when a user creates a new plan [#191](https://github.com/portagenetwork/roadmap/issues/191)
+
 ## [3.0.4+portage-3.0.13] - 2022-07-13
 
 ### Changed

@@ -85,6 +85,7 @@ $(() => {
     const orgContext = $('#research-org-controls');
     const funderContext = $('#funder-org-controls');
     const validOrg = validOptions(orgContext);
+
     // DMP Assistant does not require a funder for creating a plan. Instead the
     // Plan controller will search for the default funder when creating the
     // plan. In our current case this will be "Portage Network"
@@ -101,7 +102,7 @@ $(() => {
       $('#plan_template_id option').remove();
 
       let orgId = orgContext.find('input[id$="org_id"]').val();
-      let funderId = funderContext.find('input[id$="funder_id"]').val();
+      let funderId = funderContext.find('input[id$="funder_id"]').val(); // funder id is default to 8 (Portage Network)
 
       // For some reason Rails freaks out it everything is empty so send
       // the word "none" instead and handle on the controller side
@@ -111,13 +112,14 @@ $(() => {
       if (funderId.length <= 0) {
         funderId = '"none"';
       }
-      const data = `{"plan": {"research_org_id":${orgId},"funder_id":${funderId}}}`;
-
+      // Pass '8'(portage network) for DMP Assistant directly to funder_id,
+      // Otherwise it will automatically add an extra 'name' attribute
+      const data = `{"research_org_id":${orgId},"funder_id":8}`;
       // Fetch the available templates based on the funder and research org selected
-      $.ajax({
-        url: $('#template-option-target').val(),
-        data: JSON.parse(data),
-      }).done(success).fail(error);
+      $.get($('#template-option-target').val(),
+        {
+          plan: JSON.parse(data),
+        }).done(success).fail(error);
     }
   }, 150);
 
