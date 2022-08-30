@@ -25,8 +25,8 @@ module Api
         def plans_for_client
           return [] unless @user.present?
 
-          ids = @user.plans.pluck(&:id)
-          ids += @user.org.plans.pluck(&:id) if @user.org.present?
+          ids = @user.plans.pluck(:id)
+          ids += @user.org.plans.pluck(:id) if @user.org.present?
           ids.uniq
         end
 
