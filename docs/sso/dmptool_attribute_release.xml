@@ -1,3 +1,36 @@
+<DmptoolSsoPolicies>
+  <!-- CDL Data Management Plan Tool staging/test server -->
+  <AttributeFilterPolicy id="CDLDMPStage">
+    <PolicyRequirementRule xsi:type="basic:AttributeRequesterString"
+                           value="https://dmp-stage.cdlib.org" />
+    <AttributeRule attributeID="eduPersonPrincipalName">
+      <PermitValueRule xsi:type="basic:ANY" />
+    </AttributeRule>
+    <AttributeRule attributeID="mail">
+      <PermitValueRule xsi:type="basic:ANY" />
+    </AttributeRule>
+    <AttributeRule attributeID="displayName">
+      <PermitValueRule xsi:type="basic:ANY" />
+    </AttributeRule>
+  </AttributeFilterPolicy>
+
+  <!-- CDL Data Management Plan Tool production server -->
+  <AttributeFilterPolicy id="CDLDMP">
+    <PolicyRequirementRule xsi:type="basic:AttributeRequesterString"
+                           value="https://dmp.cdlib.org" />
+    <AttributeRule attributeID="eduPersonPrincipalName">
+      <PermitValueRule xsi:type="basic:ANY" />
+    </AttributeRule>
+    <AttributeRule attributeID="mail">
+      <PermitValueRule xsi:type="basic:ANY" />
+    </AttributeRule>
+    <AttributeRule attributeID="displayName">
+      <PermitValueRule xsi:type="basic:ANY" />
+    </AttributeRule>
+  </AttributeFilterPolicy>
+</DmptoolSsoPolicies>
+
+<!-- Attribute Map -->
 <Attributes xmlns="urn:mace:shibboleth:2.0:attribute-map" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <!--
     The mappings are a mix of SAML 1.1 and SAML 2.0 attribute names agreed to within the Shibboleth
