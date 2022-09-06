@@ -41,4 +41,20 @@ Once that's complete you can send us your identity provider's `entityID` so that
 
 Once your institution's identity provider has been configured and SSO has been enabled for your institution within the DMPTool, you can visit our [SSO Test Page](https://dmptool.org/cgi-bin/PrintShibInfo.pl) to test the SSO handshake. Select your institution from the dropdown list and click the "Continue" button. This should bring you to your institution's login page if things were properly configured within the DMPTool. Once you login, you will be redirected back to a validation page that will display the attributes mentioned above.  If all has been properly configured within your identity provider, a Success message will be displayed.
 
-If your insitution does not appear in the dropdown list, then you may not be a member of InCommon or eduGAIN. Contact us for more information.
+## Troubleshooting
+
+### I was able to successfully log in to my SSO but I receive a 500 error from the DMPTool. 
+
+This indicates that there was a communication issue between your institution's login page and the DMPTool. The most common cause is that your institution's SSO did not send the DMPTool a unique identifier (aka an eppn) or did not provide your email. The DMPTool requires these 2 attributes in order to correctly idenitfy your account.
+
+Please visit our [SSO Test Page](https://dmptool.org/cgi-bin/PrintShibInfo.pl), select your institution from the list (InCommon and eduGAIN institutions only), login to your institution's SSO page, and then send us a screenshot of the page you are redirected to. It should include an eppn, email address. Then contact us and provide the screenshot to help us diagnose the problem.
+
+If the [SSO Test Page](https://dmptool.org/cgi-bin/PrintShibInfo.pl) shows a blank eppn or email address, you will need to contact your internal IT team that manages your SSO. They will need to update the system to release that information to the DMPTool.
+
+### I clicked on the button to sign in with my institutional credentials and received a 'opensaml::FatalProfileException'
+
+This message was received from your institution's SSO which did not recognize the DMPTool as a trusted service provider. You will need to contact your IT department that supports your SSO to have them add the DMPTool as a trusted service.
+
+### I clicked on the button to sign in with my institutional credentials and received a 'Unknown or unusable identitiy provider'
+
+We use an 'entityID' to determine where the URL of your SSO system. You would receive this message if we have the wrong entityID for your institution. 
