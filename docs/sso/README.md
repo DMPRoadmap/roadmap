@@ -51,10 +51,10 @@ Please visit our [SSO Test Page](https://dmptool.org/cgi-bin/PrintShibInfo.pl), 
 
 If the [SSO Test Page](https://dmptool.org/cgi-bin/PrintShibInfo.pl) shows a blank eppn or email address, you will need to contact your internal IT team that manages your SSO. They will need to update the system to release that information to the DMPTool.
 
-### I clicked on the button to sign in with my institutional credentials and received a 'opensaml::FatalProfileException'
+### I clicked on the button to sign in with my institutional credentials and received an 'opensaml::FatalProfileException' error
 
 This message was received from your institution's SSO which did not recognize the DMPTool as a trusted service provider. You will need to contact your IT department that supports your SSO to have them add the DMPTool as a trusted service.
 
-### I clicked on the button to sign in with my institutional credentials and received a 'Unknown or unusable identitiy provider'
+### I clicked on the button to sign in with my institutional credentials and received an 'Unknown or unusable identitiy provider' error
 
 We use an 'entityID' to determine where the URL of your SSO system. You would receive this message if we have the wrong entityID for your institution. 
