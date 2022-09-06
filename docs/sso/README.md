@@ -33,7 +33,7 @@ Send us your identity provider's `entityID` so that we can enable SSO for your u
 ## My institution is a NOT a member of R&S
 
 If your instution is a member of the InCommon Federation but NOT within the Research & Scholarship category, your institution's identity provider may need to be configured to release the attributes mentioned above for the DMPToool.  Your Identity and Access Management team can use the following information to make the necessary changes:
-- [Attribute Release Policies](https://github.com/CDLUC3/dmptool/blob/main/docs/sso/dmptool_attribute_release.xml)
+- [Attribute Map](https://github.com/CDLUC3/dmptool/blob/main/docs/sso/dmptool_attribute_release.xml)
 
 Once that's complete you can send us your identity provider's `entityID` so that we can enable SSO for your users.
 
