@@ -53,8 +53,8 @@ If the [SSO Test Page](https://dmptool.org/cgi-bin/PrintShibInfo.pl) shows a bla
 
 ### I clicked on the button to sign in with my institutional credentials and received an 'opensaml::FatalProfileException' error
 
-This message was received from your institution's SSO which did not recognize the DMPTool as a trusted service provider. You will need to contact your IT department that supports your SSO to have them add the DMPTool as a trusted service.
+This message was received from your institution's SSO which did not recognize the DMPTool as a trusted service provider. You will need to contact your IT department that supports your SSO to have them add the DMPTool as a trusted service. Include a link to this page when you contact them.
 
 ### I clicked on the button to sign in with my institutional credentials and received an 'Unknown or unusable identitiy provider' error
 
-We use an 'entityID' to determine where the URL of your SSO system. You would receive this message if we have the wrong entityID for your institution. 
+We use an 'entityID' to determine where the URL of your SSO system. You would receive this message if we have the wrong entityID for your institution. You can find your institution's entityID from the [InCommon](https://www.incommon.org/community-organizations/) or [eduGAIN](https://technical.edugain.org/entities) directories.
