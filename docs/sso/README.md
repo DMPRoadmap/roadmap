@@ -45,7 +45,7 @@ Once your institution's identity provider has been configured and SSO has been e
 
 ### I was able to successfully log in to my SSO but I receive a 500 error from the DMPTool. 
 
-This indicates that there was a communication issue between your institution's login page and the DMPTool. The most common cause is that your institution's SSO did not send the DMPTool a unique identifier (aka an eppn) or did not provide your email. The DMPTool requires these 2 attributes in order to correctly idenitfy your account.
+This indicates that there was a communication issue between your institution's login page and the DMPTool. The most common cause is that your institution's SSO did not send the DMPTool a unique identifier (aka an eppn) or did not provide your email. The DMPTool requires these 2 attributes in order to correctly identify your account.
 
 Please visit our [SSO Test Page](https://dmptool.org/cgi-bin/PrintShibInfo.pl), select your institution from the list (InCommon and eduGAIN institutions only), login to your institution's SSO page, and then send us a screenshot of the page you are redirected to. It should include an eppn, email address. Then contact us and provide the screenshot to help us diagnose the problem.
 
