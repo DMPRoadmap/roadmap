@@ -42,7 +42,7 @@ json.dataset research_outputs do |research_output|
       json.data_access        distribution.data["dataAccess"]
       json.description        exportable_description(distribution.data["description"])
       json.download_url       distribution.data["downloadUrl"]
-      json.format             [distribution.data["fileFormat"]]
+      json.format             distribution.data["fileFormat"].present? ? [distribution.data["fileFormat"]] : []
       json.title              distribution.data["fileName"]
       if distribution.sharing.host.present?
         host = distribution.sharing.host
