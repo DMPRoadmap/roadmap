@@ -198,7 +198,7 @@ module Import
                 'dataAccess' => elem['data_access'],
                 'description' => elem['description'],
                 'downloadUrl' => elem['download_url'],
-                'fileFormat' => elem['format'],
+                'fileFormat' => elem['format'].present? ? elem['format'].join(', ') : nil,
                 'fileName' => elem['title'],
                 'license' => {
                   'licenseName' => license['license_name'],
