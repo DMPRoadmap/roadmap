@@ -26,8 +26,8 @@ module Dmpopidor
 
       identifiers.destroy_all
 
-      Rails.logger.info "User #{id} anonymized"
-      p "User #{id} anonymized"
+      Rails.logger.info "User #{id} anonymized : email was #{copy.email}"
+      p "User #{id} anonymized : email was #{copy.email}"
       ::UserMailer.anonymization_notice(copy).deliver_now
 
       save
