@@ -215,10 +215,11 @@ module Import
         def convert_security_measures(security_info)
           return '' if security_info.blank?
 
-          title = security_info['title']
-          description = security_info['description']
-
-          return title.concat(' : ', description) unless title.nil? || description.nil?
+          security_info.map do |sec_info|
+            title = sec_info['title'] || ''
+            title.concat(' : ', sec_info['description']) unless sec_info['description'].nil?
+            title
+          end.join("\n")
         end
 
         # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
