@@ -67,6 +67,6 @@ json.dmp do
     end
   end
   json.partial! "shared/export/madmp_export_templates/rda/datasets",
-                research_outputs: research_outputs, selected_datasets: selected_research_outputs
+                plan: dmp.plan, research_outputs: research_outputs, selected_datasets: selected_research_outputs
 end
 # rubocop:enable Metrics/BlockLength
