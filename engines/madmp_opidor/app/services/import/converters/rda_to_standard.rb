@@ -230,7 +230,9 @@ module Import
             ro_list.append(
               {
                 'documentationQuality' => {
-                  'description' => dataset['data_quality_assurance'].join("\n"),
+                  'description' => if dataset['data_quality_assurance'].present?
+                                     dataset['data_quality_assurance'].join("\n")
+                                   end,
                   'metadataStandard' => convert_metadata(dataset['metadata'])
                 },
                 'researchOutputDescription' => {
