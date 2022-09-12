@@ -19,6 +19,7 @@ RSpec.configure do |config|
       swagger: '2.0',
       info: {
         title: 'maDMP OPIDoR API',
+        description: 'Please use the /authenticate route before using the API. You can paste the generated token in the prompt displayed by clicking on the "Authorize" button',
         version: 'v1'
       },
       paths: {},

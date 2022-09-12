@@ -2,6 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "maDMP OPIDoR API",
+    "description": "Please use the /authenticate route before using the API. You can paste the generated token in the prompt displayed by clicking on the \"Authorize\" button",
     "version": "v1"
   },
   "paths": {
@@ -25,12 +26,13 @@
               "type": "object",
               "properties": {
                 "grant_type": {
+                  "type": "string",
+                  "default": "authorization_code"
+                },
+                "email": {
                   "type": "string"
                 },
-                "client_id": {
-                  "type": "string"
-                },
-                "client_secret": {
+                "code": {
                   "type": "string"
                 }
               }

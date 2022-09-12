@@ -11,17 +11,17 @@ RSpec.describe 'api/v1/authentication', type: :request do
       parameter name: :authentication, in: :body, schema: {
         type: :object,
         properties: {
-          grant_type: { type: :string },
-          client_id: { type: :string },
-          client_secret: { type: :string }
+          grant_type: { type: :string, default: 'authorization_code' },
+          email: { type: :string },
+          code: { type: :string }
         }
       }
       response(200, 'successful') do
         let(:authentication) do
           {
-            grant_type: 'client_credentials',
-            client_id: '123',
-            client_secret: '123'
+            grant_type: 'authorization_code',
+            email: '123',
+            code: '123'
           }
         end
         after do |example|
