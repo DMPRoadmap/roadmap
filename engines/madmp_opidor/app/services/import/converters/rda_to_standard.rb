@@ -230,7 +230,7 @@ module Import
             ro_list.append(
               {
                 'documentationQuality' => {
-                  'description' => dataset['data_quality_assurance'],
+                  'description' => dataset['data_quality_assurance'].join("\n"),
                   'metadataStandard' => convert_metadata(dataset['metadata'])
                 },
                 'researchOutputDescription' => {

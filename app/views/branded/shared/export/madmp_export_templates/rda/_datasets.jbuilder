@@ -76,7 +76,8 @@ json.dataset research_outputs do |research_output|
   end
 
   if dataset.documentation_quality.present?
-    json.data_quality_assurance [exportable_description(dataset.documentation_quality.data["description"])]
+    data_quality_assurance = exportable_description(dataset.documentation_quality.data["description"])
+    json.data_quality_assurance data_quality_assurance.present? ? [data_quality_assurance] : []
     json.metadata dataset.documentation_quality.metadata_standard do |metadata_standard|
       # rubocop:disable Layout/LineLength
       json.description        exportable_description("#{metadata_standard.data['name']} - #{metadata_standard.data['description']}")
