@@ -55,10 +55,22 @@ module ExportablePlan
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def prepare(user, coversheet = false)
     hash = coversheet ? prepare_coversheet : {}
-    template = Template.includes(phases: { sections: { questions: :question_format } })
-                       .joins(phases: { sections: { questions: :question_format } })
-                       .where(id: template_id)
-                       .order("sections.number", "questions.number").first
+    # template = Template.includes(phases: { sections: { questions: :question_format } })
+    #                    .joins(phases: { sections: { questions: :question_format } })
+    #                    .where(id: template_id)
+    #                    .order("sections.number", "questions.number").first
+    step1 = Template.includes(phases: { sections: { questions: :question_format } })
+    step2 = step1.joins(phases: { sections: { questions: :question_format } })
+    step3 = step1.where(id: template_id) #if skip the join part, directly to 1 (So why step 2?)
+    template = step3.order("sections.number", "questions.number").first
+
+    # p "####################Test Project20220601"
+    # p "5 for postgres, 3604 for mysql(dmp_prod) for the whole"
+    
+    # p step1.length #mysql: 3655, postgres 3655
+    # p step2.length # mysql:3604, postgres 5
+    # p step3.length #mysql:1, postgres 0
+
     hash[:customization] = template.customization_of.present?
     hash[:title] = title
     hash[:answers] = answers

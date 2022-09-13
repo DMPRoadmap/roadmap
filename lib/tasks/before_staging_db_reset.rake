@@ -7,6 +7,8 @@ namespace :before_seeds do
         Rake::Task['before_seeds:guidance_group'].execute
         Rake::Task['before_seeds:guidances'].execute
         Rake::Task['before_seeds:themes_in_guidance'].execute
+        Rake::Task['before_seeds:guidance_in_group'].execute
+        Rake::Task['before_seeds:guidance_translations'].execute
         puts "Now, run bin/rails db:seed"    
     end
     task themes: :environment do
@@ -63,5 +65,28 @@ namespace :before_seeds do
             ActiveRecord::Base.connection.exec_query(query)
         }
     end
-    
+    task guidance_in_group: :environment do
+        t_i_g = JSON.parse(File.read("db/seeds/staging/temp/guidance_in_group.rb"))
+        t_i_g.each { |x| 
+            query = ActiveRecord::Base.sanitize_sql(['INSERT INTO guidance_in_group VALUES (?, ?)', 
+                x['guidance_id'],
+                x['guidance_group_id']
+                ])
+            ActiveRecord::Base.connection.exec_query(query)
+        }
+    end
+    task guidance_translations: :environment do
+        t_i_g = JSON.parse(File.read("db/seeds/staging/temp/guidance_translations.rb"))
+        t_i_g.each { |x| 
+            query = ActiveRecord::Base.sanitize_sql(['INSERT INTO guidance_translations VALUES (?, ?, ?, ?, ?, ?)', 
+                x['id'],
+                x['guidance_id'],
+                x['locale'],
+                x['created_at'],
+                x['updated_at'],
+                x['text']
+                ])
+            ActiveRecord::Base.connection.exec_query(query)
+        }
+    end
 end
