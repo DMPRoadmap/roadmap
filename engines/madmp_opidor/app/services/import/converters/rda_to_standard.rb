@@ -232,7 +232,7 @@ module Import
                 'documentationQuality' => {
                   'description' => if dataset['data_quality_assurance'].present?
                                      dataset['data_quality_assurance'].join("\n")
-                                   end,
+                                   end, # else nil in implied
                   'metadataStandard' => convert_metadata(dataset['metadata'])
                 },
                 'researchOutputDescription' => {
