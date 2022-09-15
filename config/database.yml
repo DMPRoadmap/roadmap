@@ -9,15 +9,14 @@ defaults: &defaults
 development:
   <<: *defaults
   # url: <%= Rails.application.secrets.database_url %>
-  gssencmode: disable
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *defaults
-  url: <%= Rails.application.secrets.database_test_url %>
-  gssencmode: disable
+  # url: <%= Rails.application.secrets.database_test_url %>
+  host: <%= ENV["DATABASE_TEST_URL"] || '127.0.0.1' %>
 
 uat:
   <<: *defaults

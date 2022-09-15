@@ -75,7 +75,7 @@ describe 'layouts/modal_search/_form.html.erb' do
              search_path: nil,
              search_method: nil
            }
-    expect(rendered.include?(plan_path(@model))).to eql(true) # /plans/4 v.s. modal html
+    expect(rendered.include?(plan_path(@model))).to eql(true)
   end
 
   it 'Uses the :search_path when adding the form element' do

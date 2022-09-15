@@ -47,9 +47,7 @@ no_results_msg = _("No results matched your filter criteria.")
 
       <div class="modal-body">
         <%# Search filters %>
-        <%=search_path%>
-        <%=search_method%>
-        <%= form_with model: model_instance, url: "#{search_path}.js", method: search_method, local: false, remote: true,
+        <%= form_with model: model_instance, url: search_path, method: search_method,
                       id: "modal-search-#{namespace}-filters" do |f| %>
           <div class="form-group row">
             <div class="col-md-10">
@@ -65,7 +63,7 @@ no_results_msg = _("No results matched your filter criteria.")
                                  placeholder: search_placeholder %>
               </span>
               <div class="col-md-3">
-                <%= f.button _("Apply filter(s)"), local: false, remote: true,
+                <%= f.button _("Apply filter(s)"),
                              class: "btn btn-default",
                              type: "submit" %>
               </div>
