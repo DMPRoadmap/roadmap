@@ -111,7 +111,5 @@ yarn-debug.log*
 yarn-debug.log*
 .yarn-integrity
 
-# Ignore encrypted password file for database switch
-/db/staging/encrypted_password.json
-/db/staging/encrypted_password.rb
+# Ignore staging files in db folder since they can be auto-generated
 /db/seeds/staging

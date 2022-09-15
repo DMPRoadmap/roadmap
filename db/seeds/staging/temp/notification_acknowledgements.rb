@@ -1,1 +1,0 @@
-[{"id":4,"user_id":21368,"notification_id":2,"created_at":"2022-02-22 21:10:06 UTC","updated_at":"2022-02-22 21:10:06 UTC"},{"id":5,"user_id":17943,"notification_id":2,"created_at":"2022-03-01 18:26:41 UTC","updated_at":"2022-03-01 18:26:41 UTC"}]

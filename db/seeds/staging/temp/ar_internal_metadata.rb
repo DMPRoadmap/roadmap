@@ -1,1 +1,0 @@
-[{"key":"environment","value":"production","created_at":"2022-03-01 17:52:17 UTC","updated_at":"2022-03-07 18:25:56 UTC"}]

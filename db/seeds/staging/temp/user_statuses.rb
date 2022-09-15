@@ -1,1 +1,0 @@
-[{"id":1,"name":"Active","description":"","created_at":"2014-06-25 19:11:42 UTC","updated_at":"2014-06-25 19:11:42 UTC"},{"id":2,"name":"Archived","description":"","created_at":"2014-06-25 19:11:42 UTC","updated_at":"2014-06-25 19:11:42 UTC"}]
