@@ -4,7 +4,7 @@ module Import
   module Converters
     # Service used to convert plan from RDA DMP Commons Standars Format
     # to Standard Format
-    class RdaToStandard
+    class RdaToStandardConverter
       class << self
         # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
         def convert(json)

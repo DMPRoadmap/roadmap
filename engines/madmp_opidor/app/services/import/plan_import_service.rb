@@ -7,8 +7,8 @@ module Import
       def import(plan, json_data, import_format)
         dmp_fragment = plan.json_fragment
         if import_format.eql?('rda')
-          dmp = Import::Converters::RdaToStandard.convert(json_data['dmp'])
-          contributors = Import::Converters::RdaToStandard.convert_contributors(json_data.dig('dmp', 'contributor'))
+          dmp = Import::Converters::RdaToStandardConverter.convert(json_data['dmp'])
+          contributors = Import::Converters::RdaToStandardConverter.convert_contributors(json_data.dig('dmp', 'contributor'))
           handle_contributors(dmp_fragment, contributors)
         else
           dmp = json_data

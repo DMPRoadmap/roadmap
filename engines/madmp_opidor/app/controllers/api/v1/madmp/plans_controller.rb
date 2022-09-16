@@ -67,7 +67,7 @@ module Api
             errs = Import::PlanImportService.validate(json_data, import_format)
             render_error(errors: errs, status: :bad_request) and return if errs.any?
 
-            json_data = Import::Converters::RdaToStandard.convert(json_data['dmp']) if import_format.eql?('rda')
+            json_data = Import::Converters::RdaToStandardConverter.convert(json_data['dmp']) if import_format.eql?('rda')
 
             # Try to determine the Plan's owner
             owner = determine_owner(client: client, dmp: json_data)
