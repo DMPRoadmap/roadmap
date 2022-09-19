@@ -34,11 +34,11 @@ ENV INSTALL_PATH $INSTALL_PATH
 
 WORKDIR $INSTALL_PATH
 RUN gem install bundler
-
 COPY Gemfile* $INSTALL_PATH
 
+# for 3.1.0 test, need both mysql and psql group installed
 RUN bundle config --local build.sassc --disable-march-tune-native
-RUN bundle config set --local without 'development test pgsql thin aws ci'
+RUN bundle config set --local without 'development test thin aws ci' 
 RUN RAILS_ENV=production bundle install --jobs=3 --retry=3
 
 COPY . $INSTALL_PATH

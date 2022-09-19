@@ -75,8 +75,6 @@ GEM
     bindex (0.8.1)
     binding_of_caller (1.0.0)
       debug_inspector (>= 0.0.1)
-    bootsnap (1.11.1)
-      msgpack (~> 1.2)
     brakeman (5.2.2)
     builder (3.2.4)
     bullet (7.0.1)
@@ -314,7 +312,6 @@ GEM
     mini_portile2 (2.8.0)
     minitest (5.15.0)
     mocha (1.13.0)
-    msgpack (1.5.1)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
@@ -604,7 +601,6 @@ DEPENDENCIES
   autoprefixer-rails
   better_errors
   binding_of_caller
-  bootsnap
   brakeman
   bullet
   bundle-audit
@@ -687,4 +683,4 @@ RUBY VERSION
    ruby 2.6.3p62
 
 BUNDLED WITH
-   2.3.7
+   2.3.21
