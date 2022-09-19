@@ -94,9 +94,8 @@ jobs:
 
     - name: 'Compile Assets'
       run: |
-        bin/rails webpacker:compile 
+        bin/rails webpacker:compile
         bin/rails assets:precompile
-        cat /home/runner/work/roadmap/roadmap/public/packs-test/manifest.json
 
     # Note V3.1.0 DMPTool commented out Karma tests and will move this part to rspec
     - name: 'Run Karma Tests'

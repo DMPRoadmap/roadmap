@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# 3.1.0: the syntax was changed in the commit of July 10, 2020 in DMPRoadmap. Follow it
+
 # Helper methods for Feedback messages
 module FeedbacksHelper
   def feedback_confirmation_default_subject

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# Integration: based on ISSU68 use created_plan instead of complected_plans 
+
 # Controller for site usage statistics
 class UsageController < ApplicationController
   require 'csvable'
@@ -116,14 +118,14 @@ class UsageController < ApplicationController
     plan_data(args: default_query_args)
     sep = sep_param
     send_data(CSV.generate(col_sep: sep) do |csv|
-      csv << [_('Month'), _('No. Completed Plans')]
+      csv << [_('Month'), _('No. Created Plans')]
       total = 0
       @plans_per_month.each do |data|
         csv << [data.date.strftime('%b-%y'), data.count]
         total += data.count
       end
       csv << [_('Total'), total]
-    end, filename: 'completed_plans.csv')
+    end, filename: 'created_plans.csv')
   end
   # rubocop:enable Metrics/AbcSize
 
@@ -139,7 +141,7 @@ class UsageController < ApplicationController
 
     plan_data(args: args, sort: :desc)
     data_csvified = StatCreatedPlan.to_csv(@plans_per_month, details: { by_template: true, sep: sep })
-    send_data(data_csvified, filename: 'created_plan_by_template.csv')
+    send_data(data_csvified, filename: 'completed_plan_by_template.csv') 
   end
 
   private

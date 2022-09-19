@@ -18,11 +18,6 @@ class ApplicationRecord < ActiveRecord::Base
       ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
     end
 
-    # def maria_db?
-    #   ActiveRecord::Base.connection.select_rows("SHOW VARIABLES LIKE \"%version%\";")[8][1].downcase.include?("maria") && 
-    #   ActiveRecord::Base.connection.adapter_name == 'Mysql2'
-    # end
-
     # Generates the appropriate where clause for a JSON field based on the DB type
     def safe_json_where_clause(column:, hash_key:)
       p mysql_db?

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# 3.1.0: we used to changed in 'Fix problem when searching templates Feb 8, 2021' PR to change regular org to org_latest and add some other operations for database optimization. The PostgreSQL 12 doesn't reflect this problem, so we can consider to move back to the DMPRoadmap version.
+
 # == Schema Information
 #
 # Table name: templates

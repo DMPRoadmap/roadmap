@@ -1,3 +1,5 @@
+// 3.1.0: /* global i18nLocale */... part is confirmed to be removed
+
 import 'number-to-text/converters/en-us';
 import { convertToText } from 'number-to-text/index';
 import { isFunction } from './isType';
