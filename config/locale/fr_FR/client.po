@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-06-08 11:19+0200\n"
-"PO-Revision-Date: 2022-06-08 11:19+0200\n"
+"POT-Creation-Date: 2022-09-19 14:04+0200\n"
+"PO-Revision-Date: 2022-09-19 14:04+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -289,12 +289,12 @@ msgstr "JSON non valide :"
 msgid "There is no plan associated with id %{id}"
 msgstr "Il n'existe aucun plan associé à l'identifiant %{id}"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:31
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:32
 #: ../../app/models/dmpopidor/research_output.rb:72
 msgid "Data contact"
 msgstr "Personne contact pour les données"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:44
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:45
 #: ../../app/controllers/plans_controller.rb:519
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:47
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:52
@@ -302,7 +302,7 @@ msgstr "Personne contact pour les données"
 msgid "update"
 msgstr "mettre à jour"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:58
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:59
 #: ../../app/controllers/guidance_groups_controller.rb:91
 #: ../../app/controllers/guidances_controller.rb:93
 #: ../../app/controllers/plans_controller.rb:434
@@ -312,7 +312,7 @@ msgstr "mettre à jour"
 msgid "deleted"
 msgstr "supprimé"
 
-#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:60
+#: ../../app/controllers/dmpopidor/research_outputs_controller.rb:61
 #: ../../app/controllers/guidance_groups_controller.rb:93
 #: ../../app/controllers/guidances_controller.rb:95
 #: ../../app/controllers/plans_controller.rb:439
@@ -847,7 +847,7 @@ msgstr "Lecture seule"
 
 #: ../../app/helpers/plans_helper.rb:22
 #: ../../app/helpers/settings_template_helper.rb:16
-#: ../../app/views/branded/orgs/_profile_form.html.erb:142
+#: ../../app/views/branded/orgs/_profile_form.html.erb:141
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:5
 #: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:7
 #: ../../app/views/branded/paginable/users/_index.html.erb:23
@@ -922,7 +922,7 @@ msgid "Plan Description"
 msgstr "Description"
 
 #: ../../app/helpers/settings_template_helper.rb:15
-#: ../../app/views/branded/orgs/_profile_form.html.erb:130
+#: ../../app/views/branded/orgs/_profile_form.html.erb:129
 #: ../../app/views/branded/plans/_form.html.erb:41
 #: ../../app/views/branded/plans/_form.html.erb:86
 msgid "Funder"
@@ -1137,55 +1137,55 @@ msgstr "recommandation concernant"
 msgid "can't be less than zero"
 msgstr "ne peut être inférieur à zéro"
 
-#: ../../app/models/template.rb:242
+#: ../../app/models/template.rb:241
 msgid "can't be blank"
 msgstr "ne peut être vide"
 
-#: ../../app/models/template.rb:270
+#: ../../app/models/template.rb:269
 msgid "A historical template cannot be retrieved for being modified"
 msgstr "Un modèle historisé ne peut être extrait pour modification"
 
-#: ../../app/models/template.rb:394
+#: ../../app/models/template.rb:393
 msgid "generate_copy! requires an organisation target"
 msgstr "generate_copy! nécessite un organisme cible"
 
-#: ../../app/models/template.rb:403
+#: ../../app/models/template.rb:402
 msgid "Copy of %{template}"
 msgstr "Copie de %{template}"
 
-#: ../../app/models/template.rb:410
+#: ../../app/models/template.rb:409
 msgid "generate_version! requires a published template"
 msgstr "generate_version! nécessite un modèle publie"
 
-#: ../../app/models/template.rb:424
+#: ../../app/models/template.rb:423
 msgid "customize! requires an organisation target"
 msgstr "customize! nécessite un organisme cible"
 
-#: ../../app/models/template.rb:427
+#: ../../app/models/template.rb:426
 msgid "customize! requires a template from a funder"
 msgstr "customize! nécessite le modèle d'un financeur"
 
-#: ../../app/models/template.rb:463
+#: ../../app/models/template.rb:462
 msgid "You can not publish a published template.  "
 msgstr "Vous ne pouvez pas publier un modèle publié."
 
-#: ../../app/models/template.rb:467
+#: ../../app/models/template.rb:466
 msgid "You can not publish a historical version of this template.  "
 msgstr "Vous ne pouvez pas publier une ancienne version de ce modèle."
 
-#: ../../app/models/template.rb:472
+#: ../../app/models/template.rb:471
 msgid "You can not publish a template without phases.  "
 msgstr "Vous ne pouvez pas publier un modèle sans phases."
 
-#: ../../app/models/template.rb:477
+#: ../../app/models/template.rb:476
 msgid "You can not publish a template without sections in a phase.  "
 msgstr "Vous ne pouvez pas publier un modèle sans sections dans une phase."
 
-#: ../../app/models/template.rb:482
+#: ../../app/models/template.rb:481
 msgid "You can not publish a template without questions in a section.  "
 msgstr "Vous ne pouvez pas publier un modèle sans questions dans une section."
 
-#: ../../app/models/template.rb:486
+#: ../../app/models/template.rb:485
 msgid "Conditions in the template refer backwards"
 msgstr ""
 "Les conditions du modèle s'appliquent à une question positionnée avant celle-c"
@@ -1240,11 +1240,11 @@ msgstr "Merci de patienter, les standards sont en cours de chargement"
 #: ../../app/views/branded/org_admin/questions/_show.html.erb:216
 #: ../../app/views/branded/org_admin/templates/_form.html.erb:102
 #: ../../app/views/branded/org_admin/users/edit.html.erb:55
-#: ../../app/views/branded/orgs/_profile_form.html.erb:158
+#: ../../app/views/branded/orgs/_profile_form.html.erb:157
 #: ../../app/views/branded/plans/_edit_details.html.erb:118
 #: ../../app/views/branded/plans/_edit_details.html.erb:189
 #: ../../app/views/branded/plans/_share_form.html.erb:112
-#: ../../app/views/branded/research_outputs/_list.html.erb:77
+#: ../../app/views/branded/research_outputs/_list.html.erb:79
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:59
 #: ../../app/views/branded/users/_notification_preferences.html.erb:47
 #: ../../app/views/research_outputs/_form.html.erb:177
@@ -1351,7 +1351,7 @@ msgstr "Assistance téléphonique"
 
 #: ../../app/views/branded/contact_us/contacts/new.html.erb:1
 #: ../../app/views/branded/contact_us/contacts/new.html.erb:4
-#: ../../app/views/branded/layouts/_footer.html.erb:22
+#: ../../app/views/branded/layouts/_footer.html.erb:26
 msgid "Contact Us"
 msgstr "Contact"
 
@@ -1371,12 +1371,12 @@ msgstr ""
 #: ../../app/views/branded/contact_us/contacts/new.html.erb:10
 #: ../../app/views/branded/layouts/_branding.html.erb:41
 #: ../../app/views/branded/layouts/_footer.html.erb:16
-#: ../../app/views/branded/layouts/_footer.html.erb:26
-#: ../../app/views/branded/layouts/_footer.html.erb:31
-#: ../../app/views/branded/layouts/_footer.html.erb:43
-#: ../../app/views/branded/layouts/_footer.html.erb:52
-#: ../../app/views/branded/layouts/_footer.html.erb:57
-#: ../../app/views/branded/layouts/_footer.html.erb:62
+#: ../../app/views/branded/layouts/_footer.html.erb:30
+#: ../../app/views/branded/layouts/_footer.html.erb:35
+#: ../../app/views/branded/layouts/_footer.html.erb:47
+#: ../../app/views/branded/layouts/_footer.html.erb:56
+#: ../../app/views/branded/layouts/_footer.html.erb:61
+#: ../../app/views/branded/layouts/_footer.html.erb:66
 #: ../../app/views/branded/paginable/plans/_organisationally_or_publicly_visible.html.erb:36
 #: ../../app/views/branded/paginable/plans/_publicly_visible.html.erb:29
 #: ../../app/views/branded/paginable/templates/_history.html.erb:25
@@ -1621,7 +1621,7 @@ msgstr "Publié ?"
 #: ../../app/views/branded/org_admin/questions/_form.html.erb:134
 #: ../../app/views/branded/org_admin/questions/_form.html.erb:136
 #: ../../app/views/branded/plans/_edit_details.html.erb:61
-#: ../../app/views/branded/research_outputs/_list.html.erb:78
+#: ../../app/views/branded/research_outputs/_list.html.erb:80
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:67
 #: ../../app/views/research_outputs/_form.html.erb:182
 #: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:32
@@ -1788,20 +1788,24 @@ msgstr "Nouvelles"
 msgid "Tutorials"
 msgstr "Tutoriels"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:26
+#: ../../app/views/branded/layouts/_footer.html.erb:24
+msgid "API Docs"
+msgstr "Documentation API"
+
+#: ../../app/views/branded/layouts/_footer.html.erb:30
 msgid "CNRS website"
 msgstr "Site CNRS"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:43
+#: ../../app/views/branded/layouts/_footer.html.erb:47
 msgid "INIST website"
 msgstr "Site INIST"
 
-#: ../../app/views/branded/layouts/_footer.html.erb:62
+#: ../../app/views/branded/layouts/_footer.html.erb:66
 msgid "Mailing list"
 msgstr "Liste de diffusion"
 
 #: ../../app/views/branded/layouts/_navigation.html.erb:12
-#: ../../app/views/branded/orgs/_profile_form.html.erb:47
+#: ../../app/views/branded/orgs/_profile_form.html.erb:46
 msgid "logo"
 msgstr "logo"
 
@@ -2325,7 +2329,7 @@ msgid "Locale"
 msgstr "Langue"
 
 #: ../../app/views/branded/org_admin/templates/_form.html.erb:41
-#: ../../app/views/branded/research_outputs/_list.html.erb:30
+#: ../../app/views/branded/research_outputs/_list.html.erb:32
 #: ../../app/views/research_outputs/_form.html.erb:14
 msgid "Type"
 msgstr "Type"
@@ -2413,15 +2417,15 @@ msgstr ""
 "illez contacter le service d'assistance pour toutes questions ou demandes de m"
 "odifications."
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:14
+#: ../../app/views/branded/orgs/_profile_form.html.erb:13
 msgid "Organisation full name"
 msgstr "Nom complet de l'organisme"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:20
+#: ../../app/views/branded/orgs/_profile_form.html.erb:19
 msgid "Organisation abbreviated name"
 msgstr "Nom abrégé de l'organisme"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:30
+#: ../../app/views/branded/orgs/_profile_form.html.erb:29
 msgid ""
 "A managed Org is one that can have its own Guidance and/or Templates. An unman"
 "aged Org is one that was automatically created by the system when a user enter"
@@ -2432,64 +2436,64 @@ msgstr ""
 "utomatiquement créée par le système lorsqu'un utilisateur l'a entrée / sélecti"
 "onnée."
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:31
+#: ../../app/views/branded/orgs/_profile_form.html.erb:30
 msgid "Managed? (allows Org Admins to access the Admin menu)"
 msgstr "Géré? (permet aux administrateurs de l'organisation d'accéder au menu Admin)"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:43
+#: ../../app/views/branded/orgs/_profile_form.html.erb:42
 msgid "Organization logo"
 msgstr "Logo de l'organisme"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:51
+#: ../../app/views/branded/orgs/_profile_form.html.erb:50
 msgid "This will remove your organisation's logo"
 msgstr "Cela supprimera le logo de votre organisation"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:52
+#: ../../app/views/branded/orgs/_profile_form.html.erb:51
 msgid "Remove logo"
 msgstr "Supprimer le logo"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:54
+#: ../../app/views/branded/orgs/_profile_form.html.erb:53
 msgid "or"
 msgstr "ou"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:67
+#: ../../app/views/branded/orgs/_profile_form.html.erb:66
 msgid "Maximum 3 lines (about 250 characters)"
 msgstr "Maximum 3 lignes (environ 250 caractères)"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:69
+#: ../../app/views/branded/orgs/_profile_form.html.erb:68
 msgid "Banner text"
 msgstr "Texte de la bannière"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:81
+#: ../../app/views/branded/orgs/_profile_form.html.erb:80
 msgid "Organisation URLs"
 msgstr "URL d'organisme"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:93
-#: ../../app/views/branded/orgs/_profile_form.html.erb:98
+#: ../../app/views/branded/orgs/_profile_form.html.erb:92
+#: ../../app/views/branded/orgs/_profile_form.html.erb:97
 msgid "Help Desk email"
 msgstr "E-mail du service d'assistance"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:107
+#: ../../app/views/branded/orgs/_profile_form.html.erb:106
 msgid "Administrator contact"
 msgstr "Contact administrateur"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:112
+#: ../../app/views/branded/orgs/_profile_form.html.erb:111
 msgid "Contact email"
 msgstr "Courriel de contact"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:116
+#: ../../app/views/branded/orgs/_profile_form.html.erb:115
 msgid "Link text"
 msgstr "Texte du lien"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:126
+#: ../../app/views/branded/orgs/_profile_form.html.erb:125
 msgid "Organisation Types"
 msgstr "Types d'organisme"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:136
+#: ../../app/views/branded/orgs/_profile_form.html.erb:135
 msgid "Institution"
 msgstr "Institution"
 
-#: ../../app/views/branded/orgs/_profile_form.html.erb:149
+#: ../../app/views/branded/orgs/_profile_form.html.erb:148
 msgid "Organisation types"
 msgstr "Types d'organisme"
 
@@ -2764,11 +2768,11 @@ msgstr ""
 msgid ""
 "Note: You can filter this table by 'Created date'. Enter the month abbreviatio"
 "n and a 4 digit year into the search box above.<br>For example: 'Oct 2019' or "
-"'Jun 2013'."
+"'Nov 2016'."
 msgstr ""
-"Remarque: vous pouvez filtrer ce tableau par dates de création. Entrez l'abrév"
-"iation du mois et une année à 4 chiffres dans le champ de recherche ci-dessus."
-" <br> Par exemple: «Oct 2019» ou «Jun 2013»."
+"Remarque: vous pouvez filtrer ce tableau par 'Date de création'. Entrez, en an"
+"glais, l'abréviation du mois et une année à 4 chiffres dans le champ de recher"
+"che ci-dessus. <br> Par exemple: 'Oct 2019' ou 'Nov 2016'."
 
 #: ../../app/views/branded/paginable/users/_index.html.erb:24
 msgid "Created date"
@@ -3358,44 +3362,44 @@ msgstr "Sélectionnez une réponse"
 msgid "Additional Information"
 msgstr "Informations supplémentaires"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:12
+#: ../../app/views/branded/research_outputs/_list.html.erb:14
 msgid "Abbreviated Name (20 chars max.)"
 msgstr "Nom abrégé (20 caractères max.)"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:16
+#: ../../app/views/branded/research_outputs/_list.html.erb:18
 msgid "Research output name (20 chars max.)"
 msgstr "Nom du produit de recherche (limité à 20 caractères.)"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:20
+#: ../../app/views/branded/research_outputs/_list.html.erb:22
 msgid "Full Name"
 msgstr "Nom complet"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:24
+#: ../../app/views/branded/research_outputs/_list.html.erb:26
 msgid "Research output title"
 msgstr "Titre du produit de recherche"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:49
+#: ../../app/views/branded/research_outputs/_list.html.erb:51
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:42
 msgid "Contact"
 msgstr "Personne contact"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:70
+#: ../../app/views/branded/research_outputs/_list.html.erb:72
 msgid "Persistent Identifier"
 msgstr "Identifiant Pérenne"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:72
+#: ../../app/views/branded/research_outputs/_list.html.erb:74
 msgid "If exists, please fill in the research output persistant identifier."
 msgstr "Renseigner l’identifiant pérenne du produit de recherche s’il existe."
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:84
+#: ../../app/views/branded/research_outputs/_list.html.erb:86
 msgid "Edit research output"
 msgstr "Modifier le produit de recherche"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:87
+#: ../../app/views/branded/research_outputs/_list.html.erb:89
 msgid "Move research output"
 msgstr "Déplacer le produit de recherche"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:92
+#: ../../app/views/branded/research_outputs/_list.html.erb:94
 msgid ""
 "Deleting this research output will remove the associated answers. Do you confi"
 "rm ?"
@@ -3403,7 +3407,7 @@ msgstr ""
 "En supprimant ce produit de recherche, les réponses associées seront également"
 " supprimées. Confirmez-vous la suppression ?"
 
-#: ../../app/views/branded/research_outputs/_list.html.erb:95
+#: ../../app/views/branded/research_outputs/_list.html.erb:97
 msgid "Delete research output"
 msgstr "Supprimer le produit de recherche"
 
@@ -3668,14 +3672,6 @@ msgstr "Privé : accès restreint aux collaborateurs"
 #: ../../app/views/branded/user_mailer/plan_visibility.html.erb:14
 msgid "Public: anyone can view on the web"
 msgstr "Public : toute personne sur le web peut consulter mon plan"
-
-#: ../../app/views/branded/user_mailer/plan_visibility.html.erb:18
-msgid ""
-"If you have questions pertaining to this action, please visit the My Dashboard"
-" page in %{tool_name}"
-msgstr ""
-"Si vous avez des questions concernant cette action, veuillez visiter la page M"
-"on tableau de bord dans %{tool_name}"
 
 #: ../../app/views/branded/user_mailer/sharing_notification.html.erb:6
 msgid ""
