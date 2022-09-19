@@ -61,7 +61,7 @@ json.dmp do
         json.funding_status Export::Converters::RdaRegistryConverter.convert_funding_status(funding.data["fundingStatus"])
         json.grant_id do
           json.identifier     funding.data["grantId"]
-          json.type           "Code"
+          json.type           'other'
         end
       end
     end
