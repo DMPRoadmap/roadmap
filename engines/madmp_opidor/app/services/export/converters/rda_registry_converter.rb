@@ -1,0 +1,117 @@
+# frozen_string_literal: true
+
+module Export
+  module Converters
+    # Service used to convert registry values from Standard Format
+    # to RDA DMP Commons Standars Format
+    class RdaRegistryConverter
+      class << self
+        def convert_agent_id_system(val, is_person: false)
+          return nil if val.nil?
+
+          if is_person # personStandard only support 'ISNI' & 'ORCID' as a AgentIDSystem value
+            case val.downcase
+            when 'isni', 'orcid'
+              val.downcase
+            else
+              'other'
+            end
+          else # Funder only support 'ISNI' & 'ORCID' as a AgentIDSystem value
+            case val.downcase
+            when 'fundref', 'url'
+              val.downcase
+            else
+              'other'
+            end
+          end
+        end
+
+        def convert_bytes(val, unit)
+          return nil if val.nil?
+
+          case unit.downcase
+          when 'kb', 'ko'
+            val * 1000
+          when 'mb', 'mo'
+            val * (1000**2)
+          when 'gb', 'go'
+            val * (1000**3)
+          when 'tb', 'to'
+            val * (1000**4)
+          when 'pb', 'po'
+            val * (1000**5)
+          else
+            val
+          end
+        end
+
+        def convert_certification(val)
+          return [] if val.nil? || val.empty?
+
+          case val.first.downcase
+          when 'dsa', 'wds', 'coretrustseal'
+            val.first.downcase
+          else
+            'other'
+          end
+        end
+
+        def convert_data_access(val)
+          return nil if val.nil?
+
+          case val.downcase
+          when 'ouvert', 'open'
+            'open'
+          when 'restreint', 'restricted'
+            'shared'
+          else
+            'closed '
+          end
+        end
+
+        def convert_funding_status(val)
+          return nil if val.nil?
+
+          case val.downcase
+          when 'planifié', 'planned'
+            'planned'
+          when 'soumis', 'applied'
+            'applied'
+          when 'approuvé', 'granted'
+            'granted'
+          else
+            'rejected'
+          end
+        end
+
+        def convert_pid_system(val, is_metadata_standard: false)
+          return nil if val.nil?
+
+          if is_metadata_standard # MetadataStandard only support 'URL' as a PIDSysteù value
+            val.downcase.eql?('url') ? 'url' : 'other'
+          else
+            case val.downcase
+            when 'handle', 'doi', 'url', 'ark', 'igsn'
+              val.downcase
+            else
+              'other'
+            end
+          end
+        end
+
+        def convert_yes_no(val)
+          return nil if val.nil?
+
+          case val.downcase
+          when 'oui', 'yes'
+            'yes'
+          when 'non', 'no'
+            'no'
+          else
+            'unknown'
+          end
+        end
+      end
+    end
+  end
+end
