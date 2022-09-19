@@ -198,7 +198,7 @@ module Import
                 'dataAccess' => elem['data_access'],
                 'description' => elem['description'],
                 'downloadUrl' => elem['download_url'],
-                'fileFormat' => elem['format'].present? ? elem['format'].join(', ') : nil,
+                'fileFormat' => elem['format'].present? ? elem['format'].first : nil,
                 'fileName' => elem['title'],
                 'license' => {
                   'licenseName' => license['license_name'],
@@ -219,7 +219,7 @@ module Import
             title = sec_info['title'] || ''
             title.concat(' : ', sec_info['description']) unless sec_info['description'].nil?
             title
-          end.join("\n")
+          end.join('<br/>')
         end
 
         # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -231,7 +231,7 @@ module Import
               {
                 'documentationQuality' => {
                   'description' => if dataset['data_quality_assurance'].present?
-                                     dataset['data_quality_assurance'].join("\n")
+                                     dataset['data_quality_assurance'].join('<br/>')
                                    end, # else nil in implied
                   'metadataStandard' => convert_metadata(dataset['metadata'])
                 },
