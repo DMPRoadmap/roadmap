@@ -20,7 +20,7 @@
       <span><a href="<%= news_feed_path %>"><%= _('News') %></a></span>
       <span><a href="<%= tutorials_path %>"><%= _('Tutorials') %></a></span>
       <!-- api docs -->
-      <% if current_user.can_use_api? %>
+      <% if current_user.present? && current_user.can_use_api? %>
         <span><%= link_to _('API Docs'), rswag_ui_path, target: '_blank' %></span>
       <% end %>
       <span><a href="<%= contact_us %>"><%= _('Contact Us') %></a></a></span>
