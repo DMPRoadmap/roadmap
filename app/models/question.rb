@@ -113,6 +113,16 @@ class Question < ApplicationRecord
   # ===========================
   # = Public instance methods =
   # ===========================
+
+  # text and default_value are translated through the translation gem
+  def text
+    _(read_attribute(:text))
+  end
+
+  def default_value
+    _(read_attribute(:default_value))
+  end
+
   # rubocop:disable Metrics/AbcSize
   def deep_copy(**options)
     copy = dup

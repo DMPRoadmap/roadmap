@@ -142,4 +142,17 @@ class Phase < ApplicationRecord
     value = Rational(num_answered_questions(plan), plan.num_questions) * 100
     value >= Rails.configuration.x.plans.default_percentage_answered.to_f
   end
+  
+  # ===========================
+  # = Public instance methods =
+  # ===========================
+
+  # title and description are translated through the translation gem
+  def title
+    _(read_attribute(:title))
+  end
+
+  def description
+    _(read_attribute(:description))
+  end
 end
