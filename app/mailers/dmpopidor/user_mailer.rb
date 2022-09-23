@@ -43,6 +43,7 @@ module Dmpopidor
     # CHANGES
     # Changed subject text
     # Mail is sent with user's locale
+    # rubocop:disable Metrics/AbcSize
     def sharing_notification(role, user, inviter:)
       @role       = role
       @user       = user
@@ -50,6 +51,7 @@ module Dmpopidor
       @username   = @user.name
       @inviter    = inviter
       @link       = url_for(action: 'show', controller: 'plans', id: @role.plan.id)
+      @helpdesk_email = helpdesk_email(org: @plan.org)
 
       I18n.with_locale current_locale(@user) do
         mail(to: @role.user.email,
@@ -57,9 +59,11 @@ module Dmpopidor
                              user_name: @inviter.name(false), tool_name: tool_name))
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     # CHANGES
     # Mail is sent with user's locale
+    # rubocop:disable Metrics/AbcSize
     def permissions_change_notification(role, user)
       return unless user.active?
 
@@ -68,12 +72,14 @@ module Dmpopidor
       @user       = user
       @username   = @user.name
       @messaging  = role_text(@role)
+      @helpdesk_email = helpdesk_email(org: @plan.org)
 
       I18n.with_locale current_locale(role.user) do
         mail(to: @role.user.email,
              subject: format(_('Changed permissions on a Data Management Plan in %{tool_name}'), tool_name: tool_name))
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     # CHANGES
     # Mail is sent with user's locale
@@ -83,6 +89,7 @@ module Dmpopidor
       @user         = user
       @plan         = plan
       @current_user = current_user
+      @helpdesk_email = helpdesk_email(org: @plan.org)
 
       I18n.with_locale current_locale(@user) do
         mail(to: @user.email,
@@ -101,6 +108,7 @@ module Dmpopidor
       @recipient_name = @recipient.name(false)
       @requestor_name = @user.name(false)
       @plan_name      = @plan.title
+      @helpdesk_email = helpdesk_email(org: @plan.org)
 
       I18n.with_locale current_locale(recipient) do
         mail(to: @recipient.email,
@@ -122,6 +130,7 @@ module Dmpopidor
       @plan           = plan
       @phase          = @plan.phases.first
       @plan_name      = @plan.title
+      @helpdesk_email = helpdesk_email(org: @plan.org)
 
       I18n.with_locale current_locale(recipient) do
         sender = requestor.org.contact_email ||
@@ -146,6 +155,7 @@ module Dmpopidor
       @plan            = plan
       @plan_title      = @plan.title
       @plan_visibility = ::Plan::VISIBILITY_MESSAGE[@plan.visibility.to_sym]
+      @helpdesk_email = helpdesk_email(org: @plan.org)
 
       I18n.with_locale current_locale(user) do
         mail(to: @user.email,
@@ -161,6 +171,7 @@ module Dmpopidor
       @user      = user
       @username  = @user.name
       @ul_list   = privileges_list(@user)
+      @helpdesk_email = helpdesk_email(org: @plan.org)
 
       I18n.with_locale current_locale(@user) do
         mail(to: user.email,
@@ -174,6 +185,7 @@ module Dmpopidor
     def anonymization_warning(user)
       @user = user
       @end_date = (@user.last_sign_in_at + 5.years).to_date
+      @helpdesk_email = helpdesk_email(org: @plan.org)
       I18n.with_locale current_locale(@user) do
         mail(to: @user.email, subject:
           format(_('Account expiration in %{tool_name}'), tool_name: tool_name))
@@ -182,6 +194,7 @@ module Dmpopidor
 
     def anonymization_notice(user)
       @user = user
+      @helpdesk_email = helpdesk_email(org: @plan.org)
       I18n.with_locale current_locale(@user) do
         mail(to: @user.email, subject:
           format(_('Account expired in %{tool_name}'), tool_name: tool_name))
