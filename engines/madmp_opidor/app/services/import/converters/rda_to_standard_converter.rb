@@ -188,7 +188,7 @@ module Import
 
           distributions_list = []
           distribution.each do |elem|
-            license = elem['license'].present? ? elem['license'][0] : {}
+            license = elem['license'].present? ? elem['license'].first : {}
             distributions_list.append(
               {
                 'releaseDate' => '',
@@ -215,11 +215,9 @@ module Import
         def convert_security_measures(security_info)
           return '' if security_info.blank?
 
-          security_info.map do |sec_info|
-            title = sec_info['title'] || ''
-            title.concat(' : ', sec_info['description']) unless sec_info['description'].nil?
-            title
-          end.join('<br/>')
+          title = security_info.first['title']
+          title.concat(' : ', security_info.first['description']) unless security_info.first['description'].nil?
+          title
         end
 
         # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -231,7 +229,7 @@ module Import
               {
                 'documentationQuality' => {
                   'description' => if dataset['data_quality_assurance'].present?
-                                     dataset['data_quality_assurance'].join('<br/>')
+                                     dataset['data_quality_assurance'].first
                                    end, # else nil in implied
                   'metadataStandard' => convert_metadata(dataset['metadata'])
                 },
