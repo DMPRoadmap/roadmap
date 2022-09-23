@@ -3,6 +3,20 @@
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
 
+## 23/09/2022
+- Amélioration du message de notification de changement de visibilité (issue gitbucket 420)
+- Le lien vers le swagger est désormais dans le pied de page
+- Correction d'un problème d'affichage du mail d'assistance dans la signature des emails de notification
+- Import RDA
+  - Ajout de convertisseurs pour les données provenants de référentiels (issue gitbucket 428)
+  - Seule la première valeur est importée pour `security_and_privacy`, `distribution/format`, `license` et `data_quality_assurance`
+- Export RDA
+  - Ajout d'un convertisseur pour les volumes des fichiers (bytes_size)
+- Amélioration du chargement des référentiels
+  - Utilisation de la librairie ActiveRecord-Import qui permet d'insérer plusieurs lignes à la fois. Les temps de chargement des référentiels sont gradement réduits.
+  - Retrait de la possibilité d'ajout d'une valeur dans un référentiel, le chargement d'un fichier est préférée
+  - Remplacement du bouton "Créer valeur" par "Editer Référentiel"
+
 ## 09/09/2022
 - Swagger : Ajout d'un message indiquant à l'utilisateur de s'authentifier. Les valeurs par défaut de la route /authenticate sont celle de l'autentification utilisateur (auparavant Client)
 - Amélioration de l'archivage automatique des utilisateurs après 5 ans. Seuls les utilisateurs actifs sont concernés. Le traitement devrait désormais bien archiver les comptes non connectés depuis plus de 5 ans.
