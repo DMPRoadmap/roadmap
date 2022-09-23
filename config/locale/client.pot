@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-09-19 14:04+0200\n"
-"PO-Revision-Date: 2022-09-19 14:04+0200\n"
+"POT-Creation-Date: 2022-09-23 10:42+0200\n"
+"PO-Revision-Date: 2022-09-23 10:42+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -914,45 +914,45 @@ msgstr ""
 msgid "%{tool_name}: A new comment was added to %{plan_title}"
 msgstr ""
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:56 ../../app/models/user.rb:404
+#: ../../app/mailers/dmpopidor/user_mailer.rb:58 ../../app/models/user.rb:404
 msgid "%{user_name} has shared a Data Management Plan with you in %{tool_name}"
 msgstr ""
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:74
+#: ../../app/mailers/dmpopidor/user_mailer.rb:79
 #: ../../app/mailers/user_mailer.rb:82
 msgid "Changed permissions on a Data Management Plan in %{tool_name}"
 msgstr ""
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:89
+#: ../../app/mailers/dmpopidor/user_mailer.rb:96
 #: ../../app/mailers/user_mailer.rb:98
 msgid "Permissions removed on a DMP in %{tool_name}"
 msgstr ""
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:107
+#: ../../app/mailers/dmpopidor/user_mailer.rb:115
 #: ../../app/mailers/user_mailer.rb:117
 msgid "%{user_name} has requested feedback on a %{tool_name} plan"
 msgstr ""
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:133
+#: ../../app/mailers/dmpopidor/user_mailer.rb:142
 #: ../../app/mailers/user_mailer.rb:143
 msgid "%{tool_name}: Expert feedback has been provided for %{plan_title}"
 msgstr ""
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:152
+#: ../../app/mailers/dmpopidor/user_mailer.rb:162
 #: ../../app/mailers/user_mailer.rb:164
 msgid "DMP Visibility Changed: %{plan_title}"
 msgstr ""
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:167
+#: ../../app/mailers/dmpopidor/user_mailer.rb:178
 #: ../../app/mailers/user_mailer.rb:217
 msgid "Administrator privileges granted in %{tool_name}"
 msgstr ""
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:179
+#: ../../app/mailers/dmpopidor/user_mailer.rb:191
 msgid "Account expiration in %{tool_name}"
 msgstr ""
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:187
+#: ../../app/mailers/dmpopidor/user_mailer.rb:200
 msgid "Account expired in %{tool_name}"
 msgstr ""
 
@@ -988,19 +988,19 @@ msgstr ""
 msgid "can't be blank if no name is provided."
 msgstr ""
 
-#: ../../app/models/dmpopidor/plan.rb:76
+#: ../../app/models/dmpopidor/plan.rb:73
 msgid "Personal"
 msgstr ""
 
-#: ../../app/models/dmpopidor/plan.rb:90
+#: ../../app/models/dmpopidor/plan.rb:87
 msgid "DMP manager"
 msgstr ""
 
-#: ../../app/models/dmpopidor/plan.rb:101
+#: ../../app/models/dmpopidor/plan.rb:98
 msgid "Project coordinator"
 msgstr ""
 
-#: ../../app/models/dmpopidor/plan.rb:128
+#: ../../app/models/dmpopidor/plan.rb:125
 #: ../../engines/madmp_opidor/app/models/madmp_fragment.rb:440
 msgid "\"%{project_title}\" project DMP"
 msgstr ""
