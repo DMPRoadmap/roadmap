@@ -12,7 +12,9 @@ json.dmp do
   json.description      exportable_description(meta.data["description"])
   json.dmp_id do
     json.identifier     meta.data["dmpId"] || plan_url(id: dmp.data["plan_id"])
-    json.type           Export::Converters::RdaRegistryConverter.convert_pid_system(meta.data["dmpId"] ? meta.data["idType"] : "URL")
+    json.type           Export::Converters::RdaRegistryConverter.convert_pid_system(
+      meta.data["dmpId"] ? meta.data["idType"] : "URL"
+    )
   end
   json.language                   meta.data["dmpLanguage"]
   json.modified                   meta.data["lastModifiedDate"]
@@ -22,7 +24,9 @@ json.dmp do
   json.contact do
     json.contact_id do
       json.identifier     contact.person.data["personId"]
-      json.type           Export::Converters::RdaRegistryConverter.convert_agent_id_system(contact.person.data["idType"])
+      json.type           Export::Converters::RdaRegistryConverter.convert_agent_id_system(
+        contact.person.data["idType"]
+      )
     end
     json.mbox   contact.person.data["mbox"]
     json.name   contact.person.to_s
@@ -36,7 +40,8 @@ json.dmp do
     json.role       roles.uniq
     json.contributor_id do
       json.identifier     person.data["personId"]
-      json.type           Export::Converters::RdaRegistryConverter.convert_agent_id_system(person.data["idType"], is_person: true)
+      json.type           Export::Converters::RdaRegistryConverter.convert_agent_id_system(person.data["idType"],
+                                                                                           is_person: true)
     end
   end
   json.cost         dmp.costs do |cost|
@@ -56,9 +61,13 @@ json.dmp do
       json.funding project.fundings do |funding|
         json.funder_id do
           json.identifier     funding.funder.data["funderId"]
-          json.type           Export::Converters::RdaRegistryConverter.convert_agent_id_system(funding.funder.data["idType"], is_person: true)
+          json.type           Export::Converters::RdaRegistryConverter.convert_agent_id_system(
+            funding.funder.data["idType"], is_person: true
+          )
         end
-        json.funding_status Export::Converters::RdaRegistryConverter.convert_funding_status(funding.data["fundingStatus"])
+        json.funding_status Export::Converters::RdaRegistryConverter.convert_funding_status(
+          funding.data["fundingStatus"]
+        )
         json.grant_id do
           json.identifier     funding.data["grantId"]
           json.type           'other'
