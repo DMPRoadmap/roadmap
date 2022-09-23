@@ -22,9 +22,9 @@ module DMPRoadmap
     # --------------------- #
 
     # Your organisation name, used in various places throught the application
-    config.x.organisation.name = 'Institut de l\'Information Scientifique et Technique'
+    config.x.organisation.name = 'Inist-CNRS Institut de l\'Information Scientifique et Technique'
     # Your organisation's abbreviation
-    config.x.organisation.abbreviation = 'INIST'
+    config.x.organisation.abbreviation = 'Inist-CNRS'
     # Your organisation's homepage, used in some of the public facing pages
     config.x.organisation.url = 'http://www.inist.fr/'
     # Your organisation's legal (official) name - used in the copyright portion of the footer
@@ -70,7 +70,7 @@ module DMPRoadmap
     # Used throughout the system via ApplicationService.application_name
     config.x.application.name = 'DMP OPIDoR'
     # App version, displayed in the footer
-    config.x.application.version = 'V3.3.0'
+    config.x.application.version = 'V3.3.1'
     # App Github URL, displayed in the footer
     config.x.application.url = 'https://github.com/OPIDoR/DMPOPIDoR'
     config.x.application.release_notes_url = 'https://github.com/OPIDoR/DMPOPIDoR/wiki/Releases'
@@ -91,7 +91,7 @@ module DMPRoadmap
     # The link to the API documentation - used in emails about the API
     config.x.application.api_documentation_urls = {
       v0: 'https://github.com/DMPRoadmap/roadmap/wiki/API-V0-Documentation',
-      v1: 'https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation-V1'
+      v1: 'https://github.com/OPIDoR/DMPOPIDoR/wiki/API-DMP-OPIDoR'
     }
     # The links that appear on the home page. Add any number of links
     # config.x.application.welcome_links = [
