@@ -34,8 +34,8 @@
       <div class="pull-right">
         <a href="<%= super_admin_registry_download_path(@registry.id) %>" 
             class="btn btn-default"><%= _('Export Registry') %></a>
-        <a href="<%= new_super_admin_registry_value_path(registry_id: @registry.id) %>" 
-            class="btn btn-default"><%= _('Create Value') %></a>
+        <a href="<%= edit_super_admin_registry_path(@registry) %>" 
+            class="btn btn-default"><%= _('Edit Registry') %></a>
       </div>
     </dl>   
   </div>

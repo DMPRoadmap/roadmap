@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       post 'sort_values', on: :collection
       get 'download'
     end
-    resources :registry_values, only: %i[new create edit update destroy]
+    resources :registry_values, only: %i[edit update destroy]
     resources :madmp_schemas, only: %i[index new create edit update destroy]
   end
 

@@ -3,27 +3,6 @@
 module SuperAdmin
   # Controller for creating and deleting RegistryValues
   class RegistryValuesController < ApplicationController
-    def new
-      @registry = Registry.find(params[:registry_id])
-      authorize(@registry)
-      @registry_value = RegistryValue.new
-    end
-
-    # rubocop:disable Metrics/AbcSize
-    def create
-      @registry = Registry.find(permitted_params[:registry_id])
-      authorize(@registry)
-
-      @registry_value = RegistryValue.new(permitted_params)
-      if @registry_value.save
-        flash.now[:notice] = success_message(@registry_value, _('created'))
-      else
-        flash.now[:alert] = failure_message(@registry_value, _('create'))
-      end
-      redirect_to super_admin_registry_path(@registry)
-    end
-    # rubocop:enable Metrics/AbcSize
-
     def edit
       @registry_value = RegistryValue.find(params[:id])
       @registry = @registry_value.registry

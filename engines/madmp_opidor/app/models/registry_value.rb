@@ -27,12 +27,6 @@ class RegistryValue < ApplicationRecord
 
   default_scope { order(order: :asc) }
 
-  # =============
-  # = Callbacks =
-  # =============
-
-  before_validation :set_order, if: :registry_id_changed?
-
   # ==========
   # = Scopes =
   # ==========
@@ -53,12 +47,5 @@ class RegistryValue < ApplicationRecord
     else
       data[locale] || data
     end
-  end
-
-  # ============================
-  # = Private instance methods =
-  # ============================
-  def set_order
-    self.order = registry.registry_values.where.not(id: id).maximum(:order).to_i + 1
   end
 end

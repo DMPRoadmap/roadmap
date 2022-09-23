@@ -107,12 +107,14 @@ module SuperAdmin
         logger.error "Bad values_file: #{values_file.class.name}: #{values_file.inspect}"
       end
       begin
-        registry_values = JSON.parse(values_data)
-        if registry_values.key?(registry.name)
-          registry.registry_values.destroy_all
-          registry_values[registry.name].each_with_index do |reg_val, idx|
-            RegistryValue.create!(data: reg_val, registry: registry, order: idx)
+        json_values = JSON.parse(values_data)
+        if json_values.key?(registry.name)
+          registry.registry_values.delete_all
+          registry_values = []
+          json_values[registry.name].each_with_index do |reg_val, idx|
+            registry_values << RegistryValue.new(data: reg_val, registry: registry, order: idx)
           end
+          RegistryValue.import registry_values
         else
           flash.now[:alert] = 'Wrong values file format'
         end

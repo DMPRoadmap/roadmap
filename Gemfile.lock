@@ -41,6 +41,8 @@ GEM
       activemodel (= 5.2.8.1)
       activesupport (= 5.2.8.1)
       arel (>= 9.0)
+    activerecord-import (1.4.0)
+      activerecord (>= 4.2)
     activerecord_json_validator (2.1.1)
       activerecord (>= 4.2.0, < 8)
       json_schemer (~> 0.2.18)
@@ -542,6 +544,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-import
   activerecord_json_validator
   annotate
   annotate_gem
