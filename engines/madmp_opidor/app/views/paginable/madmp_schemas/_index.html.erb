@@ -4,6 +4,7 @@
       <tr>
         <th scope="col"><%= _('ID') %></th>
         <th scope="col"><%= _('Name') %>&nbsp;<%= paginable_sort_link('madmp_schemas.name') %></th>
+        <th scope="col"><%= _('Api Client') %>&nbsp;<%= paginable_sort_link('madmp_schemas.name') %></th>
         <th scope="col"><%= _('Classname') %></th>
         <th scope="col"><%= _('Version') %></th>
         <th scope="col" class="sorter-false"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
@@ -14,6 +15,7 @@
         <tr>
           <td><%= schema.id %></td>
           <td><%= schema.name %></td>
+          <td><%= schema.api_client&.name %></td>
           <td><%= schema.classname %></td>
           <td><%= schema.version %></td>
           <td>

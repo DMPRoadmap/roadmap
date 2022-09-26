@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_21_093836) do
+ActiveRecord::Schema.define(version: 2022_09_26_113642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -204,6 +204,8 @@ ActiveRecord::Schema.define(version: 2022_04_21_093836) do
     t.string "classname"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "api_client_id"
+    t.index ["api_client_id"], name: "index_madmp_schemas_on_api_client_id"
     t.index ["org_id"], name: "index_madmp_schemas_on_org_id"
   end
 
@@ -663,6 +665,7 @@ ActiveRecord::Schema.define(version: 2022_04_21_093836) do
   add_foreign_key "guidances", "guidance_groups"
   add_foreign_key "madmp_fragments", "answers"
   add_foreign_key "madmp_fragments", "madmp_schemas"
+  add_foreign_key "madmp_schemas", "api_clients"
   add_foreign_key "madmp_schemas", "orgs"
   add_foreign_key "notes", "answers"
   add_foreign_key "notes", "users"

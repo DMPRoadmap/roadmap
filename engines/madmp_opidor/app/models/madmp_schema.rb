@@ -24,6 +24,7 @@ class MadmpSchema < ApplicationRecord
   include ValidationMessages
 
   belongs_to :org, required: false
+  belongs_to :api_client, required: false
   has_many :madmp_fragments
   has_many :questions
 
@@ -74,7 +75,7 @@ class MadmpSchema < ApplicationRecord
   }
 
   scope :paginable, lambda {
-    select(:id, :label, :name, :classname, :version)
+    select(:id, :label, :name, :classname, :api_client_id, :version)
   }
 
   # =================
