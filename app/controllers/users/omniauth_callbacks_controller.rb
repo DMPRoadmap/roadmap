@@ -147,14 +147,6 @@ module Users
       return {} unless request.env.present?
 
       omniauth_hash = request.env['omniauth.auth']
-
-# TODO: Remove this debug before merging!
-Rails.logger.warn "OMNIAUTH PAYLOAD FROM SHIBBOLETH:" if omniauth_hash.present?
-Rails.logger.warn omniauth_hash.inspect if omniauth_hash.present?
-
-Rails.logger.warn "NO OMNIAUTH PAYLOAD FROM SHIBBOLETH ... SHOWING REQUEST.ENV INSTEAD" unless omniauth_hash.present?
-Rails.logger.warn request.env.inspect unless omniauth_hash
-
       omniauth_hash.present? ? omniauth_hash.to_h : {}
     end
   end
