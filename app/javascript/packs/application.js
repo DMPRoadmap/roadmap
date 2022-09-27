@@ -94,6 +94,7 @@ import '../src/superAdmin/users/edit';
 // ==========================
 // = DMPTool customizations =
 // ==========================
+import '../src/dmptool/recaptcha_aria';
 import '../src/dmptool/public_pages/plans_index';
 import '../src/dmptool/orgAdmin/plans/index';
 import '../src/dmptool/users/passwords/edit';

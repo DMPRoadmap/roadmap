@@ -37,8 +37,8 @@
 <% if !user_signed_in? && Rails.configuration.x.recaptcha.enabled then %>
   <div id="sign-up-recaptcha" class="c-textfield js-textfield">
     <!-- Accessibility helpers to identify Recaptcha v3 response areas -->
-    <label for="g-recaptcha-response" class="aria-only">This page uses an automated Recaptcha check. This area will contain any failure messages.</label>
-    <label for="g-recaptcha-response-100000" class="aria-only">Automated Recaptcha response</label>
+    <label for="g-recaptcha-response" class="hidden">This page uses an automated Recaptcha check. This area will contain any failure messages.</label>
+    <label for="g-recaptcha-response-100000" class="hidden">Automated Recaptcha response</label>
 
     <%= recaptcha_v3(action: 'contact', turbolinks: true) %>
   </div>
