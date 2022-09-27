@@ -113,6 +113,7 @@ user_entered = default_org.present? &&
                                       value: user_entered ? default_org&.name : nil,
                                       placeholder: _("Please enter the %{item_label} name") % { item_label: label.downcase },
                                       class: "form-control toggleable-field user-entered-org-#{autocomplete_id}",
+                                      aria: { label: _("Please enter the %{item_label} name if it does not appear in the search list.") % { item_label: label.downcase } }
                                       maxlength: 80 %>
           </div>
         </conditional>
