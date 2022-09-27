@@ -166,8 +166,8 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
       <span class="col-md-1">
         <%= f.select "file_size_unit", options_for_select(presenter.selectable_size_units, file_size[:unit]),
                                        { selected: file_size[:unit] },
-                                       { class: "form-control float-left" },
-                                       aria: { label: _('File size units') } %>
+                                       { class: "form-control float-left",
+                                         aria: { label: _('File size units') } } %>
       </span>
     </div>
   </div>
