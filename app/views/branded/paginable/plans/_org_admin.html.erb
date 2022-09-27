@@ -51,9 +51,7 @@
           <% if has_dmp_id %>
             <td>
               <% if plan.dmp_id.present? %>
-                <a href="<%= plan.dmp_id.value %>" target="_blank" class="has-new-window-popup-info">
-                  <%= id_for_display(id: plan.dmp_id, with_scheme_name: false).html_safe %>
-                </a>
+                <%= id_for_display(id: plan.dmp_id, with_scheme_name: false).html_safe %>
               <% end %>
             </td>
           <% end %>
@@ -61,6 +59,7 @@
             <% if current_user.can_org_admin? && plan.visibility == 'publicly_visible' then %>
               <%= check_box_tag :featured, "1", plan.featured?,
                                           class: "set_featured_plan",
+                                          aria: { label: "#{plan.title} featured flag"}
                                           data: { remote: true, method: :post,
                                                   url: set_featured_plan_path(plan) } %>
             <% else %>
