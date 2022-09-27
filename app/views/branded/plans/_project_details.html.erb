@@ -93,7 +93,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
     </div>
     <div class="form-group toggleable-field">
       <div class="col-md-12">
-        <%= form.label(:ethical_issues_description, _('Describe any ethical concerns'), class: 'control-label') %>
+        <%= form.label(:ethical_issues_description, _('Describe any ethical concerns'), class: 'control-label', id: 'plan-ethical-description') %>
       </div>
       <div class="col-md-8" data-toggle="tooltip" title="<%= ethics_description_tooltip %>">
         <em class="sr-only"><%= ethics_description_tooltip %></em>
@@ -101,7 +101,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
                            rows: 6,
                            class: 'form-control tinymce',
                            spellcheck: true,
-                           "aria-required": false %>
+                           aria: { required: false, labelledby: 'plan-ethical-description' } %>
       </div>
     </div>
     <div class="form-group toggleable-field">
