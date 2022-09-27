@@ -59,7 +59,7 @@
             <% if current_user.can_org_admin? && plan.visibility == 'publicly_visible' then %>
               <%= check_box_tag :featured, "1", plan.featured?,
                                           class: "set_featured_plan",
-                                          aria: { label: "#{plan.title} featured flag"}
+                                          aria: { label: "#{plan.title} featured flag"},
                                           data: { remote: true, method: :post,
                                                   url: set_featured_plan_path(plan) } %>
             <% else %>
