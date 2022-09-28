@@ -66,15 +66,7 @@ RSpec.describe Api::V2::Deserialization::Org do
       end
       it 'finds the matching Org by name' do
         org = create(:org)
-        result = described_class.send(:find_by_name, json: { name: org.name })
-
-p '================================================='
-p 'API V2 Deserialize Org - find_by_org'
-p '================================================='
-p org.inspect
-p result.inspect
-
-        expect(result).to eql(org)
+        expect(described_class.send(:find_by_name, json: { name: org.name })).to eql(org)
       end
       it 'does not attempt to find the RegistryOrg by name if the :restrict_orgs is true' do
         Rails.configuration.x.application.restrict_orgs = true
@@ -85,13 +77,6 @@ p result.inspect
         Rails.configuration.x.application.restrict_orgs = false
         registry_org = create(:registry_org)
         result = described_class.send(:find_by_name, json: { name: registry_org.name })
-
-p '================================================='
-p 'API V2 Deserialize Org - find_by_registry_org'
-p '================================================='
-p registry_org.inspect
-p result.inspect
-
         expect(result.name).to eql(registry_org.name)
       end
       it 'returns nil if no Org or RegistryOrg could be found' do

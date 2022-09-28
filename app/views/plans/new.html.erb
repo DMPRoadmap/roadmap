@@ -24,7 +24,7 @@
       <div class="row">
         <div class="form-group col-xs-6">
           <em class="sr-only"><%= project_title_tooltip %></em>
-          <%= f.text_field(:title, class: 'form-control', 'aria-describedby': 'project-title', 'aria-required': 'true', 'aria-label': 'project-title',
+          <%= f.text_field(:title, class: 'form-control', 'aria-labelledby': 'project-title', 'aria-required': 'true', 'aria-label': 'project-title',
                 'data-toggle': 'tooltip',
                 'data-placement': 'bottom',
                 spellcheck: true,
@@ -109,7 +109,7 @@
         <div class="form-group row">
           <div class="col-xs-6">
             <%= select_tag(:plan_template_id, "<option value=\"\">#{_('Please select a template')}</option>", name: 'plan[template_id]',
-                           class: 'form-control', 'aria-describedby': 'template-selection') %>
+                           class: 'form-control', 'aria-labelledby': 'template-selection') %>
           </div>
           <div class="col-xs-6">
             <span id="multiple-templates">
