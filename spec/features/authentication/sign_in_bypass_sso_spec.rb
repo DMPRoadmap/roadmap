@@ -9,10 +9,14 @@ RSpec.describe 'Sign in and bypass SSO', type: :feature do
 
   before(:each) do
     mock_blog
+    @pwd = SecureRandom.uuid
+
     @email_domain = 'foo.edu'
     @org = create(:org, contact_email: "help-desk@#{@email_domain}")
-    @registry_org = create(:registry_org, home_page: "http://#{@email_domain}", org: @org)
-    @user = create(:user, email: "jane@#{@email_domain}", org: @org)
+    @plan = create(:plan, :creator)
+    @user = @plan.owner
+    @user.update(email: "jane@#{@email_domain}", org: @org,
+                 password: @pwd, password_confirmation: @pwd)
     visit root_path
   end
 

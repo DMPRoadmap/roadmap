@@ -48,7 +48,6 @@ RSpec.describe 'Sign up and bypass SSO', type: :feature do
     within("form[action=\"#{user_registration_path}\"]") do
       fill_in 'First Name', with: Faker::Movies::StarWars.character.split.first
       fill_in 'Last Name', with: Faker::Movies::StarWars.character.split.last
-      select_an_org('#sign-up-org', @non_ror_org.name, 'Institution')
       fill_in 'Password', with: SecureRandom.uuid
       # Need to use JS to set the accept terms label since dmptool-ui treats the
       # whole thing as a label and theis particular label has a URL so 'clicking' it
