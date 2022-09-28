@@ -16,6 +16,6 @@ describe 'users/shared/_sso' do
     expect(rendered.include?('Your address is associated with:')).to eql(true)
     expect(rendered.include?("<h3>#{CGI.escapeHTML(user.org.name)}")).to eql(true)
     expect(rendered.include?('Foo')).to eql(true)
-    expect(rendered.include?('Sign in with Institution to Continue')).to eql(true)
+    expect(rendered.include?('Sign in with Institution (SSO)')).to eql(true)
   end
 end
