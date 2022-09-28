@@ -46,19 +46,19 @@ RSpec.describe 'Sign up and bypass SSO', type: :feature do
     expect(find('#org_autocomplete_name').value).to eql(@org.name)
 
     within("form[action=\"#{user_registration_path}\"]") do
-        fill_in 'First Name', with: Faker::Movies::StarWars.character.split.first
-        fill_in 'Last Name', with: Faker::Movies::StarWars.character.split.last
-        select_an_org('#sign-up-org', @non_ror_org.name, 'Institution')
-        fill_in 'Password', with: SecureRandom.uuid
-        # Need to use JS to set the accept terms label since dmptool-ui treats the
-        # whole thing as a label and theis particular label has a URL so 'clicking' it
-        # via Capybara results in going to the URL behind that link :/
-        page.execute_script("document.getElementById('user_accept_terms').checked = true;")
-        click_button 'Sign up'
-      end
+      fill_in 'First Name', with: Faker::Movies::StarWars.character.split.first
+      fill_in 'Last Name', with: Faker::Movies::StarWars.character.split.last
+      select_an_org('#sign-up-org', @non_ror_org.name, 'Institution')
+      fill_in 'Password', with: SecureRandom.uuid
+      # Need to use JS to set the accept terms label since dmptool-ui treats the
+      # whole thing as a label and theis particular label has a URL so 'clicking' it
+      # via Capybara results in going to the URL behind that link :/
+      page.execute_script("document.getElementById('user_accept_terms').checked = true;")
+      click_button 'Sign up'
+    end
 
-      expect(current_path).to eql(plans_path)
-      expect(page).to have_text('Welcome')
-      expect(page).to have_text('You are now ready to create your first DMP.')
+    expect(current_path).to eql(plans_path)
+    expect(page).to have_text('Welcome')
+    expect(page).to have_text('You are now ready to create your first DMP.')
   end
 end
