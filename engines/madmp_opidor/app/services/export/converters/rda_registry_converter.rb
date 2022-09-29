@@ -52,7 +52,7 @@ module Export
           when 'dsa', 'wds', 'coretrustseal'
             val.first.downcase
           else
-            'other'
+            ''
           end
         end
 
@@ -65,7 +65,7 @@ module Export
           when 'restreint', 'restricted'
             'shared'
           else
-            'closed '
+            'closed'
           end
         end
 

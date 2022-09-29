@@ -25,7 +25,7 @@ json.dmp do
     json.contact_id do
       json.identifier     contact.person.data["personId"]
       json.type           Export::Converters::RdaRegistryConverter.convert_agent_id_system(
-        contact.person.data["idType"]
+        contact.person.data["idType"], is_person: true
       )
     end
     json.mbox   contact.person.data["mbox"]
@@ -62,7 +62,7 @@ json.dmp do
         json.funder_id do
           json.identifier     funding.funder.data["funderId"]
           json.type           Export::Converters::RdaRegistryConverter.convert_agent_id_system(
-            funding.funder.data["idType"], is_person: true
+            funding.funder.data["idType"]
           )
         end
         json.funding_status Export::Converters::RdaRegistryConverter.convert_funding_status(
