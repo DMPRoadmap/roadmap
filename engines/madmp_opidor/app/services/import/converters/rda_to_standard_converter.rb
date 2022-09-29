@@ -195,6 +195,7 @@ module Import
                 'accessUrl' => elem['access_url'],
                 'availableUntil' => elem['available_until'],
                 'fileVolume' => elem['byte_size'],
+                'volumeUnit' => 'Bytes',
                 'dataAccess' => elem['data_access'],
                 'description' => elem['description'],
                 'downloadUrl' => elem['download_url'],

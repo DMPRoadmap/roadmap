@@ -51,7 +51,7 @@ module Dmpopidor
       @username   = @user.name
       @inviter    = inviter
       @link       = url_for(action: 'show', controller: 'plans', id: @role.plan.id)
-      @helpdesk_email = helpdesk_email(org: @plan.org)
+      @helpdesk_email = helpdesk_email(org: @user.org)
 
       I18n.with_locale current_locale(@user) do
         mail(to: @role.user.email,
@@ -72,7 +72,7 @@ module Dmpopidor
       @user       = user
       @username   = @user.name
       @messaging  = role_text(@role)
-      @helpdesk_email = helpdesk_email(org: @plan.org)
+      @helpdesk_email = helpdesk_email(org: @user.org)
 
       I18n.with_locale current_locale(role.user) do
         mail(to: @role.user.email,
@@ -171,7 +171,7 @@ module Dmpopidor
       @user      = user
       @username  = @user.name
       @ul_list   = privileges_list(@user)
-      @helpdesk_email = helpdesk_email(org: @plan.org)
+      @helpdesk_email = helpdesk_email(org: @user.org)
 
       I18n.with_locale current_locale(@user) do
         mail(to: user.email,
@@ -185,7 +185,7 @@ module Dmpopidor
     def anonymization_warning(user)
       @user = user
       @end_date = (@user.last_sign_in_at + 5.years).to_date
-      @helpdesk_email = helpdesk_email(org: @plan.org)
+      @helpdesk_email = helpdesk_email(org: @user.org)
       I18n.with_locale current_locale(@user) do
         mail(to: @user.email, subject:
           format(_('Account expiration in %{tool_name}'), tool_name: tool_name))
@@ -194,7 +194,7 @@ module Dmpopidor
 
     def anonymization_notice(user)
       @user = user
-      @helpdesk_email = helpdesk_email(org: @plan.org)
+      @helpdesk_email = helpdesk_email(org: @user.org)
       I18n.with_locale current_locale(@user) do
         mail(to: @user.email, subject:
           format(_('Account expired in %{tool_name}'), tool_name: tool_name))

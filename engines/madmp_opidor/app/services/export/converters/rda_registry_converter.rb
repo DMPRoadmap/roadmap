@@ -11,8 +11,10 @@ module Export
 
           if is_person # personStandard only support 'ISNI' & 'ORCID' as a AgentIDSystem value
             case val.downcase
-            when 'isni', 'orcid id', 'orcid'
-              val.downcase
+            when 'isni'
+              'isni'
+            when 'orcid id', 'orcid'
+              'orcid'
             else
               'other'
             end
@@ -52,7 +54,7 @@ module Export
           when 'dsa', 'wds', 'coretrustseal'
             val.first.downcase
           else
-            'other'
+            ''
           end
         end
 
@@ -65,7 +67,7 @@ module Export
           when 'restreint', 'restricted'
             'shared'
           else
-            'closed '
+            'closed'
           end
         end
 

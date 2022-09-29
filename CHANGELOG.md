@@ -3,6 +3,12 @@
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
 
+## 29/09/2022
+- Export RDA : Amélioration des convertisseurs (issue gitbucket 428)
+- Import RDA : Ajout d'un volumeUnit par défaut (issue gitbucket 388)
+- Correction d'un problème d'archivage des utilisateurs (issue gitbucket 376)
+- Export PDF/DOCX : Les libellés et entêtes des tableaux Produits de Recherche, Contributeurs et Budget sont affichés dans la langue du DMP (issue gitbucket 347)
+
 ## 23/09/2022
 - Amélioration du message de notification de changement de visibilité (issue gitbucket 420)
 - Le lien vers le swagger est désormais dans le pied de page
