@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-09-23 10:42+0200\n"
-"PO-Revision-Date: 2022-09-23 10:42+0200\n"
+"POT-Creation-Date: 2022-09-29 13:06+0200\n"
+"PO-Revision-Date: 2022-09-29 13:06+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -215,7 +215,6 @@ msgstr ""
 #: ../../app/controllers/plans_controller.rb:155
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:26
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:29
-#: ../../engines/madmp_opidor/app/controllers/super_admin/registry_values_controller.rb:19
 msgid "created"
 msgstr ""
 
@@ -227,7 +226,6 @@ msgstr ""
 #: ../../app/controllers/plans_controller.rb:210
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:29
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:33
-#: ../../engines/madmp_opidor/app/controllers/super_admin/registry_values_controller.rb:21
 msgid "create"
 msgstr ""
 
@@ -251,7 +249,7 @@ msgstr ""
 
 #: ../../app/controllers/dmpopidor/plans_controller.rb:130
 #: ../../app/controllers/plans_controller.rb:105
-#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:86
+#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:88
 msgid "%{user_name} Plan"
 msgstr ""
 
@@ -291,7 +289,7 @@ msgstr ""
 #: ../../app/controllers/plans_controller.rb:519
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:47
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:52
-#: ../../engines/madmp_opidor/app/controllers/super_admin/registry_values_controller.rb:42
+#: ../../engines/madmp_opidor/app/controllers/super_admin/registry_values_controller.rb:21
 msgid "update"
 msgstr ""
 
@@ -301,7 +299,7 @@ msgstr ""
 #: ../../app/controllers/plans_controller.rb:434
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:56
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:64
-#: ../../engines/madmp_opidor/app/controllers/super_admin/registry_values_controller.rb:53
+#: ../../engines/madmp_opidor/app/controllers/super_admin/registry_values_controller.rb:32
 msgid "deleted"
 msgstr ""
 
@@ -311,7 +309,7 @@ msgstr ""
 #: ../../app/controllers/plans_controller.rb:439
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:59
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:67
-#: ../../engines/madmp_opidor/app/controllers/super_admin/registry_values_controller.rb:56
+#: ../../engines/madmp_opidor/app/controllers/super_admin/registry_values_controller.rb:35
 msgid "delete"
 msgstr ""
 
@@ -415,7 +413,7 @@ msgstr ""
 #: ../../app/controllers/users_controller.rb:121
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:45
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:50
-#: ../../engines/madmp_opidor/app/controllers/super_admin/registry_values_controller.rb:40
+#: ../../engines/madmp_opidor/app/controllers/super_admin/registry_values_controller.rb:19
 msgid "updated"
 msgstr ""
 
@@ -604,7 +602,7 @@ msgstr ""
 
 #: ../../app/controllers/usage_controller.rb:72
 #: ../../app/controllers/usage_controller.rb:93
-#: ../../app/views/branded/users/admin_index.html.erb:6
+#: ../../app/views/branded/users/admin_index.html.erb:7
 msgid "Total"
 msgstr ""
 
@@ -1083,6 +1081,7 @@ msgid "guidance on"
 msgstr ""
 
 #: ../../app/models/role.rb:63
+#: ../../engines/madmp_opidor/app/models/api_client_role.rb:40
 msgid "can't be less than zero"
 msgstr ""
 
@@ -1252,7 +1251,7 @@ msgstr ""
 #: ../../app/views/branded/org_admin/departments/new.html.erb:14
 #: ../../app/views/branded/paginable/static_pages/_index.html.erb:5
 #: ../../app/views/branded/paginable/users/_index.html.erb:20
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:64
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:66
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:13
 #: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:6
 #: ../../engines/madmp_opidor/app/views/paginable/registries/_index.html.erb:5
@@ -1345,7 +1344,7 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/branded/contributors/index.html.erb:25
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:65
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:67
 msgid "Affiliation"
 msgstr ""
 
@@ -2913,7 +2912,7 @@ msgid "General information"
 msgstr ""
 
 #: ../../app/views/branded/plans/_navigation.html.erb:7
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:60
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:62
 msgid "Contributors"
 msgstr ""
 
@@ -2927,7 +2926,7 @@ msgid "Write Plan"
 msgstr ""
 
 #: ../../app/views/branded/plans/_navigation.html.erb:22
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:95
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:100
 msgid "Budget"
 msgstr ""
 
@@ -3034,22 +3033,22 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/branded/plans/budget.html.erb:20
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:99
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:104
 msgid "Cost type (Title)"
 msgstr ""
 
 #: ../../app/views/branded/plans/budget.html.erb:21
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:100
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:105
 msgid "Amount"
 msgstr ""
 
 #: ../../app/views/branded/plans/budget.html.erb:22
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:101
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:106
 msgid "Lifecycle stage"
 msgstr ""
 
 #: ../../app/views/branded/plans/budget.html.erb:41
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:122
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:127
 msgid "General Budget"
 msgstr ""
 
@@ -3246,15 +3245,15 @@ msgid ""
 "late_title}\" template provided by %{org_name}."
 msgstr ""
 
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:66
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:68
 msgid "Roles"
 msgstr ""
 
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:131
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:137
 msgid "Copyright information:"
 msgstr ""
 
-#: ../../app/views/branded/shared/export/_plan_coversheet.erb:134
+#: ../../app/views/branded/shared/export/_plan_coversheet.erb:140
 msgid ""
 " The above plan creator(s) have agreed that others may use as much of the text"
 " of this plan as they would like in their own plans, and customise it as neces"
@@ -3470,13 +3469,17 @@ msgstr ""
 msgid "User accounts"
 msgstr ""
 
-#: ../../app/views/branded/users/admin_index.html.erb:13
+#: ../../app/views/branded/users/admin_index.html.erb:7
+msgid "Active users"
+msgstr ""
+
+#: ../../app/views/branded/users/admin_index.html.erb:15
 msgid ""
 "Below is a list of users registered for your organisation. You can\n"
 "        sort the data by each field."
 msgstr ""
 
-#: ../../app/views/branded/users/admin_index.html.erb:23
+#: ../../app/views/branded/users/admin_index.html.erb:25
 msgid "Download users"
 msgstr ""
 
@@ -3661,15 +3664,15 @@ msgid "Plan not found"
 msgstr ""
 
 #:
-#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:76
+#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:78
 msgid ""
 "Unable to determine owner of the DMP, please specify an existing user as the c"
 "ontact"
 msgstr ""
 
 #:
-#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:96
-#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:99
+#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:98
+#: ../../engines/madmp_opidor/app/controllers/api/v1/madmp/plans_controller.rb:101
 msgid "Invalid JSON"
 msgstr ""
 
@@ -3706,15 +3709,15 @@ msgstr ""
 msgid "This property has an unknown problem : %{validation}"
 msgstr ""
 
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:90
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:91
 msgid "Invalid JSON data"
 msgstr ""
 
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:91
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:92
 msgid "Invalid format"
 msgstr ""
 
-#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:95
+#: ../../engines/madmp_opidor/app/services/import/plan_import_service.rb:96
 msgid "File should begin with :dmp property"
 msgstr ""
 
@@ -3920,7 +3923,7 @@ msgid "Export Registry"
 msgstr ""
 
 #: ../../engines/madmp_opidor/app/views/super_admin/registries/show.html.erb:38
-msgid "Create Value"
+msgid "Edit Registry"
 msgstr ""
 
 #:
