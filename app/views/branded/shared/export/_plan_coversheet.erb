@@ -43,8 +43,9 @@
             table_header: nil
     } ) %>
   </div>
-
-  <p><b><%= _("Research outputs") %> : </b></p>
+  <% I18n.with_locale @plan.template.locale  do %>
+    <p><b><%= _("Research outputs") %> : </b></p>
+  <% end %>
   <ol>
     <% @hash[:research_outputs].each do |research_output| %>
       <% research_output_description = research_output.json_fragment.research_output_description %>
@@ -57,74 +58,79 @@
     <% end %>
   </ol>
   <br/>
-  <p><b><%= _("Contributors") %></b></p> <br/>
-  <table class="real-table">
-    <thead>
-      <tr>
-        <th><%= _("Name") %></th>
-        <th><%= _("Affiliation") %></th>
-        <th><%= _("Roles") %></th>
-      </tr>
-    </thead>
-    <tbody>
-    <% contributors.each do |contributor| %>
-      <% person_id = contributor.data["personId"]%>
-      <tr>
-        <td>
-          <%= contributor.to_s %>
-          <% if person_id.present? %>
-            - <%= uri?(person_id) ? link_to(person_id, person_id, target: "_blank") : person_id %>
-          <% end %>
-        </td>
-        <td><%= contributor.data["affiliationName"] %></td>
-        <td>
-          <% if contributor.roles.present? %>
-            <ul>
-              <% contributor.roles(@hash[:research_outputs].pluck(:id)).each do |role| %>
-                <li><%= role %></li>
-              <% end %>
-            </ul>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
-  <% if @plan.template.structured? && !costs.empty?%>
-    <br/>
-    <p><b><%= _("Budget") %></b></p> <br/>
+  <% I18n.with_locale @plan.template.locale  do %>
+    <p><b><%= _("Contributors") %></b></p> <br/>
     <table class="real-table">
       <thead>
         <tr>
-          <th scope="col"><%= _("Cost type (Title)") %></th>
-          <th scope="col" class="sorter-false"><%= _("Amount") %></th>
-          <th scope="col" class="sorter-false"><%= _("Lifecycle stage") %></th>
+          <th><%= _("Name") %></th>
+          <th><%= _("Affiliation") %></th>
+          <th><%= _("Roles") %></th>
         </tr>
       </thead>
       <tbody>
-      <% costs.each do |cost| %>
-        <% next unless @hash[:research_outputs].pluck(:id).include?(cost.research_output_id) %>
-        
-        <% ro = ResearchOutput.where(id: cost.research_output_id).first %>
-        <% cost_title = cost.data["costType"] || "" %>
-        <% cost_title +=  " (#{cost.data["title"]})" if cost.data["title"].present?%>
+      <% contributors.each do |contributor| %>
+        <% person_id = contributor.data["personId"]%>
         <tr>
-          <td><%=  cost_title %></td>
-          <td><%= "#{cost.data["amount"]} #{cost.data["currency"]}"%></td>
-          <% if ro.present? %>
-            <% cost_label = form_label(
-                              cost.parent.madmp_schema.properties["cost"],
-                              LocaleService.to_gettext(locale: @plan.template.locale),
-                              false
-                            ) %>
-            <td><%= "#{cost_label} - " %><b><%= ro.abbreviation %></b></td>
-          <% else %>
-            <td><%= _("General Budget") %></td>
-          <% end %>
+          <td>
+            <%= contributor.to_s %>
+            <% if person_id.present? %>
+              - <%= uri?(person_id) ? link_to(person_id, person_id, target: "_blank") : person_id %>
+            <% end %>
+          </td>
+          <td><%= contributor.data["affiliationName"] %></td>
+          <td>
+            <% if contributor.roles.present? %>
+              <ul>
+                <% contributor.roles(@hash[:research_outputs].pluck(:id)).each do |role| %>
+                  <li><%= role %></li>
+                <% end %>
+              </ul>
+            <% end %>
+          </td>
         </tr>
       <% end %>
       </tbody>
     </table>
+  <% end %>
+  <% if @plan.template.structured? && !costs.empty?%>
+    <br/>
+
+    <% I18n.with_locale @plan.template.locale  do %>
+      <p><b><%= _("Budget") %></b></p> <br/>
+      <table class="real-table">
+        <thead>
+          <tr>
+            <th scope="col"><%= _("Cost type (Title)") %></th>
+            <th scope="col" class="sorter-false"><%= _("Amount") %></th>
+            <th scope="col" class="sorter-false"><%= _("Lifecycle stage") %></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% costs.each do |cost| %>
+          <% next unless @hash[:research_outputs].pluck(:id).include?(cost.research_output_id) %>
+          
+          <% ro = ResearchOutput.where(id: cost.research_output_id).first %>
+          <% cost_title = cost.data["costType"] || "" %>
+          <% cost_title +=  " (#{cost.data["title"]})" if cost.data["title"].present?%>
+          <tr>
+            <td><%=  cost_title %></td>
+            <td><%= "#{cost.data["amount"]} #{cost.data["currency"]}"%></td>
+            <% if ro.present? %>
+              <% cost_label = form_label(
+                                cost.parent.madmp_schema.properties["cost"],
+                                LocaleService.to_gettext(locale: @plan.template.locale),
+                                false
+                              ) %>
+              <td><%= "#{cost_label} - " %><b><%= ro.abbreviation %></b></td>
+            <% else %>
+              <td><%= _("General Budget") %></td>
+            <% end %>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    <% end %>
   <% end %>
 
   <% if @public_plan %>
