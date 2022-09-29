@@ -11,8 +11,10 @@ module Export
 
           if is_person # personStandard only support 'ISNI' & 'ORCID' as a AgentIDSystem value
             case val.downcase
-            when 'isni', 'orcid id', 'orcid'
-              val.downcase
+            when 'isni'
+              'isni'
+            when 'orcid id', 'orcid'
+              'orcid'
             else
               'other'
             end
