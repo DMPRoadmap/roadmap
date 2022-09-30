@@ -15,6 +15,17 @@ module PlansHelper
     end
   end
 
+  # display the role of the user for a given plan
+  def display_client_role(client_role)
+    if client_role.creator?
+      _('Creator')
+    elsif client_role.edit?
+      _('Editor')
+    elsif client_role.read?
+      _('Read only')
+    end
+  end
+
   # display the visibility of the plan
   def display_visibility(val)
     case val

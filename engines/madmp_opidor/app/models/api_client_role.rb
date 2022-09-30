@@ -30,9 +30,6 @@ class ApiClientRole < ApplicationRecord
 
   validates :plan, presence: { message: PRESENCE_MESSAGE }
 
-  validates :active, inclusion: { in: BOOLEAN_VALUES,
-                                  message: INCLUSION_MESSAGE }
-
   validates :access, presence: { message: PRESENCE_MESSAGE },
                      numericality: { greater_than: 0, only_integer: true,
                                      message: _("can't be less than zero") }

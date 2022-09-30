@@ -395,6 +395,14 @@ class PlansController < ApplicationController
     if @plan.present?
       authorize @plan
       @plan_roles = @plan.roles.where(active: true)
+      # --------------------------------
+      # Start DMP OPIDoR Customization
+      # --------------------------------
+      @plan_client_roles = @plan.api_client_roles
+      @api_clients = ApiClient.all
+      # --------------------------------
+      # End DMP OPIDoR Customization
+      # --------------------------------
     else
       redirect_to(plans_path)
     end

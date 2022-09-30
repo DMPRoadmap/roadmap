@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-09-29 13:06+0200\n"
-"PO-Revision-Date: 2022-09-29 13:06+0200\n"
+"POT-Creation-Date: 2022-09-30 16:17+0200\n"
+"PO-Revision-Date: 2022-09-30 16:17+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -276,7 +276,7 @@ msgid "Invalid JSON: "
 msgstr ""
 
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:13
-#: ../../app/controllers/plans_controller.rb:562
+#: ../../app/controllers/plans_controller.rb:570
 msgid "There is no plan associated with id %{id}"
 msgstr ""
 
@@ -286,7 +286,7 @@ msgid "Data contact"
 msgstr ""
 
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:45
-#: ../../app/controllers/plans_controller.rb:519
+#: ../../app/controllers/plans_controller.rb:527
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:47
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:52
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registry_values_controller.rb:21
@@ -296,7 +296,7 @@ msgstr ""
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:59
 #: ../../app/controllers/guidance_groups_controller.rb:91
 #: ../../app/controllers/guidances_controller.rb:93
-#: ../../app/controllers/plans_controller.rb:434
+#: ../../app/controllers/plans_controller.rb:442
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:56
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:64
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registry_values_controller.rb:32
@@ -306,7 +306,7 @@ msgstr ""
 #: ../../app/controllers/dmpopidor/research_outputs_controller.rb:61
 #: ../../app/controllers/guidance_groups_controller.rb:93
 #: ../../app/controllers/guidances_controller.rb:95
-#: ../../app/controllers/plans_controller.rb:439
+#: ../../app/controllers/plans_controller.rb:447
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:59
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:67
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registry_values_controller.rb:35
@@ -401,15 +401,15 @@ msgstr ""
 msgid "template with customisations by the"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:493
+#: ../../app/controllers/plans_controller.rb:501
 msgid "copied"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:495
+#: ../../app/controllers/plans_controller.rb:503
 msgid "copy"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:516
+#: ../../app/controllers/plans_controller.rb:524
 #: ../../app/controllers/users_controller.rb:121
 #: ../../engines/madmp_opidor/app/controllers/super_admin/madmp_schemas_controller.rb:45
 #: ../../engines/madmp_opidor/app/controllers/super_admin/registries_controller.rb:50
@@ -417,25 +417,25 @@ msgstr ""
 msgid "updated"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:524
+#: ../../app/controllers/plans_controller.rb:532
 msgid ""
 "Unable to change the plan's status since it is needed at least %{percentage} p"
 "ercentage responded"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:530
+#: ../../app/controllers/plans_controller.rb:538
 msgid "Unable to find plan id %{plan_id}"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:545
+#: ../../app/controllers/plans_controller.rb:553
 msgid "Your project is now a test."
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:545
+#: ../../app/controllers/plans_controller.rb:553
 msgid "Your project is no longer a test."
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:549
+#: ../../app/controllers/plans_controller.rb:557
 msgid "Unable to change the plan's test status"
 msgstr ""
 
@@ -574,6 +574,7 @@ msgid ""
 msgstr ""
 
 #: ../../app/controllers/roles_controller.rb:107
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:56
 msgid "Access removed"
 msgstr ""
 
@@ -788,15 +789,19 @@ msgstr ""
 msgid "Co-owner"
 msgstr ""
 
-#: ../../app/helpers/plans_helper.rb:12
+#: ../../app/helpers/plans_helper.rb:12 ../../app/helpers/plans_helper.rb:23
 msgid "Editor"
 msgstr ""
 
-#: ../../app/helpers/plans_helper.rb:14
+#: ../../app/helpers/plans_helper.rb:14 ../../app/helpers/plans_helper.rb:25
 msgid "Read only"
 msgstr ""
 
-#: ../../app/helpers/plans_helper.rb:22
+#: ../../app/helpers/plans_helper.rb:21
+msgid "Creator"
+msgstr ""
+
+#: ../../app/helpers/plans_helper.rb:33
 #: ../../app/helpers/settings_template_helper.rb:16
 #: ../../app/views/branded/orgs/_profile_form.html.erb:141
 #: ../../app/views/branded/paginable/orgs/_index.html.erb:5
@@ -805,39 +810,39 @@ msgstr ""
 msgid "Organisation"
 msgstr ""
 
-#: ../../app/helpers/plans_helper.rb:24
+#: ../../app/helpers/plans_helper.rb:35
 msgid "Public"
 msgstr ""
 
-#: ../../app/helpers/plans_helper.rb:30 ../../app/models/plan.rb:75
+#: ../../app/helpers/plans_helper.rb:41 ../../app/models/plan.rb:75
 msgid "Administrator"
 msgstr ""
 
-#: ../../app/helpers/plans_helper.rb:35 ../../app/helpers/plans_helper.rb:37
+#: ../../app/helpers/plans_helper.rb:46 ../../app/helpers/plans_helper.rb:48
 #: ../../app/views/branded/layouts/application.html.erb:155
 msgid "Private"
 msgstr ""
 
-#: ../../app/helpers/plans_helper.rb:44
+#: ../../app/helpers/plans_helper.rb:55
 msgid "Organisation: anyone at my organisation can view."
 msgstr ""
 
-#: ../../app/helpers/plans_helper.rb:46
+#: ../../app/helpers/plans_helper.rb:57
 msgid "Public: anyone can view."
 msgstr ""
 
-#: ../../app/helpers/plans_helper.rb:52
+#: ../../app/helpers/plans_helper.rb:63
 msgid ""
 "Administrator: visible to me, specified collaborators and administrators at my"
 " organisation."
 msgstr ""
 
-#: ../../app/helpers/plans_helper.rb:57
+#: ../../app/helpers/plans_helper.rb:68
 #: ../../app/views/branded/layouts/application.html.erb:156
 msgid "Private: restricted to me and people I invite."
 msgstr ""
 
-#: ../../app/helpers/plans_helper.rb:79
+#: ../../app/helpers/plans_helper.rb:90
 msgid "You"
 msgstr ""
 
@@ -1071,7 +1076,7 @@ msgstr ""
 msgid "private"
 msgstr ""
 
-#: ../../app/models/plan.rb:796
+#: ../../app/models/plan.rb:800
 msgid "must be after the start date"
 msgstr ""
 
@@ -1080,7 +1085,7 @@ msgid "guidance on"
 msgstr ""
 
 #: ../../app/models/role.rb:63
-#: ../../engines/madmp_opidor/app/models/api_client_role.rb:40
+#: ../../engines/madmp_opidor/app/models/api_client_role.rb:35
 msgid "can't be less than zero"
 msgstr ""
 
@@ -1187,12 +1192,13 @@ msgstr ""
 #: ../../app/views/branded/plans/_edit_details.html.erb:118
 #: ../../app/views/branded/plans/_edit_details.html.erb:189
 #: ../../app/views/branded/plans/_share_form.html.erb:112
+#: ../../app/views/branded/plans/_share_third_party.html.erb:86
 #: ../../app/views/branded/research_outputs/_list.html.erb:79
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:59
 #: ../../app/views/branded/users/_notification_preferences.html.erb:47
 #: ../../app/views/research_outputs/_form.html.erb:177
 #: ../../engines/madmp_opidor/app/views/madmp_fragments/_edit.html.erb:58
-#: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:26
+#: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:33
 #: ../../engines/madmp_opidor/app/views/super_admin/registries/_form.html.erb:27
 #: ../../engines/madmp_opidor/app/views/super_admin/registry_values/_form.html.erb:12
 msgid "Save"
@@ -1363,8 +1369,9 @@ msgstr ""
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:55
 #: ../../app/views/branded/paginable/templates/_history.html.erb:10
 #: ../../app/views/branded/plans/_share_form.html.erb:20
-#: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:9
-#: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:28
+#: ../../app/views/branded/plans/_share_third_party.html.erb:30
+#: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:10
+#: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:30
 #: ../../engines/madmp_opidor/app/views/paginable/registries/_index.html.erb:9
 #: ../../engines/madmp_opidor/app/views/paginable/registries/_index.html.erb:28
 #: ../../engines/madmp_opidor/app/views/paginable/registry_values/_index.html.erb:6
@@ -1535,7 +1542,7 @@ msgstr ""
 #: ../../app/views/branded/research_outputs/_list.html.erb:80
 #: ../../app/views/branded/super_admin/static_pages/_form.html.erb:67
 #: ../../app/views/research_outputs/_form.html.erb:182
-#: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:32
+#: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:39
 #: ../../engines/madmp_opidor/app/views/super_admin/registries/_form.html.erb:28
 msgid "Cancel"
 msgstr ""
@@ -2039,7 +2046,7 @@ msgstr ""
 #: ../../engines/madmp_opidor/app/views/dynamic_form/fields/contributor/_contributor_list.html.erb:43
 #: ../../engines/madmp_opidor/app/views/dynamic_form/linked_fragment/_list.html.erb:45
 #: ../../engines/madmp_opidor/app/views/paginable/registries/_index.html.erb:33
-#: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:28
+#: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:35
 #: ../../engines/madmp_opidor/app/views/super_admin/registry_values/_form.html.erb:14
 msgid "Delete"
 msgstr ""
@@ -2121,7 +2128,7 @@ msgstr ""
 #: ../../engines/madmp_opidor/app/views/dynamic_form/fields/_fragment_select_field.html.erb:74
 #: ../../engines/madmp_opidor/app/views/dynamic_form/fields/contributor/_contributor_list.html.erb:35
 #: ../../engines/madmp_opidor/app/views/dynamic_form/linked_fragment/_list.html.erb:36
-#: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:31
+#: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:33
 #: ../../engines/madmp_opidor/app/views/paginable/registries/_index.html.erb:31
 msgid "Edit"
 msgstr ""
@@ -2359,6 +2366,7 @@ msgstr ""
 #: ../../app/views/branded/paginable/plans/_administrator_visible.html.erb:76
 #: ../../app/views/branded/paginable/plans/_privately_visible.html.erb:77
 #: ../../app/views/branded/plans/_share_form.html.erb:58
+#: ../../app/views/branded/plans/_share_third_party.html.erb:43
 #: ../../app/views/research_outputs/_form.html.erb:179
 msgid "Remove"
 msgstr ""
@@ -2529,7 +2537,7 @@ msgid "URL"
 msgstr ""
 
 #: ../../app/views/branded/paginable/templates/_history.html.erb:7
-#: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:8
+#: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:9
 #: ../../engines/madmp_opidor/app/views/paginable/registries/_index.html.erb:8
 #: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:18
 #: ../../engines/madmp_opidor/app/views/super_admin/registries/_form.html.erb:18
@@ -2972,10 +2980,13 @@ msgstr ""
 
 #: ../../app/views/branded/plans/_share_form.html.erb:18
 #: ../../app/views/branded/plans/_share_form.html.erb:91
+#: ../../app/views/branded/plans/_share_third_party.html.erb:28
+#: ../../app/views/branded/plans/_share_third_party.html.erb:77
 msgid "Permissions"
 msgstr ""
 
 #: ../../app/views/branded/plans/_share_form.html.erb:58
+#: ../../app/views/branded/plans/_share_third_party.html.erb:43
 msgid "Are you sure?"
 msgstr ""
 
@@ -3023,6 +3034,27 @@ msgstr ""
 
 #: ../../app/views/branded/plans/_share_form.html.erb:147
 msgid "Public: anyone can view"
+msgstr ""
+
+#: ../../app/views/branded/plans/_share_third_party.html.erb:13
+msgid "Third party applications"
+msgstr ""
+
+#: ../../app/views/branded/plans/_share_third_party.html.erb:23
+msgid "Manage third party applications"
+msgstr ""
+
+#: ../../app/views/branded/plans/_share_third_party.html.erb:27
+#: ../../app/views/branded/plans/_share_third_party.html.erb:60
+msgid "Application"
+msgstr ""
+
+#: ../../app/views/branded/plans/_share_third_party.html.erb:53
+msgid "Authorize third party applications"
+msgstr ""
+
+#: ../../app/views/branded/plans/_share_third_party.html.erb:82
+msgid "Read only: can read the content of the dmp"
 msgstr ""
 
 #: ../../app/views/branded/plans/budget.html.erb:13
@@ -3680,6 +3712,26 @@ msgstr ""
 msgid "Registry not found"
 msgstr ""
 
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:20
+msgid "Plan is already shared with %{api_client}."
+msgstr ""
+
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:23
+msgid "Plan shared with \"%{api_client}\" application successfully."
+msgstr ""
+
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:26
+msgid "An error has occured while sharing the plan with \"%{api_client}\"."
+msgstr ""
+
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:30
+msgid "Please select an application in the list"
+msgstr ""
+
+#: ../../engines/madmp_opidor/app/controllers/api_client_roles_controller.rb:44
+msgid "Successfully changed the permissions for %{api_client}."
+msgstr ""
+
 #: ../../engines/madmp_opidor/app/controllers/madmp_codebase_controller.rb:34
 msgid "Notification has been sent"
 msgstr ""
@@ -3820,6 +3872,12 @@ msgstr ""
 
 #:
 #: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:7
+#: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:22
+msgid "Api Client"
+msgstr ""
+
+#:
+#: ../../engines/madmp_opidor/app/views/paginable/madmp_schemas/_index.html.erb:8
 #: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:14
 msgid "Classname"
 msgstr ""
@@ -3871,12 +3929,17 @@ msgid "Label"
 msgstr ""
 
 #:
-#: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:22
+#: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:25
+msgid "Select which API Client this form belongs to."
+msgstr ""
+
+#:
+#: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:29
 msgid "Schema"
 msgstr ""
 
 #:
-#: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:30
+#: ../../engines/madmp_opidor/app/views/super_admin/madmp_schemas/_form.html.erb:37
 msgid "Are you sure you want to delete the schema \"%{title}\"?"
 msgstr ""
 

@@ -29,6 +29,9 @@ Rails.application.routes.draw do
   resources :registries, only: [] do
     get 'load_values', action: :load_values, on: :collection
   end
+
+  resources :api_client_roles, only: %i[create update destroy]
+
   namespace :paginable do
     # Paginable actions for registries
     resources :registries, only: [] do
