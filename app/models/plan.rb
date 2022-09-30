@@ -130,6 +130,8 @@ class Plan < ApplicationRecord
 
   has_many :users, through: :roles
 
+  has_many :api_clients, through: :api_client_roles
+
   has_and_belongs_to_many :guidance_groups, join_table: :plans_guidance_groups
 
   has_many :exported_plans, dependent: :destroy

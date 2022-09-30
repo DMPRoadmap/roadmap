@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_26_113642) do
+ActiveRecord::Schema.define(version: 2022_09_27_081010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,18 @@ ActiveRecord::Schema.define(version: 2022_09_26_113642) do
     t.integer "question_option_id", null: false
     t.index ["answer_id"], name: "answers_question_options_answer_id_idx"
     t.index ["question_option_id"], name: "answers_question_options_question_option_id_idx"
+  end
+
+  create_table "api_client_roles", force: :cascade do |t|
+    t.integer "access", default: 0, null: false
+    t.bigint "api_client_id", null: false
+    t.bigint "plan_id", null: false
+    t.bigint "research_output_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["api_client_id"], name: "index_api_client_roles_on_api_client_id"
+    t.index ["plan_id"], name: "index_api_client_roles_on_plan_id"
+    t.index ["research_output_id"], name: "index_api_client_roles_on_research_output_id"
   end
 
   create_table "api_clients", id: :serial, force: :cascade do |t|
