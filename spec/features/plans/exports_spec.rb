@@ -165,6 +165,8 @@ RSpec.describe 'PlansExports', type: :feature, js: true do
   # = Helper methods =
   # ===========================
 
+  # rubocop:disable Metrics/AbcSize
+  # disable Rubocup metrics check to confirm both plan title and phase title on downloaded file
   def _regular_download(format)
     if format == 'html'
       new_window = window_opened_by do
@@ -184,7 +186,6 @@ RSpec.describe 'PlansExports', type: :feature, js: true do
     click_button 'Download Plan'
     expect(page.source).to have_text(plan.title)
     plan.phases.each do |phase| # All phase titles should be included in output
-      p phase.id
       expect(page.source).to have_text(phase.title)
     end
   end
@@ -197,6 +198,7 @@ RSpec.describe 'PlansExports', type: :feature, js: true do
     expect(page.source).not_to have_text(plan.phases[2].title) if plan.phases.length > 2
   end
 
+  # rubocop:enable Metrics/AbcSize
   def _select_option(select_id, option_value)
     find(:id, select_id).find("option[value='#{option_value}']").select_option
   end
