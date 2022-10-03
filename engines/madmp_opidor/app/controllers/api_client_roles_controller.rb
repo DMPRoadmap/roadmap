@@ -9,8 +9,7 @@ class ApiClientRolesController < ApplicationController
   # POST /roles
   # rubocop:disable Metrics/AbcSize
   def create
-    plan = Plan.find(client_role_params[:plan_id])
-    @client_role = ApiClientRole.new(plan: plan, access: client_role_params[:access])
+    @client_role = ApiClientRole.new(client_role_params)
     authorize @client_role
     if client_role_params[:api_client_id].present?
       api_client = ApiClient.find(client_role_params[:api_client_id])

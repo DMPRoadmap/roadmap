@@ -78,7 +78,7 @@
           <div class="form-group">
             <div class="radio">
               <%= f.label :commenter_access do %>
-                <%= f.radio_button :access, client_reader.access, checked: true, disabled: true, id: "client_role_commenter_access" %>
+                <%= f.radio_button :access, client_reader.access, checked: true, id: "client_role_commenter_access" %>
                 <%= _('Read only: can read the content of the dmp') %>
               <% end %>
             </div>
