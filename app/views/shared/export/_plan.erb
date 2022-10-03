@@ -18,7 +18,7 @@
 
     <% @hash[:phases].each do |phase| %>
       <%# Only render selected phase %>
-      <% if phase[:title] == @selected_phase.title %>
+      <% if @hash[:all_phases] || (@selected_phase.present? && phase[:title] == @selected_phase.title) %>
         <%# Page break before each phase %>
         <div style="page-break-before:always;"></div>
         <h1><%= download_plan_page_title(@plan, phase, @hash) %></h1>
