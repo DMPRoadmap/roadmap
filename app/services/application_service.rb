@@ -7,7 +7,7 @@ class ApplicationService
     # the Rails application name
     def application_name
       default = Rails.application.class.name.split('::').first
-      Rails.configuration.x.application.fetch(:name, default)
+      _(Rails.configuration.x.application.fetch(:name, default))
     end
   end
 end

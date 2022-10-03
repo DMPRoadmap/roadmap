@@ -11,9 +11,9 @@ module OrgAdmin
       authorize @phase
       @new_phase = get_modifiable(@phase)
       flash[:notice] = if @new_phase == @phase
-                         'This template is already a draft'
+                         _('This template is already a draft')
                        else
-                         'New version of Template created'
+                         _('New version of Template created')
                        end
       redirect_to org_admin_template_phase_url(@new_phase.template, @new_phase)
     end

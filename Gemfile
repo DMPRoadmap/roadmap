@@ -66,6 +66,8 @@ gem 'rollbar', group: :rollbar, require: false
 # DATABASE #
 # ======== #
 
+# 3.1.0: configuration may need from Neil's side: bundle config set --local without mysql2 with pg 
+
 # A simple, fast Mysql library for Ruby, binding to libmysql
 # (http://github.com/brianmario/mysql2)
 gem 'mysql2', group: :mysql, require: false
