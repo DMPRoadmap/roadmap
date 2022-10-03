@@ -232,11 +232,7 @@ Rails.application.routes.draw do
         resources :dmp_fragments, controller: "madmp_fragments", action: "dmp_fragments"
         resources :madmp_fragments, only: %i[show update], controller: "madmp_fragments", path: "fragments"
         resources :madmp_schemas, only: [:show], controller: "madmp_schemas", path: "schemas"
-        resources :plans, only: [:show] do
-          member do
-            get :rda_export
-          end
-        end
+        resources :plans, only: [:show]
       end
     end
 
@@ -258,9 +254,6 @@ Rails.application.routes.draw do
         resources :madmp_schemas, only: %i[index show], controller: "madmp_schemas", path: "schemas"
         resources :registries, only: %i[index show], controller: "registries", param: :name
         resources :plans, only: [:show] do
-          member do
-            get :rda_export
-          end
           collection do
             post :import
           end
