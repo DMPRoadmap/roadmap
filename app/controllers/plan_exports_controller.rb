@@ -38,15 +38,15 @@ class PlanExportsController < ApplicationController
     @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
     if params.key?(:phase_id)
       # order phases by phase number asc
-      @hash[:phases] = @hash[:phases].sort_by{|phase| phase[:number]}
-      if (params[:phase_id] == "All")
+      @hash[:phases] = @hash[:phases].sort_by { |phase| phase[:number] }
+      if params[:phase_id] == 'All'
         @hash[:all_phases] = true
       else
         @selected_phase = @plan.phases.find(params[:phase_id])
       end
     else
-      @plan.phases.order("phases.updated_at DESC")
-                             .detect { |p| p.visibility_allowed?(@plan) }
+      @plan.phases.order('phases.updated_at DESC')
+           .detect { |p| p.visibility_allowed?(@plan) }
     end
 
     # Added contributors to coverage of plans.

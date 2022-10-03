@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.describe "PlansExports", type: :feature, js: true do
-
+RSpec.describe 'PlansExports', type: :feature, js: true do
   let!(:template) { create(:template, phases: 2) }
   let!(:org) { create(:org, managed: true, is_other: false) }
   let!(:user) { create(:user, org: org) }
@@ -17,7 +16,7 @@ RSpec.describe "PlansExports", type: :feature, js: true do
     sign_in(user)
   end
 
-  scenario "User downloads plan from organisational plans portion of the dashboard" do
+  scenario 'User downloads plan from organisational plans portion of the dashboard' do
     new_plan  = create(:plan, :publicly_visible, template: template)
     new_phase = create(:phase, template: template, sections: 2)
     new_phase.sections do |sect|
@@ -35,44 +34,44 @@ RSpec.describe "PlansExports", type: :feature, js: true do
     find(:css, "a[href*=\"/#{new_plan.id}/export.pdf\"]", visible: false).click
   end
 
-  scenario "User downloads public plan belonging to other User" do
+  scenario 'User downloads public plan belonging to other User' do
     new_plan = create(:plan, :publicly_visible, template: template)
     create(:role, :creator, plan: new_plan)
     sign_in(user)
     within("#plan_#{plan.id}") do
-      click_button("Actions")
-      click_link "Download"
+      click_button('Actions')
+      click_link 'Download'
     end
-    select("html")
-    new_window = window_opened_by { click_button "Download Plan" }
+    select('html')
+    new_window = window_opened_by { click_button 'Download Plan' }
     within_window new_window do
       expect(page.source).to have_text(plan.title)
     end
   end
 
-  scenario "User downloads org plan belonging to User in same org" do
+  scenario 'User downloads org plan belonging to User in same org' do
     new_plan = create(:plan, :organisationally_visible, template: template)
     create(:role, :creator, plan: new_plan, user: create(:user, org: org))
     sign_in(user)
     within("#plan_#{plan.id}") do
-      click_button("Actions")
-      click_link "Download"
+      click_button('Actions')
+      click_link 'Download'
     end
-    select("html")
-    new_window = window_opened_by { click_button "Download Plan" }
+    select('html')
+    new_window = window_opened_by { click_button 'Download Plan' }
     within_window new_window do
       expect(page.source).to have_text(plan.title)
     end
   end
 
-  scenario "User downloads org plan belonging to User in other org" do
+  scenario 'User downloads org plan belonging to User in other org' do
     new_plan = create(:plan, :organisationally_visible, template: template)
     create(:role, :creator, plan: new_plan)
     sign_in(create(:user))
     expect(page).not_to have_text(new_plan.title)
   end
 
-  scenario "User attempts to download private plan belonging to User in same" do
+  scenario 'User attempts to download private plan belonging to User in same' do
     new_plan = create(:plan, :privately_visible, template: template)
     create(:role, :creator, plan: new_plan)
     sign_in(create(:user))
@@ -80,16 +79,16 @@ RSpec.describe "PlansExports", type: :feature, js: true do
   end
 
   # Separate code to test all-phase-download for html since it requires operation in new window
-  scenario "User downloads their plan as HTML" do
+  scenario 'User downloads their plan as HTML' do
     within("#plan_#{plan.id}") do
-      click_button("Actions")
-      click_link "Download"
+      click_button('Actions')
+      click_link 'Download'
     end
-    select("html")
+    select('html')
     if plan.phases.present?
       new_window = window_opened_by do
-        _select_option("phase_id", "All")
-        click_button "Download Plan"
+        _select_option('phase_id', 'All')
+        click_button 'Download Plan'
       end
       within_window new_window do
         expect(page.source).to have_text(plan.title)
@@ -98,8 +97,8 @@ RSpec.describe "PlansExports", type: :feature, js: true do
         end
       end
       new_window = window_opened_by do
-        _select_option("phase_id", plan.phases[1].id)
-        click_button "Download Plan"
+        _select_option('phase_id', plan.phases[1].id)
+        click_button 'Download Plan'
       end
       within_window new_window do
         expect(page.source).to have_text(plan.title)
@@ -107,58 +106,58 @@ RSpec.describe "PlansExports", type: :feature, js: true do
         expect(page.source).not_to have_text(plan.phases[2].title) if plan.phases.length > 2
       end
     else
-      _regular_download("html")
+      _regular_download('html')
     end
   end
 
-  scenario "User downloads their plan as PDF" do
+  scenario 'User downloads their plan as PDF' do
     within("#plan_#{plan.id}") do
-      click_button("Actions")
-      click_link "Download"
+      click_button('Actions')
+      click_link 'Download'
     end
-    select("pdf")
+    select('pdf')
     if plan.phases.present?
       _all_phase_download
       _single_phase_download
     else
-      _regular_download("pdf")
+      _regular_download('pdf')
     end
   end
 
-  scenario "User downloads their plan as CSV" do
+  scenario 'User downloads their plan as CSV' do
     within("#plan_#{plan.id}") do
-      click_button("Actions")
-      click_link "Download"
+      click_button('Actions')
+      click_link 'Download'
     end
-    select("csv")
-    _regular_download("csv")
+    select('csv')
+    _regular_download('csv')
   end
 
-  scenario "User downloads their plan as text" do
+  scenario 'User downloads their plan as text' do
     within("#plan_#{plan.id}") do
-      click_button("Actions")
-      click_link "Download"
+      click_button('Actions')
+      click_link 'Download'
     end
-    select("text")
+    select('text')
     if plan.phases.present?
       _all_phase_download
       _single_phase_download
     else
-      _regular_download("text")
+      _regular_download('text')
     end
   end
 
-  scenario "User downloads their plan as docx" do
+  scenario 'User downloads their plan as docx' do
     within("#plan_#{plan.id}") do
-      click_button("Actions")
-      click_link "Download"
+      click_button('Actions')
+      click_link 'Download'
     end
-    select("docx")
+    select('docx')
     if plan.phases.present?
       _all_phase_download
       _single_phase_download
     else
-      _regular_download("docx")
+      _regular_download('docx')
     end
   end
 
@@ -167,22 +166,22 @@ RSpec.describe "PlansExports", type: :feature, js: true do
   # ===========================
 
   def _regular_download(format)
-    if format == "html"
+    if format == 'html'
       new_window = window_opened_by do
-        click_button "Download Plan"
+        click_button 'Download Plan'
       end
       within_window new_window do
         expect(page.source).to have_text(plan.title)
       end
     else
-      click_button "Download Plan"
+      click_button 'Download Plan'
       expect(page.source).to have_text(plan.title)
     end
   end
 
   def _all_phase_download
-    _select_option("phase_id", "All")
-    click_button "Download Plan"
+    _select_option('phase_id', 'All')
+    click_button 'Download Plan'
     expect(page.source).to have_text(plan.title)
     plan.phases.each do |phase| # All phase titles should be included in output
       p phase.id
@@ -191,8 +190,8 @@ RSpec.describe "PlansExports", type: :feature, js: true do
   end
 
   def _single_phase_download
-    _select_option("phase_id", plan.phases[1].id)
-    click_button "Download Plan"
+    _select_option('phase_id', plan.phases[1].id)
+    click_button 'Download Plan'
     expect(page.source).to have_text(plan.title)
     expect(page.source).to have_text(plan.phases[1].title)
     expect(page.source).not_to have_text(plan.phases[2].title) if plan.phases.length > 2
@@ -201,5 +200,4 @@ RSpec.describe "PlansExports", type: :feature, js: true do
   def _select_option(select_id, option_value)
     find(:id, select_id).find("option[value='#{option_value}']").select_option
   end
-
 end
