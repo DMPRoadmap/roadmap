@@ -28,8 +28,10 @@ module Export
           end
         end
 
+        # rubocop:disable Metrics/CyclomaticComplexity
         def convert_bytes(val, unit)
           return nil if val.nil?
+          return val if unit.nil?
 
           case unit.downcase
           when 'kb', 'ko'
@@ -46,6 +48,7 @@ module Export
             val
           end
         end
+        # rubocop:enable Metrics/CyclomaticComplexity
 
         def convert_certification(val)
           return [] if val.nil? || val.empty?
