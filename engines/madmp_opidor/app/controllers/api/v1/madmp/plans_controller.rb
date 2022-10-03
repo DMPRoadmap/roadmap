@@ -8,18 +8,14 @@ module Api
         respond_to :json
         include MadmpExportHelper
         # GET /api/v1/madmp/plans/:id
-        # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+        # rubocop:disable Metrics/AbcSize
         def show
-          plan = Plan.find(params[:id])
+          plan = Api::V1::PlansPolicy::Scope.new(client, Plan).resolve
+                                            .find(params[:id])
+
           plan_fragment = plan.json_fragment
           export_format = params[:export_format]
           selected_research_outputs = query_params[:research_outputs]&.map(&:to_i) || plan.research_output_ids
-          # check if the user has permissions to use the API
-          unless Api::V1::Madmp::PlansPolicy.new(client, plan).show?
-            render_error(errors: 'Unauthorized to access plan', status: :unauthorized)
-            return
-          end
-
           respond_to do |format|
             format.json
             if export_format.eql?('rda')
@@ -36,7 +32,7 @@ module Api
         rescue ActiveRecord::RecordNotFound
           render_error(errors: [_('Plan not found')], status: :not_found)
         end
-        # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+        # rubocop:enable Metrics/AbcSize
 
         # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
         # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity

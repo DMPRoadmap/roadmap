@@ -37,6 +37,11 @@ module Dmpopidor
         reviewer.can_review_plans?
     end
 
+    # Defines if an api client has a read access to the plan
+    def readable_by_client?(client_id)
+      api_client_roles.select { |r| r.api_client_id == client_id && r.read }.any?
+    end
+
     # The number of research outputs for a plan.
     #
     # Returns Integer
