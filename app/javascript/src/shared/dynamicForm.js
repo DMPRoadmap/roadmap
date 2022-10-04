@@ -47,7 +47,7 @@ $(() => {
   $(document).on('select2:select', (e) => {
     const target = $(e.target);
 
-    if (target.hasClass('schema_picker')) return;
+    if (target.hasClass('form_picker')) return;
 
     const selectField = target.parents('.select-field');
     const data = selectField.find('select').select2('data');

@@ -1,7 +1,7 @@
 <%# locals: { madmp_schema, pickable_schemas, question, research_output } %>
 <strong><%= _("You can pick a different question form") %></strong>
 
-<%= select_tag "schema_picker",
+<%= select_tag "form_picker",
       options_for_select(
         pickable_schemas.map {|v| [
           v.label, 
@@ -11,4 +11,4 @@
       selected: madmp_schema.id),
       "data-toggle": "tooltip",
       "data-fragment-id": fragment&.id || "",
-      class: "form-control schema_picker"%>
+      class: "form-control form_picker"%>
