@@ -65,10 +65,12 @@ json.dataset research_outputs do |research_output|
             host.data["certification"]
           )
           json.geo_location host.data["geoLocation"]
-          pid_system = host.data["pidSystem"].map do |ps|
-            Export::Converters::RdaRegistryConverter.convert_pid_system(ps)
-          end
-          json.pid_system             pid_system
+          pid_system = if host.data["pidSystem"].present?
+                         host.data["pidSystem"].map do |ps|
+                           Export::Converters::RdaRegistryConverter.convert_pid_system(ps)
+                         end
+                       end
+          json.pid_system             pid_system || []
           json.support_versioning     Export::Converters::RdaRegistryConverter.convert_yes_no(
             host.data["hasVersioningPolicy"]
           )
