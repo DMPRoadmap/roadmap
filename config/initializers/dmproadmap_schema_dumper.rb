@@ -6,7 +6,6 @@ module ActiveRecord
   #
   # TODO: Determine if this is still necessary in Rails 6.x+
   class SchemaDumper
-
     # Method definition taken from the 5.2-stable branch of ActiveRecord:
     #  https://github.com/rails/rails/blob/5-2-stable/activerecord/lib/active_record/schema_dumper.rb
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -67,7 +66,5 @@ module ActiveRecord
       end
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-
   end
-
 end

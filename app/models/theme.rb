@@ -40,7 +40,7 @@ class Theme < ApplicationRecord
   # ===========================
   # = Public instance methods =
   # ===========================
-  
+
   # title and description are translated through the translation gem
   def title
     _(read_attribute(:title))

@@ -53,12 +53,12 @@ class TemplateOptionsController < ApplicationController
 
       # If the no funder was specified OR the funder matches the org
       # if funder.blank? || funder.id == org&.id
-        # Retrieve the Org's templates
-        @templates << Template.published
-                              .organisationally_visible
-                              .where(org_id: org.id, customization_of: nil).to_a
+      # Retrieve the Org's templates
+      @templates << Template.published
+                            .organisationally_visible
+                            .where(org_id: org.id, customization_of: nil).to_a
       # end
-   
+
       # DMP Assistant: We do not want to include not customized templates from
       # default funder
 
@@ -71,21 +71,19 @@ class TemplateOptionsController < ApplicationController
     @templates = @templates.uniq.sort_by(&:title)
 
     # Always use the default template
-    
+
     if Template.default.present?
       customization = Template.published
-                        .latest_customized_version(Template.default.family_id,
-                                                    org.id).first
-      
-      customization = Template.default unless customization
+                              .latest_customized_version(Template.default.family_id,
+                                                         org.id).first
 
-      @templates.select! { |t| t.id != Template.default.id && t.id != customization.id}
-      
+      customization ||= Template.default
+
+      @templates.select! { |t| t.id != Template.default.id && t.id != customization.id }
+
       # We want the default template to appear at the beggining of the list
       @templates.unshift(customization)
     end
-
-
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity

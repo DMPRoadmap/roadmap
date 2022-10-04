@@ -55,19 +55,19 @@ class Plan < ApplicationRecord
   # Returns visibility message given a Symbol type visibility passed, otherwise
   # nil
   VISIBILITY_MESSAGE = {
-    organisationally_visible: _("organisational"),
-    publicly_visible: _("public"),
-    is_test: _("test"),
-    privately_visible: _("private")
+    organisationally_visible: _('organisational'),
+    publicly_visible: _('public'),
+    is_test: _('test'),
+    privately_visible: _('private')
   }.freeze
 
-  VISIBILITY_ORDER = %i[privately_visible publicly_visible organisationally_visible 
-    is_test]
+  VISIBILITY_ORDER = %i[privately_visible publicly_visible organisationally_visible
+                        is_test].freeze
 
   FUNDING_STATUS = {
-    planned: _("Planned"),
-    funded: _("Funded"),
-    denied: _("Denied")
+    planned: _('Planned'),
+    funded: _('Funded'),
+    denied: _('Denied')
   }.freeze
 
   # ==============

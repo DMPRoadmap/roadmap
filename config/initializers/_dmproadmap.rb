@@ -14,11 +14,8 @@ require "csv"
 #
 # This file's name begins with an underscore so that it is processed first and its
 # values are available to all other initializers within this directory!
-# rubocop:disable Layout/LineLength
 module DMPRoadmap
-
   class Application < Rails::Application
-
     # --------------------- #
     # ORGANISATION SETTINGS #
     # --------------------- #
@@ -117,19 +114,18 @@ module DMPRoadmap
         }
       }
     }
-     # Setting to only take orgs from local and not allow on-the-fly creation
-     config.x.application.restrict_orgs = false
-     # Setting to display phone number in contributor form
-     config.x.application.display_contributor_phone_number = false
- 
-     # Setting require contributor requirement of contributor name and email
-     config.x.application.require_contributor_name = false
-     config.x.application.require_contributor_email = false
- 
-     # Defines if Guidances/Comments in toggleable & if it's opened by default
-     config.x.application.guidance_comments_toggleable = true
-     config.x.application.guidance_comments_opened_by_default = true
- 
+    # Setting to only take orgs from local and not allow on-the-fly creation
+    config.x.application.restrict_orgs = false
+    # Setting to display phone number in contributor form
+    config.x.application.display_contributor_phone_number = false
+
+    # Setting require contributor requirement of contributor name and email
+    config.x.application.require_contributor_name = false
+    config.x.application.require_contributor_email = false
+
+    # Defines if Guidances/Comments in toggleable & if it's opened by default
+    config.x.application.guidance_comments_toggleable = true
+    config.x.application.guidance_comments_opened_by_default = true
 
     # ------------------- #
     # SHIBBOLETH SETTINGS #
@@ -219,7 +215,7 @@ module DMPRoadmap
     # ------------------------------------------------------------------------ #
     config.x.recaptcha.enabled = true
 
-   # --------------------------------------------------- #
+    # --------------------------------------------------- #
     # Machine Actionable / Networked DMP Features (maDMP) #
     # --------------------------------------------------- #
     # Enable/disable functionality on the Project Details tab
@@ -262,6 +258,4 @@ module DMPRoadmap
     # URL will be displayed if none is provided here. See app/views/research_outputs/licenses/_form
     config.x.madmp.preferred_licenses_guidance_url = 'https://creativecommons.org/about/cclicenses/'
   end
-
 end
-# rubocop:enable Layout/LineLength

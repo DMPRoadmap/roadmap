@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'syslog/logger'
 
 Rails.application.configure do
@@ -87,13 +89,13 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:              Rails.application.secrets.smtp_address,
-    port:                 Rails.application.secrets.smtp_port,
-    domain:               Rails.application.secrets.smtp_domain,
-    user_name:            Rails.application.secrets.smtp_user_name,
-    password:             Rails.application.secrets.smtp_password,
-    authentication:       Rails.application.secrets.smtp_authentication || 'plain',
-    enable_starttls_auto: true 
+    address: Rails.application.secrets.smtp_address,
+    port: Rails.application.secrets.smtp_port,
+    domain: Rails.application.secrets.smtp_domain,
+    user_name: Rails.application.secrets.smtp_user_name,
+    password: Rails.application.secrets.smtp_password,
+    authentication: Rails.application.secrets.smtp_authentication || 'plain',
+    enable_starttls_auto: true
   }
 
   # Fix JSON Download Error

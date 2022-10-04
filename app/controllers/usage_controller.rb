@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Integration: based on ISSU68 use created_plan instead of complected_plans 
+# Integration: based on ISSU68 use created_plan instead of complected_plans
 
 # Controller for site usage statistics
 class UsageController < ApplicationController
@@ -27,9 +27,7 @@ class UsageController < ApplicationController
     authorize :usage
 
     args = default_query_args
-    if usage_params["template_plans_range"].present?
-      args[:start_date] = usage_params["template_plans_range"]
-    end
+    args[:start_date] = usage_params['template_plans_range'] if usage_params['template_plans_range'].present?
     plan_data(args: args, as_json: true)
   end
 
@@ -67,7 +65,7 @@ class UsageController < ApplicationController
     args = args_from_params
     @topic = usage_params[:topic]
     case @topic
-    when "plans"
+    when 'plans'
       plan_data(args: args)
       total_plans(args: min_max_dates(args: args))
       @total = @total_org_plans
@@ -141,7 +139,7 @@ class UsageController < ApplicationController
 
     plan_data(args: args, sort: :desc)
     data_csvified = StatCreatedPlan.to_csv(@plans_per_month, details: { by_template: true, sep: sep })
-    send_data(data_csvified, filename: 'completed_plan_by_template.csv') 
+    send_data(data_csvified, filename: 'completed_plan_by_template.csv')
   end
 
   private
@@ -223,13 +221,14 @@ class UsageController < ApplicationController
   def total_organizations(args:)
     @total_organizations = Org.count
   end
+
   def ranged_organizations(args:)
     # Using created_at for statistics is not great as it is a system level value
     # instead of a defined usage value but this is what we have and will
     # continue to use
     start_date = DateTime.parse(args[:start_date])
     end_date = DateTime.parse(args[:end_date])
-    Org.managed.where(:created_at => start_date.beginning_of_day..end_date.end_of_day)    
+    Org.managed.where(created_at: start_date.beginning_of_day..end_date.end_of_day)
   end
 
   def first_plan_date

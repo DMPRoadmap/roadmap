@@ -10,19 +10,18 @@ class PlansController < ApplicationController
   helper SettingsTemplateHelper
 
   after_action :verify_authorized, except: [:overview]
-  before_action :setup_local_orgs, only: [:new, :show]
+  before_action :setup_local_orgs, only: %i[new show]
 
   # GET /plans
   # rubocop:disable Metrics/AbcSize
   def index
     authorize Plan
     @plans = Plan.includes(:roles, :org).active(current_user).page(1)
-    if current_user.org.is_other?
-      @organisationally_or_publicly_visible = []
-    else
-      @organisationally_or_publicly_visible =
-        Plan.organisationally_or_publicly_visible(current_user).page(1)
-    end
+    @organisationally_or_publicly_visible = if current_user.org.is_other?
+                                              []
+                                            else
+                                              Plan.organisationally_or_publicly_visible(current_user).page(1)
+                                            end
     # TODO: Is this still used? We cannot switch this to use the :plan_params
     #       strong params because any calls that do not include `plan` in the
     #       query string will fail
@@ -83,9 +82,9 @@ class PlansController < ApplicationController
 
       @plan.title = if plan_params[:title].blank?
                       if current_user.firstname.blank?
-                        _("My Plan") + "(" + @plan.template.title + ")"
+                        "#{_('My Plan')}(#{@plan.template.title})"
                       else
-                        current_user.firstname + "'s" + _(" Plan")
+                        "#{current_user.firstname}'s#{_(' Plan')}"
                       end
                     else
                       plan_params[:title]
@@ -195,9 +194,7 @@ class PlansController < ApplicationController
       @important_ggs << [current_user.org, @all_ggs_grouped_by_org[current_user.org]]
     end
     @all_ggs_grouped_by_org.each do |org, ggs|
-      unless (ggs & @selected_guidance_groups).empty?
-        @important_ggs << [org, ggs] unless @important_ggs.include?([org, ggs])
-      end
+      @important_ggs << [org, ggs] if !(ggs & @selected_guidance_groups).empty? && !@important_ggs.include?([org, ggs])
 
       # If this is one of the already selected guidance groups its important!
       @important_ggs << [org, ggs] if !(ggs & @selected_guidance_groups).empty? && !@important_ggs.include?([org, ggs])
@@ -362,15 +359,15 @@ class PlansController < ApplicationController
   def answer
     @plan = Plan.find(params[:id])
     authorize @plan
-    if !params[:q_id].nil?
-    respond_to do |format|
-      format.json do
-        render json: @plan.answer(params[:q_id], false).to_json(include: :options)
-      end
+    if params[:q_id].nil?
+      respond_to do |format|
+        format.json { render json: {} }
       end
     else
       respond_to do |format|
-        format.json { render json: {} }
+        format.json do
+          render json: @plan.answer(params[:q_id], false).to_json(include: :options)
+        end
       end
     end
   end
@@ -381,11 +378,9 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     authorize @plan
     @phase_options = @plan.phases.order(:number).pluck(:title, :id)
-    if @phase_options.length > 1
-      @phase_options.insert(0,["All phases", "All"])
-    end
+    @phase_options.insert(0, ['All phases', 'All']) if @phase_options.length > 1
     @export_settings = @plan.settings(:export)
-    render "download"
+    render 'download'
   end
 
   # POST /plans/:id/duplicate
@@ -428,17 +423,13 @@ class PlansController < ApplicationController
       else
         # rubocop:disable Layout/LineLength
         render status: :forbidden, json: {
-          msg: _("Unable to change the plan's status since it is needed at least %{percentage} percentage responded") % {
-            percentage: Rails.configuration.x.plans.default_percentage_answered
-          }
+          msg: format(_("Unable to change the plan's status since it is needed at least %{percentage} percentage responded"), percentage: Rails.configuration.x.plans.default_percentage_answered)
         }
         # rubocop:enable Layout/LineLength
       end
     else
       render status: :not_found,
-      json: { msg: _("Unable to find plan id %{plan_id}") % {
-        plan_id: params[:id]
-      } }
+             json: { msg: format(_('Unable to find plan id %{plan_id}'), plan_id: params[:id]) }
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
@@ -500,11 +491,11 @@ class PlansController < ApplicationController
     groups = {}
     templates.each do |t|
       k = t.family_id
-      if !groups.key?(k)
-        groups[k] = t
-      else
+      if groups.key?(k)
         other = groups[k]
         groups[k] = t if other.version < t.version
+      else
+        groups[k] = t
       end
     end
     groups.values
@@ -546,7 +537,7 @@ class PlansController < ApplicationController
              guidance_presenter: GuidancePresenter.new(plan)
            })
   end
-  
+
   # Update, destroy or add the grant
   def process_grant(grant_params:)
     return false unless grant_params.present?

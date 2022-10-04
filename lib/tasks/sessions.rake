@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Neil created this, designed around http://stackoverflow.com/questions/10088619/how-to-clear-rails-sessions-table
 # hint: config/initializers/devise.rb sets "remember_for"
 namespace :sessions do

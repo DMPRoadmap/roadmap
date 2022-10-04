@@ -66,7 +66,7 @@ gem 'rollbar', group: :rollbar, require: false
 # DATABASE #
 # ======== #
 
-# 3.1.0: configuration may need from Neil's side: bundle config set --local without mysql2 with pg 
+# 3.1.0: configuration may need from Neil's side: bundle config set --local without mysql2 with pg
 
 # A simple, fast Mysql library for Ruby, binding to libmysql
 # (http://github.com/brianmario/mysql2)
@@ -78,7 +78,7 @@ gem 'pg', group: :pgsql, require: false
 
 # A null db adapter so we can perform tast rake assets:precompile with
 # production environment without a live database.
-gem "activerecord-nulldb-adapter", group: :nulldb, require: false
+gem 'activerecord-nulldb-adapter', group: :nulldb, require: false
 
 # Bit fields for ActiveRecord (https://github.com/pboling/flag_shih_tzu)
 gem 'flag_shih_tzu' # , "~> 0.3.23"
@@ -203,7 +203,7 @@ gem 'zaru'
 # ==================== #
 
 # gem "translation"
-gem 'translation', git: "https://github.com/lagoan/translation_io_rails", branch: 'fix/broken_db_fake_method_calls'
+gem 'translation', git: 'https://github.com/lagoan/translation_io_rails', branch: 'fix/broken_db_fake_method_calls'
 
 # ========= #
 # UTILITIES #
@@ -298,7 +298,7 @@ group :development, :test, :sandbox do
   gem 'rails-controller-testing'
 
   # Pull Request etiquette enforcement
-  gem "danger", '~> 8.4', require: false
+  gem 'danger', '~> 8.4', require: false
 end
 
 group :ci, :development do
@@ -310,7 +310,7 @@ group :ci, :development do
   # (https://github.com/rubocop-hq/rubocop)
   # Rubocop style checks for DMP Roadmap projects.
   # (https://github.com/DMPRoadmap/rubocop-DMP_Roadmap)
-  gem "rubocop-dmp_roadmap"
+  gem 'rubocop-dmp_roadmap'
 
   # Helper gem to require bundler-audit
   # (http://github.com/stewartmckee/bundle-audit)

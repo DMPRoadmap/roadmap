@@ -5,7 +5,6 @@
 
 # rubocop:disable Metrics/ModuleLength
 module ExportablePlan
-
   include ConditionsHelper
 
   def as_pdf(user, coversheet = false)
@@ -23,11 +22,11 @@ module ExportablePlan
     CSV.generate do |csv|
       prepare_coversheet_for_csv(csv, headings, hash) if show_coversheet
 
-      hdrs = (hash[:phases].many? ? [_("Phase")] : [])
+      hdrs = (hash[:phases].many? ? [_('Phase')] : [])
       hdrs << if headings
-                [_("Section"), _("Question"), _("Answer")]
+                [_('Section'), _('Question'), _('Answer')]
               else
-                [_("Answer")]
+                [_('Answer')]
               end
 
       customization = hash[:customization]
@@ -58,7 +57,7 @@ module ExportablePlan
     template = Template.includes(phases: { sections: { questions: :question_format } })
                        .joins(phases: { sections: { questions: :question_format } })
                        .where(id: template_id)
-                       .order("sections.number", "questions.number").first
+                       .order('sections.number', 'questions.number').first
     hash[:customization] = template.customization_of.present?
     hash[:title] = title
     hash[:answers] = answers
@@ -110,7 +109,7 @@ module ExportablePlan
     hash[:other] = Contributor.where(plan_id: id).other
 
     # Org name of plan owner's org
-    hash[:affiliation] = owner.present? ? owner.org.name : ""
+    hash[:affiliation] = owner.present? ? owner.org.name : ''
 
     # set the funder name
     hash[:funder] = funder.name if funder.present?
@@ -119,12 +118,12 @@ module ExportablePlan
 
     # set the template name and customizer name if applicable
     hash[:template] = template.title
-    customizer = ""
+    customizer = ''
     cust_questions = questions.where(modifiable: true).pluck(:id)
     # if the template is customized, and has custom answered questions
     if template.customization_of.present? &&
        Answer.where(plan_id: id, question_id: cust_questions).present?
-      customizer = _(" Customised By: ") + template.org.name
+      customizer = _(' Customised By: ') + template.org.name
     end
     hash[:customizer] = customizer
     hash
@@ -134,41 +133,38 @@ module ExportablePlan
 
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def prepare_coversheet_for_csv(csv, _headings, hash)
-    csv << [_("Title: "), _("%{title}") % { title: title }]
+    csv << [_('Title: '), format(_('%{title}'), title: title)]
     csv << [if hash[:attribution].many?
-              _("Creators: ")
+              _('Creators: ')
             else
-              _("Creator:")
-            end, _("%{authors}") % { authors: hash[:attribution].join(", ") }]
+              _('Creator:')
+            end, format(_('%{authors}'), authors: hash[:attribution].join(', '))]
     if hash[:investigation].present?
-      csv << [_("Principal Investigator: "),
-              _("%{investigation}") % { investigation: hash[:investigation].map(&:name).join(", ") }]
+      csv << [_('Principal Investigator: '),
+              format(_('%{investigation}'), investigation: hash[:investigation].map(&:name).join(', '))]
     end
     if hash[:data_curation].present?
-      csv << [_("Date Manager: "),
-              _("%{data_curation}") % { data_curation: hash[:data_curation].map(&:name).join(", ") }]
+      csv << [_('Date Manager: '),
+              format(_('%{data_curation}'), data_curation: hash[:data_curation].map(&:name).join(', '))]
     end
     if hash[:pa].present?
-      csv << [_("Project Administrator: "), _("%{pa}") % { pa: hash[:pa].map(&:name).join(", ") }]
+      csv << [_('Project Administrator: '), format(_('%{pa}'), pa: hash[:pa].map(&:name).join(', '))]
     end
     if hash[:other].present?
-      csv << [_("Contributor: "), _("%{other}") % { other: hash[:other].map(&:name).join(", ") }]
+      csv << [_('Contributor: '), format(_('%{other}'), other: hash[:other].map(&:name).join(', '))]
     end
-    csv << [_("Affiliation: "), _("%{affiliation}") % { affiliation: hash[:affiliation] }]
+    csv << [_('Affiliation: '), format(_('%{affiliation}'), affiliation: hash[:affiliation])]
     csv << if hash[:funder].present?
-             [_("Template: "), _("%{funder}") % { funder: hash[:funder] }]
+             [_('Template: '), format(_('%{funder}'), funder: hash[:funder])]
            else
-             [_("Template: "), _("%{template}") % { template: hash[:template] + hash[:customizer] }]
+             [_('Template: '), format(_('%{template}'), template: hash[:template] + hash[:customizer])]
            end
-    if grant&.value.present?
-      csv << [_("Grant number: "), _("%{grant_number}") % { grant_number: grant&.value }]
-    end
+    csv << [_('Grant number: '), format(_('%{grant_number}'), grant_number: grant&.value)] if grant&.value.present?
     if description.present?
-      csv << [_("Project abstract: "), _("%{description}") %
-                                       { description: Nokogiri::HTML(description).text }]
+      csv << [_('Project abstract: '), format(_('%{description}'), description: Nokogiri::HTML(description).text)]
     end
-    csv << [_("Last modified: "), _("%{date}") % { date: updated_at.to_date.strftime("%d-%m-%Y") }]
-    csv << [_("Copyright information:"),
+    csv << [_('Last modified: '), format(_('%{date}'), date: updated_at.to_date.strftime('%d-%m-%Y'))]
+    csv << [_('Copyright information:'),
             _("The above plan creator(s) have agreed that others may use as
              much of the text of this plan as they would like in their own plans,
              and customise it as necessary. You do not need to credit the creator(s)
@@ -187,23 +183,21 @@ module ExportablePlan
       next if remove_list(hash).include?(question[:id])
 
       answer = self.answer(question[:id], false)
-      answer_text = ""
+      answer_text = ''
       if answer.present?
-        if answer.question_options.any?
-          answer_text += answer.question_options.pluck(:text).join(", ")
-        end
+        answer_text += answer.question_options.pluck(:text).join(', ') if answer.question_options.any?
         answer_text += answer.text if answer.answered?
       elsif unanswered
-        answer_text += _("Not Answered")
+        answer_text += _('Not Answered')
       end
-      single_line_answer_for_csv = sanitize_text(answer_text).gsub(/\r|\n/, " ")
+      single_line_answer_for_csv = sanitize_text(answer_text).gsub(/\r|\n/, ' ')
       flds = (hash[:phases].many? ? [phase[:title]] : [])
       if headings
         question_text = if question[:text].is_a? String
                           question[:text]
                         else
                           (if question[:text].many?
-                             question[:text].join(", ")
+                             question[:text].join(', ')
                            else
                              question[:text][0]
                            end)
@@ -242,8 +236,7 @@ module ExportablePlan
   end
 
   def sanitize_text(text)
-    ActionView::Base.full_sanitizer.sanitize(text.to_s.gsub(/&nbsp;/i, ""))
+    ActionView::Base.full_sanitizer.sanitize(text.to_s.gsub(/&nbsp;/i, ''))
   end
-
 end
 # rubocop:enable Metrics/ModuleLength

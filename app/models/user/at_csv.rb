@@ -5,7 +5,7 @@ class User
   # Helper to export a list of Users as CSV
   class AtCsv
     HEADERS = [_('Name'), _('E-Mail'), _('Created Date'), _('Last Activity'), _('Plans'),
-      _('Current Privileges'), _('Active'), _('Department')].freeze
+               _('Current Privileges'), _('Active'), _('Department')].freeze
 
     def initialize(users)
       @users = users

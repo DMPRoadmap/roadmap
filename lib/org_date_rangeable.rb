@@ -2,14 +2,14 @@
 
 # Helpers for generating usage statistics
 module OrgDateRangeable
-  def monthly_range(org:, start_date: nil, end_date: Date.today.end_of_month, filtered: false)    
+  def monthly_range(org:, start_date: nil, end_date: Date.today.end_of_month, filtered: false)
     query_string = 'filtered = :filtered'
     query_hash = { filtered: filtered }
     unless org.nil?
       query_string += ' and org_id = :org_id'
       query_hash[:org_id] = org.id
     end
-    
+
     unless start_date.nil?
       query_string += ' and date >= :start_date'
       query_hash[:start_date] = start_date

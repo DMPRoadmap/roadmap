@@ -111,15 +111,15 @@ class ResearchOutputsController < ApplicationController
     #   @search_results = @search_results.by_subject_string(repo_search_params[:subject_filter])
     #   @search_results = Repository.search_string(repo_search_params[:search_term])
     # else
-      @search_results = Repository.by_type(repo_search_params[:type_filter])
-      @search_results = @search_results.by_subject(repo_search_params[:subject_filter])
-      @search_results = Repository.search(repo_search_params[:search_term])
+    @search_results = Repository.by_type(repo_search_params[:type_filter])
+    @search_results = @search_results.by_subject(repo_search_params[:subject_filter])
+    @search_results = Repository.search(repo_search_params[:search_term])
     # end
-    p "%%%%repository_search: @search_results.search"
+    p '%%%%repository_search: @search_results.search'
     p @search_results
     @search_results = @search_results.order(:name).page(params[:page])
 
-    p "%%%%repository_search: @search_results example"
+    p '%%%%repository_search: @search_results example'
     p @search_results.first
   end
   # rubocop:enable Metrics/AbcSize
@@ -149,7 +149,7 @@ class ResearchOutputsController < ApplicationController
     @search_results = MetadataStandard.search(metadata_standard_search_params[:search_term])
                                       .order(:title)
                                       .page(params[:page])
-    
+
     respond_to do |format|
       format.js
     end

@@ -12,20 +12,20 @@ RSpec.feature 'Locales', type: :feature, js: true do
     [
       Language.where(
         default_language: true,
-        name: "English (CA)",
-        abbreviation: "en-CA"
+        name: 'English (CA)',
+        abbreviation: 'en-CA'
       ).first_or_create,
 
       Language.where(
         default_language: false,
-        name: "English (GB)",
-        abbreviation: "en-GB"
+        name: 'English (GB)',
+        abbreviation: 'en-GB'
       ).first_or_create,
 
       Language.where(
         default_language: false,
-        name: "Français (CA)",
-        abbreviation: "fr-CA"
+        name: 'Français (CA)',
+        abbreviation: 'fr-CA'
       ).first_or_create
 
     ]
@@ -47,34 +47,30 @@ RSpec.feature 'Locales', type: :feature, js: true do
     I18n.default_locale = locales.first
   end
 
-  context "when new locale has no region" do
-    
-    scenario "user changes their locale" do
+  context 'when new locale has no region' do
+    scenario 'user changes their locale' do
       skip 'We are now expecting locales to have region'
-      create_plan_text = "Créer des plans"
-      click_link "Language"
+      create_plan_text = 'Créer des plans'
+      click_link 'Language'
       expect(current_path).to eql(plans_path)
       expect(page).not_to have_text(create_plan_text)
 
-      click_link "German"
+      click_link 'German'
       expect(current_path).to eql(plans_path)
       expect(page).to have_text(create_plan_text)
     end
   end
 
-  context "when new locale has region" do
-
-    scenario "user changes their locale" do
-      
-      create_plan_text = "Créer des plans"
-      click_link "Language"      
+  context 'when new locale has region' do
+    scenario 'user changes their locale' do
+      create_plan_text = 'Créer des plans'
+      click_link 'Language'
       expect(current_path).to eql(plans_path)
       expect(page).not_to have_text(create_plan_text)
 
-      click_link "Français (CA)"
+      click_link 'Français (CA)'
       expect(current_path).to eql(plans_path)
       expect(page).to have_text(create_plan_text)
     end
-
   end
 end

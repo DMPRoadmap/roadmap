@@ -376,5 +376,4 @@ namespace :migrate do
       org.save!(validate: false)
     end
   end
-
 end

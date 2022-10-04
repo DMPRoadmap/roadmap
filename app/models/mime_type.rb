@@ -16,7 +16,6 @@
 #  index_mime_types_on_value  (value)
 #
 class MimeType < ApplicationRecord
-
   include ValidationMessages
 
   # ================
@@ -37,5 +36,4 @@ class MimeType < ApplicationRecord
 
   # Retrieves the unique list of categories
   scope :categories, -> { pluck(:category).uniq.sort { |a, b| a <=> b } }
-
 end

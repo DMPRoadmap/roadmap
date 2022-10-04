@@ -4,7 +4,6 @@
 require "jbuilder"
 
 class Jbuilder
-
   ##
   # Allows you to set @prettify manually in your .jbuilder files.
   # Example:

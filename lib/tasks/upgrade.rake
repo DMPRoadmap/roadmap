@@ -1053,6 +1053,7 @@ namespace :upgrade do
 
     Parallel.map(plans, in_threads: 8) do |plan|
       next if plan.contributors.any?
+
       owner = plan.owner
 
       # Either use the Data Contact specified on the plan
