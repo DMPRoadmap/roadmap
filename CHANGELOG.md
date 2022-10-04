@@ -3,6 +3,9 @@
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
 
+## 04/10/2022
+- Export RDA : Correction d'un problème survenant lorsque le `host` sélectionne n'a pas de `pidSystem` (issue gitbucket 437)
+
 ## 03/10/2022
 - Export RDA : Correction d'un problème survenant lorsque l'unité de volume de la distribution n'est pas renseigné (issue gitbucket 437)
 - Ajout du nombre d'utilisateurs actifs dans la liste des utilisateurs disponible pour les Admin/SuperAdmin
