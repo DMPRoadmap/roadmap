@@ -36,7 +36,7 @@ class PlanExportsController < ApplicationController
 
     @hash           = @plan.as_pdf(current_user, @show_coversheet)
     @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
-    if params.key?(:phase_id)
+    if params.key?(:phase_id) && params[:phase_id].length.positive?
       # order phases by phase number asc
       @hash[:phases] = @hash[:phases].sort_by { |phase| phase[:number] }
       if params[:phase_id] == 'All'
@@ -45,8 +45,8 @@ class PlanExportsController < ApplicationController
         @selected_phase = @plan.phases.find(params[:phase_id])
       end
     else
-      @plan.phases.order('phases.updated_at DESC')
-           .detect { |p| p.visibility_allowed?(@plan) }
+      @selected_phase = @plan.phases.order('phases.updated_at DESC')
+                             .detect { |p| p.visibility_allowed?(@plan) }
     end
 
     # Added contributors to coverage of plans.
@@ -107,7 +107,7 @@ class PlanExportsController < ApplicationController
                             date: l(@plan.updated_at.to_date, format: :readable)),
              font_size: 8,
              spacing: (Integer(@formatting[:margin][:bottom]) / 2) - 4,
-             right: '[page] of [topage]',
+             right: _('[page] of [topage]'),
              encoding: 'utf8'
            }
   end
