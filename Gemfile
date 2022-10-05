@@ -77,10 +77,6 @@ gem 'pg', group: :pgsql, require: false
 # Bit fields for ActiveRecord (https://github.com/pboling/flag_shih_tzu)
 gem 'flag_shih_tzu' # , "~> 0.3.23"
 
-# Activerecord-Import is a library for bulk inserting data using ActiveRecord.
-# (https://github.com/zdennis/activerecord-import)
-gem 'activerecord-import'
-
 # ======== #
 # SECURITY #
 # ======== #

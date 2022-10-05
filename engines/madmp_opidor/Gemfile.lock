@@ -2,9 +2,10 @@ PATH
   remote: .
   specs:
     madmp_opidor (0.1.0)
+      activerecord-import (~> 1.4.0)
       jsonpath (~> 1.1.0)
       pundit (~> 2.2.0)
-      rails (~> 5.2.7, >= 5.2.7.1)
+      rails (~> 5.2.8, >= 5.2.8.1)
 
 GEM
   remote: https://rubygems.org/
@@ -41,6 +42,8 @@ GEM
       activemodel (= 5.2.8.1)
       activesupport (= 5.2.8.1)
       arel (>= 9.0)
+    activerecord-import (1.4.0)
+      activerecord (>= 4.2)
     activestorage (5.2.8.1)
       actionpack (= 5.2.8.1)
       activerecord (= 5.2.8.1)
