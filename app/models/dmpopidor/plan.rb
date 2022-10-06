@@ -171,6 +171,15 @@ module Dmpopidor
       json_fragment.meta.raw_import(raw_meta, json_fragment.meta.madmp_schema)
     end
     # rubocop:enable Metrics/AbcSize
+
+    def add_api_client!(api_client)
+      return unless api_client.present? && api_client_roles.where(api_client_id: api_client.id).none?
+
+      api_client_roles.create(
+        read: true,
+        api_client_id: api_client.id
+      )
+    end
   end
   # rubocop:enable Metrics/ModuleLength
 end

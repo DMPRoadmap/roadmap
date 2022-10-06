@@ -217,28 +217,17 @@ class MadmpFragmentsController < ApplicationController
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
   def change_form
     @fragment = MadmpFragment.find(params[:id])
     @schemas = MadmpSchema.all
-    plan = @fragment.plan
     target_schema = @schemas.find(params[:schema_id])
 
     authorize @fragment
 
     return unless @fragment.present? && @fragment.schema_conversion(target_schema)
 
-    if target_schema.api_client.present? &&
-       plan.api_client_roles.where(api_client_id: target_schema.api_client_id).none?
-      plan.api_client_roles.create(
-        read: true,
-        api_client_id: target_schema.api_client_id
-      )
-    end
-
     render json: render_fragment_form(@fragment, stale_fragment: @stale_fragment)
   end
-  # rubocop:enable Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def new_edit_linked

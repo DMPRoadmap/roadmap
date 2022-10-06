@@ -15,7 +15,6 @@ class MadmpCodebaseController < ApplicationController
              else
                schema_runs['params'] || {}
              end
-
     authorize fragment
 
     # EXAMPLE DATA
@@ -26,6 +25,7 @@ class MadmpCodebaseController < ApplicationController
     #   "message" => _('New data have been added to your plan, please click on the "Reload" button.')
     # }, status: 200
     # return
+    fragment.plan.add_api_client!(fragment.madmp_schema.api_client)
     begin
       response = fetch_run_data(fragment, script_id, params: params)
       if response['return_code'].eql?(0)
