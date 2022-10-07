@@ -61,6 +61,12 @@ module Export
           end
         end
 
+        def convert_date_to_iso8601(val)
+          Date.parse(val).strftime('%Y-%m-%dT%H:%M:%S.%L%z')
+        rescue ArgumentError
+          nil
+        end
+
         def convert_data_access(val)
           return nil if val.nil?
 

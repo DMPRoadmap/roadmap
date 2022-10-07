@@ -8,7 +8,7 @@ json.prettify!
 
 # rubocop:disable Metrics/BlockLength
 json.dmp do
-  json.created          meta.data["creationDate"]
+  json.created          Export::Converters::RdaRegistryConverter.convert_date_to_iso8601(meta.data["creationDate"])
   json.description      exportable_description(meta.data["description"])
   json.dmp_id do
     json.identifier     meta.data["dmpId"] || plan_url(id: dmp.data["plan_id"])
@@ -16,9 +16,9 @@ json.dmp do
       meta.data["dmpId"] ? meta.data["idType"] : "URL"
     )
   end
-  json.language                   meta.data["dmpLanguage"]
-  json.modified                   meta.data["lastModifiedDate"]
-  json.title                      meta.data["title"]
+  json.language meta.data["dmpLanguage"]
+  json.modified Export::Converters::RdaRegistryConverter.convert_date_to_iso8601(meta.data["lastModifiedDate"])
+  json.title meta.data["title"]
 
   contact = meta.contact
   json.contact do
