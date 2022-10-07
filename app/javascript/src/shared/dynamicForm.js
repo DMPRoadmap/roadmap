@@ -102,39 +102,6 @@ $(() => {
     }
   });
 
-  $(document).on('click', '.run-zone .run-button', (e) => {
-    const target = $(e.target);
-    const messageZone = target.parent().find('.message-zone');
-    const overlay = target.parents('.fragment-content').find('.overlay');
-    const url = target.data('url');
-
-    $.ajax({
-      url,
-      method: 'get',
-      beforeSend: () => {
-        target.hide();
-        overlay.show();
-      },
-      complete: () => {
-        overlay.hide();
-      },
-    }).done((data) => {
-      target.hide();
-      if (data.needs_reload) {
-        target.parents('.fragment-content').trigger('reload.form');
-      } else {
-        messageZone.addClass('valid');
-        messageZone.html(data.message);
-        messageZone.show();
-      }
-    }).fail((response) => {
-      messageZone.html(response.responseJSON.error);
-      messageZone.addClass('invalid');
-      messageZone.show();
-      target.show();
-    });
-  });
-
   // $(document).on('click', '.run-zone .reload-button', (e) => {
   //   const target = $(e.target);
   //   target.parents('.panel-collapse').trigger('reload.form');

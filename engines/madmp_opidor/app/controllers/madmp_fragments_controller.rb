@@ -576,6 +576,7 @@ class MadmpFragmentsController < ApplicationController
                         render_to_string(partial: 'dynamic_form/codebase/show', locals:
                         {
                           fragment: fragment,
+                          api_client: fragment.madmp_schema.api_client,
                           parameters: run_parameters,
                           template_locale: LocaleService.to_gettext(locale: template.locale)
                         }, formats: [:html])
