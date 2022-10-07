@@ -57,6 +57,10 @@ module Fragment
       Fragment::DocumentationQuality.where(parent_id: id).first
     end
 
+    def quality_assurance_method
+      Fragment::QualityAssuranceMethod.where(parent_id: id).first
+    end
+
     def sharing
       Fragment::DataSharing.where(parent_id: id).first
     end
