@@ -3,6 +3,17 @@
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
 
+## 10/10/2022
+- Export RDA : 
+  - `data_quality_assurance` utilise désormais QualityAssuranceMethodStandard/description (issue gitbucket 399)
+  - Ajout d'un convertisseur vers le format datetime iso8601 (issue gitbucket 413)
+  - Ajout de l'export du champ `issuedDate` (issue gitbucket 419)
+  - Les données de `host` sont désormais bien exportées si aucune `distribution` n'est déclarée (issue gitbucket 439)
+- Import RDA : 
+  - Correction d'un problème d'export de `hostId`et `versioningPolicy` de Host (issue gitbucket 414)
+  - Correction d'un problème d'import des champs yes/no : les champs ont désormais leur première lettre mise en majuscule 
+  - Ajout de l'import du champ `issued` (issue gitbucket 419)
+
 ## 04/10/2022
 - Export RDA : Correction d'un problème survenant lorsque le `host` sélectionne n'a pas de `pidSystem` (issue gitbucket 437)
 
