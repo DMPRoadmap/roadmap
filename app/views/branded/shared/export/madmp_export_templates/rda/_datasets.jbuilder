@@ -38,8 +38,12 @@ json.dataset research_outputs do |research_output|
     dataset.research_output_description.data["containsSensitiveData"]
   )
   if dataset.sharing.present?
-    json.issued ""
-    json.distribution dataset.sharing.distribution do |distribution|
+    distributions = if dataset.sharing.distribution.any?
+                      dataset.sharing.distribution
+                    else
+                      [Fragment::Distribution.new(data: {})]
+                    end
+    json.distribution distributions do |distribution|
       start_date = distribution.data["licenseStartDate"] || nil
 
       json.access_url         distribution.data["accessUrl"]
@@ -53,8 +57,8 @@ json.dataset research_outputs do |research_output|
       json.download_url       distribution.data["downloadUrl"]
       json.format             distribution.data["fileFormat"].present? ? [distribution.data["fileFormat"]] : []
       json.title              distribution.data["fileName"]
-      if distribution.sharing.host.present?
-        host = distribution.sharing.host
+      if dataset.sharing.host.present?
+        host = dataset.sharing.host
         json.host do
           json.backup_frequency       ""
           json.backup_type            ""
@@ -84,7 +88,7 @@ json.dataset research_outputs do |research_output|
       end
       json.license do
         json.child! do
-          json.license_ref            distribution.license.data["licenseUrl"]
+          json.license_ref            distribution.license.present? ? distribution.license.data["licenseUrl"] : nil
           json.start_date             start_date
         end
       end
