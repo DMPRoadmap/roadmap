@@ -62,7 +62,7 @@ module Export
         end
 
         def convert_date_to_iso8601(val)
-          Date.parse(val).strftime('%Y-%m-%dT%H:%M:%S.%L%z')
+          DateTime.parse(val).iso8601
         rescue ArgumentError
           nil
         end
