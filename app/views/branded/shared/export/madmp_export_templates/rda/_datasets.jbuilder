@@ -21,6 +21,7 @@ json.dataset research_outputs do |research_output|
     end
   end
   json.description                exportable_description(dataset.research_output_description.data["description"])
+  json.issued                     dataset.research_output_description.data["issuedDate"]
   json.keyword                    extract_keywords(dataset.research_output_description)
   json.language                   dataset.research_output_description.data["language"]
   json.personal_data              Export::Converters::RdaRegistryConverter.convert_yes_no(
@@ -37,7 +38,6 @@ json.dataset research_outputs do |research_output|
     dataset.research_output_description.data["containsSensitiveData"]
   )
   if dataset.sharing.present?
-    # json.issued               dataset.sharing.distribution.data["releaseDate"]
     json.issued ""
     json.distribution dataset.sharing.distribution do |distribution|
       start_date = distribution.data["licenseStartDate"] || nil

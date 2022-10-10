@@ -235,6 +235,7 @@ module Import
                 },
                 'researchOutputDescription' => {
                   'datasetId' => dataset.dig('dataset_id', 'identifier'),
+                  'issuedDate' => dataset['issued'],
                   'idType' => dataset.dig('dataset_id', 'type'),
                   'description' => dataset['description'],
                   'uncontrolledKeywords' => [dataset['keyword']],
