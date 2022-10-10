@@ -239,11 +239,11 @@ module Import
                   'description' => dataset['description'],
                   'uncontrolledKeywords' => [dataset['keyword']],
                   'language' => dataset['language'],
-                  'containsPersonalData' => dataset['personal_data'],
+                  'containsPersonalData' => dataset['personal_data'].capitalize,
                   'title' => dataset['title'],
                   'type' => dataset['type'],
-                  'containsSensitiveData' => dataset['sensitive_data'],
-                  'hasEthicalIssues' => full_dmp['ethical_issues_exist']
+                  'containsSensitiveData' => dataset['sensitive_data'].capitalize,
+                  'hasEthicalIssues' => full_dmp['ethical_issues_exist'].capitalize
                 },
                 'sharing' => {
                   'distribution' => convert_distribution(dataset['distribution']),
