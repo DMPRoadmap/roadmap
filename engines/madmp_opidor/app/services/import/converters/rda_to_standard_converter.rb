@@ -173,9 +173,9 @@ module Import
                 'description' => elem.dig('host', 'description'),
                 'geoLocation' => elem.dig('host', 'geo_location'),
                 'pidSystem' => elem.dig('host', 'pid_system'),
-                'hasVersioningPolicy' => elem.dig('host', 'support_versioning'),
+                'hasVersioningPolicy' => elem.dig('host', 'support_versioning').capitalize,
                 'title' => elem.dig('host', 'title'),
-                'technicalRessourceId' => elem.dig('host', 'url')
+                'hostId' => elem.dig('host', 'url')
               }
             )
           end
@@ -202,8 +202,7 @@ module Import
                 'fileFormat' => elem['format'].present? ? elem['format'].first : nil,
                 'fileName' => elem['title'],
                 'license' => {
-                  'licenseName' => license['license_name'],
-                  'licenseUrl' => license['license_ref']
+                  'licenseUrl' => license['license_ref'].present? ? license['license_ref'].first : nil
                 },
                 'licenseStartDate' => license['start_date']
               }
