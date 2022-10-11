@@ -3,6 +3,13 @@
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
 
+## 11/10/2022
+- Import RDA : 
+  - Correction d'un problème de mise en majuscule des valeurs yes/no
+- Export RDA : 
+  - `data_quality_assurance` utilise désormais QualityAssuranceMethodStandard/description ainsi que DocumentationQuality/description (issue gitbucket 399)
+  - Correction du format datetime iso8601 (issue gitbucket 399)
+
 ## 10/10/2022
 - Export RDA : 
   - `data_quality_assurance` utilise désormais QualityAssuranceMethodStandard/description (issue gitbucket 399)
