@@ -104,13 +104,13 @@ module Api
           owner = determine_owner(plan: plan, json: dmp.fetch(:contact, {}))
 
           # Try to determine the Plan's org
-          plan.org = owner.present? ? owner.org : client.owner&.org
-          unless plan.org.present?
+          plan.org_id = owner&.org&.present? ? owner.org_id : client.owner&.org_id
+          unless plan.org_id.present?
             matches = find_matching_orgs(
               plan: plan, json: dmp.fetch(:contact, {}).fetch(:affiliation, {})
             )
             no_org_err = format(no_org_err, list_of_names: matches.map { |m| "'#{m}'" }.join(', '))
-            render_error(errors: no_org_err, status: :bad_request) and return unless plan.org.present?
+            render_error(errors: no_org_err, status: :bad_request) and return unless plan.org_id.present?
           end
 
           # Validate the plan and it's associations and return errors with context
@@ -178,7 +178,10 @@ module Api
         firstname = names.length > 1 ? names.first : nil
         surname = names.length > 1 ? names.last : names.first
 
+        # Try to deserialize the Org. If no Org exists, try to find it by the user's email domain
         org = Api::V2::Deserialization::Org.deserialize(json: json[:affiliation])
+        org = Org.from_email_domain(email_domain: json[:mbox].split('@')&.last) unless org.present?
+        org.save if org&.new_record?
 
         user = User.new(firstname: firstname, surname: surname, email: json[:mbox], org: org,
                         password: SecureRandom.uuid)

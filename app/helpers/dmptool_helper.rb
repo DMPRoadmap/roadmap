@@ -36,7 +36,7 @@ module DmptoolHelper
     template = 't-generic'
     template = 't-publicplans' if active_page?(public_plans_path, false)
     template = 't-home' if active_page?(root_path, true) ||
-                           active_page?(new_user_session_path, true) ||
+                           active_page?(new_user_session_path, false) ||
                            active_page?(new_user_registration_path, true) ||
                            active_page?(user_registration_path, true) ||
                            active_page?(new_user_password_path, true)

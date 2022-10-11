@@ -11,11 +11,11 @@
     <h3 id="search-label"><%= _('Search') %></h3>
     <div class="c-search-form" role="search">
       <%= f.search_field :search, value: facets[:search],
-                         aria: { labelledby: 'search-label', describedby: 'js-search-results' } %>
+                         aria: { labelledby: 'search-label', describedby: 'js-search-results-block' } %>
       <%= f.button '', aria: { label: 'search' } %>
     </div>
     <% search_msg = search.present? ? _('Showing results for "%<search_term>s"') % { search_term: sanitize(search) } : '' %>
-    <div class="js-search-results c-search-results"><%= search_msg %></div>
+    <div id= "js-search-results-block" class="js-search-results c-search-results"><%= search_msg %></div>
     <button type="button" class="js-search-clear c-search-clear"><%= _('Clear Search') %></button>
   </section>
 

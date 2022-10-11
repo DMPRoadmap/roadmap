@@ -13,6 +13,9 @@ module Api
 
         templates = templates.sort { |a, b| a.title <=> b.title }
         @items = paginate_response(results: templates)
+
+        # param to return phases in the payload (includes sections -> questions -> question options)
+        @show_phases = params.fetch('show_phases', false)
         render '/api/v2/templates/index', status: :ok
       end
     end

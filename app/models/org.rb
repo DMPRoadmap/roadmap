@@ -14,7 +14,6 @@
 #  links                  :text
 #  logo_name              :string
 #  logo_uid               :string
-#  managed                :boolean          default(FALSE), not null
 #  name                   :string(255)
 #  org_type               :integer          default(0), not null
 #  sort_name              :string(255)
@@ -56,7 +55,10 @@ class Org < ApplicationRecord
   after_create :connect_to_registry_org
 
   # Prevent XSS attempts
-  before_validation ->(data) { data.sanitize_fields(:name) }
+  before_validation lambda { |data|
+    data.sanitize_fields(:name)
+    data.name = data.name&.gsub('&amp;', '&')
+  }
   # ----------------------------------------
   # End DMPTool Customization
   # ----------------------------------------

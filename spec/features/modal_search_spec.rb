@@ -19,7 +19,7 @@ RSpec.feature 'ModalSearchDialog', type: :feature do
     Rails.configuration.x.madmp.enable_repository_selection = true
 
     click_link @plan.title
-    click_link 'Research Outputs'
+    click_link 'Research outputs'
     click_link 'Add a research output'
   end
 

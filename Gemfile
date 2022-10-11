@@ -81,7 +81,7 @@ gem 'rollbar', group: :rollbar, require: false
 
 # A simple, fast Mysql library for Ruby, binding to libmysql
 # (http://github.com/brianmario/mysql2)
-gem 'mysql2', group: :mysql, require: false
+gem 'mysql2', '0.5.4', group: :mysql, require: false
 
 # Pg is the Ruby interface to the {PostgreSQL
 # RDBMS}[http://www.postgresql.org/](https://bitbucket.org/ged/ruby-pg)
@@ -251,7 +251,7 @@ gem 'dotenv-rails'
 # https://github.com/CDLUC3/uc3-citation
 gem 'uc3-citation'
 
-# ActiveRecord::JSONValidator makes it easy to validate JSON attributes against a JSON schema.
+# Makes it easy to validate JSON attributes against a JSON schema.
 gem 'activerecord_json_validator'
 
 # ================================= #

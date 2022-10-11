@@ -40,9 +40,9 @@ RSpec.describe 'Sign in/up via email entry', type: :feature do
 
     expect(page).to have_text('Sign in')
     expect(find('#user_disabled_email').value).to eql(@user.email)
-    expect(page).to have_text('Your address is associated with:')
     expect(page).to have_text(CGI.escapeHTML(@org.name))
-    expect(page).to have_text('Sign in with Institution to Continue')
+    expect(page).to have_text('Sign in with Institution (SSO)')
+    expect(page).to have_text('Sign in with non SSO')
   end
 
   it 'handles unknown user with an unknown email', js: true do
@@ -70,9 +70,9 @@ RSpec.describe 'Sign in/up via email entry', type: :feature do
 
     expect(page).to have_text('New Account Sign Up')
     expect(find('#user_disabled_email').value).to eql(email)
-    expect(page).to have_text('Your address is associated with:')
     expect(page).to have_text(CGI.escapeHTML(@org.name))
-    expect(page).to have_text('Sign in with Institution to Continue')
+    expect(page).to have_text('Sign up with Institution (SSO)')
+    expect(page).to have_text('Sign up with non SSO')
   end
 
   it 'handles known user with a shibbolized org and multiple similar orgs', js: true do
@@ -85,8 +85,8 @@ RSpec.describe 'Sign in/up via email entry', type: :feature do
 
     expect(page).to have_text('Sign in')
     expect(find('#user_disabled_email').value).to eql(@user.email)
-    expect(page).to have_text('Your address is associated with:')
     expect(page).to have_text(CGI.escapeHTML(@org.name))
-    expect(page).to have_text('Sign in with Institution to Continue')
+    expect(page).to have_text('Sign in with Institution (SSO)')
+    expect(page).to have_text('Sign in with non SSO')
   end
 end

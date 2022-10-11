@@ -58,7 +58,7 @@ unless @minimal
   outputs = plan.research_outputs.any? ? plan.research_outputs : [plan]
 
   json.dataset outputs do |output|
-    json.partial! "api/v1/datasets/show", output: output
+    json.partial! 'api/v1/datasets/show', output: output
   end
 
   json.extension [plan.template] do |template|

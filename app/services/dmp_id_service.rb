@@ -80,6 +80,12 @@ class DmpIdService
 
     # Fetch the active DMP ID minting service
     def minter
+      # Warning!
+      # *******************
+      # If you need to change your DMP ID minting authority over time, you will need to
+      # update the Plan.dmp_id method so that it is able to check all of the correct
+      # identifier_schemes
+
       # Use Datacite if it has been activated
       return ExternalApis::DataciteService if ExternalApis::DataciteService.active?
       # Use the DMPHub if it has been activated

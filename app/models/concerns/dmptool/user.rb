@@ -122,8 +122,8 @@ module Dmptool
       def extract_omniauth_names(hash:)
         return {} unless hash.present?
 
-        firstname = hash.fetch('givenname', hash.fetch('firstname', ''))
-        surname = hash.fetch('sn', hash.fetch('surname', hash.fetch('lastname', '')))
+        firstname = hash.fetch('givenname', hash.fetch('first_name', ''))
+        surname = hash.fetch('sn', hash.fetch('surname', hash.fetch('last_name', '')))
 
         # If a full name was provided and no separate firstname and surname fields,
         # attempt to split the full name up

@@ -14,12 +14,14 @@ en-CA:
   date:
     formats:
       default: "%d-%m-%Y"
-      long: "%B %d, %Y"
+      long: "%d %B, %Y"
       short: "%d %b"
+      csv: "%d/%m/%Y"
+      readable: "%B %d, %Y"
     order:
-    - :year
-    - :month
     - :day
+    - :month
+    - :year
   number:
     currency:
       format:
@@ -62,6 +64,6 @@ en-CA:
       words_connector: ", "
   time:
     formats:
-      default: "%a, %d %b %Y %I:%M:%S %p %Z"
-      long: "%B %d, %Y %I:%M %p"
-      short: "%d %b %I:%M %p"
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      long: "%d %B, %Y %H:%M"
+      short: "%d %b %H:%M"

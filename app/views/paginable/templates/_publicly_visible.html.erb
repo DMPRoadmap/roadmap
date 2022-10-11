@@ -25,14 +25,14 @@
                         target: '_blank',
                         class: 'has-new-window-popup-info' do %>
                <i class="fas fa-file-word" aria-hidden="true"></i>
-               <em class="sr-only"><%= _('(new window)') %></em>
-               <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
+               <em class="sr-only"><%= _('(opens as a .docx file in MS Word)') %></em>
+               <span class="new-window-popup-info"><%= _('Opens a new window') %></span>
             <% end %>
             <%= link_to template_export_path(template.family_id, format: :pdf),
                         target: '_blank',
                         class: 'has-new-window-popup-info' do %>
                <i class="fas fa-file-pdf" aria-hidden="true"></i>
-               <em class="sr-only"><%= _('(new window)') %></em>
+               <em class="sr-only"><%= _('(opens as a .pdf document in a new window)') %></em>
                <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
             <% end %>
           </td>
