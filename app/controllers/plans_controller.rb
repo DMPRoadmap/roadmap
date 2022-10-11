@@ -138,7 +138,7 @@ class PlansController < ApplicationController
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def show
     @plan = Plan.includes(
-      template: [:phases], plans_guidance_groups: [:guidance_group]
+      template: [:phases], guidance_groups: [:guidances]
     ).find_by(id: params[:id])
     raise ActiveRecord::RecordNotFound unless @plan.present?
 
