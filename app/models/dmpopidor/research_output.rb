@@ -19,6 +19,12 @@ module Dmpopidor
       false
     end
 
+    # Generates a new uuid
+    def generate_uuid!
+      new_uuid = ::ResearchOutput.unique_uuid(field_name: 'uuid')
+      update_column(:uuid, new_uuid)
+    end
+
     def get_answers_for_section(section_id)
       answers.select { |answer| answer.question_id.in?(Section.find(section_id).questions.pluck(:id)) }
     end

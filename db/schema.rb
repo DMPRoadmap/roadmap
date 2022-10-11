@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_27_081010) do
+ActiveRecord::Schema.define(version: 2022_10_11_091958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -489,6 +489,7 @@ ActiveRecord::Schema.define(version: 2022_09_27_081010) do
     t.boolean "sensitive_data"
     t.bigint "byte_size"
     t.bigint "license_id"
+    t.string "uuid"
     t.index ["license_id"], name: "index_research_outputs_on_license_id"
     t.index ["plan_id"], name: "index_research_outputs_on_plan_id"
   end
