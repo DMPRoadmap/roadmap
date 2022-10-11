@@ -95,7 +95,7 @@ class PlanExportsController < ApplicationController
   end
 
   def show_csv
-    send_data @plan.as_csv(current_user, @show_sections_questions,
+    send_data @plan.as_csv(current_user, @show_questions,
                            @show_unanswered,
                            @selected_phase,
                            @show_custom_sections,

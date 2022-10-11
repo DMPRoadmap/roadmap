@@ -24,20 +24,19 @@ RSpec.describe 'Shibboleth Sign in / Sign up', type: :feature do
     click_on 'Continue'
 
     expect(page).to have_text(_('New Account Sign Up'))
-    expect(page).to have_text(_('Your address is associated with:'))
     expect(page).to have_text(@org.name)
   end
 
   scenario 'user authenticates with their IdP' do
     mock_shibboleth(user: @existing)
-    click_button 'Sign in with Institution to Continue'
+    click_button 'Sign up with Institution (SSO)'
     expect(page).to have_text(_('Successfully signed in'))
     unmock_shibboleth
   end
 
   scenario 'user authenticates with their IdP but eppn does not match one on record' do
     mock_shibboleth(user: @user)
-    click_button 'Sign in with Institution to Continue'
+    click_button 'Sign up with Institution (SSO)'
     expect(page).to have_text(_('It looks like this is your first time signing in.'))
     expect(find("input[value=\"#{@user.org.id}\"]", visible: false).present?).to eql(true)
     expect(find("input[value=\"#{@user.email}\"]").present?).to eql(true)
@@ -52,7 +51,7 @@ RSpec.describe 'Shibboleth Sign in / Sign up', type: :feature do
 
   scenario 'Idp responds with error' do
     mock_shibboleth(user: @user, success: false)
-    click_button 'Sign in with Institution to Continue'
+    click_button 'Sign up with Institution (SSO)'
     expect(page).to have_text(_('Unable to authenticate!'))
   end
 end

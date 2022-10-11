@@ -14,6 +14,8 @@ module Users
 
     # GET /users/sign_up
     def new
+      @bypass_sso = params[:sso_bypass] == 'true'
+
       # See if there was any OmniAuth information. If so use it to prepoluate fields
       self.resource = user_from_omniauth
     end

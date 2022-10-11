@@ -39,16 +39,16 @@ end
       <p><%= _("In order to register your plan you must have completed the following:") %></p>
       <ul>
         <li>
-          <% if plan.complete? %><span class="fa fa-check green"></span><% else %><span class="fa fa-times red"></span><% end %>
+          <% if plan.complete? %><span class="fa fa-check green"><span class="sr-only">Complete: </span></span><% else %><span class="fa fa-times red"><span class="sr-only">Incomplete: </span></span><% end %>
           <%= _("answered at least %{percentage}%% of questions") % { percentage: Rails.configuration.x.plans.default_percentage_answered } %>
         </li>
         <li>
-          <% if plan.funder_id.present? %><span class="fa fa-check green"></span><% else %><span class="fa fa-times red"></span><% end %>
+          <% if plan.funder_id.present? %><span class="fa fa-check green"><span class="sr-only">Complete: </span></span><% else %><span class="fa fa-times red"><span class="sr-only">Incomplete: </span></span><% end %>
           <%= _("identified your funder") %>
         </li>
         <% if Rails.configuration.x.madmp.enable_orcid_publication %>
           <li>
-            <% if orcid.present? && orcid_access_token.present?%><span class="fa fa-check green"></span><% else %><span class="fa fa-times red"></span><% end %>
+            <% if orcid.present? && orcid_access_token.present?%><span class="fa fa-check green"><span class="sr-only">Complete: </span></span><% else %><span class="fa fa-times red"><span class="sr-only">Incomplete: </span></span><% end %>
             <% if !orcid_access_token.present? %>
               <%= _("authorized DMPTool to add works to your ORCID record via your") %> <a href="<%= users_third_party_apps_path %>" target="_blank"><%= _("Third party applications page") %></a>
             <% else %>
@@ -57,7 +57,7 @@ end
           </li>
         <% end %>
         <li>
-          <% if !plan.is_test? %><span class="fa fa-check green"></span><% else %><span class="fa fa-times red"></span><% end %>
+          <% if !plan.is_test? %><span class="fa fa-check green"><span class="sr-only">Complete: </span></span><% else %><span class="fa fa-times red"><span class="sr-only">Incomplete: </span></span><% end %>
           <%= _("plan is not a mock project for testing, practice, or educational purposes") %>
         </li>
       </ul>
