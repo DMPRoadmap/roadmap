@@ -98,8 +98,13 @@ json.dataset research_outputs do |research_output|
   end
 
   if dataset.documentation_quality.present?
-    data_quality_assurance = exportable_description(dataset.quality_assurance_method.data["description"])
-    json.data_quality_assurance data_quality_assurance.present? ? [data_quality_assurance] : []
+    data_quality_assurance = [
+      exportable_description(dataset.documentation_quality.data["description"])
+    ]
+    if dataset.quality_assurance_method.present?
+      data_quality_assurance.append(exportable_description(dataset.quality_assurance_method.data["description"]))
+    end
+    json.data_quality_assurance data_quality_assurance.present? ? data_quality_assurance.compact : []
     json.metadata dataset.documentation_quality.metadata_standard do |metadata_standard|
       # rubocop:disable Layout/LineLength
       json.description        exportable_description("#{metadata_standard.data['name']} - #{metadata_standard.data['description']}")
