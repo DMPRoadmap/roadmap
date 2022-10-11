@@ -173,7 +173,7 @@ module Import
                 'description' => elem.dig('host', 'description'),
                 'geoLocation' => elem.dig('host', 'geo_location'),
                 'pidSystem' => elem.dig('host', 'pid_system'),
-                'hasVersioningPolicy' => elem.dig('host', 'support_versioning').capitalize,
+                'hasVersioningPolicy' => elem.dig('host', 'support_versioning')&.capitalize,
                 'title' => elem.dig('host', 'title'),
                 'hostId' => elem.dig('host', 'url')
               }
@@ -240,11 +240,11 @@ module Import
                   'description' => dataset['description'],
                   'uncontrolledKeywords' => [dataset['keyword']],
                   'language' => dataset['language'],
-                  'containsPersonalData' => dataset['personal_data'].capitalize,
+                  'containsPersonalData' => dataset['personal_data']&.capitalize,
                   'title' => dataset['title'],
                   'type' => dataset['type'],
-                  'containsSensitiveData' => dataset['sensitive_data'].capitalize,
-                  'hasEthicalIssues' => full_dmp['ethical_issues_exist'].capitalize
+                  'containsSensitiveData' => dataset['sensitive_data']&.capitalize,
+                  'hasEthicalIssues' => full_dmp['ethical_issues_exist']&.capitalize
                 },
                 'sharing' => {
                   'distribution' => convert_distribution(dataset['distribution']),
