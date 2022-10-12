@@ -26,9 +26,9 @@
 class RelatedIdentifier < ApplicationRecord
   include Uc3Citation
 
-  URL_REGEX = /^http/.freeze
-  DOI_REGEX = %r{(doi:)?10\.[0-9]+/[a-zA-Z0-9.\-/]+}.freeze
-  ARK_REGEX = %r{ark:[a-zA-Z0-9]+/[a-zA-Z0-9]+}.freeze
+  URL_REGEX = /^http/
+  DOI_REGEX = %r{(doi:)?10\.[0-9]+/[a-zA-Z0-9.\-/]+}
+  ARK_REGEX = %r{ark:[a-zA-Z0-9]+/[a-zA-Z0-9]+}
 
   # ================
   # = Associations =

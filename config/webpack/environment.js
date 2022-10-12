@@ -1,5 +1,5 @@
 const { environment } = require('@rails/webpacker');
-const ESLintPlugin = require('eslint-webpack-plugin');
+// const ESLintPlugin = require('eslint-webpack-plugin');
 const erb = require('./loaders/erb');
 const webpack = require('webpack');
 
@@ -12,7 +12,7 @@ environment.plugins.append(
     jQuery: 'jquery',
     timeago: 'timeago.js',
   }),
-  new ESLintPlugin(),
+  // new ESLintPlugin(),
 );
 
 environment.config.set('resolve.alias', {
