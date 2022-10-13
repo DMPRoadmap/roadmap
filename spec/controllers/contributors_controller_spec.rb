@@ -8,7 +8,7 @@ RSpec.describe ContributorsController, type: :controller do
     @org = create(:org, managed: true)
     @plan = create(:plan, :creator, org: @org)
     @user = @plan.owner
-    @contributor = create(:contributor, plan: @plan)
+    @contributor = create(:contributor, plan: @plan, org: @org)
 
     @params_hash = {
       contributor: {

@@ -37,7 +37,7 @@ class ApiClientRolesController < ApplicationController
     @client_role = ApiClientRole.find(params[:id])
     authorize @client_role
 
-    if @client_role.update_attributes(access: client_role_params[:access])
+    if @client_role.update(access: client_role_params[:access])
       render json: {
         code: 1,
         msg: format(_('Successfully changed the permissions for %{api_client}.'),

@@ -117,7 +117,7 @@ class Plan < ApplicationRecord
 
   has_many :guidances, through: :themes
 
-  has_many :guidance_group_options, -> { distinct.published.reorder('id') },
+  has_many :guidance_group_options, -> { distinct.includes(:org).published.reorder('id') },
            through: :guidances,
            source: :guidance_group,
            class_name: 'GuidanceGroup'

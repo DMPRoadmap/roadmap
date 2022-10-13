@@ -466,7 +466,7 @@ namespace :upgrade do
       puts 'Searching for Orgs with an undefined contact_email ...'
       Org.where("contact_email IS NULL OR contact_email = ''").each do |org|
         puts "  Setting contact_email to #{email} for #{org.name}"
-        org.update_attributes(contact_email: email, contact_name: name)
+        org.update(contact_email: email, contact_name: name)
       end
     else
       puts 'No helpdesk_email and/or name found in your config/initializers/dmproadmap.rb. Please add them!'

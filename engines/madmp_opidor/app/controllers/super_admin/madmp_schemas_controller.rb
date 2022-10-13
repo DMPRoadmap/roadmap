@@ -39,7 +39,7 @@ module SuperAdmin
     # rubocop:disable Metrics/AbcSize
     def update
       authorize(MadmpSchema)
-      if @schema.update_attributes(permitted_params.except(:schema))
+      if @schema.update(permitted_params.except(:schema))
         json_schema = MadmpSchema.substitute_names(JSON.parse(permitted_params[:schema]))
         @schema.update(schema: json_schema)
         flash.now[:notice] = success_message(@schema, _('updated'))

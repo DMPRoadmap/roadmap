@@ -5,10 +5,10 @@ require 'rails_helper'
 RSpec.describe Api::V1::Deserialization::Plan do
   before(:each) do
     # Org requires a language, so make sure a default is available!
-    create(:language, default_language: true) unless Language.default
+    create(:language, abbreviation: 'v1-plan', default_language: true) unless Language.default
 
     @template = create(:template)
-    @plan = create(:plan, template: @template)
+    @plan = create(:plan, template: @template, org: create(:org))
     @scheme = create(:identifier_scheme, name: 'doi',
                                          identifier_prefix: Faker::Internet.url)
     @doi = '10.9999/45ty5t.345/34t'

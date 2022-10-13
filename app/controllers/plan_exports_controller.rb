@@ -50,6 +50,13 @@ class PlanExportsController < ApplicationController
                              .detect { |p| p.visibility_allowed?(@plan) }
                       end
 
+    # Added contributors to coverage of plans.
+    # Users will see both roles and contributor names if the role is filled
+    @hash[:data_curation] = Contributor.where(plan_id: @plan.id).data_curation
+    @hash[:investigation] = Contributor.where(plan_id: @plan.id).investigation
+    @hash[:pa] = Contributor.where(plan_id: @plan.id).project_administration
+    @hash[:other] = Contributor.where(plan_id: @plan.id).other
+
     respond_to do |format|
       format.html { show_html }
       format.csv  { show_csv }
@@ -131,9 +138,9 @@ class PlanExportsController < ApplicationController
   def file_name
     # Sanitize bad characters and replace spaces with underscores
     ret = @plan.title
-    Zaru.sanitize! ret
     ret = ret.strip.gsub(/\s+/, '_')
     ret = ret.gsub(/"/, '')
+    ret = ActiveStorage::Filename.new(ret).sanitized
     # limit the filename length to 100 chars. Windows systems have a MAX_PATH allowance
     # of 255 characters, so this should provide enough of the title to allow the user
     # to understand which DMP it is and still allow for the file to be saved to a deeply
