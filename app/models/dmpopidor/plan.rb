@@ -37,6 +37,11 @@ module Dmpopidor
         reviewer.can_review_plans?
     end
 
+    # Defines if an api client has a read access to the plan
+    def readable_by_client?(client_id)
+      api_client_roles.select { |r| r.api_client_id == client_id && r.read }.any?
+    end
+
     # The number of research outputs for a plan.
     #
     # Returns Integer
@@ -166,6 +171,15 @@ module Dmpopidor
       json_fragment.meta.raw_import(raw_meta, json_fragment.meta.madmp_schema)
     end
     # rubocop:enable Metrics/AbcSize
+
+    def add_api_client!(api_client)
+      return unless api_client.present? && api_client_roles.where(api_client_id: api_client.id).none?
+
+      api_client_roles.create(
+        read: true,
+        api_client_id: api_client.id
+      )
+    end
   end
   # rubocop:enable Metrics/ModuleLength
 end

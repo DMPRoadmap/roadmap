@@ -14,7 +14,7 @@ class MadmpFragmentPolicy < ApplicationPolicy
     @record.plan.readable_by?(@user.id) || @user == @record.plan.owner
   end
 
-  def change_schema?
+  def change_form?
     @record.plan.editable_by?(@user.id) || @user == @record.plan.owner
   end
 

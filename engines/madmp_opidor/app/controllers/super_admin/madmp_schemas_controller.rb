@@ -84,7 +84,7 @@ module SuperAdmin
     end
 
     def permitted_params
-      params.require(:madmp_schema).permit(:label, :name, :version, :classname, :schema)
+      params.require(:madmp_schema).permit(:label, :name, :version, :classname, :api_client_id, :schema)
     end
   end
 end

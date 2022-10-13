@@ -10,44 +10,23 @@ module Api
         # GET /api/v1/madmp/plans/:id
         # rubocop:disable Metrics/AbcSize
         def show
-          plan = Plan.find(params[:id])
-          plan_fragment = plan.json_fragment
-          selected_research_outputs = query_params[:research_outputs]&.map(&:to_i) || plan.research_output_ids
-          # check if the user has permissions to use the API
-          unless Api::V1::Madmp::PlansPolicy.new(client, plan).show?
-            render_error(errors: 'Unauthorized to access plan', status: :unauthorized)
-            return
-          end
+          plan = Api::V1::PlansPolicy::Scope.new(client, Plan).resolve
+                                            .find(params[:id])
 
+          plan_fragment = plan.json_fragment
+          export_format = params[:export_format]
+          selected_research_outputs = query_params[:research_outputs]&.map(&:to_i) || plan.research_output_ids
           respond_to do |format|
             format.json
-            render 'shared/export/madmp_export_templates/default/plan', locals: {
-              dmp: plan_fragment, selected_research_outputs: selected_research_outputs
-            }
-            return
-          end
-        rescue ActiveRecord::RecordNotFound
-          render_error(errors: [_('Plan not found')], status: :not_found)
-        end
-        # rubocop:enable Metrics/AbcSize
-
-        # GET /api/v1/madmp/plans/:id/rda_export
-        # rubocop:disable Metrics/AbcSize
-        def rda_export
-          plan = Plan.find(params[:id])
-          plan_fragment = plan.json_fragment
-          selected_research_outputs = query_params[:research_outputs]&.map(&:to_i) || plan.research_output_ids
-          # check if the user has permissions to use the API
-          unless Api::V1::Madmp::PlansPolicy.new(client, plan).rda_export?
-            render_error(errors: 'Unauthorized to access plan', status: :unauthorized)
-            return
-          end
-
-          respond_to do |format|
-            format.json
-            render 'shared/export/madmp_export_templates/rda/plan', locals: {
-              dmp: plan_fragment, selected_research_outputs: selected_research_outputs
-            }
+            if export_format.eql?('rda')
+              render 'shared/export/madmp_export_templates/rda/plan', locals: {
+                dmp: plan_fragment, selected_research_outputs: selected_research_outputs
+              }
+            else
+              render 'shared/export/madmp_export_templates/default/plan', locals: {
+                dmp: plan_fragment, selected_research_outputs: selected_research_outputs
+              }
+            end
             return
           end
         rescue ActiveRecord::RecordNotFound

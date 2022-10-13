@@ -147,6 +147,9 @@ class Plan < ApplicationRecord
 
   belongs_to :feedback_requestor, class_name: 'User', foreign_key: 'feedback_requestor_id', optional: true
 
+  has_many :api_client_roles, dependent: :destroy
+
+  has_many :api_clients, through: :api_client_roles
   # --------------------------------
   # End DMP OPIDoR Customization
   # --------------------------------

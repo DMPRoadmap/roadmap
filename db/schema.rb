@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_21_093836) do
+ActiveRecord::Schema.define(version: 2022_10_11_091958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,18 @@ ActiveRecord::Schema.define(version: 2022_04_21_093836) do
     t.integer "question_option_id", null: false
     t.index ["answer_id"], name: "answers_question_options_answer_id_idx"
     t.index ["question_option_id"], name: "answers_question_options_question_option_id_idx"
+  end
+
+  create_table "api_client_roles", force: :cascade do |t|
+    t.integer "access", default: 0, null: false
+    t.bigint "api_client_id", null: false
+    t.bigint "plan_id", null: false
+    t.bigint "research_output_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["api_client_id"], name: "index_api_client_roles_on_api_client_id"
+    t.index ["plan_id"], name: "index_api_client_roles_on_plan_id"
+    t.index ["research_output_id"], name: "index_api_client_roles_on_research_output_id"
   end
 
   create_table "api_clients", id: :serial, force: :cascade do |t|
@@ -204,6 +216,8 @@ ActiveRecord::Schema.define(version: 2022_04_21_093836) do
     t.string "classname"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "api_client_id"
+    t.index ["api_client_id"], name: "index_madmp_schemas_on_api_client_id"
     t.index ["org_id"], name: "index_madmp_schemas_on_org_id"
   end
 
@@ -475,6 +489,7 @@ ActiveRecord::Schema.define(version: 2022_04_21_093836) do
     t.boolean "sensitive_data"
     t.bigint "byte_size"
     t.bigint "license_id"
+    t.string "uuid"
     t.index ["license_id"], name: "index_research_outputs_on_license_id"
     t.index ["plan_id"], name: "index_research_outputs_on_plan_id"
   end
@@ -663,6 +678,7 @@ ActiveRecord::Schema.define(version: 2022_04_21_093836) do
   add_foreign_key "guidances", "guidance_groups"
   add_foreign_key "madmp_fragments", "answers"
   add_foreign_key "madmp_fragments", "madmp_schemas"
+  add_foreign_key "madmp_schemas", "api_clients"
   add_foreign_key "madmp_schemas", "orgs"
   add_foreign_key "notes", "answers"
   add_foreign_key "notes", "users"

@@ -36,7 +36,9 @@ class ApiClient < ApplicationRecord
 
   belongs_to :org, optional: true
 
-  has_many :plans
+  has_many :roles, class_name: 'ApiClientRole', dependent: :destroy
+  has_many :plans, through: :roles
+  has_many :madmp_schemas
 
   # If the Client_id or client_secret are nil generate them
   attribute :client_id, :string, default: -> { unique_random(field_name: 'client_id') }

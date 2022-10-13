@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :madmp_fragments, only: %i[create update destroy] do
     get 'load_new_form', action: :load_form, on: :collection
     get 'load_form/:id', action: :load_form, on: :collection
-    get 'change_schema/:id', action: :change_schema, on: :collection
+    get 'change_form/:id', action: :change_form, on: :collection
     get 'new_edit_linked', on: :collection, constraints: { format: [:js] }
     get 'show_linked', on: :collection, constraints: { format: [:js] }
     get 'create_from_registry', action: :create_from_registry_value, on: :collection
@@ -29,6 +29,9 @@ Rails.application.routes.draw do
   resources :registries, only: [] do
     get 'load_values', action: :load_values, on: :collection
   end
+
+  resources :api_client_roles, only: %i[create update destroy]
+
   namespace :paginable do
     # Paginable actions for registries
     resources :registries, only: [] do

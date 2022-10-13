@@ -1,0 +1,93 @@
+<% client_editor = ApiClientRole.new(edit: true, read: true) %>
+<% client_reader = ApiClientRole.new(read: true) %>
+<% client_tooltip = 'pouet' %>
+<% client_permissions_tooltip = '' %>
+
+<div class="heading-button" role="button" data-toggle="collapse"
+      data-parent="share-form"
+      href="#api_client_roles"
+      aria-expanded="false"
+      aria-controls="api_client_roles">
+  <div class="panel-heading" role="tab" id="heading-api-client-roles">
+    <div class="panel-title pull-left">
+      <%= _("Third party applications") %>
+    </div>
+    <i class="fas fa-chevron-right pull-right" aria-hidden="true"></i>
+    <div class="clearfix"></div>
+  </div>
+</div>
+
+<div id="api_client_roles" class="panel-collapse collapse plan-details-content" role="tabpanel" aria-labelledby="heading-api-client-roles">
+  <div class="panel-body">
+    <% if @plan_client_roles.any? then %>
+      <h2><%= _('Manage third party applications')%></h2>
+      <table class="table table-hover table-bordered" id="api-clients-table">
+        <thead>
+          <tr>
+            <th scope="col"><%= _('Application')%></th>
+            <th scope="col"><%= _('Permissions')%></th>
+            <% if administerable %>
+              <th scope="col"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% @plan_client_roles.each do |client_role| %>
+            <tr>
+              <td><%= client_role.api_client.name %></td>
+              <td>
+                <span><%= display_client_role(client_role) %></span>
+              </td>
+              <% if administerable %>
+                <td>
+                  <%= link_to _('Remove'), client_role, method: :delete, data: { confirm: _('Are you sure?') }, :class => "a-orange" %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+
+    <% if administerable  %>
+      <h2><%= _('Authorize third party applications') %></h2>
+      <% new_client_role = ApiClientRole.new %>
+      <% new_client_role.plan = @plan %>
+      <%= form_for new_client_role, url: {controller: :api_client_roles, action: :create }, html: {method: :post} do |f| %>
+        <div class="form-group col-xs-8">
+          <%= f.hidden_field :plan_id %>
+          <%= f.fields_for :api_client, new_client_role.api_client do |api_client| %>
+              <%= api_client.label :api_client_id, _('Application'), class: 'control-label'%>
+              <em class="sr-only"><%= client_tooltip %></em>
+              <%= select_tag("api_client_role[api_client_id]",
+                  options_from_collection_for_select(@api_clients, "id", "name"),
+                  include_blank: true,
+                  title: client_tooltip,
+                  data: { toggle: "tooltip", html: true },
+                  class: "form-control") %>
+          <% end %>
+        </div>
+        <div class="clearfix"></div>
+        <em class="sr-only"><%= client_permissions_tooltip %></em>
+        <%= field_set_tag  nil, class: 'col-xs-12',
+                        'data-toggle': 'tooltip',
+                        'data-html': true,
+                        title: client_permissions_tooltip,
+                        'data-placement':'right' do %>
+          <%= content_tag :legend , _('Permissions') %>
+          <div class="form-group">
+            <div class="radio">
+              <%= f.label :commenter_access do %>
+                <%= f.radio_button :access, client_reader.access, checked: true, id: "client_role_commenter_access" %>
+                <%= _('Read only: can read the content of the dmp') %>
+              <% end %>
+            </div>
+
+            <%= f.button(_('Save'), class: "btn btn-primary", type: "submit") %>
+          </div>
+        <% end %>
+        <div class="clearfix"></div>
+      <% end %>  
+    <% end %>
+  </div>
+</div>

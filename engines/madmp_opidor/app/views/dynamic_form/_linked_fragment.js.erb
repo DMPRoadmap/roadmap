@@ -1,7 +1,7 @@
 <% helpers = ActionController::Base.helpers %>
 
 $(() => {
-  $('#modal-window').html('<%= escape_javascript(render "dynamic_form/modal") %>');
+  $('#modal-window').html('<%= escape_javascript(render "dynamic_form/fragment_modal") %>');
 
   $('#modal-window').modal({backdrop: 'static'});
 

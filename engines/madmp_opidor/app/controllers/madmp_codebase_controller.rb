@@ -10,12 +10,12 @@ class MadmpCodebaseController < ApplicationController
     fragment = MadmpFragment.find(params[:fragment_id])
     schema_runs = fragment.madmp_schema.extract_run_parameters
     script_id = params[:script_id]
-    params = if schema_runs.is_a?(Array)
-               schema_runs.find { |run| run['script_id'] == script_id.to_i }['params'] || {}
-             else
-               schema_runs['params'] || {}
-             end
-
+    script_name = script_params = if schema_runs.is_a?(Array)
+                                    schema_runs.find { |run| run['script_id'] == script_id.to_i }
+                                               .values_at('name', 'params') || {}
+                                  else
+                                    schema_runs.values_at('name', 'params') || {}
+                                  end
     authorize fragment
 
     # EXAMPLE DATA
@@ -26,8 +26,9 @@ class MadmpCodebaseController < ApplicationController
     #   "message" => _('New data have been added to your plan, please click on the "Reload" button.')
     # }, status: 200
     # return
+    fragment.plan.add_api_client!(fragment.madmp_schema.api_client) if script_name.include?('notifyer')
     begin
-      response = fetch_run_data(fragment, script_id, params: params)
+      response = fetch_run_data(fragment, script_id, params: script_params)
       if response['return_code'].eql?(0)
         if response['data'].empty?
           render json: {

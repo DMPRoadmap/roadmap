@@ -2,6 +2,8 @@
 
 module MadmpOpidor
   class Engine < ::Rails::Engine
-    # isolate_namespace MadmpOpidor
+    require 'json'
+    require 'active_record'
+    require 'activerecord-import'
   end
 end
