@@ -438,6 +438,8 @@ GEM
       rspec-mocks (~> 3.11)
       rspec-support (~> 3.11)
     rspec-support (3.11.1)
+    rss (0.2.9)
+      rexml
     rubocop (1.36.0)
       json (~> 2.3)
       parallel (~> 1.10)
@@ -622,6 +624,7 @@ DEPENDENCIES
   rollbar
   rspec-collection_matchers
   rspec-rails
+  rss
   rubocop
   rubocop-i18n
   sass-rails

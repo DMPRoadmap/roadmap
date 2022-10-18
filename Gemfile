@@ -165,6 +165,11 @@ gem 'recaptcha'
 # (http://github.com/markevans/dragonfly)
 gem 'dragonfly'
 
+# Really Simple Syndication (RSS) is a family of formats that describe feeds, specially
+# constructed XML documents that allow an interested person to subscribe and receive updates
+# from a particular web service (https://github.com/ruby/rss)
+gem 'rss'
+
 group :aws do
   # Amazon AWS S3 data store for use with the Dragonfly gem.
   gem 'dragonfly-s3_data_store'
