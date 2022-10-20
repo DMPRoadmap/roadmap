@@ -13,6 +13,9 @@ class SsmConfigLoader < Anyway::Loaders::Base
   def call(name:, **_opts)
     logger = Logger.new($stdout)
     ssm = Uc3Ssm::ConfigResolver.new
+
+@logger.warn "SsmConfigLoader path: #{name}"
+
     parameters = ssm.parameters_for_path(path: name, recursive: true)
     config = {}
     # reverse processing order to ensure correct precidence based on ssm_root_path
