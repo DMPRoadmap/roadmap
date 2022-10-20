@@ -120,12 +120,12 @@ class Question < ApplicationRecord
     copy.section_id = options.fetch(:section_id, nil)
     copy.save!(validate: false)  if options.fetch(:save, false)
     options[:question_id] = copy.id
-    question_options.each { |qo| copy.question_options << qo.deep_copy(options) }
+    question_options.each { |qo| copy.question_options << qo.deep_copy(**options) }
     annotations.each do |annotation|
       copy.annotations << annotation.deep_copy(options)
     end
     themes.each { |theme| copy.themes << theme }
-    conditions.each { |condition| copy.conditions << condition.deep_copy(options) }
+    conditions.each { |condition| copy.conditions << condition.deep_copy(**options) }
     copy.conditions = copy.conditions.sort_by(&:number)
     copy
   end

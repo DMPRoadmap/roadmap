@@ -698,7 +698,8 @@ RSpec.describe Template, type: :model do
       let!(:template) { create(:template, :published, phases: 2) }
 
       subject do
-        template.deep_copy(attributes: { title: 'foo', description: 'bar' })
+        args = { attributes: { title: 'foo', description: 'bar' } }
+        template.deep_copy(**args)
       end
 
       it 'updates title with the provided value' do
@@ -713,7 +714,8 @@ RSpec.describe Template, type: :model do
     context 'when options save is true' do
       let!(:template) { create(:template, :published, phases: 2) }
 
-      subject { template.deep_copy(attributes: { family_id: 123 }, save: true) }
+      args = { attributes: { family_id: 123 }, save: true }
+      subject { template.deep_copy(**args) }
 
       it 'returns a persisted record' do
         expect(subject).to be_persisted
@@ -732,7 +734,8 @@ RSpec.describe Template, type: :model do
     context 'when options save is false' do
       let!(:template) { create(:template, :published, phases: 2) }
 
-      subject { template.deep_copy(attributes: { family_id: 123 }, save: false) }
+      args = { attributes: { family_id: 123 }, save: false }
+      subject { template.deep_copy(**args) }
 
       it 'returns a new record' do
         expect(subject).to be_new_record
