@@ -23,6 +23,9 @@ if ENV.key?('SSM_ROOT_PATH')
   begin
     ssm = Uc3Ssm::ConfigResolver.new
     master_key = ssm.parameter_for_key('master_key')
+
+p "MASTER: #{master_key}"
+
     ENV['RAILS_MASTER_KEY'] = master_key.chomp unless master_key.nil? || master_key.empty?
   rescue StandardError => e
     ActiveSupport::Logger.new($stdout).warn("Could not retrieve master_key from SSM Parameter Store: #{e.full_message}")
