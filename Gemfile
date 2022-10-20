@@ -69,7 +69,7 @@ gem 'bootsnap', require: false
 gem 'anyway_config'
 
 # Our homegrown artisinal SSM gem
-gem 'uc3-ssm', git: 'https://github.com/CDLUC3/uc3-ssm', branch: '0.3.1'
+gem 'uc3-ssm', git: 'https://github.com/CDLUC3/uc3-ssm', branch: 'ruby3.0'
 
 # ============== #
 # ERROR HANDLING #
