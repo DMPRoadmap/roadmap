@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe ExternalApis::SpdxService do
-  include Webmocks
+  include Helpers::Webmocks
 
   before(:each) do
     License.all.destroy_all

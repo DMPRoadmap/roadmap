@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'users/shared/_login_header' do
-  include DmptoolHelper
+  include Helpers::DmptoolHelper
 
   it 'renders correctly' do
     controller.prepend_view_path 'app/views/branded'

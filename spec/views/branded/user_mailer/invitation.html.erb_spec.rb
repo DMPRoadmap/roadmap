@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'user_mailer/invitation' do
-  include DmptoolHelper
+  include Helpers::DmptoolHelper
 
   before(:each) do
     controller.prepend_view_path 'app/views/branded'

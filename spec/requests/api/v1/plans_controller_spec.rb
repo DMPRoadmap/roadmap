@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::PlansController, type: :request do
-  include ApiHelper
+  include Helpers::ApiHelper
 
   context 'ApiClient' do
     before(:each) do
@@ -37,7 +37,7 @@ RSpec.describe Api::V1::PlansController, type: :request do
     end
 
     describe 'POST /api/v1/plans - create' do
-      include Webmocks
+      include Helpers::Webmocks
       include Mocks::ApiJsonSamples
 
       before(:each) do

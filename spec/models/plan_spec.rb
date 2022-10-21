@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 describe Plan do
-  include IdentifierHelper
-  include RolesHelper
-  include TemplateHelper
+  include Helpers::IdentifierHelper
+  include Helpers::RolesHelper
+  include Helpers::TemplateHelper
 
   context 'validations' do
     it { is_expected.to validate_presence_of(:title) }

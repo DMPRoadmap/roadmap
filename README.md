@@ -25,9 +25,10 @@ See the [Translations Guide](https://github.com/DMPRoadmap/roadmap/wiki/Translat
 
 #### Pre-requisites
 Roadmap is a Ruby on Rails application and you will need to have:
-* Ruby = 2.6.3
-* Rails = 5.2
-* MySQL >= 5.0 OR PostgreSQL
+* Ruby = 3.0
+* Rails = 6.1
+* Node >= 18.11
+* MySQL >= 8.0 OR PostgreSQL
 
 ## Installation
 
@@ -54,6 +55,9 @@ The following is a list of customizations that we have made to the base DMPRoadm
 - **Public participating institutions page:** A new Participating Institutions page has been added and is accessible to the public.
 - **Styling:** We have added `app/assets/stylesheets/dmptool/**/*.scss` files that gets loaded after the base DMPRoadmap stylesheets
 - **Text/Labels:** Various text and labels have been updated.
+- **Related Works:** Admins are able to enter the identifiers for related project outputs (e.g. journal articles, dataset DOIs, etc.) to a DMP's project details page.
+- **DMP ID Registration:** The system allows users to register DMP IDs for their plans. This can be done through either the DMPHub or DataCite services
+- **OAuth2 compliant API:** The API v2 is OAuth2 compliant and allows partner systems to fetch and download a user's DMPs after the user authorizes the interaction.
 
 ## Troubleshooting
 See the [Troubleshooting Guide](https://github.com/DMPRoadmap/roadmap/wiki/Troubleshooting) on the DMPRoadmap Wiki

@@ -16,6 +16,7 @@ FactoryBot.define do
     name { Faker::Movies::StarWars.unique.specie }
     description { "Language for #{name}" }
     default_language { false }
+    abbreviation { ('a'..'z').to_a.shuffle.take(2).join }
     trait :with_dialect do
       abbreviation do
         pre = ('a'..'z').to_a.shuffle.take(2).join

@@ -43,7 +43,7 @@ module Dmptool
 
         ::User.transaction do
           invitee = ::User.new(params)
-          if invitee.save(params)
+          if invitee.save(**params)
             case context
             when 'api'
               UserMailer.new_plan_via_api(recipient: invitee, plan: plan, api_client: inviter)

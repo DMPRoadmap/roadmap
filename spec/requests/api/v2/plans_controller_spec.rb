@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe Api::V2::PlansController, type: :request do
-  include ApiHelper
+  include Helpers::ApiHelper
   include Mocks::ApiV2JsonSamples
-  include Webmocks
+  include Helpers::Webmocks
 
   context 'Non-Oauth (client_credentials grant type)' do
     before(:each) do

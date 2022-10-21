@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Sign in via email and password', type: :feature do
-  include DmptoolHelper
+  include Helpers::DmptoolHelper
 
   before(:each) do
     @pwd = SecureRandom.uuid

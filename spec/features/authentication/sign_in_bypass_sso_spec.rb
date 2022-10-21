@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Sign in and bypass SSO', type: :feature do
-  include DmptoolHelper
-  include AutocompleteHelper
-  include IdentifierHelper
+  include Helpers::DmptoolHelper
+  include Helpers::AutocompleteHelper
+  include Helpers::IdentifierHelper
 
   before(:each) do
     mock_blog

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'SuperAdmins Orgs', type: :feature, js: true do
-  include LinksHelper
+  include Helpers::LinksHelper
 
   before do
     @org = create(:org)

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe ExternalApis::RdamscService do
-  include Webmocks
+  include Helpers::Webmocks
 
   before(:each) do
     MetadataStandard.all.destroy_all

@@ -5,8 +5,8 @@ require 'rails_helper'
 # rubocop:disable Metrics/ModuleLength
 module Dmptool
   RSpec.describe User do
-    include IdentifierHelper
-    include EmailHelper
+    include Helpers::IdentifierHelper
+    include Helpers::EmailHelper
 
     context 'class methods' do
       describe 'invite!(inviter:, plan:, params:)' do

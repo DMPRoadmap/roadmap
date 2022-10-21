@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'public_pages/template_index.html.erb' do
-  include DmptoolHelper
+  include Helpers::DmptoolHelper
 
   it 'renders our version of the page' do
     3.times { create(:template) }

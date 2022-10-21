@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
-module EmailHelper
-  def clear_emails
-    ActionMailer::Base.deliveries = []
-  end
+module Helpers
+  module EmailHelper
+    def clear_emails
+      ActionMailer::Base.deliveries = []
+    end
 
-  def sent_emails
-    ActionMailer::Base.deliveries
+    def sent_emails
+      ActionMailer::Base.deliveries
+    end
   end
 end

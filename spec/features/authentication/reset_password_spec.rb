@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Request password reset', type: :feature do
-  include DmptoolHelper
+  include Helpers::DmptoolHelper
 
   before(:each) do
     @pwd = SecureRandom.uuid

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'layouts/_sub_header.html.erb' do
-  include DmptoolHelper
+  include Helpers::DmptoolHelper
 
   before(:each) do
     controller.prepend_view_path 'app/views/branded'

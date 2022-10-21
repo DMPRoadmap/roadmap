@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Role, type: :model do
-  include RolesHelper
+  include Helpers::RolesHelper
 
   context 'validations' do
     it { is_expected.to validate_presence_of(:user) }

@@ -32,7 +32,7 @@ FactoryBot.define do
     transient do
       roles_count { 1 }
     end
-
+ 
     before(:create) do |contributor, evaluator|
       (0..evaluator.roles_count - 1).each do |idx|
         contributor.send(:"#{contributor.all_roles[idx]}=", true)

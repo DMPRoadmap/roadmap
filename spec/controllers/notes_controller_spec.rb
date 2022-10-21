@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe NotesController, type: :controller do
-  include RolesHelper
+  include Helpers::RolesHelper
 
   before(:each) do
     @plan = build_plan(true, true, true)

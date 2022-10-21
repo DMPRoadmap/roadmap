@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Api::V2::RelatedIdentifiersController, type: :request do
   include Api::AccessTokenRequestHelper
   include Api::AuthorizationRequestHelper
-  include IdentifierHelper
+  include Helpers::IdentifierHelper
 
   before(:each) do
     @other_user = create(:user)

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Dmptool::HomeController, type: :request do
-  include DmptoolHelper
+  include Helpers::DmptoolHelper
 
   before(:each) do
     @controller = ::HomeController.new

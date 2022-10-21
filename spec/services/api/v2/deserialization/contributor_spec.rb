@@ -13,8 +13,8 @@ RSpec.describe Api::V2::Deserialization::Contributor do
     @email = Faker::Internet.email
 
     @contributor = build(:contributor, org: @org, plan: @plan,
-                                       name: @name, email: @email)
-    @role = "#{Contributor::ONTOLOGY_BASE_URL}/#{@contributor.selected_roles.first}"
+                                       name: @name, email: @email, roles_count: 2)
+    @role = "#{Contributor::ONTOLOGY_BASE_URL}/#{@contributor.all_roles.last}"
 
     @scheme = create(:identifier_scheme)
     @identifier = build(:identifier, identifiable: @contributor,
@@ -154,6 +154,7 @@ RSpec.describe Api::V2::Deserialization::Contributor do
       end
       it 'ignores unknown/undefined roles' do
         @json[:role] << Faker::Lorem.word
+        @contributor.roles = nil
         result = described_class.send(:assign_roles, contributor: @contributor,
                                                      json: @json)
         expect(result.selected_roles).to eql(@contributor.selected_roles)

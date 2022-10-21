@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::DeserializationService do
-  include IdentifierHelper
+  include Helpers::IdentifierHelper
 
   describe 'object_from_identifier(clazz:, json:)' do
     before(:each) do

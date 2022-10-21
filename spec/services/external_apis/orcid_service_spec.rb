@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe ExternalApis::OrcidService, type: :model do
-  include IdentifierHelper
-  include Webmocks
+  include Helpers::IdentifierHelper
+  include Helpers::Webmocks
 
   before(:each) do
     Rails.configuration.x.allow_dmp_id_minting = true

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'users/shared/_error_messages' do
-  include DmptoolHelper
+  include Helpers::DmptoolHelper
 
   it 'renders our version of the page' do
     controller.prepend_view_path 'app/views/branded'

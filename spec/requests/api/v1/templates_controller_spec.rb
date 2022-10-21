@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::TemplatesController, type: :request do
-  include ApiHelper
+  include Helpers::ApiHelper
 
   context 'ApiClient' do
     before(:each) do

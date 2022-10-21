@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Shibboleth Sign in / Sign up', type: :feature do
-  include DmptoolHelper
-  include IdentifierHelper
-  include AuthenticationHelper
+  include Helpers::DmptoolHelper
+  include Helpers::IdentifierHelper
+  include Helpers::AuthenticationHelper
 
   before(:each) do
     @email_domain = 'foo.edu'

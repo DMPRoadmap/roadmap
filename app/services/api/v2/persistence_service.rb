@@ -36,8 +36,8 @@ module Api
 
           Identifier.transaction do
             identifier.save if identifier.valid?
-            return identifier unless identifier.new_record?
           end
+          return identifier unless identifier.new_record?
 
           Identifier.where(identifier_scheme: identifier.identifier_scheme,
                            value: identifier.value,

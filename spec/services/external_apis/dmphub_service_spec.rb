@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe ExternalApis::DmphubService, type: :model do
-  include DmphubMocks
-  include IdentifierHelper
+  include Mocks::DmphubMocks
+  include Helpers::IdentifierHelper
 
   before(:each) do
     Rails.configuration.x.dmphub.active = true

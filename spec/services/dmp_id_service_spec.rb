@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe DmpIdService do
-  include ConfigHelper
+  include Helpers::ConfigHelper
 
   before(:each) do
     Rails.configuration.x.enable_dmp_id_registration = true

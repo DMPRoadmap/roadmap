@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V2::TemplatesController, type: :request do
-  include ApiHelper
+  include Helpers::ApiHelper
 
   before(:each) do
     @client = create(:api_client, user: create(:user, org: create(:org)))

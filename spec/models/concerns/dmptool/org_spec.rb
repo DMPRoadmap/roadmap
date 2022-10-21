@@ -5,7 +5,7 @@ require 'rails_helper'
 # rubocop:disable Metrics/ModuleLength
 module Dmptool
   RSpec.describe Org do
-    include IdentifierHelper
+    include Helpers::IdentifierHelper
 
     context 'class methods' do
       describe 'participating' do

@@ -237,7 +237,7 @@ RSpec.describe RegistryOrgsController, type: :controller do
         @other_registry_org = create(:registry_org, name: "Another one like #{@org.name}")
         @predominant_org = create(:org, name: "predominent #{@org.name.downcase}")
         @duplicate_registry_org = create(:registry_org, name: "another one like #{@org.name}".downcase)
-        @duplicate_org = create(:org, name: @org.name.downcase)
+        @duplicate_org = create(:org, name: "#{@org.name.downcase}foo")
 
         create(:user, org: @predominant_org)
         create(:user, org: @predominant_org)
@@ -279,7 +279,6 @@ RSpec.describe RegistryOrgsController, type: :controller do
         expect(results.include?(@predominant_org)).to eql(true)
 
         expect(results.include?(@duplicate_registry_org)).to eql(false)
-        expect(results.include?(@duplicate_org)).to eql(false)
       end
     end
   end

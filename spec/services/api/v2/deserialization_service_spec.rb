@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V2::DeserializationService do
-  include IdentifierHelper
+  include Helpers::IdentifierHelper
 
   describe 'plan_from_dmp_id(dmp_id:)' do
     before(:each) do

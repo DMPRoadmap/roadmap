@@ -98,7 +98,8 @@ module Api
 
             json.fetch(:role, []).each do |url|
               role = Api::V2::DeserializationService.translate_role(role: url)
-              contributor.send(:"#{role}=", true) if role.present?
+              contributor.send(:"#{role}=", true) if role.present? && 
+                                                     contributor.respond_to?(:"#{role}=")
             end
             contributor
           end

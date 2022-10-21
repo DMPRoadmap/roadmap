@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'users/shared/_links' do
-  include DmptoolHelper
+  include Helpers::DmptoolHelper
 
   it 'renders correctly when showing both back button and contact us message' do
     controller.prepend_view_path 'app/views/branded'

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V2::Deserialization::Plan do
-  include IdentifierHelper
+  include Helpers::IdentifierHelper
 
   before(:each) do
     # Org requires a language, so make sure a default is available!

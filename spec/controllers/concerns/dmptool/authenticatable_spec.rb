@@ -3,8 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe Dmptool::Authenticatable, type: :controller do
-  include DmptoolHelper
-  include OrgSelectionHelper
+  include Helpers::DmptoolHelper
+  include Helpers::IdentifierHelper
+  include Helpers::OrgSelectionHelper
   include Devise::Test::ControllerHelpers
 
   before(:each) do

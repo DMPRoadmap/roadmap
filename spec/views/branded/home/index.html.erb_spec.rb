@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'home/index' do
-  include DmptoolHelper
+  include Helpers::DmptoolHelper
 
   it 'renders our version of the page' do
     mock_blog

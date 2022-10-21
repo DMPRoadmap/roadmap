@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Questions::Check box questions', type: :feature do
-  include Webmocks
+  include Helpers::Webmocks
 
   before do
     @default_template  = create(:template, :default, :published)

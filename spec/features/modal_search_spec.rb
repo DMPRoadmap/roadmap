@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.feature 'ModalSearchDialog', type: :feature do
-  include Webmocks
+  include Helpers::Webmocks
 
   before(:each) do
     stub_openaire

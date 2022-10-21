@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Sign up via email and password', type: :feature do
-  include DmptoolHelper
-  include AutocompleteHelper
+  include Helpers::DmptoolHelper
+  include Helpers::AutocompleteHelper
 
   before(:each) do
     mock_blog
@@ -91,8 +91,15 @@ RSpec.describe 'Sign up via email and password', type: :feature do
     end
   end
 
-  context 'Validate various Org types', js: true do
+  context 'Validate various Org types when we are not allowing custom org entry', js: true do
     before(:each) do
+      Rails.configuration.x.application.restrict_orgs = true
+      visit root_path
+      fill_in 'Email address', with: Faker::Internet.unique.email
+      click_on 'Continue'
+
+      expect(page).to have_text('New Account Sign Up')
+
       within("form[action=\"#{user_registration_path}\"]") do
         fill_in 'First Name', with: Faker::Movies::StarWars.character.split.first
         fill_in 'Last Name', with: Faker::Movies::StarWars.character.split.last
@@ -107,6 +114,32 @@ RSpec.describe 'Sign up via email and password', type: :feature do
         fill_in 'Password', with: SecureRandom.uuid
         click_button 'Sign up'
         expect(find('.is-invalid[id="sign-up-org"]').present?).to eql(true)
+      end
+    end
+
+    scenario 'Does not allow user to select a RegistryOrg with no Org if restrict_orgs is false' do
+      within("form[action=\"#{user_registration_path}\"]") do
+        fill_in 'Institution', with: @registry_org.name
+        click_button 'Sign up'
+        expect(find('.is-invalid[id="sign-up-org"]').present?).to eql(true)
+      end
+    end
+  end
+
+  context 'Validate various Org types when we are allowing custom org entry', js: true do
+    before(:each) do
+      Rails.configuration.x.application.restrict_orgs = false
+      visit root_path
+      fill_in 'Email address', with: Faker::Internet.unique.email
+      click_on 'Continue'
+
+      expect(page).to have_text('New Account Sign Up')
+
+      within("form[action=\"#{user_registration_path}\"]") do
+        fill_in 'First Name', with: Faker::Movies::StarWars.character.split.first
+        fill_in 'Last Name', with: Faker::Movies::StarWars.character.split.last
+        fill_in 'Password', with: SecureRandom.uuid
+        page.execute_script("document.getElementById('user_accept_terms').checked = true;")
       end
     end
 
@@ -132,8 +165,6 @@ RSpec.describe 'Sign up via email and password', type: :feature do
     end
 
     scenario 'Allows user to select a RegistryOrg that is not yet an Org' do
-      Rails.configuration.x.application.restrict_orgs = false
-
       within("form[action=\"#{user_registration_path}\"]") do
         select_an_org('#sign-up-org', @registry_org.name, 'Institution')
         click_button 'Sign up'
@@ -144,19 +175,7 @@ RSpec.describe 'Sign up via email and password', type: :feature do
       expect(page).to have_text('You are now ready to create your first DMP.')
     end
 
-    scenario 'Does not allow user to select a RegistryOrg with no Org if restrict_orgs is false' do
-      Rails.configuration.x.application.restrict_orgs = true
-
-      within("form[action=\"#{user_registration_path}\"]") do
-        fill_in 'Institution', with: @registry_org.name
-        click_button 'Sign up'
-        expect(find('.is-invalid[id="sign-up-org"]').present?).to eql(true)
-      end
-    end
-
     scenario 'Allows user to specify a custom Org name' do
-      Rails.configuration.x.application.restrict_orgs = false
-
       within("form[action=\"#{user_registration_path}\"]") do
         enter_custom_org('#sign-up-org', Faker::Movies::StarWars.planet)
         click_button 'Sign up'

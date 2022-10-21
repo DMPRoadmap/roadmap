@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'OrgAutocomplete', type: :feature do
-  include DmptoolHelper
+  include Helpers::DmptoolHelper
 
   # Generic Tests for the Org Autocomplete form widget as well as tests for each
   # implementation of it throughout the site

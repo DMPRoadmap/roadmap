@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
-  include RolesHelper
+  include Helpers::RolesHelper
 
   before(:each) do
     template = create(:template, phases: 1, sections: 1, questions: 1)

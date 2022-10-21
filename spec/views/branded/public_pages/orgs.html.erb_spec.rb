@@ -3,7 +3,8 @@
 require 'rails_helper'
 
 describe 'public_pages/orgs.html.erb' do
-  include DmptoolHelper
+  include Helpers::DmptoolHelper
+  include Helpers::IdentifierHelper
 
   it 'renders our version of the page' do
     3.times do

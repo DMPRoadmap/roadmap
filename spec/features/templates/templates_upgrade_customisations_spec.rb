@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
-  include AutocompleteHelper
+  include Helpers::AutocompleteHelper
 
   let(:funder) { create(:org, :funder, name: 'The funder org', managed: true) }
 

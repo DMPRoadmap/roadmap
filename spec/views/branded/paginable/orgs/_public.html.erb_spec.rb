@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'paginable/orgs/_public.html.erb' do
-  include IdentifierHelper
+  include Helpers::IdentifierHelper
 
   it 'renders our version of the page' do
     3.times do

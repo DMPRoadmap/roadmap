@@ -41,8 +41,8 @@ Capybara.configure do |config|
 end
 
 RSpec.configure do |config|
-  config.include(CapybaraHelper, type: :feature)
-  config.include(SessionsHelper, type: :feature)
-  config.include(TinyMceHelper,  type: :feature)
-  config.include(AutocompleteHelper, type: :feature)
+  config.include(Helpers::CapybaraHelper, type: :feature)
+  config.include(Helpers::SessionsHelper, type: :feature)
+  config.include(Helpers::TinyMceHelper,  type: :feature)
+  config.include(Helpers::AutocompleteHelper, type: :feature)
 end

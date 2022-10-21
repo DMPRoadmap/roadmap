@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Dmptool::OrgAdmin::PlansController, type: :request do
-  include DmptoolHelper
+  include Helpers::DmptoolHelper
 
   before(:each) do
     @admin = create(:user, :org_admin, org: create(:org))
