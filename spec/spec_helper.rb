@@ -117,7 +117,7 @@ RSpec.configure do |config|
   # Enable Capybara webmocks if we are testing a feature
   config.before(:each) do |example|
     if example.metadata[:type] == :feature
-      Capybara::Webmock.start
+      # Capybara::Webmock.start
 
       # Allow Capybara to make localhost requests and also contact the
       # google api chromedriver store
