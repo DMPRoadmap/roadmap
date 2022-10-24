@@ -19,7 +19,7 @@ jobs:
     # Install Ruby and run bundler
     - uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.6.3
+        ruby-version: 3.0
         bundler-cache: true
 
     # Install Node
