@@ -109,7 +109,7 @@ json.dataset research_outputs do |research_output|
       # rubocop:disable Layout/LineLength
       json.description        exportable_description("#{metadata_standard.data['name']} - #{metadata_standard.data['description']}")
       # rubocop:enable Layout/LineLength
-      json.language           metadata_standard.data["metadataLanguage"]
+      json.language           dataset.documentation_quality.data["metadataLanguage"]
       json.metadata_standard_id do
         json.identifier metadata_standard.data["metadataStandardId"]
         json.type       Export::Converters::RdaRegistryConverter.convert_pid_system(metadata_standard.data["idType"],

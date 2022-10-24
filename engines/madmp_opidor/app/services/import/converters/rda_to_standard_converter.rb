@@ -118,7 +118,6 @@ module Import
             metadata_list.append(
               {
                 'description' => elem['description'],
-                'metadataLanguage' => elem['language'],
                 'metadataStandardId' => elem.dig('metadata_standard_id', 'identifier'),
                 'idType' => elem.dig('metadata_standard_id', 'type')
               }
@@ -231,7 +230,8 @@ module Import
                   'description' => if dataset['data_quality_assurance'].present?
                                      dataset['data_quality_assurance'].first
                                    end, # else nil in implied
-                  'metadataStandard' => convert_metadata(dataset['metadata'])
+                  'metadataStandard' => convert_metadata(dataset['metadata']),
+                  'metadataLanguage' => dataset['metadata'].present? ? dataset['metadata'].first['language'] : nil
                 },
                 'researchOutputDescription' => {
                   'datasetId' => dataset.dig('dataset_id', 'identifier'),
