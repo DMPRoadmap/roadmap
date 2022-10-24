@@ -1,5 +1,15 @@
 # frozen_string_literal: true
 
+# New with Rails 6+, we need to define the list of locales outside the context of
+# the Database since thiss runs during startup. Trying to access the DB causes
+# issues with autoloading; 'DEPRECATION WARNING: Initialization autoloaded the constants ... Language'
+#
+# Note that the entries here must have a corresponding directory in config/locale, a
+# YAML file in config/locales and should also have an entry in the DB's languages table
+SUPPORTED_LOCALES = %w[de en-CA en-GB en-US es fi fr-CA fr-FR pt-BR sv-FI tr-TR].freeze
+# You can define a subset of the locales for your instance's version of Translation.io if applicable
+CLIENT_LOCALES = %w[de en-CA en-GB en-US es fi fr-CA fr-FR pt-BR sv-FI tr-TR].freeze
+DEFAULT_LOCALE = 'en-GB'
 # Here we define the translation domains for the Roadmap application, `app` will
 # contain translations from the open-source repository and ignore the contents
 # of the `app/views/branded` directory.  The `client` domain will
@@ -13,7 +23,7 @@ if !ENV['DOMAIN'] || ENV['DOMAIN'] == 'app'
   TranslationIO.configure do |config|
     config.api_key              = ENV.fetch('TRANSLATION_API_ROADMAP', nil)
     config.source_locale        = 'en'
-    config.target_locales       = %w[de en-GB en-US es fr-FR fi sv-FI pt-BR en-CA fr-CA tr-TR]
+    config.target_locales       = SUPPORTED_LOCALES
     config.text_domain          = 'app'
     config.bound_text_domains   = %w[app client]
     config.ignored_source_paths = ['app/views/branded/', 'node_modules/']
@@ -23,7 +33,7 @@ elsif ENV['DOMAIN'] == 'client'
   TranslationIO.configure do |config|
     config.api_key              = ENV.fetch('TRANSLATION_API_CLIENT', nil)
     config.source_locale        = 'en'
-    config.target_locales       = %w[fi sv-FI]
+    config.target_locales       = CLIENT_LOCALES
     config.text_domain          = 'client'
     config.bound_text_domains = ['client']
     config.ignored_source_paths = ignore_paths
@@ -51,31 +61,14 @@ def ignore_paths
 end
 
 # Setup languages
-# rubocop:disable Style/RescueModifier
-table = ActiveRecord::Base.connection.table_exists?('languages') rescue false
-# rubocop:enable Style/RescueModifier
-if table
-  def default_locale
-    Language.default.try(:abbreviation) || 'en-GB'
-  end
-
-  def available_locales
-    Language.sorted_by_abbreviation.pluck(:abbreviation).presence || [default_locale]
-  end
-
-  I18n.available_locales = Language.all.pluck(:abbreviation)
-
-  I18n.default_locale = Language.default.try(:abbreviation) || 'en-GB'
-else
-  def default_locale
-    Rails.application.config.i18n.available_locales.first || 'en-GB'
-  end
-
-  def available_locales
-    Rails.application.config.i18n.available_locales = %w[en-GB en-US]
-  end
-
-  I18n.available_locales = ['en-GB']
-
-  I18n.default_locale = 'en-GB'
+def default_locale
+  DEFAULT_LOCALE
 end
+
+def available_locales
+  SUPPORTED_LOCALES.sort { |a, b| a <=> b }
+end
+
+I18n.available_locales = SUPPORTED_LOCALES
+
+I18n.default_locale = DEFAULT_LOCALE

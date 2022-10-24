@@ -17,7 +17,7 @@ module OrgAdmin
       templates = Template.latest_version.where(customization_of: nil)
       published = templates.select { |t| t.published? || t.draft? }.length
 
-      @orgs              = Org.managed
+      @orgs              = Org.includes(:identifiers).managed
       @title             = _('All Templates')
       @templates         = templates.includes(:org).page(1)
       @query_params      = { sort_field: 'templates.title', sort_direction: 'asc' }
@@ -42,7 +42,7 @@ module OrgAdmin
                           .where(customization_of: nil, org_id: current_user.org.id)
       published = templates.select { |t| t.published? || t.draft? }.length
 
-      @orgs  = current_user.can_super_admin? ? Org.all : nil
+      @orgs  = current_user.can_super_admin? ? Org.includes(:identifiers).all : nil
       @title = if current_user.can_super_admin?
                  format(_('%{org_name} Templates'), org_name: current_user.org.name)
                else
@@ -80,7 +80,7 @@ module OrgAdmin
       end
       published = customizations.select { |t| t.published? || t.draft? }.length
 
-      @orgs = current_user.can_super_admin? ? Org.all : []
+      @orgs = current_user.can_super_admin? ? Org.includes(:identifiers).all : []
       @title = _('Customizable Templates')
       @templates = funder_templates
       @customizations = customizations
@@ -108,8 +108,8 @@ module OrgAdmin
                        .includes(sections: { questions: :question_options })
                        .order('phases.number', 'sections.number', 'questions.number',
                               'question_options.number')
-                       .select('phases.title', 'phases.description', 'sections.title',
-                               'questions.text', 'question_options.text')
+                       .select('phases.title', 'phases.description', 'phases.modifiable',
+                               'sections.title', 'questions.text', 'question_options.text')
       unless template.latest?
         # rubocop:disable Layout/LineLength
         flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
@@ -136,6 +136,7 @@ module OrgAdmin
                               'question_options.number')
                        .select('phases.title',
                                'phases.description',
+                               'phases.modifiable',
                                'sections.title',
                                'questions.text',
                                'question_options.text')

@@ -148,7 +148,7 @@ RSpec.describe OrgSelection::HashToOrgService do
 
     describe '#language_from_hash(hash:)' do
       before(:each) do
-        @dflt = Language.default || create(:language, default_language: true)
+        @dflt = Language.default || create(:language, abbreviation: 'org-sel', default_language: true)
       end
 
       it 'returns the default language if hash is empty' do

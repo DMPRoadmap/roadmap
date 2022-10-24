@@ -1,3 +1,6 @@
+<%
+ download_coversheet_tickbox_checked = Rails.configuration.x.plans.download_coversheet_tickbox_checked || false
+%>
 <%= form_tag(plan_export_path(@plan), method: :get, target: '_blank', id: 'download_form') do |f| %>
 
   <h2><%= _('Format') %></h2>
@@ -23,7 +26,7 @@
       <legend><%= _("Optional plan components") %></legend>
       <div class="checkbox">
         <%= label_tag 'export[project_details]' do %>
-          <%= check_box_tag 'export[project_details]', true, false %>
+          <%= check_box_tag 'export[project_details]', true, download_coversheet_tickbox_checked %>
           <%= _('project details coversheet') %>
         <% end %>
       </div>

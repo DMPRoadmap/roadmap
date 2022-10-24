@@ -28,7 +28,7 @@
 FactoryBot.define do
   factory :contributor do
     org
-    name { Faker::Movies::StarWars.character }
+    name { Faker::Movies::StarWars.unique.character }
     email { Faker::Internet.unique.email }
     phone { Faker::PhoneNumber.phone_number_with_country_code }
 

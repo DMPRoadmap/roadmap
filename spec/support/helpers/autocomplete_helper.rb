@@ -15,15 +15,18 @@ module AutoCompleteHelper
     page.execute_script(js) if hidden_id.present?
   end
 
-  def choose_suggestion(suggestion_text)
-    matcher = '.ui-autocomplete .ui-menu-item'
-    matching_element = all(:css, matcher).detect do |element|
-      element.text.strip == suggestion_text.strip
-    end
-    raise ArgumentError, "No such suggestion with text '#{suggestion_text}'" unless matching_element.present?
+  def choose_suggestion(typeahead_id, org)
+    # fill_in(:org_org_name, with: org.name)
+    fill_in(typeahead_id.to_sym, with: org.name)
 
-    matching_element.click
-    # Wait for the JS to run
-    sleep(0.3)
+    id = typeahead_id.gsub('_name', '_id')
+    # Some unfortunate hacks to deal with naming inconsistencies on the create plan page
+    # and the Super Admin merge orgs tab
+    id = id.gsub('org_org_', 'org_').gsub('funder_org_', 'funder_')
+    # Excape any single quotes so it doesn't blow up our JS
+    hash = { id: org.id, name: org.name.gsub("'", '') }
+    # Capybara/Selenium can't interact with a hidden field because the user can't,
+    # so use some JS to set the value
+    page.execute_script "document.getElementById('#{id}').value = '#{hash.to_json}';"
   end
 end

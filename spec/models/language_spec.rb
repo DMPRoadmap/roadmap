@@ -9,7 +9,7 @@ RSpec.describe Language, type: :model do
   end
 
   context 'validations' do
-    subject { build(:language) }
+    subject { build(:language, abbreviation: 'foo') }
 
     it { is_expected.to validate_presence_of(:name) }
 
@@ -18,7 +18,7 @@ RSpec.describe Language, type: :model do
     it { is_expected.to validate_presence_of(:abbreviation) }
 
     it 'is expected to validate uniquenss of abbreviation' do
-      @language = build(:language, abbreviation: create(:language).abbreviation)
+      @language = build(:language, abbreviation: create(:language, abbreviation: 'bar').abbreviation)
       expect(@language).not_to be_valid
       expect(@language).to have(1).errors_on(:abbreviation)
     end
@@ -55,13 +55,13 @@ RSpec.describe Language, type: :model do
     subject { Language.default }
 
     context 'when langauge is default_language' do
-      let!(:language) { create(:language, default_language: true) }
+      let!(:language) { create(:language, abbreviation: 'foo', default_language: true) }
 
       it { is_expected.to eql(language) }
     end
 
     context 'when language is not default_language' do
-      let!(:language) { create(:language, default_language: false) }
+      let!(:language) { create(:language, abbreviation: 'foo', default_language: false) }
 
       it { is_expected.not_to eql(language) }
     end

@@ -81,7 +81,7 @@ class RolesController < ApplicationController
     @role = Role.find(params[:id])
     authorize @role
 
-    if @role.update_attributes(access: role_params[:access])
+    if @role.update(access: role_params[:access])
       deliver_if(recipients: @role.user, key: 'users.added_as_coowner') do |_r|
         UserMailer.permissions_change_notification(@role, current_user).deliver_now
       end
