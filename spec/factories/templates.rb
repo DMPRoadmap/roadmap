@@ -37,6 +37,7 @@ FactoryBot.define do
     org
     title { Faker::Lorem.sentence }
     description { Faker::Lorem.paragraph }
+    visibility { Template.visibilities[:organisationally_visible] }
     locale { 'en_GB' }
     is_default { false }
     published { false }
