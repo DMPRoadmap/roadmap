@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Mailer methods for all emails
-class UserMailer < ApplicationMailer
+class UserMailer < ActionMailer::Base
   prepend_view_path 'app/views/branded/'
 
   include MailerHelper
