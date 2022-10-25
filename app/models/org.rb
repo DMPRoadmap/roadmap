@@ -151,9 +151,9 @@ class Org < ApplicationRecord
                               message: _('must be one of the following formats: ' \
                                          'jpeg, jpg, png, gif, bmp svg')
 
-  validates :logo,
-            size: { maximum: 500.kilobytes,
-                    message: _("can't be larger than 500KB") }
+  validates_size_of :logo,
+                    maximum: 500.kilobytes,
+                    message: _("can't be larger than 500KB")
 
   # # allow validations for logo upload
   # dragonfly_accessor :logo do
