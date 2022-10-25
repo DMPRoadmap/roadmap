@@ -38,7 +38,7 @@ import '../src/utils/tooltipHelper';
 import getConstant from '../src/utils/constants';
 import { renderAlert, renderNotice, hideNotifications } from '../src/utils/notificationHelper';
 import toggleSpinner from '../src/utils/spinner';
-import { Tinymce } from '../src/utils/tinymce.js.erb';
+import { Tinymce } from '../src/utils/tinymce';
 import { initAutoComplete } from '../src/utils/autoComplete';
 import { addAsterisks } from '../src/utils/requiredField';
 import { togglisePasswords } from '../src/utils/passwordHelper';
@@ -59,7 +59,7 @@ import '../src/orgs/adminEdit';
 // ----------------------------------------
 import '../src/plans/download';
 import '../src/plans/editDetails';
-import '../src/plans/index.js.erb';
+import '../src/plans/index';
 import '../src/plans/new';
 import '../src/plans/publish';
 import '../src/plans/share';

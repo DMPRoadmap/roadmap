@@ -14,9 +14,6 @@ import 'tinymce/plugins/advlist';
 // Other dependencies
 import { isObject, isString } from './isType';
 
-// Pull in the rails helper functions
-<% helpers = ActionController::Base.helpers %>
-
 /* 
 Configuration extracted from
 https://www.tinymce.com/docs/advanced/usage-with-module-loaders/
