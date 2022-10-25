@@ -116,6 +116,9 @@ en-GB:
         other: "%{count} errors prohibited this %{resource} from being saved:"
       model_invalid: 'Validation failed: %{errors}'
       required: must exist
+    unavailable_session:
+    unacceptable_request:
+    connection_refused:
     template:
       body: 'There were problems with the following fields:'
       header:
