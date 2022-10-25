@@ -243,7 +243,7 @@ class RegistrationsController < Devise::RegistrationsController
   #     set_flash_message :notice, success_message(current_user, _('saved'))
   #     # Sign in the user bypassing validation in case his password changed
   #     sign_in current_user, bypass: true
-  #     redirect_to "#{edit_user_registration_path}\#personal-details",
+  #     redirect_to "#{edit_user_registration_path}#personal-details",
   #                 notice: success_message(current_user, _('saved'))
 
   #   else

@@ -39,6 +39,7 @@
 FactoryBot.define do
   factory :plan do
     title { Faker::Company.bs }
+    visibility { Plan.visibilities[:privately_visible] }
     template
     org
     identifier { SecureRandom.hex }
