@@ -147,7 +147,7 @@ class UserMailer < ActionMailer::Base
     @username        = @user.name
     @plan            = plan
     @plan_title      = @plan.title
-    @plan_visibility = Plan::VISIBILITY_MESSAGE[@plan.visibility.to_sym]
+    @plan_visibility = Plan::VISIBILITY_MESSAGE[@plan.visibility]
     @helpdesk_email = helpdesk_email(org: @plan.org)
 
     I18n.with_locale I18n.default_locale do
