@@ -7,7 +7,7 @@ import { Tinymce } from '../utils/tinymce';
 import debounce from '../utils/debounce';
 import { updateSectionProgress, getQuestionDiv } from '../utils/sectionUpdate';
 import datePicker from '../utils/datePicker';
-import TimeagoFactory from '../utils/timeagoFactory.js.erb';
+import TimeagoFactory from '../utils/timeagoFactory';
 
 $(() => {
   const editorClass = 'tinymce_answer';
