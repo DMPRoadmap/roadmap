@@ -37,6 +37,13 @@
 class Template < ApplicationRecord
   include GlobalHelpers
   extend UniqueRandom
+  # --------------------------------
+  # Start DMP OPIDoR Customization
+  # --------------------------------
+  # prepend Dmpopidor::Template
+  # --------------------------------
+  # End DMP OPIDoR Customization
+  # --------------------------------
 
   validates_with TemplateLinksValidator
 
@@ -74,17 +81,7 @@ class Template < ApplicationRecord
   attribute :version, :integer, default: 0
   attribute :customization_of, :integer, default: nil
   attribute :family_id, :integer, default: -> { Template.new_family_id }
-
-  # TODO: re-add visibility setting? (this is handled in org_admin/create and
-  # relies on the org_id in the current callback-form)
-  attribute :visibility, :integer, default: 0
-  # --------------------------------
-  # Start DMP OPIDoR Customization
-  # --------------------------------
-  attribute :type, :integer, default: 0
-  # --------------------------------
-  # End DMP OPIDoR Customization
-  # --------------------------------
+  attribute :visibility, default: Template.visibilities[:organisationally_visible]
 
   # ================
   # = Associations =
