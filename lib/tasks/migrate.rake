@@ -265,7 +265,7 @@ namespace :migrate do
   task plan_data_contacts: :environment do
     email_regex = /([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})/i
     phone_regex = /\+?[0-9\-()]{7,}/i
-    Plan.where('data_contact IS NOT NULL').each do |p|
+    Plan.where.not(data_contact: nil).each do |p|
       email = p.data_contact[email_regex]
       phone = p.data_contact[phone_regex]
 
@@ -284,7 +284,7 @@ namespace :migrate do
 
   desc 'Move old ORCID from users table to user_identifiers'
   task move_orcids: :environment do
-    users = User.includes(:user_identifiers).where('users.orcid_id IS NOT NULL')
+    users = User.includes(:user_identifiers).where.not(users: { orcid_id: nil })
 
     # If we have users with orcid ids
     if users.any?
@@ -317,7 +317,7 @@ namespace :migrate do
   desc 'Move old Shibboleth Ids from users table to user_identifiers'
   task move_shibs: :environment do
     if Rails.configuration.x.shibboleth.enabled
-      users = User.includes(:user_identifiers).where('users.shibboleth_id IS NOT NULL')
+      users = User.includes(:user_identifiers).where.not(users: { shibboleth_id: nil })
 
       # If we have users with orcid ids
       if users.any?
@@ -365,7 +365,7 @@ namespace :migrate do
   desc 'convert orgs.target_url to JSON array'
   task org_target_url_to_links: :environment do
     Org.all.each do |org|
-      next unless org.target_url.present?
+      next if org.target_url.blank?
 
       org.links = [{ link: org.target_url, text: '' }]
       org.target_url = nil

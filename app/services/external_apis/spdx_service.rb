@@ -52,7 +52,7 @@ module ExternalApis
       #  ]
       def fetch
         licenses = query_spdx
-        return [] unless licenses.present?
+        return [] if licenses.blank?
 
         licenses.each { |license| process_license(hash: license) }
         License.all
@@ -80,11 +80,11 @@ module ExternalApis
 
       # Updates or Creates a repository based on the XML input
       def process_license(hash:)
-        return nil unless hash.present?
+        return nil if hash.blank?
 
         hash = hash.with_indifferent_access
         license = License.find_or_initialize_by(identifier: hash['licenseId'])
-        return nil unless license.present?
+        return nil if license.blank?
 
         license.update(
           name: hash['name'],

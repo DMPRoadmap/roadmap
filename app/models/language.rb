@@ -69,7 +69,7 @@ class Language < ApplicationRecord
 
   # Retrieves the id for a given abbreviation of a language
   scope :id_for, lambda { |abbreviation|
-    where(abbreviation: abbreviation).pluck(:id).first
+    where(abbreviation: abbreviation).pick(:id)
   }
 
   # ========================

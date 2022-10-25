@@ -9,21 +9,22 @@ describe License do
 
   context 'scopes' do
     describe '#selectable' do
-      before(:each) do
+      before do
         @license = create(:license, deprecated: false)
         @deprecated = create(:license, deprecated: true)
       end
 
       it 'does not include deprecated licenses' do
-        expect(described_class.selectable.include?(@deprecated)).to eql(false)
+        expect(described_class.selectable.include?(@deprecated)).to be(false)
       end
+
       it 'includes non-depracated licenses' do
-        expect(described_class.selectable.include?(@license)).to eql(true)
+        expect(described_class.selectable.include?(@license)).to be(true)
       end
     end
 
     describe '#preferred' do
-      before(:each) do
+      before do
         @preferred_license = create(:license, deprecated: false)
         @non_preferred_license = create(:license, deprecated: false)
 
@@ -44,16 +45,19 @@ describe License do
         described_class.expects(:selectable).returns([@license])
         described_class.preferred
       end
+
       it 'does not include non-preferred licenses' do
-        expect(described_class.preferred.include?(@non_preferred_license)).to eql(false)
+        expect(described_class.preferred.include?(@non_preferred_license)).to be(false)
       end
+
       it 'includes preferred licenses' do
-        expect(described_class.preferred.include?(@preferred_license)).to eql(true)
+        expect(described_class.preferred.include?(@preferred_license)).to be(true)
       end
+
       it 'includes the latest version of a preferred licenses' do
-        expect(described_class.preferred.include?(@preferred_latest)).to eql(true)
-        expect(described_class.preferred.include?(@preferred_oldest)).to eql(false)
-        expect(described_class.preferred.include?(@preferred_older)).to eql(false)
+        expect(described_class.preferred.include?(@preferred_latest)).to be(true)
+        expect(described_class.preferred.include?(@preferred_oldest)).to be(false)
+        expect(described_class.preferred.include?(@preferred_older)).to be(false)
       end
     end
   end

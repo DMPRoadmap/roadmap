@@ -9,23 +9,6 @@ module Api
       respond_to :json
 
       # POST /api/{plural_resource_name}
-      def create
-        define_resource(resource_class.new(resource_params))
-
-        if retrieve_resource.save
-          render :show, status: :created
-        else
-          render json: retrieve_resource.errors, status: :unprocessable_entity
-        end
-      end
-
-      # DELETE /api/{plural_resource_name}/1
-      def destroy
-        retrieve_resource.destroy
-        head :no_content
-      end
-
-      # GET /api/{plural_resource_name}
       def index
         plural_resource_name = "@#{resource_name.pluralize}"
         resources = resource_class.where(query_params)
@@ -36,18 +19,35 @@ module Api
         respond_with instance_variable_get(plural_resource_name)
       end
 
-      # GET /api/{plural_resource_name}/1
+      # DELETE /api/{plural_resource_name}/1
       def show
         respond_with retrieve_resource
       end
 
-      # PATCH/PUT /api/{plural_resource_name}/1
+      # GET /api/{plural_resource_name}
+      def create
+        define_resource(resource_class.new(resource_params))
+
+        if retrieve_resource.save
+          render :show, status: :created
+        else
+          render json: retrieve_resource.errors, status: :unprocessable_entity
+        end
+      end
+
+      # GET /api/{plural_resource_name}/1
       def update
         if retrieve_resource.update(resource_params)
           render :show
         else
           render json: retrieve_resource.errors, status: :unprocessable_entity
         end
+      end
+
+      # PATCH/PUT /api/{plural_resource_name}/1
+      def destroy
+        retrieve_resource.destroy
+        head :no_content
       end
 
       private
@@ -127,7 +127,7 @@ module Api
 
       def render_bad_credentials
         headers['WWW-Authenticate'] = 'Token realm=""'
-        render json: _('Bad Credentials'), status: 401
+        render json: _('Bad Credentials'), status: :unauthorized
       end
     end
   end

@@ -100,13 +100,13 @@ module OrgAdmin
       begin
         section = get_modifiable(section)
         if section.update(section_params)
-          flash[:notice] = success_message(section, _('saved'))
+          flash.now[:notice] = success_message(section, _('saved'))
         else
-          flash[:alert] = failure_message(section, _('save'))
+          flash.now[:alert] = failure_message(section, _('save'))
         end
       rescue StandardError => e
         msg = _('Unable to create a new version of this template.')
-        flash[:alert] = "#{msg}<br/>#{e.message}"
+        flash.now[:alert] = "#{msg}<br/>#{e.message}"
       end
 
       redirect_to edit_org_admin_template_phase_path(
@@ -125,13 +125,13 @@ module OrgAdmin
         section = get_modifiable(section)
         phase = section.phase
         if section.destroy!
-          flash[:notice] = success_message(section, _('deleted'))
+          flash.now[:notice] = success_message(section, _('deleted'))
         else
-          flash[:alert] = failure_message(section, _('delete'))
+          flash.now[:alert] = failure_message(section, _('delete'))
         end
       rescue StandardError => e
         msg = _('Unable to delete this version of the template.')
-        flash[:alert] = "#{msg}<br/>#{e.message}"
+        flash.now[:alert] = "#{msg}<br/>#{e.message}"
       end
 
       redirect_to(edit_org_admin_template_phase_path(

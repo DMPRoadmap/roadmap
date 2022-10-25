@@ -74,7 +74,7 @@ RSpec.configure do |config|
   # Devise helpers
   config.include Warden::Test::Helpers
 
-  config.after :each do
+  config.after do
     Warden.test_reset!
   end
 

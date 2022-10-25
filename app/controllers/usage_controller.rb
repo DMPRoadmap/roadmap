@@ -131,8 +131,8 @@ class UsageController < ApplicationController
 
     {
       org: org,
-      start_date: start_date.present? ? start_date : first_plan_date.strftime('%Y-%m-%d'),
-      end_date: end_date.present? ? end_date : Date.today.strftime('%Y-%m-%d')
+      start_date: (start_date.presence || first_plan_date.strftime('%Y-%m-%d')),
+      end_date: (end_date.presence || Date.today.strftime('%Y-%m-%d'))
     }
   end
   # rubocop:enable Metrics/AbcSize
@@ -191,7 +191,7 @@ class UsageController < ApplicationController
   end
 
   def first_plan_date
-    StatCreatedPlan.all.order(:date).limit(1).pluck(:date).first \
+    StatCreatedPlan.all.order(:date).limit(1).pick(:date) \
     || Date.today.last_month.end_of_month
   end
 end

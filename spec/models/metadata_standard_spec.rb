@@ -8,7 +8,7 @@ describe MetadataStandard do
   end
 
   context 'scopes' do
-    before(:each) do
+    before do
       @name_part = 'Foobar'
       @by_title = create(:metadata_standard, title: [Faker::Lorem.sentence, @name_part].join(' '))
       desc = [@name_part, Faker::Lorem.paragraph].join(' ')
@@ -17,12 +17,12 @@ describe MetadataStandard do
 
     it ':search returns the expected records' do
       results = described_class.search(@name_part)
-      expect(results.include?(@by_title)).to eql(true)
-      expect(results.include?(@by_description)).to eql(true)
+      expect(results.include?(@by_title)).to be(true)
+      expect(results.include?(@by_description)).to be(true)
 
       results = described_class.search('Zzzzzz')
-      expect(results.include?(@by_title)).to eql(false)
-      expect(results.include?(@by_description)).to eql(false)
+      expect(results.include?(@by_title)).to be(false)
+      expect(results.include?(@by_description)).to be(false)
     end
   end
 end

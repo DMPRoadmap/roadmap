@@ -16,7 +16,7 @@ module Api
           #    }
           # rubocop:disable Metrics/AbcSize
           def deserialize(plan:, json: {})
-            return nil unless plan.present?
+            return nil if plan.blank?
             return plan unless Api::V2::JsonValidationService.funding_valid?(json: json)
 
             # Attach the Funder
@@ -28,7 +28,7 @@ module Api
             plan.funding_status = Api::V2::DeserializationService.translate_funding_status(
               status: json[:funding_status]
             )
-            return plan unless json[:grant_id].present?
+            return plan if json[:grant_id].blank?
 
             # Attach the grant Identifier to the Plan if present
             # Attach the identifier

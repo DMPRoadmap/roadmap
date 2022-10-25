@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe Org, type: :model do
+RSpec.describe Org do
   context 'instance methods' do
-    before(:each) do
+    before do
       plan = create(:plan)
       @owner = create(:user)
       plan.roles << create(:role, :creator, user: @owner)
@@ -16,9 +16,11 @@ RSpec.describe Org, type: :model do
         @exported.user = nil
         expect(@exported.orcid).to eql('')
       end
+
       it 'returns an empty string if the owner has no ORCID identifier' do
         expect(@exported.orcid).to eql('')
       end
+
       it 'returns the ORCID identifier' do
         scheme = build(:identifier_scheme, name: 'orcid')
         identifier = build(:identifier, :for_user, identifier_scheme: scheme)

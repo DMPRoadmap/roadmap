@@ -87,13 +87,13 @@ class GuidancesController < ApplicationController
     authorize @guidance
     guidance_group = GuidanceGroup.find(@guidance.guidance_group_id)
     if @guidance.destroy
-      unless guidance_group.guidances.where(published: true).exists?
+      unless guidance_group.guidances.exists?(published: true)
         guidance_group.published = false
         guidance_group.save
       end
-      flash[:notice] = success_message(@guidance, _('deleted'))
+      flash.now[:notice] = success_message(@guidance, _('deleted'))
     else
-      flash[:alert] = failure_message(@guidance, _('delete'))
+      flash.now[:alert] = failure_message(@guidance, _('delete'))
     end
     redirect_to(action: :admin_index)
   end
@@ -107,10 +107,10 @@ class GuidancesController < ApplicationController
     if @guidance.update(published: true)
       guidance_group = GuidanceGroup.find(@guidance.guidance_group_id)
       guidance_group.update(published: true) if !guidance_group.published? || guidance_group.published.nil?
-      flash[:notice] = _('Your guidance has been published and is now available to users.')
+      flash.now[:notice] = _('Your guidance has been published and is now available to users.')
 
     else
-      flash[:alert] = failure_message(@guidance, _('publish'))
+      flash.now[:alert] = failure_message(@guidance, _('publish'))
     end
     redirect_to(action: :admin_index)
   end
@@ -123,11 +123,11 @@ class GuidancesController < ApplicationController
     authorize @guidance
     if @guidance.update(published: false)
       guidance_group = GuidanceGroup.find(@guidance.guidance_group_id)
-      guidance_group.update(published: false) unless guidance_group.guidances.where(published: true).exists?
-      flash[:notice] = _('Your guidance is no longer published and will not be available to users.')
+      guidance_group.update(published: false) unless guidance_group.guidances.exists?(published: true)
+      flash.now[:notice] = _('Your guidance is no longer published and will not be available to users.')
 
     else
-      flash[:alert] = failure_message(@guidance, _('unpublish'))
+      flash.now[:alert] = failure_message(@guidance, _('unpublish'))
     end
     redirect_to(action: :admin_index)
   end

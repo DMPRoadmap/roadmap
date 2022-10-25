@@ -18,7 +18,7 @@ class Perm < ApplicationRecord
     def lazy_load(name)
       Rails.cache
            .fetch("Perm.find_by_name(#{name})", expires_in: 5.seconds, cache_nils: false) do
-             Perm.find_by_name(name)
+             Perm.find_by(name: name)
            end
            .freeze
     end

@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Sign up via email and password', type: :feature do
+RSpec.describe 'Sign up via email and password' do
   include Helpers::DmptoolHelper
   include Helpers::AutocompleteHelper
 
-  before(:each) do
+  before do
     mock_blog
 
     @non_ror_org = create(:org)
@@ -27,7 +27,7 @@ RSpec.describe 'Sign up via email and password', type: :feature do
       expect(page).to have_text('Please correct the fields below:')
     end
 
-    scenario 'User does not fill out any fields', :js do
+    it 'User does not fill out any fields', :js do
       within("form[action=\"#{user_registration_path}\"]") do
         # There should be no errors on initial page load
         expect { find('.is-invalid[id="sign-up-email"]') }.to raise_error(Capybara::ElementNotFound)
@@ -41,16 +41,16 @@ RSpec.describe 'Sign up via email and password', type: :feature do
 
         # Should report missing :firstname, :surname, :org, :password and :accept_terms
         expect { find('.is-invalid[id="sign-up-email"]') }.to raise_error(Capybara::ElementNotFound)
-        expect(find('.is-invalid[id="sign-up-firstname"]').present?).to eql(true)
-        expect(find('.is-invalid[id="sign-up-surname"]').present?).to eql(true)
-        expect(find('.is-invalid[id="sign-up-org"]').present?).to eql(true)
-        expect(find('.is-invalid[id="js-password-field"]').present?).to eql(true)
-        expect(find('.is-invalid[id="sign-up-accept-terms"]').present?).to eql(true)
-        expect(all('.is-invalid').length).to eql(5)
+        expect(find('.is-invalid[id="sign-up-firstname"]').present?).to be(true)
+        expect(find('.is-invalid[id="sign-up-surname"]').present?).to be(true)
+        expect(find('.is-invalid[id="sign-up-org"]').present?).to be(true)
+        expect(find('.is-invalid[id="js-password-field"]').present?).to be(true)
+        expect(find('.is-invalid[id="sign-up-accept-terms"]').present?).to be(true)
+        expect(all('.is-invalid').length).to be(5)
       end
     end
 
-    scenario 'User provides everything but a valid institution', :js do
+    it 'User provides everything but a valid institution', :js do
       within("form[action=\"#{user_registration_path}\"]") do
         fill_in 'First Name', with: Faker::Movies::StarWars.character.split.first
         fill_in 'Last Name', with: Faker::Movies::StarWars.character.split.last
@@ -67,12 +67,12 @@ RSpec.describe 'Sign up via email and password', type: :feature do
         expect { find('.is-invalid[id="sign-up-firstname"]') }.to raise_error(Capybara::ElementNotFound)
         expect { find('.is-invalid[id="js-password-field"]') }.to raise_error(Capybara::ElementNotFound)
         expect { find('.is-invalid[id="sign-up-accept-terms"]') }.to raise_error(Capybara::ElementNotFound)
-        expect(find('.is-invalid[id="sign-up-org"]').present?).to eql(true)
-        expect(all('.is-invalid').length).to eql(1)
+        expect(find('.is-invalid[id="sign-up-org"]').present?).to be(true)
+        expect(all('.is-invalid').length).to be(1)
       end
     end
 
-    scenario 'User fills out all required fields', js: true do
+    it 'User fills out all required fields', js: true do
       within("form[action=\"#{user_registration_path}\"]") do
         fill_in 'First Name', with: Faker::Movies::StarWars.character.split.first
         fill_in 'Last Name', with: Faker::Movies::StarWars.character.split.last
@@ -92,7 +92,7 @@ RSpec.describe 'Sign up via email and password', type: :feature do
   end
 
   context 'Validate various Org types when we are not allowing custom org entry', js: true do
-    before(:each) do
+    before do
       Rails.configuration.x.application.restrict_orgs = true
       visit root_path
       fill_in 'Email address', with: Faker::Internet.unique.email
@@ -108,26 +108,26 @@ RSpec.describe 'Sign up via email and password', type: :feature do
       end
     end
 
-    scenario 'Does not allow user to enter a random Org into autocomplete' do
+    it 'Does not allow user to enter a random Org into autocomplete' do
       within("form[action=\"#{user_registration_path}\"]") do
         fill_in 'Institution', with: Faker::Lorem.sentence
         fill_in 'Password', with: SecureRandom.uuid
         click_button 'Sign up'
-        expect(find('.is-invalid[id="sign-up-org"]').present?).to eql(true)
+        expect(find('.is-invalid[id="sign-up-org"]').present?).to be(true)
       end
     end
 
-    scenario 'Does not allow user to select a RegistryOrg with no Org if restrict_orgs is false' do
+    it 'Does not allow user to select a RegistryOrg with no Org if restrict_orgs is false' do
       within("form[action=\"#{user_registration_path}\"]") do
         fill_in 'Institution', with: @registry_org.name
         click_button 'Sign up'
-        expect(find('.is-invalid[id="sign-up-org"]').present?).to eql(true)
+        expect(find('.is-invalid[id="sign-up-org"]').present?).to be(true)
       end
     end
   end
 
   context 'Validate various Org types when we are allowing custom org entry', js: true do
-    before(:each) do
+    before do
       Rails.configuration.x.application.restrict_orgs = false
       visit root_path
       fill_in 'Email address', with: Faker::Internet.unique.email
@@ -143,7 +143,7 @@ RSpec.describe 'Sign up via email and password', type: :feature do
       end
     end
 
-    scenario 'Allows user to select an Org that exists but is not a ROR Org' do
+    it 'Allows user to select an Org that exists but is not a ROR Org' do
       within("form[action=\"#{user_registration_path}\"]") do
         select_an_org('#sign-up-org', @non_ror_org.name, 'Institution')
         click_button 'Sign up'
@@ -153,7 +153,7 @@ RSpec.describe 'Sign up via email and password', type: :feature do
       expect(page).to have_text('You are now ready to create your first DMP.')
     end
 
-    scenario 'Allows user to select an Org that exists and is a ROR Org' do
+    it 'Allows user to select an Org that exists and is a ROR Org' do
       within("form[action=\"#{user_registration_path}\"]") do
         select_an_org('#sign-up-org', @known_registry_org.name, 'Institution')
         click_button 'Sign up'
@@ -164,7 +164,7 @@ RSpec.describe 'Sign up via email and password', type: :feature do
       expect(page).to have_text('You are now ready to create your first DMP.')
     end
 
-    scenario 'Allows user to select a RegistryOrg that is not yet an Org' do
+    it 'Allows user to select a RegistryOrg that is not yet an Org' do
       within("form[action=\"#{user_registration_path}\"]") do
         select_an_org('#sign-up-org', @registry_org.name, 'Institution')
         click_button 'Sign up'
@@ -175,7 +175,7 @@ RSpec.describe 'Sign up via email and password', type: :feature do
       expect(page).to have_text('You are now ready to create your first DMP.')
     end
 
-    scenario 'Allows user to specify a custom Org name' do
+    it 'Allows user to specify a custom Org name' do
       within("form[action=\"#{user_registration_path}\"]") do
         enter_custom_org('#sign-up-org', Faker::Movies::StarWars.planet)
         click_button 'Sign up'

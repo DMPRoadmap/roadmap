@@ -126,8 +126,8 @@ module Helpers
 
     def landing_page_for(scheme:)
       url = scheme.identifier_prefix
-      url = Rails.configuration.x.send(:"#{scheme.name.downcase}")&.landing_page_url unless url.present?
-      return nil unless url.present?
+      url = Rails.configuration.x.send(:"#{scheme.name.downcase}")&.landing_page_url if url.blank?
+      return nil if url.blank?
 
       %w[/ : & ?].include?(url.last) ? url : "#{url}/"
     end

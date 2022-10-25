@@ -126,7 +126,7 @@ module ExportablePlan
     # set the funder name
     hash[:funder] = funder.name if funder.present?
     template_org = template.org
-    hash[:funder] = template_org.name if !hash[:funder].present? && template_org.funder?
+    hash[:funder] = template_org.name if hash[:funder].blank? && template_org.funder?
 
     # set the template name and customizer name if applicable
     hash[:template] = template.title
@@ -258,8 +258,8 @@ module ExportablePlan
   # rubocop:disable Metrics/AbcSize
   def attribution
     user = roles.creator.first&.user
-    user = roles.administrator.not_creator.first&.user unless user.present?
-    return [] unless user.present?
+    user = roles.administrator.not_creator.first&.user if user.blank?
+    return [] if user.blank?
 
     text = user&.name(false)
     orcid = user.identifier_for_scheme(scheme: 'orcid')

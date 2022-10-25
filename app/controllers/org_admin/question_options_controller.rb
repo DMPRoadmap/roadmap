@@ -21,12 +21,12 @@ module OrgAdmin
           question.conditions.each do |cond|
             cond.destroy if cond.option_list.include?(option_id_to_remove)
           end
-          flash[:notice] = success_message(question_option, _('deleted'))
+          flash.now[:notice] = success_message(question_option, _('deleted'))
         else
-          flash[:alert] = flash[:alert] = failure_message(question_option, _('delete'))
+          flash.now[:alert] = flash.now[:alert] = failure_message(question_option, _('delete'))
         end
       rescue StandardError
-        flash[:alert] = _('Unable to create a new version of this template.')
+        flash.now[:alert] = _('Unable to create a new version of this template.')
       end
       redirect_to edit_org_admin_template_phase_path(
         template_id: section.phase.template.id,

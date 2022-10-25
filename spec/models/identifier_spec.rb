@@ -2,14 +2,14 @@
 
 require 'rails_helper'
 
-RSpec.describe Identifier, type: :model do
+RSpec.describe Identifier do
   context 'validations' do
     it { is_expected.to validate_presence_of(:value) }
 
     it { is_expected.to validate_presence_of(:identifiable) }
 
     describe 'uniqueness' do
-      before(:each) do
+      before do
         @org = create(:org)
       end
 
@@ -19,33 +19,37 @@ RSpec.describe Identifier, type: :model do
                             value: 'foo')
         id = build(:identifier, identifiable: @org, identifier_scheme: nil,
                                 value: 'foo')
-        expect(id.valid?).to eql(false)
-        expect(id.errors[:value].present?).to eql(true)
+        expect(id.valid?).to be(false)
+        expect(id.errors[:value].present?).to be(true)
       end
+
       it 'allows a duplicate value for the identifier_scheme' do
         scheme = create(:identifier_scheme)
         create(:identifier, identifiable: @org, identifier_scheme: scheme,
                             value: 'foo')
         id = build(:identifier, identifiable: create(:org),
                                 identifier_scheme: scheme, value: 'foo')
-        expect(id.valid?).to eql(true)
+        expect(id.valid?).to be(true)
       end
+
       it 'prevents multiple identifiers per identifier_scheme' do
         scheme = create(:identifier_scheme)
         create(:identifier, identifiable: @org, identifier_scheme: scheme,
                             value: Faker::Lorem.word)
         id = build(:identifier, identifiable: @org, identifier_scheme: scheme,
                                 value: Faker::Number.number.to_s)
-        expect(id.valid?).to eql(false)
-        expect(id.errors[:identifier_scheme].present?).to eql(true)
+        expect(id.valid?).to be(false)
+        expect(id.errors[:identifier_scheme].present?).to be(true)
       end
+
       it 'does not apply if the value is unique and identifier_scheme is nil' do
         create(:identifier, identifiable: @org, identifier_scheme: nil,
                             value: Faker::Lorem.word)
         id = build(:identifier, identifiable: @org, identifier_scheme: nil,
                                 value: Faker::Number.number.to_s)
-        expect(id.valid?).to eql(true)
+        expect(id.valid?).to be(true)
       end
+
       it 'does not prevent identifiers for same scheme but different identifiables' do
         scheme = create(:identifier_scheme)
         create(:identifier, identifiable: @org, identifier_scheme: scheme,
@@ -53,8 +57,9 @@ RSpec.describe Identifier, type: :model do
         id = build(:identifier, identifiable: create(:org),
                                 identifier_scheme: scheme,
                                 value: Faker::Number.number.to_s)
-        expect(id.valid?).to eql(true)
+        expect(id.valid?).to be(true)
       end
+
       it 'does not prevent same value for different schemes and identifiables' do
         scheme = create(:identifier_scheme)
         create(:identifier, identifiable: @org, identifier_scheme: scheme,
@@ -62,7 +67,7 @@ RSpec.describe Identifier, type: :model do
         id = build(:identifier, identifiable: create(:org),
                                 identifier_scheme: create(:identifier_scheme),
                                 value: 'foo')
-        expect(id.valid?).to eql(true)
+        expect(id.valid?).to be(true)
       end
     end
   end
@@ -75,7 +80,7 @@ RSpec.describe Identifier, type: :model do
 
   context 'scopes' do
     describe '#by_scheme_name' do
-      before(:each) do
+      before do
         @scheme = create(:identifier_scheme)
         @scheme2 = create(:identifier_scheme)
         @id = create(:identifier, :for_plan, identifier_scheme: @scheme)
@@ -85,10 +90,11 @@ RSpec.describe Identifier, type: :model do
       end
 
       it 'returns the correct identifier' do
-        expect(@rslts.include?(@id)).to eql(true)
+        expect(@rslts.include?(@id)).to be(true)
       end
+
       it 'does not return the identifier for the other scheme' do
-        expect(@rslts.include?(@id2)).to eql(false)
+        expect(@rslts.include?(@id2)).to be(false)
       end
     end
   end
@@ -118,22 +124,26 @@ RSpec.describe Identifier, type: :model do
       id = build(:identifier, identifier_scheme: scheme)
       expect(id.identifier_format).to eql('orcid')
     end
+
     it "returns 'ror' for identifiers associated with the ror identifier_scheme" do
       scheme = build(:identifier_scheme, name: 'ror')
       id = build(:identifier, identifier_scheme: scheme)
       expect(id.identifier_format).to eql('ror')
     end
+
     it "returns 'fundref' for identifiers associated with the fundref identifier_scheme" do
       scheme = build(:identifier_scheme, name: 'fundref')
       id = build(:identifier, identifier_scheme: scheme)
       expect(id.identifier_format).to eql('fundref')
     end
+
     it "returns 'ark' for identifiers whose value contains 'ark:'" do
       scheme = build(:identifier_scheme, name: 'ror')
       val = "#{scheme.identifier_prefix}ark:#{Faker::Lorem.word}"
       id = create(:identifier, value: val)
       expect(id.identifier_format).to eql('ark')
     end
+
     it "returns 'doi' for identifiers whose value matches the doi format" do
       scheme = build(:identifier_scheme, name: 'ror')
       val = "#{scheme.identifier_prefix}doi:10.1234/123abc98"
@@ -144,6 +154,7 @@ RSpec.describe Identifier, type: :model do
       id = create(:identifier, value: val)
       expect(id.identifier_format).to eql('doi'), "expected url not containing 'doi:' to be a doi"
     end
+
     it "returns 'url' for identifiers whose value matches a URL format" do
       scheme = build(:identifier_scheme, name: 'ror')
       id = create(:identifier, value: "#{scheme.identifier_prefix}#{Faker::Lorem.word}")
@@ -152,6 +163,7 @@ RSpec.describe Identifier, type: :model do
       id = create(:identifier, value: "#{scheme.identifier_prefix}#{Faker::Lorem.word}")
       expect(id.identifier_format).to eql('url')
     end
+
     it "returns 'other' for all other identifier values" do
       scheme = build(:identifier_scheme, identifier_prefix: nil)
       id = create(:identifier, value: Faker::Lorem.word, identifier_scheme: scheme)
@@ -166,7 +178,7 @@ RSpec.describe Identifier, type: :model do
   end
 
   describe '#value_without_scheme_prefix' do
-    before(:each) do
+    before do
       @scheme = create(:identifier_scheme, identifier_prefix: Faker::Internet.url)
       @without = Faker::Lorem.word
       @val = "#{@scheme.identifier_prefix}/#{@without}"
@@ -176,11 +188,13 @@ RSpec.describe Identifier, type: :model do
       id = create(:identifier, value: @val, identifier_scheme: nil)
       expect(id.value_without_scheme_prefix).to eql(@val)
     end
+
     it 'returns the value as is if no identifier scheme has no prefix' do
       @scheme.identifier_prefix = nil
       id = create(:identifier, value: @val, identifier_scheme: @scheme)
       expect(id.value_without_scheme_prefix).to eql(@val)
     end
+
     it 'returns the value without the identifier scheme prefix' do
       id = create(:identifier, value: @val, identifier_scheme: @scheme)
       expect(id.value_without_scheme_prefix).to eql(@without)
@@ -188,7 +202,7 @@ RSpec.describe Identifier, type: :model do
   end
 
   describe '#value=(val)' do
-    before(:each) do
+    before do
       @scheme = create(:identifier_scheme, identifier_prefix: Faker::Internet.url)
     end
 
@@ -197,28 +211,32 @@ RSpec.describe Identifier, type: :model do
       id = build(:identifier, value: val, identifier_scheme: nil)
       expect(id.value).to eql(val)
     end
+
     it 'returns the value if the identifier_scheme has no prefix' do
       val = Faker::Lorem.word
       @scheme.identifier_prefix = nil
       id = build(:identifier, value: val, identifier_scheme: @scheme)
       expect(id.value).to eql(val)
     end
+
     it 'returns the value if the value is already a URL' do
       val = "#{@scheme.identifier_prefix}/#{Faker::Lorem.word}"
       id = build(:identifier, value: val, identifier_scheme: @scheme)
       expect(id.value).to eql(val)
     end
+
     it 'appends the identifier scheme prefix to the value' do
       val = Faker::Lorem.word
       id = build(:identifier, value: val, identifier_scheme: @scheme)
       expected = @scheme.identifier_prefix
-      expect(id.value.starts_with?(expected)).to eql(true)
+      expect(id.value.starts_with?(expected)).to be(true)
     end
+
     it 'does not append the identifier scheme prefix to the value if its a URL' do
       val = Faker::Internet.url
       id = build(:identifier, value: val, identifier_scheme: @scheme)
       expected = @scheme.identifier_prefix
-      expect(id.value.starts_with?(expected)).to eql(false)
+      expect(id.value.starts_with?(expected)).to be(false)
     end
   end
 end

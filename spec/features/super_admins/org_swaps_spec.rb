@@ -2,12 +2,12 @@
 
 require 'rails_helper'
 
-RSpec.describe 'SuperAdmins OrgSwaps', type: :feature, js: true do
+RSpec.describe 'SuperAdmins OrgSwaps', js: true do
   before do
     @org1, @org2 = *create_list(:org, 2, managed: true)
   end
 
-  scenario 'Org admin attempts to change to new org' do
+  it 'Org admin attempts to change to new org' do
     @user = create(:user, :org_admin, org: @org1)
     sign_in @user
     visit root_path
@@ -16,7 +16,7 @@ RSpec.describe 'SuperAdmins OrgSwaps', type: :feature, js: true do
     expect(page).not_to have_text('Change affiliation')
   end
 
-  scenario 'Super admin changes to new org' do
+  it 'Super admin changes to new org' do
     @user = create(:user, :super_admin, org: @org1)
     sign_in @user
     visit root_path

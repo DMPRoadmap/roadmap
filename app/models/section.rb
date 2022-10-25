@@ -100,9 +100,7 @@ class Section < ApplicationRecord
   # The title of the Section
   #
   # Returns String
-  def to_s
-    title.to_s
-  end
+  delegate :to_s, to: :title
 
   # Returns the number of answered questions for a given plan
   def num_answered_questions(plan)

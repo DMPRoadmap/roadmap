@@ -19,7 +19,7 @@ class NotifySubscriberJob < ApplicationJob
       true
     end
 
-    subscription.update(last_notified: Time.now)
+    subscription.update(last_notified: Time.zone.now)
   rescue StandardError => e
     # Something went terribly wrong, so note it in the logs since this runs outside the
     # regular Rails thread that the application is using

@@ -22,7 +22,7 @@
 FactoryBot.define do
   factory :subscription do
     callback_uri        { Faker::Internet.unique.url }
-    last_notified       { Time.now - 1.days }
+    last_notified       { 1.day.ago }
     for_updates
 
     association :subscriber, factory: :api_client

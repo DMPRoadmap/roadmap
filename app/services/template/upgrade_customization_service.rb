@@ -79,7 +79,7 @@ class Template
             collection: @copy_of_original_customizations.phases
           )
           # a) If the Org's template ({@copy_of_original_customizations}) has the Phase...
-          next unless customized_phase.present?
+          next if customized_phase.blank?
 
           # b) If the Org's template ({@copy_of_original_customizations}) doesn't have this Phase.
           #    This is not a problem, since {@copy_of_original_customizations} should have this

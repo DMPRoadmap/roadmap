@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Dmptool::OrgAdmin::TemplatesController, type: :request do
   include Helpers::DmptoolHelper
 
-  before(:each) do
+  before do
     @admin = create(:user, :org_admin, org: create(:org))
     @template = create(:template, :publicly_visible, :published, org: @admin.org, phases: 1,
                                                                  sections: 1, questions: 2)
@@ -13,7 +13,7 @@ RSpec.describe Dmptool::OrgAdmin::TemplatesController, type: :request do
   end
 
   it 'OrgAdmin::TemplatesController includes our customizations' do
-    expect(@controller.respond_to?(:email)).to eql(true)
+    expect(@controller.respond_to?(:email)).to be(true)
   end
 
   describe 'GET /org_admin/templates/:id/email - :email_org_admin_template' do
@@ -23,10 +23,11 @@ RSpec.describe Dmptool::OrgAdmin::TemplatesController, type: :request do
       # Expect the user to be shown a success message
       expect(response.code).to eql('200')
       template = assigns(:template)
-      expect(template.present?).to eql(true)
+      expect(template.present?).to be(true)
       expect(template.email_subject).to eql(@template.email_subject)
       expect(template.email_body).to eql(@template.email_body)
     end
+
     it 'uses default email values' do
       sign_in(@admin)
       @template.update(email_subject: nil, email_body: nil)
@@ -34,7 +35,7 @@ RSpec.describe Dmptool::OrgAdmin::TemplatesController, type: :request do
       # Expect the user to be shown a success message
       expect(response.code).to eql('200')
       template = assigns(:template)
-      expect(template.present?).to eql(true)
+      expect(template.present?).to be(true)
       subject = format(_('A new data management plan (DMP) for the %{org_name} was started for you.'),
                        org_name: @template.org.name)
       # rubocop:disable Layout/LineLength
@@ -45,18 +46,20 @@ RSpec.describe Dmptool::OrgAdmin::TemplatesController, type: :request do
       expect(template.email_subject).to eql(subject)
       expect(template.email_body).to eql(body)
     end
+
     it 'page is NOT accessible when not logged in' do
       get email_org_admin_template_path(@template), xhr: true
       # Request specs are expensive so just check everything in this one test
       expect(response).to redirect_to(root_path)
-      expect(flash[:alert].present?).to eql(true)
+      expect(flash[:alert].present?).to be(true)
     end
+
     it 'page is NOT accessible when logged in user is not an admin' do
       sign_in(create(:user))
       get email_org_admin_template_path(@template), xhr: true
       # Request specs are expensive so just check everything in this one test
       expect(response).to redirect_to(plans_path)
-      expect(flash[:alert].present?).to eql(true)
+      expect(flash[:alert].present?).to be(true)
     end
   end
 end

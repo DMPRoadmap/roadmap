@@ -4,26 +4,22 @@ module Mocks
   module DmphubMocks
     BASE_API_URL = 'https://api.test.dmphub.org/'
 
-    ERROR_RESPONSE = File.read(
-      Rails.root.join('spec', 'support', 'mocks', 'dmphub', 'error.json')
-    ).freeze
+    ERROR_RESPONSE = Rails.root.join('spec', 'support', 'mocks', 'dmphub', 'error.json').read.freeze
 
-    SUCCESS_RESPONSE = File.read(
-      Rails.root.join('spec', 'support', 'mocks', 'dmphub', 'success.json')
-    ).freeze
+    SUCCESS_RESPONSE = Rails.root.join('spec', 'support', 'mocks', 'dmphub', 'success.json').read.freeze
 
     TOKEN_SUCCESS_RESPONSE = {
       access_token: SecureRandom.uuid.to_s,
       token_type: 'Bearer',
       expires_in: Faker::Number.number(digits: 10),
-      created_at: Time.now.to_formatted_s(:iso8601)
+      created_at: Time.zone.now.to_formatted_s(:iso8601)
     }.freeze
 
     TOKEN_FAILURE_RESPONSE = {
       application: Faker::Lorem.word,
       status: 'Unauthorized',
       code: 401,
-      time: Time.now.to_formatted_s(:iso8601),
+      time: Time.zone.now.to_formatted_s(:iso8601),
       caller: Faker::Internet.private_ip_v4_address,
       source: 'POST https://localhost:3001/api/v0/authenticate',
       total_items: 0,

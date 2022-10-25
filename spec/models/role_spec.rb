@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Role, type: :model do
+RSpec.describe Role do
   include Helpers::RolesHelper
 
   context 'validations' do
@@ -15,7 +15,7 @@ RSpec.describe Role, type: :model do
     it { is_expected.not_to allow_value(nil).for(:active) }
 
     it {
-      is_expected.to validate_numericality_of(:access)
+      expect(subject).to validate_numericality_of(:access)
         .only_integer
         .is_greater_than(0)
         .with_message("can't be less than zero")
@@ -29,35 +29,35 @@ RSpec.describe Role, type: :model do
   end
 
   describe '.deactivate!' do
+    subject { @plan }
+
     before do
       @plan = build_plan(true, true, true)
     end
-
-    subject { @plan }
 
     context 'different access levels' do
       it 'creator is no longer active' do
         role = subject.roles.creator.first
         role.deactivate!
-        expect(role.active).to eql(false)
+        expect(role.active).to be(false)
       end
 
       it 'administrator is no longer active' do
         @role = subject.roles.administrator.first
         @role.deactivate!
-        expect(@role.active).to eql(false)
+        expect(@role.active).to be(false)
       end
 
       it 'editor is no longer active' do
         @role = subject.roles.editor.first
         @role.deactivate!
-        expect(@role.active).to eql(false)
+        expect(@role.active).to be(false)
       end
 
       it 'commenter is no longer active' do
         @role = subject.roles.commenter.first
         @role.deactivate!
-        expect(@role.active).to eql(false)
+        expect(@role.active).to be(false)
       end
     end
 

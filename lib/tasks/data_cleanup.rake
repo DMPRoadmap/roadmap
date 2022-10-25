@@ -240,7 +240,7 @@ namespace :data_cleanup do
       end
 
       if filter.options[:maximum].present?
-        unless qry.blank?
+        if qry.present?
           qry += ' OR '
           shoulda += ' and '
         end
@@ -248,7 +248,7 @@ namespace :data_cleanup do
         shoulda += "<= #{filter.options[:maximum]}"
       end
 
-      ids << klass.where(qry).pluck(:id) unless qry.blank?
+      ids << klass.where(qry).pluck(:id) if qry.present?
     end
     ids = ids.flatten.uniq
     [ids, "  #{ids.count} records that are an invalid length for fields #{filter.attributes} should be #{shoulda}"]
@@ -293,7 +293,7 @@ namespace :data_cleanup do
     klass.all.each do |obj|
       obj.valid?
       attributes.each do |attr|
-        ids << obj.id unless obj.errors[attr.to_sym].blank?
+        ids << obj.id if obj.errors[attr.to_sym].present?
       end
     end
     ids = ids.flatten.uniq

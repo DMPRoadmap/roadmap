@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V2::Deserialization::Dataset do
-  before(:each) do
+  before do
     # Org requires a language, so make sure a default is available!
     @plan = create(:plan)
     @research_output = create(:research_output, plan: @plan)
@@ -14,7 +14,7 @@ RSpec.describe Api::V2::Deserialization::Dataset do
       description: Faker::Lorem.paragraph,
       personal_data: %w[yes no unknown].sample,
       sensitive_data: %w[yes no unknown].sample,
-      issued: (Time.now + 1.years).to_formatted_s(:iso8601),
+      issued: 1.year.from_now.to_formatted_s(:iso8601),
       preservation_statement: Faker::Lorem.paragraph,
       security_and_privacy: [
         {
@@ -38,7 +38,7 @@ RSpec.describe Api::V2::Deserialization::Dataset do
           license: [
             {
               license_ref: Faker::Internet.url,
-              start_date: (Time.now + 6.months).to_formatted_s(:iso8601)
+              start_date: 6.months.from_now.to_formatted_s(:iso8601)
             }
           ]
         }
@@ -56,15 +56,17 @@ RSpec.describe Api::V2::Deserialization::Dataset do
   describe ':deserialize(json: {})' do
     it 'returns nil if json is not valid' do
       Api::V2::JsonValidationService.stubs(:dataset_valid?).returns(false)
-      expect(described_class.deserialize(plan: @plan, json: nil)).to eql(nil)
+      expect(described_class.deserialize(plan: @plan, json: nil)).to be_nil
     end
+
     it 'return nil if :find_or_initialize does not return a ResearchOutput' do
       described_class.stubs(:find_by_identifier).returns(nil)
       described_class.stubs(:find_or_initialize).returns(nil)
-      expect(described_class.deserialize(plan: @plan, json: @json)).to eql(nil)
+      expect(described_class.deserialize(plan: @plan, json: @json)).to be_nil
     end
+
     context 'initializes' do
-      before(:each) do
+      before do
         described_class.stubs(:attach_metadata).returns(@research_output)
         described_class.stubs(:deserialize_distribution).returns(@research_output)
       end
@@ -77,7 +79,7 @@ RSpec.describe Api::V2::Deserialization::Dataset do
         expect(result.personal_data).to eql(expected)
         expected = Api::V2::ConversionService.yes_no_unknown_to_boolean(@json[:sensitive_data])
         expect(result.sensitive_data).to eql(expected)
-        expect(result.release_date).to eql(Time.parse(@json[:issued]))
+        expect(result.release_date).to eql(Time.zone.parse(@json[:issued]))
       end
     end
   end
@@ -85,44 +87,50 @@ RSpec.describe Api::V2::Deserialization::Dataset do
   context 'private methods' do
     describe ':find_by_identifier(plan:, json: {})' do
       it 'returns nil if json is not present' do
-        expect(described_class.send(:find_by_identifier, plan: @plan, json: nil)).to eql(nil)
+        expect(described_class.send(:find_by_identifier, plan: @plan, json: nil)).to be_nil
       end
+
       it 'finds the ResearchOutput by :dataset_id' do
         Api::V2::DeserializationService.stubs(:dmp_id?).returns(false)
         result = described_class.send(:find_by_identifier, plan: @plan, json: @json[:dataset_id])
         expect(result).to eql(@research_output)
       end
+
       it 'does not change the :output_type of an existing ResearchOutput' do
         Api::V2::DeserializationService.stubs(:dmp_id?).returns(false)
         @json[:type] = ResearchOutput.output_types.keys.reject { |key| key == @research_output.output_type }.sample
         result = described_class.send(:find_by_identifier, plan: @plan, json: @json[:dataset_id])
-        expect(result.new_record?).to eql(false)
+        expect(result.new_record?).to be(false)
         expect(result.output_type).to eql(@research_output.output_type)
       end
+
       it 'does not initialize a new ResearchOutput' do
         Api::V2::DeserializationService.stubs(:dmp_id?).returns(false)
         @json[:dataset_id][:identifier] = Faker::Music::PearlJam.song
-        expect(described_class.send(:find_by_identifier, plan: @plan, json: @json[:dataset_id])).to eql(nil)
+        expect(described_class.send(:find_by_identifier, plan: @plan, json: @json[:dataset_id])).to be_nil
       end
     end
 
     describe ':find_or_initialize(plan:, json: {})' do
       it 'returns nil if json is not present' do
-        expect(described_class.send(:find_or_initialize, plan: @plan, json: nil)).to eql(nil)
+        expect(described_class.send(:find_or_initialize, plan: @plan, json: nil)).to be_nil
       end
+
       it 'finds the ResearchOutput by :plan and :title' do
         expect(described_class.send(:find_or_initialize, plan: @plan, json: @json)).to eql(@research_output)
       end
+
       it 'does not change the :output_type of an existing ResearchOutput' do
         @json[:type] = ResearchOutput.output_types.keys.reject { |key| key == @research_output.output_type }.sample
         result = described_class.send(:find_or_initialize, plan: @plan, json: @json)
-        expect(result.new_record?).to eql(false)
+        expect(result.new_record?).to be(false)
         expect(result.output_type).to eql(@research_output.output_type)
       end
+
       it 'initializes a new ResearchOutput' do
         @json[:title] = Faker::Music::PearlJam.song
         result = described_class.send(:find_or_initialize, plan: @plan, json: @json)
-        expect(result.new_record?).to eql(true)
+        expect(result.new_record?).to be(true)
         expect(result.title).to eql(@json[:title])
         expect(result.plan).to eql(@plan)
         expect(result.output_type).to eql(@json[:type])
@@ -130,7 +138,7 @@ RSpec.describe Api::V2::Deserialization::Dataset do
     end
 
     describe ':attach_metadata(research_output:, json:)' do
-      before(:each) do
+      before do
         @research_output.metadata_standards.clear
       end
 
@@ -138,24 +146,28 @@ RSpec.describe Api::V2::Deserialization::Dataset do
         result = described_class.send(:attach_metadata, research_output: @research_output, json: nil)
         expect(result).to eql(@research_output)
       end
+
       it 'skips entries that have no :metadata_standard_id' do
         @json[:metadata] = @json[:metadata].map { |hash| hash.delete(:metadata_standard_id) }
         result = described_class.send(:attach_metadata, research_output: @research_output, json: @json[:metadata])
-        expect(result.metadata_standards.length).to eql(0)
+        expect(result.metadata_standards.length).to be(0)
       end
+
       it 'skips entries that have no matching entry ion the MetadataStandard table' do
         MetadataStandard.all.destroy_all
         result = described_class.send(:attach_metadata, research_output: @research_output, json: @json[:metadata])
-        expect(result.metadata_standards.length).to eql(0)
+        expect(result.metadata_standards.length).to be(0)
       end
+
       it 'skips entries that are already attached to the ResearchOutput' do
         hash = @json[:metadata].first
         standard = create(:metadata_standard, uri: hash[:metadata_standard_id][:identifier],
                                               description: hash[:description])
         @research_output.metadata_standards << standard
         result = described_class.send(:attach_metadata, research_output: @research_output, json: @json[:metadata])
-        expect(result.metadata_standards.select { |s| s.uri == standard.uri }.length).to eql(1)
+        expect(result.metadata_standards.select { |s| s.uri == standard.uri }.length).to be(1)
       end
+
       it 'adds the :metadata_standard' do
         standards = @json[:metadata].map do |hash|
           create(:metadata_standard, uri: hash[:metadata_standard_id][:identifier],
@@ -163,12 +175,12 @@ RSpec.describe Api::V2::Deserialization::Dataset do
         end
         result = described_class.send(:attach_metadata, research_output: @research_output, json: @json[:metadata])
         expect(result.metadata_standards.length).to eql(standards.length)
-        standards.each { |ms| expect(result.metadata_standards.include?(ms)).to eql(true) }
+        standards.each { |ms| expect(result.metadata_standards.include?(ms)).to be(true) }
       end
     end
 
     describe ':deserialize_distribution(research_output:, json:)' do
-      before(:each) do
+      before do
         @research_output.repositories.clear
         @research_output.license = nil
         described_class.stubs(:attach_repositories).returns(@research_output)
@@ -179,6 +191,7 @@ RSpec.describe Api::V2::Deserialization::Dataset do
         result = described_class.send(:deserialize_distribution, research_output: @research_output, json: nil)
         expect(result).to eql(@research_output)
       end
+
       it 'adds the distribution data to the ResearchOutput' do
         json = @json[:distribution]
         result = described_class.send(:deserialize_distribution, research_output: @research_output, json: json)
@@ -188,7 +201,7 @@ RSpec.describe Api::V2::Deserialization::Dataset do
     end
 
     describe ':attach_repositories(research_output:, json:)' do
-      before(:each) do
+      before do
         Repository.all.destroy_all
         @research_output.repositories.clear
         @repository = create(:repository)
@@ -198,25 +211,29 @@ RSpec.describe Api::V2::Deserialization::Dataset do
 
       it 'returns the ResearchOutput as-is if json is not an Array' do
         result = described_class.send(:attach_repositories, research_output: @research_output, json: nil)
-        expect(result.repositories.length).to eql(0)
+        expect(result.repositories.length).to be(0)
       end
+
       it 'returns the ResearchOutput as-is if json does not define a :url or :dmproadmap_host_id' do
         json = { title: @repository.name, description: @repository.description }
         result = described_class.send(:attach_repositories, research_output: @research_output, json: json)
-        expect(result.repositories.length).to eql(0)
+        expect(result.repositories.length).to be(0)
       end
+
       it 'returns the ResearchOutput as-is if the ResearchOutput already has the Repository' do
         @research_output.repositories << @repository
         json = { title: @repository.name, description: @repository.description, url: @repository.homepage }
         result = described_class.send(:attach_repositories, research_output: @research_output, json: json)
-        expect(result.repositories.length).to eql(1)
+        expect(result.repositories.length).to be(1)
       end
+
       it 'finds the Repository by :url and attaches it to the ResearchOutput' do
         json = { title: @repository.name, description: @repository.description, url: @repository.homepage }
         result = described_class.send(:attach_repositories, research_output: @research_output, json: json)
-        expect(result.repositories.length).to eql(1)
+        expect(result.repositories.length).to be(1)
         expect(result.repositories.first).to eql(@repository)
       end
+
       it 'finds the Repository by :dmproadmap_host_id and attaches it to the ResearchOutput' do
         json = {
           description: @repository.description,
@@ -224,13 +241,13 @@ RSpec.describe Api::V2::Deserialization::Dataset do
           dmproadmap_host_id: { type: 'url', identifier: @identifier.value }
         }
         result = described_class.send(:attach_repositories, research_output: @research_output, json: json)
-        expect(result.repositories.length).to eql(1)
+        expect(result.repositories.length).to be(1)
         expect(result.repositories.first).to eql(@repository)
       end
     end
 
     describe ':attach_licenses(research_output:, json:)' do
-      before(:each) do
+      before do
         License.all.destroy_all
         @research_output.license = nil
         @license = create(:license)
@@ -238,25 +255,28 @@ RSpec.describe Api::V2::Deserialization::Dataset do
 
       it 'returns the ResearchOutput as-is if json is not an Array' do
         result = described_class.send(:attach_licenses, research_output: @research_output, json: nil)
-        expect(result.license).to eql(nil)
+        expect(result.license).to be_nil
       end
+
       it 'returns the ResearchOutput as-is if none of the licenses are defined in the License table' do
         result = described_class.send(:attach_licenses, research_output: @research_output,
                                                         json: @json[:distribution].first)
-        expect(result.license).to eql(nil)
+        expect(result.license).to be_nil
       end
+
       it 'attaches the first license (by release_date) if none are current' do
         json = [
-          { license_ref: @license.uri, start_date: (Time.now + 6.months).to_formatted_s(:iso8601) },
-          { license_ref: Faker::Internet.url, start_date: (Time.now + 7.months).to_formatted_s(:iso8601) }
+          { license_ref: @license.uri, start_date: 6.months.from_now.to_formatted_s(:iso8601) },
+          { license_ref: Faker::Internet.url, start_date: 7.months.from_now.to_formatted_s(:iso8601) }
         ]
         result = described_class.send(:attach_licenses, research_output: @research_output, json: json)
         expect(result.license).to eql(@license)
       end
+
       it 'attaches the current license (by release_date)' do
         json = [
-          { license_ref: Faker::Internet.url, start_date: (Time.now - 6.months).to_formatted_s(:iso8601) },
-          { license_ref: @license.uri, start_date: (Time.now - 2.months).to_formatted_s(:iso8601) }
+          { license_ref: Faker::Internet.url, start_date: 6.months.ago.to_formatted_s(:iso8601) },
+          { license_ref: @license.uri, start_date: 2.months.ago.to_formatted_s(:iso8601) }
         ]
         result = described_class.send(:attach_licenses, research_output: @research_output, json: json)
         expect(result.license).to eql(@license)

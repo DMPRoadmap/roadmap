@@ -2,12 +2,12 @@
 
 require 'rails_helper'
 
-RSpec.describe 'OrgAutocomplete', type: :feature do
+RSpec.describe 'OrgAutocomplete' do
   include Helpers::DmptoolHelper
 
   # Generic Tests for the Org Autocomplete form widget as well as tests for each
   # implementation of it throughout the site
-  before(:each) do
+  before do
     mock_blog
     @org = create(:org, :institution, managed: true)
     @funder = create(:org, :funder, managed: true)
@@ -29,16 +29,16 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
     visit plan_path(@plan)
 
     within('#funder-org-controls') do
-      expect(find('label[for="org_autocomplete_funder_name"]').present?).to eql(true)
-      expect(find('#org_autocomplete_funder_name').present?).to eql(true)
-      expect { find('#org_autocomplete_funder_not_in_list') }.to raise_error(Capybara::ElementNotFound)
-      expect { find('#org_autocomplete_funder_user_entered_name') }.to raise_error(Capybara::ElementNotFound)
-      expect(find('.autocomplete-help').present?).to eql(true)
+      expect(find('label[for="org_autocomplete_funder_name"]').present?).to be(true)
+      expect(find_by_id('org_autocomplete_funder_name').present?).to be(true)
+      expect { find_by_id('org_autocomplete_funder_not_in_list') }.to raise_error(Capybara::ElementNotFound)
+      expect { find_by_id('org_autocomplete_funder_user_entered_name') }.to raise_error(Capybara::ElementNotFound)
+      expect(find('.autocomplete-help').present?).to be(true)
 
-      id = find('#org_autocomplete_funder_name')[:list].split('-').last
-      expect(find(".autocomplete-warning-#{id}", visible: false).present?).to eql(true)
+      id = find_by_id('org_autocomplete_funder_name')[:list].split('-').last
+      expect(find(".autocomplete-warning-#{id}", visible: false).present?).to be(true)
       expect(page).not_to have_text(@warn_without_custom)
-      expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to eql(true)
+      expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to be(true)
 
       fill_in 'Funder', with: Faker::Company.unique.name
     end
@@ -49,7 +49,7 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
   end
 
   context 'basic autocomplete functionality' do
-    before(:each) do
+    before do
       Rails.configuration.x.application.restrict_orgs = false
       sign_out @user
       visit root_path
@@ -68,35 +68,39 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
       fill_in 'First Name', with: Faker::Movies::StarWars.character
       expect(page).not_to have_text(@warn_with_custom)
     end
+
     it 'User can specify their own custom Org', :js do
       # Fill in the custom name and then fill in another field to ensure JS runs
       enter_custom_org(@selector, Faker::Company.name)
       fill_in 'First Name', with: Faker::Movies::StarWars.character
       expect(page).not_to have_text(@warn_with_custom)
     end
+
     it 'User cannot enter a custom Org in the autocomplete', :js do
       # Fill in the autocomplete and then fill in another field to ensure JS runs
       fill_in 'Institution', with: Faker::Company.name
       fill_in 'First Name', with: Faker::Movies::StarWars.character
       expect(page).to have_text(@warn_with_custom)
     end
+
     it 'Clear the custom Org name and unchecks the checkbox if user types in autocomplete', :js do
       # Fill in the custom name and then fill in another field to ensure JS runs
       enter_custom_org(@selector, Faker::Company.name)
       fill_in 'Institution', with: Faker::Company.unique.name
-      expect(find('#org_autocomplete_not_in_list', visible: false).value).not_to eql('1')
-      expect(find('#org_autocomplete_user_entered_name', visible: false).value).to eql('')
+      expect(find_by_id('org_autocomplete_not_in_list', visible: false).value).not_to eql('1')
+      expect(find_by_id('org_autocomplete_user_entered_name', visible: false).value).to eql('')
     end
+
     it 'Clear the entry in the autocomplete when user clicks checkbox', :js do
       org = create(:org)
       # Fill in the autocomplete and then fill in another field to ensure JS runs
       select_an_org(@selector, org.name, 'Institution')
       find('label[for="org_autocomplete_not_in_list"]').click
-      expect(find('#org_autocomplete_name').value).to eql('')
+      expect(find_by_id('org_autocomplete_name').value).to eql('')
     end
 
     context 'validate that we can save the Org' do
-      before(:each) do
+      before do
         # Fill out the rest of the form
         fill_in 'First Name', with: Faker::Movies::StarWars.character.split.first
         fill_in 'Last Name', with: Faker::Movies::StarWars.character.split.last
@@ -116,6 +120,7 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
         expect(User.last.org.name).to eql(@org.name)
         sign_out User.last
       end
+
       it 'can save a custom name', js: true do
         original_user_count = User.all.count
         name = Faker::Movies::StarWars.unique.planet
@@ -130,7 +135,7 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
   end
 
   context 'Individual implementations of the autocomplete', js: true do
-    before(:each) do
+    before do
       Rails.configuration.x.application.restrict_orgs = false
       init_orgs
     end
@@ -147,30 +152,30 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
 
         within('#sign-up-org') do
           # Make sure the Autocomplete controls are correct
-          expect(find('label[for="org_autocomplete_name"]').present?).to eql(true)
-          expect(find('#org_autocomplete_name').present?).to eql(true)
-          expect(find('#org_autocomplete_name').value).to eql('')
-          expect(find('#org_autocomplete_not_in_list', visible: false).present?).to eql(true)
-          expect(find('#org_autocomplete_user_entered_name', visible: false).present?).to eql(true)
-          expect(find('.autocomplete-help').present?).to eql(true)
+          expect(find('label[for="org_autocomplete_name"]').present?).to be(true)
+          expect(find_by_id('org_autocomplete_name').present?).to be(true)
+          expect(find_by_id('org_autocomplete_name').value).to eql('')
+          expect(find_by_id('org_autocomplete_not_in_list', visible: false).present?).to be(true)
+          expect(find_by_id('org_autocomplete_user_entered_name', visible: false).present?).to be(true)
+          expect(find('.autocomplete-help').present?).to be(true)
 
-          id = find('#org_autocomplete_name')[:list].split('-').last
-          expect(find(".autocomplete-warning-#{id}", visible: false).present?).to eql(true)
-          expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to eql(true)
+          id = find_by_id('org_autocomplete_name')[:list].split('-').last
+          expect(find(".autocomplete-warning-#{id}", visible: false).present?).to be(true)
+          expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to be(true)
 
           # Clear the default Org name and replace with our search term
           fill_in _('Institution'), with: ''
           fill_in _('Institution'), with: @word
 
           # Make sure the correct Orgs are suggested
-          expect(suggestion_exists?(@org_managed.name)).to eql(true)
-          expect(suggestion_exists?(@funder_managed.name)).to eql(true)
-          expect(suggestion_exists?(@org_unmanaged.name)).to eql(true)
-          expect(suggestion_exists?(@funder_unmanaged.name)).to eql(true)
-          expect(suggestion_exists?(@registry_org.name)).to eql(true)
-          expect(suggestion_exists?(@registry_funder.name)).to eql(true)
-          expect(suggestion_exists?(@associated_matched.name)).to eql(true)
-          expect(suggestion_exists?(@associated_matched_funder.name)).to eql(true)
+          expect(suggestion_exists?(@org_managed.name)).to be(true)
+          expect(suggestion_exists?(@funder_managed.name)).to be(true)
+          expect(suggestion_exists?(@org_unmanaged.name)).to be(true)
+          expect(suggestion_exists?(@funder_unmanaged.name)).to be(true)
+          expect(suggestion_exists?(@registry_org.name)).to be(true)
+          expect(suggestion_exists?(@registry_funder.name)).to be(true)
+          expect(suggestion_exists?(@associated_matched.name)).to be(true)
+          expect(suggestion_exists?(@associated_matched_funder.name)).to be(true)
 
           # Make sure the other Orgs are NOT suggested
           unmatched_never_appear?
@@ -187,16 +192,16 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
 
         within('#profile-controls') do
           # Make sure the Autocomplete controls are correct
-          expect(find('label[for="org_autocomplete_name"]').present?).to eql(true)
-          expect(find('#org_autocomplete_name').present?).to eql(true)
-          expect(find('#org_autocomplete_name').value).to eql(@user.org.name)
-          expect(find('#org_autocomplete_not_in_list', visible: false).present?).to eql(true)
-          expect(find('#org_autocomplete_user_entered_name', visible: false).present?).to eql(true)
-          expect(find('.autocomplete-help').present?).to eql(true)
+          expect(find('label[for="org_autocomplete_name"]').present?).to be(true)
+          expect(find_by_id('org_autocomplete_name').present?).to be(true)
+          expect(find_by_id('org_autocomplete_name').value).to eql(@user.org.name)
+          expect(find_by_id('org_autocomplete_not_in_list', visible: false).present?).to be(true)
+          expect(find_by_id('org_autocomplete_user_entered_name', visible: false).present?).to be(true)
+          expect(find('.autocomplete-help').present?).to be(true)
 
-          id = find('#org_autocomplete_name')[:list].split('-').last
-          expect(find(".autocomplete-warning-#{id}", visible: false).present?).to eql(true)
-          expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to eql(true)
+          id = find_by_id('org_autocomplete_name')[:list].split('-').last
+          expect(find(".autocomplete-warning-#{id}", visible: false).present?).to be(true)
+          expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to be(true)
 
           # Clear the default Org name and replace with our search term
           fill_in _('Institution'), with: ''
@@ -204,14 +209,14 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
           sleep(1)
 
           # Make sure the correct Orgs are suggested
-          expect(suggestion_exists?(@org_managed.name)).to eql(true)
-          expect(suggestion_exists?(@funder_managed.name)).to eql(true)
-          expect(suggestion_exists?(@org_unmanaged.name)).to eql(true)
-          expect(suggestion_exists?(@funder_unmanaged.name)).to eql(true)
-          expect(suggestion_exists?(@registry_org.name)).to eql(true)
-          expect(suggestion_exists?(@registry_funder.name)).to eql(true)
-          expect(suggestion_exists?(@associated_matched.name)).to eql(true)
-          expect(suggestion_exists?(@associated_matched_funder.name)).to eql(true)
+          expect(suggestion_exists?(@org_managed.name)).to be(true)
+          expect(suggestion_exists?(@funder_managed.name)).to be(true)
+          expect(suggestion_exists?(@org_unmanaged.name)).to be(true)
+          expect(suggestion_exists?(@funder_unmanaged.name)).to be(true)
+          expect(suggestion_exists?(@registry_org.name)).to be(true)
+          expect(suggestion_exists?(@registry_funder.name)).to be(true)
+          expect(suggestion_exists?(@associated_matched.name)).to be(true)
+          expect(suggestion_exists?(@associated_matched_funder.name)).to be(true)
 
           # Make sure the other Orgs are NOT suggested
           unmatched_never_appear?
@@ -230,16 +235,16 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
 
         within('#contributor-org-controls') do
           # Make sure the Autocomplete controls are correct
-          expect(find('label[for="org_autocomplete_name"]').present?).to eql(true)
-          expect(find('#org_autocomplete_name').present?).to eql(true)
-          expect(find('#org_autocomplete_name').value).to eql(@plan.org.name)
-          expect(find('#org_autocomplete_not_in_list', visible: false).present?).to eql(true)
-          expect(find('#org_autocomplete_user_entered_name', visible: false).present?).to eql(true)
-          expect(find('.autocomplete-help').present?).to eql(true)
+          expect(find('label[for="org_autocomplete_name"]').present?).to be(true)
+          expect(find_by_id('org_autocomplete_name').present?).to be(true)
+          expect(find_by_id('org_autocomplete_name').value).to eql(@plan.org.name)
+          expect(find_by_id('org_autocomplete_not_in_list', visible: false).present?).to be(true)
+          expect(find_by_id('org_autocomplete_user_entered_name', visible: false).present?).to be(true)
+          expect(find('.autocomplete-help').present?).to be(true)
 
-          id = find('#org_autocomplete_name')[:list].split('-').last
-          expect(find(".autocomplete-warning-#{id}", visible: false).present?).to eql(true)
-          expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to eql(true)
+          id = find_by_id('org_autocomplete_name')[:list].split('-').last
+          expect(find(".autocomplete-warning-#{id}", visible: false).present?).to be(true)
+          expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to be(true)
 
           # Clear the default Org name and replace with our search term
           fill_in _('Affiliation'), with: ''
@@ -247,14 +252,14 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
           sleep(1)
 
           # Make sure the correct Orgs are suggested
-          expect(suggestion_exists?(@org_managed.name)).to eql(true)
-          expect(suggestion_exists?(@funder_managed.name)).to eql(true)
-          expect(suggestion_exists?(@org_unmanaged.name)).to eql(true)
-          expect(suggestion_exists?(@funder_unmanaged.name)).to eql(true)
-          expect(suggestion_exists?(@registry_org.name)).to eql(true)
-          expect(suggestion_exists?(@registry_funder.name)).to eql(true)
-          expect(suggestion_exists?(@associated_matched.name)).to eql(true)
-          expect(suggestion_exists?(@associated_matched_funder.name)).to eql(true)
+          expect(suggestion_exists?(@org_managed.name)).to be(true)
+          expect(suggestion_exists?(@funder_managed.name)).to be(true)
+          expect(suggestion_exists?(@org_unmanaged.name)).to be(true)
+          expect(suggestion_exists?(@funder_unmanaged.name)).to be(true)
+          expect(suggestion_exists?(@registry_org.name)).to be(true)
+          expect(suggestion_exists?(@registry_funder.name)).to be(true)
+          expect(suggestion_exists?(@associated_matched.name)).to be(true)
+          expect(suggestion_exists?(@associated_matched_funder.name)).to be(true)
 
           # Make sure the other Orgs are NOT suggested
           unmatched_never_appear?
@@ -274,14 +279,14 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
 
         within('#research-org-controls') do
           # Make sure the Autocomplete controls are correct
-          expect(find('label[for="org_autocomplete_name"]').present?).to eql(true)
-          expect(find('#org_autocomplete_name').present?).to eql(true)
-          expect(find('#org_autocomplete_name').value).to eql(@user.org.name)
-          expect(find('.autocomplete-help').present?).to eql(true)
+          expect(find('label[for="org_autocomplete_name"]').present?).to be(true)
+          expect(find_by_id('org_autocomplete_name').present?).to be(true)
+          expect(find_by_id('org_autocomplete_name').value).to eql(@user.org.name)
+          expect(find('.autocomplete-help').present?).to be(true)
 
-          id = find('#org_autocomplete_name')[:list].split('-').last
-          expect(find(".autocomplete-warning-#{id}", visible: false).present?).to eql(true)
-          expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to eql(true)
+          id = find_by_id('org_autocomplete_name')[:list].split('-').last
+          expect(find(".autocomplete-warning-#{id}", visible: false).present?).to be(true)
+          expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to be(true)
 
           # Clear the default Org name and replace with our search term
           fill_in _('Research organisation'), with: ''
@@ -289,18 +294,18 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
           sleep(1)
 
           # Make sure the correct Orgs are suggested
-          expect(suggestion_exists?(@org_managed.name)).to eql(true)
-          expect(suggestion_exists?(@org_unmanaged.name)).to eql(true)
-          expect(suggestion_exists?(@associated_matched.name)).to eql(true)
+          expect(suggestion_exists?(@org_managed.name)).to be(true)
+          expect(suggestion_exists?(@org_unmanaged.name)).to be(true)
+          expect(suggestion_exists?(@associated_matched.name)).to be(true)
 
           # Make sure the funder Orgs are also suggested
-          expect(suggestion_exists?(@funder_managed.name)).to eql(true)
-          expect(suggestion_exists?(@funder_unmanaged.name)).to eql(true)
-          expect(suggestion_exists?(@associated_matched_funder.name)).to eql(true)
+          expect(suggestion_exists?(@funder_managed.name)).to be(true)
+          expect(suggestion_exists?(@funder_unmanaged.name)).to be(true)
+          expect(suggestion_exists?(@associated_matched_funder.name)).to be(true)
 
           # Make sure that RegistryOrgs with no associated Org are NOT suggested
-          expect(suggestion_exists?(@registry_org.name)).to eql(false)
-          expect(suggestion_exists?(@registry_funder.name)).to eql(false)
+          expect(suggestion_exists?(@registry_org.name)).to be(false)
+          expect(suggestion_exists?(@registry_funder.name)).to be(false)
 
           # Make sure the other Orgs are NOT suggested
           unmatched_never_appear?
@@ -308,30 +313,30 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
 
         within('#funder-org-controls') do
           # Make sure the Autocomplete controls are correct
-          expect(find('label[for="org_autocomplete_funder_name"]').present?).to eql(true)
-          expect(find('#org_autocomplete_funder_name').present?).to eql(true)
-          expect(find('#org_autocomplete_funder_name').value).to eql('')
-          expect(find('.autocomplete-help').present?).to eql(true)
+          expect(find('label[for="org_autocomplete_funder_name"]').present?).to be(true)
+          expect(find_by_id('org_autocomplete_funder_name').present?).to be(true)
+          expect(find_by_id('org_autocomplete_funder_name').value).to eql('')
+          expect(find('.autocomplete-help').present?).to be(true)
 
-          id = find('#org_autocomplete_funder_name')[:list].split('-').last
-          expect(find(".autocomplete-warning-#{id}", visible: false).present?).to eql(true)
-          expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to eql(true)
+          id = find_by_id('org_autocomplete_funder_name')[:list].split('-').last
+          expect(find(".autocomplete-warning-#{id}", visible: false).present?).to be(true)
+          expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to be(true)
 
           # Clear the default Org name and replace with our search term
           fill_in _('Funder'), with: ''
           fill_in _('Funder'), with: @word
 
           # Make sure the correct Orgs are suggested
-          expect(suggestion_exists?(@funder_managed.name)).to eql(true)
-          expect(suggestion_exists?(@funder_unmanaged.name)).to eql(true)
-          expect(suggestion_exists?(@registry_funder.name)).to eql(false)
-          expect(suggestion_exists?(@associated_matched_funder.name)).to eql(true)
+          expect(suggestion_exists?(@funder_managed.name)).to be(true)
+          expect(suggestion_exists?(@funder_unmanaged.name)).to be(true)
+          expect(suggestion_exists?(@registry_funder.name)).to be(false)
+          expect(suggestion_exists?(@associated_matched_funder.name)).to be(true)
 
           # Make sure the non-funder Orgs are NOT suggested
-          expect(suggestion_exists?(@org_managed.name)).to eql(false)
-          expect(suggestion_exists?(@org_unmanaged.name)).to eql(false)
-          expect(suggestion_exists?(@registry_org.name)).to eql(false)
-          expect(suggestion_exists?(@associated_matched.name)).to eql(false)
+          expect(suggestion_exists?(@org_managed.name)).to be(false)
+          expect(suggestion_exists?(@org_unmanaged.name)).to be(false)
+          expect(suggestion_exists?(@registry_org.name)).to be(false)
+          expect(suggestion_exists?(@associated_matched.name)).to be(false)
 
           # Make sure the other Orgs are NOT suggested
           unmatched_never_appear?
@@ -348,32 +353,32 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
 
         within('#funder-org-controls') do
           # Make sure the Autocomplete controls are correct
-          expect(find('label[for="org_autocomplete_funder_name"]').present?).to eql(true)
-          expect(find('#org_autocomplete_funder_name').present?).to eql(true)
-          expect(find('#org_autocomplete_funder_name').value).to eql('')
-          expect(find('#org_autocomplete_funder_not_in_list', visible: false).present?).to eql(true)
-          expect(find('#org_autocomplete_funder_user_entered_name', visible: false).present?).to eql(true)
-          expect(find('.autocomplete-help').present?).to eql(true)
+          expect(find('label[for="org_autocomplete_funder_name"]').present?).to be(true)
+          expect(find_by_id('org_autocomplete_funder_name').present?).to be(true)
+          expect(find_by_id('org_autocomplete_funder_name').value).to eql('')
+          expect(find_by_id('org_autocomplete_funder_not_in_list', visible: false).present?).to be(true)
+          expect(find_by_id('org_autocomplete_funder_user_entered_name', visible: false).present?).to be(true)
+          expect(find('.autocomplete-help').present?).to be(true)
 
-          id = find('#org_autocomplete_funder_name')[:list].split('-').last
-          expect(find(".autocomplete-warning-#{id}", visible: false).present?).to eql(true)
-          expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to eql(true)
+          id = find_by_id('org_autocomplete_funder_name')[:list].split('-').last
+          expect(find(".autocomplete-warning-#{id}", visible: false).present?).to be(true)
+          expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to be(true)
 
           # Clear the default Org name and replace with our search term
           fill_in _('Funder'), with: ''
           fill_in _('Funder'), with: @word
 
           # Make sure the correct Orgs are suggested
-          expect(suggestion_exists?(@funder_managed.name)).to eql(true)
-          expect(suggestion_exists?(@funder_unmanaged.name)).to eql(true)
-          expect(suggestion_exists?(@registry_funder.name)).to eql(true)
-          expect(suggestion_exists?(@associated_matched_funder.name)).to eql(true)
+          expect(suggestion_exists?(@funder_managed.name)).to be(true)
+          expect(suggestion_exists?(@funder_unmanaged.name)).to be(true)
+          expect(suggestion_exists?(@registry_funder.name)).to be(true)
+          expect(suggestion_exists?(@associated_matched_funder.name)).to be(true)
 
           # Make sure the non-funder Orgs are NOT suggested
-          expect(suggestion_exists?(@org_managed.name)).to eql(false)
-          expect(suggestion_exists?(@org_unmanaged.name)).to eql(false)
-          expect(suggestion_exists?(@registry_org.name)).to eql(false)
-          expect(suggestion_exists?(@associated_matched.name)).to eql(false)
+          expect(suggestion_exists?(@org_managed.name)).to be(false)
+          expect(suggestion_exists?(@org_unmanaged.name)).to be(false)
+          expect(suggestion_exists?(@registry_org.name)).to be(false)
+          expect(suggestion_exists?(@associated_matched.name)).to be(false)
 
           # Make sure the other Orgs are NOT suggested
           unmatched_never_appear?
@@ -393,18 +398,18 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
 
         within('#super-admin-switch-org') do
           # Make sure the Autocomplete controls are correct
-          expect(find('label[for="org_autocomplete_name"]').present?).to eql(true)
-          expect(find('#org_autocomplete_name').present?).to eql(true)
-          expect(find('#org_autocomplete_name').value).to eql(super_admin.org.name)
-          expect { find('#org_autocomplete_not_in_list') }.to raise_error(Capybara::ElementNotFound)
+          expect(find('label[for="org_autocomplete_name"]').present?).to be(true)
+          expect(find_by_id('org_autocomplete_name').present?).to be(true)
+          expect(find_by_id('org_autocomplete_name').value).to eql(super_admin.org.name)
+          expect { find_by_id('org_autocomplete_not_in_list') }.to raise_error(Capybara::ElementNotFound)
           expect do
-            find('#org_autocomplete_user_entered_name', visible: false)
+            find_by_id('org_autocomplete_user_entered_name', visible: false)
           end.to raise_error(Capybara::ElementNotFound)
-          expect(find('.autocomplete-help').present?).to eql(true)
+          expect(find('.autocomplete-help').present?).to be(true)
 
-          id = find('#org_autocomplete_name')[:list].split('-').last
-          expect(find(".autocomplete-warning-#{id}", visible: false).present?).to eql(true)
-          expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to eql(true)
+          id = find_by_id('org_autocomplete_name')[:list].split('-').last
+          expect(find(".autocomplete-warning-#{id}", visible: false).present?).to be(true)
+          expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to be(true)
 
           # Clear the default Org name and replace with our search term
           fill_in _('Affiliation'), with: ''
@@ -412,16 +417,16 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
           sleep(1)
 
           # Make sure the correct Orgs are suggested
-          expect(suggestion_exists?(@org_managed.name)).to eql(true)
-          expect(suggestion_exists?(@funder_managed.name)).to eql(true)
-          expect(suggestion_exists?(@associated_matched.name)).to eql(true)
-          expect(suggestion_exists?(@associated_matched_funder.name)).to eql(true)
+          expect(suggestion_exists?(@org_managed.name)).to be(true)
+          expect(suggestion_exists?(@funder_managed.name)).to be(true)
+          expect(suggestion_exists?(@associated_matched.name)).to be(true)
+          expect(suggestion_exists?(@associated_matched_funder.name)).to be(true)
 
           # Make sure that RegistryOrgs with no associated Org are NOT suggested
-          expect(suggestion_exists?(@registry_org.name)).to eql(false)
-          expect(suggestion_exists?(@registry_funder.name)).to eql(false)
-          expect(suggestion_exists?(@org_unmanaged.name)).to eql(false)
-          expect(suggestion_exists?(@funder_unmanaged.name)).to eql(false)
+          expect(suggestion_exists?(@registry_org.name)).to be(false)
+          expect(suggestion_exists?(@registry_funder.name)).to be(false)
+          expect(suggestion_exists?(@org_unmanaged.name)).to be(false)
+          expect(suggestion_exists?(@funder_unmanaged.name)).to be(false)
 
           # Make sure the other Orgs are NOT suggested
           unmatched_never_appear?
@@ -441,16 +446,16 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
 
         within('#super-admin-user-org-controls') do
           # Make sure the Autocomplete controls are correct
-          expect(find('label[for="org_autocomplete_name"]').present?).to eql(true)
-          expect(find('#org_autocomplete_name').present?).to eql(true)
-          expect(find('#org_autocomplete_name').value).to eql(@user.org.name)
-          expect(find('#org_autocomplete_not_in_list', visible: false).present?).to eql(true)
-          expect(find('#org_autocomplete_user_entered_name', visible: false).present?).to eql(true)
-          expect(find('.autocomplete-help').present?).to eql(true)
+          expect(find('label[for="org_autocomplete_name"]').present?).to be(true)
+          expect(find_by_id('org_autocomplete_name').present?).to be(true)
+          expect(find_by_id('org_autocomplete_name').value).to eql(@user.org.name)
+          expect(find_by_id('org_autocomplete_not_in_list', visible: false).present?).to be(true)
+          expect(find_by_id('org_autocomplete_user_entered_name', visible: false).present?).to be(true)
+          expect(find('.autocomplete-help').present?).to be(true)
 
-          id = find('#org_autocomplete_name')[:list].split('-').last
-          expect(find(".autocomplete-warning-#{id}", visible: false).present?).to eql(true)
-          expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to eql(true)
+          id = find_by_id('org_autocomplete_name')[:list].split('-').last
+          expect(find(".autocomplete-warning-#{id}", visible: false).present?).to be(true)
+          expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to be(true)
 
           # Clear the default Org name and replace with our search term
           fill_in _('Institution'), with: ''
@@ -458,14 +463,14 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
           sleep(1)
 
           # Make sure the correct Orgs are suggested
-          expect(suggestion_exists?(@org_managed.name)).to eql(true)
-          expect(suggestion_exists?(@funder_managed.name)).to eql(true)
-          expect(suggestion_exists?(@org_unmanaged.name)).to eql(true)
-          expect(suggestion_exists?(@funder_unmanaged.name)).to eql(true)
-          expect(suggestion_exists?(@registry_org.name)).to eql(true)
-          expect(suggestion_exists?(@registry_funder.name)).to eql(true)
-          expect(suggestion_exists?(@associated_matched.name)).to eql(true)
-          expect(suggestion_exists?(@associated_matched_funder.name)).to eql(true)
+          expect(suggestion_exists?(@org_managed.name)).to be(true)
+          expect(suggestion_exists?(@funder_managed.name)).to be(true)
+          expect(suggestion_exists?(@org_unmanaged.name)).to be(true)
+          expect(suggestion_exists?(@funder_unmanaged.name)).to be(true)
+          expect(suggestion_exists?(@registry_org.name)).to be(true)
+          expect(suggestion_exists?(@registry_funder.name)).to be(true)
+          expect(suggestion_exists?(@associated_matched.name)).to be(true)
+          expect(suggestion_exists?(@associated_matched_funder.name)).to be(true)
 
           # Make sure the other Orgs are NOT suggested
           unmatched_never_appear?
@@ -485,32 +490,32 @@ RSpec.describe 'OrgAutocomplete', type: :feature do
 
         within('#edit_org_profile_form') do
           # Make sure the Autocomplete controls are correct
-          expect(find('label[for="org_autocomplete_name"]').present?).to eql(true)
-          expect(find('#org_autocomplete_name').present?).to eql(true)
-          expect(find('#org_autocomplete_name').value).to eql('')
-          expect(find('#org_autocomplete_not_in_list', visible: false).present?).to eql(true)
-          expect(find('#org_autocomplete_user_entered_name', visible: false).present?).to eql(true)
-          expect(find('.autocomplete-help').present?).to eql(true)
+          expect(find('label[for="org_autocomplete_name"]').present?).to be(true)
+          expect(find_by_id('org_autocomplete_name').present?).to be(true)
+          expect(find_by_id('org_autocomplete_name').value).to eql('')
+          expect(find_by_id('org_autocomplete_not_in_list', visible: false).present?).to be(true)
+          expect(find_by_id('org_autocomplete_user_entered_name', visible: false).present?).to be(true)
+          expect(find('.autocomplete-help').present?).to be(true)
 
-          id = find('#org_autocomplete_name')[:list].split('-').last
-          expect(find(".autocomplete-warning-#{id}", visible: false).present?).to eql(true)
-          expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to eql(true)
+          id = find_by_id('org_autocomplete_name')[:list].split('-').last
+          expect(find(".autocomplete-warning-#{id}", visible: false).present?).to be(true)
+          expect(find("#autocomplete-suggestions-#{id}", visible: false).present?).to be(true)
 
           # Clear the default Org name and replace with our search term
           fill_in _('Organisation lookup'), with: ''
           fill_in _('Organisation lookup'), with: @word
 
           # Make sure the correct Orgs are suggested
-          expect(suggestion_exists?(@registry_org.name)).to eql(true)
-          expect(suggestion_exists?(@registry_funder.name)).to eql(true)
+          expect(suggestion_exists?(@registry_org.name)).to be(true)
+          expect(suggestion_exists?(@registry_funder.name)).to be(true)
 
           # Make sure known Orgs are NOT suggested
-          expect(suggestion_exists?(@org_managed.name)).to eql(false)
-          expect(suggestion_exists?(@funder_managed.name)).to eql(false)
-          expect(suggestion_exists?(@org_unmanaged.name)).to eql(false)
-          expect(suggestion_exists?(@funder_unmanaged.name)).to eql(false)
-          expect(suggestion_exists?(@associated_matched.name)).to eql(false)
-          expect(suggestion_exists?(@associated_matched_funder.name)).to eql(false)
+          expect(suggestion_exists?(@org_managed.name)).to be(false)
+          expect(suggestion_exists?(@funder_managed.name)).to be(false)
+          expect(suggestion_exists?(@org_unmanaged.name)).to be(false)
+          expect(suggestion_exists?(@funder_unmanaged.name)).to be(false)
+          expect(suggestion_exists?(@associated_matched.name)).to be(false)
+          expect(suggestion_exists?(@associated_matched_funder.name)).to be(false)
 
           # Make sure the other Orgs are NOT suggested
           unmatched_never_appear?

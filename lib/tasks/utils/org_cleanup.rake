@@ -51,8 +51,8 @@ namespace :org_cleanup do
         end
       else
         p 'Unable to merge orgs!'
-        p 'Unable to find org to merge (the one that will go away)' unless loser.present?
-        p 'Unable to find org to merge to (the one that will remain)' unless winner.present?
+        p 'Unable to find org to merge (the one that will go away)' if loser.blank?
+        p 'Unable to find org to merge to (the one that will remain)' if winner.blank?
       end
     else
       p 'Unable to merge orgs!'
@@ -173,10 +173,10 @@ namespace :org_cleanup do
       }
     end
 
-    file = File.open(Rails.root.join('tmp', 'detect_duplicates_full.json'), 'w')
+    file = Rails.root.join('tmp', 'detect_duplicates_full.json').open('w')
     file.write(results.to_json)
 
-    summary = File.open(Rails.root.join('tmp', 'detect_duplicates_summary.json'), 'w')
+    summary = Rails.root.join('tmp', 'detect_duplicates_summary.json').open('w')
     summary.write(summarization.to_json)
 
     p 'Done'
@@ -186,7 +186,7 @@ namespace :org_cleanup do
 
   # Strip stop words out of the name
   def remove_stop_words(name:)
-    return nil unless name.present?
+    return nil if name.blank?
 
     name = " #{name} ".downcase
     [' de ', ' do ', ' of ', ' the ',
@@ -262,7 +262,7 @@ namespace :org_cleanup do
     end
 
     p "Scanning #{org_hashes.length} Orgs for duplicates ..."
-    match_array = org_hashes.map { |o| o[:cleansed] }
+    match_array = org_hashes.pluck(:cleansed)
     org_hashes.each do |hash|
       # p "Checking '#{hash[:original]}' -- '#{hash[:abbreviation]}'"
       matches = match_array.select do |name|
@@ -280,7 +280,7 @@ namespace :org_cleanup do
 
       # Add all of the matching Org ids
       hash[:matches] = matches.collect do |m|
-        org_hashes.select { |o| o[:cleansed] == m }.collect { |h| h[:id] }
+        org_hashes.select { |o| o[:cleansed] == m }.pluck(:id)
       end
     end
 
@@ -348,16 +348,16 @@ namespace :org_cleanup do
   end
 
   def name_to_abbreviation(name:)
-    return '' unless name.present?
+    return '' if name.blank?
 
     stopwords = %w[the of]
     words = name.split.reject { |w| stopwords.include?(w.downcase) }
-    words.collect { |w| w[0] }.join.upcase
+    words.pluck(0).join.upcase
   end
 
   # Retrieves the matches from the ROR API and filters out only close matches
   def fetch_ror_matches(name:)
-    return [] unless name.present?
+    return [] if name.blank?
 
     OrgSelection::SearchService.search_externally(search_term: name).select do |hash|
       # If the natural language processing score is <= 25 OR the

@@ -58,7 +58,7 @@ module SuperAdmin
           else
             flash.now[:alert] = failure_message(org, _('create'))
             @org = org
-            @org.links = { org: [] } unless org.links.present?
+            @org.links = { org: [] } if org.links.blank?
             render 'super_admin/orgs/new'
           end
         rescue Dragonfly::Job::Fetch::NotFound
@@ -72,7 +72,7 @@ module SuperAdmin
           }
         end
       else
-        flash[:alert] = _('Unable to create the organisation. Name can\'t be blank')
+        flash.now[:alert] = _('Unable to create the organisation. Name can\'t be blank')
         render 'super_admin/orgs/new'
       end
     end

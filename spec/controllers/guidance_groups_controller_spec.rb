@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe GuidanceGroupsController, type: :controller do
-  before(:each) do
+RSpec.describe GuidanceGroupsController do
+  before do
     @org = create(:org, managed: true)
     @user = create(:user, :org_admin, org: @org)
     # The Org factory auto-creates a guidance_group
@@ -17,7 +17,7 @@ RSpec.describe GuidanceGroupsController, type: :controller do
     get :admin_new, params: { id: @org.id }
     expect(response).to render_template('guidance_groups/admin_new')
     gg = assigns(:guidance_group)
-    expect(gg.new_record?).to eql(true)
+    expect(gg.new_record?).to be(true)
     expect(gg.org_id).to eql(@org.id)
   end
 
@@ -33,7 +33,7 @@ RSpec.describe GuidanceGroupsController, type: :controller do
                optional_subset: Faker::Boolean.boolean, org_id: @org.id }
       post :admin_create, params: { id: @org.id, guidance_group: args }
       expect(response).to render_template('guidance_groups/admin_edit')
-      expect(flash[:notice].present?).to eql(true)
+      expect(flash[:notice].present?).to be(true)
       gg = assigns(:guidance_group)
       expect(gg.id).not_to eql(@guidance_group.id)
       expect(gg.name).to eql(args[:name])
@@ -41,11 +41,12 @@ RSpec.describe GuidanceGroupsController, type: :controller do
       expect(gg.optional_subset).to eql(args[:optional_subset])
       expect(gg.org_id).to eql(args[:org_id])
     end
+
     it 'fails' do
       args = { name: nil }
       post :admin_create, params: { id: @org.id, guidance_group: args }
       expect(response).to render_template('guidance_groups/admin_new')
-      expect(flash[:alert].present?).to eql(true)
+      expect(flash[:alert].present?).to be(true)
     end
   end
 
@@ -55,7 +56,7 @@ RSpec.describe GuidanceGroupsController, type: :controller do
                optional_subset: Faker::Boolean.boolean }
       put :admin_update, params: { id: @guidance_group.id, guidance_group: args }
       expect(response).to render_template('guidance_groups/admin_edit')
-      expect(flash[:notice].present?).to eql(true)
+      expect(flash[:notice].present?).to be(true)
       gg = assigns(:guidance_group)
       expect(gg.id).to eql(@guidance_group.id)
       expect(gg.name).to eql(args[:name])
@@ -63,16 +64,17 @@ RSpec.describe GuidanceGroupsController, type: :controller do
       expect(gg.optional_subset).to eql(args[:optional_subset])
       expect(gg.org_id).to eql(@org.id)
     end
+
     it 'fails' do
       args = { name: nil }
       put :admin_update, params: { id: @guidance_group.id, guidance_group: args }
       expect(response).to render_template('guidance_groups/admin_edit')
-      expect(flash[:alert].present?).to eql(true)
+      expect(flash[:alert].present?).to be(true)
     end
   end
 
   describe 'PUT /org/admin/guidancegroup/:id/admin_update_publish (:admin_update_publish)' do
-    before(:each) do
+    before do
       @guidance_group.update(published: false)
     end
 
@@ -80,21 +82,22 @@ RSpec.describe GuidanceGroupsController, type: :controller do
       args = { published: true }
       put :admin_update_publish, params: { id: @guidance_group.id, guidance_group: args }
       expect(response).to redirect_to(admin_index_guidance_path)
-      expect(flash[:notice].present?).to eql(true)
-      expect(@guidance_group.reload.published?).to eql(true)
+      expect(flash[:notice].present?).to be(true)
+      expect(@guidance_group.reload.published?).to be(true)
     end
+
     it 'fails' do
       GuidanceGroup.any_instance.stubs(:update).returns(false)
       args = { published: false }
       put :admin_update_publish, params: { id: @guidance_group.id, guidance_group: args }
       expect(response).to redirect_to(admin_index_guidance_path)
-      expect(flash[:alert].present?).to eql(true)
-      expect(@guidance_group.reload.published?).to eql(false)
+      expect(flash[:alert].present?).to be(true)
+      expect(@guidance_group.reload.published?).to be(false)
     end
   end
 
   describe 'PUT /org/admin/guidancegroup/:id/admin_update_unpublish (:admin_update_unpublish)' do
-    before(:each) do
+    before do
       @guidance_group.update(published: true)
     end
 
@@ -102,16 +105,17 @@ RSpec.describe GuidanceGroupsController, type: :controller do
       args = { published: false }
       put :admin_update_unpublish, params: { id: @guidance_group.id, guidance_group: args }
       expect(response).to redirect_to(admin_index_guidance_path)
-      expect(flash[:notice].present?).to eql(true)
-      expect(@guidance_group.reload.published?).to eql(false)
+      expect(flash[:notice].present?).to be(true)
+      expect(@guidance_group.reload.published?).to be(false)
     end
+
     it 'fails' do
       GuidanceGroup.any_instance.stubs(:update).returns(false)
       args = { published: true }
       put :admin_update_unpublish, params: { id: @guidance_group.id, guidance_group: args }
       expect(response).to redirect_to(admin_index_guidance_path)
-      expect(flash[:alert].present?).to eql(true)
-      expect(@guidance_group.reload.published?).to eql(true)
+      expect(flash[:alert].present?).to be(true)
+      expect(@guidance_group.reload.published?).to be(true)
     end
   end
 
@@ -119,14 +123,15 @@ RSpec.describe GuidanceGroupsController, type: :controller do
     it 'succeeds' do
       delete :admin_destroy, params: { id: @guidance_group.id }
       expect(response).to redirect_to(admin_index_guidance_path)
-      expect(flash[:notice].present?).to eql(true)
-      expect(GuidanceGroup.where(id: @guidance_group.id).any?).to eql(false)
+      expect(flash[:notice].present?).to be(true)
+      expect(GuidanceGroup.where(id: @guidance_group.id).any?).to be(false)
     end
+
     it 'fails' do
       GuidanceGroup.any_instance.stubs(:destroy).returns(false)
       delete :admin_destroy, params: { id: @guidance_group.id }
       expect(response).to redirect_to(admin_index_guidance_path)
-      expect(flash[:alert].present?).to eql(true)
+      expect(flash[:alert].present?).to be(true)
     end
   end
 end

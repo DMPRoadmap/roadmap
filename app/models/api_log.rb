@@ -18,7 +18,7 @@
 #  index_api_logs_on_logable_and_change_type (logable_id, logable_type, change_type)
 #
 class ApiLog < ApplicationRecord
-  enum change_type: %i[added removed modified]
+  enum change_type: { added: 0, removed: 1, modified: 2 }
 
   # ================
   # = Associations =

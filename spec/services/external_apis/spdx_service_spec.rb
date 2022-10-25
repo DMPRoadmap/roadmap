@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe ExternalApis::SpdxService do
   include Helpers::Webmocks
 
-  before(:each) do
+  before do
     License.all.destroy_all
 
     @licenses_results = {
@@ -29,6 +29,7 @@ RSpec.describe ExternalApis::SpdxService do
       described_class.expects(:query_spdx).returns(nil)
       expect(described_class.fetch).to eql([])
     end
+
     it 'fetches the licenses' do
       described_class.expects(:query_spdx).returns({ licenses: @licenses_results })
       described_class.expects(:process_license).returns(true)
@@ -43,15 +44,18 @@ RSpec.describe ExternalApis::SpdxService do
         described_class.expects(:handle_http_failure)
         expect(described_class.send(:query_spdx)).to eql([])
       end
+
       it 'logs an error if the response was invalid JSON' do
         JSON.expects(:parse).raises(JSON::ParserError.new)
         described_class.expects(:log_error)
         expect(described_class.send(:query_spdx)).to eql([])
       end
+
       it 'returns an empty array if the response conatins no license' do
         JSON.expects(:parse).returns({})
         expect(described_class.send(:query_spdx)).to eql([])
       end
+
       it 'reuturns the array of licenses' do
         expect(described_class.send(:query_spdx)).to eql(JSON.parse(@licenses_results.to_json))
       end
@@ -59,12 +63,12 @@ RSpec.describe ExternalApis::SpdxService do
 
     describe ':process_license(hash:)' do
       it 'returns nil if hash is empty' do
-        expect(described_class.send(:process_license, hash: nil)).to eql(nil)
+        expect(described_class.send(:process_license, hash: nil)).to be_nil
       end
 
       it 'returns nil if a License could not be initialized' do
         License.expects(:find_or_initialize_by).returns(nil)
-        expect(described_class.send(:process_license, hash: @licenses_results)).to eql(nil)
+        expect(described_class.send(:process_license, hash: @licenses_results)).to be_nil
       end
 
       it 'updates existing License records' do

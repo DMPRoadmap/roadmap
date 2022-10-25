@@ -4,7 +4,7 @@
 
 json.name plan.funder&.name
 
-if plan.funder.present? && !['No funder', 'Non Partner Institution'].include?(plan.funder.name)
+if plan.funder.present? && ['No funder', 'Non Partner Institution'].exclude?(plan.funder.name)
   id = Api::V1::OrgPresenter.affiliation_id(identifiers: plan.funder.identifiers, fundref: true)
 
   if id.present?

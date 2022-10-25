@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Mailer methods for all emails
-class UserMailer < ActionMailer::Base
+class UserMailer < ApplicationMailer
   prepend_view_path 'app/views/branded/'
 
   include MailerHelper
@@ -206,11 +206,11 @@ class UserMailer < ActionMailer::Base
   # rubocop:disable Metrics/AbcSize
   def api_credentials(api_client)
     @api_client = api_client
-    return unless @api_client.contact_email.present?
+    return if @api_client.contact_email.blank?
 
     @api_docs = Rails.configuration.x.application.api_documentation_overview_url
 
-    @name = @api_client.contact_name.present? ? @api_client.contact_name : @api_client.contact_email
+    @name = (@api_client.contact_name.presence || @api_client.contact_email)
 
     @helpdesk_email = helpdesk_email(org: @api_client.org)
 

@@ -20,7 +20,7 @@ class OrgsController < ApplicationController
     org = Org.find(params[:id])
     authorize org
     languages = Language.all.order('name')
-    org.links = { org: [] } unless org.links.present?
+    org.links = { org: [] } if org.links.blank?
     render 'admin_edit', locals: { org: org, languages: languages, method: 'PUT',
                                    url: admin_update_org_path(org) }
   end
@@ -34,7 +34,7 @@ class OrgsController < ApplicationController
     authorize @org
 
     # If a new logo was supplied then use it, otherwise retain the existing one
-    attrs[:logo] = attrs[:logo].present? ? attrs[:logo] : @org.logo
+    attrs[:logo] = (attrs[:logo].presence || @org.logo)
     # Remove the logo if the user checked the box
     attrs[:logo] = nil if attrs[:remove_logo] == '1'
 
@@ -79,11 +79,11 @@ class OrgsController < ApplicationController
         end
         @org.save
       end
-      redirect_to "#{admin_edit_org_path(@org)}\##{tab}",
+      redirect_to "#{admin_edit_org_path(@org)}##{tab}",
                   notice: success_message(@org, _('saved'))
     else
       failure = failure_message(@org, _('save')) if failure.blank?
-      redirect_to "#{admin_edit_org_path(@org)}\##{tab}", alert: failure
+      redirect_to "#{admin_edit_org_path(@org)}##{tab}", alert: failure
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
@@ -130,7 +130,7 @@ class OrgsController < ApplicationController
 
       if entity_id.present? && entity_id.value.present?
 
-        p "REDIRECTING TO IDP: #{shib_login_url}?#{shib_callback_url}&entityID=#{entity_id.value}"
+        Rails.logger.debug { "REDIRECTING TO IDP: #{shib_login_url}?#{shib_callback_url}&entityID=#{entity_id.value}" }
 
         # initiate shibboleth login sequence
         redirect_to "#{shib_login_url}?#{shib_callback_url}&entityID=#{entity_id.value}"

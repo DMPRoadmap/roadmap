@@ -18,7 +18,7 @@ namespace :logos do
   desc 'Resize all of the logos based on the settings in `models/org.rb`'
   task resize_all: :environment do
     Org.all.each do |org|
-      next unless org.logo.present?
+      next if org.logo.blank?
 
       img = org.logo
       org.logo = img
@@ -30,7 +30,7 @@ namespace :logos do
   task migrate: :environment do
     Org.all.each do |org|
       path = File.expand_path("../prod_logos/logo/#{org.id}/")
-      if Dir.exist?(path) && !org.logo.present?
+      if Dir.exist?(path) && org.logo.blank?
         logo = Dir.entries(path).last
         org.logo = Dragonfly.app.fetch_file("#{path}/#{logo}")
         org.save!
@@ -44,13 +44,13 @@ namespace :logos do
 
   desc 'Attempt to reattach disassociated DB references to logos'
   task repair_paths: :environment do
-    dragonfly_path = Rails.root.join('public', 'system', 'dragonfly')
+    dragonfly_path = Rails.public_path.join('system', 'dragonfly')
     if Dir.exist?(dragonfly_path)
       logos = find_logos(dragonfly_path)
 
       logos.each_key do |logo|
         org = Org.find_by(logo_name: logo)
-        next unless org.present?
+        next if org.blank?
 
         path = logos[logo].gsub(dragonfly_path)
         p "Found logo for #{org.name} - updating path from #{org.logo_uid} to #{path}"

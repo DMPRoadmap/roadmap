@@ -40,8 +40,6 @@ class Answer < ApplicationRecord
 
   belongs_to :plan
 
-  has_many :notes, dependent: :destroy
-
   has_and_belongs_to_many :question_options, join_table: 'answers_question_options'
 
   has_many :notes
@@ -92,11 +90,11 @@ class Answer < ApplicationRecord
   #
   # Returns Boolean
   def answered?
-    return false unless question.present?
+    return false if question.blank?
     # If the question is option based then see if any options were selected
     return question_options.any? if question.question_format.option_based?
     # Strip out any white space and see if the text is empty
-    return !text.gsub(%r{</?p>}, '').gsub(%r{<br\s?/?>}, '').chomp.blank? if text.present?
+    return text.gsub(%r{</?p>}, '').gsub(%r{<br\s?/?>}, '').chomp.present? if text.present?
 
     false
   end

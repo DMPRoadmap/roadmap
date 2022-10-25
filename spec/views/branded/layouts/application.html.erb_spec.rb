@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'layouts/application.html.erb' do
-  before(:each) do
+  before do
     @app_name = ApplicationService.application_name
     Rails.configuration.x.application.name = @app_name
 
@@ -13,27 +13,27 @@ describe 'layouts/application.html.erb' do
   it 'renders correctly' do
     render
     expect(response).to render_template(partial: 'layouts/_analytics')
-    expect(rendered.include?("<title>#{@app_name}")).to eql(true)
-    expect(rendered.include?('rel="icon"')).to eql(true)
-    expect(rendered.include?('rel="apple-touch-icon"')).to eql(true)
-    expect(rendered.include?('rel="mask-icon"')).to eql(true)
-    expect(rendered.include?('rel="manifest"')).to eql(true)
-    expect(rendered.include?('js/application-')).to eql(true)
-    expect(rendered.include?('href="/assets/application-')).to eql(true)
-    expect(rendered.include?('src="/dmptool-ui/main.js"')).to eql(true)
-    expect(rendered.include?('href="/dmptool-ui/main.css"')).to eql(true)
+    expect(rendered.include?("<title>#{@app_name}")).to be(true)
+    expect(rendered.include?('rel="icon"')).to be(true)
+    expect(rendered.include?('rel="apple-touch-icon"')).to be(true)
+    expect(rendered.include?('rel="mask-icon"')).to be(true)
+    expect(rendered.include?('rel="manifest"')).to be(true)
+    expect(rendered.include?('js/application-')).to be(true)
+    expect(rendered.include?('href="/assets/application-')).to be(true)
+    expect(rendered.include?('src="/dmptool-ui/main.js"')).to be(true)
+    expect(rendered.include?('href="/dmptool-ui/main.css"')).to be(true)
 
-    expect(rendered.include?('<body class="t-generic">')).to eql(true)
-    expect(rendered.include?('class="c-skipnav"')).to eql(true)
+    expect(rendered.include?('<body class="t-generic">')).to be(true)
+    expect(rendered.include?('class="c-skipnav"')).to be(true)
 
-    expect(rendered.include?('<header>')).to eql(true)
+    expect(rendered.include?('<header>')).to be(true)
     expect(response).to render_template(partial: 'layouts/_header')
     expect(response).to render_template(partial: 'layouts/_notifications')
 
-    expect(rendered.include?('<main id="maincontent" class="">')).to eql(true)
-    expect(rendered.include?('spinner-border')).to eql(true)
+    expect(rendered.include?('<main id="maincontent" class="">')).to be(true)
+    expect(rendered.include?('spinner-border')).to be(true)
 
-    expect(rendered.include?('<footer>')).to eql(true)
+    expect(rendered.include?('<footer>')).to be(true)
     expect(response).to render_template(partial: 'layouts/_footer')
 
     expect(response).to render_template(partial: 'layouts/_json_constants')
@@ -43,6 +43,6 @@ describe 'layouts/application.html.erb' do
     classes = "#{Faker::Lorem.word} #{Faker::Lorem.word}"
     assign :main_class, classes
     render
-    expect(rendered.include?("<main id=\"maincontent\" class=\"#{classes}\">")).to eql(true)
+    expect(rendered.include?("<main id=\"maincontent\" class=\"#{classes}\">")).to be(true)
   end
 end

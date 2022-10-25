@@ -2,27 +2,27 @@
 
 require 'rails_helper'
 
-RSpec.describe Theme, type: :model do
+RSpec.describe Theme do
   context 'validations' do
     it { is_expected.to validate_presence_of(:title) }
   end
 
   context 'associations' do
     it {
-      is_expected.to have_and_belong_to_many(:questions)
+      expect(subject).to have_and_belong_to_many(:questions)
         .join_table('questions_themes')
     }
 
     it {
-      is_expected.to have_and_belong_to_many(:guidances)
+      expect(subject).to have_and_belong_to_many(:guidances)
         .join_table('themes_in_guidance')
     }
   end
 
   describe '.search' do
-    let!(:term) { 'foo' }
+    subject { described_class.search(term) }
 
-    subject { Theme.search(term) }
+    let!(:term) { 'foo' }
 
     context 'when neither title or description matches term' do
       let!(:theme) { create(:theme) }
@@ -44,9 +44,9 @@ RSpec.describe Theme, type: :model do
   end
 
   describe '#to_s' do
-    let!(:theme) { create(:theme) }
-
     subject { theme.to_s }
+
+    let!(:theme) { create(:theme) }
 
     it 'returns the title' do
       expect(subject).to eql(theme.title)

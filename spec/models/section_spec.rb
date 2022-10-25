@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Section, type: :model do
+RSpec.describe Section do
   it_behaves_like 'VersionableModel'
 
   context 'validations' do
@@ -33,11 +33,11 @@ RSpec.describe Section, type: :model do
   end
 
   describe '#deep_copy' do
+    subject { section.deep_copy(**options) }
+
     let!(:options) { {} }
 
     let!(:section) { create(:section) }
-
-    subject { section.deep_copy(**options) }
 
     context 'when no options provided' do
       before do
@@ -51,11 +51,11 @@ RSpec.describe Section, type: :model do
   end
 
   describe '#num_answered_questions' do
+    subject { section.num_answered_questions(plan) }
+
     let!(:phase) { create(:phase, template: template) }
 
     let!(:section) { create(:section, phase: phase) }
-
-    subject { section.num_answered_questions(plan) }
 
     context 'when plan is nil' do
       let!(:plan) { nil }
@@ -82,7 +82,7 @@ RSpec.describe Section, type: :model do
       end
 
       it 'is expected to return the number of valid answered questions' do
-        expect(subject).to eql(2)
+        expect(subject).to be(2)
       end
     end
   end

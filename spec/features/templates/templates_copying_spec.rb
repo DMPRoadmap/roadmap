@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.feature 'Templates::Copying', type: :feature do
+RSpec.describe 'Templates::Copying' do
   let!(:org) { create(:org, :funder, :organisation) }
 
   let!(:parent_template) do
@@ -21,7 +21,7 @@ RSpec.feature 'Templates::Copying', type: :feature do
     visit organisational_org_admin_templates_path
   end
 
-  scenario 'Admin copies an existing Template', :js do
+  it 'Admin copies an existing Template', :js do
     # Setup
     # click_link org.name
 
@@ -32,7 +32,7 @@ RSpec.feature 'Templates::Copying', type: :feature do
     end
 
     # Expectations
-    expect(Template.count).to eql(2)
+    expect(Template.count).to be(2)
     new_template = Template.last
     expect(new_template.title).to include(parent_template.title)
     expect(new_template.phases).to have_exactly(2).items

@@ -54,6 +54,6 @@ class QuestionFormat < ApplicationRecord
 
   # Retrieves the id for a given formattype passed
   def self.id_for(formattype)
-    where(formattype: formattype).pluck(:id).first
+    where(formattype: formattype).pick(:id)
   end
 end

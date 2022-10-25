@@ -19,8 +19,8 @@
 
 # Object that represents a global notification
 class Notification < ApplicationRecord
-  enum level: %i[info warning danger]
-  enum notification_type: %i[global]
+  enum level: { info: 0, warning: 1, danger: 2 }
+  enum notification_type: { global: 0 }
 
   # ================
   # = Associations =
@@ -56,7 +56,7 @@ class Notification < ApplicationRecord
   # ==========
 
   scope :active, (lambda do
-    where('starts_at <= :now and :now < expires_at', now: Time.now).where(enabled: true)
+    where('starts_at <= :now and :now < expires_at', now: Time.zone.now).where(enabled: true)
   end)
 
   scope :active_per_user, (lambda do |user|

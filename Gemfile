@@ -364,14 +364,14 @@ group :ci, :development do
 
   # Automatic Rails code style checking tool. A RuboCop extension focused on enforcing
   # Rails best practices and coding conventions.
-  # gem 'rubocop-rails'
+  gem 'rubocop-rails'
 
   # A RuboCop plugin for Rake tasks
   # gem 'rubocop-rake'
 
   # Code style checking for RSpec files. A plugin for the RuboCop code style enforcing
   # & linting tool.
-  # gem 'rubocop-rspec'
+  gem 'rubocop-rspec'
 
   # Thread-safety checks via static analysis. A plugin for the RuboCop code style
   # enforcing & linting tool.

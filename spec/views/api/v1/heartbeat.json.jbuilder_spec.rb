@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'api/v1/token.json.jbuilder' do
-  before(:each) do
+  before do
     @url = Faker::Internet.url
     @payload = { client_id: 'foo' }
     Rails.application.credentials.secret_key_base = SecureRandom.uuid.to_s
@@ -27,17 +27,21 @@ describe 'api/v1/token.json.jbuilder' do
     it 'renders the token template' do
       expect(response).to render_template('api/v1/token')
     end
+
     it ':access_token is the JSON Web Token' do
       expect(@json[:access_token]).to eql(@token)
     end
+
     it ':token_type is set' do
       expect(@json[:token_type]).to eql(@type)
     end
+
     it ':expires_in is set' do
       expect(@json[:expires_in]).to eql(@exp)
     end
+
     it ':created_at is set' do
-      expect(@json[:created_at].present?).to eql(true)
+      expect(@json[:created_at].present?).to be(true)
     end
   end
 end

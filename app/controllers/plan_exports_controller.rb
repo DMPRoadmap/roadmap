@@ -67,7 +67,7 @@ class PlanExportsController < ApplicationController
                       end
 
     # Bug fix in the event that there was no phase with visibility_allowed
-    @selected_phase = @plan.phases.order('phases.updated_at DESC').first unless @selected_phase.present?
+    @selected_phase = @plan.phases.order('phases.updated_at DESC').first if @selected_phase.blank?
 
     # Added contributors to coverage of plans.
     # Users will see both roles and contributor names if the role is filled

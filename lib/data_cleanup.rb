@@ -18,6 +18,6 @@ module DataCleanup
   def display(message, inline: false, color: nil)
     message = "#{message}\n" unless inline
     message = "\e[#{COLOR_CODES[color]}m#{message}\e[0m" if color
-    print message
+    Rails.logger.debug message
   end
 end

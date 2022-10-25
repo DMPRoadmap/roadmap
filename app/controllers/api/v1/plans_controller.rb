@@ -7,6 +7,22 @@ module Api
       respond_to :json
 
       # GET /api/v1/plans/:id
+      def index
+        # ALL can view: public
+        # ApiClient can view: anything from the API client
+        # User (non-admin) can view: any personal or organisationally_visible
+        # User (admin) can view: all from users of their organisation
+        plans = Api::V1::PlansPolicy::Scope.new(client, Plan).resolve
+        if plans.present? && plans.any?
+          @items = paginate_response(results: plans)
+          @minimal = true
+          render 'api/v1/plans/index', status: :ok
+        else
+          render_error(errors: [_('No Plans found')], status: :not_found)
+        end
+      end
+
+      # POST /api/v1/plans
       def show
         plans = Api::V1::PlansPolicy::Scope.new(client, Plan).resolve
                                            .where(id: params[:id]).limit(1)
@@ -18,7 +34,7 @@ module Api
         end
       end
 
-      # POST /api/v1/plans
+      # GET /api/v1/plans
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def create
@@ -42,7 +58,7 @@ module Api
           owner = determine_owner(client: client, plan: plan)
           plan.org = owner.org if owner.present? && owner.is_a?(User) && plan.org.blank?
           plan.org = owner.user&.org if owner.present? && owner.is_a?(ApiClient) && plan.org.blank?
-          render_error(errors: no_org_err, status: :bad_request) and return unless plan.org.present?
+          render_error(errors: no_org_err, status: :bad_request) and return if plan.org.blank?
 
           # Validate the plan and it's associations and return errors with context
           # e.g. 'Contact affiliation name can't be blank' instead of 'name can't be blank'
@@ -77,22 +93,6 @@ module Api
       # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
       # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-      # GET /api/v1/plans
-      def index
-        # ALL can view: public
-        # ApiClient can view: anything from the API client
-        # User (non-admin) can view: any personal or organisationally_visible
-        # User (admin) can view: all from users of their organisation
-        plans = Api::V1::PlansPolicy::Scope.new(client, Plan).resolve
-        if plans.present? && plans.any?
-          @items = paginate_response(results: plans)
-          @minimal = true
-          render 'api/v1/plans/index', status: :ok
-        else
-          render_error(errors: [_('No Plans found')], status: :not_found)
-        end
-      end
-
       private
 
       def dmp_params
@@ -123,19 +123,19 @@ module Api
       end
 
       def lookup_user(contributor:)
-        return nil unless contributor.present?
+        return nil if contributor.blank?
 
         identifiers = contributor.identifiers.map do |id|
           { name: id.identifier_scheme&.name, value: id.value }
         end
         user = User.from_identifiers(array: identifiers) if identifiers.any?
-        user = User.find_by(email: contributor.email) unless user.present?
+        user = User.find_by(email: contributor.email) if user.blank?
         user
       end
 
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       def invite_contributor(contributor:, plan:)
-        return nil unless contributor.present?
+        return nil if contributor.blank?
 
         # If the user was not found, invite them and attach any know identifiers
         names = contributor.name&.split || ['']

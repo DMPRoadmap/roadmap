@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.feature 'Annotations::Editing', type: :feature do
+RSpec.describe 'Annotations::Editing' do
   let!(:funder) { create(:org, :funder) }
 
   let!(:org) { create(:org, :school, :organisation) }
@@ -30,14 +30,14 @@ RSpec.feature 'Annotations::Editing', type: :feature do
     visit org_admin_templates_path
   end
 
-  scenario 'Admin changes an Annotation of a draft Template', :js do
+  it 'Admin changes an Annotation of a draft Template', :js do
     click_link 'Customisable Templates'
     within("#template_#{template.id}") do
       click_button 'Actions'
     end
     expect do
       click_link 'Customise'
-    end.to change { Template.count }.by(1)
+    end.to change(Template, :count).by(1)
 
     # New Template created
     template = Template.last
@@ -53,7 +53,7 @@ RSpec.feature 'Annotations::Editing', type: :feature do
     # NOTE: This is question 2, since Annotation was copied upon clicking "Customise"
     within("#edit_question_#{template.question_ids.last}") do
       # Expect it to destroy the newly cleared Annotation
-      expect { click_button 'Save' }.not_to change { Annotation.count }
+      expect { click_button 'Save' }.not_to change(Annotation, :count)
     end
     sleep(1)
     expect(annotation.text).to eql('Foo bar')
@@ -61,14 +61,14 @@ RSpec.feature 'Annotations::Editing', type: :feature do
     expect(page).not_to have_errors
   end
 
-  scenario "Admin sets a Template's question annotation to blank string", :js do
+  it "Admin sets a Template's question annotation to blank string", :js do
     click_link 'Customisable Templates'
     within("#template_#{template.id}") do
       click_button 'Actions'
     end
     expect do
       click_link 'Customise'
-    end.to change { Template.count }.by(1)
+    end.to change(Template, :count).by(1)
     template = Template.last
     click_link 'Customise phase'
     click_link section.title
@@ -80,7 +80,7 @@ RSpec.feature 'Annotations::Editing', type: :feature do
     # NOTE: This is question 2, since Annotation was copied upon clicking "Customise"
     within("#edit_question_#{template.question_ids.last}") do
       # Expect it to destroy the newly cleared Annotation
-      expect { click_button 'Save' }.to change { Annotation.count }.by(-1)
+      expect { click_button 'Save' }.to change(Annotation, :count).by(-1)
     end
     expect(page).not_to have_errors
   end

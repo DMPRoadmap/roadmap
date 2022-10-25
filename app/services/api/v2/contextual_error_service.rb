@@ -9,7 +9,7 @@ module Api
         # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def contextualize_errors(plan:)
           errs = []
-          return errs unless plan.present?
+          return errs if plan.blank?
 
           plan.research_outputs.each do |dataset|
             d_errs = find_dataset_errors(dataset: dataset)
@@ -50,7 +50,7 @@ module Api
         # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def find_project_errors(plan:)
           errs = []
-          return errs unless plan.present? # && !plan.valid?
+          return errs if plan.blank? # && !plan.valid?
 
           a_errs = find_org_errors(org: plan.funder, label: 'Funder') if plan.funder.present?
           errs << a_errs if plan.funder.present? && a_errs.any?

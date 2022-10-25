@@ -4,46 +4,47 @@ require 'rails_helper'
 
 RSpec.describe Org::CreateLastMonthCreatedPlanService do
   let(:org) do
-    FactoryBot.create(:org, created_at: DateTime.new(2018, 0o4, 0o1))
+    create(:org, created_at: DateTime.new(2018, 0o4, 0o1))
   end
   let(:org2) do
-    FactoryBot.create(:org)
+    create(:org)
   end
   let(:template) do
-    FactoryBot.create(:template, org: org)
+    create(:template, org: org)
   end
   let(:template2) do
-    FactoryBot.create(:template, org: org)
+    create(:template, org: org)
   end
   let(:user1) do
-    FactoryBot.create(:user, org: org)
+    create(:user, org: org)
   end
   let(:user2) do
-    FactoryBot.create(:user, org: org)
+    create(:user, org: org)
   end
   let(:user3) do
-    FactoryBot.create(:user, org: org2)
+    create(:user, org: org2)
   end
   let(:creator) { Role.access_values_for(:creator).first }
   let(:administrator) { Role.access_values_for(:administrator).first }
-  before(:each) do
-    plan = FactoryBot.create(:plan,
-                             template: template,
-                             created_at: Date.today.last_month)
-    plan2 = FactoryBot.create(:plan,
-                              template: template,
-                              created_at: Date.today.last_month)
-    plan3 = FactoryBot.create(:plan,
-                              template: template2,
-                              created_at: Date.today.last_month)
-    plan4 = FactoryBot.create(:plan,
-                              template: template2,
-                              created_at: Date.today.last_month)
-    FactoryBot.create(:role, :creator, plan: plan, user: user1)
-    FactoryBot.create(:role, :administrator, plan: plan, user: user1)
-    FactoryBot.create(:role, :creator, plan: plan2, user: user1)
-    FactoryBot.create(:role, :creator, plan: plan3, user: user2)
-    FactoryBot.create(:role, :creator, plan: plan4, user: user3)
+
+  before do
+    plan = create(:plan,
+                  template: template,
+                  created_at: Date.today.last_month)
+    plan2 = create(:plan,
+                   template: template,
+                   created_at: Date.today.last_month)
+    plan3 = create(:plan,
+                   template: template2,
+                   created_at: Date.today.last_month)
+    plan4 = create(:plan,
+                   template: template2,
+                   created_at: Date.today.last_month)
+    create(:role, :creator, plan: plan, user: user1)
+    create(:role, :administrator, plan: plan, user: user1)
+    create(:role, :creator, plan: plan2, user: user1)
+    create(:role, :creator, plan: plan3, user: user2)
+    create(:role, :creator, plan: plan4, user: user3)
   end
 
   describe '.call' do
@@ -101,10 +102,10 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
         expect(last_month).to have(1).items
         expect(last_month.first.count).to eq(3)
 
-        new_plan = FactoryBot.create(:plan,
-                                     template: template2,
-                                     created_at: Date.today.last_month.end_of_month)
-        FactoryBot.create(:role, :creator, plan: new_plan, user: user1)
+        new_plan = create(:plan,
+                          template: template2,
+                          created_at: Date.today.last_month.end_of_month)
+        create(:role, :creator, plan: new_plan, user: user1)
 
         described_class.call(org)
 
@@ -181,10 +182,10 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
         expect(last_month).to have(1).items
         expect(last_month.first.count).to eq(3)
 
-        new_plan = FactoryBot.create(:plan,
-                                     template: template2,
-                                     created_at: Date.today.last_month.end_of_month)
-        FactoryBot.create(:role, :creator, plan: new_plan, user: user1)
+        new_plan = create(:plan,
+                          template: template2,
+                          created_at: Date.today.last_month.end_of_month)
+        create(:role, :creator, plan: new_plan, user: user1)
 
         described_class.call
 

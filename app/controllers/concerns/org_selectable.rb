@@ -42,7 +42,7 @@ module OrgSelectable
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def autocomplete_to_controller_params(namespace: nil)
       name = name_from_params(namespace: namespace)
-      return {} unless name.present?
+      return {} if name.blank?
 
       # If it matches an existing Org record, just return the org_id
       org = Org.find_by('LOWER(name) = ?', name.downcase)
@@ -55,7 +55,7 @@ module OrgSelectable
 
       # Return nothing if we are not allowing users to create orgs
       return {} if Rails.configuration.x.application.restrict_orgs &&
-                   !current_user.present?
+                   current_user.blank?
       return {} if Rails.configuration.x.application.restrict_orgs &&
                    (current_user.present? && !current_user.can_super_admin?)
 
@@ -79,7 +79,7 @@ module OrgSelectable
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def process_org!(user: nil, managed_only: false, namespace: nil)
       name = name_from_params(namespace: namespace)
-      return nil unless name.present?
+      return nil if name.blank?
 
       # check the Orgs table first
       org = Org.where('LOWER(name) = ?', name.downcase).first

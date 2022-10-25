@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.feature 'Locales', type: :feature, js: true do
-  before(:each) do
+RSpec.describe 'Locales', js: true do
+  before do
     Org.destroy_all
     # Clear out the default defined in the locales support file
     Org.destroy_all
@@ -31,7 +31,7 @@ RSpec.feature 'Locales', type: :feature, js: true do
   end
 
   context 'when new locale has no region' do
-    scenario 'user changes their locale' do
+    it 'user changes their locale' do
       create_plan_text = I18n.with_locale(:de) do
         _('Create plan')
       end
@@ -45,7 +45,7 @@ RSpec.feature 'Locales', type: :feature, js: true do
   end
 
   context 'when new locale has region' do
-    scenario 'user changes their locale' do
+    it 'user changes their locale' do
       create_plan_text = I18n.with_locale('pt-BR') do
         _('Create plan')
       end

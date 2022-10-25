@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Api::V2::Deserialization::Plan do
   include Helpers::IdentifierHelper
 
-  before(:each) do
+  before do
     # Org requires a language, so make sure a default is available!
     create(:language, default_language: true) unless Language.default
 
@@ -19,7 +19,7 @@ RSpec.describe Api::V2::Deserialization::Plan do
     @scheme = @identifier.identifier_scheme
 
     @app_name = ApplicationService.application_name.split('-').first&.downcase
-    @app_name = 'tester' unless @app_name.present?
+    @app_name = 'tester' if @app_name.blank?
 
     contrib = Contributor.new
     @json = {
@@ -44,8 +44,8 @@ RSpec.describe Api::V2::Deserialization::Plan do
         {
           title: Faker::Lorem.sentence,
           description: Faker::Lorem.paragraph,
-          start: Time.now.to_formatted_s(:iso8601),
-          end: (Time.now + 2.years).to_formatted_s(:iso8601),
+          start: Time.zone.now.to_formatted_s(:iso8601),
+          end: 2.years.from_now.to_formatted_s(:iso8601),
           funding: [
             { name: create(:org, name: Faker::Movies::StarWars.planet).name }
           ]
@@ -58,7 +58,7 @@ RSpec.describe Api::V2::Deserialization::Plan do
           description: Faker::Lorem.paragraph,
           personal_data: %w[yes no unknown].sample,
           sensitive_data: %w[yes no unknown].sample,
-          issued: (Time.now + 1.years).to_formatted_s(:iso8601),
+          issued: 1.year.from_now.to_formatted_s(:iso8601),
           preservation_statement: Faker::Lorem.paragraph,
           security_and_privacy: [
             {
@@ -82,7 +82,7 @@ RSpec.describe Api::V2::Deserialization::Plan do
               license: [
                 {
                   license_ref: Faker::Internet.url,
-                  start_date: (Time.now + 6.months).to_formatted_s(:iso8601)
+                  start_date: 6.months.from_now.to_formatted_s(:iso8601)
                 }
               ]
             }
@@ -107,7 +107,7 @@ RSpec.describe Api::V2::Deserialization::Plan do
   end
 
   describe '#deserialize!(json: {})' do
-    before(:each) do
+    before do
       described_class.stubs(:find_or_initialize).returns(@plan)
       described_class.stubs(:deserialize_project).returns(@plan)
       described_class.stubs(:deserialize_contact).returns(@plan)
@@ -116,20 +116,24 @@ RSpec.describe Api::V2::Deserialization::Plan do
     end
 
     it 'returns nil if json is not valid' do
-      expect(described_class.deserialize(json: nil)).to eql(nil)
+      expect(described_class.deserialize(json: nil)).to be_nil
     end
+
     it 'returns nil if no :dmp_id, :template or default template available' do
       @plan.template = nil
       described_class.stubs(:find_or_initialize).returns(@plan)
-      expect(described_class.deserialize(json: @json)).to eql(nil)
+      expect(described_class.deserialize(json: @json)).to be_nil
     end
+
     it 'returns the Plan' do
       expect(described_class.deserialize(json: @json)).to eql(@plan)
     end
+
     it 'sets the title' do
       result = described_class.deserialize(json: @json)
       expect(result.title).to eql(@plan.title)
     end
+
     it 'sets the description' do
       result = described_class.deserialize(json: @json)
       expect(result.description).to eql(@plan.description)
@@ -140,44 +144,48 @@ RSpec.describe Api::V2::Deserialization::Plan do
     describe ':find_or_initialize(id_json:, json: {})' do
       it 'returns nil if json is not present' do
         result = described_class.send(:find_or_initialize, id_json: nil, json: nil)
-        expect(result).to eql(nil)
+        expect(result).to be_nil
       end
+
       it 'returns a the existing Plan when :dmp_id is one of our DOIs' do
         Api::V2::DeserializationService.expects(:object_from_identifier).returns(@plan)
         result = described_class.send(:find_or_initialize, id_json: @json[:dmp_id], json: @json)
         expect(result).to eql(@plan)
-        expect(result.new_record?).to eql(false)
+        expect(result.new_record?).to be(false)
         expect(result.title).to eql(@plan.title)
       end
+
       it 'returns a the existing Plan when the :dmp_id is one of our URLs' do
         @json[:dmp_id] = {
           type: 'URL', identifier: Rails.application.routes.url_helpers.plan_url(@plan)
         }
         result = described_class.send(:find_or_initialize, id_json: @json[:dmp_id], json: @json)
         expect(result).to eql(@plan)
-        expect(result.new_record?).to eql(false)
+        expect(result.new_record?).to be(false)
         expect(result.title).to eql(@plan.title)
       end
+
       it 'initializes the Plan if the :dmp_id had no matches' do
         @json[:dmp_id] = { type: 'URL', identifier: Faker::Internet.url }
         result = described_class.send(:find_or_initialize, id_json: @json[:dmp_id], json: @json)
         expect(result).not_to eql(@plan)
-        expect(result.new_record?).to eql(true)
+        expect(result.new_record?).to be(true)
         expect(result.title).to eql(@json[:title])
       end
+
       it 'initializes the Plan if there were no viable matches' do
         json = {
           title: Faker::Lorem.sentence,
           contact: { email: Faker::Internet.email }
         }
         result = described_class.send(:find_or_initialize, id_json: nil, json: json)
-        expect(result.new_record?).to eql(true)
+        expect(result.new_record?).to be(true)
         expect(result.title).to eql(json[:title])
       end
     end
 
     describe '#deserialize_project(plan:, json:)' do
-      before(:each) do
+      before do
         # clear out the dates set in the factory
         @plan.start_date = nil
         @plan.end_date = nil
@@ -186,38 +194,44 @@ RSpec.describe Api::V2::Deserialization::Plan do
       it 'returns the Plan as-is if the json is not present' do
         result = described_class.send(:deserialize_project, plan: @plan, json: nil)
         expect(result).to eql(@plan)
-        expect(result.start_date).to eql(nil)
+        expect(result.start_date).to be_nil
       end
+
       it 'returns the Plan as-is if the json :project is not present' do
         json = { title: Faker::Lorem.sentence }
         result = described_class.send(:deserialize_project, plan: @plan, json: json)
         expect(result).to eql(@plan)
-        expect(result.start_date).to eql(nil)
+        expect(result.start_date).to be_nil
       end
+
       it 'returns the Plan as-is if the json :project is not an array' do
         json = {
           title: Faker::Lorem.sentence,
-          project: { start: Time.now.to_formatted_s(:iso8601) }
+          project: { start: Time.zone.now.to_formatted_s(:iso8601) }
         }
         result = described_class.send(:deserialize_project, plan: @plan, json: json)
         expect(result).to eql(@plan)
-        expect(result.start_date).to eql(nil)
+        expect(result.start_date).to be_nil
       end
+
       it 'assigns the start_date of the Plan' do
         result = described_class.send(:deserialize_project, plan: @plan, json: @json)
         expected = Time.parse(@json[:project].first[:start]).utc.to_formatted_s(:iso8601)
         expect(result.start_date.to_formatted_s(:iso8601)).to eql(expected)
       end
+
       it 'assigns the end_date of the Plan' do
         result = described_class.send(:deserialize_project, plan: @plan, json: @json)
         expected = Time.parse(@json[:project].first[:end]).utc.to_formatted_s(:iso8601)
         expect(result.end_date.to_formatted_s(:iso8601)).to eql(expected)
       end
+
       it 'does not call the deserializer for Funding if :funding is not present' do
         @json[:project].first[:funding] = nil
         Api::V2::Deserialization::Funding.expects(:deserialize).at_most(0)
         described_class.send(:deserialize_project, plan: @plan, json: @json)
       end
+
       it 'calls the deserializer for Funding if :funding present' do
         Api::V2::Deserialization::Funding.expects(:deserialize).at_least(1)
         described_class.send(:deserialize_project, plan: @plan, json: @json)
@@ -229,10 +243,11 @@ RSpec.describe Api::V2::Deserialization::Plan do
         Api::V2::Deserialization::Contributor.expects(:deserialize).at_least(2)
         described_class.send(:deserialize_contributors, plan: @plan, json: @json)
       end
+
       it 'attaches the Contributors to the Plan' do
         result = described_class.send(:deserialize_contributors, plan: @plan,
                                                                  json: @json)
-        expect(result.contributors.length).to eql(2)
+        expect(result.contributors.length).to be(2)
         expect(result.contributors.first.name).to eql(@json[:contributor].first[:name])
         expect(result.contributors.last.name).to eql(@json[:contributor].last[:name])
       end
@@ -240,12 +255,14 @@ RSpec.describe Api::V2::Deserialization::Plan do
 
     describe '#find_template(json:)' do
       it 'returns nil if the json is not present' do
-        expect(described_class.send(:find_template, json: nil)).to eql(nil)
+        expect(described_class.send(:find_template, json: nil)).to be_nil
       end
+
       it 'returns default template if no template is found for the :id' do
         json = { template: { id: 9999, title: Faker::Lorem.sentence } }
-        expect(described_class.send(:find_template, json: json)).to eql(nil)
+        expect(described_class.send(:find_template, json: json)).to be_nil
       end
+
       it 'returns the specified template' do
         expect(described_class.send(:find_template, json: @json)).to eql(@template)
       end

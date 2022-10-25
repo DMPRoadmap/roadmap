@@ -30,8 +30,8 @@ module Dmptool
     def new_api_client(api_client)
       @api_client = api_client
 
-      @name = @api_client.contact_name.present? ? @api_client.contact_name : @api_client.contact_email
-      @name = @api_client.user.name(false) unless @name.present?
+      @name = (@api_client.contact_name.presence || @api_client.contact_email)
+      @name = @api_client.user.name(false) if @name.blank?
       @email = @api_client.contact_email || @api_client.user.email
 
       I18n.with_locale I18n.default_locale do
@@ -44,7 +44,7 @@ module Dmptool
     # Sends the error message out to the administrators
     def notify_administrators(message)
       administrators = Rails.configuration.x.application.admin_emails
-      return false unless administrators.present?
+      return false if administrators.blank?
 
       @message = message
 

@@ -25,11 +25,11 @@ Capybara.register_driver :selenium_chrome_headless do |app|
 end
 
 RSpec.configure do |config|
-  config.before(:each, type: :feature, js: false) do
+  config.before(:each, js: false, type: :feature) do
     Capybara.use_default_driver
   end
 
-  config.before(:each, type: :feature, js: true) do
+  config.before(:each, js: true, type: :feature) do
     Capybara.current_driver = :selenium_chrome_headless
   end
 end

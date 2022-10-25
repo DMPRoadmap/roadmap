@@ -12,7 +12,7 @@ module OrgSelection
         return [] unless search_term.present? && search_term.length > 2
 
         orgs = local_search(search_term: search_term)
-        orgs = [] unless orgs.present?
+        orgs = [] if orgs.blank?
         # If we got an exact match out of the database then skip the
         # external searches
         matches = orgs.select do |org|
@@ -21,7 +21,7 @@ module OrgSelection
         return orgs if matches.any?
 
         externals = externals_search(search_term: search_term)
-        externals = [] unless externals.present?
+        externals = [] if externals.blank?
         prepare(search_term: search_term, records: orgs + externals)
       end
 
@@ -53,7 +53,7 @@ module OrgSelection
       # Removes the parenthesis portion of the name. For example:
       #   "Foo College (foo.edu)" --> "Foo College"
       def name_without_alias(name:)
-        return '' unless name.present?
+        return '' if name.blank?
 
         name.split(' (')&.first&.strip
       end
@@ -62,11 +62,11 @@ module OrgSelection
 
       def expiry
         expiration = Rails.configuration.x.cache.org_selection_expiration
-        expiration.present? ? expiration : 1.day
+        (expiration.presence || 1.day)
       end
 
       def local_search(search_term:)
-        return [] unless search_term.present?
+        return [] if search_term.blank?
 
         Rails.cache.fetch(['org_selection-local', search_term], expires_in: expiry) do
           Org.includes(identifiers: :identifier_scheme)

@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Sign in via email and password', type: :feature do
+RSpec.describe 'Sign in via email and password' do
   include Helpers::DmptoolHelper
 
-  before(:each) do
+  before do
     @pwd = SecureRandom.uuid
     @plan = create(:plan, :creator)
     @user = @plan.owner
@@ -17,7 +17,7 @@ RSpec.describe 'Sign in via email and password', type: :feature do
     expect(page).to have_text('Sign in')
   end
 
-  scenario 'User signs in with email and wrong password' do
+  it 'User signs in with email and wrong password' do
     within("form[action=\"#{user_session_path}\"]") do
       fill_in 'Password', with: "#{@pwd}p"
       click_button 'Sign in'
@@ -27,7 +27,7 @@ RSpec.describe 'Sign in via email and password', type: :feature do
     expect(page).to have_text('Error: Invalid Email or password.')
   end
 
-  scenario 'User signs in with their email and password' do
+  it 'User signs in with their email and password' do
     within("form[action=\"#{user_session_path}\"]") do
       fill_in 'Password', with: @pwd
       click_button 'Sign in'

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Template, type: :model do
+RSpec.describe Template do
   context 'validations' do
     it { is_expected.to validate_presence_of(:title) }
 
@@ -56,7 +56,7 @@ RSpec.describe Template, type: :model do
   end
 
   describe '.archived' do
-    subject { Template.archived }
+    subject { described_class.archived }
 
     context 'when template is archived' do
       let!(:template) { create(:template, archived: true) }
@@ -72,7 +72,7 @@ RSpec.describe Template, type: :model do
   end
 
   describe '.unarchived' do
-    subject { Template.unarchived }
+    subject { described_class.unarchived }
 
     context 'when template is archived' do
       let!(:template) { create(:template, archived: true) }
@@ -88,7 +88,7 @@ RSpec.describe Template, type: :model do
   end
 
   describe '.default' do
-    subject { Template.default }
+    subject { described_class.default }
 
     context 'when default published template exists' do
       before do
@@ -107,7 +107,7 @@ RSpec.describe Template, type: :model do
       end
 
       it 'returns nil' do
-        is_expected.to be_nil
+        expect(subject).to be_nil
       end
     end
 
@@ -117,15 +117,15 @@ RSpec.describe Template, type: :model do
       end
 
       it 'returns nil' do
-        is_expected.to be_nil
+        expect(subject).to be_nil
       end
     end
   end
 
   describe '.latest_version' do
-    let!(:family_id) { nil }
+    subject { described_class.latest_version(family_id) }
 
-    subject { Template.latest_version(family_id) }
+    let!(:family_id) { nil }
 
     it 'returns an ActiveRecord::Relation' do
       expect(subject).to be_a(ActiveRecord::Relation)
@@ -158,7 +158,7 @@ RSpec.describe Template, type: :model do
         create(:template, :unpublished, version: 10)
       end
 
-      it 'returns the ' do
+      it 'returns the' do
         expect(subject).to include(template)
       end
     end
@@ -180,7 +180,7 @@ RSpec.describe Template, type: :model do
   end
 
   describe '.published' do
-    subject { Template.published(family_id_search) }
+    subject { described_class.published(family_id_search) }
 
     before do
       @a = create(:template, :published, family_id: family_id_set, version: 1)
@@ -224,13 +224,13 @@ RSpec.describe Template, type: :model do
   end
 
   describe '.latest_customized_version' do
+    subject { described_class.latest_customized_version(family_id, org.id) }
+
     let!(:original_template) { create(:template) }
 
     let!(:family_id) { original_template.family_id }
 
     let!(:org) { create(:org) }
-
-    subject { Template.latest_customized_version(family_id, org.id) }
 
     context 'when latest version present' do
       before do
@@ -243,7 +243,7 @@ RSpec.describe Template, type: :model do
       end
 
       it 'returns the correct version' do
-        expect(subject.last.version).to eql(6)
+        expect(subject.last.version).to be(6)
       end
     end
 
@@ -284,9 +284,9 @@ RSpec.describe Template, type: :model do
 
   describe '.latest_version_per_org' do
     context 'when org_id is an Integer' do
-      let!(:org) { create(:org) }
+      subject { described_class.latest_version_per_org(org.id) }
 
-      subject { Template.latest_version_per_org(org.id) }
+      let!(:org) { create(:org) }
 
       before do
         @a = create(:template, org: org, version: 1, family_id: 123)
@@ -305,11 +305,11 @@ RSpec.describe Template, type: :model do
     end
 
     context 'when org_id is an Array' do
+      subject { described_class.latest_version_per_org([org_a.id, org_b.id]) }
+
       let!(:org_a) { create(:org) }
 
       let!(:org_b) { create(:org) }
-
-      subject { Template.latest_version_per_org([org_a.id, org_b.id]) }
 
       before do
         @a = create(:template, org: org_a, version: 1, family_id: 123)
@@ -329,13 +329,13 @@ RSpec.describe Template, type: :model do
   end
 
   describe '.latest_customized_version_per_org' do
+    subject { described_class.latest_customized_version_per_org(org.id) }
+
     let!(:original_template) { create(:template) }
 
     let!(:family_id) { original_template.family_id }
 
     let!(:org) { create(:org) }
-
-    subject { Template.latest_customized_version_per_org(org.id) }
 
     context 'when latest version present' do
       before do
@@ -348,7 +348,7 @@ RSpec.describe Template, type: :model do
       end
 
       it 'returns the correct version' do
-        expect(subject.last.version).to eql(6)
+        expect(subject.last.version).to be(6)
       end
     end
 
@@ -389,9 +389,9 @@ RSpec.describe Template, type: :model do
 
   describe '.families' do
     context 'when org_id is given' do
-      let!(:org) { create(:org) }
+      subject { described_class.families([org.id]) }
 
-      subject { Template.families([org.id]) }
+      let!(:org) { create(:org) }
 
       before do
         @a = create(:template, customization_of: nil)
@@ -413,7 +413,7 @@ RSpec.describe Template, type: :model do
     end
 
     context 'when org_id is nil' do
-      subject { Template.families(nil) }
+      subject { described_class.families(nil) }
 
       before do
         @a = create(:template, customization_of: nil)
@@ -436,14 +436,14 @@ RSpec.describe Template, type: :model do
   end
 
   describe '.latest_customizable' do
+    subject { described_class.latest_customizable }
+
     before do
       create(:org, is_other: true) unless Org.where(is_other: true).any?
       create(:template, :default, :published)
     end
 
     let!(:template) { create(:template, :published, :publicly_visible, org: org) }
-
-    subject { Template.latest_customizable }
 
     context 'when Org is an institution' do
       let!(:org) { create(:org, :institution) }
@@ -495,7 +495,7 @@ RSpec.describe Template, type: :model do
   end
 
   describe '.publicly_visible' do
-    subject { Template.publicly_visible }
+    subject { described_class.publicly_visible }
 
     before do
       @a = create(:template, :archived, :publicly_visible)
@@ -518,7 +518,7 @@ RSpec.describe Template, type: :model do
   end
 
   describe '.organisationally_visible' do
-    subject { Template.organisationally_visible }
+    subject { described_class.organisationally_visible }
 
     before do
       @a = create(:template, :archived, :organisationally_visible)
@@ -541,7 +541,7 @@ RSpec.describe Template, type: :model do
   end
 
   describe '.search' do
-    subject { Template.search('foo') }
+    subject { described_class.search('foo') }
 
     before do
       @a = create(:template, :archived, title: 'foo bar')
@@ -568,7 +568,7 @@ RSpec.describe Template, type: :model do
   end
 
   describe '.current' do
-    subject { Template.current('1234') }
+    subject { described_class.current('1234') }
 
     before do
       @a = create(:template, :archived, family_id: '1234', version: 5)
@@ -591,7 +591,7 @@ RSpec.describe Template, type: :model do
 
   describe '.live' do
     context 'when family ID is an Array' do
-      subject { Template.live([1234, 1235]) }
+      subject { described_class.live([1234, 1235]) }
 
       before do
         @a = create(:template, :archived, :published, family_id: 1234)
@@ -622,7 +622,7 @@ RSpec.describe Template, type: :model do
     end
 
     context 'when family ID is an Integer' do
-      subject { Template.live(1234) }
+      subject { described_class.live(1234) }
 
       before do
         @a = create(:template, :archived, :published, family_id: 1234)
@@ -650,7 +650,7 @@ RSpec.describe Template, type: :model do
   end
 
   describe '.find_or_generate_version!' do
-    subject { Template.find_or_generate_version!(template) }
+    subject { described_class.find_or_generate_version!(template) }
 
     context 'when template is not latest?' do
       let!(:template) { create(:template) }
@@ -695,12 +695,12 @@ RSpec.describe Template, type: :model do
 
   describe '#deep_copy' do
     context 'when attributes is provided' do
-      let!(:template) { create(:template, :published, phases: 2) }
-
       subject do
         args = { attributes: { title: 'foo', description: 'bar' } }
         template.deep_copy(**args)
       end
+
+      let!(:template) { create(:template, :published, phases: 2) }
 
       it 'updates title with the provided value' do
         expect(subject.title).to eql('foo')
@@ -712,10 +712,12 @@ RSpec.describe Template, type: :model do
     end
 
     context 'when options save is true' do
-      let!(:template) { create(:template, :published, phases: 2) }
+      subject do
+        args = { attributes: { family_id: 123 }, save: true }
+        template.deep_copy(**args)
+      end
 
-      args = { attributes: { family_id: 123 }, save: true }
-      subject { template.deep_copy(**args) }
+      let!(:template) { create(:template, :published, phases: 2) }
 
       it 'returns a persisted record' do
         expect(subject).to be_persisted
@@ -732,10 +734,12 @@ RSpec.describe Template, type: :model do
     end
 
     context 'when options save is false' do
-      let!(:template) { create(:template, :published, phases: 2) }
+      subject do
+        args = { attributes: { family_id: 123 }, save: false }
+        template.deep_copy(**args)
+      end
 
-      args = { attributes: { family_id: 123 }, save: false }
-      subject { template.deep_copy(**args) }
+      let!(:template) { create(:template, :published, phases: 2) }
 
       it 'returns a new record' do
         expect(subject).to be_new_record
@@ -802,16 +806,16 @@ RSpec.describe Template, type: :model do
   end
 
   describe '#generate_version?' do
-    let!(:template) { build(:template) }
-
     subject { template.generate_version? }
+
+    let!(:template) { build(:template) }
 
     context 'when published is true' do
       before do
         template.published = true
       end
 
-      it { is_expected.to eql(true) }
+      it { is_expected.to be(true) }
     end
 
     context 'when published is false' do
@@ -819,7 +823,7 @@ RSpec.describe Template, type: :model do
         template.published = false
       end
 
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
   end
 
@@ -831,7 +835,7 @@ RSpec.describe Template, type: :model do
 
       let!(:template) { create(:template, org: org) }
 
-      it { is_expected.to eql(true) }
+      it { is_expected.to be(true) }
     end
 
     context "when param is Org, template default, customization doesn't exist" do
@@ -839,7 +843,7 @@ RSpec.describe Template, type: :model do
 
       let!(:template) { create(:template, :default, org: org) }
 
-      it { is_expected.to eql(true) }
+      it { is_expected.to be(true) }
     end
 
     context 'when param is Org, org is funder, customization exists' do
@@ -851,7 +855,7 @@ RSpec.describe Template, type: :model do
         create(:template, customization_of: template.family_id, org: org)
       end
 
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
 
     context 'when param is Org, template default, customization exists' do
@@ -863,7 +867,7 @@ RSpec.describe Template, type: :model do
         create(:template, customization_of: template.family_id, org: org)
       end
 
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
 
     context 'when param not Org' do
@@ -871,7 +875,7 @@ RSpec.describe Template, type: :model do
 
       let!(:template) { create(:template, org: create(:org, :funder)) }
 
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
   end
 
@@ -889,7 +893,7 @@ RSpec.describe Template, type: :model do
     context 'when customization of another template and source is newer' do
       let!(:source) do
         create(:template, :published,
-               family_id: 123, org: org, created_at: 1.minutes.from_now)
+               family_id: 123, org: org, created_at: 1.minute.from_now)
       end
 
       let!(:template) do
@@ -901,7 +905,7 @@ RSpec.describe Template, type: :model do
 
     context 'when customization of another template and source is older' do
       let!(:source) do
-        create(:template, :published, family_id: 123, org: org, created_at: 1.minutes.ago)
+        create(:template, :published, family_id: 123, org: org, created_at: 1.minute.ago)
       end
 
       let!(:template) do
@@ -922,7 +926,7 @@ RSpec.describe Template, type: :model do
         create(:template, :published, family_id: template.family_id)
       end
 
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
 
     context 'when published and family has no published template' do
@@ -932,7 +936,7 @@ RSpec.describe Template, type: :model do
         create(:template, :unpublished, family_id: template.family_id)
       end
 
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
 
     context 'when unpublished and family has published template' do
@@ -942,7 +946,7 @@ RSpec.describe Template, type: :model do
         create(:template, :published, family_id: template.family_id)
       end
 
-      it { is_expected.to eql(true) }
+      it { is_expected.to be(true) }
     end
 
     context 'when unpublished and family has no published template' do
@@ -952,7 +956,7 @@ RSpec.describe Template, type: :model do
         create(:template, :unpublished, family_id: template.family_id)
       end
 
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
   end
 
@@ -1001,7 +1005,7 @@ RSpec.describe Template, type: :model do
       end
 
       it 'sets published to false' do
-        expect(subject.published).to eql(false)
+        expect(subject.published).to be(false)
       end
 
       it 'sets family_id to a new integer' do
@@ -1013,7 +1017,7 @@ RSpec.describe Template, type: :model do
       end
 
       it 'sets is_default to false' do
-        expect(subject.is_default).to eql(false)
+        expect(subject.is_default).to be(false)
       end
 
       it "sets title to include 'Copy of'" do
@@ -1043,11 +1047,11 @@ RSpec.describe Template, type: :model do
       end
 
       it 'sets the version to current version plus one' do
-        expect(subject.version).to eql(5)
+        expect(subject.version).to be(5)
       end
 
       it 'sets published to false' do
-        expect(subject.published).to eql(false)
+        expect(subject.published).to be(false)
       end
 
       it 'sets org to new org' do
@@ -1069,7 +1073,7 @@ RSpec.describe Template, type: :model do
     end
 
     it 'sets the published to false' do
-      expect(subject.published).to eql(false)
+      expect(subject.published).to be(false)
     end
 
     it 'sets the family_id to a new Integer' do
@@ -1085,11 +1089,11 @@ RSpec.describe Template, type: :model do
     end
 
     it 'sets visibility to Organisationally visible' do
-      expect(subject.visibility).to eql(Template.visibilities['organisationally_visible'])
+      expect(subject.visibility).to eql(described_class.visibilities['organisationally_visible'])
     end
 
     it 'sets is_default to false' do
-      expect(subject.is_default).to eql(false)
+      expect(subject.is_default).to be(false)
     end
 
     context 'when org is not an Org' do
@@ -1126,7 +1130,7 @@ RSpec.describe Template, type: :model do
     end
 
     it 'returns a Template' do
-      expect(subject).to be_a(Template)
+      expect(subject).to be_a(described_class)
     end
 
     it 'returns a persisted Template' do
@@ -1134,11 +1138,11 @@ RSpec.describe Template, type: :model do
     end
 
     it 'sets the version to template version plus one' do
-      expect(subject.version).to eql(6)
+      expect(subject.version).to be(6)
     end
 
     it 'sets the published to false' do
-      expect(subject.published).to eql(false)
+      expect(subject.published).to be(false)
     end
 
     it "sets the family_id to template's family ID" do
@@ -1154,16 +1158,16 @@ RSpec.describe Template, type: :model do
     end
 
     it 'sets the visibility to Organisationally visible' do
-      expect(subject.visibility).to eql(Template.visibilities['organisationally_visible'])
+      expect(subject.visibility).to eql(described_class.visibilities['organisationally_visible'])
     end
 
     it 'sets is_default to false' do
-      expect(subject.is_default).to eql(false)
+      expect(subject.is_default).to be(false)
     end
 
     it 'sets phases modifiable to false' do
       subject.phases.each do |phase|
-        expect(phase.modifiable).to eql(false)
+        expect(phase.modifiable).to be(false)
       end
     end
 
@@ -1202,7 +1206,7 @@ RSpec.describe Template, type: :model do
       end
 
       it 'returns true' do
-        expect(subject[0]).to eql(true)
+        expect(subject[0]).to be(true)
       end
 
       it 'has no errors' do
@@ -1223,7 +1227,7 @@ RSpec.describe Template, type: :model do
       end
 
       it 'returns false' do
-        expect(subject[0]).to eql(false)
+        expect(subject[0]).to be(false)
       end
 
       it 'has error_message' do
@@ -1240,25 +1244,27 @@ RSpec.describe Template, type: :model do
       end
 
       it 'is not publishable' do
-        expect(subject[0]).to eql(false)
+        expect(subject[0]).to be(false)
       end
 
       it 'has error_message' do
         expect(subject[1]).to include('You can not publish a published template.')
       end
     end
+
     # case when template has no phases
     context 'When the Template has no phases' do
       let(:template) { create(:template, :default, published: true, org: org, phases: 0) }
 
       it 'is not publishable' do
-        expect(subject[0]).to eql(false)
+        expect(subject[0]).to be(false)
       end
 
       it 'has error_message' do
         expect(subject[1]).to include('You can not publish a template without phases')
       end
     end
+
     # case when a template has no sections
     context 'When the Template has no sections' do
       let(:template) do
@@ -1266,13 +1272,14 @@ RSpec.describe Template, type: :model do
       end
 
       it 'is not publishable' do
-        expect(subject[0]).to eql(false)
+        expect(subject[0]).to be(false)
       end
 
       it 'has error_message' do
         expect(subject[1]).to include('You can not publish a template without sections in a phase')
       end
     end
+
     # case when a section has no questions
     context 'When the Template has no questions' do
       let(:template) do
@@ -1281,7 +1288,7 @@ RSpec.describe Template, type: :model do
       end
 
       it 'is not publishable' do
-        expect(subject[0]).to eql(false)
+        expect(subject[0]).to be(false)
       end
 
       it 'has error_message' do

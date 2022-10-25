@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe StatJoinedUser, type: :model do
-  before(:example) do
-    @org = FactoryBot.create(:org)
+RSpec.describe StatJoinedUser do
+  before do
+    @org = create(:org)
   end
 
   describe '.to_json' do
@@ -13,11 +13,12 @@ RSpec.describe StatJoinedUser, type: :model do
       json = JSON.parse(stat.to_json)
       expect(json['count']).to eql(stat.count)
       expect(json['date']).to eql(stat.date.strftime('%Y-%m-%d'))
-      expect(json['by_template']).to eql(nil)
-      expect(json['org_id']).to eql(nil)
-      expect(json['created_at']).to eql(nil)
+      expect(json['by_template']).to be_nil
+      expect(json['org_id']).to be_nil
+      expect(json['created_at']).to be_nil
     end
   end
+
   describe '.to_csv' do
     context 'when no instances' do
       it 'returns empty' do
@@ -26,13 +27,15 @@ RSpec.describe StatJoinedUser, type: :model do
         expect(csv).to be_empty
       end
     end
+
     context 'when instances' do
-      let(:org) { FactoryBot.create(:org) }
+      let(:org) { create(:org) }
+
       it 'returns instances in a comma-separated row' do
-        may = FactoryBot.create(:stat_joined_user, date: Date.new(2018, 0o5, 31),
-                                                   org: org, count: 20)
-        june = FactoryBot.create(:stat_joined_user, date: Date.new(2018, 0o6, 30),
-                                                    org: org, count: 10)
+        may = create(:stat_joined_user, date: Date.new(2018, 0o5, 31),
+                                        org: org, count: 20)
+        june = create(:stat_joined_user, date: Date.new(2018, 0o6, 30),
+                                         org: org, count: 10)
         data = [may, june]
 
         csv = described_class.to_csv(data)

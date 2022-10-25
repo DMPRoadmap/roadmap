@@ -85,7 +85,7 @@ class RegistryOrg < ApplicationRecord
     # Get the RegistryOrg with the closest matching domain and no Org association
     # rubocop:disable Metrics/AbcSize
     def from_email_domain(email_domain:)
-      return nil unless email_domain.present?
+      return nil if email_domain.blank?
 
       orgs = where('LOWER(home_page) LIKE ?', "%#{email_domain.downcase}%")
       return nil unless orgs.any?
@@ -137,7 +137,7 @@ class RegistryOrg < ApplicationRecord
     return nil if org_id.present? && value.present? && scheme_name.present?
 
     scheme = IdentifierScheme.find_by(name: scheme_name)
-    return nil unless scheme.present?
+    return nil if scheme.blank?
 
     Identifier.new(identifier_scheme: scheme, value: value)
   end

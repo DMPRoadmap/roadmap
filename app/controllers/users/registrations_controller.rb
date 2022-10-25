@@ -69,7 +69,7 @@ module Users
         # if password is present then the user is trying to change the password
         resource_updated = resource.update_with_password(args) if args[:password].present?
         # else they are just updating their personal details
-        resource_updated = resource.update_without_password(args) unless args[:password].present?
+        resource_updated = resource.update_without_password(args) if args[:password].blank?
         # Change the locale if the user selected a different language
         session[:locale] = resource.language.abbreviation if resource.saved_change_to_language_id?
       end
@@ -126,8 +126,8 @@ module Users
       # Convert the selected/specified Org name into attributes
       op = autocomplete_to_controller_params
       args[:org_id] = op[:org_id] if op[:org_id].present?
-      args[:org_attributes] = op[:org_attributes] unless op[:org_id].present?
-      args.delete(:org_attributes) unless args[:org_attributes].present?
+      args[:org_attributes] = op[:org_attributes] if op[:org_id].blank?
+      args.delete(:org_attributes) if args[:org_attributes].blank?
       args
     end
   end

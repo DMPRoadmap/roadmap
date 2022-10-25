@@ -59,7 +59,7 @@ class TemplateOptionsController < ApplicationController
                               .latest_customized_version(Template.default.family_id,
                                                          research_org&.id).first
 
-      templates << (customization.present? ? customization : Template.default)
+      templates << (customization.presence || Template.default)
     end
 
     @templates = templates.sort_by(&:title)

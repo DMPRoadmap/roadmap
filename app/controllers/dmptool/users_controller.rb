@@ -10,7 +10,7 @@ module Dmptool
       authorize user
       token = Doorkeeper::AccessToken.find_by(id: params[:id])
       if token.present?
-        token.update(revoked_at: Time.now)
+        token.update(revoked_at: Time.zone.now)
         redirect_to users_third_party_apps_path,
                     notice: _('The application is no longer authorized to access your data.')
       else
@@ -34,8 +34,8 @@ module Dmptool
       authorize ::User
 
       @api_client = ApiClient.find_or_initialize_by(user_id: current_user.id)
-      @api_client.contact_name = current_user.name(false) unless @api_client.contact_name.present?
-      @api_client.contact_email = current_user.email unless @api_client.contact_email.present?
+      @api_client.contact_name = current_user.name(false) if @api_client.contact_name.blank?
+      @api_client.contact_email = current_user.email if @api_client.contact_email.blank?
     end
   end
 end

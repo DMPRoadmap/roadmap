@@ -31,13 +31,13 @@ module Api
             # Try to find the Org by name
             org = find_by_name(json: json)
             return org if org.present? && !org.new_record?
-            return nil unless org.present?
+            return nil if org.blank?
 
             # Org model requires a language so just use the default for now
             org.language = ::Language.default
             org.abbreviation = json[:abbreviation] if json[:abbreviation].present?
             return nil unless org.valid?
-            return org unless id_json[:identifier].present?
+            return org if id_json[:identifier].blank?
 
             # Attach the identifier
             Api::V2::DeserializationService.attach_identifier(object: org, json: id_json)
@@ -63,11 +63,11 @@ module Api
             postgres = ::ApplicationRecord.postgres_db?
             where = 'name' if name.include?('(')
             where = 'SUBSTRING(name, STRPOS(name, \'(\'), 1)' if postgres && where.nil?
-            where = 'SUBSTRING_INDEX(name,\'(\',1)' unless where.present?
+            where = 'SUBSTRING_INDEX(name,\'(\',1)' if where.blank?
             where = "LOWER(#{where}) = ?"
 
             # Search the DB
-            org = ::Org.where(where, name.downcase.strip).first unless org.present?
+            org = ::Org.where(where, name.downcase.strip).first if org.blank?
             return org if org.present?
 
             # Skip if restrict_orgs is set to true!
@@ -89,17 +89,17 @@ module Api
             return registry_org.org if registry_org.org_id.present?
 
             org = registry_org.to_org
-            return nil unless org.present?
+            return nil if org.blank?
 
             org.save
 
             # Attach the identifiers
             %w[fundref ror].each do |scheme_name|
               value = registry_org.send(:"#{scheme_name}_id")
-              next unless value.present?
+              next if value.blank?
 
               scheme = ::IdentifierScheme.by_name(scheme_name).first
-              next unless scheme.present?
+              next if scheme.blank?
 
               ::Identifier.find_or_create_by(identifier_scheme: scheme, identifiable: org, value: value)
             end

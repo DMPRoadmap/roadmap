@@ -15,14 +15,14 @@ module Api
       # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def create
         json = @json.with_indifferent_access.fetch(:dmp, {})
-        render_error(errors: _('Invalid JSON!'), status: :bad_request) and return unless json.present?
+        render_error(errors: _('Invalid JSON!'), status: :bad_request) and return if json.blank?
 
         plan = Api::V2::DeserializationService.plan_from_dmp_id(dmp_id: json[:dmp_id])
-        render_error(errors: _('Plan not found'), status: :not_found) and return unless plan.present?
+        render_error(errors: _('Plan not found'), status: :not_found) and return if plan.blank?
 
         plan = Api::V2::PlansPolicy::Scope.new(@client, @resource_owner, nil).resolve
                                           .select { |p| p.id = plan.id }.first
-        render_error(errors: _('Plan not found'), status: :not_found) and return unless plan.present?
+        render_error(errors: _('Plan not found'), status: :not_found) and return if plan.blank?
 
         related_identifiers = json.fetch(:dmproadmap_related_identifiers, [])
 

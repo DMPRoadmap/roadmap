@@ -74,7 +74,7 @@ class Identifier < ApplicationRecord
   def value=(val)
     if identifier_scheme.present? &&
        identifier_scheme.identifier_prefix.present? &&
-       !val.to_s.strip.blank? &&
+       val.to_s.strip.present? &&
        !val.to_s.start_with?(identifier_scheme.identifier_prefix) &&
        !val.to_s.start_with?('http')
 

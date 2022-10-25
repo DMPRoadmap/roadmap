@@ -86,17 +86,17 @@ module Api
 
       def log_access
         obj = client
-        return false unless obj.present?
+        return false if obj.blank?
 
-        obj.update(last_access: Time.now) if obj.is_a?(ApiClient)
-        obj.update(last_api_access: Time.now) if obj.is_a?(User)
+        obj.update(last_access: Time.zone.now) if obj.is_a?(ApiClient)
+        obj.update(last_api_access: Time.zone.now) if obj.is_a?(User)
         true
       end
 
       # Returns either the User name or the ApiClient name
       def caller_name
         obj = client
-        return request.remote_ip unless obj.present?
+        return request.remote_ip if obj.blank?
 
         obj.is_a?(User) ? obj.name(false) : obj.name
       end

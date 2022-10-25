@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe SectionSorter, type: :model do
+RSpec.describe SectionSorter do
   # rubocop:disable Lint/ConstantDefinitionInBlock
   StubSection = Struct.new(:number, :modifiable, :id) do
     alias_method :modifiable?, :modifiable
@@ -22,6 +22,8 @@ RSpec.describe SectionSorter, type: :model do
   # rubocop:enable Lint/ConstantDefinitionInBlock
 
   describe '#sort!' do
+    subject { described_class.new(*sections_array).sort! }
+
     let!(:sections_array) do
       [
         StubSection.new(1, true, 105),
@@ -32,8 +34,6 @@ RSpec.describe SectionSorter, type: :model do
         StubSection.new(6, true, 999)
       ].shuffle
     end
-
-    subject { SectionSorter.new(*sections_array).sort! }
 
     it 'returns an Array' do
       expect(subject).to be_an_instance_of(Array)

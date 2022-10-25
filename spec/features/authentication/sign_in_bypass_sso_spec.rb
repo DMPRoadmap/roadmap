@@ -2,12 +2,12 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Sign in and bypass SSO', type: :feature do
+RSpec.describe 'Sign in and bypass SSO' do
   include Helpers::DmptoolHelper
   include Helpers::AutocompleteHelper
   include Helpers::IdentifierHelper
 
-  before(:each) do
+  before do
     mock_blog
     @pwd = SecureRandom.uuid
 
@@ -25,8 +25,8 @@ RSpec.describe 'Sign in and bypass SSO', type: :feature do
     click_on 'Continue'
 
     expect(page).to have_text('Sign in')
-    expect(find('#user_disabled_email').value).to eql(@user.email)
-    expect(find('#user_password').value).to eql('')
+    expect(find_by_id('user_disabled_email').value).to eql(@user.email)
+    expect(find_by_id('user_password').value).to eql('')
     expect(page).not_to have_text('Sign in with non SSO')
   end
 
@@ -36,7 +36,7 @@ RSpec.describe 'Sign in and bypass SSO', type: :feature do
     click_on 'Continue'
 
     expect(page).to have_text('Sign in')
-    expect(find('#user_disabled_email').value).to eql(@user.email)
+    expect(find_by_id('user_disabled_email').value).to eql(@user.email)
     expect(page).to have_text(CGI.escapeHTML(@org.name))
     expect(page).to have_text('Sign in with Institution (SSO)')
     expect(page).to have_text('Sign in with non SSO')
@@ -44,8 +44,8 @@ RSpec.describe 'Sign in and bypass SSO', type: :feature do
     click_on 'Sign in with non SSO'
 
     expect(page).to have_text('Sign in')
-    expect(find('#user_disabled_email').value).to eql(@user.email)
-    expect(find('#user_password').value).to eql('')
+    expect(find_by_id('user_disabled_email').value).to eql(@user.email)
+    expect(find_by_id('user_password').value).to eql('')
 
     within("form[action=\"#{user_session_path}\"]") do
       fill_in 'Password', with: @pwd

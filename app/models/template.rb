@@ -44,7 +44,7 @@ class Template < ApplicationRecord
   # that are meant for external use will be publicly visible. This allows a
   # funder to create 'funder' as well as organisational templates. The default
   # template should also always be publicly_visible.
-  enum visibility: %i[organisationally_visible publicly_visible]
+  enum visibility: { organisationally_visible: 0, publicly_visible: 1 }
 
   # Stores links as an JSON object:
   # {funder: [{"link":"www.example.com","text":"foo"}, ...],
@@ -52,7 +52,7 @@ class Template < ApplicationRecord
   #
   # The links is validated against custom validator allocated at
   # validators/template_links_validator.rb
-  attribute :links, :text, default: { funder: [], sample_plan: [] }
+  attribute :links, :text, default: -> { { funder: [], sample_plan: [] } }
   serialize :links, JSON
 
   attribute :published, :boolean, default: false
@@ -143,7 +143,7 @@ class Template < ApplicationRecord
   # It can be filtered down if family_id is passed
   scope :latest_version, lambda { |family_id = nil|
     unarchived.from(latest_version_per_family(family_id), :current)
-              .joins(<<~SQL)
+              .joins(<<~SQL.squish)
                 INNER JOIN templates ON current.version = templates.version
                   AND current.family_id = templates.family_id
                 INNER JOIN orgs ON orgs.id = templates.org_id
@@ -156,7 +156,7 @@ class Template < ApplicationRecord
     unarchived
       .from(latest_customized_version_per_customised_of(family_id, org_id),
             :current)
-      .joins(<<~SQL)
+      .joins(<<~SQL.squish)
         INNER JOIN templates ON current.version = templates.version
           AND current.customization_of = templates.customization_of
         INNER JOIN orgs ON orgs.id = templates.org_id
@@ -219,7 +219,7 @@ class Template < ApplicationRecord
   # any orgs table join already present in loaded unarchived.)
   scope :search, lambda { |term|
     unarchived
-      .joins(<<~SQL)
+      .joins(<<~SQL.squish)
         JOIN orgs AS search_term_orgs ON search_term_orgs.id = templates.org_id
       SQL
       .where('lower(templates.title) LIKE lower(:term)' \
@@ -341,7 +341,7 @@ class Template < ApplicationRecord
   #
   # Returns Boolean
   def latest?
-    id == Template.latest_version(family_id).pluck('templates.id').first
+    id == Template.latest_version(family_id).pick('templates.id')
   end
 
   # Determines whether or not a new version should be generated
@@ -353,8 +353,8 @@ class Template < ApplicationRecord
   # should be generated
   def customize?(customizing_org)
     if customizing_org.is_a?(Org) && (org.funder_only? || is_default)
-      return !Template.unarchived.where(customization_of: family_id,
-                                        org: customizing_org).exists?
+      return !Template.unarchived.exists?(customization_of: family_id,
+                                          org: customizing_org)
     end
     false
   end
@@ -364,7 +364,7 @@ class Template < ApplicationRecord
     return false unless customization_of?
 
     funder_template = Template.published(customization_of).select(:created_at).first
-    return false unless funder_template.present?
+    return false if funder_template.blank?
 
     funder_template.created_at > created_at
   end
@@ -402,7 +402,7 @@ class Template < ApplicationRecord
   # Generates a new copy of self with an incremented version number
   def generate_version!
     raise _('generate_version! requires a published template') unless published
- 
+
     args = {
       attributes: {
         version: version + 1,

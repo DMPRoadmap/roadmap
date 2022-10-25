@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe QuestionOption, type: :model do
+RSpec.describe QuestionOption do
   context 'validations' do
     it { is_expected.to validate_presence_of(:question) }
 
@@ -19,13 +19,13 @@ RSpec.describe QuestionOption, type: :model do
     it { is_expected.to belong_to(:question) }
 
     it {
-      is_expected.to have_and_belong_to_many(:answers)
+      expect(subject).to have_and_belong_to_many(:answers)
         .join_table('answers_question_options')
     }
   end
 
   describe '.by_number' do
-    subject { QuestionOption.by_number }
+    subject { described_class.by_number }
 
     before do
       @a = create(:question_option, number: 1)
@@ -40,11 +40,11 @@ RSpec.describe QuestionOption, type: :model do
   end
 
   describe '#deep_copy' do
+    subject { question_option.deep_copy(**options) }
+
     let!(:options) { {} }
 
     let!(:question_option) { create(:question_option, is_default: true) }
-
-    subject { question_option.deep_copy(**options) }
 
     context 'when no options provided' do
       it 'builds a new record' do

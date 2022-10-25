@@ -94,7 +94,7 @@ module ExternalApis
         message = "#{obj.class.name} - #{obj.respond_to?(:id) ? obj.id : ''}"
         message += '<br>----------------------------------------<br><br>'
 
-        message += "Sent: #{pp(json_from_template(plan: obj))}" if obj.is_a?(Plan)
+        message += "Sent: #{Rails.logger.debug(json_from_template(plan: obj))}" if obj.is_a?(Plan)
         message += '<br>----------------------------------------<br><br>' if obj.is_a?(Plan)
 
         message += "#{name} received the following unexpected response:<br>"
@@ -125,7 +125,7 @@ module ExternalApis
       # Makes a GET request to the specified uri with the additional headers.
       # Additional headers are combined with the base headers defined above.
       def http_get(uri:, additional_headers: {}, debug: false)
-        return nil unless uri.present?
+        return nil if uri.blank?
 
         HTTParty.get(uri, options(additional_headers: additional_headers,
                                   debug: debug))
@@ -142,7 +142,7 @@ module ExternalApis
       # Makes a PUT request to the specified uri with the additional headers.
       # Additional headers are combined with the base headers defined above.
       def http_put(uri:, additional_headers: {}, data: {}, basic_auth: nil, debug: false)
-        return nil unless uri.present?
+        return nil if uri.blank?
 
         opts = options(additional_headers: additional_headers, debug: debug)
         opts[:body] = data
@@ -159,7 +159,7 @@ module ExternalApis
       # Makes a POST request to the specified uri with the additional headers.
       # Additional headers are combined with the base headers defined above.
       def http_post(uri:, additional_headers: {}, data: {}, basic_auth: nil, debug: false)
-        return nil unless uri.present?
+        return nil if uri.blank?
 
         opts = options(additional_headers: additional_headers, debug: debug)
         opts[:body] = data

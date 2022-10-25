@@ -3,7 +3,7 @@
 # locals: plan
 
 plan = plan.first if plan.is_a?(Array)
-@client = client unless @client.present?
+@client = client if @client.blank?
 
 json.ignore_nil!
 

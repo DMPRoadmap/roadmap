@@ -106,10 +106,10 @@ class Contributor < ApplicationRecord
   # any existing information
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def merge(other)
-    self.org = other.org unless org.present?
-    self.email = other.email unless email.present?
-    self.name = other.name unless name.present?
-    self.phone = other.phone unless phone.present?
+    self.org = other.org if org.blank?
+    self.email = other.email if email.blank?
+    self.name = other.name if name.blank?
+    self.phone = other.phone if phone.blank?
     self.investigation = true if other.investigation? && !investigation?
     self.data_curation = true if other.data_curation? && !data_curation?
     self.project_administration = true if other.project_administration? && !project_administration?

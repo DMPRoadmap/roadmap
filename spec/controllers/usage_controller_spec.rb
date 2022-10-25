@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe UsageController, type: :controller do
-  before(:each) do
+RSpec.describe UsageController do
+  before do
     @date = Date.today.last_month.end_of_month
     @org = create(:org, :organisation)
     @details = { by_template: [stat_details], using_template: [] }
@@ -14,25 +14,29 @@ RSpec.describe UsageController, type: :controller do
   end
 
   describe 'GET /usage (aka index)' do
-    before(:each) do
+    before do
       get :index
     end
+
     it 'assigns the correct user stats (@users_per_month)' do
       expect(assigns(:users_per_month)).to eql(obj_to_hash(obj: @user_stat))
     end
+
     it 'assigns the correct plan stats' do
       expect(assigns(:plans_per_month)).to eql(obj_to_hash(obj: @plan_stat))
     end
+
     it 'assigns the correct total users' do
       expect(assigns(:total_org_users)).to eql(@user_stat.count)
     end
+
     it 'assigns the correct total plans' do
       expect(assigns(:total_org_plans)).to eql(@plan_stat.count)
     end
   end
 
   describe 'POST /usage_plans_by_template' do
-    before(:each) do
+    before do
       # Skipping the prior month because it was already created above
       (2..12).each do |i|
         date = Date.today.months_ago(i).end_of_month
@@ -41,14 +45,16 @@ RSpec.describe UsageController, type: :controller do
       end
       @annual = StatCreatedPlan.all.order(date: :desc)
     end
+
     describe 'test for each date range' do
       [1, 3, 6, 9, 12].each do |months|
         context "last #{months} months" do
-          before(:each) do
+          before do
             @date = Date.today.months_ago(months).end_of_month.strftime('%Y-%m-%d')
             post :plans_by_template, params: { usage: { template_plans_range: @date } },
                                      format: :js
           end
+
           it 'returns the expected data' do
             # Controller returns results in date ascending order so resort the
             # records after extracting the ones we want first
@@ -62,9 +68,10 @@ RSpec.describe UsageController, type: :controller do
   end
 
   describe 'GET /usage_global_statistics' do
-    before(:each) do
+    before do
       get :global_statistics
     end
+
     it 'assigns the correct csv data' do
       csvified_name = @org.name.include?(',') ? "\"#{@org.name}\"" : @org.name
       expected = "Org name,Total users,Total plans\n" \
@@ -75,9 +82,10 @@ RSpec.describe UsageController, type: :controller do
   end
 
   describe 'GET /usage_yearly_users' do
-    before(:each) do
+    before do
       get :yearly_users
     end
+
     it 'assigns the correct csv data' do
       expected = "Month,No. Users joined\n" \
                  "#{@date.strftime('%b-%y')},#{@user_stat.count}\n" \
@@ -88,9 +96,10 @@ RSpec.describe UsageController, type: :controller do
   end
 
   describe 'GET /usage_yearly_plans' do
-    before(:each) do
+    before do
       get :yearly_plans
     end
+
     it 'assigns the correct csv data' do
       expected = "Month,No. Completed Plans\n" \
                  "#{@date.strftime('%b-%y')},#{@plan_stat.count}\n" \
@@ -101,9 +110,10 @@ RSpec.describe UsageController, type: :controller do
   end
 
   describe 'GET /usage_all_plans_by_template' do
-    before(:each) do
+    before do
       get :all_plans_by_template
     end
+
     it 'assigns the correct csv data' do
       name = @details[:by_template].first[:name]
       count = @details[:by_template].first[:count]

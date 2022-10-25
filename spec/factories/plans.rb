@@ -45,7 +45,7 @@ FactoryBot.define do
     description { Faker::Lorem.paragraph }
     feedback_requested { false }
     complete { false }
-    start_date { Time.now }
+    start_date { Time.zone.now }
     end_date { start_date + 2.years }
     ethical_issues { [true, false].sample }
     ethical_issues_description { Faker::Lorem.paragraph }

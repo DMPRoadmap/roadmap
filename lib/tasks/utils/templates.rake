@@ -113,9 +113,9 @@ namespace :templates do
 
         customized_template.phases.each do |phase|
           p "Processing Customization: #{customized_template.id} - #{customized_template.title}"
-          unless phase.versionable_id.present?
+          if phase.versionable_id.blank?
             version = find_related_versionable_id(original_template: parent_template, record: phase)
-            version = SecureRandom.uuid unless version.present?
+            version = SecureRandom.uuid if version.blank?
             p "  Updating versionable_id for Phase: #{phase.id} to #{version}"
             phase.update_columns(versionable_id: version)
           end
@@ -128,9 +128,9 @@ namespace :templates do
 
           phase.sections.select { |s| s.versionable_id.nil? }.each do |section|
             p "Updating versionable_id for custom template section #{section.id} and its questions/options/annotations"
-            unless section.versionable_id.present?
+            if section.versionable_id.blank?
               version = find_related_versionable_id(original_template: parent_template, record: section)
-              version = SecureRandom.uuid unless version.present?
+              version = SecureRandom.uuid if version.blank?
               p "    Updating versionable_id for Section: #{section.id} to #{version}"
               section.update_columns(versionable_id: version)
             end
@@ -142,9 +142,9 @@ namespace :templates do
             )
 
             section.questions.each do |question|
-              unless question.versionable_id.present?
+              if question.versionable_id.blank?
                 version = find_related_versionable_id(original_template: parent_template, record: question)
-                version = SecureRandom.uuid unless version.present?
+                version = SecureRandom.uuid if version.blank?
                 p "      Updating versionable_id for Question: #{question.id} to #{version}"
                 question.update_columns(versionable_id: version)
               end
@@ -156,9 +156,9 @@ namespace :templates do
               )
 
               question.annotations.each do |annotation|
-                unless annotation.versionable_id.present?
+                if annotation.versionable_id.blank?
                   version = find_related_versionable_id(original_template: parent_template, record: annotation)
-                  version = SecureRandom.uuid unless version.present?
+                  version = SecureRandom.uuid if version.blank?
                   p "      Updating versionable_id for Annotation: #{annotation.id} to #{version}"
                   annotation.update_columns(versionable_id: version)
                 end
@@ -170,9 +170,9 @@ namespace :templates do
                 )
               end
               question.question_options.each do |option|
-                unless option.versionable_id.present?
+                if option.versionable_id.blank?
                   version = find_related_versionable_id(original_template: parent_template, record: option)
-                  version = SecureRandom.uuid unless version.present?
+                  version = SecureRandom.uuid if version.blank?
                   p "      Updating versionable_id for QuestionOption: #{option.id} to #{version}"
                   option.update_columns(versionable_id: version)
                 end

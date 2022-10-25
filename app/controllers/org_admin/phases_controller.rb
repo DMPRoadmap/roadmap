@@ -14,7 +14,7 @@ module OrgAdmin
       authorize phase
       unless phase.template.latest?
         # rubocop:disable Layout/LineLength
-        flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
+        flash.now[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
         # rubocop:enable Layout/LineLength
       end
       sections = if phase.template.customization_of? && phase.template.latest?
@@ -39,6 +39,43 @@ module OrgAdmin
     # rubocop:enable Metrics/AbcSize
 
     # GET /org_admin/templates/:template_id/phases/:id/edit
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    def new
+      template = Template.includes(:phases).find(params[:template_id])
+      if template.latest?
+        nbr = template.phases.maximum(:number)
+        phase = Phase.new(
+          template: template,
+          modifiable: true,
+          number: (nbr.present? ? nbr + 1 : 1)
+        )
+        authorize phase
+        local_referrer = (request.referer.presence || org_admin_templates_path)
+        render('/org_admin/templates/container',
+               locals: {
+                 partial_path: 'new',
+                 template: template,
+                 phase: phase,
+                 referrer: local_referrer
+               })
+      else
+        render org_admin_templates_path,
+               alert: _('You cannot add a phase to a historical version of a template.')
+      end
+    end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+    # preview a phase
+    # GET /org_admin/templates/:template_id/phases/:id/preview
+    def preview
+      @phase = Phase.includes(:template).find(params[:id])
+      authorize @phase
+      @template = @phase.template
+      @guidance_presenter = GuidancePresenter.new(Plan.new(template: @phase.template))
+    end
+
+    # add a new phase to a passed template
+    # GET /org_admin/templates/:template_id/phases/new
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def edit
       phase = Phase.includes(:template).find(params[:id])
@@ -66,47 +103,6 @@ module OrgAdmin
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-    # preview a phase
-    # GET /org_admin/templates/:template_id/phases/:id/preview
-    def preview
-      @phase = Phase.includes(:template).find(params[:id])
-      authorize @phase
-      @template = @phase.template
-      @guidance_presenter = GuidancePresenter.new(Plan.new(template: @phase.template))
-    end
-
-    # add a new phase to a passed template
-    # GET /org_admin/templates/:template_id/phases/new
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-    def new
-      template = Template.includes(:phases).find(params[:template_id])
-      if template.latest?
-        nbr = template.phases.maximum(:number)
-        phase = Phase.new(
-          template: template,
-          modifiable: true,
-          number: (nbr.present? ? nbr + 1 : 1)
-        )
-        authorize phase
-        local_referrer = if request.referrer.present?
-                           request.referrer
-                         else
-                           org_admin_templates_path
-                         end
-        render('/org_admin/templates/container',
-               locals: {
-                 partial_path: 'new',
-                 template: template,
-                 phase: phase,
-                 referrer: local_referrer
-               })
-      else
-        render org_admin_templates_path,
-               alert: _('You cannot add a phase to a historical version of a template.')
-      end
-    end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-
     # create a phase
     # POST /org_admin/templates/:template_id/phases
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -118,13 +114,13 @@ module OrgAdmin
         phase = get_new(phase)
         phase.modifiable = true
         if phase.save
-          flash[:notice] = success_message(phase, _('created'))
+          flash.now[:notice] = success_message(phase, _('created'))
         else
-          flash[:alert] = failure_message(phase, _('create'))
+          flash.now[:alert] = failure_message(phase, _('create'))
         end
       rescue StandardError => e
         msg = _('Unable to create a new version of this template.<br>')
-        flash[:alert] = "#{msg}<br>#{e.message}"
+        flash.now[:alert] = "#{msg}<br>#{e.message}"
       end
       if flash[:alert].present?
         redirect_to new_org_admin_template_phase_path(template_id: phase.template.id)
@@ -144,13 +140,13 @@ module OrgAdmin
       begin
         phase = get_modifiable(phase)
         if phase.update(phase_params)
-          flash[:notice] = success_message(phase, _('updated'))
+          flash.now[:notice] = success_message(phase, _('updated'))
         else
-          flash[:alert] = failure_message(phase, _('update'))
+          flash.now[:alert] = failure_message(phase, _('update'))
         end
       rescue StandardError => e
         msg = _('Unable to create a new version of this template.')
-        flash[:alert] = "#{msg}<br>#{e.message}"
+        flash.now[:alert] = "#{msg}<br>#{e.message}"
       end
       redirect_to edit_org_admin_template_phase_path(template_id: phase.template.id,
                                                      id: phase.id)
@@ -176,13 +172,13 @@ module OrgAdmin
         phase = get_modifiable(phase)
         template = phase.template
         if phase.destroy!
-          flash[:notice] = success_message(phase, _('deleted'))
+          flash.now[:notice] = success_message(phase, _('deleted'))
         else
-          flash[:alert] = failure_message(phase, _('delete'))
+          flash.now[:alert] = failure_message(phase, _('delete'))
         end
       rescue StandardError => e
         msg = _('Unable to create a new version of this template.')
-        flash[:alert] = "#{msg}<br>#{e.message}"
+        flash.now[:alert] = "#{msg}<br>#{e.message}"
       end
 
       if flash[:alert].present?

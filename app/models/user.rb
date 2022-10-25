@@ -111,7 +111,7 @@ class User < ApplicationRecord
   # Added to allow creation of Orgs at sign up / edit profile
   accepts_nested_attributes_for :org
 
-  belongs_to :department, required: false
+  belongs_to :department, optional: true
 
   has_one  :pref
 
@@ -221,16 +221,15 @@ class User < ApplicationRecord
   # sanitise html tags from fields
   before_validation ->(data) { data.sanitize_fields(:email, :firstname, :surname) }
 
+  # DMPTool customization
+  #
+  # Callbacks to support our sign in / sign up workflow
+  before_validation ->(user) { user.institution = user.org }
   after_update :clear_department_id, if: :saved_change_to_org_id?
 
   after_update :delete_perms!, if: :saved_change_to_org_id?, unless: :can_change_org?
 
   after_update :remove_token!, if: :saved_change_to_org_id?, unless: :can_change_org?
-
-  # DMPTool customization
-  #
-  # Callbacks to support our sign in / sign up workflow
-  before_validation ->(user) { user.institution = user.org }
 
   # =================
   # = Class methods =
@@ -407,7 +406,7 @@ class User < ApplicationRecord
   # Returns nil
   # Returns Boolean
   def keep_or_generate_token!
-    return unless api_token.nil? || api_token.empty?
+    return if api_token.present?
 
     generate_token! unless new_record?
   end

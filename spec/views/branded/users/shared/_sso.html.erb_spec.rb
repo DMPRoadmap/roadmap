@@ -13,8 +13,8 @@ describe 'users/shared/_sso' do
     form_struct = OpenStruct.new
     form_struct.stubs(:hidden_field).returns('Foo')
     render partial: '/users/shared/sso', locals: { resource: user, form: form_struct, label: 'Institution' }
-    expect(rendered.include?('Your address is associated with:')).to eql(true)
-    expect(rendered.include?("<h3>#{CGI.escapeHTML(user.org.name)}")).to eql(true)
-    expect(rendered.include?('Foo')).to eql(true)
+    expect(rendered.include?('Your address is associated with:')).to be(true)
+    expect(rendered.include?("<h3>#{CGI.escapeHTML(user.org.name)}")).to be(true)
+    expect(rendered.include?('Foo')).to be(true)
   end
 end

@@ -15,7 +15,7 @@ describe 'public_pages/orgs.html.erb' do
     controller.prepend_view_path 'app/views/branded'
     assign :orgs, Org.participating
     render
-    expect(rendered.include?('Participating Institutions')).to eql(true)
+    expect(rendered.include?('Participating Institutions')).to be(true)
     expect(response).to render_template(partial: 'paginable/orgs/_public')
   end
 end

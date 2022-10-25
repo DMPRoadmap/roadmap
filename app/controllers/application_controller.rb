@@ -51,7 +51,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_locale
-    @current_locale ||= session[:locale].present? ? session[:locale] : I18n.default_locale
+    @current_locale ||= (session[:locale].presence || I18n.default_locale)
   end
 
   def store_location
@@ -74,7 +74,7 @@ class ApplicationController < ActionController::Base
     # If not signed in send to the home page
     return root_path unless user_signed_in?
     # If signed in and not part of an Oauth2 workflow send to the Dashboard
-    return plans_path unless session['oauth-referer'].present?
+    return plans_path if session['oauth-referer'].blank?
 
     # Continue with the Oauth2 workflow
     oauth_hash = ApplicationService.decrypt(payload: session['oauth-referer'])
@@ -236,8 +236,8 @@ class ApplicationController < ActionController::Base
 
     # If we are dev/test print the error to the console
     if Rails.env.development? || Rails.env.test?
-      p "#{exception.class.name} - #{exception&.message}"
-      pp exception&.backtrace
+      Rails.logger.debug { "#{exception.class.name} - #{exception&.message}" }
+      Rails.logger.debug exception&.backtrace
     end
 
     render_respond_to_format_with_error_message(

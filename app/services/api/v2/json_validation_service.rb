@@ -30,14 +30,14 @@ module Api
         end
 
         def contributor_valid?(json:, is_contact: false)
-          return false unless json.present?
+          return false if json.blank?
           return false unless json[:name].present? || json[:mbox].present?
 
           is_contact ? true : json[:role].present?
         end
 
         def funding_valid?(json:)
-          return false unless json.present?
+          return false if json.blank?
 
           funder_id = json.fetch(:funder_id, {})[:identifier]
           grant_id = json.fetch(:grant_id, {})[:identifier]
@@ -45,14 +45,14 @@ module Api
         end
 
         def dataset_valid?(json:)
-          return false unless json.present?
+          return false if json.blank?
 
           dataset_id = json.fetch(:dataset_id, {})[:identifier]
           json[:title].present? || dataset_id.present?
         end
 
         def host_valid?(json:)
-          return false unless json.present?
+          return false if json.blank?
 
           host_id = json.fetch(:dmproadmap_host_id, {})[:identifier]
           json[:url].present? || host_id.present?
@@ -68,7 +68,7 @@ module Api
         # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def validation_errors(json:)
           errs = []
-          return [_('invalid JSON')] unless json.present?
+          return [_('invalid JSON')] if json.blank?
 
           errs << BAD_PLAN_MSG unless plan_valid?(json: json)
           errs << BAD_ID_MSG if json[:dmp_id].present? && !identifier_valid?(json: json[:dmp_id])
@@ -111,7 +111,7 @@ module Api
 
         def dataset_validation_errors(json:)
           errs = []
-          return errs unless json.present?
+          return errs if json.blank?
 
           errs << BAD_DATASET_MSG unless dataset_valid?(json: json)
           json.fetch(:distribution, []).each do |distribution|
@@ -122,7 +122,7 @@ module Api
 
         def funding_validation_errors(json:)
           errs = []
-          return errs unless json.present?
+          return errs if json.blank?
 
           errs << BAD_FUNDING_MSG unless funding_valid?(json: json)
           errs << org_validation_errors(json: json)
@@ -132,7 +132,7 @@ module Api
 
         def org_validation_errors(json:)
           errs = []
-          return errs unless json.present?
+          return errs if json.blank?
 
           errs << BAD_ORG_MSG unless org_valid?(json: json)
           id = json.fetch(:affiliation_id, json[:funder_id])
@@ -142,7 +142,7 @@ module Api
 
         def related_identifiers_errors(json:)
           errs = []
-          return errs unless json.present?
+          return errs if json.blank?
 
           json.each do |related_identifier|
             next if related_identifier_valid?(json: related_identifier)

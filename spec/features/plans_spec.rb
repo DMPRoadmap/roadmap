@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Plans', type: :feature do
+RSpec.describe 'Plans' do
   include Helpers::AutocompleteHelper
   include Helpers::Webmocks
 

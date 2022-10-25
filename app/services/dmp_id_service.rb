@@ -11,15 +11,15 @@ class DmpIdService
       return plan.dmp_id if plan.dmp_id.present?
 
       svc = minter
-      return nil unless svc.present?
+      return nil if svc.blank?
 
       dmp_id = svc.mint_dmp_id(plan: plan)
-      return nil unless dmp_id.present?
+      return nil if dmp_id.blank?
 
       dmp_id = "#{svc.landing_page_url}#{dmp_id}" unless dmp_id.downcase.start_with?('http')
       Identifier.new(identifier_scheme: identifier_scheme, identifiable: plan, value: dmp_id)
     rescue StandardError => e
-      p e.message
+      Rails.logger.debug e.message
       Rails.logger.error "DmpIdService.mint_dmp_id for Plan #{plan&.id} resulted in: #{e.message}"
       nil
     end
@@ -32,10 +32,10 @@ class DmpIdService
       return nil unless minting_service_defined? && plan.present? && plan.is_a?(Plan) && plan.dmp_id.present?
 
       svc = minter
-      return nil unless svc.present?
+      return nil if svc.blank?
 
       dmp_id = svc.update_dmp_id(plan: plan)
-      return nil unless dmp_id.present?
+      return nil if dmp_id.blank?
     rescue StandardError => e
       Rails.logger.error "DmpIdService.update_dmp_id for Plan #{plan&.id} resulted in: #{e.message}"
       Rails.logger.error e.backtrace
@@ -63,7 +63,7 @@ class DmpIdService
     # Return the inheriting service's :callback_path (defined in their config)
     def scheme_callback_uri
       svc = minter
-      return nil unless svc.present?
+      return nil if svc.blank?
 
       svc.respond_to?(:callback_path) ? svc.callback_path : nil
     end
@@ -71,7 +71,7 @@ class DmpIdService
     # Return the inheriting service's :landing_page_url (defined in their config)
     def landing_page_url
       svc = minter
-      return nil unless svc.present?
+      return nil if svc.blank?
 
       svc.respond_to?(:landing_page_url) ? svc.landing_page_url : nil
     end

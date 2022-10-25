@@ -29,13 +29,13 @@ module Dmptool
 
         # Use the assigned org_id or determine which one based on the Inviter type
         org_id = params[:org_id]
-        org_id = inviter.is_a?(User) ? inviter.org_id : inviter.user&.org_id unless org_id.present?
+        org_id = inviter.is_a?(User) ? inviter.org_id : inviter.user&.org_id if org_id.blank?
 
-        params[:firstname] = 'First' unless params[:firstname].present?
-        params[:surname] = 'Last' unless params[:surname].present?
-        params[:password] = SecureRandom.uuid unless params[:password].present?
+        params[:firstname] = 'First' if params[:firstname].blank?
+        params[:surname] = 'Last' if params[:surname].blank?
+        params[:password] = SecureRandom.uuid if params[:password].blank?
         params[:invitation_token] = SecureRandom.uuid
-        params[:invitation_created_at] = Time.now
+        params[:invitation_created_at] = Time.zone.now
         params[:invited_by_id] = inviter.id
         params[:invited_by_type] = inviter.class.name
         params[:org_id] = org_id
@@ -54,7 +54,7 @@ module Dmptool
             else
               UserMailer.invitation(inviter, invitee, plan).deliver_now
             end
-            invitee.update(invitation_sent_at: Time.now)
+            invitee.update(invitation_sent_at: Time.zone.now)
           end
           invitee
         end
@@ -109,7 +109,7 @@ module Dmptool
 
       # Extract the 1st email
       def extract_omniauth_email(hash:)
-        return nil unless hash.present?
+        return nil if hash.blank?
 
         emails = hash.fetch('email', '')
         emails = '' if emails.nil?
@@ -120,7 +120,7 @@ module Dmptool
       # Find the User names from the omniauth info
       # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def extract_omniauth_names(hash:)
-        return {} unless hash.present?
+        return {} if hash.blank?
 
         firstname = hash.fetch('givenname', hash.fetch('first_name', ''))
         surname = hash.fetch('sn', hash.fetch('surname', hash.fetch('last_name', '')))
@@ -130,8 +130,8 @@ module Dmptool
         names = hash.fetch('name', '').split
         names = [names.first, names[1..names.length].join(' ')] if names.any? &&
                                                                    names.length > 1
-        firstname = names.first if names.any? && !firstname.present?
-        surname = names.last if names.any? && !surname.present?
+        firstname = names.first if names.any? && firstname.blank?
+        surname = names.last if names.any? && surname.blank?
         { firstname: firstname&.humanize, surname: surname&.humanize }
       end
       # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -171,7 +171,7 @@ module Dmptool
       def accept_invitation
         return false unless active_invitation?
 
-        update(invitation_accepted_at: Time.now)
+        update(invitation_accepted_at: Time.zone.now)
       end
 
       # Attach an OmniAuth UID
@@ -182,7 +182,7 @@ module Dmptool
         omniauth_hash = omniauth_hash.with_indifferent_access
 
         scheme = IdentifierScheme.find_by(name: scheme_name)
-        return false unless scheme.present?
+        return false if scheme.blank?
 
         # Create the Oauth access token if available
         token = ExternalApiAccessToken.from_omniauth(

@@ -132,7 +132,7 @@ module ExternalApis
       def add_subscription(plan:, dmp_id:)
         client = api_client
         path = callback_path
-        Rails.logger.warn 'DMPHubService - No ApiClient defined!' unless client.present?
+        Rails.logger.warn 'DMPHubService - No ApiClient defined!' if client.blank?
         return nil unless plan.present? &&
                           dmp_id.present? &&
                           path.present? &&
@@ -144,7 +144,7 @@ module ExternalApis
           callback_uri: format(path, dmp_id: dmp_id.gsub(%r{https?://doi.org/}, '')),
           updates: true,
           deletions: true,
-          last_notified: Time.now
+          last_notified: Time.zone.now
         )
       end
 
@@ -152,7 +152,7 @@ module ExternalApis
       # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def update_subscription(plan:)
         client = api_client
-        Rails.logger.warn 'DMPHubService - No ApiClient defined!' unless client.present?
+        Rails.logger.warn 'DMPHubService - No ApiClient defined!' if client.blank?
         return false unless plan.present? &&
                             plan.dmp_id.present? &&
                             callback_path.present? &&
@@ -163,7 +163,7 @@ module ExternalApis
         end
         return false unless subscriptions.any?
 
-        subscriptions.each { |sub| sub.update(last_notified: Time.now) }
+        subscriptions.each { |sub| sub.update(last_notified: Time.zone.now) }
         true
       end
       # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -215,7 +215,7 @@ module ExternalApis
       def process_response(response:)
         hash = JSON.parse(response.body).with_indifferent_access
         return nil unless hash.fetch(:items, []).length == 1
-        return nil unless hash[:items].first[:dmp].present?
+        return nil if hash[:items].first[:dmp].blank?
 
         hash[:items].first[:dmp].fetch(:dmp_id, {})[:identifier]
       # If a JSON parse error occurs then return results of a local table search

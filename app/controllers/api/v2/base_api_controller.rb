@@ -86,7 +86,7 @@ module Api
       # Set the generic application and caller variables used in all responses
       def base_response_content
         @application = ApplicationService.application_name
-        @caller = request.remote_ip unless @client.present?
+        @caller = request.remote_ip if @client.blank?
         @caller = @client.is_a?(User) ? @client.name(false) : @client.name if @client.present?
       end
 
@@ -139,10 +139,10 @@ module Api
 
       # Record the timestamp
       def log_access
-        return false unless @client.present?
+        return false if @client.blank?
 
-        @client.update(last_access: Time.now) if @client.is_a?(ApiClient)
-        @client.update(last_api_access: Time.now) if @client.is_a?(User)
+        @client.update(last_access: Time.zone.now) if @client.is_a?(ApiClient)
+        @client.update(last_api_access: Time.zone.now) if @client.is_a?(User)
         true
       end
 

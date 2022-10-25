@@ -10,13 +10,13 @@ module Helpers
         fill_in label, with: org_name
         sleep(1)
         # Check that it appear in the list first
-        expect(suggestion_exists?(org_name)).to eql(true)
+        expect(suggestion_exists?(org_name)).to be(true)
         # Now select the item from the suggestions
         elements = all('.ui-menu-item-wrapper', visible: false)
         return false unless elements.present? && elements.any?
 
         selection = elements.detect { |el| el.text.strip == org_name }
-        return false unless selection.present?
+        return false if selection.blank?
 
         selection.click
       end
@@ -30,14 +30,14 @@ module Helpers
         # The dmptool-ui displays a checkbox and the underlying input is always hidden
         find("label[for=\"#{prefix}_not_in_list\"]").click
         field = find("##{prefix}_user_entered_name")
-        expect(field.present?).to eql(true)
+        expect(field.present?).to be(true)
         field.set(org_name)
       end
     end
 
     # Checks the suggestions to see if the name exists.
     def suggestion_exists?(name)
-      return false unless name.present?
+      return false if name.blank?
 
       elements = all('.ui-menu-item-wrapper', visible: :all)
       return false unless elements.present? && elements.any?

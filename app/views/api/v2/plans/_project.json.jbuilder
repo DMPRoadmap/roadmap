@@ -5,10 +5,10 @@
 json.title plan.title
 json.description plan.description
 
-start_date = plan.start_date || Time.now
+start_date = plan.start_date || Time.zone.now
 json.start start_date.to_formatted_s(:iso8601)
 
-end_date = plan.end_date || (Time.now + 2.years)
+end_date = plan.end_date || 2.years.from_now
 json.end end_date&.to_formatted_s(:iso8601)
 
 if plan.funder.present? || plan.grant_id.present?

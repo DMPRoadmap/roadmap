@@ -26,7 +26,7 @@ module Api
 
             token = decoded_auth_token
             # If the token is missing or invalid then set the client to nil
-            errors[:token] = _('Invalid token') unless token.present?
+            errors[:token] = _('Invalid token') if token.blank?
             @api_client = nil unless token.present? && token[:client_id].present?
             return @api_client unless token.present? && token[:client_id].present?
 
@@ -50,8 +50,8 @@ module Api
           # Extract the token from the Authorization header
           def http_auth_header
             hdr = @headers[:Authorization]
-            errors[:token] = _('Missing token') unless hdr.present?
-            return nil unless hdr.present?
+            errors[:token] = _('Missing token') if hdr.blank?
+            return nil if hdr.blank?
 
             hdr.split.last
           end

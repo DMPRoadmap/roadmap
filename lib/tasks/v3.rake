@@ -31,7 +31,7 @@ namespace :v3 do
   task ensure_default_languages: :environment do
     dflt = Language.default
 
-    unless dflt.present?
+    if dflt.blank?
       if Language.all.any?
         # If there are languages but no default then use the first one and make it the default!
         dflt = Language.first

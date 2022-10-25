@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe ApiClient, type: :model do
+RSpec.describe ApiClient do
   context 'validations' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:contact_email) }
@@ -13,18 +13,19 @@ RSpec.describe ApiClient, type: :model do
       subject.contact_email = Faker::Internet.email
       subject.client_id = Faker::Lorem.word
       subject.client_secret = Faker::Lorem.word
-      is_expected.to validate_uniqueness_of(:name)
+      expect(subject).to validate_uniqueness_of(:name)
         .case_insensitive
         .with_message('must be unique')
     }
 
     # Email format validation
     it {
-      is_expected.to allow_values('one@example.com', 'foo-bar@ed.ac.uk')
+      expect(subject).to allow_values('one@example.com', 'foo-bar@ed.ac.uk')
         .for(:contact_email)
     }
+
     it {
-      is_expected.not_to allow_values('example.com', 'foo bar@ed.ac.uk')
+      expect(subject).not_to allow_values('example.com', 'foo bar@ed.ac.uk')
         .for(:contact_email)
     }
   end
@@ -35,7 +36,7 @@ RSpec.describe ApiClient, type: :model do
   end
 
   context 'Instance Methods' do
-    before(:each) do
+    before do
       @client = build(:api_client)
     end
 
@@ -61,8 +62,9 @@ RSpec.describe ApiClient, type: :model do
     describe ':plans' do
       it 'returns an empty array if there are no subscriptions' do
         @client.save
-        expect(@client.plans.empty?).to eql(true)
+        expect(@client.plans.empty?).to be(true)
       end
+
       it 'returns the expected plans' do
         @client.save
         plan_a = create(:plan)
@@ -70,9 +72,9 @@ RSpec.describe ApiClient, type: :model do
         create(:subscription, plan: plan_a, subscriber: @client)
         create(:subscription, plan: plan_b, subscriber: @client)
         results = @client.reload.plans
-        expect(results.length).to eql(2)
-        expect(results.include?(plan_a)).to eql(true)
-        expect(results.include?(plan_b)).to eql(true)
+        expect(results.length).to be(2)
+        expect(results.include?(plan_a)).to be(true)
+        expect(results.include?(plan_b)).to be(true)
       end
     end
 

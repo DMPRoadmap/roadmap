@@ -35,7 +35,7 @@ when 'Contributor', 'User'
 
     datacite_role = 'ProjectManager' if contributor.project_administration?
     datacite_role = 'ProjectLeader' if datacite_role.nil? && contributor.investigation?
-    datacite_role = 'DataCurator' unless datacite_role.present?
+    datacite_role = 'DataCurator' if datacite_role.blank?
     json.contributorType datacite_role
   end
 

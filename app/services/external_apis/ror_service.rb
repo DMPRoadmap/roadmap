@@ -61,7 +61,7 @@ module ExternalApis
           Dir.mkdir(file_dir)
 
           checksum = File.open(checksum_file, 'w+') unless File.exist?(checksum_file) && !force
-          checksum = File.open(checksum_file, 'r+') unless checksum.present?
+          checksum = File.open(checksum_file, 'r+') if checksum.blank?
           old_checksum_val = checksum.read
 
           if old_checksum_val == metadata[:checksum]
@@ -106,8 +106,8 @@ module ExternalApis
       # Fetch the latest Zenodo metadata for ROR files
       # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def fetch_zenodo_metadata
-        Rails.logger.error 'No :download_url defined for RorService!' unless download_url.present?
-        return nil unless download_url.present?
+        Rails.logger.error 'No :download_url defined for RorService!' if download_url.blank?
+        return nil if download_url.blank?
 
         # Fetch the latest ROR metadata from Zenodo (the query will place the most recent
         # version 1st)
@@ -136,7 +136,7 @@ module ExternalApis
 
       # Download the latest ROR data
       def download_ror_file(url:)
-        return nil unless url.present?
+        return nil if url.blank?
 
         headers = {
           host: 'zenodo.org',
@@ -240,7 +240,7 @@ module ExternalApis
         ror = Identifier.by_scheme_name('ror', 'Org')
                         .where(value: registry_org.ror_id)
                         .first
-        return nil unless ror.present?
+        return nil if ror.blank?
 
         ror.present? ? ror.identifiable_id : nil
       end
@@ -264,7 +264,7 @@ module ExternalApis
       # Extracts the org's ISO639 if available
       def org_language(item:)
         dflt = I18n.default_locale || 'en'
-        return dflt unless item.present?
+        return dflt if item.blank?
 
         country = item.fetch('country', {}).fetch('country_code', '')
         labels = case country

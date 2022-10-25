@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe Api::V1::BaseApiController, type: :request do
-  before(:each) do
+RSpec.describe Api::V1::BaseApiController do
+  before do
     @client = create(:api_client)
   end
 
@@ -13,10 +13,12 @@ RSpec.describe Api::V1::BaseApiController, type: :request do
         described_class.new.expects(:authorize_request).at_most(0)
         get api_v1_heartbeat_path
       end
+
       it 'returns a 200 status' do
         get api_v1_heartbeat_path
         expect(response.code).to eql('200')
       end
+
       it 'renders the standard response template' do
         get api_v1_heartbeat_path
         expect(response).to render_template(partial: 'api/v1/_standard_response')
@@ -27,7 +29,7 @@ RSpec.describe Api::V1::BaseApiController, type: :request do
   context 'private methods' do
     include Mocks::ApiJsonSamples
 
-    before(:each) do
+    before do
       @controller = described_class.new
     end
 
@@ -35,7 +37,7 @@ RSpec.describe Api::V1::BaseApiController, type: :request do
     # callbacks since this controller's only endpoint, :heartbeat, skips them
 
     describe '#authorize_request' do
-      before(:each) do
+      before do
         @client = create(:api_client)
         struct = OpenStruct.new(headers: {})
         @controller.expects(:request).returns(struct)
@@ -66,13 +68,15 @@ RSpec.describe Api::V1::BaseApiController, type: :request do
     describe '#log_access' do
       it 'returns false if the client is not set' do
         @controller.expects(:client).returns(nil)
-        expect(@controller.send(:log_access)).to eql(false)
+        expect(@controller.send(:log_access)).to be(false)
       end
+
       it 'returns true if the client is set' do
         @client = create(:api_client)
         @controller.expects(:client).returns(@client)
-        expect(@controller.send(:log_access)).to eql(true)
+        expect(@controller.send(:log_access)).to be(true)
       end
+
       it 'updates the api_client.last_access if client is an ApiClient' do
         @client = create(:api_client)
         time = @client.last_access
@@ -80,6 +84,7 @@ RSpec.describe Api::V1::BaseApiController, type: :request do
         @controller.send(:log_access)
         expect(time).not_to eql(@client.reload.last_access)
       end
+
       it 'updates the users.last_api_access if client is a User' do
         @user = create(:user)
         time = @user.last_api_access
@@ -96,11 +101,13 @@ RSpec.describe Api::V1::BaseApiController, type: :request do
         @controller.expects(:request).returns(OpenStruct.new(remote_ip: ip))
         expect(@controller.send(:caller_name)).to eql(ip)
       end
+
       it 'returns the user name if the client is a User' do
         @user = create(:user)
         @controller.expects(:client).returns(@user)
         expect(@controller.send(:caller_name)).to eql(@user.name(false))
       end
+
       it 'returns the client name if the client is a ApiClient' do
         @client = create(:api_client)
         @controller.expects(:client).returns(@client)

@@ -81,7 +81,7 @@ module ExternalApis
         end
 
         json = process_response(response: resp)
-        return nil unless json.present?
+        return nil if json.blank?
 
         dmp_id = json.fetch('data', attributes: { doi: nil })
                      .fetch('attributes', { doi: nil })['doi']
@@ -117,7 +117,7 @@ module ExternalApis
       def add_subscription(plan:, dmp_id:)
         client = api_client
         path = callback_path
-        Rails.logger.warn 'DataciteService - No ApiClient defined!' unless client.present?
+        Rails.logger.warn 'DataciteService - No ApiClient defined!' if client.blank?
         return nil unless plan.present? && dmp_id.present? && path.present? && client.present?
 
         Subscription.create(
@@ -133,7 +133,7 @@ module ExternalApis
       # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def update_subscription(plan:)
         client = api_client
-        Rails.logger.warn 'DataciteService - No ApiClient defined!' unless client.present?
+        Rails.logger.warn 'DataciteService - No ApiClient defined!' if client.blank?
         return false unless plan.present? &&
                             plan.dmp_id.present? &&
                             callback_path.present? &&
@@ -144,7 +144,7 @@ module ExternalApis
         end
         return false unless subscriptions.any?
 
-        subscriptions.each { |sub| sub.update(last_notified: Time.now) }
+        subscriptions.each { |sub| sub.update(last_notified: Time.zone.now) }
         true
       end
       # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity

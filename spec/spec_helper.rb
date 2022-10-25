@@ -102,7 +102,7 @@ RSpec.configure do |config|
   config.before(:context) do
     # Capture the current time so that we can compare against files afterward
     # to clear out any downloaded/exported plans/templates
-    @start_time = Time.now
+    @start_time = Time.zone.now
   end
 
   config.after(:context) do
@@ -115,7 +115,7 @@ RSpec.configure do |config|
   end
 
   # Enable Capybara webmocks if we are testing a feature
-  config.before(:each) do |example|
+  config.before do |example|
     if example.metadata[:type] == :feature
       # Capybara::Webmock.start
 
@@ -128,7 +128,7 @@ RSpec.configure do |config|
     end
 
     # Ensure that there is always a default Language
-    create(:language, abbreviation: 'en', default_language: true) unless Language.default.present?
+    create(:language, abbreviation: 'en', default_language: true) if Language.default.blank?
   end
 
   config.after(:suite) do |example|

@@ -4,15 +4,15 @@ require 'rails_helper'
 
 RSpec.describe Org::CreateJoinedUserService do
   let(:org) do
-    FactoryBot.create(:org, created_at: DateTime.new(2018, 0o4, 0o1))
+    create(:org, created_at: DateTime.new(2018, 0o4, 0o1))
   end
 
-  before(:each) do
-    FactoryBot.create(:user, org: org, created_at: DateTime.new(2018, 0o4, 0o3, 0, 0, 0))
-    FactoryBot.create(:user, org: org, created_at: DateTime.new(2018, 0o4, 0o4, 0, 0, 0))
-    FactoryBot.create(:user, org: org, created_at: DateTime.new(2018, 0o5, 0o3, 0, 0, 0))
-    FactoryBot.create(:user, org: org, created_at: DateTime.new(2018, 0o6, 0o3, 0, 0, 0))
-    FactoryBot.create(:user, org: org, created_at: DateTime.new(2018, 0o6, 0o4, 0, 0, 0))
+  before do
+    create(:user, org: org, created_at: DateTime.new(2018, 0o4, 0o3, 0, 0, 0))
+    create(:user, org: org, created_at: DateTime.new(2018, 0o4, 0o4, 0, 0, 0))
+    create(:user, org: org, created_at: DateTime.new(2018, 0o5, 0o3, 0, 0, 0))
+    create(:user, org: org, created_at: DateTime.new(2018, 0o6, 0o3, 0, 0, 0))
+    create(:user, org: org, created_at: DateTime.new(2018, 0o6, 0o4, 0, 0, 0))
     @dates = %w[2018-04-30 2018-05-31 2018-06-30 2018-07-31]
   end
 
@@ -33,7 +33,7 @@ RSpec.describe Org::CreateJoinedUserService do
       it 'monthly records are either created or updated' do
         described_class.call(org)
 
-        FactoryBot.create(:user, org: org, created_at: DateTime.new(2018, 0o4, 0o5, 0, 0, 0))
+        create(:user, org: org, created_at: DateTime.new(2018, 0o4, 0o5, 0, 0, 0))
 
         described_class.call(org)
 
@@ -59,7 +59,7 @@ RSpec.describe Org::CreateJoinedUserService do
 
         described_class.call
 
-        FactoryBot.create(:user, org: org, created_at: DateTime.new(2018, 0o4, 0o5, 0, 0, 0))
+        create(:user, org: org, created_at: DateTime.new(2018, 0o4, 0o5, 0, 0, 0))
 
         described_class.call
 

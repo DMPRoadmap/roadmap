@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Questions::Check box questions', type: :feature do
+RSpec.describe 'Questions::Check box questions' do
   include Helpers::Webmocks
 
   before do
@@ -20,7 +20,7 @@ RSpec.describe 'Questions::Check box questions', type: :feature do
     sign_in @user
   end
 
-  scenario 'User answers a check box question', :js do
+  it 'User answers a check box question', :js do
     # Setup
     visit plan_path(@plan)
 

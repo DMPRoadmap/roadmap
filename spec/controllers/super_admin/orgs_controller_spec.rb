@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe SuperAdmin::OrgsController, type: :controller do
-  before(:each) do
+RSpec.describe SuperAdmin::OrgsController do
+  before do
     @scheme = create(:identifier_scheme)
     tpt = create(:token_permission_type)
     @from_org = create(:org, :funder, templates: 1, plans: 2, managed: true,
@@ -12,7 +12,7 @@ RSpec.describe SuperAdmin::OrgsController, type: :controller do
     create(:annotation, org: @from_org)
     create(:department, org: @from_org)
     gg = @from_org.guidance_groups.first if @from_org.guidance_groups.any?
-    gg = create(:guidance_group, org: @from_org) unless gg.present?
+    gg = create(:guidance_group, org: @from_org) if gg.blank?
     create(:guidance, guidance_group: gg)
     create(:identifier, identifiable: @from_org, identifier_scheme: nil)
     create(:identifier, identifiable: @from_org, identifier_scheme: @scheme)
@@ -29,7 +29,7 @@ RSpec.describe SuperAdmin::OrgsController, type: :controller do
   end
 
   describe 'POST /super_admin/:id/merge_analyze', js: true do
-    before(:each) do
+    before do
       @params = {
         id: @from_org.id,
         # Send over the Org typehead json in the org.id field so the service can unpackage it
@@ -42,8 +42,9 @@ RSpec.describe SuperAdmin::OrgsController, type: :controller do
       post :merge_analyze, params: @params
       expect(response.code).to eql('302')
       expect(response).to redirect_to(plans_path)
-      expect(flash[:alert].present?).to eql(true)
+      expect(flash[:alert].present?).to be(true)
     end
+
     it 'succeeds in analyzing the Orgs' do
       post :merge_analyze, params: @params, format: :js
       expect(response.code).to eql('200')
@@ -55,7 +56,7 @@ RSpec.describe SuperAdmin::OrgsController, type: :controller do
 
   describe 'POST /super_admin/:id/merge_commit', js: true do
     context 'standard question type (no question_options and not RDA metadata)' do
-      before(:each) do
+      before do
         @params = { id: @from_org.id, org: { target_org: @to_org.id } }
       end
 
@@ -64,15 +65,17 @@ RSpec.describe SuperAdmin::OrgsController, type: :controller do
         post :merge_commit, params: @params
         expect(response.code).to eql('302')
         expect(response).to redirect_to(plans_path)
-        expect(flash[:alert].present?).to eql(true)
+        expect(flash[:alert].present?).to be(true)
       end
+
       it 'fails if :target_org is not found' do
         @params[:org][:target_org] = 9999
         post :merge_commit, params: @params, format: :js
         expect(response.code).to eql('302')
         expect(response).to redirect_to(admin_edit_org_path(@from_org))
-        expect(flash[:alert].present?).to eql(true)
+        expect(flash[:alert].present?).to be(true)
       end
+
       it 'succeeds and redirects properly' do
         post :merge_commit, params: @params, format: :js
         expect(response.code).to eql('302')

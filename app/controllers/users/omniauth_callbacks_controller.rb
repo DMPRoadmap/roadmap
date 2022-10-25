@@ -16,7 +16,7 @@ module Users
       omniauth = omniauth_from_request
       scheme_name = 'shibboleth'
       user = current_user if user_signed_in?
-      user = User.from_omniauth(scheme_name: scheme_name, omniauth_hash: omniauth) unless user.present?
+      user = User.from_omniauth(scheme_name: scheme_name, omniauth_hash: omniauth) if user.blank?
       process_omniauth_response(scheme_name: scheme_name, user: user, omniauth_hash: omniauth)
     end
 
@@ -25,7 +25,7 @@ module Users
       omniauth = omniauth_from_request
       scheme_name = 'orcid'
       user = current_user if user_signed_in?
-      user = User.from_omniauth(scheme_name: scheme_name, omniauth_hash: omniauth) unless user.present?
+      user = User.from_omniauth(scheme_name: scheme_name, omniauth_hash: omniauth) if user.blank?
       process_omniauth_response(scheme_name: scheme_name, user: user, omniauth_hash: omniauth)
     end
 
@@ -144,7 +144,7 @@ module Users
 
     # Extract the omniauth info from the request
     def omniauth_from_request
-      return {} unless request.env.present?
+      return {} if request.env.blank?
 
       omniauth_hash = request.env['omniauth.auth']
       omniauth_hash.present? ? omniauth_hash.to_h : {}

@@ -5,13 +5,14 @@ module Helpers
     def mock_devise_env_for_controllers
       # Controller Tests don't have access to the `request` so we need to stub it and the
       # Devise mappings
-      expect(@controller.is_a?(ApplicationController)).to eql(true), 'Cannot mock devise env before defining @controller!'
+      expect(@controller.is_a?(ApplicationController)).to eql(true),
+                                                          'Cannot mock devise env before defining @controller!'
       devise_mappings = OpenStruct.new('devise.mapping': Devise.mappings[:user])
       @controller.stubs(:request).returns(OpenStruct.new(env: devise_mappings))
     end
 
     def shibbolize_org(org:)
-      return nil unless org.present?
+      return nil if org.blank?
 
       Rails.configuration.x.shibboleth.enabled = true
       Rails.configuration.x.shibboleth.use_filtered_discovery_service = true

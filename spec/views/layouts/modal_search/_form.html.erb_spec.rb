@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'layouts/modal_search/_form.html.erb' do
-  before(:each) do
+  before do
     @model = create(:plan)
   end
 
@@ -17,8 +17,8 @@ describe 'layouts/modal_search/_form.html.erb' do
              search_path: nil,
              search_method: nil
            }
-    expect(rendered.include?('- Enter a search term  -')).to eql(true)
-    expect(rendered.include?('No results matched your filter criteria.')).to eql(true)
+    expect(rendered.include?('- Enter a search term  -')).to be(true)
+    expect(rendered.include?('No results matched your filter criteria.')).to be(true)
   end
 
   it 'uses the specified :search_examples' do
@@ -32,7 +32,7 @@ describe 'layouts/modal_search/_form.html.erb' do
              search_path: nil,
              search_method: nil
            }
-    expect(rendered.include?(examples)).to eql(true)
+    expect(rendered.include?(examples)).to be(true)
   end
 
   it 'uses the :namespace when defining the modal search sections' do
@@ -46,9 +46,9 @@ describe 'layouts/modal_search/_form.html.erb' do
              search_path: nil,
              search_method: nil
            }
-    expect(rendered.include?("modal-search-#{namespace}")).to eql(true)
-    expect(rendered.include?("modal-search-#{namespace}-filters")).to eql(true)
-    expect(rendered.include?("modal-search-#{namespace}-results")).to eql(true)
+    expect(rendered.include?("modal-search-#{namespace}")).to be(true)
+    expect(rendered.include?("modal-search-#{namespace}-filters")).to be(true)
+    expect(rendered.include?("modal-search-#{namespace}-results")).to be(true)
   end
 
   it 'Uses the :label for the button' do
@@ -62,7 +62,7 @@ describe 'layouts/modal_search/_form.html.erb' do
              search_path: nil,
              search_method: nil
            }
-    expect(rendered.include?("#{label} search")).to eql(true)
+    expect(rendered.include?("#{label} search")).to be(true)
   end
 
   it 'Uses the :model_instance when adding the form element' do
@@ -75,7 +75,7 @@ describe 'layouts/modal_search/_form.html.erb' do
              search_path: nil,
              search_method: nil
            }
-    expect(rendered.include?(plan_path(@model))).to eql(true)
+    expect(rendered.include?(plan_path(@model))).to be(true)
   end
 
   it 'Uses the :search_path when adding the form element' do
@@ -89,7 +89,7 @@ describe 'layouts/modal_search/_form.html.erb' do
              search_path: url,
              search_method: nil
            }
-    expect(rendered.include?(url)).to eql(true)
+    expect(rendered.include?(url)).to be(true)
   end
 
   it 'Uses the :search_method when adding the form element' do
@@ -103,6 +103,6 @@ describe 'layouts/modal_search/_form.html.erb' do
              search_path: nil,
              search_method: method
            }
-    expect(rendered.include?(method.to_s)).to eql(true)
+    expect(rendered.include?(method.to_s)).to be(true)
   end
 end

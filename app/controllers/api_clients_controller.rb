@@ -9,7 +9,7 @@ class ApiClientsController < ApplicationController
   def create
     attrs = api_client_params
     # If this is a regular user signing up, just use their email as the api_client.name
-    attrs[:name] = attrs[:contact_email] unless attrs[:name].present?
+    attrs[:name] = attrs[:contact_email] if attrs[:name].blank?
     @api_client = ApiClient.new(attrs)
 
     # Allow all available scopes by default
@@ -32,7 +32,7 @@ class ApiClientsController < ApplicationController
     authorize(@api_client)
 
     attrs = api_client_params
-    attrs[:scopes] = @api_client.available_scopes unless @api_client.scopes.present?
+    attrs[:scopes] = @api_client.available_scopes if @api_client.scopes.blank?
 
     @msg = if @api_client.update(attrs)
              'API Registration updated'
@@ -45,7 +45,7 @@ class ApiClientsController < ApplicationController
   # GET /api_clients/:id/refresh_credentials/
   def refresh_credentials
     @api_client = ApiClient.find(params[:id])
-    return unless @api_client.present?
+    return if @api_client.blank?
 
     authorize(@api_client)
     original = @api_client.client_secret

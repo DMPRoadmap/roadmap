@@ -16,6 +16,13 @@ module OrgAdmin
 
     # POST /departments
     # POST /departments.json
+    def edit
+      @department = Department.find(params[:id])
+      @org_id = org_id
+      authorize @department
+    end
+
+    # GET /departments/1/edit
     def create
       @department = Department.new(department_params)
       @org_id = org_id
@@ -30,13 +37,6 @@ module OrgAdmin
         flash.now[:alert] = failure_message(@department, _('create'))
       end
       render :new
-    end
-
-    # GET /departments/1/edit
-    def edit
-      @department = Department.find(params[:id])
-      @org_id = org_id
-      authorize @department
     end
 
     # PUT /departments/1
@@ -56,19 +56,21 @@ module OrgAdmin
     # rubocop:enable Metrics/AbcSize
 
     # DELETE /departments/1
+    # rubocop:disable Metrics/AbcSize
     def destroy
       @department = Department.find(params[:id])
       @org_id = org_id
       authorize @department
-      url = "#{admin_edit_org_path(@org_id)}\#departments"
+      url = "#{admin_edit_org_path(@org_id)}#departments"
 
       if @department.destroy
-        flash[:notice] = success_message(@department, _('deleted'))
+        flash.now[:notice] = success_message(@department, _('deleted'))
       else
-        flash[:alert] = failure_message(@department, _('delete'))
+        flash.now[:alert] = failure_message(@department, _('delete'))
       end
       redirect_to url
     end
+    # rubocop:enable Metrics/AbcSize
 
     private
 

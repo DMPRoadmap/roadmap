@@ -4,6 +4,6 @@
 class MockShibbolethIdentityProvider
   # GET /Shibboleth.sso/login
   def login
-    redirect_to user_shibboleth_omniauth_callback, status: 200
+    redirect_to user_shibboleth_omniauth_callback, status: :ok
   end
 end

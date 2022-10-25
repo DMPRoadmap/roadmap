@@ -7,8 +7,8 @@ module Helpers
     # API V1 - auth for an ApiClient (client_id + client_secret)
     def mock_authorization_for_api_client
       api_client = ApiClient.first
-      api_client = create(:api_client) unless api_client.present?
-      api_client.user = create(:user) unless api_client.user.present?
+      api_client = create(:api_client) if api_client.blank?
+      api_client.user = create(:user) if api_client.user.blank?
 
       Api::V1::BaseApiController.any_instance.stubs(:authorize_request).returns(true)
       Api::V1::BaseApiController.any_instance.stubs(:client).returns(api_client)
@@ -17,9 +17,9 @@ module Helpers
     # API V1 - auth for a User (email + api token)
     def mock_authorization_for_user(user: nil)
       create(:org) unless Org.any?
-      user = User.org_admins(Org.last).first unless user.present?
+      user = User.org_admins(Org.last).first if user.blank?
 
-      user = create(:user, :org_admin, api_token: SecureRandom.uuid, org: Org.last) unless user.present?
+      user = create(:user, :org_admin, api_token: SecureRandom.uuid, org: Org.last) if user.blank?
 
       Api::V1::BaseApiController.any_instance.stubs(:authorize_request).returns(true)
       Api::V1::BaseApiController.any_instance.stubs(:client).returns(user)
@@ -48,7 +48,7 @@ module Helpers
         get(json[:next], headers: headers)
         expect(response.code).to eql('200')
         next_json = JSON.parse(response.body).with_indifferent_access
-        expect(next_json[:prev].present?).to eql(true)
+        expect(next_json[:prev].present?).to be(true)
         expect(next_json[:items].first).not_to eql(original)
 
         # Move back to previous page
@@ -60,7 +60,7 @@ module Helpers
         get(json[:prev], headers: headers)
         expect(response.code).to eql('200')
         prev_json = JSON.parse(response.body).with_indifferent_access
-        expect(prev_json[:next].present?).to eql(true)
+        expect(prev_json[:next].present?).to be(true)
         expect(next_json[:items].first).not_to eql(original)
 
         get(prev_json[:next], headers: headers)

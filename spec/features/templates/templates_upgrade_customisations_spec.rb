@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
+RSpec.describe 'Templates::UpgradeCustomisations' do
   include Helpers::AutocompleteHelper
 
   let(:funder) { create(:org, :funder, name: 'The funder org', managed: true) }
@@ -26,7 +26,7 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
     end
   end
 
-  scenario 'Admin upgrades customizations from funder Template', :js do
+  it 'Admin upgrades customizations from funder Template', :js do
     # pending "Need S3 travis working to debug this test on Travis"
     sign_in user
     visit customisable_org_admin_templates_path
@@ -35,7 +35,7 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
     click_link('Customisable Templates')
 
     click_button 'Actions'
-    expect { click_link 'Customise' }.to change { Template.count }.by(1)
+    expect { click_link 'Customise' }.to change(Template, :count).by(1)
 
     customized_template = Template.last
 
@@ -49,7 +49,7 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
     click_link 'Publish'
     sleep(2)
 
-    expect(customized_template.reload.published?).to eql(true)
+    expect(customized_template.reload.published?).to be(true)
 
     # Move to the other funder Org's Templates
     select_an_org('#change-affiliation-org-controls', funder.name, 'Affiliation')
@@ -70,7 +70,7 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
     within('#new_section_new_section') do
       fill_in :new_section_section_title, with: 'Cool New section title'
       tinymce_fill_in :new_section_section_description, with: 'New section Description'
-      expect { click_button('Save') }.to change { Section.count }.by(3)
+      expect { click_button('Save') }.to change(Section, :count).by(3)
     end
 
     within("#section-#{Section.last.id}") do
@@ -79,9 +79,9 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
       end
       expect(page).to have_css('#new_question_new_question')
       within('#new_question_new_question') do
-        expect(find('#new_question_question_text')).to be_present
+        expect(find_by_id('new_question_question_text')).to be_present
         fill_in :new_question_question_text, with: 'Text for this specific question'
-        expect { click_button('Save') }.to change { Question.count }.by(1)
+        expect { click_button('Save') }.to change(Question, :count).by(1)
       end
     end
 
@@ -91,7 +91,7 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
 
     click_button 'Actions'
     click_link 'Publish changes'
-    expect(new_funder_template.reload.published?).to eql(true)
+    expect(new_funder_template.reload.published?).to be(true)
 
     # Go back to the original Org...
     select_an_org('#change-affiliation-org-controls', org.name, 'Affiliation')

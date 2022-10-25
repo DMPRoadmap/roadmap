@@ -15,14 +15,14 @@ module Helpers
 
         # Generate the mock
         OmniAuth.config.add_mock(:shibboleth, {
-                                  uid: eppn || SecureRandom.uuid,
-                                  info: {
-                                    email: user.email,
-                                    givenname: user.firstname || Faker::Movies::StarWars.character.split.first,
-                                    sn: user.surname || Faker::Movies::StarWars.character.split.first,
-                                    identity_provider: user.org&.identifier_for_scheme(scheme: 'shibboleth')&.value
-                                  }
-                                })
+                                   uid: eppn || SecureRandom.uuid,
+                                   info: {
+                                     email: user.email,
+                                     givenname: user.firstname || Faker::Movies::StarWars.character.split.first,
+                                     sn: user.surname || Faker::Movies::StarWars.character.split.first,
+                                     identity_provider: user.org&.identifier_for_scheme(scheme: 'shibboleth')&.value
+                                   }
+                                 })
 
         # Set the request.env to the mocked Shibboleth omniauth hash
         Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:shibboleth]
