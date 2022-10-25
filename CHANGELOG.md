@@ -3,6 +3,11 @@
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
 
+## 25/10/2022
+- Correction d'un bug affectant le champ `visibility` des Plans et Modèles de Plans
+- Import/Export RDA : Amélioration de l'import/export de `metadataLanguage`
+- Amélioration des notifications d'archivage des comptes non connecté depuis 5 ans
+
 ## 14/10/2022
 - Ajout du champ `uuid` aux produits de recherche. Ce champ est généré automatiquement et sert d'identifiant unique au produit de recherche.
 
