@@ -61,6 +61,7 @@ class Template < ApplicationRecord
   attribute :version, :integer, default: 0
   attribute :customization_of, :integer, default: nil
   attribute :family_id, :integer, default: -> { Template.new_family_id }
+  attribute :visibility, default: Template.visibilities[:organisationally_visible]
 
   # ================
   # = Associations =
