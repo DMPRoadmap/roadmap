@@ -17,8 +17,10 @@ import { isObject, isString } from './isType';
 // Pull in the rails helper functions
 <% helpers = ActionController::Base.helpers %>
 
-// // Configuration extracted from
-// // https://www.tinymce.com/docs/advanced/usage-with-module-loaders/
+/* 
+Configuration extracted from
+https://www.tinymce.com/docs/advanced/usage-with-module-loaders/
+*/
 export const defaultOptions = {
   selector: '.tinymce',
   statusbar: true,
@@ -46,7 +48,8 @@ export const defaultOptions = {
   // skin: false,
   // editorManager.baseURL is not resolved properly for IE since document.currentScript
   // is not supported, see issue https://github.com/tinymce/tinymce/issues/358
-  skin_url: '/tinymce/skins/oxide',
+  // skin_url: '/tinymce/skins/oxide',
+  skin_url: '/tinymce/skins/lightgray',
   content_css: ['/tinymce/tinymce.css'],
 };
 /*
