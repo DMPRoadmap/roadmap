@@ -262,6 +262,10 @@ gem 'uc3-citation'
 # Makes it easy to validate JSON attributes against a JSON schema.
 gem 'activerecord_json_validator'
 
+# Filename sanitization for Ruby. This is useful when you generate filenames for downloads from 
+# user input (we're using it for PDF invoice downloads in Noko). (https://github.com/madrobby/zaru)
+gem 'zaru'
+
 # ================================= #
 # ENVIRONMENT SPECIFIC DEPENDENCIES #
 # ================================= #
