@@ -11,7 +11,17 @@
   <div class="col-md-12">
     <%= form_for(@guidance_group, url: admin_update_guidance_group_path(@guidance_group),
                                   html: { method: :put, id: "admin_update_guidance_group_form" }) do |f| %>
-      <%= render partial: "guidance_groups/guidance_group_form", locals: { form: f } %>
+      <%
+      allow_subset = @guidance_group.optional_subset?
+      allow_subset = @guidance_groups.reject { |gg| gg.optional_subset? }.length > 1 unless allow_subset
+      %>
+      <%= render partial: "guidance_groups/guidance_group_form",
+                 locals: {
+                   form: f,
+                   # Don't display the optional subset if there are no GuidanceGroups that are
+                   # not an optional subset
+                   allow_subset_flag: allow_subset
+                 } %>
     <% end %>
   </div>
 </div>

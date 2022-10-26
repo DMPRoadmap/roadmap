@@ -258,7 +258,7 @@ namespace :migrate do
   desc 'Initialize plans.visibility to the default specified in application.rb'
   task init_plan_visibility: :environment do
     default = Rails.configuration.x.plans.default_visibility.to_sym
-    Plan.all.each { |p| p.update_attributes(visibility: default) unless p.visibility == default }
+    Plan.all.each { |p| p.update(visibility: default) unless p.visibility == default }
   end
 
   desc 'Move old plans.data_contact to data_contact_email and data_contact_phone'
@@ -278,8 +278,7 @@ namespace :migrate do
       contact = contact[0..(contact.length - 2)] if contact.ends_with?(',')
       contact = nil if contact == ','
 
-      p.update_attributes(data_contact_email: email, data_contact_phone: phone,
-                          data_contact: contact)
+      p.update(data_contact_email: email, data_contact_phone: phone, data_contact: contact)
     end
   end
 

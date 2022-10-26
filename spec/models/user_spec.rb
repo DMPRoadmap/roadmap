@@ -155,7 +155,7 @@ RSpec.describe User, type: :model do
     subject { user.locale }
 
     context 'when user language present' do
-      let(:language) { create(:language) }
+      let(:language) { create(:language, abbreviation: 'usr-mdl') }
 
       before do
         user.update(language: language)
