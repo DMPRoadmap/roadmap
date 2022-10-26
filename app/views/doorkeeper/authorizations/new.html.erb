@@ -9,10 +9,10 @@ oauth_hash = process_oauth
 
 <main role="main" id="oauth-authorization">
 
-<p>RESOURCE: <%= @resource.inspect %></p>
+<p>RESOURCE: <%= resource.inspect %></p>
 <p>OAUTH HASH: <%= oauth_hash.inspect %></p>
 
-  <% if @resource.present? %>
+  <% if resource.present? %>
     <p class="h4">
       <%=  sanitize(_("%{application} wants to access your DMPs. Please confirm this action.") % { application: "<strong class=\"text-info\">#{oauth_hash[:client]&.description&.capitalize}</strong>" }) %>
     </p>
