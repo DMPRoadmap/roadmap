@@ -8,10 +8,17 @@ oauth_hash = process_oauth
 %>
 
 <main role="main" id="oauth-authorization">
+
+<p>CURRENT RESOURCE OWNER: <%= @current_resource_owner.inspect %></p>
+<p>OAUTH HASH: <%= oauth_hash.inspect %></p>
+
   <% if @current_resource_owner.present? %>
     <p class="h4">
       <%=  sanitize(_("%{application} wants to access your DMPs. Please confirm this action.") % { application: "<strong class=\"text-info\">#{oauth_hash[:client]&.description&.capitalize}</strong>" }) %>
     </p>
+
+<p>PRE AUTH: <%= @pre_auth.inspect %></p>
+<p>PRE AUTH CLIENT: <%= @pre_auth&.client&.inspect %></p>
 
     <%# The follow was taken directly from the Devise template for a new session %>
     <% if @pre_auth.scopes.count > 0 %>

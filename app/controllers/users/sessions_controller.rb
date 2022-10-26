@@ -15,6 +15,8 @@ module Users
     def create
       @bypass_sso = params[:sso_bypass] == 'true'
 
+Rails.logger.warn "SSO BYPASS? #{@bypass_sso}"
+
       if sign_in_params[:email].blank?
         # If the email was left blank display an error
         redirect_to root_path, alert: _('Invalid email address!')
@@ -42,6 +44,9 @@ module Users
 
         # If this is the first time someone has tried to create an account for an Org, save it
         resource.org.save if is_new_user && resource.org.present? && resource.org.new_record?
+
+
+Rails.logger.warn "OAUTH2 WORKFLOW: #{session['oauth-referer']}"
 
         # If this is part of an API V2 Oauth workflow
         if session['oauth-referer'].present?
