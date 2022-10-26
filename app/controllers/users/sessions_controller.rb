@@ -51,6 +51,9 @@ Rails.logger.warn "OAUTH2 WORKFLOW: #{session['oauth-referer']}"
         # If this is part of an API V2 Oauth workflow
         if session['oauth-referer'].present?
           oauth_hash = ApplicationService.decrypt(payload: session['oauth-referer'])
+
+Rails.logger.warn "DECRYPTED: #{oauth_hash.inspect}"
+
           @client = ApiClient.where(uid: oauth_hash['client_id'])
 
           render 'doorkeeper/authorizations/new', layout: 'doorkeeper/application'
