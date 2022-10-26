@@ -46,6 +46,8 @@ Rails.logger.warn "SSO BYPASS? #{@bypass_sso}"
         resource.org.save if is_new_user && resource.org.present? && resource.org.new_record?
 
 
+Rails.logger.warn "RESOURCE: #{resource.inspect}"
+
 Rails.logger.warn "OAUTH2 WORKFLOW: #{session['oauth-referer']}"
 
         # If this is part of an API V2 Oauth workflow
