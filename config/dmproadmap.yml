@@ -255,7 +255,8 @@ default: &default
   organisation_url: "https://example.org/"
   # Your organisation's legal (official) name - used in the copyright portion of the footer
   organisation_copywrite_name: "My institution's official name"
-  email_from_address:
+  # Your organisation's helpdesk email
+  email_from_address: "my.organization@email.edu"
 
   # Your organisation's telephone number - used on the contact us page. This can be left blank.
   organisation_phone: "My institution's phone number"
