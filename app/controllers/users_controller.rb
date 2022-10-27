@@ -142,7 +142,7 @@ class UsersController < ApplicationController
     pref.save
 
     # Include active tab in redirect path
-    redirect_to "#{edit_user_registration_path}\#notification-preferences",
+    redirect_to "#{edit_user_registration_path}#notification-preferences",
                 notice: success_message(pref, _('saved'))
   end
   # rubocop:enable Metrics/AbcSize

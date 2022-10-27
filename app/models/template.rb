@@ -223,12 +223,16 @@ class Template < ApplicationRecord
   }
 
   # Retrieves unarchived templates whose title or org.name includes the term
-  # passed
+  # passed(We use search_term_orgs as alias for orgs to avoid issues with
+  # any orgs table join already present in loaded unarchived.)
   scope :search, lambda { |term|
-    unarchived.joins(:org)
-              .where('lower(templates.title) LIKE lower(:term) OR ' \
-                     'lower(orgs.name) LIKE lower(:term)',
-                     term: "%#{term}%")
+    unarchived
+      .joins(<<~SQL)
+        JOIN orgs AS search_term_orgs ON search_term_orgs.id = templates.org_id
+      SQL
+      .where('lower(templates.title) LIKE lower(:term)' \
+             'OR lower(search_term_orgs.name) LIKE lower(:term)',
+             term: "%#{term}%")
   }
 
   # defines the export setting for a template object
