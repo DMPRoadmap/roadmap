@@ -143,7 +143,9 @@ json.dataset research_outputs do |research_output|
     ethical_issues_description.push(exportable_description("#{dataset_title} : #{dataset.ethical_issues.data['description']}"))
     # rubocop:enable Layout/LineLength
     ethical_issues_report.push(
-      "#{dataset_title} : #{dataset.ethical_issues.resource_reference.pluck("data->'docIdentifier'").join(', ')}"
+      "#{dataset_title} : #{dataset.ethical_issues.resource_reference.pluck(
+        Arel.sql("data->'docIdentifier'")
+      ).join(', ')}"
     )
   end
 end

@@ -168,7 +168,9 @@ module Import
             hosts_list.append(
               {
                 'availability' => elem.dig('host', 'availability'),
-                'certification' => [elem.dig('host', 'certified_with')],
+                'certification' => if elem.dig('host', 'certified_with').present?
+                                     [elem.dig('host', 'certified_with')]
+                                   end,
                 'description' => elem.dig('host', 'description'),
                 'geoLocation' => elem.dig('host', 'geo_location'),
                 'pidSystem' => elem.dig('host', 'pid_system'),
