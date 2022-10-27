@@ -128,6 +128,14 @@ tr-TR:
       header:
         one: 1 hata oluştuğu için %{model} kaydedilemedi
         other: "%{count} hata oluştuğu için %{model} kaydedilemedi"
+    unavailable_session: |
+      Oturum %{id} artık bellekte mevcut değil.
+
+      Unicorn veya Puma gibi bir çoklu-işlem sunucusunda çalışıyorsanız, bu isteğe karşılık gelen işlem, %{id}'i bellekte saklamaz. İşlem/çalışan sayısını bir (1) olarak ayarlamayı ya da geliştirme ortamında farklı bir sunucu kullanmayı değerlendirin.
+    unacceptable_request: Accept header'da desteklenen bir sürüm bekleniyor.
+    connection_refused: |-
+      Hata! Web Konsolu ara katman yazılımına bağlanılamadı.
+      Lütfen bir Rails geliştirme sunucusunun çalıştığından emin olun.
   activerecord:
     errors:
       messages:

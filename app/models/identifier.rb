@@ -77,7 +77,7 @@ class Identifier < ApplicationRecord
 
       base = identifier_scheme.identifier_prefix
       base += '/' unless base.ends_with?('/')
-      super("#{base}#{val}")
+      super("#{base}#{val.to_s.strip}")
     else
       super(val)
     end
