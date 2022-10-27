@@ -111,8 +111,8 @@ class PlanExportsController < ApplicationController
   def show_docx
     # Using and optional locals_assign export_format
     render docx: "#{file_name}.docx",
-           content: render_to_string(partial: 'shared/export/plan',
-                                     locals: { export_format: 'docx' })
+           content: clean_html_for_docx_creation(render_to_string(partial: 'shared/export/plan',
+                                                                  locals: { export_format: 'docx' }))
   end
 
   def show_pdf
@@ -175,5 +175,12 @@ class PlanExportsController < ApplicationController
           .permit(:form, :project_details, :section_headings, :question_text, :unanswered_questions,
                   :custom_sections, :research_outputs, :related_identifiers,
                   formatting: [:font_face, :font_size, { margin: %i[top right bottom left] }])
+  end
+
+  # A method to deal with problematic text combinations
+  # in html that break docx creation by htmltoword gem.
+  def clean_html_for_docx_creation(html)
+    # Replaces single backslash \ with \\ with gsub.
+    html.gsub(/\\/, '\&\&')
   end
 end
