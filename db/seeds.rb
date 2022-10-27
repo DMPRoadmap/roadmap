@@ -26,9 +26,7 @@ identifier_schemes = [
     active: true,
     logo_url:'http://orcid.org/sites/default/files/images/orcid_16x16.png',
     identifier_prefix:'https://orcid.org',
-    for_users: true,
-    for_contributors: true,
-    for_authentication: true
+    context: 25
   },
   {
     name: 'shibboleth',
@@ -36,22 +34,20 @@ identifier_schemes = [
     active: true,
     logo_url: 'http://newsite.shibboleth.net/wp-content/uploads/2017/01/Shibboleth-logo_2000x1200-1.png',
     identifier_prefix: "https://example.com",
-    for_users: true,
-    for_contributors: true,
-    for_authentication: true
+    context: 25
   },
   {
     name: "fundref",
     description: "Crossref Funder Registry (FundRef)",
     active: true,
-    for_orgs: true,
+    context: 2,
     identifier_prefix: "https://doi.org/10.13039/"
   },
   {
     name: "ror",
     description: "Research Organization Registry (ROR)",
     active: true,
-    for_orgs: true,
+    context: 2,
     identifier_prefix: "https://ror.org/",
   },
   {
@@ -59,14 +55,14 @@ identifier_schemes = [
     description: "OpenAire Metadata Standards",
     active: true,
     identifier_prefix: "",
-    for_research_outputs: true,
+    context: 127,
   },
   {
     name: "rethreedata",
     description: "Registry of Research Data Repositories (re3data)",
     active: true,
     identifier_prefix: "https://www.re3data.org/api/v1/repository/",
-    for_research_outputs: true,
+    context: 127,
   }
 ]
 identifier_schemes.each { |is| IdentifierScheme.find_or_create_by(is) }
