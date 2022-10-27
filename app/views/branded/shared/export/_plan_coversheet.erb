@@ -1,6 +1,8 @@
 <% 
   plan_fragment = @plan.json_fragment
-  contributors = plan_fragment.contributors.order("data->>'lastName', data->>'firstName'")
+  contributors = plan_fragment.contributors.order(
+    Arel.sql("data->>'lastName', data->>'firstName'")
+  )
   costs = Fragment::Cost.where(dmp_id: plan_fragment.id)
   locale = LocaleService.to_gettext(locale: @plan.template.locale)
   template = @plan.template 

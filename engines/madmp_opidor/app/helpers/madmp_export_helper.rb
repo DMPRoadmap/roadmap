@@ -29,9 +29,9 @@ module MadmpExportHelper
 
   def extract_keywords(madmp_fragment)
     keywords = madmp_fragment.data['uncontrolledKeywords'] || []
-    if madmp_fragment.controlled_keyword.any?
-      keywords.concat(madmp_fragment.controlled_keyword.pluck("data->>'keyword'"))
-    end
+    keywords.concat(
+      madmp_fragment.controlled_keyword.pluck(Arel.sql("data->>'keyword'"))
+    )
     keywords
   end
   # def madmp_transform(madmp, export_template, dmp_id)

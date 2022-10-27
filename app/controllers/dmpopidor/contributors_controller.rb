@@ -8,7 +8,9 @@ module Dmpopidor
     def index
       authorize @plan
       @dmp_fragment = @plan.json_fragment
-      @contributors = @dmp_fragment.persons.order("data->>'lastName', data->>'firstName'")
+      @contributors = @dmp_fragment.persons.order(
+        Arel.sql("data->>'lastName', data->>'firstName'")
+      )
     end
   end
 end
