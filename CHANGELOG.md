@@ -2,6 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 25/10/2022
+- DMPRoadmap V4.0.0 : https://github.com/DMPRoadmap/roadmap/releases/tag/v4.0.0
+- Correction d'un problème empéchant le téléchargement des plans et l'accès à l'onglet Contributeurs
+- Import/Export RDA : 
+  - Correction d'un problème d'import de la certification du Host 
+  - Correction d'un problème d'export de la propriété `docIdentifier`présente dans `EthicalResources/ResourceReference`
 
 ## 25/10/2022
 - Correction d'un bug affectant le champ `visibility` des Plans et Modèles de Plans
