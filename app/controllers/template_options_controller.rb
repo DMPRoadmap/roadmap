@@ -47,8 +47,9 @@ class TemplateOptionsController < ApplicationController
         end
       end
 
+      @templates = @templates.sort_by(&:title) unless @templates.empty?
       # If the no funder was specified OR the funder matches the org
-      if funder.blank? || funder.id == org&.id
+      if org.present? && !org.new_record?
         # Retrieve the Org's templates
         @templates << Template.published
                               .organisationally_visible
@@ -57,8 +58,10 @@ class TemplateOptionsController < ApplicationController
       @templates = @templates.flatten.uniq
     end
 
+    # @templates = @templates.sort_by(&:title)
+
     # If no templates were available use the default template
-    if @templates.empty? && Template.default.present?
+    if Template.default.present?
       customization = Template.published
                               .latest_customized_version(Template.default.family_id,
                                                          org&.id).first
@@ -66,7 +69,9 @@ class TemplateOptionsController < ApplicationController
       @templates << (customization.present? ? customization : Template.default)
     end
 
-    @templates = @templates.sort_by(&:title)
+    please_select = Template.new
+    please_select.title = _('Please select a template.')
+    @templates.unshift(please_select)
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity

@@ -6,8 +6,16 @@ import { renderAlert, hideNotifications } from '../utils/notificationHelper';
 
 $(() => {
   const toggleSubmit = () => {
-    const tmplt = $('#plan_template_id').find(':selected').val();
-    if (isString(tmplt)) {
+    console.log($('#plan_template_id').val());
+    console.log($.isNumeric($('#plan_template_id').val()));
+    const templatePresent = $('#plan_template_id').val() ? $.isNumeric($('#plan_template_id').val()) : false;
+    const planTitlePresent = $('#plan_title').val() ? $('#plan_title').val().length > 0 : false;
+    const orgContext = $('#research-org-controls');
+    const funderContext = $('#funder-org-controls');
+    const validOrg = validOptions(orgContext);
+    const validFunder = validOptions(funderContext);
+
+    if (templatePresent && planTitlePresent && validOrg && validFunder) {
       $('#new_plan button[type="submit"]').removeAttr('disabled')
         .removeAttr('data-toggle').removeAttr('title');
     } else {
@@ -15,6 +23,31 @@ $(() => {
         .attr('data-toggle', 'tooltip').attr('title', getConstant('NEW_PLAN_DISABLED_TOOLTIP'));
     }
   };
+
+  const toggleTemplateSelection = () => {
+    const orgContext = $('#research-org-controls');
+    const funderContext = $('#funder-org-controls');
+    const validOrg = validOptions(orgContext);
+    const validFunder = validOptions(funderContext);
+
+    if (validOrg && validFunder) {
+      $('#plan_template_id').find(':selected').removeAttr('selected');
+      $('#plan_template_id').val('null');
+      $('#plan_template_id').prop('disabled', false);
+    } else {
+      $('#plan_template_id').prop('disabled', true);
+    }
+  }
+
+  // Check if title changed.
+  $('#plan_title').change(() => {
+    toggleSubmit();
+  });
+
+  // Check if template id changed
+  $('#plan_template_id').change(() => {
+    toggleSubmit();
+  });
 
   // AJAX error function for available template search
   const error = () => {
@@ -32,16 +65,6 @@ $(() => {
         data.templates.forEach((t) => {
           $('#plan_template_id').append(`<option value="${t.id}">${t.title}</option>`);
         });
-        // If there is only one template, set the input field value and submit the form
-        // otherwise show the dropdown list and the 'Multiple templates found message'
-        if (data.templates.length === 1) {
-          $('#plan_template_id option').attr('selected', 'true');
-          $('#multiple-templates').hide();
-          $('#available-templates').fadeOut();
-        } else {
-          $('#multiple-templates').show();
-          $('#available-templates').fadeIn();
-        }
         toggleSubmit();
       } else {
         error();
@@ -87,34 +110,28 @@ $(() => {
     const validOrg = validOptions(orgContext);
     const validFunder = validOptions(funderContext);
 
-    if (!validOrg || !validFunder) {
-      $('#available-templates').fadeOut();
-      $('#plan_template_id').find(':selected').removeAttr('selected');
-      $('#plan_template_id').val('');
-      toggleSubmit();
-    } else {
-      // Clear out the old template dropdown contents
-      $('#plan_template_id option').remove();
+    toggleTemplateSelection();
+    // Clear out the old template dropdown contents
+    $('#plan_template_id option').remove();
+    let orgId = orgContext.find('input[id$="org_id"]').val();
+    let funderId = funderContext.find('input[id$="funder_id"]').val();
 
-      let orgId = orgContext.find('input[id$="org_id"]').val();
-      let funderId = funderContext.find('input[id$="funder_id"]').val();
-
-      // For some reason Rails freaks out it everything is empty so send
-      // the word "none" instead and handle on the controller side
-      if (orgId.length <= 0) {
-        orgId = '"none"';
-      }
-      if (funderId.length <= 0) {
-        funderId = '"none"';
-      }
-      const data = `{"plan": {"research_org_id":${orgId},"funder_id":${funderId}}}`;
-
-      // Fetch the available templates based on the funder and research org selected
-      $.ajax({
-        url: $('#template-option-target').val(),
-        data: JSON.parse(data),
-      }).done(success).fail(error);
+    // For some reason Rails freaks out it everything is empty so send
+    // the word "none" instead and handle on the controller side
+    if (orgId.length <= 0) {
+      orgId = '"none"';
     }
+
+    if (funderId.length <= 0) {
+      funderId = '"none"';
+    }
+    const data = `{"plan": {"research_org_id":${orgId},"funder_id":${funderId}}}`;
+
+    // Fetch the available templates based on the funder and research org selected
+    $.ajax({
+      url: $('#template-option-target').val(),
+      data: JSON.parse(data),
+    }).done(success).fail(error);
   }, 150);
 
   // When one of the checkboxes is clicked, disable the autocomplete input and clear its contents
@@ -139,6 +156,7 @@ $(() => {
       const autocomplete = $(section).find('.autocomplete');
       const hidden = autocomplete.siblings('.autocomplete-result');
       const checkbox = $(section).find('input.toggle-autocomplete');
+      handleComboboxChange();
 
       hidden.on('change', () => {
         handleComboboxChange();
@@ -169,7 +187,7 @@ $(() => {
   });
 
   // Initialize the form
-  $('#new_plan #available-templates').hide();
+  // $('#new_plan #available-templates').hide();
   handleComboboxChange();
   // Scrub out the large arrays of data used for the Org Selector JS so that they
   // are not a part of the form submissiomn

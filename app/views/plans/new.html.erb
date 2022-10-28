@@ -41,11 +41,15 @@
         </div>
       </div>
 
+      <h2>
+        <%= _('Use these filters to select a template') %>
+      </h2>
+
       <!-- Organisation selection -->
-      <h2 id="research-org">
+      <h3 id="research-org">
         <span class="red" title="<%= required_research_org_tooltip %>">*<em class="sr-only"><%= required_research_org_tooltip %></em> </span>
         <%= _('Select the primary research organisation') %>
-      </h2>
+      </h3>
       <div id="research-org-controls" class="row">
         <div class="form-group col-md-6">
            <em class="sr-only"><%= research_org_tooltip %></em>
@@ -74,7 +78,8 @@
       </div>
 
       <!-- Funder selection -->
-      <h2 id="funder-org"><span class="red" title="<%= required_primary_funding_tooltip %>">* <em class="sr-only"><%= required_primary_funding_tooltip %></em> </span><%= _('Select the primary funding organisation') %></h2>
+      <h3 id="funder-org"><span class="red" title="<%= required_primary_funding_tooltip %>">* <em class="sr-only"><%= required_primary_funding_tooltip %></em>
+      </span><%= _('Select the primary funding organisation') %></h3>
       <div id="funder-org-controls" class="row">
         <div class="form-group col-xs-6">
           <em class="sr-only"><%= primary_funding_tooltip %></em>
@@ -103,19 +108,20 @@
       </div>
 
       <!-- Template selection -->
-      <div id="available-templates" style="visibility: none;">
+      <!-- <div id="available-templates" style="visibility: none;"> -->
+      <div id="available-templates">
         <%= hidden_field_tag 'template-option-target', template_options_path %>
-        <h2 id="template-selection"><%= _('Which DMP template would you like to use?') %></h2>
+        <h2 id="template-selection"><%= _('Matching DMP template(s)') %></h2>
         <div class="form-group row">
           <div class="col-xs-6">
             <%= select_tag(:plan_template_id, "<option value=\"\">#{_('Please select a template')}</option>", name: 'plan[template_id]',
                            class: 'form-control', 'aria-describedby': 'template-selection') %>
           </div>
-          <div class="col-xs-6">
+          <!-- <div class="col-xs-6">
             <span id="multiple-templates">
               <%= _('We found multiple DMP templates corresponding to your funder.') %>
             </span>
-          </div>
+          </div> -->
         </div>
       </div>
 
