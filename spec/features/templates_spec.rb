@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Templates', type: :feature do
+RSpec.describe 'Templates' do
   before do
     @org      = create(:org)
     @template = create(:template, org: @org, phases: 2)
@@ -14,7 +14,7 @@ RSpec.describe 'Templates', type: :feature do
     visit root_path
   end
 
-  scenario 'Org admin edits a template', :js do
+  it 'Org admin edits a template', :js do
     # Action
     click_button 'Admin'
     click_link 'Templates'
@@ -51,7 +51,7 @@ RSpec.describe 'Templates', type: :feature do
 
     # Expectations
     last_section = @template.phases.first.sections.order(:created_at).last
-    expect(@template.sections.count).to eql(5)
+    expect(@template.sections.count).to be(5)
     expect(last_section.title).to eql('My new section')
     expect(last_section.description).to match('This is the description of my new section')
     expect(last_section.description).to match('<p>')

@@ -47,7 +47,7 @@ json.data do
       end
     end
     json.publisher ApplicationService.application_name
-    json.publicationYear Time.now.year
+    json.publicationYear Time.zone.now.year
 
     json.dates [
       { type: 'Created', date: data_management_plan.created_at.to_formatted_s(:iso8601) },

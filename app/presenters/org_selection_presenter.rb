@@ -9,7 +9,7 @@ class OrgSelectionPresenter
 
     @name = selection.present? ? selection.name : ''
 
-    orgs = [selection] if !orgs.present? || orgs.empty?
+    orgs = [selection] if orgs.blank? || orgs.empty?
 
     @crosswalk = orgs.map do |org|
       next if org.nil?
@@ -25,7 +25,7 @@ class OrgSelectionPresenter
   end
 
   def select_list
-    @crosswalk.map { |rec| rec[:name] }.to_json
+    @crosswalk.pluck(:name).to_json
   rescue StandardError
     nil
   end

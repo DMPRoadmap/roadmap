@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe StatCreatedPlan, type: :model do
+RSpec.describe StatCreatedPlan do
   describe '.to_json' do
     it 'returns only the count and date if no details are defined' do
       stat = build(:stat_created_plan)
@@ -10,10 +10,11 @@ RSpec.describe StatCreatedPlan, type: :model do
       expect(json['count']).to eql(stat.count)
       expect(json['date']).to eql(stat.date.strftime('%Y-%m-%d'))
       expect(json['by_template']).to eql([])
-      expect(json['org_id']).to eql(nil)
-      expect(json['created_at']).to eql(nil)
+      expect(json['org_id']).to be_nil
+      expect(json['created_at']).to be_nil
     end
   end
+
   describe '.to_csv' do
     context 'when no instances' do
       it 'returns empty' do
@@ -22,17 +23,18 @@ RSpec.describe StatCreatedPlan, type: :model do
         expect(csv).to be_empty
       end
     end
+
     context 'when instances' do
-      let(:org) { FactoryBot.create(:org) }
+      let(:org) { create(:org) }
 
       context 'when no details' do
         it 'returns counts in a comma-separated row' do
-          may = FactoryBot.create(:stat_created_plan,
-                                  date: Date.new(2018, 0o5, 31),
-                                  org: org, count: 20)
-          june = FactoryBot.create(:stat_created_plan,
-                                   date: Date.new(2018, 0o6, 30),
-                                   org: org, count: 10)
+          may = create(:stat_created_plan,
+                       date: Date.new(2018, 0o5, 31),
+                       org: org, count: 20)
+          june = create(:stat_created_plan,
+                        date: Date.new(2018, 0o6, 30),
+                        org: org, count: 10)
           data = [may, june]
 
           csv = described_class.to_csv(data)
@@ -48,25 +50,25 @@ RSpec.describe StatCreatedPlan, type: :model do
 
       context 'when details by template is true' do
         it 'returns counts by_template in a comma-separated row' do
-          may = FactoryBot.create(:stat_created_plan,
-                                  date: Date.new(2018, 0o5, 31),
-                                  org: org,
-                                  count: 20,
-                                  details: { by_template: [
-                                    { name: 'Template1', count: 5 },
-                                    { name: 'Template2', count: 15 }
-                                  ] })
-          june = FactoryBot.create(:stat_created_plan,
-                                   date: Date.new(2018, 0o6, 30),
-                                   org: org, count: 10,
-                                   details: { by_template: [
-                                     { name: 'Template1', count: 2 },
-                                     { name: 'Template3', count: 8 }
-                                   ] })
-          july = FactoryBot.create(:stat_created_plan,
-                                   date: Date.new(2018, 0o7, 31),
-                                   org: org,
-                                   count: 0)
+          may = create(:stat_created_plan,
+                       date: Date.new(2018, 0o5, 31),
+                       org: org,
+                       count: 20,
+                       details: { by_template: [
+                         { name: 'Template1', count: 5 },
+                         { name: 'Template2', count: 15 }
+                       ] })
+          june = create(:stat_created_plan,
+                        date: Date.new(2018, 0o6, 30),
+                        org: org, count: 10,
+                        details: { by_template: [
+                          { name: 'Template1', count: 2 },
+                          { name: 'Template3', count: 8 }
+                        ] })
+          july = create(:stat_created_plan,
+                        date: Date.new(2018, 0o7, 31),
+                        org: org,
+                        count: 0)
           data = [may, june, july]
 
           csv = described_class.to_csv(data, details: { by_template: true, sep: ',' })
@@ -85,10 +87,10 @@ RSpec.describe StatCreatedPlan, type: :model do
 
   describe '.serialize' do
     let(:org) do
-      FactoryBot.create(:org,
-                        name: 'An Org',
-                        contact_email: 'foo@bar.com',
-                        contact_name: 'Foo')
+      create(:org,
+             name: 'An Org',
+             contact_email: 'foo@bar.com',
+             contact_name: 'Foo')
     end
     let(:details) do
       { 'by_template' => [
@@ -98,13 +100,13 @@ RSpec.describe StatCreatedPlan, type: :model do
     end
 
     it 'retrieves JSON details as a hash object' do
-      FactoryBot.create(:stat_created_plan,
-                        date: '2018-09-30',
-                        org: org,
-                        count: 20,
-                        details: details)
+      create(:stat_created_plan,
+             date: '2018-09-30',
+             org: org,
+             count: 20,
+             details: details)
 
-      json_details = described_class.find_by_date('2018-09-30').details
+      json_details = described_class.find_by(date: '2018-09-30').details
 
       expect(json_details).to eq(details)
     end

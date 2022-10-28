@@ -24,9 +24,9 @@ class RolesController < ApplicationController
        role_params[:user][:email].present? && plan.present?
 
       if @role.plan.owner.present? && @role.plan.owner.email == role_params[:user][:email]
-        flash[:notice] = format(_('Cannot share plan with %{email} since that email matches
+        flash.now[:notice] = format(_('Cannot share plan with %{email} since that email matches
                                    with the owner of the plan.'),
-                                email: role_params[:user][:email])
+                                    email: role_params[:user][:email])
       else
         user = User.where_case_insensitive('email', role_params[:user][:email]).first
         if user.present? &&
@@ -34,8 +34,8 @@ class RolesController < ApplicationController
                .count
                .positive? # role already exists
 
-          flash[:notice] = format(_('Plan is already shared with %{email}.'),
-                                  email: role_params[:user][:email])
+          flash.now[:notice] = format(_('Plan is already shared with %{email}.'),
+                                      email: role_params[:user][:email])
         else
           # rubocop:disable Metrics/BlockNesting
           if user.nil?
@@ -44,7 +44,7 @@ class RolesController < ApplicationController
             # if none is found user the is_other org or the current user's if that is not defined
             email_domain = role_params[:user][:email].split('@').last
             collaborator_org = Org.from_email_domain(email_domain: email_domain)
-            collaborator_org = Org.where(is_other: true).first unless collaborator_org.present?
+            collaborator_org = Org.where(is_other: true).first if collaborator_org.blank?
 
             # DMPTool customization
             User.invite!(
@@ -73,16 +73,16 @@ class RolesController < ApplicationController
                           .deliver_now
               end
             end
-            flash[:notice] = message
+            flash.now[:notice] = message
           else
-            flash[:alert] = _('You must provide a valid email address and select a permission
+            flash.now[:alert] = _('You must provide a valid email address and select a permission
                                level.')
           end
           # rubocop:enable Metrics/BlockNesting
         end
       end
     else
-      flash[:alert] = _('Please enter an email address')
+      flash.now[:alert] = _('Please enter an email address')
     end
     redirect_to controller: 'contributors', action: 'index', plan_id: @role.plan.id
   end
@@ -95,7 +95,7 @@ class RolesController < ApplicationController
     @role = Role.find(params[:id])
     authorize @role
 
-    if @role.update_attributes(access: role_params[:access])
+    if @role.update(access: role_params[:access])
       deliver_if(recipients: @role.user, key: 'users.added_as_coowner') do |_r|
         UserMailer.permissions_change_notification(@role, current_user).deliver_now
       end
@@ -131,9 +131,9 @@ class RolesController < ApplicationController
     role = Role.find(params[:id])
     authorize role
     if role.deactivate!
-      flash[:notice] = _('Plan removed')
+      flash.now[:notice] = _('Plan removed')
     else
-      flash[:alert] = _('Unable to remove the plan')
+      flash.now[:alert] = _('Unable to remove the plan')
     end
     redirect_to(plans_path)
   end

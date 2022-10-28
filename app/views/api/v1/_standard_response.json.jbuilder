@@ -14,7 +14,7 @@ json.ignore_nil!
 json.application @application
 json.api_version 1
 json.source "#{request.method} #{request.path}"
-json.time Time.now.to_formatted_s(:iso8601)
+json.time Time.zone.now.to_formatted_s(:iso8601)
 json.caller @caller
 json.code response.status
 json.message Rack::Utils::HTTP_STATUS_CODES[response.status]

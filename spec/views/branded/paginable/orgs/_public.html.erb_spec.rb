@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'paginable/orgs/_public.html.erb' do
-  include IdentifierHelper
+  include Helpers::IdentifierHelper
 
   it 'renders our version of the page' do
     3.times do
@@ -19,9 +19,9 @@ describe 'paginable/orgs/_public.html.erb' do
     assign :args, { controller: 'paginable/orgs', action: 'public' }
     # Paginable is expecting `scope` to be a local not an instance variable
     render partial: 'paginable/orgs/public', locals: { scope: Org.participating }
-    expect(rendered.include?('Institutional Signin Enabled')).to eql(true)
-    expect(rendered.include?(CGI.escapeHTML(shib.name))).to eql(true)
-    expect(rendered.include?(CGI.escapeHTML(non_shib.name))).to eql(true)
-    expect(rendered.scan('fa-check').length).to eql(3)
+    expect(rendered.include?('Institutional Signin Enabled')).to be(true)
+    expect(rendered.include?(CGI.escapeHTML(shib.name))).to be(true)
+    expect(rendered.include?(CGI.escapeHTML(non_shib.name))).to be(true)
+    expect(rendered.scan('fa-check').length).to be(3)
   end
 end

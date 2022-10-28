@@ -8,11 +8,11 @@ describe RelatedIdentifier do
 
     it { is_expected.to validate_presence_of(:identifiable) }
 
-    it { is_expected.to define_enum_for(:work_type).with_values(RelatedIdentifier.work_types.keys) }
+    it { is_expected.to define_enum_for(:work_type).with_values(described_class.work_types.keys) }
 
-    it { is_expected.to define_enum_for(:relation_type).with_values(RelatedIdentifier.relation_types.keys) }
+    it { is_expected.to define_enum_for(:relation_type).with_values(described_class.relation_types.keys) }
 
-    it { is_expected.to define_enum_for(:identifier_type).with_values(RelatedIdentifier.identifier_types.keys) }
+    it { is_expected.to define_enum_for(:identifier_type).with_values(described_class.identifier_types.keys) }
   end
 
   context 'associations' do
@@ -22,7 +22,7 @@ describe RelatedIdentifier do
   end
 
   describe ':value_without_scheme_prefix' do
-    before(:each) do
+    before do
       @scheme = build(:identifier_scheme, identifier_prefix: Faker::Internet.unique.url)
     end
 
@@ -30,11 +30,13 @@ describe RelatedIdentifier do
       id = build(:related_identifier, identifier_scheme: nil)
       expect(id.value_without_scheme_prefix).to eql(id.value)
     end
+
     it 'returns :value as-is if the IdentifierScheme has no :identifier_prefix' do
       @scheme.identifier_prefix = nil
       id = build(:related_identifier, identifier_scheme: @scheme)
       expect(id.value_without_scheme_prefix).to eql(id.value)
     end
+
     it 'strips off the :identifier_prefix defined by the IdentifierScheme' do
       id = build(:related_identifier, identifier_scheme: @scheme,
                                       value: "#{@scheme.identifier_prefix}foo")
@@ -43,7 +45,7 @@ describe RelatedIdentifier do
   end
 
   context 'private methods' do
-    before(:each) do
+    before do
       @id = build(:related_identifier)
     end
 
@@ -64,18 +66,21 @@ describe RelatedIdentifier do
         @id.value = 'doi:10.1234/abc'
         expect(@id.send(:detect_identifier_type)).to eql('doi')
       end
+
       it "returns 'ark' if the value matches the ARK regexp" do
         @id.value = 'http://example.org/ark:12345/abcd'
         expect(@id.send(:detect_identifier_type)).to eql('ark')
         @id.value = 'ark:12345/abcd'
         expect(@id.send(:detect_identifier_type)).to eql('ark')
       end
+
       it "returns 'url' if the value matches the URL regexp" do
         @id.value = 'https://example.org'
         expect(@id.send(:detect_identifier_type)).to eql('url')
         @id.value = 'http://example.org'
         expect(@id.send(:detect_identifier_type)).to eql('url')
       end
+
       it "returns 'other' if the value did not match another regexp" do
         @id.value = 'example.org'
         expect(@id.send(:detect_identifier_type)).to eql('other')
@@ -89,16 +94,17 @@ describe RelatedIdentifier do
         @id.relation_type = nil
         expect(@id.send(:detect_relation_type)).to eql('cites')
       end
+
       it 'returns the :relation_type' do
-        val = RelatedIdentifier.relation_types.keys
-                               .reject { |k| k == 'is_referenced_by' }.first
+        val = described_class.relation_types.keys
+                             .reject { |k| k == 'is_referenced_by' }.first
         @id.relation_type = val
         expect(@id.send(:detect_relation_type)).to eql(val)
       end
     end
 
     describe ':load_citation' do
-      before(:each) do
+      before do
         @id.citation = nil
         @id.identifier_type = 'doi'
         @citation = Faker::Lorem.paragraph
@@ -108,8 +114,9 @@ describe RelatedIdentifier do
         Rails.configuration.x.madmp.enable_citation_lookup = false
         @id.expects(:fetch_citation).never
         @id.send(:load_citation)
-        expect(@id.citation).to eql(nil)
+        expect(@id.citation).to be_nil
       end
+
       it 'does not process if a :citation already exists' do
         Rails.configuration.x.madmp.enable_citation_lookup = true
         @id.expects(:fetch_citation).never
@@ -117,13 +124,15 @@ describe RelatedIdentifier do
         @id.send(:load_citation)
         expect(@id.citation).to eql(@citation)
       end
+
       it "does not process if a the :value is not a 'doi'" do
         Rails.configuration.x.madmp.enable_citation_lookup = true
         @id.expects(:fetch_citation).never
         @id.identifier_type = 'url'
         @id.send(:load_citation)
-        expect(@id.citation).to eql(nil)
+        expect(@id.citation).to be_nil
       end
+
       it "calls out to the Uc3Citation gem's :fetch_citation method" do
         Rails.configuration.x.madmp.enable_citation_lookup = true
         @id.expects(:fetch_citation).returns(@citation)

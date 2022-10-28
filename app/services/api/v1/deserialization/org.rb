@@ -28,13 +28,13 @@ module Api
             )
 
             # Try to find the Org by name
-            org = find_by_name(json: json) unless org.present?
+            org = find_by_name(json: json) if org.blank?
 
             # Org model requires a language so just use the default for now
             org.language = Language.default
             org.abbreviation = json[:abbreviation] if json[:abbreviation].present?
             return nil unless org.valid?
-            return org unless id_json[:identifier].present?
+            return org if id_json[:identifier].blank?
 
             # Attach the identifier
             Api::V1::DeserializationService.attach_identifier(object: org, json: id_json)

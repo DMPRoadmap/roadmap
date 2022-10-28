@@ -40,7 +40,7 @@ class RegistryOrgsController < ApplicationController
   # Search the Orgs and RegistryOrgs tables for the term
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def find_by_search_term(term:, **options)
-    return [] unless term.present?
+    return [] if term.blank?
 
     restricting = Rails.configuration.x.application.restrict_orgs
 
@@ -170,13 +170,13 @@ class RegistryOrgsController < ApplicationController
     end
 
     # If there are no duplicate names just return the current list
-    names = hashes.map { |item| item[:normalized] }
+    names = hashes.pluck(:normalized)
     has_duplicates = names.detect { |name| names.count(name) > 1 }.present?
-    return hashes.map { |item| item[:original] } unless has_duplicates
+    return hashes.pluck(:original) unless has_duplicates
 
     out = {}
     hashes.each do |item|
-      out[item[:normalized].to_s] = item[:original] unless out[item[:normalized].to_s].present?
+      out[item[:normalized].to_s] = item[:original] if out[item[:normalized].to_s].blank?
     end
     out.values
   end

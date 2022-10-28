@@ -1,4 +1,4 @@
-import { Tinymce } from '../utils/tinymce.js.erb';
+import { Tinymce } from '../utils/tinymce';
 import toggleConditionalFields from '../utils/conditionalFields';
 import getConstant from '../utils/constants';
 import toggleSpinner from '../utils/spinner';

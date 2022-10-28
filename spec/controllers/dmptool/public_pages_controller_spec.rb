@@ -3,18 +3,18 @@
 require 'rails_helper'
 
 RSpec.describe Dmptool::PublicPagesController, type: :request do
-  before(:each) do
+  before do
     @controller = ::PublicPagesController.new
   end
 
   it 'PublicPagesController includes our customizations' do
-    expect(@controller.respond_to?(:orgs)).to eql(true)
+    expect(@controller.respond_to?(:orgs)).to be(true)
   end
 
   describe '#orgs' do
     # Rspec request tests are expensive so only execute the GET once and then
     # do all the checks
-    it 'should be accessible when not logged in' do
+    it 'is accessible when not logged in' do
       funder = create(:org, :funder, name: Faker::Name.unique.name)
       inst = create(:org, :institution, name: Faker::Name.unique.name)
       org = create(:org, :organisation, name: Faker::Name.unique.name)
@@ -31,7 +31,7 @@ RSpec.describe Dmptool::PublicPagesController, type: :request do
       expect(assigns(:orgs).include?(ri)).to eql(true), 'should have research institutes'
       expect(assigns(:orgs).include?(prj)).to eql(true), 'should have projects'
       expect(assigns(:orgs).include?(sch)).to eql(true), 'should have schools'
-      expect(response.body.include?('<h1>Participating Institutions')).to eql(true)
+      expect(response.body.include?('<h1>Participating Institutions')).to be(true)
     end
   end
 

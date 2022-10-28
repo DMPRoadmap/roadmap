@@ -23,7 +23,7 @@ module Api
             # unique (e.g. ROR, ORCID) so try to find it
             if scheme.present?
               val = json[:identifier] if json[:identifier].start_with?(scheme.identifier_prefix)
-              val = "#{scheme.identifier_prefix}#{json[:identifier]}" unless val.present?
+              val = "#{scheme.identifier_prefix}#{json[:identifier]}" if val.blank?
               identifier = ::Identifier.by_scheme_name(scheme, class_name).where(value: val).first
               return identifier if identifier.present?
             end

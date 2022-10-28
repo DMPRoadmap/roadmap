@@ -67,8 +67,8 @@ class ExternalApiAccessToken < ApplicationRecord
     # Fetched the active access token for the specified User and External API service
     def for_user_and_service(user:, service:)
       where(user: user, external_service_name: service)
-        .where('revoked_at IS NULL OR revoked_at > ?', Time.now)
-        .where('expires_at IS NULL OR expires_at > ?', Time.now)
+        .where('revoked_at IS NULL OR revoked_at > ?', Time.zone.now)
+        .where('expires_at IS NULL OR expires_at > ?', Time.zone.now)
         .first
     end
 
@@ -80,13 +80,13 @@ class ExternalApiAccessToken < ApplicationRecord
                         hash.present?
 
       token_hash = hash.fetch(:credentials, {})
-      return nil unless token_hash[:token].present?
+      return nil if token_hash[:token].blank?
 
       # revoke any existing tokens for the user + scheme
-      where(user: user, external_service_name: service.downcase).each(&:revoke!)
+      where(user: user, external_service_name: service.downcase).find_each(&:revoke!)
 
       # add the token for the user + scheme
-      expiry_time = (Time.now + token_hash[:expires_at].to_i.seconds).utc if token_hash[:expires_at].present?
+      expiry_time = (Time.zone.now + token_hash[:expires_at].to_i.seconds).utc if token_hash[:expires_at].present?
       new(
         user: user,
         external_service_name: service.downcase,
@@ -103,11 +103,11 @@ class ExternalApiAccessToken < ApplicationRecord
   # ====================
 
   def revoke!
-    update(revoked_at: Time.now)
+    update(revoked_at: Time.zone.now)
   end
 
   def active?
-    (revoked_at.nil? || revoked_at > Time.now) && expires_at > Time.now
+    (revoked_at.nil? || revoked_at > Time.zone.now) && expires_at > Time.zone.now
   end
 
   private

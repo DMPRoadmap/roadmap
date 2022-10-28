@@ -15,10 +15,10 @@ class IdentifiersController < ApplicationController
     # If the requested identifier belongs to the current user remove it
     if user.identifiers.include?(identifier)
       identifier.destroy!
-      flash[:notice] =
+      flash.now[:notice] =
         format(_('Successfully unlinked your account from %{is}.'), is: identifier.identifier_scheme&.description)
     else
-      flash[:alert] =
+      flash.now[:alert] =
         format(_('Unable to unlink your account from %{is}.'), is: identifier.identifier_scheme&.description)
     end
 

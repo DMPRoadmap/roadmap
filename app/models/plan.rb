@@ -69,14 +69,11 @@ class Plan < ApplicationRecord
   # ==============
 
   # public is a Ruby keyword so using publicly
-  enum visibility: %i[organisationally_visible publicly_visible
-                      is_test privately_visible]
+  enum visibility: { organisationally_visible: 0, publicly_visible: 1, is_test: 2, privately_visible: 3 }
 
-  enum funding_status: %i[planned funded denied]
+  enum funding_status: { planned: 0, funded: 1, denied: 2 }
 
   alias_attribute :name, :title
-
-  attribute :visibility, :integer, default: 3
 
   # ================
   # = Associations =
@@ -161,6 +158,10 @@ class Plan < ApplicationRecord
   # = Callbacks =
   # =============
 
+  # sanitise html tags e.g remove unwanted 'script'
+  before_validation lambda { |data|
+    data.sanitize_fields(:title, :identifier, :description)
+  }
   after_update :notify_subscribers!, if: :versionable_change?
   after_touch :notify_subscribers!
 
@@ -231,11 +232,6 @@ class Plan < ApplicationRecord
   # =============
   # = Callbacks =
   # =============
-
-  # sanitise html tags e.g remove unwanted 'script'
-  before_validation lambda { |data|
-    data.sanitize_fields(:title, :identifier, :description)
-  }
 
   # =================
   # = Class methods =
@@ -399,7 +395,7 @@ class Plan < ApplicationRecord
     return true if commentable_by?(user_id)
 
     current_user = User.find(user_id)
-    return false unless current_user.present?
+    return false if current_user.blank?
 
     # If the user is a super admin and the config allows for supers to view plans
     if current_user.can_super_admin? && Rails.configuration.x.plans.super_admins_read_all
@@ -526,7 +522,7 @@ class Plan < ApplicationRecord
   #
   # Returns Integer
   def num_answered_questions(phase = nil)
-    return answers.select(&:answered?).length unless phase.present?
+    return answers.select(&:answered?).length if phase.blank?
 
     answered = answers.select do |answer|
       answer.answered? && phase.questions.include?(answer.question)
@@ -617,7 +613,7 @@ class Plan < ApplicationRecord
 
     # If we're allowing ORCID publication but no ORCID scheme is defined
     orcid_scheme = IdentifierScheme.where(name: 'orcid').first
-    return false unless orcid_scheme.present?
+    return false if orcid_scheme.blank?
 
     # The owner must have an orcid, a funder and :visibility_allowed? (aka :complete)
     orcid = owner.identifier_for_scheme(scheme: orcid_scheme).present?
@@ -628,7 +624,7 @@ class Plan < ApplicationRecord
   # Returns whether or not minting is allowed for the current plan
   def minting_allowed?
     orcid_scheme = IdentifierScheme.where(name: 'orcid').first
-    return false unless orcid_scheme.present?
+    return false if orcid_scheme.blank?
 
     # The owner must have an orcid and have authorized us to add to their record
     orcid = owner.identifier_for_scheme(scheme: orcid_scheme).present?
@@ -644,14 +640,14 @@ class Plan < ApplicationRecord
 
   # Helper method to convert the grant id value entered by the user into an Identifier
   # works with both controller params or an instance of Identifier
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/CyclomaticComplexity
   def grant=(params)
     val = params.present? ? params[:value] : nil
     current = grant
 
     # Remove it if it was blanked out by the user
-    current.destroy if current.present? && !val.present?
-    return unless val.present?
+    current.destroy if current.present? && val.blank?
+    return if val.blank?
 
     # Create the Identifier if it doesn't exist and then set the id
     current.update(value: val) if current.present? && current.value != val
@@ -660,7 +656,7 @@ class Plan < ApplicationRecord
     current = Identifier.create(identifiable: self, value: val)
     self.grant_id = current.id
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   # Return the citation for the DMP. For example:
   #
@@ -719,7 +715,7 @@ class Plan < ApplicationRecord
       next unless id.present? && id != '0' && related_identifier_hash[:value].present?
 
       related = RelatedIdentifier.find_by(id: id)
-      related = RelatedIdentifier.new(identifiable: self) unless related.present?
+      related = RelatedIdentifier.new(identifiable: self) if related.blank?
       related.work_type = related_identifier_hash[:work_type]
       related.value = related_identifier_hash[:value].strip
       related_identifiers << related

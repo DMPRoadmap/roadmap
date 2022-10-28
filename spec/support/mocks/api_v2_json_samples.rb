@@ -85,7 +85,7 @@ module Mocks
 
       {
         dmp: {
-          created: (Time.now - 3.months).to_formatted_s(:iso8601),
+          created: 3.months.ago.to_formatted_s(:iso8601),
           title: Faker::Lorem.sentence,
           description: Faker::Lorem.paragraph,
           language: Api::V1::LanguagePresenter.three_char_code(lang: lang),
@@ -155,8 +155,8 @@ module Mocks
           project: [{
             title: Faker::Lorem.sentence,
             description: Faker::Lorem.paragraph,
-            start: (Time.now + 3.months).to_formatted_s(:iso8601),
-            end: (Time.now + 2.years).to_formatted_s(:iso8601),
+            start: 3.months.from_now.to_formatted_s(:iso8601),
+            end: 2.years.from_now.to_formatted_s(:iso8601),
             funding: [{
               name: fundref.identifiable.name,
               funder_id: {
@@ -179,7 +179,7 @@ module Mocks
             description: Faker::Lorem.paragraph,
             personal_data: %w[yes no unknown].sample,
             sensitive_data: %w[yes no unknown].sample,
-            issued: (Time.now + 6.months).to_formatted_s(:iso8601),
+            issued: 6.months.from_now.to_formatted_s(:iso8601),
             dataset_id: {
               type: 'url',
               identifier: Faker::Internet.url
@@ -200,7 +200,7 @@ module Mocks
               license: [
                 {
                   license_ref: 'http://spdx.org/licenses/CC0-1.0.json',
-                  start_date: (Time.now + 6.months).to_formatted_s(:iso8601)
+                  start_date: 6.months.from_now.to_formatted_s(:iso8601)
                 }
               ]
             }]

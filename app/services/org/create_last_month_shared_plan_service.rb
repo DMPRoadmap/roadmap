@@ -20,7 +20,7 @@ class Org
         Parallel.each(orgs, in_threads: threads) do |org_obj|
           months = OrgDateRangeable.split_months_from_creation(org_obj)
           last = months.last
-          next unless last.present?
+          next if last.blank?
 
           StatSharedPlan::CreateOrUpdate.do(
             start_date: last[:start_date],

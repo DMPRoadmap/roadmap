@@ -2,12 +2,12 @@
 
 require 'rails_helper'
 
-RSpec.describe Question, type: :model do
+RSpec.describe Question do
   it_behaves_like 'VersionableModel'
 
   context 'validations' do
     it {
-      is_expected.to validate_presence_of(:text)
+      expect(subject).to validate_presence_of(:text)
         .with_message("for 'Question text' can't be blank.")
     }
 
@@ -49,7 +49,7 @@ RSpec.describe Question, type: :model do
     it { is_expected.to have_many :annotations }
 
     it {
-      is_expected.to have_and_belong_to_many(:themes)
+      expect(subject).to have_and_belong_to_many(:themes)
         .join_table('questions_themes')
     }
   end
@@ -71,7 +71,7 @@ RSpec.describe Question, type: :model do
       let!(:question_format) { create(:question_format, option_based: true) }
       let!(:question) { create(:question, question_format: question_format, options: 1) }
 
-      it { is_expected.to eql(true) }
+      it { is_expected.to be(true) }
     end
 
     context 'when QuestionFormat is option_based and has no option' do
@@ -83,18 +83,21 @@ RSpec.describe Question, type: :model do
         end.to raise_error(ActiveRecord::RecordInvalid,
                            'Validation failed: You must have at least one option with accompanying text.')
       }
-      it { is_expected.to eql(true) }
+
+      it { is_expected.to be(true) }
     end
 
     context 'when QuestionFormat is not option_based' do
       let!(:question_format) { create(:question_format, option_based: false) }
       let!(:question) { create(:question, question_format: question_format) }
 
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
   end
 
   describe '#deep_copy' do
+    subject { question.deep_copy(**options) }
+
     let!(:question) do
       create(:question,
              default_value: 'foo bar',
@@ -105,8 +108,6 @@ RSpec.describe Question, type: :model do
     end
 
     let!(:options) { {} }
-
-    subject { question.deep_copy(options) }
 
     context 'when no options are provided' do
       before do
@@ -126,17 +127,17 @@ RSpec.describe Question, type: :model do
       end
 
       it 'copies modifiable from original Question' do
-        expect(subject.modifiable).to eql(true)
+        expect(subject.modifiable).to be(true)
         question.modifiable = false
-        expect(question.deep_copy.modifiable).to eql(false)
+        expect(question.deep_copy.modifiable).to be(false)
       end
 
       it 'copies number from original Question' do
-        expect(subject.number).to eql(12)
+        expect(subject.number).to be(12)
       end
 
       it 'copies option_comment_display from original Question' do
-        expect(subject.option_comment_display).to eql(false)
+        expect(subject.option_comment_display).to be(false)
       end
 
       it 'copies text from original Question' do
@@ -156,14 +157,14 @@ RSpec.describe Question, type: :model do
       let!(:options) { { modifiable: true } }
 
       it 'copies modifiable from option' do
-        expect(subject.modifiable).to eql(true)
+        expect(subject.modifiable).to be(true)
         question.modifiable = false
-        expect(question.deep_copy.modifiable).to eql(false)
+        expect(question.deep_copy.modifiable).to be(false)
       end
 
       it "ignores the original record's value" do
         question.modifiable = false
-        expect(question.deep_copy(options).modifiable).to eql(true)
+        expect(question.deep_copy(**options).modifiable).to be(true)
       end
     end
 

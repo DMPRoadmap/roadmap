@@ -2,24 +2,24 @@
 
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
+RSpec.describe User do
   context 'validations' do
     it { is_expected.to validate_presence_of(:email) }
 
-    it 'should validate that email addres is unqique' do
+    it 'validates that email addres is unqique' do
       subject.email = 'text-email@example.com'
-      is_expected.to validate_uniqueness_of(:email)
+      expect(subject).to validate_uniqueness_of(:email)
         .case_insensitive
         .with_message('has already been taken')
     end
 
     it {
-      is_expected.to allow_values('one@example.com', 'foo-bar@ed.ac.uk')
+      expect(subject).to allow_values('one@example.com', 'foo-bar@ed.ac.uk')
         .for(:email)
     }
 
     it {
-      is_expected.not_to allow_values('example.com', 'foo bar@ed.ac.uk')
+      expect(subject).not_to allow_values('example.com', 'foo bar@ed.ac.uk')
         .for(:email)
     }
 
@@ -51,30 +51,31 @@ RSpec.describe User, type: :model do
 
     it { is_expected.to have_many(:plans).through(:roles) }
 
-    it { should have_many(:identifiers) }
+    it { is_expected.to have_many(:identifiers) }
 
     it {
-      is_expected.to have_and_belong_to_many(:notifications).dependent(:destroy)
+      expect(subject).to have_and_belong_to_many(:notifications).dependent(:destroy)
     }
 
     it {
-      is_expected.to have_and_belong_to_many(:notifications)
+      expect(subject).to have_and_belong_to_many(:notifications)
         .join_table('notification_acknowledgements')
     }
+
     it { is_expected.to have_many(:external_api_access_tokens).dependent(:destroy) }
   end
 
   describe '#active_for_authentication?' do
-    let!(:user) { build(:user) }
-
     subject { user.active_for_authentication? }
+
+    let!(:user) { build(:user) }
 
     context 'when user is active' do
       before do
         user.active = true
       end
 
-      it { is_expected.to eql(true) }
+      it { is_expected.to be(true) }
     end
 
     context 'when user is not active' do
@@ -82,7 +83,7 @@ RSpec.describe User, type: :model do
         user.active = false
       end
 
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
   end
 
@@ -109,7 +110,7 @@ RSpec.describe User, type: :model do
       end
 
       it "doesn't destroy user roles" do
-        expect(user.perms.count).to eql(6)
+        expect(user.perms.count).to be(6)
       end
 
       it "doesn't reset api_token" do
@@ -139,7 +140,7 @@ RSpec.describe User, type: :model do
       end
 
       it 'destroys user perms' do
-        expect(user.perms.count).to eql(0)
+        expect(user.perms.count).to be(0)
       end
 
       it 'resets api_token to be nil' do
@@ -149,12 +150,12 @@ RSpec.describe User, type: :model do
   end
 
   describe '#locale' do
-    let!(:user) { build(:user) }
-
     subject { user.locale }
 
+    let!(:user) { build(:user) }
+
     context 'when user language present' do
-      let(:language) { create(:language) }
+      let(:language) { create(:language, abbreviation: 'usr-mdl') }
 
       before do
         user.update(language: language)
@@ -183,9 +184,9 @@ RSpec.describe User, type: :model do
   end
 
   describe '#name' do
-    let!(:user) { build(:user) }
-
     subject { user.name }
+
+    let!(:user) { build(:user) }
 
     context "when user firstname and surname not blank and
                use_email set to false" do
@@ -254,10 +255,10 @@ RSpec.describe User, type: :model do
   end
 
   describe '#identifier_for' do
+    subject { user.identifier_for(scheme.name) }
+
     let!(:user) { create(:user) }
     let!(:scheme) { create(:identifier_scheme) }
-
-    subject { user.identifier_for(scheme.name) }
 
     context 'when user has an identifier present' do
       let!(:identifier) do
@@ -281,7 +282,7 @@ RSpec.describe User, type: :model do
 
       let!(:user) { create(:user, perms: perms) }
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to be(true) }
     end
 
     context "when user includes Perm with name 'grant_api_to_orgs'" do
@@ -289,7 +290,7 @@ RSpec.describe User, type: :model do
 
       let!(:user) { create(:user, perms: perms) }
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to be(true) }
     end
 
     context "when user includes Perm with name 'change_org_affiliation'" do
@@ -297,7 +298,7 @@ RSpec.describe User, type: :model do
 
       let!(:user) { create(:user, perms: perms) }
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to be(true) }
     end
   end
 
@@ -308,109 +309,109 @@ RSpec.describe User, type: :model do
       let!(:perms) { create_list(:perm, 1, name: 'grant_permissions') }
       let!(:user) { create(:user, perms: perms) }
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to be(true) }
     end
 
     context "when user includes Perm with name 'modify_guidance'" do
       let!(:perms) { create_list(:perm, 1, name: 'modify_guidance') }
       let!(:user) { create(:user, perms: perms) }
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to be(true) }
     end
 
     context "when user includes Perm with name 'modify_templates'" do
       let!(:perms) { create_list(:perm, 1, name: 'modify_templates') }
       let!(:user) { create(:user, perms: perms) }
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to be(true) }
     end
 
     context "when user includes Perm with name 'change_org_details'" do
       let!(:perms) { create_list(:perm, 1, name: 'change_org_details') }
       let!(:user) { create(:user, perms: perms) }
 
-      it { is_expected.to eq(true) }
+      it { is_expected.to be(true) }
     end
   end
 
   describe '#can_add_orgs?' do
+    subject { user.can_add_orgs? }
+
     let!(:perms) { create_list(:perm, 1, name: 'add_organisations') }
 
     let!(:user) { create(:user, perms: perms) }
 
-    subject { user.can_add_orgs? }
-
-    it { is_expected.to eq(true) }
+    it { is_expected.to be(true) }
   end
 
   describe '#can_change_org?' do
+    subject { user.can_change_org? }
+
     let!(:perms) { create_list(:perm, 1, name: 'change_org_affiliation') }
 
     let!(:user) { create(:user, perms: perms) }
 
-    subject { user.can_change_org? }
-
-    it { is_expected.to eq(true) }
+    it { is_expected.to be(true) }
   end
 
   describe '#can_grant_permissions?' do
+    subject { user.can_grant_permissions? }
+
     let!(:perms) { create_list(:perm, 1, name: 'grant_permissions') }
 
     let!(:user) { create(:user, perms: perms) }
 
-    subject { user.can_grant_permissions? }
-
-    it { is_expected.to eq(true) }
+    it { is_expected.to be(true) }
   end
 
   describe '#can_modify_templates?' do
+    subject { user.can_modify_templates? }
+
     let!(:perms) { create_list(:perm, 1, name: 'modify_templates') }
 
     let!(:user) { create(:user, perms: perms) }
 
-    subject { user.can_modify_templates? }
-
-    it { is_expected.to eq(true) }
+    it { is_expected.to be(true) }
   end
 
   describe '#can_modify_guidance?' do
+    subject { user.can_modify_guidance? }
+
     let!(:perms) { create_list(:perm, 1, name: 'modify_guidance') }
 
     let!(:user) { create(:user, perms: perms) }
 
-    subject { user.can_modify_guidance? }
-
-    it { is_expected.to eq(true) }
+    it { is_expected.to be(true) }
   end
 
   describe '#can_use_api?' do
+    subject { user.can_use_api? }
+
     let!(:perms) { create_list(:perm, 1, name: 'use_api') }
 
     let!(:user) { create(:user, perms: perms) }
 
-    subject { user.can_use_api? }
-
-    it { is_expected.to eq(true) }
+    it { is_expected.to be(true) }
   end
 
   describe '#can_modify_org_details?' do
+    subject { user.can_modify_org_details? }
+
     let!(:perms) { create_list(:perm, 1, name: 'change_org_details') }
 
     let!(:user) { create(:user, perms: perms) }
 
-    subject { user.can_modify_org_details? }
-
-    it { is_expected.to eq(true) }
+    it { is_expected.to be(true) }
   end
 
   describe '#can_grant_api_to_orgs?' do
+    subject { user.can_grant_api_to_orgs? }
+
     let!(:perms) { create_list(:perm, 1, name: 'grant_api_to_orgs') }
 
     let!(:user) { create(:user, perms: perms) }
 
-    subject { user.can_grant_api_to_orgs? }
-
-    it { is_expected.to eq(true) }
+    it { is_expected.to be(true) }
   end
 
   describe '#remove_token!' do
@@ -419,25 +420,25 @@ RSpec.describe User, type: :model do
     context 'when user is not a new record and api_token is not blank' do
       let!(:user) { create(:user, api_token: 'an token string') }
 
-      it { expect { subject }.to change { user.api_token }.to(nil) }
+      it { expect { subject }.to change(user, :api_token).to(nil) }
     end
 
     context 'when user is not a new record and api_token is nil' do
       let!(:user) { create(:user, api_token: nil) }
 
-      it { expect { subject }.not_to change { user.api_token } }
+      it { expect { subject }.not_to change(user, :api_token) }
     end
 
     context 'when user is not a new record and api_token is an empty string' do
       let!(:user) { create(:user, api_token: '') }
 
-      it { expect { subject }.to change { user.api_token }.to(nil) }
+      it { expect { subject }.to change(user, :api_token).to(nil) }
     end
 
     context 'when user is a new record' do
       let!(:user) { build(:user, api_token: 'an token string') }
 
-      it { expect { subject }.not_to change { user.api_token } }
+      it { expect { subject }.not_to change(user, :api_token) }
     end
   end
 
@@ -447,31 +448,31 @@ RSpec.describe User, type: :model do
     context 'when user is not a new record and api_token is an empty string' do
       let!(:user) { create(:user, api_token: '') }
 
-      it { expect { subject }.to change { user.api_token } }
+      it { expect { subject }.to change(user, :api_token) }
     end
 
     context 'when user is not a new record and api_token is nil' do
       let!(:user) { create(:user, api_token: nil) }
 
-      it { expect { subject }.to change { user.api_token } }
+      it { expect { subject }.to change(user, :api_token) }
     end
 
     context 'when user is a new record and api_token is an empty string' do
       let!(:user) { build(:user, api_token: '') }
 
-      it { expect { subject }.not_to change { user.api_token } }
+      it { expect { subject }.not_to change(user, :api_token) }
     end
   end
 
   # Test creationg a User from an omniauth callback like Shibboleth
   describe '.from_omniauth' do
+    subject { described_class.from_omniauth(auth) }
+
     let!(:user) { create(:user) }
     let!(:auth) do
       OpenStruct.new(provider: Faker::Lorem.unique.word, uid: Faker::Lorem.word)
     end
     let!(:scheme) { create(:identifier_scheme, name: auth[:provider], identifier_prefix: nil) }
-
-    subject { User.from_omniauth(auth) }
 
     context 'when User has Identifier, with different ID' do
       let!(:identifier) do
@@ -495,11 +496,11 @@ RSpec.describe User, type: :model do
   end
 
   describe '#get_preferences' do
+    subject { user.get_preferences(key) }
+
     let!(:user) { create(:user) }
 
     let!(:key) { :email }
-
-    subject { user.get_preferences(key) }
 
     context "when the User doesn't have thier own Pref" do
       it 'returns the default value' do
@@ -537,11 +538,11 @@ RSpec.describe User, type: :model do
   end
 
   describe '.where_case_insensitive' do
+    subject { described_class.where_case_insensitive(:firstname, value) }
+
     before do
       @user = create(:user, firstname: 'Test')
     end
-
-    subject { User.where_case_insensitive(:firstname, value) }
 
     context 'when search value is capitalized' do
       let!(:value) { 'TEST' }
@@ -563,9 +564,9 @@ RSpec.describe User, type: :model do
   end
 
   describe '#acknowledge' do
-    let!(:user) { create(:user) }
-
     subject { user.acknowledge(notification) }
+
+    let!(:user) { create(:user) }
 
     context 'when notification is dismissable' do
       let!(:notification) { create(:notification, :dismissable) }
@@ -587,7 +588,7 @@ RSpec.describe User, type: :model do
   end
 
   describe '#access_token_for(external_service_name:)' do
-    before(:each) do
+    before do
       @user = build(:user)
       @svc = Faker::Music::PearlJam.song.downcase.gsub(' ', '_')
       @token = build(:external_api_access_token, external_service_name: @svc)
@@ -595,19 +596,23 @@ RSpec.describe User, type: :model do
     end
 
     it 'returns nil if the service name is not specified' do
-      expect(@user.access_token_for(external_service_name: nil)).to eql(nil)
+      expect(@user.access_token_for(external_service_name: nil)).to be_nil
     end
+
     it 'returns nil if there are no access tokens' do
       @user.external_api_access_tokens.clear
-      expect(@user.access_token_for(external_service_name: @svc)).to eql(nil)
+      expect(@user.access_token_for(external_service_name: @svc)).to be_nil
     end
+
     it 'returns nil if there are no access tokens for the specified service name' do
-      expect(@user.access_token_for(external_service_name: Faker::Lorem.word.downcase)).to eql(nil)
+      expect(@user.access_token_for(external_service_name: Faker::Lorem.word.downcase)).to be_nil
     end
+
     it 'returns nil if the access token is not active' do
       @token.expects(:active?).returns(false)
-      expect(@user.access_token_for(external_service_name: @svc)).to eql(nil)
+      expect(@user.access_token_for(external_service_name: @svc)).to be_nil
     end
+
     it 'returns the access token' do
       @token.expects(:active?).returns(true)
       expect(@user.access_token_for(external_service_name: @svc)).to eql(@token)

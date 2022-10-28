@@ -66,7 +66,7 @@ class Phase < ApplicationRecord
   }, class_name: 'Section'
 
   has_many :suffix_sections, lambda { |phase|
-    modifiable.where(<<~SQL, phase_id: phase.id, modifiable: false)
+    modifiable.where(<<~SQL.squish, phase_id: phase.id, modifiable: false)
       sections.number > (SELECT MAX(number) FROM sections
                            WHERE sections.modifiable = :modifiable
                            AND sections.phase_id = :phase_id)
@@ -102,7 +102,7 @@ class Phase < ApplicationRecord
     copy.template_id = options.fetch(:template_id, nil)
     copy.save!(validate: false) if options.fetch(:save, false)
     options[:phase_id] = copy.id
-    sections.each { |section| copy.sections << section.deep_copy(options) }
+    sections.each { |section| copy.sections << section.deep_copy(**options) }
     copy
   end
 

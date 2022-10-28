@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe ExternalApis::Re3dataService do
-  before(:each) do
+  before do
     @repo_id = "r3d#{Faker::Number.number(digits: 6)}"
     @headers = described_class.headers
     @repositories_path = "#{described_class.api_base_url}#{described_class.list_path}"
@@ -95,17 +95,19 @@ RSpec.describe ExternalApis::Re3dataService do
   end
 
   describe '#fetch' do
-    context '#fetch' do
+    describe '#fetch' do
       it 'returns an empty array if re3data did not return a repository list' do
         described_class.expects(:query_re3data).returns(nil)
         expect(described_class.fetch).to eql([])
       end
+
       it 'fetches individual repository data' do
         described_class.expects(:query_re3data)
                        .returns(Nokogiri::XML(@repositories_results, nil, 'utf8'))
         described_class.expects(:query_re3data_repository).at_least(1)
         described_class.fetch
       end
+
       it 'processes the repository data' do
         described_class.expects(:query_re3data)
                        .returns(Nokogiri::XML(@repositories_results, nil, 'utf8'))
@@ -123,8 +125,9 @@ RSpec.describe ExternalApis::Re3dataService do
         stub_request(:get, @repositories_path).with(headers: @headers)
                                               .to_return(status: 403, body: '', headers: {})
         described_class.expects(:handle_http_failure).at_least(1)
-        expect(described_class.send(:query_re3data)).to eql(nil)
+        expect(described_class.send(:query_re3data)).to be_nil
       end
+
       it 'returns the response body as XML' do
         stub_request(:get, @repositories_path).with(headers: @headers)
                                               .to_return(
@@ -141,12 +144,14 @@ RSpec.describe ExternalApis::Re3dataService do
       it 'returns an empty array if term is blank' do
         expect(described_class.send(:query_re3data_repository, repo_id: nil)).to eql([])
       end
+
       it 'calls the handle_http_failure method if a non 200 response is received' do
         stub_request(:get, @repository_path).with(headers: @headers)
                                             .to_return(status: 403, body: '', headers: {})
         described_class.expects(:handle_http_failure).at_least(1)
         expect(described_class.send(:query_re3data_repository, repo_id: @repo_id)).to eql([])
       end
+
       it 'returns the response body as JSON' do
         stub_request(:get, @repository_path).with(headers: @headers)
                                             .to_return(
@@ -161,65 +166,78 @@ RSpec.describe ExternalApis::Re3dataService do
     end
 
     describe '#process_repository(id:, node:)' do
-      before(:each) do
+      before do
         @node = Nokogiri::XML(@repository_result, nil, 'utf8')
         @repo = @node.xpath('//r3d:re3data//r3d:repository').first
       end
+
       it 'returns nil if :id is not present' do
-        expect(described_class.send(:process_repository, id: nil, node: @repo)).to eql(nil)
+        expect(described_class.send(:process_repository, id: nil, node: @repo)).to be_nil
       end
+
       it 'returns nil if :node is not present' do
-        expect(described_class.send(:process_repository, id: @repo_id, node: nil)).to eql(nil)
+        expect(described_class.send(:process_repository, id: @repo_id, node: nil)).to be_nil
       end
+
       it 'finds an existing Repository by its identifier' do
         repo = create(:repository, uri: @repo_id)
         expect(described_class.send(:process_repository, id: @repo_id, node: @repo)).to eql(repo)
       end
+
       it 'finds an existing Repository by its homepage' do
         repo = create(:repository, homepage: @repo.xpath('//r3d:repositoryURL')&.text)
         expect(described_class.send(:process_repository, id: @repo_id, node: @repo)).to eql(repo)
       end
+
       it 'creates a new Repository' do
         repo = described_class.send(:process_repository, id: @repo_id, node: @repo)
-        expect(repo.new_record?).to eql(false)
+        expect(repo.new_record?).to be(false)
         expect(repo.name).to eql(@repo.xpath('//r3d:repositoryName')&.text)
       end
+
       it 'attaches the identifier to the Repository (if it is not already defined' do
         repo = described_class.send(:process_repository, id: @repo_id, node: @repo)
-        expect(repo.uri.ends_with?(@repo_id)).to eql(true)
+        expect(repo.uri.ends_with?(@repo_id)).to be(true)
       end
     end
 
     describe '#parse_repository(repo:, node:)' do
-      before(:each) do
+      before do
         doc = Nokogiri::XML(@repository_result, nil, 'utf8')
         @node = doc.xpath('//r3d:re3data//r3d:repository').first
         @repo = create(:repository, name: @node.xpath('//r3d:repositoryName')&.text)
       end
+
       it 'returns nil if :repo is not present' do
-        expect(described_class.send(:parse_repository, repo: nil, node: @node)).to eql(nil)
+        expect(described_class.send(:parse_repository, repo: nil, node: @node)).to be_nil
       end
+
       it 'returns nil if :node is not present' do
-        expect(described_class.send(:parse_repository, repo: @repo, node: nil)).to eql(nil)
+        expect(described_class.send(:parse_repository, repo: @repo, node: nil)).to be_nil
       end
+
       it 'updates the :description' do
         described_class.send(:parse_repository, repo: @repo, node: @node)
         expect(@repo.description).to eql(@node.xpath('//r3d:description')&.text)
       end
+
       it 'updates the :homepage' do
         described_class.send(:parse_repository, repo: @repo, node: @node)
         expect(@repo.homepage).to eql(@node.xpath('//r3d:repositoryURL')&.text)
       end
+
       it 'updates the :contact' do
         described_class.send(:parse_repository, repo: @repo, node: @node)
         expect(@repo.contact).to eql(@node.xpath('//r3d:repositoryContact')&.text)
       end
+
       it 'updates the :info' do
         described_class.send(:parse_repository, repo: @repo, node: @node)
-        expect(@repo.info.present?).to eql(true)
+        expect(@repo.info.present?).to be(true)
       end
+
       context ':info JSON content' do
-        before(:each) do
+        before do
           policies = @node.xpath('//r3d:policy').map do |node|
             described_class.send(:parse_policy, node: node)
           end
@@ -238,34 +256,42 @@ RSpec.describe ExternalApis::Re3dataService do
             upload_types: upload_types
           }
         end
+
         it 'updates the :types' do
           described_class.send(:parse_repository, repo: @repo, node: @node)
           expect(@repo.info['types']).to eql(@expected[:types])
         end
+
         it 'updates the :subjects' do
           described_class.send(:parse_repository, repo: @repo, node: @node)
           expect(@repo.info['subjects']).to eql(@expected[:subjects])
         end
+
         it 'updates the :provider_types' do
           described_class.send(:parse_repository, repo: @repo, node: @node)
           expect(@repo.info['provider_types']).to eql(@expected[:provider_types])
         end
+
         it 'updates the :keywords' do
           described_class.send(:parse_repository, repo: @repo, node: @node)
           expect(@repo.info['keywords']).to eql(@expected[:keywords])
         end
+
         it 'updates the :access' do
           described_class.send(:parse_repository, repo: @repo, node: @node)
           expect(@repo.info['access']).to eql(@expected[:access])
         end
+
         it 'updates the :pid_system' do
           described_class.send(:parse_repository, repo: @repo, node: @node)
           expect(@repo.info['pid_system']).to eql(@expected[:pid_system])
         end
+
         it 'updates the :policies' do
           described_class.send(:parse_repository, repo: @repo, node: @node)
           expect(@repo.info['policies'].to_json).to eql(@expected[:policies].to_json)
         end
+
         it 'updates the :upload_types' do
           described_class.send(:parse_repository, repo: @repo, node: @node)
           expect(@repo.info['upload_types'].to_json).to eql(@expected[:upload_types].to_json)
@@ -274,7 +300,7 @@ RSpec.describe ExternalApis::Re3dataService do
     end
 
     describe '#parse_policy(node:)' do
-      before(:each) do
+      before do
         @node = Nokogiri::XML(@repository_result, nil, 'utf8')
         base = @node.xpath('//r3d:re3data//r3d:repository').first
         @expected = {
@@ -282,19 +308,22 @@ RSpec.describe ExternalApis::Re3dataService do
           url: base.xpath('r3d:policyURL')&.text
         }
       end
+
       it 'returns nil if :node is not present' do
-        expect(described_class.send(:parse_policy, node: nil)).to eql(nil)
+        expect(described_class.send(:parse_policy, node: nil)).to be_nil
       end
+
       it 'updates the :name' do
         expect(described_class.send(:parse_policy, node: @node)[:name]).to eql(@expected[:name])
       end
+
       it 'updates the :url' do
         expect(described_class.send(:parse_policy, node: @node)[:url]).to eql(@expected[:url])
       end
     end
 
     describe '#parse_upload(node:)' do
-      before(:each) do
+      before do
         @node = Nokogiri::XML(@repository_result, nil, 'utf8')
         base = @node.xpath('//r3d:re3data//r3d:repository').first
         @expected = {
@@ -302,12 +331,15 @@ RSpec.describe ExternalApis::Re3dataService do
           restriction: base.xpath('r3d:dataUploadRestriction')&.text
         }
       end
+
       it 'returns nil if :node is not present' do
-        expect(described_class.send(:parse_upload, node: nil)).to eql(nil)
+        expect(described_class.send(:parse_upload, node: nil)).to be_nil
       end
+
       it 'updates the :type' do
         expect(described_class.send(:parse_upload, node: @node)[:type]).to eql(@expected[:type])
       end
+
       it 'updates the :restriction' do
         result = described_class.send(:parse_upload, node: @node)[:restriction]
         expect(result).to eql(@expected[:restriction])

@@ -26,7 +26,7 @@ module Api
       end
 
       def determine_license_start_date(output:)
-        return nil unless output.present?
+        return nil if output.blank?
         return output.release_date.to_formatted_s(:iso8601) if output.release_date.present?
 
         output.created_at.to_formatted_s(:iso8601)
@@ -52,7 +52,7 @@ module Api
       end
 
       def fetch_q_and_a_as_single_statement(themes:)
-        fetch_q_and_a(themes: themes).collect { |item| item[:description] }.join('<br>')
+        fetch_q_and_a(themes: themes).pluck(:description).join('<br>')
       end
 
       # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -63,7 +63,7 @@ module Api
           qs = @plan.questions.select { |q| q.themes.collect(&:title).include?(theme) }
           descr = qs.map do |q|
             a = @plan.answers.select { |ans| ans.question_id = q.id }.first
-            next unless a.present? && !a.blank?
+            next unless a.present?
 
             "<strong>Question:</strong> #{q.text}<br><strong>Answer:</strong> #{a.text}"
           end

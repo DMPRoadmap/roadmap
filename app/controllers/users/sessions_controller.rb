@@ -14,8 +14,7 @@ module Users
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def create
       @bypass_sso = params[:sso_bypass] == 'true'
-
-      if !sign_in_params[:email].present?
+      if sign_in_params[:email].blank?
         # If the email was left blank display an error
         redirect_to root_path, alert: _('Invalid email address!')
 
@@ -46,6 +45,7 @@ module Users
         # If this is part of an API V2 Oauth workflow
         if session['oauth-referer'].present?
           oauth_hash = ApplicationService.decrypt(payload: session['oauth-referer'])
+
           @client = ApiClient.where(uid: oauth_hash['client_id'])
 
           render 'doorkeeper/authorizations/new', layout: 'doorkeeper/application'
@@ -79,7 +79,7 @@ module Users
       end
       # Change the locale if the user has a prefered language
 
-      oauth_path.present? ? oauth_path : plans_path
+      (oauth_path.presence || plans_path)
     end
     # rubocop:enable Metrics/AbcSize
   end

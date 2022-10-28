@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Request password reset', type: :feature do
-  include DmptoolHelper
+RSpec.describe 'Request password reset' do
+  include Helpers::DmptoolHelper
 
-  before(:each) do
+  before do
     @pwd = SecureRandom.uuid
     @user = create(:user)
     mock_blog
@@ -17,7 +17,7 @@ RSpec.describe 'Request password reset', type: :feature do
     click_link 'Forgot password?'
   end
 
-  scenario 'User enters an unknown email' do
+  it 'User enters an unknown email' do
     within("form[action=\"#{user_password_path}\"]") do
       fill_in 'Email', with: 'foo@bar.edu'
       click_button 'Send'
@@ -27,18 +27,18 @@ RSpec.describe 'Request password reset', type: :feature do
     expect(page).to have_text('No account associated with that email address.')
   end
 
-  scenario "User enters their email and clicks 'Send'" do
-    expect(@user.reset_password_token.present?).to eql(false)
-    expect(@user.reset_password_sent_at.present?).to eql(false)
+  it "User enters their email and clicks 'Send'" do
+    expect(@user.reset_password_token.present?).to be(false)
+    expect(@user.reset_password_sent_at.present?).to be(false)
 
     token = submit_reset_password_form_fetch_token
 
-    expect(@user.reset_password_token.present?).to eql(true)
-    expect(@user.reset_password_sent_at.present?).to eql(true)
-    expect(token.present?).to eql(true)
+    expect(@user.reset_password_token.present?).to be(true)
+    expect(@user.reset_password_sent_at.present?).to be(true)
+    expect(token.present?).to be(true)
   end
 
-  scenario 'User resets their password via link in email' do
+  it 'User resets their password via link in email' do
     token = submit_reset_password_form_fetch_token
     visit edit_user_password_path(reset_password_token: token)
     expect(page).to have_text('Change your password')
@@ -51,7 +51,7 @@ RSpec.describe 'Request password reset', type: :feature do
     expect(page).to have_text('Your password has been changed successfully. You are now signed in.')
   end
 
-  scenario 'Password mismatch' do
+  it 'Password mismatch' do
     token = submit_reset_password_form_fetch_token
     visit edit_user_password_path(reset_password_token: token)
     expect(page).to have_text('Change your password')
@@ -64,7 +64,7 @@ RSpec.describe 'Request password reset', type: :feature do
     expect(page).to have_text('Password confirmation doesn\'t match Password')
   end
 
-  scenario 'Invalid password' do
+  it 'Invalid password' do
     token = submit_reset_password_form_fetch_token
     visit edit_user_password_path(reset_password_token: token)
     expect(page).to have_text('Change your password')
@@ -91,7 +91,7 @@ RSpec.describe 'Request password reset', type: :feature do
     expect(page).to have_text(txt)
 
     email = ActionMailer::Base.deliveries.first
-    expect(email.is_a?(Mail::Message)).to eql(true)
+    expect(email.is_a?(Mail::Message)).to be(true)
     expect(email.to).to eql([@user.email])
     expect(email.subject).to eql('Reset password instructions')
 

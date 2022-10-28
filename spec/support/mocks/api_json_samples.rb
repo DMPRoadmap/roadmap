@@ -85,7 +85,7 @@ module Mocks
         items: [
           {
             dmp: {
-              created: (Time.now - 3.months).to_formatted_s(:iso8601),
+              created: 3.months.ago.to_formatted_s(:iso8601),
               title: Faker::Lorem.sentence,
               description: Faker::Lorem.paragraph,
               language: Api::V1::LanguagePresenter.three_char_code(lang: lang),
@@ -150,8 +150,8 @@ module Mocks
               project: [{
                 title: Faker::Lorem.sentence,
                 description: Faker::Lorem.paragraph,
-                start: (Time.now + 3.months).to_formatted_s(:iso8601),
-                end: (Time.now + 2.years).to_formatted_s(:iso8601),
+                start: 3.months.from_now.to_formatted_s(:iso8601),
+                end: 2.years.from_now.to_formatted_s(:iso8601),
                 funding: [{
                   name: Faker::Movies::StarWars.droid,
                   funder_id: {

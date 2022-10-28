@@ -21,7 +21,7 @@ class Stat < ApplicationRecord
 
   belongs_to :org, optional: true
 
-  validates_uniqueness_of :type, scope: %i[date org_id filtered]
+  validates :type, uniqueness: { scope: %i[date org_id filtered] }
 
   class << self
     def to_csv(stats, sep = ',')

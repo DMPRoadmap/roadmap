@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe 'SuperAdmins Orgs', type: :feature, js: true do
-  include LinksHelper
+RSpec.describe 'SuperAdmins Orgs', js: true do
+  include Helpers::LinksHelper
 
   before do
     @org = create(:org)
@@ -12,7 +12,7 @@ RSpec.describe 'SuperAdmins Orgs', type: :feature, js: true do
     visit root_path
   end
 
-  scenario 'Super admin adds links' do
+  it 'Super admin adds links' do
     click_button 'Admin'
     click_link _('Organisations')
     first('td .dropdown button').click
@@ -22,7 +22,7 @@ RSpec.describe 'SuperAdmins Orgs', type: :feature, js: true do
     expect(all('.link').length).to eql(nbr_links + 1)
   end
 
-  scenario 'Super admin removes links' do
+  it 'Super admin removes links' do
     click_button 'Admin'
     click_link 'Organisations'
     # Edit the first org in the table

@@ -6,7 +6,7 @@ class Org
   class TotalCountJoinedUserService
     class << self
       def call(org = nil, filtered: false)
-        return for_orgs(filtered) unless org.present?
+        return for_orgs(filtered) if org.blank?
 
         for_org(org, filtered)
       end

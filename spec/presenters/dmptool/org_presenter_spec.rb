@@ -13,21 +13,23 @@ RSpec.describe Dmptool::OrgPresenter do
 
     describe '#initialize' do
       it 'initializes if a shibboleth scheme is available' do
-        expect(@presenter.is_a?(Dmptool::OrgPresenter)).to eql(true)
+        expect(@presenter.is_a?(described_class)).to be(true)
       end
+
       it 'initializes if a shibboleth scheme is NOT available' do
         @scheme.destroy
         presenter = described_class.new
-        expect(presenter.is_a?(Dmptool::OrgPresenter)).to eql(true)
+        expect(presenter.is_a?(described_class)).to be(true)
       end
     end
 
     describe '#participating_orgs' do
       it "returns 'managed' Orgs" do
-        expect(@presenter.participating_orgs.include?(@managed)).to eql(true)
+        expect(@presenter.participating_orgs.include?(@managed)).to be(true)
       end
+
       it "does not return 'unmanaged' Orgs" do
-        expect(@presenter.participating_orgs.include?(@unmanaged)).to eql(false)
+        expect(@presenter.participating_orgs.include?(@unmanaged)).to be(false)
       end
     end
   end

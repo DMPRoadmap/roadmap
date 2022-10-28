@@ -14,8 +14,8 @@ Dragonfly.app.configure do
 
   if Rails.env.development? || Rails.env.test?
     datastore :file,
-              root_path: Rails.root.join('public/system/dragonfly', Rails.env),
-              server_root: Rails.root.join('public')
+              root_path: Rails.public_path.join('system/dragonfly', Rails.env),
+              server_root: Rails.public_path
   else
     datastore :s3,
               url_scheme: Rails.configuration.x.dmproadmap.dragonfly_url_scheme,
@@ -35,6 +35,6 @@ Rails.application.middleware.use Dragonfly::Middleware
 
 # Add model functionality
 if defined?(ActiveRecord::Base)
-  ActiveRecord::Base.extend Dragonfly::Model
-  ActiveRecord::Base.extend Dragonfly::Model::Validations
+  ActiveSupport.on_load(:active_record) { extend Dragonfly::Model }
+  ActiveSupport.on_load(:active_record) { extend Dragonfly::Model::Validations }
 end

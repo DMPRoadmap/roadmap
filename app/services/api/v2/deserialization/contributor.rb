@@ -36,7 +36,7 @@ module Api
             # Try to find the Contributor or initialize a new one
             id_json = json.fetch(:contributor_id, json.fetch(:contact_id, {}))
             contrib = find_or_initialize(id_json: id_json, json: json)
-            return nil unless contrib.present?
+            return nil if contrib.blank?
 
             # Attach the Org unless its already defined
             contrib.org = Api::V2::Deserialization::Org.deserialize(json: json[:affiliation])
@@ -60,7 +60,7 @@ module Api
           # Each plan's contributors are unique records, so if we found a
           # match we need to dup it, otherwise initialize a new one
           def find_or_initialize(id_json:, json: {})
-            return nil unless json.present?
+            return nil if json.blank?
 
             contrib = Api::V2::DeserializationService.object_from_identifier(
               class_name: 'Contributor', json: id_json
@@ -77,7 +77,7 @@ module Api
           end
 
           def duplicate_contributor(contributor:)
-            return nil unless contributor.present?
+            return nil if contributor.blank?
 
             contrib = contributor.dup
             contrib.plan = nil
@@ -86,7 +86,7 @@ module Api
 
           # Assign the default Contact roles
           def assign_contact_roles(contributor:)
-            return contributor unless contributor.present?
+            return contributor if contributor.blank?
 
             contributor.data_curation = true
             contributor
@@ -98,7 +98,8 @@ module Api
 
             json.fetch(:role, []).each do |url|
               role = Api::V2::DeserializationService.translate_role(role: url)
-              contributor.send(:"#{role}=", true) if role.present?
+              contributor.send(:"#{role}=", true) if role.present? &&
+                                                     contributor.respond_to?(:"#{role}=")
             end
             contributor
           end

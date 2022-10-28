@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe Dmptool::OrgAdmin::PlansController, type: :request do
-  include DmptoolHelper
+  include Helpers::DmptoolHelper
 
-  before(:each) do
+  before do
     @admin = create(:user, :org_admin, org: create(:org))
     @invitee = create(:user, org: @admin.org)
     @template = create(:template, :publicly_visible, :published, org: @admin.org, phases: 1,
@@ -23,7 +23,7 @@ RSpec.describe Dmptool::OrgAdmin::PlansController, type: :request do
   end
 
   it 'OrgAdmin::PlansController includes our customizations' do
-    expect(@controller.respond_to?(:create)).to eql(true)
+    expect(@controller.respond_to?(:create)).to be(true)
   end
 
   describe 'POST /org_admin/plans - :create' do
@@ -32,7 +32,7 @@ RSpec.describe Dmptool::OrgAdmin::PlansController, type: :request do
       post org_admin_plans_path, params: { plan: @args }
       # Expect the user to be shown a success message
       expect(response).to redirect_to(organisational_org_admin_templates_path)
-      expect(flash[:notice].present?).to eql(true)
+      expect(flash[:notice].present?).to be(true)
       # Ensure that the new plan was created
       expect(Plan.last.template).to eql(@template)
       expect(Plan.last.owner).to eql(@invitee)
@@ -42,19 +42,20 @@ RSpec.describe Dmptool::OrgAdmin::PlansController, type: :request do
       post org_admin_plans_path, params: { plan: @args }
       # Request specs are expensive so just check everything in this one test
       expect(response).to redirect_to(root_path)
-      expect(flash[:alert].present?).to eql(true)
+      expect(flash[:alert].present?).to be(true)
     end
+
     it '#page is NOT accessible when logged in user is not an admin' do
       sign_in(create(:user))
       post org_admin_plans_path, params: { plan: @args }
       # Request specs are expensive so just check everything in this one test
       expect(response).to redirect_to(plans_path)
-      expect(flash[:alert].present?).to eql(true)
+      expect(flash[:alert].present?).to be(true)
     end
   end
 
   context 'private methods' do
-    before(:each) do
+    before do
       @plan = build(:plan)
 
       # Since these are fired outside the context of the request-response cycle we need
@@ -65,31 +66,34 @@ RSpec.describe Dmptool::OrgAdmin::PlansController, type: :request do
 
     describe ':notify_user(user:, plan:)' do
       it 'returns false if :user is not present' do
-        expect(@controller.send(:notify_user, user: nil, plan: @plan)).to eql(false)
+        expect(@controller.send(:notify_user, user: nil, plan: @plan)).to be(false)
       end
+
       it 'returns false if :plan is not present' do
-        expect(@controller.send(:notify_user, user: @invitee, plan: nil)).to eql(false)
+        expect(@controller.send(:notify_user, user: @invitee, plan: nil)).to be(false)
       end
+
       it 'invites the :user if they are a new record' do
         user = build(:user)
         @controller.send(:notify_user, user: user, plan: @plan)
 
         email = ActionMailer::Base.deliveries.first
-        expect(email.is_a?(Mail::Message)).to eql(true)
+        expect(email.is_a?(Mail::Message)).to be(true)
         expect(email.to).to eql([user.email])
         expect(email.subject).to eql(@plan.template.email_subject)
-        expect(email.body.to_s.include?(user.email)).to eql(true)
-        expect(email.body.to_s.include?(@plan.template.email_body)).to eql(true)
+        expect(email.body.to_s.include?(user.email)).to be(true)
+        expect(email.body.to_s.include?(@plan.template.email_body)).to be(true)
       end
+
       it 'emails the existing :user' do
         @controller.send(:notify_user, user: @invitee, plan: @plan)
 
         email = ActionMailer::Base.deliveries.first
-        expect(email.is_a?(Mail::Message)).to eql(true)
+        expect(email.is_a?(Mail::Message)).to be(true)
         expect(email.to).to eql([@invitee.email])
         expect(email.subject).to eql(@plan.template.email_subject)
-        expect(email.body.to_s.include?(@invitee.name(false))).to eql(true)
-        expect(email.body.to_s.include?(@plan.template.email_body)).to eql(true)
+        expect(email.body.to_s.include?(@invitee.name(false))).to be(true)
+        expect(email.body.to_s.include?(@plan.template.email_body)).to be(true)
       end
     end
   end

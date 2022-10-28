@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe ExternalApis::RdamscService do
-  include Webmocks
+  include Helpers::Webmocks
 
-  before(:each) do
+  before do
     MetadataStandard.all.destroy_all
 
     @rdams_results = {
@@ -39,25 +39,28 @@ RSpec.describe ExternalApis::RdamscService do
   describe ':fetch_metadata_standards' do
     it 'calls :query_schemes' do
       described_class.expects(:query_schemes).returns(nil)
-      expect(described_class.fetch_metadata_standards).to eql(nil)
+      expect(described_class.fetch_metadata_standards).to be_nil
     end
   end
 
   context 'private methods' do
     describe ':query_api(path:)' do
       it 'returns nil if path is not present' do
-        expect(described_class.send(:query_api, path: nil)).to eql(nil)
+        expect(described_class.send(:query_api, path: nil)).to be_nil
       end
+
       it 'calls the error handler if an HTTP 200 is not received from the SPDX API' do
         stub_rdamsc_service(successful: false)
         described_class.expects(:handle_http_failure)
-        expect(described_class.send(:query_api, path: Faker::Lorem.word)).to eql(nil)
+        expect(described_class.send(:query_api, path: Faker::Lorem.word)).to be_nil
       end
+
       it 'logs an error if the response was invalid JSON' do
         JSON.expects(:parse).raises(JSON::ParserError.new)
         described_class.expects(:log_error)
-        expect(described_class.send(:query_api, path: Faker::Lorem.word)).to eql(nil)
+        expect(described_class.send(:query_api, path: Faker::Lorem.word)).to be_nil
       end
+
       it 'reuturns the array of response body as JSON' do
         expected = JSON.parse(@rdams_results.to_json)
         expect(described_class.send(:query_api, path: Faker::Lorem.word)).to eql(expected)
@@ -65,18 +68,21 @@ RSpec.describe ExternalApis::RdamscService do
     end
 
     describe ':query_schemes(path:)' do
-      before(:each) do
+      before do
         @path = Faker::Internet.unique.url
       end
+
       it 'returns false if the initial query returned no results' do
         described_class.expects(:query_api).with(path: @path).returns(nil)
-        expect(described_class.send(:query_schemes, path: @path)).to eql(false)
+        expect(described_class.send(:query_schemes, path: @path)).to be(false)
       end
+
       it 'calls :process_scheme_entries if the query returned results' do
         described_class.expects(:query_api).with(path: @path).returns(@rdams_results)
         described_class.expects(:process_scheme_entries)
         described_class.send(:query_schemes, path: @path)
       end
+
       it "recursively calls itself while a 'nextLink' is provided in the query results" do
         hash = @rdams_results
         hash[:data][:nextLink] = "#{@path}/next"
@@ -91,15 +97,18 @@ RSpec.describe ExternalApis::RdamscService do
 
     describe ':process_scheme_entries(json:)' do
       it 'returns false if json is not present' do
-        expect(described_class.send(:process_scheme_entries, json: nil)).to eql(false)
+        expect(described_class.send(:process_scheme_entries, json: nil)).to be(false)
       end
+
       it 'returns false if json does not contain :data not present' do
-        expect(described_class.send(:process_scheme_entries, json: { foo: 'bar' })).to eql(false)
+        expect(described_class.send(:process_scheme_entries, json: { foo: 'bar' })).to be(false)
       end
+
       it 'returns false if json[:data] does not contain :items present' do
         json = { data: { items: [] } }
-        expect(described_class.send(:process_scheme_entries, json: json)).to eql(false)
+        expect(described_class.send(:process_scheme_entries, json: json)).to be(false)
       end
+
       it 'updates the MetadataStandard if it already exists' do
         hash = @rdams_results[:data][:items].first
         standard = create(:metadata_standard, uri: hash[:uri],
@@ -117,6 +126,7 @@ RSpec.describe ExternalApis::RdamscService do
         expect(result.locations).to eql(JSON.parse(hash[:locations].to_json))
         expect(result.related_entities).to eql(JSON.parse(hash[:relatedEntities].to_json))
       end
+
       it 'creates a new MetadataStandard' do
         hash = @rdams_results[:data][:items].first
 

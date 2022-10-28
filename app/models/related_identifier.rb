@@ -26,9 +26,9 @@
 class RelatedIdentifier < ApplicationRecord
   include Uc3Citation
 
-  URL_REGEX = /^http/.freeze
-  DOI_REGEX = %r{(doi:)?10\.[0-9]+/[a-zA-Z0-9.\-/]+}.freeze
-  ARK_REGEX = %r{ark:[a-zA-Z0-9]+/[a-zA-Z0-9]+}.freeze
+  URL_REGEX = /^http/
+  DOI_REGEX = %r{(doi:)?10\.[0-9]+/[a-zA-Z0-9.\-/]+}
+  ARK_REGEX = %r{ark:[a-zA-Z0-9]+/[a-zA-Z0-9]+}
 
   # ================
   # = Associations =
@@ -51,30 +51,26 @@ class RelatedIdentifier < ApplicationRecord
   # =========
 
   # Broad categories to identify the type of work the related identifier represents
-  enum work_type: %i[article dataset preprint software supplemental_information paper book protocol]
+  enum work_type: { article: 0, dataset: 1, preprint: 2, software: 3, supplemental_information: 4,
+                    paper: 5, book: 6, protocol: 7 }
 
   # The type of identifier based on the DataCite metadata schema
-  enum identifier_type: %i[ark arxiv bibcode doi ean13 eissn handle igsn isbn issn istc
-                           lissn lsid pmid purl upc url urn w3id other]
+  enum identifier_type: { ark: 0, arxiv: 1, bibcode: 2, doi: 3, ean13: 4, eissn: 5, handle: 6,
+                          igsn: 7, isbn: 8, issn: 9, istc: 10, lissn: 11, lsid: 12, pmid: 13,
+                          purl: 14, upc: 15, url: 16, urn: 17, w3id: 18, other: 19 }
 
   # The relationship type between the related item and the Plan
   # Note that the 'references' value is changed to 'does_reference' in this list
   # because 'references' conflicts with an ActiveRecord method
-  enum relation_type: %i[is_cited_by cites
-                         is_supplement_to is_supplemented_by
-                         is_continued_by continues
-                         is_described_by describes
-                         has_metadata is_metadata_for
-                         has_version is_version_of is_new_version_of is_previous_version_of
-                         is_part_of has_part
-                         is_referenced_by does_reference
-                         is_documented_by documents
-                         is_compiled_by compiles
-                         is_variant_form_of is_original_form_of is_identical_to
-                         is_reviewed_by reviews
-                         is_derived_from is_source_of
-                         is_required_by requires
-                         is_obsoleted_by obsoletes]
+  enum relation_type: { is_cited_by: 0, cites: 1, is_supplement_to: 2, is_supplemented_by: 3,
+                        is_continued_by: 4, continues: 5, is_described_by: 6, describes: 7,
+                        has_metadata: 8, is_metadata_for: 9, has_version: 10, is_version_of: 11,
+                        is_new_version_of: 12, is_previous_version_of: 13, is_part_of: 14,
+                        has_part: 15, is_referenced_by: 16, does_reference: 17, is_documented_by: 18,
+                        documents: 19, is_compiled_by: 20, compiles: 21, is_variant_form_of: 22,
+                        is_original_form_of: 23, is_identical_to: 24, is_reviewed_by: 25, reviews: 26,
+                        is_derived_from: 27, is_source_of: 28, is_required_by: 29, requires: 30,
+                        is_obsoleted_by: 31, obsoletes: 32 }
 
   # =============
   # = CALLBACKS =
@@ -114,7 +110,7 @@ class RelatedIdentifier < ApplicationRecord
   end
 
   def detect_relation_type
-    relation_type.present? ? relation_type : 'cites'
+    (relation_type.presence || 'cites')
   end
 
   def load_citation

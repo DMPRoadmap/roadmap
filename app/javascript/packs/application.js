@@ -38,7 +38,7 @@ import '../src/utils/tooltipHelper';
 import getConstant from '../src/utils/constants';
 import { renderAlert, renderNotice, hideNotifications } from '../src/utils/notificationHelper';
 import toggleSpinner from '../src/utils/spinner';
-import { Tinymce } from '../src/utils/tinymce.js.erb';
+import { Tinymce } from '../src/utils/tinymce';
 import { initAutoComplete } from '../src/utils/autoComplete';
 import { addAsterisks } from '../src/utils/requiredField';
 import { togglisePasswords } from '../src/utils/passwordHelper';
@@ -59,7 +59,7 @@ import '../src/orgs/adminEdit';
 // ----------------------------------------
 import '../src/plans/download';
 import '../src/plans/editDetails';
-import '../src/plans/index.js.erb';
+import '../src/plans/index';
 import '../src/plans/new';
 import '../src/plans/publish';
 import '../src/plans/share';
@@ -100,14 +100,14 @@ import '../src/dmptool/orgAdmin/plans/index';
 import '../src/dmptool/users/passwords/edit';
 
 // Since we're using Webpacker to manage JS we need to startup Rails' Unobtrusive JS
-// and Turbolinks. ActiveStorage and ActionCable would also need to be in here
+// and Turbo. ActiveStorage and ActionCable would also need to be in here
 // if we decide to implement either before Rails 6
 require('@rails/ujs').start();
 
-// TODO: Disabled turbolinks for the time being because our custom JS is not
+// TODO: Disabled turbo for the time being because our custom JS is not
 //       properly setup to work with it. We should review the docs:
-//       https://github.com/turbolinks/turbolinks
-// require('turbolinks').start();
+//       https://github.com/hotwired/turbo-rails
+// import "@hotwired/turbo-rails".
 // require("@rails/activestorage").start()
 // require("@rails/actioncable").start()
 

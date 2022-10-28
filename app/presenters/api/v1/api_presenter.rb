@@ -6,7 +6,7 @@ module Api
     class ApiPresenter
       class << self
         def boolean_to_yes_no_unknown(value:)
-          return 'unknown' unless value.present?
+          return 'unknown' if value.blank?
 
           value ? 'yes' : 'no'
         end

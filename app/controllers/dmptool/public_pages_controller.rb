@@ -34,7 +34,7 @@ module Dmptool
 
       # If the user clicked 'View All', set the per_page to match the record count
       per_page = @plans.length if public_plans_params[:all]
-      per_page = public_plans_params.fetch(:per_page, 10) unless per_page.present?
+      per_page = public_plans_params.fetch(:per_page, 10) if per_page.blank?
 
       @viewing_all = public_plans_params[:all].present?
 
@@ -75,7 +75,7 @@ module Dmptool
     def build_facet(association:, attr:, selected: [])
       facet = {}
       @plans.each do |plan|
-        next unless plan.send(association.to_sym).present?
+        next if plan.send(association.to_sym).blank?
 
         hash = facet.fetch(:"#{plan.send(association.to_sym).id}", {
                              label: plan.send(association.to_sym).send(attr.to_sym),

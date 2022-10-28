@@ -5,7 +5,7 @@ class ContributorPresenter
   class << self
     # Returns the name with each word capitalized
     def display_name(name:)
-      return '' unless name.present?
+      return '' if name.blank?
 
       name.split.map(&:capitalize).join(' ')
     end
@@ -23,14 +23,14 @@ class ContributorPresenter
       return orcid if orcid.present?
 
       scheme = IdentifierScheme.by_name('orcid').first
-      return nil unless scheme.present?
+      return nil if scheme.blank?
 
       Identifier.new(identifiable: contributor, identifier_scheme: scheme)
     end
 
     def roles_for_radio(contributor:)
       all_roles = Contributor.new.all_roles
-      return all_roles unless contributor.present?
+      return all_roles if contributor.blank?
 
       selected = contributor.selected_roles
       all_roles.map { |role| { "#{role}": selected.include?(role) } }

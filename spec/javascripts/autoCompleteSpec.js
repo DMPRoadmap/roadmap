@@ -7,8 +7,10 @@ describe('autoComplete test suite', () => {
     $('body').html(fixture.load('autoComplete.html'));
     initAutoComplete();
     // Override the form submission, we are just going to validate the ariatisation of the form
-    $('form').submit((e) => { e.preventDefault(); });
+    $('form').trigger('submit', (e) => { e.preventDefault(); });
   });
+
+  // TODO : Needs fixing, tests need to have at least one it() in a describe()
 
   afterEach(() => {
     fixture.cleanup();

@@ -8,7 +8,7 @@ module Api
 
       def initialize(plan:)
         @contributors = []
-        return unless plan.present?
+        return if plan.blank?
 
         @plan = plan
 
@@ -59,7 +59,7 @@ module Api
       # Retrieve the answers that have the Budget theme
       def plan_costs(plan:)
         theme = Theme.where(title: 'Cost').first
-        return [] unless theme.present?
+        return [] if theme.blank?
 
         # TODO: define a new 'Currency' question type that includes a float field
         #       any currency type selector (e.g GBP or USD)

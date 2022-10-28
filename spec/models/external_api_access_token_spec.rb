@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe ExternalApiAccessToken, type: :model do
+RSpec.describe ExternalApiAccessToken do
   context 'associations' do
     it { is_expected.to belong_to(:user) }
   end
@@ -12,7 +12,7 @@ RSpec.describe ExternalApiAccessToken, type: :model do
     it { is_expected.to validate_presence_of(:external_service_name) }
     it { is_expected.to validate_presence_of(:access_token) }
 
-    it "should validate that a User can only have one 'active' token per external service" do
+    it "validates that a User can only have one 'active' token per external service" do
       user = create(:user)
       subject = build(:external_api_access_token, user: user)
       subject.valid?
@@ -23,29 +23,32 @@ RSpec.describe ExternalApiAccessToken, type: :model do
 
   context 'class_methods' do
     describe '#for_user_and_service(user:, service:)' do
-      before(:each) do
+      before do
         @user = create(:user)
         @svc = 'FOOBAR'
         @expired_token = create(:external_api_access_token, user: @user, external_service_name: @svc.downcase,
-                                                            expires_at: Time.now - 1.days)
+                                                            expires_at: 1.day.ago)
         @revoked_token = create(:external_api_access_token, user: @user, external_service_name: @svc.downcase,
-                                                            revoked_at: Time.now - 1.days)
+                                                            revoked_at: 1.day.ago)
         @active_token = create(:external_api_access_token, user: @user, external_service_name: @svc.downcase,
                                                            revoked_at: nil, expires_at: nil)
       end
+
       it 'returns nil if the user has no active token' do
-        expect(described_class.for_user_and_service(user: create(:user), service: @svc)).to eql(nil)
+        expect(described_class.for_user_and_service(user: create(:user), service: @svc)).to be_nil
       end
+
       it 'returns nil if the user has no active tokens for the specified service' do
-        expect(described_class.for_user_and_service(user: @user, service: 'foo')).to eql(nil)
+        expect(described_class.for_user_and_service(user: @user, service: 'foo')).to be_nil
       end
+
       it 'returns the active token' do
         expect(described_class.for_user_and_service(user: @user, service: @svc.downcase)).to eql(@active_token)
       end
     end
 
     describe '#from_omniauth(user:, service:, hash:)' do
-      before(:each) do
+      before do
         @user = create(:user)
         @svc = Faker::Lorem.unique.word.upcase
 
@@ -60,38 +63,45 @@ RSpec.describe ExternalApiAccessToken, type: :model do
       end
 
       it 'returns nil unless the user is present' do
-        expect(described_class.from_omniauth(user: nil, service: @svc, hash: @hash)).to eql(nil)
+        expect(described_class.from_omniauth(user: nil, service: @svc, hash: @hash)).to be_nil
       end
+
       it 'returns nil unless the user is not a User' do
-        expect(described_class.from_omniauth(user: build(:org), service: @svc, hash: @hash)).to eql(nil)
+        expect(described_class.from_omniauth(user: build(:org), service: @svc, hash: @hash)).to be_nil
       end
+
       it 'returns nil unless :service is present' do
-        expect(described_class.from_omniauth(user: @user, service: nil, hash: @hash)).to eql(nil)
+        expect(described_class.from_omniauth(user: @user, service: nil, hash: @hash)).to be_nil
       end
+
       it 'returns nil unless :hash is present' do
-        expect(described_class.from_omniauth(user: @user, service: @svc, hash: nil)).to eql(nil)
+        expect(described_class.from_omniauth(user: @user, service: @svc, hash: nil)).to be_nil
       end
+
       it 'returns nil unless :hash[:credentials][:token] is present' do
         @hash[:credentials].delete(:token)
-        expect(described_class.from_omniauth(user: @user, service: @svc, hash: @hash)).to eql(nil)
+        expect(described_class.from_omniauth(user: @user, service: @svc, hash: @hash)).to be_nil
       end
+
       it 'revokes existing tokens' do
-        expect(@old_token.reload.revoked_at).to eql(nil)
+        expect(@old_token.reload.revoked_at).to be_nil
         described_class.from_omniauth(user: @user, service: @svc, hash: @hash)
         expect(@old_token.reload.revoked_at).not_to eql(nil)
       end
+
       it 'sets the :expires_at to nil if the hash contains no expiry time' do
         @hash[:credentials].delete(:expires_at)
         token = described_class.from_omniauth(user: @user, service: @svc, hash: @hash)
-        expect(token.expires_at).to eql(nil)
+        expect(token.expires_at).to be_nil
       end
+
       it 'creates a new token' do
         token = described_class.from_omniauth(user: @user, service: @svc, hash: @hash)
         expect(token.user).to eql(@user)
         expect(token.external_service_name).to eql(@svc.downcase)
         expect(token.access_token).to eql(@hash[:credentials][:token])
         expect(token.refresh_token).to eql(@hash[:credentials][:refresh_token])
-        expected = (Time.now + @hash[:credentials][:expires_at].to_i.seconds).utc.strftime('%Y-%m-%d %H:%m')
+        expected = (Time.zone.now + @hash[:credentials][:expires_at].to_i.seconds).utc.strftime('%Y-%m-%d %H:%m')
         expect(token.expires_at.strftime('%Y-%m-%d %H:%m')).to eql(expected)
       end
     end
@@ -101,7 +111,7 @@ RSpec.describe ExternalApiAccessToken, type: :model do
     describe '#revoke!' do
       it 'sets :revoked_at' do
         token = create(:external_api_access_token, user: create(:user))
-        expect(token.revoked_at).to eql(nil)
+        expect(token.revoked_at).to be_nil
         token.revoke!
         expect(token.revoked_at).not_to eql(nil)
       end
@@ -109,16 +119,18 @@ RSpec.describe ExternalApiAccessToken, type: :model do
 
     describe '#active?' do
       it 'returns false if the token has expired' do
-        token = build(:external_api_access_token, revoked_at: nil, expires_at: Time.now - 2.hours)
-        expect(token.active?).to eql(false)
+        token = build(:external_api_access_token, revoked_at: nil, expires_at: 2.hours.ago)
+        expect(token.active?).to be(false)
       end
+
       it 'returns false if the token has been revoked' do
-        token = build(:external_api_access_token, revoked_at: Time.now - 2.hours)
-        expect(token.active?).to eql(false)
+        token = build(:external_api_access_token, revoked_at: 2.hours.ago)
+        expect(token.active?).to be(false)
       end
+
       it 'returns true if the token is not revoked or expired' do
-        token = build(:external_api_access_token, revoked_at: nil, expires_at: Time.now + 2.hours)
-        expect(token.active?).to eql(true)
+        token = build(:external_api_access_token, revoked_at: nil, expires_at: 2.hours.from_now)
+        expect(token.active?).to be(true)
       end
     end
   end

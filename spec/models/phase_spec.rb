@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Phase, type: :model do
+RSpec.describe Phase do
   it_behaves_like 'VersionableModel'
 
   context 'validations' do
@@ -37,11 +37,11 @@ RSpec.describe Phase, type: :model do
   end
 
   describe '.titles' do
+    subject { described_class.titles(template.id) }
+
     let!(:phase) { create(:phase) }
 
     let!(:template) { phase.template }
-
-    subject { Phase.titles(template.id) }
 
     before do
       @related_phases = create_list(:phase, 2, template: template)
@@ -62,11 +62,11 @@ RSpec.describe Phase, type: :model do
   end
 
   describe '#deep_copy' do
+    subject { phase.deep_copy(**options) }
+
     let!(:phase) { create(:phase, modifiable: false) }
 
     let!(:options) { {} }
-
-    subject { phase.deep_copy(options) }
 
     context 'when no options are provided' do
       before do
@@ -110,7 +110,7 @@ RSpec.describe Phase, type: :model do
       let!(:options) { { modifiable: true } }
 
       it 'sets the modifiable flag to true' do
-        expect(subject.modifiable).to eql(true)
+        expect(subject.modifiable).to be(true)
       end
     end
 
@@ -132,9 +132,9 @@ RSpec.describe Phase, type: :model do
   end
 
   describe '#num_answered_questions' do
-    let!(:phase) { create(:phase) }
-
     subject { phase.num_answered_questions(plan) }
+
+    let!(:phase) { create(:phase) }
 
     context 'when plan is nil' do
       let!(:plan) { nil }
@@ -165,7 +165,7 @@ RSpec.describe Phase, type: :model do
       end
 
       it "returns the sum of Plan's Phase's num_answered_questions" do
-        expect(subject).to eql(2)
+        expect(subject).to be(2)
       end
     end
   end
@@ -180,7 +180,7 @@ RSpec.describe Phase, type: :model do
     end
 
     it 'returns the number of related questions' do
-      expect(phase.num_questions).to eql(4)
+      expect(phase.num_questions).to be(4)
     end
   end
 end

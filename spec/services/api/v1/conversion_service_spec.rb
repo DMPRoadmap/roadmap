@@ -7,15 +7,19 @@ RSpec.describe Api::V1::ConversionService do
     it 'returns `yes` when true' do
       expect(described_class.boolean_to_yes_no_unknown(true)).to eql('yes')
     end
+
     it 'returns `yes` when 1' do
       expect(described_class.boolean_to_yes_no_unknown(1)).to eql('yes')
     end
+
     it 'returns `no` when false' do
       expect(described_class.boolean_to_yes_no_unknown(false)).to eql('no')
     end
+
     it 'returns `no` when 0' do
       expect(described_class.boolean_to_yes_no_unknown(0)).to eql('no')
     end
+
     it 'returns `unknown` when nil' do
       expect(described_class.boolean_to_yes_no_unknown(nil)).to eql('unknown')
     end
@@ -23,13 +27,15 @@ RSpec.describe Api::V1::ConversionService do
 
   describe 'yes_no_unknown_to_boolean' do
     it 'returns true when `yes`' do
-      expect(described_class.yes_no_unknown_to_boolean('yes')).to eql(true)
+      expect(described_class.yes_no_unknown_to_boolean('yes')).to be(true)
     end
+
     it 'returns false when `no`' do
-      expect(described_class.yes_no_unknown_to_boolean('no')).to eql(false)
+      expect(described_class.yes_no_unknown_to_boolean('no')).to be(false)
     end
+
     it 'returns nil when `unknown`' do
-      expect(described_class.yes_no_unknown_to_boolean('unknown')).to eql(nil)
+      expect(described_class.yes_no_unknown_to_boolean('unknown')).to be_nil
     end
   end
 
@@ -37,19 +43,22 @@ RSpec.describe Api::V1::ConversionService do
     it 'returns nil if the context is not present' do
       expected = described_class.to_identifier(context: nil,
                                                value: Faker::Lorem.word)
-      expect(expected).to eql(nil)
+      expect(expected).to be_nil
     end
+
     it 'returns nil if the value is not present' do
       expected = described_class.to_identifier(context: Faker::Lorem.word,
                                                value: nil)
-      expect(expected).to eql(nil)
+      expect(expected).to be_nil
     end
+
     it 'returns an Identifier with a IdentifierScheme matching the context' do
       context = Faker::Lorem.word
       expected = described_class.to_identifier(context: context,
                                                value: Faker::Lorem.word)
       expect(expected.identifier_scheme.name).to eql(context)
     end
+
     it "returns an Identifier asssociated with the 'grant' scheme" do
       value = Faker::Lorem.word
       expected = described_class.to_identifier(context: Faker::Lorem.word,

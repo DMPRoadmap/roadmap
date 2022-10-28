@@ -2,12 +2,12 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Sign in/up via email entry', type: :feature do
-  include DmptoolHelper
-  include AutocompleteHelper
-  include IdentifierHelper
+RSpec.describe 'Sign in/up via email entry' do
+  include Helpers::DmptoolHelper
+  include Helpers::AutocompleteHelper
+  include Helpers::IdentifierHelper
 
-  before(:each) do
+  before do
     mock_blog
     @email_domain = 'foo.edu'
     @org = create(:org, contact_email: "help-desk@#{@email_domain}")
@@ -20,7 +20,7 @@ RSpec.describe 'Sign in/up via email entry', type: :feature do
     within("form[action=\"#{user_session_path}\"]") do
       expect { find('.is-invalid[id="sign-in-sign-up-email"]') }.to raise_error(Capybara::ElementNotFound)
       click_button 'Continue'
-      expect(find('.is-invalid[id="sign-in-sign-up-email"]').present?).to eql(true)
+      expect(find('.is-invalid[id="sign-in-sign-up-email"]').present?).to be(true)
     end
   end
 
@@ -29,8 +29,8 @@ RSpec.describe 'Sign in/up via email entry', type: :feature do
     click_on 'Continue'
 
     expect(page).to have_text('Sign in')
-    expect(find('#user_disabled_email').value).to eql(@user.email)
-    expect(find('#user_password').value).to eql('')
+    expect(find_by_id('user_disabled_email').value).to eql(@user.email)
+    expect(find_by_id('user_password').value).to eql('')
   end
 
   it 'handles known user with an shibbolized org', js: true do
@@ -39,7 +39,7 @@ RSpec.describe 'Sign in/up via email entry', type: :feature do
     click_on 'Continue'
 
     expect(page).to have_text('Sign in')
-    expect(find('#user_disabled_email').value).to eql(@user.email)
+    expect(find_by_id('user_disabled_email').value).to eql(@user.email)
     expect(page).to have_text(CGI.escapeHTML(@org.name))
     expect(page).to have_text('Sign in with Institution (SSO)')
     expect(page).to have_text('Sign in with non SSO')
@@ -58,8 +58,8 @@ RSpec.describe 'Sign in/up via email entry', type: :feature do
     click_on 'Continue'
 
     expect(page).to have_text('New Account Sign Up')
-    expect(find('#user_disabled_email').value).to eql(email)
-    expect(find('#org_autocomplete_name').value).to eql(@org.name)
+    expect(find_by_id('user_disabled_email').value).to eql(email)
+    expect(find_by_id('org_autocomplete_name').value).to eql(@org.name)
   end
 
   it 'handles unknown user with a known email domain for an shibbolized org', js: true do
@@ -69,7 +69,7 @@ RSpec.describe 'Sign in/up via email entry', type: :feature do
     click_on 'Continue'
 
     expect(page).to have_text('New Account Sign Up')
-    expect(find('#user_disabled_email').value).to eql(email)
+    expect(find_by_id('user_disabled_email').value).to eql(email)
     expect(page).to have_text(CGI.escapeHTML(@org.name))
     expect(page).to have_text('Sign up with Institution (SSO)')
     expect(page).to have_text('Sign up with non SSO')
@@ -84,7 +84,7 @@ RSpec.describe 'Sign in/up via email entry', type: :feature do
     click_on 'Continue'
 
     expect(page).to have_text('Sign in')
-    expect(find('#user_disabled_email').value).to eql(@user.email)
+    expect(find_by_id('user_disabled_email').value).to eql(@user.email)
     expect(page).to have_text(CGI.escapeHTML(@org.name))
     expect(page).to have_text('Sign in with Institution (SSO)')
     expect(page).to have_text('Sign in with non SSO')

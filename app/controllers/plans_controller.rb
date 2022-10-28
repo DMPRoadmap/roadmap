@@ -17,7 +17,7 @@ class PlansController < ApplicationController
   # rubocop:disable Metrics/AbcSize
   def index
     authorize Plan
-    @plans = Plan.includes(:roles, :org).active(current_user).page(1)
+    @plans = Plan.includes(:roles).active(current_user).page(1)
     @organisationally_or_publicly_visible = if current_user.org.is_other?
                                               []
                                             else
@@ -31,12 +31,102 @@ class PlansController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   # GET /plans/new
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def show
+    @plan = Plan.includes(
+      template: [:phases], guidance_groups: [:guidances]
+    ).find_by(id: params[:id])
+    raise ActiveRecord::RecordNotFound if @plan.blank?
+
+    authorize @plan
+    @visibility = if @plan.visibility.present?
+                    @plan.visibility.to_s
+                  else
+                    Rails.configuration.x.plans.default_visibility
+                  end
+    # Get all of the available funders
+    @funders = Org.funder
+                  .joins(:templates)
+                  .where(templates: { published: true }).uniq.sort_by(&:name)
+    # TODO: Seems strange to do this. Why are we just not using an `edit` route?
+    @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
+
+    # Get all Guidance Groups applicable for the plan and group them by org
+    @all_guidance_groups = @plan.guidance_group_options
+    @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
+    @selected_guidance_groups = @plan.guidance_groups
+
+    # Important ones come first on the page - we grab the user's org's GGs and
+    # "Organisation" org type GGs
+    @important_ggs = []
+
+    if @all_ggs_grouped_by_org.include?(current_user.org)
+      @important_ggs << [current_user.org, @all_ggs_grouped_by_org[current_user.org]]
+    end
+
+    @default_orgs = Org.default_orgs
+    @all_ggs_grouped_by_org.each do |org, ggs|
+      @important_ggs << [org, ggs] if @default_orgs.include?(org)
+
+      # If this is one of the already selected guidance groups its important!
+      @important_ggs << [org, ggs] if !(ggs & @selected_guidance_groups).empty? && @important_ggs.exclude?([org, ggs])
+    end
+
+    # Sort the rest by org name for the accordion
+    @important_ggs = @important_ggs.sort_by { |org, _gg| (org.nil? ? '' : org.name) }
+    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by do |org, _gg|
+      (org.nil? ? '' : org.name)
+    end
+    @selected_guidance_groups = @selected_guidance_groups.ids
+
+    @based_on = if @plan.template.customization_of.nil?
+                  @plan.template
+                else
+                  Template.where(family_id: @plan.template.customization_of).first
+                end
+
+    @research_domains = ResearchDomain.all.order(:label)
+
+    respond_to :html
+  end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+  # POST /plans
   def new
     @plan = Plan.new
     authorize @plan
   end
 
-  # POST /plans
+  # GET /plans/show
+  # rubocop:disable Metrics/AbcSize
+  def edit
+    plan = Plan.includes(
+      { template: {
+        phases: {
+          sections: {
+            questions: %i[question_format annotations]
+          }
+        }
+      } },
+      { answers: :notes }
+    )
+               .find(params[:id])
+    authorize plan
+    phase_id = params[:phase_id].to_i
+    phase = plan.template.phases.select { |p| p.id == phase_id }.first
+    raise ActiveRecord::RecordNotFound if phase.nil?
+
+    guidance_groups = GuidanceGroup.where(published: true, id: plan.guidance_group_ids)
+    render_phases_edit(plan, phase, guidance_groups)
+  end
+
+  # rubocop:enable Metrics/AbcSize
+  # TODO: This feels like it belongs on a phases controller, perhaps introducing
+  #       a non-namespaces phases_controller woulld make sense here. Consider
+  #       doing this when we refactor the Plan editing UI
+  # GET /plans/:plan_id/phases/:id/edit
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def create
@@ -72,7 +162,7 @@ class PlansController < ApplicationController
 
       @plan.org = process_org!(user: current_user)
       # If the user said there was no research org, use their org since Plan requires one
-      @plan.org = current_user.org unless @plan.org.present?
+      @plan.org = current_user.org if @plan.org.blank?
       @plan.funder = process_org!(user: current_user, namespace: 'funder')
 
       @plan.title = @plan.title.strip
@@ -133,98 +223,8 @@ class PlansController < ApplicationController
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-  # GET /plans/show
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  def show
-    @plan = Plan.includes(
-      template: [:phases], plans_guidance_groups: [:guidance_group]
-    ).find_by(id: params[:id])
-    raise ActiveRecord::RecordNotFound unless @plan.present?
-
-    authorize @plan
-    @visibility = if @plan.visibility.present?
-                    @plan.visibility.to_s
-                  else
-                    Rails.configuration.x.plans.default_visibility
-                  end
-    # Get all of the available funders
-    @funders = Org.funder
-                  .joins(:templates)
-                  .where(templates: { published: true }).uniq.sort_by(&:name)
-    # TODO: Seems strange to do this. Why are we just not using an `edit` route?
-    @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
-
-    # Get all Guidance Groups applicable for the plan and group them by org
-    @all_guidance_groups = @plan.guidance_group_options
-    @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
-    @selected_guidance_groups = @plan.guidance_groups
-
-    # Important ones come first on the page - we grab the user's org's GGs and
-    # "Organisation" org type GGs
-    @important_ggs = []
-
-    if @all_ggs_grouped_by_org.include?(current_user.org)
-      @important_ggs << [current_user.org, @all_ggs_grouped_by_org[current_user.org]]
-    end
-
-    @default_orgs = Org.default_orgs
-    @all_ggs_grouped_by_org.each do |org, ggs|
-      @important_ggs << [org, ggs] if @default_orgs.include?(org)
-
-      # If this is one of the already selected guidance groups its important!
-      @important_ggs << [org, ggs] if !(ggs & @selected_guidance_groups).empty? && !@important_ggs.include?([org, ggs])
-    end
-
-    # Sort the rest by org name for the accordion
-    @important_ggs = @important_ggs.sort_by { |org, _gg| (org.nil? ? '' : org.name) }
-    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by do |org, _gg|
-      (org.nil? ? '' : org.name)
-    end
-    @selected_guidance_groups = @selected_guidance_groups.ids
-
-    @based_on = if @plan.template.customization_of.nil?
-                  @plan.template
-                else
-                  Template.where(family_id: @plan.template.customization_of).first
-                end
-
-    @research_domains = ResearchDomain.all.order(:label)
-
-    respond_to :html
-  end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-
-  # TODO: This feels like it belongs on a phases controller, perhaps introducing
-  #       a non-namespaces phases_controller woulld make sense here. Consider
-  #       doing this when we refactor the Plan editing UI
-  # GET /plans/:plan_id/phases/:id/edit
-  # rubocop:disable Metrics/AbcSize
-  def edit
-    plan = Plan.includes(
-      { template: {
-        phases: {
-          sections: {
-            questions: %i[question_format question_options annotations themes]
-          }
-        }
-      } },
-      { answers: :notes }
-    )
-               .find(params[:id])
-    authorize plan
-    phase_id = params[:phase_id].to_i
-    phase = plan.template.phases.select { |p| p.id == phase_id }.first
-    raise ActiveRecord::RecordNotFound if phase.nil?
-
-    guidance_groups = GuidanceGroup.where(published: true, id: plan.guidance_group_ids)
-    render_phases_edit(plan, phase, guidance_groups)
-  end
-  # rubcocop:enable Metrics/AbcSize
-
   # PUT /plans/1
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def update
     @plan = Plan.find(params[:id])
     authorize @plan
@@ -277,9 +277,9 @@ class PlansController < ApplicationController
         render json: { code: 0, msg: flash[:alert] }
       end
     end
-    # rubocop:enable Metrics/BlockLength
+    # rubocop:enable Metrics/AbcSize, Metrics/BlockLength
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength
 
   # GET /plans/:id/publish
   def publish
@@ -320,7 +320,7 @@ class PlansController < ApplicationController
       end
     else
       respond_to do |format|
-        flash[:alert] = failure_message(@plan, _('delete'))
+        flash.now[:alert] = failure_message(@plan, _('delete'))
         format.html { render action: 'edit' }
       end
     end
@@ -517,7 +517,7 @@ class PlansController < ApplicationController
     readonly = !plan.editable_by?(current_user.id)
     # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
     # we create a hash whose keys are question id and value is the answer associated
-    answers = plan.answers.each_with_object({}) { |a, m| m[a.question_id] = a; }
+    answers = plan.answers.index_by(&:question_id)
     render('/phases/edit', locals: {
              base_template_org: phase.template.base_org,
              plan: plan,

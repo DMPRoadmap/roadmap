@@ -18,7 +18,7 @@ module OrgAdmin
         redirect_to edit_org_admin_template_path(new_copy)
       rescue StandardError
         flash[:alert] = failure_message(_('copy'), template_type(@template))
-        if request.referrer.present?
+        if request.referer.present?
           redirect_back(fallback_location: org_admin_templates_path)
         else
           redirect_to org_admin_templates_path

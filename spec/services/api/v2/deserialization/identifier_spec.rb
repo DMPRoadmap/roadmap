@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V2::Deserialization::Identifier do
-  before(:each) do
+  before do
     @scheme = create(:identifier_scheme)
     @value = SecureRandom.uuid
     @class_name = 'Org'
@@ -12,33 +12,38 @@ RSpec.describe Api::V2::Deserialization::Identifier do
 
   describe ':deserialize(class_name:, json: {})' do
     it 'returns nil if :class_name is not present' do
-      expect(described_class.deserialize(class_name: nil, json: @json)).to eql(nil)
+      expect(described_class.deserialize(class_name: nil, json: @json)).to be_nil
     end
+
     it 'returns nil if json is not valid' do
-      expect(described_class.deserialize(class_name: @class_name, json: nil)).to eql(nil)
+      expect(described_class.deserialize(class_name: @class_name, json: nil)).to be_nil
     end
+
     it 'initializes a new Identifier when :type does not match an IdentifierScheme' do
       json = { type: 'other', identifier: @value }
       rslt = described_class.deserialize(class_name: @class_name, json: json)
-      expect(rslt.new_record?).to eql(true)
+      expect(rslt.new_record?).to be(true)
       validate_identifier(result: rslt, scheme: nil, value: @value)
     end
+
     it 'does not load an existing Identifier when :type does not match an IdentifierScheme' do
       create(:identifier, identifier_scheme: nil, value: @value)
       json = { type: 'other', identifier: @value }
       rslt = described_class.deserialize(class_name: @class_name, json: json)
-      expect(rslt.new_record?).to eql(true)
+      expect(rslt.new_record?).to be(true)
       validate_identifier(result: rslt, scheme: nil, value: @value)
     end
+
     it 'returns an existing Identifier when :type matches an IdentifierScheme' do
       id = create(:identifier, identifier_scheme: @scheme, value: @json[:identifier],
                                identifiable: create(:org))
       result = described_class.deserialize(class_name: @class_name, json: @json)
       expect(result).to eql(id)
     end
+
     it 'initializes a new Identifier when :type matches an IdentifierScheme' do
       result = described_class.deserialize(class_name: @class_name, json: @json)
-      expect(result.new_record?).to eql(true)
+      expect(result.new_record?).to be(true)
       validate_identifier(result: result, scheme: @scheme,
                           value: "#{@scheme.identifier_prefix}#{@json[:identifier]}")
     end

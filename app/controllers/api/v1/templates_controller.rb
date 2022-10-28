@@ -16,7 +16,7 @@ module Api
           #       combining the 2 (Public and Organizational) after the queries
           #       converts templates to an Array which is incompatible with
           #       Kaminari's pagination
-          where_clause = <<-SQL
+          where_clause = <<-SQL.squish
             (visibility = 0 AND org_id = ?) OR
             (visibility = 1 AND customization_of IS NULL)
           SQL

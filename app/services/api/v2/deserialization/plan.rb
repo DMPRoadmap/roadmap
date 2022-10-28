@@ -80,7 +80,7 @@ module Api
           # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
           # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           def find_or_initialize(id_json:, json: {})
-            return nil unless json.present?
+            return nil if json.blank?
 
             id = id_json[:identifier] if id_json.is_a?(Hash)
             schm = ::IdentifierScheme.find_by(name: id_json[:type].downcase) if id.present?
@@ -149,10 +149,10 @@ module Api
             project = json.fetch(:project, [{}]).first
             plan.start_date = Api::V2::DeserializationService.safe_date(value: project[:start])
             plan.end_date = Api::V2::DeserializationService.safe_date(value: project[:end])
-            return plan unless project[:funding].present?
+            return plan if project[:funding].blank?
 
             funding = project.fetch(:funding, []).first
-            return plan unless funding.present?
+            return plan if funding.blank?
 
             Api::V2::Deserialization::Funding.deserialize(plan: plan, json: funding)
           end
@@ -173,7 +173,7 @@ module Api
             return default unless json.present? && json.fetch(:dmproadmap_template, {})[:id].present?
 
             template = ::Template.published(json.fetch(:dmproadmap_template, {})[:id].to_i).last
-            template.present? ? template : default
+            (template.presence || default)
           end
         end
       end

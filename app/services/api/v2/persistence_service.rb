@@ -36,8 +36,8 @@ module Api
 
           Identifier.transaction do
             identifier.save if identifier.valid?
-            return identifier unless identifier.new_record?
           end
+          return identifier unless identifier.new_record?
 
           Identifier.where(identifier_scheme: identifier.identifier_scheme,
                            value: identifier.value,
@@ -95,8 +95,8 @@ module Api
 
             # See if we've already processed this contributor
             existing = out.select { |c| c == contributor }.first
-            out << contributor unless existing.present?
-            next unless existing.present?
+            out << contributor if existing.blank?
+            next if existing.blank?
 
             existing.merge(contributor)
           end

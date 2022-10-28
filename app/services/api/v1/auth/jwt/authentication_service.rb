@@ -30,7 +30,7 @@ module Api
             @errors = {}
 
             if @client_id.nil? || @client_secret.nil? ||
-               !%w[client_credentials authorization_code].include?(type)
+               %w[client_credentials authorization_code].exclude?(type)
               @errors[:client_authentication] = _('Invalid grant type')
             end
           end
@@ -40,13 +40,13 @@ module Api
             return nil unless @client_id.present? && @client_secret.present?
 
             obj = client
-            return nil unless obj.present?
+            return nil if obj.blank?
 
             # Fetch either the client_id or the email depending on whether we
             # are working with a ApiClient or a User
             id = obj.client_id if obj.is_a?(ApiClient)
             id = obj.email if obj.is_a?(User)
-            return nil unless id.present?
+            return nil if id.blank?
 
             payload = { client_id: id }
             token = JsonWebToken.encode(payload: payload)

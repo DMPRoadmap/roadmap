@@ -2,14 +2,15 @@
 
 require 'rails_helper'
 
-RSpec.describe OrgsController, type: :controller do
+RSpec.describe OrgsController do
   include Mocks::FormFieldJsonValues
 
-  before(:each) do
+  before do
     @name = Faker::Company.name
     @org = create(:org)
     @user = create(:user, :super_admin, org: @org)
-    @controller = OrgsController.new
+    @logo = Rack::Test::UploadedFile.new 'spec/support/mocks/logo_file.png', 'image/png'
+    @controller = described_class.new
   end
 
   it 'GET /org/admin/:id/admin_edit' do
@@ -19,7 +20,7 @@ RSpec.describe OrgsController, type: :controller do
   end
 
   describe 'PUT /org/admin/:id/admin_update' do
-    before(:each) do
+    before do
       other_org = build(:org, name: Faker::Movies::StarWars.unique.planet)
       @args = { name: Faker::Movies::StarWars.unique.planet,
                 abbreviation: Faker::Lorem.unique.word.upcase,
@@ -40,7 +41,7 @@ RSpec.describe OrgsController, type: :controller do
       @args.delete(:feedback_enabled)
       put :admin_update, params: { id: @org.id, org_links: @link_args, org: @args }
       expect(response).to redirect_to("#{admin_edit_org_path(@org)}#profile")
-      expect(flash[:notice].present?).to eql(true)
+      expect(flash[:notice].present?).to be(true)
       @org.reload
       expect(@org.name).to eql(@args[:name])
       expect(@org.abbreviation).to eql(@args[:abbreviation])
@@ -52,14 +53,16 @@ RSpec.describe OrgsController, type: :controller do
       expect(@org.managed).to eql(@args[:managed] == '1')
       expect(@org.links.to_json).to eql(@link_args)
     end
+
     it 'succeeds for feedback changes' do
       put :admin_update, params: { id: @org.id, org: @args }
       expect(response).to redirect_to("#{admin_edit_org_path(@org)}#feedback")
-      expect(flash[:notice].present?).to eql(true)
+      expect(flash[:notice].present?).to be(true)
       @org.reload
       expect(@org.feedback_enabled).to eql(@args[:feedback_enabled])
       expect(@org.feedback_msg).to eql(@args[:feedback_msg])
     end
+
     it 'updates the shibboleth entityID if super_admin and enabled' do
       @args.delete(:feedback_enabled)
       Rails.configuration.x.shibboleth.use_filtered_discovery_service = true
@@ -68,17 +71,18 @@ RSpec.describe OrgsController, type: :controller do
                                                 value: SecureRandom.uuid } }
       put :admin_update, params: { id: @org.id, org: @args }
       expect(response).to redirect_to("#{admin_edit_org_path(@org)}#profile")
-      expect(flash[:notice].present?).to eql(true)
+      expect(flash[:notice].present?).to be(true)
       identifier = @org.reload.identifiers.last
-      expect(identifier.present?).to eql(true)
+      expect(identifier.present?).to be(true)
       expect(identifier.identifier_scheme).to eql(scheme)
       expected = @args[:identifiers_attributes][:'0'][:value]
-      expect(identifier.value.end_with?(expected)).to eql(true)
+      expect(identifier.value.end_with?(expected)).to be(true)
     end
+
     it 'fails' do
       put :admin_update, params: { id: @org.id, org: { name: nil } }
       expect(response).to redirect_to("#{admin_edit_org_path(@org)}#profile")
-      expect(flash[:alert].present?).to eql(true)
+      expect(flash[:alert].present?).to be(true)
     end
   end
 end

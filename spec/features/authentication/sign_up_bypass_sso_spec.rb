@@ -2,12 +2,12 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Sign up and bypass SSO', type: :feature do
-  include DmptoolHelper
-  include AutocompleteHelper
-  include IdentifierHelper
+RSpec.describe 'Sign up and bypass SSO' do
+  include Helpers::DmptoolHelper
+  include Helpers::AutocompleteHelper
+  include Helpers::IdentifierHelper
 
-  before(:each) do
+  before do
     mock_blog
     @email_domain = 'foo.edu'
     @org = create(:org, contact_email: "help-desk@#{@email_domain}")
@@ -22,8 +22,8 @@ RSpec.describe 'Sign up and bypass SSO', type: :feature do
     click_on 'Continue'
 
     expect(page).to have_text('New Account Sign Up')
-    expect(find('#user_disabled_email').value).to eql(email)
-    expect(find('#org_autocomplete_name').value).to eql(@org.name)
+    expect(find_by_id('user_disabled_email').value).to eql(email)
+    expect(find_by_id('org_autocomplete_name').value).to eql(@org.name)
     expect(page).not_to have_text('Sign up with non SSO')
   end
 
@@ -34,7 +34,7 @@ RSpec.describe 'Sign up and bypass SSO', type: :feature do
     click_on 'Continue'
 
     expect(page).to have_text('New Account Sign Up')
-    expect(find('#user_disabled_email').value).to eql(email)
+    expect(find_by_id('user_disabled_email').value).to eql(email)
     expect(page).to have_text(CGI.escapeHTML(@org.name))
     expect(page).to have_text('Sign up with Institution (SSO)')
     expect(page).to have_text('Sign up with non SSO')
@@ -42,8 +42,8 @@ RSpec.describe 'Sign up and bypass SSO', type: :feature do
     click_on 'Sign up with non SSO'
 
     expect(page).to have_text('New Account Sign Up')
-    expect(find('#user_disabled_email').value).to eql(email)
-    expect(find('#org_autocomplete_name').value).to eql(@org.name)
+    expect(find_by_id('user_disabled_email').value).to eql(email)
+    expect(find_by_id('org_autocomplete_name').value).to eql(@org.name)
 
     within("form[action=\"#{user_registration_path}\"]") do
       fill_in 'First Name', with: Faker::Movies::StarWars.character.split.first

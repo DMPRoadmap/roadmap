@@ -53,7 +53,7 @@ module Api
                                       .where('LOWER(name) = ?', name.downcase)
                                       .first
           # Return nil if no Registry Org was found
-          return nil unless registry_org.present?
+          return nil if registry_org.blank?
 
           # Return nil if we do not allow creating Orgs in this manner
           return nil if registry_org.org_id.nil? && Rails.configuration.x.application.restrict_orgs
@@ -65,8 +65,8 @@ module Api
 
         # Translates the role in the json to a Contributor role
         def translate_role(role:)
-          default = ::Contributor.default_role
-          return default unless role.present?
+          default = ::Contributor.role_default
+          return default if role.blank?
 
           role = role.to_s unless role.is_a?(String)
 
@@ -92,7 +92,7 @@ module Api
 
         # Determines whether or not the value is a DOI/ARK
         def dmp_id?(value:)
-          return false unless value.present?
+          return false if value.blank?
 
           # The format must match a DOI or ARK and a DOI IdentifierScheme
           # must also be present!

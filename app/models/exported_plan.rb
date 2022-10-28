@@ -72,7 +72,7 @@ class ExportedPlan < ApplicationRecord
 
   def funder
     org = plan.funder
-    org = plan.template.try(:org) unless org.present?
+    org = plan.template.try(:org) if org.blank?
     org.name if org.present? && org.funder?
   end
 
@@ -81,7 +81,7 @@ class ExportedPlan < ApplicationRecord
   end
 
   def orcid
-    return '' unless owner.present?
+    return '' if owner.blank?
 
     ids = owner.identifiers.by_scheme_name('orcid', 'User')
     ids.first.present? ? ids.first.value : ''

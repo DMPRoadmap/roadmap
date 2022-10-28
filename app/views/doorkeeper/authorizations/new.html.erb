@@ -56,7 +56,8 @@ oauth_hash = process_oauth
 
     <div class="signin-form">
       <%# User has either not provided their email yet %>
-      <%= render partial: '/doorkeeper/authorizations/validate', locals: { resource: resource } %>
+      <%= render partial: '/doorkeeper/authorizations/validate', 
+                 locals: { resource: resource, client: oauth_hash[:client]&.description&.capitalize } %>
     </div>
   <% end %>
 

@@ -77,3 +77,43 @@ class IdentifierScheme < ApplicationRecord
   # = Instance Methods =
   # ===========================
 end
+
+# -----------------------------------------------------
+# Bitwise key
+# -----------------------------------------------------
+# 01 - for_authentication
+# 02 - for_orgs
+# 03 - for_authentication + for_orgs
+# 04 - for_plans
+# 05 - for_authentication + for_plans
+# 06 - for_orgs + for_plans
+# 07 - for_authentication + for_plans + for_orgs
+# 08 - for_users
+# 09 - for_authentication + for_users
+# 10 - for_orgs + for_users
+# 11 - for_authentication + for_orgs + for_users
+# 12 - for_plans + for_users
+# 13 - for_authentication + for_plans + for_users
+# 14 - for_orgs + for_plans + for_users
+# 15 - for_authentication + for_orgs + for_plans + for_users
+# 16 - for_contributors
+# 17 - for_authentication + for_contributors
+# 18 - for_orgs + for_contributors
+# 19 - for_authentication + for_orgs + for_contributors
+# 20 - for_plans + for_contributors
+# 21 - for_authentication + for_plans + for_contributors
+# 22 - administraor + for_plans + for_contributors
+# 23 - for_authentication + for_plans + for_orgs + for_contributors
+# 24 - for_users + for_contributors
+# 25 - for_authentication + for_users + for_contributors
+# 26 - for_orgs + for_users + for_contributors
+# 27 - for_authentication + for_orgs + for_users + for_contributors
+# 28 - for_plans + for_users + for_contributors
+# 29 - for_authentication + for_plans + for_users + for_contributors
+# 30 - for_orgs + for_plans + for_users + for_contributors
+# 31 - for_authentication + for_orgs + for_plans + for_users + for_contributors
+# ... (32 combos)
+# 63 - for_identification
+# ... (64 combos)
+# 127 - for_research_outputs
+# ... (128 combos)

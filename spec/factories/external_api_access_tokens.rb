@@ -27,6 +27,6 @@ FactoryBot.define do
     external_service_name { Faker::Lorem.unique.word.downcase }
     access_token          { SecureRandom.uuid }
     refresh_token         { SecureRandom.uuid }
-    expires_at            { Time.now + 1.hour }
+    expires_at            { 1.hour.from_now }
   end
 end

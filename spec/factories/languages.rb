@@ -13,10 +13,10 @@
 
 FactoryBot.define do
   factory :language do
-    name { Faker::Language.unique.name }
+    name { Faker::Movies::StarWars.unique.specie }
     description { "Language for #{name}" }
-    abbreviation { Faker::Language.unique.abbreviation }
     default_language { false }
+    abbreviation { ('a'..'z').to_a.shuffle.take(2).join }
     trait :with_dialect do
       abbreviation do
         pre = ('a'..'z').to_a.shuffle.take(2).join

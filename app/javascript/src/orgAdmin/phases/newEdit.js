@@ -1,5 +1,5 @@
 // import 'bootstrap-sass/assets/javascripts/bootstrap/collapse';
-import { Tinymce } from '../../utils/tinymce.js.erb';
+import { Tinymce } from '../../utils/tinymce';
 import { isObject, isString } from '../../utils/isType';
 import getConstant from '../../utils/constants';
 import { addAsterisks } from '../../utils/requiredField';

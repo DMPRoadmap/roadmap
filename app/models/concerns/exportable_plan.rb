@@ -97,10 +97,10 @@ module ExportablePlan
 
     hash
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+
   # rubocop:enable Style/OptionalBooleanParameter
 
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def prepare_coversheet
     hash = {}
 
@@ -113,13 +113,20 @@ module ExportablePlan
     # roles.administrator.not_creator.first&.user&.name(false) unless attribution.present?
     hash[:attribution] = attribution
 
+    # Added contributors to coverage of plans.
+    # Users will see both roles and contributor names if the role is filled
+    hash[:data_curation] = Contributor.where(plan_id: id).data_curation
+    hash[:investigation] = Contributor.where(plan_id: id).investigation
+    hash[:pa] = Contributor.where(plan_id: id).project_administration
+    hash[:other] = Contributor.where(plan_id: id).other
+
     # Org name of plan owner's org
     hash[:affiliation] = owner.present? && owner.org.present? ? owner.org.name : ''
 
     # set the funder name
     hash[:funder] = funder.name if funder.present?
     template_org = template.org
-    hash[:funder] = template_org.name if !hash[:funder].present? && template_org.funder?
+    hash[:funder] = template_org.name if hash[:funder].blank? && template_org.funder?
 
     # set the template name and customizer name if applicable
     hash[:template] = template.title
@@ -135,13 +142,29 @@ module ExportablePlan
   end
   # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/AbcSize
   def prepare_coversheet_for_csv(csv, _headings, hash)
+    csv << [_('Title: '), format(_('%{title}'), title: title)]
     csv << if Array(hash[:attribution]).many?
              [_('Creators: '), format(_('%{authors}'), authors: Array(hash[:attribution]).join(', '))]
            else
              [_('Creator:'), format(_('%{authors}'), authors: hash[:attribution])]
            end
+    if hash[:investigation].present?
+      csv << [_('Principal Investigator: '),
+              format(_('%{investigation}'), investigation: hash[:investigation].map(&:name).join(', '))]
+    end
+    if hash[:data_curation].present?
+      csv << [_('Date Manager: '),
+              format(_('%{data_curation}'), data_curation: hash[:data_curation].map(&:name).join(', '))]
+    end
+    if hash[:pa].present?
+      csv << [_('Project Administrator: '), format(_('%{pa}'), pa: hash[:pa].map(&:name).join(', '))]
+    end
+    if hash[:other].present?
+      csv << [_('Contributor: '), format(_('%{other}'), other: hash[:other].map(&:name).join(', '))]
+    end
+    csv << [_('Affiliation: '), format(_('%{affiliation}'), affiliation: hash[:affiliation])]
     csv << ['Affiliation: ', format(_('%{affiliation}'), affiliation: hash[:affiliation])]
     csv << if hash[:funder].present?
              [_('Template: '), format(_('%{funder}'), funder: hash[:funder])]
@@ -235,8 +258,8 @@ module ExportablePlan
   # rubocop:disable Metrics/AbcSize
   def attribution
     user = roles.creator.first&.user
-    user = roles.administrator.not_creator.first&.user unless user.present?
-    return [] unless user.present?
+    user = roles.administrator.not_creator.first&.user if user.blank?
+    return [] if user.blank?
 
     text = user&.name(false)
     orcid = user.identifier_for_scheme(scheme: 'orcid')

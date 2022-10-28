@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe Api::V2::TemplatesController, type: :request do
-  include ApiHelper
+RSpec.describe Api::V2::TemplatesController do
+  include Helpers::ApiHelper
 
-  before(:each) do
+  before do
     @client = create(:api_client, user: create(:user, org: create(:org)))
     token = mock_client_credentials_token(api_client: @client)
 
@@ -15,7 +15,7 @@ RSpec.describe Api::V2::TemplatesController, type: :request do
       Authorization: "Bearer #{token}"
     }
     # Org model requires a language so make sure the default is set
-    create(:language, default_language: true) unless Language.default.present?
+    create(:language, default_language: true) if Language.default.blank?
   end
 
   describe 'GET /api/v2/templates (index)' do
@@ -28,10 +28,11 @@ RSpec.describe Api::V2::TemplatesController, type: :request do
       expect(response).to render_template('api/v2/error')
 
       json = JSON.parse(response.body).with_indifferent_access
-      expect(json[:items].empty?).to eql(true)
-      expect(json[:errors].length).to eql(1)
+      expect(json[:items].empty?).to be(true)
+      expect(json[:errors].length).to be(1)
       expect(json[:errors].first).to eql('token is invalid, expired or has been revoked')
     end
+
     it 'returns an empty array if no templates are available' do
       get(api_v2_templates_path, headers: @headers)
 
@@ -40,9 +41,10 @@ RSpec.describe Api::V2::TemplatesController, type: :request do
       expect(response).to render_template('api/v2/templates/index')
 
       json = JSON.parse(response.body).with_indifferent_access
-      expect(json[:items].empty?).to eql(true)
-      expect(json[:errors].nil?).to eql(true)
+      expect(json[:items].empty?).to be(true)
+      expect(json[:errors].nil?).to be(true)
     end
+
     it 'returns the expected templates when ApiClient has a User.org association' do
       @org = @client.user.org
 
@@ -70,14 +72,14 @@ RSpec.describe Api::V2::TemplatesController, type: :request do
       expect(response).to render_template('api/v2/templates/index')
 
       json = JSON.parse(response.body).with_indifferent_access
-      expect(json[:items].length).to eql(3)
+      expect(json[:items].length).to be(3)
 
       # Only the Publicly visible template, Api Client's Org's template, and the Api Client Org's
       # customizations should be returned!
       ids = json[:items].map { |item| item[:dmp_template][:template_id][:identifier] }
-      expect(ids.include?(public_published.family_id.to_s)).to eql(true)
-      expect(ids.include?(my_org_published.family_id.to_s)).to eql(true)
-      expect(ids.include?(my_org_customization.family_id.to_s)).to eql(true)
+      expect(ids.include?(public_published.family_id.to_s)).to be(true)
+      expect(ids.include?(my_org_published.family_id.to_s)).to be(true)
+      expect(ids.include?(my_org_customization.family_id.to_s)).to be(true)
     end
 
     it 'returns the expected templates when ApiClient has no User.org association' do
@@ -101,16 +103,16 @@ RSpec.describe Api::V2::TemplatesController, type: :request do
       expect(response).to render_template('api/v2/templates/index')
 
       json = JSON.parse(response.body).with_indifferent_access
-      expect(json[:items].length).to eql(1)
+      expect(json[:items].length).to be(1)
 
       # Only the Publicly visible template, Api Client's Org's template, and the Api Client Org's
       # customizations should be returned!
       ids = json[:items].map { |item| item[:dmp_template][:template_id][:identifier] }
-      expect(ids.include?(public_published.family_id.to_s)).to eql(true)
+      expect(ids.include?(public_published.family_id.to_s)).to be(true)
     end
 
     it 'allows for paging' do
-      21.times { create(:template, visibility: 1, published: true) }
+      create_list(:template, 21, visibility: 1, published: true)
       get(api_v2_templates_path, headers: @headers)
 
       test_paging(json: JSON.parse(response.body), headers: @headers)

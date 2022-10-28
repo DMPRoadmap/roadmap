@@ -40,7 +40,7 @@ FactoryBot.define do
     output_type             { ResearchOutput.output_types.keys.sample }
     output_type_description { Faker::Lorem.sentence }
     personal_data           { [nil, true, false].sample }
-    release_date            { Time.now + 1.month }
+    release_date            { 1.month.from_now }
     sensitive_data          { [nil, true, false].sample }
     title                   { Faker::Music::PearlJam.song }
 

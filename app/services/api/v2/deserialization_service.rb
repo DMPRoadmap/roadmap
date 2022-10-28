@@ -55,7 +55,7 @@ module Api
         # Translates the role in the json to a Contributor role
         def translate_role(role:)
           default = ::Contributor.default_role
-          return default unless role.present?
+          return default if role.blank?
 
           role = role.to_s unless role.is_a?(String)
 
@@ -95,7 +95,7 @@ module Api
 
         # Determines whether or not the value is a DOI/ARK
         def dmp_id?(value:)
-          return false unless value.present?
+          return false if value.blank?
 
           # The format must match a DOI or ARK and a DOI IdentifierScheme
           # must also be present!

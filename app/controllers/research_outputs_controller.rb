@@ -29,6 +29,7 @@ class ResearchOutputsController < ApplicationController
   end
 
   # POST /plans/:plan_id/research_outputs
+  # rubocop:disable Metrics/AbcSize
   def create
     args = process_byte_size.merge({ plan_id: @plan.id })
     args = process_nillable_values(args: args)
@@ -39,10 +40,11 @@ class ResearchOutputsController < ApplicationController
       redirect_to plan_research_outputs_path(@plan),
                   notice: success_message(@research_output, _('added'))
     else
-      flash[:alert] = failure_message(@research_output, _('add'))
+      flash.now[:alert] = failure_message(@research_output, _('add'))
       render 'research_outputs/new'
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # PATCH/PUT /plans/:plan_id/research_outputs/:id
   # rubocop:disable Metrics/AbcSize
@@ -193,7 +195,7 @@ class ResearchOutputsController < ApplicationController
   # one of these arguments invisible, then we need to blank it out here since the Rails form will
   # not send us the value
   def process_nillable_values(args:)
-    args[:byte_size] = nil unless args[:byte_size].present?
+    args[:byte_size] = nil if args[:byte_size].blank?
     args
   end
 

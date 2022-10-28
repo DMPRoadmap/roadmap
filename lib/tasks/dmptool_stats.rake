@@ -52,7 +52,7 @@ namespace :dmptool_stats do
   def to_file(hash, filename)
     now = Date.today
     filename = "#{filename}_#{now.year}_#{now.month}_#{now.day}.json"
-    File.write(Rails.root.join('tmp', filename), JSON.pretty_generate(hash))
+    Rails.root.join('tmp', filename).write(JSON.pretty_generate(hash))
     "tmp/#{filename}"
   end
 end

@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.feature 'ModalSearchDialog', type: :feature do
-  include Webmocks
+RSpec.describe 'ModalSearchDialog' do
+  include Helpers::Webmocks
 
-  before(:each) do
+  before do
     stub_openaire
 
     @model = create(:repository)

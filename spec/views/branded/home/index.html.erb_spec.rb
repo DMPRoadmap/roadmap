@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'home/index' do
-  include DmptoolHelper
+  include Helpers::DmptoolHelper
 
   it 'renders our version of the page' do
     mock_blog
@@ -20,16 +20,16 @@ describe 'home/index' do
     # Need to specify a layout here since the template uses a :content_for block
     render template: 'home/index', layout: 'layouts/application'
 
-    expect(rendered.include?('class="c-calltoaction')).to eql(true)
-    expect(rendered.include?('class="c-login')).to eql(true)
-    expect(rendered.include?('class="c-home-stats__users"')).to eql(true)
-    expect(rendered.include?('class="c-home-stats__participants"')).to eql(true)
-    expect(rendered.include?('class="c-home-stats__plans"')).to eql(true)
-    expect(rendered.include?('class="c-blog"')).to eql(true)
-    expect(rendered.include?('class="c-blog__content"')).to eql(true)
-    expect(rendered.include?('class="c-social"')).to eql(true)
-    expect(rendered.include?('class="c-social__icon-twitter"')).to eql(true)
-    expect(rendered.include?('class="c-social__icon-rss"')).to eql(true)
+    expect(rendered.include?('class="c-calltoaction')).to be(true)
+    expect(rendered.include?('class="c-login')).to be(true)
+    expect(rendered.include?('class="c-home-stats__users"')).to be(true)
+    expect(rendered.include?('class="c-home-stats__participants"')).to be(true)
+    expect(rendered.include?('class="c-home-stats__plans"')).to be(true)
+    expect(rendered.include?('class="c-blog"')).to be(true)
+    expect(rendered.include?('class="c-blog__content"')).to be(true)
+    expect(rendered.include?('class="c-social"')).to be(true)
+    expect(rendered.include?('class="c-social__icon-twitter"')).to be(true)
+    expect(rendered.include?('class="c-social__icon-rss"')).to be(true)
     expect(response).to render_template(partial: 'users/sessions/_validate')
   end
 end

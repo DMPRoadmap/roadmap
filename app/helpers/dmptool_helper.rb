@@ -76,7 +76,7 @@ module DmptoolHelper
 
   # Store information in the cache
   def cache_content(type, data)
-    return nil unless type.present?
+    return nil if type.blank?
 
     Rails.cache.write(type, data, expires_in: 60.minutes)
   rescue StandardError => e

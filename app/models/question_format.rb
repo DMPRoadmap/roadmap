@@ -41,7 +41,8 @@ class QuestionFormat < ApplicationRecord
   # ===============
 
   validates :title, presence: { message: PRESENCE_MESSAGE },
-                    uniqueness: { message: UNIQUENESS_MESSAGE }
+                    uniqueness: { message: UNIQUENESS_MESSAGE,
+                                  case_sensitive: false }
 
   validates :description, presence: { message: PRESENCE_MESSAGE }
 
@@ -53,6 +54,6 @@ class QuestionFormat < ApplicationRecord
 
   # Retrieves the id for a given formattype passed
   def self.id_for(formattype)
-    where(formattype: formattype).pluck(:id).first
+    where(formattype: formattype).pick(:id)
   end
 end

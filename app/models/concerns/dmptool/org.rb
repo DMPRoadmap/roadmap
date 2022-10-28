@@ -29,7 +29,7 @@ module Dmptool
 
       # rubocop:disable Metrics/AbcSize
       def initialize_from_org_autocomplete(name:, funder: false)
-        return nil unless name.present?
+        return nil if name.blank?
 
         is_institution = !funder && (name.downcase.include?('college') ||
                                      name.downcase.include?('university'))
@@ -51,14 +51,14 @@ module Dmptool
       # Attempt to determine the Org (or RegistryOrg) based on the email's domain
       # rubocop:disable Metrics/AbcSize
       def from_email_domain(email_domain:)
-        return nil unless email_domain.present?
+        return nil if email_domain.blank?
         return nil if ignored_email_domains.include?(email_domain.downcase)
 
         org = ::RegistryOrg.from_email_domain(email_domain: email_domain)
         return org if org.present?
 
         hash = ::User.where('email LIKE ?', "%@#{email_domain.downcase}").group(:org_id).count
-        return nil unless hash.present?
+        return nil if hash.blank?
 
         # We could potentially have multiple Org matches here, so use the one with the most users
         selected = hash.select { |_k, v| v == hash.values.max }
@@ -68,7 +68,7 @@ module Dmptool
 
       # Class method shortcut to the name_to_abbreviation instance method
       def name_to_abbreviation(name:)
-        return '' unless name.present?
+        return '' if name.blank?
 
         ::Org.new(name: name).name_to_abbreviation
       end
@@ -117,16 +117,16 @@ module Dmptool
       # This is called by an after_create callback on the Org model!
       def connect_to_registry_org
         registry_org = RegistryOrg.find_by('LOWER(name) = ?', name.downcase)
-        return true unless registry_org.present?
+        return true if registry_org.blank?
 
         # Attach the identifiers
         %w[fundref ror].each do |scheme_name|
           value = registry_org.send(:"#{scheme_name}_id")
-          next unless value.present?
+          next if value.blank?
 
           id = registry_org.ror_or_fundref_to_identifier(scheme_name: scheme_name,
                                                          value: value)
-          next unless id.present?
+          next if id.blank?
 
           id.identifiable = self
           id.save if id.new_record?

@@ -41,6 +41,6 @@ FactoryBot.define do
     acronyms        { [Faker::Movies::StarWars.character, Faker::Movies::StarWars.character] }
     aliases         { [Faker::Movies::Hobbit.character, Faker::Movies::Hobbit.character] }
     country         { [Faker::Movies::StarWars.planet, Faker::Movies::StarWars.planet] }
-    file_timestamp  { Time.now - 1.day }
+    file_timestamp  { 1.day.ago }
   end
 end

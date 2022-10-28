@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'user_mailer/new_plan_via_template' do
-  before(:each) do
+  before do
     controller.prepend_view_path 'app/views/branded'
   end
 
@@ -18,13 +18,13 @@ describe 'user_mailer/new_plan_via_template' do
     assign :message, 'Foo %{dmp_title} bar %{org_name} baz %{org_admin_email}'
 
     render
-    expect(rendered.include?('Please sign in to the')).to eql(true)
+    expect(rendered.include?('Please sign in to the')).to be(true)
     expected = "Foo #{CGI.escapeHTML(plan.title)} bar #{CGI.escapeHTML(sender.org.name)}"
     expected += " baz #{sender.org.contact_email}"
-    expect(rendered.include?(expected)).to eql(true)
-    expect(rendered.include?(user.name(false))).to eql(true)
-    expect(rendered.include?(plan.title)).to eql(true)
-    expect(rendered.include?("The #{CGI.escapeHTML(sender.org.name)} DMPTool team")).to eql(true)
-    expect(rendered.include?('Please do not reply to this email.')).to eql(true)
+    expect(rendered.include?(expected)).to be(true)
+    expect(rendered.include?(user.name(false))).to be(true)
+    expect(rendered.include?(plan.title)).to be(true)
+    expect(rendered.include?("The #{CGI.escapeHTML(sender.org.name)} DMPTool team")).to be(true)
+    expect(rendered.include?('Please do not reply to this email.')).to be(true)
   end
 end

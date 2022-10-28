@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Department, type: :model do
+RSpec.describe Department do
   context 'validations' do
     it { is_expected.to validate_presence_of(:org) }
 
@@ -15,6 +15,7 @@ RSpec.describe Department, type: :model do
       subject = create(:department, org_id: org.id)
       expect(subject).to validate_uniqueness_of(:name)
         .scoped_to(:org_id)
+        .case_insensitive
         .with_message('must be unique')
     end
   end

@@ -2,14 +2,14 @@
 
 require 'rails_helper'
 
-RSpec.describe Org, type: :model do
+RSpec.describe Org do
   context 'validations' do
     it { is_expected.to validate_presence_of(:name) }
 
     it {
       subject.name = 'DMP Company'
-      is_expected.to validate_uniqueness_of(:name)
-        .with_message('must be unique')
+      expect(subject).to validate_uniqueness_of(:name).case_insensitive
+                                                      .with_message('must be unique')
     }
 
     it { is_expected.to allow_values(true, false).for(:is_other) }
@@ -20,12 +20,12 @@ RSpec.describe Org, type: :model do
 
     it 'validates presence of contact_email if feedback_enabled' do
       subject.feedback_enabled = true
-      is_expected.to validate_presence_of(:contact_email)
+      expect(subject).to validate_presence_of(:contact_email)
     end
 
     it "doesn't validate presence of contact_email if feedback_enabled nil" do
       subject.feedback_enabled = false
-      is_expected.not_to validate_presence_of(:contact_email)
+      expect(subject).not_to validate_presence_of(:contact_email)
     end
 
     # validates :contact_email, presence: { message: PRESENCE_MESSAGE,
@@ -39,34 +39,34 @@ RSpec.describe Org, type: :model do
   end
 
   context 'associations' do
-    it { should belong_to(:language) }
+    it { is_expected.to belong_to(:language) }
 
-    it { should belong_to(:region).optional }
+    it { is_expected.to belong_to(:region).optional }
 
-    it { should have_many(:guidance_groups).dependent(:destroy) }
+    it { is_expected.to have_many(:guidance_groups).dependent(:destroy) }
 
-    it { should have_many(:templates) }
+    it { is_expected.to have_many(:templates) }
 
-    it { should have_many(:users) }
+    it { is_expected.to have_many(:users) }
 
-    it { should have_many(:annotations) }
+    it { is_expected.to have_many(:annotations) }
 
-    it { should have_and_belong_to_many(:token_permission_types).join_table('org_token_permissions') }
-    it { should have_many(:identifiers) }
+    it { is_expected.to have_and_belong_to_many(:token_permission_types).join_table('org_token_permissions') }
+    it { is_expected.to have_many(:identifiers) }
 
-    it { should have_many(:plans) }
+    it { is_expected.to have_many(:plans) }
 
-    it { should have_many(:funded_plans) }
+    it { is_expected.to have_many(:funded_plans) }
   end
 
   context 'scopes' do
-    before(:each) do
+    before do
       @managed = create(:org, managed: true)
       @unmanaged = create(:org, managed: false)
     end
 
     describe '.default_orgs' do
-      subject { Org.default_orgs }
+      subject { described_class.default_orgs }
 
       context 'when Org has same abbr as dmproadmap.rb initializer setting' do
         let!(:org) do
@@ -87,23 +87,24 @@ RSpec.describe Org, type: :model do
     describe '#managed' do
       it 'returns only the managed orgs' do
         rslts = described_class.managed
-        expect(rslts.include?(@managed)).to eql(true)
-        expect(rslts.include?(@unmanaged)).to eql(false)
+        expect(rslts.include?(@managed)).to be(true)
+        expect(rslts.include?(@unmanaged)).to be(false)
       end
     end
+
     describe '#unmanaged' do
       it 'returns only the un-managed orgs' do
         rslts = described_class.unmanaged
-        expect(rslts.include?(@managed)).to eql(false)
-        expect(rslts.include?(@unmanaged)).to eql(true)
+        expect(rslts.include?(@managed)).to be(false)
+        expect(rslts.include?(@unmanaged)).to be(true)
       end
     end
   end
 
   describe '#locale' do
-    let!(:org) { build(:org) }
-
     subject { org.locale }
+
+    let!(:org) { build(:org) }
 
     context 'language present' do
       it { is_expected.to be_present }
@@ -165,9 +166,9 @@ RSpec.describe Org, type: :model do
   end
 
   describe '#funder_only?' do
-    let!(:org) { build(:org) }
-
     subject { org.funder_only? }
+
+    let!(:org) { build(:org) }
 
     context 'when organistation type is only Funder' do
       before do
@@ -188,20 +189,20 @@ RSpec.describe Org, type: :model do
   end
 
   describe '#to_s' do
-    let!(:org) { build(:org) }
-
     subject { org.to_s }
 
-    it { is_expected.to_not be_blank }
+    let!(:org) { build(:org) }
+
+    it { is_expected.not_to be_blank }
   end
 
   describe 'short_name' do
-    let!(:org) { build(:org) }
-
     subject { org.short_name }
 
+    let!(:org) { build(:org) }
+
     context 'when abbreviation present' do
-      it { is_expected.to_not be_blank }
+      it { is_expected.not_to be_blank }
     end
 
     context 'when abbreviation absent' do
@@ -209,14 +210,14 @@ RSpec.describe Org, type: :model do
         org.abbreviation = nil
       end
 
-      it { is_expected.to_not be_blank }
+      it { is_expected.not_to be_blank }
     end
   end
 
   describe '#published_templates' do
-    let!(:org) { build(:org) }
-
     subject { org.published_templates }
+
+    let!(:org) { build(:org) }
 
     context 'when template is published' do
       before do
@@ -236,10 +237,10 @@ RSpec.describe Org, type: :model do
   end
 
   describe '#org_admins' do
+    subject { org.org_admins }
+
     let!(:org) { create(:org) }
     let!(:user) { create(:user, org: org) }
-
-    subject { org.org_admins }
 
     context 'when user belongs to Org with perms absent' do
       before do
@@ -257,7 +258,7 @@ RSpec.describe Org, type: :model do
         user.perms << @perm
       end
 
-      it { is_expected.to_not be_empty }
+      it { is_expected.not_to be_empty }
     end
 
     context 'when user belongs to Org with modify_templates perm' do
@@ -267,7 +268,7 @@ RSpec.describe Org, type: :model do
         user.perms << @perm
       end
 
-      it { is_expected.to_not be_empty }
+      it { is_expected.not_to be_empty }
     end
 
     context 'when user belongs to Org with modify_guidance perm' do
@@ -277,26 +278,26 @@ RSpec.describe Org, type: :model do
         user.perms << @perm
       end
 
-      it { is_expected.to_not be_empty }
+      it { is_expected.not_to be_empty }
     end
 
-    context 'when user belongs to Org with change_org_details perm present ' do
+    context 'when user belongs to Org with change_org_details perm present' do
       before do
         @perm = build(:perm)
         @perm.name = 'change_org_details'
         user.perms << @perm
       end
 
-      it { is_expected.to_not be_empty }
+      it { is_expected.not_to be_empty }
     end
   end
 
   describe '#plans' do
+    subject { org.plans }
+
     let!(:org) { create(:org) }
     let!(:plan) { create(:plan, org: org) }
     let!(:user) { create(:user, org: org) }
-
-    subject { org.plans }
 
     context 'when user belongs to Org and plan owner with role :creator' do
       before do
@@ -313,7 +314,7 @@ RSpec.describe Org, type: :model do
       end
 
       it {
-        is_expected.to include(plan)
+        expect(subject).to include(plan)
       }
     end
 
@@ -344,11 +345,11 @@ RSpec.describe Org, type: :model do
 
   describe '#org_admin_plans' do
     Rails.configuration.x.plans.org_admins_read_all = true
+    subject { org.org_admin_plans }
+
     let!(:org) { create(:org) }
     let!(:plan) { create(:plan, org: org, visibility: 'publicly_visible') }
     let!(:user) { create(:user, org: org) }
-
-    subject { org.org_admin_plans }
 
     context 'when user belongs to Org and plan owner with role :creator' do
       before do
@@ -365,7 +366,7 @@ RSpec.describe Org, type: :model do
       end
 
       it {
-        is_expected.to include(plan)
+        expect(subject).to include(plan)
       }
     end
 
@@ -420,11 +421,11 @@ RSpec.describe Org, type: :model do
     end
   end
 
-  context '#grant_api!' do
+  describe '#grant_api!' do
+    subject { org.grant_api!(token_permission_type) }
+
     let!(:org) { create(:org) }
     let(:token_permission_type) { create(:token_permission_type) }
-
-    subject { org.grant_api!(token_permission_type) }
 
     context 'when :token_permission_type does not belong to token_permission_types' do
       it { is_expected.to include(token_permission_type) }
@@ -436,7 +437,7 @@ RSpec.describe Org, type: :model do
       end
 
       it {
-        is_expected.to be nil
+        expect(subject).to be_nil
         expect(org.token_permission_types).to include(token_permission_type)
       }
     end
@@ -451,6 +452,7 @@ RSpec.describe Org, type: :model do
       org = build(:org, links: links)
       expect(org.links).to eql(JSON.parse(links.to_json))
     end
+
     it "defaults to {'org': }" do
       org = build(:org)
       expect(org.links).to eql(JSON.parse({ org: [] }.to_json))
@@ -458,7 +460,7 @@ RSpec.describe Org, type: :model do
   end
 
   context ':merge!(to_be_merged:)' do
-    before(:each) do
+    before do
       @scheme = create(:identifier_scheme)
       tpt = create(:token_permission_type)
       @org = create(:org, :organisation)
@@ -468,7 +470,7 @@ RSpec.describe Org, type: :model do
       create(:annotation, org: @to_be_merged)
       create(:department, org: @to_be_merged)
       gg = @to_be_merged.guidance_groups.first if @to_be_merged.guidance_groups.any?
-      gg = create(:guidance_group, org: @to_be_merged) unless gg.present?
+      gg = create(:guidance_group, org: @to_be_merged) if gg.blank?
       create(:guidance, guidance_group: gg)
       create(:identifier, identifiable: @to_be_merged, identifier_scheme: nil)
       create(:identifier, identifiable: @to_be_merged, identifier_scheme: @scheme)
@@ -482,81 +484,94 @@ RSpec.describe Org, type: :model do
       result = @org.merge!(to_be_merged: build(:user))
       expect(result).to eql(@org)
     end
+
     it 'occurs inside a transaction' do
-      Org.any_instance.stubs(:save).returns(false)
+      described_class.any_instance.stubs(:save).returns(false)
       result = @org.merge!(to_be_merged: @to_be_merged)
-      expect(result).to eql(nil)
+      expect(result).to be_nil
       # Since the save will fail and we reload the Object it should be valid
-      expect(@org.valid?).to eql(true)
-      expect(@to_be_merged.reload.new_record?).to eql(false)
+      expect(@org.valid?).to be(true)
+      expect(@to_be_merged.reload.new_record?).to be(false)
       expect(@to_be_merged.annotations.length).not_to eql(0)
     end
+
     it 'merges attributes' do
       original = @to_be_merged.dup
       org = @org.merge!(to_be_merged: @to_be_merged)
       expect(org.links).to eql(original.links)
     end
+
     it 'merges associated :annotations' do
       expected = @org.annotations.length + @to_be_merged.annotations.length
       @org.merge!(to_be_merged: @to_be_merged)
       expect(@org.annotations.length).to eql(expected)
     end
+
     it 'merges associated :departments' do
       expected = @org.departments.length + @to_be_merged.departments.length
       @org.merge!(to_be_merged: @to_be_merged)
       expect(@org.departments.length).to eql(expected)
     end
+
     it 'merges associated :funded_plans' do
       expected = @org.funded_plans.length + @to_be_merged.funded_plans.length
       @org.merge!(to_be_merged: @to_be_merged)
       expect(@org.funded_plans.length).to eql(expected)
     end
+
     it 'merges associated :guidances' do
       expected = (@org.guidance_groups.first&.guidances&.length || 0) +
                  @to_be_merged.guidance_groups.first.guidances.length
       @org.merge!(to_be_merged: @to_be_merged)
       expect(@org.guidance_groups.first.guidances.length).to eql(expected)
     end
+
     it 'merges associated :identifiers' do
       expected = @org.identifiers.length + @to_be_merged.identifiers.length
       @org.merge!(to_be_merged: @to_be_merged)
       expect(@org.identifiers.length).to eql(expected)
     end
+
     it 'merges associated :plans' do
       expected = @org.plans.length + @to_be_merged.plans.length
       @org.merge!(to_be_merged: @to_be_merged)
       expect(@org.plans.length).to eql(expected)
     end
+
     it 'merges associated :templates' do
       expected = @org.templates.length + @to_be_merged.templates.length
       @org.merge!(to_be_merged: @to_be_merged)
       expect(@org.templates.length).to eql(expected)
     end
+
     it 'merges associated :token_permission_types' do
       expected = (@org.token_permission_types | @to_be_merged.token_permission_types).length
       @org.merge!(to_be_merged: @to_be_merged)
       expect(@org.token_permission_types.length).to eql(expected)
     end
+
     it 'merges associated :tracker' do
       expected = @to_be_merged.tracker.code
       @org.merge!(to_be_merged: @to_be_merged)
       expect(@org.tracker.code).to eql(expected)
     end
+
     it 'merges associated :users' do
       expected = @org.users.length + @to_be_merged.users.length
       @org.merge!(to_be_merged: @to_be_merged)
       expect(@org.users.length).to eql(expected)
     end
+
     it 'removes the :to_be_merged Org' do
       original_id = @to_be_merged.id
       expect(@org.merge!(to_be_merged: @to_be_merged)).to eql(@org)
-      expect(Org.find_by(id: original_id).present?).to eql(false)
+      expect(described_class.find_by(id: original_id).present?).to be(false)
     end
   end
 
   context 'private methods' do
     describe ':merge_attributes!(to_be_merged:)' do
-      before(:each) do
+      before do
         @org = create(:org, :organisation, is_other: false, managed: false,
                                            feedback_enabled: false, contact_email: nil,
                                            contact_name: nil, feedback_msg: nil)
@@ -565,12 +580,13 @@ RSpec.describe Org, type: :model do
                                               feedback_enabled: true,
                                               is_other: true,
                                               region: create(:region),
-                                              language: create(:language))
+                                              language: create(:language, abbreviation: 'org-mdl'))
       end
 
       it 'returns false unless Org is an Org' do
-        expect(@org.send(:merge_attributes!, to_be_merged: create(:user))).to eql(false)
+        expect(@org.send(:merge_attributes!, to_be_merged: create(:user))).to be(false)
       end
+
       it 'merges the correct attributes' do
         original = @to_be_merged.dup
         org = @org.merge!(to_be_merged: @to_be_merged)
@@ -583,20 +599,21 @@ RSpec.describe Org, type: :model do
         expect(org.feedback_enabled).to eql(original.feedback_enabled)
         expect(org.feedback_msg).to eql(original.feedback_msg)
       end
+
       it 'does not merge the attributes it should not merge' do
         original = @to_be_merged.dup
         org = @org.merge!(to_be_merged: @to_be_merged)
         expect(org.abbreviation).not_to eql(original.abbreviation)
         expect(org.name).not_to eql(original.name)
-        expect(org.organisation?).to eql(true)
-        expect(org.funder?).to eql(false)
+        expect(org.organisation?).to be(true)
+        expect(org.funder?).to be(false)
         expect(org.region).not_to eql(original.region)
         expect(org.language).not_to eql(original.language)
       end
     end
 
     describe ':merge_departments!(to_be_merged:)' do
-      before(:each) do
+      before do
         @org = create(:org)
         @to_be_merged = create(:org)
         @department = create(:department, org: @to_be_merged)
@@ -604,26 +621,29 @@ RSpec.describe Org, type: :model do
       end
 
       it 'returns false unless the specified Org is an Org' do
-        expect(@org.send(:merge_departments!, to_be_merged: create(:user))).to eql(false)
+        expect(@org.send(:merge_departments!, to_be_merged: create(:user))).to be(false)
       end
+
       it 'returns false unless the specified Org has department' do
-        expect(@org.send(:merge_departments!, to_be_merged: create(:org))).to eql(false)
+        expect(@org.send(:merge_departments!, to_be_merged: create(:org))).to be(false)
       end
+
       it 'merges :departments that are not already associated' do
         @org.send(:merge_departments!, to_be_merged: @to_be_merged)
         @org.reload
-        expect(@org.departments.map(&:name).include?(@department.name)).to eql(true)
+        expect(@org.departments.map(&:name).include?(@department.name)).to be(true)
       end
+
       it 'does not merge :departments that have the same name' do
         create(:department, name: @department.name.downcase, org: @org)
         @org.reload
         @org.send(:merge_departments!, to_be_merged: @to_be_merged)
-        expect(@org.departments.length).to eql(1)
+        expect(@org.departments.length).to be(1)
       end
     end
 
     describe ':merge_guidance_groups!(to_be_merged:)' do
-      before(:each) do
+      before do
         @guidance = create(:guidance)
         @gg = create(:guidance_group, guidances: [@guidance])
         @org = create(:org, guidance_groups: [])
@@ -631,52 +651,58 @@ RSpec.describe Org, type: :model do
       end
 
       it 'returns false unless the specified Org is an Org' do
-        expect(@org.send(:merge_guidance_groups!, to_be_merged: create(:user))).to eql(false)
+        expect(@org.send(:merge_guidance_groups!, to_be_merged: create(:user))).to be(false)
       end
+
       it 'returns false unless the specified Org has :guidance_groups' do
-        expect(@org.send(:merge_guidance_groups!, to_be_merged: create(:org))).to eql(false)
+        expect(@org.send(:merge_guidance_groups!, to_be_merged: create(:org))).to be(false)
       end
+
       it "merges into the Org's existing :guidance_group" do
         @org.update(guidance_groups: [create(:guidance_group, guidances: [])])
         @org.send(:merge_guidance_groups!, to_be_merged: @to_be_merged)
         @org = @org.reload
-        expect(@org.guidance_groups.include?(@gg)).to eql(false)
-        expect(@org.guidance_groups.length).to eql(1)
-        expect(@org.guidance_groups.first.guidances.include?(@guidance)).to eql(true)
+        expect(@org.guidance_groups.include?(@gg)).to be(false)
+        expect(@org.guidance_groups.length).to be(1)
+        expect(@org.guidance_groups.first.guidances.include?(@guidance)).to be(true)
       end
+
       it 'creates a new :guidance_group if the Org does not have one' do
         @org.send(:merge_guidance_groups!, to_be_merged: @to_be_merged)
         @org = @org.reload
-        expect(@org.guidance_groups.include?(@gg)).to eql(false)
-        expect(@org.guidance_groups.length).to eql(1)
-        expect(@org.guidance_groups.first.guidances.include?(@guidance)).to eql(true)
+        expect(@org.guidance_groups.include?(@gg)).to be(false)
+        expect(@org.guidance_groups.length).to be(1)
+        expect(@org.guidance_groups.first.guidances.include?(@guidance)).to be(true)
       end
     end
 
     describe ':merge_token_permission_types!(to_be_merged:)' do
-      before(:each) do
+      before do
         @tpt = create(:token_permission_type)
         @org = create(:org)
         @to_be_merged = create(:org, token_permission_types: [@tpt])
       end
 
       it 'returns false unless the specified Org is an Org' do
-        expect(@org.send(:merge_token_permission_types!, to_be_merged: create(:user))).to eql(false)
+        expect(@org.send(:merge_token_permission_types!, to_be_merged: create(:user))).to be(false)
       end
+
       it 'returns false unless the specified Org has token_permission_types' do
         o = create(:org)
         # when org is created tpt gets assigned by default so need to scrub for this test
         o.token_permission_types = []
-        expect(@org.send(:merge_token_permission_types!, to_be_merged: o)).to eql(false)
+        expect(@org.send(:merge_token_permission_types!, to_be_merged: o)).to be(false)
       end
+
       it 'merges :token_permission_types that are not already associated' do
         @org.send(:merge_token_permission_types!, to_be_merged: @to_be_merged)
-        expect(@org.token_permission_types.include?(@tpt)).to eql(true)
+        expect(@org.token_permission_types.include?(@tpt)).to be(true)
       end
+
       it 'does not merge :token_permission_types that are already associated' do
         @org.update(token_permission_types: [@tpt])
         @org.send(:merge_token_permission_types!, to_be_merged: @to_be_merged)
-        expect(@org.token_permission_types.length).to eql(1)
+        expect(@org.token_permission_types.length).to be(1)
       end
     end
   end

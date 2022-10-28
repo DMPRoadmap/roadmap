@@ -194,9 +194,7 @@ namespace :upgrade do
     ## Concat Duplicate Answers
     ActiveRecord::Base.transaction do
       # rubocop:disable Layout/LineLength
-      plan_ids = ActiveRecord::Base.connection.select_all('SELECT a1.plan_id as plan_id FROM Answers a1 INNER JOIN Answers a2 ON a1.plan_id = a2.plan_id AND a1.question_id = a2.question_id WHERE a1.id > a2.id').to_a.map do |h|
-        h['plan_id']
-      end.uniq
+      plan_ids = ActiveRecord::Base.connection.select_all('SELECT a1.plan_id as plan_id FROM Answers a1 INNER JOIN Answers a2 ON a1.plan_id = a2.plan_id AND a1.question_id = a2.question_id WHERE a1.id > a2.id').to_a.pluck('plan_id').uniq
       # rubocop:enable Layout/LineLength
       plans = Plan.where(id: plan_ids)
       plans.each do |plan|
@@ -215,7 +213,7 @@ namespace :upgrade do
           puts "\tquestion format #{qf.title}"
           if qf.dropdown?
             new_answer.question_options << answers.last.question_options.first
-            unless answers.last.question_options.first.blank?
+            if answers.last.question_options.first.present?
               puts "\t adding option answers.last.question_options.first.text"
             end
           end
@@ -333,7 +331,7 @@ namespace :upgrade do
   task theme_deduplicate_questions: :environment do
     ActiveRecord::Base.transaction do
       Question.all.each do |q|
-        next unless q.themes.present?
+        next if q.themes.blank?
 
         q.themes.each do |qt|
           q.themes.delete(qt)
@@ -349,10 +347,10 @@ namespace :upgrade do
     ActiveRecord::Base.transaction do
       allthemes = Theme.all
       GuidanceGroup.all.each do |group|
-        next unless group.guidances.present?
+        next if group.guidances.blank?
 
         allthemes.each do |theme|
-          themeguidances = group.guidances.joins(:themes).where('themes.id = ?', theme.id)
+          themeguidances = group.guidances.joins(:themes).where(themes: { id: theme.id })
           next unless themeguidances.present? && themeguidances.length >= 2
 
           themeguidances.drop(1).each do |guidance|
@@ -414,7 +412,7 @@ namespace :upgrade do
   task remove_duplicated_customised_template_versions: :environment do
     templates = Template
                 .select(:id, :customization_of, :version, :org_id, :updated_at)
-                .where('customization_of IS NOT NULL')
+                .where.not(customization_of: nil)
                 .group(:customization_of, :org_id, :version, :id)
                 .order(customization_of: :asc, org_id: :asc, version: :asc, updated_at: :desc)
     generate_compound_key = ->(customization_of, org_id) { return "#{customization_of}_#{org_id}" }
@@ -468,7 +466,7 @@ namespace :upgrade do
       puts 'Searching for Orgs with an undefined contact_email ...'
       Org.where("contact_email IS NULL OR contact_email = ''").each do |org|
         puts "  Setting contact_email to #{email} for #{org.name}"
-        org.update_attributes(contact_email: email, contact_name: name)
+        org.update(contact_email: email, contact_name: name)
       end
     else
       puts 'No helpdesk_email and/or name found in your config/initializers/dmproadmap.rb. Please add them!'
@@ -488,7 +486,7 @@ namespace :upgrade do
                   .joins(:themes).group('guidances.id')
                   .having('count(themes.id) > 1').pluck('guidances.id')
 
-    GuidanceGroup.joins(:guidances).includes(:org).where('guidances.id IN (?)', ids)
+    GuidanceGroup.joins(:guidances).includes(:org).where(guidances: { id: ids })
                  .distinct.order('orgs.name, guidance_groups.name').each do |grp|
       puts "  #{grp.org.name} - Guidance group, '#{grp.name}', has guidance with multiple themes"
     end
@@ -498,7 +496,7 @@ namespace :upgrade do
   desc 'Remove admin preferences'
   task remove_admin_preferences: :environment do
     Pref.all.each do |p|
-      next unless p.settings.present?
+      next if p.settings.blank?
 
       if p.settings['email'].present? && p.settings['email']['admin'].present?
         p.settings['email'].delete('admin')
@@ -514,8 +512,8 @@ namespace :upgrade do
     # Get the helpdesk email from the dmproadmap.rb initializer
     email = Rails.configuration.x.organisation.helpdesk_email
     name = Rails.configuration.x.organisation.name
-    email = 'other.organisation@example.org' unless email.present?
-    name = 'Helpdesk' unless name.present?
+    email = 'other.organisation@example.org' if email.blank?
+    name = 'Helpdesk' if name.blank?
 
     other_org = Org.find_by(is_other: true)
     if other_org.present?
@@ -678,7 +676,7 @@ namespace :upgrade do
 
   desc 'Adds the Date question format'
   task add_date_question_format: :environment do
-    unless QuestionFormat.id_for(QuestionFormat.formattypes[:date]).present?
+    if QuestionFormat.id_for(QuestionFormat.formattypes[:date]).blank?
       QuestionFormat.create(
         title: 'Date field',
         description: 'Date field format',
@@ -696,7 +694,7 @@ namespace :upgrade do
   desc 'Adds a new permission for plan reviewers'
   task add_reviewer_perm: :environment do
     perm_name = 'review_org_plans'
-    Perm.create(name: perm_name) unless Perm.find_by(name: perm_name).present?
+    Perm.create(name: perm_name) if Perm.find_by(name: perm_name).blank?
   end
 
   desc 'adds the new reviewer perm to all existing admin perms'
@@ -936,7 +934,7 @@ namespace :upgrade do
 
           # Just use the first match that contains the search term
           rslt = rslts.select { |r| r[:weight] <= 1 }.first
-          next unless rslt.present?
+          next if rslt.blank?
 
           ror_id = rslt[:ror]
           fundref_id = rslt[:fundref]
@@ -998,7 +996,7 @@ namespace :upgrade do
         org = matches.first if matches.any?
 
         # by RorService if not already in the DB
-        unless org.present?
+        if org.blank?
           # Just use the host (e.g. 'rutgers' instead of 'rutgers.edu')
           host = term.split('.').first
           next unless host.length > 2
@@ -1015,7 +1013,7 @@ namespace :upgrade do
       end
 
       # Otherwise lookup by other_organisation name
-      if !org.present? && user.other_organisation.present?
+      if org.blank? && user.other_organisation.present?
         term = user.other_organisation
         matches = OrgSelection::SearchService.search_externally(search_term: term)
         # Only allow results that START WITH the search term
@@ -1143,7 +1141,7 @@ namespace :upgrade do
 
       funder_id = plan.template.org.id if plan.template.org.funder?
 
-      if plan.funder_name.present? && !funder_id.present?
+      if plan.funder_name.present? && funder_id.blank?
         matches = OrgSelection::SearchService.search_externally(search_term: plan.funder_name)
         # Only allow results that INCLUDE the search term in parenthesis
         matches = matches.select do |result|
@@ -1298,9 +1296,9 @@ namespace :upgrade do
     # If no Org and/or identifier were nil try to look them up in the User table
     user = User.includes(:identifiers).where(email: email).first
     if user.present?
-      org = user.org_id unless org.present?
+      org = user.org_id if org.blank?
 
-      unless identifier.present?
+      if identifier.blank?
         ident = user.identifiers.select { |i| i.identifier_scheme == orcid }.first
         identifier = ident.value if ident.present?
       end
@@ -1308,7 +1306,7 @@ namespace :upgrade do
 
     contributor = Contributor.where('plan_id = ? AND (LOWER(email) = LOWER(?) OR LOWER(name) = LOWER(?))', plan.id,
                                     email, name).first
-    unless contributor.present?
+    if contributor.blank?
       contributor = Contributor.new(email: email, plan: plan)
       contributor.name = name
       contributor.phone = phone
@@ -1319,7 +1317,7 @@ namespace :upgrade do
     # Get the ORCID id from the string
     matched = identifier.match(/([0-9]{4}-?){4}/)
     orcid_id = matched[0] if matched.present?
-    return contributor, nil unless orcid_id.present?
+    return contributor, nil if orcid_id.blank?
 
     id = Identifier.find_or_initialize_by(identifiable: contributor,
                                           identifier_scheme: orcid)
@@ -1332,7 +1330,7 @@ namespace :upgrade do
   def create_org(org, match)
     org.save
     OrgSelection::HashToOrgService.to_identifiers(hash: match).each do |identifier|
-      next unless identifier.value.present?
+      next if identifier.value.blank?
 
       identifier.identifiable = org
       identifier.save

@@ -28,7 +28,7 @@ class Annotation < ApplicationRecord
   # I liked type as the name for the enum so overriding inheritance column
   self.inheritance_column = nil
 
-  enum type: %i[example_answer guidance]
+  enum type: { example_answer: 0, guidance: 1 }
 
   # ================
   # = Associations =
@@ -65,9 +65,7 @@ class Annotation < ApplicationRecord
   # The text from the annotation
   #
   # Returns String
-  def to_s
-    text.to_s
-  end
+  delegate :to_s, to: :text
 
   def deep_copy(**options)
     copy = dup

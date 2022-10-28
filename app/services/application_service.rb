@@ -17,7 +17,7 @@ class ApplicationService
     # Warning: be cautious using this to encrypt data persisted to a DB because it is
     #          reliant on the Rails secret key base which can change!
     def encrypt(payload:)
-      return nil unless payload.present?
+      return nil if payload.blank?
 
       payload = payload.to_json if payload.respond_to?(:to_json)
       crypto.encrypt_and_sign(payload)
@@ -28,7 +28,7 @@ class ApplicationService
 
     # Use the Rails secret key to decrypt information.
     def decrypt(payload:)
-      return nil unless payload.present?
+      return nil if payload.blank?
 
       decrypted = crypto.decrypt_and_verify(payload)
       JSON.parse(decrypted)

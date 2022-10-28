@@ -29,7 +29,7 @@ FactoryBot.define do
     scopes        { Doorkeeper.config.default_scopes + Doorkeeper.config.optional_scopes }
 
     trait :revoked do
-      revoked_at { Time.now - 2.hours }
+      revoked_at { 2.hours.ago }
     end
   end
 end

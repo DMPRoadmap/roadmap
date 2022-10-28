@@ -156,7 +156,7 @@ class GuidanceGroup < ApplicationRecord
 
       # Reload and then drop the specified Org. The reload prevents ActiveRecord
       # from also destroying associations that we've already reassociated above
-      raise ActiveRecord::Rollback unless to_be_merged.reload.destroy.present?
+      raise ActiveRecord::Rollback if to_be_merged.reload.destroy.blank?
 
       reload
     end

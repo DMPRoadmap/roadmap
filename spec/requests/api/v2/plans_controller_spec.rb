@@ -2,13 +2,13 @@
 
 require 'rails_helper'
 
-RSpec.describe Api::V2::PlansController, type: :request do
-  include ApiHelper
+RSpec.describe Api::V2::PlansController do
+  include Helpers::ApiHelper
   include Mocks::ApiV2JsonSamples
-  include Webmocks
+  include Helpers::Webmocks
 
   context 'Non-Oauth (client_credentials grant type)' do
-    before(:each) do
+    before do
       @client = create(:api_client, trusted: false, user: create(:user, :org_admin, org: create(:org)))
       token = mock_client_credentials_token(api_client: @client)
 
@@ -18,7 +18,7 @@ RSpec.describe Api::V2::PlansController, type: :request do
         Authorization: "Bearer #{token}"
       }
       # Org model requires a language so make sure the default is set
-      create(:language, default_language: true) unless Language.default.present?
+      create(:language, default_language: true) if Language.default.blank?
     end
 
     describe 'GET /api/v2/plans (index)' do
@@ -31,10 +31,11 @@ RSpec.describe Api::V2::PlansController, type: :request do
         expect(response).to render_template('api/v2/error')
 
         json = JSON.parse(response.body).with_indifferent_access
-        expect(json[:items].empty?).to eql(true)
-        expect(json[:errors].length).to eql(1)
+        expect(json[:items].empty?).to be(true)
+        expect(json[:errors].length).to be(1)
         expect(json[:errors].first).to eql('token is invalid, expired or has been revoked')
       end
+
       it 'returns an empty array if no plans are available' do
         get(api_v2_plans_path, headers: @headers)
 
@@ -43,13 +44,13 @@ RSpec.describe Api::V2::PlansController, type: :request do
         expect(response).to render_template('api/v2/error')
 
         json = JSON.parse(response.body).with_indifferent_access
-        expect(json[:items].empty?).to eql(true)
-        expect(json[:errors].length).to eql(1)
+        expect(json[:items].empty?).to be(true)
+        expect(json[:errors].length).to be(1)
         expect(json[:errors].first).to eql('No Plans found')
       end
 
       describe 'returns expected plans' do
-        before(:each) do
+        before do
           @other_org_public = create(:plan, :publicly_visible, org: create(:org))
           @other_org_private = create(:plan, :privately_visible, org: create(:org))
           @other_org_organizational = create(:plan, :organisationally_visible, org: create(:org))
@@ -74,9 +75,9 @@ RSpec.describe Api::V2::PlansController, type: :request do
           get(api_v2_plans_path, headers: @headers)
 
           json = JSON.parse(response.body).with_indifferent_access
-          expect(json[:items].length).to eql(6)
+          expect(json[:items].length).to be(6)
           json[:items].each do |item|
-            expect(ids.include?(item[:dmp][:dmp_id][:identifier])).to eql(true)
+            expect(ids.include?(item[:dmp][:dmp_id][:identifier])).to be(true)
           end
         end
 
@@ -89,9 +90,9 @@ RSpec.describe Api::V2::PlansController, type: :request do
           get(api_v2_plans_path(scope: 'mine'), headers: @headers)
 
           json = JSON.parse(response.body).with_indifferent_access
-          expect(json[:items].length).to eql(3)
+          expect(json[:items].length).to be(3)
           json[:items].each do |item|
-            expect(ids.include?(item[:dmp][:dmp_id][:identifier])).to eql(true)
+            expect(ids.include?(item[:dmp][:dmp_id][:identifier])).to be(true)
           end
         end
 
@@ -103,9 +104,9 @@ RSpec.describe Api::V2::PlansController, type: :request do
           get(api_v2_plans_path(scope: 'public'), headers: @headers)
 
           json = JSON.parse(response.body).with_indifferent_access
-          expect(json[:items].length).to eql(2)
+          expect(json[:items].length).to be(2)
           json[:items].each do |item|
-            expect(ids.include?(item[:dmp][:dmp_id][:identifier])).to eql(true)
+            expect(ids.include?(item[:dmp][:dmp_id][:identifier])).to be(true)
           end
         end
 
@@ -119,9 +120,9 @@ RSpec.describe Api::V2::PlansController, type: :request do
           get(api_v2_plans_path(scope: 'both'), headers: @headers)
 
           json = JSON.parse(response.body).with_indifferent_access
-          expect(json[:items].length).to eql(4)
+          expect(json[:items].length).to be(4)
           json[:items].each do |item|
-            expect(ids.include?(item[:dmp][:dmp_id][:identifier])).to eql(true)
+            expect(ids.include?(item[:dmp][:dmp_id][:identifier])).to be(true)
           end
         end
 
@@ -134,15 +135,15 @@ RSpec.describe Api::V2::PlansController, type: :request do
           get(api_v2_plans_path, headers: @headers)
 
           json = JSON.parse(response.body).with_indifferent_access
-          expect(json[:items].length).to eql(3)
+          expect(json[:items].length).to be(3)
           json[:items].each do |item|
-            expect(ids.include?(item[:dmp][:dmp_id][:identifier])).to eql(true)
+            expect(ids.include?(item[:dmp][:dmp_id][:identifier])).to be(true)
           end
         end
       end
 
       it 'allows for paging' do
-        21.times { create(:plan, :publicly_visible) }
+        create_list(:plan, 21, :publicly_visible)
         get(api_v2_plans_path(scope: 'public'), headers: @headers)
 
         test_paging(json: JSON.parse(response.body), headers: @headers)
@@ -160,10 +161,11 @@ RSpec.describe Api::V2::PlansController, type: :request do
         expect(response).to render_template('api/v2/error')
 
         json = JSON.parse(response.body).with_indifferent_access
-        expect(json[:items].empty?).to eql(true)
-        expect(json[:errors].length).to eql(1)
+        expect(json[:items].empty?).to be(true)
+        expect(json[:errors].length).to be(1)
         expect(json[:errors].first).to eql('token is invalid, expired or has been revoked')
       end
+
       it 'returns an empty array if no plans are available' do
         get(api_v2_plan_path(99_999), headers: @headers)
 
@@ -172,13 +174,13 @@ RSpec.describe Api::V2::PlansController, type: :request do
         expect(response).to render_template('api/v2/error')
 
         json = JSON.parse(response.body).with_indifferent_access
-        expect(json[:items].empty?).to eql(true)
-        expect(json[:errors].length).to eql(1)
+        expect(json[:items].empty?).to be(true)
+        expect(json[:errors].length).to be(1)
         expect(json[:errors].first).to eql('Plan not found')
       end
 
       describe 'returns expected plan' do
-        before(:each) do
+        before do
           @other_org_public = create(:plan, :publicly_visible, org: create(:org))
           @other_org_private = create(:plan, :privately_visible, org: create(:org))
           @other_org_organizational = create(:plan, :organisationally_visible, org: create(:org))
@@ -202,9 +204,10 @@ RSpec.describe Api::V2::PlansController, type: :request do
 
             json = JSON.parse(response.body).with_indifferent_access
             expected = "plans/#{plan.id}"
-            expect(json[:items].first[:dmp][:dmp_id][:identifier].end_with?(expected)).to eql(true)
+            expect(json[:items].first[:dmp][:dmp_id][:identifier].end_with?(expected)).to be(true)
           end
         end
+
         it 'does not return plans for an other org' do
           [@other_org_private, @other_org_organizational, @other_org_test].each do |plan|
             get api_v2_plan_path(plan), headers: @headers
@@ -214,11 +217,12 @@ RSpec.describe Api::V2::PlansController, type: :request do
             expect(response).to render_template('api/v2/error')
 
             json = JSON.parse(response.body).with_indifferent_access
-            expect(json[:items].empty?).to eql(true)
-            expect(json[:errors].length).to eql(1)
+            expect(json[:items].empty?).to be(true)
+            expect(json[:errors].length).to be(1)
             expect(json[:errors].first).to eql('Plan not found')
           end
         end
+
         it 'returns the publicly visible plan' do
           get api_v2_plan_path(@my_org_public), headers: @headers
 
@@ -228,8 +232,9 @@ RSpec.describe Api::V2::PlansController, type: :request do
 
           json = JSON.parse(response.body).with_indifferent_access
           expected = "plans/#{@my_org_public.id}"
-          expect(json[:items].first[:dmp][:dmp_id][:identifier].end_with?(expected)).to eql(true)
+          expect(json[:items].first[:dmp][:dmp_id][:identifier].end_with?(expected)).to be(true)
         end
+
         it "returns the privately visible plan owned by the ApiClient's User" do
           get api_v2_plan_path(@my_org_private), headers: @headers
 
@@ -239,8 +244,9 @@ RSpec.describe Api::V2::PlansController, type: :request do
 
           json = JSON.parse(response.body).with_indifferent_access
           expected = "plans/#{@my_org_private.id}"
-          expect(json[:items].first[:dmp][:dmp_id][:identifier].end_with?(expected)).to eql(true)
+          expect(json[:items].first[:dmp][:dmp_id][:identifier].end_with?(expected)).to be(true)
         end
+
         it "returns the organisationally visible plan related to the ApiClient's User's Org" do
           get api_v2_plan_path(@my_org_organizational), headers: @headers
 
@@ -250,13 +256,13 @@ RSpec.describe Api::V2::PlansController, type: :request do
 
           json = JSON.parse(response.body).with_indifferent_access
           expected = "plans/#{@my_org_organizational.id}"
-          expect(json[:items].first[:dmp][:dmp_id][:identifier].end_with?(expected)).to eql(true)
+          expect(json[:items].first[:dmp][:dmp_id][:identifier].end_with?(expected)).to be(true)
         end
       end
     end
 
     describe 'POST /api/v1/plans - create' do
-      before(:each) do
+      before do
         @json = JSON.parse(complete_create_json(client: @client)).with_indifferent_access
         @scheme = create(:identifier_scheme, name: @client.name.downcase)
         stub_ror_service
@@ -271,10 +277,11 @@ RSpec.describe Api::V2::PlansController, type: :request do
         expect(response).to render_template('api/v2/error')
 
         json = JSON.parse(response.body).with_indifferent_access
-        expect(json[:items].empty?).to eql(true)
-        expect(json[:errors].length).to eql(1)
+        expect(json[:items].empty?).to be(true)
+        expect(json[:errors].length).to be(1)
         expect(json[:errors].first).to eql('token is invalid, expired or has been revoked')
       end
+
       it 'returns 403 if the ApiClient does not have the :create_dmps scope' do
         token = mock_client_credentials_token(api_client: @client, scopes: %i[read_dmps])
         @headers['Authorization'] = "Bearer #{token}"
@@ -282,6 +289,7 @@ RSpec.describe Api::V2::PlansController, type: :request do
 
         expect(response.code).to eql('403')
       end
+
       it 'fails if the Plan already exists (based on the specified :dmp_id)' do
         plan = create(:plan)
         id = @json[:dmp].fetch(:dmp_id, {})[:identifier]
@@ -293,10 +301,11 @@ RSpec.describe Api::V2::PlansController, type: :request do
         expect(response).to render_template('api/v2/error')
 
         json = JSON.parse(response.body).with_indifferent_access
-        expect(json[:items].empty?).to eql(true)
-        expect(json[:errors].length).to eql(1)
+        expect(json[:items].empty?).to be(true)
+        expect(json[:errors].length).to be(1)
         expect(json[:errors].first).to eql('Plan already exists. Send an update instead.')
       end
+
       it 'fails if invalid JSON is passed' do
         Api::V2::Deserialization::Plan.stubs(:deserialize).raises(JSON::ParserError)
         post(api_v2_plans_path, params: @json.to_json, headers: @headers)
@@ -306,10 +315,11 @@ RSpec.describe Api::V2::PlansController, type: :request do
         expect(response).to render_template('api/v2/error')
 
         json = JSON.parse(response.body).with_indifferent_access
-        expect(json[:items].empty?).to eql(true)
-        expect(json[:errors].length).to eql(1)
+        expect(json[:items].empty?).to be(true)
+        expect(json[:errors].length).to be(1)
         expect(json[:errors].first).to eql('Invalid JSON')
       end
+
       it 'fails if the JSON could not be deserialized to a Plan' do
         Api::V2::Deserialization::Plan.stubs(:deserialize).returns(nil)
         post(api_v2_plans_path, params: @json.to_json, headers: @headers)
@@ -319,10 +329,11 @@ RSpec.describe Api::V2::PlansController, type: :request do
         expect(response).to render_template('api/v2/error')
 
         json = JSON.parse(response.body).with_indifferent_access
-        expect(json[:items].empty?).to eql(true)
-        expect(json[:errors].length).to eql(1)
+        expect(json[:items].empty?).to be(true)
+        expect(json[:errors].length).to be(1)
         expect(json[:errors].first).to eql('Invalid JSON format!')
       end
+
       it 'returns contextualized errors' do
         @json[:dmp][:contact] = {}
         post(api_v2_plans_path, params: @json.to_json, headers: @headers)
@@ -332,8 +343,8 @@ RSpec.describe Api::V2::PlansController, type: :request do
         expect(response).to render_template('api/v2/error')
 
         json = JSON.parse(response.body).with_indifferent_access
-        expect(json[:items].empty?).to eql(true)
-        expect(json[:errors].length).to eql(1)
+        expect(json[:items].empty?).to be(true)
+        expect(json[:errors].length).to be(1)
         expect(json[:errors].first).to eql([":title and the contact's :mbox are both required fields"])
       end
 
@@ -356,7 +367,7 @@ RSpec.describe Api::V2::PlansController, type: :request do
         created = json.fetch(:items, [{ dmp: {} }]).first[:dmp]
         dmp = Plan.find_by(id: created.fetch(:dmp_id, {})[:identifier].split('/').last)
 
-        expect(dmp.present?).to eql(true)
+        expect(dmp.present?).to be(true)
         expect(created[:title]).to eql(original[:title])
         expect(dmp.title).to eql(original[:title])
 
@@ -376,7 +387,7 @@ RSpec.describe Api::V2::PlansController, type: :request do
         expect(created[:ethical_issues_report]).to eql(original[:ethical_issues_report])
 
         expect(created[:dmp_id][:type]).to eql('url')
-        expect(created[:dmp_id][:identifier].end_with?(api_v2_plan_path(dmp))).to eql(true)
+        expect(created[:dmp_id][:identifier].end_with?(api_v2_plan_path(dmp))).to be(true)
 
         # Contact verification
         expect(created[:contact][:mbox]).to eql(original[:contact][:mbox])
@@ -398,20 +409,20 @@ RSpec.describe Api::V2::PlansController, type: :request do
           expect(contributor[:mbox]).to eql(orig_contrib.first[:mbox])
 
           if contrib.email == created[:contact][:mbox]
-            expect(contributor[:affiliation].present?).to eql(true)
+            expect(contributor[:affiliation].present?).to be(true)
             expect(contributor[:affiliation][:name]).to eql(contrib.org.name)
           else
             # Unknown Orgs should not be created!
-            expect(contributor[:affiliation].present?).to eql(false)
+            expect(contributor[:affiliation].present?).to be(false)
           end
 
           expect(contributor[:name]).to eql(contrib.name)
           expect(contributor[:mbox]).to eql(contrib.email)
 
           contributor[:role].each do |role|
-            expect(orig_contrib.first[:role].include?(role)).to eql(true)
+            expect(orig_contrib.first[:role].include?(role)).to be(true)
             r = Api::V2::DeserializationService.translate_role(role: role)
-            expect(contrib.send(:"#{r}?")).to eql(true)
+            expect(contrib.send(:"#{r}?")).to be(true)
           end
         end
 
@@ -421,8 +432,8 @@ RSpec.describe Api::V2::PlansController, type: :request do
         # the same as the Plan's
         expect(created[:title]).to eql(project[:title])
         expect(created[:description]).to eql(project[:description])
-        expect(Time.new(project[:start])).to eql(Time.new(original.fetch(:project, [{}]).first[:start]))
-        expect(Time.new(project[:end])).to eql(Time.new(original.fetch(:project, [{}]).first[:end]))
+        expect(Time.zone.local(project[:start])).to eql(Time.zone.local(original.fetch(:project, [{}]).first[:start]))
+        expect(Time.zone.local(project[:end])).to eql(Time.zone.local(original.fetch(:project, [{}]).first[:end]))
         expect(project[:start]).to eql(dmp.start_date.to_formatted_s(:iso8601))
         expect(project[:end]).to eql(dmp.end_date.to_formatted_s(:iso8601))
 
@@ -445,14 +456,14 @@ RSpec.describe Api::V2::PlansController, type: :request do
         expect(response).to render_template('user_mailer/new_plan_via_api')
 
         owner = Plan.find_by(title: @json[:dmp][:title]).owner
-        expect(owner.firstname.present?).to eql(true)
-        expect(owner.surname.present?).to eql(true)
-        expect(owner.email.present?).to eql(true)
-        expect(owner.org.present?).to eql(true)
-        expect(owner.invitation_token.present?).to eql(true)
-        expect(owner.invitation_created_at.present?).to eql(true)
-        expect(owner.invitation_sent_at.present?).to eql(true)
-        expect(owner.plans.length).to eql(1)
+        expect(owner.firstname.present?).to be(true)
+        expect(owner.surname.present?).to be(true)
+        expect(owner.email.present?).to be(true)
+        expect(owner.org.present?).to be(true)
+        expect(owner.invitation_token.present?).to be(true)
+        expect(owner.invitation_created_at.present?).to be(true)
+        expect(owner.invitation_sent_at.present?).to be(true)
+        expect(owner.plans.length).to be(1)
       end
 
       it 'sends an email notification of the new plan if the :contact is already a User' do
@@ -468,14 +479,14 @@ RSpec.describe Api::V2::PlansController, type: :request do
         expect(response).to render_template('user_mailer/new_plan_via_api')
 
         owner = Plan.find_by(title: @json[:dmp][:title]).owner
-        expect(owner.firstname.present?).to eql(true)
-        expect(owner.surname.present?).to eql(true)
-        expect(owner.email.present?).to eql(true)
-        expect(owner.org.present?).to eql(true)
-        expect(owner.invitation_token.present?).to eql(false)
-        expect(owner.invitation_created_at.present?).to eql(false)
-        expect(owner.invitation_sent_at.present?).to eql(false)
-        expect(owner.plans.length).to eql(1)
+        expect(owner.firstname.present?).to be(true)
+        expect(owner.surname.present?).to be(true)
+        expect(owner.email.present?).to be(true)
+        expect(owner.org.present?).to be(true)
+        expect(owner.invitation_token.present?).to be(false)
+        expect(owner.invitation_created_at.present?).to be(false)
+        expect(owner.invitation_sent_at.present?).to be(false)
+        expect(owner.plans.length).to be(1)
       end
 
       it 'logs the addition of the new plan in the api_logs' do
@@ -484,11 +495,11 @@ RSpec.describe Api::V2::PlansController, type: :request do
         entry = ApiLog.all.last
         plan = Plan.all.last
         expected = "Created a new Plan:<br>#<Plan id: #{plan.id}, "
-        expect(entry.present?).to eql(true)
+        expect(entry.present?).to be(true)
         expect(entry.api_client_id).to eql(@client.id)
         expect(entry.logable).to eql(plan)
         expect(entry.change_type).to eql('added')
-        expect(entry.activity.start_with?(expected)).to eql(true)
+        expect(entry.activity.start_with?(expected)).to be(true)
       end
     end
   end

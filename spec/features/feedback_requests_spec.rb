@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe 'FeedbackRequests', type: :feature do
-  include Webmocks
+RSpec.describe 'FeedbackRequests' do
+  include Helpers::Webmocks
 
   let!(:plan) { create(:plan, :organisationally_visible) }
 
@@ -25,7 +25,7 @@ RSpec.describe 'FeedbackRequests', type: :feature do
     ActionMailer::Base.deliveries = []
   end
 
-  scenario 'User requests feedback for Plan', :js do
+  it 'User requests feedback for Plan', :js do
     # Actions
     click_link plan.title
     expect(current_path).to eql(plan_path(plan))

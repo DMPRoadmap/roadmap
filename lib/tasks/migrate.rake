@@ -258,14 +258,14 @@ namespace :migrate do
   desc 'Initialize plans.visibility to the default specified in application.rb'
   task init_plan_visibility: :environment do
     default = Rails.configuration.x.plans.default_visibility.to_sym
-    Plan.all.each { |p| p.update_attributes(visibility: default) unless p.visibility == default }
+    Plan.all.each { |p| p.update(visibility: default) unless p.visibility == default }
   end
 
   desc 'Move old plans.data_contact to data_contact_email and data_contact_phone'
   task plan_data_contacts: :environment do
     email_regex = /([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})/i
     phone_regex = /\+?[0-9\-()]{7,}/i
-    Plan.where('data_contact IS NOT NULL').each do |p|
+    Plan.where.not(data_contact: nil).each do |p|
       email = p.data_contact[email_regex]
       phone = p.data_contact[phone_regex]
 
@@ -278,14 +278,13 @@ namespace :migrate do
       contact = contact[0..(contact.length - 2)] if contact.ends_with?(',')
       contact = nil if contact == ','
 
-      p.update_attributes(data_contact_email: email, data_contact_phone: phone,
-                          data_contact: contact)
+      p.update(data_contact_email: email, data_contact_phone: phone, data_contact: contact)
     end
   end
 
   desc 'Move old ORCID from users table to user_identifiers'
   task move_orcids: :environment do
-    users = User.includes(:user_identifiers).where('users.orcid_id IS NOT NULL')
+    users = User.includes(:user_identifiers).where.not(users: { orcid_id: nil })
 
     # If we have users with orcid ids
     if users.any?
@@ -318,7 +317,7 @@ namespace :migrate do
   desc 'Move old Shibboleth Ids from users table to user_identifiers'
   task move_shibs: :environment do
     if Rails.configuration.x.shibboleth.enabled
-      users = User.includes(:user_identifiers).where('users.shibboleth_id IS NOT NULL')
+      users = User.includes(:user_identifiers).where.not(users: { shibboleth_id: nil })
 
       # If we have users with orcid ids
       if users.any?
@@ -366,7 +365,7 @@ namespace :migrate do
   desc 'convert orgs.target_url to JSON array'
   task org_target_url_to_links: :environment do
     Org.all.each do |org|
-      next unless org.target_url.present?
+      next if org.target_url.blank?
 
       org.links = [{ link: org.target_url, text: '' }]
       org.target_url = nil

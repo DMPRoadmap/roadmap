@@ -22,10 +22,10 @@ module Dmptool
                       ))
         # rubocop:enable Layout/LineLength
 
-        @template.email_subject = subject unless @template.email_subject.present?
-        @template.email_body = body unless @template.email_body.present?
+        @template.email_subject = subject if @template.email_subject.blank?
+        @template.email_body = body if @template.email_body.blank?
 
-        render '/org_admin/templates/email.js.erb'
+        render '/org_admin/templates/email' # .js.erb'
       end
     end
     # rubocop:enable Metrics/AbcSize

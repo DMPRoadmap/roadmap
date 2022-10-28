@@ -19,7 +19,7 @@ class Language < ApplicationRecord
 
   ABBREVIATION_MAXIMUM_LENGTH = 5
 
-  ABBREVIATION_FORMAT = /\A[a-z]{2}(-[A-Z]{2})?\Z/.freeze
+  ABBREVIATION_FORMAT = /\A[a-z]{2}(-[A-Z]{2})?\Z/
 
   NAME_MAXIMUM_LENGTH = 20
 
@@ -69,7 +69,7 @@ class Language < ApplicationRecord
 
   # Retrieves the id for a given abbreviation of a language
   scope :id_for, lambda { |abbreviation|
-    where(abbreviation: abbreviation).pluck(:id).first
+    where(abbreviation: abbreviation).pick(:id)
   }
 
   # ========================

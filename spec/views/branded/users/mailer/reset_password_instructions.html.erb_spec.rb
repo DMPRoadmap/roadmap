@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'users/mailer/reset_password_instructions' do
-  before(:each) do
+  before do
     controller.prepend_view_path 'app/views/branded'
     Rails.configuration.x.organisation.helpdesk_email = Faker::Internet.unique.email
     Rails.configuration.x.organisation.contact_us_url = nil
@@ -17,11 +17,11 @@ describe 'users/mailer/reset_password_instructions' do
     assign :token, token
 
     render
-    expect(rendered.include?("Hello #{user.email}")).to eql(true)
-    expect(rendered.include?('Someone has requested a link to change')).to eql(true)
-    expect(rendered.include?('Change my password')).to eql(true)
-    expect(rendered.include?(token)).to eql(true)
-    expect(rendered.include?('All the best')).to eql(true)
-    expect(rendered.include?('Please do not reply to this email.')).to eql(true)
+    expect(rendered.include?("Hello #{user.email}")).to be(true)
+    expect(rendered.include?('Someone has requested a link to change')).to be(true)
+    expect(rendered.include?('Change my password')).to be(true)
+    expect(rendered.include?(token)).to be(true)
+    expect(rendered.include?('All the best')).to be(true)
+    expect(rendered.include?('Please do not reply to this email.')).to be(true)
   end
 end

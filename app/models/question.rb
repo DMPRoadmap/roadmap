@@ -120,12 +120,12 @@ class Question < ApplicationRecord
     copy.section_id = options.fetch(:section_id, nil)
     copy.save!(validate: false)  if options.fetch(:save, false)
     options[:question_id] = copy.id
-    question_options.each { |qo| copy.question_options << qo.deep_copy(options) }
+    question_options.each { |qo| copy.question_options << qo.deep_copy(**options) }
     annotations.each do |annotation|
-      copy.annotations << annotation.deep_copy(options)
+      copy.annotations << annotation.deep_copy(**options)
     end
     themes.each { |theme| copy.themes << theme }
-    conditions.each { |condition| copy.conditions << condition.deep_copy(options) }
+    conditions.each { |condition| copy.conditions << condition.deep_copy(**options) }
     copy.conditions = copy.conditions.sort_by(&:number)
     copy
   end
@@ -145,7 +145,7 @@ class Question < ApplicationRecord
     guidances = {}
     if theme_ids.any?
       GuidanceGroup.includes(guidances: :themes)
-                   .where(org_id: org.id).each do |group|
+                   .where(org_id: org.id).find_each do |group|
         group.guidances.each do |g|
           g.themes.each do |theme|
             guidances["#{group.name} " + _('guidance on') + " #{theme.title}"] = g if theme_ids.include? theme.id
@@ -197,8 +197,8 @@ class Question < ApplicationRecord
                                          type: Annotation.types[:example_answer])
     guidance = annotations.find_by(org_id: org_id,
                                    type: Annotation.types[:guidance])
-    example_answer = annotations.build(type: :example_answer, text: '', org_id: org_id) unless example_answer.present?
-    guidance = annotations.build(type: :guidance, text: '', org_id: org_id) unless guidance.present?
+    example_answer = annotations.build(type: :example_answer, text: '', org_id: org_id) if example_answer.blank?
+    guidance = annotations.build(type: :guidance, text: '', org_id: org_id) if guidance.blank?
     [example_answer, guidance]
   end
 
@@ -207,7 +207,7 @@ class Question < ApplicationRecord
   # after versioning
   def update_conditions(param_conditions, old_to_new_opts, question_id_map)
     conditions.destroy_all
-    return unless param_conditions.present?
+    return if param_conditions.blank?
 
     param_conditions.each do |_key, value|
       save_condition(value, old_to_new_opts, question_id_map)
@@ -221,7 +221,7 @@ class Question < ApplicationRecord
     c.number = value['number']
     # question options may have changed so rewrite them
     c.option_list = value['question_option']
-    unless opt_map.blank?
+    if opt_map.present?
       new_question_options = []
       c.option_list.each do |qopt|
         new_question_options << opt_map[qopt]
@@ -231,7 +231,7 @@ class Question < ApplicationRecord
 
     if value['action_type'] == 'remove'
       c.remove_data = value['remove_question_id']
-      unless question_id_map.blank?
+      if question_id_map.present?
         new_question_ids = []
         c.remove_data.each do |qid|
           new_question_ids << question_id_map[qid]

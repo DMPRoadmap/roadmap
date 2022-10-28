@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'api/v2/contributors/_show.json.jbuilder' do
-  before(:each) do
+  before do
     @plan = create(:plan)
     scheme = create(:identifier_scheme, name: 'orcid')
     @contact = create(:contributor, org: create(:org), plan: @plan, roles_count: 0,
@@ -14,7 +14,7 @@ describe 'api/v2/contributors/_show.json.jbuilder' do
   end
 
   describe 'includes all of the Contributor attributes' do
-    before(:each) do
+    before do
       render partial: 'api/v2/contributors/show', locals: { contributor: @contact }
       @json = JSON.parse(rendered).with_indifferent_access
     end
@@ -22,12 +22,13 @@ describe 'api/v2/contributors/_show.json.jbuilder' do
     it 'includes the :name' do
       expect(@json[:name]).to eql(@contact.name)
     end
+
     it 'includes the :mbox' do
       expect(@json[:mbox]).to eql(@contact.email)
     end
 
     it 'includes the :role' do
-      expect(@json[:role].first.ends_with?('data-curation')).to eql(true)
+      expect(@json[:role].first.ends_with?('data-curation')).to be(true)
     end
 
     it 'includes :affiliation' do
@@ -38,6 +39,7 @@ describe 'api/v2/contributors/_show.json.jbuilder' do
       expect(@json[:contributor_id][:type]).to eql(@ident.identifier_format)
       expect(@json[:contributor_id][:identifier]).to eql(@ident.value)
     end
+
     it 'ignores non-orcid identifiers :contributor_id' do
       scheme = create(:identifier_scheme, name: 'shibboleth')
       create(:identifier, value: Faker::Lorem.word, identifiable: @contact,
@@ -49,7 +51,7 @@ describe 'api/v2/contributors/_show.json.jbuilder' do
   end
 
   describe 'includes all of the Contact attributes' do
-    before(:each) do
+    before do
       render partial: 'api/v2/contributors/show', locals: { contributor: @contact,
                                                             is_contact: true }
       @json = JSON.parse(rendered).with_indifferent_access
@@ -58,12 +60,13 @@ describe 'api/v2/contributors/_show.json.jbuilder' do
     it 'includes the :name' do
       expect(@json[:name]).to eql(@contact.name)
     end
+
     it 'includes the :mbox' do
       expect(@json[:mbox]).to eql(@contact.email)
     end
 
     it 'does NOT include the :role' do
-      expect(@json[:role]).to eql(nil)
+      expect(@json[:role]).to be_nil
     end
 
     it 'includes :affiliation' do
@@ -74,6 +77,7 @@ describe 'api/v2/contributors/_show.json.jbuilder' do
       expect(@json[:contact_id][:type]).to eql(@ident.identifier_format)
       expect(@json[:contact_id][:identifier]).to eql(@ident.value)
     end
+
     it 'ignores non-orcid identifiers :contact_id' do
       scheme = create(:identifier_scheme, name: 'shibboleth')
       create(:identifier, value: Faker::Lorem.word, identifiable: @contact,

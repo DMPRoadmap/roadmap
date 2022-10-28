@@ -13,9 +13,9 @@ describe 'paginable/templates/_organisational.html.erb' do
     # Paginable is expecting `scope` to be a local not an instance variable
     render partial: 'paginable/templates/organisational', locals: { scope: Template.all }
 
-    expect(rendered.include?('class="c-template-title"')).to eql(true)
-    expect(rendered.include?('class="c-template-invitation"')).to eql(true)
-    expect(rendered.include?('Email template')).to eql(true)
+    expect(rendered.include?('class="c-template-title"')).to be(true)
+    expect(rendered.include?('class="c-template-invitation"')).to be(true)
+    expect(rendered.include?('Email template')).to be(true)
 
     expect(response).to render_template(partial: 'paginable/templates/_invite_modal')
   end

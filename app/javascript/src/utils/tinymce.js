@@ -1,7 +1,8 @@
 // Import TinyMCE
 import tinymce from 'tinymce/tinymce';
 // Import TinyMCE theme
-import 'tinymce/themes/modern/theme';
+import 'tinymce/themes/silver/theme';
+import 'tinymce/icons/default';
 // Plugins
 import 'tinymce/plugins/table';
 import 'tinymce/plugins/lists';
@@ -13,11 +14,10 @@ import 'tinymce/plugins/advlist';
 // Other dependencies
 import { isObject, isString } from './isType';
 
-// Pull in the rails helper functions
-<% helpers = ActionController::Base.helpers %>
-
-// // Configuration extracted from
-// // https://www.tinymce.com/docs/advanced/usage-with-module-loaders/
+/* 
+Configuration extracted from
+https://www.tinymce.com/docs/advanced/usage-with-module-loaders/
+*/
 export const defaultOptions = {
   selector: '.tinymce',
   statusbar: true,
@@ -29,13 +29,12 @@ export const defaultOptions = {
   target_list: false,
   elementpath: false,
   resize: true,
-  autoresize_min_height: 130,
+  min_height: 230,
   autoresize_bottom_margin: 10,
   branding: false,
   extended_valid_elements: 'iframe[tooltip] , a[href|target=_blank]',
   paste_auto_cleanup_on_paste: true,
   paste_remove_styles: true,
-  paste_retain_style_properties: 'none',
   paste_convert_middot_lists: true,
   paste_remove_styles_if_webkit: true,
   paste_remove_spans: true,
@@ -46,7 +45,7 @@ export const defaultOptions = {
   // skin: false,
   // editorManager.baseURL is not resolved properly for IE since document.currentScript
   // is not supported, see issue https://github.com/tinymce/tinymce/issues/358
-  skin_url: '/tinymce/skins/lightgray',
+  skin_url: '/tinymce/skins/oxide',
   content_css: ['/tinymce/tinymce.css'],
 };
 /*

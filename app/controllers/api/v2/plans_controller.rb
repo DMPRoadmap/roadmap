@@ -105,12 +105,12 @@ module Api
 
           # Try to determine the Plan's org
           plan.org_id = owner&.org&.present? ? owner.org_id : client.owner&.org_id
-          unless plan.org_id.present?
+          if plan.org_id.blank?
             matches = find_matching_orgs(
               plan: plan, json: dmp.fetch(:contact, {}).fetch(:affiliation, {})
             )
             no_org_err = format(no_org_err, list_of_names: matches.map { |m| "'#{m}'" }.join(', '))
-            render_error(errors: no_org_err, status: :bad_request) and return unless plan.org_id.present?
+            render_error(errors: no_org_err, status: :bad_request) and return if plan.org_id.blank?
           end
 
           # Validate the plan and it's associations and return errors with context
@@ -180,12 +180,12 @@ module Api
 
         # Try to deserialize the Org. If no Org exists, try to find it by the user's email domain
         org = Api::V2::Deserialization::Org.deserialize(json: json[:affiliation])
-        org = Org.from_email_domain(email_domain: json[:mbox].split('@')&.last) unless org.present?
+        org = Org.from_email_domain(email_domain: json[:mbox].split('@')&.last) if org.blank?
         org.save if org&.new_record?
 
         user = User.new(firstname: firstname, surname: surname, email: json[:mbox], org: org,
                         password: SecureRandom.uuid)
-        return user unless orcid.present?
+        return user if orcid.blank?
 
         scheme = IdentifierScheme.find_by(name: 'orcid')
         user.identifiers << Identifier.new(identifier_scheme: scheme, value: orcid)
@@ -236,7 +236,7 @@ module Api
         return nil unless id_json.is_a?(Hash) && id_json[:type] == 'other' && @client.is_a?(ApiClient)
 
         val = id_json[:identifier] if id_json[:identifier].start_with?(@client.callback_uri || '')
-        val = "#{@client.callback_uri}#{id_json[:identifier]}" unless val.present?
+        val = "#{@client.callback_uri}#{id_json[:identifier]}" if val.blank?
 
         subscription = Subscription.find_or_initialize_by(
           plan: plan,
@@ -250,7 +250,7 @@ module Api
 
       # rubocop:disable Metrics/AbcSize
       def prep_for_pdf
-        return false unless @plan.present?
+        return false if @plan.blank?
 
         # We need to eager loadd the plan to make this more efficient
         @plan = Plan.includes(:org, :research_outputs, roles: [:user],

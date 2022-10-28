@@ -18,10 +18,10 @@ module OrgAdmin
           redirect_to org_admin_template_path(@customisation)
           return
         rescue ArgumentError
-          flash[:alert] = _('Unable to customize that template.')
+          flash.now[:alert] = _('Unable to customize that template.')
         end
       else
-        flash[:notice] = _('That template is not customizable.')
+        flash.now[:notice] = _('That template is not customizable.')
       end
       redirect_back(fallback_location: org_admin_templates_path)
     end

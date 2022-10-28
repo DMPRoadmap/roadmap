@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'api/v1/error.json.jbuilder' do
-  before(:each) do
+  before do
     @url = Faker::Internet.url
     @code = [200, 400, 404, 500].sample
     @errors = [Faker::Lorem.sentence, Faker::Lorem.sentence]

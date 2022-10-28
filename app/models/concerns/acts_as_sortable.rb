@@ -23,7 +23,7 @@ module ActsAsSortable
       # Build an Array with each ID and its relative position in the Array
       values = ids.each_with_index.map { |id, i| "(#{id}, #{i + 1})" }.join(',')
       # Run a single UPDATE query for all records.
-      query = <<~SQL
+      query = <<~SQL.squish
         UPDATE #{table_name} \
         SET number = svals.number \
         FROM (VALUES #{sanitize_sql(values)}) AS svals(id, number) \

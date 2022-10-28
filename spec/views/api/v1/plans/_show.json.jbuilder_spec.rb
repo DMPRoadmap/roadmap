@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'api/v1/plans/_show.json.jbuilder' do
-  before(:each) do
+  before do
     Rails.configuration.x.madmp.enable_dmp_id_registration = true
 
     @plan = create(:plan)
@@ -17,7 +17,7 @@ describe 'api/v1/plans/_show.json.jbuilder' do
   end
 
   describe 'includes all of the DMP attributes' do
-    before(:each) do
+    before do
       render partial: 'api/v1/plans/show', locals: { plan: @plan }
       @json = JSON.parse(rendered).with_indifferent_access
     end
@@ -25,28 +25,35 @@ describe 'api/v1/plans/_show.json.jbuilder' do
     it 'includes the :title' do
       expect(@json[:title]).to eql(@plan.title)
     end
+
     it 'includes the :description' do
       expect(@json[:description]).to eql(@plan.description)
     end
+
     it 'includes the :language' do
       expected = Api::V1::LanguagePresenter.three_char_code(
         lang: LocaleService.default_locale
       )
       expect(@json[:language]).to eql(expected)
     end
+
     it 'includes the :created' do
       expect(@json[:created]).to eql(@plan.created_at.to_formatted_s(:iso8601))
     end
+
     it 'includes the :modified' do
       expect(@json[:modified]).to eql(@plan.updated_at.to_formatted_s(:iso8601))
     end
+
     it 'includes :ethical_issues' do
       expected = Api::V1::ConversionService.boolean_to_yes_no_unknown(@plan.ethical_issues)
       expect(@json[:ethical_issues_exist]).to eql(expected)
     end
+
     it 'includes :ethical_issues_description' do
       expect(@json[:ethical_issues_description]).to eql(@plan.ethical_issues_description)
     end
+
     it 'includes :ethical_issues_report' do
       expect(@json[:ethical_issues_report]).to eql(@plan.ethical_issues_report)
     end
@@ -60,29 +67,33 @@ describe 'api/v1/plans/_show.json.jbuilder' do
     it 'includes the :contact' do
       expect(@json[:contact][:mbox]).to eql(@data_contact.email)
     end
+
     it 'includes the :contributors' do
-      emails = @json[:contributor].collect { |c| c[:mbox] }
-      expect(emails.include?(@pi.email)).to eql(true)
+      emails = @json[:contributor].pluck(:mbox)
+      expect(emails.include?(@pi.email)).to be(true)
     end
 
     # TODO: make sure this is working once the new Cost theme and Currency
     #       question type have been implemented
     it 'includes the :cost' do
-      expect(@json[:cost]).to eql(nil)
+      expect(@json[:cost]).to be_nil
     end
 
     it 'includes the :project' do
-      expect(@json[:project].length).to eql(1)
+      expect(@json[:project].length).to be(1)
     end
+
     it 'includes the :dataset' do
-      expect(@json[:dataset].length).to eql(1)
+      expect(@json[:dataset].length).to be(1)
     end
+
     it 'includes the :extension' do
-      expect(@json[:extension].length).to eql(1)
+      expect(@json[:extension].length).to be(1)
     end
+
     it 'includes the :template in :extension' do
       @section = @json[:extension].select { |hash| hash.keys.first == 'dmproadmap' }.first
-      expect(@section[:dmproadmap].present?).to eql(true)
+      expect(@section[:dmproadmap].present?).to be(true)
       tmplt = @plan.template
       expect(@section[:dmproadmap][:template][:id]).to eql(tmplt.id)
       expect(@section[:dmproadmap][:template][:title]).to eql(tmplt.title)
@@ -90,7 +101,7 @@ describe 'api/v1/plans/_show.json.jbuilder' do
   end
 
   describe 'when the system mints DOIs' do
-    before(:each) do
+    before do
       scheme = create(:identifier_scheme)
       DmpIdService.expects(:identifier_scheme).at_least(1).returns(scheme)
       @doi = create(:identifier, value: '10.9999/123abc.zy/x23', identifiable: @plan,

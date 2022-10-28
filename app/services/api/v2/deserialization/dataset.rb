@@ -66,14 +66,14 @@ module Api
             # TODO: remove this once we support versioning and are not storing these as RelatedIdentifiers
             return research_output if research_output.is_a?(RelatedIdentifier)
 
-            research_output = find_or_initialize(plan: plan, json: json) unless research_output.present?
+            research_output = find_or_initialize(plan: plan, json: json) if research_output.blank?
             return nil unless research_output.present? && research_output.title.present?
 
             research_output.description = json[:description] if json[:description].present?
             research_output.personal_data = Api::V2::ConversionService.yes_no_unknown_to_boolean(json[:personal_data])
             research_output.sensitive_data = Api::V2::ConversionService.yes_no_unknown_to_boolean(json[:sensitive_data])
             research_output.release_date = Api::V2::DeserializationService.safe_date(value: json.fetch(:issued,
-                                                                                                       Time.now))
+                                                                                                       Time.zone.now))
 
             research_output = attach_metadata(research_output: research_output, json: json[:metadata])
             deserialize_distribution(research_output: research_output, json: json[:distribution])
@@ -112,7 +112,7 @@ module Api
 
           # Find the dateset by ID or title + plan
           def find_or_initialize(plan:, json: {})
-            return nil unless json.present?
+            return nil if json.blank?
 
             research_output = ::ResearchOutput.find_or_initialize_by(title: json[:title], plan: plan)
             research_output.output_type = json[:type] || 'dataset' if research_output.new_record?
@@ -157,7 +157,7 @@ module Api
             uri = json.fetch(:dmproadmap_host_id, {})[:identifier]
             if json[:url].present? || uri.present?
               repository = ::Repository.find_by(uri: uri) if uri.present?
-              repository = ::Repository.find_by(homepage: json[:url]) unless repository.present?
+              repository = ::Repository.find_by(homepage: json[:url]) if repository.blank?
               return research_output if repository.nil? ||
                                         research_output.repositories.include?(repository)
 
@@ -175,7 +175,7 @@ module Api
             licenses = json.sort { |a, b| a[:start_date] <=> b[:start_date] }
             prior_licenses = licenses.select do |license|
               date = Api::V2::DeserializationService.safe_date(value: license[:start_date])
-              date <= Time.now
+              date <= Time.zone.now
             end
 
             # If there are no current licenses then just grab the first one

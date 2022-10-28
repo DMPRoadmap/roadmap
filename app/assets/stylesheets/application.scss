@@ -6,6 +6,9 @@
 @import "../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 @import "../../../node_modules/bootstrap-select/sass/bootstrap-select.scss";
 
+// Pull in the webpacker managed copy of TinyMCE Stylesheets
+@import "../../../node_modules/tinymce/skins/ui/oxide/*";
+
 @import "blocks/*";
 @import "utils/*";
 
@@ -14,6 +17,7 @@
 @import "../../../node_modules/jquery-ui-sass/assets/sass/jquery-ui.scss";
 
 @import "font-awesome-sprockets";
+
 @import "font-awesome";
 
 // DMPTool additional styling that is not part of the dmptool-ui repo

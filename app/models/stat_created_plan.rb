@@ -34,7 +34,7 @@ class StatCreatedPlan < Stat
   end
 
   def parse_details
-    return JSON.parse({}) unless details.present?
+    return JSON.parse({}) if details.blank?
 
     details.is_a?(String) ? JSON.parse(details) : details
   end

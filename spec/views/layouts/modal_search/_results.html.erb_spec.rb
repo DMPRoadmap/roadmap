@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'layouts/modal_search/_selections.html.erb' do
-  before(:each) do
+  before do
     create(:repository)
     @msg = 'No results matched your filter criteria.'
   end
@@ -17,7 +17,7 @@ describe 'layouts/modal_search/_selections.html.erb' do
              search_path: nil,
              search_method: nil
            }
-    expect(rendered.include?(@msg)).to eql(true)
+    expect(rendered.include?(@msg)).to be(true)
   end
 
   context 'when :selected is false' do
@@ -32,9 +32,10 @@ describe 'layouts/modal_search/_selections.html.erb' do
                search_path: nil,
                search_method: nil
              }
-      expect(rendered.include?('c-pagination')).to eql(true)
-      expect(rendered.include?(@msg)).to eql(false)
+      expect(rendered.include?('c-pagination')).to be(true)
+      expect(rendered.include?(@msg)).to be(false)
     end
+
     it 'does not display pagination when :results is empty and displays the message' do
       render partial: 'layouts/modal_search/results',
              locals: {
@@ -46,8 +47,8 @@ describe 'layouts/modal_search/_selections.html.erb' do
                search_path: nil,
                search_method: nil
              }
-      expect(rendered.include?('modal-search-results-pagination')).to eql(false)
-      expect(rendered.include?(@msg)).to eql(true)
+      expect(rendered.include?('modal-search-results-pagination')).to be(false)
+      expect(rendered.include?(@msg)).to be(true)
     end
   end
 
@@ -63,9 +64,10 @@ describe 'layouts/modal_search/_selections.html.erb' do
                search_path: nil,
                search_method: nil
              }
-      expect(rendered.include?('modal-search-results-pagination')).to eql(false)
-      expect(rendered.include?(@msg)).to eql(false)
+      expect(rendered.include?('modal-search-results-pagination')).to be(false)
+      expect(rendered.include?(@msg)).to be(false)
     end
+
     it 'does not display pagination when :results is empty and does not display message' do
       render partial: 'layouts/modal_search/results',
              locals: {
@@ -77,8 +79,8 @@ describe 'layouts/modal_search/_selections.html.erb' do
                search_path: nil,
                search_method: nil
              }
-      expect(rendered.include?('modal-search-results-pagination')).to eql(false)
-      expect(rendered.include?(@msg)).to eql(false)
+      expect(rendered.include?('modal-search-results-pagination')).to be(false)
+      expect(rendered.include?(@msg)).to be(false)
     end
   end
 end

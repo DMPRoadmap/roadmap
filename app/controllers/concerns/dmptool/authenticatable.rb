@@ -118,10 +118,10 @@ module Dmptool
       def ensure_org_param
         # Convert the selected/specified Org name into attributes
         op = autocomplete_to_controller_params
-        return true unless op.present?
+        return true if op.blank?
 
         params[:user][:org_id] = op[:org_id] if op[:org_id].present?
-        params[:user][:org_attributes] = op[:org_attributes] unless op[:org_id].present?
+        params[:user][:org_attributes] = op[:org_attributes] if op[:org_id].blank?
       end
     end
   end

@@ -2,12 +2,12 @@
 
 namespace :tomdoc do
   desc 'Removes the docs from the ./doc directory'
-  task :clear do
+  task clear: :environment do
     FileUtils.rm_r(Rails.root.join('doc'))
   end
 
   desc 'Builds documentation in the ./doc directory'
-  task :app do
+  task app: :environment do
     puts 'Please wait...'
     options = []
     # Parse documentation as Tomdoc (https://tomdoc.org)
@@ -28,7 +28,7 @@ namespace :tomdoc do
   end
 
   desc 'Builds documentation in the ./doc directory'
-  task :open do
+  task open: :environment do
     `open doc/index.html`
   end
 end

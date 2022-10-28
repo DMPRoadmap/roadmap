@@ -58,7 +58,7 @@ module SuperAdmin
     # GET /api_clients/:id/refresh_credentials/
     def refresh_credentials
       @api_client = ApiClient.find(params[:id])
-      return unless @api_client.present?
+      return if @api_client.blank?
 
       original = @api_client.client_secret
       @api_client.renew_secret

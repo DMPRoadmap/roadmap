@@ -10,7 +10,8 @@ default: &default
 
   # Additional paths webpack should lookup modules
   # ['app/assets', 'engine/foo/app/assets']
-  additional_paths: ['app/assets']
+  # DMPTool customization to include the assets in the standard Rails app/assets folder
+  additional_paths: [] # ['app/assets']
 
   # Reload manifest.json on all requests so we reload latest compiled packs
   cache_manifest: false
@@ -33,6 +34,7 @@ default: &default
     - .woff2
 
   extensions:
+    # DMPTool customization to add JS.ERB
     - .js.erb
     - .erb
     - .mjs

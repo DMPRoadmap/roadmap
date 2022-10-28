@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe GuidanceGroup, type: :model do
+RSpec.describe GuidanceGroup do
   context 'validations' do
     it { is_expected.to validate_presence_of(:name) }
 
@@ -24,16 +24,16 @@ RSpec.describe GuidanceGroup, type: :model do
   end
 
   describe '.can_view?' do
+    subject { described_class.can_view?(user, guidance_group) }
+
     let!(:user) { create(:user) }
 
     let!(:guidance_group) { create(:guidance_group) }
 
-    subject { GuidanceGroup.can_view?(user, guidance_group) }
-
     context 'when owned by an Org which the user is a member' do
       let!(:guidance_group) { create(:guidance_group, org: user.org) }
 
-      it { is_expected.to eql(true) }
+      it { is_expected.to be(true) }
     end
 
     context 'when owned by a curation center' do
@@ -44,7 +44,7 @@ RSpec.describe GuidanceGroup, type: :model do
 
       let!(:guidance_group) { create(:guidance_group, org: org) }
 
-      it { is_expected.to eql(true) }
+      it { is_expected.to be(true) }
     end
 
     context 'when owned by a institution org' do
@@ -52,7 +52,7 @@ RSpec.describe GuidanceGroup, type: :model do
         create(:guidance_group, org: create(:org, :institution))
       end
 
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
 
     context 'when owned by a funder org' do
@@ -60,7 +60,7 @@ RSpec.describe GuidanceGroup, type: :model do
         create(:guidance_group, org: create(:org, :funder))
       end
 
-      it { is_expected.to eql(true) }
+      it { is_expected.to be(true) }
     end
 
     context 'when owned by a organisation org' do
@@ -68,7 +68,7 @@ RSpec.describe GuidanceGroup, type: :model do
         create(:guidance_group, org: create(:org, :organisation))
       end
 
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
 
     context 'when owned by a research_institute org' do
@@ -76,7 +76,7 @@ RSpec.describe GuidanceGroup, type: :model do
         create(:guidance_group, org: create(:org, :research_institute))
       end
 
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
 
     context 'when owned by a project org' do
@@ -84,7 +84,7 @@ RSpec.describe GuidanceGroup, type: :model do
         create(:guidance_group, org: create(:org, :project))
       end
 
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
 
     context 'when owned by a school org' do
@@ -92,14 +92,14 @@ RSpec.describe GuidanceGroup, type: :model do
         create(:guidance_group, org: create(:org, :school))
       end
 
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
   end
 
   describe '.all_viewable' do
-    let!(:user) { create(:user) }
+    subject { described_class.all_viewable(user) }
 
-    subject { GuidanceGroup.all_viewable(user) }
+    let!(:user) { create(:user) }
 
     context 'when is owned by managing curation center' do
       let!(:org) do
@@ -175,7 +175,7 @@ RSpec.describe GuidanceGroup, type: :model do
     end
 
     context ':merge!(to_be_merged:)' do
-      before(:each) do
+      before do
         org = create(:org)
         @guidance_group = create(:guidance_group, org: org)
         @to_be_merged = create(:guidance_group, org: org, plans: [create(:plan)],
@@ -186,30 +186,34 @@ RSpec.describe GuidanceGroup, type: :model do
         result = @guidance_group.merge!(to_be_merged: build(:user))
         expect(result).to eql(@guidance_group)
       end
+
       it 'occurs inside a transaction' do
-        GuidanceGroup.any_instance.stubs(:save).returns(false)
+        described_class.any_instance.stubs(:save).returns(false)
         result = @guidance_group.merge!(to_be_merged: @to_be_merged)
-        expect(result).to eql(nil)
+        expect(result).to be_nil
         # Since the save will fail and we reload the Object it should be valid
-        expect(@guidance_group.valid?).to eql(true)
-        expect(@to_be_merged.reload.new_record?).to eql(false)
+        expect(@guidance_group.valid?).to be(true)
+        expect(@to_be_merged.reload.new_record?).to be(false)
         expect(@to_be_merged.guidances.length).not_to eql(0)
       end
+
       it 'merges associated :plans' do
         expected = @guidance_group.plans.length + @to_be_merged.plans.length
         @guidance_group.merge!(to_be_merged: @to_be_merged)
         expect(@guidance_group.plans.length).to eql(expected)
       end
+
       it 'merges associated :guidances' do
         expected = @guidance_group.guidances.length + @to_be_merged.guidances.length
         @guidance_group.merge!(to_be_merged: @to_be_merged)
         expect(@guidance_group.guidances.length).to eql(expected)
       end
+
       it 'removes the :to_be_merged GuidanceGroup' do
         original_id = @to_be_merged.id
         expect(@guidance_group.merge!(to_be_merged: @to_be_merged)).to eql(@guidance_group)
-        expect(Guidance.where(guidance_group_id: original_id).any?).to eql(false)
-        expect(GuidanceGroup.find_by(id: original_id).present?).to eql(false)
+        expect(Guidance.where(guidance_group_id: original_id).any?).to be(false)
+        expect(described_class.find_by(id: original_id).present?).to be(false)
       end
     end
   end

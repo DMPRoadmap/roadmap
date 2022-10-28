@@ -43,7 +43,7 @@ class ApiClient < ApplicationRecord
   extend Dragonfly::Model::Validations
   extend UniqueRandom
 
-  enum callback_methods: %i[put post patch]
+  enum callback_methods: { put: 0, post: 1, patch: 2 }
 
   LOGO_FORMATS = %w[jpeg png gif jpg bmp svg].freeze
 
@@ -72,7 +72,9 @@ class ApiClient < ApplicationRecord
                               message: format(_('must be one of the following formats: %{formats}'),
                                               formats: LOGO_FORMATS.join(', '))
 
-  validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
+  validates_size_of :logo,
+                    maximum: 500.kilobytes,
+                    message: _("can't be larger than 500KB")
 
   # =============
   # = Callbacks =
@@ -138,6 +140,6 @@ class ApiClient < ApplicationRecord
 
   # Set the scopes
   def ensure_scopes
-    self.scopes = default_scopes.sort { |a, b| a <=> b }.join(' ') unless scopes.present?
+    self.scopes = default_scopes.sort { |a, b| a <=> b }.join(' ') if scopes.blank?
   end
 end

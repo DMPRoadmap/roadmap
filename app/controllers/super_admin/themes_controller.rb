@@ -14,6 +14,11 @@ module SuperAdmin
       @theme = Theme.new
     end
 
+    def edit
+      authorize(Theme)
+      @theme = Theme.find(params[:id])
+    end
+
     def create
       authorize(Theme)
       @theme = Theme.new(permitted_params)
@@ -26,16 +31,11 @@ module SuperAdmin
       end
     end
 
-    def edit
-      authorize(Theme)
-      @theme = Theme.find(params[:id])
-    end
-
     # rubocop:disable Metrics/AbcSize
     def update
       authorize(Theme)
       @theme = Theme.find(params[:id])
-      if @theme.update_attributes(permitted_params)
+      if @theme.update(permitted_params)
         flash.now[:notice] = success_message(@theme, _('updated'))
       else
         flash.now[:alert] = failure_message(@theme, _('update'))

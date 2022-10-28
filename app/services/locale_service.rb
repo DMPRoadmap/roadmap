@@ -6,7 +6,7 @@ class LocaleService
     # Returns the default locale/language
     def default_locale
       abbrev = Language.default.try(:abbreviation) if Language.table_exists?
-      abbrev.present? ? abbrev : Rails.configuration.x.locales.default
+      (abbrev.presence || Rails.configuration.x.locales.default)
     end
 
     alias default_language default_locale
@@ -14,7 +14,7 @@ class LocaleService
     # Returns the available locales/languages
     def available_locales
       locales = Language.sorted_by_abbreviation.pluck(:abbreviation).presence if Language.table_exists?
-      locales.present? ? locales : [default_locale]
+      (locales.presence || [default_locale])
     end
 
     alias available_languages available_locales
@@ -22,14 +22,14 @@ class LocaleService
     # Converts the locale to the i18n format (e.g. `en-GB`)
     def to_i18n(locale:)
       join_char = Rails.configuration.x.locales.i18n_join_character
-      locale = default_locale unless locale.present?
+      locale = default_locale if locale.blank?
       convert(string: locale, join_char: join_char)
     end
 
     # Converts the locale to the i18n format (e.g. `en_GB`)
     def to_gettext(locale:)
       join_char = Rails.configuration.x.locales.gettext_join_character
-      locale = default_locale unless locale.present?
+      locale = default_locale if locale.blank?
       convert(string: locale, join_char: join_char)
     end
 

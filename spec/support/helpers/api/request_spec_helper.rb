@@ -78,7 +78,7 @@ module Api
     end
 
     def translated_error_message(key)
-      I18n.translate(key, scope: %i[doorkeeper errors messages])
+      I18n.t(key, scope: %i[doorkeeper errors messages])
     end
 
     def i_should_see_translated_invalid_request_error_message(key, value)
@@ -86,7 +86,7 @@ module Api
     end
 
     def translated_invalid_request_error_message(key, value)
-      I18n.translate key, scope: %i[doorkeeper errors messages invalid_request], value: value
+      I18n.t key, scope: %i[doorkeeper errors messages invalid_request], value: value
     end
 
     def response_status_should_be(status)

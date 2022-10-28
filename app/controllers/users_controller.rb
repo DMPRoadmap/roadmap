@@ -30,9 +30,11 @@ class UsersController < ApplicationController
         @filter_admin = false
 
         @users = if current_user.can_super_admin?
-                   User.includes(:roles).page(1)
+                   User.includes(:department, :org, :perms, :roles, :identifiers).page(1)
                  else
-                   current_user.org.users.includes(:roles).page(1)
+                   current_user.org.users
+                               .includes(:department, :org, :perms, :roles, :identifiers)
+                               .page(1)
                  end
       end
 
@@ -134,7 +136,7 @@ class UsersController < ApplicationController
     pref.save
 
     # Include active tab in redirect path
-    redirect_to "#{edit_user_registration_path}\#notification-preferences",
+    redirect_to "#{edit_user_registration_path}#notification-preferences",
                 notice: success_message(pref, _('saved'))
   end
   # rubocop:enable Metrics/AbcSize
@@ -146,7 +148,7 @@ class UsersController < ApplicationController
     authorize current_user
 
     user = User.find(params[:id])
-    return unless user.present?
+    return if user.blank?
 
     begin
       user.active = !user.active

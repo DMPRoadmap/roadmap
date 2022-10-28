@@ -27,7 +27,7 @@ describe Repository do
   end
 
   context 'scopes' do
-    before(:each) do
+    before do
       @types = %w[Armadillo Barracuda]
       @subjects = %w[Capybara Dingo]
       @keywords = %w[Elephant Falcon]
@@ -50,52 +50,54 @@ describe Repository do
     describe '#by_type' do
       it 'returns the expected repositories' do
         results = described_class.by_type(@types.first)
-        expect(results.include?(@never_found)).to eql(false)
-        expect(results.include?(@by_type)).to eql(true)
-        expect(results.include?(@by_subject)).to eql(false)
-        expect(results.include?(@by_facet)).to eql(false)
+        expect(results.include?(@never_found)).to be(false)
+        expect(results.include?(@by_type)).to be(true)
+        expect(results.include?(@by_subject)).to be(false)
+        expect(results.include?(@by_facet)).to be(false)
       end
     end
 
     describe '#by_subject' do
       it 'returns the expected repositories' do
         results = described_class.by_subject(@subjects.first)
-        expect(results.include?(@never_found)).to eql(false)
-        expect(results.include?(@by_type)).to eql(false)
-        expect(results.include?(@by_subject)).to eql(true)
-        expect(results.include?(@by_facet)).to eql(false)
+        expect(results.include?(@never_found)).to be(false)
+        expect(results.include?(@by_type)).to be(false)
+        expect(results.include?(@by_subject)).to be(true)
+        expect(results.include?(@by_facet)).to be(false)
       end
     end
 
     describe '#by_facet' do
       it 'returns the expected repositories' do
         results = described_class.by_facet(@keywords.first)
-        expect(results.include?(@never_found)).to eql(false)
-        expect(results.include?(@by_type)).to eql(false)
-        expect(results.include?(@by_subject)).to eql(false)
-        expect(results.include?(@by_facet)).to eql(true)
+        expect(results.include?(@never_found)).to be(false)
+        expect(results.include?(@by_type)).to be(false)
+        expect(results.include?(@by_subject)).to be(false)
+        expect(results.include?(@by_facet)).to be(true)
       end
     end
 
     describe '#search' do
       it 'returns repositories with keywords like the search term' do
         results = described_class.search(@keywords.first[1..3])
-        expect(results.include?(@never_found)).to eql(false)
-        expect(results.include?(@by_type)).to eql(false)
-        expect(results.include?(@by_subject)).to eql(false)
-        expect(results.include?(@by_facet)).to eql(true)
+        expect(results.include?(@never_found)).to be(false)
+        expect(results.include?(@by_type)).to be(false)
+        expect(results.include?(@by_subject)).to be(false)
+        expect(results.include?(@by_facet)).to be(true)
       end
+
       it 'returns repositories with subjects like the search term' do
         results = described_class.search(@by_subject.name[1..@by_subject.name.length - 1])
-        expect(results.include?(@never_found)).to eql(false)
-        expect(results.include?(@by_type)).to eql(false)
-        expect(results.include?(@by_subject)).to eql(true)
+        expect(results.include?(@never_found)).to be(false)
+        expect(results.include?(@by_type)).to be(false)
+        expect(results.include?(@by_subject)).to be(true)
       end
+
       it 'returns repositories with name like the search term' do
         repo = create(:repository, name: [Faker::Lorem.word, @by_subject.name].join(' '))
         results = described_class.search(@by_subject.name[1..@by_subject.name.length - 1])
-        expect(results.include?(@never_found)).to eql(false)
-        expect(results.include?(repo)).to eql(true)
+        expect(results.include?(@never_found)).to be(false)
+        expect(results.include?(repo)).to be(true)
       end
     end
   end
