@@ -1,11 +1,12 @@
 GIT
   remote: https://github.com/CDLUC3/uc3-ssm
-  revision: 534cfbc5ec5cb0436ab7b50c627e665be1b4010b
+  revision: 308d959d8ce243416bba2d870b22010927e2f5a2
   branch: ruby3.0
   specs:
     uc3-ssm (0.3.5)
       aws-sdk-ssm (~> 1.84)
       logger (~> 1.4)
+      psych (< 4)
       yaml (~> 0.1)
 
 GEM
@@ -89,14 +90,14 @@ GEM
     autoprefixer-rails (10.4.7.0)
       execjs (~> 2)
     aws-eventstream (1.2.0)
-    aws-partitions (1.650.0)
-    aws-sdk-core (3.164.0)
+    aws-partitions (1.652.0)
+    aws-sdk-core (3.166.0)
       aws-eventstream (~> 1, >= 1.0.2)
-      aws-partitions (~> 1, >= 1.525.0)
-      aws-sigv4 (~> 1.1)
+      aws-partitions (~> 1, >= 1.651.0)
+      aws-sigv4 (~> 1.5)
       jmespath (~> 1, >= 1.6.1)
-    aws-sdk-ssm (1.142.0)
-      aws-sdk-core (~> 3, >= 3.127.0)
+    aws-sdk-ssm (1.143.0)
+      aws-sdk-core (~> 3, >= 3.165.0)
       aws-sigv4 (~> 1.1)
     aws-sigv4 (1.5.2)
       aws-eventstream (~> 1, >= 1.0.2)
@@ -262,7 +263,7 @@ GEM
       activesupport (>= 5.0.0)
     jmespath (1.6.1)
     json (2.6.2)
-    json_schemer (0.2.21)
+    json_schemer (0.2.22)
       ecma-re-validator (~> 0.3)
       hana (~> 1.3)
       regexp_parser (~> 2.0)
@@ -318,8 +319,6 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.13.9-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.13.9-x86_64-linux)
-      racc (~> 1.4)
     notiffany (0.1.3)
       nenv (~> 0.1)
       shellany (~> 0.0)
@@ -359,6 +358,7 @@ GEM
     pry (0.14.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
+    psych (3.3.4)
     public_suffix (5.0.0)
     puma (6.0.0)
       nio4r (~> 2.0)
@@ -421,14 +421,14 @@ GEM
     rollbar (3.3.2)
     rspec-collection_matchers (1.2.0)
       rspec-expectations (>= 2.99.0.beta1)
-    rspec-core (3.11.0)
-      rspec-support (~> 3.11.0)
-    rspec-expectations (3.11.1)
+    rspec-core (3.12.0)
+      rspec-support (~> 3.12.0)
+    rspec-expectations (3.12.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.11.0)
-    rspec-mocks (3.11.2)
+      rspec-support (~> 3.12.0)
+    rspec-mocks (3.12.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.11.0)
+      rspec-support (~> 3.12.0)
     rspec-rails (6.0.1)
       actionpack (>= 6.1)
       activesupport (>= 6.1)
@@ -437,7 +437,7 @@ GEM
       rspec-expectations (~> 3.11)
       rspec-mocks (~> 3.11)
       rspec-support (~> 3.11)
-    rspec-support (3.11.1)
+    rspec-support (3.12.0)
     rss (0.2.9)
       rexml
     rubocop (1.37.1)
@@ -454,7 +454,7 @@ GEM
       parser (>= 3.1.1.0)
     rubocop-i18n (3.0.0)
       rubocop (~> 1.0)
-    rubocop-rails (2.17.1)
+    rubocop-rails (2.17.2)
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.33.0, < 2.0)
@@ -571,7 +571,6 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
-  x86_64-linux
 
 DEPENDENCIES
   activerecord_json_validator
