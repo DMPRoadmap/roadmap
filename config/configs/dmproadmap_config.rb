@@ -41,6 +41,7 @@ class DmproadmapConfig < Anyway::Config
               :dmphub_client_secret,
               :dmphub_landing_page_url,
               :do_not_reply_email,
+              :download_coversheet_tickbox_checked,
               :dragonfly_aws,
               :dragonfly_bucket,
               :dragonfly_host,

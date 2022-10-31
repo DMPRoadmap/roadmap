@@ -198,7 +198,7 @@ module DMPRoadmap
     config.x.show_overview_tab = Rails.configuration.x.dmproadmap.show_overview_tab
 
     # Check download of a plan coversheet tickbox
-    config.x.plans.download_coversheet_tickbox_checked = false
+    config.x.plans.download_coversheet_tickbox_checked = Rails.configuration.x.dmproadmap.download_coversheet_tickbox_checked
 
     # ---------------------------------------------------- #
     # CACHING - all values are in seconds (86400 == 1 Day) #

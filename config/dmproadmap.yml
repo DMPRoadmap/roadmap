@@ -342,6 +342,9 @@ default: &default
   # If false: It appears on the Contributors tab and the 'Share' tab becomes 'Publish'
   show_collaborators_on_share_tab: false
 
+  # Whether or not the coversheet checkbox should be checked by default
+  download_coversheet_tickbox_checked: true
+
   # ======================================= #
   # = maDMP / Networked DMP functionality = #
   # ======================================= #
