@@ -13,7 +13,7 @@ RSpec.describe 'api/v1/madmp/plans', type: :request do
               default: 'standard',
               enum: %w[standard rda]
 
-    get('Export Plan in the Standard format') do
+    get('Export Plan in the Standard or RDA format') do
       tags 'Plans'
       produces 'application/json'
       security [Bearer: []]

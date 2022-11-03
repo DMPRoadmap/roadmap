@@ -267,7 +267,7 @@
         }
       ],
       "get": {
-        "summary": "Export Plan in the Standard format",
+        "summary": "Export Plan in the Standard or RDA format",
         "tags": [
           "Plans"
         ],
