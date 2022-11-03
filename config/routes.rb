@@ -227,13 +227,6 @@ Rails.application.routes.draw do
           get "extract", to: "themes#extract"
         end
       end
-      namespace :madmp do
-        get 'dmp_fragments/:id', controller: "madmp_fragments", action: 'dmp_fragments'
-        resources :dmp_fragments, controller: "madmp_fragments", action: "dmp_fragments"
-        resources :madmp_fragments, only: %i[show update], controller: "madmp_fragments", path: "fragments"
-        resources :madmp_schemas, only: [:show], controller: "madmp_schemas", path: "schemas"
-        resources :plans, only: [:show]
-      end
     end
 
     namespace :v1 do
@@ -246,17 +239,6 @@ Rails.application.routes.draw do
       resources :themes, param: :slug, only: [] do
         member do
           get "extract", to: "themes#extract"
-        end
-      end
-      namespace :madmp do
-        get 'dmp_fragments/:id', controller: "madmp_fragments", action: 'dmp_fragments'
-        resources :madmp_fragments, only: %i[show update], controller: "madmp_fragments", path: "fragments"
-        resources :madmp_schemas, only: %i[index show], controller: "madmp_schemas", path: "schemas"
-        resources :registries, only: %i[index show], controller: "registries", param: :name
-        resources :plans, only: [:show] do
-          collection do
-            post :import
-          end
         end
       end
     end

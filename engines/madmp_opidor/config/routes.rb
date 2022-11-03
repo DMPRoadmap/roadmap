@@ -32,6 +32,32 @@ Rails.application.routes.draw do
 
   resources :api_client_roles, only: %i[create update destroy]
 
+  namespace :api, defaults: { format: :json } do
+    namespace :v0 do
+      namespace :madmp do
+        get 'dmp_fragments/:id', controller: "madmp_fragments", action: 'dmp_fragments'
+        resources :dmp_fragments, controller: "madmp_fragments", action: "dmp_fragments"
+        resources :madmp_fragments, only: %i[show update], controller: "madmp_fragments", path: "fragments"
+        resources :madmp_schemas, only: [:show], controller: "madmp_schemas", path: "schemas"
+        resources :plans, only: [:show]
+      end
+    end
+
+    namespace :v1 do
+      namespace :madmp do
+        get 'dmp_fragments/:id', controller: "madmp_fragments", action: 'dmp_fragments'
+        resources :madmp_fragments, only: %i[show update], controller: "madmp_fragments", path: "fragments"
+        resources :madmp_schemas, only: %i[index show], controller: "madmp_schemas", path: "schemas"
+        resources :registries, only: %i[index show], controller: "registries", param: :name
+        resources :plans, only: [:show] do
+          collection do
+            post :import
+          end
+        end
+      end
+    end
+  end
+
   namespace :paginable do
     # Paginable actions for registries
     resources :registries, only: [] do
