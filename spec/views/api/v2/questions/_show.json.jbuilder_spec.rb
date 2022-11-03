@@ -5,12 +5,11 @@ require 'rails_helper'
 describe 'api/v2/questions/_show.json.jbuilder' do
   before do
     @question = create(:question)
-
     render partial: 'api/v2/questions/show', locals: { question: @question }
     @json = JSON.parse(rendered).with_indifferent_access
   end
 
-  describe 'includes all of the section attributes' do
+  describe 'includes all of the question attributes' do
     it 'includes :default_value' do
       expect(@json[:default_value]).to eql(@question.default_value)
     end
@@ -45,6 +44,14 @@ describe 'api/v2/questions/_show.json.jbuilder' do
 
     it 'includes the :modified' do
       expect(@json[:modified]).to eql(@question.updated_at.to_formatted_s(:iso8601))
+    end
+
+    it 'not includes the :annotations' do
+      expect(@json[:annotations].length).to be(0)
+    end
+
+    it 'not includes the :question_options' do
+      expect(@json[:question_options].length).to be(0)
     end
   end
 end
