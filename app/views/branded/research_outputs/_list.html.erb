@@ -26,7 +26,26 @@
                             "data-toggle": "tooltip", title: _('Research output title')   %>
             <span class="readonly"><%= research_output_data['title'] %></span>
           </div>
-          <% unless plan.template.structured? %>
+          <% if plan.template.structured? %>
+            <div class='research-output-field form-group research-output-uuid'>
+              <%= f.label :uuid,  class: 'control-label' do %>
+                <%= _('UUID') %> 
+                <i class="fas fa-question-circle action" 
+                   data-toggle="tooltip" 
+                   title="<%= _('Research output unique identifier')%>" ></i>
+              <% end %>
+              <%= f.text_field :uuid, value: research_output.uuid,
+                              class: 'form-control input edit',
+                              disabled: true,
+                              "data-toggle": "tooltip", title: _('Research output unique identifier')   %>
+              <span class="readonly">
+                <%= research_output.uuid %>
+                <i class="fas fa-copy action copy" 
+                   data-toggle="tooltip" 
+                   title="<%= _('Copy UUID to clipboard')%>" ></i>
+              </span>
+            </div>
+          <% else %>
             <div class='research-output-field form-group research-output-type'>
               <% registryValues = Registry.find_by(name:"ResearchDataType").registry_values %>
               <%= f.label :output_type_description, _('Type'),  class: 'control-label' %>

@@ -1254,6 +1254,10 @@ header .main-nav {
                     padding-right: 0px;
                     padding-left: 0px;
                 }
+                .action {
+                    color: $blue;
+                    cursor: pointer;
+                }
             }
             .edit, button {
                 display: none;

@@ -288,6 +288,50 @@
         }
       }
     },
+    "/api/v1/madmp/plans/research_outputs/{uuid}": {
+      "parameters": [
+        {
+          "name": "uuid",
+          "in": "path",
+          "type": "string",
+          "description": "ResearchOutput UUID",
+          "required": true
+        },
+        {
+          "name": "export_format",
+          "in": "query",
+          "type": "string",
+          "description": "Export format (standard/rda)",
+          "required": true,
+          "default": "standard",
+          "enum": [
+            "standard",
+            "rda"
+          ]
+        }
+      ],
+      "get": {
+        "summary": "Export Plan, for a given research_output, in the Standard or RDA format",
+        "tags": [
+          "Plans"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": [
+
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          }
+        }
+      }
+    },
     "/api/v1/madmp/plans/import": {
       "parameters": [
         {
