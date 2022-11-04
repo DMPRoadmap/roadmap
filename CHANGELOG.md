@@ -2,7 +2,16 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
-## 25/10/2022
+## 04/11/2022
+- Correction d'un problème de récupération des paramètres des boutons Runs dans les schemas, provocant un plantage lors de l'utilisation des boutons
+- Ajout de l'affichage du champ `uuid` dans l'onglet Produit de Recherche, avec un bouton permettant de copier la valeur du champ.
+- API Plans: 
+  - Suppression de l'option `research_outputs=` de la route `/api/v1/plans/:id`, on ne peut désormais qu'un (voir point suivant) ou tous les produits de recherche du plan.
+  - Ajout de la route `/api/v1/plans/research_outputs/:uuid` permettant de recupérer un plan limité au contenu du produit de recherche associé à l'UUID passé en paramètre.
+  - Lorsqu'un ClientAPI interroge la route `/api/v1/plans/research_outputs/:uuid`, un droit en lecture lui est automatiquement attribué sur le plan.
+  - Mise à jour de la documentation Swagger
+
+## 27/10/2022
 - DMPRoadmap V4.0.0 : https://github.com/DMPRoadmap/roadmap/releases/tag/v4.0.0
 - Correction d'un problème empéchant le téléchargement des plans et l'accès à l'onglet Contributeurs
 - Import/Export RDA : 
