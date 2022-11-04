@@ -62,10 +62,6 @@ Rails.application.configure do
   # config.action_view.annotate_rendered_view_with_filenames = true
 
   config.i18n.enforce_available_locales = false
-
-  # CVE-2022-32224: add some compatibility with YAML.safe_load
-  # Rails 5,6,7 are using YAML.safe_load as the default YAML deserializer
-  config.active_record.yaml_column_permitted_classes = [ActiveSupport::HashWithIndifferentAccess, Symbol, Date, Time]
 end
 
 # Used by Rails' routes url_helpers (typically when including a link in an email)
