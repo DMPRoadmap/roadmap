@@ -81,10 +81,6 @@ Rails.application.configure do
     # Do not dump schema after migrations.
     config.active_record.dump_schema_after_migration = false
 
-    # CVE-2022-32224: add some compatibility with YAML.safe_load
-    # Rails 5,6,7 are using YAML.safe_load as the default YAML deserializer
-    config.active_record.yaml_column_permitted_classes = [ActiveSupport::HashWithIndifferentAccess, Symbol, Date, Time]
-
     # Use syslog for logging
     config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new('dmp_assistant'))
 

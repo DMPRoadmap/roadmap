@@ -68,10 +68,6 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
-
-  # CVE-2022-32224: add some compatibility with YAML.safe_load
-  # Rails 5,6,7 are using YAML.safe_load as the default YAML deserializer
-  config.active_record.yaml_column_permitted_classes = [ActiveSupport::HashWithIndifferentAccess, Symbol, Date, Time]
 end
 
 # Used by Rails' routes url_helpers (typically when including a link in an email)
