@@ -111,9 +111,9 @@
         "affiliationIdType"
     ],
     "to_string": [
-        "$.firstName",
+        "$.lastName",
         " ",
-        "$.lastName"
+        "$.firstName"
     ],
     "unicity": [
         "firstName",

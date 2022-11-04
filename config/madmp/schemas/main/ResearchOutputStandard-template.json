@@ -217,24 +217,6 @@
             "description": "Aspects relatifs à la conservation des données",
             "label@en_GB": "Preservation Issues",
             "form_label@en_GB": "Preservation Issues"
-        },
-        "budget": {
-            "type": "object",
-            "class": "Budget",
-            "properties": {
-                "dbid": {
-                    "type": "number"
-                }
-            },
-            "template_name": "BudgetStandard",
-            "required": [
-                "dbid"
-            ],
-            "description": "Estimation des coûts d'obtention et de gestion de ce produit de recherche",
-            "label@fr_FR": "Budget",
-            "label@en_GB": "Budget",
-            "form_label@fr_FR": "Budget",
-            "form_label@en_GB": "Budget"
         }
     },
     "required": [

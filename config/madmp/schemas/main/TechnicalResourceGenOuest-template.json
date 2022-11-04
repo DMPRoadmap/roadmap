@@ -21,8 +21,8 @@
             "description": "Identifiant pérenne ou Url de référence",
             "label@fr_FR": "Identifiant de la ressource technique",
             "label@en_GB": "Technical resource ID",
-            "const@fr_FR": "http://www.genouest.org/fr",
-            "const@en_GB": "https://www.genouest.org/en",
+            "const@fr_FR": "https://cat.opidor.fr/index.php/GenOuest",
+            "const@en_GB": "https://cat.opidor.fr/index.php/GenOuest",
             "form_label@fr_FR": "Identifiant de la ressource technique",
             "form_label@en_GB": "Technical resource ID"
         },

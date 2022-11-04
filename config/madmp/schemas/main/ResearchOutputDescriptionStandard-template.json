@@ -119,6 +119,15 @@
             "form_label@fr_FR": "Personne contact",
             "form_label@en_GB": "Contact"
         },
+        "issuedDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Date à laquelle les données sont publiées",
+            "label@fr_FR": "Date de publication",
+            "label@en_GB": "Issued Date",
+            "form_label@fr_FR": "Date de publication",
+            "form_label@en_GB": "Issued Date"
+        },
         "datasetId": {
             "type": "string",
             "description": "Identifiant pérenne attribué au produit de recherche",
@@ -167,7 +176,7 @@
             "label@fr_FR": "Prend en compte des aspects éthiques ?",
             "label@en_GB": "May take ethical issues into account?",
             "registry_name": "YesNoUnknown",
-            "form_label@fr_FR": "* Le contexte de production du produit de recherche prend-t-il en compte des aspects éthiques ?",
+            "form_label@fr_FR": "* Le contexte de production du produit de recherche prend-il en compte des aspects éthiques ?",
             "form_label@en_GB": "* Does the production context of the research product takes ethical issues into account?"
         }
     },

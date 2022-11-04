@@ -96,30 +96,8 @@
             "inputType": "dropdown",
             "registry_name": "Partners",
             "overridable": true,
-            "tooltip@fr_FR": "Liste interne de structures (enregistrées dans le RNSR) et d'organismes de recherche. En cours d'élaboration.",
-            "tooltip@en_GB": "Internal list of structures (registered in the RNSR) and research organisations. In progress.",
             "form_label@fr_FR": "Lister les partenaires associés au projet",
             "form_label@en_GB": "List the partners associated with the project"
-        },
-        "experimentalPlan": {
-            "type": "object",
-            "class": "ResourceReference",
-            "properties": {
-                "dbid": {
-                    "type": "number"
-                }
-            },
-            "template_name": "ResourceReferenceStandard",
-            "required": [
-                "dbid"
-            ],
-            "description": "Référence d'une représentation du plan expérimental d'obtention des données",
-            "label@fr_FR": "Référence du plan expérimental",
-            "label@en_GB": "Experimental plan reference",
-            "tooltip@fr_FR": "Document décrivant les différentes étapes nécessaires pour tester les hypothèses de l'étude",
-            "tooltip@en_GB": "Document describing the different steps needed to test the study's hypotheses",
-            "form_label@fr_FR": "Indiquer la référence du plan expérimental",
-            "form_label@en_GB": "Indicate the experimental plan reference"
         },
         "principalInvestigator": {
             "type": "object",
@@ -153,10 +131,12 @@
         "principalInvestigator"
     ],
     "to_string": [],
-    "run": {
-        "script_id": 4,
-        "name": "Anr_data_fetcher_v2",
-        "label@fr_FR": "Importer informations si projet ANR",
-        "label@en_GB": "Fill informations if ANR project "
-    }
+    "run": [
+        {
+            "script_id": 4,
+            "name": "Anr_data_fetcher_v2",
+            "label@fr_FR": "Importer informations si projet ANR",
+            "label@en_GB": "Fill informations if ANR project "
+        }
+    ]
 }

@@ -121,6 +121,15 @@
             "form_label@fr_FR": "Personne contact",
             "form_label@en_GB": "Contact"
         },
+        "issuedDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Date à laquelle les données sont publiées",
+            "label@fr_FR": "Date de publication",
+            "label@en_GB": "Issued date",
+            "form_label@fr_FR": "Date de publication",
+            "form_label@en_GB": "Issued date"
+        },
         "datasetId": {
             "type": "string",
             "description": "Identifiant pérenne attribué au produit de recherche",

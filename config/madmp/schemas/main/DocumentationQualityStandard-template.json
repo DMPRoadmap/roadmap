@@ -80,15 +80,18 @@
             "form_label@en_GB": "Metadata language code"
         },
         "documentationSoftware": {
-            "type": "string",
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
             "description": "Outil choisi pour saisir les métadonnées et documentation",
             "inputType": "dropdown",
             "label@fr_FR": "Logiciel de documentation",
             "label@en_GB": "Documentation software",
             "registry_name": "MetadataTools",
             "overridable": true,
-            "tooltip@fr_FR": "Logiciel utilisé pour enregistrer les métadonnées ou la description des études",
-            "tooltip@en_GB": "Tool used to capture metadata or record research studies",
+            "tooltip@fr_FR": "Logiciels/outils utilisés pour la saisie des métadonnées comme par exemple Morpho pour le standard de métadonnées EML (pour en savoir plus : consulter l’onglet « A propos des réferentiels »)",
+            "tooltip@en_GB": "Software/tools used for entering metadata, such as Morpho for the EML metadata standard (for more information: see “About registries”",
             "example@fr_FR": "Morpho, Metacat, OMERO, SEEKS, DdiEditor, ...",
             "example@en_GB": "Morpho, Metacat, OMERO, SEEKS, DdiEditor, ...",
             "form_label@fr_FR": "Logiciel de documentation",
