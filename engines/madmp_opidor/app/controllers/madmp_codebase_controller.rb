@@ -5,17 +5,14 @@ class MadmpCodebaseController < ApplicationController
   after_action :verify_authorized
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/PerceivedComplexity
   def run
     fragment = MadmpFragment.find(params[:fragment_id])
-    schema_runs = fragment.madmp_schema.extract_run_parameters
     script_id = params[:script_id]
-    script_name = script_params = if schema_runs.is_a?(Array)
-                                    schema_runs.find { |run| run['script_id'] == script_id.to_i }
-                                               .values_at('name', 'params') || {}
-                                  else
-                                    schema_runs.values_at('name', 'params') || {}
-                                  end
+    schema_run = fragment.madmp_schema.extract_run_parameters(script_id: script_id)
+    script_name = schema_run['name'] || ''
+    script_params = schema_run['params'] || {}
+
     authorize fragment
 
     # EXAMPLE DATA
@@ -56,7 +53,7 @@ class MadmpCodebaseController < ApplicationController
       }, status: 500
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/PerceivedComplexity
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength

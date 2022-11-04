@@ -138,8 +138,11 @@ class MadmpSchema < ApplicationRecord
     CLASSNAME_TO_PROPERTY[classname]
   end
 
-  def extract_run_parameters
-    schema['run'] || nil
+  def extract_run_parameters(script_id: nil)
+    return [] if schema['run'].nil?
+    return schema['run'] if script_id.nil?
+
+    schema['run'].find { |run| run['script_id'] == script_id.to_i } || {}
   end
 
   def const_data(locale)
