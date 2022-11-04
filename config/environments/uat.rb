@@ -94,4 +94,6 @@ Rails.application.configure do
     enable_starttls_auto: true 
   }
 
+  # CVE-2022-32224: fix to compatible with YAML.safe_load that Rails 5,6,7 that are used as the default YAML deserializer
+  config.active_record.yaml_column_permitted_classes = [Symbol, Date, Time]
 end

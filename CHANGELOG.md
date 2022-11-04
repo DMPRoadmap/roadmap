@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.0.4+portage-3.0.15] - 2022-11-04
+
+### Changed
+
+- Upgrade ruby 2.6.9 to 2.7.6 due to a bug fix of ruby for XCode 14 (https://bugs.ruby-lang.org/issues/18912) was only pushed to ruby >=2.7
+
+- Updated Docker.production file to fix a rake issue when pushing to docker
+
+### Fixed
+
+- Fixed the bug that some users saw 'Tried to Load Specific Class: Symbol' error message when moving to Download tab [#240](https://github.com/portagenetwork/roadmap/issues/240)
+
 ## [3.0.4+portage-3.0.14] - 2022-08-26
 
 ### Added
