@@ -52,7 +52,7 @@ Rails.application.configure do
   config.i18n.enforce_available_locales = false
 
   # CVE-2022-32224: fix to compatible with YAML.safe_load that Rails 5,6,7 that are used as the default YAML deserializer
-  config.active_record.yaml_column_permitted_classes = [Symbol, Date, Time]
+  config.active_record.yaml_column_permitted_classes = [ActiveSupport::HashWithIndifferentAccess, Symbol, Date, Time]
 end
 
 # Used by Rails' routes url_helpers (typically when including a link in an email)
