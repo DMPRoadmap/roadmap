@@ -234,7 +234,7 @@ class RegistrationsController < Devise::RegistrationsController
     end
 
     # unlink shibboleth from user's details
-    current_user.update_attributes(shibboleth_id: '') if params[:unlink_flag] == 'true'
+    current_user.update(shibboleth_id: '') if params[:unlink_flag] == 'true'
 
     # render the correct page
     if successfully_updated
@@ -249,7 +249,7 @@ class RegistrationsController < Devise::RegistrationsController
       set_flash_message :notice, success_message(current_user, _('saved'))
       # Sign in the user bypassing validation in case his password changed
       sign_in current_user, bypass: true
-      redirect_to "#{edit_user_registration_path}\#personal-details",
+      redirect_to "#{edit_user_registration_path}#personal-details",
                   notice: success_message(current_user, _('saved'))
 
     else
@@ -280,12 +280,12 @@ class RegistrationsController < Devise::RegistrationsController
       set_flash_message :notice, success_message(current_user, _('saved'))
       # TODO: this method is deprecated
       sign_in current_user, bypass: true
-      redirect_to "#{edit_user_registration_path}\#password-details",
+      redirect_to "#{edit_user_registration_path}#password-details",
                   notice: success_message(current_user, _('saved'))
 
     else
       flash[:alert] = message.blank? ? failure_message(current_user, _('save')) : message
-      redirect_to "#{edit_user_registration_path}\#password-details"
+      redirect_to "#{edit_user_registration_path}#password-details"
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity

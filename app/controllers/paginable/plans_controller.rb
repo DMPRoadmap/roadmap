@@ -11,7 +11,7 @@ module Paginable
 
       paginable_renderise(
         partial: 'privately_visible',
-        scope: Plan.active(current_user),
+        scope: Plan.includes(:roles).active(current_user),
         query_params: { sort_field: 'plans.updated_at', sort_direction: :desc },
         format: :json
       )

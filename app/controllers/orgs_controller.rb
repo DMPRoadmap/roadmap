@@ -88,11 +88,11 @@ class OrgsController < ApplicationController
         end
         @org.save
       end
-      redirect_to "#{admin_edit_org_path(@org)}\##{tab}",
+      redirect_to "#{admin_edit_org_path(@org)}##{tab}",
                   notice: success_message(@org, _('saved'))
     else
       failure = failure_message(@org, _('save')) if failure.blank?
-      redirect_to "#{admin_edit_org_path(@org)}\##{tab}", alert: failure
+      redirect_to "#{admin_edit_org_path(@org)}##{tab}", alert: failure
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

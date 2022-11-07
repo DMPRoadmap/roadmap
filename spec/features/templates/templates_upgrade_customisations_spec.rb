@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
   let(:funder) { create(:org, :funder, name: 'The funder org') }
 
-  let(:org) { create(:org, :organisation, name: "The User's org") }
+  let(:org) { create(:org, :organisation, name: 'The User org') }
 
   let(:user) { create(:user, org: org) }
 
@@ -51,8 +51,7 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
     expect(customized_template.reload.published?).to eql(true)
 
     # Move to the other funder Org's Templates
-    fill_in(:superadmin_user_org_name, with: funder.name)
-    choose_suggestion(funder.name)
+    choose_suggestion('superadmin_user_org_name', funder)
     click_button('Change affiliation')
 
     # Edit the original Template
@@ -92,9 +91,7 @@ RSpec.feature 'Templates::UpgradeCustomisations', type: :feature do
     expect(new_funder_template.reload.published?).to eql(true)
 
     # Go back to the original Org...
-
-    fill_in(:superadmin_user_org_name, with: org.name)
-    choose_suggestion(org.name)
+    choose_suggestion('superadmin_user_org_name', org)
     click_button('Change affiliation')
 
     click_link 'Customisable Templates'

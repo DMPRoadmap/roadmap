@@ -1,4 +1,4 @@
-import Chart from 'chart.js';
+import Chart from 'chart.js/auto';
 
 // Set Aspect Rate (width of X-axis/height of Y-axis) based on
 // choice of selectedLastDayOfMonth in Time picker string value.  Note aspect
@@ -40,13 +40,14 @@ export const getAspectRatio = (diffInMonths) => {
 
 // Register a plugin for displaying a message for no data
 export const initializeCharts = () => {
-  Chart.plugins.register({
+  Chart.register({
+    id: 'no_data_label',
     afterDraw: (chart) => {
       if (chart.data.datasets.length === 0) {
         const { ctx, width, height } = {
-          ctx: chart.chart.ctx,
-          width: chart.chart.width,
-          height: chart.chart.height,
+          ctx: chart.ctx,
+          width: chart.width,
+          height: chart.height,
         };
         chart.clear();
         ctx.save();
@@ -72,8 +73,10 @@ export const createChart = (selector, data, appendTolabel = '', onClickHandler =
       }],
     },
     options: {
-      legend: {
-        display: false,
+      plugins: {
+        legend: {
+          display: false,
+        },
       },
       tooltips: {
         callbacks: {
@@ -81,9 +84,9 @@ export const createChart = (selector, data, appendTolabel = '', onClickHandler =
         },
       },
       scales: {
-        yAxes: [{
+        y: {
           ticks: { min: 0, suggestedMax: 50 },
-        }],
+        },
       },
       onClick: onClickHandler,
     },
@@ -94,20 +97,21 @@ export const createChart = (selector, data, appendTolabel = '', onClickHandler =
 export const drawHorizontalBar = (canvasSelector, data) => {
   const aspectRatio = getAspectRatio(data.labels.length);
   const chart = new Chart(canvasSelector, { // eslint-disable-line no-new
-    type: 'horizontalBar',
+    type: 'bar',
     data,
     options: {
+      indexAxis: 'y',
       responsive: true,
       maintainAspectRatio: true,
       aspectRatio,
       scales: {
-        xAxes: [{
+        x: {
           ticks: { beginAtZero: true, stepSize: 10 },
           stacked: true,
-        }],
-        yAxes: [{
+        },
+        y: {
           stacked: true,
-        }],
+        },
       },
     },
   });

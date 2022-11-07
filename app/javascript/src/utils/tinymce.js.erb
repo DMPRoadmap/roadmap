@@ -1,7 +1,8 @@
 // Import TinyMCE
 import tinymce from 'tinymce/tinymce';
 // Import TinyMCE theme
-import 'tinymce/themes/modern/theme';
+import 'tinymce/themes/silver/theme';
+import 'tinymce/icons/default';
 // Plugins
 import 'tinymce/plugins/table';
 import 'tinymce/plugins/lists';
@@ -29,13 +30,12 @@ export const defaultOptions = {
   target_list: false,
   elementpath: false,
   resize: true,
-  autoresize_min_height: 230,
+  min_height: 230,
   autoresize_bottom_margin: 10,
   branding: false,
   extended_valid_elements: 'iframe[tooltip] , a[href|target=_blank]',
   paste_auto_cleanup_on_paste: true,
   paste_remove_styles: true,
-  paste_retain_style_properties: 'none',
   paste_convert_middot_lists: true,
   paste_remove_styles_if_webkit: true,
   paste_remove_spans: true,
@@ -45,7 +45,7 @@ export const defaultOptions = {
   },
   // editorManager.baseURL is not resolved properly for IE since document.currentScript
   // is not supported, see issue https://github.com/tinymce/tinymce/issues/358
-  skin_url: '/tinymce/skins/lightgray',
+  skin_url: '/tinymce/skins/oxide',
   content_css: ['/tinymce/tinymce.css'],
 };
 /*

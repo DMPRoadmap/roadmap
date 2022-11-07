@@ -1,4 +1,4 @@
-<%# locals: form %>
+<%# locals: form, allow_subset_flag %>
 <%
 name_tip = _('Add an appropriate name for your guidance group. This name will tell the end user where the guidance has come from. We suggest you use the organisation or department name e.g. "OU" or "Maths & Stats"')
 published_tip = _("Check this box when you are ready for guidance associated with this group to appear on user's plans.")
@@ -14,10 +14,15 @@ subset_tip = _("If the guidance is only meant for a subset of users e.g. those i
   <%= form.check_box :published, data: { toggle: 'tooltip' }, title: published_tip %>
   <%= form.label :published, class: "control-label" %>
 </div>
-<div class='form-input col-xs-8'>
-  <%= form.check_box :optional_subset, data: { toggle: 'tooltip' }, title: subset_tip %>
-  <%= form.label :optional_subset, class: "control-label" %><%= _(' (e.g. School/ Department) ') %>
-</div>
+<%# Only display the optional subset flag if allowed. Otherwise default to 'false' %>
+<% if allow_subset_flag %>
+  <div class='form-input col-xs-8'>
+    <%= form.check_box :optional_subset, data: { toggle: 'tooltip' }, title: subset_tip %>
+    <%= form.label :optional_subset, class: "control-label" %><%= _(' (e.g. School/ Department) ') %>
+  </div>
+<% else %>
+  <%= form.hidden_field :optional_subset, value: "0" %>
+<% end %>
 <div class="form-group col-xs-8">
   <%= form.hidden_field :org_id %>
   <%= form.submit _('Save'), class: "btn btn-primary" %>

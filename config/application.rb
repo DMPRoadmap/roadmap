@@ -14,7 +14,7 @@ module DMPRoadmap
   # DMPRoadmap application
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
+    config.load_defaults 6.1
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
@@ -24,8 +24,11 @@ module DMPRoadmap
     # --------------------------------- #
     # OVERRIDES TO DEFAULT RAILS CONFIG #
     # --------------------------------- #
-
-    config.autoload_paths += %W[#{config.root}/lib]
+    # Ensure that Zeitwerk knows to load our classes in the lib directory
+    config.eager_load_paths << config.root.join('lib')
+    # Have Zeitwerk skip generators because the generator templates are
+    # incompatible with the Rails module/class naming conventions
+    Rails.autoloaders.main.ignore(config.root.join('lib/generators'))
 
     # HTML tags that are allowed to pass through `sanitize`.
     config.action_view.sanitized_allowed_tags = %w[

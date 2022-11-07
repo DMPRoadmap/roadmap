@@ -20,9 +20,5 @@ jobs:
     - name: 'Yarn Install'
       run: yarn install
 
-    # Run the ES Lint checks on javascript files
-    #   https://github.com/marketplace/actions/run-eslint
-    - name: 'ES Lint checks'
-      uses: stefanoeb/eslint-action@1.0.0
-      with:
-        args: './app/javascript/**/*.js'
+    - name: 'Run ESLint'
+      run: yarn run eslint app/javascript/**/*.js --ext .js

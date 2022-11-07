@@ -115,6 +115,13 @@ fi:
         other: "%{count} virhettä estivät kohteen %{resource} tallennuksen:"
       model_invalid: 'Validointi epäonnistui: %{errors}'
       required: täytyy olla
+    unavailable_session: Istunnon %{id} ei ole enää saatavilla muistissa. Jos satut
+      ajaa usean prosessin palvelimen (kuten Unicorn tai Puma) prosessi. Tämä pyyntö
+      osuma ei tallenna %{id} muistiin. Tarkastellaan kääntämällä määrä prosessit
+      / työntekijät yhteen (1) tai käyttämällä eri palvelinta kehittämiseen.
+    unacceptable_request: Pitää olla tuettu versio Hyväksytty otsikossa.
+    connection_refused: Oho! Yhteys nettikonsolin väliohjelmistoon epäonnistui. Varmista,
+      että palvelin on käynnissä.
     template:
       body: 'Seuraavat kentät aiheuttivat ongelmia:'
       header:

@@ -2,7 +2,7 @@
 
 # Validation for the format of the JSON for Template links
 class TemplateLinksValidator < ActiveModel::Validator
-  include JSONLinkValidator
+  include JsonLinkValidator
 
   # rubocop:disable Metrics/AbcSize
   def validate(record)
@@ -13,14 +13,14 @@ class TemplateLinksValidator < ActiveModel::Validator
         if links.key?(k)
           unless valid_links?(links[k])
             msg = _('The key %{key} does not have a valid set of object links')
-            record.errors[:links] << (format(msg, key: k))
+            record.errors.add(:links, format(msg, key: k))
           end
         else
-          record.errors[:links] << (format(_('A key %{key} is expected for links hash'), key: k))
+          record.errors.add(:links, format(_('A key %{key} is expected for links hash'), key: k))
         end
       end
     else
-      record.errors[:links] << _('A hash is expected for links')
+      record.errors.add(:links, _('A hash is expected for links'))
     end
   end
   # rubocop:enable Metrics/AbcSize

@@ -35,7 +35,7 @@ identifier_schemes = [
     identifier_prefix: "https://example.com"
   },
 ]
-identifier_schemes.each { |is| IdentifierScheme.create!(is) }
+identifier_schemes.each { |is| IdentifierScheme.find_or_create_by(is) }
 
 # Question Formats
 # -------------------------------------------------------
@@ -83,7 +83,7 @@ question_formats = [
     formattype: 6
   }
 ]
-question_formats.each{ |qf| QuestionFormat.create!(qf) }
+question_formats.each{ |qf| QuestionFormat.find_or_create_by(qf) }
 
 # Languages (check config/locales for any ones not defined here)
 # -------------------------------------------------------
@@ -96,10 +96,14 @@ languages = [
    description: '',
    name: 'English (US)',
    default_language: false},
-  {abbreviation: 'fr',
+  {abbreviation: 'fr-FR',
    description: '',
-   name: 'Français',
+   name: 'Français (FR)',
    default_language: false},
+   {abbreviation: 'fr-CA',
+    description: '',
+    name: 'Français (CA)',
+    default_language: false},
   {abbreviation: 'de',
    description: '',
    name: 'Deutsch',
@@ -117,7 +121,7 @@ languages = [
    name: 'Türk',
    default_language: false}
 ]
-languages.each { |l| Language.create!(l) }
+languages.each { |l| Language.find_or_create_by(l) }
 default_language = Language.find_by(abbreviation: default_locale)
 
 # # Scan through the locale files and add an entry if a file is present but
@@ -197,7 +201,7 @@ perms = [
   {name: 'review_org_plans'}
 ]
 
-perms.each{ |p| Perm.create!(p) }
+perms.each{ |p| Perm.find_or_create_by(p) }
 
 # Guidance Themes
 # -------------------------------------------------------
@@ -217,7 +221,7 @@ themes = [
   {title: 'Budget'},
   {title: 'Related Policies'}
 ]
-themes.each { |t| Theme.create!(t.merge(locale: default_locale)) }
+themes.each { |t| Theme.find_or_create_by(t.merge(locale: default_locale)) }
 
 # Token Permission Types
 # -------------------------------------------------------
@@ -227,7 +231,7 @@ token_permission_types = [
   {token_type: 'templates', text_description: 'allows a user access to the templates api endpoint'},
   {token_type: 'statistics', text_description: 'allows a user access to the statistics api endpoint'}
 ]
-token_permission_types.each{ |tpt| TokenPermissionType.create!(tpt) }
+token_permission_types.each{ |tpt| TokenPermissionType.find_or_create_by(tpt) }
 
 # Create our generic organisation, a funder and a University
 # -------------------------------------------------------
@@ -250,7 +254,7 @@ orgs = [
    language: default_language, region: region,
    is_other: false, managed: true}
 ]
-orgs.each { |o| Org.create!(o) }
+orgs.each { |o| Org.create!(o) unless Org.find_by(name: o[:name]).present? }
 
 # Create a Super Admin associated with our generic organisation,
 # an Org Admin for our funder and an Org Admin and User for our University
@@ -299,7 +303,7 @@ users = [
    accept_terms: true,
    confirmed_at: Time.zone.now}
 ]
-users.each{ |u| User.create(u) }
+users.each{ |u| User.create!(u) unless User.find_by(email: u[:email]) }
 
 # Create a Guidance Group for our organisation and the funder
 # -------------------------------------------------------
@@ -419,7 +423,7 @@ inimise any restrictions on the reuse (and subsequent sharing) of third-party da
    published: true,
    themes: [Theme.find_by(title: 'Data Description')]}
 ]
-guidances.each{ |g| Guidance.create!(g) }
+guidances.each{ |g| Guidance.create!(g) unless Guidance.find_by(guidance_group: g[:guidance_group], text: g[:text]) }
 
 # Create a default template for the curation centre and one for the example funder
 # -------------------------------------------------------
@@ -451,7 +455,7 @@ templates = [
 ]
 # Template creation calls defaults handler which sets is_default and
 # published to false automatically, so update them after creation
-templates.each { |atts| Template.create!(atts) }
+templates.each { |atts| Template.find_or_create_by(atts) }
 
 # Create 2 phases for the funder's template and one for our generic template
 # -------------------------------------------------------
@@ -475,7 +479,7 @@ phases = [
    modifiable: false,
    template: Template.find_by(title: "Department of Testing Award")}
 ]
-phases.each{ |p| Phase.create!(p) }
+phases.each{ |p| Phase.find_or_create_by(p) }
 
 generic_template_phase_1 = Phase.find_by(title: "Generic Data Management Planning Template")
 funder_template_phase_1  = Phase.find_by(title: "Preliminary Statement of Work")
@@ -556,7 +560,7 @@ sections = [
     phase: funder_template_phase_2
   }
 ]
-sections.each{ |s| Section.create!(s) }
+sections.each{ |s| Section.find_or_create_by(s) }
 
 text_area = QuestionFormat.find_by(title: "Text area")
 
@@ -712,7 +716,7 @@ questions = [
    modifiable: false,
    themes: [Theme.find_by(title: "Preservation"), Theme.find_by(title: "Data Sharing")]}
 ]
-questions.each{ |q| Question.create!(q) }
+questions.each{ |q| Question.create!(q) unless Question.find_by(section: q[:section], text: q[:text]) }
 
 radio_button = Question.new(
     text: "Please select the appropriate formats.",
@@ -827,4 +831,4 @@ annotations = [
    org: Org.find_by(abbreviation: 'GA'),
    question: Question.find_by(text: "What types of data will you collect and how will it be stored?")},
 ]
-annotations.each{ |s| Annotation.create!(s) if Annotation.find_by(text: s[:text]).nil? }
+annotations.each{ |s| Annotation.find_or_create_by(s) if Annotation.find_by(text: s[:text]).nil? }
