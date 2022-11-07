@@ -116,6 +116,17 @@ fr-FR:
         other: "%{count} erreurs ont empêché d’enregistrer ce(tte) %{resource} :"
       model_invalid: 'Validation échouée : %{errors}'
       required: doit exister
+    unavailable_session: |-
+      La session %{id} n'est plus disponible en mémoire.
+
+      Si vous utilisez un serveur multi-processus (comme Unicorn ou Puma), le processus
+      cet appel de requête ne stocke pas %{id} en mémoire. Pensez à tourner le nombre de
+      processus / travailleurs à un (1) ou en utilisant un serveur différent en développement.
+    unacceptable_request: Une version prise en charge est attendue dans l'en-tête
+      Accept.
+    connection_refused: |-
+      Oops! Impossible de se connecter au middleware Console Web.
+      Assurez-vous que le serveur de développement de rails est en cours d'exécution.
     template:
       body: 'Veuillez vérifier les champs suivants : '
       header:
