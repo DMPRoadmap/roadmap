@@ -61,10 +61,7 @@ class Template < ApplicationRecord
   attribute :version, :integer, default: 0
   attribute :customization_of, :integer, default: nil
   attribute :family_id, :integer, default: -> { Template.new_family_id }
-
-  # TODO: re-add visibility setting? (this is handled in org_admin/create and
-  # relies on the org_id in the current callback-form)
-  attribute :visibility, :integer, default: 0
+  attribute :visibility, default: Template.visibilities[:organisationally_visible]
 
   # ================
   # = Associations =

@@ -60,7 +60,7 @@ module OrgAdmin
       @department = Department.find(params[:id])
       @org_id = org_id
       authorize @department
-      url = "#{admin_edit_org_path(@org_id)}\#departments"
+      url = "#{admin_edit_org_path(@org_id)}#departments"
 
       if @department.destroy
         flash[:notice] = success_message(@department, _('deleted'))
