@@ -537,7 +537,8 @@ class MadmpFragmentsController < ApplicationController
     section = question&.section
     plan = fragment.plan
     template = plan.template
-    run_parameters = fragment.madmp_schema.extract_run_parameters
+    madmp_schema = fragment.madmp_schema
+    run_parameters = madmp_schema.extract_run_parameters
     editable = plan.editable_by?(current_user.id)
 
     {
@@ -564,7 +565,7 @@ class MadmpFragmentsController < ApplicationController
           question: question,
           answer: answer,
           fragment: fragment,
-          madmp_schema: fragment.madmp_schema,
+          madmp_schema: madmp_schema,
           research_output: research_output,
           dmp_id: fragment.dmp_id,
           parent_id: fragment.parent_id,
@@ -572,11 +573,11 @@ class MadmpFragmentsController < ApplicationController
           readonly: !editable,
           base_template_org: template.base_org
         }, formats: [:html]),
-        'form_run' => if run_parameters.present?
+        'form_run' => if madmp_schema.run_parameters?
                         render_to_string(partial: 'dynamic_form/codebase/show', locals:
                         {
                           fragment: fragment,
-                          api_client: fragment.madmp_schema.api_client,
+                          api_client: madmp_schema.api_client,
                           parameters: run_parameters,
                           template_locale: LocaleService.to_gettext(locale: template.locale)
                         }, formats: [:html])

@@ -1,8 +1,6 @@
 <%# locals: { fragment, api_client, parameters, template_locale } %>
 <% runned_scripts = fragment.additional_info["runned_scripts"] %>
-<% parameters.each do |param|
-    disabled = param["oneshot"] && runned_scripts&.dig(param["script_id"].to_s).present?
-%>
+<% parameters.each do |param| %>
   <%= render(partial: 'dynamic_form/codebase/run_button', locals: { 
       fragment_id: fragment.id,
       label: param["label@#{template_locale}"],
@@ -10,7 +8,7 @@
       script_id: param["script_id"],
       script_name: param["name"],
       client_name: api_client&.name,
-      disabled: disabled
+      disabled: false
   }) %>
 <% end %>
 <span class="message-zone"><%= _('New data have been added to your plan, please click on the "Reload" button.') %></span>

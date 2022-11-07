@@ -145,6 +145,12 @@ class MadmpSchema < ApplicationRecord
     schema['run'].find { |run| run['script_id'] == script_id.to_i } || {}
   end
 
+  def run_parameters?
+    return false if schema['run'].nil?
+
+    true
+  end
+
   def const_data(locale)
     const_data = {}
     properties.each do |key, prop|
