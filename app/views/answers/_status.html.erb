@@ -6,15 +6,15 @@
   helpdesk_email = Rails.configuration.x.organisation.helpdesk_email
   email_subject = _('Plan writing error related to %{tool_name}') %{ :tool_name => tool_name }
 %>
-<span class="label label-info status" style="display:none;" data-status="saving">
+<span class="label label-warning status" style="display:none;" data-status="saving">
   <%= _("Saving...Please do not refresh or go to another page!") %>
   <br><br>
-  <%= sanitize(_("If you stuck on this message, please save your plan to a separate file andcontact us at %{helpdesk_email}") % {
+  <%= sanitize(_("If you stuck on this message, please save your plan to a separate file and contact us at %{helpdesk_email} .") % {
       helpdesk_email: mail_to(helpdesk_email, helpdesk_email,subject: email_subject)
     }) %>
 </span>
 <span class="label label-danger status" style="display: none;" data-status="error-saving">
-<%= sanitize(_("Sorry, we had trouble saving your data. Please contact us at %{helpdesk_email}") % {
+<%= sanitize(_("Sorry, we had trouble saving your data. Please contact us at %{helpdesk_email} .") % {
       helpdesk_email: mail_to(helpdesk_email, helpdesk_email,subject: email_subject)
     }) %>
 <br><br>
