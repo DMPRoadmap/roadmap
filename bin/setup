@@ -29,18 +29,21 @@ if valid_db
     cp 'config/initializers/wicked_pdf.rb.example', 'config/initializers/wicked_pdf.rb'
     cp ".env.#{db_adapter}", '.env'
 
+    puts "\n== Preparing credentials file =="
+    system! "EDITOR='echo \"$(cat config/credentials.yml.#{db_adapter})\" >' bin/rails credentials:edit"
+
+    # Set the editor based on the platform
+    ENV['EDITOR'] = Gem.win_platform? ? 'code --wait' : 'vim'
+
     puts "\n== Opening .env in editor ... please update as needed =="
     puts "    In particular make sure your DB settings are correct."
     sleep(3)
-    system! 'vi .env'
-
-    puts "\n== Preparing credentials file =="
-    system! "EDITOR='echo \"$(cat config/credentials.yml.#{db_adapter})\" >' bin/rails credentials:edit"
+    system! '$EDITOR .env'
 
     puts "\n== Opening credentials editor ... please update as needed =="
     puts "    In particular make sure your DB settings are correct."
     sleep(3)
-    system! 'EDITOR=vi bin/rails credentials:edit'
+    system! 'bin/rails credentials:edit'
 
     puts "\n== Preparing database =="
     system! 'bin/rails db:prepare'
