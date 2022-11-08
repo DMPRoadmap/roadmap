@@ -109,3 +109,4 @@ jobs:
     # Only run Integration tests if the PR or Push is to master or development branches
     - name: 'Run Rspec Integration Tests'
       run: bin/bundle exec rspec spec/features/
+
