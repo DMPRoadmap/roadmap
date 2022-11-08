@@ -112,6 +112,11 @@ module Dmpopidor
         # META & PROJECT FRAGMENTS
         #################################
 
+        project_schema = if template.research_structure?
+                           MadmpSchema.find_by(name: 'StructureStandard')
+                         else
+                           MadmpSchema.find_by(name: 'ProjectStandard')
+                         end
         project = Fragment::Project.create!(
           data: {
             'title' => title,
@@ -120,7 +125,7 @@ module Dmpopidor
           },
           dmp_id: dmp_fragment.id,
           parent_id: dmp_fragment.id,
-          madmp_schema: MadmpSchema.find_by(name: 'ProjectStandard'),
+          madmp_schema: project_schema,
           additional_info: { property_name: 'project' }
         )
         project.instantiate

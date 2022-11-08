@@ -18,7 +18,7 @@
         <div class="panel-heading question-text" role="tab" id="heading-plan-project">
           <div class="panel-title pull-left">
             <% I18n.with_locale @plan.template.locale do %>
-              <%= _("Project Details") %>
+              <%= @plan.template.research_project? ? _("Project Details") : _("Structure Details") %>
             <% end %>
           </div>
           <i class="fas fa-chevron-down pull-right" aria-hidden="true"></i>
@@ -28,8 +28,8 @@
 
       <div id="plan_project" class="panel-collapse collapse in plan-details-content" role="tabpanel" aria-labelledby="heading-plan-project">
 
-        <% select_values = Registry.find_by(name: "ANRProjects").registry_values %>
-        <% if project_schema.run_parameters? %>
+        <% if project_schema.run_parameters? && @plan.template.research_project? %>
+          <% select_values = Registry.find_by(name: "ANRProjects").registry_values %>
           <% run_parameters = project_schema.extract_run_parameters[0] %>
           <% tooltip = run_parameters["tooltip@#{locale}"]%>
           <div class="panel-body">
