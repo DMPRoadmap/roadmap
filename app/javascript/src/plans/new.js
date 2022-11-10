@@ -108,6 +108,7 @@ $(() => {
     const validOwnOrg = validOptions(ownOrgContext);
     const validOrg = validOptions(orgContext);
     const validFunder = validOptions(funderContext);
+    const urlParams = new URLSearchParams(window.location.search);
 
     if (!validOwnOrg || !validOrg || !validFunder) {
       $('#available-templates').fadeOut();
@@ -120,7 +121,7 @@ $(() => {
 
       let orgId = orgContext.find('input[id$="org_id"]').val();
       let funderId = funderContext.find('input[id$="funder_id"]').val();
-
+      const context = urlParams.get('context');
       // For some reason Rails freaks out it everything is empty so send
       // the word "none" instead and handle on the controller side
       if (orgId.length <= 0) {
@@ -129,7 +130,7 @@ $(() => {
       if (funderId.length <= 0) {
         funderId = '"none"';
       }
-      const data = `{"plan": {"research_org_id":${orgId},"funder_id":${funderId}}}`;
+      const data = `{"plan": {"research_org_id":${orgId},"funder_id":${funderId}, "context":"${context}"}}`;
 
       // Fetch the available templates based on the funder and research org selected
       $.ajax({
