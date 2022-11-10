@@ -2,6 +2,23 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 10/11/2022
+- Remplacement du logo de l'application par sa version vectorisée
+- Suppression du titre à la création d'un plan
+
+## Plan de Structure
+- Ajout de champ `context`à la table 'templates`
+- Ajout du choix du contexte (Research project ou Research Structure) au Modèle de DMP
+- Pour les plans créés à partir d'un modèle "Research Structure", le formulaire Projet est remplacé par le formulaire Structure
+- Par défaut un Modèle concerne un Projet de Recherche
+- Modification du menu de création de plan pour ajouter le choix du Plan Structure de Recherche
+
+Bugs connus et améliorations à venir : 
+- Bug : Création d'un PrincipalInvestigator pour les plans Structure de Recherche
+- Bug : Problème d'affichage des listes de StructureManager & DataSteward lors de l'ajout d'un nouveau contributeur dans l'une de ces listes. C'est un problème visuel, il disparait au rechargement de la page
+- A améliorer : Déplacer le choix entre Plan Projet et Structure dans le formulaire de création de plan.
+
+
 ## 04/11/2022
 - Correction d'un problème de récupération des paramètres des boutons Runs dans les schemas, provocant un plantage lors de l'utilisation des boutons
 - Ajout de l'affichage du champ `uuid` dans l'onglet Produit de Recherche, avec un bouton permettant de copier la valeur du champ.
