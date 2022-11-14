@@ -104,13 +104,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
-    capybara-webmock (0.6.0)
-      capybara (>= 2.4, < 4)
-      rack (>= 1.4)
-      rack-proxy (>= 0.6.0)
-      rexml (>= 3.2)
-      selenium-webdriver (~> 3.0)
-      webrick (>= 1.7)
+    capybara-webmock (0.1.0)
     childprocess (3.0.0)
     coderay (1.1.3)
     concurrent-ruby (1.1.10)
@@ -268,6 +262,8 @@ GEM
     mysql2 (0.5.4)
     nenv (0.3.0)
     nio4r (2.5.8)
+    nokogiri (1.13.9-arm64-darwin)
+      racc (~> 1.4)
     nokogiri (1.13.9-x86_64-linux)
       racc (~> 1.4)
     notiffany (0.1.3)
@@ -417,9 +413,11 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selenium-webdriver (3.142.7)
-      childprocess (>= 0.5, < 4.0)
-      rubyzip (>= 1.2.2)
+    selenium-webdriver (4.6.1)
+      childprocess (>= 0.5, < 5.0)
+      rexml (~> 3.2, >= 3.2.5)
+      rubyzip (>= 1.2.2, < 3.0)
+      websocket (~> 1.0)
     semantic_range (3.0.0)
     shellany (0.0.1)
     shoulda (4.0.0)
@@ -468,10 +466,10 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webdrivers (4.7.0)
+    webdrivers (5.2.0)
       nokogiri (~> 1.6)
       rubyzip (>= 1.3.0)
-      selenium-webdriver (> 3.141, < 5.0)
+      selenium-webdriver (~> 4.0)
     webmock (3.18.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
@@ -482,6 +480,7 @@ GEM
       railties (>= 5.2)
       semantic_range (>= 2.3.0)
     webrick (1.7.0)
+    websocket (1.2.9)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -498,6 +497,7 @@ GEM
     zeitwerk (2.6.1)
 
 PLATFORMS
+  arm64-darwin-22
   x86_64-linux
 
 DEPENDENCIES
@@ -568,7 +568,7 @@ DEPENDENCIES
   translation
   turbo-rails
   web-console
-  webdrivers
+  webdrivers (~> 5.2)
   webmock
   webpacker
   wicked_pdf
@@ -580,4 +580,4 @@ RUBY VERSION
    ruby 2.7.6p219
 
 BUNDLED WITH
-   2.3.15
+   2.3.25
