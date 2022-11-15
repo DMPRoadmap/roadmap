@@ -63,6 +63,12 @@ class Plan < ApplicationRecord
     privately_visible: _('private')
   }.freeze
 
+  FUNDING_STATUS = {
+    planned: _('Planned'),
+    funded: _('Funded'),
+    denied: _('Denied')
+  }.freeze
+
   # ==============
   # = Attributes =
   # ==============
