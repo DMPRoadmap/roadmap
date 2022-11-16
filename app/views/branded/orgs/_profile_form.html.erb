@@ -83,13 +83,13 @@
                    links: org.links.fetch("org", []),
                    max_number_links: Rails.configuration.x.max_number_links_funder,
                    tooltip: shared_links_tooltip }) %>
-      <%= hidden_field_tag('org_links', value: org.links) %>
+      <%= hidden_field_tag('org_links', org.links.to_json) %>
     </div>
   </div>
 
   <hr>
 
-  <!-- 
+  <!--
   <div class="row">
     <div class="form-group col-xs-8">
       <h3><%#= _("Help Desk email") %></h3>
