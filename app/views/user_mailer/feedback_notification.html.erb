@@ -4,7 +4,7 @@
 
 <p>
   <%= sanitize(_("A DMPTool user, %{requestor}, has submitted a request for feedback on their data management plan: '%{link_html}'.") % {
-    requestor: @requestor_name, link_html: link_to(@plan_name, plan_url(@plan))
+    requestor: @requestor_name, link_html: link_to(@plan_name&.strip, plan_url(@plan))
   }) %>
 </p>
 <p>
