@@ -8,4 +8,4 @@ If you are running your instance and not yet able to upgrade to the current majo
 
 ## Reporting a Vulnerability
 
-If a security vulnerability is discovered, please do not create an issue in this repository. Contact us directly at dmptool@ucop.edu instead. Let us know as much information as possible including screenshots and or videos of the vulnerability.
+If a security vulnerability is discovered, please do not create an issue in this repository. Please use the [GitHub Advisory feature](https://github.com/CDLUC3/dmptool/security/advisories) to contact us about the vulnerability. Please include screenshots and/or a video of the exploit. 
