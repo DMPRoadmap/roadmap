@@ -146,7 +146,7 @@ class ResearchOutputPresenter
   def display_release
     return _('Unspecified') if @research_output.release_date.blank?
 
-    @research_output.release_date.to_date
+    @research_output.release_date.localtime.to_date
   end
 
   # Return 'Yes', 'No' or 'Unspecified' depending on the value

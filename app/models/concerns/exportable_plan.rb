@@ -175,7 +175,7 @@ module ExportablePlan
     if description.present?
       csv << [_('Project abstract: '), format(_('%{description}'), description: Nokogiri::HTML(description).text)]
     end
-    csv << [_('Last modified: '), format(_('%{date}'), date: updated_at.to_date.strftime('%d-%m-%Y'))]
+    csv << [_('Last modified: '), format(_('%{date}'), date: updated_at.localtime.to_date.strftime('%d-%m-%Y'))]
     csv << [_('Copyright information:'),
             _("The above plan creator(s) have agreed that others may use as
              much of the text of this plan as they would like in their own plans,

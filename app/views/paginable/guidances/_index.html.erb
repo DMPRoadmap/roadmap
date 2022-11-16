@@ -38,7 +38,7 @@
               <% end %>
             </td>
             <td>
-              <%= l guidance.updated_at.to_date, formats: :short %>
+              <%= l guidance.updated_at.localtime.to_date, formats: :short %>
             </td>
             <td>
               <div class="dropdown">

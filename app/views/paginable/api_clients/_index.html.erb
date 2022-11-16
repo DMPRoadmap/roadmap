@@ -33,7 +33,7 @@
             <%= client.redirect_uri&.split(/\n/)&.join(", ") %>
           </td>
           <td><%= client.owner&.name %></td>
-          <td><%= client.last_access.present? ? l(client.last_access.to_date, formats: :short) : _("Never") %></td>
+          <td><%= client.last_access.present? ? l(client.last_access.localtime.to_date, formats: :short) : _("Never") %></td>
           <td>
             <div class="dropdown">
               <button

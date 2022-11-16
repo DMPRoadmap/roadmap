@@ -117,8 +117,8 @@ module Api
       # takes in the params hash and converts to a date-range
       def dates_to_range(hash, start, stop)
         today = Date.today
-        start_date = Date.parse(hash.fetch(start, today.prev_month.to_date.to_s))
-        end_date = Date.parse(hash.fetch(stop, today.to_date.to_s)) + 1.day
+        start_date = Date.parse(hash.fetch(start, today.prev_month.localtime.to_date.to_s))
+        end_date = Date.parse(hash.fetch(stop, today.localtime.to_date.to_s)) + 1.day
         start_date..end_date
       end
     end

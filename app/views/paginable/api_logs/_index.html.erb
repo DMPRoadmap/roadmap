@@ -23,7 +23,7 @@
       <% scope.each do |entry| %>
         <tr>
           <td><%= entry.api_client&.name %></td>
-          <td><%= l(entry.created_at.to_date, formats: :short) %></td>
+          <td><%= l(entry.created_at.localtime.to_date, formats: :short) %></td>
           <td><%= entry.change_type %></td>
           <td>
             <% case entry.logable_type %>

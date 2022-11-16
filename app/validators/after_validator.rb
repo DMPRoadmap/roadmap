@@ -11,7 +11,7 @@ class AfterValidator < ActiveModel::EachValidator
     return if record.new_record? && options[:on].to_s == 'update'
 
     msg = options.fetch(:message, format(DEFAULT_MESSAGE, date: options[:date]))
-    record.errors.add(attribute, msg) if value.to_date < options[:date]
+    record.errors.add(attribute, msg) if value.localtime.to_date < options[:date]
   end
   # rubocop:enable Metrics/AbcSize
 end

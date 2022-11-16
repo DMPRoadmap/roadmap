@@ -74,7 +74,7 @@ class PublicPagesController < ApplicationController
                  footer: {
                    center: format(_('Template created using the %{application_name} service. Last modified %{date}'),
                                   application_name: ApplicationService.application_name,
-                                  date: l(@template.updated_at.to_date, formats: :short)),
+                                  date: l(@template.updated_at.localtime.to_date, formats: :short)),
                    font_size: 8,
                    spacing: (@formatting[:margin][:bottom] / 2) - 4,
                    right: '[page] of [topage]',

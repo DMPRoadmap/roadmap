@@ -10,8 +10,8 @@ class PlanPresenter
 
   # Converts the Project Start and End Dates into human readable text
   def project_dates_to_readonly_display
-    sd = I18n.l(@plan.start_date.to_date, formats: :short) if @plan.start_date.present?
-    ed = I18n.l(@plan.end_date.to_date, formats: :short) if @plan.end_date.present?
+    sd = I18n.l(@plan.start_date.localtime.to_date, formats: :short) if @plan.start_date.present?
+    ed = I18n.l(@plan.end_date.localtime.to_date, formats: :short) if @plan.end_date.present?
 
     return "#{sd} to #{ed}" if sd.present? && ed.present?
     return "Starts on #{sd}" if sd.present?
