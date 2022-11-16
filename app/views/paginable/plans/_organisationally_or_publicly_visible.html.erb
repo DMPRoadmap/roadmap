@@ -29,7 +29,7 @@
                 </td>
                 <td><%= plan.template.title %></td>
                 <td><%= plan.owner.present? ? plan.owner.name : _('Unknown') %></td>
-                <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
+                <td><%= l(plan.updated_at.localtime.to_date, formats: :short) %></td>
                 <td class="text-center">
                   <%= link_to plan_export_path(plan, format: :pdf, export: { question_headings: true }),
                       class: 'has-new-window-popup-info',

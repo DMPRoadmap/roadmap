@@ -2,7 +2,7 @@
 <%= "----------------------------------------------------------\n" %>
 <% if @show_coversheet %>
 <%= Array(@hash[:attribution]).many? ? _("Creators: ") + Array(@hash[:attribution]).join(", ")  : _('Creator:') + @hash[:attribution] %>
-<%# Added contributors to coverage of plans. 
+<%# Added contributors to coverage of plans.
   # Users will see both roles and contributor names if the role is filled %>
 <%# Roles are ranked by PI -> DM -> PA -> Other (if any) %>
   <% if @hash[:investigation].present? %>
@@ -30,7 +30,7 @@
 <%= _("Project abstract: ") %>
 <%= "\t" + strip_tags(@plan.description) + "\n" %>
   <% end %>
-<%= _("Last modified: ") + l(@plan.updated_at.to_date, formats: :short) %>
+<%= _("Last modified: ") + l(@plan.updated_at.localtime.to_date, formats: :short) %>
 <%= _("Copyright information:") %>
 <%= "\t" + _(" The above plan creator(s) have agreed that others may use as much of the text of this plan as they would like in their own plans, and customise it as necessary. You do not need to credit the creator(s) as the source of the language used, but using any of the plan's text does not imply that the creator(s) endorse, or have any relationship to, your project or proposal") %>
 <%= "----------------------------------------------------------\n" %>

@@ -45,13 +45,13 @@
   <div class="form-group col-xs-8">
     <%= label_tag(:created_at, _('Created at'), class: "control-label") %>
     <p class="form-control-static">
-      <%= l f.object.created_at.to_date, formats: :short %>
+      <%= l f.object.created_at.localtime.to_date, formats: :short %>
     </p>
   </div>
   <div class="form-group col-xs-8">
     <%= label_tag(:updated, _('Last updated'), class: "control-label") %>
     <p class="form-control-static">
-      <%= l f.object.updated_at.to_date, formats: :short %>
+      <%= l f.object.updated_at.localtime.to_date, formats: :short %>
     </p>
   </div>
 <% end %>

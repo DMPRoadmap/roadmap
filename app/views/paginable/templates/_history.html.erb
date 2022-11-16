@@ -42,7 +42,7 @@
             <%= (template.published? ? _('Yes') : _('No')) %>
           </td>
           <td>
-            <%= l template.updated_at.to_date, formats: :short %>
+            <%= l template.updated_at.localtime.to_date, formats: :short %>
           </td>
           <td class="text-center">
             <% if template.customization_of.present? %>

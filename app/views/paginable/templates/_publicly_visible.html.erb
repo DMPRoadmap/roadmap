@@ -37,7 +37,7 @@
             <% end %>
           </td>
           <td><%= template.org.name %></td>
-          <td><%= l(template.updated_at.to_date, formats: :short) %></td>
+          <td><%= l(template.updated_at.localtime.to_date, formats: :short) %></td>
           <td>
             <%= sanitize links_to_a_elements(template.links['funder'], '<br>') %>
           </td>

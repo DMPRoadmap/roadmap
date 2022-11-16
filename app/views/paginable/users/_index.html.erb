@@ -51,12 +51,12 @@
                   <td><%= user.org.name if user.org.present? %></td>
                   <td class="text-center">
                       <% if !user.created_at.nil? %>
-                      <%= l user.created_at.to_date, :formats => :short %>
+                      <%= l user.created_at.localtime.to_date, :formats => :short %>
                       <% end %>
                   </td>
                   <td class="text-center">
                       <% if !user.last_sign_in_at.nil? %>
-                      <%= l user.last_sign_in_at.to_date, :formats => :short %>
+                      <%= l user.last_sign_in_at.localtime.to_date, :formats => :short %>
                       <% end %>
                   </td>
                   <td class="text-center">

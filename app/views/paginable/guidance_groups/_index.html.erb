@@ -33,7 +33,7 @@
                 <%= _('Yes')%>
             <% end %>
           </td>
-          <td class="text-center"><%= l guidance_gr.updated_at.to_date, formats: :short %></td>
+          <td class="text-center"><%= l guidance_gr.updated_at.localtime.to_date, formats: :short %></td>
           <td>
             <div class="dropdown">
               <button

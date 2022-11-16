@@ -18,6 +18,6 @@
   </td>
   <td>
     <% last_temp_updated = template.updated_at %>
-    <%= l last_temp_updated.to_date, formats: :short %>
+    <%= l last_temp_updated.localtime.to_date, formats: :short %>
   </td>
 </tr>

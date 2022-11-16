@@ -98,7 +98,7 @@ class PlanExportsController < ApplicationController
            footer: {
              center: format(_('Created using %{application_name}. Last modified %{date}'),
                             application_name: ApplicationService.application_name,
-                            date: l(@plan.updated_at.to_date, format: :readable)),
+                            date: l(@plan.updated_at.localtime.to_date, format: :readable)),
              font_size: 8,
              spacing: (Integer(@formatting[:margin][:bottom]) / 2) - 4,
              right: '[page] of [topage]',
