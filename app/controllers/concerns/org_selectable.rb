@@ -124,7 +124,8 @@ module OrgSelectable
     def name_from_params(namespace: nil)
       o_params = org_selectable_params.fetch(:org_autocomplete, {})
       namespace += '_' unless namespace.nil? || namespace.end_with?('_')
-      return o_params["#{namespace}name"] if in_list?(namespace: namespace)
+      return o_params["#{namespace}name"] if in_list?(namespace: namespace) &&
+                                             o_params["#{namespace}name"].present?
 
       # If the user entered a custom entry then humanize it and capitalize each word
       o_params["#{namespace}user_entered_name"]&.humanize&.split&.map(&:capitalize)&.join(' ')
