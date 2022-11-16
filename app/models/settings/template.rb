@@ -61,7 +61,7 @@ module Settings
           right: 25
         },
         font_face: '"Times New Roman", Times, Serif',
-        font_size: 12 # pt
+        font_size: 11 # pt
       },
       page_size: 'Letter',
       max_pages: 3,
