@@ -61,6 +61,7 @@ module Settings
           right: 25
         },
         font_face: '"Times New Roman", Times, Serif',
+        # DMPTool customization for strict funder guidelines!
         font_size: 11 # pt
       },
       page_size: 'Letter',

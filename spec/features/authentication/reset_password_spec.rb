@@ -95,7 +95,7 @@ RSpec.describe 'Request password reset' do
     expect(email.to).to eql([@user.email])
     expect(email.subject).to eql('Reset password instructions')
 
-    email.body.to_s.match(/reset_password_token=[a-zA-Z0-9_\-]+/)
+    email.body.to_s.match(/reset_password_token=[a-zA-Z0-9_-]+/)
          .to_s.gsub('reset_password_token=', '')
   end
   # rubocop:enable Metrics/AbcSize
