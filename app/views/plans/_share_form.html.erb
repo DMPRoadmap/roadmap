@@ -32,7 +32,7 @@
           <%= f.radio_button :visibility, :publicly_visible,
                              data: { url: visibility_plan_path(@plan),
                                      remote: true, method: :post }  %>
-          <%= _('Public: anyone can view') %>
+          <%= _('Public: anyone can view or download from the Public DMPs page') %>
         <% end %>
       </div>
     </div>
