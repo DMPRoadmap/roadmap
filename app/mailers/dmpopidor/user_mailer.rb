@@ -33,7 +33,7 @@ module Dmpopidor
       @phase_link = url_for(action: 'edit', controller: 'plans', id: @plan.id, phase_id: @phase_id)
 
       I18n.with_locale current_locale(collaborator) do
-        mail(to: @plan.owner.email,
+        mail(to: collaborator.email,
              subject: format(_('%{tool_name}: A new comment was added to %{plan_title}'), tool_name: tool_name,
                                                                                           plan_title: @plan.title))
       end
@@ -70,7 +70,7 @@ module Dmpopidor
       @role       = role
       @plan_title = @role.plan.title
       @user       = user
-      @username   = @user.name
+      @recepient  = @role.user
       @messaging  = role_text(@role)
       @helpdesk_email = helpdesk_email(org: @user.org)
 
