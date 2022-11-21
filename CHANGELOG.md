@@ -2,6 +2,14 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 21/11/2022
+- Export RDA : correction d'un problème de conversion de la certification (issue gitbucket 446)
+- Correction d'un problème de rafraichissement des listes de contributeurs pour les formulaires contenant plusieurs listes de contributeurs
+- Le mail d'ajout de commentaires s'envoit désormais à tous les contributeurs du plan (issue gitbucket 448)
+- Client API :
+  - Il n'est désormais plus possible de supprimer un client rattaché à un formulaire (issue gitbucket 450) 
+  - Amélioration du mail de création/modification d'un client  (issue gitbucket 451)
+
 ## 10/11/2022
 - Remplacement du logo de l'application par sa version vectorisée
 - Suppression du titre à la création d'un plan
