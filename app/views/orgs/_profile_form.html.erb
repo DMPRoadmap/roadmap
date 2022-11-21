@@ -137,7 +137,12 @@
   <div class="row">
     <% if current_user.can_super_admin? %>
       <fieldset class="col-xs-8">
-        <legend><%= _('Organisation Types') %></legend>
+        <legend><%= _('Organisation Types') %>
+            &nbsp; <a href="#" aria-label="<%= _('Text') %>" data-toggle="tooltip" data-placement="right" title="<%= org_types_tooltip %>">
+             <i class="fas fa-question-circle fa-reverse" ></i>
+            <em class="sr-only"></em>
+          </a>
+        </legend>
         <div class="checkbox">
           <%= f.label :funder do %>
             <%= f.check_box :funder, { class: 'org_types', value: org.funder? }, "true", "false" %>
@@ -160,7 +165,12 @@
     <% else %>
       <div class="col-xs-8">
         <dl>
-          <dt><%= _('Organisation type(s)') %></dt>
+          <dt><%= _('Organisation type(s)') %>
+              &nbsp; <a href="#" aria-label="<%= _('Text') %>" data-toggle="tooltip" data-placement="right" title="<%= org_types_tooltip %>">
+              <i class="fas fa-question-circle fa-reverse" ></i>
+              <em class="sr-only"></em>
+            </a>
+          </dt>
           <dd><%= org.org_type_to_s %></dd>
         </dl>
       </div>

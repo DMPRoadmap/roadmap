@@ -1,14 +1,14 @@
-# English translations for roadmap package.
-# Copyright (C) 2022 roadmap
-# This file is distributed under the same license as the roadmap package.
+# English translations for 3.1.0 package.
+# Copyright (C) 2022 3.1.0
+# This file is distributed under the same license as the 3.1.0 package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: roadmap 1.0\n"
+"Project-Id-Version: 3.1.0 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-04-21 18:19-0400\n"
-"PO-Revision-Date: 2022-04-22 00:21+0200\n"
+"POT-Creation-Date: 2022-11-15 15:44-0500\n"
+"PO-Revision-Date: 2022-11-15 21:48+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -272,9 +272,6 @@ msgstr ""
 msgid "** Modèle Université de Montréal **"
 msgstr ""
 
-msgid "PGD - Sciences naturelles et génie"
-msgstr ""
-
 msgid "University of Guelph Food from Thought Template"
 msgstr ""
 
@@ -300,6 +297,27 @@ msgid "Ontario Agri-Food Innovation Alliance Template"
 msgstr ""
 
 msgid "ÉTS - Test redirection des services"
+msgstr ""
+
+msgid "NRC DMP Template 2022"
+msgstr ""
+
+msgid "Copy of test"
+msgstr ""
+
+msgid "Copy of Portage Template"
+msgstr ""
+
+msgid "The Best Template Ever!"
+msgstr ""
+
+msgid "Gabarit - Cégep de Sherbrooke"
+msgstr ""
+
+msgid "University of Victoria DMP Template"
+msgstr ""
+
+msgid "Gabarit ÉTS CUSTOM (VT)"
 msgstr ""
 
 msgid "This is the generic DMP template for University of Alberta."
@@ -808,12 +826,6 @@ msgid ""
 msgstr ""
 
 msgid ""
-"<p>Ce gabarit peut &ecirc;tre utilis&eacute; pour les projets de recherche en "
-"lien avec les disciplines reli&eacute;es aux sciences naturelles, au g&eacute;"
-"nie et aux math&eacute;matiques.</p>"
-msgstr ""
-
-msgid ""
 "<p>This template will be used for DMP development by research projects funded "
 "by Food from Thought.&nbsp;</p>"
 msgstr ""
@@ -867,6 +879,28 @@ msgid ""
 "<p>Ce plan est fond&eacute; sur le mod&egrave;le \"Mod&egrave;le Portage\" avec "
 "personnalisation par l'&eacute;tablissement suivant : &Eacute;cole de technolo"
 "gie sup&eacute;rieure.</p>\n"
+"<p>Mod&egrave;le avec conseils dans le contexte institutionnel de l'&Eacute;co"
+"le de technologie sup&eacute;rieure.</p>"
+msgstr ""
+
+msgid ""
+"<p>A data management plan (DMP) outlines how research data will be managed bot"
+"h during a research project and after it is complete.&nbsp; The NRC DMP Templa"
+"te provides questions that outline the key components of a DMP and provides ad"
+"ditional guidance.</p>\n"
+"<p>For further guidance on DMPs, see __________________________. For questions"
+" or further assistance, please contact _____________________.</p>"
+msgstr ""
+
+msgid "<p>Gabarit de PGD personnalis&eacute;</p>"
+msgstr ""
+
+msgid ""
+"<p>This template is a modified version of the general DMP template, and includ"
+"es links to resources for researchers at the University of Victoria.</p>"
+msgstr ""
+
+msgid ""
 "<p>Mod&egrave;le avec conseils dans le contexte institutionnel de l'&Eacute;co"
 "le de technologie sup&eacute;rieure.</p>"
 msgstr ""
@@ -928,13 +962,13 @@ msgstr ""
 msgid "Test DMP Questions"
 msgstr ""
 
+msgid "Food from Thought DMP creation"
+msgstr ""
+
+msgid "Ontario Agri-Food Innovation Alliance DMP creation"
+msgstr ""
+
 msgid "Western University "
-msgstr ""
-
-msgid "ÉTS Questions"
-msgstr ""
-
-msgid "Data Management"
 msgstr ""
 
 msgid "Initial GWF DMP"
@@ -946,7 +980,13 @@ msgstr ""
 msgid "Software/Technology Management Plan"
 msgstr ""
 
+msgid "ÉTS Questions"
+msgstr ""
+
 msgid "Phase 1: Data Preparation"
+msgstr ""
+
+msgid "Data Management"
 msgstr ""
 
 msgid "Données initiales"
@@ -955,19 +995,16 @@ msgstr ""
 msgid "Adaptation UL des questions du modèle Portage"
 msgstr ""
 
-msgid "q"
-msgstr ""
-
 msgid "Phase 1: Data Management Plan for Grant Application"
 msgstr ""
 
-msgid "University of Windsor Data Management Questions "
+msgid "q"
 msgstr ""
 
 msgid "Phase 1"
 msgstr ""
 
-msgid "Western DMP"
+msgid "University of Windsor Data Management Questions "
 msgstr ""
 
 msgid "PGD UQTR"
@@ -991,10 +1028,10 @@ msgstr ""
 msgid "Project Initiating Data"
 msgstr ""
 
-msgid "U of T DMP Questions"
+msgid "Western DMP"
 msgstr ""
 
-msgid "Phase 2: Data Management Plan for Project Development"
+msgid "U of T DMP Questions"
 msgstr ""
 
 msgid "Collected Data"
@@ -1003,13 +1040,16 @@ msgstr ""
 msgid "Phase 2"
 msgstr ""
 
+msgid "Phase 2: Data Management Plan for Project Development"
+msgstr ""
+
 msgid "r"
 msgstr ""
 
-msgid "Phase 2: Active Research (Data) Management"
+msgid "Données collectées"
 msgstr ""
 
-msgid "Données collectées"
+msgid "Phase 2: Active Research (Data) Management"
 msgstr ""
 
 msgid "Data Management Plan"
@@ -1018,10 +1058,10 @@ msgstr ""
 msgid "OMAFRA-UG DMP Questions"
 msgstr ""
 
-msgid "Export"
+msgid "PGD ÉTS"
 msgstr ""
 
-msgid "PGD ÉTS"
+msgid "Export"
 msgstr ""
 
 msgid "Derived Data"
@@ -1102,23 +1142,17 @@ msgid ""
 msgstr ""
 
 msgid ""
-"<p>This is the template to use when developing a DMP as a requirement for Alli"
-"ance and Food from Thought funding.</p>\n"
+"<p>This is the template to use when developing a DMP as a requirement for Food"
+" from Thought funding.</p>\n"
 "<p><strong>Public Access to Your DMP</strong></p>\n"
 "<p>Increasing access and sharing of information is important for facilitating "
 "new agri-food and rural research and data analytics to inform decision-making."
 " As such, the contents of this DMP may be made public. By completing this DMP,"
-" you are acknowledging that this information may be shared publicly. If you ha"
-"ve any concerns please contact the U of G Library at <a href=\"mailto:lib.resea"
-"rch@uoguelph.ca\">lib.research@uoguelph.ca</a>.</p>\n"
-"<p><strong>OMAFRA access to project data&nbsp;</strong></p>\n"
-"<p>As a recipient of funding through the Ontario Agri-Food Innovation Alliance"
-", the Ontario Ministry of Agriculture, Food and Rural Affairs (OMAFRA) is enti"
-"tled to request and be granted access to project data, including third-party d"
-"ata. Please contact Stacy Favrin, Senior Manager, OMAFRA/UofG Research Program"
-"s (<a href=\"mailto:favrinst@uoguelph.ca\">favrinst@uoguelph.ca</a>)&nbsp;for gu"
-"idance before entering into a third-party agreement that may limit the Ministr"
-"y's right to access data generated as part of this project.</p>\n"
+" you are acknowledging that this information may be shared publicly. If you fe"
+"el any information in your DMP should not be shared, please enter it in the \"c"
+"onfidential information\" section. If you have any concerns please contact the "
+"U of G Library at <a href=\"mailto:lib.research@uoguelph.ca\">lib.research@uogue"
+"lph.ca</a>.</p>\n"
 "<p><strong>Living Document</strong></p>\n"
 "<p>In most cases, DMPs are a condition of award. That said, DMPs are a living "
 "document that can be adjusted as necessary throughout the lifecycle of the pro"
@@ -1133,8 +1167,7 @@ msgid ""
 "<p><strong>Plan Details</strong></p>\n"
 "<p>On the previous tab, please ensure that you completed the fields as follows"
 ".</p>\n"
-"<p><em>Funder:</em> This should be either \"Ontario Agri-Food Innovation Allian"
-"ce\" or \"Food from Thought.\"</p>\n"
+"<p><em>Funder:</em> This should be \"Food from Thought.\"</p>\n"
 "<p><em>Grant Number:</em> This should be your Submission Number (e.g. UG-TI-20"
 "21-100000) and NOT the FRS Number.</p>\n"
 "<p><em>Project Abstract:</em> This can be copied and pasted from your applicat"
@@ -1169,17 +1202,23 @@ msgid ""
 msgstr ""
 
 msgid ""
-"<p>This is the template to use when developing a DMP as a requirement for Alli"
-"ance and Food from Thought funding.</p>\n"
+"<p>This is the template to use when developing a DMP as a requirement for Onta"
+"rio Agri-Food Innovation Alliance funding.</p>\n"
 "<p><strong>Public Access to Your DMP</strong></p>\n"
 "<p>Increasing access and sharing of information is important for facilitating "
 "new agri-food and rural research and data analytics to inform decision-making."
 " As such, the contents of this DMP may be made public. By completing this DMP,"
-" you are acknowledging that this information may be shared publicly. If you fe"
-"el any information in your DMP should not be shared, please enter it in the \"c"
-"onfidential information\" section. If you have any concerns please contact the "
-"U of G Library at <a href=\"mailto:lib.research@uoguelph.ca\">lib.research@uogue"
-"lph.ca</a>.</p>\n"
+" you are acknowledging that this information may be shared publicly. If you ha"
+"ve any concerns please contact the U of G Library at <a href=\"mailto:lib.resea"
+"rch@uoguelph.ca\">lib.research@uoguelph.ca</a>.</p>\n"
+"<p><strong>OMAFRA access to project data&nbsp;</strong></p>\n"
+"<p>As a recipient of funding through the Ontario Agri-Food Innovation Alliance"
+", the Ontario Ministry of Agriculture, Food and Rural Affairs (OMAFRA) is enti"
+"tled to request and be granted access to project data, including third-party d"
+"ata. Please contact Stacy Favrin, Senior Manager, OMAFRA/UofG Research Program"
+"s (<a href=\"mailto:favrinst@uoguelph.ca\">favrinst@uoguelph.ca</a>)&nbsp;for gu"
+"idance before entering into a third-party agreement that may limit the Ministr"
+"y's right to access data generated as part of this project.</p>\n"
 "<p><strong>Living Document</strong></p>\n"
 "<p>In most cases, DMPs are a condition of award. That said, DMPs are a living "
 "document that can be adjusted as necessary throughout the lifecycle of the pro"
@@ -1194,8 +1233,8 @@ msgid ""
 "<p><strong>Plan Details</strong></p>\n"
 "<p>On the previous tab, please ensure that you completed the fields as follows"
 ".</p>\n"
-"<p><em>Funder:</em> This should be either \"Ontario Agri-Food Innovation Allian"
-"ce\" or \"Food from Thought.\"</p>\n"
+"<p><em>Funder:</em> This should be \"Ontario Agri-Food Innovation Alliance.\"</p"
+">\n"
 "<p><em>Grant Number:</em> This should be your Submission Number (e.g. UG-TI-20"
 "21-100000) and NOT the FRS Number.</p>\n"
 "<p><em>Project Abstract:</em> This can be copied and pasted from your applicat"
@@ -1241,6 +1280,9 @@ msgid ""
 "eking information about the general direction of the study. Normally, research"
 "ers will be able to respond to phase 1 questions at the outset of a project.&n"
 "bsp;&nbsp;</span></p>"
+msgstr ""
+
+msgid "<p>blurb of phase</p>"
 msgstr ""
 
 msgid ""
@@ -1513,6 +1555,97 @@ msgid ""
 msgstr ""
 
 msgid ""
+"<p>This is the template to use when developing a DMP as a requirement for Alli"
+"ance and Food from Thought funding.</p>\n"
+"<p><strong>Public Access to Your DMP</strong></p>\n"
+"<p>Increasing access and sharing of information is important for facilitating "
+"new agri-food and rural research and data analytics to inform decision-making."
+" As such, the contents of this DMP may be made public. By completing this DMP,"
+" you are acknowledging that this information may be shared publicly. If you fe"
+"el any information in your DMP should not be shared, please enter it in the \"c"
+"onfidential information\" section. If you have any concerns please contact the "
+"U of G Library at <a href=\"mailto:lib.research@uoguelph.ca\">lib.research@uogue"
+"lph.ca</a>.</p>\n"
+"<p><strong>Living Document</strong></p>\n"
+"<p>In most cases, DMPs are a condition of award. That said, DMPs are a living "
+"document that can be adjusted as necessary throughout the lifecycle of the pro"
+"ject. Researchers are required to provide funders with updated information abo"
+"ut their DMP if there are any changes. For Alliance projects, researchers are "
+"required to describe how the Data Management Plan has been implemented (if app"
+"licable) and if there any deviations from the proposed plan in the final repor"
+"t.</p>\n"
+"<p><strong>Clarity, Brevity and Accessibility</strong></p>\n"
+"<p>Please make your responses as clear and succinct as possible. For better ac"
+"cessibility, please avoid the use of tables.&nbsp;</p>\n"
+"<p><strong>Plan Details</strong></p>\n"
+"<p>On the previous tab, please ensure that you completed the fields as follows"
+".</p>\n"
+"<p><em>Funder:</em> This should be either \"Ontario Agri-Food Innovation Allian"
+"ce\" or \"Food from Thought.\"</p>\n"
+"<p><em>Grant Number:</em> This should be your Submission Number (e.g. UG-TI-20"
+"21-100000) and NOT the FRS Number.</p>\n"
+"<p><em>Project Abstract:</em> This can be copied and pasted from your applicat"
+"ion.</p>\n"
+"<p><em>ID:</em>&nbsp;This field is not relevant and does not need to be comple"
+"ted.</p>\n"
+"<p><strong>DMP Questions</strong></p>\n"
+"<p>Below is an overview of the questions you will need to address to complete "
+"your DMP. Click the \"Write Plan\" tab to begin responding to the questions.</p>"
+msgstr ""
+
+msgid ""
+"<p>This is the template to use when developing a DMP as a requirement for Alli"
+"ance and Food from Thought funding.</p>\n"
+"<p><strong>Public Access to Your DMP</strong></p>\n"
+"<p>Increasing access and sharing of information is important for facilitating "
+"new agri-food and rural research and data analytics to inform decision-making."
+" As such, the contents of this DMP may be made public. By completing this DMP,"
+" you are acknowledging that this information may be shared publicly. If you ha"
+"ve any concerns please contact the U of G Library at <a href=\"mailto:lib.resea"
+"rch@uoguelph.ca\">lib.research@uoguelph.ca</a>.</p>\n"
+"<p><strong>OMAFRA access to project data&nbsp;</strong></p>\n"
+"<p>As a recipient of funding through the Ontario Agri-Food Innovation Alliance"
+", the Ontario Ministry of Agriculture, Food and Rural Affairs (OMAFRA) is enti"
+"tled to request and be granted access to project data, including third-party d"
+"ata. Please contact Stacy Favrin, Senior Manager, OMAFRA/UofG Research Program"
+"s (<a href=\"mailto:favrinst@uoguelph.ca\">favrinst@uoguelph.ca</a>)&nbsp;for gu"
+"idance before entering into a third-party agreement that may limit the Ministr"
+"y's right to access data generated as part of this project.</p>\n"
+"<p><strong>Living Document</strong></p>\n"
+"<p>In most cases, DMPs are a condition of award. That said, DMPs are a living "
+"document that can be adjusted as necessary throughout the lifecycle of the pro"
+"ject. Researchers are required to provide funders with updated information abo"
+"ut their DMP if there are any changes. For Alliance projects, researchers are "
+"required to describe how the Data Management Plan has been implemented (if app"
+"licable) and if there any deviations from the proposed plan in the final repor"
+"t.</p>\n"
+"<p><strong>Clarity, Brevity and Accessibility</strong></p>\n"
+"<p>Please make your responses as clear and succinct as possible. For better ac"
+"cessibility, please avoid the use of tables.&nbsp;</p>\n"
+"<p><strong>Plan Details</strong></p>\n"
+"<p>On the previous tab, please ensure that you completed the fields as follows"
+".</p>\n"
+"<p><em>Funder:</em> This should be either \"Ontario Agri-Food Innovation Allian"
+"ce\" or \"Food from Thought.\"</p>\n"
+"<p><em>Grant Number:</em> This should be your Submission Number (e.g. UG-TI-20"
+"21-100000) and NOT the FRS Number.</p>\n"
+"<p><em>Project Abstract:</em> This can be copied and pasted from your applicat"
+"ion.</p>\n"
+"<p><em>ID:</em>&nbsp;This field is not relevant and does not need to be comple"
+"ted.</p>\n"
+"<p><strong>DMP Questions</strong></p>\n"
+"<p>Below is an overview of the questions you will need to address to complete "
+"your DMP. Click the \"Write Plan\" tab to begin responding to the questions.</p>"
+msgstr ""
+
+msgid ""
+"<p>Bienvenue dans le gabarit de PGD de l'&Eacute;cole de technologie sup&eacut"
+"e;rieure.</p>\n"
+"<p><strong><em>(Lien vers la page/guide sur la GDR de la biblio)</em></strong>"
+"</p>"
+msgstr ""
+
+msgid ""
 "<p><span style=\"font-weight: 400;\">Phase 2 questions seek greater detail. It i"
 "s understood that these answers will often depend on the outcome of several st"
 "eps in the research project, such as: a literature review, imaging protocol de"
@@ -1536,11 +1669,18 @@ msgid ""
 "nding software or technology</span></p>"
 msgstr ""
 
+msgid "<p>blah blah blah</p>"
+msgstr ""
+
 msgid ""
 "<p>Bienvenue dans le gabarit de PGD de l'&Eacute;cole de technologie sup&eacut"
 "e;rieure.</p>\n"
 "<p><strong><em>(Lien vers la page/guide sur la GDR de la biblio)</em></strong>"
-"</p>"
+"</p>\n"
+"<p><strong><em>Votre plan de gestion de donn&eacute;es de recherche est un doc"
+"ument &eacute;volutif : </em></strong>avant le d&eacute;but du projet, r&eacut"
+"e;pondez au mieux de vos connaissances. Vous pourrez mettre &agrave; jour votr"
+"e plan au besoin sir votre projet venait &agrave; changer.</p>"
 msgstr ""
 
 msgid "Study Overview"
@@ -1597,9 +1737,6 @@ msgstr ""
 msgid "test section 1"
 msgstr ""
 
-msgid "Test Section 1"
-msgstr ""
-
 msgid "tester section"
 msgstr ""
 
@@ -1607,6 +1744,15 @@ msgid "Administrative Information"
 msgstr ""
 
 msgid "f"
+msgstr ""
+
+msgid "Additional DMP and project information"
+msgstr ""
+
+msgid "this is a section in the first phase"
+msgstr ""
+
+msgid "sec2"
 msgstr ""
 
 msgid "Plan and acquire"
@@ -1633,6 +1779,9 @@ msgstr ""
 msgid "Advanced Research Computing (ARC)-Related Facilities and Other Resources"
 msgstr ""
 
+msgid "Test Section 1"
+msgstr ""
+
 msgid "Data Types and Data Collection"
 msgstr ""
 
@@ -1642,7 +1791,7 @@ msgstr ""
 msgid "Collecte des données"
 msgstr ""
 
-msgid "My new section"
+msgid "Test Section 2"
 msgstr ""
 
 msgid "Study Monitoring"
@@ -1682,6 +1831,9 @@ msgid "Metadata & Documentation"
 msgstr ""
 
 msgid "Stockage et sauvegarde des données actives"
+msgstr ""
+
+msgid "Collect and acquire"
 msgstr ""
 
 msgid "Storage and Tracking"
@@ -1727,6 +1879,9 @@ msgid "Storage & Security"
 msgstr ""
 
 msgid "Stockage et sauvegarde de sécurité"
+msgstr ""
+
+msgid "Documentation and metadata"
 msgstr ""
 
 msgid "Data Sharing and Reuse"
@@ -1834,6 +1989,9 @@ msgstr ""
 msgid "Partage et réutilisation des données à la fin du projet"
 msgstr ""
 
+msgid "Open research data"
+msgstr ""
+
 msgid "Data Coding"
 msgstr ""
 
@@ -1901,6 +2059,13 @@ msgid ""
 msgstr ""
 
 msgid "<p>The questions in this section will specify what data will be collected.</p>"
+msgstr ""
+
+msgid ""
+"<p>This section addresses data collection issues such as data types, file form"
+"ats, naming conventions, and data organization &ndash; factors that will impro"
+"ve the usability of your data and contribute to the success of your project.</"
+"p>"
 msgstr ""
 
 msgid ""
@@ -1998,13 +2163,6 @@ msgid ""
 "p>"
 msgstr ""
 
-msgid ""
-"<p>This section addresses data collection issues such as data types, file form"
-"ats, naming conventions, and data organization &ndash; factors that will impro"
-"ve the usability of your data and contribute to the success of your project.</"
-"p>"
-msgstr ""
-
 msgid "<p>This is a test section.</p>"
 msgstr ""
 
@@ -2048,6 +2206,9 @@ msgid ""
 "te;es &ndash; des facteurs qui am&eacute;lioreront la facilit&eacute; d'utilis"
 "ation de vos donn&eacute;es et contribueront au succ&egrave;s de votre projet."
 "</span></p>"
+msgstr ""
+
+msgid "<p>blurb!</p>"
 msgstr ""
 
 msgid ""
@@ -2291,7 +2452,7 @@ msgid ""
 "uipe de GDR</a> de la biblioth&egrave;que.</p>"
 msgstr ""
 
-msgid "<p>save</p>"
+msgid "<p>Test Section 2 Description.</p>"
 msgstr ""
 
 msgid ""
@@ -2906,6 +3067,15 @@ msgid ""
 "tsmtl.ca\">&eacute;quipe de GDR</a> de la biblioth&egrave;que.</p>"
 msgstr ""
 
+msgid ""
+"<p>This section describes how research data will be stored and backed up <stro"
+"ng><u>over the course of a research project</u></strong>. &nbsp;Appropriate st"
+"orage and backup not only helps protect research data from catastrophic losses"
+" (due to hardware or software failures, viruses, hackers, natural disasters, h"
+"uman error, etc.), but also facilitates appropriate access by project team mem"
+"bers.</p>"
+msgstr ""
+
 msgid "Determine a proper citation for the data used in this project."
 msgstr ""
 
@@ -3111,6 +3281,48 @@ msgid ""
 msgstr ""
 
 msgid ""
+"<p>Les chercheurs et leurs &eacute;quipes doivent conna&icirc;tre les politiqu"
+"es et les processus, &eacute;thiques et juridiques, auxquels leur gestion des "
+"donn&eacute;es de recherche doit se conformer. La protection de la vie priv&ea"
+"cute;e du r&eacute;pondant rev&ecirc;t une importance capitale et fa&ccedil;on"
+"ne plusieurs pratiques en mati&egrave;re de gestion des donn&eacute;es. Dans l"
+"eur plan de gestion des donn&eacute;es, les chercheurs doivent indiquer la fa&"
+"ccedil;on dont ils pr&eacute;pareront, stockeront, partageront et archiveront "
+"les donn&eacute;es de fa&ccedil;on &agrave; s'assurer que les renseignements s"
+"ur les participants sont prot&eacute;g&eacute;s tout au long du cycle de vie d"
+"e la recherche contre la divulgation, l'utilisation pr&eacute;judiciable ou le"
+"s liens inappropri&eacute;s avec d'autres donn&eacute;es personnelles. On reco"
+"nnait qu'il peut y avoir des cas o&ugrave; certaines donn&eacute;es et m&eacut"
+"e;tadonn&eacute;es ne peuvent pas &ecirc;tre rendues publiques en raison de po"
+"litiques ou de consid&eacute;rations l&eacute;gales. Toutefois, la position pa"
+"r d&eacute;faut doit &ecirc;tre que toutes les donn&eacute;es et m&eacute;tado"
+"nn&eacute;es de recherche sont publiques.</p>\n"
+"<p>Si vous comptez travailler avec des donn&eacute;es sensibles et/ou confiden"
+"tielles (partenariats commerciaux, participants humains, animaux ou produits b"
+"iologiques dangereux), veuillez contacter <strong>avant le d&eacute;but de vot"
+"re projet</strong> le <a href=\"mailto:decanat.recherche@etsmtl.ca\">D&eacute;ca"
+"nat de la recherche</a> et le <a href=\"mailto:CER@etsmtl.ca\">comit&eacute; d'&"
+"eacute;thique de la recherche</a> afin de vous assurer d'&ecirc;tre conforme a"
+"ux exigences de l'&Eacute;TS.</p>\n"
+"<p>Voir le point 6.3 (page 7) de la <a href=\"https://www.etsmtl.ca/docs/recher"
+"che/soutien-aux-chercheurs/documents/Politique-ethique-recherche\">politique d'"
+"&Eacute;thique de la recherche de l'&Eacute;TS</a></p>\n"
+"<p>Voir la section 4 (page 11) de la <a href=\"https://www.etsmtl.ca/docs/ets/G"
+"ouvernance/Secretariat-general/Cadre-reglementaire/Documents/Politique-Proprie"
+"te-Intellectuelle\">Politique sur la propri&eacute;t&eacute; intellectuelle de "
+"l'&Eacute;TS</a></p>"
+msgstr ""
+
+msgid ""
+"<p>This section describes how research data will be stored <strong><u>after th"
+"e completion of a research project</u></strong>.</p>"
+msgstr ""
+
+msgid ""
+"<p><strong>NOTE : revoir le vocabulaire utilis&eacute; ici pour s'amarrer au v"
+"ocabulaire utilis&eacute; par le C&Eacute;R (ex: donn&eacute;es sensible en GD"
+"R n'&eacute;gale pas donn&eacute;es sensibles avec le C&Eacute;R)</strong></p>"
+"\n"
 "<p>Les chercheurs et leurs &eacute;quipes doivent conna&icirc;tre les politiqu"
 "es et les processus, &eacute;thiques et juridiques, auxquels leur gestion des "
 "donn&eacute;es de recherche doit se conformer. La protection de la vie priv&ea"
@@ -3398,6 +3610,38 @@ msgid ""
 msgstr ""
 
 msgid ""
+"<p>Plusieurs organismes subventionnaires canadiens ont maintenant des politiqu"
+"es exigeant que les donn&eacute;es de recherche soient rendues accessibles au "
+"moment de la publication des r&eacute;sultats de la recherche ou &agrave; l'in"
+"t&eacute;rieur d'un d&eacute;lai raisonnable. Si le partage des donn&eacute;es"
+" contribue &agrave; la visibilit&eacute; et &agrave; l'impact de la recherche,"
+" il faut aussi tenir compte du souhait des chercheurs de publier un maximum de"
+" publications avant de diffuser les donn&eacute;es. &Eacute;galement d'importa"
+"nce est le besoin de prot&eacute;ger la vie priv&eacute;e des r&eacute;pondant"
+"s et de traiter de fa&ccedil;on appropri&eacute;e les donn&eacute;es sensibles"
+".</p>\n"
+"<p>Si vous pr&eacute;voyez une r&eacute;utilisation secondaire de vos donn&eac"
+"ute;es, assurez-vous de consulter le <a href=\"mailto:CER@etsmtl.ca\">comit&eacu"
+"te; d'&eacute;thique de la recherche</a> <strong>avant le d&eacute;but du proj"
+"et. </strong></p>\n"
+"<p>Si vous pr&eacute;voyez partager vos donn&eacute;es une fois le projet term"
+"in&eacute;, <strong>[ins&eacute;rer ici une proc&eacute;dure]</strong>.</p>\n"
+"<p>Pour des questions sur les bonnes pratiques en mati&egrave;re de partage de"
+"s donn&eacute;es (choix de formats, d&eacute;p&ocirc;ts, etc.), communiquez av"
+"ec l'<a href=\"mailto:biblio.gdr@etsmtl.ca\">&eacute;quipe de GDR</a> de la bibl"
+"ioth&egrave;que.</p>"
+msgstr ""
+
+msgid ""
+"<p>The decision to open research data must balance the benefits and risks asso"
+"ciated with their release.&nbsp; For more information on opening research data"
+", see the NRC&rsquo;s Open Science Toolkit.</p>"
+msgstr ""
+
+msgid ""
+"<p><strong>NOTE : r&eacute;utilisation des donn&eacute;es = voir avec le C&Eac"
+"ute;R juste si c'Est des donn&eacute;es sujets humains-animaux-produits biolog"
+"iques toxiques.</strong></p>\n"
 "<p>Plusieurs organismes subventionnaires canadiens ont maintenant des politiqu"
 "es exigeant que les donn&eacute;es de recherche soient rendues accessibles au "
 "moment de la publication des r&eacute;sultats de la recherche ou &agrave; l'in"
@@ -3878,6 +4122,33 @@ msgstr ""
 msgid ""
 "Are there limitations or constraints on how you manage your data resulting fro"
 "m legal, ethical or intellectual property concerns? "
+msgstr ""
+
+msgid ""
+"<p>What documentation will be needed for the data to be read and interpreted c"
+"orrectly in the future?</p>"
+msgstr ""
+
+msgid ""
+"<p>How and where will your data be stored and backed up during your research p"
+"roject?</p>"
+msgstr ""
+
+msgid ""
+"<p>Where will you deposit your data for long-term preservation and access at t"
+"he end of your research project?</p>"
+msgstr ""
+
+msgid ""
+"<p>Identify who will be responsible for managing this project&rsquo;s data dur"
+"ing and after the project and the major data management tasks for which they w"
+"ill be responsible.</p>"
+msgstr ""
+
+msgid ""
+"<p>If your research project includes sensitive data, how will you ensure that "
+"it is securely managed and accessible only to approved members of the project?"
+"</p>"
 msgstr ""
 
 msgid "Question 1"
@@ -5278,12 +5549,6 @@ msgid ""
 msgstr ""
 
 msgid ""
-"<p>If your research project includes sensitive data, how will you ensure that "
-"it is securely managed and accessible only to approved members of the project?"
-"</p>"
-msgstr ""
-
-msgid ""
 "<p>What documentation will be needed for the data to be read and interpreted c"
 "orrectly in the future?&nbsp;</p>"
 msgstr ""
@@ -5529,6 +5794,57 @@ msgid ""
 "rend des donn&eacute;es sensibles, comment vous assurerez-vous qu'il est g&eac"
 "ute;r&eacute; de mani&egrave;re s&eacute;curitaire et que les donn&eacute;es s"
 "ont accessibles uniquement aux membres approuv&eacute;s du projet? </span></p>"
+msgstr ""
+
+msgid "<p>Test Question 2? [Text field]</p>"
+msgstr ""
+
+msgid "<p>1. Security categorization of the DMP.</p>"
+msgstr ""
+
+msgid ""
+"<p>1. Is ethics approval required and has it been obtained? If yes, please lis"
+"t the REB number(s).</p>"
+msgstr ""
+
+msgid ""
+"<p>1. What types of data will you collect, create, link to, acquire and/or rec"
+"ord?</p>"
+msgstr ""
+
+msgid ""
+"<p>1. What conventions and procedures will you use to structure, name and vers"
+"ion control your files to help you and others better understand how your data "
+"are organized?</p>"
+msgstr ""
+
+msgid ""
+"<p>1. What are the anticipated storage space requirements (MB/GB/TB) for data "
+"during the research project in terms of storage space (MB/GB/TB) and length of"
+" time required for project storage?</p>"
+msgstr ""
+
+msgid ""
+"<p>1. Which data should be retained and preserved once the project is complete"
+"?&nbsp; Explain why.</p>"
+msgstr ""
+
+msgid ""
+"<p>1. Have you identified any data for sharing?&nbsp; If no, list the reasons "
+"your data cannot be shared.</p>"
+msgstr ""
+
+msgid ""
+"<p>1. Provide any additional information that could help ensure your data are "
+"well-managed.</p>"
+msgstr ""
+
+msgid "<p>This is a question in the section.</p>"
+msgstr ""
+
+msgid ""
+"<p>Where will you deposit your data for long-term storage at the end of your r"
+"esearch project?</p>"
 msgstr ""
 
 msgid ""
@@ -5959,6 +6275,29 @@ msgid ""
 msgstr ""
 
 msgid ""
+"<p>What file formats will your data be collected in? Will these formats allow "
+"for data re-use, sharing and long-term access to the data?</p>"
+msgstr ""
+
+msgid ""
+"<p>Indicate how you will ensure your data is preservation ready. Consider pres"
+"ervation-friendly file formats, ensuring file integrity, anonymization and de-"
+"identification, and inclusion of supporting documentation.</p>"
+msgstr ""
+
+msgid ""
+"<p>If the way you store and share data during your research project differs fr"
+"om how you will preserve your data long-term, include a brief description of a"
+"ny resources needed to share your data (equipment, systems, expertise, etc.).<"
+"/p>"
+msgstr ""
+
+msgid ""
+"<p>If applicable, what strategies will you undertake to address secondary uses"
+" of sensitive data?</p>"
+msgstr ""
+
+msgid ""
 "Outline any legal or ethical constraints on data release (obligations from fun"
 "ders, etc.)"
 msgstr ""
@@ -6270,26 +6609,10 @@ msgid ""
 "lease be specific, including:"
 msgstr ""
 
-msgid ""
-"<p>What conventions and procedures will you use to structure, name and version"
-"-control your files to help you and others better understand how your data are"
-" organized?</p>"
-msgstr ""
-
 msgid "<p>How will you describe samples collected?</p>"
 msgstr ""
 
-msgid ""
-"<p>How and where will your data be stored and backed up during your research p"
-"roject?</p>"
-msgstr ""
-
 msgid "Are there restrictions on sharing due to ethics or legal constraints?"
-msgstr ""
-
-msgid ""
-"<p>What file formats will your data be collected in? Will these formats allow "
-"for data re-use, sharing and long-term access to the data?</p>"
 msgstr ""
 
 msgid ""
@@ -6529,11 +6852,6 @@ msgid ""
 msgstr ""
 
 msgid ""
-"<p>Where will you deposit your data for long-term preservation and access at t"
-"he end of your research project?</p>"
-msgstr ""
-
-msgid ""
 "<p>What type of repository or storage service are you considering as the host "
 "of your shared data?</p>"
 msgstr ""
@@ -6747,11 +7065,6 @@ msgstr ""
 msgid ""
 "<p>What will happen when personnel changes occur or if the principal investiga"
 "tor leaves the institution before the project has concluded?</p>"
-msgstr ""
-
-msgid ""
-"<p>If applicable, what strategies will you undertake to address secondary uses"
-" of sensitive data?</p>"
 msgstr ""
 
 msgid "<p>What file formats will your data be collected and saved in?&nbsp;</p>"
@@ -7063,6 +7376,56 @@ msgid ""
 msgstr ""
 
 msgid "<p>Sous quelles formes partagerez-vous les donn&eacute;es?</p>"
+msgstr ""
+
+msgid "<p>2. Primary contact for the DMP.</p>"
+msgstr ""
+
+msgid ""
+"<p>2. Describe how the ethical considerations involving data will be managed t"
+"hroughout the project.</p>"
+msgstr ""
+
+msgid ""
+"<p>2. What file formats will your data be collected in? Will these formats all"
+"ow for data reuse, sharing and long-term sustainability of the data?</p>"
+msgstr ""
+
+msgid ""
+"<p>2. What documentation will be needed for the data to be read and interprete"
+"d correctly in the future?</p>"
+msgstr ""
+
+msgid ""
+"<p>2. Record the anticipated start date for data storage during the research p"
+"roject using the format YYYY-MM-DD.</p>"
+msgstr ""
+
+msgid "<p>2. How long should the data be retained and why?</p>"
+msgstr ""
+
+msgid ""
+"<p>2. Describe the data you will be sharing (e.g. title, description, format, "
+"size, etc.).</p>"
+msgstr ""
+
+msgid "<p>Question text (Date)?</p>"
+msgstr ""
+
+msgid "<p>test date</p>"
+msgstr ""
+
+msgid ""
+"<p>What file formats will your data be collected in? Consider whether these fo"
+"rmats will allow for data re-use, sharing and long-term access to the data. If"
+" they do not, will it be possible to convert your data to a more accessible fo"
+"rmat after collecting the data?</p>"
+msgstr ""
+
+msgid ""
+"<p>Indicate how you will ensure your data is preservation friendly. Consider n"
+"on-proprietary file formats, ensuring file integrity, and inclusion of support"
+"ing documentation.</p>"
 msgstr ""
 
 msgid ""
@@ -7439,8 +7802,24 @@ msgid ""
 msgstr ""
 
 msgid ""
+"<p>What conventions and procedures will you use to structure, name and version"
+"-control your files to help you and others better understand how your data are"
+" organized?</p>"
+msgstr ""
+
+msgid ""
 "<p>If you are using a metadata standard and/or tools to document and describe "
 "your data, please list here.</p>"
+msgstr ""
+
+msgid ""
+"<p>How will the research team and other collaborators access, modify, and cont"
+"ribute data throughout the project?</p>"
+msgstr ""
+
+msgid ""
+"<p>Have you considered what type of end-user license to include with your data"
+"?</p>"
 msgstr ""
 
 msgid ""
@@ -8295,6 +8674,36 @@ msgid ""
 "g de votre projet?&nbsp;</p>"
 msgstr ""
 
+msgid "<p>3. List all collaborating organizations.</p>"
+msgstr ""
+
+msgid "<p>3. Does the data contain personal information?</p>"
+msgstr ""
+
+msgid "<p>3. Will this project use existing data? If yes, where are they from?</p>"
+msgstr ""
+
+msgid ""
+"<p>3. List metadata standards and/or tools used to document and describe your "
+"data.</p>"
+msgstr ""
+
+msgid ""
+"<p>3. Record the anticipated end date for data storage during the research pro"
+"ject using the format YYYY-MM-DD.</p>"
+msgstr ""
+
+msgid "<p>3. Indicate how you will ensure your data is preservation ready.</p>"
+msgstr ""
+
+msgid "<p>3. Where will you be sharing your data?</p>"
+msgstr ""
+
+msgid ""
+"<p>Do you plan to use a metadata standard and/or tools to document and describ"
+"e your data? If so, please list here.</p>"
+msgstr ""
+
 msgid ""
 "How much data do you anticipate collecting?  Include an estimate of how much s"
 "torage space you will require (in megabytes, gigabytes, terabytes).  This esti"
@@ -8443,6 +8852,11 @@ msgstr ""
 msgid ""
 "Will you limit who can access your data? If so, who will that be and why are y"
 "ou limiting the data's reuse?"
+msgstr ""
+
+msgid ""
+"<p>What steps will be taken to help the research community know that your data"
+" exists?</p>"
 msgstr ""
 
 msgid ""
@@ -8619,11 +9033,6 @@ msgid ""
 "<p>6.4 Please describe whether there will be any restrictions placed on your d"
 "ata when they are made available and who may access them. If data are not open"
 "ly available, describe the process for gaining access.</p>"
-msgstr ""
-
-msgid ""
-"<p>What steps will be taken to help the research community know that your data"
-" exists?</p>"
 msgstr ""
 
 msgid ""
@@ -8839,6 +9248,32 @@ msgstr ""
 msgid ""
 "<p>Quelles mesures prendrez-vous pour faire savoir &agrave; la communaut&eacut"
 "e; des chercheurs que vos donn&eacute;es existent? Expliquez vos choix.</p>"
+msgstr ""
+
+msgid ""
+"<p>4. Do the collaborating organizations have any requirements (e.g. funding, "
+"policy, etc.) that will impact data management? If yes, explain.</p>"
+msgstr ""
+
+msgid ""
+"<p>4. If applicable, how do you plan to obtain free and informed consent from "
+"participants to preserve and/or share the data?</p>"
+msgstr ""
+
+msgid "<p>4. Describe how project data will be collected.</p>"
+msgstr ""
+
+msgid ""
+"<p>4. How and where will data (e.g. digital, print, physical samples) be store"
+"d during the project?</p>"
+msgstr ""
+
+msgid ""
+"<p>4. Where will you deposit your data for long-term preservation at the end o"
+"f your research project?</p>"
+msgstr ""
+
+msgid "<p>4. Indicate how you will ensure your data are ready for sharing.</p>"
 msgstr ""
 
 msgid ""
@@ -9202,6 +9637,27 @@ msgid ""
 "data exists?</p>"
 msgstr ""
 
+msgid "<p>5. What are the anticipated costs for data management?</p>"
+msgstr ""
+
+msgid ""
+"<p>5. If applicable, list Indigenous research partners and describe how projec"
+"t data will be managed by community developed and approved data management pri"
+"nciples.</p>"
+msgstr ""
+
+msgid ""
+"<p>5. If applicable, how will you ensure that sensitive data (digital and/or p"
+"rint) are stored securely and only accessible to the research team and other c"
+"ollaborators throughout the project?</p>"
+msgstr ""
+
+msgid ""
+"<p>5. If applicable, describe any restrictions that will be placed on your dat"
+"a when they are made available. Include the process for gaining access to the "
+"data and who may access them.</p>"
+msgstr ""
+
 msgid ""
 "What conventions and procedures will you use to structure, name and version co"
 "ntrol your files to ensure that your data is well-organized?\n"
@@ -9423,6 +9879,17 @@ msgid ""
 "nt fourni ces donn&eacute;es.</p>"
 msgstr ""
 
+msgid "<p>6. Security categorization of the data.</p>"
+msgstr ""
+
+msgid ""
+"<p>6. If applicable, how will the research team and other collaborators access"
+", modify, and contribute data throughout the project?</p>"
+msgstr ""
+
+msgid "<p>6. What type of end-user licence will you include with your data?</p>"
+msgstr ""
+
 msgid ""
 "Q. 1. 7. Please provide details of the number of patients required in each gro"
 "up treatment/placebo/enrolled/randomized/completed as appropriate. "
@@ -9566,6 +10033,15 @@ msgid ""
 "pl&eacute;mentaire pr&eacute;vu &agrave; cette fin.</p>"
 msgstr ""
 
+msgid "<p>7. Has a statement of sensitivity (SOS) been conducted?</p>"
+msgstr ""
+
+msgid "<p>7. How and how often will backups be performed?</p>"
+msgstr ""
+
+msgid "<p>7. When will the data be shared?</p>"
+msgstr ""
+
 msgid "Q. 1. 8 Please provide details of the study timelines. "
 msgstr ""
 
@@ -9639,6 +10115,11 @@ msgid ""
 "nt fourni ces donn&eacute;es.</p>"
 msgstr ""
 
+msgid ""
+"<p>8. Is the research project responsible for controlled goods data and/or ITA"
+"R data?</p>"
+msgstr ""
+
 msgid "Q. 1. 9. Is the study interventional or observational?"
 msgstr ""
 
@@ -9690,6 +10171,13 @@ msgid ""
 "taire pr&eacute;vu &agrave; cette fin.</p>"
 msgstr ""
 
+msgid ""
+"<p>9. If applicable, provide identifying information (e.g. title, document num"
+"ber, link, etc.) for any data sharing agreements, memoranda of understanding ("
+"MOU) or memoranda of agreement (MOA) that define the roles and responsibilitie"
+"s for data collection and/or sharing.</p>"
+msgstr ""
+
 msgid "Q. 1. 10. Is this study a drug/device trial?"
 msgstr ""
 
@@ -9708,6 +10196,9 @@ msgstr ""
 msgid "<p>10. What documentation will accompany the derived data?</p>"
 msgstr ""
 
+msgid "<p>10. Who has ownership of the data associate with this project?</p>"
+msgstr ""
+
 msgid "Q. 1. 11. Is the use of the drug/device within its approval?"
 msgstr ""
 
@@ -9723,6 +10214,11 @@ msgid ""
 msgstr ""
 
 msgid "<p>11. Explain how data provenance will be documented.</p>"
+msgstr ""
+
+msgid ""
+"<p>11. Are there any intellectual property rights associated with the data cre"
+"ated by the project? If yes, please explain.</p>"
 msgstr ""
 
 msgid ""
@@ -10038,6 +10534,12 @@ msgid "<p>This is a default test.</p>"
 msgstr ""
 
 msgid "<p>Test Default answer.</p>"
+msgstr ""
+
+msgid "<p>default answer</p>"
+msgstr ""
+
+msgid "<p>we can set a default answer</p>"
 msgstr ""
 
 msgid ""
@@ -15157,17 +15659,14 @@ msgstr ""
 
 msgid ""
 "<p><span style=\"font-weight: 400;\">Proprietary file formats requiring speciali"
-"zed software or hardware to use are not recommended, but may be necessary for "
-"certain data collection or analysis methods. Using open file formats or indust"
-"ry-standard formats (e.g. those widely used by a given community) is preferred"
-" whenever possible.</span></p>\n"
+"zed software or hardware to use are not recommended but may be necessary for c"
+"ertain data collection or analysis methods. Using open file formats or industr"
+"y-standard formats (e.g. those widely used by a given community) is preferred "
+"whenever possible.</span></p>\n"
 "<p><span style=\"font-weight: 400;\">Read more about file formats: </span><a hre"
-"f=\"http://researchdata.library.ubc.ca/plan/format-your-data/\" target=\"_blank\">"
-"<span style=\"font-weight: 400;\">UBC Library Research Data Website</span></a><s"
-"pan style=\"font-weight: 400;\"> or </span><a href=\"http://data-archive.ac.uk/cr"
-"eate-manage/format/formats\" target=\"_blank\"><span style=\"font-weight: 400;\">UK"
-" Data Archive</span></a><span style=\"font-weight: 400;\">. </span><strong><br /"
-"><br /></strong></p>"
+"f=\"http://researchdata.library.ubc.ca/plan/format-your-data/\" target=\"_blank\" "
+"rel=\"noopener\"><span style=\"font-weight: 400;\">UBC Library Research Data Websi"
+"te.&nbsp;</span></a><strong><br /><br /></strong></p>"
 msgstr ""
 
 msgid ""
@@ -15182,14 +15681,41 @@ msgid ""
 "rs and/or on different media.</span><span style=\"font-weight: 400;\"> &nbsp;</s"
 "pan><span style=\"font-weight: 400;\">Read more about file naming and version co"
 "ntrol: </span><a href=\"http://researchdata.library.ubc.ca/plan/organize-your-d"
-"ata/\" target=\"_blank\"><span style=\"font-weight: 400;\">UBC Library Research Dat"
-"a Website</span></a> <span style=\"font-weight: 400;\">or </span><a href=\"http:/"
-"/www.data-archive.ac.uk/create-manage/format/versions\" target=\"_blank\"><span s"
-"tyle=\"font-weight: 400;\">UK Data Archive</span></a><span style=\"font-weight: 4"
-"00;\">.<br /></span><span style=\"font-weight: 400;\"><br /></span><span style=\"f"
-"ont-weight: 400;\"><a href=\"https://dataverse.scholarsportal.info/dataverse/ubc"
-"\" target=\"_blank\">UBC Dataverse</a>&nbsp;@Scholars Portal&nbsp;software can he"
-"lp with version control of your files.</span></p>"
+"ata/\" target=\"_blank\" rel=\"noopener\"><span style=\"font-weight: 400;\">UBC Libra"
+"ry Research Data Website.</span></a><span style=\"font-weight: 400;\"><br /></sp"
+"an><span style=\"font-weight: 400;\"><br /></span><span style=\"font-weight: 400;"
+"\"><a href=\"https://dataverse.scholarsportal.info/dataverse/ubc\" target=\"_blank"
+"\" rel=\"noopener\">UBC Dataverse</a>&nbsp;software can help with version control"
+" of your files.</span></p>"
+msgstr ""
+
+msgid ""
+"<p><span style=\"font-weight: 400;\">There are many general and domain-specific "
+"metadata standards. &nbsp;Dataset documentation should be provided in one of t"
+"hese standards, machine-readable, openly-accessible formats to enable the effe"
+"ctive exchange of information between users and systems. &nbsp;These standards"
+" are often based on language-independent data formats such as XML, RDF, and JS"
+"ON. For assistance with choosing a metadata standard, please contact us at </s"
+"pan><a href=\"mailto:research.data@ubc.ca\" target=\"_blank\" rel=\"noopener\"><span"
+" style=\"font-weight: 400;\">research.data@ubc.ca</span></a><span style=\"font-we"
+"ight: 400;\">. <br /></span></p>"
+msgstr ""
+
+msgid ""
+"<p><span style=\"font-weight: 400;\">Typically, good documentation includes info"
+"rmation about the study, data-level descriptions, and any other contextual inf"
+"ormation required to make the data usable by other researchers.</span></p>\n"
+"<ul>\n"
+"<li>Describe what method you will use for a fellow researcher to understand or"
+" reuse your data, e.g. robust README file.</li>\n"
+"<li>The purpose of a README is to assist other people to understand your datas"
+"et, its contents, provenance, licensing and how to interact with it. See our g"
+"uide to learn how to create a solid README file - <a href=\"https://osf.io/aqxw"
+"3/\">https://osf.io/aqxw3/</a>.</li>\n"
+"<li>Explain how you will define all your variables in your data dictionary/cod"
+"ebook or use your README file to do that.</li>\n"
+"</ul>\n"
+"<p>&nbsp;</p>"
 msgstr ""
 
 msgid ""
@@ -15206,18 +15732,61 @@ msgid ""
 "<p>Storing data on flash drives, laptops, computers, or external hard drives w"
 "ithout a regular backup procedure is not recommended, because they are subject"
 " to hardware failure, viruses, file corruption, theft, loss, and human error. "
-"Likewise, multiple copies of data stored in the same physical location does li"
-"ttle to mitigate risk.</p>\n"
-"<p>&nbsp; Using software which automatically backs up your data and keeps it s"
-"ynchronized with a master copy is recommended. Copies of data should ideally b"
-"e stored in separate physical locations to mitigate physical risks, e.g. fire."
-"<br /><br />See more about UBC data storage at the UBC Library<a href=\"http://"
-"researchdata.library.ubc.ca/plan/store-and-back-up-your-data/\" target=\"_blank\""
-"> Research Data Website </a>(e.g. Westgrid and UBC Storage Grid)<br /><br />UB"
-"C Library also offers <a href=\"https://dataverse.scholarsportal.info/dataverse"
-"/ubc\" target=\"_blank\">UBC Dataverse</a>&nbsp;@Scholars Portal&nbsp;for managin"
-"g and sharing datasets. For assistance with Dataverse, please contact <a href="
-"\"mailto:research.data@ubc.ca\" target=\"_blank\">research.data@ubc.ca</a></p>"
+"Likewise, multiple copies of data stored in the same physical location do litt"
+"le to mitigate risk.</p>\n"
+"<p>Using software that automatically backs up your data and keeps it synchroni"
+"zed with a master copy is recommended. Copies of data should ideally be stored"
+" in separate physical locations to mitigate physical risks, e.g. fire.<br /><b"
+"r />See more about UBC data storage at the UBC Library<a href=\"http://research"
+"data.library.ubc.ca/plan/store-and-back-up-your-data/\" target=\"_blank\" rel=\"no"
+"opener\"> Research Data Website </a>(e.g. Compute Canada and UBC ARC)<br /><br "
+"/>UBC Library also offers <a href=\"https://dataverse.scholarsportal.info/datav"
+"erse/ubc\" target=\"_blank\" rel=\"noopener\">UBC Dataverse</a> Collection for mana"
+"ging and sharing datasets. For assistance with Dataverse, please contact <a hr"
+"ef=\"mailto:research.data@ubc.ca\" target=\"_blank\" rel=\"noopener\">research.data@"
+"ubc.ca</a></p>"
+msgstr ""
+
+msgid ""
+"<p><span style=\"font-weight: 400;\">The security measures you choose to impleme"
+"nt will depend on the sensitivity of the data being stored. Data can be protec"
+"ted by limiting physical access to hard drives and file servers on which it is"
+" stored, by storing data on computers that do not have external network access"
+" (i.e. access to the Internet), through password protection, and by encrypting"
+" data files.</span></p>\n"
+"<p>Sharing sensitive data via email and cloud storage services such as Dropbox"
+" is not recommended, since the security of these services cannot be trusted. R"
+"ead more about data security at the <a href=\"https://arc.ubc.ca/arc-research-c"
+"ybersecurity-and-privacy-services\">UBC ARC website</a>.&nbsp;</p>"
+msgstr ""
+
+msgid ""
+"<p><span style=\"font-weight: 400;\">Some data formats are optimal for the long-"
+"term preservation of data. For example, non-proprietary file formats such as t"
+"ext (&lsquo;.txt&rsquo;) and comma-separated (&lsquo;.csv&rsquo;), are conside"
+"red preservation-friendly.</span></p>\n"
+"<ul>\n"
+"<li>Consider optimal file formats (preferably non-proprietary) for supporting "
+"long-term preservation. See our preferred file formats - <a href=\"https://osf."
+"io/ena5p/\">https://osf.io/ena5p/</a>.</li>\n"
+"</ul>\n"
+"<p>&nbsp;</p>"
+msgstr ""
+
+msgid ""
+"<p><span style=\"font-weight: 400;\">The issue of data retention should be consi"
+"dered early in the research lifecycle. &nbsp;Data-retention decisions can be d"
+"riven by external policies (e.g. funding agencies, journal publishers), or by "
+"an understanding of the enduring value of a given set of data.&nbsp;&nbsp;</sp"
+"an></p>\n"
+"<p><span style=\"font-weight: 400;\">If you need assistance locating a suitable "
+"data repository or archive, please contact </span><a href=\"mailto:research.dat"
+"a@ubc.ca\" target=\"_blank\" rel=\"noopener\"><span style=\"font-weight: 400;\">resea"
+"rch.data@ubc.ca</span></a><span style=\"font-weight: 400;\"> or your </span><a h"
+"ref=\"http://directory.library.ubc.ca/subjectlibrarians/\" target=\"_blank\" rel=\""
+"noopener\"><span style=\"font-weight: 400;\">subject librarian</span></a></p>\n"
+"<p>Data deposited in the <a href=\"https://researchdata.library.ubc.ca/deposit/"
+"\">UBC Library repositories</a> is automatically preserved.</p>"
 msgstr ""
 
 msgid ""
@@ -15241,28 +15810,113 @@ msgid ""
 msgstr ""
 
 msgid ""
+"<p>Identify one of the <a href=\"https://researchdata.library.ubc.ca/deposit/\">"
+"UBC data repositories</a> or a subject repository to archive your data, if app"
+"licable.</p>\n"
+"<ul>\n"
+"<li>Ensure that a repository assigns permanent identifiers to datasets (e.g., "
+"DOI or handles) to enhance discoverability, accessibility, and citability. UBC"
+" data repositories do!</li>\n"
+"</ul>\n"
+"<p>Describe how you will ensure file integrity, anonymization and de-identific"
+"ation.&nbsp;</p>"
+msgstr ""
+
+msgid ""
+"<p><span style=\"font-weight: 400;\">Licenses determine what uses can be made of"
+" your data. Funding agencies and/or data repositories may have end-user licens"
+"e requirements in place; if not, they may still be able to guide you in the de"
+"velopment of a license. Once created, do include a copy of your end-user licen"
+"se with your Data Management Plan. &nbsp;Note that only the intellectual prope"
+"rty rights-holder(s) can issue a license, so it is crucial to clarify who owns"
+" those rights.</span></p>\n"
+"<p><span style=\"font-weight: 400;\">There are several types of standard license"
+"s available to researchers, such as the </span><a href=\"http://creativecommons"
+".org/choose/\" target=\"_blank\" rel=\"noopener\"><span style=\"font-weight: 400;\">C"
+"reative Commons licenses</span></a><span style=\"font-weight: 400;\"> and the </"
+"span><a href=\"http://opendatacommons.org/licenses/\" target=\"_blank\" rel=\"noope"
+"ner\"><span style=\"font-weight: 400;\">Open Data Commons licenses.</span></a><sp"
+"an style=\"font-weight: 400;\"> In fact, for most datasets, it is easier to use "
+"a standard license rather than to devise a custom-made one. Note that even if "
+"you choose to make your data part of the public domain, it is preferable to ma"
+"ke this explicit by using a license such as </span><a href=\"https://creativeco"
+"mmons.org/choose/zero/\" target=\"_blank\" rel=\"noopener\"><span style=\"font-weigh"
+"t: 400;\">Creative Commons&rsquo; CC0</span></a><span style=\"font-weight: 400;\""
+">.</span></p>\n"
+"<p><span style=\"font-weight: 400;\">Read more about data licensing: UBC Library"
+" </span><a href=\"http://researchdata.library.ubc.ca/share/license-your-data/\" "
+"target=\"_blank\" rel=\"noopener\"><span style=\"font-weight: 400;\">Research Data M"
+"anagement Website</span></a></p>"
+msgstr ""
+
+msgid ""
+"<p><span style=\"font-weight: 400;\">Where you share your data depends on the co"
+"mplexity and size of your data. Smaller, low-risk datasets can be shared via i"
+"nstitutional or disciplinary repositories and project websites. Larger dataset"
+"s or datasets with more stringent security requirements cannot be easily trans"
+"ferred over the Internet. Read more about sharing data at the UBC Library</spa"
+"n><a href=\"https://researchdata.library.ubc.ca/deposit/\" target=\"_blank\" rel=\""
+"noopener\"> <span style=\"font-weight: 400;\">Research Data Website</span></a></p"
+">\n"
+"<p><span style=\"font-weight: 400;\">Researchers at UBC can deposit datasets in&"
+"nbsp;<a href=\"https://dataverse.scholarsportal.info/dataverse/ubc\" target=\"_bl"
+"ank\" rel=\"noopener\">UBC Dataverse</a> Collection </span><span style=\"font-weig"
+"ht: 400;\">(and get a DOI) for complex data formats such as those produced by S"
+"PSS, R or SAS, or</span> <span style=\"font-weight: 400;\">even for basic data f"
+"ormats such as Excel. For large datasets, please contact </span><a href=\"mailt"
+"o:research.data@ubc.ca\" target=\"_blank\" rel=\"noopener\"><span style=\"font-weigh"
+"t: 400;\">research.data@ubc.ca</span></a></p>"
+msgstr ""
+
+msgid ""
+"<p><span style=\"font-weight: 400;\">Your data management plan has identified im"
+"portant data activities in your project. Identify who will be responsible -- i"
+"ndividuals or organizations -- for carrying out these parts of your data manag"
+"ement plan. This could also include the time frame associated with these staff"
+" responsibilities and any training needed to prepare staff for these duties.</"
+"span></p>\n"
+"<ul>\n"
+"<li>List their tasks, the time frame associated with them, and any training th"
+"at will be provided.</li>\n"
+"</ul>\n"
+"<p>&nbsp;</p>"
+msgstr ""
+
+msgid ""
 "<p><span style=\"font-weight: 400;\">Consider where, how, and to whom sensitive "
 "data with acknowledged long-term value should be made available, and how long "
-"it should be archived. These decisions should align with Research Ethics Board"
-" requirements. The methods used to share data will be dependent on a number of"
-" factors such as the type, size, complexity and degree of sensitivity of data."
-" Outline problems anticipated in sharing data, along with causes and possible "
-"measures to mitigate these. Problems may include confidentiality, lack of cons"
-"ent agreements, or concerns about Intellectual Property Rights, among others. "
-"In some instances, an embargo period may be justified; these may be defined by"
-" a funding agency&rsquo;s policy on research data.</span></p>\n"
-"<p><span style=\"font-weight: 400;\">&nbsp;Sharing sensitive data via email and "
-"cloud storage services such as Dropbox is not recommended, since the security "
-"of these services cannot be trusted. Read more about security at the UBC Libra"
-"ry</span><a href=\"http://researchdata.library.ubc.ca/plan/protect-your-data/\" "
-"target=\"_blank\"> <span style=\"font-weight: 400;\">Research Data Website</span><"
-"/a></p>\n"
+"it should be archived. These decisions should align with <a href=\"https://ethi"
+"cs.research.ubc.ca/\">Research Ethics Board</a> requirements. The methods used "
+"to share data will be dependent on a number of factors such as the type, size,"
+" complexity and degree of sensitivity of data. Outline problems anticipated in"
+" sharing data, along with causes and possible measures to mitigate these. Prob"
+"lems may include confidentiality, lack of consent agreements, or concerns abou"
+"t Intellectual Property Rights, among others. In some instances, an embargo pe"
+"riod may be justified; these may be defined by a funding agency&rsquo;s policy"
+" on research data.</span></p>\n"
+"<p><span style=\"font-weight: 400;\">Sharing sensitive data via email and cloud "
+"storage services such as Dropbox is not recommended, since the security of the"
+"se services cannot be trusted. Read more about data security at the <a href=\"h"
+"ttps://arc.ubc.ca/arc-research-cybersecurity-and-privacy-services\">UBC ARC web"
+"site</a>.</span></p>\n"
 "<p><span style=\"font-weight: 400;\">Restrictions can be imposed by limiting phy"
 "sical access to storage devices, by placing data on computers that do not have"
 " external network access (i.e. access to the Internet), through password prote"
 "ction, and by </span><a href=\"https://it.ubc.ca/services/security/encryption-s"
-"ervices\" target=\"_blank\"><span style=\"font-weight: 400;\">encrypting </span></a"
-"><span style=\"font-weight: 400;\">files. </span></p>"
+"ervices\" target=\"_blank\" rel=\"noopener\"><span style=\"font-weight: 400;\">encryp"
+"ting </span></a><span style=\"font-weight: 400;\">files. </span></p>"
+msgstr ""
+
+msgid ""
+"<p><span style=\"font-weight: 400;\">Obtaining the appropriate consent from rese"
+"arch participants is an important step in assuring Research Ethics Boards that"
+" the data may be shared with researchers outside your project. The consent sta"
+"tement may identify certain conditions clarifying the uses of the data by othe"
+"r researchers. For example, it may stipulate that the data will only be shared"
+" for non-profit research purposes or that the data will not be linked with per"
+"sonally identified data from other sources. &nbsp;Read more about data securit"
+"y at the <a href=\"https://arc.ubc.ca/arc-research-cybersecurity-and-privacy-se"
+"rvices\">UBC ARC website</a>.&nbsp;</span></p>"
 msgstr ""
 
 msgid ""
@@ -29333,13 +29987,463 @@ msgid ""
 "IH) National Institutes of Health.</p>"
 msgstr ""
 
-#: ../../app/controllers/answers_controller.rb:25
+msgid ""
+"<p>The DMP Assistant is intended for DMPs up to Protected B.&nbsp; For more in"
+"formation on the security categorization of information, see the <a href=\"http"
+"s://myzone-mazone.nrc-cnrc.gc.ca/en/services/access-information-privacy/inform"
+"ation-security-guide\">NRC Information Security Guide</a>.</p>"
+msgstr ""
+
+msgid ""
+"<p>Choose an individual involved in the project that could answer questions ab"
+"out the DMP.&nbsp; Include their name and email address.</p>"
+msgstr ""
+
+msgid ""
+"<p>List all collaborating organizations involved in the research project and p"
+"rovide their ROR iDs (if available).&nbsp; Use the <a href=\"https://ror.org/se"
+"arch\">ROR registry search</a> to find organizations&rsquo; ROR iDs.</p>\n"
+"<p>The NRC&rsquo;s ROR iD is <a href=\"https://ror.org/04mte1k06\">https://ror.o"
+"rg/04mte1k06</a>.</p>"
+msgstr ""
+
+msgid ""
+"<p>Consider how the legal requirements or policies of external partners intera"
+"ct with Government of Canada requirements.&nbsp; For more information, see <a "
+"href=\"https://myzone-mazone.nrc-cnrc.gc.ca/en/services/information-management/"
+"data-management/research-collaboration-data-management-checklist\">Research Col"
+"laboration: Data Management Checklist</a>.</p>\n"
+"<p>This was taken from the <a href=\"https://myzone-mazone.nrc-cnrc.gc.ca/en/se"
+"rvices/information-management/data-management/research-collaboration-data-mana"
+"gement-checklist\">Research Collaboration: Data Management Checklist</a>.</p>"
+msgstr ""
+
+msgid ""
+"<p>Describe and estimate the cost (in CAD) of resources that will be required "
+"for data management in the short and long-term.&nbsp; For example, consider st"
+"orage during and after the project or additional security measures.</p>"
+msgstr ""
+
+msgid ""
+"<p>All research involving human participants conducted by/with the NRC should "
+"comply with the <a href=\"https://nrc.canada.ca/en/corporate/values-ethics/rese"
+"arch-involving-human-participants/nrc-policy-research-involving-human-particip"
+"ants\">NRC Policy for Research Involved Human Participants</a> and shall be car"
+"ried about with the approval of the NRC&rsquo;s <a href=\"https://nrc.canada.ca"
+"/en/corporate/values-ethics/research-involving-human-participants/research-eth"
+"ics-board\">Research Ethics Board</a>.</p>"
+msgstr ""
+
+msgid ""
+"<p>Ethical issues can affect how data are stored, transferred, who can see/use"
+" them and how long they are kept.&nbsp; Be aware of these considerations and p"
+"lan accordingly.</p>"
+msgstr ""
+
+msgid ""
+"<p>Personal information is &ldquo;information about an identifiable individual"
+" that is recorded in any form&hellip;&rdquo; <a href=\"https://laws-lois.justic"
+"e.gc.ca/eng/acts/P-21/page-1.html#h-397182\">(<em>Privacy Act</em>, section 3)<"
+"/a>.</p>\n"
+"<p>A Privacy Impact Assessment (PIA) is required when collecting personal info"
+"rmation to comply with the <em><a href=\"https://laws-lois.justice.gc.ca/eng/ac"
+"ts/P-21/\">Privacy Act</a></em>.&nbsp; For more information, see the <a href=\"h"
+"ttps://myzone-mazone.nrc-cnrc.gc.ca/en/work-tools/policies-directives-guidelin"
+"es-standards/directives-standards/privacy-impact-assessments-pias\">NRC&rsquo;s"
+" guidance on Privacy Impact Assessments</a>.</p>"
+msgstr ""
+
+msgid ""
+"<p>In line with the concept of Indigenous self-determination and in an effort "
+"to support Indigenous communities to conduct research and partner with the bro"
+"ader research community, data related to research by and with the First Nation"
+"s, M&eacute;tis, or Inuit whose traditional and ancestral territories are in C"
+"anada must be managed in accordance with data management principles developed "
+"and approved by these communities, and on the basis of free, prior and informe"
+"d consent. This includes, but is not limited to, considerations of Indigenous "
+"data sovereignty, as well as data collection, ownership, protection, use, and "
+"sharing.</p>\n"
+"<p>The principles of <a href=\"https://fnigc.ca/ocap-training/\">Ownership, Cont"
+"rol, Access and Possession (OCAP&reg;)</a> are one model for First Nations dat"
+"a governance, but this model does not necessarily respond to the needs and val"
+"ues of distinct First Nations, M&eacute;tis, and Inuit communities, collective"
+"s and organizations. A distinctions-based approach is needed to ensure that th"
+"e unique rights, interests and circumstances of the First Nations, M&eacute;ti"
+"s and Inuit are acknowledged, affirmed, and implemented.</p>\n"
+"<p>For more information, see <a href=\"https://myzone-mazone.nrc-cnrc.gc.ca/en/"
+"employee-resources/equity-diversity-inclusion/indigenous-engagement-nrc\">Indig"
+"enous Engagement at the NRC</a>.</p>"
+msgstr ""
+
+msgid ""
+"<p>For more information on the security categorization of data, see the <a hre"
+"f=\"https://myzone-mazone.nrc-cnrc.gc.ca/en/services/access-information-privacy"
+"/information-security-guide\">NRC Information Security Guide</a>.</p>"
+msgstr ""
+
+msgid ""
+"<p>A statement of sensitivity (SOS) is a guided assessment of the confidential"
+"ity, integrity and availability requirements of an IT system or function.&nbsp"
+"; Complete an SOS with support from&nbsp;<a href=\"mailto:NRC.SS-RiskManagement"
+"-SdeS-GestionRisque.CNRC@nrc-cnrc.gc.ca\">risk management analysts</a>&nbsp;as "
+"required.</p>"
+msgstr ""
+
+msgid ""
+"<p>NRC is mandated to maintain positive control of its sensitive inventory, in"
+"cluding all controlled goods and ITAR goods and technologies held by NRC (incl"
+"uding data).&nbsp; For more information, see the <a href=\"https://myzone-mazon"
+"e.nrc-cnrc.gc.ca/en/health-safety-security/controlled-goods/nrc-controlled-goo"
+"ds-policy\">NRC Controlled Goods Policy</a>.</p>"
+msgstr ""
+
+msgid ""
+"<p>Collaborators entering into arrangements, particularly regarding publicatio"
+"n, should be aware of expectations, obligations, rights and roles of all parti"
+"es with respect to data release. A clear understanding of how the data will be"
+" distributed and shared should be established in the early stages of collabora"
+"tion.</p>"
+msgstr ""
+
+msgid ""
+"<p>Before research is initiated, it is important to determine who owns the dat"
+"a.&nbsp; This information will help determine how the data can be managed.</p>"
+msgstr ""
+
+msgid ""
+"<p>For more information about&nbsp;<a href=\"https://myzone-mazone.nrc-cnrc.gc."
+"ca/en/services/business-management/intellectual-property-ip/about-intellectual"
+"-property\">intellectual property</a>&nbsp;planning, please contact the&nbsp;<a"
+" href=\"https://myzone-mazone.nrc-cnrc.gc.ca/en/about-nrc/branches/national-pro"
+"grams-business-services/business-services/intellectual-property-ip-support-tea"
+"m-research-centres-contact-list\">Intellectual Property Support Team</a>.</p>"
+msgstr ""
+
+msgid ""
+"<p>Proprietary file formats requiring specialized software or hardware to use "
+"are not recommended, but may be necessary for certain data collection or analy"
+"sis methods. Using open file formats or industry-standard formats (e.g. those "
+"widely used by a given community) is preferred whenever possible.</p>\n"
+"<p>Lists of recommended file formats are available through the <a href=\"https:"
+"//ukdataservice.ac.uk/learning-hub/research-data-management/format-your-data/r"
+"ecommended-formats/\">UK Data Service</a> and <a href=\"https://www.banq.qc.ca/d"
+"ocuments/archives/archivistique_gestion/publications_proposees/Guide-formats-B"
+"AnQ_Final.pdf\">Biblioth&egrave;que et Archives nationales du Qu&eacute;bec</a>"
+" (French only).</p>"
+msgstr ""
+
+msgid ""
+"<p>Using existing data may have an impact on how your data are managed.&nbsp; "
+"Make sure you comply with the data&rsquo;s conditions of access and use, and r"
+"emember to cite the data in your publications.</p>"
+msgstr ""
+
+msgid ""
+"<p>Include any software and/or platforms that will be used for data collection"
+".</p>"
+msgstr ""
+
+msgid ""
+"<p>It is important to keep track of different copies or versions, formats and "
+"locations of files.&nbsp; Logical file structures, informative naming conventi"
+"ons and clear indications of file versions all contribute to better use of you"
+"r data during and after your research project.&nbsp; These practices will help"
+" ensure that you and your research team are using the appropriate version of y"
+"our data, and minimize confusion regarding copies on different computers and/o"
+"r on different media.</p>\n"
+"<p>For more information, see <a href=\"https://myzone-mazone.nrc-cnrc.gc.ca/en/"
+"services/information-management/using-naming-conventions-organize-your-informa"
+"tion\">Using Naming Conventions to Organize Your Information</a> and <a href=\"h"
+"ttps://myzone-mazone.nrc-cnrc.gc.ca/en/services/information-management/organiz"
+"ing-your-information-resources\">Organizing Your Information Resources</a>.</p>"
+msgstr ""
+
+msgid ""
+"<p>This may include information on the methodology used to collect the data; a"
+"nalytical and procedural information; definitions of variables; units of measu"
+"rement; any assumptions made; format and file types; and software used to coll"
+"ect and/or process the data.&nbsp; Consider how you will capture this informat"
+"ion and where it will be recorded (e.g. in a database, in a readme file, etc.)"
+".</p>"
+msgstr ""
+
+msgid ""
+"<p>Detailed metadata describing data and datasets can help make data FAIR (fin"
+"dable, accessible, interoperable and reusable).&nbsp; It is a best practice to"
+" apply discipline-specific metadata standards and/or metadata that are commonl"
+"y used in your field (e.g. Data Documentation Initiative, Darwin Core, etc.).<"
+"/p>\n"
+"<p>Directories of metadata standards are available through the <a href=\"http:/"
+"/rd-alliance.github.io/metadata-directory/standards/\">Research Data Alliance</"
+"a> and&nbsp;<a href=\"https://fairsharing.org/\">FAIRsharing</a>.</p>\n"
+"<p>&nbsp;</p>\n"
+"<p>&nbsp;</p>\n"
+"<p>&nbsp;</p>"
+msgstr ""
+
+msgid ""
+"<p>Storage-space estimates should take into account requirements for file vers"
+"ioning, backups, and growth over time.&nbsp; Also include storage consideratio"
+"ns for hardcopy notebooks and physical samples.</p>\n"
+"<p>Contact the <a href=\"mailto:NRC.ClientServiceCentre-Centredeservicesalaclie"
+"ntele.CNRC@nrc-cnrc.gc.ca\">Client Service Centre</a> for more information abou"
+"t storage solutions.</p>"
+msgstr ""
+
+msgid ""
+"<p>Please note that once a research project is complete, new storage arrangeme"
+"nts may need to be found. &nbsp;Questions related to post-project data storage"
+" are located in the Preservation section of this DMP.</p>\n"
+"<p>Contact the <a href=\"mailto:NRC.ClientServiceCentre-Centredeservicesalaclie"
+"ntele.CNRC@nrc-cnrc.gc.ca\">Client Service Centre</a> for more information abou"
+"t storage solutions.</p>"
+msgstr ""
+
+msgid ""
+"<p><em>Storing data </em><em>on laptops, computer hard drives or external stor"
+"age devices alone is very risky. The use of robust, managed storage is prefera"
+"ble. &nbsp;Each storage method has benefits and drawbacks that should be consi"
+"dered when determining the most appropriate storage solution for project data."
+"&nbsp; Ensure the storage you select does not conflict with the ethical and le"
+"gal requirements of your data.</em></p>\n"
+"<p><em>Contact the</em><em>&nbsp;<a href=\"mailto:NRC.ClientServiceCentre-Centr"
+"edeservicesalaclientele.CNRC@nrc-cnrc.gc.ca\">Client Service Centre</a></em><em"
+">&nbsp;for more information about storage solutions.</em></p>"
+msgstr ""
+
+msgid ""
+"<p>All NRC employees are responsible for protecting sensitive NRC information "
+"(personal data, intellectual property, classified information, etc.) in accord"
+"ance with the requirements of the <a href=\"https://myzone-mazone.nrc-cnrc.gc.c"
+"a/en/services/access-information-privacy/information-security-guide\">NRC Infor"
+"mation Security Guide</a>.&nbsp; The security measures implemented will depend"
+" on the sensitivity of the data being stored. Data can be protected by limitin"
+"g physical access to hard drives and file servers, storing data on computers t"
+"hat do not have external network access, password protection and encrypting da"
+"ta files.</p>"
+msgstr ""
+
+msgid ""
+"<p>An ideal solution is one that facilitates co-operation and ensures data sec"
+"urity.</p>"
+msgstr ""
+
+msgid ""
+"<p>The risk of losing data due to human error, natural disasters or other mish"
+"aps can be mitigated by following the 3-2-1 backup rule: 3 copies of your data"
+", on 2 different storage media, with 1 located offsite.&nbsp; It is also recom"
+"mended that you use software that will automatically backup your data and keep"
+" it synchronized with a master copy.</p>"
+msgstr ""
+
+msgid ""
+"<p>Consider preservation-friendly file formats, ensuring file integrity, anony"
+"mization and de-identification, and inclusion of supporting documentation.&nbs"
+"p; Please note that some data formats are optimal for long-term preservation o"
+"f data.&nbsp; Lists of recommended file formats are available through the <a h"
+"ref=\"https://ukdataservice.ac.uk/learning-hub/research-data-management/format-"
+"your-data/recommended-formats/\">UK Data Service</a> and <a href=\"https://www.b"
+"anq.qc.ca/documents/archives/archivistique_gestion/publications_proposees/Guid"
+"e-formats-BAnQ_Final.pdf\">Biblioth&egrave;que et Archives nationales du Qu&eac"
+"ute;bec</a> (French only). &nbsp;If you choose to convert your file formats, i"
+"t is recommended that you document any changes made as some information could "
+"be lost during the conversion process.</p>"
+msgstr ""
+
+msgid ""
+"<p>Reasons for not sharing data may include a variety of different restriction"
+"s (e.g. the data contains personal information, intellectual property, contrac"
+"tual agreements, security concerns, etc.).&nbsp; It is also important to consi"
+"der the value of opening the data in terms of its potential for reuse and the "
+"amount of time and effort required to make them available.&nbsp; Keep in mind "
+"that it may still be possible to share only a portion of your project data if "
+"restrictions do exist.&nbsp; For more information on sharing data, see the NRC"
+"&rsquo;s Open Science Toolkit.</p>\n"
+"<p><strong>Note: If you cannot share your data, it is not necessary to fill ou"
+"t the remaining questions in this section.</strong></p>"
+msgstr ""
+
+msgid ""
+"<p>Where you choose to share you data will depend on your discipline and data "
+"type.&nbsp; Look for a repository that supports persistent identifiers and cat"
+"ers to your data&rsquo;s needs (e.g. file type, licence, metadata, etc.).</p>"
+msgstr ""
+
+msgid ""
+"<p>Remember to comply with your selected repository&rsquo;s requirements (e.g."
+" file size, file type, etc.). Ensure your data are well structured with detail"
+"ed metadata, provide supporting documentation and use open, non-proprietary fi"
+"le formats whenever possible. If you are releasing sensitive data, de-identify"
+" them using an appropriate method.&nbsp; As a general rule, it is best to incl"
+"ude enough information to allow others to understand and reuse your data.</p>"
+msgstr ""
+
+msgid ""
+"<p>If data access is limited to a specific group, provide information on how t"
+"o gain access to the data (e.g. contact information, access terms, etc.).</p>"
+msgstr ""
+
+msgid ""
+"<p>Data licences help communicate your wishes to future data users.&nbsp; It i"
+"s important to clearly identify the licence (including the licence version num"
+"ber) in the metadata of your dataset.&nbsp; If possible, select a licence that"
+" is widely recognized (e.g. <a href=\"https://creativecommons.org/about/program"
+"-areas/open-data/\">Creative Commons</a>).</p>"
+msgstr ""
+
+msgid ""
+"<p>During the project, upon project completion, etc.&nbsp; Provide an approxim"
+"ate date if possible.</p>"
+msgstr ""
+
+msgid "<p>example</p>"
+msgstr ""
+
+msgid "<p>guidance</p>"
+msgstr ""
+
+msgid "<p>this is an example answer</p>"
+msgstr ""
+
+msgid "<p>this is guidance around the question!</p>"
+msgstr ""
+
+msgid ""
+"<p><span style=\"font-weight: 400;\">Proprietary file formats requiring speciali"
+"zed software or hardware to use are not recommended, but may be necessary for "
+"certain data collection or analysis methods. Using open file formats or indust"
+"ry-standard formats (e.g. those widely used by a given community) is preferred"
+" whenever possible.</span><br /><a href=\"https://libguides.uvic.ca/researchdat"
+"a/planning/bestpractices#s-lg-box-16490811\" target=\"_blank\" rel=\"noopener\"><sp"
+"an style=\"font-weight: 400;\">Read more about file formats</span></a><span styl"
+"e=\"font-weight: 400;\">.</span></p>"
+msgstr ""
+
+msgid ""
+"<p><span style=\"font-weight: 400;\">It is important to keep track of different "
+"copies or versions of files, files held in different formats or locations, and"
+" information cross-referenced between files. This process is called 'version c"
+"ontrol'.</span></p>\n"
+"<p><span style=\"font-weight: 400;\">Logical file structures, informative naming"
+" conventions, and clear indications of file versions, all contribute to better"
+" use of your data during and after your research project. &nbsp;These practice"
+"s will help ensure that you and your research team are using the appropriate v"
+"ersion of your data, and minimize confusion regarding copies on different comp"
+"uters and/or on different media.</span><br /><a href=\"https://libguides.uvic.c"
+"a/researchdata/planning/bestpractices#s-lg-box-15760185\" target=\"_blank\" rel=\""
+"noopener\"><span style=\"font-weight: 400;\">Read more about file naming and vers"
+"ion control</span></a><span style=\"font-weight: 400;\">.</span></p>"
+msgstr ""
+
+msgid ""
+"<p><span style=\"font-weight: 400;\">Typically, good documentation includes info"
+"rmation about the study, data-level descriptions, and any other contextual inf"
+"ormation required to make the data usable by other researchers. Other elements"
+" you should document, as applicable, include: research methodology used, varia"
+"ble definitions, vocabularies, classification systems, units of measurement, a"
+"ssumptions made in collecting or analyzing the data, format and file type of t"
+"he data, a description of the data capture and collection methods, explanation"
+" of data coding and analysis performed (including syntax files), and details o"
+"f who has worked on the project and performed each task.</span></p>\n"
+"<p><a href=\"https://libguides.uvic.ca/researchdata/planning/bestpractices#s-lg"
+"-box-16490810\" target=\"_blank\" rel=\"noopener\"><span style=\"font-weight: 400;\">"
+"Read more about documentation</span></a><span style=\"font-weight: 400;\">.</spa"
+"n></p>"
+msgstr ""
+
+msgid ""
+"<p><span style=\"font-weight: 400;\">There are many general and domain-specific "
+"metadata standards. Datasets should be described with one of these standard, m"
+"achine readable, openly-accessible formats to enable the effective exchange of"
+" information between users and systems. These standards are often based on lan"
+"guage-independent data formats such as XML, RDF, and JSON. </span></p>\n"
+"<p><a href=\"https://libguides.uvic.ca/researchdata/planning/bestpractices#s-lg"
+"-box-16490812\" target=\"_blank\" rel=\"noopener\"><span style=\"font-weight: 400;\">"
+"Read more about metadata standards</span></a><span style=\"font-weight: 400;\">."
+"</span></p>"
+msgstr ""
+
+msgid ""
+"<p><span style=\"font-weight: 400;\">The issue of data retention and storage sho"
+"uld be considered early in the research lifecycle. These decisions can be driv"
+"en by institutional or external policies (e.g. funding agencies, journal publi"
+"shers), or by an understanding of the enduring value of a given set of data, w"
+"hich may influence the choice of data repository. </span></p>\n"
+"<p><span style=\"font-weight: 400;\">UVic Libraries provides access to two insti"
+"tutional repositories, </span><a href=\"https://libguides.uvic.ca/researchdata/"
+"dataverse\" target=\"_blank\" rel=\"noopener\"><span style=\"font-weight: 400;\">Data"
+"verse</span></a><span style=\"font-weight: 400;\"> and </span><a href=\"https://d"
+"space.library.uvic.ca/\" target=\"_blank\" rel=\"noopener\"><span style=\"font-weigh"
+"t: 400;\">UVicSpace</span></a><span style=\"font-weight: 400;\">, either of which"
+" may be suitable depending on your type of data.</span></p>\n"
+"<p><span style=\"font-weight: 400;\">Various domain-</span><span style=\"font-wei"
+"ght: 400;\">specific</span><span style=\"font-weight: 400;\"> repositories also e"
+"xist for depositing research data, which may be preferable.</span></p>\n"
+"<p><span style=\"font-weight: 400;\">For assistance locating a suitable data rep"
+"ository or archive, please contact </span><a href=\"mailto:researchdata@uvic.ca"
+"\" target=\"_blank\" rel=\"noopener\">UVic Libraries (researchdata@uvic.ca)</a><spa"
+"n style=\"font-weight: 400;\">.</span></p>"
+msgstr ""
+
+msgid ""
+"<p><span style=\"font-weight: 400;\">Some data formats are optimal for long-term"
+" preservation of data. For example, non-proprietary file formats, such as text"
+" ('.txt') and comma-separated ('.csv'), are considered preservation-friendly. "
+"Keep in mind that preservation-friendly files converted from one format to ano"
+"ther may lose information (e.g. converting from an uncompressed TIFF file to a"
+" compressed JPG file), so changes to file formats should be documented. </span"
+"></p>\n"
+"<p><a href=\"https://libguides.uvic.ca/researchdata/planning/bestpractices#s-lg"
+"-box-16490811\" target=\"_blank\" rel=\"noopener\"><span style=\"font-weight: 400;\">"
+"Read more about file formats</span></a><span style=\"font-weight: 400;\">.</span"
+"></p>"
+msgstr ""
+
+msgid ""
+"<p><span style=\"font-weight: 400;\">Licenses determine what uses can be made of"
+" your data. Funding agencies and/or data repositories may have end-user licens"
+"e requirements in place; if not, they may still be able to guide you in the de"
+"velopment of a license. Once created, please consider including a copy of your"
+" end-user license with your Data Management Plan. Note that only the intellect"
+"ual property rights holder(s) can issue a license, so it is crucial to clarify"
+" who owns those rights.</span></p>\n"
+"<p><span style=\"font-weight: 400;\">There are several types of standard license"
+"s available to researchers, such as the </span><a href=\"http://creativecommons"
+".org/choose/\" target=\"_blank\" rel=\"noopener\"><span style=\"font-weight: 400;\">C"
+"reative Commons licenses</span></a><span style=\"font-weight: 400;\"> and the </"
+"span><a href=\"http://opendatacommons.org/licenses/\" target=\"_blank\" rel=\"noope"
+"ner\"><span style=\"font-weight: 400;\">Open Data Commons licenses</span></a><spa"
+"n style=\"font-weight: 400;\">. In fact, for most datasets it is easier to use a"
+" standard license rather than to devise a custom-made one. Note that even if y"
+"ou choose to make your data part of the public domain, it is preferable to mak"
+"e this explicit by using a license such as Creative Commons' CC0.</span><br />"
+"<a href=\"https://libguides.uvic.ca/researchdata/depositdata/licenses\" target=\""
+"_blank\" rel=\"noopener\"><span style=\"font-weight: 400;\">Read more about data li"
+"censing</span></a><span style=\"font-weight: 400;\">.</span></p>"
+msgstr ""
+
+msgid ""
+"<p><span style=\"font-weight: 400;\">Possibilities include: data registries, rep"
+"ositories, indexes, word-of-mouth, publications.</span></p>\n"
+"<p><span style=\"font-weight: 400;\">How will the data be accessed (Web service,"
+" ftp, etc.)? If possible, choose a repository that will assign a persistent id"
+"entifier (such as a DOI) to your dataset. This will ensure a stable access to "
+"the dataset and make it retrievable by various discovery tools.</span></p>\n"
+"<p><span style=\"font-weight: 400;\">One of the best ways to refer other researc"
+"hers to your deposited datasets is to cite them the same way you cite other ty"
+"pes of publications (articles, books, proceedings).</span></p>"
+msgstr ""
+
+msgid "<p>test guidance</p>"
+msgstr ""
+
+#: ../../app/controllers/answers_controller.rb:27
 msgid ""
 "There is no question with id %{question_id} associated to plan id %{plan_id} f"
 "or which to create or update an answer"
 msgstr ""
 
-#: ../../app/controllers/answers_controller.rb:33
+#: ../../app/controllers/answers_controller.rb:35
 msgid "There is no plan with id %{id} for which to create or update an answer"
 msgstr ""
 
@@ -29385,7 +30489,6 @@ msgid "users_joined"
 msgstr ""
 
 #: ../../app/controllers/api/v0/statistics_controller.rb:89
-#: ../../app/controllers/usage_controller.rb:119
 msgid "No. Completed Plans"
 msgstr ""
 
@@ -29563,11 +30666,13 @@ msgstr ""
 #: ../../app/controllers/contributors_controller.rb:40
 #: ../../app/controllers/contributors_controller.rb:56
 #: ../../app/controllers/research_outputs_controller.rb:42
+#: ../../app/controllers/research_outputs_controller_modified.rb:42
 msgid "add"
 msgstr ""
 
 #: ../../app/controllers/contributors_controller.rb:54
 #: ../../app/controllers/research_outputs_controller.rb:40
+#: ../../app/controllers/research_outputs_controller_modified.rb:40
 msgid "added"
 msgstr ""
 
@@ -29579,13 +30684,14 @@ msgstr ""
 #: ../../app/controllers/org_admin/sections_controller.rb:103
 #: ../../app/controllers/org_admin/templates_controller.rb:204
 #: ../../app/controllers/orgs_controller.rb:92
+#: ../../app/controllers/plans_controller.rb:282
 #: ../../app/controllers/plans_controller.rb:285
-#: ../../app/controllers/plans_controller.rb:288
 #: ../../app/controllers/registrations_controller.rb:249
 #: ../../app/controllers/registrations_controller.rb:253
 #: ../../app/controllers/registrations_controller.rb:280
 #: ../../app/controllers/registrations_controller.rb:284
 #: ../../app/controllers/research_outputs_controller.rb:60
+#: ../../app/controllers/research_outputs_controller_modified.rb:60
 #: ../../app/controllers/users_controller.rb:101
 #: ../../app/controllers/users_controller.rb:129
 msgid "saved"
@@ -29599,13 +30705,14 @@ msgstr ""
 #: ../../app/controllers/org_admin/sections_controller.rb:105
 #: ../../app/controllers/org_admin/templates_controller.rb:209
 #: ../../app/controllers/orgs_controller.rb:94
+#: ../../app/controllers/plans_controller.rb:291
 #: ../../app/controllers/plans_controller.rb:294
-#: ../../app/controllers/plans_controller.rb:297
+#: ../../app/controllers/plans_controller.rb:298
 #: ../../app/controllers/plans_controller.rb:301
-#: ../../app/controllers/plans_controller.rb:304
 #: ../../app/controllers/registrations_controller.rb:256
 #: ../../app/controllers/registrations_controller.rb:287
 #: ../../app/controllers/research_outputs_controller.rb:63
+#: ../../app/controllers/research_outputs_controller_modified.rb:63
 msgid "save"
 msgstr ""
 
@@ -29613,6 +30720,7 @@ msgstr ""
 #: ../../app/controllers/notes_controller.rb:131
 #: ../../app/controllers/org_admin/templates_controller.rb:237
 #: ../../app/controllers/research_outputs_controller.rb:74
+#: ../../app/controllers/research_outputs_controller_modified.rb:74
 #: ../../app/controllers/super_admin/orgs_controller.rb:94
 msgid "removed"
 msgstr ""
@@ -29621,12 +30729,14 @@ msgstr ""
 #: ../../app/controllers/notes_controller.rb:149
 #: ../../app/controllers/org_admin/templates_controller.rb:239
 #: ../../app/controllers/research_outputs_controller.rb:77
+#: ../../app/controllers/research_outputs_controller_modified.rb:77
 #: ../../app/controllers/super_admin/orgs_controller.rb:97
 msgid "remove"
 msgstr ""
 
 #: ../../app/controllers/contributors_controller.rb:161
 #: ../../app/controllers/research_outputs_controller.rb:208
+#: ../../app/controllers/research_outputs_controller_modified.rb:221
 msgid "plan not found"
 msgstr ""
 
@@ -29650,7 +30760,7 @@ msgstr ""
 #: ../../app/controllers/org_admin/questions_controller.rb:94
 #: ../../app/controllers/org_admin/sections_controller.rb:79
 #: ../../app/controllers/org_admin/templates_controller.rb:180
-#: ../../app/controllers/plans_controller.rb:122
+#: ../../app/controllers/plans_controller.rb:121
 #: ../../app/controllers/super_admin/api_clients_controller.rb:44
 #: ../../app/controllers/super_admin/notifications_controller.rb:38
 #: ../../app/controllers/super_admin/orgs_controller.rb:61
@@ -29666,7 +30776,7 @@ msgstr ""
 #: ../../app/controllers/org_admin/questions_controller.rb:96
 #: ../../app/controllers/org_admin/sections_controller.rb:86
 #: ../../app/controllers/org_admin/templates_controller.rb:182
-#: ../../app/controllers/plans_controller.rb:153
+#: ../../app/controllers/plans_controller.rb:152
 #: ../../app/controllers/super_admin/api_clients_controller.rb:50
 #: ../../app/controllers/super_admin/notifications_controller.rb:41
 #: ../../app/controllers/super_admin/orgs_controller.rb:64
@@ -29699,7 +30809,7 @@ msgstr ""
 #: ../../app/controllers/org_admin/question_options_controller.rb:24
 #: ../../app/controllers/org_admin/questions_controller.rb:197
 #: ../../app/controllers/org_admin/sections_controller.rb:128
-#: ../../app/controllers/plans_controller.rb:347
+#: ../../app/controllers/plans_controller.rb:344
 #: ../../app/controllers/super_admin/api_clients_controller.rb:81
 #: ../../app/controllers/super_admin/notifications_controller.rb:85
 #: ../../app/controllers/super_admin/themes_controller.rb:51
@@ -29713,7 +30823,7 @@ msgstr ""
 #: ../../app/controllers/org_admin/question_options_controller.rb:26
 #: ../../app/controllers/org_admin/questions_controller.rb:199
 #: ../../app/controllers/org_admin/sections_controller.rb:130
-#: ../../app/controllers/plans_controller.rb:352
+#: ../../app/controllers/plans_controller.rb:349
 #: ../../app/controllers/super_admin/api_clients_controller.rb:84
 #: ../../app/controllers/super_admin/notifications_controller.rb:88
 #: ../../app/controllers/super_admin/themes_controller.rb:54
@@ -29736,6 +30846,14 @@ msgstr ""
 msgid "Unable to unlink your account from %{is}."
 msgstr ""
 
+#: ../../app/controllers/org_admin/phase_versions_controller.rb:14
+msgid "This template is already a draft"
+msgstr ""
+
+#: ../../app/controllers/org_admin/phase_versions_controller.rb:16
+msgid "New version of Template created"
+msgstr ""
+
 #: ../../app/controllers/org_admin/phases_controller.rb:17
 #: ../../app/controllers/org_admin/templates_controller.rb:115
 msgid ""
@@ -29754,7 +30872,7 @@ msgstr ""
 #: ../../app/controllers/org_admin/phases_controller.rb:147
 #: ../../app/controllers/org_admin/questions_controller.rb:166
 #: ../../app/controllers/org_admin/users_controller.rb:30
-#: ../../app/controllers/plans_controller.rb:423
+#: ../../app/controllers/plans_controller.rb:418
 #: ../../app/controllers/super_admin/api_clients_controller.rb:68
 #: ../../app/controllers/super_admin/notifications_controller.rb:52
 #: ../../app/controllers/super_admin/themes_controller.rb:39
@@ -29766,7 +30884,7 @@ msgstr ""
 #: ../../app/controllers/org_admin/phases_controller.rb:149
 #: ../../app/controllers/org_admin/questions_controller.rb:169
 #: ../../app/controllers/org_admin/users_controller.rb:32
-#: ../../app/controllers/plans_controller.rb:426
+#: ../../app/controllers/plans_controller.rb:421
 #: ../../app/controllers/super_admin/api_clients_controller.rb:70
 #: ../../app/controllers/super_admin/notifications_controller.rb:55
 #: ../../app/controllers/super_admin/themes_controller.rb:41
@@ -29808,9 +30926,9 @@ msgstr ""
 
 #: ../../app/controllers/org_admin/plans_controller.rb:58
 #: ../../app/helpers/plans_helper.rb:22
-#: ../../app/helpers/settings_template_helper.rb:15
+#: ../../app/helpers/settings_template_helper.rb:14
 #: ../../app/views/devise/registrations/_password_confirmation.html.erb:22
-#: ../../app/views/orgs/_profile_form.html.erb:155
+#: ../../app/views/orgs/_profile_form.html.erb:156
 #: ../../app/views/paginable/orgs/_index.html.erb:5
 #: ../../app/views/paginable/plans/_index.html.erb:7
 #: ../../app/views/paginable/plans/_org_admin.html.erb:20
@@ -29862,7 +30980,7 @@ msgid "Unable to delete this version of the template."
 msgstr ""
 
 #: ../../app/controllers/org_admin/template_copies_controller.rb:20
-#: ../../app/controllers/plans_controller.rb:402
+#: ../../app/controllers/plans_controller.rb:397
 msgid "copy"
 msgstr ""
 
@@ -29924,74 +31042,74 @@ msgstr ""
 msgid "Your organisation does not seem to be properly configured."
 msgstr ""
 
-#: ../../app/controllers/plan_exports_controller.rb:95
+#: ../../app/controllers/plan_exports_controller.rb:102
 msgid "Created using %{application_name}. Last modified %{date}"
 msgstr ""
 
-#: ../../app/controllers/plan_exports_controller.rb:101
+#: ../../app/controllers/plan_exports_controller.rb:106
 msgid "[page] of [topage]"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:54
+#: ../../app/controllers/plans_controller.rb:53
 msgid "This is a"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:54
+#: ../../app/controllers/plans_controller.rb:53
 msgid "test plan"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:72
+#: ../../app/controllers/plans_controller.rb:71
 msgid "Unable to identify a suitable template for your plan."
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:86
+#: ../../app/controllers/plans_controller.rb:85
 msgid "My Plan"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:88
+#: ../../app/controllers/plans_controller.rb:87
 msgid " Plan"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:126
+#: ../../app/controllers/plans_controller.rb:125
 msgid "This plan is based on the default template."
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:131
-#: ../../app/controllers/plans_controller.rb:135
+#: ../../app/controllers/plans_controller.rb:130
+#: ../../app/controllers/plans_controller.rb:134
 msgid "This plan is based on the"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:131
+#: ../../app/controllers/plans_controller.rb:130
 msgid "template with customisations by the"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:400
+#: ../../app/controllers/plans_controller.rb:395
 msgid "copied"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:431
+#: ../../app/controllers/plans_controller.rb:426
 msgid ""
 "Unable to change the plan's status since it is needed at least %{percentage} p"
 "ercentage responded"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:439
+#: ../../app/controllers/plans_controller.rb:432
 msgid "Unable to find plan id %{plan_id}"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:455
+#: ../../app/controllers/plans_controller.rb:446
 msgid "Your project is now a test."
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:455
+#: ../../app/controllers/plans_controller.rb:446
 msgid "Your project is no longer a test."
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:459
+#: ../../app/controllers/plans_controller.rb:450
 msgid "Unable to change the plan's test status"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:472
+#: ../../app/controllers/plans_controller.rb:463
 msgid "There is no plan associated with id %{<id}>s"
 msgstr ""
 
@@ -30073,6 +31191,7 @@ msgid "Password and comfirmation must match"
 msgstr ""
 
 #: ../../app/controllers/research_outputs_controller.rb:217
+#: ../../app/controllers/research_outputs_controller_modified.rb:230
 msgid "research output not found"
 msgstr ""
 
@@ -30217,6 +31336,10 @@ msgstr ""
 msgid "merge"
 msgstr ""
 
+#: ../../app/controllers/usage_controller.rb:119
+msgid "No. Created Plans"
+msgstr ""
+
 #: ../../app/controllers/users/invitations_controller.rb:33
 msgid ""
 "You are already signed in as another user. Please log out to activate your inv"
@@ -30305,16 +31428,16 @@ msgid "Creators:"
 msgstr ""
 
 #: ../../app/helpers/exports_helper.rb:38
-#: ../../app/models/concerns/exportable_plan.rb:141
-#: ../../app/views/shared/export/_plan_txt.erb:4
+#: ../../app/models/concerns/exportable_plan.rb:140
+#: ../../app/views/shared/export/_plan_txt.erb:5
 msgid "Creator:"
 msgstr ""
 
-#: ../../app/helpers/feedbacks_helper.rb:6
+#: ../../app/helpers/feedbacks_helper.rb:8
 msgid "%{application_name}: Your plan has been submitted for feedback"
 msgstr ""
 
-#: ../../app/helpers/feedbacks_helper.rb:10
+#: ../../app/helpers/feedbacks_helper.rb:12
 msgid ""
 "<p>Hello %{user_name}.</p><p>Your plan \"%{plan_name}\" has been submitted for f"
 "eedback from an\n"
@@ -30443,46 +31566,46 @@ msgstr ""
 msgid "Private: restricted to me and people I invite."
 msgstr ""
 
-#: ../../app/helpers/settings_template_helper.rb:7
-#: ../../app/helpers/settings_template_helper.rb:18
+#: ../../app/helpers/settings_template_helper.rb:6
+#: ../../app/helpers/settings_template_helper.rb:17
 msgid "Unknown column name."
 msgstr ""
 
-#: ../../app/helpers/settings_template_helper.rb:8
+#: ../../app/helpers/settings_template_helper.rb:7
 msgid "Plan Name"
 msgstr ""
 
-#: ../../app/helpers/settings_template_helper.rb:9
+#: ../../app/helpers/settings_template_helper.rb:8
 msgid "Plan ID"
 msgstr ""
 
-#: ../../app/helpers/settings_template_helper.rb:10
+#: ../../app/helpers/settings_template_helper.rb:9
 msgid "Grant number"
 msgstr ""
 
-#: ../../app/helpers/settings_template_helper.rb:11
+#: ../../app/helpers/settings_template_helper.rb:10
 msgid "Principal Investigator / Researcher"
 msgstr ""
 
-#: ../../app/helpers/settings_template_helper.rb:12
+#: ../../app/helpers/settings_template_helper.rb:11
 msgid "Plan Data Contact"
 msgstr ""
 
-#: ../../app/helpers/settings_template_helper.rb:13
+#: ../../app/helpers/settings_template_helper.rb:12
 msgid "Plan Description"
 msgstr ""
 
-#: ../../app/helpers/settings_template_helper.rb:14
-#: ../../app/views/orgs/_profile_form.html.erb:143
+#: ../../app/helpers/settings_template_helper.rb:13
+#: ../../app/views/orgs/_profile_form.html.erb:144
 #: ../../app/views/paginable/templates/_customisable.html.erb:7
 #: ../../app/views/paginable/templates/_organisational.html.erb:12
 #: ../../app/views/plans/_project_details.html.erb:156
 #: ../../app/views/plans/_show_details.html.erb:12
-#: ../../app/views/plans/new.html.erb:87
+#: ../../app/views/plans/new.html.erb:89
 msgid "Funder"
 msgstr ""
 
-#: ../../app/helpers/settings_template_helper.rb:16
+#: ../../app/helpers/settings_template_helper.rb:15
 msgid "Your ORCID"
 msgstr ""
 
@@ -30504,10 +31627,8 @@ msgstr ""
 
 #: ../../app/helpers/template_helper.rb:48
 #: ../../app/views/plans/index.html.erb:29
-#: ../../app/views/plans/new.html.erb:125
+#: ../../app/views/plans/new.html.erb:127
 #: ../../app/views/shared/_create_plan_modal.html.erb:5
-#: ../../spec/features/locales_spec.rb:53
-#: ../../spec/features/locales_spec.rb:69
 msgid "Create plan"
 msgstr ""
 
@@ -30578,95 +31699,147 @@ msgstr ""
 msgid "%{tool_name} API changes"
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:30
+#: ../../app/models/concerns/exportable_plan.rb:25
 msgid "Phase"
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:32
-#: ../../app/models/exported_plan.rb:116 ../../app/models/exported_plan.rb:119
+#: ../../app/models/concerns/exportable_plan.rb:27
+#: ../../app/models/exported_plan.rb:113 ../../app/models/exported_plan.rb:116
 msgid "Section"
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:32
-#: ../../app/models/exported_plan.rb:116
+#: ../../app/models/concerns/exportable_plan.rb:27
+#: ../../app/models/exported_plan.rb:113
 msgid "Question"
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:32
-#: ../../app/models/concerns/exportable_plan.rb:34
-#: ../../app/models/exported_plan.rb:116 ../../app/models/exported_plan.rb:119
+#: ../../app/models/concerns/exportable_plan.rb:27
+#: ../../app/models/concerns/exportable_plan.rb:29
+#: ../../app/models/exported_plan.rb:113 ../../app/models/exported_plan.rb:116
 msgid "Answer"
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:128
+#: ../../app/models/concerns/exportable_plan.rb:126
 msgid " Customised By: "
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:139
-#: ../../app/views/shared/export/_plan_txt.erb:4
+#: ../../app/models/concerns/exportable_plan.rb:136
+msgid "Title: "
+msgstr ""
+
+#: ../../app/models/concerns/exportable_plan.rb:136
+msgid "%{title}"
+msgstr ""
+
+#: ../../app/models/concerns/exportable_plan.rb:138
+#: ../../app/views/shared/export/_plan_txt.erb:5
 msgid "Creators: "
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:142
+#: ../../app/models/concerns/exportable_plan.rb:141
 msgid "%{authors}"
 msgstr ""
 
 #: ../../app/models/concerns/exportable_plan.rb:143
-msgid "%{affiliation}"
-msgstr ""
-
-#: ../../app/models/concerns/exportable_plan.rb:145
-#: ../../app/models/concerns/exportable_plan.rb:147
-#: ../../app/views/shared/export/_plan_coversheet.erb:16
-#: ../../app/views/shared/export/_plan_txt.erb:7
+#: ../../app/views/shared/export/_plan_coversheet.erb:13
 #: ../../app/views/shared/export/_plan_txt.erb:9
-msgid "Template: "
+msgid "Principal Investigator: "
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:145
-msgid "%{funder}"
+#: ../../app/models/concerns/exportable_plan.rb:144
+msgid "%{investigation}"
 msgstr ""
 
 #: ../../app/models/concerns/exportable_plan.rb:147
-msgid "%{template}"
+msgid "Date Manager: "
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:149
-#: ../../app/views/shared/export/_plan_txt.erb:12
-msgid "Grant number: "
-msgstr ""
-
-#: ../../app/models/concerns/exportable_plan.rb:149
-msgid "%{grant_number}"
+#: ../../app/models/concerns/exportable_plan.rb:148
+msgid "%{data_curation}"
 msgstr ""
 
 #: ../../app/models/concerns/exportable_plan.rb:151
-#: ../../app/views/shared/export/_plan_coversheet.erb:26
+#: ../../app/views/shared/export/_plan_coversheet.erb:19
 #: ../../app/views/shared/export/_plan_txt.erb:15
-msgid "Project abstract: "
+msgid "Project Administrator: "
 msgstr ""
 
 #: ../../app/models/concerns/exportable_plan.rb:151
-msgid "%{description}"
-msgstr ""
-
-#: ../../app/models/concerns/exportable_plan.rb:153
-#: ../../app/views/shared/export/_plan_coversheet.erb:42
-#: ../../app/views/shared/export/_plan_txt.erb:18
-msgid "Last modified: "
-msgstr ""
-
-#: ../../app/models/concerns/exportable_plan.rb:153
-msgid "%{date}"
+msgid "%{pa}"
 msgstr ""
 
 #: ../../app/models/concerns/exportable_plan.rb:154
-#: ../../app/views/shared/export/_plan_coversheet.erb:49
-#: ../../app/views/shared/export/_plan_txt.erb:19
+msgid "%{other}"
+msgstr ""
+
+#: ../../app/models/concerns/exportable_plan.rb:154
+#: ../../app/views/shared/export/_plan_coversheet.erb:22
+#: ../../app/views/shared/export/_plan_txt.erb:18
+msgid "Contributor: "
+msgstr ""
+
+#: ../../app/models/concerns/exportable_plan.rb:156
+#: ../../app/views/shared/export/_plan_coversheet.erb:25
+#: ../../app/views/shared/export/_plan_txt.erb:20
+msgid "Affiliation: "
+msgstr ""
+
+#: ../../app/models/concerns/exportable_plan.rb:156
+msgid "%{affiliation}"
+msgstr ""
+
+#: ../../app/models/concerns/exportable_plan.rb:158
+#: ../../app/models/concerns/exportable_plan.rb:160
+#: ../../app/views/shared/export/_plan_coversheet.erb:31
+#: ../../app/views/shared/export/_plan_txt.erb:22
+#: ../../app/views/shared/export/_plan_txt.erb:24
+msgid "Template: "
+msgstr ""
+
+#: ../../app/models/concerns/exportable_plan.rb:158
+msgid "%{funder}"
+msgstr ""
+
+#: ../../app/models/concerns/exportable_plan.rb:160
+msgid "%{template}"
+msgstr ""
+
+#: ../../app/models/concerns/exportable_plan.rb:162
+#: ../../app/views/shared/export/_plan_txt.erb:27
+msgid "Grant number: "
+msgstr ""
+
+#: ../../app/models/concerns/exportable_plan.rb:162
+msgid "%{grant_number}"
+msgstr ""
+
+#: ../../app/models/concerns/exportable_plan.rb:164
+#: ../../app/views/shared/export/_plan_coversheet.erb:41
+#: ../../app/views/shared/export/_plan_txt.erb:30
+msgid "Project abstract: "
+msgstr ""
+
+#: ../../app/models/concerns/exportable_plan.rb:164
+msgid "%{description}"
+msgstr ""
+
+#: ../../app/models/concerns/exportable_plan.rb:166
+#: ../../app/views/shared/export/_plan_coversheet.erb:57
+#: ../../app/views/shared/export/_plan_txt.erb:33
+msgid "Last modified: "
+msgstr ""
+
+#: ../../app/models/concerns/exportable_plan.rb:166
+msgid "%{date}"
+msgstr ""
+
+#: ../../app/models/concerns/exportable_plan.rb:167
+#: ../../app/views/shared/export/_plan_coversheet.erb:64
+#: ../../app/views/shared/export/_plan_txt.erb:34
 msgid "Copyright information:"
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:155
+#: ../../app/models/concerns/exportable_plan.rb:168
 msgid ""
 "The above plan creator(s) have agreed that others may use as\n"
 "             much of the text of this plan as they would like in their own pla"
@@ -30680,12 +31853,12 @@ msgid ""
 "             your project or proposal"
 msgstr ""
 
-#: ../../app/models/concerns/exportable_plan.rb:179
+#: ../../app/models/concerns/exportable_plan.rb:191
 msgid "Not Answered"
 msgstr ""
 
 #: ../../app/models/concerns/validation_messages.rb:11
-#: ../../app/models/template.rb:221
+#: ../../app/models/template.rb:223
 msgid "can't be blank"
 msgstr ""
 
@@ -30722,25 +31895,30 @@ msgstr ""
 msgid "can't be blank if no name is provided."
 msgstr ""
 
-#: ../../app/models/exported_plan.rb:116 ../../app/models/exported_plan.rb:119
+#: ../../app/models/exported_plan.rb:113 ../../app/models/exported_plan.rb:116
 msgid "Selected option(s)"
 msgstr ""
 
-#: ../../app/models/exported_plan.rb:117 ../../app/models/exported_plan.rb:119
+#: ../../app/models/exported_plan.rb:114 ../../app/models/exported_plan.rb:116
 msgid "Answered by"
 msgstr ""
 
-#: ../../app/models/exported_plan.rb:117 ../../app/models/exported_plan.rb:120
+#: ../../app/models/exported_plan.rb:114 ../../app/models/exported_plan.rb:117
 msgid "Answered at"
 msgstr ""
 
-#: ../../app/models/exported_plan.rb:165
+#: ../../app/models/exported_plan.rb:161
 msgid "Details"
 msgstr ""
 
-#: ../../app/models/exported_plan.rb:189
-msgid ""
-"Question not answered.\n"
+#: ../../app/models/exported_plan.rb:168
+msgid "-"
+msgstr ""
+
+#: ../../app/models/exported_plan.rb:185
+#: ../../app/views/shared/export/_plan.erb:56
+#: ../../app/views/shared/export/_plan_txt.erb:66
+msgid "Question not answered."
 msgstr ""
 
 #: ../../app/models/identifier.rb:141
@@ -30759,27 +31937,39 @@ msgstr ""
 msgid "can't be larger than 500KB"
 msgstr ""
 
-#: ../../app/models/plan.rb:60
+#: ../../app/models/plan.rb:58
 msgid "organisational"
 msgstr ""
 
-#: ../../app/models/plan.rb:61
+#: ../../app/models/plan.rb:59
 msgid "public"
 msgstr ""
 
-#: ../../app/models/plan.rb:62
+#: ../../app/models/plan.rb:60
 msgid "test"
 msgstr ""
 
-#: ../../app/models/plan.rb:63
+#: ../../app/models/plan.rb:61
 msgid "private"
 msgstr ""
 
-#: ../../app/models/plan.rb:617
+#: ../../app/models/plan.rb:68
+msgid "Planned"
+msgstr ""
+
+#: ../../app/models/plan.rb:69
+msgid "Funded"
+msgstr ""
+
+#: ../../app/models/plan.rb:70
+msgid "Denied"
+msgstr ""
+
+#: ../../app/models/plan.rb:622
 msgid "must be after the start date"
 msgstr ""
 
-#: ../../app/models/question.rb:151
+#: ../../app/models/question.rb:161
 msgid "guidance on"
 msgstr ""
 
@@ -30819,56 +32009,109 @@ msgstr ""
 msgid "Invalid maximum pages"
 msgstr ""
 
-#: ../../app/models/template.rb:249
+#: ../../app/models/template.rb:251
 msgid "A historical template cannot be retrieved for being modified"
 msgstr ""
 
-#: ../../app/models/template.rb:373
+#: ../../app/models/template.rb:384
 msgid "generate_copy! requires an organisation target"
 msgstr ""
 
-#: ../../app/models/template.rb:382
+#: ../../app/models/template.rb:393
 msgid "Copy of %{template}"
 msgstr ""
 
-#: ../../app/models/template.rb:389
+#: ../../app/models/template.rb:400
 msgid "generate_version! requires a published template"
 msgstr ""
 
-#: ../../app/models/template.rb:403
+#: ../../app/models/template.rb:414
 msgid "customize! requires an organisation target"
 msgstr ""
 
-#: ../../app/models/template.rb:406
+#: ../../app/models/template.rb:417
 msgid "customize! requires a template from a funder"
 msgstr ""
 
-#: ../../app/models/template.rb:442
+#: ../../app/models/template.rb:453
 msgid "You can not publish a published template.  "
 msgstr ""
 
-#: ../../app/models/template.rb:446
+#: ../../app/models/template.rb:457
 msgid "You can not publish a historical version of this template.  "
 msgstr ""
 
-#: ../../app/models/template.rb:451
+#: ../../app/models/template.rb:462
 msgid "You can not publish a template without phases.  "
 msgstr ""
 
-#: ../../app/models/template.rb:456
+#: ../../app/models/template.rb:467
 msgid "You can not publish a template without sections in a phase.  "
 msgstr ""
 
-#: ../../app/models/template.rb:461
+#: ../../app/models/template.rb:472
 msgid "You can not publish a template without questions in a section.  "
 msgstr ""
 
-#: ../../app/models/template.rb:465
+#: ../../app/models/template.rb:476
 msgid "Conditions in the template refer backwards"
 msgstr ""
 
 #: ../../app/models/user.rb:384
 msgid "A Data Management Plan in %{application_name} has been shared with you"
+msgstr ""
+
+#: ../../app/models/user/at_csv.rb:7
+msgid "E-Mail"
+msgstr ""
+
+#: ../../app/models/user/at_csv.rb:7
+#: ../../app/views/contact_us/contacts/_new_left.html.erb:4
+#: ../../app/views/contributors/_form.html.erb:10
+#: ../../app/views/guidance_groups/_guidance_group_form.html.erb:8
+#: ../../app/views/org_admin/conditions/_webhook_form.html.erb:14
+#: ../../app/views/org_admin/departments/edit.html.erb:14
+#: ../../app/views/org_admin/departments/new.html.erb:14
+#: ../../app/views/paginable/api_clients/_index.html.erb:6
+#: ../../app/views/paginable/contributors/_index.html.erb:7
+#: ../../app/views/paginable/guidance_groups/_index.html.erb:6
+#: ../../app/views/paginable/themes/_index.html.erb:4
+#: ../../app/views/paginable/users/_index.html.erb:20
+#: ../../app/views/super_admin/api_clients/_form.html.erb:11
+msgid "Name"
+msgstr ""
+
+#: ../../app/models/user/at_csv.rb:7
+msgid "Created Date"
+msgstr ""
+
+#: ../../app/models/user/at_csv.rb:7
+msgid "Last Activity"
+msgstr ""
+
+#: ../../app/models/user/at_csv.rb:7
+#: ../../app/views/layouts/_branding.html.erb:98
+#: ../../app/views/org_admin/users/edit.html.erb:71
+#: ../../app/views/paginable/users/_index.html.erb:26
+#: ../../app/views/super_admin/users/edit.html.erb:105
+#: ../../app/views/usage/_filter.html.erb:18
+msgid "Plans"
+msgstr ""
+
+#: ../../app/models/user/at_csv.rb:8
+#: ../../app/views/paginable/notifications/_index.html.erb:8
+#: ../../app/views/paginable/users/_index.html.erb:28
+#: ../../app/views/super_admin/notifications/_form.html.erb:34
+msgid "Active"
+msgstr ""
+
+#: ../../app/models/user/at_csv.rb:8
+msgid "Department"
+msgstr ""
+
+#: ../../app/models/user/at_csv.rb:8
+#: ../../app/views/paginable/users/_index.html.erb:27
+msgid "Current Privileges"
 msgstr ""
 
 #: ../../app/policies/api/v0/guidance_group_policy.rb:11
@@ -31083,7 +32326,7 @@ msgstr ""
 #: ../../app/views/org_admin/templates/_form.html.erb:82
 #: ../../app/views/org_admin/users/edit.html.erb:54
 #: ../../app/views/orgs/_feedback_form.html.erb:38
-#: ../../app/views/orgs/_profile_form.html.erb:182
+#: ../../app/views/orgs/_profile_form.html.erb:183
 #: ../../app/views/plans/_edit_details.html.erb:11
 #: ../../app/views/plans/_guidance_selection.html.erb:23
 #: ../../app/views/questions/_preview_question.html.erb:111
@@ -31104,42 +32347,48 @@ msgstr ""
 msgid "example answer"
 msgstr ""
 
-#: ../../app/views/answers/_status.html.erb:5
-msgid "Saving..."
-msgstr ""
-
-#: ../../app/views/answers/_status.html.erb:9
-msgid "Answered"
+#: ../../app/views/answers/_status.html.erb:7
+msgid "Plan writing error related to %{tool_name}"
 msgstr ""
 
 #: ../../app/views/answers/_status.html.erb:10
-msgid " by %{user_name}"
+msgid "Saving...Please do not refresh or go to another page!"
 msgstr ""
 
-#: ../../app/views/answers/_status.html.erb:15
-msgid "This answer removes "
+#: ../../app/views/answers/_status.html.erb:12
+msgid ""
+"If you stuck on this message, please save your plan to a separate file andcont"
+"act us at %{helpdesk_email}"
 msgstr ""
 
-#: ../../app/views/answers/_status.html.erb:15
-msgid " questions from your plan."
+#: ../../app/views/answers/_status.html.erb:17
+msgid "Sorry, we had trouble saving your data. Please contact us at %{helpdesk_email}"
 msgstr ""
 
 #: ../../app/views/answers/_status.html.erb:21
-msgid "This answer triggers email(s) to "
+msgid ""
+"Save your plan content to a separate file now. You will LOSE them after refres"
+"hing or closing this page."
 msgstr ""
 
-#: ../../app/views/contact_us/contacts/_new_left.html.erb:4
-#: ../../app/views/contributors/_form.html.erb:10
-#: ../../app/views/org_admin/conditions/_webhook_form.html.erb:14
-#: ../../app/views/org_admin/departments/edit.html.erb:14
-#: ../../app/views/org_admin/departments/new.html.erb:14
-#: ../../app/views/paginable/api_clients/_index.html.erb:6
-#: ../../app/views/paginable/contributors/_index.html.erb:7
-#: ../../app/views/paginable/guidance_groups/_index.html.erb:6
-#: ../../app/views/paginable/themes/_index.html.erb:4
-#: ../../app/views/paginable/users/_index.html.erb:20
-#: ../../app/views/super_admin/api_clients/_form.html.erb:11
-msgid "Name"
+#: ../../app/views/answers/_status.html.erb:25
+msgid "Answered"
+msgstr ""
+
+#: ../../app/views/answers/_status.html.erb:26
+msgid " by %{user_name}"
+msgstr ""
+
+#: ../../app/views/answers/_status.html.erb:31
+msgid "This answer removes "
+msgstr ""
+
+#: ../../app/views/answers/_status.html.erb:31
+msgid " questions from your plan."
+msgstr ""
+
+#: ../../app/views/answers/_status.html.erb:37
+msgid "This answer triggers email(s) to "
 msgstr ""
 
 #: ../../app/views/contact_us/contacts/_new_left.html.erb:13
@@ -31200,29 +32449,6 @@ msgid ""
 "elow."
 msgstr ""
 
-#: ../../app/views/contact_us/contacts/new.html.erb:10
-#: ../../app/views/layouts/_branding.html.erb:36
-#: ../../app/views/layouts/_footer.html.erb:18
-#: ../../app/views/layouts/_footer.html.erb:27
-#: ../../app/views/layouts/_footer.html.erb:36
-#: ../../app/views/layouts/_footer.html.erb:45
-#: ../../app/views/layouts/_footer.html.erb:52
-#: ../../app/views/layouts/_footer.html.erb:58
-#: ../../app/views/org_admin/plans/index.html.erb:40
-#: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:39
-#: ../../app/views/paginable/plans/_publicly_visible.html.erb:24
-#: ../../app/views/paginable/templates/_history.html.erb:28
-#: ../../app/views/paginable/templates/_history.html.erb:35
-#: ../../app/views/paginable/templates/_organisational.html.erb:85
-#: ../../app/views/paginable/templates/_publicly_visible.html.erb:29
-#: ../../app/views/paginable/templates/_publicly_visible.html.erb:36
-#: ../../app/views/plans/_download_form.html.erb:127
-#: ../../app/views/static_pages/about_us.html.erb:22
-#: ../../app/views/static_pages/about_us.html.erb:29
-#: ../../app/views/static_pages/termsuse.html.erb:46
-msgid "Opens in new window"
-msgstr ""
-
 #: ../../app/views/contributors/_form.html.erb:4
 msgid "Phone numbers should only include numbers and dashes ('-')."
 msgstr ""
@@ -31251,6 +32477,7 @@ msgid "Roles"
 msgstr ""
 
 #: ../../app/views/contributors/_form.html.erb:96
+#: ../../app/views/layouts/modal_search/_result.html.erb:12
 #: ../../app/views/notes/_archive.html.erb:10
 #: ../../app/views/notes/_list.html.erb:16
 #: ../../app/views/notes/_list.html.erb:19
@@ -31282,7 +32509,7 @@ msgstr ""
 #: ../../app/views/org_admin/questions/_form.html.erb:103
 #: ../../app/views/org_admin/questions/_form.html.erb:105
 #: ../../app/views/plans/_guidance_selection.html.erb:35
-#: ../../app/views/plans/new.html.erb:126
+#: ../../app/views/plans/new.html.erb:128
 #: ../../app/views/research_outputs/_form.html.erb:182
 #: ../../app/views/super_admin/api_clients/_form.html.erb:86
 #: ../../app/views/super_admin/notifications/_form.html.erb:73
@@ -31464,13 +32691,13 @@ msgid "Hello"
 msgstr ""
 
 #: ../../app/views/devise/mailer/unlock_instructions.html.erb:4
-msgid ""
-"account has been locked due to an excessive number of unsuccessful sign in att"
-"empts."
+msgid "Your"
 msgstr ""
 
 #: ../../app/views/devise/mailer/unlock_instructions.html.erb:4
-msgid "Your"
+msgid ""
+"account has been locked due to an excessive number of unsuccessful sign in att"
+"empts."
 msgstr ""
 
 #: ../../app/views/devise/mailer/unlock_instructions.html.erb:6
@@ -31768,6 +32995,27 @@ msgid ""
 "this subset guidance when answering questions in the 'create plan' wizard."
 msgstr ""
 
+#: ../../app/views/guidance_groups/_guidance_group_form.html.erb:15
+#: ../../app/views/org_admin/templates/_form.html.erb:35
+#: ../../app/views/org_admin/templates/_row.html.erb:10
+#: ../../app/views/org_admin/templates/_row.html.erb:13
+#: ../../app/views/org_admin/templates/_show.html.erb:19
+#: ../../app/views/org_admin/templates/_show.html.erb:22
+#: ../../app/views/paginable/guidance_groups/_index.html.erb:21
+#: ../../app/views/paginable/guidances/_index.html.erb:37
+#: ../../app/views/paginable/templates/_customisable.html.erb:31
+#: ../../app/views/paginable/templates/_customisable.html.erb:34
+#: ../../app/views/paginable/templates/_history.html.erb:8
+#: ../../app/views/paginable/templates/_organisational.html.erb:36
+#: ../../app/views/paginable/templates/_organisational.html.erb:39
+msgid "Published"
+msgstr ""
+
+#: ../../app/views/guidance_groups/_guidance_group_form.html.erb:19
+#: ../../app/views/paginable/guidance_groups/_index.html.erb:8
+msgid "Optional subset"
+msgstr ""
+
 #: ../../app/views/guidance_groups/_guidance_group_form.html.erb:19
 msgid " (e.g. School/ Department) "
 msgstr ""
@@ -31997,6 +33245,25 @@ msgstr ""
 msgid "Previous"
 msgstr ""
 
+#: ../../app/views/layouts/_branding.html.erb:36
+#: ../../app/views/layouts/_footer.html.erb:18
+#: ../../app/views/layouts/_footer.html.erb:27
+#: ../../app/views/layouts/_footer.html.erb:36
+#: ../../app/views/layouts/_footer.html.erb:45
+#: ../../app/views/layouts/_footer.html.erb:52
+#: ../../app/views/layouts/_footer.html.erb:58
+#: ../../app/views/org_admin/plans/index.html.erb:40
+#: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:39
+#: ../../app/views/paginable/plans/_publicly_visible.html.erb:24
+#: ../../app/views/paginable/templates/_history.html.erb:28
+#: ../../app/views/paginable/templates/_history.html.erb:35
+#: ../../app/views/paginable/templates/_organisational.html.erb:85
+#: ../../app/views/paginable/templates/_publicly_visible.html.erb:29
+#: ../../app/views/paginable/templates/_publicly_visible.html.erb:36
+#: ../../app/views/plans/_download_form.html.erb:127
+msgid "Opens in new window"
+msgstr ""
+
 #: ../../app/views/layouts/_branding.html.erb:62
 msgid "Admin"
 msgstr ""
@@ -32018,14 +33285,6 @@ msgstr ""
 #: ../../app/views/org_admin/templates/index.html.erb:4
 #: ../../app/views/paginable/orgs/_index.html.erb:8
 msgid "Templates"
-msgstr ""
-
-#: ../../app/views/layouts/_branding.html.erb:98
-#: ../../app/views/org_admin/users/edit.html.erb:71
-#: ../../app/views/paginable/users/_index.html.erb:26
-#: ../../app/views/super_admin/users/edit.html.erb:105
-#: ../../app/views/usage/_filter.html.erb:18
-msgid "Plans"
 msgstr ""
 
 #: ../../app/views/layouts/_branding.html.erb:105
@@ -32088,14 +33347,11 @@ msgid "Contact us"
 msgstr ""
 
 #: ../../app/views/layouts/_footer.html.erb:71
-#: ../../app/views/static_pages/termsuse.html.erb:1
-#: ../../app/views/static_pages/termsuse.html.erb:4
 msgid "Terms of use"
 msgstr ""
 
 #: ../../app/views/layouts/_footer.html.erb:72
 #: ../../app/views/static_pages/privacy.html.erb:1
-#: ../../app/views/static_pages/privacy.html.erb:4
 msgid "Privacy statement"
 msgstr ""
 
@@ -32105,7 +33361,7 @@ msgstr ""
 
 #: ../../app/views/layouts/_header_navigation_delete.html.erb:13
 #: ../../app/views/layouts/_navigation.html.erb:12
-#: ../../app/views/orgs/_profile_form.html.erb:55
+#: ../../app/views/orgs/_profile_form.html.erb:56
 msgid "logo"
 msgstr ""
 
@@ -32152,7 +33408,7 @@ msgstr ""
 
 #: ../../app/views/layouts/_header_navigation_delete.html.erb:58
 #: ../../app/views/layouts/_navigation.html.erb:55
-#: ../../app/views/static_pages/about_us.html.erb:35
+#: ../../app/views/static_pages/about_us.html.erb:39
 #: ../../app/views/static_pages/help.html.erb:1
 #: ../../app/views/static_pages/help.html.erb:4
 msgid "Help"
@@ -32193,7 +33449,6 @@ msgid "Logout"
 msgstr ""
 
 #: ../../app/views/layouts/application.html.erb:32
-#: ../../app/views/static_pages/termsuse.html.erb:14
 msgid "%{application_name}"
 msgstr ""
 
@@ -32291,6 +33546,40 @@ msgstr ""
 
 #: ../../app/views/layouts/error.html.erb:69
 msgid "Go back"
+msgstr ""
+
+#: ../../app/views/layouts/modal_search/_form.html.erb:7
+msgid "- Enter a search term %{examples} -"
+msgstr ""
+
+#: ../../app/views/layouts/modal_search/_form.html.erb:8
+#: ../../app/views/layouts/modal_search/_results.html.erb:6
+msgid "No results matched your filter criteria."
+msgstr ""
+
+#: ../../app/views/layouts/modal_search/_form.html.erb:24
+#: ../../app/views/layouts/modal_search/_form.html.erb:66
+msgid "Close"
+msgstr ""
+
+#: ../../app/views/layouts/modal_search/_form.html.erb:27
+msgid "%{topic} search"
+msgstr ""
+
+#: ../../app/views/layouts/modal_search/_form.html.erb:49
+msgid "Apply filter(s)"
+msgstr ""
+
+#: ../../app/views/layouts/modal_search/_result.html.erb:9
+msgid "Select"
+msgstr ""
+
+#: ../../app/views/layouts/modal_search/_result.html.erb:11
+msgid "Click to select %{item_name}"
+msgstr ""
+
+#: ../../app/views/layouts/modal_search/_result.html.erb:14
+msgid "Click to remove %{item_name}"
 msgstr ""
 
 #: ../../app/views/notes/_archive.html.erb:8
@@ -32418,6 +33707,7 @@ msgstr ""
 #: ../../app/views/paginable/research_outputs/_index.html.erb:7
 #: ../../app/views/paginable/templates/_history.html.erb:5
 #: ../../app/views/research_outputs/_form.html.erb:41
+#: ../../app/views/shared/export/_plan_outputs.erb:18
 #: ../../app/views/super_admin/notifications/_form.html.erb:6
 #: ../../app/views/super_admin/themes/_form.html.erb:5
 msgid "Title"
@@ -32558,6 +33848,7 @@ msgstr ""
 #: ../../app/views/org_admin/plans/index.html.erb:18
 #: ../../app/views/paginable/research_outputs/_index.html.erb:10
 #: ../../app/views/research_outputs/_form.html.erb:14
+#: ../../app/views/shared/export/_plan_outputs.erb:19
 msgid "Type"
 msgstr ""
 
@@ -32590,11 +33881,11 @@ msgid "Feedback requested"
 msgstr ""
 
 #: ../../app/views/org_admin/plans/index.html.erb:29
-msgid "Complete"
+msgid "Notify the plan owner that I have finished providing feedback"
 msgstr ""
 
 #: ../../app/views/org_admin/plans/index.html.erb:29
-msgid "Notify the plan owner that I have finished providing feedback"
+msgid "Complete"
 msgstr ""
 
 #: ../../app/views/org_admin/plans/index.html.erb:39
@@ -32628,11 +33919,11 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/org_admin/questions/_form.html.erb:4
-msgid "Question %{number}:"
+msgid "New question:"
 msgstr ""
 
 #: ../../app/views/org_admin/questions/_form.html.erb:4
-msgid "New question:"
+msgid "Question %{number}:"
 msgstr ""
 
 #: ../../app/views/org_admin/questions/_form.html.erb:15
@@ -32820,21 +34111,6 @@ msgstr ""
 #: ../../app/views/paginable/templates/_index.html.erb:7
 #: ../../app/views/paginable/templates/_organisational.html.erb:14
 msgid "Status"
-msgstr ""
-
-#: ../../app/views/org_admin/templates/_form.html.erb:35
-#: ../../app/views/org_admin/templates/_row.html.erb:10
-#: ../../app/views/org_admin/templates/_row.html.erb:13
-#: ../../app/views/org_admin/templates/_show.html.erb:19
-#: ../../app/views/org_admin/templates/_show.html.erb:22
-#: ../../app/views/paginable/guidance_groups/_index.html.erb:21
-#: ../../app/views/paginable/guidances/_index.html.erb:37
-#: ../../app/views/paginable/templates/_customisable.html.erb:31
-#: ../../app/views/paginable/templates/_customisable.html.erb:34
-#: ../../app/views/paginable/templates/_history.html.erb:8
-#: ../../app/views/paginable/templates/_organisational.html.erb:36
-#: ../../app/views/paginable/templates/_organisational.html.erb:39
-msgid "Published"
 msgstr ""
 
 #: ../../app/views/org_admin/templates/_form.html.erb:37
@@ -33082,83 +34358,89 @@ msgid ""
 "lp Desk if you have questions or to request changes."
 msgstr ""
 
-#: ../../app/views/orgs/_profile_form.html.erb:21
+#: ../../app/views/orgs/_profile_form.html.erb:6
+msgid ""
+"This information can only be changed by a system administrator. Contact %{supp"
+"ort_email} if you have questions or to request changes."
+msgstr ""
+
+#: ../../app/views/orgs/_profile_form.html.erb:22
 msgid "Organisation full name"
 msgstr ""
 
-#: ../../app/views/orgs/_profile_form.html.erb:27
+#: ../../app/views/orgs/_profile_form.html.erb:28
 msgid "Organisation abbreviated name"
 msgstr ""
 
-#: ../../app/views/orgs/_profile_form.html.erb:38
+#: ../../app/views/orgs/_profile_form.html.erb:39
 msgid ""
 "A managed Org is one that can have its own Guidance and/or Templates. An unman"
 "aged Org is one that was automatically created by the system when a user enter"
 "ed/selected it."
 msgstr ""
 
-#: ../../app/views/orgs/_profile_form.html.erb:39
+#: ../../app/views/orgs/_profile_form.html.erb:40
 msgid "Managed? (allows Org Admins to access the Admin menu)"
 msgstr ""
 
-#: ../../app/views/orgs/_profile_form.html.erb:51
+#: ../../app/views/orgs/_profile_form.html.erb:52
 msgid "Organization logo"
 msgstr ""
 
-#: ../../app/views/orgs/_profile_form.html.erb:59
+#: ../../app/views/orgs/_profile_form.html.erb:60
 msgid "This will remove your organisation's logo"
 msgstr ""
 
-#: ../../app/views/orgs/_profile_form.html.erb:60
+#: ../../app/views/orgs/_profile_form.html.erb:61
 msgid "Remove logo"
 msgstr ""
 
-#: ../../app/views/orgs/_profile_form.html.erb:62
+#: ../../app/views/orgs/_profile_form.html.erb:63
 #: ../../app/views/orgs/shibboleth_ds.html.erb:34
-#: ../../app/views/plans/new.html.erb:64 ../../app/views/plans/new.html.erb:94
+#: ../../app/views/plans/new.html.erb:66 ../../app/views/plans/new.html.erb:96
 #: ../../app/views/shared/_sign_in_form.html.erb:25
 msgid "or"
 msgstr ""
 
-#: ../../app/views/orgs/_profile_form.html.erb:79
+#: ../../app/views/orgs/_profile_form.html.erb:80
 msgid "Organisation URLs"
 msgstr ""
 
-#: ../../app/views/orgs/_profile_form.html.erb:91
-#: ../../app/views/orgs/_profile_form.html.erb:96
+#: ../../app/views/orgs/_profile_form.html.erb:92
+#: ../../app/views/orgs/_profile_form.html.erb:97
 msgid "Help Desk email"
 msgstr ""
 
-#: ../../app/views/orgs/_profile_form.html.erb:105
+#: ../../app/views/orgs/_profile_form.html.erb:106
 msgid "Administrator contact"
 msgstr ""
 
-#: ../../app/views/orgs/_profile_form.html.erb:110
+#: ../../app/views/orgs/_profile_form.html.erb:111
 msgid "Contact email"
 msgstr ""
 
-#: ../../app/views/orgs/_profile_form.html.erb:114
+#: ../../app/views/orgs/_profile_form.html.erb:115
 #: ../../app/views/shared/_links.html.erb:35
 msgid "Link text"
 msgstr ""
 
-#: ../../app/views/orgs/_profile_form.html.erb:122
+#: ../../app/views/orgs/_profile_form.html.erb:123
 msgid "Google Analytics Tracker"
 msgstr ""
 
-#: ../../app/views/orgs/_profile_form.html.erb:128
+#: ../../app/views/orgs/_profile_form.html.erb:129
 msgid "Tracker Code"
 msgstr ""
 
-#: ../../app/views/orgs/_profile_form.html.erb:139
+#: ../../app/views/orgs/_profile_form.html.erb:140
 msgid "Organisation Types"
 msgstr ""
 
-#: ../../app/views/orgs/_profile_form.html.erb:149
+#: ../../app/views/orgs/_profile_form.html.erb:150
 msgid "Institution"
 msgstr ""
 
-#: ../../app/views/orgs/_profile_form.html.erb:162
+#: ../../app/views/orgs/_profile_form.html.erb:163
 msgid "Organisation type(s)"
 msgstr ""
 
@@ -33174,8 +34456,8 @@ msgstr ""
 
 #: ../../app/views/orgs/admin_edit.html.erb:22
 #: ../../app/views/plans/_navigation.html.erb:33
-#: ../../app/views/plans/_request_feedback_form.html.erb:13
-#: ../../app/views/static_pages/help.html.erb:45
+#: ../../app/views/plans/_request_feedback_form.html.erb:19
+#: ../../app/views/static_pages/help.html.erb:53
 msgid "Request feedback"
 msgstr ""
 
@@ -33227,6 +34509,7 @@ msgstr ""
 
 #: ../../app/views/paginable/api_clients/_index.html.erb:15
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:40
+#: ../../app/views/research_outputs/repositories/_search_result_modified.html.erb:55
 #: ../../app/views/translation_io_exports/_globals.html.erb:5
 msgid "Contact"
 msgstr ""
@@ -33263,10 +34546,6 @@ msgstr ""
 msgid ""
 "You are about to delete '%{department_name}'. This will affect guidance. Are y"
 "ou sure?"
-msgstr ""
-
-#: ../../app/views/paginable/guidance_groups/_index.html.erb:8
-msgid "Optional subset"
 msgstr ""
 
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:26
@@ -33324,12 +34603,6 @@ msgstr ""
 #: ../../app/views/paginable/notifications/_index.html.erb:7
 #: ../../app/views/super_admin/notifications/_form.html.erb:48
 msgid "Expiration"
-msgstr ""
-
-#: ../../app/views/paginable/notifications/_index.html.erb:8
-#: ../../app/views/paginable/users/_index.html.erb:28
-#: ../../app/views/super_admin/notifications/_form.html.erb:34
-msgid "Active"
 msgstr ""
 
 #: ../../app/views/paginable/orgs/_index.html.erb:6
@@ -33411,6 +34684,18 @@ msgstr ""
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:67
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:72
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:75
+#: ../../app/views/research_outputs/repositories/_search_result_modified.html.erb:60
+#: ../../app/views/research_outputs/repositories/_search_result_modified.html.erb:65
+#: ../../app/views/research_outputs/repositories/_search_result_modified.html.erb:68
+#: ../../app/views/research_outputs/repositories/_search_result_modified.html.erb:73
+#: ../../app/views/research_outputs/repositories/_search_result_modified.html.erb:83
+#: ../../app/views/research_outputs/repositories/_search_result_modified.html.erb:91
+#: ../../app/views/research_outputs/repositories/_search_result_modified.html.erb:94
+#: ../../app/views/research_outputs/repositories/_search_result_modified.html.erb:95
+#: ../../app/views/research_outputs/repositories/_search_result_modified.html.erb:102
+#: ../../app/views/research_outputs/repositories/_search_result_modified.html.erb:104
+#: ../../app/views/research_outputs/repositories/_search_result_modified.html.erb:108
+#: ../../app/views/research_outputs/repositories/_search_result_modified.html.erb:110
 msgid "Unknown"
 msgstr ""
 
@@ -33454,14 +34739,14 @@ msgstr ""
 
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:74
 msgid ""
-"Are you sure you wish to remove this plan? Any collaborators will still be abl"
-"e to access it."
+"Are you sure you wish to remove this public plan? This will remove it from the"
+" Public DMPs page but any collaborators will still be able to access it."
 msgstr ""
 
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:74
 msgid ""
-"Are you sure you wish to remove this public plan? This will remove it from the"
-" Public DMPs page but any collaborators will still be able to access it."
+"Are you sure you wish to remove this plan? Any collaborators will still be abl"
+"e to access it."
 msgstr ""
 
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:17
@@ -33605,10 +34890,6 @@ msgstr ""
 
 #: ../../app/views/paginable/users/_index.html.erb:25
 msgid "Last activity"
-msgstr ""
-
-#: ../../app/views/paginable/users/_index.html.erb:27
-msgid "Current Privileges"
 msgstr ""
 
 #: ../../app/views/paginable/users/_index.html.erb:46
@@ -33858,8 +35139,7 @@ msgid "Landing page"
 msgstr ""
 
 #: ../../app/views/plans/_project_details.html.erb:93
-#: ../../app/views/plans/_show_details.html.erb:22
-msgid "ID"
+msgid "Identifier"
 msgstr ""
 
 #: ../../app/views/plans/_project_details.html.erb:114
@@ -33878,15 +35158,11 @@ msgstr ""
 msgid "Funding status"
 msgstr ""
 
-#: ../../app/views/plans/_project_details.html.erb:181
+#: ../../app/views/plans/_project_details.html.erb:180
 msgid "Grant number/url"
 msgstr ""
 
-#: ../../app/views/plans/_project_details.html.erb:195
-msgid "Grant number:"
-msgstr ""
-
-#: ../../app/views/plans/_project_details.html.erb:199
+#: ../../app/views/plans/_project_details.html.erb:198
 msgid ""
 "Provide a URL to the award's landing page if possible, if not please provide t"
 "he award/grant number."
@@ -33896,11 +35172,17 @@ msgstr ""
 msgid "Request expert feedback"
 msgstr ""
 
-#: ../../app/views/plans/_request_feedback_form.html.erb:11
-msgid "You can continue to edit and download the plan in the interim."
+#: ../../app/views/plans/_request_feedback_form.html.erb:9
+msgid ""
+"Click below to give data management staff at %{owner_org}, the Plan Owner's or"
+"g, access to read and comment on your plan."
 msgstr ""
 
 #: ../../app/views/plans/_request_feedback_form.html.erb:17
+msgid "You can continue to edit and download the plan in the interim."
+msgstr ""
+
+#: ../../app/views/plans/_request_feedback_form.html.erb:23
 msgid "Feedback has been requested."
 msgstr ""
 
@@ -33981,6 +35263,10 @@ msgstr ""
 msgid "Landing Page"
 msgstr ""
 
+#: ../../app/views/plans/_show_details.html.erb:22
+msgid "ID"
+msgstr ""
+
 #: ../../app/views/plans/index.html.erb:8
 msgid ""
 "The table below lists the plans that you have created, and that have been shar"
@@ -34045,29 +35331,29 @@ msgstr ""
 msgid "Indicate the primary research organisation"
 msgstr ""
 
-#: ../../app/views/plans/new.html.erb:67
+#: ../../app/views/plans/new.html.erb:69
 msgid ""
 "No research organisation associated with this plan or my research organisation"
 " is not listed"
 msgstr ""
 
-#: ../../app/views/plans/new.html.erb:78
+#: ../../app/views/plans/new.html.erb:80
 msgid "Select the primary funding organisation"
 msgstr ""
 
-#: ../../app/views/plans/new.html.erb:97
+#: ../../app/views/plans/new.html.erb:99
 msgid "No funder associated with this plan or my funder is not listed"
 msgstr ""
 
-#: ../../app/views/plans/new.html.erb:110
+#: ../../app/views/plans/new.html.erb:112
 msgid "Which DMP template would you like to use?"
 msgstr ""
 
-#: ../../app/views/plans/new.html.erb:113
+#: ../../app/views/plans/new.html.erb:115
 msgid "Please select a template"
 msgstr ""
 
-#: ../../app/views/plans/new.html.erb:118
+#: ../../app/views/plans/new.html.erb:120
 msgid ""
 "We found multiple DMP templates corresponding to your primary research organis"
 "ation"
@@ -34145,6 +35431,7 @@ msgid "Abbreviation"
 msgstr ""
 
 #: ../../app/views/research_outputs/_form.html.erb:73
+#: ../../app/views/shared/export/_plan_outputs.erb:26
 msgid "May contain sensitive data?"
 msgstr ""
 
@@ -34169,14 +35456,17 @@ msgid "Add a metadata standard"
 msgstr ""
 
 #: ../../app/views/research_outputs/_form.html.erb:136
+#: ../../app/views/shared/export/_plan_outputs.erb:20
 msgid "Anticipated release date"
 msgstr ""
 
 #: ../../app/views/research_outputs/_form.html.erb:140
+#: ../../app/views/shared/export/_plan_outputs.erb:21
 msgid "Initial access level"
 msgstr ""
 
 #: ../../app/views/research_outputs/_form.html.erb:158
+#: ../../app/views/shared/export/_plan_outputs.erb:23
 msgid "Anticipated file size"
 msgstr ""
 
@@ -34230,38 +35520,47 @@ msgid "- Select a repository type -"
 msgstr ""
 
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:18
+#: ../../app/views/research_outputs/repositories/_search_result_modified.html.erb:34
 msgid "Click to view repositories related to %{subject}"
 msgstr ""
 
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:30
+#: ../../app/views/research_outputs/repositories/_search_result_modified.html.erb:46
 msgid "More info"
 msgstr ""
 
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:35
+#: ../../app/views/research_outputs/repositories/_search_result_modified.html.erb:50
 msgid "Repository URL"
 msgstr ""
 
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:49
+#: ../../app/views/research_outputs/repositories/_search_result_modified.html.erb:64
 msgid "Data access"
 msgstr ""
 
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:52
+#: ../../app/views/research_outputs/repositories/_search_result_modified.html.erb:67
 msgid "Persistent identifier type"
 msgstr ""
 
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:55
+#: ../../app/views/research_outputs/repositories/_search_result_modified.html.erb:70
 msgid "Policies"
 msgstr ""
 
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:64
+#: ../../app/views/research_outputs/repositories/_search_result_modified.html.erb:80
 msgid "Data upload"
 msgstr ""
 
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:71
+#: ../../app/views/research_outputs/repositories/_search_result_modified.html.erb:100
 msgid "Provider type"
 msgstr ""
 
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:74
+#: ../../app/views/research_outputs/repositories/_search_result_modified.html.erb:106
 msgid "Repository type"
 msgstr ""
 
@@ -34330,53 +35629,72 @@ msgstr ""
 msgid "Filter plans"
 msgstr ""
 
-#: ../../app/views/shared/export/_plan.erb:56
-#: ../../app/views/shared/export/_plan_txt.erb:51
-msgid "Question not answered."
-msgstr ""
-
 #: ../../app/views/shared/export/_plan_coversheet.erb:3
-#: ../../app/views/shared/export/_plan_txt.erb:66
+#: ../../app/views/shared/export/_plan_txt.erb:81
 msgid "A Data Management Plan created using %{application_name}"
 msgstr ""
 
-#: ../../app/views/shared/export/_plan_coversheet.erb:10
-#: ../../app/views/shared/export/_plan_txt.erb:5
-msgid "Affiliation: "
+#: ../../app/views/shared/export/_plan_coversheet.erb:16
+#: ../../app/views/shared/export/_plan_txt.erb:12
+msgid "Data Manager: "
 msgstr ""
 
-#: ../../app/views/shared/export/_plan_coversheet.erb:13
+#: ../../app/views/shared/export/_plan_coversheet.erb:28
 msgid "Funder: "
 msgstr ""
 
-#: ../../app/views/shared/export/_plan_coversheet.erb:22
+#: ../../app/views/shared/export/_plan_coversheet.erb:37
 msgid "ORCID iD: "
 msgstr ""
 
-#: ../../app/views/shared/export/_plan_coversheet.erb:31
+#: ../../app/views/shared/export/_plan_coversheet.erb:46
 msgid "Identifier: "
 msgstr ""
 
-#: ../../app/views/shared/export/_plan_coversheet.erb:35
+#: ../../app/views/shared/export/_plan_coversheet.erb:50
 msgid "Start date: "
 msgstr ""
 
-#: ../../app/views/shared/export/_plan_coversheet.erb:39
+#: ../../app/views/shared/export/_plan_coversheet.erb:54
 msgid "End date: "
 msgstr ""
 
-#: ../../app/views/shared/export/_plan_coversheet.erb:45
+#: ../../app/views/shared/export/_plan_coversheet.erb:60
 msgid "Grant number / URL: "
 msgstr ""
 
-#: ../../app/views/shared/export/_plan_coversheet.erb:52
-#: ../../app/views/shared/export/_plan_txt.erb:20
+#: ../../app/views/shared/export/_plan_coversheet.erb:67
+#: ../../app/views/shared/export/_plan_txt.erb:35
 msgid ""
 " The above plan creator(s) have agreed that others may use as much of the text"
 " of this plan as they would like in their own plans, and customise it as neces"
 "sary. You do not need to credit the creator(s) as the source of the language u"
 "sed, but using any of the plan's text does not imply that the creator(s) endor"
 "se, or have any relationship to, your project or proposal"
+msgstr ""
+
+#: ../../app/views/shared/export/_plan_outputs.erb:3
+msgid "Planned Research Outputs"
+msgstr ""
+
+#: ../../app/views/shared/export/_plan_outputs.erb:14
+msgid "Planned research output details"
+msgstr ""
+
+#: ../../app/views/shared/export/_plan_outputs.erb:22
+msgid "Intended repository(ies)"
+msgstr ""
+
+#: ../../app/views/shared/export/_plan_outputs.erb:24
+msgid "License"
+msgstr ""
+
+#: ../../app/views/shared/export/_plan_outputs.erb:25
+msgid "Metadata standard(s)"
+msgstr ""
+
+#: ../../app/views/shared/export/_plan_outputs.erb:27
+msgid "May contain PII?"
 msgstr ""
 
 #: ../../app/views/shared/org_selectors/_combined.html.erb:15
@@ -34402,123 +35720,166 @@ msgstr ""
 msgid "About %{application_name}"
 msgstr ""
 
-#: ../../app/views/static_pages/about_us.html.erb:11
-msgid ""
-"Scholarly researchers today are increasingly required to engage in a range of "
-"data management activities to comply with organisational policies, or as a pre"
-"condition for publication or grant funding. To aid researchers in creating eff"
-"ective Data Management Plans (DMPs), we have worked closely with funders and u"
-"niversities to develop an online application: DMPRoadmap. The tool provides de"
-"tailed guidance and links to general and organisational resources and walks a "
-"researcher through the process of generating a comprehensive plan tailored to "
-"specific DMP requirements."
-msgstr ""
-
 #: ../../app/views/static_pages/about_us.html.erb:13
-msgid "DMP Background"
-msgstr ""
-
-#: ../../app/views/static_pages/about_us.html.erb:15
 msgid ""
-"The Digital Curation Centre and UC3 team at the California Digital Library hav"
-"e developed and delivered tools for data management planning since the advent "
-"of open data policies in 2011. "
+"DMP Assistant is an all-purpose tool for preparing data management plans (DMPs"
+")."
 msgstr ""
 
-#: ../../app/views/static_pages/about_us.html.erb:16
-msgid " (DCC-UK) and "
+#: ../../app/views/static_pages/about_us.html.erb:14
+msgid "Researchers will be guided through best practices in data stewardship."
 msgstr ""
 
 #: ../../app/views/static_pages/about_us.html.erb:17
 msgid ""
-"(CDL-US) are now established in our national contexts as the resource for rese"
-"archers seeking guidance in creating DMPs. We have worked together from the ou"
-"tset to share experiences, but with the explosion of interest in both of our t"
-"ools across the globe we formalized our partnership to co-develop and maintain"
-" a single open-source platform for DMPs. By working together we can extend our"
-" reach, keep costs down, and move best practices forward, allowing us to parti"
-"cipate in a truly global open science ecosystem."
+"The tool walks researchers step-by-step through a number of key questions abou"
+"t data management."
+msgstr ""
+
+#: ../../app/views/static_pages/about_us.html.erb:18
+msgid "Guidance and examples are provided."
 msgstr ""
 
 #: ../../app/views/static_pages/about_us.html.erb:19
 msgid ""
-"The new platform will be separate from the services each of our teams runs on "
-"top of it. Our shared goal: provide a combined DMPRoadmap platform as a core i"
-"nfrastructure for DMPs. Future enhancements will focus on making DMPs machine "
-"actionable so please continue sharing your use cases."
+"Not all questions will apply to all research projects. Researchers are encoura"
+"ged to answer the questions relevant to their work."
 msgstr ""
 
-#: ../../app/views/static_pages/about_us.html.erb:21
-msgid "We invite you to peruse the DMPRoadmap GitHub wiki to learn how to "
-msgstr ""
-
-#: ../../app/views/static_pages/about_us.html.erb:22
+#: ../../app/views/static_pages/about_us.html.erb:20
 msgid ""
-"get involved<em class=\"sr-only\"> (new window)</em><span class=\"new-window-popu"
-"p-info\">%{open_in_new_window_text}</span>"
+"Researchers should revisit the tool throughout their research to review or com"
+"plete their responses."
 msgstr ""
 
-#: ../../app/views/static_pages/about_us.html.erb:28
-msgid " in the project. You can also report bugs and request new features via "
+#: ../../app/views/static_pages/about_us.html.erb:23
+msgid "How the tool works"
 msgstr ""
 
-#: ../../app/views/static_pages/about_us.html.erb:29
-msgid "GitHub Issues"
+#: ../../app/views/static_pages/about_us.html.erb:25
+msgid ""
+"Currently, this tool includes a generic Portage Data Stewardship template for "
+"researchers to use. Guidance is provided to help you interpret and answer the "
+"questions."
 msgstr ""
 
-#: ../../app/views/static_pages/about_us.html.erb:31
-msgid "Getting Started"
+#: ../../app/views/static_pages/about_us.html.erb:30
+#: ../../app/views/static_pages/help.html.erb:15
+msgid "DMP Assistant feedback"
 msgstr ""
 
-#: ../../app/views/static_pages/about_us.html.erb:33
-msgid "If you have an account please sign in and start creating or editing your DMP."
-msgstr ""
-
-#: ../../app/views/static_pages/about_us.html.erb:34
-msgid "on the homepage."
-msgstr ""
-
-#: ../../app/views/static_pages/about_us.html.erb:34
-msgid "Sign up"
-msgstr ""
-
-#: ../../app/views/static_pages/about_us.html.erb:34
-msgid "If you do not have a %{application_name} account, click on"
+#: ../../app/views/static_pages/about_us.html.erb:32
+msgid ""
+"We want your feedback! If you have suggestions on how to improve the existing "
+"template, or you would like to add additional templates based on funding agenc"
+"y requirements or disciplinary needs, please <a href=\"%{contact_your_instituti"
+"on_url}\">contact your local institution</a> or contact us at <a href=\"mailto:%"
+"{email_link}?Subject=%{email_subject}\">%{email_link}</a>."
 msgstr ""
 
 #: ../../app/views/static_pages/about_us.html.erb:35
-msgid "page for guidance."
-msgstr ""
-
-#: ../../app/views/static_pages/about_us.html.erb:35
-msgid "Please visit the"
+msgid "Getting started"
 msgstr ""
 
 #: ../../app/views/static_pages/about_us.html.erb:37
-msgid "Customising for your Organisation"
+msgid "If you have an account please sign in and start creating or editing your DMP."
+msgstr ""
+
+#: ../../app/views/static_pages/about_us.html.erb:38
+msgid "on the homepage."
+msgstr ""
+
+#: ../../app/views/static_pages/about_us.html.erb:38
+msgid "If you do not have a %{application_name} account, click on"
+msgstr ""
+
+#: ../../app/views/static_pages/about_us.html.erb:38
+msgid "Sign up"
 msgstr ""
 
 #: ../../app/views/static_pages/about_us.html.erb:39
+msgid "Please visit the"
+msgstr ""
+
+#: ../../app/views/static_pages/about_us.html.erb:39
+msgid "page for guidance."
+msgstr ""
+
+#: ../../app/views/static_pages/about_us.html.erb:43
 msgid ""
-"Organisations can customise the tool to highlight local requirements, resource"
-"s, and services. Organisational templates can be added to address local DMP re"
-"quirements, and additional sections and questions can be included in funder te"
-"mplates. Users from participating organisations that configure the tool for si"
-"ngle sign-on can log in with their own organisational accounts."
+"If you do not have a DMP Assistant account, click on <a href=\"%{sign_up_url}\">"
+" 'Sign up' </a> on the homepage."
+msgstr ""
+
+#: ../../app/views/static_pages/about_us.html.erb:47
+msgid ""
+"Please note that we are currently working on single sign-in authentication wit"
+"h your campus ID. You will have the option to link your existing account to yo"
+"ur campus ID when that feature becomes available."
+msgstr ""
+
+#: ../../app/views/static_pages/about_us.html.erb:52
+msgid "Please visit the <a href=\"%{help_url}\"> 'Help' </a> page for guidance."
+msgstr ""
+
+#: ../../app/views/static_pages/about_us.html.erb:55
+msgid "Feedback"
+msgstr ""
+
+#: ../../app/views/static_pages/about_us.html.erb:58
+msgid ""
+"If you have any questions or comments about the DMP Assistant, <a href=\"%{cont"
+"act_your_institution_url}\"> contact your local institution </a> or email us at"
+"  <a href=\"mailto:%{email_link}?Subject=%{email_subject}\">%{email_link}</a>."
+msgstr ""
+
+#: ../../app/views/static_pages/about_us.html.erb:61
+msgid "Portage data stewardship template"
+msgstr ""
+
+#: ../../app/views/static_pages/about_us.html.erb:64
+msgid ""
+"The Portage Data Stewardship template is based on internationally accepted sta"
+"ndards and best practices. It has been prepared and is maintained by a group o"
+"f research data management experts from research libraries across Canada."
+msgstr ""
+
+#: ../../app/views/static_pages/about_us.html.erb:68
+msgid ""
+"Organizations may provide their own DMP templates. The Portage template is the"
+" default DMP. Select templates from other organizations from the drop-down Org"
+"anization list."
+msgstr ""
+
+#: ../../app/views/static_pages/about_us.html.erb:72
+msgid ""
+"For funding agencies, research institutions, and other organizations, please c"
+"ontact <a href=\"mailto:%{email_link}\">%{email_link}</a> if you would like to a"
+"dd your organization templates to DMP Assistant."
 msgstr ""
 
 #: ../../app/views/static_pages/help.html.erb:11
 msgid ""
-"When you log in to %{application_name} you will be directed to the 'My Dashboa"
-"rd' page. From here you can edit, share, download, copy or remove any of your "
-"plans. You will also see plans that have been shared with you by others."
+"When you log in to DMP Assistant you will be directed to the 'My Dashboard' pa"
+"ge. From here you can edit, share, download, copy or remove any of your plans."
+" You will also see plans that have been shared with you by others."
 msgstr ""
 
-#: ../../app/views/static_pages/help.html.erb:13
+#: ../../app/views/static_pages/help.html.erb:18
+msgid ""
+"If you need assistance in developing your data management plan, the following "
+"resource may help get you started: <a href=\"%{how_to_manage_your_data_url}\"> H"
+"ow to manage your data</a>. If you require more guidance, contact us at <a hre"
+"f=\"mailto:%{email_link}?Subject=%{email_subject}\">support@portagenetwork.ca</a"
+">, or see <a href=\"%{contact_your_institution_url}\">Contacts at your instituti"
+"on</a>."
+msgstr ""
+
+#: ../../app/views/static_pages/help.html.erb:21
 msgid "Create a plan"
 msgstr ""
 
-#: ../../app/views/static_pages/help.html.erb:15
+#: ../../app/views/static_pages/help.html.erb:23
 msgid ""
 "To create a plan, click the 'Create plan' button from the 'My Dashboard' page "
 "or the top menu. Select options from the menus and tickboxes to determine what"
@@ -34526,61 +35887,61 @@ msgid ""
 "y clicking 'Create plan.'"
 msgstr ""
 
-#: ../../app/views/static_pages/help.html.erb:17
+#: ../../app/views/static_pages/help.html.erb:25
 msgid "Write your plan"
 msgstr ""
 
-#: ../../app/views/static_pages/help.html.erb:19
+#: ../../app/views/static_pages/help.html.erb:27
 msgid ""
 "The tabbed interface allows you to navigate through different functions when e"
 "diting your plan."
 msgstr ""
 
-#: ../../app/views/static_pages/help.html.erb:21
+#: ../../app/views/static_pages/help.html.erb:29
 msgid "'Project Details' includes basic administrative details."
 msgstr ""
 
-#: ../../app/views/static_pages/help.html.erb:22
+#: ../../app/views/static_pages/help.html.erb:30
 msgid ""
 "'Plan Overview' tells you what template and guidance your plan is based on and"
 " gives you an overview to the questions that you will be asked."
 msgstr ""
 
-#: ../../app/views/static_pages/help.html.erb:23
+#: ../../app/views/static_pages/help.html.erb:31
 msgid ""
 "The following tab(s) present the questions to answer. There may be more than o"
 "ne tab if your funder or university asks different sets of questions at differ"
 "ent stages e.g. at grant application and post-award."
 msgstr ""
 
-#: ../../app/views/static_pages/help.html.erb:24
+#: ../../app/views/static_pages/help.html.erb:32
 msgid "'Share' allows you to invite others to read or contribute to your plan."
 msgstr ""
 
-#: ../../app/views/static_pages/help.html.erb:25
+#: ../../app/views/static_pages/help.html.erb:33
 msgid ""
 "'Download' allows you to download your plan in various formats. This may be us"
 "eful if you need to submit your plan as part of a grant application."
 msgstr ""
 
-#: ../../app/views/static_pages/help.html.erb:28
+#: ../../app/views/static_pages/help.html.erb:36
 msgid ""
 "When viewing any of the question tabs, you will see the different sections of "
 "your plan displayed. Click into these in turn to answer the questions. You can"
 " format your responses using the text editing buttons."
 msgstr ""
 
-#: ../../app/views/static_pages/help.html.erb:30
+#: ../../app/views/static_pages/help.html.erb:38
 msgid ""
 "Guidance is displayed in the right-hand panel. If you need more guidance or fi"
 "nd there is too much, you can make adjustments on the ‘Project Details’ tab."
 msgstr ""
 
-#: ../../app/views/static_pages/help.html.erb:32
+#: ../../app/views/static_pages/help.html.erb:40
 msgid "Share plans"
 msgstr ""
 
-#: ../../app/views/static_pages/help.html.erb:34
+#: ../../app/views/static_pages/help.html.erb:42
 msgid ""
 "Insert the email address of any collaborators you would like to invite to read"
 " or edit your plan. Set the level of permissions you would like to grant them "
@@ -34588,30 +35949,29 @@ msgid ""
 "emove collaborators at any time via the drop-down options."
 msgstr ""
 
-#: ../../app/views/static_pages/help.html.erb:36
+#: ../../app/views/static_pages/help.html.erb:44
 msgid "The ‘Share’ tab is also where you can set your plan visibility."
 msgstr ""
 
-#: ../../app/views/static_pages/help.html.erb:38
+#: ../../app/views/static_pages/help.html.erb:46
 msgid "Private: restricted to you and your collaborators."
 msgstr ""
 
-#: ../../app/views/static_pages/help.html.erb:39
+#: ../../app/views/static_pages/help.html.erb:47
 msgid "Organisational: anyone at your organisation can view your plan."
 msgstr ""
 
-#: ../../app/views/static_pages/help.html.erb:40
+#: ../../app/views/static_pages/help.html.erb:48
 msgid "Public: anyone can view your plan in the Public DMPs list."
 msgstr ""
 
-#: ../../app/views/static_pages/help.html.erb:43
+#: ../../app/views/static_pages/help.html.erb:51
 msgid ""
 "By default all new and test plans will be set to ‘Private’ visibility. ‘Public"
-"’ and ‘Organisational’ visibility are intended for finished plans. You must an"
-"swer at least 50% of the questions to enable these options."
+"’ and ‘Organisational’ visibility are intended for finished plans."
 msgstr ""
 
-#: ../../app/views/static_pages/help.html.erb:46
+#: ../../app/views/static_pages/help.html.erb:54
 msgid ""
 "There may also be an option to request feedback on your plan. This is availabl"
 "e when research support staff at your organisation have enabled this service. "
@@ -34621,11 +35981,11 @@ msgid ""
 "feedback."
 msgstr ""
 
-#: ../../app/views/static_pages/help.html.erb:49
+#: ../../app/views/static_pages/help.html.erb:57
 msgid "Download plans"
 msgstr ""
 
-#: ../../app/views/static_pages/help.html.erb:50
+#: ../../app/views/static_pages/help.html.erb:58
 msgid ""
 "From here you can download your plan in various formats. This may be useful if"
 " you need to submit your plan as part of a grant application. Choose what form"
@@ -34634,142 +35994,16 @@ msgid ""
 " may be helpful if working to page limits."
 msgstr ""
 
-#: ../../app/views/static_pages/privacy.html.erb:10
-msgid "Information about you: how we use it and with whom we share it"
+#: ../../app/views/static_pages/privacy.html.erb:4
+msgid "DMP Assistant Privacy Statement"
 msgstr ""
 
-#: ../../app/views/static_pages/privacy.html.erb:11
-msgid ""
-"The information you provide will be used by the %{org_name} to offer you acces"
-"s to and personalisation of the %{application_name} service."
+#: ../../app/views/static_pages/termsuse.html.erb:2
+msgid "Terms of Use"
 msgstr ""
 
-#: ../../app/views/static_pages/privacy.html.erb:13
-msgid ""
-"The %{org_name} processes the personal data of %{application_name} users in or"
-"der to deliver and improve the %{application_name} service in a customised man"
-"ner and to ensure each user receives relevant information."
-msgstr ""
-
-#: ../../app/views/static_pages/privacy.html.erb:15
-msgid ""
-"The processing of your personal data by the %{org_name} is necessary for pursu"
-"ing the following legitimate interests:"
-msgstr ""
-
-#: ../../app/views/static_pages/privacy.html.erb:18
-msgid ""
-"To provide access to the %{application_name} service and personalisation of yo"
-"ur user experience e.g. provision of relevant templates and guidance for your "
-"organisation."
-msgstr ""
-
-#: ../../app/views/static_pages/privacy.html.erb:20
-msgid ""
-"To keep you up to date with news about %{application_name} such as new feature"
-"s or improvements, or changes to our Privacy Policy."
-msgstr ""
-
-#: ../../app/views/static_pages/privacy.html.erb:22
-msgid "For network and information security purposes."
-msgstr ""
-
-#: ../../app/views/static_pages/privacy.html.erb:24
-msgid ""
-"We will hold the personal data you provided us for as long as you continue usi"
-"ng the %{application_name} service. Your personal data can be removed from thi"
-"s service upon request to the %{application_name} team within a period of 30 d"
-"ays."
-msgstr ""
-
-#: ../../app/views/static_pages/privacy.html.erb:26
-msgid ""
-"If you have any questions, please contact the %{application_name} team at: <a "
-"href='mailto:%{helpdesk_email}'>%{helpdesk_email}</a>"
-msgstr ""
-
-#: ../../app/views/static_pages/privacy.html.erb:30
-msgid ""
-"This statement was last revised on %{revdate} and may be revised at any time w"
-"ith prior notice."
-msgstr ""
-
-#: ../../app/views/static_pages/termsuse.html.erb:12
-msgid ""
-"(CDL) are consortia supported by the University of Edinburgh and the Universit"
-"y of California, respectively. Our primary constituency is the research commun"
-"ity. We provide services to the UK, US and international higher education sect"
-"or. "
-msgstr ""
-
-#: ../../app/views/static_pages/termsuse.html.erb:16
-msgid ""
-"%{application_name} ('the tool', 'the system') is a tool developed by the DCC "
-"and CDL as a shared resource for the research community. It is hosted at CDL b"
-"y the University of California Curation Center."
-msgstr ""
-
-#: ../../app/views/static_pages/termsuse.html.erb:18
-msgid ""
-"<h3>Your personal details and consent notice</h3>\n"
-"\n"
-"      <p>In order to help identify and administer your account with %{applicat"
-"ion_name}, we need to store your name and email address. We may also use it to"
-" contact you to obtain feedback on your use of the tool, or to inform you of t"
-"he latest developments or releases. The information may be transferred between"
-" the DCC and CDL but only for the following legitimate DCC and CDL purposes: m"
-"arketing, improving our services and informing you of relevant content and eve"
-"nts. We will not sell, rent, or trade any personal information you provide to "
-"us.\n"
-"\n"
-"\n"
-"        By using this system, you consent to the collection, retention, and us"
-"e of your personal information in accordance with the above. You have the righ"
-"t to ask us not to process your personal details for marketing purposes.</p>\n"
-"\n"
-"      <h3>Privacy policy</h3>\n"
-"\n"
-"      <p>The information you enter into this system can be seen by you, people"
-" you have chosen to share access with, and - solely for the purposes of mainta"
-"ining the service - system administrators at DCC and CDL. We compile anonymize"
-"d, automated, and aggregated information from plans, but we will not directly "
-"access, make use of, or share your content with anyone else without your permi"
-"ssion. Authorized officers of your home organisation may access your plans for"
-" specific purposes - for example, to track compliance with funder/organisation"
-"al requirements, to calculate storage requirements, or to assess demand for da"
-"ta management services across disciplines.</p>\n"
-"\n"
-"      <h3>Freedom of Information</h3>\n"
-"\n"
-"      <p>DCC and CDL hold your plans on your behalf, but they are your propert"
-"y and responsibility. Any FOIA applicants will be referred back to your home o"
-"rganisation.</p>\n"
-"\n"
-"      <h3>Passwords</h3>\n"
-"      <p>Your password is stored in encrypted form and cannot be retrieved. If"
-" forgotten it has to be reset.</p>\n"
-"\n"
-"      <h3>Cookies</h3>\n"
-"\n"
-"      <p>Please note that %{application_name} uses Cookies. Further informatio"
-"n about Cookies and how we use them is available on the <a target='_blank' hre"
-"f='http://www.dcc.ac.uk/about-us/about-site/website-terms-use/cookies' class=\""
-"has-new-window-popup-info\">main DCC website<em class=\"sr-only\"> (new window)</"
-"em><span class=\"new-window-popup-info\">%{open_in_new_window_text}</span></a>.<"
-"/p>\n"
-"\n"
-"      <h3>Third party APIs</h3>\n"
-"\n"
-"      <p>Certain features on this website utilize third party services and API"
-"s such as InCommon/Shibboleth or third party hosting of common JavaScript libr"
-"aries or web fonts. Information used by an external service is governed by the"
-" privacy policy of that service.</p>\n"
-"\n"
-"      <h3>Revisions</h3>\n"
-"\n"
-"      <p>This statement was last revised on October 5, 2017 and may be revised"
-" at any time. Use of the tool indicates that you understand and agree to these"
-" terms and conditions.</p>"
+#: ../../app/views/static_pages/termsuse.html.erb:5
+msgid "DMP Assistant Terms of Use"
 msgstr ""
 
 #: ../../app/views/super_admin/api_clients/_form.html.erb:29
@@ -35475,11 +36709,15 @@ msgstr ""
 msgid "Hello %{user_name},"
 msgstr ""
 
-#: ../../app/views/user_mailer/feedback_notification.html.erb:5
+#: ../../app/views/user_mailer/feedback_notification.html.erb:6
 msgid ""
 "%{requestor} has requested feedback on a plan %{link_html}. To add comments, p"
-"lease visit the 'Plans' page under the Admin menu in %{tool_name} and open the"
+"lease visit the \"Plans\" page under the Admin menu in %{tool_name} and open the"
 " plan."
+msgstr ""
+
+#: ../../app/views/user_mailer/feedback_notification.html.erb:17
+msgid "Alternatively, you can click the link below:"
 msgstr ""
 
 #: ../../app/views/user_mailer/new_comment.html.erb:5
@@ -35526,11 +36764,11 @@ msgid "Hello "
 msgstr ""
 
 #: ../../app/views/user_mailer/plan_access_removed.html.erb:5
-msgid "Your access to "
+msgid " has been removed by "
 msgstr ""
 
 #: ../../app/views/user_mailer/plan_access_removed.html.erb:5
-msgid " has been removed by "
+msgid "Your access to "
 msgstr ""
 
 #: ../../app/views/user_mailer/plan_visibility.html.erb:5
@@ -35560,15 +36798,15 @@ msgid "Hello %{recipient_name},"
 msgstr ""
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
-msgid " to "
-msgstr ""
-
-#: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " based on the template "
 msgstr ""
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " is creating a Data Management Plan and has answered "
+msgstr ""
+
+#: ../../app/views/user_mailer/question_answered.html.erb:5
+msgid " to "
 msgstr ""
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
@@ -35598,6 +36836,10 @@ msgstr ""
 
 #: ../../app/views/users/_admin_grant_permissions.html.erb:9
 msgid "Editing privileges for %{username}"
+msgstr ""
+
+#: ../../app/views/users/_admin_grant_permissions.html.erb:16
+msgid "Organisational admin privileges"
 msgstr ""
 
 #: ../../app/views/users/_admin_grant_permissions.html.erb:19
@@ -35672,6 +36914,10 @@ msgstr ""
 msgid "Deselect all"
 msgstr ""
 
+#: ../../app/views/users/_notification_preferences.html.erb:10
+msgid "All Users"
+msgstr ""
+
 #: ../../app/views/users/_notification_preferences.html.erb:13
 msgid "A new comment has been added to my DMP"
 msgstr ""
@@ -35690,6 +36936,10 @@ msgstr ""
 
 #: ../../app/views/users/_notification_preferences.html.erb:34
 msgid "Feedback has been provided for my DMP"
+msgstr ""
+
+#: ../../app/views/users/_notification_preferences.html.erb:39
+msgid "DMP owners and co-owners"
 msgstr ""
 
 #: ../../app/views/users/_notification_preferences.html.erb:43

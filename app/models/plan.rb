@@ -69,7 +69,7 @@ class Plan < ApplicationRecord
     funded: _('Funded'),
     denied: _('Denied')
   }.freeze
-
+                      
   # ==============
   # = Attributes =
   # ==============

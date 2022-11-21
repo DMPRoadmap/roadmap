@@ -1,6 +1,7 @@
 defaults: &defaults
-  adapter: <%= ENV["DATABASE_ADAPTER"] %>
-  # pool: 16
+  adapter: mysql2
+  encoding: utf8mb4
+  pool: 16
   # database: <%= ENV["MYSQL_DATABASE"] %>
   username: <%= ENV["MYSQL_USER"] %>
   password: <%= ENV["MYSQL_PASSWORD"] %>
@@ -8,15 +9,14 @@ defaults: &defaults
 
 development:
   <<: *defaults
-  # url: <%= Rails.application.secrets.database_url %>
+  url: <%= Rails.application.secrets.database_url %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *defaults
-  # url: <%= Rails.application.secrets.database_test_url %>
-  host: <%= ENV["DATABASE_TEST_URL"] || '127.0.0.1' %>
+  url: <%= Rails.application.secrets.database_test_url %>
 
 uat:
   <<: *defaults
@@ -27,7 +27,10 @@ staging:
   url: <%= Rails.application.secrets.database_url %>
 
 sandbox:
+  encoding: utf8mb4
   url: <%= Rails.application.secrets.database_url %>
+  pool: 5
+  timeout: 5000
 
 production:
   <<: *defaults

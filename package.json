@@ -48,7 +48,8 @@
     "timeago.js": "^4.0.2",
     "tinymce": "4.9.11",
     "turbolinks": "^5.2.0",
-    "webpack": "^4.46.0"
+    "webpack": "^4.46.0",
+    "webpack-cli": "^3.3.12"
   },
   "devDependencies": {
     "eslint": "^7.1.0",

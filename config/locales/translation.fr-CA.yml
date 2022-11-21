@@ -325,7 +325,7 @@ fr-CA:
       new:
         contact_us: Communiquez avec nous
         email: Courriel
-        message: Message
+        message:
         name: Prénom
         subject: Objet
         submit: Soumettre
