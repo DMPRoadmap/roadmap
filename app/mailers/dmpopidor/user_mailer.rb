@@ -179,6 +179,24 @@ module Dmpopidor
       end
     end
 
+    # rubocop:disable Metrics/AbcSize
+    def api_credentials(api_client)
+      @api_client = api_client
+      return unless @api_client.contact_email.present?
+
+      @api_docs = Rails.configuration.x.application.api_documentation_urls[:v1]
+
+      @name = @api_client.contact_name.present? ? @api_client.contact_name : @api_client.contact_email
+
+      @helpdesk_email = helpdesk_email(org: @api_client.org)
+
+      I18n.with_locale I18n.default_locale do
+        mail(to: @api_client.contact_email,
+             subject: format(_('%{tool_name} API client created/updated'), tool_name: tool_name))
+      end
+    end
+    # rubocop:enable Metrics/AbcSize
+
     ##################
     ## NEW METHODS ###
     ##################

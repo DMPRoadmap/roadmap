@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPOPIDoR 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-11-10 10:54+0100\n"
-"PO-Revision-Date: 2022-11-10 10:54+0100\n"
+"POT-Creation-Date: 2022-11-21 15:06+0100\n"
+"PO-Revision-Date: 2022-11-21 15:06+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
@@ -991,11 +991,15 @@ msgstr "Changement de visibilité d'un plan : %{plan_title}"
 msgid "Administrator privileges granted in %{tool_name}"
 msgstr "Droits administrateur attribués dans %{tool_name}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:191
+#: ../../app/mailers/dmpopidor/user_mailer.rb:195
+msgid "%{tool_name} API client created/updated"
+msgstr "Création/Modification du client API %{tool_name}"
+
+#: ../../app/mailers/dmpopidor/user_mailer.rb:209
 msgid "Account expiration in %{tool_name}"
 msgstr "Expiration du compte dans %{tool_name}"
 
-#: ../../app/mailers/dmpopidor/user_mailer.rb:200
+#: ../../app/mailers/dmpopidor/user_mailer.rb:218
 msgid "Account expired in %{tool_name}"
 msgstr "Compte %{tool_name} expiré"
 
@@ -3735,6 +3739,42 @@ msgstr ""
 "Tous les comptes inactifs depuis 5 ans sont automatiquement désactivés. Si vou"
 "s souhaitez que votre compte reste actif, veuillez simplement vous connecter a"
 "vant %{end_date}"
+
+#: ../../app/views/branded/user_mailer/api_credentials.html.erb:2
+msgid "Hello %{name},"
+msgstr "Bonjour %{name},"
+
+#: ../../app/views/branded/user_mailer/api_credentials.html.erb:8
+msgid "Please use the following credentials when accessing the %{tool_name} API."
+msgstr ""
+"Veuillez utiliser les informations d'identification suivantes en accédant à l'"
+"API %{tool_name}."
+
+#: ../../app/views/branded/user_mailer/api_credentials.html.erb:23
+msgid "Please refer to the API documentation at: %{api_documentation_url}"
+msgstr ""
+"Veuillez consulter la documentation de l'API à l'adresse: %{api_documentation_"
+"url}"
+
+#: ../../app/views/branded/user_mailer/api_credentials.html.erb:29
+msgid ""
+"Do not share these credentials. They for use with the %{external_application} "
+"application. If you do share your credentials with another application we rese"
+"rve the right to revoke your access to the API."
+msgstr ""
+"Ne partagez pas ces identifiants. Ils sont à utiliser avec le service %{extern"
+"al_application}. Si vous partagez vos informations d'identification avec une a"
+"utre application, nous nous réservons le droit de révoquer votre accès à l'API"
+"."
+
+#: ../../app/views/branded/user_mailer/api_credentials.html.erb:34
+msgid ""
+"If you did not request access to the %{tool_name} API or did not request for y"
+"our credentials to be renewed, please contact us at %{helpdesk_email}"
+msgstr ""
+"Si vous n'avez pas demandé l'accès à l'API %{tool_name} ou n'avez pas demandé "
+"le renouvellement de vos informations d'identification, veuillez nous contacte"
+"r à %{helpdesk_email}"
 
 #: ../../app/views/branded/user_mailer/feedback_notification.html.erb:2
 msgid "Hello %{user_name},"
