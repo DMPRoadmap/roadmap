@@ -51,7 +51,7 @@ module Export
         # rubocop:enable Metrics/CyclomaticComplexity
 
         def convert_certification(val)
-          return nil if val.nil?
+          return nil if val.blank?
 
           case val.first.downcase
           when 'dsa', 'wds', 'coretrustseal'
