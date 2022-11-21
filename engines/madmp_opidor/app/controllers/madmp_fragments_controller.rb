@@ -478,7 +478,7 @@ class MadmpFragmentsController < ApplicationController
       contributors = Fragment::Contributor.where(
         dmp_id: dmp_id,
         parent_id: parent_id
-      )
+      ).where("additional_info->>'property_name' = ?", property_name)
       # if the fragment is a Person, we consider that it's been edited from a Contributor list
       # we need to indicate that we want the contributor list to be displayed
       render_to_string(
