@@ -25,15 +25,45 @@ identifier_schemes = [
     description: 'ORCID',
     active: true,
     logo_url:'http://orcid.org/sites/default/files/images/orcid_16x16.png',
-    identifier_prefix:'https://orcid.org'
+    identifier_prefix:'https://orcid.org',
+    context: 25
   },
   {
     name: 'shibboleth',
     description: 'Your institutional credentials',
     active: true,
     logo_url: 'http://newsite.shibboleth.net/wp-content/uploads/2017/01/Shibboleth-logo_2000x1200-1.png',
-    identifier_prefix: "https://example.com"
+    identifier_prefix: "https://example.com",
+    context: 25
   },
+  {
+    name: "fundref",
+    description: "Crossref Funder Registry (FundRef)",
+    active: true,
+    context: 2,
+    identifier_prefix: "https://doi.org/10.13039/"
+  },
+  {
+    name: "ror",
+    description: "Research Organization Registry (ROR)",
+    active: true,
+    context: 2,
+    identifier_prefix: "https://ror.org/",
+  },
+  {
+    name: "openaire",
+    description: "OpenAire Metadata Standards",
+    active: true,
+    identifier_prefix: "",
+    context: 127,
+  },
+  {
+    name: "rethreedata",
+    description: "Registry of Research Data Repositories (re3data)",
+    active: true,
+    identifier_prefix: "https://www.re3data.org/api/v1/repository/",
+    context: 127,
+  }
 ]
 identifier_schemes.each { |is| IdentifierScheme.find_or_create_by(is) }
 
@@ -113,8 +143,12 @@ languages = [
    name: 'Español',
    default_language: false},
   {abbreviation: 'pt-BR',
+    description: '',
+    name: 'Português (Brasil)',
+    default_language: false},
+  {abbreviation: 'ja',
    description: '',
-   name: 'Português (Brasil)',
+   name: '日本語',
    default_language: false},
   {abbreviation: 'tr-TR',
    description: '',

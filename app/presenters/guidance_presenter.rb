@@ -12,7 +12,7 @@ class GuidancePresenter
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def any?(org: nil, question: nil)
     if org.nil?
-      return hashified_annotations? || hashified_guidance_groups? unless question.present?
+      return hashified_annotations? || hashified_guidance_groups? if question.blank?
 
       # check each annotation/guidance group for a response to this question
       # Would be nice not to have to crawl the entire list each time we want to know
@@ -53,7 +53,7 @@ class GuidancePresenter
         display_tabs << { name: org.abbreviation, groups: main_groups,
                           annotations: annotations }
       end
-      next unless subsets.present?
+      next if subsets.blank?
 
       subsets.each_pair do |group, theme|
         display_tabs << { name: group.name.truncate(15), groups: { group => theme } }
@@ -121,8 +121,8 @@ class GuidancePresenter
 
     return {} unless hashified_guidance_groups.key?(org)
 
-    hashified_guidance_groups[org].each_key.each_with_object({}) do |gg, acc|
-      filtered_gg = hashified_guidance_groups[org][gg].each_key.each_with_object({}) do |theme, ac|
+    hashified_guidance_groups[org].each_key.with_object({}) do |gg, acc|
+      filtered_gg = hashified_guidance_groups[org][gg].each_key.with_object({}) do |theme, ac|
         next unless question.themes.include?(theme)
 
         ac[theme] = hashified_guidance_groups[org][gg][theme]
@@ -201,8 +201,8 @@ class GuidancePresenter
       org_guidance_groups = hashified_guidances.each_key.select do |gg|
         gg.org_id == org.id
       end
-      acc[org] = org_guidance_groups.each_with_object({}) do |gg, acc_inner|
-        acc_inner[gg] = hashified_guidances[gg]
+      acc[org] = org_guidance_groups.index_with do |gg|
+        hashified_guidances[gg]
       end
     end
   end
@@ -215,9 +215,7 @@ class GuidancePresenter
       themes = Theme.includes(:guidances)
                     .joins(:guidances)
                     .merge(Guidance.where(guidance_group_id: gg.id, published: true))
-      acc[gg] = themes.each_with_object({}) do |theme, acc_inner|
-        acc_inner[theme] = theme.guidances
-      end
+      acc[gg] = themes.index_with(&:guidances)
     end
   end
 

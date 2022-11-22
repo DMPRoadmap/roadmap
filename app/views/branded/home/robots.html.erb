@@ -1,0 +1,11 @@
+<% if Rails.env.production? %>
+  User-Agent: *
+  Allow: /
+  Disallow: /cgi-bin/
+  Disallow: /org_admin/
+  Disallow: /super_admin/
+  Sitemap: <%= sitemap_url %>.xml
+<% else %>
+  User-Agent: *
+  Disallow: /
+<% end %>

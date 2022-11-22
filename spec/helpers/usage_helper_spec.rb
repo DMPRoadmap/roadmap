@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe UsageHelper do
-  include UsageHelper
+  include described_class
 
   context 'chart data preparation' do
     describe '#prep_data_for_yearly_users_chart' do
@@ -14,7 +14,7 @@ describe UsageHelper do
     end
 
     describe '#prep_data_for_yearly_plans_chart' do
-      it 'properly formats the data ' do
+      it 'properly formats the data' do
         expects(:default_chart_prep).with(data: nil)
         prep_data_for_yearly_plans_chart(data: nil)
       end
@@ -46,7 +46,7 @@ describe UsageHelper do
       end
 
       context 'with data' do
-        before(:each) do
+        before do
           @template1 = { name: Faker::Lorem.unique.word, count: Faker::Number.number(digits: 1) }
           @template2 = { name: Faker::Lorem.unique.word, count: Faker::Number.number(digits: 1) }
           @last_month = Date.today.last_month.end_of_month
@@ -75,25 +75,26 @@ describe UsageHelper do
 
         it 'properly organizes the data for template 1' do
           expect(@first['label']).to eql(@template1[:name])
-          expect(@first['backgroundColor'].starts_with?('rgb')).to eql(true)
+          expect(@first['backgroundColor'].starts_with?('rgb')).to be(true)
           @first['data'].each do |hash|
             case hash['y']
             when prep_date_for_charts(date: @last_month)
               expect(hash['x']).to eql(@template1[:count])
             else
-              expect(hash['x']).to eql(0)
+              expect(hash['x']).to be(0)
             end
           end
         end
+
         it 'properly organizes the data for template 2' do
           expect(@second['label']).to eql(@template2[:name])
-          expect(@second['backgroundColor'].starts_with?('rgb')).to eql(true)
+          expect(@second['backgroundColor'].starts_with?('rgb')).to be(true)
           @second['data'].each do |hash|
             case hash['y']
             when prep_date_for_charts(date: @two_months)
               expect(hash['x']).to eql(@template2[:count])
             else
-              expect(hash['x']).to eql(0)
+              expect(hash['x']).to be(0)
             end
           end
         end
@@ -105,7 +106,7 @@ describe UsageHelper do
     [1, 3, 6, 9, 12].each do |months|
       it "returns an option for #{months} ago" do
         date = Date.today.months_ago(months).end_of_month
-        expect(plans_per_template_ranges.map { |i| i[1] }.include?(date)).to eql(true)
+        expect(plans_per_template_ranges.pluck(1).include?(date)).to be(true)
       end
     end
   end
@@ -122,6 +123,7 @@ describe UsageHelper do
       expected = { "#{prep_date_for_charts(date: data.date)}": data.count }.to_json
       expect(default_chart_prep(data: [data.to_json])).to eql(JSON.parse(expected))
     end
+
     it 'converts a StatJoinedUser' do
       data = build(:stat_joined_user)
       expected = { "#{prep_date_for_charts(date: data.date)}": data.count }.to_json
@@ -139,7 +141,7 @@ describe UsageHelper do
   describe '#random_rgb' do
     it 'returns a random RGB value' do
       rgb_regex = /^rgb\((\d{1,3}),(\d{1,3}),(\d{1,3})\)$/
-      expect(random_rgb =~ rgb_regex).to eql(0)
+      expect(random_rgb =~ rgb_regex).to be(0)
     end
   end
 end

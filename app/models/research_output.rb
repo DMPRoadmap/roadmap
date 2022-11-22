@@ -16,7 +16,7 @@
 #  personal_data           :boolean
 #  release_date            :datetime
 #  sensitive_data          :boolean
-#  title                   :string           not null
+#  title                   :string(255)      not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  license_id              :bigint
@@ -24,6 +24,7 @@
 #
 # Indexes
 #
+#  index_research_outputs_on_license_id   (license_id)
 #  index_research_outputs_on_output_type  (output_type)
 #
 # Foreign Keys
@@ -37,11 +38,11 @@ class ResearchOutput < ApplicationRecord
   include Identifiable
   include ValidationMessages
 
-  enum output_type: %i[audiovisual collection data_paper dataset event image
-                       interactive_resource model_representation physical_object
-                       service software sound text workflow other]
+  enum output_type: { audiovisual: 0, collection: 1, data_paper: 2, dataset: 3, event: 4, image: 5,
+                      interactive_resource: 6, model_representation: 7, physical_object: 8,
+                      service: 9, software: 10, sound: 11, text: 12, workflow: 13, other: 14 }
 
-  enum access: %i[open embargoed restricted closed]
+  enum access: { open: 0, embargoed: 1, restricted: 2, closed: 3 }
 
   # ================
   # = Associations =
@@ -57,15 +58,15 @@ class ResearchOutput < ApplicationRecord
   # = Validations =
   # ===============
 
-  validates_presence_of :output_type, :access, :title, message: PRESENCE_MESSAGE
-  validates_uniqueness_of :title, { case_sensitive: false, scope: :plan_id,
-                                    message: UNIQUENESS_MESSAGE }
-  validates_uniqueness_of :abbreviation, { case_sensitive: false, scope: :plan_id,
-                                           allow_nil: true, allow_blank: true,
-                                           message: UNIQUENESS_MESSAGE }
+  validates :output_type, :access, :title, presence: { message: PRESENCE_MESSAGE }
+  validates :title, uniqueness: { case_sensitive: false, scope: :plan_id,
+                                  message: UNIQUENESS_MESSAGE }
+  validates :abbreviation, uniqueness: { case_sensitive: false, scope: :plan_id,
+                                         allow_blank: true,
+                                         message: UNIQUENESS_MESSAGE }
 
   # Ensure presence of the :output_type_description if the user selected 'other'
-  validates_presence_of :output_type_description, if: -> { other? }, message: PRESENCE_MESSAGE
+  validates :output_type_description, presence: { if: -> { other? }, message: PRESENCE_MESSAGE }
 
   # ====================
   # = Instance methods =

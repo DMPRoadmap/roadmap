@@ -14,6 +14,11 @@ module SuperAdmin
       @theme = Theme.new
     end
 
+    def edit
+      authorize(Theme)
+      @theme = Theme.find(params[:id])
+    end
+
     def create
       authorize(Theme)
       @theme = Theme.new(permitted_params)
@@ -24,11 +29,6 @@ module SuperAdmin
         flash.now[:alert] = failure_message(@theme, _('create'))
         render :new
       end
-    end
-
-    def edit
-      authorize(Theme)
-      @theme = Theme.find(params[:id])
     end
 
     # rubocop:disable Metrics/AbcSize

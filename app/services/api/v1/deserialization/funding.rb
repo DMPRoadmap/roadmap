@@ -15,12 +15,12 @@ module Api
           #      "funding_status": "granted"
           #    }
           def deserialize(plan:, json: {})
-            return nil unless plan.present?
+            return nil if plan.blank?
             return plan unless Api::V1::JsonValidationService.funding_valid?(json: json)
 
             # Attach the Funder
             plan.funder = Api::V1::Deserialization::Org.deserialize(json: json)
-            return plan unless json[:grant_id].present?
+            return plan if json[:grant_id].blank?
 
             # Attach the grant Identifier to the Plan if present
             # Attach the identifier

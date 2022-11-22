@@ -1,0 +1,9 @@
+<div class="border-bottom mb-4">
+  <h1><%= t('doorkeeper.authorizations.error.title') %></h1>
+</div>
+
+<main role="main">
+  <% Rails.logger.error "OAuth authorization error for API Client #{@pre_auth.client.id}! - #{@pre_auth.error_response.body[:error_description]}" %>
+  <% Rails.logger.error "client_id: #{@pre_auth.client.uid}, redirect_uri: #{@pre_auth.redirect_uri}, scope: #{@pre_auth.scope}" %>
+  <p class="red"><%= _('Something went wrong. Unable to authorize your request at this time.') %></pre>
+</main>

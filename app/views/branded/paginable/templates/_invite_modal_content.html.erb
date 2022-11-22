@@ -1,0 +1,64 @@
+<%# locals: template %>
+
+<% plan = Plan.new(template: template) %>
+
+<p class="c-modal-invite-instructions">
+  <%= _("Create a new plan for the specified user based off of %{template_name}. If the user does not already have an account, they will receive an invitation to sign up.") % {
+    template_name: template&.title
+  } %>
+</p>
+
+<%= form_with model: plan, url: org_admin_plans_path, method: :post, local: true  do |f| %>
+  <div class="form-group">
+    <%= f.fields_for :user, User.new do |user_fields| %>
+      <%= user_fields.label :email, _("User's email"), class: 'control-label' %>
+      <%= user_fields.email_field :email, class: 'form-control' %>
+    <% end %>
+  </div>
+  <p>
+    <%= _("You can use the default email subject and body below or replace them with your own message. Refer to ther preview section below to see what the email will look like.") %>
+  </p>
+  <div class="form-group">
+    <%= f.fields_for :template, template do |tmplt_fields| %>
+      <%= tmplt_fields.hidden_field :id, value: template.id %>
+
+      <%= tmplt_fields.label :email_subject, _("Email subject"),
+                              class: 'control-label' %>
+      <%= tmplt_fields.text_field :email_subject, class: 'form-control' %>
+
+      <%= tmplt_fields.label :email_body, _("Email body"),
+                              class: 'control-label' %>
+      <%= tmplt_fields.text_area :email_body, row: 4, class: 'form-control tinymce' %>
+    <% end %>
+  </div>
+
+  <div class="panel panel-default template-email-preview-panel">
+    <div class="panel-header">
+      Email Preview:
+    </div>
+    <div class="panel-body">
+      <p class="replaceable-template-email-welcome">
+        Hello jane.doe@example.org,
+      </p>
+      <p class="replaceable-template-email-content">
+        <%= sanitize(plan.template.email_body) %>
+      </p>
+      <p>
+        <%= sanitize(_("Please sign in or sign up at %{homepage_link}. Once you have signed in you will see the DMP titled '%{dmp_title}' on your dashboard.") % {
+          homepage_link: 'foo', #link_to(ApplicationService.application_name, root_url),
+          dmp_title: plan.title
+        }) %>
+      </p>
+      <br>
+      <p><%= _("Thank you,") %></p>
+      <p><%= _("The %{org_name} DMPTool team") % { org_name: template.org.name } %></p>
+      <p><%= _("Please do not reply to this email. If you have any questions or need help, please contact us at %{org_admin_email}") % {
+        org_admin_email: link_to(template.org.contact_email, template.org.contact_email)
+      } %></p>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit _("Send email"), class: "btn btn-default" %>
+  </div>
+<% end %>

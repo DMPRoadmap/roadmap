@@ -103,10 +103,14 @@ module ExportablePlan
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def prepare_coversheet
     hash = {}
-    # Use the name of the DMP owner/creator OR the first Co-owner if there is no
-    # owner for some reason
-    attribution = roles.creator.first&.user&.name(false)
-    roles.administrator.not_creator.first&.user&.name(false) unless attribution.present?
+
+    # ---------------------------------------------------------
+    # DMPTool customization to always use the owner of the Plan
+    # ---------------------------------------------------------
+    # # Use the name of the DMP owner/creator OR the first Co-owner if there is no
+    # # owner for some reason (see definition of attribution method below)
+    # attribution = roles.creator.first&.user&.name(false)
+    # roles.administrator.not_creator.first&.user&.name(false) unless attribution.present?
     hash[:attribution] = attribution
 
     # Added contributors to coverage of plans.
@@ -117,12 +121,12 @@ module ExportablePlan
     hash[:other] = Contributor.where(plan_id: id).other
 
     # Org name of plan owner's org
-    hash[:affiliation] = owner.present? ? owner.org.name : ''
+    hash[:affiliation] = owner.present? && owner.org.present? ? owner.org.name : ''
 
     # set the funder name
     hash[:funder] = funder.name if funder.present?
     template_org = template.org
-    hash[:funder] = template_org.name if !hash[:funder].present? && template_org.funder?
+    hash[:funder] = template_org.name if hash[:funder].blank? && template_org.funder?
 
     # set the template name and customizer name if applicable
     hash[:template] = template.title
@@ -171,7 +175,7 @@ module ExportablePlan
     if description.present?
       csv << [_('Project abstract: '), format(_('%{description}'), description: Nokogiri::HTML(description).text)]
     end
-    csv << [_('Last modified: '), format(_('%{date}'), date: updated_at.to_date.strftime('%d-%m-%Y'))]
+    csv << [_('Last modified: '), format(_('%{date}'), date: updated_at.localtime.to_date.strftime('%d-%m-%Y'))]
     csv << [_('Copyright information:'),
             _("The above plan creator(s) have agreed that others may use as
              much of the text of this plan as they would like in their own plans,
@@ -182,10 +186,10 @@ module ExportablePlan
     csv << []
     csv << []
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
 
   # rubocop:disable Metrics/AbcSize, Metrics/BlockLength, Metrics/MethodLength
-  # rubocop:disable Metrics/ParameterLists
+  # rubocop:disable Metrics/ParameterLists, Metrics/PerceivedComplexity
   def show_section_for_csv(csv, phase, section, headings, unanswered, hash)
     section[:questions].each do |question|
       next if remove_list(hash).include?(question[:id])
@@ -248,5 +252,23 @@ module ExportablePlan
   def sanitize_text(text)
     ActionView::Base.full_sanitizer.sanitize(text.to_s.gsub(/&nbsp;/i, ''))
   end
+
+  # Use the name of the DMP owner/creator OR the first Co-owner if there is no
+  # owner for some reason
+  # rubocop:disable Metrics/AbcSize
+  def attribution
+    user = roles.creator.first&.user
+    user = roles.administrator.not_creator.first&.user if user.blank?
+    return [] if user.blank?
+
+    text = user&.name(false)
+    orcid = user.identifier_for_scheme(scheme: 'orcid')
+    if orcid.present?
+      text += format(' - <strong>ORCID:</strong> <a href="%{orcid_url}" target="_blank">%{orcid}</a>',
+                     orcid_url: orcid.value, orcid: orcid.value_without_scheme_prefix)
+    end
+    text
+  end
+  # rubocop:enable Metrics/AbcSize
 end
 # rubocop:enable Metrics/ModuleLength

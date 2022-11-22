@@ -8,7 +8,7 @@ module Paginable
 
   ##
   # Regex to validate sort_field param is safe
-  SORT_COLUMN_FORMAT = /[\w_]+\.[\w_]+$/.freeze
+  SORT_COLUMN_FORMAT = /[\w_]+\.[\w_]+$/
 
   PAGINATION_QUERY_PARAMS = %i[page sort_field sort_direction
                                search controller action].freeze
@@ -143,6 +143,7 @@ module Paginable
       parts = @args[:sort_field].partition('.')
       table_part = parts.first
       column_part = parts.last
+
       if scope_table == table_part.singularize
         order_field = ActiveRecord::Base.sanitize_sql(column_part)
         scope = scope.order(order_field.to_sym => sort_direction.to_s)
@@ -156,7 +157,7 @@ module Paginable
     if @args[:page] != 'ALL'
       # Can raise error if page is not a number
       scope = scope.page(@args[:page])
-                   .per(@args.fetch(:per_page, Rails.configuration.x.application.api_max_page_size))
+                   .per(@args.fetch(:per_page, Rails.configuration.x.results_per_page))
     end
     scope
   end
@@ -200,7 +201,7 @@ module Paginable
                                     end
     base_url = paginable_base_url(query_params[:page])
     sort_url = URI(base_url)
-    sort_url.query = stringify_query_params(query_params)
+    sort_url.query = stringify_query_params(**query_params)
     sort_url.to_s
     "#{sort_url}&#{stringify_nonpagination_query_params}"
   end

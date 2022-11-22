@@ -4,6 +4,8 @@ require 'rails_helper'
 
 RSpec.describe 'Template::UpgradeCustomizationService', type: :service do
   describe '.call' do
+    subject { Template::UpgradeCustomizationService.call(template) }
+
     let!(:funder_template) do
       ft = create(:template, :published, :default, org: create(:org, :funder))
       phase = create(:phase, template: ft)
@@ -22,8 +24,6 @@ RSpec.describe 'Template::UpgradeCustomizationService', type: :service do
       template.publish!
     end
 
-    subject { Template::UpgradeCustomizationService.call(template) }
-
     context 'when template is a customization of a published funder template' do
       it 'returns a new Template' do
         expect(subject).to be_an_instance_of(Template)
@@ -35,11 +35,11 @@ RSpec.describe 'Template::UpgradeCustomizationService', type: :service do
 
       it 'increments the version number' do
         template.update!(version: 2)
-        expect(subject.version).to eql(3)
+        expect(subject.version).to be(3)
       end
 
       it 'returns a draft Template' do
-        expect(subject.published).to eql(false)
+        expect(subject.published).to be(false)
       end
 
       it 'sets the customization_of to the family_id' do
@@ -52,19 +52,19 @@ RSpec.describe 'Template::UpgradeCustomizationService', type: :service do
       end
 
       it 'creates new phases for this Template' do
-        expect { subject }.to change { Phase.count }.by(1)
+        expect { subject }.to change(Phase, :count).by(1)
       end
 
       it 'creates new sections for this Template' do
-        expect { subject }.to change { Section.count }.by(4)
+        expect { subject }.to change(Section, :count).by(4)
       end
 
       it 'creates new questions for this Template' do
-        expect { subject }.to change { Question.count }.by(8)
+        expect { subject }.to change(Question, :count).by(8)
       end
 
       it 'creates new annotations for this Template' do
-        expect { subject }.to change { Annotation.count }.by(16)
+        expect { subject }.to change(Annotation, :count).by(16)
       end
     end
 

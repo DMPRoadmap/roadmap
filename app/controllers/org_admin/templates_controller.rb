@@ -7,6 +7,8 @@ module OrgAdmin
     include Versionable
     include TemplateMethods
 
+    include Dmptool::OrgAdmin::TemplatesController
+
     after_action :verify_authorized
 
     # The root version of index which returns all templates
@@ -17,12 +19,12 @@ module OrgAdmin
       templates = Template.latest_version.where(customization_of: nil)
       published = templates.select { |t| t.published? || t.draft? }.length
 
-      @orgs              = Org.includes(:identifiers).managed
+      @orgs              = Org.includes(identifiers: :identifier_scheme).managed
       @title             = _('All Templates')
       @templates         = templates.includes(:org).page(1)
       @query_params      = { sort_field: 'templates.title', sort_direction: 'asc' }
       @all_count         = templates.length
-      @published_count   = published.present? ? published : 0
+      @published_count   = (published.presence || 0)
       @unpublished_count = if published.present?
                              (templates.length - published)
                            else
@@ -42,7 +44,7 @@ module OrgAdmin
                           .where(customization_of: nil, org_id: current_user.org.id)
       published = templates.select { |t| t.published? || t.draft? }.length
 
-      @orgs  = current_user.can_super_admin? ? Org.includes(:identifiers).all : nil
+      @orgs  = Org.includes(identifiers: :identifier_scheme).all if current_user.can_super_admin?
       @title = if current_user.can_super_admin?
                  format(_('%{org_name} Templates'), org_name: current_user.org.name)
                else
@@ -51,7 +53,7 @@ module OrgAdmin
       @templates = templates.page(1)
       @query_params = { sort_field: 'templates.title', sort_direction: 'asc' }
       @all_count = templates.length
-      @published_count = published.present? ? published : 0
+      @published_count = (published.presence || 0)
       @unpublished_count = if published.present?
                              templates.length - published
                            else
@@ -80,13 +82,13 @@ module OrgAdmin
       end
       published = customizations.select { |t| t.published? || t.draft? }.length
 
-      @orgs = current_user.can_super_admin? ? Org.includes(:identifiers).all : []
+      @orgs  = Org.includes(identifiers: :identifier_scheme).all if current_user.can_super_admin?
       @title = _('Customizable Templates')
       @templates = funder_templates
       @customizations = customizations
       @query_params = { sort_field: 'templates.title', sort_direction: 'asc' }
       @all_count = funder_templates.length
-      @published_count = published.present? ? published : 0
+      @published_count = (published.presence || 0)
       @unpublished_count = if published.present?
                              (customizations.length - published)
                            else
@@ -100,6 +102,7 @@ module OrgAdmin
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     # GET /org_admin/templates/[:id]
+    # rubocop:disable Metrics/AbcSize,
     def show
       template = Template.find(params[:id])
       authorize template
@@ -112,18 +115,25 @@ module OrgAdmin
                                'sections.title', 'questions.text', 'question_options.text')
       unless template.latest?
         # rubocop:disable Layout/LineLength
-        flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
+        flash.now[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
         # rubocop:enable Layout/LineLength
       end
       render 'container', locals: {
         partial_path: 'show',
         template: template,
         phases: phases,
-        referrer: get_referrer(template, request.referrer)
+        referrer: get_referrer(template, request.referer)
       }
     end
+    # rubocop:enable Metrics/AbcSize,
 
     # GET /org_admin/templates/:id/edit
+    def new
+      authorize Template
+      @template = current_org.templates.new
+    end
+
+    # GET /org_admin/templates/new
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def edit
       template = Template.includes(:org, :phases).find(params[:id])
@@ -145,19 +155,13 @@ module OrgAdmin
           partial_path: 'edit',
           template: template,
           phases: phases,
-          referrer: get_referrer(template, request.referrer)
+          referrer: get_referrer(template, request.referer)
         }
       else
         redirect_to org_admin_template_path(id: template.id)
       end
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-
-    # GET /org_admin/templates/new
-    def new
-      authorize Template
-      @template = current_org.templates.new
-    end
 
     # POST /org_admin/templates
     # rubocop:disable Metrics/AbcSize
@@ -180,7 +184,7 @@ module OrgAdmin
         redirect_to edit_org_admin_template_path(@template),
                     notice: success_message(@template, _('created'))
       else
-        flash[:alert] = flash[:alert] = failure_message(@template, _('create'))
+        flash.now[:alert] = flash.now[:alert] = failure_message(@template, _('create'))
         render :new
       end
     end
@@ -235,16 +239,16 @@ module OrgAdmin
       if versions.reject { |t| t.plans.empty? }.empty?
         versions.each do |version|
           if version.destroy!
-            flash[:notice] = success_message(template, _('removed'))
+            flash.now[:notice] = success_message(template, _('removed'))
           else
-            flash[:alert] = failure_message(template, _('remove'))
+            flash.now[:alert] = failure_message(template, _('remove'))
           end
         end
       else
-        flash[:alert] = _("You cannot delete a #{template_type(template)} that has been used to create plans.")
+        flash.now[:alert] = _("You cannot delete a #{template_type(template)} that has been used to create plans.")
       end
-      if request.referrer.present?
-        redirect_to request.referrer
+      if request.referer.present?
+        redirect_to request.referer
       else
         redirect_to org_admin_templates_path
       end
@@ -277,14 +281,14 @@ module OrgAdmin
       publishable, errors = template.publishability
       if publishable
         if template.publish!
-          flash[:notice] = _("Your #{template_type(template)} has been published and is now available to users.")
+          flash.now[:notice] = _("Your #{template_type(template)} has been published and is now available to users.")
         else
-          flash[:alert] = _("Unable to publish your #{template_type(template)}.")
+          flash.now[:alert] = _("Unable to publish your #{template_type(template)}.")
         end
       else
-        flash[:alert] = errors
+        flash.now[:alert] = errors
       end
-      redirect_to request.referrer.present? ? request.referrer : org_admin_templates_path
+      redirect_to(request.referer.presence || org_admin_templates_path)
     end
     # rubocop:enable Metrics/AbcSize
 
@@ -299,8 +303,8 @@ module OrgAdmin
         Template.where(family_id: template.family_id)
                 .update_all(published: false)
       end
-      flash[:notice] = _("Successfully unpublished your #{template_type(template)}") unless flash[:alert].present?
-      redirect_to request.referrer.present? ? request.referrer : org_admin_templates_path
+      flash.now[:notice] = _("Successfully unpublished your #{template_type(template)}") if flash[:alert].blank?
+      redirect_to(request.referer.presence || org_admin_templates_path)
     end
     # rubocop:enable Metrics/AbcSize
 
@@ -341,7 +345,7 @@ module OrgAdmin
                    template: 'template_exports/template_export',
                    margin: @formatting[:margin],
                    footer: {
-                     center: format(_('Template created using the %{application_name} service. Last modified %{date}'), application_name: ApplicationService.application_name, date: l(@template.updated_at.to_date, formats: :short)),
+                     center: format(_('Template created using the %{application_name} service. Last modified %{date}'), application_name: ApplicationService.application_name, date: l(@template.updated_at.localtime.to_date, formats: :short)),
                      font_size: 8,
                      spacing: (@formatting[:margin][:bottom] / 2) - 4,
                      right: '[page] of [topage]',
@@ -392,7 +396,7 @@ module OrgAdmin
     end
 
     def get_referrer(template, referrer)
-      return org_admin_templates_path unless referrer.present?
+      return org_admin_templates_path if referrer.blank?
 
       if referrer.end_with?(new_org_admin_template_path) ||
          referrer.end_with?(edit_org_admin_template_path) ||
@@ -404,7 +408,7 @@ module OrgAdmin
           organisational_org_admin_templates_path
         end
       else
-        request.referrer
+        request.referer
       end
     end
   end

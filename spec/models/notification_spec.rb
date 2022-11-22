@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Notification, type: :model do
+RSpec.describe Notification do
   context 'validations' do
     it { is_expected.to validate_presence_of(:notification_type) }
 
@@ -34,7 +34,7 @@ RSpec.describe Notification, type: :model do
   end
 
   describe '.active' do
-    subject { Notification.active }
+    subject { described_class.active }
 
     context 'when enabled and now is before starts_at' do
       let!(:notification) do
@@ -79,16 +79,18 @@ RSpec.describe Notification, type: :model do
 
   describe '.active_per_user' do
     context 'when User is present and Notification is general' do
+      subject { described_class.active_per_user(user) }
+
       let!(:notification) { create(:notification, :active) }
 
       let!(:user) { create(:user) }
-
-      subject { Notification.active_per_user(user) }
 
       it { is_expected.to include(notification) }
     end
 
     context 'when User is present and Notification belongs to User' do
+      subject { described_class.active_per_user(user) }
+
       let!(:user) { create(:user) }
 
       let!(:notification) { create(:notification, :active) }
@@ -97,47 +99,45 @@ RSpec.describe Notification, type: :model do
         notification.users << user
       end
 
-      subject { Notification.active_per_user(user) }
-
       it { is_expected.not_to include(notification) }
     end
 
     context 'when User is nil and Notification is dismissable' do
+      subject { described_class.active_per_user(user) }
+
       let!(:user) { nil }
 
       let!(:notification) { create(:notification, :active, :dismissable) }
-
-      subject { Notification.active_per_user(user) }
 
       it { is_expected.not_to include(notification) }
     end
 
     context 'when User is nil and Notification is not dismissable' do
+      subject { described_class.active_per_user(user) }
+
       let!(:user) { nil }
 
       let!(:notification) { create(:notification, :active) }
-
-      subject { Notification.active_per_user(user) }
 
       it { is_expected.to include(notification) }
     end
 
     context 'when User is present and Notification is disabled' do
+      subject { described_class.active_per_user(user) }
+
       let!(:notification) { create(:notification, :active, enabled: false) }
 
       let!(:user) { create(:user) }
-
-      subject { Notification.active_per_user(user) }
 
       it { is_expected.not_to include(notification) }
     end
 
     context 'when User is nil and Notification is not dismissable or enabled' do
+      subject { described_class.active_per_user(user) }
+
       let!(:user) { nil }
 
       let!(:notification) { create(:notification) }
-
-      subject { Notification.active_per_user(user) }
 
       it { is_expected.not_to include(notification) }
     end
@@ -145,61 +145,61 @@ RSpec.describe Notification, type: :model do
 
   describe '#acknowledged?' do
     context 'when dismissable, user present, and already acknowledged' do
+      subject { notification.acknowledged?(user) }
+
       let!(:notification) { create(:notification, :dismissable) }
 
       let!(:user) { create(:user) }
-
-      subject { notification.acknowledged?(user) }
 
       before do
         notification.users << user
       end
 
-      it { is_expected.to eql(true) }
+      it { is_expected.to be(true) }
     end
 
     context 'when not dismissable, user present, and already acknowledged' do
+      subject { notification.acknowledged?(user) }
+
       let!(:notification) { create(:notification) }
 
       let!(:user) { create(:user) }
-
-      subject { notification.acknowledged?(user) }
 
       before do
         notification.users << user
       end
 
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
 
     context 'when dismissable, user absent' do
+      subject { notification.acknowledged?(user) }
+
       let!(:notification) { create(:notification, :dismissable) }
 
       let!(:user) { nil }
 
-      subject { notification.acknowledged?(user) }
-
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
 
     context 'when dismissable, user absent, and not already acknowledged' do
+      subject { notification.acknowledged?(user) }
+
       let!(:notification) { create(:notification, :dismissable) }
 
       let!(:user) { nil }
 
-      subject { notification.acknowledged?(user) }
-
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
 
     context 'when not dismissable, user absent, and not already acknowledged' do
+      subject { notification.acknowledged?(user) }
+
       let!(:notification) { create(:notification) }
 
       let!(:user) { nil }
 
-      subject { notification.acknowledged?(user) }
-
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
   end
 end

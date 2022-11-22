@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe ContributorsController, type: :controller do
-  before(:each) do
+RSpec.describe ContributorsController do
+  before do
     @scheme = create(:identifier_scheme, name: 'orcid')
     @org = create(:org, managed: true)
     @plan = create(:plan, :creator, org: @org)
@@ -15,16 +15,12 @@ RSpec.describe ContributorsController, type: :controller do
         name: Faker::TvShows::Simpsons.character,
         email: Faker::Internet.email,
         phone: Faker::Number.number,
-        org_id: {
-          id: @org.id,
-          name: @org.name,
-          ror: Faker::Lorem.word
-        }.to_json,
         identifiers_attributes: { '0': {
           identifier_scheme_id: @scheme.id,
           value: SecureRandom.uuid
         } }
-      }
+      },
+      org_autocomplete: { name: @org.name }
     }
     @roles = Contributor.new.all_roles
     @params_hash[:contributor][@roles.sample.to_sym] = '1'
@@ -32,26 +28,29 @@ RSpec.describe ContributorsController, type: :controller do
   end
 
   context 'actions' do
-    before(:each) do
+    before do
       sign_in(@user)
     end
 
+    # DMPTool commenting out due to random 'missing partial' errors when run as a suite
     it 'GET plans/:plan_id/contributors (:index)' do
       get :index, params: { plan_id: @plan.id }
       expect(response).to render_template(:index)
       expect(assigns(:plan)).to eql(@plan)
-      expect(assigns(:contributors).length).to eql(1)
+      expect(assigns(:contributors).length).to be(1)
       expect(assigns(:contributors).first).to eql(@contributor)
     end
 
+    # DMPTool commenting out due to random 'missing partial' errors when run as a suite
     it 'GET plans/:plan_id/contributors/new (:new)' do
       get :new, params: { plan_id: @plan.id }
       expect(response).to render_template(:new)
       expect(assigns(:plan)).to eql(@plan)
-      expect(assigns(:contributor).new_record?).to eql(true)
+      expect(assigns(:contributor).new_record?).to be(true)
       expect(assigns(:contributor).plan).to eql(@plan)
     end
 
+    # DMPTool commenting out due to random 'missing partial' errors when run as a suite
     it 'GET plans/:plan_id/contributors/:id/edit (:edit)' do
       get :edit, params: { plan_id: @plan.id, id: @contributor.id }
       expect(response).to render_template(:edit)
@@ -84,7 +83,7 @@ RSpec.describe ContributorsController, type: :controller do
       # Verify that the ORCID was saved
       expected = params[:identifiers_attributes][:'0'][:value]
       expect(contrib.identifiers.first.identifier_scheme).to eql(@scheme)
-      expect(contrib.identifiers.first.value.ends_with?(expected)).to eql(true)
+      expect(contrib.identifiers.first.value.ends_with?(expected)).to be(true)
     end
 
     it 'PUT plans/:plan_id/contributors/:id (:update)' do
@@ -110,13 +109,13 @@ RSpec.describe ContributorsController, type: :controller do
       # Verify that the ORCID was saved
       expected = params[:identifiers_attributes][:'0'][:value]
       expect(@contributor.identifiers.first.identifier_scheme).to eql(@scheme)
-      expect(@contributor.identifiers.first.value.ends_with?(expected)).to eql(true)
+      expect(@contributor.identifiers.first.value.ends_with?(expected)).to be(true)
     end
 
     it 'DELETE plans/:plan_id/contributors/:id (:destroy)' do
       id = @contributor.id
       delete :destroy, params: @params_hash.merge({ plan_id: @plan.id, id: @contributor.id })
-      expect(Contributor.where(id: id).any?).to eql(false)
+      expect(Contributor.where(id: id).any?).to be(false)
     end
   end
 
@@ -124,44 +123,13 @@ RSpec.describe ContributorsController, type: :controller do
     describe '#translate_roles' do
       it 'converts integer to boolean' do
         roles = @controller.send(:translate_roles, hash: @params_hash[:contributor])
-        expect([true, false].include?(roles[@roles.first])).to eql(true)
+        expect([true, false].include?(roles[@roles.first])).to be(true)
       end
+
       it 'leaves non-role integers alone' do
         @params_hash[:contributor][:non_role] = '1'
         roles = @controller.send(:translate_roles, hash: @params_hash[:contributor])
         expect(roles[:non_role]).to eql('1')
-      end
-    end
-
-    describe '#process_org(hash:)' do
-      it 'returns the hash as is if no :org_id is present' do
-        @params_hash[:contributor].delete(:org_id)
-        hash = @controller.send(:process_org, hash: @params_hash[:contributor])
-        expect(hash).to eql(@params_hash[:contributor])
-      end
-      it 'with no restrict_orgs defined, returns the hash if the org could not be converted' do
-        Rails.configuration.x.application.restrict_orgs = nil
-        @controller.stubs(:org_from_params).returns(nil)
-        hash = @controller.send(:process_org, hash: @params_hash[:contributor])
-        expect(hash).to eql(@params_hash[:contributor])
-      end
-      it 'with restrict_orgs=false, returns the hash if the org could not be converted' do
-        Rails.configuration.x.application.restrict_orgs = false
-        @controller.stubs(:org_from_params).returns(nil)
-        hash = @controller.send(:process_org, hash: @params_hash[:contributor])
-        expect(hash).to eql(@params_hash[:contributor])
-      end
-      it 'with restrict_orgs=true, returns hash if the org could not be converted' do
-        Rails.configuration.x.application.restrict_orgs = true
-        @controller.stubs(:org_from_params).returns(nil)
-        hash = @controller.send(:process_org, hash: @params_hash[:contributor])
-        expect(hash).to eql(@params_hash[:contributor])
-      end
-      it 'sets the org_id to the idea of the org' do
-        new_org = create(:org)
-        @controller.stubs(:org_from_params).returns(new_org)
-        hash = @controller.send(:process_org, hash: @params_hash[:contributor])
-        expect(hash[:org_id]).to eql(new_org.id)
       end
     end
 
@@ -171,6 +139,7 @@ RSpec.describe ContributorsController, type: :controller do
           get :index, params: { plan_id: @plan.id }
           expect(assigns(:plan)).to eql(@plan)
         end
+
         it 'redirects to :root if no plan found' do
           get :index, params: { plan_id: 99_999 }
           expect(response).to have_http_status(:redirect)
@@ -183,23 +152,28 @@ RSpec.describe ContributorsController, type: :controller do
           described_class.any_instance.expects(:fetch_contributor).at_most(0)
           post :create, params: @params_hash.merge({ plan_id: @plan.id })
         end
+
         it 'is not triggered on GET :index' do
           described_class.any_instance.expects(:fetch_contributor).at_most(0)
           get :index, params: { plan_id: @plan.id }
         end
+
         it 'is not triggered on GET :new' do
           described_class.any_instance.expects(:fetch_contributor).at_most(0)
           get :new, params: { plan_id: @plan.id }
         end
+
         it 'assigns the contributor instance variable' do
           get :edit, params: { plan_id: @plan.id, id: @contributor.id }
           expect(assigns(:contributor)).to eql(@contributor)
         end
+
         it 'redirects to :index if no contributor found' do
           get :edit, params: { plan_id: @plan.id, id: 99_999 }
           expect(response).to have_http_status(:redirect)
           expect(response).to redirect_to(plan_contributors_url(@plan))
         end
+
         it 'redirects to :index if contributor does not belong to the plan' do
           contrib = create(:contributor, plan: create(:plan))
           get :edit, params: { plan_id: @plan.id, id: contrib.id }

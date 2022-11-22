@@ -6,6 +6,7 @@ class UsageController < ApplicationController
 
   after_action :verify_authorized
   # GET /usage
+  # rubocop:disable Metrics/AbcSize
   def index
     authorize :usage
     args = default_query_args
@@ -13,10 +14,12 @@ class UsageController < ApplicationController
     plan_data(args: args, as_json: true)
     total_plans(args: min_max_dates(args: args))
     total_users(args: min_max_dates(args: args))
+    total_dmp_ids
     @separators = Rails.configuration.x.application.csv_separators
     @funder = current_user.org.funder?
     @filtered = args[:filtered]
   end
+  # rubocop:enable Metrics/AbcSize
 
   # POST /usage_plans_by_template
   def plans_by_template
@@ -35,7 +38,8 @@ class UsageController < ApplicationController
     # for global usage
     authorize :usage
 
-    data = Org::TotalCountStatService.call(filtered: parse_filtered) # TODO: Update
+    args = { filtered: parse_filtered }
+    data = Org::TotalCountStatService.call(**args) # TODO: Update
     sep = sep_param
     data_csvified = Csvable.from_array_of_hashes(data, true, sep)
 
@@ -127,8 +131,8 @@ class UsageController < ApplicationController
 
     {
       org: org,
-      start_date: start_date.present? ? start_date : first_plan_date.strftime('%Y-%m-%d'),
-      end_date: end_date.present? ? end_date : Date.today.strftime('%Y-%m-%d')
+      start_date: (start_date.presence || first_plan_date.strftime('%Y-%m-%d')),
+      end_date: (end_date.presence || Date.today.strftime('%Y-%m-%d'))
     }
   end
   # rubocop:enable Metrics/AbcSize
@@ -162,28 +166,32 @@ class UsageController < ApplicationController
   end
 
   def user_data(args:, as_json: false, sort: :asc)
-    @users_per_month = StatJoinedUser.monthly_range(args.except(:filtered))
+    @users_per_month = StatJoinedUser.monthly_range(**args.except(:filtered))
                                      .order(date: sort)
     @users_per_month = @users_per_month.map(&:to_json) if as_json
   end
 
   def plan_data(args:, as_json: false, sort: :asc)
-    @plans_per_month = StatCreatedPlan.monthly_range(args)
+    @plans_per_month = StatCreatedPlan.monthly_range(**args)
                                       .where.not(details: '{"by_template":[]}')
                                       .order(date: sort)
     @plans_per_month = @plans_per_month.map(&:to_json) if as_json
   end
 
   def total_plans(args:)
-    @total_org_plans = StatCreatedPlan.monthly_range(args).sum(:count)
+    @total_org_plans = StatCreatedPlan.monthly_range(**args).sum(:count)
   end
 
   def total_users(args:)
-    @total_org_users = StatJoinedUser.monthly_range(args.except(:filtered)).sum(:count)
+    @total_org_users = StatJoinedUser.monthly_range(**args.except(:filtered)).sum(:count)
+  end
+
+  def total_dmp_ids
+    @total_org_dmp_ids = current_user.org.plans.select { |plan| plan.dmp_id.present? }.length
   end
 
   def first_plan_date
-    StatCreatedPlan.all.order(:date).limit(1).pluck(:date).first \
+    StatCreatedPlan.all.order(:date).limit(1).pick(:date) \
     || Date.today.last_month.end_of_month
   end
 end

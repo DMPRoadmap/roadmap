@@ -6,6 +6,7 @@ class ContributorsController < ApplicationController
   helper PaginableHelper
 
   before_action :fetch_plan
+  before_action :ensure_org_param, only: %i[create update]
   before_action :fetch_contributor, only: %i[edit update destroy]
   after_action :verify_authorized
 
@@ -18,7 +19,7 @@ class ContributorsController < ApplicationController
   # GET /plans/:plan_id/contributors/new
   def new
     authorize @plan
-    default_org = @plan.org.present? ? @plan.org : current_user.org
+    default_org = (@plan.org.presence || current_user.org)
     @contributor = Contributor.new(plan: @plan, org: default_org)
   end
 
@@ -33,11 +34,10 @@ class ContributorsController < ApplicationController
     authorize @plan, :edit?
 
     args = translate_roles(hash: contributor_params)
-    args = process_org(hash: args)
     if args.blank?
       @contributor = Contributor.new(args)
       @contributor.errors.add(:affiliation, 'invalid')
-      flash[:alert] = failure_message(@contributor, _('add'))
+      flash.now[:alert] = failure_message(@contributor, _('add'))
       render :new
     else
       args = process_orcid_for_create(hash: args)
@@ -53,7 +53,7 @@ class ContributorsController < ApplicationController
         redirect_to plan_contributors_path(@plan),
                     notice: success_message(@contributor, _('added'))
       else
-        flash[:alert] = failure_message(@contributor, _('add'))
+        flash.now[:alert] = failure_message(@contributor, _('add'))
         render :new
       end
     end
@@ -64,7 +64,6 @@ class ContributorsController < ApplicationController
   def update
     authorize @plan
     args = translate_roles(hash: contributor_params)
-    args = process_org(hash: args)
     args = process_orcid_for_update(hash: args)
 
     if @contributor.update(args)
@@ -75,7 +74,6 @@ class ContributorsController < ApplicationController
       render :edit
     end
   end
-  # rubocop:enable
 
   # DELETE /plans/:plan_id/contributors/:id
   def destroy
@@ -98,7 +96,9 @@ class ContributorsController < ApplicationController
     params.require(:contributor).permit(
       base_params,
       role_params,
-      identifiers_attributes: %i[id identifier_scheme_id value attrs]
+      identifiers_attributes: %i[id identifier_scheme_id value attrs],
+      org_attributes: %i[abbreviation contact_email contact_name is_other
+                         managed name org_type target_url links]
     )
   end
 
@@ -109,30 +109,20 @@ class ContributorsController < ApplicationController
     hash
   end
 
-  # Convert the Org Hash into an Org object (creating it if allowed)
-  # and then remove all of the Org args
-  def process_org(hash:)
-    return hash unless hash.present? && hash[:org_id].present?
-
-    allow = !Rails.configuration.x.application.restrict_orgs
-    org = org_from_params(params_in: hash,
-                          allow_create: allow)
-
-    hash = remove_org_selection_params(params_in: hash)
-
-    return hash if org.blank? && !allow
-    return hash unless org.present?
-
-    hash[:org_id] = org.id
-    hash
+  # Convert the results of the Org Autocomplete into an Org or Org.id
+  def ensure_org_param
+    # Convert the selected/specified Org name into attributes
+    op = autocomplete_to_controller_params
+    params[:contributor][:org_id] = op[:org_id] if op[:org_id].present?
+    params[:contributor][:org_attributes] = op[:org_attributes] if op[:org_id].blank?
   end
 
   # When creating, just remove the ORCID if it was left blank
   def process_orcid_for_create(hash:)
-    return hash unless hash[:identifiers_attributes].present?
+    return hash if hash[:identifiers_attributes].blank?
 
     id_hash = hash[:identifiers_attributes][:'0']
-    return hash unless id_hash[:value].blank?
+    return hash if id_hash[:value].present?
 
     hash.delete(:identifiers_attributes)
     hash
@@ -140,10 +130,10 @@ class ContributorsController < ApplicationController
 
   # When updating, destroy the ORCID if it was blanked out on form
   def process_orcid_for_update(hash:)
-    return hash unless hash[:identifiers_attributes].present?
+    return hash if hash[:identifiers_attributes].blank?
 
     id_hash = hash[:identifiers_attributes][:'0']
-    return hash unless id_hash[:value].blank?
+    return hash if id_hash[:value].present?
 
     existing = @contributor.identifier_for_scheme(scheme: 'orcid')
     existing.destroy if existing.present?
@@ -190,7 +180,7 @@ class ContributorsController < ApplicationController
   end
 
   def save_orcid
-    return true unless @cached_orcid.present?
+    return true if @cached_orcid.blank?
 
     @cached_orcid.identifiable = @contributor
     @cached_orcid.save

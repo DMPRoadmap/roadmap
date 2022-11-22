@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Guidance, type: :model do
+RSpec.describe Guidance do
   context 'validations' do
     it { is_expected.to validate_presence_of(:text) }
 
@@ -10,6 +10,7 @@ RSpec.describe Guidance, type: :model do
 
     context 'if published' do
       before { subject.expects(:published?).returns(true) }
+
       it { is_expected.to validate_presence_of(:themes) }
     end
 
@@ -22,30 +23,30 @@ RSpec.describe Guidance, type: :model do
     it { is_expected.to belong_to :guidance_group }
 
     it do
-      is_expected.to have_and_belong_to_many(:themes)
+      expect(subject).to have_and_belong_to_many(:themes)
         .join_table('themes_in_guidance')
     end
   end
 
   describe '.can_view?' do
-    let!(:user) { create(:user) }
+    subject { described_class.can_view?(user, @guidance.id) }
 
-    subject { Guidance.can_view?(user, @guidance.id) }
+    let!(:user) { create(:user) }
 
     context 'when guidance_id is invalid' do
       before do
-        @guidance = Guidance.new(guidance_group: create(:guidance_group))
+        @guidance = described_class.new(guidance_group: create(:guidance_group))
       end
 
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
 
     context "when guidance's group is nil" do
       before do
-        @guidance = Guidance.new
+        @guidance = described_class.new
       end
 
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
 
     context 'when owned by a curation center' do
@@ -56,7 +57,7 @@ RSpec.describe Guidance, type: :model do
         @guidance       = create(:guidance, guidance_group: @guidance_group)
       end
 
-      it { is_expected.to eql(true) }
+      it { is_expected.to be(true) }
     end
 
     context 'when owned by a institution org' do
@@ -66,7 +67,7 @@ RSpec.describe Guidance, type: :model do
         @guidance       = create(:guidance, guidance_group: @guidance_group)
       end
 
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
 
     context 'when owned by a funder org' do
@@ -76,7 +77,7 @@ RSpec.describe Guidance, type: :model do
         @guidance       = create(:guidance, guidance_group: @guidance_group)
       end
 
-      it { is_expected.to eql(true) }
+      it { is_expected.to be(true) }
     end
 
     context 'when owned by a organisation org' do
@@ -86,7 +87,7 @@ RSpec.describe Guidance, type: :model do
         @guidance       = create(:guidance, guidance_group: @guidance_group)
       end
 
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
 
     context 'when owned by a research_institute org' do
@@ -96,7 +97,7 @@ RSpec.describe Guidance, type: :model do
         @guidance       = create(:guidance, guidance_group: @guidance_group)
       end
 
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
 
     context 'when owned by a project org' do
@@ -106,7 +107,7 @@ RSpec.describe Guidance, type: :model do
         @guidance       = create(:guidance, guidance_group: @guidance_group)
       end
 
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
 
     context 'when owned by a school org' do
@@ -116,7 +117,7 @@ RSpec.describe Guidance, type: :model do
         @guidance       = create(:guidance, guidance_group: @guidance_group)
       end
 
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
 
     context 'when owned by an Org which the user is a member' do
@@ -126,14 +127,14 @@ RSpec.describe Guidance, type: :model do
         @guidance       = create(:guidance, guidance_group: @guidance_group)
       end
 
-      it { is_expected.to eql(true) }
+      it { is_expected.to be(true) }
     end
   end
 
   describe '.all_viewable' do
-    let!(:user) { create(:user) }
+    subject { described_class.all_viewable(user) }
 
-    subject { Guidance.all_viewable(user) }
+    let!(:user) { create(:user) }
 
     context 'when is owned by managing curation center' do
       before do
@@ -234,14 +235,14 @@ RSpec.describe Guidance, type: :model do
   end
 
   describe '#in_group_belonging_to?' do
-    let!(:org) { create(:org) }
-
     subject { guidance.in_group_belonging_to?(org.id) }
 
-    context 'when guidance_group is nil' do
-      let!(:guidance) { Guidance.new }
+    let!(:org) { create(:org) }
 
-      it { is_expected.to eql(false) }
+    context 'when guidance_group is nil' do
+      let!(:guidance) { described_class.new }
+
+      it { is_expected.to be(false) }
     end
 
     context 'when guidance group belongs to given Org' do
@@ -249,7 +250,7 @@ RSpec.describe Guidance, type: :model do
 
       let!(:guidance) { create(:guidance, guidance_group: guidance_group) }
 
-      it { is_expected.to eql(true) }
+      it { is_expected.to be(true) }
     end
 
     context "when guidance group doesn't belong to given Org" do
@@ -257,7 +258,7 @@ RSpec.describe Guidance, type: :model do
 
       let!(:guidance) { create(:guidance, guidance_group: guidance_group) }
 
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
   end
 end

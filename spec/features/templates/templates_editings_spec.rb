@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.feature 'Templates::Editing', type: :feature do
+RSpec.describe 'Templates::Editing' do
   let!(:default_template) { create(:template, :default, :published) }
 
   let!(:funder) { create(:org, :funder) }
@@ -24,7 +24,7 @@ RSpec.feature 'Templates::Editing', type: :feature do
     visit org_admin_templates_path
   end
 
-  scenario "Admin edits a Template's existing question", :js do
+  it "Admin edits a Template's existing question", :js do
     click_link 'Customisable Templates'
     within("#template_#{template.id}") do
       click_button 'Actions'
@@ -46,7 +46,7 @@ RSpec.feature 'Templates::Editing', type: :feature do
     # Make sure annotation has been updated
     expect(Question.find(template.question_ids.first).annotations.first.text).to eql('Foo bar')
     # Make sure blank records are not created for empty annotation form
-    expect(Question.find(template.question_ids.first).annotations.count).to eql(1)
+    expect(Question.find(template.question_ids.first).annotations.count).to be(1)
     expect(page).not_to have_errors
   end
 end

@@ -8,8 +8,8 @@ module Api
         #
         #   ApiClients (aka machines) with the following JSON body: {
         #     "grant_type": "client_credentials",
-        #     "client_id": "[api_clients.client_id]",
-        #     "client_secret": "[api_clients.client_secret]",
+        #     "client_id": "[oauth_applications.uid]",
+        #     "client_secret": "[oauth_applications.secret]",
         #   }
         #
         #   Users with the following JSON body: {
@@ -30,7 +30,7 @@ module Api
             @errors = {}
 
             if @client_id.nil? || @client_secret.nil? ||
-               !%w[client_credentials authorization_code].include?(type)
+               %w[client_credentials authorization_code].exclude?(type)
               @errors[:client_authentication] = _('Invalid grant type')
             end
           end
@@ -40,13 +40,13 @@ module Api
             return nil unless @client_id.present? && @client_secret.present?
 
             obj = client
-            return nil unless obj.present?
+            return nil if obj.blank?
 
             # Fetch either the client_id or the email depending on whether we
             # are working with a ApiClient or a User
             id = obj.client_id if obj.is_a?(ApiClient)
             id = obj.email if obj.is_a?(User)
-            return nil unless id.present?
+            return nil if id.blank?
 
             payload = { client_id: id }
             token = JsonWebToken.encode(payload: payload)
@@ -78,7 +78,7 @@ module Api
             return nil unless clients.present? && clients.any?
 
             clnt = clients.first
-            clnt.authenticate(secret: @client_secret) ? clnt : nil
+            clnt.secret == @client_secret ? clnt : nil
           end
 
           # Tries to find a User whose email matches the :client_id. If found

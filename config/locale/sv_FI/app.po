@@ -6397,10 +6397,12 @@ msgstr " baserat på mallen"
 
 #: ../../app/views/user_mailer/sharing_notification.html.erb:5
 msgid ""
-"Your colleague %{inviter_name} has invited you to contribute to\n"
+"Your colleague %{inviter_name} has invited you to contribute to
+\n"
 "          their Data Management Plan in %{tool_name}"
 msgstr ""
-"Din kollega %{inviter_name} har bjudit in dig att bidra till\n"
+"Din kollega %{inviter_name} har bjudit in dig att bidra till
+\n"
 "          sin datahanteringsplan i %{tool_name}"
 
 #: ../../app/views/user_mailer/welcome_notification.html.erb:2

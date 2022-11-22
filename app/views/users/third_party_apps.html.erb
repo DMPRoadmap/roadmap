@@ -1,0 +1,56 @@
+<% title _('3rd Party Applications') %>
+
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= _('3rd Party Applications') %></h1>
+  </div>
+</div>
+
+<% app_name = "the #{Rails.configuration.x.dmproadmap.name}" %>
+
+<div id="third-party-apps" class="col-xs-12">
+  <% @identifier_schemes.each do |scheme| %>
+    <div class="form-group col-xs-8">
+      <% if scheme.name.downcase == 'shibboleth' %>
+        <!-- <label class='control-label'> -->
+          <!-- <span class="aria-only" aria-hidden="false"><%#= _('Institutional credentials (single sign on)') %></span> -->
+        <!-- </label> -->
+      <% elsif scheme.name.downcase == 'orcid' %>
+        <%= label_tag(:scheme_name, 'ORCID', class: 'control-label') %>
+      <% else %>
+        <%= label_tag(:scheme_name, scheme.name.capitalize, class: 'control-label') %>
+      <% end %>
+
+      <div class='identifier-scheme'>
+        <%= render partial: "external_identifier",
+                   locals: { scheme: scheme,
+                             id: current_user.identifier_for(scheme.name)} %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @tokens.any? %>
+    <p><%= _("These applications have access to the information specified in the 'Activities' column. You can remove/revoke their access at any time but please note that this will only prevent future access. For example, if they have downloaded a PDF copy of a plan in the past they will still retain that copy.") %></p>
+
+    <% @tokens.each do |token| %>
+      <%
+      app_name = token.application.name.humanize
+      unlinkconf = _("Are you sure? %{application} will no longer be able to access your DMPs.") % { application: app_name }
+      unlinktext = _("Revoke %{application}'s ability to access your data.") % { application: app_name }
+      %>
+      <div class="form-group col-xs-8">
+        <% if token.application.logo.present? %>
+          <%= image_tag(token.application.logo.thumb('100x100%').url, alt: "#{app_name} logo",
+                        class: "org-logo", title: app_name) %>
+        <% else %>
+          <%= token.application.name.humanize %>
+        <% end %>
+
+        <%= link_to '<i class="fas fa-fw fa-times-circle" aria-hidden="true"></i>'.html_safe,
+                    oauth_revoke_access_token_path(current_user, token), method: :delete,
+                    title: unlinktext, data: { confirm: unlinkconf, toggle: "tooltip" },
+                    aria: { label: unlinktext } %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

@@ -79,11 +79,11 @@ module Api
           private
 
           def find_or_initialize(id_json:, json: {})
-            return nil unless json.present?
+            return nil if json.blank?
 
             id = id_json[:identifier] if id_json.is_a?(Hash)
             if id.present?
-              if Api::V1::DeserializationService.doi?(value: id)
+              if Api::V1::DeserializationService.dmp_id?(value: id)
                 # Find by the DOI or ARK
                 plan = Api::V1::DeserializationService.object_from_identifier(
                   class_name: 'Plan', json: id_json
@@ -122,10 +122,10 @@ module Api
             project = json.fetch(:project, [{}]).first
             plan.start_date = Api::V1::DeserializationService.safe_date(value: project[:start])
             plan.end_date = Api::V1::DeserializationService.safe_date(value: project[:end])
-            return plan unless project[:funding].present?
+            return plan if project[:funding].blank?
 
             funding = project.fetch(:funding, []).first
-            return plan unless funding.present?
+            return plan if funding.blank?
 
             Api::V1::Deserialization::Funding.deserialize(plan: plan, json: funding)
           end
@@ -138,7 +138,7 @@ module Api
             contact = Api::V1::Deserialization::Contributor.deserialize(
               json: json[:contact], is_contact: true
             )
-            return plan unless contact.present?
+            return plan if contact.blank?
 
             plan.contributors << contact
             plan.org = contact.org
@@ -156,18 +156,18 @@ module Api
 
           # Lookup the Template
           def find_template(json: {})
-            return nil unless json.present?
+            return nil if json.blank?
 
             template = ::Template.find_by(id: template_id(json: json))
-            template.present? ? template : Template.find_by(is_default: true)
+            (template.presence || Template.find_by(is_default: true))
           end
 
           # Extract the Template id from the JSON
           def template_id(json: {})
-            return nil unless json.present?
+            return nil if json.blank?
 
             extensions = Api::V1::DeserializationService.app_extensions(json: json)
-            return nil unless extensions.present?
+            return nil if extensions.blank?
 
             extensions.fetch(:template, {})[:id]
           end

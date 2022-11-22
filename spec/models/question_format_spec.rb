@@ -2,13 +2,13 @@
 
 require 'rails_helper'
 
-RSpec.describe QuestionFormat, type: :model do
+RSpec.describe QuestionFormat do
   context 'validations' do
     it { is_expected.to validate_presence_of(:title) }
 
     it {
-      is_expected.to validate_uniqueness_of(:title).case_insensitive
-                                                   .with_message('must be unique')
+      expect(subject).to validate_uniqueness_of(:title).case_insensitive
+                                                       .with_message('must be unique')
     }
 
     it { is_expected.to validate_presence_of(:description) }
@@ -18,9 +18,9 @@ RSpec.describe QuestionFormat, type: :model do
     it { is_expected.not_to allow_value(nil).for(:option_based) }
 
     it {
-      is_expected.to allow_values(:textarea, :textfield, :radiobuttons,
-                                  :checkbox, :dropdown, :multiselectbox,
-                                  :date, :rda_metadata)
+      expect(subject).to allow_values(:textarea, :textfield, :radiobuttons,
+                                      :checkbox, :dropdown, :multiselectbox,
+                                      :date, :rda_metadata)
         .for(:formattype)
     }
   end
@@ -30,12 +30,12 @@ RSpec.describe QuestionFormat, type: :model do
   end
 
   describe '.id_for' do
+    subject { described_class.id_for(format_type) }
+
     let!(:format_type) { 'textarea' }
 
-    subject { QuestionFormat.id_for(format_type) }
-
     context "when record doesn't exist" do
-      it 'it returns nil' do
+      it 'returns nil' do
         # TODO: This behaviour is fixed in the refactors branch
         expect(subject).to be_nil
       end
@@ -66,13 +66,13 @@ RSpec.describe QuestionFormat, type: :model do
     context 'when question_format option_based is true' do
       let!(:question_format) { create(:question_format, option_based: true) }
 
-      it { is_expected.to eql(true) }
+      it { is_expected.to be(true) }
     end
 
     context 'when question_format option_based is true' do
       let!(:question_format) { create(:question_format, option_based: false) }
 
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
   end
 

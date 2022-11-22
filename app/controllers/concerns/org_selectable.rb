@@ -1,134 +1,176 @@
 # frozen_string_literal: true
 
-# Provides methods to handle the org_id hash returned to the controller
-# for pages that use the Org selection autocomplete widget
+# Provides methods to handle the org_autocomplete params returned to the controller
+# for pages that use the Org selection autocomplete widget. The params are at
+# the top level of the Param tree and not within the context of the surrounding form!
 #
 # This Concern handles the incoming params from a page that has one of the
-# Org Typeahead boxes found in app/views/shared/org_selectors/.
+# Org Typeahead boxes found in app/views/shared/_org_autocomplete.html.erb.
 #
-# The incoming hash looks like this:
+# The incoming params look like this:
 #  {
-#    "org_name"=>"Portland State University (PDX)",
-#    "org_sources"=>"[
-#      \"3E (Belgium) (3e.eu)\",
-#      \"etc.\"
-#    ]",
-#    "org_crosswalk"=>"[
-#      {
-#        \"id\":1574,
-#        \"name\":\"3E (Belgium) (3e.eu)\",
-#        \"sort_name\":\"3E\",
-#        \"ror\":\"https://ror.org/03d33vh19\"
-#      },
-#     {
-#       "etc."
-#    }]",
-#    "id"=>"{
-#      \"id\":62,
-#      \"name\":\"Portland State University (PDX)\",
-#      \"sort_name\":\"Portland State University\",
-#      \"ror\":\"https://ror.org/00yn2fy02\",
-#      \"fundref\":\"https://doi.org/10.13039/100007083\"
+#    org_index: {
+#      name: "Portland State University (PDX)",
+#      not_in_list: "0",
+#      user_entered_name: ""
 #    }
 #  }
 #
-# The :org_name, :org_sources, :org_crosswalk are all relics of the JS involved in
-# handling the request/response from OrgsController#search AJAX action that is
-# used to search both the local DB and the ROR API as the user types.
-#   :org_name = the value the user has types in
-#   :org_sources = the pick list of Org names returned by the OrgsController#search action
-#   :org_crosswalk = all of the info about each Org returned by the OrgsController#search action
-#                    there is JS that takes the value in :org_name and then sets the :id param
-#                    to the matching Org in the :org_crosswalk on form submission
+# If you need more than one autocomplete on your page, you can specify a :namespace. The
+# namespace (e.g. "funder") must be passed to the _org_autocomplete partial as well as to
+# the :process_org! function below.
 #
-# They are typically removed from the incoming params hash prior to doing a :save or :update
-# by the :remove_org_selection_params below.
-# TODO: Consider adding a JS method that strips those 3 params out prior to form submission
-#       since we only need the contents of the :id param here
+# The user has the option of selecting an Org from the autocomplete list OR checking a box
+# to indicate that the Org is NOT in the list and that they have manually typepd it in.
+#   :name = the name of the Org they selected from the autocomplete list
+#   :not_in_list = the boolean value of the checkbox
+#   :user_entered_name = the manually entered name of the Org
 #
-# The contents of :id are then used to either Create or Find the Org from the DB.
-# if id: { :id } is present then the Org was one pulled from the DB. If it is not
-# present then it is one of the following:
-#  if :ror or :fundref are present then it was one retrieved from the ROR API
-#  otherwise it is a free text value entered by the user
+# In either scenario, a query for the Org occurs.
+#   If it is found, then that Org is used.
+#   Otherwise a query for a matching OrgIndex is run.
+#     If it is found then the corresponding Org is used or a new one is created if it doesn't exist
+#     Otherwise a new Org is created from the :user_entered_name value
 #
-# See the comments on OrgsController#search for more info on how the typeaheads work
 module OrgSelectable
   extend ActiveSupport::Concern
 
   # rubocop:disable Metrics/BlockLength
   included do
-    before_action :prep_org_partial
+    # Converts the incoming org_autocomplete params into Org params
+    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    def autocomplete_to_controller_params(namespace: nil)
+      name = name_from_params(namespace: namespace)
+      return {} if name.blank?
+
+      # If it matches an existing Org record, just return the org_id
+      org = Org.find_by('LOWER(name) = ?', name.downcase)
+      return { org_id: org.id } if org.present?
+
+      # If it matches a RegistryOrg and it has an Org association, just return the org_id
+      registry_org = RegistryOrg.find_by('LOWER(name) = ?', name.downcase)
+      return { org_id: registry_org.org_id } if registry_org.present? &&
+                                                registry_org.org_id.present?
+
+      # Return nothing if we are not allowing users to create orgs
+      return {} if Rails.configuration.x.application.restrict_orgs &&
+                   current_user.blank?
+      return {} if Rails.configuration.x.application.restrict_orgs &&
+                   (current_user.present? && !current_user.can_super_admin?)
+
+      # If it matches a RegistryOrg convert it to an Org OR initialize a new Org
+      org = registry_org.present? ? registry_org.to_org : Org.new(name: name)
+
+      # Special handling for org type based on the namespace
+      case namespace&.gsub('_', '')
+      when 'funder'
+        org.funder = true
+        org.institution = false
+        org.organisation = false
+      end
+
+      org_to_attributes(org: org)
+    end
+    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    def process_org!(user: nil, managed_only: false, namespace: nil)
+      name = name_from_params(namespace: namespace)
+      return nil if name.blank?
+
+      # check the Orgs table first
+      org = Org.where('LOWER(name) = ?', name.downcase).first
+      # If we are expecting managed_only do not return it if it is not managed!
+      return org if org.present? && (!managed_only || (managed_only && org.managed?))
+
+      # Skip if restrict_orgs is set to true! (unless its a Super Admin)
+      if (user.present? && user.can_super_admin?) || !Rails.configuration.x.application.restrict_orgs
+        # fetch from the ror table
+        registry_org = RegistryOrg.where('LOWER(name) = ?', name.downcase).first
+
+        # If managed_only make sure the org is managed!
+        return nil if managed_only &&
+                      (registry_org.nil? || registry_org&.org&.nil? || !registry_org&.org&.managed?)
+
+        # Convert the RegistryOrg to an Org, save it and then update the RegistryOrg if its ok
+        org = ::Org.from_registry_org!(registry_org: registry_org)
+        return org if org.present?
+      end
+
+      # We only want to create it if the user provided a custom name
+      return nil if in_list?(namespace: namespace)
+
+      # otherwise initialize a new org
+      create_org!(name: name)
+    end
+    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     private
 
-    # Converts the incoming params_into an Org by either locating it
-    # via its id, identifier and/or name, or initializing a new one
-    # the default allow_create is based off restrict_orgs
-    def org_from_params(params_in:,
-                        allow_create: !Rails.configuration.x.application.restrict_orgs)
-      # params_in = params_in.with_indifferent_access
-      return nil unless params_in[:org_id].present? &&
-                        params_in[:org_id].is_a?(String)
-
-      hash = org_hash_from_params(params_in: params_in)
-      return nil unless hash.present?
-
-      org = OrgSelection::HashToOrgService.to_org(hash: hash,
-                                                  allow_create: allow_create)
-      allow_create ? create_org(org: org, params_in: params_in) : org
+    def org_selectable_params
+      # Note that any time we create a new namespace (e.g. funder), we need to add the corresponding
+      # params to this list below!
+      params.permit(org_autocomplete: %i[funder_name funder_not_in_list funder_user_entered_name
+                                         name not_in_list user_entered_name])
     end
 
-    # Converts the incoming params_into an array of Identifiers
-    def identifiers_from_params(params_in:)
-      # params_in = params_in.to_h.with_indifferent_access
-      return [] unless params_in[:org_id].present? &&
-                       params_in[:org_id].is_a?(String)
+    # Fetches the appropriate name based on the specified :namespace and whether or not
+    # the User supplied a custom Org name
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    def name_from_params(namespace: nil)
+      o_params = org_selectable_params.fetch(:org_autocomplete, {})
+      namespace += '_' unless namespace.nil? || namespace.end_with?('_')
+      return o_params["#{namespace}name"] if in_list?(namespace: namespace) &&
+                                             o_params["#{namespace}name"].present?
 
-      hash = org_hash_from_params(params_in: params_in)
-      return [] unless hash.present?
+      # If the user entered a custom entry then humanize it and capitalize each word
+      o_params["#{namespace}user_entered_name"]&.humanize&.split&.map(&:capitalize)&.join(' ')
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-      OrgSelection::HashToOrgService.to_identifiers(hash: hash)
+    # Determines if the User supplied a custom Org name
+    def in_list?(namespace: nil)
+      o_params = org_selectable_params.fetch(:org_autocomplete, {})
+      namespace += '_' unless namespace.nil? || namespace.end_with?('_')
+      o_params["#{namespace}not_in_list"] != '1'
     end
 
-    # Remove the extraneous Org Selector hidden fields so that they don't get
-    # passed on to any save methods
-    def remove_org_selection_params(params_in:)
-      params_in.delete(:org_id)
-      params_in.delete(:org_name)
-      params_in.delete(:org_sources)
-      params_in.delete(:org_crosswalk)
-      params_in
+    def org_to_attributes(org:)
+      return {} unless org.is_a?(Org)
+
+      {
+        org_attributes: {
+          name: org.name,
+          abbreviation: org.abbreviation || org.name_to_abbreviation,
+          contact_email: org.contact_email || ::Org.default_contact_email,
+          contact_name: org.contact_name || ::Org.default_contact_name,
+          links: org.links || { org: [] },
+          target_url: org.target_url,
+          is_other: org.is_other?,
+          managed: org.managed?,
+          org_type: org.org_type
+        }
+      }
     end
 
-    # Just does a JSON parse of the org_id hash
-    def org_hash_from_params(params_in:)
-      JSON.parse(params_in[:org_id]) # .with_indifferent_access
-    rescue JSON::ParserError => e
-      Rails.logger.error "Unable to parse Org Selection JSON: #{e.message}"
-      Rails.logger.error params_in.inspect
-      {}
-    end
+    # Create a new Org
+    def create_org!(name:)
+      org = ::Org.find_or_initialize_by(name: name)
+      return org unless org.new_record?
 
-    # Saves the org if its a new record
-    def create_org(org:, params_in:)
-      return org unless org.present? && org.new_record?
-
-      # Save the Org before attaching identifiers
-      org.save
-      identifiers_from_params(params_in: params_in).each do |identifier|
-        next unless identifier.value.present?
-
-        identifier.identifiable = org
-        identifier.save
-      end
-      org.reload
-    end
-
-    def prep_org_partial
-      name = Rails.configuration.x.application.restrict_orgs ? 'local_only' : 'combined'
-      @org_partial = "shared/org_selectors/#{name}"
-      @all_orgs = Org.includes(identifiers: [:identifier_scheme]).all
+      org.update(
+        abbreviation: org.name_to_abbreviation,
+        contact_email: ::Org.default_contact_email,
+        contact_name: ::Org.default_contact_name,
+        is_other: false,
+        managed: false,
+        organisation: true
+      )
+      org
     end
   end
   # rubocop:enable Metrics/BlockLength

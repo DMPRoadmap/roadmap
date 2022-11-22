@@ -6,8 +6,6 @@ module Paginable
     include CustomizableTemplateLinkHelper
     include Paginable
 
-    # TODO: Clean up this code for Rubocop
-
     # GET /paginable/templates/:page  (AJAX)
     # -----------------------------------------------------
     # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
@@ -55,12 +53,10 @@ module Paginable
         format: :json
       )
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
     # GET /paginable/templates/customisable/:page  (AJAX)
     # -----------------------------------------------------
-    # rubocop:disable Metrics/AbcSize
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/PerceivedComplexity
     def customisable
       authorize Template
       customizations = Template.latest_customized_version_per_org(current_user.org.id)

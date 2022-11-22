@@ -5,10 +5,10 @@
 # Table name: question_formats
 #
 #  id           :integer          not null, primary key
-#  description  :text
-#  formattype   :integer          default(0)
+#  description  :text(65535)
+#  formattype   :integer          default("textarea")
 #  option_based :boolean          default(FALSE)
-#  title        :string
+#  title        :string(255)
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
@@ -54,6 +54,6 @@ class QuestionFormat < ApplicationRecord
 
   # Retrieves the id for a given formattype passed
   def self.id_for(formattype)
-    where(formattype: formattype).pluck(:id).first
+    where(formattype: formattype).pick(:id)
   end
 end

@@ -15,10 +15,6 @@ class CreateResearchOutputs < ActiveRecord::Migration[5.2]
       t.boolean  :personal_data
       t.boolean  :sensitive_data
       t.bigint   :byte_size
-      t.text     :mandatory_attribution
-      t.datetime :coverage_start
-      t.datetime :coverage_end
-      t.string   :coverage_region
       t.timestamps null: false
     end
   end

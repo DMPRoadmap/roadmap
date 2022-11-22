@@ -5,6 +5,15 @@ class UsersController < ApplicationController
   helper PaginableHelper
   helper PermsHelper
   include ConditionalUserMailer
+
+  # --------------------------------
+  # Start DMPTool Customization
+  # --------------------------------
+  include Dmptool::UsersController
+  # --------------------------------
+  # End DMPTool Customization
+  # --------------------------------
+
   after_action :verify_authorized
   respond_to :html
 
@@ -139,7 +148,7 @@ class UsersController < ApplicationController
     authorize current_user
 
     user = User.find(params[:id])
-    return unless user.present?
+    return if user.blank?
 
     begin
       user.active = !user.active

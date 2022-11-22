@@ -2,7 +2,7 @@
 <%= "----------------------------------------------------------\n" %>
 <% if @show_coversheet %>
 <%= Array(@hash[:attribution]).many? ? _("Creators: ") + Array(@hash[:attribution]).join(", ")  : _('Creator:') + @hash[:attribution] %>
-<%# Added contributors to coverage of plans. 
+<%# Added contributors to coverage of plans.
   # Users will see both roles and contributor names if the role is filled %>
 <%# Roles are ranked by PI -> DM -> PA -> Other (if any) %>
   <% if @hash[:investigation].present? %>
@@ -30,7 +30,7 @@
 <%= _("Project abstract: ") %>
 <%= "\t" + strip_tags(@plan.description) + "\n" %>
   <% end %>
-<%= _("Last modified: ") + l(@plan.updated_at.to_date, formats: :short) %>
+<%= _("Last modified: ") + l(@plan.updated_at.localtime.to_date, formats: :short) %>
 <%= _("Copyright information:") %>
 <%= "\t" + _(" The above plan creator(s) have agreed that others may use as much of the text of this plan as they would like in their own plans, and customise it as necessary. You do not need to credit the creator(s) as the source of the language used, but using any of the plan's text does not imply that the creator(s) endorse, or have any relationship to, your project or proposal") %>
 <%= "----------------------------------------------------------\n" %>
@@ -42,7 +42,7 @@
 <%= (@hash[:phases].length > 1 ? "#{phase[:title]}" : "") %>
   <% phase[:sections].each do |section| %>
     <% if display_section?(@hash[:customization], section, @show_custom_sections) && num_section_questions(@plan, section, phase) > 0 %>
-      <% if @show_sections_questions %>
+      <% if @show_sections %>
         <%= "#{section[:title]}\n" %>
       <% end %>
       <% section[:questions].each do |question| %>
@@ -50,7 +50,7 @@
           <% next %>
         <% end %>
         <%# text in this case is an array to accomodate for option_based %>
-        <% if @show_sections_questions %>
+        <% if @show_questions %>
           <% answer = @plan.answer(question[:id], false) %>
           <% if @show_unanswered %>
             <% if question[:text].respond_to?(:each) %>
@@ -76,6 +76,31 @@
         <% end %>
       <% end %>
     <% end %>
+  <% end %>
+<% end %>
+
+<% if @plan.research_outputs.any? %>
+  <%= "----------------------------------------------------------" %>
+  <%= _("Planned research outputs") %>
+  <%= "" %>
+  <% @plan.research_outputs.each do |output| %>
+    <% presenter = ResearchOutputPresenter.new(research_output: output) %>
+    <%= "#{presenter.display_type} - \"#{output.title}\"\n\n" %>
+    <%= "#{strip_tags(output.description.gsub(/<\/?p>/, '').gsub(/<br\s?\/?>/, '\n').chomp)}\n\n" %>
+    <%= "" %>
+    <%= "#{_("    May contain sensitive data?")}:\t#{presenter.display_boolean(value: output.sensitive_data)}" %>
+    <%= "#{_("    May contain personally identiable information?")}:\t#{presenter.display_boolean(value: output.personal_data)}" %>
+    <%= "#{_("    Intended repository(ies)")}:\t#{presenter.display_repository.join(", ")}" %>
+    <%= "#{_("    Initial license")}:\t#{presenter.display_license}" %>
+    <%= "#{_("    Metadata standard(s)")}:\t#{presenter.display_metadata_standard.join(", ")}" %>
+    <%= "#{_("    Anticipated release date")}:\t#{presenter.display_release}" %>
+    <%= "#{_("    Initial access level")}:\t#{presenter.display_access}" %>
+    <% if output.byte_size.present? %>
+      <% size_hash = presenter.converted_file_size(size: output.byte_size) %>
+      <%= "#{_("  Anticipated file size")}:\t#{number_with_delimiter(size_hash[:size])} #{size_hash[:unit]&.upcase}" %>
+    <% end %>
+    <%= "---------" %>
+    <%= "\n\n" %>
   <% end %>
 <% end %>
 <%= "----------------------------------------------------------" %>

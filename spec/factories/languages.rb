@@ -5,10 +5,10 @@
 # Table name: languages
 #
 #  id               :integer          not null, primary key
-#  abbreviation     :string
+#  abbreviation     :string(255)
 #  default_language :boolean
-#  description      :string
-#  name             :string
+#  description      :string(255)
+#  name             :string(255)
 #
 
 FactoryBot.define do
@@ -16,6 +16,7 @@ FactoryBot.define do
     name { Faker::Movies::StarWars.unique.specie }
     description { "Language for #{name}" }
     default_language { false }
+    abbreviation { ('a'..'z').to_a.shuffle.take(2).join }
     trait :with_dialect do
       abbreviation do
         pre = ('a'..'z').to_a.shuffle.take(2).join

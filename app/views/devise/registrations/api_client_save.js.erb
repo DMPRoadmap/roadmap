@@ -1,0 +1,11 @@
+var apiClientMsg = '<%= @msg %>';
+var context = $('.api-client-form');
+
+if (context.length > 0) {
+  context.html('<%= escape_javascript(render partial: "/users/api_client_form", locals: { api_client: @api_client, user: current_user }) %>');
+  var controlsContext = context.find('.api-client-controls');
+  controlsContext.find('.refresh-response').html(apiClientMsg);
+  renderNotice(apiClientMsg);
+}
+
+toggleSpinner(false);

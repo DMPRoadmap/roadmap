@@ -7,7 +7,7 @@ class ResearchOutputPolicy < ApplicationPolicy
   def initialize(user, research_output)
     raise Pundit::NotAuthorizedError, _('must be logged in') unless user
 
-    raise Pundit::NotAuthorizedError, _('are not authorized to view that plan') unless research_output.present?
+    raise Pundit::NotAuthorizedError, _('are not authorized to view that plan') if research_output.blank?
 
     @user = user
     @research_output = research_output

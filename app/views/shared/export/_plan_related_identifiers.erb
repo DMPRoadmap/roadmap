@@ -1,0 +1,30 @@
+<%# locals: plan %>
+
+<% presenter = RelatedIdentifierPresenter.new(plan: plan) %>
+
+<h1 style="page-break-before:always;"><%= _("Related Works") %></h1>
+
+<% current_work_type = presenter.related_identifiers.first.work_type %>
+
+<h2><%= presenter.related_identifiers.first.work_type&.pluralize&.humanize %></h2>
+<ul>
+
+<% presenter.related_identifiers.each do |related_identifier| %>
+  <% if current_work_type != related_identifier.work_type %>
+    </ul>
+    <h2><%= related_identifier.work_type&.pluralize&.humanize %></h2>
+    <ul>
+  <% end %>
+  <li>
+    <% if related_identifier.citation.present? %>
+      <%= sanitize(related_identifier.citation) %>
+    <% else %>
+      <a href="<%= related_identifier.value %>" target="_blank">
+        <%= related_identifier.value %>
+      </a>
+    <% end %>
+  </li>
+  <% current_work_type = related_identifier.work_type %>
+<% end %>
+
+</ul>

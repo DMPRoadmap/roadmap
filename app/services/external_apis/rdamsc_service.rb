@@ -99,16 +99,16 @@ module ExternalApis
       # }
       def query_schemes(path:)
         json = query_api(path: path)
-        return false unless json.present?
+        return false if json.blank?
 
         process_scheme_entries(json: json)
-        return true unless json.fetch('data', {})['nextLink'].present?
+        return true if json.fetch('data', {})['nextLink'].blank?
 
         query_schemes(path: json['data']['nextLink'])
       end
 
       def query_api(path:)
-        return nil unless path.present?
+        return nil if path.blank?
 
         # Call the API and log any errors
         resp = http_get(uri: "#{api_base_url}#{path}", additional_headers: {}, debug: false)

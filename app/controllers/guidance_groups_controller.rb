@@ -66,10 +66,10 @@ class GuidanceGroupsController < ApplicationController
     authorize @guidance_group
 
     if @guidance_group.update(published: true)
-      flash[:notice] = _('Your guidance group has been published and is now available to users.')
+      flash.now[:notice] = _('Your guidance group has been published and is now available to users.')
 
     else
-      flash[:alert] = failure_message(@guidance_group, _('publish'))
+      flash.now[:alert] = failure_message(@guidance_group, _('publish'))
     end
     redirect_to admin_index_guidance_path
   end
@@ -80,24 +80,26 @@ class GuidanceGroupsController < ApplicationController
     authorize @guidance_group
 
     if @guidance_group.update(published: false)
-      flash[:notice] = _('Your guidance group is no longer published and will not be available to users.')
+      flash.now[:notice] = _('Your guidance group is no longer published and will not be available to users.')
     else
-      flash[:alert] = failure_message(@guidance_group, _('unpublish'))
+      flash.now[:alert] = failure_message(@guidance_group, _('unpublish'))
     end
     redirect_to admin_index_guidance_path
   end
 
   # DELETE /org/admin/guidancegroup/:id/admin_destroy
+  # rubocop:disable Metrics/AbcSize
   def admin_destroy
     @guidance_group = GuidanceGroup.find(params[:id])
     authorize @guidance_group
     if @guidance_group.destroy
-      flash[:notice] = success_message(@guidance_group, _('deleted'))
+      flash.now[:notice] = success_message(@guidance_group, _('deleted'))
     else
-      flash[:alert] = failure_message(@guidance_group, _('delete'))
+      flash.now[:alert] = failure_message(@guidance_group, _('delete'))
     end
     redirect_to admin_index_guidance_path
   end
+  # rubocop:enable Metrics/AbcSize
 
   private
 

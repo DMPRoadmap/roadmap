@@ -35,18 +35,20 @@ module TemplateHelper
   # @param text [String] text for the link
   # @param id [String] id for the link element
   # rubocop:disable Style/OptionalBooleanParameter
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/AbcSize
   def direct_link(template, hidden = false, text = nil, id = nil)
     params = {
-      org: { id: "{ \"id\": #{current_user&.org&.id}, \"name\": \"#{current_user&.org&.name}\" }" },
-      funder: { id: "{ \"id\": #{template.org&.id}, \"name\": \"#{template.org&.name}\" }" },
-      template_id: template.id
+      plan: { template_id: template.id },
+      org_autocomplete: {
+        id: current_user.org.id, name: current_user.org.name,
+        funder_id: template.org.id, funder_name: template.org.name
+      }
     }
     cls = text.nil? ? 'direct-link' : 'direct-link btn btn-default'
     style = hidden ? 'display: none' : ''
 
-    link_to(plans_url(plan: params), method: :post, title: _('Create plan'),
-                                     class: cls, id: id, style: style) do
+    link_to(plans_url(params), method: :post, title: _('Create plan'),
+                               class: cls, id: id, style: style) do
       if text.nil?
         '<span class="fas fa-plus-square"></span>'.html_safe
       else
@@ -54,6 +56,6 @@ module TemplateHelper
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize
   # rubocop:enable Style/OptionalBooleanParameter
 end

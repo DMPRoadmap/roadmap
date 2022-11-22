@@ -2,7 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Questions::Tadio button questions', type: :feature do
+RSpec.describe 'Questions::Tadio button questions' do
+  include Helpers::Webmocks
+
   before do
     @default_template  = create(:template, :default, :published)
     @phase             = create(:phase, template: @default_template)
@@ -13,15 +15,17 @@ RSpec.describe 'Questions::Tadio button questions', type: :feature do
     @user = create(:user)
     @plan = create(:plan, template: @default_template)
     create(:role, :creator, :editor, :commenter, user: @user, plan: @plan)
-    sign_in(@user)
+
+    stub_openaire
+    sign_in @user
   end
 
-  scenario 'User answers a radio button question', :js do
+  it 'User answers a radio button question', :js do
     # Setup
-    visit overview_plan_path(@plan)
+    visit plan_path(@plan)
 
     # Action
-    click_link 'Write plan'
+    click_link 'Write Plan'
 
     # Expectations
     expect(current_path).to eql(edit_plan_path(@plan))

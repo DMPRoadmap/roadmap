@@ -10,6 +10,9 @@ require 'rspec/rails'
 # require "capybara-screenshot/rspec"
 require 'webmock/rspec'
 
+# Clear all of the screenshots from old tests
+Dir[Rails.root.join('tmp/capybara/*')].each { |f| File.delete(f) }
+
 # Add additional requires below this line. Rails is not loaded until this point!
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -24,11 +27,9 @@ require 'webmock/rspec'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-Dir[Rails.root.join('spec/support/**/*.rb')].sort { |a, b| a <=> b }
-                                            .each { |f| require f }
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
-Dir[Rails.root.join('spec/mixins/*.rb')].sort { |a, b| a <=> b }
-                                        .each { |f| require f }
+Dir[Rails.root.join('spec/mixins/*.rb')].each { |f| require f }
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.s
@@ -61,8 +62,30 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+  config.include Devise::Test::IntegrationHelpers, type: :feature
   config.include Devise::Test::IntegrationHelpers, type: :request
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::ControllerHelpers, type: :view
   config.include Pundit::Matchers, type: :policy
+
+  # ------------------------------------------------------
+  # start DMPTool customizations
+  # ------------------------------------------------------
+  # Devise helpers
+  config.include Warden::Test::Helpers
+
+  config.after do
+    Warden.test_reset!
+  end
+
+  # Mock omniauth calls
+  OmniAuth.config.test_mode = true
+
+  # Create the default is_other Org (required to display the login forms)
+  # config.before :each do
+  #   create(:org, is_other: true) unless Org.find_by(is_other: true).present?
+  # end
+  # ------------------------------------------------------
+  # end DMPTool customization
+  # ------------------------------------------------------
 end

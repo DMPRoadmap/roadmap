@@ -7,12 +7,12 @@
 #  id               :integer          not null, primary key
 #  archived         :boolean
 #  customization_of :integer
-#  description      :text
+#  description      :text(65535)
 #  is_default       :boolean
-#  links            :text
-#  locale           :string
+#  links            :text(65535)
+#  locale           :string(255)
 #  published        :boolean
-#  title            :string
+#  title            :string(255)
 #  version          :integer
 #  visibility       :integer
 #  created_at       :datetime
@@ -35,12 +35,15 @@
 FactoryBot.define do
   factory :template do
     org
-    title { Faker::Lorem.sentence }
+    title { Faker::Lorem.unique.sentence }
     description { Faker::Lorem.paragraph }
     locale { 'en_GB' }
     is_default { false }
     published { false }
     archived { false }
+    email_subject { Faker::Lorem.sentence }
+    email_body { Faker::Lorem.paragraph }
+
     sequence(:version)
 
     trait :publicly_visible do

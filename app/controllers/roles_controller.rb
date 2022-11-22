@@ -3,6 +3,7 @@
 # Controller that handles adding/updating/removing collaborators from a plan
 class RolesController < ApplicationController
   include ConditionalUserMailer
+
   respond_to :html
 
   after_action :verify_authorized
@@ -23,9 +24,9 @@ class RolesController < ApplicationController
        role_params[:user][:email].present? && plan.present?
 
       if @role.plan.owner.present? && @role.plan.owner.email == role_params[:user][:email]
-        flash[:notice] = format(_('Cannot share plan with %{email} since that email matches
+        flash.now[:notice] = format(_('Cannot share plan with %{email} since that email matches
                                    with the owner of the plan.'),
-                                email: role_params[:user][:email])
+                                    email: role_params[:user][:email])
       else
         user = User.where_case_insensitive('email', role_params[:user][:email]).first
         if user.present? &&
@@ -33,17 +34,30 @@ class RolesController < ApplicationController
                .count
                .positive? # role already exists
 
-          flash[:notice] = format(_('Plan is already shared with %{email}.'),
-                                  email: role_params[:user][:email])
+          flash.now[:notice] = format(_('Plan is already shared with %{email}.'),
+                                      email: role_params[:user][:email])
         else
           # rubocop:disable Metrics/BlockNesting
           if user.nil?
             registered = false
-            User.invite!({ email: role_params[:user][:email],
-                           firstname: _('First Name'),
-                           surname: _('Surname'),
-                           org: current_user.org },
-                         current_user)
+            # Attempt to determine the new Collaborator's org based on their email
+            # if none is found user the is_other org or the current user's if that is not defined
+            email_domain = role_params[:user][:email].split('@').last
+            collaborator_org = Org.from_email_domain(email_domain: email_domain)
+            collaborator_org = Org.where(is_other: true).first if collaborator_org.blank?
+
+            # DMPTool customization
+            User.invite!(
+              inviter: current_user,
+              plan: plan,
+              params: { email: role_params[:user][:email], org_id: collaborator_org&.id }
+            )
+            # User.invite!({ email: role_params[:user][:email],
+            #                firstname: _("First Name"),
+            #                surname: _("Surname"),
+            #                org: current_user.org,
+            #                invitation_plan_id: @role.plan.id },
+            #              current_user)
             message = format(_('Invitation to %{email} issued successfully.'),
                              email: role_params[:user][:email])
             user = User.where_case_insensitive('email', role_params[:user][:email]).first
@@ -59,18 +73,18 @@ class RolesController < ApplicationController
                           .deliver_now
               end
             end
-            flash[:notice] = message
+            flash.now[:notice] = message
           else
-            flash[:alert] = _('You must provide a valid email address and select a permission
+            flash.now[:alert] = _('You must provide a valid email address and select a permission
                                level.')
           end
           # rubocop:enable Metrics/BlockNesting
         end
       end
     else
-      flash[:alert] = _('Please enter an email address')
+      flash.now[:alert] = _('Please enter an email address')
     end
-    redirect_to controller: 'plans', action: 'share', id: @role.plan.id
+    redirect_to controller: 'contributors', action: 'index', plan_id: @role.plan.id
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -97,7 +111,6 @@ class RolesController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   # DELETE /roles/:id
-  # rubocop:disable Metrics/AbcSize
   def destroy
     @role = Role.find(params[:id])
     authorize @role
@@ -108,9 +121,8 @@ class RolesController < ApplicationController
     deliver_if(recipients: user, key: 'users.added_as_coowner') do |_r|
       UserMailer.plan_access_removed(user, plan, current_user).deliver_now
     end
-    redirect_to controller: 'plans', action: 'share', id: @role.plan.id
+    redirect_to plan_contributors_path(plan)
   end
-  # rubocop:enable Metrics/AbcSize
 
   # This function makes user's role on a plan inactive
   # i.e. "removes" this from their plans
@@ -119,9 +131,9 @@ class RolesController < ApplicationController
     role = Role.find(params[:id])
     authorize role
     if role.deactivate!
-      flash[:notice] = _('Plan removed')
+      flash.now[:notice] = _('Plan removed')
     else
-      flash[:alert] = _('Unable to remove the plan')
+      flash.now[:alert] = _('Unable to remove the plan')
     end
     redirect_to(plans_path)
   end
@@ -129,6 +141,6 @@ class RolesController < ApplicationController
   private
 
   def role_params
-    params.require(:role).permit(:plan_id, :access, user: %i[email])
+    params.require(:role).permit(:plan_id, :access, user: %i[email language_id])
   end
 end

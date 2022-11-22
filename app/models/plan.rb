@@ -16,8 +16,6 @@
 #  visibility                        :integer          default(3), not null
 #  created_at                        :datetime
 #  updated_at                        :datetime
-#  template_id                       :integer
-#  org_id                            :integer
 #  funder_id                         :integer
 #  grant_id                          :integer
 #  api_client_id                     :integer
@@ -29,14 +27,13 @@
 #
 # Indexes
 #
-#  index_plans_on_template_id   (template_id)
-#  index_plans_on_funder_id     (funder_id)
-#  index_plans_on_grant_id      (grant_id)
-#  index_plans_on_api_client_id (api_client_id)
+#  index_plans_on_funder_id    (funder_id)
+#  index_plans_on_grant_id     (grant_id)
+#  index_plans_on_org_id       (org_id)
+#  index_plans_on_template_id  (template_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (template_id => templates.id)
 #  fk_rails_...  (org_id => orgs.id)
 #  fk_rails_...  (api_client_id => api_clients.id)
 #  fk_rails_...  (research_domain_id => research_domains.id)
@@ -49,6 +46,10 @@ class Plan < ApplicationRecord
   include ExportablePlan
   include DateRangeable
   include Identifiable
+
+  # DMPTool customization to support faceting the public plans by language
+  # ----------------------------------------------------------------------
+  belongs_to :language, default: -> { Language.default }
 
   # =============
   # = Constants =
@@ -68,10 +69,9 @@ class Plan < ApplicationRecord
   # ==============
 
   # public is a Ruby keyword so using publicly
-  enum visibility: %i[organisationally_visible publicly_visible
-                      is_test privately_visible]
+  enum visibility: { organisationally_visible: 0, publicly_visible: 1, is_test: 2, privately_visible: 3 }
 
-  enum funding_status: %i[planned funded denied]
+  enum funding_status: { planned: 0, funded: 1, denied: 2 }
 
   alias_attribute :name, :title
 
@@ -122,6 +122,10 @@ class Plan < ApplicationRecord
 
   has_many :research_outputs, dependent: :destroy
 
+  has_many :subscriptions, dependent: :destroy
+
+  has_many :related_identifiers, as: :identifiable, dependent: :destroy
+
   # =====================
   # = Nested Attributes =
   # =====================
@@ -131,6 +135,10 @@ class Plan < ApplicationRecord
   accepts_nested_attributes_for :roles
 
   accepts_nested_attributes_for :contributors
+
+  accepts_nested_attributes_for :research_outputs
+
+  accepts_nested_attributes_for :related_identifiers
 
   # ===============
   # = Validations =
@@ -145,6 +153,17 @@ class Plan < ApplicationRecord
   validates :complete, inclusion: { in: BOOLEAN_VALUES }
 
   validate :end_date_after_start_date
+
+  # =============
+  # = Callbacks =
+  # =============
+
+  # sanitise html tags e.g remove unwanted 'script'
+  before_validation lambda { |data|
+    data.sanitize_fields(:title, :identifier, :description)
+  }
+  after_update :notify_subscribers!, if: :versionable_change?
+  after_touch :notify_subscribers!
 
   # ==========
   # = Scopes =
@@ -179,7 +198,7 @@ class Plan < ApplicationRecord
         .where(roles: { active: true })
         .by_date_range(:created_at, term)
     else
-      search_pattern = "%#{term}%"
+      search_pattern = sanitize_sql("%#{term}%")
       joins(:template, roles: [user: :org])
         .left_outer_joins(:identifiers, :contributors)
         .where(roles: { active: true })
@@ -213,11 +232,6 @@ class Plan < ApplicationRecord
   # =============
   # = Callbacks =
   # =============
-
-  # sanitise html tags e.g remove unwanted 'script'
-  before_validation lambda { |data|
-    data.sanitize_fields(:title, :identifier, :description)
-  }
 
   # =================
   # = Class methods =
@@ -381,7 +395,7 @@ class Plan < ApplicationRecord
     return true if commentable_by?(user_id)
 
     current_user = User.find(user_id)
-    return false unless current_user.present?
+    return false if current_user.blank?
 
     # If the user is a super admin and the config allows for supers to view plans
     if current_user.can_super_admin? && Rails.configuration.x.plans.super_admins_read_all
@@ -439,9 +453,7 @@ class Plan < ApplicationRecord
   # Returns User
   # Returns nil
   def owner
-    r = roles.select { |rr| rr.active && rr.administrator }
-             .min { |a, b| a.created_at <=> b.created_at }
-    r.nil? ? nil : r.user
+    roles.administrator.where(active: true).order(:created_at).first&.user
   end
 
   # Creates a role for the specified user (will update the user's
@@ -510,7 +522,7 @@ class Plan < ApplicationRecord
   #
   # Returns Integer
   def num_answered_questions(phase = nil)
-    return answers.select(&:answered?).length unless phase.present?
+    return answers.select(&:answered?).length if phase.blank?
 
     answered = answers.select do |answer|
       answer.answered? && phase.questions.include?(answer.question)
@@ -580,6 +592,47 @@ class Plan < ApplicationRecord
     identifiers.select { |i| %w[doi ark].include?(i.identifier_format) }.first
   end
 
+  # Retrieves the Plan's most recent DOI
+  def dmp_id
+    return nil unless Rails.configuration.x.madmp.enable_dmp_id_registration
+
+    id = identifiers.includes(:identifier_scheme)
+                    .select { |i| i.identifier_scheme == DmpIdService.identifier_scheme }
+                    .last
+    return id if id.present?
+  end
+
+  # Returns whether or not minting is allowed for the current plan
+  # rubocop:disable Metrics/AbcSize
+  def registration_allowed?
+    return false unless Rails.configuration.x.madmp.enable_dmp_id_registration
+
+    # Just check for visibility and funder if we are not allowing ORCID publication
+    orcid_enabled = Rails.configuration.x.madmp.enable_orcid_publication
+    return (visibility_allowed? && funder.present?) unless orcid_enabled
+
+    # If we're allowing ORCID publication but no ORCID scheme is defined
+    orcid_scheme = IdentifierScheme.where(name: 'orcid').first
+    return false if orcid_scheme.blank?
+
+    # The owner must have an orcid, a funder and :visibility_allowed? (aka :complete)
+    orcid = owner.identifier_for_scheme(scheme: orcid_scheme).present?
+    visibility_allowed? && orcid.present? && funder.present?
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  # Returns whether or not minting is allowed for the current plan
+  def minting_allowed?
+    orcid_scheme = IdentifierScheme.where(name: 'orcid').first
+    return false if orcid_scheme.blank?
+
+    # The owner must have an orcid and have authorized us to add to their record
+    orcid = owner.identifier_for_scheme(scheme: orcid_scheme).present?
+    token = ExternalApiAccessToken.for_user_and_service(user: owner, service: 'orcid')
+
+    visibility_allowed? && orcid.present? && token.present? && funder.present?
+  end
+
   # Since the Grant is not a normal AR association, override the getter and setter
   def grant
     Identifier.find_by(id: grant_id)
@@ -587,14 +640,14 @@ class Plan < ApplicationRecord
 
   # Helper method to convert the grant id value entered by the user into an Identifier
   # works with both controller params or an instance of Identifier
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/CyclomaticComplexity
   def grant=(params)
     val = params.present? ? params[:value] : nil
     current = grant
 
     # Remove it if it was blanked out by the user
-    current.destroy if current.present? && !val.present?
-    return unless val.present?
+    current.destroy if current.present? && val.blank?
+    return if val.blank?
 
     # Create the Identifier if it doesn't exist and then set the id
     current.update(value: val) if current.present? && current.value != val
@@ -603,16 +656,112 @@ class Plan < ApplicationRecord
     current = Identifier.create(identifiable: self, value: val)
     self.grant_id = current.id
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
+
+  # Return the citation for the DMP. For example:
+  #
+  # Jane Doe. (2021). "My DMP" [Data Management Plan]. DMPRoadmap. https://doi.org/10.12/a1.b2
+  #
+  def citation
+    return nil unless owner.present? && dmp_id.is_a?(Identifier)
+
+    # authors = owner_and_coowners.map { |author| author.name(false) }
+    #                             .uniq
+    #                             .sort { |a, b| a <=> b }
+    #                             .join(", ")
+    # TODO: display all authors once we determine the appropriate way to handle on the ORCID side
+    authors = owner.name(false)
+    pub_year = updated_at.strftime('%Y')
+    app_name = ApplicationService.application_name
+    link = dmp_id.value
+    "#{authors}. (#{pub_year}). \"#{title}\" [Data Management Plan]. #{app_name}. #{link}"
+  end
+
+  # Returns the Subscription for the specified subscriber or nil if none exists
+  def subscription_for(subscriber:)
+    subscriptions.select { |subscription| subscription.subscriber == subscriber }
+  end
+
+  # Helper method to convert related_identifier entries from standard form params into
+  # RelatedIdentifier objects.
+  #
+  # Expecting the hash to look like the following, where the initial key is the
+  # RelatedIdentifier.id or "0" if its an empty entry or an absurdly long value
+  # indicating that its a new entry.
+  # The form's JS makes a copy of the "0" entry and generate a long value for an id
+  # when the user clicks the '+add a related identifier' link. We need to do this so
+  # that the user is able to add multiple entries at one time.
+  #
+  #  {
+  #    "56": {
+  #      "work_type": "software", "value": "https://doi.org/10.48321/D1MP4Z"
+  #    },
+  #    "0": {
+  #      "work_type": "article", "value": ""
+  #    },
+  #    "1632773961597": {
+  #      "work_type": "dataset", "value": "http://foo.bar"
+  #    }
+  #  }
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  def related_identifiers_attributes=(params)
+    # Remove any that the user may have deleted
+    related_identifiers.reject { |r_id| params.keys.include?(r_id.id.to_s) }
+                       .each(&:destroy)
+
+    # Update existing or add new
+    params.each do |id, related_identifier_hash|
+      related_identifier_hash = related_identifier_hash.with_indifferent_access
+      next unless id.present? && id != '0' && related_identifier_hash[:value].present?
+
+      related = RelatedIdentifier.find_by(id: id)
+      related = RelatedIdentifier.new(identifiable: self) if related.blank?
+      related.work_type = related_identifier_hash[:work_type]
+      related.value = related_identifier_hash[:value].strip
+      related_identifiers << related
+    end
+  end
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
   private
 
+  # Determines whether or not the attributes that were updated constitute a versionable change
+  # for example a user requesting feedback will change the :feedback_requested flag but that
+  # should not create a new version or notify any subscribers!
+  #
+  # Note that some associated models :touch the plan when they are updated so that a change
+  # to a contributor for example will constitute a new version of the plan
+  #
+  # TODO: We will likely need to change this or break it up into different methods based
+  #       on the use cases we uncover when deciding how to version plans
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def versionable_change?
+    saved_change_to_title? || saved_change_to_description? || saved_change_to_identifier? ||
+      saved_change_to_visibility? || saved_change_to_complete? || saved_change_to_template_id? ||
+      saved_change_to_org_id? || saved_change_to_funder_id? || saved_change_to_grant_id? ||
+      saved_change_to_start_date? || saved_change_to_end_date? ||
+      saved_change_to_research_domain_id? || saved_change_to_ethical_issues? ||
+      saved_change_to_ethical_issues_description? || saved_change_to_ethical_issues_report?
+  end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+  # Sends notifications to the Subscribers of the specified subscription types
+  def notify_subscribers!(subscription_types: [:updates])
+    targets = subscription_types.map do |typ|
+      subscriptions.select { |sub| sub.selected_subscription_types.include?(typ.to_sym) }
+    end
+    targets = targets.flatten.uniq if targets.any?
+    targets.each(&:notify!)
+    true
+  end
+
   # Validation to prevent end date from coming before the start date
   def end_date_after_start_date
     # allow nil values
-    return true if end_date.blank? || start_date.blank?
+    return true if end_date.blank? || start_date.blank? || end_date > start_date
 
     errors.add(:end_date, _('must be after the start date')) if end_date < start_date
+    false
   end
 end
 # rubocop:enable Metrics/ClassLength

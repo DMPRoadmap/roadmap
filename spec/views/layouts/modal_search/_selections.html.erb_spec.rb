@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'layouts/modal_search/_selections.html.erb' do
-  before(:each) do
+  before do
     @namespace = Faker::Lorem.word.downcase
     @label = Faker::Lorem.sentence
     render partial: 'layouts/modal_search/selections',
@@ -19,15 +19,15 @@ describe 'layouts/modal_search/_selections.html.erb' do
   end
 
   it 'adds the :namespace to the selections block' do
-    expect(rendered.include?("modal-search-#{@namespace}-selections")).to eql(true)
+    expect(rendered.include?("modal-search-#{@namespace}-selections")).to be(true)
   end
 
   it 'adds the :namespace to the button' do
-    expect(rendered.include?("target=\"#modal-search-#{@namespace}\"")).to eql(true)
+    expect(rendered.include?("target=\"#modal-search-#{@namespace}\"")).to be(true)
   end
 
   it 'sets the :button_label on the button' do
-    expect(rendered.include?(@label)).to eql(true)
+    expect(rendered.include?(@label)).to be(true)
   end
 
   it 'adds the renders the results partial' do

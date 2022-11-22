@@ -6,13 +6,13 @@ require 'faker'
 LOCALE = 'en'
 
 RSpec.configure do |config|
-  config.before(:each) do
+  config.before do
     I18n.locale = LOCALE
     Faker::Config.locale = LOCALE
     I18n.default_locale = LOCALE
   end
 
-  config.after(:each) do
+  config.after do
     Faker::Name.unique.clear
     Faker::UniqueGenerator.clear
   end

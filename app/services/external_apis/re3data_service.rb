@@ -50,13 +50,13 @@ module ExternalApis
       #   </list>
       def fetch
         xml_list = query_re3data
-        return [] unless xml_list.present?
+        return [] if xml_list.blank?
 
         xml_list.xpath('/list/repository/id').each do |node|
           next unless node.present? && node.text.present?
 
           xml = query_re3data_repository(repo_id: node.text)
-          next unless xml.present?
+          next if xml.blank?
 
           process_repository(id: node.text, node: xml.xpath('//r3d:re3data//r3d:repository').first)
         end
@@ -79,7 +79,7 @@ module ExternalApis
 
       # Queries the re3data API for the specified repository
       def query_re3data_repository(repo_id:)
-        return [] unless repo_id.present?
+        return [] if repo_id.blank?
 
         target = "#{api_base_url}#{repository_path}#{repo_id}"
         # Call the ROR API and log any errors
@@ -101,8 +101,8 @@ module ExternalApis
         repo = Repository.find_by(uri: id)
         homepage = node.xpath('//r3d:repositoryURL')&.text
         name = node.xpath('//r3d:repositoryName')&.text
-        repo = Repository.find_by(homepage: homepage) unless repo.present?
-        repo = Repository.find_or_initialize_by(uri: id, name: name) unless repo.present?
+        repo = Repository.find_by(homepage: homepage) if repo.blank?
+        repo = Repository.find_or_initialize_by(uri: id, name: name) if repo.blank?
         repo = parse_repository(repo: repo, node: node)
         repo.reload
       end
@@ -115,7 +115,8 @@ module ExternalApis
         repo.update(
           description: node.xpath('//r3d:description')&.text,
           homepage: node.xpath('//r3d:repositoryURL')&.text,
-          contact: node.xpath('//r3d:repositoryContact')&.text,
+          contact: node.xpath('//r3d:repositoryContact')&.select { |e| e.text.include?('@') }
+                                                        &.first&.text,
           info: {
             types: node.xpath('//r3d:type').map(&:text),
             subjects: node.xpath('//r3d:subject').map(&:text),
@@ -132,7 +133,7 @@ module ExternalApis
       # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       def parse_policy(node:)
-        return nil unless node.present?
+        return nil if node.blank?
 
         {
           name: node.xpath('r3d:policyName')&.text,
@@ -141,7 +142,7 @@ module ExternalApis
       end
 
       def parse_upload(node:)
-        return nil unless node.present?
+        return nil if node.blank?
 
         {
           type: node.xpath('r3d:dataUploadType')&.text,

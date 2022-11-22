@@ -44,7 +44,7 @@
           </td>
           <td>
             <% last_temp_updated = template.updated_at %>
-            <%= l last_temp_updated.to_date, formats: :short %>
+            <%= l last_temp_updated.localtime.to_date, formats: :short %>
           </td>
           <% if action_name != 'index' %>
             <td>
@@ -69,6 +69,12 @@
                         data: { method: 'post' }
                     %>
                   </li>
+                  <% if template.published? %>
+                    <li>
+                      <%= link_to _("Email template"),
+                                  invite_org_admin_template_path(template) %>
+                    </li>
+                  <% end %>
                   <% if template.removable? %>
                     <li>
                       <%= link_to _('Remove'), org_admin_template_path(id: template.id),

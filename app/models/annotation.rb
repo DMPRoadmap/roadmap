@@ -5,8 +5,8 @@
 # Table name: annotations
 #
 #  id             :integer          not null, primary key
-#  text           :text
-#  type           :integer          default(0), not null
+#  text           :text(65535)
+#  type           :integer          default("example_answer"), not null
 #  created_at     :datetime
 #  updated_at     :datetime
 #  org_id         :integer
@@ -19,11 +19,6 @@
 #  index_annotations_on_question_id     (question_id)
 #  index_annotations_on_versionable_id  (versionable_id)
 #
-# Foreign Keys
-#
-#  fk_rails_...  (org_id => orgs.id)
-#  fk_rails_...  (question_id => questions.id)
-#
 
 # Object that represents Question level guidance or example answers
 class Annotation < ApplicationRecord
@@ -33,7 +28,7 @@ class Annotation < ApplicationRecord
   # I liked type as the name for the enum so overriding inheritance column
   self.inheritance_column = nil
 
-  enum type: %i[example_answer guidance]
+  enum type: { example_answer: 0, guidance: 1 }
 
   # ================
   # = Associations =
@@ -70,9 +65,7 @@ class Annotation < ApplicationRecord
   # The text from the annotation
   #
   # Returns String
-  def to_s
-    text.to_s
-  end
+  delegate :to_s, to: :text
 
   def deep_copy(**options)
     copy = dup

@@ -1,0 +1,19 @@
+<%# locals: plan, plan_roles %>
+
+<%= render partial: "plans/visibility_form", locals: { plan: plan } %>
+
+<% if Rails.configuration.x.show_collaborators_on_share_tab %>
+  <hr>
+  <%= render partial: "plans/collaborator_form", locals: { plan: @plan, plan_roles: @plan_roles } %>
+<% end %>
+
+<%#
+NOTE: In order for this to be true, you must:
+  - Enable the `madmp.enable_dmp_id_registration` in config/initializers/_dmproadmap.rb
+  - Enabled one of the DMP ID minting services in config/initializers/external_apis/
+%>
+<% if DmpIdService.minting_service_defined? %>
+  <hr>
+  <%= render partial: 'plans/dmp_id_minter',
+             locals: { plan: @plan, orcid_access_token: @orcid_access_token } %>
+<% end %>

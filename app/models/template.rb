@@ -7,12 +7,12 @@
 #  id               :integer          not null, primary key
 #  archived         :boolean
 #  customization_of :integer
-#  description      :text
+#  description      :text(65535)
 #  is_default       :boolean
-#  links            :text
-#  locale           :string
+#  links            :text(65535)
+#  locale           :string(255)
 #  published        :boolean
-#  title            :string
+#  title            :string(255)
 #  version          :integer
 #  visibility       :integer
 #  created_at       :datetime
@@ -44,7 +44,7 @@ class Template < ApplicationRecord
   # that are meant for external use will be publicly visible. This allows a
   # funder to create 'funder' as well as organisational templates. The default
   # template should also always be publicly_visible.
-  enum visibility: %i[organisationally_visible publicly_visible]
+  enum visibility: { organisationally_visible: 0, publicly_visible: 1 }
 
   # Stores links as an JSON object:
   # {funder: [{"link":"www.example.com","text":"foo"}, ...],
@@ -52,7 +52,7 @@ class Template < ApplicationRecord
   #
   # The links is validated against custom validator allocated at
   # validators/template_links_validator.rb
-  attribute :links, :text, default: { funder: [], sample_plan: [] }
+  attribute :links, :text, default: -> { { funder: [], sample_plan: [] } }
   serialize :links, JSON
 
   attribute :published, :boolean, default: false
@@ -82,6 +82,15 @@ class Template < ApplicationRecord
   has_many :question_options, through: :questions
 
   has_many :conditions, through: :questions
+
+  # ----------------------------------------
+  # Start DMPTool Customization
+  # ----------------------------------------
+  has_one :sponsor, class_name: 'Org', foreign_key: 'id', primary_key: 'sponsor_id',
+                    required: false
+  # ----------------------------------------
+  # End DMPTool Customization
+  # ----------------------------------------
 
   # ===============
   # = Validations =
@@ -131,7 +140,7 @@ class Template < ApplicationRecord
   # It can be filtered down if family_id is passed
   scope :latest_version, lambda { |family_id = nil|
     unarchived.from(latest_version_per_family(family_id), :current)
-              .joins(<<~SQL)
+              .joins(<<~SQL.squish)
                 INNER JOIN templates ON current.version = templates.version
                   AND current.family_id = templates.family_id
                 INNER JOIN orgs ON orgs.id = templates.org_id
@@ -144,7 +153,7 @@ class Template < ApplicationRecord
     unarchived
       .from(latest_customized_version_per_customised_of(family_id, org_id),
             :current)
-      .joins(<<~SQL)
+      .joins(<<~SQL.squish)
         INNER JOIN templates ON current.version = templates.version
           AND current.customization_of = templates.customization_of
         INNER JOIN orgs ON orgs.id = templates.org_id
@@ -207,7 +216,7 @@ class Template < ApplicationRecord
   # any orgs table join already present in loaded unarchived.)
   scope :search, lambda { |term|
     unarchived
-      .joins(<<~SQL)
+      .joins(<<~SQL.squish)
         JOIN orgs AS search_term_orgs ON search_term_orgs.id = templates.org_id
       SQL
       .where('lower(templates.title) LIKE lower(:term)' \
@@ -289,7 +298,7 @@ class Template < ApplicationRecord
     end
     copy.save! if options.fetch(:save, false)
     options[:template_id] = copy.id
-    phases.each { |phase| copy.phases << phase.deep_copy(options) }
+    phases.each { |phase| copy.phases << phase.deep_copy(**options) }
     # transfer the conditions to the new template
     #  done here as the new questions are not accessible when the conditions deep copy
     copy.conditions.each do |cond|
@@ -329,7 +338,7 @@ class Template < ApplicationRecord
   #
   # Returns Boolean
   def latest?
-    id == Template.latest_version(family_id).pluck('templates.id').first
+    id == Template.latest_version(family_id).pick('templates.id')
   end
 
   # Determines whether or not a new version should be generated
@@ -341,8 +350,8 @@ class Template < ApplicationRecord
   # should be generated
   def customize?(customizing_org)
     if customizing_org.is_a?(Org) && (org.funder_only? || is_default)
-      return !Template.unarchived.where(customization_of: family_id,
-                                        org: customizing_org).exists?
+      return !Template.unarchived.exists?(customization_of: family_id,
+                                          org: customizing_org)
     end
     false
   end
@@ -352,7 +361,7 @@ class Template < ApplicationRecord
     return false unless customization_of?
 
     funder_template = Template.published(customization_of).select(:created_at).first
-    return false unless funder_template.present?
+    return false if funder_template.blank?
 
     funder_template.created_at > created_at
   end
@@ -374,7 +383,7 @@ class Template < ApplicationRecord
     # Assume customizing_org is persisted
     raise _('generate_copy! requires an organisation target') unless org.is_a?(Org)
 
-    deep_copy(
+    args = {
       attributes: {
         version: 0,
         published: false,
@@ -383,20 +392,22 @@ class Template < ApplicationRecord
         is_default: false,
         title: format(_('Copy of %{template}'), template: title)
       }, modifiable: true, save: true
-    )
+    }
+    deep_copy(**args)
   end
 
   # Generates a new copy of self with an incremented version number
   def generate_version!
     raise _('generate_version! requires a published template') unless published
 
-    deep_copy(
+    args = {
       attributes: {
         version: version + 1,
         published: false,
         org: org
       }, save: true
-    )
+    }
+    deep_copy(**args)
   end
 
   # Generates a new copy of self for the specified customizing_org
@@ -407,7 +418,7 @@ class Template < ApplicationRecord
     # Assume self has org associated
     raise ArgumentError, _('customize! requires a template from a funder') if !org.funder_only? && !is_default
 
-    deep_copy(
+    args = {
       attributes: {
         version: 0,
         published: false,
@@ -417,7 +428,8 @@ class Template < ApplicationRecord
         visibility: Template.visibilities[:organisationally_visible],
         is_default: false
       }, modifiable: false, save: true
-    )
+    }
+    deep_copy(**args)
   end
 
   # Generates a new copy of self including latest changes from the funder this

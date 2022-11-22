@@ -14,13 +14,12 @@ class ResearchProjectsController < ApplicationController
   private
 
   def research_projects
-    return @research_projects unless @research_projects.nil? ||
-                                     @research_projects.empty?
+    return @research_projects if @research_projects.present?
 
     # Check the cache contents as well since the instance variable is only
     # relevant per request
     cached = Rails.cache.fetch(['research_projects', funder_type])
-    return @research_projects = cached unless cached.nil? || cached.empty?
+    return @research_projects = cached if cached.present?
 
     @research_projects = fetch_projects
   end
@@ -38,6 +37,6 @@ class ResearchProjectsController < ApplicationController
   # Retrieve the Cache expiration seconds
   def expiry
     expiration = Rails.configuration.x.cache.research_projects_expiration
-    expiration.present? ? expiration : 1.day
+    (expiration.presence || 1.day)
   end
 end

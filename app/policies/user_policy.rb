@@ -71,7 +71,30 @@ class UserPolicy < ApplicationPolicy
     @user.can_super_admin? || @user.can_org_admin?
   end
 
-  # returns the users for the org
+  # DMPTool custom endpoints
+
+  def revoke_oauth_access_token?
+    @user.present?
+  end
+
+  def third_party_apps?
+    @user.present?
+  end
+
+  def developer_tools?
+    @user.present?
+  end
+
+  # Aliases due to lack of support for namespacing
+  def users_third_party_apps_path?
+    third_party_apps?
+  end
+
+  def users_developer_tools_path?
+    developer_tools?
+  end
+
+  # Basic scope for the current user
   class Scope < Scope
     def resolve
       @scope.where(org_id: @user.org_id)

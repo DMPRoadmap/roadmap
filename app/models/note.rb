@@ -7,7 +7,7 @@
 #  id          :integer          not null, primary key
 #  archived    :boolean          default(FALSE), not null
 #  archived_by :integer
-#  text        :text
+#  text        :text(65535)
 #  created_at  :datetime
 #  updated_at  :datetime
 #  answer_id   :integer

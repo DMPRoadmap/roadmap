@@ -2,7 +2,7 @@
 
 # locals: plan
 
-json.schema 'https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard/tree/master/examples/JSON/JSON-schema/1.0'
+json.schema 'https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard/tree/master/examples/JSON/JSON-schema/1.1'
 
 presenter = Api::V1::PlanPresenter.new(plan: plan)
 
@@ -58,7 +58,7 @@ unless @minimal
   outputs = plan.research_outputs.any? ? plan.research_outputs : [plan]
 
   json.dataset outputs do |output|
-    json.partial! "api/v1/datasets/show", output: output
+    json.partial! 'api/v1/datasets/show', output: output
   end
 
   json.extension [plan.template] do |template|
@@ -67,6 +67,23 @@ unless @minimal
         json.id template.id
         json.title template.title
       end
+
+      json.related_identifiers plan.related_identifiers do |related|
+        next unless related.value.present? && related.relation_type.present?
+
+        json.descriptor related.relation_type
+        json.type related.identifier_type
+        json.identifier related.value
+        json.work_type related.work_type
+      end
     end
   end
+
+  json.dmproadmap_privacy presenter.visibility
+
+  # DMPRoadmap specific links to perform special actions like downloading the PDF
+  json.dmproadmap_links presenter.links
+
+  # DMPHub extension to send all callback addresses for interested subscribers for changes to the DMP
+  json.dmphub_subscribers presenter.subscriptions
 end

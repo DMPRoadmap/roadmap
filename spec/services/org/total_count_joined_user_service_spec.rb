@@ -6,6 +6,7 @@ RSpec.describe Org::TotalCountJoinedUserService do
   describe '.call' do
     let(:org) { create(:org, created_at: DateTime.new(2018, 6, 1, 0, 0, 0)) }
     let(:org2) { create(:org, created_at: DateTime.new(2018, 6, 1, 0, 0, 0)) }
+
     context 'when org is passed' do
       it 'returns the number of joined users' do
         create_stats(org)

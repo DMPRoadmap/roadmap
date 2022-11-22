@@ -1,0 +1,8 @@
+<%#
+The home page should show the initial User sign in / sign up form
+%>
+<% content_for :authentication do %>
+  <%= render partial: "users/sessions/validate",
+             layout: "layouts/home",
+             locals: { resource: @user } %>
+<% end %>

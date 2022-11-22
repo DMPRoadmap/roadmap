@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'PlansExports', type: :feature, js: true do
+RSpec.describe 'PlansExports', js: true do
   let!(:template) { create(:template, phases: 2) }
   let!(:org) { create(:org, managed: true, is_other: false) }
   let!(:user) { create(:user, org: org) }
@@ -13,10 +13,11 @@ RSpec.describe 'PlansExports', type: :feature, js: true do
     template.sections.each { |s| create_list(:question, 2, section: s) }
     plan.roles << create(:role, :commenter, user: user)
     plan.roles << create(:role, :creator, user: user)
-    sign_in(user)
+    sign_in user
+    visit root_path
   end
 
-  scenario 'User downloads plan from organisational plans portion of the dashboard' do
+  it 'User downloads plan from organisational plans portion of the dashboard' do
     new_plan  = create(:plan, :publicly_visible, template: template)
     new_phase = create(:phase, template: template, sections: 2)
     new_phase.sections do |sect|
@@ -30,14 +31,16 @@ RSpec.describe 'PlansExports', type: :feature, js: true do
     create(:role, :creator, :commenter, :administrator, :editor,
            plan: new_plan,
            user: new_user)
-    sign_in(user)
+    sign_in user
+    visit root_path
     find(:css, "a[href*=\"/#{new_plan.id}/export.pdf\"]", visible: false).click
   end
 
-  scenario 'User downloads public plan belonging to other User' do
+  it 'User downloads public plan belonging to other User' do
     new_plan = create(:plan, :publicly_visible, template: template)
     create(:role, :creator, plan: new_plan)
-    sign_in(user)
+    sign_in user
+    visit root_path
     within("#plan_#{plan.id}") do
       click_button('Actions')
       click_link 'Download'
@@ -49,10 +52,11 @@ RSpec.describe 'PlansExports', type: :feature, js: true do
     end
   end
 
-  scenario 'User downloads org plan belonging to User in same org' do
+  it 'User downloads org plan belonging to User in same org' do
     new_plan = create(:plan, :organisationally_visible, template: template)
     create(:role, :creator, plan: new_plan, user: create(:user, org: org))
-    sign_in(user)
+    sign_in user
+    visit root_path
     within("#plan_#{plan.id}") do
       click_button('Actions')
       click_link 'Download'
@@ -64,21 +68,23 @@ RSpec.describe 'PlansExports', type: :feature, js: true do
     end
   end
 
-  scenario 'User downloads org plan belonging to User in other org' do
+  it 'User downloads org plan belonging to User in other org' do
     new_plan = create(:plan, :organisationally_visible, template: template)
     create(:role, :creator, plan: new_plan)
-    sign_in(create(:user))
+    sign_in create(:user)
+    visit root_path
     expect(page).not_to have_text(new_plan.title)
   end
 
-  scenario 'User attempts to download private plan belonging to User in same' do
+  it 'User attempts to download private plan belonging to User in same' do
     new_plan = create(:plan, :privately_visible, template: template)
     create(:role, :creator, plan: new_plan)
-    sign_in(create(:user))
+    sign_in create(:user)
+    visit root_path
     expect(page).not_to have_text(new_plan.title)
   end
 
-  scenario 'User downloads their plan as HTML' do
+  it 'User downloads their plan as HTML' do
     within("#plan_#{plan.id}") do
       click_button('Actions')
       click_link 'Download'
@@ -90,7 +96,7 @@ RSpec.describe 'PlansExports', type: :feature, js: true do
     end
   end
 
-  scenario 'User downloads their plan as PDF' do
+  it 'User downloads their plan as PDF' do
     within("#plan_#{plan.id}") do
       click_button('Actions')
       click_link 'Download'
@@ -100,7 +106,7 @@ RSpec.describe 'PlansExports', type: :feature, js: true do
     expect(page.source).to have_text(plan.title)
   end
 
-  scenario 'User downloads their plan as CSV' do
+  it 'User downloads their plan as CSV' do
     within("#plan_#{plan.id}") do
       click_button('Actions')
       click_link 'Download'
@@ -110,7 +116,7 @@ RSpec.describe 'PlansExports', type: :feature, js: true do
     expect(page.source).to have_text(plan.title)
   end
 
-  scenario 'User downloads their plan as text' do
+  it 'User downloads their plan as text' do
     within("#plan_#{plan.id}") do
       click_button('Actions')
       click_link 'Download'
@@ -120,7 +126,7 @@ RSpec.describe 'PlansExports', type: :feature, js: true do
     expect(page.source).to have_text(plan.title)
   end
 
-  scenario 'User downloads their plan as docx' do
+  it 'User downloads their plan as docx' do
     within("#plan_#{plan.id}") do
       click_button('Actions')
       click_link 'Download'

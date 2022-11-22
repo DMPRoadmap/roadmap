@@ -2,6 +2,14 @@
 
 # Controller for the Public DMPs and Funder Requirements pages
 class PublicPagesController < ApplicationController
+  # --------------------------------
+  # Start DMPTool Customization
+  # --------------------------------
+  include Dmptool::PublicPagesController
+  # --------------------------------
+  # End DMPTool Customization
+  # --------------------------------
+
   # GET template_index
   # -----------------------------------------------------
   # rubocop:disable Metrics/AbcSize
@@ -66,7 +74,7 @@ class PublicPagesController < ApplicationController
                  footer: {
                    center: format(_('Template created using the %{application_name} service. Last modified %{date}'),
                                   application_name: ApplicationService.application_name,
-                                  date: l(@template.updated_at.to_date, formats: :short)),
+                                  date: l(@template.updated_at.localtime.to_date, formats: :short)),
                    font_size: 8,
                    spacing: (@formatting[:margin][:bottom] / 2) - 4,
                    right: '[page] of [topage]',
@@ -84,21 +92,41 @@ class PublicPagesController < ApplicationController
 
   # GET /plans_index
   # ------------------------------------------------------------------------------------
-  def plan_index
-    @plans = Plan.publicly_visible.includes(:template)
-    render 'plan_index', locals: {
-      query_params: {
-        page: paginable_params.fetch(:page, 1),
-        search: paginable_params.fetch(:search, ''),
-        sort_field: paginable_params.fetch(:sort_field, 'plans.updated_at'),
-        sort_direction: paginable_params.fetch(:sort_direction, 'desc')
-      }
-    }
-  end
+  #
+  # DMPTool customizes this method
+  #
+  # def plan_index
+  #   @plans = Plan.includes(:org, :funder, :language, :template, :research_domain, roles: [:user])
+  #                .publicly_visible
+  #                .order(updated_at: :desc)
+  #
+  #   @plan_count = @plans.length
+  #
+  #   @plans = @plans.limit(50)
+  #
+  #   render 'plan_index', locals: {
+  #     faceting: {
+  #       search_term: '',
+  #       sort_by: '',
+  #       page: 1,
+  #       per_page: 10,
+  #       funder_facet: @plans.select { |p| p.funder_id.present? }.map(&:funder).uniq,
+  #       institution_facet: @plans.select { |p| p.org_id.present? }.map(&:org).uniq,
+  #       language_facet: @plans.select { |p| p.language.present? }.map(&:language).uniq,
+  #       subject_facet: @plans.select { |p| p.research_domain_id.present? }.map(&:research_domain).uniq
+  #     }
+  #   }
+  # end
 
   private
 
   def paginable_params
     params.permit(:page, :search, :sort_field, :sort_direction)
+  end
+
+  def faceting_params
+    params.permit(:faceting, :search_term, :sort_by, :page, :per_page,
+                  funder_facet: [], institution_facet: [],
+                  language_facet: [], subject_facet: [])
   end
 end

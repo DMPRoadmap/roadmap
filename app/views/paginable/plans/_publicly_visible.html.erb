@@ -1,3 +1,5 @@
+<% has_dmp_id = scope.select { |plan| plan.dmp_id.present? }.any? %>
+
 <div class="table-responsive">
   <table class="table table-hover">
     <thead>
@@ -6,16 +8,28 @@
         <th scope="col"><%= _('Template') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
         <th scope="col"><%= _('Organisation') %></th>
         <th scope="col"><%= _('Owner') %></th>
+        <% if has_dmp_id %>
+          <th scope="col"><%= _('DMP ID') %></th>
+        <% end %>
         <th scope="col" class="sorter-false text-center download-column"><%= _('Download') %></th>
       </tr>
     </thead>
     <tbody>
       <% scope.each do |plan| %>
+        <% id_presenter = IdentifierPresenter.new(identifiable: plan) %>
+
         <tr class="table-data">
           <td><%= plan.title %></td>
           <td><%= plan.template.title %></td>
           <td><%= (plan.owner.nil? || plan.owner.org.nil? ? _('Not Applicable') : plan.owner.org.name) %></td>
           <td><%= (plan.owner.nil? ? _('Unknown') : plan.owner.name(false)) %></td>
+          <% if has_dmp_id %>
+            <td>
+              <% if plan.dmp_id.present? %>
+                <%= id_for_display(id: plan.dmp_id, with_scheme_name: false).html_safe %>
+              <% end %>
+            </td>
+          <% end %>
           <td class="text-center">
             <%= link_to plan_export_path(plan, format: :pdf, export: { question_headings: true }),
                 class: "dmp_table_link has-new-window-popup-info", target: '_blank' do %>

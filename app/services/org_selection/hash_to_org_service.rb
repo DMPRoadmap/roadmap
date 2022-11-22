@@ -18,7 +18,7 @@ module OrgSelection
   class HashToOrgService
     class << self
       def to_org(hash:, allow_create: true)
-        return nil unless hash.present?
+        return nil if hash.blank?
 
         # Allow for the hash to have either symbol or string keys
         hash = hash.with_indifferent_access
@@ -42,7 +42,7 @@ module OrgSelection
 
       # rubocop:disable Metrics/AbcSize
       def to_identifiers(hash:)
-        return [] unless hash.present?
+        return [] if hash.blank?
 
         out = []
         # Process each of the identifiers
@@ -50,7 +50,7 @@ module OrgSelection
         idents = hash.select { |k, _v| identifier_keys.include?(k) }
         idents.each do |key, value|
           attrs = hash.select { |k, _v| attr_keys(hash: hash).include?(k) }
-          attrs = {} unless attrs.present?
+          attrs = {} if attrs.blank?
           out << Identifier.new(
             identifier_scheme_id: IdentifierScheme.by_name(key).first&.id,
             value: value,
@@ -80,8 +80,8 @@ module OrgSelection
       # Lookup the Org by its :name
       def lookup_org_by_name(hash:)
         clean_name = OrgSelection::SearchService.name_without_alias(name: hash[:name])
-        org = Org.search(clean_name).first
-        exact_match?(rec: org, name2: hash[:name]) ? org : nil
+        orgs = Org.search(clean_name)
+        orgs.select { |o| exact_match?(rec: o, name2: hash[:name]) }.first
       end
 
       # Initialize a new Org from the hash
@@ -108,7 +108,7 @@ module OrgSelection
 
       # Converts the Org name over to a unique abbreviation
       def abbreviation_from_hash(hash:)
-        return nil unless hash.present?
+        return nil if hash.blank?
 
         return hash[:abbreviation] if hash[:abbreviation].present?
 
@@ -129,7 +129,7 @@ module OrgSelection
       end
 
       def attr_keys(hash:)
-        return {} unless hash.present?
+        return {} if hash.blank?
 
         non_attr_keys = identifier_keys + %w[sort_name weight score]
         hash.keys.reject { |k| non_attr_keys.include?(k) }

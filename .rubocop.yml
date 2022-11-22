@@ -1,3 +1,7 @@
+# require:
+#   - rubocop-rails
+#   - rubocop-rspec
+
 # ----------------
 # - INSTRUCTIONS -
 # ----------------
@@ -22,7 +26,6 @@
 # configured.
 #
 # Try to place any new Cops under their relevant section and in alphabetical order
-
 AllCops:
   # Show the name of the cops being voilated in the feedback
   DisplayCopNames: true
@@ -135,6 +138,20 @@ Metrics/BlockLength:
 # ------------
 Security/IoMethods: # new in 1.22
   Enabled: true
+
+# ---------
+# - RSPEC -
+# ---------
+# RSpec/ContextWording:
+#   Enabled: false
+# RSpec/ExampleLength:
+#   Max: 12
+# RSpec/InstanceVariable:
+#   Enabled: false
+# RSpec/MultipleExpectations:
+#   Max: 20
+# RSpec/NestedGroups:
+#   Max: 5
 
 # ---------
 # - STYLE -

@@ -1,0 +1,31 @@
+<DmptoolSsoPolicies>
+  <!-- CDL Data Management Plan Tool staging/test server -->
+  <AttributeFilterPolicy id="CDLDMPStage">
+    <PolicyRequirementRule xsi:type="basic:AttributeRequesterString"
+                           value="https://dmp-stage.cdlib.org" />
+    <AttributeRule attributeID="eduPersonPrincipalName">
+      <PermitValueRule xsi:type="basic:ANY" />
+    </AttributeRule>
+    <AttributeRule attributeID="mail">
+      <PermitValueRule xsi:type="basic:ANY" />
+    </AttributeRule>
+    <AttributeRule attributeID="displayName">
+      <PermitValueRule xsi:type="basic:ANY" />
+    </AttributeRule>
+  </AttributeFilterPolicy>
+
+  <!-- CDL Data Management Plan Tool production server -->
+  <AttributeFilterPolicy id="CDLDMP">
+    <PolicyRequirementRule xsi:type="basic:AttributeRequesterString"
+                           value="https://dmp.cdlib.org" />
+    <AttributeRule attributeID="eduPersonPrincipalName">
+      <PermitValueRule xsi:type="basic:ANY" />
+    </AttributeRule>
+    <AttributeRule attributeID="mail">
+      <PermitValueRule xsi:type="basic:ANY" />
+    </AttributeRule>
+    <AttributeRule attributeID="displayName">
+      <PermitValueRule xsi:type="basic:ANY" />
+    </AttributeRule>
+  </AttributeFilterPolicy>
+</DmptoolSsoPolicies>

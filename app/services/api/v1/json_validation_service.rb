@@ -25,14 +25,14 @@ module Api
         end
 
         def contributor_valid?(json:, is_contact: false)
-          return false unless json.present?
+          return false if json.blank?
           return false unless json[:name].present? || json[:mbox].present?
 
           is_contact ? true : json[:role].present?
         end
 
         def funding_valid?(json:)
-          return false unless json.present?
+          return false if json.blank?
 
           funder_id = json.fetch(:funder_id, {})[:identifier]
           grant_id = json.fetch(:grant_id, {})[:identifier]
@@ -50,7 +50,7 @@ module Api
         # rubocop:disable Metrics/CyclomaticComplexity
         def validation_errors(json:)
           errs = []
-          return [_('invalid JSON')] unless json.present?
+          return [_('invalid JSON')] if json.blank?
 
           errs << BAD_PLAN_MSG unless plan_valid?(json: json)
           errs << BAD_ID_MSG if json[:dmp_id].present? && !identifier_valid?(json: json[:dmp_id])
@@ -93,7 +93,7 @@ module Api
 
         def funding_validation_errors(json:)
           errs = []
-          return errs unless json.present?
+          return errs if json.blank?
 
           errs << BAD_FUNDING_MSG unless funding_valid?(json: json)
           errs << org_validation_errors(json: json)
@@ -103,7 +103,7 @@ module Api
 
         def org_validation_errors(json:)
           errs = []
-          return errs unless json.present?
+          return errs if json.blank?
 
           errs << BAD_ORG_MSG unless org_valid?(json: json)
           id = json.fetch(:affiliation_id, json[:funder_id])

@@ -1,6 +1,6 @@
 name: Tests - MySQL
 
-on: [pull_request]
+on: [push, pull_request]
 
 jobs:
   mysql:
@@ -19,7 +19,7 @@ jobs:
     # Install Ruby and run bundler
     - uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.7.6
+        ruby-version: '3.0'
         bundler-cache: true
 
     # Install Node
@@ -64,12 +64,5 @@ jobs:
       run: bundle exec rails assets:precompile
 
     # Run  the unit and functional tests
-    - name: 'Run Rspec Unit and Functional Tests'
-      run: |
-        bundle exec rspec spec/models/ spec/policies/ spec/services/ spec/helpers/
-        bundle exec rspec spec/controllers/ spec/presenters/ spec/requests/ spec/views
-        bundle exec rspec spec/mixins/
-
-    # Run the time consuming integration tests (using Chrome headless browser)
-    - name: 'Run Rspec Integration Tests'
-      run: bundle exec rspec spec/features/
+    - name: 'Run Rspec Tests'
+      run: bin/bundle exec rspec spec #-s 40701

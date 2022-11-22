@@ -5,7 +5,7 @@
 # Table name: perms
 #
 #  id         :integer          not null, primary key
-#  name       :string
+#  name       :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
@@ -18,7 +18,7 @@ class Perm < ApplicationRecord
     def lazy_load(name)
       Rails.cache
            .fetch("Perm.find_by_name(#{name})", expires_in: 5.seconds, cache_nils: false) do
-             Perm.find_by_name(name)
+             Perm.find_by(name: name)
            end
            .freeze
     end

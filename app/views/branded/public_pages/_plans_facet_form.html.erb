@@ -1,0 +1,52 @@
+<%# locals: search, facets %>
+
+<% search = local_assigns.fetch(:search, nil) %>
+<% facets = local_assigns.fetch(:facets, { funders: [], institutions: [], languages: [], subjects: [] }) %>
+
+<div class="t-publicplans__section-header">
+  <h2 id="plans-heading"><%= _('Find a plan') %>&hellip;</h2>
+</div>
+<%= form_with id: 'public-plans-facet-form', url: public_plans_path, method: :get, local: true do |f| %>
+  <section class="c-search">
+    <h3 id="search-label"><%= _('Search') %></h3>
+    <div class="c-search-form" role="search">
+      <%= f.search_field :search, value: facets[:search],
+                         aria: { labelledby: 'search-label', describedby: 'js-search-results-block' } %>
+      <%= f.button '', aria: { label: 'search' } %>
+    </div>
+    <% search_msg = search.present? ? _('Showing results for "%<search_term>s"') % { search_term: sanitize(search) } : '' %>
+    <div id= "js-search-results-block" class="js-search-results c-search-results"><%= search_msg %></div>
+    <button type="button" class="js-search-clear c-search-clear"><%= _('Clear Search') %></button>
+  </section>
+
+  <%= render partial: '/public_pages/facet_section',
+             locals: { label: _('Funder'), namespace: 'funder', facets: facets[:funders] } %>
+
+  <%= render partial: '/public_pages/facet_section',
+             locals: { label: _('Institution'), namespace: 'institution', facets: facets[:institutions] } %>
+
+  <%= render partial: '/public_pages/facet_section',
+             locals: { label: _('Language'), namespace: 'language', facets: facets[:languages] } %>
+
+  <%= render partial: '/public_pages/facet_section',
+             locals: { label: _('Subject'), namespace: 'subject', facets: facets[:subjects] } %>
+
+  <div class="c-clear">
+    <%
+    facet_count = 0 #facets[:funders].values.select { |i| i[:selected] }.length +
+                  #facets[:institutions].values.select { |i| i[:selected] }.length +
+                  #facets[:languages].values.select { |i| i[:selected] }.length +
+                  #facets[:subjects].values.select { |i| i[:selected] }.length
+    facet_msg = case facet_count
+    when 0
+      _('No filters applied')
+    when 1
+      _('1 filter applied')
+    else
+      _('%<nbr>s filters applied') % { nbr: facet_count }
+    end
+    %>
+    <div class="c-clear__applied"><%= facet_msg %></div>
+    <button class="js-facet-clear" type="button"><%= _('Clear Filters') %></button>
+  </div>
+<% end %>

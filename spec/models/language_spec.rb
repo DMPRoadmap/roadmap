@@ -2,10 +2,11 @@
 
 require 'rails_helper'
 
-RSpec.describe Language, type: :model do
-  before(:each) do
+RSpec.describe Language do
+  before do
+    Org.destroy_all
     # The default language is created in the locales support file
-    Language.destroy_all
+    described_class.destroy_all
   end
 
   context 'validations' do
@@ -40,19 +41,19 @@ RSpec.describe Language, type: :model do
     end
 
     it 'sorts Languages by abbreviation in alphabetical order' do
-      l1 = Language.find_by(abbreviation: 'aa')
-      expect(Language.sorted_by_abbreviation.first).to eql(l1)
+      l1 = described_class.find_by(abbreviation: 'aa')
+      expect(described_class.sorted_by_abbreviation.first).to eql(l1)
 
-      l2 = Language.find_by(abbreviation: 'ab')
-      expect(Language.sorted_by_abbreviation.second).to eql(l2)
+      l2 = described_class.find_by(abbreviation: 'ab')
+      expect(described_class.sorted_by_abbreviation.second).to eql(l2)
 
-      l3 = Language.find_by(abbreviation: 'ac')
-      expect(Language.sorted_by_abbreviation.third).to eql(l3)
+      l3 = described_class.find_by(abbreviation: 'ac')
+      expect(described_class.sorted_by_abbreviation.third).to eql(l3)
     end
   end
 
   describe '.default' do
-    subject { Language.default }
+    subject { described_class.default }
 
     context 'when langauge is default_language' do
       let!(:language) { create(:language, abbreviation: 'foo', default_language: true) }
@@ -68,7 +69,7 @@ RSpec.describe Language, type: :model do
   end
 
   describe '.id_for' do
-    subject { Language.id_for('fu') }
+    subject { described_class.id_for('fu') }
 
     context 'when abbreviation is valid' do
       let!(:language) { create(:language, abbreviation: 'fu') }
@@ -88,19 +89,19 @@ RSpec.describe Language, type: :model do
   describe '#abbreviation' do
     context 'when region is present' do
       it 'forces the hyphenated format' do
-        @language = Language.new(name: 'Esperanto', abbreviation: 'hh_XX')
+        @language = described_class.new(name: 'Esperanto', abbreviation: 'hh_XX')
         @language.valid?
         expect(@language.abbreviation).to eql('hh-XX')
       end
 
       it 'downcases the language component' do
-        @language = Language.new(name: 'Esperanto', abbreviation: 'HH_XX')
+        @language = described_class.new(name: 'Esperanto', abbreviation: 'HH_XX')
         @language.valid?
         expect(@language.abbreviation).to start_with('hh')
       end
 
       it 'upcases the region' do
-        @language = Language.new(name: 'Esperanto', abbreviation: 'hh_xx')
+        @language = described_class.new(name: 'Esperanto', abbreviation: 'hh_xx')
         @language.valid?
         expect(@language.abbreviation).to end_with('XX')
       end
@@ -108,13 +109,13 @@ RSpec.describe Language, type: :model do
 
     context 'when region is absent' do
       it 'downases the given value' do
-        @language = Language.new(name: 'Esperanto', abbreviation: 'HH')
+        @language = described_class.new(name: 'Esperanto', abbreviation: 'HH')
         @language.valid?
         expect(@language.abbreviation).to eql('hh')
       end
 
       it "doesn't change well-formatted values" do
-        @language = Language.new(name: 'Esperanto', abbreviation: 'hh')
+        @language = described_class.new(name: 'Esperanto', abbreviation: 'hh')
         @language.valid?
         expect(@language.abbreviation).to eql('hh')
       end

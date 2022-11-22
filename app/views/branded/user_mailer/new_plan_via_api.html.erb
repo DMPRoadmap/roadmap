@@ -1,0 +1,17 @@
+<%
+default_message = _("A new data management plan (DMP) with the title of '%{dmp_title}' has been created for you by the %{external_system_name}.<br>Please sign in to the %{dmptool_url} to complete your DMP. If you have any questions or need help, please contact us at %{org_contact_email}.")
+%>
+
+<p>
+  <%= _('Hello %{user_name},') % {user_name: @user.name(false)} %>
+</p>
+<p>
+  <%= sanitize((@message.present? ? @message : default_message) % {
+    dmp_title: @plan.title,
+    external_system_name: @api_client.description,
+    dmptool_url: link_to(ApplicationService.application_name, root_url),
+    org_contact_email: @plan.template.org&.contact_email
+    }) %>
+</p>
+
+<%= render partial: 'email_signature', locals: { allow_change_prefs: false } %>

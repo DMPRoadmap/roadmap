@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe IdentifierScheme, type: :model do
+RSpec.describe IdentifierScheme do
   context 'validations' do
     it { is_expected.to validate_presence_of(:name) }
 
@@ -12,7 +12,7 @@ RSpec.describe IdentifierScheme, type: :model do
 
     it { is_expected.not_to allow_value('012').for(:name) }
 
-    it { is_expected.to_not allow_value(nil).for(:name) }
+    it { is_expected.not_to allow_value(nil).for(:name) }
   end
 
   context 'associations' do
@@ -20,7 +20,7 @@ RSpec.describe IdentifierScheme, type: :model do
   end
 
   context 'scopes' do
-    before(:each) do
+    before do
       @scheme = create(:identifier_scheme, for_users: true, active: true)
     end
 
@@ -28,9 +28,10 @@ RSpec.describe IdentifierScheme, type: :model do
       it 'returns active identifier schemes' do
         expect(described_class.active.first).to eql(@scheme)
       end
+
       it 'does not return inactive identifier schemes' do
         @scheme.update(active: false)
-        expect(described_class.active.first).to eql(nil)
+        expect(described_class.active.first).to be_nil
       end
     end
 
@@ -47,13 +48,13 @@ RSpec.describe IdentifierScheme, type: :model do
 
       it 'returns empty ActiveRecord results if nothing is found' do
         rslts = described_class.by_name(Faker::Lorem.sentence)
-        expect(rslts.empty?).to eql(true)
+        expect(rslts.empty?).to be(true)
       end
     end
   end
 
   context 'instance methods' do
-    before(:each) do
+    before do
       @scheme = build(:identifier_scheme)
     end
 
@@ -62,10 +63,12 @@ RSpec.describe IdentifierScheme, type: :model do
         @scheme.name = 'foo'
         expect(@scheme.name).to eql('foo')
       end
+
       it 'removes no alpha characters' do
         @scheme.name = ' foo bar- '
         expect(@scheme.name).to eql('foobar')
       end
+
       it 'sets everything to lower case' do
         @scheme.name = 'FoO'
         expect(@scheme.name).to eql('foo')

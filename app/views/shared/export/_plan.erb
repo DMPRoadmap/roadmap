@@ -25,7 +25,7 @@
         <hr />
         <% phase[:sections].each do |section| %>
           <% if display_section?(@hash[:customization], section, @show_custom_sections) && num_section_questions(@plan, section, phase) > 0 %>
-            <% if @show_sections_questions %>
+            <% if @show_sections %>
               <br>
               <h3><%= section[:title] %></h3>
               <br>
@@ -35,7 +35,7 @@
                 <% next %>
               <% end %>
               <div class="question">
-                <% if @show_sections_questions%>
+                <% if @show_questions%>
                   <% answer = @plan.answer(question[:id], false) %>
                   <% blank = answer.present? ? answer.blank? : true %>
                   <% options = answer.present? ? answer.question_options : [] %>
@@ -91,7 +91,12 @@
     <% end %>
 
     <% if @show_research_outputs %>
-      <%= render partial: 'shared/export/plan_outputs', locals: { outputs: @plan.research_outputs } %>
+      <%= render partial: 'shared/export/plan_outputs',
+                 locals: { outputs: @plan.research_outputs } %>
+    <% end %>
+    <% if @show_related_identifiers %>
+      <%= render partial: 'shared/export/plan_related_identifiers',
+                 locals: { plan: @plan } %>
     <% end %>
   </body>
 </html>

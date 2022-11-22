@@ -8,7 +8,7 @@ module Api
 
       def initialize(plan:)
         @contributors = []
-        return unless plan.present?
+        return if plan.blank?
 
         @plan = plan
 
@@ -26,13 +26,32 @@ module Api
 
       # Extract the ARK or DOI for the DMP OR use its URL if none exists
       def identifier
-        doi = @plan.identifiers.select do |id|
-          %w[ark doi].include?(id.identifier_format)
-        end
-        return doi.first if doi.first.present?
+        return @plan.dmp_id if @plan.dmp_id.present?
 
         # if no DOI then use the URL for the API's 'show' method
         Identifier.new(value: Rails.application.routes.url_helpers.api_v1_plan_url(@plan))
+      end
+
+      # Related identifiers for the Plan
+      def links
+        {
+          download: Rails.application.routes.url_helpers.plan_export_url(@plan, format: :pdf, 'export[form]': true)
+        }
+      end
+
+      # Subscribers of the Plan
+      def subscriptions
+        @plan.subscriptions.map do |subscription|
+          {
+            actions: ['PUT'],
+            name: subscription.subscriber&.name,
+            callback: subscription.callback_uri
+          }
+        end
+      end
+
+      def visibility
+        @plan.visibility == 'publicly_visible' ? 'public' : 'private'
       end
 
       private
@@ -40,7 +59,7 @@ module Api
       # Retrieve the answers that have the Budget theme
       def plan_costs(plan:)
         theme = Theme.where(title: 'Cost').first
-        return [] unless theme.present?
+        return [] if theme.blank?
 
         # TODO: define a new 'Currency' question type that includes a float field
         #       any currency type selector (e.g GBP or USD)

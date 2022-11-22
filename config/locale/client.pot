@@ -1,0 +1,4349 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2022 dmptool
+# This file is distributed under the same license as the dmptool package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: dmptool 1.0\n"
+"Report-Msgid-Bugs-To: contact@translation.io\n"
+"POT-Creation-Date: 2022-03-03 08:54-0800\n"
+"PO-Revision-Date: 2022-03-03 08:54-0800\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: ../../app/views/branded/contact_us/contacts/_new_left.html.erb:4
+#: ../../app/views/branded/contributors/_form.html.erb:10
+msgid "Name"
+msgstr ""
+
+#: ../../app/views/branded/contact_us/contacts/_new_left.html.erb:13
+#: ../../app/views/branded/contributors/_form.html.erb:19
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:74
+msgid "Email"
+msgstr ""
+
+#: ../../app/views/branded/contact_us/contacts/_new_left.html.erb:22
+#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:32
+msgid "Subject"
+msgstr ""
+
+#: ../../app/views/branded/contact_us/contacts/_new_left.html.erb:30
+msgid "Message"
+msgstr ""
+
+#: ../../app/views/branded/contact_us/contacts/_new_left.html.erb:42
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:113
+msgid "Submit"
+msgstr ""
+
+#: ../../app/views/branded/contributors/_form.html.erb:4
+msgid "Phone numbers should only include numbers and dashes ('-')."
+msgstr ""
+
+#: ../../app/views/branded/contributors/_form.html.erb:5
+msgid "Select each role that applies to the contributor."
+msgstr ""
+
+#: ../../app/views/branded/contributors/_form.html.erb:33
+msgid "ORCID"
+msgstr ""
+
+#: ../../app/views/branded/contributors/_form.html.erb:47
+msgid "Affiliation"
+msgstr ""
+
+#: ../../app/views/branded/contributors/_form.html.erb:55
+msgid "Roles"
+msgstr ""
+
+#: ../../app/views/branded/contributors/_form.html.erb:77
+#: ../../app/views/branded/plans/_visibility_form.html.erb:32
+#: ../../app/views/branded/research_outputs/_form.html.erb:177
+#: ../../app/views/branded/super_admin/notifications/_form.html.erb:73
+#: ../../app/views/branded/users/registrations/_profile_preferences.html.erb:47
+msgid "Save"
+msgstr ""
+
+#: ../../app/views/branded/contributors/_form.html.erb:79
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:53
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:84
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:56
+#: ../../app/views/branded/research_outputs/_form.html.erb:179
+msgid "Remove"
+msgstr ""
+
+#: ../../app/views/branded/contributors/_form.html.erb:82
+#: ../../app/views/branded/plans/new.html.erb:119
+#: ../../app/views/branded/research_outputs/_form.html.erb:182
+#: ../../app/views/branded/super_admin/notifications/_form.html.erb:80
+msgid "Cancel"
+msgstr ""
+
+#: ../../app/views/branded/contributors/index.html.erb:13
+msgid "Project Contributors"
+msgstr ""
+
+#: ../../app/views/branded/contributors/index.html.erb:15
+msgid ""
+"Please list the project’s Principal Investigator(s) and those responsible for "
+"data management."
+msgstr ""
+
+#: ../../app/views/branded/contributors/index.html.erb:30
+msgid "No contributors have been defined."
+msgstr ""
+
+#: ../../app/views/branded/contributors/index.html.erb:34
+msgid "Add a contributor"
+msgstr ""
+
+#: ../../app/views/branded/kaminari/_first_page.html.erb:2
+msgid "First"
+msgstr ""
+
+#: ../../app/views/branded/kaminari/_first_page.html.erb:3
+msgid "First page"
+msgstr ""
+
+#: ../../app/views/branded/kaminari/_last_page.html.erb:2
+msgid "Last"
+msgstr ""
+
+#: ../../app/views/branded/kaminari/_last_page.html.erb:3
+msgid "Last Page"
+msgstr ""
+
+#: ../../app/views/branded/kaminari/_next_page.html.erb:2
+msgid "Next"
+msgstr ""
+
+#: ../../app/views/branded/kaminari/_next_page.html.erb:3
+msgid "Next Page"
+msgstr ""
+
+#: ../../app/views/branded/kaminari/_page.html.erb:5
+msgid "Page %<page_nbr>s"
+msgstr ""
+
+#: ../../app/views/branded/kaminari/_prev_page.html.erb:2
+msgid "Previous"
+msgstr ""
+
+#: ../../app/views/branded/kaminari/_prev_page.html.erb:3
+msgid "Previous Page"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_footer.html.erb:8
+msgid "footer"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_footer.html.erb:10
+#: ../../app/views/branded/public_pages/orgs.html.erb:4
+#: ../../app/views/branded/static_pages/about_us.html.erb:1
+msgid "About"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_footer.html.erb:11
+#: ../../app/views/branded/static_pages/help.html.erb:13
+msgid "Contact Us"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_footer.html.erb:12
+msgid "Terms of Use"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_footer.html.erb:13
+msgid "Privacy Statement"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_footer.html.erb:14
+msgid "Github"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_footer.html.erb:15
+msgid "Accessibility"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_footer.html.erb:16
+msgid "Site Map"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_footer.html.erb:23
+msgid ""
+"DMPTool is a service of the %{cdl_url}, a division of the %{university_of_ca_u"
+"rl}. Version: %{version}"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_footer.html.erb:30
+msgid "%{current_year} The Regents of the University of California"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_header.html.erb:21
+msgid "Edit profile"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_header.html.erb:22
+msgid "3rd party applications"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_header.html.erb:23
+msgid "Developer tools"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_header.html.erb:24
+msgid "Sign out"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_header.html.erb:28
+#: ../../app/views/branded/users/sessions/_form.html.erb:32
+#: ../../app/views/branded/users/sessions/new.html.erb:4
+msgid "Sign in"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_header.html.erb:33
+#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:29
+#: ../../app/views/branded/public_pages/_plans_results.html.erb:45
+#: ../../app/views/branded/users/registrations/_profile_form.html.erb:94
+msgid "Language"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_header.html.erb:45
+msgid "main navigation"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_header.html.erb:47
+msgid "main"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_header.html.erb:50
+msgid "My Dashboard"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_header.html.erb:51
+msgid "Create Plan"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_header.html.erb:53
+#: ../../app/views/branded/public_pages/template_index.html.erb:4
+msgid "Funder Requirements"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_header.html.erb:54
+msgid "Public DMPs"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_header.html.erb:55
+#: ../../app/views/branded/static_pages/help.html.erb:1
+msgid "Help"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_home.html.erb:3
+msgid "Create Data Management Plans that meet requirements and promote your research"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_home.html.erb:14
+#: ../../app/views/branded/layouts/_sub_header.html.erb:30
+msgid "Users"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_home.html.erb:18
+#: ../../app/views/branded/public_pages/orgs.html.erb:3
+msgid "Participating Institutions"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_home.html.erb:22
+#: ../../app/views/branded/layouts/_sub_header.html.erb:33
+msgid "Plans"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_home.html.erb:29
+msgid "Latest News from DMPTool"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_home.html.erb:47
+msgid "News is currently unavailable"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_home.html.erb:51
+msgid "View all news"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_home.html.erb:55
+msgid "TheDMPTool on Twitter (opens new window)"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_home.html.erb:60
+msgid "DMPTool blog (opens new window)"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:9
+#: ../../app/views/branded/plans/new.html.erb:2
+msgid "This field is required."
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:11
+#: ../../app/views/branded/users/registrations/_form.html.erb:57
+msgid "Show password"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:12
+msgid "Select an organisation from the list."
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:13
+msgid "My organisation isn't listed"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:15
+#: ../../app/views/branded/paginable/plans/_org_admin.html.erb:67
+msgid "N/A"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:16
+msgid "Private"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:17
+msgid "Private: restricted to me and people I invite."
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:19
+msgid "Hide list."
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:20
+msgid "See the full list of partner institutions."
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:22
+msgid "Passwords must match"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:24
+msgid ""
+"Unable to find a suitable template for the research organisation and funder yo"
+"u selected."
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:25
+msgid "Please select a research organisation and funder to continue."
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:27
+msgid "Loading ..."
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:28
+msgid "Unable to load the section's content at this time."
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:29
+msgid "Unable to load the question's content at this time."
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:30
+msgid "Opens in a new window"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:32
+msgid ""
+"%{n} results are available, use up and down arrows to navigate suggestions. Us"
+"e the Enter key to select a suggestion or the Escape key to close the suggesti"
+"ons."
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:33
+msgid ""
+"Please select an item from the list or check the box below and provide a name "
+"for your institution."
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:34
+msgid "Please select an item from the list."
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:38
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:29
+msgid "More info"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:39
+msgid "Less info"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:40
+msgid "Acquiring your DMP ID. This may take a few seconds ..."
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:44
+msgid "field"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:45
+msgid "fields"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:47
+#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:42
+msgid "No filters applied"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:48
+#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:44
+msgid "1 filter applied"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:49
+#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:46
+msgid "%<nbr>s filters applied"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:51
+msgid "Please check this box."
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:52
+msgid "Please enter an email address."
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:53
+msgid "Please complete this %<variableText>s field."
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:54
+msgid "Please enter a password."
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:56
+msgid "Please enter a valid email address."
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:57
+msgid "Please enter a value for this %<variableText>s field."
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:58
+msgid "Please correct the fields below:"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:59
+msgid "Please enter a password of at least 8 characters."
+msgstr ""
+
+#: ../../app/views/branded/layouts/_json_constants.html.erb:61
+msgid "Ready to submit:"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_notifications.html.erb:42
+msgid "Error:"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_sub_header.html.erb:20
+msgid "administrator menu"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_sub_header.html.erb:21
+msgid "Admin"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_sub_header.html.erb:25
+msgid "Organisations"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_sub_header.html.erb:27
+msgid "Organisation details"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_sub_header.html.erb:36
+msgid "Usage"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_sub_header.html.erb:40
+msgid "Templates"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_sub_header.html.erb:43
+msgid "Guidance"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_sub_header.html.erb:46
+msgid "Themes"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_sub_header.html.erb:49
+msgid "Api Clients"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_sub_header.html.erb:50
+msgid "Api Logs"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_sub_header.html.erb:53
+msgid "Notifications"
+msgstr ""
+
+#: ../../app/views/branded/layouts/application.html.erb:6
+msgid "%{application_name}"
+msgstr ""
+
+#: ../../app/views/branded/layouts/application.html.erb:74
+msgid "Loading..."
+msgstr ""
+
+#: ../../app/views/branded/paginable/orgs/_public.html.erb:5
+#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:26
+#: ../../app/views/branded/users/registrations/_form.html.erb:44
+#: ../../app/views/branded/users/registrations/_profile_form.html.erb:76
+msgid "Institution"
+msgstr ""
+
+#: ../../app/views/branded/paginable/orgs/_public.html.erb:6
+msgid "Institutional Signin Enabled"
+msgstr ""
+
+#: ../../app/views/branded/paginable/plans/_org_admin.html.erb:4
+msgid ""
+"    The data on the usage dashboard is historical in nature. This means that t"
+"he number of records below may not\n"
+"    match the count shown on the usage dashboard. For example if one of your u"
+"sers created a plan in October and\n"
+"    then removed that plan in November, it would have been included on the usa"
+"ge dashboard's total for October but\n"
+"    would not appear in the list below.\n"
+msgstr ""
+
+#: ../../app/views/branded/paginable/plans/_org_admin.html.erb:13
+msgid ""
+"Note: You can filter this table by 'Created' dates. Enter the month abbreviati"
+"on and a 4 digit year into the search box above.<br>For example: 'Oct 2019' or"
+" 'Jun 2013'."
+msgstr ""
+
+#: ../../app/views/branded/paginable/plans/_org_admin.html.erb:15
+msgid ""
+"Featured plans are displayed first on the 'Public DMPs' page. A plan must be p"
+"ublicly visible to be 'featured'."
+msgstr ""
+
+#: ../../app/views/branded/paginable/plans/_org_admin.html.erb:21
+msgid "Project Title"
+msgstr ""
+
+#: ../../app/views/branded/paginable/plans/_org_admin.html.erb:22
+msgid "Template"
+msgstr ""
+
+#: ../../app/views/branded/paginable/plans/_org_admin.html.erb:23
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:12
+msgid "Organisation"
+msgstr ""
+
+#: ../../app/views/branded/paginable/plans/_org_admin.html.erb:24
+msgid "Owner"
+msgstr ""
+
+#: ../../app/views/branded/paginable/plans/_org_admin.html.erb:25
+msgid "Created"
+msgstr ""
+
+#: ../../app/views/branded/paginable/plans/_org_admin.html.erb:26
+msgid "Visibility"
+msgstr ""
+
+#: ../../app/views/branded/paginable/plans/_org_admin.html.erb:28
+#: ../../app/views/branded/public_pages/_plans_results.html.erb:40
+msgid "DMP ID"
+msgstr ""
+
+#: ../../app/views/branded/paginable/plans/_org_admin.html.erb:30
+msgid "Featured?"
+msgstr ""
+
+#: ../../app/views/branded/paginable/plans/_org_admin.html.erb:49
+msgid "Test"
+msgstr ""
+
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:7
+#: ../../app/views/branded/public_pages/_plans_results.html.erb:11
+#: ../../app/views/branded/research_outputs/_form.html.erb:41
+#: ../../app/views/branded/super_admin/notifications/_form.html.erb:8
+msgid "Title"
+msgstr ""
+
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:10
+#: ../../app/views/branded/research_outputs/_form.html.erb:14
+msgid "Type"
+msgstr ""
+
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:13
+#: ../../app/views/branded/research_outputs/sections/_identifiers.html.erb:6
+msgid "Repository"
+msgstr ""
+
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:16
+msgid "Release date"
+msgstr ""
+
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:19
+msgid "Access level"
+msgstr ""
+
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:23
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:48
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:54
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:18
+msgid "Actions"
+msgstr ""
+
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:51
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:57
+msgid "Edit"
+msgstr ""
+
+#: ../../app/views/branded/paginable/research_outputs/_index.html.erb:55
+msgid "You are about to delete '%{research_output_title}'. Are you sure?"
+msgstr ""
+
+#: ../../app/views/branded/paginable/templates/_invite_modal.html.erb:14
+msgid "Close"
+msgstr ""
+
+#: ../../app/views/branded/paginable/templates/_invite_modal.html.erb:17
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:75
+msgid "Email template"
+msgstr ""
+
+#: ../../app/views/branded/paginable/templates/_invite_modal_content.html.erb:6
+msgid ""
+"Create a new plan for the specified user based off of %{template_name}. If the"
+" user does not already have an account, they will receive an invitation to sig"
+"n up."
+msgstr ""
+
+#:
+#: ../../app/views/branded/paginable/templates/_invite_modal_content.html.erb:14
+msgid "User's email"
+msgstr ""
+
+#:
+#: ../../app/views/branded/paginable/templates/_invite_modal_content.html.erb:19
+msgid ""
+"You can use the default email subject and body below or replace them with your"
+" own message. Refer to ther preview section below to see what the email will l"
+"ook like."
+msgstr ""
+
+#:
+#: ../../app/views/branded/paginable/templates/_invite_modal_content.html.erb:25
+msgid "Email subject"
+msgstr ""
+
+#:
+#: ../../app/views/branded/paginable/templates/_invite_modal_content.html.erb:29
+msgid "Email body"
+msgstr ""
+
+#:
+#: ../../app/views/branded/paginable/templates/_invite_modal_content.html.erb:47
+msgid ""
+"Please sign in or sign up at %{homepage_link}. Once you have signed in you wil"
+"l see the DMP titled '%{dmp_title}' on your dashboard."
+msgstr ""
+
+#:
+#: ../../app/views/branded/paginable/templates/_invite_modal_content.html.erb:53
+#: ../../app/views/branded/user_mailer/new_plan_via_template.html.erb:19
+msgid "Thank you,"
+msgstr ""
+
+#:
+#: ../../app/views/branded/paginable/templates/_invite_modal_content.html.erb:54
+#: ../../app/views/branded/user_mailer/new_plan_via_template.html.erb:20
+msgid "The %{org_name} DMPTool team"
+msgstr ""
+
+#:
+#: ../../app/views/branded/paginable/templates/_invite_modal_content.html.erb:55
+#: ../../app/views/branded/user_mailer/new_plan_via_template.html.erb:21
+msgid ""
+"Please do not reply to this email. If you have any questions or need help, ple"
+"ase contact us at %{org_admin_email}"
+msgstr ""
+
+#:
+#: ../../app/views/branded/paginable/templates/_invite_modal_content.html.erb:62
+msgid "Send email"
+msgstr ""
+
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:2
+#: ../../app/views/branded/plans/_navigation.html.erb:43
+msgid "Download"
+msgstr ""
+
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:8
+msgid "Template Name"
+msgstr ""
+
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:10
+#: ../../app/views/branded/research_outputs/_form.html.erb:59
+msgid "Description"
+msgstr ""
+
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:12
+#: ../../app/views/branded/plans/_project_details.html.erb:135
+#: ../../app/views/branded/plans/new.html.erb:85
+#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:23
+msgid "Funder"
+msgstr ""
+
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:14
+msgid "Status"
+msgstr ""
+
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:15
+msgid "Edited Date"
+msgstr ""
+
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:37
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:40
+msgid "Published"
+msgstr ""
+
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:39
+msgid ""
+"You have unpublished changes! Select \"Publish changes\" in the Actions menu whe"
+"n you are ready to make them available to users."
+msgstr ""
+
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:43
+msgid "Unpublished"
+msgstr ""
+
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:58
+msgid "History"
+msgstr ""
+
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:60
+msgid "Unpublish"
+msgstr ""
+
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:63
+msgid "Publish changes"
+msgstr ""
+
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:65
+msgid "Publish"
+msgstr ""
+
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:68
+msgid "Copy"
+msgstr ""
+
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:86
+msgid ""
+"Are you sure you want to remove \"%{template_title}\"? Any published versions wi"
+"ll become unavailable to users."
+msgstr ""
+
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:94
+msgid "(new window)"
+msgstr ""
+
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:95
+#: ../../app/views/branded/plans/_download_form.html.erb:135
+msgid "Opens in new window"
+msgstr ""
+
+#: ../../app/views/branded/paginable/templates/_organisational.html.erb:100
+msgid "Copy link"
+msgstr ""
+
+#: ../../app/views/branded/phases/_edit_plan_answers.html.erb:5
+msgid ""
+"This plan is based on the \"%{template_title}\" template provided by %{org_name}"
+" - (ver: %{version_nbr}, pub: %{version_date})."
+msgstr ""
+
+#: ../../app/views/branded/phases/_edit_plan_answers.html.erb:23
+msgid "expand all"
+msgstr ""
+
+#: ../../app/views/branded/phases/_edit_plan_answers.html.erb:25
+msgid "collapse all"
+msgstr ""
+
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:6
+msgid ""
+"Co-owner: Has admin-rights to the plan (can invite other users, view the plan,"
+" answer questions, or comment). Editor: Has edit-rights to the plan (can view "
+"the plan, answer questions, or comment). Read Only: Has read-rights to the pla"
+"n (can view the plan or comment)"
+msgstr ""
+
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:8
+msgid "DMP Collaborators"
+msgstr ""
+
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:9
+msgid ""
+"Invite specific people to read, edit, or administer your plan. Invitees will r"
+"eceive an email notification that they have access to this plan."
+msgstr ""
+
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:15
+#: ../../app/views/branded/users/passwords/new.html.erb:9
+#: ../../app/views/branded/users/registrations/_form.html.erb:4
+#: ../../app/views/branded/users/registrations/_profile_form.html.erb:8
+#: ../../app/views/branded/users/sessions/_form.html.erb:4
+#: ../../app/views/branded/users/sessions/_validate.html.erb:9
+msgid "Email address"
+msgstr ""
+
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:16
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:89
+msgid "Permissions"
+msgstr ""
+
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:56
+msgid "Are you sure?"
+msgstr ""
+
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:67
+msgid "Invite collaborators"
+msgstr ""
+
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:94
+msgid "Co-owner"
+msgstr ""
+
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:100
+msgid "Editor"
+msgstr ""
+
+#: ../../app/views/branded/plans/_collaborator_form.html.erb:106
+msgid "Read only"
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:5
+msgid "Get a %{dmp_id_link} for your data management plan."
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:6
+msgid ""
+"DMP IDs track connections between your DMP and research outputs such as datase"
+"ts and articles."
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:17
+msgid "This plan has been registered"
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:19
+msgid "Register your plan and add to ORCID"
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:29
+msgid "When referencing this DMP in other systems, please use the DMP ID: "
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:31
+msgid "When citing this DMP use:"
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:39
+msgid "In order to register your plan you must have completed the following:"
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:43
+msgid "answered at least %{percentage}%% of questions"
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:47
+msgid "identified your funder"
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:53
+msgid "authorized DMPTool to add works to your ORCID record via your"
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:53
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:55
+msgid "Third party applications page"
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:55
+msgid "linked your DMPTool account to your ORCID via your"
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:61
+msgid "plan is not a mock project for testing, practice, or educational purposes"
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:64
+msgid ""
+"Once the steps above are satisfied, a button to register your plan will appear"
+" here."
+msgstr ""
+
+#: ../../app/views/branded/plans/_dmp_id_minter.html.erb:70
+msgid "Register"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:3
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:256
+msgid "Format"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:12
+msgid "Download settings"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:16
+msgid "Select phase to download"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:23
+msgid "Optional plan components"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:27
+msgid "project details coversheet"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:33
+msgid "question text and section headings"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:39
+msgid "unanswered questions"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:46
+msgid "supplementary section(s) not requested by funding organisation"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:54
+msgid "research outputs"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:62
+msgid "related works"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:70
+msgid "PDF formatting"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:73
+msgid "Font"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:76
+msgid "Margin (mm)"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:81
+msgid "Face"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:89
+msgid "Size"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:97
+msgid "Top"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:106
+msgid "Bottom"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:115
+msgid "Left"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:124
+msgid "Right"
+msgstr ""
+
+#: ../../app/views/branded/plans/_download_form.html.erb:135
+msgid ""
+"Download Plan <em class=\"sr-only\">(new window)</em><span class=\"new-window-pop"
+"up-info\">%{open_in_new_window_text}</span>"
+msgstr ""
+
+#: ../../app/views/branded/plans/_navigation.html.erb:5
+msgid "Contributors"
+msgstr ""
+
+#: ../../app/views/branded/plans/_navigation.html.erb:6
+msgid "Share"
+msgstr ""
+
+#: ../../app/views/branded/plans/_navigation.html.erb:8
+msgid "Collaborators"
+msgstr ""
+
+#: ../../app/views/branded/plans/_navigation.html.erb:9
+msgid "Finalise / Publish"
+msgstr ""
+
+#: ../../app/views/branded/plans/_navigation.html.erb:14
+msgid "Project Details"
+msgstr ""
+
+#: ../../app/views/branded/plans/_navigation.html.erb:21
+msgid "Plan overview"
+msgstr ""
+
+#: ../../app/views/branded/plans/_navigation.html.erb:27
+msgid "Write Plan"
+msgstr ""
+
+#: ../../app/views/branded/plans/_navigation.html.erb:33
+msgid "Research outputs"
+msgstr ""
+
+#: ../../app/views/branded/plans/_navigation.html.erb:38
+msgid "Request feedback"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:4
+msgid "If applying for funding, state the name exactly as in the grant proposal."
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:5
+msgid ""
+"Briefly summarise your research project to help others understand the purposes"
+" for which the data are being collected or created."
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:6
+msgid "A unique number that a federal agency assigns to a grant announcement."
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:7
+msgid ""
+"Whether there are any potential ethical issues related to data that this DMP d"
+"escribes"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:8
+msgid "Description of the ethical issues"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:9
+msgid "Link to a protocol from a meeting with an ethics commitee"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:23
+msgid "Project title"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:34
+#: ../../app/views/branded/plans/new.html.erb:38
+msgid "mock project for testing, practice, or educational purposes"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:42
+msgid "Project abstract"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:54
+msgid "Research domain"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:59
+#: ../../app/views/branded/plans/_project_details.html.erb:148
+#: ../../app/views/branded/related_identifiers/_form.html.erb:24
+#: ../../app/views/branded/research_outputs/_form.html.erb:23
+#: ../../app/views/branded/research_outputs/licenses/_form.html.erb:19
+msgid "- Please select one -"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:69
+msgid "Project Start"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:72
+msgid "The estimated date on which you will begin this project."
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:75
+msgid "Project End"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:78
+msgid "The estimated date on which you will complete this project."
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:89
+msgid "Research outputs may have ethical concerns"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:96
+msgid "Describe any ethical concerns"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:109
+msgid "Ethical protocols"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:142
+msgid "Funding status"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:155
+msgid "Funding opportunity number"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:167
+msgid "Grant number/url"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:180
+msgid "Grant number:"
+msgstr ""
+
+#: ../../app/views/branded/plans/_project_details.html.erb:184
+msgid ""
+"Provide a URL to the award's landing page if possible, if not please provide t"
+"he award/grant number."
+msgstr ""
+
+#: ../../app/views/branded/plans/_visibility_form.html.erb:3
+msgid "Set plan visibility"
+msgstr ""
+
+#: ../../app/views/branded/plans/_visibility_form.html.erb:5
+msgid ""
+"Public or organisational visibility is intended for finished plans. You must a"
+"nswer at least %{percentage}%% of the questions to enable these options. Note:"
+" test plans are set to private visibility by default."
+msgstr ""
+
+#: ../../app/views/branded/plans/_visibility_form.html.erb:15
+msgid ""
+"Private: visible to me, specified collaborators and administrators at my organ"
+"isation"
+msgstr ""
+
+#: ../../app/views/branded/plans/_visibility_form.html.erb:21
+msgid "Organisation: anyone at my organisation can view"
+msgstr ""
+
+#: ../../app/views/branded/plans/_visibility_form.html.erb:27
+msgid "Public: anyone can view"
+msgstr ""
+
+#: ../../app/views/branded/plans/_visibility_form.html.erb:37
+msgid "This plan is currently set to: "
+msgstr ""
+
+#: ../../app/views/branded/plans/_visibility_form.html.erb:39
+msgid "<strong>Public visibilty</strong> - anyone can view"
+msgstr ""
+
+#: ../../app/views/branded/plans/_visibility_form.html.erb:41
+msgid "<strong>Organisation visibility</strong> - anyone at my organisation can view"
+msgstr ""
+
+#: ../../app/views/branded/plans/_visibility_form.html.erb:43
+msgid ""
+"<strong>Private visibility</strong> - visible to me, specified collaborators a"
+"nd administrators at my organisation"
+msgstr ""
+
+#: ../../app/views/branded/plans/mint.js.erb:9
+msgid ""
+"Something went wrong and we were unable to acquire a DMP ID for your plan. Ple"
+"ase try again. If the problem persists please contact the help desk at %{helpd"
+"esk_email}"
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:1
+#: ../../app/views/branded/plans/new.html.erb:11
+msgid "Create a new plan"
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:3
+msgid "If applying for funding, state the project title exactly as in the proposal."
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:4
+msgid "You must select a research organisation from the list or click the checkbox."
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:5
+msgid "Please select a valid research organisation from the list."
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:6
+msgid "You must select a funder from the list or click the checkbox."
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:7
+msgid "Please select a valid funding organisation from the list."
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:14
+msgid ""
+"Before you get started, we need some information about your research project t"
+"o set you up with the best DMP template for your needs."
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:23
+msgid "What research project are you planning?"
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:47
+msgid "Select the primary research organisation"
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:57
+msgid "Research organisation"
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:60
+#: ../../app/views/branded/plans/new.html.erb:88
+msgid "or"
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:63
+msgid ""
+"No research organisation associated with this plan or my research organisation"
+" is not listed"
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:73
+msgid "Select the primary funding organisation"
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:91
+msgid "No funder associated with this plan or my funder is not listed"
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:103
+msgid "Which DMP template would you like to use?"
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:106
+msgid "Please select a template"
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:111
+msgid "We found multiple DMP templates corresponding to your funder."
+msgstr ""
+
+#: ../../app/views/branded/plans/new.html.erb:118
+msgid "Create plan"
+msgstr ""
+
+#: ../../app/views/branded/public_pages/_facet_section.html.erb:23
+msgid "Show more"
+msgstr ""
+
+#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:7
+msgid "Find a plan"
+msgstr ""
+
+#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:11
+msgid "Search"
+msgstr ""
+
+#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:17
+msgid "Showing results for \"%<search_term>s\""
+msgstr ""
+
+#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:19
+msgid "Clear Search"
+msgstr ""
+
+#: ../../app/views/branded/public_pages/_plans_facet_form.html.erb:50
+msgid "Clear Filters"
+msgstr ""
+
+#: ../../app/views/branded/public_pages/_plans_results.html.erb:4
+msgid "Plans (%<nbr_plans>s)"
+msgstr ""
+
+#: ../../app/views/branded/public_pages/_plans_results.html.erb:7
+msgid "Sort by:"
+msgstr ""
+
+#: ../../app/views/branded/public_pages/_plans_results.html.erb:9
+#: ../../app/views/branded/public_pages/_plans_results.html.erb:24
+msgid "Featured"
+msgstr ""
+
+#: ../../app/views/branded/public_pages/_plans_results.html.erb:10
+msgid "Most Recent"
+msgstr ""
+
+#: ../../app/views/branded/public_pages/_plans_results.html.erb:43
+msgid "Creation date"
+msgstr ""
+
+#: ../../app/views/branded/public_pages/_plans_results.html.erb:61
+msgid "View All"
+msgstr ""
+
+#: ../../app/views/branded/public_pages/_plans_results.html.erb:62
+msgid "View all results"
+msgstr ""
+
+#: ../../app/views/branded/public_pages/_plans_results.html.erb:64
+msgid "View Less"
+msgstr ""
+
+#: ../../app/views/branded/public_pages/_plans_results.html.erb:65
+msgid "View fewer results"
+msgstr ""
+
+#: ../../app/views/branded/public_pages/orgs.html.erb:4
+msgid ""
+"Participating institutions/organizations can configure the tool to point to th"
+"eir resources and services, provide customized help, and provide suggested ans"
+"wers to the questions asked by funding agencies. DMPTool users affiliated with"
+" participating institutions can login with their own institutional accounts. F"
+"or more information visit the %{about_us_link} page."
+msgstr ""
+
+#: ../../app/views/branded/public_pages/plan_index.html.erb:3
+msgid "Public Plans"
+msgstr ""
+
+#: ../../app/views/branded/public_pages/plan_index.html.erb:4
+msgid ""
+"Public DMPs are plans created using the DMPTool service and shared publicly by"
+" their owners. They are not vetted for quality, completeness, or adherence to "
+"funder guidelines."
+msgstr ""
+
+#: ../../app/views/branded/public_pages/template_index.html.erb:1
+msgid "DMP Templates"
+msgstr ""
+
+#: ../../app/views/branded/public_pages/template_index.html.erb:7
+msgid ""
+"Templates for data management plans are based on the specific requirements lis"
+"ted in funder policy documents. The DMPTool maintains these templates, however"
+", researchers should always consult the program officers and policy documents "
+"directly for authoritative guidance. Sample plans are provided by a funder or "
+"another trusted party."
+msgstr ""
+
+#: ../../app/views/branded/public_pages/template_index.html.erb:9
+msgid "There are currently no public Templates."
+msgstr ""
+
+#: ../../app/views/branded/related_identifiers/_edit.html.erb:4
+msgid ""
+"List products related to this project, such as journal articles, software or d"
+"atasets. For example: 'https://doi.org/10.5281/zenodo.5117892', 'https://githu"
+"b.com/CDLUC3/dmphub/releases/tag/v1.0.12'"
+msgstr ""
+
+#: ../../app/views/branded/related_identifiers/_edit.html.erb:10
+#: ../../app/views/branded/related_identifiers/_show.html.erb:4
+msgid "Related works"
+msgstr ""
+
+#: ../../app/views/branded/related_identifiers/_edit.html.erb:41
+msgid " - No citation available."
+msgstr ""
+
+#: ../../app/views/branded/related_identifiers/_edit.html.erb:47
+#: ../../app/views/branded/related_identifiers/_form.html.erb:42
+msgid "Remove this related work"
+msgstr ""
+
+#: ../../app/views/branded/related_identifiers/_edit.html.erb:67
+msgid "+ Add a related work"
+msgstr ""
+
+#: ../../app/views/branded/related_identifiers/_form.html.erb:11
+msgid "Work Type"
+msgstr ""
+
+#: ../../app/views/branded/related_identifiers/_form.html.erb:14
+msgid "DOI or other URL based identifier"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:6
+msgid ""
+"Your research output abbreviation can be used as a reference when answering th"
+"is plan's questions."
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:7
+msgid ""
+"Any data that could potentially identify a specific individual. Any informatio"
+"n that can be used to distinguish one person from another and can be used for "
+"de-anonymizing anonymous data can be considered personally identifiable data. "
+"(From https://codata.org/rdm-glossary/personally-identifiable-information/)"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:8
+msgid ""
+"Repositories preserve, manage, and provide access to many types of digital mat"
+"erials in a variety of formats. Materials in online repositories are curated t"
+"o enable search, discovery, and reuse. There must be sufficient control for th"
+"e digital material to be authentic, reliable, accessible and usable on a conti"
+"nuing basis. (From https://codata.org/rdm-glossary/personally-identifiable-inf"
+"ormation/)"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:16
+msgid "Please describe the output type"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:44
+msgid "Abbreviation"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:73
+msgid "May contain sensitive data?"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:80
+msgid "May contain personally identifiable information?"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:90
+msgid "Intended repositories"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:99
+msgid "Add a repository"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:114
+#: ../../app/views/branded/research_outputs/sections/_identifiers.html.erb:5
+msgid "Metadata standards"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:122
+msgid "Add a metadata standard"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:136
+msgid "Anticipated release date"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:140
+msgid "Initial access level"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/_form.html.erb:158
+msgid "Anticipated file size"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/edit.html.erb:12
+msgid "Editing %{research_output_title}"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/edit.html.erb:13
+#: ../../app/views/branded/research_outputs/new.html.erb:13
+msgid "View all research outputs"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/identifiers/_openaire.html.erb:6
+msgid "Your Selected Standards:"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/identifiers/_openaire.html.erb:12
+msgid "Add Standard"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/identifiers/_openaire.html.erb:14
+msgid "Please select a subject"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/identifiers/_openaire.html.erb:17
+msgid "Please select a sub-subject"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/identifiers/_openaire.html.erb:23
+msgid "Browse Standards"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/identifiers/_openaire.html.erb:28
+msgid "Please wait, Standards are loading"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/index.html.erb:14
+msgid "Please list your anticipated research output(s)."
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/index.html.erb:30
+msgid "Add a research output"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/licenses/_form.html.erb:24
+msgid "Initial license"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/licenses/_form.html.erb:30
+msgid "For guidance on selecting a license:"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/new.html.erb:12
+msgid "New research output"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/repositories/_search.html.erb:5
+msgid ""
+"Refine your search to discipline specific, institutional or generalist reposit"
+"ories. When the use of domain-specific repositories is not available, generali"
+"st repositories are a good option and accept all types of data regardless of t"
+"ype, format, content, or discipline."
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/repositories/_search.html.erb:6
+msgid "Select a subject area to refine your search."
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/repositories/_search.html.erb:12
+msgid "- Select a subject area -"
+msgstr ""
+
+#: ../../app/views/branded/research_outputs/repositories/_search.html.erb:21
+msgid "- Select a repository type -"
+msgstr ""
+
+#:
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:18
+msgid "Click to view repositories related to %{subject}"
+msgstr ""
+
+#:
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:34
+msgid "Repository URL"
+msgstr ""
+
+#:
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:39
+msgid "Contact"
+msgstr ""
+
+#:
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:44
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:49
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:52
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:57
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:65
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:66
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:71
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:74
+msgid "Unknown"
+msgstr ""
+
+#:
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:48
+msgid "Data access"
+msgstr ""
+
+#:
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:51
+msgid "Persistent identifier type"
+msgstr ""
+
+#:
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:54
+msgid "Policies"
+msgstr ""
+
+#:
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:63
+msgid "Data upload"
+msgstr ""
+
+#:
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:70
+msgid "Provider type"
+msgstr ""
+
+#:
+#: ../../app/views/branded/research_outputs/repositories/_search_result.html.erb:73
+msgid "Repository type"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:4
+msgid "What is the DMPTool?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:6
+msgid ""
+"The DMPTool is a free, open-source, online application that helps researchers "
+"create data management plans (DMPs). These plans are now required by many fund"
+"ing agencies as part of the grant proposal submission process. The DMPTool pro"
+"vides a click-through wizard for creating a DMP that complies with funder requ"
+"irements. It also has direct links to funder websites, help text for answering"
+" questions, and data management best practices resources."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:10
+msgid "DMPTool Background"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:12
+msgid ""
+"The original DMPTool was a grassroots effort, beginning in 2011 with eight ins"
+"titutions partnering to provide in-kind contributions of personnel and develop"
+"ment. The effort was in direct response to demands from funding agencies, such"
+" as the National Science Foundation and the National Institutes of Health, tha"
+"t researchers plan for managing their research data. As a result, the contribu"
+"ting institutions consolidated expertise and reduced costs in addressing data "
+"management needs by joining forces."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:15
+msgid ""
+"The original contributing institutions were: %<uc3_link>s at the %<cdl_link>s,"
+" %<data_one_link>s, %<dcc_link>s, %<smithsonian_link>s, %<ucla_library_link>s,"
+" %<ucsd_library_link>s, %<univ_illinois_library_link>s, and the %<univ_virgina"
+"_library_link>s. Given the success of the first version of the DMPTool, the fo"
+"unding partners obtained funding from the %<sloan_foundation_link>s to create "
+"a second version of the tool, released in 2014."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:16
+msgid "University of California Curation Center (UC3)"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:17
+msgid "California Digital Library"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:18
+msgid "DataONE"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:19
+msgid "Digital Curation Centre (DCC-UK)"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:20
+msgid "Smithsonian Institution"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:21
+msgid "University of California, Los Angeles Library"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:22
+msgid "University of California, San Diego Libraries"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:23
+msgid "University of Illinois, Urbana-Champaign Library"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:24
+msgid "University of Virginia Library"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:25
+msgid "Alfred P. Sloan Foundation"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:29
+msgid ""
+"The proliferation of open data policies across the globe led to an explosion o"
+"f interest in the DMPTool and the UK-based version, DMPonline. So in 2016, UC3"
+" and DCC decided to formalize our partnership to codevelop and maintain a sing"
+"le open-source platform. By providing a core infrastructure for DMPs, we could"
+" extend our reach and move best practices forward, allowing us to participate "
+"in a truly global open science ecosystem."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:32
+msgid ""
+"The DMPTool continues to be a community support tool. The tool's %<editorial_b"
+"oard_link>s provides leadership and expertise to ensure that grant requirement"
+"s and corresponding best practices remain current. Our Board includes represen"
+"tation across disciplines with varied areas of expertise from a wide range of "
+"institutions committed to supporting effective research data management."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:33
+#: ../../app/views/branded/static_pages/editorial_board.html.erb:1
+msgid "Editorial Board"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:38
+msgid "Networked Data Management Plans"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:40
+msgid ""
+"Recent feature developments have focused on transforming the DMP from a static"
+" text file into an interoperable, networked hub of information wherein details"
+" about a research project can be updated and queried over the project’s lifeti"
+"me. This new %<networked_dmp_wiki>s allows information within a DMP to be fed "
+"across stakeholders, linking metadata, repositories, and institutions, and all"
+"owing for notifications and verification, reporting in real-time. A key goal o"
+"f this new system is to reduce the burden on researchers by generating automat"
+"ed updates to a plan and facilitating seamless integration with systems and gr"
+"oups that support research."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:41
+msgid "Networked DMP"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:45
+msgid ""
+"We welcome integrations that utilize this new system. The %<dmptool_api_wiki>s"
+" complies with the %<rda_common_standard_link>s, which is recommended to trans"
+"fer DMP metadata between systems. If you have an integration project, please %"
+"<contact_us_link>s."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:46
+msgid "DMPTool API"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:47
+msgid "RDA Common Standard Metadata schema v1.0"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:48
+#: ../../app/views/branded/users/registrations/new.html.erb:15
+msgid "contact us"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:53
+msgid "How to Participate in the DMPTool"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:55
+msgid ""
+"%<participants_link>s are institutions, profit, and nonprofit organizations, i"
+"ndividuals, or other groups that leverage the DMPTool as an effective and effi"
+"cient way to create data management plans. Our community of participating orga"
+"nizations helps to sustain and support the DMPTool in the following ways:"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:56
+msgid "DMPTool participants"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:59
+msgid "Establish institutional authentication with the DMPTool (Shibboleth)"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:60
+msgid ""
+"Customize the tool with resources, help text, suggested answers, or other info"
+"rmation"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:61
+msgid "Contribute to the maintenance and enhancement of the DMPTool codebase"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:62
+msgid ""
+"Help ensure that the DMPTool maintains its relevance and utility by notifying "
+"the DMPTool Helpdesk when:"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:64
+msgid "Funders release new requirements that are not reflected in the tool"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:65
+msgid "Errors, mistakes, or misinformation are discovered in the tool"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:66
+msgid ""
+"The tool's functionality is compromised (i.e., slow response times, poor perfo"
+"rmance, or software bugs)"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:73
+msgid "DMPTool Principles"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:75
+msgid ""
+"The following principles guide our work on the DMPTool. Organizations that act"
+"ively participate in the DMPTool community agree to abide by these principles."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:77
+msgid "Continuous improvement of the DMPTool's utility and features"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:78
+msgid "User-driven requirements and priorities for development"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:79
+msgid "Enthusiasm for the DMPTool"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:80
+msgid ""
+"Commitment to an open process for development, enhancement, and improvement (s"
+"ee %<panton_principles_link>s)"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:81
+msgid "Panton Principles"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:83
+msgid "Quality of code and materials created (%<contributor_wiki>s)"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/about_us.html.erb:84
+msgid "Contributor guidelines"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/editorial_board.html.erb:4
+msgid ""
+"The DMPTool Editorial Board ensures that the tool provides current information"
+" about grant requirements and corresponding guidance. Our Board includes repre"
+"sentation across disciplines with varied areas of expertise from a wide range "
+"of institutions committed to supporting effective research data management."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:2
+msgid "FAQ"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:5
+#: ../../app/views/branded/static_pages/faq.html.erb:45
+msgid "About the DMPTool"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:7
+msgid "What is a data management plan (DMP)?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:8
+msgid "What can I do with the DMPTool?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:9
+msgid "How much does it cost to use the DMPTool?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:10
+msgid "Who can use the DMPTool?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:11
+msgid "How can my institution participate in the DMPTool?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:12
+msgid "What are the benefits of participating in the DMPTool?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:13
+msgid "Have funders endorsed the DMPTool?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:14
+msgid "Who owns the data management plans created with the DMPTool?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:15
+msgid "Why am I getting email notifications from the DMPTool?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:18
+#: ../../app/views/branded/static_pages/faq.html.erb:97
+msgid "For Researchers"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:20
+msgid ""
+"I'm in a hurry! Is there a quick start guide for creating a data management pl"
+"an?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:21
+msgid "Where can I read more about funder requirements for data management plans?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:22
+msgid "Are there examples of data management plans?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:23
+msgid "What's the difference between “sample” and “public” data management plans?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:24
+msgid "What are the visibility options for my data management plan?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:25
+msgid "I created a test plan. How can I delete it (or hide it)?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:26
+msgid "How long will you save my plans?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:27
+msgid "What if I move to a new institution?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:28
+msgid "Who can help me at my institution?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:29
+msgid "I have a collaborator. How can we work on the same plan?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:30
+msgid "What happens when I “request feedback” on a plan?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:33
+#: ../../app/views/branded/static_pages/faq.html.erb:137
+msgid "For Administrators"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:35
+msgid "Where can I find help customizing the DMPTool for my institution/organization?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:36
+msgid ""
+"Can I see customized templates and guidance created by administrators at other"
+" organizations?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:37
+msgid "I created a test template. How can I delete it?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:38
+msgid "How do I create guidance? And what are themes?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:41
+msgid ""
+"Can't find what you’re looking for? <a href=\"%{contact_us_url}\" >Contact us</a"
+">"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:47
+msgid "Q: What is a data management plan (DMP)?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:48
+msgid ""
+"A data management plan is a formal document that outlines what you will do wit"
+"h your data during and after a research project. Most researchers collect data"
+" with some form of plan in mind, but it's often inadequately documented and in"
+"completely thought out. Many data management issues can be handled easily or a"
+"voided entirely by planning ahead. With the right process and framework, it do"
+"esn't take too long and can pay off enormously in the long run."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:50
+msgid ""
+"Read our <a href=\"%{general_guidance_url}\">Data Management General Guidance</a"
+"> for more information about data management plans."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:52
+msgid "Q: What can I do with the DMPTool?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:53
+msgid ""
+"The DMPTool helps researchers create data management plans (DMPs). It provides"
+" guidance from specific funders who require DMPs, but the tool can be used by "
+"anyone interested in developing generic DMPs to help facilitate their research"
+". The tool also offers resources and services available at <a href=\"%{particip"
+"ating_url}\">participating institutions</a> to help fulfill data management req"
+"uirements."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:55
+#: ../../app/views/branded/static_pages/faq.html.erb:62
+#: ../../app/views/branded/static_pages/faq.html.erb:69
+msgid "Use our <a href=\"%{help_url}\">Quick Start Guide</a> to begin creating a plan."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:57
+msgid "Q: How much does it cost to use the DMPTool?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:58
+msgid ""
+"The DMPTool is FREE. Anyone can create data management plans using the DMPTool"
+"."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:60
+msgid ""
+"A login is required to access the DMPTool. If you are a researcher from a <a h"
+"ref=\"%{participating_url}\">participating institutions</a>, you can log in as a"
+" user from your institution. If your institution does not participate, you can"
+" create your own account."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:64
+msgid "Q: Who can use the DMPTool?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:65
+msgid ""
+"Anyone can create data management plans. If you are a researcher from one of t"
+"he <a href=\"%{participating_url}\">participating institutions</a>, you can log "
+"in as a user from your institution and you will be presented with local guidan"
+"ce to help you complete your plan."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:67
+msgid "If your institution does not participate, you can create your own account."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:71
+msgid "Q: How can my institution participate in the DMPTool?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:72
+msgid ""
+"First, check these <a href=\"%{participating_url}\">participating institutions</"
+"a> to make sure your institution is not already participating. Learn more abou"
+"t becoming a <a href=\"%{about_url}\">participating institution</a>."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:74
+msgid ""
+"If you are a researcher or potential user, we suggest you talk to a librarian "
+"at your institution. If you are an administrator (librarian or otherwise) and "
+"interested in joining, please <a href=\"%{contact_url}\">contact us</a>."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:76
+msgid "Q: What are the benefits of participating in the DMPTool?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:77
+msgid ""
+"Participating institutions can incorporate information about their resources a"
+"nd services to aid researchers with data management. Participating institution"
+"s can also provide customized help and suggest answers to the questions asked "
+"by funding agencies. Users from participating institutions that have configure"
+"d the tool with Shibboleth can log in with their own institutional accounts."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:79
+msgid "For more information, see <a href=\"%{about_url}\">About participating</a>."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:81
+msgid "Q: Have funders endorsed the DMPTool?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:82
+msgid ""
+"Some funders have recommended the use of the DMPTool, although some provide li"
+"nks to the tool or resources within the tool in their public access plans (e.g"
+"., NEH, DOT). For example, the %<nsf_dear_colleague_letter_link>s specifically"
+" recommended that researchers generate machine-readable DMPs via tools such as"
+" the DMPTool."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:83
+msgid "NSF Dear Colleague Letter: Effective Practices for Data"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:86
+msgid ""
+"The DMPTool templates incorporate specific data management planning requiremen"
+"ts from a range of funders including foundations and government agencies. We a"
+"re in close contact with some funders as we create templates and for all funde"
+"rs, we monitor public notices and websites for changes."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:88
+msgid "Q: Who owns the data management plans created with the DMPTool?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:89
+msgid ""
+"Data management plans are the intellectual property of their creators. The Cal"
+"ifornia Digital Library makes no claim of copyright or ownership to the data m"
+"anagement plans created using the DMPTool. You can, however, choose to share y"
+"our plan publicly and it will appear in our library of <a href=\"%{public_plans"
+"_url}\">public plans</a> on the DMPTool website. This will benefit other DMPToo"
+"l users and promote open research."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:91
+msgid ""
+"See the <a href=\"%{help_url}\">Quick Start Guide</a> for more information on se"
+"tting your plan's visibility."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:93
+msgid "Q: Why am I getting email notifications from the DMPTool?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:94
+msgid ""
+"There are multiple actions that generate automatic email notifications from th"
+"e DMPTool. Users can turn these notifications on/off on the profile page. Navi"
+"gate to \"Edit profile\" by clicking your name in the upper right dropdown menu,"
+" then select the \"Notification preferences\" tab, check/uncheck the appropriate"
+" boxes, and click the button to save your changes."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:99
+msgid ""
+"Q: I'm in a hurry! Is there a quick start guide for creating a data management"
+" plan?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:100
+msgid ""
+"Yes! The <a href=\"%{help_url}\">Quick Start Guide</a> is available as a website"
+" or a PDF you can download."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:102
+msgid "Q: Where can I read more about funder requirements for data management plans?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:103
+msgid ""
+"The <a href=\"%{public_templates_url}\">Funder Requirements page</a> provides di"
+"rect links to funder guidelines, as well as sample plans if provided. You do n"
+"ot have to be logged into the DMPTool to access this page."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:105
+msgid "Q: Are there examples of data management plans?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:106
+msgid ""
+"The DMPTool hosts a collection of <a href=\"%{public_plans_url}\">public plans</"
+"a>. The collection contains actual plans created by DMPTool users who have opt"
+"ed to share their plans publicly. Please note that these plans have not been v"
+"etted for quality. Some funders provide sample plans on their websites; links "
+"to these plans are available on the <a href=\"%{public_templates_url}\">Funder R"
+"equirements page</a>."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:108
+msgid "Q: What's the difference between “sample” and “public” data management plans?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:109
+msgid ""
+"The sample plans on the <a href=\"%{public_templates_url}\">Funder Requirements "
+"page</a> are created by funders and offered as guidance on their websites. The"
+" <a href=\"%{public_plans_url}\">Public Plans</a> are actual plans created by us"
+"ers of the DMPTool (please note that these have not been vetted for quality). "
+"Both provide helpful examples for researchers creating their own data manageme"
+"nt plans."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:111
+msgid "Q: What are the visibility options for my data management plan?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:112
+msgid ""
+"There are three visibility options for each plan you create:<ol><li>Private. Y"
+"our plan will only be visible to you and any specified plan collaborators. Bas"
+"ic plan details (from the project details page, but not the plan content) will"
+" be available to administrators at your institution.</li><li>Organization. If "
+"your institution/organization participates in the DMPTool, this setting allows"
+" administrators and users from your institution to see your plan.</li><li>Publ"
+"ic. Your plan will be available on the <a href=\"%{public_plans_url}\">Public Pl"
+"ans</a> page of the DMPTool website. Choose this option to allow others to see"
+" your plan without restrictions (under a CC-Zero license).</li></ol>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:114
+msgid "Q: I created a test plan. How can I delete it (or hide it)?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:115
+msgid ""
+"Follow these steps to remove your test plan:<ol><li>Log into the DMPTool.</li>"
+"<li>On \"My Dashboard\" tick the box in the \"Test\" column next to the title of t"
+"he appropriate plan. This action will remove the plan from the public list if "
+"the visibility was set to public (it will become test/private).</li><li>To del"
+"ete the plan: select \"Remove\" from the Actions menu next to the title of the a"
+"ppropriate plan. You will be asked to confirm this action.</li></ol>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:117
+msgid "Q: How long will you save my plans?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:118
+msgid ""
+"We do not plan to delete any plans created with the DMPTool. As a plan owner, "
+"however, you can delete plans by going to “My Dashboard” and selecting “Remove"
+"” from the Actions menu next to the plan name."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:120
+msgid "Q: What if I move to a new institution?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:121
+msgid ""
+"Since the DMPTool account is tied to an email address, the information will no"
+"t automatically follow a user if they change institutions. However, we can con"
+"nect users to their plans from previous institutions if they contact us. Users"
+" who change institutions and assume new institutional credentials must create "
+"a new DMPTool account."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:123
+msgid "Q: Who can help me at my institution?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:124
+msgid ""
+"If your institution <a href=\"%{participating_url}\">participates in the DMPTool"
+"</a>, you can log into the tool and click on the “Contact” link in the top ban"
+"ner. Your email will be sent directly to an expert on your campus who can foll"
+"ow up with you. If your institution does not participate in the DMPTool, check"
+" with a librarian to see if someone on campus can help."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:126
+msgid "Q: I have a collaborator. How can we work on the same plan?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:127
+msgid ""
+"First you must create an account in the DMPTool and begin creating a plan. The"
+"n you can add your collaborator(s) to your plan as co-owner(s), or grant edito"
+"r or read only permissions. You can do this on the “Collaborators” tab for you"
+"r plan. Enter an email address in the field to \"Invite collaborators,” select "
+"the desired level of permissions, and click \"Submit\" to send an email invitati"
+"on."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:129
+msgid "For more information, see the <a href=\"%{help_url}\">Quick Start Guide</a>."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:131
+msgid "Q: What happens when I \"request feedback\" on a plan?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:132
+msgid ""
+"The request feedback functionality of the DMPTool is an optional feature that "
+"institutions may configure to help researchers create data management plans. S"
+"ubmitting a plan for feedback is within-institution only. If this feature is e"
+"nabled, a button to \"Request feedback\" will be displayed on the \"Share\" tab wh"
+"en writing a plan. If a user clicks the \"Request feedback\" button, the DMPTool"
+" will send an email to the plan owner and the institutional administrator cont"
+"act. The institutional administrator will be granted read only permissions and"
+" be able to provide comments on the plan within the tool."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:134
+msgid ""
+"Administrators: if you are interested in enabling this functionality for users"
+" at your institution, see the \"Request feedback\" section of the <a href=\"%{adm"
+"in_help_url}\">help for administrators</a> wiki."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:139
+msgid ""
+"Q: Where can I find help customizing the DMPTool for my institution/organizati"
+"on?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:140
+msgid ""
+"An extensive <a href=\"%{admin_help_url}\">help guide for administrators</a> loc"
+"ated on GitHub. You will find detailed instructions for:<ol><li>Setting up the"
+" DMPTool<ul><li>Enabling Shibboleth</li><li>Granting administrator privileges<"
+"/li><li>Customizing your organizational profile</li><li>Providing feedback on "
+"plans</li><li>Usage information</li></ul></li><li>Creating guidance</li><li>Cr"
+"eating and customizing funder templates</li><li>Creating templates</li><li>Uti"
+"lizing DMP IDs and Networked Data Management Plans (maDMPs)</li></ol>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:142
+msgid ""
+"Q: Can I see customized templates and guidance created by administrators at ot"
+"her organizations?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:143
+msgid ""
+"Yes! To view guidance created by others, create a new plan in the tool. On the"
+" \"Project details\" tab you will see \"Plan guidance configuration\" on the right"
+". Click to \"See the full list\" and you can select up to 6 different organizati"
+"ons at a time. You will see the selected guidance when you navigate to the \"Wr"
+"ite plan\" tab."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:145
+msgid ""
+"To view templates created by others (if available), create a new plan in the t"
+"ool and choose any organization for the second step: \"Select the primary resea"
+"rch organization.\" For the third create plan step, if you tick the box \"No fun"
+"der associated with this plan\" you will be presented with any available organi"
+"zational templates. If the field remains gray and no templates with organizati"
+"onal names appear, then the selected organization has not created any of their"
+" own templates and you will be presented with the default DMPTool template aft"
+"er clicking the button to \"Create plan.\""
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:147
+msgid "Q: I created a test template. How can I delete it?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:148
+msgid ""
+"DMPTool administrators can delete templates. This option is only available if "
+"no plans have been created using that template. If you cannot or do not want t"
+"o delete a template, you can \"Unpublish\" the template so that it will not appe"
+"ar to users. See our <a href=\"%{admin_help_url}\">help documentation</a> on how"
+" to do this."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:150
+msgid "Q: How do I create guidance? And what are themes?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:151
+msgid ""
+" The <a href=\"%{admin_help_url}\">help guide for administrators</a> contains de"
+"tailed instructions for creating themed guidance. The basic steps include:<ol>"
+"<li>Creating a guidance group (you will already have a default guidance group "
+"for your organization; it is optional to create additional groups or subgroups"
+", for example, for a specific department)</li><li>Creating guidance by enterin"
+"g text, assigning one or more themes, and attaching it to a guidance group</li"
+"><li>Publishing the guidance</li></ol>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:153
+msgid ""
+"There are 14 themes that represent the most common topics addressed in data ma"
+"nagement plans (e.g., Data format, Metadata). Themes work like tags to associa"
+"te questions and guidance. Questions within a template can be tagged with one "
+"or more themes, and guidance can be written by theme to allow organizations to"
+" apply their advice over all templates at once. This also alleviates the need "
+"to update guidance each time a new template is released."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/faq.html.erb:155
+msgid ""
+"Can't find the answer you’re looking for? <a href=\"%{contact_url}\">Contact us<"
+"/a>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:1
+msgid "Data management general guidance"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:6
+msgid "Table of Contents"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:9
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:22
+msgid "Introduction"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:10
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:37
+msgid "Types of Data"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:11
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:66
+msgid "File Formats"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:12
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:102
+msgid "Organizing Files"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:13
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:124
+msgid "Metadata: Data Documentation"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:14
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:179
+msgid "Persistent Identifiers"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:15
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:197
+msgid "Security and Storage"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:16
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:240
+msgid "Sharing and Archiving"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:17
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:293
+msgid "Citing Data"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:18
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:315
+msgid "Copyright and Privacy"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:23
+msgid "What is a data management plan?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:24
+msgid ""
+"A data management plan is a formal document that outlines what you will do wit"
+"h your data during and after a research project. Most researchers collect data"
+" with some form of plan in mind, but it's often inadequately documented and in"
+"completely thought out. Many data management issues can be handled easily or a"
+"voided entirely by planning ahead. With the right process and framework it doe"
+"sn't take too long and can pay off enormously in the long run."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:26
+msgid "Who requires a plan?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:27
+msgid ""
+"In February of 2013, the White House Office of Science and Technology Policy ("
+"OSTP) issued a %{memorandum_url} directing Federal agencies that provide signi"
+"ficant research funding to develop a plan to expand public access to research."
+" Among other requirements, the plans must:<br><blockquote>\"Ensure that all ext"
+"ramural researchers receiving Federal grants and contracts for scientific rese"
+"arch and intramural researchers develop data management plans, as appropriate,"
+" describing how they will provide for long-term preservation of, and access to"
+", scientific data in digital formats resulting from federally funded research,"
+" or explaining why long-term preservation and access cannot be justified\"</blo"
+"ckquote>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:29
+msgid ""
+"Most US Federally funded grants and many private foundations require some form"
+" of a data management plan. In the United States, most data management plans a"
+"re 2-page documents submitted as part of the funding proposal process."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:31
+msgid "We can help"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:32
+msgid ""
+"We have been working with internal and external partners to make data manageme"
+"nt plan development less complicated. By getting to know your research and dat"
+"a, we can match your specific needs with data management best practices in you"
+"r field to develop a data management plan that works for you. If you do this w"
+"ork at the beginning of your research process, you will have a far easier time"
+" following through and complying with funding agency and publisher requirement"
+"s."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:34
+msgid ""
+"We recommend that those applying for funding from US Federal agencies, such as"
+" the NSF or NIH, use the DMPTool. The DMPTool provides guidance for many of th"
+"e Federal agencies’ requirements, along with links to additional resources, se"
+"rvices, and help."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:39
+msgid ""
+"Research projects generate and collect countless varieties of data. To formula"
+"te a data management plan, it's useful to categorize your data in four ways: b"
+"y source, format, stability, and volume."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:41
+msgid "What's the source of the data?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:42
+msgid ""
+"Although data comes from many different sources, they can be grouped into four"
+" main categories. The category(ies) your data comes from will affect the choic"
+"es that you make throughout your data management plan."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:44
+msgid ""
+"<strong>Observational</strong><ul><li>Captured in real-time, typically outside"
+" the lab</li><li>Usually irreplaceable and therefore the most important to saf"
+"eguard</li><li>Examples: Sensor readings, telemetry, survey results, images</l"
+"i></ul>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:46
+msgid ""
+"<strong>Experimental</strong><ul><li>Typically generated in the lab or under c"
+"ontrolled conditions</li><li>Often reproducible, but can be expensive or time-"
+"consuming</li><li>Examples: gene sequences, chromatograms, magnetic field read"
+"ings</li></ul>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:48
+msgid ""
+"<strong>Simulation</strong><ul><li>Machine generated from test models</li><li>"
+"Likely to be reproducible if the model and inputs are preserved</li><li>Exampl"
+"es: climate models, economic models</li></ul>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:50
+msgid ""
+"<strong>Derived / Compiled</strong><ul><li>Generated from existing datasets</l"
+"i><li>Reproducible, but can be very expensive and time-consuming</li><li>Examp"
+"les: text and data mining, compiled database, 3D models</li></ul>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:52
+msgid "What's the form of the data?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:53
+msgid ""
+"Data can come in many forms, including:<ul><li><strong>Text</strong>: field or"
+" laboratory notes, survey responses</li><li><strong>Numeric</strong>: tables, "
+"counts, measurements</li><li><strong>Audiovisual</strong>: images, sound recor"
+"dings, video</li><li><strong>Models, computer code</strong></li><li><strong>Di"
+"scipline-specific</strong>: FITS in astronomy, CIF in chemistry</li><li><stron"
+"g>Instrument-specific</strong>: equipment outputs</li></ul>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:55
+msgid "How stable is the data?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:56
+msgid ""
+"Data can also be fixed or changing over the course of the project (and perhaps"
+" beyond the project's end). Do the data ever change? Do they grow? Is previous"
+"ly recorded data subject to correction? Will you need to keep track of data ve"
+"rsions? With respect to time, the common categories of dataset are:<ul><li><st"
+"rong>Fixed datasets</strong>: never change after being collected or generated<"
+"/li><li><strong>Growing datasets</strong>: new data may be added, but the old "
+"data is never changed or deleted</li><li><strong>Revisable datasets</strong>: "
+"new data may be added, and old data may be changed or deleted</li></ul>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:58
+msgid ""
+"The answer to this question affects how you organize the data as well as the l"
+"evel of versioning you will need to undertake. Keeping track of rapidly changi"
+"ng datasets can be a challenge so it is imperative that you begin with a plan "
+"to carry you through the entire data management process."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:60
+msgid "How much data will the project produce?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:61
+msgid ""
+"For instance, image data typically requires a lot of storage space, so you'll "
+"want to decide whether to retain all your images (and, if not, how you will de"
+"cide which to discard) and where such large data can be housed. Be sure to kno"
+"w your archiving organization's capacity for storage and backups."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:63
+msgid ""
+"To avoid being under-prepared, estimate the growth rate of your data. Some que"
+"stions to consider are:<ul><li>Are you manually collecting and recording data?"
+"</li><li>Are you using observational instruments and computers to collect data"
+"?</li><li>Is your data collection highly iterative?</li><li>How much data will"
+" you accumluate every month or every 90 days?</li><li>How much data do you ant"
+"icipate collecting and generating by the end of your project?</li></ul>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:68
+msgid ""
+"The file format you choose for your data is a primary factor in someone else's"
+" ability to access it in the future. Think carefully about what file format wi"
+"ll be best to manage, share, and preserve your data. Technology continually ch"
+"anges and all contemporary hardware and software should be expected to become "
+"obsolete. Consider how your data will be read if the software used to produce "
+"it becomes unavailable. Although any file format you choose today may become u"
+"nreadable in the future, some formats are more likely to be readable than othe"
+"rs."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:70
+msgid "Formats likely to be accessible in the future are:"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:72
+msgid "Non-proprietary"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:73
+msgid "Open, with documented standards"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:74
+msgid "In common usage by the research community"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:75
+msgid "Using standard character encodings (i.e., ASCII, UTF-8)"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:76
+msgid "Uncompressed (space permitting)"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:79
+msgid "Examples of preferred format choices:"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:81
+msgid "Image: JPEG, JPG-2000, PNG, TIFF"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:82
+msgid "Text: plain text (TXT), HTML, XML, PDF/A"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:83
+msgid "Audio: AIFF, WAVE"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:84
+msgid "Containers: TAR, GZIP, ZIP"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:85
+msgid "Databases: prefer XML or CSV to native binary formats"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:88
+msgid ""
+"If you find it necessary or convenient to work with data in a proprietary/disc"
+"ouraged file format, do so, but consider saving your work in a more archival f"
+"ormat when you are finished."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:90
+msgid ""
+"For more information on recommended formats, see the <a href=\"%{recommended_fo"
+"rmats_url}\">UK Data Service guidance on recommended formats</a>."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:92
+msgid "Tabular data"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:93
+msgid ""
+"Tabular data warrants special mention because it is so common across disciplin"
+"es, mostly as Excel spreadsheets. If you do your analysis in Excel, you should"
+" use the \"Save As...\" command to export your work to .csv format when you are "
+"done. Your spreadsheets will be easier to understand and to export if you foll"
+"ow best practices when you set them up, such as:<ul><li>Don't put more than on"
+"e table on a worksheet</li><li>Include a header row with understandable title "
+"for each column</li><li>Create charts on new sheets- don't embed them in the w"
+"orksheet with the data</li></ul>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:95
+msgid "Other risks to accessibility"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:97
+msgid ""
+"Encrypted data may be effectively lost if it was encrypted with a key that has"
+" been lost (e.g., a forgotten password). For this reason, encrypted data repre"
+"sentations are strongly discouraged."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:98
+msgid ""
+"Data that is legally encumbered may also be considered lost. So may data bound"
+" by ambiguous or unknown access and archiving rights, because the cost of clar"
+"ifying the rights situation is often prohibitive. See data rights and licensin"
+"g for guidance."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:103
+msgid "Basic Directory and File Naming Conventions"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:104
+msgid ""
+"These are rough guidelines to follow to help manage your data files in case yo"
+"u don't already have your own internal conventions. When organizing files, the"
+" top-level directory/folder should include:<ul><li>Project title</li><li>Uniqu"
+"e identifier (Guidance on persistent external identifiers is available below)<"
+"/li><li>Date (yyyy or yyyy.mm.dd)</li></ul>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:106
+msgid ""
+"The sub-directory structure should have clear, documented naming conventions. "
+"Separate files or directories could apply, for example, to each run of an expe"
+"riment, each version of a dataset, and/or each person in the group."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:109
+msgid ""
+"Reserve the 3-letter file extension for the file format, such as .txt, .pdf, o"
+"r .csv."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:110
+msgid "Identify the activity or project in the file name."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:111
+msgid ""
+"Identify separate versions of files and datasets using file or directory namin"
+"g conventions. It can quickly become difficult to identify the \"correct\" versi"
+"on of a file."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:112
+msgid ""
+"Record all changes to a file no matter how small. Discard obsolete versions af"
+"ter making backups."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:115
+msgid "File Renaming"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:116
+msgid "Tools to help you:"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:118
+msgid "Bulk Rename Utility"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:118
+msgid "(Windows; free)"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:119
+msgid "Renamer"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:119
+msgid "(Mac; free trial)"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:120
+msgid "PSRenamer"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:120
+msgid "(Linux, Mac, Windows; free)"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:125
+msgid "Why document data?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:126
+msgid ""
+"Clear and detailed documentation is essential for data to be understood, inter"
+"preted, and used. Data documentation describes the content, formats, and inter"
+"nal relationships of your data in detail and will enable other researchers to "
+"find, use, and properly cite your data."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:128
+msgid ""
+"Begin to document your data at the very beginning of your research project and"
+" continue throughout the project. Doing so will make the process much easier. "
+"If you have to construct the documentation at the end of the project, the proc"
+"ess will be painful and important details will have been lost or forgotten. Do"
+"n't wait to document your data!"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:130
+msgid "What to document?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:132
+msgid ""
+"<strong>Research Project Documentation</strong><ul><li>Rationale and context f"
+"or data collection</li><li>Data collection methods</li><li>Structure and organ"
+"ization of data files</li><li>Data sources used (see citing data)</li><li>Data"
+" validation and quality assurance</li><li>Transformations of data from the san"
+"itized data through analysis</li><li>Information on confidentiality, access an"
+"d use conditions</li></ul>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:134
+msgid ""
+"<strong>Dataset documentation</strong><ul><li>Variable names and descriptions<"
+"/li><li>Explanation of codes and classification schemes used</li><li>Algorithm"
+"s used to transform data (may include computer code)</li><li>File format and s"
+"oftware (including version) used</li></ul>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:136
+msgid "How will you document your data?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:137
+msgid ""
+"Data documentation is commonly called metadata – \"data about data\". Researcher"
+"s can document their data according to various metadata standards. Some metada"
+"ta standards are designed for the purpose of documenting the contents of files"
+", others for documenting the technical characteristics of files, and yet other"
+"s for expressing relationships between files within a set of data. If you want"
+" to be able to share or publish your data, the <a href=\"%{datacite_standards_u"
+"rl}\">DataCite metadata standard</a> is of particular signficiance."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:139
+msgid ""
+"Below are some general aspects of your data that you should document, regardle"
+"ss of your discipline. At a minimum, store this documentation in a \"readme.txt"
+"\" file, or the equivalent, with the data itself."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:141
+msgid "General Overview"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:143
+msgid ""
+"<strong>Title</strong>: Name of the dataset or research project that produced "
+"it"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:144
+msgid ""
+"<strong>Creator</strong>: Names and addresses of the organizations or people w"
+"ho created the data; preferred format for personal names is surname first (e.g"
+"., Smith, Jane)"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:145
+msgid ""
+"<strong>Identifier</strong>: Unique number used to identify the data, even if "
+"it is just an internal project reference number"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:146
+msgid ""
+"<strong>Date</strong>: Key dates associated with the data, including: project "
+"start and end date; release date; time period covered by the data; and other d"
+"ates associated with the data lifespan, such as maintenance cycle, update sche"
+"dule; preferred format is yyyy-mm-dd, or yyyy.mm.dd-yyyy.mm.dd for a range"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:147
+msgid ""
+"<strong>Method</strong>: How the data were generated, listing equipment and so"
+"ftware used (including model and version numbers), formulae, algorithms, exper"
+"imental protocols, and other things one might include in a lab notebook"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:148
+msgid ""
+"<strong>Processing</strong>: How the data have been altered or processed (e.g."
+", normalized)"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:149
+msgid ""
+"<strong>Source</strong>: Citations to data derived from other sources, includi"
+"ng details of where the source data is held and how it was accessed"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:150
+msgid "<strong>Funder</strong>: Organizations or agencies who funded the research"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:153
+msgid "Content Description"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:155
+msgid ""
+"<strong>Subject</strong>: Keywords or phrases describing the subject or conten"
+"t of the data"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:156
+msgid "<strong>Place</strong>: All applicable physical locations"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:157
+msgid "<strong>Language</strong>: All languages used in the dataset"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:158
+msgid ""
+"<strong>Variable list</strong>: All variables in the data files, where applica"
+"ble"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:159
+msgid ""
+"<strong>Code list</strong>: Explanation of codes or abbreviations used in eith"
+"er the file names or the variables in the data files (e.g. \"999 indicates a mi"
+"ssing value in the data\")"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:162
+msgid "Technical Description"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:164
+msgid ""
+"<strong>File inventory</strong>: All files associated with the project, includ"
+"ing extensions (e.g. \"NWPalaceTR.WRL\", \"stone.mov\")"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:165
+msgid ""
+"<strong>File formats</strong>: Formats of the data, e.g., FITS, SPSS, HTML, JP"
+"EG, etc."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:166
+msgid ""
+"<strong>File structure</strong>: Organization of the data file(s) and layout o"
+"f the variables, where applicable"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:167
+msgid ""
+"<strong>Version</strong>: Unique date/time stamp and identifier for each versi"
+"on"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:168
+msgid ""
+"<strong>Checksum</strong>: A digest value computed for each file that can be u"
+"sed to detect changes; if a recomputed digest differs from the stored digest, "
+"the file must have changed"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:169
+msgid ""
+"<strong>Necessary software</strong>: Names of any special-purpose software pac"
+"kages required to create, view, analyze, or otherwise use the data"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:172
+msgid "Access"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:174
+msgid ""
+"<strong>Rights</strong>: Any known intellectual property rights, statutory rig"
+"hts, licenses, or restrictions on use of the data"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:175
+msgid ""
+"<strong>Access information</strong>: Where and how your data can be accessed b"
+"y other researchers"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:180
+msgid ""
+"If you want to be able to share or cite your dataset, you'll want to assign a "
+"public persistent unique identifier to it. There are a variety of public ident"
+"ifier schemes, but common properties of good schemes are that they are:<ul><li"
+">Actionable (you can \"click\" on them in a web browser)</li><li>Globally unique"
+" across the internet</li><li>Persistent for at least the life of your data</li"
+"></ul>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:182
+msgid "Here are some identifier schemes:"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:184
+msgid ""
+"<a href=\"%{ark_url}\">ARK (Archival Resource Key)</a> – a URL with extra featur"
+"es allowing you to ask for descriptive and archival metadata and to recognize "
+"certain kinds of relationships between identifiers. ARKs are used by memory or"
+"ganizations such as libraries, archives, and museums. They are resolved at \"ht"
+"tp://www.nt2.net\". Resolution depends on HTTP redirection and can be managed t"
+"hrough an API or a user interface."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:185
+msgid ""
+"<a href=\"%{doi_url}\">DOI (Digital Object Identifier)</a> – an identifier that "
+"becomes actionable when embedded in a URL. DOIs are very popular in academic j"
+"ournal publishing. They are resolved at \"http://dx.doi.org\". Resolution depend"
+"s on HTTP redirection and the Handle identifier protocol, and can be managed t"
+"hrough an API or a user interface."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:186
+msgid ""
+"<a href=\"%{handle_url}\">Handle</a> – an identifier that becomes actionable whe"
+"n embedded in a URL. Handles are resolved at \"%{handle_url}\". Resolution depen"
+"ds on HTTP redirection and the Handle protocol, and can be managed through an "
+"API or a user interface."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:187
+msgid ""
+"<a href=\"%{inchi_url}\">InChI (IUPAC International Chemical Identifier)</a> – a"
+" non-actionable identifier for chemical substances that can be used in printed"
+" and electronic data sources, thus enabling easier linking of diverse data com"
+"pilations."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:188
+msgid ""
+"<a href=\"%{lsid_url}\">LSID (Life Sciences Identifier)</a> – a kind of URN that"
+" identifies a biologically significant resources, including species names, con"
+"cepts, occurrences, and genes or proteins, or data objects that encode informa"
+"tion about them. Like other URNs, it becomes actionable when embedded in a URL"
+"."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:189
+msgid ""
+"<a href=\"%{ncbi_url}\">NCBI (National Center for Biotechnology Information) ACC"
+"ESSION</a></li>\n"
+"    <li>a non-actionable number in use by NCBI."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:191
+msgid ""
+"<a href=\"%{purl_url}\">PURL (Persistent Uniform Resource Locator)</a> – a URL t"
+"hat is always redirected through a hostname (often purl.org). Resolution depen"
+"ds on HTTP redirection and can be managed through an API or a user interface."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:192
+msgid ""
+"<strong>URL (Uniform Resource Locator)</strong> – the typical \"address\" of web"
+" content. It is a kind of URI (Uniform Resource Identifier) that begins with \""
+"http://\" and consists of a string of characters used to identify or name a res"
+"ource on the Internet. Such identification enables interaction with representa"
+"tions of the resource over a network, typically the World Wide Web, using the "
+"HTTP protocol. Well-managed URL redirection can make URLs as persistent as any"
+" identifier. Resolution depends on HTTP redirection and can be managed through"
+" an API or a user interface."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:193
+msgid ""
+"<strong>URN (Uniform Resource Name)</strong> – an identifier that becomes acti"
+"onable when embedded in a URL. Resolution depends on HTTP redirection and the "
+"DDDS protocol, and can be managed through an API or a user interface. A browse"
+"r plug-in can save you from typing a hostname in front of it."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:198
+msgid "Data Security"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:199
+msgid ""
+"Data security is the protection of data from unauthorized access, use, change,"
+" disclosure, and destruction. Make sure your data is safe in regards to:<ul><l"
+"i>Network security<ul><li>Keep confidential data off the Internet</li><li>In e"
+"xtreme cases, put sensitive materials on computers not connected to the intern"
+"et</li></ul></li><li>Physical security<ul><li>Restrict access to buildings and"
+" rooms where computers or media are kept</li><li>Only let trusted individuals "
+"troubleshoot computer problems</li></ul></li><li>Computer systems and files<ul"
+"><li>Keep virus protection up to date</li><li>Don't send confidential data via"
+" e-mail or FTP (or, if you must, use encryption)</li><li>Set passwords on file"
+"s and computers</li><li>React with skepticism to phone calls and emails that c"
+"laim to be from your institution's IT department</li></ul></li></ul>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:201
+msgid "Encryption and Compression"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:202
+msgid ""
+"Unencrypted data will be more easily read by you and others in the future, but"
+" you may need to encrypt sensitive data.<ul><li>Use mainstream encryption tool"
+"s (e.g., PGP)</li><li>Don't rely on third-party encryption alone</li><li>Keep "
+"passwords and keys on paper (2 copies)</li></ul>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:204
+msgid ""
+"Uncompressed data will be also be easier to read in the future, but you may ne"
+"ed to compress files to conserve disk space.<ul><li>Use a mainstream compressi"
+"on tool (e.g., ZIP, GZIP, TAR)</li><li>Limit compression to the 3rd backup cop"
+"y</li></ul>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:206
+msgid "Backups and storage"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:207
+msgid ""
+"Making regular backups is an integral part of data management. You can backup "
+"data to your personal computer, external hard drives, or departmental or unive"
+"rsity servers. Software that makes backups for you automatically can simplify "
+"this process considerably. The UK Data Archive provides additional <a href=\"%{"
+"storage_guidelines_url}\">guidelines on data storage, backup, and security</a>."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:209
+msgid "Backup Your Data"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:211
+msgid ""
+"Good practice is to have three copies in at least two locations (e.g. original"
+" + external/local backup + external/remote backup)"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:212
+msgid ""
+"Geographically distribute your local and remote copies to reduce risk of calam"
+"ity at the same location (power outage, flood, fire, etc.)"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:215
+msgid "Test your backup system"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:217
+msgid ""
+"To be sure that your backup system is working, periodically retrieve your data"
+" files and confirm that you can read them. You should do this when you initial"
+"ly set up the system and on a regular schedule thereafter."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:220
+msgid "Other data preservation considerations"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:222
+msgid "Who is responsible for managing and controlling the data?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:224
+msgid ""
+"Who controls the data (e.g., the PI, a student, your lab, your university, you"
+"r funder)? Before you spend a lot of time figuring out how to store the data, "
+"to share it, to name it, etc. you should make sure you have the authority to d"
+"o so."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:227
+msgid "For what or whom are the data intended?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:229
+msgid ""
+"Who is your intended audience for the data? How do you expect they will use th"
+"e data? The answer to these questions will help inform structuring and distrib"
+"uting the data."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:232
+msgid "How long should the data be retained?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:234
+msgid ""
+"Is there any requirement that the data be retained? If so, for how long? 3-5 y"
+"ears, 10-20 years, permanently? Not all data need to be retained, and some dat"
+"a required to be retained need not be retained indefinitely. Have a good under"
+"standing of your obligation for the data's retention."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:237
+msgid ""
+"Beyond any externally imposed requirments, think about the long-term usefulnes"
+"s of the data. If the data is from an experiment that you anticipate will be r"
+"epeatable more quickly, inexpensively, and accurately as technology progresses"
+", you may want to store it for a relatively brief period. If the data consists"
+" of observations made outside the laborartory that can never be repeated, you "
+"may wish to store it indefinitely."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:241
+msgid "Why share your data?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:242
+msgid ""
+"<ul><li>Required by publishers (e.g., Cell, Nature, Science)</li><li>Required "
+"by government funding agencies (e.g., NIH, NSF)</li><li>Allows data to be used"
+" to answer new questions</li><li>Makes research more open</li><li>Makes your p"
+"apers more useful and citable by other researchers</li></ul>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:244
+msgid "Considerations when preparing to share data"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:246
+msgid ""
+"<strong>File Formats for Long Term Access</strong>: The file format in which y"
+"ou keep your data is a primary factor in one's ability to use your data in the"
+" future. Plan for both hardware and software obsolescence. See file formats an"
+"d organization for details on long-term storage formats."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:247
+msgid ""
+"<strong>Don't Forget the Documentation</strong>: Document your research and da"
+"ta so others can interpret the data. Begin to document your data at the very b"
+"eginning of your research project and continue throughout the project. See dat"
+"a documentation and metadata for details."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:248
+msgid ""
+"<strong>Ownership and Privacy</strong>: Make sure that you have considered the"
+" implications of sharing data in terms of copyright, IP ownership, and subject"
+" confidentiality. See copyright and confidentiality for details."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:251
+msgid "What does it mean to share data? (%<support_your_data_link>s)"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:252
+msgid "adapted from the Support Your Data project"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:254
+msgid ""
+"Sharing data means making your data available so that they can be accessed and"
+" used—by yourself or by others—in the future. Here are three factors to consid"
+"er when sharing data."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:257
+msgid ""
+"Data should be shared in a usable format. This may mean sharing raw data inste"
+"ad of prepared data (or vice versa) or ensuring that data is saved in common o"
+"r open file formats."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:259
+msgid "Completeness"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:260
+msgid ""
+"Remember that notes, documentation, and other information about your data are "
+"part of your data. To ensure that your shared data is useful, make sure these "
+"elements are included."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:262
+msgid "Location"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:263
+msgid ""
+"When choosing a method for sharing your data, consider how other researchers w"
+"ill find and use it. The storage options you use to save your data as you work"
+" on it will probably be different than the options you use to share it, especi"
+"ally over the longer term."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:265
+msgid "Requirements and how to meet them"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:266
+msgid ""
+"Many research funders, publishers, institutions, and research communities have"
+" formal expectations about how data should be shared."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:268
+msgid "Things to think about"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:270
+msgid ""
+"Though it is very likely that you’ll share your data only at the conclusion of"
+" a research project, data sharing should be incorporated into your data manage"
+"ment practices from the beginning."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:271
+msgid ""
+"Data sharing is about showing your work. Though many current data sharing requ"
+"irements focus on the data underlying journal articles and other scholarly wor"
+"ks, you should be prepared to share all of your data. All of it has potential "
+"value."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:272
+msgid ""
+"There are limits on how data containing sensitive or personally-identifying in"
+"formation can be shared, but you should be prepared to share enough informatio"
+"n about your work so that others can evaluate, potentially replicate, and othe"
+"rwise make use of what you’ve done."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:275
+msgid "Finding a data repository"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:276
+msgid ""
+"You should select a repository or archive for your data based on the long-term"
+" security offered and the ease of discovery and access by colleagues in your f"
+"ield. There are two common types of a repository to look for:"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:278
+msgid ""
+"<strong>Discipline-specific:</strong> accepts data in a particular field or of"
+" a particular type (e.g., GenBank accepts nucleotide sequence data)"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:279
+msgid ""
+"<strong>Generalist:</strong> accepts data of any type produced within the inst"
+"itution that maintains it (e.g., %<dryad_link>s)"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:284
+msgid ""
+"A searchable and browsable list of repositories can be found at these websites"
+":"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:286
+msgid "<strong> %<re3data_link>s:</strong> a REgistry of REsearch data REpositories"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:287
+msgid ""
+"<strong> %<open_access_dir_link>s:</strong> a list of repositories hosted by S"
+"immons College"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:287
+msgid "Data Repositories in the Open Access Directory"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:288
+msgid ""
+"<strong> %<fair_sharing_link>s:</strong> a directory of life sciences database"
+"s and reporting standards, now expanded to include all disciplines"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:288
+msgid "FAIRSharing"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:295
+msgid ""
+"Citing data is important in order to:<ul><li>Give the data producer appropriat"
+"e credit</li><li>Allow easier access to the data for repurposing or reuse</li>"
+"<li>Enable readers to verify your results</li></ul>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:297
+msgid "Citation Elements"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:298
+msgid ""
+"A dataset should be cited formally in an article's reference list, not just in"
+"formally in the text. Many data repositories and publishers provide explicit i"
+"nstructions for citing their contents. If no citation information is provided,"
+" you can still construct a citation following generally agreed-upon guidelines"
+" from sources such as the <a href=\"%{force11_citation_url}\">Force 11 Joint Dec"
+"laration of Data Citation Principles</a> and the current <a href=\"%{datacite_s"
+"tandards_url}\">DataCite Metadata Schema</a>."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:300
+msgid "Core elements"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:302
+msgid ""
+"There are 5 core elements usually included in a dataset citation, with additio"
+"nal elements added as appropriate.<ul><li><strong>Creator(s)</strong> – may be"
+" individuals or organizations</li><li><strong>Title</strong></li><li><strong>P"
+"ublication year</strong> when the dataset was released (may be different from "
+"the Access date)</li><li><strong>Publisher</strong> – the data center, archive"
+", or repository</li><li><strong>Identifier</strong> – a unique public identifi"
+"er (e.g., an ARK or DOI)</li></ul>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:303
+msgid ""
+"Creator names in non-Roman scripts should be transliterated using the <a href="
+"\"%{romanization_url}\">ALA-LC Romanization Tables</a>."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:306
+msgid "Common additional elements"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:308
+msgid ""
+"Although the core elements are sufficient in the simplest case – citation to t"
+"he entirety of a static dataset – additional elements may be needed if you wis"
+"h to cite a dynamic dataset or a subset of a larger dataset.<ul><li><strong>Ve"
+"rsion</strong> of the dataset analyzed in the citing paper</li><li><strong>Acc"
+"ess date</strong> when the data was accessed for analysis in the citing paper<"
+"/li><li><strong>Subset</strong> of the dataset analyzed (e.g., a range of date"
+"s or record numbers, a list of variables)</li><li><strong>Verifier</strong> th"
+"at the dataset or subset accessed by a reader is identical to the one analyzed"
+" by the author (e.g., a Checksum)</li><li><strong>Location</strong> of the dat"
+"aset on the internet, needed if the identifier is not \"actionable\" (convertabl"
+"e to a web address)</li></ul>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:311
+msgid "Example citations"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:317
+msgid "Sharing data that you produced/collected yourself"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:319
+msgid ""
+"<strong>Much data is not copyrightable in the United States</strong> because f"
+"acts are not copyrightable. However, a presentation of data (such as a chart o"
+"r table) may be."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:320
+msgid ""
+"<strong>Data can be licensed.</strong> Some data providers apply licenses that"
+" limit how the data can be used to protect the privacy of study participants o"
+"r to guide downstream uses of the data (e.g., requiring attribution or forbidd"
+"ing for-profit use)."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:321
+msgid ""
+"If you want to promote sharing and unlimited use of your data, you can make yo"
+"ur data available under a <a href=\"%{creative_commons_url}\">Creative Commons C"
+"C0 Declaration</a> to make your wishes explicit."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:324
+msgid "Sharing data that you have collected from other sources"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:326
+msgid ""
+"You may or may not have the right to do so, depending upon whether that data w"
+"ere accessed under a license with terms of use."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:327
+msgid ""
+"Most databases to which the UC Libraries subscribe are licensed and prohibit r"
+"edistribution of data outside of UC."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:330
+msgid ""
+"If you are uncertain as to your rights to disseminate data, UC researchers can"
+" consult with your campus Office of General Council. Note: Laws about data var"
+"y outside the U.S."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:332
+msgid ""
+"For a general discussion about publishing your data, applicable to many discip"
+"lines, see the <a href=\"%{icpsr_url}\">ICPSR Guide to Social Science Data Prepa"
+"ration and Archiving</a>."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:334
+msgid "Confidentiality and Ethical Concerns"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:335
+msgid ""
+"It is vital to maintain the confidentiality of research subjects both as an et"
+"hical matter and to ensure continuing participation in research. Researchers n"
+"eed to understand and manage tensions between confidentiality requirements and"
+" the potential benefits of archiving and publishing the data."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:338
+msgid ""
+"<strong>Evaluate the anonymity of your data.</strong> Consider to what extent "
+"your data contains direct or indirect identifiers that could be combined with "
+"other public information to identify research participants."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:339
+msgid ""
+"<strong>Obtain a confidentiality review.</strong> A benefit of depositing your"
+" data with <a href=\"%{icpsr_url}\">ICPSR</a> is that their staff offers a Discl"
+"osure review service to check your data for confidential information."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:340
+msgid ""
+"<strong>Comply with UC regulations.</strong> Researchers concerned about confi"
+"dentiality issues with their data should consult the <a href=\"%{uc_policy_url}"
+"\">UC policy for Protection of Human Subjects in Research</a>."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:341
+msgid ""
+"<strong>Comply with regulations for health research</strong> set forth in the "
+"<a href=\"%{hippa_url}\">Health Insurance Portability and Accountability Act (HI"
+"PPA)</a>."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/general_guidance.html.erb:344
+msgid ""
+"To ethically share confidential data, you may be able to:<ul><li><strong>Gain "
+"informed consent</strong> for data sharing (e.g. deposit in a repository or ar"
+"chive)</li><li><strong>Anonymize</strong> the data by removing identifying inf"
+"ormation. Be aware, however, that any dataset that contains enough information"
+" to be useful will always present some risk.</li><li><strong>Restrict the use "
+"of your data.</strong> ICPSR provides a sample <a href=\"%{icpsr_user_url}\">Res"
+"tricted Data Use Contract</a> and <a href=\"%{icpsr_restricted_url}\">Restricted"
+"-Use Data Management Guidance</a>.</li></ul>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/help.html.erb:4
+msgid ""
+"The DMPTool is a free, open-source, online application that helps researchers "
+"create data management plans. The tool provides a click-through wizard for cre"
+"ating a DMP that complies with funder requirements. It also has direct links t"
+"o funder websites, help text for answering questions, and data management best"
+" practices resources."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/help.html.erb:7
+msgid "Help for Researchers"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/help.html.erb:8
+msgid "Help for DMPTool Administrators"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/help.html.erb:9
+msgid "Data management guidance"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/help.html.erb:10
+msgid "Learn more about the DMPTool"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/help.html.erb:11
+#: ../../app/views/branded/static_pages/promote.html.erb:1
+msgid "Promote the DMPTool"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/help.html.erb:12
+msgid "FAQs"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/privacy.html.erb:1
+msgid "Privacy statement"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/privacy.html.erb:4
+msgid "Information about you: how we use it and with whom we share it"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/privacy.html.erb:5
+msgid ""
+"The information you provide will be used by the %{org_name} to offer you acces"
+"s to and personalisation of the %{application_name} service."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/privacy.html.erb:7
+msgid ""
+"The %{org_name} processes the personal data of %{application_name} users in or"
+"der to deliver and improve the %{application_name} service in a customised man"
+"ner and to ensure each user receives relevant information."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/privacy.html.erb:9
+msgid ""
+"The processing of your personal data by the %{org_name} is necessary for pursu"
+"ing the following legitimate interests:"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/privacy.html.erb:12
+msgid ""
+"To provide access to the %{application_name} service and personalisation of yo"
+"ur user experience e.g. provision of relevant templates and guidance for your "
+"organisation."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/privacy.html.erb:14
+msgid ""
+"To keep you up to date with news about %{application_name} such as new feature"
+"s or improvements, or changes to our Privacy Policy."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/privacy.html.erb:16
+msgid "For network and information security purposes."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/privacy.html.erb:18
+msgid ""
+"We will hold the personal data you provided us for as long as you continue usi"
+"ng the %{application_name} service. Your personal data can be removed from thi"
+"s service upon request to the %{application_name} team within a period of 30 d"
+"ays."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/privacy.html.erb:20
+msgid ""
+"If you have any questions, please contact the %{application_name} team at: <a "
+"href='mailto:%{helpdesk_email}'>%{helpdesk_email}</a>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/privacy.html.erb:25
+msgid ""
+"This statement was last revised on %{revdate} and may be revised at any time w"
+"ith prior notice."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/promote.html.erb:4
+msgid ""
+"Help spread the word about the DMPTool! Use the materials below to inform rese"
+"archers, librarians, administrators and others about the tool. All materials a"
+"re available under a CC-Zero license."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/promote.html.erb:6
+msgid "DMPTool logo"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/promote.html.erb:8
+msgid "DMPTool Logo (blue), with tagline"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/promote.html.erb:16
+msgid "DMPTool Logo (blue), no tagline"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/promote.html.erb:24
+msgid "DMPTool Logo (green v2), with tagline"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/promote.html.erb:30
+msgid "DMPTool Logo (green v2), no tagline"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/promote.html.erb:36
+msgid "Original DMPTool Logo"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/promote.html.erb:43
+msgid "Postcards"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/promote.html.erb:45
+msgid "Advertise the DMPTool to students and researchers at your institution."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/promote.html.erb:47
+msgid "Postcard 1"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/promote.html.erb:48
+msgid "Postcard 2"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/promote.html.erb:53
+msgid "Talking points"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/promote.html.erb:55
+msgid ""
+"Need to get others on your campus interested in the DMPTool? Use our Talking P"
+"oints to guide your discussions. In general, a talking points document is desi"
+"gned to help you stay on track during meetings with those outside of your depa"
+"rtment. It ensures that your major points are at hand and helps you make progr"
+"ess towards the goals of the meeting."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/promote.html.erb:57
+msgid "Overview of Talking Points:"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/promote.html.erb:62
+msgid "Meeting with your IT Group:"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/promote.html.erb:68
+msgid "Meeting with Administrators:"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/promote.html.erb:74
+msgid "Meeting with Researchers:"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/promote.html.erb:84
+msgid "General purpose slides"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/promote.html.erb:86
+msgid ""
+"We created a generic slide deck that you can use to introduce researchers and "
+"others to the DMPTool."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/promote.html.erb:88
+msgid "Microsoft Powerpoint"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:1
+msgid "Quick start guide"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:4
+msgid "Contents"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:7
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:14
+msgid "Who can use the tool?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:8
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:19
+msgid "Overview of My dashboard"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:9
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:26
+msgid "How do I create a data management plan?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:10
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:55
+msgid "How do I get help from someone at my institution?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:16
+msgid ""
+"DMPTool is free for anyone to create data management plans. As a user, you can"
+":<ul><li>Create your own plans.</li><li>Co-author a plan with collaborators.</"
+"li><li> If you are a researcher from one of the <a href=\"%{participating_url}\""
+">participating institutions</a>, you can log in using your institutional crede"
+"ntials. You may then be presented with institution-specific guidance and have "
+"the option to get feedback from local data experts.</li></ul>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:21
+msgid ""
+"When you log in, you will be directed to “My dashboard.” From here, you can cr"
+"eate, edit, share, download, copy, or remove any of your plans. You will also "
+"see plans that have been shared with you by others."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:22
+msgid ""
+"If others at your institution/organization have chosen to share their plans in"
+"ternally, you will see a second table of organizational plans. This allows you"
+" to download a PDF and view their plans as samples or discover new research da"
+"ta. Additional samples are available in the list of <a href=\"%{public_plans_ur"
+"l}\">public plans</a>."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:28
+msgid "Start a plan"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:30
+msgid ""
+"Click the “Create plan” button on My dashboard or the top menu to create a pla"
+"n. This will take you to a wizard that helps you select the appropriate templa"
+"te:"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:34
+msgid ""
+"<ol type=\"1\"><li>Enter a title for your research project. If applying for fund"
+"ing, use the project title as it appears in the proposal.</li><li>Select the p"
+"rimary research organization. This field will be pre-populated if you are asso"
+"ciated with a participating institution/organization. You have the option to c"
+"lear the field and select another organization from the list. You will be pres"
+"ented with institution-specific templates and guidance based on your selection"
+". You can also check the box that “No organization is associated with this pla"
+"n.”</li><li>Select the primary funding organization. If you must include a dat"
+"a management plan as part of a grant proposal, select your funder from the lis"
+"t. You may be presented with a secondary dropdown menu if your funder has diff"
+"erent requirements for specific programs (e.g., NSF, DOE). See the complete li"
+"st of <a href=\"%<public_templates_url>s\">funder requirements</a> supported by "
+"DMPTool. If your funder is not on the list or you are not applying for a grant"
+", check the box for “No funder associated with this plan;” this selection will"
+" provide you with a generic template.</li></ol>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:36
+msgid ""
+"If you are just testing the tool or taking a course on data management, check "
+"the box “Mock project for test, practice, or educational purposes.” Marking yo"
+"ur plans as a test will be reflected in usage statistics and prevent public or"
+" organizational sharing; this allows other users to find actual sample plans m"
+"ore easily."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:38
+msgid "Once you have made your selections, click “Create plan.”"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:40
+msgid ""
+"You can also copy an existing plan (from the Actions menu next to the plan on "
+"My Dashboard) and update it for a new research project and grant proposal."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:42
+msgid "What are the different features of the DMPTool?"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:44
+msgid ""
+"The tabbed interface allows you to navigate through different functions when e"
+"diting your plan.<ul><li><strong>Project details:</strong> Includes basic admi"
+"nistrative details. The right-hand side of the page is where you can select up"
+" to 6 organizations to view additional guidance as you write your plan. The mo"
+"re information you provide here, the more valuable your plan will be to you an"
+"d others in the future (e.g., for data reuse and proper attribution).</li><li>"
+"<strong>Collaborators:</strong> Here, you list the project’s Principal Investi"
+"gator(s) and those responsible for data management. DMP Collaborators section "
+"is where you can invite specific people to read, edit, or administer your plan"
+". Invitees will receive an email notification that they have access to this pl"
+"an.</li><li><strong>Write Plan:</strong> There may be more than one tab if you"
+"r funder or institution asks different sets of questions at different stages, "
+"e.g., a grant application and post-award. Guidance and comments are displayed "
+"in the right-hand panel beside each question. If you need more guidance or fin"
+"d it is too much, you can make adjustments on the “Project details” tab.</li><"
+"li><strong>Research Outputs:</strong> Generate a list of your anticipated rese"
+"arch output(s) that are described in your DMP. You can create as many entries "
+"as needed.</li><li><strong>Download:</strong> This allows you to download your"
+" plan in various formats. You can adjust the formatting (font type, size, and "
+"margins) for PDF files, which may be helpful if working to page limits (e.g., "
+"NSF and NIH data management plans are limited to 2 pages).</li><li><strong>Fin"
+"alize:</strong> This tab has two important functions.<ol><li>You can set your "
+"plan visibility. By default, all new and test plans will be set to Private vis"
+"ibility. Public and Organizational visibility are intended for finished plans."
+" You must answer at least 50% of the questions to enable these options.</li><l"
+"i>Register your plan and add it to ORCID. This is where you can generate a DMP"
+" ID for your data management plan. To register your plan you must have complet"
+"ed the following:<ul><li>answered at least 50% of questions</li><li>identified"
+" your funder</li><li>linked your DMPTool account to your ORCID via your Third-"
+"party applications page</li><li>The plan is not a mock project for testing, pr"
+"actice, or educational purposes.</li></ul></li></ol></li></ul>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:46
+msgid "Share plans"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:48
+msgid ""
+"You can share your plan with colleagues in the Collaborators tab. Input the em"
+"ail address(es) of any collaborators you would like to invite to read or edit "
+"your plan. Set their permissions via the radio buttons and click to \"Add colla"
+"borator.\" Adjust permissions or remove collaborators at any time via the drop-"
+"down options in the table."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:50
+msgid ""
+"The \"Finalize\" tab is where you can set your plan visibility.<ul><li>Private: "
+"restricted to you and your collaborators.</li><li>Organizational: anyone at yo"
+"ur organization can view your plan.</li><li>Public: anyone can view your plan "
+"in the <a href=\"%<public_plans_path>s\">public plans</a> list.</li></ul>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:52
+msgid ""
+"By default, all new and test plans will be set to Private visibility. Public a"
+"nd Organizational visibility are intended for finished plans. You must answer "
+"at least 50% of the questions to enable these options."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:57
+msgid ""
+"After logging in, you will find an email address and URL for help at the top o"
+"f the page."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/quick_start_guide.html.erb:59
+msgid ""
+"There may also be an option to request feedback on your plan. This is availabl"
+"e when research support staff at your institution have enabled the service. Cl"
+"ick to “Request feedback” and your local administrators will be alerted to you"
+"r request. Their comments will be visible in the “Comments” field adjacent to "
+"each question. You will receive an email notification when an administrator pr"
+"ovides feedback."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/termsuse.html.erb:1
+msgid "Terms of use & Privacy policy"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/termsuse.html.erb:4
+msgid ""
+"The <a href=\"%{cdlib_url}\">California Digital Library (CDL)</a> is supported b"
+"y the University of California (UC). Our primary constituency is the UC resear"
+"ch community; in addition, we provide services to the United States and intern"
+"ational higher education sector."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/termsuse.html.erb:6
+msgid "DMPTool"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/termsuse.html.erb:7
+msgid ""
+"DMPTool ('the tool', 'the system') is a tool developed by the CDL and the <a h"
+"ref=\"%{dcc_url}\">Digital Curation Centre (DCC)</a> as a shared resource for th"
+"e research community. It is hosted at CDL by the University of California Cura"
+"tion Center (UC3)."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/termsuse.html.erb:10
+msgid "Your personal details"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/termsuse.html.erb:11
+msgid ""
+"In order to help identify and administer your account with the DMPTool, we nee"
+"d to store your email address. We may also use it to contact you to obtain fee"
+"dback on your use of the tool, or to inform you of the latest developments or "
+"releases. The information may be transferred between the CDL and DCC partner o"
+"rganizations but only for legitimate CDL purposes. We will not sell, rent, or "
+"trade any personal information you provide to us."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/termsuse.html.erb:14
+msgid "Privacy policy"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/termsuse.html.erb:15
+msgid ""
+"The information you enter into this system can be seen by you, people you have"
+" chosen to share access with, and—solely for the purposes of maintaining the s"
+"ervice—system administrators at the CDL. We compile anonymized, automated, and"
+" aggregated information from plans, but we will not directly access, make use "
+"of, or share your content with anyone beyond CDL and your home institution wit"
+"hout your permission. Authorized users at your home institution may access you"
+"r plans for specific purposes—for example, to track compliance with funder/ins"
+"titutional requirements, to calculate storage requirements, or to assess deman"
+"d for data management services across disciplines. For a detailed description "
+"of what information (other than the plans) we collect from visitors to this we"
+"bsite and how it is used and managed, please see the CDL Privacy Policy and Ba"
+"seline Supporting Practices listed at <a href=\"%{policies_url}\">%{policies_url"
+"}</a>"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/termsuse.html.erb:18
+msgid "Freedom of Information"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/termsuse.html.erb:19
+msgid ""
+"The CDL holds your plans on your behalf, but they are your property and respon"
+"sibility. Any FOIA applicants will be referred back to your home institution."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/termsuse.html.erb:22
+msgid "Passwords"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/termsuse.html.erb:23
+msgid ""
+"Your password is stored in encrypted form and cannot be retrieved. If forgotte"
+"n it has to be reset."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/termsuse.html.erb:26
+msgid "Google Analytics opt-out"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/termsuse.html.erb:27
+msgid ""
+"As noted in the CDL privacy policy, this website uses Google Analytics to capt"
+"ure and analyze usage statistics. You may choose to opt-out of having your web"
+"site activity tracked by Google Analytics. To do so, visit the <a href=\"%{opt_"
+"out_url}\">Google Analytics opt-out page</a> and install the add-on for your br"
+"owser."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/termsuse.html.erb:30
+msgid "Third party APIs"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/termsuse.html.erb:31
+msgid ""
+"Certain features on this website utilize third party services and APIs such as"
+" InCommon/Shibboleth or third party hosting of common JavaScript libraries or "
+"web fonts. Information used by an external service is governed by the privacy "
+"policy of that service. CDL does not control how information may be used by th"
+"ese services."
+msgstr ""
+
+#: ../../app/views/branded/static_pages/termsuse.html.erb:34
+msgid "Revisions"
+msgstr ""
+
+#: ../../app/views/branded/static_pages/termsuse.html.erb:35
+msgid ""
+"This statement was last revised on October 5, 2017 and may be revised at any t"
+"ime. Use of the tool indicates that you understand and agree to these terms an"
+"d conditions."
+msgstr ""
+
+#: ../../app/views/branded/super_admin/notifications/_form.html.erb:3
+msgid ""
+"<strong>Note that: Info level</strong> - appears in a green/white bar, <strong"
+">Warning level</strong> - appears in a beige/brown bar, <strong>Danger level</"
+"strong> - in a pink/red bar"
+msgstr ""
+
+#: ../../app/views/branded/super_admin/notifications/_form.html.erb:27
+msgid "Active"
+msgstr ""
+
+#: ../../app/views/branded/super_admin/notifications/_form.html.erb:47
+msgid "Start"
+msgstr ""
+
+#: ../../app/views/branded/super_admin/notifications/_form.html.erb:55
+msgid "Expiration"
+msgstr ""
+
+#: ../../app/views/branded/super_admin/notifications/_form.html.erb:64
+msgid "Body"
+msgstr ""
+
+#: ../../app/views/branded/super_admin/notifications/_form.html.erb:75
+msgid "Delete"
+msgstr ""
+
+#: ../../app/views/branded/super_admin/notifications/_form.html.erb:79
+msgid "Are you sure you want to delete the notification \"%{title}\""
+msgstr ""
+
+#: ../../app/views/branded/user_mailer/invitation.html.erb:5
+msgid "Hello %{invitee}"
+msgstr ""
+
+#: ../../app/views/branded/user_mailer/new_api_client.html.erb:2
+msgid "A new API registration has been created by %{user_name}"
+msgstr ""
+
+#: ../../app/views/branded/user_mailer/new_api_client.html.erb:6
+msgid ""
+"You can review the registration details by logging in and going to 'API Client"
+"s' page."
+msgstr ""
+
+#: ../../app/views/branded/user_mailer/new_api_client.html.erb:22
+msgid ""
+"The user did not provide a redirect_uri which means that they are not planning"
+" to use OAuth to acquire a user's permission to access data. They will only be"
+" able to use the API to access public data."
+msgstr ""
+
+#: ../../app/views/branded/user_mailer/new_api_client.html.erb:26
+msgid ""
+"You can deactivate these credentials if necessary or email the designated cont"
+"act for additional info."
+msgstr ""
+
+#: ../../app/views/branded/user_mailer/new_plan_via_api.html.erb:2
+msgid ""
+"A new data management plan (DMP) with the title of '%{dmp_title}' has been cre"
+"ated for you by the %{external_system_name}.<br>Please sign in to the %{dmptoo"
+"l_url} to complete your DMP. If you have any questions or need help, please co"
+"ntact us at %{org_contact_email}."
+msgstr ""
+
+#: ../../app/views/branded/user_mailer/new_plan_via_api.html.erb:6
+#: ../../app/views/branded/user_mailer/new_plan_via_template.html.erb:3
+msgid "Hello %{user_name},"
+msgstr ""
+
+#: ../../app/views/branded/user_mailer/new_plan_via_template.html.erb:14
+msgid ""
+"Please sign in to the %{dmptool_url} to complete your DMP. Once you have logge"
+"d in you will find the new DMP on your Dashboard."
+msgstr ""
+
+#: ../../app/views/branded/user_mailer/notify_administrators.html.erb:2
+msgid "An error has been reported from %{tool_name}"
+msgstr ""
+
+#: ../../app/views/branded/users/mailer/reset_password_instructions.html.erb:5
+msgid "Query or feedback related to %{tool_name}"
+msgstr ""
+
+#: ../../app/views/branded/users/mailer/reset_password_instructions.html.erb:9
+msgid "Hello %{user_email}"
+msgstr ""
+
+#: ../../app/views/branded/users/mailer/reset_password_instructions.html.erb:12
+msgid ""
+"Someone has requested a link to change your %{tool_name} password. You can do "
+"this through the link below."
+msgstr ""
+
+#: ../../app/views/branded/users/mailer/reset_password_instructions.html.erb:14
+#: ../../app/views/branded/users/passwords/edit.html.erb:39
+msgid "Change my password"
+msgstr ""
+
+#: ../../app/views/branded/users/mailer/reset_password_instructions.html.erb:15
+msgid "If you didn't request this, please ignore this email."
+msgstr ""
+
+#: ../../app/views/branded/users/mailer/reset_password_instructions.html.erb:17
+msgid "All the best"
+msgstr ""
+
+#: ../../app/views/branded/users/mailer/reset_password_instructions.html.erb:19
+msgid "The %{tool_name} team"
+msgstr ""
+
+#: ../../app/views/branded/users/mailer/reset_password_instructions.html.erb:22
+msgid "Please do not reply to this email."
+msgstr ""
+
+#: ../../app/views/branded/users/mailer/reset_password_instructions.html.erb:22
+msgid ""
+"If you have any questions or need help, please contact us at %{helpdesk_email}"
+" or visit %{contact_us}"
+msgstr ""
+
+#: ../../app/views/branded/users/passwords/edit.html.erb:3
+#: ../../app/views/branded/users/registrations/_profile_form.html.erb:21
+msgid "Change your password"
+msgstr ""
+
+#: ../../app/views/branded/users/passwords/edit.html.erb:11
+msgid "New password"
+msgstr ""
+
+#: ../../app/views/branded/users/passwords/edit.html.erb:15
+msgid "(%{min_password_length} characters minimum)"
+msgstr ""
+
+#: ../../app/views/branded/users/passwords/edit.html.erb:25
+msgid "Confirm new password"
+msgstr ""
+
+#: ../../app/views/branded/users/passwords/edit.html.erb:33
+#: ../../app/views/branded/users/registrations/_profile_form.html.erb:53
+msgid "Show passwords"
+msgstr ""
+
+#: ../../app/views/branded/users/passwords/new.html.erb:14
+msgid "Send me reset password instructions"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/_form.html.erb:19
+#: ../../app/views/branded/users/registrations/_profile_form.html.erb:61
+msgid "First Name"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/_form.html.erb:26
+#: ../../app/views/branded/users/registrations/_profile_form.html.erb:66
+msgid "Last Name"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/_form.html.erb:48
+#: ../../app/views/branded/users/sessions/_form.html.erb:19
+msgid "Password"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/_form.html.erb:65
+msgid "I accept the %<terms_url>s"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/_form.html.erb:66
+msgid "terms and conditions"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/_form.html.erb:78
+msgid "Sign up"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/_profile_form.html.erb:12
+msgid "You will need to enter your current password to change your email address"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/_profile_form.html.erb:15
+msgid "Please enter your current password below to change your email address."
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/_profile_form.html.erb:27
+msgid "Current Password"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/_profile_form.html.erb:35
+msgid "New Password"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/_profile_form.html.erb:43
+msgid "Confirm Password"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/_profile_form.html.erb:83
+msgid "Department or school"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/_profile_form.html.erb:102
+msgid "My privileges"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/_profile_form.html.erb:103
+msgid "Super Admin"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/_profile_form.html.erb:103
+msgid "Organisational Admin"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/_profile_preferences.html.erb:9
+msgid "Select all"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/_profile_preferences.html.erb:10
+msgid "Deselect all"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/_profile_preferences.html.erb:15
+msgid "A new comment has been added to my DMP"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/_profile_preferences.html.erb:20
+msgid "A plan has been shared with me"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/_profile_preferences.html.erb:25
+msgid "Admin privileges granted to me"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/_profile_preferences.html.erb:31
+msgid "Feedback has been requested for my DMP"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/_profile_preferences.html.erb:36
+msgid "Feedback has been provided for my DMP"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/_profile_preferences.html.erb:43
+msgid "My DMP's visibility has changed"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/edit.html.erb:1
+msgid "Edit Profile"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/edit.html.erb:5
+msgid "Personal Details"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/edit.html.erb:11
+msgid "Email Preferences"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/new.html.erb:4
+msgid "New Account Sign Up"
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/new.html.erb:13
+msgid ""
+"This will create a new account. If you already have an account, %{go_back_link"
+"} to try a different email address, or %{contact_us_link}."
+msgstr ""
+
+#: ../../app/views/branded/users/registrations/new.html.erb:14
+msgid "go back"
+msgstr ""
+
+#: ../../app/views/branded/users/sessions/_form.html.erb:27
+msgid "Forgot password?"
+msgstr ""
+
+#: ../../app/views/branded/users/sessions/_validate.html.erb:4
+msgid "Sign in / Sign up"
+msgstr ""
+
+#: ../../app/views/branded/users/sessions/_validate.html.erb:15
+msgid "For SSO, use institutional address."
+msgstr ""
+
+#: ../../app/views/branded/users/sessions/_validate.html.erb:20
+msgid "Continue"
+msgstr ""
+
+#: ../../app/views/branded/users/sessions/_validate.html.erb:25
+msgid "Problems signing in? %<contact_us_url>s"
+msgstr ""
+
+#: ../../app/views/branded/users/sessions/_validate.html.erb:26
+msgid "Contact us."
+msgstr ""
+
+#: ../../app/views/branded/users/shared/_links.html.erb:9
+msgid "Go back"
+msgstr ""
+
+#: ../../app/views/branded/users/shared/_links.html.erb:14
+msgid "Problems signing in? %{contact_us_link}."
+msgstr ""
+
+#: ../../app/views/branded/users/shared/_links.html.erb:15
+msgid "Contact us"
+msgstr ""
+
+#: ../../app/views/branded/users/shared/_sso.html.erb:1
+msgid "Your address is associated with:"
+msgstr ""
+
+#: ../../app/views/branded/users/shared/_sso.html.erb:6
+msgid "Sign in with Institution to Continue"
+msgstr ""

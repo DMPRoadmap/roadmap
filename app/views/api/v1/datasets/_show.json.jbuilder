@@ -32,7 +32,7 @@ if output.is_a?(ResearchOutput)
 
       # DMPTool extensions to the RDA common metadata standard
       json.dmproadmap_host_id do
-        json.type "url"
+        json.type 'url'
         json.identifier repository.uri
       end
     end
@@ -46,14 +46,14 @@ if output.is_a?(ResearchOutput)
   end
 
   json.metadata output.metadata_standards do |metadata_standard|
-    website = metadata_standard.locations.select { |loc| loc["type"] == "website" }.first
-    website = { url: "" } unless website.present?
+    website = metadata_standard.locations.select { |loc| loc['type'] == 'website' }.first
+    website = { url: '' } if website.blank?
 
-    descr_array = [metadata_standard.title, metadata_standard.description, website["url"]]
-    json.description descr_array.join(" - ")
+    descr_array = [metadata_standard.title, metadata_standard.description, website['url']]
+    json.description descr_array.join(' - ')
 
     json.metadata_standard_id do
-      json.type "url"
+      json.type 'url'
       json.identifier metadata_standard.uri
     end
   end
@@ -69,15 +69,25 @@ if output.is_a?(ResearchOutput)
   end
 
 else
-  json.type "dataset"
-  json.title "Generic dataset"
-  json.description "No individual datasets have been defined for this DMP."
+  json.type 'dataset'
+  json.title 'Generic dataset'
+  json.description 'No individual datasets have been defined for this DMP.'
 
   if output.research_domain_id.present?
     research_domain = ResearchDomain.find_by(id: output.research_domain_id)
     if research_domain.present?
       combined = "#{research_domain.identifier} - #{research_domain.label}"
       json.keyword [research_domain.label, combined]
+    end
+  end
+
+  json.distribution [output] do |distribution|
+    json.title "PDF - #{distribution.title}"
+    json.data_access 'open'
+    url = Rails.application.routes.url_helpers.plan_export_url(distribution, format: :pdf)
+    json.download_url url
+    json.format do
+      json.array! ['application/pdf']
     end
   end
 end

@@ -1,9 +1,8 @@
 // TODO: we need to be able to swap in the appropriate locale here
 import 'number-to-text/converters/en-us';
 import { isObject } from '../utils/isType';
-import { Tinymce } from '../utils/tinymce.js.erb';
+import { Tinymce } from '../utils/tinymce';
 import { eachLinks } from '../utils/links';
-import { initAutocomplete, scrubOrgSelectionParamsOnSubmit } from '../utils/autoComplete';
 
 $(() => {
   const toggleFeedback = () => {
@@ -24,13 +23,6 @@ $(() => {
   // Initialises tinymce for any target element with class tinymce_answer
   Tinymce.init({ selector: '#org_feedback_msg' });
   toggleFeedback();
-
-  if ($('#org-details-org-controls').length > 0) {
-    initAutocomplete('#org-details-org-controls .autocomplete');
-    // Scrub out the large arrays of data used for the Org Selector JS so that they
-    // are not a part of the form submissiomn
-    scrubOrgSelectionParamsOnSubmit('#edit_org_profile_form');
-  }
 
   // update the hidden org_type field based on the checkboxes selected
   const calculateOrgType = () => {
@@ -57,6 +49,16 @@ $(() => {
     $(e.target).parent('a').tooltip('toggle');
   });
 
-  initAutocomplete('#org-merge-controls .autocomplete');
-  scrubOrgSelectionParamsOnSubmit('form.edit_org');
+  Tinymce.init({ selector: '#org_api_create_plan_email_body' });
+
+  // JS to update the email preview as the user edits the email body field
+  const emailBodyControl = Tinymce.findEditorById('org_api_create_plan_email_body');
+  const emailPreview = $('.replaceable-api-email-content');
+
+  // Add handlers to the TinyMCE editor so that changes update the preview section
+  if (emailBodyControl && emailPreview) {
+    emailBodyControl.on('keyup', (e) => {
+      emailPreview.html($(e.target).html());
+    });
+  }
 });

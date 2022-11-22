@@ -25,11 +25,11 @@ Capybara.register_driver :selenium_chrome_headless do |app|
 end
 
 RSpec.configure do |config|
-  config.before(:each, type: :feature, js: false) do
+  config.before(:each, js: false, type: :feature) do
     Capybara.use_default_driver
   end
 
-  config.before(:each, type: :feature, js: true) do
+  config.before(:each, js: true, type: :feature) do
     Capybara.current_driver = :selenium_chrome_headless
   end
 end
@@ -41,8 +41,8 @@ Capybara.configure do |config|
 end
 
 RSpec.configure do |config|
-  config.include(CapybaraHelper, type: :feature)
-  config.include(SessionsHelper, type: :feature)
-  config.include(TinyMceHelper,  type: :feature)
-  config.include(AutoCompleteHelper, type: :feature)
+  config.include(Helpers::CapybaraHelper, type: :feature)
+  config.include(Helpers::SessionsHelper, type: :feature)
+  config.include(Helpers::TinyMceHelper,  type: :feature)
+  config.include(Helpers::AutocompleteHelper, type: :feature)
 end

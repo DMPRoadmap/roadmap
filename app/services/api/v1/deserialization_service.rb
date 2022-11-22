@@ -39,10 +39,34 @@ module Api
         end
         # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
+        # Search for an in the Org and RegistryOrg tables
+        # rubocop:disable Metrics/AbcSize
+        def name_to_org(name:)
+          return nil unless name.is_a?(String) && name.present?
+
+          org = ::Org.where('LOWER(name) = ?', name.downcase)
+                     .first
+          return org if org.present?
+
+          # External ROR search
+          registry_org = ::RegistryOrg.includes(:org)
+                                      .where('LOWER(name) = ?', name.downcase)
+                                      .first
+          # Return nil if no Registry Org was found
+          return nil if registry_org.blank?
+
+          # Return nil if we do not allow creating Orgs in this manner
+          return nil if registry_org.org_id.nil? && Rails.configuration.x.application.restrict_orgs
+
+          # return the related Org or initialize a new one
+          registry_org.to_org
+        end
+        # rubocop:enable Metrics/AbcSize
+
         # Translates the role in the json to a Contributor role
         def translate_role(role:)
           default = ::Contributor.role_default
-          return default unless role.present?
+          return default if role.blank?
 
           role = role.to_s unless role.is_a?(String)
 
@@ -67,13 +91,13 @@ module Api
         end
 
         # Determines whether or not the value is a DOI/ARK
-        def doi?(value:)
-          return false unless value.present?
+        def dmp_id?(value:)
+          return false if value.blank?
 
           # The format must match a DOI or ARK and a DOI IdentifierScheme
           # must also be present!
           identifier = ::Identifier.new(value: value)
-          scheme = ::IdentifierScheme.find_by(name: 'doi')
+          scheme = DmpIdService.identifier_scheme
           %w[ark doi].include?(identifier.identifier_format) && scheme.present?
         end
 

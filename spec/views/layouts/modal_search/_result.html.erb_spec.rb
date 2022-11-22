@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'layouts/modal_search/_result.html.erb' do
-  before(:each) do
+  before do
     @result = build(:repository)
   end
 
@@ -43,8 +43,8 @@ describe 'layouts/modal_search/_result.html.erb' do
              search_path: nil,
              search_method: nil
            }
-    expect(rendered.include?('modal-search-result-selector hidden')).to eql(true)
-    expect(rendered.include?('modal-search-result-unselector hidden')).to eql(false)
+    expect(rendered.include?('modal-search-result-selector hidden')).to be(true)
+    expect(rendered.include?('modal-search-result-unselector hidden')).to be(false)
   end
 
   it "hides the 'Select' button and shows the 'Remove' button when :selected is true" do
@@ -57,8 +57,8 @@ describe 'layouts/modal_search/_result.html.erb' do
              search_path: nil,
              search_method: nil
            }
-    expect(rendered.include?('modal-search-result-selector hidden')).to eql(true)
-    expect(rendered.include?('modal-search-result-unselector hidden')).to eql(false)
+    expect(rendered.include?('modal-search-result-selector hidden')).to be(true)
+    expect(rendered.include?('modal-search-result-unselector hidden')).to be(false)
   end
 
   it "shows the 'Select' button and hides the 'Remove' button when :selected is false" do
@@ -71,7 +71,7 @@ describe 'layouts/modal_search/_result.html.erb' do
              search_path: nil,
              search_method: nil
            }
-    expect(rendered.include?('modal-search-result-selector hidden')).to eql(false)
-    expect(rendered.include?('modal-search-result-unselector hidden')).to eql(true)
+    expect(rendered.include?('modal-search-result-selector hidden')).to be(false)
+    expect(rendered.include?('modal-search-result-unselector hidden')).to be(true)
   end
 end

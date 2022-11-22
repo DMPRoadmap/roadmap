@@ -2,9 +2,9 @@
 
 # Controller that handles requests for static pages
 class StaticPagesController < ApplicationController
-  def about_us; end
+  include Dmptool::StaticPagesController
 
-  def contact_us; end
+  def about_us; end
 
   def privacy; end
 

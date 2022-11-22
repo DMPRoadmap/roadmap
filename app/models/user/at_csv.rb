@@ -19,8 +19,8 @@ class User
         @users.each do |user|
           name = "#{user.firstname} #{user.surname}"
           email = user.email
-          created = I18n.l user.created_at.to_date, format: :csv
-          last_activity = I18n.l user.updated_at.to_date, format: :csv
+          created = I18n.l user.created_at.localtime.to_date, format: :csv
+          last_activity = I18n.l user.updated_at.localtime.to_date, format: :csv
           plans = user.plans.size
           active = user.active ? 'Yes' : 'No'
 

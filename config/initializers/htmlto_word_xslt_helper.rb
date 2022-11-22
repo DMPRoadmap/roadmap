@@ -10,7 +10,7 @@ module Htmltoword
   module XSLTHelper
     def xslt_path(template_name)
       if template_name == 'numbering'
-        File.join(Rails.root.join('app', 'assets', 'xslt', 'htmltoword'), "#{template_name}.xslt")
+        Rails.root.join('app', 'assets', 'xslt', 'htmltoword', "#{template_name}.xslt")
       else
         File.join(Htmltoword.config.default_xslt_path, "#{template_name}.xslt")
       end

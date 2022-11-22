@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '>= 2.7'
+ruby '>= 3.0'
 
 # ===========#
 # CORE RAILS #
@@ -44,6 +44,9 @@ gem 'jbuilder'
 # Use Active Model has_secure_password
 # gem "bcrypt", "~> 3.1.7"
 
+# Use Resque to manage the ActiveJob queue
+# gem 'resque'
+
 # Use Active Storage variant
 # gem "image_processing", "~> 1.2"
 
@@ -57,6 +60,16 @@ gem 'bootsnap', require: false
 # A set of Rails responders to dry up your application
 # (http://github.com/plataformatec/responders)
 # gem "responders"
+
+# ============= #
+# CONFIGURATION #
+# ============= #
+
+# Anyway Config is a configuration library for Ruby gems and applications.
+gem 'anyway_config'
+
+# Our homegrown artisinal SSM gem
+gem 'uc3-ssm', git: 'https://github.com/CDLUC3/uc3-ssm', branch: 'ruby3.0'
 
 # ============== #
 # ERROR HANDLING #
@@ -73,7 +86,7 @@ gem 'rollbar', group: :rollbar, require: false
 
 # A simple, fast Mysql library for Ruby, binding to libmysql
 # (http://github.com/brianmario/mysql2)
-gem 'mysql2', group: :mysql, require: false
+gem 'mysql2', '0.5.4', group: :mysql, require: false
 
 # Pg is the Ruby interface to the {PostgreSQL
 # RDBMS}[http://www.postgresql.org/](https://bitbucket.org/ged/ruby-pg)
@@ -91,11 +104,15 @@ gem 'flag_shih_tzu' # , "~> 0.3.23"
 gem 'devise'
 
 # An invitation strategy for Devise (https://github.com/scambra/devise_invitable)
-gem 'devise_invitable'
+# gem "devise_invitable"
 
 # A generalized Rack framework for multiple-provider authentication.
 # (https://github.com/omniauth/omniauth)
-gem 'omniauth'
+
+# TODO: unlock this once devise creates an official release that includes this commit:
+#       https://github.com/heartcombo/devise/commit/1d138dd40cdc291a427b89027d16a869818a5c19#diff-59866e40fe6196ebb76fa63d186b09ba0856de17e2e938743e99add37bb83f5c
+#       or updates to accommodate the new version of omniauth
+gem 'omniauth', '~> 1.9'
 
 # OmniAuth Shibboleth strategies for OmniAuth 1.x
 # https://github.com/toyokazu/omniauth-shibboleth
@@ -112,12 +129,21 @@ gem 'omniauth-orcid'
 #   https://nvd.nist.gov/vuln/detail/CVE-2015-9284
 gem 'omniauth-rails_csrf_protection'
 
+# Doorkeeper is a gem (Rails engine) that makes it easy to introduce OAuth 2 provider functionality
+# to your Ruby on Rails or Grape application. https://github.com/doorkeeper-gem/doorkeeper
+gem 'doorkeeper', '~> 5.5'
+
 # A ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard.
+# https://github.com/jwt/ruby-jwt
 gem 'jwt'
 
 # Gems for repository integration
 # OO authorization for Rails (https://github.com/elabs/pundit)
 gem 'pundit'
+
+# Protect your Rails and Rack apps from bad clients. Rack::Attack lets you easily decide when
+# to allow, block and throttle based on properties of the request.
+gem 'rack-attack'
 
 # ========== #
 # UI / VIEWS #
@@ -138,6 +164,11 @@ gem 'recaptcha'
 # Ideal gem for handling attachments in Rails, Sinatra and Rack applications.
 # (http://github.com/markevans/dragonfly)
 gem 'dragonfly'
+
+# Really Simple Syndication (RSS) is a family of formats that describe feeds, specially
+# constructed XML documents that allow an interested person to subscribe and receive updates
+# from a particular web service (https://github.com/ruby/rss)
+gem 'rss'
 
 group :aws do
   # Amazon AWS S3 data store for use with the Dragonfly gem.
@@ -183,7 +214,15 @@ gem 'autoprefixer-rails'
 # ========= #
 
 # Provides binaries for WKHTMLTOPDF project in an easily accessible package.
-gem 'wkhtmltopdf-binary'
+# ------------------------------------------------
+# Start DMPTool customization
+# 0.12.5 does not work on our new linux2 instances. Pegging at 0.12.4 for now
+# ------------------------------------------------
+# gem 'wkhtmltopdf-binary'
+gem 'wkhtmltopdf-binary' # , '0.12.4'
+# ------------------------------------------------
+# End DMPTool customization
+# ------------------------------------------------
 
 # PDF generator (from HTML) gem for Ruby on Rails
 # (https://github.com/mileszs/wicked_pdf)
@@ -216,7 +255,16 @@ gem 'httparty'
 # Autoload dotenv in Rails. (https://github.com/bkeepers/dotenv)
 gem 'dotenv-rails'
 
+# A library that retrieves an citation for the specified DOI.
+# https://github.com/CDLUC3/uc3-citation
+gem 'uc3-citation'
+
+# Makes it easy to validate JSON attributes against a JSON schema.
 gem 'activerecord_json_validator'
+
+# Filename sanitization for Ruby. This is useful when you generate filenames for downloads from
+# user input (we're using it for PDF invoice downloads in Noko). (https://github.com/madrobby/zaru)
+gem 'zaru'
 
 # ================================= #
 # ENVIRONMENT SPECIFIC DEPENDENCIES #
@@ -247,6 +295,10 @@ group :test do
 
   # Guard gem for RSpec (https://github.com/guard/guard-rspec)
   # gem 'guard-rspec'
+
+  gem 'capistrano'
+
+  gem 'capistrano-rails'
 
   # Library for stubbing HTTP requests in Ruby.
   # (http://github.com/bblimke/webmock)
@@ -316,14 +368,14 @@ group :ci, :development do
 
   # Automatic Rails code style checking tool. A RuboCop extension focused on enforcing
   # Rails best practices and coding conventions.
-  # gem 'rubocop-rails'
+  gem 'rubocop-rails'
 
   # A RuboCop plugin for Rake tasks
   # gem 'rubocop-rake'
 
   # Code style checking for RSpec files. A plugin for the RuboCop code style enforcing
   # & linting tool.
-  # gem 'rubocop-rspec'
+  gem 'rubocop-rspec'
 
   # Thread-safety checks via static analysis. A plugin for the RuboCop code style
   # enforcing & linting tool.
@@ -348,7 +400,7 @@ group :development do
 
   # Better error page for Rails and other Rack apps
   # (https://github.com/charliesome/better_errors)
-  gem 'better_errors'
+  gem 'better_errors', '2.8.1'
 
   # Retrieve the binding of a method's caller. Can also retrieve bindings
   # even further up the stack. (http://github.com/banister/binding_of_caller)

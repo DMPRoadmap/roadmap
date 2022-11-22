@@ -5,7 +5,7 @@
 # Table name: prefs
 #
 #  id       :integer          not null, primary key
-#  settings :text
+#  settings :text(65535)
 #  user_id  :integer
 #
 

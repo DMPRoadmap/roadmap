@@ -50,7 +50,7 @@ Rails.application.configure do
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = ENV['RAILS_LOG_LEVEL']&.to_sym || :debug
+  config.log_level = ENV.fetch('RAILS_LOG_LEVEL', nil)&.to_sym || :debug
 
   # Raise exceptions for disallowed deprecations.
   config.active_support.disallowed_deprecation = :raise
@@ -91,9 +91,9 @@ Rails.application.configure do
   # This allows us to define the hostname and add it to the whitelist. If you attempt
   # to access the site and receive a 'Blocked host' error then you will need to
   # set this environment variable
-  config.hosts << ENV['DMPROADMAP_HOST'] if ENV['DMPROADMAP_HOST'].present?
+  config.hosts << Rails.configuration.x.dmproadmap.server_host
 end
 # rubocop:enable Metrics/BlockLength
 
 # Used by Rails' routes url_helpers (typically when including a link in an email)
-Rails.application.routes.default_url_options[:host] = ENV.fetch('DMPROADMAP_HOST', 'localhost:3000')
+Rails.application.routes.default_url_options[:host] = Rails.configuration.x.dmproadmap.server_host

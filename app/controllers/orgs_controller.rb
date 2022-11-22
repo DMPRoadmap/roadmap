@@ -20,7 +20,7 @@ class OrgsController < ApplicationController
     org = Org.find(params[:id])
     authorize org
     languages = Language.all.order('name')
-    org.links = { org: [] } unless org.links.present?
+    org.links = { org: [] } if org.links.blank?
     render 'admin_edit', locals: { org: org, languages: languages, method: 'PUT',
                                    url: admin_update_org_path(org) }
   end
@@ -34,7 +34,7 @@ class OrgsController < ApplicationController
     authorize @org
 
     # If a new logo was supplied then use it, otherwise retain the existing one
-    attrs[:logo] = attrs[:logo].present? ? attrs[:logo] : @org.logo
+    attrs[:logo] = (attrs[:logo].presence || @org.logo)
     # Remove the logo if the user checked the box
     attrs[:logo] = nil if attrs[:remove_logo] == '1'
 
@@ -67,20 +67,11 @@ class OrgsController < ApplicationController
         end
         attrs.delete(:identifiers_attributes)
       end
-
-      # See if the user selected a new Org via the Org Lookup and
-      # convert it into an Org
-      lookup = org_from_params(params_in: attrs)
-      ids = identifiers_from_params(params_in: attrs)
-      identifiers += ids.select { |id| id.value.present? }
     end
-
-    # Remove the extraneous Org Selector hidden fields
-    attrs = remove_org_selection_params(params_in: attrs)
 
     if @org.update(attrs)
       # Save any identifiers that were found
-      if current_user.can_super_admin? && lookup.present?
+      if current_user.can_super_admin? && identifiers.present?
         # Loop through the identifiers and then replace the existing
         # identifier and save the new one
         identifiers.each do |id|
@@ -124,96 +115,38 @@ class OrgsController < ApplicationController
     # rubocop:enable Style/GuardClause, Style/RedundantReturn
   end
 
-  # This action is used to redirect a user to the Shibboleth IdP
-  # POST /orgs/shibboleth_ds
+  # GET /orgs/shibboleth_ds/:id
+  # POST /orgs/shibboleth_ds/:id
   def shibboleth_ds_passthru
-    if shib_params[:org_id].blank?
-      redirect_to shibboleth_ds_path, notice: _('Please choose an organisation')
-    else
-      session['org_id'] = shib_params[:org_id]
+    # This action is used ONLY if Rails.configuration.x.shibboleth.use_filtered_discovery_service
+    # is true! It will attempt to redirect the user to the Rails.configuration.x.shibboleth.login_url
+    # you have defined with the Org's entity_id (editable in the Super Admin's 'Edit Org' page)
+    skip_authorization
 
-      org = Org.where(id: shib_params[:org_id])
-      shib_entity = Identifier.by_scheme_name('shibboleth', 'Org')
-                              .where(identifiable: org)
+    org = process_org!(user: current_user, managed_only: true)
 
-      if shib_entity.empty?
-        failure = _('Your organisation does not seem to be properly configured.')
-        redirect_to shibboleth_ds_path, alert: failure
-      else
+    if org.present?
+      entity_id = org.identifier_for_scheme(scheme: 'shibboleth')
+
+      if entity_id.present? && entity_id.value.present?
+
+        Rails.logger.debug { "REDIRECTING TO IDP: #{shib_login_url}?#{shib_callback_url}&entityID=#{entity_id.value}" }
+
         # initiate shibboleth login sequence
-        entity_param = "entityID=#{shib_entity.first.value}"
-        redirect_to "#{shib_login_url}?#{shib_callback_url}&#{entity_param}"
+        redirect_to "#{shib_login_url}?#{shib_callback_url}&entityID=#{entity_id.value}"
+      else
+        # The Org has no entity_id for Shib so redirect them to the branded sign in page
+        @user = User.new(org: org)
+        render 'shared/authentication/org_branded_access_controls'
       end
+    else
 
+      # If we are using our own Shibboleth Service Provider SP then we need the entity_id so fail
+      redirect_to after_sign_in_error_path_for(User.new),
+                  alert: _('Please choose an institution from the list.')
     end
   end
   # rubocop:enable Metrics/AbcSize
-
-  # POST /orgs  (via AJAX from Org Typeaheads ... see below for specific pages)
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  def search
-    args = search_params
-    # If the search term is greater than 2 characters
-    if args.present? && args.fetch(:name, '').length > 2
-      type = params.fetch(:type, 'local')
-
-      # If we are including external API results
-      orgs = case type
-             when 'combined'
-               # This type will search both ROR and the local DB giving the local
-               # DB results preference. It is triggered from the following pages:
-               #   Create Account
-               #   Edit Profile
-               #   Admin Edit User
-               #   Contributor Edit/New
-               #   Project Details (Funder selection)
-               #
-               # Those pages use the app/views/shared/org_selectors/_combined.html.erb
-               OrgSelection::SearchService.search_combined(
-                 search_term: args[:name]
-               )
-             when 'external'
-               # This type will ONLY check ROR for the specified search term. It
-               # is triggered from the following page:
-               #  SuperAdmin - New Org
-               #
-               # That page uses the app/views/shared/org_selectors/_external_only.html.erb
-               OrgSelection::SearchService.search_externally(
-                 search_term: args[:name]
-               )
-             else
-               # This default will ONLY check the local DB's Org table. It is
-               # currently not triggered by any pages.
-               OrgSelection::SearchService.search_locally(
-                 search_term: args[:name]
-               )
-             end
-
-      # Scenarios where we only allow the user to select from the Orgs in the
-      # local DB use the app/views/shared/org_selectors/_local_only.html.erb
-      # which is not AJAX. The page has the entire list of Orgs and so does not
-      # call this #search action!
-      # The following pages currently have this behavior:
-      #  Create Plan page (both Research Org and Funder typeaheads)
-      #  Templates page (SuperAdmin Org Affiliation change)
-
-      # If we need to restrict the results to funding orgs then
-      # only return the ones with a valid fundref
-      if orgs.present? && params.fetch(:funder_only, 'false') == 'true'
-        orgs = orgs.select do |org|
-          org[:fundref].present? && !org[:fundref].blank?
-        end
-      end
-
-      render json: orgs
-
-    else
-      render json: []
-    end
-  end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   private
 
@@ -223,7 +156,7 @@ class OrgsController < ApplicationController
                   :remove_logo, :managed, :feedback_enabled, :org_links,
                   :funder, :institution, :organisation,
                   :feedback_msg, :org_id, :org_name, :org_crosswalk,
-                  :helpdesk_email,
+                  :api_create_plan_email_subject, :api_create_plan_email_body, :helpdesk_email,
                   identifiers_attributes: %i[identifier_scheme_id value],
                   tracker_attributes: %i[code id])
   end
@@ -237,8 +170,7 @@ class OrgsController < ApplicationController
   end
 
   def shib_login_url
-    shib_login = Rails.configuration.x.shibboleth.login_url
-    "#{request.base_url.gsub('http:', 'https:')}#{shib_login}"
+    Rails.configuration.x.shibboleth.login_url
   end
 
   def shib_callback_url

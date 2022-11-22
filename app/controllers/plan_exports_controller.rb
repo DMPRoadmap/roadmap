@@ -14,34 +14,60 @@ class PlanExportsController < ApplicationController
 
     if privately_authorized? && export_params[:form].present?
       skip_authorization
-      @show_coversheet         = export_params[:project_details].present?
-      @show_sections_questions = export_params[:question_headings].present?
-      @show_unanswered         = export_params[:unanswered_questions].present?
-      @show_custom_sections    = export_params[:custom_sections].present?
-      @show_research_outputs   = export_params[:research_outputs].present?
-      @public_plan             = false
+      @show_coversheet          = export_params[:project_details].present?
+
+      # DMPTool customization
+      # ----------------------
+      # Remove single :question_headings and replace with separate :section_headings and
+      # :question_text
+      #
+      # @show_sections_questions  = export_params[:question_headings].present?
+      @show_sections            = export_params[:section_headings].present?
+      @show_questions           = export_params[:question_text].present?
+
+      @show_unanswered          = export_params[:unanswered_questions].present?
+      @show_custom_sections     = export_params[:custom_sections].present?
+      @show_research_outputs    = export_params[:research_outputs].present?
+      @show_related_identifiers = export_params[:related_identifiers].present?
+      @formatting               = export_params[:formatting]
+      @formatting               = @plan.settings(:export)&.formatting if @formatting.nil?
+      @public_plan              = false
 
     elsif publicly_authorized?
       skip_authorization
-      @show_coversheet         = true
-      @show_sections_questions = true
-      @show_unanswered         = true
-      @show_custom_sections    = true
-      @show_research_outputs   = @plan.research_outputs&.any? || false
-      @public_plan             = true
+      @show_coversheet          = true
+
+      # DMPTool customization
+      # ----------------------
+      # Remove single :question_headings and replace with separate :section_headings and :question_text
+      #
+      # @show_sections_questions  = true
+      @show_sections            = true
+      @show_questions           = true
+
+      @show_unanswered          = true
+      @show_custom_sections     = true
+      @show_research_outputs    = @plan.research_outputs&.any? || false
+      @show_related_identifiers = @plan.related_identifiers&.any? || false
+      @formatting               = @plan.settings(:export)&.formatting
+      @formatting               = Settings::Template::DEFAULT_SETTINGS if @formatting.nil?
+      @public_plan              = true
 
     else
-      raise Pundit::NotAuthorizedError
+      raise Pundit::NotAuthorizedError, _('are not authorized to view that plan')
     end
 
     @hash           = @plan.as_pdf(current_user, @show_coversheet)
-    @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
+
     @selected_phase = if params.key?(:phase_id)
                         @plan.phases.find(params[:phase_id])
                       else
                         @plan.phases.order('phases.updated_at DESC')
                              .detect { |p| p.visibility_allowed?(@plan) }
                       end
+
+    # Bug fix in the event that there was no phase with visibility_allowed
+    @selected_phase = @plan.phases.order('phases.updated_at DESC').first if @selected_phase.blank?
 
     # Added contributors to coverage of plans.
     # Users will see both roles and contributor names if the role is filled
@@ -69,7 +95,7 @@ class PlanExportsController < ApplicationController
   end
 
   def show_csv
-    send_data @plan.as_csv(current_user, @show_sections_questions,
+    send_data @plan.as_csv(current_user, @show_questions,
                            @show_unanswered,
                            @selected_phase,
                            @show_custom_sections,
@@ -95,10 +121,12 @@ class PlanExportsController < ApplicationController
            # wkhtmltopdf behavior is based on the OS so force the zoom level
            # See 'Gotchas' section of https://github.com/mileszs/wicked_pdf
            zoom: 0.78125,
+           # show_as_html: params.key?('debug'),
+           page_size: 'Letter',
            footer: {
              center: format(_('Created using %{application_name}. Last modified %{date}'),
                             application_name: ApplicationService.application_name,
-                            date: l(@plan.updated_at.to_date, format: :readable)),
+                            date: l(@plan.updated_at.localtime.to_date, format: :readable)),
              font_size: 8,
              spacing: (Integer(@formatting[:margin][:bottom]) / 2) - 4,
              right: '[page] of [topage]',
@@ -107,7 +135,8 @@ class PlanExportsController < ApplicationController
   end
 
   def show_json
-    json = render_to_string(partial: '/api/v1/plans/show', locals: { plan: @plan })
+    json = render_to_string(partial: '/api/v2/plans/show',
+                            locals: { plan: @plan, client: current_user })
     render json: "{\"dmp\":#{json}}"
   end
 
@@ -138,9 +167,13 @@ class PlanExportsController < ApplicationController
   end
 
   def export_params
+    # DMPTool customization
+    # ----------------------
+    # Remove single :question_headings and replace with separate :section_headings and :question_text
+    #
     params.require(:export)
-          .permit(:form, :project_details, :question_headings, :unanswered_questions,
-                  :custom_sections, :research_outputs,
+          .permit(:form, :project_details, :section_headings, :question_text, :unanswered_questions,
+                  :custom_sections, :research_outputs, :related_identifiers,
                   formatting: [:font_face, :font_size, { margin: %i[top right bottom left] }])
   end
 

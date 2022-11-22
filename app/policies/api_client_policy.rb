@@ -14,7 +14,8 @@ class ApiClientPolicy < ApplicationPolicy
   end
 
   def create?
-    @user.can_super_admin?
+    # Super admin or the user can do this for themselves
+    @user.can_super_admin? || @user.id == @record.user_id
   end
 
   def edit?
@@ -22,7 +23,8 @@ class ApiClientPolicy < ApplicationPolicy
   end
 
   def update?
-    @user.can_super_admin?
+    # Super admin or the user can do this for themselves
+    @user.can_super_admin? || @user.id == @record.user_id
   end
 
   def destroy?
@@ -30,7 +32,8 @@ class ApiClientPolicy < ApplicationPolicy
   end
 
   def refresh_credentials?
-    @user.can_super_admin?
+    # Super admin or the user can do this for themselves
+    @user.can_super_admin? || @user.id == @record.user_id
   end
 
   def email_credentials?

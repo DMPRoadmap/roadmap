@@ -2,12 +2,12 @@
   <div class="modal-dialog">
     <div class="modal-header">
       <button class="close" type="button" data-dismiss="modal">&times;</button>
-      <p class="modal-title fontsize-h4">
+      <p class="modal-title fontsize-h4" id="copy-link-modal-title">
         <%= _('Copy link') %>
       </p>
     </div>
     <div class="modal-body">
-      <input type="text" id="link" readonly="readonly" style="width: 100%">
+      <input type="text" id="link" readonly="readonly" style="width: 100%" aria-labelledby="copy-link-modal-title">
     </div>
     <div class="modal-footer">
       <button id="copy-link-btn" class="btn btn-default"><%= _('Copy link') %></button>

@@ -8,7 +8,9 @@ class UserMailer < ActionMailer::Base
   helper MailerHelper
   helper FeedbacksHelper
 
-  default from: Rails.configuration.x.organisation.email
+  include Dmptool::Mailer
+
+  default from: Rails.configuration.x.organisation.do_not_reply_email || Rails.configuration.x.organisation.email
 
   # rubocop:disable Metrics/AbcSize
   def welcome_notification(user)
@@ -109,8 +111,8 @@ class UserMailer < ActionMailer::Base
 
     I18n.with_locale I18n.default_locale do
       mail(to: @recipient.email,
-           subject: format(_('%{user_name} has requested feedback on a %{tool_name} plan'),
-                           tool_name: tool_name, user_name: @user.name(false)))
+           subject: format(_('A new DMP is awaiting your feedback'), tool_name: tool_name,
+                                                                     user_name: @user.name(false)))
     end
   end
 
@@ -145,7 +147,7 @@ class UserMailer < ActionMailer::Base
     @username        = @user.name
     @plan            = plan
     @plan_title      = @plan.title
-    @plan_visibility = Plan::VISIBILITY_MESSAGE[@plan.visibility.to_sym]
+    @plan_visibility = Plan::VISIBILITY_MESSAGE[@plan.visibility]
     @helpdesk_email = helpdesk_email(org: @plan.org)
 
     I18n.with_locale I18n.default_locale do
@@ -200,14 +202,15 @@ class UserMailer < ActionMailer::Base
     end
   end
 
+  # Sent out to the API contact when the Super Admin creates a record or refreshes the secret
   # rubocop:disable Metrics/AbcSize
   def api_credentials(api_client)
     @api_client = api_client
-    return unless @api_client.contact_email.present?
+    return if @api_client.contact_email.blank?
 
-    @api_docs = Rails.configuration.x.application.api_documentation_urls[:v1]
+    @api_docs = Rails.configuration.x.application.api_documentation_overview_url
 
-    @name = @api_client.contact_name.present? ? @api_client.contact_name : @api_client.contact_email
+    @name = (@api_client.contact_name.presence || @api_client.contact_email)
 
     @helpdesk_email = helpdesk_email(org: @api_client.org)
 

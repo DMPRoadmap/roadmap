@@ -3,6 +3,8 @@
 module OrgAdmin
   # Controller that handles admin operations for plans
   class PlansController < ApplicationController
+    include Dmptool::OrgAdmin::PlansController
+
     # GET org_admin/plans
     # rubocop:disable Metrics/AbcSize
     def index
@@ -71,7 +73,7 @@ module OrgAdmin
             (plan.owner&.org&.present? ? plan.owner.org.name : '').to_s,
             plan.owner&.name(false)&.to_s,
             plan.owner&.email&.to_s,
-            l(plan.latest_update.to_date, format: :csv).to_s,
+            l(plan.latest_update.localtime.to_date, format: :csv).to_s,
             Plan::VISIBILITY_MESSAGE[plan.visibility.to_sym].capitalize.to_s
           ]
         end

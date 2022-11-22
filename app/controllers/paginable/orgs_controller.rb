@@ -4,6 +4,7 @@ module Paginable
   # Controller for paginating/sorting/searching the orgs table
   class OrgsController < ApplicationController
     include Paginable
+    include Dmptool::Paginable::OrgsController
 
     # /paginable/guidances/index/:page
     def index

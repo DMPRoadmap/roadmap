@@ -10,6 +10,7 @@ module OrgAdmin
     # POST /org_admin/templates/:id/transfer_customization
     #
     # The funder template's id is passed through here
+    # rubocop:disable Metrics/AbcSize,
     def create
       @template = Template.find(params[:template_id])
       authorize @template, :transfer_customization?
@@ -25,9 +26,10 @@ module OrgAdmin
 
         redirect_to org_admin_template_path(@new_customization)
       else
-        flash[:alert] = _('That template is no longer customizable.')
+        flash.now[:alert] = _('That template is no longer customizable.')
         redirect_back(fallback_location: org_admin_templates_path)
       end
     end
+    # rubocop:enable Metrics/AbcSize,
   end
 end

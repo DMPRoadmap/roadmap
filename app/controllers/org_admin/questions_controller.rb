@@ -41,22 +41,6 @@ module OrgAdmin
     end
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]/questions/[:question_id]/edit
-    def edit
-      question = Question.includes(:annotations,
-                                   :question_options,
-                                   section: { phase: :template })
-                         .find(params[:id])
-      authorize question
-      render json: { html: render_to_string(partial: 'edit', locals: {
-                                              template: question.section.phase.template,
-                                              section: question.section,
-                                              question: question,
-                                              question_formats: allowed_question_formats,
-                                              conditions: question.conditions
-                                            }) }
-    end
-
-    # GET /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions/new
     # rubocop:disable Metrics/AbcSize
     def new
       section = Section.includes(:questions, phase: :template).find(params[:section_id])
@@ -82,6 +66,22 @@ module OrgAdmin
     end
     # rubocop:enable Metrics/AbcSize
 
+    # GET /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions/new
+    def edit
+      question = Question.includes(:annotations,
+                                   :question_options,
+                                   section: { phase: :template })
+                         .find(params[:id])
+      authorize question
+      render json: { html: render_to_string(partial: 'edit', locals: {
+                                              template: question.section.phase.template,
+                                              section: question.section,
+                                              question: question,
+                                              question_formats: allowed_question_formats,
+                                              conditions: question.conditions
+                                            }) }
+    end
+
     # POST /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions
     # rubocop:disable Metrics/AbcSize
     def create
@@ -90,13 +90,18 @@ module OrgAdmin
       begin
         question = get_new(question)
         section = question.section
+
+        # Briley patch for production issue that is preventing new question creation
+        # Was receiving `question.annotations cannot be blank`
+        # question.annotations = []
+
         if question.save
-          flash[:notice] = success_message(question, _('created'))
+          flash.now[:notice] = success_message(question, _('created'))
         else
-          flash[:alert] = failure_message(question, _('create'))
+          flash.now[:alert] = failure_message(question, _('create'))
         end
       rescue StandardError
-        flash[:alert] = _('Unable to create a new version of this template.')
+        flash.now[:alert] = _('Unable to create a new version of this template.')
       end
       redirect_to edit_org_admin_template_phase_path(
         template_id: section.phase.template.id,
@@ -163,10 +168,10 @@ module OrgAdmin
       if question.update(attrs)
         if question.update_conditions(sanitize_hash(params['conditions']),
                                       old_to_new_opts, question_id_map)
-          flash[:notice] = success_message(question, _('updated'))
+          flash.now[:notice] = success_message(question, _('updated'))
         end
       else
-        flash[:alert] = flash[:alert] = failure_message(question, _('update'))
+        flash.now[:alert] = flash.now[:alert] = failure_message(question, _('update'))
       end
       if question.section.phase.template.customization_of.present?
         redirect_to org_admin_template_phase_path(
@@ -194,12 +199,12 @@ module OrgAdmin
         question = get_modifiable(question)
         section = question.section
         if question.destroy!
-          flash[:notice] = success_message(question, _('deleted'))
+          flash.now[:notice] = success_message(question, _('deleted'))
         else
-          flash[:alert] = flash[:alert] = failure_message(question, _('delete'))
+          flash.now[:alert] = flash.now[:alert] = failure_message(question, _('delete'))
         end
       rescue StandardError
-        flash[:alert] = _('Unable to create a new version of this template.')
+        flash.now[:alert] = _('Unable to create a new version of this template.')
       end
       redirect_to edit_org_admin_template_phase_path(
         template_id: section.phase.template.id,

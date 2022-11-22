@@ -35,7 +35,7 @@ module Identifiable
 
         # Get the IdentifierScheme, skip if it does not exist
         scheme = IdentifierScheme.by_name(hash[:name].downcase)
-        next unless scheme.present?
+        next if scheme.blank?
 
         # Look for the Identifier and finish up once found
         id = Identifier.where(identifier_scheme: scheme, value: hash[:value],

@@ -47,7 +47,7 @@ module ExternalApis
 
       # Process the XML response and convert each result into a ResearchProject
       def parse_xml(xml:)
-        return [] unless xml.present?
+        return [] if xml.blank?
 
         Nokogiri::XML(xml).xpath('//pair/displayed-value').map do |node|
           parts = node.content.split('-')

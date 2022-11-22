@@ -8,6 +8,14 @@ module Api
 
       ##
       # Create a new department based on the information passed in JSON to the API
+      def index
+        raise Pundit::NotAuthorizedError unless Api::V0::DepartmentsPolicy.new(@user, nil).index?
+
+        @departments = @user.org.departments
+      end
+
+      ##
+      # Lists the departments for the API user's organisation
       def create
         raise Pundit::NotAuthorizedError unless Api::V0::DepartmentsPolicy.new(@user, nil).index?
 
@@ -19,16 +27,8 @@ module Api
         else
           # the department did not save
           headers['WWW-Authenticate'] = 'Token realm=""'
-          render json: _('Departments code and name must be unique'), status: 400
+          render json: _('Departments code and name must be unique'), status: :bad_request
         end
-      end
-
-      ##
-      # Lists the departments for the API user's organisation
-      def index
-        raise Pundit::NotAuthorizedError unless Api::V0::DepartmentsPolicy.new(@user, nil).index?
-
-        @departments = @user.org.departments
       end
 
       ##

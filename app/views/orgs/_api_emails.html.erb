@@ -1,0 +1,68 @@
+<%# locals: org %>
+
+<%
+default_subject = _("A new data management plan (DMP) for the %{org_name} was started for you.") % {
+  org_name: org.name
+}
+default_message = _("A new data management plan (DMP) has been started for you by the %{external_system_name}. If you have any questions or need help, please contact the administrator for the %{org_name} at %{org_admin_email}.") % {
+  org_name: org.name,
+  org_admin_email: link_to(org.contact_email, org.contact_email),
+  external_system_name: "%{external_system_name}"
+}
+
+org.api_create_plan_email_subject = default_subject unless org.api_create_plan_email_subject.present?
+org.api_create_plan_email_body = default_message unless org.api_create_plan_email_body.present?
+%>
+
+<%= form_for(org, url: admin_update_org_path(org), html: { multipart: true, method: :put,
+                  id: "edit_org_api_emails" } ) do |f| %>
+
+  <h2><%= _('Plan creation via the API') %></h2>
+
+  <p><%= _("The following email will be sent to users when an external system creates a new DMP (via the API) using one of your templates.") %></p>
+
+  <div class="row">
+    <div class="col-xs-8">
+      <%= f.label :api_create_plan_email_subject, _("Subject"), class: "control-label" %>
+      <%= f.text_field :api_create_plan_email_subject, class: "form-control",
+                       placeholder: default_subject %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-xs-8" data-html="true">
+      <%= f.label :api_create_plan_email_body, _("Message"), class: "control-label" %>
+      <%= f.text_area :api_create_plan_email_body, class: "form-control tinymce",
+                      placeholder: default_message, rows: 6 %>
+    </div>
+    <div class="form-group col-xs-4">
+      <h4><%= _('Sample Message') %></h4>
+      <%= sanitize default_message %>
+    </div>
+  </div>
+  <p class="col-xs-8"><%= _("Note that you can use the '%{external_system_name}' variable in the subject and/or body. The system will insert the name of the external system before sending the email (for example 'Example University - RDMS').") %></p>
+  <div class="row">
+    <div class="col-xs-8">
+      <div class="panel panel-default api-email-preview-panel">
+        <div class="panel-header">
+          Email Preview:
+        </div>
+        <div class="panel-body">
+          <p>
+            Hello jane.doe@example.org,
+          </p>
+          <p class="replaceable-api-email-content">
+            <%= sanitize(org.api_create_plan_email_body) % {
+              external_system_name: "%{external_system_name]}"
+            } %>
+          </p>
+          <%= render partial: 'user_mailer/email_signature', locals: { allow_change_prefs: false } %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-xs-8">
+      <%= f.button(_('Save'), id:"save_org_submit", class: "btn btn-primary", type: "submit") %>
+    </div>
+  </div>
+<% end %>

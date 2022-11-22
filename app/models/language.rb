@@ -5,10 +5,10 @@
 # Table name: languages
 #
 #  id               :integer          not null, primary key
-#  abbreviation     :string
+#  abbreviation     :string(255)
 #  default_language :boolean
-#  description      :string
-#  name             :string
+#  description      :string(255)
+#  name             :string(255)
 #
 
 # Object that represents a locale/language
@@ -19,7 +19,7 @@ class Language < ApplicationRecord
 
   ABBREVIATION_MAXIMUM_LENGTH = 5
 
-  ABBREVIATION_FORMAT = /\A[a-z]{2}(-[A-Z]{2})?\Z/.freeze
+  ABBREVIATION_FORMAT = /\A[a-z]{2}(-[A-Z]{2})?\Z/
 
   NAME_MAXIMUM_LENGTH = 20
 
@@ -69,7 +69,7 @@ class Language < ApplicationRecord
 
   # Retrieves the id for a given abbreviation of a language
   scope :id_for, lambda { |abbreviation|
-    where(abbreviation: abbreviation).pluck(:id).first
+    where(abbreviation: abbreviation).pick(:id)
   }
 
   # ========================

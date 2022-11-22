@@ -12,28 +12,24 @@ class TemplateOptionsController < ApplicationController
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def index
-    org_hash = plan_params.fetch(:research_org_id, {})
-    funder_hash = plan_params.fetch(:funder_id, {})
-    authorize Template.new, :template_options?
+    authorize Plan
 
-    org = org_from_params(params_in: { org_id: org_hash.to_json }) if org_hash.present?
-    funder = org_from_params(params_in: { org_id: funder_hash.to_json }) if funder_hash.present?
+    research_org = process_org!(user: current_user)
+    funder_org = process_org!(user: current_user, namespace: 'funder')
+    templates = []
 
-    @templates = []
-
-    if (org.present? && !org.new_record?) ||
-       (funder.present? && !funder.new_record?)
-      if funder.present? && !funder.new_record?
+    if research_org.present? || funder_org.present?
+      if funder_org.present?
         # Load the funder's template(s) minus the default template (that gets swapped
         # in below if NO other templates are available)
-        @templates = Template.latest_customizable
-                             .where(org_id: funder.id, is_default: false).to_a
-        if org.present? && !org.new_record?
+        templates = Template.latest_customizable
+                            .where(org_id: funder_org.id, is_default: false).to_a
+        if research_org.present?
           # Swap out any organisational cusotmizations of a funder template
-          @templates = @templates.map do |tmplt|
+          templates = templates.map do |tmplt|
             customization = Template.published
-                                    .latest_customized_version(tmplt.family_id,
-                                                               org.id).first
+                                    .latest_customized_version(tmplt.family_id, research_org.id)
+                                    .first
             # Only provide the customized version if its still up to date with the
             # funder template!
             # rubocop:disable Metrics/BlockNesting
@@ -48,25 +44,25 @@ class TemplateOptionsController < ApplicationController
       end
 
       # If the no funder was specified OR the funder matches the org
-      if funder.blank? || funder.id == org&.id
+      if funder_org.blank? || funder_org.id == research_org&.id
         # Retrieve the Org's templates
-        @templates << Template.published
-                              .organisationally_visible
-                              .where(org_id: org.id, customization_of: nil).to_a
+        templates << Template.published
+                             .organisationally_visible
+                             .where(org_id: research_org.id, customization_of: nil).to_a
       end
-      @templates = @templates.flatten.uniq
+      templates = templates.flatten.uniq
     end
 
     # If no templates were available use the default template
-    if @templates.empty? && Template.default.present?
+    if templates.empty? && Template.default.present?
       customization = Template.published
                               .latest_customized_version(Template.default.family_id,
-                                                         org&.id).first
+                                                         research_org&.id).first
 
-      @templates << (customization.present? ? customization : Template.default)
+      templates << (customization.presence || Template.default)
     end
 
-    @templates = @templates.sort_by(&:title)
+    @templates = templates.sort_by(&:title)
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -74,11 +70,6 @@ class TemplateOptionsController < ApplicationController
   private
 
   def plan_params
-    params.require(:plan).permit(research_org_id: org_params,
-                                 funder_id: org_params)
-  end
-
-  def org_params
-    %i[id name url language abbreviation ror fundref weight score]
+    params.require(:plan).permit(:research_org_name, :funder_name)
   end
 end

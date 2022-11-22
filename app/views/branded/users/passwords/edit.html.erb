@@ -1,0 +1,43 @@
+<%= render "users/shared/error_messages", resource: resource %>
+
+<h2><%= _("Change your password") %></h2>
+
+<%= form_for(resource, as: resource_name, url: password_path(resource_name),
+             html: { id: 'user_reset_password_form', method: :put }) do |f| %>
+  <%= f.hidden_field :reset_password_token %>
+  <%= f.hidden_field :accept_terms, value: true %>
+
+  <div class="row">
+    <div class="form-group col-md-6">
+      <%= f.label :password, _("New password"), class: "control-label" %>
+      <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "form-control" %>
+      <% if @minimum_password_length %>
+        <em>
+          <%= _("(%{min_password_length} characters minimum)") % {
+            min_password_length: @minimum_password_length }
+          %>
+        </em>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-md-6">
+      <%= f.label :password_confirmation, _("Confirm new password"), class: "control-label" %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-md-6">
+      <input type="checkbox" id="password-toggle" class="passwords_toggle" />
+      <label for="password-toggle"><%= _('Show passwords') %></label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-md-6">
+      <%= f.submit _("Change my password"), class: "btn btn-default" %>
+    </div>
+  </div>
+<% end %>

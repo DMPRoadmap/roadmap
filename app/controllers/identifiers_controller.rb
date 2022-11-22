@@ -15,14 +15,22 @@ class IdentifiersController < ApplicationController
     # If the requested identifier belongs to the current user remove it
     if user.identifiers.include?(identifier)
       identifier.destroy!
-      flash[:notice] =
+      flash.now[:notice] =
         format(_('Successfully unlinked your account from %{is}.'), is: identifier.identifier_scheme&.description)
     else
-      flash[:alert] =
+      flash.now[:alert] =
         format(_('Unable to unlink your account from %{is}.'), is: identifier.identifier_scheme&.description)
     end
 
-    redirect_to edit_user_registration_path
+    # TODO: While this works for ORCID it might not for future integrations. We should consider
+    #       moving it to a different place on the Edit Profile page
+    # Revoke any OAuth access tokens for the identifier
+    tokens = user.external_api_access_tokens.select do |token|
+      token.external_service_name == identifier.identifier_scheme.name.downcase
+    end
+    tokens.each(&:revoke!)
+
+    redirect_to users_third_party_apps_path
   end
   # rubocop:enable Metrics/AbcSize
 end

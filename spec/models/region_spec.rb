@@ -2,13 +2,13 @@
 
 require 'rails_helper'
 
-RSpec.describe Region, type: :model do
+RSpec.describe Region do
   context 'validations' do
     it { is_expected.to validate_presence_of(:abbreviation) }
 
     it {
-      is_expected.to validate_uniqueness_of(:abbreviation).case_insensitive
-                                                          .with_message('must be unique')
+      expect(subject).to validate_uniqueness_of(:abbreviation).case_insensitive
+                                                              .with_message('must be unique')
     }
 
     it { is_expected.to validate_presence_of(:description) }
@@ -16,8 +16,8 @@ RSpec.describe Region, type: :model do
     it { is_expected.to validate_presence_of(:name) }
 
     it {
-      is_expected.to validate_uniqueness_of(:name).case_insensitive
-                                                  .with_message('must be unique')
+      expect(subject).to validate_uniqueness_of(:name).case_insensitive
+                                                      .with_message('must be unique')
     }
   end
 

@@ -28,7 +28,7 @@ class ResearchOutputPresenter
   # Returns the options for metadata standards
   def selectable_metadata_standards(category:)
     out = MetadataStandard.all.order(:title).map { |ms| [ms.title, ms.id] }
-    return out unless category.present?
+    return out if category.blank?
 
     MetadataStandard.where(descipline_specific: (category == 'disciplinary'))
                     .map { |ms| [ms.title, ms.id] }
@@ -123,7 +123,7 @@ class ResearchOutputPresenter
 
   # Returns the display the license name
   def display_license
-    return _('None specified') unless @research_output.license.present?
+    return _('None specified') if @research_output.license.blank?
 
     @research_output.license.name
   end
@@ -137,16 +137,16 @@ class ResearchOutputPresenter
 
   # Returns the humanized version of the access enum variable
   def display_access
-    return _('Unspecified') unless @research_output.access.present?
+    return _('Unspecified') if @research_output.access.blank?
 
     @research_output.access.capitalize
   end
 
   # Returns the release date as a date
   def display_release
-    return _('Unspecified') unless @research_output.release_date.present?
+    return _('Unspecified') if @research_output.release_date.blank?
 
-    @research_output.release_date.to_date
+    @research_output.release_date.localtime.to_date
   end
 
   # Return 'Yes', 'No' or 'Unspecified' depending on the value

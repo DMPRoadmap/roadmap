@@ -7,29 +7,30 @@
 #  id                     :integer          not null, primary key
 #  accept_terms           :boolean
 #  active                 :boolean          default(TRUE)
-#  api_token              :string
+#  api_token              :string(255)
 #  confirmation_sent_at   :datetime
-#  confirmation_token     :string
+#  confirmation_token     :string(255)
 #  confirmed_at           :datetime
 #  current_sign_in_at     :datetime
-#  current_sign_in_ip     :string
+#  current_sign_in_ip     :string(255)
 #  email                  :string(80)       default(""), not null
-#  encrypted_password     :string
-#  firstname              :string
+#  encrypted_password     :string(255)
+#  firstname              :string(255)
 #  invitation_accepted_at :datetime
 #  invitation_created_at  :datetime
 #  invitation_sent_at     :datetime
-#  invitation_token       :string
-#  invited_by_type        :string
+#  invitation_token       :string(255)
+#  invited_by_type        :string(255)
+#  last_api_access        :datetime
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :string
 #  other_organisation :string
 #  recovery_email         :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
-#  reset_password_token   :string
+#  reset_password_token   :string(255)
 #  sign_in_count          :integer          default(0)
-#  surname                :string
+#  surname                :string(255)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  department_id          :integer
@@ -57,16 +58,33 @@ class User < ApplicationRecord
   include DateRangeable
   include Identifiable
 
+  include Dmptool::User
+
   extend UniqueRandom
 
+  # DMPTool customization
+  #
+  # commenting out Devise which we re-implement below
+  #
   ##
   # Devise
   #   Include default devise modules. Others available are:
   #   :token_authenticatable, :confirmable,
   #   :lockable, :timeoutable and :omniauthable
-  devise :invitable, :database_authenticatable, :registerable, :recoverable,
-         :rememberable, :trackable, :validatable, :omniauthable,
-         omniauth_providers: %i[shibboleth orcid]
+  # devise :invitable, :database_authenticatable, :registerable, :recoverable,
+  #        :rememberable, :trackable, :validatable, :omniauthable,
+  #        omniauth_providers: %i[shibboleth orcid]
+
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable,
+         :trackable, :validatable,
+         :omniauthable, omniauth_providers: %i[shibboleth orcid]
+
+  # DMPTool customization
+  #
+  # Alias 'institution' for 'org'
+  attr_accessor :institution
 
   ##
   # User Notification Preferences
@@ -83,9 +101,17 @@ class User < ApplicationRecord
 
   belongs_to :language
 
-  belongs_to :org
+  # DMPTool customization
+  #
+  # commenting out because we make it optional in Dmptool::User concern
+  #
+  # belongs_to :org
+  belongs_to :org, optional: true
 
-  belongs_to :department, required: false
+  # Added to allow creation of Orgs at sign up / edit profile
+  accepts_nested_attributes_for :org
+
+  belongs_to :department, optional: true
 
   has_one  :pref
 
@@ -112,7 +138,38 @@ class User < ApplicationRecord
 
   validates :surname, presence: { message: PRESENCE_MESSAGE }
 
-  validates :org, presence: { message: PRESENCE_MESSAGE }
+  # DMPTool customization
+  #
+  # commenting out Devise which we re-implement in the Dmptool::User concern
+  #
+  # validates :org, presence: { message: PRESENCE_MESSAGE }
+
+  # Validations to support ouur sign in / sign up workflow
+  validates :institution, presence: { message: PRESENCE_MESSAGE }
+  validates :accept_terms, inclusion: { in: [true, nil], message: _('and conditions') }
+
+  # DMPTool customization
+  #
+  # Associations to support Doorkeeper security for API v2
+  #
+  # Access Grants are created when a user authorizes an ApiClient to access their
+  # data via the OAuth workflow. They are sent back to the ApiClient as 'code' which
+  # is in turn used to retrieve an AccessToken
+  has_many :access_grants, class_name: 'Doorkeeper::AccessGrant',
+                           foreign_key: :resource_owner_id,
+                           dependent: :delete_all
+
+  # Access Tokens are created when an ApiClient authenticates a User via an access
+  # grant code. The access token is then used instead of credentials in calls to the
+  # API. These tokens can be revoked by a user on their profile page.
+  has_many :access_tokens, class_name: 'Doorkeeper::AccessToken',
+                           foreign_key: :resource_owner_id,
+                           dependent: :delete_all
+
+  # Table that stores OAuth access tokens for other external systems like ORCID
+  has_many :external_api_access_tokens, dependent: :destroy
+  accepts_nested_attributes_for :external_api_access_tokens
+  accepts_nested_attributes_for :plans
 
   # ==========
   # = Scopes =
@@ -162,8 +219,12 @@ class User < ApplicationRecord
   # =============
 
   # sanitise html tags from fields
-  before_validation ->(data) { data.sanitize_fields(:firstname, :surname) }
+  before_validation ->(data) { data.sanitize_fields(:email, :firstname, :surname) }
 
+  # DMPTool customization
+  #
+  # Callbacks to support our sign in / sign up workflow
+  before_validation ->(user) { user.institution = user.org }
   after_update :clear_department_id, if: :saved_change_to_org_id?
 
   after_update :delete_perms!, if: :saved_change_to_org_id?, unless: :can_change_org?
@@ -174,17 +235,20 @@ class User < ApplicationRecord
   # = Class methods =
   # =================
 
-  ##
+  # DMPTool customization
+  #
+  # commenting out Devise which we re-implement in the Dmptool::User concern
+  #
   # Load the user based on the scheme and id provided by the Omniauth call
-  def self.from_omniauth(auth)
-    Identifier.by_scheme_name(auth.provider.downcase, 'User')
-              .where(value: auth.uid)
-              .first&.identifiable
-  end
+  # def self.from_omniauth(auth)
+  #   Identifier.by_scheme_name(auth.provider.downcase, "User")
+  #             .where(value: auth.uid)
+  # end
 
   def self.to_csv(users)
     User::AtCsv.new(users).to_csv
   end
+
   # ===========================
   # = Public instance methods =
   # ===========================
@@ -342,7 +406,7 @@ class User < ApplicationRecord
   # Returns nil
   # Returns Boolean
   def keep_or_generate_token!
-    return unless api_token.nil? || api_token.empty?
+    return if api_token.present?
 
     generate_token! unless new_record?
   end
@@ -356,12 +420,14 @@ class User < ApplicationRecord
   # The User's preferences for a given base key
   #
   # Returns Hash
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def get_preferences(key)
     defaults = Pref.default_settings[key.to_sym] || Pref.default_settings[key.to_s]
+    defaults = defaults.with_indifferent_access if defaults.present?
 
     if pref.present?
       existing = pref.settings[key.to_s].deep_symbolize_keys
+      existing = existing.with_indifferent_access if existing.present?
 
       # Check for new preferences
       defaults.each_key do |grp|
@@ -377,14 +443,16 @@ class User < ApplicationRecord
       defaults
     end
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-  # Override devise_invitable email title
-  def deliver_invitation(options = {})
-    super(options.merge(subject: format(_('A Data Management Plan in %{application_name} has been shared with you'),
-                                        application_name: ApplicationService.application_name))
-    )
-  end
+  # Override to Devise invitation emails
+  # def deliver_invitation(options = {})
+  #   # Always override the devise_invitable email title
+  #   super(options.merge(subject: _("A Data Management Plan in " \
+  #     "%{application_name} has been shared with you") %
+  #     { application_name: ApplicationService.application_name })
+  #   )
+  # end
 
   # Case insensitive search over User model
   #

@@ -2,23 +2,24 @@
 
 require 'rails_helper'
 
-RSpec.feature 'ModalSearchDialog', type: :feature do
-  include Webmocks
+RSpec.describe 'ModalSearchDialog' do
+  include Helpers::Webmocks
 
-  before(:each) do
+  before do
     stub_openaire
 
     @model = create(:repository)
     @template = create(:template)
     @plan = create(:plan, :creator, template: @template)
     @user = @plan.owner
-    sign_in_as_user(@user)
+    sign_in @user
+    visit root_path
 
     Rails.configuration.x.madmp.enable_research_outputs = true
     Rails.configuration.x.madmp.enable_repository_selection = true
 
     click_link @plan.title
-    click_link 'Research Outputs'
+    click_link 'Research outputs'
     click_link 'Add a research output'
   end
 

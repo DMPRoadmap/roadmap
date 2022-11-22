@@ -23,7 +23,7 @@ module Api
         private
 
         def plans_for_client
-          return [] unless @user.present?
+          return [] if @user.blank?
 
           ids = @user.plans.pluck(:id)
           ids += @user.org.plans.pluck(:id) if @user.org.present?
@@ -31,7 +31,7 @@ module Api
         end
 
         def plans_for_user
-          return [] unless @user.present?
+          return [] if @user.blank?
 
           ids = @user.org.plans.organisationally_visible.pluck(:id)
           ids += @user.plans.pluck(:id)

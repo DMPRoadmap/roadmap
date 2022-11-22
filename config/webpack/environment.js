@@ -1,9 +1,9 @@
 const { environment } = require('@rails/webpacker');
-const ESLintPlugin = require('eslint-webpack-plugin');
+// const ESLintPlugin = require('eslint-webpack-plugin');
 const erb = require('./loaders/erb');
 const webpack = require('webpack');
 
-environment.loaders.prepend('erb', erb);
+// environment.loaders.prepend('erb', erb);
 
 environment.plugins.append(
   'Provide',
@@ -12,7 +12,7 @@ environment.plugins.append(
     jQuery: 'jquery',
     timeago: 'timeago.js',
   }),
-  new ESLintPlugin(),
+  // new ESLintPlugin(),
 );
 
 environment.config.set('resolve.alias', {
@@ -20,4 +20,5 @@ environment.config.set('resolve.alias', {
   'bootstrap-sass': 'bootstrap-sass/assets/javascripts/bootstrap/',
 });
 
+environment.loaders.prepend('erb', erb)
 module.exports = environment;

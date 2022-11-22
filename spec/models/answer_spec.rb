@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Answer, type: :model do
+RSpec.describe Answer do
   context 'validations' do
     subject { build(:answer) }
 
@@ -13,16 +13,16 @@ RSpec.describe Answer, type: :model do
     it { is_expected.to validate_presence_of(:question) }
 
     it {
-      is_expected.to validate_uniqueness_of(:question)
+      expect(subject).to validate_uniqueness_of(:question)
         .scoped_to(:plan_id)
         .with_message('must be unique')
     }
   end
 
   describe '.deep_copy' do
-    let!(:answer) { build(:answer) }
+    subject { described_class.deep_copy(answer) }
 
-    subject { Answer.deep_copy(answer) }
+    let!(:answer) { build(:answer) }
 
     it 'creates a new record' do
       expect(subject).not_to eql(answer)
@@ -50,22 +50,22 @@ RSpec.describe Answer, type: :model do
   end
 
   describe '#options_selected?' do
+    subject { answer.options_selected?(question_option.id) }
+
     let!(:answer) { create(:answer) }
 
     let!(:question_option) { create(:question_option) }
-
-    subject { answer.options_selected?(question_option.id) }
 
     context 'when answer has QuestionOption' do
       before do
         answer.question_options << question_option
       end
 
-      it { is_expected.to eql(true) }
+      it { is_expected.to be(true) }
     end
 
     context "when answer doesn't have QuestionOption" do
-      it { is_expected.to eql(false) }
+      it { is_expected.to be(false) }
     end
   end
 
@@ -76,31 +76,31 @@ RSpec.describe Answer, type: :model do
       context 'when text is nil' do
         let!(:answer) { build(:answer, text: nil) }
 
-        it { is_expected.to eql(false) }
+        it { is_expected.to be(false) }
       end
 
       context "when text is ''" do
         let!(:answer) { build(:answer, text: '') }
 
-        it { is_expected.to eql(false) }
+        it { is_expected.to be(false) }
       end
 
       context 'when text is plain text' do
         let!(:answer) { build(:answer, text: 'Foo bar') }
 
-        it { is_expected.to eql(true) }
+        it { is_expected.to be(true) }
       end
 
       context 'when text is empty html' do
         let!(:answer) { build(:answer, text: '<p><br/></p>') }
 
-        it { is_expected.to eql(false) }
+        it { is_expected.to be(false) }
       end
 
       context 'when text is html text' do
         let!(:answer) { build(:answer, text: '<p>Foo bar</p>') }
 
-        it { is_expected.to eql(true) }
+        it { is_expected.to be(true) }
       end
     end
 
@@ -113,7 +113,7 @@ RSpec.describe Answer, type: :model do
                                    create(:question_format, option_based: true))
         end
 
-        it { is_expected.to eql(false) }
+        it { is_expected.to be(false) }
       end
 
       context 'question present, question format is option and options present' do
@@ -124,7 +124,7 @@ RSpec.describe Answer, type: :model do
           answer.question_options << create_list(:question_option, 2)
         end
 
-        it { is_expected.to eql(true) }
+        it { is_expected.to be(true) }
       end
 
       context 'question present, question format not option and text empty' do
@@ -135,7 +135,7 @@ RSpec.describe Answer, type: :model do
           answer.text = ''
         end
 
-        it { is_expected.to eql(false) }
+        it { is_expected.to be(false) }
       end
 
       context 'question present, question format not option and text present' do
@@ -146,7 +146,7 @@ RSpec.describe Answer, type: :model do
           answer.text = 'This is an answer'
         end
 
-        it { is_expected.to eql(true) }
+        it { is_expected.to be(true) }
       end
 
       context 'question absent' do
@@ -154,20 +154,20 @@ RSpec.describe Answer, type: :model do
           answer.update(question: nil)
         end
 
-        it { is_expected.to eql(false) }
+        it { is_expected.to be(false) }
       end
     end
   end
 
   describe '#non_archived_notes' do
+    subject { @answer.non_archived_notes }
+
     before do
       @answer         = create(:answer)
       @notes          = create_list(:note, 3, answer: @answer, archived: false)
       @archived_notes = create_list(:note, 3, answer: @answer, archived: true)
       @other_notes    = create_list(:note, 3)
     end
-
-    subject { @answer.non_archived_notes }
 
     it 'includes the non-archived notes' do
       @notes.each do |note|
@@ -189,11 +189,11 @@ RSpec.describe Answer, type: :model do
   end
 
   describe '#answer_hash' do
+    subject { answer.answer_hash }
+
     let!(:answer) { build(:answer) }
 
     let(:default_json) { { 'standards' => {}, 'text' => '' } }
-
-    subject { answer.answer_hash }
 
     context 'when text is nil' do
       before do
@@ -229,9 +229,9 @@ RSpec.describe Answer, type: :model do
   end
 
   describe '#update_answer_hash' do
-    let!(:answer) { build(:answer) }
-
     subject { answer.answer_hash }
+
+    let!(:answer) { build(:answer) }
 
     context 'when standards parameter is present' do
       before do
@@ -255,10 +255,10 @@ RSpec.describe Answer, type: :model do
       end
 
       it {
-        is_expected.to eql({
-                             'standards' => { 'foo' => 'bar' },
-                             'text' => 'baz'
-                           })
+        expect(subject).to eql({
+                                 'standards' => { 'foo' => 'bar' },
+                                 'text' => 'baz'
+                               })
       }
     end
   end

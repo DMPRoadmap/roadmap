@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Note, type: :model do
+RSpec.describe Note do
   context 'validations' do
     it { is_expected.to validate_presence_of(:text) }
 

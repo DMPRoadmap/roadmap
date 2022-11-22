@@ -6,10 +6,12 @@ class PlansController < ApplicationController
   include ConditionalUserMailer
   include OrgSelectable
 
+  include Dmptool::PlansController
+
   helper PaginableHelper
   helper SettingsTemplateHelper
 
-  after_action :verify_authorized, except: [:overview]
+  after_action :verify_authorized
 
   # GET /plans
   # rubocop:disable Metrics/AbcSize
@@ -29,33 +31,102 @@ class PlansController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   # GET /plans/new
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def show
+    @plan = Plan.includes(
+      template: [:phases], guidance_groups: [:guidances]
+    ).find_by(id: params[:id])
+    raise ActiveRecord::RecordNotFound if @plan.blank?
+
+    authorize @plan
+    @visibility = if @plan.visibility.present?
+                    @plan.visibility.to_s
+                  else
+                    Rails.configuration.x.plans.default_visibility
+                  end
+    # Get all of the available funders
+    @funders = Org.funder
+                  .joins(:templates)
+                  .where(templates: { published: true }).uniq.sort_by(&:name)
+    # TODO: Seems strange to do this. Why are we just not using an `edit` route?
+    @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
+
+    # Get all Guidance Groups applicable for the plan and group them by org
+    @all_guidance_groups = @plan.guidance_group_options
+    @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
+    @selected_guidance_groups = @plan.guidance_groups
+
+    # Important ones come first on the page - we grab the user's org's GGs and
+    # "Organisation" org type GGs
+    @important_ggs = []
+
+    if @all_ggs_grouped_by_org.include?(current_user.org)
+      @important_ggs << [current_user.org, @all_ggs_grouped_by_org[current_user.org]]
+    end
+
+    @default_orgs = Org.default_orgs
+    @all_ggs_grouped_by_org.each do |org, ggs|
+      @important_ggs << [org, ggs] if @default_orgs.include?(org)
+
+      # If this is one of the already selected guidance groups its important!
+      @important_ggs << [org, ggs] if !(ggs & @selected_guidance_groups).empty? && @important_ggs.exclude?([org, ggs])
+    end
+
+    # Sort the rest by org name for the accordion
+    @important_ggs = @important_ggs.sort_by { |org, _gg| (org.nil? ? '' : org.name) }
+    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by do |org, _gg|
+      (org.nil? ? '' : org.name)
+    end
+    @selected_guidance_groups = @selected_guidance_groups.ids
+
+    @based_on = if @plan.template.customization_of.nil?
+                  @plan.template
+                else
+                  Template.where(family_id: @plan.template.customization_of).first
+                end
+
+    @research_domains = ResearchDomain.all.order(:label)
+
+    respond_to :html
+  end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+  # POST /plans
   def new
     @plan = Plan.new
     authorize @plan
-
-    # Get all of the available funders and non-funder orgs
-    @funders = Org.funder
-                  .includes(identifiers: :identifier_scheme)
-                  .joins(:templates)
-                  .where(templates: { published: true }).uniq.sort_by(&:name)
-    @orgs = (Org.includes(identifiers: :identifier_scheme).organisation +
-             Org.includes(identifiers: :identifier_scheme).institution +
-             Org.includes(identifiers: :identifier_scheme).default_orgs)
-    @orgs = @orgs.flatten.uniq.sort_by(&:name)
-
-    @plan.org_id = current_user.org&.id
-
-    # TODO: is this still used? We cannot switch this to use the :plan_params
-    #       strong params because any calls that do not include `plan` in the
-    #       query string will fail
-    flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>" if params.key?(:test)
-    @is_test = params[:test] ||= false
-    respond_to :html
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # POST /plans
+  # GET /plans/show
+  # rubocop:disable Metrics/AbcSize
+  def edit
+    plan = Plan.includes(
+      { template: {
+        phases: {
+          sections: {
+            questions: %i[question_format annotations]
+          }
+        }
+      } },
+      { answers: :notes }
+    )
+               .find(params[:id])
+    authorize plan
+    phase_id = params[:phase_id].to_i
+    phase = plan.template.phases.select { |p| p.id == phase_id }.first
+    raise ActiveRecord::RecordNotFound if phase.nil?
+
+    guidance_groups = GuidanceGroup.where(published: true, id: plan.guidance_group_ids)
+    render_phases_edit(plan, phase, guidance_groups)
+  end
+
+  # rubocop:enable Metrics/AbcSize
+  # TODO: This feels like it belongs on a phases controller, perhaps introducing
+  #       a non-namespaces phases_controller woulld make sense here. Consider
+  #       doing this when we refactor the Plan editing UI
+  # GET /plans/:plan_id/phases/:id/edit
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def create
@@ -89,24 +160,12 @@ class PlansController < ApplicationController
                       plan_params[:title]
                     end
 
-      # bit of hackery here. There are 2 org selectors on the page
-      # and each is within its own specific context, plan.org or
-      # plan.funder which forces the hidden id hash to be :id
-      # so we need to convert it to :org_id so it works with the
-      # OrgSelectable and OrgSelection services
-      if plan_params[:org].present? && plan_params[:org][:id].present?
-        attrs = plan_params[:org]
-        attrs[:org_id] = attrs[:id]
-        @plan.org = org_from_params(params_in: attrs, allow_create: false)
-      else
-        # The user did not specify a research Org, so default to their Org
-        @plan.org = current_user.org
-      end
-      if plan_params[:funder].present? && plan_params[:funder][:id].present?
-        attrs = plan_params[:funder]
-        attrs[:org_id] = attrs[:id]
-        @plan.funder = org_from_params(params_in: attrs, allow_create: false)
-      end
+      @plan.org = process_org!(user: current_user)
+      # If the user said there was no research org, use their org since Plan requires one
+      @plan.org = current_user.org if @plan.org.blank?
+      @plan.funder = process_org!(user: current_user, namespace: 'funder')
+
+      @plan.title = @plan.title.strip
 
       if @plan.save
         # pre-select org's guidance and the default org's guidance
@@ -137,7 +196,14 @@ class PlansController < ApplicationController
 
         # Set new identifier to plan id by default on create.
         # (This may be changed by user.)
-        @plan.identifier = @plan.id.to_s
+        # ================================================
+        # Start DMPTool customization
+        #    We are using this field as a Funding Opportunity Number
+        # ================================================
+        # @plan.identifier = @plan.id.to_s
+        # ================================================
+        # End DMPTool customization
+        # ================================================
         @plan.save
 
         respond_to do |format|
@@ -157,96 +223,8 @@ class PlansController < ApplicationController
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-  # GET /plans/show
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  def show
-    @plan = Plan.includes(
-      :guidance_groups, template: [:phases]
-    ).find(params[:id])
-    authorize @plan
-
-    @visibility = if @plan.visibility.present?
-                    @plan.visibility.to_s
-                  else
-                    Rails.configuration.x.plans.default_visibility
-                  end
-    # Get all of the available funders
-    @funders = Org.funder
-                  .joins(:templates)
-                  .where(templates: { published: true }).uniq.sort_by(&:name)
-    # TODO: Seems strange to do this. Why are we just not using an `edit` route?
-    @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
-
-    # Get all Guidance Groups applicable for the plan and group them by org
-    @all_guidance_groups = @plan.guidance_group_options
-    @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
-    @selected_guidance_groups = @plan.guidance_groups
-
-    # Important ones come first on the page - we grab the user's org's GGs and
-    # "Organisation" org type GGs
-    @important_ggs = []
-
-    if @all_ggs_grouped_by_org.include?(current_user.org)
-      @important_ggs << [current_user.org, @all_ggs_grouped_by_org[current_user.org]]
-    end
-    @default_orgs = Org.default_orgs
-    @all_ggs_grouped_by_org.each do |org, ggs|
-      @important_ggs << [org, ggs] if @default_orgs.include?(org)
-
-      # If this is one of the already selected guidance groups its important!
-      @important_ggs << [org, ggs] if !(ggs & @selected_guidance_groups).empty? && !@important_ggs.include?([org, ggs])
-    end
-
-    # Sort the rest by org name for the accordion
-    @important_ggs = @important_ggs.sort_by { |org, _gg| (org.nil? ? '' : org.name) }
-    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by do |org, _gg|
-      (org.nil? ? '' : org.name)
-    end
-    @selected_guidance_groups = @selected_guidance_groups.ids
-
-    @based_on = if @plan.template.customization_of.nil?
-                  @plan.template
-                else
-                  Template.where(family_id: @plan.template.customization_of).first
-                end
-
-    @research_domains = ResearchDomain.all.order(:label)
-
-    respond_to :html
-  end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-
-  # TODO: This feels like it belongs on a phases controller, perhaps introducing
-  #       a non-namespaces phases_controller woulld make sense here. Consider
-  #       doing this when we refactor the Plan editing UI
-  # GET /plans/:plan_id/phases/:id/edit
-  # rubocop:disable Metrics/AbcSize
-  def edit
-    plan = Plan.includes(
-      { template: {
-        phases: {
-          sections: {
-            questions: %i[question_format annotations]
-          }
-        }
-      } },
-      { answers: :notes }
-    )
-               .find(params[:id])
-    authorize plan
-    phase_id = params[:phase_id].to_i
-    phase = plan.template.phases.select { |p| p.id == phase_id }.first
-    raise ActiveRecord::RecordNotFound if phase.nil?
-
-    guidance_groups = GuidanceGroup.where(published: true, id: plan.guidance_group_ids)
-    render_phases_edit(plan, phase, guidance_groups)
-  end
-  # rubcocop:enable Metrics/AbcSize
-
   # PUT /plans/1
-  # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def update
     @plan = Plan.find(params[:id])
     authorize @plan
@@ -262,19 +240,16 @@ class PlansController < ApplicationController
                              params[:guidance_group_ids].map(&:to_i).uniq
                            end
       @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
+      @research_domains = ResearchDomain.all.order(:label)
 
-      # TODO: For some reason the `fields_for` isn't adding the
-      #       appropriate namespace, so org_id represents our funder
-      funder_attrs = plan_params[:funder]
-      funder_attrs[:org_id] = plan_params[:funder][:id]
-      funder = org_from_params(params_in: funder_attrs)
-      @plan.funder_id = funder&.id
+      @plan.funder = process_org!(user: current_user, namespace: 'funder')
       @plan.grant = plan_params[:grant]
       attrs.delete(:funder)
       attrs.delete(:grant)
-      attrs = remove_org_selection_params(params_in: attrs)
 
-      if @plan.update(attrs) # _attributes(attrs)
+      @plan.title = @plan.title.strip
+
+      if @plan.update(attrs)
         format.html do
           redirect_to plan_path(@plan),
                       notice: success_message(@plan, _('saved'))
@@ -302,16 +277,17 @@ class PlansController < ApplicationController
         render json: { code: 0, msg: flash[:alert] }
       end
     end
-    # rubocop:enable Metrics/BlockLength
+    # rubocop:enable Metrics/AbcSize, Metrics/BlockLength
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/MethodLength
 
-  # GET /plans/:id/share
-  def share
+  # GET /plans/:id/publish
+  def publish
     @plan = Plan.find(params[:id])
     if @plan.present?
       authorize @plan
       @plan_roles = @plan.roles.where(active: true)
+      @orcid_access_token = ExternalApiAccessToken.for_user_and_service(user: current_user, service: 'orcid')
     else
       redirect_to(plans_path)
     end
@@ -344,7 +320,7 @@ class PlansController < ApplicationController
       end
     else
       respond_to do |format|
-        flash[:alert] = failure_message(@plan, _('delete'))
+        flash.now[:alert] = failure_message(@plan, _('delete'))
         format.html { render action: 'edit' }
       end
     end
@@ -411,11 +387,9 @@ class PlansController < ApplicationController
                      key: 'owners_and_coowners.visibility_changed') do |r|
             UserMailer.plan_visibility(r, plan).deliver_now
           end
-          render status: :ok,
-                 json: { msg: success_message(plan, _('updated')) }
+          redirect_to publish_plan_path(plan), notice: success_message(plan, _('updated'))
         else
-          render status: :internal_server_error,
-                 json: { msg: failure_message(plan, _('update')) }
+          redirect_to publish_plan_path(plan), alert: failure_message(plan, _('update'))
         end
       else
         # rubocop:disable Layout/LineLength
@@ -438,6 +412,7 @@ class PlansController < ApplicationController
     plan = Plan.find(params[:id])
     authorize plan
     plan.visibility = (params[:is_test] == '1' ? :is_test : :privately_visible)
+
     if plan.save
       render json: {
         code: 1,
@@ -450,17 +425,34 @@ class PlansController < ApplicationController
     end
   end
 
-  # GET /plans/:id/overview
-  def overview
-    plan = Plan.includes(template: [:org, { phases: { sections: :questions } }])
-               .find(params[:id])
+  # GET /plans/:id/mint
+  # rubocop:disable Metrics/AbcSize
+  def mint
+    @plan = Plan.find(params[:id])
+    authorize @plan
 
-    authorize plan
-    render(:overview, locals: { plan: plan })
-  rescue ActiveRecord::RecordNotFound
-    flash[:alert] = format(_('There is no plan associated with id %{<id}>s'), id: params[:id])
-    redirect_to(action: :index)
+    dmp_id = DmpIdService.mint_dmp_id(plan: @plan)
+    dmp_id.save
+    @plan = @plan.reload
+
+    # Only allow ORCID publication for the DMP ID if it is enabled in the config!
+    if Rails.configuration.x.madmp.enable_orcid_publication
+      @orcid_access_token = ExternalApiAccessToken.for_user_and_service(user: current_user, service: 'orcid')
+    end
+
+    # If a DMP ID was successfully acquired and the User has authorized us to write to their ORCID record
+    if @plan.dmp_id.present? && @orcid_access_token.present?
+      ExternalApis::OrcidService.add_work(user: current_user, plan: @plan)
+    end
+
+    render js: render_to_string(template: 'plans/mint.js.erb')
+  rescue StandardError => e
+    Rails.logger.error "Unable to add plan #{params[:id]} to the user #{current_user.id}'s ORCID record - #{e.message}"
+    Rails.logger.error e.backtrace
+
+    render js: render_to_string(template: 'plans/mint.js.erb')
   end
+  # rubocop:enable Metrics/AbcSize
 
   # ============================
   # = Private instance methods =
@@ -479,7 +471,8 @@ class PlansController < ApplicationController
                   :research_domain_id, :funding_status,
                   grant: %i[name value],
                   org: %i[id org_id org_name org_sources org_crosswalk],
-                  funder: %i[id org_id org_name org_sources org_crosswalk])
+                  funder: %i[id org_id org_name org_sources org_crosswalk],
+                  related_identifiers_attributes: %i[id work_type value])
   end
 
   # different versions of the same template have the same family_id
@@ -524,7 +517,7 @@ class PlansController < ApplicationController
     readonly = !plan.editable_by?(current_user.id)
     # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
     # we create a hash whose keys are question id and value is the answer associated
-    answers = plan.answers.each_with_object({}) { |a, m| m[a.question_id] = a; }
+    answers = plan.answers.index_by(&:question_id)
     render('/phases/edit', locals: {
              base_template_org: phase.template.base_org,
              plan: plan,

@@ -23,14 +23,14 @@ module Api
         end
 
         def contributor_valid?(json:, is_contact: false)
-          return false unless json.present?
+          return false if json.blank?
           return false unless json[:name].present? || json[:mbox].present?
 
           is_contact ? true : json[:role].present?
         end
 
         def funding_valid?(json:)
-          return false unless json.present?
+          return false if json.blank?
 
           funder_id = json.fetch(:funder_id, {})[:identifier]
           grant_id = json.fetch(:grant_id, {})[:identifier]

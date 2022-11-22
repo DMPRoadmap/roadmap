@@ -5,9 +5,9 @@
 <div class="cover-page">
   <p><b><%= _("Title: ") %></b><%= @hash[:title] %></p><br>
 
-  <p><strong><%= _("Creator:") %></strong><%= @hash[:attribution] %></p><br>
+  <p><strong><%= _("Creator:") %></strong> <%= sanitize(@hash[:attribution].is_a?(Array) ? @hash[:attribution].first : @hash[:attribution])%></p><br>
 
-  <%# Added contributors to coverage of plans. 
+  <%# Added contributors to coverage of plans.
     # Users will see both roles and contributor names if the role is filled %>
   <%# Roles are ranked by PI -> DM -> PA -> Other (if any) %>
   <% if @hash[:investigation].present? %>
@@ -25,37 +25,49 @@
 
   <p><b><%= _("Affiliation: ") %></b><%= @hash[:affiliation] %></p><br>
 
+  <% if @plan.dmp_id.present? %>
+    <p><b><%= _("DMP ID: ") %></b>
+      <% if @plan.dmp_id.value&.starts_with?("http") %>
+        <%= link_to @plan.dmp_id.value, @plan.dmp_id.value %>
+      <% else %>
+        <%= @plan.dmp_id.value %>
+      <% end %>
+    </p><br>
+  <% end %>
+
   <% if @hash[:funder].present? %>
     <p><b><%= _("Funder: ") %></b><%= @hash[:funder] %></p><br>
   <% end %>
 
-    <p><b><%= _("Template: ") %></b><%= @hash[:template] + @hash[:customizer] %></p><br>
-
-  <% @plan.contributors.investigation.each do |contributor| %>
-    <% orcid = contributor.identifier_for_scheme(scheme: "orcid") %>
-    <% next unless orcid.present? && orcid.value.present? %>
-
-    <p><b><%= _("ORCID iD: ") %></b><%= orcid.value_without_scheme_prefix %></p> <br>
+  <% if @plan.identifier.present? %>
+    <p><b><%= _("Funding opportunity number: ") %></b><%= sanitize(@plan.identifier) %></p> <br>
   <% end %>
+  <% if @plan.grant.present? %>
+    <p><b><%= _("Grant: ") %></b>
+    <% if @plan.grant.value.starts_with?("http") %>
+      <a href="<%= sanitize(@plan.grant.value) %>" target="_blank"><%= sanitize(@plan.grant.value) %></a>
+    <% else %>
+      <%= sanitize(@plan.grant.value) %>
+    <% end %>
+    </p> <br>
+  <% end %>
+
+  <p><b><%= _("Template: ") %></b><%= @hash[:template] + @hash[:customizer] %></p><br>
 
   <% if @plan.description.present? %>
     <p><b><%= _("Project abstract: ") %></b></p>
     <div style="margin-left: 15px;"><%= sanitize(@plan.description) %></div><br>
   <% end %>
 
-  <% if @plan.id.present? %>
-    <p><b><%= _("ID: ") %></b><%= @plan.id %></p> <br>
-  <% end %>
-
   <% if @plan.start_date.present? %>
-    <p><b><%= _("Start date: ") %></b><%=  l(@plan.start_date.to_date, formats: :short) %></p> <br>
+    <p><b><%= _("Start date: ") %></b><%=  l(@plan.start_date.localtime.to_date, formats: :short) %></p> <br>
   <% end %>
 
   <% if @plan.end_date.present? %>
-    <p><b><%= _("End date: ") %></b><%=  l(@plan.end_date.to_date, formats: :short) %></p> <br>
+    <p><b><%= _("End date: ") %></b><%=  l(@plan.end_date.localtime.to_date, formats: :short) %></p> <br>
   <% end %>
 
-  <p><b><%= _("Last modified: ") %></b><%=  l(@plan.updated_at.to_date, formats: :short) %></p> <br>
+  <p><b><%= _("Last modified: ") %></b><%=  l(@plan.updated_at.localtime.to_date, formats: :short) %></p> <br>
 
   <% if @plan.grant.present? %>
     <p><b><%= _("Grant number / URL: ") %></b><%= @plan.grant.value %></p> <br>

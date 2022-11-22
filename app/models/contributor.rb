@@ -4,27 +4,23 @@
 #
 # Table name: contributors
 #
-#  id           :integer          not null, primary key
-#  firstname    :string
-#  surname      :string
-#  email        :string
-#  phone        :string
-#  roles        :integer
-#  org_id       :integer
-#  plan_id      :integer
-#  created_at   :datetime
-#  updated_at   :datetime
+#  id         :integer          not null, primary key
+#  email      :string(255)
+#  name       :string(255)
+#  phone      :string(255)
+#  roles      :integer          not null
+#  created_at :datetime
+#  updated_at :datetime
+#  org_id     :integer
+#  plan_id    :integer          not null
 #
 # Indexes
 #
-#  index_contributors_on_id      (id)
-#  index_contributors_on_email   (email)
-#  index_contributors_on_org_id  (org_id)
+#  index_contributors_on_email    (email)
+#  index_contributors_on_org_id   (org_id)
+#  index_contributors_on_plan_id  (plan_id)
+#  index_contributors_on_roles    (roles)
 #
-# Foreign Keys
-#
-#  fk_rails_...  (org_id => orgs.id)
-#  fk_rails_...  (plan_id => plans.id)
 
 # Object that represents a contributor to a plan
 class Contributor < ApplicationRecord
@@ -38,7 +34,7 @@ class Contributor < ApplicationRecord
 
   belongs_to :org, optional: true
 
-  belongs_to :plan, optional: true
+  belongs_to :plan, optional: true, touch: true
 
   # =====================
   # = Nested attributes =
@@ -51,9 +47,10 @@ class Contributor < ApplicationRecord
   # ===============
 
   validates :roles, presence: { message: PRESENCE_MESSAGE }
-
   validates :roles, numericality: { greater_than: 0,
                                     message: _('You must specify at least one role.') }
+
+  validates :email, uniqueness: { scope: :plan_id }
 
   validate :name_or_email_presence
 
@@ -109,10 +106,10 @@ class Contributor < ApplicationRecord
   # any existing information
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def merge(other)
-    self.org = other.org unless org.present?
-    self.email = other.email unless email.present?
-    self.name = other.name unless name.present?
-    self.phone = other.phone unless phone.present?
+    self.org = other.org if org.blank?
+    self.email = other.email if email.blank?
+    self.name = other.name if name.blank?
+    self.phone = other.phone if phone.blank?
     self.investigation = true if other.investigation? && !investigation?
     self.data_curation = true if other.data_curation? && !data_curation?
     self.project_administration = true if other.project_administration? && !project_administration?

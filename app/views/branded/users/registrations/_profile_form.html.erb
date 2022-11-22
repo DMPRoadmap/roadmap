@@ -1,0 +1,76 @@
+<% org_admin = current_user.can_org_admin? && !current_user.can_super_admin? %>
+
+<input type="hidden" id="original_email" value="<%= resource.email %>"/>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name),
+                       class: "novalidate", html: { method: :put }) do |f| %>
+  <div class="form-group col-md-12">
+    <%= f.label(:email, _('Email address'), class: 'control-label') %>
+    <%= f.email_field(:email, value: resource.email, autocomplete: 'email',
+                      class: "form-control", "aria-required": true) %>
+  </div>
+
+  <div class="form-group col-md-12">
+    <%= f.label :firstname, _('First Name'), class: 'control-label' %>
+    <%= f.text_field(:firstname, spellcheck: false, autocomplete: "off", maxlength: 40,
+                      class: "form-control", "aria-required": true) %>
+  </div>
+  <div class="form-group col-md-12">
+    <%= f.label :surname, _('Last Name'), class: 'control-label' %>
+    <%= f.text_field(:surname, spellcheck: false, autocomplete: "off", maxlength: 40,
+                      class: "form-control", "aria-required": true) %>
+  </div>
+
+  <div class="form-group col-md-12" id="profile-controls">
+    <%= render partial: "shared/org_autocomplete",
+                locals: { form: f,
+                          default_org: resource.org,
+                          required: true,
+                          label: _("Institution") } %>
+  </div>
+
+  <% departments = current_user.org.departments.order(:name) %>
+  <% if departments.count > 0 %>
+    <div class="form-group col-md-12">
+      <% dept_id = current_user.department.nil? ? -1 : current_user.department.id  %>
+      <%= f.label(:department_id, _('Department or school'), class: 'control-label') %>
+      <%= select_tag("user[department_id]",
+          options_from_collection_for_select(departments, "id", "name", dept_id),
+          include_blank: true,
+          disabled: departments.count === 0,
+          class: "form-control") %>
+    </div>
+  <% end %>
+  <% if Language.many? %>
+    <div class="form-group col-md-12">
+      <% lang_id = current_user.language.nil? ? Language.default.id : current_user.language.id %>
+      <%= f.label(:language_id, _('Language'), class: 'control-label') %>
+      <%= select_tag("user[language_id]",
+          options_from_collection_for_select(Language.all, "id", "name", lang_id),
+          class: "form-control") %>
+    </div>
+  <% end %>
+  <% if current_user.can_org_admin? %>
+    <div class="form-group col-md-12">
+      <label><%= _('My privileges') %></label>
+      <p><%= (current_user.can_super_admin? ? _('Super Admin') : _('Organisational Admin')) %></p>
+    </div>
+  <% end %>
+
+  <% unless current_user.accept_terms? %> 
+    <div class="form-group col-md-12 c-checkbox js-checkbox">
+    <!-- <div id="sign-up-accept-terms" class="c-checkbox js-checkbox"> -->
+      <%= f.check_box :accept_terms, { class: "require-me" }, true, false %>
+      <%# Need to pass target and href to sanitize because target usually gets stripped out %>
+      <%= f.label :accept_terms, sanitize(_('I accept the %<terms_url>s') % {
+                                 terms_url: link_to(_('terms and conditions'), terms_path,
+                                 target: '_blank') }, { attributes: %w[href target] }) %>
+      <!-- <div id="" class="c-textfield__invalid-description js-invalid-description" hidden>
+      </div> -->
+    </div>
+  <% end %>
+
+  <div class="actions col-md-4">
+    <%= f.submit "Update details", class: 'btn btn-default' %>
+  </div>
+<% end %>

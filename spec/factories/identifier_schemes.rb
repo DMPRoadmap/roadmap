@@ -6,11 +6,12 @@
 #
 #  id                :integer          not null, primary key
 #  active            :boolean
-#  description       :string
 #  context           :integer
-#  logo_url          :text
-#  name              :string
-#  identifier_prefix :string
+#  description       :string(255)
+#  external_service  :string(255)
+#  identifier_prefix :string(255)
+#  logo_url          :string(255)
+#  name              :string(255)
 #  created_at        :datetime
 #  updated_at        :datetime
 #
@@ -31,6 +32,34 @@ FactoryBot.define do
       (0..evaluator.context_count - 1).each do |idx|
         identifier_scheme.update("#{identifier_scheme.all_context[idx]}": true)
       end
+    end
+
+    trait :for_authentication do
+      for_authentication { true }
+    end
+
+    trait :for_orgs do
+      for_orgs { true }
+    end
+
+    trait :for_plans do
+      for_plans { true }
+    end
+
+    trait :for_users do
+      for_users { true }
+    end
+
+    trait :for_contributors do
+      for_contributors { true }
+    end
+
+    trait :for_identification do
+      for_identification { true }
+    end
+
+    trait :for_research_outputs do
+      for_research_outputs { true }
     end
   end
 end

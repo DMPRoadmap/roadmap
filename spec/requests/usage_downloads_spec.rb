@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe '/usage_downloads', type: :request do
+RSpec.describe '/usage_downloads' do
   describe '#index' do
     it 'redirects when non-authorized user' do
       get '/usage_downloads'

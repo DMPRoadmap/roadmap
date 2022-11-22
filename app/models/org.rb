@@ -14,11 +14,10 @@
 #  links                  :text
 #  logo_name              :string
 #  logo_uid               :string
-#  managed                :boolean          default(FALSE), not null
-#  name                   :string
+#  name                   :string(255)
 #  org_type               :integer          default(0), not null
-#  sort_name              :string
-#  target_url             :string
+#  sort_name              :string(255)
+#  target_url             :string(255)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  language_id            :integer
@@ -29,6 +28,7 @@
 # Foreign Keys
 #
 #  fk_rails_...  (language_id => languages.id)
+#  fk_rails_...  (region_id => regions.id)
 #
 
 # Object that represents an Organization/Institution/Funder
@@ -36,24 +36,52 @@ class Org < ApplicationRecord
   extend FeedbacksHelper
   include FlagShihTzu
   include Identifiable
+  include Subscribable
+
+  # ----------------------------------------
+  # Start DMPTool Customization
+  # ----------------------------------------
+  include Dmptool::Org
+
+  dragonfly_accessor :logo
+
+  # validates_property :format, of: :logo, in: %w[jpeg png gif jpg bmp svg],
+  #                             message: _('must be one of the following formats: jpeg, jpg, png, gif, bmp, svg')
+  # validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
+
+  # Prevent XSS attempts
+  before_validation lambda { |data|
+    data.sanitize_fields(:name)
+    data.name = data.name&.gsub('&amp;', '&')
+  }
+  # This gives all managed orgs api access whenever saved or updated.
+  before_save :ensure_api_access, if: ->(org) { org.managed? }
+  # If the org was created and has a fundref/ror id then it was derived from a
+  # User's selection of a RegistryOrg in the UI. We need to update the registry_orgs.org_id
+  # to establish the relationship
+  after_create :connect_to_registry_org
+
+  # ----------------------------------------
+  # End DMPTool Customization
+  # ----------------------------------------
 
   extend Dragonfly::Model::Validations
   validates_with OrgLinksValidator
 
-  LOGO_FORMATS = %w[jpeg png gif jpg bmp].freeze
+  LOGO_FORMATS = %w[jpeg png gif jpg bmp svg].freeze
 
   HUMANIZED_ATTRIBUTES = {
     feedback_msg: _('Feedback email message')
   }.freeze
 
-  attribute :feedback_msg, :text, default: feedback_confirmation_default_message
+  attribute :feedback_msg, :text, default: -> { feedback_confirmation_default_message }
   attribute :language_id, :integer, default: -> { Language.default&.id }
 
   # Stores links as an JSON object:
   #  { org: [{"link":"www.example.com","text":"foo"}, ...] }
   # The links are validated against custom validator allocated at
   # validators/template_links_validator.rb
-  attribute :links, :text, default: { org: [] }
+  attribute :links, :text, default: -> { { org: [] } }
   serialize :links, JSON
 
   # ================
@@ -121,16 +149,16 @@ class Org < ApplicationRecord
 
   validates_property :format, of: :logo, in: LOGO_FORMATS,
                               message: _('must be one of the following formats: ' \
-                                         'jpeg, jpg, png, gif, bmp')
+                                         'jpeg, jpg, png, gif, bmp svg')
 
   validates_size_of :logo,
                     maximum: 500.kilobytes,
                     message: _("can't be larger than 500KB")
 
-  # allow validations for logo upload
-  dragonfly_accessor :logo do
-    after_assign :resize_image
-  end
+  # # allow validations for logo upload
+  # dragonfly_accessor :logo do
+  #   after_assign :resize_image
+  # end
 
   # =============
   # = Callbacks =
@@ -138,31 +166,28 @@ class Org < ApplicationRecord
   # This checks the filestore for the dragonfly image each time before we validate
   # and removes the dragonfly info if the logo is not found so validations pass
   # TODO: re-evaluate this after moving dragonfly to active_storage
-  before_validation :check_for_missing_logo_file
-
-  # This gives all managed orgs api access whenever saved or updated.
-  before_save :ensure_api_access, if: ->(org) { org.managed? }
+  # before_validation :check_for_missing_logo_file
 
   # If the physical logo file is no longer on disk we do not want it to prevent the
   # model from saving. This typically happens when you copy the database to another
   # environment. The orgs.logo_uid stores the path to the physical logo file that is
   # stored in the Dragonfly data store (default is: public/system/dragonfly/[env]/)
-  def check_for_missing_logo_file
-    return unless logo_uid.present?
+  # def check_for_missing_logo_file
+  #   return unless logo_uid.present?
 
-    data_store_path = Dragonfly.app.datastore.root_path
+  #   data_store_path = Dragonfly.app.datastore.root_path
 
-    return if File.exist?("#{data_store_path}#{logo_uid}")
+  #   return if File.exist?("#{data_store_path}#{logo_uid}")
 
-    # Attempt to locate the file by name. If it exists update the uid
-    logo = Dir.glob("#{data_store_path}/**/*#{logo_name}")
-    if logo.empty?
-      # Otherwise the logo is missing so clear it to prevent save failures
-      self.logo = nil
-    else
-      self.logo_uid = logo.first.gsub(data_store_path, '')
-    end
-  end
+  #   # Attempt to locate the file by name. If it exists update the uid
+  #   logo = Dir.glob("#{data_store_path}/**/*#{logo_name}")
+  #   if logo.empty?
+  #     # Otherwise the logo is missing so clear it to prevent save failures
+  #     self.logo = nil
+  #   else
+  #     self.logo_uid = logo.first.gsub(data_store_path, '')
+  #   end
+  # end
 
   ##
   # Define Bit Field values
@@ -191,7 +216,7 @@ class Org < ApplicationRecord
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
     where('lower(orgs.name) LIKE lower(?) OR ' \
-          'lower(orgs.contact_email) LIKE lower(?)',
+          'lower(orgs.abbreviation) LIKE lower(?)',
           search_pattern, search_pattern)
   }
 
@@ -276,7 +301,7 @@ class Org < ApplicationRecord
   #
   # Returns ActiveRecord::Relation
   def published_templates
-    templates.where('published = ?', true)
+    templates.where(published: true)
   end
 
   def org_admins
@@ -328,10 +353,8 @@ class Org < ApplicationRecord
 
       to_be_merged.templates.update_all(org_id: id)
       merge_token_permission_types!(to_be_merged: to_be_merged)
-      self.tracker = to_be_merged.tracker unless tracker.present?
+      self.tracker = to_be_merged.tracker if tracker.blank?
       to_be_merged.users.update_all(org_id: id)
-
-      # Terminate the transaction if the resulting Org is not valid
       raise ActiveRecord::Rollback unless save
 
       # Remove all of the remaining identifiers and token_permission_types
@@ -341,7 +364,7 @@ class Org < ApplicationRecord
 
       # Reload and then drop the specified Org. The reload prevents ActiveRecord
       # from also destroying associations that we've already reassociated above
-      raise ActiveRecord::Rollback unless to_be_merged.reload.destroy.present?
+      raise ActiveRecord::Rollback if to_be_merged.reload.destroy.blank?
 
       reload
     end
@@ -363,15 +386,15 @@ class Org < ApplicationRecord
   def merge_attributes!(to_be_merged:)
     return false unless to_be_merged.is_a?(Org)
 
-    self.target_url = to_be_merged.target_url unless target_url.present?
+    self.target_url = to_be_merged.target_url if target_url.blank?
     self.managed = true if !managed? && to_be_merged.managed?
     self.links = to_be_merged.links unless links.nil? || links == '{"org":[]}'
-    self.logo_uid = to_be_merged.logo_uid unless logo.present?
-    self.logo_name = to_be_merged.logo_name unless logo.present?
-    self.contact_email = to_be_merged.contact_email unless contact_email.present?
-    self.contact_name = to_be_merged.contact_name unless contact_name.present?
+    self.logo_uid = to_be_merged.logo_uid if logo.blank?
+    self.logo_name = to_be_merged.logo_name if logo.blank?
+    self.contact_email = to_be_merged.contact_email if contact_email.blank?
+    self.contact_name = to_be_merged.contact_name if contact_name.blank?
     self.feedback_enabled = to_be_merged.feedback_enabled unless feedback_enabled?
-    self.feedback_msg = to_be_merged.feedback_msg unless feedback_msg.present?
+    self.feedback_msg = to_be_merged.feedback_msg if feedback_msg.blank?
   end
   # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
@@ -393,7 +416,7 @@ class Org < ApplicationRecord
 
     to_gg = guidance_groups.first
     # Create a new GuidanceGroup if one does not already exist
-    to_gg = GuidanceGroup.create(org: self, name: abbreviation) unless to_gg.present?
+    to_gg = GuidanceGroup.create(org: self, name: abbreviation) if to_gg.blank?
 
     # Merge the GuidanceGroups
     to_be_merged.guidance_groups.each { |from_gg| to_gg.merge!(to_be_merged: from_gg) }
@@ -420,7 +443,7 @@ class Org < ApplicationRecord
 
   # Ensure that the Org has all of the available token permission types prior to save
   def ensure_api_access
-    TokenPermissionType.all.each do |perm|
+    TokenPermissionType.all.find_each do |perm|
       token_permission_types << perm unless token_permission_types.include?(perm)
     end
   end

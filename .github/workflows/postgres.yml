@@ -1,6 +1,6 @@
 name: Tests - PostgreSQL
 
-on: [pull_request]
+on: [push, pull_request]
 
 jobs:
   postgresql:
@@ -35,7 +35,7 @@ jobs:
     # Install Ruby and run bundler
     - uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.7.6
+        ruby-version: '3.0'
         bundler-cache: true
 
     # Install Node
@@ -50,7 +50,7 @@ jobs:
         sudo apt-get install libpq-dev
 
     # Copy all of the example configs over
-    - name: 'Setup Default Configuration'
+    - name: 'Setup Default DB Configuration'
       run: |
         cp config/database.yml.sample config/database.yml
         cp config/initializers/contact_us.rb.example config/initializers/contact_us.rb
@@ -83,12 +83,5 @@ jobs:
       run: bundle exec rails assets:precompile
 
     # Run  the unit and functional tests
-    - name: 'Run Rspec Unit and Functional Tests'
-      run: |
-        bundle exec rspec spec/models/ spec/policies/ spec/services/ spec/helpers/
-        bundle exec rspec spec/controllers/ spec/presenters/ spec/requests/ spec/views
-        bundle exec rspec spec/mixins/
-
-    # Run the time consuming integration tests (using Chrome headless browser)
-    - name: 'Run Integration Tests'
-      run: bundle exec rspec spec/features/
+    - name: 'Run Rspec Tests'
+      run: bin/bundle exec rspec spec #-s 40701

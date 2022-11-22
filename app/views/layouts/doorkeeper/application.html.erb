@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= ApplicationService.application_name %></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <%= stylesheet_link_tag(stylesheet_manifest_file) %>
+  <%= stylesheet_link_tag "doorkeeper/application" %>
+
+  <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
+  <%= csrf_meta_tags %>
+
+  <%# DMPTool Customization to pull in our CSS and JS %>
+  <link rel="stylesheet" media="screen" href="/dmptool-ui/main.css" />
+  <script src="/dmptool-ui/main.js" data-turbolinks-track="reload"></script>
+
+</head>
+<body class="t-oauth">
+  <main id="maincontent">
+    <div class="logo">
+      <%# DMPTool Customization: Comment out generic DMPRoadmap logo and use DMPTool SVG version %>
+      <%#= image_tag("logo.png", alt: "#{ApplicationService.application_name} #{_('logo')}",
+                    class: "app-logo", title: ApplicationService.application_name) %>
+      <%= image_tag("DMPTool_logo_blue_shades_v1b3b.svg", alt: "#{ApplicationService.application_name} #{_('logo')}",
+                    class: "app-logo", title: ApplicationService.application_name) %>
+    </div>
+
+    <%= yield %>
+
+    <%# Generic UJS/Ajax spinner. Bootstrap 5+ has built in spinner for this class %>
+    <div class="spinner-border hidden" role="status">
+      <% spinner_msg = _("Loading...") %>
+      <%= image_tag("spinner.gif", alt: spinner_msg) %>
+      <span class="sr-only"><%= spinner_msg %></span>
+    </div>
+
+  </main>
+</body>
+</html>

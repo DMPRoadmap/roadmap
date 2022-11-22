@@ -13,12 +13,12 @@ class Org
   class CreateLastMonthJoinedUserService
     class << self
       def call(org = nil, threads: 0)
-        orgs = org.nil? ? ::Org.all : [org]
+        orgs = org.nil? ? ::Org.where(managed: true) : [org]
 
         Parallel.each(orgs, in_threads: threads) do |org_obj|
           months = OrgDateRangeable.split_months_from_creation(org_obj)
           last = months.last
-          next unless last.present?
+          next if last.blank?
 
           StatJoinedUser::CreateOrUpdate.do(
             start_date: last[:start_date],

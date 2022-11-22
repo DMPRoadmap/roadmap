@@ -52,4 +52,14 @@ class OrgPolicy < ApplicationPolicy
   def merge_commit?
     @user.can_super_admin?
   end
+
+  # ---------------------------------------------------------
+  # Start DMPTool customization
+  # ---------------------------------------------------------
+  def public?
+    true
+  end
+  # ---------------------------------------------------------
+  # End DMPTool customization
+  # ---------------------------------------------------------
 end

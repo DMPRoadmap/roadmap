@@ -1,0 +1,22 @@
+defaults: &defaults
+  adapter: <%= Rails.configuration.x.dmproadmap.database_adapter %>
+  encoding: <%= Rails.configuration.x.dmproadmap.database_adapter == "mysql2" ? "utf8mb4" : "" %>
+  database: <%= Rails.configuration.x.dmproadmap.database_name %>
+  pool: <%= Rails.configuration.x.dmproadmap.database_pool_size %>
+  host: <%= Rails.configuration.x.dmproadmap.database_host %>
+  username: <%= Rails.configuration.x.dmproadmap.database_username %>
+  password: <%= Rails.configuration.x.dmproadmap.database_password %>
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+  database: "<%= Rails.configuration.x.dmproadmap.database_name %>_test"
+
+stage:
+  <<: *defaults
+
+production:
+  <<: *defaults

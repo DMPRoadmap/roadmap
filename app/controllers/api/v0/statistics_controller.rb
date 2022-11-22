@@ -234,8 +234,8 @@ module Api
       # Convert start/end dates in hash to a range of Dates
       def dates_to_range(hash)
         today = Date.today
-        start_date = Date.parse(hash.fetch('start_date', today.prev_month.to_date.to_s))
-        end_date = Date.parse(hash.fetch('end_date', today.to_date.to_s)) + 1.day
+        start_date = Date.parse(hash.fetch('start_date', today.prev_month.localtime.to_date.to_s))
+        end_date = Date.parse(hash.fetch('end_date', today.localtime.to_date.to_s)) + 1.day
         start_date..end_date
       end
     end

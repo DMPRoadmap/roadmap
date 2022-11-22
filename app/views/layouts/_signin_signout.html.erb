@@ -34,7 +34,7 @@
     </ul>
   </li>
 <% else %>
-  <% if !active_page?(root_path, true) %>
+  <% if !active_page?(root_path, true) && !active_page?(shibboleth_ds_path, true) %>
     <li>
       <a href="<%= root_path %>">
         <i class="fas fa-sign-in" aria-hidden="true">&nbsp;</i>

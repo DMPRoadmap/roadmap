@@ -1,0 +1,190 @@
+{
+  "application": "dmphub",
+  "status": "OK",
+  "code": 201,
+  "time": "2020-09-28T22:44:19:00Z",
+  "caller": "dmproadmap",
+  "source": "GET http://localhost:3001/api/v0/data_management_plans/10.9999/ABCDEFG",
+  "page": 1,
+  "per_page": 20,
+  "total_items": 1,
+  "items": [
+    {
+      "dmp": {
+        "schema": "https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard/tree/master/examples/JSON/JSON-schema/1.0",
+        "title": "Sample DMP",
+        "description": "An abstract for our sample data management plan.",
+        "created": "2020-08-27T16:01:58:00Z",
+        "modified": "2020-08-27T16:01:58:00Z",
+        "language": "eng",
+        "ethical_issues_exist": "yes",
+        "ethical_issues_description": "Our datasets will be based off of patient information",
+        "ethical_issues_report": "https://some.uni.org/privacy_policy.html",
+        "dmp_id": {
+          "type": "DOI",
+          "identifier": "https://doi.org/10.0000/AB12CD34"
+        },
+        "contact": {
+          "name": "Jane Doe",
+          "mbox": "jane.doe@sample.edu",
+          "contact_id": {
+            "type": "ORCID",
+            "identifier": "https://orcid.org/0000-0000-0000-0000"
+          },
+          "affiliation": {
+            "name": "Some University",
+            "affiliation_id": {
+              "type": "ROR",
+              "identifier": "https://ror.org/000000"
+            }
+          }
+        },
+        "contributor": [
+          {
+            "name": "John Doe",
+            "mbox":"john.doe@another.edu",
+            "affiliation": {
+              "name": "Another University",
+              "affiliation_id": {
+                "type": "ROR",
+                "identifier": "https://ror.org/000009"
+              }
+            },
+            "contributor_id": {
+              "type": "ORCID",
+              "identifier": "https://orcid.org/0000-0000-0000-000X"
+            },
+            "role": [
+              "https://dictionary.casrai.org/Contributor_Roles/Data_curation",
+              "https://dictionary.casrai.org/Contributor_Roles/Investigation"
+            ]
+          }
+        ],
+        "cost": [
+          {
+            "currency_code": "USD",
+            "title": "Long term server storage",
+            "description": "The cost of storing the research outputs for preservation",
+            "value": 10500
+          }
+        ],
+        "project": [
+          {
+            "title": "Sample DMP project",
+            "description": "An abstract describing what this project is about.",
+            "start": "2020-08-27T15:14:09:00Z",
+            "end": "2022-08-27T15:14:09:00Z",
+            "funding": [
+              {
+                "name": "National Science Foundation (NSF)",
+                "funder_id": {
+                  "type": "ROR",
+                  "identifier": "https://ror.org/00000X"
+                },
+                "funding_status": "granted",
+                "grant_id": {
+                  "type": "URL",
+                  "identifier": "https://nsf.org/awards/123abc"
+                },
+                "extension": {
+                  "dmphub": {
+                    "funded_affiliations": [
+                      {
+                        "name": "Another University",
+                        "affiliation_id": {
+                          "type": "ROR",
+                          "identifier": "https://ror.org/000009"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "dataset": [
+          {
+            "title": "Dataset: Sample dataset A",
+            "type": "dataset",
+            "personal_data": "unknown",
+            "sensitive_data": "unknown",
+            "data_quality_assurance": "Our data will be of very high quality!",
+            "dataset_id": {
+              "type": "DOI",
+              "identifier": "https://doix.org/10.1234.123abc/y3"
+            },
+            "description": "A collection of MRI scans of cerebral cortex for all candidates",
+            "distribution": [
+              {
+                "title": "Open access copy of Dataset A",
+                "access_url": "https://secure.repo.org/dataset/12345",
+                "available_until": "2050-01-01",
+                "byte_size": 10000,
+                "data_access": "open",
+                "description": "Open access copy of the dataset",
+                "download_url": "https://secure.repo.org/dataset/12345.pdf",
+                "format": "image/tiff",
+                "host": {
+                  "title": "Dryad",
+                  "availability": "99,5",
+                  "backup_frequency": "weekly",
+                  "backup_type": "tapes",
+                  "certified_with": "coretrustseal",
+                  "description": "Merritt repository via Dryad",
+                  "geo_location": "US",
+                  "pid_system": "doi",
+                  "storage_type": "AWS cloud disk",
+                  "support_versioning": "yes",
+                  "url": "https://datadryad.org"
+                },
+                "license": [
+                  {
+                    "license_ref": "https://creativecommons.org/licenses/by/4.0/",
+                    "start_date": "2019-06-30"
+                  }
+                ]
+              }
+            ],
+            "issued": "2020-09-13T08:48:12",
+            "keyword": ["brain", "cerebral", "squishy"],
+            "language": "eng",
+            "metadata": [
+              {
+                "description": "Some biological sample standard",
+                "language": "eng",
+                "metadata_standard_id": {
+                  "type": "url",
+                  "identifier": "https://some.standard.org/biology"
+                }
+              }
+            ],
+            "preservation_statement": "We will preserve the data long term.",
+            "security_and_privacy": [
+              {
+                "title": "Patient personal information",
+                "description": "We are going to anonymize all of the patient personal info"
+              }
+            ],
+            "technical_resource": [
+              {
+                "title": "123/45/43/AT",
+                "description": "MRI scanner"
+              }
+            ]
+          }
+        ],
+        "dmphub_links": {
+          "get": "http://localhost:3001/api/v0/data_management_plans/doi:10.9999/ABCDEFG",
+          "post": "http://localhost:3001/api/v0/data_management_plans",
+          "put": "http://localhost:3001/api/v0/data_management_plans/doi:10.9999/ABCDEFG",
+          "delete": "http://localhost:3001/api/v0/data_management_plans/doi:10.9999/ABCDEFG"
+        },
+        "related_identifiers": [
+          { "type": "URL", "identifier": "https://www.example.org/project/1234/plan/123", "descriptor": "is_metadata_for" },
+          { "type": "URL", "identifier": "https://doi.org/10.0000/1234.ZZZ", "descriptor": "is_referenced_by" }
+        ]
+      }
+    }
+  ]
+}

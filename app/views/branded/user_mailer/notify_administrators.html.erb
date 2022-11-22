@@ -1,0 +1,8 @@
+<p>
+  <%= _('An error has been reported from %{tool_name}') %{ tool_name: tool_name } %>
+</p>
+<p>
+  <%= sanitize(@message.to_s) %>
+</p>
+
+<%= render partial: 'email_signature', locals: { allow_change_prefs: false } %>

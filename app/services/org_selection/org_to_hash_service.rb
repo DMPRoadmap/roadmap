@@ -18,7 +18,7 @@ module OrgSelection
       #   sort_name: "Foo"
       # }
       def to_hash(org:)
-        return {} unless org.present?
+        return {} if org.blank?
 
         out = {
           id: org.id,
@@ -27,7 +27,7 @@ module OrgSelection
         }
         # tack on any identifiers
         org.identifiers.each do |id|
-          next unless id.identifier_scheme.present?
+          next if id.identifier_scheme.blank?
 
           out[:"#{id.identifier_scheme.name.downcase}"] = id.value
         end

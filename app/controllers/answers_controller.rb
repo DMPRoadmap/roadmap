@@ -62,6 +62,7 @@ class AnswersController < ApplicationController
         )
         @answer.save!
       end
+    # TODO: this is madness. Why not just do a find_or_initialize_by above?
     rescue ActiveRecord::RecordNotFound
       @answer = Answer.new(args.merge(user_id: current_user.id))
       @answer.lock_version = 1
@@ -174,10 +175,10 @@ class AnswersController < ApplicationController
     # If question_option_ids has been filtered out because it was a
     # scalar value (e.g. radiobutton answer)
     if !params[:answer][:question_option_ids].nil? &&
-       !permitted[:question_option_ids].present?
+       permitted[:question_option_ids].blank?
       permitted[:question_option_ids] = [params[:answer][:question_option_ids]]
     end
-    permitted.delete(:id) unless permitted[:id].present?
+    permitted.delete(:id) if permitted[:id].blank?
     # If no question options has been chosen.
     permitted[:question_option_ids] = [] if params[:answer][:question_option_ids].nil?
     permitted

@@ -7,7 +7,7 @@ RSpec.configure do |config|
     # FactoryBot.lint
   end
 
-  config.append_after(:each) do
+  config.append_after do
     FactoryBot.rewind_sequences
   end
 end

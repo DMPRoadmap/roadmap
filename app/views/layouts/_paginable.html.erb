@@ -52,7 +52,9 @@
         </div>
         <div class="pull-right">
           <% if paginable? %>
+            <nav class="c-pagination pagination" aria-label="pagination">
               <%= paginate(scope, params: paginable_params, remote: remote) %>
+            </nav>
           <% end %>
         </div>
         <div class="clearfix"></div>

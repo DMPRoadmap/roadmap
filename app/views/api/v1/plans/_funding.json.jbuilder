@@ -5,7 +5,7 @@
 json.name plan.funder&.name
 
 if plan.funder.present?
-  id = Api::V1::OrgPresenter.affiliation_id(identifiers: plan.funder.identifiers)
+  id = Api::V1::OrgPresenter.affiliation_id(identifiers: plan.funder.identifiers, fundref: true)
 
   if id.present?
     json.funder_id do
@@ -14,7 +14,7 @@ if plan.funder.present?
   end
 end
 
-if plan.grant_id.present? && plan.grant.present?
+if plan.grant.present?
   json.grant_id do
     json.partial! 'api/v1/identifiers/show', identifier: plan.grant
   end

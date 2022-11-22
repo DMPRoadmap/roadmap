@@ -13,7 +13,7 @@ class PlanPolicy < ApplicationPolicy
     @record.readable_by?(@user.id)
   end
 
-  def share?
+  def publish?
     @record.editable_by?(@user.id) ||
       (@user.can_org_admin? &&
        @user.org.plans.include?(@record))
@@ -81,5 +81,18 @@ class PlanPolicy < ApplicationPolicy
 
   def organisationally_or_publicly_visible?
     @user.present?
+  end
+
+  # DMPTool customization
+  def mint?
+    @record.owner == @user || @user.can_super_admin?
+  end
+
+  def add_orcid_work?
+    @record.administerable_by?(@user.id)
+  end
+
+  def set_featured?
+    @user.can_org_admin?
   end
 end

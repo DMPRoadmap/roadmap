@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Annotation, type: :model do
+RSpec.describe Annotation do
   it_behaves_like 'VersionableModel'
 
   context 'validations' do
@@ -18,9 +18,9 @@ RSpec.describe Annotation, type: :model do
   end
 
   describe '#to_s' do
-    let!(:annotation) { build(:annotation) }
-
     subject { annotation.to_s }
+
+    let!(:annotation) { build(:annotation) }
 
     it { is_expected.to eql(annotation.text) }
   end
@@ -56,11 +56,12 @@ RSpec.describe Annotation, type: :model do
     context 'when question_id option is set' do
       before do
         @annotation = create(:annotation)
-        @new_annotation = @annotation.deep_copy(question_id: 1)
+        args = { question_id: 1 }
+        @new_annotation = @annotation.deep_copy(**args)
       end
 
       it 'sets question_id to nil' do
-        expect(@new_annotation.question_id).to eql(1)
+        expect(@new_annotation.question_id).to be(1)
       end
     end
   end

@@ -20,6 +20,14 @@ namespace :external_api do
     ExternalApis::SpdxService.fetch
   end
 
+  # rubocop:disable Layout/LineLength
+  desc 'Populate the registry_orgs table from latest tmp/ror.json (single use) To force it to reprocess you can pass an argument `rails "external_api:ror_index[true]"` (Note the quotes)'
+  # rubocop:enable Layout/LineLength
+  task :sync_registry_orgs, [:force] => :environment do |_, args|
+    p 'Processing the latest ROR org registry from file tmp/ror.json and updating the repositories table'
+    ExternalApis::RorService.fetch(force: args[:force])
+  end
+
   desc 'Seed the Research Domain table with Field of Science categories'
   task add_field_of_science_to_research_domains: :environment do
     # TODO: If we can identify an external API authority for this information we should switch
@@ -113,6 +121,30 @@ namespace :external_api do
         p "    #{child[:identifier]} - #{child[:label]}"
         ResearchDomain.find_or_create_by(child)
       end
+    end
+  end
+
+  desc 'Push specified plan to the owners ORCID record if they have authorized the interaction'
+  task :add_plan_to_orcid_works, [:id] => [:environment] do |_t, args|
+    plan = Plan.find_by(id: args[:id])
+
+    if plan.present?
+      owner = plan.owner
+      orcid = owner.identifier_for_scheme(scheme: 'orcid')
+      token = ExternalApiAccessToken.for_user_and_service(user: plan.owner, service: 'orcid')
+
+      if owner.present? && token.present? && orcid.present?
+        # TODO: Although ORCID will prevent suplicate entries, it might be good to add a method
+        #       to the OrcidService that checks to see if the work is already there.
+        ExternalApis::OrcidService.add_work(user: owner, plan: plan)
+        true
+      else
+        p 'Either the plan has no owner or the owner has not authorized us to write to their ORCID record'
+        false
+      end
+    else
+      p 'Expected a plan id to be specified like `rails external_api:add_plan_to_orcid_works[123]`'
+      false
     end
   end
 end

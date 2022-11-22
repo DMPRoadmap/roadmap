@@ -1,0 +1,48 @@
+<%# locals: notice, alert %>
+
+<%# Success/notice messages %>
+<% globals = Notification.active_per_user(current_user) %>
+
+<div id="notification-area" class="c-notificationgroup">
+  <%
+  global_infos = globals.select { |item| item.info? }
+  global_warnings = globals.select { |item| item.warning? }
+  global_dangers = globals.select { |item| item.danger? }
+
+  has_notice = flash[:notice].present? || global_infos.any?
+  has_warning = flash[:warn].present? || global_warnings.any?
+  has_alert = flash[:alert].present? || flash[:error].present? || global_dangers.any?
+  %>
+
+  <!-- Success message -->
+  <div id="js-notification-info" class="c-notification--info<%= has_notice ? '' : ' hide' %>"
+        role="alert">
+    <% if has_notice %>
+      <p><%= sanitize(flash[:notice]) %><%= yield :model_errors %></p>
+    <% end %>
+    <% global_infos.each do |msg| %>
+      <p><%= sanitize msg.body %></p>
+    <% end %>
+  </div>
+
+  <div id="js-notification-warning" class="c-notification--warning<%= has_warning ? '' : ' hide' %>"
+        role="alert">
+    <% if has_warning %>
+      <p><%= sanitize(flash[:warn]) %><%= yield :model_errors %></p>
+    <% end %>
+    <% global_warnings.each do |msg| %>
+      <p><%= sanitize msg.body %></p>
+    <% end %>
+  </div>
+
+  <!-- Error message -->
+  <div id="js-notification-danger" class="c-notification--danger<%= has_alert ? '' : ' hide' %>" role="alert">
+    <% if has_alert %>
+      <% msg = flash[:alert].present? ? flash[:alert] : flash[:error] %>
+      <p><strong><%= _('Error:') %></strong> <%= sanitize(msg) %></p>
+    <% end %>
+    <% global_dangers.each do |msg| %>
+      <p><%= sanitize msg.body %></p>
+    <% end %>
+  </div>
+</div>
