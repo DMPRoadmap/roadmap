@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 # Use this hook to configure contact mailer.
 ContactUs.setup do |config|
-
   # ==> Mailer Configuration
 
   # Configure the e-mail address which email notifications should be sent from.
@@ -24,5 +25,4 @@ ContactUs.setup do |config|
   # Example:
   # config.form_gem = 'formtastic
   # config.form_gem = 'formtastic'
-
 end
