@@ -31,7 +31,7 @@ namespace :export_production_data do
   desc 'Export org and question format from 3.0.2 database to seeds_1.rb'
   task seed_1_export: :environment do
     file_name = 'db/seeds/sandbox/seeds_1.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     Faker::Config.random = Random.new(Org.count)
     File.open(file_name, 'a') do |f|
       excluded_keys = %w[created_at updated_at]
@@ -86,7 +86,7 @@ namespace :export_production_data do
   desc 'Export guidance group and theme format from 3.0.2 database to seeds_2.rb'
   task seed_2_export: :environment do
     file_name = 'db/seeds/sandbox/seeds_2.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     excluded_keys = %w[created_at updated_at]
     open(file_name, 'a') do |f|
       GuidanceGroup.all.each do |guidance_group|
@@ -104,7 +104,7 @@ namespace :export_production_data do
   desc 'Export guidance and template_related content from 3.0.2 database to seeds_3.rb'
   task seed_3_export: :environment do
     file_name = 'db/seeds/sandbox/seeds_3.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     excluded_keys = %w[created_at updated_at]
     open(file_name, 'a') do |f|
       GuidanceGroup.all.each do |guidance_group|
@@ -163,7 +163,7 @@ namespace :export_production_data do
   desc 'Export plan content from 3.0.2 database to seeds_5.rb'
   task seed_5_export: :environment do
     file_name = 'db/seeds/sandbox/seeds_5.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     excluded_keys = %w[created_at updated_at start_date end_date]
     org_list = [Rails.application.secrets.funder_org_id.to_i, Rails.application.secrets.english_org_id.to_i,
                 Rails.application.secrets.french_org_id.to_i]

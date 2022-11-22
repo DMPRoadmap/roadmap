@@ -97,7 +97,7 @@ Rails.application.configure do
     authentication: Rails.application.secrets.smtp_authentication || 'plain',
     enable_starttls_auto: true
   }
-  
+
   # Fix JSON Download Error
   Rails.application.routes.default_url_options[:host] = "assistant-sandbox.library.ualberta.ca"
 end

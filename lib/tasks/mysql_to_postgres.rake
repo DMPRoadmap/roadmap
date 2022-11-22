@@ -30,7 +30,7 @@ namespace :mysql_to_postgres do
   # separate entities that will generate SEED file
   task read_0: :environment do
     file_name = 'db/seeds/staging/seeds_0.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.open(file_name, 'a') do |f|
       # language - no timestamp
       puts 'loading languages...'
@@ -115,7 +115,7 @@ namespace :mysql_to_postgres do
       themes << theme
     end
     file_name = 'db/seeds/staging/temp/themes.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(themes))
     # guidance group
     ggs = []
@@ -129,7 +129,7 @@ namespace :mysql_to_postgres do
       ggs << guidance_group
     end
     file_name = 'db/seeds/staging/temp/guidance_groups.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(ggs))
     # themes_in_guidance
     puts 'loading guidances and themes_in_guidance...'
@@ -140,7 +140,7 @@ namespace :mysql_to_postgres do
       t_i_gs << t_i_g
     end
     file_name = 'db/seeds/staging/temp/themes_in_guidance.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(t_i_gs))
     # guidances
     sql = 'SELECT * FROM guidances'
@@ -153,7 +153,7 @@ namespace :mysql_to_postgres do
       gs << g
     end
     file_name = 'db/seeds/staging/temp/guidances.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(gs))
     # guidance_in_group
     gigs = []
@@ -164,7 +164,7 @@ namespace :mysql_to_postgres do
       gigs << gig
     end
     file_name = 'db/seeds/staging/temp/guidance_in_group.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(gigs))
     # guidance_translations
     gts = []
@@ -178,7 +178,7 @@ namespace :mysql_to_postgres do
       gts << gt
     end
     file_name = 'db/seeds/staging/temp/guidance_translations.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(gts))
     # notification
     sql = 'SELECT * FROM notifications'
@@ -193,7 +193,7 @@ namespace :mysql_to_postgres do
       nts << notification
     end
     file_name = 'db/seeds/staging/temp/notifications.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(nts))
     # notification acknowledgements
     ntas = []
@@ -203,7 +203,7 @@ namespace :mysql_to_postgres do
       ntas << n_a
     end
     file_name = 'db/seeds/staging/temp/notification_acknowledgements.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(ntas))
   end
 
@@ -233,7 +233,7 @@ namespace :mysql_to_postgres do
       users << user
     end
     file_name = 'db/seeds/staging/temp/users.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(users))
     # users_perms
     users_perms = []
@@ -244,7 +244,7 @@ namespace :mysql_to_postgres do
       users_perms << users_perm
     end
     file_name = 'db/seeds/staging/temp/users_perms.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(users_perms))
     # user_statuse
     user_statuses = []
@@ -255,7 +255,7 @@ namespace :mysql_to_postgres do
       user_statuses << user_statuse
     end
     file_name = 'db/seeds/staging/temp/user_statuses.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(user_statuses))
     # user_types
     user_types = []
@@ -269,7 +269,7 @@ namespace :mysql_to_postgres do
       user_types << user_type
     end
     file_name = 'db/seeds/staging/temp/user_types.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(user_types))
   end
 
@@ -287,7 +287,7 @@ namespace :mysql_to_postgres do
       templates << template
     end
     file_name = 'db/seeds/staging/temp/templates.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(templates))
     # phases & phase_translations
     puts 'loading phases'
@@ -301,7 +301,7 @@ namespace :mysql_to_postgres do
       phases << phase
     end
     file_name = 'db/seeds/staging/temp/phases.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(phases))
     puts 'loading phase_translations'
     timestamps = %w[created_at
@@ -314,7 +314,7 @@ namespace :mysql_to_postgres do
       phase_translations << p_t
     end
     file_name = 'db/seeds/staging/temp/phase_translations.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(phase_translations))
     # sections & section_translations
     puts 'loading sections'
@@ -328,7 +328,7 @@ namespace :mysql_to_postgres do
       sections << section
     end
     file_name = 'db/seeds/staging/temp/sections.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(sections))
     puts 'loading section_translations'
     timestamps = %w[created_at
@@ -341,7 +341,7 @@ namespace :mysql_to_postgres do
       section_translations << s_t
     end
     file_name = 'db/seeds/staging/temp/section_translations.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(section_translations))
     # questions & question_translations
     puts 'loading questions'
@@ -359,7 +359,7 @@ namespace :mysql_to_postgres do
       questions << question
     end
     file_name = 'db/seeds/staging/temp/questions.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(questions))
     puts 'loading question_translations'
     timestamps = %w[created_at
@@ -372,7 +372,7 @@ namespace :mysql_to_postgres do
       question_translations << q_t
     end
     file_name = 'db/seeds/staging/temp/question_translations.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(question_translations))
     # question_formats & question_format_translations
     puts 'loading question_formats'
@@ -386,7 +386,7 @@ namespace :mysql_to_postgres do
       question_formats << question_format
     end
     file_name = 'db/seeds/staging/temp/question_formats.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(question_formats))
     puts 'loading question_format_translations'
     timestamps = %w[created_at
@@ -399,7 +399,7 @@ namespace :mysql_to_postgres do
       question_format_translations << q_f_t
     end
     file_name = 'db/seeds/staging/temp/question_format_translations.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(question_format_translations))
     # options ( option_warnings is empty)
     sql = 'SELECT * FROM options'
@@ -412,7 +412,7 @@ namespace :mysql_to_postgres do
       options << option
     end
     file_name = 'db/seeds/staging/temp/options.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(options))
     # question_options. Some of q_o doesn't have created_at and updated_at, thus assign nil
     puts 'loading question_options'
@@ -428,7 +428,7 @@ namespace :mysql_to_postgres do
       question_options << question_option
     end
     file_name = 'db/seeds/staging/temp/question_options.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(question_options))
     # questions_themes
     puts 'loading questions_themes'
@@ -442,7 +442,7 @@ namespace :mysql_to_postgres do
       questions_themes << questions_theme
     end
     file_name = 'db/seeds/staging/temp/questions_themes.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(questions_themes))
     # conditions
     puts 'loading conditions'
@@ -456,7 +456,7 @@ namespace :mysql_to_postgres do
       conditions << condition
     end
     file_name = 'db/seeds/staging/temp/conditions.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(conditions))
   end
 
@@ -474,7 +474,7 @@ namespace :mysql_to_postgres do
       identifier_schemes << identifier_scheme
     end
     file_name = 'db/seeds/staging/temp/identifier_schemes.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(identifier_schemes))
     # identifiers
     identifiers = []
@@ -488,7 +488,7 @@ namespace :mysql_to_postgres do
       identifiers << identifier
     end
     file_name = 'db/seeds/staging/temp/identifiers.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(identifiers))
     # plans
     plans = []
@@ -504,7 +504,7 @@ namespace :mysql_to_postgres do
       plans << plan
     end
     file_name = 'db/seeds/staging/temp/plans.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(plans))
     # plan_sections
     plan_sections = []
@@ -518,7 +518,7 @@ namespace :mysql_to_postgres do
       plan_sections << plan_section
     end
     file_name = 'db/seeds/staging/temp/plan_sections.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(plan_sections))
     # plans_guidance_groups
     plans_guidance_groups = []
@@ -529,7 +529,7 @@ namespace :mysql_to_postgres do
       plans_guidance_groups << plans_guidance_group
     end
     file_name = 'db/seeds/staging/temp/plans_guidance_groups.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(plans_guidance_groups))
     # roles
     roles = []
@@ -543,7 +543,7 @@ namespace :mysql_to_postgres do
       roles << role
     end
     file_name = 'db/seeds/staging/temp/roles.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(roles))
     # users_roles
     users_roles = []
@@ -557,7 +557,7 @@ namespace :mysql_to_postgres do
       users_roles << users_role
     end
     file_name = 'db/seeds/staging/temp/users_roles.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(users_roles))
     # contributors
     contributors = []
@@ -571,7 +571,7 @@ namespace :mysql_to_postgres do
       contributors << contributor
     end
     file_name = 'db/seeds/staging/temp/contributors.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(contributors))
     # comments
     comments = []
@@ -585,7 +585,7 @@ namespace :mysql_to_postgres do
       comments << comment
     end
     file_name = 'db/seeds/staging/temp/comments.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(comments))
     # versions
     versions = []
@@ -599,7 +599,7 @@ namespace :mysql_to_postgres do
       versions << version
     end
     file_name = 'db/seeds/staging/temp/versions.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(versions))
     # version_translations
     version_translations = []
@@ -613,7 +613,7 @@ namespace :mysql_to_postgres do
       version_translations << version_translation
     end
     file_name = 'db/seeds/staging/temp/version_translations.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(version_translations))
     # exported_plans
     exported_plans = []
@@ -627,7 +627,7 @@ namespace :mysql_to_postgres do
       exported_plans << exported_plan
     end
     file_name = 'db/seeds/staging/temp/exported_plans.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(exported_plans))
   end
 
@@ -645,7 +645,7 @@ namespace :mysql_to_postgres do
       organisations << organisation
     end
     file_name = 'db/seeds/staging/temp/organisations.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(organisations))
     puts 'loading organisation_types...'
     sql = 'SELECT * FROM organisation_types'
@@ -658,7 +658,7 @@ namespace :mysql_to_postgres do
       organisation_types << organisation_type
     end
     file_name = 'db/seeds/staging/temp/organisation_types.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(organisation_types))
     puts 'loading org_token_permissions...'
     sql = 'SELECT * FROM org_token_permissions'
@@ -671,7 +671,7 @@ namespace :mysql_to_postgres do
       org_token_permissions << org_token_permission
     end
     file_name = 'db/seeds/staging/temp/org_token_permissions.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(org_token_permissions))
     # annotations
     annotations = []
@@ -685,7 +685,7 @@ namespace :mysql_to_postgres do
       annotations << annotation
     end
     file_name = 'db/seeds/staging/temp/annotations.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(annotations))
     # answers
     answers = []
@@ -699,7 +699,7 @@ namespace :mysql_to_postgres do
       answers << answer
     end
     file_name = 'db/seeds/staging/temp/answers.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(answers))
     # answers_options
     answers_options = []
@@ -710,7 +710,7 @@ namespace :mysql_to_postgres do
       answers_options << answers_option
     end
     file_name = 'db/seeds/staging/temp/answers_options.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(answers_options))
     # answers_question_options
     answers_question_options = []
@@ -721,7 +721,7 @@ namespace :mysql_to_postgres do
       answers_question_options << answers_question_option
     end
     file_name = 'db/seeds/staging/temp/answers_question_options.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(answers_question_options))
     # suggested_answers
     suggested_answers = []
@@ -732,7 +732,7 @@ namespace :mysql_to_postgres do
       suggested_answers << suggested_answer
     end
     file_name = 'db/seeds/staging/temp/suggested_answers.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(suggested_answers))
     # versions & versions_translations
     versions = []
@@ -746,7 +746,7 @@ namespace :mysql_to_postgres do
       versions << version
     end
     file_name = 'db/seeds/staging/temp/versions.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(versions))
     version_translations = []
     puts 'loading version_translations'
@@ -759,7 +759,7 @@ namespace :mysql_to_postgres do
       version_translations << version_translation
     end
     file_name = 'db/seeds/staging/temp/version_translations.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(version_translations))
   end
   # projects and file related
@@ -775,7 +775,7 @@ namespace :mysql_to_postgres do
       friendly_id_slugs << friendly_id_slug
     end
     file_name = 'db/seeds/staging/temp/friendly_id_slugs.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(friendly_id_slugs))
     # projects
     projects = []
@@ -789,7 +789,7 @@ namespace :mysql_to_postgres do
       projects << project
     end
     file_name = 'db/seeds/staging/temp/projects.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(projects))
     # project_groups
     project_groups = []
@@ -803,7 +803,7 @@ namespace :mysql_to_postgres do
       project_groups << project_group
     end
     file_name = 'db/seeds/staging/temp/project_groups.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(project_groups))
     # project_guidance
     project_guidances = []
@@ -814,7 +814,7 @@ namespace :mysql_to_postgres do
       project_guidances << project_guidance
     end
     file_name = 'db/seeds/staging/temp/project_guidances.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(project_guidances))
     # file_types & file_uploads has no data, skipped
     # exported_plans
@@ -827,7 +827,7 @@ namespace :mysql_to_postgres do
       exported_plans << exported_plan
     end
     file_name = 'db/seeds/staging/temp/exported_plans.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(exported_plans))
   end
   # API, setting, sessions and rests
@@ -844,7 +844,7 @@ namespace :mysql_to_postgres do
       ar_internal_metadatas << ar_internal_metadata
     end
     file_name = 'db/seeds/staging/temp/ar_internal_metadata.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(ar_internal_metadatas))
     # sessions
     sessions = []
@@ -856,7 +856,7 @@ namespace :mysql_to_postgres do
       sessions << session
     end
     file_name = 'db/seeds/staging/temp/sessions.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(sessions))
     # settings
     settings = []
@@ -868,7 +868,7 @@ namespace :mysql_to_postgres do
       settings << setting
     end
     file_name = 'db/seeds/staging/temp/settings.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(settings))
     # stats
     stats = []
@@ -880,7 +880,7 @@ namespace :mysql_to_postgres do
       stats << stat
     end
     file_name = 'db/seeds/staging/temp/stats.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(stats))
     # splash_logs -> no data, skip
     # stylesheets
@@ -893,7 +893,7 @@ namespace :mysql_to_postgres do
       stylesheets << stylesheet
     end
     file_name = 'db/seeds/staging/temp/stylesheets.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(stylesheets))
     # trackers
     trackers = []
@@ -905,7 +905,7 @@ namespace :mysql_to_postgres do
       trackers << tracker
     end
     file_name = 'db/seeds/staging/temp/trackers.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(trackers))
     # notes
     timestamps = %w[created_at updated_at]
@@ -918,7 +918,7 @@ namespace :mysql_to_postgres do
       notes << note
     end
     file_name = 'db/seeds/staging/temp/notes.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(notes))
     # prefs
     prefs = []
@@ -929,7 +929,7 @@ namespace :mysql_to_postgres do
       prefs << pref
     end
     file_name = 'db/seeds/staging/temp/prefs.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(prefs))
     # dmptemplates
     dmptemplates = []
@@ -941,7 +941,7 @@ namespace :mysql_to_postgres do
       dmptemplates << dmptemplate
     end
     file_name = 'db/seeds/staging/temp/dmptemplates.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(dmptemplates))
     # dmptemplate_translations
     dmptemplate_translations = []
@@ -953,7 +953,7 @@ namespace :mysql_to_postgres do
       dmptemplate_translations << dmptemplate_translation
     end
     file_name = 'db/seeds/staging/temp/dmptemplate_translations.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(dmptemplate_translations))
     # dmptemplates_guidance_groups
     dmptemplates_guidance_groups = []
@@ -964,7 +964,7 @@ namespace :mysql_to_postgres do
       dmptemplates_guidance_groups << dmptemplates_guidance_group
     end
     file_name = 'db/seeds/staging/temp/dmptemplates_guidance_groups.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(dmptemplates_guidance_groups))
     # region_groups - skip no data
     # schema_migrations
@@ -976,7 +976,7 @@ namespace :mysql_to_postgres do
       schema_migrations << schema_migration
     end
     file_name = 'db/seeds/staging/temp/schema_migrations.rb'
-    File.delete(file_name) if File.exist?(file_name)
+    FileUtils.rm_f(file_name)
     File.write(file_name, JSON.dump(schema_migrations))
   end
 end

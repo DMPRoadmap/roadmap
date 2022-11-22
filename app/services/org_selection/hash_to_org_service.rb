@@ -80,7 +80,7 @@ module OrgSelection
       # Lookup the Org by its :name
       def lookup_org_by_name(hash:)
         clean_name = OrgSelection::SearchService.name_without_alias(name: hash[:name])
-        ## org = Org.search(clean_name).first 
+        ## org = Org.search(clean_name).first
         ## Part of ISSUE149: switch to exact match to solve the bug that 'test' cannot be saved if 'any_org_with_test_as_substring' exist already
         ## if duplicate org name, return the first (i.e. this org exists)
         org = Org.where(name: clean_name).first
