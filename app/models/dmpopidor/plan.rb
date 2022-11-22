@@ -97,38 +97,14 @@ module Dmpopidor
           additional_info: { property_name: 'contact' }
         )
 
-        project_coordinator = Fragment::Contributor.create!(
-          data: {
-            'person' => person.present? ? { 'dbid' => person.id } : nil,
-            'role' => _('Project coordinator')
-          },
-          dmp_id: dmp_fragment.id,
-          parent_id: nil,
-          madmp_schema: MadmpSchema.find_by(name: 'PrincipalInvestigator'),
-          additional_info: { property_name: 'principalInvestigator' }
-        )
-
         #################################
         # META & PROJECT FRAGMENTS
         #################################
-
-        project_schema = if template.research_structure?
-                           MadmpSchema.find_by(name: 'StructureStandard')
-                         else
-                           MadmpSchema.find_by(name: 'ProjectStandard')
-                         end
-        project = Fragment::Project.create!(
-          data: {
-            'title' => title,
-            'description' => description,
-            'principalInvestigator' => { 'dbid' => project_coordinator.id }
-          },
-          dmp_id: dmp_fragment.id,
-          parent_id: dmp_fragment.id,
-          madmp_schema: project_schema,
-          additional_info: { property_name: 'project' }
-        )
-        project.instantiate
+        if template.research_structure?
+          handle_research_structure(dmp_fragment.id)
+        else
+          handle_research_project(dmp_fragment.id, person)
+        end
 
         meta = Fragment::Meta.create!(
           data: {
@@ -147,11 +123,56 @@ module Dmpopidor
         meta.instantiate
 
         dmp_coordinator.update(parent_id: meta.id)
-        project_coordinator.update(parent_id: project.id)
       end
       # rubocop:enable Metrics/BlockLength
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+    # rubocop:disable Metrics/MethodLength
+    def handle_research_project(dmp_id, person)
+      project_schema = MadmpSchema.find_by(name: 'ProjectStandard')
+
+      project_coordinator = Fragment::Contributor.create!(
+        data: {
+          'person' => person.present? ? { 'dbid' => person.id } : nil,
+          'role' => _('Project coordinator')
+        },
+        dmp_id: dmp_id,
+        parent_id: nil,
+        madmp_schema: MadmpSchema.find_by(name: 'PrincipalInvestigator'),
+        additional_info: { property_name: 'principalInvestigator' }
+      )
+
+      project = Fragment::Project.create!(
+        data: {
+          'title' => title,
+          'description' => description,
+          'principalInvestigator' => { 'dbid' => project_coordinator.id }
+        },
+        dmp_id: dmp_id,
+        parent_id: dmp_id,
+        madmp_schema: project_schema,
+        additional_info: { property_name: 'project' }
+      )
+      project.instantiate
+      project_coordinator.update(parent_id: project.id)
+    end
+    # rubocop:enable Metrics/MethodLength
+
+    def handle_research_structure(dmp_id)
+      structure_schema = MadmpSchema.find_by(name: 'StructureStandard')
+      structure = Fragment::Project.create!(
+        data: {
+          'title' => title,
+          'description' => description
+        },
+        dmp_id: dmp_id,
+        parent_id: dmp_id,
+        madmp_schema: structure_schema,
+        additional_info: { property_name: 'project' }
+      )
+      structure.instantiate
+    end
 
     # rubocop:disable Metrics/AbcSize
     def copy_plan_fragments(plan)
