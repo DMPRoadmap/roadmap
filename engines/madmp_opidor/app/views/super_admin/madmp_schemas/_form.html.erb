@@ -22,7 +22,7 @@
         <%= f.label(:api_client_id, _('Api Client'), class: 'control-label') %>
         <%= f.collection_select(:api_client_id,
                 ApiClient.all.order("name ASC"),
-                :id, :name, {prompt: true}, {multiple: false, 'data-toggle': 'tooltip', title: _('Select which API Client this form belongs to.'), class: 'form-control', 'aria-required': true})%>
+                :id, :name, {include_blank: true, prompt: true}, {multiple: false, 'data-toggle': 'tooltip', title: _('Select which API Client this form belongs to.'), class: 'form-control', 'aria-required': true})%>
 
       </div>
       <div class="form-group">
