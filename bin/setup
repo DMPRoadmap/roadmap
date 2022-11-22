@@ -60,12 +60,10 @@ if valid_db
     puts "\n== Removing old logs and tempfiles =="
     system! 'bin/rails log:clear tmp:clear'
 
-    puts "\n== Restarting application server =="
-    system! 'bin/rails restart'
-
-    puts "\n== !!We highly recommend that you populate the Repositories table, but this can take"
-    puts "in excess of 10 minutes so we do not run it as part of this setup!!"
-    puts "    To run it on your own: `bin/rails external_api:load_re3data_repos`"
+    puts "\n== !!We highly recommend that you populate the Repositories and RegistryOrgs tables, but these can take"
+    puts "in excess of 20 minutes due to the number of records so we do not run it as part of this setup!!"
+    puts "    To populate the repositories table: `bin/rails external_api:load_re3data_repos`"
+    puts "    To populate the registry_orgs table: `bin/rails external_api:sync_registry_orgs`"
   end
 else
   puts "\n== You MUST specify the type of DB you would like to use. Either mysql or postgres =="
