@@ -3,6 +3,10 @@
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
 ## 21/11/2022
+- Ajout d'une ligne blanche lors de la sélection du Client API lié à un MadmpSchema, permettant de retirer le client lié au schéma (issue gitbucket 450)
+- La création d'un plan Structure ne crée plus de PrincipalInvestigator (issue gitbucket 454)
+
+## 21/11/2022
 - Export RDA : correction d'un problème de conversion de la certification (issue gitbucket 446)
 - Correction d'un problème de rafraichissement des listes de contributeurs pour les formulaires contenant plusieurs listes de contributeurs
 - Le mail d'ajout de commentaires s'envoit désormais à tous les contributeurs du plan (issue gitbucket 448)
