@@ -14,12 +14,12 @@ require_relative '../lib/ssm_config_loader'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-# Ensure our custom config loader ssm_parameter_store is inserted into Anyway.loaders
-# prior to instantiating our custom Anyway::Config classes.
-::Anyway.loaders.insert_before(:env, :ssm_parameter_store, SsmConfigLoader)
-
 # Load master_key into ENV
 if ENV.key?('SSM_ROOT_PATH')
+  # Ensure our custom config loader ssm_parameter_store is inserted into Anyway.loaders
+  # prior to instantiating our custom Anyway::Config classes.
+  ::Anyway.loaders.insert_before(:env, :ssm_parameter_store, SsmConfigLoader)
+
   begin
     ssm = Uc3Ssm::ConfigResolver.new
     master_key = ssm.parameter_for_key('master_key')
