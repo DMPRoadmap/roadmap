@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 module DMPRoadmap
-  # Config for the WkhtmlToPdf C library
   class Application < Rails::Application
     WickedPdf.config = {
-      exe_path: Rails.configuration.x.dmproadmap.wkhtmltopdf_path
+      exe_path: ENV.fetch('WICKED_PDF_PATH', '/usr/local/bin/wkhtmltopdf')
     }
   end
 end
