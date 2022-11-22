@@ -45,7 +45,7 @@ AllCops:
 # -----------
 # - GEMSPEC -
 # -----------
-Gemspec/DateAssignment: # new in 1.10
+Gemspec/DeprecatedAttributeAssignment:
   Enabled: true
 
 # ----------
@@ -128,8 +128,7 @@ Metrics/BlockLength:
      - 'lib/tasks/utils/*.rake'
      - 'spec/**/*'
 
-  IgnoredMethods: ['describe', 'context', 'task', 'namespace']
-
+  AllowedMethods: ['describe', 'context', 'task', 'namespace']
 # ------------
 # - SECURITY -
 # ------------

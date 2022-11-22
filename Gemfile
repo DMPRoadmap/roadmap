@@ -44,7 +44,7 @@ gem 'jbuilder'
 # gem "image_processing", "~> 1.2"
 
 # Reduces boot times through caching; required in config/boot.rb
-# gem 'bootsnap', require: false
+gem 'bootsnap', require: false
 
 # GEMS ADDED TO HELP HANDLE RAILS MIGRATION FROM 3.x to 4.2
 # THESE GEMS HELP SUPPORT DEPRACATED FUNCTIONALITY AND WILL LOSE SUPPORT IN
@@ -259,7 +259,7 @@ group :development, :test, :sandbox do
   # Code coverage for Ruby 1.9+ with a powerful configuration library and
   # automatic merging of coverage across test suites
   # (http://github.com/colszowka/simplecov)
-  gem 'simplecov', require: false
+  # gem 'simplecov', require: false
 
   # Strategies for cleaning databases.  Can be used to ensure a clean state
   # for testing. (http://github.com/DatabaseCleaner/database_cleaner)
@@ -310,7 +310,7 @@ group :ci, :development do
   # (https://github.com/rubocop-hq/rubocop)
   # Rubocop style checks for DMP Roadmap projects.
   # (https://github.com/DMPRoadmap/rubocop-DMP_Roadmap)
-  gem 'rubocop-dmp_roadmap'
+  # gem 'rubocop-dmp_roadmap'
 
   # Helper gem to require bundler-audit
   # (http://github.com/stewartmckee/bundle-audit)
