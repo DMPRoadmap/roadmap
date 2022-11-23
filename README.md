@@ -53,6 +53,7 @@ The following is a list of customizations that we have made to the base DMPRoadm
 - **Static Content:** Added a gem to allow the `app/views/branded/static_pages` to be managed via Markdown instead of HTML. Changed the content of existing pages and added new pages
 - **Sigin in/Create account:** The sign in and create account workflows has been overhauled to place more emphasis on logging in via institutional credentials (Shibboleth). All of the DMPTool code for these items have been separated into its own `app/views/branded/shared/` subdirectory. The corresponding JS file can be found at `app/javascript/dmptool/`.
 - **Public participating institutions page:** A new Participating Institutions page has been added and is accessible to the public.
+- **Public plans:** The DMPTool provides advanced filtering and search for the public plans page. It also allows institutional administrators to 'feature' exemplar plans that their users have made.
 - **Styling:** We have added `app/assets/stylesheets/dmptool/**/*.scss` files that gets loaded after the base DMPRoadmap stylesheets
 - **Text/Labels:** Various text and labels have been updated.
 - **Related Works:** Admins are able to enter the identifiers for related project outputs (e.g. journal articles, dataset DOIs, etc.) to a DMP's project details page.
