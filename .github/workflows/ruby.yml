@@ -15,7 +15,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     env:
       DB_ADAPTER: mysql2
