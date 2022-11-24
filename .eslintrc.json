@@ -5,7 +5,10 @@
     "jquery": true,
     "jasmine": true
   },
-  "extends": "airbnb-base",
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb-base"
+  ],
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module"
