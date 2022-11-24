@@ -21,7 +21,6 @@ module Dmpopidor
       @commenter_name  = @commenter.name
       @plan            = plan
       @plan_title      = @plan.title
-      @user_name       = @plan.owner.name
       @answer          = answer
       @question        = @answer.question
       @question_number = @question.number
@@ -33,6 +32,7 @@ module Dmpopidor
       @phase_link = url_for(action: 'edit', controller: 'plans', id: @plan.id, phase_id: @phase_id)
 
       I18n.with_locale current_locale(collaborator) do
+        @user_name = collaborator.name
         mail(to: collaborator.email,
              subject: format(_('%{tool_name}: A new comment was added to %{plan_title}'), tool_name: tool_name,
                                                                                           plan_title: @plan.title))
