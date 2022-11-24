@@ -133,8 +133,7 @@ module Dmpopidor
       @helpdesk_email = helpdesk_email(org: @plan.org)
 
       I18n.with_locale current_locale(recipient) do
-        sender = requestor.org.contact_email ||
-                 Rails.configuration.x.organisation.do_not_reply_email ||
+        sender = Rails.configuration.x.organisation.do_not_reply_email ||
                  Rails.configuration.x.organisation.email
 
         mail(to: recipient.email,
