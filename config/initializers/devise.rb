@@ -2,12 +2,14 @@
 
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
+# rubocop:disable Metrics/BlockLength
 Devise.setup do |config|
   config.secret_key = Rails.application.secrets.devise_secret_key
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
-  # note that it will be overwritten if you use your own mailer class with default "from" parameter.
+  # note that it will be overwritten if you use your own mailer class with
+  # default "from" parameter.
   config.mailer_sender = Rails.application.secrets.mailer_from
 
   # Configure the class responsible to send e-mails.
@@ -90,6 +92,11 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
+  # the pepper is now set in credentials.yml.enc which can be edited by setting up
+  # the key in your environment with
+  # export RAILS_MASTER_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  # and then editing the credentials file with
+  # EDITOR=your_fave_editor rails credentials:edit
   config.pepper = Rails.application.secrets.devise_pepper
 
   # ==> Configuration for :invitable
@@ -300,3 +307,4 @@ Devise.setup do |config|
     manager.failure_app = CustomFailure
   end
 end
+# rubocop:enable Metrics/BlockLength

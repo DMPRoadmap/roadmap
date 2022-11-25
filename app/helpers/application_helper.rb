@@ -34,10 +34,6 @@ module ApplicationHelper
 
   deprecate :isActivePage, deprecator: Cleanup::Deprecators::PredicateDeprecator.new
 
-  alias isActivePage active_page?
-
-  deprecate :isActivePage, deprecator: Cleanup::Deprecators::PredicateDeprecator.new
-
   def fingerprinted_asset(name)
     Rails.env.production? ? "#{name}-#{ASSET_FINGERPRINT}" : name
   end
@@ -50,11 +46,11 @@ module ApplicationHelper
   # Where xx_XX is the current locale in ww-WW format. Examples of this are
   # en_CA, fr_CA
   def current_locale_logo
-    file_name = if FeatureFlagHelper.enabled?(:on_sandbox)
-                  "sandbox_logo_#{I18n.locale}.png"
-                else
-                  "dmp_logo_#{I18n.locale}.png"
-                end
+    if FeatureFlagHelper.enabled?(:on_sandbox)
+      "sandbox_logo_#{I18n.locale}.png"
+    else
+      "dmp_logo_#{I18n.locale}.png"
+    end
   end
 
   # We are overriding this method in order to provide different contact us urls
@@ -65,7 +61,7 @@ module ApplicationHelper
     if I18n.locale == 'fr_CA'
       'https://portagenetwork.ca/fr/contactez-nous/'
     else
-      # Handling 'en_CA' locale
+      # Handling "en_CA" locale
       'https://portagenetwork.ca/contact-us/'
     end
   end
@@ -74,7 +70,7 @@ module ApplicationHelper
     if I18n.locale == 'fr_CA'
       'https://portagenetwork.ca/fr/outils-et-ressources/assistant-pgd/conditions-dutilisation-de-lassistant-pgd/'
     else
-      # Handling 'en_CA' locale
+      # Handling "en_CA" locale
       'https://portagenetwork.ca/tools-and-resources/dmp-assistant/dmp-assistant-terms-of-use/'
     end
   end
@@ -83,7 +79,7 @@ module ApplicationHelper
     if I18n.locale == 'fr_CA'
       'https://portagenetwork.ca/fr/outils-et-ressources/assistant-pgd/comment-gerer-vos-donnees/'
     else
-      # Handling 'en_CA' locale
+      # Handling "en_CA" locale
       'https://portagenetwork.ca/tools-and-resources/dmp-assistant/how-to-manage-your-data/'
     end
   end
@@ -92,7 +88,7 @@ module ApplicationHelper
     if I18n.locale == 'fr_CA'
       'https://portagenetwork.ca/fr/outils-et-ressources/personnes-ressources-pour-la-gdr-dans-les-etablissements/'
     else
-      # Handling 'en_CA' locale
+      # Handling "en_CA" locale
       'https://portagenetwork.ca/tools-and-resources/institutional-rdm-contacts/'
     end
   end

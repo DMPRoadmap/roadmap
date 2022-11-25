@@ -2,7 +2,7 @@
 
 # Validation for the format of the JSON for Template links
 class TemplateLinksValidator < ActiveModel::Validator
-  include JSONLinkValidator
+  include JsonLinkValidator
 
   # rubocop:disable Metrics/AbcSize
   def validate(record)

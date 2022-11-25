@@ -2,7 +2,7 @@
 
 require 'json'
 namespace :rewrite_postgres do
-  desc 'Rewrite PostgresSQL tables original MySQL Data using raw query. Please make sure you have switched to PostgreSQL database.'
+  desc 'Start the action to write original MySQL Data in PostgreSQL.'
   task retrieve_data: :environment do
     ActiveRecord::Base.establish_connection(Rails.env.to_s.to_sym)
     Rake::Task['rewrite_postgres:users'].execute
@@ -43,7 +43,9 @@ namespace :rewrite_postgres do
       puts "writing back user #{x['id']}"
       active = x['active'] != 0
       accept_terms = x['accept_terms'] != 0
-      query = ActiveRecord::Base.sanitize_sql(['INSERT INTO users VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+      query = ActiveRecord::Base.sanitize_sql(['INSERT INTO users
+                                              VALUES
+                                              (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
                                                x['id'],
                                                x['firstname'],
                                                x['surname'],
@@ -148,7 +150,8 @@ namespace :rewrite_postgres do
       published = x['published'] != 0
       archived = x['archived'] != 0
       is_default = x['is_default'] != 0
-      query = ActiveRecord::Base.sanitize_sql(['INSERT INTO templates VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      query = ActiveRecord::Base.sanitize_sql(['INSERT INTO templates
+                                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                                                x['id'],
                                                x['title'],
                                                x['description'],
@@ -576,7 +579,8 @@ namespace :rewrite_postgres do
     organisations.each do |x|
       is_other = x['is_other'] != 0
       display_in_registration = x['display_in_registration'] != 0
-      query = ActiveRecord::Base.sanitize_sql(['INSERT INTO organisations VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+      query = ActiveRecord::Base.sanitize_sql(['INSERT INTO organisations
+                                              VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
                                                x['id'],
                                                x['name'],
                                                x['abbreviation'],

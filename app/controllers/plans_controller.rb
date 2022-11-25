@@ -538,27 +538,6 @@ class PlansController < ApplicationController
            })
   end
 
-  # Update, destroy or add the grant
-  def process_grant(grant_params:)
-    return false unless grant_params.present?
-
-    grant = @plan.grant
-
-    # delete it if it has been blanked out
-    if grant_params[:value].blank? && grant.present?
-      grant.destroy
-      @plan.grant = nil
-    elsif grant_params[:value] != grant&.value
-      if grant.present?
-        grant.update(value: grant_params[:value])
-      elsif grant_params[:value].present?
-        @plan.grant = Identifier.new(identifier_scheme: nil, identifiable: @plan,
-                                     value: grant_params[:value])
-      end
-    end
-  end
-  # rubocop:enable
-
   def setup_local_orgs
     @orgs = (Org.includes(identifiers: :identifier_scheme).organisation +
              Org.includes(identifiers: :identifier_scheme).institution +

@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 # config/initializers/jbuilder_prettify.rb
-require "jbuilder"
+require 'jbuilder'
 
+# Helper for JBuilder that allows JSON to be output in human readable format
 class Jbuilder
   ##
   # Allows you to set @prettify manually in your .jbuilder files.

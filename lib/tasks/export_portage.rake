@@ -5,7 +5,6 @@ namespace :export_production_data do
   # The procedure can be adjusted depending on whether the task will be run in a different server first
   task build_sandbox_data: :environment do
     ActiveRecord::Base.establish_connection(Rails.env.to_s.to_sym)
-    # if we are going to do: rake export_production_data:build_sandbox_data RAILS_ENV=development, the line above can be eliminated. It is just to make sure we start from an env other than sandbox
     puts 'Make sure this task in running under production database instead of sandbox database.'
     puts 'seed_0 is manually generated. Skip.'
     puts 'generating seed_1.rb...'
@@ -19,7 +18,7 @@ namespace :export_production_data do
     Rake::Task['export_production_data:seed_5_export'].execute
     puts 'seed_6 is manually generated. Skip.'
     puts 'Now switch to sandbox db environment and seed'
-    puts 'Now copy seeds.rb and all files in seeds folder to sandbox server, then run bundle exec rake db:reset (or db:setup for the first time)' # we could make this run separately & manually also. this line is to reset/setup the database under sandbox environment
+    puts 'Now copy seeds.rb and all files in seeds folder to sandbox server, then run bundle exec rake db:setup'
   end
 
   #####################################################
@@ -27,6 +26,7 @@ namespace :export_production_data do
   ## Following tasks needs to be run in sequence
   #####################################################
 
+  # rubocop:disable Layout/LineLength
   # seed_1: org & question format must be created before templates and template-related components
   desc 'Export org and question format from 3.0.2 database to seeds_1.rb'
   task seed_1_export: :environment do
@@ -39,12 +39,20 @@ namespace :export_production_data do
       Org.all.each do |org|
         # feedback message must fit the default language
         if org.language_id == 2 || org.id == Rails.application.secrets.french_org_id.to_i
-          org.feedback_msg = '<p>Bonjour %{user_name}. </p><br><p> Votre plan "%{plan_name}" a été soumis pour commentaires d’un administrateur de votre organisation. <br>Si vous avez des questions concernant cette action, veuillez communiquer avec nous à %{organisation_email}.</p>'
+          org.feedback_msg = '<p>Bonjour %{user_name}.</p>
+                              <br><p>Votre plan "%{plan_name}" a été soumis pour commentaires d’un administrateur de votre organisation.
+                              <br>Si vous avez des questions concernant cette action, veuillez communiquer avec nous à %{organisation_email}.
+                              </p>'
         else
-          org.feedback_msg = '<p>Hello %{user_name}.</p><br><p>Your plan "%{plan_name}" has been submitted for feedback from an administrator at your organisation.<br>If you have questions pertaining to this action, please contact us at %{organisation_email}.</p>'
+          org.feedback_msg = '<p>Hello %{user_name}.</p>
+                              <br><p>
+                              Your plan "%{plan_name}" has been submitted for feedback from an administrator at your organisation.
+                              <br>If you have questions pertaining to this action, please contact us at %{organisation_email}.
+                              </p>'
         end
         # Only FUNDER_ORG(Portage) keep its original information
-        if org.id.to_i != Rails.application.secrets.funder_org_id.to_i # Only Portage keep its original name and all other information
+        # Only Portage keep its original name and all other information
+        if org.id.to_i != Rails.application.secrets.funder_org_id.to_i
           org.created_at = created
           org.target_url = Org.column_defaults['target_url']
           org.logo_uid = Org.column_defaults['logo_uid']
@@ -81,6 +89,7 @@ namespace :export_production_data do
       end
     end
   end
+  # rubocop:enable Layout/LineLength
 
   # seed2: guidance group and theme must be created before guidance and questions (using theme)
   desc 'Export guidance group and theme format from 3.0.2 database to seeds_2.rb'
@@ -88,7 +97,7 @@ namespace :export_production_data do
     file_name = 'db/seeds/sandbox/seeds_2.rb'
     FileUtils.rm_f(file_name)
     excluded_keys = %w[created_at updated_at]
-    open(file_name, 'a') do |f|
+    File.open(file_name, 'a') do |f|
       GuidanceGroup.all.each do |guidance_group|
         serialized = guidance_group.serializable_hash.delete_if { |key, _value| excluded_keys.include?(key) }
         f.puts "GuidanceGroup.create!(#{serialized})"
@@ -106,7 +115,7 @@ namespace :export_production_data do
     file_name = 'db/seeds/sandbox/seeds_3.rb'
     FileUtils.rm_f(file_name)
     excluded_keys = %w[created_at updated_at]
-    open(file_name, 'a') do |f|
+    File.open(file_name, 'a') do |f|
       GuidanceGroup.all.each do |guidance_group|
         guidances = Guidance.where(guidance_group_id: guidance_group.id)
         guidances.all.each do |guidance|
@@ -115,8 +124,9 @@ namespace :export_production_data do
           f.puts "Guidance.create(#{serialized})"
         end
       end
-      Template.where('title LIKE ?', '%Portage%').where(published: true).all.each do |template| # only use portage network template
-        # since too many version of template could cause rake to crash on seeding process, just get the published version
+      # only use portage network template
+      Template.where('title LIKE ?', '%Portage%').where(published: true).all.each do |template|
+        # Too many version of template crashes rake, just get the published version
         serialized = template.serializable_hash.delete_if { |key, _value| excluded_keys.include?(key) }
         f.puts "Template.create!(#{serialized})"
         # create phases
@@ -167,7 +177,7 @@ namespace :export_production_data do
     excluded_keys = %w[created_at updated_at start_date end_date]
     org_list = [Rails.application.secrets.funder_org_id.to_i, Rails.application.secrets.english_org_id.to_i,
                 Rails.application.secrets.french_org_id.to_i]
-    open(file_name, 'a') do |f|
+    File.open(file_name, 'a') do |f|
       Plan.where(org_id: org_list).all.each_with_index do |plan, index|
         plan.title = "Test Plan #{index}"
         plan.description = Faker::Lorem.sentence

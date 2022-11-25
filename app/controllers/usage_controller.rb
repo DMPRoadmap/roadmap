@@ -57,6 +57,7 @@ class UsageController < ApplicationController
 
   # POST /usage_filter
   # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
   def filter
     # This action is triggered when a user specifies a date range.
     # A super admin can pass along a nil organization to fetch compounded
@@ -86,7 +87,6 @@ class UsageController < ApplicationController
   # rubocop:enable Metrics/MethodLength
 
   # GET /usage_yearly_users
-  # rubocop:disable Metrics/AbcSize
   def yearly_users
     # This action is triggered when a user clicks on the 'download csv' button
     # for the annual users chart
@@ -152,18 +152,14 @@ class UsageController < ApplicationController
   # rubocop:disable Metrics/AbcSize
   def args_from_params
     org = current_user.org
-    if current_user.can_super_admin?
-      # We are OK with nil value for org as we are using it to fetch usage
-      # statistics from all organizations
-      org = Org.find_by(id: usage_params[:org_id])
-    end
+    org = Org.find_by(id: usage_params[:org_id]) if current_user.can_super_admin? && usage_params[:org_id].present?
 
     start_date = usage_params[:start_date] if usage_params[:start_date].present?
     end_date = usage_params[:end_date] if usage_params[:end_date].present?
 
     {
       org: org,
-      start_date: start_date.present? ? start_date : first_plan_date.strftime('%Y-%m-%d'),
+      start_date: start_date.present? ? start_date : first_user_date.strftime('%Y-%m-%d'),
       end_date: end_date.present? ? end_date : Date.today.strftime('%Y-%m-%d')
     }
   end
@@ -205,7 +201,7 @@ class UsageController < ApplicationController
 
   def plan_data(args:, as_json: false, sort: :asc)
     @plans_per_month = StatCreatedPlan.monthly_range(args)
-                                      .where.not(details: '{"\by_template\":[]}')
+                                      .where.not(details: '{"by_template":[]}')
                                       .order(date: sort)
     @plans_per_month = @plans_per_month.map(&:to_json) if as_json
   end
@@ -216,10 +212,6 @@ class UsageController < ApplicationController
 
   def total_users(args:)
     @total_org_users = StatJoinedUser.monthly_range(args.except(:filtered)).sum(:count)
-  end
-
-  def total_organizations(args:)
-    @total_organizations = Org.count
   end
 
   def ranged_organizations(args:)

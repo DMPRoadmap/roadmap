@@ -22,7 +22,7 @@ RSpec.describe ExternalApis::BaseService do
     end
     it 'sets the User-Agent header for the default Application name and contact us url' do
       expected = "#{described_class.send(:app_name)}" \
-                 " (#{described_class.send(:app_email)})"
+                 "(#{described_class.send(:app_email)})"
       expect(@headers[:'User-Agent']).to eql(expected)
     end
   end

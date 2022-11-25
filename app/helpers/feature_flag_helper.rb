@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Helper method to turn system wide feature flag on/off
 module FeatureFlagHelper
   def self.enabled?(feature)
     case feature.to_sym

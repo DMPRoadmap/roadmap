@@ -12,6 +12,8 @@
 #  plan_id    :integer
 #  user_id    :integer
 #
+
+# Object that records when/how a plan was exported/downloaded
 class ExportedPlan < ApplicationRecord
   include SettingsTemplateHelper
 
@@ -106,6 +108,7 @@ class ExportedPlan < ApplicationRecord
   # Export formats
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def as_csv(sections, unanswered_questions, question_headings)
     CSV.generate do |csv|
       # rubocop:disable Style/ConditionalAssignment
@@ -153,9 +156,10 @@ class ExportedPlan < ApplicationRecord
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockLength
-  # rubocop:enable
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def as_txt(sections, unanswered_questions, question_headings, details)
     output = "#{plan.title}\n\n#{plan.template.title}\n"
     output += "\n#{_('Details')}\n\n"
@@ -165,7 +169,7 @@ class ExportedPlan < ApplicationRecord
         output += if value.present?
                     "#{admin_field_t(at.to_s)}: #{value}\n"
                   else
-                    "#{admin_field_t(at.to_s)}: #{_('-')}\n"
+                    "#{admin_field_t(at.to_s)}: -\n"
                   end
       end
     end
@@ -182,7 +186,7 @@ class ExportedPlan < ApplicationRecord
           output += "\n* #{qtext}"
         end
         if answer.nil?
-          output += "#{_('Question not answered.')}\n"
+          output += _('Question not answered.\n')
         else
           q_format = question.question_format
           if q_format.option_based?
@@ -197,18 +201,18 @@ class ExportedPlan < ApplicationRecord
     output
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   private
 
   # Returns an Array of question_ids for the exported settings stored for a plan
+  # rubocop:disable Style/CaseLikeIf
   def questions
     question_settings = settings(:export).fields[:questions]
     @questions ||= if question_settings.present?
-                     case question_settings
-                     when :all
+                     if question_settings == :all
                        Question.where(section_id: plan.sections.collect(&:id)).pluck(:id)
-                     when Array
+                     elsif question_settings.is_a?(Array)
                        question_settings
                      else
                        []
@@ -217,6 +221,7 @@ class ExportedPlan < ApplicationRecord
                      []
                    end
   end
+  # rubocop:enable Style/CaseLikeIf
 
   def sanitize_text(text)
     ActionView::Base.full_sanitizer.sanitize(text.gsub(/&nbsp;/i, '')) unless text.nil?

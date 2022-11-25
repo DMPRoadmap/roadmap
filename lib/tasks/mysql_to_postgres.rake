@@ -5,30 +5,29 @@ namespace :mysql_to_postgres do
   desc 'Generate seed files'
   task retrieve_data: :environment do
     ActiveRecord::Base.establish_connection(Rails.env.to_s.to_sym)
-    # if we are going to do: rake export_production_data:build_sandbox_data RAILS_ENV=development, the line above can be eliminated. It is just to make sure we start from an env other than sandbox
     puts 'Make sure this task in running under production database instead of sandbox database.'
     puts 'Make sure you have /db/seeds/staging/temp folder created.'
     puts 'Read all data to staging-part0.rb'
-    Rake::Task['mysql_to_postgres:read_0'].execute
+    Rake::Task['mysql_to_postgres:read0'].execute
     puts 'Read all data to staging-part1.rb'
-    Rake::Task['mysql_to_postgres:read_1'].execute
+    Rake::Task['mysql_to_postgres:read1'].execute
     puts 'Read all data to staging-part2.rb'
-    Rake::Task['mysql_to_postgres:read_2'].execute
+    Rake::Task['mysql_to_postgres:read2'].execute
     puts 'Read all data to staging-part3.rb'
-    Rake::Task['mysql_to_postgres:read_3'].execute
+    Rake::Task['mysql_to_postgres:read3'].execute
     puts 'Read all data to staging-part4.rb'
-    Rake::Task['mysql_to_postgres:read_4'].execute
+    Rake::Task['mysql_to_postgres:read4'].execute
     puts 'Read all data to staging-part5.rb'
-    Rake::Task['mysql_to_postgres:read_5'].execute
+    Rake::Task['mysql_to_postgres:read5'].execute
     puts 'Read all data to staging-part6.rb'
-    Rake::Task['mysql_to_postgres:read_6'].execute
+    Rake::Task['mysql_to_postgres:read6'].execute
     puts 'Read all data to staging-part7.rb'
-    Rake::Task['mysql_to_postgres:read_7'].execute
+    Rake::Task['mysql_to_postgres:read7'].execute
     puts '...Now, switch environment variable to use postgres database'
   end
 
   # separate entities that will generate SEED file
-  task read_0: :environment do
+  task read0: :environment do
     file_name = 'db/seeds/staging/seeds_0.rb'
     FileUtils.rm_f(file_name)
     File.open(file_name, 'a') do |f|
@@ -102,7 +101,7 @@ namespace :mysql_to_postgres do
   end
 
   # guidance-related
-  task read_1: :environment do
+  task read1: :environment do
     # theme
     themes = []
     puts 'loading themes...'
@@ -208,7 +207,7 @@ namespace :mysql_to_postgres do
   end
 
   # users and users_perms, user_statuses, user_types
-  task read_2: :environment do
+  task read2: :environment do
     # users
     users = []
     puts 'loading users...could take a while'
@@ -274,7 +273,7 @@ namespace :mysql_to_postgres do
   end
 
   # template-related & question-related
-  task read_3: :environment do
+  task read3: :environment do
     # templates
     puts 'loading templates'
     timestamps = %w[created_at
@@ -461,7 +460,7 @@ namespace :mysql_to_postgres do
   end
 
   # plan-related
-  task read_4: :environment do
+  task read4: :environment do
     # identifier schemes
     identifier_schemes = []
     puts 'loading identifier_schemes'
@@ -632,7 +631,7 @@ namespace :mysql_to_postgres do
   end
 
   # organisations, annotations, answers, projects
-  task read_5: :environment do
+  task read5: :environment do
     # organisations, organisation_types, org_token_permissions
     puts 'loading organisations...'
     sql = 'SELECT * FROM organisations'
@@ -763,7 +762,7 @@ namespace :mysql_to_postgres do
     File.write(file_name, JSON.dump(version_translations))
   end
   # projects and file related
-  task read_6: :environment do
+  task read6: :environment do
     # friendly_id_slugs
     timestamps = ['created_at']
     friendly_id_slugs = []
@@ -831,7 +830,7 @@ namespace :mysql_to_postgres do
     File.write(file_name, JSON.dump(exported_plans))
   end
   # API, setting, sessions and rests
-  task read_7: :environment do
+  task read7: :environment do
     timestamps = %w[created_at
                     updated_at]
     # ar_internal_metadata

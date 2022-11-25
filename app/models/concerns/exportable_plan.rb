@@ -3,15 +3,20 @@
 # TODO: This code here doesn't make a lot of sense as a Concern since no other model would
 #       ever use the functionality. It would be better to make it a Service.
 
+# Module that provides helper methods for exporting a Plan in various formats
 # rubocop:disable Metrics/ModuleLength
 module ExportablePlan
   include ConditionsHelper
 
+  # rubocop:disable Style/OptionalBooleanParameter
   def as_pdf(user, coversheet = false)
     prepare(user, coversheet)
   end
+  # rubocop:enable Style/OptionalBooleanParameter
 
-  # rubocop:disable Metrics/AbcSize, Metrics/ParameterLists
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/ParameterLists
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable Style/OptionalBooleanParameter
   def as_csv(user,
              headings = true,
              unanswered = true,
@@ -47,11 +52,14 @@ module ExportablePlan
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/ParameterLists
+  # rubocop:enable Style/OptionalBooleanParameter
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/ParameterLists
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   private
 
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable Style/OptionalBooleanParameter
   def prepare(user, coversheet = false)
     hash = coversheet ? prepare_coversheet : {}
     template = Template.includes(phases: { sections: { questions: :question_format } })
@@ -89,23 +97,23 @@ module ExportablePlan
 
     hash
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:enable Style/OptionalBooleanParameter
+
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def prepare_coversheet
     hash = {}
-    # name of owner and any co-owners
-    attribution = owner.present? ? [owner.name(false)] : []
-    roles.administrator.not_creator.each do |role|
-      attribution << role.user.name(false)
-    end
+    # Use the name of the DMP owner/creator OR the first Co-owner if there is no
+    # owner for some reason
+    attribution = roles.creator.first&.user&.name(false)
+    roles.administrator.not_creator.first&.user&.name(false) unless attribution.present?
     hash[:attribution] = attribution
 
     # Added contributors to coverage of plans.
     # Users will see both roles and contributor names if the role is filled
     hash[:data_curation] = Contributor.where(plan_id: id).data_curation
     hash[:investigation] = Contributor.where(plan_id: id).investigation
-    hash[:pa] =  Contributor.where(plan_id: id).project_administration
+    hash[:pa] = Contributor.where(plan_id: id).project_administration
     hash[:other] = Contributor.where(plan_id: id).other
 
     # Org name of plan owner's org
@@ -129,16 +137,15 @@ module ExportablePlan
     hash
   end
   # rubocop:enable Metrics/AbcSize
-  # rubocop:enable
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize
   def prepare_coversheet_for_csv(csv, _headings, hash)
     csv << [_('Title: '), format(_('%{title}'), title: title)]
-    csv << [if hash[:attribution].many?
-              _('Creators: ')
-            else
-              _('Creator:')
-            end, format(_('%{authors}'), authors: hash[:attribution].join(', '))]
+    csv << if Array(hash[:attribution]).many?
+             [_('Creators: '), format(_('%{authors}'), authors: Array(hash[:attribution]).join(', '))]
+           else
+             [_('Creator:'), format(_('%{authors}'), authors: hash[:attribution])]
+           end
     if hash[:investigation].present?
       csv << [_('Principal Investigator: '),
               format(_('%{investigation}'), investigation: hash[:investigation].map(&:name).join(', '))]
@@ -186,7 +193,7 @@ module ExportablePlan
       answer_text = ''
       if answer.present?
         answer_text += answer.question_options.pluck(:text).join(', ') if answer.question_options.any?
-        answer_text += answer.text if answer.answered?
+        answer_text += answer.text if answer.answered? && answer.text.present?
       elsif unanswered
         answer_text += _('Not Answered')
       end
@@ -211,9 +218,10 @@ module ExportablePlan
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/BlockLength, Metrics/MethodLength
-  # rubocop:enable
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:enable Metrics/ParameterLists
 
+  # rubocop:disable Metrics/AbcSize
   def record_plan_export(user, format)
     # TODO: Re-evaluate how/why we are doing this. The only place it is used is in statistics
     #       generation as 'downloads' without any regard for the format (although we only call this
@@ -234,6 +242,7 @@ module ExportablePlan
     end
     exported_plan.save
   end
+  # rubocop:enable Metrics/AbcSize
 
   def sanitize_text(text)
     ActionView::Base.full_sanitizer.sanitize(text.to_s.gsub(/&nbsp;/i, ''))

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# Controller that determines which templates are displayed/selected for the user when
+# they are creating a new plan
 class TemplateOptionsController < ApplicationController
   include OrgSelectable
 
@@ -8,6 +10,7 @@ class TemplateOptionsController < ApplicationController
   # GET /template_options  (AJAX)
   # Collect all of the templates available for the org+funder combination
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def index
     org_hash = plan_params.fetch(:research_org_id, {})
 
@@ -44,9 +47,13 @@ class TemplateOptionsController < ApplicationController
       # If the no funder was specified OR the funder matches the org
       # if funder.blank? || funder.id == org&.id
       # Retrieve the Org's templates
-      @templates << Template.published.organisationally_visible.where(org_id: org.id, customization_of: nil).to_a
+      @templates << Template.published
+                            .organisationally_visible
+                            .where(org_id: org.id, customization_of: nil).to_a
       @templates = @templates.flatten.uniq
-    else # if'No Primary Research Institution' checkbox is checked, only show publicly available template without customization
+    else
+      # if'No Primary Research Institution' checkbox is checked
+      # only show publicly available template without customization
       @templates = Template.published.publicly_visible.where(org_id: funder.id, customization_of: nil)
     end
     # DMP Assistant: We do not want to include not customized templates from default funder
@@ -63,7 +70,7 @@ class TemplateOptionsController < ApplicationController
     @templates = @templates.uniq.sort_by(&:title)
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   private
 
