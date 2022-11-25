@@ -6,18 +6,8 @@
 
 @import './variables/colours';
 
-$blue: #2c7dad;
-$dark-blue: #1c5170;
-$very-light-blue: #dcecf6;
-$very-very-light-blue: #edf5fa;
-$white: #fff;
-$black: #000;
-$rust: #c6503d;
-$light-rust: #faefed;
-$yellow: #FFCC00;
-$light-yellow: #fff9e5;
-$green: #2CAD5D;
-$light-grey: #e5e4e7;
+@import './dmpopidor_blocks/colours';
+@import './dmpopidor_blocks/news';
 
 @mixin overlay {
     background: #ffffff;
@@ -386,6 +376,11 @@ header .main-nav {
     */
     .static_page_content {
         padding-top: 25px;
+    }
+
+    .news_page h2 {
+      font-size: xx-large;
+      color: $dark-blue;
     }
 
     /*
