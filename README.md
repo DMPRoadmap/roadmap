@@ -73,9 +73,29 @@ See the [Troubleshooting Guide](https://github.com/DMPRoadmap/roadmap/wiki/Troub
 
 The DMP ID repository is an API (backed by a NoSQL document database) that provides DMP ID registration (unique identifiers for DMPs), metadata versioning, publicly accessible and highly available landing pages for DMP ID metadata, and a mechanism for uploading the PDF for a DMP generated outside the DMPTool.
 
+<img src="https://github.com/CDLUC3/dmptool/blob/main/docs/v5/upload_workflow.png" alt="diagram of how the upload DMP form works" width="700"/>
+
+<img src="https://github.com/CDLUC3/dmptool/blob/main/docs/v5/update_workflow.png" alt="diagram of how updates to a DMP ID are handled" width="700"/>
+
 Please see the following repositories:
 - [dmp-hub-cfn](https://github.com/CDLUC3/dmp-hub-cfn) - AWS Cloud Formation templates to build the necessary infrastructure for the DMP ID Repository
 - [dmp-hub-sam](https://github.com/CDLUC3/dmp-hub-sam) - AWS Lambda code that contains all of the application logic
+
+#### How versioning works
+
+The DMP ID repository versions a DMP's metadata (and PDF if applicable) when changes are made.
+
+When changes from the external system (DMPTool in most cases) come through, the DMP ID repository checks the DMP ID item's `modified` date against the internal stored `dmphub_modification_day`. If the dates differ or the modifier is not the system of provenance (the one who created the DMP record) then a new version is created.
+
+When a new version is created the following happens:
+- a 'snapshot' is taken of the curent DMP metadata.
+- a new `dmproadmap_related_identifier` is added to the 'snapshot' that contains a pointer to the 'latest' version.
+- the updated DMP metadata is then merged with any modifications from external systems (e.g. grant ids added by funder systems)
+- a new `dmproadmap_related_identifier` is added to the DMP metadata that is a pointer to the 'snapshot'
+
+Any subsequent requests for the DMP ID display the updated metadata. The prior version is then accessible via an 'All versions' menu item on the landing page, or directly via the `dmproadmap_related_identifier` value
+
+<img src="https://github.com/CDLUC3/dmptool/blob/main/docs/v5/versioning.png" alt="screenshot of an illustrated guide to how DMP ID versioning works" width="700"/>
 
 #### Disabling or replacing the DMP ID repository
 
