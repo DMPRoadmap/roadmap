@@ -7,6 +7,7 @@
 @import './variables/colours';
 
 @import './dmpopidor_blocks/colours';
+@import './dmpopidor_blocks/footer';
 @import './dmpopidor_blocks/news';
 
 @mixin overlay {
@@ -127,118 +128,6 @@ header .main-nav {
 /*
     MAIN CONTENT
 */
-
- /*
-    FOOTER
- */
-.navbar-fixed-bottom {
-    z-index: 50;
-}
-
-#dmpopidor-footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    bottom: 0;
-    font-size: 15px;
-    
-    .footer-content {
-        width: 100%;
-        padding: 0px 100px;
-        color: $white;
-        background-color: $blue;
-        border-top: 3px solid $yellow;
-        
-        .footer-links-logos {
-            display: flex;
-
-            .footer-links {
-                flex: 9;
-            }
-            .footer-logos {
-                flex: 1;
-                padding: 5px;
-                display: flex;
-                align-items: center;
-
-                img {
-                    max-height: 50px;
-                }
-            }
-        }
-        .footer-infos-sn {
-            display: flex;
-            border-top: 1px solid $white;
-            
-            .footer-infos {
-                flex: 9;
-            }
-            .footer-sn {
-                flex: 1;
-                display: flex;
-                align-items: center;
-                justify-content: space-around;
-            }
-
-        }
-
-        span {
-            line-height: 50px;
-            padding-left: 15px;
-            padding-right: 15px;
-        }
-
-
-        a {
-            &:focus,
-            &:active {
-            outline-style: dotted !important;
-            outline-color: white !important;
-            outline-width: 1px !important;
-            }
-            &:hover {
-            outline-style: none !important;
-            }
-        }
-    }
-
-    
-    a, a:active,a:focus,a:visited {
-        color: $white;
-    }
- }
-
-@media (max-width: 1023px) {
-    .footer-links-logos {
-        flex-direction: column;  
-        align-items: center;
-        .break-point {
-            display: none;
-        }
-        .footer-links {
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-        }
-    }
-    .footer-infos-sn {
-        flex-direction: column;  
-        align-items: center;
-    }
-    .org-branding {
-        padding-top: 175px;
-    }
-     
-}
-@media (max-width: 767px) {
-    .org-branding {
-        padding-top: 75px;
-    }
-     
-}
-
- 
 
 
 /*
