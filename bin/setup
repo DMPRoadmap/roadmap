@@ -23,11 +23,8 @@ if valid_db
     system('bundle check') || system!('bundle install')
     system! 'yarn install'
 
-    puts "\n== Copying sample files =="
-    cp 'config/database.yml.sample', 'config/database.yml'
-    cp 'config/initializers/contact_us.rb.example', 'config/initializers/contact_us.rb'
-    cp 'config/initializers/wicked_pdf.rb.example', 'config/initializers/wicked_pdf.rb'
-    cp ".env.#{db_adapter}", '.env'
+    puts "\n== Copying example .env file =="
+    cp ".env.example", '.env'
 
     puts "\n== Preparing credentials file =="
     system! "EDITOR='echo \"$(cat config/credentials.yml.#{db_adapter})\" >' bin/rails credentials:edit"
@@ -35,15 +32,15 @@ if valid_db
     # Set the editor based on the platform
     ENV['EDITOR'] = Gem.win_platform? ? 'code --wait' : 'vim'
 
-    puts "\n== Opening .env in editor ... please update as needed =="
-    puts "    In particular make sure your DB settings are correct."
-    sleep(3)
-    system! '$EDITOR .env'
-
     puts "\n== Opening credentials editor ... please update as needed =="
     puts "    In particular make sure your DB settings are correct."
     sleep(3)
     system! 'bin/rails credentials:edit'
+
+    puts "\n== Opening .env in editor ... please update as needed =="
+    puts "    You can override values from the credentials file here if necessary."
+    sleep(3)
+    system! '$EDITOR .env'
 
     puts "\n== Preparing database =="
     system! 'bin/rails db:setup'
