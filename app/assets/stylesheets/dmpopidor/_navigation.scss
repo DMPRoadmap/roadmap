@@ -1,0 +1,148 @@
+#app-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  position: fixed;
+  top: 0;
+  z-index: 5;
+  width: 100%;
+  min-height: 100px;
+  max-width: 1440px;
+
+  background-color: $white;
+  color: $dark-blue;
+  border-bottom: 2px solid $rust;
+
+
+  .app-logo {
+    height: 75px;
+  }
+
+  .navbar-content {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .header-links,
+  .header-language-account {
+    min-height: 75px;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    text-transform: uppercase;
+
+    li {
+      &.delimiter {
+        padding: 0 10px;
+        font-size: xx-large;
+      }
+
+      a {
+        padding: 5px 20px;
+        color: $dark-blue;
+      }
+
+      a:hover {
+        font-weight: 900;
+        background-color: white;
+      }
+    }
+
+    &>li>a {
+      padding: 15px;
+    }
+
+    li.active {
+
+      a,
+      a:active,
+      a:focus,
+      a:visited {
+        font-weight: bold;
+        background-color: white;
+      }
+    }
+  }
+
+  .header-language-account {
+    #signin-signout {
+      &>a {
+        border-radius: 15px;
+        color: $white;
+        background-color: $dark-blue;
+      }
+    }
+  }
+
+
+}
+
+.main-nav {
+  display: flex;
+  justify-content: center;
+}
+
+// header {
+//   .main-nav {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//   }
+// }
+
+// #app-navbar {
+//   position: fixed;
+//   top: 0;
+//   z-index: 5;
+//   width: 100%;
+//   min-height: 100px;
+//   padding-bottom: 5px;
+
+//   border-bottom: 2px solid $rust;
+
+//   &.navbar-dmpopidor {
+//     background-color: $white;
+//     color: $blue;
+//   }
+
+//   .navbar-content {
+//     max-width: 1440px;
+//   }
+
+//   .app-logo {
+//     height: 75px;
+//   }
+
+//   .navbar-nav {
+//     li {
+
+//       a,
+//       a:active,
+//       a:focus,
+//       a:visited {
+//         color: $blue;
+//       }
+
+//       a:hover {
+//         color: $white;
+//         background-color: $blue;
+//       }
+//     }
+
+//     li.active {
+
+//       a,
+//       a:active,
+//       a:focus,
+//       a:visited {
+//         color: $white;
+//         background-color: $blue;
+//       }
+//     }
+//   }
+// }
+
+// .navbar-toggle .icon-bar {
+//   background-color: $blue;
+// }

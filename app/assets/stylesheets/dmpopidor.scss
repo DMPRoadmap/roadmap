@@ -6,9 +6,13 @@
 
 @import './variables/colours';
 
-@import './dmpopidor_blocks/colours';
-@import './dmpopidor_blocks/footer';
-@import './dmpopidor_blocks/news';
+@import './dmpopidor/colours';
+
+@import './dmpopidor/footer';
+@import './dmpopidor/navigation';
+@import './dmpopidor/org_branding';
+
+@import './dmpopidor/news';
 
 @mixin overlay {
     background: #ffffff;
@@ -39,101 +43,19 @@ body {
     z-index: 7;
 }
 
-/*
-    MENU & FOOTER
-*/
-
-/*
-    MENU
-*/
-
-header .main-nav {
-    display: flex;
-    justify-content: center;
-}
-#app-navbar {
-    position: fixed;
-    top: 0;
-    z-index: 5;
-    width: 100%;
-    
-    &.navbar-dmpopidor {
-        background-color: $white;
-        color: $blue;
-    }
-    border-bottom: 2px solid $rust;
-
-    .navbar-content {
-        max-width: 1264px;
-    }
-
-    .navbar-nav {
-        li {
-            a, a:active,a:focus,a:visited {
-                color: $blue;
-            }
-            a:hover {
-                color: $white;
-                background-color: $blue;
-            }
-        }
-
-        li.active {
-            a, a:active,a:focus,a:visited {
-                color: $white;
-                background-color: $blue;
-            }
-        }
-    }
- }
- .navbar-toggle .icon-bar {
-     background-color: $blue;
- }
-
-
-/*
-    ORG BRANDING
-*/
-.org-branding {
-    padding-top: 75px;
-
-    .container-fluid {
-        max-width: 1264px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-    }
-    .org-banner-text {
-        max-width: 1264px;
-        color: #1a1a1a;
-        text-align: center;
-        border-top: 1px solid #e7e7e7;
-        margin: auto;
-        padding-top: 5px;
-    }
-
-}
-
-#org-navbar {
-    .navbar-nav 
-    {
-        li {
-            a {
-                color: #727272;
-            }
-        }
-    }
-}
-
 
 /*
     MAIN CONTENT
 */
 
+#maincontent {
+  padding-top: 50px;
+}
 
 /*
     DROPDOWNS
 */
-#change-language, #signin-signout, #app-navbar-menu, #admin-dropdown, .plan-actions {
+#admin-dropdown, .plan-actions {
 
     .dmpopidor-dropdown {
         background-color: $white;
