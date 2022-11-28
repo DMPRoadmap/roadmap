@@ -161,7 +161,7 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
     <div class="col-md-12">
       <span class="col-md-2">
         <% file_size = presenter.converted_file_size(size: f.object.byte_size) %>
-        <%= f.number_field "file_size", min: 1, step: 0.1, value: file_size[:size], class: "form-control", aria: { label: _("Anticipated file size") %>
+        <%= f.number_field "file_size", min: 1, step: 0.1, value: file_size[:size], class: "form-control", aria: { label: _("Anticipated file size") } %>
       </span>
       <span class="col-md-1">
         <%= f.select "file_size_unit", options_for_select(presenter.selectable_size_units, file_size[:unit]),
