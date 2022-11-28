@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'text'
+require 'httparty'
 
 namespace :housekeeping do
   desc 'Monthly maintenance script'
@@ -32,10 +33,46 @@ namespace :housekeeping do
   task sync_dmp_ids: :environment do
     scheme = IdentifierScheme.find_by(name: DmpIdService.identifier_scheme&.name)
     if scheme.present?
+      pauser = 0
       Identifier.includes(:identifiable)
                 .where(identifier_scheme_id: scheme.id, identifiable_type: 'Plan')
+                .where('identifiers.value LIKE ?', 'https://doi.org/%')
+                .distinct
+                .order(created_at: :desc)
                 .each do |identifier|
-        DmpIdService.update_dmp_id(plan: identifier.identifiable)
+        next unless identifier.value.present? && identifier.identifiable.present?
+
+        # Pause after every 10 so that we do not get rate limited
+        sleep(5) if pauser >= 10
+        pauser = pauser >= 10 ? 0 : pauser + 1
+
+        # Refetch the Plan and all of it's child objects
+        plan = Plan.includes(:org, :research_outputs, :related_identifiers, roles: [:user],
+                              contributors: [:org, { identifiers: [:identifier_scheme] }],
+                              identifiers: [:identifier_scheme])
+                    .find_by(id: identifier.identifiable.id)
+        begin
+          # See if it exists
+          puts "Processing Plan: #{identifier.identifiable_id}, DMP ID: #{identifier.value}"
+          url = "#{DmpIdService.landing_page_url}/#{identifier.value}"
+          url = identifier.value.to_s.gsub('https://doi.org', DmpIdService.landing_page_url)
+          resp = HTTParty.get(url, { follow_redirects: true, limit: 6 })
+
+          case resp.code
+          when 404, 500
+            puts "   Registering new DMP ID"
+            identifier = DmpIdService.mint_dmp_id(plan: plan, seeding: true)
+            identifier.save if identifier.is_a?(Identifier)
+          when 200
+            puts "   Updating DMP ID"
+            DmpIdService.update_dmp_id(plan: plan)
+          else
+            puts "   Unable to process DMP - got a #{resp.code} from #{DmpIdService.name}"
+            puts resp.body
+          end
+        rescue StandardError => e
+          puts "    ERROR: DMP ID: #{identifier.value} - #{e.message}"
+        end
       end
     else
       p 'No DMP ID minting authority defined so nothing to sync.'

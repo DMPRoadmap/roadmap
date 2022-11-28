@@ -10,11 +10,11 @@ Rails.configuration.x.dmphub.description = 'A DMPHub based DOI minting service: 
 Rails.configuration.x.dmphub.landing_page_url = Rails.configuration.x.dmproadmap.dmphub_landing_page_url
 Rails.configuration.x.dmphub.api_base_url = Rails.configuration.x.dmproadmap.dmphub_url
 Rails.configuration.x.dmphub.auth_path = 'authenticate'
-Rails.configuration.x.dmphub.mint_path = 'data_management_plans'
-Rails.configuration.x.dmphub.update_path = 'data_management_plans'
-Rails.configuration.x.dmphub.delete_path = 'data_management_plans'
+Rails.configuration.x.dmphub.mint_path = 'dmps'
+Rails.configuration.x.dmphub.update_path = 'dmps'
+Rails.configuration.x.dmphub.delete_path = 'dmps'
 
-Rails.configuration.x.dmphub.callback_path = 'data_management_plans/%{dmp_id}'
+Rails.configuration.x.dmphub.callback_path = 'dmps/%{dmp_id}'
 Rails.configuration.x.dmphub.callback_method = 'patch'
 
 Rails.configuration.x.dmphub.client_id = Rails.configuration.x.dmproadmap.dmphub_client_id

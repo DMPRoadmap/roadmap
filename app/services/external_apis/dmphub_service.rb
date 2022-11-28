@@ -68,19 +68,22 @@ module ExternalApis
       # Create a new DMP ID
       # rubocop:disable Metrics/AbcSize
       def mint_dmp_id(plan:)
-        return nil unless active? && auth && plan.present?
+        # TODO: Add the auth check and header back in once Cognito is working!
+        return nil unless active? && plan.present? && #auth
 
         hdrs = {
-          Authorization: @token,
+          # Authorization: @token,
           'Server-Agent': "#{caller_name} (#{client_id})"
         }
+        payload = json_from_template(plan: plan)
         resp = http_post(uri: "#{api_base_url}#{mint_path}",
-                         additional_headers: hdrs, debug: false,
-                         data: json_from_template(plan: plan))
+                         additional_headers: hdrs, debug: false, data: payload)
 
         # DMPHub returns a 201 (created) when a new DMP ID has been minted or
         #                a 405 (method_not_allowed) when a DMP ID already exists
         unless resp.present? && [201, 405].include?(resp.code)
+          puts "DMPHub unable to mint DMP ID: received a #{resp.code}"
+          puts resp.body.inspect
           handle_http_failure(method: 'DMPHub mint_dmp_id', http_response: resp)
           notify_administrators(obj: plan, response: resp)
           return nil
@@ -89,22 +92,26 @@ module ExternalApis
         dmp_id = process_response(response: resp)
         add_subscription(plan: plan, dmp_id: dmp_id) if dmp_id.present?
         dmp_id
+      rescue StandardError => e
+        puts "FATAL: #{e.message}"
+        log_error(method: 'DmphubService.mint_dmp_id', error: e)
       end
       # rubocop:enable Metrics/AbcSize
 
       # Update the DMP ID
       # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
       def update_dmp_id(plan:)
-        return nil unless active? && auth && plan.present?
+        # TODO: Add the auth check and header back in once Cognito is working!
+        return nil unless active? && plan.present? # && auth
 
         hdrs = {
-          Authorization: @token,
+          #Authorization: @token,
           'Server-Agent': "#{caller_name} (#{client_id})"
         }
 
         target = format("#{api_base_url}#{callback_path}", dmp_id: plan.dmp_id&.value_without_scheme_prefix)
-        resp = http_put(uri: target, additional_headers: hdrs, debug: false,
-                        data: json_from_template(plan: plan))
+        payload = json_from_template(plan: plan)
+        resp = http_put(uri: target, additional_headers: hdrs, debug: false, data: payload)
 
         # DMPHub returns a 200 when successful
         unless resp.present? && resp.code == 200
@@ -116,15 +123,39 @@ module ExternalApis
         dmp_id = process_response(response: resp)
         update_subscription(plan: plan) if dmp_id.present?
         dmp_id
+      rescue StandardError => e
+        puts "FATAL: #{e.message}"
+        log_error(method: 'DmphubService.update_dmp_id', error: e)
       end
       # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
       # Delete the DMP ID
       def delete_dmp_id(plan:)
-        return nil unless active? && plan.present?
+         # TODO: Add the auth check and header back in once Cognito is working!
+         return nil unless active? && plan.present? # && auth
 
-        # implement this later once the DMPHub supports it
-        plan.present?
+         hdrs = {
+           #Authorization: @token,
+           'Server-Agent': "#{caller_name} (#{client_id})"
+         }
+
+         target = format("#{api_base_url}#{callback_path}", dmp_id: plan.dmp_id&.value_without_scheme_prefix)
+         payload = json_from_template(plan: plan)
+         resp = http_delete(uri: target, additional_headers: hdrs, debug: false, data: payload)
+
+         # DMPHub returns a 200 when successful
+         unless resp.present? && resp.code == 200
+           handle_http_failure(method: 'DMPHub delete_dmp_id', http_response: resp)
+           notify_administrators(obj: plan, response: resp)
+           return nil
+         end
+
+         dmp_id = process_response(response: resp)
+         delete_subscription(plan: plan) if dmp_id.present?
+         dmp_id
+      rescue StandardError => e
+        puts "FATAL: #{e.message}"
+        log_error(method: 'DmphubService.delete_dmp_id', error: e)
       end
 
       # Register the ApiClient behind the minter service as a Subscriber to the Plan
@@ -167,6 +198,23 @@ module ExternalApis
         true
       end
       # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+      def delete_subscription(plan:)
+        client = api_client
+        Rails.logger.warn 'DMPHubService - No ApiClient defined!' if client.blank?
+        return false unless plan.present? &&
+                            plan.dmp_id.present? &&
+                            callback_path.present? &&
+                            client.present?
+
+        subscriptions = plan.subscriptions.select do |sub|
+          sub.subscriber == client && sub.deletions?
+        end
+        return false unless subscriptions.any?
+
+        subscriptions.each(&:destroy)
+        true
+      end
 
       private
 

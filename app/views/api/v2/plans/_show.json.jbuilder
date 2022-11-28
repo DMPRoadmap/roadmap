@@ -71,13 +71,23 @@ unless @minimal
   json.dmproadmap_external_system_identifier presenter.external_system_identifier&.value
 
   # Any related identifiers known by the DMPTool
-  if plan.related_identifiers.any?
-    json.dmproadmap_related_identifiers plan.related_identifiers do |related|
+  related_identifiers = plan.related_identifiers.map { |r_id| r_id.clone }
+
+  # Add the PDF download link as a related identifier for the DMP ID if the plan is public
+  if plan.visibility == 'publicly_visible'
+    related_identifiers << RelatedIdentifier.new(identifier_type: :url,
+                                                 relation_type: :is_metadata_for,
+                                                 work_type: :output_management_plan,
+                                                 value: presenter.download_pdf_link)
+  end
+
+  if related_identifiers.any?
+    json.dmproadmap_related_identifiers related_identifiers do |related|
       next unless related.value.present? && related.relation_type.present?
 
       json.descriptor related.relation_type
       json.type related.identifier_type
-      json.identifier related.value
+      json.identifier related.value.start_with?('http') ? related.value : "https://doi.org/#{related.value}"
       json.work_type related.work_type
     end
   end

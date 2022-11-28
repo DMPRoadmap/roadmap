@@ -13,8 +13,14 @@ if output.is_a?(ResearchOutput)
   json.issued output.release_date&.to_formatted_s(:iso8601)
 
   json.preservation_statement presenter.preservation_statement
-  json.security_and_privacy presenter.security_and_privacy
-  json.data_quality_assurance presenter.data_quality_assurance
+  json.data_quality_assurance [presenter.data_quality_assurance]
+
+  if presenter.security_and_privacy.present?
+    json.security_and_privacy [presenter.security_and_privacy] do |stmt|
+      json.title 'Security and Privacy'
+      json.description stmt
+    end
+  end
 
   json.dataset_id do
     json.partial! 'api/v2/identifiers/show', identifier: presenter.dataset_id

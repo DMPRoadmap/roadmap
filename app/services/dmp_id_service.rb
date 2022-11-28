@@ -5,10 +5,10 @@ class DmpIdService
   class << self
     # Registers a DMP ID for the specified plan.
     # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-    def mint_dmp_id(plan:)
+    def mint_dmp_id(plan:, seeding: false)
       # plan must exist and not already have a DMP ID!
-      return nil unless minting_service_defined? && plan.present? && plan.is_a?(Plan)
-      return plan.dmp_id if plan.dmp_id.present?
+      return nil unless minting_service_defined? && plan.is_a?(Plan)
+      return plan.dmp_id if plan.dmp_id.present? && !seeding
 
       svc = minter
       return nil if svc.blank?
@@ -17,7 +17,7 @@ class DmpIdService
       return nil if dmp_id.blank?
 
       dmp_id = "#{svc.landing_page_url}#{dmp_id}" unless dmp_id.downcase.start_with?('http')
-      Identifier.new(identifier_scheme: identifier_scheme, identifiable: plan, value: dmp_id)
+      Identifier.find_or_create_by(identifier_scheme: identifier_scheme, identifiable: plan, value: dmp_id)
     rescue StandardError => e
       Rails.logger.debug e.message
       Rails.logger.error "DmpIdService.mint_dmp_id for Plan #{plan&.id} resulted in: #{e.message}"
@@ -38,6 +38,24 @@ class DmpIdService
       return nil if dmp_id.blank?
     rescue StandardError => e
       Rails.logger.error "DmpIdService.update_dmp_id for Plan #{plan&.id} resulted in: #{e.message}"
+      Rails.logger.error e.backtrace
+      nil
+    end
+    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+    # Updates the DMP ID metadata
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    def delete_dmp_id(plan:)
+      # plan must exist and have a DMP ID
+      return nil unless minting_service_defined? && plan.present? && plan.is_a?(Plan) && plan.dmp_id.present?
+
+      svc = minter
+      return nil if svc.blank?
+
+      dmp_id = svc.delete_dmp_id(plan: plan)
+      return nil if dmp_id.blank?
+    rescue StandardError => e
+      Rails.logger.error "DmpIdService.delete_dmp_id for Plan #{plan&.id} resulted in: #{e.message}"
       Rails.logger.error e.backtrace
       nil
     end
