@@ -42,7 +42,7 @@ Roadmap is a Ruby on Rails application and you will need to have:
 * Node >= 18.11
 * MySQL >= 8.0 OR PostgreSQL
 
-## Variations from DMPRoadmap
+#### Variations from DMPRoadmap
 
 The DMPTool Rails application has been modified from the baseline DMPRoadmap codebase in the following ways:
 
