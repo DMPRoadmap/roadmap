@@ -2,7 +2,12 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
-## 21/11/2022
+## 24/11/2022
+- Le mail d'ajout de commentaires s'adresse désormais bien au contributeurs du plan et plus au propriétaire (issue gitbucket 448)
+- Correction du problème affectat l'adresse mail d'envoi du mail de complétion d'assistance/conseil. Auparavant l'application essayait d'envoyer le message avec l'adresse de contact de l'organisme, provocant des rejets du serveur mail hébergeant l'adresse.
+-  Amélioration de l'affichage du formulaire de choix des recommandations, pour les organismes n'ayant qu'un groupe de recommandations.
+
+## 22/11/2022
 - Ajout d'une ligne blanche lors de la sélection du Client API lié à un MadmpSchema, permettant de retirer le client lié au schéma (issue gitbucket 450)
 - La création d'un plan Structure ne crée plus de PrincipalInvestigator (issue gitbucket 454)
 

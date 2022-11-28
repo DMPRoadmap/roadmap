@@ -1,0 +1,19 @@
+<%# locals: choices, current_selections %>
+<% choices.each do |org, groups| %>
+  <li class="checkbox">
+    <%= org.name %>
+    <ul>
+      <% groups.each do |group| %>
+        <li class="checkbox">
+          <span class="sublist">└─ </span>
+          <%= check_box_tag "guidance_group_ids[]",
+                            group.id,
+                            current_selections.include?(group.id),
+                            class: 'guidance-choice',
+                            "aria-label": "#{group.id}" %>
+          <%= group.name %>
+        </li>
+      <% end %>
+    </ul>
+  </li>
+<% end %>
