@@ -25,12 +25,12 @@
         <%= _('FAQ') %>
       </a>
     </span>
-    <span><a href="<%= contact_us %>"><%= _('Contact Us') %></a></a></span>
+    <span><a href="<%= contact_us %>"><%= _('Contact Us') %></a></span>
   </div>
   <div class="footer-col">
     <span class="footer-col-title"><%= _('About') %></span>
     <span><a href="<%= about_us_path %>"><%= _('About') %></a></span>
-    <span><a href="<%= terms_path %>"><%= _('Terms of use') %></a></a></span>
+    <span><a href="<%= terms_path %>"><%= _('Terms of use') %></a></span>
     <span><a href="<%= privacy_path %>"><%= _('Privacy statement') %></a></span>
     <span>
       <a title="DMPOPIDoR Github - <%= _("Opens in new window") %>" target="_blank" href="<%= Rails.configuration.x.application.url %>" target="_blank">
@@ -56,7 +56,7 @@
         <%= sanitize("&copy; 2016 - #{Time.now.year} #{Rails.configuration.x.organisation.abbreviation}") %>
         <% end %>
     </span>
-    <span class="break-point">•</span>
+    <span class="delimiter">&#x25cf;</span>
     <span><%= Rails.configuration.x.application.version %></span>
   </div>
   <div class="footer-sn">
