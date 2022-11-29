@@ -24,7 +24,7 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
                        selected: (research_output.output_type.present? ? research_output.output_type : "" )
                      }, {
                        class: "form-control",
-                       aria: { required: true },
+                       aria: { required: true, label: _("Research output type") },
                        data: { remote: true, url: plan_output_type_selection_path(plan), method: :get }
                      } %>
       </span>
@@ -56,11 +56,11 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
   </div>
   <div class="form-group row">
     <div class="col-md-12">
-      <span class="col-md-12"><%= f.label(:description, _("Description"), class: "control-label") %></span>
+      <span class="col-md-12"><%= f.label(:description, _("Description"), class: "control-label", id: 'research-output-description') %></span>
     </div>
     <div class="col-md-12">
       <span class="col-md-8">
-        <%= f.text_area :description, rows: 4, class: 'form-control tinymce', data: { toggle: "tooltip" } %>
+        <%= f.text_area :description, rows: 4, class: 'form-control tinymce', data: { toggle: "tooltip" }, aria: { labelledby: 'research-output-description' } %>
       </span>
     </div>
   </div>
@@ -161,12 +161,13 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
     <div class="col-md-12">
       <span class="col-md-2">
         <% file_size = presenter.converted_file_size(size: f.object.byte_size) %>
-        <%= f.number_field "file_size", min: 1, step: 0.1, value: file_size[:size], class: "form-control" %>
+        <%= f.number_field "file_size", min: 1, step: 0.1, value: file_size[:size], class: "form-control", aria: { label: _("Anticipated file size") } %>
       </span>
       <span class="col-md-1">
         <%= f.select "file_size_unit", options_for_select(presenter.selectable_size_units, file_size[:unit]),
                                        { selected: file_size[:unit] },
-                                       { class: "form-control float-left" } %>
+                                       { class: "form-control float-left",
+                                         aria: { label: _('File size units') } } %>
       </span>
     </div>
   </div>
