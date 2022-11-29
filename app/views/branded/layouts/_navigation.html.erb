@@ -17,8 +17,26 @@
   <div class="navbar-content">
     <ul class="nav navbar-nav header-links">
       <% if user_signed_in? %>
-        <li <%= 'class=active' if active_page?(plans_path, true)%>>
-          <%= link_to _('My Dashboard'), plans_path %>
+        <li>
+          <a href="#" class="dropdown-toggle" role="button" id="static-pages-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= _('My plans') %> <i class="fas fa-caret-down"></i>
+          </a>
+          <ul class="dropdown-menu dmpopidor-dropdown">
+            <li <%= 'class=active' if active_page?(plans_path, true) %>>
+              <%= link_to _('My Dashboard'), plans_path %>
+            </li>
+            <li role="separator" class="divider"></li>
+            <li <%= 'class=active' if active_page?(new_plan_path, true) %>>
+              <%= link_to _('Create plan for a Research Project'), new_plan_path(context: 'research_project') %>
+            </li>
+            <li <%= 'class=active' if active_page?(new_plan_path, true) %>>
+              <%= link_to _('Create plan for a Research Structure'), new_plan_path(context: 'research_structure') %>
+            </li>
+            <li role="separator" class="divider"></li>
+            <li <%= 'class=active' if active_page?(import_plans_path, true)%>>
+              <%= link_to _('Import DMP'), import_plans_path %>
+            </li>
+          </ul>
         </li>
         <li class="delimiter">&#x25cf;</li>
       <% end %>
