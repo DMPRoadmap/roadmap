@@ -14,22 +14,22 @@ Click here for the latest [releases].(https://github.com/CDLUC3/dmptool/releases
 
 The system consists of 2 major components:
 - The DMPTool, a DMP authoring tool that is focused on helping researchers write DMPs
-- A DMP ID repository (formerly known as the DMPHub) that registers DMP Ids and versions DMP metadata regardless of where the DMP was created
+- The DMPHub that registers DMP Ids and versions DMP metadata regardless of where the DMP was created
 
 From the user perspective, both of these components appear to be a single unified application. An application load balancer should be used to direct traffic to the appropriate backend component. For example
 - `/plans/123` should be directed to the DMPTool Rails based authoring tool so that the user can edit their DMP.
-- `/dmps/doi.org/10.12345/A1FF03a` should be directed to the DMP ID repository's landing page for that DMP ID
+- `/dmps/doi.org/10.12345/A1FF03a` should be directed to the DMPHub's landing page for that DMP ID
 
-The DMPTool Rails application communicates with the DMP ID repository via the API.
+The DMPTool Rails application communicates with the DMPHub via the API.
 - when the user wants to finalize their DMP and create a DMP ID
 - when the user updates data about a DMP that has a registered DMP ID
 
-The DMP ID repository communicates with the DMPTool via the API.
+The DMPHub communicates with the DMPTool via the API.
 - when an external system updates DMP ID metadata for a DMP that was created in the DMPTool (e.g. a funder system provides grant information, or a repository provides the DOI of a deposited dataset)
 
-<img src="https://github.com/CDLUC3/dmptool/blob/main/docs/v5/architecture.png" alt="screenshot of DMPTool and DMP ID repository infrastructure" width="700"/>
+<img src="https://github.com/CDLUC3/dmptool/blob/main/docs/v5/architecture.png" alt="screenshot of DMPTool and DMPHub infrastructure" width="700"/>
 
-Please note that the DMPTool can be run without a DMP ID repository or when using a separate service (e.g. DataCite) to generate DOIs for your DMPs. Please see the 'The DMP ID Repository' section below for instructions on how to make the necessary changes.
+Please note that the DMPTool can be run without the DMPHub or when using a separate service (e.g. DataCite) to generate DOIs for your DMPs. Please see the 'The DMPHub' section below for instructions on how to make the necessary changes.
 
 ### The DMPTool
 
@@ -69,23 +69,23 @@ See the [Installation Guide](https://github.com/CDLUC3/dmptool/wiki/installation
 #### Troubleshooting
 See the [Troubleshooting Guide](https://github.com/DMPRoadmap/roadmap/wiki/Troubleshooting) on the DMPRoadmap Wiki
 
-### The DMP ID Repository
+### The DMPHub
 
-The DMP ID repository is an API (backed by a NoSQL document database) that provides DMP ID registration (unique identifiers for DMPs), metadata versioning, publicly accessible and highly available landing pages for DMP ID metadata, and a mechanism for uploading the PDF for a DMP generated outside the DMPTool.
+The DMPHub is an API (backed by a NoSQL document database) that provides DMP ID registration (unique identifiers for DMPs), metadata versioning, publicly accessible and highly available landing pages for DMP ID metadata, and a mechanism for uploading the PDF for a DMP generated outside the DMPTool.
 
 <img src="https://github.com/CDLUC3/dmptool/blob/main/docs/v5/upload_workflow.png" alt="diagram of how the upload DMP form works" width="700"/>
 
 <img src="https://github.com/CDLUC3/dmptool/blob/main/docs/v5/update_workflow.png" alt="diagram of how updates to a DMP ID are handled" width="700"/>
 
 Please see the following repositories:
-- [dmp-hub-cfn](https://github.com/CDLUC3/dmp-hub-cfn) - AWS Cloud Formation templates to build the necessary infrastructure for the DMP ID Repository
+- [dmp-hub-cfn](https://github.com/CDLUC3/dmp-hub-cfn) - AWS Cloud Formation templates to build the necessary infrastructure for the DMPHub
 - [dmp-hub-sam](https://github.com/CDLUC3/dmp-hub-sam) - AWS Lambda code that contains all of the application logic
 
 #### How versioning works
 
-The DMP ID repository versions a DMP's metadata (and PDF if applicable) when changes are made.
+The DMPHub versions a DMP's metadata (and PDF if applicable) when changes are made.
 
-When changes from the external system (DMPTool in most cases) come through, the DMP ID repository checks the DMP ID item's `modified` date against the internal stored `dmphub_modification_day`. If the dates differ or the modifier is not the system of provenance (the one who created the DMP record) then a new version is created.
+When changes from the external system (DMPTool in most cases) come through, the DMPHub checks the DMP ID item's `modified` date against the internal stored `dmphub_modification_day`. If the dates differ or the modifier is not the system of provenance (the one who created the DMP record) then a new version is created.
 
 When a new version is created the following happens:
 - a 'snapshot' is taken of the curent DMP metadata.
@@ -97,9 +97,9 @@ Any subsequent requests for the DMP ID display the updated metadata. The prior v
 
 <img src="https://github.com/CDLUC3/dmptool/blob/main/docs/v5/versioning.png" alt="screenshot of an illustrated guide to how DMP ID versioning works" width="700"/>
 
-#### Disabling or replacing the DMP ID repository
+#### Disabling or replacing the DMPHub
 
-You can run the DMPTool Rails application without the DMP ID repository component discussed here. To do that you can do one of the following:
+You can run the DMPTool Rails application without the DMPHub component discussed here. To do that you can do one of the following:
 - opting not to allow users to generate DMP IDs at all
   - To do this, simply set both the `enable_dmp_id_registration`, `enable_orcid_publication`, and `dmphub_active` values to `false` in the `config/dmproadmap.yml` file.
 - by using DataCite directly to generate DMP IDs
