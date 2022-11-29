@@ -12,6 +12,7 @@
 @import './dmpopidor/navigation';
 @import './dmpopidor/org_branding';
 
+@import './dmpopidor/homepage';
 @import './dmpopidor/news';
 
 @mixin overlay {
@@ -871,41 +872,6 @@ body {
     outline-width: 2px !important;
     }
 }
-
-/*
-    FRONT PAGE
-*/
-.dmpopidor-front-page {
-    .main-title {
-        padding-bottom: 10px;
-    }
-    .join-div {
-        margin-top: 20px;
-        padding-bottom: 10px;
-        border-left: 4px solid $rust;
-        border-bottom: 2px solid $very-very-light-blue;
-        border-top: 2px solid $very-very-light-blue;
-        border-right: 2px solid $very-very-light-blue;
-    }
-    .discover-div {
-        float: right;
-    }
-
-    .front-page-list-item {
-        font-size: 1.1em;
-    }
-    .front-page-text {
-        font-size: 1.1em;
-    }
-    .icon {
-        padding: 20px 0;
-        font-size: 2em;
-    }
-    .text {
-        padding: 20px 0;
-    }
-}
-
 
 /*
     PLAN CREATION

@@ -33,5 +33,9 @@ module Dmpopidor
       display_name[obj.class.name.to_sym] || obj.class.name.downcase || 'record'
     end
     # rubocop:enable Metrics/AbcSize
+
+    def after_sign_in_path_for(_resource)
+      root_path
+    end
   end
 end
