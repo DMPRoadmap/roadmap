@@ -60,7 +60,8 @@ no_results_msg = _("No results matched your filter criteria.")
               <span class="col-md-10">
                 <%= f.text_field :search_term,
                                  class: "form-control autocomplete col-md-6",
-                                 placeholder: search_placeholder %>
+                                 placeholder: search_placeholder,
+                                 aria: { label: search_placeholder } %>
               </span>
               <div class="col-md-3">
                 <%= f.button _("Apply filter(s)"),
