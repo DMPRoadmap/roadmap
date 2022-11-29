@@ -37,6 +37,7 @@ namespace :housekeeping do
       Identifier.includes(:identifiable)
                 .where(identifier_scheme_id: scheme.id, identifiable_type: 'Plan')
                 .where('identifiers.value LIKE ?', 'https://doi.org/%')
+
                 .distinct
                 .order(created_at: :desc)
                 .each do |identifier|
