@@ -80,7 +80,8 @@ roles_tooltip = _("Select each role that applies to the contributor.")
             <%= form.check_box hash.keys.first.to_sym,
                                value: hash.values.first,
                                data: { toggle: "tooltip" },
-                               title: ContributorPresenter.role_tooltip(symbol: hash.keys.first) %>
+                               title: ContributorPresenter.role_tooltip(symbol: hash.keys.first),
+                               aria: { label: ContributorPresenter.role_symbol_to_string(symbol: hash.keys.first) } %>
             <%= ContributorPresenter.role_symbol_to_string(symbol: hash.keys.first) %>
           </div>
         </div>
