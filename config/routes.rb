@@ -44,7 +44,7 @@ Rails.application.routes.draw do
     end
   end
 
-  # You can have the root of your site routed with "root"
+  # You can have the root of your site routed with 'root'
   # just remember to delete public/index.html.
 
   patch 'locale/:locale' => 'session_locales#update', as: 'locale'
@@ -139,15 +139,15 @@ Rails.application.routes.draw do
     end
 
     # Ajax endpoint for ResearchOutput.output_type selection
-    get "output_type_selection", controller: "research_outputs", action: "select_output_type"
+    get 'output_type_selection', controller: 'research_outputs', action: 'select_output_type'
 
     # Ajax endpoint for ResearchOutput.license_id selection
-    get "license_selection", controller: "research_outputs", action: "select_license"
+    get 'license_selection', controller: 'research_outputs', action: 'select_license'
 
     # AJAX endpoints for repository search and selection
-    get :repository_search, controller: "research_outputs"
+    get :repository_search, controller: 'research_outputs'
     # AJAX endpoints for metadata standards search and selection
-    get :metadata_standard_search, controller: "research_outputs"
+    get :metadata_standard_search, controller: 'research_outputs'
   end
 
   resources :usage, only: [:index]
@@ -229,7 +229,7 @@ Rails.application.routes.draw do
       end
       # Paginable actions for research_outputs
       resources :research_outputs, only: %i[index] do
-        get "index/:page", action: :index, on: :collection, as: :index
+        get 'index/:page', action: :index, on: :collection, as: :index
       end
     end
 
