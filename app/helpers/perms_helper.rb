@@ -14,7 +14,7 @@ module PermsHelper
       use_api: _('API rights'),
       change_org_details: _('Manage organisation details'),
       grant_api_to_orgs: _('Grant API to organisations'),
-      review_org_plans: _('')
+      review_org_plans: _('Review organisational plans')
     }
   end
 end

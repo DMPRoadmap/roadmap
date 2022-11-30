@@ -19,8 +19,8 @@ Click here for the latest [releases](https://github.com/DMPRoadmap/roadmap/relea
 
 #### Pre-requisites
 Roadmap is a Ruby on Rails application and you will need to have:
-* Ruby = 2.4.0 - 2.4.4
-* Rails = 4.2
+* Ruby = 2.7.6
+* Rails = 6.1
 * MySQL >= 5.0 OR PostgreSQL
 
 Further detail on how to install Ruby on Rails applications are available from the Ruby on Rails site: http://rubyonrails.org.
