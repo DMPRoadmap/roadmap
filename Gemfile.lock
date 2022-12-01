@@ -47,7 +47,7 @@ GEM
     activerecord (6.1.7)
       activemodel (= 6.1.7)
       activesupport (= 6.1.7)
-    activerecord_json_validator (2.1.1)
+    activerecord_json_validator (2.1.3)
       activerecord (>= 4.2.0, < 8)
       json_schemer (~> 0.2.18)
     activestorage (6.1.7)
@@ -82,11 +82,11 @@ GEM
     bindex (0.8.1)
     binding_of_caller (1.0.0)
       debug_inspector (>= 0.0.1)
-    bootsnap (1.13.0)
+    bootsnap (1.15.0)
       msgpack (~> 1.2)
-    brakeman (5.3.1)
+    brakeman (5.4.0)
     builder (3.2.4)
-    bullet (7.0.3)
+    bullet (7.0.4)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11)
     bundle-audit (0.1.0)
@@ -95,7 +95,7 @@ GEM
       bundler (>= 1.2.0, < 3)
       thor (~> 1.0)
     byebug (11.1.3)
-    capybara (3.37.1)
+    capybara (3.38.0)
       addressable
       matrix
       mini_mime (>= 0.1.3)
@@ -104,14 +104,8 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
-    capybara-webmock (0.6.0)
-      capybara (>= 2.4, < 4)
-      rack (>= 1.4)
-      rack-proxy (>= 0.6.0)
-      rexml (>= 3.2)
-      selenium-webdriver (~> 3.0)
-      webrick (>= 1.7)
-    childprocess (3.0.0)
+    capybara-webmock (0.1.0)
+    childprocess (4.1.0)
     coderay (1.1.3)
     concurrent-ruby (1.1.10)
     contact_us (1.2.0)
@@ -150,19 +144,19 @@ GEM
     ecma-re-validator (0.4.0)
       regexp_parser (~> 2.2)
     erubi (1.11.0)
-    excon (0.93.1)
+    excon (0.94.0)
     execjs (2.8.1)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
-    faker (2.23.0)
+    faker (3.0.0)
       i18n (>= 1.8.11, < 2)
-    faraday (2.6.0)
+    faraday (2.7.1)
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
-    faraday-net_http (3.0.1)
+    faraday-net_http (3.0.2)
     ffi (1.15.5)
     flag_shih_tzu (0.3.23)
     fog-aws (3.15.0)
@@ -220,7 +214,7 @@ GEM
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
     json (2.6.2)
-    json_schemer (0.2.21)
+    json_schemer (0.2.23)
       ecma-re-validator (~> 0.3)
       hana (~> 1.3)
       regexp_parser (~> 2.0)
@@ -261,13 +255,16 @@ GEM
       rake
     mini_mime (1.1.2)
     minitest (5.16.3)
-    mocha (1.16.0)
+    mocha (2.0.2)
+      ruby2_keywords (>= 0.0.5)
     msgpack (1.6.0)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     mysql2 (0.5.4)
     nenv (0.3.0)
     nio4r (2.5.8)
+    nokogiri (1.13.9-arm64-darwin)
+      racc (~> 1.4)
     nokogiri (1.13.9-x86_64-linux)
       racc (~> 1.4)
     notiffany (0.1.3)
@@ -298,9 +295,9 @@ GEM
     options (2.3.2)
     orm_adapter (0.5.0)
     parallel (1.22.1)
-    parser (3.1.2.1)
+    parser (3.1.3.0)
       ast (~> 2.4.1)
-    pg (1.4.4)
+    pg (1.4.5)
     prime (0.1.2)
       forwardable
       singleton
@@ -315,13 +312,13 @@ GEM
       nio4r (~> 2.0)
     pundit (2.2.0)
       activesupport (>= 3.0.0)
-    pundit-matchers (1.7.0)
+    pundit-matchers (1.8.4)
       rspec-rails (>= 3.0.0)
     racc (1.6.0)
     rack (2.2.4)
     rack-mini-profiler (3.0.0)
       rack (>= 1.2.0)
-    rack-protection (3.0.2)
+    rack-protection (3.0.4)
       rack
     rack-proxy (0.7.4)
       rack
@@ -364,7 +361,7 @@ GEM
       ffi (~> 1.0)
     recaptcha (5.12.3)
       json
-    regexp_parser (2.6.0)
+    regexp_parser (2.6.1)
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
@@ -372,14 +369,14 @@ GEM
     rollbar (3.3.2)
     rspec-collection_matchers (1.2.0)
       rspec-expectations (>= 2.99.0.beta1)
-    rspec-core (3.11.0)
-      rspec-support (~> 3.11.0)
-    rspec-expectations (3.11.1)
+    rspec-core (3.12.0)
+      rspec-support (~> 3.12.0)
+    rspec-expectations (3.12.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.11.0)
-    rspec-mocks (3.11.1)
+      rspec-support (~> 3.12.0)
+    rspec-mocks (3.12.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.11.0)
+      rspec-support (~> 3.12.0)
     rspec-rails (6.0.1)
       actionpack (>= 6.1)
       activesupport (>= 6.1)
@@ -388,8 +385,8 @@ GEM
       rspec-expectations (~> 3.11)
       rspec-mocks (~> 3.11)
       rspec-support (~> 3.11)
-    rspec-support (3.11.1)
-    rubocop (1.37.1)
+    rspec-support (3.12.0)
+    rubocop (1.39.0)
       json (~> 2.3)
       parallel (~> 1.10)
       parser (>= 3.1.2.1)
@@ -417,9 +414,11 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selenium-webdriver (3.142.7)
-      childprocess (>= 0.5, < 4.0)
-      rubyzip (>= 1.2.2)
+    selenium-webdriver (4.6.1)
+      childprocess (>= 0.5, < 5.0)
+      rexml (~> 3.2, >= 3.2.5)
+      rubyzip (>= 1.2.2, < 3.0)
+      websocket (~> 1.0)
     semantic_range (3.0.0)
     shellany (0.0.1)
     shoulda (4.0.0)
@@ -449,7 +448,7 @@ GEM
     thor (1.2.1)
     tilt (2.0.11)
     tomparse (0.4.2)
-    translation (1.32)
+    translation (1.34)
       gettext (~> 3.2, >= 3.2.5, <= 3.4.3)
     turbo-rails (1.3.2)
       actionpack (>= 6.0.0)
@@ -468,10 +467,10 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webdrivers (4.7.0)
+    webdrivers (5.2.0)
       nokogiri (~> 1.6)
       rubyzip (>= 1.3.0)
-      selenium-webdriver (> 3.141, < 5.0)
+      selenium-webdriver (~> 4.0)
     webmock (3.18.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
@@ -482,6 +481,7 @@ GEM
       railties (>= 5.2)
       semantic_range (>= 2.3.0)
     webrick (1.7.0)
+    websocket (1.2.9)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -495,9 +495,10 @@ GEM
     yard-tomdoc (0.7.1)
       tomparse (>= 0.4.0)
       yard
-    zeitwerk (2.6.1)
+    zeitwerk (2.6.6)
 
 PLATFORMS
+  arm64-darwin-22
   x86_64-linux
 
 DEPENDENCIES
@@ -568,7 +569,7 @@ DEPENDENCIES
   translation
   turbo-rails
   web-console
-  webdrivers
+  webdrivers (~> 5.2)
   webmock
   webpacker
   wicked_pdf
@@ -580,4 +581,4 @@ RUBY VERSION
    ruby 2.7.6p219
 
 BUNDLED WITH
-   2.3.15
+   2.3.25
