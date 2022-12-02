@@ -115,7 +115,6 @@
           <span><%= sanitize (has_alert ? alert : notice) %></span>
           <%= yield :errors %>
         </div>
-        <%= render "layouts/notifications", notifications: Notification.active_per_user(current_user) %>
         <%= yield %>
 
 

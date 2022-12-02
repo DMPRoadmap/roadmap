@@ -9,8 +9,7 @@
 @import './dmpopidor/colours';
 
 @import './dmpopidor/footer';
-@import './dmpopidor/navigation';
-@import './dmpopidor/org_branding';
+@import './dmpopidor/header';
 
 @import './dmpopidor/homepage';
 @import './dmpopidor/news';
@@ -51,6 +50,20 @@ body {
 
 #maincontent {
   padding-top: 50px;
+  background-color: $white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px $light-grey;
+  width: 100%;
+  max-width: 1440px;
+
+  .notification-area {
+    width: 75%;
+  }
 }
 
 .contact-icons {
@@ -130,28 +143,7 @@ body {
 /*
     MAIN CONTENT
 */
-
 .dmpopidor-branding {
-    .alert-warning {
-        color: #5D4A27;
-        a {
-            color: #5D4A27;
-            text-decoration: underline;
-        }
-    }
-
-    .org-deactivated {
-        max-width: 1264px;
-        color: $rust;
-        text-align: center;
-        margin: auto;
-        padding-top: 5px;
-        font-weight: 600;
-
-        a {
-            color: black;
-        }
-    }
 
     /** tooltips */
     .tooltip {
