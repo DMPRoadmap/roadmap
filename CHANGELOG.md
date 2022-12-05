@@ -2,6 +2,13 @@
 
 **Attention** Cette liste de changements concerne les déploiements sur nos serveurs de test en interne. 
 
+## 05/12/2022
+- DMPRoadmap V4.0.1 : https://github.com/DMPRoadmap/roadmap/releases/tag/v4.0.1 
+- Amélioration de l'accessibilité des formulaires dynamiques
+- Export RDA : Ajout du convertisseur pour 'Crossref Funder ID' ver 'fundref' (issue gitbucket 449)
+- Le volet Recommandations est bien ouvert par défaut, dans le cas où il existe des recommandations (issue gitbucket 457)
+- Ajout d'une signature "light" au mail de notification de création/mise à jourd d'un client API (issue gitbucket 448)
+
 ## 24/11/2022
 - Le mail d'ajout de commentaires s'adresse désormais bien au contributeurs du plan et plus au propriétaire (issue gitbucket 448)
 - Correction du problème affectat l'adresse mail d'envoi du mail de complétion d'assistance/conseil. Auparavant l'application essayait d'envoyer le message avec l'adresse de contact de l'organisme, provocant des rejets du serveur mail hébergeant l'adresse.
