@@ -86,7 +86,7 @@ gem 'rollbar', group: :rollbar, require: false
 
 # A simple, fast Mysql library for Ruby, binding to libmysql
 # (http://github.com/brianmario/mysql2)
-gem 'mysql2', '0.5.4', group: :mysql, require: false
+gem 'mysql2', group: :mysql, require: false
 
 # Pg is the Ruby interface to the {PostgreSQL
 # RDBMS}[http://www.postgresql.org/](https://bitbucket.org/ged/ruby-pg)
@@ -108,11 +108,7 @@ gem 'devise'
 
 # A generalized Rack framework for multiple-provider authentication.
 # (https://github.com/omniauth/omniauth)
-
-# TODO: unlock this once devise creates an official release that includes this commit:
-#       https://github.com/heartcombo/devise/commit/1d138dd40cdc291a427b89027d16a869818a5c19#diff-59866e40fe6196ebb76fa63d186b09ba0856de17e2e938743e99add37bb83f5c
-#       or updates to accommodate the new version of omniauth
-gem 'omniauth', '~> 1.9'
+gem 'omniauth'
 
 # OmniAuth Shibboleth strategies for OmniAuth 1.x
 # https://github.com/toyokazu/omniauth-shibboleth
@@ -131,7 +127,7 @@ gem 'omniauth-rails_csrf_protection'
 
 # Doorkeeper is a gem (Rails engine) that makes it easy to introduce OAuth 2 provider functionality
 # to your Ruby on Rails or Grape application. https://github.com/doorkeeper-gem/doorkeeper
-gem 'doorkeeper', '~> 5.5'
+gem 'doorkeeper'
 
 # A ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard.
 # https://github.com/jwt/ruby-jwt
@@ -214,15 +210,7 @@ gem 'autoprefixer-rails'
 # ========= #
 
 # Provides binaries for WKHTMLTOPDF project in an easily accessible package.
-# ------------------------------------------------
-# Start DMPTool customization
-# 0.12.5 does not work on our new linux2 instances. Pegging at 0.12.4 for now
-# ------------------------------------------------
-# gem 'wkhtmltopdf-binary'
-gem 'wkhtmltopdf-binary' # , '0.12.4'
-# ------------------------------------------------
-# End DMPTool customization
-# ------------------------------------------------
+gem 'wkhtmltopdf-binary'
 
 # PDF generator (from HTML) gem for Ruby on Rails
 # (https://github.com/mileszs/wicked_pdf)
@@ -324,7 +312,7 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
+  gem 'webdrivers', '~> 5.2'
 
   # Automatically create snapshots when Cucumber steps fail with Capybara
   # and Rails (http://github.com/mattheworiordan/capybara-screenshot)
@@ -400,7 +388,7 @@ group :development do
 
   # Better error page for Rails and other Rack apps
   # (https://github.com/charliesome/better_errors)
-  gem 'better_errors', '2.8.1'
+  gem 'better_errors'
 
   # Retrieve the binding of a method's caller. Can also retrieve bindings
   # even further up the stack. (http://github.com/banister/binding_of_caller)
