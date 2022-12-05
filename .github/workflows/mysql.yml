@@ -30,9 +30,6 @@ jobs:
     # Copy all of the example configs over
     - name: 'Setup the application'
       run: |
-        cp config/database.yml.sample config/database.yml
-        cp config/initializers/contact_us.rb.example config/initializers/contact_us.rb
-        cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
         cp .env.mysql2 .env
 
     # Stub out the Rails credentials file so that we can start the Rails app
