@@ -411,7 +411,7 @@ group :development do
   gem 'spring-commands-rspec'
 
   # Profiles loading speed for rack applications. (http://miniprofiler.com)
-  gem 'rack-mini-profiler'
+  # gem 'rack-mini-profiler'
 
   # Annotates Rails Models, routes, fixtures, and others based on the
   # database schema. (http://github.com/ctran/annotate_models)

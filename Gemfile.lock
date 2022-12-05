@@ -381,8 +381,6 @@ GEM
     rack (2.2.4)
     rack-attack (6.6.1)
       rack (>= 1.0, < 3)
-    rack-mini-profiler (3.0.0)
-      rack (>= 1.2.0)
     rack-proxy (0.6.0)
       rack
     rack-test (2.0.2)
@@ -633,7 +631,6 @@ DEPENDENCIES
   pundit
   pundit-matchers
   rack-attack
-  rack-mini-profiler
   rails (~> 6.1)
   rails-controller-testing
   recaptcha
