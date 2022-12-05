@@ -92,7 +92,7 @@
             <%= hidden_field_tag 'template-option-target', template_options_path %>
             <div class="form-group row">
               <div class="col-md-6">
-                <%= select_tag(:plan_template_id, "<option value=\"-1\">#{_('Please select a template')}</option>", name: 'plan[template_id]', class: 'form-control', 'aria-describedby': 'template-selection') %>
+                <%= select_tag(:plan_template_id, "<option value=\"-1\">#{_('Please select a template')}</option>", name: 'plan[template_id]', class: 'form-control', 'aria-labelledby': 'template-selection') %>
                 <span class="message-block" style=""><%= _('Please select a template from the list.') %></span>
               </div>
             </div>

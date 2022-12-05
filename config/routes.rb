@@ -46,30 +46,30 @@ Rails.application.routes.draw do
     end
   end
 
-  # You can have the root of your site routed with "root"
+  # You can have the root of your site routed with 'root'
   # just remember to delete public/index.html.
 
   patch 'locale/:locale' => 'session_locales#update', as: 'locale'
 
-  root to: "home#index"
-  get "about_us", to: "static/static_pages#show", name: "about_us"
-  get "help", to: "static/static_pages#show", name: "help"
-  get "roadmap", to: "static/static_pages#show", name: "roadmap"
-  get "terms", to: "static/static_pages#show", name: "termsuse"
-  get "privacy", to: "static/static_pages#show", name: "privacy"
-  get "research_output_types", to: "static/static_pages#show", name: "research_output_types"
-  get "about_registries", to: "static/static_pages#show", name: "about_registries"
+  root to: 'home#index'
+  get 'about_us', to: 'static/static_pages#show', name: 'about_us'
+  get 'help', to: 'static/static_pages#show', name: 'help'
+  get 'roadmap', to: 'static/static_pages#show', name: 'roadmap'
+  get 'terms', to: 'static/static_pages#show', name: 'termsuse'
+  get 'privacy', to: 'static/static_pages#show', name: 'privacy'
+  get 'research_output_types', to: 'static/static_pages#show', name: 'research_output_types'
+  get 'about_registries', to: 'static/static_pages#show', name: 'about_registries'
 
-  get "tutorials", to: "static_pages#tutorials"
-  get "news_feed", to: "static_pages#news_feed"
-  get "optout", to: "static_pages#optout"
-  get "public_plans" => "public_pages#plan_index"
-  get "public_templates" => "public_pages#template_index"
-  get "template_export/:id" => "public_pages#template_export", as: "template_export"
+  get 'tutorials', to: 'static_pages#tutorials'
+  get 'news_feed', to: 'static_pages#news_feed'
+  get 'optout', to: 'static_pages#optout'
+  get 'public_plans' => 'public_pages#plan_index'
+  get 'public_templates' => 'public_pages#template_index'
+  get 'template_export/:id' => 'public_pages#template_export', as: 'template_export'
 
   # Static pages
   namespace :static do
-    get ":name", to: "static_pages#show"
+    get ':name', to: 'static_pages#show'
   end
 
   # AJAX call used to search for Orgs based on user input into autocompletes
@@ -155,27 +155,27 @@ Rails.application.routes.draw do
       post 'set_test', constraints: { format: [:json] }
       get 'overview'
     end
-    resources :research_outputs, only: %i[index update destroy], controller: "research_outputs"
+    resources :research_outputs, only: %i[index update destroy], controller: 'research_outputs'
   end
 
   resources :research_outputs, only: [] do
-    get "create_remote", on: :collection
-    post "sort", on: :collection
+    get 'create_remote', on: :collection
+    post 'sort', on: :collection
   end
 
   resources :research_outputs, only: [] do
-    post "sort", on: :collection
+    post 'sort', on: :collection
 
     # Ajax endpoint for ResearchOutput.output_type selection
-    get "output_type_selection", controller: "research_outputs", action: "select_output_type"
+    get 'output_type_selection', controller: 'research_outputs', action: 'select_output_type'
 
     # Ajax endpoint for ResearchOutput.license_id selection
-    get "license_selection", controller: "research_outputs", action: "select_license"
+    get 'license_selection', controller: 'research_outputs', action: 'select_license'
 
     # AJAX endpoints for repository search and selection
-    get :repository_search, controller: "research_outputs"
+    get :repository_search, controller: 'research_outputs'
     # AJAX endpoints for metadata standards search and selection
-    get :metadata_standard_search, controller: "research_outputs"
+    get :metadata_standard_search, controller: 'research_outputs'
   end
 
   resources :usage, only: [:index]
@@ -224,21 +224,21 @@ Rails.application.routes.draw do
       end
       resources :themes, param: :slug, only: [] do
         member do
-          get "extract", to: "themes#extract"
+          get 'extract', to: 'themes#extract'
         end
       end
     end
 
     namespace :v1 do
-      get :heartbeat, controller: "base_api"
-      post :authenticate, controller: "authentication"
+      get :heartbeat, controller: 'base_api'
+      post :authenticate, controller: 'authentication'
 
       resources :plans, only: %i[create show index]
       resources :templates, only: [:index]
 
       resources :themes, param: :slug, only: [] do
         member do
-          get "extract", to: "themes#extract"
+          get 'extract', to: 'themes#extract'
         end
       end
     end
@@ -276,7 +276,7 @@ Rails.application.routes.draw do
       end
       # Paginable actions for research_outputs
       resources :research_outputs, only: %i[index] do
-        get "index/:page", action: :index, on: :collection, as: :index
+        get 'index/:page', action: :index, on: :collection, as: :index
       end
     end
 
@@ -313,7 +313,7 @@ Rails.application.routes.draw do
     end
     # Paginable actions for static pages
     resources :static_pages, only: [] do
-      get "index/:page", action: :index, on: :collection, as: :index
+      get 'index/:page', action: :index, on: :collection, as: :index
     end
     # Paginable actions for departments
     resources :departments, only: [] do
@@ -428,6 +428,6 @@ Rails.application.routes.draw do
                                    controller: 'research_projects',
                                    constraints: { format: 'json' }
 
-  # mount MadmpOpidor::Engine => "/madmp_opidor", as: "madmp_opidor"
+  # mount MadmpOpidor::Engine => '/madmp_opidor', as: 'madmp_opidor'
 end
 # rubocop:enable Metrics/BlockLength
