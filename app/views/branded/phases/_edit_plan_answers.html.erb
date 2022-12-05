@@ -148,7 +148,7 @@
                                 <% end %>
                               <% else %>
                                 <%= render(partial: '/answers/new_edit',
-                                        locals: { template: phase.template,
+                                        locals: { template: template,
                                                   question: question,
                                                   answer: answer,
                                                   research_output: research_output,
@@ -166,11 +166,11 @@
                         <% style = guidance_comments_opened_by_default ? '' : 'display: none' %>
                         <div class="guidance-section" style="<%= style %>">
                           <!-- Guidances and notes partial view -->
-                          <% if question.question_format.structured? %>
+                          <% if template.structured? %>
                             <% madmp_schema = fragment ? fragment.madmp_schema : question.madmp_schema %>
                             <%= render partial: '/phases/guidances_notes_runs', locals: {
                               plan: plan,
-                              template: phase.template,
+                              template: template,
                               question: question,
                               answer: answer,
                               madmp_schema: madmp_schema,
@@ -179,7 +179,7 @@
                           <% else %>
                             <%= render partial: '/phases/guidances_notes', locals: {
                               plan: plan,
-                              template: phase.template,
+                              template: template,
                               question: question,
                               answer: answer,
                               research_output: research_output,
