@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   mysql:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     # Define environment variables for MySQL and Rails
     env:

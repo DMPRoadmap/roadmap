@@ -1,0 +1,24 @@
+name: ESLint
+
+on: [push, pull_request]
+
+jobs:
+  eslint:
+
+    runs-on: ubuntu-20.04
+
+    steps:
+    # Checkout the repo
+    - uses: actions/checkout@v2
+
+    # Install Node
+    - uses: actions/setup-node@v2
+      with:
+        cache: 'yarn'
+
+    # Run yarn install for JS dependencies
+    - name: 'Yarn Install'
+      run: yarn install
+
+    - name: 'Run ESLint'
+      run: yarn run eslint app/javascript/**/*.js --ext .js

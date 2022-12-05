@@ -165,7 +165,6 @@ module ExportablePlan
       csv << [_('Contributor: '), format(_('%{other}'), other: hash[:other].map(&:name).join(', '))]
     end
     csv << [_('Affiliation: '), format(_('%{affiliation}'), affiliation: hash[:affiliation])]
-    csv << ['Affiliation: ', format(_('%{affiliation}'), affiliation: hash[:affiliation])]
     csv << if hash[:funder].present?
              [_('Template: '), format(_('%{funder}'), funder: hash[:funder])]
            else
