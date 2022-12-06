@@ -294,7 +294,7 @@ group :test do
   gem 'rails-controller-testing'
 
   # automating code review
-  gem "danger", '~> 9.0', require: false 
+  gem 'danger', '~> 9.0', require: false
 end
 
 group :ci, :development do
