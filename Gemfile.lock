@@ -536,6 +536,7 @@ DEPENDENCIES
   kaminari
   ledermann-rails-settings
   listen
+  mail (= 2.7.1)
   mimemagic
   mocha
   mysql2
@@ -581,4 +582,4 @@ RUBY VERSION
    ruby 2.7.6p219
 
 BUNDLED WITH
-   2.3.25
+   2.3.26
