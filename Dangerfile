@@ -7,8 +7,12 @@ has_test_changes = !git.modified_files.grep(/spec/).empty?
 if git.lines_of_code > 50 && has_app_changes && !has_test_changes
   warn('There are code changes, but no corresponding tests. ' \
        'Please include tests if this PR introduces any modifications in ' \
+<<<<<<< HEAD
        'behavior. \n
        Ignore this warning if the PR ONLY contains translation.io synced updates.',
+=======
+       'behavior.',
+>>>>>>> e7231abe0 (fix rubocop)
        sticky: false)
 end
 
