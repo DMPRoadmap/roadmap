@@ -180,6 +180,7 @@ Rails.application.routes.draw do
     member do
       get 'answer'
       get 'publish'
+      get 'follow_up'
       get 'request_feedback'
       get 'overview'
       get 'download'
