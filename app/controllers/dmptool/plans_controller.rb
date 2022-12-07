@@ -21,6 +21,32 @@ module Dmptool
       end
     end
 
+    # GET /plans/:id/follow_up
+    def follow_up
+      @plan = ::Plan.find(params[:id])
+      authorize @plan
+    end
+
+    # PATCH /plans/:id/follow_up_update
+    def follow_up_update
+      @plan = ::Plan.find(params[:id])
+      authorize @plan
+
+      attrs = plan_params
+      @plan.funder = process_org!(user: current_user, namespace: 'funder')
+      @plan.grant = plan_params[:grant]
+      attrs.delete(:funder)
+      attrs.delete(:grant)
+
+      @plan.title = @plan.title.strip
+
+      if @plan.update(attrs)
+        redirect_to follow_up_plan_path, notice: success_message(@plan, _('saved'))
+      else
+        redirect_to follow_up_plan_path, alert: failure_message(@plan, _('save'))
+      end
+    end
+
     def temporary_patch_delete_me_later
       # This is a temporary patch to fix an issue with one of the pt-BR translations
       # in the DMPRoadmap translation.io

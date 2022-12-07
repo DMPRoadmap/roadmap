@@ -11,7 +11,12 @@ end
 
 project_details_link = link_to(_('Project Details'), edit_plan_path(plan.id))
 dmp_id_url = 'https://github.com/CDLUC3/dmptool/wiki/DMP-IDs-and-Networked-Data-Management-Plans-(maDMPs)#why-are-ids-for-dmps-important'
-allow_minting = plan.administerable_by?(current_user.id)
+
+# Minting is only allowed if the plan is 'complete', it is not a test, has a funder and the user can administer
+allow_minting = plan.administerable_by?(current_user.id) && plan.complete? && plan.funder_id.present? &&
+                !plan.is_test?
+# If ORCID updates are enabled then check that the user has authorized it!
+allow_minting = orcid.present? && orcid_access_token.present? if allow_minting && Rails.configuration.x.madmp.enable_orcid_publication
 %>
 
 <h2><%= _('Register your plan for a DMP ID') %></h2>

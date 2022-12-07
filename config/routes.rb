@@ -181,6 +181,7 @@ Rails.application.routes.draw do
       get 'answer'
       get 'publish'
       get 'follow_up'
+      patch 'follow_up_update'
       get 'request_feedback'
       get 'overview'
       get 'download'

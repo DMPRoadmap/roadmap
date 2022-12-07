@@ -1,0 +1,51 @@
+<%# locals: plan, form %>
+
+<% id_tooltip = _('A unique number that a federal agency assigns to a grant announcement.') %>
+
+<div class="col-md-12">
+  <%= form.label(:funding_status, _("Funding status"), class: "control-label") %>
+</div>
+<div class="col-md-6">
+  <% funding_statuses = Plan.funding_statuses.map { |status| [status[0].capitalize, status[0]] } %>
+  <%= form.select :funding_status, options_for_select(funding_statuses, plan.funding_status),
+                        {
+                          include_blank: _("- Please select one -"),
+                          selected: plan.funding_status
+                        },
+                        { class: "form-control" } %>
+</div>
+
+<div class="col-md-12">
+  <%= form.label :identifier, _("Funding opportunity number"), class: "control-label" %>
+</div>
+<div class="col-md-6">
+  <em class="sr-only"><%= id_tooltip %></em>
+  <%= form.text_field :identifier, class: "form-control",
+                                    aria: { required: false },
+                                    data: { toggle: "tooltip" },
+                                    spellcheck: true, title: id_tooltip %>
+</div>
+
+<%= form.fields_for :grant, plan.grant do |grant_fields| %>
+  <div class="col-md-12">
+    <%= grant_fields.label(:value, _("Grant number/url"), class: "control-label") %>
+  </div>
+  <div class="col-md-6">
+    <%# If the OpenAire grant typeahead if enabled use it %>
+    <% if Rails.configuration.x.open_aire.active %>
+      <!-- Using the research_project.json source for typeahead -->
+      <%= grant_fields.text_field :name,
+                                  value: plan.grant&.value,
+                                  class: "form-control grant-id-typeahead",
+                                  spellcheck: true,
+                                  autocomplete: "off",
+                                  aria: { required: false } %>
+      <%= grant_fields.hidden_field :value %>
+      <span class="text-muted" id="grant_number_info"><%= _("Grant number:") -%> <%= plan.grant&.value %></span>
+    <% else %>
+      <%= grant_fields.text_field(:value, class: "form-control",
+                                        data: { toggle: "tooltip" },
+                                        title: _("Provide a URL to the award's landing page if possible, if not please provide the award/grant number.")) %>
+    <% end %>
+  </div>
+<% end %>
