@@ -1,3 +1,28 @@
 .static-page ul:not(.toc) li {
   margin-bottom: 8px;
 }
+
+/* Finalize tab of write plan page */
+.criteria-list .fa {
+  font-size: 1.1rem;
+}
+.criteria-list ul {
+  list-style: none;
+  padding: 15px 0 0 10px;
+}
+.criteria-list li {
+  margin-bottom: 5px;
+}
+.criteria-list .green {
+  color: $color-green;
+  margin-right: 5px;
+}
+.criteria-list .red {
+  margin-right: 10px;
+}
+.criteria-list .form-group {
+  padding-left: 0px;
+}
+.criteria-list .radio {
+  margin-bottom: 5px;
+}

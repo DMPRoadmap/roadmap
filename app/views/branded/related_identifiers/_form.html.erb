@@ -25,18 +25,14 @@
                       selected: related_identifier.work_type,
                       class: "form-control",
                       name: "plan[related_identifiers_attributes[0][work_type]]",
-                      id: "plan_related_identifiers_attributes_0_work_type",
-                      title: tooltip,
-                      data: { toggle: "tooltip" }
+                      id: "plan_related_identifiers_attributes_0_work_type"
                     } %>
     </span>
-    <span class="col-md-6">
+    <span class="col-md-4">
       <%= url_field_tag :value, related_identifier.value,
                         class: "form-control",
                         name: "plan[related_identifiers_attributes[0][value]]",
-                        id: "plan_related_identifiers_attributes_0_value",
-                        title: tooltip,
-                        data: { toggle: "tooltip" } %>
+                        id: "plan_related_identifiers_attributes_0_value" %>
     </span>
     <span class="col-md-2">
       <a href="#" class="delete" aria-label="<%= _('Remove this related work') %>">

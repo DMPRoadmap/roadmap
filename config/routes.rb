@@ -69,7 +69,7 @@ Rails.application.routes.draw do
     end
   end
 
-  # You can have the root of your site routed with "root"
+  # You can have the root of your site routed with 'root'
   # just remember to delete public/index.html.
 
   patch 'locale/:locale' => 'session_locales#update', as: 'locale'
@@ -180,6 +180,8 @@ Rails.application.routes.draw do
     member do
       get 'answer'
       get 'publish'
+      get 'follow_up'
+      patch 'follow_up_update'
       get 'request_feedback'
       get 'overview'
       get 'download'

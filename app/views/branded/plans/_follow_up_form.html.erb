@@ -1,0 +1,25 @@
+<%# locals: form, plan %>
+
+<h2><%= _('Funding Outcome') %></h2>
+<%= form_with model: plan, url: follow_up_update_plan_path(plan) do |f| %>
+  <div class="row follow-up-funding">
+    <div class="form-group col-md-8">
+      <%= render partial: 'plans/funding', locals: { form: f, plan: plan, show_opportunity_nbr: false } %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-md-8">
+      <div class="col-md-4">
+        <%= f.button(_('Save funding'), class: "btn btn-primary", type: "submit") %>
+      </div>
+    </div>
+  </div>
+
+  <% if Rails.configuration.x.madmp.enable_related_identifiers %>
+    <h2><%= _('Research Outputs') %></h2>
+    <p><%= _('Link this plan to research outputs the project has generated– such as journal articles, preprints, datasets, data papers, and software. You can link in-press or embargoed work if a DOI or other URL-based identifier has been assigned to it.') %></p>
+    <div class="row">
+      <%= render partial: "related_identifiers/edit", locals: { form: f, plan: plan } %>
+    </div>
+  <% end %>
+<% end %>

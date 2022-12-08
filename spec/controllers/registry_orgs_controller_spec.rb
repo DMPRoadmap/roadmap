@@ -48,12 +48,12 @@ RSpec.describe RegistryOrgsController do
         }
         Rails.configuration.x.application.restrict_orgs = true
         hash[:known_only] = true
-        @controller.expects(:registry_orgs_search).with(hash).returns([@registry_org])
+        @controller.expects(:registry_orgs_search).with(**hash).returns([@registry_org])
         @controller.send(:find_by_search_term, term: @org.name)
 
         Rails.configuration.x.application.restrict_orgs = false
         hash[:known_only] = false
-        @controller.expects(:registry_orgs_search).with(hash).returns([@registry_org])
+        @controller.expects(:registry_orgs_search).with(**hash).returns([@registry_org])
         @controller.send(:find_by_search_term, term: @org.name)
       end
 

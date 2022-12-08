@@ -432,25 +432,39 @@ class PlansController < ApplicationController
     authorize @plan
 
     dmp_id = DmpIdService.mint_dmp_id(plan: @plan)
-    dmp_id.save
-    @plan = @plan.reload
+    if dmp_id.save
+      @plan = @plan.reload
 
-    # Only allow ORCID publication for the DMP ID if it is enabled in the config!
-    if Rails.configuration.x.madmp.enable_orcid_publication
-      @orcid_access_token = ExternalApiAccessToken.for_user_and_service(user: current_user, service: 'orcid')
+      # Only allow ORCID publication for the DMP ID if it is enabled in the config!
+      if Rails.configuration.x.madmp.enable_orcid_publication
+        @orcid_access_token = ExternalApiAccessToken.for_user_and_service(user: current_user, service: 'orcid')
+      end
+
+      # If a DMP ID was successfully acquired and the User has authorized us to write to their ORCID record
+      if @plan.dmp_id.present? && @orcid_access_token.present?
+        ExternalApis::OrcidService.add_work(user: current_user, plan: @plan)
+      end
+
+      render js: render_to_string(template: 'plans/mint.js.erb')
+      redirect_to publish_plan_path(@plan), notice: success_message(@plan, _('registered'))
+    else
+
+      redirect_to publish_plan_path(@plan), alert: failure_message(@plan, _('register'))
     end
-
-    # If a DMP ID was successfully acquired and the User has authorized us to write to their ORCID record
-    if @plan.dmp_id.present? && @orcid_access_token.present?
-      ExternalApis::OrcidService.add_work(user: current_user, plan: @plan)
-    end
-
-    render js: render_to_string(template: 'plans/mint.js.erb')
   rescue StandardError => e
-    Rails.logger.error "Unable to add plan #{params[:id]} to the user #{current_user.id}'s ORCID record - #{e.message}"
+    Rails.logger.error "Either unable to register the DMP ID or unable to update the owner's ORCID record for plan #{params[:id]} /
+                        and user #{current_user.id} - #{e.message}"
     Rails.logger.error e.backtrace
 
-    render js: render_to_string(template: 'plans/mint.js.erb')
+    if @plan.dmp_id.present?
+      msg = _('Your DMP ID was registered but we were unable to add it to your ORCID record as a new work.')
+    else
+      msg = _("Something went wrong and we were unable to acquire a DMP ID for your plan. Please try again. If the problem /
+              persists please contact the help desk at %{helpdesk_email}") % {
+        helpdesk_email: Rails.configuration.x.organisation.helpdesk_email
+      }
+    end
+    redirect_to publish_plan_path(@plan), alert: msg
   end
   # rubocop:enable Metrics/AbcSize
 
