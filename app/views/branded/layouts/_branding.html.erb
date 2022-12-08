@@ -16,32 +16,26 @@
       <!-- Organisational links -->
       <%
       links = current_user.org.links.present? ? current_user.org.links.fetch('org', []) : []
-      i = 1
       %>
       <% if user_signed_in? && (links.any? || current_user.org.contact_email.present?) %>
         <ul class="nav navbar-nav">
-          <% links.each do |link| %>
-            <% if link.present? && i <= max_number_links %>
-              <% if i.odd? %>
-                </li><li class="org-links">
-              <% end %>
-              <%= link_to link['link'], :target=>'_blank', :class => 'org-a has-new-window-popup-info' do %>
-                <i class="fas fa-globe" aria-hidden="true">&nbsp;</i>
-                <%= link['text'].blank? ? link['link'] : link['text'] %>
-                <em class="sr-only"> (new window)</em>
-                <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
-              <% end %>
-              <% i += 1 %>
-            <% end %>
-          <% end %>
-          <% if i.odd? %>
-            </li><li class="org-links">
-          <% end %>
           <% if !current_user.org.contact_email.blank? %>
             <%= mail_to current_user.org.contact_email, :class => 'org-a' do %>
               <i class="fas fa-envelope" aria-hidden="true">&nbsp;</i>
               <%= current_user.org.contact_name ? current_user.org.contact_name : current_user.org.contact_email %>
             <% end %>
+          <% end %>
+          <% links.each do |link| %>
+            <li class="org-links">
+              <% if link.present?%>
+                <%= link_to link['link'], :target=>'_blank', :class => 'org-a has-new-window-popup-info' do %>
+                  <i class="fas fa-globe" aria-hidden="true">&nbsp;</i>
+                  <%= link['text'].blank? ? link['link'] : link['text'] %>
+                  <em class="sr-only"> (new window)</em>
+                  <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
+                <% end %>
+              <% end %>
+            </li>
           <% end %>
         </ul>
       <% end %>

@@ -147,6 +147,9 @@ header.dmpopidor-branding {
         .org-links-area {
           flex: 2;
           font-size: large;
+          .org-a {
+            padding: 0 15px;
+          }
           a {
             color: $dark-blue;
           }
