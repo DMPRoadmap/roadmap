@@ -119,6 +119,9 @@ gem 'jwt'
 # OO authorization for Rails (https://github.com/elabs/pundit)
 gem 'pundit'
 
+# Gem for throttling malicious attacks
+gem 'rack-attack', '~> 6.6', '>= 6.6.1'
+
 # ========== #
 # UI / VIEWS #
 # ========== #
