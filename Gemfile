@@ -223,7 +223,6 @@ gem 'activerecord_json_validator'
 # See : https://github.com/DMPRoadmap/roadmap/issues/3254
 gem 'mail', '2.7.1'
 
-
 # ================================= #
 # ENVIRONMENT SPECIFIC DEPENDENCIES #
 # ================================= #
