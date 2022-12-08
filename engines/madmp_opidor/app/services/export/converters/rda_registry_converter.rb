@@ -20,7 +20,7 @@ module Export
             end
           else # Funder only support 'ISNI' & 'ORCID' as a AgentIDSystem value
             case val.downcase
-            when 'Crossref Funder ID'
+            when 'crossref funder id'
               'fundref'
             when 'url'
               val.downcase
