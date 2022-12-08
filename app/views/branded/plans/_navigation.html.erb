@@ -48,10 +48,12 @@ end
       <a href="<%= download_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Download') %></a>
     </li>
   <% end %>
-  <% if plan.administerable_by?(current_user.id) || (current_user.can_org_admin? && current_user.org.plans.include?(plan)) %>
-    <li role="presentation" class="<%= (active_page?(follow_up_plan_path(plan)) ? 'active' : '') %>">
-      <a href="<%= follow_up_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Follow-Up') %></a>
-    </li>
+  <% if plan.dmp_id.present? %>
+    <% if plan.administerable_by?(current_user.id) || (current_user.can_org_admin? && current_user.org.plans.include?(plan)) %>
+      <li role="presentation" class="<%= (active_page?(follow_up_plan_path(plan)) ? 'active' : '') %>">
+        <a href="<%= follow_up_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Follow-Up') %></a>
+      </li>
+    <% end %>
   <% end %>
 </ul>
 <div class="tab-content">

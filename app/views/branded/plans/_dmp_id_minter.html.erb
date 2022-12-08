@@ -72,7 +72,7 @@ allow_minting = orcid.present? && orcid_access_token.present? if allow_minting &
           data: { disable_with: "registering ..." }
         },
         {
-          remote: true,
+          remote: false,
           method: :get,
           class: "btn btn-default mint-dmp-id"
         } %>

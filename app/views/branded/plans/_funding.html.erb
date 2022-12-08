@@ -1,4 +1,4 @@
-<%# locals: plan, form %>
+<%# locals: plan, form, show_opportunity_nbr %>
 
 <% id_tooltip = _('A unique number that a federal agency assigns to a grant announcement.') %>
 
@@ -15,16 +15,18 @@
                         { class: "form-control" } %>
 </div>
 
-<div class="col-md-12">
-  <%= form.label :identifier, _("Funding opportunity number"), class: "control-label" %>
-</div>
-<div class="col-md-6">
-  <em class="sr-only"><%= id_tooltip %></em>
-  <%= form.text_field :identifier, class: "form-control",
-                                    aria: { required: false },
-                                    data: { toggle: "tooltip" },
-                                    spellcheck: true, title: id_tooltip %>
-</div>
+<% if show_opportunity_nbr %>
+  <div class="col-md-12">
+    <%= form.label :identifier, _("Funding opportunity number"), class: "control-label" %>
+  </div>
+  <div class="col-md-6">
+    <em class="sr-only"><%= id_tooltip %></em>
+    <%= form.text_field :identifier, class: "form-control",
+                                     aria: { required: false },
+                                     data: { toggle: "tooltip" },
+                                     spellcheck: true, title: id_tooltip %>
+  </div>
+<% end %>
 
 <%= form.fields_for :grant, plan.grant do |grant_fields| %>
   <div class="col-md-12">
