@@ -445,10 +445,8 @@ class PlansController < ApplicationController
         ExternalApis::OrcidService.add_work(user: current_user, plan: @plan)
       end
 
-      render js: render_to_string(template: 'plans/mint.js.erb')
       redirect_to publish_plan_path(@plan), notice: success_message(@plan, _('registered'))
     else
-
       redirect_to publish_plan_path(@plan), alert: failure_message(@plan, _('register'))
     end
   rescue StandardError => e
