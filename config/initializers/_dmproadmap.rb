@@ -120,7 +120,7 @@ module DMPRoadmap
     # Setting to only take orgs from local and not allow on-the-fly creation
     config.x.application.restrict_orgs = false
     # Setting to display phone number in contributor form
-    config.x.application.display_contributor_phone_number = false
+    config.x.application.display_contributor_phone_number = true
 
     # Setting require contributor requirement of contributor name and email
     config.x.application.require_contributor_name = false
@@ -128,7 +128,7 @@ module DMPRoadmap
 
     # Defines if Guidances/Comments in toggleable & if it's opened by default
     config.x.application.guidance_comments_toggleable = true
-    config.x.application.guidance_comments_opened_by_default = true
+    config.x.application.guidance_comments_opened_by_default = false
 
     # ------------------- #
     # SHIBBOLETH SETTINGS #
@@ -224,8 +224,8 @@ module DMPRoadmap
     # Machine Actionable / Networked DMP Features (maDMP) #
     # --------------------------------------------------- #
     # Enable/disable functionality on the Project Details tab
-    config.x.madmp.enable_ethical_issues = false
-    config.x.madmp.enable_research_domain = false
+    config.x.madmp.enable_ethical_issues = true
+    config.x.madmp.enable_research_domain = true
 
     # This flag will enable/disable the entire Research Outputs tab. The others below will
     # just enable/disable specific functionality on the Research Outputs tab
@@ -236,11 +236,11 @@ module DMPRoadmap
 
     # The following flags will allow the system to include the question and answer in the JSON output
     #   - questions with a theme equal to 'Preservation'
-    config.x.madmp.extract_preservation_statements_from_themed_questions = false
+    config.x.madmp.extract_preservation_statements_from_themed_questions = true
     #   - questions with a theme equal to 'Data Collection'
-    config.x.madmp.extract_data_quality_statements_from_themed_questions = false
+    config.x.madmp.extract_data_quality_statements_from_themed_questions = true
     #   - questions with a theme equal to 'Ethics & privacy' or 'Storage & security'
-    config.x.madmp.extract_security_privacy_statements_from_themed_questions = false
+    config.x.madmp.extract_security_privacy_statements_from_themed_questions = true
 
     # Specify a list of the preferred licenses types. These licenses will appear in a select
     # box on the 'Research Outputs' tab when editing a plan along with the option to select
