@@ -1,9 +1,54 @@
 # Changelog
 
+## [3.0.4+portage-3.0.15] - 2022-11-04
+
+### Changed
+
+- Upgrade ruby 2.6.9 to 2.7.6 due to a bug fix of ruby for XCode 14 (https://bugs.ruby-lang.org/issues/18912) was only pushed to ruby >=2.7
+
+- Updated Docker.production file to fix a rake issue when pushing to docker
+
+### Fixed
+
+- Fixed the bug that some users saw 'Tried to Load Specific Class: Symbol' error message when moving to Download tab [#240](https://github.com/portagenetwork/roadmap/issues/240)
+
+## [3.0.4+portage-3.0.14] - 2022-08-26
+
 ### Added
 
-- Added contributors to plan's cover page (if there is any) [#202](https://github.com/portagenetwork/roadmap/issues/202)
-- Added plan title to csv exported file
+- Added french translation of the Request Feedback email [#188](https://github.com/portagenetwork/roadmap/issues/188)
+
+### Fixed
+
+- Allowed user to proceed after checking 'No primary research institution' checkbox when creating a new plan [#221](https://github.com/portagenetwork/roadmap/issues/221)
+
+- Removed unmanaged organizations from the selection list when a user creates a new plan [#191](https://github.com/portagenetwork/roadmap/issues/191)
+
+## [3.0.4+portage-3.0.13] - 2022-07-13
+
+### Changed
+
+- Upgraded Rails to 5.2.8.1 to fix the Possible RCE escalation bug with Serialized Columns in Active Record in Rails 5.2.6 (https://groups.google.com/g/rubyonrails-security/c/MmFO3LYQE8U/m/q9axtXheAQAJ)
+
+- Along with the Rails upgrade, upgraded activejob, activeview, activemodal, activestorage, activepack, activerecord, activesupport, actioncable, actionmailer, actionjob, actionview and railsties to 5.2.8.1
+
+- Along with the Rails upgrade, upgraded i18n to 1.8.11
+
+- Along with the Rails upgrade, upgraded rack to 2.2.4
+
+- Along with the Rails upgrade, upgraded sprockets to 4.0.3
+
+- Along with the Rails upgrade, upgraded  marcel to 1.0.2
+
+- Along with the Rails upgrade, upgraded mini_mine to 1.1.2
+
+- Along with the Rails upgrade, upgraded concurrent-ruby to 1.1.10
+
+### Added
+
+- Added contributors to the plan's cover page (if there is any) [#202](https://github.com/portagenetwork/roadmap/issues/202)
+
+- Added plan title to CSV exported file
 
 ### Fixed
 

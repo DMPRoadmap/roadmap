@@ -1683,10 +1683,7 @@ msgid "Plans"
 msgstr ""
 
 #: ../../app/models/user/at_csv.rb:8
-#: ../../app/views/paginable/notifications/_index.html.erb:8
-#: ../../app/views/paginable/users/_index.html.erb:28
-#: ../../app/views/super_admin/notifications/_form.html.erb:34
-msgid "Active"
+msgid "Department"
 msgstr ""
 
 #: ../../app/models/user/at_csv.rb:8
@@ -2413,7 +2410,7 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/devise/registrations/_password_confirmation.html.erb:11
-#: ../../app/views/devise/registrations/edit.html.erb:17
+#: ../../app/views/devise/registrations/edit.html.erb:18
 #: ../../app/views/shared/_create_account_form.html.erb:27
 #: ../../app/views/shared/_sign_in_form.html.erb:7
 msgid "Password"
@@ -2493,11 +2490,11 @@ msgstr ""
 msgid "Personal Details"
 msgstr ""
 
-#: ../../app/views/devise/registrations/edit.html.erb:22
+#: ../../app/views/devise/registrations/edit.html.erb:24
 msgid "API Access"
 msgstr ""
 
-#: ../../app/views/devise/registrations/edit.html.erb:27
+#: ../../app/views/devise/registrations/edit.html.erb:29
 msgid "Notification Preferences"
 msgstr ""
 
@@ -3039,11 +3036,11 @@ msgid "%{application_name}"
 msgstr ""
 
 #: ../../app/views/layouts/application.html.erb:105
-msgid "Error:"
+msgid "Notice:"
 msgstr ""
 
 #: ../../app/views/layouts/application.html.erb:105
-msgid "Notice:"
+msgid "Error:"
 msgstr ""
 
 #: ../../app/views/layouts/application.html.erb:115
@@ -3469,11 +3466,11 @@ msgid "Feedback requested"
 msgstr ""
 
 #: ../../app/views/org_admin/plans/index.html.erb:29
-msgid "Notify the plan owner that I have finished providing feedback"
+msgid "Complete"
 msgstr ""
 
 #: ../../app/views/org_admin/plans/index.html.erb:29
-msgid "Complete"
+msgid "Notify the plan owner that I have finished providing feedback"
 msgstr ""
 
 #: ../../app/views/org_admin/plans/index.html.erb:39
@@ -4442,11 +4439,11 @@ msgid "Create a new plan"
 msgstr ""
 
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:13
-msgid "(if available)"
+msgid "Sample Plans"
 msgstr ""
 
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:13
-msgid "Sample Plans"
+msgid "(if available)"
 msgstr ""
 
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:47
@@ -4920,7 +4917,7 @@ msgstr ""
 msgid "What research project are you planning?"
 msgstr ""
 
-#: ../../app/views/plans/new.html.erb:47
+#: ../../app/views/plans/new.html.erb:48
 msgid "Indicate the primary research organisation"
 msgstr ""
 
@@ -6437,7 +6434,8 @@ msgstr ""
 
 #: ../../app/views/user_mailer/sharing_notification.html.erb:5
 msgid ""
-"Your colleague %{inviter_name} has invited you to contribute to\n"
+"Your colleague %{inviter_name} has invited you to contribute to
+\n"
 "          their Data Management Plan in %{tool_name}"
 msgstr ""
 
@@ -11936,6 +11934,62 @@ msgid ""
 msgstr ""
 
 #: ../../tmp/translation/database_strings.rb:739
+msgid ""
+"<p>For each research dataset reported as containing sensitive data, identify t"
+"he security issues that need to be considered to protect the privacy and confi"
+"dentiality within your team.</p>"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:227
+msgid ""
+"<p>Describe each research dataset that will be shared with other researchers o"
+"r a broader audience while taking into account the following considerations:</"
+"p>\\r\n"
+"<table style=\"border-collapse: collapse; width: 100%; height: 160px;\" border=\""
+"1\">\\r\n"
+"<tbody>\\r\n"
+"<tr style=\"height: 36px;\">\\r\n"
+"<td style=\"width: 50%; height: 36px;\"><strong><em>Is it sensitive data?</em></"
+"strong></td>\\r\n"
+"<td style=\"width: 50%; height: 36px;\"><span style=\"font-weight: 400;\">If so, e"
+"xplain if this limits access. Refer to the </span><em><span style=\"font-weight"
+": 400;\">Ethics and Legal Compliance</span></em><span style=\"font-weight: 400;\""
+"> section if necessary.</span></td>\\r\n"
+"</tr>\\r\n"
+"<tr style=\"height: 34px;\">\\r\n"
+"<td style=\"width: 50%; height: 34px;\"><strong><em>Is the research data subject"
+" to intellectual property?</em></strong></td>\\r\n"
+"<td style=\"width: 50%; height: 34px;\"><span style=\"font-weight: 400;\">If so, e"
+"xplain if this limits access. Refer to the </span><em><span style=\"font-weight"
+": 400;\">Ethics and Legal Compliance</span></em><span style=\"font-weight: 400;\""
+"> section if necessary.</span></td>\\r\n"
+"</tr>\\r\n"
+"<tr style=\"height: 54px;\">\\r\n"
+"<td style=\"width: 50%; height: 54px;\"><strong><em>Sharing requirement</em></st"
+"rong></td>\\r\n"
+"<td style=\"width: 50%; height: 54px;\"><span style=\"font-weight: 400;\">It depen"
+"ds on whether an institutional policy or the granting agency requires some for"
+"m of sharing of research materials.</span></td>\\r\n"
+"</tr>\\r\n"
+"<tr style=\"height: 36px;\">\\r\n"
+"<td style=\"width: 50%; height: 36px;\"><strong><em>Target audience </em></stron"
+"g></td>\\r\n"
+"<td style=\"width: 50%; height: 36px;\"><span style=\"font-weight: 400;\">(e.g. hi"
+"story researchers, researchers from various disciplines, general public)</span"
+"></td>\\r\n"
+"</tr>\\r\n"
+"</tbody>\\r\n"
+"</table>"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:228
+msgid ""
+"For all research data management activities, consider who is responsible (indi"
+"vidual or organization), based on what timeframe, whether staff training is re"
+"quired, and whether there are costs associated with these tasks."
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:229
 msgid ""
 "Describe each set of research materials using the table provided. Repeat as ma"
 "ny times as necessary for each new set.<br />\\r\n"

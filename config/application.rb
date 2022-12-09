@@ -27,6 +27,10 @@ module DMPRoadmap
 
     config.autoload_paths += %W[#{config.root}/lib]
 
+    # CVE-2022-32224: add some compatibility with YAML.safe_load
+    # Rails 5,6,7 are using YAML.safe_load as the default YAML deserializer
+    config.active_record.yaml_column_permitted_classes = [ActiveSupport::HashWithIndifferentAccess, Symbol, Date, Time]
+
     # HTML tags that are allowed to pass through `sanitize`.
     config.action_view.sanitized_allowed_tags = %w[
       p br strong em a table thead tbody tr td th tfoot caption ul ol li
