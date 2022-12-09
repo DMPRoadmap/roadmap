@@ -2,7 +2,7 @@
 
 # Make sure non-trivial amounts of code changes come with corresponding tests
 has_app_changes = !git.modified_files.grep(/lib/).empty? || !git.modified_files.grep(/app/).empty?
-has_test_changes = !git.modified_files.grep(/test/).empty?
+has_test_changes = !git.modified_files.grep(/spec/).empty?
 
 if git.lines_of_code > 50 && has_app_changes && !has_test_changes
   warn('There are code changes, but no corresponding tests. ' \
