@@ -6,12 +6,16 @@
 
 @import './variables/colours';
 
+@import './dmpopidor/checkbox';
 @import './dmpopidor/colours';
+@import './dmpopidor/dropdowns';
+@import './dmpopidor/html';
+@import './dmpopidor/new_window_popup';
+@import './dmpopidor/tables';
+
 
 @import './dmpopidor/footer';
 @import './dmpopidor/header';
-@import './dmpopidor/new_window_popup';
-
 @import './dmpopidor/homepage';
 @import './dmpopidor/news';
 
@@ -50,12 +54,11 @@ body {
 */
 
 #maincontent {
-  padding-top: 50px;
+  padding: 50px;
   background-color: $white;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 
   border-radius: 20px;
   box-shadow: 5px 5px 5px $light-grey;
@@ -187,27 +190,7 @@ body {
         outline-style: none !important;
         }
     }
-    
-    /*
-        PUBLIC AREA
-    */
-    h1{
-        color: $blue;
-    }
-    
-    h2, .fontsize-h2 {
-        color: $rust;
-        font-size: 20px;
-    }
 
-    h3, .fontsize-h3 {
-        color: $blue;
-        font-size: 17px;
-    }
-
-    a {
-        color: $blue;
-    }
     /*
         STATIC PAGES
     */
@@ -218,40 +201,6 @@ body {
     .news_page h2 {
       font-size: xx-large;
       color: $dark-blue;
-    }
-
-    /*
-        TABLES
-    */
-    .table {
-        border: 1px solid $blue;
-        // Cells borders
-        thead > tr > th, 
-        tbody > tr > th, 
-        tfoot > tr > th, 
-        thead > tr > td, 
-        tbody > tr > td, 
-        tfoot > tr > td {
-            border: 1px solid $blue;
-        }
-        // Cells hovering
-        &.table-hover tbody tr:hover td, 
-        &.table-hover tbody tr:hover th {
-            background-color: $very-light-blue;
-        }
-        // Header cells background
-        thead > tr > th {
-            background-color: $blue;
-        }
-        thead > tr > th:not(:last-child) {
-            border-right: 1px solid $white;
-        }
-
-        .navbar-nav { 
-            a{
-                color: $white;
-            }
-        }
     }
     /* 
         BUTTONS
@@ -655,39 +604,6 @@ body {
             color: $rust;
         }
 
-        /*
-        TABLES
-        */
-        .table {
-            border: 1px solid $rust;
-            // Cells borders
-            thead > tr > th, 
-            tbody > tr > th, 
-            tfoot > tr > th, 
-            thead > tr > td, 
-            tbody > tr > td, 
-            tfoot > tr > td {
-                border: 1px solid $rust;
-            }
-            // Cells hovering
-            &.table-hover tbody tr:hover td, 
-            &.table-hover tbody tr:hover th {
-                background-color: $light-rust;
-            }
-            // Header cells background
-            thead > tr > th {
-                background-color: $rust;
-            }
-
-            .navbar-nav { 
-                a:hover, 
-                a:focus {
-                    color: $rust;
-                    background-color: $white;
-                }
-            }
-        }
-
         /* 
             BUTTONS
         */
@@ -777,33 +693,6 @@ body {
         a {
             color: $black;
             text-decoration: underline;
-        }
-
-        /*
-        TABLES
-        */
-        .table {
-            border: 1px solid $yellow;
-            // Cells borders
-            thead > tr > th, 
-            tbody > tr > th, 
-            tfoot > tr > th, 
-            thead > tr > td, 
-            tbody > tr > td, 
-            tfoot > tr > td {
-                border: 1px solid $yellow;
-            }
-            // Cells hovering
-            &.table-hover tbody tr:hover td, 
-            &.table-hover tbody tr:hover th {
-                background-color: $light-yellow;
-            }
-            // Header cells background
-            thead > tr > th {
-                background-color: $yellow;
-                color: $black;
-            }
-
         }
 
         /* 

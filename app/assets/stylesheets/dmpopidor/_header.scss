@@ -48,38 +48,7 @@ header.dmpopidor-branding {
         align-items: center;
         font-size: 20px;
         text-transform: uppercase;
-
-        li {
-          &.delimiter {
-            padding: 0 10px;
-            font-size: xx-large;
-          }
-
-          a {
-            padding: 5px 20px;
-            color: $dark-blue;
-          }
-
-          a:hover {
-            font-weight: 900;
-            background-color: white;
-          }
-        }
-
-        &>li>a {
-          padding: 15px;
-        }
-
-        li.active {
-
-          a,
-          a:active,
-          a:focus,
-          a:visited {
-            font-weight: bold;
-            background-color: white;
-          }
-        }
+        @include dmpopidor-dropdown;
       }
 
       .header-language-account {

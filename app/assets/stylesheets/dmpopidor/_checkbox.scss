@@ -1,0 +1,23 @@
+.set-test-td {
+  input[type=checkbox] {
+    display: none;
+  }
+
+  label::before {
+    font-family: "Font Awesome 5 Free";
+    display: inline-block;
+  }
+
+  input[type=checkbox]+label::before {
+    content: "\f111"; // fa-circle
+    font-weight: 400;
+    font-size: large;
+  }
+
+  /* space between checkbox and label */
+  input[type=checkbox]:checked+label::before {
+    content: "\f058"; // fa-check-circle
+    font-weight: 900;
+    font-size: large;
+  }
+}
