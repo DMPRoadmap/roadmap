@@ -25,7 +25,7 @@ warn('PR is classed as Work in Progress') if github.pr_title.include? '[WIP]'
 declared_trivial = (github.pr_title + github.pr_body).include?('#trivial') || !has_app_changes
 
 if !git.modified_files.include?('CHANGELOG.md') && !declared_trivial
-  raise(
+  fail(
     "Please include a CHANGELOG entry. \n
     You can find it at [CHANGELOG.md](https://github.com/DMPRoadmap/roadmap/blob/main/CHANGELOG.md).",
     sticky: false
