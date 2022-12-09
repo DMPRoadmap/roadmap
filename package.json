@@ -48,7 +48,7 @@
     "rails-erb-loader": "^5.5.2",
     "regenerator-runtime": "^0.13.5",
     "timeago.js": "^4.0.2",
-    "tinymce": "^5.10.0",
+    "tinymce": "^5.10.7",
     "webpack": "^4.42.1"
   },
   "devDependencies": {
