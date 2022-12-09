@@ -542,8 +542,7 @@ class PlansController < ApplicationController
     @orgs = (Org.includes(identifiers: :identifier_scheme).organisation +
              Org.includes(identifiers: :identifier_scheme).institution +
              Org.includes(identifiers: :identifier_scheme).default_orgs)
-    @orgs = @orgs.flatten.uniq.sort_by(&:name) 
-      
+    @orgs = @orgs.flatten.uniq.sort_by(&:name)
   end
 end
 # rubocop:enable Metrics/ClassLength
