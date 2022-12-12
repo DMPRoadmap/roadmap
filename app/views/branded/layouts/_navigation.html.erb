@@ -18,7 +18,7 @@
     <ul class="nav navbar-nav header-links">
       <% if user_signed_in? %>
         <li>
-          <a href="#" class="dropdown-toggle" role="button" id="static-pages-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a href="#" class="dropdown-toggle" role="button" id="plans-options-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <%= _('My plans') %> <i class="fas fa-caret-down"></i>
           </a>
           <ul class="dropdown-menu dmpopidor-dropdown">
@@ -44,8 +44,18 @@
         <%= link_to _('Help'), help_path %>
       </li>
       <li class="delimiter">&#x25cf;</li>
-      <li <%= 'class=active' if active_page?(public_plans_path) %>>
-        <%= link_to _('Public DMPs'), public_plans_path %>
+      <li>
+        <a href="#" class="dropdown-toggle" role="button" id="public-plans-templates" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= _('Plans & Templates') %> <i class="fas fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dmpopidor-dropdown">
+          <li <%= 'class=active' if active_page?(public_plans_path) %>>
+            <%= link_to _('Public DMPs'), public_plans_path %>
+          </li>
+          <li <%= 'class=active' if active_page?(public_templates_path) %>>
+            <%= link_to _('DMP Templates'), public_templates_path %>
+          </li>
+        </ul>
       </li>
       <li class="delimiter">&#x25cf;</li>
       <% unless @nav_static_pages.empty? %>
