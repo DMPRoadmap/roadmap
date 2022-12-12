@@ -6,4 +6,6 @@
 
 ### Fixed
 
+- Froze mail gem version [#3254](https://github.com/DMPRoadmap/roadmap/issues/3254)
+
 ### Changed
