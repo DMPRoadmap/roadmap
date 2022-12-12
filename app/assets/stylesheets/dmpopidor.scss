@@ -5,9 +5,10 @@
 @import "@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.min.css";
 
 @import './variables/colours';
-
-@import './dmpopidor/checkbox';
 @import './dmpopidor/colours';
+
+@import './dmpopidor/buttons';
+@import './dmpopidor/checkbox';
 @import './dmpopidor/dropdowns';
 @import './dmpopidor/html';
 @import './dmpopidor/new_window_popup';
@@ -202,53 +203,7 @@ body {
       font-size: xx-large;
       color: $dark-blue;
     }
-    /* 
-        BUTTONS
-    */
-    .btn-primary, 
-    .btn-primary:hover, 
-    .btn-primary:focus, 
-    .btn-primary:active, 
-    .btn-primary:visited, 
-    .btn-primary:active:hover, 
-    .btn-primary.active:hover {
-        border-color: $rust;
-        background-color: $rust;
-        color: $white;
-    }
-    .btn-default, 
-    .btn-default:hover, 
-    .btn-default:focus, 
-    .btn-default:active, 
-    .btn-default:visited, 
-    .btn-default:active:hover, 
-    .btn-default.active:hover {
-        border-color: $rust;
-        background-color: $rust;
-        color: $white;
-    }
-    .btn-secondary, 
-    .btn-secondary:hover, 
-    .btn-secondary:focus, 
-    .btn-secondary:active, 
-    .btn-secondary:visited, 
-    .btn-secondary:active:hover, 
-    .btn-secondary.active:hover {
-        border-color: $light-grey;
-        background-color: $light-grey;
-        color: $black;
-        outline: none;
-        margin-top: 5px;
-        margin-bottom: 10px;
-    }
-    .combobox-clear-button, 
-    .combobox-clear-button:hover, 
-    .combobox-clear-button:focus {
-        color: $blue;
-    }
-    .btn-link {
-        color: $blue;
-    }
+    
     /* 
         PLAN EDIT
     */
@@ -603,38 +558,7 @@ body {
         a {
             color: $rust;
         }
-
-        /* 
-            BUTTONS
-        */
-        .btn-primary, 
-        .btn-primary:hover, 
-        .btn-primary:focus, 
-        .btn-primary:active, 
-        .btn-primary:visited, 
-        .btn-primary:active:hover, 
-        .btn-primary.active:hover {
-            border-color: $blue;
-            background-color: $blue;
-            color: $white;
-        }
-        .btn-default, 
-        .btn-default:hover, 
-        .btn-default:focus, 
-        .btn-default:active, 
-        .btn-default:visited, 
-        .btn-default:active:hover, 
-        .btn-default.active:hover {
-            border-color: $blue;
-            background-color: $blue;
-            color: $white;
-        }
-        .combobox-clear-button, 
-        .combobox-clear-button:hover, 
-        .combobox-clear-button:focus {
-            color: $rust;
-        }
-
+        
         // Tabs
         .nav-tabs {
             background-color: $rust;
@@ -694,50 +618,6 @@ body {
             color: $black;
             text-decoration: underline;
         }
-
-        /* 
-            BUTTONS
-        */
-        .btn-primary, 
-        .btn-primary:hover, 
-        .btn-primary:focus, 
-        .btn-primary:active, 
-        .btn-primary:visited, 
-        .btn-primary:active:hover, 
-        .btn-primary.active:hover {
-            border-color: $yellow;
-            background-color: $yellow;
-            color: $black;
-            text-decoration: none;
-        }
-        .btn-default, 
-        .btn-default:hover, 
-        .btn-default:focus, 
-        .btn-default:active, 
-        .btn-default:visited, 
-        .btn-default:active:hover, 
-        .btn-default.active:hover {
-            border-color: $yellow;
-            background-color: $yellow;
-            color: $black;
-            text-decoration: none;
-        }
-        .combobox-clear-button, 
-        .combobox-clear-button:hover, 
-        .combobox-clear-button:focus {
-            color: $yellow;
-        }
-
-
-        .btn-link {
-            color: $black;
-            text-decoration: underline;
-        }
-
-        .registry-value-actions a{
-            text-decoration: none;
-        }
-    
     }
 
 }
