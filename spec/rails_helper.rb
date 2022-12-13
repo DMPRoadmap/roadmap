@@ -1,14 +1,21 @@
 # frozen_string_literal: true
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
+require 'capybara/rails'
+require 'rspec/rails'
 require 'spec_helper'
+require 'webmock/rspec'
+
+# Helpers for some of the common UI componentsand Devise auth
+# require_relative 'support/helpers/autocomplete_helper'
+# require_relative 'support/helpers/capybara_helper'
+# require_relative 'support/helpers/sessions_helper'
+# require_relative 'support/helpers/tiny_mce_helper'
+
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
 # Prevent database truncation if the environment is production
 abort('The Rails environment is running in production mode!') if Rails.env.production?
-require 'rspec/rails'
-# require "capybara-screenshot/rspec"
-require 'webmock/rspec'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -36,7 +43,20 @@ Dir[Rails.root.join('spec/mixins/*.rb')].sort { |a, b| a <=> b }
 # No need to run this during CI because we build the DB from the schema
 # ActiveRecord::Migration.maintain_test_schema!
 
+# Block all external HTTP requests except to the Google APIs URL so that WebDrivers can fetch
+# the latest Chromedrivers.
+WebMock.disable_net_connect!(
+  allow_localhost: true,
+  allow: %w[chromedriver.storage.googleapis.com]
+)
+
+# Configure RSpec
 RSpec.configure do |config|
+  config.include(AutoCompleteHelper, type: :feature)
+  config.include(CapybaraHelper, type: :feature)
+  config.include(SessionsHelper, type: :feature)
+  config.include(TinyMceHelper,  type: :feature)
+
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.

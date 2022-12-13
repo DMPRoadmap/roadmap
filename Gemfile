@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '>= 2.7'
+ruby '>= 3.0'
 
 # ===========#
 # CORE RAILS #
@@ -16,9 +16,6 @@ gem 'rails', '~> 6.1'
 #       Versions of mimemagic that were yanked: https://rubygems.org/gems/mimemagic/versions
 #       Analysis of the issue: https://www.theregister.com/2021/03/25/ruby_rails_code/
 gem 'mimemagic'
-
-# Use sqlite3 as the database for Active Record
-# gem 'sqlite3', '~> 1.4'
 
 # Use Puma as the app server
 gem 'puma', group: :puma, require: false
@@ -165,18 +162,11 @@ gem 'api-pagination'
 gem 'sassc-rails'
 
 # Font-Awesome SASS (https://github.com/FortAwesome/font-awesome-sass)
-gem 'font-awesome-sass', '~> 5'
-
-# Use webpack to manage app-like JavaScript modules in Rails
-# (https://github.com/rails/webpacker)
-# gem "webpacker"
+gem 'font-awesome-sass'
 
 # Parse CSS and add vendor prefixes to CSS rules using values from the Can
 # I Use website. (https://github.com/ai/autoprefixer-rails)
 gem 'autoprefixer-rails'
-
-# Minimal embedded v8 for Ruby (https://github.com/discourse/mini_racer)
-# gem "mini_racer"
 
 # ========= #
 # EXPORTING #
@@ -245,17 +235,9 @@ group :test do
   # Guard keeps an eye on your file modifications (https://github.com/guard/guard)
   gem 'guard'
 
-  # Guard gem for RSpec (https://github.com/guard/guard-rspec)
-  # gem 'guard-rspec'
-
   # Library for stubbing HTTP requests in Ruby.
   # (http://github.com/bblimke/webmock)
   gem 'webmock'
-
-  # Code coverage for Ruby 1.9+ with a powerful configuration library and
-  # automatic merging of coverage across test suites
-  # (http://github.com/colszowka/simplecov)
-  # gem 'simplecov', require: false
 
   # Strategies for cleaning databases.  Can be used to ensure a clean state
   # for testing. (http://github.com/DatabaseCleaner/database_cleaner)
@@ -270,17 +252,9 @@ group :test do
 
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara'
-  gem 'selenium-webdriver'
+  # gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers', '~> 5.2'
-
-  # Automatically create snapshots when Cucumber steps fail with Capybara
-  # and Rails (http://github.com/mattheworiordan/capybara-screenshot)
-  # gem 'capybara-screenshot'
-
-  # Browser integration tests are expensive. We can mock external requests
-  # in our tests, but once a browser is involved, we lose control.
-  gem 'capybara-webmock'
+  gem 'webdrivers' #, '~> 5.2'
 
   # RSpec::CollectionMatchers lets you express expected outcomes on
   # collections of an object in an example.
@@ -294,7 +268,7 @@ group :test do
   gem 'rails-controller-testing'
 
   # automating code review
-  gem 'danger', '~> 9.0', require: false
+  gem 'danger' #, '~> 9.0', require: false
 end
 
 group :ci, :development do
@@ -313,24 +287,6 @@ group :ci, :development do
   # RuboCop rules for detecting and autocorrecting undecorated strings for i18n
   # (gettext and rails-i18n)
   gem 'rubocop-i18n'
-
-  # A collection of RuboCop cops to check for performance optimizations in Ruby code.
-  # gem 'rubocop-performance'
-
-  # Automatic Rails code style checking tool. A RuboCop extension focused on enforcing
-  # Rails best practices and coding conventions.
-  # gem 'rubocop-rails'
-
-  # A RuboCop plugin for Rake tasks
-  # gem 'rubocop-rake'
-
-  # Code style checking for RSpec files. A plugin for the RuboCop code style enforcing
-  # & linting tool.
-  # gem 'rubocop-rspec'
-
-  # Thread-safety checks via static analysis. A plugin for the RuboCop code style
-  # enforcing & linting tool.
-  # gem 'rubocop-thread_safety'
 end
 
 group :development do

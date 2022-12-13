@@ -23,6 +23,9 @@ Rails.application.configure do
     'Cache-Control' => "public, max-age=#{1.hour.to_i}"
   }
 
+  # We need to precompile assets for feature tests
+  config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *.svg *.ico *.eot *.ttf)
+
   # Disable fragment caching used in ExternalApis and OrgSelection services
   config.cache_store = :null_store
 
