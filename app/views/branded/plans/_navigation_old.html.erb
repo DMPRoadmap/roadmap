@@ -1,61 +1,41 @@
 <% phases = plan.template.phases %>
 <ul id="plan-navigation" class="nav nav-tabs plan-navigation" role="tablist">
   <li role="presentation" class="<%= (active_page?(plan_path(plan), true) ? 'active' : '') %>">
-    <a href="<%= plan_path(plan) %>" role="tab" aria-controls="content">
-      <span class="icon icon-general-infos"></span>
-      <%= _("General information") %>
-    </a>
+    <a href="<%= plan_path(plan) %>" role="tab" aria-controls="content"><%= _("General information") %></a>
   </li>
-  <li role="presentation" class="<%= (active_page?(plan_research_outputs_path(plan), true) ? 'active' : '') %>">
-    <a href="<%= plan_research_outputs_path(plan) %>" role="tab" aria-controls="content">
-      <span class="icon icon-research-outputs"></span>
-      <%= _("Research outputs") %>
-    </a>
+  <li role="contributors" class="<%= (active_page?(plan_contributors_path(plan)) ? "active" : "") %>">
+    <%= link_to _("Contributors"), plan_contributors_path(plan), role: "tab",
+                aria: { controls: "content" } %>
+  </li>
+  <li role="presentation" class="<%= (active_page?(plan_research_outputs_path(plan)) ? 'active' : '') %>">
+    <%= link_to(_('Research outputs'), plan_research_outputs_path(plan), role: 'tab', 'aria-controls': 'content') %>
   </li>
   <% phases.each do |phase| %>
     <li role="presentation" class="phase-tab <%= (active_page?(edit_plan_path(plan.id, phase_id: phase.id)) ? 'active' : '') %>">
       <a href="<%= edit_plan_path(plan.id, phase_id: phase.id) %>" role="tab" aria-controls="content">
-        <span class="icon icon-write-plan"></span>
         <%= (phases.size > 1 ? phase.title : _('Write Plan')) %>
       </a>
     </li>
   <% end %>
-  <li role="contributors" class="<%= (active_page?(plan_contributors_path(plan)) ? "active" : "") %>">
-    <a href="<%= plan_contributors_path(plan) %>" role="tab" aria-controls="content">
-      <span class="icon icon-contributors"></span>
-      <%= _("Contributors") %>
-    </a>
-  </li>
   <% if plan.template.structured? %>
     <li role="budget" class="<%= (active_page?(budget_plan_path(plan)) ? "active" : "") %>">
-      <a href="<%= budget_plan_path(plan) %>" role="tab" aria-controls="content">
-        <span class="icon icon-budget"></span>
-        <%= _("Budget") %>
-      </a>
+      <%= link_to _("Budget"), budget_plan_path(plan), role: "tab",
+                  aria: { controls: "content" } %>
     </li>
   <% end %>
   <% if plan.administerable_by?(current_user.id) || (current_user.can_org_admin? && current_user.org.plans.include?(plan))  %>
     <li role="presentation" class="<%= (active_page?(share_plan_path(plan)) ? 'active' : '') %>">
-      <a href="<%= share_plan_path(plan) %>" role="tab" aria-controls="content">
-        <span class="icon icon-share"></span>
-        <%= _('Share') %>
-      </a>
+      <a href="<%= share_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Share') %></a>
     </li>
   <% end %>
   <% if (plan.administerable_by?(current_user.id) || (current_user.can_org_admin? && current_user.org.plans.include?(plan))) && plan.owner_and_coowners.include?(current_user) && plan.owner.org.feedback_enabled? %>
     <li role="presentation" class="<%= (active_page?(request_feedback_plan_path(plan)) ? 'active' : '') %>">
-      <a href="<%= request_feedback_plan_path(plan) %>" role="tab" aria-controls="content">
-        <span class="icon icon-request-feedback"></span>
-        <%= _('Request feedback') %>
-      </a>
+      <a href="<%= request_feedback_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Request feedback') %></a>
     </li>
   <% end %>
   <% if plan.readable_by?(current_user.id) %>
     <li role="presentation" class="<%= (active_page?(download_plan_path(plan)) ? 'active' : '') %>">
-      <a href="<%= download_plan_path(plan) %>" role="tab" aria-controls="content">
-        <span class="icon icon-download"></span>
-        <%= _('Download') %>
-      </a>
+      <a href="<%= download_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Download') %></a>
     </li>
   <% end %>
 </ul>
