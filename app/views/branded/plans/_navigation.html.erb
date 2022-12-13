@@ -1,5 +1,5 @@
 <% phases = plan.template.phases %>
-<ul class="nav nav-tabs" role="tablist">
+<ul id="plan-navigation" class="nav nav-tabs plan-navigation" role="tablist">
   <li role="presentation" class="<%= (active_page?(plan_path(plan), true) ? 'active' : '') %>">
     <a href="<%= plan_path(plan) %>" role="tab" aria-controls="content"><%= _("General information") %></a>
   </li>
