@@ -47,14 +47,6 @@ gem 'jbuilder'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 
-# GEMS ADDED TO HELP HANDLE RAILS MIGRATION FROM 3.x to 4.2
-# THESE GEMS HELP SUPPORT DEPRACATED FUNCTIONALITY AND WILL LOSE SUPPORT IN
-# FUTURE VERSIONS WE SHOULD CONSIDER BRINGING THE CODE UP TO DATE INSTEAD
-
-# A set of Rails responders to dry up your application
-# (http://github.com/plataformatec/responders)
-# gem "responders"
-
 # ============== #
 # ERROR HANDLING #
 # ============== #
@@ -252,9 +244,9 @@ group :test do
 
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara'
-  # gem 'selenium-webdriver'
+
   # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers' #, '~> 5.2'
+  gem 'webdrivers'
 
   # RSpec::CollectionMatchers lets you express expected outcomes on
   # collections of an object in an example.
@@ -268,7 +260,7 @@ group :test do
   gem 'rails-controller-testing'
 
   # automating code review
-  gem 'danger' #, '~> 9.0', require: false
+  gem 'danger'
 end
 
 group :ci, :development do
