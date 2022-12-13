@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPRoadmap-Development 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-11-30 14:11-0500\n"
-"PO-Revision-Date: 2022-11-30 14:11-0500\n"
+"POT-Creation-Date: 2022-12-09 10:34-0500\n"
+"PO-Revision-Date: 2022-12-09 10:35-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -1121,6 +1121,10 @@ msgstr "Manage organisation details"
 #: ../../app/helpers/perms_helper.rb:16
 msgid "Grant API to organisations"
 msgstr "Grant API to organisations"
+
+#: ../../app/helpers/perms_helper.rb:17
+msgid "Review organisational plans"
+msgstr "Review organisational plans"
 
 #: ../../app/helpers/plans_helper.rb:8
 #: ../../app/views/paginable/plans/_index.html.erb:8
