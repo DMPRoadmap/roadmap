@@ -10,6 +10,12 @@
 
 - Upgrade selenium-webdriver to 4.7.1
 
+### Fixed
+
+- Fixed Github action ruby 'version not valid' issue [#265](https://github.com/portagenetwork/roadmap/issues/265)
+
+- Fixed Dangerfile configuration issue (https://github.com/DMPRoadmap/roadmap/pull/3263)
+
 ## [3.0.4+portage-3.0.15] - 2022-11-04
 
 ### Changed
