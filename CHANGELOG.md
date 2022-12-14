@@ -16,6 +16,8 @@
 
 - Fixed Dangerfile configuration issue (https://github.com/DMPRoadmap/roadmap/pull/3263)
 
+- Fixed spec_helper.rb file to remove undefined Capybara::Webmock method
+
 ## [3.0.4+portage-3.0.15] - 2022-11-04
 
 ### Changed
