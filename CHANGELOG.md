@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.0.4+portage-3.0.16] - 2022-12-14
+
+### Changed
+
+- Upgrade rails-html-sanitizer to 1.4.4 and loofah to 2.19.1 to prevent possible XSS vulnerability attack and other security problems(https://github.com/rails/rails-html-sanitizer/security/advisories/GHSA-mcvf-2q2m-x72m, https://github.com/flavorjones/loofah/security/advisories/GHSA-486f-hjj9-9vhh)
+
+- Upgrade rubocop-rails_config to 1.12.0
+
+- Upgrade selenium-webdriver to 4.7.1
+
 ## [3.0.4+portage-3.0.15] - 2022-11-04
 
 ### Changed
