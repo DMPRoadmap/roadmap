@@ -4,7 +4,7 @@ on: [pull_request]
 
 jobs:
   mysql:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     env:
       DB_ADAPTER: mysql2
@@ -13,7 +13,7 @@ jobs:
 
     steps:
     # Checkout the repo
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 1
 
@@ -30,7 +30,7 @@ jobs:
         echo "BUNDLER_VERSION=`cat ./Gemfile.lock | grep -A 1 'BUNDLED WITH' | grep -oE '[0-9]\.[0-9]'`" >> $GITHUB_ENV
 
     - name: 'Install Ruby'
-      uses: actions/setup-ruby@v1
+      uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ env.RUBY_VERSION }}
 

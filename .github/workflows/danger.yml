@@ -4,10 +4,10 @@ on: [push, pull_request]
 
 jobs:
   danger:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: 'Determine Ruby and Bundler Versions from Gemfile.lock'
       run: |
@@ -16,7 +16,7 @@ jobs:
 
     # Install Ruby - using the version found in the Gemfile.lock
     - name: 'Install Ruby'
-      uses: actions/setup-ruby@v1
+      uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ env.RUBY_VERSION }}
 
