@@ -9,3 +9,5 @@
 - Updated JS that used to call the TinyMCE `setMode()` function so that it now calls `mode.set()` because the former is now deprecated.
 
 ### Changed
+
+- Added scss files to EditorConfig
