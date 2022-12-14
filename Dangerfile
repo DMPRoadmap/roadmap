@@ -7,7 +7,8 @@ has_test_changes = !git.modified_files.grep(/spec/).empty?
 if git.lines_of_code > 50 && has_app_changes && !has_test_changes
   warn('There are code changes, but no corresponding tests. ' \
        'Please include tests if this PR introduces any modifications in ' \
-       'behavior.',
+       'behavior. \n
+       Ignore this warning if the PR ONLY contains translation.io synced updates.',
        sticky: false)
 end
 
@@ -25,7 +26,7 @@ warn('PR is classed as Work in Progress') if github.pr_title.include? '[WIP]'
 declared_trivial = (github.pr_title + github.pr_body).include?('#trivial') || !has_app_changes
 
 if !git.modified_files.include?('CHANGELOG.md') && !declared_trivial
-  raise(
+  failure(
     "Please include a CHANGELOG entry. \n
     You can find it at [CHANGELOG.md](https://github.com/DMPRoadmap/roadmap/blob/main/CHANGELOG.md).",
     sticky: false

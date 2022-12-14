@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DMPRoadmap-Development 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2022-11-30 14:11-0500\n"
-"PO-Revision-Date: 2022-11-30 20:11+0100\n"
+"POT-Creation-Date: 2022-12-09 10:34-0500\n"
+"PO-Revision-Date: 2022-12-09 16:34+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
@@ -136,7 +136,7 @@ msgstr "Devam etmeden önce oturum açmanız veya kaydolmanız gerekir."
 
 #: ../../app/controllers/application_controller.rb:108
 msgid "Unable to %{action} the %{object}. %{errors}"
-msgstr ""
+msgstr "%{action} %{object} yapılamıyor. %{errors}"
 
 #: ../../app/controllers/application_controller.rb:114
 msgid "Successfully %{action} the %{object}."
@@ -184,7 +184,7 @@ msgstr "soru seçeneği"
 
 #: ../../app/controllers/application_controller.rb:181
 msgid "Record Not Found"
-msgstr ""
+msgstr "Kayıt bulunamadı"
 
 #: ../../app/controllers/concerns/paginable.rb:45
 msgid "scope should be an ActiveRecord::Relation object"
@@ -438,7 +438,7 @@ msgstr "Bir şablonun geçmiş sürümüne aşama ekleyemezsiniz."
 
 #: ../../app/controllers/org_admin/phases_controller.rb:126
 msgid "Unable to create a new version of this template.<br>"
-msgstr ""
+msgstr "Bu şablonun yeni bir sürümü oluşturulamıyor.<br>"
 
 #: ../../app/controllers/org_admin/phases_controller.rb:147
 #: ../../app/controllers/org_admin/questions_controller.rb:166
@@ -542,7 +542,7 @@ msgstr "Yeni bir bölüm oluşturulamıyor. Belirttiğiniz aşama mevcut değil.
 
 #: ../../app/controllers/org_admin/sections_controller.rb:133
 msgid "Unable to delete this version of the template."
-msgstr ""
+msgstr "Şablonun bu sürümü silinemiyor."
 
 #: ../../app/controllers/org_admin/template_copies_controller.rb:20
 #: ../../app/controllers/plans_controller.rb:394
@@ -627,11 +627,11 @@ msgstr "Planınız için uygun bir şablon tanımlanamadı."
 
 #: ../../app/controllers/plans_controller.rb:84
 msgid "My Plan (%{title})"
-msgstr ""
+msgstr "Planım (%{title})"
 
 #: ../../app/controllers/plans_controller.rb:86
 msgid "%{user_name} Plan"
-msgstr ""
+msgstr "%{user_name} Planı"
 
 #: ../../app/controllers/plans_controller.rb:124
 msgid "This plan is based on the default template."
@@ -676,7 +676,7 @@ msgstr "Planın test durumu değiştirilemiyor"
 
 #: ../../app/controllers/plans_controller.rb:461
 msgid "There is no plan associated with id %{<id}>s"
-msgstr ""
+msgstr "%{ kimliğiyle ilişkilendirilmiş bir plan yok<id}> s"
 
 #: ../../app/controllers/registrations_controller.rb:34
 msgid ""
@@ -708,6 +708,8 @@ msgid ""
 "ble to access\n"
 "                                  your account with them."
 msgstr ""
+"Hoş geldin! Kurumsal kimlik bilgilerinizle başarıyla kaydoldunuz. Artık onlarl"
+"a hesabınıza erişebileceksiniz."
 
 #: ../../app/controllers/registrations_controller.rb:173
 msgid "Save Unsuccessful. "
@@ -763,13 +765,13 @@ msgstr "Şifre ve onay eşleşmelidir"
 
 #: ../../app/controllers/research_outputs_controller.rb:217
 msgid "research output not found"
-msgstr ""
+msgstr "araştırma çıktısı bulunamadı"
 
 #: ../../app/controllers/roles_controller.rb:26
 msgid ""
 "Cannot share plan with %{email} since that email matches\n"
 "                                   with the owner of the plan."
-msgstr ""
+msgstr "Bu e-posta planın sahibiyle eşleştiği için plan %{email} ile paylaşılamıyor."
 
 #: ../../app/controllers/roles_controller.rb:36
 msgid "Plan is already shared with %{email}."
@@ -796,7 +798,7 @@ msgstr "Plan %{email} ile paylaşıldı."
 msgid ""
 "You must provide a valid email address and select a permission\n"
 "                               level."
-msgstr ""
+msgstr "Geçerli bir e-posta adresi sağlamalı ve bir izin düzeyi seçmelisiniz."
 
 #: ../../app/controllers/roles_controller.rb:71
 msgid "Please enter an email address"
@@ -807,6 +809,8 @@ msgid ""
 "Successfully changed the permissions for %{email}. They have been\n"
 "                       notified via email."
 msgstr ""
+"%{email} için izinler başarıyla değiştirildi. E-posta yoluyla bilgilendirildil"
+"er."
 
 #: ../../app/controllers/roles_controller.rb:107
 msgid "Access removed"
@@ -981,7 +985,7 @@ msgstr "Cevaplıyor"
 
 #: ../../app/helpers/conditions_helper.rb:197
 msgid " will <b>send an email</b> with subject %{subject_name}"
-msgstr ""
+msgstr "%{subject_name} konulu <b>bir e-posta gönderecek</b>"
 
 #: ../../app/helpers/conditions_helper.rb:203
 msgid " will <b>remove</b> question "
@@ -1106,6 +1110,10 @@ msgstr "Kuruluş ayrıntılarını yönetin"
 #: ../../app/helpers/perms_helper.rb:16
 msgid "Grant API to organisations"
 msgstr "Kuruluşlara API erişimi ver"
+
+#: ../../app/helpers/perms_helper.rb:17
+msgid "Review organisational plans"
+msgstr ""
 
 #: ../../app/helpers/plans_helper.rb:8
 #: ../../app/views/paginable/plans/_index.html.erb:8
@@ -1314,11 +1322,11 @@ msgstr " Özelleştiren:"
 #: ../../app/models/concerns/exportable_plan.rb:143
 #: ../../app/views/shared/export/_plan_coversheet.erb:6
 msgid "Title: "
-msgstr ""
+msgstr "Başlık:"
 
 #: ../../app/models/concerns/exportable_plan.rb:143
 msgid "%{title}"
-msgstr ""
+msgstr "%{title}"
 
 #: ../../app/models/concerns/exportable_plan.rb:145
 #: ../../app/views/shared/export/_plan_txt.erb:4
@@ -1334,39 +1342,39 @@ msgstr "%{authors}"
 #: ../../app/views/shared/export/_plan_coversheet.erb:14
 #: ../../app/views/shared/export/_plan_txt.erb:9
 msgid "Principal Investigator: "
-msgstr ""
+msgstr "Baş araştırmacı:"
 
 #: ../../app/models/concerns/exportable_plan.rb:151
 msgid "%{investigation}"
-msgstr ""
+msgstr "%{investigation}"
 
 #: ../../app/models/concerns/exportable_plan.rb:154
 msgid "Date Manager: "
-msgstr ""
+msgstr "Tarih Yöneticisi:"
 
 #: ../../app/models/concerns/exportable_plan.rb:155
 msgid "%{data_curation}"
-msgstr ""
+msgstr "%{data_curation}"
 
 #: ../../app/models/concerns/exportable_plan.rb:158
 #: ../../app/views/shared/export/_plan_coversheet.erb:20
 #: ../../app/views/shared/export/_plan_txt.erb:15
 msgid "Project Administrator: "
-msgstr ""
+msgstr "Proje Yöneticisi:"
 
 #: ../../app/models/concerns/exportable_plan.rb:158
 msgid "%{pa}"
-msgstr ""
+msgstr "%{pa}"
 
 #: ../../app/models/concerns/exportable_plan.rb:161
 #: ../../app/views/shared/export/_plan_coversheet.erb:23
 #: ../../app/views/shared/export/_plan_txt.erb:18
 msgid "Contributor: "
-msgstr ""
+msgstr "katkıda bulunan:"
 
 #: ../../app/models/concerns/exportable_plan.rb:161
 msgid "%{other}"
-msgstr ""
+msgstr "%{other}"
 
 #: ../../app/models/concerns/exportable_plan.rb:163
 #: ../../app/views/shared/export/_plan_coversheet.erb:26
@@ -1481,15 +1489,15 @@ msgstr "En az bir rol belirtmelisiniz."
 
 #: ../../app/models/contributor.rb:132 ../../app/models/contributor.rb:135
 msgid "can't be blank."
-msgstr ""
+msgstr "boş olamaz"
 
 #: ../../app/models/contributor.rb:139
 msgid "can't be blank if no email is provided."
-msgstr ""
+msgstr "e-posta sağlanmazsa boş bırakılamaz."
 
 #: ../../app/models/contributor.rb:140
 msgid "can't be blank if no name is provided."
-msgstr ""
+msgstr "isim verilmemişse boş bırakılamaz."
 
 #: ../../app/models/exported_plan.rb:116 ../../app/models/exported_plan.rb:119
 msgid "Selected option(s)"
@@ -1510,7 +1518,7 @@ msgstr "Ayrıntılar"
 #: ../../app/models/exported_plan.rb:189
 msgid ""
 "Question not answered.\n"
-msgstr ""
+msgstr "Soru cevaplanmadı."
 
 #: ../../app/models/identifier.rb:141
 msgid "already assigned a value"
@@ -1658,15 +1666,15 @@ msgstr "İsim"
 
 #: ../../app/models/user/at_csv.rb:7
 msgid "E-Mail"
-msgstr ""
+msgstr "E-posta"
 
 #: ../../app/models/user/at_csv.rb:7
 msgid "Created Date"
-msgstr ""
+msgstr "Oluşturulma Tarihi"
 
 #: ../../app/models/user/at_csv.rb:7
 msgid "Last Activity"
-msgstr ""
+msgstr "son Aktivite"
 
 #: ../../app/models/user/at_csv.rb:7
 #: ../../app/views/layouts/_branding.html.erb:71
@@ -1690,7 +1698,7 @@ msgstr "Aktif"
 
 #: ../../app/models/user/at_csv.rb:8
 msgid "Department"
-msgstr ""
+msgstr "Departman"
 
 #: ../../app/policies/api/v0/guidance_group_policy.rb:11
 #: ../../app/policies/api/v0/guidance_policy.rb:11
@@ -1704,7 +1712,7 @@ msgstr "planlar API'sine erişimi olmalıdır"
 
 #: ../../app/policies/api/v0/template_policy.rb:9
 msgid "must have access to templates api"
-msgstr ""
+msgstr "api şablonlarına erişimi olmalıdır"
 
 #: ../../app/policies/research_output_policy.rb:8
 msgid "must be logged in"
@@ -1716,19 +1724,19 @@ msgstr "kullanıcısının/kullanıcılarının bu planı görme yetkisi yok"
 
 #: ../../app/presenters/contributor_presenter.rb:42
 msgid "Data Manager"
-msgstr ""
+msgstr "Veri Yöneticisi"
 
 #: ../../app/presenters/contributor_presenter.rb:44
 msgid "Project Administrator"
-msgstr ""
+msgstr "Proje Yöneticisi"
 
 #: ../../app/presenters/contributor_presenter.rb:46
 msgid "Principal Investigator"
-msgstr ""
+msgstr "Baş araştırmacı"
 
 #: ../../app/presenters/contributor_presenter.rb:48
 msgid "Other"
-msgstr ""
+msgstr "Başka"
 
 #: ../../app/presenters/contributor_presenter.rb:56
 msgid ""
@@ -1759,26 +1767,26 @@ msgstr ""
 
 #: ../../app/presenters/research_output_presenter.rb:81
 msgid "Generalist (multidisciplinary)"
-msgstr ""
+msgstr "Genelci (çok disiplinli)"
 
 #: ../../app/presenters/research_output_presenter.rb:82
 msgid "Discipline specific"
-msgstr ""
+msgstr "Disipline özgü"
 
 #: ../../app/presenters/research_output_presenter.rb:83
 msgid "Institutional"
-msgstr ""
+msgstr "Kurumsal"
 
 #: ../../app/presenters/research_output_presenter.rb:119
 #: ../../app/presenters/research_output_presenter.rb:126
 #: ../../app/presenters/research_output_presenter.rb:133
 msgid "None specified"
-msgstr ""
+msgstr "belirtilmemiş"
 
 #: ../../app/presenters/research_output_presenter.rb:140
 #: ../../app/presenters/research_output_presenter.rb:147
 msgid "Unspecified"
-msgstr ""
+msgstr "Belirtilmemiş"
 
 #: ../../app/services/api/v1/auth/jwt/authentication_service.rb:34
 msgid "Invalid grant type"
@@ -3045,37 +3053,37 @@ msgstr "Aranıyor ..."
 
 #: ../../app/views/layouts/modal_search/_form.html.erb:24
 msgid "- Enter a search term %{examples} -"
-msgstr ""
+msgstr "- Bir arama terimi girin %{examples} -"
 
 #: ../../app/views/layouts/modal_search/_form.html.erb:25
 #: ../../app/views/layouts/modal_search/_results.html.erb:20
 msgid "No results matched your filter criteria."
-msgstr ""
+msgstr "Filtre kriterlerinizle eşleşen sonuç yok."
 
 #: ../../app/views/layouts/modal_search/_form.html.erb:41
 #: ../../app/views/layouts/modal_search/_form.html.erb:84
 msgid "Close"
-msgstr ""
+msgstr "Kapat"
 
 #: ../../app/views/layouts/modal_search/_form.html.erb:44
 msgid "%{topic} search"
-msgstr ""
+msgstr "%{topic} araması"
 
 #: ../../app/views/layouts/modal_search/_form.html.erb:67
 msgid "Apply filter(s)"
-msgstr ""
+msgstr "Filtre(ler) uygula"
 
 #: ../../app/views/layouts/modal_search/_result.html.erb:20
 msgid "Select"
-msgstr ""
+msgstr "Seçme"
 
 #: ../../app/views/layouts/modal_search/_result.html.erb:22
 msgid "Click to select %{item_name}"
-msgstr ""
+msgstr "%{item_name} seçmek için tıklayın"
 
 #: ../../app/views/layouts/modal_search/_result.html.erb:25
 msgid "Click to remove %{item_name}"
-msgstr ""
+msgstr "%{item_name}'u kaldırmak için tıklayın"
 
 #: ../../app/views/notes/_archive.html.erb:8
 msgid "Are you sure you want to remove this comment?"
@@ -3965,7 +3973,7 @@ msgstr "Kuruluş URL'leri"
 #: ../../app/views/orgs/_profile_form.html.erb:91
 #: ../../app/views/orgs/_profile_form.html.erb:96
 msgid "Help Desk email"
-msgstr ""
+msgstr "Yardım Masası e-postası"
 
 #: ../../app/views/orgs/_profile_form.html.erb:105
 msgid "Administrator contact"
@@ -4315,19 +4323,19 @@ msgstr "Uygulanamaz"
 
 #: ../../app/views/paginable/research_outputs/_index.html.erb:13
 msgid "Repository"
-msgstr ""
+msgstr "havuz"
 
 #: ../../app/views/paginable/research_outputs/_index.html.erb:16
 msgid "Release date"
-msgstr ""
+msgstr "Yayın tarihi"
 
 #: ../../app/views/paginable/research_outputs/_index.html.erb:19
 msgid "Access level"
-msgstr ""
+msgstr "Erişim düzeyi"
 
 #: ../../app/views/paginable/research_outputs/_index.html.erb:55
 msgid "You are about to delete '%{research_output_title}'. Are you sure?"
-msgstr ""
+msgstr "'%{research_output_title}' öğesini silmek üzeresiniz. Emin misin?"
 
 #: ../../app/views/paginable/templates/_customisable.html.erb:6
 #: ../../app/views/paginable/templates/_index.html.erb:5
@@ -4476,7 +4484,7 @@ msgstr "Profili Düzenle"
 
 #: ../../app/views/phases/_edit_plan_answers.html.erb:77
 msgid "Comments & Guidance"
-msgstr ""
+msgstr "Yorumlar ve Rehberlik"
 
 #: ../../app/views/phases/_overview.html.erb:5
 msgid "Instructions"
@@ -4512,7 +4520,7 @@ msgstr "cevaplanmamış sorular"
 
 #: ../../app/views/plans/_download_form.html.erb:49
 msgid "research outputs"
-msgstr ""
+msgstr "araştırma çıktıları"
 
 #: ../../app/views/plans/_download_form.html.erb:57
 msgid "supplementary section(s) not requested by funding organisation"
@@ -4623,7 +4631,7 @@ msgstr "Plan Yazın"
 
 #: ../../app/views/plans/_navigation.html.erb:22
 msgid "Research Outputs"
-msgstr ""
+msgstr "Araştırma Çıktıları"
 
 #: ../../app/views/plans/_overview_details.html.erb:9
 msgid ""
@@ -4678,14 +4686,16 @@ msgid ""
 "Whether there are any potential ethical issues related to data that this DMP d"
 "escribes"
 msgstr ""
+"Bu VYP'nin tanımladığı verilerle ilgili herhangi bir potansiyel etik sorunun o"
+"lup olmadığı"
 
 #: ../../app/views/plans/_project_details.html.erb:8
 msgid "Description of the ethical issues"
-msgstr ""
+msgstr "Etik sorunların tanımı"
 
 #: ../../app/views/plans/_project_details.html.erb:9
 msgid "Link to a protocol from a meeting with an ethics commitee"
-msgstr ""
+msgstr "Etik komitesi ile yapılan bir toplantıdan bir protokole bağlantı"
 
 #: ../../app/views/plans/_project_details.html.erb:27
 #: ../../app/views/plans/new.html.erb:38
@@ -4698,14 +4708,14 @@ msgstr "Proje özeti"
 
 #: ../../app/views/plans/_project_details.html.erb:47
 msgid "Research domain"
-msgstr ""
+msgstr "Araştırma alanı"
 
 #: ../../app/views/plans/_project_details.html.erb:52
 #: ../../app/views/plans/_project_details.html.erb:173
 #: ../../app/views/research_outputs/_form.html.erb:23
 #: ../../app/views/research_outputs/licenses/_form.html.erb:19
 msgid "- Please select one -"
-msgstr ""
+msgstr "- Lütfen birini seçin -"
 
 #: ../../app/views/plans/_project_details.html.erb:62
 msgid "Project Start"
@@ -4734,19 +4744,19 @@ msgstr "ID"
 
 #: ../../app/views/plans/_project_details.html.erb:114
 msgid "Research outputs may have ethical concerns"
-msgstr ""
+msgstr "Araştırma çıktılarının etik kaygıları olabilir"
 
 #: ../../app/views/plans/_project_details.html.erb:121
 msgid "Describe any ethical concerns"
-msgstr ""
+msgstr "Herhangi bir etik kaygıyı açıklayın"
 
 #: ../../app/views/plans/_project_details.html.erb:134
 msgid "Ethical protocols"
-msgstr ""
+msgstr "etik protokoller"
 
 #: ../../app/views/plans/_project_details.html.erb:167
 msgid "Funding status"
-msgstr ""
+msgstr "Finansman durumu"
 
 #: ../../app/views/plans/_project_details.html.erb:181
 msgid "Grant number/url"
@@ -4754,7 +4764,7 @@ msgstr "Fon/hibe numarası (grant number) / url"
 
 #: ../../app/views/plans/_project_details.html.erb:195
 msgid "Grant number:"
-msgstr ""
+msgstr "Hibe numarası:"
 
 #: ../../app/views/plans/_project_details.html.erb:199
 msgid ""
@@ -4773,6 +4783,8 @@ msgid ""
 "Click below to give data management staff at %{owner_org}, the Plan Owner's or"
 "g, access to read and comment on your plan."
 msgstr ""
+"Plan Sahibinin kuruluşu olan %{owner_org}'daki veri yönetimi personeline planı"
+"nızı okuma ve yorum yapma erişimi vermek için aşağıyı tıklayın."
 
 #: ../../app/views/plans/_request_feedback_form.html.erb:17
 msgid "You can continue to edit and download the plan in the interim."
@@ -5025,6 +5037,8 @@ msgid ""
 "Your research output abbreviation can be used as a reference when answering th"
 "is plan's questions."
 msgstr ""
+"Araştırma çıktınızın kısaltması, bu planın sorularını cevaplarken referans ola"
+"rak kullanılabilir."
 
 #: ../../app/views/research_outputs/_form.html.erb:7
 msgid ""
@@ -5033,6 +5047,11 @@ msgid ""
 "de-anonymizing anonymous data can be considered personally identifiable data. "
 "(From https://codata.org/rdm-glossary/personally-identifiable-information/)"
 msgstr ""
+"Potansiyel olarak belirli bir kişiyi tanımlayabilecek herhangi bir veri. Bir k"
+"işiyi diğerinden ayırt etmek için kullanılabilecek ve anonim verileri anonim h"
+"ale getirmek için kullanılabilecek her türlü bilgi, kişisel olarak tanımlanabi"
+"lir veri olarak kabul edilebilir. (https://codata.org/rdm-glossary/personally-"
+"identifiable-information/ adresinden)"
 
 #: ../../app/views/research_outputs/_form.html.erb:8
 msgid ""
@@ -5043,93 +5062,99 @@ msgid ""
 "nuing basis. (From https://codata.org/rdm-glossary/personally-identifiable-inf"
 "ormation/)"
 msgstr ""
+"Depolar, çeşitli biçimlerdeki birçok dijital malzeme türünü korur, yönetir ve "
+"bunlara erişim sağlar. Çevrim içi depolardaki materyaller, arama, keşif ve yen"
+"iden kullanım sağlamak için derlenmiştir. Dijital materyalin gerçek, güvenilir"
+", erişilebilir ve sürekli olarak kullanılabilir olması için yeterli kontrol ol"
+"malıdır. (https://codata.org/rdm-glossary/personally-identifiable-information/"
+" adresinden)"
 
 #: ../../app/views/research_outputs/_form.html.erb:16
 msgid "Please describe the output type"
-msgstr ""
+msgstr "Lütfen çıktı türünü açıklayın"
 
 #: ../../app/views/research_outputs/_form.html.erb:27
 msgid "Research output type"
-msgstr ""
+msgstr "Araştırma çıktısı türü"
 
 #: ../../app/views/research_outputs/_form.html.erb:44
 msgid "Abbreviation"
-msgstr ""
+msgstr "Kısaltma"
 
 #: ../../app/views/research_outputs/_form.html.erb:73
 #: ../../app/views/shared/export/_plan_outputs.erb:26
 msgid "May contain sensitive data?"
-msgstr ""
+msgstr "Hassas veriler içerebilir mi?"
 
 #: ../../app/views/research_outputs/_form.html.erb:80
 msgid "May contain personally identifiable information?"
-msgstr ""
+msgstr "Kişisel olarak tanımlanabilir bilgiler içerebilir mi?"
 
 #: ../../app/views/research_outputs/_form.html.erb:90
 msgid "Intended repositories"
-msgstr ""
+msgstr "Amaçlanan havuzlar"
 
 #: ../../app/views/research_outputs/_form.html.erb:99
 msgid "Add a repository"
-msgstr ""
+msgstr "havuz ekle"
 
 #: ../../app/views/research_outputs/_form.html.erb:114
 msgid "Metadata standards"
-msgstr ""
+msgstr "Meta veri standartları"
 
 #: ../../app/views/research_outputs/_form.html.erb:122
 msgid "Add a metadata standard"
-msgstr ""
+msgstr "Bir meta veri standardı ekleyin"
 
 #: ../../app/views/research_outputs/_form.html.erb:136
 #: ../../app/views/shared/export/_plan_outputs.erb:20
 msgid "Anticipated release date"
-msgstr ""
+msgstr "Beklenen çıkış tarihi"
 
 #: ../../app/views/research_outputs/_form.html.erb:140
 #: ../../app/views/shared/export/_plan_outputs.erb:21
 msgid "Initial access level"
-msgstr ""
+msgstr "İlk erişim düzeyi"
 
 #: ../../app/views/research_outputs/_form.html.erb:158
 #: ../../app/views/research_outputs/_form.html.erb:164
 #: ../../app/views/shared/export/_plan_outputs.erb:23
 msgid "Anticipated file size"
-msgstr ""
+msgstr "Beklenen dosya boyutu"
 
 #: ../../app/views/research_outputs/_form.html.erb:170
 msgid "File size units"
-msgstr ""
+msgstr "Dosya boyutu birimleri"
 
 #: ../../app/views/research_outputs/edit.html.erb:12
 msgid "Editing %{research_output_title}"
-msgstr ""
+msgstr "%{research_output_title} düzenleniyor"
 
 #: ../../app/views/research_outputs/edit.html.erb:13
 #: ../../app/views/research_outputs/new.html.erb:13
 msgid "View all research outputs"
-msgstr ""
+msgstr "Tüm araştırma çıktılarını görüntüle"
 
 #: ../../app/views/research_outputs/index.html.erb:14
 msgid "Please list your anticipated research output(s)."
-msgstr ""
+msgstr "Lütfen beklenen araştırma çıktılarınızı listeleyin."
 
 #: ../../app/views/research_outputs/index.html.erb:30
 msgid "Add a research output"
-msgstr ""
+msgstr "Bir araştırma çıktısı ekleyin"
 
 #: ../../app/views/research_outputs/licenses/_form.html.erb:20
 #: ../../app/views/research_outputs/licenses/_form.html.erb:25
 msgid "Initial license"
-msgstr ""
+msgstr "İlk lisans"
 
 #: ../../app/views/research_outputs/licenses/_form.html.erb:31
 msgid "For guidance on selecting a license:"
-msgstr ""
+msgstr "Bir lisans seçme konusunda rehberlik için:"
 
 #: ../../app/views/research_outputs/new.html.erb:12
 msgid "New research output"
-msgstr ""
+msgstr "Yeni araştırma çıktısı"
 
 #: ../../app/views/research_outputs/repositories/_search.html.erb:5
 msgid ""
@@ -5138,62 +5163,66 @@ msgid ""
 "st repositories are a good option and accept all types of data regardless of t"
 "ype, format, content, or discipline."
 msgstr ""
+"Belirli, kurumsal veya genel veri havuzlarını disipline etmek için aramanızı h"
+"assaslaştırın. Etki alanına özgü veri havuzlarının kullanılamadığı durumlarda,"
+" genel veri havuzları iyi bir seçenektir ve türü, biçimi, içeriği veya disipli"
+"ni ne olursa olsun her türlü veriyi kabul eder."
 
 #: ../../app/views/research_outputs/repositories/_search.html.erb:6
 msgid "Select a subject area to refine your search."
-msgstr ""
+msgstr "Aramanızı daraltmak için bir konu alanı seçin."
 
 #: ../../app/views/research_outputs/repositories/_search.html.erb:12
 msgid "- Select a subject area -"
-msgstr ""
+msgstr "- Bir konu alanı seçin -"
 
 #: ../../app/views/research_outputs/repositories/_search.html.erb:14
 msgid "Select a subject area"
-msgstr ""
+msgstr "Bir konu alanı seçin"
 
 #: ../../app/views/research_outputs/repositories/_search.html.erb:22
 msgid "- Select a repository type -"
-msgstr ""
+msgstr "- Bir depo türü seçin -"
 
 #: ../../app/views/research_outputs/repositories/_search.html.erb:24
 msgid "Select a repository type"
-msgstr ""
+msgstr "Bir havuz türü seçin"
 
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:20
 msgid "Click to view repositories related to %{subject}"
-msgstr ""
+msgstr "%{subject} ile ilgili depoları görüntülemek için tıklayın"
 
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:32
 msgid "More info"
-msgstr ""
+msgstr "Daha fazla bilgi"
 
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:37
 msgid "Repository URL"
-msgstr ""
+msgstr "Havuz URL'si"
 
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:51
 msgid "Data access"
-msgstr ""
+msgstr "veri erişimi"
 
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:54
 msgid "Persistent identifier type"
-msgstr ""
+msgstr "Kalıcı tanımlayıcı türü"
 
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:57
 msgid "Policies"
-msgstr ""
+msgstr "politikalar"
 
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:66
 msgid "Data upload"
-msgstr ""
+msgstr "veri yükleme"
 
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:73
 msgid "Provider type"
-msgstr ""
+msgstr "sağlayıcı türü"
 
 #: ../../app/views/research_outputs/repositories/_search_result.html.erb:76
 msgid "Repository type"
-msgstr ""
+msgstr "Depo türü"
 
 #: ../../app/views/shared/_create_account_form.html.erb:8
 msgid "Last Name"
@@ -5267,7 +5296,7 @@ msgstr "Soru cevaplanmadı."
 
 #: ../../app/views/shared/export/_plan_coversheet.erb:2
 msgid "Plan Overview"
-msgstr ""
+msgstr "Plana Genel Bakış"
 
 #: ../../app/views/shared/export/_plan_coversheet.erb:3
 #: ../../app/views/shared/export/_plan_txt.erb:82
@@ -5277,7 +5306,7 @@ msgstr "%{application_name} kullanılarak oluşturulan bir Veri Yönetim Planı"
 #: ../../app/views/shared/export/_plan_coversheet.erb:17
 #: ../../app/views/shared/export/_plan_txt.erb:12
 msgid "Data Manager: "
-msgstr ""
+msgstr "Veri Yöneticisi:"
 
 #: ../../app/views/shared/export/_plan_coversheet.erb:29
 msgid "Funder: "
@@ -5321,27 +5350,27 @@ msgstr ""
 
 #: ../../app/views/shared/export/_plan_outputs.erb:3
 msgid "Planned Research Outputs"
-msgstr ""
+msgstr "Planlanan Araştırma Çıktıları"
 
 #: ../../app/views/shared/export/_plan_outputs.erb:14
 msgid "Planned research output details"
-msgstr ""
+msgstr "Planlanan araştırma çıktısı ayrıntıları"
 
 #: ../../app/views/shared/export/_plan_outputs.erb:22
 msgid "Intended repository(ies)"
-msgstr ""
+msgstr "Amaçlanan havuz(lar)"
 
 #: ../../app/views/shared/export/_plan_outputs.erb:24
 msgid "License"
-msgstr ""
+msgstr "Lisans"
 
 #: ../../app/views/shared/export/_plan_outputs.erb:25
 msgid "Metadata standard(s)"
-msgstr ""
+msgstr "Meta veri standart(lar)ı"
 
 #: ../../app/views/shared/export/_plan_outputs.erb:27
 msgid "May contain PII?"
-msgstr ""
+msgstr "PII içerebilir mi?"
 
 #: ../../app/views/shared/org_selectors/_combined.html.erb:15
 #: ../../app/views/shared/org_selectors/_external_only.html.erb:13
@@ -5518,6 +5547,10 @@ msgid ""
 "rd' page. From here you can edit, share, download, copy or remove any of your "
 "plans. You will also see plans that have been shared with you by others."
 msgstr ""
+"%{application_name}'da oturum açtığınızda 'Gösterge Panom' sayfasına yönlendir"
+"ileceksiniz. Buradan herhangi bir planınızı düzenleyebilir, paylaşabilir, indi"
+"rebilir, kopyalayabilir veya kaldırabilirsiniz. Başkaları tarafından sizinle p"
+"aylaşılan planları da göreceksiniz."
 
 #: ../../app/views/static_pages/help.html.erb:13
 msgid "Create a plan"
@@ -5676,6 +5709,12 @@ msgid ""
 " also adjust the formatting (font type, size and margins) for PDF files, which"
 " may be helpful if working to page limits."
 msgstr ""
+"Buradan planınızı çeşitli biçimlerde indirebilirsiniz. Bu, planınızı bir hibe "
+"başvurusunun parçası olarak göndermeniz gerektiğinde faydalı olabilir. Planını"
+"zı hangi formatta görüntülemek/indirmek istediğinizi seçin ve indirmek için tı"
+"klayın. Ayrıca PDF dosyaları için biçimlendirmeyi (yazı tipi türü, boyutu ve k"
+"enar boşlukları) ayarlayabilirsiniz; bu, sayfa sınırlarına göre çalışıyorsanız"
+" yardımcı olabilir."
 
 #: ../../app/views/static_pages/privacy.html.erb:10
 msgid "Information about you: how we use it and with whom we share it"
@@ -5774,6 +5813,9 @@ msgid ""
 "and CDL as a shared resource for the research community. It is hosted at CDL b"
 "y the University of California Curation Center."
 msgstr ""
+"%{application_name} ('araç', 'sistem'), araştırma topluluğu için paylaşılan bi"
+"r kaynak olarak DCC ve CDL tarafından geliştirilmiş bir araçtır. CDL'de Califo"
+"rnia Üniversitesi Küratörlük Merkezi tarafından barındırılmaktadır."
 
 #: ../../app/views/static_pages/termsuse.html.erb:18
 msgid ""
@@ -5837,6 +5879,43 @@ msgid ""
 " at any time. Use of the tool indicates that you understand and agree to these"
 " terms and conditions.</p>"
 msgstr ""
+"<h3>Kişisel bilgileriniz ve onay bildiriminiz</h3><p> %{application_name} hesa"
+"bınızı tanımlamaya ve yönetmenize yardımcı olması için adınızı ve e-posta adre"
+"sinizi kaydetmemiz gerekiyor. Aracı kullanımınızla ilgili geri bildirim almak "
+"veya en son gelişmeler veya sürümler hakkında sizi bilgilendirmek için sizinle"
+" iletişim kurmak için de kullanabiliriz. Bilgiler, DCC ve CDL arasında ancak y"
+"alnızca şu meşru DCC ve CDL amaçları için aktarılabilir: pazarlama, hizmetleri"
+"mizi geliştirme ve sizi ilgili içerik ve olaylar hakkında bilgilendirme. Bize "
+"sağladığınız hiçbir kişisel bilgiyi satmayacağız, kiralamayacağız veya ticaret"
+"ini yapmayacağız. Bu sistemi kullanarak, kişisel bilgilerinizin yukarıdakilere"
+" uygun olarak toplanmasına, saklanmasına ve kullanılmasına izin vermiş olursun"
+"uz. Kişisel bilgilerinizi pazarlama amaçlarıyla işlemememizi isteme hakkına sa"
+"hipsiniz.</p><h3> Gizlilik Politikası</h3><p> Bu sisteme girdiğiniz bilgiler s"
+"iz, erişimi paylaşmayı seçtiğiniz kişiler ve - yalnızca hizmetin sürdürülmesi "
+"amacıyla - DCC ve CDL'deki sistem yöneticileri tarafından görülebilir. Planlar"
+"dan anonimleştirilmiş, otomatikleştirilmiş ve birleştirilmiş bilgiler derleriz"
+", ancak izniniz olmadan içeriğinize doğrudan erişmez, içeriğinizi kullanmaz ve"
+"ya başka hiç kimseyle paylaşmayız. Ana kuruluşunuzun yetkili görevlileri, plan"
+"larınıza belirli amaçlar için erişebilir - örneğin, fon sağlayıcı/kurum gerekl"
+"iliklerine uyumu izlemek, depolama gereksinimlerini hesaplamak veya disiplinle"
+"r arası veri yönetimi hizmetlerine olan talebi değerlendirmek.</p><h3> Bilgi Ö"
+"zgürlüğü</h3><p> DCC ve CDL, planlarınızı sizin adınıza tutar, ancak bunlar si"
+"zin mülkünüz ve sorumluluğunuzdur. Herhangi bir FOIA başvuru sahibi, ev organi"
+"zasyonunuza geri yönlendirilecektir.</p><h3> şifreler</h3><p> Parolanız şifrel"
+"enmiş biçimde saklanır ve geri alınamaz. Unutulursa sıfırlanması gerekir.</p><"
+"h3> Kurabiye</h3><p> Lütfen %{application_name}'in Tanımlama Bilgileri kulland"
+"ığını unutmayın. Çerezler ve bunları nasıl kullandığımız hakkında daha fazla b"
+"ilgi <a target='_blank' href='http://www.dcc.ac.uk/about-us/about-site/website"
+"-terms-use/cookies' class=\"has-new-window-popup-info\">ana DCC web sitesinde <e"
+"m class=\"sr-only\">(yeni pencere)</em> <span class=\"new-window-popup-info\">%{op"
+"en_in_new_window_text} mevcuttur</span></a> .</p><h3> Üçüncü taraf API'leri</h"
+"3><p> Bu web sitesindeki belirli özellikler, InCommon/Shibboleth gibi üçüncü t"
+"araf hizmetleri ve API'leri veya ortak JavaScript kitaplıklarının veya web yaz"
+"ı tiplerinin üçüncü tarafça barındırılmasını kullanır. Harici bir hizmet taraf"
+"ından kullanılan bilgiler, o hizmetin gizlilik politikasına tabidir.</p><h3> r"
+"evizyonlar</h3><p> Bu bildirim en son 5 Ekim 2017'de revize edilmiştir ve herh"
+"angi bir zamanda revize edilebilir. Aracın kullanımı, bu hüküm ve koşulları an"
+"ladığınızı ve kabul ettiğinizi gösterir.</p>"
 
 #: ../../app/views/super_admin/api_clients/_form.html.erb:29
 msgid "Contact Name"
@@ -6111,7 +6190,7 @@ msgstr "Önce, bir kullanıcıyı e-posta ile aratın, sonra listeden seçin."
 #: ../../app/views/template_exports/template_export.docx.erb:29
 #: ../../app/views/template_exports/template_export.pdf.erb:73
 msgid "default"
-msgstr ""
+msgstr "varsayılan"
 
 #: ../../app/views/template_exports/template_export.docx.erb:39
 #: ../../app/views/template_exports/template_export.pdf.erb:81
@@ -6132,11 +6211,11 @@ msgstr "Şablonlarınızla ilgili İstatistikler"
 
 #: ../../app/views/usage/_total_usage.html.erb:7
 msgid "Total users"
-msgstr ""
+msgstr "Toplam kullanıcı"
 
 #: ../../app/views/usage/_total_usage.html.erb:11
 msgid "Total plans"
-msgstr ""
+msgstr "Toplam planlar"
 
 #: ../../app/views/usage/_total_usage.html.erb:15
 msgid "Excluding Test Plans"
@@ -6287,10 +6366,13 @@ msgid ""
 "lease visit the \"Plans\" page under the Admin menu in %{tool_name} and open the"
 " plan."
 msgstr ""
+"%{requestor}, %{link_html} planı hakkında geri bildirim istedi. Yorum eklemek "
+"için lütfen %{tool_name}'deki Yönetici menüsü altındaki \"Planlar\" sayfasını zi"
+"yaret edin ve planı açın."
 
 #: ../../app/views/user_mailer/feedback_notification.html.erb:17
 msgid "Alternatively, you can click the link below:"
-msgstr ""
+msgstr "Alternatif olarak, aşağıdaki bağlantıyı tıklayabilirsiniz:"
 
 #: ../../app/views/user_mailer/new_comment.html.erb:5
 msgid ""
@@ -6326,7 +6408,7 @@ msgstr "Soru: %{question_number}"
 
 #: ../../app/views/user_mailer/permissions_change_notification.html.erb:2
 msgid "Hello %{recepientname}"
-msgstr ""
+msgstr "Merhaba %{recepientname}"
 
 #: ../../app/views/user_mailer/permissions_change_notification.html.erb:5
 msgid ""
@@ -6378,7 +6460,7 @@ msgstr "Merhaba %{recipient_name},"
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " to "
-msgstr ""
+msgstr "ile"
 
 #: ../../app/views/user_mailer/question_answered.html.erb:5
 msgid " based on the template "
