@@ -7,3 +7,5 @@
 ### Fixed
 
 ### Changed
+
+- Added scss files to EditorConfig
