@@ -60,6 +60,9 @@ header.dmpopidor-branding {
             background-color: $dark-blue;
           }
         }
+        &>li.active {
+          font-weight: bold;
+        }
       }
 
 

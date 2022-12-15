@@ -32,9 +32,6 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr); // 3 columns
   grid-template-rows: repeat(2, 1fr); // 2 rows
-  border-radius: 20px;
-  box-shadow: 5px 5px 5px $light-grey;
-  max-width: 1024px;
   padding: 20px;
 
   .news-item {
