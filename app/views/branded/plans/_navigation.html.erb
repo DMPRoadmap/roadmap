@@ -5,12 +5,16 @@
       <span class="icon icon-general-infos"></span>
       <%= _("General information") %>
     </a>
+    <span class="active-line"></span>
+    <span class="active-bullet">&#x25cf;</span>
   </li>
   <li role="presentation" class="<%= (active_page?(plan_research_outputs_path(plan), true) ? 'active' : '') %>">
     <a href="<%= plan_research_outputs_path(plan) %>" role="tab" aria-controls="content">
       <span class="icon icon-research-outputs"></span>
       <%= _("Research outputs") %>
     </a>
+    <span class="active-line"></span>
+    <span class="active-bullet">&#x25cf;</span>
   </li>
   <% phases.each do |phase| %>
     <li role="presentation" class="phase-tab <%= (active_page?(edit_plan_path(plan.id, phase_id: phase.id)) ? 'active' : '') %>">
@@ -18,6 +22,8 @@
         <span class="icon icon-write-plan"></span>
         <%= (phases.size > 1 ? phase.title : _('Write Plan')) %>
       </a>
+      <span class="active-line"></span>
+      <span class="active-bullet">&#x25cf;</span>
     </li>
   <% end %>
   <li role="contributors" class="<%= (active_page?(plan_contributors_path(plan)) ? "active" : "") %>">
@@ -25,6 +31,8 @@
       <span class="icon icon-contributors"></span>
       <%= _("Contributors") %>
     </a>
+    <span class="active-line"></span>
+    <span class="active-bullet">&#x25cf;</span>
   </li>
   <% if plan.template.structured? %>
     <li role="budget" class="<%= (active_page?(budget_plan_path(plan)) ? "active" : "") %>">
@@ -32,6 +40,8 @@
         <span class="icon icon-budget"></span>
         <%= _("Budget") %>
       </a>
+      <span class="active-line"></span>
+      <span class="active-bullet">&#x25cf;</span>
     </li>
   <% end %>
   <% if plan.administerable_by?(current_user.id) || (current_user.can_org_admin? && current_user.org.plans.include?(plan))  %>
@@ -40,6 +50,8 @@
         <span class="icon icon-share"></span>
         <%= _('Share') %>
       </a>
+      <span class="active-line"></span>
+      <span class="active-bullet">&#x25cf;</span>
     </li>
   <% end %>
   <% if (plan.administerable_by?(current_user.id) || (current_user.can_org_admin? && current_user.org.plans.include?(plan))) && plan.owner_and_coowners.include?(current_user) && plan.owner.org.feedback_enabled? %>
@@ -48,6 +60,8 @@
         <span class="icon icon-request-feedback"></span>
         <%= _('Request feedback') %>
       </a>
+      <span class="active-line"></span>
+      <span class="active-bullet">&#x25cf;</span>
     </li>
   <% end %>
   <% if plan.readable_by?(current_user.id) %>
@@ -56,6 +70,8 @@
         <span class="icon icon-download"></span>
         <%= _('Download') %>
       </a>
+      <span class="active-line"></span>
+      <span class="active-bullet">&#x25cf;</span>
     </li>
   <% end %>
 </ul>
