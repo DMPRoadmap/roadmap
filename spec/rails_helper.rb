@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+# Must include rspec/rails first!
+require 'rspec/rails'
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'capybara/rails'
-require 'rspec/rails'
 require 'spec_helper'
 require 'webmock/rspec'
 
