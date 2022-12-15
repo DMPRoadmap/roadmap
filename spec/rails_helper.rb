@@ -1,21 +1,17 @@
 # frozen_string_literal: true
 
-# Must include rspec/rails first!
+# Do not change the order of these require statements, they are dependent on one another!
+require 'spec_helper'
+
+ENV['RAILS_ENV'] ||= 'test'
+require File.expand_path('../config/environment', __dir__)
+
 require 'rspec/rails'
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'capybara/rails'
-require 'spec_helper'
 require 'webmock/rspec'
 
-# Helpers for some of the common UI componentsand Devise auth
-# require_relative 'support/helpers/autocomplete_helper'
-# require_relative 'support/helpers/capybara_helper'
-# require_relative 'support/helpers/sessions_helper'
-# require_relative 'support/helpers/tiny_mce_helper'
-
-ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../config/environment', __dir__)
 # Prevent database truncation if the environment is production
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 
