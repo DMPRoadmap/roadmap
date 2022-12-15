@@ -38,7 +38,7 @@ jobs:
 
     # Set the path to the wkhtmltopdf executable
     - name: 'Determine wkhtmltopdf location'
-      run: echo "WICKED_PDF_PATH=`bundle exec which wkhtmltopdf`" >> $GITHUB_ENV
+      run: echo "DMPROADMAP_WKHTMLTOPDF_PATH=`bundle exec which wkhtmltopdf`" >> $GITHUB_ENV
 
     # Run yarn install for JS dependencies
     - name: 'Yarn Install'
