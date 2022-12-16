@@ -80,5 +80,14 @@ jobs:
       run: bundle exec rails assets:precompile
 
     # Run  the unit and functional tests
-    - name: 'Run Rspec Tests'
-      run: bin/bundle exec rspec spec #-s 40701
+    - name: 'Run Rspec Tests for Helpers, Mixins, Policies and Presenters'
+      run: bin/bundle exec rspec spec/policies spec/presenters spec/helpers spec/mixins
+
+    - name: 'Run Rspec Tests for Models and Services
+      run: bin/bundle exec rspec spec/models spec/services
+
+    - name: 'Run Rspec Tests for Controllers, Requests, Views'
+      run: bin/bundle exec rspec spec/controllers spec/requests spec/views
+
+    - name: 'Run Rspec Feature Tests'
+      run: bin/bundle exec rspec spec/features
