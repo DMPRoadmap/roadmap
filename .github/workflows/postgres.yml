@@ -83,7 +83,7 @@ jobs:
     - name: 'Run Rspec Tests for Helpers, Mixins, Policies and Presenters'
       run: bin/bundle exec rspec spec/policies spec/presenters spec/helpers spec/mixins
 
-    - name: 'Run Rspec Tests for Models and Services
+    - name: 'Run Rspec Tests for Models and Services'
       run: bin/bundle exec rspec spec/models spec/services
 
     - name: 'Run Rspec Tests for Controllers, Requests, Views'
