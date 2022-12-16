@@ -39,7 +39,6 @@ module Users
           respond_with resource
         end
       elsif !Rails.configuration.x.recaptcha.enabled || verify_recaptcha(action: 'register')
-
         # Devise doesn't set a flash message for some reason if its going to fail
         # so do it here
         super do |user|

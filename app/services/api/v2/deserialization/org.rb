@@ -90,8 +90,7 @@ module Api
 
             org = registry_org.to_org
             return nil if org.blank?
-
-            org.save
+            return nil unless org.save
 
             # Attach the identifiers
             %w[fundref ror].each do |scheme_name|

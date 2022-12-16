@@ -66,7 +66,7 @@ RSpec.describe Org do
     end
 
     describe '.default_orgs' do
-      subject { described_class.default_orgs }
+      subject { described_class.default_orgs.pluck(:id) }
 
       context 'when Org has same abbr as dmproadmap.rb initializer setting' do
         let!(:org) do
@@ -74,13 +74,13 @@ RSpec.describe Org do
           create(:org, abbreviation: abbrev)
         end
 
-        it { is_expected.to include(org) }
+        it { is_expected.to include(org.id) }
       end
 
       context "when Org doesn't have same abbr as dmproadmap.rb initializer setting" do
         let!(:org) { create(:org, abbreviation: 'foo-bar') }
 
-        it { is_expected.not_to include(org) }
+        it { is_expected.not_to include(org.id) }
       end
     end
 
