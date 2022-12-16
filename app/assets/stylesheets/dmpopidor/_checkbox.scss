@@ -1,11 +1,24 @@
 .set-test-td {
   input[type=checkbox] {
-    display: none;
+    opacity:0;
+    width: 0;
+
+    &+label {
+      cursor: pointer;
+    }
   }
 
   label::before {
     font-family: "Font Awesome 5 Free";
     display: inline-block;
+  }
+
+  label:focus,
+  label:hover,
+  label:active {
+    outline-style: solid !important;
+    outline-color: $blue !important;
+    outline-width: 3px !important;
   }
 
   input[type=checkbox]+label::before {
