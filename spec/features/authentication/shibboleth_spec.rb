@@ -8,6 +8,8 @@ RSpec.describe 'Shibboleth Sign in / Sign up' do
   include Helpers::AuthenticationHelper
 
   before do
+    Rails.configuration.x.shibboleth&.enabled = true
+    Rails.configuration.x.shibboleth.use_filtered_discovery_service = true
     @email_domain = 'foo.edu'
     @org = create(:org, contact_email: "#{Faker::Lorem.unique.word}@#{@email_domain}", managed: true)
     @registry_org = create(:registry_org, home_page: "http://#{@email_domain}", org: @org)

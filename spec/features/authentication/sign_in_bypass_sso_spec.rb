@@ -8,11 +8,13 @@ RSpec.describe 'Sign in and bypass SSO' do
   include Helpers::IdentifierHelper
 
   before do
+    Rails.configuration.x.shibboleth&.enabled = true
+    Rails.configuration.x.shibboleth.use_filtered_discovery_service = true
     mock_blog
     @pwd = SecureRandom.uuid
 
     @email_domain = 'foo.edu'
-    @org = create(:org, contact_email: "help-desk@#{@email_domain}")
+    @org = create(:org, name: 'Test Org', contact_email: "help-desk@#{@email_domain}")
     @plan = create(:plan, :creator)
     @user = @plan.owner
     @user.update(email: "jane@#{@email_domain}", org: @org,

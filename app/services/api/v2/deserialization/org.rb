@@ -83,15 +83,14 @@ module Api
           # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
           # Create a new Org from the RegistryOrg entry
-          # rubocop:disable Metrics/AbcSize
+          # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
           def org_from_registry_org!(registry_org:)
             return nil unless registry_org.is_a?(::RegistryOrg)
             return registry_org.org if registry_org.org_id.present?
 
             org = registry_org.to_org
             return nil if org.blank?
-
-            org.save
+            return nil unless org.save
 
             # Attach the identifiers
             %w[fundref ror].each do |scheme_name|
@@ -108,7 +107,7 @@ module Api
             registry_org.update(org_id: org.id)
             org.reload
           end
-          # rubocop:enable Metrics/AbcSize
+          # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
         end
       end
     end

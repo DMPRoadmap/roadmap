@@ -24,7 +24,8 @@ if valid_db
     system! 'yarn install'
 
     puts "\n== Copying example .env file =="
-    cp ".env.example", '.env'
+    cp ".env.mysql2", '.env' if db_adapter == 'mysql2'
+    cp ".env.postgresql", '.env' if db_adapter == 'postgresql'
 
     puts "\n== Preparing credentials file =="
     system! "EDITOR='echo \"$(cat config/credentials.yml.#{db_adapter})\" >' bin/rails credentials:edit"
