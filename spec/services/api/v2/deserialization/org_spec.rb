@@ -6,6 +6,7 @@ RSpec.describe Api::V2::Deserialization::Org do
   include Helpers::IdentifierHelper
 
   before do
+    Rails.configuration.x.organisation.helpdesk_email = Faker::Internet.email
     # Org requires a language, so make sure a default is available!
     create(:language, default_language: true) unless Language.default
 
@@ -84,7 +85,6 @@ RSpec.describe Api::V2::Deserialization::Org do
 
       it 'finds the matching RegistryOrg by name' do
         Rails.configuration.x.application.restrict_orgs = false
-        Rails.configuration.x.organisation.helpdesk_email = Faker::Internet.email
         registry_org = create(:registry_org)
         result = described_class.send(:find_by_name, json: { name: registry_org.name })
         expect(result.name).to eql(registry_org.name)
@@ -119,7 +119,6 @@ RSpec.describe Api::V2::Deserialization::Org do
 
       it 'creates and returns a new Org record if the :registry_org does not have one assocciated' do
         Rails.configuration.x.application.restrict_orgs = false
-        Rails.configuration.x.organisation.helpdesk_email = Faker::Internet.email
         result = described_class.send(:org_from_registry_org!, registry_org: @registry_org)
         expect(Org.all.last).to eql(result)
         expect(@registry_org.reload.org_id).to eql(result.id)
