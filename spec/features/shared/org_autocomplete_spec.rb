@@ -8,7 +8,6 @@ RSpec.describe 'OrgAutocomplete' do
   # Generic Tests for the Org Autocomplete form widget as well as tests for each
   # implementation of it throughout the site
   before do
-    Rails.configuration.x.organisation.helpdesk_email = Faker::Internet.email
     mock_blog
     @org = create(:org, :institution, managed: true)
     @funder = create(:org, :funder, managed: true)

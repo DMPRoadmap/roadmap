@@ -6,7 +6,6 @@ RSpec.describe Api::V2::Deserialization::Org do
   include Helpers::IdentifierHelper
 
   before do
-    Rails.configuration.x.organisation.helpdesk_email = Faker::Internet.email
     # Org requires a language, so make sure a default is available!
     create(:language, default_language: true) unless Language.default
 
