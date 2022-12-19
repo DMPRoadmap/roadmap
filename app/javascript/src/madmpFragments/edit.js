@@ -82,8 +82,8 @@ $(() => {
 
   $('body').on('click', '.question .heading-button', (e) => {
     $(e.currentTarget)
-      .find('i.fa-chevron-right, i.fa-chevron-down')
-      .toggleClass('fa-chevron-right fa-chevron-down');
+      .find('i.fa-chevron-up, i.fa-chevron-down')
+      .toggleClass('fa-chevron-up fa-chevron-down');
   });
 
   // When selecting a new form in the form selector, sends the new schema and

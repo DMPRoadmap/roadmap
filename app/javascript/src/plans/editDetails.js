@@ -140,8 +140,8 @@ $(() => {
 
   $('body').on('click', '.plan-details .heading-button', (e) => {
     $(e.currentTarget)
-      .find('i.fa-chevron-right, i.fa-chevron-down')
-      .toggleClass('fa-chevron-right fa-chevron-down');
+      .find('i.fa-chevron-up, i.fa-chevron-down')
+      .toggleClass('fa-chevron-up fa-chevron-down');
   });
 
   Select2.init('.plan-details');

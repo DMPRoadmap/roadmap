@@ -1,6 +1,7 @@
 @mixin dmpopidor-dropdown {
   .dmpopidor-dropdown {
     li {
+      text-align: right;
       &.delimiter {
         padding: 0 10px;
         font-size: xx-large;
@@ -36,6 +37,7 @@
     .dropdown-header {
       color: $dark-blue;
       font-weight: bold;
+      text-align: center;
     }
   }
 }

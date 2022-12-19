@@ -104,20 +104,119 @@
   }
 
 }
+
+
+
+// ##################################
+// GENERAL INFOS 
+// ##################################
+.plan-details {
+
+  .panel-title,
+  i.fas {
+    font-size: x-large;
+    font-weight: bold;
+  }
+
+  .anr-import {
+    border-radius: 20px;
+    background-color: $dark-blue;
+    padding: 20px;
+    margin-bottom: 20px;
+
+    .anr-import-heading {
+      background-color: $dark-blue;
+    }
+
+    .anr-import-content {
+      background-color: $dark-blue;
+      color: white;
+
+      .registry-info {
+        font-size: 15px;
+        color: white;
+      }
+
+      .error-zone {
+        font-weight: bold;
+        color: $rust;
+        display: none;
+      }
+    }
+  }
+
+  .project-meta {
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid $dark-blue;
+
+    .question-text {
+      background-color: white;
+
+      .panel-title {
+        color: $rust;
+      }
+
+      i.fas {
+        font-size: x-large;
+        font-weight: bold;
+        color: $rust
+      }
+    }
+  }
+
+  .madmp-fragment {
+    position: relative;
+
+    .answer-save-zone {
+      display: flex;
+      flex-direction: column;
+      padding: 5px;
+
+      .answer-save-button {
+        color: $white;
+        background-color: $rust !important;
+      }
+
+    }
+  }
+
+  .guidance-configuration {
+    border-left: 2px solid $rust;
+    border-bottom: 2px solid $very-very-light-blue;
+    border-top: 2px solid $very-very-light-blue;
+  }
+
+}
+
 // ##################################
 // RESEARCH OUTPUTS 
 // ##################################
 #research-outputs {
   border-radius: 20px;
+
   h2 {
     font-size: xx-large;
     color: $rust;
   }
+
   h3 {
     font-size: x-large;
     color: $rust;
     margin-top: 10px;
   }
+
+  .nav-tabs {
+    li.disabled {
+      cursor: not-allowed;
+
+      a {
+        pointer-events: none;
+      }
+    }
+  }
+
   #research-outputs-list {
     width: 100%;
     padding: 20px;
@@ -210,5 +309,159 @@
       }
     }
   }
+}
 
+
+// ##################################
+// WRITE PLAN
+// ##################################
+
+.write-plan {
+  padding: 20px;
+  border: 1px solid $dark-blue;
+  border-radius: 0 20px 20px 20px;
+
+  #sections {
+    .section-title {
+      background-color: white;
+
+      h2 {
+        font-weight: bold;
+        font-size: 30px;
+      }
+    }
+  }
+
+  .question {
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid $dark-blue;
+
+    .question-text {
+      background-color: $white;
+      color: $dark-blue;
+
+      .panel-title {
+        color: $dark-blue;
+        font-size: 20px;
+      }
+
+      i.fas {
+        font-size: x-large;
+        font-weight: bold;
+        color: $rust
+      }
+    }
+
+    .question-body {
+      padding: 15px 0;
+      display: flex;
+
+      .answer-section {
+        flex: 8;
+        position: relative;
+        min-height: 300px;
+      }
+
+      .toggle-guidance-section {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: $blue;
+        color: $white;
+        padding: 10px 5px;
+        cursor: pointer;
+
+        text-orientation: mixed;
+        writing-mode: vertical-rl;
+
+        &.disabled {
+          background-color: $light-grey;
+          cursor: not-allowed;
+        }
+      }
+
+      .question-form {
+        padding-top: 10px;
+        padding-right: 50px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .answer-locking p {
+        color: $rust;
+        font-weight: bold;
+      }
+    }
+  }
+
+
+  .research-outputs-tabs {
+    display: flex;
+    flex-wrap: wrap;
+
+    li {
+      flex: 1 1 15%;
+      text-align: center;
+    }
+  }
+
+  .overlay {
+    @include overlay();
+  }
+
+  .guidance-section {
+    flex: 4;
+    display: none;
+    border-left: 5px solid $blue;
+    padding-left: 5px;
+
+    // Guidances 
+    .panel-title {
+      color: $white;
+    }
+
+    .plan-guidance-tab {
+      word-wrap: break-word;
+
+      .run-zone {
+        display: flex;
+        flex-direction: column;
+
+        .message-zone {
+          text-align: center;
+          font-weight: bold;
+          color: $rust;
+          display: none;
+
+          &.valid {
+            color: $green;
+          }
+
+          &.invalid {
+            color: $rust;
+          }
+        }
+
+        .btn {
+          font-size: 20px;
+          font-weight: 700;
+
+          &.answer-save-button {
+            background-color: $rust;
+            border-color: $rust;
+          }
+        }
+
+        .reload-button {
+          background-color: $green;
+          color: $white;
+          display: none;
+        }
+      }
+
+
+    }
+  }
 }
