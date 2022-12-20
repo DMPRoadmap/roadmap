@@ -317,11 +317,55 @@
 // ##################################
 
 .write-plan {
-  padding: 20px;
-  border: 1px solid $dark-blue;
-  border-radius: 0 20px 20px 20px;
+  display: flex;
 
-  #sections {
+  .answering-phase {
+    padding: 20px;
+    border: 1px solid $dark-blue;
+    border-radius: 0 20px 20px 20px;
+    margin-left: -150px;
+  }
+
+
+  .research-outputs-tabs {
+    display: flex;
+    flex-direction: column;
+
+    align-self: flex-start;
+    overflow: hidden;
+    border-radius: 20px 0 0 20px;
+    position: relative;
+    left: -150px;
+    min-width: 150px;
+
+    background-color: white;
+
+    li.research-outputs-tab {
+      flex: 1 1 15%;
+      text-align: center;
+      border: none;
+      margin: 0;
+
+      &:not(:last-child) {
+        margin-bottom: 3px;
+      }
+
+      &.active > a,
+      & > a:hover {
+        background-color: $dark-blue;
+        color: white;
+        font-size: 16px;
+      }
+
+      a {
+        padding: 20px;
+        font-weight: bold;
+        background-color: $blue;
+      }
+    }
+  }
+
+  .sections {
     .section-title {
       background-color: white;
 
@@ -393,17 +437,6 @@
         color: $rust;
         font-weight: bold;
       }
-    }
-  }
-
-
-  .research-outputs-tabs {
-    display: flex;
-    flex-wrap: wrap;
-
-    li {
-      flex: 1 1 15%;
-      text-align: center;
     }
   }
 
