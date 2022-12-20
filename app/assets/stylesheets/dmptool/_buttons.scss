@@ -1,0 +1,12 @@
+.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active,
+.btn-secondary:visited,
+.btn-secondary:active:hover,
+.btn-secondary.active:hover {
+  background-color: $color-seccondary-background;
+  border-color: $color-primary-background;
+  color: $color-primary-background;
+  margin: 15px 0;
+}
