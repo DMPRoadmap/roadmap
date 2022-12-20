@@ -323,11 +323,11 @@
     padding: 20px;
     border: 1px solid $dark-blue;
     border-radius: 0 20px 20px 20px;
-    margin-left: -150px;
+    margin-left: -155px;
   }
 
 
-  .research-outputs-tabs {
+  .research-outputs-accordion {
     display: flex;
     flex-direction: column;
 
@@ -335,32 +335,50 @@
     overflow: hidden;
     border-radius: 20px 0 0 20px;
     position: relative;
-    left: -150px;
-    min-width: 150px;
+    left: -175px;
+    min-width: 175px;
 
     background-color: white;
+    .research-outputs-tabs {
+      display: flex;
+      flex-direction: column;
+      background-color: white;
+      max-width: 160px;
+      float: right;
 
-    li.research-outputs-tab {
-      flex: 1 1 15%;
-      text-align: center;
-      border: none;
-      margin: 0;
-
-      &:not(:last-child) {
-        margin-bottom: 3px;
+      li.research-outputs-tab {
+        flex: 1 1 15%;
+        text-align: center;
+        border: none;
+        margin: 0;
+  
+        &:not(:last-child) {
+          margin-bottom: 3px;
+        }
+  
+        &.active > a,
+        & > a:hover {
+          background-color: $dark-blue;
+          color: white;
+          font-size: 16px;
+        }
+  
+        a {
+          padding: 20px;
+          font-weight: bold;
+          background-color: $blue;
+        }
       }
-
-      &.active > a,
-      & > a:hover {
-        background-color: $dark-blue;
-        color: white;
-        font-size: 16px;
-      }
-
-      a {
+    }
+    .panel-body {
+      padding: 0;
+    }
+    .panel-heading {
+      background-color: $dark-blue;
+      .accordion-toggle {
         padding: 20px;
+        background-color: $dark-blue;
         font-weight: bold;
-        background-color: $blue;
       }
     }
   }

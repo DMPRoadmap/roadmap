@@ -1,22 +1,12 @@
 <% template = plan.template %>
 <% template_title = template.title %>
 <% template_title += " - #{_('Customized')}" if template.customization_of.present? %>
-<% multiple_ro_class = plan.research_outputs.count > 1 ? "multiple-research-output" : "single-research-output" %>
+<% research_outputs = plan.research_outputs %>
+<% multiple_ro_class = research_outputs.count > 1 ? "multiple-research-output" : "single-research-output" %>
 
 
-  <ul class="nav nav-tabs research-outputs-tabs">
-    <% plan.research_outputs.each_with_index do |research_output, i| %>
-      <% research_output_fragment = research_output.json_fragment.research_output_description %>
-      <li class="research-outputs-tab <%= 'active' if research_output.main? %>">
-        <a href="#research-output-panel-<%= research_output.id %>" data-toggle="tab" 
-                          data-research-output="<%= research_output.id %>" 
-                          data-target="#research_output_<%= research_output.id %>"
-        >
-          <%= research_output.abbreviation %>
-        </a>
-      </li>
-    <% end if plan.research_outputs.count > 1 %>
-  </ul>
+  <%= render partial: 'phases/research_outputs_tabs', locals: { research_outputs: research_outputs } %>
+
   <div id="phase-#<%= phase.id %>-panel" class="tab-panel active answering-phase" aria-hidden="false" aria-labelledby="phase-#<%= phase.id %>-tab">
     <div class="section-description">
       <div class="display-readonly-textarea-content">
@@ -34,7 +24,7 @@
       </div>
     </div>
     <div id="questions-accordion" class="tab-content panel-body research-output-content <%= multiple_ro_class %>">
-      <% plan.research_outputs.each_with_index do |research_output, i| %>
+      <% research_outputs.each_with_index do |research_output, i| %>
         <div id="research_output_<%= research_output.id %>" 
                     class="panel research-output-panel tab-pane fade <%= 'in active' if research_output.main? %> <%= 'main_research_output' if research_output.main? %>">
           

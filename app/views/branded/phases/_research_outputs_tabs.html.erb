@@ -1,0 +1,51 @@
+<%# locals: { research_outputs } %>
+<% if research_outputs.count > 5 %>
+  <!-- "Slice" research outputs list into blocks of 5 -->
+  <!-- Each slice will be displayed as an accordion -->
+  <% research_outputs_slices = research_outputs.each_slice(5).to_a %>
+  <div class="panel-group research-outputs-accordion" id="accordion">
+    <% research_outputs_slices.each_with_index do |ro_slice, i| %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#ro_collapse<%= i %>">
+              <%= "#{_('Outputs')} #{ i * 5  + 1} - #{ i * 5 + 5}" %>
+            </a>
+          </h4>
+        </div>
+        <div id="ro_collapse<%= i %>" class="panel-collapse collapse <%= 'in' if i == 0 %> ">
+          <div class="panel-body">
+            <ul class="nav nav-tabs research-outputs-tabs">
+              <% ro_slice.each do |research_output| %>
+                <li class="research-outputs-tab <%= 'active' if research_output.main? %>">
+                  <a href="#research-output-panel-<%= research_output.id %>" data-toggle="tab" 
+                                    data-research-output="<%= research_output.id %>" 
+                                    data-target="#research_output_<%= research_output.id %>"
+                  >
+                    <%= research_output.abbreviation %>
+                  </a>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+<% else %>
+  <div class="panel-group research-outputs-accordion" id="accordion">
+    <ul id="collapseOne" class="panel-collapse collapse in nav nav-tabs research-outputs-tabs">
+      <% research_outputs.each do |research_output| %>
+        <li class="research-outputs-tab <%= 'active' if research_output.main? %>">
+          <a href="#research-output-panel-<%= research_output.id %>" data-toggle="tab" 
+                            data-research-output="<%= research_output.id %>" 
+                            data-target="#research_output_<%= research_output.id %>"
+          >
+            <%= research_output.abbreviation %>
+          </a>
+        </li>
+      <% end if research_outputs.count > 1 %>
+    </ul>
+  </div>
+<% end %>
