@@ -17,12 +17,6 @@ tooltip = _('Add another research output to this plan.')
         %>
         <div class="col-md-12 citation">
           <span class="col-md-10">
-            <%= hidden_field_tag :work_type, related_identifier.work_type,
-                                name: "#{name_base}[work_type]]",
-                                id: "#{id_base}_work_type" %>
-            <%= hidden_field_tag :value, related_identifier.value,
-                                name: "#{name_base}[value]]",
-                                id: "#{id_base}_value" %>
             <% if related_identifier.citation.present? %>
               <%= sanitize(related_identifier.citation) %>
             <% else %>

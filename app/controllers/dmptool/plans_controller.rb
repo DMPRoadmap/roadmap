@@ -33,9 +33,7 @@ module Dmptool
       authorize @plan
 
       attrs = plan_params
-      @plan.funder = process_org!(user: current_user, namespace: 'funder')
       @plan.grant = plan_params[:grant]
-      attrs.delete(:funder)
       attrs.delete(:grant)
 
       @plan.title = @plan.title.strip
