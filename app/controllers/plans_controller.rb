@@ -310,7 +310,7 @@ class PlansController < ApplicationController
       { template: {
         phases: {
           sections: {
-            questions: %i[question_format annotations]
+            questions: %i[question_format annotations madmp_schema]
           }
         }
       } },

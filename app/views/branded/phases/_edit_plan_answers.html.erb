@@ -1,6 +1,7 @@
 <% template = plan.template %>
 <% template_title = template.title %>
 <% template_title += " - #{_('Customized')}" if template.customization_of.present? %>
+<% sections = phase.sections %>
 <% research_outputs = plan.research_outputs %>
 <% multiple_ro_class = research_outputs.count > 1 ? "multiple-research-output" : "single-research-output" %>
 
@@ -28,7 +29,7 @@
         <div id="research_output_<%= research_output.id %>" 
                     class="panel research-output-panel tab-pane fade <%= 'in active' if research_output.main? %> <%= 'main_research_output' if research_output.main? %>">
           
-          <% phase.sections.order(:number).each do |section| %>
+          <% sections.order(:number).each do |section| %>
             <div class="panel-group sections">
               <div class="panel panel-default section-panel">
                 <div class="panel-heading section-title" role="tab" id="heading-<%= section.id %>">
@@ -65,7 +66,7 @@
                         answer = Answer.new({ plan: plan, question: question, research_output: research_output })
                       end
                       consolidated_id = "#{question.id}-research-output-#{research_output.id}"
-                      collapse_class = question.question_format.structured? ? "fragment-content" : "question-content"
+                      collapse_class = template.structured? ? "fragment-content" : "question-content"
                     %>
                     <div class="row question">
                       <div class="heading-button" role="button" data-toggle="collapse"
@@ -102,19 +103,17 @@
                               <div id="<%= "answer-locking-#{consolidated_id}" %>" 
                                   class="answer-locking"></div>
                               <div id="<%= "answer-form-#{consolidated_id}" %>" class="answer-form"> 
-                                <% if question.question_format.structured? %>
+                                <% if template.structured? %>
                                   <% fragment = answer.madmp_fragment unless answer.nil? %>
-                                  <% madmp_schema = fragment ? fragment.madmp_schema : question.madmp_schema %>
-                                  <% dmp_id = plan.json_fragment.id %>
-                                  <% parent_id = research_output.json_fragment.id %>
                                   <% if fragment.nil? %>
+                                    <% parent_fragment = research_output.json_fragment %>
                                     <%= render(partial: '/madmp_fragments/new',
                                             locals: { question: question,
                                                       answer: answer,
-                                                      madmp_schema: madmp_schema,
+                                                      madmp_schema: question.madmp_schema,
                                                       research_output: research_output,
-                                                      dmp_id: dmp_id,
-                                                      parent_id: parent_id,
+                                                      dmp_id: parent_fragment.dmp_id,
+                                                      parent_id: parent_fragment.id,
                                                       readonly: readonly,
                                                       locking: false }) %>
                                   <% else %>
@@ -127,7 +126,7 @@
                                   <% end %>
                                 <% else %>
                                   <%= render(partial: '/answers/new_edit',
-                                          locals: { template: phase.template,
+                                          locals: { template: template,
                                                     question: question,
                                                     answer: answer,
                                                     research_output: research_output,
@@ -145,11 +144,11 @@
                           <% style = guidance_comments_opened_by_default ? '' : 'display: none' %>
                           <div class="guidance-section" style="<%= style %>">
                             <!-- Guidances and notes partial view -->
-                            <% if question.question_format.structured? %>
+                            <% if template.structured? %>
                               <% madmp_schema = fragment ? fragment.madmp_schema : question.madmp_schema %>
                               <%= render partial: '/phases/guidances_notes_runs', locals: {
                                 plan: plan,
-                                template: phase.template,
+                                template: template,
                                 question: question,
                                 answer: answer,
                                 madmp_schema: madmp_schema,
@@ -158,7 +157,7 @@
                             <% else %>
                               <%= render partial: '/phases/guidances_notes', locals: {
                                 plan: plan,
-                                template: phase.template,
+                                template: template,
                                 question: question,
                                 answer: answer,
                                 research_output: research_output,

@@ -99,7 +99,7 @@ class Answer < ApplicationRecord
   # presence of text
   #
   # Returns Boolean
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/AbcSize
   def answered?
     return false unless question.present?
     # If the question is option based then see if any options were selected
@@ -107,7 +107,7 @@ class Answer < ApplicationRecord
     # --------------------------------
     # Start DMP OPIDoR Customization
     # --------------------------------
-    return madmp_fragment&.data&.compact&.any? if question.question_format.structured
+    return madmp_fragment.present? if question.question_format.structured
     # --------------------------------
     # End DMP OPIDoR Customization
     # --------------------------------
@@ -116,7 +116,7 @@ class Answer < ApplicationRecord
 
     false
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/AbcSize
 
   # Answer notes whose archived is blank sorted by updated_at in descending order
   #
