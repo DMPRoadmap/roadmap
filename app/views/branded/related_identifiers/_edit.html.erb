@@ -29,8 +29,7 @@ tooltip = _('Add another research output to this plan.')
               <% end %>
               <%= _(" - No citation available.") %>
             <% end %>
-            <% if current_user.can_super_admin? ||
-                  (current_user.can_org_admin? && plan.org == current_user.org) %>
+            <% if plan.administerable_by?(current_user.id) || (current_user.can_org_admin? && current_user.org.plans.include?(plan)) %>
               <a href="#" class="delete" aria-label="<%= _('Remove this related work') %>">
                 <i class="fas fa-times-circle fa-reverse remove-related-work" aria-hidden="true"></i>
               </a>
