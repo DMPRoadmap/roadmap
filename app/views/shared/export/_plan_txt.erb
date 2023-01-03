@@ -79,7 +79,7 @@
   <% end %>
 <% end %>
 
-<% if @plan.research_outputs.any? %>
+<% if @show_research_outputs && @plan.research_outputs.any? %>
   <%= "----------------------------------------------------------" %>
   <%= _("Planned research outputs") %>
   <%= "" %>
@@ -103,5 +103,22 @@
     <%= "\n\n" %>
   <% end %>
 <% end %>
+
+<% if @show_related_identifiers && @plan.related_identifiers.any? %>
+  <% related_works = RelatedIdentifierPresenter.new(plan: @plan).related_identifiers %>
+  <%= "----------------------------------------------------------" %>
+  <%= _("Related works") %>
+  <%= "" %>
+  <% current_type = '' %>
+  <% @plan.related_identifiers.each do |work| %>
+    <% if current_type != work.work_type %>
+      <%= "  #{work.work_type&.humanize.pluralize}:" %>
+      <% current_type = work.work_type %>
+    <% end %>
+    <%= "      #{work.citation.present? ? work.citation : work.value}" %>
+    <%= "\n" %>
+  <% end %>
+<% end %>
+
 <%= "----------------------------------------------------------" %>
 <%= _("A Data Management Plan created using %{application_name}") % { application_name: ApplicationService.application_name } %>

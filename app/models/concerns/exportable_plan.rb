@@ -111,6 +111,7 @@ module ExportablePlan
   end
   # rubocop:enable Style/OptionalBooleanParameter
 
+  # rubocop:disable Metrics/AbcSize
   def prepare_research_outputs
     research_outputs.map do |research_output|
       presenter = ResearchOutputPresenter.new(research_output: research_output)
@@ -131,15 +132,19 @@ module ExportablePlan
       }
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def prepare_related_works
-    related_identifiers.map do |related_work|
+    related_works = RelatedIdentifierPresenter.new(plan: self).related_identifiers
+    related_works.map do |related_work|
       {
         type: related_work.work_type&.humanize,
         link: related_work.value
       }
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def prepare_coversheet
@@ -228,7 +233,7 @@ module ExportablePlan
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/AbcSize
   def prepare_research_outputs_for_csv(csv, _headings, hash)
     return false unless hash[:research_outputs].present? && hash[:research_outputs].any?
 
@@ -241,9 +246,9 @@ module ExportablePlan
     csv << []
     csv << []
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/AbcSize
   def prepare_related_identifiers_for_csv(csv, _headings, hash)
     csv << [_('Related Works: ')]
     csv << hash[:related_works].first.keys.map { |key| key.to_s.capitalize.gsub('_', ' ') }
@@ -253,7 +258,7 @@ module ExportablePlan
     csv << []
     csv << []
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize, Metrics/BlockLength, Metrics/MethodLength
   # rubocop:disable Metrics/ParameterLists, Metrics/PerceivedComplexity
