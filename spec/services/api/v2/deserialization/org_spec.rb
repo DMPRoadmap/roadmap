@@ -117,6 +117,7 @@ RSpec.describe Api::V2::Deserialization::Org do
       end
 
       it 'creates and returns a new Org record if the :registry_org does not have one assocciated' do
+        Rails.configuration.x.application.restrict_orgs = false
         result = described_class.send(:org_from_registry_org!, registry_org: @registry_org)
         expect(Org.all.last).to eql(result)
         expect(@registry_org.reload.org_id).to eql(result.id)
