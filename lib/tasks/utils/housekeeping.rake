@@ -3,6 +3,11 @@
 require 'text'
 
 namespace :housekeeping do
+  desc 'Clear the cache'
+  task clear_cache: :environment do
+    Rails.cache.clear
+  end
+
   desc 'Monthly maintenance script'
   task monthly_maintenance: :environment do
     p '----------------------------------'
