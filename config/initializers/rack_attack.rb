@@ -49,7 +49,7 @@ Rack::Attack.safelist_ip('::1')
 #                 and 5 requests per minute for login/account creation/password reset (see below)
 #
 Rack::Attack.throttle('req/ip', limit: 25, period: 60) { |req| req.ip unless req.path.start_with?('/assets') }
-Rack::Attack.throttle('req/ip', limit: 50, period: 30) { |req| req.ip if req.path_start_with?('/api') }
+Rack::Attack.throttle('req/ip', limit: 50, period: 30) { |req| req.ip if req.path.start_with?('/api') }
 
 ### Prevent Brute-Force Login Attacks ###
 
