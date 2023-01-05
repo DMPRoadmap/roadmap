@@ -41,8 +41,9 @@
                   <% options = answer.present? ? answer.question_options : [] %>
                   <% if @show_unanswered %>
                     <%# Hack: for DOCX export - otherwise, bold highlighting of question inconsistent. %>
+                    <%# Strip all HTML tags for DOCX - as it sometimes result in broken files. %>
                     <% if local_assigns[:export_format] && export_format == 'docx' %>
-                      <strong><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></strong>
+                      <strong><%=  sanitize question[:text].to_s, scrubber: HtmlFreeScrubber.new %></strong>
                     <% else %>
                      <div class="bold"><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></div>
                     <% end %>
