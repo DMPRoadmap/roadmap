@@ -47,7 +47,7 @@ module Users
 
           # Attach the Shib eppn if this is part of an SSO account creation
           hash = session.fetch('devise.shibboleth_data', {})
-          user.attach_omniauth_credentials(scheme_name: 'shibboleth', omniauth_hash: hash) if hash.present?
+          user.attach_omniauth_credentials(scheme_name: 'shibboleth', omniauth_hash: hash) if hash.present? && user.valid?
         end
       else
         flash[:alert] = _('Invalid security check! Please make sure your browser is up to date and then try again')
