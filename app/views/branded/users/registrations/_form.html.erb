@@ -4,15 +4,17 @@
 
 <% omniauth_workflow = session["devise.shibboleth_data"].present? %>
 <% if omniauth_workflow %>
-  <%= form.label :email, _('Email address') %>
-  <%= form.email_field(:email,
-                      class: "require-me",
-                      aria: { describedby: "sign-in-sign-up-email-desc" },
-                      autocomplete: 'email') %>
-<% else %>
   <div id="sign-up-email" class="c-textfield js-textfield is-required">
+    <%= form.label :email, _('Email address') %>
+    <%= form.email_field(:email,
+                        class: "require-me",
+                        aria: { describedby: "sign-in-sign-up-email-desc" },
+                        autocomplete: 'email') %>
+  </div>
+<% else %>
+  <div id="sign-up-email" class="c-textfield js-textfield">
     <%= form.label(:email, _('Email address')) %>
-    <%= form.email_field(:disabled_email, value: resource.email, class: "require-me",
+    <%= form.email_field(:disabled_email, value: resource.email,
                          autocomplete: 'email', disabled: "disabled") %>
     <%= form.hidden_field(:email, value: resource.email) %>
   </div>
