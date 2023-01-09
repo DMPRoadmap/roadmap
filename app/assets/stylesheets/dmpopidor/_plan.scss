@@ -146,24 +146,7 @@
   }
 
   .project-meta {
-    border-radius: 20px;
-    padding: 20px;
-    margin-bottom: 20px;
-    border: 1px solid $dark-blue;
-
-    .question-text {
-      background-color: white;
-
-      .panel-title {
-        color: $rust;
-      }
-
-      i.fas {
-        font-size: x-large;
-        font-weight: bold;
-        color: $rust
-      }
-    }
+    @include dmpopidor-accordion-large;
   }
 
   .madmp-fragment {
@@ -395,26 +378,7 @@
   }
 
   .question {
-    border-radius: 10px;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid $dark-blue;
-
-    .question-text {
-      background-color: $white;
-      color: $dark-blue;
-
-      .panel-title {
-        color: $dark-blue;
-        font-size: 20px;
-      }
-
-      i.fas {
-        font-size: x-large;
-        font-weight: bold;
-        color: $rust
-      }
-    }
+    @include dmpopidor-accordion;
 
     .question-body {
       padding: 15px 0;
