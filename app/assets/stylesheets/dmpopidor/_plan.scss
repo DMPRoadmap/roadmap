@@ -66,43 +66,6 @@
     box-shadow: none;
   }
 
-  .icon {
-    font-size: 60px;
-
-    &.icon-research-outputs:before {
-      font-weight: bold;
-      content: "\e902";
-    }
-
-    &.icon-write-plan:before {
-      content: "\e900";
-    }
-
-    &.icon-share:before {
-      content: "\e901";
-    }
-
-    &.icon-request-feedback:before {
-      content: "\e903";
-    }
-
-    &.icon-general-infos:before {
-      content: "\e904";
-    }
-
-    &.icon-download:before {
-      content: "\e905";
-    }
-
-    &.icon-contributors:before {
-      content: "\e906";
-    }
-
-    &.icon-budget:before {
-      content: "\e907";
-    }
-  }
-
 }
 
 
