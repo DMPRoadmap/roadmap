@@ -111,7 +111,6 @@ module ExportablePlan
   end
   # rubocop:enable Style/OptionalBooleanParameter
 
-  # rubocop:disable Metrics/AbcSize
   def prepare_research_outputs
     research_outputs.map do |research_output|
       presenter = ResearchOutputPresenter.new(research_output: research_output)
@@ -134,7 +133,6 @@ module ExportablePlan
   end
   # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
   def prepare_related_works
     related_works = RelatedIdentifierPresenter.new(plan: self).related_identifiers
     related_works.map do |related_work|
@@ -144,9 +142,8 @@ module ExportablePlan
       }
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   def prepare_coversheet
     hash = {}
 
@@ -186,9 +183,9 @@ module ExportablePlan
     hash[:customizer] = customizer
     hash
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def prepare_coversheet_for_csv(csv, _headings, hash)
     csv << [_('Title: '), format(_('%{title}'), title: title)]
     csv << if Array(hash[:attribution]).many?
@@ -231,7 +228,8 @@ module ExportablePlan
     csv << []
     csv << []
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # rubocop:disable Metrics/AbcSize
   def prepare_research_outputs_for_csv(csv, _headings, hash)
@@ -248,7 +246,6 @@ module ExportablePlan
   end
   # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
   def prepare_related_identifiers_for_csv(csv, _headings, hash)
     csv << [_('Related Works: ')]
     csv << hash[:related_works].first.keys.map { |key| key.to_s.capitalize.gsub('_', ' ') }
@@ -258,10 +255,9 @@ module ExportablePlan
     csv << []
     csv << []
   end
-  # rubocop:enable Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize, Metrics/BlockLength, Metrics/MethodLength
-  # rubocop:disable Metrics/ParameterLists, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/ParameterLists, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   def show_section_for_csv(csv, phase, section, headings, unanswered, hash)
     section[:questions].each do |question|
       next if remove_list(hash).include?(question[:id])
@@ -295,7 +291,7 @@ module ExportablePlan
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/BlockLength, Metrics/MethodLength
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/ParameterLists
 
   # rubocop:disable Metrics/AbcSize

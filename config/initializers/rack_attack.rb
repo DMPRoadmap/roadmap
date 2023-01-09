@@ -9,13 +9,13 @@ Rack::Attack.safelist_ip('::1')
 # briley 1/3/22 - commenting this Fail2Ban filter out the WAF will block this stuff for us
 #
 # Rack::Attack.blocklist('malicious_clients') do |req|
-  # Rack::Attack::Fail2Ban.filter("fail2ban_malicious_#{req.ip}", maxretry: 1, findtime: 1.day, bantime: 1.day) do
-  #   CGI.unescape(req.query_string) =~ %r{/etc/passwd} ||
-  #     req.path.include?('/etc/passwd') ||
-  #     req.path.include?('wp-admin') ||
-  #     req.path.include?('wp-login') ||
-  #     /\S+\.php/.match?(req.path)
-  # end
+# Rack::Attack::Fail2Ban.filter("fail2ban_malicious_#{req.ip}", maxretry: 1, findtime: 1.day, bantime: 1.day) do
+#   CGI.unescape(req.query_string) =~ %r{/etc/passwd} ||
+#     req.path.include?('/etc/passwd') ||
+#     req.path.include?('wp-admin') ||
+#     req.path.include?('wp-login') ||
+#     /\S+\.php/.match?(req.path)
+# end
 # end
 
 ### Configure Cache ###

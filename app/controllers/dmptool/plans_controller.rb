@@ -28,6 +28,7 @@ module Dmptool
     end
 
     # PATCH /plans/:id/follow_up_update
+    # rubocop:disable Metrics/AbcSize
     def follow_up_update
       @plan = ::Plan.find(params[:id])
       authorize @plan
@@ -44,6 +45,7 @@ module Dmptool
         redirect_to follow_up_plan_path, alert: failure_message(@plan, _('save'))
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     def temporary_patch_delete_me_later
       # This is a temporary patch to fix an issue with one of the pt-BR translations

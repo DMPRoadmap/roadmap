@@ -7,7 +7,7 @@ describe IdentifierHelper do
 
   before do
     @user_scheme = create(:identifier_scheme, for_users: true)
-    ::DmpIdService.stubs(:identifier_scheme).returns(@user_scheme)
+    DmpIdService.stubs(:identifier_scheme).returns(@user_scheme)
   end
 
   describe '#id_for_display(id:, with_scheme_name)' do
@@ -62,13 +62,13 @@ describe IdentifierHelper do
     it "returns the value with the DmpIdService's identifier prefix (when not in PROD)" do
       Rails.env = 'development'
       rslt = id_for_display(id: @identifier)
-      expect(rslt.include?(::DmpIdService.landing_page_url)).to be(true)
+      expect(rslt.include?(DmpIdService.landing_page_url)).to be(true)
     end
 
     it "returns the value with the DmpIdService's identifier prefix (when not in PROD) and flag set" do
       Rails.env = 'stage'
       rslt = id_for_display(id: @identifier, with_scheme_name: false)
-      expect(rslt.include?(::DmpIdService.landing_page_url)).to be(true)
+      expect(rslt.include?(DmpIdService.landing_page_url)).to be(true)
     end
   end
 end
