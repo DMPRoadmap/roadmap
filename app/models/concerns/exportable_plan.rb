@@ -22,7 +22,8 @@ module ExportablePlan
              unanswered = true,
              selected_phase = nil,
              show_custom_sections = true,
-             show_coversheet = false)
+             show_coversheet = false,
+             show_research_outputs = false)
     hash = prepare(user, show_coversheet)
     CSV.generate do |csv|
       prepare_coversheet_for_csv(csv, headings, hash) if show_coversheet
@@ -50,6 +51,10 @@ module ExportablePlan
           end
         end
       end
+      csv << []
+      csv << []
+
+      prepare_research_outputs_for_csv(csv, headings, hash) if show_research_outputs
     end
   end
   # rubocop:enable Style/OptionalBooleanParameter
@@ -92,6 +97,9 @@ module ExportablePlan
       phases << phs
     end
     hash[:phases] = phases
+
+    # include any research outputs
+    hash[:research_outputs] = prepare_research_outputs
 
     record_plan_export(user, :pdf)
 
@@ -139,6 +147,29 @@ module ExportablePlan
   # rubocop:enable Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize
+  def prepare_research_outputs
+    research_outputs.map do |research_output|
+      presenter = ResearchOutputPresenter.new(research_output: research_output)
+      size_hash = presenter.converted_file_size(size: research_output.byte_size)
+
+      {
+        title: research_output.title,
+        description: research_output.description,
+        type: presenter.display_type,
+        anticipated_release_date: presenter.display_release,
+        initial_access_level: presenter.display_access,
+        intended_repositories: presenter.display_repository&.join(', '),
+        anticipated_file_size: "#{size_hash[:size]} #{size_hash[:unit]&.upcase}",
+        initial_license: presenter.display_license,
+        metadata_standards: presenter.display_metadata_standard&.join(', '),
+        may_contain_sensitive_data: presenter.display_boolean(value: research_output.sensitive_data),
+        may_contain_pii: presenter.display_boolean(value: research_output.personal_data)
+      }
+    end
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  # rubocop:disable Metrics/AbcSize
   def prepare_coversheet_for_csv(csv, _headings, hash)
     csv << [_('Title: '), format(_('%{title}'), title: title)]
     csv << if Array(hash[:attribution]).many?
@@ -182,6 +213,21 @@ module ExportablePlan
     csv << []
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+
+  # rubocop:disable Metrics/AbcSize
+  def prepare_research_outputs_for_csv(csv, _headings, hash)
+    return false unless hash[:research_outputs].present? && hash[:research_outputs].any?
+
+    csv << [_('Research Outputs: ')]
+    # Convert the hash keys to column headers
+    csv << hash[:research_outputs].first.keys.map { |key| key.to_s.capitalize.gsub('_', ' ') }
+    hash[:research_outputs].each do |research_output|
+      csv << research_output.values
+    end
+    csv << []
+    csv << []
+  end
+  # rubocop:enable Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize, Metrics/BlockLength, Metrics/MethodLength
   # rubocop:disable Metrics/ParameterLists
