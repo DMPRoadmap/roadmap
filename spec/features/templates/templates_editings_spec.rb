@@ -29,7 +29,7 @@ RSpec.describe 'Templates::Editing' do
     within("#template_#{template.id}") do
       click_button 'Actions'
     end
-    click_link 'Customise'
+    click_link _('Customise')
     # New template created
     template = Template.last
     within("#phase_#{template.phase_ids.first}") do

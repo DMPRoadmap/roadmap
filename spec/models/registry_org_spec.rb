@@ -80,12 +80,38 @@ describe RegistryOrg do
       end
 
       it 'returns the closest matching RegistryOrg' do
-        rorg1 = create(:registry_org)
-        create(:registry_org, home_page: "#{rorg1.home_page}.foo")
-        result = described_class.send(:from_email_domain, email_domain: rorg1.home_page.upcase)
-        expected = rorg1.to_org
+        one_we_want = create(:registry_org, home_page: 'https://foo.edu')
+        expected = one_we_want.to_org
+
+        result = described_class.send(:from_email_domain, email_domain: 'foo.edu')
         expect(result.name).to eql(expected.name)
-        expect(result.abbreviation).to eql(expected.abbreviation)
+        expect(result.target_url).to eql(expected.target_url)
+
+        result = described_class.send(:from_email_domain, email_domain: 'sub.foo.edu')
+        expect(result).to eql(nil)
+
+        result = described_class.send(:from_email_domain, email_domain: 'foo.bar.edu')
+        expect(result).to eql(nil)
+
+        result = described_class.send(:from_email_domain, email_domain: 'nofoo.edu')
+        expect(result).to eql(nil)
+
+        result = described_class.send(:from_email_domain, email_domain: 'no-foo.edu')
+        expect(result).to eql(nil)
+
+        one_we_want.update(home_page: 'https://medical-center.foo.edu')
+        expected = one_we_want.to_org
+
+        result = described_class.send(:from_email_domain, email_domain: 'foo.edu')
+        expect(result.name).to eql(expected.name)
+        expect(result.target_url).to eql(expected.target_url)
+
+        result = described_class.send(:from_email_domain, email_domain: 'FOO.EDU')
+        expect(result.name).to eql(expected.name)
+        expect(result.target_url).to eql(expected.target_url)
+
+        result = described_class.send(:from_email_domain, email_domain: 'medical-center.foo.edu')
+        expect(result.name).to eql(expected.name)
         expect(result.target_url).to eql(expected.target_url)
       end
     end
@@ -105,9 +131,8 @@ describe RegistryOrg do
       end
 
       it 'correctly initializes the Org' do
-        email = Faker::Internet.email
+        email = Rails.configuration.x.organisation.helpdesk_email
         app_name = Faker::Company.name
-        Rails.configuration.x.organisation.helpdesk_email = email
         ApplicationService.stubs(:application_name).returns(app_name)
         result = @registry_org.to_org
         expect(result.is_a?(Org)).to be(true)

@@ -105,9 +105,14 @@ describe RelatedIdentifier do
 
     describe ':load_citation' do
       before do
+        @original_lookup = Rails.configuration.x.madmp.enable_citation_lookup
         @id.citation = nil
         @id.identifier_type = 'doi'
         @citation = Faker::Lorem.paragraph
+      end
+
+      after do
+        Rails.configuration.x.madmp.enable_citation_lookup = @original_lookup
       end
 
       it 'does not process if the config is disabled' do

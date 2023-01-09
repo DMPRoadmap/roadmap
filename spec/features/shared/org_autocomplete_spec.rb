@@ -25,6 +25,7 @@ RSpec.describe 'OrgAutocomplete' do
   end
 
   it 'Setting restrict_orgs flag in config disables custom org entry', js: true do
+    original_restrict = Rails.configuration.x.application.restrict_orgs
     Rails.configuration.x.application.restrict_orgs = true
     visit plan_path(@plan)
 
@@ -46,10 +47,12 @@ RSpec.describe 'OrgAutocomplete' do
     # fill in a different field to trigger the validation check
     fill_in 'Project title', with: Faker::Lorem.sentence
     expect(page).to have_text(@warn_without_custom)
+    Rails.configuration.x.application.restrict_orgs = original_restrict
   end
 
   context 'basic autocomplete functionality' do
     before do
+      original_restrict = Rails.configuration.x.application.restrict_orgs
       Rails.configuration.x.application.restrict_orgs = false
       sign_out @user
       visit root_path
@@ -59,6 +62,7 @@ RSpec.describe 'OrgAutocomplete' do
       expect(page).to have_text(_('Sign up'))
 
       @selector = '#sign-up-org'
+      Rails.configuration.x.application.restrict_orgs = original_restrict
     end
 
     it 'User can type in the autocomplete and see suggestions', :js do
@@ -126,7 +130,7 @@ RSpec.describe 'OrgAutocomplete' do
         name = Faker::Movies::StarWars.unique.planet
         enter_custom_org(@selector, name)
         click_button _('Sign up')
-        expect(page).not_to have_errors
+        expect(page).not_to have_errors, page.body
         expect(User.all.count).to eql(original_user_count + 1)
         expect(User.last.org.name.downcase.capitalize).to eql(name.downcase.capitalize)
         sign_out User.last
@@ -136,8 +140,13 @@ RSpec.describe 'OrgAutocomplete' do
 
   context 'Individual implementations of the autocomplete', js: true do
     before do
+      @original_restrict = Rails.configuration.x.application.restrict_orgs
       Rails.configuration.x.application.restrict_orgs = false
       init_orgs
+    end
+
+    after do
+      Rails.configuration.x.application.restrict_orgs = @original_restrict
     end
 
     context 'Sign up page implementation works' do
