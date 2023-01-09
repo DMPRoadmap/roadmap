@@ -8,13 +8,15 @@
     background-color: white;
 
     .panel-title {
-      color: $rust;
-    }
-
-    i.fas {
       font-size: x-large;
       font-weight: bold;
-      color: $rust
+      color: $rust;
+    }
+    i.fas,
+    span.icon {
+      font-size: xx-large;
+      font-weight: bold;
+      color: $rust;
     }
   }
 
