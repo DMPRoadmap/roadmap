@@ -13,6 +13,7 @@
 - Fixed an issue with the Rails 6 keyword arguments change that was causing the `paginable_sort_link` to fail
 - Updated sans-serif font used in PDF downloads to Roboto since Google API no longer offers Helvetica
 - Fixed discrepencies with default/max per_page values for API and UI pagination
+- Updated the CSV export so that it now includes research outputs
 
 ### Changed
 
