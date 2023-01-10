@@ -727,12 +727,15 @@ describe Plan do
 
     context 'config does not allow admin viewing' do
       before do
-        @original_setting = Rails.configuration.x.plans.org_admins_read_all
+        @org_admins = Rails.configuration.x.plans.org_admins_read_all
+        @super_admins = Rails.configuration.x.plans.super_admins_read_all
         Rails.configuration.x.plans.org_admins_read_all = false
+        Rails.configuration.x.plans.super_admins_read_all = false
       end
 
       after do
-        Rails.configuration.x.plans.org_admins_read_all = @original_setting
+        Rails.configuration.x.plans.org_admins_read_all = @org_admins
+        Rails.configuration.x.plans.super_admins_read_all = @super_admins
       end
 
       it 'super admins' do
