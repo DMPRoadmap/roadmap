@@ -10,7 +10,7 @@ module ExportsHelper
   }.freeze
 
   def font_face
-    @formatting[:font_face].presence || 'Arial, Helvetica, Sans-Serif'
+    @formatting[:font_face].presence || 'Roboto, Helvetica, Sans-Serif'
   end
 
   def font_size
