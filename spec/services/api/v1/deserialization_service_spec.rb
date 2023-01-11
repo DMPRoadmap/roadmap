@@ -5,6 +5,14 @@ require 'rails_helper'
 RSpec.describe Api::V1::DeserializationService do
   include Helpers::IdentifierHelper
 
+  before do
+    @original_restrict = Rails.configuration.x.application.restrict_orgs
+  end
+
+  after do
+    Rails.configuration.x.application.restrict_orgs = @original_restrict
+  end
+
   describe 'object_from_identifier(clazz:, json:)' do
     before do
       scheme = create(:identifier_scheme, name: 'ror')

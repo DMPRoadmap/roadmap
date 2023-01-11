@@ -6,10 +6,16 @@ RSpec.describe DmpIdService do
   include Helpers::ConfigHelper
 
   before do
-    Rails.configuration.x.enable_dmp_id_registration = true
+    @original_enabled = Rails.configuration.x.madmp.enable_dmp_id_registration
+    @original_name = Rails.configuration.x.datacite.name
+    @original_active = Rails.configuration.x.datacite.active
+    @original_desc = Rails.configuration.x.datacite.description
+    @orignal_landing = Rails.configuration.x.datacite.landing_page_url
+
+    Rails.configuration.x.madmp.enable_dmp_id_registration = true
 
     # Using Datacite for these tests
-    Rails.configuration.x.datacite.active = true
+    Rails.configuration.x.datacite.active  = true
     Rails.configuration.x.datacite.name = 'datacite'
     Rails.configuration.x.datacite.description = Faker::Lorem.sentence
     Rails.configuration.x.datacite.landing_page_url = "#{Faker::Internet.url}/"
@@ -21,6 +27,14 @@ RSpec.describe DmpIdService do
       description: Rails.configuration.x.datacite.description,
       for_plans: true
     )
+  end
+
+  after do
+    Rails.configuration.x.madmp.enable_dmp_id_registration = @original_enabled
+    Rails.configuration.x.datacite.name = @original_name
+    Rails.configuration.x.datacite.active = @original_active
+    Rails.configuration.x.datacite.description = @original_desc
+    Rails.configuration.x.datacite.landing_page_url = @orignal_landing
   end
 
   describe '#mint_dmp_id(plan:)' do

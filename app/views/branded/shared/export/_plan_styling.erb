@@ -2,7 +2,7 @@
   @import 'https://fonts.googleapis.com/css?family=<%= font_face.downcase.include?('times') ? 'Times' : 'Roboto' %>';
 
   body {
-    font-family: <%= font_face %>%;
+    font-family: <%= font_face %>;
     font-size: <%= font_size %>;
     /* Finding margins to be an issue with wkhtmltopdf on AWS linux so setting them
        on the plan_exports_controller when calling wicked_pdf instead */
