@@ -26,8 +26,9 @@
         <% phase[:sections].each do |section| %>
           <% if display_section?(@hash[:customization], section, @show_custom_sections) && num_section_questions(@plan, section, phase) > 0 %>
             <% if @show_sections %>
-              <h2><%= section[:title] %></h2>
-              <div class="section">
+              <br>
+              <h3><%= section[:title] %></h3>
+              <br>
             <% end %>
             <% section[:questions].each do |question| %>
               <% if remove_list(@plan).include?(question[:id]) %>
@@ -43,7 +44,7 @@
                     <% if local_assigns[:export_format] && export_format == 'docx' %>
                       <strong><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></strong>
                     <% else %>
-                     <p><strong><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></strong></p>
+                     <div class="bold"><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></div>
                     <% end %>
                     <br>
                   <% end %>
@@ -52,6 +53,7 @@
                 <% if @show_unanswered && blank %>
                   <br>
                   <p><%= _('Question not answered.') -%></p>
+                  <br><br>
                 <% else %>
 
                   <%# case where Question has options %>
@@ -77,17 +79,14 @@
                   <%# case for displaying comments OR text %>
                   <% elsif !blank %>
                     <%= sanitize answer&.text %>
+                    <br><br>
                   <% end %>
                 <% end %>
-              </div>
-            <% end %>
-            <% if @show_sections %>
               </div>
             <% end %>
           <% end %>
         <% end %> <!-- sections.each -->
         </div>
-        <hr/>
       <% end %>
     <% end %>
 
