@@ -12,6 +12,7 @@
 - Froze mail gem version [#3254](https://github.com/DMPRoadmap/roadmap/issues/3254)
 - Fixed an issue with the Rails 6 keyword arguments change that was causing the `paginable_sort_link` to fail
 - Updated sans-serif font used in PDF downloads to Roboto since Google API no longer offers Helvetica
+- Fixed discrepencies with default/max per_page values for API and UI pagination
 
 ### Changed
 
