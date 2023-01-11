@@ -15,7 +15,7 @@ RSpec.describe DmpIdService do
     Rails.configuration.x.madmp.enable_dmp_id_registration = true
 
     # Using Datacite for these tests
-    Rails.configuration.x.datacite.active  = true
+    Rails.configuration.x.datacite.active = true
     Rails.configuration.x.datacite.name = 'datacite'
     Rails.configuration.x.datacite.description = Faker::Lorem.sentence
     Rails.configuration.x.datacite.landing_page_url = "#{Faker::Internet.url}/"

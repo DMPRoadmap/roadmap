@@ -120,12 +120,12 @@ RSpec.describe ExternalApis::BaseService do
   end
 
   context 'private methods' do
-    before each
+    before do
       @original_name = Rails.configuration.x.application.name
     end
 
-    after each
-    Rails.configuration.x.application.name = @original_name
+    after do
+      Rails.configuration.x.application.name = @original_name
     end
 
     describe '#app_name' do
