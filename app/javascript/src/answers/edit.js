@@ -180,7 +180,7 @@ $(() => {
   } else {
     // Sets the editor mode for each editor to readonly
     Tinymce.findEditorsByClassName(editorClass).forEach((editor) => {
-      editor.setMode('readonly');
+      editor.mode.set('readonly');
     });
   }
 

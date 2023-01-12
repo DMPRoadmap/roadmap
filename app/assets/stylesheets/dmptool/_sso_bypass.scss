@@ -3,3 +3,8 @@
   margin-left: auto;
   margin-top: 2px;
 }
+
+// Styling for the Org select box displayed when there are multiple Orgs with the same Shib entityID
+#sign-up-org_id select {
+  max-width: 100%;
+}

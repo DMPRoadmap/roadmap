@@ -7,11 +7,11 @@ class DmpIdService
     # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def mint_dmp_id(plan:)
       # plan must exist and not already have a DMP ID!
-      return nil unless minting_service_defined? && plan.present? && plan.is_a?(Plan)
+      return nil unless plan.present? && plan.is_a?(Plan)
       return plan.dmp_id if plan.dmp_id.present?
 
       svc = minter
-      return nil if svc.blank?
+      return nil if svc.blank? # || !minting_service_defined?
 
       dmp_id = svc.mint_dmp_id(plan: plan)
       return nil if dmp_id.blank?

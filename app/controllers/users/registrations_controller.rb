@@ -20,7 +20,8 @@ module Users
       self.resource = user_from_omniauth
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     # POST /users
     def create
       if resource.active_invitation? && !resource.new_record?
@@ -47,13 +48,17 @@ module Users
 
           # Attach the Shib eppn if this is part of an SSO account creation
           hash = session.fetch('devise.shibboleth_data', {})
-          user.attach_omniauth_credentials(scheme_name: 'shibboleth', omniauth_hash: hash) if hash.present?
+          if hash.present? && user.valid?
+            user.attach_omniauth_credentials(scheme_name: 'shibboleth',
+                                             omniauth_hash: hash)
+          end
         end
       else
         flash[:alert] = _('Invalid security check! Please make sure your browser is up to date and then try again')
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     # PUT /resource
     # We need to use a copy of the resource because we don't want to change

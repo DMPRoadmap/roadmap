@@ -99,7 +99,9 @@ class PlanExportsController < ApplicationController
                            @show_unanswered,
                            @selected_phase,
                            @show_custom_sections,
-                           @show_coversheet),
+                           @show_coversheet,
+                           @show_research_outputs,
+                           @show_related_identifiers),
               filename: "#{file_name}.csv"
   end
 

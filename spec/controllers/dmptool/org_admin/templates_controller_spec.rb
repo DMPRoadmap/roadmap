@@ -9,7 +9,7 @@ RSpec.describe Dmptool::OrgAdmin::TemplatesController, type: :request do
     @admin = create(:user, :org_admin, org: create(:org))
     @template = create(:template, :publicly_visible, :published, org: @admin.org, phases: 1,
                                                                  sections: 1, questions: 2)
-    @controller = ::OrgAdmin::TemplatesController.new
+    @controller = OrgAdmin::TemplatesController.new
   end
 
   it 'OrgAdmin::TemplatesController includes our customizations' do

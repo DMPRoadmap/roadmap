@@ -10,6 +10,9 @@ RSpec.describe ExternalApis::DataciteService, type: :model do
   include Helpers::IdentifierHelper
 
   before do
+    @original_active = Rails.configuration.x.datacite.active
+    @original_url = Rails.configuration.x.datacite.api_base_url
+    @original_enabled = Rails.configuration.x.madmp.enable_dmp_id_registration
     Rails.configuration.x.madmp.enable_dmp_id_registration = true
     Rails.configuration.x.datacite.active = true
     Rails.configuration.x.datacite.api_base_url = 'https://api.test.datacite.org/'
@@ -26,12 +29,19 @@ RSpec.describe ExternalApis::DataciteService, type: :model do
     @dmp_id = @plan.dmp_id.value_without_scheme_prefix
   end
 
+  after do
+    Rails.configuration.x.datacite.active = @original_active
+    Rails.configuration.x.datacite.api_base_url = @original_url
+    Rails.configuration.x.madmp.enable_dmp_id_registration = @original_enabled
+  end
+
   describe '#mint_dmp_id' do
     it 'returns nil if the service is not active' do
       Rails.configuration.x.datacite.active = false
       stub_minting_success!
       dmp_id = described_class.mint_dmp_id(plan: @plan)
       expect(dmp_id).to be_nil
+      Rails.configuration.x.datacite.active = @original_active
     end
 
     xit 'handles the http failure and notifies admins if HTTP response is not 200' do
@@ -53,6 +63,7 @@ RSpec.describe ExternalApis::DataciteService, type: :model do
     it 'returns false if the DataciteService is not active' do
       Rails.configuration.x.datacite.active = false
       expect(described_class.update_dmp_id(plan: @plan)).to be(false)
+      Rails.configuration.x.datacite.active = @original_active
     end
 
     it 'returns false if :plan is not present' do

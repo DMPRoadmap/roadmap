@@ -49,6 +49,13 @@
        org.build_tracker
      end %>
 
+  <hr>
+
+  <div class="row">
+    <div class="form-group col-xs-8">
+      <h3><%= _("Logo") %></h3>
+    </div>
+  </div>
   <div class="row">
     <div class="form-group col-xs-8">
       <%= f.label :logo, _('Organization logo'), class: "control-label"  %>
@@ -71,6 +78,13 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="form-group col-xs-4">
+      <%= f.label :target_url, _('Logo URL'), class: "control-label" %>
+      <%= f.url_field :target_url, class: "form-control", title: _('The URL the user will be brought to when clicking the logo above.'), data: { toggle: 'tooltip' } %>
+    </div>
+  </div>
+
   <hr>
 
   <div class="row">
@@ -83,7 +97,7 @@
                    links: org.links.fetch("org", []),
                    max_number_links: Rails.configuration.x.max_number_links_funder,
                    tooltip: shared_links_tooltip }) %>
-      <%= hidden_field_tag('org_links', org.links.to_json) %>
+      <%= hidden_field_tag('org_links', org.links) %>
     </div>
   </div>
 
@@ -101,9 +115,9 @@
       <%#= f.email_field :helpdesk_email, class: "form-control" %>
     </div>
   </div>
-  -->
 
   <hr>
+  -->
 
   <div class="row">
     <div class="form-group col-xs-8">

@@ -3,7 +3,8 @@ $(() => {
   const relatedIdentifierBlock = $('.related-works');
 
   if (relatedIdentifierBlock.length > 0) {
-    const addRowLink = relatedIdentifierBlock.siblings('.add-related-work');
+    const addRowButton = relatedIdentifierBlock.siblings('.add-related-work').find('button');
+    const saveButton = $('.related-works-save-btn');
 
     // Replace the unique record identifier on the :id and :for attributes
     const replaceId = (element, id) => {
@@ -44,13 +45,14 @@ $(() => {
         replaceIdsAndNames(newRow, new Date().getTime());
 
         newRow.removeClass('hidden');
+        saveButton.removeClass('hidden');
         relatedIdentifierBlock.append(newRow[0].outerHTML);
       }
     };
 
-    // Add a new row if the user clicks the '+ add a related work' link
-    if (addRowLink.length > 0) {
-      addRowLink.on('click', (e) => {
+    // Add a new row if the user clicks the 'Link a research output' button
+    if (addRowButton.length > 0) {
+      addRowButton.on('click', (e) => {
         e.preventDefault();
         addNewRow();
       });
@@ -59,7 +61,21 @@ $(() => {
     // Remove the entire row if the user clicks the 'X' delete link
     relatedIdentifierBlock.on('click', '.remove-related-work', (e) => {
       e.preventDefault();
-      $(e.target).closest('.citation').remove();
+      citationRow = $(e.target).closest('.citation');
+
+      if (citationRow.length > 0) {
+        citationRow.remove();
+      } else {
+        $(e.target).closest('.related-work-row').remove();
+      }
+
+      console.log(`Rows ${relatedIdentifierBlock.find('.related-work-row').length}`);
+      console.log(`Citations ${relatedIdentifierBlock.find('.citation').length}`);
+
+      if (relatedIdentifierBlock.find('.related-work-row').length <= 1 &&
+          relatedIdentifierBlock.find('.citation').length <= 0) {
+        // saveButton.addClass('hidden');
+      }
     });
   }
 });

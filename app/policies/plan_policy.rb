@@ -95,4 +95,12 @@ class PlanPolicy < ApplicationPolicy
   def set_featured?
     @user.can_org_admin?
   end
+
+  def follow_up?
+    @record.administerable_by?(@user.id) || (@user.can_org_admin? && @user.org_id == @record.org_id)
+  end
+
+  def follow_up_update?
+    @record.administerable_by?(@user.id) || (@user.can_org_admin? && @user.org_id == @record.org_id)
+  end
 end

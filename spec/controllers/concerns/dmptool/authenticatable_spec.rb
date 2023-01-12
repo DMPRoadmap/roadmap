@@ -37,7 +37,7 @@ RSpec.describe Dmptool::Authenticatable do
 
   it 'Controllers includes our customizations' do
     expect(@controller.respond_to?(:user_from_omniauth)).to be(true)
-    expect(::Users::RegistrationsController.new.respond_to?(:user_from_omniauth)).to be(true)
+    expect(Users::RegistrationsController.new.respond_to?(:user_from_omniauth)).to be(true)
   end
 
   describe ':authentication_params(type:)' do
@@ -87,14 +87,14 @@ RSpec.describe Dmptool::Authenticatable do
     it 'calls ::User.from_omniauth' do
       omniauth_hash = { "devise.#{@scheme1.name}_data": { foo: 'bar' } }.with_indifferent_access
       @controller.expects(:session).once.returns(omniauth_hash)
-      ::User.expects(:from_omniauth).once.returns(@user)
+      User.expects(:from_omniauth).once.returns(@user)
       @controller.send(:user_from_omniauth)
     end
 
     it 'skips IdentifierSchemes if there is no corresponding Devise session info' do
       omniauth_hash = { "devise.#{@scheme2.name}_data": { foo: 'bar' } }.with_indifferent_access
       @controller.expects(:session).twice.returns({}, omniauth_hash)
-      ::User.expects(:from_omniauth).once.returns(@user)
+      User.expects(:from_omniauth).once.returns(@user)
       @controller.send(:user_from_omniauth)
     end
   end

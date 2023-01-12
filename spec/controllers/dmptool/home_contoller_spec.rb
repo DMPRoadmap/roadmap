@@ -6,7 +6,7 @@ RSpec.describe Dmptool::HomeController, type: :request do
   include Helpers::DmptoolHelper
 
   before do
-    @controller = ::HomeController.new
+    @controller = HomeController.new
     mock_blog
   end
 

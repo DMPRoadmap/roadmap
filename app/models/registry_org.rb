@@ -87,7 +87,8 @@ class RegistryOrg < ApplicationRecord
     def from_email_domain(email_domain:)
       return nil if email_domain.blank?
 
-      orgs = where('LOWER(home_page) LIKE ?', "%#{email_domain.downcase}%")
+      domain = email_domain.downcase
+      orgs = where('LOWER(home_page) LIKE ? OR LOWER(home_page) LIKE ?', "%//#{domain}%", "%.#{domain}%")
       return nil unless orgs.any?
 
       # Get the one with closest match (e.g. http://ucsd.edu instead of

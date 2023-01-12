@@ -42,7 +42,7 @@ FactoryBot.define do
     personal_data           { [nil, true, false].sample }
     release_date            { 1.month.from_now }
     sensitive_data          { [nil, true, false].sample }
-    title                   { Faker::Music::PearlJam.song }
+    title                   { Faker::Music::PearlJam.unique.song }
 
     transient do
       repositories_count { 1 }
