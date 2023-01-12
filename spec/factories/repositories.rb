@@ -22,7 +22,7 @@
 #
 FactoryBot.define do
   factory :repository do
-    name { Faker::Music::PearlJam.song }
+    name { Faker::Music::PearlJam.unique.song }
     description { Faker::Lorem.paragraph }
     homepage { Faker::Internet.unique.url }
     uri { Faker::Internet.unique.url }

@@ -12,6 +12,7 @@ New Feature / Functionality changes:
 Bug Fixes:
 - Research Outputs now appear in the CSV and TXT versions #406
 - Fixed an issue that was causing the DOCX version of the plan from displaying an error in MS Word when opening the document
+- Fixed an issue with the sans-serif font used in PDF generation. Switched from Helvetica (which is no longer downloadable for free) to Roboto and also updated spacing between questions/sections.
 - Fixed an issue that was preventing an institutional admin from adding more than one URL/link on the Org Details page #413  #405
 - Fixed an issue that was preventing associated research outputs from being deleted #372
 - Fixed an issue with the emails sent out after the plan's visibility changes #416
@@ -21,11 +22,13 @@ Bug Fixes:
 - Updated algorithm that matches a user's email domain to ROR institution home pages. So that:
   - '@foo.edu' will match http://foo.edu, https://foo.edu, https://subdomain.foo.edu
   - '@foo.edu' will NOT match http://foobar.edu, http://foo.bar.edu, http://barfoo.edu
+- Fixes to RSpec tests so that they stop randomly failing during CI tests
 
 Maintenance:
 - Updated translations
 - Updated all gem and JS dependencies
 - Adjusted rack_attack config to help research #419
+- Added this CHANGELOG.md
 
 
 ## Changes from the upstream DMPRoadmap repository
