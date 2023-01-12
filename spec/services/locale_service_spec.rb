@@ -7,9 +7,18 @@ RSpec.describe LocaleService do
     Org.destroy_all
     Language.destroy_all
     @default = Language.default || create(:language, abbreviation: 'loc-svc', default_language: true)
+    @orignal_default = Rails.configuration.x.locales.default
+    @original_gettext = Rails.configuration.x.locales.gettext_join_character
+    @original_i18n = Rails.configuration.x.locales.i18n_join_character
     Rails.configuration.x.locales.default = @default.abbreviation
     Rails.configuration.x.locales.gettext_join_character = '_'
     Rails.configuration.x.locales.i18n_join_character = '-'
+  end
+
+  after do
+    Rails.configuration.x.locales.default = @orignal_default
+    Rails.configuration.x.locales.gettext_join_character = @original_gettext
+    Rails.configuration.x.locales.i18n_join_character = @original_i18n
   end
 
   describe '#default_locale' do

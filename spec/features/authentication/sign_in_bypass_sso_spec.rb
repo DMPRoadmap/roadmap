@@ -8,6 +8,8 @@ RSpec.describe 'Sign in and bypass SSO' do
   include Helpers::IdentifierHelper
 
   before do
+    @original_shib = Rails.configuration.x.shibboleth&.enabled
+    @original_disco = Rails.configuration.x.shibboleth.use_filtered_discovery_service
     Rails.configuration.x.shibboleth&.enabled = true
     Rails.configuration.x.shibboleth.use_filtered_discovery_service = true
     mock_blog
@@ -20,6 +22,11 @@ RSpec.describe 'Sign in and bypass SSO' do
     @user.update(email: "jane@#{@email_domain}", org: @org,
                  password: @pwd, password_confirmation: @pwd)
     visit root_path
+  end
+
+  after do
+    Rails.configuration.x.shibboleth.enabled = @original_shib
+    Rails.configuration.x.shibboleth.use_filtered_discovery_service = @original_disco
   end
 
   it 'does not display bypass link for known user with an unshibbolized org', js: true do

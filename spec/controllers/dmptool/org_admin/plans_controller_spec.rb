@@ -19,7 +19,7 @@ RSpec.describe Dmptool::OrgAdmin::PlansController, type: :request do
       }
     }
 
-    @controller = ::OrgAdmin::PlansController.new
+    @controller = OrgAdmin::PlansController.new
   end
 
   it 'OrgAdmin::PlansController includes our customizations' do

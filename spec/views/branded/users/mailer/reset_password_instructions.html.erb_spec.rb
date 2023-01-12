@@ -5,7 +5,6 @@ require 'rails_helper'
 describe 'users/mailer/reset_password_instructions' do
   before do
     controller.prepend_view_path 'app/views/branded'
-    Rails.configuration.x.organisation.helpdesk_email = Faker::Internet.unique.email
     Rails.configuration.x.organisation.contact_us_url = nil
   end
 

@@ -707,27 +707,38 @@ describe Plan do
 
     context 'config allows for admin viewing' do
       it 'super admins' do
+        original_setting = Rails.configuration.x.plans.super_admins_read_all
         Rails.configuration.x.plans.super_admins_read_all = true
         user.perms << create(:perm, name: 'add_organisations')
         expect(subject.readable_by?(user.id)).to be(true)
+        Rails.configuration.x.plans.super_admins_read_all = original_setting
       end
 
       it 'org admins' do
+        original_setting = Rails.configuration.x.plans.super_admins_read_all
         Rails.configuration.x.plans.org_admins_read_all = true
         user.org_id = plan.owner.org_id
         user.save
         user.perms << create(:perm, name: 'modify_guidance')
         expect(subject.readable_by?(user.id)).to be(true)
+        Rails.configuration.x.plans.super_admins_read_all = original_setting
       end
     end
 
     context 'config does not allow admin viewing' do
       before do
+        @org_admins = Rails.configuration.x.plans.org_admins_read_all
+        @super_admins = Rails.configuration.x.plans.super_admins_read_all
         Rails.configuration.x.plans.org_admins_read_all = false
+        Rails.configuration.x.plans.super_admins_read_all = false
+      end
+
+      after do
+        Rails.configuration.x.plans.org_admins_read_all = @org_admins
+        Rails.configuration.x.plans.super_admins_read_all = @super_admins
       end
 
       it 'super admins' do
-        Rails.configuration.x.plans.super_admins_read_all = false
         user.perms << create(:perm, name: 'add_organisations')
         expect(subject.readable_by?(user.id)).to be(false)
       end
@@ -789,10 +800,12 @@ describe Plan do
         end
 
         it 'when user is a reviewer and feedback not requested' do
+          original_setting = Rails.configuration.x.plans.super_admins_read_all
           Rails.configuration.x.plans.org_admins_read_all = false
           plan.feedback_requested = false
           plan.save
           expect(subject.readable_by?(user.id)).to be(false)
+          Rails.configuration.x.plans.super_admins_read_all = original_setting
         end
 
         it 'when user is a reviewer of a different org and feedback requested' do
@@ -818,6 +831,7 @@ describe Plan do
 
     context 'explicit sharing does not conflict with admin-viewing' do
       it 'super admins' do
+        original_setting = Rails.configuration.x.plans.super_admins_read_all
         Rails.configuration.x.plans.super_admins_read_all = false
         user.perms << create(:perm, name: 'add_organisations')
         role = subject.roles.commenter.first
@@ -825,9 +839,11 @@ describe Plan do
         role.save!
 
         expect(subject.readable_by?(user.id)).to be(true)
+        Rails.configuration.x.plans.super_admins_read_all = original_setting
       end
 
       it 'org admins' do
+        original_setting = Rails.configuration.x.plans.super_admins_read_all
         Rails.configuration.x.plans.org_admins_read_all = false
         user.perms << create(:perm, name: 'modify_guidance')
         role = subject.roles.commenter.first
@@ -835,6 +851,7 @@ describe Plan do
         role.save!
 
         expect(subject.readable_by?(user.id)).to be(true)
+        Rails.configuration.x.plans.super_admins_read_all = original_setting
       end
     end
   end
@@ -1251,7 +1268,12 @@ describe Plan do
 
     context 'when requisite number of questions answered' do
       before do
+        @original_percentage = Rails.configuration.x.plans.default_percentage_answered
         Rails.configuration.x.plans.default_percentage_answered = 75
+      end
+
+      after do
+        Rails.configuration.x.plans.default_percentage_answered = @original_percentage
       end
 
       it { is_expected.to be(true) }
@@ -1259,7 +1281,12 @@ describe Plan do
 
     context 'when requisite number of questions not answered' do
       before do
+        @original_percentage = Rails.configuration.x.plans.default_percentage_answered
         Rails.configuration.x.plans.default_percentage_answered = 76
+      end
+
+      after do
+        Rails.configuration.x.plans.default_percentage_answered = @original_percentage
       end
 
       it { is_expected.to be(false) }
@@ -1326,11 +1353,18 @@ describe Plan do
 
   describe '#registration_allowed?' do
     before do
+      @original_reg = Rails.configuration.x.madmp.enable_dmp_id_registration
+      @original_orcid = Rails.configuration.x.madmp.enable_orcid_publication
       Rails.configuration.x.madmp.enable_dmp_id_registration = true
       @plan = create(:plan, :creator, funder: create(:org))
       create(:identifier, identifier_scheme: create(:identifier_scheme, name: 'orcid'),
                           identifiable: @plan.owner)
       @plan.reload
+    end
+
+    after do
+      Rails.configuration.x.madmp.enable_dmp_id_registration = @original_reg
+      Rails.configuration.x.madmp.enable_orcid_publication = @original_orcid
     end
 
     it 'returns false if the config does not allow DMP ID registration' do
@@ -1371,9 +1405,14 @@ describe Plan do
 
   describe '#dmp_id' do
     before do
+      @original_reg = Rails.configuration.x.madmp.enable_dmp_id_registration
       @plan = create(:plan, :creator)
       IdentifierScheme.for_plans.destroy_all
       @scheme = create(:identifier_scheme, name: 'foo', active: true, for_plans: true)
+    end
+
+    after do
+      Rails.configuration.x.madmp.enable_dmp_id_registration = @original_reg
     end
 
     it 'returns nil if the config does not allow DMP ID registration' do

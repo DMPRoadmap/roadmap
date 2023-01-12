@@ -17,7 +17,7 @@ Webdrivers.cache_time = 3600
 # https://docs.travis-ci.com/user/chrome#sandboxing
 Capybara.register_driver :selenium_chrome_headless do |app|
   Capybara::Selenium::Driver.load_selenium
-  browser_options = ::Selenium::WebDriver::Chrome::Options.new
+  browser_options = Selenium::WebDriver::Chrome::Options.new
   browser_options.args << '--headless'
   browser_options.args << '--no-sandbox'
   browser_options.args << '--disable-gpu' if Gem.win_platform?

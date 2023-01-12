@@ -93,6 +93,7 @@ RSpec.describe 'Sign up via email and password' do
 
   context 'Validate various Org types when we are not allowing custom org entry', js: true do
     before do
+      @original_restrict = Rails.configuration.x.application.restrict_orgs
       Rails.configuration.x.application.restrict_orgs = true
       visit root_path
       fill_in 'Email address', with: Faker::Internet.unique.email
@@ -106,6 +107,10 @@ RSpec.describe 'Sign up via email and password' do
         fill_in 'Password', with: SecureRandom.uuid
         page.execute_script("document.getElementById('user_accept_terms').checked = true;")
       end
+    end
+
+    after do
+      Rails.configuration.x.application.restrict_orgs = @original_restrict
     end
 
     it 'Does not allow user to enter a random Org into autocomplete' do
@@ -128,6 +133,7 @@ RSpec.describe 'Sign up via email and password' do
 
   context 'Validate various Org types when we are allowing custom org entry', js: true do
     before do
+      @original_restrict = Rails.configuration.x.application.restrict_orgs
       Rails.configuration.x.application.restrict_orgs = false
       visit root_path
       fill_in 'Email address', with: Faker::Internet.unique.email
@@ -141,6 +147,10 @@ RSpec.describe 'Sign up via email and password' do
         fill_in 'Password', with: SecureRandom.uuid
         page.execute_script("document.getElementById('user_accept_terms').checked = true;")
       end
+    end
+
+    after do
+      Rails.configuration.x.application.restrict_orgs = @original_restrict
     end
 
     it 'Allows user to select an Org that exists but is not a ROR Org' do

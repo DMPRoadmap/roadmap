@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Dmptool::PublicPagesController, type: :request do
   before do
-    @controller = ::PublicPagesController.new
+    @controller = PublicPagesController.new
   end
 
   it 'PublicPagesController includes our customizations' do

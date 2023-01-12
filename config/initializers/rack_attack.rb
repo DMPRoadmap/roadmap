@@ -5,15 +5,18 @@ Rack::Attack.safelist_ip('127.0.0.1')
 Rack::Attack.safelist_ip('::1')
 
 # Set a long block period for any client that is explicitly looking for security holes
-Rack::Attack.blocklist('malicious_clients') do |req|
-  Rack::Attack::Fail2Ban.filter("fail2ban_malicious_#{req.ip}", maxretry: 1, findtime: 1.day, bantime: 1.day) do
-    CGI.unescape(req.query_string) =~ %r{/etc/passwd} ||
-      req.path.include?('/etc/passwd') ||
-      req.path.include?('wp-admin') ||
-      req.path.include?('wp-login') ||
-      /\S+\.php/.match?(req.path)
-  end
-end
+#
+# briley 1/3/22 - commenting this Fail2Ban filter out the WAF will block this stuff for us
+#
+# Rack::Attack.blocklist('malicious_clients') do |req|
+# Rack::Attack::Fail2Ban.filter("fail2ban_malicious_#{req.ip}", maxretry: 1, findtime: 1.day, bantime: 1.day) do
+#   CGI.unescape(req.query_string) =~ %r{/etc/passwd} ||
+#     req.path.include?('/etc/passwd') ||
+#     req.path.include?('wp-admin') ||
+#     req.path.include?('wp-login') ||
+#     /\S+\.php/.match?(req.path)
+# end
+# end
 
 ### Configure Cache ###
 
@@ -39,9 +42,14 @@ end
 # Throttle all requests by IP (60rpm)
 #
 # Key: "rack::attack:#{Time.now.to_i/:period}:req/ip:#{req.ip}"
-Rack::Attack.throttle('req/ip', limit: 100, period: 1.minute) do |req|
-  req.ip unless req.path.start_with?('/assets')
-end
+# Rack::Attack.throttle('req/ip', limit: 100, period: 1.minute) do |req|
+#
+# briley 1/3/22 - switch to 25 requests every minute for normal UI traffic (ignoring requests for assets),
+#                 and 50 requests per 30 seconds for API calls (We will need to publish this rate limit!),
+#                 and 5 requests per minute for login/account creation/password reset (see below)
+#
+Rack::Attack.throttle('req/ip', limit: 25, period: 60) { |req| req.ip unless req.path.start_with?('/assets') }
+Rack::Attack.throttle('req/ip', limit: 50, period: 30) { |req| req.ip if req.path.start_with?('/api') }
 
 ### Prevent Brute-Force Login Attacks ###
 
@@ -92,8 +100,11 @@ end
 # end
 
 # Log the blocked requests
+#
+# briley 1/3/22 - Updated to WARN instead of INFO so that it appears in our production logs
+#
 ActiveSupport::Notifications.subscribe(/rack_attack/) do |name, _start, _finish, _request_id, payload|
   req = payload[:request]
-  Rails.logger.info "[Rack::Attack][Blocked] name: #{name}, rule: #{req.env['rack.attack.matched']} " \
+  Rails.logger.warn "[Rack::Attack][Blocked] name: #{name}, rule: #{req.env['rack.attack.matched']} " \
                     "remote_ip: #{req.ip}, path: #{req.path}, agent: #{req.user_agent}"
 end

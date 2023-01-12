@@ -7,6 +7,9 @@ RSpec.describe ExternalApis::DmphubService, type: :model do
   include Helpers::IdentifierHelper
 
   before do
+    @original_active = Rails.configuration.x.dmphub.active
+    @original_url = Rails.configuration.x.dmphub.api_base_url
+    @orignal_enabled = Rails.configuration.x.madmp.enable_dmp_id_registration
     Rails.configuration.x.dmphub.active = true
     Rails.configuration.x.dmphub.api_base_url = 'https://api.test.dmphub.org/'
     Rails.configuration.x.madmp.enable_dmp_id_registration = true
@@ -25,10 +28,17 @@ RSpec.describe ExternalApis::DmphubService, type: :model do
     @plan.reload
   end
 
+  after do
+    Rails.configuration.x.dmphub.active = @original_active
+    Rails.configuration.x.dmphub.api_base_url = @original_url
+    Rails.configuration.x.madmp.enable_dmp_id_registration = @orignal_enabled
+  end
+
   describe '#mint_dmp_id' do
     it 'returns nil if the DMPHubService is not active' do
       Rails.configuration.x.dmphub.active = false
       expect(described_class.mint_dmp_id(plan: @plan)).to be_nil
+      Rails.configuration.x.dmphub.active = @original_active
     end
 
     it 'returns nil if :auth returns nil' do
@@ -64,6 +74,7 @@ RSpec.describe ExternalApis::DmphubService, type: :model do
     it 'returns nil if the DMPHubService is not active' do
       Rails.configuration.x.dmphub.active = false
       expect(described_class.update_dmp_id(plan: @plan)).to be_nil
+      Rails.configuration.x.dmphub.active = @original_active
     end
 
     it 'returns nil if :auth returns nil' do

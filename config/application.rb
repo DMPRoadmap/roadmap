@@ -18,7 +18,7 @@ Bundler.require(*Rails.groups)
 if ENV.key?('SSM_ROOT_PATH')
   # Ensure our custom config loader ssm_parameter_store is inserted into Anyway.loaders
   # prior to instantiating our custom Anyway::Config classes.
-  ::Anyway.loaders.insert_before(:env, :ssm_parameter_store, SsmConfigLoader)
+  Anyway.loaders.insert_before(:env, :ssm_parameter_store, SsmConfigLoader)
 
   begin
     ssm = Uc3Ssm::ConfigResolver.new

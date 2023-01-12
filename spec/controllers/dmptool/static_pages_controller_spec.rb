@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Dmptool::StaticPagesController, type: :request do
   before do
-    @controller = ::StaticPagesController.new
+    @controller = StaticPagesController.new
   end
 
   it 'StaticPagesController includes our customizations' do

@@ -16,78 +16,76 @@
       <%= render partial: 'shared/export/plan_coversheet' %>
     <% end %>
 
-    <% @hash[:phases].each do |phase| %>
-      <%# Only render selected phase %>
-      <% if phase[:title] == @selected_phase.title %>
-        <%# Page break before each phase %>
-        <div style="page-break-before:always;"></div>
-        <h1><%= download_plan_page_title(@plan, phase, @hash) %></h1>
-        <hr />
-        <% phase[:sections].each do |section| %>
-          <% if display_section?(@hash[:customization], section, @show_custom_sections) && num_section_questions(@plan, section, phase) > 0 %>
-            <% if @show_sections %>
-              <br>
-              <h3><%= section[:title] %></h3>
-              <br>
+    <% phase = @hash[:phases].select { |ph| ph[:title] == @selected_phase.title }.first %>
+
+    <% if phase.present? %>
+      <h1 style="page-break-before:always;"><%= download_plan_page_title(@plan, phase, @hash) %></h1>
+      <br>
+      <% phase[:sections].each do |section| %>
+        <% if display_section?(@hash[:customization], section, @show_custom_sections) && num_section_questions(@plan, section, phase) > 0 %>
+          <% if @show_sections %>
+            <h2><%= section[:title] %></h2>
+            <hr/>
+            <div class="section">
+          <% end %>
+
+          <% section[:questions].each do |question| %>
+            <% if remove_list(@plan).include?(question[:id]) %>
+              <% next %>
             <% end %>
-            <% section[:questions].each do |question| %>
-              <% if remove_list(@plan).include?(question[:id]) %>
-                <% next %>
-              <% end %>
-              <div class="question">
-                <% answer = @plan.answer(question[:id], false) %>
-                <% blank = answer.present? ? answer.blank? : true %>
-                <% options = answer.present? ? answer.question_options : [] %>
+            <div class="question">
+              <% answer = @plan.answer(question[:id], false) %>
+              <% blank = answer.present? ? answer.blank? : true %>
+              <% options = answer.present? ? answer.question_options : [] %>
 
-                <% if @show_questions%>
-                  <% if @show_unanswered %>
-                    <%# Hack: for DOCX export - otherwise, bold highlighting of question inconsistent. %>
-                    <% if local_assigns[:export_format] && export_format == 'docx' %>
-                      <strong><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></strong>
-                    <% else %>
-                     <div class="bold"><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></div>
-                    <% end %>
-                  <% end %>
+              <% if @show_questions %>
+                <% if (@show_unanswered && blank) || !blank %>
+                  <h3><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></h3>
                 <% end %>
-                <%# case where question has not been answered sufficiently to display%>
-                <% if @show_unanswered && blank %>
-                  <br>
-                  <p><%= _('Question not answered.') -%></p>
-                  <br>
-                <% else %>
+              <% end %>
 
-                  <%# case where Question has options %>
-                  <% if options.present? && options.any? %>
+              <%# case where question has not been answered sufficiently to display%>
+              <% if @show_unanswered && blank %>
+                <p><%= _('Question not answered.') -%></p>
+              <% else %>
+
+                <%# case where Question has options %>
+                <% if options.present? && options.any? %>
+                  <ul>
+                    <% options.each do |opt| %>
+                      <li><%= opt.text %></li>
+                    <% end %>
+                  </ul>
+                <% end %>
+
+                <%# case for RDA answer display %>
+                <% if question[:format].rda_metadata? && !blank %>
+                  <% ah = answer.answer_hash %>
+                  <% if ah['standards'].present? %>
                     <ul>
-                      <% options.each do |opt| %>
-                        <li><%= opt.text %></li>
+                      <% ah['standards'].each do |id, title| %>
+                        <li><%= title %></li>
                       <% end %>
                     </ul>
                   <% end %>
-                  <%# case for RDA answer display %>
-                  <% if question[:format].rda_metadata? && !blank %>
-                    <% ah = answer.answer_hash %>
-                    <% if ah['standards'].present? %>
-                      <ul>
-                        <% ah['standards'].each do |id, title| %>
-                          <li><%= title %></li>
-                        <% end %>
-                      </ul>
-                    <% end %>
-                    <p><%= sanitize ah['text'] %></p>
-                    <br>
+                  <p><%= sanitize ah['text'] %></p>
+
                   <%# case for displaying comments OR text %>
-                  <% elsif !blank %>
-                    <%= sanitize answer&.text %>
-                    <br>
-                  <% end %>
+                <% elsif !blank %>
+                  <%= sanitize answer&.text %>
                 <% end %>
-              </div>
-            <% end %>
+              <% end %>
+
+            </div>
           <% end %>
-        <% end %> <!-- sections.each -->
-        </div>
-      <% end %>
+
+          <% if @show_sections %>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %> <!-- sections.each -->
+
+      <hr/>
     <% end %>
 
     <% if @show_research_outputs %>
